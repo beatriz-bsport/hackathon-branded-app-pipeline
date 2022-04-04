@@ -21,6 +21,7 @@ import {
   addItemToBasket,
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
+import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import { fetchPaymentCombo } from '../../../libs/payment-combo/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
@@ -68,7 +69,9 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
                 extra_data: { offer_next: nextOffer },
               },
               {
-                onError: (error) => this.setState({ error }),
+                onError: () => {
+                  this.setState({ error: true });
+                },
                 onSuccess: () => this.props.goToCheckout(paymentCombo.company),
               },
             );
@@ -80,7 +83,19 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      this.props.push(this.props.theme.scheduleURL);
+      let url = this.props.theme.scheduleURL;
+      if (!url.startsWith('https://')) {
+        url = this.props.theme.scheduleURL.replace(/^http/, 'https');
+        if (!url.match(/^https/)) url = `https://${url}`;
+      }
+      window.location.href = url;
+    } else if (this.props.theme) {
+      this.props.push(
+        urlToMarketplace(
+          this.props.theme.company_name,
+          this.props.theme.company,
+        ),
+      );
     } else {
       this.props.goBack();
     }

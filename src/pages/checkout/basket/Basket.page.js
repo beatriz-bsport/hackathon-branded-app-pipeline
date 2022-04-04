@@ -251,7 +251,12 @@ export class BasketPage extends React.Component<Props> {
 
   backToCalendar = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      window.location = this.props.theme.scheduleURL;
+      let url = this.props.theme.scheduleURL;
+      if (!url.startsWith('https://')) {
+        url = this.props.theme.scheduleURL.replace(/^http/, 'https');
+        if (!url.match(/^https/)) url = `https://${url}`;
+      }
+      window.location = url;
       return;
     }
     this.props.goBack();

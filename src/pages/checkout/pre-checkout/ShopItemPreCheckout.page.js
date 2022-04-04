@@ -22,6 +22,7 @@ import {
   removeItemFromBasket,
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
+import { urlToMarketplace } from '../../../libs/marketplace/utils';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
@@ -75,7 +76,19 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      this.props.push(this.props.theme.scheduleURL);
+      let url = this.props.theme.scheduleURL;
+      if (!url.startsWith('https://')) {
+        url = this.props.theme.scheduleURL.replace(/^http/, 'https');
+        if (!url.match(/^https/)) url = `https://${url}`;
+      }
+      window.location.href = url;
+    } else if (this.props.theme) {
+      this.props.push(
+        urlToMarketplace(
+          this.props.theme.company_name,
+          this.props.theme.company.toString(),
+        ),
+      );
     } else {
       this.props.goBack();
     }

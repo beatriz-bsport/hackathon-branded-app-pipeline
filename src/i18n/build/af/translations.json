@@ -347,7 +347,8 @@
     },
     "autoAdd": {
       "paymentPack": { "locked": "Ce produit n'est pas disponible." },
-      "privatePass": { "error": "Cette carte de rendez-vous n'est pas disponible" }
+      "privatePass": { "error": "Cette carte de rendez-vous n'est pas disponible" },
+      "paymentCombo": { "locked": "Ce pack n'est pas disponible" }
     },
     "myBasket": {
       "checkingPaymentStatus": "Veuillez patienter, nous vérifions le status de votre paiement",

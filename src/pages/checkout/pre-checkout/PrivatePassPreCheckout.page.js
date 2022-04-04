@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { replace as replaceAction, goBack } from 'connected-react-router';
+import { push, replace as replaceAction, goBack } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
@@ -22,6 +22,7 @@ import {
   removeItemFromBasket,
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
+import { urlToMarketplace } from '../../../libs/marketplace/utils';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
@@ -32,6 +33,7 @@ type Props = {
   theme: Theme,
   privatePassId: number,
   goBack: () => void,
+  push: (string) => void,
   fetchCurrentBasket: (companyId: number, options?: OptionCallback) => void,
   addItemToBasket: (basketId: number, data: any, option: *) => void,
   goToCheckout: (companyId: number) => void,
@@ -75,7 +77,19 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      window.location.href = this.props.theme.scheduleURL;
+      let url = this.props.theme.scheduleURL;
+      if (!url.startsWith('https://')) {
+        url = this.props.theme.scheduleURL.replace(/^http/, 'https');
+        if (!url.match(/^https/)) url = `https://${url}`;
+      }
+      window.location.href = url;
+    } else if (this.props.theme) {
+      this.props.push(
+        urlToMarketplace(
+          this.props.theme.company_name,
+          this.props.theme.company,
+        ),
+      );
     } else {
       this.props.goBack();
     }
@@ -151,6 +165,7 @@ export default compose(
       fetchPrivatePassRetrieve,
       replace: replaceAction,
       goBack,
+      push,
     },
   ),
   withQueryParams([

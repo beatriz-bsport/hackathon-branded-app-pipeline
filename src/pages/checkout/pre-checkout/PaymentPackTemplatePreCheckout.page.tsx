@@ -18,6 +18,7 @@ import { WithHandlerType } from '../../../utils/types';
 import { RootState } from '../../../reducers';
 import { buildUrlParams, parseQueryString } from '../../../http';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
+import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import themeSelectors from '../../../libs/theme/selectors';
 import { getTheme } from '../../../theme';
@@ -116,7 +117,19 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      this.props.push(this.props.theme.scheduleURL);
+      let url = this.props.theme.scheduleURL;
+      if (!url.startsWith('https://')) {
+        url = this.props.theme.scheduleURL.replace(/^http/, 'https');
+        if (!url.match(/^https/)) url = `https://${url}`;
+      }
+      window.location.href = url;
+    } else if (this.props.theme) {
+      this.props.push(
+        urlToMarketplace(
+          this.props.theme.company_name,
+          this.props.theme.company.toString(),
+        ),
+      );
     } else {
       this.props.goBack();
     }

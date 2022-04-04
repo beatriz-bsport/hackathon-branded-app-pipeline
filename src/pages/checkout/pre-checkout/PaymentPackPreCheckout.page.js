@@ -18,6 +18,7 @@ import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '../../../libs/theme/selectors';
 import { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
+import { urlToMarketplace } from '../../../libs/marketplace/utils';
 import {
   addItemToBasket,
   removeItemFromBasket,
@@ -93,7 +94,19 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      this.props.push(this.props.theme.scheduleURL);
+      let url = this.props.theme.scheduleURL;
+      if (!url.startsWith('https://')) {
+        url = this.props.theme.scheduleURL.replace(/^http/, 'https');
+        if (!url.match(/^https/)) url = `https://${url}`;
+      }
+      window.location.href = url;
+    } else if (this.props.theme) {
+      this.props.push(
+        urlToMarketplace(
+          this.props.theme.company_name,
+          this.props.theme.company,
+        ),
+      );
     } else {
       this.props.goBack();
     }

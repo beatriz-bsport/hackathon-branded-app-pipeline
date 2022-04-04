@@ -69,7 +69,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     const durationError =
       this.state.duration_minutes > 1440 ||
       !this.state.duration_minutes ||
-      this.state.duration_minutes < 15;
+      this.state.duration_minutes < 10;
     return (
       <form onSubmit={this.onSubmit} className={classes.container}>
         <div className={classes.field}>

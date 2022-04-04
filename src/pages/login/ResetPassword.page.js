@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -13,16 +13,22 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/HelpOutlined';
 
 import { withTranslation, TFunction } from 'react-i18next';
+import { parseQueryString } from '../../http';
 
 import { resetPassword } from '../../actions/auth.actions';
 
 type Props = {
-  resetPassword: (email: string, options: any) => void,
+  resetPassword: (
+    email: string,
+    companyId: number | null,
+    options: any,
+  ) => void,
   loading: boolean,
   classes: Object,
   resetError: ?Error,
   t: TFunction,
   last_password_reset_request: string,
+  membership: null | number,
 };
 
 type State = {
@@ -53,7 +59,7 @@ export class ResetPassword extends Component<Props, State> {
   };
 
   resetPassword = () => {
-    this.props.resetPassword(this.state.email, {
+    this.props.resetPassword(this.state.email, this.props.membership, {
       onSuccess: () => this.setState({ hasSent: true }),
     });
   };
@@ -232,4 +238,7 @@ export default compose(
     { resetPassword },
   ),
   withStyles(styles),
+  withProps((props) => ({
+    membership: parseQueryString(props.location.search)?.membership,
+  })),
 )(ResetPassword);

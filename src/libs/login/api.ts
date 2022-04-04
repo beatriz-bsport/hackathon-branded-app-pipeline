@@ -42,8 +42,12 @@ export const signup = async (formData: any) => {
   return post(`${API_URI}/auth/signup`, formData);
 };
 
-export const resetPassword = async (email: string) => {
-  return axios.get(`${BASE_URI}/authentication/password_reset_email/${email}`);
+export const resetPassword = async (email: string, membership: number) => {
+  return axios.get(
+    `${BASE_URI}/authentication/password_reset_email/${email}${
+      membership ? `?company=${membership}` : ''
+    }`,
+  );
 };
 
 export const login = async (email: string, password: string) => {

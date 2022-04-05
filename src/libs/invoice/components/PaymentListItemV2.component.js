@@ -13,8 +13,11 @@ import moment from 'moment-timezone';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
+import WarningIcon from '@material-ui/icons/Warning';
 import CheckIcon from '@material-ui/icons/Check';
-import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
+import PAYMENT_METHODS, {
+  DISPUTE as PAYMENT_METHOD_DISPUTE,
+} from '@bsport/common/lib/master-data/payment-methods';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
@@ -32,9 +35,16 @@ export const PaymentItem = (props: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.row}>
-        {!paymentItem.is_processing && paymentItem.payment_received && (
-          <CheckIcon color="secondary" />
-        )}
+        {!paymentItem.is_processing &&
+          paymentItem.payment_received &&
+          paymentItem.payment_method !== PAYMENT_METHOD_DISPUTE.id && (
+            <CheckIcon color="secondary" />
+          )}
+        {!paymentItem.is_processing &&
+          paymentItem.payment_received &&
+          paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id && (
+            <WarningIcon color="error" />
+          )}
         {!paymentItem.is_processing &&
           paymentItem.payment_received === false && (
             <CancelIcon color="secondary" />

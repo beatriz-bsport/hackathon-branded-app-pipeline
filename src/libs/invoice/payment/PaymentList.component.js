@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import UndoIcon from '@material-ui/icons/Undo';
 import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Menu from '@material-ui/core/Menu';
@@ -147,8 +148,17 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
   };
 
   renderPaymentReceived = (paymentItem: PaymentItem | PaymentItemData) => {
-    if (paymentItem.payment_received) {
+    if (
+      paymentItem.payment_received &&
+      paymentItem.payment_method !== PAYMENT_METHOD_DISPUTE.id
+    ) {
       return <CheckIcon color="secondary" />;
+    }
+    if (
+      paymentItem.payment_received &&
+      paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id
+    ) {
+      return <WarningIcon color="error" />;
     }
     if (paymentItem.payment_received === false) {
       return <CancelIcon color="secondary" />;

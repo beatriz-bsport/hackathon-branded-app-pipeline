@@ -2,11 +2,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
 import { push } from 'connected-react-router';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import ValidateEmailWithToken from '#libs/login/components/ValidateEmailWithToken.component';
 import { validateEmail as validateEmailAction } from '#libs/login/actions';
+import { parseQueryString } from '../../http';
+import themeSelectors from '#libs/theme/selectors';
 
 type OwnProps = {
   uid: string,
@@ -48,6 +50,21 @@ export default compose(
     goToRoot: () => push('/'),
     validateEmail: validateEmailAction,
   }),
+  withProps((props) => {
+    const { membership, franchisor } = parseQueryString(
+      props.location?.search || '',
+    );
+
+    return {
+      membership,
+      franchisor,
+    };
+  }),
+  connect(
+    (state, { membership }: { membership: string, franchisor: string }) => ({
+      theme: !!membership && themeSelectors.getTheme(state),
+    }),
+  ),
   withHandlers({
     validateEmail:
       ({ validateEmail, goToRoot }) =>

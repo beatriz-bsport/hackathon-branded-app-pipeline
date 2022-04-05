@@ -72,7 +72,12 @@ export class ResetPassword extends Component<Props, State> {
         justifyContent: 'flex-end',
       }}
     >
-      <Link style={{ textDecoration: 'none' }} to="/login">
+      <Link
+        style={{ textDecoration: 'none' }}
+        to={`/login${
+          this.props.membership ? `?membership=${this.props.membership}` : ''
+        }`}
+      >
         <Button>{this.props.t('resetPassword.actions.cancel')}</Button>
       </Link>
       {this.props.loading ? (

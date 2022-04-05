@@ -1,14 +1,13 @@
-// @flow
-
 import React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles, Theme } from '@material-ui/core';
+import { CompanyTheme } from '#libs/theme/types';
 
 import B_ASSET from '../../public/images/b_dark.jpg';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     maxWidth: 320,
     textAlign: 'center',
@@ -26,24 +25,28 @@ const styles = (theme) => ({
   content: {
     padding: theme.spacing(1),
   },
-});
+}));
 
 type Props = {
-  children: Object,
-  classes: Object,
-  loading?: boolean,
+  children: Object;
+  loading?: boolean;
+  theme: CompanyTheme;
 };
+
 export function LoginBase(props: Props) {
-  const { classes, loading, children } = props;
+  const { loading, children, theme } = props;
+  const classes = useStyles();
   return (
     <Paper className={classes.container}>
-      <img className={classes.bsportLogo} src={B_ASSET} alt="bsport logo" />
+      <img
+        className={classes.bsportLogo}
+        src={theme?.cover || B_ASSET}
+        alt={`${theme?.company_name || 'bsport'} logo`}
+      />
       <div className={classes.content}>{children}</div>
       {loading ? <LinearProgress /> : null}
     </Paper>
   );
 }
 
-LoginBase.defaultProps = { loading: false };
-
-export default withStyles(styles)(LoginBase);
+export default LoginBase;

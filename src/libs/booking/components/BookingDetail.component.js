@@ -13,6 +13,7 @@ import ConsumerPackRowItem from '../../consumer-payment-pack/components/Consumer
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
 import type { Booking } from '../types';
+import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import { BookingSource } from '../utils';
 // import type { Offer } from '../../libs/offer/types';
 
@@ -25,7 +26,7 @@ type Props = {
   onOfferClick: (offerId: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
-  onConsumerPassSelected: (id: number) => void,
+  onConsumerPassSelected: (cpp: ConsumerPaymentPack) => void,
   offerLoading: boolean,
 };
 
@@ -103,9 +104,7 @@ export class BookingDetail extends Component<Props> {
                   : null
               }
               onClick={() =>
-                this.props.onConsumerPassSelected(
-                  booking.consumer_payment_pack.id,
-                )
+                this.props.onConsumerPassSelected(booking.consumer_payment_pack)
               }
               hideConsumer
               incrementCredit={() =>

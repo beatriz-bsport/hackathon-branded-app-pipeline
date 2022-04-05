@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
@@ -561,7 +562,7 @@ export class BookingItemForManager extends Component<Props, State> {
       this.props.onClick(event);
     }
     const { redirectToMember, booking, newTab, redirectToOffer } = this.props;
-    const url = `/member/${booking.member}/`;
+    const url = `/member/${booking.member}/bookings/${booking.id}`;
     if (redirectToOffer) {
       this.props.push(`/offer/${booking.offer}`);
     }
@@ -571,7 +572,7 @@ export class BookingItemForManager extends Component<Props, State> {
       return;
     }
     if (redirectToMember) {
-      this.props.push(`/member/${booking.member}/`);
+      this.props.push(url);
     }
   };
 
@@ -676,6 +677,18 @@ export class BookingItemForManager extends Component<Props, State> {
                   }
                   secondary={
                     <div>
+                      {!!(
+                        !!this.props.booking.source_member &&
+                        this.props.booking.source_member !==
+                          this.props.booking.member
+                      ) && (
+                        <div className={this.props.classes.rowPrimary}>
+                          <PersonAddIcon color="textSecondary" />
+                          <Typography variant="body2" color="textSecondary">
+                            {t('asGuest')}
+                          </Typography>
+                        </div>
+                      )}
                       {bookingStatus.map(([txt, color]) => {
                         return (
                           <Typography key={txt} variant="body2" color={color}>

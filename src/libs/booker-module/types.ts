@@ -19,3 +19,9 @@ export type OfferConstraint = {
   minDate?: string;
   maxDate?: string;
 };
+
+export type AdditionalGuest = {
+  first_name: string;
+  last_name: string;
+  email: string;
+};

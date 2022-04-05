@@ -52,7 +52,7 @@ const getMemberFromId = (id: number, membersList: Array<Member>) => {
 };
 
 type Props = {
-  goToMemberBooking: (id: number) => void,
+  goToMemberBooking: (memberId: number, bookingId: number) => void,
   t: TFunction,
   classes: Object,
   bookings: Array<Booking>,
@@ -518,7 +518,10 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                               onClick={
                                 r.member && permissions?.member?.retrieve
                                   ? () =>
-                                      this.props.goToMemberBooking(r.member.id)
+                                      this.props.goToMemberBooking(
+                                        r.member.id,
+                                        r.id,
+                                      )
                                   : null
                               }
                             />

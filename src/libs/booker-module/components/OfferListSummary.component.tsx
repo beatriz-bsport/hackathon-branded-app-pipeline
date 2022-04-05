@@ -21,20 +21,26 @@ import { MaterialStyleType } from '../../../utils/types';
 import { Offer_FULL, OfferStatus } from '../../offer/types';
 import OfferBookableItem from './OfferBookableItem.component';
 import DividerLinearGradient from '../../../components/DividerLinearGradient.component';
-import { OfferData } from '../types';
+import { OfferData, AdditionalGuest } from '../types';
 import { MemberMinimal } from '../../member/types';
+import AdditionalGuestForm from '#libs/booker-module/components/AdditionalGuestForm.component';
+import AdditionalGuestList from '#libs/booker-module/components/AdditionalGuestList.component';
 
 type OwnProps = {
   offer: Offer_FULL;
   offerStatus?: OfferStatus;
   hideCoach: boolean;
+  additionalGuestList: Array<AdditionalGuest>;
   onClickAddMoreOffer: () => void;
+  onClickAddMoreGuest: () => void;
   onClickRemoveOffer: (offer: Offer_FULL) => void;
   selectedOffers: OfferData[];
   relatedMemberList: MemberMinimal[];
   member?: MemberMinimal;
   offerStatusById: { [key: string]: OfferStatus };
   onSelectMember: (id: number) => void;
+  onAddAdditionalGuest: (guest: AdditionalGuest) => void;
+  isRegisteringForWaitingList: boolean;
 };
 
 type Props = OwnProps &
@@ -148,10 +154,27 @@ class OfferListSummary extends React.PureComponent<Props> {
               );
             })}
 
-          {this.props.onClickAddMoreOffer && (
+          {!!this.props.onClickAddMoreOffer &&
+            (this.props.additionalGuestList || []).length === 0 && (
+              <ButtonBase
+                disabled={!offer}
+                onClick={this.props.onClickAddMoreOffer}
+                className={classes.bookButtonInner}
+              >
+                <AddIcon className={classes.leftIcon} />
+                <Typography
+                  variant="body1"
+                  align="left"
+                  color={offer ? 'primary' : 'textSecondary'}
+                >
+                  {t('booking:offer.addSession')}
+                </Typography>
+              </ButtonBase>
+            )}
+          {this.props.onClickAddMoreGuest && (
             <ButtonBase
-              disabled={!offer}
-              onClick={this.props.onClickAddMoreOffer}
+              disabled={!offer || this.props.selectedOffers?.length}
+              onClick={this.props.onClickAddMoreGuest}
               className={classes.bookButtonInner}
             >
               <AddIcon className={classes.leftIcon} />
@@ -160,10 +183,23 @@ class OfferListSummary extends React.PureComponent<Props> {
                 align="left"
                 color={offer ? 'primary' : 'textSecondary'}
               >
-                {t('booking:offer.addSession')}
+                {t('booking:offer.addGuest')}
               </Typography>
             </ButtonBase>
           )}
+          {!!this.props.onAddAdditionalGuest &&
+            (this.props.selectedOffers || []).length < 1 &&
+            !this.props.isRegisteringForWaitingList && (
+              <>
+                <AdditionalGuestForm
+                  onAddAdditionalGuest={this.props.onAddAdditionalGuest}
+                />
+                <AdditionalGuestList
+                  guestList={this.props.additionalGuestList}
+                  onRemoveGuest={this.props.onRemoveGuest}
+                />
+              </>
+            )}
         </div>
       </div>
     );

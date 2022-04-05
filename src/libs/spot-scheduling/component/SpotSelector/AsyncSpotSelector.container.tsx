@@ -75,8 +75,12 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
     this.props.fetchOfferById(id, {
       onSuccess: (offer: Offer) => {
         this.setState({ offer });
-        this.props.fetchRoomBlueprintDetail(offer.room_blueprint);
-        this.props.fetchAssetForBlueprint({ blueprint: offer.room_blueprint });
+        if (offer.room_blueprint) {
+          this.props.fetchRoomBlueprintDetail(offer.room_blueprint);
+          this.props.fetchAssetForBlueprint({
+            blueprint: offer.room_blueprint,
+          });
+        }
       },
     });
 

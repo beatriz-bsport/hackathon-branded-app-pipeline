@@ -19,6 +19,24 @@ exports.default = {
     bill: 'Facturer',
     unregister: 'Désinscrire',
   },
+  guest: {
+    form: {
+      email: {
+        label: 'Email',
+      },
+      firstname: {
+        label: 'Prénom',
+      },
+      lastname: {
+        label: 'Nom',
+      },
+      actions: {
+        submit: 'Valider',
+        close: 'Annuler',
+        addGuest: 'Ajouter un invité',
+      },
+    },
+  },
   performanceTracking: {
     stat: 'Statistiques',
   },
@@ -181,6 +199,7 @@ exports.default = {
   creditConsumed: '{{credit_consumed}} crédit',
   creditConsumed_plural: '{{credit_consumed}} crédits',
   placeNumber: 'Place {{count}}',
+  asGuest: 'Invité',
   noSpotAttributed: 'Aucune place attribuée',
   changeSpot: 'Changer la place',
   setSpot: 'Attribuer une place',

@@ -306,7 +306,7 @@ export class MemberDetailPass extends Component<Props, State> {
   };
 
   goToBooking = (booking: Booking) => {
-    this.props.goToBooking(this.props.id, booking.id);
+    this.props.goToBooking(booking.member, booking.id);
   };
 
   fetchBookings = (page: number, page_size: number) => {

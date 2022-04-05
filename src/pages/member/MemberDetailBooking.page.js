@@ -108,6 +108,7 @@ import { BookingOptionWithActivity, Booking } from '../../libs/booking/types';
 import WaitingListDetail from '../../libs/waiting-list/components/WaitingListDetail.component';
 import PaginatedBookingOptionList from '../../libs/waiting-list/components/PaginatedBookingOptionList.component';
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
+import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 
 type Props = {
   classes: any,
@@ -275,15 +276,15 @@ export class MemberDetailBooking extends Component<Props, State> {
     this.setState({ bookingToRevert: null });
   };
 
-  goToConsumerPass = (consumerPassId: number) => {
-    this.props.goToConsumerPass(this.props.id, consumerPassId);
+  goToConsumerPass = (cpp: ConsumerPaymentPack) => {
+    this.props.goToConsumerPass(cpp.member_id || this.props.id, cpp.id);
   };
 
   selectBooking = (booking: Booking) => {
     if (this.props.bookingId && this.props.bookingId === booking.id) {
       this.props.unselectBooking(this.props.id);
     } else {
-      this.props.selectBooking(this.props.id, booking.id);
+      this.props.selectBooking(booking.member, booking.id);
     }
     this.props.setSelectedBookingOption(null);
   };

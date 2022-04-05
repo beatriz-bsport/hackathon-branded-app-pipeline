@@ -68,6 +68,7 @@ import {
   OfferData,
   SelectedPack,
   OfferConstraint,
+  AdditionalGuest,
 } from '#libs/booker-module/types';
 import { MemberMinimal } from '#libs/member/types';
 import {
@@ -90,6 +91,7 @@ type Props = OwnProps &
 type State = {
   showSimilarOffers: boolean;
   selectedOffers: OfferData[];
+  additionalGuestList: Array<AdditionalGuest>;
   offersConstraint: OfferConstraint;
   selectedPack: SelectedPack;
   showLoader: boolean;
@@ -107,6 +109,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       credit: 0,
     },
     selectedOffers: [],
+    additionalGuestList: [],
     showLoader: false,
     showSpotSelector: false,
   };
@@ -169,13 +172,16 @@ class OfferBooking extends React.PureComponent<Props, State> {
   };
 
   updateOfferConstraints = () => {
-    this.setState((prevState: State) => ({
-      offersConstraint: getOfferContraints(
-        this.props.offer,
-        prevState.selectedOffers,
-        this.props.offerStatusById,
-      ),
-    }));
+    this.setState((prevState: State) => {
+      return {
+        offersConstraint: getOfferContraints(
+          this.props.offer,
+          prevState.selectedOffers,
+          this.props.offerStatusById,
+          (prevState.additionalGuestList || []).length || 0,
+        ),
+      };
+    });
   };
 
   onSelectOffer = (offer: Offer_FULL) => {
@@ -273,6 +279,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           offer_id: offerData.offer.id,
           extra_data: {
             ...(offerData.extra_data || {}),
+            additional_guest_info: this.state.additionalGuestList,
             booking_for_member: this.state.selectedMember
               ? this.state.selectedMember.id
               : null,
@@ -561,12 +568,37 @@ class OfferBooking extends React.PureComponent<Props, State> {
     );
   };
 
+  addAdditionalGuest = (additionalGuest: AdditionalGuest) => {
+    this.setState(
+      (prevState) => ({
+        additionalGuestList: [
+          ...(prevState.additionalGuestList || []),
+          additionalGuest,
+        ],
+      }),
+      this.updateOfferConstraints,
+    );
+  };
+
+  removeGuest = (idx: number) => {
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        additionalGuestList: prevState.additionalGuestList.filter(
+          (a, idx_) => idx_ !== idx,
+        ),
+      }),
+      this.updateOfferConstraints,
+    );
+  };
+
   render() {
     const { classes } = this.props;
 
     if (!this.props.offer) {
       return null;
     }
+    const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
     return (
       <ConsumerAppBarContainer>
         <div className={classes.pageContainer}>
@@ -588,8 +620,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     onSelectMember={this.selectMember}
                     relatedMemberList={this.props.relatedMemberList}
                     onClickAddMoreOffer={
-                      this.showBookingButton() &&
-                      !this.getIsRegisteringForWaitingList()
+                      this.showBookingButton() && !isRegisteringForWaitingList
                         ? () => this.openSimilarOfferSelector()
                         : null
                     }
@@ -598,6 +629,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     offerStatusById={this.props.offerStatusById}
                     hideCoach={this.props.theme.hideCoach}
                     acceptDoubleBooking={this.props.theme.accept_double_booking}
+                    isRegisteringForWaitingList={isRegisteringForWaitingList}
+                    onRemoveGuest={this.removeGuest}
+                    additionalGuestList={this.state.additionalGuestList}
+                    onAddAdditionalGuest={this.addAdditionalGuest}
                   />
                 </div>
               </div>

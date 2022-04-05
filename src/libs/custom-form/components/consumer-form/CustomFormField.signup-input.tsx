@@ -253,7 +253,11 @@ export const CustomFormConsumerInput = (props: Props) => {
             placeholder={label}
             isDisabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
-            suggestions={[...countries.slice()].map(
+            suggestions={[
+              ...countries
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .slice(),
+            ].map(
               (country: { code: string; label: string; phone: string }) => ({
                 label: country.label,
                 value: country.label,

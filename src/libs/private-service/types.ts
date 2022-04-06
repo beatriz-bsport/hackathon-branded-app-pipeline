@@ -172,6 +172,7 @@ export type PrivatePassWithCompatibility<LPP = number | null> = {
 };
 
 export type PrivateConsumerPass = {
+  no_private_booking_active: boolean;
   id: number;
   used_credits: number;
   private_pass: PrivatePass;

@@ -159,6 +159,19 @@ export const getValidityInfo = (
 };
 
 export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
+  if (
+    privateConsumerPass.private_pass.expiration_days_before_first_use &&
+    privateConsumerPass.no_private_booking_active
+  ) {
+    return moment(privateConsumerPass.date_bought)
+      .add(
+        'day',
+        privateConsumerPass.private_pass.expiration_days_before_first_use +
+          (privateConsumerPass.extension_days || 0) -
+          1,
+      )
+      .format('YYYY-MM-DD');
+  }
   return moment(privateConsumerPass.date_bought)
     .add(
       'day',

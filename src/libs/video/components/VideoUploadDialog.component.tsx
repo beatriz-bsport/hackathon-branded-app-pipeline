@@ -44,6 +44,7 @@ type OwnProps = {
     options?: OptionCallback,
   ) => void;
   submitProviderIdentifier: (data: any, options?: OptionCallback) => void;
+  videoProviderList: Array<number>;
 };
 
 type Props = OwnProps &
@@ -58,7 +59,11 @@ export class VideoUploadDialog extends React.Component<Props, State> {
     super(props);
     this.state = {
       isUploading: false,
-      providerIdentifier: props.video.provider_identifier,
+      providerIdentifier: props.videoProviderList.includes(
+        VideoProvider.MUX_PROVIDER,
+      )
+        ? props.video.provider_identifier
+        : VideoProvider.YOUTUBE_URL_PROVIDER,
       processing: false,
     };
   }
@@ -109,10 +114,24 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                       this.state.providerIdentifier ===
                       VideoProvider.MUX_PROVIDER
                     }
-                    disabled={this.state.processing}
+                    disabled={
+                      this.state.processing ||
+                      !this.props.videoProviderList.includes(
+                        VideoProvider.MUX_PROVIDER,
+                      )
+                    }
                     label={this.props.t('video.upload.type.file')}
                   />
-                  <Typography variant="caption">
+                  <Typography
+                    color={
+                      this.props.videoProviderList.includes(
+                        VideoProvider.MUX_PROVIDER,
+                      )
+                        ? 'inherit'
+                        : 'textSecondary'
+                    }
+                    variant="caption"
+                  >
                     {this.props.t('video.upload.type.fileExplain')}
                   </Typography>
 

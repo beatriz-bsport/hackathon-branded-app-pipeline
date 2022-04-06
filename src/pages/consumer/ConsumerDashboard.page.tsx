@@ -69,7 +69,10 @@ import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { Booking } from '../../libs/booking/types';
 import { Invoice } from '../../libs/invoice/types';
-import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '../../libs/consumer-space/actions';
+import {
+  fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction,
+  BookingsAndPrivateBookingsTypeEnum,
+} from '../../libs/consumer-space/actions';
 import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
 import { PrivateBooking } from '../../libs/private-service/types';
 import PrivateBookingCancellationDialog from '../../libs/private-service/components/booking/PrivateBookingCancellationDialog';
@@ -536,6 +539,7 @@ const mapWithHandlers = {
             );
           },
         },
+        type: BookingsAndPrivateBookingsTypeEnum.beforeDateEnd,
       });
     },
   fetchConsumerPacks:

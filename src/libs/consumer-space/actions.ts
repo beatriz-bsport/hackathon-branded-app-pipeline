@@ -294,6 +294,7 @@ const consumerBookingAndPrivateBookingReset = () => {
 export enum BookingsAndPrivateBookingsTypeEnum {
   future,
   past,
+  beforeDateEnd,
 }
 
 export function fetchBookingsAndPrivateBookings(args: {
@@ -346,6 +347,11 @@ export function fetchBookingsAndPrivateBookings(args: {
           params.ordering = '-offer__date_start';
         }
 
+        if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
+          delete params.min_date;
+          params.before_date_end = true;
+        }
+
         const promise = fetchBookingListAPI(params);
         promises.push(promise);
       } else {
@@ -369,6 +375,11 @@ export function fetchBookingsAndPrivateBookings(args: {
           delete params.date_start__gte;
           params.date_start__lte = args.date_start;
           params.ordering = '-date_start';
+        }
+
+        if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
+          delete params.date_start__gte;
+          params.before_date_end = true;
         }
 
         const promise = fetchPrivateBookings(params);

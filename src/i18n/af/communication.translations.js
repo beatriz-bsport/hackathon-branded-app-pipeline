@@ -53,6 +53,10 @@ exports.default = {
     sendNotification: 'Notification push',
     titleNotification: 'Titre',
     contentNotification: 'Contenu',
+    warningConsent1:
+      'Attention ! Ce membre a désactivé la possibilité de lui envoyer des emails promotionnels. Les emails directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.',
+    warningConsent2:
+      "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des emails directs.",
   },
   recipients: 'Destinataires',
   common: {
@@ -120,5 +124,11 @@ exports.default = {
         status: 'Status',
       },
     },
+  },
+  sms: {
+    warningConsent1:
+      'Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.',
+    warningConsent2:
+      "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs.",
   },
 };

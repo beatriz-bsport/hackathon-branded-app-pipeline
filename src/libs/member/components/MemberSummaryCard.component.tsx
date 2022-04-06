@@ -181,10 +181,7 @@ export class MemberSummaryCard extends Component<Props> {
           notificationIcon
           openMailDialog={
             // eslint-disable-next-line
-            () =>
-              member.accept_email
-                ? this.setState({ displayMailDialog: true })
-                : null
+            () => this.setState({ displayMailDialog: true })
           }
           hideContactButton={this.props.hideContactButton}
         />
@@ -215,17 +212,15 @@ export class MemberSummaryCard extends Component<Props> {
             fullscreen
             membersToDisplay={[{ ...member, phone: member.phone_number }]}
             allIds={[member.id]}
-            allIdsWithEmail={
-              member.email && member.accept_email ? [member.id] : []
-            }
-            allIdsWithPhone={
-              member.phone_number && member.accept_sms ? [member.id] : []
-            }
+            allIdsWithEmail={member.email ? [member.id] : []}
+            allIdsWithPhone={member.phone_number ? [member.id] : []}
             onCancel={() =>
               this.setState({ displayMailDialog: false, sendSms: false })
             }
             receiversNotEditable
             actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
+            showEmailConsentWarning={!member.accept_email}
+            showSmsConsentWarning={!member.accept_sms}
           />
         )}
       </List>

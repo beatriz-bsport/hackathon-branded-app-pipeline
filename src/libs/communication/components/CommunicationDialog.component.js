@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
@@ -50,6 +51,8 @@ type Props = {
   hideTemplateMail: boolean,
   hideWrittenMail: boolean,
   actionType: number,
+  showEmailConsentWarning?: boolean,
+  showSmsConsentWarning?: boolean,
 
   // members list
   membersToDisplay: Array<Member>,
@@ -123,6 +126,7 @@ export class CommunicationDialog extends Component<Props> {
       <div className={this.props.classes.radioContainer}>
         {!this.props.hideWrittenMail && (
           <FormControlLabel
+            classes={{ label: this.props.classes.center }}
             control={
               <Radio
                 checked={this.state.actionType === WRITE_EMAIL}
@@ -141,6 +145,7 @@ export class CommunicationDialog extends Component<Props> {
         )}
         {!this.props.hideTemplateMail && (
           <FormControlLabel
+            classes={{ label: this.props.classes.center }}
             control={
               <Radio
                 checked={this.state.actionType === SELECT_EMAIL}
@@ -164,6 +169,7 @@ export class CommunicationDialog extends Component<Props> {
         <FeatureListProvider>
           {(featureList) => (
             <FormControlLabel
+              classes={{ label: this.props.classes.center }}
               control={
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
@@ -192,6 +198,7 @@ export class CommunicationDialog extends Component<Props> {
         <FeatureListProvider>
           {(featureList) => (
             <FormControlLabel
+              classes={{ label: this.props.classes.center }}
               control={
                 <Radio
                   checked={this.state.actionType === SEND_PUSH_NOTIFICATION}
@@ -216,6 +223,48 @@ export class CommunicationDialog extends Component<Props> {
         </FeatureListProvider>
       </div>
     );
+  };
+
+  renderConsentWarning = () => {
+    if (
+      this.props.showEmailConsentWarning &&
+      [WRITE_EMAIL, SELECT_EMAIL].includes(this.state.actionType)
+    ) {
+      return (
+        <div className={this.props.classes.emailConsentWarningContainer}>
+          <div className={this.props.classes.warningParagraph}>
+            <Typography variant="caption">
+              {this.props.t('mail.warningConsent1')}
+            </Typography>
+          </div>
+          <div className={this.props.classes.warningParagraph}>
+            <Typography variant="caption">
+              {this.props.t('mail.warningConsent2')}
+            </Typography>
+          </div>
+        </div>
+      );
+    }
+    if (
+      this.props.showSmsConsentWarning &&
+      this.state.actionType === SEND_SMS
+    ) {
+      return (
+        <div className={this.props.classes.emailConsentWarningContainer}>
+          <div className={this.props.classes.warningParagraph}>
+            <Typography variant="caption">
+              {this.props.t('sms.warningConsent1')}
+            </Typography>
+          </div>
+          <div className={this.props.classes.warningParagraph}>
+            <Typography variant="caption">
+              {this.props.t('sms.warningConsent2')}
+            </Typography>
+          </div>
+        </div>
+      );
+    }
+    return null;
   };
 
   onClose = () => {
@@ -412,6 +461,7 @@ export class CommunicationDialog extends Component<Props> {
                 </DialogContent>
               </Dialog>
               {this.renderTypeEmailChoice()}
+              {this.renderConsentWarning()}
               <ReceiversCollapseItem
                 members={membersToDisplay}
                 membersCount={allIds.length}
@@ -555,6 +605,20 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: '-20px',
+  },
+  emailConsentWarningContainer: {
+    border: 'solid 1px rgb(255, 0, 0)',
+    borderRadius: '5px',
+    background: '#FCEAEA',
+    padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+    marginBottom: theme.spacing(2),
+  },
+  warningParagraph: {
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+  },
+  center: {
+    textAlign: 'center',
   },
 });
 

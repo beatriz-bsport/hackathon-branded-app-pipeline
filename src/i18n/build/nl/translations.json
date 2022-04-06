@@ -5046,7 +5046,7 @@
             "canceled": "Gestopt",
             "subscribedOn": "Startdatum abonnement: {{- date}}"
         },
-        "noAssociatedSubscription": "Nog geen abonnementen geregistreerd",
+        "noAssociatedSubscription": "Er zijn nog geen geabonneerde leden om weer te geven.",
         "associatedSubscriptions": "Geabonneerde leden",
         "status": {
             "hasEnded": "Verlopen abonnement",
@@ -6203,7 +6203,7 @@
                     "label": "Accepteer onbetaalde reserveringen"
                 },
                 "pad_before_booking": {
-                    "label": "Al voor de reservering rekening houden met"
+                    "label": "Met terugwerkende kracht toepassen"
                 }
             },
             "parameters": {
@@ -8332,12 +8332,12 @@
         },
         "plannedPayment": {
             "popover": "Som van alle betalingen voor abonnementen",
-            "title": "Omzet van de abonnementen",
+            "title": "Omzet uit abonnementen",
             "caption": "Omzet"
         },
         "noData": "Er zijn nog geen gegevens om weer te geven.",
         "bookingSource": {
-            "title": "Herkomst van de reserveringen",
+            "title": "Oorsprong reserveringen",
             "saas": "BSPORT Back Office",
             "other": "Anders",
             "migration": "Gegevensoverdracht",

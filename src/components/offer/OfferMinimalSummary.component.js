@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-
+import { pure } from 'recompose';
 import classNames from 'classnames';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,19 +13,17 @@ import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { pure } from 'recompose';
-
-import { withTranslation, TFunction } from 'react-i18next';
-import Tooltip from '../Tooltip.component';
-import EmptyListItem from '../LoadingListItem.component';
-
+import LabelIcon from '@material-ui/icons/Label';
 import {
   formatMinutes,
   formatAsDatetime,
   formatAsTime,
 } from '../../utils/datetime';
-import type { Offer } from '../../api/types';
 
+import Tooltip from '../Tooltip.component';
+import EmptyListItem from '../LoadingListItem.component';
+import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
+import type { Offer } from '../../api/types';
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
 
 const styles = (theme) => ({
@@ -45,6 +44,12 @@ const styles = (theme) => ({
       backgroundColor: '#FFC1C1',
     },
   },
+  noOverflow: {
+    overflow: 'hidden',
+  },
+  topAlign: {
+    alignSelf: 'start',
+  },
 });
 
 type Props = {
@@ -53,10 +58,12 @@ type Props = {
   showCoachName: ?boolean,
   selected: boolean,
   overrideClickAction: () => void,
+  onModifyTags: (offer: Offer) => void,
   t: TFunction,
   loading: boolean,
   classes: Object,
   isCoach: boolean,
+  showTags: boolean,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -106,12 +113,17 @@ export function OfferMinimalSummary(props: Props) {
     offer,
     showCoachName,
     overrideClickAction,
+    onModifyTags,
     selected,
     t,
     classes,
     loading,
     isCoach,
+    showTags,
   } = props;
+
+  const [tagManagementDialog, setTagManagementDialog] = React.useState(false);
+
   if (!offer || loading) {
     return <EmptyListItem key="" divider dense />;
   }
@@ -126,6 +138,8 @@ export function OfferMinimalSummary(props: Props) {
     coach_override,
     available,
     date_start,
+    whitelist_tags,
+    blacklist_tags,
   } = offer;
 
   const disabledAvatarProps = {
@@ -154,30 +168,69 @@ export function OfferMinimalSummary(props: Props) {
   }
 
   return (
-    <ListItem
-      key={id}
-      dense
-      button={!!overrideClickAction}
-      selected={selected}
-      onClick={overrideClickAction}
-      className={classNames(
-        classes.listItem,
-        available ? {} : classes.disabled,
-      )}
-      divider
-      style={{
-        borderLeft: offer.meta_activity_color ? '5px solid' : '0px',
-        borderLeftColor: offer.meta_activity_color,
-      }}
-    >
-      <Grid container directon="row" alignItems="center">
-        <Grid item xs={6}>
-          <Grid container direction="row" alignItems="center">
-            <Hidden smDown>
-              <Grid item>
-                {coach_override && isCoach ? (
-                  <Tooltip title={coach_override.name}>
-                    <div>
+    <>
+      <PaymentPackTagsDialog
+        open={tagManagementDialog}
+        className={classes.noOverflow}
+        whitelistTags={whitelist_tags}
+        blacklistTags={blacklist_tags}
+        onClose={() => setTagManagementDialog(false)}
+        onModify={() => {
+          setTagManagementDialog(false);
+          onModifyTags();
+        }}
+      />
+      <ListItem
+        key={id}
+        dense
+        button={!!overrideClickAction}
+        selected={selected}
+        onClick={overrideClickAction}
+        className={classNames(
+          classes.listItem,
+          available ? {} : classes.disabled,
+        )}
+        divider
+        style={{
+          borderLeft: offer.meta_activity_color ? '5px solid' : '0px',
+          borderLeftColor: offer.meta_activity_color,
+        }}
+      >
+        <Grid container directon="row" alignItems="center">
+          <Grid item xs={6}>
+            <Grid container direction="row" alignItems="center" wrap="nowrap">
+              <Hidden smDown>
+                <Grid item>
+                  {coach_override && isCoach ? (
+                    <Tooltip title={coach_override.name}>
+                      <div>
+                        <Avatar
+                          src={
+                            coach_override
+                              ? coach_override.photo || DEFAULT_AVATAR
+                              : ''
+                          }
+                        />
+                      </div>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title={coach ? coach.name : ''}>
+                      <div>
+                        <IconButton disableRipple disabled={!!coach_override}>
+                          <Avatar
+                            src={coach ? coach.photo || DEFAULT_AVATAR : ''}
+                            imgProps={coach_override ? disabledAvatarProps : {}}
+                          />
+                        </IconButton>
+                      </div>
+                    </Tooltip>
+                  )}
+                </Grid>
+              </Hidden>
+              <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
+                {coach_override && !isCoach ? (
+                  <Tooltip title={coach_override ? coach_override.name : ''}>
+                    <IconButton disableRipple>
                       <Avatar
                         src={
                           coach_override
@@ -185,74 +238,72 @@ export function OfferMinimalSummary(props: Props) {
                             : ''
                         }
                       />
-                    </div>
+                    </IconButton>
                   </Tooltip>
-                ) : (
-                  <Tooltip title={coach ? coach.name : ''}>
-                    <div>
-                      <IconButton disableRipple disabled={!!coach_override}>
-                        <Avatar
-                          src={coach ? coach.photo || DEFAULT_AVATAR : ''}
-                          imgProps={coach_override ? disabledAvatarProps : {}}
-                        />
-                      </IconButton>
-                    </div>
-                  </Tooltip>
-                )}
+                ) : null}
               </Grid>
-            </Hidden>
-            <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
-              {coach_override && !isCoach ? (
-                <Tooltip title={coach_override ? coach_override.name : ''}>
-                  <IconButton disableRipple>
-                    <Avatar
-                      src={
-                        coach_override
-                          ? coach_override.photo || DEFAULT_AVATAR
-                          : ''
-                      }
-                    />
-                  </IconButton>
-                </Tooltip>
-              ) : null}
-            </Grid>
-            <Grid item>
-              <ListItemText
-                primary={
-                  <div className={classes.offerTitleText}>
-                    {offer.is_broadcast ? (
-                      <VideocamIcon className={classes.videocamIcon} />
-                    ) : null}
-                    <Typography variant="inherit">{formattedName}</Typography>
-                  </div>
-                }
-                secondary={`${dateFormatter(
-                  date_start,
-                  offer.timezone_name,
-                )} - ${formatMinutes(duration_minute, t)}`}
-              />
+              <Grid item>
+                <ListItemText
+                  primary={
+                    <div className={classes.offerTitleText}>
+                      {offer.is_broadcast ? (
+                        <VideocamIcon className={classes.videocamIcon} />
+                      ) : null}
+                      <Typography variant="inherit">{formattedName}</Typography>
+                    </div>
+                  }
+                  secondary={`${dateFormatter(
+                    date_start,
+                    offer.timezone_name,
+                  )} - ${formatMinutes(duration_minute, t)}`}
+                />
+              </Grid>
+              {showTags &&
+                (whitelist_tags.length > 0 || blacklist_tags.length > 0) && (
+                  <Grid item className={classes.topAlign}>
+                    <Tooltip
+                      disableInteractive
+                      title={t('offer:tagManagementInfo', {
+                        authorized: whitelist_tags.length || 0,
+                        unauthorized: blacklist_tags.length || 0,
+                      })}
+                      placement="bottom-start"
+                    >
+                      <IconButton
+                        disableRipple
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          setTagManagementDialog(true);
+                        }}
+                        onMouseDown={(ev) => ev.stopPropagation()}
+                      >
+                        <LabelIcon color="primary" />
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                )}
             </Grid>
           </Grid>
+          <Grid item xs={3}>
+            <ListItemText
+              primary={fillingInfo}
+              primaryTypographyProps={fillingInfoProps}
+              secondary={formattedFillingRate}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <ListItemText
+              primary={
+                showCoachName
+                  ? actualCoachName
+                  : (currentEstablishment || {}).title
+              }
+              secondary={actualCoachName}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={3}>
-          <ListItemText
-            primary={fillingInfo}
-            primaryTypographyProps={fillingInfoProps}
-            secondary={formattedFillingRate}
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <ListItemText
-            primary={
-              showCoachName
-                ? actualCoachName
-                : (currentEstablishment || {}).title
-            }
-            secondary={actualCoachName}
-          />
-        </Grid>
-      </Grid>
-    </ListItem>
+      </ListItem>
+    </>
   );
 }
 

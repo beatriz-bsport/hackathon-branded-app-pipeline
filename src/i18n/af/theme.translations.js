@@ -146,6 +146,8 @@ exports.default = {
       },
       errorURL:
         'Veuillez saisir une URL valide avant de sauvegarder le formulaire',
+      hideSessionWithTagsNotEligible:
+        "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags",
     },
     cover: {
       label: 'Logo',

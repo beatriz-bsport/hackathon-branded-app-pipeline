@@ -98,7 +98,6 @@ export class MetaActivity extends Component<Props, State> {
 const styles = () => ({
   button: { width: '100%', padding: '0' },
   searchPaperDisplayed: {
-    maxHeight: '500px',
     overflow: 'auto',
   },
 });

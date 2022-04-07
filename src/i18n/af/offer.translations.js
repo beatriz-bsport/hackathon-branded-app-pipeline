@@ -108,4 +108,6 @@ exports.default = {
   maximumNumber: 'Nombre maximum de réservations',
   maximumNumberDescription:
     "Le nombre maximum de {{effectif}} réservations a déjà été atteint.En inscrivant ce membre vous dépasserez l'effectif initialement prévu. Etes vous sûr de vouloir inscrire ce membre ?",
+  tagManagementInfo:
+    '{{authorized}} tag(s) autorisé(s), {{unauthorized}} tag(s) non-autorisé(s)',
 };

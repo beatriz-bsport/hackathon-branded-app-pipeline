@@ -124,7 +124,9 @@ export const userRegistration = async () => {
 };
 
 export async function retrieveOffer(offerId: number) {
-  return getAuth(`${API_V1_URI}/offer/${offerId}/?with_full=true`);
+  return getAuth(
+    `${API_V1_URI}/offer/${offerId}/?with_full=true&with_tags_status=true`,
+  );
 }
 
 export async function massDisableOffer(
@@ -173,6 +175,33 @@ export async function fetchNumberOfMassDisabledOfferAPI(params: {
   );
 }
 
+export async function checkOfferTagEligibility(
+  offerId: number,
+  data?: { member_id?: number },
+) {
+  return postAuth(
+    `${API_V1_URI}/offer/${offerId}/check_tags_eligibility/`,
+    data,
+  );
+}
+
+export async function unTagAllOffers(params: {
+  tag_id: number;
+  from_whitelist: boolean;
+  from_blacklist: boolean;
+}) {
+  return postAuth(`${API_V1_URI}/offer/delete_tag_from_all_offers/`, {
+    ...params,
+  });
+}
+export async function unTagOffer(params: { offer_id: number; tag_id: number }) {
+  return postAuth(
+    `${API_V1_URI}/offer/${params.offer_id}/delete_tag_from_offer/`,
+    {
+      tag_id: params.tag_id,
+    },
+  );
+}
 export default {
   fetchAllEvents,
   editLiveOffer,
@@ -186,4 +215,5 @@ export default {
   fetchOffersList,
   fetchBookedGender,
   fetchOfferStatus,
+  checkOfferTagEligibility,
 };

@@ -124,6 +124,16 @@ export type Offer = {
   price_coach: number;
   credit_price: number;
   activity: ActivitySimplified;
+  broadcast_link: string;
+  room_blueprint: number;
+  coach_payment_rule_id: number;
+  duration_minute: number;
+  manager_only: boolean;
+  partner_max_booking_count: number;
+  credit_price_override: number | null;
+  meta_activity: number;
+  whitelist_tags: Array<number>;
+  blacklist_tags: Array<number>;
 };
 
 export type MetaActivity = {

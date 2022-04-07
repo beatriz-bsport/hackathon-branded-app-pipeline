@@ -172,6 +172,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       max_date,
       ...this.props.filters,
       ...optionalParams,
+      with_tags: true,
     });
 
     this.props.fetchAllEstablishmentGroup(this.props.companyId);

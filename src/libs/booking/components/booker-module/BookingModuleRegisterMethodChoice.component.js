@@ -61,7 +61,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [voucher, setVoucher] = useState(0);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [voucherDialogOpen, setVoucherDialogOpen] = useState(false);
-  const [selectedPack, setSelectedPack] = useState(null);
+  const [selectedPack, setSelectedPack] = useState<PaymentPack | null>(null);
   const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
   const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
   const handlePackSelect = (pack: PaymentPack) => {

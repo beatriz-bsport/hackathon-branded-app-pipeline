@@ -60,6 +60,8 @@ export type Theme = {
   provincial_tax_name?: string;
   provincial_tax_value?: number;
   is_tax_excluded_in_marketplace?: boolean;
+  hide_sessions_with_tags_when_not_eligible: boolean;
+  has_partnership: boolean;
 };
 
 export type ThemeState = {

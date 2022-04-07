@@ -44,6 +44,7 @@ interface FormikValues {
   default_booking_ordering: string;
   schedule_timerange_begin: string;
   schedule_timerange_end: string;
+  hide_sessions_with_tags_when_not_eligible: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -240,6 +241,12 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
           <SwitchField
             name="show_workshops_customer"
             label={t('forms.themePersonalization.workshopsCustomer')}
+          />
+          <SwitchField
+            name="hide_sessions_with_tags_when_not_eligible"
+            label={t(
+              'forms.themePersonalization.hideSessionWithTagsNotEligible',
+            )}
           />
           <SwitchField
             name="show_booked_gender_offer"
@@ -469,6 +476,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
           theme.schedule_timerange_end !== ''
             ? theme.schedule_timerange_end
             : defaultScheduleEnd,
+        hide_sessions_with_tags_when_not_eligible:
+          theme.hide_sessions_with_tags_when_not_eligible,
       };
     }
     return {
@@ -518,6 +527,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'schedule_timerange_begin',
       'schedule_timerange_end',
       'hide_unnecessary_compatible_purchase_method',
+      'hide_sessions_with_tags_when_not_eligible',
     ];
     keys.forEach((key) => data.append(key, values[key]));
 

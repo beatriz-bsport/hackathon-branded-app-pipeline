@@ -1,23 +1,25 @@
 // @flow
-
 import React from 'react';
+
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withTranslation, TFunction } from 'react-i18next';
-import type { Offer } from '../../api/types';
 
+import type { Offer } from '../../api/types';
 import OfferMinimalSummary from './OfferMinimalSummary.component';
 
 type Props = {
   loading: boolean,
   offers: Array<Offer>,
   onOfferSelected: (offer: Offer) => void,
+  onModifyTags?: (offer: Offer) => void,
   selected: number,
   classes: Object,
   t: TFunction,
+  showTags: ?boolean,
 };
 
 export class TimeTable extends React.PureComponent<Props> {
@@ -44,6 +46,10 @@ export class TimeTable extends React.PureComponent<Props> {
             overrideClickAction={() => {
               this.props.onOfferSelected(offer);
             }}
+            onModifyTags={() => {
+              this.props.onModifyTags(offer);
+            }}
+            showTags={this.props.showTags}
           />
         ))}
       </List>

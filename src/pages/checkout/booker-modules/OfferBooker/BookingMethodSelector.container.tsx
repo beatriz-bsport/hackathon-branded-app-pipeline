@@ -233,7 +233,6 @@ export class OfferState extends React.PureComponent<Props, State> {
     ) {
       return this.renderLoadingBlock();
     }
-
     let bookableCount =
       offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE ||
       (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&
@@ -280,6 +279,7 @@ export class OfferState extends React.PureComponent<Props, State> {
           paymentPackCategories={availablePaymentPackCategories}
           theme={this.props.theme}
         />
+
         <SubscriptionContractBooking
           isExcludingTax={this.props.isExcludingTax}
           contract={this.props.openSubscriptionModal}

@@ -161,6 +161,8 @@ exports.default = {
         'Les inscriptions sont fermées pour le moment et ouvriront le {{ date_ }}.',
       isWaitingListFull:
         "La séance est complète la liste d'attente est pleine.",
+      blockedByTags:
+        'Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance.',
     },
     messages: {
       offerLocked: 'Vous ne pouvez pas réserver cette séance',
@@ -168,6 +170,17 @@ exports.default = {
         "La séance n'est plus disponible à la réservation pour les femmes.",
       maleUnavailable:
         "La séance n'est plus disponible à la réservation pour les hommes.",
+    },
+    tags: {
+      managerDialogWarningDialog: {
+        title: 'Information',
+        content:
+          'Attention, ce membre ne dispose pas des tags nécessaires pour être inscrit à cette séance. Voulez vous quand même l’inscrire ?',
+        cancel: 'Annuler',
+        confirm: 'Confirmer',
+      },
+      unAuthorized:
+        'Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance.',
     },
   },
   details: {
@@ -355,6 +368,7 @@ exports.default = {
         [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
           'Ratio homme/femme déséquilibré',
       },
+      blockedByTags: 'Inscription non autorisée',
     },
     packTitle: 'Mon moyen de réservation',
     noPackAvailable: 'Aucune carte de cours compatible avec cette séance !',

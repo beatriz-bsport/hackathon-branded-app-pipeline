@@ -18,6 +18,8 @@ import {
   listRegisteredIds,
   numberOfMassDisabledOfferRetrieveActions,
   offerNextActions,
+  massUnTagAllOffers,
+  unTagOfferActions,
 } from './actions';
 import { OfferState } from './types';
 
@@ -92,6 +94,10 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     loading: false,
     error: null,
     number: null,
+  },
+  tagManagement: {
+    loading: false,
+    error: null,
   },
 });
 
@@ -335,6 +341,18 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       { payload },
     ) => {
       return state.setIn(['numberOfMassDisabledOffer', 'number'], payload);
+    },
+    [massUnTagAllOffers.error.toString()]: (state, { payload }) => {
+      return state.setIn(['tagManagement', 'error'], payload);
+    },
+    [massUnTagAllOffers.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['tagManagement', 'loading'], payload);
+    },
+    [unTagOfferActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['tagManagement', 'error'], payload);
+    },
+    [unTagOfferActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['tagManagement', 'loading'], payload);
     },
   },
   initialState,

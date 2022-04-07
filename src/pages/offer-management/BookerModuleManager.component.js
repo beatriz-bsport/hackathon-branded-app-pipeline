@@ -2,7 +2,10 @@ import { compose, withHandlers } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
-import { fetchSimilarOffers as fetchSimilarOffersAction } from '../../libs/offer/actions';
+import {
+  fetchSimilarOffers as fetchSimilarOffersAction,
+  checkOfferTagEligibility as checkOfferTagEligibilityAction,
+} from '../../libs/offer/actions';
 import {
   fetchByOfferByMember,
   fetchConsumerPaymentPackMaxoutBooking,
@@ -63,6 +66,7 @@ export default compose(
       fetchEstablishments,
       fetchAllEstablishmentBillingGroup,
       fetchConsumerPaymentPackLinks,
+      checkOfferTagEligibilityAction,
     },
   ),
 

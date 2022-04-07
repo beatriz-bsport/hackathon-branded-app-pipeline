@@ -23,6 +23,9 @@ import {
   postUserRegistration as postUserRegistrationAPI,
   userRegistration as userRegistrationAPI,
   fetchNumberOfMassDisabledOfferAPI,
+  checkOfferTagEligibility as checkOfferTagEligibilityAPI,
+  unTagAllOffers as unTagAllOffersAPI,
+  unTagOffer as unTagOfferAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -137,8 +140,8 @@ export function fetchEstablishmentEvents(id: number, params: any = {}) {
 }
 
 export function fetchAllOffers(
-  params: any,
-  options: OptionCallback<Array<Offer>>,
+  params?: any,
+  options?: OptionCallback<Array<Offer>>,
 ) {
   return async (dispatch: Dispatch) => {
     if (!params || !Object.keys(params).length) return;
@@ -405,6 +408,7 @@ export function fetchNextAvailableOffer(
         only_future: true,
         ...params,
         ...createOfferFilter(filters),
+        with_tags: true,
         page_size: 1,
         page: 1,
       });
@@ -757,5 +761,119 @@ export function offerUserRegistration(
       options && options.onError && options.onError(e);
     }
     dispatch(offerUserRegistrationAction.isLoading(false));
+  };
+}
+
+export const checkOfferTagEligibilityAactions = {
+  success: createAction('OFFER/TAG_ELIGIBILITY/SUCCESS'),
+  error: createAction('OFFER/TAG_ELIGIBILITY/ERROR'),
+  isLoading: createAction('OFFER/TAG_ELIGIBILITY/IS_LOADING'),
+};
+
+export function checkOfferTagEligibility(
+  offerId: number,
+  data?: { member_id: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(checkOfferTagEligibilityAactions.isLoading(true));
+    dispatch(checkOfferTagEligibilityAactions.error(null));
+
+    try {
+      const response = await checkOfferTagEligibilityAPI(offerId, data);
+      if (response.status === 200) {
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data);
+        }
+        dispatch(checkOfferTagEligibilityAactions.success(response.data));
+      }
+    } catch (error) {
+      dispatch(checkOfferTagEligibilityAactions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(checkOfferTagEligibilityAactions.isLoading(false));
+  };
+}
+
+export const massUnTagAllOffers = {
+  success: createAction('OFFER/TAG/MASS_UNTAG/SUCCESS'),
+  error: createAction('OFFER/TAG/MASS_UNTAG/ERROR'),
+  isLoading: createAction('OFFER/TAG/MASS_UNTAG/IS_LOADING'),
+};
+
+export function unTagAllOffers(
+  params: {
+    tag_id: number;
+    from_whitelist: boolean;
+    from_blacklist: boolean;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(massUnTagAllOffers.isLoading(true));
+    dispatch(massUnTagAllOffers.error(null));
+
+    try {
+      const response = await unTagAllOffersAPI(params);
+      if (response.status === 200) {
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        if (options && options.onSuccess) {
+          dispatch(
+            monitorBackgroundTask(backgroundTaskUuid, {
+              onSuccess: options.onSuccess,
+            }),
+          );
+        } else {
+          dispatch(monitorBackgroundTask(backgroundTaskUuid));
+        }
+      }
+
+      dispatch(massUnTagAllOffers.success(response.data));
+    } catch (error) {
+      dispatch(massUnTagAllOffers.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(massUnTagAllOffers.isLoading(false));
+  };
+}
+
+export const unTagOfferActions = {
+  success: createAction('OFFER/TAG/UNTAG_OFFER/SUCCESS'),
+  error: createAction('OFFER/TAG/UNTAG_OFFER/ERROR'),
+  isLoading: createAction('OFFER/TAG/UNTAG_OFFER/IS_LOADING'),
+};
+
+export function unTagOffer(
+  params: {
+    offer_id: number;
+    tag_id: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(unTagOfferActions.isLoading(true));
+    dispatch(unTagOfferActions.error(null));
+
+    try {
+      const response = await unTagOfferAPI(params);
+      if (response.status === 200) {
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        if (options && options.onSuccess) {
+          dispatch(
+            monitorBackgroundTask(backgroundTaskUuid, {
+              onSuccess: options.onSuccess,
+            }),
+          );
+        } else {
+          dispatch(monitorBackgroundTask(backgroundTaskUuid));
+        }
+      }
+
+      dispatch(unTagOfferActions.success(response.data));
+    } catch (error) {
+      dispatch(unTagOfferActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(unTagOfferActions.isLoading(false));
   };
 }

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -16,7 +18,9 @@ import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
-import { withTranslation, TFunction } from 'react-i18next';
+import LabelIcon from '@material-ui/icons/Label';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import IconButton from '@material-ui/core/IconButton';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -24,19 +28,17 @@ import TimeIcon from '@material-ui/icons/AccessTime';
 import moment from 'moment-timezone';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { Link } from 'react-router-dom';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 
+import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 import { Level } from '../category';
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
-
 import type { Offer } from '../../api/types';
-
 import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 
 type Props = {
   t: TFunction,
@@ -55,9 +57,22 @@ type Props = {
   onRestoreButtonClick: () => void,
   showOfferGender?: boolean,
   showVaccinationStatus: boolean,
+  onModifyTags?: (offer: Offer) => void,
 };
 
-export class OfferCard extends Component<Props> {
+type State = {
+  tagManagementDialog: Boolean,
+};
+
+export class OfferCard extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      tagManagementDialog: false,
+    };
+  }
+
   getHeader = () => {
     const { classes, t, offer } = this.props;
     const { available, name, parent_category, credit_price_override, level } =
@@ -392,6 +407,16 @@ export class OfferCard extends Component<Props> {
       const coach = offer.coach_override || offer.coach || null;
       return (
         <div style={{ width: '100%' }}>
+          <PaymentPackTagsDialog
+            open={this.state.tagManagementDialog}
+            whitelistTags={offer.whitelist_tags}
+            blacklistTags={offer.blacklist_tags}
+            onClose={() => this.setState({ tagManagementDialog: false })}
+            onModify={() => {
+              this.setState({ tagManagementDialog: false });
+              this.props.onModifyTags(offer);
+            }}
+          />
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
             {this.getStatsBody()}
@@ -437,6 +462,30 @@ export class OfferCard extends Component<Props> {
                         : '  -  '
                     }
                   />
+                </ListItem>
+              </div>
+            )}
+            {(offer?.whitelist_tags.length > 0 ||
+              offer?.blacklist_tags.length > 0) && (
+              <div>
+                <ListItem>
+                  <ListItemIcon>
+                    <LabelIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={t('offer:tagManagementInfo', {
+                      authorized: offer.whitelist_tags?.length || 0,
+                      unauthorized: offer.blacklist_tags?.length || 0,
+                    })}
+                  />
+                  <IconButton
+                    disableRipple
+                    onClick={() => {
+                      this.setState({ tagManagementDialog: true });
+                    }}
+                  >
+                    <VisibilityIcon color="primary" />
+                  </IconButton>
                 </ListItem>
               </div>
             )}

@@ -1,14 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react';
 import memoize from 'memoize-one';
-
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 import omit from 'lodash/omit';
-import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 
+import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -24,6 +23,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
+
 import Immutable from 'seamless-immutable';
 import {
   push as pushRouter,
@@ -125,6 +125,9 @@ import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/s
 import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import { OptionCallback } from '../../state/types';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import type { Tag, TagGroup } from '#libs/tag/types';
 
 const styles = (theme) => ({
   container: {
@@ -167,6 +170,14 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  spaceTop: {
+    paddingTop: theme.spacing(2),
+  },
+  editForm: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+  },
 });
 
 type Props = {
@@ -178,7 +189,6 @@ type Props = {
   theme: ?CompanyTheme,
 
   timetableLoading: boolean,
-  fullScreen: boolean,
   coachesLoading: boolean,
   establishmentsLoading: boolean,
   similarOfferLoading: boolean,
@@ -258,6 +268,7 @@ type Props = {
     params?: { start: string, end: string },
     options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
   ) => void,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
 
 type State = {
@@ -347,6 +358,15 @@ export class Planning extends PureComponent<Props, State> {
       day: date.date(),
       ...(this.props.offerFilters || {}),
     });
+  };
+
+  onModifyTags = (offer) => {
+    if (!this.props.selectedOffer || offer.id !== this.props.selectedOffer.id) {
+      this.props.loadOfferData(offer);
+    }
+    this.setState({ editModalOpened: true });
+    this.props.fetchEstablishments();
+    this.props.fetchAssociatedCoachesList();
   };
 
   openEditModal = () => {
@@ -499,13 +519,20 @@ export class Planning extends PureComponent<Props, State> {
       similarOffers,
       roomBlueprints,
       allRoomBlueprints,
+      allTagsWithTagGroup,
+      classes,
     } = this.props;
     const { editModalOpened, editOfferProcessing } = this.state;
     const { selectedOffer } = this.props;
     if (selectedOffer) {
       return (
-        <Dialog open={editModalOpened}>
-          <DialogContent>
+        <GenericResponsiveDrawer
+          open={editModalOpened}
+          onClose={this.onCancelModal}
+          title={this.props.t('translation:common.offers')}
+          subtitle={this.props.t('translation:common.offerEdition')}
+        >
+          <div className={classes.editForm}>
             <OfferEditForm
               offer={selectedOffer}
               metaActivities={this.props.metaActivities}
@@ -527,21 +554,32 @@ export class Planning extends PureComponent<Props, State> {
               similarOfferLoading={similarOfferLoading}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               showPartnership={this.props.showPartnership}
+              tagList={allTagsWithTagGroup}
             />
-          </DialogContent>
-        </Dialog>
+          </div>
+        </GenericResponsiveDrawer>
       );
     }
     return null;
   };
 
   renderCreateModal = () => {
-    const { metaActivities, coaches, fullScreen, establishments } = this.props;
+    const {
+      metaActivities,
+      coaches,
+      establishments,
+      allTagsWithTagGroup,
+      classes,
+    } = this.props;
     const { createOfferModalOpened, creatingOffers } = this.state;
-
     return (
-      <Dialog open={createOfferModalOpened} fullScreen={fullScreen}>
-        <DialogContent>
+      <GenericResponsiveDrawer
+        open={createOfferModalOpened}
+        onClose={this.closeCreateOffersModal}
+        title={this.props.t('translation:common.offers')}
+        subtitle={this.props.t('translation:common.offerCreation')}
+      >
+        <div className={classes.spaceTop}>
           <OfferFormWithActivity
             selectedDate={moment(this.props.date, DATE_FORMAT)}
             timezone={this.props.theme.timezone_name}
@@ -560,9 +598,10 @@ export class Planning extends PureComponent<Props, State> {
             }
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             showPartnership={this.props.showPartnership}
+            tagList={allTagsWithTagGroup}
           />
-        </DialogContent>
-      </Dialog>
+        </div>
+      </GenericResponsiveDrawer>
     );
   };
 
@@ -713,7 +752,7 @@ export class Planning extends PureComponent<Props, State> {
 
   getDayOffers = memoize((events) => {
     const events_ = {};
-    events.forEach((o) => {
+    events?.forEach((o) => {
       const midnight = moment(o.date_start).startOf('day');
       if (!events_[midnight]) {
         events_[midnight] = [];
@@ -812,7 +851,6 @@ export class Planning extends PureComponent<Props, State> {
             />
           </Grid>
         )}
-
         <Grid item xs={6} md={medimumSize} className={classes.selector}>
           <EstablishmentSelector
             establishments={Immutable(filteredEstablishments)}
@@ -861,7 +899,6 @@ export class Planning extends PureComponent<Props, State> {
       selectedOffer,
     } = this.props;
     const events_ = this.getDayOffers(events);
-
     return (
       <div className={classes.container}>
         {this.searchBar()}
@@ -915,9 +952,10 @@ export class Planning extends PureComponent<Props, State> {
                       (timetableLoading && (offers || []).length === 0)
                     }
                     selected={selectedOffer ? selectedOffer.id : null}
+                    onModifyTags={this.onModifyTags}
+                    showTags
                   />
                 </Paper>
-
                 <CheckPermission requiredPermissions="offer.create">
                   {this.renderAddOffersButton()}
                 </CheckPermission>
@@ -970,6 +1008,7 @@ export class Planning extends PureComponent<Props, State> {
                     this.props.theme.show_booked_gender_offer
                   }
                   showVaccinationStatus={this.props.showVaccinationStatus}
+                  onModifyTags={this.onModifyTags}
                 />
               </div>
             ) : (
@@ -1093,6 +1132,7 @@ export default compose(
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showPartnership: state.theme.theme.has_partnership,
       showVaccinationStatus: showVaccinationStatus(state),
+      allTagsWithTagGroup: getallTagsWithTagGroup(state),
     }),
     {
       goBack: goBackRouter,

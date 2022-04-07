@@ -23,16 +23,22 @@ import {
   OFFER_BOOKABLE_STATUS_LOCKED,
 } from '@bsport/common/lib/master-data/bookable-status';
 import { formatMinutes } from '../../../utils/datetime';
+import type { OfferStatus as OfferStatusType, Offer } from '#libs/offer/types';
+import type { Coach } from '#libs/associated-coach/types';
+import type { Establishment } from '#libs/establishment/types';
 
-const OfferStatus = ({ offerStatus }) => {
+const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
   let statusColor = 'green';
 
   let statusText = '';
 
   let StatusIcon = () => <div />;
-  const { t } = useTranslation(['booking']);
-
-  if (
+  const { t } = useTranslation('booking');
+  if (offerStatus.blocked_by_tags) {
+    statusColor = 'red';
+    statusText = t('offer.offerStatus.blockedByTags');
+    StatusIcon = BlockIcon;
+  } else if (
     [
       OFFER_BOOKABLE_STATUS_TOO_SOON,
       OFFER_BOOKABLE_STATUS_TOO_LATE,
@@ -58,6 +64,7 @@ const OfferStatus = ({ offerStatus }) => {
       statusColor = 'green';
     }
   }
+
   return (
     <div
       style={{
@@ -72,14 +79,26 @@ const OfferStatus = ({ offerStatus }) => {
         fontSize="small"
         style={{ color: statusColor, marginRight: 4 }}
       />
-      <Typography style={{ color: statusColor }} variant="caption">
+      <Typography
+        style={{ color: statusColor, paddingRight: 4 }}
+        variant="caption"
+      >
         {statusText}
       </Typography>
     </div>
   );
 };
 
-export const OfferBookableItem = (props) => {
+type OfferBookableItemProps = {
+  offer: Offer<Coach, Establishment>;
+  disabled: boolean;
+  onAdd: (offer: Offer<Coach, Establishment>) => void;
+  onRemove: (offer: Offer<Coach, Establishment>) => void;
+  offerStatus: OfferStatusType;
+  isRegistered: boolean;
+  hideCoach: boolean;
+};
+export const OfferBookableItem = (props: OfferBookableItemProps) => {
   const classes = useStyles();
   const { t } = useTranslation(['datetime', 'booking']);
 

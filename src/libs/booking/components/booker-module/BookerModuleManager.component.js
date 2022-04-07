@@ -27,9 +27,12 @@ import {
   ConsumerPaymentPack,
   MaxoutBooking,
 } from '../../../consumer-payment-pack/types';
+import { WithIsSharedActive } from '../../../relationship/types';
+
 import type { Establishment } from '../../../establishment/types';
 import type { Theme as CompanyTheme } from '../../../theme/types';
-import { WithIsSharedActive } from '../../../relationship/types';
+import type { OptionCallback } from '../../../../state/types';
+import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
 
 type Props = {
   loading: boolean,
@@ -92,6 +95,9 @@ type Props = {
     links_id: Array<number>,
     options: OptionCallback,
   ) => void,
+  checkOfferTagEligibility: () => void,
+  tagWarningDialogOpen: boolean,
+  setTagWarningDialogOpen: (open: boolean) => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -99,6 +105,7 @@ const OFFER_CHOICE = 1;
 
 export class BookingModuleManager extends PureComponent<Props> {
   componentDidMount() {
+    this.props.checkOfferTagEligibility();
     this.props.fetchByOfferByMemberAction(
       this.props.offerId,
       this.props.member.id,
@@ -135,6 +142,19 @@ export class BookingModuleManager extends PureComponent<Props> {
     this.props.fetchAllEstablishmentBillingGroup();
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (
+      !(prevProps.member && prevProps.member.id) ||
+      (prevProps.member &&
+        prevProps.member.id &&
+        this.props.member &&
+        this.props.member.id &&
+        prevProps.member.id !== this.props.member.id)
+    ) {
+      this.props.checkOfferTagEligibility();
+    }
+  }
+
   render() {
     const {
       t,
@@ -164,142 +184,154 @@ export class BookingModuleManager extends PureComponent<Props> {
       );
     }
     return (
-      <Dialog
-        fullScreen={this.props.fullScreen}
-        onClose={this.props.onClose}
-        open
-      >
-        <DialogContent>
-          <div className={this.props.classes.container}>
-            {!!this.props.member.photo && (
-              <Avatar size="large" user={{ photo: this.props.member.photo }} />
-            )}
-            <Typography variant="h4" align="center">
-              {this.props.member.name}
-            </Typography>
-            <Typography variant="h6" align="center">
-              {t('offerManagement.forms.register.registerToOffer')}
-            </Typography>
-            <Divider />
-            <div>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={this.props.keep_credits}
-                    onChange={(ev) =>
-                      this.props.setKeepCredits(ev.target.checked)
-                    }
-                    value="checkedG"
-                  />
-                }
-                label={this.props.t(
-                  'offerManagement.forms.register.doNotConsumeCredit',
-                )}
-              />
-              <FormControlLabel
-                label={this.props.t(
-                  'offerManagement.forms.register.forceNotify',
-                )}
-                control={
-                  <Checkbox
-                    checked={this.props.notify_member}
-                    onChange={(ev) =>
-                      this.props.setNotifyMember(ev.target.checked)
-                    }
-                    value="checkedG"
-                  />
-                }
-              />
-            </div>
-            <Divider />
-            {!!this.props.registererObject.consumerPaymentPack && (
-              <ConsumerPackRowItem
-                hideConsumer
-                paymentPack={
-                  this.props.registererObject.consumerPaymentPack.payment_pack
-                }
-                consumerPack={this.props.registererObject.consumerPaymentPack}
-              />
-            )}
-            {!this.props.offer.room_blueprint && (
-              <div className={this.props.classes.bookButtonWideContainer}>
-                <Button
-                  className={this.props.classes.bookButtonWide}
-                  disabled={
-                    !this.props.consumerPacks ||
-                    this.props.consumerPacks.length === 0
+      <>
+        <Dialog
+          fullScreen={this.props.fullScreen}
+          onClose={this.props.onClose}
+          open
+        >
+          <DialogContent>
+            <div className={this.props.classes.container}>
+              {!!this.props.member.photo && (
+                <Avatar
+                  size="large"
+                  user={{ photo: this.props.member.photo }}
+                />
+              )}
+              <Typography variant="h4" align="center">
+                {this.props.member.name}
+              </Typography>
+              <Typography variant="h6" align="center">
+                {t('offerManagement.forms.register.registerToOffer')}
+              </Typography>
+              <Divider />
+              <div>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.props.keep_credits}
+                      onChange={(ev) =>
+                        this.props.setKeepCredits(ev.target.checked)
+                      }
+                      value="checkedG"
+                    />
                   }
-                  variant="outlined"
-                  onClick={() => this.props.openRecurrenceRuleForm()}
-                >
-                  {t('booking:recurrenceRule.recurrentRuleBooking')}
-                </Button>
-                {(!this.props.consumerPacks ||
-                  this.props.consumerPacks.length === 0) && (
-                  <Tooltip title={t('booking:recurrenceRule.needConsumerPack')}>
-                    <InfoOutlinedIcon className={this.props.classes.icon} />
-                  </Tooltip>
-                )}
+                  label={this.props.t(
+                    'offerManagement.forms.register.doNotConsumeCredit',
+                  )}
+                />
+                <FormControlLabel
+                  label={this.props.t(
+                    'offerManagement.forms.register.forceNotify',
+                  )}
+                  control={
+                    <Checkbox
+                      checked={this.props.notify_member}
+                      onChange={(ev) =>
+                        this.props.setNotifyMember(ev.target.checked)
+                      }
+                      value="checkedG"
+                    />
+                  }
+                />
               </div>
-            )}
+              <Divider />
+              {!!this.props.registererObject.consumerPaymentPack && (
+                <ConsumerPackRowItem
+                  hideConsumer
+                  paymentPack={
+                    this.props.registererObject.consumerPaymentPack.payment_pack
+                  }
+                  consumerPack={this.props.registererObject.consumerPaymentPack}
+                />
+              )}
+              {!this.props.offer.room_blueprint && (
+                <div className={this.props.classes.bookButtonWideContainer}>
+                  <Button
+                    className={this.props.classes.bookButtonWide}
+                    disabled={
+                      !this.props.consumerPacks ||
+                      this.props.consumerPacks.length === 0
+                    }
+                    variant="outlined"
+                    onClick={() => this.props.openRecurrenceRuleForm()}
+                  >
+                    {t('booking:recurrenceRule.recurrentRuleBooking')}
+                  </Button>
+                  {(!this.props.consumerPacks ||
+                    this.props.consumerPacks.length === 0) && (
+                    <Tooltip
+                      title={t('booking:recurrenceRule.needConsumerPack')}
+                    >
+                      <InfoOutlinedIcon className={this.props.classes.icon} />
+                    </Tooltip>
+                  )}
+                </div>
+              )}
 
-            {!!this.props.registererObject.paymentPack && (
-              <PaymentPackListItem
-                showDuration
-                hidePacksNumber
-                pack={this.props.registererObject.paymentPack}
-              />
-            )}
-            {this.props.step === REGISTER_METHOD_CHOICE && (
-              <BookingModuleRegisterMethodChoice
-                compatiblePacks={this.props.compatiblePacks}
-                consumerPacksNonCompatible={
-                  this.props.consumerPacksNonCompatible
-                }
-                consumerPacks={this.props.consumerPacks}
-                onBookMultiple={this.props.setRegistererObject}
-                registerToOffer={(
-                  registererObject,
-                  voucher?,
-                  billingEstablishmentId?,
-                ) =>
-                  this.props.registerToOffer(
-                    this.props.offerId,
+              {!!this.props.registererObject.paymentPack && (
+                <PaymentPackListItem
+                  showDuration
+                  hidePacksNumber
+                  pack={this.props.registererObject.paymentPack}
+                />
+              )}
+              {this.props.step === REGISTER_METHOD_CHOICE && (
+                <BookingModuleRegisterMethodChoice
+                  compatiblePacks={this.props.compatiblePacks}
+                  consumerPacksNonCompatible={
+                    this.props.consumerPacksNonCompatible
+                  }
+                  consumerPacks={this.props.consumerPacks}
+                  onBookMultiple={this.props.setRegistererObject}
+                  registerToOffer={(
                     registererObject,
-                    voucher,
-                    billingEstablishmentId,
-                  )
-                }
-                offer={this.props.offer}
-                cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
-                disableMultiBooking={!!this.props.offer.room_blueprint}
-                establishments={this.props.establishments}
-                enableMultiLocalization={
-                  this.props.companyTheme.enable_multi_localization
-                }
-                member={this.props.member}
-                memberDetails={this.props.memberDetails}
-                closeDialog={this.props.onCancel}
-              />
-            )}
-            {this.props.step === OFFER_CHOICE && (
-              <BookingModuleOfferChoice
-                fetchSimilarOffers={this.props.fetchSimilarOffers}
-                similarOfferLoading={this.props.similarOfferLoading}
-                similarOffers={this.props.similarOffers}
-                offer={this.props.offer}
-                registererObject={this.props.registererObject}
-                offerId={this.props.offerId}
-                goBack={this.props.backToRegistererChoice}
-                registerToOffer={this.props.registerToOffer}
-              />
-            )}
-            <Button variant="outlined" onClick={onCancel}>
-              {t('common.cancel')}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+                    voucher?,
+                    billingEstablishmentId?,
+                  ) =>
+                    this.props.registerToOffer(
+                      this.props.offerId,
+                      registererObject,
+                      voucher,
+                      billingEstablishmentId,
+                    )
+                  }
+                  offer={this.props.offer}
+                  cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
+                  disableMultiBooking={!!this.props.offer.room_blueprint}
+                  establishments={this.props.establishments}
+                  enableMultiLocalization={
+                    this.props.companyTheme.enable_multi_localization
+                  }
+                  member={this.props.member}
+                  memberDetails={this.props.memberDetails}
+                  closeDialog={this.props.onCancel}
+                />
+              )}
+              {this.props.step === OFFER_CHOICE && (
+                <BookingModuleOfferChoice
+                  fetchSimilarOffers={this.props.fetchSimilarOffers}
+                  similarOfferLoading={this.props.similarOfferLoading}
+                  similarOffers={this.props.similarOffers}
+                  offer={this.props.offer}
+                  registererObject={this.props.registererObject}
+                  offerId={this.props.offerId}
+                  goBack={this.props.backToRegistererChoice}
+                  registerToOffer={this.props.registerToOffer}
+                />
+              )}
+              <Button variant="outlined" onClick={onCancel}>
+                {t('common.cancel')}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+        <BookerModuleWarningTagDialog
+          open={this.props.tagWarningDialogOpen}
+          onConfirm={() => this.props.setTagWarningDialogOpen(false)}
+          onCancel={this.props.onClose}
+        />
+      </>
     );
   }
 }
@@ -336,6 +368,7 @@ export default compose(
   withState('notify_member', 'setNotifyMember', false),
   withState('keep_credits', 'setKeepCredits', false),
   withState('memberDetail', 'setMemberDetail', {}),
+  withState('tagWarningDialogOpen', 'setTagWarningDialogOpen', false),
   withHandlers({
     backToRegistererChoice:
       ({ setRegistererObject, setStep }) =>
@@ -395,6 +428,27 @@ export default compose(
           },
         });
         fetchMemberAction(member);
+      },
+    }),
+  ),
+  withProps(
+    ({
+      checkOfferTagEligibilityAction,
+      offerId,
+      member,
+      setTagWarningDialogOpen,
+    }) => ({
+      checkOfferTagEligibility: () => {
+        if (member && member.id) {
+          checkOfferTagEligibilityAction(
+            offerId,
+            { member_id: member.id },
+            {
+              onSuccess: () => setTagWarningDialogOpen(false),
+              onError: () => setTagWarningDialogOpen(true),
+            },
+          );
+        }
       },
     }),
   ),

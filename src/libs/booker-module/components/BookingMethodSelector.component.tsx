@@ -46,6 +46,7 @@ type OwnProps = {
   paymentPackCategories: PaymentPackCategoryWithPacks[];
   isExcludingTax?: boolean;
   theme: CompanyTheme;
+  offerTagStatus: boolean;
 };
 
 enum CollapsePackEnum {
@@ -201,7 +202,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       availableComboPacks,
       contractList,
     } = this.props;
-
     const numberOfConsumerPackToRender = this.state.consumerPaymentPackMore
       ? availableConsumerPacks.length
       : 3;

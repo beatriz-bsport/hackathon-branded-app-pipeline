@@ -161,29 +161,6 @@ export class PaymentPackList extends React.Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
-    if (prevState.selectedSortOption !== this.state.selectedSortOption)
-      this.updateSortOption(this.state.selectedSortOption);
-    if (prevState.selectedCategories !== this.state.selectedCategories)
-      this.props.setPaymentPackCategoryFilter(this.state.selectedCategories);
-    if (prevState.selectedDisponibility !== this.state.selectedDisponibility)
-      this.props.setPaymentPackManagerOnlyFilter(
-        this.state.selectedDisponibility,
-      );
-    if (
-      prevProps.paymentPackByCategory.length !==
-      this.props.paymentPackByCategory.length
-    )
-      this.categoryOptions.apply({}, []);
-
-    if (
-      prevState.paymentPackToEdit?.id !== this.state.paymentPackToEdit?.id &&
-      this.state.paymentPackToEdit?.id
-    ) {
-      this.props.fetchCompatibleServicePasses(this.state.paymentPackToEdit);
-    }
-  }
-
   componentDidMount() {
     this.props.fetchPrivatePassList();
     this.props.fetchAllPrivateServices();
@@ -205,6 +182,29 @@ export class PaymentPackList extends React.Component<Props, State> {
     });
     if (this.state.selectedSortOption !== SortOption.customSort)
       this.updateSortOption(this.state.selectedSortOption);
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
+    if (prevState.selectedSortOption !== this.state.selectedSortOption)
+      this.updateSortOption(this.state.selectedSortOption);
+    if (prevState.selectedCategories !== this.state.selectedCategories)
+      this.props.setPaymentPackCategoryFilter(this.state.selectedCategories);
+    if (prevState.selectedDisponibility !== this.state.selectedDisponibility)
+      this.props.setPaymentPackManagerOnlyFilter(
+        this.state.selectedDisponibility,
+      );
+    if (
+      prevProps.paymentPackByCategory.length !==
+      this.props.paymentPackByCategory.length
+    )
+      this.categoryOptions.apply({}, []);
+
+    if (
+      prevState.paymentPackToEdit?.id !== this.state.paymentPackToEdit?.id &&
+      this.state.paymentPackToEdit?.id
+    ) {
+      this.props.fetchCompatibleServicePasses(this.state.paymentPackToEdit);
+    }
   }
 
   onCreate = () => {

@@ -42,7 +42,7 @@ import MuiIcon from '../../../components/MuiIcon.component';
 
 type OwnProps = {
   tagGroup: TagGroup;
-  filterBy: 'member' | 'coupon' | 'smartlist';
+  filterBy: 'member' | 'coupon' | 'smartlist' | 'offer';
 
   onUpdateTagGroup: (tagGroup: TagGroup) => void;
   onDeleteTagGroup: (tagGroup: TagGroup) => void;
@@ -154,6 +154,8 @@ class TagGroupItem extends React.PureComponent<Props, State> {
         return `${usage.member_count}/${usage.member_total_count}`;
       case 'smartlist':
         return usage.autotagrule_count;
+      case 'offer':
+        return usage.offer_count;
       default:
         return null;
     }

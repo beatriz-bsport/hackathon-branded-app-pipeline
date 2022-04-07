@@ -1,20 +1,27 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
+import moment from 'moment-timezone';
 import { connect } from 'react-redux';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withStateHandlers } from 'recompose';
+import { push, replace as replaceRouter } from 'connected-react-router';
 import flatten from 'lodash/flatten';
+
 import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { withStyles } from '@material-ui/styles';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { push, replace as replaceRouter } from 'connected-react-router';
 import Radio from '@material-ui/core/Radio';
-
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import withTitle from '../../hocs/with-title.hoc';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+
 import {
   fetchAllGroups,
   fetchAllTags,
@@ -23,7 +30,10 @@ import {
   fetchTagUsage,
   deleteTag,
   deleteTagGroup,
-} from '../../libs/tag/actions';
+} from '#libs/tag/actions';
+import { getAll } from '#libs/tag/selectors';
+import TagGroupList from '#libs/tag/components/TagGroupList.component';
+import type { Tag, TagGroup } from '#libs/tag/types';
 
 import {
   applySmartListAutoTagRules,
@@ -31,18 +41,10 @@ import {
   fetchSmartLists,
   updateSmartListAutoTag,
   deleteMultiSmartListAutoTagRules,
-} from '../../libs/smart-list/actions';
+} from '#libs/smart-list/actions';
+import { AutoTagRule, SmartList } from '#libs/smart-list/types';
+import { getAutotagRuleBySmartlist } from '#libs/smart-list/selectors';
 
-import { getAll } from '../../libs/tag/selectors';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-
-import withTitle from '../../hocs/with-title.hoc';
-import { RootState } from '../../reducers';
-import TagGroupList from '../../libs/tag/components/TagGroupList.component';
-import { Tag, TagGroup } from '../../libs/tag/types';
-import { fetchCoupons, untagCoupon } from '../../libs/coupon/actions';
-import { MaterialStyleType } from '../../utils/types';
-import TagDetailHeader from '../../libs/marketing/components/TagDetailHeader.component';
 import {
   fetchMemberListWithoutTagsAction,
   fetchMemberListWithTagsAction,
@@ -53,46 +55,120 @@ import {
   refreshFilteredMembers,
   tag as tagMemberAction,
   untag as untagMemberAction,
-} from '../../libs/member/actions';
-import TagDetailMembers from '../../libs/marketing/components/TagDetailMembers.component';
-import { Member } from '../../libs/member/types';
-import TagDetailCoupon from '../../libs/marketing/components/TagDetailCoupon';
-import { Coupon } from '../../libs/coupon/types';
-import TagDetailSmartlist from '../../libs/marketing/components/TagDetailSmartlist';
-import { AutoTagRule, SmartList } from '../../libs/smart-list/types';
-import { getAutotagRuleBySmartlist } from '../../libs/smart-list/selectors';
-import { OptionCallback } from '../../state/types';
+} from '#libs/member/actions';
+import { Member } from '#libs/member/types';
 
+import { Coupon } from '#libs/coupon/types';
+import { fetchCoupons, untagCoupon } from '#libs/coupon/actions';
+
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  unTagAllOffers as unTagAllOffersAction,
+  unTagOffer as unTagOfferAction,
+} from '#libs/offer/actions';
+import { fetchAllActivities } from '#libs/meta-activity/actions';
+import {
+  getOfferCalendarState,
+  getOfferCalendarStateData,
+  withMetaActivity,
+} from '#libs/offer/selectors';
+
+import TagDetailHeader from '#libs/marketing/components/TagDetailHeader.component';
+import TagDetailOffer from '#libs/marketing/components/TagDetailOffer.component';
+import TagDetailSmartlist from '#libs/marketing/components/TagDetailSmartlist';
+import TagDetailCoupon from '#libs/marketing/components/TagDetailCoupon';
+import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.component';
+import TadDetailOfferFilters from '#libs/marketing/components/TagDetailOfferFilters.components';
+
+export enum TagAuthorizationFilter {
+  showAll = 0,
+  showOnlyWhiteList = 1,
+  showOnlyBlackList = 2,
+}
+type StateHandlerInit = {
+  offer_min_date: moment.Moment;
+  offer_max_date: moment.Moment | null;
+  tagAuthorizationFilter: TagAuthorizationFilter;
+};
+const withStateHandlersInit: StateHandlerInit = {
+  offer_min_date: moment().startOf('month'),
+  offer_max_date: moment().endOf('year'),
+  tagAuthorizationFilter: 0,
+};
+
+const withStateHandlersSetter = {
+  resetDatesfilter: () => () => {
+    return {
+      offer_min_date: moment().startOf('month'),
+      offer_max_date: moment().endOf('month'),
+    };
+  },
+  setOfferFilters:
+    () =>
+    (
+      offer_min_date: moment.Moment,
+      offer_max_date: moment.Moment,
+      tagAuthorizationFilter: TagAuthorizationFilter,
+    ) => {
+      return { offer_min_date, offer_max_date, tagAuthorizationFilter };
+    },
+};
+
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
 type OwnProps = {
   tagKind: string;
   selectedTag?: Tag;
   selectedTagId?: number;
   goToCoupon: () => void;
   goToSmartlist: () => void;
+  goToActivity: () => void;
 };
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  WithTranslation &
+  StateHandlerType;
 
 const MEMBERS_ITEM_PER_PAGE = 10;
 
 const TAG_KIND_MEMBER = 'member';
 const TAG_KIND_COUPON = 'coupon';
 const TAG_KIND_SMARTLIST = 'smartlist';
+const TAG_KIND_OFFER = 'offer';
 
 class MarketingTagManagement extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchAllGroups();
     this.props.fetchAllTags();
-
+    this.props.fetchAllActivities();
     this.fetchTagData();
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.selectedTagId !== this.props.selectedTagId) {
       this.fetchTagData();
+    }
+    if (
+      prevProps.selectedTagId === this.props.selectedTagId &&
+      this.props.selectedTagId &&
+      (prevProps.offer_min_date !== this.props.offer_min_date ||
+        prevProps.offer_max_date !== this.props.offer_max_date ||
+        prevProps.tagAuthorizationFilter !== this.props.tagAuthorizationFilter)
+    ) {
+      this.props.fetchAllOffersAction({
+        page: 1,
+        page_size: MEMBERS_ITEM_PER_PAGE,
+        available: true,
+        min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+        ...(this.props.offer_max_date
+          ? {
+              max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+            }
+          : {}),
+        ...this.getOfferTagfilterParams(),
+      });
     }
   }
 
@@ -115,6 +191,19 @@ class MarketingTagManagement extends React.PureComponent<Props> {
 
       this.props.fetchSmartLists({ tag: this.props.selectedTagId });
       this.props.fetchAutoTagRules({ tag: this.props.selectedTagId });
+
+      this.props.fetchAllOffersAction({
+        page: 1,
+        page_size: MEMBERS_ITEM_PER_PAGE,
+        available: true,
+        min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+        ...(this.props.offer_max_date
+          ? {
+              max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+            }
+          : {}),
+        ...this.getOfferTagfilterParams(),
+      });
     }
     this.props.fetchTagUsage();
   };
@@ -182,6 +271,20 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       page,
       page_size,
       exclude_archived: true,
+    });
+  };
+
+  loadOfferFilterBySelectedTag = (page: number, page_size: number) => {
+    this.props.fetchAllOffersAction({
+      page,
+      page_size,
+      min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+      ...(this.props.offer_max_date
+        ? {
+            max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+          }
+        : {}),
+      ...this.getOfferTagfilterParams(),
     });
   };
 
@@ -265,10 +368,97 @@ class MarketingTagManagement extends React.PureComponent<Props> {
     });
   };
 
+  getOfferTagfilterParams = () => {
+    if (this.props.tagAuthorizationFilter === 1) {
+      return { whitelist_tags_id__in: [this.props.selectedTagId] };
+    }
+    if (this.props.tagAuthorizationFilter === 2) {
+      return { blacklist_tags_id__in: [this.props.selectedTagId] };
+    }
+
+    return { tags_ids__in: [this.props.selectedTagId] };
+  };
+
+  getOfferTagDeleteParams = () => {
+    if (this.props.tagAuthorizationFilter === 1) {
+      return { from_whitelist: true, from_blacklist: false };
+    }
+    if (this.props.tagAuthorizationFilter === 2) {
+      return { from_whitelist: false, from_blacklist: true };
+    }
+
+    return { from_blacklist: true, from_whitelist: true };
+  };
+
+  unTagAllOffers = (options?: OptionCallback) => {
+    this.props.unTagAllOffersAction(
+      {
+        tag_id: this.props.selectedTagId,
+        ...this.getOfferTagDeleteParams(),
+      },
+      {
+        onSuccess: () => {
+          this.props.fetchTagUsage();
+          this.props.fetchAllOffersAction(
+            {
+              page: 1,
+              page_size: MEMBERS_ITEM_PER_PAGE,
+              available: true,
+              min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+              ...(this.props.offer_max_date
+                ? {
+                    max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+                  }
+                : {}),
+              ...this.getOfferTagfilterParams(),
+            },
+            {
+              onSuccess: () => options?.onSuccess && options?.onSuccess(),
+              onError: () => options?.onError && options?.onError(),
+            },
+          );
+        },
+        onError: () => options?.onError && options?.onError(),
+      },
+    );
+  };
+
+  unTagOffer = (offerId: number, options?: OptionCallback) => {
+    this.props.unTagOfferAction(
+      {
+        offer_id: offerId,
+        tag_id: this.props.selectedTagId,
+      },
+      {
+        onSuccess: () => {
+          this.props.fetchTagUsage();
+          this.props.fetchAllOffersAction(
+            {
+              page: 1,
+              page_size: MEMBERS_ITEM_PER_PAGE,
+              available: true,
+              min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
+              ...(this.props.offer_max_date
+                ? {
+                    max_date: this.props.offer_max_date.format('YYYY-MM-DD'),
+                  }
+                : {}),
+              ...this.getOfferTagfilterParams(),
+            },
+            {
+              onSuccess: () => options?.onSuccess && options?.onSuccess(),
+              onError: () => options?.onError && options?.onError(),
+            },
+          );
+        },
+        onError: () => options?.onError && options?.onError(),
+      },
+    );
+  };
+
   render() {
     const { classes, t, membersWithTagList, membersWithoutTagList } =
       this.props;
-
     return (
       <div className={classes.container}>
         {this.props.tagsLoading && <LinearProgress />}
@@ -301,6 +491,11 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               control={<Radio />}
               label={t('management.tagKind.smartlist')}
             />
+            <FormControlLabel
+              value={TAG_KIND_OFFER}
+              control={<Radio />}
+              label={t('management.tagKind.offer')}
+            />
           </RadioGroup>
         </Paper>
 
@@ -320,6 +515,26 @@ class MarketingTagManagement extends React.PureComponent<Props> {
           </div>
 
           <div className={classes.rightPanel}>
+            {this.props.selectedTag && this.props.tagKind === TAG_KIND_OFFER && (
+              <TadDetailOfferFilters
+                config={{
+                  dateStart: this.props.offer_min_date,
+                  dateEnd: this.props.offer_max_date,
+                  tagAuthorizationFilter: this.props.tagAuthorizationFilter,
+                }}
+                onSubmit={(values: {
+                  dateStart: moment.Moment;
+                  dateEnd: moment.Moment;
+                  tagAuthorizationFilter: TagAuthorizationFilter;
+                }) =>
+                  this.props.setOfferFilters(
+                    values.dateStart,
+                    values.dateEnd,
+                    parseInt(values.tagAuthorizationFilter.toString(), 10),
+                  )
+                }
+              />
+            )}
             <TagDetailHeader tag={this.props.selectedTag} />
             <div className={classes.tagDetail}>
               {this.props.selectedTag &&
@@ -371,6 +586,23 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                     goToSmartlist={this.props.goToSmartlist}
                   />
                 )}
+              {this.props.selectedTag &&
+                this.props.tagKind === TAG_KIND_OFFER && (
+                  <TagDetailOffer
+                    loading={
+                      this.props.offersLoading ||
+                      this.props.offerTagManagementLoading
+                    }
+                    tag={this.props.selectedTag}
+                    offers={this.props.offersPaginatedData}
+                    count={this.props.offersPaginatedState.count}
+                    page={this.props.offersPaginatedState.page}
+                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
+                    onPageRequested={this.loadOfferFilterBySelectedTag}
+                    unTagAll={this.unTagAllOffers}
+                    unTagOffer={this.unTagOffer}
+                  />
+                )}
             </div>
           </div>
         </div>
@@ -387,12 +619,17 @@ const mapStateToProps = (state: RootState) => ({
   members: state.member.allIds,
   membersWithTagList: membersListWithTagRepo.selectors.full(state.member),
   membersWithoutTagList: membersListWithoutTagRepo.selectors.full(state.member),
+  offersPaginatedData: withMetaActivity(getOfferCalendarStateData)(state),
+  offersPaginatedState: getOfferCalendarState(state),
+  offersLoading: state.offer.loading,
   coupons: state.coupon.coupon.items,
   couponsLoading: state.coupon.coupon.loading,
   smartlist: state.smartList.smartListFiltered.items,
   smartlistLoading: state.smartList.smartListFiltered.loading,
+
   autotagRuleBySmartList: getAutotagRuleBySmartlist(state),
   autotagRuleLoading: state.smartList.smartListTagRules.loading,
+  offerTagManagementLoading: state.offer.tagManagement.loading,
 });
 
 const mapDispatchToProps = {
@@ -421,6 +658,11 @@ const mapDispatchToProps = {
   replace: replaceRouter,
   goToCoupon: () => push('/coupon'),
   goToSmartlist: () => push('/smart-list'),
+  goToActivity: (id: number) => push(`/activity/${id}/general`),
+  fetchAllOffersAction,
+  fetchAllActivities,
+  unTagAllOffersAction,
+  unTagOfferAction,
 };
 
 const styles = (theme) => ({
@@ -469,6 +711,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['tag']),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   routerParamsToProps({ selectedTagId: 'selectedTagId:number' }),
   connect(mapStateToProps, mapDispatchToProps),
   withQueryParams([['tagKind'], 'queryParams', 'setQueryParams']),

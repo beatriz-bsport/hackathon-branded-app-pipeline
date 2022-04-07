@@ -71,6 +71,7 @@ exports.default = {
       coupon_count: '', // 'Code promo liés',
       smartlist_count: 'Règles de tagging',
       actions: 'Actions ',
+      offer_count: 'Séances liées',
     },
     deleteTagGroupDialog: {
       title: 'Suppression catégorie',
@@ -94,6 +95,7 @@ exports.default = {
       member: 'Membres',
       coupon: 'Code promo',
       smartlist: 'Smartlists',
+      offer: 'Séances',
     },
     memberDetail: {
       memberWithTag: 'Membres taggés',
@@ -116,6 +118,22 @@ exports.default = {
       removeTag: 'Supprimer',
       empty: "Aucune règle de tagging n'est liée au tag {{ tag }}",
       createViaSmartlist: 'Accéder aux Smartlists',
+    },
+    offerDetail: {
+      detailTable: {
+        tagInBlackList: 'Non réservable par les membres disposant du tag',
+        tagInWhiteList: 'Réservable par les membres disposant du tag',
+      },
+      offerWithTag: 'Offres taggées',
+      removeTagFromAll: 'Retirer tous les tags',
+      filters: {
+        selectorTitle: 'Filtrer sur les autorisations',
+        options: {
+          all: 'Afficher toutes les séances',
+          onlyWhite: 'Réservables avec ce tag',
+          onlyBlack: 'Non réservables avec de tag',
+        },
+      },
     },
   },
 };

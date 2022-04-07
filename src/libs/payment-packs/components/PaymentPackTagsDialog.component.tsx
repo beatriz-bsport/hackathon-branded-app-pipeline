@@ -1,14 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-
 import { makeStyles } from '@material-ui/core/styles';
+
 import { Tag, TagGroup } from '../../tag/types';
 import TagChip from '../../tag/components/TagChip.component';
 
@@ -22,7 +21,7 @@ type Props = {
 
 export const PaymentPackCompatibilityDialog = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['paymentPack']);
+  const { t } = useTranslation('paymentPack');
   const { open, whitelistTags, blacklistTags } = props;
 
   const renderTags = (tags: Array<Tag<TagGroup>>, msg: string) => {

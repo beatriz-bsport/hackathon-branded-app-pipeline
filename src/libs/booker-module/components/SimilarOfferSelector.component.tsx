@@ -66,13 +66,18 @@ class SimilarOffers extends React.PureComponent<Props> {
 
   onClickSelectAllOffers = () => {
     const offers = this.availableOffers.filter((o) => {
-      const { isBookable, isRegistered } = getOfferFeature(
+      const { isBookable, isRegistered, blockedByTags } = getOfferFeature(
         o,
         this.props.offerStatusById,
         this.props.acceptDoubleBooking,
       );
 
-      if (!isBookable || isRegistered) {
+      if (
+        !isBookable ||
+        isRegistered ||
+        blockedByTags ||
+        this.props.offerStatusById[o?.id]?.blocked_by_tags
+      ) {
         return false;
       }
 

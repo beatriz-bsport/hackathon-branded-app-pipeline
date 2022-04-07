@@ -98,6 +98,7 @@ exports.default = {
     minuteSmall: 'min',
     export: 'Exporter',
     generate: 'Générer',
+    filter: 'Filtrer',
     tax: 'TVA',
     uploadOneImage: {
       new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
@@ -121,6 +122,7 @@ exports.default = {
     until: "Jusqu'au",
     paymentMethod: 'Méthode de paiement',
     activity: 'Activité',
+    selectAnActivity: "Sélection d'une activité",
     datetime: 'Séance',
     paymentPack: 'Carte de cours',
     amount: 'Montant',
@@ -164,6 +166,8 @@ exports.default = {
     pass: 'Pass',
     booking_s: 'Séance(s)',
     offers: 'Séances',
+    offerCreation: "Création d'une séance",
+    offerEdition: "Edition d'une séance",
     date: 'Date',
     nothing: 'Aucun',
     bookings: 'Réservations',
@@ -490,6 +494,18 @@ exports.default = {
         explainNotify: 'Envoyer une alerte aux clients ayant réservé',
         explainModalities:
           'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
+      },
+      advancedOptions: {
+        header: 'Avancé',
+        tag: {
+          header: 'Tags',
+          helperText:
+            'Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possèdant un des tags sélectionnés.',
+          allowed: 'Autorisé',
+          doNotSelectToAllowAllMembers:
+            'Laisser vide pour autoriser tous les membres',
+          notAllowed: 'Non-Autorisé',
+        },
       },
     },
     title: 'Titre',

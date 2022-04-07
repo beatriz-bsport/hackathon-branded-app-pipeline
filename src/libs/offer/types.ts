@@ -18,6 +18,10 @@ export type OfferFilterData = {
   level__in?: number[];
   activity__in?: number[];
   establishment_group__in?: number[];
+  page?: number;
+  page_size: number;
+  whitelist_tags_id__in?: number[];
+  blacklist_tags_id__in?: number[];
 };
 
 //
@@ -62,7 +66,13 @@ export type OfferDetail = {
   timezone_name: boolean;
 };
 
-export type Offer<C = number, E = number, M = number, A = number> = {
+export type Offer<
+  C = number,
+  E = number,
+  M = number,
+  A = number,
+  T = number,
+> = {
   company: number;
   activity: A;
   available: boolean;
@@ -93,6 +103,9 @@ export type Offer<C = number, E = number, M = number, A = number> = {
   meta_activity: M;
   timezone_name: string;
   room_blueprint?: number;
+  whitelist_tags: Array<T>;
+  blacklist_tags: Array<T>;
+  duration_minute: number;
 };
 
 export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;
@@ -109,6 +122,7 @@ export type OfferStatus = {
   bookable_status: number;
   waiting_list_status: number;
   taken_spots: number[];
+  blocked_by_tags: boolean;
 };
 
 export type OfferState = ErrorAndLoading & {
@@ -121,7 +135,16 @@ export type OfferState = ErrorAndLoading & {
     filters: OfferFilter;
   };
   byId: { [key: string]: Offer };
-  calendar: OfferMinimal[];
+  calendar: {
+    next_page: number;
+    page: number;
+    count: number;
+    links: {
+      next: string | null;
+      previous: string | null;
+    };
+    results: OfferMinimal[];
+  };
   lastFetched: Date;
   byDay: ErrorAndLoading & { allIds: number[] };
   retrieve: ErrorAndLoading & { data: Offer | null };
@@ -149,4 +172,5 @@ export type OfferState = ErrorAndLoading & {
   numberOfMassDisabledOffer: ErrorAndLoading & {
     number: number;
   };
+  tagManagement: ErrorAndLoading;
 };

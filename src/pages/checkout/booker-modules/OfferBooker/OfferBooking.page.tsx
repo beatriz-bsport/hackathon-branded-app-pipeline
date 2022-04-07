@@ -209,7 +209,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.state.selectedPack,
       this.props.theme.accept_double_booking,
     );
-    return areBookable || areWaitingList;
+    const blockedByTags =
+      this.props.offerStatusById[this.props?.id]?.blocked_by_tags;
+    return !blockedByTags && (areBookable || areWaitingList);
   };
 
   onClickBook = () => {
@@ -511,15 +513,15 @@ class OfferBooking extends React.PureComponent<Props, State> {
       loading,
       isRegistered,
       isRegisteredWaitingList,
+      blockedByTags,
     } = getOfferFeature(
       this.props.offer,
       this.props.offerStatusById,
       this.props.theme.accept_double_booking,
     );
-
     if (
       !loading &&
-      !isBookable &&
+      (!isBookable || blockedByTags) &&
       this.props.offer &&
       this.props.offer.meta_activity
     ) {
@@ -531,6 +533,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           isWaitingList,
           isRegistered,
           isRegisteredWaitingList,
+          blockedByTags,
         },
         this.props.t,
       );
@@ -632,7 +635,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     isRegisteringForWaitingList={isRegisteringForWaitingList}
                     onRemoveGuest={this.removeGuest}
                     additionalGuestList={this.state.additionalGuestList}
-                    onAddAdditionalGuest={this.addAdditionalGuest}
+                    onAddAdditionalGuest={
+                      this.showBookingButton()
+                        ? () => this.addAdditionalGuest
+                        : null
+                    }
                   />
                 </div>
               </div>

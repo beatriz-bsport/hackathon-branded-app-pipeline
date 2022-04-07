@@ -180,6 +180,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
       coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
       editableCoachPaymentRule
       showPartnership={this.props.showPartnership}
+      tagList={this.props.allTagsWithTagGroup}
     />
   );
 

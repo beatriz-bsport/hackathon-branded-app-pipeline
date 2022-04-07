@@ -1,22 +1,29 @@
-// @flow
-
 import React, { Component } from 'react';
 import compose from 'recompose/compose';
 
+import { Theme } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import DatePicker from 'material-ui-pickers/DatePicker';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import InfoIcon from '@material-ui/icons/Info';
-import CalendarIcon from '@material-ui/icons/Today';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import { Theme } from '@material-ui/core';
-import DatePicker from 'material-ui-pickers/DatePicker';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Collapse from '@material-ui/core/Collapse';
+
+import BlockIcon from '@material-ui/icons/Block';
+import CheckIcon from '@material-ui/icons/Check';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
+import CalendarIcon from '@material-ui/icons/Today';
+import InfoIcon from '@material-ui/icons/Info';
 
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
@@ -46,6 +53,8 @@ import type { CoachPaymentRule } from '../coach-payment-rules/types';
 import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import PartnershipToogle from './form/PartnershipToogle.component';
 import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import type { Tag, TagGroup } from '#libs/tag/types';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -83,6 +92,45 @@ const styles = (theme: Theme) => ({
   marginLeft: {
     marginLeft: theme.spacing(2),
   },
+  title: {
+    fontWeight: 500,
+    color: '#000',
+  },
+  settings: {
+    color: '#868686',
+  },
+  tagSelectorLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+  },
+  tagSelectorLabelIcon: {
+    marginRight: theme.spacing(1),
+  },
+  tagSelector: {
+    paddingBottom: theme.spacing(2),
+  },
+  tagSectionHeader: {
+    paddingBottom: theme.spacing(1),
+  },
+  tagSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
+  advancedOptionsHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+  },
+  advancedOptionsSection: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    paddingBottom: theme.spacing(10),
+  },
 });
 
 type OwnProps = {
@@ -114,6 +162,7 @@ type OwnProps = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   editableCoachPaymentRule: boolean;
   showPartnership: boolean;
+  tagList: Array<Tag<TagGroup>>;
 };
 
 type Props = OwnProps &
@@ -147,6 +196,9 @@ type State = {
   coach_payment_rule: number;
   available_on_partnership: boolean;
   manager_only: boolean;
+  whitelist_tags: number[];
+  blacklist_tags: number[];
+  openAdvancedOptions: boolean;
 };
 
 export class OfferForm extends Component<Props, State> {
@@ -191,6 +243,9 @@ export class OfferForm extends Component<Props, State> {
       coach_payment_rule: null,
       available_on_partnership: true,
       manager_only: false,
+      whitelist_tags: [],
+      blacklist_tags: [],
+      openAdvancedOptions: false,
     };
   }
 
@@ -219,6 +274,8 @@ export class OfferForm extends Component<Props, State> {
       coach_payment_rule,
       available_on_partnership,
       manager_only,
+      whitelist_tags,
+      blacklist_tags,
     } = this.state;
 
     const offer: any = {
@@ -235,6 +292,8 @@ export class OfferForm extends Component<Props, State> {
       coach_payment_rule,
       available_on_partnership,
       manager_only,
+      whitelist_tags,
+      blacklist_tags,
     };
 
     if (roomBlueprint) {
@@ -860,6 +919,123 @@ export class OfferForm extends Component<Props, State> {
     );
   };
 
+  renderAdvancedSettings = () => {
+    const { classes, t, tagList } = this.props;
+    const { openAdvancedOptions } = this.state;
+    return (
+      <>
+        <div className={classes.advancedOptionsSection}>
+          <ButtonBase
+            onClick={() =>
+              this.setState((prevState: State) => ({
+                openAdvancedOptions: !prevState.openAdvancedOptions,
+              }))
+            }
+            className={classes.advancedOptionsHeader}
+          >
+            <SettingsIcon className={classes.settings} />
+            <Typography variant="h6">
+              {t('form.offer.advancedOptions.header')}
+            </Typography>
+            {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ButtonBase>
+          <Collapse in={openAdvancedOptions}>
+            <div className={classes.tagSection}>
+              <Typography className={classes.title}>
+                {`${t('form.offer.advancedOptions.tag.header')}\u00A0`}
+              </Typography>
+              <Typography variant="caption">
+                {t('form.offer.advancedOptions.tag.helperText')}
+              </Typography>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <CheckIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.offer.advancedOptions.tag.allowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    [
+                      ...tagList?.filter(
+                        (tag) => !this.state.blacklist_tags?.includes(tag.id),
+                      ),
+                    ] || []
+                  }
+                  placeholder={t(
+                    'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string; value: number };
+                    }>,
+                  ) =>
+                    this.setState({
+                      whitelist_tags: items.map((item) => item.value),
+                    })
+                  }
+                  onDeleteTag={(itemId: number) =>
+                    this.setState((prevState: State) => ({
+                      ...prevState,
+                      whitelist_tags: prevState.whitelist_tags.filter(
+                        (tg) => tg !== itemId,
+                      ),
+                    }))
+                  }
+                  selectedTags={this.state.whitelist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                  inScrollBar
+                />
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <BlockIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.offer.advancedOptions.tag.notAllowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    [
+                      ...tagList?.filter(
+                        (tag) => !this.state.whitelist_tags?.includes(tag.id),
+                      ),
+                    ] || []
+                  }
+                  placeholder={t(
+                    'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string; value: number };
+                    }>,
+                  ) =>
+                    this.setState({
+                      blacklist_tags: items.map((item) => item.value),
+                    })
+                  }
+                  onDeleteTag={(itemId: number) =>
+                    this.setState((prevState: State) => ({
+                      ...prevState,
+                      blacklist_tags: prevState.blacklist_tags.filter(
+                        (tg) => tg !== itemId,
+                      ),
+                    }))
+                  }
+                  selectedTags={this.state.blacklist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                  inScrollBar
+                />
+              </div>
+            </div>
+          </Collapse>
+        </div>
+      </>
+    );
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -871,6 +1047,9 @@ export class OfferForm extends Component<Props, State> {
           </div>
           <div className={classes.fieldGroup}>{this.renderTimeSettings()}</div>
           <div className={classes.fieldGroup}>{this.renderSpecificities()}</div>
+          <div className={classes.fieldGroup}>
+            {this.renderAdvancedSettings()}
+          </div>
           <div className={classes.fieldGroup}>{this.renderFooter()}</div>
         </form>
       </div>

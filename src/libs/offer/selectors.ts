@@ -1,7 +1,10 @@
+import groupBy from 'lodash/groupBy';
 import { createSelector } from 'reselect';
+
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
+import { getallTagsWithTagGroup } from '../tag/selectors';
 
 import { getAllCoachesDict } from '../associated-coach/selectors';
 import {
@@ -17,7 +20,11 @@ import { PaymentPack } from '../payment-packs/types';
 const getState = (state: RootState) => state.offer;
 
 const getAll = (state: RootState) => getState(state).offers;
+export const getOfferCalendarState = (state: RootState) =>
+  getState(state).calendar;
 
+export const getOfferCalendarStateData = (state: RootState) =>
+  getOfferCalendarState(state).results;
 export const getDetailedOffer = (state: RootState) =>
   getState(state).retrieve.data;
 
@@ -144,6 +151,34 @@ export const withCoach = memoize((selector: (state: RootState) => any) =>
       coach_override: o.coach_override
         ? coachData[o.coach_override] || o.coach_override
         : null,
+    }));
+  }),
+);
+
+export const withTags = memoize((selector: (state: RootState) => any) =>
+  createSelector([selector, getallTagsWithTagGroup], (offerObject, tagList) => {
+    if (!offerObject) return null;
+    const tagListById = groupBy(tagList, 'id');
+    if (!Array.isArray(offerObject)) {
+      return {
+        ...offerObject,
+        blacklist_tags: offerObject?.blacklist_tags
+          ?.map((id) => tagListById?.[id]?.[0])
+          .filter((tag) => tag),
+        whitelist_tags: offerObject?.whitelist_tags
+          .map((id) => tagListById?.[id])
+          .filter((tag) => tag),
+      };
+    }
+
+    return offerObject.map((_off) => ({
+      ..._off,
+      blacklist_tags: _off?.blacklist_tags
+        ?.map((id: number) => tagListById?.[id]?.[0])
+        .filter((tag: number) => tag),
+      whitelist_tags: _off?.whitelist_tags
+        .map((id: number) => tagListById?.[id]?.[0])
+        .filter((tag: number) => tag),
     }));
   }),
 );
@@ -323,4 +358,5 @@ export const getNumberOfMassDisabledOffer = (state: RootState) =>
 export const getNextAvailableOffer = (state: RootState) =>
   getState(state).next.item;
 
+export const getCalendarFullOfferData;
 export default { getAll, todayOffers, getSimilars };

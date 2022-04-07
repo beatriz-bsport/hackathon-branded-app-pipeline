@@ -1,20 +1,34 @@
-// @flow
 import React, { Component } from 'react';
+import moment from 'moment-timezone';
+import { compose } from 'recompose';
 
+import { withTranslation, WithTranslation } from 'react-i18next';
+
+import {
+  withStyles,
+  WithStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
-import moment from 'moment-timezone';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Collapse from '@material-ui/core/Collapse';
 
+import BlockIcon from '@material-ui/icons/Block';
+import CheckIcon from '@material-ui/icons/Check';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Moment } from '../../i18n';
-import DurationInput from '../../components/input/DurationInput.component';
-import NumericInput from '../../components/input/NumericInput.component';
-import type { Coach, Establishment, Offer } from '../../api/types';
+
+import DurationInput from '#components/input/DurationInput.component';
+import NumericInput from '#components/input/NumericInput.component';
+import LevelInput from '#components/input/LevelInput.component';
+import DateTimeInput from '#components/input/DateTimeInput.component';
 
 import RecursionToogle from './form/RecursionToogle.component';
 import EstablishmentSubForm from './form/EstablishmentSubForm.component';
@@ -23,58 +37,63 @@ import NotificationToogle from './form/NotificationToogle.component';
 import PartnershipToogle from './form/PartnershipToogle.component';
 import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
 
-import LevelInput from '../../components/input/LevelInput.component';
-import DateTimeInput from '../../components/input/DateTimeInput.component';
-
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
 import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
-import { RoomBlueprint } from '../spot-scheduling/types';
 import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
 import SpotSchedulingHelper from '../spot-scheduling/utils';
+
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+
+import type { Coach, Establishment, Offer } from '../../api/types';
+import type { RoomBlueprint } from '../spot-scheduling/types';
 import type { CoachPaymentRule } from '../coach-payment-rules/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
 
-type Props = {
-  processing: boolean,
-  similarOfferLoading: boolean,
-  is_whereby_integration_enabled: boolean,
-  t: TFunction,
-  classes: Object,
+type OwnProps = {
+  processing: boolean;
+  similarOfferLoading: boolean;
+  is_whereby_integration_enabled: boolean;
 
-  offer: Offer,
-  similarOffers: Array<Offer>,
-  coaches: Array<Coach>,
-  establishments: Array<Establishment>,
-  roomBlueprints: RoomBlueprint[],
-  allRoomBlueprints: RoomBlueprint[],
+  offer: Offer;
+  similarOffers: Array<Offer>;
+  coaches: Array<Coach>;
+  establishments: Array<Establishment>;
+  roomBlueprints: RoomBlueprint[];
+  allRoomBlueprints: RoomBlueprint[];
 
-  onCancel: () => void,
-  fetchSimilarOffers: (id: number) => void,
-  onConfirm: ({ offerId: number, data: FormData }) => void,
-  metaActivities: Array<MetaActivity>,
-  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
-  showPartnership: boolean,
+  onCancel: () => void;
+  fetchSimilarOffers: (id: number) => void;
+  onConfirm: ({ offerId, data }: { offerId: number; data: FormData }) => void;
+  metaActivities: Array<MetaActivity>;
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
+  showPartnership: boolean;
+  tagList: Array<Tag<TagGroup>>;
 };
 
+type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
 type State = {
-  hour: string,
-  step: number,
-  coach: number,
-  establishment: number,
-  modifyRecursively: boolean,
-  notifyConsumers: boolean,
-  date: Object,
-  duration_minute: ?number,
+  hour: string;
+  step: number;
+  coach: number;
+  establishment: number;
+  modifyRecursively: boolean;
+  notifyConsumers: boolean;
+  date: moment.Moment;
+  duration_minute?: number;
 
-  coach_override: ?Coach,
-  establishment_override: ?Establishment,
-  isSimilarOfferListExpanded: boolean,
-  similarOffersWithSelectedStatus: Array<Object>,
-  coach_payment_rule: number | null,
+  coach_override?: Coach;
+  establishment_override?: Establishment;
+  isSimilarOfferListExpanded: boolean;
+  similarOffersWithSelectedStatus: Array<Object>;
+  coach_payment_rule: number | null;
+  manager_only: boolean;
+  openAdvancedOptions: boolean;
 };
 
 export type FormData = Object;
 
-function pad(n) {
+function pad(n: number) {
   return n < 10 ? `0${n}` : n;
 }
 
@@ -97,9 +116,11 @@ const FIELDS = [
   'level',
   'meta_activity',
   'coach_payment_rule',
+  'whitelist_tags',
+  'blacklist_tags',
 ];
 
-const getModifiedFields = (oldData, newData) => {
+const getModifiedFields = (oldData: Offer, newData: Offer) => {
   const modifiedFields = [];
   for (const field of FIELDS) {
     if (oldData[field] !== newData[field]) {
@@ -108,7 +129,7 @@ const getModifiedFields = (oldData, newData) => {
   }
   return modifiedFields;
 };
-const appendModifiedData = (oldData, newData, data) => {
+const appendModifiedData = (oldData: Offer, newData: Offer, data: Offer) => {
   for (const field of FIELDS) {
     if (oldData[field] !== newData[field]) {
       // eslint-disable-next-line
@@ -158,6 +179,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
           ...so,
           selected: true,
         })),
+
+      whitelist_tags: props.offer.whitelist_tags?.map((tag) => tag.id) || [],
+      blacklist_tags: props.offer.blacklist_tags?.map((tag) => tag.id) || [],
+      openAdvancedOptions: false,
     };
     this.initialOfferState = {
       date_start: Moment(props.offer.date_start),
@@ -180,6 +205,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
       level: props.offer.level_id,
+      whitelist_tags: props.offer.whitelist_tags?.map((tag) => tag.id) || [],
+      blacklist_tags: props.offer.blacklist_tags?.map((tag) => tag.id) || [],
     };
   }
 
@@ -302,7 +329,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     this.props.onConfirm({ offerId: offer.id, data });
   };
 
-  onFormFieldChange = (id: string) => (value: *) => {
+  onFormFieldChange = (id: string) => (value: any) => {
     this.setState({ [id]: value });
   };
 
@@ -704,6 +731,9 @@ export class EditLiveOfferForm extends Component<Props, State> {
             </div>
           </div>
         )}
+        <div className={this.props.classes.fieldGroup}>
+          {this.renderAdvancedSettings()}
+        </div>
 
         <FeatureListProvider>
           {(featureList) => {
@@ -816,6 +846,123 @@ export class EditLiveOfferForm extends Component<Props, State> {
     );
   };
 
+  renderAdvancedSettings = () => {
+    const { classes, t, tagList } = this.props;
+    const { openAdvancedOptions } = this.state;
+    return (
+      <>
+        <div className={classes.advancedOptionsSection}>
+          <ButtonBase
+            onClick={() =>
+              this.setState((prevState: State) => ({
+                openAdvancedOptions: !prevState.openAdvancedOptions,
+              }))
+            }
+            className={classes.advancedOptionsHeader}
+          >
+            <SettingsIcon className={classes.settings} />
+            <Typography variant="h6">
+              {t('form.offer.advancedOptions.header')}
+            </Typography>
+            {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ButtonBase>
+          <Collapse in={openAdvancedOptions}>
+            <div className={classes.tagSection}>
+              <Typography className={classes.title}>
+                {`${t('form.offer.advancedOptions.tag.header')}\u00A0`}
+              </Typography>
+              <Typography variant="caption">
+                {t('form.offer.advancedOptions.tag.helperText')}
+              </Typography>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <CheckIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.offer.advancedOptions.tag.allowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    [
+                      ...tagList?.filter(
+                        (tag) => !this.state.blacklist_tags?.includes(tag.id),
+                      ),
+                    ] || []
+                  }
+                  placeholder={t(
+                    'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string; value: number };
+                    }>,
+                  ) =>
+                    this.setState({
+                      whitelist_tags: items.map((item) => item.value),
+                    })
+                  }
+                  onDeleteTag={(itemId: number) =>
+                    this.setState((prevState: State) => ({
+                      ...prevState,
+                      whitelist_tags: prevState.whitelist_tags.filter(
+                        (tg) => tg !== itemId,
+                      ),
+                    }))
+                  }
+                  selectedTags={this.state.whitelist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                  inScrollBar
+                />
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <BlockIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('form.offer.advancedOptions.tag.notAllowed')}
+                  </Typography>
+                </div>
+                <TagSelector
+                  allTagsWithTagGroup={
+                    [
+                      ...tagList?.filter(
+                        (tag) => !this.state.whitelist_tags?.includes(tag.id),
+                      ),
+                    ] || []
+                  }
+                  placeholder={t(
+                    'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
+                  onChange={(
+                    items: Array<{
+                      item: Tag & { label: string; value: number };
+                    }>,
+                  ) =>
+                    this.setState({
+                      blacklist_tags: items.map((item) => item.value),
+                    })
+                  }
+                  onDeleteTag={(itemId: number) =>
+                    this.setState((prevState: State) => ({
+                      ...prevState,
+                      blacklist_tags: prevState.blacklist_tags.filter(
+                        (tg) => tg !== itemId,
+                      ),
+                    }))
+                  }
+                  selectedTags={this.state.blacklist_tags}
+                  isClearable
+                  closeMenuOnSelect
+                  inScrollBar
+                />
+              </div>
+            </div>
+          </Collapse>
+        </div>
+      </>
+    );
+  };
+
   renderConfirmChange = () => (
     <Grid container direction="column" spacing={4}>
       <Grid item>
@@ -840,44 +987,82 @@ export class EditLiveOfferForm extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  subtitle: { marginBottom: theme.spacing(1) },
-  fieldGroup: { marginBottom: theme.spacing(4) },
-  fieldLeft: {
-    marginLeft: theme.spacing(1),
-  },
-  field: {
-    marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(2),
-    width: '100%',
-  },
-  columnFullWidth: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%',
-  },
-  borderBar: {
-    backgroundColor: theme.palette.primary.main,
-    heigth: '100%',
-    width: '2.8px',
-    marginRight: theme.spacing(1),
-  },
-  groupContainer: {
-    display: 'flex',
-    width: '100%',
-  },
-  blueprintSelectorContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-  },
-  marginTop1: {
-    marginTop: theme.spacing(1),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    subtitle: { marginBottom: theme.spacing(1) },
+    fieldGroup: { marginBottom: theme.spacing(4) },
+    fieldLeft: {
+      marginLeft: theme.spacing(1),
+    },
+    field: {
+      marginLeft: theme.spacing(1),
+      marginTop: theme.spacing(2),
+      width: '100%',
+    },
+    columnFullWidth: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      width: '100%',
+    },
+    borderBar: {
+      backgroundColor: theme.palette.primary.main,
+      heigth: '100%',
+      width: '2.8px',
+      marginRight: theme.spacing(1),
+    },
+    groupContainer: {
+      display: 'flex',
+      width: '100%',
+    },
+    blueprintSelectorContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
+    marginTop1: {
+      marginTop: theme.spacing(1),
+    },
+    advancedOptionsSection: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    title: {
+      fontWeight: 500,
+      color: '#000',
+    },
+    settings: {
+      color: '#868686',
+    },
+    tagSelectorLabel: {
+      display: 'flex',
+      alignItems: 'center',
+      paddingBottom: theme.spacing(1),
+    },
+    tagSelectorLabelIcon: {
+      marginRight: theme.spacing(1),
+    },
+    tagSelector: {
+      paddingBottom: theme.spacing(2),
+    },
+    tagSectionHeader: {
+      paddingBottom: theme.spacing(1),
+    },
+    tagSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(2),
+      paddingTop: theme.spacing(2),
+    },
+    advancedOptionsHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      gap: theme.spacing(2),
+    },
+  });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(),
 )(EditLiveOfferForm);

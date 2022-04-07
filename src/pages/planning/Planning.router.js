@@ -17,6 +17,7 @@ import {
   withCoach,
   withEstablishment,
   withGender,
+  withTags,
 } from '../../libs/offer/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
@@ -58,8 +59,10 @@ const PlanningWithDateAndOffer = compose(
   }),
   connect(
     (state) => ({
-      offers: withMetaActivity(
-        withEstablishment(withCoach(withGender(getManagerOffersFiltered))),
+      offers: withTags(
+        withMetaActivity(
+          withEstablishment(withCoach(withGender(getManagerOffersFiltered))),
+        ),
       )(state),
     }),
 

@@ -4454,7 +4454,26 @@
         "performanceTracking": {
             "stat": "Statistieken"
         },
-        "attendanceUpdatedOn": "Bijgewerkt op: {{- d }} om {{- t }}"
+        "attendanceUpdatedOn": "Bijgewerkt op: {{- d }} om {{- t }}",
+        "asGuest": "Gast",
+        "guest": {
+            "form": {
+                "actions": {
+                    "addGuest": "Een gast toevoegen",
+                    "close": "Annuleren",
+                    "submit": "Bevestigen"
+                },
+                "lastname": {
+                    "label": "Achternaam"
+                },
+                "firstname": {
+                    "label": "Voornaam"
+                },
+                "email": {
+                    "label": "E-mail"
+                }
+            }
+        }
     },
     "marketplace": {
         "selector": {
@@ -9442,6 +9461,10 @@
                     "settingsDelay": "Instellingen",
                     "label": "Eén voor één"
                 }
+            },
+            "last_delay_before_auto_consume": {
+                "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
+                "label": "Het automatisch reserveren alleen voltooien als de sessie plaatsvindt in minder dan "
             }
         },
         "explainWaitingListConf": "Voorbeeld: een sessie begint over 3 uur. Een lid heeft dan nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zijn/haar plaats vergaat.",

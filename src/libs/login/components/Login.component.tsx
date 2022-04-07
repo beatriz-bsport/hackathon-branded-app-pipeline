@@ -266,7 +266,12 @@ export class ConsumerLogin extends Component<Props, State> {
             </Button>
             {!this.props.isPremium && (
               <div className={classes.studioManager}>
-                <a href={getCalendlyLinkFromCountry()} className={classes.link}>
+                <a
+                  href={getCalendlyLinkFromCountry(
+                    this.props.theme?.company_name,
+                  )}
+                  className={classes.link}
+                >
                   <Typography variant="body2">{t('contactUs')}</Typography>
                 </a>
               </div>

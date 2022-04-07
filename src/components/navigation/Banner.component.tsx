@@ -6,6 +6,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Slide from '@material-ui/core/Slide';
 
 import { useTranslation } from 'react-i18next';
+import getCalendlyLinkFromCountry from '../../i18n/utils/calendly-link-language';
 
 type Props = {
   networkAvailable: boolean;
@@ -34,7 +35,7 @@ export const Banner = (props: Props) => {
         <div className={classes.infoBanner}>
           <div className={classes.visible}>
             <a
-              href="https://calendly.com/bsport/demoen?month=2020-07"
+              href={getCalendlyLinkFromCountry()}
               style={{ textDecoration: 'none' }}
             >
               <Fab variant="extended" color="primary">

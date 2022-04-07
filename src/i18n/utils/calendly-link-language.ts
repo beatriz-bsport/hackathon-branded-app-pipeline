@@ -1,3 +1,5 @@
+import Config from '../../config';
+
 const supportedLangu = ['en', 'fr', 'de', 'es', 'it', 'pt', 'nl'];
 
 const langu =
@@ -7,25 +9,20 @@ const langu =
     ? navigator.language.substr(0, 2)
     : 'en';
 
-const getCalendlyLinkFromCountry = () => {
+const getCalendlyLinkFromCountry = (companyName: string | null) => {
   switch (langu) {
     case 'en':
-      return 'https://calendly.com/bsport-english/demo';
     case 'fr':
-      return 'https://calendly.com/bsport-french/demo';
-    case 'de':
-      return 'https://calendly.com/bsport-deutsch/demo';
-    case 'es':
-      return 'https://calendly.com/bsport-espanol/demo';
     case 'it':
-      return 'https://calendly.com/bsport-italiano/demo';
-    case 'pt':
-      return 'https://calendly.com/bsport-portuguese/demo';
     case 'nl':
-      return 'https://calendly.com/bsport-emea/demo';
-
+    case 'es':
+      return `https://pro.bsport.io/${langu}/bookDemo/?utm_content=signin&utm_source=${
+        Config.REACT_APP_SENTRY_ENVIRONMENT
+      }&utm_medium=referral&utm_campaign=${companyName || 'bsport'}`;
     default:
-      return 'https://calendly.com/bsport-english/demo';
+      return `https://pro.bsport.io/en/bookDemo/?utm_content=signin&utm_source=${
+        Config.REACT_APP_SENTRY_ENVIRONMENT
+      }&utm_medium=referral&utm_campaign=${companyName || 'bsport'}`;
   }
 };
 

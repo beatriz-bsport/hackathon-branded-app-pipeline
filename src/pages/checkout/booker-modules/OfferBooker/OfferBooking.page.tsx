@@ -3,12 +3,12 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import {
   Backdrop,
-  Button,
   CircularProgress,
   Theme,
   Typography,
   Hidden,
   withStyles,
+  LinearProgress,
 } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import BlockIcon from '@material-ui/icons/Block';
@@ -22,13 +22,11 @@ import {
 } from '@bsport/common/lib/master-data/available-payment';
 
 import Analytics from '#components/analytics/Analytics.component';
-
+import withTheme from '#hocs/company-themifier.hoc';
 import { RootState } from '../../../../reducers';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
-import themeSelectors, {
-  getCurrencyDisplayWithPrice,
-} from '#libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 
 import {
   getOfferById,
@@ -78,6 +76,7 @@ import {
 import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
 
 import OfferSpotSelector from './OfferSpotSelector';
+import BookButton from '#libs/booker-module/components/BookButton.components';
 
 type OwnProps = { id: number };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -434,60 +433,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
     );
   };
 
-  renderBookButton = () => {
-    const { classes, t } = this.props;
-    const selectedOffersCount = this.state.selectedOffers.length + 1;
-
-    let price = '';
-    if (this.state.selectedPack?.paymentPack) {
-      price = getCurrencyDisplayWithPrice(
-        this.state.selectedPack?.paymentPack.price,
-        this.props.theme.is_tax_excluded_in_marketplace,
-        this.state.selectedPack?.paymentPack.tax,
-      );
-    } else if (this.state.selectedPack?.paymentPackCombo) {
-      price = getCurrencyDisplayWithPrice(
-        this.state.selectedPack?.paymentPackCombo.price,
-        this.props.theme.is_tax_excluded_in_marketplace,
-        this.state.selectedPack?.paymentPackCombo.tax,
-      );
-    }
-
-    const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
-
-    return (
-      <div className={classes.bookingButtonContainer}>
-        <Button
-          onClick={this.onClickBook}
-          className={classes.bookingButton}
-          variant="contained"
-          color="primary"
-        >
-          {isRegisteringForWaitingList ? (
-            <div className={classes.waitingListButtonContent}>
-              <HourglassEmptyIcon className={classes.iconLeft} />
-              <Typography variant="button" display="block">
-                {t('booking:offer.mainButton.registerWaitingList')}
-              </Typography>
-            </div>
-          ) : (
-            <div className={classes.bookingButtonContent}>
-              <Typography variant="button" display="block">
-                {t('booking:offer.mainButton.book')}
-              </Typography>
-              <Typography variant="caption">
-                {t('booking:offer.mainButton.numberOfBook', {
-                  count: selectedOffersCount,
-                })}
-              </Typography>
-            </div>
-          )}
-          {price && <div className={classes.bookingButtonPrice}>{price}</div>}
-        </Button>
-      </div>
-    );
-  };
-
   getIsRegisteringForWaitingList = () => {
     const { areBookable, areWaitingList } = getCanIBook(
       this.props.offerStatusById,
@@ -597,9 +542,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
   render() {
     const { classes } = this.props;
-
-    if (!this.props.offer) {
-      return null;
+    if (!this.props.offer || !this.props.theme) {
+      return (
+        <ConsumerAppBarContainer>
+          <LinearProgress className={classes.loading} />
+        </ConsumerAppBarContainer>
+      );
     }
     const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
     return (
@@ -642,6 +590,31 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     }
                   />
                 </div>
+                {this.showBookingButton() && (
+                  <div className={classes.bookingButtonContainer}>
+                    <BookButton
+                      isRegisteringForWaitingList={this.getIsRegisteringForWaitingList()}
+                      selectedOffersCount={this.state.selectedOffers.length + 1}
+                      price={
+                        this.state.selectedPack?.paymentPack?.price ||
+                        this.state.selectedPack?.paymentPackCombo?.price
+                      }
+                      tax={
+                        this.state.selectedPack?.paymentPack?.tax ||
+                        this.state.selectedPack?.paymentPackCombo?.tax
+                      }
+                      selectedPackId={
+                        this.state.selectedPack.consumerPaymentPack?.id ||
+                        this.state.selectedPack?.paymentPack?.id ||
+                        this.state.selectedPack?.paymentPackCombo?.id
+                      }
+                      is_tax_excluded_in_marketplace={
+                        this.props.theme.is_tax_excluded_in_marketplace
+                      }
+                      onClickBook={this.onClickBook}
+                    />
+                  </div>
+                )}
               </div>
 
               <Hidden mdUp>
@@ -651,7 +624,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
               <div className={classes.packsContainer}>
                 {this.renderBookingMethodSelector()}
                 <div style={{ height: 100, width: '100%' }} />
-                {this.showBookingButton() && this.renderBookButton()}
               </div>
             </div>
           </div>
@@ -671,7 +643,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
             hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
             acceptDoubleBooking={this.props.theme.accept_double_booking}
           />
-
           {this.state.showSpotSelector && (
             <OfferSpotSelector
               offer={this.props.offer}
@@ -694,7 +665,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
               onSubmit={this.onSubmitSpot}
             />
           )}
-
           <Backdrop
             className={classes.backdrop}
             open={this.state.showLoader}
@@ -708,164 +678,140 @@ class OfferBooking extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  pageContainer: {
-    minWidth: '100vw',
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'center',
-    overflowY: 'auto',
-    backgroundColor: 'white',
-    [theme.breakpoints.up('md')]: {
-      paddingBottom: theme.spacing(3),
-    },
-  },
-  contentContainer: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: 1400,
-      marginTop: theme.spacing(4),
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing(4),
-      paddingRight: theme.spacing(4),
-    },
-  },
-  responsiveContainer: {
-    position: 'relative',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(0),
-      paddingRight: theme.spacing(0),
-    },
-    [theme.breakpoints.up('md')]: {
-      marginTop: theme.spacing(8),
-      flexDirection: 'row',
-    },
-  },
-  offerContainer: {
-    display: 'flex',
-  },
-  packsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    [theme.breakpoints.up('md')]: {
-      borderWidth: 0,
-      marginLeft: theme.spacing(4),
-    },
-    [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing(4),
-    },
-  },
-  bookingButtonContainer: {
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'fixed',
-    paddingBottom: 'calc(2 * env(safe-area-inset-bottom))',
-    [theme.breakpoints.up('md')]: {
-      position: 'relative',
-      paddingBottom: 0,
-    },
-  },
-  bookingButtonContainer2: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-  },
-  bookingButton: {
-    width: '100%',
-    height: 50,
-    borderRadius: 0,
-  },
-  bookingButtonContent: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  waitingListButtonContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  bookingButtonPrice: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing(1),
-    paddingLeft: theme.spacing(3),
-    borderStyle: 'solid',
-    borderWidth: 0,
-    borderLeftWidth: 1,
-    borderColor: 'white',
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
-  inverseDivider1: {
-    height: 50,
-    boxShadow: 'inset 0px 0px 10px 0px #DEDEDE',
-    backgroundColor: '#F8F8F8',
-    marginLeft: -10,
-    marginRight: -20,
-    marginTop: 10,
-  },
-  inverseDivider2: {
-    height: 50,
-    boxShadow: 'inset 0px 0px 10px 0px #DEDEDE',
-    backgroundColor: '#F8F8F8',
-    marginLeft: -10,
-    marginRight: -20,
-  },
-  iconLeft: {
-    marginRight: theme.spacing(1),
-  },
-  offerGroupContainer: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
+const styles = (theme: Theme) => {
+  return {
+    loading: { width: '100%' },
+    pageContainer: {
+      minWidth: '100vw',
+      display: 'flex',
+      flexDirection: 'column',
       flex: 1,
+      alignItems: 'center',
+      overflowY: 'auto',
+      overflowX: 'hidden',
+      backgroundColor: 'white',
+      [theme.breakpoints.up('md')]: {
+        paddingBottom: theme.spacing(3),
+      },
     },
-    flexDirection: 'column',
-    '&>*': {
-      marginBottom: theme.spacing(2),
+    contentContainer: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: 1400,
+        marginTop: theme.spacing(4),
+      },
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+      },
     },
-  },
-  canNotBookMessage: {
-    marginTop: theme.spacing(2),
-    maxWidth: 500,
-  },
-  noItemIcon: {
-    fontSize: 160,
-  },
-  cannotBookContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    border: '1px solid #DEDEDE',
-    borderRadius: 12,
-    padding: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: 0,
-      paddingRight: 0,
+    responsiveContainer: {
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: theme.spacing(4),
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing(0),
+        paddingRight: theme.spacing(0),
+      },
+      [theme.breakpoints.up('md')]: {
+        marginTop: theme.spacing(8),
+        flexDirection: 'row',
+      },
     },
-  },
-});
+    offerContainer: {
+      display: 'flex',
+    },
+    packsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+      [theme.breakpoints.up('md')]: {
+        borderWidth: 0,
+        marginLeft: theme.spacing(4),
+      },
+      [theme.breakpoints.up('lg')]: {
+        marginLeft: theme.spacing(4),
+      },
+    },
+    bookingButtonContainer: {
+      bottom: 0,
+      left: 0,
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'fixed',
+      zIndex: '999',
+      marginBottom: '0px !important',
+      paddingBottom: 'calc(2 * env(safe-area-inset-bottom))',
+      [theme.breakpoints.up('md')]: {
+        position: 'relative',
+        paddingBottom: 0,
+      },
+    },
+    bookingButtonContainer2: {
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+    },
+
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+    },
+    inverseDivider1: {
+      height: 50,
+      boxShadow: 'inset 0px 0px 10px 0px #DEDEDE',
+      backgroundColor: '#F8F8F8',
+      marginLeft: -10,
+      marginRight: -20,
+      marginTop: 10,
+    },
+    inverseDivider2: {
+      height: 50,
+      boxShadow: 'inset 0px 0px 10px 0px #DEDEDE',
+      backgroundColor: '#F8F8F8',
+      marginLeft: -10,
+      marginRight: -20,
+    },
+
+    offerGroupContainer: {
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        flex: 1,
+      },
+      flexDirection: 'column',
+      '&>*': {
+        marginBottom: theme.spacing(2),
+      },
+    },
+    canNotBookMessage: {
+      marginTop: theme.spacing(2),
+      maxWidth: 500,
+    },
+    noItemIcon: {
+      fontSize: 160,
+    },
+    cannotBookContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      paddingLeft: theme.spacing(1),
+      border: '1px solid #DEDEDE',
+      borderRadius: 12,
+      padding: theme.spacing(4),
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
+    },
+  };
+};
 
 const mapStateToProps = (state: RootState, props: OwnProps) => ({
   offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
@@ -906,8 +852,9 @@ const mapDispatchToProps = {
 
 export default compose(
   // @ts-ignore
-  withStyles(styles),
   withTranslation(['booking']),
   routerParamsToProps({ id: 'id:number' }),
   connect(mapStateToProps, mapDispatchToProps),
+  withTheme,
+  withStyles(styles),
 )(OfferBooking);

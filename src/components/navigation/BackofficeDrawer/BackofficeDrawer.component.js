@@ -214,7 +214,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                 container
                 direction="row"
                 alignItems="center"
-                justify="space-between"
+                justifyContent="space-between"
                 wrap="nowrap"
                 style={{ width: '100%' }}
               >

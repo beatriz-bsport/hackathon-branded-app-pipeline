@@ -576,13 +576,12 @@ const ResponsiveDrawer: React.FC<Props> = ({
 
     if (item.type === 'nested') {
       return (
-        <React.Fragment key={String(i)}>
+        <React.Fragment key={item.text}>
           <ListItem
             id="button_menu_item"
             button
             onClick={handleToggle(i)}
             selected={isActive}
-            key={String(i)}
           >
             {item?.icon && (
               <ListItemIcon>
@@ -636,7 +635,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     }
 
     return (
-      <Wrapper>
+      <Wrapper key={item.text}>
         <ListItem
           button
           onClick={() => {

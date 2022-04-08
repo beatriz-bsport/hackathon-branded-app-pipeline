@@ -26,6 +26,8 @@ exports.default = {
   mail: {
     dialogTitle: 'Communication',
     title: 'Objet du mail',
+    titleInterpolated:
+      "Les variables contenues dans l'objet du mail et le corp du mail sont mises à jour en fonction du destinataire",
     writeMail: 'Ecrire un mail',
     selectTemplate: 'Sélectionner un template',
     content: 'Contenu du mail',

@@ -19,7 +19,6 @@ type Props = {
   loading: boolean,
   nextPage: number,
   fetchCampaignList: (page: number) => void,
-  campaignRecipientList: Array<Recipient>,
   campaignRecipientList: Array<[Campaign, Recipient]>,
 };
 export class MemberDetailContact extends React.Component<Props> {

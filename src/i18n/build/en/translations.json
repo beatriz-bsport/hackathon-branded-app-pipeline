@@ -8668,7 +8668,7 @@
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",
                 "isTooLate": "Registration for this class is now closed.",
-                "isWaitingListFull": "The class is full, and the waiting-list too.",
+                "isWaitingListFull": "The class and the waiting list are full.",
                 "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later.",
                 "isAlreadyRegistered": "You are already registered to this session"
             },
@@ -8951,7 +8951,17 @@
         "performanceTracking": {
             "stat": "Statistics"
         },
-        "attendanceUpdatedOn": "Updated on {{- d }} at {{- t }}"
+        "attendanceUpdatedOn": "Updated on {{- d }} at {{- t }}",
+        "guest": {
+            "form": {
+                "firstname": {
+                    "label": "First name"
+                },
+                "email": {
+                    "label": "Email"
+                }
+            }
+        }
     },
     "marketplace": {
         "selector": {

@@ -859,7 +859,17 @@
                 "coachChangeWarning": "Wanneer de instructeur van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "explainPartnership": "MarketPlaces (Onefit, ClassPass, etc.)",
-                "explainManagerOnly": "Open voor reserveringen (Website + Mobiele App)"
+                "explainManagerOnly": "Open voor reserveringen (Website + Mobiele App)",
+                "advancedOptions": {
+                    "tag": {
+                        "notAllowed": "Afgekeurd",
+                        "doNotSelectToAllowAllMembers": "Laat dit veld leeg om het voor iedereen beschikbaar te maken.",
+                        "allowed": "Goedgekeurd",
+                        "helperText": "Gebruik tags om bepaalde sessies alleen voor bepaalde doelgroepen beschikbaar te maken. Selecteer welke tags wel óf niet toegang geven tot de aangegeven activiteiten.",
+                        "header": "Tags"
+                    },
+                    "header": "Geavanceerd"
+                }
             },
             "payment": {
                 "additionalInformationHelper": "(Optioneel) Betalingskenmerk",
@@ -1365,7 +1375,11 @@
             "vaccinationDontWantToCommunicate": "Liever niet antwoorden",
             "vaccinationNotDone": "Ik bezit geen geldig coronabewijs",
             "vaccinationDone": "Ik bezit een geldig coronabewijs",
-            "vaccination_status": "Status coronabewijs"
+            "vaccination_status": "Status coronabewijs",
+            "offerEdition": "Sessies bewerken",
+            "offerCreation": "Sessies toevoegen",
+            "selectAnActivity": "Selecteer een activiteit",
+            "filter": "Filter"
         },
         "members": {
             "form": {
@@ -3763,7 +3777,8 @@
         "restoreOffer": "Sessie herstellen",
         "maximumNumberDescription": "Het maximum aantal reserveringen ({{effectif}}) is reeds bereikt. Weet je zeker dat je dit lid wilt inboeken? Deze actie overschrijdt het vooraf ingestelde maximum aantal reserveringen.",
         "maximumNumber": "Maximum aantal reserveringen",
-        "warningOfferFull": "Het maximum aantal reserveringen is bereikt"
+        "warningOfferFull": "Het maximum aantal reserveringen is bereikt",
+        "tagManagementInfo": "{{authorized}} goedgekeurde tag(s) en {{unauthorized}} afgekeurde tag(s)"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -4163,7 +4178,8 @@
                 "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
                 "isTooSoon": "Reserveringen worden vanaf {{ date_ }} geaccepteerd.",
-                "isAlreadyRegistered": "Je hebt deze sessie al gereserveerd."
+                "isAlreadyRegistered": "Je hebt deze sessie al gereserveerd.",
+                "blockedByTags": "Het is niet mogelijk om je voor deze sessie in te schrijven."
             },
             "messages": {
                 "offerLocked": "Fout bij het inschrijven",
@@ -4179,6 +4195,15 @@
             "isLoading": "Zoeken naar sessies...",
             "book": {
                 "unknowError": "De reservering kon momenteel niet worden voltooid."
+            },
+            "tags": {
+                "unAuthorized": "Het is niet mogelijk om je voor deze sessie in te schrijven.",
+                "managerDialogWarningDialog": {
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren",
+                    "content": "Waarschuwing! Dit lid bezit niet de juiste Tags om deze sessie te reserveren. Wil je jezelf inschrijven?",
+                    "title": "Attentie"
+                }
             }
         },
         "details": {
@@ -4436,7 +4461,8 @@
                     "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
                 },
                 "waiting_list": "Wachtlijst",
-                "book": "Aanmelden"
+                "book": "Aanmelden",
+                "blockedByTags": "Ongeldige tags"
             },
             "similarOffer": {
                 "showMore": "Toon meer",
@@ -8596,7 +8622,8 @@
                 "smartlist": "Smartlists",
                 "coupon": "Promoties",
                 "member": "Leden",
-                "toolbar": "Toon"
+                "toolbar": "Toon",
+                "offer": "Sessies"
             },
             "tagDetail": {
                 "noTag": "Selecteer een tag voor een gedetailleerd overzicht."
@@ -8619,7 +8646,8 @@
                 "smartlist_count": "Tags",
                 "member_count": "Getagde leden",
                 "tag": "Sub-tag",
-                "coupon_count": " "
+                "coupon_count": " ",
+                "offer_count": "Sessies"
             },
             "submit": "Bevestig",
             "cancel": "Annuleer",
@@ -8631,7 +8659,23 @@
             "delete": "Verwijder",
             "rename": "Hernoem",
             "addTag": "Een sub-tag toevoegen",
-            "addGroup": "Een hoofd-tag toevoegen"
+            "addGroup": "Een hoofd-tag toevoegen",
+            "offerDetail": {
+                "offerWithTag": "Getagde promoties",
+                "filters": {
+                    "options": {
+                        "onlyBlack": "Niet reserverbaar met deze tag",
+                        "onlyWhite": "Reserveerbaar met deze tag",
+                        "all": "Toon alle sessies"
+                    },
+                    "selectorTitle": "Filter op goedkeuring"
+                },
+                "removeTagFromAll": "Alle tags verwijderen",
+                "detailTable": {
+                    "tagInWhiteList": "[Whitelist] Kan wel worden gereserveerd door leden met de tag(s):",
+                    "tagInBlackList": "[Blacklist] Kan niet worden gereserveerd door leden met de tag(s):"
+                }
+            }
         },
         "select": "Selecteer een tag",
         "memberStatus": "Ledenstatus: "
@@ -8737,7 +8781,8 @@
                 "errorURL": "Voer een geldige URL in om dit formulier op te slaan",
                 "bookingTitle": "Reservering",
                 "attendanceTitle": "Aanwezigheid",
-                "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit."
+                "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit.",
+                "hideSessionWithTagsNotEligible": "Deze sessies niet tonen aan leden die niet de juiste tags bezitten"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -9037,7 +9082,7 @@
                 "show_company_email_in_invoice": "Toon je zakelijke e-mailadres op je facturen"
             },
             "nf525Button": "Downloaden",
-            "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Je kan het officiële certificaat hier downloaden.",
+            "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Download hier het officiële bestand.",
             "nf525": "NF252-certificatie",
             "subscription": {
                 "forms": {

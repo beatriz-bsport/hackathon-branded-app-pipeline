@@ -329,7 +329,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           this.props.push(
             `/checkout/${
               this.props.offer.company
-            }/validation/?basket=null&user_registration_response=${encodeURIComponent(
+            }/validation?basket=null&user_registration_response=${encodeURIComponent(
               JSON.stringify(responseData),
             )}`,
           );
@@ -602,7 +602,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                         this.state.selectedPack?.paymentPackCombo?.tax
                       }
                       selectedPackId={
-                        this.state.selectedPack.consumerPaymentPack?.id ||
+                        this.state.selectedPack?.consumerPaymentPack?.id ||
                         this.state.selectedPack?.paymentPack?.id ||
                         this.state.selectedPack?.paymentPackCombo?.id
                       }

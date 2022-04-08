@@ -2,27 +2,26 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { replace as replaceRouter, goBack } from 'connected-react-router';
 import flatten from 'lodash/flatten';
 import { compose, withHandlers, withProps } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import WarningIcon from '@material-ui/icons/Warning';
+import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
+import { RootState } from '../../../reducers';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '../../../libs/theme/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-
 import { fetchBasket } from '../../../libs/checkout/actions';
 import { getBasket } from '../../../libs/checkout/selectors';
 import CheckoutItemListItem from '../../../libs/checkout/components/CheckoutItemListItem.component';
 import { Offer_FULL } from '../../../libs/offer/types';
-
+import withTheme from '#hocs/company-themifier.hoc';
 import {
   getOfferFromList,
   withMetaActivity,
@@ -33,13 +32,14 @@ import { fetchOfferBulk } from '../../../libs/offer/actions';
 import { fetchMetaActivityBulk } from '../../../libs/meta-activity/actions';
 import { fetchCoachBulk } from '../../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '../../../libs/establishment/actions';
-import { OptionCallback } from '../../../state/types';
 
 import OfferBookableItem from '../../../libs/booker-module/components/OfferBookableItem.component';
 
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
-import { MaterialStyleType } from '../../../utils/types';
+import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
+import ValidationIcon from '#components/icons/ValidationIcon.component';
+import ErrorIcon from '#components/icons/ErrorIcon.component';
 
 type OwnProps = {
   queryParams: any;
@@ -49,14 +49,13 @@ type OwnProps = {
   offerBookedList: Offer_FULL[];
   offerPreBookedList: Offer_FULL[];
   offerNotBookableList: Array<Offer_FULL>;
-  fetchBasket: (id: string, options: OptionCallback) => void;
-  goBack: () => void;
-  onContinue: () => void;
 };
 
 type Props = OwnProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithHandlerType<typeof mapWithHandlers> &
+  ConnectedProps<typeof connector>;
 
 export class ValidationCheckout extends React.Component<Props> {
   componentDidMount() {
@@ -111,18 +110,25 @@ export class ValidationCheckout extends React.Component<Props> {
     if (this.isError()) {
       return (
         <div className={classes.header}>
-          <HighlightOffIcon color="error" className={classes.iconHeader} />
+          <ErrorIcon />
+          <Typography variant="h4" className={classes.confirmation}>
+            {this.props.t('validation.sections.error')}
+          </Typography>
+          <Typography className={classes.confirmation}>
+            {this.props.t('validation.sections.errorExplain')}
+          </Typography>
         </div>
       );
     }
     return (
       <div className={classes.header}>
-        <CheckCircleOutlineIcon
-          color="primary"
-          className={classes.iconHeader}
-        />
-        <Typography variant="h3" className={classes.sectionTitle}>
+        <ValidationIcon />
+
+        <Typography variant="h4" className={classes.confirmation}>
           {this.props.t('validation.sections.title')}
+        </Typography>
+        <Typography className={classes.confirmation}>
+          {this.props.t('validation.sections.explain')}
         </Typography>
       </div>
     );
@@ -131,182 +137,362 @@ export class ValidationCheckout extends React.Component<Props> {
   renderActionButton = () => {
     if (this.isError()) {
       return (
-        <Button
-          className={this.props.classes.button}
-          onClick={this.props.goBack}
-          variant="outlined"
-          color="primary"
-        >
-          {this.props.t('validation.actions.back')}
-        </Button>
+        <div className={this.props.classes.actions}>
+          <Button
+            onClick={this.props.goBack}
+            variant="outlined"
+            color="primary"
+          >
+            {this.props.t('validation.actions.back')}
+          </Button>
+        </div>
       );
     }
     return (
-      <Button
-        className={this.props.classes.button}
-        onClick={this.props.onContinue}
-        variant="outlined"
-        color="primary"
-      >
-        {this.props.t('validation.actions.continue')}
-      </Button>
+      <div className={this.props.classes.actions}>
+        {!WidgetUtils.isWidget() && (
+          <Button
+            onClick={this.props.goToMarketplace}
+            color="primary"
+            className={this.props.classes.validationButton}
+          >
+            {this.props.t('validation.actions.continue')}
+          </Button>
+        )}
+        <Button
+          onClick={this.props.onContinue}
+          variant="contained"
+          color="primary"
+          className={this.props.classes.validationButton}
+        >
+          {WidgetUtils.isWidget()
+            ? this.props.t('validation.actions.widgetContinue')
+            : this.props.t('validation.actions.member')}
+        </Button>
+      </div>
     );
   };
 
   render() {
     const { classes } = this.props;
     return (
-      <ConsumerAppBarContainer companyId={this.props.companyId}>
-        {this.renderHeader()}
-        {!!this.props.offerBookedList.length && (
-          <div className={classes.section}>
-            <Typography variant="h4" className={classes.sectionTitle}>
-              {this.props.t('validation.sections.offerBooked')}
-            </Typography>
-            <Paper className={classes.paper}>
-              {this.props.offerBookedList.map((o) => (
-                <OfferBookableItem
-                  key={o.id}
-                  hideCoach={this.props.hideCoach}
-                  offer={o}
-                />
-              ))}
-            </Paper>
-          </div>
-        )}
-        {!!this.props.offerPreBookedList.length && (
-          <div className={classes.section}>
-            <Typography variant="h4" className={classes.sectionTitle}>
-              {this.props.t('validation.sections.offerPreBooked')}
-            </Typography>
-            <Paper className={classes.paper}>
-              {this.props.offerPreBookedList.map((o) => (
-                <OfferBookableItem
-                  key={o.id}
-                  hideCoach={this.props.hideCoach}
-                  offer={o}
-                />
-              ))}
-            </Paper>
-          </div>
-        )}
-        {!!this.props.offerNotBookableList.length && (
-          <div className={classes.section}>
-            <Typography variant="h4" className={classes.sectionTitle}>
-              {this.props.t('validation.sections.offerNotBookable')}
-            </Typography>
-            <Paper className={classes.paper}>
-              {this.props.offerNotBookableList.map((o, idx) => {
-                const error_code =
-                  this.props.offerNotBookableIdWithErrorCodeList[idx][1];
-                return (
-                  <div key={o.id} className={classes.paper}>
-                    <OfferBookableItem
-                      hideCoach={this.props.hideCoach}
-                      offer={o}
-                    />
-                    <div className={classes.row}>
-                      <WarningIcon
-                        color="error"
-                        className={classes.smallIcon}
-                      />
-                      <Typography color="error" variant="caption">
-                        {BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(
-                          error_code,
-                        )
-                          ? this.props.t(
-                              `snackbar:canNotBuyErrorCode.${error_code}`,
-                            )
-                          : this.props.t('snackbar:canNotBuyErrorCode.generic')}
-                      </Typography>
-                    </div>
+      <ConsumerAppBarContainer>
+        <div className={classes.container}>
+          <Paper className={classes.paperContainer}>
+            <div className={classes.paperSection}>
+              {this.renderHeader()}
+              {this.renderActionButton()}
+            </div>
+            {!this.isError() && (
+              <>
+                <Typography variant="h5" className={classes.paperSection}>
+                  {this.props.t('validation.sections.recap')}
+                </Typography>
+                <div className={classes.divider} />
+                <div className={classes.paperSection}>
+                  <div className={classes.recapContainer}>
+                    {!!this.props.offerBookedList.length && (
+                      <div className={classes.section}>
+                        <div className={classes.iconAndText}>
+                          <Star />
+                          <Typography variant="h5">
+                            {this.props.t('validation.sections.offerBooked')}
+                          </Typography>
+                        </div>
+
+                        <div className={classes.paper}>
+                          {this.props.offerBookedList.map((o) => (
+                            <OfferBookableItem
+                              key={o.id}
+                              hideCoach={this.props.hideCoach}
+                              offer={o}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {this.props.basket && (
+                      <div className={classes.section}>
+                        <div className={classes.iconAndText}>
+                          <ShoppingBasket />
+                          <Typography variant="h5">
+                            {this.props.t('validation.sections.basket')}
+                          </Typography>
+                        </div>
+                        <div className={classes.paper}>
+                          {this.props.basket.checkout_items.map((ci) => (
+                            <CheckoutItemListItem
+                              hideExtraData
+                              checkout_item={ci}
+                              key={ci.id}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {!!this.props.offerPreBookedList.length && (
+                      <div className={classes.section}>
+                        <div className={classes.iconAndText}>
+                          <HourglassFull />
+                          <Typography variant="h5">
+                            {this.props.t('validation.sections.offerPreBooked')}
+                          </Typography>
+                        </div>
+                        <div className={classes.paper}>
+                          {this.props.offerPreBookedList.map((o) => (
+                            <OfferBookableItem
+                              key={o.id}
+                              hideCoach={this.props.hideCoach}
+                              offer={o}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {!!this.props.offerNotBookableList.length && (
+                      <div className={classes.section}>
+                        <div className={classes.iconAndText}>
+                          <Clear />
+                          <Typography variant="h5">
+                            {this.props.t(
+                              'validation.sections.offerNotBookable',
+                            )}
+                          </Typography>
+                        </div>
+                        <div className={classes.paper}>
+                          {this.props.offerNotBookableList.map((o, idx) => {
+                            const error_code =
+                              this.props.offerNotBookableIdWithErrorCodeList[
+                                idx
+                              ][1];
+                            return (
+                              <div key={o.id} className={classes.paper}>
+                                <OfferBookableItem
+                                  hideCoach={this.props.hideCoach}
+                                  offer={o}
+                                />
+                                <div className={classes.row}>
+                                  <WarningIcon
+                                    color="error"
+                                    className={classes.smallIcon}
+                                  />
+                                  <Typography color="error" variant="caption">
+                                    {BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(
+                                      error_code,
+                                    )
+                                      ? this.props.t(
+                                          `snackbar:canNotBuyErrorCode.${error_code}`,
+                                        )
+                                      : this.props.t(
+                                          'snackbar:canNotBuyErrorCode.generic',
+                                        )}
+                                  </Typography>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                );
-              })}
-            </Paper>
-          </div>
-        )}
-        {this.props.basket && (
-          <div className={classes.section}>
-            <Typography variant="h4" className={classes.sectionTitle}>
-              {this.props.t('validation.sections.basket')}
-            </Typography>
-            <Paper className={classes.paper}>
-              {this.props.basket.checkout_items.map((ci) => (
-                <CheckoutItemListItem
-                  hideExtraData
-                  checkout_item={ci}
-                  key={ci.id}
-                />
-              ))}
-            </Paper>
-          </div>
-        )}
-        {this.renderActionButton()}
+                </div>
+              </>
+            )}
+          </Paper>
+        </div>
       </ConsumerAppBarContainer>
     );
   }
 }
 
-const styles = (theme) => ({
-  section: {
-    width: '100%',
-    maxWidth: 620,
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(2),
-  },
-  smallIcon: {
-    height: 24,
-    width: 24,
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginLeft: theme.spacing(1),
-    '&>*': {
-      paddingRight: theme.spacing(1),
-    },
-  },
-  header: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    width: '100%',
-    '&>*': {
+const styles = (theme: Theme) =>
+  createStyles({
+    paperSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
       width: '100%',
+      padding: theme.spacing(3),
+      gap: theme.spacing(3),
     },
+    recapContainer: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        minHeight: '100%',
+      },
+    },
+    paperContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: '35%',
+    },
+    iconAndText: {
+      display: 'flex',
+      gap: theme.spacing(1),
+      alignItems: 'center',
+      marginBottom: theme.spacing(2),
+    },
+    validation: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      gap: theme.spacing(5),
+      padding: theme.spacing(3),
+    },
+
+    section: {
+      padding: theme.spacing(1),
+      display: 'flex',
+      gap: theme.spacing(1),
+      flexDirection: 'column',
+      width: '50%',
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+    },
+    smallIcon: {
+      height: 24,
+      width: 24,
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      marginLeft: theme.spacing(1),
+      '&>*': {
+        paddingRight: theme.spacing(1),
+      },
+    },
+    header: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: theme.spacing(2),
+      flex: '1',
+    },
+    paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      minWidth: '50%',
+      '&>*': {
+        width: '100%',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+        padding: '8px 16px',
+        minHeight: theme.spacing(11),
+      },
+      '& #itemContent': {
+        alignItems: 'center',
+      },
+    },
+    iconHeader: {
+      height: 160,
+      width: 160,
+    },
+    confirmation: {
+      textAlign: 'center',
+    },
+    actions: {
+      display: 'flex',
+      gap: theme.spacing(2),
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    divider: {
+      height: '2px',
+      margin: '-8px 0px',
+      background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+    },
+    validationButton: {
+      [theme.breakpoints.down('xs')]: {
+        flex: 1,
+        height: '100%',
+      },
+    },
+  });
+
+const mapWithHandlers = {
+  onContinue:
+    ({ replace, companyId, queryParams }) =>
+    () => {
+      if (WidgetUtils.isWidget()) {
+        WidgetUtils.paymentSuccess();
+        if (queryParams && queryParams.onValidation === 'close') {
+          window.close();
+        }
+        return;
+      }
+      replace(`/c/${companyId}`);
+    },
+  goToMarketplace:
+    ({ replace, companyId, queryParams, theme }) =>
+    () => {
+      if (WidgetUtils.isWidget()) {
+        WidgetUtils.paymentSuccess();
+        if (queryParams && queryParams.onValidation === 'close') {
+          window.close();
+        }
+        return;
+      }
+      replace(`/m/${theme.company_name}/${companyId}`);
+    },
+};
+
+const connector = connect(
+  (
+    state,
+    {
+      offerBookedIdList,
+      offerPreBookedIdList,
+      offerNotBookableIdWithErrorCodeList,
+    },
+  ) => ({
+    hideCoach: themeSelectors.getTheme(state).hideCoach,
+    offerBookedList: withCoach(
+      withMetaActivity(withEstablishment(getOfferFromList)),
+    )(state, offerBookedIdList),
+    offerPreBookedList: withCoach(
+      withMetaActivity(withEstablishment(getOfferFromList)),
+    )(state, offerPreBookedIdList),
+    offerNotBookableList: withCoach(
+      withMetaActivity(withEstablishment(getOfferFromList)),
+    )(
+      state,
+      offerNotBookableIdWithErrorCodeList.map((ie) => ie[0]),
+    ),
+  }),
+  {
+    fetchEstablishmentBulk,
+    fetchCoachBulk,
+    fetchMetaActivityBulk,
+    fetchOfferBulk,
+    replace: replaceRouter,
+    goBack,
   },
-  iconHeader: {
-    height: 160,
-    width: 160,
-  },
-  sectionTitle: {
-    marginBottom: theme.spacing(1),
-  },
-  button: {
-    margin: theme.spacing(2),
-  },
-});
+);
 
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   withQueryParams([
-    ['user_registration_response', 'basket', 'dialogMode'],
+    ['user_registration_response', 'basket', 'dialogMode', 'onValidation'],
     'queryParams',
+    'setQueryParams',
   ]),
   withTranslation(['checkout', 'snackbar']),
-  withStyles(styles),
+
   connect(
-    (state, { queryParams }) => ({
+    (state: RootState, { queryParams }) => ({
+      theme: themeSelectors.getTheme(state),
       basket:
         queryParams?.basket && queryParams.basket !== 'null'
           ? getBasket(state, queryParams.basket)
@@ -335,51 +521,8 @@ export default compose(
     offerNotBookableIdWithErrorCodeList:
       (user_registration_response || {}).error_codes || [],
   })),
-  connect(
-    (
-      state,
-      {
-        offerBookedIdList,
-        offerPreBookedIdList,
-        offerNotBookableIdWithErrorCodeList,
-      },
-    ) => ({
-      hideCoach: themeSelectors.getTheme(state).hideCoach,
-      offerBookedList: withCoach(
-        withMetaActivity(withEstablishment(getOfferFromList)),
-      )(state, offerBookedIdList),
-      offerPreBookedList: withCoach(
-        withMetaActivity(withEstablishment(getOfferFromList)),
-      )(state, offerPreBookedIdList),
-      offerNotBookableList: withCoach(
-        withMetaActivity(withEstablishment(getOfferFromList)),
-      )(
-        state,
-        offerNotBookableIdWithErrorCodeList.map((ie) => ie[0]),
-      ),
-    }),
-    {
-      fetchEstablishmentBulk,
-      fetchCoachBulk,
-      fetchMetaActivityBulk,
-      fetchOfferBulk,
-      replace: replaceRouter,
-      goBack,
-    },
-  ),
-  withQueryParams([['onValidation'], 'queryParams', 'setQueryParams']),
-  withHandlers({
-    onContinue:
-      ({ replace, companyId, queryParams }) =>
-      () => {
-        if (WidgetUtils.isWidget()) {
-          WidgetUtils.paymentSuccess();
-          if (queryParams && queryParams.onValidation === 'close') {
-            window.close();
-          }
-          return;
-        }
-        replace(`/c/${companyId}`);
-      },
-  }),
+  connector,
+  withHandlers(mapWithHandlers),
+  withTheme,
+  withStyles(styles),
 )(ValidationCheckout);

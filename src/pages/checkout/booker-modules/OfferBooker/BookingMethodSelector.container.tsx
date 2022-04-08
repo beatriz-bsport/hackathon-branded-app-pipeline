@@ -17,6 +17,7 @@ import {
   getAvailableComboPacks,
 } from '@bsport/common/lib/master-data/available-payment';
 
+import { replace as replaceAction } from 'connected-react-router';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';
 import { MaterialStyleType, WithHandlerType } from '../../../../utils/types';
@@ -222,6 +223,26 @@ export class OfferState extends React.PureComponent<Props, State> {
     );
   };
 
+  goToValidationPage = (contractId: number, success: boolean) => {
+    if (success) {
+      this.props.replace(
+        `/checkout/${
+          this.props.company
+        }/subscription/${contractId}/validation?success=${true}&next=${encodeURIComponent(
+          `${window.location.pathname}${window.location.search}`,
+        )}`,
+      );
+    } else {
+      this.props.replace(
+        `/checkout/${
+          this.props.company
+        }/subscription/${contractId}/validation?success=${false}&next=${encodeURIComponent(
+          `${window.location.pathname}${window.location.search}`,
+        )}`,
+      );
+    }
+  };
+
   render() {
     const { offerStatus, loading } = this.props;
     if (
@@ -285,10 +306,7 @@ export class OfferState extends React.PureComponent<Props, State> {
           contract={this.props.openSubscriptionModal}
           companyId={this.props.offer && this.props.offer.company}
           requestSetupIntentSecret={this.requestSetupIntentSecret}
-          onSubmit={() => {
-            this.props.fetchConsumerPaymentPackForBooking(this.props.offerId);
-            this.props.closeSubscripionModal();
-          }}
+          onSubmit={this.goToValidationPage}
           onCancel={this.props.closeSubscripionModal}
         />
       </React.Fragment>
@@ -389,6 +407,7 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = {
+  replace: replaceAction,
   fetchConsumerPaymentPackForBooking,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
   fetchPaymentPackForBooking,

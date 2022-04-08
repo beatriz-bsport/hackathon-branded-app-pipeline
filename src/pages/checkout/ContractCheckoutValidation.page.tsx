@@ -1,0 +1,285 @@
+import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { compose, withHandlers, withProps } from 'recompose';
+
+import { replace as replaceAction } from 'connected-react-router';
+import {
+  WithStyles,
+  createStyles,
+  withStyles,
+  Theme,
+} from '@material-ui/core/styles';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { Button, Typography, Paper } from '@material-ui/core';
+import { Payment } from '@material-ui/icons';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { RootState } from '../../reducers';
+import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
+import withTheme from '#hocs/company-themifier.hoc';
+
+import { WithHandlerType } from '../../utils/types';
+import themeSelectors from '../../libs/theme/selectors';
+import ConsumerAppBar from './ConsumerAppBar.container';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import { getContract } from '#libs/subscription/selectors';
+import { fetchContractDetail } from '#libs/subscription/actions';
+import SubscriptionListItem from '#libs/subscription/components/billing-plan/SubscriptionListItem.component';
+import ValidationIcon from '#components/icons/ValidationIcon.component';
+import TimeoutButton from '#components/button/TimeoutButton.component';
+import ErrorIcon from '#components/icons/ErrorIcon.component';
+
+type RouterProps = {
+  success: boolean;
+  companyId: number;
+  contractId: number;
+  next?: string;
+};
+
+type Props = RouterProps &
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles> &
+  WithTranslation &
+  WithHandlerType<typeof mapWithHandlers>;
+
+export class ContractCheckoutValidation extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchContractDetail(this.props.contractId);
+  }
+
+  generateTextContent = () => {
+    const { t, success, next } = this.props;
+    if (success) {
+      if (next) {
+        return t('subscriptionPaymentDialog.success.text_content_funnel');
+      }
+      return t('subscriptionPaymentDialog.success.text_content');
+    }
+    return t('subscriptionPaymentDialog.error.text_content');
+  };
+
+  render() {
+    const { classes, success, next, t, goToUserSpace, goToSubsciption } =
+      this.props;
+    const textContent = this.generateTextContent();
+    return (
+      <ConsumerAppBar>
+        <div className={classes.container}>
+          <Paper className={classes.paperContainer}>
+            <div className={classes.paperSection}>
+              <div className={classes.header}>
+                {success ? <ValidationIcon /> : <ErrorIcon />}
+                <Typography variant="h4" className={classes.centerText}>
+                  {success
+                    ? t('subscriptionPaymentDialog.success.title')
+                    : t('subscriptionPaymentDialog.error.title')}
+                </Typography>
+                <Typography className={classes.centerText}>
+                  {textContent}
+                </Typography>
+              </div>
+              <div className={classes.actions}>
+                {next ? (
+                  <TimeoutButton
+                    delayBeforeActivation={3}
+                    onClick={success ? goToUserSpace : goToSubsciption}
+                    variant="contained"
+                    color="primary"
+                  >
+                    {success
+                      ? t('subscriptionPaymentDialog.success.button_text')
+                      : t('subscriptionPaymentDialog.error.button_text')}
+                  </TimeoutButton>
+                ) : (
+                  <Button
+                    onClick={success ? goToUserSpace : goToSubsciption}
+                    variant="contained"
+                    color="primary"
+                  >
+                    {success
+                      ? t('subscriptionPaymentDialog.success.button_text')
+                      : t('subscriptionPaymentDialog.error.button_text')}
+                  </Button>
+                )}
+                {!success && !next && (
+                  <Button
+                    onClick={goToUserSpace}
+                    variant="outlined"
+                    color="primary"
+                  >
+                    {t('subscriptionPaymentDialog.error.userSpace')}
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            {success && (
+              <>
+                <Typography variant="h5" className={classes.paperSection}>
+                  {t('subscriptionPaymentDialog.success.recap')}
+                </Typography>
+                <div className={classes.divider} />
+                <div className={classes.paperSection}>
+                  <div className={classes.section}>
+                    <div className={classes.iconAndText}>
+                      <Payment />
+                      <Typography variant="h5">
+                        {t('subscriptionPaymentDialog.success.contract')}
+                      </Typography>
+                    </div>
+                    <SubscriptionListItem
+                      subscription={this.props.contract}
+                      variant="listItem"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </Paper>
+        </div>
+      </ConsumerAppBar>
+    );
+  }
+}
+
+const connector = connect(
+  (state: RootState, props: RouterProps) => ({
+    theme: themeSelectors.getTheme(state),
+    contract: getContract(state, parseInt(props.contractId, 10)),
+  }),
+  {
+    replace: replaceAction,
+    fetchContractDetail,
+  },
+);
+
+const mapWithHandlers = {
+  goToUserSpace:
+    (props: RouterProps & ConnectedProps<typeof connector>) => () => {
+      if (props.next) {
+        return props.replace(props.next);
+      }
+      if (!WidgetUtils.isWidget()) {
+        return props.replace(`/c/${props.companyId}/subscription/`);
+      }
+      return props.replace(
+        `/widget/${props.theme.company_name}/${props.companyId}/subscription?context=widget`,
+      );
+    },
+  goToSubsciption:
+    (props: RouterProps & ConnectedProps<typeof connector>) => () => {
+      if (props.next) {
+        return props.replace(props.next);
+      }
+      return props.replace(
+        `/checkout/${props.companyId}/subscription/${props.contractId}/`,
+      );
+    },
+};
+const styles = (theme: Theme) =>
+  createStyles({
+    divider: {
+      height: '2px',
+      margin: '-8px 0px',
+      background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+    },
+    section: {
+      padding: theme.spacing(1),
+      display: 'flex',
+      gap: theme.spacing(1),
+      flexDirection: 'column',
+      width: '50%',
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+    },
+    iconAndText: {
+      display: 'flex',
+      gap: theme.spacing(1),
+      alignItems: 'center',
+    },
+    paperContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: '35%',
+    },
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        minHeight: '100%',
+      },
+    },
+    content: {
+      flex: '1',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(5),
+      alignItems: 'center',
+    },
+    paper: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      gap: theme.spacing(1),
+      padding: theme.spacing(2),
+    },
+    centeredContent: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    icon: {
+      height: theme.spacing(25),
+      width: theme.spacing(25),
+    },
+    actions: {
+      display: 'flex',
+      gap: theme.spacing(3),
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    centerText: {
+      textAlign: 'center',
+      maxWidth: theme.spacing(120),
+    },
+    paperSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      width: '100%',
+      padding: theme.spacing(3),
+      gap: theme.spacing(3),
+    },
+    header: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: theme.spacing(2),
+      flex: '1',
+    },
+  });
+
+export default compose(
+  withQueryParamsUndecoded([
+    ['success', 'next'],
+    'queryParams',
+    'setQueryParams',
+  ]),
+  routerParamsToProps({
+    contractId: 'contractId:number',
+    companyId: 'companyId:number',
+  }),
+  withProps((props: { queryParams: { success: string; next?: string } }) => {
+    return {
+      success: props.queryParams.success === 'true',
+      next: props.queryParams.next,
+    };
+  }),
+  withTranslation(['payment', 'subscription']),
+  connector,
+  withHandlers(mapWithHandlers),
+  withTheme,
+  withStyles(styles),
+)(ContractCheckoutValidation);

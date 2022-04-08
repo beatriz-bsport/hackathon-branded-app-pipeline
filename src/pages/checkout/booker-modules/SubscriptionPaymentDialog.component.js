@@ -24,7 +24,7 @@ type Props = {
   contract: ?Contract,
   fullScreen: boolean,
   onCancel: () => void,
-  onSubmit: (any) => void,
+  onSubmit: (contractId: number, success: boolean) => void,
   companyId: number,
   requestSetupIntentSecret: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
@@ -67,9 +67,10 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
         console.error(err);
       }
 
-      this.props.onSubmit();
+      this.props.onSubmit(this.props.contract.id, true);
       // this.setState({ firstBillingTimestamp });
     } catch (err) {
+      this.props.onSubmit(this.props.contract.id, false);
       console.error(err);
     }
     this.setState({ processing: false });

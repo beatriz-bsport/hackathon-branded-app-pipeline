@@ -37,7 +37,7 @@ export const CheckoutItemListItem = (props: {
 }) => (
   <React.Fragment>
     <ListItem dense={!!props.dense} divider className={props.classes.container}>
-      <div className={props.classes.itemContent}>
+      <div className={props.classes.itemContent} id="itemContent">
         <ListItemAvatar>
           <Avatar className={props.classes.quantity}>
             {`x${props.checkout_item.quantity}`}

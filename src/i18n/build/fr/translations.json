@@ -354,13 +354,20 @@
       "section": { "consumerPass": "Mes cartes", "pass": "Cartes disponibles", "combo": "Packs" }
     },
     "validation": {
-      "actions": { "continue": "Continuer", "back": "Précédent" },
+      "actions": {
+        "continue": "Continuer mes achats",
+        "member": "Espace Membre",
+        "back": "Précédent",
+        "widgetContinue": "Continuer"
+      },
       "sections": {
-        "title": "Récapitulatif",
+        "explain": "Votre opération a bien été pris en compte. Nous vous enverrons un mail de confirmation.",
+        "recap": "Récapitulatif",
+        "title": "Félicitation !",
         "basket": "Votre panier",
-        "offerBooked": "Vous êtes inscrit à",
-        "offerPreBooked": "Vous êtes sur liste d'attente pour",
-        "offerNotBookable": "Impossible de vous inscrire à"
+        "offerBooked": "Vos séances",
+        "offerPreBooked": "Inscription sur la liste d'attente",
+        "offerNotBookable": "Inscription impossible"
       }
     },
     "internalAccount": {
@@ -3286,12 +3293,17 @@
     "subscriptionPaymentDialog": {
       "title": "Acheter un abonnement",
       "success": {
+        "recap": "Récapitulatif",
+        "contract": "Mon contract",
+        "title": "Félicitations !",
         "text_content": "Votre achat a bien été pris en compte, vous pouvez dès maintenant retrouver les détails de votre abonnement sur votre espace membre.",
         "text_status": "Achat réalisé avec succès !",
         "button_text": "Continuer"
       },
       "error": {
-        "text_content": "Votre achat n’a pas pu être effectué, vous pouvez réessayer en cliquant sur le bouton ci-dessous ou vous pouvez revenir à la liste des abonnements en fermant cette fenêtre.",
+        "title": "Erreur lors du paiement",
+        "userSpace": "Espace membre",
+        "text_content": "Votre achat n’a pas pu être effectué, vous pouvez réessayer ou revenir à votre espace membre.",
         "text_status": "Votre achat n’a pas pu aboutir !",
         "button_text": "Réessayer"
       }

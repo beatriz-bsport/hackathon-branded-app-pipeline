@@ -47,6 +47,9 @@ const PrivatePassPreCheckout = asyncComponent(() =>
 const ContractCheckout = asyncComponent(() =>
   import('./ContractCheckout.page'),
 );
+const ContractCheckoutValidation = asyncComponent(() =>
+  import('./ContractCheckoutValidation.page'),
+);
 const GiftcardCheckoutPage = asyncComponent(() =>
   import('./giftcard/GiftcardCheckout.page'),
 );
@@ -102,7 +105,7 @@ export class PaymentRouter extends React.Component<Props> {
         <Analytics theme={this.props.theme} />
         <Switch>
           <Route
-            path="/(|customer/)checkout/:companyId/validation/"
+            path="/(|customer/)checkout/:companyId/validation"
             component={ValidationCheckout}
           />
           <Route
@@ -110,9 +113,14 @@ export class PaymentRouter extends React.Component<Props> {
             component={OfferBooker}
           />
           <Route
+            path="/(|customer/)checkout/:companyId/subscription/:contractId/validation"
+            component={ContractCheckoutValidation}
+          />
+          <Route
             path="/(|customer/)checkout/:companyId/subscription/:contractId"
             component={ContractCheckout}
           />
+
           <Route
             path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id"
             component={PaymentPackPreCheckout}

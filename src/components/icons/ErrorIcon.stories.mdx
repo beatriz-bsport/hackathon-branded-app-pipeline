@@ -1,0 +1,21 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ErrorIcon from './ErrorIcon.component'
+
+<Meta title='Components/Commons/ErrorIcon'
+  component={ErrorIcon}
+/>
+
+export const Template = (args) => <ErrorIcon {...args} />;
+
+#  ErrorIcons
+
+<Canvas>
+  <Story 
+  name='ErrorIcon'
+  args={{
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='ErrorIcon' />

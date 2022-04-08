@@ -85,15 +85,23 @@ exports.default = {
   },
   validation: {
     actions: {
-      continue: 'Continuer',
+      continue: 'Continuer mes achats',
+      member: 'Espace Membre',
       back: 'Précédent',
+      widgetContinue: 'Continuer',
     },
     sections: {
-      title: 'Récapitulatif',
+      explain:
+        'Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.',
+      recap: 'Récapitulatif',
+      title: 'Félicitations !',
       basket: 'Votre panier',
-      offerBooked: 'Vous êtes inscrit à',
-      offerPreBooked: "Vous êtes sur liste d'attente pour",
-      offerNotBookable: 'Impossible de vous inscrire à',
+      offerBooked: 'Vos séances',
+      offerPreBooked: "Inscription sur la liste d'attente",
+      offerNotBookable: 'Inscription impossible',
+      error: 'Erreur',
+      errorExplain:
+        "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer.",
     },
   },
   internalAccount: {

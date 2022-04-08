@@ -10,6 +10,7 @@ import moment from 'moment-timezone';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
+import { ListItem } from '@material-ui/core';
 import { getCurrencyDisplay } from '../../../theme/selectors';
 import { getStatus } from '../../utils';
 
@@ -20,15 +21,22 @@ import { PaymentMethod } from '../../../payment/types';
 
 type Props = {
   subscription: Subscription;
-  changePaymentMethod: (id: number) => void;
-  paymentMethodList: Array<PaymentMethod>;
+  changePaymentMethod?: (id: number) => void;
+  paymentMethodList?: Array<PaymentMethod>;
+  variant?: 'card' | 'listItem';
+};
+
+type PaymentMethodInfoProps = {
+  subscription: Subscription;
+  changePaymentMethod?: (id: number) => void;
+  paymentMethodList?: Array<PaymentMethod>;
 };
 
 const PaymentMethodInfo = ({
   subscription,
   changePaymentMethod,
   paymentMethodList,
-}: Props) => {
+}: PaymentMethodInfoProps) => {
   const { t } = useTranslation(['subscription']);
   if (subscription.has_ended || !!subscription.canceled_at) return null;
   if (subscription.is_v2) {
@@ -81,7 +89,53 @@ const PaymentMethodInfo = ({
 export const SubscriptionListItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
-  const { subscription } = props;
+  const { subscription, variant } = props;
+  if (!subscription) {
+    return null;
+  }
+  if (variant === 'listItem') {
+    return (
+      <ListItem className={classes.paperContainer} divider>
+        <Typography variant="h6">{subscription.name}</Typography>
+
+        <div>
+          <div className={classes.row}>
+            <AccessTimeIcon className={classes.leftIcon} />
+            <Typography>
+              {t('subscription.listItem.recurrencePriceIs', {
+                amount: subscription.recurrent_price,
+                currencyDisplay: getCurrencyDisplay(),
+              })}
+            </Typography>
+          </div>
+          <div className={classes.row}>
+            <CalendarIcon className={classes.leftIcon} />
+            <Typography>
+              {t('subscription.listItem.startingAt', {
+                d: moment(subscription.first_billing_date).format('LL'),
+              })}
+            </Typography>
+          </div>
+          {subscription.next_billing_date && (
+            <div className={classes.row}>
+              <TodayIcon className={classes.leftIcon} />
+              <Typography>
+                {t('subscription.listItem.nextBillingDate', {
+                  d: moment(subscription.next_billing_date).format('LL'),
+                })}
+              </Typography>
+            </div>
+          )}
+          {subscription.status && (
+            <div className={classes.row}>
+              <InfoIcon className={classes.leftIcon} />
+              <Typography>{getStatus(subscription.status, t)}</Typography>
+            </div>
+          )}
+        </div>
+      </ListItem>
+    );
+  }
   return (
     <div className={classes.container}>
       <Typography variant="h4">{subscription.name}</Typography>
@@ -119,16 +173,24 @@ export const SubscriptionListItem = (props: Props) => {
           <Typography>{getStatus(subscription.status, t)}</Typography>
         </div>
       </div>
-      <PaymentMethodInfo
-        subscription={subscription}
-        changePaymentMethod={props.changePaymentMethod}
-        paymentMethodList={props.paymentMethodList}
-      />
+      {props.paymentMethodList && (
+        <PaymentMethodInfo
+          subscription={subscription}
+          changePaymentMethod={props.changePaymentMethod}
+          paymentMethodList={props.paymentMethodList}
+        />
+      )}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  paperContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: theme.spacing(2),
+    alignItems: 'unset',
+  },
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(6),

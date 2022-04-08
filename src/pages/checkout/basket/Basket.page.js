@@ -531,7 +531,7 @@ export default compose(
       ({ replace, basket, queryParams }) =>
       () => {
         replace(
-          `/checkout/${basket.company}/validation/?basket=${basket.id}${
+          `/checkout/${basket.company}/validation?basket=${basket.id}${
             queryParams?.context
               ? `&context=${queryParams && queryParams.context}`
               : ''

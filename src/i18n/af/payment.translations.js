@@ -231,14 +231,21 @@ exports.default = {
   subscriptionPaymentDialog: {
     title: 'Acheter un abonnement',
     success: {
+      recap: 'Récapitulatif',
+      contract: 'Mon contract',
+      title: 'Félicitations !',
       text_content:
         'Votre achat a bien été pris en compte, vous pouvez dès maintenant retrouver les détails de votre abonnement sur votre espace membre.',
+      text_content_funnel:
+        'Votre achat a bien été pris en compte, cliquez sur continuer pour finaliser votre réservation. La carte liée à votre abonnement a été ajoutée dans la section "Mes cartes de cours", sélectionnez la pour effectuer votre réservation.',
       text_status: 'Achat réalisé avec succès !',
       button_text: 'Continuer',
     },
     error: {
+      title: 'Erreur lors du paiement',
+      userSpace: 'Espace membre',
       text_content:
-        'Votre achat n’a pas pu être effectué, vous pouvez réessayer en cliquant sur le bouton ci-dessous ou vous pouvez revenir à la liste des abonnements en fermant cette fenêtre.',
+        'Votre achat n’a pas pu être effectué, vous pouvez réessayer ou revenir à votre espace membre.',
       text_status: 'Votre achat n’a pas pu aboutir !',
       button_text: 'Réessayer',
     },

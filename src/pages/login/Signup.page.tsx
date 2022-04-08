@@ -74,11 +74,16 @@ type Props = OwnProps &
 export class SignupPage extends Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
+      if (this.props.theme?.id) Analytics.signupShow();
       this.props.fetchCompanyTheme(parseInt(this.props.membership, 10));
       this.props.fetchCompanyCustomSignUp({
         company: parseInt(this.props.membership),
       });
     }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.theme && this.props.theme?.id) Analytics.signupShow();
   }
 
   submitCustomForm = (formdata: FormData, options?: OptionCallback) => {

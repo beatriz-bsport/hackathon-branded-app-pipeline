@@ -11,11 +11,12 @@ import { compose, withState } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import UpdateIcon from '@material-ui/icons/Update';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
+import Analytics from '#components/analytics/Analytics.component';
+
 import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
@@ -106,7 +107,10 @@ export class BasketFinalizer extends React.Component<Props, State> {
               onClick={() => {
                 this.props.setProcessing(true);
                 this.props.validateUnpaid({
-                  onSuccess: () => this.props.setProcessing(false),
+                  onSuccess: () => {
+                    this.props.setProcessing(false);
+                    Analytics.onPaymentSuccess(this.props.basket);
+                  },
                   onError: () => this.props.setProcessing(false),
                 });
               }}
@@ -169,7 +173,10 @@ export class BasketFinalizer extends React.Component<Props, State> {
                   onClick={() => {
                     this.props.setProcessing(true);
                     this.props.validateUnpaid({
-                      onSuccess: () => this.props.setProcessing(false),
+                      onSuccess: () => {
+                        this.props.setProcessing(false);
+                        Analytics.onPaymentSuccess(this.props.basket);
+                      },
                       onError: () => this.props.setProcessing(false),
                     });
                   }}

@@ -225,6 +225,7 @@ export function requestLogin(
         console.error(err);
         dispatch(networkError(err));
       }
+      if (options && options.onDone) options.onDone();
     }
   };
 }

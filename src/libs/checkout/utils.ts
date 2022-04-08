@@ -1,7 +1,9 @@
 import { getPrice } from '#libs/theme/utils';
-import { Basket } from './types';
+import { Basket, PrepaidLine } from './types';
 
-export const getBasketTotalPriceExcludingTax = (basket: Basket) => {
+export const getBasketTotalPriceExcludingTax = (
+  basket: Basket | Basket<string, PrepaidLine>,
+) => {
   if (!basket.checkout_items.length) {
     return 0;
   }

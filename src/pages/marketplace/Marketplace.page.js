@@ -409,6 +409,7 @@ export class MarketPlace extends Component<Props, State> {
     this.props.submitSignUpCustomForm(formdata, this.props.companyId, {
       onSuccess: () => {
         this.doEmailLogin(this.props.loginInformations);
+        Analytics.signupSuccess(this.props.loginInformations);
         if (options && options.onSuccess) options.onSuccess();
       },
       onError: () => {
@@ -528,8 +529,12 @@ export class MarketPlace extends Component<Props, State> {
                   data,
                 )
               }
-              onAddCheckoutItem={(data) =>
-                this.props.addItemToBasket(this.props.currentBasket.id, data)
+              onAddCheckoutItem={(data, options?) =>
+                this.props.addItemToBasket(
+                  this.props.currentBasket.id,
+                  data,
+                  options,
+                )
               }
               goToCheckout={() =>
                 this.props.goToCheckout(this.props.currentBasket.company)

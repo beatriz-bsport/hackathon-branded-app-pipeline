@@ -6,6 +6,7 @@ import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import { OptionCallback } from '../../state/types';
 import {
   addItemToBasket,
   removeItemFromBasket,
@@ -61,8 +62,12 @@ class BasketPage extends React.PureComponent<Props> {
                 onRemoveCheckoutItem={(data: any) =>
                   this.props.removeItemFromBasket(this.props.basket.id, data)
                 }
-                onAddCheckoutItem={(data: any) =>
-                  this.props.addItemToBasket(this.props.basket.id, data)
+                onAddCheckoutItem={(data: any, options?: OptionCallback) =>
+                  this.props.addItemToBasket(
+                    this.props.basket.id,
+                    data,
+                    options,
+                  )
                 }
                 onItemExpire={this.onItemExpire}
               />

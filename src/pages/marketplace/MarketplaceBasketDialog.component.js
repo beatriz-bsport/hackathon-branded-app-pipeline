@@ -6,63 +6,63 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { makeStyles, Theme } from '@material-ui/core';
 
 import BasketConsumer from '../../libs/checkout/components/BasketConsumer.component';
 import type { Basket } from '../../libs/checkout/types';
+import { OptionCallback } from '../../state/types';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  title: {
+    padding: theme.spacing(2),
+  },
+}));
 
 type Props = {
-  t: TFunction,
   basket: Basket,
   loading: boolean,
   open: boolean,
   fullScreen: boolean,
   onCancel: () => void,
-  onAddCheckoutItem: (data: any) => void,
+  onAddCheckoutItem: (data: any, options?: OptionCallback) => void,
   goToCheckout: () => void,
   onRemoveCheckoutItem: (data: any) => void,
-  classes: Object,
   isExcludingTax?: boolean,
 };
 
-export const MarketplaceBasketDialog = (props: Props) => (
-  <Dialog open={props.open} fullScreen={props.fullScreen}>
-    <Typography variant="h4" className={props.classes.title}>
-      {props.t('checkout:myBasket.title')}
-    </Typography>
-    <BasketConsumer
-      isExcludingTax={props.isExcludingTax}
-      basket={props.basket}
-      withPrice
-      onCancel={props.onCancel}
-      loading={props.loading}
-      onRemoveCheckoutItem={props.onRemoveCheckoutItem}
-      onAddCheckoutItem={props.onAddCheckoutItem}
-    />
-    <DialogActions>
-      <Button color="secondary" onClick={props.onCancel}>
-        {props.t('checkout:myBasket.actions.closeBasket')}
-      </Button>
-      <Button
-        color="primary"
-        disabled={props.basket && props.basket.checkout_items.length === 0}
-        onClick={props.goToCheckout}
-      >
-        {props.t('checkout:myBasket.actions.checkoutBasket')}
-      </Button>
-    </DialogActions>
-  </Dialog>
-);
+export const MarketplaceBasketDialog = (props: Props) => {
+  const classes = useStyles();
 
-const styles = (theme) => ({
-  title: {
-    padding: theme.spacing(2),
-  },
-});
+  const { t } = useTranslation([]);
+  return (
+    <Dialog open={props.open} fullScreen={props.fullScreen}>
+      <Typography variant="h4" className={classes.title}>
+        {t('checkout:myBasket.title')}
+      </Typography>
+      <BasketConsumer
+        isExcludingTax={props.isExcludingTax}
+        basket={props.basket}
+        withPrice
+        onCancel={props.onCancel}
+        loading={props.loading}
+        onRemoveCheckoutItem={props.onRemoveCheckoutItem}
+        onAddCheckoutItem={props.onAddCheckoutItem}
+      />
+      <DialogActions>
+        <Button color="secondary" onClick={props.onCancel}>
+          {t('checkout:myBasket.actions.closeBasket')}
+        </Button>
+        <Button
+          color="primary"
+          disabled={props.basket && props.basket.checkout_items.length === 0}
+          onClick={props.goToCheckout}
+        >
+          {t('checkout:myBasket.actions.checkoutBasket')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
-export default compose(
-  withStyles(styles),
-  withTranslation(),
-  withMobileDialog(),
-)(MarketplaceBasketDialog);
+export default compose(withMobileDialog())(MarketplaceBasketDialog);

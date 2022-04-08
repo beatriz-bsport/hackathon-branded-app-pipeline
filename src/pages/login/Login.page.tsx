@@ -69,11 +69,16 @@ type Props = OwnProps &
 export class ConsumerLoginPage extends Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
+      if (this.props.theme?.id) Analytics.signinShow();
       this.props.fetchCompanyTheme(parseInt(this.props.membership, 10));
     }
     if (this.props.franchisor) {
       this.props.fetchFranchiseTheme(parseInt(this.props.franchisor, 10));
     }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.theme && this.props.theme?.id) Analytics.signupShow();
   }
 
   render() {
@@ -182,7 +187,12 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
   };
   return {
     doEmailLogin({ email, password }: { email: string; password: string }) {
-      dispatch(requestLogin(email, password, opts));
+      dispatch(
+        requestLogin(email, password, {
+          ...(opts || {}),
+          onDone: () => Analytics.signinSuccess({ email }),
+        }),
+      );
     },
   };
 }

@@ -26,6 +26,7 @@ import type {
 } from '../../types';
 import { mapFormDataWithObject } from '../../../../pages/form.utils';
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
+import Analytics from '#components/analytics/Analytics.component';
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;
@@ -245,8 +246,15 @@ export const ConsumerFormFieldsHOC = withFormik({
         (field: CustomFormFieldAnswer) =>
           field.answer && formData.append(`file:${field.id}`, field.answer),
       );
+    const [emailField] = values.custom_form_field.filter(
+      (_field: CustomFormFieldAnswer) =>
+        [CUSTOM_FORM_FIELD_SIGN_UP_EMAIL].includes(_field.signup_question_kind),
+    );
     onSubmit(formData, {
-      onSuccess: () => setSubmitting(false),
+      onSuccess: () => {
+        setSubmitting(false);
+        Analytics.signupSuccess({ email: emailField.answer });
+      },
       onError: () => setSubmitting(false),
     });
   },

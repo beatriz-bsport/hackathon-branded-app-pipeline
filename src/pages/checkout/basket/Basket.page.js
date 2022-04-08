@@ -75,7 +75,6 @@ type Props = {
   processing: boolean,
   companyId: number,
   removeItemFromBasket: (basketId: string, data: any) => void,
-  addItemToBasket: (basketId: string, data: any) => void,
   fetchCompanyTheme: (companyId: number) => void,
   goBack: () => void,
   theme: ?Theme,
@@ -100,7 +99,11 @@ type Props = {
   onSuccess: () => void,
 
   removeItemFromBasket: (basketId: string, data: any) => void,
-  addItemToBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (
+    basketId: string,
+    data: any,
+    options: OptionCallback,
+  ) => void,
 
   snackbarError: (string) => void,
   queryParams: any,
@@ -506,9 +509,13 @@ export default compose(
   withHandlers({
     addItemToBasket:
       ({ addItemToBasket, basket, fetchInstalmentPaymentByBasket }) =>
-      (basketId, data) =>
+      (basketId, data, options?) =>
         addItemToBasket(basketId, data, {
-          onSuccess: () => fetchInstalmentPaymentByBasket(basket.id),
+          onSuccess: () => {
+            fetchInstalmentPaymentByBasket(basket.id);
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: options.onError,
         }),
     removeItemFromBasket:
       ({ removeItemFromBasket, basket, fetchInstalmentPaymentByBasket }) =>

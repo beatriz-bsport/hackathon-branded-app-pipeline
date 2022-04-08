@@ -1,5 +1,9 @@
 /* global fbq */
 
+const storage = window.localStorage;
+const currencyCode = (
+  storage.getItem('bsport:payment:currency_code') || 'EUR'
+).toUpperCase();
 export default class FacebookPixel {
   static methods = [];
 
@@ -39,7 +43,7 @@ FacebookPixel.addMethod(
     content_id: pc.id,
     content_type: 'product',
     value: pc.price,
-    currency: 'EUR',
+    currency: currencyCode,
   }),
   [
     ['content_name', 'fbp.addPack.content_name'],
@@ -60,7 +64,7 @@ FacebookPixel.addMethod(
     content_id: pp.id,
     content_type: 'product',
     value: pp.price,
-    currency: 'EUR',
+    currency: currencyCode,
   }),
   [
     ['content_name', 'fbp.addPass.content_name'],
@@ -81,7 +85,7 @@ FacebookPixel.addMethod(
     content_id: pp.id,
     content_type: 'product',
     value: pp.price,
-    currency: 'EUR',
+    currency: currencyCode,
   }),
   [
     ['content_name', 'fbp.addPrivatePass.content_name'],
@@ -102,7 +106,7 @@ FacebookPixel.addMethod(
     content_id: si.id,
     content_type: 'product',
     value: si.price,
-    currency: 'EUR',
+    currency: currencyCode,
   }),
   [
     ['content_name', 'fbp.addShopItem.content_name'],
@@ -118,7 +122,7 @@ FacebookPixel.addMethod(
   'contractPaymentSuccess',
   'Purchase',
   (contract) => ({
-    currency: 'EUR',
+    currency: currencyCode,
     value: contract.recurrent_price,
     content_category: 'subscription',
     content_name: contract.name,
@@ -137,7 +141,7 @@ FacebookPixel.addMethod(
   'paymentSuccess',
   'Purchase',
   (basket) => ({
-    currency: 'EUR',
+    currency: currency_code,
     value: basket.total_price,
     content_category: 'basket',
   }),

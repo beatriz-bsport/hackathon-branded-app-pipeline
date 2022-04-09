@@ -7163,12 +7163,17 @@
             "error": {
                 "text_content": "Je aankoop kon niet worden voltooid. Klik op de onderstaande knop om het opnieuw te proberen of ga terug en kies een ander abonnement door dit venster te sluiten.",
                 "button_text": "Opnieuw proberen",
-                "text_status": "Je aankoop kon niet worden verwerkt!"
+                "text_status": "Je aankoop kon niet worden verwerkt!",
+                "userSpace": "Mijn profiel",
+                "title": "Fout bij het verwerken van de betaling"
             },
             "success": {
                 "text_content": "Je aankoop staat opgeslagen in je profiel.",
                 "button_text": "Verder",
-                "text_status": "Je aankoop is succesvol afgerond!"
+                "text_status": "Je aankoop is succesvol afgerond!",
+                "title": "Gefeliciteerd!",
+                "contract": "Mijn abonnement",
+                "recap": "Overzicht"
             },
             "title": "Een abonnement aanschaffen"
         }
@@ -9019,11 +9024,15 @@
                 "offerNotBookable": "Het is niet mogelijk om je aan te melden voor",
                 "offerPreBooked": "Je staat op de wachtlijst voor",
                 "basket": "Mijn winkelmandje",
-                "title": "Overzicht"
+                "title": "Gefeliciteerd!",
+                "error": "Foutmelding",
+                "recap": "Overzicht"
             },
             "actions": {
                 "back": "Terug",
-                "continue": "Verder"
+                "continue": "Verder winkelen",
+                "widgetContinue": "Verder",
+                "member": "Mijn profiel"
             }
         },
         "historyTitle": "Geschiedenis van het winkelmandje",

@@ -8,6 +8,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import InfoIcon from '@material-ui/icons/Info';
 
 type Props = {
   event: SubscriptionEvent,
@@ -26,11 +27,11 @@ export const SubscriptionEventListItem = (props: Props) => {
   const company_event = props.eventSpec[props.event.event_type];
   return (
     <ListItem dense button={!!onClick} onClick={onClick}>
-      <ListItemIcon>{company_event.icon}</ListItemIcon>
+      <ListItemIcon>{company_event?.icon || <InfoIcon />}</ListItemIcon>
       <ListItemText
         primary={
-          (company_event.titleSuffix || (() => ''))(props.event) +
-          company_event.getPrimaryText(props.event, props.t)
+          (company_event?.titleSuffix || (() => ''))(props.event) +
+          (company_event?.getPrimaryText || ((e) => e))(props.event, props.t)
         }
         secondary={moment(props.event.date * 1000).format('LLLL')}
       />

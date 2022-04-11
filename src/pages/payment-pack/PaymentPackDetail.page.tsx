@@ -510,18 +510,22 @@ export class PaymentPackDetail extends Component<Props, State> {
           }
           initial={{
             ...this.state.paymentPackToEdit,
-            establishments: this.state.paymentPackToEdit?.establishments.map(
-              (establishment) => establishment.id,
-            ),
-            metaActivities: this.state.paymentPackToEdit?.metaActivities.map(
-              (metaActivitie) => metaActivitie.id,
-            ),
-            blacklist_tags: this.state.paymentPackToEdit?.blacklist_tags.map(
-              (tag) => tag.id,
-            ),
-            whitelist_tags: this.state.paymentPackToEdit?.whitelist_tags.map(
-              (tag) => tag.id,
-            ),
+            establishments:
+              this.state.paymentPackToEdit?.establishments?.map(
+                (establishment) => establishment.id,
+              ) ?? [],
+            metaActivities:
+              this.state.paymentPackToEdit?.metaActivities?.map(
+                (metaActivitie) => metaActivitie.id,
+              ) ?? [],
+            blacklist_tags:
+              this.state.paymentPackToEdit?.blacklist_tags?.map(
+                (tag) => tag.id,
+              ) ?? [],
+            whitelist_tags:
+              this.state.paymentPackToEdit?.whitelist_tags?.map(
+                (tag) => tag.id,
+              ) ?? [],
           }}
           privateServices={this.props.privateServices}
           compatibleServicePass={this.props.compatibleServicePass}

@@ -136,9 +136,7 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
           disabled={!!tagRuleState?.tag_id}
         >
           {tagRuleState &&
-            tagRuleState.tag_group &&
-            tagRuleState.tag_group.tags &&
-            tagRuleState.tag_group.tags.map((tag) => (
+            tagRuleState?.tag_group?.tags?.map((tag) => (
               <MenuItem key={tag.id} value={tag.id.toString()}>
                 {tag.name}
               </MenuItem>

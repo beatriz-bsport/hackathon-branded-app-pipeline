@@ -178,7 +178,7 @@ export const withTags = memoize((selector: (state: RootState) => any) =>
         ?.map((id: number) => tagListById?.[id]?.[0])
         .filter((tag: number) => tag),
       whitelist_tags: _off?.whitelist_tags
-        .map((id: number) => tagListById?.[id]?.[0])
+        ?.map((id: number) => tagListById?.[id]?.[0])
         .filter((tag: number) => tag),
     }));
   }),

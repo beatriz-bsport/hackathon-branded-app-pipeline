@@ -25,7 +25,7 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
   const { open, whitelistTags, blacklistTags } = props;
 
   const renderTags = (tags: Array<Tag<TagGroup>>, msg: string) => {
-    if (tags.length) {
+    if (tags?.length) {
       return tags.map((tag: Tag<TagGroup>) => (
         <div className={classes.tag}>
           <TagChip key={tag.id} tag={tag} size="small" />

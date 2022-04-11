@@ -259,7 +259,7 @@ export function OfferMinimalSummary(props: Props) {
                 />
               </Grid>
               {showTags &&
-                (whitelist_tags.length > 0 || blacklist_tags.length > 0) && (
+                (whitelist_tags?.length > 0 || blacklist_tags?.length > 0) && (
                   <Grid item className={classes.topAlign}>
                     <Tooltip
                       disableInteractive

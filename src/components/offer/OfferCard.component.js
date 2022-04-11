@@ -465,8 +465,8 @@ export class OfferCard extends Component<Props, State> {
                 </ListItem>
               </div>
             )}
-            {(offer?.whitelist_tags.length > 0 ||
-              offer?.blacklist_tags.length > 0) && (
+            {(offer?.whitelist_tags?.length > 0 ||
+              offer?.blacklist_tags?.length > 0) && (
               <div>
                 <ListItem>
                   <ListItemIcon>

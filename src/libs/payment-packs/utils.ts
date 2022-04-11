@@ -64,7 +64,7 @@ export const getValidityInfo = (
 };
 
 export const getTagInfo = (pack: PaymentPack, t: TFunction) => {
-  const { blacklist_tags, whitelist_tags } = pack;
+  const { blacklist_tags = [], whitelist_tags = [] } = pack;
   const nb_whitelistTags = whitelist_tags.length;
   const nb_blacklistTags = blacklist_tags.length;
   let tagInfo = '';

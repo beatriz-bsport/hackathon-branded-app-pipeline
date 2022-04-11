@@ -852,15 +852,19 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
     values,
     { props: { onSubmit, initial, formSuccess }, setSubmitting },
   ) => {
+    const { linked_payment_pack, ...otherValues } = values;
+
     const newValues = {
-      ...values,
+      ...otherValues,
       available_payment_method_identifiers:
         values.available_payment_method_identifiers.length === 0
           ? [CB.id]
           : values.available_payment_method_identifiers,
-      ...(values.linked_payment_pack && {
-        linked_payment_pack: values.linked_payment_pack?.id || null,
-      }),
+      ...(linked_payment_pack && linked_payment_pack?.id
+        ? {
+            linked_payment_pack: linked_payment_pack.id,
+          }
+        : {}),
     };
     onSubmit(newValues, {
       onSuccess: () => {

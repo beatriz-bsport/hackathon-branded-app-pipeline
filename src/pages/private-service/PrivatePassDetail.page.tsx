@@ -594,11 +594,13 @@ const mapWithHandlers = {
       },
     });
   },
-  onSubmit: (props: WithStateProps) => (data: any) =>
+  onSubmit: (props: WithStateProps) => (data: any, options?: OptionCallback) =>
     props.createOrUpdatePrivatePass(data, props.id, {
       onSuccess: () => {
+        options?.onSuccess();
         props.setOpenEditForm(false);
       },
+      onError: () => options?.onError(),
     }),
   fetchConsumerPrivatePassWithMember:
     (props: WithStateProps) => (page: number, pageSize: number) =>

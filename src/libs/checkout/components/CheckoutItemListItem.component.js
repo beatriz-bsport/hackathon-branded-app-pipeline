@@ -56,10 +56,12 @@ export const CheckoutItemListItem = (props: {
 
         {props.checkout_item.editable && props.onRemoveOne && props.onAddOne ? (
           <div className={props.classes.actionButtons}>
-            <IconButton disabled={props.loading} onClick={props.onRemoveOne}>
-              <ExposureNeg1Icon />
-            </IconButton>
-            {!props.checkout_item?.sub_items?.length && (
+            {!!props.onRemoveOne && (
+              <IconButton disabled={props.loading} onClick={props.onRemoveOne}>
+                <ExposureNeg1Icon />
+              </IconButton>
+            )}
+            {!!props.onAddOne && !props.checkout_item?.sub_items?.length && (
               <IconButton disabled={props.loading} onClick={props.onAddOne}>
                 <ExposurePlus1Icon />
               </IconButton>

@@ -19,7 +19,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import { createStyles, Theme } from '@material-ui/styles';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
-import type { MetaActivity } from '../../../api/types';
+import { MetaActivity } from '../types';
 import { formatAsDatetime } from '../../../utils/datetime';
 import { getSportWithIcon } from '../../../components/category/utils';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
@@ -154,11 +154,12 @@ const MetaActivityListItem = (props: Props) => {
               label: t('common.delete'),
               onClick: onDelete,
             },
-          !metaActivity.customer_enabled && {
-            icon: RestoreFromTrashIcon,
-            label: t('common.restore'),
-            onClick: () => props.restoreMetaActivity(),
-          },
+          !metaActivity.customer_enabled &&
+            !!props.restoreMetaActivity && {
+              icon: RestoreFromTrashIcon,
+              label: t('common.restore'),
+              onClick: props.restoreMetaActivity,
+            },
         ]}
       />
     </ListItem>

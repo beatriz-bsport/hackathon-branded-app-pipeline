@@ -52,13 +52,20 @@ export const BasketConsumer = (props: Props) => {
                 checkout_item={ci}
                 key={ci.id}
                 loading={props.loading}
-                onRemoveOne={() =>
-                  props.onRemoveCheckoutItem({
-                    checkout_item: ci.id,
-                    quantity: 1,
-                  })
+                onRemoveOne={
+                  props.onRemoveCheckoutItem
+                    ? () =>
+                        props.onRemoveCheckoutItem({
+                          checkout_item: ci.id,
+                          quantity: 1,
+                        })
+                    : null
                 }
-                onAddOne={() => props.onAddCheckoutItem({ ...ci, quantity: 1 })}
+                onAddOne={
+                  props.onAddCheckoutItem
+                    ? () => props.onAddCheckoutItem({ ...ci, quantity: 1 })
+                    : null
+                }
                 onItemExpire={props.onItemExpire}
               />
             ))}

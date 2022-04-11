@@ -383,6 +383,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         },
       },
     );
+    this.setState({ eventSlotSelected: null });
   };
 
   onCreateCustomEvent = () => {
@@ -398,6 +399,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         },
       },
     );
+    this.setState({ eventSlotSelected: null });
   };
 
   onEnableAvailability = () => {
@@ -413,6 +415,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         },
       },
     );
+    this.setState({ eventSlotSelected: null });
   };
 
   createRecurrence = (recurrence_until: string, eventSlot: any) => {
@@ -444,6 +447,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         },
       },
     );
+    this.setState({ eventSlotSelected: null });
   };
 
   handleEventClick = (info) => {

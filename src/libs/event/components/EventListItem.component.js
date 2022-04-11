@@ -25,6 +25,8 @@ export const SubscriptionEventListItem = (props: Props) => {
       : null;
 
   const company_event = props.eventSpec[props.event.event_type];
+  if (!company_event) return null;
+
   return (
     <ListItem dense button={!!onClick} onClick={onClick}>
       <ListItemIcon>{company_event?.icon || <InfoIcon />}</ListItemIcon>

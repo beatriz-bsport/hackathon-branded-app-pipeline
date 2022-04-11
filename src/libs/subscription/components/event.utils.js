@@ -26,11 +26,6 @@ export const COMPANY_EVENTS = {
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.create}`,
   },
-  [BILLING_PLAN_EVENTS.update]: {
-    icon: <EditIcon />,
-    getPrimaryText,
-    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.update}`,
-  },
   [BILLING_PLAN_EVENTS.payment_success]: {
     icon: <CheckIcon color="primary" />,
     titleSuffix: (event) =>

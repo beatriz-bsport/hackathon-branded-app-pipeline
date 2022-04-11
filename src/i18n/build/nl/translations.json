@@ -1522,7 +1522,10 @@
             "dialogTitle": "Bericht",
             "contentNotification": "Inhoud",
             "titleNotification": "Titel",
-            "sendNotification": "Push-notificatie"
+            "sendNotification": "Push-notificatie",
+            "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
+            "warningConsent1": "Waarschuwing! Dit lid heeft aangegeven geen promotionele berichten te willen ontvangen. Directe berichten kunt u snel en eenvoudig versturen om leden op de hoogte houden, zonder dat daar promotionele doeleinden aan verbonden zijn.",
+            "titleInterpolated": "De gebruikte variabelen in dit bericht worden op individuele basis aangepast per ontvanger."
         },
         "table": {
             "columns": {
@@ -1597,6 +1600,10 @@
         "send": {
             "success": "E-mail wordt verzonden...",
             "error": "Fout tijdens het versturen"
+        },
+        "sms": {
+            "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
+            "warningConsent1": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt."
         }
     },
     "paymentCombo": {
@@ -7161,7 +7168,7 @@
         },
         "subscriptionPaymentDialog": {
             "error": {
-                "text_content": "Je aankoop kon niet worden voltooid. Klik op de onderstaande knop om het opnieuw te proberen of ga terug en kies een ander abonnement door dit venster te sluiten.",
+                "text_content": "Je aankoop kon niet worden voltooid. Probeer het opnieuw of ga naar je profiel.",
                 "button_text": "Opnieuw proberen",
                 "text_status": "Je aankoop kon niet worden verwerkt!",
                 "userSpace": "Mijn profiel",
@@ -7173,7 +7180,8 @@
                 "text_status": "Je aankoop is succesvol afgerond!",
                 "title": "Gefeliciteerd!",
                 "contract": "Mijn abonnement",
-                "recap": "Overzicht"
+                "recap": "Overzicht",
+                "text_content_funnel": "Je aankoop is succesvol verwerkt. Klik op \"Bevestigen\" om de reservering af te ronden. Ga naar \"Mijn profiel\" > \"Kaarten\" om de aankoop in te zien en te gebruiken."
             },
             "title": "Een abonnement aanschaffen"
         }
@@ -8786,7 +8794,7 @@
                 "errorURL": "Voer een geldige URL in om dit formulier op te slaan",
                 "bookingTitle": "Reservering",
                 "attendanceTitle": "Aanwezigheid",
-                "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit.",
+                "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit",
                 "hideSessionWithTagsNotEligible": "Deze sessies niet tonen aan leden die niet de juiste tags bezitten"
             },
             "gtmId": {
@@ -8985,6 +8993,9 @@
             },
             "privatePass": {
                 "error": "Deze afspraakaart is niet beschikbaar"
+            },
+            "paymentCombo": {
+                "locked": "Dit pakket is niet beschikbaar."
             }
         },
         "myBasket": {
@@ -9026,7 +9037,9 @@
                 "basket": "Mijn winkelmandje",
                 "title": "Gefeliciteerd!",
                 "error": "Foutmelding",
-                "recap": "Overzicht"
+                "recap": "Overzicht",
+                "errorExplain": "Gelieve deze bestelling herzien, omdat er een fout tijdens de verweking is opgetreden.",
+                "explain": "Zo dadelijk ontvang je een bevestigingsmail van deze bestelling."
             },
             "actions": {
                 "back": "Terug",
@@ -10396,7 +10409,7 @@
             "display": "Toon",
             "navigateToMemberForm": "Ledenprofiel wijzigen",
             "navigateToSignup": "Inschrijfformulier bewerken",
-            "memberFormTitle": "Wijzigingsformulier voor ledenprofielen",
+            "memberFormTitle": "Wijzigingsformulier",
             "signupFormTitle": "Inschrijfformulier",
             "layout": {
                 "save": "Opslaan",
@@ -10884,7 +10897,7 @@
                 "editDateDue": "Vervaldatum wijzigen"
             },
             "titleEdit": "Een uitgave bewerken",
-            "titleAdd": "Een uitgave toevoegen",
+            "titleAdd": "[Formulier] Uitgave",
             "actions": {
                 "edit": "Bijwerken",
                 "save": "Opslaan",

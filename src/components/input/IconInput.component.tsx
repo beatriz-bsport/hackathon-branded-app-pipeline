@@ -55,7 +55,7 @@ export function IconInput(props: Props) {
   return (
     <div>
       <Typography color="textSecondary" className={classes.title}>
-        {t('form.tag.icon')}
+        {props?.label || t('form.tag.icon')}
       </Typography>
 
       {props.icon?.length !== 0 ? (

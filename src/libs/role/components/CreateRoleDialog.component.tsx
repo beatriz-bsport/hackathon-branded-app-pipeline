@@ -18,7 +18,12 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { Permission, Role } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
-import { getRoleDescription, getRoleName } from '../utils';
+import {
+  deepMerge,
+  getRoleDescription,
+  getRoleName,
+  setAllValuesInObject,
+} from '../utils';
 import RecursiveCheckBoxComponent from './RecursiveCheckBox.component';
 
 type OwnProps = {
@@ -126,6 +131,7 @@ const defaultPermissions: Permission = {
       quickBooks: true,
       activeCampaign: true,
       subscription: true,
+      mobilePersonalization: true,
     },
   },
 };
@@ -164,7 +170,10 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     if (props.role) {
       state.name = props.role.name;
       state.description = props.role.description;
-      state.permissions = cloneDeep(props.role.permissions);
+      state.permissions = deepMerge(
+        cloneDeep(props.role.permissions),
+        setAllValuesInObject(defaultPermissions, false),
+      ) as Permission;
     }
 
     if (!state.permissions.restrictedPaths) {

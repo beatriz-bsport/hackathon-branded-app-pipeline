@@ -1,16 +1,13 @@
 // @flow
-
-import omit from 'lodash/omit';
-
 import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import { Field, ErrorMessage } from 'formik';
+import Dropzone from 'react-dropzone';
+
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
-import { Field, ErrorMessage } from 'formik';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = (theme) => ({
@@ -22,11 +19,22 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: theme.palette.grey[100],
+    padding: theme.spacing(2),
+    minWidth: 400,
+    minHeight: 200,
+    borderRadius: 2,
   },
   alertError: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     color: theme.palette.error.dark,
+  },
+  icon: {
+    fill: theme.palette.primary.main,
+  },
+  text: {
+    fontSize: 16,
   },
 });
 
@@ -35,6 +43,7 @@ type Props = {
   classes: any,
   onChange: () => void,
   id: number,
+  children?: React.ReactChild,
 };
 type State = {
   previewUrl: string,
@@ -50,77 +59,104 @@ export class ImageField extends Component<Props, State> {
     return (
       <Field {...this.props}>
         {({ field, form: { setFieldValue } }) => (
-          <div>
-            <input
-              accept="image/*"
-              className={classes.input}
-              id={this.props.id || 'avatar-loader-button'}
-              {...omit(field, ['value'])}
-              {...this.inputProps}
-              onChange={(e) => {
-                const { files } = e.target;
-                this.setState({
-                  // eslint-disable-next-line
-                  previewUrl: (window.URL
-                    ? window.URL
-                    : window.webkitURL
-                  ).createObjectURL(files[0]),
-                });
-                setFieldValue(field.name, files[0]);
-              }}
-              type="file"
-            />
-            <label
-              htmlFor={this.props.id || 'avatar-loader-button'}
-              style={{ cursor: 'pointer' }}
-            >
-              <Grid
-                container
-                item
-                alignItems="center"
-                justify="center"
-                style={{ width: '100%' }}
-              >
-                {getUrl(previewUrl, field.value) ? (
-                  <img
-                    alt="some-cover"
-                    src={getUrl(previewUrl, field.value)}
+          <Dropzone
+            onDrop={(acceptedFiles) => {
+              try {
+                if (acceptedFiles?.length > 0) {
+                  const _previewUrl = (
+                    window.URL ? window.URL : window.webkitURL
+                  ).createObjectURL(acceptedFiles[0]);
+
+                  this.setState({
+                    previewUrl: _previewUrl,
+                  });
+                  setFieldValue(field.name, acceptedFiles[0]);
+                }
+                // eslint-disable-next-line no-empty
+              } catch (err) {}
+            }}
+            accept="image/*"
+          >
+            {({ getRootProps, getInputProps, isDragAccept }) => (
+              <div {...getRootProps()}>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  {...getInputProps()}
+                  type="file"
+                />
+                <label
+                  htmlFor={this.props.id || 'avatar-loader-button'}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <Grid
+                    container
+                    item
+                    alignItems="center"
+                    justify="center"
                     style={{
                       width: '100%',
-                      maxHeight: 400,
-                      objectFit: 'cover',
                     }}
-                  />
-                ) : (
-                  <div className={classes.emptyImageContainer}>
-                    <Icon style={{ width: 140, height: 140 }}>
-                      <InsertPhotoIcon
-                        id={this.props.id}
-                        style={{ width: 140, height: 140 }}
+                  >
+                    {getUrl(previewUrl, field.value) ? (
+                      <img
+                        alt="some-cover"
+                        src={getUrl(previewUrl, field.value)}
+                        style={{
+                          width: '100%',
+                          maxHeight: 400,
+                          objectFit: 'cover',
+                        }}
                       />
-                    </Icon>
+                    ) : (
+                      <div
+                        className={classes.emptyImageContainer}
+                        style={
+                          isDragAccept
+                            ? {
+                                borderWidth: 1,
+                                borderColor: 'black',
+                                borderStyle: 'dashed',
+                              }
+                            : {}
+                        }
+                      >
+                        <Icon fontSize="large">
+                          <FolderOpenIcon
+                            id={this.props.id}
+                            className={classes.icon}
+                            fontSize="large"
+                          />
+                        </Icon>
+                        <Typography
+                          variant="caption"
+                          style={
+                            field?.required
+                              ? { color: 'red' }
+                              : { color: '#BDBDBD' }
+                          }
+                          className={classes.text}
+                        >
+                          {this.props.t('common.uploadOneImage.new')}
+                        </Typography>
+                        {this.props?.children}
+                      </div>
+                    )}
+                  </Grid>
+                </label>
+                <ErrorMessage {...this.props}>
+                  {(message) => (
                     <Typography
-                      variant="caption"
-                      style={field?.required ? { color: 'red' } : null}
-                      className={classes.text}
+                      variant="body2"
+                      className={this.props.classes.alertError}
                     >
-                      {this.props.t('common.uploadOneImage.new')}
+                      {this.props.t(message)}
                     </Typography>
-                  </div>
-                )}
-              </Grid>
-            </label>
-            <ErrorMessage {...this.props}>
-              {(message) => (
-                <Typography
-                  variant="body2"
-                  className={this.props.classes.alertError}
-                >
-                  {this.props.t(message)}
-                </Typography>
-              )}
-            </ErrorMessage>
-          </div>
+                  )}
+                </ErrorMessage>
+              </div>
+            )}
+          </Dropzone>
         )}
       </Field>
     );

@@ -202,8 +202,9 @@ export const getPaymentPackNotifications = (state: RootState, id: number) =>
     ),
   );
 
-export const getEnabled: PaymentPackSelector = createSelector(getAll, (pps) =>
-  pps.filter((pp: PaymentPack) => !pp.disabled),
+export const getEnabled: PaymentPackArraySelector = createSelector(
+  getAll,
+  (pps) => pps.filter((pp: PaymentPack) => !pp.disabled),
 );
 
 export const getPaymentPackListCompatibleWithVideo = createSelector(

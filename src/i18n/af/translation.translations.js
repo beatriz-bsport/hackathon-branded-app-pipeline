@@ -71,6 +71,7 @@ exports.default = {
   errors: {
     end_before_start: 'La date de fin doit être après la date de début',
     start_after_end: 'La date de début doit être antérieure à la date de fin',
+    invalidUrl: "L'url est invalide (Format attendu : http://www.test.fr)",
   },
   members: {
     form: {

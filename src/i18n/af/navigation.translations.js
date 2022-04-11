@@ -100,6 +100,7 @@ exports.default = {
       settings: 'Paramètres',
       platform_billing: 'Abonnement bsport',
       forms: 'Formulaire membre',
+      mobilePersonalization: 'Personalisation app',
     },
     marketingNotification: 'Notifications',
     tags: 'Tags',

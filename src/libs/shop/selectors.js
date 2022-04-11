@@ -45,7 +45,7 @@ const getSubShops = createSelector(
   },
 );
 
-const getSubShopsByCompany = (
+export const getSubShopsByCompany = (
   state: State,
   companyId: number,
   as_consumer: ?boolean,

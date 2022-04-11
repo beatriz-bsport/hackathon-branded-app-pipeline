@@ -246,6 +246,9 @@ exports.default = {
         personalization: {
           _label: 'Personnalisation',
         },
+        mobilePersonalization: {
+          _label: 'Personnalisation app',
+        },
         memberForms: {
           _label: 'Formulaire membre',
         },

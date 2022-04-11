@@ -185,4 +185,103 @@ exports.default = {
       text: 'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
     },
   },
+  mobilePersonalization: {
+    title: "Personnalisation de l'app",
+    externalShopRedirection: {
+      subtitle: 'Liens externes',
+      helperText:
+        'Vous pouvez ajouter des liens externes sur l’application pour rediriger vos mebres sur votre site internet ou sur un autre plateforme. Les liens apparaitront dans l’onglet achat de l’application mobile.',
+      add: 'Ajouter un lien',
+      updated: 'Mettre a jour',
+      preview: "Apercu de l'app",
+      icon: 'Icone',
+      name: 'Nom',
+      link: 'Lien',
+      action: 'Actions',
+      popup: {
+        title: 'Lien externe',
+        name: 'Nom',
+        link: 'Lien de redirection',
+        icon: 'Icône',
+        cancel: 'Annuler',
+        submit: 'Enregister',
+      },
+      deleteModal: {
+        title: 'Suppresion',
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+        content:
+          'Êtes-vous sûr de vouloir supprimer ce lien ? Cette opération est définitive',
+      },
+      popupPreview: {
+        title: 'Apercu',
+        membershipCard: {
+          contract: 'Abonnement',
+          paymentPack: 'Cartes de cours',
+          consumerPaymentPack: 'Mes cartes',
+          invoice: 'Mes factures',
+          paymentPackEmpty: 'Aucun pass proposé',
+          privatePassListEmpty: 'Aucun RDV proposé',
+          consumerPaymentPackEmpty: 'Aucun pass possédé',
+          vod: 'Accéder à la VOD',
+          privateConsumerPassListEmpty: 'Aucune carte RDV possédée',
+          invoiceEmpty: 'Aucune facture',
+          contractEmpty: "Aucun abonnement n'est proposé à la vente",
+          paymentComboEmpty: 'Aucune offre proposée',
+          mySubscription: 'Mes\nabonnements',
+          paymentPackSubtitle:
+            'Retrouvez ici toutes les cartes de votre studio',
+          contractSubtitle:
+            'Retrouvez ici toutes les offres d’abonnement de votre studio',
+          vodSubtitle:
+            'Retrouvez ici toute l’offre de vidéo à la demande de votre studio',
+          paymentComboSubtitle:
+            'Retrouvez ici toutes les offres promotionnelles de votre studio',
+          giftcardSubtitle:
+            'Retrouvez ici toutes les cartes-cadeaux de votre studio',
+        },
+        category: {
+          paymentPack: 'Tous les pass',
+          paymentCombo: 'Offres promotionnelles',
+          contract: 'Abonnements',
+          giftcard: 'Cartes-cadeaux',
+        },
+        ourOffers: 'Nos Offres',
+        inventory: 'Votre inventaire',
+        cancel: 'Fermer',
+      },
+    },
+    popup: {
+      subtitle: 'Pop-up de démarrage',
+      helperText:
+        'La pop-up de démarrage apparaitra une fois à l’ouverture de l’application par vos membres. Elle permet de porter l’attention de vos membres sur un événement spéciale (un nouveau cours, une promotion ...) et les redirigera vers la page web souhaitée.',
+      add: 'Ajouter une pop-up',
+      updated: 'Mettre a jour',
+      name: 'Nom',
+      link: 'Lien',
+      image: 'Image',
+      action: 'Action',
+      deleteModal: {
+        title: 'Suppresion',
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+        content:
+          'Êtes-vous sûr de vouloir supprimer cette popup ? Cette opération est définitive',
+      },
+      see: 'Visualiser',
+      editPopup: {
+        title: 'Pop-up de démarrage',
+        name: 'Nom',
+        image: 'Image',
+        link: 'Lien de redirection',
+        cancel: 'Annuler',
+        submit: 'Enregister',
+        preview: 'Prévisualiser',
+        previewPopup: {
+          title: 'Apercu',
+          see: 'Voir',
+        },
+      },
+    },
+  },
 };

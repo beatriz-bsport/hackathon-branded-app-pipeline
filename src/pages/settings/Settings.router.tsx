@@ -11,6 +11,7 @@ import { push } from 'connected-react-router';
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from './CompanyDetailPage.page';
 import RoleConfigurationPage from './RoleConfiguration.page';
+import MobilePersonalizationPage from './MobilePersonalization.page';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.page';
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.page';
 import BroadcastConfiguration from './BroadcastConfiguration.page';
@@ -96,6 +97,12 @@ export const Settings = () => {
         path="/settings/personalization"
         component={SettingsPersonalizePage}
       />
+      <Route
+        exact
+        path="/settings/mobile-personalization"
+        component={MobilePersonalizationPage}
+      />
+
       <Route
         exact
         path="/settings/forms"

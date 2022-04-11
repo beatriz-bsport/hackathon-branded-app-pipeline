@@ -93,6 +93,7 @@ export type Permission = {
       quickBooks: boolean;
       activeCampaign: boolean;
       subscription: boolean;
+      mobilePersonalization: boolean;
     };
   };
 };

@@ -1,4 +1,6 @@
 import { TFunction } from 'i18next';
+import cloneDeep from 'lodash/cloneDeep';
+import mergeWith from 'lodash/mergeWith';
 import { Permission, Role } from './types';
 
 export const getRoleName = (role: Role, t: TFunction) => {
@@ -55,4 +57,43 @@ export const parseRestrictedPath = (p: any) => {
   return p
     .replace('https://backoffice.bsport.io')
     .replace('https://backoffice.staging.bsport.io');
+};
+
+const isStictObject = (item: any) =>
+  item && typeof item === 'object' && !Array.isArray(item);
+
+export const setAllValuesInObject = (object: Object, value: any): Object => {
+  if (!isStictObject(object)) return {};
+  return Object.keys(object).reduce((acc, key: keyof Object) => {
+    const objectValue = object[key];
+
+    if (isStictObject(objectValue)) {
+      acc[key] = setAllValuesInObject(objectValue, value);
+      return acc;
+    }
+
+    // ignoring array
+    if (Array.isArray(objectValue)) {
+      acc[key] = objectValue;
+      return acc;
+    }
+
+    acc[key] = value;
+    return acc;
+  }, {});
+};
+
+export const deepMerge = (
+  srcObject: Object,
+  completionObject: Object,
+): Object => {
+  return mergeWith(cloneDeep(srcObject), completionObject, (a, b) => {
+    if (typeof a === 'boolean' && typeof b === 'object') {
+      return setAllValuesInObject(b, a);
+    }
+    if (typeof a === 'object' && typeof b === 'object') {
+      return deepMerge(a, b);
+    }
+    return a;
+  });
 };

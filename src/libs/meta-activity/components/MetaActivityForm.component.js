@@ -57,14 +57,15 @@ export function MetaActivityForm(props: Props) {
   } = props.values;
   return (
     <Form>
-      <ImageField id="button_activity_image" name="cover_main" />
-      <Typography
-        style={{ margin: 12 }}
-        variant="caption"
-        color="textSecondary"
-      >
-        {props.t('activity.explainImage')}
-      </Typography>
+      <ImageField id="button_activity_image" name="cover_main">
+        <Typography
+          style={{ margin: 12 }}
+          variant="caption"
+          color="textSecondary"
+        >
+          {props.t('activity.explainImage')}
+        </Typography>
+      </ImageField>
       <div className={classes.container}>
         <TextField
           id="textfield_activity_title"

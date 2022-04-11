@@ -59,6 +59,7 @@ import VersionVisualizer from '../../VersionVisualizer.component';
 import {
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
   UPSELL_IDENTIFIER_CLOCK_IN,
+  UPSELL_IDENTIFIER_CUSTOM_APP,
 } from '#libs/platform-billing/upsell-identifiers';
 import { Permission } from '#libs/role/types';
 
@@ -456,6 +457,16 @@ const ResponsiveDrawer: React.FC<Props> = ({
           text: t('backofficeMenu.settings.personalization'),
           permission: 'navigationMenu.settings.personalization',
         },
+        ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP)
+          ? [
+              {
+                to: '/settings/mobile-personalization',
+                dense: true,
+                text: t('backofficeMenu.settings.mobilePersonalization'),
+                permission: 'navigationMenu.settings.mobilePersonalization',
+              },
+            ]
+          : []),
         {
           to: '/settings/forms',
           dense: true,

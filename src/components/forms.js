@@ -524,7 +524,8 @@ const IconFieldStyle = makeStyles((theme) => ({
     gap: theme.spacing(1),
   },
 }));
-export const IconField = (props: { name: string }) => {
+
+export const IconField = (props: { name: string, label?: string }) => {
   const classes = IconFieldStyle();
   return (
     <Field {...props}>
@@ -532,6 +533,7 @@ export const IconField = (props: { name: string }) => {
         <div className={classes.container}>
           <IconInput
             icon={field.value}
+            label={props?.label}
             onChange={(icon) => setFieldValue(props.name, icon)}
             setFieldTouched={() => setFieldTouched(props.name, true)}
           />

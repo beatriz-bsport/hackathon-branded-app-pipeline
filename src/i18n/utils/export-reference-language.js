@@ -12,6 +12,7 @@ const generateSourceTranslations = (lang) => {
       m = require(`../${lang}/${ns}.translations`);
     } catch (err) {
       console.log(`MISSING: ${ns}`);
+      console.error('ERROR in', lang, ns);
       console.error(err);
       throw Error(`Failted to parsed: ${ns}: ${err}`);
     }

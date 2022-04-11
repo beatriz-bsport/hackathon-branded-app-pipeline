@@ -164,6 +164,38 @@ export function fetchAllOffers(
   };
 }
 
+export const offersPaginated = {
+  isLoading: createAction('OFFERS/LIST_PAGINATED/IS_LOADING'),
+  error: createAction('OFFERS/LIST_PAGINATED/ERROR'),
+  success: createAction('OFFERS/LIST_PAGINATED/SUCCESS'),
+  delete: createAction('OFFERS/LIST_PAGINATED/DELETE'),
+};
+
+export function fetchAllOffersPaginated(
+  params?: any,
+  options?: OptionCallback<Array<Offer>>,
+) {
+  return async (dispatch: Dispatch) => {
+    if (!params || !Object.keys(params).length) return;
+    dispatch(offersPaginated.isLoading(true));
+    dispatch(offersPaginated.error(null));
+
+    try {
+      const response = await fetchAllEventsAPI(params);
+      dispatch(offersPaginated.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(offersPaginated.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(offersPaginated.isLoading(false));
+  };
+}
+
 export const compatiblePacks = {
   isLoading: createAction('OFFERS/COMPATIBLE_PACKS/IS_LOADING'),
   error: createAction('OFFERS/COMPATIBLE_PACKS/ERROR'),

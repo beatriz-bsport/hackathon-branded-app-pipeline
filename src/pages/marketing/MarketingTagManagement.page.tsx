@@ -63,6 +63,7 @@ import { fetchCoupons, untagCoupon } from '#libs/coupon/actions';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
+  fetchAllOffersPaginated as fetchAllOffersPaginatedAction,
   unTagAllOffers as unTagAllOffersAction,
   unTagOffer as unTagOfferAction,
 } from '#libs/offer/actions';
@@ -157,7 +158,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
         prevProps.offer_max_date !== this.props.offer_max_date ||
         prevProps.tagAuthorizationFilter !== this.props.tagAuthorizationFilter)
     ) {
-      this.props.fetchAllOffersAction({
+      this.props.fetchAllOffersPaginatedAction({
         page: 1,
         page_size: MEMBERS_ITEM_PER_PAGE,
         available: true,
@@ -192,7 +193,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       this.props.fetchSmartLists({ tag: this.props.selectedTagId });
       this.props.fetchAutoTagRules({ tag: this.props.selectedTagId });
 
-      this.props.fetchAllOffersAction({
+      this.props.fetchAllOffersPaginatedAction({
         page: 1,
         page_size: MEMBERS_ITEM_PER_PAGE,
         available: true,
@@ -275,7 +276,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
   };
 
   loadOfferFilterBySelectedTag = (page: number, page_size: number) => {
-    this.props.fetchAllOffersAction({
+    this.props.fetchAllOffersPaginatedAction({
       page,
       page_size,
       min_date: this.props.offer_min_date.format('YYYY-MM-DD'),
@@ -399,7 +400,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       {
         onSuccess: () => {
           this.props.fetchTagUsage();
-          this.props.fetchAllOffersAction(
+          this.props.fetchAllOffersPaginatedAction(
             {
               page: 1,
               page_size: MEMBERS_ITEM_PER_PAGE,
@@ -432,7 +433,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       {
         onSuccess: () => {
           this.props.fetchTagUsage();
-          this.props.fetchAllOffersAction(
+          this.props.fetchAllOffersPaginatedAction(
             {
               page: 1,
               page_size: MEMBERS_ITEM_PER_PAGE,
@@ -660,6 +661,7 @@ const mapDispatchToProps = {
   goToSmartlist: () => push('/smart-list'),
   goToActivity: (id: number) => push(`/activity/${id}/general`),
   fetchAllOffersAction,
+  fetchAllOffersPaginatedAction,
   fetchAllActivities,
   unTagAllOffersAction,
   unTagOfferAction,

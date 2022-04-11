@@ -135,7 +135,8 @@ export type OfferState = ErrorAndLoading & {
     filters: OfferFilter;
   };
   byId: { [key: string]: Offer };
-  calendar: {
+  calendar: [];
+  paginatedCalendar: {
     next_page: number;
     page: number;
     count: number;

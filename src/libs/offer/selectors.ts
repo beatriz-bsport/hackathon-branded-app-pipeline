@@ -20,8 +20,9 @@ import { PaymentPack } from '../payment-packs/types';
 const getState = (state: RootState) => state.offer;
 
 const getAll = (state: RootState) => getState(state).offers;
+
 export const getOfferCalendarState = (state: RootState) =>
-  getState(state).calendar;
+  getState(state).paginatedCalendar;
 
 export const getOfferCalendarStateData = (state: RootState) =>
   getOfferCalendarState(state).results;

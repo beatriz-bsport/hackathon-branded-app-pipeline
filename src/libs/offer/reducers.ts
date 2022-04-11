@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import {
   offers,
+  offersPaginated,
   compatiblePacks,
   similarOffers,
   offerByDay,
@@ -26,6 +27,16 @@ import { OfferState } from './types';
 const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   // event stuff (simplified offer objects)
   calendar: [],
+  paginatedCalendar: {
+    next_page: null,
+    page: null,
+    count: 0,
+    links: {
+      next: null,
+      previous: null,
+    },
+    results: [],
+  },
   calendarByObject: {
     metaActivity: [],
     establishment: [],
@@ -134,6 +145,15 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       return state
         .setIn(['calendar'], payload)
         .setIn(['lastFetched'], new Date());
+    },
+    [offersPaginated.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['loading'], payload);
+    },
+    [offersPaginated.error.toString()]: (state, { payload }) => {
+      return state.setIn(['error'], payload);
+    },
+    [offersPaginated.success.toString()]: (state, { payload }) => {
+      return state.setIn(['paginatedCalendar'], payload);
     },
     [similarOffers.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['similarOffers', 'loading'], payload);

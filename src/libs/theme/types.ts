@@ -37,6 +37,7 @@ export type Theme = {
   consumer_regularize_debt: boolean;
   allow_consumer_to_use_internal_account: boolean;
   accept_double_booking: boolean;
+  accept_guest: boolean;
   gtmId?: string;
   facebookPixelId?: string;
   stripe_pk_key: string;

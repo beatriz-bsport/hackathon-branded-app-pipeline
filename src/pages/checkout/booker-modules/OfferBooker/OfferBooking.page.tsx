@@ -584,7 +584,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     onRemoveGuest={this.removeGuest}
                     additionalGuestList={this.state.additionalGuestList}
                     onAddAdditionalGuest={
-                      this.showBookingButton() ? this.addAdditionalGuest : null
+                      this.showBookingButton() && this.props.theme?.accept_guest
+                        ? this.addAdditionalGuest
+                        : null
                     }
                   />
                 </div>

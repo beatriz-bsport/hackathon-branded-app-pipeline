@@ -155,6 +155,7 @@ class OfferListSummary extends React.PureComponent<Props> {
             })}
 
           {!!this.props.onClickAddMoreOffer &&
+            !offer?.room_blueprint &&
             (this.props.additionalGuestList || []).length === 0 && (
               <ButtonBase
                 disabled={!offer}

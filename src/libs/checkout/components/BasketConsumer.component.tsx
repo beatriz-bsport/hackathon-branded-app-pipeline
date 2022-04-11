@@ -124,11 +124,6 @@ export const BasketConsumer = (props: Props) => {
                         })
                     : null
                 }
-                onAddOne={
-                  props.onAddCheckoutItem
-                    ? () => props.onAddCheckoutItem({ ...ci, quantity: 1 })
-                    : null
-                }
                 onAddOne={() => {
                   props.onAddCheckoutItem(
                     {

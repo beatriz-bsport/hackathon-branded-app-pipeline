@@ -22,6 +22,8 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/me
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
+import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
+import { ScheduleFilter } from '../libs/user-preference/types';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -96,6 +98,9 @@ type Props = {
   fetchRessourcesFilters: () => void,
   updateManagerRessourcesFilters: () => void,
   availabilitySlotUpdating: boolean,
+
+  scheduleFilter: ScheduleFilter,
+  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
 };
 
 const styles = (theme) => ({
@@ -248,6 +253,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showHideCancelledEventsToggle
           companyTheme={this.props.companyTheme}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
+          scheduleFilter={this.props.scheduleFilter}
+          setScheduleFilter={this.props.setScheduleFilter}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
@@ -333,6 +340,7 @@ export default compose(
         state.dashboardSettings.managerRessourcesFilters.loading,
       availabilitySlotUpdating:
         state.privateService.availabilitySlot.createOrUpdate.loading,
+      scheduleFilter: state.userPreference.scheduleFilter,
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,
@@ -356,6 +364,7 @@ export default compose(
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
+      setScheduleFilter: setScheduleFilterAction,
     },
   ),
   withHandlers({

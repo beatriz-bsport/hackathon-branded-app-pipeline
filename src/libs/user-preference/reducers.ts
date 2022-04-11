@@ -18,6 +18,16 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
     begin: '06:00:00',
     end: '23:00:00',
   },
+  calendarFilter: {},
+  scheduleFilter: {
+    showOfferList: true,
+    showPrivateBookings: true,
+    showCustomEvents: true,
+    hideCancelledEvents: true,
+  },
+  coachesScheduleFilter: {},
+  establishmentsScheduleFilter: {},
+  privateServicesScheduleFilter: {},
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -65,6 +75,45 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       return state
         .setIn(['scheduleTimerange', 'begin'], payload.begin)
         .setIn(['scheduleTimerange', 'end'], payload.end);
+    },
+    [userPreferenceActions.setCalendarFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('calendarFilter', payload);
+    },
+    [userPreferenceActions.setScheduleFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.set('scheduleFilter', payload);
+    },
+    [userPreferenceActions.setCoachScheduleFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['coachesScheduleFilter', payload.coach],
+        payload.scheduleFilter,
+      );
+    },
+    [userPreferenceActions.setEstablishmentScheduleFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['establishmentsScheduleFilter', payload.establishment],
+        payload.scheduleFilter,
+      );
+    },
+    [userPreferenceActions.setPrivateServiceScheduleFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateServicesScheduleFilter', payload.privateService],
+        payload.scheduleFilter,
+      );
     },
   },
   initialState,

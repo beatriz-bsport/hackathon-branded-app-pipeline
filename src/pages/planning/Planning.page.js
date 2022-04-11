@@ -70,7 +70,6 @@ import {
   fetchAllOffers as fetchAllOffersAction,
   deleteOffer as deleteOfferAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
-  setFilters as setFiltersAction,
   disableMassOffers,
   retrieveNumberOfMassDisabledOfferAction,
   restoreOffer,
@@ -81,6 +80,7 @@ import {
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../libs/offer/api';
+import { setCalendarFilter as setCalendarFilterAction } from '../../libs/user-preference/actions';
 
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
 import { getAllMembers, withTags } from '../../libs/member/selectors';
@@ -180,6 +180,16 @@ const styles = (theme) => ({
   },
 });
 
+const omit_list = (offerFilters: OfferFilters, available: boolean) => {
+  const list = available ? ['available'] : [];
+  for (const filter in offerFilters) {
+    if (!offerFilters[filter] || offerFilters[filter].length === 0) {
+      list.push(filter);
+    }
+  }
+  return list;
+};
+
 type Props = {
   t: TFunction,
   classes: Object,
@@ -234,7 +244,9 @@ type Props = {
   snackbarError: (string) => void,
 
   offerFilters: OfferFilter,
-  setFilters: (OfferFilter) => null,
+  setCalendarFilter: (OfferFilter) => null,
+  filterVerification: boolean,
+  setFilterVerification: (boolean) => false,
 
   pushToSchedule: () => void,
 
@@ -309,12 +321,44 @@ export class Planning extends PureComponent<Props, State> {
   componentDidMount() {
     this.fetchData();
     this.props.fetchBookingStatsOfTheWeek();
-    this.props.fetchAssociatedCoachesList();
-    this.props.fetchEstablishments();
-    this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
-    this.props.fetchAllEstablishmentGroup(this.props.companyId);
+    const promiseCoaches = this.props.fetchAssociatedCoachesList();
+    const promiseEstablishments = this.props.fetchEstablishments();
+    const promiseActivities = this.props.fetchAllActivities({
+      customer_enabled: true,
+    });
+    const promiseEstablishmentGroups = this.props.fetchAllEstablishmentGroup(
+      this.props.companyId,
+    );
+    Promise.all([
+      promiseCoaches,
+      promiseEstablishments,
+      promiseActivities,
+      promiseEstablishmentGroups,
+    ]).then(() => {
+      const filterEstablishments = this.props.establishments?.filter((e) =>
+        this.props.offerFilters?.establishments?.includes(e.id),
+      );
+      const filterCoaches = this.props.coaches?.filter((c) =>
+        this.props.offerFilters?.coaches?.includes(c.id),
+      );
+      const filterActivities = this.props.metaActivities?.filter((a) =>
+        this.props.offerFilters?.activity__in?.includes(a.id),
+      );
+      const filterEstablishmentGroups =
+        this.props.establishmentGroupList?.filter((eg) =>
+          this.props.offerFilters?.establishment_group__in?.includes(eg.id),
+        );
+      this.props.setCalendarFilter({
+        ...this.props.offerFilters,
+        establishments: filterEstablishments.map((e) => e.id),
+        coaches: filterCoaches.map((c) => c.id),
+        activity__in: filterActivities.map((a) => a.id),
+        establishment_group__in: filterEstablishmentGroups.map((eg) => eg.id),
+      });
+      this.props.setFilterVerification(true);
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -356,7 +400,10 @@ export class Planning extends PureComponent<Props, State> {
       year: date.year(),
       month: date.month() + 1,
       day: date.date(),
-      ...(this.props.offerFilters || {}),
+      ...omit(
+        this.props.offerFilters || {},
+        omit_list(this.props.offerFilters, false),
+      ),
     });
   };
 
@@ -775,11 +822,11 @@ export class Planning extends PureComponent<Props, State> {
       theme,
       establishmentGroupList,
       establishments,
+      establishmentsLoading,
       offerFilters,
       classes,
-      setFilters,
+      setCalendarFilter,
       coachesLoading,
-      timetableLoading,
       metaActivities,
       activitiesLoading,
     } = this.props;
@@ -821,9 +868,11 @@ export class Planning extends PureComponent<Props, State> {
         <Grid item xs={6} md={medimumSize} className={classes.selector}>
           <CoachSelector
             coaches={Immutable(coachList)}
-            selectedCoaches={offerFilters.coaches}
+            selectedCoaches={
+              this.props.filterVerification && offerFilters.coaches
+            }
             selectOption={(ev) => {
-              setFilters({
+              setCalendarFilter({
                 ...offerFilters,
                 coaches: ev.map((e) => e.value),
               });
@@ -841,27 +890,32 @@ export class Planning extends PureComponent<Props, State> {
               selectOption={(ev: SelectOptions) => {
                 const { establishments: _establishments, ...rest } =
                   offerFilters;
-                setFilters({
+                setCalendarFilter({
                   ...rest,
                   establishment_group__in: ev.map((e) => e.value),
                 });
               }}
               closeMenuOnSelect
-              selectedEstablishmentGroups={offerFilters.establishment_group__in}
+              selectedEstablishmentGroups={
+                this.props.filterVerification &&
+                offerFilters.establishment_group__in
+              }
             />
           </Grid>
         )}
         <Grid item xs={6} md={medimumSize} className={classes.selector}>
           <EstablishmentSelector
             establishments={Immutable(filteredEstablishments)}
-            selectedEstablishments={offerFilters.establishments}
+            selectedEstablishments={
+              this.props.filterVerification && offerFilters.establishments
+            }
             selectOption={(ev) => {
-              setFilters({
+              setCalendarFilter({
                 ...offerFilters,
                 establishments: ev.map((e) => e.value),
               });
             }}
-            isLoading={timetableLoading}
+            isLoading={establishmentsLoading}
           />
         </Grid>
         <Grid
@@ -874,9 +928,11 @@ export class Planning extends PureComponent<Props, State> {
             metaActivities={metaActivities.filter(
               (ma) => ma.customer_enabled && !ma.is_workshop,
             )}
-            selectedMetaActivities={offerFilters.metaActivities}
+            selectedMetaActivities={
+              this.props.filterVerification && offerFilters.activity__in
+            }
             selectOption={(ev) => {
-              setFilters({
+              setCalendarFilter({
                 ...offerFilters,
                 activity__in: ev.map((e) => e.value),
               });
@@ -1091,6 +1147,7 @@ export default compose(
         state.offer.numberOfMassDisabledOffer.loading,
       numberOfMassDisabledOffer: getNumberOfMassDisabledOffer(state),
       establishments: getAvailableEstablishmentList(state),
+      establishmentsLoading: state.establishment.loading,
       establishmentGroupList: groupWithEstablishment(
         getAssociatedEstablishmentGroup,
       )(state),
@@ -1104,7 +1161,7 @@ export default compose(
         state.metaActivity.loading ||
         state.establishment.loading,
       similarOffers: getSimilarsOffers(state),
-      offerFilters: state.offer.managerFilter.filters,
+      offerFilters: state.userPreference.calendarFilter,
       offerByDayLoading: state.offer.byDay.loading,
 
       members: withTags(getAllMembers)(state),
@@ -1143,7 +1200,7 @@ export default compose(
       fetchAllOffers: fetchAllOffersAction,
       deleteOffer: deleteOfferAction,
       fetchSimilarOffers: fetchSimilarOffersAction,
-      setFilters: setFiltersAction,
+      setCalendarFilter: setCalendarFilterAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,
       fetchEstablishments,
@@ -1163,11 +1220,11 @@ export default compose(
   ),
   withHandlers({
     setShowCancelledOffers:
-      ({ offerFilters, setFilters }) =>
+      ({ offerFilters, setCalendarFilter }) =>
       (showCancelled) => {
         let filters = { ...offerFilters };
         filters = { ...filters, available: !showCancelled };
-        setFilters(filters);
+        setCalendarFilter(filters);
       },
     fetchRelevantOffers:
       ({ fetchAllOffers, theme, fetchBookedGender, offerFilters, date }) =>
@@ -1181,7 +1238,7 @@ export default compose(
             .endOf('month')
             .endOf('week')
             .format('YYYY-MM-DD'),
-          ...omit(offerFilters || {}, 'available'),
+          ...omit(offerFilters || {}, omit_list(offerFilters, true)),
         });
         if (theme && theme.show_booked_gender_offer) {
           fetchBookedGender({
@@ -1193,7 +1250,7 @@ export default compose(
               .endOf('month')
               .endOf('week')
               .format('YYYY-MM-DD'),
-            ...omit(offerFilters || {}, 'available'),
+            ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           });
         }
       },
@@ -1223,7 +1280,7 @@ export default compose(
         fetchBookingStatistics('createdBookings', {
           min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
           max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
-          ...omit(offerFilters || {}, 'available'),
+          ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           date_field: 'offer__date_start',
           kind: 'count',
         });
@@ -1235,7 +1292,7 @@ export default compose(
             BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
             BOOKING_STATUS_CANCELLED_BY_OFFER.id,
           ],
-          ...omit(offerFilters || {}, 'available'),
+          ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           date_field: 'offer__date_start',
           kind: 'count',
         });
@@ -1243,5 +1300,6 @@ export default compose(
   }),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('massDisablerStartDate', 'setMassDisablerStartDate', null),
+  withState('filterVerification', 'setFilterVerification', false),
   withTitle(({ t }: { t: TFunction }) => t('titles:planning')),
 )(Planning);

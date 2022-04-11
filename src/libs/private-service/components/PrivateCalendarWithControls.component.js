@@ -30,6 +30,7 @@ import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
 import type { ResourceData } from '../types';
 import FabPrivateCalendar from './FabPrivateCalendar.component';
 import { CompanyTheme } from '../../theme/types';
+import { ScheduleFilter } from '../../user-preference/types';
 
 type Props = {
   t: TFunction,
@@ -44,18 +45,12 @@ type Props = {
   resourceDataLoading: boolean,
 
   hideCancelledEvents: ?boolean,
-  toogleHideCancelledEvents: () => void,
 
   offerList: Array<Offer>,
-  showOfferList: boolean,
   showOfferListToogle: boolean,
   showCustomEventsToogle: boolean,
-  toogleShowOfferList: () => void,
-  showPrivateBookings: boolean,
-  toogleShowPrivateBookings: () => void,
-  showPrivateBookingToogle: () => void,
-  showCustomEvents: boolean,
-  toogleShowCustomEvents: () => void,
+  showPrivateBookingToogle: boolean,
+  showHideCancelledEventsToggle: boolean,
 
   privateBookerOpen: boolean,
   closePrivateBooker: () => void,
@@ -101,9 +96,18 @@ type Props = {
   updateRessourcesFilters: (data: any) => void,
   companyTheme: CompanyTheme,
   isCoach: true,
+
+  scheduleFilter: ScheduleFilter,
+  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => {
+  const onChangeFilter = (filterName: string) => () =>
+    props.setScheduleFilter({
+      ...props.scheduleFilter,
+      [filterName]: !props.scheduleFilter[filterName],
+    });
+
   return (
     <div className={props.classes.container}>
       <Paper square className={props.classes.header}>
@@ -169,8 +173,8 @@ export const PrivateCalendarMultiResource = (props: Props) => {
                       label={props.t('calendar.toogle.showOfferList')}
                       control={
                         <Checkbox
-                          checked={props.showOfferList}
-                          onChange={props.toogleShowOfferList}
+                          checked={props.scheduleFilter.showOfferList}
+                          onChange={onChangeFilter('showOfferList')}
                         />
                       }
                     />
@@ -182,8 +186,8 @@ export const PrivateCalendarMultiResource = (props: Props) => {
                       label={props.t('calendar.toogle.showPrivateBookings')}
                       control={
                         <Checkbox
-                          checked={props.showPrivateBookings}
-                          onChange={props.toogleShowPrivateBookings}
+                          checked={props.scheduleFilter.showPrivateBookings}
+                          onChange={onChangeFilter('showPrivateBookings')}
                         />
                       }
                     />
@@ -195,21 +199,21 @@ export const PrivateCalendarMultiResource = (props: Props) => {
                       label={props.t('calendar.toogle.showCustomEvents')}
                       control={
                         <Checkbox
-                          checked={props.showCustomEvents}
-                          onChange={props.toogleShowCustomEvents}
+                          checked={props.scheduleFilter.showCustomEvents}
+                          onChange={() => onChangeFilter('showCustomEvents')}
                         />
                       }
                     />
                   </Grid>
                 )}
-                {props.hideCancelledEvents !== undefined && (
+                {!!props.showHideCancelledEventsToggle && (
                   <Grid item xs={12} sm={3} md={2}>
                     <FormControlLabel
                       label={props.t('calendar.toogle.hideCancelledEvents')}
                       control={
                         <Checkbox
-                          checked={!props.hideCancelledEvents}
-                          onChange={props.toogleHideCancelledEvents}
+                          checked={!props.scheduleFilter.hideCancelledEvents}
+                          onChange={() => onChangeFilter('hideCancelledEvents')}
                         />
                       }
                     />
@@ -241,15 +245,21 @@ export const PrivateCalendarMultiResource = (props: Props) => {
           resources={props.resourceItemsFilter}
           resourceDatatypeView={props.resourceDatatypeFilter}
           customEventList={
-            props.showCustomEvents ? props.customEventList || [] : []
+            props.scheduleFilter?.showCustomEvents
+              ? props.customEventList || []
+              : []
           }
           enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
           availabilitySlots={props.availabilitySlots}
           privateBookings={
-            props.showPrivateBookings ? props.privateBookings || [] : []
+            props.scheduleFilter?.showPrivateBookings
+              ? props.privateBookings || []
+              : []
           }
-          hideCancelledEvents={props.hideCancelledEvents}
-          offerList={props.showOfferList ? props.offerList || [] : []}
+          hideCancelledEvents={props.scheduleFilter?.hideCancelledEvents}
+          offerList={
+            props.scheduleFilter?.showOfferList ? props.offerList || [] : []
+          }
           availabilitySlotUpdating={props.availabilitySlotUpdating}
           goToMember={props.goToMember}
           onDateChange={(data) => {
@@ -376,36 +386,6 @@ export default compose(
         () => (resourceDatatypeFilter, resourceItemsFilter) => ({
           resourceDatatypeFilter,
           resourceItemsFilter,
-        }),
-    },
-  ),
-  withStateHandlers(
-    ({ showHideCancelledEventsToggle }) => ({
-      showPrivateBookings: true,
-      showOfferList: true,
-      showCustomEvents: true,
-      hideCancelledEvents: showHideCancelledEventsToggle ? true : undefined,
-    }),
-    {
-      toogleShowOfferList:
-        ({ showOfferList }) =>
-        () => ({
-          showOfferList: !showOfferList,
-        }),
-      toogleShowPrivateBookings:
-        ({ showPrivateBookings }) =>
-        () => ({
-          showPrivateBookings: !showPrivateBookings,
-        }),
-      toogleShowCustomEvents:
-        ({ showCustomEvents }) =>
-        () => ({
-          showCustomEvents: !showCustomEvents,
-        }),
-      toogleHideCancelledEvents:
-        ({ hideCancelledEvents }) =>
-        () => ({
-          hideCancelledEvents: !hideCancelledEvents,
         }),
     },
   ),

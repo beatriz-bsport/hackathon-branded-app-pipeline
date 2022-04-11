@@ -44,6 +44,9 @@ import {
   fetchCoachBulk,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
 } from '../../libs/associated-coach/actions';
+import { setCoachScheduleFilter as setCoachScheduleFilterAction } from '../../libs/user-preference/actions';
+import { getCoachScheduleFilter } from '../../libs/user-preference/selectors';
+import { ScheduleFilter } from '../../libs/user-preference/types';
 
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -94,6 +97,12 @@ type Props = {
   coach: ?Coach,
   createOrUpdateCustomEvent: (CustomEventData, OptionCallback) => void,
   closeCustomEventDialog: () => void,
+
+  scheduleFilter: ScheduleFilter,
+  setCoachScheduleFilter: (
+    coach: Coach,
+    scheduleFilter: ScheduleFilter,
+  ) => void,
 };
 
 const styles = (theme) => ({
@@ -174,6 +183,12 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     });
   };
 
+  setScheduleFilter = (scheduleFilter: ScheduleFilter) =>
+    this.props.setCoachScheduleFilter({
+      coach: this.props.coach.id,
+      scheduleFilter,
+    });
+
   render() {
     const { classes } = this.props;
     return (
@@ -193,13 +208,15 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           offerList={this.props.offerList}
           showOfferListToogle
           showPrivateBookingToogle
-          hideCancelledEventsToggle
+          showHideCancelledEventsToggle
           fetchAvailabilitySlots={this.fetchAvailabilitySlots}
           refreshOffers={this.fetchWeekData}
           customEventList={this.props.customEventList}
           createCustomEvent={this.props.onRequestCustomEvent}
           showCustomEventsToogle
           companyTheme={this.props.companyTheme}
+          scheduleFilter={this.props.scheduleFilter}
+          setScheduleFilter={this.setScheduleFilter}
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog
@@ -250,6 +267,7 @@ export default compose(
         state.privateService.privateBooking.loading,
       availabilitySlotUpdating:
         state.privateService.availabilitySlot.createOrUpdate.loading,
+      scheduleFilter: getCoachScheduleFilter(state, id),
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
@@ -268,6 +286,7 @@ export default compose(
       enableCoachAvailabilitySlot,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
+      setCoachScheduleFilter: setCoachScheduleFilterAction,
     },
   ),
   withHandlers({

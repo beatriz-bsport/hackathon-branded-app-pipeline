@@ -47,6 +47,9 @@ import {
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import { CompanyTheme } from '../../libs/theme/types';
+import type { ScheduleFilter } from '../../libs/user-preference/types';
+import { setPrivateServiceScheduleFilter as setPrivateServiceScheduleFilterAction } from '../../libs/user-preference/actions';
+import { getPrivateServiceScheduleFilter } from '../../libs/user-preference/selectors';
 
 type Props = {
   classes: Object,
@@ -98,6 +101,12 @@ type Props = {
   closeCustomEventDialog: () => void,
 
   companyTheme: CompanyTheme,
+
+  scheduleFilter: ScheduleFilter,
+  setPrivateServiceScheduleFilter: (
+    privateService: number,
+    scheduleFilter: ScheduleFilter,
+  ) => void,
 };
 
 type State = {
@@ -227,6 +236,12 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     this.onCancelAvailabilityUpdate();
   };
 
+  setScheduleFilter = (scheduleFilter: ScheduleFilter) =>
+    this.props.setPrivateServiceScheduleFilter({
+      privateService: this.props.id,
+      scheduleFilter,
+    });
+
   render() {
     const { classes } = this.props;
     return (
@@ -251,6 +266,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           createCustomEvent={this.props.onRequestCustomEvent}
           showCustomEventsToogle
           companyTheme={this.props.companyTheme}
+          scheduleFilter={this.props.scheduleFilter}
+          setScheduleFilter={this.setScheduleFilter}
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog
@@ -336,6 +353,7 @@ export default compose(
       availableCoaches: getActiveCoaches(state),
       customEventList: getCustomEventList(state, periodFilter),
       companyTheme: state.theme.theme,
+      scheduleFilter: getPrivateServiceScheduleFilter(state, id),
     }),
     {
       fetchAvailabilitySlots,
@@ -351,6 +369,7 @@ export default compose(
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
       onEditResourceConfiguration: updateServiceResourceConfiguration,
+      setPrivateServiceScheduleFilter: setPrivateServiceScheduleFilterAction,
     },
   ),
   withHandlers({

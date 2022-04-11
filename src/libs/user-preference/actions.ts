@@ -4,6 +4,8 @@ import {
   ManagerOnly,
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import type { OfferFilter } from '#libs/offer/types';
+import { ScheduleFilter } from './types';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),
@@ -21,6 +23,17 @@ export const userPreferenceActions = {
     'USER_PREFERENCE/PRIVATE_PASS_MANAGERONLY_FILTER',
   ),
   setScheduleTimerange: createAction('USER_PREFERENCE/SCHEDULE/TIMERANGE'),
+  setCalendarFilter: createAction('USER_PREFERENCE/CALENDAR_FILTER'),
+  setScheduleFilter: createAction('USER_PREFERENCE/SCHEDULE_FILTER'),
+  setCoachScheduleFilter: createAction(
+    'USER_PREFERENCE/COACHES_SCHEDULE_FILTER',
+  ),
+  setEstablishmentScheduleFilter: createAction(
+    'USER_PREFERENCE/ESTABLISHMENTS_SCHEDULE_FILTER',
+  ),
+  setPrivateServiceScheduleFilter: createAction(
+    'USER_PREFERENCE/PRIVATE_SERVICES_SCHEDULE_FILTER',
+  ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -70,5 +83,44 @@ export function setScheduleTimerange(scheduleTimerange: {
         end: scheduleTimerange.end,
       }),
     );
+  };
+}
+
+export function setCalendarFilter(option: OfferFilter) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setCalendarFilter(option));
+  };
+}
+
+export function setScheduleFilter(option: ScheduleFilter) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setScheduleFilter(option));
+  };
+}
+
+export function setCoachScheduleFilter(option: {
+  coach: number;
+  scheduleFilter: ScheduleFilter;
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setCoachScheduleFilter(option));
+  };
+}
+
+export function setEstablishmentScheduleFilter(option: {
+  establishment: number;
+  scheduleFilter: ScheduleFilter;
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setEstablishmentScheduleFilter(option));
+  };
+}
+
+export function setPrivateServiceScheduleFilter(option: {
+  privateService: number;
+  scheduleFilter: ScheduleFilter;
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setPrivateServiceScheduleFilter(option));
   };
 }

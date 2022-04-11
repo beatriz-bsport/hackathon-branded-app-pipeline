@@ -27,6 +27,9 @@ import {
   getOfferAsEventList,
   withMetaActivity,
 } from '../../libs/offer/selectors';
+import type { ScheduleFilter } from '../../libs/user-preference/types';
+import { setEstablishmentScheduleFilter as setEstablishmentScheduleFilterAction } from '../../libs/user-preference/actions';
+import { getEstablishmentScheduleFilter } from '../../libs/user-preference/selectors';
 
 import { getEstablishmentAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
 import {
@@ -76,6 +79,12 @@ type Props = {
 
   fetchEstablishmentBulk: (es: Array<number>) => void,
   periodFilter: { start: string, end: string },
+
+  scheduleFilter: ScheduleFilter,
+  setEstablishmentScheduleFilter: (
+    establishment: number,
+    scheduleFilter: ScheduleFilter,
+  ) => void,
 };
 
 const styles = (theme) => ({
@@ -156,6 +165,12 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     });
   };
 
+  setScheduleFilter = (scheduleFilter: ScheduleFilter) =>
+    this.props.setEstablishmentScheduleFilter({
+      establishment: this.props.id,
+      scheduleFilter,
+    });
+
   render() {
     const { classes } = this.props;
     return (
@@ -182,6 +197,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           refreshPrivateBookings={this.fetchWeekData}
           timezone={this.props.companyTheme.timezone_name}
           companyTheme={this.props.companyTheme}
+          scheduleFilter={this.props.scheduleFilter}
+          setScheduleFilter={this.setScheduleFilter}
         />
       </div>
     );
@@ -214,6 +231,7 @@ export default compose(
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
+      scheduleFilter: getEstablishmentScheduleFilter(state, id),
     }),
     {
       fetchAvailabilitySlots,
@@ -228,6 +246,7 @@ export default compose(
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchMemberBulkById: fetchMemberBulkByIdAction,
+      setEstablishmentScheduleFilter: setEstablishmentScheduleFilterAction,
     },
   ),
   withHandlers({

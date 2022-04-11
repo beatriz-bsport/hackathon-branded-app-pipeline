@@ -23,6 +23,8 @@ import {
 import { fetchAllOffers as fetchAllOffersAction } from '#libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '#libs/offer/selectors';
+import { setScheduleFilter as setScheduleFilterAction } from '#libs/user-preference/actions';
+import { ScheduleFilter } from '#libs/user-preference/types';
 
 import PrivateCalendarWithControls from '#libs/private-service/components/PrivateCalendarWithControls.component';
 
@@ -49,7 +51,11 @@ type withStateType = {
   periodFilter: Period;
   setPeriodFilter: (periodFilter: Period) => void;
 };
-type RouterProps = { companyId: number };
+type RouterProps = {
+  companyId: number;
+  scheduleFilter: ScheduleFilter;
+  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void;
+};
 type Props = ConnectedProps<typeof connector> &
   WithHandlerType<typeof mapWithHandlers> &
   withStateType &
@@ -160,6 +166,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showCustomEventsToogle
           companyTheme={this.props.companyTheme}
           isCoach
+          scheduleFilter={this.props.scheduleFilter}
+          setScheduleFilter={this.props.setScheduleFilter}
         />
       </div>
     );
@@ -187,6 +195,7 @@ const connector = connect(
       state.privateService.availabilitySlot.loading ||
       state.privateService.privateBooking.loading,
     coach: getMyAssociatedCoachProfile(state),
+    scheduleFilter: state.userPreference.scheduleFilter,
   }),
   {
     fetchMemberBulkById: fetchMemberBulkByIdAction,
@@ -202,6 +211,7 @@ const connector = connect(
     disableCoachAvailabilitySlot,
     enableCoachAvailabilitySlot,
     fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+    setScheduleFilter: setScheduleFilterAction,
   },
 );
 

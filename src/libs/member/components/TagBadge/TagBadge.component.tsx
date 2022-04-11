@@ -16,10 +16,11 @@ type Props = {
   tags: Array<Tag<TagGroup>>;
   children: React.ReactNode;
   name: string;
+  topLeftIcons?: boolean;
 };
 
 export const TagBadge = (props: Props) => {
-  const { tags, name } = props;
+  const { tags, name, topLeftIcons } = props;
   const styleProps = {
     color: 'blue',
   };
@@ -99,10 +100,12 @@ export const TagBadge = (props: Props) => {
           })}
         >
           {filteredTags?.map((tag: Tag<TagGroup>, index: number) => {
-            if (index < 4) {
+            if (index < NUMBER_OF_TAGS_DISPLAYED) {
               return (
                 <div
-                  className="badge"
+                  className={classNames('badge', {
+                    topLeftCorner: topLeftIcons,
+                  })}
                   style={{
                     backgroundColor: tag?.color,
                   }}
@@ -114,7 +117,9 @@ export const TagBadge = (props: Props) => {
 
             return (
               <div
-                className={classNames('remainingBadge', 'badge')}
+                className={classNames('remainingBadge', 'badge', {
+                  topLeftCorner: topLeftIcons,
+                })}
                 style={{
                   backgroundColor: tag?.color,
                 }}
@@ -129,9 +134,10 @@ export const TagBadge = (props: Props) => {
                 'countRemainingBadge',
                 'badge',
                 classes.counterBadge,
+                { topLeftCorner: topLeftIcons },
               )}
             >
-              {`+${filteredTags.length - NUMBER_OF_TAGS_DISPLAYED}`}
+              {`+${filteredTags.length - NUMBER_OF_TAGS_DISPLAYED + 1}`}
             </div>
           ) : (
             <div />
@@ -166,6 +172,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   tag: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
+  },
+  semiRotation: {
+    transform: 'rotateZ(180deg)',
   },
 }));
 

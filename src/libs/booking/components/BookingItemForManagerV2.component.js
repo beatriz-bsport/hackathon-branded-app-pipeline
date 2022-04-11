@@ -15,6 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import classNames from 'classnames';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -530,21 +531,42 @@ export class BookingItemForManager extends Component<Props, State> {
         let Wrapper = (p) => <div>{p.children}</div>;
         if (this.props.showVaccinationStatus)
           Wrapper = (p) => (
-            <VaccinationBadge status={this.props.member.vaccination_status}>
+            <VaccinationBadge
+              status={this.props.member.vaccination_status}
+              topRightIcon
+            >
               {p.children}
             </VaccinationBadge>
           );
+
         return (
-          <ListItemAvatar>
+          <ListItemAvatar
+            className={classNames({
+              [classes.hoverCredit]:
+                this.props.member?.tags && this.props.member.tags.length !== 0
+                  ? [...this.props.member.tags].reduce(
+                      (value, tag) =>
+                        value || (!!tag?.icon && tag?.icon.length !== 0),
+                      false,
+                    )
+                  : false,
+            })}
+          >
             <Wrapper>
               <TagBadge
                 tags={this.props.member?.tags}
                 name={this.props.member?.name}
+                topLeftIcons
               >
                 <Badge
                   badgeContent={creditsFormatted}
                   color={creditColor}
                   classes={{ badge: classes.badge }}
+                  className="creditContainer"
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
                 >
                   <Avatar src={this.props.member?.photo} />
                 </Badge>
@@ -782,7 +804,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(1),
   },
   badge: {
-    right: '0%',
+    right: '50%',
   },
   disabled: {
     // backgroundColor: '#FFDDDD',
@@ -804,6 +826,19 @@ const styles = (theme) => ({
       marginRight: theme.spacing(0.5),
     },
   },
+  hoverCredit: {
+    '& $badge': {
+      opacity: 1,
+      transition: 'opacity 0.2s',
+    },
+    '&:hover': {
+      '& $badge': {
+        opacity: 0,
+        transition: 'opacity 0.2s',
+      },
+    },
+  },
+  stickRight: { left: 'inherit', right: '10%' },
 });
 
 export default compose(

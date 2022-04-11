@@ -66,28 +66,58 @@
       transform: rotate(-96deg) translateX(-27px) rotate(96deg);
 }      
 
+.badge.topLeftCorner:nth-child(1){
+     transform: rotate(0deg) translateY(-27px) rotate(0deg);
+}
+
+.badge.topLeftCorner:nth-child(2){
+     transform: rotate(-32deg) translateY(-27px) rotate(32deg);
+     
+
+}
+
+.badge.topLeftCorner:nth-child(3){
+     transform: rotate(-64deg) translateY(-27px) rotate(64deg);
+}
+
+.badge.topLeftCorner:nth-child(4){
+     transform: rotate(-96deg) translateY(-27px) rotate(96deg);
+     }
+
+
+.remainingBadge.topLeftCorner{
+     transform: rotate(-96deg) translateY(-27px) rotate(96deg);
+}
+
+.countRemainingBadge.topLeftCorner{
+     color: white;
+     font-size: 8px;
+     z-index: 9999;
+     transform: rotate(-96deg) translateY(-27px) rotate(96deg);
+}      
+
 .tagBadgeContainerAnimated {
-      animation: hiddenMoove 1s forwards;
+      animation: hiddenMoove 0.2s forwards;
 }
 
 .tagBadgeContainerAnimated .badge {
-      animation: fade 0.5s forwards,appear 0.5s 0.5s forwards ;
+      animation: fade 0.1s forwards,appear 0.1s 0.1s forwards ;
 }      
 
 .tagBadgeContainerAnimated .countRemainingBadge {
-      animation: fade 0.5s forwards
+      animation: fade 0.1s forwards
 }      
 
 .tagBadgeContainerReverse {
-      animation: hiddenMooveReverse 1s;
+      animation: hiddenMooveReverse 0.2s;
 }      
 
 .tagBadgeContainerReverse .badge {
-      animation: fadeReverse 0.5s ,appearReverse 0.5s 0.5s; 
+      animation: fadeReverse 0.1s ,appearReverse 0.1s 0.1s; 
 }    
 
 .tagBadgeContainerReverse .countRemainingBadge {
-      animation:disappear 0.5s, appearReverse 0.5s 0.5s;
+      animation:disappear 0.1s, appearReverse 0.1s 0.1s;
       
 }      
 

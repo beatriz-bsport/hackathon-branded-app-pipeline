@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -51,7 +50,7 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
             {t('internalAccount.myInternalAccount')}
           </Typography>
           <div className={classes.greyContainer}>
-            <Typography variant="h6">
+            <Typography variant="h6" className={classes.creditAccountBalance}>
               {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
             </Typography>
             <Collapse in={!open} timeout={{ appear: 10000 }}>
@@ -142,7 +141,7 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
             {t('internalAccount.myInternalAccount')}
           </Typography>
           <div className={classes.greyContainer}>
-            <Typography variant="h6">
+            <Typography variant="h6" className={classes.creditAccountBalance}>
               {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
             </Typography>
             <Button
@@ -167,6 +166,10 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  creditAccountBalance: {
+    flex: 1,
+    marginRight: theme.spacing(1),
+  },
   header: {
     paddingBottom: theme.spacing(2),
   },
@@ -184,16 +187,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  paddingLeft: {
-    paddingLeft: theme.spacing(2),
-  },
   greyContainer: {
     backgroundColor: grey[100],
     borderRadius: theme.spacing(0.5),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),

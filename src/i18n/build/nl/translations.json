@@ -5668,6 +5668,96 @@
             "submit": "Opslaan",
             "enable": "Activeer de integratie met QuickBooks",
             "title": "QuickBooks"
+        },
+        "mobilePersonalization": {
+            "popup": {
+                "editPopup": {
+                    "previewPopup": {
+                        "see": "Toon",
+                        "title": "Voorvertoning"
+                    },
+                    "preview": "Voorbeeld",
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren",
+                    "link": "Externe link",
+                    "image": "Afbeelding",
+                    "name": "Naam",
+                    "title": "Pop-up"
+                },
+                "see": "Bekijken",
+                "deleteModal": {
+                    "content": "Weet je zeker dat je deze pop-up wilt verwijderen? Deze actie is definitief.",
+                    "confirm": "Verwijderen",
+                    "cancel": "Annuleren",
+                    "title": "Verwijderen"
+                },
+                "action": "Acties",
+                "image": "Afbeelding",
+                "link": "Link",
+                "name": "Naam",
+                "updated": "Bijwerken",
+                "add": "Een pop-up toevoegen",
+                "helperText": "Deze pop-up wordt getoond zodra een lid de gepersonaliseerde app opent. Dit kan worden gebruikt om leden door te verwijzen naar bijvoorbeeld een speciale promotie of een nieuwe activiteit.",
+                "subtitle": "Pop-up"
+            },
+            "externalShopRedirection": {
+                "popupPreview": {
+                    "cancel": "Sluiten",
+                    "inventory": "Mijn aankopen",
+                    "ourOffers": "Ons aanbod",
+                    "category": {
+                        "giftcard": "Cadeaubonnen",
+                        "contract": "Abonnementen",
+                        "paymentCombo": "Pakketten",
+                        "paymentPack": "Kaarten"
+                    },
+                    "membershipCard": {
+                        "giftcardSubtitle": "Hier staan alle cadeaubonnen die je met je geliefden kunt delen.",
+                        "paymentComboSubtitle": "Bekijk alle actuele bundels.",
+                        "vodSubtitle": "Bekijk de video's van je favoriete instructeurs.",
+                        "contractSubtitle": "Kies het abonnement dat het beste bij je past.",
+                        "paymentPackSubtitle": "Ontdek het gehele aanbod van onze studio.",
+                        "mySubscription": "Mijn \nabonnementen",
+                        "paymentComboEmpty": "Er zijn geen pakketten om weer te geven.",
+                        "contractEmpty": "Er zijn geen abonnementen om weer te geven.",
+                        "invoiceEmpty": "Er zijn geen facturen om weer te geven.",
+                        "consumerPaymentPackEmpty": "Je bezit nog geen geldige leskaarten om weer te geven.",
+                        "privateConsumerPassListEmpty": "Je bezit nog geen geldige afspraakkaarten om weer te geven.",
+                        "vod": "Video On Demand",
+                        "privatePassListEmpty": "Er zijn geen afspraakkaarten om weer te geven.",
+                        "paymentPackEmpty": "Er zijn geen leskaarten om weer te geven.",
+                        "invoice": "Mijn facturen",
+                        "consumerPaymentPack": "Mijn kaarten",
+                        "paymentPack": "Leskaarten",
+                        "contract": "Abonnementen"
+                    },
+                    "title": "Voorvertoning"
+                },
+                "deleteModal": {
+                    "content": "Weet je zeker dat je deze link wilt verwijderen? Deze actie is definitief.",
+                    "confirm": "Verwijderen",
+                    "cancel": "Annuleren",
+                    "title": "Verwijderen"
+                },
+                "popup": {
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren",
+                    "icon": "Icoon",
+                    "link": "Externe link",
+                    "name": "Naam",
+                    "title": "Externe link"
+                },
+                "action": "Acties",
+                "link": "Link",
+                "name": "Naam",
+                "icon": "Icoon",
+                "preview": "Voorvertoning",
+                "updated": "Bijwerken",
+                "add": "Een link toevoegen",
+                "helperText": "Gebruik externe links in de gepersonaliseerde app om leden door te verwijzen naar externe webpagina's.",
+                "subtitle": "Externe links"
+            },
+            "title": "Gepersonaliseerde app"
         }
     },
     "privateService": {
@@ -9701,6 +9791,9 @@
                     },
                     "subscription": {
                         "_label": "Abonnement"
+                    },
+                    "mobilePersonalization": {
+                        "_label": "Gepersonaliseerde app"
                     }
                 },
                 "reporting": {
@@ -9937,7 +10030,8 @@
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
                 "forms": "Ledenformulieren",
-                "quickbooks": "QuickBooks"
+                "quickbooks": "QuickBooks",
+                "mobilePersonalization": "Gepersonaliseerde app"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",

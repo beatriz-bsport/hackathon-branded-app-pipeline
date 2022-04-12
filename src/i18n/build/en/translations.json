@@ -2455,7 +2455,10 @@
             "showMail": "Show email",
             "contentNotification": "Content",
             "titleNotification": "Title",
-            "sendNotification": "Push notification"
+            "sendNotification": "Push notification",
+            "warningConsent2": "Not to respect this decision of your member would be illegal. Bsport cannot be held responsible in the event of abusive use of the direct emails.",
+            "warningConsent1": "Warning! This member does not want to receive promotional emails. Direct emails are a quick and easy way to reach out to your members. They should not be used for advertising or promotional purposes.",
+            "titleInterpolated": "The variables contained in the subject line and the body of the email are updated according to the recipient"
         },
         "recipients": "Recipients",
         "common": {
@@ -2522,6 +2525,10 @@
         "send": {
             "error": "Error while sending",
             "success": "Sending..."
+        },
+        "sms": {
+            "warningConsent2": "Not to respect this decision of your member would be illegal. Bsport cannot be held responsible in the event of abusive use of the direct sms.",
+            "warningConsent1": "Warning! This member does not want to receive promotional sms. Direct sms allow you to reach out to your members in a simple and fast way. They should not be used for advertising or promotional purposes."
         }
     },
     "privateService": {
@@ -4140,6 +4147,9 @@
                     },
                     "subscription": {
                         "_label": "Bsport subscription"
+                    },
+                    "mobilePersonalization": {
+                        "_label": "App customisation"
                     }
                 },
                 "reporting": {
@@ -5010,6 +5020,9 @@
             },
             "privatePass": {
                 "error": "This pass for appointments is not available"
+            },
+            "paymentCombo": {
+                "locked": "This pack is not available for purchase"
             }
         },
         "myBasket": {
@@ -5041,15 +5054,21 @@
         "or": "or",
         "validation": {
             "sections": {
-                "offerNotBookable": "Unable to register for",
-                "offerPreBooked": "You are on the waiting list for",
-                "offerBooked": "You've successfully booked",
+                "offerNotBookable": "Unable to register",
+                "offerPreBooked": "Registration on waiting list",
+                "offerBooked": "Your bookings",
                 "basket": "Your basket",
-                "title": "Click to access your booking summary"
+                "title": "Congratulations! You have successfully completed your purchase.",
+                "errorExplain": "This operation could not be performed. Please try again.",
+                "error": "Error",
+                "recap": "Summary",
+                "explain": "Your transaction has been processed. We will send you a confirmation email."
             },
             "actions": {
                 "back": "Go back",
-                "continue": "Continue"
+                "continue": "Continue shopping",
+                "widgetContinue": "Next",
+                "member": "Member Account"
             }
         },
         "expire_in": "Expires in ",
@@ -5507,6 +5526,65 @@
             "submit": "Save",
             "enable": "Activate the QuickBooks integration",
             "title": "QuickBooks"
+        },
+        "mobilePersonalization": {
+            "externalShopRedirection": {
+                "popupPreview": {
+                    "inventory": "Your inventory",
+                    "ourOffers": "Our Offers",
+                    "category": {
+                        "giftcard": "Gift cards",
+                        "contract": "Memberships",
+                        "paymentCombo": "Special offers",
+                        "paymentPack": "All passes"
+                    },
+                    "membershipCard": {
+                        "giftcardSubtitle": "Find all your studio's gift cards here",
+                        "paymentComboSubtitle": "Find here all the special offers of your studio",
+                        "vodSubtitle": "Find here all your studio's video-on-demand offer",
+                        "contractSubtitle": "Find all your studio's membership offers here",
+                        "paymentPackSubtitle": "Find here all the passes of your studio",
+                        "mySubscription": "My \nmemberships",
+                        "paymentComboEmpty": "No offer available",
+                        "contractEmpty": "No membership available for sale",
+                        "invoiceEmpty": "No invoice",
+                        "privatePassListEmpty": "No private available",
+                        "privateConsumerPassListEmpty": "No appointment pass owned",
+                        "vod": "Access Video-on-Demand",
+                        "consumerPaymentPackEmpty": "No pass owned",
+                        "paymentPackEmpty": "No pass available",
+                        "invoice": "My invoices",
+                        "consumerPaymentPack": "My passes",
+                        "paymentPack": "Passes",
+                        "contract": "Membership"
+                    },
+                    "title": "Preview"
+                },
+                "deleteModal": {
+                    "content": "Are you sure you want to remove this link? This action is final",
+                    "confirm": "Delete",
+                    "cancel": "Cancel",
+                    "title": "Delete"
+                },
+                "popup": {
+                    "submit": "Save",
+                    "cancel": "Cancel",
+                    "icon": "Icon",
+                    "link": "Redirect link",
+                    "name": "Name",
+                    "title": "External link"
+                },
+                "action": "Actions",
+                "link": "Link",
+                "name": "Name",
+                "icon": "Icon",
+                "preview": "App preview",
+                "updated": "Update",
+                "add": "Add link",
+                "helperText": "You can add external links on the app to redirect your customers to your website or to another platform. The links will appear in the purchase tab of the mobile application.",
+                "subtitle": "External links"
+            },
+            "title": "App customisation"
         }
     },
     "datetime": {
@@ -6050,12 +6128,18 @@
             "error": {
                 "button_text": "Retry",
                 "text_status": "Your purchase couldn't be completed!",
-                "text_content": "There was an error completing your purchasing. Click on the button to retry or close this window to return to the subscriptions overview."
+                "text_content": "Your purchase could not be completed, you can try again or return to your member account.",
+                "userSpace": "Member Account",
+                "title": "Error during payment"
             },
             "success": {
                 "button_text": "Continue",
                 "text_status": "Your purchase was successful!",
-                "text_content": "Your purchase has been taken into account, you can now find the details of your subscription on your member area."
+                "text_content": "Your purchase has been taken into account, you can now find the details of your subscription on your member area.",
+                "text_content_funnel": "Your purchase has been processed, click on 'next' to finalise your booking. The pass linked to your subscription has been added to the \"My passes\" section, select it to make your booking.",
+                "title": "Congratulations! Your payment has been successful",
+                "contract": "My membership (contract)",
+                "recap": "Summary"
             },
             "title": "Purchase a subscription"
         }
@@ -8263,7 +8347,8 @@
         "restoreOffer": "Restore session",
         "maximumNumberDescription": "The maximum number of bookings ({{effectif}}) has been reached. Are you sure that you want to book in this member? This action will override the initial maximum number of bookings.",
         "maximumNumber": "Maximum number of bookings",
-        "warningOfferFull": "Maximum number of bookings has been reached"
+        "warningOfferFull": "Maximum number of bookings has been reached",
+        "tagManagementInfo": "{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized"
     },
     "emailTemplate": {
         "modal": {
@@ -8670,7 +8755,8 @@
                 "isTooLate": "Registration for this class is now closed.",
                 "isWaitingListFull": "The class and the waiting list are full.",
                 "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later.",
-                "isAlreadyRegistered": "You are already registered to this session"
+                "isAlreadyRegistered": "You are already registered to this session",
+                "blockedByTags": "You do not have the necessary rights to sign up for this session."
             },
             "messages": {
                 "offerLocked": "You can't book this session",
@@ -8686,6 +8772,15 @@
             "isLoading": "Looking for sessions...",
             "book": {
                 "unknowError": "Error while booking - try again later"
+            },
+            "tags": {
+                "unAuthorized": "You do not have the necessary rights to sign up for this session.",
+                "managerDialogWarningDialog": {
+                    "confirm": "Confirm",
+                    "cancel": "Cancel",
+                    "title": "Info",
+                    "content": "Please note that this member does not have the necessary tags to be signed up for this session. Do you want to sign them up anyway?"
+                }
             }
         },
         "details": {
@@ -8933,7 +9028,8 @@
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "waiting_list": "Waiting list",
-                "book": "Sign up"
+                "book": "Sign up",
+                "blockedByTags": "Booking not allowed"
             },
             "similarOffer": {
                 "showMore": "See more",
@@ -8959,9 +9055,18 @@
                 },
                 "email": {
                     "label": "Email"
+                },
+                "actions": {
+                    "addGuest": "Add guest",
+                    "close": "Go back",
+                    "submit": "Confirm"
+                },
+                "lastname": {
+                    "label": "Last name"
                 }
             }
-        }
+        },
+        "asGuest": "Guest"
     },
     "marketplace": {
         "selector": {
@@ -10640,7 +10745,8 @@
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
                 "forms": "Member forms",
-                "quickbooks": "QuickBooks"
+                "quickbooks": "QuickBooks",
+                "mobilePersonalization": "App customisation"
             },
             "pass": "Passes",
             "goBack": "Back",

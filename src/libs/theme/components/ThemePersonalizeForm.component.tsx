@@ -27,6 +27,7 @@ import {
 interface FormikValues {
   show_offers_filling: boolean;
   accept_double_booking: boolean;
+  allow_guest: boolean;
   hide_unnecessary_compatible_purchase_method: boolean;
   hidden_from_marketplace: boolean;
   coach_can_edit_attendance: boolean;
@@ -398,6 +399,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ThemePersonalizeFormSchema = Yup.object().shape({
   show_offers_filling: Yup.boolean().required(),
   accept_double_booking: Yup.boolean().required(),
+  allow_guest: Yup.boolean(),
   hidden_from_marketplace: Yup.boolean().required(),
   coach_can_edit_attendance: Yup.boolean().required(),
   default_attendance: Yup.boolean().required(),
@@ -451,6 +453,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       return {
         show_offers_filling: theme.show_offers_filling,
         accept_double_booking: theme.accept_double_booking,
+        allow_guest: theme.allow_guest,
         hide_unnecessary_compatible_purchase_method:
           theme.hide_unnecessary_compatible_purchase_method,
         hidden_from_marketplace: theme.hidden_from_marketplace,
@@ -484,6 +487,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
     return {
       show_offers_filling: false,
       accept_double_booking: false,
+      allow_guest: false,
       hide_unnecessary_compatible_purchase_method: false,
       hidden_from_marketplace: false,
       coach_can_edit_attendance: false,
@@ -511,6 +515,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
     const keys: (keyof FormikValues)[] = [
       'show_offers_filling',
       'accept_double_booking',
+      'allow_guest',
       'hidden_from_marketplace',
       'max_future_booking',
       'default_booking_ordering',

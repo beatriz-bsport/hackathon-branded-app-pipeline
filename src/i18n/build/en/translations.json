@@ -5585,7 +5585,11 @@
                 "helperText": "You can add external links on the app to redirect your customers to your website or to another platform. The links will appear in the purchase tab of the mobile application.",
                 "subtitle": "External links"
             },
-            "title": "App customisation"
+            "title": "App customisation",
+            "popup": {
+                "helperText": "The start-up pop-up will appear once your members open the application. It allows you to draw your members' attention to a special event (a new class, a promotion ...) and will redirect them to the desired web page.",
+                "subtitle": "Start-up pop-up"
+            }
         }
     },
     "datetime": {

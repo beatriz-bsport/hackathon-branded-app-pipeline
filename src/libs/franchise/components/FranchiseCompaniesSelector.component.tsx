@@ -67,6 +67,7 @@ const FranchiseCompaniesSelector = (props: Props) => {
         );
       }}
       menuPortalTarget={menuPortalTarget}
+      defaultNumberShown={Infinity}
     />
   );
 };

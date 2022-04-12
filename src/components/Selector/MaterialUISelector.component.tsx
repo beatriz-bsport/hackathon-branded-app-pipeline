@@ -1,4 +1,9 @@
 import React, { useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { FixedSizeList as VirtualizedList } from 'react-window';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+
 import {
   Theme,
   makeStyles,
@@ -10,10 +15,10 @@ import {
   MenuItem,
   Typography,
 } from '@material-ui/core';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import Select, {
   NamedProps,
   components,
-  SelectProps,
   MenuProps,
   MenuListComponentProps,
   OptionProps,
@@ -21,13 +26,8 @@ import Select, {
   ValueContainerProps,
   ControlProps,
 } from 'react-select';
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import { NoticeProps } from 'react-select/src/components/Menu';
-import { useTranslation } from 'react-i18next';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
-import clx from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
-import { FixedSizeList as VirtualizedList } from 'react-window';
 
 export type OptionTypeBase =
   | {
@@ -57,18 +57,17 @@ type BaseProps<T extends OptionTypeBase> = {
   }) => React.ReactNode;
   leftIcon?: React.ReactNode;
   withoutPortal?: Boolean;
+  defaultNumberShown?: number;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
   | ({
       onChange: (values: T[]) => void;
       isMulti: true;
-      defaultNumberShown?: number | null;
       value?: T[];
     } & BaseProps<T>)
   | ({
       isMulti?: false;
-      defaultNumberShown?: null;
       value?: T | null;
       onChange: (value: T) => void;
     } & BaseProps<T>);
@@ -79,7 +78,6 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
   const {
     id,
     isMulti,
-    defaultNumberShown,
     options,
     value,
     leftIcon,
@@ -91,11 +89,12 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     inScrollBar,
     isMenuListPaddingDisabled,
     isMenuListVirtualized,
+    defaultNumberShown,
     ...restProps
   } = props;
   const classes = useStyles();
   const uuid = useRef(uuidv4());
-  const { t } = useTranslation('common');
+  const [displayMore, setDisplayMore] = useState(false);
 
   const handleChange = (data: T | T[]) => {
     if (!onChange) return;
@@ -115,128 +114,76 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     menuPortalTraget = document.querySelector(`#selector_${uuid.current}`);
   }
 
-  const initDisplayedArray = Array.isArray(value)
-    ? value.slice(0, defaultNumberShown)
-    : value;
-
-  const [displayedValues, setDisplayedValues] = React.useState<T | T[]>(
-    initDisplayedArray,
-  );
-  const [showMoreOrLessText, setShowMoreOrLessText] = React.useState<string>(
-    t('showMore', {
-      count: Array.isArray(value) ? value.length - defaultNumberShown : 0,
-    }),
-  );
-
-  React.useEffect(() => {
-    setDisplayedValues(
-      Array.isArray(value) ? value.slice(0, defaultNumberShown) : value,
-    );
-    setShowMoreOrLessText(
-      t('showMore', {
-        count: Array.isArray(value) ? value.length - defaultNumberShown : 0,
-      }),
-    );
-  }, [defaultNumberShown, t, value]);
-
-  const onShowMore = (ev: React.MouseEvent) => {
-    ev.stopPropagation();
-    if (Array.isArray(value) && Array.isArray(displayedValues)) {
-      if (value.length > displayedValues.length) {
-        setDisplayedValues(value);
-        setShowMoreOrLessText(t('showLess'));
-      } else {
-        setDisplayedValues(value.slice(0, defaultNumberShown));
-        setShowMoreOrLessText(
-          t('showMore', { count: value.length - defaultNumberShown }),
-        );
-      }
-    }
-  };
-
-  const componentButtonShowMore = () => {
-    return (
-      <div
-        aria-hidden
-        onMouseDown={(ev: React.MouseEvent) => {
-          ev.preventDefault();
-          ev.stopPropagation();
-        }}
-      >
-        {!!defaultNumberShown && (
-          <Button className={classes.buttonShowMore} onClick={onShowMore}>
-            <DoubleArrowIcon
-              className={clx({
-                [classes.rightIcon]: true,
-                [classes.leftIcon]:
-                  !Array.isArray(value) ||
-                  !Array.isArray(displayedValues) ||
-                  !(value.length > displayedValues.length),
-              })}
-            />
-            {showMoreOrLessText}
-          </Button>
-        )}
-      </div>
-    );
-  };
-
   return (
-    <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
-      <Select
-        id={id}
-        value={value}
-        displayedValues={displayedValues}
-        isMulti={isMulti}
-        defaultNumberShown={defaultNumberShown}
-        inScrollBar={inScrollBar}
-        isMenuListPaddingDisabled={isMenuListPaddingDisabled}
-        isMenuListVirtualized={isMenuListVirtualized}
-        classes={classes}
-        onChange={handleChange}
-        options={options}
-        componentButtonShowMore={componentButtonShowMore()}
-        components={{
-          Control,
-          Menu,
-          MenuList,
-          Option: Option(itemRenderer),
-          MultiValueContainer,
-          MultiValueLabel,
-          MultiValueRemove: MultiValueRemove(chipsRenderer),
-          Placeholder,
-          NoOptionsMessage,
-          GroupHeading,
-          ValueContainer: ValueContainer(leftIcon),
-        }}
-        hideSelectedOptions={false}
-        tabSelectsValue={false}
-        captureMenuScroll
-        menuPortalTarget={menuPortalTraget}
-        styles={{
-          menuPortal: (base) => {
-            if (inScrollBar) {
+    <SelectorContext.Provider
+      value={{
+        displayMore,
+        setDisplayMore,
+      }}
+    >
+      <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
+        <Select
+          id={id}
+          value={value}
+          isMulti={isMulti}
+          inScrollBar={inScrollBar}
+          isMenuListPaddingDisabled={isMenuListPaddingDisabled}
+          isMenuListVirtualized={isMenuListVirtualized}
+          classes={classes}
+          onChange={handleChange}
+          options={options}
+          components={{
+            Control,
+            Menu,
+            MenuList,
+            Option: Option(itemRenderer),
+            MultiValueContainer,
+            MultiValueLabel,
+            MultiValueRemove: MultiValueRemove(chipsRenderer),
+            Placeholder,
+            NoOptionsMessage,
+            GroupHeading,
+            ValueContainer: ValueContainer(leftIcon),
+          }}
+          hideSelectedOptions={false}
+          tabSelectsValue={false}
+          captureMenuScroll
+          menuPortalTarget={menuPortalTraget}
+          styles={{
+            menuPortal: (base) => {
+              if (inScrollBar) {
+                return {
+                  ...base,
+                  zIndex: 9999,
+                  position: 'absolute',
+                  top: '100%',
+                  left: '0px',
+                };
+              }
               return {
                 ...base,
                 zIndex: 9999,
-                position: 'absolute',
-                top: '100%',
-                left: '0px',
               };
-            }
-            return {
-              ...base,
-              zIndex: 9999,
-            };
-          },
-        }}
-        {...restProps}
-        // Mandatory for multi selection use
-        closeMenuOnSelect
-      />
-    </div>
+            },
+          }}
+          {...restProps}
+          // Mandatory for multi selection use
+          closeMenuOnSelect
+          defaultNumberShown={defaultNumberShown}
+        />
+      </div>
+    </SelectorContext.Provider>
   );
 }
+
+export const SelectorContext = React.createContext<{
+  displayMore: boolean;
+  setDisplayMore: (value: boolean) => void;
+}>({
+  displayMore: false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setDisplayMore: (_) => {},
+});
 
 /* ***** */
 /* Overiding some behavior to fit with expected experiences */
@@ -303,7 +250,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
           {props.isMulti && (
             <div className={classes.footer}>
               <Button
-                className={clx(classes.button, classes.selectButton)}
+                className={classNames(classes.button, classes.selectButton)}
                 color="secondary"
                 onClick={handleGlobalSelect}
                 onTouchEnd={handleGlobalSelect} // for Compatibility with phones
@@ -389,6 +336,46 @@ function Option<T extends OptionTypeBase>(
   };
 }
 
+const ShowMoreButton: React.FC<{
+  overflowValues: number;
+}> = ({ overflowValues }) => {
+  const { t } = useTranslation('common');
+  const classes = useStyles();
+
+  return (
+    <SelectorContext.Consumer>
+      {({ displayMore, setDisplayMore }) => (
+        <div
+          aria-hidden
+          onMouseDown={(ev: React.MouseEvent) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+          }}
+        >
+          <Button
+            className={classes.buttonShowMore}
+            onClick={() => {
+              setDisplayMore(!displayMore);
+            }}
+          >
+            <DoubleArrowIcon
+              className={classNames({
+                [classes.rightIcon]: !displayMore,
+                [classes.leftIcon]: displayMore,
+              })}
+            />
+            {displayMore
+              ? t('showLess')
+              : t('showMore', {
+                  count: overflowValues,
+                })}
+          </Button>
+        </div>
+      )}
+    </SelectorContext.Consumer>
+  );
+};
+
 function MultiValueRemove<T extends OptionTypeBase>(
   chipsRenderer?: (props: {
     data: T;
@@ -403,23 +390,49 @@ function MultiValueRemove<T extends OptionTypeBase>(
   };
 
   return (props: any) => {
+    const selectedValues = props.selectProps?.value ?? [];
+    const index =
+      selectedValues.findIndex((value) => value.value === props.data.value) ??
+      -1;
+
+    const maxDisplay = props.selectProps?.defaultNumberShown ?? 4;
+    const overflowValues = selectedValues.length - maxDisplay;
+
     return (
-      <components.MultiValueRemove getStyles={resetStyle}>
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-        <div className={classes.chip} onMouseDown={catchFocusAndEvent}>
-          {chipsRenderer &&
-            chipsRenderer({
-              data: props.data,
-              onDelete: props.innerProps.onClick,
-            })}
-          {!chipsRenderer && (
-            <Chip
-              label={props.data.label}
-              onDelete={props.innerProps.onClick}
-            />
-          )}
-        </div>
-      </components.MultiValueRemove>
+      <SelectorContext.Consumer>
+        {({ displayMore }) => (
+          <div className={classes.row}>
+            <components.MultiValueRemove getStyles={resetStyle}>
+              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+              <div className={classes.chip} onMouseDown={catchFocusAndEvent}>
+                {(index < maxDisplay || displayMore) && (
+                  <>
+                    {chipsRenderer &&
+                      chipsRenderer({
+                        data: props.data,
+                        onDelete: props.innerProps.onClick,
+                      })}
+                    {!chipsRenderer && (
+                      <Chip
+                        label={props.data.label}
+                        onDelete={props.innerProps.onClick}
+                      />
+                    )}
+                  </>
+                )}
+                {index === maxDisplay && !displayMore && (
+                  <ShowMoreButton overflowValues={overflowValues} />
+                )}
+              </div>
+            </components.MultiValueRemove>
+            {displayMore &&
+              overflowValues > 0 &&
+              index === selectedValues.length - 1 && (
+                <ShowMoreButton overflowValues={overflowValues} />
+              )}
+          </div>
+        )}
+      </SelectorContext.Consumer>
     );
   };
 }
@@ -473,64 +486,18 @@ function MenuList<T extends OptionTypeBase>(
   );
 }
 
-const MultiValueContainer = <T extends OptionTypeBase>(props: {
-  children: React.ReactNode[];
-  selectProps: SelectProps<T, boolean, any>;
-}) => {
+const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
   const classes = useStyles();
-  const lengthDisplayedValues = props.selectProps?.displayedValues?.length;
 
-  const buttonShowMore = () =>
-    !!props?.selectProps?.defaultNumberShown &&
-    Array.isArray(props?.selectProps?.value) &&
-    props?.selectProps?.value.length > props?.selectProps?.defaultNumberShown;
-
-  if (
-    buttonShowMore() &&
-    props?.selectProps?.displayedValues[lengthDisplayedValues - 1] ===
-      props?.children?.[1]?.props.data
-  ) {
-    return (
-      <>
-        <components.MultiValueContainer
-          {...props}
-          innerProps={{ className: classes.reset }}
-          getStyles={resetStyle}
-        >
-          {!buttonShowMore() ||
-          props?.selectProps.displayedValues.includes(
-            props?.children?.[1]?.props.data,
-          )
-            ? props?.children?.[1]
-            : null}
-        </components.MultiValueContainer>
-        <components.MultiValueContainer
-          {...props}
-          innerProps={{ className: classes.showMoreContainer }}
-          getStyles={resetStyle}
-        >
-          {props?.selectProps?.componentButtonShowMore || null}
-        </components.MultiValueContainer>
-      </>
-    );
-  }
-  if (
-    !buttonShowMore() ||
-    props?.selectProps?.displayedValues.includes(
-      props?.children?.[1]?.props.data,
-    )
-  ) {
-    return (
-      <components.MultiValueContainer
-        {...props}
-        innerProps={{ className: classes.reset }}
-        getStyles={resetStyle}
-      >
-        {props?.children?.[1]}
-      </components.MultiValueContainer>
-    );
-  }
-  return null;
+  return (
+    <components.MultiValueContainer
+      {...props}
+      innerProps={{ className: classes.reset }}
+      getStyles={resetStyle}
+    >
+      {props?.children?.[1]}
+    </components.MultiValueContainer>
+  );
 };
 
 // Don't display the label as the hack we only shwo the remove as it the
@@ -657,8 +624,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(0.5),
     marginBottom: theme.spacing(0.5),
   },
-  showMoreContainer: {
-    flexWrap: 'wrap',
+  row: {
+    display: 'flex',
+    gap: theme.spacing(1),
   },
   buttonShowMore: {
     display: 'flex',
@@ -676,11 +644,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   rightIcon: {
-    color: '#00c853',
+    color: theme.palette.success.main,
     marginRight: theme.spacing(1),
   },
   leftIcon: {
-    color: '#ff3d00',
+    color: theme.palette.error.main,
     transform: 'rotate(180deg)',
     marginRight: theme.spacing(1),
   },

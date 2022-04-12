@@ -186,10 +186,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             <SwitchField
               name="is_universal_pass"
               label={t('form.paymentPack.universalPass.label')}
-              disabled={
-                initial &&
-                (!!initial.linked_private_pass || !!initial.template_instance)
-              }
+              disabled={!!initial?.id}
             />
           </Grid>
           <Grid item xs={12} md={12}>

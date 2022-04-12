@@ -1782,7 +1782,8 @@
             "vaccinationDontWantToCommunicate": "Prefer not to answer",
             "vaccinationNotDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
             "vaccinationDone": "I'm in possession of a valid COVID-19 Sanitary Pass",
-            "vaccination_status": "COVID-19 Sanitary Pass Status"
+            "vaccination_status": "COVID-19 Sanitary Pass Status",
+            "filter": "Filter"
         },
         "members": {
             "form": {
@@ -1791,7 +1792,8 @@
         },
         "errors": {
             "start_after_end": "The start date must occur before the end date.",
-            "end_before_start": "The end date must occur after the start date."
+            "end_before_start": "The end date must occur after the start date.",
+            "invalidUrl": "Invalid URL (requested format: http://www.test.com)"
         },
         "paymentMethod": {
             "OTHER": "Other",
@@ -4408,7 +4410,8 @@
                 "errorURL": "Please enter a valid URL before saving the form",
                 "bookingTitle": "Booking",
                 "attendanceTitle": "Attendance",
-                "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product"
+                "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product",
+                "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags"
             },
             "cover": {
                 "label": "Logo",
@@ -4757,7 +4760,8 @@
                 "smartlist": "Smartlists",
                 "coupon": "Promotions",
                 "member": "Members",
-                "toolbar": "Display"
+                "toolbar": "Display",
+                "offer": "Sessions"
             },
             "tagDetail": {
                 "noTag": "Select a Sub Tag for a more detailed overview."
@@ -4780,7 +4784,8 @@
                 "smartlist_count": "Tag Rules",
                 "member_count": "Tagged members",
                 "tag": "Sub Tag",
-                "coupon_count": " "
+                "coupon_count": " ",
+                "offer_count": "Linked sessions"
             },
             "submit": "Confirm",
             "cancel": "Cancel",
@@ -4792,7 +4797,23 @@
             "delete": "Delete",
             "rename": "Rename",
             "addTag": "Add a Sub Tag",
-            "addGroup": "Add a Main Tag"
+            "addGroup": "Add a Main Tag",
+            "offerDetail": {
+                "filters": {
+                    "options": {
+                        "onlyBlack": "Not bookable with this tag",
+                        "onlyWhite": "Bookable with this tag",
+                        "all": "Display all sessions"
+                    },
+                    "selectorTitle": "Filter on permissions"
+                },
+                "removeTagFromAll": "Remove all tags",
+                "offerWithTag": "Tagged offers",
+                "detailTable": {
+                    "tagInWhiteList": "Bookable by members with the tag",
+                    "tagInBlackList": "Not bookable by members with the tag"
+                }
+            }
         },
         "select": "Select a tag",
         "memberStatus": "Member status: "
@@ -5588,7 +5609,33 @@
             "title": "App customisation",
             "popup": {
                 "helperText": "The start-up pop-up will appear once your members open the application. It allows you to draw your members' attention to a special event (a new class, a promotion ...) and will redirect them to the desired web page.",
-                "subtitle": "Start-up pop-up"
+                "subtitle": "Start-up pop-up",
+                "editPopup": {
+                    "previewPopup": {
+                        "see": "See",
+                        "title": "Preview"
+                    },
+                    "preview": "Preview",
+                    "submit": "Save",
+                    "cancel": "Cancel",
+                    "link": "Redirect link",
+                    "image": "Image",
+                    "name": "Pop-up name",
+                    "title": "Start-up pop-up"
+                },
+                "see": "Preview",
+                "deleteModal": {
+                    "content": "Are you sure you want to delete this popup? This action is final",
+                    "confirm": "Confirm delete",
+                    "cancel": "Go back",
+                    "title": "Delete"
+                },
+                "action": "Action",
+                "image": "Image",
+                "link": "Pop-up link",
+                "name": "Pop-up name",
+                "updated": "Update",
+                "add": "Add pop-up"
             }
         }
     },

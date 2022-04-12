@@ -49,7 +49,7 @@ i18n
     },
     */
     fallbackLng: (code) => {
-      const fallback = process.env.NODE_ENV === 'development' ? ['af'] : [];
+      const fallback = process.env.NODE_ENV === 'development' ? [] : [];
       if (!code || code === 'en') return ['en', 'fr', ...fallback];
       // We maintain en-US and en-AU. Some regions will prefer en-AU.
       if (code.startsWith('en')) return ['en', 'fr', ...fallback];

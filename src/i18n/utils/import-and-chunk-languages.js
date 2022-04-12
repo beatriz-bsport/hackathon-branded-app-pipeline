@@ -1,6 +1,7 @@
 /* eslint-disable */
 const fs = require('fs-extra');
 const path = require('path');
+const jsonMerger = require('json-merger');
 
 const generateChunkJSONTranslations = () => {
   console.log('* Chunking translations');
@@ -15,10 +16,24 @@ const generateChunkJSONTranslations = () => {
 
   dirList.map((dirName) => {
     console.log(`- ${dirName}`);
-    const tr = require(path.join(
-      path.dirname(fs.realpathSync(__filename)),
-      `../build/${dirName}/translations.json`,
-    ));
+    let tr = {}
+    if (dirName === 'fr') {
+      tr = jsonMerger.mergeFiles([
+	path.join(
+	  path.dirname(fs.realpathSync(__filename)),
+	  '../build/af/translations.json',
+	),
+	path.join(
+	  path.dirname(fs.realpathSync(__filename)),
+	  '../build/fr/translations.json',
+	)
+      ])
+    } else {
+      tr = require(path.join(
+	path.dirname(fs.realpathSync(__filename)),
+	`../build/${dirName}/translations.json`,
+      ));
+    }
     Object.entries(tr).map(([key, value]) => {
       try {
         fs.mkdirSync(`${buildDir}${dirName}/`);

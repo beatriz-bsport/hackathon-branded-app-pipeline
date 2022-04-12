@@ -5558,7 +5558,8 @@
                         "paymentPack": "Passes",
                         "contract": "Membership"
                     },
-                    "title": "Preview"
+                    "title": "Preview",
+                    "cancel": "Go back"
                 },
                 "deleteModal": {
                     "content": "Are you sure you want to remove this link? This action is final",

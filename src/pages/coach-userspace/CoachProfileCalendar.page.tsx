@@ -1,16 +1,16 @@
 // @flow
 import React from 'react';
-
 import { compose, withState, withHandlers } from 'recompose';
 import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
-import withStyles from '@material-ui/core/styles/withStyles';
-
 import uniq from 'lodash/uniq';
+import { TFunction } from 'i18next';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core';
 import { WithStyles } from '@material-ui/styles';
-import { TFunction } from 'i18next';
+
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import withTitle from '#hocs/with-title.hoc';
@@ -51,6 +51,7 @@ type withStateType = {
   periodFilter: Period;
   setPeriodFilter: (periodFilter: Period) => void;
 };
+
 type RouterProps = {
   companyId: number;
   scheduleFilter: ScheduleFilter;
@@ -63,18 +64,6 @@ type Props = ConnectedProps<typeof connector> &
   RouterProps;
 
 export class CoachPrivateCalendar extends React.Component<Props> {
-  fetchAvailabilitySlots = () => {
-    this.props.resetAvailabilitySlots();
-    if (this.props.coach.id) {
-      this.props.fetchAvailabilitySlots({
-        date_start__lte: this.props.periodFilter.end,
-        date_start__gte: this.props.periodFilter.start,
-        coach: this.props.coach?.id,
-        company: this.props.companyId,
-      });
-    }
-  };
-
   componentDidMount() {
     this.props.resetPrivateBookings();
   }
@@ -93,6 +82,18 @@ export class CoachPrivateCalendar extends React.Component<Props> {
   componentWillUnmount() {
     this.props.resetCustomEvent();
   }
+
+  fetchAvailabilitySlots = () => {
+    this.props.resetAvailabilitySlots();
+    if (this.props.coach.id) {
+      this.props.fetchAvailabilitySlots({
+        date_start__lte: this.props.periodFilter.end,
+        date_start__gte: this.props.periodFilter.start,
+        coach: this.props.coach?.id,
+        company: this.props.companyId,
+      });
+    }
+  };
 
   fetchWeekData = () => {
     this.fetchAvailabilitySlots();

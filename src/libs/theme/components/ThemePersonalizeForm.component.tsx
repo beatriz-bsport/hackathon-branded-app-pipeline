@@ -39,6 +39,7 @@ interface FormikValues {
   show_workshops_customer: boolean;
   show_booked_gender_offer: boolean;
   is_checking_balance: boolean;
+  hide_member_details_in_app_private_booking_for_coach: boolean;
   gender_max_shift_for_booking: number;
   max_future_booking: number;
   basket_expiration_days: number;
@@ -246,6 +247,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             label={t('forms.themePersonalization.cancelledOffersManager')}
           />
           <SwitchField
+            name="hide_member_details_in_app_private_booking_for_coach"
+            label={t('forms.themePersonalization.hideMemberForCoach')}
+          />
+          <SwitchField
             name="show_workshops_customer"
             label={t('forms.themePersonalization.workshopsCustomer')}
           />
@@ -414,6 +419,8 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   show_workshops_customer: Yup.boolean().required(),
   show_booked_gender_offer: Yup.boolean().required(),
   is_checking_balance: Yup.boolean().required(),
+  hide_member_details_in_app_private_booking_for_coach:
+    Yup.boolean().required(),
 
   gender_max_shift_for_booking: Yup.number().required(),
   max_future_booking: Yup.number().required(),
@@ -470,6 +477,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         show_workshops_customer: theme.show_workshops_customer,
         show_booked_gender_offer: theme.show_booked_gender_offer,
         is_checking_balance: theme.is_checking_balance,
+        hide_member_details_in_app_private_booking_for_coach:
+          theme.hide_member_details_in_app_private_booking_for_coach,
 
         gender_max_shift_for_booking: theme.gender_max_shift_for_booking,
         max_future_booking: theme.max_future_booking,
@@ -503,6 +512,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       show_workshops_customer: false,
       show_booked_gender_offer: false,
       is_checking_balance: false,
+      hide_member_details_in_app_private_booking_for_coach: false,
 
       gender_max_shift_for_booking: 0,
       max_future_booking: 0,
@@ -510,6 +520,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       basket_expiration_days: 0,
       nb_to_check_balance: 0,
 
+      hide_sessions_with_tags_when_not_eligible: true,
       schedule_timerange_begin: defaulScheduletBegin,
       schedule_timerange_end: defaultScheduleEnd,
     };
@@ -529,6 +540,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'show_cancelled_offers_customer',
       'hideCoach',
       'show_cancelled_offers_manager',
+      'hide_member_details_in_app_private_booking_for_coach',
       'show_workshops_customer',
       'basket_expiration_days',
       'show_booked_gender_offer',

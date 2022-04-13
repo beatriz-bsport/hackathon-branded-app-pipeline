@@ -63,6 +63,8 @@ exports.default = {
         'Cacher les cartes de cours, abonnements et packs achetables au moment de la réservation si le membre possède déjà une carte compatible',
       cancelledOffersCustomer:
         'Afficher les séances annulées sur le calendrier client',
+      hideMemberForCoach:
+        'Cacher les informations de contact clients dans le calendrier professeur',
       cancelledOffersManager:
         'Par défaut afficher les séances annulées sur le calendrier manager',
       workshopsCustomer: 'Afficher les ateliers sur le calendrier client',

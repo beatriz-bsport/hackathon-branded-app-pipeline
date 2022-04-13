@@ -14,9 +14,9 @@ import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyabl
 import InfoIcon from '@material-ui/icons/Info';
 import themeSelectors from '../../../libs/theme/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
+import { parseQueryString, buildUrlParams } from '../../../http';
 import { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
-import { buildUrlParams } from '../../../http';
 import {
   addItemToBasket,
   removeItemFromBasket,
@@ -39,6 +39,7 @@ type Props = {
   goToCheckout: (companyId: number) => void,
   fetchPrivatePassRetrieve: (packId, options?: OptionCallback) => void,
   classes: Object,
+  location: Object,
   t: TFunction,
 };
 
@@ -57,12 +58,14 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
         Analytics.addPrivatePassToCart(privatePass);
         this.props.fetchCurrentBasket(privatePass.company, {
           onSuccess: (basket) => {
+            const { force } = parseQueryString(this.props.location.search);
             this.props.addItemToBasket(
               basket.id,
               {
                 buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
                 quantity: 1,
                 buyable_item_id: privatePass.id,
+                extra_data: { force },
               },
               {
                 onError: () => this.setState({ error: true }),

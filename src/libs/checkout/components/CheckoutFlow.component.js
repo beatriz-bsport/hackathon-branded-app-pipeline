@@ -72,6 +72,8 @@ type Props = {
   creditAccountBalance?: number | null,
   onRemoveInternalAccountPrepaidLine: () => void,
   isExcludingTax: boolean,
+
+  checkItemsBasket: (basketId) => void,
 };
 
 export const CheckoutFlow = (props: Props) => {
@@ -115,6 +117,7 @@ export const CheckoutFlow = (props: Props) => {
             isExcludingTax={props.isExcludingTax}
             withPrice
             basket={props.basket}
+            checkItemsBasket={props.checkItemsBasket}
             validateUnpaid={props.validateUnpaid}
             submitPayment={props.submitPayment}
             attachCoupon={props.attachCoupon}

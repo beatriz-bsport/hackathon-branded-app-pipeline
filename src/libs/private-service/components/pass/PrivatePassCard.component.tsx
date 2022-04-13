@@ -59,7 +59,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
   const renderLinkToPaymentPage = () => {
     return pass.id && pass.company ? (
       <CopyToClipboard
-        text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${pass.company}`}
+        text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${pass.company}&force=true`}
       >
         <ButtonBase
           className={classes.link}

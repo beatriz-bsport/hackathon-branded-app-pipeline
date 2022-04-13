@@ -89,6 +89,8 @@ type State = {
   coach_payment_rule: number | null;
   manager_only: boolean;
   openAdvancedOptions: boolean;
+  whitelist_tags: Array<number>;
+  blacklist_tags: Array<number>;
 };
 
 export type FormData = Object;
@@ -120,7 +122,10 @@ const FIELDS = [
   'blacklist_tags',
 ];
 
-const getModifiedFields = (oldData: Offer, newData: Offer) => {
+type OfferData = {
+  [key: string]: any;
+};
+const getModifiedFields = (oldData: OfferData, newData: OfferData) => {
   const modifiedFields = [];
   for (const field of FIELDS) {
     if (oldData[field] !== newData[field]) {
@@ -129,7 +134,11 @@ const getModifiedFields = (oldData: Offer, newData: Offer) => {
   }
   return modifiedFields;
 };
-const appendModifiedData = (oldData: Offer, newData: Offer, data: Offer) => {
+const appendModifiedData = (
+  oldData: OfferData,
+  newData: OfferData,
+  data: OfferData,
+) => {
   for (const field of FIELDS) {
     if (oldData[field] !== newData[field]) {
       // eslint-disable-next-line
@@ -849,6 +858,9 @@ export class EditLiveOfferForm extends Component<Props, State> {
   renderAdvancedSettings = () => {
     const { classes, t, tagList } = this.props;
     const { openAdvancedOptions } = this.state;
+    if (!tagList) {
+      return <div />;
+    }
     return (
       <>
         <div className={classes.advancedOptionsSection}>
@@ -881,39 +893,41 @@ export class EditLiveOfferForm extends Component<Props, State> {
                     {t('form.offer.advancedOptions.tag.allowed')}
                   </Typography>
                 </div>
-                <TagSelector
-                  allTagsWithTagGroup={
-                    [
-                      ...tagList?.filter(
-                        (tag) => !this.state.blacklist_tags?.includes(tag.id),
-                      ),
-                    ] || []
-                  }
-                  placeholder={t(
-                    'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                  )}
-                  onChange={(
-                    items: Array<{
-                      item: Tag & { label: string; value: number };
-                    }>,
-                  ) =>
-                    this.setState({
-                      whitelist_tags: items.map((item) => item.value),
-                    })
-                  }
-                  onDeleteTag={(itemId: number) =>
-                    this.setState((prevState: State) => ({
-                      ...prevState,
-                      whitelist_tags: prevState.whitelist_tags.filter(
-                        (tg) => tg !== itemId,
-                      ),
-                    }))
-                  }
-                  selectedTags={this.state.whitelist_tags}
-                  isClearable
-                  closeMenuOnSelect
-                  inScrollBar
-                />
+                {tagList && (
+                  <TagSelector
+                    allTagsWithTagGroup={
+                      [
+                        ...(tagList || [])?.filter(
+                          (tag) => !this.state.blacklist_tags?.includes(tag.id),
+                        ),
+                      ] || []
+                    }
+                    placeholder={t(
+                      'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                    )}
+                    onChange={(
+                      items: Array<{
+                        item: Tag & { label: string; value: number };
+                      }>,
+                    ) =>
+                      this.setState({
+                        whitelist_tags: items.map((item) => item.value),
+                      })
+                    }
+                    onDeleteTag={(itemId: number) =>
+                      this.setState((prevState: State) => ({
+                        ...prevState,
+                        whitelist_tags: prevState.whitelist_tags.filter(
+                          (tg) => tg !== itemId,
+                        ),
+                      }))
+                    }
+                    selectedTags={this.state.whitelist_tags}
+                    isClearable
+                    closeMenuOnSelect
+                    inScrollBar
+                  />
+                )}
               </div>
               <div className={classes.tagSelector}>
                 <div className={classes.tagSelectorLabel}>
@@ -922,39 +936,41 @@ export class EditLiveOfferForm extends Component<Props, State> {
                     {t('form.offer.advancedOptions.tag.notAllowed')}
                   </Typography>
                 </div>
-                <TagSelector
-                  allTagsWithTagGroup={
-                    [
-                      ...tagList?.filter(
-                        (tag) => !this.state.whitelist_tags?.includes(tag.id),
-                      ),
-                    ] || []
-                  }
-                  placeholder={t(
-                    'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                  )}
-                  onChange={(
-                    items: Array<{
-                      item: Tag & { label: string; value: number };
-                    }>,
-                  ) =>
-                    this.setState({
-                      blacklist_tags: items.map((item) => item.value),
-                    })
-                  }
-                  onDeleteTag={(itemId: number) =>
-                    this.setState((prevState: State) => ({
-                      ...prevState,
-                      blacklist_tags: prevState.blacklist_tags.filter(
-                        (tg) => tg !== itemId,
-                      ),
-                    }))
-                  }
-                  selectedTags={this.state.blacklist_tags}
-                  isClearable
-                  closeMenuOnSelect
-                  inScrollBar
-                />
+                {tagList && (
+                  <TagSelector
+                    allTagsWithTagGroup={
+                      [
+                        ...(tagList || [])?.filter(
+                          (tag) => !this.state.whitelist_tags?.includes(tag.id),
+                        ),
+                      ] || []
+                    }
+                    placeholder={t(
+                      'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                    )}
+                    onChange={(
+                      items: Array<{
+                        item: Tag & { label: string; value: number };
+                      }>,
+                    ) =>
+                      this.setState({
+                        blacklist_tags: items.map((item) => item.value),
+                      })
+                    }
+                    onDeleteTag={(itemId: number) =>
+                      this.setState((prevState: State) => ({
+                        ...prevState,
+                        blacklist_tags: prevState.blacklist_tags.filter(
+                          (tg) => tg !== itemId,
+                        ),
+                      }))
+                    }
+                    selectedTags={this.state.blacklist_tags}
+                    isClearable
+                    closeMenuOnSelect
+                    inScrollBar
+                  />
+                )}
               </div>
             </div>
           </Collapse>

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { compose, withStateHandlers, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
@@ -83,6 +84,7 @@ import {
   withCoach,
   getSimilars as getSimilarsOffers,
   withEstablishment,
+  withTags,
 } from '../../offer/selectors';
 import { withAssociatedCoach, getCustomEvent } from '../selectors/custom-event';
 
@@ -127,6 +129,10 @@ import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
 } from '#libs/giftcard/actions';
+
+import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import type { Tag, TagGroup } from '#libs/tag/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type Props = {
   offerId: number,
@@ -220,6 +226,7 @@ type Props = {
   ) => void,
   fetchConsumerGiftcardReceivedList: (memberId: number) => void,
   isCoach: boolean,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
 type State = {
   clientSecretLoading: boolean,
@@ -562,10 +569,15 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           />
         ) : null}
         {offer && offer.establishment && offer.coach ? (
-          <Dialog open={this.props.offerEditModalOpen}>
+          <GenericResponsiveDrawer
+            open={this.props.offerEditModalOpen}
+            onClose={this.props.closeOfferEditModal}
+            title={this.props.t('translation:common.offers')}
+            subtitle={this.props.t('translation:common.offerEdition')}
+          >
             <DialogContent>
               {this.props.offerEditLoading ? (
-                <CircularProgress />
+                <LinearProgress />
               ) : (
                 <OfferEditForm
                   offer={offer}
@@ -588,10 +600,11 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                   similarOffers={this.props.similarOffers}
                   similarOfferLoading={this.props.similarOfferLoading}
                   coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+                  tagList={this.props.allTagsWithTagGroup}
                 />
               )}
             </DialogContent>
-          </Dialog>
+          </GenericResponsiveDrawer>
         ) : null}
       </div>
     );
@@ -648,6 +661,7 @@ const OfferEditorContainer = compose(
       roomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showVaccinationStatus: showVaccinationStatus(state),
+      allTagsWithTagGroup: getallTagsWithTagGroup(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -795,10 +809,9 @@ export default compose(
       privateBookingLoading:
         state.privateService.privateBooking.createOrUpdate.loading,
       theme: state.theme.theme,
-      offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
-        state,
-        offerId,
-      ),
+      offer: withTags(
+        withMetaActivity(withCoach(withEstablishment(getOfferById))),
+      )(state, offerId),
       customEvent: withAssociatedCoach(getCustomEvent)(state, customEventId),
       showVaccinationStatus: showVaccinationStatus(state),
       unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),

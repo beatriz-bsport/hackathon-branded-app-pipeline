@@ -1432,13 +1432,13 @@
                 "explainManagerOnly": "Open for bookings (Website + Mobile App)",
                 "advancedOptions": {
                     "tag": {
-                        "notAllowed": "",
-                        "doNotSelectToAllowAllMembers": "",
-                        "header": "",
-                        "allowed": "",
-                        "helperText": ""
+                        "notAllowed": "Not allowed",
+                        "doNotSelectToAllowAllMembers": "Do not select to allow all members",
+                        "header": "Tags",
+                        "allowed": "Allowed",
+                        "helperText": "Use tags to make the session bookable only to a desired group of members. You select tags to make the session bookable only to members with one of the selected tags. Or you can select tags to make the session non-bookable only to members with one of the selected tags."
                     },
-                    "header": ""
+                    "header": "Advanced"
                 }
             },
             "payment": {
@@ -1794,9 +1794,9 @@
             "vaccinationDone": "I'm in possession of a valid COVID-19 Sanitary Pass",
             "vaccination_status": "COVID-19 Sanitary Pass Status",
             "filter": "Filter",
-            "offerEdition": "",
-            "selectAnActivity": "",
-            "offerCreation": ""
+            "offerEdition": "Edit session",
+            "selectAnActivity": "Select an activity",
+            "offerCreation": "Create session"
         },
         "members": {
             "form": {
@@ -3102,7 +3102,10 @@
                 "validity": "Validity",
                 "credit_quantity": "Number of credits"
             },
-            "ht": "Excl. VAT / Sales Tax"
+            "ht": "Excl. VAT / Sales Tax",
+            "actions": {
+                "forceRegularizeUnpaid": "Regularise all outstanding payments"
+            }
         },
         "service": {
             "selector": {
@@ -4113,7 +4116,7 @@
                         "_label": "Marketplace settings"
                     },
                     "widgets": {
-                        "_label": "Widget"
+                        "_label": "Widgets"
                     },
                     "staffs": {
                         "_label": "Staff"
@@ -4125,13 +4128,13 @@
                         "_label": "Member forms"
                     },
                     "liveStreaming": {
-                        "_label": "Livestream"
+                        "_label": "Live streaming integration"
                     },
                     "transactionnalEmail": {
                         "_label": "Transactional notifications"
                     },
                     "teacherPayrollRules": {
-                        "_label": "Payroll"
+                        "_label": "Payroll rules"
                     },
                     "paymentMethods": {
                         "_label": "Payment method"
@@ -4218,7 +4221,7 @@
                         "_label": "Expenses"
                     },
                     "installments": {
-                        "_label": "Instalments"
+                        "_label": "Payment by installments"
                     },
                     "teachers": {
                         "_label": "Teachers"
@@ -4239,7 +4242,7 @@
                 "products": {
                     "_label": "Products",
                     "paymentPack": {
-                        "_label": "Pass"
+                        "_label": "Passes"
                     },
                     "privatePass": {
                         "_label": "Appointment passes"
@@ -4510,7 +4513,8 @@
                 "taxName": "Name of the tax",
                 "info": "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
                 "title": "Provincial Tax"
-            }
+            },
+            "acceptGuest": "Allow booking for a guest"
         },
         "general_terms_and_conditions": {
             "label": "General terms and conditions",
@@ -5010,8 +5014,8 @@
                 }
             },
             "last_delay_before_auto_consume": {
-                "label": "",
-                "helper": ""
+                "label": "Book automatically only if the session takes place in less than ",
+                "helper": "If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass"
             }
         },
         "explainWaitingListConf": "Example: With 3h left before the start of the sessions, the member has {{ nbMinutesBeforeBookingOptionExpire }} minutes to respond before they're put back on the waiting list.",
@@ -5586,7 +5590,7 @@
                         "paymentComboEmpty": "No offer available",
                         "contractEmpty": "No membership available for sale",
                         "invoiceEmpty": "No invoice",
-                        "privatePassListEmpty": "No private available",
+                        "privatePassListEmpty": "No appointment pass available",
                         "privateConsumerPassListEmpty": "No appointment pass owned",
                         "vod": "Access Video-on-Demand",
                         "consumerPaymentPackEmpty": "No pass owned",
@@ -7381,7 +7385,7 @@
             "is_recurring": "Recurring",
             "amount_expense": "Amount",
             "universal_nb_private_bookings": "Number of bookings (appointments)",
-            "universal_nb_bookings": "Number of bookings (group activities)"
+            "universal_nb_bookings": "Number of bookings (group classes)"
         },
         "yes": "Yes",
         "no": "No",

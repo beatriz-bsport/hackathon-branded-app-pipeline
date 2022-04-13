@@ -496,9 +496,9 @@
                 "widgetContinue": "Continuer"
             },
             "sections": {
-                "explain": "Votre opération a bien été pris en compte. Nous vous enverrons un mail de confirmation.",
+                "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",
                 "recap": "Récapitulatif",
-                "title": "Félicitation !",
+                "title": "Félicitations !",
                 "basket": "Votre panier",
                 "offerBooked": "Vos séances",
                 "offerPreBooked": "Inscription sur la liste d'attente",

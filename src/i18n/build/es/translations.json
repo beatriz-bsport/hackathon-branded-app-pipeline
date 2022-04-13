@@ -48,7 +48,7 @@
             "myAccount": "Mi cuenta"
         },
         "paymentMethod": {
-            "CB": "Tarjeta de crédito",
+            "CB": "Tarjeta de pago",
             "CB_MANUAL": "Datáfono",
             "CHECK": "Cheque",
             "HOLIDAY_CHECK": "Cheque de vacaciones",
@@ -62,7 +62,8 @@
         },
         "errors": {
             "end_before_start": "La fecha de finalización debe ser posterior a la fecha de inicio",
-            "start_after_end": "La fecha de inicio debe ser anterior a la fecha de finalización"
+            "start_after_end": "La fecha de inicio debe ser anterior a la fecha de finalización",
+            "invalidUrl": "URL no válida (formato solicitado: http://www.test.com)"
         },
         "members": {
             "form": {
@@ -163,7 +164,11 @@
             "vaccinationDontWantToCommunicate": "No desea responder",
             "vaccinationNotDone": "Sin tarjeta sanitaria válida",
             "vaccinationDone": "Tarjeta sanitaria válida",
-            "vaccination_status": "Estado del pase sanitario COVID-19"
+            "vaccination_status": "Estado del pase sanitario COVID-19",
+            "offerEdition": "Modificar una sesión",
+            "filter": "Filtrar",
+            "selectAnActivity": "Seleccionar una actividad",
+            "offerCreation": "Crear una sesión"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -435,7 +440,17 @@
                     "explainZoomApp": "El enlace se generará automáticamente a través de ZOOM por bsport"
                 },
                 "explainPartnership": "En marketplaces (ClassPass, OneFit...)",
-                "explainManagerOnly": "Disponible para reservar (web+app)"
+                "explainManagerOnly": "Disponible para reservar (web+app)",
+                "advancedOptions": {
+                    "tag": {
+                        "doNotSelectToAllowAllMembers": "No seleccionar para permitir a todos los miembros",
+                        "allowed": "Autorizado",
+                        "notAllowed": "No autorizado",
+                        "header": "Tags",
+                        "helperText": "Utilices tags para que la sesión sea reservable sólo para un grupo deseado de miembros. Si selecciona los tags, la sesión sólo podrá ser reservada por los miembros que tengan uno de los tags seleccionados. O puedes seleccionar tags para que la sesión no sea reservable sólo para los miembros con unos de los tags seleccionados."
+                    },
+                    "header": "Avanzado"
+                }
             },
             "paymentPack": {
                 "newMemberOnly": "Uniquement pour les nouveaux clients",
@@ -560,7 +575,8 @@
             "emergencyContact": "Contacto de emergencia",
             "warningAddEmail": "Este correo electrónico ya ha sido añadido.",
             "emailHelper": "Para añadir varios correos electrónicos, escriba una coma o un espacio después de cada correo.",
-            "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)"
+            "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)",
+            "tenMinutes": "10 minutos"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -636,7 +652,7 @@
             "pass": "Bono",
             "settings": "Parámetros",
             "myClub": "Mi Club",
-            "subscription": "Suscripciones",
+            "subscription": "Cuotas",
             "coupon": "Promociones",
             "refresh": "Actualizar",
             "sequence": "Estrategias",
@@ -661,9 +677,9 @@
             "reverted": "Cancelado",
             "revert": "Cancelar factura",
             "choseDate": "Fecha de facturación",
-            "explainDateChoser": "Por favor, elige la fecha de facturación. Los pagos con tarjeta de crédito se cobrarán de inmediato, independientemente de la fecha elegida",
+            "explainDateChoser": "Por favor, elige la fecha de facturación. Los pagos con tarjeta de pago se cobrarán de inmediato, independientemente de la fecha elegida",
             "revertImpossibleExplainSubscription": "Esta factura es parte de una suscripción, no puedes cancelar una factura recibida vinculada a una suscripción, pero puedes detener la suscripción",
-            "revertExplainPayment": "Los pagos con tarjeta de crédito serán devueltos al anticipo del miembro. Todos los demás métodos de pago serán suprimidos.",
+            "revertExplainPayment": "Los pagos con tarjeta de pago serán devueltos al anticipo del miembro. Todos los demás métodos de pago serán suprimidos.",
             "revertExplainCredits": "Los débitos/créditos en la cuenta del miembro se revertirán.",
             "revertExplainPacks": "Se cancelarán los bonos, así como TODAS las reservas asociadas",
             "revertExplainShop": "Las compras de la tienda se cancelarán y se restablecerán las existencias.",
@@ -707,15 +723,15 @@
             "updateInvoiceVoucher": "Añadir una rebaja",
             "voucher": "Rebaja",
             "total": "TOTAL",
-            "paymentMethodStripe": "Tarjeta de crédito",
+            "paymentMethodStripe": "Tarjeta de pago",
             "paymentMethodCheck": "Cheque",
             "paymentMethodCash": "Efectivo",
             "invoice": "Factura",
             "paymentMethod": "Método de pago",
             "creditAccountBalance": "Cuenta corriente: ",
             "paymentMethods": {
-                "CB": "Tarjeta de crédito",
-                "CB_MANUAL": "Tarjeta de crédito (manual)",
+                "CB": "Tarjeta de pago",
+                "CB_MANUAL": "Tarjeta (pago con maquina)",
                 "CHECK": "Cheque",
                 "HOLIDAY_CHECK": "Cheque de vacaciones",
                 "CASH": "Efectivo",
@@ -738,7 +754,7 @@
             "billingAnchor": "Primer pago",
             "nbInterval": "Número de muestros",
             "intervalType": "Frecuencia de pago",
-            "stripePaymentWillBeCashedOutOnInvoiceValidation": "La tarjeta de crédito solo se debitará después de guardar la factura",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "La tarjeta de pago solo se debitará después de guardar la factura",
             "createInvoice": "Pago",
             "toBill": "Facturar",
             "toSubscribe": "Suscribir",
@@ -1143,8 +1159,8 @@
             "turnover": "Suma de todos los pagos recibidos en facturas"
         },
         "billedSubscriptions": {
-            "title": "Número de suscripciones facturadas",
-            "caption": "Suscripciones",
+            "title": "Número de cuotas facturadas",
+            "caption": "Cuotas",
             "popover": "El número de facturas relacionadas con una suscripción no cancelada"
         },
         "turnoverTitle": "Colección",
@@ -1163,7 +1179,7 @@
         },
         "plannedPayment": {
             "caption": "Ingresos",
-            "popover": "Suma de todos los pagos recibidos en relación con las suscripciones",
+            "popover": "Suma de todos los pagos recibidos en relación con las cuotas",
             "title": "Recibos de suscripción"
         },
         "invoiceItems": {
@@ -1377,7 +1393,8 @@
                 "tag": "Tag",
                 "member_count": "Miembros con etiqueta",
                 "smartlist_count": "Normas de etiquetado",
-                "actions": "Acciones "
+                "actions": "Acciones ",
+                "offer_count": "Sesiones vinculadas"
             },
             "deleteTagDialog": {
                 "title": "Supresión de tag",
@@ -1395,7 +1412,8 @@
                 "toolbar": "Visualización por",
                 "member": "Miembros",
                 "coupon": "Código promocional",
-                "smartlist": "Smartlists"
+                "smartlist": "Smartlists",
+                "offer": "Sesiones"
             },
             "memberDetail": {
                 "memberWithTag": "Miembros con etiqueta",
@@ -1404,6 +1422,22 @@
                 "memberWithoutTag": "Miembros no etiquetados",
                 "addTagToAll": "Añadir etiqueta a todos",
                 "addTag": "Añadir un tag"
+            },
+            "offerDetail": {
+                "offerWithTag": "Ofertas con tags",
+                "removeTagFromAll": "Borrar todos los tags",
+                "filters": {
+                    "options": {
+                        "all": "Ver todas las sesiones",
+                        "onlyWhite": "Reservables con este tag",
+                        "onlyBlack": "No se puede reservar con este tag"
+                    },
+                    "selectorTitle": "Filtrar por permisos"
+                },
+                "detailTable": {
+                    "tagInWhiteList": "Reservable por los miembros con el tag",
+                    "tagInBlackList": "No puede ser reservado por los miembros con el tag"
+                }
             }
         },
         "select": "Seleccione una etiqueta",
@@ -1928,7 +1962,7 @@
             "title": "Pago en línea",
             "save": "Salva",
             "methodPaymentSubscriptionError": "Seleccione al menos un método de pago",
-            "methodPaymentSubscriptionHelper": "Autorizar los pagos de las suscripciones (contratos) sólo a través de",
+            "methodPaymentSubscriptionHelper": "Autorizar los pagos de las cuotas (contratos) sólo a través de",
             "methodPaymentSubscription": "Pago periódico",
             "methodPaymentBasketHelper": "Autorizar los pagos de la cesta de la compra, la liquidación de deudas y los pagos atrasados... sólo a través de"
         },
@@ -1949,6 +1983,96 @@
             "submit": "Guardar",
             "enable": "Activar la integración de Quickbooks",
             "title": "QuickBooks"
+        },
+        "mobilePersonalization": {
+            "externalShopRedirection": {
+                "updated": "Actualizar",
+                "popup": {
+                    "icon": "Icono",
+                    "cancel": "Cancelar",
+                    "title": "Enlace externo",
+                    "name": "Nombre del popup",
+                    "link": "Enlace de redirección",
+                    "submit": "Guardar"
+                },
+                "popupPreview": {
+                    "membershipCard": {
+                        "paymentComboEmpty": "No hay oferta disponible",
+                        "mySubscription": "Mis\ncuotas",
+                        "contract": "Contrato",
+                        "paymentPack": "Bonos",
+                        "consumerPaymentPack": "Mis bonos",
+                        "invoice": "Mis facturas",
+                        "paymentPackEmpty": "No bono disponible",
+                        "privatePassListEmpty": "No tarjeta de cita disponible",
+                        "consumerPaymentPackEmpty": "No tienes ningún bono",
+                        "vod": "Acceso a la videoteca",
+                        "privateConsumerPassListEmpty": "No tienes ninguna tarjeta de cita",
+                        "invoiceEmpty": "No facturas",
+                        "contractEmpty": "No se ofrecen cuotas para la venta",
+                        "paymentPackSubtitle": "Encuentres aquí todos los bonos de tu estudio",
+                        "vodSubtitle": "Encuentres aquí toda la oferta de vídeo a la carta de tu estudio",
+                        "paymentComboSubtitle": "Encuentres aquí todas las ofertas promocionales de tu estudio",
+                        "giftcardSubtitle": "Encuentres todas las tarjetas de regalo del estudio aquí",
+                        "contractSubtitle": "Encuentres aquí todas las ofertas de cuotas de tu estudio"
+                    },
+                    "category": {
+                        "paymentCombo": "Ofertas promocionales",
+                        "paymentPack": "Todos los bonos",
+                        "contract": "Cuotas",
+                        "giftcard": "Tarjetas de regalo"
+                    },
+                    "title": "Previsualizar",
+                    "ourOffers": "Nuestras ofertas",
+                    "inventory": "Tu inventario",
+                    "cancel": "Cerrar"
+                },
+                "add": "Añadir enlace",
+                "subtitle": "Enlaces externos",
+                "helperText": "Puedes añadir enlaces externos en la aplicación para redirigir a tus miembros a tu sitio web o a otra plataforma. Los enlaces aparecerán en la pestaña de compras de la aplicación móvil.",
+                "preview": "Vista previa de la app",
+                "icon": "Icono",
+                "name": "Nombre",
+                "link": "Enlace",
+                "action": "Acciones",
+                "deleteModal": {
+                    "title": "Borrar",
+                    "cancel": "Cancelar",
+                    "confirm": "Borrar",
+                    "content": "¿Seguro que quieres eliminar este enlace? Esta operación es definitiva"
+                }
+            },
+            "popup": {
+                "add": "Añadir pop-up",
+                "see": "Previsualizar",
+                "editPopup": {
+                    "previewPopup": {
+                        "title": "Previsualización",
+                        "see": "Visualizar"
+                    },
+                    "title": "Pop-up de inicio",
+                    "name": "Nombre",
+                    "image": "Imagen",
+                    "link": "Enlace de redirección",
+                    "cancel": "Cancelar",
+                    "submit": "Guardar",
+                    "preview": "Previsualizar"
+                },
+                "deleteModal": {
+                    "content": "¿Estás seguro de que quieres eliminar esta pop-up? Esta operación es definitiva",
+                    "title": "Borrar",
+                    "cancel": "Cancelar",
+                    "confirm": "Confirmar eliminación"
+                },
+                "subtitle": "Pop-up de inicio",
+                "helperText": "La pop-up de inicio aparecerá una vez cuando sus miembros abran la aplicación. Te permite llamar la atención de tus miembros sobre un evento especial (un nuevo curso, una promoción...) y les redirige a la página web deseada.",
+                "updated": "Actualizar",
+                "name": "Nombre de la pop-up",
+                "link": "Enlace",
+                "action": "Acción",
+                "image": "Imagen"
+            },
+            "title": "Personalización de la app"
         }
     },
     "datetime": {
@@ -2305,12 +2429,18 @@
             "error": {
                 "button_text": "Inténtalo de nuevo",
                 "text_status": "Su compra no ha podido ser completada.",
-                "text_content": "Su compra no ha podido completarse, puede intentarlo de nuevo haciendo clic en el botón de abajo o puede volver a la lista de suscripciones cerrando esta ventana."
+                "text_content": "Tu compra no ha podido ser completada, puedes intentarlo de nuevo o volver a tu área de socio.",
+                "title": "Error de pago",
+                "userSpace": "Area de socio"
             },
             "success": {
                 "button_text": "Continuar",
                 "text_status": "¡Compra exitosa!",
-                "text_content": "Su compra ha sido procesada, ahora puede encontrar los detalles de su suscripción en su área de miembros."
+                "text_content": "Su compra ha sido procesada, ahora puede encontrar los detalles de su suscripción en su área de miembros.",
+                "text_content_funnel": "Tu compra ha sido procesada, hagas clic en continuar para finalizar tu reserva. El bono vinculado a su suscripción se ha añadido a la sección \"Mis bonos\", selecciónela para realizar tu reserva.",
+                "recap": "Resumen",
+                "contract": "Mi contrato",
+                "title": "Enhorabuena! Tu pago se ha realizado con éxito"
             },
             "title": "Comprar una suscripción"
         }
@@ -2873,7 +3003,7 @@
                 "label": "Método de pago",
                 "2": "A cuenta",
                 "1": "Transferencia SEPA",
-                "0": "Tarjeta de crédito"
+                "0": "Tarjeta de pago"
             },
             "autoRenew": "Renovación automática",
             "private_pass": "Tarjeta de cita",
@@ -2882,7 +3012,7 @@
             "payment_method_group": {
                 "14": "Cuenta interna",
                 "2": "SEPA",
-                "1": "Tarjeta de crédito"
+                "1": "Tarjeta de pago"
             },
             "paymentCombo": "Pack",
             "payment_combo": "Pack"
@@ -2898,10 +3028,10 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "El miembro será facturado en su depósito interno cada factura. Utiliza este método de pago si (todavía) no tienes acceso a un método de facturación como una tarjeta de crédito o una transferencia IBAN. Puedes actualizar el pago a posteriori."
+                "explain": "El miembro será facturado en su depósito interno cada factura. Utiliza este método de pago si (todavía) no tienes acceso a un método de facturación como una tarjeta de pago o una domiciliación bancaria. Puedes actualizar el pago a posteriori."
             },
             "bsportCredit": "Anticipo cliente",
-            "card": "Tarjeta de crédito",
+            "card": "Tarjeta de pago",
             "sepa": "Débito directo SEPA"
         },
         "contract": {
@@ -2970,10 +3100,10 @@
                 "register": "Suscribir un miembro",
                 "addButton": "Definir un contrato",
                 "isEmpty": "Ninguno contrato disponible",
-                "titleManagerOnly": "Contratos no disponibles para la venta",
-                "titleCustomerAvailable": "Contratos disponibles para la venta",
-                "title": "Contratos",
-                "titleInactive": "Contratos archivados"
+                "titleManagerOnly": "Cuotas no disponibles para la venta",
+                "titleCustomerAvailable": "Cuotas disponibles para la venta",
+                "title": "Cuotas",
+                "titleInactive": "Cuotas archivadas"
             },
             "actions": {
                 "subscribe": "Suscribir",
@@ -3152,7 +3282,7 @@
                 }
             }
         },
-        "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
+        "noContracts": "Las cuotas te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
         "save": "validar",
         "cancel": "cancelar",
         "events": {
@@ -3180,7 +3310,7 @@
             "subscribedOn": "Suscripción comenzada el {{- date}}"
         },
         "noAssociatedSubscription": "Ninguna suscripción registrada",
-        "associatedSubscriptions": "Suscripciones asociadas a este contrato",
+        "associatedSubscriptions": "Cuotas asociadas a este contrato",
         "status": {
             "hasEnded": "Terminado",
             "hasStopped": "Detenido",
@@ -3198,11 +3328,11 @@
         "contractPause": {
             "form": {
                 "dateFilter": {
-                    "label": "Ponga en pausa sólo las suscripciones con facturas que se cobran entre dos fechas"
+                    "label": "Ponga en pausa sólo las cuotas con facturas que se cobran entre dos fechas"
                 },
-                "invalidBillingPlan": "Las siguientes suscripciones no pueden pausarse automáticamente",
+                "invalidBillingPlan": "Las siguientes cuotas no pueden pausarse automáticamente",
                 "explainImpossible": "Si un pago está en curso, o se espera que lo esté en las próximas 24 horas, la suscripción no se puede pausar automáticamente",
-                "validBillingPlan": "Las siguientes suscripciones quedarán en pausa",
+                "validBillingPlan": "Las siguientes cuotas quedarán en pausa",
                 "untilDate": {
                     "label": "y el "
                 },
@@ -3211,15 +3341,15 @@
                 },
                 "advanced": "Avanzado",
                 "days": {
-                    "helperText": "Número de días que las suscripciones estarán en pausa",
+                    "helperText": "Número de días que las cuotas estarán en pausa",
                     "label": "Number of days"
                 },
                 "name": {
                     "placeholder": "Estudio cerrado en día festivo",
                     "label": "Nota"
                 },
-                "warning": "Atención, en algunas suscripciones, la pausa no se puede deshacer",
-                "title": "Poner en pausa todas las suscripciones",
+                "warning": "Atención, en algunas cuotas, la pausa no se puede deshacer",
+                "title": "Poner en pausa todas las cuotas",
                 "paymentPackActions": {
                     "disableTillNextInvoice": "Desactivar el bono facturado hasta la próxima facturación",
                     "extendTillNextInvoice": "Ampliar el periodo de validez del bono facturado hasta la siguiente factura",
@@ -3235,14 +3365,14 @@
                 "cancel": "Cancelar"
             },
             "section": {
-                "error": "{{count}} la suscripción no se ha podido pausar automáticamente",
-                "error_plural": "{{count}} las suscripciones no se pueden pausar automáticamente",
-                "success": "{{count}} pausa en la suscripción",
-                "success_plural": "{{count}} suscripciones en pausa"
+                "error": "{{count}} la cuota no se ha podido pausar automáticamente",
+                "error_plural": "{{count}} las cuotas no se pueden pausar automáticamente",
+                "success": "{{count}} pausa en la cuota",
+                "success_plural": "{{count}} cuotas en pausa"
             },
             "fromUntil": "Sólo si se factura entre {{from}} y {{until}} i incluido",
             "createdAt": "Creado {{at}}",
-            "title": "Pausar todas las suscripciones"
+            "title": "Pausar todas las cuotas"
         },
         "seeMore": "Ver más",
         "search": "Buscar un contrato"
@@ -3252,7 +3382,7 @@
             "establishment": "Establecimiento",
             "activity": "Actividad",
             "pass": "Bono",
-            "remaining_credits": "Crédito restante hoy",
+            "remaining_credits": "Créditos restantes a día de hoy",
             "duration": "Duración (minutos)",
             "date_start": "Fecha",
             "duration_minute": "Duración (minutos)",
@@ -3333,10 +3463,10 @@
             "payment_method_bank_transfer": "Transferancia",
             "payment_method_amex": "AMEX",
             "payment_method_holiday_check": "Cheque de vacaciones",
-            "payment_method_manual_credit_card": "Tarjeta de crédito (manual)",
+            "payment_method_manual_credit_card": "Tarjeta de pago (manual con máquina)",
             "payment_method_check": "Cheque",
             "payment_method_cash": "Efectivo",
-            "payment_method_stripe": "Tarjeta de crédito",
+            "payment_method_stripe": "Tarjeta de pago",
             "bsport_fee": "Tarifas de transacción",
             "address": "Dirección",
             "membership_ID": "ID de miembro",
@@ -3460,13 +3590,15 @@
             "supplier": "Proveedor",
             "category": "Categoría",
             "is_recurring": "Recurrente",
-            "amount_expense": "Importe"
+            "amount_expense": "Importe",
+            "universal_nb_bookings": "Número de reservas (clases en grupo)",
+            "universal_nb_private_bookings": "Número de reservas (citas previas)"
         },
         "payment_method": {
             "cash": "Efectivo",
             "check": "Cheque",
-            "stripe": "Online",
-            "manual_credit_card": "Tarjeta de crédito",
+            "stripe": "Tarjeta de pago",
+            "manual_credit_card": "Tarjeta de pago (manual con máquina)",
             "holiday_check": "Cheque de vacaciones",
             "amex": "Amex",
             "bank_transfer": "Transferancia",
@@ -3477,7 +3609,7 @@
             "other": "Otros",
             "dispute": "Litigio",
             "sepa": "SEPA",
-            "credit_card": "Tarjeta de crédito"
+            "credit_card": "Tarjeta de pago"
         },
         "product_type": {
             "payment_pack": "Bono",
@@ -3546,7 +3678,10 @@
             "giftcard": "Tarjeta regalo",
             "payment_installments": "Pagos fraccionados",
             "unpaid_private_bookings": "Reservas no pagadas (citas)",
-            "expense": "Gasto"
+            "expense": "Gasto",
+            "private_cpasses_expired": "Créditos caducados (tarjetas de cita)",
+            "expired_pass": "Créditos caducados (bonos)",
+            "universal_passes": "Bonos Universales"
         },
         "globalCategories": {
             "subheader": {
@@ -3721,7 +3856,8 @@
         "restoreOffer": "Restablecer la sesión",
         "maximumNumberDescription": "Ya se ha alcanzado el número máximo de {{effectif}} reservas y al inscribir a este miembro se superará el número original de reservas. ¿Está seguro de que quiere registrar a este miembro?",
         "maximumNumber": "Número máximo de reservas",
-        "warningOfferFull": "Ya se ha alcanzado el número máximo de reservas"
+        "warningOfferFull": "Ya se ha alcanzado el número máximo de reservas",
+        "tagManagementInfo": "{{authorized}} tag(s) autorizado(s), {{unauthorized}} tag(s) no autorizado(s)"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -4102,7 +4238,8 @@
                 "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{ date_ }}.",
                 "isTooLate": "Las inscripciones están cerradas.",
                 "isDisabled": "La sesión fue desafortunadamente cancelada.",
-                "isAlreadyRegistered": "Ya está inscrito en esta sesión"
+                "isAlreadyRegistered": "Ya está inscrito en esta sesión",
+                "blockedByTags": "No tienes los derechos necesarios para inscribirse en esta sesión."
             },
             "option": {
                 "registerOption": "Registrar en la lista de espera",
@@ -4127,6 +4264,15 @@
             "isLoading": "Búsqueda de las sesiones...",
             "book": {
                 "unknowError": "No es posible reservar, por favor, inténtelo más tarde"
+            },
+            "tags": {
+                "managerDialogWarningDialog": {
+                    "content": "Tenga en cuenta que este miembro no tiene las etiquetas necesarias para inscribirse en esta sesión. ¿Quieres registrarlo de todos modos?",
+                    "title": "Información",
+                    "cancel": "Cancelar",
+                    "confirm": "Validar"
+                },
+                "unAuthorized": "No tienes los derechos necesarios para inscribirse en esta sesión."
             }
         },
         "filters": {
@@ -4339,7 +4485,8 @@
                     "9": "Está intentando reservar más sesiones futuras de las que permite su club"
                 },
                 "waiting_list": "Lista de espera",
-                "book": "Inscripción"
+                "book": "Inscripción",
+                "blockedByTags": "No se permite reservar"
             },
             "similarOffer": {
                 "showMore": "Ver más",
@@ -4368,7 +4515,26 @@
         "performanceTracking": {
             "stat": "Estadísticas"
         },
-        "attendanceUpdatedOn": "Actualizado el {{- d }} à {{- t }}"
+        "attendanceUpdatedOn": "Actualizado el {{- d }} à {{- t }}",
+        "guest": {
+            "form": {
+                "firstname": {
+                    "label": "Nombre"
+                },
+                "lastname": {
+                    "label": "Apellido"
+                },
+                "actions": {
+                    "submit": "Validar",
+                    "close": "Cerrar",
+                    "addGuest": "Añadir invitado"
+                },
+                "email": {
+                    "label": "Correo electrónico"
+                }
+            }
+        },
+        "asGuest": "Invitado"
     },
     "marketplace": {
         "selector": {
@@ -4728,7 +4894,7 @@
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
-            "goToSubscription": "Ver todas las suscripciones",
+            "goToSubscription": "Ver todas las cuotas",
             "goToPass": "Ver todos los bonos",
             "goToHome": "Ver todos los servicios"
         },
@@ -5157,12 +5323,15 @@
                     "compatibility": "Compatibilidad",
                     "validity": "Validez de la tarjeta",
                     "paymentMeans": "Medios de pago",
-                    "info": "Información general"
+                    "info": "Información general",
+                    "compatibilityAppointment": "Compatibilidad con las citas previas"
                 },
                 "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
                 "universalPass": {
                     "label": "Tarjeta universal",
-                    "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en los bonos de las clases en grupo. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito."
+                    "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en los bonos de las clases en grupo. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito.",
+                    "deativatedTags": "Discapacitado para los bonos universales",
+                    "helperText": "Los bonos universales pueden utilizarse para reservar clases en grupo Y citas. Una vez creada la tarjeta de cita, se creará un bono gemelo en los bonos. El número de créditos de ambas tarjetas estará vinculado. Al comprar una de las dos tarjetas, la otra se añadirá automáticamente al socio (sin coste adicional)."
                 }
             },
             "compatibleServices": {
@@ -5208,7 +5377,10 @@
                 "validity": "Validez",
                 "credit_quantity": "Número de créditos"
             },
-            "ht": "Sin IVA"
+            "ht": "Sin IVA",
+            "actions": {
+                "forceRegularizeUnpaid": "Regularizar todos los pagos pendientes"
+            }
         },
         "privateBooking": {
             "managerAdd": {
@@ -5327,7 +5499,8 @@
             },
             "isFromDisabledShare": "Se ha dejado de compartir",
             "isOwnerOfShares": "Compartido (tarjeta de cita maestra)",
-            "isFromShare": "Compartido desde otra cuenta"
+            "isFromShare": "Compartido desde otra cuenta",
+            "warningShareUniversal": "Este bono es universal, por favor comparta el bono asociado"
         },
         "bookerModule": {
             "step": {
@@ -5846,7 +6019,7 @@
                 "titleManagerOnly": "No disponible para la venta"
             },
             "deleteForm": {
-                "content": "Al desactivar una tarjeta compartida, los socios que la tengan sólo podrán utilizarla en el estudio donde la compraron.",
+                "content": "Al desactivar un bono compartido, los miembros que lo tengan sólo podrán utilizarlo en el estudio donde lo compraron.",
                 "title": "Desactivación",
                 "actions": {
                     "close": "Cerrar",
@@ -5856,7 +6029,7 @@
             "specification": {
                 "companySharedWithTitle": "Compartido con los estudios:"
             },
-            "isEmptyExplain": "Las tarjetas de clases compartidas están disponibles en los estudios de su elección, y permiten a sus socios utilizar sus créditos en cualquier estudio que elijan.",
+            "isEmptyExplain": "Los bonos compartidos están disponibles en los estudios de tu elección, y permiten a tus miembros utilizar sus créditos en cualquier estudio que elijan.",
             "form": {
                 "title": "Tarjeta de curso compartido",
                 "close": "Cerrar",
@@ -5868,6 +6041,14 @@
             },
             "actions": {
                 "create": "Crear un mapa compartido"
+            }
+        },
+        "universalPass": {
+            "delete": {
+                "dialog": {
+                    "title": "Borrar el bono universal",
+                    "warningText": "¡Atención! Al borrar un bono universal también se borrarán sus bonos gemelos."
+                }
             }
         }
     },
@@ -5992,7 +6173,10 @@
             "dialogTitle": "Comunicación",
             "contentNotification": "Contenido",
             "titleNotification": "Título",
-            "sendNotification": "Notificación push"
+            "sendNotification": "Notificación push",
+            "warningConsent1": "Advertencia: este socio no quiere recibir correos electrónicos promocionales. Los correos electrónicos directos son una forma rápida y sencilla de contactar a tus miembros. No deben utilizarse con fines publicitarios o promocionales.",
+            "warningConsent2": "No respetar esta decisión de su socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo de los correos electrónicos directos.",
+            "titleInterpolated": "Las variables contenidas en el título y el cuerpo del correo electrónico se actualizan en función del destinatario"
         },
         "table": {
             "columns": {
@@ -6011,6 +6195,10 @@
         "send": {
             "error": "Error durante el envío",
             "success": "Email en curso de envio..."
+        },
+        "sms": {
+            "warningConsent2": "No respetar esta decisión de tu socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo del sms directo.",
+            "warningConsent1": "Advertencia: este miembro no quiere recibir sms promocionales. Los sms directos te permiten llegar a tus socios de forma sencilla y rápida. No deben utilizarse con fines publicitarios o promocionales."
         }
     },
     "paymentCombo": {
@@ -6182,8 +6370,13 @@
                 "internalAccountWarning2": "Para crear un informe de saldo de cliente, vaya a la pestaña \"Informes\" y seleccione \"Créditos\" de la categoría \"Pagos\" al crear el nuevo informe.",
                 "goToReports": "Página de informes",
                 "internalAccountWarningTitle": "Cuidado con los saldos actuales de los clientes.",
-                "internalAccountNotusableOnContract": "Este medio de pago no puede utilizarse para los contratos",
-                "internalAccount": "Saldo del cliente"
+                "internalAccountNotusableOnContract": "Este medio de pago no puede utilizarse para las cuotas",
+                "internalAccount": "Saldo del cliente",
+                "hideBuyablePassIfSuperfluous": "Ocultar los bonos, las cuotas y los packs si el socio ya posee un producto compatible",
+                "bookingTitle": "Reserva",
+                "attendanceTitle": "Presencia",
+                "errorURL": "Por favor, introduzca una URL válida antes de guardar el formulario",
+                "hideSessionWithTagsNotEligible": "No mostrar las sesiones a las que el socio no tiene acceso con tags"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -6213,7 +6406,8 @@
             "websiteURL": {
                 "placeholder": "https://studio.com/",
                 "helperText": "Se usa si el cliente hace clic en su logo en particular",
-                "label": "URL website"
+                "label": "URL website",
+                "errorText": "Esta URL no es válida"
             },
             "secondary_color": {
                 "helperText": "Color complementario del tema",
@@ -6257,7 +6451,8 @@
                 "taxName": "Nombre del impuesto",
                 "info": "Introduzca aquí el nombre y el valor de su impuesto provincial. En todos los productos de la plataforma, indique el impuesto total aplicado (impuesto federal + impuesto provincial). El impuesto federal y provincial aparecerá en las facturas de sus clientes.",
                 "title": "Impuesto provincial"
-            }
+            },
+            "acceptGuest": "Autorizar la reserva para un invitado"
         },
         "pageTitles": {
             "theme": "General",
@@ -6445,7 +6640,67 @@
         "rolePermissions": {
             "navigationMenu": {
                 "settings": {
-                    "_label": "Parámetros"
+                    "_label": "Parámetros",
+                    "staffs": {
+                        "_label": "Staff"
+                    },
+                    "marketplace": {
+                        "_label": "Parámetros marketplace"
+                    },
+                    "widgets": {
+                        "_label": "Widgets"
+                    },
+                    "personalization": {
+                        "_label": "Personalización"
+                    },
+                    "liveStreaming": {
+                        "_label": "Videoconferencia"
+                    },
+                    "transactionnalEmail": {
+                        "_label": "Notificaciones transaccionales"
+                    },
+                    "teacherPayrollRules": {
+                        "_label": "Reglas de la nómina de los profesores"
+                    },
+                    "paymentMethods": {
+                        "_label": "Métodos de pago"
+                    },
+                    "company": {
+                        "_label": "Empresa"
+                    },
+                    "billing": {
+                        "_label": "Facturación"
+                    },
+                    "waitingList": {
+                        "_label": "Lista de espera"
+                    },
+                    "webShop": {
+                        "_label": "Tienda"
+                    },
+                    "webHook": {
+                        "_label": "Webhook"
+                    },
+                    "partnership": {
+                        "_label": "Conexión con ClassPass"
+                    },
+                    "quickBooks": {
+                        "_label": "Quickbooks"
+                    },
+                    "activeCampaign": {
+                        "_label": "ActiveCampaign"
+                    },
+                    "generals": {
+                        "_label": "General"
+                    },
+                    "memberForms": {
+                        "_label": "Formularios miembros"
+                    },
+                    "mobilePersonalization": {
+                        "_label": "Personalización de la app"
+                    },
+                    "subscription": {
+                        "_label": "Suscripción a bsport"
+                    }
                 },
                 "reporting": {
                     "_label": "Informes"
@@ -6454,19 +6709,112 @@
                     "_label": "Miembro"
                 },
                 "digitalOffer": {
-                    "_label": "Oferta digital"
+                    "_label": "Oferta digital",
+                    "videos": {
+                        "_label": "Videoteca"
+                    },
+                    "playlists": {
+                        "_label": "Playlist de vídeos"
+                    }
                 },
                 "marketing": {
-                    "_label": "Marketing"
+                    "_label": "Marketing",
+                    "customForms": {
+                        "_label": "Formularios"
+                    },
+                    "smartlists": {
+                        "_label": "Smartlists"
+                    },
+                    "templates": {
+                        "_label": "Correos electrónicos"
+                    },
+                    "notifications": {
+                        "_label": "Notificaciones"
+                    },
+                    "strategies": {
+                        "_label": "Estrategias"
+                    },
+                    "tags": {
+                        "_label": "Tags"
+                    }
                 },
                 "payments": {
-                    "_label": "Pagos"
+                    "_label": "Pagos",
+                    "directDebits": {
+                        "_label": "Domiciliación bancaria"
+                    },
+                    "orders": {
+                        "_label": "Pedidos"
+                    },
+                    "teachers": {
+                        "_label": "Profesores"
+                    },
+                    "expenses": {
+                        "_label": "Gastos"
+                    },
+                    "installments": {
+                        "_label": "Pago a plazos"
+                    },
+                    "clockIn": {
+                        "selfClockIn": {
+                            "_label": "Añadir presencia para si mismo"
+                        },
+                        "clockInForOther": {
+                            "_label": "Añadir presencia para otro miembro del equipo"
+                        },
+                        "canAccessHistory": {
+                            "_label": "Acceder al histórico de horarios"
+                        },
+                        "_label": "Presencia"
+                    },
+                    "billings": {
+                        "_label": "Facturas"
+                    }
                 },
                 "products": {
-                    "_label": "Productos"
+                    "_label": "Productos",
+                    "paymentPack": {
+                        "_label": "Bonos"
+                    },
+                    "shop": {
+                        "_label": "Tienda"
+                    },
+                    "packs": {
+                        "_label": "Packs"
+                    },
+                    "giftcards": {
+                        "_label": "Tarjetas de regalo"
+                    },
+                    "promotions": {
+                        "_label": "Ofertas especiales"
+                    },
+                    "contracts": {
+                        "_label": "Cuotas"
+                    },
+                    "privatePass": {
+                        "_label": "Tarjetas de cita"
+                    }
                 },
                 "myClub": {
-                    "_label": "Mi Club"
+                    "_label": "Mi Club",
+                    "workshops": {
+                        "_label": "Talleres"
+                    },
+                    "activities": {
+                        "_label": "Clases en grupo"
+                    },
+                    "appointments": {
+                        "_label": "Citas previas"
+                    },
+                    "teachers": {
+                        "_label": "Profesores"
+                    },
+                    "establishments": {
+                        "_label": "Establecimientos"
+                    },
+                    "programs": {
+                        "_label": "Programas"
+                    }
                 },
                 "schedule": {
                     "_label": "Horario"
@@ -6670,7 +7018,7 @@
                 "forEachBooking": "por cada reserva",
                 "cancellations": "ausencias o cancelaciones fuera de plazo",
                 "and": "Y",
-                "students": "socios",
+                "students": "miembros",
                 "for": "Para",
                 "helper": "Ayuda: Compruebe aquí que su regla de remuneración cumple con sus expectativas",
                 "resultTitle": "Resultado de su simulación (salario del profesor)",
@@ -6754,6 +7102,9 @@
             },
             "privatePass": {
                 "error": "Esta tarjeta de cita no está disponible"
+            },
+            "paymentCombo": {
+                "locked": "Este pack no está disponible"
             }
         },
         "forms": {
@@ -6776,15 +7127,21 @@
         },
         "validation": {
             "sections": {
-                "offerNotBookable": "No se puede registrar para",
-                "offerPreBooked": "Usted está en la lista de espera para",
-                "offerBooked": "Usted está registrado en",
+                "offerNotBookable": "No se puede registrar",
+                "offerPreBooked": "Inscripción en lista de espera",
+                "offerBooked": "Tus reservas",
                 "basket": "Su cesta",
-                "title": "Resumen"
+                "title": "¡Enhorabuena! Has completado con éxito tu compra",
+                "explain": "Tu transacción ha sido procesada. Te enviaremos un correo electrónico de confirmación.",
+                "recap": "Resumen",
+                "error": "Error",
+                "errorExplain": "Esta operación no se ha podido realizar. Por favor, inténtelo de nuevo."
             },
             "actions": {
                 "back": "Anteriormente",
-                "continue": "Continuar"
+                "continue": "Seguir comprando",
+                "widgetContinue": "Siguiente",
+                "member": "Área de miembro"
             }
         },
         "expire_in": "Expira en ",
@@ -6874,6 +7231,10 @@
                     "settingsDelay": "Fecha límite para registrarse",
                     "label": "Cada uno su turno"
                 }
+            },
+            "last_delay_before_auto_consume": {
+                "label": "Reservar automáticamente sólo si la sesión tiene lugar en menos de ",
+                "helper": "Si la sesión tiene lugar demasiado pronto en el futuro, el socio no será inscrito aunque tenga un bono válido"
             }
         },
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",
@@ -7543,6 +7904,13 @@
                 "pm_associated_to_protected_bp": "Imposible: Tiene una suscripción asociada a este método de pago",
                 "last_payment_method": "No se puede eliminar el único método de pago",
                 "pm_deleted": "Método de pago borrado"
+            },
+            "errors": {
+                "13000": "No se ha podido eliminar este método de pago, inténtelo de nuevo más tarde",
+                "13001": "No se ha podido eliminar este método de pago, inténtelo de nuevo más tarde",
+                "13002": "Pagos futuros están programados con este método de pago",
+                "13004": "Pagos futuros están programados con este método de pago",
+                "13003": "Una cuota está programada con este método de pago"
             }
         },
         "canNotBuyErrorCode": {
@@ -7726,6 +8094,11 @@
                 },
                 "error": "Error de registro de impuestos provinciales",
                 "success": "Impuesto provincial registrado"
+            }
+        },
+        "clockIn": {
+            "errors": {
+                "96002": "Este usuario ya está fichado"
             }
         }
     },
@@ -8347,7 +8720,7 @@
                     "submit": "Desactivar el uso compartido",
                     "close": "Cerrar"
                 },
-                "content": "Al desactivar una tarjeta compartida, los socios que la tengan sólo podrán utilizarla en el estudio donde la compraron.",
+                "content": "Al desactivar un bono compartido, los miembros que lo tengan sólo podrán utilizarla en el estudio donde lo compraron.",
                 "title": "Desactivación"
             },
             "form": {
@@ -8363,7 +8736,7 @@
                 "titleManagerOnly": "No disponible para la venta",
                 "titleAvailable": "Disponible para la venta"
             },
-            "isEmptyExplain": "Las tarjetas de clases compartidas están disponibles en los estudios de su elección, y permiten a sus socios utilizar sus créditos en cualquier estudio que elijan.",
+            "isEmptyExplain": "Los bonos compartidos están disponibles en los estudios de su elección, y permiten a sus miembros utilizar sus créditos en cualquier estudio que elijan.",
             "specification": {
                 "companySharedWithTitle": "Compartido con los estudios:"
             },
@@ -8628,7 +9001,7 @@
                 "order": "Mis pedidos",
                 "profile": "Mi perfil",
                 "bookings": "Mis reservas ",
-                "subscriptions": "Mis suscripciones",
+                "subscriptions": "Mis cuotas",
                 "myAccount": "Mi cuenta"
             },
             "beta": "beta",
@@ -8636,7 +9009,7 @@
             "search": "Buscar",
             "reporting": "Informes",
             "coupon": "Promociones",
-            "contract": "Contratos",
+            "contract": "Cuotas",
             "subscription": "Muestreos",
             "myClub": "Mi Club",
             "settings": {
@@ -8659,7 +9032,8 @@
                 "widget": "Widget",
                 "paymentMethod": "Medios de pago",
                 "forms": "Formularios miembros",
-                "quickbooks": "QuickBooks"
+                "quickbooks": "QuickBooks",
+                "mobilePersonalization": "Personalización de la app"
             },
             "pass": "Bono",
             "goBack": "Volver",
@@ -9691,7 +10065,7 @@
             "workshopActivityList": "Talleres"
         },
         "subscription": {
-            "subscriptions": "Suscripciones",
+            "subscriptions": "Cuotas",
             "subscriptionCreate": "Crear una suscripción"
         },
         "dashboard": {
@@ -10314,7 +10688,7 @@
     "giftcard": {
         "backgroundImage": {
             "dialog": {
-                "explain": "Añada imágenes para que sus socios puedan personalizar su tarjeta regalo. Al crear su tarjeta, sus miembros podrán elegir una imagen de fondo en la tarjeta de regalo.",
+                "explain": "Añada imágenes para que sus miembros puedan personalizar su tarjeta regalo. Al crear su tarjeta, sus miembros podrán elegir una imagen de fondo en la tarjeta de regalo.",
                 "actions": {
                     "close": "Cerrar"
                 },
@@ -10461,7 +10835,7 @@
             "unavailableForSaleTitle": "No disponible para la venta",
             "activeTitle": "Disponible a la venta",
             "visibility": "No es visible",
-            "explainIfEmpty": "Las tarjetas regalo permiten a sus socios ofrecer a sus seres queridos una cantidad para gastar en su estudio.",
+            "explainIfEmpty": "Las tarjetas regalo permiten a sus miembros ofrecer a sus seres queridos una cantidad para gastar en su estudio.",
             "unlimited": "Ilimitado",
             "validity": "Válido {{ duración }} días"
         },
@@ -10543,7 +10917,7 @@
             },
             "title": "Programas",
             "archived": "Archivado",
-            "infoNoProgram": "Añade un programa para que tus socios hagan un seguimiento de sus métricas",
+            "infoNoProgram": "Añade un programa para que tus miembros hagan un seguimiento de sus métricas",
             "deleteContent": "Este programa ya no aparecerá en los miembros a los que se ha añadido. Puede recuperarlo en la sección \"Archivado\".",
             "deleteHeader": "¿Realmente quieres eliminar este programa?",
             "infoSelectProgram": "Seleccione un programa para ver sus detalles",

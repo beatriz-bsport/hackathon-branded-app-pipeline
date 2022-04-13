@@ -254,7 +254,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             isDisabled={props.asManager || !props.field.editable}
             required={props.field.mandatory}
             suggestions={[
-              ...countries
+              ...[...(countries ?? [])]
                 .sort((a, b) => a.label.localeCompare(b.label))
                 .slice(),
             ].map(

@@ -218,6 +218,13 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
     [privateService],
   );
 
+  // autoslect if only one slots available
+  useEffect(() => {
+    if ((privateService?.slots ?? []).length === 1) {
+      onPrivateSlotSelect(privateService.slots[0]);
+    }
+  }, [privateService, onPrivateSlotSelect]);
+
   const toggleFromArray = (array: any, item: any) => {
     const _array = [...array];
     const index = _array.findIndex((it) => it.id === item.id);
@@ -227,15 +234,31 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
   const onCoachSelect = useCallback(
     (coach: Coach) => {
+      // UX behavior: if all selected inverse selection from unselect to select uniq
+      if (selectedCoaches.length === privateService.coaches?.length) {
+        setSelectedCoaches([coach]);
+        setSelectedSessionMoment(null);
+        return;
+      }
+
       const _selectedCoaches = toggleFromArray(selectedCoaches, coach);
       setSelectedCoaches(_selectedCoaches);
       setSelectedSessionMoment(null);
     },
-    [selectedCoaches],
+    [selectedCoaches, privateService],
   );
 
   const onEstablishmentSelect = useCallback(
     (establishment: Establishment) => {
+      // UX behavior: if all selected inverse selection from unselect to select uniq
+      if (
+        selectedEstablishments.length === privateService.establishments?.length
+      ) {
+        setSelectedEstablishments([establishment]);
+        setSelectedSessionMoment(null);
+        return;
+      }
+
       const _selectedEstablishments = toggleFromArray(
         selectedEstablishments,
         establishment,
@@ -243,7 +266,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
       setSelectedEstablishments(_selectedEstablishments);
       setSelectedSessionMoment(null);
     },
-    [selectedEstablishments],
+    [selectedEstablishments, privateService],
   );
 
   const onSessionMomentSelect = useCallback((sessionMoment: SessionMoment) => {

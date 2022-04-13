@@ -617,7 +617,7 @@ export const privateServiceRetrieveActions = {
 
 export function fetchPrivateService(
   id: number,
-  options?: OptionCallback,
+  options?: OptionCallback<PrivateService>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceRetrieveActions.isLoading(true));

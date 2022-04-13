@@ -890,8 +890,8 @@
         "level": {
             "all": "Todos los niveles",
             "beginner": "Principiante",
-            "intermediate": "Medio",
-            "intermediary": "Medio",
+            "intermediate": "Intermedio",
+            "intermediary": "Intermedio",
             "advanced": "Avanzado"
         },
         "time": {
@@ -941,7 +941,7 @@
             "noSessionToday": "No hay clase hoy",
             "bookButton": {
                 "book": "Reservar",
-                "bookOption": "Liste de espera",
+                "bookOption": "Lista de espera",
                 "notAvailable": "Cancelada",
                 "isPast": "Pasada",
                 "notBookableYet": "Muy pronto"

@@ -1429,7 +1429,17 @@
                 "coachChangeWarning": "Editing the teacher will affect all future sessions. You may choose to use the \"Substitute teacher\" field, too.  All other modifications (establishment, price, etc.) will also be applied to all sessions.",
                 "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions.",
                 "explainPartnership": "MarketPlaces (ClassPass, Onefit, etc.)",
-                "explainManagerOnly": "Open for bookings (Website + Mobile App)"
+                "explainManagerOnly": "Open for bookings (Website + Mobile App)",
+                "advancedOptions": {
+                    "tag": {
+                        "notAllowed": "",
+                        "doNotSelectToAllowAllMembers": "",
+                        "header": "",
+                        "allowed": "",
+                        "helperText": ""
+                    },
+                    "header": ""
+                }
             },
             "payment": {
                 "additionalInformationHelper": "(Optional) Payment reference",
@@ -1783,7 +1793,10 @@
             "vaccinationNotDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
             "vaccinationDone": "I'm in possession of a valid COVID-19 Sanitary Pass",
             "vaccination_status": "COVID-19 Sanitary Pass Status",
-            "filter": "Filter"
+            "filter": "Filter",
+            "offerEdition": "",
+            "selectAnActivity": "",
+            "offerCreation": ""
         },
         "members": {
             "form": {
@@ -4995,6 +5008,10 @@
                     "settingsDelay": "Deadline for registering on the waiting list",
                     "label": "One at a time"
                 }
+            },
+            "last_delay_before_auto_consume": {
+                "label": "",
+                "helper": ""
             }
         },
         "explainWaitingListConf": "Example: With 3h left before the start of the sessions, the member has {{ nbMinutesBeforeBookingOptionExpire }} minutes to respond before they're put back on the waiting list.",

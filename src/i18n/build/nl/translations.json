@@ -859,7 +859,7 @@
                 "coachChangeWarning": "Wanneer de instructeur van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
                 "explainPartnership": "MarketPlaces (Onefit, ClassPass, etc.)",
-                "explainManagerOnly": "Open voor reserveringen (Website + Mobiele App)",
+                "explainManagerOnly": "Accepteer reserveringen (Website + Mobiele App)",
                 "advancedOptions": {
                     "tag": {
                         "notAllowed": "Afgekeurd",
@@ -1388,7 +1388,8 @@
         },
         "errors": {
             "start_after_end": "De startdatum moet vóór de einddatum zijn.",
-            "end_before_start": "De einddatum moet ná de startdatum zijn."
+            "end_before_start": "De einddatum moet ná de startdatum zijn.",
+            "invalidUrl": "Deze URL is ongeldig (gewenste formaat: http://www.test.nl)"
         },
         "paymentMethod": {
             "OTHER": "Overige",
@@ -2649,7 +2650,7 @@
                     "titleEdit": "Categorie",
                     "titleNew": "Nieuwe categorie",
                     "name": "Naam van de categorie",
-                    "helper": "De categorieën verschijnen op de marketplace en de mobiele app voor kaarten die te koop zijn."
+                    "helper": "Categorieën van beschikbare kaarten verschijnen op de MarketPlace en de Mobiele Applicatie."
                 }
             },
             "add": "Een categorie toevoegen",
@@ -4006,7 +4007,7 @@
         "archive": {
             "dialog": {
                 "warning": {
-                    "general": "Op basis van de onderstaande punten raden we aan om de interne rekening (Wallet) van dit lid te regulariseren voordat het gearchiveerd wordt:",
+                    "general": "Op basis van de onderstaande punten raden we aan om de interne rekening (Wallet) van dit lid te vereffenen voordat het gearchiveerd wordt:",
                     "6": "Geplande afspraken",
                     "5": "Terugkerende reserveringen",
                     "4": "Toekomstige reserveringen",
@@ -5728,7 +5729,7 @@
                         "paymentPackEmpty": "Er zijn geen leskaarten om weer te geven.",
                         "invoice": "Mijn facturen",
                         "consumerPaymentPack": "Mijn kaarten",
-                        "paymentPack": "Leskaarten",
+                        "paymentPack": "Kaarten",
                         "contract": "Abonnementen"
                     },
                     "title": "Voorvertoning"
@@ -6237,7 +6238,10 @@
                 "validity": "Geldigheid",
                 "credit_quantity": "Kredieten"
             },
-            "ht": "Excl. btw"
+            "ht": "Excl. btw",
+            "actions": {
+                "forceRegularizeUnpaid": "Alle openstaande facturen vereffenen"
+            }
         },
         "service": {
             "form": {
@@ -8750,7 +8754,7 @@
                 "member_count": "Getagde leden",
                 "tag": "Sub-tag",
                 "coupon_count": " ",
-                "offer_count": "Sessies"
+                "offer_count": "Gekoppelde sessies"
             },
             "submit": "Bevestig",
             "cancel": "Annuleer",
@@ -8960,7 +8964,8 @@
                 "taxName": "Naam van de belasting",
                 "info": "Vul hier de naam en de waarde van uw provinciale belasting in. Vermeld op alle producten in het platform de totale toegepaste belasting (federale belasting + provinciale belasting). De federale en provinciale belasting zullen op de facturen van uw klanten worden vermeld.",
                 "title": "Provinciale btw-bedrag"
-            }
+            },
+            "acceptGuest": "Accepteer reserveringen voor gasten"
         },
         "pageTitles": {
             "theme": "Algemeen",
@@ -9115,7 +9120,7 @@
         },
         "payLater": {
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
-            "submit": "Onbetaalde reservering"
+            "submit": "Bevestigen"
         },
         "or": "of",
         "expire_in": "Verloopt over ",
@@ -10136,9 +10141,9 @@
             "browserLanguage": "Browsertaal",
             "languageHelper": "De widget zal standaard de hier geselecteerde taal gebruiken. Selecteer \"Browsertaal\" om de widget de systeemtaal van je leden toe te laten passen.",
             "pickALanguage": "Kies de standaardtaal",
-            "configTitle": "Mijn widget",
+            "configTitle": "Configuratie",
             "containerConfiguration": {
-                "title": "Widget-configuratie"
+                "title": "Instellingen"
             },
             "dialogSize": {
                 "window": "Venster",
@@ -10202,7 +10207,7 @@
                 "succeeded": "Betaling: succesvol",
                 "missing_charge": "Er zijn geen betalingspogingen om weer te geven."
             },
-            "bill": "Regulariseren"
+            "bill": "Vereffenen"
         }
     },
     "marketing": {

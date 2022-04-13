@@ -16,6 +16,7 @@ export const PaymentStripeEPS = (props: {
   forceDisabled?: boolean,
   basketId?: string,
   basketTotalPriceCts?: number,
+  checkItemsBasket: (basketId: string) => void,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -42,6 +43,12 @@ export const PaymentStripeEPS = (props: {
 
     if (props.basketId) {
       const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      if (!basketItemsChecked) {
+        setProcessing(false);
+        return;
+      }
 
       if (
         (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&

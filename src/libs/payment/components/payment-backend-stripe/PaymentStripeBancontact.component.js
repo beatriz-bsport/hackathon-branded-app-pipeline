@@ -23,6 +23,7 @@ export function PaymentStripeBancontact(props: {
   basketId?: string,
   basketTotalPriceCts?: number,
   forceSave?: boolean,
+  checkItemsBasket: (basketId: string) => void,
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -55,6 +56,12 @@ export function PaymentStripeBancontact(props: {
 
     if (props.basketId) {
       const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      if (!basketItemsChecked) {
+        setProcessing(false);
+        return;
+      }
 
       if (
         (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&

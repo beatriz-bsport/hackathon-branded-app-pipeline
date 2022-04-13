@@ -48,6 +48,7 @@ type Props = {
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
   forceSave?: boolean,
+  checkItemsBasket: (basketId: string) => void,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -133,6 +134,12 @@ export const StripePaymentCard = (props: Props) => {
 
     if (props.basketId) {
       const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      if (!basketItemsChecked) {
+        props.setProcessing(false);
+        return;
+      }
 
       if (
         (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&

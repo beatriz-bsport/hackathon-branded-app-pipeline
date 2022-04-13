@@ -104,3 +104,7 @@ export const updatePaymentGroupPriceCts = async (
 export const verifyPriceBasket = async (basketId: string) => {
   return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/verify_price/`);
 };
+
+export const checkItemsBasket = async (basketId: string) => {
+  return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/check_items/`);
+};

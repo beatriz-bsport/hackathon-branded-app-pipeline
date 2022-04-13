@@ -81,6 +81,7 @@ type Props = {
   instalmentPaymentConfigurationList: Array<InstalmentPayment> | null,
   instalmentPaymentSelectedId: number,
   onSelectInstalmentPayment: (id: number, options: OptionCallback) => void,
+  checkItemsBasket: (basketId: string) => boolean,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -195,6 +196,7 @@ export const PaymentStripe = (props: Props) => {
             applyBalanceToInvoice={props.applyBalanceToInvoice}
             creditAccountBalance={props.creditAccountBalance}
             applyBalanceLoading={props.applyBalanceLoading}
+            checkItemsBasket={props.checkItemsBasket}
           />
         </Elements>
       </div>

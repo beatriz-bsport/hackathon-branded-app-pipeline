@@ -9,6 +9,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import type { Theme } from '@material-ui/core/styles';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
+import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
@@ -16,20 +17,21 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
+import { checkItemsBasket as checkItemsBasketAPI } from '#libs/payment/api';
 import asyncComponent from '../../AsyncComponent';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   fetchBasket as fetchBasketAction,
   attachPaymentToBasketId as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
-} from '../../libs/checkout/actions';
-import { fetchPaymentMethodList } from '../../libs/payment/actions';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import { getBasket } from '../../libs/checkout/selectors';
+} from '#libs/checkout/actions';
+import { fetchPaymentMethodList } from '#libs/payment/actions';
+import { fetchCompanyTheme } from '#libs/theme/actions';
+import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import { getBasket } from '#libs/checkout/selectors';
 import { OptionCallback } from '../../state/types';
-import { PaymentMethod } from '../../libs/payment/types';
-import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
+import { PaymentMethod } from '#libs/payment/types';
+import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import { Basket, PrepaidLine } from '#libs/checkout/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -41,6 +43,8 @@ import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
 import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
+
+import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 
 const PaymentStripe = asyncComponent(
   () =>
@@ -59,6 +63,7 @@ type Props = {
   useInternalAccount: (amount: number, options: OptionCallback) => void;
   onRemoveInternalAccountPrepaidLine: (options?: OptionCallback) => void;
   creditAccountBalance: number | null;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
 } & ConnectedProps<typeof connector> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
@@ -137,7 +142,13 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   validateUnpaid = () => {
-    this.setState({ selfProcessing: true }, () =>
+    this.setState({ selfProcessing: true }, async () => {
+      const basketIsValid = await this.props.checkItemsBasket(
+        this.props.basketId,
+      );
+      if (!basketIsValid) {
+        this.setState({ selfProcessing: false });
+      }
       validateUnpaidAPI(this.props.basketId)
         .then(() => {
           this.onSuccess();
@@ -146,8 +157,8 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         .catch((err) => {
           console.error(err);
           this.setState({ selfProcessing: false });
-        }),
-    );
+        });
+    });
   };
 
   render() {
@@ -264,6 +275,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             useInternalAccount={this.props.useInternalAccount}
             creditAccountBalance={this.props.creditAccountBalance}
             validateUnpaid={this.validateUnpaid}
+            checkItemsBasket={this.props.checkItemsBasket}
           />
         )}
 
@@ -337,6 +349,8 @@ const connector = connect(
     createOrRefreshInternalAccountPrepaidLine:
       createOrRefreshInternalAccountPrepaidLineAction,
     fetchMembershipByBasket,
+    snackbarErrorMsg: snackbarWarning,
+    snackbarSuccessMsg: snackbarSuccess,
   },
 );
 export default compose(
@@ -361,6 +375,27 @@ export default compose(
       }),
   })),
   withHandlers({
+    checkItemsBasket:
+      ({ snackbarErrorMsg, refreshBasket }) =>
+      async (basketId: string) => {
+        try {
+          await checkItemsBasketAPI(basketId);
+        } catch (error) {
+          if (error.response?.status === 499 && error.response?.data) {
+            error.response.data.forEach((exc: { error_code: number }) => {
+              const { error_code } = exc;
+              if (ALL_ERROR_CODES.includes(error_code)) {
+                snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
+              } else {
+                snackbarErrorMsg('canNotBuyErrorCode.generic');
+              }
+            });
+            refreshBasket();
+            return false;
+          }
+        }
+        return true;
+      },
     useInternalAccount:
       ({ createOrRefreshInternalAccountPrepaidLine, fetchBasket, basket }) =>
       (amount: number, options: OptionCallback) => {

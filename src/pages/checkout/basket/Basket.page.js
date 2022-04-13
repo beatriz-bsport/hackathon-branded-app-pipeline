@@ -20,6 +20,7 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
+import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 import {
   addItemToBasket as addItemToBasketAction,
   attachCoupon,
@@ -51,7 +52,10 @@ import { fetchShopItemFeatured } from '../../../libs/shop/actions/shopitem';
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
 import PaymentStripe from '../../../libs/payment/components/payment-backend-stripe/PaymentStripe.component';
-import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../../libs/payment/api';
+import {
+  getPaymentGroupStatus as getPaymentGroupStatusAPI,
+  checkItemsBasket as checkItemsBasketAPI,
+} from '../../../libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '../../../libs/checkout/api';
 
 import { auth as authActions } from '../../../actions';
@@ -117,6 +121,7 @@ type Props = {
   creditAccountBalance: number | null,
   fetchMember: (id: number) => void,
   refreshBasket: () => void,
+  checkItemsBasket: (basketId: string) => void,
 
   instalmentPaymentConfigurationList: Array<InstalmentPayment>,
   assignInstalmentPayment: (
@@ -352,6 +357,7 @@ export class BasketPage extends React.Component<Props> {
               onRemoveInternalAccountPrepaidLine={
                 this.props.onRemoveInternalAccountPrepaidLine
               }
+              checkItemsBasket={this.props.checkItemsBasket}
               paymentModule={
                 <PaymentStripe
                   loading={this.props.loading || this.props.processing}
@@ -400,6 +406,7 @@ export class BasketPage extends React.Component<Props> {
                   }
                   useInternalAccount={this.props.useInternalAccount}
                   creditAccountBalance={this.props.creditAccountBalance}
+                  checkItemsBasket={this.props.checkItemsBasket}
                 />
               }
             />
@@ -559,6 +566,27 @@ export default compose(
               : ''
           }`,
         );
+      },
+    checkItemsBasket:
+      ({ snackbarErrorMsg, refreshBasket }) =>
+      async (basketId: string) => {
+        try {
+          await checkItemsBasketAPI(basketId);
+        } catch (error) {
+          if (error.response?.status === 499 && error.response?.data) {
+            error.response.data.forEach((e) => {
+              const { error_code } = e;
+              if (ALL_ERROR_CODES.includes(error_code)) {
+                snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
+              } else {
+                snackbarErrorMsg('canNotBuyErrorCode.generic');
+              }
+            });
+            refreshBasket();
+            return false;
+          }
+        }
+        return true;
       },
   }),
   withHandlers({

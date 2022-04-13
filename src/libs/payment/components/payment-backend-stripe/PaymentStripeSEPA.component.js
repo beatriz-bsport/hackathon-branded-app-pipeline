@@ -146,6 +146,7 @@ type Props = {
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
   forceSave?: boolean,
+  checkItemsBasket: (basketId: string, options?: OptionCallback) => void,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -202,6 +203,12 @@ export const PaymentStripeSEPA = (props: Props) => {
 
     if (props.basketId) {
       const { data } = await verifyPriceBasketAPI(props.basketId);
+
+      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      if (!basketItemsChecked) {
+        setProcessing(false);
+        return;
+      }
 
       if (
         (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&

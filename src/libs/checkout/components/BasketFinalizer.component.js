@@ -45,6 +45,7 @@ type Props = {
   paymentModule: any,
   processing: boolean,
   validateUnpaid: (options: OptionsCallback) => void,
+  checkItemsBasket: (basketId) => void,
 
   selfProcessing: boolean,
   setProcessing: (boolean) => void,
@@ -104,8 +105,15 @@ export class BasketFinalizer extends React.Component<Props, State> {
           return (
             <Button
               disabled={this.props.selfProcessing}
-              onClick={() => {
+              onClick={async () => {
                 this.props.setProcessing(true);
+                const basketItemsChecked = await this.props.checkItemsBasket(
+                  this.props.basket.id,
+                );
+                if (!basketItemsChecked) {
+                  this.props.setProcessing(false);
+                  return;
+                }
                 this.props.validateUnpaid({
                   onSuccess: () => {
                     this.props.setProcessing(false);
@@ -170,8 +178,14 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     this.props.selfProcessing ||
                     !this.props.termsAndConditionsAccepted
                   }
-                  onClick={() => {
+                  onClick={async () => {
                     this.props.setProcessing(true);
+                    const basketItemsChecked =
+                      await this.props.checkItemsBasket(this.props.basket.id);
+                    if (!basketItemsChecked) {
+                      this.props.setProcessing(false);
+                      return;
+                    }
                     this.props.validateUnpaid({
                       onSuccess: () => {
                         this.props.setProcessing(false);

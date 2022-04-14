@@ -8,11 +8,13 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Switch from '@material-ui/core/Switch';
 import InputLabel from '@material-ui/core/InputLabel';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
+import Collapse from '@material-ui/core/Collapse';
 import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_IFRAME,
@@ -26,6 +28,7 @@ import { getIntercomLink } from '../utils';
 type OwnProps = {
   showFab: boolean;
   useIframe: boolean;
+  responsiveIframe: boolean;
   onChangeContainerConfiguration: (args: any) => void;
   dialogMode: number;
   language: string | null;
@@ -39,32 +42,34 @@ type Props = OwnProps &
 
 export const WidgetContainerConfigurator = (props: Props) => {
   const { classes, t } = props;
-  const onChangeCompatibilityMode = (e: any, checked: boolean) => {
+  const onChangeCompatibilityMode = (e: any, checked: boolean) =>
     props.onChangeContainerConfiguration({
       useIframe: checked,
       dialogMode: checked ? DIALOG_MODE_TAB : DIALOG_MODE_IFRAME,
     });
-  };
 
-  const onChangeShowFab = (e: any, checked: boolean) => {
+  const onChangeIframeResponsiveMode = (e: any, checked: boolean) =>
+    props.onChangeContainerConfiguration({
+      useIframe: true,
+      responsiveIframe: checked,
+    });
+  const onChangeShowFab = (e: any, checked: boolean) =>
     props.onChangeContainerConfiguration({
       showFab: checked,
     });
-  };
-  const onChangeLanguage = (e: any) => {
+
+  const onChangeLanguage = (e: any) =>
     props.onChangeContainerConfiguration({
       language: e.target.value,
     });
-  };
-  const onChangeDialogMode = (dialogMode: number) => {
-    props.onChangeContainerConfiguration({ dialogMode });
-  };
 
-  const onChangeDialogSize = (e: any) => {
+  const onChangeDialogMode = (dialogMode: number) =>
+    props.onChangeContainerConfiguration({ dialogMode });
+
+  const onChangeDialogSize = (e: any) =>
     props.onChangeContainerConfiguration({
       fullScreenPopup: e.target.value === 'true',
     });
-  };
 
   return (
     <fieldset>
@@ -80,6 +85,21 @@ export const WidgetContainerConfigurator = (props: Props) => {
           }
           label={t('widget.ownStyle')}
         />
+
+        <Collapse in={props.useIframe}>
+          <div className={classes.iframeSettings}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={props.responsiveIframe}
+                  onChange={onChangeIframeResponsiveMode}
+                  name="checkedResponsiveIframe"
+                />
+              }
+              label={t('widget.responsiveIframe')}
+            />
+          </div>
+        </Collapse>
         {!props.isFranchisor && (
           <div className={classes.showFabContainer}>
             <FormControlLabel
@@ -203,6 +223,9 @@ const styles = (theme: Theme) => ({
   },
   fullWidth: {
     width: '100%',
+  },
+  iframeSettings: {
+    paddingLeft: theme.spacing(2),
   },
 });
 

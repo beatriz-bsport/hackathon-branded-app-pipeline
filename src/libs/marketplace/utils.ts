@@ -58,6 +58,7 @@ export class WidgetCodeStringGenerator {
     componentType: string;
     config: any;
     useIframe: boolean;
+    responsiveIframe: boolean;
     dialogMode: 0 | 1 | 2;
     language?: string;
     showFab: boolean;
@@ -80,29 +81,55 @@ export class WidgetCodeStringGenerator {
       url += '/scripts/widget.js';
     }
 
-    const code = `<script src="${url}"></script>
-<script> 
-    BsportWidget.mount({
-        "parentElement": "bsport-widget${args.uuid || ''}",
-        "companyId": ${args.company},
-        "franchiseId": ${args.franchise},
-        "dialogMode": ${args.dialogMode},
-        "widgetType": "${args.componentType}",${languageValue} 
-        "showFab": ${args.showFab},
-        "fullScreenPopup": ${args.fullScreenPopup},
-        "config": {
-            "${
-              args.componentType
-            }": {${WidgetCodeStringGenerator.getComponentConfigString(
+    const code = `<script id="insert-bsport-widget-cdn">!function (b, s, p, o, r, t) { !typeof window.BsportWidget !== "undefined" && !document.getElementById("bsport-widget-cdn") && !function () { m = b.createElement(s), m.id = "bsport-widget-cdn", m.src = p, b.getElementsByTagName("head")[0].appendChild(m) }() }(document, "script", "${url}")</script>
+    <script id="bsport-widget-mount">
+        function MountBsportWidget(config, repeat=1) {
+            if (repeat > 50) { return }
+            if (!window.BsportWidget) {
+                return setTimeout(() => {
+                    MountBsportWidget(config,repeat+1)
+                }, 100 * repeat || 1)
+            }
+            BsportWidget.mount(config)
+        }
+    </script>
+    <script>
+        MountBsportWidget({
+                "parentElement": "bsport-widget${args.uuid || ''}",
+                "companyId": ${args.company},
+                "franchiseId": ${args.franchise},
+                "dialogMode": ${args.dialogMode},
+                "widgetType": "${args.componentType}",${languageValue} 
+                "showFab": ${args.showFab},
+                "fullScreenPopup": ${args.fullScreenPopup},
+                "config": {
+                    "${
+                      args.componentType
+                    }": {${WidgetCodeStringGenerator.getComponentConfigString(
       componentConfig,
       3,
     )}}
-        }  
-    })
-</script>
+                }  
+            })
+    </script>
 <div><div id="bsport-widget${args.uuid || ''}"/></div>`;
 
     if (args.useIframe) {
+      if (args.responsiveIframe) {
+        return `<div style="overflow:hidden !important; position:relative; padding-top:125vh;">
+  <iframe style="position:absolute; 
+          overflow-x:hidden !important; 
+          height:100%; width:100%; 
+          left:0;
+          top:0;
+          border:0;" 
+          frameborder="0" 
+          allowfullscreen 
+          srcdoc='
+  ${WidgetCodeStringGenerator.indent(code, 4)}'>
+  </iframe>
+</div>`;
+      }
       return `<iframe srcdoc='
     <div>
 ${WidgetCodeStringGenerator.indent(code, 2)}    </div>

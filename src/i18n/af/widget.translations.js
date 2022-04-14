@@ -20,6 +20,7 @@ exports.default = {
     codeSource: 'Voir le code que vous devez copier sur votre propre site',
     copyUrl: 'Accéder au lien de votre calendrier',
     ownStyle: 'Mode de compatibilité (ignorer le thème du site)',
+    responsiveIframe: 'Activer le mode responsive',
     creationPageInfo:
       'Personnalisez des widgets et intégrez les sur votre site',
     codeInfo: 'Le code à intégrer dans votre site',

@@ -85,6 +85,7 @@ interface State {
   componentType: string;
   containerConfig: {
     useIframe: boolean;
+    responsiveIframe: boolean;
     dialogMode: 0 | 1 | 2;
     language?: string;
     showFab: boolean;
@@ -109,6 +110,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         : EXPORTABLE_COMPONENT_TYPE_CALENDAR,
       containerConfig: {
         useIframe: false,
+        responsiveIframe: true,
         dialogMode: DIALOG_MODE_IFRAME,
         language: 'none',
         showFab: false,
@@ -151,6 +153,14 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       });
   }
 
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevState.containerConfig !== this.state.containerConfig) {
+      this.setState({
+        uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
+      });
+    }
+  }
+
   onComponentTypeChange = ({
     componentType,
     config,
@@ -179,6 +189,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       fullScreenPopup: this.state.containerConfig.fullScreenPopup,
       showFab: this.state.containerConfig.showFab,
       uuid: this.state.uuid,
+      responsiveIframe: this.state.containerConfig.responsiveIframe,
     });
   };
 
@@ -196,6 +207,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       fullScreenPopup: this.state.containerConfig.fullScreenPopup,
       showFab: this.state.containerConfig.showFab,
       uuid: this.state.uuid,
+      responsiveIframe: this.state.containerConfig.responsiveIframe,
     });
 
     return codeStringPreview;
@@ -242,6 +254,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             isFranchisor={this.props.isFranchisor}
             showFab={this.state.containerConfig.showFab}
             useIframe={this.state.containerConfig.useIframe}
+            responsiveIframe={this.state.containerConfig.responsiveIframe}
             language={this.state.containerConfig.language}
             dialogMode={this.state.containerConfig.dialogMode}
             fullScreenPopup={this.state.containerConfig.fullScreenPopup}

@@ -22,7 +22,10 @@ import {
   PrivateSlot,
 } from '../../../../../libs/private-service/types';
 import { ArrayElement } from '../../../../../utils/types';
-import { groupSessionsByDayMoment } from '../../../../../libs/private-service/utils';
+import {
+  groupSessionsByDayMoment,
+  splitIntervalList,
+} from '../../../../../libs/private-service/utils';
 import { Establishment } from '../../../../../libs/establishment/types';
 import { Coach } from '../../../../../libs/associated-coach/types';
 
@@ -92,7 +95,18 @@ const SlotCalendar: React.FC<Props> = ({
 
   const classes = useStyles({ privateSlot });
   const { t } = useTranslation('privateService');
-  const noSlotAvailable = Object.keys(availabilitySlotByDate).length === 0;
+
+  const availableSlots = dates.some((d) => {
+    if (!privateSlot) return false;
+
+    return (
+      splitIntervalList(
+        availabilitySlotByDate?.[d.format('YYYY-MM-DD')] ?? [],
+        privateSlot.duration_minutes,
+        privateSlot.booking_interval_minutes,
+      )?.length ?? false
+    );
+  });
 
   return (
     <Fade in timeout={500}>
@@ -169,7 +183,7 @@ const SlotCalendar: React.FC<Props> = ({
                 );
               })
             )}
-            {privateSlot && !availableSlotsLoading && noSlotAvailable && (
+            {privateSlot && !availableSlotsLoading && !availableSlots && (
               <div className={classes.emptyStateWrapper}>
                 <div className={classes.emptyState}>
                   {nextAvailableSlotLoading ? (

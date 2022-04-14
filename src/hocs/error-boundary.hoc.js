@@ -31,10 +31,10 @@ export default function(WrappedComponent) {
             </div>
             <div className="error-screen">
               <h1>:(</h1>
-              <p>Quelque chose n'a pas fonctionné correctement</p>
+              <p>Something in the platform misbehaved</p>
               <p>
                 {
-                  "Nous venons d'en être averti. Nous revenons vers vous très vite."
+                  "We have just received an alert, and are probably already working on it."
                 }
               </p>
               <div className="buttons">
@@ -43,14 +43,14 @@ export default function(WrappedComponent) {
                     window.location = '/?storeReload';
                   }}
                   className="btn btn-info"
-                >
-                  Recharger
+		>
+		  Reload
                 </a>
                 <a
                   onClick={() => Sentry.showReportDialog()}
                   className="btn btn-error"
-                >
-                  Je donne mon feedback
+		>
+		  I give my feedback
                 </a>
               </div>
             </div>

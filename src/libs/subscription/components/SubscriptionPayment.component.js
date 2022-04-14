@@ -242,19 +242,23 @@ export class SubscriptionPayment extends React.Component<Props, State> {
   };
 
   applyCoupon = async (coupon_code: string, options: any) => {
-    const { data } = await appliesToContract(
+    await appliesToContract(
       coupon_code,
       this.props.contract.id,
       this.props.member?.id || this.props.memberId,
-    );
-
-    if (data.can_be_applied) {
-      this.setState({
-        coupon_code,
-        voucher: data.voucher,
+    )
+      .then(({ data }) => {
+        if (data.can_be_applied) {
+          this.setState({
+            coupon_code,
+            voucher: data.voucher,
+          });
+          if (options && options.onSuccess) options.onSuccess();
+        } else if (options && options.onError) options.onError();
+      })
+      .catch(() => {
+        if (options && options.onNotFound) options.onNotFound();
       });
-      if (options && options.onSuccess) options.onSuccess();
-    } else if (options && options.onError) options.onError();
   };
 
   deleteCoupon = () => {

@@ -160,26 +160,35 @@ export class InvoiceForm extends React.Component<Props, State> {
   };
 
   applyCoupon = async (couponCode: string, options: any) => {
-    const { data } = await appliesToInvoice(couponCode, this.props.member.id, {
-      invoice_items: this.state.invoiceItemList.map((item) => item),
-      invoice_amount: this.getInvoiceItemAmount(),
-    });
-    if (data.can_be_applied) {
-      this.setState((prevState) => {
-        return {
-          ...prevState,
-          coupon_list: [
-            ...prevState.coupon_list,
-            {
-              coupon_code: couponCode,
-              coupon_voucher: data.voucher,
-              compatible_items: data.compatible_items,
-            },
-          ],
-        };
-      });
-      if (options && options.onSuccess) options.onSuccess();
-    } else if (options && options.onError) options.onError();
+    try {
+      const { data } = await appliesToInvoice(
+        couponCode,
+        this.props.member.id,
+        {
+          invoice_items: this.state.invoiceItemList.map((item) => item),
+          invoice_amount: this.getInvoiceItemAmount(),
+        },
+      );
+      if (data.can_be_applied) {
+        this.setState((prevState) => {
+          return {
+            coupon_list: [
+              ...prevState.coupon_list,
+              {
+                coupon_code: couponCode,
+                coupon_voucher: data.voucher,
+                compatible_items: data.compatible_items,
+              },
+            ],
+          };
+        });
+        if (options && options.onSuccess) options.onSuccess();
+      } else if (options && options.onError) options.onError();
+    } catch {
+      if (options && options.onNotFound) {
+        options.onNotFound();
+      }
+    }
   };
 
   deleteCoupon = (index: number) => {

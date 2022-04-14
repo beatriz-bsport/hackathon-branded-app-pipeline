@@ -159,6 +159,8 @@ exports.default = {
       cancel: 'annuler',
       label: 'Code promo',
       placeholder: 'SPECIAL_RENTREE',
+      not_applicable: "Ce code promo n'est pas applicable.",
+      not_found: "Ce code promo n'est pas valide.",
     },
   },
   search: 'Rechercher un code promo',

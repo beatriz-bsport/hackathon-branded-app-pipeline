@@ -79,7 +79,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="accept_double_booking"
             label={t('forms.themePersonalization.acceptDoubleBooking')}
           />
-          <SwitchField name="allow_guest" label={t('forms.acceptGuest')} />
+          <SwitchField
+            disabled
+            name="allow_guest"
+            label={t('forms.acceptGuest')}
+          />
 
           <div>
             <FormControlLabel

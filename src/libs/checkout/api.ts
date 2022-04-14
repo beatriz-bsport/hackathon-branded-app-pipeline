@@ -22,7 +22,10 @@ export const addItemToBasket = async (
   basketId: string,
   data: CheckoutItemData,
 ): Promise<{ data: Basket }> => {
-  return putAuth(`${API_V1_URI}/checkout/basket/${basketId}/add_item/`, data);
+  return putAuth(`${API_V1_URI}/checkout/basket/${basketId}/add_item/`, {
+    ...(data || {}),
+    extra_data: data?.extra_data || {},
+  });
 };
 
 export const patchBasket = async (

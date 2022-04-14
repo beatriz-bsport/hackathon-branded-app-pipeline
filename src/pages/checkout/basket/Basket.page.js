@@ -521,13 +521,13 @@ export default compose(
   withHandlers({
     addItemToBasket:
       ({ addItemToBasket, basket, fetchInstalmentPaymentByBasket }) =>
-      (basketId, data, options?) =>
+      (basketId, data, options) =>
         addItemToBasket(basketId, data, {
           onSuccess: () => {
             fetchInstalmentPaymentByBasket(basket.id);
             if (options && options.onSuccess) options.onSuccess();
           },
-          onError: options.onError,
+          onError: options?.onError,
         }),
     removeItemFromBasket:
       ({ removeItemFromBasket, basket, fetchInstalmentPaymentByBasket }) =>

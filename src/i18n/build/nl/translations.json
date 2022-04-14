@@ -5616,7 +5616,7 @@
                 "hidePrivatePass": "Geen afspraakkaarten tonen",
                 "hidePaymentPack": "Geen leskaarten tonen",
                 "hidePaymentCombo": "Geen pakketten tonen",
-                "todayOnly": "Toon alleen de sessies van vandaag"
+                "todayOnly": "Toon alleen de overige sessies door afgelopen sessies automatisch te verbergen"
             },
             "componentType": {
                 "playlist": "Afspeellijsten",
@@ -10150,7 +10150,8 @@
                 "window": "Venster",
                 "fullScreen": "Volledig scherm"
             },
-            "dialogSizeLabel": "Dimensie van de pop-up"
+            "dialogSizeLabel": "Dimensie van de pop-up",
+            "responsiveIframe": "Activeer de responsieve-modus"
         }
     },
     "platformBilling": {

@@ -5512,7 +5512,7 @@
                 "selectPrivateServiceTypeDetail": "My appointment",
                 "selectPrivateServiceTypeList": "All appointments",
                 "selectPrivateServiceType": "Type",
-                "todayOnly": "Only display today's sessions",
+                "todayOnly": "Only display the remaining sessions by automatically hiding past sessions",
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide passes for private classes",
                 "hidePaymentPack": "Hide passes for group classes"

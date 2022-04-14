@@ -238,7 +238,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
           />
           <SwitchField
             name="show_cancelled_offers_manager"
-            label={t('forms.themePersonalization.cancelledOffersCustomer')}
+            label={t('forms.themePersonalization.cancelledOffersManager')}
           />
           <SwitchField
             name="show_workshops_customer"

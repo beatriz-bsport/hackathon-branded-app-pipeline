@@ -1,16 +1,15 @@
 // @flow
 import React from 'react';
 
-import { withTranslation, TFunction } from 'react-i18next';
-
 import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
 
 type Props = {
-  t: TFunction,
-  metaActivityId: ?number,
-  onClose: () => void,
-  canDeleteMetaActivityChecker: (id: number) => Promise<void>,
-  deleteMetaActivity: () => void,
+  metaActivityId?: number;
+  onClose: () => void;
+  canDeleteMetaActivityChecker: (
+    id: number,
+  ) => Promise<{ data: { can_destroy: boolean } }>;
+  deleteMetaActivity: (id: number) => void;
 };
 
 export const MetaActivityDeleteDialog = (props: Props) => (
@@ -19,8 +18,8 @@ export const MetaActivityDeleteDialog = (props: Props) => (
     onClose={props.onClose}
     checkCanDeleteObjectAPI={props.canDeleteMetaActivityChecker}
     deleteObject={() => props.deleteMetaActivity(props.metaActivityId)}
-    t={props.t}
+    trad="metaActivity"
   />
 );
 
-export default withTranslation(['metaActivity'])(MetaActivityDeleteDialog);
+export default MetaActivityDeleteDialog;

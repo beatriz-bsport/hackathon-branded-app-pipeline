@@ -1,15 +1,12 @@
 // @flow
 import React from 'react';
 
-import { withTranslation, TFunction } from 'react-i18next';
-
 import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
 
 type Props = {
-  t: TFunction,
-  establishmentId: ?number,
-  onClose: () => void,
-  deleteEstablishment: () => void,
+  establishmentId?: number;
+  onClose: () => void;
+  deleteEstablishment: (id: number) => void;
 };
 
 export const EstablishmentDeleteDialog = (props: Props) => (
@@ -17,8 +14,8 @@ export const EstablishmentDeleteDialog = (props: Props) => (
     idToDelete={props.establishmentId}
     onClose={props.onClose}
     deleteObject={() => props.deleteEstablishment(props.establishmentId)}
-    t={props.t}
+    trad="establishment"
   />
 );
 
-export default withTranslation(['establishment'])(EstablishmentDeleteDialog);
+export default EstablishmentDeleteDialog;

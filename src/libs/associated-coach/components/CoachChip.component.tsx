@@ -1,27 +1,31 @@
-// @flow
 import React from 'react';
+
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-export const CoachChip = (props: Props) => {
+import { Coach } from '../types';
+
+type Props = {
+  loading: boolean;
+  onDelete?: () => void;
+  coach: Coach;
+};
+
+export const CoachChip: React.FC<Props> = ({ loading, onDelete, coach }) => {
   return (
     <Chip
       avatar={
-        props.loading ? (
+        loading ? (
           <Skeleton animation="wave" variant="circle" />
         ) : (
-          <Avatar alt={props.coach.name} src={props.coach.photo} />
+          <Avatar alt={coach.name} src={coach.photo} />
         )
       }
       label={
-        props.loading ? (
-          <Skeleton animation="wave" variant="text" />
-        ) : (
-          props.coach.name
-        )
+        loading ? <Skeleton animation="wave" variant="text" /> : coach.name
       }
-      onDelete={props.onDelete}
+      onDelete={onDelete}
       variant="outlined"
     />
   );

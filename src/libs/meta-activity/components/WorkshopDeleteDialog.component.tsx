@@ -1,16 +1,15 @@
 // @flow
 import React from 'react';
 
-import { withTranslation, TFunction } from 'react-i18next';
-
 import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
 
 type Props = {
-  t: TFunction,
-  workshopId: ?number,
-  onClose: () => void,
-  canDeleteWorkshopChecker: (id: number) => Promise<void>,
-  deleteWorkshop: () => void,
+  workshopId?: number;
+  onClose: () => void;
+  canDeleteWorkshopChecker: (
+    id: number,
+  ) => Promise<{ data: { can_destroy: boolean } }>;
+  deleteWorkshop: (id: number) => void;
 };
 
 export const WorkshopDeleteDialog = (props: Props) => (
@@ -19,8 +18,8 @@ export const WorkshopDeleteDialog = (props: Props) => (
     onClose={props.onClose}
     checkCanDeleteObjectAPI={props.canDeleteWorkshopChecker}
     deleteObject={() => props.deleteWorkshop(props.workshopId)}
-    t={props.t}
+    trad="workshop"
   />
 );
 
-export default withTranslation(['workshop'])(WorkshopDeleteDialog);
+export default WorkshopDeleteDialog;

@@ -1,3 +1,4 @@
+import { ActivitySimplified } from '../../api/types';
 import { ErrorAndLoading } from '#libs/types';
 
 export type Coach = {
@@ -12,6 +13,7 @@ export type Coach = {
   description: string;
   phone?: string;
   email?: string;
+  color?: string;
   associated_coach_id: number;
   default_payment_rule_id?: number;
   coach_payment_rule_id?: number;
@@ -27,6 +29,7 @@ export type Coach = {
     coach_payment_rule: number;
   }>;
   has_access_to_coach_space: boolean;
+  activities?: Array<ActivitySimplified>;
 };
 
 export type CoachPerformance = {

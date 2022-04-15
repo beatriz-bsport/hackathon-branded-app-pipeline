@@ -3,11 +3,9 @@
 import omit from 'lodash/omit';
 
 import React, { Component } from 'react';
-import { withTranslation, TFunction } from 'react-i18next';
 
 import { Field } from 'formik';
-
-import withStyles from '@material-ui/core/styles/withStyles';
+import { WithStyles, withStyles } from '@material-ui/core';
 import Avatar from '../Avatar.component';
 
 const styles = () => ({
@@ -17,12 +15,11 @@ const styles = () => ({
 });
 
 type Props = {
-  t: TFunction,
-  classes: any,
-  onChange: () => void,
-};
+  onChange: () => void;
+} & WithStyles<typeof styles>;
+
 type State = {
-  previewUrl: string,
+  previewUrl: string;
 };
 
 export class AvatarField extends Component<Props, State> {
@@ -73,4 +70,4 @@ function getUrl(previewUrl, value) {
   return previewUrl || (typeof value === 'string' ? value : defaultUrl);
 }
 
-export default withStyles(styles)(withTranslation([])(AvatarField));
+export default withStyles(styles)(AvatarField);

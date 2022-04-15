@@ -1,0 +1,151 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachListItem from './CoachListItem.component';
+import { coachFactory, coachesFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachListItem "
+  component={CoachListItem}
+  argTypes={{
+    coach: {
+      description: 'Coach of the list item',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    onCoachSelected: { action: 'clicked' },
+    deleteCoach: { action: 'clicked' },
+    restoreCoach: { action: 'clicked' },
+    divider: {
+      description: 'Divider inside of the list item',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    onEditCoach: { action: 'clicked' },
+    selected: {
+      description: 'Is the coach selected',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CoachListItem {...args} />;
+const enabled_coaches = coachesFactory(6).map((coach) => {
+  coach.disabled = false;
+  return coach;
+});
+const disabled_coach = coachFactory();
+disabled_coach.disabled = true;
+
+# Coach List Item
+
+This `CoachListItem` is a list item for a coach
+
+<Canvas>
+  <Story
+    name="Coach List Item"
+    args={{
+      coach: enabled_coaches[0],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item With Divider
+
+When `CoachListItem` is followed by a divider line
+
+<Canvas>
+  <Story
+    name="Coach List Item Divided"
+    args={{
+      coach: enabled_coaches[1],
+      divider: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Selected
+
+This `CoachListItem` is selected
+
+<Canvas>
+  <Story
+    name="Coach List Item Selected"
+    args={{
+      coach: enabled_coaches[2],
+      selected: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Without Delete Button
+
+This `CoachListItem` without a delete option
+
+<Canvas>
+  <Story
+    name="Coach List Item No deleteCoach"
+    args={{
+      coach: enabled_coaches[3],
+      deleteCoach: null,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Without Edit Button
+
+This `CoachListItem` without an edit option
+
+<Canvas>
+  <Story
+    name="Coach List Item No onEditCoach"
+    args={{
+      coach: enabled_coaches[4],
+      onEditCoach: null,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item With Disabled Coach
+
+This `CoachListItem` with a disabled coach
+
+<Canvas>
+  <Story
+    name="Coach List Item Disabled Coach"
+    args={{
+      coach: disabled_coach,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach List Item" />

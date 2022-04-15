@@ -1,0 +1,74 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachForm from './CoachForm.component';
+import { coachFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachForm "
+  component={CoachForm}
+  argTypes={{
+    isSubmitting: {
+      description: 'If the form is submitting',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    onCancel: { action: 'clicked' },
+    initial: {
+      description: 'Initial data to fill the form',
+      table: {
+        type: {
+          summary: 'CoachDetailed',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    country: {
+      description: 'Country for the phone number',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CoachForm {...args} />;
+
+# Coach Form
+
+This `CoachForm` is meant to be used to fill informations of a coach
+
+<Canvas>
+  <Story name="Coach Form" args={{}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Form Already Filled
+
+When `CoachForm` is already filled
+
+<Canvas>
+  <Story
+    name="Coach Form Filled"
+    args={{
+      initial: coachFactory(),
+      country: 'France',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Form" />

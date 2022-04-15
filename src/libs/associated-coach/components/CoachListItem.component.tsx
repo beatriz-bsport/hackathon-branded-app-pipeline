@@ -1,8 +1,7 @@
-// @flow
-import { withTranslation } from 'react-i18next';
-
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+
+import { useTranslation } from 'react-i18next';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -14,40 +13,53 @@ import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';
-import type { CoachDetailed as Coach } from '../../../api/types';
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
+
+import type { Coach } from '../types';
+import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
 
 import { DEFAULT_AVATAR } from '../utils';
 
 type Props = {
-  t: TFunction,
-  coach: Coach,
-  onCoachSelected: () => void,
-  deleteCoach: () => void,
-  restoreCoach?: (id: number) => void,
-  divider: ?boolean,
-  classes: Object,
-  onEditCoach: () => void,
-  selected?: boolean,
+  coach: Coach;
+  onCoachSelected?: () => void;
+  deleteCoach?: () => void;
+  restoreCoach?: (id: number) => void;
+  divider?: boolean;
+  onEditCoach?: () => void;
+  selected?: boolean;
 };
 
-const openPhone = (event, phoneNumber: string) => {
+const openPhone = (event: React.MouseEvent, phoneNumber: string) => {
   event.stopPropagation();
   window.location.href = 'tel:'.concat(phoneNumber);
 };
-const openEmail = (event, email: string) => {
+
+const openEmail = (event: React.MouseEvent, email: string) => {
   event.stopPropagation();
   window.location.href = 'mailto:'.concat(email);
 };
 
-export function CoachListItem(props: Props) {
-  const { coach, classes, onCoachSelected, t, selected } = props;
+export const CoachListItem: React.FC<Props> = ({
+  coach,
+  onCoachSelected,
+  deleteCoach,
+  restoreCoach,
+  divider,
+  onEditCoach,
+  selected,
+}) => {
+  const classes = useStyles();
+
+  const { t } = useTranslation('translation');
+
   return (
     <ListItem
       key={coach.id}
       id="button_teacher"
       button
-      divider={props.divider}
+      divider={divider}
       onClick={onCoachSelected}
       selected={selected}
     >
@@ -94,31 +106,31 @@ export function CoachListItem(props: Props) {
       />
       <ListItemResponsiveAction
         actions={[
-          !props.coach.disabled &&
-            props.onEditCoach && {
+          !coach.disabled &&
+            onEditCoach && {
               icon: EditIcon,
               label: t('common.edit'),
               color: 'primary',
-              onClick: props.onEditCoach,
+              onClick: onEditCoach,
             },
-          !props.coach.disabled &&
-            props.deleteCoach && {
+          !coach.disabled &&
+            deleteCoach && {
               icon: DeleteIcon,
               label: t('common.delete'),
-              onClick: props.deleteCoach,
+              onClick: deleteCoach,
             },
-          props.coach.disabled && {
+          coach.disabled && {
             icon: RestoreFromTrashIcon,
             label: t('common.restore'),
-            onClick: () => props.restoreCoach(),
+            onClick: () => restoreCoach(coach.id),
           },
         ]}
       />
     </ListItem>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
@@ -127,6 +139,6 @@ const styles = (theme) => ({
   chip: {
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-export default withStyles(styles)(withTranslation()(CoachListItem));
+export default CoachListItem;

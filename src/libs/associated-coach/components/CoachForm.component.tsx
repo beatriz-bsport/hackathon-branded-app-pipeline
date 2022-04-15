@@ -1,23 +1,23 @@
-// @flow
 import React from 'react';
-import { compose } from 'recompose';
-
 import * as Yup from 'yup';
+import { withFormik, Form, FormikProps } from 'formik';
+
 import moment from 'moment-timezone';
-import { withFormik, Form } from 'formik';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import InputAdornment from '@material-ui/core/InputAdornment';
-import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';
-import withStyles from '@material-ui/core/styles/withStyles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
+
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '../../../components/Tooltip.component';
-import AvatarField from '../../../components/forms/AvatarField.component';
+import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';
 
+import Tooltip from '#components/Tooltip.component';
+import AvatarField from '#components/forms/AvatarField.component';
 import {
   TextField,
   PhoneField,
@@ -26,19 +26,31 @@ import {
   Actions,
   Submit,
   ColorField,
-} from '../../../components/forms';
+} from '#components/forms';
+
+import type { CoachDetailed } from '../../../api/types';
 
 type Props = {
-  isSubmitting: boolean,
-  classes: Object,
-  t: TFunction,
-  onCancel: () => void,
-  initial?: any,
-  country: string,
+  isSubmitting: boolean;
+  onCancel: () => void;
+  initial?: CoachDetailed;
+  country: string;
 };
 
-export function CoachForm(props: Props) {
-  const { classes, t, isSubmitting, onCancel } = props;
+type InitialValues = {
+  initial?: CoachDetailed;
+};
+
+export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
+  isSubmitting,
+  onCancel,
+  initial,
+  country,
+}) => {
+  const classes = useStyles();
+
+  const { t } = useTranslation('translation');
+
   return (
     <Paper className={classes.paperContainer}>
       <Form className={classes.content}>
@@ -46,22 +58,12 @@ export function CoachForm(props: Props) {
           <AvatarField name="avatar" />
         </div>
 
-        <Grid container spacing={1} className={classes.fieldset}>
+        <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
-            <TextField
-              name="firstname"
-              label={t('form.firstname')}
-              required
-              fullWidth
-            />
+            <TextField name="firstname" label={t('form.firstname')} fullWidth />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              name="lastname"
-              label={t('form.lastname')}
-              required
-              fullWidth
-            />
+            <TextField name="lastname" label={t('form.lastname')} fullWidth />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
@@ -69,9 +71,9 @@ export function CoachForm(props: Props) {
               name="email"
               label={t('form.email')}
               type="email"
-              disabled={!!props.initial && !!props.initial.email}
+              disabled={!!initial && !!initial.email}
               InputProps={
-                !!props.initial && !!props.initial.email
+                !!initial && !!initial.email
                   ? {
                       startAdornment: (
                         <InputAdornment position="start">
@@ -91,7 +93,7 @@ export function CoachForm(props: Props) {
               name="phone"
               label={t('form.phone')}
               fullWidth
-              country={props.country}
+              country={country}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -150,11 +152,11 @@ export function CoachForm(props: Props) {
       />
     </Paper>
   );
-}
+};
 
 const MARGIN_AVATAR = 140;
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paperContainer: {
     maxWidth: 800,
     marginTop: MARGIN_AVATAR / 2,
@@ -171,49 +173,59 @@ const styles = (theme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
   },
+}));
+
+const CoachSchema = Yup.object().shape({
+  avatar: Yup.string().nullable(false),
+  firstname: Yup.string().nullable(false).required(),
+  lastname: Yup.string().nullable(false).required(),
+  email: Yup.string().nullable(false).required(),
+  phone: Yup.string().nullable(true),
+  gender: Yup.string().nullable(false).required(),
+  color: Yup.string().nullable(false),
+  birthday: Yup.string().nullable(true),
+  description: Yup.string().nullable(false),
+  facebook_url: Yup.string().nullable(false),
+  instagram_url: Yup.string().nullable(false),
 });
 
-const CoachSchema = Yup.object().shape({});
-
-export default compose(
-  withStyles(styles),
-  withTranslation([]),
-  withFormik({
-    enableReinitialize: true,
-    mapPropsToValues: ({ initial, defaultEmail }) =>
-      initial || {
-        avatar: '',
-        firstname: '',
-        lastname: '',
-        email: defaultEmail,
-        phone: '',
-        gender: 'F',
-        color: '',
-        birthday: null,
-        description: '',
-        facebook_url: '',
-        instagram_url: '',
-      },
-    validationSchema: CoachSchema,
-    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-      const { avatar } = values;
-      const data = {
-        ...values,
-        avatar: typeof avatar !== 'string' ? avatar : undefined,
-        birthday:
-          (values &&
-            values.birthday &&
-            moment(values.birthday).format('DD/MM/YYYY')) ||
-          '',
-        phone: values.phone || undefined,
-        email: values.email || '',
-      };
-      onSubmit(data, {
-        onSuccess: () => setSubmitting(false),
-        onError: () => {
-          setSubmitting(false);
-        },
-      });
+export const CoachFormHOC = withFormik({
+  enableReinitialize: true,
+  mapPropsToValues: ({ initial, defaultEmail }) =>
+    initial || {
+      avatar: '',
+      firstname: '',
+      lastname: '',
+      email: defaultEmail,
+      phone: '',
+      gender: 'F',
+      color: '',
+      birthday: null,
+      description: '',
+      facebook_url: '',
+      instagram_url: '',
     },
-  }),
-)(CoachForm);
+  validationSchema: CoachSchema,
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    const { avatar } = values;
+    const data = {
+      ...values,
+      avatar: typeof avatar !== 'string' ? avatar : undefined,
+      birthday:
+        (values &&
+          values.birthday &&
+          moment(values.birthday).format('DD/MM/YYYY')) ||
+        '',
+      phone: values.phone || undefined,
+      email: values.email || '',
+    };
+    onSubmit(data, {
+      onSuccess: () => setSubmitting(false),
+      onError: () => {
+        setSubmitting(false);
+      },
+    });
+  },
+});
+
+export default CoachFormHOC(CoachForm);

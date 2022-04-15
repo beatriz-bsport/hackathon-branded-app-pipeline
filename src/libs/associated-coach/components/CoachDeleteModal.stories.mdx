@@ -1,0 +1,42 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachDeleteModal from './CoachDeleteModal.component';
+import { coachFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachDeleteModal"
+  component={CoachDeleteModal}
+  argTypes={{
+    coachToDeleteId: {
+      description: 'Id of the coach that will be deleted',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    onClose: { action: 'clicked' },
+    deleteCoach: { action: 'clicked' },
+  }}
+/>
+
+export const Template = (args) => <CoachDeleteModal {...args} />;
+
+# Coach Delete Modal
+
+This `CoachDeleteModal` is used when a coach is deleted
+
+<Canvas>
+  <Story
+    name="Coach Delete Modal"
+    args={{
+      coachToDeleteId: coachFactory().id,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Delete Modal" />

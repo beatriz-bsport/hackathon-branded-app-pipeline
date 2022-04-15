@@ -37,6 +37,8 @@ import PrivateSlotSelectorStyled from '../../../coach-payment-rules/components/P
 import { PrivateServiceWithSlots } from '../../../private-service/types';
 import CoachPaymentRuleSelectorStyled from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 
+import type { OptionCallback } from '../../../state/types';
+
 type OwnProps = {
   coach: Coach;
   coachPaymentRulesByKind: {
@@ -56,8 +58,19 @@ type OwnProps = {
     coachId: number,
     coach_payment_rule_group_id: number,
   ) => number;
-  remunerateCoach: () => (coach: Coach) => void;
+  remunerateCoach: () => void;
   privateServices: Array<PrivateServiceWithSlots>;
+  updateCoachPrivateSlotsPaymentRule: (
+    data: {
+      id: number;
+      associated_coach_id: number;
+      private_slots_coach_payment_rules: Array<{
+        private_slot: number;
+        coach_payment_rule: number;
+      }>;
+    },
+    options?: OptionCallback,
+  ) => void;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -448,7 +461,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                               <PrivateSlotSelectorStyled
                                 privateServiceList={privateServices}
                                 selectedServices={[privateSlot.private_slot]}
-                                placeholder={t('paymentRules:label')}
+                                placeholder={t('paymentRules:privateSlotLabel')}
                                 disabled={!!coach.coach_payment_rule_group_id}
                                 onChange={(item: {
                                   value: number;
@@ -529,7 +542,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     ...prevState,
                     enableSaveButton: false,
                   }));
-                  this.props.updateCoach({
+                  this.props.updateCoachPrivateSlotsPaymentRule({
                     id: coach.id,
                     associated_coach_id: coach.associated_coach_id,
                     private_slots_coach_payment_rules: specificPrivateSlots,

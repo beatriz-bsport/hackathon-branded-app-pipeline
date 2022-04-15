@@ -61,6 +61,17 @@ function randomDate() {
   return `${y}-${mm}-${dd}`;
 }
 
+const hexa_list = '0123456789ABCDEF';
+
+function randomColor() {
+  let color = '#';
+  for (let i = 0; i < 6; i += 1) {
+    const number_decimal = random_int(16);
+    color += hexa_list[number_decimal];
+  }
+  return color;
+}
+
 function randomBoolean() {
   const table = [true, false];
   return table[random_int(2)];
@@ -79,7 +90,7 @@ function randomPrivate_slots_coach_payment_rules(length: number) {
   }));
 }
 
-export function coachFactory(): Coach {
+export function coachFactory(coach_payment_rule_group_id?: number): Coach {
   const wichGender = random_int(2);
   const name = lastnames[random_int(lastnames.length - 1)];
   return {
@@ -94,18 +105,21 @@ export function coachFactory(): Coach {
     description: `Hello, my name is ${name}`,
     phone: `00645545${random_int(9)}`,
     email: `${name}@coach.bsport`,
+    color: randomColor(),
     associated_coach_id: random_int(1000),
     default_payment_rule_id: random_int(1000),
     coach_payment_rule_id: random_int(1000),
     private_coach_payment_rule_id: random_int(1000),
     workshop_coach_payment_rule_id: random_int(1000),
-    coach_payment_rule_group_id: random_int(1000),
+    coach_payment_rule_group_id:
+      coach_payment_rule_group_id || random_int(1000),
     facebook_url: `${name}.facebook.com`,
     instagram_url: `${name}.insta.com`,
     disabled: randomBoolean(),
     associatedcoach_set: randomArray(10),
     private_slots_coach_payment_rules:
       randomPrivate_slots_coach_payment_rules(3),
+    has_access_to_coach_space: randomBoolean(),
   };
 }
 

@@ -1,5 +1,7 @@
-// @flow
-import React from 'react';
+import React, { Component } from 'react';
+
+import { withTranslation, WithTranslation } from 'react-i18next';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -7,25 +9,27 @@ import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
-import type { TFunction } from 'react-i18next';
 import RedButton from './button/RedButton.component';
 
 type Props = {
-  idToDelete: ?number,
-  deleteObject: () => void,
-  checkCanDeleteObjectAPI: (
+  idToDelete?: number;
+  deleteObject: () => void;
+  checkCanDeleteObjectAPI?: (
     id: number,
-  ) => Promise<{ data: { can_destroy: boolean } }>,
-  onClose: () => void,
-  t: TFunction,
+  ) => Promise<{ data: { can_destroy: boolean } }>;
+  onClose: () => void;
+  trad: string;
 };
 
 type State = {
-  loading: boolean,
-  canDeleteObject: boolean,
+  loading: boolean;
+  canDeleteObject: boolean;
 };
 
-export class DeleteDialoWithCheck extends React.Component<Props, State> {
+export class DeleteDialogWithCheck extends Component<
+  Props & WithTranslation,
+  State
+> {
   state = {
     loading: false,
     canDeleteObject: false,
@@ -71,7 +75,9 @@ export class DeleteDialoWithCheck extends React.Component<Props, State> {
     if (this.state.loading) {
       return (
         <Dialog open={!!this.props.idToDelete}>
-          <DialogTitle>{this.props.t('forms.delete.title')}</DialogTitle>
+          <DialogTitle>
+            {this.props.t(`${this.props.trad}:forms.delete.title`)}
+          </DialogTitle>
           <DialogContent>
             <CircularProgress />
           </DialogContent>
@@ -81,21 +87,25 @@ export class DeleteDialoWithCheck extends React.Component<Props, State> {
 
     return (
       <Dialog open={!!this.props.idToDelete}>
-        <DialogTitle>{this.props.t('forms.delete.title')}</DialogTitle>
+        <DialogTitle>
+          {this.props.t(`${this.props.trad}:forms.delete.title`)}
+        </DialogTitle>
         <DialogContent>
           {this.state.canDeleteObject
-            ? this.props.t('forms.delete.content.canDelete')
-            : this.props.t('forms.delete.content.cannotDelete')}
+            ? this.props.t(`${this.props.trad}:forms.delete.content.canDelete`)
+            : this.props.t(
+                `${this.props.trad}:forms.delete.content.cannotDelete`,
+              )}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onClose}>
-            {this.props.t('forms.delete.actions.cancel')}
+            {this.props.t(`${this.props.trad}:forms.delete.actions.cancel`)}
           </Button>
           <RedButton
             disabled={!this.state.canDeleteObject}
             onClick={this.deleteObject}
           >
-            {this.props.t('forms.delete.actions.confirm')}
+            {this.props.t(`${this.props.trad}:forms.delete.actions.confirm`)}
           </RedButton>
         </DialogActions>
       </Dialog>
@@ -103,4 +113,9 @@ export class DeleteDialoWithCheck extends React.Component<Props, State> {
   }
 }
 
-export default DeleteDialoWithCheck;
+export default withTranslation([
+  'coach',
+  'establishment',
+  'metaActivity',
+  'workshop',
+])(DeleteDialogWithCheck);

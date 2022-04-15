@@ -47,6 +47,7 @@ exports.default = {
   },
   calculate: 'Calculer',
   title: 'Règlement du professeur {{name}}',
+  privateSlotLabel: 'Rendez-vous',
   label: 'Règle de rémunération',
   dateTitle: 'Plage de dates',
   coaches: 'Professeurs',

@@ -43,6 +43,8 @@ import { getAvailablePrivateServices } from '../../libs/private-service/selector
 import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
 import { PrivateServiceWithSlots } from '../../libs/private-service/types';
 
+import type { OptionCallback } from '../../state/types';
+
 type Props = {
   coachId: number,
   coach: CoachDetailed,
@@ -66,9 +68,8 @@ type Props = {
   goToList: () => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
-  deleteCoach: (id: number) => void,
   loading: boolean,
-  setOpenWidgetDialog: () => void,
+  setOpenWidgetDialog: (open: boolean) => void,
   openWidgetDialog: Boolean,
   loadPaymentRules: () => void,
   loadPaymentRuleGroups: () => void,
@@ -76,14 +77,17 @@ type Props = {
   fetchAssociatedCoach: (number) => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
-  deleteCoach: (
-    id: number,
-    options: ?{ onSucces: ?() => void, onError: ?() => void },
-  ) => void,
-  goToList: () => void,
-  updateCoach: (
-    data: any,
-    options: { onSuccess?: () => void, onError?: () => void },
+  deleteCoach: (id: number, options: ?OptionCallback) => void,
+  updateCoachPrivateSlotsPaymentRule: (
+    data: {
+      id: number,
+      associated_coach_id: number,
+      private_slots_coach_payment_rules: Array<{
+        private_slot: number,
+        coach_payment_rule: number,
+      }>,
+    },
+    options?: OptionCallback,
   ) => void,
   privateServices: Array<PrivateServiceWithSlots>,
   editAccessToCoachSpace: (hasAccessToCoachSpace: boolean) => void,
@@ -115,7 +119,9 @@ export class Coach extends React.Component<Props> {
           startUpdateCoach={this.props.startUpdateCoach}
           coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
           setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
-          updateCoach={this.props.updateCoach}
+          updateCoachPrivateSlotsPaymentRule={
+            this.props.updateCoachPrivateSlotsPaymentRule
+          }
           privateServices={this.props.privateServices}
         />
         <BottomActionButtons
@@ -168,7 +174,8 @@ export default compose(
     }),
     {
       deleteCoach,
-      upsertCoachAction: updateCoachPrivateSlotsPaymentRule,
+      upsertCoachPrivateSlotsPaymentRuleAction:
+        updateCoachPrivateSlotsPaymentRule,
       loadPaymentRules: fetchAllCoachPaymentRules,
       loadPaymentRuleGroups: fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoach,
@@ -193,10 +200,10 @@ export default compose(
       (has_access_to_coach_space) => {
         editAccessToCoachSpace({ id: coachId, has_access_to_coach_space });
       },
-    updateCoach:
-      ({ coachId, upsertCoachAction }) =>
+    updateCoachPrivateSlotsPaymentRule:
+      ({ coachId, upsertCoachPrivateSlotsPaymentRuleAction }) =>
       (coachData) => {
-        upsertCoachAction(coachId, coachData);
+        upsertCoachPrivateSlotsPaymentRuleAction(coachId, coachData);
       },
   }),
 )(Coach);

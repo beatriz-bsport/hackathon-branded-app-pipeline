@@ -1,0 +1,26 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachEmailCheckDialog from './CoachEmailCheckDialog.component';
+import { coachFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachEmailCheckDialog "
+  component={CoachEmailCheckDialog}
+  argTypes={{
+    submit: { action: 'clicked' },
+    onCancel: { action: 'clicked' },
+  }}
+/>
+
+export const Template = (args) => <CoachEmailCheckDialog {...args} />;
+
+# Coach Email Check Dialog
+
+This `CoachEmailCheckDialog` is used to check a coach's email
+
+<Canvas>
+  <Story name="Coach Email Check Dialog" args={{}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Email Check Dialog" />

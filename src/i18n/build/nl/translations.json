@@ -1507,7 +1507,7 @@
             "refreshText": "Ververs de pagina om de wijzigingen in de e-mail te zien.",
             "noObject": "Geen onderwerp",
             "refreshTextPhone": "Ververs de pagina om de wijzigingen te zien",
-            "sendSms": "Nieuwe sms",
+            "sendSms": "Sms'je",
             "hideMail": "E-mail verbergen",
             "count": "tekens",
             "showMail": "E-mail tonen",
@@ -1519,7 +1519,7 @@
             "numberSms": "sms",
             "contentSms": "Inhoud van de sms",
             "selectTemplate": "Bestaand e-mailsjabloon",
-            "writeMail": "Nieuwe e-mail",
+            "writeMail": "E-mail",
             "dialogTitle": "Bericht",
             "contentNotification": "Inhoud",
             "titleNotification": "Titel",
@@ -2161,9 +2161,9 @@
         },
         "showMore": "Zie meer",
         "unevenInvoice": {
-            "title": "Openstaande facturen",
+            "title": "Openstaande factuur",
             "priceDue": "Openstaand bedrag: {{price_due }}",
-            "explainUneven": "Factuur \"<1>{{uuid, uuid}} </1>\" staat nog open.",
+            "explainUneven": "Factuur \"<1>{{uuid, uuid}} </1>\" is nog niet betaald.",
             "pricePayed": "Betaald: {{price_payed}}"
         },
         "newOrder": {
@@ -8389,7 +8389,9 @@
                 "label": "Promotiecode",
                 "placeholder": "PROMOTIECODE",
                 "cancel": "annuleren",
-                "submit": "Bevestigen"
+                "submit": "Bevestigen",
+                "not_applicable": "Deze promotiecode kan niet voor deze aankoop gebruikt worden.",
+                "not_found": "Deze promotiecode is ongeldig."
             }
         },
         "search": "Zoek een promotiecode",
@@ -8684,7 +8686,7 @@
             "filter": {
                 "title": "Filters",
                 "includeLabel": "Type",
-                "exclude": "Bevat niet de tag",
+                "exclude": "Exclusief tag",
                 "tagGroupLabel": "Tag (categorie)",
                 "tagLabel": "Tag (waarde)",
                 "addFilter": "Filter",

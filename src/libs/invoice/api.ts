@@ -53,6 +53,10 @@ export async function fetchByInvoiceItem(
   );
 }
 
+export async function getReceiptUrl(uuid: string) {
+  return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/generate_receipt/`);
+}
+
 export async function updatePaymentMethod(uuid: string, newMethod: number) {
   return patchAuth(`${API_V1_URI}/payment/payments/${uuid}/`, {
     payment_method: newMethod,

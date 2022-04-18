@@ -2,6 +2,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -9,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import Collapse from '@material-ui/core/Collapse';
+import WarningIcon from '@material-ui/icons/Warning';
 import TablePagination from '@material-ui/core/TablePagination';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -39,6 +42,7 @@ import {
 } from '@bsport/common/lib/master-data/invoice-type';
 import SendIcon from '@material-ui/icons/Send';
 import Avatar from '@material-ui/core/Avatar';
+import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getPaymentLink } from '../../consumer-space/utils';
@@ -52,6 +56,7 @@ import UseConsumerGiftcardForm from '#libs/payment/components/UseConsumerGiftcar
 import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { Member } from '#libs/member/types';
+import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 
 type Props = {
   compactMode?: boolean;
@@ -96,6 +101,8 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
   }
 
   const [processing, setProcessing] = React.useState(false);
+  const [downloadMenuOpen, setDownloadMenuOpen] =
+    React.useState<boolean>(false);
   const classes = useStyles();
   let invoiceType = 'regular';
   if (invoice.reverse_invoices && invoice.reverse_invoices.length) {
@@ -232,25 +239,55 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
             {processing ? (
               <CircularProgress />
             ) : (
-              <IconButton
-                onClick={(ev) => {
-                  ev.stopPropagation();
-                  setProcessing(true);
-                  props.finalizeInvoice(invoice.uuid, {
-                    onError: () => setProcessing(false),
-                    onSuccess: (inv: Invoice) => {
-                      setProcessing(false);
-                      window.location = inv.stripe_invoice_pdf;
-                    },
-                  });
-                }}
-              >
-                {!invoice.is_v2 && !invoice.is_finalized ? (
-                  <SaveIcon />
-                ) : (
-                  <AttachmentIcon />
-                )}
-              </IconButton>
+              <>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={downloadMenuOpen}
+                  keepMounted
+                  open={Boolean(downloadMenuOpen)}
+                  onClose={() => setDownloadMenuOpen(null)}
+                >
+                  <MenuItem
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      setProcessing(true);
+                      props.finalizeInvoice(invoice.uuid, {
+                        onError: () => setProcessing(false),
+                        onSuccess: (inv: Invoice) => {
+                          window.open(inv.stripe_invoice_pdf, '_blank');
+                          setDownloadMenuOpen(null);
+                        },
+                      });
+                    }}
+                  >
+                    {t('actions.download')}
+                  </MenuItem>
+                  <MenuItem
+                    disabled={!invoice.is_v2 || !invoice.payments.length}
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      getReceiptUrlAPI(invoice.uuid).then((r) => {
+                        window.open(r.data, '_blank');
+                        setDownloadMenuOpen(null);
+                      });
+                    }}
+                  >
+                    {t('actions.downloadReceipt')}
+                  </MenuItem>
+                </Menu>
+                <IconButton
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setDownloadMenuOpen(ev.currentTarget);
+                  }}
+                >
+                  {!invoice.is_v2 && !invoice.is_finalized ? (
+                    <SaveIcon />
+                  ) : (
+                    <AttachmentIcon />
+                  )}
+                </IconButton>
+              </>
             )}
           </TableCell>
         ) : (
@@ -478,9 +515,16 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                                     payment.payment_received !== null && (
                                       <ErrorIcon color="error" size="small" />
                                     )}
-                                  {payment.payment_received && (
-                                    <CheckIcon color="primary" size="small" />
-                                  )}
+                                  {payment.payment_received &&
+                                    !payment.payment_method ===
+                                      PAYMENT_METHOD_DISPUTE.id && (
+                                      <CheckIcon color="primary" size="small" />
+                                    )}
+                                  {payment.payment_received &&
+                                    payment.payment_method ===
+                                      PAYMENT_METHOD_DISPUTE.id && (
+                                      <WarningIcon color="error" size="small" />
+                                    )}
                                 </TableCell>
                               </TableRow>
                             ),

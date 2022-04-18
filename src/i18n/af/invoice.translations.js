@@ -268,7 +268,8 @@ exports.default = {
     save: 'Enregistrer',
     addInvoiceItem: 'Ajouter à la facture',
     equilibrate: 'Equilibrer (acompte)',
-    download: 'Télécharger PDF',
+    download: 'Télécharger la facture',
+    downloadReceipt: 'Reçu de paiement',
     explainPdfDraft:
       "La facture est encore à l'état de brouillon, le pdf n'est pas disponible.",
     finalize: 'Finaliser (PDF)',

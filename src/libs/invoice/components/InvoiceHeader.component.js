@@ -82,11 +82,9 @@ export const InvoiceHeader = (props: Props) => {
   return (
     <div className={classes.header}>
       <Typography variant="h4">
-        {t(
-          `invoice.${invoiceHeaderType}`,
-
-          { uuid: invoice.uuid.slice(0, 8) },
-        )}
+        {t(`invoice.${invoiceHeaderType}`, {
+          uuid: invoice.invoice_legal_identifier || invoice.uuid.slice(0, 8),
+        })}
       </Typography>
       <div className={classes.additionalInfo}>
         <div className={classes.row}>

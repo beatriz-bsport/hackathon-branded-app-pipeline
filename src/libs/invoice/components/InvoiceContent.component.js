@@ -25,6 +25,7 @@ import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 import type { Establishment } from '../../establishment/types';
 
 type Props = {
@@ -315,6 +316,20 @@ export const InvoiceContent = (props: Props) => {
                 {t('actions.download')}
               </Button>
             </Tooltip>
+            {!!props.invoice.payments?.length && (
+              <Button
+                onClick={() => {
+                  getReceiptUrlAPI(props.invoice.uuid).then((r) =>
+                    window.open(r.data),
+                  );
+                }}
+                color="secondary"
+                variant="contained"
+              >
+                <AttachFileIcon className={classes.iconLeft} />
+                {t('actions.downloadReceipt')}
+              </Button>
+            )}
             {!!props.invoice.plannedinvoice && (
               <Button
                 onClick={() =>

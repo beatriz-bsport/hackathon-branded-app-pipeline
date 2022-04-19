@@ -7055,7 +7055,8 @@
             }
         },
         "search": "(Optioneel) Een payroll-regel toevoegen",
-        "simulate": "Simuleer"
+        "simulate": "Simuleer",
+        "privateSlotLabel": "Afspraken"
     },
     "payment": {
         "generalTermsAndConditions": {

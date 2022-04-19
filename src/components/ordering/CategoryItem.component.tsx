@@ -248,6 +248,7 @@ export const CategoryItemWithItems = React.memo((props: Props) => {
       setAnchorEl(null);
     }
   };
+
   return (
     <div
       ref={setNodeRef}
@@ -384,8 +385,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   collapse: {
     width: '100%',
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   flex: {

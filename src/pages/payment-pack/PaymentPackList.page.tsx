@@ -384,9 +384,11 @@ export class PaymentPackList extends React.Component<Props, State> {
         (value, index, arr) =>
           arr.findIndex((sct) => sct.id === value.id) === index,
       );
+
     if (loading) {
       return <LinearProgress />;
     }
+
     if (
       (this.props.enabledPacks || []).length +
         (this.props.disabledPacks || []).length ===
@@ -425,60 +427,25 @@ export class PaymentPackList extends React.Component<Props, State> {
         </>
       );
     }
+
     return (
       <>
         {this.props.upsertCategoryLoading && <LinearProgress />}
         <div className={classes.container}>
-          {this.props.enabledPacks?.length ? (
-            <>
-              <FuzeSearch
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
-                changeSearch={this.changeSearch}
-                items={[...this.props.enabledPacks]}
-                placeholder={t('search')}
-                searchFields={['name']}
-                searchResult={this.state.searchResult}
-              />
-              <Paper
-                className={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                    ? classes.searchPaperDisplayed
-                    : classes.searchPaperHidden
-                }
-              >
-                <Collapse
-                  in={
-                    this.state.searchResult.length > 0 &&
-                    this.state.searchText !== ''
-                  }
-                >
-                  <Paper>
-                    <List disablePadding>
-                      {this.state.searchResult.map((pack) => (
-                        <PaymentPackListItem
-                          pack={pack}
-                          divider
-                          onEdit={() => this.requestEdit(pack)}
-                          onDelete={() => this.requestDelete(pack)}
-                          onClick={
-                            !pack.disabled
-                              ? () => this.props.goToPack(pack.id)
-                              : null
-                          }
-                          onRestore={() => this.restorePaymentPack(pack.id)}
-                          key={pack.id}
-                        />
-                      ))}
-                    </List>
-                  </Paper>
-                </Collapse>
-              </Paper>
-            </>
-          ) : null}
-
           <div className={classes.buttonRow}>
+            {this.props.enabledPacks?.length && (
+              <div style={{ flex: 1 }}>
+                <FuzeSearch
+                  searchText={this.state.searchText}
+                  clearSearch={this.clearSearch}
+                  changeSearch={this.changeSearch}
+                  items={[...this.props.enabledPacks]}
+                  placeholder={t('search')}
+                  searchFields={['name']}
+                  searchResult={this.state.searchResult}
+                />
+              </div>
+            )}
             <Button
               variant="outlined"
               onClick={() => {
@@ -487,11 +454,46 @@ export class PaymentPackList extends React.Component<Props, State> {
                 this.props.formAdd && this.props.formAdd({});
               }}
               color="primary"
+              className={classes.buttonAdd}
             >
               <AddIcon color="primary" />
               {t('category.add')}
             </Button>
           </div>
+          <Paper
+            className={
+              this.state.searchResult.length > 0 && this.state.searchText !== ''
+                ? classes.searchPaperDisplayed
+                : classes.searchPaperHidden
+            }
+          >
+            <Collapse
+              in={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+              }
+            >
+              <Paper>
+                <List disablePadding>
+                  {this.state.searchResult.map((pack) => (
+                    <PaymentPackListItem
+                      pack={pack}
+                      divider
+                      onEdit={() => this.requestEdit(pack)}
+                      onDelete={() => this.requestDelete(pack)}
+                      onClick={
+                        !pack.disabled
+                          ? () => this.props.goToPack(pack.id)
+                          : null
+                      }
+                      onRestore={() => this.restorePaymentPack(pack.id)}
+                      key={pack.id}
+                    />
+                  ))}
+                </List>
+              </Paper>
+            </Collapse>
+          </Paper>
           <PaymentPackFilterAndSortHeader
             categoryOptions={this.categoryOptions()}
             categoryFilterOnchange={this.categoryFilterOnchange}
@@ -537,9 +539,12 @@ export class PaymentPackList extends React.Component<Props, State> {
                 </IconButton>
               </div>
               <Divider className={classes.divider} />
-              <Collapse in={this.state.showDisabled}>
-                {this.state.showDisabled &&
-                  this.renderPackList(this.props.disabledPacks)}
+              <Collapse
+                className={classes.collapse}
+                in={this.state.showDisabled}
+                unmountOnExit
+              >
+                {this.renderPackList(this.props.disabledPacks)}
               </Collapse>
             </div>
           ) : null}
@@ -657,11 +662,13 @@ const styles = (theme: Theme) =>
       border: '1px solid',
       borderColor: theme.palette.primary.main,
       borderTop: '0px',
+      borderTopRightRadius: 0,
+      borderTopLeftRadius: 0,
     },
     searchPaperHidden: {
       border: '1px solid',
       borderTop: '0px',
-      boderBottom: '0px',
+      borderBottom: '0px',
     },
     buttonTitle: {
       display: 'flex',
@@ -673,8 +680,19 @@ const styles = (theme: Theme) =>
       paddingTop: theme.spacing(4),
     },
     buttonRow: {
+      display: 'flex',
+      gap: theme.spacing(2),
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
+    },
+    buttonAdd: {
+      display: 'flex',
+      whiteSpace: 'nowrap',
+    },
+    collapse: {
+      paddingTop: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
   });
 const mapStateToProps = (state: RootState) => ({

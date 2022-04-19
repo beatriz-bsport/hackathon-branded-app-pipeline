@@ -245,6 +245,8 @@ const styles = (theme) => ({
     border: '1px solid',
     borderColor: theme.primary_color,
     borderTop: '0px',
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
   },
   searchPaperHidden: {
     border: '1px solid',

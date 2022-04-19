@@ -207,7 +207,11 @@ export class EstablishmentList extends React.Component<Props, State> {
               )}
             </ButtonBase>
             <Divider />
-            <Collapse in={this.state.showDisabled}>
+            <Collapse
+              in={this.state.showDisabled}
+              className={this.props.classes.collapse}
+              unmountOnExit
+            >
               <Paper>
                 <List component="nav" disablePadding>
                   {this.props.establishmentsArchived.map((e) => (
@@ -264,6 +268,8 @@ const styles = (theme) => ({
     border: '1px solid',
     borderColor: theme.primary_color,
     borderTop: '0px',
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
   },
   searchPaperHidden: {
     border: '1px solid',
@@ -278,6 +284,9 @@ const styles = (theme) => ({
     width: '100%',
     paddingBottom: theme.spacing(1),
     marginTop: theme.spacing(3),
+  },
+  collapse: {
+    paddingTop: theme.spacing(2),
   },
 });
 

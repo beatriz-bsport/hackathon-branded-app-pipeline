@@ -205,7 +205,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         {this.props.loading || this.props.notificationLoading ? (
           <LinearProgress />
         ) : null}
-        {this.props.metaActivities.length > 0 ? (
+        {this.props.metaActivities.length > 0 && (
           <div className={classes.search}>
             <div className={classes.header}>
               <div className={classes.searchField}>
@@ -221,7 +221,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               </div>
               <Hidden smDown>
                 <Button
-                  onClick={() => this.props.goToPaymentPack}
+                  onClick={this.props.goToPaymentPack}
                   color="primary"
                   variant="outlined"
                   startIcon={<ArrowForwardIcon className={classes.leftIcon} />}
@@ -253,7 +253,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               </Collapse>
             </Paper>
           </div>
-        ) : null}
+        )}
         {/*
         <AddCategoryButton
           setShowCategoryDialog={(showCategoryDialog: boolean) =>
@@ -309,18 +309,20 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               )}
             </ButtonBase>
             <Divider />
-            {this.state.showDisabled && (
-              <Collapse in={this.state.showDisabled}>
-                <MetaActivityList
-                  metaActivities={this.props.disabledMetaActivities}
-                  goToDetail={this.props.goToDetail}
-                  goToEdit={this.props.goToEdit}
-                  deleteMetaActivity={this.props.setActivityToDelete}
-                  makeActivityCopy={this.props.makeActivityCopy}
-                  restoreMetaActivity={this.restoreMetaActivity}
-                />
-              </Collapse>
-            )}
+            <Collapse
+              in={this.state.showDisabled}
+              className={classes.collapse}
+              unmountOnExit
+            >
+              <MetaActivityList
+                metaActivities={this.props.disabledMetaActivities}
+                goToDetail={this.props.goToDetail}
+                goToEdit={this.props.goToEdit}
+                deleteMetaActivity={this.props.setActivityToDelete}
+                makeActivityCopy={this.props.makeActivityCopy}
+                restoreMetaActivity={this.restoreMetaActivity}
+              />
+            </Collapse>
           </div>
         )}
 
@@ -349,6 +351,8 @@ const styles = (theme: Theme) =>
       border: '1px solid',
       borderColor: theme.primary_color,
       borderTop: '0px',
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0,
     },
     leftIcon: {
       marginRight: theme.spacing(1),
@@ -370,6 +374,12 @@ const styles = (theme: Theme) =>
       width: '100%',
       paddingBottom: theme.spacing(1),
       marginTop: theme.spacing(3),
+    },
+    collapse: {
+      width: '100%',
+      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingTop: theme.spacing(2),
     },
   });
 

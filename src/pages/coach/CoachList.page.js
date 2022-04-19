@@ -219,25 +219,25 @@ export class CoachList extends React.Component<Props, State> {
               )}
             </ButtonBase>
             <Divider />
-            {this.state.showDisabled && (
-              <Collapse in={this.state.showDisabled}>
-                <Paper>
-                  <List component="nav" dense disablePadding>
-                    {this.props.inactiveCoaches.map((coach) => (
-                      <CoachListItem
-                        divider
-                        coach={coach}
-                        onCoachSelected={() => this.goToCoachDetailPage(coach)}
-                        deleteCoach={() =>
-                          this.props.setDeleteCoachId(coach.id)
-                        }
-                        restoreCoach={() => this.props.restoreCoach(coach.id)}
-                      />
-                    ))}
-                  </List>
-                </Paper>
-              </Collapse>
-            )}
+            <Collapse
+              className={this.props.classes.collapse}
+              in={this.state.showDisabled}
+              unmountOnExit
+            >
+              <Paper>
+                <List component="nav" dense disablePadding>
+                  {this.props.inactiveCoaches.map((coach) => (
+                    <CoachListItem
+                      divider
+                      coach={coach}
+                      onCoachSelected={() => this.goToCoachDetailPage(coach)}
+                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+                      restoreCoach={() => this.props.restoreCoach(coach.id)}
+                    />
+                  ))}
+                </List>
+              </Paper>
+            </Collapse>
           </div>
         ) : null}
 
@@ -302,6 +302,9 @@ const styles = (theme) => ({
     marginTop: theme.spacing(3),
   },
   search: { marginBottom: theme.spacing(2) },
+  collapse: {
+    paddingTop: theme.spacing(2),
+  },
 });
 
 export default compose(

@@ -1,8 +1,8 @@
 {
     "authentication": {
         "resetPassword": {
-            "explain2": "Binnen enkele seconden ontvang je de herstelinstructies.",
-            "explain1": "Welk e-mailadres gebruik je om in te loggen?",
+            "explain2": "Vervolgens sturen we binnen enkele seconden een bericht met instructies over hoe je je wachtwoord kunt herstellen.",
+            "explain1": "Deel hieronder het e-mailadres dat je gebruikt om in te loggen.",
             "noEmail": "Deze e-mail staat niet in onze gegevensbestand.",
             "title": "Wachtwoord herstellen",
             "actions": {
@@ -1931,7 +1931,7 @@
             "address": "Adres",
             "tax": "Btw",
             "voucher": "Korting",
-            "payment_note": "Betaalbewijs",
+            "payment_note": "Betaalnotitie",
             "remaining_days": "Overige dagen",
             "payment_method_stripe": "Betaalkaart (online)",
             "payment_method_cash": "Contant geld",
@@ -2109,7 +2109,7 @@
             "offers": "Sessies",
             "members": "Leden",
             "cashbook": "Kasboek",
-            "on_spot_payments": "Handmatige betalingen",
+            "on_spot_payments": "Fysieke betalingen",
             "video": "Video On Demand",
             "unpaid_invoices": "Openstaande facturen",
             "video_purchase": "Gekochte video's",
@@ -3685,7 +3685,7 @@
             "addActivity": "Een activiteit toevoegen"
         },
         "noActivities": "In dit onderdeel kun je al je groepsactiviteiten toevoegen, beheren, wijzigen en verwijderen.",
-        "disabledMetaActivities": "Gearchiveerde activiteiten",
+        "disabledMetaActivities": "Gearchiveerde groepsactiviteiten",
         "workshop": "Workshop"
     },
     "offer": {
@@ -3833,7 +3833,7 @@
         "allCompanies": "Alle studio's",
         "seeAll": "Toon alles",
         "franchiseEmails": "[Master-Account E-mailsjablonen",
-        "companieEmails": "Mijn sjablonen"
+        "companieEmails": "Sjablonen"
     },
     "member": {
         "pass_owner": "Geldige leskaart",
@@ -5363,12 +5363,12 @@
                 "video_label": "Video",
                 "video_source": {
                     "change_popup_text": "De huidige video zal worden verwijderd. Leden die deze hebben gekocht, krijgen nu toegang tot de nieuwe video.",
-                    "change_popup_title": "Video wijzigen",
-                    "edit_button": "Video wijzigen",
+                    "change_popup_title": "Bestand wijzigen",
+                    "edit_button": "Bestand wijzigen",
                     "uploaded_video": "Bestand geüpload",
                     "youtube_video": "YouTube-video",
                     "title": "Video",
-                    "vimeo_video": "Video van Vimeo",
+                    "vimeo_video": "Vimeo-video",
                     "ebook": "eBook"
                 },
                 "confirm": {
@@ -5403,7 +5403,7 @@
             "coverMain": {
                 "alert": "Een afbeelding is vereist"
             },
-            "manager_only_helper": "Alleen managers kunnen deze video bekijken.",
+            "manager_only_helper": "Maak deze video onbeschikbaar voor leden én alleen zichtbaar voor medewerkers met de juiste bevoegdheden.",
             "manager_only": "Deze video onbeschikbaar maken",
             "duplicate": "Dupliceren",
             "rental": {
@@ -6849,7 +6849,7 @@
                 "enabled": "Ja",
                 "disabled": "Nee",
                 "is_deliverable": "Verzendkosten",
-                "onsite_payment_available": "Betaling ter plaatse"
+                "onsite_payment_available": "Fysieke betalingen"
             },
             "noDescription": "Er is geen beschrijving om weer te geven.",
             "selector": {
@@ -9266,7 +9266,7 @@
         },
         "actions": {
             "finalize": "Afronden (PDF)",
-            "download": "PDF downloaden",
+            "download": "Factuur (PDF) downloaden",
             "equilibrate": "Saldo (aanbetaling)",
             "addInvoiceItem": "Aan de factuur toevoegen",
             "save": "Opslaan",
@@ -9278,7 +9278,8 @@
             "consumeBalance": "Met saldo betalen",
             "explainPdfDraft": "Deze factuur is nog een concept. De PDF is nog niet beschikbaar.",
             "addFooter": "Voetnoot wijzigen",
-            "addCoupon": "Een promotiecode toevoegen"
+            "addCoupon": "Een promotiecode toevoegen",
+            "downloadReceipt": "Betalingsbewijs"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
@@ -9308,7 +9309,7 @@
             },
             "title": "Factuur {{ uuid }}",
             "titleRevert": "Bemachtigen {{ uuid }}",
-            "titleReceipt": "Betaalbewijs {{ uuid }}",
+            "titleReceipt": "Betalingsbewijs: {{ uuid }}",
             "titleReverted": "Factuur (geannuleerd) {{ uuid }}"
         },
         "creditAccountBalance": {
@@ -9363,7 +9364,7 @@
                 "title": "Betalingen"
             },
             "date": {
-                "label": "Incassodatum"
+                "label": "Betaaldatum"
             },
             "paymentNote": {
                 "helperText": "(Optioneel) Betalingskenmerk",
@@ -9503,7 +9504,7 @@
         },
         "invoiceInfo": {
             "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen PDF verstrekken of de factuur annuleren.",
-            "2": "Dit betaalbewijs toont de wijzigingen in het balans van de interne rekening (Wallet) van dit lid."
+            "2": "Dit betalingsbewijs toont de wijzigingen in het balans van de interne rekening (Wallet) van dit lid."
         },
         "invoiceType": {
             "reversed": "Factuur (geannuleerd)",
@@ -10057,9 +10058,9 @@
                 "amount": "Daginkomsten:",
                 "lastUpdated": "Laatste wijziging:",
                 "expectedAmount": "Verwacht bedrag: ",
-                "todayEndAmount": "Eindbedrag van vandaag",
+                "todayEndAmount": "Kasboek | Eindbedrag van vandaag",
                 "addAmount": "Bedrag dat aan het kasboek moet worden toegevoegd",
-                "todayStartAmount": "Beginbedrag in kasboek",
+                "todayStartAmount": "Kasboek | Beginbedrag van vandaag",
                 "cashDialogTitle": "Kasboek",
                 "close": "Sluiten",
                 "at": "om"
@@ -10640,7 +10641,7 @@
             "pageTitle": "Sjabloon",
             "companiesEmails": "[Master-Account E-mailsjablonen",
             "create": "Een sjabloon toevoegen",
-            "franchiseEmails": "Mijn sjablonen",
+            "franchiseEmails": "Sjablonen",
             "emptyStateDescription": "Selecteer een e-mail om de voorvertoning te zien.",
             "emptyStateTitle": "Voorvertoning",
             "searchPlaceholder": "Zoek een sjabloon"
@@ -11029,13 +11030,13 @@
             "cancel": "Annuleren"
         },
         "dialogDeleteExpense": {
-            "all": "Verwijder alle soortgelijke oude en toekomstige uitgaven.",
-            "future": "Alle soortgelijke huidige en toekomstige uitgaven zullen worden verwijderd.",
+            "all": "Verwijder alle oude en toekomstige uitgaven",
+            "future": "Deze en alle toekomstige uitgaven verwijderen",
             "current": "Alleen deze uitgave verwijderen",
             "delete": "Verwijderen",
             "cancel": "Annuleren",
             "confirm": "Je staat op het punt deze uitgave permanent te verwijderen ({{amount}} van {{date_due}}).",
-            "warning": "Weet je zeker dat je deze uitgave wilt verwijderen?"
+            "warning": "[Formulier] Uitgave verwijderen"
         },
         "table": {
             "no": "Nee",

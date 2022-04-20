@@ -11935,8 +11935,8 @@
             "cancel": "Cancel"
         },
         "dialogDeleteExpense": {
-            "all": "Delete all of this expense's past and future due date",
-            "future": "All current and future expenses will be deleted",
+            "all": "Delete all past and future expenses",
+            "future": "Delete this and all future expenses",
             "current": "Only delete this specific expense",
             "delete": "Delete",
             "cancel": "Cancel",

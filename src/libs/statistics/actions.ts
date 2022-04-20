@@ -71,6 +71,17 @@ export function fetchBookingStatistics(identifier: string, params: any) {
   };
 }
 
+export function fetchPrivateBookingStatistics(identifier: string, params: any) {
+  return async (dispatch: Dispatch) => {
+    fetchStatsWithTime(
+      dispatch,
+      identifier,
+      statsAPI.fetchPrivateBookingStatistics,
+      params,
+    );
+  };
+}
+
 export const smartListStats = {
   isLoading: createAction('STATISTICS/SMARTLIST/IS_LOADING'),
   error: createAction('STATISTICS/SMARTTLIST/ERROR'),
@@ -220,6 +231,20 @@ export function fetchBookingTemporal(
       identifier,
       params,
       statsAPI.fetchBookingStatistics,
+    );
+  };
+}
+
+export function fetchPrivateBookingTemporal(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(
+      dispatch,
+      identifier,
+      params,
+      statsAPI.fetchPrivateBookingStatistics,
     );
   };
 }

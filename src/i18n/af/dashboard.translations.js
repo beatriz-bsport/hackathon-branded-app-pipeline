@@ -23,10 +23,17 @@ exports.default = {
   resetModal: {
     title: 'Réinitialiser les paramètres',
     content:
-      'Les paramètres des différents graphes reviendront à leur valeur par défaut, voulez-vous continuer ?',
+      'Les paramètres des différents onglets reviendront à leur valeur par défaut, voulez-vous continuer ?',
     cancel: 'Annuler',
     confirm: 'Continuer',
   },
+  tabNameDialog: {
+    titleAdd: 'Ajouter un nouvel onglet',
+    titleRename: "Renommer l'onglet",
+    placeholder: 'Nom',
+  },
+  noGraphToDisplay:
+    'Aucun graphe configuré dans cet onglet. Ajoutez-en un ici.',
   current_day: 'Dernières 24 heures',
   current_week: 'Dernière semaine',
   current_month: 'Mois dernier',
@@ -64,6 +71,12 @@ exports.default = {
   bookingsWeektimeSlot: {
     title: 'Effectif moyen',
     popover: 'Effectif moyen des séances par créneau horaire',
+  },
+  privateBooking: {
+    title: 'Rendez-vous',
+    caption: 'RDV enregistrés',
+    popover:
+      'Le nombre total de RDV enregistrés pour cette date. Vous pouvez filtrer les annulations / remboursements / ...',
   },
   dateFilter: {
     customSelect: 'Sélectionner une plage de dates',
@@ -119,6 +132,7 @@ exports.default = {
         booking: 'Réservations',
         payment: 'Paiements',
         invoice: 'Achats',
+        privateBooking: 'RDV',
       },
       name: 'Titre du graphe',
       aggregate: 'Cumuler',
@@ -129,6 +143,7 @@ exports.default = {
         temporalMember: 'Évolution dans le temps',
         temporalTimeslotBooking: 'Fréquences journalières et horaires',
         temporalBooking: 'Évolution dans le temps',
+        temporalPrivateBooking: 'Évolution dans le temps',
         qualitativeBooking: 'Répartition',
         temporalPayment: 'Évolution dans le temps',
         temporalPlannedInvoice: 'Évolution dans le temps',

@@ -65,7 +65,6 @@ const defaultDashboardConfiguration = [
           kind: 'current_year',
         },
         dataFilters: { booking_status_code__in: [0] },
-        title: 'Bookings',
       },
       {
         name: 'invoice_item',
@@ -129,6 +128,23 @@ const defaultDashboardConfiguration = [
           end: null,
           kind: 'current_year',
         },
+      },
+      {
+        name: 'private_booking_temporal',
+        ressourceIdentifier: 'temporalPrivateBooking',
+        chart: 'area',
+        baseFilters: {
+          date_field: 'date_start',
+          aggregate_field: 'pk',
+          aggregate_function: 'count',
+          aggregate_period: 'day',
+        },
+        dateRange: {
+          start: null,
+          end: null,
+          kind: 'current_year',
+        },
+        dataFilters: { booking_status_code__in: [0] },
       },
     ],
   },

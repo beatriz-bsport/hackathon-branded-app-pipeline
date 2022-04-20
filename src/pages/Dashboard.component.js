@@ -12,13 +12,23 @@ import {
 } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import withStyles from '@material-ui/core/styles/withStyles';
+import DashboardTabNameDialog from '../libs/dashboard/components/DashboardTabNameDialog.component';
+import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import themeSelectors from '../libs/theme/selectors';
 
 import withTitle from '../hocs/with-title.hoc';
@@ -46,8 +56,6 @@ import CustomChartForm from '../components/graph/CustomChartForm.component';
 import BackofficeLinearProgress from '../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../components/button/BottomActionsButton.component';
 import { quickRanges } from '../libs/dashboard/components/ChartRange.component';
-
-const CUSTOM_TAB = 'main';
 
 type Props = {
   t: TFunction,
@@ -84,15 +92,24 @@ type Props = {
   handleSave: (Graph) => () => void,
   chartFormOpen: boolean,
   setChartFormOpen: (boolean) => void,
-  addGraph: (string, Graph) => void,
+  addGraph: (graph: any) => void,
   handleDelete: (Graph) => () => void,
+  currentTabIndex: number,
+  setCurrentTabIndex: (newTab: number) => void,
   dashboardTab: ?DashboardTab,
+  addNewTab: (label: string) => void,
+  setTabIndexToRename: (tabName: string) => void,
+  tabIndexToRename: number | null,
+  tabNameDialogOpen: boolean,
+  setTabNameDialogOpen: (open: boolean) => void,
+  tabNameToRename: string,
+  setTabNameToRename: (value: string) => void,
+  deleteTab: (tabIndex: number) => void,
+  renameTab: (tabName: string, tabIndex: number) => void,
 
   onSaveGraphByIdentifier: (string) => void,
   onDeleteGraphByIdentifier: (string) => void,
 };
-
-const CURRENT_TAB_INDEX = 0;
 
 export class Dashboard extends Component<Props> {
   componentDidMount() {
@@ -150,12 +167,124 @@ export class Dashboard extends Component<Props> {
       graphDataByIdentifier,
       chartProps,
       dashboardTab,
+      currentTabIndex,
+      dashboardConfiguration,
       t,
       loading,
     } = this.props;
     return (
       <>
         {loading && <BackofficeLinearProgress />}
+        {(dashboardConfiguration || []).length > 0 && (
+          <div className={classes.container}>
+            <AppBar position="static" color="default">
+              <Tabs
+                variant="scrollable"
+                value={currentTabIndex}
+                onChange={(e, newValue) => {
+                  if (newValue === 'addTab') {
+                    this.props.setTabNameDialogOpen(true);
+                    return;
+                  }
+                  this.props.setCurrentTabIndex(newValue);
+                }}
+              >
+                {(dashboardConfiguration || []).map((tab, i) => (
+                  <Tab
+                    wrapped
+                    className={classes.tab}
+                    label={
+                      <div className={classes.tabLabelContainer}>
+                        <div className={classes.tabLabelTitle}>
+                          {tab.tab_label === 'main'
+                            ? t('navigation:backofficeMenu.dashboard')
+                            : tab.tab_label}
+                        </div>
+                        <div className={classes.tabLabelIcons}>
+                          <Tooltip title={t('ordering:category.popover.edit')}>
+                            <IconButton
+                              className={classes.iconButton}
+                              size="small"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                this.props.setTabIndexToRename(i);
+                                this.props.setTabNameToRename(
+                                  tab.tab_label === 'main'
+                                    ? t('navigation:backofficeMenu.dashboard')
+                                    : tab.tab_label,
+                                );
+                                this.props.setTabNameDialogOpen(true);
+                              }}
+                            >
+                              <EditIcon
+                                fontSize="small"
+                                color="primary"
+                                classes={{ fontSizeSmall: classes.smallIcon }}
+                              />
+                            </IconButton>
+                          </Tooltip>
+
+                          {dashboardConfiguration &&
+                            dashboardConfiguration.length > 1 && (
+                              <Tooltip
+                                title={t('ordering:category.popover.delete')}
+                              >
+                                <IconButton
+                                  className={classes.iconButton}
+                                  size="small"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.props.deleteTab(i);
+                                  }}
+                                  disabled={
+                                    dashboardConfiguration &&
+                                    dashboardConfiguration.length === 1
+                                  }
+                                >
+                                  <DeleteIcon
+                                    fontSize="small"
+                                    color="error"
+                                    classes={{
+                                      fontSizeSmall: classes.smallIcon,
+                                    }}
+                                  />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                        </div>
+                      </div>
+                    }
+                    value={i}
+                    key={`tab-${i}`}
+                  />
+                ))}
+                <Tab
+                  label={
+                    <Tooltip title={t('tabNameDialog.titleAdd')}>
+                      <IconButton>
+                        <AddIcon />
+                      </IconButton>
+                    </Tooltip>
+                  }
+                  value="addTab"
+                  classes={{ root: classes.addTabButton }}
+                />
+              </Tabs>
+            </AppBar>
+          </div>
+        )}
+        {/* Display empty list message if no graph to display if tab */}
+        {dashboardTab &&
+          dashboardTab.graphs.filter(
+            (g) => g.ressourceIdentifier !== 'qualitativeInvoiceItem',
+          ).length === 0 && (
+            <IsEmptyList
+              text={t('noGraphToDisplay')}
+              button={t('customChart.addChart')}
+              onCreate={() => this.props.setChartFormOpen(true)}
+              hideBottomActions
+            />
+          )}
         {dashboardTab && dashboardTab.graphs && dashboardTab.graphs.length > 0 && (
           <Grid container="row" spacing={3} className={classes.gridRow}>
             {dashboardTab.graphs
@@ -209,17 +338,6 @@ export class Dashboard extends Component<Props> {
           </Grid>
         )}
 
-        {dashboardTab && !loading ? (
-          <div className={classes.saveButtonContainer}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              onClick={() => this.props.setResetDialogOpen(true)}
-            >
-              {t('resetModal.title')}
-            </Button>
-          </div>
-        ) : null}
         <Dialog open={this.props.resetDialogOpen}>
           <DialogTitle>{t('resetModal.title')}</DialogTitle>
           <DialogContent>{t('resetModal.content')}</DialogContent>
@@ -238,15 +356,28 @@ export class Dashboard extends Component<Props> {
             </Button>
           </DialogActions>
         </Dialog>
+        {this.props.tabNameDialogOpen && (
+          <DashboardTabNameDialog
+            tabIndexToRename={this.props.tabIndexToRename}
+            initialValue={this.props.tabNameToRename}
+            addNewTab={this.props.addNewTab}
+            renameTab={this.props.renameTab}
+            onClose={() => {
+              this.props.setTabIndexToRename(null);
+              this.props.setTabNameToRename('');
+              this.props.setTabNameDialogOpen(false);
+            }}
+          />
+        )}
         <>
-          <div className={classes.saveButtonContainer}>
-            <BottomActionButtons
-              onCreateLabel={this.props.t('customChart.addChart')}
-              onCreate={() => this.props.setChartFormOpen(true)}
-            />
-          </div>
+          <BottomActionButtons
+            onCreateLabel={t('customChart.addChart')}
+            resetLabel={t('resetModal.title')}
+            onCreate={() => this.props.setChartFormOpen(true)}
+            onReset={() => this.props.setResetDialogOpen(true)}
+          />
           <CustomChartForm
-            addGraph={(gr) => this.props.addGraph(CUSTOM_TAB, gr)}
+            addGraph={(gr) => this.props.addGraph(gr)}
             graphRessources={graphRessources}
             formOpen={this.props.chartFormOpen}
             setFormOpen={this.props.setChartFormOpen}
@@ -258,6 +389,56 @@ export class Dashboard extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  smallIcon: {
+    fontSize: '14px',
+  },
+  iconButton: {
+    opacity: '0',
+  },
+  tab: {
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+      '& $iconButton': {
+        opacity: '1',
+      },
+    },
+  },
+  addTabButton: {
+    minWidth: 'unset',
+    width: '50px',
+  },
+  tabLabelContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    textAlign: 'center',
+    position: 'relative',
+  },
+  tabLabelTitle: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    paddingLeft: theme.spacing(6),
+    paddingRight: theme.spacing(6),
+  },
+  tabLabelIcons: {
+    position: 'absolute',
+    right: '2px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  container: {
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(-3),
+    width: '100vw',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(-3),
+      width: 'auto',
+      marginRight: theme.spacing(-3),
+      marginTop: theme.spacing(-2),
+    },
+  },
   gridRow: {
     marginTop: theme.spacing(0.5),
     marginBottom: theme.spacing(0.5),
@@ -277,15 +458,20 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['dashboard']),
   withStyles(styles),
+  withState('currentTabIndex', 'setCurrentTabIndex', 0),
+  withState('menuAnchorEl', 'setMenuAnchorEl', null),
   withState('resetDialogOpen', 'setResetDialogOpen', false),
+  withState('tabNameDialogOpen', 'setTabNameDialogOpen', false),
+  withState('tabIndexToRename', 'setTabIndexToRename', null),
+  withState('tabNameToRename', 'setTabNameToRename', ''),
   withState('chartFormOpen', 'setChartFormOpen', false),
   connect(
-    (state) => ({
+    (state, { currentTabIndex }) => ({
       loading: state.dashboardSettings.loading,
       theme: themeSelectors.getTheme(state),
       dashboardConfiguration: getDashboardConfiguration(state),
-      dashboardTab: getDashboardConfigurationTab(state, CURRENT_TAB_INDEX),
       coaches: getAllCoaches(state),
+      dashboardTab: getDashboardConfigurationTab(state, currentTabIndex),
     }),
     {
       fetchDashboardSettings: fetchDashboardSettingsAction,
@@ -294,30 +480,44 @@ export default compose(
     },
   ),
   branch(
-    // if we have a dashboardTab we initialize our filter/dateRange configurations
-    ({ dashboardTab }) => !!dashboardTab && dashboardTab.graphs,
+    // if we have at least a tab with a graph, we initialize our filter/dateRange configurations
+    ({ dashboardConfiguration }) => {
+      return (
+        (dashboardConfiguration || []).length &&
+        dashboardConfiguration[0].graphs.length
+      );
+    },
+
     // we add chartFilterByIdentifier, setChartFilters,
     // dateRangeByIdentifier and setDateRangeByIdentifier
     withStateHandlers(
-      ({ dashboardTab }) => {
+      ({ dashboardConfiguration }) => {
         const chartFilterByIdentifier = {};
-        dashboardTab.graphs.forEach((graph) => {
-          if (graphRessources[graph.ressourceIdentifier].filtersComponent) {
-            chartFilterByIdentifier[graph.name] = graph.dataFilters;
-          }
+
+        dashboardConfiguration.forEach((tab) => {
+          tab.graphs.forEach((graph) => {
+            if (graphRessources[graph.ressourceIdentifier].filtersComponent) {
+              chartFilterByIdentifier[graph.name] = graph.dataFilters;
+            }
+          });
         });
+
         const dateRangeByIdentifier = {};
-        dashboardTab.graphs.forEach((graph) => {
-          if (
-            graphRessources[graph.ressourceIdentifier].timeSettings !== 'none'
-          ) {
-            dateRangeByIdentifier[graph.name] = {
-              start: graph.dateRange.start,
-              end: graph.dateRange.end,
-              kind: graph.dateRange.kind,
-            };
-          }
+
+        dashboardConfiguration.forEach((tab) => {
+          tab.graphs.forEach((graph) => {
+            if (
+              graphRessources[graph.ressourceIdentifier].timeSettings !== 'none'
+            ) {
+              dateRangeByIdentifier[graph.name] = {
+                start: graph.dateRange.start,
+                end: graph.dateRange.end,
+                kind: graph.dateRange.kind,
+              };
+            }
+          });
         });
+
         return { dateRangeByIdentifier, chartFilterByIdentifier };
       },
       {
@@ -341,21 +541,29 @@ export default compose(
     ),
   ),
   // get chartProps (used to display graphs) from dashboardTab
-  withProps(({ t, theme, dashboardTab }) => ({
+  withProps(({ t, theme, dashboardConfiguration }) => ({
     chartProps: getChartPropsData(
       t,
       theme,
-      (dashboardTab && dashboardTab.graphs) || [],
+      dashboardConfiguration.reduce(
+        (graphList, tab) => [...graphList, ...tab.graphs],
+        [],
+      ),
     ),
   })),
   branch(
-    // if we have a dashboardTab we get graph data from store, and actions ready to be dispatched
-    ({ dashboardTab }) => !!dashboardTab && dashboardTab.graphs,
+    // if we have at least a tab with a graph, we get graph data from store, and actions ready to be dispatched
+    ({ dashboardConfiguration }) =>
+      (dashboardConfiguration || []).length &&
+      dashboardConfiguration[0].graphs.length,
     connect(
       (state, props) => ({
         graphDataByIdentifier: getGraphData(
           state,
-          props.dashboardTab.graphs,
+          props.dashboardConfiguration.reduce(
+            (graphList, tab) => [...graphList, ...tab.graphs],
+            [],
+          ),
           props.dateRangeByIdentifier,
           graphRessources,
         ),
@@ -363,7 +571,10 @@ export default compose(
       (dispatch, props) => ({
         graphActionByIdentifier: getGraphActions(
           dispatch,
-          props.dashboardTab.graphs,
+          props.dashboardConfiguration.reduce(
+            (graphList, tab) => [...graphList, ...tab.graphs],
+            [],
+          ),
           graphRessources,
         ),
       }),
@@ -407,9 +618,9 @@ export default compose(
         }
       },
     resetSettings:
-      ({ updateDashboardSettings }) =>
+      ({ updateDashboardSettings, setCurrentTabIndex }) =>
       () => {
-        updateDashboardSettings([]);
+        updateDashboardSettings([], { onSuccess: () => setCurrentTabIndex(0) });
       },
     onSaveGraphByIdentifier:
       ({
@@ -417,25 +628,34 @@ export default compose(
         dashboardConfiguration,
         chartFilterByIdentifier,
         dateRangeByIdentifier,
+        currentTabIndex,
       }) =>
       (graphIdentifier: string) =>
         updateDashboardSettings(
-          dashboardConfiguration.map((tab) => ({
-            ...tab,
-            graphs: tab.graphs.map((currentGraph) => {
-              if (graphIdentifier === currentGraph.name) {
-                return {
-                  ...currentGraph,
-                  dataFilters: chartFilterByIdentifier[graphIdentifier] || {},
-                  dateRange: {
-                    ...(currentGraph.dateRange || {}),
-                    ...(dateRangeByIdentifier[graphIdentifier] || {}),
-                  },
-                };
-              }
-              return currentGraph;
-            }),
-          })),
+          dashboardConfiguration.map((tab, i) => {
+            if (i === currentTabIndex) {
+              return {
+                ...tab,
+                graphs: tab.graphs.map((currentGraph) => {
+                  if (graphIdentifier === currentGraph.name) {
+                    return {
+                      ...currentGraph,
+                      dataFilters: {
+                        ...(currentGraph.dataFilters || {}),
+                        ...(chartFilterByIdentifier[graphIdentifier] || {}),
+                      },
+                      dateRange: {
+                        ...(currentGraph.dateRange || {}),
+                        ...(dateRangeByIdentifier[graphIdentifier] || {}),
+                      },
+                    };
+                  }
+                  return currentGraph;
+                }),
+              };
+            }
+            return tab;
+          }),
         ),
     addGraph:
       ({
@@ -443,10 +663,11 @@ export default compose(
         setChartFilters,
         updateDashboardSettings,
         dashboardConfiguration,
+        currentTabIndex,
       }) =>
-      (tab_label, graph) => {
-        const all_settings = dashboardConfiguration.map((t) => {
-          if (t.tab_label === tab_label) {
+      (graph) => {
+        const all_settings = dashboardConfiguration.map((t, i) => {
+          if (i === currentTabIndex) {
             const graphs = [...t.graphs, graph];
             return { ...t, graphs };
           }
@@ -468,14 +689,73 @@ export default compose(
         updateDashboardSettings(all_settings);
       },
     onDeleteGraphByIdentifier:
-      ({ updateDashboardSettings, dashboardConfiguration }) =>
+      ({ updateDashboardSettings, dashboardConfiguration, currentTabIndex }) =>
       (graphIdentifier: string) =>
         updateDashboardSettings(
-          dashboardConfiguration.map((tab) => ({
-            ...tab,
-            graphs: tab.graphs.filter((gr) => gr.name !== graphIdentifier),
-          })),
+          dashboardConfiguration.map((tab, i) => {
+            if (i === currentTabIndex) {
+              return {
+                ...tab,
+                graphs: tab.graphs.filter((gr) => gr.name !== graphIdentifier),
+              };
+            }
+            return tab;
+          }),
         ),
+    addNewTab:
+      ({
+        updateDashboardSettings,
+        dashboardConfiguration,
+        setTabNameDialogOpen,
+      }) =>
+      (tabName) => {
+        const newConf = [
+          ...dashboardConfiguration,
+          { tab_label: tabName, graphs: [] },
+        ];
+        updateDashboardSettings(newConf, {
+          onSuccess: () => {
+            setTabNameDialogOpen(false);
+          },
+        });
+      },
+    renameTab:
+      ({
+        updateDashboardSettings,
+        dashboardConfiguration,
+        setTabNameDialogOpen,
+        setTabIndexToRename,
+        setTabNameToRename,
+      }) =>
+      (newTabName, tabIndexToRename) => {
+        updateDashboardSettings(
+          dashboardConfiguration.map((tab, i) => {
+            if (i === tabIndexToRename) {
+              return { ...tab, tab_label: newTabName };
+            }
+            return tab;
+          }),
+          {
+            onSuccess: () => {
+              setTabNameToRename('');
+              setTabIndexToRename(null);
+              setTabNameDialogOpen(false);
+            },
+          },
+        );
+      },
+    deleteTab:
+      ({
+        updateDashboardSettings,
+        dashboardConfiguration,
+        setCurrentTabIndex,
+      }) =>
+      (tabIndexToDelete) => {
+        updateDashboardSettings(
+          dashboardConfiguration.filter((tab, i) => i !== tabIndexToDelete),
+          { onSuccess: () => setCurrentTabIndex(0) },
+        );
+      },
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:dashboard.dashboard')),
 )(Dashboard);

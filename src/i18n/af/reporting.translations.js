@@ -273,6 +273,8 @@ exports.default = {
     is_recurring: 'Récurrent',
     category: 'Catégorie',
     supplier: 'Fournisseur',
+    paid: 'Encaissé',
+    amount_due: 'Montant dû',
   },
   yes: 'Oui',
   no: 'Non',

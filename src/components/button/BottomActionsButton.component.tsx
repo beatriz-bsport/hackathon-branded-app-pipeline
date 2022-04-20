@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import ShareIcon from '@material-ui/icons/Share';
+import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
 import Fab from '@material-ui/core/Fab';
 import { Theme } from '@material-ui/core';
 import { compose } from 'recompose';
@@ -21,6 +22,8 @@ type OwnProps = {
   onDelete?: () => void;
   onCreate?: () => void;
   onCreateLabel?: string;
+  onReset?: () => void;
+  resetLabel?: string;
 };
 
 type Props = OwnProps &
@@ -73,6 +76,19 @@ export const BottomActionButtons: React.FC<Props> = (props: Props) => (
           <div className={props.classes.rightText}>
             {props.t('common.share')}
           </div>
+        </Hidden>
+      </Fab>
+    ) : null}
+    {props.onReset && props.resetLabel ? (
+      <Fab
+        variant="extended"
+        color="secondary"
+        className={props.classes.actionButton}
+        onClick={props.onReset}
+      >
+        <SettingsBackupRestoreIcon />
+        <Hidden xsDown>
+          <div className={props.classes.rightText}>{props.resetLabel}</div>
         </Hidden>
       </Fab>
     ) : null}

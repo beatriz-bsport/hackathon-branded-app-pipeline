@@ -27,6 +27,12 @@ export async function fetchBookingStatistics(params) {
   return getJSONAuth(`${API_URI}/statistics/booking/${buildUrlParams(params)}`);
 }
 
+export async function fetchPrivateBookingStatistics(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/private_booking/${buildUrlParams(params)}`,
+  );
+}
+
 export async function fetchBookingTimeslotStatistics(params) {
   return getJSONAuth(
     `${API_URI}/statistics/booking-timeslot/${buildUrlParams(params)}`,
@@ -66,4 +72,5 @@ export default {
   fetchSmartListStatsAPI,
   bookingStatistics,
   fetchBookingStatistics,
+  fetchPrivateBookingStatistics,
 };

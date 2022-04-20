@@ -917,10 +917,12 @@
     "save": "Sauvegarder",
     "resetModal": {
       "title": "Réinitialiser les paramètres",
-      "content": "Les paramètres des différents graphes reviendront à leur valeur par défaut, voulez-vous continuer ?",
+      "content": "Les paramètres des différents onglets reviendront à leur valeur par défaut, voulez-vous continuer ?",
       "cancel": "Annuler",
       "confirm": "Continuer"
     },
+    "tabNameDialog": { "titleAdd": "Ajouter un nouvel onglet", "titleRename": "Renommer l'onglet", "placeholder": "Nom" },
+    "noGraphToDisplay": "Aucun graphe configuré dans cet onglet. Ajoutez-en un ici.",
     "current_day": "Dernières 24 heures",
     "current_week": "Dernière semaine",
     "current_month": "Mois dernier",
@@ -951,6 +953,11 @@
       "popover": "Le nombre total de réservations enregistrées pour cette date. Vous pouvez filtrer les annulations / late-cancel / ..."
     },
     "bookingsWeektimeSlot": { "title": "Effectif moyen", "popover": "Effectif moyen des séances par créneau horaire" },
+    "privateBooking": {
+      "title": "Rendez-vous",
+      "caption": "RDV enregistrés",
+      "popover": "Le nombre total de RDV enregistrés pour cette date. Vous pouvez filtrer les annulations / remboursements / ..."
+    },
     "dateFilter": { "customSelect": "Sélectionner une plage de dates", "quickSelect": "Choix rapide" },
     "noData": "Aucune donnée à afficher",
     "bookingSource": { "title": "Origine des réservations" },
@@ -991,7 +998,8 @@
           "member": "Nouveaux membres",
           "booking": "Réservations",
           "payment": "Paiements",
-          "invoice": "Achats"
+          "invoice": "Achats",
+          "privateBooking": "RDV"
         },
         "name": "Titre du graphe",
         "aggregate": "Cumuler",
@@ -1000,6 +1008,7 @@
           "temporalMember": "Évolution dans le temps",
           "temporalTimeslotBooking": "Fréquences journalières et horaires",
           "temporalBooking": "Évolution dans le temps",
+          "temporalPrivateBooking": "Évolution dans le temps",
           "qualitativeBooking": "Répartition",
           "temporalPayment": "Évolution dans le temps",
           "temporalPlannedInvoice": "Évolution dans le temps",
@@ -5393,7 +5402,9 @@
       "due_date": "Date d'échéance",
       "is_recurring": "Récurrent",
       "category": "Catégorie",
-      "supplier": "Fournisseur"
+      "supplier": "Fournisseur",
+      "paid": "Encaissé",
+      "amount_due": "Montant dû"
     },
     "yes": "Oui",
     "no": "Non",

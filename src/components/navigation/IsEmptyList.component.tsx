@@ -15,6 +15,7 @@ type Props = {
   onCreateLabel: string;
   filledIcon?: boolean;
   hideEmptyText?: boolean;
+  hideBottomActions?: boolean;
 };
 export const IsEmptyList = (props: Props) => {
   const classes = useStyles(props);
@@ -45,10 +46,12 @@ export const IsEmptyList = (props: Props) => {
           </div>
         </div>
       )}
-      <BottomActionsButton
-        onCreate={props.onCreate}
-        onCreateLabel={props.onCreateLabel}
-      />
+      {!props.hideBottomActions && (
+        <BottomActionsButton
+          onCreate={props.onCreate}
+          onCreateLabel={props.onCreateLabel}
+        />
+      )}
     </>
   );
 };

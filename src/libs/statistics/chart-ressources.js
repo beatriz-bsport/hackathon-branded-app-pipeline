@@ -5,6 +5,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import People from '@material-ui/icons/People';
 import Payment from '@material-ui/icons/Payment';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import TodayIcon from '@material-ui/icons/Today';
 import MultilineChartIcon from '@material-ui/icons/MultilineChart';
 import InsertChartIcon from '@material-ui/icons/InsertChart';
 import type { TFunction } from 'react-i18next';
@@ -17,6 +18,7 @@ import {
   fetchBookingQualitative as fetchBookingQualitativeAction,
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAction,
   fetchBookingTemporal as fetchBookingTemporalAction,
+  fetchPrivateBookingTemporal as fetchPrivateBookingTemporalAction,
 } from './actions';
 
 import { getStatisticTemporal, getStatisticTemporalGrid } from './selectors';
@@ -28,6 +30,7 @@ import { QualitativeBarChart } from '../../components/graph/QualitativeBarChart.
 import { PieChartV2 } from '../../components/graph/PieChartV2.component';
 
 import BookingFilters from '../booking/components/BookingFilters.component';
+import PrivateBookingFilters from '../booking/components/PrivateBookingFilters.component';
 import type { Theme } from '../theme/types';
 import type { Graph } from './types';
 
@@ -189,6 +192,30 @@ export const graphRessources = {
 
     defaultRangeKind: 'current_year',
   },
+  temporalPrivateBooking: {
+    action: fetchPrivateBookingTemporalAction,
+    selector: getStatisticTemporal,
+    object: { type: 'privateBooking', icon: TodayIcon },
+    chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
+    iconResource: MultilineChartIcon,
+    filtersComponent: PrivateBookingFilters,
+    timeSettings: 'range',
+    dateFiltersName: {
+      start: 'date_start__gte',
+      end: 'date_start__lte',
+    },
+    choices: {
+      date_field: ['date_start'],
+      aggregate_function: ['count'],
+      aggregate_field: {
+        count: ['pk'],
+      },
+      aggregate_period: ['day'],
+    },
+    allowAggregate: true,
+
+    defaultRangeKind: 'current_year',
+  },
 };
 /* TimeSettings: 'range', 'fixed' or 'none'
 range => start date / end date to fetch data, both can be changed by user
@@ -281,8 +308,8 @@ export const getChartPropsData = (
 
       case 'temporalBooking':
         currentProps = {
-          title: t('dashboard:bookings.title'),
-          popoverText: t('dashboard:bookings.popover'),
+          title: t('dashboard:booking.title'),
+          popoverText: t('dashboard:booking.popover'),
           height: 420,
           yLabel: t('dashboard:booking.caption'),
           tooltip: true,
@@ -290,6 +317,24 @@ export const getChartPropsData = (
             {
               dataKey: 'v',
               caption: t('dashboard:booking.caption'),
+              stroke: colorScale(index / graph_nb).hex(),
+              fill: colorScale(index / graph_nb).hex(),
+            },
+          ],
+        };
+        break;
+
+      case 'temporalPrivateBooking':
+        currentProps = {
+          title: t('dashboard:privateBooking.title'),
+          popoverText: t('dashboard:privateBooking.popover'),
+          height: 420,
+          yLabel: t('dashboard:privateBooking.caption'),
+          tooltip: true,
+          chartOptions: [
+            {
+              dataKey: 'v',
+              caption: t('dashboard:privateBooking.caption'),
               stroke: colorScale(index / graph_nb).hex(),
               fill: colorScale(index / graph_nb).hex(),
             },

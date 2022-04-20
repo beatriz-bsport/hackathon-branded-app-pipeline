@@ -281,6 +281,7 @@ export class CustomChartForm extends React.Component<Props, State> {
               {t('customChart.form.cancel')}
             </Button>
             <Button
+              color="primary"
               disabled={
                 !this.state.titleChart ||
                 !this.state.ressourceIdentifierSelected ||

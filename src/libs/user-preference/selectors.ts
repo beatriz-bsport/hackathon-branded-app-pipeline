@@ -28,3 +28,5 @@ export const getPrivateServiceScheduleFilter = (
 
 export const getUserPreferencesCalendarFilter = (state: RootState): any =>
   state.userPreference.calendarFilter;
+export const getMemberPrivateBookingFilter = (state: RootState) =>
+  state.userPreference.memberPrivateBookingFilter || {};

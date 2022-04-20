@@ -28,6 +28,7 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
   coachesScheduleFilter: {},
   establishmentsScheduleFilter: {},
   privateServicesScheduleFilter: {},
+  memberPrivateBookingFilter: {},
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -114,6 +115,12 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
         ['privateServicesScheduleFilter', payload.privateService],
         payload.scheduleFilter,
       );
+    },
+    [userPreferenceActions.setMemberPrivateBookingFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['memberPrivateBookingFilter'], payload);
     },
   },
   initialState,

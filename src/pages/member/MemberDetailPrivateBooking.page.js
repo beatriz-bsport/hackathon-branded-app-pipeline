@@ -2,6 +2,16 @@
 
 import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
+import omit from 'lodash/omit';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import {
+  compose,
+  withState,
+  withHandlers,
+  withProps,
+  withStateHandlers,
+} from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -9,18 +19,11 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import {
-  compose,
-  withState,
-  withStateHandlers,
-  withHandlers,
-  withProps,
-} from 'recompose';
+
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
+import PrivateBookingFilters from '#libs/booking/components/PrivateBookingFilters.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -68,7 +71,11 @@ import type {
   RecurrenceRulePrivateBooking,
 } from '../../libs/private-service/types';
 import RecurrenceRulePrivateBooker from '../../libs/private-service/containers/RecurrenceRulePrivateBooker.container';
+import { getMemberPrivateBookingFilter } from '#libs/user-preference/selectors';
+import { setMemberPrivateBookingFilter as setMemberPrivateBookingFilterAction } from '#libs/user-preference/actions';
 import type { OptionCallBack } from '../../state/types';
+
+const PAGE_SIZE = 5;
 
 type Props = {
   t: TFunction,
@@ -82,7 +89,7 @@ type Props = {
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
   fetchMember: (id: number, options: OptionCallBack) => void,
   private_consumer_pass: ?PrivateConsumerPass,
-  fetchPrivateBookings: (params: any) => void,
+  fetchPrivateBookingsList: (params: any) => void,
   private_booking_list: Array<PrivateBooking>,
   private_slot: PrivateSlot,
 
@@ -134,9 +141,15 @@ type Props = {
   setSelectedRecurrentRule: (RecurrenceRulePrivateBooking) => void,
   selectedRecurrentRule: RecurrenceRulePrivateBooking,
   forceRegularizeUnpaid: (options: OptionCallBack) => void,
+
+  open: boolean,
+  setOpenValue: (name: string) => void,
+  filters: PrivateBookingFilter,
+  setFilterValue: (name: string, bool: Boolean) => void,
+  setMemberPrivateBookingFilter: (filter: PrivateBookingFilter) => void,
 };
 
-export class MemberDetailBooking extends Component<Props> {
+export class MemberDetailPrivateBooking extends Component<Props> {
   componentWillMount() {
     this.props.resetPrivateBookingList();
   }
@@ -159,13 +172,17 @@ export class MemberDetailBooking extends Component<Props> {
       this.props.fetchMember(this.props.id, {
         onSuccess: () => {
           this.props.fetchPrivateBookingDetails();
-          this.props.fetchPrivateBookings({
-            member: this.props.id,
+          this.props.fetchPrivateBookingsList({
             page: this.props.privateBookingCurrentPage,
-            page_size: 5,
+            page_size: PAGE_SIZE,
           });
         },
       });
+    }
+
+    if (prevProps.filters !== this.props.filters) {
+      this.props.fetchPrivateBookingsList({ page: 1, page_size: 5 });
+      this.props.setMemberPrivateBookingFilter(this.props.filters);
     }
   }
 
@@ -180,9 +197,14 @@ export class MemberDetailBooking extends Component<Props> {
         <Grid container item xs={12} lg={6} direction="column" spacing={3}>
           <Grid item>
             <Paper>
-              <Typography variant="caption" style={{ padding: 10 }}>
-                {t('privateBooking.bookings')}
-              </Typography>
+              <PrivateBookingFilters
+                setOpenValue={this.props.setOpenValue}
+                setFiltersValue={this.props.setFilterValue}
+                open={this.props.open}
+                filters={
+                  !this.props.privateBookingsLoading && this.props.filters
+                }
+              />
               <Divider />
               <PaginatedListBase
                 itemPerPage={5}
@@ -192,8 +214,7 @@ export class MemberDetailBooking extends Component<Props> {
                 page={this.props.privateBookingCurrentPage || 0}
                 nbItems={this.props.bookingCount}
                 onPageRequested={(page, page_size) =>
-                  this.props.fetchPrivateBookings({
-                    member: this.props.id,
+                  this.props.fetchPrivateBookingsList({
                     page,
                     page_size,
                   })
@@ -215,9 +236,11 @@ export class MemberDetailBooking extends Component<Props> {
             </Paper>
             {!!this.props.recurrenceRulePrivateBooking.length && (
               <Paper className={classes.recurrenceRuleContainer}>
-                <Typography variant="caption" style={{ padding: 10 }}>
-                  {t('recurrenceRule.recurrentBookings')}
-                </Typography>
+                <div className={classes.tabTitle}>
+                  <Typography variant="caption">
+                    {t('recurrenceRule.recurrentBookings')}
+                  </Typography>
+                </div>
                 <Divider />
                 <PaginatedListStateful
                   itemPerPage={5}
@@ -319,10 +342,9 @@ export class MemberDetailBooking extends Component<Props> {
             memberId={this.props.id}
             initial={this.props.selectedRecurrentRule}
             onChange={() => {
-              this.props.fetchPrivateBookings({
-                member: this.props.id,
+              this.props.fetchPrivateBookingsList({
                 page: 1,
-                page_size: 5,
+                page_size: PAGE_SIZE,
               });
               this.props.fetchRecurrenceRulePrivateBooking();
             }}
@@ -344,6 +366,12 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  tabTitle: {
+    height: 48,
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(2),
   },
 });
 
@@ -370,6 +398,7 @@ export default compose(
       recurrenceRulePrivateBooking: getRecurrenceRulePrivateBookingList(state),
       recurrentPrivateBookingLoading:
         state.privateService.recurrenceRule.loading,
+      userFilters: getMemberPrivateBookingFilter(state),
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingListAction,
@@ -391,6 +420,7 @@ export default compose(
       fetchMember: fetchMemberAction,
       attachCoach: attachCoachAction,
       restorePrivateBooking,
+      setMemberPrivateBookingFilter: setMemberPrivateBookingFilterAction,
       goToPrivateService: (privateServiceId) =>
         push(`/private-service/service/${privateServiceId}/`),
       goToPrivateBooking: (memberId, privateBookingId) =>
@@ -425,20 +455,6 @@ export default compose(
       () =>
         goToPrivateService(private_booking.private_service.id),
   }),
-  withHandlers({
-    fetchPrivateBookings:
-      ({ fetchPrivateBookings, fetchPrivateConsumerPassBulk }) =>
-      (params, options) =>
-        fetchPrivateBookings(params, {
-          onSuccess: (pbs) => {
-            if (options && options.onSuccess) options.onSuccess(pbs);
-            fetchPrivateConsumerPassBulk(
-              pbs.map((pb) => pb.private_consumer_pass),
-            );
-          },
-          onError: options && options.onError,
-        }),
-  }),
   withState('bookingToDelete', 'setBookingToDelete', null),
   withStateHandlers(
     { isOpenAttachCoach: null },
@@ -451,6 +467,34 @@ export default compose(
       closeAttachCoach: () => () => ({ isOpenAttachCoach: null }),
     },
   ),
+  withState('filters', 'setFilters', (props) => {
+    const { userFilters = {} } = props;
+
+    return userFilters;
+  }),
+  withState('open', 'setOpen', {}),
+  withHandlers({
+    setOpenValue:
+      ({ setOpen, open }) =>
+      (name: string) => {
+        setOpen({
+          ...open,
+          [name]: !open[name],
+        });
+      },
+    setFilterValue:
+      ({ setFilters, filters }) =>
+      (name: string, value) => {
+        if (value === null) {
+          setFilters(omit(filters, name));
+        } else {
+          setFilters({
+            ...filters,
+            [name]: value,
+          });
+        }
+      },
+  }),
   withHandlers({
     attachCoach:
       ({ attachCoach, closeAttachCoach, privateBookingId }) =>
@@ -492,6 +536,7 @@ export default compose(
         fetchPrivateBookings,
         privateBookingCurrentPage,
         id,
+        filters,
       }) =>
       (options) => {
         forceRegularizeUnpaid(id, null, {
@@ -499,9 +544,10 @@ export default compose(
           onSuccess: () => {
             fetchPrivateBookings(
               {
+                ...filters,
                 member: id,
                 page: privateBookingCurrentPage,
-                page_size: 5,
+                page_size: PAGE_SIZE,
               },
               {
                 onSuccess: options?.onSuccess,
@@ -547,15 +593,26 @@ export default compose(
         fetchRecurrenceRulePrivateBooking,
         fetchPrivateBookings,
         fetchMember,
+        filters,
       }) =>
       (recurrentBooking, memberId) => {
         deleteRecurrenceRulePrivateBooking(recurrentBooking.id, {
           onSuccess: () => {
             fetchMember(memberId);
             fetchRecurrenceRulePrivateBooking({ member: memberId });
-            fetchPrivateBookings({ member: memberId, page: 1, page_size: 5 });
+            fetchPrivateBookings({
+              ...filters,
+              member: memberId,
+              page: 1,
+              page_size: PAGE_SIZE,
+            });
           },
         });
       },
+    fetchPrivateBookingsList:
+      ({ id, filters, fetchPrivateBookings }) =>
+      ({ page, page_size }) => {
+        fetchPrivateBookings({ ...filters, member: id, page, page_size });
+      },
   }),
-)(MemberDetailBooking);
+)(MemberDetailPrivateBooking);

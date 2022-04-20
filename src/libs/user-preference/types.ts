@@ -11,6 +11,15 @@ export type ScheduleFilter = {
   hideCancelledEvents: boolean;
 };
 
+export type PrivateBookingFilter = {
+  is_recurrent?: boolean;
+  future_booking?: boolean;
+  past_booking?: boolean;
+  was_refunded?: boolean;
+  is_unpaid?: boolean;
+  booking_status_code__in?: number[];
+};
+
 export type UserPreference = {
   paymentPackSort: SortOption;
   paymentPackCategoryFilter: Array<number>;
@@ -24,4 +33,5 @@ export type UserPreference = {
   coachesScheduleFilter: { [key: string]: ScheduleFilter };
   establishmentsScheduleFilter: { [key: string]: ScheduleFilter };
   privateServicesScheduleFilter: { [key: string]: ScheduleFilter };
+  memberPrivateBookingFilter: PrivateBookingFilter;
 };

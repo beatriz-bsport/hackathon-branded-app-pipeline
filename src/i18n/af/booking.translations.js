@@ -123,6 +123,9 @@ exports.default = {
     recurrentBooking: 'Réservation récurrente',
     withRecurrentBookings: 'Réservations récurrentes',
     withoutRecurrentBookings: 'Réservations non récurrentes',
+    paid: 'Paiement',
+    isPaid: 'Réservations payées',
+    isUnpaid: 'Réservations impayées',
   },
   bookingModule: {
     hasRegistered: 'Vous êtes inscrit à cette séance',

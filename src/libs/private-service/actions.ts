@@ -120,6 +120,7 @@ import {
   PrivateSlot,
   PrivatePass,
 } from './types';
+import { PrivateBookingFilter } from '#libs/user-preference/types';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -1837,7 +1838,16 @@ export const privateBookingListActions = {
 export const resetPrivateBookings = privateBookingListActions.reset;
 
 export function fetchPrivateBookings(
-  params: any,
+  params: PrivateBookingFilter & {
+    member?: number;
+    page: number;
+    page_size?: number;
+    date_start__gte?: string;
+    date_start__lte?: string;
+    establishment?: number;
+    private_consumer_pass?: number;
+    private_service?: number;
+  },
   options?: OptionCallback<Array<PrivateBooking>>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

@@ -14,6 +14,7 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
+import Config from '../../../config';
 
 import { OptionCallback } from '../../../state/types';
 import type { CompanyTheme } from '../types';
@@ -80,7 +81,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             label={t('forms.themePersonalization.acceptDoubleBooking')}
           />
           <SwitchField
-            disabled
+            disabled={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
             name="allow_guest"
             label={t('forms.acceptGuest')}
           />

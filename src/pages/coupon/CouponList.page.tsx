@@ -40,10 +40,12 @@ import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component
 import { fetchAllPaymentPacks } from '#libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchAllShop } from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { fetchTags } from '#libs/tag/actions';
 import { getEnabled as getPaymentPacks } from '#libs/payment-packs/selectors';
 import { getShopItemsAvailable as getShopItems } from '#libs/shop/selectors';
 import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
+import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
@@ -80,6 +82,7 @@ export class CouponList extends React.PureComponent<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllShop();
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
     this.props.fetchTags();
   }
 
@@ -228,6 +231,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           paymentPacks={this.props.paymentPacks}
           shopItems={this.props.shopItems}
           privatePasses={this.props.privatePasses}
+          paymentCombos={this.props.paymentCombos}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
@@ -287,6 +291,7 @@ const connector = connect(
     tagsLoading: state.tag.tag.loading || state.tag.group.loading,
     paymentPacks: getPaymentPacks(state),
     shopItems: getShopItems(state),
+    paymentCombos: getPaymentComboList(state),
     privatePasses: getPrivatePass(state),
     tagList: getallTagsWithTagGroup(state),
   }),
@@ -297,6 +302,7 @@ const connector = connect(
     fetchAllPaymentPacks,
     fetchAllShop,
     fetchPrivatePassList,
+    fetchPaymentComboList,
     fetchTags,
     createCouponAction: createCoupon,
     updateCouponAction: updateCoupon,

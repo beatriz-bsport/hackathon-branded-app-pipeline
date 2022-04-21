@@ -5,6 +5,7 @@ const {
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
 } = BUYABLE_ITEM;
 
 const {
@@ -61,6 +62,8 @@ exports.default = {
         "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
       shopitem:
         "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
+      paymentCombo:
+        "Sélectionner des packs (valable sur tous les produits si aucun n'est sélectionné)",
     },
     section: {
       subscription: 'Souscription (contrat)',
@@ -134,6 +137,7 @@ exports.default = {
         [BUYABLE_ITEM_FEE]: 'Frais de livraison',
         all: 'Ensemble du panier',
         [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte RDV',
+        [BUYABLE_ITEM_COMBO_ITEM]: 'Pack',
         [null]: 'Ensemble du panier',
       },
     },

@@ -34,6 +34,7 @@ import {
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
 import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
@@ -46,6 +47,8 @@ import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+import PaymentComboSelector from '#libs/payment-combo/components/PaymentComboSelector.component';
+import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -56,6 +59,7 @@ import type { Coupon } from '../types';
 import { PaymentPack } from '../../payment-packs/types';
 import { ShopItem } from '../../shop/types';
 import { PrivatePass } from '../../private-service/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type { OptionCallback } from '../../../state/types';
 import {
@@ -78,6 +82,7 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   privatePasses: Array<PrivatePass>,
+  paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
 } & WithSegmentAnalyticsFormTrackerHandlers;
@@ -387,7 +392,14 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   renderApply = () => {
-    const { paymentPacks, privatePasses, shopItems, t, classes } = this.props;
+    const {
+      paymentPacks,
+      privatePasses,
+      shopItems,
+      paymentCombos,
+      t,
+      classes,
+    } = this.props;
     return (
       <div className={classes.fullWidth}>
         <RadioGroup
@@ -401,6 +413,7 @@ export class CouponForm extends React.Component<Props, State> {
                 BUYABLE_ITEM_SHOP_ITEM,
                 BUYABLE_ITEM_FEE,
                 BUYABLE_ITEM_PRIVATE_PASS,
+                BUYABLE_ITEM_COMBO_ITEM,
                 ALL_BUYABLES,
               ].includes(parseInt(ev.target.value, 10))
             ) {
@@ -538,6 +551,57 @@ export class CouponForm extends React.Component<Props, State> {
                     key={`${id}-${i}`}
                     dense
                     pass={privatePasses.find((pp) => pp.id === id)}
+                    onDelete={() => {
+                      const newObjects = this.state.only_on_objects.filter(
+                        (ido) => ido !== id,
+                      );
+                      this.handleChange('only_on_objects')(newObjects);
+                    }}
+                  />
+                ))
+              : null}
+          </div>
+          <FormControlLabel
+            value={BUYABLE_ITEM_COMBO_ITEM}
+            control={
+              <Radio
+                checked={BUYABLE_ITEM_COMBO_ITEM === this.state.applies_to}
+              />
+            }
+            label={t(`form.applies_to.choices.${BUYABLE_ITEM_COMBO_ITEM}`)}
+          />
+          <div className={classes.fullWidth}>
+            <PaymentComboSelector
+              paymentComboList={paymentCombos
+                .filter((combo) => !combo.manager_only)
+                .filter(
+                  (combo) => !this.state.only_on_objects.includes(combo.id),
+                )}
+              helperText={t('form.selectorPlaceholder.paymentCombo')}
+              nullCurrentValue
+              onChange={(id) => {
+                let newObjects = [...this.state.only_on_objects];
+
+                if (this.state.applies_to !== BUYABLE_ITEM_COMBO_ITEM) {
+                  this.handleChange(
+                    'applies_to',
+                    false,
+                  )(BUYABLE_ITEM_COMBO_ITEM);
+                  newObjects = [];
+                }
+                newObjects.push(id);
+                this.handleChange('only_on_objects')(newObjects);
+              }}
+            />
+            {this.state.applies_to === BUYABLE_ITEM_COMBO_ITEM &&
+            paymentCombos.length
+              ? this.state.only_on_objects.map((id, i) => (
+                  <PaymentComboListItem
+                    key={`${id}-${i}`}
+                    dense
+                    paymentCombo={paymentCombos.find(
+                      (combo) => combo.id === id,
+                    )}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,

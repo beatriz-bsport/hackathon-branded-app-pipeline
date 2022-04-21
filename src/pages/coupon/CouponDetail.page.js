@@ -30,14 +30,17 @@ import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component
 import { fetchAllPaymentPacks } from '#libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchAllShop } from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { fetchTags } from '#libs/tag/actions';
 import { getEnabled as getPaymentPacks } from '#libs/payment-packs/selectors';
 import { getShopItemsAvailable as getShopItems } from '#libs/shop/selectors';
 import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
+import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
+import type { PaymentCombo } from '#libs/payment_combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type { OptionCallback } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
@@ -60,10 +63,12 @@ type Props = {
   fetchAllPaymentPacks: () => void,
   fetchAllShop: () => void,
   fetchPrivatePassList: () => void,
+  fetchPaymentComboList: () => void,
   tagsLoading: boolean,
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   privatePasses: Array<PrivatePass>,
+  paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
   createOrUpdateLoading: boolean,
 } & WithHandlerType<typeof mapWithHandlers>;
@@ -90,6 +95,7 @@ export class CouponCreate extends Component<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllShop();
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
     this.props.fetchTags();
   }
 
@@ -171,6 +177,7 @@ export class CouponCreate extends Component<Props, State> {
           paymentPacks={this.props.paymentPacks}
           shopItems={this.props.shopItems}
           privatePasses={this.props.privatePasses}
+          paymentCombos={this.props.paymentCombos}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
@@ -205,6 +212,7 @@ const connector = connect(
     paymentPacks: getPaymentPacks(state),
     shopItems: getShopItems(state),
     privatePasses: getPrivatePass(state),
+    paymentCombos: getPaymentComboList(state),
     tagList: getallTagsWithTagGroup(state),
   }),
   {
@@ -220,6 +228,7 @@ const connector = connect(
     fetchAllPaymentPacks,
     fetchAllShop,
     fetchPrivatePassList,
+    fetchPaymentComboList,
     updateCouponAction: updateCoupon,
   },
 );

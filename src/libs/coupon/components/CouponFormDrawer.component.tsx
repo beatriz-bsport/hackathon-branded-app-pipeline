@@ -8,6 +8,7 @@ import type { Coupon } from '../types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 
 type OwnProps = {
@@ -20,6 +21,7 @@ type OwnProps = {
   paymentPacks: Array<PaymentPack>;
   shopItems: Array<ShopItem>;
   privatePasses: Array<PrivatePass>;
+  paymentCombos: Array<PaymentCombo>;
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
 };

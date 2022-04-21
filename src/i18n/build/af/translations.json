@@ -838,7 +838,8 @@
       "selectorPlaceholder": {
         "privatePass": "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
         "paymentPack": "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
-        "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)"
+        "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
+        "paymentCombo": "Sélectionner des packs (valable sur tous les produits si aucun n'est sélectionné)"
       },
       "section": {
         "subscription": "Souscription (contrat)",
@@ -878,6 +879,7 @@
           "2": "Magasin",
           "6": "Frais de livraison",
           "9": "Carte RDV",
+          "10": "Pack",
           "all": "Ensemble du panier",
           "null": "Ensemble du panier"
         }

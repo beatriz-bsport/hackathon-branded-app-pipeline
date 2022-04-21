@@ -199,7 +199,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
-    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchAllActivities();
     this.props.fetchWorkshops();
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
@@ -313,7 +313,6 @@ export class PaymentPackDetail extends Component<Props, State> {
     const paymentPackCategory = pack.category
       ? this.props.paymentPackCategoryById[pack.category]
       : {};
-
     return (
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6} className={classes.paymentPackContainer}>
@@ -516,7 +515,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               ) ?? [],
             metaActivities:
               this.state.paymentPackToEdit?.metaActivities?.map(
-                (metaActivitie) => metaActivitie.id,
+                (metaActivitie) => metaActivitie?.id,
               ) ?? [],
             blacklist_tags:
               this.state.paymentPackToEdit?.blacklist_tags?.map(

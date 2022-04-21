@@ -4378,7 +4378,7 @@
                 "acceptDoubleBooking": "Accept double bookings (only for group activities)",
                 "workshopsCustomer": "Show workshops on the calendar of your members",
                 "cancelledOffersCustomer": "Show cancelled sessions on the calendar of your members",
-                "calendarPersonalizationTitle": "Calendar configuration",
+                "calendarPersonalizationTitle": "Calendar",
                 "basket_expiration_days": {
                     "alert": "Add the amount of days before abandoned baskets gets emptied.",
                     "placeholder": "Days",
@@ -4415,7 +4415,7 @@
                     "begin": "Start time",
                     "title": "Schedule configuration"
                 },
-                "coach_can_edit_attendance": "Teachers can modify the present/absent status in the mobile app.",
+                "coach_can_edit_attendance": "Allow teachers to modify members' present/absent status in the mobile app",
                 "internalAccountWarning1": "We highly recommend to create a report for members' internal account balances before enabling this feature.",
                 "internalAccountWarningTitle": "Take member's current internal account balances into consideration.",
                 "allowConsumerToUseInternalAccount": "Allow members to use their internal account credit to complete payments for their basket and/or outstanding invoices",
@@ -6823,7 +6823,7 @@
                 "actions": {
                     "cancel": "Cancel"
                 },
-                "explainCustomSubscriptionForm": "Add a personalized subscription"
+                "explainCustomSubscriptionForm": "Add a custom subscription"
             },
             "description": "Description",
             "legal": "Legal notice",
@@ -6845,9 +6845,9 @@
                 "titleInactive": "Archived subscriptions"
             },
             "form": {
-                "title": "Contract form",
+                "title": "[Form] Subscription",
                 "name": {
-                    "label": "Contract name"
+                    "label": "Name"
                 },
                 "nb_interval": {
                     "label": "Number of bills",
@@ -6876,9 +6876,9 @@
                 },
                 "object_type": {
                     "paymentPack": "Passes",
-                    "privatePass": "Appointment pass",
-                    "label": "Subscription type",
-                    "paymentCombo": "Pack"
+                    "privatePass": "Appointment passes",
+                    "label": "Content",
+                    "paymentCombo": "Packs"
                 },
                 "error": {
                     "missingObject": "This field is required"

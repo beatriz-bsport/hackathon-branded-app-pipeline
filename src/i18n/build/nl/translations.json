@@ -740,7 +740,7 @@
             "offersMatching": " sessie(s)",
             "after": "Na ",
             "message": "Bericht",
-            "estimatedTarget": "Aandeel betrokken gebruikers t.o.v. je ledenbestand",
+            "estimatedTarget": "Aandeel betrokken leden t.o.v. je totale ledenbestand",
             "strategy": "Campagne: ",
             "criterias": "Criteria",
             "clientsReached": "Gecontacteerde leden",
@@ -817,7 +817,7 @@
             "recurrence": "Frequentie",
             "offerWillBeGenerated": "sessies worden toegevoegd.",
             "offersWillBeGenerated": "sessies worden toegevoegd.",
-            "credit_price": "Dit is het aantal vereiste kredieten om een reservering te voltooien.",
+            "credit_price": "Aantal vereiste kredieten voor een reservering",
             "generateOffers": "Sessies toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
@@ -1494,7 +1494,7 @@
         "metaActivityNotificationToolTip": "Er zijn automatische meldingen ingesteld.",
         "metaActivityCategory": {
             "explain": "Deze categorieën worden alleen voor het sorteren van groepsactiviteiten aan de achterkant gebruikt om de Managerweergaven naar wens in te richten. Leden ondervinden geen impact van deze wijzigingen.",
-            "sctExplain": "Deze categorieën worden op de MarketPlace en de Mobiele App getoond en geven de verschillende soorten activiteiten weer."
+            "sctExplain": "Categorieën worden gebruikt om de verschillende activiteiten te beheren en worden ook getoond op de MarketPlace en de Mobiele App."
         }
     },
     "communication": {
@@ -1566,7 +1566,7 @@
                 "dateCreated": "Verzenddatum:",
                 "topLinks": "Meest geklikte links",
                 "recipientList": "Details van de ontvanger",
-                "noTopLink": "Niet geklikt"
+                "noTopLink": "Er is nog geen informatie om weer te geven."
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
@@ -4266,7 +4266,10 @@
             "withoutRecurrentBookings": "Eenmalige reserveringen",
             "withRecurrentBookings": "Terugkerende reserveringen",
             "recurrentBooking": "Reserveringen",
-            "notCancelled": "Geldig"
+            "notCancelled": "Geldig",
+            "isUnpaid": "Onbetaalde reserveringen",
+            "isPaid": "Betaalde reserveringen",
+            "paid": "Betalingen"
         },
         "creditConsumed": "{{credit_consumed}} krediet",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
@@ -4767,7 +4770,7 @@
                 },
                 "recurrence_basis": {
                     "helperText": " ",
-                    "label": "Dit abonnement wordt",
+                    "label": "Dit abonnement wordt ieder(e)",
                     "intervalName": {
                         "week": "week vernieuwd",
                         "week_plural": "weken vernieuwd",
@@ -8192,7 +8195,7 @@
                 "is": " is de ",
                 "shareEmail": "Altijd in e-mails cc'en",
                 "parentalLink": "Relatie",
-                "email": "Berichtgevingen",
+                "email": "Berichtgeving",
                 "access": "Accounttoegang",
                 "accountInfo": "Door de toegang tot andere accounts te activeren kunnen bepaalde leden als een gekoppelde relatie inloggen.",
                 "autorization": "Geef \"{{name_1}}\" toegang tot het account van\"{{name_2}}\"",
@@ -11012,7 +11015,7 @@
         "noExpenses": "In dit overzicht kun je alle uitgaven toevoegen en bijhouden.",
         "addButton": "Een uitgave toevoegen",
         "filters": {
-            "showFuture": "Toekomstige uitgaven",
+            "showFuture": "Toon toekomstige uitgaven",
             "filterStaff": "Alle medewerkers",
             "filterSupplier": "Alle leveranciers",
             "filterCategory": "Alle categorieën",

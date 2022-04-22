@@ -131,9 +131,15 @@ import type { Tag, TagGroup } from '#libs/tag/types';
 
 const styles = (theme) => ({
   container: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
     '&>*': {
       marginBottom: theme.spacing(2),
     },
+  },
+  innerContainer: {
+    flex: 1,
   },
   panel: {
     display: 'flex',
@@ -958,65 +964,71 @@ export class Planning extends PureComponent<Props, State> {
     return (
       <div className={classes.container}>
         {this.searchBar()}
-        <Grid container spacing={3}>
+        <Grid className={classes.innerContainer} container spacing={3}>
           {isWidthDown('md', width) && selectedOffer
             ? this.renderGoBackButton()
             : null}
           {isWidthUp('lg', width) || !selectedOffer ? (
-            <Grid item xs={12} lg={6}>
-              <div className={classes.panel}>
-                <CheckPermission requiredPermissions="navigation,calendar">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ width: '100%', margin: 8 }}
-                    onClick={this.props.pushToSchedule}
-                  >
-                    {this.props.t('openSchedule')}
-                    <ArrowForwardIcon style={{ marginLeft: 8 }} />
-                  </Button>
-                </CheckPermission>
-                <Paper style={{ width: '100%' }}>
-                  <PermissionContext.Consumer>
-                    {(permission) => (
-                      <Calendar
-                        showDownloader
-                        onRequestMassDisable={
-                          permission.offer.delete &&
-                          this.props.setMassDisablerStartDate
-                        }
-                        events={events_}
-                        onDateClick={this.loadDayData}
-                        date={this.props.date}
-                        filters={this.props.offerFilters}
-                        showCancelledOffers={
-                          this.props.offerFilters.available === undefined
-                            ? this.props.theme.show_cancelled_offers_manager
-                            : !this.props.offerFilters.available
-                        }
-                        setShowCancelledOffers={
-                          this.props.setShowCancelledOffers
-                        }
-                      />
-                    )}
-                  </PermissionContext.Consumer>
-                  <TimeTable
-                    onOfferSelected={this.selectOffer}
-                    offers={offers}
-                    loading={
-                      offerByDayLoading ||
-                      (timetableLoading && (offers || []).length === 0)
-                    }
-                    selected={selectedOffer ? selectedOffer.id : null}
-                    onModifyTags={this.onModifyTags}
-                    showTags
-                  />
-                </Paper>
-                <CheckPermission requiredPermissions="offer.create">
-                  {this.renderAddOffersButton()}
-                </CheckPermission>
-              </div>
-              {!this.props.selectedOffer ? (
+            <Grid className={classes.panel} item xs={12} lg={6}>
+              <CheckPermission requiredPermissions="navigation,calendar">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ width: '100%', margin: 8 }}
+                  onClick={this.props.pushToSchedule}
+                >
+                  {this.props.t('openSchedule')}
+                  <ArrowForwardIcon style={{ marginLeft: 8 }} />
+                </Button>
+              </CheckPermission>
+              <Paper
+                style={{
+                  width: '100%',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <PermissionContext.Consumer>
+                  {(permission) => (
+                    <Calendar
+                      showDownloader
+                      onRequestMassDisable={
+                        permission.offer.delete &&
+                        this.props.setMassDisablerStartDate
+                      }
+                      events={events_}
+                      onDateClick={this.loadDayData}
+                      date={this.props.date}
+                      filters={this.props.offerFilters}
+                      showCancelledOffers={
+                        this.props.offerFilters.available === undefined
+                          ? this.props.theme.show_cancelled_offers_manager
+                          : !this.props.offerFilters.available
+                      }
+                      setShowCancelledOffers={this.props.setShowCancelledOffers}
+                    />
+                  )}
+                </PermissionContext.Consumer>
+                <TimeTable
+                  onOfferSelected={this.selectOffer}
+                  offers={offers}
+                  loading={
+                    offerByDayLoading ||
+                    (timetableLoading && (offers || []).length === 0)
+                  }
+                  selected={selectedOffer ? selectedOffer.id : null}
+                  onModifyTags={this.onModifyTags}
+                  showTags
+                  className={classes.offerList}
+                  virtualized
+                />
+              </Paper>
+              <CheckPermission requiredPermissions="offer.create">
+                {this.renderAddOffersButton()}
+              </CheckPermission>
+              {/* Removed Bloating the ui  */}
+              {/* {!this.props.selectedOffer ? (
                 <div className={this.props.classes.noOfferMessage}>
                   {this.renderNoOfferSelected()}
                 </div>
@@ -1035,13 +1047,13 @@ export class Planning extends PureComponent<Props, State> {
                     filters={this.props.offerFilters}
                   />
                 </div>
-              )}
+              )} */}
             </Grid>
           ) : (
             <Typography />
           )}
-          <Grid item xs={12} lg={6}>
-            {selectedOffer ? (
+          {selectedOffer && (
+            <Grid item xs={12} lg={6}>
               <div>
                 <OfferCard
                   snackbarSuccess={this.props.snackbarSuccess}
@@ -1067,7 +1079,10 @@ export class Planning extends PureComponent<Props, State> {
                   onModifyTags={this.onModifyTags}
                 />
               </div>
-            ) : (
+            </Grid>
+          )}
+          {!selectedOffer && isWidthUp('lg', width) && (
+            <Grid item xs={12} lg={6}>
               <BookingStatisticsCard
                 bookingStatistics={this.props.bookingStatistics}
                 loading={
@@ -1075,8 +1090,8 @@ export class Planning extends PureComponent<Props, State> {
                   this.props.cancelledBookingStatsLoading
                 }
               />
-            )}
-          </Grid>
+            </Grid>
+          )}
           <Dialog
             open={this.props.openDeleteDialog}
             onClose={() => this.props.setOpenDeleteDialog(false)}

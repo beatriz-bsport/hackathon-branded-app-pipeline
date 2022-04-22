@@ -50,6 +50,11 @@ const styles = (theme) => ({
   topAlign: {
     alignSelf: 'start',
   },
+  noWrap: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
 });
 
 type Props = {
@@ -64,6 +69,7 @@ type Props = {
   classes: Object,
   isCoach: boolean,
   showTags: boolean,
+  fixedHeight?: number,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -120,6 +126,7 @@ export function OfferMinimalSummary(props: Props) {
     loading,
     isCoach,
     showTags,
+    fixedHeight,
   } = props;
 
   const [tagManagementDialog, setTagManagementDialog] = React.useState(false);
@@ -166,7 +173,12 @@ export function OfferMinimalSummary(props: Props) {
   if (coach_override) {
     actualCoachName = coach_override.name;
   }
-
+  const textClasses = fixedHeight
+    ? {
+        primary: classes.noWrap,
+        secondary: classes.noWrap,
+      }
+    : {};
   return (
     <>
       <PaymentPackTagsDialog
@@ -194,6 +206,7 @@ export function OfferMinimalSummary(props: Props) {
         style={{
           borderLeft: offer.meta_activity_color ? '5px solid' : '0px',
           borderLeftColor: offer.meta_activity_color,
+          height: fixedHeight,
         }}
       >
         <Grid container directon="row" alignItems="center">
@@ -242,20 +255,26 @@ export function OfferMinimalSummary(props: Props) {
                   </Tooltip>
                 ) : null}
               </Grid>
-              <Grid item>
+              <Grid item xs={9}>
                 <ListItemText
                   primary={
                     <div className={classes.offerTitleText}>
                       {offer.is_broadcast ? (
                         <VideocamIcon className={classes.videocamIcon} />
                       ) : null}
-                      <Typography variant="inherit">{formattedName}</Typography>
+                      <Typography
+                        className={textClasses?.primary}
+                        variant="inherit"
+                      >
+                        {formattedName}
+                      </Typography>
                     </div>
                   }
                   secondary={`${dateFormatter(
                     date_start,
                     offer.timezone_name,
                   )} - ${formatMinutes(duration_minute, t)}`}
+                  classes={textClasses}
                 />
               </Grid>
               {showTags &&
@@ -289,6 +308,7 @@ export function OfferMinimalSummary(props: Props) {
               primary={fillingInfo}
               primaryTypographyProps={fillingInfoProps}
               secondary={formattedFillingRate}
+              classes={textClasses}
             />
           </Grid>
           <Grid item xs={3}>
@@ -299,6 +319,7 @@ export function OfferMinimalSummary(props: Props) {
                   : (currentEstablishment || {}).title
               }
               secondary={actualCoachName}
+              classes={textClasses}
             />
           </Grid>
         </Grid>

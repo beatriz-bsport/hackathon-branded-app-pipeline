@@ -8275,20 +8275,22 @@
                     "1": "Leskaarten",
                     "2": "Webshop",
                     "6": "Verzendkosten",
-                    "all": "Volledige winkelmand"
+                    "all": "Volledige winkelmand",
+                    "10": "Pakketten"
                 }
             },
             "selectorPlaceholder": {
-                "privatePass": "Selecteer afspraakkaarten (geldig op alle afspraakkaarten indien leeg)",
-                "shopitem": "Selecteer producten uit je webshop (geldig op alle producten indien leeg)",
-                "paymentPack": "Als je geen leskaart(en) selecteert is de promotie op alle leskaarten geldig"
+                "privatePass": "Geldig op alle afspraakkaarten indien je dit veld leeg laat.",
+                "shopitem": "Geldig op alle afspraakkaarten indien je dit veld leeg laat.",
+                "paymentPack": "Geldig op alle afspraakkaarten indien je dit veld leeg laat.",
+                "paymentCombo": "Geldig op alle pakketten indien je dit veld leeg laat."
             },
             "section": {
                 "general": "Algemeen",
                 "availability": "Beschikbaarheid",
                 "usability": "Toepassingen",
                 "voucherConfig": "Korting",
-                "applies_to": "Instellingen",
+                "applies_to": "Producten",
                 "advanced": "Geavanceerd",
                 "subscription": "Abonnementen (contracten)",
                 "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
@@ -8895,7 +8897,7 @@
                 "bookingTitle": "Reserveringen",
                 "attendanceTitle": "Aanwezigheid",
                 "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit",
-                "hideSessionWithTagsNotEligible": "Deze sessies niet tonen aan leden die niet de juiste tags bezitten",
+                "hideSessionWithTagsNotEligible": "Verberg sessies waarvoor leden niet de juiste tags bezitten",
                 "hideMemberForCoach": "Verberg de contactgegevens van leden op accounts van instructeurs"
             },
             "gtmId": {

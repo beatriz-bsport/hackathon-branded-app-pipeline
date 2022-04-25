@@ -1000,7 +1000,7 @@
                         "success": "Opgeslagen"
                     },
                     "updateProvisionTitle": "Voorraadwijziging",
-                    "updateProvisionExplain": "Voer de bijdrage in je inventaris in. Dit wordt toegevoegd aan je huidige voorraad",
+                    "updateProvisionExplain": "Actualiseer je huidige voorraad.",
                     "modifyProvisions": "Voorraad bijwerken",
                     "updateProvisions": {
                         "error": "Fout bij het bijwerken van de voorraad",
@@ -1564,8 +1564,8 @@
                 "deliveryRate": "Succesvol verzonden",
                 "lastOpen": "Laatst geopend op:",
                 "dateCreated": "Verzenddatum:",
-                "topLinks": "Meest geklikte links",
-                "recipientList": "Details van de ontvanger",
+                "topLinks": "Populaire links",
+                "recipientList": "Details",
                 "noTopLink": "Er is nog geen informatie om weer te geven."
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
@@ -3284,7 +3284,7 @@
                     "first": "instructeur(s):"
                 },
                 "payment_pack": {
-                    "first": "leskaart(en):"
+                    "first": "kaart(en):"
                 },
                 "attendance": "status:",
                 "level": {
@@ -5105,10 +5105,10 @@
         "noAssociatedSubscription": "Er zijn nog geen geabonneerde leden om weer te geven.",
         "associatedSubscriptions": "Geabonneerde leden",
         "status": {
-            "hasEnded": "Verlopen abonnement",
-            "hasStopped": "Gepauzeerd abonnement",
-            "hasNotStartedYet": "Inactief abonnement",
-            "hasStarted": "Geldig abonnement"
+            "hasEnded": "Verlopen",
+            "hasStopped": "Gepauzeerd",
+            "hasNotStartedYet": "Inactief",
+            "hasStarted": "Actief"
         },
         "scheduledStop": {
             "unscheduleStop": "Stop uitschakelen",
@@ -6873,7 +6873,7 @@
         "search": "Zoek een product",
         "provision": {
             "total_sales": "Aantal verkochte artikelen:",
-            "current_stock": "Huidige voorraad:",
+            "current_stock": "Huidige voorraad",
             "noProvisionHistory": "Geen verkoopgeschiedenis",
             "form": {
                 "title": "Voorraadwijziging",
@@ -7063,11 +7063,11 @@
     },
     "payment": {
         "generalTermsAndConditions": {
-            "theTermsAndConditions": "algemene voorwaarden.",
-            "iAccept": " ",
+            "theTermsAndConditions": "de algemene voorwaarden.",
+            "iAccept": "Ik ga akkoord met ",
             "close": "Sluiten",
             "generalTermsOfUse": " algemene voorwaarden.",
-            "waiver": "Waiver / Vrijstelling"
+            "waiver": "Waiver / Vrijstelling."
         },
         "paymentMethod": {
             "2": "Cheque",
@@ -8056,6 +8056,12 @@
         "clockIn": {
             "errors": {
                 "96002": "Error bij het opnieuw inklokken van deze medewerker"
+            }
+        },
+        "plannedPayment": {
+            "registerNow": {
+                "error": "Fout bij het verwerken van de betaling",
+                "success": "De betaling is succesvol verwerkt"
             }
         }
     },
@@ -9499,7 +9505,8 @@
                 "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
                 "pm_deleted": "Betaalmethode verwijderd"
             },
-            "inconsistent": "Deze betaalmethode is niet meer geldig. Het is mogelijk dat het lid deze betaalmethode heeft gedeactiveerd of dat het profiel met een ander profiel is samengevoegd. In beide gevallen is het niet langer mogelijk om deze betaalmethode te gebruiken."
+            "inconsistent": "Deze betaalmethode is niet meer geldig. Het is mogelijk dat het lid deze betaalmethode heeft gedeactiveerd of dat het profiel met een ander profiel is samengevoegd. In beide gevallen is het niet langer mogelijk om deze betaalmethode te gebruiken.",
+            "isInternalExplainFuturePayments": "De vervaldatum wordt automatisch afgetrokken bij het lid als aanbetaling. Indien dit niet voldoende is, wordt er een negatieve saldo aangemaakt."
         },
         "paymentEngine": {
             "label": {
@@ -9524,10 +9531,12 @@
                 "delete": "Annuleren",
                 "registerNow": "Uitbetalen",
                 "enable": "Aanzetten",
-                "disable": "Stopzetten"
+                "disable": "Stopzetten",
+                "changeMethod": "Betaalmethode wijzigen"
             },
             "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien.",
-            "lockedToday": "De betaling is vandaag verschuldigd, u kunt deze niet meer wijzigen"
+            "lockedToday": "De betaling is vandaag verschuldigd, u kunt deze niet meer wijzigen",
+            "registerNowInitialData": "Aanbetaling van: {{-date}}"
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
@@ -9590,6 +9599,9 @@
                 "amountToPay": "Met cadeaubon betaald bedrag"
             },
             "giftcard": "Cadeaubon"
+        },
+        "invoiceFuturePaymentsDialog": {
+            "applyForAllFuturePayments": "Toepassen op alle toekomstige betalingen"
         }
     },
     "waitingList": {
@@ -10115,7 +10127,7 @@
             "title": " Het lijkt erop dat je meerdere tabbladen tegelijk gebruikt"
         },
         "stripeOnboardingPending": {
-            "banner": "Klik hier om je instellingen voor je (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
+            "banner": "Klik hier om de instellingen voor (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
         }
     },
     "widget": {

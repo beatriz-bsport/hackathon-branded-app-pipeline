@@ -113,9 +113,7 @@ const IbanForm = (props: PropsIban) => {
         </div>
       </div>
       <div className={classes.mandate}>
-        <Typography color="textSecondary" variant="caption">
-          {t('mandate.content')}
-        </Typography>
+        <Typography color="textSecondary">{t('mandate.content')}</Typography>
       </div>
     </div>
   );

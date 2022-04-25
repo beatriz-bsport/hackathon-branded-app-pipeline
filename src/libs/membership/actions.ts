@@ -10,6 +10,7 @@ import {
   requestMembershipValidation as requestMembershipValidationAPI,
 } from './api';
 import type { Dispatch, OptionCallback, State } from '../../state/types';
+import { Membership } from './types';
 
 export const listAsConsumerActions = {
   success: createAction('MEMBERSHIP/LIST/SUCCESS'),
@@ -91,7 +92,10 @@ export function fetchMoreMembership(
   };
 }
 
-export function fetchMembership(id: number, options?: OptionCallback) {
+export function fetchMembership(
+  id: number,
+  options?: OptionCallback<Membership>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));

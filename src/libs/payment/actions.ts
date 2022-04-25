@@ -12,7 +12,7 @@ import {
   fetchPaymentGroupList as fetchPaymentGroupListAPI,
   fetchPayoutList as fetchPayoutListAPI,
   updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
-  detachPaymentMetod as detachPaymentMetodAPI,
+  detachPaymentMethod as detachPaymentMethodAPI,
 } from './api';
 import { PaymentMethod, Payout } from './types';
 
@@ -25,7 +25,7 @@ export const listSavedPaymentMethodListActions = {
 
 export function fetchPaymentMethodList(
   params: any = {},
-  options: OptionCallback<PaymentMethod>,
+  options?: OptionCallback<PaymentMethod>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listSavedPaymentMethodListActions.isLoading(true));
@@ -48,12 +48,12 @@ export const detachPaymentMethodActions = {
   error: createAction('PAYMENT_METHOD/DETACH/ERROR'),
   success: createAction('PATMENT_METHOD/DETACH/SUCCESS'),
 };
-export function detachPaymentMethod(params: any, options: OptionCallback) {
+export function detachPaymentMethod(params: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(detachPaymentMethodActions.error(null));
     dispatch(detachPaymentMethodActions.isLoading(true));
     try {
-      const response = await detachPaymentMetodAPI(params);
+      const response = await detachPaymentMethodAPI(params);
       dispatch(detachPaymentMethodActions.success(response.data));
       dispatch(snackbarSuccess('invoice:paymentMethod.detach.pm_deleted'));
       if (options && options.onSuccess) {

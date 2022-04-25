@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import { OptionCallback } from '../../../../state/types';
 import PaymentMethodListItem from '../PaymentMethodListItem.component';
 import CollectPaymentMethod from '../CollectPaymentMethod.component';
 import { PaymentMethod } from '../../types';
@@ -26,8 +27,8 @@ type Props = {
   setHasDetached?: (paymentMethodId: string) => void;
   detachPaymentMethodLoading?: boolean;
   companyId: number | null;
-  memberId: number | null;
-  detachPaymentMethod?: (pm_id: string) => void;
+  memberId?: number | null;
+  detachPaymentMethod?: (pm_id: number, options?: OptionCallback) => void;
   snackbarErrorMsg?: (msg: string) => void;
   snackbarSuccessMsg?: (msg: string) => void;
 

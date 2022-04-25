@@ -8,29 +8,20 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation, TFunction } from 'react-i18next';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
-import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group';
+import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
 
 import FormControl from '@material-ui/core/FormControl';
-
 import Checkbox from '@material-ui/core/Checkbox';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
+import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
@@ -40,63 +31,6 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import type { Establishment } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { getPrice, getTaxPrice } from '../../theme/utils';
-
-const PaymentMethodSwitcher = (props: {
-  classes: Object,
-  t: TFunction,
-  onChange: (string) => void,
-  payment_method: string,
-  enabledPaymentMethods: Array<number>,
-  enabledPaymentGroupMethodIdentifier: Array<number>,
-  disabled: boolean,
-}) => (
-  <RadioGroup
-    aria-label="payment-method"
-    className={props.classes.paymentMethodSelectorContainer}
-    value={props.payment_method}
-    onChange={(ev) => props.onChange(ev.target.value)}
-  >
-    {(props.enabledPaymentMethods || []).includes(
-      BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-    ) ||
-    (props.enabledPaymentGroupMethodIdentifier || []).includes(
-      PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-    ) ? (
-      <FormControlLabel
-        value="sepa_debit"
-        control={<Radio color="primary" />}
-        label={props.t('subscription:paymentMethod.sepa')}
-        labelPlacement="bottom"
-        disabled={props.disabled}
-      />
-    ) : null}
-    {(props.enabledPaymentMethods || []).includes(
-      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-    ) ||
-    (props.enabledPaymentGroupMethodIdentifier || []).includes(
-      PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-    ) ? (
-      <FormControlLabel
-        value="card"
-        control={<Radio color="primary" />}
-        label={props.t('subscription:paymentMethod.card')}
-        labelPlacement="bottom"
-        disabled={props.disabled}
-      />
-    ) : null}
-    {(props.enabledPaymentMethods || []).includes(
-      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-    ) ? (
-      <FormControlLabel
-        value="bsport:credit"
-        control={<Radio color="primary" />}
-        label={props.t('subscription:paymentMethod.bsportCredit')}
-        labelPlacement="bottom"
-        disabled={props.disabled}
-      />
-    ) : null}
-  </RadioGroup>
-);
 
 type Props = {
   onCancel: () => void,
@@ -427,9 +361,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {!this.isZeroPrice() && (
           <>
             <PaymentMethodSwitcher
-              classes={classes}
-              t={t}
-              payment_method={paymentMethod}
+              paymentMethod={paymentMethod}
               onChange={(value) => {
                 setPaymentMethod(value);
                 this.setState({ selectedSavedPaymentMethodId: null });
@@ -552,13 +484,6 @@ const styles = (theme) => ({
   },
   buttonContainer: {
     padding: theme.spacing(2),
-  },
-  paymentMethodSelectorContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    marginBottom: theme.spacing(2),
   },
   explainCredit: {
     padding: theme.spacing(2),

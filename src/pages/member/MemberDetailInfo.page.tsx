@@ -5,12 +5,17 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { push as routerPush } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 import TaskList from '../../libs/reminder/components/TaskList.component';
 import { getUsersWithRole } from '../../libs/role/selectors';
 
@@ -55,6 +60,7 @@ import {
   fetchPaymentMethodList,
   detachPaymentMethod,
 } from '../../libs/payment/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   fetchTaskListByMember as fetchTaskListByMemberAction,
   createOrUpdateTask as createOrUpdateTaskAction,
@@ -114,13 +120,16 @@ import {
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
 } from '../../libs/giftcard/actions';
 import type { ConsumerGiftcard } from '#libs/giftcard/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 
 type Props = RouterParamsProps &
   ConnectProps &
   HandlerProps1 &
   HandlerProps2 &
   WithTranslation &
-  HandlerProps3;
+  HandlerProps3 &
+  QueryParamsProps;
 
 type State = {
   searchModalOpen: boolean;
@@ -128,6 +137,7 @@ type State = {
   tagGroupToDelete: number;
   fileToUpload: number;
   fileToDelete: number;
+  paymentMethodType: string;
 };
 
 export class MemberDetailPage extends Component<Props> {
@@ -137,6 +147,8 @@ export class MemberDetailPage extends Component<Props> {
     tagGroupToDelete: null,
     fileToUpload: null,
     fileToDelete: null,
+    paymentMethodType:
+      this.props.companyTheme.currency === 'eur' ? 'sepa_debit' : 'card',
   };
 
   componentDidMount() {
@@ -242,6 +254,20 @@ export class MemberDetailPage extends Component<Props> {
     );
   };
 
+  openAddPaymentMethodDialog = (open?: boolean) => {
+    this.props.setQueryParams('isAddPaymentMethodDialogOpen')(
+      open ? true : null,
+    );
+  };
+
+  requestSetupIntentSecret = () => {
+    return requestSetupIntentSecretAPI(this.props.member.id, null);
+  };
+
+  changePaymentMethodType = (value: string) => {
+    this.setState({ paymentMethodType: value });
+  };
+
   render() {
     const { memberLoading, member, t } = this.props;
 
@@ -312,6 +338,7 @@ export class MemberDetailPage extends Component<Props> {
         </Grid>
         <Grid item xs={12} md={6}>
           <MemberCRM
+            snackbarSuccess={this.props.snackbarSuccess}
             memberId={this.props.id}
             member={this.props.member}
             credit_account_balance={member.credit_account_balance}
@@ -343,8 +370,37 @@ export class MemberDetailPage extends Component<Props> {
             detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
             snackbarErrorMsg={this.props.snackbarErrorMsg}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+            openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
+            companyId={this.props.companyTheme.company}
           />
         </Grid>
+        {this.props.member?.id && (
+          <GenericResponsiveDialog
+            padding
+            open={this.props.isAddPaymentMethodDialogOpen}
+          >
+            <AddPaymentMethod
+              onCancel={() => this.openAddPaymentMethodDialog(false)}
+              requestSetupIntentSecret={this.requestSetupIntentSecret}
+              refreshSavedPaymentMethodList={
+                this.props.fetchMemberPaymentMethod
+              }
+              paymentMethodType={this.state.paymentMethodType}
+              enabledPaymentMethods={[
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                ...(this.props.companyTheme.currency === 'eur'
+                  ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+                  : []),
+              ]}
+              onChange={this.changePaymentMethodType}
+              disabled={false}
+              sepaDefaultName={this.props.member ? this.props.member.name : ''}
+              sepaDefaultEmail={
+                this.props.member ? this.props.member.email : ''
+              }
+            />
+          </GenericResponsiveDialog>
+        )}
         <MemberSearchModal
           asManager
           searchMembers={this.props.searchMembers}
@@ -568,7 +624,7 @@ const mapWithHandler3 = {
       HandlerProps1 &
       HandlerProps2 &
       WithTranslation) =>
-    (pm_id: number, options: OptionCallback) => {
+    (pm_id: number, options?: OptionCallback) => {
       detachPaymentMethodAction(
         { member: id, payment_method_id: pm_id },
         {
@@ -635,6 +691,11 @@ const mapWithHandler3 = {
     },
 };
 
+type QueryParamsProps = {
+  isAddPaymentMethodDialogOpen: boolean;
+  setQueryParams: (queryParam: string) => (value: boolean | null) => void;
+};
+
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(['member', 'invoice']),
@@ -642,4 +703,17 @@ export default compose(
   withHandlers(mapWithHandler1),
   withHandlers(mapWithHandler2),
   withHandlers(mapWithHandler3),
+  withQueryParams([
+    ['isAddPaymentMethodDialogOpen'],
+    'queryParams',
+    'setQueryParams',
+  ]),
+  withProps(
+    (props: { queryParams: { isAddPaymentMethodDialogOpen: string } }) => {
+      return {
+        isAddPaymentMethodDialogOpen:
+          props.queryParams?.isAddPaymentMethodDialogOpen === 'true',
+      };
+    },
+  ),
 )(MemberDetailPage);

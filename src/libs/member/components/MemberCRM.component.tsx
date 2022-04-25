@@ -9,7 +9,7 @@ import TagPanel from '../../tag/components/TagPanel.component';
 import { MemberNote, Member, MemberUploadedFile } from '../types';
 import { Tag, TagGroup } from '../../tag/types';
 import MemberFilesPanel from './MemberFilesPanel.component';
-import { MemberPaymentMethodPanel } from './MemberPaymentMethodPanel.component';
+import MemberPaymentMethodPanel from './MemberPaymentMethodPanel.component';
 
 type Props = {
   member: Member;
@@ -43,6 +43,9 @@ type Props = {
 
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
+  openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
+
+  companyId?: number;
 };
 
 export const MemberCRM = (props: Props) => {
@@ -78,6 +81,7 @@ export const MemberCRM = (props: Props) => {
     // utils
     snackbarErrorMsg,
     snackbarSuccessMsg,
+    companyId,
   } = props;
 
   const classes = useStyles();
@@ -128,6 +132,8 @@ export const MemberCRM = (props: Props) => {
       />
       <div className={classes.separator} />
       <MemberPaymentMethodPanel
+        snackbarSuccess={props.snackbarSuccessMsg}
+        companyId={companyId}
         memberId={memberId}
         paymentMethod={paymentMethod}
         paymentMethodLoading={paymentMethodLoading}
@@ -135,6 +141,7 @@ export const MemberCRM = (props: Props) => {
         detachPaymentMethodLoading={detachPaymentMethodLoading}
         snackbarErrorMsg={snackbarErrorMsg}
         snackbarSuccessMsg={snackbarSuccessMsg}
+        openAddPaymentMethodDialog={props.openAddPaymentMethodDialog}
       />
     </Paper>
   );

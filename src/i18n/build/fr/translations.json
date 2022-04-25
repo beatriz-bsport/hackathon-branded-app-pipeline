@@ -3939,7 +3939,6 @@
             },
             "paymentMethod": {
                 "message": {
-                    "success": "Méthode de paiement sauvegardée avec succès !",
                     "error": "Impossible d'enregistrer cette méthode de paiement"
                 },
                 "collect": {

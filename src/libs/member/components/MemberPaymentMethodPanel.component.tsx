@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@material-ui/core';
+import { Button, ButtonBase, Divider, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,17 +13,35 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Add from '@material-ui/icons/Add';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import LinkIcon from '@material-ui/icons/Link';
+import { OptionCallback } from '../../../state/types';
+
+import { getAddPaymentLink } from '#libs/consumer-space/utils';
 
 type Props = {
-  paymentMethod: ?array<any>,
-  paymentMethodLoading: boolean,
-  detachPaymentMethodLoading: boolean,
-  detachPaymentMethod: (pm_id: string) => void,
+  paymentMethod?: Array<any>;
+  paymentMethodLoading: boolean;
+  detachPaymentMethodLoading: boolean;
+  detachPaymentMethod: (pm_id: string, option?: OptionCallback) => void;
+  openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
+  snackbarSuccess: (msg: string) => void;
+  companyId?: number;
 };
 
 export const MemberPaymentMethodPanel = (props: Props) => {
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
+  const { openAddPaymentMethodDialog } = props;
+
+  const openAddPaymentMethodDialogCallback = React.useCallback(() => {
+    openAddPaymentMethodDialog && openAddPaymentMethodDialog(true);
+  }, [openAddPaymentMethodDialog]);
+  const addPaymentLink = React.useMemo(
+    () => getAddPaymentLink(props.companyId),
+    [props.companyId],
+  );
   return (
     <div style={{ width: '100%' }}>
       <div className={classes.flexTitle}>
@@ -75,11 +93,48 @@ export const MemberPaymentMethodPanel = (props: Props) => {
           </Typography>
         )}
       </List>
+      {openAddPaymentMethodDialog && (
+        <div className={classes.row}>
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={openAddPaymentMethodDialogCallback}
+          >
+            <Add color="primary" className={classes.leftIcon} />
+            {t('paymentMethod.addPaymentMethod')}
+          </Button>
+          {props.companyId && (
+            <CopyToClipboard text={addPaymentLink}>
+              <ButtonBase
+                id="button_pass_copy"
+                className={classes.link}
+                onClick={() =>
+                  props.snackbarSuccess && props.snackbarSuccess('link.copied')
+                }
+              >
+                <LinkIcon />
+                <Typography className={classes.linkTypo}>
+                  {t('paymentMethod.copyLink')}
+                </Typography>
+              </ButtonBase>
+            </CopyToClipboard>
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  link: {
+    padding: theme.spacing(1),
+
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+  },
+  row: { display: 'flex', gap: theme.spacing(1), alignItems: 'center' },
   title: {
     paddingBottom: theme.spacing(1),
   },
@@ -88,6 +143,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  leftIcon: { marginRight: theme.spacing(1) },
+  linkTypo: {
+    paddingLeft: theme.spacing(1),
   },
 }));
 

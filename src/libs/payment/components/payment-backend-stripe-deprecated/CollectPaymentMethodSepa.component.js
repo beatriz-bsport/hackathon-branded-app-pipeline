@@ -43,8 +43,15 @@ type Props = {
   classes: Object,
   defaultName?: string,
   defaultEmail?: string,
+  variant?: 'div' | 'modal',
+  content?: string,
 };
-
+const Wrapper: React.FC<{ variant: string }> = ({ children, variant }) => {
+  if (variant === 'div') {
+    return <div>{children}</div>;
+  }
+  return <Modal open>{children}</Modal>;
+};
 export class CollectPaymentMethod extends React.Component<Props> {
   constructor(props: Props) {
     super();
@@ -124,14 +131,18 @@ export class CollectPaymentMethod extends React.Component<Props> {
     const { classes, fullScreen } = this.props;
     const dialogOffset = fullScreen ? '0%' : '50%';
     return (
-      <Modal open>
+      <Wrapper variant={this.props.variant}>
         <>
           <div
-            style={{
-              transform: `translate(-${dialogOffset}, -${dialogOffset})`,
-              top: dialogOffset,
-              left: dialogOffset,
-            }}
+            style={
+              this.props.variant === 'div'
+                ? { position: 'unset', backgroundColor: 'transparent' }
+                : {
+                    transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+                    top: dialogOffset,
+                    left: dialogOffset,
+                  }
+            }
             className={classes.modal}
           >
             <DialogTitle>
@@ -139,7 +150,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {this.props.t('forms.paymentMethod.collect.content')}
+                {this.props.content ||
+                  this.props.t('forms.paymentMethod.collect.content')}
               </DialogContentText>
               <div>
                 {this.state.processing && (
@@ -159,9 +171,11 @@ export class CollectPaymentMethod extends React.Component<Props> {
                       </Typography>
                     </div>
                     <div className={classes.actions}>
-                      <Button onClick={this.props.onClose}>
-                        {this.props.t('forms.paymentMethod.actions.close')}
-                      </Button>
+                      {this.props.onClose && (
+                        <Button onClick={this.props.onClose}>
+                          {this.props.t('forms.paymentMethod.actions.close')}
+                        </Button>
+                      )}
                     </div>
                   </div>
                 )}
@@ -184,9 +198,11 @@ export class CollectPaymentMethod extends React.Component<Props> {
                       ) : null}
                     </div>
                     <div className={classes.actions}>
-                      <Button onClick={this.props.onClose}>
-                        {this.props.t('forms.paymentMethod.actions.close')}
-                      </Button>
+                      {this.props.onClose && (
+                        <Button onClick={this.props.onClose}>
+                          {this.props.t('forms.paymentMethod.actions.close')}
+                        </Button>
+                      )}
                       <Button
                         onClick={() =>
                           this.setState({ error: null, success: null })
@@ -247,18 +263,19 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     </div>
                     <Typography
                       color="textSecondary"
-                      variant="caption"
                       className={classes.mandate}
                     >
                       {this.props.t('subscription:mandate.content')}
                     </Typography>
                     <div className={classes.actions}>
-                      <Button
-                        disabled={this.state.processing}
-                        onClick={this.props.onClose}
-                      >
-                        {this.props.t('forms.paymentMethod.actions.close')}
-                      </Button>
+                      {this.props.onClose && (
+                        <Button
+                          disabled={this.state.processing}
+                          onClick={this.props.onClose}
+                        >
+                          {this.props.t('forms.paymentMethod.actions.close')}
+                        </Button>
+                      )}
                       <Button
                         color="primary"
                         disabled={this.state.processing}
@@ -273,7 +290,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
             </DialogContent>
           </div>
         </>
-      </Modal>
+      </Wrapper>
     );
   }
 }
@@ -315,7 +332,6 @@ const styles = (theme) => ({
     backgroundColor: '#EFEFEF',
     padding: theme.spacing(2),
     minWidth: '30vw',
-    maxWidth: '80vw',
     width: '100%',
   },
   paymentMethodSelectorContainer: {
@@ -330,10 +346,13 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   mandate: {
-    padding: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    textAlign: 'justify',
   },
   modal: {
     position: 'absolute',

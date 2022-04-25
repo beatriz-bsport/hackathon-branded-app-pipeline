@@ -1598,6 +1598,8 @@
       "inconsistent": "Moyen de paiement dé-autorisé, veuillez le reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable.",
       "edit": "Modifier",
       "add": "Ajouter",
+      "copyLink": "Copier le lien d'ajout d'un moyen de paiement",
+      "addPaymentMethod": "Ajouter un moyen de paiement",
       "none": "Aucun moyen de paiement sauvergardé",
       "isInternalExplain": "Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.",
       "isInternalExplainFuturePayments": "L'échéance sera prélevée automatiquement sur l'acompte client. Si celui-ci n'est pas suffisant, un acompte négatif sera créé.",
@@ -3266,11 +3268,12 @@
       "paymentIntent": { "pay": "Payer" },
       "paymentMethod": {
         "message": {
-          "success": "Méthode de paiement sauvegardée avec succès !",
+          "success": "Moyen de paiement sauvegardé avec succès !",
           "error": "Impossible d'enregistrer cette méthode de paiement"
         },
         "collect": {
           "title": "Ajouter un moyen de paiement",
+          "contentAdd": "Ce moyen de paiement sera sauvegardé dans votre compte.",
           "content": "Ce moyen de paiement sera sauvegardé dans votre compte pour être facturé conformément au contrat."
         },
         "actions": {

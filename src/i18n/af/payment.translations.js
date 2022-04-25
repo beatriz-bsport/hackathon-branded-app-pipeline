@@ -130,11 +130,12 @@ exports.default = {
     },
     paymentMethod: {
       message: {
-        success: 'Méthode de paiement sauvegardée avec succès !',
+        success: 'Moyen de paiement sauvegardé avec succès !',
         error: "Impossible d'enregistrer cette méthode de paiement",
       },
       collect: {
         title: 'Ajouter un moyen de paiement',
+        contentAdd: 'Ce moyen de paiement sera sauvegardé dans votre compte.',
         content:
           'Ce moyen de paiement sera sauvegardé dans votre compte pour être facturé conformément au contrat.',
       },

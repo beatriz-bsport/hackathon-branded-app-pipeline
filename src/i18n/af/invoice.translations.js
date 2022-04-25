@@ -103,6 +103,8 @@ exports.default = {
       "Moyen de paiement dé-autorisé, veuillez le reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable.",
     edit: 'Modifier',
     add: 'Ajouter',
+    copyLink: "Copier le lien d'ajout d'un moyen de paiement",
+    addPaymentMethod: 'Ajouter un moyen de paiement',
     none: 'Aucun moyen de paiement sauvergardé',
     isInternalExplain:
       'Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.',

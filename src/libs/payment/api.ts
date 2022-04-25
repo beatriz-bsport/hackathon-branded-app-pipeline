@@ -14,7 +14,7 @@ export const fetchPaymentMethodList = async (params: any = {}) => {
     `${API_V1_URI}/payment/payment_method/${buildUrlParams(params)}`,
   );
 };
-export const detachPaymentMetod = async (params: any = {}) => {
+export const detachPaymentMethod = async (params: any = {}) => {
   return postAuth(`${API_V1_URI}/payment/payment_method/detach/`, {
     member: params.member,
     payment_method_id: params.payment_method_id,

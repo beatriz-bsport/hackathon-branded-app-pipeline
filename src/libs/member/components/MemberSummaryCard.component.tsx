@@ -54,25 +54,25 @@ const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
 
 type OwnProps = {
-  editMember: () => void;
-  mergeMember: () => void;
-  goToMember: () => void;
+  editMember?: () => void;
+  mergeMember?: () => void;
+  goToMember?: () => void;
   member: Member<number>;
-  hideContactButton?: boolean;
-  showTermsAndConditions: boolean;
-  setShowTermsAndConditions: (show: boolean) => void;
-  showTermsOfUse: boolean;
-  setShowTermsOfUse: (show: boolean) => void;
-  getEmails: () => void;
-  getEmailDetail: (id: number) => void;
-  emailListLoading: boolean;
-  emails: Array<any>;
-  emailDetailLoading: boolean;
-  emailDetails: Record<string, EmailTemplateDetail>;
-  sendCommunication: (com: any) => void;
+  hideContactButton: boolean;
+  showTermsAndConditions?: boolean;
+  setShowTermsAndConditions?: (show: boolean) => void;
+  showTermsOfUse?: boolean;
+  setShowTermsOfUse?: (show: boolean) => void;
+  getEmails?: () => void;
+  getEmailDetail?: (id: number) => void;
+  emailListLoading?: boolean;
+  emails?: Array<any>;
+  emailDetailLoading?: boolean;
+  emailDetails?: Record<string, EmailTemplateDetail>;
+  sendCommunication?: (com: any) => void;
 
   showVaccinationStatus: boolean;
-  favoriteEstablishmentGroupList: Array<EstablishmentGroup>;
+  favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -493,7 +493,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose<any, Props>(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['translation', 'member']),
   withState('showTermsAndConditions', 'setShowTermsAndConditions', false),

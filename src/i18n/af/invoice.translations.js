@@ -106,6 +106,8 @@ exports.default = {
     none: 'Aucun moyen de paiement sauvergardé',
     isInternalExplain:
       'Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.',
+    isInternalExplainFuturePayments:
+      "L'échéance sera prélevée automatiquement sur l'acompte client. Si celui-ci n'est pas suffisant, un acompte négatif sera créé.",
     select: {
       label: 'Moyen de paiement',
     },
@@ -145,10 +147,12 @@ exports.default = {
       disable: 'Déprogrammer',
       enable: 'Reprogrammer',
       edit: 'Modifier',
+      changeMethod: 'Modifier la méthode de paiement',
     },
     nextRetryDate: 'Le paiement sera retenté le {{ d }}',
     lockedToday:
       "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
+    registerNowInitialData: 'Paiement initialement prévu le {{-date}}',
   },
   paymentPanel: {
     amountRemaining: 'Reste à payer: {{ amount }}',
@@ -227,6 +231,10 @@ exports.default = {
       'Attention, vous tentez de facturer une carte à un membre qui ne dispose pas des tags nécessaires à son achat. Voulez vous quand même lui facturer cet élément  ? ',
     cancel: 'Annuler',
     confirm: 'Confirmer',
+  },
+  invoiceFuturePaymentsDialog: {
+    applyForAllFuturePayments:
+      'Appliquer aux échéances futures de cette facture',
   },
   uneditableMessage: {
     invoiceRevertedThusNotEditable:

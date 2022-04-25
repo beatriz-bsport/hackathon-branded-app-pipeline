@@ -259,6 +259,7 @@ type Props = {
     onDisable?: (id: number) => void;
     onEnable?: (id: number) => void;
     onEdit?: (id: number) => void;
+    onChangeMethod?: (ppeId: number) => void;
   };
   companyId: number;
   snackbarSuccess: (msg: string) => void;

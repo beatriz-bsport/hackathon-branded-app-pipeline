@@ -10,7 +10,12 @@ import Hidden from '@material-ui/core/Hidden';
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
-import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
+import {
+  PAYMENT_INTENT_TYPE_INVOICE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+} from '@bsport/common/lib/master-data/payment-group';
 import {
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
   PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
@@ -50,6 +55,7 @@ import {
   enablePlannedPaymentEvent as enablePlannedPaymentEventAction,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAction,
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAction,
+  changePaymentMethodAndRegisterPlannedPaymentEvent,
   schedulePayment,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
 } from '../../libs/invoice/actions';
@@ -59,14 +65,20 @@ import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
   fetchPaymentMethodList as fetchPaymentMethodListAction,
+  detachPaymentMethod,
 } from '../../libs/payment/actions';
 
 import { fetchCompanyUserRoles } from '../../libs/role/actions';
-import { snackbarSuccess, snackbarWarning } from '../../libs/snackbar/actions';
+import {
+  snackbarSuccess,
+  snackbarWarning,
+  snackbarError,
+} from '../../libs/snackbar/actions';
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
 import InvoiceContent from '../../libs/invoice/components/InvoiceContent.component';
 import InvoicePaymentPanel from '../../libs/invoice/components/InvoicePaymentPanel.component';
 import InvoiceReverterDialog from '../../libs/invoice/components/InvoiceReverterDialog.component';
+import PlannedPaymentEventMethodSwitcherDialog from '#libs/invoice/dialog/PlannedPaymentEventMethodSwitcherDialog.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
@@ -89,9 +101,10 @@ import {
   withReceiver,
   onlyUsable,
 } from '../../libs/giftcard/selectors';
-import type { Payment } from '#libs/payment/types';
+import type { Payment, PaymentMethod } from '#libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import type { ConsumerGiftcard, Giftcard } from '../../libs/giftcard/types';
+import type { PlannedPaymentEvent } from '../../libs/invoice/types';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -104,8 +117,19 @@ type Props = {
   fetchPaymentList: (params: any) => void,
   invoice: Invoice,
   openPaymentDialog: () => void,
+  detachPaymentMethod: (pm_id: string) => void,
+  detachPaymentMethodLoading: boolean,
+  openPlannedPaymentMethodDialog: boolean,
+  selectedPlannedPaymentEvent: null | PlannedPaymentEvent,
+  setOpenPlannedPaymentMethodDialog: (b: boolean) => void,
+  setSelectedPlannedPaymentEvent: (b: null | PlannedPaymentEvent) => void,
+  registerNow: boolean,
+  setRegisterNow: (value: boolean) => void,
+  plannedPaymentEventLoading: boolean,
   paymentLoading: boolean,
   setOpenPaymentDialog: (boolean) => void,
+  plannedPaymentDialogProcessing: boolean,
+  setPlannedPaymentDialogProcessing: (value: boolean) => void,
   revertInvoice: (uuid: string) => void,
   classes: any,
   goToSubscription: (id: number) => void,
@@ -137,9 +161,17 @@ type Props = {
     priceCts: number,
     options: OptionCallback,
   ) => void,
-  registerNowPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
   enablePlannedPaymentEvent: (id: number, options: OptionCallback) => void,
   cancelPlannedPaymentEvent: (id: number, options: OptionCallback) => void,
+  changePaymentMethodAndRegisterPlannedPaymentEvent: (
+    ppeId: number,
+    paymentMethod: number,
+    selectedPmId: string,
+    applyToAllFuturePayments: boolean,
+    registerNow: boolean,
+    extraData: any,
+    options: OptionCallback,
+  ) => void,
 
   isOpenInstalmentPaymentDialog: boolean,
   closeInstalmentPaymentDialog: () => void,
@@ -164,6 +196,7 @@ type Props = {
   companyId: number,
   snackbarSuccess: (msg: string) => void,
   snackbarWarning: (msg: string) => void,
+  snackbarError: (msg: string) => void,
   fetchConsumerGiftcardReceivedList: (
     memberId: number,
     options: OptionCallback,
@@ -234,16 +267,40 @@ export class InvoiceDetail extends React.Component<Props, State> {
     });
   };
 
-  registerNowPlannedPaymentEvent = (id: number, options: OptionCallback) => {
-    this.props.registerNowPlannedPaymentEvent(id, {
-      onSuccess: (data) => {
-        this.fetchInvoiceData();
-        if (options && options.onSuccess) {
-          options.onSuccess(data);
-        }
+  registerNowPlannedPaymentEvent = (ppe: PlannedPaymentEvent) => {
+    this.props.setSelectedPlannedPaymentEvent(ppe);
+    this.props.setOpenPlannedPaymentMethodDialog(true);
+    this.props.setRegisterNow(true);
+  };
+
+  onSubmitChangePaymentMethodAndRegister = (
+    ppeId,
+    paymentMethod,
+    selectedPmId,
+    applyToAllFuturePayments,
+    registerNow,
+    extraData,
+  ) => {
+    this.props.setPlannedPaymentDialogProcessing(true);
+    this.props.changePaymentMethodAndRegisterPlannedPaymentEvent(
+      ppeId,
+      paymentMethod,
+      selectedPmId,
+      applyToAllFuturePayments,
+      registerNow,
+      extraData,
+      {
+        onSuccess: () => {
+          this.props.setRegisterNow(false);
+          this.props.setOpenPlannedPaymentMethodDialog(false);
+          this.props.setPlannedPaymentDialogProcessing(false);
+          this.fetchInvoiceData();
+        },
+        onError: () => {
+          this.props.setPlannedPaymentDialogProcessing(false);
+        },
       },
-      onError: options && options.onError,
-    });
+    );
   };
 
   cancelPlannedPaymentEvent = (id: number, options: OptionCallback) => {
@@ -268,6 +325,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
       },
       onError: options && options.onError,
     });
+  };
+
+  changeMethodPlannedPaymentEvent = (ppe: PlannedPaymentEvent) => {
+    this.props.setSelectedPlannedPaymentEvent(ppe);
+    this.props.setOpenPlannedPaymentMethodDialog(true);
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -438,6 +500,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   onDisable: this.cancelPlannedPaymentEvent,
                   onEnable: this.enablePlannedPaymentEvent,
                   onRegisterNow: this.registerNowPlannedPaymentEvent,
+                  onChangeMethod: this.changeMethodPlannedPaymentEvent,
                 }}
                 companyId={this.props.companyId}
                 snackbarSuccess={this.props.snackbarSuccess}
@@ -452,7 +515,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   this.props.invoice.amount_due_cts -
                   this.props.invoice.amount_paid_cts
                 }
-                enabledPaymentGroupMethodIdentifier={[1, 2]}
+                enabledPaymentGroupMethodIdentifier={[
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                ]}
                 availablePaymentMethodList={
                   this.props.payment_method_available_manager
                 }
@@ -502,6 +569,48 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 }
                 defaultUserName={this.props.invoice.member.name}
                 defaultUserEmail={this.props.invoice.member.email}
+              />
+            )}
+            {this.props.openPlannedPaymentMethodDialog && (
+              <PlannedPaymentEventMethodSwitcherDialog
+                open={this.props.openPlannedPaymentMethodDialog}
+                selectedPPE={this.props.selectedPlannedPaymentEvent}
+                enabledPaymentMethods={[
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                ]}
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
+                }
+                requestSetupIntentSecret={this.requestSetupIntentSecret}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                refreshSavedPaymentMethodList={this.fetchPaymentMethodList}
+                detachPaymentMethodLoading={
+                  this.props.detachPaymentMethodLoading
+                }
+                detachPaymentMethod={this.props.detachPaymentMethod}
+                sepaDefaultName={this.props.invoice.member.name}
+                sepaDefaultEmail={this.props.invoice.member.email}
+                snackbarSuccessMsg={this.props.snackbarSuccess}
+                snackbarErrorMsg={this.props.snackbarError}
+                companyId={this.props.companyId}
+                memberId={this.props.invoice.member.id}
+                registerNow={this.props.registerNow}
+                processing={this.props.plannedPaymentDialogProcessing}
+                dispApplyForAll={
+                  (this.props.plannedPaymentEventList || []).length > 1
+                }
+                plannedPaymentEventLoading={
+                  this.props.plannedPaymentEventLoading
+                }
+                onSubmitChangePaymentMethodAndRegister={
+                  this.onSubmitChangePaymentMethodAndRegister
+                }
+                onClose={() => {
+                  this.props.setOpenPlannedPaymentMethodDialog(false);
+                  this.props.setRegisterNow(false);
+                }}
               />
             )}
           </Grid>
@@ -562,6 +671,22 @@ export default compose(
   withTranslation(['invoice']),
   withStyles(styles),
   withState('openPaymentDialog', 'setOpenPaymentDialog', false),
+  withState(
+    'openPlannedPaymentMethodDialog',
+    'setOpenPlannedPaymentMethodDialog',
+    false,
+  ),
+  withState(
+    'plannedPaymentDialogProcessing',
+    'setPlannedPaymentDialogProcessing',
+    false,
+  ),
+  withState(
+    'selectedPlannedPaymentEvent',
+    'setSelectedPlannedPaymentEvent',
+    null,
+  ),
+  withState('registerNow', 'setRegisterNow', false),
   withStateHandlers(
     { revertDialogOpen: false },
     {
@@ -608,6 +733,9 @@ export default compose(
       consumerGiftcardList: withSender(
         withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
       )(state),
+      detachPaymentMethodLoading:
+        state.paymentBackend.detachPaymentMethod.loading,
+      plannedPaymentEventLoading: state.invoice.planned_payment_event.loading,
     }),
     {
       fetchInvoiceItemList,
@@ -620,6 +748,7 @@ export default compose(
       fetchMember,
       fetchCompanyUserRoles,
       revertInvoice: revertInvoiceAction,
+      detachPaymentMethodAction: detachPaymentMethod,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}/`),
       finalizeInvoice: finalizeInvoiceAction,
@@ -630,11 +759,13 @@ export default compose(
       cancelPlannedPaymentEvent: cancelPlannedPaymentEventAction,
       enablePlannedPaymentEvent: enablePlannedPaymentEventAction,
       registerNowPlannedPaymentEvent: registerNowPlannedPaymentEventAction,
+      changePaymentMethodAndRegisterPlannedPaymentEvent,
       schedulePayment,
       fetchEstablishments,
       editBillingEstablishment: editBillingEstablishmentAction,
       snackbarSuccess,
       snackbarWarning,
+      snackbarError,
       fetchConsumerGiftcardReceivedList:
         fetchConsumerGiftcardReceivedListAction,
       fetchGiftcardBulk: fetchGiftcardBulkAction,
@@ -753,6 +884,25 @@ export default compose(
             if (options && options.onError) options.onError();
           },
         });
+      },
+    detachPaymentMethod:
+      ({
+        detachPaymentMethodAction,
+        fetchPaymentMethodList,
+        companyId,
+        invoice,
+      }) =>
+      (pm_id: number, options: OptionCallback) => {
+        detachPaymentMethodAction(
+          { company: companyId, payment_method_id: pm_id },
+          {
+            onSuccess: () => {
+              fetchPaymentMethodList({ member: invoice.member.id });
+              if (options && options.onSuccess) options.onSuccess();
+            },
+            onError: options && options.onError,
+          },
+        );
       },
   }),
   withTitle(

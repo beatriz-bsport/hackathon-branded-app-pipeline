@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
 } from '@bsport/common/lib/master-data/payment-group';
 
 const PaymentMethodTypeSwitcher = (props: {
@@ -43,6 +44,17 @@ const PaymentMethodTypeSwitcher = (props: {
           value={PAYMENT_GROUP_METHOD_IDENTIFIER_CB}
           control={<Radio color="primary" />}
           label={t('paymentMethod.card')}
+          labelPlacement="bottom"
+          disabled={props.disabled}
+        />
+      )}
+      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+      ) && (
+        <FormControlLabel
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY}
+          control={<Radio color="primary" />}
+          label={t('paymentMethod.bsportCredit')}
           labelPlacement="bottom"
           disabled={props.disabled}
         />

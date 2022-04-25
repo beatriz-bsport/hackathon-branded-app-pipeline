@@ -166,6 +166,16 @@ export async function registerNowPlannedPaymentEvent(id: number) {
   );
 }
 
+export async function changePaymentMethodAndRegisterPlannedPaymentEvent(
+  id: number,
+  data: any,
+) {
+  return postAuth(
+    `${API_V1_URI}/payment/planned_payment_event/${id}/change_method_and_register/`,
+    data,
+  );
+}
+
 export async function schedulePayment(uuid: string, data: any) {
   return postAuth(
     `${API_V1_URI}/payment/invoices/${uuid}/schedule_payment/`,

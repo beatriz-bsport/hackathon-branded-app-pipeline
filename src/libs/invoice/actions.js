@@ -2,6 +2,10 @@
 
 import { createAction } from 'redux-actions';
 import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
   revert as revertAPI,
   createQuick as createQuickAPI,
   fetchSpecific as fetchSpecificAPI,
@@ -29,6 +33,7 @@ import {
   sendInvoiceToQuickbooks as sendInvoiceToQuickbooksAPI,
   applyBalanceToInvoice as applyBalanceToInvoiceAPI,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
+  changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
@@ -698,6 +703,82 @@ export function registerNowPlannedPaymentEvent(
       }
     }
     dispatch(registerNowPlannedPaymentEventActions.isLoading(false));
+  };
+}
+
+export const changePaymentMethodAndRegisterPlannedPaymentEventActions = {
+  isLoading: createAction('PLANNED_PAYMENT_EVENT/CHANGE_METHOD/LOADING'),
+  error: createAction('PLANNED_PAYMENT_EVENT/CHANGE_METHOD/ERROR'),
+  success: createAction('PLANNED_PAYMENT_EVENT/CHANGE_METHOD/ENABLE/SUCCESS'),
+};
+
+export function changePaymentMethodAndRegisterPlannedPaymentEvent(
+  ppeId: number,
+  paymentMethod: number,
+  selectedPaymentMethodId: string | null,
+  applyToAllFuturePayments: boolean,
+  registerNow: boolean,
+  extraData: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      changePaymentMethodAndRegisterPlannedPaymentEventActions.isLoading(true),
+    );
+    dispatch(
+      changePaymentMethodAndRegisterPlannedPaymentEventActions.error(null),
+    );
+    try {
+      const paymentBackendPaymentMethodId = [
+        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      ].includes(paymentMethod)
+        ? selectedPaymentMethodId
+        : '';
+
+      const data = {
+        payment_method_identifier: paymentMethod,
+        payment_method_id: paymentBackendPaymentMethodId,
+        apply_to_all: applyToAllFuturePayments,
+        register_now: registerNow,
+        extra_data: extraData,
+      };
+      const response =
+        await changePaymentMethodAndRegisterPlannedPaymentEventAPI(ppeId, data);
+      dispatch(
+        changePaymentMethodAndRegisterPlannedPaymentEventActions.success(
+          response.data,
+        ),
+      );
+      dispatch(
+        snackbarSuccess(
+          registerNow
+            ? 'plannedPayment.registerNow.success'
+            : 'subscription.switchPaymentMethod.success',
+        ),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(
+        changePaymentMethodAndRegisterPlannedPaymentEventActions.error(e),
+      );
+      dispatch(
+        snackbarError(
+          registerNow
+            ? 'plannedPayment.registerNow.error'
+            : 'subscription.switchPaymentMethod.error',
+        ),
+      );
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(
+      changePaymentMethodAndRegisterPlannedPaymentEventActions.isLoading(false),
+    );
   };
 }
 

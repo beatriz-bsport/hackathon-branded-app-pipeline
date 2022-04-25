@@ -1600,6 +1600,7 @@
       "add": "Ajouter",
       "none": "Aucun moyen de paiement sauvergardé",
       "isInternalExplain": "Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.",
+      "isInternalExplainFuturePayments": "L'échéance sera prélevée automatiquement sur l'acompte client. Si celui-ci n'est pas suffisant, un acompte négatif sera créé.",
       "select": { "label": "Moyen de paiement" },
       "label": {
         "0": "Espèces",
@@ -1632,10 +1633,12 @@
         "registerNow": "Encaisser maintenant",
         "disable": "Déprogrammer",
         "enable": "Reprogrammer",
-        "edit": "Modifier"
+        "edit": "Modifier",
+        "changeMethod": "Modifier la méthode de paiement"
       },
       "nextRetryDate": "Le paiement sera retenté le {{ d }}",
-      "lockedToday": "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier"
+      "lockedToday": "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
+      "registerNowInitialData": "Paiement initialement prévu le {{-date}}"
     },
     "paymentPanel": {
       "amountRemaining": "Reste à payer: {{ amount }}",
@@ -1684,6 +1687,7 @@
       "cancel": "Annuler",
       "confirm": "Confirmer"
     },
+    "invoiceFuturePaymentsDialog": { "applyForAllFuturePayments": "Appliquer aux échéances futures de cette facture" },
     "uneditableMessage": {
       "invoiceRevertedThusNotEditable": "La facture a été annulée et n'est plus modifiable",
       "invoiceFromSubscriptionThusNotEditable": "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
@@ -6686,7 +6690,8 @@
       },
       "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" }
     },
-    "clockIn": { "errors": { "96002": "Impossible, cet utilisateur a déjà un pointage en cours" } }
+    "clockIn": { "errors": { "96002": "Impossible, cet utilisateur a déjà un pointage en cours" } },
+    "plannedPayment": { "registerNow": { "success": "Paiement enregistré", "error": "Impossible d'enregistrer le paiement" } }
   },
   "spotScheduling": {
     "toolsMenu": {

@@ -6,6 +6,7 @@ import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Menu from '@material-ui/core/Menu';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -34,6 +35,7 @@ type Props = {
     onDisable?: (id: number) => void;
     onEnable?: (id: number) => void;
     onEdit?: (id: number) => void;
+    onChangeMethod?: (ppeId: number) => void;
   };
 };
 
@@ -81,7 +83,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     },
   };
 
-  let { onDisable, onEnable, onRegisterNow, onEdit } = {};
+  let { onDisable, onEnable, onRegisterNow, onEdit, onChangeMethod } = {};
 
   let StatusIcon = HourglassEmptyIcon;
   if (plannedPaymentEvent.nb_retries > 0) {
@@ -98,6 +100,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
       parseInt(props.invoice.amount_paid_cts) +
         parseInt(props.plannedPaymentEvent.amount_cts) <=
         parseInt(props.invoice.amount_due_cts) && props.actions?.onEnable;
+    onChangeMethod = null;
 
     StatusIcon = RefreshIcon;
   }
@@ -106,6 +109,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
     onDisable = props.actions?.onDisable;
     onRegisterNow = props.actions?.onRegisterNow;
     onEdit = props.actions?.onEdit;
+    onChangeMethod = props.actions?.onChangeMethod;
   }
 
   return (
@@ -171,7 +175,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
           )}
         </div>
       </div>
-      {(!!onEdit || !!onDisable || !!onEnable || !!onRegisterNow) && (
+      {(!!onEdit ||
+        !!onDisable ||
+        !!onEnable ||
+        !!onRegisterNow ||
+        !!onChangeMethod) && (
         <>
           {!(
             props.invoice.amount_paid_cts >= props.invoice.amount_due_cts &&
@@ -190,6 +198,21 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             open={!!menuAchorEl}
             anchorEl={menuAchorEl}
           >
+            {!!onChangeMethod && (
+              <MenuItem
+                onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
+                  setMenuAnchorEl(null);
+                  onChangeMethod(props.plannedPaymentEvent);
+                })}
+              >
+                <ListItemIcon>
+                  <SwapHorizIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={t('plannedPaymentEvent.actions.changeMethod')}
+                />
+              </MenuItem>
+            )}
             {!!onEdit && (
               <MenuItem
                 onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
@@ -208,8 +231,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
               <MenuItem
                 onClick={onlyIfFuture(props.plannedPaymentEvent, t, () => {
                   setMenuAnchorEl(null);
-                  setProcessing(true);
-                  onRegisterNow(props.plannedPaymentEvent.id, closeMenu);
+                  onRegisterNow(props.plannedPaymentEvent);
                 })}
               >
                 <ListItemIcon>

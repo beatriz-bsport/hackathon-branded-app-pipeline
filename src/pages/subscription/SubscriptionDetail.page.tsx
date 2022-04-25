@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import type { Theme } from '@material-ui/core';
 import {
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
@@ -246,6 +247,7 @@ export class SubscriptionDetail extends Component<Props> {
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
             ]}
             member={this.props.memberById[this.props.subscription.member]}
           />

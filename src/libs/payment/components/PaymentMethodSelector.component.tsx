@@ -1,7 +1,16 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, Theme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import PaymentMethodList from './payment-method-list/PaymentMethodList.component';
 import { fromPaymentGroupIdentifierToPaymentMethodIdentifier } from '../utils';
 import { PaymentMethod } from '../types';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 type Props = {
   savedPaymentMethodList: Array<PaymentMethod>;
@@ -23,13 +32,22 @@ type Props = {
 };
 
 export const PaymentMethodSelector = (props: Props) => {
+  const { t } = useTranslation(['invoice']);
+  const classes = useStyles();
+  const readableIdentifier =
+    fromPaymentGroupIdentifierToPaymentMethodIdentifier(
+      props.paymentMethodType,
+    );
   return (
     <div>
-      {['card', 'sepa_debit'].includes(
-        fromPaymentGroupIdentifierToPaymentMethodIdentifier(
-          props.paymentMethodType,
-        ),
-      ) && (
+      {readableIdentifier === 'debt' && (
+        <div className={classes.container}>
+          <Typography>
+            {t('paymentMethod.isInternalExplainFuturePayments')}
+          </Typography>
+        </div>
+      )}
+      {['card', 'sepa_debit'].includes(readableIdentifier) && (
         <PaymentMethodList
           showEmpty
           isExpanded

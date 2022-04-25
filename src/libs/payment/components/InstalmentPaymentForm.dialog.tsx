@@ -12,7 +12,10 @@ import { compose } from 'recompose';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+} from '@bsport/common/lib/master-data/payment-group';
 import { Form } from 'formik';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Submit } from '../../../components/forms';
@@ -131,7 +134,11 @@ const InstalmentPaymentFormDialog = (props: Props) => {
           </Button>
           <Button
             disabled={
-              processing || props.loading || !paymentConfig.payment_method_id
+              processing ||
+              props.loading ||
+              (paymentConfig.payment_method !==
+                PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY &&
+                !paymentConfig.payment_method_id)
             }
             variant="contained"
             color="primary"

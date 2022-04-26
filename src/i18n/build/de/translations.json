@@ -4416,7 +4416,7 @@
             "equilibrate": "Ausgleichen (Anzahlung)",
             "backToInvoiceItemEditor": "Einkauf",
             "finalize": "Finalisieren (PDF)",
-            "download": "Downloaden PDF",
+            "download": "Rechnung herunterladen",
             "addInvoiceItem": "Zur Rechnung hinzufügen",
             "save": "Speichern",
             "goToPaymentEditor": "Zahlung",
@@ -4426,7 +4426,8 @@
             "consumeBalance": "Zahle per Saldo",
             "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
             "addFooter": "Fußnote anpassen",
-            "addCoupon": "Einen Promo-Code hinzufügen"
+            "addCoupon": "Einen Promo-Code hinzufügen",
+            "downloadReceipt": "Quittung über die Zahlung"
         },
         "invoice": {
             "editor": {
@@ -4561,7 +4562,10 @@
                 "last_payment_method": "Sie können Ihre einzige Zahlungsmethode nicht löschen",
                 "pm_deleted": "Gelöschte Zahlungsmethode"
             },
-            "inconsistent": "De-autorisierte Zahlungsmethode, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt; in beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar."
+            "inconsistent": "De-autorisierte Zahlungsmethode, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt; in beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar.",
+            "isInternalExplainFuturePayments": "Die Fälligkeit wird automatisch von der Kundenanzahlung abgezogen. Wenn diese nicht ausreichend ist, wird eine negative Anzahlung erstellt.",
+            "addPaymentMethod": "Ein Zahlungsmittel hinzufügen",
+            "copyLink": "Link zum Hinzufügen eines Zahlungsmittels kopieren"
         },
         "table": {
             "nested": {
@@ -4683,10 +4687,12 @@
                 "delete": "Abbrechen",
                 "registerNow": "Jetzt auszahlen",
                 "enable": "Termin verschieben",
-                "disable": "Deprogrammieren"
+                "disable": "Deprogrammieren",
+                "changeMethod": "Zahlungsmethode ändern"
             },
             "nextRetryDate": "Die Zahlung wird verzögert bis {{ d }}",
-            "lockedToday": "Die Zahlung ist heute fällig, Sie können sie nicht mehr ändern"
+            "lockedToday": "Die Zahlung ist heute fällig, Sie können sie nicht mehr ändern",
+            "registerNowInitialData": "Ursprünglich vorgesehene Zahlung am {{-date}}"
         },
         "mandate": {
             "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
@@ -4749,6 +4755,9 @@
                 "confirm": "Bestätigen"
             },
             "giftcard": "Geschenkkarte"
+        },
+        "invoiceFuturePaymentsDialog": {
+            "applyForAllFuturePayments": "Auf zukünftige Fälligkeiten dieser Rechnung anwenden"
         }
     },
     "payment": {
@@ -5480,7 +5489,8 @@
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
                 "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
                 "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{ date_ }}} geöffnet.",
-                "isAlreadyRegistered": "Sie sind bereits für diese Sitzung registriert"
+                "isAlreadyRegistered": "Sie sind bereits für diese Sitzung registriert",
+                "blockedByTags": "Sie haben nicht die erforderlichen Rechte, um sich für diese Sitzung anzumelden."
             },
             "section": {
                 "consumerPacks": "Meine Kurskarten",
@@ -5503,6 +5513,15 @@
             "isLoading": "Kurse werden gesucht...",
             "book": {
                 "unknowError": "Momentan kann nicht gebucht werden. Bitte versuche es später erneut"
+            },
+            "tags": {
+                "unAuthorized": "Sie haben nicht die erforderlichen Rechte, um sich für diese Sitzung anzumelden.",
+                "managerDialogWarningDialog": {
+                    "confirm": "Bestätigen",
+                    "cancel": "Abbrechen",
+                    "content": "Achtung, dieses Mitglied verfügt nicht über die notwendigen Tags, um für diese Sitzung angemeldet zu werden. Möchten Sie es trotzdem anmelden?",
+                    "title": "Informationen"
+                }
             }
         },
         "statusCode": {
@@ -5551,7 +5570,12 @@
             "withoutRecurrentBookings": "Einmalige Buchung",
             "withRecurrentBookings": "Wiederkehrende Buchung",
             "recurrentBooking": "Wiederkehrende Buchungen",
-            "notCancelled": "Nicht storniert"
+            "notCancelled": "Nicht storniert",
+            "pickCoach": "Nach einem Lehrer suchen...",
+            "coach": "Lehrer",
+            "isUnpaid": "Unbezahlte Buchungen",
+            "isPaid": "Bezahlte Buchungen",
+            "paid": "Zahlung"
         },
         "creditConsumed": "{{credit_consumed}} Credit",
         "creditConsumed_plural": "{{credit_consumed}} Credits",
@@ -5744,7 +5768,8 @@
                     "9": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt"
                 },
                 "waiting_list": "Warteliste",
-                "book": "Anmeldung"
+                "book": "Anmeldung",
+                "blockedByTags": "Unerlaubte Eintragung"
             },
             "similarOffer": {
                 "showMore": "Mehr anzeigen",
@@ -5762,7 +5787,26 @@
         "performanceTracking": {
             "stat": "Statistiken"
         },
-        "attendanceUpdatedOn": "Aktualisiert am {{- d }} um {{- t }}"
+        "attendanceUpdatedOn": "Aktualisiert am {{- d }} um {{- t }}",
+        "asGuest": "Gast",
+        "guest": {
+            "form": {
+                "actions": {
+                    "addGuest": "Einen Gast hinzufügen",
+                    "close": "Abbrechen",
+                    "submit": "Bestätigen"
+                },
+                "lastname": {
+                    "label": "Nachname"
+                },
+                "firstname": {
+                    "label": "Vorname"
+                },
+                "email": {
+                    "label": "Email"
+                }
+            }
+        }
     },
     "member": {
         "exists": {
@@ -5843,7 +5887,8 @@
             "vod": "VOD",
             "form": "Formulare",
             "giftcard": "Geschenkkarte",
-            "programs": "Programme"
+            "programs": "Programme",
+            "basket": "Korb"
         },
         "merge": "Fusionieren",
         "paymentAction": {
@@ -6130,7 +6175,9 @@
         "startAfterEnd": "Das Startdatum muss kleiner sein als das Enddatum",
         "endBeforeStart": "Das Enddatum muss größer sein als das Startdatum",
         "monthly": "Monatlich",
-        "weekly": "Wöchentlich"
+        "weekly": "Wöchentlich",
+        "showLess": "Weniger anzeigen",
+        "showMore": "Mehr anzeigen {{count}}"
     },
     "coupon": {
         "detail": {
@@ -6151,7 +6198,9 @@
                 "label": "Werbe-Code",
                 "placeholder": "spezial für die Rückkehr",
                 "cancel": "Abbrechen",
-                "submit": "Bestätigen"
+                "submit": "Bestätigen",
+                "not_found": "Dieser Gutscheincode ist ungültig.",
+                "not_applicable": "Dieser Gutscheincode ist nicht anwendbar."
             }
         },
         "createCoupon": "Einen Code hinzufügen",
@@ -6167,7 +6216,8 @@
                     "9": "Terminkarte",
                     "6": "Versandkosten",
                     "2": "Shop",
-                    "1": "Kurskarte"
+                    "1": "Kurskarte",
+                    "10": "Pack"
                 }
             },
             "minimum_amount": {
@@ -6211,7 +6261,8 @@
             "selectorPlaceholder": {
                 "paymentPack": "Kurskarten auswählen (gültig für alle Karten, wenn keine ausgewählt ist)",
                 "shopitem": "Produkte aus dem Shop auswählen (gültig für alle Produkte, wenn keins ausgewählt ist)",
-                "privatePass": "Terminkarten auswählen (gültig für alle Karten, wenn keine ausgewählt ist)"
+                "privatePass": "Terminkarten auswählen (gültig für alle Karten, wenn keine ausgewählt ist)",
+                "paymentCombo": "Pakete auswählen (gilt für alle Produkte, wenn keines ausgewählt ist)"
             },
             "amount_off": {
                 "label": "Betrag des Rabatts"
@@ -7299,7 +7350,10 @@
             "dialogTitle": "Kommunikation",
             "contentNotification": "Inhalt",
             "titleNotification": "Titel",
-            "sendNotification": "Push-Benachrichtigung"
+            "sendNotification": "Push-Benachrichtigung",
+            "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von direkten E-Mails.",
+            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es Ihnen, mit Ihren Mitgliedern auf einfache und schnelle Weise zu chatten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
+            "titleInterpolated": "Die Variablen in der Betreffzeile und im Corp der E-Mail werden entsprechend dem Empfänger aktualisiert."
         },
         "table": {
             "columns": {
@@ -7324,7 +7378,11 @@
             "submit": "Senden",
             "cancel": "Abbrechen"
         },
-        "recipients": "Empfänger"
+        "recipients": "Empfänger",
+        "sms": {
+            "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von Direkt-SMS.",
+            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-SMS zu senden, deaktiviert. Direkt-SMS ermöglichen es Ihnen, sich schnell und einfach mit Ihren Mitgliedern zu unterhalten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden."
+        }
     },
     "consumerSpace": {
         "actions": {
@@ -7382,7 +7440,8 @@
         },
         "pack": {
             "titlePrivatePack": "Terminkarte",
-            "titlePaymentPack": "Kurskarte"
+            "titlePaymentPack": "Kurskarte",
+            "titleUniversalPack": "Universell"
         },
         "unsubscriber": {
             "explain": "Möchtest Du Dich von allen Newslettern Deines Klubs abmelden?",
@@ -7516,7 +7575,10 @@
             "total_on_appointments": "Vergütung Termin",
             "total_on_sessions": "Vergütung Gruppenunterricht",
             "nb_appointments": "Anzahl der Termine",
-            "nb_sessions": "Anzahl der Sitzungen"
+            "nb_sessions": "Anzahl der Sitzungen",
+            "totalNetGain": "Gesamtnettogewinn",
+            "netGain": "Nettogewinn",
+            "marginValue": "Marginaler Input"
         },
         "checkboxIncludeABonus": "Einen Leistungsbonus einschließen",
         "pricePerOffer": "Betrag pro Sitzung",
@@ -8512,7 +8574,8 @@
                 "widget": "Widget",
                 "paymentMethod": "Zahlungsmethoden",
                 "forms": "Formular für Mitglieder",
-                "quickbooks": "QuickBooks"
+                "quickbooks": "QuickBooks",
+                "mobilePersonalization": "Personalisierung App"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -8560,7 +8623,8 @@
             "programs": "Programme",
             "expenses": "Ausgaben",
             "instalmentPayment": "Zahlungen in Raten",
-            "coachPayroll": "Bezahlung"
+            "coachPayroll": "Bezahlung",
+            "clockIn": "Stundenstempel"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -8688,7 +8752,8 @@
             "coachName": "Lehrer",
             "title": "Übersicht der Lehrer",
             "nbBookingsOverThreshold": "Bonus-Buchungen",
-            "durationBookings": "Anzahl der Stunden"
+            "durationBookings": "Anzahl der Stunden",
+            "totalNetGain": "Gesamtgewinn netto"
         },
         "description": "Beschreibung",
         "card": {
@@ -8697,7 +8762,9 @@
         "addCoach": "Einen Lehrer hinzufügen",
         "search": "Einen Lehrer suchen",
         "selector": {
-            "label": "Lehrer"
+            "label": "Lehrer",
+            "disabled": "Archivierte Lehrer",
+            "enabled": "Aktive Lehrerinnen und Lehrer"
         },
         "emptyDescription": "Keine verfügbare Beschreibung",
         "pleaseFill": "Gib den Lehrer an",
@@ -8726,7 +8793,8 @@
             "student": "Schüler",
             "info": "Wir haben festgestellt, dass Sie Lehrer in diesem Studio sind. Möchten Sie Zugang zu Ihrem Schülerbereich oder Ihrem Lehrerbereich?",
             "access": "Zugang"
-        }
+        },
+        "numberCoaches": "{{ number }}Lehrer"
     },
     "login": {
         "error": {
@@ -9082,7 +9150,16 @@
         "restoreOffer": "Kurs wiederherstellen",
         "maximumNumberDescription": "Die maximale Anzahl an {{effectif}} Buchungen wurde bereits erreicht.Wenn Sie dieses Mitglied anmelden, überschreiten Sie die ursprünglich geplante Anzahl an Buchungen. Sind Sie sicher, dass Sie dieses Mitglied anmelden möchten?",
         "maximumNumber": "Maximale Anzahl an Buchungen",
-        "warningOfferFull": "Die maximale Anzahl an Buchungen wurde bereits erreicht"
+        "warningOfferFull": "Die maximale Anzahl an Buchungen wurde bereits erreicht",
+        "levels": {
+            "modal": {
+                "name": "Name",
+                "title": "Stufe ändern",
+                "color": "Farbcode",
+                "nameCaption": "{{max}}max. Zeichen{{count}}/{{max}}"
+            }
+        },
+        "tagManagementInfo": "{{authorized}} erlaubte(r) tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)"
     },
     "settings": {
         "active_campaign": {
@@ -9435,7 +9512,18 @@
             "name": " Name"
         },
         "description": "Beschreibung",
-        "favouriteLocation": "Lokalisierungspräferenzen"
+        "favouriteLocation": "Lokalisierungspräferenzen",
+        "notification": {
+            "modal": {
+                "content": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten? Dieser Vorgang ist endgültig",
+                "confirm": "Löschen",
+                "cancel": "Abbrechen",
+                "title": "Unterdrückung der Benachrichtigung"
+            }
+        },
+        "marketing": {
+            "notification": "Benachrichtigungen"
+        }
     },
     "checkout": {
         "myBasket": {
@@ -9479,6 +9567,9 @@
             },
             "privatePass": {
                 "error": "Diese Terminkarte ist nicht verfügbar"
+            },
+            "paymentCombo": {
+                "locked": "Dieses Paket ist nicht verfügbar"
             }
         },
         "payLater": {
@@ -9488,15 +9579,21 @@
         "or": "oder",
         "validation": {
             "sections": {
-                "offerPreBooked": "Sie stehen auf der Warteliste für",
-                "title": "Zusammenfassung",
+                "offerPreBooked": "Aufnahme in die Warteliste",
+                "title": "Herzlichen Glückwunsch!",
                 "basket": "Ihr Korb",
-                "offerBooked": "Sie sind registriert für",
-                "offerNotBookable": "Keine Registrierung möglich für"
+                "offerBooked": "Ihre Sitzungen",
+                "offerNotBookable": "Keine Registrierung",
+                "errorExplain": "Die Operation konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
+                "error": "Fehler",
+                "recap": "Zusammenfassung",
+                "explain": "Ihre Transaktion wurde berücksichtigt. Wir schicken Ihnen eine Bestätigungsmail."
             },
             "actions": {
-                "continue": "Weiter",
-                "back": "Vorherige"
+                "continue": "Meinen Einkauf fortsetzen",
+                "back": "Vorherige",
+                "widgetContinue": "Weiter",
+                "member": "Mitgliederbereich"
             }
         },
         "expire_in": "Läuft ab in ",
@@ -9796,7 +9893,8 @@
                 "meta_activity": "Aktivität",
                 "workshop": "Workshop",
                 "private_pass": "Rendezvous-Karte",
-                "birthday": "Geburtstag"
+                "birthday": "Geburtstag",
+                "establishmentGroup": "Lokalisierung"
             },
             "cancel": "Abbrechen",
             "next": "Weiter",
@@ -9807,7 +9905,8 @@
                 "establishment": "Wähle eine Einrichtung aus",
                 "meta_activity": "Wähle eine Aktivität aus",
                 "workshop": "Wählen Sie einen Workshop",
-                "private_pass": "Wählen Sie eine Terminkarte aus"
+                "private_pass": "Wählen Sie eine Terminkarte aus",
+                "establishment_group": "Wählen Sie einen Ort aus"
             },
             "createNotification": "Benachrichtigung-Formular",
             "selectNotificationRules": "Wähle eine Regel aus, um die Details anzuzeigen",
@@ -9822,7 +9921,11 @@
             "notificationDetails": "Details der Benachrichtigung",
             "notificationPreview": "Übersicht über die Benachrichtigung",
             "privatePassPlaceholder": "Terminkarte",
-            "dialogTitle": "Eine Benachrichtigung erstellen"
+            "dialogTitle": "Eine Benachrichtigung erstellen",
+            "listTitle": "Benachrichtigungen",
+            "create": "Eine Benachrichtigung erstellen",
+            "handleNotification": "Benachrichtigungen verwalten",
+            "noNotification": "Keine Benachrichtigung aktiviert"
         },
         "customForm": {
             "statistics": {
@@ -10782,7 +10885,56 @@
             "clockOut": "Beenden",
             "clockIn": "Beginnen",
             "close": "Schließen",
-            "title": "Stundenstempel"
+            "title": "Stundenstempel",
+            "successDuration": "Anzahl der gearbeiteten Stunden:",
+            "successClockOut": "Uhrzeit der Abreise:"
+        },
+        "export": {
+            "dialog": {
+                "title": "Export des Verlaufs",
+                "message": "Ihr Export ist bereit zum Herunterladen."
+            }
+        },
+        "tabHistory": "Geschichte",
+        "tabRealTime": "Echtzeit",
+        "pageTitle": "Öffnungszeiten Staff",
+        "editModal": {
+            "confirm": "Bestätigen",
+            "cancel": "Abbrechen",
+            "startingTime": "Uhrzeit des Beginns",
+            "endingTime": "Uhrzeit des Endes",
+            "title": "Änderung des Stundenplans"
+        },
+        "modal": {
+            "delete": {
+                "content": "Achtung: Sind Sie sicher, dass Sie den Zeitslot für diesen Staff löschen möchten? Dieser Vorgang ist unumkehrbar.",
+                "title": "Suppresion"
+            }
+        },
+        "historyTable": {
+            "download": "Download",
+            "action": "Aktion",
+            "durationHours": "Geleistete Arbeitsstunden (Stunde)",
+            "durationHoursMinutes": "Geleistete Arbeitsstunden (Stunde und Minute)",
+            "endingHour": "Uhrzeit des Endes",
+            "startingHour": "Uhrzeit des Beginns",
+            "staff": "Staff"
+        },
+        "attendanceTable": {
+            "emptyState": "Sie haben noch keinen Staffzugang vergeben. Um Staff-Zugänge einzurichten, gehen Sie zu Einstellungen und dann Staff oder klicken Sie auf die Schaltfläche unten. Um die Arbeitszeiten Ihres Staffs zu verfolgen, vergessen Sie nicht, beim Erstellen der Rolle die Option \"Zeiterfassung\" zu aktivieren.",
+            "createStaff": "einen Staff-Zugang erstellen",
+            "missing": "Abwesend",
+            "here": "Gegenwart",
+            "end": "Beginnen",
+            "start": "Beenden",
+            "role": "Rolle",
+            "action": "Aktion",
+            "status": "Status",
+            "lastClockIn": "Letzte Stempelung",
+            "email": "Email",
+            "staff": "Staff",
+            "lastname": "Name",
+            "firstname": "Vorname"
         }
     }
 }

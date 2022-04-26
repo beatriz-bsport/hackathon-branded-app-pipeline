@@ -101,17 +101,20 @@ type State = {
 const SIMILAR_OFFER_PAGE_SIZE = 7;
 
 class OfferBooking extends React.PureComponent<Props, State> {
-  state: State = {
-    showSimilarOffers: false,
-    selectedPack: {},
-    offersConstraint: {
-      credit: 0,
-    },
-    selectedOffers: [],
-    additionalGuestList: [],
-    showLoader: false,
-    showSpotSelector: false,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      showSimilarOffers: false,
+      selectedPack: {},
+      offersConstraint: {
+        credit: 0,
+      },
+      selectedOffers: [],
+      additionalGuestList: [],
+      showLoader: false,
+      showSpotSelector: false,
+    };
+  }
 
   componentDidMount() {
     this.props.fetchOffer(this.props.id, {

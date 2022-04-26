@@ -290,7 +290,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             ListItemComponent={MetaActivityListItem}
           />
         )}
-        {(this.props.disabledMetaActivities || []).length ? (
+        {!!this.props.disabledMetaActivities?.length && (
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}

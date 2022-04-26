@@ -89,29 +89,28 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
   shouldAutoSelectDefaultPack = () => {
     const { availableConsumerPacks, unCategorizedPacks, availableComboPacks } =
       this.props;
-
     /** If selected pack not existed anymore */
     if (
       (!this.props.selectedPack.consumerPaymentPack &&
         !this.props.selectedPack.paymentPack &&
         !this.props.selectedPack.paymentPackCombo) ||
       (this.props.selectedPack.consumerPaymentPack &&
-        availableConsumerPacks.findIndex(
+        !availableConsumerPacks.some(
           (cpp) => cpp.id === this.props.selectedPack.consumerPaymentPack.id,
-        ) === -1) ||
+        )) ||
       (this.props.selectedPack.paymentPack &&
-        (unCategorizedPacks.findIndex(
+        !unCategorizedPacks.some(
           (cpp) => cpp.id === this.props.selectedPack.paymentPack.id,
-        ) === -1 ||
-          !this.props.paymentPackCategories.some((cat) =>
-            cat.packs.find(
-              (p) => p.id === this.props.selectedPack.paymentPack.id,
-            ),
-          ))) ||
+        ) &&
+        !this.props.paymentPackCategories.some((cat) =>
+          cat.packs.find(
+            (p) => p.id === this.props.selectedPack.paymentPack.id,
+          ),
+        )) ||
       (this.props.selectedPack.paymentPackCombo &&
-        availableComboPacks.findIndex(
+        !availableComboPacks.some(
           (cpp) => cpp.id === this.props.selectedPack.paymentPackCombo.id,
-        ) === -1)
+        ))
     ) {
       this.setDefaultPack();
     }

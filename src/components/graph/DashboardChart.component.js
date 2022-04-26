@@ -1,19 +1,22 @@
 // @flow
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { withStateHandlers, withState, withHandlers, compose } from 'recompose';
+
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Chip from '@material-ui/core/Chip';
-import { useTranslation } from 'react-i18next';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
+
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
 import withSentryErrorReporting from '../../hocs/error-boundary.hoc';
+import type { Coach } from '#libs/associated-coach/types';
 
 type Props = {
   title: string,
@@ -32,6 +35,7 @@ type Props = {
   showSaveButton: (boolean) => void,
   timeSettings: string,
   graphIdentifier: string,
+  coaches: Array<Coach>,
 };
 
 const DashboardChart = (props: Props) => {
@@ -45,7 +49,7 @@ const DashboardChart = (props: Props) => {
     setAnchorEl(null);
   };
 
-  const { t } = useTranslation(['dashboard']);
+  const { t } = useTranslation('dashboard');
   const classes = useStyles();
   const open = anchorEl;
   return (
@@ -121,6 +125,7 @@ const DashboardChart = (props: Props) => {
             filters={props.filtersValue}
             open={props.openFilters}
             setOpenValue={props.setOpenFiltersValue}
+            coaches={props.coaches}
           />
           <Divider />
         </div>
@@ -215,7 +220,7 @@ export default compose(
         (name: string, value: any) => {
           setShowSaveButton(true);
           let newFilters = { ...filtersValue };
-          if (value === null) {
+          if (!value || value?.length === 0) {
             delete newFilters[name];
           } else {
             newFilters = {

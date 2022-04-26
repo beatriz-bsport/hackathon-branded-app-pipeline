@@ -28,10 +28,13 @@ exports.default = {
   showDescription: 'Afficher la description',
   description: 'Description',
   pleaseFill: 'Veuillez renseigner un professeur',
+  numberCoaches: '{{ number }} professeurs',
 
   emptyDescription: 'Aucune description fournie',
   selector: {
     label: 'Professeur',
+    enabled: 'Professeurs actifs',
+    disabled: 'Professeurs archivés',
   },
   search: 'Rechercher un professeur',
   performance: {

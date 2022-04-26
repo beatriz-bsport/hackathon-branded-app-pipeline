@@ -126,6 +126,8 @@ exports.default = {
     paid: 'Paiement',
     isPaid: 'Réservations payées',
     isUnpaid: 'Réservations impayées',
+    coach: 'Professeur',
+    pickCoach: 'Rechercher un professeur...',
   },
   bookingModule: {
     hasRegistered: 'Vous êtes inscrit à cette séance',

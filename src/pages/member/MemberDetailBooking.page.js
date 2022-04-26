@@ -3,21 +3,24 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import omit from 'lodash/omit';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withState, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
+
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
-
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
+
 import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
@@ -109,6 +112,7 @@ import WaitingListDetail from '../../libs/waiting-list/components/WaitingListDet
 import PaginatedBookingOptionList from '../../libs/waiting-list/components/PaginatedBookingOptionList.component';
 import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import type { Coach } from '#libs/associated-coach/types';
 
 type Props = {
   classes: any,
@@ -193,6 +197,9 @@ type Props = {
   setDiscardBookingOption: () => void,
   discardBookingOption: boolean,
   discardOption: () => void,
+
+  coaches: Array<Coach>,
+  fetchAssociatedCoachesList: () => void,
 };
 
 type State = {
@@ -214,6 +221,7 @@ export class MemberDetailBooking extends Component<Props, State> {
     this.props.fetchAllActivities();
     this.props.fetchRecurrenceRuleBooking(1);
     this.props.fetchMemberBookingStatistics();
+    this.props.fetchAssociatedCoachesList();
   }
 
   hasNext = () => {
@@ -325,6 +333,7 @@ export class MemberDetailBooking extends Component<Props, State> {
             setFiltersValue={this.props.setFilterValue}
             open={this.props.open}
             filters={!dataLoading && this.props.filters}
+            coaches={this.props.coaches}
           />
           {this.props.graphData.loading ? (
             <Skeleton height={300} />
@@ -446,6 +455,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 setFiltersValue={this.props.setFilterValue}
                 open={this.props.open}
                 filters={!dataLoading && this.props.filters}
+                coaches={this.props.coaches}
               />
               <Divider />
               <PaginatedListBase
@@ -700,6 +710,7 @@ export default compose(
       bookingOptionListLoading: state.waitingList.option.forMember.loading,
       bookingOptionCount: state.waitingList.option.forMember.count,
       bookingOptionPage: state.waitingList.option.forMember.page,
+      coaches: getActiveCoaches(state),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -741,6 +752,8 @@ export default compose(
       fetchOfferStatus: fetchOfferStatusAction,
       fetchBookingOptionForMember,
       discardOption: discardBookingOptionAction,
+
+      fetchAssociatedCoachesList,
     },
   ),
   withState('filters', 'setFilters', (props) => {

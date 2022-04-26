@@ -1,6 +1,5 @@
-// @flow
-
 import React from 'react';
+
 import PresentIcon from '@material-ui/icons/DoneOutline';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AbsentIcon from '@material-ui/icons/PriorityHigh';
@@ -13,6 +12,7 @@ import FutureIcon from '@material-ui/icons/UpdateOutlined';
 import PastIcon from '@material-ui/icons/Restore';
 import RecurrentBookingIcon from '@material-ui/icons/Autorenew';
 import NotRecurrentBookingIcon from '@material-ui/icons/Close';
+
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
@@ -20,16 +20,18 @@ import {
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
 import FilterMenu from '../../../components/button/FilterMenu.component';
+import type { Coach } from '#libs/associated-coach/types';
 
 type Props = {
-  filters: any,
-  open: any,
-  setOpenValue: (name: string) => void,
-  setFiltersValue: (name: string, bool: any) => void,
+  filters: any;
+  open: { [filter: string]: boolean };
+  setOpenValue: (name: string) => void;
+  setFiltersValue: (name: string, bool: any) => void;
+  coaches: Array<Coach>;
 };
 
-export default function BookingFilters(props: Props) {
-  const { t } = useTranslation(['booking']);
+export const BookingFilters: React.FC<Props> = (props: Props) => {
+  const { t } = useTranslation('booking');
   return (
     <FilterMenu
       emptyLabel={t('filters.all')}
@@ -95,7 +97,7 @@ export default function BookingFilters(props: Props) {
                 props.setFiltersValue(
                   'booking_status_code__in',
                   (props.filters.booking_status_code__in || []).filter(
-                    (v) => v !== BOOKING_STATUS_OK.id,
+                    (v: number) => v !== BOOKING_STATUS_OK.id,
                   ),
                 ),
               label: t('filters.notCancelled'),
@@ -114,7 +116,7 @@ export default function BookingFilters(props: Props) {
                 props.setFiltersValue(
                   'booking_status_code__in',
                   props.filters.booking_status_code__in.filter(
-                    (v) => v !== BOOKING_STATUS_CANCELLED_BY_OFFER.id,
+                    (v: number) => v !== BOOKING_STATUS_CANCELLED_BY_OFFER.id,
                   ),
                 ),
               label: t('filters.canceled'),
@@ -133,7 +135,7 @@ export default function BookingFilters(props: Props) {
                 props.setFiltersValue(
                   'booking_status_code__in',
                   (props.filters.booking_status_code__in || []).filter(
-                    (v) => v !== BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+                    (v: number) => v !== BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
                   ),
                 ),
               label: t('filters.managerCanceled'),
@@ -152,7 +154,8 @@ export default function BookingFilters(props: Props) {
                 props.setFiltersValue(
                   'booking_status_code__in',
                   (props.filters.booking_status_code__in || []).filter(
-                    (v) => v !== BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+                    (v: number) =>
+                      v !== BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
                   ),
                 ),
               label: t('filters.consumerCanceled'),
@@ -170,14 +173,14 @@ export default function BookingFilters(props: Props) {
           subMenu: [
             {
               onClick: () => props.setFiltersValue('future_booking', true),
-              onDelete: () => props.setFiltersValue('future_booking', false),
+              onDelete: () => props.setFiltersValue('future_booking', null),
               label: t('filters.futureBooking'),
               icon: FutureIcon,
               show: props.filters.future_booking,
             },
             {
               onClick: () => props.setFiltersValue('past_booking', true),
-              onDelete: () => props.setFiltersValue('past_booking', false),
+              onDelete: () => props.setFiltersValue('past_booking', null),
               label: t('filters.pastBooking'),
               icon: PastIcon,
               show: props.filters.past_booking,
@@ -205,7 +208,18 @@ export default function BookingFilters(props: Props) {
             },
           ],
         },
+        {
+          openFunction: () => props.setOpenValue('coaches'),
+          label: t('filters.coach'),
+          type: 'coach',
+          open: props.open.coaches,
+          onChange: props.setFiltersValue,
+          coaches: props.coaches || [],
+          selectedCoaches: props.filters.coaches || [],
+        },
       ]}
     />
   );
-}
+};
+
+export default BookingFilters;

@@ -1,0 +1,112 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachGroupChip from './CoachGroupChip.component';
+import { coachesFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachGroupChip"
+  component={CoachGroupChip}
+  argTypes={{
+    coaches: {
+      description: 'Coaches displayed',
+      table: {
+        type: {
+          summary: 'Array<Coach>',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    loading: {
+      description: 'Is the coach chip loading',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    hideCoach: {
+      description: 'Are the chips visible',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    onDelete: { action: 'clicked' },
+  }}
+/>
+
+export const Template = (args) => <CoachGroupChip {...args} />;
+
+# Coach Group Chip
+
+This `CoachGroupChip` is a bunch of coach chips with a delete button
+
+<Canvas>
+  <Story
+    name="Coach Group Chip"
+    args={{
+      loading: false,
+      coaches: coachesFactory(4),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Chip Alone
+
+This `CoachGroupChip` with a single coach
+
+<Canvas>
+  <Story
+    name="Coach Group Chip Alone"
+    args={{
+      loading: false,
+      coaches: coachesFactory(1),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Chip Loading
+
+While `CoachGroupChip` is loading
+
+<Canvas>
+  <Story
+    name="Coach Group Chip loading"
+    args={{
+      loading: true,
+      coaches: coachesFactory(4),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Chip Without Delete
+
+`CoachGroupChip` without delete action, then without delete button on chips
+
+<Canvas>
+  <Story
+    name="Coach Group Chip without delete"
+    args={{
+      coaches: coachesFactory(4),
+      onDelete: null,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Group Chip" />

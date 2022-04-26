@@ -126,7 +126,9 @@
       "withoutRecurrentBookings": "Réservations non récurrentes",
       "paid": "Paiement",
       "isPaid": "Réservations payées",
-      "isUnpaid": "Réservations impayées"
+      "isUnpaid": "Réservations impayées",
+      "coach": "Professeur",
+      "pickCoach": "Rechercher un professeur..."
     },
     "bookingModule": {
       "hasRegistered": "Vous êtes inscrit à cette séance",
@@ -489,8 +491,9 @@
     "showDescription": "Afficher la description",
     "description": "Description",
     "pleaseFill": "Veuillez renseigner un professeur",
+    "numberCoaches": "{{ number }} professeurs",
     "emptyDescription": "Aucune description fournie",
-    "selector": { "label": "Professeur" },
+    "selector": { "label": "Professeur", "enabled": "Professeurs actifs", "disabled": "Professeurs archivés" },
     "search": "Rechercher un professeur",
     "performance": {
       "title": "Récapitulatif professeur",
@@ -7613,7 +7616,7 @@
       "marketplacePass": "Cartes de cours",
       "marketplaceGiftcard": "Cartes cadeaux"
     },
-    "dashboard": { "marketingDashboard": "Marketing", "reportingDashboard": "Rapports", "dashboard": "dashboard" },
+    "dashboard": { "marketingDashboard": "Marketing", "reportingDashboard": "Rapports", "dashboard": "Dashboard" },
     "subscription": { "subscriptionCreate": "Créer une souscription", "subscriptions": "Souscriptions" },
     "workshopActivity": {
       "workshopActivityList": "Ateliers",

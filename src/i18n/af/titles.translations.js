@@ -63,7 +63,7 @@ exports.default = {
   dashboard: {
     marketingDashboard: 'Marketing',
     reportingDashboard: 'Rapports',
-    dashboard: 'dashboard',
+    dashboard: 'Dashboard',
   },
   subscription: {
     subscriptionCreate: 'Créer une souscription',

@@ -33,6 +33,9 @@ import {
   fetchDashboardSettings as fetchDashboardSettingsAction,
   updateDashboardSettings as updateDashboardSettingsAction,
 } from '../libs/dashboard/actions';
+import type { Coach } from '#libs/associated-coach/types';
+import { getAllCoaches } from '../libs/associated-coach/selectors';
+import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import {
   getDashboardConfiguration,
   getDashboardConfigurationTab,
@@ -54,6 +57,9 @@ type Props = {
 
   chartFilterByIdentifier: any,
   setChartFilters: (any) => void,
+
+  coaches: Array<Coach>,
+  fetchAssociatedCoachesList: () => void,
 
   dateRangeByIdentifier: { [string]: { start: string, end: string } },
   graphActionByIdentifier: {
@@ -92,6 +98,7 @@ export class Dashboard extends Component<Props> {
   componentDidMount() {
     const { fetchDashboardSettings, fetchStatistics, dashboardTab } =
       this.props;
+    this.props.fetchAssociatedCoachesList();
     fetchDashboardSettings({
       onSuccess: () => {
         if (dashboardTab && dashboardTab.graphs) {
@@ -137,6 +144,7 @@ export class Dashboard extends Component<Props> {
   render() {
     const {
       classes,
+      coaches,
       dateRangeByIdentifier,
       chartFilterByIdentifier,
       graphDataByIdentifier,
@@ -182,6 +190,7 @@ export class Dashboard extends Component<Props> {
                       onSaveGraph={this.props.onSaveGraphByIdentifier}
                       graphIdentifier={graph.name}
                       onDelete={this.props.onDeleteGraphByIdentifier}
+                      coaches={coaches}
                     >
                       <ChartComponent
                         data={graphDataByIdentifier[graph.name].data}
@@ -276,10 +285,12 @@ export default compose(
       theme: themeSelectors.getTheme(state),
       dashboardConfiguration: getDashboardConfiguration(state),
       dashboardTab: getDashboardConfigurationTab(state, CURRENT_TAB_INDEX),
+      coaches: getAllCoaches(state),
     }),
     {
       fetchDashboardSettings: fetchDashboardSettingsAction,
       updateDashboardSettings: updateDashboardSettingsAction,
+      fetchAssociatedCoachesList,
     },
   ),
   branch(
@@ -385,9 +396,9 @@ export default compose(
       },
     setChartFiltersByIdentifier:
       ({ setChartFilters }) =>
-      (identifier: string) => {
-        return (filters) => setChartFilters(identifier, filters);
-      },
+      (identifier: string) =>
+      (filters) =>
+        setChartFilters(identifier, filters),
     setChartDateRangeByIdentifier:
       ({ setDateRangeByIdentifier }) =>
       (identifier: string, timeSettings: string, range) => {
@@ -415,10 +426,7 @@ export default compose(
               if (graphIdentifier === currentGraph.name) {
                 return {
                   ...currentGraph,
-                  dataFilters: {
-                    ...(currentGraph.dataFilters || {}),
-                    ...(chartFilterByIdentifier[graphIdentifier] || {}),
-                  },
+                  dataFilters: chartFilterByIdentifier[graphIdentifier] || {},
                   dateRange: {
                     ...(currentGraph.dateRange || {}),
                     ...(dateRangeByIdentifier[graphIdentifier] || {}),

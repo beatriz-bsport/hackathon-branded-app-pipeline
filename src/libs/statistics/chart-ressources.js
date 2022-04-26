@@ -177,7 +177,7 @@ export const graphRessources = {
     timeSettings: 'range',
     dateFiltersName: {
       start: 'invoice__payments__date__gte',
-      end: 'invoce__payments__date__lte',
+      end: 'invoice__payments__date__lte',
     },
     choices: {
       dropdown_field: ['buyable_item_identifier'],

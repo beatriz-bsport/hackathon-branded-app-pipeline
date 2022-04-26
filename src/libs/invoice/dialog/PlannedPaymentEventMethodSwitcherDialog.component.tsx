@@ -44,6 +44,7 @@ const PaymentMethodSwitcher = (props: {
   enabledPaymentMethods: Array<number>;
   disabled: boolean;
   registerNow: boolean;
+  currentPPEPaymentMethodIdentifier: number;
 }) => (
   <RadioGroup
     aria-label="payment-method"
@@ -73,10 +74,14 @@ const PaymentMethodSwitcher = (props: {
         disabled={props.disabled}
       />
     ) : null}
-    {!props.registerNow &&
-    (props.enabledPaymentMethods || []).includes(
+
+    {(props.enabledPaymentMethods || []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
-    ) ? (
+    ) &&
+    (!props.registerNow ||
+      (props.registerNow &&
+        props.currentPPEPaymentMethodIdentifier ===
+          PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY)) ? (
       <FormControlLabel
         value="debt"
         control={<Radio color="primary" />}
@@ -172,23 +177,9 @@ type Props = OwnProps;
 
 export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
   const [paymentMethod, setPaymentMethod] = useState(() => {
-    // if PPE method is debt, and we want to register payment, set default payment method to CB
-    if (
-      props.registerNow &&
-      props.selectedPPE.payment_method_identifier ===
-        PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY
-    )
-      return PAYMENT_GROUP_METHOD_IDENTIFIER_CB;
     return props.selectedPPE.payment_method_identifier;
   });
   const [paymentMethodType, setPaymentMethodType] = useState(() => {
-    // if PPE method is debt, and we want to register payment, set default payment method to CB
-    if (
-      props.registerNow &&
-      props.selectedPPE.payment_method_identifier ===
-        PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY
-    )
-      return 'card';
     switch (props.selectedPPE.payment_method_identifier) {
       case PAYMENT_GROUP_METHOD_IDENTIFIER_CB:
         return 'card';
@@ -220,6 +211,8 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
   const [internalDate, setInternalDate] = useState(moment().format());
   const [internalPaymentNote, setInternalPaymentNote] = React.useState('');
 
+  const currentPPEPaymentMethodIdentifier =
+    props.selectedPPE.payment_method_identifier;
   const classes = useStyles();
 
   const { t } = useTranslation(['translation', 'invoice']);
@@ -300,6 +293,9 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
               enabledPaymentMethods={props.enabledPaymentMethods}
               disabled={props.plannedPaymentEventLoading}
               registerNow={props.registerNow}
+              currentPPEPaymentMethodIdentifier={
+                currentPPEPaymentMethodIdentifier
+              }
             />
             <Divider />
             <div className={classes.explainCredit}>

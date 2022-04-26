@@ -31,6 +31,8 @@ import CheckInOfferList from '../../libs/check-in/components/CheckInOfferList.co
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { Offer } from '../../libs/offer/types';
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
 
 type OwnProps = {
   selectedOffers: Array<Offer>;
@@ -45,7 +47,14 @@ type Props = OwnProps &
 export class CheckInOfferListPage extends React.Component<Props> {
   componentWillMount() {
     this.refreshData();
+    this.handleFetchLevel();
   }
+
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
 
   refreshData = () => {
     this.props.fetchEstablishments();
@@ -87,7 +96,10 @@ const mapStateToProps = (state: RootState) => ({
   offersLoading: state.offer.byDay.loading,
   establishments: withCoach(withEstablishment(getAllEstablishments))(state),
   offerFilters: state.offer.managerFilter.filters,
-  offers: withCoach(withEstablishment(getAvailableOffersFiltered))(state),
+  offers: withCustomLevel(
+    withCoach(withEstablishment(getAvailableOffersFiltered)),
+  )(state),
+  companyId: state.theme.theme.company,
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -99,6 +111,7 @@ const mapDispatchToProps = {
   setFilters: setFiltersAction,
   setOpen: offersFilterActions.setOpen,
   toogleFilter: toogleFilterAction,
+  fetchLevelList: fetchLevelListAction,
 };
 const mapWithHandlers = {
   fetchOffersByDay:

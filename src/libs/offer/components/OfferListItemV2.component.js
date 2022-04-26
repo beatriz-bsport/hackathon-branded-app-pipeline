@@ -14,7 +14,7 @@ import moment from 'moment-timezone';
 import WarningIcon from '@material-ui/icons/Warning';
 import { formatAsDatetime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
-import Level from '../../../components/category/Level.component';
+import Level from '#libs/level/components/Level.component';
 
 type Props = {
   offer: Object,
@@ -68,7 +68,7 @@ export const OfferListItem = (props: Props) => {
                 noStyle
                 align="left"
                 variant="caption"
-                levelId={offer && offer.level}
+                level={offer && offer.customLevel}
                 className={classes.level}
                 noWrap={false}
               />

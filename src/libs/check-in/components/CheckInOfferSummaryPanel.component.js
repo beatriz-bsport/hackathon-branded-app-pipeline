@@ -8,14 +8,14 @@ import Avatar from '@material-ui/core/Avatar';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/PlaceOutlined';
 
-import Level from '../../../components/category/Level.component';
+import Level from '#libs/level/components/Level.component';
 
 type Props = {
   offer: Object,
   classes: Object,
 };
 
-class CheckInOfferSummary extends Component<Props> {
+class CheckInOfferSummaryPanel extends Component<Props> {
   interval: any;
 
   render() {
@@ -61,7 +61,7 @@ class CheckInOfferSummary extends Component<Props> {
           <Level
             variant="body1"
             align="center"
-            levelId={offer && offer.level_id ? offer.level_id || null : null}
+            customLevel={offer.customLevel}
           />
         </div>
 
@@ -123,4 +123,4 @@ const style = (theme) => ({
   },
 });
 
-export default withStyles(style)(CheckInOfferSummary);
+export default withStyles(style)(CheckInOfferSummaryPanel);

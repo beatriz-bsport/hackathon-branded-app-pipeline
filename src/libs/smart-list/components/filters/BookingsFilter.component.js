@@ -15,7 +15,6 @@ import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
-import LEVELS from '@bsport/common/lib/master-data/levels';
 import CheckboxSelector from '../CheckboxSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 
@@ -26,6 +25,9 @@ import CalendarPicker from '../CalendarPicker.component';
 import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
+
+import { getLevelTrad } from '#libs/level/utils';
+import { Level } from '#libs/level/types';
 
 type Props = {
   filter_data: any,
@@ -42,6 +44,7 @@ type Props = {
   setNotNullableData: (data: Array<string>) => void,
   renderSelectorWarning: (string, boolean) => void,
   renderAttendanceSelectorWarning: (string, boolean) => void,
+  customLevels: Level[],
 };
 
 export class BookingsNumberFilter extends Component<Props, state> {
@@ -515,9 +518,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
               )}
             </div>
             <CheckboxSelector
-              items={LEVELS.map((level) => ({
+              items={this.props.customLevels.map((level) => ({
                 id: level.id,
-                text: t(`multiSelector.level.${level.text}`),
+                text: getLevelTrad(level.id, level.name, this.props.t),
+                disabled: !level.enabled,
               }))}
               renderItem={(item) => <ListItemText primary={item.text} />}
               onChange={(item) => {
@@ -526,6 +530,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
               selectedItems={filter_data.level}
               labelName="text"
               helperText={t('multiSelector.level.select')}
+              filterItemsCallback={(l) => l.enabled}
             />
             {this.props.renderSelectorWarning(
               t('multiSelector.level.warning'),

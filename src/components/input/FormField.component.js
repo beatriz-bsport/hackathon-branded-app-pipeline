@@ -20,9 +20,6 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
-import LEVELS from '@bsport/common/lib/master-data/levels';
-
-import { Level } from '../category';
 import Sport from '../../libs/category/components/SCT.component';
 import { Moment } from '../../i18n';
 
@@ -375,28 +372,6 @@ export class FormField extends Component<Props, State> {
             >
               <MenuItem value="M">{t('common.male')}</MenuItem>
               <MenuItem value="F">{t('common.female')}</MenuItem>
-            </Select>
-          </FormControl>
-        );
-      case 'level':
-        return (
-          <FormControl
-            className={classes.formControl}
-            required={required}
-            margin="normal"
-          >
-            <InputLabel htmlFor={`${id}-helper`}>{t('form.level')}</InputLabel>
-            <Select
-              id={this.props.id}
-              name="level"
-              value={value}
-              onChange={this.handleChange}
-            >
-              {LEVELS.map((l) => (
-                <MenuItem value={l.id}>
-                  <Level levelId={l.id} />
-                </MenuItem>
-              ))}
             </Select>
           </FormControl>
         );

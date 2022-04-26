@@ -126,6 +126,7 @@ type Props = {
   fetchBulkItems: any,
   coaches: Array<any>,
   smartListUpdate: (id: number, smartlist: SmartList) => void,
+  customLevels: Level[],
 } & WithSegmentAnalyticsFormTrackerHandlers;
 
 type State = {
@@ -381,6 +382,7 @@ export class FiltersPanel extends Component<Props, State> {
                   coaches={this.props.coaches}
                   fetchItems={this.props.fetchItems}
                   fetchBulkItems={this.props.fetchBulkItems}
+                  customLevels={this.props.customLevels}
                 />
               ))}
               {this.state.new_filter ? (
@@ -398,6 +400,7 @@ export class FiltersPanel extends Component<Props, State> {
                   coaches={this.props.coaches}
                   fetchItems={this.props.fetchItems}
                   fetchBulkItems={this.props.fetchBulkItems}
+                  customLevels={this.props.customLevels}
                 />
               ) : null}
             </List>

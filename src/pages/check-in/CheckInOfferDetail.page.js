@@ -20,6 +20,7 @@ import {
   registerBooking as registerBookingAction,
 } from '../../libs/booking/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
+import { getRetrieveOffer } from '../../libs/offer/selectors';
 import { getSearchedMembers, getAllMembers } from '../../libs/member/selectors';
 import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import RegistrationFlowDialog from '../../libs/check-in/components/SearchAndRegisterMember.component';
@@ -32,6 +33,9 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
+
+import { fetchLevel as fetchLevelAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
 
 import {
   getByOfferByMember,
@@ -97,6 +101,8 @@ type Props = {
   fetchSignFormUpConfiguration: (membership: string) => void,
   managerFormConfig: SignUpFormConfigDict,
   theme: Theme,
+
+  fetchLevel: (id: number) => void,
 };
 
 type State = {
@@ -113,7 +119,11 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchOfferById(this.props.offerId);
+    this.props.fetchOfferById(this.props.offerId, {
+      onSuccess: (offer) => {
+        this.props.fetchLevel(offer.level_id);
+      },
+    });
     this.props.fetchOfferData();
     this.props.fetchAllPaymentPacks();
     checkFaceIDAvailableAPI().then((r) =>
@@ -264,7 +274,7 @@ export default compose(
   connect(
     (state) => ({
       theme: state.theme.theme,
-      offer: state.offer.retrieve.data,
+      offer: withCustomLevel(getRetrieveOffer)(state),
       members: getAllMembers(state),
       searchedMemberList: getSearchedMembers(state),
 
@@ -299,6 +309,7 @@ export default compose(
       redirectToConfirmPage: (offerId, bookingId) =>
         pushRouter(`/check-in/offer/${offerId}/booking/${bookingId}`),
       fetchSignFormUpConfiguration,
+      fetchLevel: fetchLevelAction,
     },
   ),
   withHandlers({

@@ -4,15 +4,16 @@ import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
+import moment from 'moment-timezone';
 
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ListItemText from '@material-ui/core/ListItemText';
-import LEVELS from '@bsport/common/lib/master-data/levels';
+import { getLevelTrad } from '#libs/level/utils';
+import { Level } from '#libs/level/types';
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
@@ -39,6 +40,7 @@ type Props = {
   fetchItems: any,
   renderSelectorWarning: (string, boolean) => void,
   renderAttendanceSelectorWarning: (string, boolean) => void,
+  customLevels: Level[],
 };
 
 export class BookingsNumberFilter extends Component<Props, state> {
@@ -567,9 +569,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
               )}
             </div>
             <CheckboxSelector
-              items={LEVELS.map((level) => ({
+              items={this.props.customLevels.map((level) => ({
                 id: level.id,
-                text: t(`multiSelector.level.${level.text}`),
+                text: getLevelTrad(level.id, level.name, t),
+                disabled: !level.enabled,
               }))}
               renderItem={(item) => <ListItemText primary={item.text} />}
               onChange={(item) => {

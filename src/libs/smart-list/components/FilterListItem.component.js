@@ -77,6 +77,7 @@ type Props = {
   fetchItems: any,
 
   fetchBulkItems: any,
+  customLevels: Level[],
 
   new: boolean,
   t: TFunction,
@@ -264,6 +265,7 @@ export class FilterCard extends Component<Props> {
             onChange={this.handleChange}
             meta_activities={this.props.meta_activities}
             new={this.props.new}
+            customLevels={this.props.customLevels}
             fetchItems={this.props.fetchItems}
             payment_packs={this.props.payment_packs}
             coaches={this.props.coaches}
@@ -295,6 +297,43 @@ export class FilterCard extends Component<Props> {
             renderAttendanceSelectorWarning={
               this.renderAttendanceSelectorWarning
             }
+            customLevels={this.props.customLevels}
+          />
+        );
+      case BOOKINGS_FILTER_IDENTIFIER:
+        return (
+          <BookingsFilter
+            filter_data={this.state.filter_data}
+            establishments={this.props.establishments}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            meta_activities={this.props.meta_activities}
+            new={this.props.new}
+            coaches={this.props.coaches}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
+            renderAttendanceSelectorWarning={
+              this.renderAttendanceSelectorWarning
+            }
+            customLevels={this.props.customLevels}
+          />
+        );
+      case PRIVATE_BOOKINGS_FILTER_IDENTIFIER:
+        return (
+          <PrivateBookingsFilter
+            filter_data={this.state.filter_data}
+            establishments={this.props.establishments}
+            onChange={this.handleChange}
+            private_passes={this.props.private_passes}
+            private_services={this.props.private_services}
+            new={this.props.new}
+            coaches={this.props.coaches}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
       case USER_HAS_PASSWORD_FILTER:
@@ -329,41 +368,6 @@ export class FilterCard extends Component<Props> {
             }}
             onChange={this.handleChange}
             new={this.props.new}
-          />
-        );
-      case BOOKINGS_FILTER_IDENTIFIER:
-        return (
-          <BookingsFilter
-            filter_data={this.state.filter_data}
-            establishments={this.props.establishments}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
-            meta_activities={this.props.meta_activities}
-            new={this.props.new}
-            coaches={this.props.coaches}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
-            renderAttendanceSelectorWarning={
-              this.renderAttendanceSelectorWarning
-            }
-          />
-        );
-      case PRIVATE_BOOKINGS_FILTER_IDENTIFIER:
-        return (
-          <PrivateBookingsFilter
-            filter_data={this.state.filter_data}
-            establishments={this.props.establishments}
-            onChange={this.handleChange}
-            private_passes={this.props.private_passes}
-            private_services={this.props.private_services}
-            new={this.props.new}
-            coaches={this.props.coaches}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
       case EXPENSES_COMPLETE_FILTER_IDENTIFIER:

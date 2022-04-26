@@ -18,6 +18,7 @@ import {
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
 import CommonSettings from './CommonSettings.form';
+import { Level } from '#libs/level/types';
 
 interface Props {
   coaches: Array<Coach>;
@@ -27,6 +28,7 @@ interface Props {
   onChange: (calendarConfig: MarketplaceCalendarData) => void;
   showCompactMode?: boolean;
   establishmentGroupList: Array<EstablishmentGroup>;
+  customLevels: Level[];
 }
 
 const COMPACT_MODE_TYPE = {
@@ -111,6 +113,7 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         establishmentGroupList={establishmentGroupList}
         establishments={establishments}
         metaActivities={metaActivities}
+        customLevels={props.customLevels}
         config={config}
         onChange={onChange}
       />

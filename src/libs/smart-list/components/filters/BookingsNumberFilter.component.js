@@ -11,7 +11,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ListItemText from '@material-ui/core/ListItemText';
-import LEVELS from '@bsport/common/lib/master-data/levels';
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
@@ -23,6 +22,8 @@ import EstablishmentListItem from '../../../establishment/components/Establishme
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
+
+import { getLevelTrad } from '#libs/level/utils';
 
 const DATE_BETWEEN = 2;
 
@@ -41,6 +42,7 @@ type Props = {
   setNotNullableData: (data: Array<string>) => void,
   renderSelectorWarning: (string, boolean) => void,
   renderAttendanceSelectorWarning: (string, boolean) => void,
+  customLevels: Level[],
 };
 
 export class BookingsNumberFilter extends Component<Props, state> {
@@ -492,9 +494,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
               )}
             </div>
             <CheckboxSelector
-              items={LEVELS.map((level) => ({
+              items={this.props.customLevels.map((level) => ({
                 id: level.id,
-                text: t(`multiSelector.level.${level.text}`),
+                text: getLevelTrad(level.id, level.name, this.props.t),
+                disabled: !level.enabled,
               }))}
               renderItem={(item) => <ListItemText primary={item.text} />}
               onChange={(item) => {
@@ -503,6 +506,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
               selectedItems={filter_data.level}
               labelName="text"
               helperText={t('multiSelector.level.select')}
+              filterItemsCallback={(l) => l.enabled}
             />
             {this.props.renderSelectorWarning(
               t('multiSelector.level.warning'),

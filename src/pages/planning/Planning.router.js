@@ -21,6 +21,7 @@ import {
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { withCustomLevel } from '#libs/level/selectors';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date);
@@ -60,7 +61,9 @@ const PlanningWithDateAndOffer = compose(
     (state) => ({
       offers: withTags(
         withMetaActivity(
-          withEstablishment(withCoach(withGender(getManagerOffersFiltered))),
+          withCustomLevel(
+            withEstablishment(withCoach(withGender(getManagerOffersFiltered))),
+          ),
         ),
       )(state),
     }),

@@ -35,6 +35,7 @@ import ExportableComponentConfigurator from '../../../exportable-components/comp
 import { Video } from '../../../video/types';
 import { MARKETPLACE_COMPONENT_TYPE_LIST } from '../../constants';
 import { PaymentPackCategory } from '../../../payment-packs/types';
+import { Level } from '#libs/level/types';
 
 type Props = {
   onClose: () => void;
@@ -53,6 +54,7 @@ type Props = {
   privatePassCategories: Array<PrivatePassCategory>;
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards: Array<Giftcard>;
+  customLevels: Level[];
 };
 
 const TabCreation: React.FC<Props> = (props) => {
@@ -182,6 +184,7 @@ const TabCreation: React.FC<Props> = (props) => {
             privatePassCategories={props.privatePassCategories}
             establishmentGroupList={props.establishmentGroupList}
             giftcards={props.giftcards}
+            customLevels={props.customLevels}
           />
         )}
       </DialogContent>

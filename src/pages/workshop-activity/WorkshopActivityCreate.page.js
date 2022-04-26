@@ -14,7 +14,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { fetchAllOffers as fetchAllOffersActions } from '../../libs/offer/actions';
+import {
+  fetchAllOffers as fetchAllOffersActions,
+  createOffers as createOffersActions,
+} from '../../libs/offer/actions';
 import {
   fetchAllPaymentPacks as fetchAllPaymentPacksAction,
   createOrUpdate as createOrUpdatePaymentPack,
@@ -28,8 +31,18 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import themeSelectors from '../../libs/theme/selectors';
+
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -94,6 +107,18 @@ type Props = {
   paymentPackCategories: Array<PaymentPackCategory>,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
   showPartnership: boolean,
+
+  activeCustomLevels: Level[],
+  allCustomLevels: Level[],
+  createOffers: (data: Offer, options: OptionCallback) => void,
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
+  companyId: number,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -124,12 +149,19 @@ const StepperForm = withTranslation(['metaActivity'])(
 );
 
 export class WorkshopActivityFormPage extends Component<Props> {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
+    this.handleFetchLevel();
   }
+
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
 
   renderActivityStep = () => (
     <MetaActivityForm
@@ -181,6 +213,12 @@ export class WorkshopActivityFormPage extends Component<Props> {
       editableCoachPaymentRule
       showPartnership={this.props.showPartnership}
       tagList={this.props.allTagsWithTagGroup}
+      activeCustomLevels={this.props.activeCustomLevels}
+      allCustomLevels={this.props.allCustomLevels}
+      fetchLevelList={this.handleFetchLevel}
+      updateLevel={this.props.updateLevel}
+      createLevel={this.props.createLevel}
+      deleteLevel={this.props.deleteLevel}
     />
   );
 
@@ -235,6 +273,8 @@ export default compose(
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
     (state) => ({
+      offerIsProcessing: state.offer.create.loading,
+      offerHadError: state.offer.create.error,
       associatedCoaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
@@ -255,6 +295,9 @@ export default compose(
       allTagsWithTagGroup: getallTagsWithTagGroup(state),
       showPartnership: state.theme.theme.has_partnership,
       metaActivityCategories: getMetaActivityCategories(state),
+      activeCustomLevels: getActiveCustomLevels(state),
+      allCustomLevels: getAllCustomLevels(state),
+      companyId: state.theme.theme.company,
     }),
     {
       upsertWorkshopActivity: upsert,
@@ -267,6 +310,11 @@ export default compose(
       fetchAssociatedCoachesList,
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
+      createOffers: createOffersActions,
+      fetchLevelList: fetchLevelListAction,
+      updateLevel: updateLevelAction,
+      createLevel: createLevelAction,
+      deleteLevel: deleteLevelAction,
     },
   ),
   //
@@ -297,29 +345,22 @@ export default compose(
       });
     },
   })),
-  withState('offerIsProcessing', 'setOfferIsProcessing', false),
-  withState('offerHadError', 'setOfferHadError', null),
+
   withProps(
-    ({
-      upsertedWorkshop,
-      fetchAllOffers,
-      goToWorkshop,
-      setOfferIsProcessing,
-      setOfferHadError,
-    }) => ({
+    ({ upsertedWorkshop, fetchAllOffers, goToWorkshop, createOffers }) => ({
       createOffers: async (data: *) => {
-        setOfferIsProcessing(true);
-        setOfferHadError(null);
-        createOffersAPI(upsertedWorkshop.id, data)
-          .then(() => {
-            fetchAllOffers();
-            goToWorkshop(upsertedWorkshop.id);
-          })
-          .catch((err) => {
-            console.error(err);
-            setOfferIsProcessing(false);
-            setOfferHadError(err);
-          });
+        createOffers(
+          {
+            ...data,
+            meta_activity: upsertedWorkshop.id,
+          },
+          {
+            onSuccess: () => {
+              fetchAllOffers();
+              goToWorkshop(upsertedWorkshop.id);
+            },
+          },
+        );
       },
     }),
   ),

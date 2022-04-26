@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
 import { makeStyles, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-// @ts-ignore
-import LEVELS from '@bsport/common/lib/master-data/levels';
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -17,6 +15,8 @@ import {
   EstablishmentGroup,
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
+import { Level } from '#libs/level/types';
+import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 
 interface Props {
   coaches: Array<Coach>;
@@ -27,6 +27,7 @@ interface Props {
   onChange: (
     calendarConfig: MarketplaceCalendarData | MarketplaceWorkshopData,
   ) => void;
+  customLevels: Level[];
 }
 
 const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
@@ -175,22 +176,16 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
         />
       </div>
       <div className={classes.marginTop}>
-        <Autocomplete
-          multiple
-          options={LEVELS}
-          getOptionLabel={(option) => t(`level.${option.text}`)}
-          value={LEVELS.filter(
-            (l: any) => config.levels && props.config.levels.includes(l.id),
-          )}
-          onChange={(e, newValue) => setData('levels', newValue)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('common.level')}
-              placeholder={t('common.level')}
-            />
-          )}
+        <LevelMultiSelector
+          inScrollBar
+          selectedLevels={config.levels}
+          onSelect={(data) => {
+            setData(
+              'levels',
+              data.map((l) => ({ id: l })),
+            );
+          }}
+          customLevels={props.customLevels}
         />
       </div>
     </div>

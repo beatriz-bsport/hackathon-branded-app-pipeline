@@ -1,8 +1,5 @@
-// @flow
-
 import React from 'react';
-
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,23 +9,26 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import RedButton from '#components/button/RedButton.component';
 
-type Props = {
-  open?: boolean,
+export const ModalConfirm: React.FC<{
+  open?: boolean;
   options: {
-    Content: any,
-    cancel: string,
-    confirm: string,
-    title: string,
-    isDeletion?: boolean,
-  },
-  t: TFunction,
-  handleConfirm: () => void,
-  handleCancel: () => void,
-  countDownConfirm?: boolean,
-};
-
-export function ModalConfirm(props: Props) {
-  const { t, options, open, handleCancel, handleConfirm } = props;
+    Content: any;
+    cancel?: string;
+    confirm?: string;
+    title: string;
+    isDeletion?: boolean;
+  };
+  handleConfirm: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleCancel: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  countDownConfirm?: boolean;
+}> = ({
+  options,
+  open = false,
+  countDownConfirm = false,
+  handleCancel,
+  handleConfirm,
+}) => {
+  const { t } = useTranslation(['translation', 'member']);
   const ValidationButton = options?.isDeletion ? RedButton : Button;
 
   return (
@@ -41,16 +41,16 @@ export function ModalConfirm(props: Props) {
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={(ev) => {
+          onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             ev.stopPropagation();
             handleCancel(ev);
           }}
         >
           {t(options.cancel || 'common.cancel')}
         </Button>
-        {props.countDownConfirm ? (
+        {countDownConfirm ? (
           <RedButton
-            onClick={(ev) => {
+            onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               ev.stopPropagation();
               handleConfirm(ev);
             }}
@@ -61,7 +61,7 @@ export function ModalConfirm(props: Props) {
           </RedButton>
         ) : (
           <ValidationButton
-            onClick={(ev) => {
+            onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               ev.stopPropagation();
               handleConfirm(ev);
             }}
@@ -73,8 +73,6 @@ export function ModalConfirm(props: Props) {
       </DialogActions>
     </Dialog>
   );
-}
+};
 
-ModalConfirm.defaultProps = { open: false };
-
-export default withTranslation(['translation', 'member'])(ModalConfirm);
+export default ModalConfirm;

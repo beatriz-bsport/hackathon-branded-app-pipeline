@@ -66,6 +66,9 @@ import {
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 import { getFranchiseId } from '#libs/franchise/selectors';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
+
 type OwnProps = {
   defaultValue?: {
     componentType: string;
@@ -146,6 +149,10 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchPrivateServiceGroupList({ mine: true });
     this.props.fetchAllEstablishmentGroup();
     this.props.fetchGiftcardList();
+    this.props.fetchLevelList({
+      is_active: true,
+      company: this.props.company,
+    });
 
     this.props.franchiseId &&
       this.props.fetchPaymentPackTemplateList({
@@ -295,6 +302,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               privatePassCategories={this.props.privatePassCategories}
               establishmentGroupList={this.props.establishmentGroupList}
               giftcards={this.props.giftcards}
+              customLevels={this.props.customLevels}
             />
           </fieldset>
           <WidgetMarketplaceConfigBuilder
@@ -380,6 +388,7 @@ const mapStateToProps = (state: RootState) => ({
   )(state),
   giftcards: getGiftcardListEnabled(state),
   paymentPackTemplateListAvailable: getPaymentPackTemplateListAvailable(state),
+  customLevels: getActiveCustomLevels(state),
 });
 
 const mapDispatchToProps = {
@@ -396,6 +405,7 @@ const mapDispatchToProps = {
   fetchAllEstablishmentGroup,
   fetchGiftcardList,
   snackbarInfo,
+  fetchLevelList: fetchLevelListAction,
 };
 
 export default compose<any, OwnProps>(

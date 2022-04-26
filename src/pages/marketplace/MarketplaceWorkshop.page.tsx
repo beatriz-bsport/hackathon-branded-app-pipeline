@@ -34,6 +34,9 @@ import { DATE_FORMAT } from '../../utils/datetime';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
+
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
 import withReplaceQueryParams from '../../hocs/with-replace-query-params.hoc';
@@ -90,6 +93,9 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
       manager_only: false,
     });
     this.fetchData();
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
   }
 
   componentDidUpdate(prevProps: FinalProps) {
@@ -139,6 +145,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
             establishments={this.props.establishments}
             hideCoach={this.props.theme && this.props.theme.hideCoach}
             metaActivities={this.props.metaActivities}
+            customLevels={this.props.customLevels}
             filters={this.props.filters}
             setFilters={this.props.setFilters}
             variant="workshop"
@@ -206,6 +213,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),
+  customLevels: getActiveCustomLevels(state),
 });
 
 const mapDispatchToProps = {
@@ -219,6 +227,7 @@ const mapDispatchToProps = {
   pushRouter: push,
   fetchPaymentComboList,
   fetchAllEstablishmentGroup,
+  fetchLevelList: fetchLevelListAction,
 };
 
 const mapWithProps = (props: OwnProps & ConnectProps & WithTranslation) => ({

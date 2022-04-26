@@ -8,11 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import LevelSelector from '../../category/components/LevelSelector.component';
 import SCTSelector from '../../category/components/SCTSelectorBase.component';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 import DurationSelector from './DurationSelector.component';
+import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 
 type Props = {
   searchParams: {
@@ -26,6 +26,7 @@ type Props = {
   onChangeSearchParams: (string) => (string) => void,
   coaches: Array<Coach>,
   scts: Array<SCT>,
+  customLevels: Array<Level>,
 };
 
 export const VideoSearchBar = (props: Props) => {
@@ -34,8 +35,7 @@ export const VideoSearchBar = (props: Props) => {
   return (
     <Grid spacing={1} container direction="row">
       <Grid item xs={6} md={3}>
-        <LevelSelector
-          isClearable
+        <LevelMultiSelector
           selectedLevels={
             props.searchParams.levels
               ? props.searchParams.levels
@@ -43,15 +43,14 @@ export const VideoSearchBar = (props: Props) => {
                   .map((value) => parseInt(value, 10))
               : null
           }
-          selectOption={(ev) => {
-            if (ev && ev.length) {
-              props.onChangeSearchParams('levels')(
-                ev.map((e) => e.value).join(),
-              );
+          onSelect={(data) => {
+            if (data.length) {
+              props.onChangeSearchParams('levels')(data.join(','));
             } else {
               props.onChangeSearchParams('levels')(null);
             }
           }}
+          customLevels={props.customLevels}
         />
       </Grid>
       <Grid item xs={6} md={3} lg={2}>

@@ -21,6 +21,8 @@ import {
   offerNextActions,
   massUnTagAllOffers,
   unTagOfferActions,
+  createOffersActions,
+  editOffersActions,
 } from './actions';
 import { OfferState } from './types';
 
@@ -46,6 +48,14 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   loading: true,
   error: null,
 
+  create: {
+    error: null,
+    loading: false,
+  },
+  edit: {
+    error: null,
+    loading: false,
+  },
   // final version theorically
   byId: {},
   byDay: { loading: false, error: null, allIds: [] },
@@ -114,6 +124,18 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
 
 export default handleActions<Immutable.Immutable<OfferState>>(
   {
+    [createOffersActions.loading.toString()]: (state, { payload }) => {
+      return state.setIn(['create', 'loading'], payload);
+    },
+    [createOffersActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['create', 'error'], payload);
+    },
+    [editOffersActions.loading.toString()]: (state, { payload }) => {
+      return state.setIn(['edit', 'loading'], payload);
+    },
+    [editOffersActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['edit', 'error'], payload);
+    },
     [offersByMetaActivity.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'loading'], payload);
     },

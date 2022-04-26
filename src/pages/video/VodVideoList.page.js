@@ -40,6 +40,14 @@ import {
   setExternalUrl,
 } from '../../libs/video/actions';
 
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
+
 import VideoCardGrid from '../../libs/video/components/VideoCardGrid.component';
 import VideoCardList from '../../libs/video/components/VideoCardList.component';
 import VideoFormDialog from '../../libs/video/components/VideoFormDialog.component';
@@ -115,6 +123,16 @@ type Props = {
   setViewMode: (viewMode: string) => void,
   removeVideoSource: () => void,
   onDuplicateVideo: (v: Video) => void,
+
+  customLevels: Level[],
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
+  companyId: number,
 };
 
 const VideoMap = {
@@ -141,7 +159,15 @@ export class VodVideoListPage extends React.PureComponent<Props> {
     this.props.fetchVideoList();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchVideoFilterableParams({ mine: true });
+    this.handleFetchLevel();
   }
+
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      is_active: true,
+      company: this.props.companyId,
+    });
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.location.search !== this.props.location.search) {
@@ -165,6 +191,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             onChangeSearchParams={this.props.setSearchParams}
             coaches={this.props.videoFilterableParams.coaches || []}
             scts={this.props.videoFilterableParams.SCTs || []}
+            customLevels={this.props.customLevels || []}
           />
         </div>
         <div className={classes.viewModeContainer}>
@@ -224,6 +251,11 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             onClose={this.props.closeCreateDialog}
             SCTs={this.props.SCTs}
             open
+            customLevels={this.props.customLevels}
+            fetchLevelList={this.handleFetchLevel}
+            updateLevel={this.props.updateLevel}
+            createLevel={this.props.createLevel}
+            deleteLevel={this.props.deleteLevel}
           />
         )}
         {!!this.props.editVideo && (
@@ -244,6 +276,11 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             initial={this.props.editVideo}
             onClose={this.props.closeEditForm}
             onRemoveVideoSource={this.props.removeVideoSource}
+            customLevels={this.props.customLevels}
+            fetchLevelList={this.handleFetchLevel}
+            updateLevel={this.props.updateLevel}
+            createLevel={this.props.createLevel}
+            deleteLevel={this.props.deleteLevel}
           />
         )}
         {!!this.props.confirmEditDialogData && (
@@ -361,6 +398,8 @@ export default compose(
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
       videoFilterableParams: state.video.filterableParams.items,
       theme: themeSelectors.getTheme(state),
+      customLevels: getActiveCustomLevels(state),
+      companyId: state.theme.theme.company,
     }),
     {
       fetchVideoList: fetchVideoListAction,
@@ -375,6 +414,10 @@ export default compose(
       removeVideoSourceAction: removeVideoSource,
       duplicateVideo,
       setExternalUrl,
+      fetchLevelList: fetchLevelListAction,
+      updateLevel: updateLevelAction,
+      createLevel: createLevelAction,
+      deleteLevel: deleteLevelAction,
     },
   ),
   withHandlers({

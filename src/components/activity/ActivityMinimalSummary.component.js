@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -8,11 +9,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation } from 'react-i18next';
-
 import Avatar from '../Avatar.component';
+import Level from '#libs/level/components/Level.component';
+
 import { formatAsDatetime } from '../../utils/datetime';
-import { Level } from '../category';
 import Sport from '../../libs/category/components/SCT.component';
 import type { ActivitySimplified } from '../../api/types';
 
@@ -93,7 +93,7 @@ export function ActivityMinimalSummary(props: Props) {
             primary={showCoachName ? coach.name : etablissement.title}
             primaryTypographyProps={{ align: 'right' }}
             secondaryTypographyProps={{ align: 'right' }}
-            secondary={<Level noStyle levelId={level} variant="caption" />}
+            secondary={<Level noStyle customLevel={level} variant="caption" />}
           />
         </div>
       </ListItem>

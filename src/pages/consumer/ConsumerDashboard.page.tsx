@@ -62,6 +62,8 @@ import {
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
 } from '../../libs/invoice/actions';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
 import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
 import { RootState } from '../../reducers';
 import { Membership } from '../../libs/membership/types';
@@ -155,9 +157,21 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
   };
 
   fetchBookingOption = () => {
-    this.props.fetchBookingOptionAsConsumer(this.props.membership.company, {
-      min_date: moment().format('YYYY-MM-DD'),
-    });
+    this.props.fetchBookingOptionAsConsumer(
+      this.props.membership.company,
+      {
+        min_date: moment().format('YYYY-MM-DD'),
+      },
+      {
+        onSuccess: (options) => {
+          this.props.fetchLevelList({
+            id__in: Array.from(
+              new Set(options?.results?.map((option) => option.level) ?? []),
+            ),
+          });
+        },
+      },
+    );
   };
 
   cancelBookingOption = (options: OptionCallback) => {
@@ -363,7 +377,7 @@ const mapStateToProps = (state: RootState, props) => ({
   hasMoreBookingsAndPrivateBookings:
     state.consumer.bookingAndPrivateBooking.hasMore,
 
-  bookingOptionList: getBookingOptionConsumerList(state),
+  bookingOptionList: withCustomLevel(getBookingOptionConsumerList)(state),
 
   privateConsumerPassList: excludeUnPaidPrivateConsumerPass(
     getPrivateConsumerPassList,
@@ -413,6 +427,7 @@ const mapDispatchToProps = {
   ) =>
     fetchConsumerPackByMemberAction(memberId, page, page_size, options, params),
   fetchBookingOptionAsConsumer,
+  fetchLevelList: fetchLevelListAction,
   fetchPrivateConsumerPassList,
   fetchMetaActivityFavorite,
   fetchEstablishmentFavorite,

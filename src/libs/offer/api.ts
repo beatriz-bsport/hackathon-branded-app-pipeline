@@ -8,7 +8,21 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import { OfferFilterData } from './types';
+import { Offer, OfferFilterData } from './types';
+
+export async function createOffers(data: Offer) {
+  return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
+}
+
+export async function editOffers({
+  offerId,
+  data,
+}: {
+  offerId: number;
+  data: Offer;
+}) {
+  return putAuth(`${API_V1_URI}/offer/${offerId}/`, data);
+}
 
 export async function fetchAllEvents(params: any) {
   return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);
@@ -29,16 +43,6 @@ export async function fetchOffersList(
   } & OfferFilterData,
 ) {
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
-}
-
-export async function editLiveOffer({
-  offerId,
-  data,
-}: {
-  offerId: number;
-  data: any;
-}) {
-  return putAuth(`${API_URI}/saas/offer/${offerId}/edit`, data);
 }
 
 export async function fetchSimilarOffers(offerId: number, params: any) {
@@ -204,7 +208,6 @@ export async function unTagOffer(params: { offer_id: number; tag_id: number }) {
 }
 export default {
   fetchAllEvents,
-  editLiveOffer,
   fetchCompatiblePacks,
   disableOffer,
   delete: deleteOffer,

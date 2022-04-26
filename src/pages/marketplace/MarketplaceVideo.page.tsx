@@ -27,6 +27,9 @@ import {
 } from '#libs/video/actions';
 import { fetchPlaylistList } from '#libs/playlist/actions';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
+
 import themeSelectors from '#libs/theme/selectors';
 import MarketplacePlaylistItem from '#libs/playlist/components/PlaylistItemMarketplace.component';
 import { RootState } from '../../reducers';
@@ -67,6 +70,9 @@ export class MarketplaceVideo extends React.Component<Props> {
       company: this.props.companyId,
       status: VideoStatusEnum.processed,
     });
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -88,6 +94,7 @@ export class MarketplaceVideo extends React.Component<Props> {
                 onChangeSearchParams={this.props.setSearchParams}
                 coaches={this.props.videoFilterableParams.coaches || []}
                 scts={this.props.videoFilterableParams.SCTs || []}
+                customLevels={this.props.customLevels || []}
               />
             </div>
             <Divider className={classes.divider} />
@@ -209,6 +216,7 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.video.loading,
   videoFilterableParams: state.video.filterableParams.items,
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
+  customLevels: getActiveCustomLevels(state),
 });
 
 const mapDispatchToProps = {
@@ -217,6 +225,7 @@ const mapDispatchToProps = {
   fetchMoreVideo: fetchMoreVideoAction,
   push: pushRouter,
   fetchVideoFilterableParams,
+  fetchLevelList: fetchLevelListAction,
 };
 
 const turnSearchParamsIntoQueryParams = (searchParams?: any) => {

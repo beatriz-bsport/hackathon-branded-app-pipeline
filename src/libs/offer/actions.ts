@@ -26,6 +26,8 @@ import {
   checkOfferTagEligibility as checkOfferTagEligibilityAPI,
   unTagAllOffers as unTagAllOffersAPI,
   unTagOffer as unTagOfferAPI,
+  createOffers as createOffersAPI,
+  editOffers as editOffersAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -907,5 +909,72 @@ export function unTagOffer(
       if (options && options.onError) options.onError(error);
     }
     dispatch(unTagOfferActions.isLoading(false));
+  };
+}
+
+export const createOffersActions = {
+  error: createAction('OFFER/CREATE/ERROR'),
+  loading: createAction('OFFER/CREATE/IS_LOADING'),
+  success: createAction('OFFER/CREATE/SUCCESS'),
+};
+
+export function createOffers(offer: Offer, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOffersActions.loading(true));
+    try {
+      const response = await createOffersAPI(offer);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      if (options && options.onSuccess) {
+        options.onSuccess();
+        dispatch(
+          monitorBackgroundTask(backgroundTaskUuid, {
+            onSuccess: options.onBackgroundSuccess,
+            onError: options.onBackgroundError,
+          }),
+        );
+      } else {
+        dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      }
+    } catch (error) {
+      dispatch(createOffersActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(createOffersActions.loading(false));
+  };
+}
+
+export const editOffersActions = {
+  error: createAction('OFFER/EDIT/ERROR'),
+  loading: createAction('OFFER/EDIT/IS_LOADING'),
+  success: createAction('OFFER/EDIT/SUCCESS'),
+};
+
+export function editOffers(
+  offerId: number,
+  offer: Offer,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(editOffersActions.loading(true));
+    try {
+      const response = await editOffersAPI({ offerId, data: offer });
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      if (options && options.onSuccess) {
+        options.onSuccess();
+
+        dispatch(
+          monitorBackgroundTask(backgroundTaskUuid, {
+            onSuccess: options.onBackgroundSuccess,
+            onError: options.onBackgroundError,
+          }),
+        );
+      } else {
+        dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      }
+    } catch (error) {
+      dispatch(editOffersActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(editOffersActions.loading(false));
   };
 }

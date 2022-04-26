@@ -47,7 +47,7 @@ const offerListItemStyle = () => {
   };
 };
 
-const OfferListItem = withTranslation(['selfCheckIn'])(
+const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
   withStyles(offerListItemStyle)((props) => {
     // dates : start, end and moment
     const momentDate = Moment();
@@ -174,7 +174,7 @@ export class CheckInOfferList extends Component<Props, State> {
                     .isAfter(Moment()),
                 )
                 .map((offer) => (
-                  <OfferListItem
+                  <CheckInOfferListItem
                     offer={offer}
                     key={offer.id}
                     classes={this.props.classes}
@@ -188,7 +188,7 @@ export class CheckInOfferList extends Component<Props, State> {
                     .isBefore(Moment()),
                 )
                 .map((offer) => (
-                  <OfferListItem
+                  <CheckInOfferListItem
                     offer={offer}
                     key={offer.id}
                     classes={this.props.classes}

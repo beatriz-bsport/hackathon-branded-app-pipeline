@@ -55,6 +55,9 @@ import PartnershipToogle from './form/PartnershipToogle.component';
 import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import type { Tag, TagGroup } from '#libs/tag/types';
+import LevelSelector from '#libs/level/components/LevelSelector.component';
+import { Level, LevelFilterSet } from '#libs/level/types';
+import { OptionCallback } from '../../state/types';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -163,6 +166,15 @@ type OwnProps = {
   editableCoachPaymentRule: boolean;
   showPartnership: boolean;
   tagList: Array<Tag<TagGroup>>;
+  activeCustomLevels: Level[];
+  allCustomLevels: Level[];
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionCallback<Level[]>,
+  ) => void;
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void;
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void;
+  deleteLevel: (id: number, options?: OptionCallback) => void;
 };
 
 type Props = OwnProps &
@@ -480,6 +492,19 @@ export class OfferForm extends Component<Props, State> {
     );
   };
 
+  handleDeleteLevel = (deleteLevelId: number) => {
+    this.props.deleteLevel(deleteLevelId, {
+      onSuccess: () => {
+        if (deleteLevelId === this.state.level) {
+          this.setState({
+            level: null,
+          });
+        }
+        this.props.fetchLevelList();
+      },
+    });
+  };
+
   renderSpecificities = () => {
     const { establishments, roomBlueprints, coaches, t } = this.props;
 
@@ -492,11 +517,18 @@ export class OfferForm extends Component<Props, State> {
     return (
       <Grid container direction="column" spacing={1}>
         <Grid item>
-          <FormField
-            id="level"
-            value={this.state.level}
-            required
-            onChange={this.onFormFieldChange}
+          <LevelSelector
+            inScrollBar
+            selectedLevel={this.state.level}
+            onSelect={(level) => {
+              this.onFormFieldChange('level')(level);
+            }}
+            customLevels={this.props.activeCustomLevels}
+            memoryLevels={this.props.allCustomLevels}
+            fetchLevelList={this.props.fetchLevelList}
+            onEditLevel={this.props.updateLevel}
+            onCreateLevel={this.props.createLevel}
+            onDeleteLevel={this.handleDeleteLevel}
           />
         </Grid>
         <Grid item>

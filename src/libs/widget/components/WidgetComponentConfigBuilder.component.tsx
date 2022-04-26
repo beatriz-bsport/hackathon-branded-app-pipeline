@@ -30,6 +30,7 @@ import {
   PaymentPackCategory,
   PaymentPackTemplate,
 } from '../../payment-packs/types';
+import { Level } from '#libs/level/types';
 
 type Props = {
   componentType: string;
@@ -55,6 +56,7 @@ type Props = {
   giftcards?: Array<Giftcard>;
   paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
   isFranchisor?: boolean;
+  customLevels: Level[];
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
@@ -123,6 +125,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         privatePassCategories={props.privatePassCategories}
         establishmentGroupList={props.establishmentGroupList}
         giftcards={props.giftcards}
+        customLevels={props.customLevels}
       />
     </div>
   );

@@ -33,6 +33,10 @@ type Props = {
   registerToOffer: (offerIds: Array<number>) => void,
   fetchSimilarOffers: (id: number) => void,
   goBack: () => void,
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionCallback<Level[]>,
+  ) => void,
 };
 
 const getLimitation = (
@@ -67,7 +71,13 @@ const getLimitation = (
 
 export class BookingModuleOfferChoice extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchSimilarOffers(this.props.offerId);
+    this.props.fetchSimilarOffers(this.props.offerId, {
+      onSuccess: (data) => {
+        this.props.fetchLevelList({
+          id__in: Array.from(new Set(data?.results?.map((o) => o.level))),
+        });
+      },
+    });
   }
 
   render() {

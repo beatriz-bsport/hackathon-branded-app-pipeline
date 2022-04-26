@@ -33,6 +33,13 @@ import {
   snackbarError as snackbarErrorActions,
 } from '#libs/snackbar/actions';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+  withCustomLevel,
+} from '#libs/level/selectors';
+
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
   fetchNextAvailableOffer as fetchNextAvailableOfferAction,
@@ -188,6 +195,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       company: this.props.companyId,
       manager_only: false,
     });
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -247,6 +257,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       filters,
       establishments,
       coaches,
+      activeCustomLevels,
+      customLevels,
       startWeekThisWeekday,
       establishmentGroupList,
       loading,
@@ -301,6 +313,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             this.props.otherParams.date || moment().format('YYYY-MM-DD')
           }
           coaches={coaches}
+          customLevels={customLevels}
+          activeCustomLevels={activeCustomLevels}
           establishments={filteredEstablishments}
           metaActivities={metaActivities}
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
@@ -326,8 +340,10 @@ const styles = () => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  offers: withCoach(
-    withMetaActivity(withEstablishment(withGender(getMarketplaceOfferList))),
+  offers: withCustomLevel(
+    withCoach(
+      withMetaActivity(withEstablishment(withGender(getMarketplaceOfferList))),
+    ),
   )(state),
   loading: state.offer.marketplace.loading,
   coachLoading: state.coach.loading,
@@ -346,6 +362,8 @@ const mapStateToProps = (state: RootState) => ({
   bookedOffers: getBookedOffers(state),
   nextAvailableOffer: getNextAvailableOffer(state),
   authenticated: state.auth.authenticated,
+  activeCustomLevels: getActiveCustomLevels(state),
+  customLevels: getAllCustomLevels(state),
 });
 
 const mapDispatchToProps = {
@@ -363,6 +381,7 @@ const mapDispatchToProps = {
   fetchPaymentComboList,
   fetchAllEstablishmentGroup,
   fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
+  fetchLevelList: fetchLevelListAction,
 };
 
 const mapWithHandlers = {

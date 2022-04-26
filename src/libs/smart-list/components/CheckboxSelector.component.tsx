@@ -144,19 +144,25 @@ export class CheckboxSelector<T extends Item> extends Component<
               overflow: 'auto',
             }}
           >
-            {[...this.props.items].map((item) => (
-              <MenuItem
-                className={classes.menuItem}
-                key={item.id}
-                value={item.id}
-                onClick={() => this.handleChange(item.id)}
-              >
-                {this.props.renderItem ? this.props.renderItem(item) : null}
-                <Checkbox
-                  checked={this.state.selectedItems.includes(item.id)}
-                />
-              </MenuItem>
-            ))}
+            {[...this.props.items]
+              .filter(
+                (i) =>
+                  !(i?.disabled ?? false) ||
+                  this.state.selectedItems.includes(i.id),
+              )
+              .map((item) => (
+                <MenuItem
+                  className={classes.menuItem}
+                  key={item.id}
+                  value={item.id}
+                  onClick={() => this.handleChange(item.id)}
+                >
+                  {this.props.renderItem ? this.props.renderItem(item) : null}
+                  <Checkbox
+                    checked={this.state.selectedItems.includes(item.id)}
+                  />
+                </MenuItem>
+              ))}
           </div>
         </Popover>
       </div>

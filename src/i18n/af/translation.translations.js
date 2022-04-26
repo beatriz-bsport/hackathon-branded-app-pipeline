@@ -951,6 +951,7 @@ exports.default = {
     intermediate: 'Intermédiaire',
     intermediary: 'Intermédiaire',
     advanced: 'Avancé',
+    noDisplay: 'Aucun niveau affiché',
   },
   time: {
     weekday: {

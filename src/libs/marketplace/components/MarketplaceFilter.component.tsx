@@ -5,12 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
-import LevelSelector from '../../category/components/LevelSelector.component';
+import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { Coach } from '../../associated-coach/types';
 import EstablishmentGroupSelector from '../../establishment/components/EstablishmentGroupSelector.component';
+import { Level } from '#libs/level/types';
 
 type Props = {
   coaches: Coach[];
@@ -28,6 +29,7 @@ type Props = {
   setFilters: (key: string) => (value: any) => void;
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;
+  customLevels: Level[];
 } & MaterialStyleType<ReturnType<typeof styles>>;
 
 type SelectOptions = {
@@ -46,6 +48,7 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
       setFilters,
       filters,
       establishmentGroupList,
+      customLevels,
     } = this.props;
 
     return (
@@ -79,11 +82,12 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
           </Grid>
         )}
         <Grid item xs={12} md={6} className={classes.selector}>
-          <LevelSelector
+          <LevelMultiSelector
             selectedLevels={filters.levels}
-            selectOption={(ev: SelectOptions) =>
-              setFilters('levels')(ev.map((e) => e.value))
-            }
+            onSelect={(data) => {
+              setFilters('levels')(data);
+            }}
+            customLevels={customLevels}
           />
         </Grid>
         <Grid item xs={12} md={6} className={classes.selector}>

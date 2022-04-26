@@ -5,8 +5,7 @@ import { compose } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
 // eslint-disable-next-line bsport/no-redux-in-component
-import { goBack as goBackAction } from 'connected-react-router';
-import { Redirect } from 'react-router-dom';
+import { goBack as goBackAction, push } from 'connected-react-router';
 
 import type { RootState } from 'src/reducers';
 
@@ -20,8 +19,10 @@ import type { TFunction } from 'i18next';
 import routerParamsToProps from '../hocs/router-params-to-props.hoc';
 import withTitle from '../hocs/with-title.hoc';
 
-import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
-import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  createOffers as createOffersActions,
+} from '../libs/offer/actions';
 
 import { fetchAllActivities } from '#libs/meta-activity/actions';
 
@@ -33,17 +34,28 @@ import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { getAvailableEstablishmentList } from '../libs/establishment/selectors';
 
 import { fetchEstablishments } from '../libs/establishment/actions';
+import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
+import OfferForm from '../libs/offer/OfferForm.component';
+
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../libs/meta-activity/selectors';
-
-import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
-import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
 
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 
-import OfferForm from '../libs/offer/OfferForm.component';
+import { Offer } from '#libs/offer/types';
 
 type OwnProps = {
   goBack: () => void;
@@ -58,57 +70,42 @@ type Props = ParamsProps &
   WithTranslation &
   WithStyles<typeof styles>;
 
-type State = {
-  processing: boolean;
-  created: boolean;
-  error: boolean;
-};
-
-export class OfferFormPage extends Component<Props, State> {
-  state = {
-    processing: false,
-    created: false,
-    error: false,
-  };
-
-  componentWillMount() {
+export class OfferFormPage extends Component<Props, {}> {
+  componentDidMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllActivities({ customer_enabled: true });
+    this.handleFetchLevel();
   }
 
-  createOffers = async (data: Object) => {
-    this.setState({ error: false, processing: true });
-    try {
-      const response = await createOffersAPI(this.props.id, data);
-      if (response.status === 200) {
-        this.setState({ processing: false, created: true });
-        this.props.fetchAllOffers();
-        return;
-      }
-      this.throwError();
-    } catch (err) {
-      this.throwError();
-    }
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
   };
 
-  throwError = () => {
-    this.setState({ error: true, processing: false });
+  createOffers = async (data: Offer) => {
+    this.props.createOffers(
+      {
+        ...data,
+        meta_activity: this.props.id,
+      },
+      {
+        onSuccess: () => {
+          this.props.fetchAllOffers();
+          this.props.push('/calendar');
+        },
+      },
+    );
   };
 
   render() {
-    const { processing, created, error } = this.state;
     const { metaActivities, loading, goBack, allTagsWithTagGroup, classes } =
       this.props;
     if (loading) {
       return <CircularProgress />;
-    }
-
-    if (created) {
-      this.props.fetchAllOffers();
-      return <Redirect to="/calendar" />;
     }
 
     const metaActivity = metaActivities.filter(
@@ -129,8 +126,8 @@ export class OfferFormPage extends Component<Props, State> {
                 this.props.theme.is_whereby_integration_enabled &&
                 this.props.theme.is_whereby_integration_allowed
               }
-              processing={processing}
-              error={error}
+              processing={this.props.processing}
+              error={this.props.error}
               onCancel={goBack}
               timezone={this.props.timezone}
               roomBlueprints={this.props.roomBlueprints}
@@ -138,6 +135,12 @@ export class OfferFormPage extends Component<Props, State> {
               editableCoachPaymentRule
               showPartnership={this.props.showPartnership}
               tagList={allTagsWithTagGroup}
+              fetchLevelList={this.handleFetchLevel}
+              activeCustomLevels={this.props.activeCustomLevels}
+              allCustomLevels={this.props.allCustomLevels}
+              updateLevel={this.props.updateLevel}
+              createLevel={this.props.createLevel}
+              deleteLevel={this.props.deleteLevel}
             />
           </Paper>
         </Grid>
@@ -155,6 +158,8 @@ const styles = () =>
 
 const connector = connect(
   (state: RootState) => ({
+    processing: state.offer.create.loading,
+    error: state.offer.create.error,
     metaActivities: [
       ...getEnabledMetaActivities(state),
       ...getEnabledWorkshops(state),
@@ -168,6 +173,9 @@ const connector = connect(
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     showPartnership: state.theme.theme.has_partnership,
     allTagsWithTagGroup: getallTagsWithTagGroup(state),
+    activeCustomLevels: getActiveCustomLevels(state),
+    allCustomLevels: getAllCustomLevels(state),
+    companyId: state.theme.theme.company,
   }),
   {
     fetchEstablishments,
@@ -177,6 +185,12 @@ const connector = connect(
     fetchRoomBlueprints,
     fetchAllCoachPaymentRules,
     fetchAllActivities,
+    createOffers: createOffersActions,
+    fetchLevelList: fetchLevelListAction,
+    updateLevel: updateLevelAction,
+    createLevel: createLevelAction,
+    deleteLevel: deleteLevelAction,
+    push,
   },
 );
 export default compose(

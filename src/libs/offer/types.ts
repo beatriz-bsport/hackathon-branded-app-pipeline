@@ -126,6 +126,8 @@ export type OfferStatus = {
 };
 
 export type OfferState = ErrorAndLoading & {
+  create: ErrorAndLoading;
+  edit: ErrorAndLoading;
   calendarByObject: ErrorAndLoading & {
     metaActivity: number[];
     establishment: number[];

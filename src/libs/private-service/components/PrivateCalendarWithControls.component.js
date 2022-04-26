@@ -101,7 +101,7 @@ type Props = {
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
 };
 
-export const PrivateCalendarMultiResource = (props: Props) => {
+export const PrivateCalendarWithControls = (props: Props) => {
   const onChangeFilter = (filterName: string) => () =>
     props.setScheduleFilter({
       ...props.scheduleFilter,
@@ -414,4 +414,4 @@ export default compose(
       },
     },
   ),
-)(PrivateCalendarMultiResource);
+)(PrivateCalendarWithControls);

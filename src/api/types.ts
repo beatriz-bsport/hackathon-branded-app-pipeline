@@ -132,6 +132,7 @@ export type Offer = {
   partner_max_booking_count: number;
   credit_price_override: number | null;
   meta_activity: number;
+  custom_level: number;
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
 };

@@ -32,7 +32,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
-import { Level } from '../category';
+import Level from '#libs/level/components/Level.component';
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
 import type { Offer } from '../../api/types';
@@ -75,8 +75,13 @@ export class OfferCard extends Component<Props, State> {
 
   getHeader = () => {
     const { classes, t, offer } = this.props;
-    const { available, name, parent_category, credit_price_override, level } =
-      offer;
+    const {
+      available,
+      name,
+      parent_category,
+      credit_price_override,
+      customLevel,
+    } = offer;
 
     return (
       <div className={classes.header}>
@@ -97,8 +102,8 @@ export class OfferCard extends Component<Props, State> {
               {t('offer:disabled')}
             </Typography>
           )}
+          <Level customLevel={customLevel} />
         </ListItem>
-        <Level levelId={level} />
       </div>
     );
   };

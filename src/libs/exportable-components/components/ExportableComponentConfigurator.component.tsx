@@ -15,6 +15,7 @@ import {
   PaymentPackCategory,
   PaymentPackTemplate,
 } from '../../payment-packs/types';
+import { Level } from '#libs/level/types';
 
 type Props = {
   componentType: string;
@@ -34,6 +35,7 @@ type Props = {
   establishmentGroupList: Array<EstablishmentGroup>;
   giftcards: Array<Giftcard>;
   paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
+  customLevels: Level[];
 };
 
 export const ExportableComponentConfigurator = (props: Props) => {
@@ -67,6 +69,7 @@ export const ExportableComponentConfigurator = (props: Props) => {
       privatePassCategories={props.privatePassCategories}
       establishmentGroupList={props.establishmentGroupList}
       giftcards={props.giftcards}
+      customLevels={props.customLevels}
     />
   );
 };

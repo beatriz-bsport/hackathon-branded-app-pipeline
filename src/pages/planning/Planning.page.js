@@ -74,12 +74,23 @@ import {
   retrieveNumberOfMassDisabledOfferAction,
   restoreOffer,
   fetchBookedGender as fetchBookedGenderAction,
+  createOffers as createOffersActions,
+  editOffers as editOffersActions,
 } from '../../libs/offer/actions';
 import {
-  editLiveOffer as editLiveOfferAPI,
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../libs/offer/api';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
 import { setCalendarFilter as setCalendarFilterAction } from '../../libs/user-preference/actions';
 
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
@@ -103,7 +114,6 @@ import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
-import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import { DATE_FORMAT } from '../../utils/datetime';
 
 import CoachSelector from '../../libs/associated-coach/components/coach-selector/CoachSelector.component';
@@ -287,15 +297,33 @@ type Props = {
     options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
   ) => void,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
+
+  createOffers: (data: Offer, options: OptionCallback) => void,
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
+
+  creatingOffers: boolean,
+  editOfferProcessing: boolean,
+
+  editOffers: ({
+    offerId: number,
+    data: Offer,
+  }) => void,
+
+  activeCustomLevels: Level[],
+  allCustomLevels: Level[],
 };
 
 type State = {
   editModalOpened: boolean,
   deleteModalOpened: boolean,
-  editOfferProcessing: boolean,
   deletingOffer: boolean,
   createOfferModalOpened: boolean,
-  creatingOffers: boolean,
   restoreModalOpen: boolean,
 };
 
@@ -306,10 +334,8 @@ export class Planning extends PureComponent<Props, State> {
     this.state = {
       editModalOpened: false,
       deleteModalOpened: false,
-      editOfferProcessing: false,
       deletingOffer: false,
       createOfferModalOpened: false,
-      creatingOffers: false,
       restoreModalOpen: false,
     };
   }
@@ -337,6 +363,9 @@ export class Planning extends PureComponent<Props, State> {
     const promiseEstablishmentGroups = this.props.fetchAllEstablishmentGroup(
       this.props.companyId,
     );
+
+    this.handleFetchLevel();
+
     Promise.all([
       promiseCoaches,
       promiseEstablishments,
@@ -397,6 +426,12 @@ export class Planning extends PureComponent<Props, State> {
     }
   }
 
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
+
   loadDayData = (day: ?string) => {
     const date = moment(day || this.props.date, DATE_FORMAT);
     this.props.replaceRouter(
@@ -438,7 +473,6 @@ export class Planning extends PureComponent<Props, State> {
 
   onCancelModal = () => {
     this.setState({
-      editOfferProcessing: false,
       editModalOpened: false,
       deleteModalOpened: false,
     });
@@ -455,24 +489,15 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   onConfirmModal = async ({ offerId, data }) => {
-    this.setState({ editOfferProcessing: true });
-    try {
-      const response = await editLiveOfferAPI({ offerId, data });
-      if (response.status === 200) {
-        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-        this.setState({ editOfferProcessing: false, editModalOpened: false });
-        this.props.monitorBackgroundTask(backgroundTaskUuid, {
-          onSuccess: () => {
-            this.props.fetchRelevantOffers();
-            this.loadDayData();
-          },
-        });
-        return;
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    this.setState({ editOfferProcessing: false });
+    this.props.editOffers(offerId, data, {
+      onSuccess: () => {
+        this.setState({ editModalOpened: false });
+      },
+      onBackgroundSuccess: () => {
+        this.props.fetchRelevantOffers();
+        this.loadDayData();
+      },
+    });
   };
 
   onCancelOffer = async (data: {
@@ -575,7 +600,7 @@ export class Planning extends PureComponent<Props, State> {
       allTagsWithTagGroup,
       classes,
     } = this.props;
-    const { editModalOpened, editOfferProcessing } = this.state;
+    const { editModalOpened } = this.state;
     const { selectedOffer } = this.props;
     if (selectedOffer) {
       return (
@@ -601,13 +626,19 @@ export class Planning extends PureComponent<Props, State> {
               loading={coachesLoading || establishmentsLoading}
               onConfirm={this.onConfirmModal}
               onCancel={this.onCancelModal}
-              processing={editOfferProcessing}
+              processing={this.props.editOfferProcessing}
               fetchSimilarOffers={fetchSimilarOffers}
               similarOffers={similarOffers}
               similarOfferLoading={similarOfferLoading}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               showPartnership={this.props.showPartnership}
               tagList={allTagsWithTagGroup}
+              activeCustomLevels={this.props.activeCustomLevels}
+              allCustomLevels={this.props.allCustomLevels}
+              fetchLevelList={this.handleFetchLevel}
+              updateLevel={this.props.updateLevel}
+              createLevel={this.props.createLevel}
+              deleteLevel={this.props.deleteLevel}
             />
           </div>
         </GenericResponsiveDrawer>
@@ -624,7 +655,7 @@ export class Planning extends PureComponent<Props, State> {
       allTagsWithTagGroup,
       classes,
     } = this.props;
-    const { createOfferModalOpened, creatingOffers } = this.state;
+    const { createOfferModalOpened } = this.state;
     return (
       <GenericResponsiveDrawer
         open={createOfferModalOpened}
@@ -643,7 +674,7 @@ export class Planning extends PureComponent<Props, State> {
             roomBlueprints={this.props.roomBlueprints}
             onSubmit={this.createOffers}
             onCancel={this.closeCreateOffersModal}
-            processing={creatingOffers}
+            processing={this.props.creatingOffers}
             is_whereby_integration_enabled={
               this.props.theme &&
               this.props.theme.is_whereby_integration_enabled &&
@@ -652,6 +683,12 @@ export class Planning extends PureComponent<Props, State> {
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             showPartnership={this.props.showPartnership}
             tagList={allTagsWithTagGroup}
+            activeCustomLevels={this.props.activeCustomLevels}
+            allCustomLevels={this.props.allCustomLevels}
+            fetchLevelList={this.handleFetchLevel}
+            updateLevel={this.props.updateLevel}
+            createLevel={this.props.createLevel}
+            deleteLevel={this.props.deleteLevel}
           />
         </div>
       </GenericResponsiveDrawer>
@@ -659,24 +696,21 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   createOffers = async (metaActivityId: number, data: Object) => {
-    this.setState({ creatingOffers: true });
-    try {
-      const response = await createOffersAPI(metaActivityId, data);
-      if (response.status === 200) {
-        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-        this.setState({ creatingOffers: false, createOfferModalOpened: false });
-        this.props.monitorBackgroundTask(backgroundTaskUuid, {
-          onSuccess: () => {
-            this.props.fetchRelevantOffers();
-            this.loadDayData(this.props.date);
-          },
-        });
-        return;
-      }
-      this.setState({ creatingOffers: false });
-    } catch (err) {
-      this.setState({ creatingOffers: false });
-    }
+    this.props.createOffers(
+      {
+        ...data,
+        meta_activity: metaActivityId,
+      },
+      {
+        onSuccess: () => {
+          this.setState({ createOfferModalOpened: false });
+        },
+        onBackgroundSuccess: () => {
+          this.props.fetchRelevantOffers();
+          this.loadDayData(this.props.date);
+        },
+      },
+    );
   };
 
   renderDeleteModal = () => {
@@ -1153,6 +1187,8 @@ export default compose(
   withMobileDialog(),
   connect(
     (state, { selectedOffer, date }) => ({
+      creatingOffers: state.offer.create.loading,
+      editOfferProcessing: state.offer.edit.loading,
       events: state.offer.calendar,
       timetableLoading: state.offer.byDay.loading,
 
@@ -1205,6 +1241,8 @@ export default compose(
       showPartnership: state.theme.theme.has_partnership,
       showVaccinationStatus: showVaccinationStatus(state),
       allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      activeCustomLevels: getActiveCustomLevels(state),
+      allCustomLevels: getAllCustomLevels(state),
     }),
     {
       goBack: goBackRouter,
@@ -1231,6 +1269,12 @@ export default compose(
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
       fetchAllEstablishmentGroup,
+      createOffers: createOffersActions,
+      editOffers: editOffersActions,
+      fetchLevelList: fetchLevelListAction,
+      updateLevel: updateLevelAction,
+      createLevel: createLevelAction,
+      deleteLevel: deleteLevelAction,
     },
   ),
   withHandlers({

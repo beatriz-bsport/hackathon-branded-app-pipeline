@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { pure } from 'recompose';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-import Level from '../../../components/category/Level.component';
+import Level from '#libs/level/components/Level.component';
 
 import { formatAsTime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
@@ -35,7 +35,7 @@ type Props = {
   isRegistered?: boolean,
 };
 
-export const MarketplaceOffer = (props: Props) => {
+export const OfferListItemConsumer = (props: Props) => {
   const { offer, selected } = props;
   const classes = useStyles();
   const { t } = useTranslation(['marketplace']);
@@ -128,7 +128,7 @@ export const MarketplaceOffer = (props: Props) => {
                 noStyle
                 variant="caption"
                 align="left"
-                levelId={offer.level ? offer.level : null}
+                customLevel={offer.customLevel}
               />
               {!props.hideCoach && (
                 <Typography className={classes.coachName} variant="caption">
@@ -185,4 +185,4 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export default pure(MarketplaceOffer);
+export default pure(OfferListItemConsumer);

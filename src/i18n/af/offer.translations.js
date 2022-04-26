@@ -110,4 +110,28 @@ exports.default = {
     "Le nombre maximum de {{effectif}} réservations a déjà été atteint.En inscrivant ce membre vous dépasserez l'effectif initialement prévu. Etes vous sûr de vouloir inscrire ce membre ?",
   tagManagementInfo:
     '{{authorized}} tag(s) autorisé(s), {{unauthorized}} tag(s) non-autorisé(s)',
+  levels: {
+    modal: {
+      title: 'Modifier le niveau',
+      name: 'Nom',
+      nameCaption: '{{max}} caractères max ({{count}}/{{max}})',
+      color: 'Code couleur',
+      cancel: 'Annuler',
+      submit: 'Sauvegarder',
+    },
+    deleteModal: {
+      title: 'Suppression',
+      content: 'Êtes vous sûr de vouloir supprimer ce niveau ?',
+      content2:
+        'Les séances ayant déjà ce niveau le conserveront mais il ne pourra plus être ajouté aux futures séances.',
+    },
+    select: {
+      add: 'Ajouter un niveau',
+      title: 'Niveau',
+      placeholder: 'Niveau',
+    },
+    customs: 'Personnalisés',
+    delete: 'Supprimer',
+    edit: 'Modifier',
+  },
 };

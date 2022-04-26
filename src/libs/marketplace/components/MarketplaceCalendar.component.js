@@ -63,6 +63,7 @@ type Props = {
   goToFirstAvailableSession: () => void,
   bookedOffers?: number[],
   t: TFunction,
+  activeCustomLevels: Level[],
 };
 
 const getEventsFrom = memoize((offers) => {
@@ -125,6 +126,13 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           onClickOffer={this.props.onClickOffer}
           onClickBook={this.props.onClickBook}
           onClickBookOption={this.props.onClickBookOption}
+          showOfferFilling={this.props.showOfferFilling}
+          showOfferGender={this.props.showOfferGender}
+          hideCoach={this.props.hideCoach}
+          coachLoading={this.props.coachLoading}
+          establishmentLoading={this.props.establishmentLoading}
+          activityLoading={this.props.activityLoading}
+          bookedOffers={this.props.bookedOffers}
         />
       );
     }
@@ -140,6 +148,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         variant="activity"
         establishmentGroupList={this.props.establishmentGroupList}
         showMultiLocalization={this.props.showMultiLocalization}
+        customLevels={this.props.activeCustomLevels}
       />
     );
 

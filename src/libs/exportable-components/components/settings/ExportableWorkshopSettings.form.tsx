@@ -8,6 +8,7 @@ import {
   EstablishmentGroup,
 } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
+import { Level } from '#libs/level/types';
 
 interface Props {
   coaches: Array<Coach>;
@@ -16,6 +17,7 @@ interface Props {
   establishmentGroupList: Array<EstablishmentGroup>;
   config?: any;
   onChange: (calendarConfig: any) => void;
+  customLevels: Level[];
 }
 
 export const ExportableWorkshopSettings = (props: Props) => (
@@ -26,6 +28,7 @@ export const ExportableWorkshopSettings = (props: Props) => (
     metaActivities={props.metaActivitiesWorkshop}
     config={props.config}
     onChange={props.onChange}
+    customLevels={props.customLevels}
   />
 );
 

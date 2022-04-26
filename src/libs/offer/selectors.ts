@@ -367,3 +367,6 @@ export const getNextAvailableOffer = (state: RootState) =>
 
 export const getCalendarFullOfferData;
 export default { getAll, todayOffers, getSimilars };
+
+export const getRetrieveOffer = (state: RootState) =>
+  getState(state).retrieve.data;

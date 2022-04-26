@@ -28,6 +28,7 @@ import franchiseReducers from '#libs/franchise/reducers';
 import giftcard from '#libs/giftcard/reducers';
 import instalmentPayment from '#libs/instalment-payment-configuration/reducers';
 import invoiceReducers from '#libs/invoice/reducers';
+import levelReducer from '#libs/level/reducers';
 import login from '#libs/login/reducers';
 import marketingNotification from '#libs/marketing/reducers';
 import marketplace from '#libs/marketplace/reducers';
@@ -116,6 +117,7 @@ import { ThemeState } from '#libs/theme/types';
 import { UserPreference } from '#libs/user-preference/types';
 import { VideoState } from '#libs/video/types';
 import actionTypes from '../actions/auth.types';
+import { LevelState } from '#libs/level/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -156,6 +158,7 @@ const rootReducer = (history: any) =>
     relationship,
     network,
     login,
+    level: levelReducer,
     privateService,
     smartList: smartListReducer,
     paymentCombo,
@@ -220,6 +223,7 @@ export type RootState = {
   instalmentPayment: InstalmentPaymentState;
   invoice: any;
   login: any;
+  level: LevelState;
   marketingNotification: MarketingNotificationState;
   marketplace: MarketplaceSettingState;
   member: MemberState;

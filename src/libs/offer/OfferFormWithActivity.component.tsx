@@ -14,6 +14,8 @@ import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
+import { Level, LevelFilterSet } from '#libs/level/types';
+import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 
 const STEP_META_ACTIVITY_CHOSER = 0;
 const STEP_OFFER_FORM = 1;
@@ -33,6 +35,15 @@ type Props = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   showPartnership: boolean;
   tagList: Array<Tag<TagGroup>>;
+  activeCustomLevels: Level[];
+  allCustomLevels: Level[];
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void;
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void;
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void;
+  deleteLevel: (id: number, options?: OptionCallback) => void;
 };
 
 export const OfferFormWithActivity: React.FC<Props> = ({
@@ -50,6 +61,12 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   coachPaymentRulesByKind,
   showPartnership,
   tagList,
+  activeCustomLevels,
+  allCustomLevels,
+  fetchLevelList,
+  updateLevel,
+  createLevel,
+  deleteLevel,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['metaActivity', 'translation']);
@@ -111,6 +128,12 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       editableCoachPaymentRule
       showPartnership={showPartnership}
       tagList={tagList}
+      activeCustomLevels={activeCustomLevels}
+      allCustomLevels={allCustomLevels}
+      fetchLevelList={fetchLevelList}
+      updateLevel={updateLevel}
+      createLevel={createLevel}
+      deleteLevel={deleteLevel}
     />
   );
 };

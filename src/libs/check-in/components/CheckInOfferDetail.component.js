@@ -53,7 +53,7 @@ type Props = {
   closeBarcodeAndFaceID: () => void,
 };
 
-export class CheckInOffer extends React.Component<Props> {
+export class CheckInOfferDetail extends React.Component<Props> {
   componentDidMount() {
     this.interval = setInterval(
       this.props.refreshData,
@@ -235,4 +235,4 @@ export default compose(
         }
       },
   }),
-)(CheckInOffer);
+)(CheckInOfferDetail);

@@ -27,7 +27,6 @@ import { Moment } from '../../i18n';
 
 import DurationInput from '#components/input/DurationInput.component';
 import NumericInput from '#components/input/NumericInput.component';
-import LevelInput from '#components/input/LevelInput.component';
 import DateTimeInput from '#components/input/DateTimeInput.component';
 
 import RecursionToogle from './form/RecursionToogle.component';
@@ -44,11 +43,14 @@ import SpotSchedulingHelper from '../spot-scheduling/utils';
 
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 
-import type { Coach, Establishment, Offer } from '../../api/types';
-import type { RoomBlueprint } from '../spot-scheduling/types';
-import type { CoachPaymentRule } from '../coach-payment-rules/types';
-import type { MetaActivity } from '#libs/meta-activity/types';
-import type { Tag, TagGroup } from '#libs/tag/types';
+import { Coach, Establishment, Offer } from '../../api/types';
+import { RoomBlueprint } from '../spot-scheduling/types';
+import { CoachPaymentRule } from '../coach-payment-rules/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { Tag, TagGroup } from '#libs/tag/types';
+import { Level } from '#libs/level/types';
+import { OptionCallback } from '../../state/types';
+import LevelSelector from '#libs/level/components/LevelSelector.component';
 
 type OwnProps = {
   processing: boolean;
@@ -69,6 +71,12 @@ type OwnProps = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   showPartnership: boolean;
   tagList: Array<Tag<TagGroup>>;
+
+  activeCustomLevels: Level[];
+  allCustomLevels: Level[];
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void;
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void;
+  deleteLevel: (id: number, options?: OptionCallback) => void;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -91,6 +99,7 @@ type State = {
   openAdvancedOptions: boolean;
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
+  level: number;
 };
 
 export type FormData = Object;
@@ -151,7 +160,7 @@ const appendModifiedData = (
   data.establishment_override = newData.establishment_override;
 };
 
-export class EditLiveOfferForm extends Component<Props, State> {
+export class OfferEditForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -179,7 +188,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       partner_max_booking_count: props.offer.partner_max_booking_count,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
-      level: props.offer.level,
+      level: props.offer.customLevel.id,
       meta_activity:
         props.offer.meta_activity && this.props.offer.meta_activity.id,
       similarOffersWithSelectedStatus: (this.props.similarOffers || [])
@@ -281,6 +290,22 @@ export class EditLiveOfferForm extends Component<Props, State> {
           selected: index === 0,
         })),
     }));
+  };
+
+  handleDeleteLevel = (deleteLevelId: number) => {
+    this.props.deleteLevel(deleteLevelId, {
+      onSuccess: () => {
+        if (deleteLevelId === this.state.level) {
+          this.setState({
+            level: null,
+          });
+        }
+
+        this.props.fetchLevelList({
+          company: this.props.companyId,
+        });
+      },
+    });
   };
 
   expandSimilarOfferList = () => {
@@ -585,16 +610,18 @@ export class EditLiveOfferForm extends Component<Props, State> {
                   {this.props.t('form.warningCreditChange')}
                 </Typography>
               ) : null}
-              <div className={this.props.classes.fieldLeft}>
-                <LevelInput
-                  required
-                  value={this.state.level}
-                  onChange={(e) =>
-                    parseInt(
-                      this.onFormFieldChange('level')(e.target.value),
-                      10,
-                    )
-                  }
+              <div className={this.props.classes.field}>
+                <LevelSelector
+                  inScrollBar
+                  selectedLevel={this.state.level}
+                  onSelect={(level) => {
+                    this.onFormFieldChange('level')(level);
+                  }}
+                  customLevels={this.props.activeCustomLevels}
+                  memoryLevels={this.props.allCustomLevels}
+                  onCreateLevel={this.props.createLevel}
+                  onEditLevel={this.props.updateLevel}
+                  onDeleteLevel={this.handleDeleteLevel}
                 />
               </div>
             </div>
@@ -1081,4 +1108,4 @@ const styles = (theme: Theme) =>
 export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(),
-)(EditLiveOfferForm);
+)(OfferEditForm);

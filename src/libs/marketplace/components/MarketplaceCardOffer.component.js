@@ -10,7 +10,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Level from '../../../components/category/Level.component';
+import Level from '#libs/level/components/Level.component';
 import { formatAsTime } from '../../../utils/datetime';
 import { isOfferInThePast } from '../utils';
 
@@ -155,7 +155,7 @@ export const MarketplaceCardOffer = (props: Props) => {
           noStyle
           align="center"
           variant="caption"
-          levelId={offer && offer.level ? offer.level || null : null}
+          customLevel={offer.customLevel}
         />
         {props.establishmentLoading && establishmentName === ' - ' ? (
           <MoreHorizIcon fontSize="small" />

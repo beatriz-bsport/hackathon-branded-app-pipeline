@@ -98,6 +98,11 @@ type Props = {
   checkOfferTagEligibility: () => void,
   tagWarningDialogOpen: boolean,
   setTagWarningDialogOpen: (open: boolean) => void,
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionCallback<Level[]>,
+  ) => void,
+  companyId: number,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -154,6 +159,12 @@ export class BookingModuleManager extends PureComponent<Props> {
       this.props.checkOfferTagEligibility();
     }
   }
+
+  handleLevelList = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
 
   render() {
     const {
@@ -311,6 +322,7 @@ export class BookingModuleManager extends PureComponent<Props> {
               {this.props.step === OFFER_CHOICE && (
                 <BookingModuleOfferChoice
                   fetchSimilarOffers={this.props.fetchSimilarOffers}
+                  fetchLevelList={this.handleLevelList}
                   similarOfferLoading={this.props.similarOfferLoading}
                   similarOffers={this.props.similarOffers}
                   offer={this.props.offer}

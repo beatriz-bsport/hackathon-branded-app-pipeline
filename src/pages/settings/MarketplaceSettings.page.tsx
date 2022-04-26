@@ -53,6 +53,9 @@ import MarketplaceTabPreview from '../../libs/marketplace/components/builder/Mar
 import MarketplaceTabBuilder from '../../libs/marketplace/components/builder/MarketplaceTabBuilder.component';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { getActiveCustomLevels } from '#libs/level/selectors';
+
 const defaultTab = {
   componentType: 'calendar',
   title: '',
@@ -76,6 +79,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchAllPrivatePassCategory,
     fetchAllEstablishmentGroup,
     fetchGiftcardList,
+    fetchLevelList,
     settings,
     loading,
     privateServices,
@@ -91,6 +95,8 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     privatePassCategories,
     establishmentGroupList,
     giftcards,
+    company,
+    customLevels,
   } = props;
 
   const [openCreation, setOpenCreation] = useState<boolean>(false);
@@ -111,6 +117,10 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchAllPrivatePassCategory();
     fetchAllEstablishmentGroup();
     fetchGiftcardList();
+    fetchLevelList({
+      is_active: true,
+      company,
+    });
   }, [
     fetchMarketplaceSettings,
     fetchAllPrivateServices,
@@ -124,6 +134,8 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchAllPrivatePassCategory,
     fetchAllEstablishmentGroup,
     fetchGiftcardList,
+    fetchLevelList,
+    company,
   ]);
 
   useEffect(() => {
@@ -226,6 +238,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           privatePassCategories={privatePassCategories}
           establishmentGroupList={establishmentGroupList}
           giftcards={giftcards}
+          customLevels={customLevels}
         />
       )}
 
@@ -307,6 +320,8 @@ const mapStateToProps = (state: RootState) => ({
     getAssociatedEstablishmentGroup,
   )(state),
   giftcards: getGiftcardListEnabled(state),
+  company: state.theme.theme.company,
+  customLevels: getActiveCustomLevels(state),
 });
 
 const mapDispatchToProps = {
@@ -323,6 +338,7 @@ const mapDispatchToProps = {
   fetchAllPrivatePassCategory: fetchAllPrivatePassCategoryAction,
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   fetchGiftcardList: fetchGiftcardListAction,
+  fetchLevelList: fetchLevelListAction,
 };
 
 export default connect(

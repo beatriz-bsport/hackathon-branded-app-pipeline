@@ -32,6 +32,9 @@ import themeSelectors from '../../libs/theme/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
+
 export default compose(
   connect(
     (state: RootState) => ({
@@ -46,11 +49,12 @@ export default compose(
         state.offer.similarOffers.loading ||
         state.metaActivity.loading ||
         state.establishment.loading,
-      similarOffers: getSimilarsOffers(state),
+      similarOffers: withCustomLevel(getSimilarsOffers)(state),
       cppMaxoutBookingsByCpp: state.consumerPaymentPack.maxout_booking.byId,
       maxoutLoading: state.consumerPaymentPack.maxout_booking.loading,
       establishments: getAvailableEstablishmentList(state),
       companyTheme: themeSelectors.getTheme(state),
+      companyId: state.theme.theme.company,
     }),
     {
       fetchPaymentPackBulk,
@@ -67,6 +71,7 @@ export default compose(
       fetchAllEstablishmentBillingGroup,
       fetchConsumerPaymentPackLinks,
       checkOfferTagEligibilityAction,
+      fetchLevelList: fetchLevelListAction,
     },
   ),
 

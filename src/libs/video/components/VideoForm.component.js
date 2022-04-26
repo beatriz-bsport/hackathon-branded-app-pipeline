@@ -21,7 +21,7 @@ import {
   IntegerField,
   CheckboxField,
 } from '../../../components/forms';
-import LevelSelectorField from '../../category/components/LevelSelectorField.component';
+import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
 import { Video } from '../types';
 
 type Props = {
@@ -30,10 +30,31 @@ type Props = {
   initial?: Video,
   onRemoveVideoSource: (v: Video) => void,
   values: any,
+
+  customLevels: Level[],
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
+  setFieldValue: (name: string, value: any) => void,
 };
 export const VideoForm = (props: Props) => {
   const { t } = useTranslation(['video']);
   const classes = useStyles();
+
+  const handleDeleteLevel = (deleteLevelId: number) => {
+    props.deleteLevel(deleteLevelId, {
+      onSuccess: () => {
+        if (deleteLevelId === props.values.level) {
+          props.setFieldValue('level', null);
+        }
+        props.fetchLevelList();
+      },
+    });
+  };
 
   return (
     <div className={classes.container}>
@@ -67,13 +88,14 @@ export const VideoForm = (props: Props) => {
         />
       </div>
       <div className={classes.field}>
-        <LevelSelectorField
-          label={t('video.level')}
-          fullWidth
-          isNotMulti
-          closeMenuOnSelect
+        <LevelSelectorFormik
+          inScrollBar
           name="level"
-          required
+          customLevels={props.customLevels}
+          fetchLevelList={props.fetchLevelList}
+          onEditLevel={props.updateLevel}
+          onCreateLevel={props.createLevel}
+          onDeleteLevel={handleDeleteLevel}
         />
       </div>
       <div className={classes.field}>

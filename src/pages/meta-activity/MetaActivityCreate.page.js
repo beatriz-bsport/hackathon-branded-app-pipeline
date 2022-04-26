@@ -15,7 +15,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import uniqBy from 'lodash/uniqBy';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  createOffers as createOffersActions,
+} from '../../libs/offer/actions';
 import { mapFormData } from '../form.utils';
 import {
   upsert,
@@ -24,7 +27,6 @@ import {
   fetchAllMetaActivityCategory,
 } from '../../libs/meta-activity/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
   resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
@@ -55,6 +57,16 @@ import {
   getAvailableEstablishmentList,
   getAllEstablishments,
 } from '../../libs/establishment/selectors';
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
 import { Establishment } from '../../libs/establishment/types';
 import { PaymentPack } from '../../libs/payment-packs/types';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
@@ -122,6 +134,18 @@ type Props = {
   showPartnership: boolean,
   metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
   fetchAllMetaActivityCategory: (companyId?: number) => void,
+
+  activeCustomLevels: Level[],
+  allCustomLevels: Level[],
+  createOffers: (data: Offer, options: OptionCallback) => void,
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
+  companyId: number,
 };
 
 const MetaActivityMap = {
@@ -165,7 +189,14 @@ export class MetaActivityFormPage extends Component<Props> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchAllMetaActivityCategory();
+    this.handleFetchLevel();
   }
+
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
 
   renderActivityStep = () => (
     <MetaActivityForm
@@ -197,6 +228,12 @@ export class MetaActivityFormPage extends Component<Props> {
       editableCoachPaymentRule
       showPartnership={this.props.showPartnership}
       tagList={this.props.allTagsWithTagGroup}
+      activeCustomLevels={this.props.activeCustomLevels}
+      allCustomLevels={this.props.allCustomLevels}
+      fetchLevelList={this.handleFetchLevel}
+      updateLevel={this.props.updateLevel}
+      createLevel={this.props.createLevel}
+      deleteLevel={this.props.deleteLevel}
     />
   );
 
@@ -275,6 +312,8 @@ export default compose(
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
     (state) => ({
+      offerIsProcessing: state.offer.create.loading,
+      offerHadError: state.offer.create.error,
       establishments: getAvailableEstablishmentList(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
@@ -307,6 +346,9 @@ export default compose(
       categoryList: state.category.SCTs,
       showPartnership: state.theme.theme.has_partnership,
       metaActivityCategories: getMetaActivityCategories(state),
+      activeCustomLevels: getActiveCustomLevels(state),
+      allCustomLevels: getAllCustomLevels(state),
+      companyId: state.theme.theme.company,
     }),
     {
       goBack,
@@ -327,6 +369,11 @@ export default compose(
       fetchAllPaymentPackCategory,
       createOrUpdatePaymentPackAction: createPaymentPack,
       fetchAllMetaActivityCategory,
+      createOffers: createOffersActions,
+      fetchLevelList: fetchLevelListAction,
+      updateLevel: updateLevelAction,
+      createLevel: createLevelAction,
+      deleteLevel: deleteLevelAction,
     },
   ),
   //
@@ -344,30 +391,25 @@ export default compose(
       });
     },
   })),
-  withState('offerIsProcessing', 'setOfferIsProcessing', false),
-  withState('offerHadError', 'setOfferHadError', null),
   withProps(
-    ({
-      upsertedMetaActivity,
-      fetchAllOffers,
-      setOfferIsProcessing,
-      setOfferHadError,
-      setStep,
-    }) => ({
+    ({ upsertedMetaActivity, fetchAllOffers, setStep, createOffers }) => ({
       createOffers: async (data: *) => {
-        setOfferIsProcessing(true);
-        setOfferHadError(null);
-        createOffersAPI(upsertedMetaActivity.id, data)
-          .then(() => {
-            fetchAllOffers();
-            setStep(STEP_PASS);
-            window.scrollTo(0, 0);
-          })
-          .catch((err) => {
-            console.error(err);
-            setOfferIsProcessing(false);
-            setOfferHadError(err);
-          });
+        createOffers(
+          {
+            ...data,
+            meta_activity: upsertedMetaActivity.id,
+          },
+          {
+            onSuccess: () => {
+              fetchAllOffers();
+              setStep(STEP_PASS);
+              window.scrollTo(0, 0);
+            },
+            onError: (err) => {
+              console.error(err);
+            },
+          },
+        );
       },
     }),
   ),

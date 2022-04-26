@@ -23,7 +23,7 @@ type Props = {
   t: (x: string) => string,
 };
 
-export class BookingOptionListItem extends Component<Props> {
+export class BookingOptionConsumerItem extends Component<Props> {
   renderButtons = () => {
     if (this.props.loading) {
       return (
@@ -116,4 +116,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(withTranslation()(BookingOptionListItem));
+export default withStyles(styles)(withTranslation()(BookingOptionConsumerItem));

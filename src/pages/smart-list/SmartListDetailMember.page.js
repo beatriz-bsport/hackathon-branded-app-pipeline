@@ -102,6 +102,9 @@ import { showInformativeDialog } from '../../components/genericDialog/CustomDial
 import type { SmartList } from '#libs/smart-list/types';
 import type { OptionCallback } from '../../state/types';
 
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { getAllCustomLevels } from '#libs/level/selectors';
+
 type Props = {
   id: number,
   t: TFunction,
@@ -191,6 +194,12 @@ type Props = {
   fetchAllAutoTagRulesAction: () => void,
   smartlistAutoTagLoading: boolean,
   openAutoTagRulesDialog: boolean,
+  customLevels: Level[],
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  companyId: number,
 };
 
 type State = {
@@ -210,7 +219,14 @@ export class SmartListDetailMember extends Component<Props, State> {
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchTags();
     this.props.fetchAllAutoTagRulesAction();
+    this.handleFetchLevel();
   }
+
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
 
   createFilter = (
     filter_identifier: number,
@@ -351,6 +367,7 @@ export class SmartListDetailMember extends Component<Props, State> {
           meta_activities={this.props.meta_activities}
           establishments={this.props.establishments}
           tags={this.props.tags}
+          customLevels={this.props.customLevels}
           loading={this.props.loading}
           fetchItems={fetchItems}
           fetchBulkItems={fetchBulkItems}
@@ -558,6 +575,8 @@ export default compose(
       emailDetailLoading: state.emailTemplate.detail.loading,
       smartlistAutoTag: getSmartListAutoTag(state, id),
       smartlistAutoTagLoading: state.smartList.smartListTagRules.loading,
+      customLevels: getAllCustomLevels(state),
+      companyId: state.theme.theme.company,
     }),
     {
       fetchSmartListFilters,
@@ -592,6 +611,7 @@ export default compose(
       updateAutoTagAction: updateSmartListAutoTag,
       deleteAutoTagAction: smartListAutoTagDelete,
       applySmartListTagRules: applySmartListAutoTagRules,
+      fetchLevelList: fetchLevelListAction,
     },
   ),
   withProps(

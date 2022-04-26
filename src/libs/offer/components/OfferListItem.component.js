@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import type { TFunction } from 'react-i18next';
 
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
-import Level from '../../../components/category/Level.component';
+import Level from '#libs/level/components/Level.component';
 import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
@@ -42,11 +42,7 @@ export const OfferListItem = (props: Props) => {
                 ? ` - ${formatAsTime(offer.date_start, offer.timezone_name)} `
                 : ''}
             </Typography>
-            <Level
-              noStyle
-              variant="caption"
-              levelId={offer && offer.level_id ? offer.level_id || null : null}
-            />
+            <Level noStyle variant="caption" customLevel={offer.level} />
           </div>
         }
         secondary={

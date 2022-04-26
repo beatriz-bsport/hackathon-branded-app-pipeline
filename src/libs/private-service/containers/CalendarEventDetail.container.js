@@ -74,6 +74,7 @@ import PrivateBookingCard from '../components/booking/PrivateBookingCard.compone
 import {
   retrieveOfferAsManager as retrieveOfferAsManagerAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
+  editOffers as editOffersActions,
 } from '../../offer/actions';
 
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
@@ -89,7 +90,6 @@ import {
 import { withAssociatedCoach, getCustomEvent } from '../selectors/custom-event';
 
 import {
-  editLiveOffer as editLiveOfferAPI,
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
@@ -130,6 +130,18 @@ import {
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
 } from '#libs/giftcard/actions';
 
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+  withCustomLevel,
+} from '#libs/level/selectors';
+
 import { getallTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
@@ -167,6 +179,7 @@ type Props = {
   popoverAnchor: ?HTMLElement,
   privateBookingDeleteModalOpen: boolean,
 
+  editOffers: (id: number, data: Offer, option: OptionCallback) => void,
   setOfferProcessing: (boolean) => void,
   offerProcessing: boolean,
   offerEditModalOpen: boolean,
@@ -227,6 +240,16 @@ type Props = {
   fetchConsumerGiftcardReceivedList: (memberId: number) => void,
   isCoach: boolean,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
+
+  allCustomLevels: Level[],
+  activeCustomLevels: Level[],
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
 };
 type State = {
   clientSecretLoading: boolean,
@@ -247,10 +270,17 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     this.props.fetchAllActivities();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
+    this.handleFetchLevel();
     if (!this.props.isCoach) {
       this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
     }
   }
+
+  handleFetchLevel = () => {
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.offerId && this.props.offerId !== prevProps.offerId) {
@@ -455,15 +485,22 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 
   updateOffer = async (data) => {
     this.props.setOfferProcessing(true);
-    try {
-      await editLiveOfferAPI(data);
-      this.props.refreshOffers();
-      this.props.closeOfferEditModal();
-      this.props.onClose();
-    } catch (err) {
-      console.error(err);
-    }
-    this.props.setOfferProcessing(false);
+
+    this.props.editOffers(data.offerId, data, {
+      onSuccess: () => {
+        this.closeOfferEditModal();
+        this.props.onClose();
+      },
+      onBackgroundSuccess: () => {
+        this.props.refreshOffers();
+        this.props.setOfferProcessing(false);
+      },
+      onError: () => {
+        this.props.setOfferProcessing(false);
+        this.closeOfferEditModal();
+        this.props.onClose();
+      },
+    });
   };
 
   onCancelOffer = async (data: {
@@ -597,10 +634,17 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                   fetchSimilarOffers={() =>
                     this.props.fetchSimilarOffers(this.props.offer.id)
                   }
+                  companyId={this.props.companyId}
                   similarOffers={this.props.similarOffers}
                   similarOfferLoading={this.props.similarOfferLoading}
                   coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
                   tagList={this.props.allTagsWithTagGroup}
+                  allCustomLevels={this.props.allCustomLevels}
+                  activeCustomLevels={this.props.activeCustomLevels}
+                  fetchLevelList={this.handleFetchLevel}
+                  updateLevel={this.props.updateLevel}
+                  createLevel={this.props.createLevel}
+                  deleteLevel={this.props.deleteLevel}
                 />
               )}
             </DialogContent>
@@ -662,6 +706,8 @@ const OfferEditorContainer = compose(
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showVaccinationStatus: showVaccinationStatus(state),
       allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      activeCustomLevels: getActiveCustomLevels(state),
+      allCustomLevels: getAllCustomLevels(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -672,6 +718,10 @@ const OfferEditorContainer = compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
+      fetchLevelList: fetchLevelListAction,
+      updateLevel: updateLevelAction,
+      createLevel: createLevelAction,
+      deleteLevel: deleteLevelAction,
     },
   ),
   withHandlers({
@@ -810,7 +860,9 @@ export default compose(
         state.privateService.privateBooking.createOrUpdate.loading,
       theme: state.theme.theme,
       offer: withTags(
-        withMetaActivity(withCoach(withEstablishment(getOfferById))),
+        withCustomLevel(
+          withMetaActivity(withCoach(withEstablishment(getOfferById))),
+        ),
       )(state, offerId),
       customEvent: withAssociatedCoach(getCustomEvent)(state, customEventId),
       showVaccinationStatus: showVaccinationStatus(state),
@@ -859,6 +911,7 @@ export default compose(
       fetchConsumerGiftcardReceivedList:
         fetchConsumerGiftcardReceivedListAction,
       fetchGiftcardBulk: fetchGiftcardBulkAction,
+      editOffers: editOffersActions,
     },
   ),
   withHandlers({

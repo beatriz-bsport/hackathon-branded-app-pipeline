@@ -25,6 +25,7 @@ import Select, {
   PlaceholderProps,
   ValueContainerProps,
   ControlProps,
+  SingleValueProps,
 } from 'react-select';
 import { NoticeProps } from 'react-select/src/components/Menu';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
@@ -55,6 +56,7 @@ type BaseProps<T extends OptionTypeBase> = {
     children: React.ReactNode;
     isDisabled: boolean;
   }) => React.ReactNode;
+  headerListRenderer?: () => React.ReactChild;
   leftIcon?: React.ReactNode;
   withoutPortal?: Boolean;
   defaultNumberShown?: number;
@@ -85,6 +87,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     withoutPortal = false,
     chipsRenderer,
     itemRenderer,
+    headerListRenderer,
     onChange,
     inScrollBar,
     isMenuListPaddingDisabled,
@@ -135,13 +138,14 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
           components={{
             Control,
             Menu,
-            MenuList,
+            MenuList: MenuList(headerListRenderer),
             Option: Option(itemRenderer),
             MultiValueContainer,
             MultiValueLabel,
             MultiValueRemove: MultiValueRemove(chipsRenderer),
             Placeholder,
             NoOptionsMessage,
+            SingleValue: SingleValue(chipsRenderer),
             GroupHeading,
             ValueContainer: ValueContainer(leftIcon),
           }}
@@ -221,7 +225,15 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
     if (selected.length > 0) {
       setSelected([]);
     } else {
-      setSelected(displayedOption);
+      setSelected(
+        displayedOption.flatMap((o) => {
+          if (o.value) {
+            return o;
+          }
+
+          return o.options;
+        }),
+      );
     }
   };
 
@@ -298,7 +310,6 @@ function Option<T extends OptionTypeBase>(
               onSelect(props.data);
               return;
             }
-
             props.innerProps.onClick(ev);
           };
 
@@ -453,37 +464,37 @@ function Control<T extends OptionTypeBase>(
 }
 
 function MenuList<T extends OptionTypeBase>(
-  props: MenuListComponentProps<T, boolean, any>,
+  headerListRenderer: (() => React.ReactChild) | null = null,
 ) {
-  if (props.selectProps.isMenuListVirtualized) {
+  return (props: MenuListComponentProps<T, boolean, any>) => {
     return (
       <components.MenuList {...props} getStyles={resetStyle}>
-        <VirtualizedList
-          height={
-            props.selectProps.options.length < 300
-              ? props.selectProps.options.length * 50
-              : 300
-          }
-          itemCount={props.selectProps.options.length}
-          itemSize={48}
-        >
-          {({ index, style }) => (
-            <div style={style}>{props.children[index]}</div>
-          )}
-        </VirtualizedList>
+        {headerListRenderer && headerListRenderer()}
+        {props.selectProps.isMenuListVirtualized ? (
+          <VirtualizedList
+            height={
+              props.selectProps.options.length < 300
+                ? props.selectProps.options.length * 50
+                : 300
+            }
+            itemCount={props.selectProps.options.length}
+            itemSize={48}
+          >
+            {({ index, style }) => (
+              <div style={style}>{props.children[index]}</div>
+            )}
+          </VirtualizedList>
+        ) : (
+          <MenuListMaterial
+            disablePadding={props.selectProps.isMenuListPaddingDisabled}
+            dense
+          >
+            {props.children}
+          </MenuListMaterial>
+        )}
       </components.MenuList>
     );
-  }
-  return (
-    <components.MenuList {...props} getStyles={resetStyle}>
-      <MenuListMaterial
-        disablePadding={props.selectProps.isMenuListPaddingDisabled}
-        dense
-      >
-        {props.children}
-      </MenuListMaterial>
-    </components.MenuList>
-  );
+  };
 }
 
 const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
@@ -561,6 +572,23 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
           )}
         </div>
       </components.ValueContainer>
+    );
+  };
+}
+
+function SingleValue<T extends OptionTypeBase>(
+  chipsRenderer?: (props: { data: T; onDelete: () => void }) => React.ReactNode,
+) {
+  return (props: SingleValueProps<T, any>) => {
+    return (
+      <components.SingleValue {...props}>
+        {chipsRenderer &&
+          chipsRenderer({
+            data: props.data,
+            onDelete: props.clearValue,
+          })}
+        {!chipsRenderer && props.children}
+      </components.SingleValue>
     );
   };
 }

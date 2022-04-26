@@ -125,7 +125,11 @@
             "vaccinationDontWantToCommunicate": "Non vuole rispondere",
             "vaccinationNotDone": "Nessun pass sanitario valido",
             "vaccinationDone": "Pass sanitario valido",
-            "vaccination_status": "Stato del pass sanitario COVID-19"
+            "vaccination_status": "Stato del pass sanitario COVID-19",
+            "offerEdition": "Modifica di una sessione",
+            "offerCreation": "Creare una sessione",
+            "selectAnActivity": "Selezionare un'attività",
+            "filter": "Filtro"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
@@ -198,7 +202,8 @@
         },
         "errors": {
             "end_before_start": "La data di fine deve essere successiva alla data di inizio",
-            "start_after_end": "La data di inizio deve essere precedente alla data di fine"
+            "start_after_end": "La data di inizio deve essere precedente alla data di fine",
+            "invalidUrl": "L'url non è valido (formato previsto: http://www.test.fr)"
         },
         "members": {
             "form": {
@@ -328,7 +333,17 @@
                     "advanced": "Avanzato"
                 },
                 "explainPartnership": "Sui marketplaces (ClassPass, OneFit...)",
-                "explainManagerOnly": "Disponibile per la prenotazione (web+app)"
+                "explainManagerOnly": "Disponibile per la prenotazione (web+app)",
+                "advancedOptions": {
+                    "tag": {
+                        "notAllowed": "Non consentito",
+                        "doNotSelectToAllowAllMembers": "Lasciare vuoto per permettere a tutti i membri",
+                        "allowed": "Autorizzato",
+                        "helperText": "Usa i tag per rendere la sessione prenotabile solo per un gruppo desiderato di membri. Si selezionano i tag per rendere la sessione prenotabile solo ai membri con uno dei tag selezionati. Oppure puoi selezionare i tag per rendere la sessione non riservabile solo ai membri con uno dei tag selezionati.",
+                        "header": "Tag"
+                    },
+                    "header": "Avanzato"
+                }
             },
             "phone": "Numero di telefono",
             "name": "Nome",
@@ -933,7 +948,8 @@
             "all": "Tutti i livelli",
             "beginner": "Principiante",
             "intermediate": "Intermedio",
-            "intermediary": "Intermedio"
+            "intermediary": "Intermedio",
+            "noDisplay": "Nessun livello visualizzato"
         },
         "appbar": {
             "title": {
@@ -1532,7 +1548,10 @@
             "refreshTextPhone": "Ricaricare la pagina per aggiornare il numero di telefono",
             "contentNotification": "Contenuto",
             "titleNotification": "Titolo",
-            "sendNotification": "Notifica push"
+            "sendNotification": "Notifica push",
+            "warningConsent2": "Non rispettare questa decisione del vostro membro sarebbe illegale. Bsport è sollevata da ogni responsabilità in caso di uso abusivo delle e-mail dirette.",
+            "warningConsent1": "Attenzione! Questo membro ha disabilitato la capacità di inviare email promozionali. Le email dirette sono un modo semplice e veloce per parlare con i tuoi membri. Non devono essere usati per scopi pubblicitari o promozionali.",
+            "titleInterpolated": "Le variabili contenute nell'oggetto e nel corpo dell'email sono aggiornate in base al destinatario"
         },
         "campaign": {
             "list": {
@@ -1599,6 +1618,10 @@
             "cancel": "Annulla",
             "submit": "Invia",
             "refresh": "Ricarica"
+        },
+        "sms": {
+            "warningConsent2": "Non rispettare questa decisione del vostro membro sarebbe illegale. Bsport è sollevata da ogni responsabilità in caso di uso abusivo degli sms diretti.",
+            "warningConsent1": "Attenzione! Questo membro ha disattivato la possibilità di inviare sms promozionali. Gli sms diretti ti permettono di discutere con i tuoi membri in modo semplice e veloce. Non devono essere usati per scopi pubblicitari o promozionali."
         }
     },
     "membership": {
@@ -2228,7 +2251,10 @@
                 "validity": "Validità",
                 "credit_quantity": "Numero di crediti"
             },
-            "ht": "Tasse escluse"
+            "ht": "Tasse escluse",
+            "actions": {
+                "forceRegularizeUnpaid": "Regolarizzare tutti i pagamenti in sospeso"
+            }
         },
         "openCalendar": "Vedi il calendario",
         "service": {
@@ -2958,7 +2984,8 @@
                 "widget": "Widget",
                 "paymentMethod": "Modo di pagamento",
                 "forms": "Modulo di membro",
-                "quickbooks": "QuickBooks"
+                "quickbooks": "QuickBooks",
+                "mobilePersonalization": "App di personalizzazione"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -3181,7 +3208,12 @@
                 "internalAccountWarning1": "Si consiglia vivamente di creare un rapporto sul saldo del cliente prima di abilitare questa funzione.",
                 "internalAccountNotusableOnContract": "Questo mezzo di pagamento non può essere utilizzato per contratti",
                 "internalAccount": "Bilancio del cliente",
-                "errorURL": "Inserisci un URL valido prima di salvare il modulo"
+                "errorURL": "Inserisci un URL valido prima di salvare il modulo",
+                "hideSessionWithTagsNotEligible": "Non visualizzare le sessioni a cui il membro non ha accesso con i tag",
+                "hideMemberForCoach": "Nascondere le informazioni di contatto del cliente nel calendario dell'insegnante",
+                "hideBuyablePassIfSuperfluous": "Nascondere le carte dei corsi, gli abbonamenti e i pacchetti che possono essere acquistati al momento della prenotazione se il membro ha già una carta compatibile",
+                "attendanceTitle": "Presenza",
+                "bookingTitle": "Prenotazione"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -3246,7 +3278,8 @@
                 "taxName": "Nome della tassa",
                 "info": "Inserisci qui il nome e il valore della tua tassa provinciale. Su tutti i prodotti della piattaforma, indica l'imposta totale applicata (imposta federale + imposta provinciale). L'imposta federale e provinciale sarà indicata sulle fatture dei tuoi clienti.",
                 "title": "Imposta provinciale"
-            }
+            },
+            "acceptGuest": "Permettere la prenotazione dell'ospite"
         },
         "pageTitles": {
             "theme": "Generale",
@@ -4197,6 +4230,12 @@
             "errors": {
                 "96002": "Impossibile, questo utente ha già un punteggio"
             }
+        },
+        "plannedPayment": {
+            "registerNow": {
+                "error": "Impossibile registrare il pagamento",
+                "success": "Pagamento registrato"
+            }
         }
     },
     "settings": {
@@ -4364,6 +4403,96 @@
             "submit": "Salva",
             "enable": "Attivare l'integrazione di Quickbooks",
             "title": "QuickBooks"
+        },
+        "mobilePersonalization": {
+            "popup": {
+                "editPopup": {
+                    "previewPopup": {
+                        "see": "Vedere",
+                        "title": "Panoramica"
+                    },
+                    "preview": "Anteprima",
+                    "submit": "Registra",
+                    "cancel": "Cancella",
+                    "link": "Collegamento di reindirizzamento",
+                    "image": "Immagine",
+                    "name": "Nome",
+                    "title": "Pop-up di avvio"
+                },
+                "see": "Vedi",
+                "deleteModal": {
+                    "content": "Sei sicuro di voler eliminare questo popup? Questa operazione è definitiva",
+                    "confirm": "Cancellare",
+                    "cancel": "Cancella",
+                    "title": "Soppressione"
+                },
+                "action": "Azione",
+                "image": "Immagine",
+                "link": "Link",
+                "name": "Nome",
+                "updated": "Aggiornamento",
+                "add": "Aggiungere un pop-up",
+                "helperText": "Il pop-up di avvio apparirà quando i tuoi membri apriranno l'applicazione. Ti permette di attirare l'attenzione dei tuoi membri su un evento speciale (un nuovo corso, una promozione...) e li reindirizzerà alla pagina web desiderata.",
+                "subtitle": "Pop-up di avvio"
+            },
+            "externalShopRedirection": {
+                "popupPreview": {
+                    "cancel": "Chiudere",
+                    "inventory": "Il tuo inventario",
+                    "ourOffers": "Le nostre offerte",
+                    "category": {
+                        "giftcard": "Carte regalo",
+                        "contract": "Abbonamenti",
+                        "paymentCombo": "Offerte promozionali",
+                        "paymentPack": "Tutti i passaggi"
+                    },
+                    "membershipCard": {
+                        "giftcardSubtitle": "Trova tutte le carte regalo dello studio qui",
+                        "paymentComboSubtitle": "Trova qui tutte le offerte promozionali del tuo studio",
+                        "vodSubtitle": "Trova qui tutta l'offerta di video on demand del tuo studio",
+                        "contractSubtitle": "Trova qui tutte le offerte di abbonamento del tuo studio",
+                        "paymentPackSubtitle": "Trova qui tutte le mappe del tuo studio",
+                        "mySubscription": "Il mio\nabbonamenti",
+                        "paymentComboEmpty": "Nessuna offerta proposta",
+                        "contractEmpty": "Non ci sono abbonamenti in vendita",
+                        "invoiceEmpty": "Nessuna fattura",
+                        "privateConsumerPassListEmpty": "Nessuna carta RDV in possesso",
+                        "vod": "Accesso al VOD",
+                        "consumerPaymentPackEmpty": "Nessun passo posseduto",
+                        "privatePassListEmpty": "Nessun appuntamento offerto",
+                        "paymentPackEmpty": "Nessun pass offerto",
+                        "invoice": "Le mie fatture",
+                        "consumerPaymentPack": "Le mie carte",
+                        "paymentPack": "Schede del corso",
+                        "contract": "Abbonamento"
+                    },
+                    "title": "Panoramica"
+                },
+                "deleteModal": {
+                    "content": "Sei sicuro di voler cancellare questo link? Questa operazione è definitiva",
+                    "confirm": "Cancellare",
+                    "cancel": "Cancella",
+                    "title": "Soppressione"
+                },
+                "popup": {
+                    "submit": "Registra",
+                    "cancel": "Cancella",
+                    "icon": "Icona",
+                    "link": "Collegamento di reindirizzamento",
+                    "name": "Nome",
+                    "title": "Link esterno"
+                },
+                "action": "Azioni",
+                "link": "Link",
+                "name": "Nome",
+                "icon": "Icona",
+                "preview": "Panoramica dell'applicazione",
+                "updated": "Aggiornamento",
+                "add": "Aggiungi un link",
+                "helperText": "Puoi aggiungere dei link esterni sull'applicazione per reindirizzare i tuoi clienti al tuo sito web o a un'altra piattaforma. I link appariranno nella scheda di acquisto dell'applicazione mobile.",
+                "subtitle": "Link esterni"
+            },
+            "title": "Personalizzazione dell'app"
         }
     },
     "invoice": {
@@ -4433,7 +4562,7 @@
         },
         "actions": {
             "finalize": "Finalizza (PDF)",
-            "download": "Scarica il pdf",
+            "download": "Scarica la fattura",
             "equilibrate": "Saldo (acconto)",
             "addInvoiceItem": "Aggiungi alla fattura",
             "save": "Iscriviti",
@@ -4445,7 +4574,8 @@
             "consumeBalance": "Paga tramite saldo",
             "explainPdfDraft": "La fattura è ancora in fase di bozza, il pdf non è disponibile.",
             "addFooter": "Modificare la nota a piè di pagina",
-            "addCoupon": "Aggiungere un codice promozionale"
+            "addCoupon": "Aggiungere un codice promozionale",
+            "downloadReceipt": "Ricezione del pagamento"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La fattura è stata finalizzata e pertanto non è più modificabile",
@@ -4674,7 +4804,10 @@
                 "last_payment_method": "Impossibile di cancellare il tuo unico metodo di pagamento",
                 "pm_deleted": "Metodo di pagamento cancellato"
             },
-            "inconsistent": "Metodo di pagamento non autorizzato, per favore riconfiguralo. Il cliente potrebbe aver richiesto di de-autorizzare il suo metodo di pagamento, o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile"
+            "inconsistent": "Metodo di pagamento non autorizzato, per favore riconfiguralo. Il cliente potrebbe aver richiesto di de-autorizzare il suo metodo di pagamento, o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile",
+            "isInternalExplainFuturePayments": "La data di scadenza sarà dedotta automaticamente dall'acconto del cliente. Se questo non è sufficiente, verrà creato un acconto negativo.",
+            "addPaymentMethod": "Aggiungere un metodo di pagamento",
+            "copyLink": "Copia il link per aggiungere un metodo di pagamento"
         },
         "paymentEngine": {
             "label": {
@@ -4699,10 +4832,12 @@
                 "delete": "Annullare",
                 "registerNow": "Incassare ora",
                 "disable": "De-programmazione",
-                "enable": "Riprogrammazione di"
+                "enable": "Riprogrammazione di",
+                "changeMethod": "Cambiare il metodo di pagamento"
             },
             "nextRetryDate": "Il pagamento sarà ritardato fino a {{ d }}",
-            "lockedToday": "Il pagamento scade oggi, non puoi più cambiarlo"
+            "lockedToday": "Il pagamento scade oggi, non puoi più cambiarlo",
+            "registerNowInitialData": "Pagamento originariamente dovuto il {{-date}}"
         },
         "mandate": {
             "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
@@ -4765,6 +4900,9 @@
                 "apply": "Pagamento con carta regalo",
                 "cancel": "Chiudere"
             }
+        },
+        "invoiceFuturePaymentsDialog": {
+            "applyForAllFuturePayments": "Applicare alle scadenze future di questa fattura"
         }
     },
     "coach": {
@@ -6840,7 +6978,8 @@
                 "isWaitingListFull": "La sessione è piena, la lista di attesa è piena.",
                 "isDisabled": "La sessione è stata purtroppo annullata.",
                 "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{ date_ }}.",
-                "isAlreadyRegistered": "Sei già registrato per questa sessione"
+                "isAlreadyRegistered": "Sei già registrato per questa sessione",
+                "blockedByTags": "Non hai i diritti necessari per iscriverti a questa sessione."
             },
             "messages": {
                 "offerLocked": "Non è possibile prenotare questa sessione",
@@ -6862,6 +7001,15 @@
             "isLoading": "Cerca sessioni...",
             "book": {
                 "unknowError": "Impossibile prenotare, si prega di riprovare tra un momento"
+            },
+            "tags": {
+                "unAuthorized": "Non hai i diritti necessari per iscriverti a questa sessione.",
+                "managerDialogWarningDialog": {
+                    "confirm": "Confermare",
+                    "cancel": "Cancellare",
+                    "content": "Si prega di notare che questo membro non ha i tag necessari per essere registrato per questa sessione. Vuoi registrarlo comunque?",
+                    "title": "Informazioni"
+                }
             }
         },
         "details": {
@@ -6908,7 +7056,10 @@
             "withoutRecurrentBookings": "Prenotazioni non ricorrenti",
             "withRecurrentBookings": "Prenotazioni ricorrenti",
             "recurrentBooking": "Prenotazione ricorrente",
-            "notCancelled": "Non annullato"
+            "notCancelled": "Non annullato",
+            "isUnpaid": "Prenotazioni non pagate",
+            "isPaid": "Prenotazioni pagate",
+            "paid": "Pagamento"
         },
         "creditConsumed": "{{credit_consumed}} credito",
         "creditConsumed_plural": "{{credit_consumed}} crediti",
@@ -7099,7 +7250,8 @@
                     "5": "Già registrato",
                     "4": "Registrazioni chiuse",
                     "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club"
-                }
+                },
+                "blockedByTags": "Registrazione non autorizzata"
             },
             "similarOffer": {
                 "showMore": "Vedere di più",
@@ -7129,7 +7281,26 @@
         "performanceTracking": {
             "stat": "Statistiche"
         },
-        "attendanceUpdatedOn": "Aggiornato il {{- d }} alle {{- t }}"
+        "attendanceUpdatedOn": "Aggiornato il {{- d }} alle {{- t }}",
+        "asGuest": "Ospite",
+        "guest": {
+            "form": {
+                "actions": {
+                    "addGuest": "Aggiungere un ospite",
+                    "close": "Cancellare",
+                    "submit": "Confermare"
+                },
+                "lastname": {
+                    "label": "Nome"
+                },
+                "firstname": {
+                    "label": "Nome"
+                },
+                "email": {
+                    "label": "Email"
+                }
+            }
+        }
     },
     "smartList": {
         "mail": {
@@ -7857,7 +8028,8 @@
             "selectorPlaceholder": {
                 "privatePass": "Seleziona le carte d'appuntamento (valido su tutte le carte se nessuna è selezionata)",
                 "paymentPack": "Seleziona le schede dei corsi (valido su tutte le lezioni se nessuna è selezionata)",
-                "shopitem": "Seleziona i prodotti dal negozio (valido su tutti i prodotti se nessuno è selezionato)"
+                "shopitem": "Seleziona i prodotti dal negozio (valido su tutti i prodotti se nessuno è selezionato)",
+                "paymentCombo": "Seleziona i pacchetti (valido su tutti i prodotti se nessuno è selezionato)"
             },
             "name": {
                 "label": "Nome"
@@ -7886,7 +8058,8 @@
                     "9": "Pass per appuntamenti",
                     "all": "Applica a tutto",
                     "null": "Applica a tutto",
-                    "1": "Tessera"
+                    "1": "Tessera",
+                    "10": "Confezione"
                 }
             },
             "actions": {
@@ -7941,7 +8114,9 @@
                 "label": "Codice promozionale",
                 "placeholder": "RIENTRO_SPECIALE",
                 "cancel": "Annullare",
-                "submit": "Confermare"
+                "submit": "Confermare",
+                "not_found": "Questo codice promozionale non è valido.",
+                "not_applicable": "Questo codice promozionale non è applicabile."
             }
         },
         "search": "Cerca un codice promozionale",
@@ -8019,7 +8194,8 @@
                 "toolbar": "Visualizzazione per",
                 "member": "Membri",
                 "coupon": "Codice promozionale",
-                "smartlist": "Smartlists"
+                "smartlist": "Smartlists",
+                "offer": "Sessioni"
             },
             "memberDetail": {
                 "memberWithTag": "Membri taggati",
@@ -8058,7 +8234,24 @@
                 "tag": "Tag",
                 "member_count": "Membri taggati",
                 "smartlist_count": "Regole di etichettatura",
-                "actions": "Azioni "
+                "actions": "Azioni ",
+                "offer_count": "Sessioni correlate"
+            },
+            "offerDetail": {
+                "filters": {
+                    "options": {
+                        "onlyBlack": "Non prenotabile con il tag",
+                        "onlyWhite": "Prenotabile con questo tag",
+                        "all": "Visualizza tutte le sessioni"
+                    },
+                    "selectorTitle": "Filtro sui permessi"
+                },
+                "removeTagFromAll": "Rimuovi tutti i tag",
+                "offerWithTag": "Contrassegnato offerte",
+                "detailTable": {
+                    "tagInWhiteList": "Prenotabile dai membri con il tag",
+                    "tagInBlackList": "Non prenotabile dai membri con il tag"
+                }
             }
         },
         "select": "Seleziona un tag",
@@ -8333,7 +8526,8 @@
             "paymentMethod": {
                 "collect": {
                     "content": "Questo metodo di pagamento verrà salvato nel tuo account per la fatturazione in conformità al contratto.",
-                    "title": "Aggiungi un metodo di pagamento"
+                    "title": "Aggiungi un metodo di pagamento",
+                    "contentAdd": "Questo metodo di pagamento sarà salvato nel suo account."
                 },
                 "actions": {
                     "addPaymentMethod": "Aggiungere un metodo di pagamento",
@@ -8345,7 +8539,7 @@
                 },
                 "message": {
                     "error": "Impossibile registrare questo metodo di pagamento",
-                    "success": "Il metodo di pagamento é stato salvato con successo!"
+                    "success": "Metodo di pagamento salvato con successo!"
                 }
             },
             "savePaymentMethod": {
@@ -8521,12 +8715,18 @@
             "error": {
                 "button_text": "Réessayer",
                 "text_status": "Il tuo acquisto non può essere completato!",
-                "text_content": "Il tuo acquisto non può essere completato, puoi riprovare cliccando sul pulsante qui sotto o puoi tornare alla lista degli abbonamenti chiudendo questa finestra."
+                "text_content": "Il tuo acquisto non può essere completato, puoi riprovare o tornare alla tua area riservata.",
+                "userSpace": "Area membri",
+                "title": "Errore nel pagamento"
             },
             "success": {
                 "button_text": "Continua",
                 "text_status": "Acquisto riuscito!",
-                "text_content": "Il tuo acquisto è stato elaborato, ora puoi trovare i dettagli del tuo abbonamento nella tua area membri."
+                "text_content": "Il tuo acquisto è stato elaborato, ora puoi trovare i dettagli del tuo abbonamento nella tua area membri.",
+                "text_content_funnel": "Il tuo acquisto è stato elaborato, clicca su continua per finalizzare la tua prenotazione. La carta collegata al suo abbonamento è stata aggiunta alla sezione \"Le mie carte di corso\", la selezioni per fare la sua prenotazione.",
+                "title": "Congratulazioni!",
+                "contract": "Il mio contratto",
+                "recap": "Riassunto"
             },
             "title": "Comprare un abbonamento"
         }
@@ -8798,6 +8998,10 @@
                     "settingsDelay": "Scadenza per la registrazione",
                     "label": "Uno alla volta"
                 }
+            },
+            "last_delay_before_auto_consume": {
+                "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha una tessera del corso valida",
+                "label": "Autoregistrarsi solo se la sessione si svolge in meno di "
             }
         },
         "switchToDisable": "Riattiva la lista di attesa",
@@ -9057,7 +9261,8 @@
                 }
             }
         },
-        "simulate": "Simulare"
+        "simulate": "Simulare",
+        "privateSlotLabel": "Appuntamento"
     },
     "common": {
         "form": {
@@ -9371,6 +9576,9 @@
             },
             "privatePass": {
                 "error": "Questo appuntamento non è disponibile"
+            },
+            "paymentCombo": {
+                "locked": "Questo pacchetto non è disponibile"
             }
         },
         "or": "o",
@@ -9380,15 +9588,21 @@
         },
         "validation": {
             "sections": {
-                "offerNotBookable": "Impossibile di registrarti a",
-                "offerPreBooked": "Sei sulla lista d'attesa per",
-                "offerBooked": "Sei iscritto a",
+                "offerNotBookable": "Nessuna registrazione possibile",
+                "offerPreBooked": "Registrazione sulla lista d'attesa",
+                "offerBooked": "Le vostre sessioni",
                 "basket": "Il tuo carrello",
-                "title": "Riassunto"
+                "title": "Congratulazioni!",
+                "errorExplain": "L'operazione non può essere eseguita. Si prega di riprovare.",
+                "error": "Errore",
+                "recap": "Riassunto",
+                "explain": "La tua transazione è stata elaborata. Ti invieremo un'e-mail di conferma."
             },
             "actions": {
                 "back": "Precedente",
-                "continue": "Continuare"
+                "continue": "Continua lo shopping",
+                "widgetContinue": "Continua",
+                "member": "Area membri"
             }
         },
         "expire_in": "Scade in ",
@@ -9590,7 +9804,31 @@
         "restoreOffer": "Ripristinare la sessione",
         "maximumNumberDescription": "Il numero massimo di prenotazioni {{effectif}} è già stato raggiunto e iscrivendo questo membro si supera il numero massimo di prenotazioni. Sei sicuro di voler registrare questo membro?",
         "maximumNumber": "Numero massimo di prenotazioni",
-        "warningOfferFull": "Il numero massimo di prenotazioni è già stato raggiunto"
+        "warningOfferFull": "Il numero massimo di prenotazioni è già stato raggiunto",
+        "levels": {
+            "edit": "Modifica",
+            "delete": "Cancellare",
+            "customs": "Personalizzato",
+            "select": {
+                "placeholder": "Livello",
+                "title": "Livello",
+                "add": "Aggiungere un livello"
+            },
+            "deleteModal": {
+                "content2": "Le sessioni che hanno già questo livello lo manterranno ma non potranno essere aggiunte alle sessioni future.",
+                "content": "Sei sicuro di voler rimuovere questo livello?",
+                "title": "Cancellazione"
+            },
+            "modal": {
+                "submit": "Salva",
+                "cancel": "Cancella",
+                "color": "Codice colore",
+                "nameCaption": "{{max}} caractères max ({{count}}/{{max}})",
+                "name": "Nome",
+                "title": "Cambiare il livello"
+            }
+        },
+        "tagManagementInfo": "{{authorized}} tag autorizzato, {{unauthorized}} tag non autorizzato"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -9731,6 +9969,9 @@
                     },
                     "generals": {
                         "_label": "Generale"
+                    },
+                    "mobilePersonalization": {
+                        "_label": "Personalizzazione dell'app"
                     }
                 },
                 "reporting": {
@@ -9948,7 +10189,8 @@
                 "window": "Finestra popup",
                 "fullScreen": "Schermo intero"
             },
-            "dialogSizeLabel": "Dimensione del popup"
+            "dialogSizeLabel": "Dimensione del popup",
+            "responsiveIframe": "Attiva la modalità reattiva"
         }
     },
     "platformBilling": {

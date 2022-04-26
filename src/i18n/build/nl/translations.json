@@ -1168,7 +1168,8 @@
             "intermediary": "Intermediair",
             "intermediate": "Intermediair",
             "beginner": "Beginner",
-            "all": "Alle niveaus"
+            "all": "Alle niveaus",
+            "noDisplay": "Er is geen niveau om weer te geven."
         },
         "booking": {
             "seeCustomers": "Bekijk reserveringen",
@@ -3786,7 +3787,30 @@
         "maximumNumberDescription": "Het maximum aantal reserveringen ({{effectif}}) is reeds bereikt. Weet je zeker dat je dit lid wilt inboeken? Deze actie overschrijdt het vooraf ingestelde maximum aantal reserveringen.",
         "maximumNumber": "Maximum aantal reserveringen",
         "warningOfferFull": "Het maximum aantal reserveringen is bereikt",
-        "tagManagementInfo": "{{authorized}} goedgekeurde tag(s) en {{unauthorized}} afgekeurde tag(s)"
+        "tagManagementInfo": "{{authorized}} goedgekeurde tag(s) en {{unauthorized}} afgekeurde tag(s)",
+        "levels": {
+            "edit": "Wijzigen",
+            "delete": "Verwijderen",
+            "customs": "Personaliseren",
+            "select": {
+                "placeholder": "Niveau",
+                "title": "Niveau",
+                "add": "Een niveau toevoegen"
+            },
+            "deleteModal": {
+                "content2": "Bestaande sessies die aan dit niveau gekoppeld zijn worden niet gewijzigd. Toekomstige sessies worden wel bewerkt.",
+                "content": "Weet je zeker dat je dit niveau wilt verwijderen?",
+                "title": "Verwijderen"
+            },
+            "modal": {
+                "submit": "Opslaan",
+                "cancel": "Annuleren",
+                "color": "Kleurcode",
+                "nameCaption": "Maximaal aantal tekens: {{count}} / {{max}}",
+                "name": "Naam",
+                "title": "Niveau wijzigen"
+            }
+        }
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",

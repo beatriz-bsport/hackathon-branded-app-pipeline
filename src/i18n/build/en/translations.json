@@ -3687,7 +3687,8 @@
             "selectorPlaceholder": {
                 "privatePass": "Select appointment passes (will apply to all appointment passes if none has been selected)",
                 "paymentPack": "Select passes (will apply to all passes if none has been selected)",
-                "shopitem": "Select webshop products (will apply to all webshop products if none has been selected)"
+                "shopitem": "Select webshop products (will apply to all webshop products if none has been selected)",
+                "paymentCombo": "Select packs (valid on all products if none is selected)"
             },
             "section": {
                 "general": "General",
@@ -3753,7 +3754,8 @@
                     "6": "Delivery fee",
                     "9": "Appointment passes",
                     "all": "Applies to the entire basket",
-                    "null": "Applies to the entire basket"
+                    "null": "Applies to the entire basket",
+                    "10": "Pack"
                 }
             },
             "actions": {
@@ -3785,7 +3787,9 @@
                 "label": "Promotional code",
                 "placeholder": "PROMOTIONAL CODE",
                 "cancel": "Cancel",
-                "submit": "Save"
+                "submit": "Save",
+                "not_found": "This promo code is not valid.",
+                "not_applicable": "This promo code is not applicable."
             }
         },
         "message": {
@@ -4427,7 +4431,8 @@
                 "bookingTitle": "Booking",
                 "attendanceTitle": "Attendance",
                 "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product",
-                "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags"
+                "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags",
+                "hideMemberForCoach": "Hide customer contact information in the teacher calendar"
             },
             "cover": {
                 "label": "Logo",
@@ -5989,7 +5994,8 @@
             }
         },
         "search": "(Optional) Apply a payroll rule",
-        "simulate": "Simulate"
+        "simulate": "Simulate",
+        "privateSlotLabel": "Appointment"
     },
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",
@@ -6033,11 +6039,12 @@
                 },
                 "collect": {
                     "content": "This payment method will be saved in your account to be invoiced in accordance with the contract.",
-                    "title": "Add a payment method"
+                    "title": "Add a payment method",
+                    "contentAdd": "This payment method will be saved in your account."
                 },
                 "message": {
                     "error": "Unable to save this payment method",
-                    "success": "Your payment method has been saved successfully!"
+                    "success": "Payment method successfully saved!"
                 }
             },
             "savePaymentMethod": {
@@ -6267,7 +6274,7 @@
         },
         "actions": {
             "equilibrate": "Regularize (deposit)",
-            "download": "Download PDF",
+            "download": "Download the invoice",
             "addInvoiceItem": "Add to invoice",
             "save": "Save",
             "backToInvoiceItemEditor": "Purchase",
@@ -6279,7 +6286,8 @@
             "consumeBalance": "Pay via balance",
             "explainPdfDraft": "The invoice is still a draft, pdf is not available.",
             "addFooter": "Edit this invoice's footnote",
-            "addCoupon": "Add promo code"
+            "addCoupon": "Add promo code",
+            "downloadReceipt": "Payment receipt"
         },
         "invoice": {
             "editor": {
@@ -6525,7 +6533,10 @@
                 "pm_associated_to_pi": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method"
             },
-            "inconsistent": "This payment method has been invalidated. It's possible that the member has requested to deactivate this payment method or that this profile has been merged with another profile. Either way, this payment method is no longer usable."
+            "inconsistent": "This payment method has been invalidated. It's possible that the member has requested to deactivate this payment method or that this profile has been merged with another profile. Either way, this payment method is no longer usable.",
+            "isInternalExplainFuturePayments": "The due date will be deducted automatically from the account balance. If this is not sufficient, a negative account will be created.",
+            "addPaymentMethod": "Add a payment method",
+            "copyLink": "Copy the link to add a payment method"
         },
         "paymentEngine": {
             "label": {
@@ -6550,10 +6561,12 @@
                 "delete": "Cancel",
                 "registerNow": "Take payment now",
                 "enable": "Activate",
-                "disable": "Deactivate"
+                "disable": "Deactivate",
+                "changeMethod": "Change the payment method"
             },
             "nextRetryDate": "The payment will be retried on {{ d }}",
-            "lockedToday": "The payment is scheduled today, you can no longer change it"
+            "lockedToday": "The payment is scheduled today, you can no longer change it",
+            "registerNowInitialData": "Payment originally due on {{-date}}"
         },
         "mandate": {
             "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
@@ -6616,6 +6629,9 @@
                 "amountToPay": "Amount paid by gift card"
             },
             "giftcard": "Gift card"
+        },
+        "invoiceFuturePaymentsDialog": {
+            "applyForAllFuturePayments": "Apply to future installments of this invoice"
         }
     },
     "coach": {
@@ -8908,7 +8924,10 @@
             "withoutRecurrentBookings": "Single bookings",
             "withRecurrentBookings": "Recurrent bookings",
             "recurrentBooking": "Recurrent booking",
-            "notCancelled": "Not cancelled"
+            "notCancelled": "Not cancelled",
+            "isUnpaid": "Unpaid bookings",
+            "isPaid": "Paid bookings",
+            "paid": "Payment"
         },
         "creditConsumed": "{{ credit_consumed }} credit(s)",
         "creditConsumed_plural": "{{credit_consumed}} credits",
@@ -10790,6 +10809,12 @@
             "errors": {
                 "96002": "This user is already clocked-in"
             }
+        },
+        "plannedPayment": {
+            "registerNow": {
+                "error": "Unable to save payment",
+                "success": "Saved payment"
+            }
         }
     },
     "navigation": {
@@ -11203,7 +11228,8 @@
                 "window": "Window",
                 "fullScreen": "Full screen"
             },
-            "dialogSizeLabel": "Popup dimension"
+            "dialogSizeLabel": "Popup dimension",
+            "responsiveIframe": "Activate the responsive mode"
         }
     },
     "marketing": {

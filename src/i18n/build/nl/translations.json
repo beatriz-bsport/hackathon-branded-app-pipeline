@@ -7127,7 +7127,8 @@
                 },
                 "collect": {
                     "content": "Deze betaalmethode wordt in je account conform de overeenkomst toegevoegd.",
-                    "title": "Een betaalmethode toevoegen"
+                    "title": "Een betaalmethode toevoegen",
+                    "contentAdd": "Deze betaalmethode wordt in je account opgeslagen."
                 },
                 "message": {
                     "error": "Deze betaalmethode kon niet worden toegevoegd.",
@@ -9506,7 +9507,9 @@
                 "pm_deleted": "Betaalmethode verwijderd"
             },
             "inconsistent": "Deze betaalmethode is niet meer geldig. Het is mogelijk dat het lid deze betaalmethode heeft gedeactiveerd of dat het profiel met een ander profiel is samengevoegd. In beide gevallen is het niet langer mogelijk om deze betaalmethode te gebruiken.",
-            "isInternalExplainFuturePayments": "De vervaldatum wordt automatisch afgetrokken bij het lid als aanbetaling. Indien dit niet voldoende is, wordt er een negatieve saldo aangemaakt."
+            "isInternalExplainFuturePayments": "De interne rekening (Wallet) van leden wordt automatisch geïncasseerd voor betalingen. De interne rekening (Wallet) wordt negatief, indien er onvoldoende saldo opstaat.",
+            "addPaymentMethod": "Een betaalmethode toevoegen",
+            "copyLink": "Kopieer de directe link naar de betaalmethode"
         },
         "paymentEngine": {
             "label": {

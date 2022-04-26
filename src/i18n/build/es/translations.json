@@ -49,7 +49,7 @@
         },
         "paymentMethod": {
             "CB": "Tarjeta de pago",
-            "CB_MANUAL": "Datáfono",
+            "CB_MANUAL": "Tarjeta (manual)",
             "CHECK": "Cheque",
             "HOLIDAY_CHECK": "Cheque de vacaciones",
             "CASH": "Efectivo",
@@ -2257,7 +2257,8 @@
                 },
                 "collect": {
                     "content": "Esta forma de pago se guardará en su cuenta para ser facturada de acuerdo con el contrato.",
-                    "title": "Añadir un método de pago"
+                    "title": "Añadir un método de pago",
+                    "contentAdd": "Este método de pago se guardará en su cuenta."
                 },
                 "message": {
                     "error": "No se puede registrar este método de pago",
@@ -2526,7 +2527,7 @@
         },
         "actions": {
             "finalize": "Finalizar (PDF)",
-            "download": "Descargar PDF",
+            "download": "Descargar la factura",
             "equilibrate": "Equilibrar (anticipo)",
             "addInvoiceItem": "Añadir a la factura",
             "save": "Guardar",
@@ -2538,7 +2539,8 @@
             "consumeBalance": "Paga con el saldo",
             "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible.",
             "addFooter": "Modificar la nota a pie de página de la factura",
-            "addCoupon": "Añadir un código promocional"
+            "addCoupon": "Añadir un código promocional",
+            "downloadReceipt": "Recibo del pago"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -2753,7 +2755,10 @@
                 "last_payment_method": "No se puede eliminar el único método de pago",
                 "pm_deleted": "Método de pago borrado"
             },
-            "inconsistent": "Método de pago desautorizado, por favor reconfigúrelo. El cliente puede haber solicitado la desautorización de su método de pago, o puede haber fusionado dos miembros, en ambos casos el método de pago ya no es utilizable"
+            "inconsistent": "Método de pago desautorizado, por favor reconfigúrelo. El cliente puede haber solicitado la desautorización de su método de pago, o puede haber fusionado dos miembros, en ambos casos el método de pago ya no es utilizable",
+            "isInternalExplainFuturePayments": "La fecha de vencimiento se deducirá automáticamente del anticipo del cliente. Si no es suficiente, se creará un anticipo negativo.",
+            "addPaymentMethod": "Añadir un método de pago",
+            "copyLink": "Copie el enlace para añadir un método de pago"
         },
         "paymentEngine": {
             "label": {
@@ -2778,10 +2783,12 @@
                 "delete": "Cancelar",
                 "registerNow": "Recoge ahora",
                 "disable": "Desprogramar",
-                "enable": "Reprogramar"
+                "enable": "Reprogramar",
+                "changeMethod": "Cambiar el método de pago"
             },
             "nextRetryDate": "El pago se retrasará hasta {{ d }}",
-            "lockedToday": "El pago vence hoy, ya no se puede cambiar"
+            "lockedToday": "El pago vence hoy, ya no se puede cambiar",
+            "registerNowInitialData": "El pago debía realizarse originalmente el {{fecha}}"
         },
         "mandate": {
             "content": "Poniendo su IBAN y confirmando el pago, autoriza a bsport y Stripe, nuestro sistema de pago a enviar la información de facturación a su banco con todas las futuras facturaciones. Puede solicitar un reembolso a su banco dependiendo de su contrato. El reembolso debe ser solicitado 8 semanas antes del primer pago.",
@@ -2844,6 +2851,9 @@
                 "confirm": "Validar"
             },
             "giftcard": "Tarjeta de regalo"
+        },
+        "invoiceFuturePaymentsDialog": {
+            "applyForAllFuturePayments": "Aplicar a futuros vencimientos de esta factura"
         }
     },
     "coach": {
@@ -4293,7 +4303,10 @@
             "withoutRecurrentBookings": "Reservas no recurrentes",
             "withRecurrentBookings": "Reservas recurrentes",
             "recurrentBooking": "Reserva recurrente",
-            "notCancelled": "No cancelado"
+            "notCancelled": "No cancelado",
+            "isUnpaid": "Reservas impagadas",
+            "isPaid": "Reservas pagadas",
+            "paid": "Pago"
         },
         "actions": {
             "bill": "Facturar",
@@ -4938,7 +4951,9 @@
                 "placeholder": "SPECIAL_VUELTA",
                 "label": "Código promocional",
                 "cancel": "cancelar",
-                "submit": "Enviar"
+                "submit": "Enviar",
+                "not_found": "Este código promocional no es válido.",
+                "not_applicable": "Este código promocional no es aplicable."
             }
         },
         "createCoupon": "Añadir un código",
@@ -4954,7 +4969,8 @@
                     "9": "Tarjeta de cita",
                     "6": "Gastos de envío",
                     "2": "Tienda",
-                    "1": "Bono"
+                    "1": "Bono",
+                    "10": "Pack"
                 }
             },
             "minimum_amount": {
@@ -5017,7 +5033,8 @@
             "selectorPlaceholder": {
                 "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
                 "paymentPack": "Seleccionar bonos (válido en todos los bonos si no se selecciona ninguno)",
-                "privatePass": "Seleccionar tarjetas de cita (válido en todas las tarjetas si no se selecciona ninguna)"
+                "privatePass": "Seleccionar tarjetas de cita (válido en todas las tarjetas si no se selecciona ninguna)",
+                "paymentCombo": "Seleccionar packs (válido en todos los productos si no se selecciona ninguno)"
             },
             "subscription_mode": {
                 "3": "No aplicable",
@@ -6376,7 +6393,8 @@
                 "bookingTitle": "Reserva",
                 "attendanceTitle": "Presencia",
                 "errorURL": "Por favor, introduzca una URL válida antes de guardar el formulario",
-                "hideSessionWithTagsNotEligible": "No mostrar las sesiones a las que el socio no tiene acceso con tags"
+                "hideSessionWithTagsNotEligible": "No mostrar las sesiones a las que el socio no tiene acceso con tags",
+                "hideMemberForCoach": "Ocultar la información de contacto del cliente en el calendario del profesor"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -7071,7 +7089,8 @@
             "dissociate": "Personalizar las reglas"
         },
         "search": "Buscar una regulación de remuneración (opcional)",
-        "simulate": "Simular"
+        "simulate": "Simular",
+        "privateSlotLabel": "Citas"
     },
     "checkout": {
         "myBasket": {
@@ -8099,6 +8118,12 @@
         "clockIn": {
             "errors": {
                 "96002": "Este usuario ya está fichado"
+            }
+        },
+        "plannedPayment": {
+            "registerNow": {
+                "error": "No se puede registrar el pago",
+                "success": "Pago registrado"
             }
         }
     },
@@ -10176,7 +10201,8 @@
                 "window": "Ventana emergente",
                 "fullScreen": "Pantalla completa"
             },
-            "dialogSizeLabel": "Tamaño de la ventana emergente"
+            "dialogSizeLabel": "Tamaño de la ventana emergente",
+            "responsiveIframe": "Activar el modo responsivo"
         }
     },
     "platformBilling": {

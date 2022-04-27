@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import moment from 'moment-timezone';
 import amber from '@material-ui/core/colors/amber';
@@ -208,17 +206,6 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                     <TableCell align="right">
                       {getCurrencyDisplayWithPrice(
                         private_service_perf.coach_bonus || 0,
-                      )}
-                    </TableCell>
-                    <TableCell align="right">
-                      {getCurrencyDisplayWithPrice(
-                        private_service_perf.total_margin_value || 0,
-                      )}
-                    </TableCell>
-                    <TableCell align="right">
-                      {getCurrencyDisplayWithPrice(
-                        (private_service_perf.total_margin_value || 0) -
-                          (private_service_perf.coach_total_payment || 0),
                       )}
                     </TableCell>
                   </>

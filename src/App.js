@@ -20,7 +20,6 @@ import SnackbarPile from './SnackbarPile.component';
 import BackgroundSnackbar from './libs/background-task/components/BackgroundSnackbar.component';
 import BackgroundDialog from './libs/background-dialog/components/BackgroundDialog.component';
 import Root from './Root';
-
 import initStore from './store';
 
 import theme from './theme';

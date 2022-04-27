@@ -6,6 +6,7 @@ import { createStyles, Theme } from '@material-ui/core';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 import Fab from '@material-ui/core/Fab';
@@ -172,6 +173,7 @@ export class SubscriptionDetail extends Component<Props> {
             savedPaymentMethodList={this.props.savedPaymentMethodList}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               this.props.theme.currency === 'eur' &&
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}

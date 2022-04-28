@@ -63,7 +63,9 @@ export function detachPaymentMethod(params: any, options?: OptionCallback) {
       console.error(err);
       dispatch(detachPaymentMethodActions.success({}));
       if (err.response?.status === 499 && err.response?.data?.error_code) {
-        dispatch(snackbarError(`errorCode.${err.response.data.error_code}`));
+        dispatch(
+          snackbarError(`paymentMethod.errors.${err.response.data.error_code}`),
+        );
       }
       if (options && options.onError) {
         options.onError(err);

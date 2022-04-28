@@ -8,7 +8,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import WebhookFormDialog from '../../libs/webhook/components/WebhookForm.component';
 import WebhookListItem from '../../libs/webhook/components/WebhookListItem';
 import {
@@ -19,6 +18,7 @@ import {
   deleteWebhook,
 } from '../../libs/webhook/actions';
 import { getAllWebhooks } from '../../libs/webhook/selectors';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import { testWebhookUrl as testWebhookUrlAPI } from '../../libs/webhook/api';
 import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
 import withTitle from '../../hocs/with-title.hoc';

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { LinearProgress } from '@material-ui/core';
 
 import { getDefaultTitleForComponent } from '../../libs/exportable-components/utils';
 
@@ -44,6 +43,7 @@ import { getAllPaymentPackCategory } from '../../libs/payment-packs/selectors';
 import { fetchPlaylistList as fetchPlaylistListAction } from '../../libs/playlist/actions';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
 import { getVideoList } from '../../libs/video/selectors';

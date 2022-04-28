@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { connect } from 'react-redux';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';

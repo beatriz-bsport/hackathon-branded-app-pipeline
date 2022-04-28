@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -15,6 +14,7 @@ import { Divider } from '@material-ui/core';
 import OrderConfigurationForm from '../../libs/order/components/OrderConfigurationForm.component';
 import DeliveryFeeTable from '../../libs/order/components/DeliveryFeeTable.component';
 import DeliveryFeeDialogForm from '../../libs/order/components/DeliveryFeeDialogForm.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import { getDeliveryFeesActive } from '../../libs/order/selectors';
 import type { DeliveryFee } from '../../libs/order/types';

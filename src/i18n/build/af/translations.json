@@ -4510,7 +4510,7 @@
           "label": "Avancé : intervalle de choix de réservation",
           "helperText": "Ex: 15 signifie 15 minutes que le membre peut réserver à 12h, 12h15, 12h30, etc... (recommandé)"
         },
-        "durationError": "Durée invalide (entre 15min et 1j)",
+        "durationError": "Durée invalide (entre 10min et 1j)",
         "people_capacity_used": {
           "label": "Nombre de personnes",
           "helperText": "Si une salle est configurée, ce nombre sera utilisé pour mettre à jour son remplissage"

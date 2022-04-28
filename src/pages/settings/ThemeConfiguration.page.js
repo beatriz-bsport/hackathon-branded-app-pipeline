@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import type { Theme } from '../../libs/theme/types';
 import ThemeForm from '../../libs/theme/components/ThemeForm.component';

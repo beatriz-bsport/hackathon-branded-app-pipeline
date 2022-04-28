@@ -4,7 +4,6 @@ import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose, withProps, withHandlers } from 'recompose';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { replace as replaceRouter } from 'connected-react-router';
 import { withRouter } from 'react-router';
@@ -14,6 +13,7 @@ import Config from '../../config';
 import { buildUrlParams, parseQueryString } from '../../http';
 
 import BroadcastConfigurationForm from '../../libs/video/components/BroadcastConfiguration.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import {
   updateCompanyTheme,
   fetchCompanyTheme,

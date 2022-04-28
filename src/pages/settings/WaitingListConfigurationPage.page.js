@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
 import WaitingListConfigurationForm from '../../libs/waiting-list/components/WaitingListConfigurationForm.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import {
   fetchConfiguration,
   patchConfiguration,

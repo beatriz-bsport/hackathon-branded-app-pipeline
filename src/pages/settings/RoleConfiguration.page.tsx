@@ -4,13 +4,13 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { Backdrop, CircularProgress, Divider, Theme } from '@material-ui/core';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { TFunction } from 'i18next';
 import UserWithRoleList from '../../libs/role/components/UserWithRoleList.component';
 import RoleList from '../../libs/role/components/RoleList.component';
+import { Backdrop, CircularProgress, Divider, Theme } from '@material-ui/core';
 import {
   fetchCompanyUserRoles,
   updateUserRole,

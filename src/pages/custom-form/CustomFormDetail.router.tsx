@@ -83,13 +83,9 @@ const styles = (theme: Theme) => ({
     },
   },
   stickyNavbar: {
-    position: 'fixed',
     width: '100%',
-    top: theme.spacing(7.9),
-    zIndex: 100,
   },
   content: {
-    paddingTop: theme.spacing(6),
     marginBottom: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
       margin: theme.spacing(2),

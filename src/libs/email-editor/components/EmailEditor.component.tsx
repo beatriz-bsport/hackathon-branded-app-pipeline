@@ -83,15 +83,15 @@ export class EmailEditorPanel extends Component<Props, State> {
       subject: props.emailToEdit?.subject ?? '',
       autoSave: true,
       notReadyToLeave: true,
-      selectedCompanies: props.emailToEdit?.available_for_companies?.map(
-        (comp) => {
-          const _company = this.companyDic?.[comp];
-          return {
-            value: `${_company.id}`,
-            label: _company.name,
-          };
-        },
-      ),
+      selectedCompanies: this.props.companies
+        ? props.emailToEdit?.available_for_companies?.map((comp) => {
+            const _company = this.companyDic?.[comp];
+            return {
+              value: `${_company?.id}`,
+              label: _company?.name,
+            };
+          })
+        : [],
       categoryId: this.props.emailToEdit?.category || null,
     };
     this.intervalPeriod = 60 * 1000; // Run every minutes

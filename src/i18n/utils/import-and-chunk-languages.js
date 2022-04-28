@@ -21,12 +21,12 @@ const generateChunkJSONTranslations = () => {
       tr = jsonMerger.mergeFiles([
 	path.join(
 	  path.dirname(fs.realpathSync(__filename)),
-	  '../build/af/translations.json',
+	  '../build/fr/translations.json',
 	),
 	path.join(
 	  path.dirname(fs.realpathSync(__filename)),
-	  '../build/fr/translations.json',
-	)
+	  '../build/af/translations.json',
+	),
       ])
     } else {
       tr = require(path.join(

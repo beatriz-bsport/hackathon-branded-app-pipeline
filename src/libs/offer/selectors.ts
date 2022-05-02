@@ -16,6 +16,7 @@ import themeSelectors from '../theme/selectors';
 import { RootState } from '../../reducers';
 import { Offer } from './types';
 import { PaymentPack } from '../payment-packs/types';
+import { getUserPreferencesCalendarFilter } from '../user-preference/selectors';
 
 const getState = (state: RootState) => state.offer;
 
@@ -208,8 +209,13 @@ export const getOffersByDay = createSelector(
 );
 
 export const getManagerOffersFiltered = createSelector(
-  [getOffersByDay, getManagerFilters, themeSelectors.getTheme],
-  (offers, filters, theme) => {
+  [
+    getOffersByDay,
+    getManagerFilters,
+    themeSelectors.getTheme,
+    getUserPreferencesCalendarFilter,
+  ],
+  (offers, filters, theme, userCalendarFilter) => {
     let offersFiltered = offers;
     if ((filters.establishments || []).length) {
       offersFiltered = offersFiltered.filter(
@@ -237,11 +243,11 @@ export const getManagerOffersFiltered = createSelector(
         filters.metaActivities.includes(o.meta_activity),
       );
     }
-    if (filters.available === undefined) {
+    if (userCalendarFilter.available === undefined) {
       if (!theme.show_cancelled_offers_manager) {
         offersFiltered = offersFiltered.filter((o) => o.available);
       }
-    } else if (filters.available) {
+    } else if (userCalendarFilter.available) {
       offersFiltered = offersFiltered.filter((o) => o.available);
     }
     return offersFiltered;

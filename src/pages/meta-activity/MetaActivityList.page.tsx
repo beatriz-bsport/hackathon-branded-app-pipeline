@@ -322,7 +322,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               </Collapse>
             )}
           </div>
-        ) : null}
+        )}
 
         <MetaActivityDeleteDialog
           metaActivityId={this.props.activityToDelete}

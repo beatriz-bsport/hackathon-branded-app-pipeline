@@ -25,3 +25,6 @@ export const getPrivateServiceScheduleFilter = (
   id: number,
 ): ScheduleFilter =>
   state.userPreference.privateServicesScheduleFilter?.[id] || defaultFilters;
+
+export const getUserPreferencesCalendarFilter = (state: RootState): any =>
+  state.userPreference.calendarFilter;

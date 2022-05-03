@@ -262,3 +262,6 @@ export const getCreditInfo = (
   }
   return creditInfo;
 };
+
+export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING = 0;
+export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START = 1;

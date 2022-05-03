@@ -23,6 +23,7 @@ import type { TFunction } from 'i18next';
 import { compose } from 'recompose';
 import WarningIcon from '@material-ui/icons/Warning';
 
+import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import Tooltip from '#components/Tooltip.component';
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
@@ -45,6 +46,10 @@ import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
 } from '#libs/private-service/utils';
+import {
+  CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING,
+  CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START,
+} from '#libs/payment-packs/utils';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -61,6 +66,8 @@ interface InitialFormikValues {
   smartlist_exclude: Array<number>;
   verboseNotifKind: string | null;
   identifier: 'payment_pack' | 'private_pass';
+  hours: number;
+  creditNotificationKind: 'onBooking' | 'onOfferStart';
 }
 interface FinalFormikData extends MarketingNotification {
   send_email: boolean;
@@ -83,20 +90,26 @@ interface FinalFormikData extends MarketingNotification {
   push_notification_title: string;
   smartlist_include: Array<number>;
   smartlist_exclude: Array<number>;
+  hours: number;
+  creditNotificationKind: 'onBooking' | 'onOfferStart';
 }
-const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
-const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
+
 const getKind = (identifer: string, values: any) => {
   if (identifer === 'payment_pack') {
     if (values.verboseNotifKind === 'creditsLeft') {
-      return CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT;
+      return PAYMENT_PACK_EVENT_RULE.NOTIFICATION_CREDIT;
     }
-    return CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME;
+    return PAYMENT_PACK_EVENT_RULE.NOTIFICATION_TIME;
   }
   if (values.verboseNotifKind === 'creditsLeft') {
     return PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT;
   }
   return PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME;
+};
+const getEventRulesKind = (values: any) => {
+  return values.creditNotificationKind === 'onBooking'
+    ? CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING
+    : CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START;
 };
 type Props = {
   getEmails: () => void;
@@ -119,12 +132,20 @@ type Props = {
 
 const getNotificationKind = (notif: any) => {
   if (
-    notif.kind === CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME ||
+    notif.kind === PAYMENT_PACK_EVENT_RULE.NOTIFICATION_TIME ||
     notif.kind === PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME
   ) {
     return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
   }
   return 'creditsLeft';
+};
+
+const getPpCreditNotificationKind = (notif: any) => {
+  return notif.event_rules.kind === undefined ||
+    notif.event_rules.kind ===
+      CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING
+    ? 'onBooking'
+    : 'onOfferStart';
 };
 
 const renderEmptyOrLoading = (
@@ -189,6 +210,8 @@ const ProductNotificationForm = (props: Props) => {
     notificationContent,
     notificationTitle,
     email_design,
+    identifier,
+    creditNotificationKind,
   } = values;
 
   useEffect(() => {
@@ -337,6 +360,45 @@ const ProductNotificationForm = (props: Props) => {
               </>
             )}
           </div>
+          {identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft' && (
+            <div className={classes.fieldContainer}>
+              <Typography variant="subtitle2">
+                {t('booking:notification.form.chooseKind.title')}
+              </Typography>
+              <RadioGroupField
+                name="creditNotificationKind"
+                choices={[
+                  {
+                    label: t(
+                      'notification.form.creditNotificationType.onBooking',
+                    ),
+                    value: 'onBooking',
+                  },
+                  {
+                    label: t(
+                      'notification.form.creditNotificationType.onOfferStart',
+                    ),
+                    value: 'onOfferStart',
+                  },
+                ]}
+              />
+              <div className={classes.inlineContainer}>
+                <Typography variant="caption">
+                  {t('notification.form.chooseTime.first')}
+                </Typography>
+                <IntegerField className={classes.integerInput} name="hours" />
+                <Typography variant="caption">
+                  {t(
+                    `notification.form.chooseTime.${
+                      creditNotificationKind === 'onBooking'
+                        ? 'secondOnBooking'
+                        : 'secondOnOfferStart'
+                    }`,
+                  )}
+                </Typography>
+              </div>
+            </div>
+          )}
 
           <FeatureListProvider>
             {(featureList) => {
@@ -527,6 +589,11 @@ const ProductNotificationForm = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  integerInput: {
+    width: '70px',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -623,6 +690,14 @@ const ProductNotificationSchema = Yup.object().shape({
   }),
   days_left: Yup.number().min(0).required(),
   credits_left: Yup.number().min(0).required(),
+  creditNotificationKind: Yup.string().oneOf(['onBooking', 'onOfferStart']),
+  hours: Yup.number()
+    .min(0)
+    .when(['identifier', 'verboseNotifKind'], {
+      is: (identifier, verboseNotifKind) =>
+        identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft',
+      then: Yup.number().required(),
+    }),
   smartlist_include: Yup.array().of(Yup.number()).nullable(),
   smartlist_exclude: Yup.array().of(Yup.number()).nullable(),
 
@@ -673,8 +748,10 @@ export default compose<any, Props>(
           credits_left,
           smartlist_include,
           smartlist_exclude,
+          hours,
         } = initial.event_rules;
         const verboseNotifKind = getNotificationKind(initial);
+        const creditNotificationKind = getPpCreditNotificationKind(initial);
         return {
           send_email: !!email_design,
           send_notification_push:
@@ -689,6 +766,8 @@ export default compose<any, Props>(
           credits_left: credits_left || 0,
           smartlist_include: smartlist_include || [],
           smartlist_exclude: smartlist_exclude || [],
+          hours: Math.abs(hours) || 0,
+          creditNotificationKind,
           verboseNotifKind,
           identifier,
         };
@@ -700,13 +779,15 @@ export default compose<any, Props>(
         notificationTitle: '',
         kind:
           identifier === 'payment_pack'
-            ? CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT
+            ? PAYMENT_PACK_EVENT_RULE.NOTIFICATION_CREDIT
             : PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
         email_design: null,
         payment_pack_id: identifier === 'payment_pack' ? id : null,
         private_pass_id: identifier === 'private_pass' ? id : null,
         days_left: 2,
         credits_left: 2,
+        hours: 2,
+        creditNotificationKind: 'onBooking',
         smartlist_include: [],
         smartlist_exclude: [],
         verboseNotifKind: 'creditsLeft',
@@ -750,6 +831,10 @@ export default compose<any, Props>(
           data.event_rules.smartlist_exclude = values.smartlist_exclude;
           break;
         default:
+          if (identifier === 'payment_pack') {
+            data.event_rules.hours = values.hours;
+            data.event_rules.kind = getEventRulesKind(values);
+          }
           data.event_rules.credits_left = values.credits_left;
           break;
       }

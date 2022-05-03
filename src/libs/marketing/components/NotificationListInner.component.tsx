@@ -12,6 +12,8 @@ import { MaterialStyleType } from '../../../utils/types';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { SmartList } from '../../smart-list/types';
 
+import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#libs/payment-packs/utils';
+
 const getLabelForRules = (
   notification: MarketingNotification,
   t: TFunction,
@@ -46,10 +48,24 @@ const getLabelForRules = (
     notification.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT ||
     notification.kind === NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT
   ) {
-    return t('paymentPack:notification.creditsLeftLabel', {
+    const creditsLeftLabel = t('paymentPack:notification.creditsLeftLabel', {
       credit: notification.event_rules.credits_left,
       count: notification.event_rules.credits_left,
     });
+    const { kind, hours } = notification.event_rules;
+    if (kind !== undefined && hours) {
+      const countdownLabel = t(
+        `paymentPack:notification.${
+          kind ===
+          CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING
+            ? 'creditsLeftOnBooking'
+            : 'creditsLeftOnOfferStart'
+        }`,
+        { hours },
+      );
+      return `${creditsLeftLabel} - ${countdownLabel}`;
+    }
+    return creditsLeftLabel;
   }
 
   if (notification.kind === 0) {

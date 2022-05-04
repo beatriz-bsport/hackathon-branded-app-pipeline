@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 
+import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 import {
   PrivateConsumerPass,
   PrivatePass,
@@ -160,7 +161,7 @@ export const getValidityInfo = (
 
 export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
   if (
-    privateConsumerPass.private_pass.expiration_days_before_first_use &&
+    privateConsumerPass.private_pass.start_date_method !== START_ON_PURCHASE &&
     privateConsumerPass.no_private_booking_active
   ) {
     return moment(privateConsumerPass.date_bought)

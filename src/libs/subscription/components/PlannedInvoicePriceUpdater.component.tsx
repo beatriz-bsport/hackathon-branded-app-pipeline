@@ -1,62 +1,77 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
+import { makeStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { Form, withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
+import { Theme } from '@material-ui/core';
 import { CheckboxField, Submit, PriceField } from '../../../components/forms';
+import { type Subscription } from '../types';
 
 type Props = {
-  t: TFunction,
-  open: boolean,
-  classes: Object,
-  onCancel: () => void,
-  subscription: ?Subscription,
-  isSubmitting: boolean,
+  open: boolean;
+  onCancel: () => void;
+  subscription: Subscription;
+  isSubmitting: boolean;
+  plannedInvoiceUpdateLoading: boolean;
 };
 export const PlannedInvoicePriceUpdater = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation('subscription');
   return (
     <Dialog open={props.open}>
+      {props.plannedInvoiceUpdateLoading && <LinearProgress />}
       <Form>
-        <DialogTitle>
-          {props.t('plannedInvoice.priceUpdater.title')}
-        </DialogTitle>
+        <DialogTitle>{t('plannedInvoice.priceUpdater.title')}</DialogTitle>
         <DialogContent>
           <PriceField
             name="price"
-            label={props.t('plannedInvoice.priceUpdater.price')}
+            label={t('plannedInvoice.priceUpdater.price')}
             required
             fullWidth
+            disabled={props.isSubmitting || props.plannedInvoiceUpdateLoading}
           />
           {!!props.subscription && props.subscription.is_v2 ? (
-            <CheckboxField
-              label={props.t('plannedInvoice.priceUpdater.updateAll')}
-              name="update_all"
-            />
+            <>
+              <CheckboxField
+                label={t('plannedInvoice.priceUpdater.updateAll')}
+                name="update_all"
+                disabled={
+                  props.isSubmitting || props.plannedInvoiceUpdateLoading
+                }
+              />
+              <CheckboxField
+                label={t('plannedInvoice.priceUpdater.updateRecurrentPrice')}
+                name="update_recurrent_price"
+                disabled={
+                  props.isSubmitting || props.plannedInvoiceUpdateLoading
+                }
+              />
+            </>
           ) : (
-            <div className={props.classes.row}>
-              <WarningIcon className={props.classes.leftIcon} color="error" />
+            <div className={classes.row}>
+              <WarningIcon className={classes.leftIcon} color="error" />
               <Typography>
-                {props.t('plannedInvoice.priceUpdater.explain')}
+                {t('plannedInvoice.priceUpdater.explain')}
               </Typography>
             </div>
           )}
         </DialogContent>
         <DialogActions>
           <Button disabled={props.isSubmitting} onClick={props.onCancel}>
-            {props.t('plannedInvoice.priceUpdater.cancel')}
+            {t('plannedInvoice.priceUpdater.cancel')}
           </Button>
           <Submit disabled={props.isSubmitting}>
-            {props.t('plannedInvoice.priceUpdater.submit')}
+            {t('plannedInvoice.priceUpdater.submit')}
           </Submit>
         </DialogActions>
       </Form>
@@ -64,7 +79,7 @@ export const PlannedInvoicePriceUpdater = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -77,12 +92,13 @@ const styles = (theme) => ({
     borderRadius: theme.spacing(1),
     marginTop: theme.spacing(1),
   },
-});
+}));
 
 export const PriceUpdaterSchema = Yup.object().shape({
   planned_invoice: Yup.number().required(),
   price: Yup.number().required(),
   update_all: Yup.boolean().nullable(),
+  update_recurrent_price: Yup.boolean().nullable(),
 });
 
 export const PriceUpdateFormikHOC = withFormik({
@@ -100,8 +116,4 @@ export const PriceUpdateFormikHOC = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['subscription']),
-  withStyles(styles),
-  PriceUpdateFormikHOC,
-)(PlannedInvoicePriceUpdater);
+export default PriceUpdateFormikHOC(PlannedInvoicePriceUpdater);

@@ -23,6 +23,7 @@ type Props = {
   loading: boolean;
 
   requestUpdatePrice: (PlannedInvoice) => void;
+  plannedInvoiceUpdateLoading?: boolean;
   updateSubscriptionRenewal: ({
     auto_renewal,
   }: {
@@ -82,6 +83,7 @@ export function SubscriptionComponent(props: Props) {
             subscription={props.subscription}
             onClickInvoice={props.goToInvoice}
             requestUpdatePrice={props.requestUpdatePrice}
+            plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
             cancelPause={props.cancelPause}
             toogleAutoRenew={props.updateSubscriptionRenewal}
             updateDate={props.updateDate}

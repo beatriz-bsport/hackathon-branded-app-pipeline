@@ -25,6 +25,7 @@ import {
   listContractPauseActions,
   addContractPauseActions,
   retrieveContractPauseActions,
+  updatePlannedInvoiceActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
@@ -82,6 +83,9 @@ const initialState: SubscriptionState = Immutable({
     allIds: [],
     nextPage: 1,
     page: 1,
+    createOrUpdate: {
+      loading: false,
+    },
   },
 
   contractPause: {
@@ -119,6 +123,12 @@ export default handleActions(
   {
     [listPlannedInvoiceActions.isLoading]: (state, { payload }) => {
       return state.setIn(['plannedInvoice', 'loading'], payload);
+    },
+    [updatePlannedInvoiceActions.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['plannedInvoice', 'createOrUpdate', 'loading'],
+        payload,
+      );
     },
     [listPlannedInvoiceActions.error]: (state, { payload }) => {
       return state.setIn(['plannedInvoice', 'error'], payload);

@@ -123,6 +123,7 @@ export class SubscriptionDetail extends Component<Props> {
           requestPause={this.props.freezeSubscription}
           updateDate={this.props.updatePlannedInvoiceDate}
           requestUpdatePrice={this.props.updatePlannedInvoicePrice}
+          plannedInvoiceUpdateLoading={this.props.plannedInvoiceUpdateLoading}
           cancelPause={this.props.cancelPause}
           requestScheduledStop={(plannedInvoiceId) => {
             if (plannedInvoiceId) {
@@ -229,6 +230,8 @@ const connector = connect(
     memberById: state.member.detailData,
     paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
     theme: themeSelectors.getTheme(state),
+    plannedInvoiceUpdateLoading:
+      state.subscription.plannedInvoice.createOrUpdate.loading,
   }),
   {
     cancelPause: cancelPauseAction,
@@ -473,9 +476,7 @@ const mapWithHandlers2 = {
     (data: any, options: OptionCallback<Subscription>) => {
       updatePlannedInvoicePrice(id, data, {
         onSuccess: (...args) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(...args);
-          }
+          options && options.onSuccess(...args);
           fetchSubscription();
         },
         onError: options.onError,

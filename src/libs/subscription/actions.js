@@ -397,6 +397,8 @@ export function updatePlannedInvoicePrice(
   data: {
     planned_invoice: number,
     price: string,
+    update_all: boolean,
+    update_recurrent_price: boolean,
   },
   options: OptionCallback,
 ) {
@@ -418,8 +420,22 @@ export function updatePlannedInvoicePrice(
     } catch (err) {
       console.error(err);
       dispatch(updatePlannedInvoiceActions.error(err));
-      dispatch(snackbarError('subscription.updatePrice.error'));
       if (options && options.onError) options.onError(err);
+
+      if (
+        err.response &&
+        err.response.status === 499 &&
+        err.response.data &&
+        err.response.data.error_code
+      ) {
+        dispatch(
+          snackbarError(
+            `plannedInvoice.upsert.errors.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('subscription.updatePrice.error'));
+      }
     }
     dispatch(
       updatePlannedInvoiceActions.isLoading({

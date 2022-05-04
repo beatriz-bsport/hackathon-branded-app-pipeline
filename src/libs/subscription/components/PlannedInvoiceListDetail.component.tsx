@@ -379,6 +379,7 @@ const PlannedInvoiceItem = (props: { plannedInvoice: PlannedInvoice }) => {
 type Props = {
   plannedInvoiceList: Array<PlannedInvoice>;
   requestUpdatePrice: (data: any, options: OptionsCallback) => void;
+  plannedInvoiceUpdateLoading?: boolean;
 };
 
 export function PlannedInvoiceListDetail(props: Props) {
@@ -434,6 +435,7 @@ export function PlannedInvoiceListDetail(props: Props) {
           open={!!plannedInvoiceToUpdatePrice}
           planned_invoice={plannedInvoiceToUpdatePrice}
           onCancel={() => setPlannedInvoiceToUpdatePrice(null)}
+          plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
           onSubmit={(data, options) => {
             props.requestUpdatePrice(data, {
               onSuccess: (...args) => {

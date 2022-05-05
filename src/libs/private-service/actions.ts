@@ -1919,7 +1919,16 @@ export function registerPrivateBooking(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(privateBookingCreateOrUpdateActions.error(null));
+      if (err.response.status === 499 && err.response.data?.error_code) {
+        dispatch(
+          snackbarWarning(
+            `privateBooking.register.warning.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(privateBookingCreateOrUpdateActions.error(null));
+        dispatch(snackbarError('privateBooking.register.error'));
+      }
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));

@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Theme } from '@material-ui/core/styles/createTheme';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withProps } from 'recompose';
@@ -34,7 +35,6 @@ import {
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
-import { snackbarError } from '../../../libs/snackbar/actions';
 import ConsumerAppBar from '../ConsumerAppBar.container';
 
 import BookingCapabilities from '../../../libs/private-service/components/booking-module/BookingCapabilitiesList.component';
@@ -60,7 +60,9 @@ import type {
   PrivateSlot,
   PrivateConsumerPass,
   PrivatePassCategoryWithPasses,
+  PrivateService,
 } from '../../../libs/private-service/types';
+import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
 
@@ -101,7 +103,6 @@ type Props = {
   compatiblePrivatePassByCategory: Array<PrivatePassCategoryWithPasses>,
 
   goToConsumerHome: () => void,
-  displaySnackbarError: (steing) => void,
   basket: Basket,
   privateService: ?PrivateService,
 
@@ -186,7 +187,6 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         },
         onError: () => {
           this.setState({ processing: false });
-          this.props.displaySnackbarError();
         },
       },
     );
@@ -215,7 +215,6 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
       },
       {
         onError: () => {
-          this.props.displaySnackbarError();
           this.setState({ processing: false });
         },
         onSuccess: () => {
@@ -253,7 +252,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
               className={this.props.classes.leftIcon}
             />
             <Typography variant="h4">
-              {moment(this.props.data.date).format('LLLL')}
+              {moment(this.props.data.date)
+                .tz(this.props.theme.timezone_name)
+                .format('LLLL')}
             </Typography>
           </div>
           <div className={this.props.classes.paper}>
@@ -427,8 +428,6 @@ export default compose(
       removeItemFromBasket,
       fetchCurrentBasket,
       goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
-      displaySnackbarError: () =>
-        snackbarError('privateService:bookerModule.error'),
       goToConsumerHome: () => replace('/customer'),
       checkPrivateSlotUnpaidBookingEligibility,
     },

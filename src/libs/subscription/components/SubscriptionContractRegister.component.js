@@ -142,6 +142,22 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
       />
     );
   }
+  // console.log('---------TIMEONZE BROWSER --------');
+  // console.log(moment.tz.guess());
+  // console.log(moment(props.date, 'YYYY-MM-DD'));
+  // console.log(moment(props.date, 'YYYY-MM-DD').unix());
+
+  // console.log('---------TIMEONZE Europe/Dubli --------');
+  // console.log(moment(props.date, 'YYYY-MM-DD').tz('Europe/Dublin'));
+  // console.log(
+  //   moment
+  //     .tz(
+  //       moment(props.date, 'YYYY-MM-DD').tz('Europe/Dublin').unix(),
+  //       'Europe/Dublin',
+  //     )
+  //     .unix() * 1000,
+  // );
+
   return (
     <Dialog open={props.open}>
       <DialogTitle>{props.contract.name}</DialogTitle>
@@ -241,6 +257,7 @@ export default compose(
         billing_establishment_id: number | null,
       ) => {
         const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
+
         setProcessing(true);
         let response = null;
         try {
@@ -249,8 +266,7 @@ export default compose(
             member: member.id,
             payment_method_id: paymentMethodId,
             coupon,
-            first_billing_timestamp:
-              moment(first_billing_timestamp).unix() + 20,
+            first_billing_timestamp,
             note,
             billing_establishment_id,
           });

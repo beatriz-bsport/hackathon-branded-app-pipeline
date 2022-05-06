@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import {
   revert as revertAPI,
@@ -187,10 +185,10 @@ export const resetQuickInvoices = quickInvoiceActions.reset;
 
 export function createQuickInvoice(
   data: {
-    memberId: number,
-    offerId: number,
-    paymentPackId: number,
-    keep_credits?: boolean,
+    memberId: number;
+    offerId: number;
+    paymentPackId: number;
+    keep_credits?: boolean;
   },
   options: OptionCallback,
 ) {
@@ -245,7 +243,7 @@ export function fetchByQueryInvoice(params: any, options: OptionCallback) {
 
 export function fetchSpecificInvoice(
   invoiceId: string,
-  options: ?OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -368,7 +366,7 @@ export function updatePaymentMethod(
 }
 
 export function createOrUpdateInvoice(
-  invoiceData: [*],
+  invoiceData: any[],
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -414,7 +412,7 @@ export const listPaymentActions = {
   success: createAction('PAYMENT/LIST/SUCCESS'),
 };
 
-export function fetchPaymentList(params: * = {}, options: OptionCallback) {
+export function fetchPaymentList(params: any = {}, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentActions.isLoading(true));
     dispatch(listPaymentActions.error(null));
@@ -442,7 +440,10 @@ export const listInvoiceItemActions = {
   success: createAction('INVOICE_ITEM/LIST/SUCCESS'),
 };
 
-export function fetchInvoiceItemList(params: * = {}, options: OptionCallback) {
+export function fetchInvoiceItemList(
+  params: any = {},
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listInvoiceItemActions.isLoading(true));
     dispatch(listInvoiceItemActions.error(null));
@@ -472,7 +473,7 @@ export const listInvoiceActions = {
   success: createAction('INVOICE/LIST/SUCCESS'),
 };
 
-export function fetchInvoiceList(params: * = {}, options: OptionCallback) {
+export function fetchInvoiceList(params: any = {}, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listInvoiceActions.isLoading(true));
     dispatch(listInvoiceActions.error(null));
@@ -591,7 +592,7 @@ export const listPlannedPaymentEventActions = {
 };
 
 export function fetchPlannedPaymentEventList(
-  params: * = {},
+  params: any = {},
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -784,7 +785,7 @@ export const editCustomFooterActions = {
 export function editCustomFooter(
   uuid: string,
   customFooter: string,
-  options: ?OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(editCustomFooterActions.isLoading(true));
@@ -844,7 +845,7 @@ export const editBillingEstablishmentActions = {
 export function editBillingEstablishment(
   uuid: string,
   establishmentId: string,
-  options: ?OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(editBillingEstablishmentActions.isLoading(true));
@@ -880,7 +881,7 @@ export const applyBalanceToInvoiceActions = {
   success: createAction('INVOICE/APPLY_BALANCE/SUCCESS'),
 };
 
-export function applyBalanceToInvoice(uuid: string, options: ?OptionCallback) {
+export function applyBalanceToInvoice(uuid: string, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(applyBalanceToInvoiceActions.isLoading(true));
     dispatch(applyBalanceToInvoiceActions.error(null));
@@ -927,7 +928,7 @@ export function applyGiftcardOnInvoice(
   invoice_uuid: string,
   consumer_giftcard_id: number,
   amount: number,
-  options: ?OptionCallback<Invoice>,
+  options?: OptionCallback<Invoice>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(applyGiftcardOnInvoiceActions.isLoading(true));

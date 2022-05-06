@@ -21,7 +21,7 @@ import {
   cancelPlannedPaymentEventActions,
   enablePlannedPaymentEventActions,
   registerNowPlannedPaymentEventActions,
-  changePaymentMethodAndRegisterPlannedPaymentEvent,
+  changePaymentMethodAndRegisterPlannedPaymentEventActions,
   schedulePaymentActions,
   sendInvoiceToQuickbooksActions,
   applyBalanceToInvoiceActions,
@@ -282,19 +282,19 @@ export default handleActions(
         payload,
       );
     },
-    [changePaymentMethodAndRegisterPlannedPaymentEvent.isLoading]: (
+    [changePaymentMethodAndRegisterPlannedPaymentEventActions.isLoading]: (
       state,
       { payload },
     ) => {
       return state.setIn(['planned_payment_event', 'loading'], payload);
     },
-    [changePaymentMethodAndRegisterPlannedPaymentEvent.error]: (
+    [changePaymentMethodAndRegisterPlannedPaymentEventActions.error]: (
       state,
       { payload },
     ) => {
       return state.setIn(['planned_payment_event', 'error'], payload);
     },
-    [changePaymentMethodAndRegisterPlannedPaymentEvent.success]: (
+    [changePaymentMethodAndRegisterPlannedPaymentEventActions.success]: (
       state,
       { payload },
     ) => {

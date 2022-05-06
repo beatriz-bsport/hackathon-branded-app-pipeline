@@ -997,7 +997,8 @@
             "intermediary": "Intermediate",
             "intermediate": "Intermediate",
             "beginner": "Beginner",
-            "all": "All levels"
+            "all": "All levels",
+            "noDisplay": "No level displayed"
         },
         "booking": {
             "seeCustomers": "Show bookings",
@@ -3755,7 +3756,7 @@
                     "9": "Appointment passes",
                     "all": "Applies to the entire basket",
                     "null": "Applies to the entire basket",
-                    "10": "Pack"
+                    "10": "Packs"
                 }
             },
             "actions": {
@@ -3911,7 +3912,7 @@
         "resetModal": {
             "confirm": "Continue",
             "cancel": "Cancel",
-            "content": "The graphs will be reset to their default settings. Are you sure that you want to continue?",
+            "content": "The graphs will be reset to their default settings. If you created tabs, they will be erased. Are you sure that you want to continue?",
             "title": "Reset settings"
         },
         "save": "Save",
@@ -3928,7 +3929,8 @@
                     "qualitativeBooking": "Divide",
                     "temporalBooking": "Development over time",
                     "temporalTimeslotBooking": "Frequency per day and per hour",
-                    "temporalMember": "Development over time"
+                    "temporalMember": "Development over time",
+                    "temporalPrivateBooking": "Evolution over time"
                 },
                 "aggregateHelper": "Example: shows the progression of the total number of members instead of the total number new numbers per month.",
                 "aggregate": "Accumulate",
@@ -3942,7 +3944,8 @@
                         "helperText": "Select the info that you wish to display.",
                         "placeholder": "Select the data.",
                         "isEmpty": "No data has been selected."
-                    }
+                    },
+                    "privateBooking": "Appointment"
                 },
                 "graphComponent": "Display",
                 "datatype": "Type of graph",
@@ -3957,6 +3960,17 @@
             "popover": "This is the total number of bookings for said date. You can filter on cancellations, late cancellations, etc.",
             "caption": "Confirmed bookings",
             "title": "Bookings"
+        },
+        "tabNameDialog": {
+            "titleAdd": "Add a new tab",
+            "titleRename": "Rename the tab",
+            "placeholder": "Name"
+        },
+        "noGraphToDisplay": "No graphs set up in this tab. Add one here.",
+        "privateBooking": {
+            "title": "Appointment",
+            "caption": "Saved appointments",
+            "popover": "The total number of booked appointments for this date. You can filter cancellations / refunds / ..."
         }
     },
     "stripe": {
@@ -5103,7 +5117,7 @@
             "sections": {
                 "offerNotBookable": "Unable to register",
                 "offerPreBooked": "Registration on waiting list",
-                "offerBooked": "Your bookings",
+                "offerBooked": "You've booked",
                 "basket": "Your basket",
                 "title": "Congratulations! You have successfully completed your purchase.",
                 "errorExplain": "This operation could not be performed. Please try again.",
@@ -5215,7 +5229,7 @@
                     "confirm": "Delete",
                     "cancel": "cancel"
                 },
-                "title": "Establishment deletion"
+                "title": "Delete an establishment"
             },
             "edit": "Edit"
         },
@@ -5246,7 +5260,7 @@
             "placeCount": "{{count}} places",
             "delete": {
                 "content": "Are you sure you want to delete this video? This operation is irreversible.",
-                "title": "Spot selection deletion"
+                "title": "Delete seating plan"
             },
             "add": "Add a spot selection",
             "subtitle": "Add a custom seating plan to your establishment to allow members book their specific spot for your sessions.",
@@ -6217,7 +6231,7 @@
                 "text_status": "Your purchase was successful!",
                 "text_content": "Your purchase has been taken into account, you can now find the details of your subscription on your member area.",
                 "text_content_funnel": "Your purchase has been processed, click on 'next' to finalise your booking. The pass linked to your subscription has been added to the \"My passes\" section, select it to make your booking.",
-                "title": "Congratulations! Your payment has been successful",
+                "title": "Congratulations! Your payment has been processed successfully.",
                 "contract": "My membership (contract)",
                 "recap": "Summary"
             },
@@ -6652,7 +6666,9 @@
             "coach": {
                 "label": "Teacher"
             },
-            "label": "Teacher"
+            "label": "Teacher",
+            "disabled": "Archived teachers",
+            "enabled": "Active teachers"
         },
         "performance": {
             "title": "Teacher performance",
@@ -6726,7 +6742,8 @@
             "student": "Member",
             "info": "We've detected that you're also a Teacher at this studio. Would you like to access the Member View or the Teacher View?",
             "access": "Access"
-        }
+        },
+        "numberCoaches": "{{ number }} teachers"
     },
     "subscription": {
         "events": {
@@ -7401,7 +7418,9 @@
             "is_recurring": "Recurring",
             "amount_expense": "Amount",
             "universal_nb_private_bookings": "Number of bookings (appointments)",
-            "universal_nb_bookings": "Number of bookings (group classes)"
+            "universal_nb_bookings": "Number of bookings (group classes)",
+            "paid": "Collected",
+            "amount_due": "Amount due"
         },
         "yes": "Yes",
         "no": "No",
@@ -8437,7 +8456,30 @@
         "maximumNumberDescription": "The maximum number of bookings ({{effectif}}) has been reached. Are you sure that you want to book in this member? This action will override the initial maximum number of bookings.",
         "maximumNumber": "Maximum number of bookings",
         "warningOfferFull": "Maximum number of bookings has been reached",
-        "tagManagementInfo": "{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized"
+        "tagManagementInfo": "{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized",
+        "levels": {
+            "modal": {
+                "title": "Change the level",
+                "name": "Name",
+                "nameCaption": "{{max}} characters max ({{count}}/{{max}})",
+                "color": "Colour code",
+                "cancel": "Cancel",
+                "submit": "Save"
+            },
+            "deleteModal": {
+                "title": "Deleting",
+                "content": "Are you sure you want to remove this level?",
+                "content2": "Sessions that already have this level will keep it but it cannot be added to future sessions."
+            },
+            "select": {
+                "add": "Add a level",
+                "title": "Level",
+                "placeholder": "Level"
+            },
+            "customs": "Customized",
+            "delete": "Delete",
+            "edit": "Edit"
+        }
     },
     "emailTemplate": {
         "modal": {
@@ -8927,7 +8969,9 @@
             "notCancelled": "Not cancelled",
             "isUnpaid": "Unpaid bookings",
             "isPaid": "Paid bookings",
-            "paid": "Payment"
+            "paid": "Payment",
+            "coach": "Teacher",
+            "pickCoach": "Search for a teacher..."
         },
         "creditConsumed": "{{ credit_consumed }} credit(s)",
         "creditConsumed_plural": "{{credit_consumed}} credits",

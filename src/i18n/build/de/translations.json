@@ -2798,6 +2798,13 @@
                         "header": "Tags"
                     },
                     "header": "Fortgeschrittene"
+                },
+                "universalPass": {
+                    "helperText": "Universalkarten können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald eine Karte erstellt wurde, wird eine Zwillingskarte in den Terminkarten erstellt. Die Anzahl der Guthaben auf beiden Karten wird verknüpft. Beim Kauf einer der beiden Karten wird die andere automatisch dem Mitglied hinzugefügt (ohne zusätzliche Kosten).",
+                    "marketplaceLabel": "Universell einsetzbare Karte. Kann für Gruppenkurse und Termine verwendet werden.",
+                    "deativatedTags": "Deaktiviert für Universalkarten",
+                    "warningIsUniversalPass": "Diese Karte ist eine Universalkarte, eine Zwillingskarte wurde in den RDV-Karten erstellt. Alle Felder, die auf dieser Karte geändert werden, werden auch auf der Zwillingskarte geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
+                    "label": "Universalkarte"
                 }
             }
         },
@@ -3061,7 +3068,8 @@
             "maxPurchasePerMember": "Maximale Anzahl von Einkäufen : ",
             "maxBookingPerDay": "Maximale Verwendung pro Tag : ",
             "maxBookingPerWeek": "Maximale Nutzungen pro Woche : ",
-            "maxBookingPerMonth": "Maximale Nutzungen pro Monat : "
+            "maxBookingPerMonth": "Maximale Nutzungen pro Monat : ",
+            "universalPass": "Kompatibel mit Gruppen- und RDV-Kursen."
         },
         "detailTitles": {
             "vod": "VOD",
@@ -3070,7 +3078,9 @@
             "accessibility": "Zugänglichkeit",
             "compatibility": "Kompatibilität",
             "validity": "Gültigkeit",
-            "credit_quantity": "Anzahl der Credits"
+            "credit_quantity": "Anzahl der Credits",
+            "compatibilityPaymentPack": "Vereinbarkeit von Gruppenunterricht",
+            "universalPass": "Universalkarte"
         },
         "unlimitedAndCalculatedMargin": " - Theoretisch berechneter Grenzertrag: Preis / nb_Reservierungen ",
         "unlimitedAndMargin": " - Theoretischer Grenzertrag von ",
@@ -3209,6 +3219,21 @@
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
             "paymentPackSharedFromFranchisor": "Franchise-Karte"
+        },
+        "universalPass": {
+            "restore": {
+                "dialog": {
+                    "continue": "Weiter",
+                    "title": "Dearchivieren",
+                    "text": "Diese Karte ist eine Universalkarte, ihre Zwillingskarte wurde ebenfalls entarchiviert."
+                }
+            },
+            "delete": {
+                "dialog": {
+                    "title": "Löschen der Karte",
+                    "warningText": "Achtung! Diese Karte ist eine Universalkarte, wenn du sie löschst, wird auch ihre Zwillingskarte gelöscht."
+                }
+            }
         }
     },
     "alerting": {
@@ -4809,11 +4834,12 @@
                 },
                 "collect": {
                     "content": "Diese Zahlungsmethode wird in Deinem Konto hinterlegt und vertragsgemäß in Rechnung gestellt.",
-                    "title": "Diese Zahlungsmethode hinzufügen"
+                    "title": "Diese Zahlungsmethode hinzufügen",
+                    "contentAdd": "Diese Zahlungsmethode wird in Ihrem Konto gespeichert."
                 },
                 "message": {
                     "error": "Diese Zahlungsmethode kann nicht hinterlegt werden",
-                    "success": "Zahlungsmethode erfolgreich hinterlegt!"
+                    "success": "Zahlungsmittel erfolgreich gesichert!"
                 }
             },
             "savePaymentMethod": {
@@ -4965,12 +4991,18 @@
             "error": {
                 "button_text": "Erneut versuchen",
                 "text_status": "Ihr Kauf konnte nicht erfolgreich sein!",
-                "text_content": "Ihr Kauf konnte nicht abgeschlossen werden. Sie können es erneut versuchen, indem Sie auf die Schaltfläche unten klicken, oder Sie können zur Liste der Abonnements zurückkehren, indem Sie dieses Fenster schließen."
+                "text_content": "Ihr Kauf konnte nicht abgeschlossen werden. Sie können es noch einmal versuchen oder zu Ihrem Mitgliederbereich zurückkehren.",
+                "title": "Fehler bei der Zahlung",
+                "userSpace": "Mitgliederbereich"
             },
             "success": {
                 "button_text": "Weiter",
                 "text_status": "Erfolgreich abgeschlossener Kauf!",
-                "text_content": "Ihr Kauf wurde erfolgreich abgeschlossen. Sie können ab sofort die Details Ihres Abonnements in Ihrem Mitgliederbereich abrufen."
+                "text_content": "Ihr Kauf wurde erfolgreich abgeschlossen. Sie können ab sofort die Details Ihres Abonnements in Ihrem Mitgliederbereich abrufen.",
+                "recap": "Zusammenfassung",
+                "title": "Herzlichen Glückwunsch!",
+                "text_content_funnel": "Ihr Kauf wurde berücksichtigt, klicken Sie auf Weiter, um Ihre Buchung abzuschließen. Die mit Ihrem Abonnement verbundene Karte wurde dem Abschnitt \"Meine Kurskarten\" hinzugefügt. Wählen Sie sie aus, um Ihre Buchung zu tätigen.",
+                "contract": "Mein Vertrag"
             },
             "title": "Ein Abonnement kaufen"
         }
@@ -7663,7 +7695,7 @@
             },
             "title": "Package-Formular",
             "available_payment_method_identifiers": {
-                "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte enthält, die mit den Zahlungsmethoden unvereinbar sind, wird die Zahlung per Kreditkarte angeboten.",
+                "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Elemente enthält, deren Zahlungsmethoden nicht miteinander vereinbar sind, wird die Zahlung per Karte vorgeschlagen.",
                 "label": "Zugelassene Zahlungsmethoden"
             },
             "description": {
@@ -9156,8 +9188,23 @@
                 "name": "Name",
                 "title": "Stufe ändern",
                 "color": "Farbcode",
-                "nameCaption": "{{max}}max. Zeichen{{count}}/{{max}}"
-            }
+                "nameCaption": "{{max}}max. Zeichen{{count}}/{{max}}",
+                "submit": "",
+                "cancel": ""
+            },
+            "select": {
+                "add": "Eine Stufe hinzufügen",
+                "title": "Ebene",
+                "placeholder": "Ebene"
+            },
+            "edit": "Bearbeiten",
+            "deleteModal": {
+                "title": "",
+                "content": "",
+                "content2": "Sitzungen, die diese Stufe bereits haben, behalten sie, aber sie kann nicht mehr zu zukünftigen Sitzungen hinzugefügt werden."
+            },
+            "customs": "Persönlich",
+            "delete": "Löschen"
         },
         "tagManagementInfo": "{{authorized}} erlaubte(r) tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)"
     },

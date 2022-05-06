@@ -191,6 +191,17 @@ exports.default = {
         "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
       smartListHelperInclude:
         "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
+      chooseTime: {
+        first: 'Envoyer un mail',
+        secondOnBooking: 'heure(s) après la réservation',
+        secondOnOfferStart: 'heure(s) après la séance',
+      },
+      creditNotificationType: {
+        onBooking:
+          'Réservation faisant passer le nombre de crédits sous le seuil défini ci-dessus',
+        onOfferStart:
+          'Fin de la séance dont la réservation avait fait passer le nombre de crédits sous le seuil défini ci-dessus',
+      },
     },
     [PAYMENT_PACK_NOTIFICATION_DAY_LEFT]: {
       first: "Notifier lorsqu'il reste ",
@@ -210,6 +221,8 @@ exports.default = {
     },
     creditsLeftLabel: "Notifier lorsqu'il reste {{count}} crédit",
     creditsLeftLabel_plural: "Notifier lorsqu'il reste {{credit}} crédits",
+    creditsLeftOnBooking: '{{hours}}h après la réservation',
+    creditsLeftOnOfferStart: '{{hours}}h après la séance',
     daysLeftLabel:
       "Notifier lorsqu'il reste {{day}} jour de validité sur la carte",
     daysLeftLabel_plural:

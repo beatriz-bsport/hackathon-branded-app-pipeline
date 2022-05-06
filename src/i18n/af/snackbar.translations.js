@@ -27,6 +27,7 @@ const {
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_WEEK,
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH,
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR,
+  PRIVATE_SLOT_ALREADY_BOOKED,
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 const {
   PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE,
@@ -631,6 +632,12 @@ exports.default = {
     error: "Problème lors de l'envoi du mail",
   },
   privateBooking: {
+    register: {
+      warning: {
+        [PRIVATE_SLOT_ALREADY_BOOKED]: 'Vous avez déjà réservé ce créneau',
+      },
+      error: 'Impossible de réserver sur cette date',
+    },
     attachCoach: {
       success: 'RDV attribué au professeur',
       error: "Impossible d'attribuer au professeur",

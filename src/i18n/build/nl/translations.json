@@ -831,11 +831,11 @@
                 "delete": {
                     "explainModalities": "Let op: deze wijziging is definitief. De sessie zal niet langer zichtbaar voor je leden zijn.",
                     "explainNotify": "Een melding naar alle ingeschreven leden sturen",
-                    "explainCreditBack": "Stort de kredieten van de leskaart terug",
-                    "explainHardDelete": "Wil je deze sessie verwijderen? Let op: deze actie is definitief en de sessie wordt onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
+                    "explainCreditBack": "Kredieten van de gebruikte kart terugstorten",
+                    "explainHardDelete": "Weet je zeker dat je deze sessie(s) wilt verwijderen? Let op: deze actie is definitief en de verwijderde sessies worden onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen",
-                    "explainForceDanger": "Waarschuwing! De reserveringen worden definitief verwijderd. Niet vergoedde tegoeden worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en je leskaarten voordat je iets verwijdert.",
-                    "force": "Verwijderen (ook al zijn er reserveringen geregistreerd)",
+                    "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Niet vergoedde tegoeden worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
+                    "force": "Alle geselecteerde sessies inclusief de bijbehorende reserveringen verwijderen",
                     "advanced": "Geavanceerd"
                 },
                 "explainNotificationOnEdit": "Ingeschreven leden informeren",
@@ -849,7 +849,7 @@
                 "changeCoach": "Instructeur bewerken",
                 "changeDate": "Wijzig de tijd / datum",
                 "cancelTitle": "Sessies annuleren",
-                "deleteTitle": "Sessie verwijderen",
+                "deleteTitle": "Verwijderen",
                 "warningPackonEdit": "Het is mogelijk dat na deze wijziging(en) bepaalde kaarten niet meer compatibel zijn. Vergeet niet om de compatibiliteit van je kaarten voor je vestiging(en)/instructeur(s) te controleren.",
                 "substituteEstablishmentLabel": "Vestiging (tijdelijke plaats)",
                 "establishmentLabel": "Vestiging",
@@ -1119,7 +1119,7 @@
             "noEmptyDuration": "De duur moet positief zijn.",
             "restoreModal": {
                 "explain": "De annulering van deze sessie wordt hierna ongedaan gemaakt. Leden kunnen vervolgens zich opnieuw inschrijven. Geannuleerde reserveringen worden niet hersteld.",
-                "title": "Sessies herstellen"
+                "title": "Herstellen"
             },
             "unpaidInvoices": "Openstaande facturen",
             "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen"
@@ -1169,7 +1169,7 @@
             "intermediate": "Intermediair",
             "beginner": "Beginner",
             "all": "Alle niveaus",
-            "noDisplay": "Er is geen niveau om weer te geven."
+            "noDisplay": "Zonder niveau"
         },
         "booking": {
             "seeCustomers": "Bekijk reserveringen",
@@ -2071,7 +2071,9 @@
             "is_recurring": "Terugkerend",
             "amount_expense": "Bedrag",
             "universal_nb_private_bookings": "Aantal reserveringen (afspraken)",
-            "universal_nb_bookings": "Aantal reserveringen (groepsactiviteiten)"
+            "universal_nb_bookings": "Aantal reserveringen (groepsactiviteiten)",
+            "paid": "Betaald",
+            "amount_due": "Verschuldigd bedrag"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2292,7 +2294,16 @@
                 "daysPastType": "Verlopen kaart",
                 "submit": "Bevestigen",
                 "pushTitle": "Berichtgevingsinstellingen",
-                "mailSettings": "Instellingen"
+                "mailSettings": "Instellingen",
+                "creditNotificationType": {
+                    "onOfferStart": "Verstuur het bericht na het einde van een sessie",
+                    "onBooking": "Verstuur het bericht na het maken van een reservering"
+                },
+                "chooseTime": {
+                    "first": "Een melding versturen",
+                    "secondOnOfferStart": "uur voor het begin van de sessie",
+                    "secondOnBooking": "uur na de reservering"
+                }
             },
             "daysPast": {
                 "second": "dag(en) verlopen is.",
@@ -2311,7 +2322,9 @@
             "daysPastLabel": "Een melding versturen wanneer deze kaart {{day}} dag verlopen is.",
             "daysPastLabel_plural": "Een melding versturen wanneer deze kaart {{day}} dagen verlopen is.",
             "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{credit}} krediet heeft.",
-            "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} kredieten heeft."
+            "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} kredieten heeft.",
+            "creditsLeftOnOfferStart": "{{hours}} uur na het einde van de sessie",
+            "creditsLeftOnBooking": "{{hours}} uur na het maken van de reservering"
         },
         "search": "Zoek een leskaart",
         "extension": {
@@ -2800,7 +2813,7 @@
             "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
             "vodAccessCard": "Activeer toegang tot Video On Demand",
             "vod": "Video On Demand",
-            "compatibility": "Deze kaart is alleen geschikt voor alle aangevinkte sessies, activiteiten, categorieën en/of vestigingen.",
+            "compatibility": "Deze kaart is alleen geschikt voor alle geselecteerde activiteiten, categorieën en/of vestigingen.",
             "letBlank": "Laat dit veld leeg om geen beperkingen in te stellen.",
             "activities": "Activiteiten",
             "room": "Vestigingen",
@@ -3781,9 +3794,9 @@
             "selectEdit": "Selecteer de te wijzigen sessies"
         },
         "close": "Sluiten",
-        "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er open reserveringen in staan.",
+        "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er reserveringen in staan.",
         "deleteImpossibleTitle": "Deze sessie kan niet worden verwijderd",
-        "restoreOffer": "Sessie herstellen",
+        "restoreOffer": "Herstellen",
         "maximumNumberDescription": "Het maximum aantal reserveringen ({{effectif}}) is reeds bereikt. Weet je zeker dat je dit lid wilt inboeken? Deze actie overschrijdt het vooraf ingestelde maximum aantal reserveringen.",
         "maximumNumber": "Maximum aantal reserveringen",
         "warningOfferFull": "Het maximum aantal reserveringen is bereikt",
@@ -4293,7 +4306,9 @@
             "notCancelled": "Geldig",
             "isUnpaid": "Onbetaalde reserveringen",
             "isPaid": "Betaalde reserveringen",
-            "paid": "Betalingen"
+            "paid": "Betalingen",
+            "pickCoach": "Zoek een instructeur...",
+            "coach": "Instructeur"
         },
         "creditConsumed": "{{credit_consumed}} krediet",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
@@ -5026,7 +5041,8 @@
                 "explain": "Alleen deze factuur wordt gewijzigd",
                 "cancel": "Annuleren",
                 "submit": "Opslaan",
-                "updateAll": "Wijzig alle toekomstige betalingen"
+                "updateAll": "Wijzig alle toekomstige ingeplande incasseringen tot de automatische verlenging",
+                "updateRecurrentPrice": "Deze wijzigingen ook toepassen op alle incasseringen na de automatische verlenging"
             },
             "list": {
                 "titleNext": "Eerstvolgende afschrijvingen"
@@ -7774,6 +7790,12 @@
             "restore": {
                 "error": "De afspraak kan niet worden hersteld, omdat de gekoppelde afspraakkaart te weinig kredieten heeft",
                 "success": "De afspraak is hersteld"
+            },
+            "register": {
+                "error": "Fout bij het reserveren op deze datum",
+                "warning": {
+                    "11106": "Dit heb je reeds gereserveerd"
+                }
             }
         },
         "privatePass": {
@@ -8154,7 +8176,9 @@
         "pleaseFill": "Vergeet niet om een instructeur toe te voegen!",
         "emptyDescription": "Er is geen beschrijving om weer te geven.",
         "selector": {
-            "label": "Instructeur"
+            "label": "Instructeur",
+            "enabled": "Actieve instructeurs",
+            "disabled": "Gearchiveerde instructeurs"
         },
         "search": "Zoek een instructeur",
         "card": {
@@ -8175,7 +8199,8 @@
             "student": "Lid",
             "info": "Het lijkt erop dat je tevens een Instructeur bij deze studio bent. Wil je nu de Ledenweergave of de Instructeursweergave betreden?",
             "access": "Toegang"
-        }
+        },
+        "numberCoaches": "{{ number }} instructeur(s)"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -8585,7 +8610,8 @@
                     "temporalPlannedInvoice": "Historische ontwikkeling",
                     "temporalPayment": "Historische ontwikkeling",
                     "temporalBooking": "Historische ontwikkeling",
-                    "temporalMember": "Historische ontwikkeling"
+                    "temporalMember": "Historische ontwikkeling",
+                    "temporalPrivateBooking": "Historische ontwikkeling"
                 },
                 "graphComponent": "Gewenste weergave",
                 "aggregateHelper": "Voorbeeld: toont de progressie van het aantal totale leden i.p.v. het aantal nieuwe leden per maand.",
@@ -8600,7 +8626,8 @@
                         "helperText": "Selecteer de info die je wilt visualiseren",
                         "placeholder": "Selecteer de data",
                         "isEmpty": "Geen data geselecteerd"
-                    }
+                    },
+                    "privateBooking": "Afspraken"
                 },
                 "datatype": "Type grafiek",
                 "submit": "Opslaan",
@@ -8614,6 +8641,17 @@
             "popover": "Dit is het totaal aantal geregistreerde reserveringen voor de geselecteerde datum/data. Je kunt filteren op annuleringen, te late annuleringen, enz.",
             "caption": "Geregistreerde reserveringen",
             "title": "Reserveringen"
+        },
+        "tabNameDialog": {
+            "titleAdd": "Een nieuw tabblad toevoegen",
+            "titleRename": "Tabblad hernoemen",
+            "placeholder": "Naam"
+        },
+        "noGraphToDisplay": "Er zijn nog geen grafieken aan dit tabblad toegevoegd om weer te geven.",
+        "privateBooking": {
+            "title": "Afspraken",
+            "caption": "Opgeslagen afspraken",
+            "popover": "Dit geeft het totaal aantal afspraken voor deze datum weer, zoals het aantal annuleringen, terugbetalingen en meer."
         }
     },
     "common": {
@@ -10461,7 +10499,7 @@
             "backToUserSpace": "Mijn profiel",
             "noChanges": "Dit formulier is bijgewerkt.",
             "actions": {
-                "configure": "Configureer",
+                "configure": "Configureren",
                 "statistics": "Statistieken",
                 "customization": "Personalisering"
             },

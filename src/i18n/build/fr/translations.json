@@ -152,7 +152,12 @@
             "notRefunded": "Non remboursée",
             "recurrentBooking": "Réservation récurrente",
             "withRecurrentBookings": "Réservations récurrentes",
-            "withoutRecurrentBookings": "Réservations non récurrentes"
+            "withoutRecurrentBookings": "Réservations non récurrentes",
+            "coach": "Professeur",
+            "pickCoach": "Rechercher un professeur...",
+            "paid": "Paiement",
+            "isPaid": "Réservations payées",
+            "isUnpaid": "Réservations impayées"
         },
         "bookingModule": {
             "hasRegistered": "Vous êtes inscrit à cette séance",
@@ -185,7 +190,7 @@
                 "isAlreadyRegistered": "Vous êtes déjà inscrit à cette séance",
                 "isTooSoon": "Les inscriptions sont fermées pour le moment et ouvriront le {{ date_ }}.",
                 "isWaitingListFull": "La séance est complète la liste d'attente est pleine.",
-                "blockedByTags": ""
+                "blockedByTags": "Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance."
             },
             "messages": {
                 "offerLocked": "Vous ne pouvez pas réserver cette séance",
@@ -194,12 +199,12 @@
             },
             "tags": {
                 "managerDialogWarningDialog": {
-                    "content": "",
-                    "cancel": "",
-                    "confirm": "",
-                    "title": ""
+                    "content": "Attention, ce membre ne dispose pas des tags nécessaires pour être inscrit à cette séance. Voulez vous quand même l’inscrire ?",
+                    "cancel": "Annuler",
+                    "confirm": "Confirmer",
+                    "title": "Information"
                 },
-                "unAuthorized": ""
+                "unAuthorized": "Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance."
             }
         },
         "details": {
@@ -361,7 +366,7 @@
                     "6002": "Liste d'attente pleine",
                     "6003": "Déjà inscrit sur liste"
                 },
-                "blockedByTags": ""
+                "blockedByTags": "Inscription non autorisée"
             },
             "packTitle": "Mon moyen de réservation",
             "noPackAvailable": "Aucune carte de cours compatible avec cette séance !",
@@ -381,22 +386,22 @@
         "guest": {
             "form": {
                 "actions": {
-                    "submit": "",
-                    "close": "",
-                    "addGuest": ""
+                    "submit": "Valider",
+                    "close": "Annuler",
+                    "addGuest": "Ajouter un invité"
                 },
                 "email": {
-                    "label": ""
+                    "label": "Email"
                 },
                 "firstname": {
-                    "label": ""
+                    "label": "Prénom"
                 },
                 "lastname": {
-                    "label": ""
+                    "label": "Nom"
                 }
             }
         },
-        "asGuest": ""
+        "asGuest": "Invité"
     },
     "category": {
         "sct": {
@@ -446,7 +451,7 @@
                 "error": "Cette carte de rendez-vous n'est pas disponible"
             },
             "paymentCombo": {
-                "locked": ""
+                "locked": "Ce pack n'est pas disponible"
             }
         },
         "myBasket": {
@@ -503,8 +508,8 @@
                 "offerBooked": "Vos séances",
                 "offerPreBooked": "Inscription sur la liste d'attente",
                 "offerNotBookable": "Inscription impossible",
-                "error": "",
-                "errorExplain": ""
+                "error": "Erreur",
+                "errorExplain": "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer."
             }
         },
         "internalAccount": {
@@ -610,7 +615,9 @@
         "pleaseFill": "Veuillez renseigner un professeur",
         "emptyDescription": "Aucune description fournie",
         "selector": {
-            "label": "Professeur"
+            "label": "Professeur",
+            "enabled": "Professeurs actifs",
+            "disabled": "Professeurs archivés"
         },
         "search": "Rechercher un professeur",
         "performance": {
@@ -665,7 +672,8 @@
             }
         },
         "inactiveCoaches": "Professeurs archivés",
-        "paymentRule": "Rémunération"
+        "paymentRule": "Rémunération",
+        "numberCoaches": "{{ number }} professeurs"
     },
     "coachPerformance": {
         "form": {
@@ -831,7 +839,9 @@
             "sendNotification": "Notification push",
             "titleNotification": "Titre",
             "contentNotification": "Contenu",
-            "titleInterpolated": ""
+            "titleInterpolated": "Les variables contenues dans l'objet du mail et le corp du mail sont mises à jour en fonction du destinataire",
+            "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des emails promotionnels. Les emails directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
+            "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des emails directs."
         },
         "recipients": "Destinataires",
         "common": {
@@ -898,6 +908,10 @@
                     "status": "Status"
                 }
             }
+        },
+        "sms": {
+            "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
+            "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs."
         }
     },
     "consumerSpace": {
@@ -1030,7 +1044,8 @@
             "selectorPlaceholder": {
                 "privatePass": "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
                 "paymentPack": "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
-                "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)"
+                "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
+                "paymentCombo": "Sélectionner des packs (valable sur tous les produits si aucun n'est sélectionné)"
             },
             "section": {
                 "subscription": "Souscription (contrat)",
@@ -1102,7 +1117,8 @@
                     "6": "Frais de livraison",
                     "9": "Carte RDV",
                     "all": "Ensemble du panier",
-                    "null": "Ensemble du panier"
+                    "null": "Ensemble du panier",
+                    "10": "Pack"
                 }
             },
             "actions": {
@@ -1126,7 +1142,9 @@
                 "submit": "Valider",
                 "cancel": "annuler",
                 "label": "Code promo",
-                "placeholder": "SPECIAL_RENTREE"
+                "placeholder": "SPECIAL_RENTREE",
+                "not_found": "Ce code promo n'est pas valide.",
+                "not_applicable": "Ce code promo n'est pas applicable."
             }
         },
         "search": "Rechercher un code promo",
@@ -1136,7 +1154,7 @@
         "save": "Sauvegarder",
         "resetModal": {
             "title": "Réinitialiser les paramètres",
-            "content": "Les paramètres des différents graphes reviendront à leur valeur par défaut, voulez-vous continuer ?",
+            "content": "Les paramètres des différents graphes et onglets reviendront à leur valeur par défaut. Si vous avez créé des onglets ceux-ci seront supprimés, voulez-vous continuer ?",
             "cancel": "Annuler",
             "confirm": "Continuer"
         },
@@ -3939,7 +3957,8 @@
             },
             "paymentMethod": {
                 "message": {
-                    "error": "Impossible d'enregistrer cette méthode de paiement"
+                    "error": "Impossible d'enregistrer cette méthode de paiement",
+                    "success": "Moyen de paiement sauvegardé avec succès !"
                 },
                 "collect": {
                     "title": "Ajouter un moyen de paiement",

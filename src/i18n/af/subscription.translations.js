@@ -171,7 +171,10 @@ exports.default = {
     priceUpdater: {
       title: 'Modification montant futur',
       price: 'Nouveau montant',
-      updateAll: 'Mettre à jour tous les paiements futurs',
+      updateAll:
+        'Mettre à jour tous les futurs actuellement planifiés (avant renouvellement)',
+      updateRecurrentPrice:
+        'Appliquer ce changement pour les paiements générés après renouvellement',
       explain: 'Seule cette future facture sera modifiée',
       cancel: 'Annuler',
       submit: 'Enregistrer',

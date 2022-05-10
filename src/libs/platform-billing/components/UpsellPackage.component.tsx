@@ -19,6 +19,7 @@ import AnalyticsIcon from '@material-ui/icons/Assessment';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import PlayCircleIcon from '@material-ui/icons/PlayCircleFilled';
 import SendToMobileIcon from '@material-ui/icons/MobileScreenShare';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import StarIcon from '@material-ui/icons/Star';
 import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 import ReceiptIcon from '@material-ui/icons/Receipt';
@@ -47,6 +48,8 @@ import {
   UPSELL_IDENTIFIER_QUICKBOOKS,
   UPSELL_IDENTIFIER_MASTER_ACCOUNT,
   UPSELL_IDENTIFIER_CLOCK_IN,
+  UPSELL_IDENTIFIER_GUEST,
+  UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
 } from '../upsell-identifiers';
 
 type Props = {
@@ -250,6 +253,24 @@ const UpsellClockIn: React.FC<Props> = (props) => {
   );
 };
 
+const UpsellGuest: React.FC<Props> = (props) => {
+  const classes = useStyles();
+  return (
+    <DefaultTemplate {...props}>
+      <PersonAddIcon className={classes.icon} />
+    </DefaultTemplate>
+  );
+};
+
+const UpsellPremiumSupport: React.FC<Props> = (props) => {
+  const classes = useStyles();
+  return (
+    <DefaultTemplate {...props}>
+      <HelpOutlinedIcon className={classes.icon} />
+    </DefaultTemplate>
+  );
+};
+
 const DefaultTemplate = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
@@ -377,6 +398,8 @@ const UPSELL_REGISTRY = {
   [UPSELL_IDENTIFIER_PUSH_NOTIFICATION]: UpsellPushNotification,
   [UPSELL_IDENTIFIER_MASTER_ACCOUNT]: UpsellMasterAccount,
   [UPSELL_IDENTIFIER_CLOCK_IN]: UpsellClockIn,
+  [UPSELL_IDENTIFIER_GUEST]: UpsellGuest,
+  [UPSELL_IDENTIFIER_PREMIUM_SUPPORT]: UpsellPremiumSupport,
 };
 
 export const getUpsellPackageComponent = (upsellIdentifier: number) => {

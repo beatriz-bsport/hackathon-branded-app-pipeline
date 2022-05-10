@@ -84,7 +84,9 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
           <UpsellPackageList
             onKnowMore={props.onKnowMore}
             onRequestUpsell={props.onRequestUpsell}
-            upsellPackageList={otherUpsellPackageList}
+            upsellPackageList={otherUpsellPackageList.filter(
+              (ups) => !ups.hidden,
+            )}
           />
         </React.Fragment>
       )}

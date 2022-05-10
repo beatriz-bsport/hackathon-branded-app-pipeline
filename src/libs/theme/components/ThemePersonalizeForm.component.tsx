@@ -62,6 +62,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   setFieldValue,
   values,
   errors,
+  theme,
 }) => {
   const { t } = useTranslation(['theme']);
   const classes = useStyles();
@@ -82,7 +83,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             label={t('forms.themePersonalization.acceptDoubleBooking')}
           />
           <SwitchField
-            disabled={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
+            disabled={
+              Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' &&
+              !theme.allow_guest_activatable
+            }
             name="allow_guest"
             label={t('forms.acceptGuest')}
           />

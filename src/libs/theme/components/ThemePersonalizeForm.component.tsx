@@ -255,18 +255,6 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             label={t('forms.themePersonalization.hideMemberForCoach')}
           />
           <SwitchField
-            name="hide_member_details_in_app_private_booking_for_coach"
-            label={t('forms.themePersonalization.hideMemberForCoach')}
-          />
-          <SwitchField
-            name="hide_member_details_in_app_private_booking_for_coach"
-            label={t('forms.themePersonalization.hideMemberForCoach')}
-          />
-          <SwitchField
-            name="hide_member_details_in_app_private_booking_for_coach"
-            label={t('forms.themePersonalization.hideMemberForCoach')}
-          />
-          <SwitchField
             name="show_workshops_customer"
             label={t('forms.themePersonalization.workshopsCustomer')}
           />

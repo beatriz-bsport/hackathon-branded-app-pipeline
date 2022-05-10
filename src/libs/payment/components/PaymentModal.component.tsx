@@ -1,0 +1,41 @@
+import React from 'react';
+import { Theme, useTheme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { DialogContent, Modal, useMediaQuery } from '@material-ui/core';
+
+type OwnProps = {
+  isOpen: boolean;
+};
+type Props = OwnProps;
+export const PaymentModal: React.FC<Props> = ({ isOpen, children }) => {
+  const classes = useStyles();
+  const theme: Theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const dialogOffset = fullScreen ? '0%' : '50%';
+  return (
+    <Modal open={isOpen}>
+      <div
+        style={{
+          transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+          top: dialogOffset,
+          left: dialogOffset,
+          height: fullScreen ? '100%' : 'unset',
+          width: fullScreen ? '100%' : 'unset',
+        }}
+        className={classes.modal}
+      >
+        <DialogContent>{children}</DialogContent>
+      </div>
+    </Modal>
+  );
+};
+const useStyles = makeStyles<Theme>((theme) => ({
+  modal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 8,
+    overflow: 'auto',
+    maxHeight: '100vh',
+  },
+}));
+export default PaymentModal;

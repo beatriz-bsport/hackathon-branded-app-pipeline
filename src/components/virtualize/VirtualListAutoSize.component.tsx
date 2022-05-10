@@ -25,20 +25,16 @@ const VirtualizeListAutoSize: React.FC<Props> = ({
 }) => (
   <div style={{ flex: 1, minHeight: minItemsDisplaid * itemSize }}>
     <AutoSizer>
-      {({ height, width }: { height: number; width: number }) => (
+      {(autoSizerProps: { height: number; width: number }) => (
         <List
-          height={height}
+          height={autoSizerProps.height}
           itemCount={itemCount}
           itemSize={itemSize}
-          width={width}
+          width={autoSizerProps.width}
         >
-          {({
-            index,
-            style,
-          }: {
-            index: number;
-            style: React.CSSProperties;
-          }) => <Row style={style}>{renderRow(index)}</Row>}
+          {(listProps: { index: number; style: React.CSSProperties }) => (
+            <Row style={listProps.style}>{renderRow(listProps.index)}</Row>
+          )}
         </List>
       )}
     </AutoSizer>

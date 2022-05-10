@@ -120,8 +120,8 @@ import {
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
 } from '../../libs/giftcard/actions';
 import type { ConsumerGiftcard } from '#libs/giftcard/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
+import PaymentModal from '#libs/payment/components/PaymentModal.component';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -375,10 +375,7 @@ export class MemberDetailPage extends Component<Props> {
           />
         </Grid>
         {this.props.member?.id && (
-          <GenericResponsiveDialog
-            padding
-            open={this.props.isAddPaymentMethodDialogOpen}
-          >
+          <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
               onCancel={() => this.openAddPaymentMethodDialog(false)}
               requestSetupIntentSecret={this.requestSetupIntentSecret}
@@ -399,7 +396,7 @@ export class MemberDetailPage extends Component<Props> {
                 this.props.member ? this.props.member.email : ''
               }
             />
-          </GenericResponsiveDialog>
+          </PaymentModal>
         )}
         <MemberSearchModal
           asManager

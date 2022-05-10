@@ -51,10 +51,10 @@ import {
 } from '../../libs/custom-form/selectors';
 import { disconnect } from '../../actions/auth.actions';
 import type { OptionCallback } from '../../state/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
+import PaymentModal from '#libs/payment/components/PaymentModal.component';
 
 type RouterProps = {
   membership: Membership;
@@ -188,10 +188,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
           </Paper>
         </Grid>
         {this.props.membership?.id && (
-          <GenericResponsiveDialog
-            padding
-            open={this.props.isAddPaymentMethodDialogOpen}
-          >
+          <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
               onCancel={() => this.openAddPaymentMethodDialog(false)}
               requestSetupIntentSecret={this.requestSetupIntentSecret}
@@ -212,7 +209,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
                 this.props.member ? this.props.member.email : ''
               }
             />
-          </GenericResponsiveDialog>
+          </PaymentModal>
         )}
       </Grid>
     );

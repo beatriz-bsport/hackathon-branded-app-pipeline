@@ -200,7 +200,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
                       control={
                         <Checkbox
                           checked={props.scheduleFilter.showCustomEvents}
-                          onChange={() => onChangeFilter('showCustomEvents')}
+                          onChange={onChangeFilter('showCustomEvents')}
                         />
                       }
                     />
@@ -213,7 +213,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
                       control={
                         <Checkbox
                           checked={!props.scheduleFilter.hideCancelledEvents}
-                          onChange={() => onChangeFilter('hideCancelledEvents')}
+                          onChange={onChangeFilter('hideCancelledEvents')}
                         />
                       }
                     />

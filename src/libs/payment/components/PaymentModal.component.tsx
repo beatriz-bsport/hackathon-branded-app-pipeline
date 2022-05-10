@@ -1,7 +1,7 @@
 import React from 'react';
 import { Theme, useTheme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { DialogContent, Modal, useMediaQuery } from '@material-ui/core';
+import { Modal, useMediaQuery } from '@material-ui/core';
 
 type OwnProps = {
   isOpen: boolean;
@@ -14,22 +14,25 @@ export const PaymentModal: React.FC<Props> = ({ isOpen, children }) => {
   const dialogOffset = fullScreen ? '0%' : '50%';
   return (
     <Modal open={isOpen}>
-      <div
-        style={{
-          transform: `translate(-${dialogOffset}, -${dialogOffset})`,
-          top: dialogOffset,
-          left: dialogOffset,
-          height: fullScreen ? '100%' : 'unset',
-          width: fullScreen ? '100%' : 'unset',
-        }}
-        className={classes.modal}
-      >
-        <DialogContent>{children}</DialogContent>
-      </div>
+      <>
+        <div
+          style={{
+            transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+            top: dialogOffset,
+            left: dialogOffset,
+            height: fullScreen ? '100%' : 'unset',
+            width: fullScreen ? '100%' : 'unset',
+          }}
+          className={classes.modal}
+        >
+          <div className={classes.innerDialog}>{children}</div>
+        </div>
+      </>
     </Modal>
   );
 };
 const useStyles = makeStyles<Theme>((theme) => ({
+  innerDialog: { padding: theme.spacing(2) },
   modal: {
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,

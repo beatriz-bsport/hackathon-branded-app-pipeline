@@ -6019,7 +6019,7 @@
                     "helperText": "Geef aan hoeveel kredieten nodig zijn om een afspraak te reserveren."
                 },
                 "pre_selected_choices": "Vooraf ingestelde tijden",
-                "durationError": "De duur moet tussen 15 minuten en 1 dag zijn."
+                "durationError": "De duur moet tussen 10 minuten en 1 dag zijn."
             }
         },
         "bookerModule": {

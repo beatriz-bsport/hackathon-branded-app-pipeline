@@ -7369,7 +7369,7 @@
             "stock_at_end": "Stock (end date)",
             "stock_at_start": "Stock (start date)",
             "accept_email": "Accepts marketing notifications (emails)",
-            "accept_sms": "Accepteert marketingmeldingen (SMSes)",
+            "accept_sms": "Accepts text messages",
             "payout_identifier": "Transfer",
             "credit_amount": "Number of credits",
             "initial_price": "Purchase price",

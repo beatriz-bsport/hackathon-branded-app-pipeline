@@ -217,7 +217,9 @@ export default compose(
           checkEmailExists(ev.target.value);
           return { email: ev.target.value };
         },
-      setName: () => (ev) => ({ name: ev.target.value }),
+      setName: () => (ev) => ({
+        name: ev.target.value.replace('/', '-').replace('?', ' '),
+      }),
       setTimezone: () => (ev) => ({ timezone_name: ev.target.value }),
       setPassword1: () => (ev) => ({
         password1: ev.target.value,

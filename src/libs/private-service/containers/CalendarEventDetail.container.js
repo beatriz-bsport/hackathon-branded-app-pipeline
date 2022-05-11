@@ -488,7 +488,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 
     this.props.editOffers(data.offerId, data, {
       onSuccess: () => {
-        this.closeOfferEditModal();
+        this.props.closeOfferEditModal();
         this.props.onClose();
       },
       onBackgroundSuccess: () => {
@@ -497,7 +497,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
       },
       onError: () => {
         this.props.setOfferProcessing(false);
-        this.closeOfferEditModal();
+        this.props.closeOfferEditModal();
         this.props.onClose();
       },
     });

@@ -24,6 +24,7 @@ import themeSelectors from '#libs/theme/selectors';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 
 import ContractPauseFormDialog from '#libs/subscription/components/ContractPauseFormDialog.component';
 
@@ -216,11 +217,13 @@ export class ContractDetailPage extends Component<Props, State> {
             }}
           />
         </Grid>
+
         <SubscriptionContractFormDrawer
           onClose={() => this.props.setContractToEdit(null)}
           initial={this.props.contract}
           paymentPacks={this.props.paymentPacks}
           privatePassList={this.props.privatePassList}
+          paymentComboList={this.props.paymentComboList}
           open={!!this.props.contractToEdit}
           onSubmit={(data: any, options: OptionCallback) => {
             this.props.submitEditForm(data, {
@@ -282,6 +285,7 @@ const connector = connect(
     contract: withPaymentPack(getContract)(state, contractId),
     paymentPacks: getPaymentPackEnabled(state),
     privatePassList: getPrivatePassAvailable(state),
+    paymentComboList: getPaymentComboList(state),
     theme: themeSelectors.getTheme(state),
     contractPauseList: getContractPauseList(state, contractId),
     subscriptionData: state.subscription.byId,

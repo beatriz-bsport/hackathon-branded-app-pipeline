@@ -9,6 +9,8 @@ export type ScheduleFilter = {
   showPrivateBookings: boolean;
   showCustomEvents: boolean;
   hideCancelledEvents: boolean;
+  timeGrid: string;
+  zoomLevel: number;
 };
 
 export type PrivateBookingFilter = {

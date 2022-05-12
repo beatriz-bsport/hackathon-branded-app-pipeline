@@ -6,6 +6,7 @@ import {
   ManagerOnly,
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
+import { defaultFilters } from './selectors';
 
 const initialState: Immutable.Immutable<UserPreference> = Immutable({
   paymentPackSort: SortOption.customSort,
@@ -19,12 +20,7 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
     end: '23:00:00',
   },
   calendarFilter: {},
-  scheduleFilter: {
-    showOfferList: true,
-    showPrivateBookings: true,
-    showCustomEvents: true,
-    hideCancelledEvents: true,
-  },
+  scheduleFilter: defaultFilters,
   coachesScheduleFilter: {},
   establishmentsScheduleFilter: {},
   privateServicesScheduleFilter: {},

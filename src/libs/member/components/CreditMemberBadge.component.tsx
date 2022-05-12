@@ -35,7 +35,7 @@ export const CreditMemberBadge: React.FC<Props> = ({
   if (credit < 0) {
     badgeColor = Color.COLOR_ERROR;
   }
-  const creditFormatted = credit.toFixed?.(1) ?? ' -';
+  const creditFormatted = credit?.toFixed?.(1) ?? ' -';
 
   return (
     <Badge

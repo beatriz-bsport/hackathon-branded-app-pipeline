@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose, withStateHandlers } from 'recompose';
+import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
@@ -332,6 +332,18 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
   }
 
+  zoomIn = () =>
+    this.props.setScheduleFilter({
+      ...this.props.scheduleFilter,
+      zoomLevel: Math.max((this.props.scheduleFilter.zoomLevel ?? 1) - 1, 0),
+    });
+
+  zoomOut = () =>
+    this.props.setScheduleFilter({
+      ...this.props.scheduleFilter,
+      zoomLevel: Math.min((this.props.scheduleFilter.zoomLevel ?? 1) + 1, 2),
+    });
+
   dateClick = (eventSlotSelected: EventSlot) => {
     const start = moment.tz(eventSlotSelected.dateStr, this.props.timezone);
 
@@ -459,6 +471,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   handleIntervalChange = ({ view }) => {
+    if (view.type !== this.props.scheduleFilter.timeGrid) {
+      this.props.setScheduleFilter({
+        ...this.props.scheduleFilter,
+        timeGrid: view.type,
+      });
+    }
     const date_start = moment(view.currentStart).format('YYYY-MM-DD');
     const date_end = moment(view.currentEnd).format('YYYY-MM-DD');
 
@@ -532,7 +550,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
       this.props.resourceDatatypeView,
       this.props.customEventList,
     );
-    let initialView = 'timeGridWeek';
+    let initialView = this.props.scheduleFilter.timeGrid;
     if (window.innerWidth < 400) {
       initialView = 'timeGridDay';
 
@@ -558,11 +576,11 @@ export class PrivateCalendar extends React.Component<Props, State> {
           customButtons={{
             zoomIn: {
               text: '+',
-              click: this.props.zoomIn,
+              click: this.zoomIn,
             },
             zoomOut: {
               text: '-',
-              click: this.props.zoomOut,
+              click: this.zoomOut,
             },
           }}
           views={{
@@ -599,7 +617,9 @@ export class PrivateCalendar extends React.Component<Props, State> {
           eventDidMount={this.handleEventRender}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
           firstDay={Moment.localeData()._week.dow}
-          slotDuration={`00:${15 * 2 ** this.props.zoomLevel}:00`}
+          slotDuration={`00:${
+            15 * 2 ** (this.props.scheduleFilter.zoomLevel ?? 1)
+          }:00`}
           locales={[frLocale, itLocale, deLocale, nlLocale]}
           slotMinTime={
             this.props.scheduleTimerangeBegin
@@ -697,21 +717,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
 }
 
 export default compose(
-  withStateHandlers(
-    { zoomLevel: 1 },
-    {
-      zoomIn:
-        ({ zoomLevel }) =>
-        () => ({
-          zoomLevel: Math.max(zoomLevel - 1, 0),
-        }),
-      zoomOut:
-        ({ zoomLevel }) =>
-        () => ({
-          zoomLevel: Math.min(zoomLevel + 1, 2),
-        }),
-    },
-  ),
   withTranslation(['privateService']),
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),

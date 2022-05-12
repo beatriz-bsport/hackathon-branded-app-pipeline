@@ -24,6 +24,7 @@ import { fetchAllOffers as fetchAllOffersAction } from '#libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '#libs/offer/selectors';
 import { setScheduleFilter as setScheduleFilterAction } from '#libs/user-preference/actions';
+import { getScheduleFilter } from '#libs/user-preference/selectors';
 import { ScheduleFilter } from '#libs/user-preference/types';
 
 import PrivateCalendarWithControls from '#libs/private-service/components/PrivateCalendarWithControls.component';
@@ -196,7 +197,7 @@ const connector = connect(
       state.privateService.availabilitySlot.loading ||
       state.privateService.privateBooking.loading,
     coach: getMyAssociatedCoachProfile(state),
-    scheduleFilter: state.userPreference.scheduleFilter,
+    scheduleFilter: getScheduleFilter(state),
   }),
   {
     fetchMemberBulkById: fetchMemberBulkByIdAction,

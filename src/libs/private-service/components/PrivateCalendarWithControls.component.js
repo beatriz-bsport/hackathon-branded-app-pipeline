@@ -270,6 +270,8 @@ export const PrivateCalendarWithControls = (props: Props) => {
           onBookRequest={props.isCoach ? null : props.onRequestPrivateBooking}
           scheduleTimerangeBegin={props.companyTheme.schedule_timerange_begin}
           scheduleTimerangeEnd={props.companyTheme.schedule_timerange_end}
+          scheduleFilter={props.scheduleFilter}
+          setScheduleFilter={props.setScheduleFilter}
         />
         <CalendarEventDetail
           popoverAnchor={props.popoverAnchor}

@@ -23,6 +23,7 @@ import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
+import { getScheduleFilter } from '../libs/user-preference/selectors';
 import { ScheduleFilter } from '../libs/user-preference/types';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
@@ -340,7 +341,7 @@ export default compose(
         state.dashboardSettings.managerRessourcesFilters.loading,
       availabilitySlotUpdating:
         state.privateService.availabilitySlot.createOrUpdate.loading,
-      scheduleFilter: state.userPreference.scheduleFilter,
+      scheduleFilter: getScheduleFilter(state),
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,

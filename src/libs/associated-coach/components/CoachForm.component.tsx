@@ -179,7 +179,7 @@ const CoachSchema = Yup.object().shape({
   avatar: Yup.string().nullable(false),
   firstname: Yup.string().nullable(false).required(),
   lastname: Yup.string().nullable(false).required(),
-  email: Yup.string().nullable(false).required(),
+  email: Yup.string().nullable(false),
   phone: Yup.string().nullable(true),
   gender: Yup.string().nullable(false).required(),
   color: Yup.string().nullable(false),

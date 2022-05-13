@@ -17,6 +17,7 @@ import marketplace from 'bsport-saas/src/libs/marketplace/reducers';
 import metaActivity from 'bsport-saas/src/libs/meta-activity/reducers';
 import offer from 'bsport-saas/src/libs/offer/reducers';
 import paymentCombo from 'bsport-saas/src/libs/payment-combo/reducers';
+import groupOffer from 'bsport-saas/src/libs/group-offer/reducers';
 import paymentPack from 'bsport-saas/src/libs/payment-packs/reducers';
 import playlist from 'bsport-saas/src/libs/playlist/reducers';
 import privateService from 'bsport-saas/src/libs/private-service/reducers';
@@ -66,6 +67,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     category,
     subscription,
     modal,
+    groupOffer,
     bridge,
     tag,
     giftcard,

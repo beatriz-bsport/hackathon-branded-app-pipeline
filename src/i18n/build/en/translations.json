@@ -1374,7 +1374,7 @@
             "effectif": "Number of available slots",
             "caracteristics": "Characteristics",
             "price": "Price",
-            "credits": "Number of credits required to book",
+            "credits": "Price (in credits)",
             "priceCategory": "Billing",
             "duration_minute": "Duration",
             "lastSession": "End date:",
@@ -2827,7 +2827,7 @@
                     "helperText": "This number will be used to manage the availability of the establishment(s)."
                 },
                 "credit": {
-                    "label": "Number of credits",
+                    "label": "Credit(s)",
                     "helperText": "Select the number of required credits to book an appointment."
                 },
                 "duration_minutes": {
@@ -2841,7 +2841,7 @@
                     "label": "Advanced: booking interval"
                 },
                 "pre_selected_choices": "Predefined durations",
-                "durationError": "The duration must be between 15 min. and 1 day."
+                "durationError": "The duration must be between 10 min. and 1 day"
             }
         },
         "bookerModule": {
@@ -3101,7 +3101,7 @@
                 "vod": "Video On Demand",
                 "accessibility": "Accessibility",
                 "validity": "Validity",
-                "credit_quantity": "Number of credits"
+                "credit_quantity": "Credits"
             },
             "ht": "Excl. VAT / Sales Tax",
             "actions": {
@@ -4185,7 +4185,7 @@
                         "_label": "Bsport subscription"
                     },
                     "mobilePersonalization": {
-                        "_label": "App customisation"
+                        "_label": "Branded app"
                     }
                 },
                 "reporting": {
@@ -5646,7 +5646,7 @@
                 "helperText": "You can add external links on the app to redirect your customers to your website or to another platform. The links will appear in the purchase tab of the mobile application.",
                 "subtitle": "External links"
             },
-            "title": "App customisation",
+            "title": "Branded app",
             "popup": {
                 "helperText": "The start-up pop-up will appear once your members open the application. It allows you to draw your members' attention to a special event (a new class, a promotion ...) and will redirect them to the desired web page.",
                 "subtitle": "Start-up pop-up",
@@ -7084,7 +7084,8 @@
                 "explain": "Only this invoice will be modified",
                 "price": "New amount",
                 "title": "Payment modification",
-                "updateAll": "Update all futures payments"
+                "updateAll": "Update all futures debits up until the automatic renewal",
+                "updateRecurrentPrice": "Apply these changes to all bookings including those after the automatic renewal"
             },
             "list": {
                 "titleNext": "Upcoming withdrawals"
@@ -7675,7 +7676,12 @@
                 "smartListHelper": "Don't send the notification if the member is present in one of the following Smartlists",
                 "smartListHelperInclude": "Only send the notification if the member is present in one of the following Smartlists",
                 "pushTitle": "Notification settings",
-                "mailSettings": "Email settings"
+                "mailSettings": "Email settings",
+                "chooseTime": {
+                    "secondOnOfferStart": "hour(s) before the start of the session",
+                    "secondOnBooking": "hour(s) after the booking",
+                    "first": "Send a notification"
+                }
             },
             "daysPast": {
                 "second": "day(s).",
@@ -7694,7 +7700,9 @@
             "daysLeftLabel": "This notification will be sent when the pass expires in {{day}} day.",
             "daysLeftLabel_plural": "This notification will be sent when the pass expires in {{day}} days.",
             "creditsLeftLabel": "This notification will be sent when the pass has {{credit}} remaining credit.",
-            "creditsLeftLabel_plural": "This notification will be sent when the pass has {{credit}} remaining credits."
+            "creditsLeftLabel_plural": "This notification will be sent when the pass has {{credit}} remaining credits.",
+            "creditsLeftOnOfferStart": "{{hours}} hour(s) after the end of the session",
+            "creditsLeftOnBooking": "{{hours}} hour(s) after completing a booking"
         },
         "search": "Search a pass",
         "extension": {
@@ -8183,7 +8191,7 @@
             "accessibility": "Accessibility",
             "compatibility": "Compatibility",
             "validity": "Validity",
-            "credit_quantity": "Number of credits",
+            "credit_quantity": "Credits",
             "universalPass": "Universal pass",
             "compatibilityPaymentPack": "Compatibility for group activities"
         },
@@ -10525,6 +10533,12 @@
             "restore": {
                 "error": "The appointment can't be restored, as the associated appointment pass has too few credits",
                 "success": "The appointment has been restored"
+            },
+            "register": {
+                "error": "Error while booking for this date",
+                "warning": {
+                    "11106": "You've recently booked this already"
+                }
             }
         },
         "playlist": {
@@ -10888,7 +10902,7 @@
                 "paymentMethod": "Payment methods",
                 "forms": "Member forms",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "App customisation"
+                "mobilePersonalization": "Branded app"
             },
             "pass": "Passes",
             "goBack": "Back",

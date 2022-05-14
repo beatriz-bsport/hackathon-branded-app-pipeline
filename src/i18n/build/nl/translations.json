@@ -70,8 +70,8 @@
         "actions": {
             "goToSubscription": "Toon alle abonnementen",
             "goToPass": "Toon alle kaarten",
-            "goToCalendar": "Toon de planning",
-            "goToHome": "Alle diensten bekijken"
+            "goToCalendar": "Toon de agenda",
+            "goToHome": "Toon het gehele aanbod"
         },
         "dashboard": {
             "noBooking": "Je hebt nog geen reserveringen om weer te geven.",
@@ -85,7 +85,7 @@
         "booking": {
             "bookAgain": "Opnieuw reserveren",
             "discard": "Annuleren",
-            "showCalendar": "Toon de planning",
+            "showCalendar": "Toon de agenda",
             "titlePrivateBooking": "Afspraken",
             "titleBooking": "Groepsactiviteiten",
             "accessLive": "Online les openen",
@@ -768,8 +768,8 @@
             "fourHour": "4u",
             "threeHour": "3u",
             "twoHour": "2u",
-            "oneHourAndHalf": "1u : 30min.",
-            "oneHourFifteen": "1u : 15 min.",
+            "oneHourAndHalf": "1u:30min.",
+            "oneHourFifteen": "1u:15min.",
             "oneHour": "1u",
             "halfAndQuarterHour": "45 min.",
             "halfHour": "30 min.",
@@ -1164,7 +1164,7 @@
             }
         },
         "level": {
-            "advanced": "Geavanceerd",
+            "advanced": "Gevorderd",
             "intermediary": "Intermediair",
             "intermediate": "Intermediair",
             "beginner": "Beginner",
@@ -3117,7 +3117,7 @@
                 "warning": "Selecteer ten minste één niveau",
                 "beginner": "beginner",
                 "intermediate": "intermediair",
-                "advanced": "geavanceerd",
+                "advanced": "gevorderd",
                 "select": "Selecteer een niveau",
                 "intermediary": "intermediair",
                 "all": "alle niveaus"
@@ -5588,9 +5588,9 @@
             "account": {
                 "helpContent": "De link en de authenticatiemiddel van uw ActiveCampaign-account zijn toegankelijk in uw profielinstellingen door op het tabblad 'Developper' te klikken.",
                 "helpTitle": "Waar vind ik mijn profielgegevens?",
-                "title": "Toegangsinformatie voor je API met ActiveCampaign",
+                "title": "ActiveCampaign | Toegangsinformatie voor de API",
                 "helper": "Waar vind ik deze informatie?",
-                "dialogTitle": "ActiveCampaign-profielgegevens",
+                "dialogTitle": "ActiveCampaign | Profielgegevens",
                 "token": "Verificatiesleutel",
                 "error": "Uw gegevens zijn onjuist",
                 "empty": "Voer de URL van je API in"
@@ -5606,7 +5606,7 @@
                 "helpContent": "Leden van de Smartlist ontvangen elke avond een lijst van ActiveCampaign; hun status is dan 'actief'. Leden die de Smartlist hebben verlaten worden ook van de lijst van ActiveCampaign verwijderd; hun status is dan 'onbevestigd'.",
                 "helperForm": "Kies een Smartlist van BSPORT en koppel deze aan een van je lijsten op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?",
-                "title": "Informatie verzenden vanuit BSPORT Solution",
+                "title": "Informatie vanuit BSPORT Solution",
                 "add": "Een link tussen de Smartlists toevoegen",
                 "dialogTitle": "Wijzig de link van een lijst",
                 "smartListSelection": "Kies een Smartlist",
@@ -6534,7 +6534,7 @@
             "privateService": "Selecteer een afspraak",
             "privateSlot": "Sessie"
         },
-        "openCalendar": "Toon de planning",
+        "openCalendar": "Toon de agenda",
         "pageTitles": {
             "passList": "Afspraakkaarten",
             "serviceList": "Afspraken",
@@ -9212,7 +9212,7 @@
                 "error": "Foutmelding",
                 "recap": "Overzicht",
                 "errorExplain": "Gelieve deze bestelling herzien, omdat er een fout tijdens de verweking is opgetreden.",
-                "explain": "Zo dadelijk ontvang je een bevestigingsmail van deze bestelling."
+                "explain": "Zo dadelijk ontvang je ook een bevestigingsmail."
             },
             "actions": {
                 "back": "Terug",
@@ -9556,7 +9556,7 @@
             "select": {
                 "label": "Betaalmethode"
             },
-            "isInternalExplain": "De interne rekening (Wallet) zal maandelijks in rekening worden gebracht.",
+            "isInternalExplain": "De interne rekening (Wallet) wordt iedere keer in rekening gebracht.",
             "add": "Toevoegen",
             "edit": "Bewerken",
             "title": "Betaalmethode",
@@ -10871,7 +10871,7 @@
             "notAttributedYet": "Niet gevalideerd",
             "expiresOn": "Vervaldatum: {{- d }}",
             "willInviteOn": "De uitnodiging is op {{- d }} verstuurd",
-            "invitedOn": "Verstuurd op {{- d }}",
+            "invitedOn": "Verstuurd op: {{- d }}",
             "value": "Waarde",
             "isFrom": "Van ",
             "isFor": "T.a.v. ",

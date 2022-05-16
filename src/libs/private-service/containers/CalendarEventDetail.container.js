@@ -486,7 +486,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
   updateOffer = async (data) => {
     this.props.setOfferProcessing(true);
 
-    this.props.editOffers(data.offerId, data, {
+    this.props.editOffers(data.offerId, data.data, {
       onSuccess: () => {
         this.props.closeOfferEditModal();
         this.props.onClose();

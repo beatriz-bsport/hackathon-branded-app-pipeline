@@ -6604,7 +6604,7 @@
     "communication": { "success": "Mail en cours d'envoi", "error": "Problème lors de l'envoi du mail" },
     "privateBooking": {
       "register": {
-        "warning": { "11106": "Vous avez déjà réservé ce créneau" },
+        "warning": { "undefined": "Vous avez déjà réservé ce créneau" },
         "error": "Impossible de réserver sur cette date"
       },
       "attachCoach": { "success": "RDV attribué au professeur", "error": "Impossible d'attribuer au professeur" },

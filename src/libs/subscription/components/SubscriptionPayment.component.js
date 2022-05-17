@@ -21,7 +21,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher';
+import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
@@ -215,6 +215,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       setDate,
       withGeneralConditions,
     } = this.props;
+
     return (
       <div>
         {withGeneralConditions && (

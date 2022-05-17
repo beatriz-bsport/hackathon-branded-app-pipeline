@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
-import PaymentMethodSwitcher from './PaymentMethodSwitcher';
+import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
 import CollectPaymentMethod from './CollectPaymentMethod.component';
 
 type OwnProps = {

@@ -27,6 +27,7 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
   if (!(props.enabledPaymentMethods?.length > 1)) {
     return null;
   }
+
   return (
     <RadioGroup
       aria-label="payment-method"

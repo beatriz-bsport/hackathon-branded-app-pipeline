@@ -16,6 +16,14 @@ import {
 } from 'connected-react-router';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
@@ -225,6 +233,20 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     ) {
       return <LinearProgress />;
     }
+
+    const enabledPaymentMethods = [
+      ...(this.props.companyTheme.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      )
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]
+        : []),
+      ...(this.props.companyTheme.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+      )
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+        : []),
+    ];
+
     return (
       <ConsumerAppBar>
         <div className={classes.mainContainer}>
@@ -303,6 +325,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                         refreshSavedPaymentMethodList={
                           this.props.fetchPaymentMethodList
                         }
+                        enabledPaymentMethods={enabledPaymentMethods}
                         enabledPaymentGroupMethodIdentifier={
                           this.props.companyTheme
                             .payment_method_available_subscription

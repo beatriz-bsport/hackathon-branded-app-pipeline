@@ -249,7 +249,7 @@ export class EmailEditorPanel extends Component<Props, State> {
     const { t, classes } = this.props;
     const mergeTags = this.getMergeTags();
     return (
-      <div>
+      <div className={classes.totalEditorContainer}>
         <div className={classes.paper}>
           <Prompt
             when={this.state.notReadyToLeave}
@@ -388,6 +388,9 @@ const styles = (theme: Theme) =>
     rightContainer: {
       display: 'flex',
       alignItems: 'center',
+    },
+    totalEditorContainer: {
+      paddingBottom: 70,
     },
     subtitle: {
       marginTop: theme.spacing(2),

@@ -44,6 +44,20 @@ export async function search(
   return postAuth(`${API_V1_URI}/member/search/`, { text, params });
 }
 
+export async function paginatedSearch(
+  text: string,
+  pagination: any = {},
+  params: { [key: string]: boolean | string | number },
+) {
+  return postAuth(
+    `${API_V1_URI}/member/paginated_search/${buildUrlParams(pagination)}`,
+    {
+      text,
+      params,
+    },
+  );
+}
+
 export async function tag(memberId: number, tagId: number) {
   return postAuth(`${API_V1_URI}/member/${memberId}/tag/`, {
     tag: tagId,

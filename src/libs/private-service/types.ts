@@ -342,6 +342,7 @@ export interface PrivateServiceState {
     createOrUpdate: ErrorAndLoading;
   };
   privateSlot: ErrorAndLoading & {
+    allIds: number[];
     byId: { [id: string]: PrivateSlot };
     createOrUpdate: ErrorAndLoading;
     unpaidBookingAvailability: {

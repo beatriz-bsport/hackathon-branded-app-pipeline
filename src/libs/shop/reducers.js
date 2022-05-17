@@ -77,6 +77,8 @@ const initialState: ShopState = Immutable({
       error: null,
     },
   },
+  loading: false,
+  error: null,
 });
 
 export default handleActions(
@@ -234,6 +236,10 @@ export default handleActions(
         state.subShops.filter((ss) => ss.id !== payload),
       );
     },
+    [subshopListActions.isLoading.toString()]: (state, { payload }) =>
+      state.set('loading', payload),
+    [subshopListActions.error.toString()]: (state, { payload }) =>
+      state.set('error', payload),
     [subshopListActions.success]: (state, { payload }) => {
       return state.set('subShops', payload);
     },

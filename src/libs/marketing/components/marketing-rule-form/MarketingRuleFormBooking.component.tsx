@@ -462,7 +462,7 @@ const MarketingRuleFormBooking = (props: Props) => {
                       <div>
                         <div
                           // eslint-disable-next-line
-                              dangerouslySetInnerHTML={{
+                          dangerouslySetInnerHTML={{
                             __html: emailDetails
                               ? emailDetails[email_design].html
                               : null,

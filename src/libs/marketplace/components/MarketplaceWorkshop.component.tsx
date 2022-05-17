@@ -13,7 +13,7 @@ import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Offer } from '#libs/offer/types';
-import useVisibility from '../../../hooks/useIsVisibleOnScreen';
+import useIsVisibleOnScreen from '../../../hooks/useIsVisibleOnScreen';
 import { Level } from '#libs/level/types';
 
 type Props = {
@@ -60,7 +60,7 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
   const refContainer = useRef<HTMLDivElement>();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, currentElement] = useVisibility<HTMLDivElement>(
+  const [_, currentElement] = useIsVisibleOnScreen<HTMLDivElement>(
     1000,
     500,
     onEndReach,

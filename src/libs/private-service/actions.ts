@@ -861,16 +861,25 @@ export function fetchPrivateServiceBulk(
   };
 }
 
-export function fetchAllPrivateSlots(params: any = {}): ThunkAction {
+export function fetchAllPrivateSlots(
+  params: any = {},
+  options?: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotListActions.isLoading(true));
     dispatch(privateSlotListActions.error(null));
     try {
       const response = await fetchAllPrivateSlotsAPI(params);
       dispatch(privateSlotListActions.all(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
     } catch (err) {
       console.error(err);
       dispatch(privateSlotListActions.error(null));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(privateSlotListActions.isLoading(false));
   };
@@ -1179,16 +1188,25 @@ export const privatePassListActions = {
   success: createAction('PRIVATE_PASS/LIST/SUCCESS'),
 };
 
-export function fetchPrivatePassList(params: any = {}) {
+export function fetchPrivatePassList(
+  params: any = {},
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassListActions.isLoading(true));
     dispatch(privatePassListActions.error(null));
     try {
       const response = await fetchPrivatePassListAPI(params);
       dispatch(privatePassListActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(privatePassListActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(privatePassListActions.isLoading(false));
   };
@@ -1220,6 +1238,9 @@ export function fetchPrivatePassBulk(
     } catch (err) {
       console.error(err);
       dispatch(privatePassBulkActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(privatePassBulkActions.isLoading(false));
   };

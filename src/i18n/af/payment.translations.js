@@ -17,6 +17,7 @@ const {
   EPS,
   IDEAL,
   SOFORT,
+  PAYMENT_PACK,
 } = require('@bsport/common/lib/master-data/payment-methods');
 const {
   PAYOUT_STATUS_PENDING,
@@ -100,7 +101,6 @@ exports.default = {
   },
 
   paymentComboSectionTitle: 'Pack',
-
   method: {
     CB: 'Carte',
     CREDIT_ACCOUNT: 'Paiement sur place',
@@ -112,6 +112,25 @@ exports.default = {
     IDEAL: 'iDEAL',
     EPS: 'EPS',
     GIROPAY: 'Giropay',
+    [CB.id]: 'Carte',
+    [CB_MANUAL.id]: 'Carte (manuel)',
+    [CREDIT_ACCOUNT.id]: 'Paiement sur place',
+    [HOLIDAY_CHECK.id]: 'Chèque vacances',
+    [AMEX.id]: 'AMEX',
+    [BANK_TRANSFER.id]: 'Virement',
+    [SUBSCRIPTION_CB.id]: 'Paiement automatique',
+    [CASH.id]: 'Espèces',
+    [CHECK.id]: 'Chèque',
+    [SEPA.id]: 'SEPA',
+    [EVENT_BRITE.id]: 'Event brite',
+    [BANCONTACT.id]: 'Bancontact',
+    [SOFORT.id]: 'Sofort',
+    [IDEAL.id]: 'iDEAL',
+    [EPS.id]: 'EPS',
+    [GIROPAY.id]: 'Giropay',
+    [PAYMENT_PACK.id]: 'Pass',
+    [OTHER.id]: 'Other',
+    [DISPUTE.id]: 'Dispute',
   },
 
   forms: {

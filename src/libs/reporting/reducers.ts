@@ -10,8 +10,15 @@ import {
   deleteReportActions,
   updateReportActions,
   fetchReportOfferManagementActions,
+  setDynamicDataHasBeenLoadedAction,
+  resetDynamicDataHasBeenLoadedAction,
+  createReportFilterConfigActions,
+  editReportFilterConfigActions,
+  fetchReportFilterConfigListActions,
+  deleteReportFilterConfigActions,
 } from './actions';
 import { ReportingState } from './types';
+import { defaultDynamicDataHasBeenLoaded } from './constants';
 
 const initialState: Immutable.Immutable<ReportingState> =
   Immutable<ReportingState>({
@@ -49,6 +56,13 @@ const initialState: Immutable.Immutable<ReportingState> =
       loading: false,
       error: null,
       results: [],
+    },
+    reportFilterConfigs: {
+      dynamicDataHasBeenLoaded: defaultDynamicDataHasBeenLoaded,
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
     },
   });
 
@@ -154,6 +168,108 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
     ) => {
       return state.setIn(['offerManagement', 'error'], payload);
     },
+    [setDynamicDataHasBeenLoadedAction.toString()]: (state, { payload }) => {
+      return state.setIn(
+        ['reportFilterConfigs', 'dynamicDataHasBeenLoaded', payload],
+        true,
+      );
+    },
+    [resetDynamicDataHasBeenLoadedAction.toString()]: (state) => {
+      return state.setIn(
+        ['reportFilterConfigs', 'dynamicDataHasBeenLoaded'],
+        defaultDynamicDataHasBeenLoaded,
+      );
+    },
+    [createReportFilterConfigActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['reportFilterConfigs', 'loading'], payload),
+    [createReportFilterConfigActions.error.toString()]: (state, { payload }) =>
+      state.setIn(['reportFilterConfigs', 'error'], payload),
+    [createReportFilterConfigActions.success.toString()]: (
+      state,
+      { payload },
+    ) =>
+      state
+        .setIn(
+          ['reportFilterConfigs', 'allIds'],
+          [...(state.reportFilterConfigs.allIds ?? []), payload.id],
+        )
+        .merge(
+          {
+            reportFilterConfigs: {
+              byId: {
+                [payload.id]: {
+                  ...payload,
+                },
+              },
+            },
+          },
+          { deep: true },
+        ),
+    [editReportFilterConfigActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['reportFilterConfigs', 'loading'], payload),
+    [editReportFilterConfigActions.error.toString()]: (state, { payload }) =>
+      state.setIn(['reportFilterConfigs', 'error'], payload),
+    [editReportFilterConfigActions.success.toString()]: (state, { payload }) =>
+      state.merge(
+        {
+          reportFilterConfigs: {
+            byId: {
+              [payload.id]: {
+                ...payload,
+              },
+            },
+          },
+        },
+        { deep: true },
+      ),
+    [fetchReportFilterConfigListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['reportFilterConfigs', 'loading'], payload),
+    [fetchReportFilterConfigListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['reportFilterConfigs', 'loading'], payload),
+    [fetchReportFilterConfigListActions.success.toString()]: (
+      state,
+      { payload },
+    ) =>
+      state
+        .setIn(
+          ['reportFilterConfigs', 'allIds'],
+          payload.map((rf) => rf.id),
+        )
+        .merge(
+          {
+            reportFilterConfigs: {
+              byId: payload.reduce((acc, rf) => {
+                acc[rf.id] = rf;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        ),
+    [deleteReportFilterConfigActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['reportFilterConfigs', 'loading'], payload),
+    [deleteReportFilterConfigActions.error.toString()]: (state, { payload }) =>
+      state.setIn(['reportFilterConfigs', 'loading'], payload),
+    [deleteReportFilterConfigActions.success.toString()]: (
+      state,
+      { payload },
+    ) =>
+      state.setIn(
+        ['reportFilterConfigs', 'allIds'],
+        [...(state.reportFilterConfigs.allIds ?? [])].filter(
+          (id) => id !== payload,
+        ),
+      ),
   },
   initialState,
 );

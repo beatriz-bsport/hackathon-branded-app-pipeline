@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as VirtualizedList } from 'react-window';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -26,15 +25,17 @@ import Select, {
   ValueContainerProps,
   ControlProps,
   SingleValueProps,
+  InputActionTypes,
 } from 'react-select';
 import { NoticeProps } from 'react-select/src/components/Menu';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
 import { CSSProperties } from '@emotion/serialize';
+import useIsVisibleOnScreen from '../../hooks/useIsVisibleOnScreen';
 
 export type OptionTypeBase =
   | {
       label: string;
-      value: string | number;
+      value: string;
     }
   | {
       label: string;
@@ -47,6 +48,12 @@ type BaseProps<T extends OptionTypeBase> = {
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
   isMenuListVirtualized?: boolean;
+  leftIcon?: React.ReactNode;
+  withoutPortal?: Boolean;
+  defaultNumberShown?: number;
+  classes?: Record<string, CSSProperties>;
+  error?: boolean;
+  withoutSelectAll?: boolean;
   chipsRenderer?: (props: {
     data: T;
     onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -58,27 +65,27 @@ type BaseProps<T extends OptionTypeBase> = {
     isDisabled: boolean;
   }) => React.ReactNode;
   headerListRenderer?: () => React.ReactChild;
-  leftIcon?: React.ReactNode;
-  withoutPortal?: Boolean;
-  defaultNumberShown?: number;
-  classes?: Record<string, CSSProperties>;
+  onEndMenuListReach: () => void;
+  onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
   | ({
-      onChange: (values: T[]) => void;
+      onChange?: (values: T[]) => void;
       isMulti: true;
       value?: T[];
     } & BaseProps<T>)
   | ({
       isMulti?: false;
       value?: T | null;
-      onChange: (value: T) => void;
+      onChange?: (value: T) => void;
     } & BaseProps<T>);
 
-type Props<T extends OptionTypeBase> = OwnProps<T>;
+export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T>;
 
-function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
+function MaterialUISelector<T extends OptionTypeBase>(
+  props: MuiSelectProps<T>,
+) {
   const {
     id,
     isMulti,
@@ -87,22 +94,28 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     leftIcon,
     menuPortalTarget,
     withoutPortal = false,
-    chipsRenderer,
-    itemRenderer,
-    headerListRenderer,
-    onChange,
     inScrollBar,
     isMenuListPaddingDisabled,
     isMenuListVirtualized,
     defaultNumberShown,
+    withoutSelectAll,
+    chipsRenderer,
+    itemRenderer,
+    headerListRenderer,
+    onChange,
+    onEndMenuListReach,
+    onInputChange,
     ...restProps
   } = props;
   const classes = useStyles();
-  const uuid = useRef(uuidv4());
+  const selectRef = useRef(null);
+  const [containerRef, setContainerRef] = useState(null);
   const [displayMore, setDisplayMore] = useState(false);
 
   const handleChange = (data: T | T[]) => {
     if (!onChange) return;
+    // needed as it conflict with formik sometine
+    selectRef.current?.select?.blur();
     if (Array.isArray(data)) {
       if (isMulti) {
         onChange(data);
@@ -112,12 +125,39 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
     }
   };
 
-  let menuPortalTraget = withoutPortal
+  let _menuPortalTarget = withoutPortal
     ? undefined
     : menuPortalTarget || document.querySelector('body');
   if (inScrollBar) {
-    menuPortalTraget = document.querySelector(`#selector_${uuid.current}`);
+    _menuPortalTarget = containerRef;
   }
+
+  const getStyles = () => {
+    if (inScrollBar) {
+      return {
+        menuPortal: (base: CSSProperties) => ({
+          ...base,
+          zIndex: 9999,
+          position: 'absolute',
+          top: '100%',
+          left: '0px',
+        }),
+      };
+    }
+    return {
+      menuPortal: (base: CSSProperties) => ({
+        ...base,
+        zIndex: 9999,
+      }),
+    };
+  };
+
+  useEffect(() => {
+    // Manually enforce focus on the input on asyncrhounous select
+    if (selectRef?.current?.select?.inputRef?.value !== '') {
+      selectRef?.current?.select?.focusInput();
+    }
+  }, [options]);
 
   return (
     <SelectorContext.Provider
@@ -126,7 +166,16 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
         setDisplayMore,
       }}
     >
-      <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
+      <div
+        ref={(ref) => {
+          if (inScrollBar) {
+            setContainerRef(ref);
+          }
+        }}
+        className={classNames(classes.relative, {
+          [classes.error]: props.error,
+        })}
+      >
         <Select
           id={id}
           value={value}
@@ -140,7 +189,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
           components={{
             Control,
             Menu,
-            MenuList: MenuList(headerListRenderer),
+            MenuList: MenuList(headerListRenderer, onEndMenuListReach),
             Option: Option(itemRenderer),
             MultiValueContainer,
             MultiValueLabel,
@@ -151,31 +200,19 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
             GroupHeading,
             ValueContainer: ValueContainer(leftIcon),
           }}
+          withoutSelectAll={withoutSelectAll}
           hideSelectedOptions={false}
           tabSelectsValue={false}
           captureMenuScroll
-          menuPortalTarget={menuPortalTraget}
-          styles={{
-            menuPortal: (base) => {
-              if (inScrollBar) {
-                return {
-                  ...base,
-                  zIndex: 9999,
-                  position: 'absolute',
-                  top: '100%',
-                  left: '0px',
-                };
-              }
-              return {
-                ...base,
-                zIndex: 9999,
-              };
-            },
-          }}
+          menuPortalTarget={_menuPortalTarget}
+          styles={getStyles()}
           {...restProps}
           // Mandatory for multi selection use
           closeMenuOnSelect
           defaultNumberShown={defaultNumberShown}
+          ref={selectRef}
+          selectRef={selectRef}
+          onInputChange={onInputChange}
         />
       </div>
     </SelectorContext.Provider>
@@ -228,7 +265,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
     } else {
       setSelected(
         displayedOption.flatMap((o) => {
-          if (o.value) {
+          if (o.value !== null || o.value !== undefined) {
             return o;
           }
 
@@ -262,16 +299,20 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
 
           {props.isMulti && (
             <div className={classes.footer}>
-              <Button
-                className={classNames(classes.button, classes.selectButton)}
-                color="secondary"
-                onClick={handleGlobalSelect}
-                onTouchEnd={handleGlobalSelect} // for Compatibility with phones
-              >
-                {selected?.length > 0
-                  ? t('selector.unselectAll')
-                  : t('selector.selectAll')}
-              </Button>
+              {!props?.selectProps?.withoutSelectAll ? (
+                <Button
+                  className={classNames(classes.button, classes.selectButton)}
+                  color="secondary"
+                  onClick={handleGlobalSelect}
+                  onTouchEnd={handleGlobalSelect} // for Compatibility with phones
+                >
+                  {selected?.length > 0
+                    ? t('selector.unselectAll')
+                    : t('selector.selectAll')}
+                </Button>
+              ) : (
+                <div />
+              )}
               <Button
                 className={classes.button}
                 color="primary"
@@ -301,7 +342,7 @@ function Option<T extends OptionTypeBase>(
       <SelectContext.Consumer>
         {({ selected, onSelect }) => {
           const isSelected = selected.some(
-            (option) => option.value === props.data.value,
+            (option) => option?.value === props.data?.value,
           );
 
           const handleClick = (
@@ -404,11 +445,17 @@ function MultiValueRemove<T extends OptionTypeBase>(
   return (props: any) => {
     const selectedValues = props.selectProps?.value ?? [];
     const index =
-      selectedValues.findIndex((value) => value.value === props.data.value) ??
+      selectedValues.findIndex((value) => value?.value === props.data?.value) ??
       -1;
 
     const maxDisplay = props.selectProps?.defaultNumberShown ?? 4;
     const overflowValues = selectedValues.length - maxDisplay;
+
+    const handleDelete = (...args: any) => {
+      props.innerProps.onClick(...args);
+      // Dirty trick gettting the ref pass as props for manual trigger of blur
+      props?.selectProps?.selectRef?.current?.select?.blur();
+    };
 
     return (
       <SelectorContext.Consumer>
@@ -417,18 +464,15 @@ function MultiValueRemove<T extends OptionTypeBase>(
             <components.MultiValueRemove getStyles={resetStyle}>
               {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
               <div className={classes.chip} onMouseDown={catchFocusAndEvent}>
-                {(index < maxDisplay || displayMore) && (
+                {(index < maxDisplay || displayMore) && props.data && (
                   <>
                     {chipsRenderer &&
                       chipsRenderer({
                         data: props.data,
-                        onDelete: props.innerProps.onClick,
+                        onDelete: handleDelete,
                       })}
                     {!chipsRenderer && (
-                      <Chip
-                        label={props.data.label}
-                        onDelete={props.innerProps.onClick}
-                      />
+                      <Chip label={props.data.label} onDelete={handleDelete} />
                     )}
                   </>
                 )}
@@ -452,7 +496,7 @@ function MultiValueRemove<T extends OptionTypeBase>(
 /* ***** */
 /* From here only styling with material UI */
 /* ***** */
-function Control<T extends OptionTypeBase>(
+export function Control<T extends OptionTypeBase>(
   props: ControlProps<T, boolean, any>,
 ) {
   const classes = useStyles();
@@ -473,34 +517,50 @@ function Control<T extends OptionTypeBase>(
 
 function MenuList<T extends OptionTypeBase>(
   headerListRenderer: (() => React.ReactChild) | null = null,
+  onEndMenuListReach: () => void,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, currentElement, scrollRef] = useIsVisibleOnScreen<HTMLDivElement>(
+    60,
+    500,
+    onEndMenuListReach,
+  );
+
   return (props: MenuListComponentProps<T, boolean, any>) => {
+    const displayedOption = [
+      ...props.selectProps.options.filter((opt) =>
+        props.selectProps.filterOption(opt, props.selectProps.inputValue),
+      ),
+    ];
+    const hasValue = displayedOption?.length > 0;
+
     return (
-      <components.MenuList {...props} getStyles={resetStyle}>
-        {headerListRenderer && headerListRenderer()}
-        {props.selectProps.isMenuListVirtualized ? (
-          <VirtualizedList
-            height={
-              props.selectProps.options.length < 300
-                ? props.selectProps.options.length * 50
-                : 300
-            }
-            itemCount={props.selectProps.options.length}
-            itemSize={48}
-          >
-            {({ index, style }) => (
-              <div style={style}>{props.children[index]}</div>
-            )}
-          </VirtualizedList>
-        ) : (
-          <MenuListMaterial
-            disablePadding={props.selectProps.isMenuListPaddingDisabled}
-            dense
-          >
-            {props.children}
-          </MenuListMaterial>
-        )}
-      </components.MenuList>
+      <div ref={scrollRef}>
+        <components.MenuList {...props} getStyles={resetStyle}>
+          {headerListRenderer && headerListRenderer()}
+          {props.selectProps.isMenuListVirtualized && hasValue ? (
+            <VirtualizedList
+              height={
+                displayedOption.length < 300 ? displayedOption.length * 50 : 300
+              }
+              itemCount={displayedOption.length}
+              itemSize={48}
+            >
+              {({ index, style }) => (
+                <div style={style}>{props.children[index]}</div>
+              )}
+            </VirtualizedList>
+          ) : (
+            <MenuListMaterial
+              disablePadding={props.selectProps.isMenuListPaddingDisabled}
+              dense
+            >
+              {props.children}
+            </MenuListMaterial>
+          )}
+          {hasValue && <div ref={currentElement} />}
+        </components.MenuList>
+      </div>
     );
   };
 }
@@ -692,6 +752,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.error.main,
     transform: 'rotate(180deg)',
     marginRight: theme.spacing(1),
+  },
+  relative: {
+    position: 'relative',
+  },
+  error: {
+    borderRadius: theme.spacing(1) / 2,
+    boxShadow: `0 0 0 1px ${theme.palette.error.main}`,
   },
 }));
 

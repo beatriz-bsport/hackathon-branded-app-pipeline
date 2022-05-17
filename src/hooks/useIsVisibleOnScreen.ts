@@ -8,32 +8,40 @@ import throttle from 'lodash/throttle';
  * @param {number} offset - Number of pixels up to the observable element from the top
  * @param {number} debounceMilliseconds - debounce observable listener, in ms
  * @param {function} onEnterVisible - Execute callback when the end is reached
- * @returns {[boolean, ref]} - [isVisible, triggerElement]
+ * @returns {[boolean, ref, ref]} - [isVisible, triggerElement, ?scrollContainer]
  */
-export default function useVisibility<Element extends HTMLElement>(
+export default function useIsVisibleOnScreen<Element extends HTMLElement>(
   offset: number = 0,
   debounceMilliseconds: number = 100,
   onEnterVisible: () => void = () => {},
-): [Boolean, React.RefObject<Element>] {
+): [Boolean, React.RefObject<Element>, React.RefObject<Element>] {
   const [isVisible, setIsVisible] = useState(false);
   const currentElement = useRef<Element>();
+  const scrollContainer = useRef<Element>();
 
   const _onEnterVisible = throttle(() => {
-    onEnterVisible();
+    onEnterVisible && onEnterVisible();
   }, debounceMilliseconds);
 
   const onScroll = debounce(() => {
-    if (!currentElement.current) {
+    if (!currentElement?.current) {
       setIsVisible(false);
       return;
     }
 
+    let innerHeight = window.innerHeight;
+    if (scrollContainer?.current) {
+      const container = scrollContainer.current.getBoundingClientRect();
+      innerHeight = container.x;
+    }
+
     const top = currentElement.current.getBoundingClientRect()?.top ?? 0;
-    if (!isVisible && top + offset >= 0 && top - offset <= window.innerHeight) {
+
+    if (top + offset >= 0 && top - offset <= innerHeight) {
       _onEnterVisible();
     }
 
-    setIsVisible(top + offset >= 0 && top - offset <= window.innerHeight);
+    setIsVisible(top + offset >= 0 && top - offset <= innerHeight);
   }, debounceMilliseconds);
 
   useEffect(() => {
@@ -41,5 +49,5 @@ export default function useVisibility<Element extends HTMLElement>(
     return () => document.removeEventListener('scroll', onScroll, true);
   });
 
-  return [isVisible, currentElement];
+  return [isVisible, currentElement, scrollContainer];
 }

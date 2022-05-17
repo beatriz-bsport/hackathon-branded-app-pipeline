@@ -13,32 +13,52 @@ import { Theme } from '@material-ui/core';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {
-  AlertError,
-  DateField,
-  Submit,
-  Actions,
-  defaultHandleSubmit,
-} from '#components/forms';
+import { Submit, Actions, defaultHandleSubmit } from '#components/forms';
+import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import DatePickerSelector from '#components/date/DatePickerSelector.component';
+import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
 
-import { ReportConfiguration as ReportConfigurationType } from '../types';
+import {
+  DynamicFilterDataType,
+  ReportConfiguration as ReportConfigurationType,
+  ReportFilterConfigParams,
+  ReportMetadataValue,
+  ReportFilterConfig,
+} from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   isSubmitting_: boolean;
   reportConfiguration: ReportConfigurationType;
-  handleExcelExportation: () => void;
   showDialog: boolean;
-  setShowDialog: (show: boolean) => void;
   disableContinue: boolean;
-  setDisableContinue: (show: boolean) => void;
+  columnsMetadata: ReportMetadataValue[];
   values: any;
+  isFranchisor?: boolean;
+  handleExcelExportation: () => void;
+  setShowDialog: (boolean: boolean) => void;
+  setDisableContinue: (boolean: boolean) => void;
+  handleGetDynamicDataForReport: (type: DynamicFilterDataType) => any[];
+  reportFilterConfigs: ReportFilterConfig[];
+  createReportFilterConfig: (
+    reportId: number,
+    data: Omit<ReportFilterConfig, 'id'>,
+    options?: OptionCallback<ReportFilterConfig>,
+  ) => void;
+  editReportFilterConfig: (
+    reportFilterConfigId: number,
+    data: Omit<ReportFilterConfig, 'id'>,
+    options?: OptionCallback<ReportFilterConfig>,
+  ) => void;
+  deleteReportFilterConfig: (reporFilterConfigId: number) => void;
+
+  fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
 };
 
 type DownloadButtonProps = {
@@ -66,6 +86,15 @@ const ReportGenerationSchema = Yup.object().shape({
         );
       },
     ),
+  time_period: Yup.string().oneOf([
+    'week',
+    'month',
+    'trimester',
+    'year',
+    'custom',
+    'today',
+  ]),
+  reportFilterConfigId: Yup.number().nullable(),
 });
 
 const DownloadButton: React.FC<DownloadButtonProps> = ({
@@ -80,7 +109,13 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
     <Button
       variant="contained"
       color="secondary"
-      onClick={() => handleExcelExportation(values)}
+      onClick={() =>
+        handleExcelExportation({
+          dateStart: moment(values.dateStart).unix(),
+          dateEnd: moment(values.dateEnd).unix(),
+          reportFilterConfigId: values.reportFilterConfigId,
+        })
+      }
       disabled={isSubmitting_}
     >
       {t('common.export')}
@@ -95,9 +130,18 @@ const ReportGenerationForm: React.FC<Props> = ({
   values,
   disableContinue,
   showDialog,
+  columnsMetadata,
+  setFieldValue,
+  isFranchisor = false,
   setShowDialog,
   handleExcelExportation,
   setDisableContinue,
+  handleGetDynamicDataForReport,
+  reportFilterConfigs,
+  createReportFilterConfig,
+  editReportFilterConfig,
+  fetchReportFilterConfigList,
+  deleteReportFilterConfig,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -113,6 +157,30 @@ const ReportGenerationForm: React.FC<Props> = ({
     setShowDialog(false);
     setDisableContinue(true);
   }, [disableContinue, setDisableContinue, setShowDialog]);
+
+  const handleCreateFilter = useCallback(
+    (
+      newFilter: Omit<ReportFilterConfig, 'id'>,
+      options: OptionCallback<ReportFilterConfig>,
+    ) => {
+      createReportFilterConfig(reportConfiguration.id, newFilter, options);
+    },
+    [createReportFilterConfig, reportConfiguration.id],
+  );
+
+  const handleFetchReportFilterConfigList = useCallback(() => {
+    fetchReportFilterConfigList({
+      report_id_in: [reportConfiguration.id],
+      page_size: null,
+    });
+  }, [fetchReportFilterConfigList, reportConfiguration.id]);
+
+  const handleSelectFilter = useCallback(
+    (id: number) => {
+      setFieldValue('reportFilterConfigId', id > 0 ? id : null);
+    },
+    [setFieldValue],
+  );
 
   return (
     <React.Fragment>
@@ -145,49 +213,43 @@ const ReportGenerationForm: React.FC<Props> = ({
         </DialogActions>
       </Dialog>
       <Form>
-        <Grid container direction="row" justify="space-between">
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
           <Grid item>
-            {reportConfiguration.date_type === 'none' ? (
-              <div />
-            ) : (
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <DateField
-                    name="dateStart"
-                    fullWidth
-                    label={t('common.from')}
-                  />
-                  <AlertError name="dateStart" />
-                </Grid>
-                <Hidden
-                  only={
-                    reportConfiguration.date_type === 'range'
-                      ? []
-                      : ['xs', 'sm', 'md', 'lg', 'xl']
-                  }
-                >
-                  <Grid item xs={6}>
-                    <DateField
-                      name={
-                        reportConfiguration.date_type === 'range'
-                          ? 'dateEnd'
-                          : 'dateStart'
-                      }
-                      fullWidth
-                      label={t('common.until')}
-                    />
-                    <AlertError
-                      name={
-                        reportConfiguration.date_type === 'range'
-                          ? 'dateEnd'
-                          : 'dateStart'
-                      }
-                    />
-                  </Grid>
-                </Hidden>
-              </Grid>
+            {reportConfiguration.date_type === 'range' && (
+              <DateRangeSelector
+                date_start={moment(values.dateStart).unix()}
+                date_end={moment(values.dateEnd).unix()}
+                timePeriod={values.time_period}
+                onSubmit={(_values) => {
+                  setFieldValue(
+                    'dateStart',
+                    _values.dateStart.format('YYYY-MM-DD'),
+                  );
+                  setFieldValue(
+                    'dateEnd',
+                    _values.dateEnd.format('YYYY-MM-DD'),
+                  );
+                  setFieldValue('timePeriod', _values.timePeriod);
+                }}
+              />
+            )}
+            {reportConfiguration.date_type === 'single' && (
+              <DatePickerSelector
+                date={moment(values.dateStart).unix()}
+                timePeriod={values.time_period}
+                onSubmit={(_values) => {
+                  setFieldValue('dateStart', _values.date.format('YYYY-MM-DD'));
+                  setFieldValue('timePeriod', _values.timePeriod);
+                }}
+              />
             )}
           </Grid>
+
           <Grid item>
             <Actions>
               <DownloadButton
@@ -199,6 +261,22 @@ const ReportGenerationForm: React.FC<Props> = ({
             </Actions>
           </Grid>
         </Grid>
+        {!isFranchisor && (
+          <div className={classes.reportFilterConfig}>
+            <ReportFilterConfigSelector
+              reportFilterConfigs={reportFilterConfigs}
+              selectedFilter={values.reportFilterConfigId}
+              error={null}
+              columnsMetadata={columnsMetadata}
+              fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
+              editReportFilterConfig={editReportFilterConfig}
+              onCreateReportFilterConfigs={handleCreateFilter}
+              onDeleteReportFilterConfigs={deleteReportFilterConfig}
+              onSelect={handleSelectFilter}
+              handleGetDynamicDataForReport={handleGetDynamicDataForReport}
+            />
+          </div>
+        )}
       </Form>
     </React.Fragment>
   );
@@ -224,6 +302,9 @@ export default compose(
           dateStart: moment(reportConfiguration.date_start),
           dateEnd: moment(reportConfiguration.date_end),
           dateType: reportConfiguration.date_type,
+          time_period: 'custom',
+          reportFilterConfigId:
+            reportConfiguration.reportFilterConfigId || null,
         }
       );
     },

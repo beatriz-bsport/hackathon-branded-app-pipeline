@@ -40,3 +40,13 @@ export const getPayoutList = createSelector(
   [_getPayoutListIds, _getPayoutData],
   (ids, data) => ids.map((id) => data[id]),
 );
+
+const _getIncrementalPayoutListIds = (state) =>
+  state.paymentBackend.incrementalPayout.allIds;
+const _getIncrementalPayoutData = (state) =>
+  state.paymentBackend.incrementalPayout.byId;
+
+export const getIncrementalPayoutList = createSelector(
+  [_getIncrementalPayoutListIds, _getIncrementalPayoutData],
+  (ids, data) => ids.map((id) => data[id]),
+);

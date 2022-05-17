@@ -117,6 +117,10 @@ export type MemberState = ErrorAndLoading &
         allIds: Array<number>;
         data: { [key: string]: Member };
       };
+      incremental: ErrorAndLoading & {
+        allIds: number[];
+        nextPage: number;
+      };
     };
     upsert: ErrorAndLoading;
     bulk: ErrorAndLoading;

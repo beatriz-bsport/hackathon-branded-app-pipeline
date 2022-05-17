@@ -190,3 +190,11 @@ export const getCurrentChangeEmailRequestEmailChoices = createSelector(
   [getCurrentMinimalChangeEmailRequest],
   (cerMinimal) => [cerMinimal?.old_email, cerMinimal?.new_email],
 );
+
+const _getIncrementalSearchedMemberIds = (state: RootState) =>
+  state.member.search.incremental.allIds;
+
+export const getIncrementalSearchedMembers = createSelector(
+  [_getIncrementalSearchedMemberIds, getMemberDict],
+  (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
+);

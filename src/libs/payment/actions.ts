@@ -128,6 +128,43 @@ export function fetchPaymentGroupList(
   };
 }
 
+export const incrementalListPayoutActions = {
+  isLoading: createAction('PAYOUT/INCREMENTAL_LIST/LOADING'),
+  error: createAction('PAYOUT/INCREMENTAL_LIST/ERROR'),
+  success: createAction('PAYOUT/INCREMENTAL_LIST/SUCCESS'),
+  reset: createAction('PAYOUT/INCREMENTAL_LIST/RESET'),
+};
+
+export function resetIncrementalPayouList() {
+  return async (dispatch: Dispatch) => {
+    dispatch(incrementalListPayoutActions.reset());
+  };
+}
+
+export function fetchIncrementalPayoutList(
+  params: any = {},
+  options?: OptionCallback<Payout[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(incrementalListPayoutActions.isLoading(true));
+    dispatch(incrementalListPayoutActions.error(null));
+
+    try {
+      const response = await fetchPayoutListAPI({
+        ...(params || {}),
+      });
+      dispatch(incrementalListPayoutActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(incrementalListPayoutActions.error(err));
+    }
+    dispatch(incrementalListPayoutActions.isLoading(false));
+  };
+}
+
 export const listPayoutActions = {
   isLoading: createAction('PAYOUT/LIST/LOADING'),
   error: createAction('PAYOUT/LIST/ERROR'),

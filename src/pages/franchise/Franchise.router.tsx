@@ -46,8 +46,8 @@ const FranchiseNotificationRulesPage = asyncComponent(
   () => import('./FranchiseNotificationRules.page'),
 );
 
-const ReportingGeneration = asyncComponent(
-  () => import('../reporting/ReportingGeneration.page'),
+const FranchiseReportDetail = asyncComponent(
+  () => import('./FranchiseReportDetail.page'),
 );
 
 const FranchiseReportList = asyncComponent(
@@ -149,7 +149,7 @@ const FranchiseRouter = (props: Props) => {
             <Route
               exact
               path="/f/reporting/:reportId"
-              component={ReportingGeneration}
+              component={FranchiseReportDetail}
             />
             <Route path="/f/reporting" component={FranchiseReportList} />
             <Route

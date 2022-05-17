@@ -217,7 +217,10 @@ export const metaActivityListActions = {
   success: createAction('META_ACTIVITIES/LIST/SUCCESS'),
 };
 
-export function fetchAllActivities(params: any = {}): ThunkAction {
+export function fetchAllActivities(
+  params: any = {},
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(metaActivityListActions.isLoading(true));
     dispatch(metaActivityListActions.error(null));
@@ -228,7 +231,13 @@ export function fetchAllActivities(params: any = {}): ThunkAction {
         ...params,
       });
       dispatch(metaActivityListActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
+      if (options && options.onError) {
+        options.onError(err);
+      }
       console.error(err);
       dispatch(metaActivityListActions.error(err));
       Sentry.captureException(err);

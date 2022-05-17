@@ -137,7 +137,6 @@ export class ThemeForm extends Component<Props, State> {
         <Typography variant="h6" className={this.props.classes.idContainer}>
           {`BSPORT ID: ${this.props.theme ? this.props.theme.company : ' - '}`}
         </Typography>
-
         <div className={classes.inputContainer}>
           <ImageUploader169
             label={t('forms.cover.label')}

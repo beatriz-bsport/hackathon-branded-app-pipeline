@@ -1,5 +1,9 @@
 import { createAction } from 'redux-actions';
-import { OptionCallback, Dispatch } from '../../state/types';
+import {
+  OptionCallback,
+  Dispatch,
+  OptionPaginatedCallback,
+} from '../../state/types';
 import { monitorBackgroundTask } from '../background-task/actions';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import {
@@ -12,8 +16,17 @@ import {
   updateReport as updateReportAPI,
   createReport as createReportAPI,
   fetchReportOfferManagement as fetchReportOfferManagementAPI,
+  createReportFilterConfig as createReportFilterConfigAPI,
+  editReportFilterConfig as editReportFilterConfigAPI,
+  fetchReportFilterConfigList as fetchReportFilterConfigListAPI,
+  deleteReportFilterConfig as deleteReportFilterConfigAPI,
 } from './api';
-import { ReportConfiguration } from './types';
+import {
+  DynamicFilterDataType,
+  ReportConfiguration,
+  ReportFilterConfig,
+  ReportFilterConfigParams,
+} from './types';
 
 export const reportGenerationDetail = {
   error: createAction('REPORT/GENERATE/ERROR'),
@@ -287,6 +300,146 @@ export function updateReport(props: {
     } catch (error) {
       dispatch(updateReportActions.error(error));
       if (typeof options?.onError === 'function') options?.onError(error);
+    }
+  };
+}
+
+export const setDynamicDataHasBeenLoadedAction = createAction(
+  'REPORT/FILTER/DYNAMIC/LOADED',
+);
+
+export function setDynamicDataHasBeenLoaded(type: DynamicFilterDataType) {
+  return async (dispatch: Dispatch) => {
+    dispatch(setDynamicDataHasBeenLoadedAction(type));
+  };
+}
+
+export const resetDynamicDataHasBeenLoadedAction = createAction(
+  'REPORT/FILTER/DYNAMIC/RESET',
+);
+
+export function resetDynamicDataHasBeenLoaded() {
+  return async (dispatch: Dispatch) => {
+    dispatch(setDynamicDataHasBeenLoadedAction());
+  };
+}
+
+export const createReportFilterConfigActions = {
+  error: createAction('REPORT_FILTER/CREATE/ERROR'),
+  isLoading: createAction('REPORT_FILTER/CREATE/IS_LOADING'),
+  success: createAction('REPORT_FILTER/CREATE/SUCCESS'),
+};
+
+export function createReportFilterConfig(
+  reportId: number,
+  data: Omit<ReportFilterConfig, ['id', 'report']>,
+  options?: OptionCallback<ReportFilterConfig>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createReportFilterConfigActions.isLoading(true));
+    dispatch(createReportFilterConfigActions.error(null));
+    try {
+      const response = await createReportFilterConfigAPI({
+        report: reportId,
+        ...data,
+      });
+
+      dispatch(createReportFilterConfigActions.success(response.data));
+      dispatch(createReportFilterConfigActions.isLoading(false));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      options?.onError(error);
+      dispatch(createReportFilterConfigActions.error(error));
+      dispatch(createReportFilterConfigActions.isLoading(false));
+    }
+  };
+}
+
+export const editReportFilterConfigActions = {
+  error: createAction('REPORT_FILTER/EDIT/ERROR'),
+  isLoading: createAction('REPORT_FILTER/EDIT/IS_LOADING'),
+  success: createAction('REPORT_FILTER/EDIT/SUCCESS'),
+};
+
+export function editReportFilterConfig(
+  reportFilterConfigId: number,
+  data: Omit<ReportFilterConfig, 'id'>,
+  options?: OptionCallback<ReportFilterConfig>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(editReportFilterConfigActions.isLoading(true));
+
+    try {
+      const response = await editReportFilterConfigAPI(
+        reportFilterConfigId,
+        data,
+      );
+
+      dispatch(editReportFilterConfigActions.success(response.data));
+      dispatch(editReportFilterConfigActions.isLoading(false));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      options?.onError(error);
+      dispatch(editReportFilterConfigActions.error(error));
+      dispatch(editReportFilterConfigActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchReportFilterConfigListActions = {
+  error: createAction('REPORT_FILTER/LIST/ERROR'),
+  isLoading: createAction('REPORT_FILTER/LIST/IS_LOADING'),
+  success: createAction('REPORT_FILTER/LIST/SUCCESS'),
+};
+
+export function fetchReportFilterConfigList(
+  params: ReportFilterConfigParams,
+  options?: OptionPaginatedCallback<ReportFilterConfig>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchReportFilterConfigListActions.isLoading(true));
+
+    try {
+      const response = await fetchReportFilterConfigListAPI(params);
+
+      dispatch(
+        fetchReportFilterConfigListActions.success(
+          response.data?.results ?? response.data,
+        ),
+      );
+      dispatch(fetchReportFilterConfigListActions.isLoading(false));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      options?.onError(error);
+      dispatch(fetchReportFilterConfigListActions.error(error));
+      dispatch(fetchReportFilterConfigListActions.isLoading(false));
+    }
+  };
+}
+
+export const deleteReportFilterConfigActions = {
+  error: createAction('REPORT_FILTER/DELETE/ERROR'),
+  isLoading: createAction('REPORT_FILTER/DELETE/IS_LOADING'),
+  success: createAction('REPORT_FILTER/DELETE/SUCCESS'),
+};
+
+export function deleteReportFilterConfig(
+  reporFilterId: number,
+  options?: OptionPaginatedCallback<ReportFilterConfig>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteReportFilterConfigActions.isLoading(true));
+
+    try {
+      await deleteReportFilterConfigAPI(reporFilterId);
+
+      dispatch(deleteReportFilterConfigActions.success(reporFilterId));
+      dispatch(deleteReportFilterConfigActions.isLoading(false));
+      options?.onSuccess();
+    } catch (error) {
+      options?.onError(error);
+      dispatch(deleteReportFilterConfigActions.error(error));
+      dispatch(deleteReportFilterConfigActions.isLoading(false));
     }
   };
 }

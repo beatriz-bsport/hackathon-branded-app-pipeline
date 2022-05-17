@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import uniq from 'lodash/uniq';
 
 // @ts-ignore
 import { handleActions } from 'redux-actions';
@@ -20,6 +21,7 @@ import {
   unArchiveMemberActions,
   interrogateMemberStatusActions,
   searchArchivedMembers,
+  incrementalSearchAction,
   updateMemberFileActions,
   createChangeEmailRequestActions,
   retrieveChangeEmailRequestActions,
@@ -50,6 +52,12 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
       error: null,
       allIds: [],
       data: {},
+    },
+    incremental: {
+      loading: false,
+      error: null,
+      allIds: [],
+      nextPage: 1,
     },
   },
   upsert: {
@@ -302,6 +310,39 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
           { deep: true },
         );
     },
+    [incrementalSearchAction.reset.toString()]: (state) => {
+      return state.setIn(['search', 'incremental', 'allIds'], []);
+    },
+    [incrementalSearchAction.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['search', 'incremental', 'loading'], payload);
+    },
+    [incrementalSearchAction.error.toString()]: (state, { payload }) => {
+      return state.setIn(['search', 'incremental', 'error'], payload);
+    },
+    [incrementalSearchAction.success.toString()]: (state, action) => {
+      return state
+        .setIn(
+          ['search', 'incremental', 'allIds'],
+          uniq([
+            ...state.search.incremental.allIds,
+            ...action.payload.results.map((m: Member) => m.id),
+          ]),
+        )
+        .setIn(['search', 'incremental', 'nextPage'], action.payload.next_page)
+        .merge(
+          {
+            byId: action.payload.results.reduce(
+              (acc: MemberState['byId'], m: Member) => {
+                acc[m.id] = m;
+                return acc;
+              },
+              {},
+            ),
+          },
+          { deep: true },
+        );
+    },
+
     [actionTypes.START_FETCH_MEMBER.toString()]: (state) => {
       return state.set('loading', true);
     },

@@ -90,14 +90,28 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
   const { classes, shrink } = props;
   return (
     <Field {...props}>
-      {({ field, meta: { touched, error } }) => {
+      {({
+        field,
+        meta: { touched, error },
+        form: { setFieldValue, setFieldTouched },
+      }) => {
         return (
           <MuiTextField
             className={classes.field}
             shrink={shrink}
             {...field}
             {...omit(props, ['field'])}
-            error={!!(touched && error && !(Object.keys(error).length === 0))}
+            onChange={(ev) => {
+              props?.onChange?.(ev);
+              setFieldTouched(props.name);
+              if (props.castAsNumber) {
+                setFieldValue(props.name, Number.parseFloat(ev.target.value));
+
+                return;
+              }
+              setFieldValue(props.name, ev.target.value);
+            }}
+            error={!!(touched && typeof error === 'string')}
           />
         );
       }}
@@ -158,11 +172,15 @@ export const DelayTextField = withStyles(textFieldStyles)((props: Props) => {
   );
 });
 
-export function PriceField(props) {
+type PriceFieldProps = {
+  min?: number,
+} & TextFieldProps;
+
+export function PriceField(props: PriceFieldProps) {
   return (
     <TextField
       InputProps={{
-        inputProps: { min: 0, step: 0.01 },
+        inputProps: { min: props.min ?? 0, step: 0.01 },
         startAdornment: (
           <InputAdornment position="start">
             {getCurrencyDisplay()}
@@ -175,11 +193,15 @@ export function PriceField(props) {
   );
 }
 
-export function IntegerField(props) {
+type IntegerFieldProps = {
+  min?: number,
+} & TextFieldProps;
+
+export function IntegerField(props: IntegerFieldProps) {
   return (
     <TextField
       InputProps={{
-        inputProps: { min: 0, step: 1 },
+        inputProps: { min: props.min ?? 0, step: 1 },
       }}
       type="number"
       {...omit(props, ['field'])}
@@ -265,6 +287,7 @@ export const DateField = (props: DateFieldProps) => {
             style={{ minWidth: 120 }}
             value={field.value || now}
             onChange={(date) => {
+              props?.onChange?.(date);
               setFieldTouched(props.name);
               setFieldValue(
                 props.name,

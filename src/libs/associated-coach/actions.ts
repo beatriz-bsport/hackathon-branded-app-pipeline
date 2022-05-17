@@ -464,7 +464,7 @@ export const bulkRetrieveActions = {
   success: createAction('COACH/BULK_RETRIEVE/SUCCESS'),
 };
 
-function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
+export function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(bulkRetrieveActions.isLoading(true));
     dispatch(bulkRetrieveActions.error(null));

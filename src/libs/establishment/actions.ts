@@ -512,7 +512,7 @@ export function fetchAllEstablishmentBillingGroup(options?: OptionCallback) {
       dispatch(fetchAllEstablishmentBillingGroupActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      dispatch(favoriteActions.error(error));
+      dispatch(fetchAllEstablishmentBillingGroupActions.error(error));
       console.error(error);
       if (options && options.onError) options.onError(error);
     }

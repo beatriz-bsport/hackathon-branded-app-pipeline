@@ -81,6 +81,7 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
       },
     },
     privateSlot: {
+      allIds: [],
       byId: {},
       loading: false,
       error: null,
@@ -1043,17 +1044,22 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.setIn(['privateSlot', 'error'], payload);
     },
     [privateSlotListActions.all.toString()]: (state, { payload }) => {
-      return state.merge(
-        {
-          privateSlot: {
-            byId: payload.reduce((acc: any, ps: any) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
+      return state
+        .setIn(
+          ['privateSlot', 'allIds'],
+          payload.map((ps: any) => ps.id),
+        )
+        .merge(
+          {
+            privateSlot: {
+              byId: payload.reduce((acc: any, ps: any) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
           },
-        },
-        { deep: true },
-      );
+          { deep: true },
+        );
     },
     [privateSlotListActions.success.toString()]: (state, { payload }) => {
       return state

@@ -6,11 +6,7 @@ import { AccessAlarm } from '@material-ui/icons';
 const CustomTemplate = (args: OwnProps<{ label: string; value: string }>) => {
   const [value, setValue] = useState(args.value);
   return (
-    <MaterialUISelector
-      {...args}
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
-    />
+    <MaterialUISelector {...args} value={value} onChange={setValue(newValue)} />
   );
 };
 

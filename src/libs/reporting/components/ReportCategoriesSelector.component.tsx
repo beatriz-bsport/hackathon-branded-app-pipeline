@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import { getCategory } from '../utils';
@@ -71,13 +70,7 @@ const ReportCategoriesSelector: React.FC<Props> = ({
                     {(isSelected || initial) && (
                       <Chip
                         key={category.id}
-                        avatar={
-                          Icon ? (
-                            <Avatar>
-                              <Icon />
-                            </Avatar>
-                          ) : null
-                        }
+                        icon={Icon ? <Icon /> : null}
                         color={color}
                         label={t(`categories.${category.id}`)}
                         className={classes.chip}

@@ -30,6 +30,16 @@ export const getConsumerGiftcardByActivationCode = (
     (cg) => cg.activation_code === activationCode,
   );
 
+export const getAllGiftcardList = createSelector(
+  [getGiftcardListIds, getGiftcardData],
+  (
+    ids: Array<number>,
+    data: { [id: number]: Giftcard },
+    // adding typing because reselect does not infer type
+    // properly with heterogeneous first args
+  ) => ids.map((id) => data[id]),
+);
+
 export const getGiftcardListActive = createSelector(
   [getGiftcardListIds, getGiftcardData],
   (

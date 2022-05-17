@@ -83,14 +83,20 @@ export const listAllPaymentPackActions = {
   success: createAction('PAYMENT_PACK/LIST/SUCCESS'),
 };
 
-export function refreshAllPaymentPack() {
+export function refreshAllPaymentPack(options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackActions.error(null));
     try {
       const response = await fetchAllPaymentPacksAPI();
       const paymentPacks = response.data.results;
       dispatch(listAllPaymentPackActions.success(paymentPacks));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
+      if (options && options.onError) {
+        options.onError(err);
+      }
       console.error(err);
       dispatch(listAllPaymentPackActions.error(err));
     }
@@ -98,10 +104,10 @@ export function refreshAllPaymentPack() {
   };
 }
 
-export function fetchAllPaymentPacks() {
+export function fetchAllPaymentPacks(options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackActions.isLoading(true));
-    dispatch(refreshAllPaymentPack());
+    dispatch(refreshAllPaymentPack(options));
   };
 }
 

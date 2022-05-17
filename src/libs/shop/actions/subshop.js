@@ -12,7 +12,7 @@ export const subshopListActions = {
   success: createAction('SUBSHOP/LIST/SUCCESS'),
 };
 
-export function fetchAllSubShop(companyId: ?number) {
+export function fetchAllSubShop(companyId: ?number, option?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(subshopListActions.error(null));
     dispatch(subshopListActions.isLoading(true));
@@ -20,7 +20,9 @@ export function fetchAllSubShop(companyId: ?number) {
     try {
       const response = await api.fetchAllSubShop({ companyId });
       dispatch(subshopListActions.success(response.data));
+      option?.onSuccess(response);
     } catch (e) {
+      option?.onError(e);
       dispatch(subshopListActions.error(e));
     }
     dispatch(subshopListActions.isLoading(false));

@@ -1,3 +1,18 @@
+const GROUP_OR_OPERAND = 0;
+const GROUP_AND_OPERAND = 1;
+
+const FILTER_EQUAL_OPERAND = 0;
+const FILTER_NOT_EQUAL_OPERAND = 1;
+const FILTER_LTE_OPERAND = 2;
+const FILTER_GTE_OPERAND = 3;
+const FILTER_IN_OPERAND = 4;
+const FILTER_OUT_OPERAND = 5;
+
+const FILTER_OPERAND_LIST_ID = 0;
+const FILTER_OPERAND_FLOAT_ID = 1;
+const FILTER_OPERAND_BOOLEAN_ID = 2;
+const FILTER_OPERAND_DATE_ID = 3;
+
 exports.default = {
   search: 'Rechercher un rapport',
   subheader: {
@@ -58,6 +73,22 @@ exports.default = {
   header: {
     sum: 'Somme',
     average: 'En moyenne',
+    selectRange: 'Sélectionner un plage de dates',
+    selectDate: 'Sélectionner une date',
+    from: 'Du',
+    to: 'au',
+    start: 'Début',
+    end: 'Fin',
+    rapidChoice: 'Choix rapide',
+    helper: {
+      today: "Aujourd'hui",
+      week: 'Dernière semaine',
+      month: 'Mois dernier',
+      trimester: 'Trois dernier mois',
+      year: 'Dernière année',
+    },
+    from_to: 'Du {{-from}} au {{-to}}',
+    save: 'Sauvegarder',
   },
   columns: {
     initial_price: "Prix d'achat",
@@ -68,7 +99,10 @@ exports.default = {
     sum_attendance: 'Nombre de présents',
     sum__non_attendance: "Nombre d'absences",
     coaches: 'Professeurs',
+    payout: 'Virement',
     payout_identifier: 'Virement',
+    payout_status: 'Status du virement',
+    payout_date_created: 'Date du virement',
     recurrent_price: 'Montant',
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',
@@ -277,6 +311,79 @@ exports.default = {
     paid: 'Encaissé',
     amount_due: 'Montant dû',
   },
+  filter: {
+    title: 'Vue filtrée',
+    emptyFilter: 'Toutes les données',
+    createFilter: 'Ajouter une vue filtrée',
+    deleteModal: {
+      title: 'Suppression',
+      content:
+        'Êtes vous sûr de vouloir supprimer cette vue filtrée ? Cette action est irréversible.',
+    },
+    form: {
+      title: 'Vue filtrée',
+      name: 'Nom',
+      information: 'Informations générales',
+      filter: 'Filtres',
+      operandSelect: 'Règle entre les filtres',
+      add: 'Ajouter',
+      addGroupOption: 'Un groupe de filtre',
+      addFilterOption: 'Un filtre',
+      addFilter: 'Ajouter un filtre',
+      emptyState: "Aucune colonne de ce rapport n'est filtrable",
+      groupOperand: {
+        [GROUP_AND_OPERAND]: 'Et',
+        [GROUP_OR_OPERAND]: 'Ou',
+      },
+      groupOperandHelperText: {
+        [GROUP_AND_OPERAND]:
+          'Les éléments filtrés devront correspondre à tous les filtres.',
+        [GROUP_OR_OPERAND]:
+          'Les éléments filtrés devront correspondre à au moins un filtre.',
+      },
+      filterComparator: {
+        [FILTER_OPERAND_LIST_ID]: {
+          [FILTER_OUT_OPERAND]: 'Ne contient pas',
+          [FILTER_IN_OPERAND]: 'Contient',
+        },
+        [FILTER_OPERAND_FLOAT_ID]: {
+          [FILTER_EQUAL_OPERAND]: 'Egal à',
+          [FILTER_NOT_EQUAL_OPERAND]: "N'est pas égal à",
+          [FILTER_IN_OPERAND]: "Dans l'interval",
+          [FILTER_OUT_OPERAND]: "Hors de l'interval",
+          [FILTER_LTE_OPERAND]: 'Inférieur ou égal à',
+          [FILTER_GTE_OPERAND]: 'Supérieur ou égal à',
+        },
+        [FILTER_OPERAND_BOOLEAN_ID]: {
+          [FILTER_EQUAL_OPERAND]: 'Est',
+          [FILTER_NOT_EQUAL_OPERAND]: "N'est pas",
+        },
+        [FILTER_OPERAND_DATE_ID]: {
+          [FILTER_EQUAL_OPERAND]: 'Est le',
+          [FILTER_NOT_EQUAL_OPERAND]: "N'est pas le",
+          [FILTER_IN_OPERAND]: "Dans l'interval",
+        },
+      },
+      subDataType: {
+        day: 'Date',
+        hour: 'Heure',
+      },
+      placeholderList: 'Sélectionner',
+      isTrue: 'Vrai',
+      isFalse: 'Faux',
+      error: {
+        invalidTypeForColumns: 'Opération impossible sur cette colonne',
+        byIdDuplicate: 'Des champs à selection multiple sont présent en double',
+        needAtLeatOneFilter: 'Un filtre minimun est requis',
+        wrongOrdering: "Les valeurs ne sont pas dans l'ordre croissant",
+      },
+      submit: 'Enregistrer',
+      cancel: 'Annuler',
+      edit: 'Modifier',
+      columnError:
+        'Attention la colonne filtrée ici a été enlevée du rapport. Le filtre sur cette colonne est cependant encore appliqué.',
+    },
+  },
   yes: 'Oui',
   no: 'Non',
   payment_method: {
@@ -295,6 +402,11 @@ exports.default = {
     subscription_cb: 'Paiement planifié (abonnement)',
     credit_account: 'Crédit client',
     other: 'Divers',
+    bancontact: 'Bancontact',
+    sofort: 'Sofort',
+    ideal: 'iDeal',
+    eps: 'EPS',
+    giropay: 'Giropay',
   },
   product_type: {
     payment_pack: 'Carte de cours',
@@ -304,6 +416,9 @@ exports.default = {
     fee: 'Frais',
     payment_combo: 'Pack',
     private_pass: 'Carte RDV',
+    booking: 'Réservation',
+    coupon: 'Coupon',
+    giftcard: 'Carte cadeau',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',
@@ -328,5 +443,37 @@ exports.default = {
     generate: 'Générer',
     ready: 'Votre rapport "{{ name }}" est prêt à être télécharger.',
     category: 'Rapport Excel  : {{category}}',
+  },
+  datatype: {
+    price: 'Prix',
+    cts: 'Prix en centimes',
+    payment_method: 'Méthode de paiement',
+    coupon: 'Coupon',
+    contract: 'Contrat',
+    date: 'Date',
+    time: 'Heure',
+    dow: 'Jour de la semaine',
+    datetime: 'Date',
+    establishment: 'Etablissement',
+    coach: 'Professeurs',
+    giftcard: 'Carte cadeaux',
+    video: 'Vidéo',
+    payment_pack: 'Carte de cours',
+    int: 'Nombre',
+    number: 'Nombre',
+    percent: 'Pourcentage',
+    email: 'Email',
+    user: 'Membre',
+    boolean: 'Vraix/Faux',
+    private_service: 'Rendez vous',
+    private_pass: 'Carte de rendez-vous',
+    private_slot: 'Type de rendez vous',
+    subshop: 'Catégorie',
+    billing_establishment: 'Etablissemennt de facturation',
+    billing_group: 'Groupe de facturation',
+    activity: 'Activité',
+    booking_status_code: 'Statut de la réservation',
+    payout_status: 'Status du virement',
+    payout: 'Virement',
   },
 };

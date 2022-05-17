@@ -6,8 +6,14 @@ import {
   deleteAuth,
   putAuth,
   postAuth,
+  patchAuth,
 } from '../../http';
-import { ReportConfiguration, ReportMetadataValue } from './types';
+import {
+  ReportConfiguration,
+  ReportFilterConfig,
+  ReportFilterConfigParams,
+  ReportMetadataValue,
+} from './types';
 
 export const fetchReportGeneration = async (reportId: number, params: any) => {
   return getAuth(
@@ -70,3 +76,29 @@ export const updateReport = async (
 export const createReport = async (data: ReportConfiguration) => {
   return postAuth(`${API_URI}/reporting/reports/`, data);
 };
+
+export const createReportFilterConfig = async (
+  data: Omit<ReportFilterConfig, 'id'>,
+): Promise<AxiosResponse<ReportFilterConfig>> =>
+  postAuth(`${API_URI}/reporting/report-filter-config/`, data);
+
+export const editReportFilterConfig = async (
+  reportFilterConfigId: number,
+  data: ReportFilterConfig,
+): Promise<AxiosResponse<ReportFilterConfig>> =>
+  patchAuth(
+    `${API_URI}/reporting/report-filter-config/${reportFilterConfigId}/`,
+    data,
+  );
+
+export const fetchReportFilterConfigList = async (
+  params: ReportFilterConfigParams,
+): Promise<AxiosResponse<ReportFilterConfig>> =>
+  getAuth(
+    `${API_URI}/reporting/report-filter-config/${buildUrlParams(params)}`,
+  );
+
+export const deleteReportFilterConfig = async (
+  reporFilterId: number,
+): Promise<AxiosResponse<void>> =>
+  deleteAuth(`${API_URI}/reporting/report-filter-config/${reporFilterId}/`);

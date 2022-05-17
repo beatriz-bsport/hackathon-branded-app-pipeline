@@ -255,7 +255,7 @@ export function getConverter(
     }
     if (datatype === 'time') {
       return {
-        value: moment(value, 'HH[:]mm').format('HH[:]mm'),
+        value,
       };
     }
     if (datatype === 'date') {
@@ -278,6 +278,15 @@ export function getConverter(
       if (value) {
         return {
           value: moment(value, 'YYYY-MM-DD[,] HH[:]mm').format('L HH[h]mm'),
+        };
+      }
+      return '';
+    }
+
+    if (datatype === 'payout_status') {
+      if (value) {
+        return {
+          value: t(`payment:payout.status.${value}`),
         };
       }
       return '';

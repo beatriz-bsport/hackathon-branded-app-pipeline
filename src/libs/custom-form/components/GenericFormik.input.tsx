@@ -1,11 +1,15 @@
 import React, { ReactNode } from 'react';
+import classNames from 'classnames';
+
 import MuiTextField from '@material-ui/core/TextField';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Field, useField } from 'formik';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Switch } from '@material-ui/core';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import MaterialUISelector, {
+  Props as MaterialUISelectorProps,
+} from '#components/Selector/MaterialUISelector.component';
 
 export type BaseFieldProps = {
   name: string;
@@ -108,19 +112,32 @@ export const SwitchField = (props: SwitchFieldProps) => {
 type MaterialUiSingleSelectorOwnProps = {
   options: Array<{ label: string; value: number }>;
   title?: ReactNode;
-  placeholder?: string;
-  inScrollBar?: boolean;
-  isMenuListVirtualized?: boolean;
-};
+  onChange?: (value: { label: string; value: any }) => void;
+  forceError?: boolean;
+} & Pick<
+  MaterialUISelectorProps<{
+    label: string;
+    value: string;
+  }>,
+  | 'chipsRenderer'
+  | 'isMenuListVirtualized'
+  | 'itemRenderer'
+  | 'inScrollBar'
+  | 'placeholder'
+  | 'isDisabled'
+>;
 
 type MaterialUiSingleSelectorProps = BaseFieldProps &
-  MaterialUiSingleSelectorOwnProps;
+  MaterialUiSingleSelectorOwnProps & {
+    className: string;
+  };
 
 const useMaterialUiSingleSelectStyles = makeStyles<Theme>((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(1),
+    width: '100%',
   },
 }));
 
@@ -130,8 +147,9 @@ export const MaterialUiSingleSelectorField: React.FC<
   const [field, meta, helpers] = useField<number>(props.name);
   const value = props.options.find((option) => option.value === field.value);
   const classes = useMaterialUiSingleSelectStyles();
+
   return (
-    <div className={classes.container}>
+    <div className={classNames(classes.container, props.className)}>
       {!!props.title && props.title}
       <Field {...props}>
         {() => (
@@ -139,13 +157,18 @@ export const MaterialUiSingleSelectorField: React.FC<
             placeholder={props.placeholder}
             isMenuListVirtualized={props.isMenuListVirtualized}
             onChange={(option) => {
-              helpers.setValue(option.value);
+              props.onChange
+                ? props.onChange(option)
+                : helpers.setValue(option.value);
+              helpers.setTouched(true, false);
             }}
             value={value}
             isMulti={false}
             inScrollBar={props.inScrollBar}
             options={props.options}
-            error={!!(meta.touched && meta.error)}
+            error={!!(meta.touched && meta.error) || props.forceError}
+            chipsRenderer={props.chipsRenderer}
+            isDisabled={props.isDisabled}
           />
         )}
       </Field>
@@ -160,6 +183,9 @@ type MaterialUiMultiSelectorProps = {
   inScrollBar?: boolean;
   isDisabled?: boolean;
   isMenuListVirtualized?: boolean;
+  className?: string;
+  defaultNumberShown?: number;
+  forceError?: boolean;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -179,7 +205,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
   );
   const classes = useMaterialUiMultiSelectStyles();
   return (
-    <div className={classes.container}>
+    <div className={classNames(classes.container, props.className)}>
       {!!props.title && props.title}
       <Field {...props}>
         {() => (
@@ -190,12 +216,14 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
             onChange={(optionList) => {
               const valueList = optionList.map((option) => option.value);
               helpers.setValue(valueList);
+              helpers.setTouched(true, false);
             }}
             inScrollBar={props.inScrollBar}
             value={value}
             isMulti
             options={props.options}
-            error={!!(meta.touched && meta.error)}
+            error={!!(meta.touched && meta.error) || props.forceError}
+            defaultNumberShown={props.defaultNumberShown}
           />
         )}
       </Field>

@@ -14,6 +14,7 @@ import {
   fetchMember as fetchMemberApi,
   fetchFilteredMembers as fetchFilteredMembersAPI,
   search as searchApi,
+  paginatedSearch as paginatedSearchAPI,
   tag as tagApi,
   untag as untagApi,
   tagAll as tagAllApi,
@@ -345,6 +346,58 @@ export function errorSearch(error?: Error) {
 }
 export function successSearch(members: Array<Member>) {
   return { type: actionTypes.MEMBER_SEARCH_SUCCESS, members };
+}
+
+export const incrementalSearchAction = {
+  isLoading: createAction('MEMBER/SEARCH/INCREMENTAL/LOADING'),
+  error: createAction('MEMBER/SEARCH/INCREMENTAL/ERROR'),
+  success: createAction('MEMBER/SEARCH/INCREMENTAL/SUCCESS'),
+  reset: createAction('MEMBER/SEARCH/INCREMENTAL/RESET'),
+};
+
+export function resetTncrementalSearch() {
+  return async (dispatch: Dispatch) => {
+    dispatch(incrementalSearchAction.reset());
+  };
+}
+
+export function incrementalSearch(
+  text: string,
+  page: number,
+  params?: { [key: string]: boolean | string | number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(incrementalSearchAction.isLoading(true));
+    dispatch(incrementalSearchAction.error(false));
+    try {
+      const response = await paginatedSearchAPI(
+        text,
+        {
+          page_size: 15,
+          page,
+        },
+        params,
+      );
+      dispatch(incrementalSearchAction.isLoading(false));
+
+      const members = response.data;
+      dispatch(incrementalSearchAction.error(false));
+      dispatch(incrementalSearchAction.success(members));
+      if (options && options.onSuccess) {
+        options.onSuccess(response);
+      }
+      return members;
+    } catch (err) {
+      console.error(err);
+      dispatch(incrementalSearchAction.isLoading(false));
+      dispatch(incrementalSearchAction.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    return [];
+  };
 }
 
 export function search(

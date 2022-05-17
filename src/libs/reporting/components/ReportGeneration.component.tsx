@@ -8,10 +8,15 @@ import ReportTable from './ReportTable.component';
 import ReportTableHeaders from './ReportTableHeaders.component';
 
 import {
+  DynamicFilterDataType,
   ReportConfiguration,
   ReportExtractResult,
+  ReportFilterConfig,
+  ReportFilterConfigParams,
   ReportMetadata,
 } from '../types';
+import { getColumn } from '../utils';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   resultLoading?: boolean;
@@ -29,11 +34,26 @@ type Props = {
   otherPages: Array<number>;
   pageSize: number;
   reportStoreRowsLoading: boolean;
+  isFranchisor?: boolean;
   handleExcelExportation: () => void;
   showDialog: boolean;
   setShowDialog: (boolean: boolean) => void;
   disableContinue: boolean;
   setDisableContinue: (boolean: boolean) => void;
+  handleGetDynamicDataForReport: (type: DynamicFilterDataType) => any[];
+  reportFilterConfigs: ReportFilterConfig[];
+  createReportFilterConfig: (
+    reportId: number,
+    data: Omit<ReportFilterConfig, 'id'>,
+    options?: OptionCallback<ReportFilterConfig>,
+  ) => void;
+  editReportFilterConfig: (
+    reportFilterConfigId: number,
+    data: Omit<ReportFilterConfig, 'id'>,
+    options?: OptionCallback<ReportFilterConfig>,
+  ) => void;
+  fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
+  deleteReportFilterConfig: (reporFilterId: number) => void;
 };
 
 const ReportGeneration: React.FC<Props> = ({
@@ -52,15 +72,25 @@ const ReportGeneration: React.FC<Props> = ({
   otherPages,
   pageSize,
   reportStoreRowsLoading,
+  isFranchisor,
   handleExcelExportation,
   showDialog,
   setShowDialog,
   disableContinue,
   setDisableContinue,
+  handleGetDynamicDataForReport,
+  reportFilterConfigs,
+  createReportFilterConfig,
+  editReportFilterConfig,
+  fetchReportFilterConfigList,
+  deleteReportFilterConfig,
 }) => {
   if (!report || metadata.loading) {
     return <LinearProgress />;
   }
+
+  const columnsMetadata =
+    report.columns?.map((c) => getColumn(metadata, report, c)) ?? [];
 
   return (
     <div>
@@ -68,7 +98,7 @@ const ReportGeneration: React.FC<Props> = ({
         <ReportGenerationForm
           reportConfiguration={report}
           onSubmit={handleGenerate}
-          metadata={metadata}
+          columnsMetadata={columnsMetadata}
           handleExcelExportation={handleExcelExportation}
           showDialog={showDialog}
           setShowDialog={setShowDialog}
@@ -76,6 +106,13 @@ const ReportGeneration: React.FC<Props> = ({
           setDisableContinue={setDisableContinue}
           resultLoading={resultLoading}
           isSubmitting_={reportStoreRowsLoading}
+          handleGetDynamicDataForReport={handleGetDynamicDataForReport}
+          reportFilterConfigs={reportFilterConfigs}
+          createReportFilterConfig={createReportFilterConfig}
+          editReportFilterConfig={editReportFilterConfig}
+          fetchReportFilterConfigList={fetchReportFilterConfigList}
+          deleteReportFilterConfig={deleteReportFilterConfig}
+          isFranchisor={isFranchisor}
         />
       )}
       <ReportTableHeaders

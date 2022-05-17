@@ -8,6 +8,7 @@ import {
   onSpotPaymentReportActions,
   listPaymentGroupActions,
   listPayoutActions,
+  incrementalListPayoutActions,
   detachPaymentMethodActions,
 } from './actions';
 
@@ -29,6 +30,13 @@ const initialState = Immutable({
     byId: {},
   },
   payout: {
+    error: null,
+    loading: false,
+    allIds: [],
+    byId: {},
+    nextPage: 1,
+  },
+  incrementalPayout: {
     error: null,
     loading: false,
     allIds: [],
@@ -70,6 +78,39 @@ export default handleActions(
     [listPayoutActions.error]: (state, { payload }) => {
       return state.setIn(['payout', 'error'], payload);
     },
+    [incrementalListPayoutActions.success]: (state, { payload }) => {
+      const newIds = payload.results.map((po) => po.id);
+      return state
+        .setIn(
+          ['incrementalPayout', 'allIds'],
+
+          Array.from(new Set([...state.incrementalPayout.allIds, ...newIds])),
+        )
+        .setIn(['incrementalPayout', 'nextPage'], payload.next_page)
+        .merge(
+          {
+            incrementalPayout: {
+              byId: payload.results.reduce((acc, v) => {
+                acc[v.id] = v;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [incrementalListPayoutActions.reset]: (state) => {
+      return state
+        .setIn(['incrementalPayout', 'allIds'], [])
+        .setIn(['incrementalPayout', 'nextPage'], 1);
+    },
+    [incrementalListPayoutActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['incrementalPayout', 'loading'], payload);
+    },
+    [incrementalListPayoutActions.error]: (state, { payload }) => {
+      return state.setIn(['incrementalPayout', 'error'], payload);
+    },
+
     [listSavedPaymentMethodListActions.success]: (state, { payload }) => {
       return state.setIn(['paymentMethod', 'items'], payload);
     },

@@ -3495,6 +3495,25 @@
     "creditAccountBalance": { "current": "Acompte actuel" },
     "paymentComboSectionTitle": "Pack",
     "method": {
+      "0": "Carte",
+      "1": "Espèces",
+      "2": "Chèque",
+      "3": "Pass",
+      "4": "Carte (manuel)",
+      "5": "Chèque vacances",
+      "6": "AMEX",
+      "7": "Virement",
+      "8": "Event brite",
+      "9": "Paiement sur place",
+      "10": "Paiement automatique",
+      "11": "Other",
+      "12": "Dispute",
+      "13": "SEPA",
+      "20": "Bancontact",
+      "30": "Sofort",
+      "40": "iDEAL",
+      "50": "EPS",
+      "60": "Giropay",
       "CB": "Carte",
       "CREDIT_ACCOUNT": "Paiement sur place",
       "CASH": "Espèces",
@@ -5421,7 +5440,26 @@
       "private_cpasses_expired": "Crédits RDV expirés",
       "expired_pass": "Crédits carte de cours expirés"
     },
-    "header": { "sum": "Somme", "average": "En moyenne" },
+    "header": {
+      "sum": "Somme",
+      "average": "En moyenne",
+      "selectRange": "Sélectionner un plage de dates",
+      "selectDate": "Sélectionner une date",
+      "from": "Du",
+      "to": "au",
+      "start": "Début",
+      "end": "Fin",
+      "rapidChoice": "Choix rapide",
+      "helper": {
+        "today": "Aujourd'hui",
+        "week": "Dernière semaine",
+        "month": "Mois dernier",
+        "trimester": "Trois dernier mois",
+        "year": "Dernière année"
+      },
+      "from_to": "Du {{-from}} au {{-to}}",
+      "save": "Sauvegarder"
+    },
     "columns": {
       "initial_price": "Prix d'achat",
       "amount_expense": "Montant",
@@ -5431,7 +5469,10 @@
       "sum_attendance": "Nombre de présents",
       "sum__non_attendance": "Nombre d'absences",
       "coaches": "Professeurs",
+      "payout": "Virement",
       "payout_identifier": "Virement",
+      "payout_status": "Status du virement",
+      "payout_date_created": "Date du virement",
       "recurrent_price": "Montant",
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",
@@ -5640,6 +5681,59 @@
       "paid": "Encaissé",
       "amount_due": "Montant dû"
     },
+    "filter": {
+      "title": "Vue filtrée",
+      "emptyFilter": "Toutes les données",
+      "createFilter": "Ajouter une vue filtrée",
+      "deleteModal": {
+        "title": "Suppression",
+        "content": "Êtes vous sûr de vouloir supprimer cette vue filtrée ? Cette action est irréversible."
+      },
+      "form": {
+        "title": "Vue filtrée",
+        "name": "Nom",
+        "information": "Informations générales",
+        "filter": "Filtres",
+        "operandSelect": "Règle entre les filtres",
+        "add": "Ajouter",
+        "addGroupOption": "Un groupe de filtre",
+        "addFilterOption": "Un filtre",
+        "addFilter": "Ajouter un filtre",
+        "emptyState": "Aucune colonne de ce rapport n'est filtrable",
+        "groupOperand": { "0": "Ou", "1": "Et" },
+        "groupOperandHelperText": {
+          "0": "Les éléments filtrés devront correspondre à au moins un filtre.",
+          "1": "Les éléments filtrés devront correspondre à tous les filtres."
+        },
+        "filterComparator": {
+          "0": { "4": "Contient", "5": "Ne contient pas" },
+          "1": {
+            "0": "Egal à",
+            "1": "N'est pas égal à",
+            "2": "Inférieur ou égal à",
+            "3": "Supérieur ou égal à",
+            "4": "Dans l'interval",
+            "5": "Hors de l'interval"
+          },
+          "2": { "0": "Est", "1": "N'est pas" },
+          "3": { "0": "Est le", "1": "N'est pas le", "4": "Dans l'interval" }
+        },
+        "subDataType": { "day": "Date", "hour": "Heure" },
+        "placeholderList": "Sélectionner",
+        "isTrue": "Vrai",
+        "isFalse": "Faux",
+        "error": {
+          "invalidTypeForColumns": "Opération impossible sur cette colonne",
+          "byIdDuplicate": "Des champs à selection multiple sont présent en double",
+          "needAtLeatOneFilter": "Un filtre minimun est requis",
+          "wrongOrdering": "Les valeurs ne sont pas dans l'ordre croissant"
+        },
+        "submit": "Enregistrer",
+        "cancel": "Annuler",
+        "edit": "Modifier",
+        "columnError": "Attention la colonne filtrée ici a été enlevée du rapport. Le filtre sur cette colonne est cependant encore appliqué."
+      }
+    },
     "yes": "Oui",
     "no": "Non",
     "payment_method": {
@@ -5657,7 +5751,12 @@
       "none": "Aucun",
       "subscription_cb": "Paiement planifié (abonnement)",
       "credit_account": "Crédit client",
-      "other": "Divers"
+      "other": "Divers",
+      "bancontact": "Bancontact",
+      "sofort": "Sofort",
+      "ideal": "iDeal",
+      "eps": "EPS",
+      "giropay": "Giropay"
     },
     "product_type": {
       "payment_pack": "Carte de cours",
@@ -5666,7 +5765,10 @@
       "top_up": "Recharge crédit client",
       "fee": "Frais",
       "payment_combo": "Pack",
-      "private_pass": "Carte RDV"
+      "private_pass": "Carte RDV",
+      "booking": "Réservation",
+      "coupon": "Coupon",
+      "giftcard": "Carte cadeau"
     },
     "report": { "delete_message": "Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?" },
     "form": {
@@ -5686,6 +5788,38 @@
       "generate": "Générer",
       "ready": "Votre rapport \"{{ name }}\" est prêt à être télécharger.",
       "category": "Rapport Excel  : {{category}}"
+    },
+    "datatype": {
+      "price": "Prix",
+      "cts": "Prix en centimes",
+      "payment_method": "Méthode de paiement",
+      "coupon": "Coupon",
+      "contract": "Contrat",
+      "date": "Date",
+      "time": "Heure",
+      "dow": "Jour de la semaine",
+      "datetime": "Date",
+      "establishment": "Etablissement",
+      "coach": "Professeurs",
+      "giftcard": "Carte cadeaux",
+      "video": "Vidéo",
+      "payment_pack": "Carte de cours",
+      "int": "Nombre",
+      "number": "Nombre",
+      "percent": "Pourcentage",
+      "email": "Email",
+      "user": "Membre",
+      "boolean": "Vraix/Faux",
+      "private_service": "Rendez vous",
+      "private_pass": "Carte de rendez-vous",
+      "private_slot": "Type de rendez vous",
+      "subshop": "Catégorie",
+      "billing_establishment": "Etablissemennt de facturation",
+      "billing_group": "Groupe de facturation",
+      "activity": "Activité",
+      "booking_status_code": "Statut de la réservation",
+      "payout_status": "Status du virement",
+      "payout": "Virement"
     }
   },
   "role": {

@@ -10,7 +10,7 @@ import { withTranslation } from 'react-i18next';
 
 import MetaActivitySelector from './MetaActivitySelector.component';
 
-export const SelectField = withTranslation([])((props) => {
+export const MetaActivitySelectorField = withTranslation([])((props) => {
   const { t, fullWidth, required, helperText, showHelperText } = props;
   return (
     <Field {...props}>
@@ -81,4 +81,4 @@ export const SelectField = withTranslation([])((props) => {
   );
 });
 
-export default withTranslation()(SelectField);
+export default withTranslation()(MetaActivitySelectorField);

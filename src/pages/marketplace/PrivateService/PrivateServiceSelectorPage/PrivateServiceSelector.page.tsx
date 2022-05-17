@@ -19,7 +19,7 @@ import { withStyles } from '@material-ui/styles';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
 import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
 // @ts-ignore
-import TypographyWithShowMore from '../../../../components/TypographyWithShowMore.component';
+import TypographyWithShowMore from '../../../../components/typo/TypographyWithShowMore.component';
 import { RootState } from '../../../../reducers';
 import { PrivateService } from '../../../../libs/private-service/types';
 // @ts-ignore

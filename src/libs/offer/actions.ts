@@ -5,7 +5,13 @@ import uniq from 'lodash/uniq';
 // makes the build of the wdget crashing (widget use this file somehow)
 import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 
-import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
+import {
+  Dispatch,
+  OptionBackgroundCallback,
+  OptionCallback,
+  OptionPaginatedCallback,
+  ThunkAction,
+} from '../../state/types';
 import {
   retrieveOffer as retrieveOfferAPI,
   fetchSimilarOffers as fetchSimilarOffersAPI,
@@ -28,6 +34,8 @@ import {
   unTagOffer as unTagOfferAPI,
   createOffers as createOffersAPI,
   editOffers as editOffersAPI,
+  disableOffer as disableOfferAPI,
+  deleteOffer as deleteOfferAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -48,7 +56,7 @@ export const resetSimilarOffers = similarOffers.reset;
 export function fetchSimilarOffers(
   offerId: number,
   params: any = {},
-  options: OptionCallback<Offer[]>,
+  options?: OptionCallback<Offer[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(similarOffers.isLoading(true));
@@ -386,7 +394,7 @@ export function fetchMarketplaceOfferList(
     is_workshop?: boolean;
     available?: boolean;
   },
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerMarketplaceListActions.error(null));
@@ -470,7 +478,7 @@ export const offerBulkActions = {
 
 export function fetchOfferBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
   useCache?: boolean,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
@@ -536,7 +544,7 @@ export function fetchOfferStatus(
 export function fetchOfferStatusList(
   ids: Array<number>,
   params: any = {},
-  options?: OptionCallback<OfferStatus>,
+  options?: OptionCallback<OfferStatus[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerStatusActions.error(null));
@@ -544,6 +552,7 @@ export function fetchOfferStatusList(
 
     try {
       const response = await fetchOfferStatusListAPI(ids, params);
+
       dispatch(offerStatusActions.list(response.data.results));
       options && options.onSuccess && options.onSuccess(response.data.results);
     } catch (error) {
@@ -646,6 +655,42 @@ export function retrieveNumberOfMassDisabledOfferAction(
     dispatch(numberOfMassDisabledOfferRetrieveActions.isLoading(false));
   };
 }
+
+export const numberOfMassDisabledOfferInGroupActions = {
+  error: createAction('NUMBER_OF_MASS_DISABLED_OFFER_GROUP/FETCH/ERROR'),
+  isLoading: createAction(
+    'NUMBER_OF_MASS_DISABLED_OFFER_GROUP/FETCH/IS_LOADING',
+  ),
+  success: createAction('NUMBER_OF_MASS_DISABLED_OFFER_GROUP/FETCH/SUCCESS'),
+};
+
+export function retrieveNumberOfMassDisabledOfferInGroup(
+  params?: { start: string; end: string },
+  options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(numberOfMassDisabledOfferInGroupActions.isLoading(true));
+    dispatch(numberOfMassDisabledOfferInGroupActions.error(null));
+    try {
+      const response = await fetchOffersListAPI({
+        page: 1,
+        page_size: null,
+        min_date: params.start,
+        max_date: params.end,
+        with_group: true,
+        available: true,
+      });
+      dispatch(
+        numberOfMassDisabledOfferInGroupActions.success(response.data.results),
+      );
+      options?.onSuccess && options.onSuccess(response.data.results);
+    } catch (error) {
+      dispatch(numberOfMassDisabledOfferInGroupActions.error(error));
+      options?.onError && options.onError(error);
+    }
+    dispatch(numberOfMassDisabledOfferInGroupActions.isLoading(false));
+  };
+}
 export const listRegisteredIds = {
   success: createAction('OFFER/LIST_REGISTERED/SUCCESS'),
   error: createAction('OFFER/LIST_REGISTERED/ERROR'),
@@ -742,7 +787,7 @@ export function fetchBookedGender(params: any, options?: OptionCallback) {
 
 export function fetchBookedGenderBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(bookedGenderActions.isLoading(true));
@@ -795,6 +840,152 @@ export function offerUserRegistration(
       options && options.onError && options.onError(e);
     }
     dispatch(offerUserRegistrationAction.isLoading(false));
+  };
+}
+
+export const offerMarketplaceByMetaActivityListActions = {
+  isLoading: createAction('OFFER/MARKETPLACE/BY_META_ACTIVITY/IS_LOADING'),
+  error: createAction('OFFER/MARKETPLACE/BY_META_ACTIVITY/ERROR'),
+  success: createAction('OFFER/MARKETPLACE/BY_META_ACTIVITY/SUCCESS'),
+  reset: createAction('OFFER/MARKETPLACE/BY_META_ACTIVITY/RESET'),
+  init: createAction('OFFER/MARKETPLACE/BY_META_ACTIVITY/INIT'),
+};
+
+export function resetMarketplaceOfferByMetaActivityList() {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerMarketplaceByMetaActivityListActions.reset());
+  };
+}
+
+export function fetchMarketplaceOfferByMetaActivityList(
+  metaActivityId: number,
+  params: {
+    company: number;
+    page_size: number;
+    page: number;
+    min_date: string;
+    max_date: string;
+    filters: OfferFilterData | OfferFilter;
+    is_workshop?: boolean;
+    available?: boolean;
+  },
+  options?: OptionPaginatedCallback<Offer>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerMarketplaceByMetaActivityListActions.init(metaActivityId));
+    const { filters } = params;
+
+    try {
+      // eslint-disable-next-line
+      delete params.filters;
+      const response = await fetchOffersListAPI({
+        ...params,
+        ...createOfferFilter(filters),
+        activity__in: [metaActivityId],
+        is_workshop: true,
+      });
+      dispatch(
+        offerMarketplaceByMetaActivityListActions.success({
+          metaActivityId,
+          value: response.data,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+      dispatch(
+        offerMarketplaceByMetaActivityListActions.isLoading({
+          metaActivityId,
+          value: false,
+        }),
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        offerMarketplaceByMetaActivityListActions.error({
+          metaActivityId,
+          value: error,
+        }),
+      );
+
+      dispatch(
+        offerMarketplaceByMetaActivityListActions.isLoading({
+          metaActivityId,
+          value: false,
+        }),
+      );
+      if (options && options.onError) options.onError(error);
+      return null;
+    }
+  };
+}
+
+export const createOffersActions = {
+  error: createAction('OFFER/CREATE/ERROR'),
+  loading: createAction('OFFER/CREATE/IS_LOADING'),
+  success: createAction('OFFER/CREATE/SUCCESS'),
+};
+
+export function createOffers(offer: Offer, options?: OptionBackgroundCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOffersActions.loading(true));
+    try {
+      const response = await createOffersAPI(offer);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      if (options && options.onSuccess) {
+        options.onSuccess();
+        dispatch(
+          monitorBackgroundTask(backgroundTaskUuid, {
+            onSuccess: options?.onBackgroundSuccess,
+            onError: options?.onBackgroundError,
+          }),
+        );
+      } else {
+        dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      }
+    } catch (error) {
+      dispatch(createOffersActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(createOffersActions.loading(false));
+  };
+}
+
+export const editOffersActions = {
+  error: createAction('OFFER/EDIT/ERROR'),
+  loading: createAction('OFFER/EDIT/IS_LOADING'),
+  success: createAction('OFFER/EDIT/SUCCESS'),
+};
+
+export function editOffers(
+  offerId: number,
+  offer: Offer,
+  options?: OptionBackgroundCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(editOffersActions.loading(true));
+    try {
+      const response = await editOffersAPI({ offerId, data: offer });
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      if (options && options.onSuccess) {
+        options.onSuccess();
+
+        dispatch(
+          monitorBackgroundTask(backgroundTaskUuid, {
+            onSuccess: options?.onBackgroundSuccess,
+            onError: options?.onBackgroundError,
+          }),
+        );
+      } else {
+        dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      }
+    } catch (error) {
+      dispatch(editOffersActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(editOffersActions.loading(false));
   };
 }
 
@@ -912,69 +1103,130 @@ export function unTagOffer(
   };
 }
 
-export const createOffersActions = {
-  error: createAction('OFFER/CREATE/ERROR'),
-  loading: createAction('OFFER/CREATE/IS_LOADING'),
-  success: createAction('OFFER/CREATE/SUCCESS'),
+export const disableOfferActions = {
+  success: createAction('OFFER/DISABLE/SUCCESS'),
+  error: createAction('OFFER/DISABLE/ERROR'),
+  isLoading: createAction('OFFER/DISABLE/IS_LOADING'),
 };
 
-export function createOffers(offer: Offer, options?: OptionCallback) {
+export function disableOffer(
+  data: {
+    offerId: number;
+    cashback?: boolean;
+    notify?: boolean;
+    deleteAll?: boolean;
+    custom_selection?: boolean;
+    custom_selection_ids?: Array<number>;
+    force: boolean;
+  },
+  options: OptionBackgroundCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(createOffersActions.loading(true));
+    dispatch(disableOfferActions.isLoading(true));
+    dispatch(disableOfferActions.error(null));
+
     try {
-      const response = await createOffersAPI(offer);
-      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-      if (options && options.onSuccess) {
-        options.onSuccess();
-        dispatch(
-          monitorBackgroundTask(backgroundTaskUuid, {
-            onSuccess: options.onBackgroundSuccess,
-            onError: options.onBackgroundError,
-          }),
-        );
-      } else {
-        dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      const response = await disableOfferAPI(data);
+      if (response.status === 200) {
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        if (options && options.onSuccess) {
+          options.onSuccess();
+
+          dispatch(
+            monitorBackgroundTask(backgroundTaskUuid, {
+              onSuccess: options?.onBackgroundSuccess,
+              onError: options?.onBackgroundError,
+            }),
+          );
+        } else {
+          dispatch(monitorBackgroundTask(backgroundTaskUuid));
+        }
       }
+
+      dispatch(disableOfferActions.success(response.data));
     } catch (error) {
-      dispatch(createOffersActions.error(error));
-      if (options && options.onError) options.onError();
+      dispatch(disableOfferActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
-    dispatch(createOffersActions.loading(false));
+    dispatch(disableOfferActions.isLoading(false));
   };
 }
 
-export const editOffersActions = {
-  error: createAction('OFFER/EDIT/ERROR'),
-  loading: createAction('OFFER/EDIT/IS_LOADING'),
-  success: createAction('OFFER/EDIT/SUCCESS'),
+export const hardDeleteOfferActions = {
+  success: createAction('OFFER/DELETE/SUCCESS'),
+  error: createAction('OFFER/DELETE/ERROR'),
+  isLoading: createAction('OFFER/DELETE/IS_LOADING'),
 };
 
-export function editOffers(
+export function hardDeleteOffers(
   offerId: number,
-  offer: Offer,
-  options?: OptionCallback,
+  data: any,
+  options: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(editOffersActions.loading(true));
-    try {
-      const response = await editOffersAPI({ offerId, data: offer });
-      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-      if (options && options.onSuccess) {
-        options.onSuccess();
+    dispatch(hardDeleteOfferActions.isLoading(true));
+    dispatch(hardDeleteOfferActions.error(null));
 
-        dispatch(
-          monitorBackgroundTask(backgroundTaskUuid, {
-            onSuccess: options.onBackgroundSuccess,
-            onError: options.onBackgroundError,
-          }),
-        );
-      } else {
-        dispatch(monitorBackgroundTask(backgroundTaskUuid));
+    try {
+      const response = await deleteOfferAPI(offerId, data);
+      if (response.status === 204) {
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        if (options && options.onSuccess) {
+          options.onSuccess();
+
+          dispatch(
+            monitorBackgroundTask(backgroundTaskUuid, {
+              onSuccess: options?.onBackgroundSuccess,
+              onError: options?.onBackgroundError,
+            }),
+          );
+        } else {
+          dispatch(monitorBackgroundTask(backgroundTaskUuid));
+        }
       }
+
+      dispatch(hardDeleteOfferActions.success(response.data));
     } catch (error) {
-      dispatch(editOffersActions.error(error));
-      if (options && options.onError) options.onError();
+      if (error.response && error.response.status === 403) {
+        dispatch(hardDeleteOfferActions.error('calendar.canDeleteWithBooking'));
+      }
+      dispatch(hardDeleteOfferActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
-    dispatch(editOffersActions.loading(false));
+    dispatch(hardDeleteOfferActions.isLoading(false));
+  };
+}
+
+export const fetchOffersInGroupAction = {
+  success: createAction('OFFER/GROUP/SUCCESS'),
+  error: createAction('OFFER/GROUP/ERROR'),
+  isLoading: createAction('OFFER/GROUP/IS_LOADING'),
+};
+
+export function fetchOffersInGroup(
+  groupId: number,
+  options?: OptionCallback<Offer[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchOffersInGroupAction.isLoading(true));
+    dispatch(fetchOffersInGroupAction.error(null));
+
+    try {
+      const response = await fetchOffersListAPI({
+        page: 1,
+        page_size: null,
+        group_id__in: [groupId],
+      });
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data?.results ?? []);
+      }
+      dispatch(fetchOffersInGroupAction.isLoading(false));
+      dispatch(fetchOffersInGroupAction.success(response.data));
+    } catch (error) {
+      dispatch(fetchOffersInGroupAction.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(fetchOffersInGroupAction.isLoading(false));
   };
 }

@@ -65,6 +65,7 @@ import ClockInDialog from '#libs/clock-in/components/ClockInDialog.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { LastClockIn } from '#libs/clock-in/types';
 import { UPSELL_IDENTIFIER_CLOCK_IN } from '#libs/platform-billing/upsell-identifiers';
+import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 
 export const drawerWidth = 260;
 
@@ -652,7 +653,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    zIndex: 1,
+    zIndex: DEFAULT_ZINDEX,
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
@@ -665,7 +666,7 @@ const styles = (theme) => ({
   },
   rootFullWidth: {
     flexGrow: 1,
-    zIndex: 1,
+    zIndex: DEFAULT_ZINDEX,
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
@@ -680,6 +681,7 @@ const styles = (theme) => ({
     flex: '0 1 64px',
     width: '100%',
     position: 'relative',
+    zIndex: NAVIGATION_ZINDEX,
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -687,6 +689,7 @@ const styles = (theme) => ({
     overflowY: 'auto',
     position: 'relative',
     display: 'inherit',
+    zIndex: NAVIGATION_ZINDEX,
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
       position: 'fixed',
@@ -733,7 +736,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(-3),
     marginTop: theme.spacing(-2),
     paddingBottom: theme.spacing(2),
-    zIndex: 999,
+    zIndex: BANNER_ZINDEX,
   },
   errorBanner: {
     display: 'flex',

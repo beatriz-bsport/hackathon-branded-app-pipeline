@@ -10,7 +10,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '../../../components/Tooltip.component';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 const PlatformBillingStageCard = (props: {

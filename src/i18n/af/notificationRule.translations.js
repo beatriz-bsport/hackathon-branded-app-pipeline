@@ -42,6 +42,7 @@ const {
 
 // should import that from common
 const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
+const NOTIFICATION_GROUPED_OFFERS_CANCELLED = 801;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP = 701;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT = 702;
 
@@ -116,6 +117,7 @@ exports.default = {
         address: 'Adresse',
         ics_calendar_link: 'Lien ics calendrier',
         spot: 'Place',
+        canceled_grouped_session: 'Groupe de réservation annulé',
       },
     },
     PrivateConsumerPass: {
@@ -214,6 +216,7 @@ exports.default = {
       'Rendez-vous annulé - remboursé (professeur)',
     [NOTIFICATION_OFFER_AUTO_DISCARD]:
       'Trop peu de réservations N heures avant le début de la séance',
+    [NOTIFICATION_GROUPED_OFFERS_CANCELLED]: 'Groupe de rendez vous annulé',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP]:
       'Pénalité carte de cours : carte bloquée (élève)',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT]:

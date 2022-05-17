@@ -1,3 +1,9 @@
+import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { Offer } from '#libs/offer/types';
+import { ErrorAndLoading } from '#libs/types';
+
 /**
  * The available components we can use in the marketplace
  */
@@ -88,4 +94,19 @@ export type MarketplaceSettingState = {
   loading: boolean;
   error?: Error;
   settings: MarketplaceSettings;
+};
+
+export type MarketplaceMetaActivity = MetaActivity &
+  ErrorAndLoading & {
+    nextPage: number | null;
+    count: number;
+    offers: Offer<Coach, Establishment>[];
+  };
+
+export type MarketPlaceFilter = {
+  coaches: number[];
+  establishments: number[];
+  levels: number[];
+  activity__in: number[];
+  establishment_group__in: number[];
 };

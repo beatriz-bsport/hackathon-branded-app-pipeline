@@ -30,6 +30,7 @@ import BookingCancellationDialog from '../../libs/booking/components/BookingCanc
 import { Booking } from '../../libs/booking/types';
 import { PrivateBooking } from '../../libs/private-service/types';
 import { cancelBooking as cancelBookingAction } from '../../libs/booking/actions';
+
 import { disablePrivateBooking } from '../../libs/private-service/actions';
 
 type OwnProps = {

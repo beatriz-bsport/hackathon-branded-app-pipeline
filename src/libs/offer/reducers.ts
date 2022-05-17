@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
+import uniq from 'lodash/uniq';
 
 import {
   offers,
@@ -11,6 +12,7 @@ import {
   offersByEstablishment,
   offersFilterActions,
   offerMarketplaceListActions,
+  offerMarketplaceByMetaActivityListActions,
   offerBulkActions,
   retrieveActions,
   retrieveByIdActions,
@@ -18,13 +20,24 @@ import {
   offerStatusActions,
   listRegisteredIds,
   numberOfMassDisabledOfferRetrieveActions,
+  numberOfMassDisabledOfferInGroupActions,
   offerNextActions,
   massUnTagAllOffers,
   unTagOfferActions,
   createOffersActions,
   editOffersActions,
+  disableOfferActions,
+  hardDeleteOfferActions,
+  fetchOffersInGroupAction,
 } from './actions';
 import { OfferState } from './types';
+
+export const marketplaceByMetaActivityEmptyState = Immutable({
+  allIds: [],
+  nextPage: 1,
+  count: 0,
+  byId: {},
+});
 
 const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   // event stuff (simplified offer objects)
@@ -93,6 +106,7 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     loading: false,
     error: null,
     allIds: [],
+    byMetaActivity: {},
   },
   genderCount: {
     loading: false,
@@ -116,10 +130,24 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     error: null,
     number: null,
   },
+  numberOfMassDisabledOfferInGroup: {
+    loading: false,
+    error: null,
+    allIds: null,
+  },
   tagManagement: {
     loading: false,
     error: null,
   },
+  disable: {
+    loading: false,
+    error: null,
+  },
+  delete: {
+    loading: false,
+    error: null,
+  },
+  groups: {},
 });
 
 export default handleActions<Immutable.Immutable<OfferState>>(
@@ -270,11 +298,76 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     [offerMarketplaceListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['marketplace', 'error'], payload);
     },
+    [offerMarketplaceByMetaActivityListActions.init.toString()]: (
+      state,
+      { payload },
+    ) => {
+      if (!state.marketplace.byMetaActivity[payload]?.allIds) {
+        return state.setIn(
+          ['marketplace', 'byMetaActivity', payload],
+          marketplaceByMetaActivityEmptyState,
+        );
+      }
+      return state;
+    },
     [offerMarketplaceListActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {
       return state.setIn(['marketplace', 'loading'], payload);
+    },
+    [offerMarketplaceByMetaActivityListActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['marketplace', 'byMetaActivity', payload.metaActivityId, 'allIds'],
+          uniq([
+            ...(state.marketplace.byMetaActivity?.[payload.metaActivityId]
+              ?.allIds ?? []),
+            ...(payload?.value?.results?.map((o) => o.id) ?? []),
+          ]),
+        )
+        .setIn(
+          ['marketplace', 'byMetaActivity', payload.metaActivityId, 'nextPage'],
+          payload?.value?.next_page,
+        )
+        .setIn(
+          ['marketplace', 'byMetaActivity', payload.metaActivityId, 'count'],
+          payload?.value?.count,
+        )
+        .merge(
+          {
+            byId:
+              payload?.value?.results?.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}) ?? {},
+          },
+          { deep: true },
+        );
+    },
+    [offerMarketplaceByMetaActivityListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['marketplace', 'byMetaActivity', payload.metaActivityId, 'error'],
+        payload.value,
+      );
+    },
+    [offerMarketplaceByMetaActivityListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['marketplace', 'byMetaActivity', payload.metaActivityId, 'loading'],
+        payload.value,
+      );
+    },
+    [offerMarketplaceByMetaActivityListActions.reset.toString()]: (state) => {
+      return state.setIn(['marketplace', 'byMetaActivity'], {});
     },
     [offerNextActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['next', 'error'], payload);
@@ -384,6 +477,43 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     ) => {
       return state.setIn(['numberOfMassDisabledOffer', 'number'], payload);
     },
+    [numberOfMassDisabledOfferInGroupActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['numberOfMassDisabledOfferInGroup', 'error'],
+        payload,
+      );
+    },
+    [numberOfMassDisabledOfferInGroupActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['numberOfMassDisabledOfferInGroup', 'loading'],
+        payload,
+      );
+    },
+    [numberOfMassDisabledOfferInGroupActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['numberOfMassDisabledOfferInGroup', 'allIds'],
+          payload.map((o) => o.id),
+        );
+    },
     [massUnTagAllOffers.error.toString()]: (state, { payload }) => {
       return state.setIn(['tagManagement', 'error'], payload);
     },
@@ -395,6 +525,40 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     },
     [unTagOfferActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['tagManagement', 'loading'], payload);
+    },
+    [disableOfferActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['disable', 'error'], payload);
+    },
+    [disableOfferActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['disable', 'loading'], payload);
+    },
+    [hardDeleteOfferActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['delete', 'error'], payload);
+    },
+    [hardDeleteOfferActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['delete', 'loading'], payload);
+    },
+    [fetchOffersInGroupAction.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['groups', 'loading'], payload);
+    },
+    [fetchOffersInGroupAction.error.toString()]: (state, { payload }) => {
+      return state.setIn(['groups', 'error'], payload);
+    },
+    [fetchOffersInGroupAction.success.toString()]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            byId: payload?.results?.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['groups', payload?.results?.[0]?.group, 'allIds'],
+          payload?.results?.map((o) => o.id),
+        );
     },
   },
   initialState,

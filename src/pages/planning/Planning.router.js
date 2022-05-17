@@ -18,10 +18,13 @@ import {
   withGender,
   withTags,
 } from '../../libs/offer/selectors';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#libs/group-offer/actions';
+
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { withCustomLevel } from '#libs/level/selectors';
+import { withGroup } from '#libs/group-offer/selectors';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date);
@@ -62,7 +65,9 @@ const PlanningWithDateAndOffer = compose(
       offers: withTags(
         withMetaActivity(
           withCustomLevel(
-            withEstablishment(withCoach(withGender(getManagerOffersFiltered))),
+            withEstablishment(
+              withGroup(withCoach(withGender(getManagerOffersFiltered))),
+            ),
           ),
         ),
       )(state),
@@ -75,6 +80,7 @@ const PlanningWithDateAndOffer = compose(
       replaceRouter: replace,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchGroupsOfferList: fetchGroupsOfferListAction,
     },
   ),
   withHandlers({
@@ -88,6 +94,7 @@ const PlanningWithDateAndOffer = compose(
         fetchEstablishmentBulk,
         fetchOffersByDayActionDisptach,
         fetchMetaActivityBulk,
+        fetchGroupsOfferList,
       }) =>
       (params) => {
         fetchOffersByDayActionDisptach(params, {
@@ -101,6 +108,12 @@ const PlanningWithDateAndOffer = compose(
               ...offers.map((o) => o.establishment),
               ...offers.map((o) => o.establishment_override),
             ]);
+            const groups = Array.from(new Set(offers?.map((o) => o.group)));
+            fetchGroupsOfferList({
+              id__in: groups,
+              page: 1,
+              page_size: groups.length,
+            });
           },
         });
       },

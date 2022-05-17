@@ -11,6 +11,8 @@ import MomentUtils from '@date-io/moment';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { ConnectedRouter } from 'connected-react-router';
 import { Moment } from '../src/i18n';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../src/i18n/index';
 import initStore from '../src/store';
 
 import _ from '../envs/local';
@@ -51,6 +53,11 @@ export const decorators = [
     <Provider store={store}>
       <Story />
     </Provider>
+  ),
+  (Story) => (
+    <I18nextProvider i18n={i18n}>
+      <Story />
+    </I18nextProvider>
   ),
 ];
 

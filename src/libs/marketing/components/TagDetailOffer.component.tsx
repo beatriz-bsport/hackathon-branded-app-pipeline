@@ -13,6 +13,11 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
 
 import LabelOffIcon from '@material-ui/icons/LabelOff';
 import BlockIcon from '@material-ui/icons/Block';
@@ -38,8 +43,33 @@ type Props = {
 };
 const TagDetailOffers = (props: Props) => {
   const [processing, setProcessing] = React.useState(false);
+  const [confirmModalOpen, setConfirmModalOpen] = React.useState<number | null>(
+    null,
+  );
   const classes = useStyles();
   const { t } = useTranslation('tag');
+
+  const handleUnTagOffer =
+    (id: number, isGroup: boolean) =>
+    (ev: React.MouseEvent<HTMLButtonElement>) => {
+      if (isGroup) {
+        setConfirmModalOpen(id);
+        return;
+      }
+
+      setProcessing(true);
+      ev.stopPropagation();
+      props.unTagOffer(id, {
+        onSuccess: () => setProcessing(false),
+        onError: () => setProcessing(false),
+      });
+      setConfirmModalOpen(null);
+    };
+
+  const handleCloseConfirmModalOpen = () => {
+    setConfirmModalOpen(null);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.row}>
@@ -74,91 +104,105 @@ const TagDetailOffers = (props: Props) => {
           items={props.offers || []}
           renderItem={(item: Offer<number, number, MetaActivity>) => {
             return (
-              <ListItem
-                divider
-                key={item.id}
-                dense
-                disabled={props.loading || processing}
-                button={!!props.onClickOffer}
-                onClick={
-                  props.onClickOffer
-                    ? () => props.onClickOffer(item.activity)
-                    : null
-                }
-              >
-                <div className={classes.listItemInfo}>
-                  <ListItemText
-                    primary={
-                      <div className={classes.primaryInfo}>
-                        <Typography>
-                          {`${item?.meta_activity?.name || '-'}\u00A0-\u00A0`}
-                        </Typography>
-                        <Typography color="secondary">
-                          {`${
-                            item?.date_start
-                              ? moment(item.date_start).format('L')
-                              : '-'
-                          }\u00A0:\u00A0${
-                            item?.date_start
-                              ? moment(item.date_start).format('HH:mm')
-                              : '-'
-                          }`}
-                        </Typography>
-                      </div>
-                    }
-                    secondary={
-                      <div className={classes.secondaryInfo}>
-                        {item?.whitelist_tags.includes(props.tag?.id) ? (
-                          <>
-                            <CheckIcon
-                              className={clx(
-                                classes.tagAuthorizationIcon,
-                                classes.greenIcon,
-                              )}
-                            />
+              <React.Fragment key={item.id}>
+                <ListItem
+                  divider
+                  dense
+                  disabled={props.loading || processing}
+                  button={!!props.onClickOffer}
+                  onClick={
+                    props.onClickOffer
+                      ? () => props.onClickOffer(item.activity)
+                      : null
+                  }
+                >
+                  <div className={classes.listItemInfo}>
+                    <ListItemText
+                      primary={
+                        <div className={classes.primaryInfo}>
+                          <Typography>
+                            {`${item?.meta_activity?.name || '-'}\u00A0-\u00A0`}
+                          </Typography>
+                          <Typography color="secondary">
+                            {`${
+                              item?.date_start
+                                ? moment(item.date_start).format('L')
+                                : '-'
+                            }\u00A0:\u00A0${
+                              item?.date_start
+                                ? moment(item.date_start).format('HH:mm')
+                                : '-'
+                            }`}
+                          </Typography>
+                        </div>
+                      }
+                      secondary={
+                        <div className={classes.secondaryInfo}>
+                          {item?.whitelist_tags.includes(props.tag?.id) ? (
+                            <>
+                              <CheckIcon
+                                className={clx(
+                                  classes.tagAuthorizationIcon,
+                                  classes.greenIcon,
+                                )}
+                              />
 
-                            <Typography>
-                              {t(
-                                'management.offerDetail.detailTable.tagInWhiteList',
-                              )}
-                            </Typography>
-                          </>
-                        ) : (
-                          <>
-                            <BlockIcon
-                              className={clx(
-                                classes.tagAuthorizationIcon,
-                                classes.redIcon,
-                              )}
-                            />
-                            <Typography>
-                              {t(
-                                'management.offerDetail.detailTable.tagInBlackList',
-                              )}
-                            </Typography>
-                          </>
-                        )}
-                      </div>
-                    }
-                  />
-                </div>
-                <ListItemSecondaryAction>
-                  <Button
-                    color="primary"
-                    onClick={(ev) => {
-                      setProcessing(true);
-                      ev.stopPropagation();
-                      props.unTagOffer(item.id, {
-                        onSuccess: () => setProcessing(false),
-                        onError: () => setProcessing(false),
-                      });
-                    }}
-                  >
-                    <LabelOffIcon className={classes.leftIcon} />
-                    {t('management.memberDetail.removeTag')}
-                  </Button>
-                </ListItemSecondaryAction>
-              </ListItem>
+                              <Typography>
+                                {t(
+                                  'management.offerDetail.detailTable.tagInWhiteList',
+                                )}
+                              </Typography>
+                            </>
+                          ) : (
+                            <>
+                              <BlockIcon
+                                className={clx(
+                                  classes.tagAuthorizationIcon,
+                                  classes.redIcon,
+                                )}
+                              />
+                              <Typography>
+                                {t(
+                                  'management.offerDetail.detailTable.tagInBlackList',
+                                )}
+                              </Typography>
+                            </>
+                          )}
+                        </div>
+                      }
+                    />
+                  </div>
+                  <ListItemSecondaryAction>
+                    <Button
+                      color="primary"
+                      onClick={handleUnTagOffer(item.id, !!item.group)}
+                    >
+                      <LabelOffIcon className={classes.leftIcon} />
+                      {t('management.memberDetail.removeTag')}
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                {confirmModalOpen === item.id && (
+                  <Dialog open onClose={handleCloseConfirmModalOpen}>
+                    <DialogTitle id="alert-dialog-title">
+                      {t('modal.confirm.title')}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        {t('modal.confirm.text')}
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button
+                        onClick={handleUnTagOffer(item.id, false)}
+                        color="primary"
+                      >
+                        {t('modal.confirm.submit')}
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                )}
+              </React.Fragment>
             );
           }}
           listProps={{ dense: true }}

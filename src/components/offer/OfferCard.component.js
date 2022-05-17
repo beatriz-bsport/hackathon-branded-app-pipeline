@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import FolderIcon from '@material-ui/icons/Folder';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -39,6 +41,7 @@ import type { Offer } from '../../api/types';
 import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
+import { getRecurrenceTrad } from '#libs/group-offer/utils';
 
 type Props = {
   t: TFunction,
@@ -81,16 +84,20 @@ export class OfferCard extends Component<Props, State> {
       parent_category,
       credit_price_override,
       customLevel,
+      meta_activity,
     } = offer;
 
     return (
       <div className={classes.header}>
         <ListItem>
           <ListItemIcon>
-            <Sport noname parentCategory={parent_category} />
+            <Sport
+              noname
+              parentCategory={parent_category || meta_activity?.parent_category}
+            />
           </ListItemIcon>
           <ListItemText
-            primary={name}
+            primary={name || meta_activity?.name}
             secondary={
               credit_price_override !== 1
                 ? `${credit_price_override} ${t('offer:credit_price')}`
@@ -110,14 +117,23 @@ export class OfferCard extends Component<Props, State> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const { nb_bookings, nb_option, waiting_list_max_size, effectif } =
-      this.props.offer;
+    const {
+      bookings,
+      booking_options,
+      nb_bookings,
+      nb_option,
+      waiting_list_max_size,
+      effectif,
+    } = this.props.offer;
+
+    const nbBookings = bookings?.length || nb_bookings || 0;
+    const nbOptions = booking_options?.length || nb_option || 0;
     return (
       <div className={classes.statContainer}>
         <div className={classNames(classes.rightBorder, classes.stat)}>
           <div>
             <Typography variant="h3" color="primary" align="center">
-              {nb_bookings}
+              {nbBookings}
               {`/${effectif}`}
             </Typography>
           </div>
@@ -144,7 +160,7 @@ export class OfferCard extends Component<Props, State> {
         </div>
         <div className={classNames(classes.rightBorder, classes.stat)}>
           <Typography variant="h3" color="secondary" align="center">
-            {parseInt((nb_bookings / effectif) * 100, 10)} %
+            {parseInt((nbBookings / effectif) * 100, 10)} %
           </Typography>
           <Typography
             align="center"
@@ -157,10 +173,10 @@ export class OfferCard extends Component<Props, State> {
         <div className={classes.stat}>
           <Typography
             variant="h3"
-            color={nb_option ? 'error' : 'secondary'}
+            color={nbOptions ? 'error' : 'secondary'}
             align="center"
           >
-            {nb_option}
+            {nbOptions}
             {`/${waiting_list_max_size}`}
           </Typography>
           <Typography
@@ -168,171 +184,12 @@ export class OfferCard extends Component<Props, State> {
             align="center"
             className={classes.statName}
           >
-            {' '}
             {t('offer:booking.waiting')}
           </Typography>
         </div>
       </div>
     );
   };
-
-  renderEstablishment = () => {
-    const { offer, t } = this.props;
-    const { establishment, establishment_override } = offer;
-    if (establishment_override) {
-      return (
-        <Grid container direction="column">
-          <Grid item>
-            <Grid container direction="row" spacing={2} alignItems="center">
-              <Grid item>
-                <Typography>{establishment_override.title}</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="caption">
-                  {t('offer:extraordinaryEstablishment')}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption">
-              {establishment_override && establishment_override.location
-                ? establishment_override.location.address
-                : ' - '}
-            </Typography>
-          </Grid>
-        </Grid>
-      );
-    }
-    return (
-      <Grid container direction="column">
-        <Grid item>
-          <Typography>
-            {establishment ? establishment.title : '  -  '}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="caption">
-            {establishment && establishment.location
-              ? establishment.location.address
-              : '  -  '}
-          </Typography>
-        </Grid>
-      </Grid>
-    );
-  };
-
-  // getPracticalInfo = () => {
-  //   const {
-  //     t,
-  //     classes,
-  //     offer,
-  //     onEditButtonClick,
-  //     onDeleteButtonClick,
-  //   } = this.props;
-  //   const {
-  //     available,
-  //     date_start,
-  //     coach,
-  //     coach_override,
-  //     duration_minute,
-  //   } = offer;
-  //   return (
-  //     <Grid
-  //       container
-  //       alignItems="center"
-  //       direction="row"
-  //       className={classes.footer}
-  //     >
-  //       <Grid item xs={4}>
-  //         <Grid container direction="column" spacing={1} alignItems="center">
-  //           <Grid item>
-  //             <Avatar user={coach_override || coach} />
-  //           </Grid>
-  //           <Grid item>
-  //             {coach_override ? (
-  //               <Typography variant="caption">
-  //                 {t('offer:substitute')}
-  //               </Typography>
-  //             ) : null}
-  //           </Grid>
-  //         </Grid>
-  //       </Grid>
-  //       <Grid item xs={8} style={{ borderLeft: '1px solid #EEEEEE' }}>
-  //         <Grid
-  //           container
-  //           spacing={1}
-  //           justify="center"
-  //           alignItems="flex-start"
-  //           direction="column"
-  //           className={classes.info}
-  //         >
-  //           <ListItem>
-  //             <ListItemIcon>
-  //               <AccessTimeIcon />
-  //             </ListItemIcon>
-  //             <ListItemText variant="h6">
-  //               {`${formatAsTime(date_start)} - ${formatMinutes(
-  //                 duration_minute,
-  //                 t,
-  //               )}`}
-  //             </ListItemText>
-  //           </ListItem>
-
-  //           <ListItem>
-  //             <ListItemIcon>
-  //               <LocationOnIcon />
-  //             </ListItemIcon>
-  //             <ListItemText>{this.renderEstablishment()}</ListItemText>
-  //           </ListItem>
-
-  //           {offer.id && this.props.companyId ? (
-  //             <ButtonBase
-  //               onClick={() => this.props.snackbarSuccess('link.copied')}
-  //               className={classes.link}
-  //             >
-  //               <LinkIcon />
-  //               <CopyToClipboard
-  // eslint-disable-next-line
-  //                 text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
-  //               >
-  //                 <Typography className={classes.linkTypo}>
-  //                   {t('offer:card.copyLink')}
-  //                 </Typography>
-  //               </CopyToClipboard>
-  //             </ButtonBase>
-  //           ) : null}
-  //         </Grid>
-  //         {available ? (
-  //           <Grid
-  //             container
-  //             direction="row"
-  //             spacing={2}
-  //             wrap="nowrap"
-  //             className={classes.modifierButtonsBlock}
-  //           >
-  //             {this.props.permission.offer.edit ? (
-  //               <ListItem>
-  //                 <Button color="primary" onClick={onEditButtonClick}>
-  //                   <EditIcon className={classes.iconLeft} />
-  //                   <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
-  //                 </Button>
-  //               </ListItem>
-  //             ) : null}
-  //             {this.props.permission.offer.delete ? (
-  //               <ListItem>
-  //                 <RedButton onClick={onDeleteButtonClick}>
-  //                   <DeleteIcon className={classes.iconLeft} />
-  //                   <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
-  //                 </RedButton>
-  //               </ListItem>
-  //             ) : null}
-  //           </Grid>
-  //         ) : null}
-  //       </Grid>
-  //     </Grid>
-  //   );
-  // };
 
   renderBookingList = () => {
     const { t, classes } = this.props;
@@ -470,6 +327,47 @@ export class OfferCard extends Component<Props, State> {
                 </ListItem>
               </div>
             )}
+            {offer?.group && (
+              <div className={classes.row}>
+                <ListItem>
+                  <ListItemIcon>
+                    <FolderIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={offer.group?.name} />
+                </ListItem>
+              </div>
+            )}
+            {offer?.group &&
+              Object.keys(offer.group?.recurrence_rule ?? {}).length > 0 && (
+                <>
+                  <div className={classes.row}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <DateRangeIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={t('offer:recurrenceIndex', {
+                          index: offer.group?.recurrence_index + 1 ?? 1,
+                        })}
+                      />
+                    </ListItem>
+                  </div>
+                  <div className={classes.row}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <RefreshIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={getRecurrenceTrad(
+                          offer.group?.recurrence_rule,
+                          t,
+                        )}
+                      />
+                    </ListItem>
+                  </div>
+                </>
+              )}
+
             {(offer?.whitelist_tags?.length > 0 ||
               offer?.blacklist_tags?.length > 0) && (
               <div>

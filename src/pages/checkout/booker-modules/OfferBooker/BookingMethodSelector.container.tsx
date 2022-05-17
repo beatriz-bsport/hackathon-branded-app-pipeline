@@ -104,7 +104,10 @@ type State = {
   paymentComboPacksLoaded: boolean;
 };
 
-export class OfferState extends React.PureComponent<Props, State> {
+export class BookingMethodSelectorContainer extends React.PureComponent<
+  Props,
+  State
+> {
   state: State = {
     consumerPacksLoaded: false,
     paymentComboPacksLoaded: false,
@@ -440,4 +443,4 @@ export default compose<any, OwnProps>(
       }),
     },
   ),
-)(OfferState);
+)(BookingMethodSelectorContainer);

@@ -43,7 +43,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-class SimilarOffers extends React.PureComponent<Props> {
+class SimilarOffersSelector extends React.PureComponent<Props> {
   get availableOffers() {
     return this.props.similarOffers.filter((o) => {
       return o.id !== this.props.offer.id;
@@ -160,6 +160,7 @@ class SimilarOffers extends React.PureComponent<Props> {
                   height={60}
                   p={2}
                   className={classes.similarOfferItem}
+                  key={`skeleton-${o.id}`}
                 >
                   <Skeleton
                     animation="wave"
@@ -191,12 +192,12 @@ class SimilarOffers extends React.PureComponent<Props> {
             );
 
             return (
-              <Collapse in={!isSelected}>
+              <Collapse in={!isSelected} key={o.id}>
                 <div className={classes.similarOfferItem}>
                   <OfferItem
                     offer={o}
                     hideCoach={this.props.hideCoach}
-                    disabled={noInteraction}
+                    disabled={o.group ? false : noInteraction}
                     offerStatus={offerStatus}
                     isBookable={isBookable}
                     isWaitingList={isWaitingList}
@@ -272,4 +273,4 @@ export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['booking']),
-)(SimilarOffers);
+)(SimilarOffersSelector);

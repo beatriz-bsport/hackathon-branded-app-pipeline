@@ -47,7 +47,7 @@ const getMemberTagsWithTagGroup: (state: RootState) => Array<Tag<TagGroupAPI>> =
     },
   );
 
-export const getallTagsWithTagGroup = createSelector(
+export const getAllTagsWithTagGroup = createSelector(
   [_getTags, getTagGroupsDict],
   (tagsItemsList, tagGroupData) => {
     return (tagsItemsList || [])
@@ -63,6 +63,7 @@ export const getallTagsWithTagGroup = createSelector(
 
 export const getMemberTagsIdsList = (state: RootState) =>
   state.tag.marketPlaceMemberTag.tagIdsList;
+
 export const withTags = memoize((selector: (state: RootState) => any) =>
   createSelector([selector, _getTags], (tag_group, tags_list) => {
     if (!tag_group) return null;

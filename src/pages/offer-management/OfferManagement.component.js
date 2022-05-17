@@ -62,7 +62,6 @@ type Props = {
   offer: ?Offer,
   offerLoading: boolean,
   bookingLoading: ?boolean,
-  compatiblePacksLoading: boolean,
 
   fetchInvoiceListUnpaid: () => void,
   registerToOffer: () => void,
@@ -73,7 +72,6 @@ type Props = {
   memberHistory: Array<Member>,
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
-  compatiblePacks: Array<PaymentPack>,
 
   unpaidInvoiceList: Array<Invoice>,
   fetchInvoice: () => void,
@@ -217,6 +215,14 @@ type Props = {
     amount: number,
     options?: OptionCallback,
   ) => void,
+
+  activityGroups: number,
+  similarBookingList: Booking[],
+
+  fetchGroupsOfferList: () => {},
+  fetchLevelList: ({
+    company: number,
+  }) => void,
 };
 
 type State = {
@@ -243,6 +249,9 @@ export class OfferManagement extends Component<Props, State> {
       this.props.fetchMetaActivityBulk([this.props.offer.meta_activity_id]);
     }
     this.props.fetchEstablishmentList();
+    this.props.fetchLevelList({
+      company: this.props.company_theme.company,
+    });
   }
 
   fetchOfferAndData = () => {
@@ -348,10 +357,10 @@ export class OfferManagement extends Component<Props, State> {
       this.props.booking_ordering,
       {
         onSuccess: () => {
-          this.props.closeRevertBookingDialog();
           if (options && options.onSuccess) {
             options.onSuccess();
           }
+          this.props.closeRevertBookingDialog();
         },
       },
       data,
@@ -476,6 +485,8 @@ export class OfferManagement extends Component<Props, State> {
                 );
               }
             }}
+            fetchGroupsOfferList={this.props.fetchGroupsOfferList}
+            hasActivityGroups={this.props.activityGroups > 0}
           />
         )}
         <Grid item xs={12}>
@@ -595,8 +606,6 @@ export class OfferManagement extends Component<Props, State> {
             offer={this.props.offer}
             member={this.props.memberToRegister}
             memberDetails={this.props.memberDetails}
-            loading={this.props.compatiblePacksLoading}
-            compatiblePacks={this.props.compatiblePacks}
             onCancel={() => this.props.setMemberToRegister(null)}
             onClose={() => this.props.setMemberToRegister(null)}
             registerToOffer={this.props.registerToOffer}
@@ -629,6 +638,8 @@ export class OfferManagement extends Component<Props, State> {
           bookingToRevert={this.props.bookingToRevert}
           closeRevertBookingDialog={this.props.closeRevertBookingDialog}
           offerIsAvailable={this.props.offer.available}
+          offer={this.props.offer}
+          similarBookings={this.props.similarBookingList}
         />
         <DiscardBookingOptionDialog
           open={
@@ -716,7 +727,17 @@ export default compose(
   withStateHandlers(
     { bookingToRevert: null },
     {
-      handleRevertBooking: () => (bookingToRevert) => ({ bookingToRevert }),
+      handleRevertBooking:
+        (_, { offer, fetchSimilarFuturBookingInGroup }) =>
+        (bookingToRevert) => {
+          if (offer?.group) {
+            fetchSimilarFuturBookingInGroup(
+              offer.group.id,
+              bookingToRevert.member,
+            );
+          }
+          return { bookingToRevert };
+        },
       closeRevertBookingDialog: () => () => ({ bookingToRevert: null }),
     },
   ),

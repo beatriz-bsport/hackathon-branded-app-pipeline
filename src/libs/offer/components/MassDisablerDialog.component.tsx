@@ -14,6 +14,9 @@ import {
   Info,
   Warning,
 } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
+import InfoIcon from '@material-ui/icons/Info';
+
 import {
   DateField,
   TextFieldEnhancedLabelWithError,
@@ -21,6 +24,8 @@ import {
 import { OptionCallback } from '../../../state/types';
 import RedButtonComponent from '#components/button/RedButton.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { Offer } from '../types';
+import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
 
 type OwnProps = {
   onClose: () => void;
@@ -33,6 +38,7 @@ type OwnProps = {
     options?: OptionCallback,
   ) => void;
   numberOfMassDisabledOffer: number;
+  massDisabledOfferInGroup: Offer[];
   numberOfMassDisabledOfferLoading: boolean;
 };
 type Props = OwnProps;
@@ -43,6 +49,9 @@ export const MassDisablerDialog = (props: Props) => {
   const initialValues = { startDate: moment(), endDate: moment() };
   const [secondWarningOpen, setSecondWarningOpen] = React.useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
+
+  const numberOfMassDisabledOfferInGroup =
+    props?.massDisabledOfferInGroup?.length ?? 0;
 
   return (
     <GenericResponsiveDialog open maxWidth="sm" fullScreenBreakpoint="xs">
@@ -112,21 +121,15 @@ export const MassDisablerDialog = (props: Props) => {
                     <Button
                       disabled={!formikProps.isValid}
                       onClick={() => {
-                        props.retrieveNumberOfDeletedOffer(
-                          {
-                            start: moment(formikProps.values.startDate).format(
-                              'YYYY-MM-DD',
-                            ),
-                            end: moment(formikProps.values.endDate).format(
-                              'YYYY-MM-DD',
-                            ),
-                          },
-                          {
-                            onSuccess: () => {
-                              setSecondWarningOpen(true);
-                            },
-                          },
-                        );
+                        props.retrieveNumberOfDeletedOffer({
+                          start: moment(formikProps.values.startDate).format(
+                            'YYYY-MM-DD',
+                          ),
+                          end: moment(formikProps.values.endDate).format(
+                            'YYYY-MM-DD',
+                          ),
+                        });
+                        setSecondWarningOpen(true);
                       }}
                       variant="contained"
                       color="primary"
@@ -153,11 +156,45 @@ export const MassDisablerDialog = (props: Props) => {
                         'LL',
                       ),
                       end_date: moment(formikProps.values.endDate).format('LL'),
-                      number_of_deleted_offer: props.numberOfMassDisabledOffer,
-                      count: props.numberOfMassDisabledOffer,
+                      number_of_deleted_offer:
+                        props.numberOfMassDisabledOffer -
+                        numberOfMassDisabledOfferInGroup,
+                      count:
+                        props.numberOfMassDisabledOffer -
+                        numberOfMassDisabledOfferInGroup,
                     })}
                   </Typography>
                   <Typography>{t('massDisabler.sure')}</Typography>
+                  {numberOfMassDisabledOfferInGroup > 0 && (
+                    <div className={classes.iconAndInfo}>
+                      <Warning color="error" />
+                      <Alert
+                        severity="error"
+                        icon={<></>}
+                        className={classes.alert}
+                      >
+                        <Typography color="error">
+                          {t('massDisabler.warningOfferGroupTitle')}
+                        </Typography>
+                        <div className={classes.rowWarning}>
+                          <InfoIcon color="disabled" />
+                          <Typography color="textSecondary">
+                            {t('massDisabler.warningOfferGroup')}
+                          </Typography>
+                        </div>
+                        {props.massDisabledOfferInGroup.map((so) => (
+                          <OfferListItemV2
+                            key={so.id}
+                            similarOffer
+                            disabled
+                            offer={so}
+                            handleChange={null}
+                            checked
+                          />
+                        ))}
+                      </Alert>
+                    </div>
+                  )}
                   <div className={classes.iconAndInfo}>
                     <Warning color="error" />
                     <Typography
@@ -274,6 +311,16 @@ const useStyles = makeStyles<Theme>((theme) => ({
     gap: theme.spacing(4),
 
     justifyContent: 'center',
+  },
+  alert: {
+    width: '100%',
+  },
+  rowWarning: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    width: '100%',
+    gap: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   actions: {
     display: 'flex',

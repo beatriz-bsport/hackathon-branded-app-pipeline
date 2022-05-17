@@ -2,6 +2,7 @@ exports.default = {
   metaActivity: 'Activité',
   workshop: 'Atelier',
   search: 'Chercher une activité',
+  workshopSelect: 'Chercher un atelier',
   noActivities:
     'Gérez ici vos activités, une activité permet de regrouper un ensemble de séances (généralement collectives) de la même pratique.',
   actions: {
@@ -53,6 +54,7 @@ exports.default = {
     tab: {
       general: 'Général',
       pack: 'Cartes compatibles',
+      group: 'Seance groupé',
     },
   },
 
@@ -87,4 +89,96 @@ exports.default = {
 
   reviews: 'Avis clients: ',
   disabledMetaActivities: 'Activités archivées',
+  groupedOption: {
+    modal: {
+      title: 'Séances groupés',
+      subtitleMetaActivitySelect: 'Création d’un groupe de séances',
+      subtitlePreview: 'Prévisualisation de la récurrence',
+      duplicate: 'Dupliquer un groupe',
+      form: {
+        subtitle: 'Informations générales',
+        subtitleOffers: 'Ajout de séances',
+        addOffers: 'Ajouter une séance',
+        subtitleSettings: 'Paramètres',
+        subtitleRecurrence: 'Récurrence',
+        name: 'Nom',
+        fullBookingOnly: 'Inscription à toutes les séances du groupe',
+        fullBookingOnlyCaption:
+          "Par défaut vos membres seront inscrit automatiquement à l'ensemble des séances du groupe si ils s'inscrivent à l'une des séances de celui-ci. Si vous désactivez ce paramètre, il sera proposé au membre de s'inscrire à toutes les séances du groupe mais il pourra choisir auxquelles il s'inscrit.",
+        allowBookingAfterStart: "Autoriser l'inscription en cours de route",
+        allowBookingAfterStartCaption:
+          "Par défaut si un groupe de séance a déjà commencé vos membres ne pourront plus s'y inscrire. En activant cette fonctionnalité vos membres pourront tout de même s'inscrire aux séances restantes.",
+        marketPlaceAvailable: 'Disponible à la réservation (web+app)',
+        withRecurrence: 'Activer la récurrence',
+        nameCaption: 'Nom du groupe de séance',
+        timeStartHelper:
+          'Sélectionnez la date de la première séance de la copie du groupe. Les autres séances du groupe seront copiées et décalées en fonction de cette date.',
+        timeStart: 'Date de début',
+        recurrenceCount: 'Nombre de répétitions',
+        recurrenceUntil: 'Répéter jusqu’au',
+        recurrenceUntilHelper:
+          "Merci d'indiquer la date de la dernière séance du dernier cycle.",
+        recurrenceUntilHelper2:
+          'Les groupes avec une dernière séance après cette date ne seront pas créé.',
+        preview: 'Prévisualiser',
+        recurrenceNumberPrefix: 'Répéter tou·tes les',
+        recurrence: 'Récurrence',
+        daily: 'Tous les jours',
+        groupName: 'Nom',
+        next: 'Suivant',
+        required: 'Au minimun un groupe est nécessaire',
+        copyRecurrence: 'Dupliquer aussi les récurrences futures du groupe',
+        delete: {
+          title: 'Suppresion',
+          applyRecursive: 'Annuler les autres groupes similaires',
+          selectGroup: 'Annuler les autres groupes similaires',
+          selectHeader: 'Sélectionnez les groupes qui seront modifiées',
+          firstSession: 'Première seance le {{-day}}',
+          content:
+            "Attention, en supprimant ce groupe toutes les séances à l'intérieur de celui-ci seront annulées. Les élèves inscrits verront leurs réservations annulées. Cette opération est définitive",
+        },
+        save: 'sauvegarder',
+        back: 'Précédent',
+        submit: 'Valider',
+        impossibleState:
+          'Les paramêtres saisis ne permettent pas de génerer un groupe',
+      },
+    },
+    intervalLabel: {
+      month: 'Tous les mois',
+      month_plural: 'Tous les {{ count }} mois',
+      week: 'Toutes les semaines',
+      week_plural: 'Toutes les {{ count }} semaines',
+      day: 'Tous les jours',
+      day_plural: 'Tous les {{ count }} jours',
+      year: 'Tous les ans',
+      year_plural: 'Tous les {{ count }} ans',
+      until: {
+        month: "Tous les mois jusqu'au {{-until}} ",
+        month_plural: "Tous les {{ count }} mois jusqu'au {{-until}} ",
+        week: "Toutes les semaines jusqu'au {{-until}} ",
+        week_plural: "Toutes les {{ count }} semaines jusqu'au {{-until}} ",
+        day: "Tous les jours jusqu'au {{-until}} ",
+        day_plural: "Tous les {{ count }} jours jusqu'au {{-until}} ",
+        year: "Tous les ans jusqu'au {{-until}} ",
+        year_plural: "Tous les {{ count }} ans jusqu'au {{-until}} ",
+      },
+    },
+    last: 'dernier',
+    helperText: {
+      month: 'Ce groupe commence le {{-day}}, tous les mois',
+      month_plural: 'Ce groupe commence le {{-day}}, tous les {{ count }} mois',
+      week: 'Ce groupe commence le {{-day}}, toutes les semaines',
+      week_plural:
+        'Ce groupe commence le {{-day}}, toutes les {{ count }} semaines',
+      day: 'Ce groupe est répété tous les jours',
+      day_plural: 'Ce groupe commence est répété tous les {{ count }} jours',
+      year: 'Ce groupe commence {{-day}}, de {{-mont}} tous les ans',
+      year_plural:
+        'Ce groupe commence {{-day}}, de {{-month}} tous les {{ count }} ans',
+    },
+    offerDescription:
+      '{{ count }} séances du {{- firstSession }} au {{- lastSession }}',
+  },
+  cancelledOffers: '{{count}} annulations',
 };

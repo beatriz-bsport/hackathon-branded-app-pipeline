@@ -35,3 +35,9 @@ export const getUserPreferencesCalendarFilter = (state: RootState): any =>
   state.userPreference.calendarFilter;
 export const getMemberPrivateBookingFilter = (state: RootState) =>
   state.userPreference.memberPrivateBookingFilter || {};
+
+export const getWorkshopGroupFilter = (state: RootState) =>
+  state.userPreference.workshopGroupFilter || {};
+
+export const getWorkshopDetailGroupFilter = (state: RootState) =>
+  state.userPreference.workshopDetailGroupFilter || {};

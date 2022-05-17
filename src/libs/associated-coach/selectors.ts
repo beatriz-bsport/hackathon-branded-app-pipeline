@@ -50,6 +50,10 @@ export const getInactiveCoaches = createSelector(getAllCoaches, (coaches) =>
 export const getCoach = (state: RootState, id: number): Coach =>
   state.coach.byId[id];
 
+export const getCoachById = (state: RootState) => (id: number) => {
+  return state.coach.byId[id];
+};
+
 export const getCoachWithPaymentRule = createSelector(
   getActiveCoaches,
   (coaches) => coaches.filter((coach) => !!coach.default_payment_rule_id),

@@ -53,7 +53,7 @@ import {
   getAllCustomLevels,
 } from '#libs/level/selectors';
 
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import { Offer } from '#libs/offer/types';
 
@@ -172,7 +172,7 @@ const connector = connect(
     roomBlueprints: getAvailableRoomBlueprints(state),
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     showPartnership: state.theme.theme.has_partnership,
-    allTagsWithTagGroup: getallTagsWithTagGroup(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     activeCustomLevels: getActiveCustomLevels(state),
     allCustomLevels: getAllCustomLevels(state),
     companyId: state.theme.theme.company,

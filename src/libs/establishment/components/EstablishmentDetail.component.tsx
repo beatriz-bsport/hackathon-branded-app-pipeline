@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Moment from 'moment-timezone';
 
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import type { Establishment, Offer } from '../../../api/types';
 
@@ -104,21 +104,21 @@ export class EstablishmentDetail extends Component<Props, State> {
   renderCalendar = (establishment: Establishment) => {
     const { offers, timetableLoading, events } = this.props;
     const { selectedDay } = this.state;
-    const events_ = {};
-    for (const o of events || []) {
-      const midnight = Moment(o.date_start).startOf('day');
-      if (Object.hasOwnProperty.call(events_, midnight)) {
-        events_[midnight].push(o);
-      } else {
-        events_[midnight] = [o];
-      }
-    }
+
     return (
       <div>
         <Calendar
-          events={events_}
+          events={events.reduce((acc, o) => {
+            const midnight = Moment(o.date_start).startOf('day');
+            if (Object.hasOwnProperty.call(events, midnight)) {
+              acc[midnight].push(o);
+              return acc;
+            }
+            acc[midnight] = [o];
+            return acc;
+          }, {})}
           forceMonthDisplay
-          onDateClick={this.onDateClick(establishment.id)}
+          onDateChange={this.onDateClick(establishment.id)}
           date={(selectedDay[establishment.id] || Moment()).format(DATE_FORMAT)}
         />
         <TimeTable

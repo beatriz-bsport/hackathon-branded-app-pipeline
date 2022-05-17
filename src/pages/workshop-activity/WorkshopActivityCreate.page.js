@@ -62,7 +62,7 @@ import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/s
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import type { PaymentPackCategory } from '../../libs/payment-packs/types';
-import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '../../libs/tag/selectors';
 import type { Tag, TagGroup } from '../../libs/tag/types';
 
 type StepType = {
@@ -122,6 +122,7 @@ type Props = {
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
+  alt_cover_main: 'alt_cover_main',
   description: 'description',
   name: 'name',
   last_booking_minutes: 'last_booking_minutes',
@@ -292,7 +293,7 @@ export default compose(
       roomBlueprints: getAvailableRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       paymentPackCategories: getAllPaymentPackCategory(state),
-      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       showPartnership: state.theme.theme.has_partnership,
       metaActivityCategories: getMetaActivityCategories(state),
       activeCustomLevels: getActiveCustomLevels(state),
@@ -321,6 +322,7 @@ export default compose(
   withProps(({ upsertWorkshopActivity, setStep }) => ({
     onSubmitWorkshopActivity: (values, options) => {
       const formData = mapFormData(values, MetaActivityMap);
+
       formData.append('is_workshop', true);
       upsertWorkshopActivity(formData, {
         ...options,

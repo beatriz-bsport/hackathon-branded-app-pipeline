@@ -18,7 +18,7 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import uniqBy from 'lodash/uniqBy';
 import {
   fetchAllActivities,
-  fetchAll as fetchWorkshops,
+  fetchMetaActivities as fetchMetaActivitiesAction,
   fetchMetaActivityBulk,
 } from '#libs/meta-activity/actions';
 import {
@@ -102,7 +102,7 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionList from '#libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
 import { PaymentPackMassExtension } from '#libs/consumer-payment-pack/types';
 
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';
 import { getAllEstablishments } from '#libs/establishment/selectors';
 import {
@@ -599,7 +599,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     emailDetailLoading: state.emailTemplate.detail.loading,
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.loading,
-    allTagsWithTagGroup: getallTagsWithTagGroup(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     paymentPackCategoryById: getPaymentPackCategoryById(state),
     establishmentList: getAllEstablishments(state),
     paymentPackCategories: getAllPaymentPackCategory(state),
@@ -675,7 +675,7 @@ const mapDispatchToProps = {
   deleteMassExtension,
   fetchEstablishments,
   fetchAllActivities,
-  fetchWorkshops,
+  fetchMetaActivities: fetchMetaActivitiesAction,
   createOrUpdatePaymentPackAction,
   fetchTagList,
   fetchVideoFilterableParams,

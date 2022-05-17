@@ -3,18 +3,20 @@ import React from 'react';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
+import moment from 'moment-timezone';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment-timezone';
+import { Alert } from '@material-ui/lab';
 
 import RedButton from '../../../components/button/RedButton.component';
+import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
 
 type Props = {
   booking: ?Booking,
@@ -26,11 +28,24 @@ type Props = {
   open: boolean,
   processing: boolean,
   setProcessing: (boolean) => void,
+  similarBookings: Booking[],
+  group: OffersGroup,
 };
 
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(2),
+  },
+  alert: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  item: {
+    marginLeft: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(1),
   },
 }));
 
@@ -57,11 +72,80 @@ export const BookingCancellationDialog = (props: Props) => {
         {!props.booking ? (
           <CircularProgress />
         ) : (
-          <DialogContentText>
-            {(props.booking || {}).is_discardable
-              ? props.t('consumer.booking.discardPossibleExplain')
-              : props.t('consumer.booking.discardImpossibleExplain')}
-          </DialogContentText>
+          <>
+            {(props.booking || {}).is_discardable && (
+              <>
+                {props.booking?.offer?.group ? (
+                  <>
+                    <Typography>
+                      {props.t('consumer.booking.discardGroupPossibleExplain', {
+                        group: props.group?.name,
+                      })}
+                    </Typography>
+
+                    <Alert className={classes.alert} severity="error">
+                      {props.t('consumer.booking.discardAllGroup')}
+                    </Alert>
+                    {props.similarBookings?.map((b) => (
+                      <div className={classes.item} key={b.id}>
+                        <OfferListItemV2
+                          offer={{
+                            ...b.offer,
+                            coach: b.coach,
+                            customLevel: b.customLevel,
+                          }}
+                          divider={false}
+                        />
+                        {!b.is_discardable && (
+                          <Typography color="error">
+                            {props.t('consumer.booking.willNotBeRefund')}
+                          </Typography>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography>
+                    {props.t('consumer.booking.discardPossibleExplain')}
+                  </Typography>
+                )}
+              </>
+            )}
+            {!(props.booking || {}).is_discardable && (
+              <>
+                {props.booking?.offer?.group ? (
+                  <>
+                    <Typography>
+                      {props.t(
+                        'consumer.booking.discardGroupImpossibleExplain',
+                        {
+                          group: props.booking?.offer?.group?.name,
+                        },
+                      )}
+                    </Typography>
+
+                    <Alert className={classes.alert} severity="error">
+                      {props.t('consumer.booking.discardAllGroup')}
+                    </Alert>
+                    {props.similarBookings?.map((b) => (
+                      <div className={classes.item} key={b.id}>
+                        {props.t(
+                          b.is_discardable
+                            ? 'consumer.booking.willBeRefund'
+                            : 'consumer.booking.willNotBeRefund',
+                          { day: moment(b.offer_date_start).format('L') },
+                        )}
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography>
+                    {props.t('consumer.booking.discardImpossibleExplain')}
+                  </Typography>
+                )}
+              </>
+            )}
+          </>
         )}
       </div>
       <DialogActions>

@@ -36,8 +36,7 @@ import { getEnabled as getPaymentPacks } from '#libs/payment-packs/selectors';
 import { getShopItemsAvailable as getShopItems } from '#libs/shop/selectors';
 import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
-import type { PaymentPack } from '#libs/payment-packs/types';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment_combo/types';
@@ -213,7 +212,7 @@ const connector = connect(
     shopItems: getShopItems(state),
     privatePasses: getPrivatePass(state),
     paymentCombos: getPaymentComboList(state),
-    tagList: getallTagsWithTagGroup(state),
+    tagList: getAllTagsWithTagGroup(state),
   }),
   {
     goToCouponList: () => pushRouter('/coupon'),

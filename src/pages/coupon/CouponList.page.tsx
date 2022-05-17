@@ -46,7 +46,7 @@ import { getEnabled as getPaymentPacks } from '#libs/payment-packs/selectors';
 import { getShopItemsAvailable as getShopItems } from '#libs/shop/selectors';
 import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 
@@ -293,7 +293,7 @@ const connector = connect(
     shopItems: getShopItems(state),
     paymentCombos: getPaymentComboList(state),
     privatePasses: getPrivatePass(state),
-    tagList: getallTagsWithTagGroup(state),
+    tagList: getAllTagsWithTagGroup(state),
   }),
   {
     fetchCouponPage,

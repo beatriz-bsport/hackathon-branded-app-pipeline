@@ -100,6 +100,7 @@
         "hour": { "label": "heure" },
         "minute": { "label": "minute" },
         "metaActivity": { "label": "Activité", "helperText": "Activité" },
+        "groupWarning": "Attention il n’est pas possible de créer une récurrence de réservation sur des groupes de séances",
         "delayWeek": { "label": "Nombre de semaines", "helperText": "Indique combien de semaine en avance le membre sera inscrit" }
       },
       "actions": { "close": "Fermer", "save": "Enregistrer" },
@@ -2311,8 +2312,14 @@
         "bookOption": "Liste d'attente",
         "isPast": "Passé",
         "notAvailable": "Annulé",
-        "duration": "Durée: {{duration}}"
-      }
+        "duration": "Durée: {{duration}}",
+        "bookTitle": "Réservez une séance",
+        "loadMore": "Plus de séances"
+      },
+      "cancel": "Annuler",
+      "confirm": "Continuer",
+      "warningFullBooking": "Vous êtes en train de réserver un groupe de séance. Vous serez inscrits à l'ensemble des {{count}} séances de ce groupe.",
+      "warningPartialBooking": "Vous êtes en train de réserver un groupe de séance. Vous n'êtes cependant pas obliger de participer à toutes les séances de ce groupe. Vous pourrez sélectionner les séances que vous souhaitez."
     },
     "calendar": { "registered": "Déjà inscrit(e)" }
   },
@@ -2615,6 +2622,7 @@
     "metaActivity": "Activité",
     "workshop": "Atelier",
     "search": "Chercher une activité",
+    "workshopSelect": "Chercher un atelier",
     "noActivities": "Gérez ici vos activités, une activité permet de regrouper un ensemble de séances (généralement collectives) de la même pratique.",
     "actions": { "addActivity": "Ajouter une activité", "search": "Rechercher une activité" },
     "navigation": { "goToPaymentPack": "Cartes de cours" },
@@ -2650,7 +2658,7 @@
         "consumerPacks": "Carte de cours possédées par les membres",
         "paymentPacks": "Carte compatibles"
       },
-      "tab": { "general": "Général", "pack": "Cartes compatibles" }
+      "tab": { "general": "Général", "pack": "Cartes compatibles", "group": "Seance groupé" }
     },
     "name": "Nom",
     "category": "Catégorie",
@@ -2675,7 +2683,89 @@
     },
     "packsAvailable": "Eligible aux pass :",
     "reviews": "Avis clients: ",
-    "disabledMetaActivities": "Activités archivées"
+    "disabledMetaActivities": "Activités archivées",
+    "groupedOption": {
+      "modal": {
+        "title": "Séances groupés",
+        "subtitleMetaActivitySelect": "Création d’un groupe de séances",
+        "subtitlePreview": "Prévisualisation de la récurrence",
+        "duplicate": "Dupliquer un groupe",
+        "form": {
+          "subtitle": "Informations générales",
+          "subtitleOffers": "Ajout de séances",
+          "addOffers": "Ajouter une séance",
+          "subtitleSettings": "Paramètres",
+          "subtitleRecurrence": "Récurrence",
+          "name": "Nom",
+          "fullBookingOnly": "Inscription à toutes les séances du groupe",
+          "fullBookingOnlyCaption": "Par défaut vos membres seront inscrit automatiquement à l'ensemble des séances du groupe si ils s'inscrivent à l'une des séances de celui-ci. Si vous désactivez ce paramètre, il sera proposé au membre de s'inscrire à toutes les séances du groupe mais il pourra choisir auxquelles il s'inscrit.",
+          "allowBookingAfterStart": "Autoriser l'inscription en cours de route",
+          "allowBookingAfterStartCaption": "Par défaut si un groupe de séance a déjà commencé vos membres ne pourront plus s'y inscrire. En activant cette fonctionnalité vos membres pourront tout de même s'inscrire aux séances restantes.",
+          "marketPlaceAvailable": "Disponible à la réservation (web+app)",
+          "withRecurrence": "Activer la récurrence",
+          "nameCaption": "Nom du groupe de séance",
+          "timeStartHelper": "Sélectionnez la date de la première séance de la copie du groupe. Les autres séances du groupe seront copiées et décalées en fonction de cette date.",
+          "timeStart": "Date de début",
+          "recurrenceCount": "Nombre de répétitions",
+          "recurrenceUntil": "Répéter jusqu’au",
+          "recurrenceUntilHelper": "Merci d'indiquer la date de la dernière séance du dernier cycle.",
+          "recurrenceUntilHelper2": "Les groupes avec une dernière séance après cette date ne seront pas créé.",
+          "preview": "Prévisualiser",
+          "recurrenceNumberPrefix": "Répéter tou·tes les",
+          "recurrence": "Récurrence",
+          "daily": "Tous les jours",
+          "groupName": "Nom",
+          "next": "Suivant",
+          "required": "Au minimun un groupe est nécessaire",
+          "copyRecurrence": "Dupliquer aussi les récurrences futures du groupe",
+          "delete": {
+            "title": "Suppresion",
+            "applyRecursive": "Annuler les autres groupes similaires",
+            "selectGroup": "Annuler les autres groupes similaires",
+            "selectHeader": "Sélectionnez les groupes qui seront modifiées",
+            "firstSession": "Première seance le {{-day}}",
+            "content": "Attention, en supprimant ce groupe toutes les séances à l'intérieur de celui-ci seront annulées. Les élèves inscrits verront leurs réservations annulées. Cette opération est définitive"
+          },
+          "save": "sauvegarder",
+          "back": "Précédent",
+          "submit": "Valider",
+          "impossibleState": "Les paramêtres saisis ne permettent pas de génerer un groupe"
+        }
+      },
+      "intervalLabel": {
+        "month": "Tous les mois",
+        "month_plural": "Tous les {{ count }} mois",
+        "week": "Toutes les semaines",
+        "week_plural": "Toutes les {{ count }} semaines",
+        "day": "Tous les jours",
+        "day_plural": "Tous les {{ count }} jours",
+        "year": "Tous les ans",
+        "year_plural": "Tous les {{ count }} ans",
+        "until": {
+          "month": "Tous les mois jusqu'au {{-until}} ",
+          "month_plural": "Tous les {{ count }} mois jusqu'au {{-until}} ",
+          "week": "Toutes les semaines jusqu'au {{-until}} ",
+          "week_plural": "Toutes les {{ count }} semaines jusqu'au {{-until}} ",
+          "day": "Tous les jours jusqu'au {{-until}} ",
+          "day_plural": "Tous les {{ count }} jours jusqu'au {{-until}} ",
+          "year": "Tous les ans jusqu'au {{-until}} ",
+          "year_plural": "Tous les {{ count }} ans jusqu'au {{-until}} "
+        }
+      },
+      "last": "dernier",
+      "helperText": {
+        "month": "Ce groupe commence le {{-day}}, tous les mois",
+        "month_plural": "Ce groupe commence le {{-day}}, tous les {{ count }} mois",
+        "week": "Ce groupe commence le {{-day}}, toutes les semaines",
+        "week_plural": "Ce groupe commence le {{-day}}, toutes les {{ count }} semaines",
+        "day": "Ce groupe est répété tous les jours",
+        "day_plural": "Ce groupe commence est répété tous les {{ count }} jours",
+        "year": "Ce groupe commence {{-day}}, de {{-mont}} tous les ans",
+        "year_plural": "Ce groupe commence {{-day}}, de {{-month}} tous les {{ count }} ans"
+      },
+      "offerDescription": "{{ count }} séances du {{- firstSession }} au {{- lastSession }}"
+    },
+    "cancelledOffers": "{{count}} annulations"
   },
   "navigation": {
     "paymentMethodMissing": {
@@ -2874,7 +2964,8 @@
           "establishment_practical_info": "Accès à la salle",
           "address": "Adresse",
           "ics_calendar_link": "Lien ics calendrier",
-          "spot": "Place"
+          "spot": "Place",
+          "canceled_grouped_session": "Groupe de réservation annulé"
         }
       },
       "PrivateConsumerPass": {
@@ -2963,6 +3054,7 @@
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
       "702": "Pénalité carte de cours : acompte créé (élève)",
+      "801": "Groupe de rendez vous annulé",
       "987": "Tentative d'encaissement d'un paiement échelonné"
     },
     "franchise": {
@@ -3041,6 +3133,7 @@
       "loadingSoon": "En cours de chargement...",
       "activateVideo": "Lancer la diffusion"
     },
+    "recurrenceIndex": "Groupe n°{{ index }} de la récurrence",
     "disabled": "Annulée",
     "credit_price": " Crédit",
     "booking": { "confirmed": "Confirmé(s)", "fillRate": "Taux de remplissage", "waiting": "Liste d'attente" },
@@ -3065,6 +3158,8 @@
     },
     "massDisabler": {
       "success": "Annulation confirmée",
+      "warningOfferGroupTitle": "Séances non annulées",
+      "warningOfferGroup": "Attention les séances suivantes n'ont pas pu être annulées car elle font partie d'un groupe de séance. Pour les annuler merci d'annuler le groupe correspondant.",
       "confirmationExplain": "Veuillez écrire ci-dessous en lettre capitale \"JE CONFIRME\".",
       "iConfirm": "JE CONFIRME",
       "successInfo": "La suppression de toutes les séances entre le {{start_date}} et le {{end_date}} a bien été prise en compte.",
@@ -3088,12 +3183,15 @@
     "bookingListEmpty": "Aucune réservation",
     "liveOfferEdit": {
       "editSimilarOffers": "Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?",
+      "editSimilarOffersGroup": "Modifier la séance dans les récurrences futures du groupe ?",
       "selectEdit": "Sélectionnez les séances qui seront modifiées",
       "selectAll": "Tout sélectionner",
       "unselectAll": "Tout désélectionner",
       "deleteSimilarOffers": "Voulez-vous supprimer les séances similaires ?",
+      "deleteSimilarOffersGroups": "Voulez-vous supprimer les récurrences futures du groupe",
       "selectDelete": "Sélectionnez les séances qui seront supprimées",
       "cancelSimilarOffers": "Voulez-vous annuler les séances similaires ?",
+      "cancelSimilarOffersGroup": "Annuler la séance dans les autres récurrences du groupe ?",
       "selectCancel": "Sélectionnez les séances qui seront annulées",
       "noSimilarOffer": "Aucune séance similaire trouvée. Seule cette séance sera affectée."
     },
@@ -7337,6 +7435,13 @@
           }
         }
       }
+    },
+    "modal": {
+      "confirm": {
+        "title": "Dé-tagger",
+        "text": "Cette séance fais partit d'un groupe, vous allez détagger toutes les séance de ce groupe. Voulez vous continuer ?",
+        "submit": "Confirmer"
+      }
     }
   },
   "theme": {
@@ -7874,7 +7979,9 @@
       "explainNoEmailChange": "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
       "signUpTitle": "Inscription",
       "noAvailableCredit": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
+      "noWaitingList": "Les listes d'attentes ne sont pas disponibles pour les inscriptions obligatoires à l'ensemble du groupe",
       "warningCreditChange": "NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits",
+      "editGroup": "Modifier ce champs directement sur le groupe de séance.",
       "address": {
         "streetNumber": "N°",
         "addressLine1": "Adresse",
@@ -8025,6 +8132,7 @@
         "coachLabel": "Professeur",
         "establishmentLabel": "Salle",
         "substituteEstablishmentLabel": "Salle (lieu temporaire)",
+        "editingGroup": "Attention cette séance fait parti du groupe de séance {{ name }}",
         "warningPackonEdit": "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
         "deleteTitle": "Supprimer la séance",
         "cancelTitle": "Annuler la séance",
@@ -8174,7 +8282,12 @@
         "intro": "Votre réservation du {{date}}",
         "cancelBooking": "Annuler la réservation",
         "discardBookingTitle": "Annuler la réservation",
+        "discardAllGroup": "Toutes les réservations du groupe seront annulées.",
+        "willBeRefund": "La séance du {{-day}} sera recrédité",
+        "willNotBeRefund": "Crédits non remboursé",
         "discardPossibleExplain": "Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.",
+        "discardGroupPossibleExplain": " Cette réservation fait partie du groupe de séance {{ group }}. Êtes-vous sûr de vouloir annuler ces réservations ? Vos crédits seront de nouveau utilisable.",
+        "discardGroupImpossibleExplain": " Cette réservation fait partie du groupe de séance {{ group }}. Êtes-vous sûr de vouloir annuler ces réservations ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club)..",
         "discardImpossibleExplain": "Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club).",
         "confirmBooking": "Confirmer",
         "waitingSlot": "En attente",
@@ -8355,6 +8468,7 @@
     },
     "activity": {
       "explainImage": "Recommandé: 1920x1080 jpeg (fullHD)",
+      "altCoverMain": "Description de l'image pour les malvoyants",
       "nextSlotAt": "Prochaine séance le ",
       "settings": "Paramètres",
       "is_broadcast": "Cours live streaming",
@@ -8402,6 +8516,8 @@
       "notifyRevert": "Envoyer un email d'annulation",
       "refundRevert": "Rembourser les crédits utilisés",
       "discard": "Annuler",
+      "cancellingOtherBookingInGroup": "Attention cette séance est une séance groupée de {{ name }}, voulez vous annuler la réservation pour toutes les autres séances de ce groupe ?",
+      "cancellingBookingInGroup": "Annuler pour les autres séances de ce groupe.",
       "onWaitingList": "Sur liste d'attente",
       "cancelledFromWaitingList": "Sorti de la liste d'attente",
       "onHold": "En attente",
@@ -8477,7 +8593,13 @@
       "vod": "VOD",
       "playlist": "Playlist",
       "substitute": "Remplaçant",
+      "offers": "{{ count }} séances",
+      "from_to": "du {{-from}} au {{-to}}",
       "substituted": "Absent",
+      "discover": "Découvrir",
+      "bookGroups": "Réservez un groupe de séance",
+      "cancel": "retour",
+      "book": "Réserver",
       "teacher": "Professeur",
       "backToCalendar": "Précédent",
       "showMarketplace": "Voir le calendrier de ",
@@ -8521,7 +8643,10 @@
           "passOwnedByMember": "Pass possédé(s) par le membre",
           "doNotConsumeCredit": "Ne pas décompter de crédits aux membres pour l'inscription",
           "passCompatibleNotOwnedByMember": "Facturation d'un nouveau pass",
-          "forceNotify": "Envoyer un email de confirmation"
+          "forceNotify": "Envoyer un email de confirmation",
+          "groupWarning": "Cette séance fait partie du groupe de séance {{ name }}",
+          "bookMoreInGroup": "Inscrire aux autres séances du groupe",
+          "bookSingleInGroup": "Inscrire uniquement à cette séance"
         }
       }
     },
@@ -8847,7 +8972,18 @@
   },
   "workshop": {
     "search": "Chercher un atelier",
-    "actions": { "addWorkshopActivity": "Ajouter un atelier", "search": "Rechercher un atelier" },
+    "actions": {
+      "addWorkshopActivity": "Ajouter un atelier",
+      "search": "Rechercher un atelier",
+      "addWorkshopGroup": "Ajouter un groupe de séance"
+    },
+    "group": {
+      "emptySelect": "Séléctionnez une séance",
+      "backToGroup": "Retourner au groupes",
+      "pageSize": "Afficher par:",
+      "emptySearch": "Aucun groupe ne correspond à votre recherche",
+      "emptyState": "Avec les groupes de séances vos élèves pourront réserver d’un seul coup toutes les séances comprises dans le groupe. Par exemple, utilisez les groupes de séances pour créer des ateliers d’initiations avec plusieurs séances. "
+    },
     "noWorkshops": "Gérez ici vos ateliers, un atelier est un évènement dont la date est fixée à l'avance.",
     "navigation": { "goToPaymentPack": "Cartes de cours" },
     "modal": {
@@ -8868,7 +9004,9 @@
         "actions": { "cancel": "Annuler", "confirm": "Supprimer" }
       }
     },
-    "disabledWorkshops": "Ateliers archivés"
+    "disabledWorkshops": "Ateliers archivés",
+    "tabList": "Liste des ateliers",
+    "tabGroups": "Séances groupées"
   },
   "instalmentPayment": {
     "paymentAllInOnce": "Payer en une fois",

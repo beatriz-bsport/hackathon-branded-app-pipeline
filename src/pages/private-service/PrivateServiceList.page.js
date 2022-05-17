@@ -54,7 +54,7 @@ import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withPrivateBookingNotification } from '../../libs/marketing/selectors';
 
 import type { PrivateService } from '../../libs/private-service/types';
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 
@@ -335,7 +335,7 @@ export default compose(
       privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
       selectedPrivateService: getPrivateServiceById(state, privateServiceId),
       allCoaches: getAllCoaches(state),
-      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchAllPrivateServices: () =>

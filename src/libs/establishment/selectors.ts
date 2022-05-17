@@ -26,6 +26,7 @@ export const getAllIds = (state: RootState): Array<number> =>
 
 export const getAllAssociatedEstablishmentGroupDict = (state: RootState) =>
   getState(state).establishmentGroup.byId;
+
 export const getAllAssociatedEstablishmentGroupIds = (state: RootState) =>
   getState(state).establishmentGroup.allIds;
 
@@ -52,6 +53,9 @@ export const getDisabledEstablishmentList = createSelector(
 );
 
 export const getEstablishment = (state: RootState, id: number): Establishment =>
+  state.establishment.byId[id];
+
+export const getEstablishmentById = (state: RootState) => (id: number) =>
   state.establishment.byId[id];
 
 export const retrieveEstablishmentGroup = (

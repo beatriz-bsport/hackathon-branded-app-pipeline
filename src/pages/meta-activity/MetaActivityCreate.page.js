@@ -23,7 +23,7 @@ import { mapFormData } from '../form.utils';
 import {
   upsert,
   fetchAllActivities,
-  fetchAll as fetchWorkhops,
+  fetchMetaActivities as fetchMetactivitiesAction,
   fetchAllMetaActivityCategory,
 } from '../../libs/meta-activity/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
@@ -76,7 +76,7 @@ import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/action
 import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
 import { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { MetaActivityCategoryWithActivities } from '../../libs/meta-activity/types';
 
 type StepType = {
@@ -121,7 +121,7 @@ type Props = {
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
   fetchAllActivities: (data: { customer_enabled: true }) => void,
-  fetchWorkhops: () => void,
+  fetchMetactivities: () => void,
   fetchAllPaymentPacks: () => void,
   fetchAllPaymentPackCategory: () => void,
   establishmentList: any,
@@ -185,7 +185,7 @@ export class MetaActivityFormPage extends Component<Props> {
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllActivities({ customer_enabled: true });
-    this.props.fetchWorkhops();
+    this.props.fetchMetactivities();
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchAllMetaActivityCategory();
@@ -333,7 +333,7 @@ export default compose(
       roomBlueprints: getAvailableRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       allEstablishmentList: getAllEstablishments(state),
-      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       paymentPackCategories: getAllPaymentPackCategory(state),
       metaActivities: uniqBy(
         [
@@ -364,7 +364,7 @@ export default compose(
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
       fetchAllActivities,
-      fetchWorkhops,
+      fetchMetactivities: fetchMetactivitiesAction,
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,
       fetchAllPaymentPackCategory,
       createOrUpdatePaymentPackAction: createPaymentPack,

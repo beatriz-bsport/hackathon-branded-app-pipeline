@@ -83,7 +83,7 @@ export const MetaActivityDetail = (props: Props) => {
         <Paper className={classes.fullWidth}>
           <Calendar
             date={(props.dateSelected || moment()).format(DATE_FORMAT)}
-            onDateClick={props.handleDayClick}
+            onDateChange={props.handleDayClick}
             forceMonthDisplay
             events={getEvents(props.events)}
           />

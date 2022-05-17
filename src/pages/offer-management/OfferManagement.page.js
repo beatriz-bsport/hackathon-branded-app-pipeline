@@ -21,13 +21,13 @@ import {
 import {
   fetchOfferById as fetchOfferByIdAction,
   toggleWaitingListFreeze as toggleWaitingListFreezeAction,
-  fetchCompatiblePacks as fetchCompatiblePacksAction,
   fetchOfferStatus as fetchOfferStatusAction,
 } from '#libs/offer/actions';
 import {
   compatiblePacksWithOfferAndEnabled,
   getDetailedOffer,
   withSpecificCoach,
+  withEstablishment,
 } from '#libs/offer/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -48,6 +48,7 @@ import {
   updateRecurrenceRuleBooking,
   setSpotForBooking as setSpotForBookingAction,
   fetchBookingsByConsumerPack,
+  fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
 } from '#libs/booking/actions';
 import {
   discardBookingOption as discardBookingOptionAction,
@@ -57,7 +58,11 @@ import {
 import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
+  getSimilarBookingList,
 } from '#libs/booking/selectors';
+import { withCustomLevel } from '#libs/level/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
 
 import { fetchPrivatePassList } from '#libs/private-service/actions';
@@ -93,9 +98,10 @@ import {
   withTags,
   withMemberProgram,
 } from '#libs/member/selectors';
-
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
 import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+import { getGroupListCount, withGroup } from '#libs/group-offer/selectors';
 
 import {
   withInvoiceItem,
@@ -161,7 +167,9 @@ export default compose(
   connect(
     (state: RootState) => ({
       // offer
-      offer: withSpecificCoach(getDetailedOffer)(state),
+      offer: withCustomLevel(withGroup(withSpecificCoach(getDetailedOffer)))(
+        state,
+      ),
       offerLoading: state.offer.retrieve.loading,
       // payment pack
       paymentPacksEnabled: getPaymentPackEnabled(state),
@@ -192,7 +200,6 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
 
       establishmentList: getAvailableEstablishmentList(state),
-
       // invoice
       unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceListUnpaid))(
         state,
@@ -219,6 +226,10 @@ export default compose(
       consumerGiftcardList: withSender(
         withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardList))),
       )(state),
+      activityGroups: getGroupListCount(state),
+      similarBookingList: withEstablishment(
+        withCustomLevel(getSimilarBookingList),
+      )(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -243,7 +254,6 @@ export default compose(
       fetchBookingsByOffer: fetchBookingsByOfferAction,
       refreshBookingsByOffer: refreshBookingsByOfferAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
-      fetchCompatiblePacks: fetchCompatiblePacksAction,
       fetchRecurrenceRuleBooking: fetchRecurrenceRuleBookingAction,
       createRecurrenceRuleBooking,
       deleteRecurrenceRuleBooking,
@@ -300,6 +310,11 @@ export default compose(
 
       updateMemberMetricValue: updateMemberMetricValueAction,
       createMemberProgram: createMemberProgramAction,
+
+      fetchGroupOffer: fetchGroupOfferAction,
+      fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
+
+      fetchLevelList: fetchLevelListAction,
     },
   ),
   withHandlers({
@@ -448,7 +463,6 @@ export default compose(
         fetchRecurrenceRuleBooking,
         fetchBookingOptionByOffer,
         retrieveConsumerPackBulk,
-        fetchCompatiblePacks,
         fetchFilteredMembers,
         fetchMemberBulkById,
         offerId,
@@ -457,6 +471,7 @@ export default compose(
         fetchAssetForBlueprint,
         fetchOfferStatus,
         fetchConsumerGiftcardList,
+        fetchGroupOffer,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -466,6 +481,9 @@ export default compose(
               fetchAssetForBlueprint({
                 blueprint: offer.room_blueprint,
               });
+            }
+            if (offer.group) {
+              fetchGroupOffer(offer.group);
             }
           },
         });
@@ -495,7 +513,6 @@ export default compose(
           },
         );
         fetchBookingOptionByOffer(offerId);
-        fetchCompatiblePacks(offerId);
         fetchRecurrenceRuleBooking(
           { offer: offerId, page: 1, page_size: RECURRENT_BOOKING_PAGE_SIZE },
           {

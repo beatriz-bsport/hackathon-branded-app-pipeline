@@ -245,6 +245,7 @@ export const DateField = (props: DateFieldProps) => {
   const { t } = useTranslation();
   const classes = useDateFieldStyles();
   const now = moment().startOf('year').add(-30, 'years').format('YYYY-MM-DD');
+
   return (
     <Field
       {...props}
@@ -806,9 +807,11 @@ export const SelectField = withStyles(styles)(
             required={required}
             error={!!(touched && error)}
           >
-            <InputLabel shrink htmlFor="select-helper">
-              {label}
-            </InputLabel>
+            {label && (
+              <InputLabel shrink htmlFor="select-helper">
+                {label}
+              </InputLabel>
+            )}
             <Select
               nameCypress={`select-${props.name}`}
               {...field}
@@ -897,10 +900,12 @@ export const IntervalRecurrenceSelectField = withTranslation(['contract'])(
   (props: SelectFieldProps) => (
     <SelectField
       choices={[
+        ...(props?.withoutDaily ?? false
+          ? []
+          : [{ value: 'day', label: 'form.interval.day' }]),
+        { value: 'week', label: 'form.interval.week' },
         { value: 'month', label: 'form.interval.month' },
         { value: 'year', label: 'form.interval.year' },
-        { value: 'day', label: 'form.interval.day' },
-        { value: 'week', label: 'form.interval.week' },
       ]}
       {...props}
     />
@@ -987,19 +992,26 @@ export const MultipleCheckboxField = (props: Props) => {
   );
 };
 
-type SwitchFieldProps = { name: string, disabled: boolean, label: string };
+type SwitchFieldProps = {
+  name: string,
+  disabled: boolean,
+  label: string,
+  className: string,
+  inverse?: boolean,
+};
 export const SwitchField = (props: SwitchFieldProps) => {
-  const { name, disabled, label } = props;
+  const { name, disabled, label, inverse, className } = props;
   return (
     <Field name={name}>
       {({ field }) => (
         <FormControlLabel
           {...field}
           value=""
-          checked={field.value}
+          checked={inverse ? !field.value : field.value}
           label={label}
           disabled={disabled}
           control={<Switch />}
+          className={className}
         />
       )}
     </Field>

@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import VideoStatus from './VideoStatus.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
-import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
+import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
 import SCT from '../../category/components/SCT.component';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 import { Video } from '../types';

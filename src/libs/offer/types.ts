@@ -22,6 +22,8 @@ export type OfferFilterData = {
   page_size: number;
   whitelist_tags_id__in?: number[];
   blacklist_tags_id__in?: number[];
+  with_group?: boolean;
+  group_id__in?: number[];
 };
 
 //
@@ -72,6 +74,7 @@ export type Offer<
   M = number,
   A = number,
   T = number,
+  G = number,
 > = {
   company: number;
   activity: A;
@@ -106,6 +109,7 @@ export type Offer<
   whitelist_tags: Array<T>;
   blacklist_tags: Array<T>;
   duration_minute: number;
+  group: G;
 };
 
 export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;
@@ -161,7 +165,16 @@ export type OfferState = ErrorAndLoading & {
     item?: Offer;
   };
   compatiblePacks: ErrorAndLoading & { items: any[]; lastFetched: Date | null };
-  marketplace: ErrorAndLoading & { allIds: number[] };
+  marketplace: ErrorAndLoading & {
+    allIds: number[];
+    byMetaActivity: {
+      [id: number]: {
+        count: number;
+        nextPage: number;
+        allIds: Array<number>;
+      };
+    };
+  };
   genderCount: ErrorAndLoading & {
     byId: { [key: string]: OfferDancing };
     allIds: number[];
@@ -175,5 +188,16 @@ export type OfferState = ErrorAndLoading & {
   numberOfMassDisabledOffer: ErrorAndLoading & {
     number: number;
   };
+  numberOfMassDisabledOfferInGroup: ErrorAndLoading & {
+    allIds: number[];
+  };
   tagManagement: ErrorAndLoading;
+  disable: ErrorAndLoading;
+  delete: ErrorAndLoading;
+  groups: Record<
+    number,
+    ErrorAndLoading & {
+      allIds: number[];
+    }
+  >;
 };

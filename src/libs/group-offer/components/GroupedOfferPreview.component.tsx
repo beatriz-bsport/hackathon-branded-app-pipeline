@@ -1,0 +1,406 @@
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import moment from 'moment-timezone';
+
+import { compose } from 'recompose';
+import * as Yup from 'yup';
+import { withFormik, Form, FormikProps, FieldArray } from 'formik';
+import { useTranslation } from 'react-i18next';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+
+import {
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import Calendar from '#components/offer/Calendar.component';
+import DelayedTextField from '#components/DelayedTextField.component';
+import { Submit } from '#components/forms';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { OffersGroup } from '#libs/group-offer/types';
+import { OptionCallback } from '../../../state/types';
+import ReccurenceDisplay from './RecurrenceDisplay.component';
+import {
+  FREQUENCE_STRING_CONVERTER,
+  getDisplayDateFromRecurrence,
+} from '#libs/group-offer/utils';
+import { Offer } from '#libs/offer/types';
+
+export type OuterProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  onSubmit: (arg1: {
+    values: OffersGroup<Offer>[];
+    options: OptionCallback;
+  }) => void;
+  groups: OffersGroup<Offer>[];
+  metaActivity: MetaActivity;
+  handlePreviousStep: () => void;
+};
+
+type Values = {
+  formikGroups: OffersGroup<Offer>[];
+};
+
+const GroupedOfferPreviewSchema = Yup.object().shape({
+  formikGroups: Yup.array()
+    .of(
+      Yup.object().shape({
+        name: Yup.string().required(),
+      }),
+    )
+    .test('size-check', 'required', function testLength(item) {
+      return item.length > 0;
+    }),
+});
+
+export const GroupedOfferPreviewForm: React.FC<
+  OuterProps & FormikProps<Values>
+> = ({
+  values,
+  errors,
+  metaActivity,
+  isSubmitting,
+  isValid,
+  groups,
+  handlePreviousStep,
+  resetForm,
+}) => {
+  const { t } = useTranslation('metaActivity');
+  const classes = useStyles();
+
+  useEffect(() => {
+    return () => {
+      resetForm();
+    };
+  }, [resetForm]);
+
+  // Format the values of group with a dictionnary of event by midnight from date start and array of group containing the offers date_start
+  const formatedData = useMemo(
+    () =>
+      values?.formikGroups?.reduce(
+        (acc, group) => {
+          acc.groups.push([
+            ...group.offers.map((o) =>
+              moment.unix(o.date_start).format('YYYY-MM-DD'),
+            ),
+          ]);
+          group.offers.forEach((o) => {
+            const midnight = moment.unix(o.date_start).startOf('day');
+            if (!acc.events[midnight]) {
+              acc.events[midnight] = [];
+            }
+            acc.events[midnight].push(o);
+          });
+          return acc;
+        },
+        {
+          groups: [],
+          events: {},
+        },
+      ) ?? {
+        groups: [],
+        events: {},
+      },
+    [values],
+  );
+
+  const [dateSelected, setDateSelected] = useState(
+    moment
+      .unix(values?.formikGroups?.[0]?.offers?.[0]?.date_start)
+      .format('YYYY-MM-DD'),
+  );
+
+  const recurrence_rule = values?.formikGroups?.[0]?.recurrence_rule ?? null;
+
+  const getHelperText = useCallback(() => {
+    if (!recurrence_rule) return null;
+    const intervalIsPlural = recurrence_rule.interval > 1;
+    const frequenceIsYearly = recurrence_rule.frequence >= 2;
+
+    const firstDate = moment.unix(
+      values?.formikGroups?.[0]?.offers?.[0]?.date_start,
+    );
+
+    if (frequenceIsYearly) {
+      return (
+        <div className={classes.row}>
+          <InfoIcon color="disabled" />
+          <Typography color="textSecondary">
+            {t(
+              `groupedOption.helperText.year${
+                intervalIsPlural ? '_plural' : ''
+              }`,
+              {
+                count: recurrence_rule.interval ?? 0,
+                day: getDisplayDateFromRecurrence(
+                  firstDate,
+                  {
+                    frequence: 1,
+                  },
+                  t,
+                ),
+                month: firstDate.format('MMMM'),
+              },
+            )}
+          </Typography>
+        </div>
+      );
+    }
+
+    return (
+      <div className={classes.row}>
+        <InfoIcon color="disabled" />
+        <Typography color="textSecondary">
+          {t(
+            `groupedOption.helperText.${
+              FREQUENCE_STRING_CONVERTER[recurrence_rule.frequence]
+            }${intervalIsPlural ? '_plural' : ''}`,
+            {
+              count: recurrence_rule.interval ?? 0,
+              day: getDisplayDateFromRecurrence(firstDate, recurrence_rule, t),
+            },
+          )}
+        </Typography>
+      </div>
+    );
+  }, [classes, recurrence_rule, t, values?.formikGroups]);
+
+  if (groups.length === 0) {
+    return (
+      <div className={classes.main}>
+        <div className={classes.form}>
+          <Typography>
+            {t('groupedOption.modal.form.impossibleState')}
+          </Typography>
+          <div className={classes.buttonContainer}>
+            <Button onClick={handlePreviousStep}>
+              {t('groupedOption.modal.form.back')}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={classes.main}>
+      {getHelperText()}
+      <div className={classes.calendar}>
+        <Calendar
+          date={dateSelected}
+          onDateChange={(date) => {
+            setDateSelected(date);
+          }}
+          events={formatedData.events}
+          ranges={formatedData.groups.map((fg) => [fg[0], fg[fg.length - 1]])}
+          forceMonthDisplay
+        />
+      </div>
+      <Form className={classes.form}>
+        <List className={classes.list}>
+          <FieldArray name="formikGroups">
+            {({
+              remove,
+              replace,
+              form: {
+                values: { formikGroups },
+              },
+            }) =>
+              formikGroups.map((group, index) => {
+                const firstOfferDate = moment
+                  .unix(group.offers[0].date_start)
+                  .format('YYYY-MM-DD');
+                const lastOfferDate = moment
+                  .unix(group.offers[group.offers.length - 1].date_start)
+                  .format('YYYY-MM-DD');
+
+                const handleRemove = () => {
+                  remove(index);
+                };
+
+                return (
+                  <ListItem
+                    key={firstOfferDate}
+                    button
+                    onClick={() => {
+                      setDateSelected(firstOfferDate);
+                    }}
+                    style={{
+                      borderLeftWidth: 5,
+                      borderLeftStyle: 'solid',
+                      borderLeftColor: metaActivity.color,
+                      borderTopLeftRadius: 4,
+                      borderBottomLeftRadius: 4,
+                      position: 'relative',
+                      boxShadow:
+                        '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+                    }}
+                  >
+                    <ListItemText
+                      primary={
+                        <div className={classes.listItem}>
+                          {/* eslint-disable-next-line */}
+                          <div
+                            className={classes.listItemInner}
+                            onClick={(ev) => {
+                              ev.stopPropagation();
+                              ev.preventDefault();
+                            }}
+                          >
+                            <DelayedTextField
+                              error={
+                                errors?.formikGroups?.[index]?.name ?? false
+                              }
+                              value={group.name}
+                              shrink
+                              onChange={(
+                                ev: React.ChangeEvent<HTMLInputElement>,
+                              ) => {
+                                replace(index, {
+                                  ...group,
+                                  name: ev.target.value,
+                                });
+                              }}
+                              label={t('groupedOption.modal.form.groupName')}
+                              required
+                              className={classes.textField}
+                            />
+                          </div>
+                        </div>
+                      }
+                      secondary={t('groupedOption.offerDescription', {
+                        count: group.offers.length,
+                        firstSession: moment(firstOfferDate).format('L'),
+                        lastSession: moment(lastOfferDate).format('L'),
+                      })}
+                    />
+                    {formikGroups.length > 1 && (
+                      <IconButton
+                        onClick={handleRemove}
+                        className={classes.icon}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                    <div className={classes.recurrence}>
+                      <ReccurenceDisplay
+                        recurrenceRule={group.recurrence_rule}
+                      />
+                    </div>
+                  </ListItem>
+                );
+              })
+            }
+          </FieldArray>
+        </List>
+        {errors?.formikGroups === 'required' && (
+          <Typography color="error">
+            {t('groupedOption.modal.form.required')}
+          </Typography>
+        )}
+        <Divider className={classes.divider} />
+        <div className={classes.buttonContainer}>
+          <Button onClick={handlePreviousStep}>
+            {t('groupedOption.modal.form.back')}
+          </Button>
+          <Submit disabled={isSubmitting || !isValid} color="primary">
+            {isSubmitting ? (
+              <CircularProgress />
+            ) : (
+              t('groupedOption.modal.form.submit')
+            )}
+          </Submit>
+        </div>
+      </Form>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  main: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  calendar: { padding: theme.spacing(2) },
+  icon: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  recurrence: {
+    position: 'absolute',
+    bottom: theme.spacing(1),
+    right: theme.spacing(2),
+  },
+  field: {
+    marginBottom: theme.spacing(1),
+  },
+  buttonContainer: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: theme.spacing(1),
+  },
+  divider: {
+    marginTop: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  list: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    flex: 1,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+  },
+  row: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+  },
+  textField: {
+    minWidth: 300,
+  },
+  listItem: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  listItemInner: {
+    width: '50%',
+  },
+}));
+
+export default compose<any, OuterProps>(
+  withFormik<OuterProps, Values>({
+    mapPropsToValues: ({ groups }) => {
+      return {
+        formikGroups: [...groups],
+      };
+    },
+    validationSchema: GroupedOfferPreviewSchema,
+    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      onSubmit({
+        values: values.formikGroups,
+        options: {
+          onSuccess: () => setSubmitting(false),
+          onError: () => setSubmitting(false),
+        },
+      });
+    },
+  }),
+)(GroupedOfferPreviewForm);

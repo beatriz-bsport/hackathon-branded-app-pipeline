@@ -43,7 +43,7 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
     coaches,
     establishments,
     metaActivities,
-    config,
+    config = {},
     onChange,
     showCompactMode,
     establishmentGroupList,

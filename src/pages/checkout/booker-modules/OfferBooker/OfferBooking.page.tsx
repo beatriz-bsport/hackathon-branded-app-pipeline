@@ -1,6 +1,10 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { push } from 'connected-react-router';
+import moment from 'moment-timezone';
+
 import {
   Backdrop,
   CircularProgress,
@@ -12,14 +16,13 @@ import {
 } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import BlockIcon from '@material-ui/icons/Block';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { push } from 'connected-react-router';
 import {
   getOfferContraints,
   getOfferFeature,
   getMainOfferNotBookableReason,
   getCanIBook,
 } from '@bsport/common/lib/master-data/available-payment';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 
 import Analytics from '#components/analytics/Analytics.component';
 import withTheme from '#hocs/company-themifier.hoc';
@@ -34,13 +37,17 @@ import {
   withCoach,
   getSimilars,
   withMetaActivity,
+  getOffersListByGroup,
+  withBookableStatus,
 } from '#libs/offer/selectors';
 import {
   fetchOfferStatusList,
+  fetchOfferStatus as fetchOfferStatusAction,
   offerUserRegistration,
   fetchSimilarOffers,
   resetSimilarOffers,
   retrieveOffer as fetchOffer,
+  fetchOffersInGroup as fetchOffersInGroupAction,
 } from '#libs/offer/actions';
 import {
   snackbarError as snackbarErrorAction,
@@ -50,6 +57,7 @@ import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/action
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
+import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '#libs/establishment/actions';
 import { MaterialStyleType } from '../../../../utils/types';
@@ -77,6 +85,7 @@ import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector'
 
 import OfferSpotSelector from './OfferSpotSelector';
 import BookButton from '#libs/booker-module/components/BookButton.components';
+import { withGroup } from '#libs/group-offer/selectors';
 
 type OwnProps = { id: number };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -96,6 +105,7 @@ type State = {
   showLoader: boolean;
   selectedMember?: MemberMinimal;
   showSpotSelector: boolean;
+  blockByGroup: boolean;
 };
 
 const SIMILAR_OFFER_PAGE_SIZE = 7;
@@ -113,24 +123,69 @@ class OfferBooking extends React.PureComponent<Props, State> {
       additionalGuestList: [],
       showLoader: false,
       showSpotSelector: false,
+      blockByGroup: false,
     };
   }
 
   componentDidMount() {
     this.props.fetchOffer(this.props.id, {
       onSuccess: (o) => {
+        this.props.fetchMetaActivityBulk([o.meta_activity]);
+        this.props.fetchMyRelatedMemberList(o.company);
+        this.props.fetchCompanyTheme(o.company);
+
+        if (o.group !== null) {
+          this.props.fetchGroup(o.group, {
+            onSuccess: (group) => {
+              this.props.fetchOfferStatusList(group.offers, {
+                page_size: group.offers.length,
+              });
+            },
+          });
+
+          this.props.fetchOffersInGroup(o.group, {
+            onSuccess: (offers) => {
+              this.props.fetchCoachBulk(
+                Array.from(
+                  new Set(
+                    offers.flatMap((offer) => [
+                      offer.coach,
+                      offer.coach_override,
+                    ]),
+                  ),
+                ).filter((c) => !!c),
+              );
+
+              this.props.fetchEstablishmentBulk(
+                Array.from(new Set(offers.map((offer) => offer.establishment))),
+              );
+
+              const roomBlueprintIds = new Set(
+                offers
+                  .filter((offer) => offer.room_blueprint)
+                  .map((offer) => offer.room_blueprint),
+              );
+              roomBlueprintIds.forEach((blueprint: number) => {
+                this.props.fetchRoomBlueprintDetail(blueprint);
+                this.props.fetchAssetForBlueprint({ blueprint });
+              });
+            },
+          });
+
+          return;
+        }
+
         this.props.fetchEstablishmentBulk([o.establishment]);
         this.props.fetchCoachBulk([o.coach, o.coach_override]);
-        this.props.fetchMetaActivityBulk([o.meta_activity]);
-        this.fetchOfferStatusList([o.id]);
+        this.props.fetchOfferStatus(o.id, {
+          onSuccess: this.updateOfferConstraints,
+        });
         this.fetchSimilarOffers();
-        this.props.fetchMyRelatedMemberList(o.company);
+
         if (o && !!o.room_blueprint) {
           this.props.fetchRoomBlueprintDetail(o.room_blueprint);
           this.props.fetchAssetForBlueprint({ blueprint: o.room_blueprint });
         }
-        this.props.fetchMemberTagList(o.company);
-        this.props.fetchCompanyTheme(o.company);
       },
     });
   }
@@ -151,6 +206,80 @@ class OfferBooking extends React.PureComponent<Props, State> {
           this.props.snackbarWarning('bookerModule.pass.changed');
         }
       }
+    }
+
+    // init for offer in groups
+    if (
+      prevProps.similarOfferGroupsLoading !==
+        this.props.similarOfferGroupsLoading &&
+      this.props.offer.group &&
+      this.props.similarOfferGroupsLoading === false
+    ) {
+      const group = this.props.offer.group;
+      const offers = this.props.similarOfferGroups.filter(
+        (o) => o.id !== this.props.id,
+      );
+
+      // Block all or nothing group if not all
+      if (
+        group.full_booking_only &&
+        !group.allow_booking_after_start &&
+        offers.some(
+          (offer) =>
+            offer.bookableStatus?.bookable_status !==
+              OFFER_BOOKABLE_STATUS_BOOKABLE ||
+            offer.bookableStatus.blocked_by_tags,
+        )
+      ) {
+        this.setState({
+          blockByGroup: true,
+        });
+        return;
+      }
+
+      // Block all or nothing group with potential if not partail all
+      if (
+        group.full_booking_only &&
+        group.allow_booking_after_start &&
+        offers
+          .filter((co) => moment(co.date_start).isAfter(moment()))
+          .some((offer) => {
+            return (
+              !offer.bookableStatus ||
+              offer.bookableStatus?.bookable_status !==
+                OFFER_BOOKABLE_STATUS_BOOKABLE ||
+              offer.bookableStatus.blocked_by_tags
+            );
+          })
+      ) {
+        this.setState({
+          blockByGroup: true,
+        });
+        return;
+      }
+
+      const offersToAdd = offers.filter(
+        (offer) =>
+          !offer.bookableStatus.blocked_by_tags &&
+          (offer.bookableStatus?.bookable_status ===
+            OFFER_BOOKABLE_STATUS_BOOKABLE ||
+            offer.bookableStatus?.waiting_list_status ===
+              OFFER_BOOKABLE_STATUS_BOOKABLE),
+      );
+
+      this.setState(
+        () => ({
+          selectedOffers: [
+            ...offersToAdd.map((offer) => ({
+              offer,
+              extra_data: {
+                protected: group.full_booking_only,
+              },
+            })),
+          ],
+        }),
+        this.updateOfferConstraints,
+      );
     }
   }
 
@@ -213,7 +342,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
     );
     const blockedByTags =
       this.props.offerStatusById[this.props?.id]?.blocked_by_tags;
-    return !blockedByTags && (areBookable || areWaitingList);
+    return (
+      !blockedByTags &&
+      (areBookable || areWaitingList) &&
+      !this.state.blockByGroup
+    );
   };
 
   onClickBook = () => {
@@ -467,11 +600,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.offerStatusById,
       this.props.theme.accept_double_booking,
     );
+
+    const offerIsReady =
+      !loading && this.props.offer && this.props.offer.meta_activity;
     if (
-      !loading &&
-      (!isBookable || blockedByTags) &&
-      this.props.offer &&
-      this.props.offer.meta_activity
+      offerIsReady &&
+      (!isBookable || this.state.blockByGroup || blockedByTags)
     ) {
       const { message, icon } = getMainOfferNotBookableReason(
         this.props.offer,
@@ -552,6 +686,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
         </ConsumerAppBarContainer>
       );
     }
+
     const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
     return (
       <ConsumerAppBarContainer>
@@ -574,9 +709,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     onSelectMember={this.selectMember}
                     relatedMemberList={this.props.relatedMemberList}
                     onClickAddMoreOffer={
-                      this.showBookingButton() && !isRegisteringForWaitingList
-                        ? () => this.openSimilarOfferSelector()
-                        : null
+                      this.showBookingButton() &&
+                      !isRegisteringForWaitingList &&
+                      this.openSimilarOfferSelector
                     }
                     onClickRemoveOffer={this.onClickRemoveOffer}
                     selectedOffers={this.state.selectedOffers}
@@ -587,7 +722,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     onRemoveGuest={this.removeGuest}
                     additionalGuestList={this.state.additionalGuestList}
                     onAddAdditionalGuest={
-                      this.showBookingButton() && this.props.theme?.allow_guest
+                      this.showBookingButton() &&
+                      this.props.theme?.allow_guest &&
+                      !this.props.offer.group
                         ? this.addAdditionalGuest
                         : null
                     }
@@ -638,7 +775,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
             open={this.state.showSimilarOffers}
             onClose={this.closeSimilarOfferSelector}
             hideCoach={this.props.theme.hideCoach}
-            similarOffers={this.props.similarOffers}
+            similarOffers={
+              this.props.offer.group
+                ? this.props.similarOfferGroups
+                : this.props.similarOffers
+            }
             loading={this.props.similarLoading}
             offerStatusById={this.props.offerStatusById}
             resetSimilarOffers={this.props.resetSimilarOffers}
@@ -650,15 +791,19 @@ class OfferBooking extends React.PureComponent<Props, State> {
             <OfferSpotSelector
               offer={this.props.offer}
               refreshOfferStatus={(id) => this.fetchOfferStatusList([id])}
-              selectedOffer={this.state.selectedOffers.filter(
-                (offerData) =>
-                  typeof offerData.offer.room_blueprint === 'number' &&
-                  !getOfferFeature(
-                    offerData.offer,
-                    this.props.offerStatusById,
-                    this.props.theme.accept_double_booking,
-                  ).isWaitingList,
-              )}
+              selectedOffer={[...(this.state.selectedOffers ?? [])]
+                .sort((a, b) =>
+                  moment(a.date_start).isBefore(moment(b.date_start)) ? -1 : 1,
+                )
+                .filter(
+                  (offerData) =>
+                    typeof offerData.offer.room_blueprint === 'number' &&
+                    !getOfferFeature(
+                      offerData.offer,
+                      this.props.offerStatusById,
+                      this.props.theme.accept_double_booking,
+                    ).isWaitingList,
+                )}
               roomBlueprintsById={this.props.roomBlueprintsById}
               assetByIdBlueprintByIdentifier={
                 this.props.assetByIdBlueprintByIdentifier
@@ -816,23 +961,36 @@ const styles = (theme: Theme) => {
   };
 };
 
-const mapStateToProps = (state: RootState, props: OwnProps) => ({
-  offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
-    state,
-    props.id,
-  ) as Offer_FULL,
-  offerStatusById: state.offer.offerStatus.byId,
-  similarOffers: withMetaActivity(withCoach(withEstablishment(getSimilars)))(
-    state,
-  ) as Offer_FULL[],
-  similarLoading: state.offer.similarOffers.loading,
-  hasMoreSimilarOffer: !!state.offer.similarOffers.next_page,
-  nextSimilarOfferPage: state.offer.similarOffers.next_page,
-  relatedMemberList: getMyRelatedMemberList(state),
-  theme: themeSelectors.getTheme(state),
-  roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
-  assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
-});
+const mapStateToProps = (state: RootState, props: OwnProps) => {
+  const offer: Offer_FULL = withMetaActivity(
+    withGroup(withCoach(withEstablishment(getOfferById))),
+  )(state, props.id);
+  return {
+    offer,
+    offerStatusById: state.offer.offerStatus.byId,
+    similarOffers: withMetaActivity(withCoach(withEstablishment(getSimilars)))(
+      state,
+    ) as Offer_FULL[],
+    similarLoading: state.offer.similarOffers.loading,
+    hasMoreSimilarOffer: !!state.offer.similarOffers.next_page,
+    nextSimilarOfferPage: state.offer.similarOffers.next_page,
+    relatedMemberList: getMyRelatedMemberList(state),
+    theme: themeSelectors.getTheme(state),
+    roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
+    assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
+    similarOfferGroups: withMetaActivity(
+      withBookableStatus(
+        withCoach(withEstablishment(getOffersListByGroup)),
+      ) as Offer_FULL[],
+    )(state, offer?.group?.id ?? offer?.group),
+    similarOfferGroupsLoading:
+      state.establishment.loading ||
+      state.coach.loading ||
+      state.offer.offerStatus.loading ||
+      (state.offer.groups?.[offer?.group?.id ?? offer?.group]?.loading ??
+        false),
+  };
+};
 
 const mapDispatchToProps = {
   fetchOffer,
@@ -848,9 +1006,12 @@ const mapDispatchToProps = {
   snackbarError: snackbarErrorAction,
   snackbarWarning: snackbarWarningAction,
   fetchOfferStatusList,
+  fetchOfferStatus: fetchOfferStatusAction,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
   fetchCompanyTheme: fetchCompanyThemeAction,
+  fetchGroup: fetchGroupOfferAction,
+  fetchOffersInGroup: fetchOffersInGroupAction,
 };
 
 export default compose(

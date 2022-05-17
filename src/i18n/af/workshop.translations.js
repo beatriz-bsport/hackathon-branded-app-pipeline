@@ -3,6 +3,15 @@ exports.default = {
   actions: {
     addWorkshopActivity: 'Ajouter un atelier',
     search: 'Rechercher un atelier',
+    addWorkshopGroup: 'Ajouter un groupe de séance',
+  },
+  group: {
+    emptySelect: 'Séléctionnez une séance',
+    backToGroup: 'Retourner au groupes',
+    pageSize: 'Afficher par:',
+    emptySearch: 'Aucun groupe ne correspond à votre recherche',
+    emptyState:
+      'Avec les groupes de séances vos élèves pourront réserver d’un seul coup toutes les séances comprises dans le groupe. Par exemple, utilisez les groupes de séances pour créer des ateliers d’initiations avec plusieurs séances. ',
   },
   noWorkshops:
     "Gérez ici vos ateliers, un atelier est un évènement dont la date est fixée à l'avance.",
@@ -34,4 +43,6 @@ exports.default = {
     },
   },
   disabledWorkshops: 'Ateliers archivés',
+  tabList: 'Liste des ateliers',
+  tabGroups: 'Séances groupées',
 };

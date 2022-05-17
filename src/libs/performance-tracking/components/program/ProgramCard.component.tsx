@@ -12,7 +12,7 @@ import {
 
 import MuiIcon from '#components/MuiIcon.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import TypographyMultilineComponent from '#components/TypographyMultiline.component';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 
 type OwnProps = {
   program: PerformanceTrackingProgram<PerformanceTrackingMetric>;

@@ -25,7 +25,7 @@ type Props = {
   onClickOffer: () => void,
   classes: Object,
   onClickBook: (offer: Offer) => void,
-  onClickBookOption: (offerId: number) => void,
+  onClickBookOption: (offer: Offer) => void,
   date: Object,
   t: TFunction,
   showOfferFilling: boolean,
@@ -65,13 +65,21 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     changeStatus: false,
   };
 
-  handlePanelCollapse = (i: number) => {
+  handlePanelCollapse = (i: number) => () => {
     const { panelsStatus } = this.state;
     panelsStatus[i] = !panelsStatus[i];
     this.setState((prevState) => ({
       panelsStatus,
       changeStatus: !prevState.changeStatus,
     }));
+  };
+
+  handleBook = (offer) => () => {
+    this.props.onClickBook(offer);
+  };
+
+  handleBookOption = (offer) => () => {
+    this.props.onClickBookOption(offer);
   };
 
   /**
@@ -124,13 +132,13 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const offersRows = this.periodByRow(period);
 
     return flattenDeep(period).length ? (
-      <div key={i}>
+      <div key={DAY_PARTS[i]}>
         <div className={classes.periodTitle}>
           <Typography component="h3" variant="h6" align="center">
             <p>{t(`dayParts.${DAY_PARTS[i]}`)}</p>
           </Typography>
           <IconButton
-            onClick={() => this.handlePanelCollapse(i)}
+            onClick={this.handlePanelCollapse(i)}
             className={classes.collapseButton}
           >
             {panelsStatus[i] ? <ExpandLess /> : <ExpandMore />}
@@ -144,34 +152,31 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         >
           {offersRows.map((row, idx) => (
             <div key={idx} className={classes.offerRow}>
-              {row.map((o, index) => (
-                <div key={o ? o.id : index} className={classes.rowItem}>
-                  {o === undefined ? (
-                    ''
-                  ) : (
+              {row.map((o, index) => {
+                if (o === undefined) {
+                  return (
+                    <div key={`${idx}-${index}`} className={classes.rowItem} />
+                  );
+                }
+                return (
+                  <div key={`${idx}-${index}`} className={classes.rowItem}>
                     <MarketplaceCardOffer
                       showOfferFilling={this.props.showOfferFilling}
                       hideCoach={this.props.hideCoach}
                       showOfferGender={this.props.showOfferGender}
                       offer={o}
                       onClickOffer={this.props.onClickOffer}
-                      onClickBook={() => this.props.onClickBook(o)}
-                      onClickBookOption={() =>
-                        this.props.onClickBookOption(o.id)
-                      }
+                      onClickBook={this.handleBook(o)}
+                      onClickBookOption={this.handleBookOption(o)}
                       index={index}
                       coachLoading={this.props.coachLoading}
                       establishmentLoading={this.props.establishmentLoading}
                       activityLoading={this.props.activityLoading}
-                      isRegistered={
-                        bookedOffers?.length
-                          ? bookedOffers.includes(o.id)
-                          : false
-                      }
+                      isRegistered={bookedOffers?.includes(o?.id)}
                     />
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           ))}
         </Collapse>
@@ -194,6 +199,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     if (loading) {
       return <CircularProgress />;
     }
+
     return (
       <div
         style={{
@@ -213,7 +219,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             const currentDate = start_date.clone().add(i, 'days');
             const isToday = currentDate.isSame(Moment(), 'day');
             return (
-              <div className={classes.rowItem} key={i}>
+              <div
+                className={classes.rowItem}
+                key={currentDate.format('YYYY-MM-DD')}
+              >
                 <Typography
                   align="center"
                   variant="h5"

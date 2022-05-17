@@ -21,6 +21,7 @@ import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
 import { getMetaActivities } from '#libs/meta-activity/selectors';
+import { withGroup } from '#libs/group-offer/selectors';
 
 import {
   getAllEstablishments,
@@ -61,6 +62,7 @@ import {
   fetchAllEstablishmentGroup,
 } from '#libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-offer/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 
 import withTitle from '#hocs/with-title.hoc';
@@ -70,6 +72,7 @@ import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { Offer, OfferFilterData } from '#libs/offer/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import GroupRulePopup from '#libs/marketplace/components/GroupRulePopup.dialog';
 
 type OwnProps = {
   companyId: number;
@@ -116,12 +119,14 @@ type FinalProps = Props &
 type State = {
   offerId: number | null;
   offer: Object | null;
+  displayGroupPopup: (Offer & { redirect: string }) | null;
 };
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
   state: State = {
     offerId: null,
     offer: null,
+    displayGroupPopup: null,
   };
 
   fetchData = () => {
@@ -221,13 +226,26 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.setState({ offerId: null });
   };
 
-  goToBook = (offer: any) => {
+  goToBook = (offer: Offer) => {
+    if (offer.group) {
+      this.setState({
+        displayGroupPopup: { ...offer, redirect: 'book' },
+      });
+      return;
+    }
     Analytics.calendarSessionShow(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 
-  goToBookOption = (id: number) => {
-    this.props.goToBookOption(id, this.props.companyId);
+  goToBookOption = (offer: Offer) => {
+    if (offer.group) {
+      this.setState({
+        displayGroupPopup: { ...offer, redirect: 'option' },
+      });
+      return;
+    }
+    Analytics.calendarSessionShow(offer);
+    this.props.goToBookOption(offer.id, this.props.companyId);
   };
 
   handleDateChange = (d: string) => {
@@ -247,6 +265,23 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   goToFirstAvailableSession = () => {
     if (this.props.nextAvailableOffer.date_start) {
       this.handleDateChange(this.props.nextAvailableOffer.date_start);
+    }
+  };
+
+  handleCloseGroupPopup = () => {
+    this.setState({
+      displayGroupPopup: null,
+    });
+  };
+
+  handleContinueGroupPopup = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { redirect, group, ...offer } = this.state.displayGroupPopup;
+    if (redirect === 'book') {
+      this.goToBook(offer);
+    }
+    if (redirect === 'option') {
+      this.goToBookOption(offer);
     }
   };
 
@@ -328,6 +363,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           nextAvailableOffer={this.props.nextAvailableOffer}
           goToFirstAvailableSession={this.goToFirstAvailableSession}
         />
+        {this.state.displayGroupPopup && (
+          <GroupRulePopup
+            open
+            group={this.state.displayGroupPopup.group}
+            onClose={this.handleCloseGroupPopup}
+            onSubmit={this.handleContinueGroupPopup}
+          />
+        )}
       </div>
     );
   }
@@ -342,7 +385,11 @@ const styles = () => ({
 const mapStateToProps = (state: RootState) => ({
   offers: withCustomLevel(
     withCoach(
-      withMetaActivity(withEstablishment(withGender(getMarketplaceOfferList))),
+      withGroup(
+        withMetaActivity(
+          withEstablishment(withGender(getMarketplaceOfferList)),
+        ),
+      ),
     ),
   )(state),
   loading: state.offer.marketplace.loading,
@@ -382,6 +429,8 @@ const mapDispatchToProps = {
   fetchAllEstablishmentGroup,
   fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
   fetchLevelList: fetchLevelListAction,
+
+  fetchGroupsOfferBulk: fetchGroupsOfferBulkAction,
 };
 
 const mapWithHandlers = {
@@ -412,6 +461,10 @@ const mapWithHandlers = {
           props.fetchMetaActivityBulk([
             ...offerList.map((o: any) => o.meta_activity),
           ]);
+
+          props.fetchGroupsOfferBulk(
+            Array.from(new Set(offerList.map((o) => o.group))),
+          );
         },
       });
       if (props.theme && props.theme.show_booked_gender_offer) {

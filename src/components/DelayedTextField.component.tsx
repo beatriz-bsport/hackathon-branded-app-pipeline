@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import TextField from '@material-ui/core/TextField';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 const DELAY = 350;
 
@@ -16,7 +16,7 @@ type Props = {
   placeholder?: string;
   helperText?: string;
   error?: boolean;
-};
+} & TextFieldProps;
 
 type State = {
   value: string;

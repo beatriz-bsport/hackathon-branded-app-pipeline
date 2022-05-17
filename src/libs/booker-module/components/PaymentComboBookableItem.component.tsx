@@ -2,7 +2,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../../payment-combo/types';
-import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
+import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
 
 interface Props {
   paymentCombo: PaymentCombo;

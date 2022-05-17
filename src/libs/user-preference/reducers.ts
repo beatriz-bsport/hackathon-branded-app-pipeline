@@ -25,6 +25,8 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
   establishmentsScheduleFilter: {},
   privateServicesScheduleFilter: {},
   memberPrivateBookingFilter: {},
+  workshopGroupFilter: {},
+  workshopDetailGroupFilter: {},
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -117,6 +119,19 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload },
     ) => {
       return state.setIn(['memberPrivateBookingFilter'], payload);
+    },
+    [userPreferenceActions.setWorkshopGroupFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['workshopGroupFilter'], payload);
+    },
+
+    [userPreferenceActions.setWorkshopDetailGroupFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['workshopDetailGroupFilter'], payload);
     },
   },
   initialState,

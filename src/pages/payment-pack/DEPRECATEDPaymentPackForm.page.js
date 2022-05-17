@@ -29,7 +29,7 @@ import {
 import {
   fetchAllActivities,
   fetchMetaActivityBulk,
-  fetchAll as fetchWorkhops,
+  fetchMetactivities as fetchMetactivitiesAction,
 } from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
@@ -51,7 +51,7 @@ import {
   fetchAllGroups as fetchAllTagGroups,
   fetchAllTags,
 } from '../../libs/tag/actions';
-import { getallTagsWithTagGroup } from '../../libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '../../libs/tag/selectors';
 import type { Tag } from '../../libs/tag/types';
 
 type Props = {
@@ -61,7 +61,7 @@ type Props = {
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
   fetchAllActivities: () => void,
-  fetchWorkhops: () => void,
+  fetchMetactivities: () => void,
   onSubmit: () => void,
   onCancel: () => void,
   initial: ?PaymentPack,
@@ -90,7 +90,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
     }
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
-    this.props.fetchWorkhops();
+    this.props.fetchMetactivities();
     this.props.fetchVideoFilterableParams({ mine: true });
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchAllTagGroups();
@@ -187,7 +187,7 @@ export default compose(
         loading: state.paymentPack.loading,
         videoSCTs: uniqBy(state.video.filterableParams.items.SCTs, 'id'),
         paymentPackCategories: getAllPaymentPackCategory(state),
-        allTagsWithTagGroup: getallTagsWithTagGroup(state),
+        allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       };
     },
     {
@@ -195,7 +195,7 @@ export default compose(
       fetchAllActivities,
       fetchMetaActivityBulk,
       fetchPaymentPack,
-      fetchWorkhops,
+      fetchMetactivities: fetchMetactivitiesAction,
       createOrUpdate: createOrUpdatePaymentPack,
       push: pushRouter,
       fetchVideoFilterableParams: fetchVideoFilterableParamsAction,

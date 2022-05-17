@@ -11,6 +11,7 @@ import {
   confirmAttendance as confirmAttendanceAPI,
   discardAttendance as discardAttendanceAPI,
   cancelBooking as cancelBookingAPI,
+  cancelMultipleBooking as cancelMultipleBookingAPI,
   registerBooking as registerBookingAPI,
   fetchBookingBroadcastRoom as fetchBookingBroadcastRoomAPI,
   fetchFirstTimeNotifications as fetchFirstTimeNotificationsAPI,
@@ -57,6 +58,7 @@ export function retrieveBooking(id: number, options?: OptionCallback) {
 
 export const updateActions = {
   success: createAction('BOOKING/UPDATE/SUCCESS'),
+  successMultiple: createAction('BOOKING/UPDATE/SUCCESS_MULTIPLE'),
   isLoading: createAction('BOOKING/UPDATE/IS_LOADING'),
   error: createAction('BOOKING/UDPATE/ERROR'),
 };
@@ -104,8 +106,19 @@ export function cancelBooking(id: number, data: any, options?: OptionCallback) {
     dispatch(updateActions.error(null));
 
     try {
-      const response = await cancelBookingAPI(id, data);
-      dispatch(updateActions.success(response.data));
+      let response;
+
+      if (data?.bookings_in_same_group?.length > 0) {
+        response = cancelMultipleBookingAPI({
+          ...data,
+          bookings_in_same_group: [...data.bookings_in_same_group, id],
+        });
+        dispatch(updateActions.successMultiple(response.data));
+      } else {
+        response = await cancelBookingAPI(id, data);
+        dispatch(updateActions.success(response.data));
+      }
+
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -655,5 +668,45 @@ export function updateRecurrenceRuleBooking(
       if (options && options.onError) options.onError(error);
     }
     dispatch(updateRecurrenceRuleBookingActions.isLoading(false));
+  };
+}
+
+export const fetchSimilarFuturBookingInGroupActions = {
+  isLoading: createAction('BOOKING/SIMILAR_IN_GROUP/IS_LOADING'),
+  error: createAction('BOOKING/SIMILAR_IN_GROUP/ERROR'),
+  success: createAction('BOOKING/SIMILAR_IN_GROUP/SUCCESS'),
+};
+
+export function fetchSimilarFuturBookingInGroup(
+  groupId: number,
+  memberId: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchSimilarFuturBookingInGroupActions.isLoading(true));
+    dispatch(fetchSimilarFuturBookingInGroupActions.error(null));
+    try {
+      const response = await fetchBookingListAPI({
+        group_id__in: [groupId],
+        member: memberId,
+        page: 1,
+        page_size: null,
+        future_booking: true,
+        booking_status_code: BOOKING_STATUS_OK.id,
+        min_date: moment().format('YYYY-MM-DD'),
+      });
+
+      dispatch(fetchSimilarFuturBookingInGroupActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchSimilarFuturBookingInGroupActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(fetchSimilarFuturBookingInGroupActions.isLoading(false));
   };
 }

@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+
 import BottomActionsButton from '../button/BottomActionsButton.component';
 
 type Props = {
@@ -38,7 +40,9 @@ export const IsEmptyList = (props: Props) => {
                   variant="outlined"
                   color="primary"
                   onClick={props.onCreate}
+                  className={classes.button}
                 >
+                  <AddIcon color="primary" />
                   {props.button}
                 </Button>
               )}
@@ -84,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing(2),
+  },
+  button: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
   },
 }));
 

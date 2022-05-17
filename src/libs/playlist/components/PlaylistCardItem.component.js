@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
 import { useTranslation, TFunction } from 'react-i18next';
-import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
+import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {

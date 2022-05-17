@@ -84,6 +84,13 @@ export type OptionCallback<T = void> = {
   onError?: (error?: Error) => void;
 };
 
+export type OptionBackgroundCallback = {
+  onSuccess?: () => void;
+  onError?: (error?: Error) => void;
+  onBackgroundSuccess?: () => void;
+  onBackgroundError?: () => void;
+};
+
 export type OptionPaginatedCallback<T = void> = {
   onSuccess?: (args?: PaginatedResponse<T>) => void;
   onError?: (error?: Error) => void;

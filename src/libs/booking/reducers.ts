@@ -18,6 +18,7 @@ import {
   createRecurrenceRuleBookingActions,
   updateRecurrenceRuleBookingActions,
   deleteRecurrenceRuleBookingActions,
+  fetchSimilarFuturBookingInGroupActions,
 } from './actions';
 import { BookingsState } from './types';
 
@@ -107,6 +108,11 @@ export const initialState: Immutable.Immutable<BookingsState> =
         error: null,
       },
     },
+    similar: {
+      allIds: [],
+      loading: false,
+      error: null,
+    },
   });
 
 export default handleActions<Immutable.Immutable<BookingsState>>(
@@ -137,6 +143,17 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
     },
     [updateActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [updateActions.successMultiple.toString()]: (state, { payload }: any) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc: any, ps: any) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
     },
     [asConsumerActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['asConsumer', 'loading'], payload);
@@ -433,6 +450,37 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
                 return acc;
               }, {}),
             },
+          },
+          { deep: true },
+        );
+    },
+    [fetchSimilarFuturBookingInGroupActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['similar', 'loading'], payload);
+    },
+    [fetchSimilarFuturBookingInGroupActions.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['similar', 'error'], payload);
+    },
+    [fetchSimilarFuturBookingInGroupActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state
+        .setIn(
+          ['similar', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
+        .merge(
+          {
+            byId: payload.results.reduce((acc: any, ps: any) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
           },
           { deep: true },
         );

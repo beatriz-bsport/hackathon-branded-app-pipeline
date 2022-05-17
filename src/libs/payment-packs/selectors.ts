@@ -8,7 +8,7 @@ import { filterUnaccessiblePaymentPack } from '@bsport/common/lib/master-data/pa
 import { getSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
-import { getallTagsWithTagGroup } from '../tag/selectors';
+import { getAllTagsWithTagGroup } from '../tag/selectors';
 import {
   PaymentPack,
   PaymentPackTemplate,
@@ -166,7 +166,7 @@ export const withEstablishments = memoize((selector: PaymentPackSelector) =>
 
 export const withTags = memoize((selector: PaymentPackSelector) =>
   createSelector(
-    [selector, getallTagsWithTagGroup],
+    [selector, getAllTagsWithTagGroup],
     (paymentPacks, tagList) => {
       if (Array.isArray(paymentPacks)) {
         return paymentPacks.map((pp) => ({

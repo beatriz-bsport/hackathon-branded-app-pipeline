@@ -3,6 +3,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
+import classNames from 'classnames';
 
 import Fuse from 'fuse.js';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -22,6 +23,7 @@ type Props = {
   clearSearch: () => void,
   changeSearch: (any) => void,
   classes: Object,
+  className?: string,
   variant?: string,
 };
 
@@ -41,7 +43,12 @@ export class FuzeSearch extends React.Component<Props> {
   render() {
     const fuse = this.getFuse(this.props.items);
     return (
-      <div className={this.props.classes.container}>
+      <div
+        className={classNames(
+          this.props.classes.container,
+          this.props.className,
+        )}
+      >
         <DelayedTextField
           variant={this.props.variant || 'standard'}
           placeholder={this.props.placeholder}

@@ -105,7 +105,7 @@ export const coachListAction = {
 };
 
 export function fetchAssociatedCoachesList(
-  params?: { [key: string]: boolean },
+  params?: { [key: string]: boolean | string | number },
   options?: OptionCallback<Array<Coach>>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -513,13 +513,26 @@ export const fetchAssociatedCoachBulkFromCoachIds = (
     getState: () => RootState,
   ) => {
     const freshCoachList = getFreshCoachIds(getState());
-    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshCoachList.includes(id),
-    );
-    if (ids_uniq.length === 0) {
+    const coachesId = new Set(freshCoachList);
+    const newCoaches = new Set(ids);
+
+    newCoaches?.forEach((e) => {
+      if (coachesId.has(e)) {
+        newCoaches.delete(e);
+      }
+    });
+    newCoaches.delete(null);
+    newCoaches.delete(undefined);
+    newCoaches.delete(NaN);
+    if (newCoaches.size === 0) {
       return;
     }
-    dispatch(fetchCoachBulkBase({ id__in: ids_uniq, company: companyId }));
+    dispatch(
+      fetchCoachBulkBase({
+        id__in: Array.from(newCoaches),
+        company: companyId,
+      }),
+    );
   };
 };
 

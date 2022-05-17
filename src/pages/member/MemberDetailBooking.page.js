@@ -37,6 +37,7 @@ import {
   createRecurrenceRuleBooking as createRecurrenceRuleBookingAction,
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAction,
   setSpotForBooking,
+  fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
 } from '../../libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,
@@ -53,7 +54,12 @@ import {
   fetchOfferStatus as fetchOfferStatusAction,
 } from '../../libs/offer/actions';
 
-import { getDetailedOffer } from '../../libs/offer/selectors';
+import {
+  getDetailedOffer,
+  withEstablishment,
+} from '../../libs/offer/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
 
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
@@ -68,9 +74,13 @@ import {
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
   fetchAllActivities as fetchAllActivitiesAction,
-} from '../../libs/meta-activity/actions';
-
+} from '#libs/meta-activity/actions';
+import {
+  fetchGroupOffer as fetchGroupOfferAction,
+  fetchGroupsOfferList as fetchGroupsOfferListAction,
+} from '#libs/group-offer/actions';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+import { withGroup, getGroupListCount } from '../../libs/group-offer/selectors';
 
 import { Member } from '../../libs/member/types';
 import { PaymentPack } from '../../libs/payment-packs/types';
@@ -87,6 +97,7 @@ import {
   getMemberBookingListWithConsumerPack,
   getMemberBookingWithConsumerPack,
   getRecurrenceRuleBookingList,
+  getSimilarBookingList,
 } from '../../libs/booking/selectors';
 import { getMember } from '../../libs/member/selectors';
 import paymentPackSelectors, {
@@ -153,6 +164,9 @@ type Props = {
   offer: ?Offer,
 
   fetchRoomBlueprintDetail: (number) => void,
+  fetchGroupOffer: (groupId: number) => void,
+  fetchSimilarFuturBookingInGroup: (groupId: number, member: number) => void,
+  similarBookingList: Booking[],
   roomBlueprintById: { [number]: RoomBlueprint },
   fetchAssetForBlueprint: (number) => void,
   fetchOfferStatus: (number) => void,
@@ -200,6 +214,15 @@ type Props = {
 
   coaches: Array<Coach>,
   fetchAssociatedCoachesList: () => void,
+  activityGroups: OffersGroup[],
+  fetchGroupsOfferList: ({
+    meta_activity__in: number[],
+    page: number,
+    page_size: number,
+  }) => void,
+  fetchLevelList: ({
+    company: number,
+  }) => void,
 };
 
 type State = {
@@ -222,6 +245,9 @@ export class MemberDetailBooking extends Component<Props, State> {
     this.props.fetchRecurrenceRuleBooking(1);
     this.props.fetchMemberBookingStatistics();
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchLevelList({
+      company: this.props.theme.company,
+    });
   }
 
   hasNext = () => {
@@ -266,7 +292,13 @@ export class MemberDetailBooking extends Component<Props, State> {
       this.props.selectedBookingOption &&
       prevProps.selectedBookingOption !== this.props.selectedBookingOption
     ) {
-      this.props.fetchOffer(this.props.selectedBookingOption.offer.id);
+      this.props.fetchOffer(this.props.selectedBookingOption.offer.id, {
+        onSuccess: (offer: Offer) => {
+          if (offer.group) {
+            this.props.fetchGroupOffer(offer.group);
+          }
+        },
+      });
     }
   }
 
@@ -279,8 +311,15 @@ export class MemberDetailBooking extends Component<Props, State> {
     });
   };
 
-  handleBookingDeletion = (data: any, options: OptionCallback) => {
-    this.props.deleteBooking(this.state.bookingToRevert.id, data, options);
+  handleBookingDeletion = (data: any) => {
+    this.props.deleteBooking(this.state.bookingToRevert.id, data, {
+      onSuccess: () => {
+        this.props.fetchMemberBookingsList(
+          this.props.bookingCurrentPage,
+          BOOKING_PAGE_SIZE,
+        );
+      },
+    });
     this.setState({ bookingToRevert: null });
   };
 
@@ -482,7 +521,21 @@ export class MemberDetailBooking extends Component<Props, State> {
                     booking={b}
                     heading="date_start"
                     member={this.props.member}
-                    handleRevert={() => this.setState({ bookingToRevert: b })}
+                    handleRevert={() => {
+                      this.props.fetchOffer(b.offer, {
+                        onSuccess: (offer: Offer) => {
+                          if (offer.group) {
+                            this.props.fetchGroupOffer(offer.group);
+                            this.props.fetchSimilarFuturBookingInGroup(
+                              offer.group,
+                              b.member,
+                            );
+                          }
+                        },
+                      });
+
+                      this.setState({ bookingToRevert: b });
+                    }}
                     discardBookingAttendance={() =>
                       this.props.discardBookingAttendance(b.id)
                     }
@@ -569,6 +622,8 @@ export class MemberDetailBooking extends Component<Props, State> {
                   this.props.setSelectedRecurrentBooking(null);
                 }}
                 onSubmit={this.props.onSubmitRecurrentBooking}
+                fetchGroupsOfferList={this.props.fetchGroupsOfferList}
+                hasActivityGroups={this.props.activityGroups > 0}
               />
             )}
           </Grid>
@@ -606,6 +661,8 @@ export class MemberDetailBooking extends Component<Props, State> {
           closeRevertBookingDialog={() =>
             this.setState({ bookingToRevert: null })
           }
+          offer={this.props.offer}
+          similarBookings={this.props.similarBookingList}
         />
 
         <AsyncSpotSelector
@@ -687,7 +744,7 @@ export default compose(
       bookingCount: state.booking.byMember.count,
       paymentPacks: getAllPaymentPacks(state),
       consumerPackLoading: state.consumerPaymentPack.loading,
-      offer: getDetailedOffer(state),
+      offer: withGroup(getDetailedOffer)(state),
       recurrenceRuleBooking: getRecurrenceRuleBookingList(state),
       recurrentBookingCurrentPage: state.booking.recurrenceRule.page,
       recurrentBookingNextPage: state.booking.recurrenceRule.next_page,
@@ -711,6 +768,10 @@ export default compose(
       bookingOptionCount: state.waitingList.option.forMember.count,
       bookingOptionPage: state.waitingList.option.forMember.page,
       coaches: getActiveCoaches(state),
+      activityGroups: getGroupListCount(state),
+      similarBookingList: withEstablishment(
+        withCustomLevel(getSimilarBookingList),
+      )(state),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -753,7 +814,11 @@ export default compose(
       fetchBookingOptionForMember,
       discardOption: discardBookingOptionAction,
 
+      fetchGroupsOfferList: fetchGroupsOfferListAction,
       fetchAssociatedCoachesList,
+      fetchGroupOffer: fetchGroupOfferAction,
+      fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
+      fetchLevelList: fetchLevelListAction,
     },
   ),
   withState('filters', 'setFilters', (props) => {

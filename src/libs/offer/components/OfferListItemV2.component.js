@@ -25,6 +25,7 @@ type Props = {
   similarOffer?: boolean,
   handleChange?: () => void,
   checked?: boolean,
+  divider?: boolean,
 };
 
 export const OfferListItem = (props: Props) => {
@@ -36,7 +37,7 @@ export const OfferListItem = (props: Props) => {
     <ListItem
       button={!!props.onClick}
       disabled={props.disabled}
-      divider
+      divider={props?.divider ?? false}
       selected={props.selected}
       onClick={props.onClick ? () => props.onClick(offer.id) : null}
     >
@@ -68,13 +69,15 @@ export const OfferListItem = (props: Props) => {
                 noStyle
                 align="left"
                 variant="caption"
-                level={offer && offer.customLevel}
+                customLevel={offer && offer.customLevel}
                 className={classes.level}
                 noWrap={false}
               />
 
               <Typography className={classes.marginLeft} variant="caption">
-                {` ${offer.validated_booking_count}/${offer.effectif}`}
+                {` ${offer?.validated_booking_count ?? offer?.nb_bookings}/${
+                  offer.effectif
+                }`}
               </Typography>
               {offer.full ? (
                 <div className={classes.warning}>
@@ -98,7 +101,7 @@ export const OfferListItem = (props: Props) => {
                   offer.establishment_override ||
                   offer.etablissement ||
                   offer.establishment
-                ).title
+                )?.title ?? ''
               }`
             : ''
         }

@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import classnames from 'classnames';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -55,17 +56,24 @@ export function MetaActivityForm(props: Props) {
     auto_discard_min_bookings_nb,
     auto_discard_active,
   } = props.values;
+
   return (
     <Form>
-      <ImageField id="button_activity_image" name="cover_main">
-        <Typography
-          style={{ margin: 12 }}
-          variant="caption"
-          color="textSecondary"
-        >
-          {props.t('activity.explainImage')}
-        </Typography>
-      </ImageField>
+      <ImageField id="button_activity_image" name="cover_main" />
+      <Typography
+        style={{ margin: 12 }}
+        variant="caption"
+        color="textSecondary"
+      >
+        {props.t('activity.explainImage')}
+      </Typography>
+      <div className={classnames(classes.field, classes.altField)}>
+        <TextField
+          label={t('activity.altCoverMain')}
+          name="alt_cover_main"
+          inputProps={{ maxLength: 100 }}
+        />
+      </div>
       <div className={classes.container}>
         <TextField
           id="textfield_activity_title"
@@ -258,6 +266,13 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
+  altField: {
+    marginLeft: theme.spacing(3),
+    width: 400,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
   field: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -316,6 +331,7 @@ export default compose(
           name: '',
           description: '',
           SCT: null,
+          alt_cover_main: '',
           last_booking_minutes: 0,
           last_discard_minutes: 0,
           first_booking_minutes_until: 60 * 24 * 30 * 6,
@@ -337,6 +353,7 @@ export default compose(
         'name',
         'description',
         'SCT',
+        'alt_cover_main',
         'last_booking_minutes',
         'last_discard_minutes',
         'first_booking_minutes_until',
@@ -351,6 +368,7 @@ export default compose(
       const data = {
         ...pick(values, keys),
       };
+
       if (typeof cover_main !== 'string' && !!cover_main) {
         data.cover_main = cover_main;
       }

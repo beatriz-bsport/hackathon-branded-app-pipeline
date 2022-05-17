@@ -12,6 +12,7 @@ import { MetaActivity } from '../../meta-activity/types';
 import { Coach } from '../../associated-coach/types';
 import EstablishmentGroupSelector from '../../establishment/components/EstablishmentGroupSelector.component';
 import { Level } from '#libs/level/types';
+import { MarketPlaceFilter } from '../types';
 
 type Props = {
   coaches: Coach[];
@@ -19,13 +20,7 @@ type Props = {
   establishments: Establishment[];
   establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: MetaActivity[];
-  filters: {
-    coaches: number[];
-    establishments: number[];
-    levels: number[];
-    activity__in: number[];
-    establishment_group__in: number[];
-  };
+  filters: MarketPlaceFilter;
   setFilters: (key: string) => (value: any) => void;
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;

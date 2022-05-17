@@ -1,43 +1,43 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
+import { makeStyles } from '@material-ui/core';
 
 import { Moment } from '../../i18n';
 
 type Props = {
-  classes: Object,
-  value: Object,
-  label: ?string,
-  disabled: ?boolean,
-  error: ?boolean,
-  required: ?boolean,
-  minDate: ?Object,
-  onChange: (value: Object) => void,
-  className: string,
+  value: Object;
+  label?: string;
+  disabled?: boolean;
+  error?: boolean;
+  required?: boolean;
+  minDate?: Object;
+  onChange: (value: Moment) => void;
+  className: string;
+  clearable?: boolean;
 };
 
-const styles = () => ({
+const useStyle = makeStyles(() => ({
   container: {
     width: 200,
   },
-});
+}));
 
-export function DateInput(props: Props) {
-  const {
-    onChange,
-    required,
-    label,
-    error,
-    value,
-    disabled,
-    classes,
-    className,
-    minDate,
-  } = props;
+export const DateInput: React.FC<Props> = ({
+  onChange,
+  required,
+  label,
+  error,
+  value,
+  disabled,
+  className,
+  minDate,
+  clearable = false,
+}) => {
+  const classes = useStyle();
 
   return (
     <MuiPickersUtilsProvider
@@ -55,9 +55,10 @@ export function DateInput(props: Props) {
         label={label}
         error={error}
         className={`${className || ''} ${classes.container}`}
+        clearable={clearable}
       />
     </MuiPickersUtilsProvider>
   );
-}
+};
 
-export default withStyles(styles)(DateInput);
+export default DateInput;

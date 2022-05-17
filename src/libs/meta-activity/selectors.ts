@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import pickBy from 'lodash/pickBy';
+
 // @ts-ignore
 import memoize from 'memoize-one';
 import type { MetaActivity } from './types';
@@ -83,6 +84,25 @@ export const getWorkshops = createSelector(
   (workshopActivities) =>
     Immutable<MetaActivity[]>(Object.values(workshopActivities)),
 );
+
+// export const getOffersListByMetaActivity = memoize((state: RootState) => {
+//   const getOffersByMetaActivityId = getOffersDataByMetaActivity(state);
+//   const offersData = _getOfferData(state);
+//
+//   return memoize((metaActivtyId: number) => {
+//     const offerByMetaActivity = getOffersByMetaActivityId(metaActivtyId);
+//
+//     if (!offerByMetaActivity) return null;
+//     return {
+//       ...offerByMetaActivity,
+//       items: withCoach(
+//         withEstablishment(
+//           () => offerByMetaActivity?.allIds?.map((id) => offersData[id]) ?? [],
+//         ),
+//       )(state),
+//     };
+//   });
+// });
 
 export const getWorkshop = (state: RootState, id: number): MetaActivity =>
   state.metaActivity.byId[id];

@@ -25,7 +25,7 @@ import FACEBOOK_PNG from '../../../public/images/facebook.png';
 import INSTAGRAM_PNG from '../../../public/images/instagram.png';
 
 import Map from '../../../components/map/Map.component';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import { isOfferInThePast } from '../utils';
 import { formatMinutes } from '../../../utils/datetime';

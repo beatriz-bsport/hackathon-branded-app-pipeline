@@ -10,7 +10,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import clx from 'classnames';
 import moment from 'moment/moment';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import CoachChip from '../../associated-coach/components/CoachChip.component';
 import SCT from '../../category/components/SCT.component';

@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation, TFunction } from 'react-i18next';
-import TypographyMultiline from '../../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../../components/typo/TypographyMultiline.component';
 
 type Props = {
   startUpdateCoach: (coach: CoachDetailed) => void,

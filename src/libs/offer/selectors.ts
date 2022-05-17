@@ -1,10 +1,11 @@
 import groupBy from 'lodash/groupBy';
+import createCachedSelector from 're-reselect';
 import { createSelector } from 'reselect';
 
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
-import { getallTagsWithTagGroup } from '../tag/selectors';
+import { getAllTagsWithTagGroup } from '../tag/selectors';
 
 import { getAllCoachesDict } from '../associated-coach/selectors';
 import {
@@ -17,6 +18,7 @@ import { RootState } from '../../reducers';
 import { Offer } from './types';
 import { PaymentPack } from '../payment-packs/types';
 import { getUserPreferencesCalendarFilter } from '../user-preference/selectors';
+import { marketplaceByMetaActivityEmptyState } from './reducers';
 
 const getState = (state: RootState) => state.offer;
 
@@ -157,8 +159,39 @@ export const withCoach = memoize((selector: (state: RootState) => any) =>
   }),
 );
 
+export const getEventsByMetaActivity = (state: RootState) =>
+  state.offer.calendarByObject.metaActivity;
+
+export const getEventsByEstablishment = (state: RootState) =>
+  state.offer.calendarByObject.establishment;
+
+export const getManagerFilters = (state: RootState) =>
+  state.offer.managerFilter.filters;
+export const getManagerFiltersOpen = (state: RootState) =>
+  state.offer.managerFilter.open;
+
+const _getOfferByDayIds = (state: RootState) => state.offer.byDay.allIds;
+
+export const _getOfferData = (state: RootState) => state.offer.byId;
+
+export const getOffersDataByMetaActivity = (state: RootState, id: number) => {
+  if (state.offer.marketplace.byMetaActivity[id]) {
+    return state.offer.marketplace.byMetaActivity[id];
+  }
+  return marketplaceByMetaActivityEmptyState;
+};
+
+export const getOfferDataList = createSelector(_getOfferData, (offerData) =>
+  Object.values(offerData),
+);
+
+export const getOffersByDay = createSelector(
+  [_getOfferByDayIds, _getOfferData],
+  (ids, data) => (ids || []).map((id) => data[id]),
+);
+
 export const withTags = memoize((selector: (state: RootState) => any) =>
-  createSelector([selector, getallTagsWithTagGroup], (offerObject, tagList) => {
+  createSelector([selector, getAllTagsWithTagGroup], (offerObject, tagList) => {
     if (!offerObject) return null;
     const tagListById = groupBy(tagList, 'id');
     if (!Array.isArray(offerObject)) {
@@ -183,29 +216,6 @@ export const withTags = memoize((selector: (state: RootState) => any) =>
         .filter((tag: number) => tag),
     }));
   }),
-);
-
-export const getEventsByMetaActivity = (state: RootState) =>
-  state.offer.calendarByObject.metaActivity;
-
-export const getEventsByEstablishment = (state: RootState) =>
-  state.offer.calendarByObject.establishment;
-
-export const getManagerFilters = (state: RootState) =>
-  state.offer.managerFilter.filters;
-export const getManagerFiltersOpen = (state: RootState) =>
-  state.offer.managerFilter.open;
-
-const _getOfferByDayIds = (state: RootState) => state.offer.byDay.allIds;
-export const _getOfferData = (state: RootState) => state.offer.byId;
-
-export const getOfferDataList = createSelector(_getOfferData, (offerData) =>
-  Object.values(offerData),
-);
-
-export const getOffersByDay = createSelector(
-  [_getOfferByDayIds, _getOfferData],
-  (ids, data) => (ids || []).map((id) => data[id]),
 );
 
 export const getManagerOffersFiltered = createSelector(
@@ -316,9 +326,9 @@ export const withGender = memoize((selector: (State) => any) =>
     if (!Array.isArray(offers)) {
       return {
         ...offers,
-        female: genderData[offers.id].nb_booked_female,
-        male: genderData[offers.id].nb_booked_male,
-        other: genderData[offers.id].nb_booked_other,
+        female: genderData[offers.id]?.nb_booked_female,
+        male: genderData[offers.id]?.nb_booked_male,
+        other: genderData[offers.id]?.nb_booked_other,
       };
     }
     return offers.map((o) => {
@@ -362,11 +372,64 @@ export const getOfferAsEventList = createSelector(
 export const getNumberOfMassDisabledOffer = (state: RootState) =>
   getState(state).numberOfMassDisabledOffer.number;
 
+export const getMassDisabledOfferInGroupIds = (state: RootState) =>
+  getState(state).numberOfMassDisabledOfferInGroup.allIds;
+
+export const getMassDisabledOfferInGroup = createSelector(
+  [getMassDisabledOfferInGroupIds, _getOfferData],
+  (ids, data) => (ids || []).map((id) => data[id]),
+);
 export const getNextAvailableOffer = (state: RootState) =>
   getState(state).next.item;
 
-export const getCalendarFullOfferData;
+export const getByMetactivity = (state: RootState) =>
+  state.offer.marketplace?.byMetaActivity;
+
 export default { getAll, todayOffers, getSimilars };
 
 export const getRetrieveOffer = (state: RootState) =>
   getState(state).retrieve.data;
+
+export const getOffersListByMetaActivity = createCachedSelector(
+  [getOffersDataByMetaActivity, _getOfferData],
+  (offerState, offersData) => {
+    return {
+      ...offerState,
+      items: offerState.allIds.map((id) => offersData[id]),
+    };
+  },
+)((state: RootState, metaActivityId: number) => metaActivityId);
+
+export const getOffersDataByGroup = (state: RootState, id: number) => {
+  return state.offer.groups?.[id] ?? { allIds: [] };
+};
+
+export const getOffersListByGroup = createCachedSelector(
+  [getOffersDataByGroup, _getOfferData],
+  (offerState, offersData) => {
+    return offerState.allIds.map((id) => offersData[id]);
+  },
+)((state: RootState, groupId: number) => groupId);
+
+const getBookableStatusData = (state: RootState) =>
+  state.offer.offerStatus.byId;
+
+export const withBookableStatus = memoize(
+  (selector: (state: RootState) => any) =>
+    createSelector(
+      [selector, getBookableStatusData],
+      (offers, bookableStatusData) => {
+        if (!offers) return null;
+        if (!Array.isArray(offers)) {
+          return {
+            ...offers,
+            bookableStatus: bookableStatusData[offers.id],
+          };
+        }
+        return offers.map((o) => ({
+          ...o,
+          bookableStatus: bookableStatusData[o.id],
+        }));
+      },
+    ),
+);

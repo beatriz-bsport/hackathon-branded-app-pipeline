@@ -31,7 +31,7 @@ type OwnProps = {
   item: MetaActivity;
   divider?: boolean;
   dense?: boolean;
-  goToEdit: (metaActivityId: number) => void;
+  goToEdit?: (metaActivityId: number) => void;
   onClick?: (metaActivity?: MetaActivity) => void;
   onEdit?: () => void;
   onDuplicate?: () => void;
@@ -39,10 +39,10 @@ type OwnProps = {
   onRestore?: () => void;
   selected?: boolean;
 
-  onClickCopy: (id: number, suffix: string) => void;
+  onClickCopy?: (id: number, suffix: string) => void;
 
   deleteMetaActivity: () => void;
-  restoreMetaActivity: () => void;
+  restoreMetaActivity?: () => void;
 
   draggable?: boolean;
   listeners?: DraggableSyntheticListeners;

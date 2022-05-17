@@ -42,6 +42,7 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import {
   getNumberOfMassDisabledOffer,
+  getMassDisabledOfferInGroup,
   getSimilars as getSimilarsOffers,
 } from '../../libs/offer/selectors';
 import OfferCard from '../../components/offer/OfferCard.component';
@@ -72,15 +73,15 @@ import {
   fetchSimilarOffers as fetchSimilarOffersAction,
   disableMassOffers,
   retrieveNumberOfMassDisabledOfferAction,
+  retrieveNumberOfMassDisabledOfferInGroup as retrieveNumberOfMassDisabledOfferInGroupAction,
   restoreOffer,
   fetchBookedGender as fetchBookedGenderAction,
   createOffers as createOffersActions,
   editOffers as editOffersActions,
+  disableOffer as disableOfferAction,
+  hardDeleteOffers as hardDeleteOffersAction,
 } from '../../libs/offer/actions';
-import {
-  disableOffer as disableOfferAPI,
-  deleteOffer as deleteOfferAPI,
-} from '../../libs/offer/api';
+
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
@@ -91,6 +92,7 @@ import {
   getActiveCustomLevels,
   getAllCustomLevels,
 } from '#libs/level/selectors';
+import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#libs/reporting/actions';
 import { setCalendarFilter as setCalendarFilterAction } from '../../libs/user-preference/actions';
 
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
@@ -136,7 +138,7 @@ import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import { OptionCallback } from '../../state/types';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
 
 const styles = (theme) => ({
@@ -188,6 +190,7 @@ const styles = (theme) => ({
   },
   spaceTop: {
     paddingTop: theme.spacing(2),
+    height: '100%',
   },
   editForm: {
     paddingLeft: theme.spacing(4),
@@ -296,6 +299,11 @@ type Props = {
     params?: { start: string, end: string },
     options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
   ) => void,
+  retrieveNumberOfMassDisabledOfferInGroup: (
+    params?: { start: string, end: string },
+    options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
+  ) => void,
+  massDisabledOfferInGroup: Offer[],
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
 
   createOffers: (data: Offer, options: OptionCallback) => void,
@@ -317,12 +325,42 @@ type Props = {
 
   activeCustomLevels: Level[],
   allCustomLevels: Level[],
+  isDownloadingReport: boolean,
+  fetchReportOfferManagement: (
+    params: {
+      coach_in?: number[],
+      establishment_in?: number[],
+      level_in?: number[],
+      activity_in?: number[],
+      date: string,
+    },
+    options?: OptionCallback,
+  ) => void,
+
+  hardDeleteOffers: (
+    offerId: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
+
+  disableOffer: (
+    data: {
+      offerId: number,
+      cashback?: boolean,
+      notify?: boolean,
+      deleteAll?: boolean,
+      custom_selection?: boolean,
+      custom_selection_ids?: Array<number>,
+      force: boolean,
+    },
+    options: OptionCallback,
+  ) => void,
+  deletingOffer: boolean,
 };
 
 type State = {
   editModalOpened: boolean,
   deleteModalOpened: boolean,
-  deletingOffer: boolean,
   createOfferModalOpened: boolean,
   restoreModalOpen: boolean,
 };
@@ -334,7 +372,6 @@ export class Planning extends PureComponent<Props, State> {
     this.state = {
       editModalOpened: false,
       deleteModalOpened: false,
-      deletingOffer: false,
       createOfferModalOpened: false,
       restoreModalOpen: false,
     };
@@ -488,7 +525,7 @@ export class Planning extends PureComponent<Props, State> {
     this.setState({ createOfferModalOpened: false });
   };
 
-  onConfirmModal = async ({ offerId, data }) => {
+  onConfirmModal = ({ offerId, data }) => {
     this.props.editOffers(offerId, data, {
       onSuccess: () => {
         this.setState({ editModalOpened: false });
@@ -500,7 +537,7 @@ export class Planning extends PureComponent<Props, State> {
     });
   };
 
-  onCancelOffer = async (data: {
+  onCancelOffer = (data: {
     offerId: number,
     cashback: ?boolean,
     notify: ?boolean,
@@ -509,70 +546,55 @@ export class Planning extends PureComponent<Props, State> {
     custom_selection_ids: ?Array<number>,
     force: boolean,
   }) => {
-    this.setState({ deletingOffer: true });
-    try {
-      const {
-        notify,
-        cashback,
-        deleteAll,
-        offerId,
-        custom_selection,
-        custom_selection_ids,
-        force,
-      } = data;
-      const response = await disableOfferAPI({
-        offerId,
-        cashback,
-        notify,
-        deleteAll,
-        custom_selection,
-        custom_selection_ids,
-        force,
-      });
-      if (response.status === 200) {
-        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-        this.setState({ deletingOffer: false, deleteModalOpened: false });
-        this.props.monitorBackgroundTask(backgroundTaskUuid, {
-          onSuccess: () => {
-            this.loadDayData();
-          },
-        });
-        return;
-      }
-    } catch (err) {
-      this.setState({ deletingOffer: false, deleteModalOpened: false });
-      this.props.snackbarError('background.cannotFetch');
-      console.error(err);
-      throw err;
-    }
-    this.setState({ deletingOffer: false });
+    this.props.disableOffer(data, {
+      onSuccess: () => {
+        this.setState({ deleteModalOpened: false });
+      },
+      onBackgroundSuccess: () => {
+        this.loadDayData();
+      },
+      onError: () => {
+        this.setState({ deleteModalOpened: false });
+      },
+    });
   };
 
-  onHardDeleteOffer = async (offerId: number, data: any) => {
-    this.setState({ deletingOffer: true });
-    try {
-      const response = await deleteOfferAPI(offerId, data);
-      if (response.status === 204) {
-        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-        this.setState({ deletingOffer: false, deleteModalOpened: false });
-        this.props.monitorBackgroundTask(backgroundTaskUuid, {
-          onSuccess: () => {
-            this.props.fetchRelevantOffers();
-            this.loadDayData();
-          },
-        });
-        return;
-      }
-    } catch (err) {
-      if (err.response && err.response.status === 403) {
-        // eslint-disable-next-line
-        alert(this.props.t('calendar.canDeleteWithBooking'));
-      } else {
-        this.props.snackbarError('background.cannotFetch');
-      }
-      console.error(err);
+  onHardDeleteOffer = (offerId: number, data: any) => {
+    this.props.hardDeleteOffers(offerId, data, {
+      onBackgroundSuccess: () => {
+        this.props.fetchRelevantOffers();
+        this.loadDayData();
+      },
+    });
+  };
+
+  onDownload = () => {
+    const { filters } = this.props.offerFilters;
+    const params = {};
+    if (filters?.coaches?.length > 0) {
+      params.coach_in = filters.coaches;
     }
-    this.setState({ deletingOffer: false });
+    if (filters?.establishments?.length > 0) {
+      params.establishment_in = filters.establishments;
+    }
+    if (filters?.levels?.length > 0) {
+      params.level_in = filters.levels;
+    }
+    if (filters?.metaActivities?.length > 0) {
+      params.activity_in = filters.metaActivities;
+    }
+
+    this.props.fetchReportOfferManagement(
+      {
+        ...params,
+        date: this.props.date,
+      },
+      {
+        onSuccess: (url) => {
+          window.open(url, '_blank');
+        },
+      },
+    );
   };
 
   renderNoOfferSelected = () => {
@@ -695,7 +717,7 @@ export class Planning extends PureComponent<Props, State> {
     );
   };
 
-  createOffers = async (metaActivityId: number, data: Object) => {
+  createOffers = (metaActivityId: number, data: Object) => {
     this.props.createOffers(
       {
         ...data,
@@ -714,8 +736,8 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   renderDeleteModal = () => {
-    const { deleteModalOpened, deletingOffer } = this.state;
-    const { selectedOffer } = this.props;
+    const { deleteModalOpened } = this.state;
+    const { selectedOffer, deletingOffer } = this.props;
 
     if (selectedOffer) {
       return (
@@ -1032,7 +1054,7 @@ export class Planning extends PureComponent<Props, State> {
                         this.props.setMassDisablerStartDate
                       }
                       events={events_}
-                      onDateClick={this.loadDayData}
+                      onDateChange={this.loadDayData}
                       date={this.props.date}
                       filters={this.props.offerFilters}
                       showCancelledOffers={
@@ -1156,13 +1178,18 @@ export class Planning extends PureComponent<Props, State> {
           {!!this.props.massDisablerStartDate && (
             <MassDisablerDialog
               startDate={this.props.massDisablerStartDate}
-              retrieveNumberOfDeletedOffer={
-                this.props.retrieveNumberOfMassDisabledOffer
-              }
+              retrieveNumberOfDeletedOffer={({ start, end }) => {
+                this.props.retrieveNumberOfMassDisabledOffer({ start, end });
+                this.props.retrieveNumberOfMassDisabledOfferInGroup({
+                  start,
+                  end,
+                });
+              }}
               numberOfMassDisabledOfferLoading={
                 this.props.numberOfMassDisabledOfferLoading
               }
               numberOfMassDisabledOffer={this.props.numberOfMassDisabledOffer}
+              massDisabledOfferInGroup={this.props.massDisabledOfferInGroup}
               onSubmit={(params) =>
                 this.props.disableMassOffers(params, this.props.offerFilters, {
                   onSuccess: () => {
@@ -1195,8 +1222,13 @@ export default compose(
       coaches: getActiveCoaches(state),
       coachesLoading: state.coach.loading,
       numberOfMassDisabledOfferLoading:
-        state.offer.numberOfMassDisabledOffer.loading,
+        state.offer.numberOfMassDisabledOffer.loading ||
+        state.offer.numberOfMassDisabledOfferInGroup.loading,
       numberOfMassDisabledOffer: getNumberOfMassDisabledOffer(state),
+      // massDisabledOfferInGroup: withCustomLevel(
+      //   withEstablishment(withCoach(getMassDisabledOfferInGroup)),
+      // )(state),
+      massDisabledOfferInGroup: getMassDisabledOfferInGroup(state),
       establishments: getAvailableEstablishmentList(state),
       establishmentsLoading: state.establishment.loading,
       establishmentGroupList: groupWithEstablishment(
@@ -1211,6 +1243,7 @@ export default compose(
         state.offer.similarOffers.loading ||
         state.metaActivity.loading ||
         state.establishment.loading,
+
       similarOffers: getSimilarsOffers(state),
       offerFilters: state.userPreference.calendarFilter,
       offerByDayLoading: state.offer.byDay.loading,
@@ -1240,9 +1273,11 @@ export default compose(
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showPartnership: state.theme.theme.has_partnership,
       showVaccinationStatus: showVaccinationStatus(state),
-      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
+      isDownloadingReport: state.reports.offerManagement.loading,
+      deletingOffer: state.offer.delete.loading || state.offer.disable.loa,
     }),
     {
       goBack: goBackRouter,
@@ -1261,6 +1296,9 @@ export default compose(
       fetchAllActivities,
       retrieveNumberOfMassDisabledOffer:
         retrieveNumberOfMassDisabledOfferAction,
+      retrieveNumberOfMassDisabledOfferInGroup:
+        retrieveNumberOfMassDisabledOfferInGroupAction,
+
       disableMassOffers,
       fetchBookingStatistics: fetchBookingStatisticsAction,
       monitorBackgroundTask,
@@ -1271,10 +1309,13 @@ export default compose(
       fetchAllEstablishmentGroup,
       createOffers: createOffersActions,
       editOffers: editOffersActions,
+      disableOffer: disableOfferAction,
+      hardDeleteOffers: hardDeleteOffersAction,
       fetchLevelList: fetchLevelListAction,
       updateLevel: updateLevelAction,
       createLevel: createLevelAction,
       deleteLevel: deleteLevelAction,
+      fetchReportOfferManagement: fetchReportOfferManagementActions,
     },
   ),
   withHandlers({

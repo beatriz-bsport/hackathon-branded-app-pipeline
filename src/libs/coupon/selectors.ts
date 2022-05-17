@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import type { Coupon, Discount } from './types';
 import { isCurrentlyActive } from './utils';
-import { getallTagsWithTagGroup } from '../tag/selectors';
+import { getAllTagsWithTagGroup } from '../tag/selectors';
 import { RootState } from '../../reducers';
 
 export const getAllCoupons = (state: RootState) => state.coupon.coupon.items;
@@ -21,7 +21,7 @@ export const getCouponById: (state: RootState, number: number) => Coupon = (
 ) => getAllCoupons(state).find((coupon) => coupon.id === id);
 
 export const withTags = memoize((selector: typeof getCouponById) =>
-  createSelector([selector, getallTagsWithTagGroup], (coupon, tagList) => {
+  createSelector([selector, getAllTagsWithTagGroup], (coupon, tagList) => {
     if (!coupon) return null;
     if (!Array.isArray(coupon)) {
       return {

@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 
 import VideoThumbnail from './VideoThumbnail.component';
 
-import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
+import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
 
 type Props = {
   title: string,

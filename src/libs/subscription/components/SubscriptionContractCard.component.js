@@ -16,7 +16,7 @@ import moment from 'moment-timezone';
 import { withTranslation, TFunction } from 'react-i18next';
 import { Moment } from '../../../i18n';
 
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 type Props = {
   t: TFunction,

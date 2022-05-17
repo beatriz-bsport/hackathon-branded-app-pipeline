@@ -250,8 +250,11 @@ exports.default = {
     signUpTitle: 'Inscription',
     noAvailableCredit:
       "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
+    noWaitingList:
+      "Les listes d'attentes ne sont pas disponibles pour les inscriptions obligatoires à l'ensemble du groupe",
     warningCreditChange:
       'NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits',
+    editGroup: 'Modifier ce champs directement sur le groupe de séance.',
     address: {
       streetNumber: 'N°',
       addressLine1: 'Adresse',
@@ -461,6 +464,8 @@ exports.default = {
       coachLabel: 'Professeur',
       establishmentLabel: 'Salle',
       substituteEstablishmentLabel: 'Salle (lieu temporaire)',
+      editingGroup:
+        'Attention cette séance fait parti du groupe de séance {{ name }}',
       warningPackonEdit:
         "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
       deleteTitle: 'Supprimer la séance',
@@ -632,8 +637,15 @@ exports.default = {
       intro: 'Votre réservation du {{date}}',
       cancelBooking: 'Annuler la réservation',
       discardBookingTitle: 'Annuler la réservation',
+      discardAllGroup: 'Toutes les réservations du groupe seront annulées.',
+      willBeRefund: 'La séance du {{-day}} sera recrédité',
+      willNotBeRefund: 'Crédits non remboursé',
       discardPossibleExplain:
         'Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.',
+      discardGroupPossibleExplain:
+        ' Cette réservation fait partie du groupe de séance {{ group }}. Êtes-vous sûr de vouloir annuler ces réservations ? Vos crédits seront de nouveau utilisable.',
+      discardGroupImpossibleExplain:
+        ' Cette réservation fait partie du groupe de séance {{ group }}. Êtes-vous sûr de vouloir annuler ces réservations ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club)..',
       discardImpossibleExplain:
         'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club).',
       confirmBooking: 'Confirmer',
@@ -844,6 +856,7 @@ exports.default = {
   },
   activity: {
     explainImage: 'Recommandé: 1920x1080 jpeg (fullHD)',
+    altCoverMain: "Description de l'image pour les malvoyants",
     nextSlotAt: 'Prochaine séance le ',
     settings: 'Paramètres',
     is_broadcast: 'Cours live streaming',
@@ -909,6 +922,9 @@ exports.default = {
     notifyRevert: "Envoyer un email d'annulation",
     refundRevert: 'Rembourser les crédits utilisés',
     discard: 'Annuler',
+    cancellingOtherBookingInGroup:
+      'Attention cette séance est une séance groupée de {{ name }}, voulez vous annuler la réservation pour toutes les autres séances de ce groupe ?',
+    cancellingBookingInGroup: 'Annuler pour les autres séances de ce groupe.',
     // eslint-disable-next-line
     onWaitingList: "Sur liste d'attente",
     cancelledFromWaitingList: "Sorti de la liste d'attente",
@@ -996,7 +1012,13 @@ exports.default = {
     vod: 'VOD',
     playlist: 'Playlist',
     substitute: 'Remplaçant',
+    offers: '{{ count }} séances',
+    from_to: 'du {{-from}} au {{-to}}',
     substituted: 'Absent',
+    discover: 'Découvrir',
+    bookGroups: 'Réservez un groupe de séance',
+    cancel: 'retour',
+    book: 'Réserver',
     teacher: 'Professeur',
     backToCalendar: 'Précédent',
     showMarketplace: 'Voir le calendrier de ',
@@ -1049,6 +1071,9 @@ exports.default = {
           "Ne pas décompter de crédits aux membres pour l'inscription",
         passCompatibleNotOwnedByMember: "Facturation d'un nouveau pass",
         forceNotify: 'Envoyer un email de confirmation',
+        groupWarning: 'Cette séance fait partie du groupe de séance {{ name }}',
+        bookMoreInGroup: 'Inscrire aux autres séances du groupe',
+        bookSingleInGroup: 'Inscrire uniquement à cette séance',
       },
     },
   },

@@ -50,7 +50,7 @@ type Props = {
   compactMode: ?boolean,
   width: string,
   onClickBook: (offer: Offer) => void,
-  onClickBookOption: (offerId: number) => void,
+  onClickBookOption: (offer: Offer) => void,
   showOfferFilling: boolean,
   hideCoach: boolean,
   activityLoading: boolean,
@@ -163,7 +163,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           searchBar={searchBar}
           searchBarOpen={this.props.filtersOpen}
           toggleSearchBar={this.props.toggleFiltersOpen}
-          onDateClick={onSelectDate}
+          onDateChange={onSelectDate}
           date={selectedDate}
           events={events}
           establishmentGroupList={this.props.establishmentGroupList}

@@ -14,6 +14,8 @@ import Hidden from '@material-ui/core/Hidden';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LabelIcon from '@material-ui/icons/Label';
+import FolderIcon from '@material-ui/icons/Folder';
+
 import {
   formatMinutes,
   formatAsDatetime,
@@ -259,12 +261,15 @@ export function OfferMinimalSummary(props: Props) {
                 <ListItemText
                   primary={
                     <div className={classes.offerTitleText}>
-                      {offer.is_broadcast ? (
+                      {offer.is_broadcast && (
                         <VideocamIcon className={classes.videocamIcon} />
-                      ) : null}
+                      )}
+                      {offer.group && (
+                        <FolderIcon className={classes.videocamIcon} />
+                      )}
                       <Typography
-                        className={textClasses?.primary}
                         variant="inherit"
+                        className={textClasses?.primary}
                       >
                         {formattedName}
                       </Typography>

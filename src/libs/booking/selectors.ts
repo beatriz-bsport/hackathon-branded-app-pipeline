@@ -163,3 +163,10 @@ export const getRecurrenceRuleBookingList = createSelector(
         member: memberData[rb.member],
       })),
 );
+
+const _getIdsSimilar = (state: State) => state.booking.similar.allIds;
+
+export const getSimilarBookingList = createSelector(
+  [_getData, _getIdsSimilar],
+  (data, ids) => ids.map((id) => data[id]),
+);

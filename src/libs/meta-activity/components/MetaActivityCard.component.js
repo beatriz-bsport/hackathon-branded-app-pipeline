@@ -13,7 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 // import CardMedia from '@material-ui/core/CardMedia';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import { formatMinutes } from '../../../utils/datetime';
 

@@ -106,7 +106,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           )}
         </div>
       )}
-      {props.consumerPacks.length && (
+      {props.consumerPacks.length > 0 && (
         <List>
           {props.consumerPacks.map((cp) => (
             <ConsumerPackRowItem

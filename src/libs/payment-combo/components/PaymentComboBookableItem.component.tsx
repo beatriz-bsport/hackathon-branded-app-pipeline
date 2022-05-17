@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../types';
-import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
+import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
 import { getPrice } from '#libs/theme/utils';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   isExcludingTax?: boolean;
 }
 
-const PaymentPackComboItem = (props: Props) => {
+const PaymentPackComboBookableItem = (props: Props) => {
   const classes = useStyles(['paymentPack']);
 
   const { isExcludingTax } = props;
@@ -82,7 +82,12 @@ const PaymentPackComboItem = (props: Props) => {
       </TypographyWithShowMore>
 
       {packs.map((pack) => (
-        <Typography variant="body2" color="textSecondary" align="left">
+        <Typography
+          key={pack}
+          variant="body2"
+          color="textSecondary"
+          align="left"
+        >
           - {pack}
         </Typography>
       ))}
@@ -106,4 +111,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default PaymentPackComboItem;
+export default PaymentPackComboBookableItem;

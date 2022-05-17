@@ -1,3 +1,5 @@
+import { ErrorAndLoading } from '#libs/types';
+
 export type ReportingState = {
   reportResponse: {
     reportId: {
@@ -41,6 +43,7 @@ export type ReportingState = {
     error: null | string;
     results: ReportMetadataValue[];
   };
+  offerManagement: ErrorAndLoading;
 };
 
 export type ReportConfiguration = {

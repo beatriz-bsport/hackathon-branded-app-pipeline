@@ -44,7 +44,7 @@ import FormField, {
 } from '../../components/input/FormField.component';
 import DurationInput from '../../components/input/DurationInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
-import type { Coach, MetaActivity, Establishment } from '../../api/types';
+import { Coach, MetaActivity, Establishment } from '../../api/types';
 import { MaterialStyleType } from '../../utils/types';
 import { RoomBlueprint } from '../spot-scheduling/types';
 import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
@@ -175,6 +175,8 @@ type OwnProps = {
   updateLevel: (id: number, data: Level, options: OptionCallback) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
+  isOfferInGroup: boolean;
+  disableWaitingList: boolean;
 };
 
 type Props = OwnProps &
@@ -516,21 +518,23 @@ export class OfferForm extends Component<Props, State> {
 
     return (
       <Grid container direction="column" spacing={1}>
-        <Grid item>
-          <LevelSelector
-            inScrollBar
-            selectedLevel={this.state.level}
-            onSelect={(level) => {
-              this.onFormFieldChange('level')(level);
-            }}
-            customLevels={this.props.activeCustomLevels}
-            memoryLevels={this.props.allCustomLevels}
-            fetchLevelList={this.props.fetchLevelList}
-            onEditLevel={this.props.updateLevel}
-            onCreateLevel={this.props.createLevel}
-            onDeleteLevel={this.handleDeleteLevel}
-          />
-        </Grid>
+        {!this.props.isOfferInGroup && (
+          <Grid item>
+            <LevelSelector
+              inScrollBar
+              selectedLevel={this.state.level}
+              onSelect={(level) => {
+                this.onFormFieldChange('level')(level);
+              }}
+              customLevels={this.props.activeCustomLevels}
+              memoryLevels={this.props.allCustomLevels}
+              fetchLevelList={this.props.fetchLevelList}
+              onEditLevel={this.props.updateLevel}
+              onCreateLevel={this.props.createLevel}
+              onDeleteLevel={this.handleDeleteLevel}
+            />
+          </Grid>
+        )}
         <Grid item>
           <EstablishmentSelector
             id="establishment"
@@ -600,9 +604,9 @@ export class OfferForm extends Component<Props, State> {
                   COACH_PAYMENT_RULE_FOR_SESSION
                 ]
               }
-              value={this.props.coachPaymentRulesByKind[
+              value={this.props.coachPaymentRulesByKind?.[
                 COACH_PAYMENT_RULE_FOR_SESSION
-              ].find((rule) => rule.id === this.state.coach_payment_rule)}
+              ]?.find((rule) => rule.id === this.state.coach_payment_rule)}
               placeholder={t('paymentRules:search')}
               disabled={!this.state.coach}
               onChange={(item: { value: number; label: string }) => {
@@ -623,10 +627,14 @@ export class OfferForm extends Component<Props, State> {
             }
           />
         )}
-        <ManagerOnlyToogle
-          manager_only={this.state.manager_only}
-          onChange={(manager_only: boolean) => this.setState({ manager_only })}
-        />
+        {!this.props.isOfferInGroup && (
+          <ManagerOnlyToogle
+            manager_only={this.state.manager_only}
+            onChange={(manager_only: boolean) =>
+              this.setState({ manager_only })
+            }
+          />
+        )}
         <FeatureListProvider>
           {(featureList: any) => {
             const hasZoomApp = !!(
@@ -741,18 +749,22 @@ export class OfferForm extends Component<Props, State> {
                       control={<Radio />}
                       label={t('form.weekly')}
                     />
-                    <FormControlLabel
-                      id="monthly"
-                      value={MONTHLY}
-                      control={<Radio />}
-                      label={t('form.monthly')}
-                    />
-                    <FormControlLabel
-                      id="daily"
-                      value={DAILY}
-                      control={<Radio />}
-                      label={t('form.daily')}
-                    />
+                    {!this.props.isOfferInGroup && (
+                      <>
+                        <FormControlLabel
+                          id="monthly"
+                          value={MONTHLY}
+                          control={<Radio />}
+                          label={t('form.monthly')}
+                        />
+                        <FormControlLabel
+                          id="daily"
+                          value={DAILY}
+                          control={<Radio />}
+                          label={t('form.daily')}
+                        />
+                      </>
+                    )}
                   </RadioGroup>
                 </FormControl>
               </Grid>
@@ -926,7 +938,13 @@ export class OfferForm extends Component<Props, State> {
             required
             onChange={this.onFormFieldChange}
             value={this.state.waiting_list_max_size}
+            disabled={this.props.disableWaitingList}
           />
+          {this.props.disableWaitingList && (
+            <Typography variant="caption" color="textSecondary">
+              {this.props.t('form.noWaitingList')}
+            </Typography>
+          )}
           {!!this.props.showPartnership && (
             <FormField
               id="partner_max_booking_count"

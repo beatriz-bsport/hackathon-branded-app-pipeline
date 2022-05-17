@@ -25,6 +25,7 @@ import { fetchMember } from '../../libs/member/actions';
 
 import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
+import { retrieveGroupOffer } from '../../libs/group-offer/selectors';
 
 import { buildUrlParams } from '../../http';
 import {
@@ -33,7 +34,10 @@ import {
 } from '../../libs/private-service/selectors/private-consumer-pass';
 
 import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
-import { cancelBooking as cancelBookingAction } from '../../libs/booking/actions';
+import {
+  cancelBooking as cancelBookingAction,
+  fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
+} from '../../libs/booking/actions';
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
 import {
   fetchEstablishmentFavorite,
@@ -44,12 +48,16 @@ import {
   fetchMetaActivityFavorite,
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
 } from '../../libs/meta-activity/actions';
+import {
+  resetGroupOffer as resetGroupOfferAction,
+  fetchGroupOffer as fetchGroupOfferAction,
+} from '../../libs/group-offer/actions';
 import { getBookingOptionConsumerList } from '../../libs/waiting-list/selectors';
 import {
   fetchBookingOptionAsConsumer,
   discardBookingOption as cancelBookingOptionAction,
 } from '../../libs/waiting-list/actions';
-
+import { withCoach } from '#libs/offer/selectors';
 import {
   fetchPrivateConsumerPassList,
   disablePrivateBooking,
@@ -61,7 +69,10 @@ import {
   fetchInvoiceList as fetchInvoiceListAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
 } from '../../libs/invoice/actions';
-
+import {
+  getSimilarBookingList,
+  withOfferFull as withOffer,
+} from '#libs/booking/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
 import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
@@ -221,6 +232,32 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     }
   };
 
+  handleSetBookingToCancel = (booking: Booking) => {
+    if (booking.offer.group) {
+      this.props.resetGroupOffer();
+      this.props.fetchGroupOffer(booking.offer.group);
+      this.props.fetchSimilarFuturBookingInGroup(
+        booking.offer.group,
+        this.props.membership.id,
+        {
+          onSuccess: (data) => {
+            this.props.fetchOfferBulk(
+              Array.from(new Set(data.results?.map((b) => b.offer))),
+            );
+            this.props.fetchCoachBulk(
+              Array.from(new Set(data.results?.map((b) => b.coach))),
+            );
+          },
+        },
+      );
+      this.props.fetchSimilarFuturBookingInGroup(
+        booking.offer.group,
+        this.props.membership.id,
+      );
+    }
+    this.props.setBookingToCancel(booking);
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -282,7 +319,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               timezone={this.props.companyTheme.timezone_name}
               hideCoach={this.props.companyTheme.hideCoach}
               membership={this.props.membership}
-              onDiscardBooking={this.props.setBookingToCancel}
+              onDiscardBooking={this.handleSetBookingToCancel}
               onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}
               bookingsAndPrivateBookings={this.props.bookingsAndPrivateBookings}
               loading={this.props.bookingsAndPrivateBookingsLoading}
@@ -313,10 +350,12 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         <BookingCancellationDialog
           open={this.props.bookingToCancel}
           booking={this.props.bookingToCancel}
+          similarBookings={this.props.similarBooking}
           onCancel={() => this.props.setBookingToCancel(null)}
           onSubmit={(options: OptionCallback) =>
             this.onDiscardBooking(this.props.bookingToCancel.id, options)
           }
+          group={this.props.group}
         />
 
         <PrivateBookingCancellationDialog
@@ -406,6 +445,10 @@ const mapStateToProps = (state: RootState, props) => ({
     props.membership?.company,
   ),
   applyBalanceLoading: state.invoice.applyBalance.loading,
+  similarBooking: withCustomLevel(withCoach(withOffer(getSimilarBookingList)))(
+    state,
+  ),
+  group: retrieveGroupOffer(state),
 });
 
 const mapDispatchToProps = {
@@ -450,6 +493,9 @@ const mapDispatchToProps = {
       unpaid: true,
       member: id,
     }),
+  fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
+  resetGroupOffer: resetGroupOfferAction,
+  fetchGroupOffer: fetchGroupOfferAction,
 };
 
 type StateHandlerInit = {

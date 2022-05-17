@@ -22,7 +22,15 @@ exports.default = {
       isPast: 'Passé',
       notAvailable: 'Annulé',
       duration: 'Durée: {{duration}}',
+      bookTitle: 'Réservez une séance',
+      loadMore: 'Plus de séances',
     },
+    cancel: 'Annuler',
+    confirm: 'Continuer',
+    warningFullBooking:
+      "Vous êtes en train de réserver un groupe de séance. Vous serez inscrits à l'ensemble des {{count}} séances de ce groupe.",
+    warningPartialBooking:
+      "Vous êtes en train de réserver un groupe de séance. Vous n'êtes cependant pas obliger de participer à toutes les séances de ce groupe. Vous pourrez sélectionner les séances que vous souhaitez.",
   },
   calendar: {
     registered: 'Déjà inscrit(e)',

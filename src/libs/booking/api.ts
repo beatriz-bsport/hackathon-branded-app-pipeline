@@ -41,6 +41,10 @@ export const cancelBooking = async (id: number, data: any = {}) => {
   return postAuth(`${API_V1_URI}/booking/${id}/cancel/`, data);
 };
 
+export const cancelMultipleBooking = async (data: any = {}) => {
+  return postAuth(`${API_V1_URI}/booking/cancel_multiple_offers/`, data);
+};
+
 export const setSpotForMember = async (id: number, data: any = {}) => {
   return postAuth(`${API_V1_URI}/booking/${id}/set_spot_for_member/`, data);
 };

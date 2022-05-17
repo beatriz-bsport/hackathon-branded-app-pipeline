@@ -17,7 +17,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -34,7 +33,7 @@ import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDe
 import {
   deleteWorkshop,
   restoreMetaActivity,
-  fetchAll as fetchAllWorkshopsAction,
+  fetchMetaActivities as fetchMetaActivitiesAction,
   makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
@@ -47,7 +46,7 @@ type Props = {
   loading: boolean,
   notificationLoading: boolean,
 
-  fetchAllWorkshops: () => void,
+  fetchMetaActivities: () => void,
   fetchNotifications: (params?: Object) => void,
   setWorkshopToDelete: (number) => void,
   workshopToDelete: ?number,
@@ -81,7 +80,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchAllWorkshops();
+    this.props.fetchMetaActivities();
     this.props.fetchNotifications({ is_meta_activity_notification: true });
   }
 
@@ -196,7 +195,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
                 variant="h5"
                 className={this.props.classes.titleContainer}
               >
-                {`${t('workshop:disabledWorkshops')} (${
+                {`${t('disabledWorkshops')} (${
                   (this.props.disabledWorkshopActivities || []).length
                 })`}
               </Typography>
@@ -238,6 +237,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
+    margin: theme.spacing(2),
     paddingBottom: theme.spacing(16),
   },
   search: { marginBottom: theme.spacing(2) },
@@ -279,8 +279,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation(['workshop', 'titles']),
-  withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
+  withTranslation(['workshop']),
   connect(
     (state) => ({
       workshopActivities: withBookingNotifications(getEnabledWorkshops)(state),
@@ -289,7 +288,7 @@ export default compose(
       notificationLoading: state.booking.notification.loading,
     }),
     {
-      fetchAllWorkshops: fetchAllWorkshopsAction,
+      fetchMetaActivities: fetchMetaActivitiesAction,
       makeActivityCopy: makeActivityCopyAction,
       onCreate: () => push('/workshop-activity/add'),
       goToPaymentPack: () => push('/payment-pack'),
@@ -304,9 +303,9 @@ export default compose(
   ),
   withHandlers({
     makeActivityCopy:
-      ({ makeActivityCopy, fetchAllWorkshops }) =>
+      ({ makeActivityCopy, fetchMetaActivities }) =>
       (id, suffix) => {
-        makeActivityCopy(id, suffix, { onSuccess: fetchAllWorkshops });
+        makeActivityCopy(id, suffix, { onSuccess: fetchMetaActivities });
       },
   }),
   withState('workshopToDelete', 'setWorkshopToDelete', null),

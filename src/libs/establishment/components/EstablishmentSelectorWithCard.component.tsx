@@ -57,8 +57,8 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
       (accumulator, establishmentItem) => {
         const temp = accumulator.findIndex(
           (group) =>
-            group.address.toUpperCase() ===
-            establishmentItem.location.address.toUpperCase(),
+            group.address?.toUpperCase() ===
+            establishmentItem.location.address?.toUpperCase(),
         );
         if (temp === -1) {
           accumulator.push({

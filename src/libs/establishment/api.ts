@@ -40,7 +40,7 @@ export async function fetchEstablishment(id: number) {
   return getAuth(`${API_URI}/saas/establishment/${id}/`);
 }
 
-export async function fetchAllEstablishments(params: any) {
+export async function fetchEstablishmentList(params: any) {
   return getAuth(`${API_V1_URI}/establishment/${buildUrlParams(params)}`);
 }
 
@@ -126,5 +126,5 @@ export default {
   addEstablishment,
   updateEstablishment,
   fetchEstablishment,
-  fetchEstablishmentList: fetchAllEstablishments,
+  fetchEstablishmentList,
 };

@@ -24,7 +24,7 @@ import {
   TASK_STATUS_CANCELLED,
 } from '@bsport/common/lib/master-data/tasks';
 
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Task as TaskType } from '../types';

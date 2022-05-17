@@ -5,7 +5,7 @@ import { withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import { TextField, DateField, TimeField } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -173,7 +173,8 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
 
 export const ConsumerGiftcardFormFieldHOC = withFormik({
   // eslint-disable-next-line
-  mapPropsToValues: ({ giftcard }) => ({...{
+  mapPropsToValues: ({ giftcard }) => ({
+    ...{
       message_is_from: '',
       message_is_for: '',
       message_content: '',

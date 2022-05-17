@@ -62,6 +62,16 @@ export const LevelMultiSelector: React.FC<Props> = ({
       }}
       inScrollBar={inScrollBar}
       isMulti
+      // Temporarly until the selector is uniform
+      classes={{
+        control: {
+          height: 22,
+        },
+        placeholder: {
+          fontSize: 14,
+          color: '#808080',
+        },
+      }}
     />
   );
 };

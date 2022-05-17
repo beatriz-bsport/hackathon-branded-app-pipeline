@@ -8,7 +8,7 @@ import { Info } from '@material-ui/icons';
 import { PerformanceTrackingMemberProgram } from '#libs/performance-tracking/types';
 import SliderForm from './SliderForm.component';
 import MuiIcon from '#components/MuiIcon.component';
-import TypographyMultilineComponent from '#components/TypographyMultiline.component';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 
 type OwnProps = {
   memberProgram: PerformanceTrackingMemberProgram;

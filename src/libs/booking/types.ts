@@ -114,6 +114,9 @@ export type BookingsState = {
       delete: ErrorAndLoading;
       edit: ErrorAndLoading;
     };
+  similar: ErrorAndLoading & {
+    allIds: number[];
+  };
 };
 
 export type BookingsAction =

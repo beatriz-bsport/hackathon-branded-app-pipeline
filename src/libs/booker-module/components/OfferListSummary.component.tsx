@@ -114,7 +114,7 @@ class OfferListSummary extends React.PureComponent<Props> {
         <div className={classes.offersContainer}>
           {!!offer && !this.props.hideGenericOffer && (
             <OfferBookableItem
-              disabled={noInteraction}
+              disabled={offer.group ? false : noInteraction}
               offer={offer}
               hideCoach={this.props.hideCoach}
               offerStatus={offerStatus}
@@ -140,13 +140,19 @@ class OfferListSummary extends React.PureComponent<Props> {
               return (
                 <React.Fragment key={offerData.offer.id}>
                   <OfferBookableItem
-                    disabled={offerFeature.noInteraction}
+                    disabled={
+                      offerData.group ? offerFeature.noInteraction : false
+                    }
                     hideCoach={this.props.hideCoach}
                     offer={offerData.offer}
                     isBookable={offerFeature.isBookable}
                     isWaitingList={offerFeature.isWaitingList}
                     offerStatus={this.props.offerStatusById[offerData.offer.id]}
-                    onRemove={this.props.onClickRemoveOffer}
+                    onRemove={
+                      offerData.extra_data?.protected
+                        ? null
+                        : this.props.onClickRemoveOffer
+                    }
                     isRegistered={offerFeature.isRegistered}
                   />
                   <Divider />

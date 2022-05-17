@@ -95,7 +95,7 @@ import {
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import {
   fetchAllActivities,
-  fetchAll as fetchWorkhops,
+  fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
 import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
@@ -170,7 +170,7 @@ export class PrivatePassList extends React.Component<Props, State> {
 
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
-    this.props.fetchWorkhops();
+    this.props.fetchMetaActivities();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
@@ -727,7 +727,7 @@ const mapDispatchToProps = {
   fetchPaymentPack: fetchPaymentPackAction,
   fetchEstablishments,
   fetchAllActivities,
-  fetchWorkhops,
+  fetchMetaActivities: fetchMetaActivitiesAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

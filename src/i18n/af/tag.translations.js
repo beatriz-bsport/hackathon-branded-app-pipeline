@@ -136,4 +136,11 @@ exports.default = {
       },
     },
   },
+  modal: {
+    confirm: {
+      title: 'Dé-tagger',
+      text: "Cette séance fais partit d'un groupe, vous allez détagger toutes les séance de ce groupe. Voulez vous continuer ?",
+      submit: 'Confirmer',
+    },
+  },
 };

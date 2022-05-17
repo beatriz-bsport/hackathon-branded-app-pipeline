@@ -29,6 +29,7 @@ import Select, {
 } from 'react-select';
 import { NoticeProps } from 'react-select/src/components/Menu';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
+import { CSSProperties } from '@emotion/serialize';
 
 export type OptionTypeBase =
   | {
@@ -60,6 +61,7 @@ type BaseProps<T extends OptionTypeBase> = {
   leftIcon?: React.ReactNode;
   withoutPortal?: Boolean;
   defaultNumberShown?: number;
+  classes?: Record<string, CSSProperties>;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
@@ -132,7 +134,7 @@ function MaterialUISelector<T extends OptionTypeBase>(props: Props<T>) {
           inScrollBar={inScrollBar}
           isMenuListPaddingDisabled={isMenuListPaddingDisabled}
           isMenuListVirtualized={isMenuListVirtualized}
-          classes={classes}
+          classes={{ ...classes, ...(props?.classes ?? {}) }}
           onChange={handleChange}
           options={options}
           components={{
@@ -458,7 +460,14 @@ function Control<T extends OptionTypeBase>(
 
   return (
     <components.Control {...props}>
-      <div className={classes.control}>{props.children}</div>
+      <div
+        className={classNames(
+          classes.control,
+          props?.selectProps?.classes?.control,
+        )}
+      >
+        {props.children}
+      </div>
     </components.Control>
   );
 }
@@ -537,7 +546,12 @@ function Placeholder<T extends OptionTypeBase>(
   return (
     <components.Placeholder {...props} getStyles={resetStyle}>
       {!props.isFocused && (
-        <Typography color="textSecondary">{props.children}</Typography>
+        <Typography
+          color="textSecondary"
+          className={props?.selectProps?.classes?.placeholder}
+        >
+          {props.children}
+        </Typography>
       )}
     </components.Placeholder>
   );

@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ConsumerGiftcardPersonnalizationElements, Giftcard } from '../types';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {

@@ -26,6 +26,7 @@ import event from '#libs/event/reducers';
 import expense from '#libs/expense/reducers';
 import franchiseReducers from '#libs/franchise/reducers';
 import giftcard from '#libs/giftcard/reducers';
+import groupOfferReducer from '#libs/group-offer/reducers';
 import instalmentPayment from '#libs/instalment-payment-configuration/reducers';
 import invoiceReducers from '#libs/invoice/reducers';
 import levelReducer from '#libs/level/reducers';
@@ -90,6 +91,7 @@ import { EstablishmentState } from '#libs/establishment/types';
 import { ExpenseState } from '#libs/expense/types';
 import { FranchiseState } from '#libs/franchise/types';
 import { GiftcardState } from '#libs/giftcard/types';
+import { GroupOfferState } from '#libs/group-offer/types';
 import { InstalmentPaymentState } from '#libs/instalment-payment-configuration/types';
 import { MailState } from '#libs/communication/types';
 import { MarketingNotificationState } from '#libs/marketing/types';
@@ -186,6 +188,7 @@ const rootReducer = (history: any) =>
     customForm: CustomFormReducer,
     plugin,
     quickbooks: QuickbooksAppReducer,
+    groupOffer: groupOfferReducer,
     giftcard,
     userPreference,
     performanceTracking,
@@ -219,6 +222,7 @@ export type RootState = {
   event: any;
   expense: ExpenseState;
   franchise: FranchiseState;
+  groupOffer: GroupOfferState;
   giftcard: GiftcardState;
   instalmentPayment: InstalmentPaymentState;
   invoice: any;

@@ -48,96 +48,141 @@ type Props = {
   goToCalendar: (string, number) => void,
   timezone: string,
   showVaccinationStatus: boolean,
+
+  fetchSimilarFuturBookingInGroup: (groupId: number, memberId: number) => void,
+  similarBookings: Booking[],
+  fetchOfferBulk: (ids: number) => void,
+  fetchCoachBulk: (ids: number) => void,
+  resetGroupOffer: () => void,
+  fetchGroupOffer: (id: number) => void,
+  fetchMetaActivityBulk: (ids: number[]) => void,
+  group: OffersGroup,
 };
 
-export const ConsumerBookingPage = (props: Props) => (
-  <div>
-    {!WidgetUtils.isWidget() && (
-      <div className={props.classes.header}>
-        <Button
-          onClick={() =>
-            props.goToCalendar(
-              props.membership.company_name,
-              props.membership.company,
-            )
-          }
-          color="primary"
-          variant="contained"
-        >
-          <TodayIcon className={props.classes.iconLeft} />
-          {props.t('actions.goToCalendar')}
-        </Button>
-      </div>
-    )}
-    <Grid container direction="row" spacing={2}>
-      <Grid item xs={12} md={6}>
-        <Typography variant="h4" component="h3" className={props.classes.title}>
-          {props.t('booking.titleBooking')}
-        </Typography>
-        <Divider className={props.classes.sectionDivider} />
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={BOOKING_PAGE_SIZE}
-            loading={props.bookingsLoading}
-            listProps={{ disablePadding: true }}
-            items={props.bookings}
-            nbItems={props.bookingCount}
-            page={props.bookingCurrentPage}
-            onPageRequested={(page, page_size) =>
-              props.fetchBookingList(props.membership.id, page, page_size)
+export const ConsumerBookingPage = (props: Props) => {
+  const handleCancelBooking = (booking: Booking) => () => {
+    if (booking?.offer?.group) {
+      props.resetGroupOffer();
+      props.fetchMetaActivityBulk([booking.meta_activity]);
+      props.fetchGroupOffer(booking.offer.group);
+      props.fetchSimilarFuturBookingInGroup(
+        booking.offer.group,
+        props.membership.id,
+        {
+          onSuccess: (data) => {
+            props.fetchOfferBulk(
+              Array.from(new Set(data.results?.map((b) => b.offer))),
+            );
+            props.fetchCoachBulk(
+              Array.from(new Set(data.results?.map((b) => b.coach))),
+            );
+          },
+        },
+      );
+    }
+
+    props.setBookingToCancel(booking);
+  };
+
+  return (
+    <div>
+      {!WidgetUtils.isWidget() && (
+        <div className={props.classes.header}>
+          <Button
+            onClick={() =>
+              props.goToCalendar(
+                props.membership.company_name,
+                props.membership.company,
+              )
             }
-            renderItem={(b) => (
-              <BookingItemForManagerV2
-                showRevertBookingButton={
-                  b.booking_status_code === BOOKING_STATUS_OK.id &&
-                  moment(b.offer_date_start).isAfter(moment())
-                }
-                disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
-                key={b.id}
-                booking={b}
-                timezone={props.timezone}
-                heading="date_start"
-                member={props.membership.id}
-                handleRevert={() => props.setBookingToCancel(b)}
-                showVaccinationStatus={props.showVaccinationStatus}
-              />
-            )}
-          />
-        </Paper>
+            color="primary"
+            variant="contained"
+          >
+            <TodayIcon className={props.classes.iconLeft} />
+            {props.t('actions.goToCalendar')}
+          </Button>
+        </div>
+      )}
+      <Grid container direction="row" spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="h4"
+            component="h3"
+            className={props.classes.title}
+          >
+            {props.t('booking.titleBooking')}
+          </Typography>
+          <Divider className={props.classes.sectionDivider} />
+          <Paper>
+            <PaginatedListBase
+              itemPerPage={BOOKING_PAGE_SIZE}
+              loading={props.bookingsLoading}
+              listProps={{ disablePadding: true }}
+              items={props.bookings}
+              nbItems={props.bookingCount}
+              page={props.bookingCurrentPage}
+              onPageRequested={(page, page_size) =>
+                props.fetchBookingList(props.membership.id, page, page_size)
+              }
+              renderItem={(b) => (
+                <BookingItemForManagerV2
+                  showRevertBookingButton={
+                    b.booking_status_code === BOOKING_STATUS_OK.id &&
+                    moment(b.offer_date_start).isAfter(moment())
+                  }
+                  disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
+                  key={b.id}
+                  booking={b}
+                  timezone={props.timezone}
+                  heading="date_start"
+                  member={props.membership.id}
+                  handleRevert={handleCancelBooking(b)}
+                  showVaccinationStatus={props.showVaccinationStatus}
+                />
+              )}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="h4"
+            component="h3"
+            className={props.classes.title}
+          >
+            {props.t('booking.titlePrivateBooking')}
+          </Typography>
+          <Divider className={props.classes.sectionDivider} />
+          <Paper>
+            <PaginatedListStateful
+              itemPerPage={5}
+              loading={props.privateBookingsLoading}
+              listProps={{ disablePadding: true }}
+              items={props.private_booking_list}
+              renderItem={(b) => (
+                <PrivateBookingListItem
+                  timezone={props.timezone}
+                  divider
+                  key={b.id}
+                  private_booking={b}
+                />
+              )}
+            />
+          </Paper>
+        </Grid>
+        <BookingCancellationDialog
+          open={props.bookingToCancel}
+          booking={props.bookingToCancel}
+          onCancel={() => props.setBookingToCancel(null)}
+          similarBookings={props.similarBookings}
+          onSubmit={(options) =>
+            props.cancelBooking(props.bookingToCancel.id, options)
+          }
+          group={props.group}
+        />
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Typography variant="h4" component="h3" className={props.classes.title}>
-          {props.t('booking.titlePrivateBooking')}
-        </Typography>
-        <Divider className={props.classes.sectionDivider} />
-        <Paper>
-          <PaginatedListStateful
-            itemPerPage={5}
-            loading={props.privateBookingsLoading}
-            listProps={{ disablePadding: true }}
-            items={props.private_booking_list}
-            renderItem={(b) => (
-              <PrivateBookingListItem
-                timezone={props.timezone}
-                divider
-                key={b.id}
-                private_booking={b}
-              />
-            )}
-          />
-        </Paper>
-      </Grid>
-      <BookingCancellationDialog
-        open={props.bookingToCancel}
-        booking={props.bookingToCancel}
-        onCancel={() => props.setBookingToCancel(null)}
-        onSubmit={(options) =>
-          props.cancelBooking(props.bookingToCancel.id, options)
-        }
-      />
-    </Grid>
-  </div>
-);
+    </div>
+  );
+};
 
 const styles = (theme) => ({
   title: {

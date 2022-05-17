@@ -14,6 +14,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
+import { Alert } from '@material-ui/lab';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import Radio from '@material-ui/core/Radio';
+// import Collapse from '@material-ui/core/Collapse';
+// import ButtonBase from '@material-ui/core/ButtonBase';
+// import List from '@material-ui/core/List';
 
 import flatten from 'lodash/flatten';
 import Avatar from '../../../../components/Avatar.component';
@@ -33,6 +39,7 @@ import type { Establishment } from '../../../establishment/types';
 import type { Theme as CompanyTheme } from '../../../theme/types';
 import type { OptionCallback } from '../../../../state/types';
 import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
+// import OfferListItem from '#libs/offer/components/OfferListItemV2.component';
 
 type Props = {
   loading: boolean,
@@ -103,6 +110,15 @@ type Props = {
     options?: OptionCallback<Level[]>,
   ) => void,
   companyId: number,
+
+  fetchGroup: (id: number, option: OptionCallback) => void,
+  // similarOfferGroup: Offer[],
+  // isBookingSimilarGroup: boolean,
+  // setIsBookingSimilarGroup: (value: boolean) => void,
+  // selectedSimilarGroupOfferIds: number[],
+  // setSelectedSimilarGroupOfferIds: (value: number[]) => void,
+  // fetchOffersInGroup: (id: number) => void,
+  fetchCompatiblePacks: (offerId: number) => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -145,6 +161,24 @@ export class BookingModuleManager extends PureComponent<Props> {
     );
     this.props.fetchEstablishments();
     this.props.fetchAllEstablishmentBillingGroup();
+
+    this.props.fetchCompatiblePacks(this.props.offerId);
+
+    if (this.props.offer.group) {
+      // this.props.fetchOffersInGroup(
+      //   this.props.offer.group?.id ?? this.props.offer.group,
+      //   {
+      //     onSuccess: (offers) => {
+      //       this.props.setIsBookingSimilarGroup('true');
+      //       this.props.setSelectedSimilarGroupOfferIds(offers.map((o) => o.id));
+      //     },
+      //   },
+      // );
+
+      this.props.fetchGroup(
+        this.props.offer.group?.id ?? this.props.offer.group,
+      );
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -194,6 +228,9 @@ export class BookingModuleManager extends PureComponent<Props> {
         </Dialog>
       );
     }
+
+    const hasGroup = this.props.offer.group;
+
     return (
       <>
         <Dialog
@@ -215,6 +252,113 @@ export class BookingModuleManager extends PureComponent<Props> {
               <Typography variant="h6" align="center">
                 {t('offerManagement.forms.register.registerToOffer')}
               </Typography>
+              {hasGroup && (
+                <>
+                  <Alert severity="error" variant="outlined">
+                    {t('offerManagement.forms.register.groupWarning', {
+                      name: this.props.offer.group?.name,
+                    })}
+                  </Alert>
+                  {/* <RadioGroup
+                    value={this.props.isBookingSimilarGroup}
+                    onChange={(_, value) => {
+                      this.props.setIsBookingSimilarGroup(value);
+                    }}
+                  >
+                    <FormControlLabel
+                      value="true"
+                      control={<Radio />}
+                      label={t(
+                        'offerManagement.forms.register.bookMoreInGroup',
+                      )}
+                    />
+                    <Collapse in={this.props.isBookingSimilarGroup === 'true'}>
+                      <ButtonBase
+                        onClick={() =>
+                          this.props.setSelectedSimilarGroupOfferIds(
+                            this.props.similarOfferGroup
+                              .filter((o) => o.id !== this.props.offer.id)
+                              .map((o) => o.id),
+                          )
+                        }
+                        className={this.props.classes.selectOption}
+                      >
+                        <Typography variant="caption">
+                          {t('offer:liveOfferEdit.selectAll')}
+                        </Typography>
+                      </ButtonBase>
+                      <ButtonBase
+                        onClick={() =>
+                          this.props.setSelectedSimilarGroupOfferIds([])
+                        }
+                        className={this.props.classes.selectOption}
+                      >
+                        <Typography variant="caption">
+                          {t('offer:liveOfferEdit.unselectAll')}
+                        </Typography>
+                      </ButtonBase>
+                      {!(this.props.similarOfferGroup || []).length ? (
+                        <div
+                          className={this.props.classes.noSimilarOfferMessage}
+                        >
+                          <Typography variant="body">
+                            {t('offer:liveOfferEdit.noSimilarOffer')}
+                          </Typography>
+                        </div>
+                      ) : (
+                        <List component="nav">
+                          <OfferListItem
+                            similarOffer
+                            offer={this.props.offer}
+                            handleChange={() => {}}
+                            disabled
+                            checked
+                          />
+                          {this.props.similarOfferGroup.map((so) => (
+                            <OfferListItem
+                              key={so.id}
+                              similarOffer
+                              offer={so}
+                              handleChange={() => {
+                                const indexOf =
+                                  this.props.selectedSimilarGroupOfferIds.indexOf(
+                                    so.id,
+                                  );
+                                if (indexOf === -1) {
+                                  this.props.setSelectedSimilarGroupOfferIds([
+                                    ...this.props.selectedSimilarGroupOfferIds,
+                                    so.id,
+                                  ]);
+                                  return;
+                                }
+                                this.props.setSelectedSimilarGroupOfferIds([
+                                  ...this.props.selectedSimilarGroupOfferIds.splice(
+                                    0,
+                                    indexOf,
+                                  ),
+                                  ...this.props.selectedSimilarGroupOfferIds.splice(
+                                    indexOf + 1,
+                                  ),
+                                ]);
+                              }}
+                              checked={this.props.selectedSimilarGroupOfferIds.includes(
+                                so.id,
+                              )}
+                            />
+                          ))}
+                        </List>
+                      )}
+                    </Collapse>
+                    <FormControlLabel
+                      value="false"
+                      control={<Radio />}
+                      label={t(
+                        'offerManagement.forms.register.bookSingleInGroup',
+                      )}
+                    />
+                  </RadioGroup> */}
+                </>
+              )}
               <Divider />
               <div>
                 <FormControlLabel
@@ -258,17 +402,19 @@ export class BookingModuleManager extends PureComponent<Props> {
               )}
               {!this.props.offer.room_blueprint && (
                 <div className={this.props.classes.bookButtonWideContainer}>
-                  <Button
-                    className={this.props.classes.bookButtonWide}
-                    disabled={
-                      !this.props.consumerPacks ||
-                      this.props.consumerPacks.length === 0
-                    }
-                    variant="outlined"
-                    onClick={() => this.props.openRecurrenceRuleForm()}
-                  >
-                    {t('booking:recurrenceRule.recurrentRuleBooking')}
-                  </Button>
+                  {!hasGroup && (
+                    <Button
+                      className={this.props.classes.bookButtonWide}
+                      disabled={
+                        !this.props.consumerPacks ||
+                        this.props.consumerPacks.length === 0
+                      }
+                      variant="outlined"
+                      onClick={() => this.props.openRecurrenceRuleForm()}
+                    >
+                      {t('booking:recurrenceRule.recurrentRuleBooking')}
+                    </Button>
+                  )}
                   {(!this.props.consumerPacks ||
                     this.props.consumerPacks.length === 0) && (
                     <Tooltip
@@ -279,7 +425,6 @@ export class BookingModuleManager extends PureComponent<Props> {
                   )}
                 </div>
               )}
-
               {!!this.props.registererObject.paymentPack && (
                 <PaymentPackListItem
                   showDuration
@@ -309,7 +454,9 @@ export class BookingModuleManager extends PureComponent<Props> {
                   }
                   offer={this.props.offer}
                   cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
-                  disableMultiBooking={!!this.props.offer.room_blueprint}
+                  disableMultiBooking={
+                    !!this.props.offer.room_blueprint || hasGroup
+                  }
                   establishments={this.props.establishments}
                   enableMultiLocalization={
                     this.props.companyTheme.enable_multi_localization
@@ -369,6 +516,25 @@ const styles = (theme) => ({
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2),
   },
+  similarListHeader: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+  selectOption: {
+    marginTop: theme.spacing(1),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    color: 'grey',
+    '&:hover': {
+      color: 'black',
+    },
+  },
+  noSimilarOfferMessage: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
 });
 
 export default compose(
@@ -381,6 +547,12 @@ export default compose(
   withState('keep_credits', 'setKeepCredits', false),
   withState('memberDetail', 'setMemberDetail', {}),
   withState('tagWarningDialogOpen', 'setTagWarningDialogOpen', false),
+  // withState('isBookingSimilarGroup', 'setIsBookingSimilarGroup', 'false'),
+  // withState(
+  //   'selectedSimilarGroupOfferIds',
+  //   'setSelectedSimilarGroupOfferIds',
+  //   [],
+  // ),
   withHandlers({
     backToRegistererChoice:
       ({ setRegistererObject, setStep }) =>

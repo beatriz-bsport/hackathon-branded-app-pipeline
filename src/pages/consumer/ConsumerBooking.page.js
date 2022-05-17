@@ -11,16 +11,32 @@ import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsAsConsumer as fetchBookingsAsConsumerAction,
   retrieveBooking,
+  fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
 } from '../../libs/booking/actions';
 
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 
-import { getConsumerBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import { fetchPrivateBookings } from '../../libs/private-service/actions';
 
+import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import { withCoach, withMetaActivity } from '#libs/offer/selectors';
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import {
+  resetGroupOffer as resetGroupOfferAction,
+  fetchGroupOffer as fetchGroupOfferAction,
+} from '#libs/group-offer/actions';
+import { retrieveGroupOffer } from '#libs/group-offer/selectors';
+import {
+  getSimilarBookingList,
+  getConsumerBookingListWithConsumerPack,
+  withOfferFull as withOffer,
+} from '#libs/booking/selectors';
 import ConsumerBookingPage from '../../libs/consumer-space/components/ConsumerBookingPage.component';
 
 import type { Membership } from '../../libs/membership/types';
@@ -51,11 +67,27 @@ type Props = {
   fetchPrivateBookings: ({ member: number }) => void,
   goToCalendar: (string, number) => void,
   showVaccinationStatus: boolean,
+
+  similarBookings: Booking[],
+  fetchSimilarFuturBookingInGroup: (groupId: number, member: id) => void,
+  fetchOfferBulk: (ids: number) => void,
+  fetchCoachBulk: (ids: number) => void,
+  companyId: number,
+  fetchLevelList: ({
+    company: number,
+  }) => void,
+  resetGroupOffer: () => void,
+  fetchGroupOffer: (id: number) => void,
+  fetchMetaActivityBulk: (ids: number[]) => void,
+  group: OffersGroup,
 };
 
 export class ConsumerBooking extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchPrivateBookings({ member: this.props.membership.id });
+    this.props.fetchLevelList({
+      company: this.props.companyId,
+    });
   }
 
   render() {
@@ -78,6 +110,16 @@ export class ConsumerBooking extends React.Component<Props> {
         goToCalendar={this.props.goToCalendar}
         timezone={this.props.timezone}
         showVaccinationStatus={this.props.showVaccinationStatus}
+        similarBookings={this.props.similarBookings}
+        fetchSimilarFuturBookingInGroup={
+          this.props.fetchSimilarFuturBookingInGroup
+        }
+        fetchOfferBulk={this.props.fetchOfferBulk}
+        fetchCoachBulk={this.props.fetchCoachBulk}
+        resetGroupOffer={this.props.resetGroupOffer}
+        fetchGroupOffer={this.props.fetchGroupOffer}
+        fetchMetaActivityBulk={this.props.fetchMetaActivityBulk}
+        group={this.props.group}
       />
     );
   }
@@ -86,18 +128,23 @@ export class ConsumerBooking extends React.Component<Props> {
 export default compose(
   connect(
     (state: RootState) => ({
-      bookings: getConsumerBookingListWithConsumerPack(state),
+      bookings: withOffer(getConsumerBookingListWithConsumerPack)(state),
       bookingCurrentPage: state.booking.asConsumer.page,
       bookingsLoading: state.booking.asConsumer.loading,
       bookingCount: state.booking.asConsumer.count,
       consumerPackLoading: state.consumerPaymentPack.loading,
       getPass: (id_: number) => getConsumerPack(state, id_),
       timezone: state.theme.theme.timezone_name,
+      companyId: state.theme.theme.company,
 
       private_booking_list: getPrivateBookingListBase(state),
       privateBookingsLoading: state.privateService.privateBooking.loading,
       marketplaceSettings: state.marketplace.settings,
       showVaccinationStatus: showVaccinationStatus(state),
+      group: retrieveGroupOffer(state),
+      similarBookings: withCustomLevel(
+        withMetaActivity(withCoach(withOffer(getSimilarBookingList))),
+      )(state),
     }),
     {
       fetchBookingsAsConsumer: fetchBookingsAsConsumerAction,
@@ -110,6 +157,13 @@ export default compose(
       deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
+      fetchOfferBulk: fetchOfferBulkAction,
+      fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
+      fetchLevelList: fetchLevelListAction,
+      fetchCoachBulk: fetchCoachBulkAction,
+      resetGroupOffer: resetGroupOfferAction,
+      fetchGroupOffer: fetchGroupOfferAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       push,
     },
   ),
@@ -119,10 +173,12 @@ export default compose(
         fetchBookingsAsConsumer,
         retrieveConsumerPackBulk,
         fetchPaymentPackBulk,
+        fetchOfferBulk,
       }) =>
       (member, page, page_size) =>
         fetchBookingsAsConsumer(member, page, page_size, {
-          onSuccess: (bookings) =>
+          onSuccess: (bookings) => {
+            fetchOfferBulk(bookings.map((b) => b.offer).filter((o) => !!o));
             retrieveConsumerPackBulk(
               bookings.map((b) => b.consumer_payment_pack),
               {
@@ -131,7 +187,8 @@ export default compose(
                     consumerPacks.map((cpp) => cpp.payment_pack),
                   ),
               },
-            ),
+            );
+          },
         }),
     goToCalendar:
       (props: Props) => (companyName: string, companyId: string) => {

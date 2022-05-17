@@ -3,6 +3,7 @@ import {
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
+import { OffersGroupFilter } from '#libs/meta-activity/types';
 
 export type ScheduleFilter = {
   showOfferList: boolean;
@@ -36,4 +37,6 @@ export type UserPreference = {
   establishmentsScheduleFilter: { [key: string]: ScheduleFilter };
   privateServicesScheduleFilter: { [key: string]: ScheduleFilter };
   memberPrivateBookingFilter: PrivateBookingFilter;
+  workshopGroupFilter: OffersGroupFilter;
+  workshopDetailGroupFilter: OffersGroupFilter;
 };

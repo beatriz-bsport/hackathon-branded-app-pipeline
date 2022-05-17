@@ -1,9 +1,10 @@
 // @flow
 import React, { PureComponent } from 'react';
-
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withProps, withHandlers, withState } from 'recompose';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -97,6 +98,7 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
     if (this.props.id) {
       this.props.fetchMetaActivityOffers(this.props.id);
       this.props.fetchNotificationsAndTemplates();
+      this.props.fetchOffersByDay(moment());
     }
   }
 

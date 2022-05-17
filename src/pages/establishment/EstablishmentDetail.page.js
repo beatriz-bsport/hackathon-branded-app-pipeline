@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
+import moment from 'moment';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
@@ -108,6 +109,13 @@ type Props = {
   assetsByBlueprintByIdentifier: any,
   setPreviewBlueprint: (r: RoomBlueprint) => void,
   previewBlueprint: RoomBlueprint | null,
+  fetchEstablishmentEvents: (
+    id: number,
+    {
+      min_date: string,
+      max_date: string,
+    },
+  ) => void,
 };
 
 type State = {
@@ -124,6 +132,10 @@ export class EstablishmentDetails extends React.Component<Props, State> {
     this.props.fetchNotificationsAndTemplates();
     this.props.fetchRoomBlueprints({ establishment: this.props.id });
     this.props.fetchAssetForBlueprint({ establishment: this.props.id });
+    this.props.fetchEstablishmentEvents(this.props.id, {
+      min_date: moment().startOf('month').format('YYYY-MM-DD'),
+      max_date: moment().endOf('month').format('YYYY-MM-DD'),
+    });
   }
 
   render() {

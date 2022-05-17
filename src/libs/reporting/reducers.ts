@@ -9,6 +9,7 @@ import {
   fetchReportsActions,
   deleteReportActions,
   updateReportActions,
+  fetchReportOfferManagementActions,
 } from './actions';
 import { ReportingState } from './types';
 
@@ -33,6 +34,10 @@ const initialState: Immutable.Immutable<ReportingState> =
     excelReportingReducer: {
       loading: false,
       link: null,
+      error: null,
+    },
+    offerManagement: {
+      loading: false,
       error: null,
     },
     list: {
@@ -136,6 +141,18 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
     },
     [updateReportActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload).set('loading', null);
+    },
+    [fetchReportOfferManagementActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['offerManagement', 'loading'], payload);
+    },
+    [fetchReportOfferManagementActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['offerManagement', 'error'], payload);
     },
   },
   initialState,

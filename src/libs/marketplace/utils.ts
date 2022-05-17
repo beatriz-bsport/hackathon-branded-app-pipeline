@@ -4,6 +4,7 @@ import { Offer } from './types';
 import Config from '../../config';
 
 export function isOfferInThePast(offer: Offer) {
+  if (!offer) return false;
   return !moment(offer.date_start).isSameOrBefore(moment());
 }
 

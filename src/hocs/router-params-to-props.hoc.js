@@ -38,7 +38,6 @@ export default function mapRouterParamsToProps(paramsMapper: ParamsMap) {
     return class extends React.Component<Props> {
       render() {
         const { match } = this.props;
-
         // Pick only expected params
         const params = pick((match && match.params) || {}, keys(mapperConv));
 

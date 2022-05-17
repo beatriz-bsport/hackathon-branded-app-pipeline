@@ -28,8 +28,8 @@ type Props = {
   classes: Object,
   onClickOffer: () => void,
   classes: Object,
-  onClickBook: (offerId: number) => void,
-  onClickBookOption: (offerId: number) => void,
+  onClickBook: (offer: Offer) => void,
+  onClickBookOption: (offer: Offer) => void,
   showOfferFilling: boolean,
   activityLoading: boolean,
   coachLoading: boolean,
@@ -54,26 +54,41 @@ const getWeekOffers = memoize((selectedDate, offers) => {
 });
 
 export class MarketplaceTimetable extends PureComponent<Props> {
+  handleBook = (offfer) => () => {
+    this.props.onClickBook(offfer);
+  };
+
+  handleBookOption = (offfer) => () => {
+    this.props.onClickBookOption(offfer);
+  };
+
+  handleClick = (offer) => () => {
+    const isInThePast = isOfferInThePast(offer);
+
+    if (!this.props.onClickOffer || !isInThePast) {
+      return;
+    }
+    this.props.onClickOffer(offer.id);
+  };
+
   renderDayOffers(offers: Array<*>, i: number) {
     const { date, classes, bookedOffers } = this.props;
     if (!offers || offers.length === 0) return null;
+    const displayedDate = moment(date, DATE_FORMAT)
+      .clone()
+      .add(i, 'days')
+      .format('dddd Do MMMM');
 
     return (
-      <div key={i} className={classes.container}>
+      <div key={displayedDate} className={classes.container}>
         <Typography variant="h6" className={classes.title}>
-          {moment(date, DATE_FORMAT)
-            .clone()
-            .add(i, 'days')
-            .format('dddd Do MMMM')}
+          {displayedDate}
         </Typography>
         <Divider />
         <List disablePadding>
           {offers.map((o) => {
             const isInThePast = isOfferInThePast(o);
-            const onClick =
-              this.props.onClickOffer && isInThePast
-                ? () => this.props.onClickOffer(o.id)
-                : null;
+
             return (
               <OfferListItemConsumer
                 coachLoading={this.props.coachLoading}
@@ -83,8 +98,8 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                 showOfferFilling={this.props.showOfferFilling}
                 key={o.id}
                 offer={o}
-                onClick={onClick}
-                onClickOffer={this.props.onClickOffer}
+                onClick={this.onClick}
+                onClickOffer={this.handleClick}
                 isRegistered={
                   bookedOffers?.length ? bookedOffers.includes(o.id) : false
                 }
@@ -93,7 +108,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                     <Hidden xsDown>
                       <IconButton
                         disabled={!isInThePast}
-                        onClick={onClick}
+                        onClick={this.onClick}
                         color="secondary"
                       >
                         <InfoIcon />
@@ -101,10 +116,8 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                     </Hidden>
                     <MarketplaceBookButton
                       showOfferGender={this.props.showOfferGender}
-                      onClickBook={() => this.props.onClickBook(o)}
-                      onClickBookOption={() =>
-                        this.props.onClickBookOption(o.id)
-                      }
+                      onClickBook={this.handleBook(o)}
+                      onClickBookOption={this.handleBookOption(o)}
                       offer={o}
                     />
                   </div>
@@ -117,19 +130,25 @@ export class MarketplaceTimetable extends PureComponent<Props> {
     );
   }
 
-  renderContent = () => {
-    const { date } = this.props;
+  render() {
+    const { loading, offers, date } = this.props;
+
+    if (!offers || loading) {
+      return <CircularProgress />;
+    }
+
     const weekday = moment(date, DATE_FORMAT).weekday();
     // split offer for the selected day
     const weekOffers = getWeekOffers(date, this.props.offers);
     const nextDaysOffers = weekOffers.slice(weekday);
 
-    return nextDaysOffers.map((offers, i) => this.renderDayOffers(offers, i));
-  };
-
-  render() {
-    const { loading, offers } = this.props;
-    return !offers || loading ? <CircularProgress /> : this.renderContent();
+    return (
+      <>
+        {nextDaysOffers.map((dayOffers, i) =>
+          this.renderDayOffers(dayOffers, i),
+        )}
+      </>
+    );
   }
 }
 

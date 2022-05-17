@@ -78,7 +78,7 @@ import PaymentPackFilterAndSortHeader, {
 } from '../../libs/payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
 import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { getAllEstablishments } from '#libs/establishment/selectors';
 import {
   getActivitiesByIdList,
@@ -87,7 +87,7 @@ import {
 } from '#libs/meta-activity/selectors';
 import {
   fetchAllActivities,
-  fetchAll as fetchWorkhops,
+  fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import {
   withFormTrackingHOC,
@@ -161,29 +161,6 @@ export class PaymentPackList extends React.Component<Props, State> {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchPrivatePassList();
-    this.props.fetchAllPrivateServices();
-    this.props.fetchEstablishments();
-    this.props.fetchAllActivities({ customer_enabled: true });
-    this.props.fetchWorkhops();
-    this.props.fetchAllPaymentPacks(this.props.companyId);
-    this.props.fetchAllPaymentPackCategory(this.props.companyId);
-    this.props.fetchVideoFilterableParams({
-      company: this.props.companyId,
-      status: VideoStatusEnum.processed,
-    });
-    this.props.fetchMarketingNotificationList({
-      active: true,
-      kind_in: [
-        CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
-        CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
-      ],
-    });
-    if (this.state.selectedSortOption !== SortOption.customSort)
-      this.updateSortOption(this.state.selectedSortOption);
-  }
-
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
     if (prevState.selectedSortOption !== this.state.selectedSortOption)
       this.updateSortOption(this.state.selectedSortOption);
@@ -205,6 +182,29 @@ export class PaymentPackList extends React.Component<Props, State> {
     ) {
       this.props.fetchCompatibleServicePasses(this.state.paymentPackToEdit);
     }
+  }
+
+  componentDidMount() {
+    this.props.fetchPrivatePassList();
+    this.props.fetchAllPrivateServices();
+    this.props.fetchEstablishments();
+    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchMetaActivities();
+    this.props.fetchAllPaymentPacks();
+    this.props.fetchAllPaymentPackCategory();
+    this.props.fetchVideoFilterableParams({
+      company: this.props.companyId,
+      status: VideoStatusEnum.processed,
+    });
+    this.props.fetchMarketingNotificationList({
+      active: true,
+      kind_in: [
+        CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+        CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
+      ],
+    });
+    if (this.state.selectedSortOption !== SortOption.customSort)
+      this.updateSortOption(this.state.selectedSortOption);
   }
 
   onCreate = () => {
@@ -700,7 +700,7 @@ const mapStateToProps = (state: RootState) => ({
   enabledPacks: withLinkedPrivatePass(getEnabledPaymentPacks)(state),
   theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
-  allTagsWithTagGroup: getallTagsWithTagGroup(state),
+  allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   establishmentList: getAllEstablishments(state),
   paymentPackCategories: getAllPaymentPackCategory(state),
   metaActivities: uniqBy(
@@ -739,7 +739,7 @@ const mapDispatchToProps = {
   fetchEstablishments,
   fetchAllPaymentPacks,
   fetchAllActivities,
-  fetchWorkhops,
+  fetchMetaActivities: fetchMetaActivitiesAction,
   fetchAllPaymentPackCategory,
 
   updateCreditAction,

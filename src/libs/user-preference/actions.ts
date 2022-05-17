@@ -6,6 +6,7 @@ import {
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
 import { PrivateBookingFilter, ScheduleFilter } from './types';
+import { OffersGroupFilter } from '#libs/meta-activity/types';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),
@@ -36,6 +37,10 @@ export const userPreferenceActions = {
   ),
   setMemberPrivateBookingFilter: createAction(
     'USER_PREFERENCE/MEMBER_PRIVATE_BOOKING_FILTER',
+  ),
+  setWorkshopGroupFilter: createAction('USER_PREFERENCE/WORKSHOP_GROUP_FILTER'),
+  setWorkshopDetailGroupFilter: createAction(
+    'USER_PREFERENCE/WORKSHOP_GROUP_DETAIL_FILTER',
   ),
 };
 
@@ -131,5 +136,31 @@ export function setPrivateServiceScheduleFilter(option: {
 export function setMemberPrivateBookingFilter(filter: PrivateBookingFilter) {
   return async (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.setMemberPrivateBookingFilter(filter));
+  };
+}
+
+export function setWorkshopGroupFilter(filter: OffersGroupFilter) {
+  return async (dispatch: Dispatch) => {
+    Object.keys(filter)?.forEach((key) => {
+      if (filter[key] === null || filter[key] === undefined) {
+        // eslint-disable-next-line no-param-reassign
+        delete filter[key];
+      }
+    });
+
+    dispatch(userPreferenceActions.setWorkshopGroupFilter(filter));
+  };
+}
+
+export function setWorkshopDetailGroupFilter(filter: OffersGroupFilter) {
+  return async (dispatch: Dispatch) => {
+    Object.keys(filter)?.forEach((key) => {
+      if (filter[key] === null || filter[key] === undefined) {
+        // eslint-disable-next-line no-param-reassign
+        delete filter[key];
+      }
+    });
+
+    dispatch(userPreferenceActions.setWorkshopDetailGroupFilter(filter));
   };
 }

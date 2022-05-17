@@ -91,6 +91,8 @@ exports.default = {
         label: 'Activité',
         helperText: 'Activité',
       },
+      groupWarning:
+        'Attention il n’est pas possible de créer une récurrence de réservation sur des groupes de séances',
       delayWeek: {
         label: 'Nombre de semaines',
         helperText:

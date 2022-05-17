@@ -14,9 +14,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import WorkshopActivityDetailPack from './WorkshopActivityDetailPack.page';
 import WorkshopActivityDetailGeneral from './WorkshopActivityDetailGeneral.page';
+import WorkshopActivityDetailGroup from './WorkshopActivityDetailGroup.page';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
-import { fetchAll as fetchAllWorkshops } from '../../libs/meta-activity/actions';
+import { fetchMetaActivities as fetchMetaActivitiesAction } from '../../libs/meta-activity/actions';
 
 type Props = {
   t: TFunction,
@@ -24,12 +25,12 @@ type Props = {
   tab: string,
   id: number,
   classes: Object,
-  fetchAllWorkshops: () => void,
+  fetchMetaActivities: () => void,
 };
 
 export class WorkshopActivityDetail extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAllWorkshops();
+    this.props.fetchMetaActivities();
   }
 
   render() {
@@ -47,6 +48,7 @@ export class WorkshopActivityDetail extends React.Component<Props> {
           >
             <Tab label={t('detail.tab.general')} value="general" />
             <Tab label={t('detail.tab.pack')} value="pack" />
+            <Tab label={t('detail.tab.group')} value="group" />
           </Tabs>
         </AppBar>
         <div className={classes.content}>
@@ -65,6 +67,10 @@ export class WorkshopActivityDetail extends React.Component<Props> {
               exact
               path="/workshop-activity/:id/general"
               component={WorkshopActivityDetailGeneral}
+            />
+            <Route
+              path="/workshop-activity/:id/group/:selectedOfferId?"
+              component={WorkshopActivityDetailGroup}
             />
           </Switch>
         </div>
@@ -105,7 +111,7 @@ export default compose(
     }),
     {
       pushToTab: (id, tab) => push(`/workshop-activity/${id}/${tab}`),
-      fetchAllWorkshops,
+      fetchMetaActivities: fetchMetaActivitiesAction,
     },
   ),
   withTitle(({ workshopActivity }) => {

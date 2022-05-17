@@ -33,8 +33,8 @@ export type GenericPaginationResults<T> = {
   count: number;
   next_page: number;
   links: {
-    next: string;
-    previous: string;
+    next: string | number;
+    previous: string | number;
   };
   results: T[];
 };

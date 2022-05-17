@@ -32,6 +32,18 @@ export const fetchExcelReporting = async (reportId: number, params: any) => {
   );
 };
 
+// TODO Fix the endpoint as it seems to not work properly
+export const fetchReportOfferManagement = async (params: {
+  coach_in?: number[];
+  establishment_in?: number[];
+  level_in?: number[];
+  activity_in?: number[];
+  date: string;
+}) =>
+  getAuth(
+    `${API_URI}/reporting/reports/offer_management/${buildUrlParams(params)}`,
+  );
+
 export const fetchReports = async (): Promise<
   AxiosResponse<ReportConfiguration>
 > => {

@@ -11,6 +11,10 @@ const _getLevelsDetails = (state: RootState) => getState(state).byId;
 
 const _getLevelsList = (state: RootState) => getState(state).allIds;
 
+export const getLevelById = (state: RootState) => (id: number) => {
+  return getState(state).byId[id];
+};
+
 export const getAllCustomLevels = createSelector(
   [_getLevelsList, _getLevelsDetails],
   (ids, data) => {

@@ -16,7 +16,7 @@ import {
   upsert,
   addImageToMetaActivity as addImageToWorkshop,
   removeImageFromWorkshop,
-  fetchAll as fetchAllWorkshops,
+  fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import { getWorkshop } from '../../libs/meta-activity/selectors';
 
@@ -32,7 +32,7 @@ type Props = {
 
   SCTs: *[],
 
-  fetchAllWorkshops: () => void,
+  fetchMetaActivities: () => void,
   removeImage: () => void,
   addImage: () => void,
   onSubmit: () => void,
@@ -41,6 +41,7 @@ type Props = {
 };
 const WorkshopActivityMap = {
   cover_main: 'cover_main',
+  alt_cover_main: 'alt_cover_main',
   description: 'description',
   name: 'name',
   last_booking_minutes: 'last_booking_minutes',
@@ -57,7 +58,7 @@ const WorkshopActivityMap = {
 
 export class WorkshopActivityEditPage extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAllWorkshops();
+    this.props.fetchMetaActivities();
   }
 
   render() {
@@ -71,6 +72,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
     if (loading || !this.props.initial) {
       return <LinearProgress />;
     }
+
     const imageUploader = {
       onAddImage: (file: File) => addImage(id, file),
       onRemoveImage: (imageId: number) => removeImage(id, imageId),
@@ -113,7 +115,7 @@ export default compose(
       removeImage: removeImageFromWorkshop,
       goToWorkshop: (id: number) =>
         routerPush(`/workshop-activity/${id}/general`),
-      fetchAllWorkshops,
+      fetchMetaActivities: fetchMetaActivitiesAction,
     },
   ),
   withProps(({ upsertWorkshopActivity, initial, id, goToWorkshop }) => ({

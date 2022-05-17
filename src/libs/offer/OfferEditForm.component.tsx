@@ -17,6 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
+import InfoIcon from '@material-ui/icons/Info';
+import { Alert } from '@material-ui/lab';
 
 import BlockIcon from '@material-ui/icons/Block';
 import CheckIcon from '@material-ui/icons/Check';
@@ -188,7 +190,7 @@ export class OfferEditForm extends Component<Props, State> {
       partner_max_booking_count: props.offer.partner_max_booking_count,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
-      level: props.offer.customLevel.id,
+      level: props.offer?.customLevel?.id,
       meta_activity:
         props.offer.meta_activity && this.props.offer.meta_activity.id,
       similarOffersWithSelectedStatus: (this.props.similarOffers || [])
@@ -229,10 +231,11 @@ export class OfferEditForm extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchSimilarOffers(this.props.offer.id);
+    this.props?.fetchSimilarOffers?.(this.props.offer.id);
   }
 
   componentDidUpdate(prevProps: Props) {
+    if (!this.props.offer || !prevProps.offer) return;
     if (
       this.props.offer.meta_activity &&
       (!prevProps.offer.meta_activity ||
@@ -525,6 +528,17 @@ export class OfferEditForm extends Component<Props, State> {
 
     return (
       <div className={this.props.classes.container}>
+        {this.props.offer?.group?.name && (
+          <Alert
+            severity="error"
+            variant="outlined"
+            className={this.props.classes.alert}
+          >
+            {this.props.t('form.offer.editingGroup', {
+              name: this.props.offer.group.name,
+            })}
+          </Alert>
+        )}
         <div className={this.props.classes.fieldGroup}>
           <Typography variant="subtitle2">
             {this.props.t('form.caracteristics')}
@@ -545,6 +559,7 @@ export class OfferEditForm extends Component<Props, State> {
                   selectOption={({ value }) =>
                     this.onFormFieldChange('meta_activity')(value)
                   }
+                  disabled={this.props.offer.group}
                 />
               </div>
               <div className={this.props.classes.field}>
@@ -584,7 +599,13 @@ export class OfferEditForm extends Component<Props, State> {
                       event.target.value,
                     )
                   }
+                  disabled={this.props.offer?.group ?? false}
                 />
+                {this.props.offer?.group && (
+                  <Typography variant="caption" color="textSecondary">
+                    {this.props.t('form.noWaitingList')}
+                  </Typography>
+                )}
               </div>
               <div className={this.props.classes.field}>
                 <NumericInput
@@ -622,8 +643,17 @@ export class OfferEditForm extends Component<Props, State> {
                   onCreateLevel={this.props.createLevel}
                   onEditLevel={this.props.updateLevel}
                   onDeleteLevel={this.handleDeleteLevel}
+                  isDisabled={!!this.props.offer.group}
                 />
               </div>
+              {this.props.offer.group && (
+                <div className={this.props.classes.row}>
+                  <InfoIcon color="disabled" />
+                  <Typography variant="caption" color="textSecondary">
+                    {this.props.t('form.editGroup')}
+                  </Typography>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -824,58 +854,72 @@ export class OfferEditForm extends Component<Props, State> {
           }}
         </FeatureListProvider>
         <div className={this.props.classes.fieldGroup}>
-          <div className={this.props.classes.field}>
-            <NotificationToogle
-              notifyConsumers={this.state.notifyConsumers}
-              onNotificationChange={(notifyConsumers) =>
-                this.setState({ notifyConsumers })
-              }
-            />
-          </div>
-          {!!this.props.showPartnership && (
-            <div className={this.props.classes.field}>
-              <PartnershipToogle
-                available_on_partnership={this.state.available_on_partnership}
-                onChange={(available_on_partnership) =>
-                  this.setState({ available_on_partnership })
-                }
-              />
-            </div>
+          {this.props.offer.id && (
+            <>
+              <div className={this.props.classes.field}>
+                <NotificationToogle
+                  notifyConsumers={this.state.notifyConsumers}
+                  onNotificationChange={(notifyConsumers) =>
+                    this.setState({ notifyConsumers })
+                  }
+                />
+              </div>
+              {!!this.props.showPartnership && (
+                <div className={this.props.classes.field}>
+                  <PartnershipToogle
+                    available_on_partnership={
+                      this.state.available_on_partnership
+                    }
+                    onChange={(available_on_partnership) =>
+                      this.setState({ available_on_partnership })
+                    }
+                  />
+                </div>
+              )}
+              <div className={this.props.classes.field}>
+                <ManagerOnlyToogle
+                  manager_only={this.state.manager_only}
+                  onChange={(manager_only) => this.setState({ manager_only })}
+                  disabled={this.props.offer.group}
+                />
+              </div>
+              {(this.state?.similarOffersWithSelectedStatus?.length > 1 ||
+                this.props.similarOfferLoading) && (
+                <div className={this.props.classes.field}>
+                  <RecursionToogle
+                    edit
+                    loading={this.props.similarOfferLoading}
+                    message={this.props.t(
+                      this.props.offer?.group
+                        ? 'offer:liveOfferEdit.editSimilarOffersGroup'
+                        : 'offer:liveOfferEdit.editSimilarOffers',
+                    )}
+                    listTitle={this.props.t('offer:liveOfferEdit.selectEdit')}
+                    shouldModifyAllDates={this.shouldModifyAllDates()}
+                    dateTimeDiff={Moment(
+                      `${pad(this.state.date.date())}/${pad(
+                        this.state.date.month() + 1,
+                      )}/${pad(this.state.date.year())} ${pad(
+                        Moment(this.state.hour, 'HH:mm').hour(),
+                      )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
+                      'DD/MM/YYYY hh:mm',
+                    ).diff(this.initialOfferState.date_start)}
+                    onChangeRecursion={() =>
+                      this.setState((prevState) => ({
+                        modifyRecursively: !prevState.modifyRecursively,
+                      }))
+                    }
+                    handleChange={this.handleChangeSelection}
+                    similarOffersWithSelectedStatus={
+                      this.state.similarOffersWithSelectedStatus
+                    }
+                    selectAll={this.selectAll}
+                    unselectAll={this.unselectAll}
+                  />
+                </div>
+              )}
+            </>
           )}
-          <div className={this.props.classes.field}>
-            <ManagerOnlyToogle
-              manager_only={this.state.manager_only}
-              onChange={(manager_only) => this.setState({ manager_only })}
-            />
-          </div>
-          <div className={this.props.classes.field}>
-            <RecursionToogle
-              edit
-              loading={this.props.similarOfferLoading}
-              message={this.props.t('offer:liveOfferEdit.editSimilarOffers')}
-              listTitle={this.props.t('offer:liveOfferEdit.selectEdit')}
-              shouldModifyAllDates={this.shouldModifyAllDates()}
-              dateTimeDiff={Moment(
-                `${pad(this.state.date.date())}/${pad(
-                  this.state.date.month() + 1,
-                )}/${pad(this.state.date.year())} ${pad(
-                  Moment(this.state.hour, 'HH:mm').hour(),
-                )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
-                'DD/MM/YYYY hh:mm',
-              ).diff(this.initialOfferState.date_start)}
-              onChangeRecursion={() =>
-                this.setState((prevState) => ({
-                  modifyRecursively: !prevState.modifyRecursively,
-                }))
-              }
-              handleChange={this.handleChangeSelection}
-              similarOffersWithSelectedStatus={
-                this.state.similarOffersWithSelectedStatus
-              }
-              selectAll={this.selectAll}
-              unselectAll={this.unselectAll}
-            />
-          </div>
           {this.renderNextStepButton()}
         </div>
       </div>
@@ -1019,6 +1063,7 @@ export class OfferEditForm extends Component<Props, State> {
   );
 
   render() {
+    if (!this.props.offer) return null;
     switch (this.state.step) {
       case STEPS.GATHER_INFO:
       default:
@@ -1102,6 +1147,15 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'flex-start',
       gap: theme.spacing(2),
+    },
+    alert: {
+      marginBottom: theme.spacing(2),
+    },
+    row: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(2),
+      marginTop: theme.spacing(2),
     },
   });
 

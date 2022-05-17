@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
 
 // @ts-ignore
-import TypographyMultiline from '../../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../../components/typo/TypographyMultiline.component';
 
 import {
   PrivateService,

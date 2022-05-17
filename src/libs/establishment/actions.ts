@@ -6,7 +6,7 @@ import uniq from 'lodash/uniq';
 
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  fetchAllEstablishments as fetchEstablishmentListAPI,
+  fetchEstablishmentList as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
   fetchEstablishmentFavorite as fetchEstablishmentFavoriteAPI,
   updateEstablishment as updateEstablishmentAPI,
@@ -338,14 +338,28 @@ export const fetchEstablishmentBulk = (
     getState: () => RootState,
   ) => {
     const freshEstablishmentList = getFreshEstablishmentIds(getState());
-    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshEstablishmentList.includes(id),
-    );
-    if (ids_uniq.length === 0) {
+
+    const establishmentId = new Set(freshEstablishmentList);
+    const newEstablishment = new Set(ids);
+
+    newEstablishment?.forEach((e) => {
+      if (establishmentId.has(e)) {
+        newEstablishment.delete(e);
+      }
+    });
+    newEstablishment.delete(null);
+    newEstablishment.delete(undefined);
+    newEstablishment.delete(NaN);
+
+    if (newEstablishment.size === 0) {
       return;
     }
+
     const res = await dispatch(
-      fetchEstablishmentBulkBase({ id__in: ids_uniq }, options),
+      fetchEstablishmentBulkBase(
+        { id__in: Array.from(newEstablishment) },
+        options,
+      ),
     );
     /* eslint-disable-next-line */
     return res;

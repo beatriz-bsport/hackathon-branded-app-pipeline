@@ -25,11 +25,13 @@ import {
   createMetaActivityCategory as createMetaActivityCategoryAPI,
 } from './api/common';
 
-import { fetchAll as fetchAllAPI } from './api/workshop-activity';
+import { fetchMetaActivities as fetchMetaActivitiesAPI } from './api/workshop-activity';
+
 import {
   MetaActivity,
   MetaActivityCategory,
   MetaActivityCategoryWithActivities,
+  MetaActivityFilter,
 } from './types';
 
 export const metaActivityBulkActions = {
@@ -40,7 +42,7 @@ export const metaActivityBulkActions = {
 
 export function fetchMetaActivityBulk(
   ids: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback<MetaActivity[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     const freshIdList = getFreshMetaActivityList(getState());
@@ -351,7 +353,7 @@ export const listingActions = {
 
 export function deleteWorkshop(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback<MetaActivity[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteAction.isLoading(true));
@@ -361,7 +363,7 @@ export function deleteWorkshop(
       await deleteMetaActivityAPI(id);
       dispatch(deleteAction.success(id));
       dispatch(snackbarSuccess('metaActivity.del.success'));
-      dispatch(fetchAll());
+      dispatch(fetchMetaActivities());
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
@@ -373,16 +375,21 @@ export function deleteWorkshop(
   };
 }
 
-export function fetchAll() {
+export function fetchMetaActivities(
+  params?: MetaActivityFilter,
+  options?: OptionCallback<MetaActivity[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listingActions.isLoading(true));
     dispatch(listingActions.error(null));
     try {
-      const response = await fetchAllAPI();
+      const response = await fetchMetaActivitiesAPI(params ?? {});
       dispatch(listingActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(listingActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(listingActions.isLoading(false));
   };

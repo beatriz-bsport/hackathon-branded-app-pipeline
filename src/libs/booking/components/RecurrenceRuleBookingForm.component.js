@@ -1,17 +1,17 @@
 // @flow
 
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import * as Yup from 'yup';
+import { withFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-import * as Yup from 'yup';
-import { withFormik } from 'formik';
+import { Alert } from '@material-ui/lab';
 
 import MetaActivitySelectorField from '../../meta-activity/components/MetaActivitySelectorField.component';
 import EstablishmentSelectorField from '../../establishment/components/EstablishmentSelectorField.component';
@@ -19,26 +19,53 @@ import EstablishmentSelectorField from '../../establishment/components/Establish
 import { IntegerField, SelectField } from '../../../components/forms';
 
 type Props = {
-  values: any,
+  values: {
+    day_of_week: number,
+    minute: number,
+    hour: number,
+    delay_week: number,
+    meta_activity: number,
+    establishment: number,
+    notify_if_booked: boolean,
+  },
   offerSet: boolean,
   memberSet: boolean,
   metaActivityList: Array,
   setFieldValue: () => void,
   initial: Object,
   establishmentList: Array<Establishment>,
+  hasActivityGroups: boolean,
 };
 
-export function RecurrenceRuleBookingForm(props: Props) {
+export const RecurrenceRuleBookingForm: React.FC<Props> = ({
+  initial,
+  values,
+  offerSet,
+  memberSet,
+  metaActivityList,
+  establishmentList,
+  fetchGroupsOfferList,
+  hasActivityGroups = false,
+  setFieldValue,
+}) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
   const [checked, setChecked] = useState(
-    props.initial ? props.initial.notify_if_booked : false,
+    initial ? initial.notify_if_booked : false,
   );
 
   const handleChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    props.setFieldValue('notify_if_booked', event.target.checked);
+    setFieldValue('notify_if_booked', event.target.checked);
   };
+
+  useEffect(() => {
+    fetchGroupsOfferList?.({
+      meta_activity__in: [values.meta_activity],
+      page: 1,
+      page_size: 1,
+    });
+  }, [values.meta_activity, fetchGroupsOfferList]);
 
   return (
     <div>
@@ -56,7 +83,7 @@ export function RecurrenceRuleBookingForm(props: Props) {
               )}
               name="day_of_week"
               label={t('booking:recurrenceRule.form.dayOfWeek.label')}
-              disabled={props.offerSet}
+              disabled={offerSet}
             />
             <Typography style={{ paddingLeft: 10, paddingRight: 14 }}>
               {t('booking:recurrenceRule.form.at')}
@@ -66,14 +93,14 @@ export function RecurrenceRuleBookingForm(props: Props) {
               name="hour"
               label={t('booking:recurrenceRule.form.hour.label')}
               required
-              disabled={props.offerSet}
+              disabled={offerSet}
             />
             <IntegerField
               id="minute"
               name="minute"
               label={t('booking:recurrenceRule.form.minute.label')}
               required
-              disabled={props.offerSet}
+              disabled={offerSet}
             />
           </div>
         </fieldset>
@@ -85,7 +112,7 @@ export function RecurrenceRuleBookingForm(props: Props) {
           label={t('booking:recurrenceRule.form.establishment.label')}
           noMulti
           fullWidth
-          establishmentList={props.establishmentList}
+          establishmentList={establishmentList}
         />
       </div>
       <div className={classes.field}>
@@ -93,15 +120,15 @@ export function RecurrenceRuleBookingForm(props: Props) {
           id="meta_activity"
           name="meta_activity"
           label={t('booking:recurrenceRule.form.metaActivity.label')}
-          disabled={props.offerSet || props.memberSet}
+          disabled={offerSet || memberSet}
           noMulti
           required
           fullWidth
-          metaActivityList={props.metaActivityList}
+          metaActivityList={metaActivityList}
           helperText={(days) =>
             t('booking:recurrenceRule.blockedBookings', { days })
           }
-          showHelperText={(days) => days > props.values.delay_week * 7}
+          showHelperText={(days) => days > values.delay_week * 7}
         />
       </div>
       <div className={classes.field}>
@@ -116,15 +143,18 @@ export function RecurrenceRuleBookingForm(props: Props) {
       <div className={classes.field}>
         <Typography variant="body2">
           {t('booking:recurrenceRule.explain', {
-            dayOfWeek: t(
-              `datetime:time.weekdayNumber.${props.values.day_of_week}`,
-            ),
-            hour: `${props.values.hour}`.padStart(2, '0'),
-            minute: `${props.values.minute}`.padStart(2, '0'),
-            delayWeek: props.values.delay_week,
+            dayOfWeek: t(`datetime:time.weekdayNumber.${values.day_of_week}`),
+            hour: `${values.hour}`.padStart(2, '0'),
+            minute: `${values.minute}`.padStart(2, '0'),
+            delayWeek: values.delay_week,
           })}
         </Typography>
       </div>
+      {hasActivityGroups && (
+        <Alert severity="error" variant="outlined">
+          {t('booking:recurrenceRule.form.groupWarning')}
+        </Alert>
+      )}
       <div className={classes.field}>
         <FormGroup>
           <FormControlLabel
@@ -142,7 +172,7 @@ export function RecurrenceRuleBookingForm(props: Props) {
       </div>
     </div>
   );
-}
+};
 const useStyles = makeStyles((theme) => ({
   rulesContainer: {
     padding: theme.spacing(2),

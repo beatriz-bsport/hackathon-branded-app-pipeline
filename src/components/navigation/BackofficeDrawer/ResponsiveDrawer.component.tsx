@@ -172,7 +172,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
           permission: 'navigationMenu.myClub.activities',
         },
         {
-          to: '/workshop-activity',
+          to: '/workshop-activity/tabs/list',
           icon: TodayIcon,
           text: t('backofficeMenu.workshopActivities'),
           permission: 'navigationMenu.myClub.workshops',

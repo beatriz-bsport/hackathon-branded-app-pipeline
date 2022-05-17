@@ -142,7 +142,7 @@ import {
   withCustomLevel,
 } from '#libs/level/selectors';
 
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
@@ -705,7 +705,7 @@ const OfferEditorContainer = compose(
       roomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showVaccinationStatus: showVaccinationStatus(state),
-      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
     }),

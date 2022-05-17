@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 import OfferForm from './OfferForm.component';
-import MetaActivitySelector from '../meta-activity/components/MetaActivitySelectorWithCard.component';
+import MetaActivitySelectorWithCard from '../meta-activity/components/MetaActivitySelectorWithCard.component';
 import { RoomBlueprint } from '../spot-scheduling/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
@@ -83,18 +83,21 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   }, [setStep, selectedMetaActivity]);
 
   const handleSubmit = (data) => onSubmit(selectedMetaActivity.id, data);
+
   if (step === STEP_META_ACTIVITY_CHOSER || selectedMetaActivity === null) {
     return (
-      <div>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         {activitiesLoading ? (
           <LinearProgress />
         ) : (
-          <MetaActivitySelector
-            metaActivities={metaActivities}
-            placeholder={t('metaActivity:search')}
-            value={selectedMetaActivity}
-            onChange={handleSelectActivity}
-          />
+          <div style={{ flex: 1 }}>
+            <MetaActivitySelectorWithCard
+              metaActivities={metaActivities}
+              placeholder={t('metaActivity:search')}
+              value={selectedMetaActivity}
+              onChange={handleSelectActivity}
+            />
+          </div>
         )}
         <div className={classes.buttonContainer}>
           <Button onClick={onCancel} className={classes.button}>

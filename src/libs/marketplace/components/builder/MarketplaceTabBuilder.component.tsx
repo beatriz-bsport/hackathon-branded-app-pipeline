@@ -57,7 +57,7 @@ type Props = {
   customLevels: Level[];
 };
 
-const TabCreation: React.FC<Props> = (props) => {
+const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
   const [componentType, setComponentType] = useState(
     props.tab?.component_type || EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   );
@@ -230,4 +230,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default TabCreation;
+export default MarketPlaceTabBuilder;

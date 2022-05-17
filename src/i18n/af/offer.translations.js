@@ -15,6 +15,7 @@ exports.default = {
     loadingSoon: 'En cours de chargement...',
     activateVideo: 'Lancer la diffusion',
   },
+  recurrenceIndex: 'Groupe n°{{ index }} de la récurrence',
   disabled: 'Annulée',
   credit_price: ' Crédit',
   booking: {
@@ -61,6 +62,9 @@ exports.default = {
   },
   massDisabler: {
     success: 'Annulation confirmée',
+    warningOfferGroupTitle: 'Séances non annulées',
+    warningOfferGroup:
+      "Attention les séances suivantes n'ont pas pu être annulées car elle font partie d'un groupe de séance. Pour les annuler merci d'annuler le groupe correspondant.",
     confirmationExplain: `Veuillez écrire ci-dessous en lettre capitale "JE CONFIRME".`,
     iConfirm: 'JE CONFIRME',
     successInfo:
@@ -94,12 +98,18 @@ exports.default = {
   liveOfferEdit: {
     editSimilarOffers:
       'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
+    editSimilarOffersGroup:
+      'Modifier la séance dans les récurrences futures du groupe ?',
     selectEdit: 'Sélectionnez les séances qui seront modifiées',
     selectAll: 'Tout sélectionner',
     unselectAll: 'Tout désélectionner',
     deleteSimilarOffers: 'Voulez-vous supprimer les séances similaires ?',
+    deleteSimilarOffersGroups:
+      'Voulez-vous supprimer les récurrences futures du groupe',
     selectDelete: 'Sélectionnez les séances qui seront supprimées',
     cancelSimilarOffers: 'Voulez-vous annuler les séances similaires ?',
+    cancelSimilarOffersGroup:
+      'Annuler la séance dans les autres récurrences du groupe ?',
     selectCancel: 'Sélectionnez les séances qui seront annulées',
     noSimilarOffer:
       'Aucune séance similaire trouvée. Seule cette séance sera affectée.',

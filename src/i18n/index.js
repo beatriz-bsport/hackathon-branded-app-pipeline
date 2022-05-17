@@ -20,7 +20,7 @@ const backendOptions = {};
 
 const STORAGE_LANGUAGE_KEY = 'bsport:selected-language';
 
-if (config.I18N_TRANSLATION_DOMAIN) {
+if (config.I18N_TRANSLATION_DOMAIN || process.env.NODE_ENV !== 'production') {
   backendOptions.request = (options, url, payload, callback) => {
     const _url = `${config.I18N_TRANSLATION_DOMAIN}${url}`;
     axios

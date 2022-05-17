@@ -5,9 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation, TFunction } from 'react-i18next';
+import { compose } from 'recompose';
 
 type Props = {
   manager_only: boolean;
+  disabled?: boolean;
   onChange: (manager_only: boolean) => void;
   t: TFunction;
 };
@@ -22,6 +24,7 @@ export function ManagerOnlyToogle(props: Props) {
           onChange={(event) => {
             props.onChange(!event.target.checked);
           }}
+          disabled={props.disabled}
         />
       </Grid>
       <Grid item>
@@ -31,4 +34,6 @@ export function ManagerOnlyToogle(props: Props) {
   );
 }
 
-export default withTranslation()(ManagerOnlyToogle);
+export default compose<any, Omit<Props, 't'>>(withTranslation())(
+  ManagerOnlyToogle,
+);

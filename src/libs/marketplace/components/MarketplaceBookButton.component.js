@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,10 +17,11 @@ type Props = {
   offer: Offer,
   showOfferFilling: boolean,
   showOfferGender?: boolean,
+  className: string,
 };
 
 const MarketplaceBookButton = (props: Props) => {
-  const { offer, onClickBook, onClickBookOption } = props;
+  const { offer, className, onClickBook, onClickBookOption } = props;
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -58,9 +60,13 @@ const MarketplaceBookButton = (props: Props) => {
       disabled={!offer.available || !isOfferInThePast(offer)}
       onClick={onClick}
       color="primary"
-      className={
-        offer.available ? classes.offerAvailable : classes.offerNonAvailable
-      }
+      className={classnames(
+        {
+          [classes.offerAvailable]: offer.available,
+          [classes.offerNonAvailable]: !offer.available,
+        },
+        className,
+      )}
     >
       <div>
         <Hidden smUp>

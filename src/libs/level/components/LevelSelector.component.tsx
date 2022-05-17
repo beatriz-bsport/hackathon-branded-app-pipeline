@@ -28,6 +28,7 @@ export type Props = {
   selectedLevel: number | null;
   inScrollBar?: boolean;
   error?: boolean;
+  isDisabled?: boolean;
   fetchLevelList: () => void;
   onCreateLevel: (
     values: Omit<Level, 'id'>,
@@ -48,6 +49,7 @@ export const LevelSelector: React.FC<Props> = ({
   selectedLevel,
   inScrollBar = false,
   error = false,
+  isDisabled = false,
   fetchLevelList,
   onCreateLevel,
   onEditLevel,
@@ -181,17 +183,20 @@ export const LevelSelector: React.FC<Props> = ({
           }
           inScrollBar={inScrollBar}
           error={error}
+          isDisabled={isDisabled}
         />
-        <ButtonBase
-          color="primary"
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
-          className={classes.button}
-        >
-          <AddIcon className={classes.icon} />
-          {t('levels.select.add')}
-        </ButtonBase>
+        {!isDisabled && (
+          <ButtonBase
+            color="primary"
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+            className={classes.button}
+          >
+            <AddIcon className={classes.icon} />
+            {t('levels.select.add')}
+          </ButtonBase>
+        )}
       </div>
 
       {isModalOpen && (

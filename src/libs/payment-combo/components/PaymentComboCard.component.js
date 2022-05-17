@@ -18,7 +18,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentCombo } from '../types';
 

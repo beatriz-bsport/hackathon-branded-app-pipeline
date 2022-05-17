@@ -62,7 +62,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
-import { getallTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 
@@ -280,7 +280,7 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
-      allTagsWithTagGroup: getallTagsWithTagGroup(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),

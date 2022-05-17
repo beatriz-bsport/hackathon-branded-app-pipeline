@@ -10,6 +10,7 @@ export type MetaActivity = {
   id: number;
   name: string;
   cover_main: string;
+  alt_cover_main: string;
   rating: string;
   SCT: number;
   parent_category: number;
@@ -67,4 +68,18 @@ export type MetaActivityState = ErrorAndLoading & {
       error?: Error;
     };
   };
+};
+
+export type MetaActivityFilter = {
+  company: number;
+  coach__in?: number[];
+  establishment__in?: number[];
+  establishment_group__in?: number[];
+  establishment?: number[];
+  level__in?: number[];
+  id__in?: number[];
+  as_coach?: boolean;
+  is_workshop?: boolean;
+  customer_enabled?: boolean;
+  with_future_slots?: boolean;
 };

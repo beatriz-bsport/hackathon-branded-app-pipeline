@@ -131,6 +131,10 @@ type State = {
 export class BookingManagement extends React.PureComponent<Props, State> {
   state = { memberHistoryAnchor: null };
 
+  componentDidMount() {
+    this.handlePageRequested(1);
+  }
+
   renderSearchedMember = (member: Member) => {
     const hasBooked = !!this.props.bookings
       .filter((b) => b.booking_status_code === BOOKING_STATUS_OK)
@@ -253,10 +257,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       this.props.recurrentBookingItemPerPage,
     );
   };
-
-  componentDidMount() {
-    this.handlePageRequested(1);
-  }
 
   hasNext = () => {
     return this.props.recurrentBookingNextPage !== null;

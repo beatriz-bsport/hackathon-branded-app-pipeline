@@ -10,7 +10,7 @@ import List from '@material-ui/core/List';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import TypographyMultiline from '../../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../../components/typo/TypographyMultiline.component';
 
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';

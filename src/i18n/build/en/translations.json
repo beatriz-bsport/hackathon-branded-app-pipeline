@@ -1487,8 +1487,8 @@
                     "password": "Your password must contain at least 6 characters."
                 },
                 "fields": {
-                    "accept_sms": "I agree to be notified by SMS with relevant information (e.g. cancellations, schedule updates, new workshops, etc.).",
-                    "accept_email": "I agree to be notified by email with relevant information (e.g. cancellations, schedule updates, new workshops, etc.).",
+                    "accept_sms": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
+                    "accept_email": "I agree to be notified by email for commercial purposes (promotions, special offers ...)",
                     "waiver": "I accept the Liability Waiver.",
                     "general_terms_and_conditions_accepted": "I accept the General Terms & Conditions.",
                     "emergency_contact": "Emergency contact",

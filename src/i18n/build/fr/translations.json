@@ -10052,8 +10052,8 @@
                     "emergency_contact": "Contact d'urgence",
                     "general_terms_and_conditions_accepted": "J'accepte les conditions générales d'utilisation",
                     "waiver": "J'accepte les décharges de responsabilité",
-                    "accept_email": "J’accepte d'être notifié(e) par email pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
-                    "accept_sms": "J’accepte d'être notifié(e) par SMS pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )"
+                    "accept_email": "J’accepte d'être notifié(e) par email pour des informations commerciales (promotions, offre spéciales ...)",
+                    "accept_sms": "J’accepte d'être notifié(e) par SMS pour des informations commerciales (promotions, offres spéciales ...)"
                 },
                 "error": {
                     "password": "Le mot de passe doit contenir au moins 6 caractères",

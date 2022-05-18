@@ -193,7 +193,8 @@
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
             "481": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (voor leden)",
             "480": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (voor medewerkers)",
-            "987": "Incasseringspoging voor een termijnbetaling"
+            "987": "Incasseringspoging voor een termijnbetaling",
+            "801": "Geannuleerde groepsafspraak"
         },
         "tag": {
             "BookingOption": {
@@ -250,7 +251,8 @@
                     "date": "Tijd en datum",
                     "coach": "Instructeur",
                     "activity": "Activiteit",
-                    "spot": "Plaats"
+                    "spot": "Plaats",
+                    "canceled_grouped_session": "Groepsannulering"
                 },
                 "name": "Reservering"
             },
@@ -498,7 +500,10 @@
                     "passCompatibleNotOwnedByMember": "Factureer",
                     "passOwnedByMember": "Beschikbare kaarten",
                     "registerToOffer": "Reservering",
-                    "doNotConsumeCredit": "Geen kredieten voor deze reserveringen aftrekken"
+                    "doNotConsumeCredit": "Geen kredieten voor deze reserveringen aftrekken",
+                    "bookMoreInGroup": "Andere evenementen reserveren",
+                    "groupWarning": "Deze sessie is onderdeel van het evenement \"{{ name }}\".",
+                    "bookSingleInGroup": "Alleen voor deze sessie inschrijven"
                 }
             }
         },
@@ -554,7 +559,13 @@
             "substituted": "Afwezig",
             "substitute": "Plaatsvervanger",
             "vod": "Video On Demand",
-            "playlist": "Afspeellijsten"
+            "playlist": "Afspeellijsten",
+            "bookGroups": "Evenement reserveren",
+            "book": "Reserveer",
+            "cancel": "Annuleren",
+            "discover": "Ontdek",
+            "from_to": "van {{-from}} tot {{-to}}",
+            "offers": "{{ count }} sessie(s)"
         },
         "login": {
             "error": {
@@ -723,7 +734,12 @@
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
                 "myPrivateBooking": "Afspraak",
-                "intro": "Je reservering van {{date}}"
+                "intro": "Je reservering van {{date}}",
+                "discardGroupImpossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden niet vergoed, omdat deze reservering te laat geannuleerd wordt.",
+                "discardGroupPossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden vergoed en kunnen opnieuw worden gebruikt.",
+                "willNotBeRefund": "Niet vergoedde kredieten",
+                "willBeRefund": "De sessie van {{-day}} wordt vergoed",
+                "discardAllGroup": "Alle reserveringen uit deze groepssessie worden geannuleerd."
             },
             "help": {
                 "explainCancelBookingOption": "Deze verwijdering is definitief. Als je je opnieuw voor deze sessie aanmeldt, dan sluit je je achteraan de wachtlijst aan.",
@@ -869,7 +885,8 @@
                         "header": "Tags"
                     },
                     "header": "Geavanceerd"
-                }
+                },
+                "editingGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\"."
             },
             "payment": {
                 "additionalInformationHelper": "(Optioneel) Betalingskenmerk",
@@ -916,8 +933,8 @@
                     "password": "Je wachtwoord moet minimaal 6 tekens bevatten."
                 },
                 "fields": {
-                    "accept_sms": "Ik ga ermee akkoord om per sms te worden geïnformeerd over voor mij relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
-                    "accept_email": "Ik ga ermee akkoord om per e-mail te worden geïnformeerd over voor mij relevante informatie, zoals annuleringen, roosterwijzigingen, nieuwe workshops, etc.",
+                    "accept_sms": "Ik ga ermee akkoord om per sms te worden benaderd voor promotionele doeleinden, zoals promoties en speciale aanbiedingen.",
+                    "accept_email": "Ik ga ermee akkoord om per e-mail te worden benaderd voor promotionele doeleinden, zoals promoties en speciale aanbiedingen.",
                     "waiver": "Ik accepteer de Waiver / Vrijstelling.",
                     "general_terms_and_conditions_accepted": "Ik ga akkoord met de algemene voorwaarden.",
                     "emergency_contact": "Contactpersoon voor noodgevallen",
@@ -1071,7 +1088,9 @@
             "warningAddEmail": "Deze e-mail is al toegevoegd.",
             "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden.",
             "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
-            "tenMinutes": "10 min"
+            "tenMinutes": "10 min",
+            "editGroup": "Wijzig deze velden binnen het evenement.",
+            "noWaitingList": "De wachtlijsten zijn niet beschikbaar voor groepssessies."
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1215,7 +1234,9 @@
             "wasRefunded": "Krediet vergoed",
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
             "notifyRevert": "Een annuleringsmail sturen",
-            "refundRevert": "Gebruikte kredieten terugbetalen"
+            "refundRevert": "Gebruikte kredieten terugbetalen",
+            "cancellingBookingInGroup": "Meerdere reserveringen annuleren",
+            "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\". Wil je alle gekoppelde reserveringen voor deze groep annuleren?"
         },
         "workshopActivity": {
             "forms": {
@@ -1256,7 +1277,8 @@
             "settings": "Instellingen",
             "nextSlotAt": "De eerstvolgende sessie is op: ",
             "explainImage": "Aanbevolen: 1920 x 1080 .JPG (Full HD)",
-            "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over "
+            "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over ",
+            "altCoverMain": "Afbeeldingsbeschrijving"
         },
         "calendar": {
             "pleaseSelectOffer": "Selecteer een sessie voor meer informatie of dubbelklik op een sessie om de reserveringen te beheren.",
@@ -3663,7 +3685,8 @@
             },
             "tab": {
                 "general": "Algemeen",
-                "pack": "Compatibele leskaarten"
+                "pack": "Compatibele leskaarten",
+                "group": "Groepssessie"
             }
         },
         "name": "Naam",
@@ -3700,7 +3723,90 @@
         },
         "noActivities": "In dit onderdeel kun je al je groepsactiviteiten toevoegen, beheren, wijzigen en verwijderen.",
         "disabledMetaActivities": "Gearchiveerde groepsactiviteiten",
-        "workshop": "Workshop"
+        "workshop": "Workshop",
+        "groupedOption": {
+            "helperText": {
+                "year": "Dit evenement begint jaarlijks op {{-day}} {{-mont}}",
+                "year_plural": "Dit evenement begint jaarlijks op {{-day}} {{-mont}} voor {{ count }} jaar",
+                "day": "Dit evenement wordt dagelijks herhaald",
+                "day_plural": "Dit evenement begint op {{-day}} voor {{ count }} dagen",
+                "week": "Dit evenement begint dagelijks op {{-day}}",
+                "week_plural": "Dit evenement begint op {{-day}} voor {{ count }} weken",
+                "month": "Dit evenement begint maandelijks op {{-day}}",
+                "month_plural": "Dit evenement begint op {{-day}} voor {{ count }} maanden"
+            },
+            "modal": {
+                "form": {
+                    "required": "Selecteer ten minsten één evenement.",
+                    "withRecurrence": "Activeer herhaling",
+                    "allowBookingAfterStart": "Accepteer reserveringen wanneer het evenement is al begonnen zijn",
+                    "fullBookingOnly": "Inschrijven voor alle evenementen",
+                    "delete": {
+                        "content": "Het verwijderen van dit evenement zal tevens alle geregistreerde reserveringen annuleren. Deze actie is definitief.",
+                        "firstSession": "De eerstvolgende sessie is op: {{-day}}",
+                        "selectHeader": "Selecteer de te wijzigen groepen",
+                        "selectGroup": "Annuleer vergelijkbare groepssessies",
+                        "applyRecursive": "Annuleer vergelijkbare groepssessies",
+                        "title": "Verwijderen"
+                    },
+                    "recurrenceUntilHelper2": "Evenementen met een sessie na deze datum worden niet aangemaakt.",
+                    "timeStartHelper": "Selecteer de datum van de eerste sessie van dit evenement. Alle toekomstige sessies worden vervolgens ook aan dit evenement gekoppeld.",
+                    "nameCaption": "Naam van dit evenement",
+                    "allowBookingAfterStartCaption": "Standaard is het niet mogelijk voor leden om zich voor reeds begonnen evenementen  in te schrijven. Activeer deze optie om dat juist wel toe te staan.",
+                    "fullBookingOnlyCaption": "Standaard worden leden automatisch voor alle gekoppelde sessies binnen een evenement ingeschreven. Schakel deze optie uit om leden de vrijheid te geven om te selecteren voor welke sessies ze zich wel of niet willen inschrijven.",
+                    "impossibleState": "De instellingen staan niet toe om deze groepen aan te maken",
+                    "copyRecurrence": "Dupliceer ook herhalingen van groepsfutures",
+                    "recurrenceUntilHelper": "Bedankt voor het aangeven van de cyclus",
+                    "submit": "Bevestigen",
+                    "back": "Terug",
+                    "save": "Opslaan",
+                    "next": "Volgende",
+                    "groupName": "Naam",
+                    "daily": "Dagelijks",
+                    "recurrence": "Frequentie",
+                    "recurrenceNumberPrefix": "Herhaal alles",
+                    "preview": "Voorvertoning",
+                    "recurrenceUntil": "Herhalen tot",
+                    "recurrenceCount": "Herhalingen",
+                    "timeStart": "Startdatum",
+                    "marketPlaceAvailable": "Accepteer reserveringen (Website + Mobiele App)",
+                    "name": "Naam",
+                    "subtitleRecurrence": "Frequentie",
+                    "subtitleSettings": "Instellingen",
+                    "addOffers": "Een sessie toevoegen",
+                    "subtitleOffers": "Sessies toevoegen",
+                    "subtitle": "Algemeen"
+                },
+                "duplicate": "Een evenement dupliceren",
+                "subtitleMetaActivitySelect": "Een evenement toevoegen",
+                "title": "Evenementen",
+                "subtitlePreview": "Voorvertoning"
+            },
+            "offerDescription": "{{ count }} sessie(s) van {{- firstSession }} tot {{- lastSession }}",
+            "last": "Terug",
+            "intervalLabel": {
+                "until": {
+                    "year": "Elk jaar tot {{-until}} ",
+                    "year_plural": "Jaarlijks van {{ count }} tot {{-until}} ",
+                    "day": "Elke dag tot {{-until}} ",
+                    "day_plural": "Dagelijks van {{ count }} tot {{-until}} ",
+                    "week": "Elke week tot {{-until}} ",
+                    "week_plural": "Wekelijks van {{ count }} tot {{-until}} ",
+                    "month": "Maandelijks tot {{-until}} ",
+                    "month_plural": "Elke maand van {{ count }} tot {{-until}} "
+                },
+                "year": "Elk jaar",
+                "year_plural": "Elke {{ count }} jaar",
+                "day": "Elke dag",
+                "day_plural": "Elke {{ count }} dagen",
+                "week": "Elke week",
+                "week_plural": "Elke {{ count }} weken",
+                "month": "Elke maand",
+                "month_plural": "Elke {{ count }} maanden"
+            }
+        },
+        "cancelledOffers": "{{count}} annuleringen",
+        "workshopSelect": "Zoek een workshop"
     },
     "offer": {
         "video": {
@@ -3769,7 +3875,9 @@
             "successInfo": "Er is rekening gehouden met de schrapping van alle sessies tussen {{start_date}} en {{end_date}}.",
             "iConfirm": "IK BEVESTIG",
             "confirmationExplain": "Gelieve \"IK BEVESTIG\" in hoofdletters schrijven om deze actie te bevestigen.",
-            "success": "Annulering bevestigd"
+            "success": "Annulering bevestigd",
+            "warningOfferGroup": "Het is niet mogelijk deze sessies te annuleren, omdat ze een onderdeel vormen van een evenement. Verwijder, indien nodig, het gekoppelde evenement.",
+            "warningOfferGroupTitle": "Geldige sessies"
         },
         "bookingListEmpty": "Er zijn nog geen reserveringen geregistreerd.",
         "bookingList": "Reserveringen",
@@ -3791,7 +3899,10 @@
             "cancelSimilarOffers": "Wil je soortgelijke sessies annuleren?",
             "selectDelete": "Selecteer de te verwijderen sessies",
             "deleteSimilarOffers": "Wil je soortgelijke sessies verwijderen?",
-            "selectEdit": "Selecteer de te wijzigen sessies"
+            "selectEdit": "Selecteer de te wijzigen sessies",
+            "deleteSimilarOffersGroups": "Evenement annuleren",
+            "cancelSimilarOffersGroup": "Overige sessies van dit evenement annuleren",
+            "editSimilarOffersGroup": "Wijzig ook de toekomstige sessies van dit evenement"
         },
         "close": "Sluiten",
         "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er reserveringen in staan.",
@@ -3823,7 +3934,8 @@
                 "name": "Naam",
                 "title": "Niveau wijzigen"
             }
-        }
+        },
+        "recurrenceIndex": "Herhaling: {{ index }}"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -4438,7 +4550,8 @@
                 "timeGroup": "Instellingen",
                 "startFromDate": {
                     "label": "Startdatum terugkerende reservering "
-                }
+                },
+                "groupWarning": "Het is niet mogelijk om een herhalingsregel aan te maken voor evenementen."
             },
             "deleteModal": {
                 "cancel": "Annuleren",
@@ -4486,8 +4599,8 @@
             },
             "bookingsTitle": "Overzicht",
             "addSession": "Sessies toevoegen",
-            "noPackAvailable": "Deze sessie heeft geen compatibele kaarten!",
-            "noPackAvailable_plural": "Deze sessies hebben geen compatibele kaarten. Sessies moeten apart worden gereserveerd!",
+            "noPackAvailable": "Deze sessie heeft geen compatibele kaarten.",
+            "noPackAvailable_plural": "Deze sessies dienen apart te worden gereserveerd, omdat er geen compatibele kaarten beschikbaar zijn.",
             "packTitle": "Mijn reserveringsmethode",
             "offerStatus": {
                 "waiting_list_status": {
@@ -4576,8 +4689,14 @@
                 "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
                 "duration": "Duur: {{duration}}",
-                "bookOption": "Wachtlijst"
-            }
+                "bookOption": "Wachtlijst",
+                "loadMore": "Meer sessies",
+                "bookTitle": "Een sessie reserveren"
+            },
+            "warningPartialBooking": "Selecteer welke sessies van dit evenement je wenst bij te wonen.",
+            "warningFullBooking": "Door deze reservering te voltooien sta je ingeschreven bij {{count}} sessie(s).",
+            "confirm": "Bevestigen",
+            "cancel": "Annuleren"
         },
         "paymentCombo": {
             "addToCart": "Winkelmandje"
@@ -8723,10 +8842,20 @@
         },
         "actions": {
             "search": "Zoek een workshop",
-            "addWorkshopActivity": "Een workshop toevoegen"
+            "addWorkshopActivity": "Een workshop toevoegen",
+            "addWorkshopGroup": "Een evenement toevoegen"
         },
         "noWorkshops": "In dit onderdeel kun je al je workshops toevoegen, beheren, wijzigen en verwijderen.",
-        "disabledWorkshops": "Gearchiveerde workshops"
+        "disabledWorkshops": "Gearchiveerde workshops",
+        "group": {
+            "emptyState": "Evenementen stellen leden in staat om in één keer alle gekoppelde sessies te reserveren en is perfect voor activiteiten, zoals trainingen en cursussen. ",
+            "emptySearch": "Er zijn geen zoekresultaten om weer te geven.",
+            "pageSize": "Weergave:",
+            "backToGroup": "Terug",
+            "emptySelect": "Selecteer een sessie"
+        },
+        "tabGroups": "Groepssessies",
+        "tabList": "Workshops"
     },
     "tag": {
         "form": {
@@ -8862,7 +8991,14 @@
             }
         },
         "select": "Selecteer een tag",
-        "memberStatus": "Ledenstatus: "
+        "memberStatus": "Ledenstatus: ",
+        "modal": {
+            "confirm": {
+                "text": "Deze sessie is gekoppeld aan een evenement. Het is mogelijk om alles sessies te ontkoppelen. Weet je zeker dat door wilt gaan?",
+                "submit": "Bevestigen",
+                "title": "Tag verwijderen"
+            }
+        }
     },
     "theme": {
         "forms": {

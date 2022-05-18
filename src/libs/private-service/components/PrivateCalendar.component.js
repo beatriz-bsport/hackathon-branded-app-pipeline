@@ -43,6 +43,10 @@ import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.c
 
 const styles = (theme) => ({
   container: {},
+  dateHeader: {
+    textAlign: 'center',
+    fontSize: 28,
+  },
   leftIcon: { marginRight: theme.spacing(1) },
 });
 
@@ -511,6 +515,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
     return offerList;
   };
 
+
   handleEventRender = ({ event, el }) => {
     if (
       event._def.extendedProps.private_booking &&
@@ -562,6 +567,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
     return (
       <div className={classes.container}>
+        <div className={classes.dateHeader}>
+          {' '}
+          {isWidthUp('sm', this.props.width)
+            ? ''
+            : moment(this.state.date_start).format('DD-MM-YYYY')}{' '}
+        </div>
         <FullCalendar
           ref={this.calendarRef}
           plugins={[

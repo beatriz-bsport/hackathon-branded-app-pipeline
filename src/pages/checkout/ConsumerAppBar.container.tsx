@@ -7,7 +7,7 @@ import {
   disconnect,
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
-import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
+import MarketplaceAppBar from '#libs/marketplace/components/MarketplaceAppBar';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 import Analytics from '../../components/analytics/Analytics.component';
@@ -16,6 +16,7 @@ import { getTheme } from '../../theme';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { Theme } from '../../libs/theme/types';
+import { fetchProfile as fetchProfileAction } from '../../libs/consumer-space/actions';
 import { RootState } from '../../reducers';
 
 type OwnProps = {
@@ -29,28 +30,45 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 type StyleProps = {
   backgroundColor?: string;
 };
-export const ConsumerAppBar = (props: Props) => {
+export const ConsumerAppBar: React.FC<Props> = ({
+  companyId,
+  children,
+  backgroundColor,
+  consumerProfile,
+  fetchProfile,
+  auth,
+  navigateBackToMasterRelation,
+  theme,
+  goToUserSpace,
+}) => {
   const isRelationNavigation = !!window.localStorage.getItem(
     'bsport:relatedMemberMaster:http:token',
   );
-  const classes = useStyles({ backgroundColor: props.backgroundColor });
+  const classes = useStyles({ backgroundColor });
+
+  React.useEffect(() => {
+    if (auth.authenticated && !consumerProfile) {
+      fetchProfile();
+    }
+  }, [auth, consumerProfile, fetchProfile]);
+
   return (
-    <MuiThemeProvider theme={getTheme(props.theme)}>
+    <MuiThemeProvider theme={getTheme(theme)}>
       <div className={classes.container}>
-        <Analytics theme={props.theme} />
+        <Analytics theme={theme} />
         <MarketplaceAppBar
-          navigateBackToMasterRelation={props.navigateBackToMasterRelation}
+          navigateBackToMasterRelation={navigateBackToMasterRelation}
           isRelationNavigation={isRelationNavigation}
-          paper
           isWidget={WidgetUtils.isWidget()}
-          auth={props.auth}
-          logo={props.theme && props.theme.cover}
-          goToUserSpace={() => props.goToUserSpace(props.theme.company)}
-          disconnect={props.disconnect}
-          companyId={props.companyId}
-          websiteURL={props.theme.websiteURL}
+          auth={auth}
+          logo={theme && theme.cover}
+          goToUserSpace={() => goToUserSpace(theme.company)}
+          disconnect={disconnect}
+          companyId={companyId}
+          websiteURL={theme.websiteURL}
+          photo={consumerProfile?.photo}
         />
-        {props.children}
+        {children}
       </div>
     </MuiThemeProvider>
   );
@@ -73,8 +91,10 @@ const connector = connect(
     currentBasket: getCurrentBasket(state),
     theme: themeSelectors.getTheme(state),
     auth: state.auth,
+    consumerProfile: state.consumer.profile,
   }),
   {
+    fetchProfile: fetchProfileAction,
     disconnect,
     goToUserSpace: (id: number) => push(`/c/${id}`),
     navigateBackToMasterRelation: navigateBackToMasterRelationAction,

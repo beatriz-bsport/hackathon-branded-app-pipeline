@@ -57,6 +57,8 @@ type Props = {
   customLevels: Level[];
 };
 
+const TITLE_MAX_LENGTH = 64;
+
 const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
   const [componentType, setComponentType] = useState(
     props.tab?.component_type || EXPORTABLE_COMPONENT_TYPE_CALENDAR,
@@ -137,7 +139,14 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
           label={t('marketplaceSettings.createDialog.inputTitle')}
           value={title}
           onChange={(ev) => setTitle(ev.target.value)}
+          inputProps={{ maxLength: TITLE_MAX_LENGTH }}
         />
+        <Typography variant="caption">
+          {t('marketplaceSettings.createDialog.titleCaption', {
+            count: title?.length,
+            max: TITLE_MAX_LENGTH,
+          })}
+        </Typography>
         {titleError && <Typography color="error">{titleError}</Typography>}
 
         <div className={classes.marginTop}>

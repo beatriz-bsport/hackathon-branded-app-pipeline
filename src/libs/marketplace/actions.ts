@@ -8,6 +8,7 @@ import {
 } from './api';
 import { MarketplaceSettings } from './types';
 import { getMarketplaceDefaultConfig } from './constants';
+import { snackbarError } from '#libs/snackbar/actions';
 
 export const marketplaceSettingsAction = {
   error: createAction('MARKETPLACE_SETTINGS/ERROR'),
@@ -67,6 +68,7 @@ export function updateMarketplaceSettings(
       }
     } catch (error) {
       console.error(error);
+      dispatch(snackbarError('marketplace.update.error'));
       dispatch(marketplaceSettingsAction.error(error));
       if (options && options.onError) {
         options.onError(error);

@@ -1,5 +1,10 @@
 exports.default = {
   Basket: 'Mon Panier',
+  appbar: {
+    profile: 'Accéder à mon profil',
+    logout: 'Déconnexion',
+    login: 'Connexion',
+  },
   navigation: {
     relationConnectedAs: 'Connecté en tant que : {{name}}',
     backToRelationMasterSpace: 'revenir à mon compte',

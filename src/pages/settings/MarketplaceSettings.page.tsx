@@ -201,19 +201,24 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     <div className={classes.container}>
       {loading && <LinearProgress style={{ width: '100%' }} />}
       {settings && settings.config && config && !loading && (
-        <MarketplaceBuilder
-          theme={theme}
-          config={config}
-          settings={settings}
-          setConfig={setConfig}
-          onEditTab={onEditTab}
-          onDeleteTab={onDeleteTab}
-          setCurrentTab={setCurrentTab}
-          setOpenWidgetDialog={setOpenWidgetDialog}
-          onSaveConfig={onSaveConfig}
-        />
+        <>
+          <MarketplaceBuilder
+            theme={theme}
+            config={config}
+            settings={settings}
+            setConfig={setConfig}
+            onEditTab={onEditTab}
+            onDeleteTab={onDeleteTab}
+            setCurrentTab={setCurrentTab}
+            setOpenWidgetDialog={setOpenWidgetDialog}
+            onSaveConfig={onSaveConfig}
+          />
+          <MarketplaceTabPreview
+            theme={theme}
+            settings={{ ...settings, config }}
+          />
+        </>
       )}
-      <MarketplaceTabPreview theme={theme} config={config} />
 
       <BottomActionsButton
         onCreate={onCreateNewTab}

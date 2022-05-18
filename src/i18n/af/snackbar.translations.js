@@ -900,4 +900,10 @@ exports.default = {
       error: "Impossible d'enregistrer le paiement",
     },
   },
+  marketplace: {
+    update: {
+      error:
+        'Une erreur est survenue. Veuillez vérifier les paramètres demandés.',
+    },
+  },
 };

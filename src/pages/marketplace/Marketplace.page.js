@@ -7,11 +7,8 @@ import { withRouter } from 'react-router';
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -30,7 +27,7 @@ import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 
 import Login from '#libs/login/components/Login.component';
-import MarketplaceAppBar from './MarketplaceAppBar.component';
+import MarketplaceAppBar from '#libs/marketplace/components/MarketplaceAppBar';
 import Analytics from '#components/analytics/Analytics.component';
 import { parseQueryString } from '../../http';
 
@@ -47,7 +44,6 @@ import { fetchSCT } from '#libs/category/actions';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import Config from '../../config';
 import {
   getMarketplaceRoute,
   fromConfigToUrl,
@@ -69,7 +65,6 @@ import {
   MarketplaceSettings,
   MarketplaceTabConfig,
 } from '#libs/marketplace/types';
-import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#libs/exportable-components/constants.ts';
 import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import {
@@ -456,6 +451,7 @@ export class MarketPlace extends Component<Props, State> {
           />
           <div className={classes.container}>
             <MarketplaceAppBar
+              withNavigation
               isRelationNavigation={
                 !!window.localStorage.getItem(
                   'bsport:relatedMemberMaster:http:token',
@@ -479,45 +475,13 @@ export class MarketPlace extends Component<Props, State> {
               disconnect={() => {
                 this.props.disconnect();
               }}
+              hideAppBar={this.props.hideAppBar}
+              handleTabChange={this.handleTabChange}
+              tabSelected={this.props.tabSelected}
+              settings={this.props.settings}
+              theme={this.props.theme}
+              photo={this.props.consumerProfile?.photo}
             />
-            {!this.props.hideAppBar ? (
-              <AppBarMUI position="relative" color="default">
-                <Tabs
-                  onChange={this.handleTabChange}
-                  textColor="primary"
-                  indicatorColor="primary"
-                  variant="scrollable"
-                  value={parseInt(this.props.tabSelected, 10)}
-                >
-                  {(
-                    (this.props.settings.config &&
-                    this.props.settings.config.tabs
-                      ? []
-                      : this.props.settings.config) || []
-                  ).map((tab, i) => {
-                    if (
-                      tab.componentType === EXPORTABLE_COMPONENT_TYPE_VOD &&
-                      !(
-                        Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-                        this.props.theme.vod
-                      )
-                    ) {
-                      return null;
-                    }
-
-                    let { title } = tab;
-                    if (!title) {
-                      title = getDefaultTitleForComponent(
-                        tab.component_type,
-                        t,
-                      );
-                    }
-
-                    return <Tab value={i} label={title} />;
-                  })}
-                </Tabs>
-              </AppBarMUI>
-            ) : null}
             <div className={classes.content}>{this.renderContent()}</div>
             <MarketplaceBasketDialog
               isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}

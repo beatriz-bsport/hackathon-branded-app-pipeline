@@ -147,6 +147,7 @@ exports.default = {
       hidePrivatePass: 'Ne pas afficher les cartes de rendez-vous',
       hidePaymentCombo: 'Ne pas afficher les packs',
       todayOnly: 'Afficher seulement les séances du jour',
+      titleCaption: '{{max}} caractères max ({{count}}/{{max}})',
     },
   },
   paymentMethods: {

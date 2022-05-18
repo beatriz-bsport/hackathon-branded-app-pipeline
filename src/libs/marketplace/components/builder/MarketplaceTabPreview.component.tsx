@@ -1,77 +1,55 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  AppBar,
-  Theme,
-  Tab,
-  Tabs,
-  Typography,
-  Divider,
-} from '@material-ui/core';
-import { EXPORTABLE_COMPONENT_TYPE_VOD } from '../../../exportable-components/constants';
-import { getDefaultTitleForComponent } from '../../../exportable-components/utils';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { Theme as CompanyTheme } from '../../../theme/types';
-import Config from '../../../../config';
+import MarketplaceAppBar from '#libs/marketplace/components/MarketplaceAppBar';
+import { MarketplaceSettings } from '#libs/marketplace/types';
 
 type Props = {
   theme: CompanyTheme;
-  config: any;
+  settings: MarketplaceSettings;
 };
 
-const MarketplaceTabPreview = (props: Props) => {
+const MarketplaceTabPreview: React.FC<Props> = ({ settings, theme }) => {
   const { t } = useTranslation(['settings']);
-  const { t: tAll } = useTranslation();
   const classes = useStyles();
-  const { config, theme } = props;
+  const tabSelected = settings.config.length > 0 ? '0' : null;
   return (
     <div className={classes.marginTop}>
       <Typography variant="h5" className={classes.sectionTitle}>
         {t('marketplaceSettings.preview')}
       </Typography>
       <Divider className={classes.divider} />
-
-      <AppBar position="relative" color="default" className={classes.marginTop}>
-        <Tabs
-          onChange={() => null}
-          textColor="primary"
-          indicatorColor="primary"
-          variant="scrollable"
-          value={-1}
-        >
-          {config.map((tab: any, i: number) => {
-            if (
-              tab.component_type === EXPORTABLE_COMPONENT_TYPE_VOD &&
-              !(
-                Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-                theme.vod
-              )
-            ) {
-              return null;
-            }
-
-            let { title } = tab;
-            if (!title) {
-              title = getDefaultTitleForComponent(tab.component_type, tAll);
-            }
-
-            return <Tab value={i} label={title} />;
-          })}
-        </Tabs>
-      </AppBar>
+      <Paper className={classes.paper}>
+        <MarketplaceAppBar
+          onlyNavigation
+          theme={theme}
+          settings={settings}
+          tabSelected={tabSelected}
+        />
+      </Paper>
     </div>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   marginTop: {
     marginTop: theme.spacing(2),
+    width: '100%',
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
   },
   divider: {
     marginBottom: theme.spacing(2),
+  },
+  paper: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'nowrap',
   },
 }));
 

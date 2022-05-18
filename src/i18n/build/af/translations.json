@@ -731,6 +731,7 @@
   },
   "consumerSpace": {
     "Basket": "Mon Panier",
+    "appbar": { "profile": "Accéder à mon profil", "logout": "Déconnexion", "login": "Connexion" },
     "navigation": {
       "relationConnectedAs": "Connecté en tant que : {{name}}",
       "backToRelationMasterSpace": "revenir à mon compte",
@@ -5137,7 +5138,7 @@
   },
   "relationship": {
     "connectedAs": {
-      "title": "Connexion en tant que",
+      "title": "Me connecter en tant que",
       "info": "Connectez vous au compte de l’une de vos relations.",
       "wichUser": "A quel compte souhaitez-vous accéder ?",
       "selectRelation": "Sélectionner une relation"
@@ -5899,7 +5900,8 @@
         "hidePaymentPack": "Ne pas afficher les cartes de cours",
         "hidePrivatePass": "Ne pas afficher les cartes de rendez-vous",
         "hidePaymentCombo": "Ne pas afficher les packs",
-        "todayOnly": "Afficher seulement les séances du jour"
+        "todayOnly": "Afficher seulement les séances du jour",
+        "titleCaption": "{{max}} caractères max ({{count}}/{{max}})"
       }
     },
     "paymentMethods": {
@@ -6840,7 +6842,8 @@
       "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" }
     },
     "clockIn": { "errors": { "96002": "Impossible, cet utilisateur a déjà un pointage en cours" } },
-    "plannedPayment": { "registerNow": { "success": "Paiement enregistré", "error": "Impossible d'enregistrer le paiement" } }
+    "plannedPayment": { "registerNow": { "success": "Paiement enregistré", "error": "Impossible d'enregistrer le paiement" } },
+    "marketplace": { "update": { "error": "Une erreur est survenue. Veuillez vérifier les paramètres demandés." } }
   },
   "spotScheduling": {
     "toolsMenu": {

@@ -1,6 +1,6 @@
 exports.default = {
   connectedAs: {
-    title: 'Connexion en tant que',
+    title: 'Me connecter en tant que',
     info: 'Connectez vous au compte de l’une de vos relations.',
     wichUser: 'A quel compte souhaitez-vous accéder ?',
     selectRelation: 'Sélectionner une relation',

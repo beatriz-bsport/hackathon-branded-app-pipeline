@@ -93,6 +93,8 @@ export class SignupPage extends Component<Props> {
       {
         onSuccess: () => {
           this.props.doEmailLogin(this.props.loginInformations);
+          if (this.props.membership && this.props.theme?.id)
+            Analytics.signupSuccess(this.props.loginInformations);
           if (options && options.onSuccess) options.onSuccess();
         },
         onError: () => {

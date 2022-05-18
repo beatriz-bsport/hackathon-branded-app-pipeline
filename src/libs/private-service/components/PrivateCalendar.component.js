@@ -45,7 +45,7 @@ const styles = (theme) => ({
   container: {},
   dateHeader: {
     textAlign: 'center',
-    fontSize: 28,
+    fontSize: 22,
   },
   leftIcon: { marginRight: theme.spacing(1) },
 });
@@ -515,7 +515,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
     return offerList;
   };
 
-
   handleEventRender = ({ event, el }) => {
     if (
       event._def.extendedProps.private_booking &&
@@ -538,6 +537,24 @@ export class PrivateCalendar extends React.Component<Props, State> {
         refundedChip,
       );
     }
+  };
+
+  getSimilarDateDisplayAsFullCalendar = () => {
+    const dateStart = moment(this.state.date_start);
+    const dateEnd = moment(this.state.date_end).subtract(1, 'days');
+
+    if (this.props.scheduleFilter?.timeGrid === 'timeGridDay') {
+      return dateStart.format('DD MMM YYYY');
+    }
+    if (this.props.scheduleFilter?.timeGrid === 'dayGridMonth') {
+      return dateStart.format('MMM YYYY');
+    }
+
+    if (dateStart.month() === dateEnd.month()) {
+      return `${dateStart.format('DD')} - ${dateEnd.format('DD MMM YYYY')}`;
+    }
+
+    return `${dateStart.format('DD MMM')} - ${dateEnd.format('DD MMM YYYY')}`;
   };
 
   render() {
@@ -565,14 +582,14 @@ export class PrivateCalendar extends React.Component<Props, State> {
     } else if (this.props.resourceDatatypeView) {
       initialView = 'resourceTimeGridThreeDays';
     }
+
     return (
       <div className={classes.container}>
-        <div className={classes.dateHeader}>
-          {' '}
-          {isWidthUp('sm', this.props.width)
-            ? ''
-            : moment(this.state.date_start).format('DD-MM-YYYY')}{' '}
-        </div>
+        {!isWidthUp('sm', this.props.width) && (
+          <div className={classes.dateHeader}>
+            {this.getSimilarDateDisplayAsFullCalendar()}
+          </div>
+        )}
         <FullCalendar
           ref={this.calendarRef}
           plugins={[

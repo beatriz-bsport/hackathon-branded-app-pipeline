@@ -34,6 +34,7 @@ import { fetchCoachBulk } from '../../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '../../../libs/establishment/actions';
 
 import OfferBookableItem from '../../../libs/booker-module/components/OfferBookableItem.component';
+import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
@@ -444,7 +445,7 @@ const mapWithHandlers = {
         }
         return;
       }
-      replace(`/m/${theme.company_name}/${companyId}`);
+      replace(urlToMarketplace(theme.company_name, companyId));
     },
 };
 

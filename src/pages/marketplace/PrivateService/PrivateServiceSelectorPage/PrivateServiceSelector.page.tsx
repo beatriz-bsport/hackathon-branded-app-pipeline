@@ -27,6 +27,7 @@ import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
 // @ts-ignore
 import withQueryParams from '../../../../hocs/with-query-params.hoc';
 import { MaterialStyleType } from '../../../../utils/types';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 
 type OwnProps = typeof mapParamsToProps & {
   /** Override by the widget */
@@ -83,7 +84,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
     }
 
     this.props.pushRoute(
-      `/m/${companyName}/${companyId}/private-service/${ps.id}`,
+      `${urlToMarketplace(companyName, companyId)}/private-service/${ps.id}`,
     );
   };
 

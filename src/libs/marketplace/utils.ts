@@ -17,7 +17,11 @@ export function isOfferBookableYet(offer: Offer) {
 }
 
 export function urlToMarketplace(companyName: string, companyId: string) {
-  return `/m/${companyName.replace(' ', '-')}/${companyId}`;
+  return `/m/${companyName
+    .replace(/ /g, '-')
+    .replace(/\?/g, '-')
+    .replace(/&/g, '-')
+    .replace('///g', '-')}/${companyId}`;
 }
 
 export class WidgetCodeStringGenerator {

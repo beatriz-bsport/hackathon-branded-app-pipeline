@@ -23,6 +23,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import i18n from '../../i18n';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import Config from '../../config';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 type Props = {
   setOpenWidgetDialog: () => void,
@@ -307,9 +308,9 @@ export const WidgetButton = (props: Props) => {
           <DialogContentText id="alert-dialog-description">
             <a
               target="blank"
-              href={`https://backoffice.bsport.io/m/${props.companyName}/${
-                props.companyId
-              }/${
+							href={`https://backoffice.bsport.io${
+									urlToMarketplace(props.companyName, props.companyId)
+							}/${
                 props.activities
                   ? `?f_metaActivities=[${props.activities}]`
                   : ''
@@ -320,8 +321,8 @@ export const WidgetButton = (props: Props) => {
               }${props.levels ? `&f_levels=[${props.levels}]` : ''}`}
             >
               <Typography>
-                {`https://backoffice.bsport.io/m/${props.companyName}/${
-                  props.companyId
+								{`https://backoffice.bsport.io${
+									urlToMarketplace(props.companyName, props.companyId)
                 }/${
                   props.activities
                     ? `?f_metaActivities=[${props.activities}]`
@@ -345,9 +346,9 @@ export const WidgetButton = (props: Props) => {
             {t('widget.return')}
           </Button>
           <CopyToClipboard
-            text={`https://backoffice.bsport.io/m/${props.companyName}/${
-              props.companyId
-            }/?f_metaActivities=[${
+						text={`https://backoffice.bsport.io${
+							urlToMarketplace(props.companyName, props.companyId)
+						}/?f_metaActivities=[${
               props.activities ? props.activities : ''
             }]&f_coaches=[${
               props.coaches ? props.coaches : ''
@@ -442,9 +443,7 @@ export default compose(
   connect(
     (state) => ({
       companyId: state.theme.theme.company,
-      companyName: state.theme.theme.company_name
-        .replace(/\//g, '-')
-        .replace(/'/g, ''),
+      companyName: state.theme.theme.company_name,
     }),
     { snackbarSuccess },
   ),

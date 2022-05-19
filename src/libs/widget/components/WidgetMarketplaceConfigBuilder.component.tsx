@@ -9,6 +9,7 @@ import { withStyles, Theme } from '@material-ui/core/styles';
 import { MaterialStyleType } from '../../../utils/types';
 
 import { fromConfigToUrl } from '../../marketplace/routing-utils';
+import { urlToMarketplace } from '../../marketplace/utils';
 import Config from '../../../config';
 import { Theme as CompanyTheme } from '../../theme/types';
 
@@ -38,7 +39,10 @@ export class WidgetMarketplaceConfigBuilder extends React.Component<Props> {
       return '';
     }
 
-    url = `${Config.PUBLIC_URL}/m/${this.props.theme.company_name}/${this.props.theme.company}/${urlParams}`;
+    url = `${Config.PUBLIC_URL}${urlToMarketplace(
+      this.props.theme.company_name,
+      `${this.props.theme.company}`,
+    )}/${urlParams}`;
 
     return url;
   };

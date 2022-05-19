@@ -52,6 +52,7 @@ import {
   getMarketplaceRoute,
   fromConfigToUrl,
 } from '#libs/marketplace/routing-utils';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 import { getDefaultTitleForComponent } from '#libs/exportable-components/utils';
 import asyncComponent from '../../AsyncComponent';
 
@@ -440,9 +441,10 @@ export class MarketPlace extends Component<Props, State> {
         this.props.theme.company_name.toLowerCase().replace(/ /g, '-')
     ) {
       this.props.replace(
-        `/m/${this.props.theme.company_name.toLowerCase().replace(/ /g, '-')}/${
-          this.props.companyId
-        }/${this.props.subcomponent || ''}`,
+        `${urlToMarketplace(
+          this.props.theme.company_name,
+          this.props.companyId,
+        )}/${this.props.subcomponent || ''}`,
       );
     }
     return (

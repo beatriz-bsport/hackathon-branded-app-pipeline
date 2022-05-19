@@ -62,3 +62,17 @@ export function formatAsTitle(date: string) {
 
   return `${dayShort} ${dateStr}`;
 }
+
+/**
+ * Send back a new array sorted by the key for collection or directly in case of list
+ */
+export function sortByDate<T, K extends keyof T>(values: T[], key?: K) {
+  if (!values) return [];
+  if (key) {
+    return [...values].sort((a, b) =>
+      moment(a?.[key]).isBefore(moment(b?.[key])) ? -1 : 1,
+    );
+  }
+
+  return [...values].sort((a, b) => (moment(a).isBefore(moment(b)) ? -1 : 1));
+}

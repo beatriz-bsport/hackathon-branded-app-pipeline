@@ -41,6 +41,7 @@ import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
+import { sortByDate } from '../../../utils/datetime';
 
 type OwnProps = {
   queryParams: any;
@@ -202,7 +203,10 @@ export class ValidationCheckout extends React.Component<Props> {
                         </div>
 
                         <div className={classes.paper}>
-                          {this.props.offerBookedList.map((o) => (
+                          {sortByDate(
+                            this.props.offerBookedList,
+                            'date_start',
+                          ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
                               hideCoach={this.props.hideCoach}
@@ -240,7 +244,10 @@ export class ValidationCheckout extends React.Component<Props> {
                           </Typography>
                         </div>
                         <div className={classes.paper}>
-                          {this.props.offerPreBookedList.map((o) => (
+                          {sortByDate(
+                            this.props.offerPreBookedList,
+                            'date_start',
+                          ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
                               hideCoach={this.props.hideCoach}
@@ -261,7 +268,10 @@ export class ValidationCheckout extends React.Component<Props> {
                           </Typography>
                         </div>
                         <div className={classes.paper}>
-                          {this.props.offerNotBookableList.map((o, idx) => {
+                          {sortByDate(
+                            this.props.offerNotBookableList,
+                            'date_start',
+                          ).map((o, idx) => {
                             const error_code =
                               this.props.offerNotBookableIdWithErrorCodeList[
                                 idx
@@ -484,7 +494,7 @@ const connector = connect(
   },
 );
 
-export default compose(
+export default compose<any, OwnProps>(
   routerParamsToProps({ companyId: 'companyId:number' }),
   withQueryParams([
     ['user_registration_response', 'basket', 'dialogMode', 'onValidation'],

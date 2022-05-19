@@ -152,6 +152,8 @@ exports.default = {
       title: 'Edition des informations',
       success: 'Membre modifié avec succès',
     },
+    newMemberOnlyHelperText:
+      "Un membre est considéré comme nouveau tant qu'il n'a pas fait d'achat supérieur à 0 {{ currency }} sur la plateforme. Attention, tout achat d'un objet payant avec une réduction de 100% sur son prix fera perdre le statut 'Nouveau membre'.",
   },
   user: {
     existsWithEmail:

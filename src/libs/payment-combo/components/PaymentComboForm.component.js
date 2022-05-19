@@ -30,6 +30,7 @@ import type { PaymentPack } from '../../payment-packs/types';
 import type { ShopItem } from '../../shop/types';
 import type { PrivatePass } from '../../private-service/types';
 import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -258,6 +259,9 @@ export const PaymentComboForm = (props: Props) => {
         label={props.t('form.new_member_only.label')}
         name="new_member_only"
         disabled={props.values.manager_only}
+        helperText={props.t('member:forms.newMemberOnlyHelperText', {
+          currency: getCurrencyDisplay(),
+        })}
       />
     </div>
   );

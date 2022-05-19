@@ -26,6 +26,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import SCTChip from '#libs/category/components/SCTChip.component';
 import type { PrivatePass } from '#libs/private-service/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = {
   categoryList: Array<SCT>;
@@ -109,9 +110,12 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <div className={classes.row}>
               <SwitchField
                 name="new_member_only"
+                label={t('addPaymentPack.newClientOnly')}
                 disabled={values.manager_only}
+                helperText={t('member:forms.newMemberOnlyHelperText', {
+                  currency: getCurrencyDisplay(),
+                })}
               />
-              <Typography>{t('addPaymentPack.newClientOnly')}</Typography>
             </div>
             <div className={classes.row}>
               <SwitchField

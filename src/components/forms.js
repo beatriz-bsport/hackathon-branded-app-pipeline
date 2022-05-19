@@ -998,23 +998,27 @@ type SwitchFieldProps = {
   label: string,
   className: string,
   inverse?: boolean,
+  helperText?: string,
 };
 export const SwitchField = (props: SwitchFieldProps) => {
-  const { name, disabled, label, inverse, className } = props;
+  const { name, disabled, label, inverse, className, helperText } = props;
   return (
-    <Field name={name}>
-      {({ field }) => (
-        <FormControlLabel
-          {...field}
-          value=""
-          checked={inverse ? !field.value : field.value}
-          label={label}
-          disabled={disabled}
-          control={<Switch />}
-          className={className}
-        />
-      )}
-    </Field>
+    <div>
+      <Field name={name}>
+        {({ field }) => (
+          <FormControlLabel
+            {...field}
+            value=""
+            checked={inverse ? !field.value : field.value}
+            label={label}
+            disabled={disabled}
+            control={<Switch />}
+            className={className}
+          />
+        )}
+      </Field>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+    </div>
   );
 };
 

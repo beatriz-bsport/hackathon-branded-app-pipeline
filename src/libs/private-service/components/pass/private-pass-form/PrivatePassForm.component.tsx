@@ -75,6 +75,7 @@ import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pas
 import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 export interface FormikValues {
   name: string | null;
@@ -298,6 +299,9 @@ export const PrivatePassForm = (props: Props) => {
           <SwitchField
             name="new_member_only"
             label={t('privatePass.form.new_member_only.label')}
+            helperText={t('member:forms.newMemberOnlyHelperText', {
+              currency: getCurrencyDisplay(),
+            })}
             disabled={props.values.manager_only}
           />
           <SwitchField

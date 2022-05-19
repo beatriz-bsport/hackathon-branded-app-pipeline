@@ -1143,7 +1143,7 @@ export class Planning extends PureComponent<Props, State> {
               </div>
             </Grid>
           )}
-          {!selectedOffer && isWidthUp('lg', width) && (
+          {!selectedOffer && (
             <Grid item xs={12} lg={6}>
               <BookingStatisticsCard
                 bookingStatistics={this.props.bookingStatistics}

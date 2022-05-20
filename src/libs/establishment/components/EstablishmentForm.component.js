@@ -11,6 +11,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+import { ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES } from '../constants';
+
 import {
   FormField,
   LocationInput,
@@ -20,6 +22,19 @@ import MultipleImageUploader from '../../../components/MultipleImageUploader.com
 import { Establishment as EstablishmentType } from '../../../api/types';
 
 import ImageList from '../../../components/ImageList.component';
+
+const addressParser = (location: Location) => {
+  return location.address_line_1
+    .concat(location.address_line_2 ? ' ' : '', location.address_line_2 || '')
+    .concat(', ', location.zipcode || '')
+    .concat(
+      ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES.includes(location.country)
+        ? ` ${location.state}`
+        : '',
+    )
+    .concat(' ', location.city || '')
+    .concat(', ', location.country || '');
+};
 
 type Props = {
   processing: boolean,
@@ -43,6 +58,7 @@ type State = {
     address_line_1: string,
     address_line_2: string,
     zipcode: string,
+    state: string,
     city: string,
     country: string,
     geometry: object,
@@ -64,6 +80,7 @@ export class EstablishmentForm extends Component<Props, State> {
           address_line_1: props.initial.location.address_line_1,
           address_line_2: props.initial.location.address_line_2,
           zipcode: props.initial.location.zipcode,
+          state: props.initial.location.state,
           city: props.initial.location.city,
           country: props.initial.location.country,
           geometry: {
@@ -84,6 +101,7 @@ export class EstablishmentForm extends Component<Props, State> {
           address_line_1: '',
           address_line_2: '',
           zipcode: '',
+          state: '',
           city: '',
           country: '',
           geometry: {
@@ -107,13 +125,10 @@ export class EstablishmentForm extends Component<Props, State> {
       capacity,
       practical_info,
       location: location && {
-        address: location.address_line_1
-          .concat(' ', location.address_line_2 || '')
-          .concat(', ', location.zipcode || '')
-          .concat(' ', location.city || '')
-          .concat(', ', location.country || ''),
+        address: addressParser(location),
         address_line_1: location.address_line_1,
         address_line_2: location.address_line_2,
+        state: location.state,
         city: location.city,
         country: location.country,
         zipcode: location.zipcode,

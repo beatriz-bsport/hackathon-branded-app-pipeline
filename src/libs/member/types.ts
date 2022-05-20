@@ -11,6 +11,7 @@ export type MemberAddress = {
     address_line_1: string;
     address_line_2: string;
     city: string;
+    state: string;
     country: string;
     zipcode: string;
   };
@@ -29,6 +30,7 @@ export type UserProfile = {
     address_line_2: string;
     city: string;
     country: string;
+    state: string;
     zipcode: string;
   };
   vaccination_status: boolean | null;

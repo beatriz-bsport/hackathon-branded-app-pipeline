@@ -99,6 +99,7 @@ export type EstablishmentAddressInput = {
   city: string;
   country: string;
   zipcode: string;
+  state: string;
   location: object;
 };
 

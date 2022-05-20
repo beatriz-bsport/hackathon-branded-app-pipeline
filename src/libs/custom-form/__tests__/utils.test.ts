@@ -8,6 +8,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1,
   CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2,
   CUSTOM_FORM_FIELD_SIGN_UP_CITY,
+  CUSTOM_FORM_FIELD_SIGN_UP_STATE,
   CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE,
   CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY,
   CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
@@ -41,6 +42,7 @@ const memberProfileData: Omit<Member, 'address'> &
     address_line_1: 'address 1',
     address_line_2: 'address 2',
     city: 'Paris',
+    state: 'Paris',
     zipcode: '75018',
     country: 'France',
   },
@@ -104,6 +106,7 @@ describe('Utils: Custom form', () => {
       '116': 'vaccination_status',
       '117': 'general_terms_and_conditions',
       '118': 'waiver',
+      '119': 'state',
     });
   });
 
@@ -164,6 +167,12 @@ describe('Utils: Custom form', () => {
     expect(
       insertMemberProfileDataToAnswer(
         getCustFormFieldWithKind(CUSTOM_FORM_FIELD_SIGN_UP_CITY),
+        memberProfileData,
+      ),
+    ).toBe('Paris');
+    expect(
+      insertMemberProfileDataToAnswer(
+        getCustFormFieldWithKind(CUSTOM_FORM_FIELD_SIGN_UP_STATE),
         memberProfileData,
       ),
     ).toBe('Paris');

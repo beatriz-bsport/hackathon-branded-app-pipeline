@@ -37,6 +37,7 @@ export const PAYMENT_STEP = {
 
 type Props = {
   basket: Basket,
+  companyCountry: ?string,
   loading: boolean,
   processing: boolean,
   backToCalendar: () => void,
@@ -82,6 +83,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
           <div>
             <BasketDeliveryForm
               basket={this.props.basket}
+              companyCountry={this.props.companyCountry}
               loading={this.props.processing}
               onCancel={this.props.backToCalendar}
               onSubmit={(data) =>

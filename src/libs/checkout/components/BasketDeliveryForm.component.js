@@ -12,6 +12,7 @@ import type { Basket } from '../types';
 
 type Props = {
   basket: Basket,
+  companyCountry: string,
   onSubmit: (data: *) => void,
   loading: boolean,
   onCancel: () => void,
@@ -26,6 +27,7 @@ type State = {
   address_line_1: string,
   address_line_2: string,
   zipcode: string,
+  state: string,
   country: string,
   city: string,
 };
@@ -39,6 +41,7 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
       address_line_1: props.basket.address_line_1,
       address_line_2: props.basket.address_line_2,
       zipcode: props.basket.zipcode,
+      state: props.basket.state,
       city: props.basket.city,
       country: props.basket.country,
     };
@@ -52,6 +55,7 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
         address_line_1: this.props.basket.address_line_1,
         address_line_2: this.props.basket.address_line_2,
         zipcode: this.props.basket.zipcode,
+        state: this.props.basket.state,
         city: this.props.basket.city,
         country: this.props.basket.country,
       });
@@ -69,6 +73,7 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
       address_line_1,
       address_line_2,
       zipcode,
+      state,
       city,
       country,
     } = this.state;
@@ -79,6 +84,7 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
       address_line_1,
       address_line_2,
       zipcode,
+      state,
       city,
       country,
     });
@@ -103,10 +109,12 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
           />
         </div>
         <AddressForm
+          companyCountry={this.props.companyCountry}
           address_line_1={this.state.address_line_1}
           address_line_2={this.state.address_line_2}
           zipcode={this.state.zipcode}
           country={this.state.country}
+          state={this.state.state}
           city={this.state.city}
           onChange={this.onChange}
         />

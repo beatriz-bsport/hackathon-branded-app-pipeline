@@ -260,6 +260,7 @@ exports.default = {
       addressLine1: 'Adresse',
       addressLine2: "Complément d'adresse",
       city: 'Ville',
+      state: 'État',
       country: 'Pays',
       zipcode: 'Code postal',
     },

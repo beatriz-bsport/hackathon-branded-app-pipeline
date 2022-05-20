@@ -13,11 +13,13 @@ export const addressToReadableAddress = (address?: {
   address_line_2: string;
   city: string;
   country: string;
+  state: string;
   zipcode: string;
 }): string => {
   if (!address) return '-';
 
-  const { address_line_1, address_line_2, city, country } = address;
+  const { address_line_1, address_line_2, city, country, state, zipcode } =
+    address;
   let newString = '';
   const separator = ', ';
 
@@ -29,8 +31,18 @@ export const addressToReadableAddress = (address?: {
     newString += address_line_2;
   }
 
-  if (city) {
+  if (state) {
     if (newString !== '') newString += separator;
+    newString += state;
+  }
+
+  if (zipcode) {
+    if (newString !== '') newString += state ? ' ' : separator;
+    newString += zipcode;
+  }
+
+  if (city) {
+    if (newString !== '') newString += zipcode ? ' ' : separator;
     newString += city;
   }
 

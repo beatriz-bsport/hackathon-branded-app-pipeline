@@ -82,6 +82,7 @@ type Props = {
   fetchCompanyTheme: (companyId: number) => void,
   goBack: () => void,
   theme: ?Theme,
+  companyCountry: ?string,
   classes: Object,
 
   patchCurrentBasket: (data: any) => void,
@@ -339,6 +340,7 @@ export class BasketPage extends React.Component<Props> {
             <CheckoutFlow
               isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
               basket={this.props.basket}
+              companyCountry={this.props.companyCountry}
               loading={this.props.loading}
               processing={this.props.processing}
               addItemToBasket={this.props.addItemToBasket}
@@ -469,6 +471,7 @@ export default compose(
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
       theme: themeSelectors.getTheme(state),
+      companyCountry: state.theme.theme.locale.split('_')[1],
       shopItemList: getShopItemFeaturedList(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       detachPaymentMethodLoading:

@@ -115,6 +115,7 @@ type Props = {
   managerFormConfig: SignUpFormConfigDict,
   waiver: string,
   generalTermsAndConditions: string,
+  companyCountry: string,
 };
 
 export const SearchAndRegister = (props: Props) => {
@@ -140,6 +141,7 @@ export const SearchAndRegister = (props: Props) => {
           managerFormConfig={props.managerFormConfig}
           waiver={props.waiver}
           generalTermsAndConditions={props.generalTermsAndConditions}
+          companyCountry={props.companyCountry}
         />
       </Dialog>
     );

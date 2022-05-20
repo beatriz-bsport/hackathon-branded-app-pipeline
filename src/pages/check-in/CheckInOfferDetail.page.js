@@ -101,6 +101,7 @@ type Props = {
   fetchSignFormUpConfiguration: (membership: string) => void,
   managerFormConfig: SignUpFormConfigDict,
   theme: Theme,
+  companyCountry: string,
 
   fetchLevel: (id: number) => void,
 };
@@ -175,6 +176,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
         {this.props.registrationFlowOpen && (
           <RegistrationFlowDialog
             member={this.props.searchedMember}
+            companyCountry={this.props.companyCountry}
             memberDataToComplete={this.props.memberDataToComplete}
             searchMembers={this.props.searchMembers}
             loading={this.props.memberLoading}
@@ -274,6 +276,7 @@ export default compose(
   connect(
     (state) => ({
       theme: state.theme.theme,
+      companyCountry: state.theme.theme.locale.split('_')[1],
       offer: withCustomLevel(getRetrieveOffer)(state),
       members: getAllMembers(state),
       searchedMemberList: getSearchedMembers(state),

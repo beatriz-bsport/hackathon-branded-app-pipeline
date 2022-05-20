@@ -57,6 +57,7 @@ export type FranchiseUser = {
     city: string;
     country: string;
     zipcode: string;
+    state: string;
   };
 };
 

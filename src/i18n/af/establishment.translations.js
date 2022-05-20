@@ -89,6 +89,7 @@ exports.default = {
     address_line_1: 'Adresse ligne 1',
     address_line_2: 'Adresse ligne 2',
     city: 'Ville',
+    state: 'État',
     zip_code: 'Code Postal',
     country: 'Pays',
   },

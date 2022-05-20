@@ -24,6 +24,7 @@ import {
   CUSTOM_FORM_FIELD_FILE_OPTION,
   CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION,
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+  CUSTOM_FORM_FIELD_SIGN_UP_STATE,
 } from '@bsport/common/lib/master-data/custom-form';
 import {
   TextField,
@@ -54,6 +55,7 @@ import {
   SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
 } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../../state/types';
+import { ALLOWED_COUNTRIES_FOR_STATES } from '../../../../member/constants';
 
 type OwnProps = {
   open: boolean;
@@ -124,7 +126,13 @@ export function CustomFormFieldBuilderDialog(props: Props) {
   const signupQuestionsChoices =
     CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES.filter(
       (choice: { value: number; label: string }) =>
-        !props?.registeredSignUpQuestions?.includes(choice.value),
+        !props?.registeredSignUpQuestions?.includes(choice.value) &&
+        !(
+          choice.value === CUSTOM_FORM_FIELD_SIGN_UP_STATE &&
+          !ALLOWED_COUNTRIES_FOR_STATES.includes(
+            props.companyTheme.locale.split('_')[1],
+          )
+        ),
     );
 
   React.useEffect(() => {

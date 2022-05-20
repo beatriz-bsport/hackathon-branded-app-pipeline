@@ -1204,6 +1204,7 @@
       "address_line_1": "Adresse ligne 1",
       "address_line_2": "Adresse ligne 2",
       "city": "Ville",
+      "state": "État",
       "zip_code": "Code Postal",
       "country": "Pays"
     },
@@ -2159,6 +2160,7 @@
         "password": "Mot de passe",
         "additional_adress": "Complément d'adresse",
         "city": "Ville",
+        "state": "État",
         "country": "Pays",
         "general_terms_and_conditions": "Conditions générales d'utilisation",
         "repeatPassword": "Confirmer le mot de passe",
@@ -7990,6 +7992,7 @@
         "addressLine1": "Adresse",
         "addressLine2": "Complément d'adresse",
         "city": "Ville",
+        "state": "État",
         "country": "Pays",
         "zipcode": "Code postal"
       },

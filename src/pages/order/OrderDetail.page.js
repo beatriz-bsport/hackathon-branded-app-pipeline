@@ -32,6 +32,7 @@ import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 
 type Props = {
   order: ?OrderWithProducts,
+  companyCountry: ?string,
   fetchOrder: (id: string, options: OptionCallback) => void,
   fetchByQueryInvoice: (params: *) => void,
   fetchAllAlerting: () => void,
@@ -83,6 +84,7 @@ export class OrderDetail extends Component<Props> {
       <div>
         <OrderDetailComponent
           order={order}
+          companyCountry={this.props.companyCountry}
           invoice={invoice}
           onInvoiceClick={onInvoiceClick}
           goToMember={goToMember}
@@ -119,6 +121,7 @@ export default compose(
       emailListLoading: state.emailTemplate.loading,
       emailDetailLoading: state.emailTemplate.detail.loading,
       showVaccinationStatus: showVaccinationStatus(state),
+      companyCountry: state.theme.theme.locale.split('_')[1],
     }),
     {
       fetchByQueryInvoice: fetchByQueryInvoiceAction,

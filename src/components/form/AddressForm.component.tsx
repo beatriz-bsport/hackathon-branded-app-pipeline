@@ -9,11 +9,14 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { MaterialStyleType } from '../../utils/types';
 
+import { ALLOWED_COUNTRIES_FOR_STATES } from '../../libs/member/constants';
+
 interface Address {
   address_line_1?: string;
   address_line_2?: string;
   city?: string;
   zipcode?: string;
+  state?: string;
   country?: string;
 }
 
@@ -26,10 +29,12 @@ type OwnProps = {
   ) => (value: React.ChangeEvent<HTMLInputElement>) => void;
   submitText?: string;
   autoComplete?: boolean;
+  companyCountry?: string;
   address_line_1?: string;
   address_line_2?: string;
   city?: string;
   zipcode?: string;
+  state?: string;
   country?: string;
 };
 
@@ -51,6 +56,7 @@ export class AddressForm extends Component<Props, State> {
     address_line_2: null,
     city: null,
     zipcode: null,
+    state: null,
     country: null,
   };
 
@@ -116,6 +122,20 @@ export class AddressForm extends Component<Props, State> {
                 onChange={this.handleChange('zipcode')}
               />
             </Grid>
+            {ALLOWED_COUNTRIES_FOR_STATES.includes(
+              this.props.companyCountry,
+            ) && (
+              <Grid item>
+                <TextField
+                  name="state"
+                  value={this.state.state || this.props.state}
+                  autoComplete={autoComplete ? 'state' : null}
+                  label={t('form.address.state')}
+                  required
+                  onChange={this.handleChange('state')}
+                />
+              </Grid>
+            )}
           </Grid>
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <TextField

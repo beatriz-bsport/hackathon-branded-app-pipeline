@@ -19,6 +19,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1,
   CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2,
   CUSTOM_FORM_FIELD_SIGN_UP_CITY,
+  CUSTOM_FORM_FIELD_SIGN_UP_STATE,
   CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE,
   CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY,
   CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
@@ -55,6 +56,7 @@ export const ALL_CUSTOM_FORM_SIGNUP_KIND_LIST = [
   CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1,
   CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2,
   CUSTOM_FORM_FIELD_SIGN_UP_CITY,
+  CUSTOM_FORM_FIELD_SIGN_UP_STATE,
   CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE,
   CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY,
   CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
@@ -93,6 +95,7 @@ export const CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES = [
   { label: 'address_line_1', value: CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1 },
   { label: 'address_line_2', value: CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2 },
   { label: 'city', value: CUSTOM_FORM_FIELD_SIGN_UP_CITY },
+  { label: 'state', value: CUSTOM_FORM_FIELD_SIGN_UP_STATE },
   { label: 'zipcode', value: CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE },
   { label: 'country', value: CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY },
   { label: 'photo', value: CUSTOM_FORM_FIELD_SIGN_UP_PHOTO },
@@ -240,6 +243,8 @@ export const insertUserProfileDataToAnswer = (
       return UserProfileData?.address?.address_line_2;
     case CUSTOM_FORM_FIELD_SIGN_UP_CITY:
       return UserProfileData?.address?.city;
+    case CUSTOM_FORM_FIELD_SIGN_UP_STATE:
+      return UserProfileData?.address?.state;
     case CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE:
       return UserProfileData?.address?.zipcode;
     case CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY:
@@ -297,6 +302,8 @@ export const insertMemberProfileDataToAnswer = (
       return memberProfileData?.address?.address_line_2;
     case CUSTOM_FORM_FIELD_SIGN_UP_CITY:
       return memberProfileData?.address?.city;
+    case CUSTOM_FORM_FIELD_SIGN_UP_STATE:
+      return memberProfileData?.address?.state;
     case CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE:
       return memberProfileData?.address?.zipcode;
     case CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY:
@@ -339,6 +346,8 @@ export const getCustomFormFieldMaxLength = (kind?: number) => {
     case CUSTOM_FORM_FIELD_SIGN_UP_ZIPCODE:
       return 10;
     case CUSTOM_FORM_FIELD_SIGN_UP_CITY:
+      return 50;
+    case CUSTOM_FORM_FIELD_SIGN_UP_STATE:
       return 50;
     case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1:
       return 300;

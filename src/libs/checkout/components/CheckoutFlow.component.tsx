@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +7,9 @@ import BasketConsumer from './BasketConsumer.component';
 
 import BasketFinalizer from './BasketFinalizer.component';
 import ShopItemFeaturedBanner from './ShopItemFeaturedBanner.component';
-import { CheckoutItem, Basket } from '../types';
+import { CheckoutItem, Basket, PrepaidLine } from '../types';
+import { ShopItem } from '../../shop/types';
+import { PaymentMethod } from '../../payment/types';
 import { OptionCallback } from '../../../state/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,49 +36,50 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 type Props = {
-  basket: Basket,
-  loading: boolean,
-  processing: boolean,
-  termsAndConditions: string,
+  basket: Basket<string, PrepaidLine>;
+  companyCountry?: string;
+  loading: boolean;
+  processing: boolean;
+  termsAndConditions: string;
 
-  shopItemList: Array<ShopItem>,
-  addShopItemToBasket: (id: number) => void,
+  shopItemList: Array<ShopItem>;
+  addShopItemToBasket: (id: number) => void;
 
-  removeItemFromBasket: (basketId: string, data: any) => void,
+  removeItemFromBasket: (basketId: string, data: any) => void;
   addItemToBasket: (
     basketId: string,
     data: any,
     options?: OptionCallback,
-  ) => void,
+  ) => void;
 
-  paymentModule: any,
+  paymentModule: any;
 
-  onBasketFinalized: () => void,
-  submitPayment: (data: *) => void,
-  attachCoupon: (code: string) => void,
-  patchBasket: (data: *) => void,
+  onBasketFinalized: () => void;
+  submitPayment: (data: any) => void;
+  attachCoupon: (code: string) => void;
+  patchBasket: (data: any) => void;
 
-  backToCalendar: () => void,
+  backToCalendar: () => void;
 
-  validateUnpaid: (options: OptionCallback) => void,
+  validateUnpaid: (options: OptionCallback) => void;
 
-  savedPaymentMethodList: ?Array<PaymentMethod>,
+  savedPaymentMethodList?: Array<PaymentMethod>;
 
-  termsAndConditionsAccepted: boolean,
-  setTermsAndConditionsAccepted: (boolean) => void,
-  onItemExpire: (item: CheckoutItem) => void,
-  allowConsumerToUseInternalAccount: boolean,
-  useInternalAccount: (amount: number) => void,
-  creditAccountBalance?: number | null,
-  onRemoveInternalAccountPrepaidLine: () => void,
-  isExcludingTax: boolean,
+  termsAndConditionsAccepted: boolean;
+  setTermsAndConditionsAccepted: (value: boolean) => void;
+  onItemExpire: (item: CheckoutItem) => void;
+  allowConsumerToUseInternalAccount: boolean;
+  useInternalAccount: (amount: number) => void;
+  creditAccountBalance?: number | null;
+  onRemoveInternalAccountPrepaidLine: () => void;
+  isExcludingTax: boolean;
 
-  checkItemsBasket: (basketId) => void,
+  checkItemsBasket: (basketId: number) => void;
 };
 
-export const CheckoutFlow = (props: Props) => {
+export const CheckoutFlow: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['checkout']);
+  const { t } = useTranslation('checkout');
   return (
     <div className={classes.container}>
       <Typography variant="h4" className={classes.title}>
@@ -117,6 +118,7 @@ export const CheckoutFlow = (props: Props) => {
             isExcludingTax={props.isExcludingTax}
             withPrice
             basket={props.basket}
+            companyCountry={props.companyCountry}
             checkItemsBasket={props.checkItemsBasket}
             validateUnpaid={props.validateUnpaid}
             submitPayment={props.submitPayment}

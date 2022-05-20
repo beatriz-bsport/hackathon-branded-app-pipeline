@@ -177,7 +177,7 @@ export class MemberFormPage extends Component<Props> {
             goToMerge={this.props.goToMerge}
             goToMemberList={this.props.goToMemberList}
             snackbarSuccess={this.props.snackbarSuccess}
-            country={this.props.country}
+            companyCountry={this.props.country}
             waiver={this.props.theme.waiver}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions

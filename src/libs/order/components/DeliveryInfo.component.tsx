@@ -1,17 +1,19 @@
-// @flow
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Theme } from '@material-ui/core/styles';
 import type { OrderWithProducts } from '../types';
 
+import { ALLOWED_COUNTRIES_FOR_STATES } from '../../member/constants';
+
 type Props = {
-  order: OrderWithProducts,
-  classes: Object,
+  order: OrderWithProducts;
+  companyCountry?: string;
 };
 
-export const DeliveryInfo = (props: Props) => {
-  const { classes, order } = props;
+export const DeliveryInfo: React.FC<Props> = ({ order, companyCountry }) => {
+  const classes = useStyles();
   return (
     <div>
       <div className={classes.nameContainer}>
@@ -20,12 +22,21 @@ export const DeliveryInfo = (props: Props) => {
         </Typography>
         <Typography variant="subtitle1">{order.last_name}</Typography>
       </div>
-      <div className={classes.addressContainer}>
+      <div>
         <Typography variant="subtitle1">{order.address_line_1}</Typography>
         <Typography variant="subtitle1" color="textSecondary">
           {order.address_line_2}
         </Typography>
         <div className={classes.cityContainer}>
+          {ALLOWED_COUNTRIES_FOR_STATES.includes(companyCountry) &&
+            order.address_state && (
+              <Typography
+                className={classes.horizontalElement}
+                variant="subtitle1"
+              >
+                {order.address_state}
+              </Typography>
+            )}
           <Typography className={classes.horizontalElement} variant="subtitle1">
             {order.zipcode}
           </Typography>
@@ -37,7 +48,7 @@ export const DeliveryInfo = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   nameContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -51,6 +62,6 @@ const styles = (theme) => ({
   horizontalElement: {
     paddingRight: theme.spacing(2),
   },
-});
+}));
 
-export default withStyles(styles)(DeliveryInfo);
+export default DeliveryInfo;

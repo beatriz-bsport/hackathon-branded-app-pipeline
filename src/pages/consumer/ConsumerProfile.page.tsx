@@ -148,6 +148,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
         <Grid item xs={12} md={6}>
           <MemberSummaryCard
             member={this.props.member}
+            companyCountry={this.props.companyCountry}
             hideContactButton
             editMember={() => this.props.setEditMember(true)}
             showVaccinationStatus={this.props.showVaccinationStatus}
@@ -220,6 +221,7 @@ const connector = connect(
     memberLoading: state.member.loading,
     member: getMemberDetail(state, membership && membership.id),
     theme: themeSelectors.getTheme(state),
+    companyCountry: state.theme.theme.locale.split('_')[1],
     paymentMethod: state.paymentBackend.paymentMethod.items,
     paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
     detachPaymentMethodLoading:

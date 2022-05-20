@@ -49,6 +49,7 @@ import VaccinationStatus from './VaccinationStatus.component';
 import { EstablishmentGroup } from '../../establishment/types';
 import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
 import { EmailTemplateDetail } from '#libs/email-editor/types';
+import { ALLOWED_COUNTRIES_FOR_STATES } from '../constants';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -58,7 +59,8 @@ type OwnProps = {
   mergeMember?: () => void;
   goToMember?: () => void;
   member: Member<number>;
-  hideContactButton: boolean;
+  companyCountry?: string;
+  hideContactButton?: boolean;
   showTermsAndConditions?: boolean;
   setShowTermsAndConditions?: (show: boolean) => void;
   showTermsOfUse?: boolean;
@@ -229,15 +231,22 @@ export class MemberSummaryCard extends Component<Props> {
 
   renderAddress = () => {
     const { address } = this.props.member.consumer;
+    const { companyCountry } = this.props;
     let primary = '';
     let secondary = '';
     if (address) {
       primary = `${address.address_line_1 || ''} ${
         address.address_line_2 || ''
       }`;
-      secondary = `${address.city || ''} - ${address.zipcode || ''} ${(
-        address.country || ''
-      ).toUpperCase()}`;
+      secondary = `${address.city || ''} - ${
+        ALLOWED_COUNTRIES_FOR_STATES.includes(companyCountry) && address.state
+          ? `${address.state} `
+          : ''
+      }${address.zipcode || ''} ${
+        ALLOWED_COUNTRIES_FOR_STATES.includes(companyCountry) && address.state
+          ? '- '
+          : ''
+      }${(address.country || '').toUpperCase()}`;
     }
     return (
       <List>

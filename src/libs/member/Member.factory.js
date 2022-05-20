@@ -15,6 +15,7 @@ FactoryBot.define('Member', {
     address_line_2: faker.address.streetName(),
     city: faker.address.city(),
     zipcode: faker.address.zipCode(),
+    state: faker.address.state(),
     country: faker.address.country(),
   },
   birthday: faker.date.past(),

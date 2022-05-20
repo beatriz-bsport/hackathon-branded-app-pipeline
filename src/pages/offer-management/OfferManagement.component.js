@@ -305,6 +305,7 @@ export class OfferManagement extends Component<Props, State> {
         data.address_line_2 ||
         data.city ||
         data.zipcode ||
+        data.state ||
         data.country
       )
     ) {
@@ -316,6 +317,8 @@ export class OfferManagement extends Component<Props, State> {
       delete data.city;
       // eslint-disable-next-line
       delete data.zipcode;
+      // eslint-disable-next-line
+      delete data.state;
       // eslint-disable-next-line
       delete data.country;
     }
@@ -625,7 +628,7 @@ export class OfferManagement extends Component<Props, State> {
               goToMember={this.props.goToMember}
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
-              country={this.props.country}
+              companyCountry={this.props.country}
               waiver={this.props.company_theme.waiver}
               generalTermsAndConditions={
                 this.props.company_theme.general_terms_and_conditions

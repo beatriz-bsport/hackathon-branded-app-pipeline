@@ -1,5 +1,6 @@
-// @flow
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
@@ -9,10 +10,9 @@ import SendIcon from '@material-ui/icons/Send';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation, TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Theme } from '@material-ui/core/styles';
 
 import {
   ORDER_STATE_CANCELLED,
@@ -25,45 +25,50 @@ import ProductLine from './ProductLine.component';
 import DeliveryInfo from './DeliveryInfo.component';
 import InvoiceSummary from '../../invoice/InvoiceListItem.component';
 
-import type { OrderWithProducts } from '../types';
-import type { Invoice } from '../../invoice/types';
+import { OrderWithProducts, Product } from '../types';
+import { Invoice } from '../../invoice/types';
+import { EmailTemplateDetail } from '#libs/email-editor/types';
 
 import DeliveryFeeListItem from './DeliveryFeeListItem.component';
 
 type Props = {
-  onInvoiceClick: (uuid: string) => void,
-  goToMember: (id: number) => void,
-  updateOrderState: (id: number) => void,
-  sendCommunication: (any) => void,
+  onInvoiceClick: (uuid: string) => void;
+  goToMember: (id: number) => void;
+  updateOrderState: (id: number) => void;
+  sendCommunication: (com: any) => void;
 
-  order: ?OrderWithProducts,
-  invoice: ?Invoice,
+  order?: OrderWithProducts;
+  invoice?: Invoice;
+  companyCountry?: string;
 
-  getEmails: () => void,
-  getEmailDetail: (id: number) => void,
-  emailListLoading: boolean,
-  emailDetailLoading: boolean,
-  emails: Array<any>,
-  emailDetails: Array<any>,
-  sendCommunication: (any) => void,
+  getEmails: () => void;
+  getEmailDetail: (id: number) => void;
+  emailListLoading: boolean;
+  emailDetailLoading: boolean;
+  emails: Array<any>;
+  emailDetails: Record<string, EmailTemplateDetail>;
 
-  t: TFunction,
-  classes: Object,
-
-  showVaccinationStatus: boolean,
+  showVaccinationStatus: boolean;
 };
 
-export const OrderDetail = (props: Props) => {
-  const {
-    order,
-    invoice,
-    t,
-    classes,
-    onInvoiceClick,
-    updateOrderState,
-    goToMember,
-    sendCommunication,
-  } = props;
+export const OrderDetail: React.FC<Props> = ({
+  order,
+  invoice,
+  companyCountry,
+  onInvoiceClick,
+  updateOrderState,
+  goToMember,
+  sendCommunication,
+  getEmails,
+  getEmailDetail,
+  emailListLoading,
+  emailDetailLoading,
+  emails,
+  emailDetails,
+  showVaccinationStatus,
+}) => {
+  const { t } = useTranslation('order');
+  const classes = useStyles();
 
   return (
     <div>
@@ -140,7 +145,7 @@ export const OrderDetail = (props: Props) => {
             <List dense disablePadding>
               {order ? (
                 <React.Fragment>
-                  {order.product_lines.map((pl) => (
+                  {order.product_lines.map((pl: Product) => (
                     <ProductLine key={pl.product_id} product={pl} />
                   ))}
                   {order.delivery_fee ? (
@@ -160,7 +165,7 @@ export const OrderDetail = (props: Props) => {
             {t('detail.section.deliveryInfo')}
           </Typography>
           <Paper className={classes.addressPaper}>
-            <DeliveryInfo order={order} />
+            <DeliveryInfo order={order} companyCountry={companyCountry} />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -183,17 +188,17 @@ export const OrderDetail = (props: Props) => {
           </Typography>
           {order.member ? (
             <MemberSummaryCard
-              memberId={order.member.id}
               member={order.member}
+              companyCountry={companyCountry}
               goToMember={() => goToMember(order.member.id)}
               sendCommunication={sendCommunication}
-              getEmails={props.getEmails}
-              emails={props.emails}
-              getEmailDetail={props.getEmailDetail}
-              emailDetails={props.emailDetails}
-              emailListLoading={props.emailListLoading}
-              emailDetailLoading={props.emailDetailLoading}
-              showVaccinationStatus={props.showVaccinationStatus}
+              getEmails={getEmails}
+              emails={emails}
+              getEmailDetail={getEmailDetail}
+              emailDetails={emailDetails}
+              emailListLoading={emailListLoading}
+              emailDetailLoading={emailDetailLoading}
+              showVaccinationStatus={showVaccinationStatus}
             />
           ) : null}
         </Grid>
@@ -202,7 +207,7 @@ export const OrderDetail = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   bannerDivider: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
@@ -220,9 +225,6 @@ const styles = (theme) => ({
   actionButton: {
     marginLeft: theme.spacing(2),
   },
-});
+}));
 
-export default compose(
-  withTranslation(['order']),
-  withStyles(styles),
-)(OrderDetail);
+export default OrderDetail;

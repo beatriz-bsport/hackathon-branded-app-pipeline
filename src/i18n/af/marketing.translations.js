@@ -197,6 +197,7 @@ exports.default = {
       password: 'Mot de passe',
       additional_adress: "Complément d'adresse",
       city: 'Ville',
+      state: 'État',
       country: 'Pays',
       general_terms_and_conditions:
         "J'accepte les conditions générales d'utilisation",

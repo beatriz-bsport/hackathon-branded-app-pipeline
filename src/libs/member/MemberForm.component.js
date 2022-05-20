@@ -35,6 +35,8 @@ import { DATE_FORMAT } from '../../utils/datetime';
 import withConfirm from '../../hocs/with-confirm.hoc';
 import ToolTip from '#components/Tooltip.component';
 
+import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
+
 const styles = (theme) => ({
   redPaperContainer: {
     padding: theme.spacing(3),
@@ -79,6 +81,7 @@ type Props = {
   disabled?: boolean,
   fromConsumerAccess: ?boolean,
   memberId: number,
+  companyCountry: string,
   emailExistsError: boolean,
   asManager?: boolean,
   onCancel?: () => void,
@@ -433,6 +436,19 @@ export function MemberForm(props: Props) {
                     label={t('form.address.addressLine2')}
                   />
                   <Grid container direction="row" spacing={2}>
+                    {ALLOWED_COUNTRIES_FOR_STATES.includes(
+                      props.companyCountry,
+                    ) && (
+                      <Grid item>
+                        <TextField
+                          name="state"
+                          label={t('form.address.state')}
+                          disabled={disabled || !asManager}
+                          required={!asManager}
+                        />
+                      </Grid>
+                    )}
+
                     <Grid item>
                       <TextField
                         name="zipcode"
@@ -673,6 +689,7 @@ export default compose(
         address_line_1: '',
         address_line_2: '',
         city: '',
+        state: '',
         country: '',
         zipcode: '',
 

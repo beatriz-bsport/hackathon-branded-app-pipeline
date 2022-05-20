@@ -19,6 +19,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import type { TFunction } from 'react-i18next';
 import Config from '../../config';
 
+import { ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES } from '../../libs/establishment/constants';
+
 // prettier-ignore
 const TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
 const CENTER = [48.86, 2.33];
@@ -39,6 +41,7 @@ type State = {
   address_line_1: string,
   address_line_2: string,
   generated_address: string,
+  state: string,
   city: string,
   zipcode: string,
   country: string,
@@ -69,6 +72,7 @@ export class LocationInput extends Component<Props, State> {
         address_line_1: '',
         address_line_2: '',
         city: '',
+        state: '',
         zipcode: '',
         country: '',
         candidates: [],
@@ -167,6 +171,13 @@ export class LocationInput extends Component<Props, State> {
         : '',
       address_line_1,
       address_line_2: '',
+      state: c.address_components.find((comp) =>
+        comp.types.includes('administrative_area_level_1'),
+      )
+        ? c.address_components.find((comp) =>
+            comp.types.includes('administrative_area_level_1'),
+          ).long_name
+        : '',
       city: c.address_components.find((comp) => comp.types.includes('locality'))
         ? c.address_components.find((comp) => comp.types.includes('locality'))
             .short_name
@@ -207,6 +218,7 @@ export class LocationInput extends Component<Props, State> {
   clearState = ({
     address_line_1,
     address_line_2,
+    state,
     city,
     zipcode,
     country,
@@ -218,6 +230,7 @@ export class LocationInput extends Component<Props, State> {
       candidates: [],
       address_line_1: address_line_1 || '',
       address_line_2: address_line_2 || '',
+      state: state || '',
       city: city || '',
       zipcode: zipcode || '',
       country: country || '',
@@ -248,6 +261,7 @@ export class LocationInput extends Component<Props, State> {
       generated_address,
       address_line_1,
       address_line_2,
+      state,
       city,
       zipcode,
       country,
@@ -344,6 +358,26 @@ export class LocationInput extends Component<Props, State> {
               ),
             }}
           />
+          {ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES.includes(country) && (
+            <TextField
+              id="state"
+              value={state}
+              type="text"
+              onChange={(e) => this.changeAddressField('state', e.target.value)}
+              required={this.props.required}
+              disabled={!geometry.x || !geometry.y}
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FormHelperText>
+                      {t('establishment:location.state')}
+                    </FormHelperText>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
           <TextField
             id="city"
             value={city}

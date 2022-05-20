@@ -24,6 +24,7 @@ export type Basket<C = string, PPL = number> = {
   address_line_1: string;
   address_line_2: string;
   zipcode: string;
+  state: string;
   country: string;
   city: string;
   available_payment_methods: number[];

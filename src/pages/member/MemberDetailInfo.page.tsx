@@ -286,6 +286,7 @@ export class MemberDetailPage extends Component<Props> {
         <Grid item md={6} xs={12}>
           <MemberSummaryCard
             member={this.props.member}
+            companyCountry={this.props.companyCountry}
             favoriteEstablishmentGroupList={
               this.props.favoriteEstablishmentGroupList
             }
@@ -409,7 +410,7 @@ export class MemberDetailPage extends Component<Props> {
           handlMemberSelected={(id: number) =>
             this.props.mergeInto(this.props.id, id)
           }
-          country={this.props.country}
+          companyCountry={this.props.companyCountry}
         />
         <TagDeleteDialog
           open={!!this.state.tagToDelete}
@@ -478,7 +479,7 @@ const connector = connect(
     email_templates_details: getEmailTemplatesDetail(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
-    country: state.theme.theme.locale.split('_')[1],
+    companyCountry: state.theme.theme.locale.split('_')[1],
     companyId: state.theme.theme.company,
     unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
     invoiceLoading: state.invoice.list.loading,

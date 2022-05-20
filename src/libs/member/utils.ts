@@ -7,6 +7,7 @@ export const MemberMap = {
   address_line_1: 'address.address_line_1',
   address_line_2: 'address.address_line_2',
   zipcode: 'address.zipcode',
+  state: 'address.state',
   city: 'address.city',
   country: 'address.country',
   phone: 'phone.phone_number',

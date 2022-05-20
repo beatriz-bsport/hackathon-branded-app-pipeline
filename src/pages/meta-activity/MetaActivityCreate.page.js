@@ -163,6 +163,7 @@ const MetaActivityMap = {
   auto_discard_hours_before_start: 'auto_discard_hours_before_start',
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
   category: 'category',
+  alt_cover_main: 'alt_cover_main',
 };
 
 const StepperForm = withTranslation(['metaActivity'])(

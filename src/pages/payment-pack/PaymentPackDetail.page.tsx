@@ -200,7 +200,6 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
     this.props.fetchAllActivities();
-    this.props.fetchMetaActivities();
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
     this.props.fetchMassExtensionList({

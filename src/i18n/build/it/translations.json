@@ -393,8 +393,8 @@
                     "password": "La password deve contenere almeno 6 caratteri"
                 },
                 "fields": {
-                    "accept_sms": "Accetto di ricevere notificazione via SMS per informazioni relative alla mia attività (cambiamento d'orario, cancellazione tardive, nuovo workshop ...)",
-                    "accept_email": "Accetto di ricevere notificazione via email per informazioni relative alla mia attività (cambiamento d'orario, cancellazione tardive, nuovo workshop ...)",
+                    "accept_sms": "Accetto di essere avvisato via SMS per scopi commerciali (promozioni, offerte speciali...)",
+                    "accept_email": "Accetto di essere avvisato via email per scopi commerciali (promozioni, offerte speciali...)",
                     "waiver": "Accetto il rilascio di responsabilità",
                     "general_terms_and_conditions_accepted": "Accetto le condizioni generali di utilizzo",
                     "emergency_contact": "Contatto d'emergenza",

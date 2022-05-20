@@ -4977,7 +4977,7 @@
         },
         "language": {
             "es": "Spanish",
-            "nl": "Deutch",
+            "nl": "Dutch",
             "it": "Italian",
             "de": "German",
             "fr": "French",
@@ -5531,7 +5531,7 @@
                 "selectPrivateServiceTypeDetail": "My appointment",
                 "selectPrivateServiceTypeList": "All appointments",
                 "selectPrivateServiceType": "Type",
-                "todayOnly": "Only display the remaining sessions by automatically hiding past sessions",
+                "todayOnly": "Show only the sessions of the day",
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide passes for private classes",
                 "hidePaymentPack": "Hide passes for group classes"

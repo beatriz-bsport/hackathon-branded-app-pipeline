@@ -149,7 +149,12 @@
         "subscription": {
             "isEmpty": "Momenteel bezit je nog geen abonnement."
         },
-        "Basket": "Mijn winkelmandje"
+        "Basket": "Mijn winkelmandje",
+        "appbar": {
+            "login": "Aanmelden",
+            "logout": "Afmelden",
+            "profile": "Mijn profiel"
+        }
     },
     "notificationRule": {
         "eventType": {
@@ -1090,7 +1095,7 @@
             "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
             "tenMinutes": "10 min",
             "editGroup": "Wijzig deze velden binnen het evenement.",
-            "noWaitingList": "De wachtlijsten zijn niet beschikbaar voor groepssessies."
+            "noWaitingList": "Wachtlijsten zijn niet beschikbaar voor evenementen."
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -3755,7 +3760,7 @@
                     "allowBookingAfterStartCaption": "Standaard is het niet mogelijk voor leden om zich voor reeds begonnen evenementen  in te schrijven. Activeer deze optie om dat juist wel toe te staan.",
                     "fullBookingOnlyCaption": "Standaard worden leden automatisch voor alle gekoppelde sessies binnen een evenement ingeschreven. Schakel deze optie uit om leden de vrijheid te geven om te selecteren voor welke sessies ze zich wel of niet willen inschrijven.",
                     "impossibleState": "De instellingen staan niet toe om deze groepen aan te maken",
-                    "copyRecurrence": "Dupliceer ook herhalingen van groepsfutures",
+                    "copyRecurrence": "Dupliceer ook herhalingen van toekomstige evenementen",
                     "recurrenceUntilHelper": "Bedankt voor het aangeven van de cyclus",
                     "submit": "Bevestigen",
                     "back": "Terug",
@@ -3767,18 +3772,18 @@
                     "recurrenceNumberPrefix": "Herhaal alles",
                     "preview": "Voorvertoning",
                     "recurrenceUntil": "Herhalen tot",
-                    "recurrenceCount": "Herhalingen",
+                    "recurrenceCount": "Aantal herhalingen",
                     "timeStart": "Startdatum",
                     "marketPlaceAvailable": "Accepteer reserveringen (Website + Mobiele App)",
                     "name": "Naam",
                     "subtitleRecurrence": "Frequentie",
                     "subtitleSettings": "Instellingen",
                     "addOffers": "Een sessie toevoegen",
-                    "subtitleOffers": "Sessies toevoegen",
+                    "subtitleOffers": "Sessies",
                     "subtitle": "Algemeen"
                 },
                 "duplicate": "Een evenement dupliceren",
-                "subtitleMetaActivitySelect": "Een evenement toevoegen",
+                "subtitleMetaActivitySelect": "Configuratie",
                 "title": "Evenementen",
                 "subtitlePreview": "Voorvertoning"
             },
@@ -5778,7 +5783,8 @@
                 "hidePrivatePass": "Geen afspraakkaarten tonen",
                 "hidePaymentPack": "Geen leskaarten tonen",
                 "hidePaymentCombo": "Geen pakketten tonen",
-                "todayOnly": "Toon alleen de overige sessies door afgelopen sessies automatisch te verbergen"
+                "todayOnly": "Toon alleen de sessies van de dag",
+                "titleCaption": "Maximaal aantal tekens: {{count}} / {{max}}"
             },
             "componentType": {
                 "playlist": "Afspeellijsten",
@@ -8228,6 +8234,11 @@
             "registerNow": {
                 "error": "Fout bij het verwerken van de betaling",
                 "success": "De betaling is succesvol verwerkt"
+            }
+        },
+        "marketplace": {
+            "update": {
+                "error": "Fout bij het bijwerken van de informatie"
             }
         }
     },

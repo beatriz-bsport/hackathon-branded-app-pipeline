@@ -371,8 +371,8 @@
                     "email": "Correo electrónico",
                     "last_name": "Apellido",
                     "first_name": "Nombre",
-                    "accept_sms": "Acepto que se me notifique por SMS la información relacionada con mi actividad (cambio de horario, cancelación de última hora, nuevo taller...)",
-                    "accept_email": "Acepto que se me notifique por correo electrónico la información relacionada con mi actividad (cambio de horario, cancelación de última hora, nuevo taller...)"
+                    "accept_sms": "Acepto recibir notificaciones por SMS con fines comerciales (promociones, ofertas especiales...)",
+                    "accept_email": "Acepto recibir notificaciones por correo electrónico con fines comerciales (promociones, ofertas especiales...)"
                 },
                 "addProfilePicture": "Añadir una foto de perfil",
                 "error": {

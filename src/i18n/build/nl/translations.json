@@ -1072,7 +1072,8 @@
                 "city": "Stad",
                 "addressLine2": "Aanvulling adres",
                 "addressLine1": "Adres",
-                "streetNumber": "Aantal"
+                "streetNumber": "Aantal",
+                "state": "Staat"
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijven",
@@ -2999,7 +3000,8 @@
             "address_line_2": "Adresregel 2",
             "address_line_1": "Adresregel 1",
             "address": "Adres",
-            "search_address": "Zoek een adres"
+            "search_address": "Zoek een adres",
+            "state": "Staat"
         },
         "spotScheduling": {
             "untitled": "Ongetiteld",
@@ -3731,14 +3733,14 @@
         "workshop": "Workshop",
         "groupedOption": {
             "helperText": {
-                "year": "Dit evenement begint jaarlijks op {{-day}} {{-mont}}",
-                "year_plural": "Dit evenement begint jaarlijks op {{-day}} {{-mont}} voor {{ count }} jaar",
+                "year": "Dit evenement begint jaarlijks op: {{-day}} {{-mont}}",
+                "year_plural": "Dit evenement begint jaarlijks op: {{-day}} {{-month}} voor {{ count }} jaar",
                 "day": "Dit evenement wordt dagelijks herhaald",
-                "day_plural": "Dit evenement begint op {{-day}} voor {{ count }} dagen",
-                "week": "Dit evenement begint dagelijks op {{-day}}",
-                "week_plural": "Dit evenement begint op {{-day}} voor {{ count }} weken",
-                "month": "Dit evenement begint maandelijks op {{-day}}",
-                "month_plural": "Dit evenement begint op {{-day}} voor {{ count }} maanden"
+                "day_plural": "Dit evenement begint dagelijks op: {{-day}} voor {{ count }} dagen",
+                "week": "Dit evenement begint dagelijks op: {{-day}}",
+                "week_plural": "Dit evenement begint dagelijks op: {{-day}} voor {{ count }} weken",
+                "month": "Dit evenement begint maandelijks op: {{-day}}",
+                "month_plural": "Dit evenement begint maandelijks op: {{-day}} voor {{ count }} maanden"
             },
             "modal": {
                 "form": {
@@ -3750,8 +3752,8 @@
                         "content": "Het verwijderen van dit evenement zal tevens alle geregistreerde reserveringen annuleren. Deze actie is definitief.",
                         "firstSession": "De eerstvolgende sessie is op: {{-day}}",
                         "selectHeader": "Selecteer de te wijzigen groepen",
-                        "selectGroup": "Annuleer vergelijkbare groepssessies",
-                        "applyRecursive": "Annuleer vergelijkbare groepssessies",
+                        "selectGroup": "Annuleer vergelijkbare evenementen",
+                        "applyRecursive": "Annuleer vergelijkbare evenementen",
                         "title": "Verwijderen"
                     },
                     "recurrenceUntilHelper2": "Evenementen met een sessie na deze datum worden niet aangemaakt.",
@@ -5953,7 +5955,7 @@
                 "coachSelector": {
                     "label": "Instructeur"
                 },
-                "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie",
+                "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie.",
                 "cancel": "Annuleren",
                 "compatiblePrivatePass": "Factureer",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
@@ -8861,9 +8863,9 @@
         "group": {
             "emptyState": "Evenementen stellen leden in staat om in één keer alle gekoppelde sessies te reserveren en is perfect voor activiteiten, zoals trainingen en cursussen. ",
             "emptySearch": "Er zijn geen zoekresultaten om weer te geven.",
-            "pageSize": "Weergave:",
+            "pageSize": "Toon:",
             "backToGroup": "Terug",
-            "emptySelect": "Selecteer een sessie"
+            "emptySelect": "Selecteer een workshop of evenement om meer informatie weer te geven."
         },
         "tabGroups": "Groepssessies",
         "tabList": "Workshops"
@@ -10575,7 +10577,8 @@
                 "birthday": "Geboortedatum",
                 "last_name": "Achternaam",
                 "first_name": "Voornaam",
-                "location": "Favoriete vestiging"
+                "location": "Favoriete vestiging",
+                "state": "Staat"
             },
             "customFormField": {
                 "modal": {

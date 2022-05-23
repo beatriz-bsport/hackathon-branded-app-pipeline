@@ -572,11 +572,9 @@ export class CouponForm extends React.Component<Props, State> {
           />
           <div className={classes.fullWidth}>
             <PaymentComboSelector
-              paymentComboList={paymentCombos
-                .filter((combo) => !combo.manager_only)
-                .filter(
-                  (combo) => !this.state.only_on_objects.includes(combo.id),
-                )}
+              paymentComboList={paymentCombos.filter(
+                (combo) => !this.state.only_on_objects.includes(combo.id),
+              )}
               helperText={t('form.selectorPlaceholder.paymentCombo')}
               nullCurrentValue
               onChange={(id) => {

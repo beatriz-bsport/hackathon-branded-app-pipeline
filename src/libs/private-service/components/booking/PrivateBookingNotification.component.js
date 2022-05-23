@@ -17,7 +17,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import PrivateBookingNotificationForm from './PrivateBookingNotificationForm.component';
+import MarketingRuleFormPrivateBooking from '../../../marketing/components/marketing-rule-form/MarketingRuleFormPrivateBooking.component';
 import NotificationListInner from '../../../marketing/components/NotificationListInner.component';
 
 type Props = {
@@ -110,7 +110,7 @@ const PrivateBookingNotification = (props: Props) => {
         </Button>
       </div>
       {props.isFormOpen && (
-        <PrivateBookingNotificationForm
+        <MarketingRuleFormPrivateBooking
           serviceId={props.serviceId}
           emails={props.emails}
           emailListLoading={props.emailListLoading}

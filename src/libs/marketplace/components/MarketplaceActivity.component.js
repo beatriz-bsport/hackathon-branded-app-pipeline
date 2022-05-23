@@ -302,7 +302,7 @@ const styles = (theme) => ({
     minWidth: 200,
   },
   media: {
-    maxHeight: 400,
+    aspectRatio: '1920/1080',
     objectFit: 'cover',
   },
   hashtags: {

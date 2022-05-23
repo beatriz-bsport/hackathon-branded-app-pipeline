@@ -39,7 +39,8 @@ export function MarketplaceActivityDialog(props: Props) {
 
 const styles = () => ({
   dialog: {
-    minWidth: '60vw',
+    width: '60vw',
+    maxWidth: 800,
   },
   dialogContent: {
     padding: 0,

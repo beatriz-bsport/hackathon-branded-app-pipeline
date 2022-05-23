@@ -112,6 +112,7 @@ exports.default = {
     backToFranchiseWorskpace: 'Revenir au compte maitre',
     redirecting: 'Vous allez être redirigé vers votre page',
     clockIn: 'Pointeuse horaire',
+    help: 'Aide',
   },
   multiSession: {
     title: ' Vous semblez utiliser plusieurs onglets simultanément',

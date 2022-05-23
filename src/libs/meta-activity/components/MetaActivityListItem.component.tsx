@@ -11,6 +11,7 @@ import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
@@ -92,17 +93,19 @@ const MetaActivityListItem = (props: Props) => {
           <DragHandleIcon />
         </IconButton>
       )}
-      <ListItemAvatar>
-        <Avatar
-          alt=""
-          className={props.classes.avatar}
-          src={
-            metaActivity.cover_main
-              ? metaActivity.cover_main
-              : (getSportWithIcon(metaActivity.parent_category) || {}).icon
-          }
-        />
-      </ListItemAvatar>
+      <Hidden xsDown>
+        <ListItemAvatar>
+          <Avatar
+            alt=""
+            className={props.classes.avatar}
+            src={
+              metaActivity.cover_main
+                ? metaActivity.cover_main
+                : (getSportWithIcon(metaActivity.parent_category) || {}).icon
+            }
+          />
+        </ListItemAvatar>
+      </Hidden>
       <ListItemText
         primary={
           <Typography component="span" variant="subtitle1">

@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Popper from '@material-ui/core/Popper';
@@ -9,12 +8,11 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import NotificationIcon from '@material-ui/icons/Notifications';
-import { compose, withState } from 'recompose';
 import { push } from 'connected-react-router';
 // eslint-disable-next-line bsport/no-redux-in-component
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import type { AlertGroup } from '../types';
 import AlertList from './AlertList.component';
@@ -24,21 +22,17 @@ type Props = {
   dialogOpen: ?Object,
   nbAlerting: number,
   alertings: Array<AlertGroup>,
-  pushRouter: (path: string) => void,
   deleteAlert: (id: number) => void,
   showMore: (alert_kind: number) => void,
-  classes: Object,
 };
 
-export function AlertButtonMenu(props: Props) {
-  const {
-    setDialogOpen,
-    classes,
-    dialogOpen,
-    nbAlerting,
-    alertings,
-    pushRouter,
-  } = props;
+export default function AlertButtonMenu(props: Props) {
+  const { setDialogOpen, dialogOpen, nbAlerting, alertings } = props;
+  const dispatch = useDispatch();
+  const pushRouter = (path) => {
+    dispatch(push(path));
+  };
+  const classes = useStyles();
   return (
     <div>
       <IconButton
@@ -96,16 +90,10 @@ export function AlertButtonMenu(props: Props) {
   );
 }
 
-const styles = () => ({
+const useStyles = makeStyles({
   menuContainer: {
     width: 400,
     maxHeight: '60vh',
     overflowY: 'auto',
   },
 });
-
-export default compose(
-  withStyles(styles),
-  withState('dialogOpen', 'setDialogOpen', null),
-  connect(null, { pushRouter: push }),
-)(AlertButtonMenu);

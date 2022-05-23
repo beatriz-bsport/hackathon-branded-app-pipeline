@@ -75,6 +75,7 @@ type Props = {
   }[];
   permissions: Permission;
   disconnect: () => void;
+  onMenuItemClick: () => void;
 };
 
 type DrawerItem =
@@ -112,6 +113,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   companyId,
   permissions,
   disconnect,
+  onMenuItemClick,
 }) => {
   const { t } = useTranslation(['navigation']);
   const classes = useStyles();
@@ -648,6 +650,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
           button
           onClick={() => {
             item.action && item.action();
+            onMenuItemClick();
           }}
           dense={item.dense || isNested}
           selected={isActive}

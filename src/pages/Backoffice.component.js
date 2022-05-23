@@ -432,7 +432,7 @@ export class Backoffice extends Component<Props, State> {
                 fetchCashBook={this.props.fetchCashBook}
                 onSpotPaymentReportId={this.props.onSpotPaymentReportId}
                 theme={this.props.theme}
-                onSubmit={(data) => this.props.updateCashBook(data)}
+                onSubmit={this.props.updateCashBook}
                 alertings={this.props.alertings}
                 nbAlerting={this.props.nbAlerting}
                 deleteAlert={this.props.deleteAlert}

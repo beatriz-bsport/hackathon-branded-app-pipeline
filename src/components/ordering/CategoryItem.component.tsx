@@ -14,7 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { LinearProgress, Paper, Tooltip } from '@material-ui/core';
+import { Paper, Tooltip } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -333,9 +333,7 @@ export const CategoryItemWithItems = React.memo((props: Props) => {
           </div>
         </div>
       )}
-      {props.itemLoading ? (
-        <LinearProgress />
-      ) : (
+      {props.itemLoading ? null : (
         <div>
           <Divider className={classes.divider} />
           {!props.isCategoryDragging && (

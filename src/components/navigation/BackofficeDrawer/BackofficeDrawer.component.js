@@ -147,6 +147,7 @@ type State = {
   openParameters: boolean,
   tempPasswordDialogOpen: boolean,
   clockInDialogOpen: Boolean,
+  dialogOpen: Object,
 };
 
 class BackofficeDrawer extends React.Component<Props, State> {
@@ -155,6 +156,8 @@ class BackofficeDrawer extends React.Component<Props, State> {
     anchorEl: null,
     tempPasswordDialogOpen: false,
     clockInDialogOpen: false,
+    anchorElMini: null,
+    dialogOpen: null,
   };
 
   handleDrawerToggle = () => {
@@ -169,6 +172,10 @@ class BackofficeDrawer extends React.Component<Props, State> {
     this.setState((prevState) => ({
       mobileOpen: !prevState.mobileOpen,
     }));
+  };
+
+  handleNotificationButton = (value) => {
+    this.setState({ dialogOpen: value });
   };
 
   openTempPasswordDialog = () => {
@@ -272,97 +279,101 @@ class BackofficeDrawer extends React.Component<Props, State> {
                     wrap="nowrap"
                     implementation="css"
                   >
-                    {this.hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
-                      (permissions?.navigationMenu?.payments?.clockIn
-                        ?.selfClockIn ||
-                        permissions?.navigationMenu?.payments?.clockIn
-                          ?.clockInForOther) && (
+                    <Hidden xsDown>
+                      {this.hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
+                        (permissions?.navigationMenu?.payments?.clockIn
+                          ?.selfClockIn ||
+                          permissions?.navigationMenu?.payments?.clockIn
+                            ?.clockInForOther) && (
+                          <Grid item>
+                            <IconButton onClick={this.openClockInDialog}>
+                              <Tooltip
+                                title={this.props.t(
+                                  'navigation:backofficeMenu.clockIn',
+                                )}
+                              >
+                                <Badge
+                                  badgeContent={
+                                    isClockIn ? (
+                                      <HourglassEmptyIcon
+                                        className={classes.badgesIcon}
+                                      />
+                                    ) : (
+                                      <PowerSettingsNewIcon
+                                        className={classes.badgesIcon}
+                                      />
+                                    )
+                                  }
+                                  color={isClockIn ? 'primary' : 'error'}
+                                  classes={{
+                                    badge: isClockIn ? classes.badgesGreen : '',
+                                  }}
+                                >
+                                  <TimerIcon />
+                                </Badge>
+                              </Tooltip>
+                            </IconButton>
+                          </Grid>
+                        )}
+                      {forced_hide && (
+                        <React.Fragment>
+                          <Hidden mdUp>
+                            <Grid item>
+                              {!!permissions?.member?.search && (
+                                <Link to="/search/results">
+                                  <IconButton>
+                                    <Search />
+                                  </IconButton>
+                                </Link>
+                              )}
+                            </Grid>
+                          </Hidden>
+                          <Grid item>
+                            <IconButton onClick={this.props.openCalendar}>
+                              <TodayIcon />
+                            </IconButton>
+                          </Grid>
+                        </React.Fragment>
+                      )}
+                      {permissions?.appbarButtons?.ledger && (
                         <Grid item>
-                          <IconButton onClick={this.openClockInDialog}>
+                          <IconButton
+                            onClick={() => {
+                              this.props.fetchOnSpotPaymentReport({
+                                name: this.props.t(
+                                  'reporting:categories.on_spot_payments',
+                                ),
+                              });
+                              this.props.setOpenCash(true);
+                              this.props.fetchCashBook(
+                                this.props.theme.company,
+                              );
+                            }}
+                          >
                             <Tooltip
                               title={this.props.t(
-                                'navigation:backofficeMenu.clockIn',
+                                'navigation:backofficeMenu.cashBookTooltip',
                               )}
                             >
-                              <Badge
-                                badgeContent={
-                                  isClockIn ? (
-                                    <HourglassEmptyIcon
-                                      className={classes.badgesIcon}
-                                    />
-                                  ) : (
-                                    <PowerSettingsNewIcon
-                                      className={classes.badgesIcon}
-                                    />
-                                  )
-                                }
-                                color={isClockIn ? 'primary' : 'error'}
-                                classes={{
-                                  badge: isClockIn ? classes.badgesGreen : '',
-                                }}
-                              >
-                                <TimerIcon />
-                              </Badge>
+                              <BusinessCenterIcon />
                             </Tooltip>
                           </IconButton>
                         </Grid>
                       )}
-                    {forced_hide && (
-                      <React.Fragment>
-                        <Hidden mdUp>
-                          <Grid item>
-                            {!!permissions?.member?.search && (
-                              <Link to="/search/results">
-                                <IconButton>
-                                  <Search />
-                                </IconButton>
-                              </Link>
-                            )}
-                          </Grid>
-                        </Hidden>
+                      {permissions?.member?.create && (
                         <Grid item>
-                          <IconButton onClick={this.props.openCalendar}>
-                            <TodayIcon />
+                          <IconButton onClick={this.props.openCreateMember}>
+                            <Tooltip
+                              title={this.props.t(
+                                'navigation:backofficeMenu.addMemberTooltip',
+                              )}
+                            >
+                              <PersonAddIcon />
+                            </Tooltip>
                           </IconButton>
                         </Grid>
-                      </React.Fragment>
-                    )}
-                    {permissions?.appbarButtons?.ledger && (
-                      <Grid item>
-                        <IconButton
-                          onClick={() => {
-                            this.props.fetchOnSpotPaymentReport({
-                              name: this.props.t(
-                                'reporting:categories.on_spot_payments',
-                              ),
-                            });
-                            this.props.setOpenCash(true);
-                            this.props.fetchCashBook(this.props.theme.company);
-                          }}
-                        >
-                          <Tooltip
-                            title={this.props.t(
-                              'navigation:backofficeMenu.cashBookTooltip',
-                            )}
-                          >
-                            <BusinessCenterIcon />
-                          </Tooltip>
-                        </IconButton>
-                      </Grid>
-                    )}
-                    {permissions?.member?.create && (
-                      <Grid item>
-                        <IconButton onClick={this.props.openCreateMember}>
-                          <Tooltip
-                            title={this.props.t(
-                              'navigation:backofficeMenu.addMemberTooltip',
-                            )}
-                          >
-                            <PersonAddIcon />
-                          </Tooltip>
-                        </IconButton>
-                      </Grid>
-                    )}
+                      )}
+                    </Hidden>
                     {permissions?.appbarButtons?.notificationCenter && (
                       <Grid item>
                         <AlertButtonMenu
@@ -370,20 +381,30 @@ class BackofficeDrawer extends React.Component<Props, State> {
                           nbAlerting={nbAlerting}
                           deleteAlert={deleteAlert}
                           showMore={fetchMoreAlertingKind}
+                          dialogOpen={this.state.dialogOpen}
+                          setDialogOpen={this.handleNotificationButton}
                         />
                       </Grid>
                     )}
-                    <Grid item>
-                      <IconButton onClick={openIntercomHelp}>
-                        <HelpIcon />
-                      </IconButton>
-                    </Grid>
-                    {permissions?.member?.search && (
-                      <Grid item className={classes.searchBar}>
-                        <SearchBar changeLocation />
+                    <Hidden xsDown>
+                      <Grid item>
+                        <IconButton onClick={openIntercomHelp}>
+                          <HelpIcon />
+                        </IconButton>
                       </Grid>
-                    )}
-                    {this.renderAdditionalButtons()}
+                      {permissions?.member?.search && (
+                        <Grid item className={classes.searchBar}>
+                          <SearchBar changeLocation />
+                        </Grid>
+                      )}
+                      {this.renderAdditionalButtons()}
+                    </Hidden>
+                    <Hidden smUp>
+                      <Grid item>
+                        {}
+                        {this.renderContractedMenu(forced_hide)}
+                      </Grid>
+                    </Hidden>
                   </Grid>
                 </Grid>
               </Grid>
@@ -494,6 +515,181 @@ class BackofficeDrawer extends React.Component<Props, State> {
     );
   };
 
+  renderContractedMenu = (forced_hide) => {
+    const { classes, permissions } = this.props;
+
+    const isClockIn = this.props.lastClockIn?.onGoing;
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      this.setState({ anchorElMini: event.currentTarget });
+    };
+    return (
+      <Grid item>
+        <Button onClick={handleClick}>
+          <MoreVertIcon />
+        </Button>
+        <Menu
+          anchorEl={this.state.anchorElMini}
+          keepMounted
+          open={Boolean(this.state.anchorElMini)}
+          onClose={() => {
+            this.setState({ anchorElMini: null });
+          }}
+        >
+          <MenuItem>
+            <LanguageButton
+              closeMenu={() => {
+                this.setState({ anchorElMini: null });
+              }}
+            />
+          </MenuItem>
+          {this.hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
+            (permissions?.navigationMenu?.payments?.clockIn?.selfClockIn ||
+              permissions?.navigationMenu?.payments?.clockIn
+                ?.clockInForOther) && (
+              <MenuItem onClick={this.openClockInDialog}>
+                <ListItemIcon>
+                  <Grid item>
+                    <Tooltip
+                      title={this.props.t('navigation:backofficeMenu.clockIn')}
+                    >
+                      <Badge
+                        badgeContent={
+                          isClockIn ? (
+                            <HourglassEmptyIcon
+                              className={classes.badgesIcon}
+                            />
+                          ) : (
+                            <PowerSettingsNewIcon
+                              className={classes.badgesIcon}
+                            />
+                          )
+                        }
+                        color={isClockIn ? 'primary' : 'error'}
+                        classes={{
+                          badge: isClockIn ? classes.badgesGreen : '',
+                        }}
+                      >
+                        <TimerIcon />
+                      </Badge>
+                    </Tooltip>
+                  </Grid>
+                </ListItemIcon>
+                <ListItemText
+                  primary={this.props.t('navigation:backofficeMenu.clockIn')}
+                />
+              </MenuItem>
+            )}
+          {forced_hide && (
+            <MenuItem>
+              <ListItemIcon>
+                <Grid item>
+                  <React.Fragment>
+                    <Hidden mdUp>
+                      <Grid item>
+                        {!!permissions?.member?.search && (
+                          <Link to="/search/results">
+                            <IconButton>
+                              <Search />
+                            </IconButton>
+                          </Link>
+                        )}
+                      </Grid>
+                    </Hidden>
+                    <Grid item>
+                      <IconButton onClick={this.props.openCalendar}>
+                        <TodayIcon />
+                      </IconButton>
+                    </Grid>
+                  </React.Fragment>
+                </Grid>
+              </ListItemIcon>
+            </MenuItem>
+          )}
+          {permissions?.appbarButtons?.ledger && (
+            <MenuItem
+              onClick={() => {
+                this.props.fetchOnSpotPaymentReport({
+                  name: this.props.t('reporting:categories.on_spot_payments'),
+                });
+                this.props.setOpenCash(true);
+                this.props.fetchCashBook(this.props.theme.company);
+              }}
+            >
+              <ListItemIcon>
+                <Grid item>
+                  <Tooltip
+                    title={this.props.t(
+                      'navigation:backofficeMenu.cashBookTooltip',
+                    )}
+                  >
+                    <BusinessCenterIcon />
+                  </Tooltip>
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary={this.props.t(
+                  'navigation:backofficeMenu.cashBookTooltip',
+                )}
+              />
+            </MenuItem>
+          )}
+          {permissions?.member?.create && (
+            <MenuItem onClick={this.props.openCreateMember}>
+              <ListItemIcon>
+                <Grid item>
+                  <Tooltip
+                    title={this.props.t(
+                      'navigation:backofficeMenu.addMemberTooltip',
+                    )}
+                  >
+                    <PersonAddIcon />
+                  </Tooltip>
+                </Grid>
+              </ListItemIcon>
+              <ListItemText
+                primary={this.props.t(
+                  'navigation:backofficeMenu.addMemberTooltip',
+                )}
+              />
+            </MenuItem>
+          )}
+          <MenuItem onClick={openIntercomHelp}>
+            <ListItemIcon>
+              <Grid item>
+                <HelpIcon />
+              </Grid>
+            </ListItemIcon>
+            <ListItemText primary={this.props.t('backofficeMenu.help')} />
+          </MenuItem>
+          <MenuItem onClick={this.openTempPasswordDialog}>
+            <ListItemIcon>
+              <VpnKey />
+            </ListItemIcon>
+            <ListItemText
+              primary={this.props.t('backofficeMenu.requestTempPassword')}
+            />
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              this.setState({ anchorElMini: null });
+              this.props.disconnect();
+            }}
+          >
+            <ListItemIcon>
+              <PowerSettingsNewIcon />
+            </ListItemIcon>
+            <ListItemText primary={this.props.t('backofficeMenu.logoff')} />
+          </MenuItem>
+        </Menu>
+      </Grid>
+    );
+  };
+
+  hideMobileDrawer = () => {
+    this.setState({ mobileOpen: false });
+  };
+
   render() {
     const { classes, theme, hidden } = this.props;
     if (hidden) {
@@ -546,6 +742,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                       featureList={this.props.featureList}
                       permissions={this.props.permissions}
                       disconnect={this.props.disconnect}
+                      onMenuItemClick={this.hideMobileDrawer}
                     />
                   </Drawer>
                 </Hidden>
@@ -566,6 +763,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                       featureList={this.props.featureList}
                       permissions={this.props.permissions}
                       disconnect={this.props.disconnect}
+                      onMenuItemClick={() => {}}
                     />
                   </Drawer>
                 </Hidden>
@@ -590,6 +788,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                   featureList={this.props.featureList}
                   permissions={this.props.permissions}
                   disconnect={this.props.disconnect}
+                  onMenuItemClick={this.hideMobileDrawer}
                 />
               </Drawer>
             )}
@@ -634,7 +833,6 @@ class BackofficeDrawer extends React.Component<Props, State> {
               {displayBanner && (
                 <div className={classes.bannerContextspacing} />
               )}
-
               <BillingBanner
                 paymentMethodMissing={this.props.paymentMethodMissing}
               />

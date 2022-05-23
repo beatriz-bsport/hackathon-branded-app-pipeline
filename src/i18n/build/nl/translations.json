@@ -744,7 +744,7 @@
                 "discardGroupPossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden vergoed en kunnen opnieuw worden gebruikt.",
                 "willNotBeRefund": "Niet vergoedde kredieten",
                 "willBeRefund": "De sessie van {{-day}} wordt vergoed",
-                "discardAllGroup": "Alle reserveringen uit deze groepssessie worden geannuleerd."
+                "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd."
             },
             "help": {
                 "explainCancelBookingOption": "Deze verwijdering is definitief. Als je je opnieuw voor deze sessie aanmeldt, dan sluit je je achteraan de wachtlijst aan.",
@@ -3693,7 +3693,7 @@
             "tab": {
                 "general": "Algemeen",
                 "pack": "Compatibele leskaarten",
-                "group": "Groepssessie"
+                "group": "Evenementen"
             }
         },
         "name": "Naam",
@@ -3751,19 +3751,19 @@
                     "delete": {
                         "content": "Het verwijderen van dit evenement zal tevens alle geregistreerde reserveringen annuleren. Deze actie is definitief.",
                         "firstSession": "De eerstvolgende sessie is op: {{-day}}",
-                        "selectHeader": "Selecteer de te wijzigen groepen",
+                        "selectHeader": "Selecteer de te wijzigen evenementen",
                         "selectGroup": "Annuleer vergelijkbare evenementen",
                         "applyRecursive": "Annuleer vergelijkbare evenementen",
                         "title": "Verwijderen"
                     },
-                    "recurrenceUntilHelper2": "Evenementen met een sessie na deze datum worden niet aangemaakt.",
+                    "recurrenceUntilHelper2": "Het is niet mogelijk om sessies na deze datum toe te voegen.",
                     "timeStartHelper": "Selecteer de datum van de eerste sessie van dit evenement. Alle toekomstige sessies worden vervolgens ook aan dit evenement gekoppeld.",
                     "nameCaption": "Naam van dit evenement",
                     "allowBookingAfterStartCaption": "Standaard is het niet mogelijk voor leden om zich voor reeds begonnen evenementen  in te schrijven. Activeer deze optie om dat juist wel toe te staan.",
                     "fullBookingOnlyCaption": "Standaard worden leden automatisch voor alle gekoppelde sessies binnen een evenement ingeschreven. Schakel deze optie uit om leden de vrijheid te geven om te selecteren voor welke sessies ze zich wel of niet willen inschrijven.",
-                    "impossibleState": "De instellingen staan niet toe om deze groepen aan te maken",
+                    "impossibleState": "Aan de hand van deze configuratie is het niet mogelijk om een evenement aan te maken.",
                     "copyRecurrence": "Dupliceer ook herhalingen van toekomstige evenementen",
-                    "recurrenceUntilHelper": "Bedankt voor het aangeven van de cyclus",
+                    "recurrenceUntilHelper": "Gelieve de einddatum van dit evenement invoeren.",
                     "submit": "Bevestigen",
                     "back": "Terug",
                     "save": "Opslaan",
@@ -8867,7 +8867,7 @@
             "backToGroup": "Terug",
             "emptySelect": "Selecteer een workshop of evenement om meer informatie weer te geven."
         },
-        "tabGroups": "Groepssessies",
+        "tabGroups": "Evenementen",
         "tabList": "Workshops"
     },
     "tag": {

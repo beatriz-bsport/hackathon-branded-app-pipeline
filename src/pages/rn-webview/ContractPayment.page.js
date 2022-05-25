@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withHandlers, compose, withProps } from 'recompose';
@@ -69,7 +68,12 @@ export class ContractPayment extends React.Component<Props, State> {
 
   state = { processing: false };
 
-  onSubmit = async (_, payment_method_id: string) => {
+  onSubmit = async (
+    _, // forced to null and unused on this screen
+    payment_method_id: string,
+    options: any,
+    coupon_code: string | null,
+  ) => {
     this.setState({ processing: true });
     try {
       const first_billing_timestamp = moment(
@@ -81,6 +85,7 @@ export class ContractPayment extends React.Component<Props, State> {
         member: this.props.memberId,
         payment_method_id,
         is_v2: true,
+        coupon: coupon_code,
       });
       this.props.onSuccess();
     } catch (err) {

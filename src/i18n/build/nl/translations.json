@@ -158,46 +158,46 @@
     },
     "notificationRule": {
         "eventType": {
-            "453": "Tijd gewijzigd (voor leden)",
+            "453": "Gewijzigde planning (voor leden)",
             "452": "Nieuwe afspraak (voor leden)",
-            "451": "Kosteloze annulering (voor leden)",
-            "450": "Te late annulering (voor leden)",
-            "403": "Planning gewijzigd (voor medewerkers)",
+            "451": "Kosteloze geannuleerde afspraken (voor leden)",
+            "450": "Te late geannuleerde afspraken (voor leden)",
+            "403": "Gewijzigde planning (voor medewerkers)",
             "402": "Nieuwe afspraak (voor medewerkers)",
-            "401": "Kosteloze annulering (voor medewerkers)",
-            "400": "Afspraak te laat geannuleerd (voor medewerkers)",
-            "29": "Herinnering: de online les begint over 15 minuten",
-            "28": "Betaling ontvangen (voor leden)",
-            "27": "Abonnement gestopt of beëindigd (voor leden)",
-            "26": "Abonnement gepauzeerd (voor leden)",
-            "25": "Betaalmethode gewijzigd (voor leden)",
-            "24": "Nieuw abonnement afgesloten (voor leden)",
+            "401": "Kosteloze geannuleerde afspraken (voor medewerkers)",
+            "400": "Te laat geannuleerde afspraken (voor medewerkers)",
+            "29": "Een herinnering voor wanneer de online les over 15 minuten begint",
+            "28": "Ontvangen betalingen (voor leden)",
+            "27": "Wanneer het abonnementen van een lid is afgelopen of beëindigd (voor leden)",
+            "26": "Wanneer het abonnementen van een lid gepauzeerd is (voor leden)",
+            "25": "Gewijzigde betaalmethode (voor leden)",
+            "24": "Wanneer een lid een nieuw abonnement afsluit (voor leden)",
             "21": "Nieuwe reservering",
-            "19": "Nieuw lid (voor medewerkers)",
+            "19": "Welkomsbericht (voor medewerkers)",
             "18": "Geannuleerde reservering (kosteloos)",
             "17": "Geannuleerde reservering (te laat en niet vergoed)",
-            "16": "Sessie gewijzigd",
-            "14": "Een lid heeft zich van de wachtlijst afgemeld (voor medewerkers)",
-            "13": "Een lid heeft zich van de wachtlijst afgemeld (voor leden)",
-            "12": "Een lid heeft zich op de wachtlijst ingeschreven",
-            "10": "De plaats van een lid op de wachtlijst is verlopen",
+            "16": "Gewijzigde sessie",
+            "14": "Wanneer een lid zich van de wachtlijst uitschrijft (voor medewerkers)",
+            "13": "Wanneer een lid zich van de wachtlijst uitschrijft (voor leden)",
+            "12": "Wanneer een lid zich op de wachtlijst inschrijft",
+            "10": "Verlopen plaats van een lid op de wachtlijst",
             "9": "Een lid heeft zich van de wachtlijst afgemeld (vrijgekomen plaats)",
             "8": "Reservering + aankoop via leskaart",
-            "7": "Reservering via leskaarten",
-            "6": "Nieuw lid (voor leden)",
-            "3": "Sessie geannuleerd",
+            "7": "Reservering met leskaarten",
+            "6": "Welkomsbericht (voor nieuwe leden)",
+            "3": "Geannuleerde sessie",
             "22": "Factuurbevestiging",
-            "300": "Een lid dat niet tijdig heeft geantwoord van de wachtlijst verwijderen",
-            "601": "Onderbezette sessie (automatische annulering voor te weinig reserveringen)",
+            "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
+            "601": "Wanneer onderbezette sessies automatisch geannuleerd worden",
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
             "701": "Sanctie: de kaart is tijdelijk geblokkeerd (voor leden)",
-            "530": "Geschil over de betaling voor een abonnement",
-            "520": "Een Smart Retry zal automatisch opnieuw proberen de abonnementsbetaling te voltooien",
-            "515": "De leskaart van het abonnement wordt automatisch gedeactiveerd",
-            "510": "Mislukte abonnementsbetaling",
+            "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
+            "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
+            "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
+            "510": "Wanneer een abonnementsbetaling mislukt",
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
-            "481": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (voor leden)",
-            "480": "Periodieke afspraak geannuleerd i.v.m. een gebrek aan beschikbaarheid (voor medewerkers)",
+            "481": "Wanneer een periodieke afspraak geannuleerd wordt i.v.m. een gebrek aan beschikbaarheid (voor leden)",
+            "480": "Wanneer een periodieke afspraak geannuleerd wordt i.v.m. een gebrek aan beschikbaarheid (voor medewerkers)",
             "987": "Incasseringspoging voor een termijnbetaling",
             "801": "Geannuleerde groepsafspraak"
         },
@@ -3746,8 +3746,8 @@
                 "form": {
                     "required": "Selecteer ten minsten één evenement.",
                     "withRecurrence": "Activeer herhaling",
-                    "allowBookingAfterStart": "Accepteer reserveringen wanneer het evenement is al begonnen zijn",
-                    "fullBookingOnly": "Inschrijven voor alle evenementen",
+                    "allowBookingAfterStart": "Accepteer reserveringen wanneer het evenement al begonnen is",
+                    "fullBookingOnly": "Accepteer enkel reserveringen voor alle gekoppelde sessies van dit evenement",
                     "delete": {
                         "content": "Het verwijderen van dit evenement zal tevens alle geregistreerde reserveringen annuleren. Deze actie is definitief.",
                         "firstSession": "De eerstvolgende sessie is op: {{-day}}",
@@ -3922,7 +3922,7 @@
         "levels": {
             "edit": "Wijzigen",
             "delete": "Verwijderen",
-            "customs": "Personaliseren",
+            "customs": "Gepersonaliseerd",
             "select": {
                 "placeholder": "Niveau",
                 "title": "Niveau",
@@ -4913,7 +4913,7 @@
                 "title": "[Formulier] Abonnement",
                 "contract": {
                     "placeholder": "Vul hier alle relevante juridische informatie toe (bijv. terugbetaling, etc.).",
-                    "label": "Juridische Kennisgeving."
+                    "label": "Voorwaarden"
                 },
                 "managerOnly": {
                     "label": "Maak dit product onbeschikbaar voor leden"
@@ -4975,13 +4975,13 @@
                 "titleInactive": "Gearchiveerde abonnementen"
             },
             "description": "Beschrijving",
-            "legal": "Juridische kennisgeving",
+            "legal": "Voorwaarden",
             "actions": {
                 "iAcceptCondition": "Ik ga akkoord met de voorwaarden.",
                 "iwanttostarton": "Gewenste startdatum van mijn abonnement: ",
                 "subscribe": "Inschrijven",
                 "create": "Een abonnement toevoegen",
-                "iAcceptGeneralCondition": " Ik ga akkoord met de juridische kennisgeving."
+                "iAcceptGeneralCondition": " Ik ga akkoord met de voorwaarden."
             },
             "deleteForm": {
                 "actions": {
@@ -5042,7 +5042,7 @@
             "bsportCredit": "Interne rekening (Wallet)"
         },
         "mandate": {
-            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+            "content": "Door je IBAN op te geven en je betaling te bevestigen geef je BSPORT Solution en Stripe (de betaalprovider) toestemming om de incasso-opdrachten via je bank te verwerken. Indien nodig, kun je via je bank conform hun voorwaarden een stornering binnen 8 weken na de eerste incasso aanvragen.",
             "name": "Volledige naam",
             "email": "E-mailadres"
         },
@@ -10309,7 +10309,8 @@
             "expenses": "Uitgaven",
             "instalmentPayment": "Termijnbetalingen",
             "coachPayroll": "Payroll",
-            "clockIn": "Urenregistratie"
+            "clockIn": "Urenregistratie",
+            "help": "Hulp"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",

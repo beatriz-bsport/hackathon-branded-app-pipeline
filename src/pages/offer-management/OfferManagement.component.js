@@ -123,7 +123,7 @@ type Props = {
   discardOption: (id: number, params: any, options: OptionCallback) => void,
   deleteBooking: (bookingId: number, data: any) => void,
 
-  fetchOffer: (id: number) => void,
+  fetchOffer: (id: number, options: OptionCallback) => void,
   fetchOfferData: (id: number) => void,
   addMemberModal: boolean,
 
@@ -223,6 +223,7 @@ type Props = {
   fetchLevelList: ({
     company: number,
   }) => void,
+  fetchAssociatedCoachesList: (params: any) => void,
 };
 
 type State = {
@@ -240,8 +241,8 @@ export class OfferManagement extends Component<Props, State> {
   }
 
   componentDidMount() {
+    this.fetchOfferAndData();
     this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
-    this.props.fetchOfferData(this.props.booking_ordering);
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
@@ -255,7 +256,23 @@ export class OfferManagement extends Component<Props, State> {
   }
 
   fetchOfferAndData = () => {
-    this.props.fetchOffer(this.props.offerId);
+    this.props.fetchOffer(this.props.offerId, {
+      onSuccess: (data) => {
+        const coach_id =
+          (data && data.coach && data.coach.id && data.coach.id) ?? null;
+        const coach_override_id =
+          (data &&
+            data.coach_override &&
+            data.coach_override.id &&
+            data.coach_override.id) ??
+          null;
+        if (coach_id || coach_override_id) {
+          this.props.fetchAssociatedCoachesList({
+            id__in: [coach_id, coach_override_id],
+          });
+        }
+      },
+    });
     this.props.fetchOfferData(this.props.booking_ordering);
   };
 

@@ -113,7 +113,7 @@ import {
 
 import withTitle from '#hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
-
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import type { Offer } from '../../api/types';
 import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
@@ -315,6 +315,7 @@ export default compose(
       fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
 
       fetchLevelList: fetchLevelListAction,
+      fetchAssociatedCoachesList,
     },
   ),
   withHandlers({

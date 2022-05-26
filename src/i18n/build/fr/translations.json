@@ -8880,7 +8880,7 @@
             "priceUpdater": {
                 "title": "Modification montant futur",
                 "price": "Nouveau montant",
-                "updateAll": "Mettre à jour tous les paiements futurs",
+                "updateAll": "Mettre à jour tous les paiements futurs actuellement planifiés (avant renouvellement)",
                 "explain": "Seule cette future facture sera modifiée",
                 "cancel": "Annuler",
                 "submit": "Enregistrer"

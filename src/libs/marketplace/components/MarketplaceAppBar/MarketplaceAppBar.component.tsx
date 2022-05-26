@@ -1,9 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import chroma from 'chroma-js';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+
+import { getTextColorFromRGB } from '../../../../utils/color';
 
 import { Basket } from '#libs/checkout/types';
 import { Member } from '#libs/member/types';
@@ -17,7 +20,6 @@ import AppBarProfileMenu from './AppBarProfileMenu.component';
 
 type Props = {
   auth?: Object;
-  title?: string;
   logo?: string;
 
   currentBasket?: Basket;
@@ -49,7 +51,6 @@ type Props = {
 
 export const MarketplaceAppBar: React.FC<Props> = ({
   auth,
-  title,
   logo,
   currentBasket,
   openCurrentBasket,
@@ -87,6 +88,10 @@ export const MarketplaceAppBar: React.FC<Props> = ({
     requestLogin();
   };
 
+  if (!theme) {
+    return null;
+  }
+
   if (onlyNavigation) {
     return (
       <AppBarMenu
@@ -103,12 +108,14 @@ export const MarketplaceAppBar: React.FC<Props> = ({
   return (
     <>
       <div className={classes.container}>
-        <AppBarLogo
-          isWidget={isWidget}
-          logo={logo}
-          websiteURL={websiteURL}
-          title={title}
-        />
+        <div className={classes.logo}>
+          <AppBarLogo
+            isWidget={isWidget}
+            logo={logo}
+            websiteURL={websiteURL}
+            title={theme.company_name}
+          />
+        </div>
         {withNavigation && (
           <AppBarMenu
             hideAppBar={hideAppBar}
@@ -174,7 +181,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     flexWrap: 'nowrap',
     width: '100%',
@@ -187,7 +193,33 @@ const useStyles = makeStyles((theme) => ({
   basketAndProfile: {
     display: 'flex',
     flexDirection: 'row',
+    // justifySelf: 'flex-end',
+    justifyContent: 'flex-end',
+    flex: 1,
   },
+  logo: {
+    flex: 1,
+    justifySelf: 'flex-start',
+    // display: 'flex',
+    justifyContent: 'flex-start',
+  },
+  // appbar: {
+  //   maxWidth: '70%',
+  //   justifySelf: 'center',
+  //   flex: 2,
+  //   boxShadow: 'none',
+  //   backgroundColor: 'transparent',
+  //   justifyContent: 'center',
+  //   flexDirection: 'row',
+  //   [theme.breakpoints.down('md')]: {
+  //     maxWidth: '65%',
+  //     flex: 1,
+  //   },
+  //   [theme.breakpoints.down('xs')]: {
+  //     maxWidth: 'unset',
+  //     order: 3,
+  //   },
+  // },
   shoppingBox: {
     padding: theme.spacing(1),
     alignSelf: 'center',
@@ -202,9 +234,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexWrap: 'wrap',
     textAlign: 'center',
-    backgroundColor: theme.palette.warning.dark,
+    backgroundColor: theme.palette.primary.main,
 
-    color: 'white',
+    color: getTextColorFromRGB(chroma(theme.palette.primary.main).rgb()),
     zIndex: 1000,
   },
   buttonRelation: {

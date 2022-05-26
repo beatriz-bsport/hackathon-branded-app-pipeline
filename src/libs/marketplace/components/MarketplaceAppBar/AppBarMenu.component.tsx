@@ -54,7 +54,10 @@ const AppBarMenu: React.FC<MenuProps> = ({
         indicatorColor="primary"
         variant="scrollable"
         value={parseInt(tabSelected, 10)}
-        classes={{ scrollButtons: classes.scrollButton }}
+        classes={{
+          scrollButtons: classes.scrollButton,
+          flexContainer: classes.justifyContent,
+        }}
       >
         {(
           (settings.config && settings.config.tabs ? [] : settings.config) || []
@@ -89,16 +92,20 @@ const AppBarMenu: React.FC<MenuProps> = ({
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
-    maxWidth: '75%',
+    maxWidth: '70%',
+    justifySelf: 'center',
+    flex: 2,
     boxShadow: 'none',
     backgroundColor: 'transparent',
     justifyContent: 'center',
     flexDirection: 'row',
+    height: '100%',
     '&:first-child': {
       display: 'table',
     },
     [theme.breakpoints.down('md')]: {
-      maxWidth: '70%',
+      maxWidth: '65%',
+      flex: 1,
     },
     [theme.breakpoints.down('xs')]: {
       maxWidth: 'unset',
@@ -112,13 +119,20 @@ const useStyles = makeStyles((theme) => ({
       display: 'unset',
     },
   },
+  justifyContent: {
+    height: '100%',
+  },
   scrollButton: {
     color: theme.palette.grey.A200,
   },
+  // justifyContent: {
+  //   justifyContent: 'center',
+  // },
   tabUnselected: {
     color: theme.palette.grey[500],
     textTransform: 'none',
     minWidth: 'unset',
+    height: '100%',
     marginLeft: theme.spacing(0.5),
     marginRight: theme.spacing(0.5),
     paddingTop: theme.spacing(2.5),

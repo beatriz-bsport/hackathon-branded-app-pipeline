@@ -3,10 +3,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
-import {
-  disconnect,
-  navigateBackToMasterRelation as navigateBackToMasterRelationAction,
-} from '../../actions/auth.actions';
+import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } from '../../actions/auth.actions';
+import { auth as authActions } from '../../actions';
 import MarketplaceAppBar from '#libs/marketplace/components/MarketplaceAppBar';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
@@ -40,6 +38,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
   navigateBackToMasterRelation,
   theme,
   goToUserSpace,
+  disconnect,
 }) => {
   const isRelationNavigation = !!window.localStorage.getItem(
     'bsport:relatedMemberMaster:http:token',
@@ -61,6 +60,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
           isRelationNavigation={isRelationNavigation}
           isWidget={WidgetUtils.isWidget()}
           auth={auth}
+          theme={theme}
           logo={theme && theme.cover}
           goToUserSpace={() => goToUserSpace(theme.company)}
           disconnect={disconnect}
@@ -95,7 +95,7 @@ const connector = connect(
   }),
   {
     fetchProfile: fetchProfileAction,
-    disconnect,
+    disconnect: authActions.disconnect,
     goToUserSpace: (id: number) => push(`/c/${id}`),
     navigateBackToMasterRelation: navigateBackToMasterRelationAction,
   },

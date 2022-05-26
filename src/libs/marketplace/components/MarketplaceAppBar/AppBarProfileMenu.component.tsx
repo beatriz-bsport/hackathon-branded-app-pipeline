@@ -111,6 +111,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
     marginTop: theme.spacing(4),
     marginRight: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      minWidth: '25%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '40%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      minWidth: '90%',
+    },
   },
   profilePicTall: {
     height: theme.spacing(6),

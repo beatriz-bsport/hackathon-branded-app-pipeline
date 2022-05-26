@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     marginLeft: theme.spacing(3),
+    fontWeight: 500,
   },
   container: {
     width: '100%',

@@ -471,7 +471,7 @@ export default compose(
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
       theme: themeSelectors.getTheme(state),
-      companyCountry: state.theme.theme.locale.split('_')[1],
+      companyCountry: state.theme.theme?.locale?.split('_')[1],
       shopItemList: getShopItemFeaturedList(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       detachPaymentMethodLoading:

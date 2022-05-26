@@ -33,8 +33,7 @@ const AppBarLogo: React.FC<LogoProps> = ({
         <img height={40} src={logo} alt="bsport logo" />
       </ButtonBase>
     );
-  if (logo && websiteURL)
-    return <img height={40} src={logo} alt="bsport logo" />;
+  if (logo) return <img height={40} src={logo} alt="bsport logo" />;
   return (
     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
       {title}

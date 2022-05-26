@@ -256,7 +256,7 @@ class ConsumerDrawer extends React.Component<Props, State> {
             </Grid>
           </Grid>
         </Toolbar>
-        {this.props.isRelationNavigation && (
+        {this.props.isRelationNavigation && !WidgetUtils.isWidget() && (
           <div className={classes.relationBanner}>
             <Typography>
               {this.props.t('navigation.relationConnectedAs', {
@@ -285,7 +285,8 @@ class ConsumerDrawer extends React.Component<Props, State> {
     return (
       <Grid item>
         {!!this.props.controlableMemberList?.length &&
-          !this.props.isRelationNavigation && (
+          !this.props.isRelationNavigation &&
+          !WidgetUtils.isWidget() && (
             <Button
               className={this.props.classes.connectedAsButton}
               variant="outlined"
@@ -528,7 +529,8 @@ class ConsumerDrawer extends React.Component<Props, State> {
         </div>
         <List>
           {!!this.props.controlableMemberList?.length &&
-            !this.props.isRelationNavigation && (
+            !this.props.isRelationNavigation &&
+            !WidgetUtils.isWidget() && (
               <ListItem
                 className={this.props.classes.connectedAsListItem}
                 button
@@ -585,7 +587,7 @@ class ConsumerDrawer extends React.Component<Props, State> {
         </Hidden>
         <main className={classes.content}>
           {/* THIS BANNER HERE IS JUST A TRICK FOR RESPONSIVITY REASON */}
-          {this.props.isRelationNavigation && (
+          {this.props.isRelationNavigation && !WidgetUtils.isWidget() && (
             <div className={classes.relationBannerHidden}>
               <Typography className={classes.bannerTypoHidden}>
                 {this.props.t('navigation.relationConnectedAs', {

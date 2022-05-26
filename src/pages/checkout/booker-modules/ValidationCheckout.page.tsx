@@ -323,6 +323,8 @@ const styles = (theme: Theme) =>
     container: {
       display: 'flex',
       justifyContent: 'center',
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
       width: '100%',
       [theme.breakpoints.down('xs')]: {
         minHeight: '100%',

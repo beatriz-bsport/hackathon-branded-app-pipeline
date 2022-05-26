@@ -374,7 +374,7 @@ const styles = (theme: Theme) => ({
   },
   centeredContainer: {
     maxWidth: '1600px',
-    margin: 'auto',
+    margin: theme.spacing(2),
   },
   paymentPanelContainer: {
     padding: theme.spacing(2),

@@ -45,6 +45,7 @@ type State = {
   city: string,
   zipcode: string,
   country: string,
+  country_code: string,
   candidates: Array<any>,
   center: Array<number>,
   geometry: Object<number>,
@@ -75,6 +76,7 @@ export class LocationInput extends Component<Props, State> {
         state: '',
         zipcode: '',
         country: '',
+        country_code: '',
         candidates: [],
         center: CENTER,
         zoom: 12,
@@ -188,6 +190,12 @@ export class LocationInput extends Component<Props, State> {
         ? c.address_components.find((comp) => comp.types.includes('country'))
             .long_name
         : '',
+      country_code: c.address_components.find((comp) =>
+        comp.types.includes('country'),
+      )
+        ? c.address_components.find((comp) => comp.types.includes('country'))
+            .short_name
+        : '',
       zipcode: c.address_components.find((comp) =>
         comp.types.includes('postal_code'),
       )
@@ -265,6 +273,7 @@ export class LocationInput extends Component<Props, State> {
       city,
       zipcode,
       country,
+      country_code,
       isLoading,
       valid,
       geometry,
@@ -358,7 +367,8 @@ export class LocationInput extends Component<Props, State> {
               ),
             }}
           />
-          {ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES.includes(country) && (
+          {(ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES.includes(country) ||
+            ['US', 'CA'].includes(country_code)) && (
             <TextField
               id="state"
               value={state}

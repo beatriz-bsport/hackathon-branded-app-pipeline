@@ -1,0 +1,36 @@
+Build Deploy Staging:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - master
+  variables:
+    S3BUCKETNAME: bsport-eu-cdn-staging
+    ENVIRONMENT: staging
+    CLOUDFRONT_ID: E2NQSHB4DJBRY8
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.staging.bsport.io
+
+Build Deploy Production:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - production
+  variables:
+    S3BUCKETNAME: bsport-cdn
+    ENVIRONMENT: production
+    CLOUDFRONT_ID: E3PVSAXDFQZX1T 
+    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.bsport.io
+ 
+Build Deploy Dev:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - dev
+  variables:
+    ENVIRONMENT: dev
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    S3BUCKETNAME: bsport-eu-cdn-dev
+    CLOUDFRONT_ID: ESH8WNSF9KT1H
+    CDN_DOMAIN: cdn.dev.bsport.io
+

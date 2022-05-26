@@ -7,7 +7,7 @@ variables:
 #Cache dependencies across all jobs
 
 stages:
-  # - prepare-image-docker
+  - prepare-image-docker
   - static-analysis
   - build-deploy
   - label-issues
@@ -39,14 +39,12 @@ Lint:
   tags:
     - deployment
     - kubernetes
-  # image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
   stage: static-analysis
   variables:
     ENVIRONMENT: dev
   script:
-    # - mv /app/node_modules .
-    - ./link_bsport_saas.sh
-    - yarn install --frozen-lockfile
+    - mv /app/node_modules .
     - yarn lint
 
   except:
@@ -54,7 +52,7 @@ Lint:
     - production
 
 .Build and deploy Base:
-  # image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
   stage: build-deploy 
   tags:
     - high-ram
@@ -65,10 +63,9 @@ Lint:
       - master
       - production
   script:
-    # - mv /app/node_modules .
+    - mv /app/node_modules .
     - echo "FAILED" > .job_status
-    - ./link_bsport_saas.sh
-    - yarn install --frozen-lockfile # just to be sure
+    - yarn install --frozen-lockfile # just to be sure (done in prepare-image)
     - ./build_prod.sh
     - echo "SUCCESS" > .job_status
 

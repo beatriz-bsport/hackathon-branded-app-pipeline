@@ -205,7 +205,7 @@ export const withAssociatedEstablishment = memoize(
     ),
 );
 
-export const withSlots = memoize((selector: (State: RootState) => any) =>
+export const withPrivateSlots = memoize((selector: (State: RootState) => any) =>
   createSelector(
     [selector, getAllPrivateSlotsDict],
     (privateServices, slotsData) => {
@@ -224,6 +224,30 @@ export const withSlots = memoize((selector: (State: RootState) => any) =>
       };
     },
   ),
+);
+
+export const withAvailablePrivateSlots = memoize(
+  (selector: (State: RootState) => any) =>
+    createSelector(
+      [selector, getAllPrivateSlotsDict],
+      (privateServices, slotsData) => {
+        if (!privateServices) return privateServices;
+        if (Array.isArray(privateServices)) {
+          return privateServices.map((ps) => ({
+            ...ps,
+            slots: ps.slots
+              .map((s) => slotsData[s])
+              .filter((s) => !!s && s.available),
+          }));
+        }
+        return {
+          ...privateServices,
+          slots: privateServices.slots
+            .map((s) => slotsData[s])
+            .filter((s) => !!s && s.available),
+        };
+      },
+    ),
 );
 
 export const getPrivateServicesList: (

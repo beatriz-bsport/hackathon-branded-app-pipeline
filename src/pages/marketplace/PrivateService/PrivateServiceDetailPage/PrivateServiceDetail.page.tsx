@@ -17,7 +17,7 @@ import {
 import {
   getPrivateService,
   withAssociatedCoach,
-  withSlots,
+  withAvailablePrivateSlots,
   withAssociatedEstablishment,
 } from '../../../../libs/private-service/selectors/private-service';
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../../../libs/establishment/actions';
@@ -442,7 +442,7 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   _privateService: getPrivateService(state, ownProps.serviceId),
   privateService: withAssociatedCoach(
-    withSlots(withAssociatedEstablishment(getPrivateService)),
+    withAvailablePrivateSlots(withAssociatedEstablishment(getPrivateService)),
   )(state, ownProps.serviceId),
   availabilitySlotByDate: getSearchedSlots(state),
   nextDateAvailableSlot: getNextDateAvailableSlot(state),

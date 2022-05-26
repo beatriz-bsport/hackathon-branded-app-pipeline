@@ -62,6 +62,7 @@ exports.default = {
   },
   massDisabler: {
     success: 'Annulation confirmée',
+    offers: 'Séances non annulables',
     warningOfferGroupTitle: 'Séances non annulées',
     warningOfferGroup:
       "Attention les séances suivantes n'ont pas pu être annulées car elle font partie d'un groupe de séance. Pour les annuler merci d'annuler le groupe correspondant.",

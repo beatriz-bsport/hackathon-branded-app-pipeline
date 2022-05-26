@@ -108,6 +108,8 @@ export const GroupedOfferDelete: React.FC<Props> = ({
     setIsExpanded(!isExpanded);
   };
 
+  const firstOfferInGroup = getOffersListByGroup(group.id)?.[0];
+
   return (
     <Dialog open={open} onClose={onCancel} classes={{ paper: classes.dialog }}>
       <DialogTitle>
@@ -169,34 +171,68 @@ export const GroupedOfferDelete: React.FC<Props> = ({
                   </div>
                 ) : (
                   <>
-                    {similars.map((_group, index) => {
-                      const firstOffer = getOffersListByGroup(_group.id)?.[0];
-                      return (
-                        <ListItem key={_group.id} divider>
-                          <Checkbox
-                            checked={similarIds.includes(_group.id)}
-                            disabled={index === 0}
-                            onChange={handleChangeSelection(_group.id)}
-                          />
+                    <ListItem divider>
+                      <Checkbox checked disabled />
 
-                          <ListItemText
-                            primary={_group.name}
-                            secondary={
-                              firstOffer
-                                ? t(
-                                    'metaActivity:groupedOption.modal.form.delete.firstSession',
-                                    {
-                                      day: moment(firstOffer.date_start).format(
-                                        'L',
-                                      ),
-                                    },
-                                  )
-                                : ''
-                            }
-                          />
-                        </ListItem>
-                      );
-                    })}
+                      <ListItemText
+                        primary={group.name}
+                        secondary={
+                          firstOfferInGroup
+                            ? t(
+                                'metaActivity:groupedOption.modal.form.delete.firstSession',
+                                {
+                                  day: moment(
+                                    firstOfferInGroup.date_start,
+                                  ).format('L'),
+                                },
+                              )
+                            : t(
+                                'metaActivity:groupedOption.modal.form.delete.missingOffer',
+                              )
+                        }
+                      />
+                    </ListItem>
+                    {similars
+                      .filter((g) => g.id !== group.id)
+                      .sort((a, b) => {
+                        const aFirstOffer = getOffersListByGroup(a.id)?.[0];
+                        const bFirstOffer = getOffersListByGroup(b.id)?.[0];
+                        if (
+                          moment(aFirstOffer?.date_start).isBefore(
+                            moment(bFirstOffer?.date_start),
+                          )
+                        ) {
+                          return -1;
+                        }
+                        return 1;
+                      })
+                      .map((_group) => {
+                        const firstOffer = getOffersListByGroup(_group.id)?.[0];
+                        return (
+                          <ListItem key={_group.id} divider>
+                            <Checkbox
+                              checked={similarIds.includes(_group.id)}
+                              onChange={handleChangeSelection(_group.id)}
+                            />
+
+                            <ListItemText
+                              primary={_group.name}
+                              secondary={
+                                firstOffer
+                                  ? t(
+                                      'metaActivity:groupedOption.modal.form.delete.firstSession',
+                                      {
+                                        day: moment(
+                                          firstOffer.date_start,
+                                        ).format('L'),
+                                      },
+                                    )
+                                  : ''
+                              }
+                            />
+                          </ListItem>
+                        );
+                      })}
                   </>
                 )}
               </>

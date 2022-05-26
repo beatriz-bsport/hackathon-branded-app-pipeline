@@ -120,7 +120,7 @@ export const GroupCard: React.FC<Props> = ({
         {offers.map((offer) => {
           if (!offer) return null;
           const nbBookings = offer.validated_booking_count ?? 0;
-          const cancelledOffer = nbBookings - offer.validated_booking_count;
+          const cancelledOffer = (offer.bookings?.length ?? 0) - nbBookings;
 
           return (
             <ButtonBase

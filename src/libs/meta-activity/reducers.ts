@@ -11,6 +11,7 @@ import {
   upsertActions,
   deleteAction,
   listingActions,
+  workshopListingActions,
   metaActivityBulkActions,
   favoriteActions,
   metaActivityRestoreActions,
@@ -41,6 +42,9 @@ const initialState: Immutable.Immutable<MetaActivityState> =
       data: null,
       loading: false,
       error: null,
+    },
+    workshop: {
+      allIds: [],
     },
     metaActivityCategory: {
       byId: {},
@@ -178,6 +182,31 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
       return state.set('loading', payload);
     },
     [listingActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [workshopListingActions.success.toString()]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['workshop', 'allIds'],
+          payload.map((ma: MetaActivity) => ma.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce(
+              (acc: MetaActivityState['byId'], ps: MetaActivity) => {
+                acc[ps.id] = ps;
+                return acc;
+              },
+              {},
+            ),
+          },
+          { deep: true },
+        );
+    },
+    [workshopListingActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [workshopListingActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
     [metaActivityRestoreActions.isLoading.toString()]: (state, { payload }) => {

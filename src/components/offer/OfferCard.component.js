@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import { withTranslation, TFunction } from 'react-i18next';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -119,15 +120,18 @@ export class OfferCard extends Component<Props, State> {
     const { classes, t } = this.props;
     const {
       bookings,
-      booking_options,
       nb_bookings,
       nb_option,
       waiting_list_max_size,
       effectif,
     } = this.props.offer;
 
-    const nbBookings = bookings?.length || nb_bookings || 0;
-    const nbOptions = booking_options?.length || nb_option || 0;
+    const nbBookings =
+      nb_bookings ||
+      bookings?.filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id)
+        ?.length ||
+      0;
+    const nbOptions = nb_option || 0;
     return (
       <div className={classes.statContainer}>
         <div className={classNames(classes.rightBorder, classes.stat)}>

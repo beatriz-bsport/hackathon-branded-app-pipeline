@@ -247,7 +247,7 @@ export class OfferForm extends Component<Props, State> {
       ),
       broadcast_link: '',
       effectif: null,
-      partner_max_booking_count: 6,
+      partner_max_booking_count: this.props.isOfferInGroup ? 0 : 6,
       waiting_list_max_size: 0,
       coach: null,
       establishment: null,
@@ -255,7 +255,7 @@ export class OfferForm extends Component<Props, State> {
       level: 1,
       duration_minute: 30,
       coach_payment_rule: null,
-      available_on_partnership: true,
+      available_on_partnership: !this.props.isOfferInGroup,
       manager_only: false,
       whitelist_tags: [],
       blacklist_tags: [],
@@ -619,7 +619,7 @@ export class OfferForm extends Component<Props, State> {
             />
           </Grid>
         )}
-        {!!this.props.showPartnership && (
+        {!!this.props.showPartnership && !this.props.isOfferInGroup && (
           <PartnershipToogle
             available_on_partnership={this.state.available_on_partnership}
             onChange={(available_on_partnership: boolean) =>
@@ -951,6 +951,7 @@ export class OfferForm extends Component<Props, State> {
               required
               onChange={this.onFormFieldChange}
               value={this.state.partner_max_booking_count}
+              disabled={this.props.isOfferInGroup}
             />
           )}
         </Grid>

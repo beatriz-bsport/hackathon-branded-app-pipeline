@@ -54,7 +54,7 @@ exports.default = {
     tab: {
       general: 'Général',
       pack: 'Cartes compatibles',
-      group: 'Seance groupé',
+      group: 'Séances groupées',
     },
   },
 
@@ -134,6 +134,7 @@ exports.default = {
           selectGroup: 'Annuler les autres groupes similaires',
           selectHeader: 'Sélectionnez les groupes qui seront modifiées',
           firstSession: 'Première seance le {{-day}}',
+          missingOffer: 'Aucue offre dans le groupe',
           content:
             "Attention, en supprimant ce groupe toutes les séances à l'intérieur de celui-ci seront annulées. Les élèves inscrits verront leurs réservations annulées. Cette opération est définitive",
         },

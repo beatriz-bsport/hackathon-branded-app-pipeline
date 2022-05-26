@@ -58,6 +58,9 @@ export type MetaActivityState = ErrorAndLoading & {
   upsert: ErrorAndLoading & {
     data: MetaActivity | null;
   };
+  workshop: {
+    allIds: number[];
+  };
   metaActivityCategory: {
     byId: { [id: number]: MetaActivityCategory };
     allIds: Array<number>;

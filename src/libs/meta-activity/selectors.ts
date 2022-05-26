@@ -15,6 +15,9 @@ export const getMetaActivitiesDict = createSelector(
   (data) => pickBy(data, (v) => !v.is_workshop),
 );
 
+const getMetaActivityWorkshopIds = (state: RootState) =>
+  state.metaActivity.workshop.allIds;
+
 export const getMetaActivitiesIdList = (state: RootState) =>
   state.metaActivity.allIds;
 
@@ -83,6 +86,11 @@ export const getWorkshops = createSelector(
   getWorkshopActivitiesDict,
   (workshopActivities) =>
     Immutable<MetaActivity[]>(Object.values(workshopActivities)),
+);
+
+export const getWorkshopsByAllIds = createSelector(
+  [getMetaActivityWorkshopIds, getMetaActivityAbstractDict],
+  (ids, byIds) => ids.map((id) => byIds[id]),
 );
 
 // export const getOffersListByMetaActivity = memoize((state: RootState) => {

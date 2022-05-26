@@ -116,6 +116,10 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
     }
   }, [open, metaActivity, resetPreview]);
 
+  useEffect(() => {
+    setSelectedMetaActivity(metaActivity);
+  }, [metaActivity]);
+
   const handleNextStep = useCallback(() => {
     switch (step) {
       case STEP_METACTIVITY_SELECT:
@@ -241,6 +245,8 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               manager_only: o.manager_only,
               partner_max_booking_count: o.partner_max_booking_count,
               whitelist_tags: o.whitelist_tags,
+              recurrence_id: o.recurrence_id,
+              room_blueprint: o.room_blueprint,
             })),
           };
           return acc;

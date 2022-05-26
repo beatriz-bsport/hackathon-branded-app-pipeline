@@ -124,7 +124,7 @@ type Props = {
 const REGISTER_METHOD_CHOICE = 0;
 const OFFER_CHOICE = 1;
 
-export class BookingModuleManager extends PureComponent<Props> {
+export class BookerModuleManager extends PureComponent<Props> {
   componentDidMount() {
     this.props.checkOfferTagEligibility();
     this.props.fetchByOfferByMemberAction(
@@ -400,7 +400,7 @@ export class BookingModuleManager extends PureComponent<Props> {
                   consumerPack={this.props.registererObject.consumerPaymentPack}
                 />
               )}
-              {!this.props.offer.room_blueprint && (
+              {!this.props.offer.room_blueprint && !this.props.offer.group && (
                 <div className={this.props.classes.bookButtonWideContainer}>
                   {!hasGroup && (
                     <Button
@@ -636,4 +636,4 @@ export default compose(
       },
     }),
   ),
-)(BookingModuleManager);
+)(BookerModuleManager);

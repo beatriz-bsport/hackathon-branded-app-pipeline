@@ -129,7 +129,7 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
       }
 
       const day_delta = moment(values.timeStart).diff(
-        moment(firstOffer.date_start),
+        moment(firstOffer.date_start).startOf('day'),
         'days',
       );
 

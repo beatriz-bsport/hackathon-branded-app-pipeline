@@ -561,9 +561,15 @@ export class Planning extends PureComponent<Props, State> {
 
   onHardDeleteOffer = (offerId: number, data: any) => {
     this.props.hardDeleteOffers(offerId, data, {
+      onSuccess: () => {
+        this.setState({ deleteModalOpened: false });
+      },
       onBackgroundSuccess: () => {
         this.props.fetchRelevantOffers();
         this.loadDayData();
+      },
+      onError: () => {
+        this.setState({ deleteModalOpened: false });
       },
     });
   };

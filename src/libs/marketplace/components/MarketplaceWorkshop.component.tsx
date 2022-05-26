@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
-import { CircularProgress, Theme } from '@material-ui/core';
+import { Button, CircularProgress, Theme } from '@material-ui/core';
 
 import { CompanyTheme } from '#libs/theme/types';
 import MarketPlaceWorkshopCard from './MarketPlaceWorkshopCard.component';
@@ -23,6 +23,7 @@ type Props = {
   metaActivityloading: boolean;
   offerDetailsloading: boolean;
   showOfferFilling: boolean;
+  hasMoreToLoad: boolean;
   getOffersListByMetaActivity: (id: number) => any;
   onBook: (offer: Offer) => void;
   onBookOption: (offer: Offer) => void;
@@ -42,6 +43,7 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
   metaActivityloading,
   offerDetailsloading,
   showOfferFilling,
+  hasMoreToLoad,
   getOffersListByMetaActivity,
   onBook,
   onBookOption,
@@ -59,8 +61,8 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, currentElement] = useVisibility<HTMLDivElement>(
+    1000,
     500,
-    1500,
     onEndReach,
   );
 
@@ -72,14 +74,14 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
 
   const offersLoading = metaActivities?.some((m) => {
     const offers = getOffersListByMetaActivity(m.id);
-
     return offers?.loading ?? true;
   });
 
   if (
     filteredMetaActivities.length === 0 &&
     !metaActivityloading &&
-    !offersLoading
+    !offersLoading &&
+    !hasMoreToLoad
   ) {
     return (
       <div className={classes.centeredText}>
@@ -134,30 +136,32 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
           );
         })}
         {/* on reachEnd dom listener */}
-        {filteredMetaActivities.length > 0 && metaActivityloading && (
-          <div ref={currentElement} />
+        {filteredMetaActivities.length > 0 &&
+          !metaActivityloading &&
+          hasMoreToLoad && (
+            <div ref={currentElement}>
+              <MarketPlaceWorkshopCard
+                theme={theme}
+                metaActivity={null}
+                showOfferFilling={false}
+                loading
+                getLevel={getLevel}
+                getOffersListByGroup={getOffersListByGroup}
+                hideCoach={false}
+                offers={null}
+                onBook={null}
+                onBookOption={null}
+                onLoadMoreOffer={null}
+                offerDetailsloading
+              />
+            </div>
+          )}
+        {/* Should be automatic but better safe than sorry */}
+        {!offersLoading && hasMoreToLoad && (
+          <div className={classes.flex}>
+            <Button onClick={onEndReach}> {t('workshop.loadMore')}</Button>
+          </div>
         )}
-        {metaActivityloading &&
-          Array(3)
-            .fill(0)
-            .map((hm, index) => (
-              <div key={index}>
-                <MarketPlaceWorkshopCard
-                  theme={theme}
-                  metaActivity={null}
-                  showOfferFilling={false}
-                  loading
-                  getLevel={getLevel}
-                  getOffersListByGroup={getOffersListByGroup}
-                  hideCoach={false}
-                  offers={null}
-                  onBook={null}
-                  onBookOption={null}
-                  onLoadMoreOffer={null}
-                  offerDetailsloading
-                />
-              </div>
-            ))}
       </div>
     </div>
   );
@@ -178,6 +182,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   forceFlex: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  flex: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   centeredText: {
     display: 'flex',

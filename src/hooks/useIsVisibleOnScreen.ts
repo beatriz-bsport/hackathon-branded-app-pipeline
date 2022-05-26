@@ -1,17 +1,18 @@
 import React, { useRef, useEffect, useState } from 'react';
+import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
 /**
  * Check if an element is in viewport
 
  * @param {number} offset - Number of pixels up to the observable element from the top
- * @param {number} throttleMilliseconds - Throttle observable listener, in ms
+ * @param {number} debounceMilliseconds - debounce observable listener, in ms
  * @param {function} onEnterVisible - Execute callback when the end is reached
  * @returns {[boolean, ref]} - [isVisible, triggerElement]
  */
 export default function useVisibility<Element extends HTMLElement>(
   offset: number = 0,
-  throttleMilliseconds: number = 100,
+  debounceMilliseconds: number = 100,
   onEnterVisible: () => void = () => {},
 ): [Boolean, React.RefObject<Element>] {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,9 +20,9 @@ export default function useVisibility<Element extends HTMLElement>(
 
   const _onEnterVisible = throttle(() => {
     onEnterVisible();
-  }, throttleMilliseconds);
+  }, debounceMilliseconds);
 
-  const onScroll = throttle(() => {
+  const onScroll = debounce(() => {
     if (!currentElement.current) {
       setIsVisible(false);
       return;
@@ -33,7 +34,7 @@ export default function useVisibility<Element extends HTMLElement>(
     }
 
     setIsVisible(top + offset >= 0 && top - offset <= window.innerHeight);
-  }, throttleMilliseconds);
+  }, debounceMilliseconds);
 
   useEffect(() => {
     document.addEventListener('scroll', onScroll, true);

@@ -14,6 +14,7 @@ exports.default = {
     backToBackoffice: 'Interface manager',
   },
   workshop: {
+    loadMore: 'Voir plus',
     noWorkshopAvailable: "Aucun atelier n'est prévu pour le moment",
     card: {
       showMore: "Plus d'info",

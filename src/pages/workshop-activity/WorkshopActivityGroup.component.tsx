@@ -451,6 +451,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     return <BackofficeLinearProgress />;
   }
 
+  const hideEmptyState = groupExist || groupList.length;
+
   const _metaActivities = metaActivity ? [metaActivity] : metaActivities;
   return (
     <div className={classes.container}>
@@ -467,7 +469,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             </Button>
           )}
 
-          {(isWidthUp('lg', width) || !selectedOffer) && groupExist && (
+          {(isWidthUp('lg', width) || !selectedOffer) && hideEmptyState && (
             <Grid item xs={12} lg={6}>
               <MetaActivityGroupsFilter
                 metaActivities={[..._metaActivities]}
@@ -545,7 +547,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               )}
             </Grid>
           )}
-          {groupExist && (
+          {hideEmptyState && (
             <Grid item xs={12} lg={6}>
               {selectedOffer ? (
                 <div className={classes.offerCard}>
@@ -584,7 +586,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           button={t('workshop:actions.addWorkshopGroup')}
           onCreate={handleOpenCreateModal}
           onCreateLabel={t('workshop:actions.addWorkshopGroup')}
-          hideEmptyText={groupExist}
+          hideEmptyText={hideEmptyState}
         />
         {/* Groups Modal */}
         <GroupedOfferCreate
@@ -645,18 +647,20 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             getOffersListByGroup={getOffersListByGroup}
           />
         )}
-        <GroupedOfferDuplicate
-          open={!!duplicatingGroup}
-          onClose={handleCloseDuplicateGroupModal}
-          createGroupOffers={handleCreateGroup}
-          group={duplicatingGroup}
-          generatePreview={generateGroupOffersPreview}
-          groupPreview={groupPreview}
-          metaActivity={_metaActivities.find(
-            (o) => o.id === duplicatingGroup?.meta_activity,
-          )}
-          resetPreview={resetPreview}
-        />
+        {!!duplicatingGroup && (
+          <GroupedOfferDuplicate
+            open={!!duplicatingGroup}
+            onClose={handleCloseDuplicateGroupModal}
+            createGroupOffers={handleCreateGroup}
+            group={duplicatingGroup}
+            generatePreview={generateGroupOffersPreview}
+            groupPreview={groupPreview}
+            metaActivity={_metaActivities.find(
+              (o) => o.id === duplicatingGroup?.meta_activity,
+            )}
+            resetPreview={resetPreview}
+          />
+        )}
         {/* OFFERS MODAL */}
         {editOfferModalOpen && (
           <GenericResponsiveDrawer

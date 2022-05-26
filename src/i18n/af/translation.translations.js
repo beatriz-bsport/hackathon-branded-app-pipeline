@@ -251,7 +251,7 @@ exports.default = {
     noAvailableCredit:
       "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
     noWaitingList:
-      "Les listes d'attentes ne sont pas disponibles pour les inscriptions obligatoires à l'ensemble du groupe",
+      "Les listes d'attentes ne sont pas disponibles pour les groupes de séances",
     warningCreditChange:
       'NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits',
     editGroup: 'Modifier ce champs directement sur le groupe de séance.',
@@ -924,7 +924,7 @@ exports.default = {
     refundRevert: 'Rembourser les crédits utilisés',
     discard: 'Annuler',
     cancellingOtherBookingInGroup:
-      'Attention cette séance est une séance groupée de {{ name }}, voulez vous annuler la réservation pour toutes les autres séances de ce groupe ?',
+      "Attention cette séance est une séance groupée de {{ name }}. Si le membre dispose d'autres réservations dans ce groupe elles ne seront pas impactées.",
     cancellingBookingInGroup: 'Annuler pour les autres séances de ce groupe.',
     // eslint-disable-next-line
     onWaitingList: "Sur liste d'attente",

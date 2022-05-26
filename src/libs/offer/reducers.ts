@@ -37,6 +37,7 @@ export const marketplaceByMetaActivityEmptyState = Immutable({
   nextPage: 1,
   count: 0,
   byId: {},
+  loading: false,
 });
 
 const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({

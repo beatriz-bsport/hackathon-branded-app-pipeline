@@ -395,6 +395,35 @@ export function fetchMetaActivities(
   };
 }
 
+export const workshopListingActions = {
+  isLoading: createAction('META_ACTIVITY/WORKSHOP/LIST/IS_LOADING'),
+  error: createAction('META_ACTIVITY/WORKSHOP/LIST/ERROR'),
+  success: createAction('META_ACTIVITY/WORKSHOP/LIST/SUCCESS'),
+};
+
+export function fetchWorkshopList(
+  params?: MetaActivityFilter,
+  options?: OptionCallback<MetaActivity[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(workshopListingActions.isLoading(true));
+    dispatch(workshopListingActions.error(null));
+    try {
+      const response = await fetchMetaActivitiesAPI({
+        ...params,
+        is_workshop: true,
+      });
+      dispatch(workshopListingActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(workshopListingActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(workshopListingActions.isLoading(false));
+  };
+}
+
 export function removeImageFromWorkshop(id: number, imageId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(removeImage.isLoading({ id, imageId, loading: true }));

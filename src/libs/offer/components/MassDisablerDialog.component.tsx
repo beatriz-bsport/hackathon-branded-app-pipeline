@@ -5,7 +5,13 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
 
-import { Button, Typography, LinearProgress } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  LinearProgress,
+  Collapse,
+  ButtonBase,
+} from '@material-ui/core';
 import moment, { Moment } from 'moment';
 import { useTranslation } from 'react-i18next';
 import {
@@ -16,6 +22,8 @@ import {
 } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import InfoIcon from '@material-ui/icons/Info';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import {
   DateField,
@@ -49,6 +57,7 @@ export const MassDisablerDialog = (props: Props) => {
   const initialValues = { startDate: moment(), endDate: moment() };
   const [secondWarningOpen, setSecondWarningOpen] = React.useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
+  const [showOfferGroup, setShowOfferGroup] = React.useState(true);
 
   const numberOfMassDisabledOfferInGroup =
     props?.massDisabledOfferInGroup?.length ?? 0;
@@ -182,16 +191,29 @@ export const MassDisablerDialog = (props: Props) => {
                             {t('massDisabler.warningOfferGroup')}
                           </Typography>
                         </div>
-                        {props.massDisabledOfferInGroup.map((so) => (
-                          <OfferListItemV2
-                            key={so.id}
-                            similarOffer
-                            disabled
-                            offer={so}
-                            handleChange={null}
-                            checked
-                          />
-                        ))}
+                        <ButtonBase
+                          onClick={() => setShowOfferGroup(!showOfferGroup)}
+                          className={classes.buttonBaseHeader}
+                        >
+                          <Typography>{t('massDisabler.offers')}</Typography>
+                          {showOfferGroup ? (
+                            <ExpandLessIcon />
+                          ) : (
+                            <ExpandMoreIcon />
+                          )}
+                        </ButtonBase>
+                        <Collapse in={showOfferGroup}>
+                          {props.massDisabledOfferInGroup.map((so) => (
+                            <OfferListItemV2
+                              key={so.id}
+                              similarOffer
+                              disabled
+                              offer={so}
+                              handleChange={null}
+                              checked
+                            />
+                          ))}
+                        </Collapse>
                       </Alert>
                     </div>
                   )}
@@ -326,6 +348,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  buttonBaseHeader: {
+    marginTop: theme.spacing(2),
   },
 }));
 export default MassDisablerDialog;

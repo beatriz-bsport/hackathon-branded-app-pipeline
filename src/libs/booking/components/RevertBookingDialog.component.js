@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react';
+import React from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState, withStateHandlers } from 'recompose';
 
@@ -13,22 +13,21 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
-import Collapse from '@material-ui/core/Collapse';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import Switch from '@material-ui/core/Switch';
+// import Collapse from '@material-ui/core/Collapse';
+// import ButtonBase from '@material-ui/core/ButtonBase';
+// import Typography from '@material-ui/core/Typography';
+// import List from '@material-ui/core/List';
+// import Switch from '@material-ui/core/Switch';
 
 import { makeStyles } from '@material-ui/core';
 
 import RedButton from '../../../components/button/RedButton.component';
-import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
 
 import type { Booking } from '../types';
 
 type Props = {
   offer: Offer,
-  similarBookings: Booking[],
+  // similarBookings: Booking[],
   offerIsAvailable: boolean,
   bookingToRevert: Booking,
 
@@ -49,7 +48,7 @@ export function RevertBookingDialog(props: Props) {
   const {
     t,
     offer,
-    similarBookings,
+    // similarBookings,
     bookingToRevert,
     closeRevertBookingDialog,
     handleBookingDeletion,
@@ -59,29 +58,29 @@ export function RevertBookingDialog(props: Props) {
     toggleForceRefund,
   } = props;
   const classes = useStyles();
-  const [similarOfferToCancel, setSimilarOfferToCancel] = useState<number[]>(
-    [],
-  );
-  const [modifyRecursively, setModifyRecursively] = useState(false);
-  const selectAll = () => {
-    setSimilarOfferToCancel(similarBookings.map((o) => o.id));
-  };
+  // const [similarOfferToCancel, setSimilarOfferToCancel] = useState<number[]>(
+  //   [],
+  // );
+  // const [modifyRecursively, setModifyRecursively] = useState(false);
+  // const selectAll = () => {
+  //   setSimilarOfferToCancel(similarBookings.map((o) => o.id));
+  // };
 
-  const unselectAll = () => {
-    setSimilarOfferToCancel([]);
-  };
+  // const unselectAll = () => {
+  //   setSimilarOfferToCancel([]);
+  // };
 
-  const handleChangeSelection = (id: number) => () => {
-    const indexOf = similarOfferToCancel.indexOf(id);
-    if (indexOf === -1) {
-      setSimilarOfferToCancel([...similarOfferToCancel, id]);
-      return;
-    }
-    setSimilarOfferToCancel([
-      ...similarOfferToCancel.splice(0, indexOf),
-      ...similarOfferToCancel.splice(indexOf + 1),
-    ]);
-  };
+  // const handleChangeSelection = (id: number) => () => {
+  //   const indexOf = similarOfferToCancel.indexOf(id);
+  //   if (indexOf === -1) {
+  //     setSimilarOfferToCancel([...similarOfferToCancel, id]);
+  //     return;
+  //   }
+  //   setSimilarOfferToCancel([
+  //     ...similarOfferToCancel.splice(0, indexOf),
+  //     ...similarOfferToCancel.splice(indexOf + 1),
+  //   ]);
+  // };
 
   if (!bookingToRevert) {
     return null;
@@ -137,7 +136,8 @@ export function RevertBookingDialog(props: Props) {
                   name: offer?.group?.name,
                 })}
               </Alert>
-              <FormControlLabel
+              {/* Hidden until we put the possibility to add in all offer of group al */}
+              {/* <FormControlLabel
                 label={t('booking.cancellingBookingInGroup')}
                 control={
                   <Switch
@@ -192,7 +192,7 @@ export function RevertBookingDialog(props: Props) {
                     ))}
                   </List>
                 )}
-              </Collapse>
+              </Collapse> */}
             </>
           )}
         </DialogContent>
@@ -211,12 +211,6 @@ export function RevertBookingDialog(props: Props) {
                     {
                       force_notify,
                       force_refund,
-                      bookings_in_same_group: modifyRecursively
-                        ? similarOfferToCancel
-                        : [],
-                      activity_group: modifyRecursively
-                        ? offer.group.id
-                        : undefined,
                     },
                     {
                       onSuccess: () => props.setLoading(false),

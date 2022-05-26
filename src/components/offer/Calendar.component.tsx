@@ -97,10 +97,12 @@ class Calendar extends PureComponent<Props, State> {
       const dateYear = dateSelected.year();
       return `${dateMonth} ${dateYear}`;
     }
-    const date_end = dateSelected.clone().add(6, 'days');
-    return `${formatAsTitle(
-      dateSelected.format(DATE_FORMAT),
-    )} - ${formatAsTitle(date_end.format(DATE_FORMAT))}`;
+
+    const startDate = dateSelected.clone().startOf('week');
+    const date_end = startDate.clone().add(6, 'days');
+    return `${formatAsTitle(startDate.format(DATE_FORMAT))} - ${formatAsTitle(
+      date_end.format(DATE_FORMAT),
+    )}`;
   };
 
   showNext = () => {

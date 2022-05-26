@@ -404,12 +404,7 @@ export function updatePlannedInvoicePrice(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(updatePlannedInvoiceActions.error(null));
-    dispatch(
-      updatePlannedInvoiceActions.isLoading({
-        loading: true,
-        planned_invoice: data.planned_invoice,
-      }),
-    );
+    dispatch(updatePlannedInvoiceActions.isLoading(true));
     try {
       const response = await updatePlannedInvoicePriceAPI(id, data);
       dispatch(updatePlannedInvoiceActions.success(response.data));
@@ -437,12 +432,7 @@ export function updatePlannedInvoicePrice(
         dispatch(snackbarError('subscription.updatePrice.error'));
       }
     }
-    dispatch(
-      updatePlannedInvoiceActions.isLoading({
-        loading: false,
-        planned_invoice: data.planned_invoice,
-      }),
-    );
+    dispatch(updatePlannedInvoiceActions.isLoading(false));
   };
 }
 

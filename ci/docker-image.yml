@@ -8,6 +8,6 @@ Prepare Docker Builder Image:
     max: 2
   script:
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
-    - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
+    - docker build --network host --build-arg ENVIRONMENT=$ENVIRONMENT --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
     - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
 

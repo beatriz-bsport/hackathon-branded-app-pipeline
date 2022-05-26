@@ -212,11 +212,10 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
 
   const onSelect = (data: T) => {
     const indexOf = selected.findIndex((row) => row.value === data.value);
-
     if (indexOf !== -1) {
       setSelected([
-        ...selected.splice(0, indexOf),
-        ...selected.splice(indexOf + 1),
+        ...selected.slice(0, indexOf),
+        ...selected.slice(indexOf + 1),
       ]);
       return;
     }

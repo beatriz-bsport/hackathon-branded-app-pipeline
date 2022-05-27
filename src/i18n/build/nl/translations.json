@@ -1242,7 +1242,7 @@
             "notifyRevert": "Een annuleringsmail sturen",
             "refundRevert": "Gebruikte kredieten terugbetalen",
             "cancellingBookingInGroup": "Meerdere reserveringen annuleren",
-            "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\". Wil je alle gekoppelde reserveringen voor deze groep annuleren?"
+            "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\". Andere reserveringen van dit lid voor dit evenement worden niet gewijzigd."
         },
         "workshopActivity": {
             "forms": {
@@ -3754,7 +3754,8 @@
                         "selectHeader": "Selecteer de te wijzigen evenementen",
                         "selectGroup": "Annuleer vergelijkbare evenementen",
                         "applyRecursive": "Annuleer vergelijkbare evenementen",
-                        "title": "Verwijderen"
+                        "title": "Verwijderen",
+                        "missingOffer": "Er zijn geen evenementen om weer te geven."
                     },
                     "recurrenceUntilHelper2": "Het is niet mogelijk om sessies na deze datum toe te voegen.",
                     "timeStartHelper": "Selecteer de datum van de eerste sessie van dit evenement. Alle toekomstige sessies worden vervolgens ook aan dit evenement gekoppeld.",
@@ -3884,7 +3885,8 @@
             "confirmationExplain": "Gelieve \"IK BEVESTIG\" in hoofdletters schrijven om deze actie te bevestigen.",
             "success": "Annulering bevestigd",
             "warningOfferGroup": "Het is niet mogelijk deze sessies te annuleren, omdat ze een onderdeel vormen van een evenement. Verwijder, indien nodig, het gekoppelde evenement.",
-            "warningOfferGroupTitle": "Geldige sessies"
+            "warningOfferGroupTitle": "Geldige sessies",
+            "offers": "Onopzegbare sessies"
         },
         "bookingListEmpty": "Er zijn nog geen reserveringen geregistreerd.",
         "bookingList": "Reserveringen",
@@ -4076,7 +4078,8 @@
                 },
                 "welcome": "Hoi!"
             },
-            "title": "[Formulier] Inschrijfformulier"
+            "title": "[Formulier] Inschrijfformulier",
+            "newMemberOnlyHelperText": "Een lid wordt als \"nieuw\" gemarkeerd indien de persoon niet meer dan {{ currency }}0 heeft besteed. Attentie: een nieuw lid verliest de status \"nieuw\" indien de persoon een product aanschaft met een korting t.w.v. 100%."
         },
         "user": {
             "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
@@ -4703,7 +4706,8 @@
             "warningPartialBooking": "Selecteer welke sessies van dit evenement je wenst bij te wonen.",
             "warningFullBooking": "Door deze reservering te voltooien sta je ingeschreven bij {{count}} sessie(s).",
             "confirm": "Bevestigen",
-            "cancel": "Annuleren"
+            "cancel": "Annuleren",
+            "loadMore": "Toon meer"
         },
         "paymentCombo": {
             "addToCart": "Winkelmandje"
@@ -11124,7 +11128,7 @@
             "deleteContent": "Dit programma zal niet langer zichtbaar zijn voor de leden die het voorheen hebben toegevoegd. Het programma kan onder \"Gearchiveerd\" worden hersteld.",
             "deleteHeader": "Weet je zeker dat je dit programma wilt verwijderen?",
             "infoSelectProgram": "Selecteer een programma voor een gedetailleerd overzicht.",
-            "detail": "Programma-details",
+            "detail": "Details",
             "selectProgram": "Selecteer een programma",
             "default": "Standaardprogramma",
             "titleForConsumer": "Mijn programma's",

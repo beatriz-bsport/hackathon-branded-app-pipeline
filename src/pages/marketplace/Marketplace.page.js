@@ -49,7 +49,6 @@ import {
   fromConfigToUrl,
 } from '#libs/marketplace/routing-utils';
 import { urlToMarketplace } from '#libs/marketplace/utils';
-import { getDefaultTitleForComponent } from '#libs/exportable-components/utils';
 import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';

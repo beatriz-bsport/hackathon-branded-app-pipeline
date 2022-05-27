@@ -895,7 +895,10 @@
                     "passCompatibleNotOwnedByMember": "Bill a new pass",
                     "passOwnedByMember": "Owned passes",
                     "registerToOffer": "Book",
-                    "doNotConsumeCredit": "Don't charge the member credits for this booking"
+                    "doNotConsumeCredit": "Don't charge the member credits for this booking",
+                    "bookSingleInGroup": "Register for this session only",
+                    "bookMoreInGroup": "Register for other group sessions",
+                    "groupWarning": "This session is part of the session group {{ name }}"
                 }
             }
         },
@@ -951,7 +954,13 @@
             "calendar": "Calendar",
             "sessionThisDay": "Today's sessions:",
             "vod": "Video On Demand",
-            "playlist": "Playlists"
+            "playlist": "Playlists",
+            "book": "Book",
+            "cancel": "return",
+            "bookGroups": "Book a session group",
+            "discover": "Discover",
+            "from_to": "from {{-from}} to {{-to}}",
+            "offers": "{{ count }} sessions"
         },
         "time": {
             "month": {
@@ -1045,7 +1054,9 @@
             "wasRefunded": "Credit refunded",
             "cancelledFromWaitingList": "Removed from the waiting list",
             "notifyRevert": "Send a cancellation email",
-            "refundRevert": "Refund the used credits"
+            "refundRevert": "Refund the used credits",
+            "cancellingBookingInGroup": "Cancel for other sessions in this group.",
+            "cancellingOtherBookingInGroup": "Attention this session is a group session of {{ name }} . If the member has other reservations in this group they will not be impacted."
         },
         "workshopActivity": {
             "forms": {
@@ -1096,7 +1107,8 @@
                     "success": "Activity saved"
                 }
             },
-            "firstBookingMinutesUntil": "Limit future bookings of members that take place in "
+            "firstBookingMinutesUntil": "Limit future bookings of members that take place in ",
+            "altCoverMain": "Description of the image for the visually impaired"
         },
         "calendar": {
             "pleaseSelectOffer": "Click on a session for more information or double-click on a session to manage the bookings.",
@@ -1294,7 +1306,12 @@
                 "discardBookingTitle": "Cancel booking",
                 "cancelBooking": "Cancel booking",
                 "myPrivateBooking": "Appointments",
-                "intro": "Your booking on {{date}}."
+                "intro": "Your booking on {{date}}.",
+                "discardGroupImpossibleExplain": " This reservation is part of the session group {{ group }} . Are you sure you want to cancel these reservations? You cancel too late and your course card will not be re-credited (studio terms and conditions).",
+                "discardGroupPossibleExplain": " This reservation is part of the session group {{ group }} . Are you sure you want to cancel these reservations? Your credits will be usable again.",
+                "willNotBeRefund": "Outstanding credits",
+                "willBeRefund": "The session of {{-day}} will be recredited",
+                "discardAllGroup": "All group reservations will be cancelled."
             },
             "help": {
                 "explainCancelBookingOption": "Once you delete this, it can't be undone - you'll lose your priority spot on the waiting list.",
@@ -1440,7 +1457,8 @@
                         "helperText": "Use tags to make the session bookable only to a desired group of members. You select tags to make the session bookable only to members with one of the selected tags. Or you can select tags to make the session non-bookable only to members with one of the selected tags."
                     },
                     "header": "Advanced"
-                }
+                },
+                "editingGroup": "Attention this session is part of the session group {{ name }}"
             },
             "payment": {
                 "additionalInformationHelper": "(Optional) Payment reference",
@@ -1621,7 +1639,8 @@
                 "city": "City",
                 "addressLine2": "Additional address information",
                 "addressLine1": "Address",
-                "streetNumber": "Number"
+                "streetNumber": "Number",
+                "state": "Status"
             },
             "waiting_list_max_size": "Size of the waiting list",
             "oneHourFifteen": "1h 15 min",
@@ -1642,7 +1661,9 @@
             "warningAddEmail": "This email has already been added.",
             "emailHelper": "Add multiple emails by separating them with a comma.",
             "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
-            "tenMinutes": "10 minutes"
+            "tenMinutes": "10 minutes",
+            "editGroup": "Edit this field directly on the session group.",
+            "noWaitingList": "Waiting lists are not available for session groups"
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -2030,7 +2051,8 @@
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address",
                     "ics_calendar_link": "ICS Calendar Link",
-                    "spot": "Place"
+                    "spot": "Place",
+                    "canceled_grouped_session": "Cancelled reservation group"
                 }
             },
             "ConsumerPaymentPack": {
@@ -2131,7 +2153,8 @@
             "510": "Failed payment for a subscription",
             "481": "Recurring appointment has been cancelled due to a lack of availability (member)",
             "480": "Recurring appointment has been cancelled due to a lack of availability (teacher)",
-            "987": "Attempt to collect an installment payment"
+            "987": "Attempt to collect an installment payment",
+            "801": "Cancelled appointment group"
         },
         "messages": {
             "createOrUpdate": {
@@ -2299,7 +2322,12 @@
         "subscription": {
             "isEmpty": "There are no active subscriptions to display."
         },
-        "Basket": "My basket"
+        "Basket": "My basket",
+        "appbar": {
+            "login": "Login",
+            "logout": "Logout",
+            "profile": "Go to my profile"
+        }
     },
     "reminder": {
         "task": {
@@ -4713,10 +4741,20 @@
         },
         "actions": {
             "search": "Search a workshop",
-            "addWorkshopActivity": "Add a workshop"
+            "addWorkshopActivity": "Add a workshop",
+            "addWorkshopGroup": "Add a session group"
         },
         "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
-        "disabledWorkshops": "Archived workshops"
+        "disabledWorkshops": "Archived workshops",
+        "tabGroups": "Group sessions",
+        "tabList": "List of workshops",
+        "group": {
+            "emptyState": "With session groups your students can book all the sessions included in the group at once. For example, use the session groups to create introductory workshops with several sessions. ",
+            "emptySearch": "No groups matching your search",
+            "pageSize": "Display by:",
+            "backToGroup": "Back to groups",
+            "emptySelect": "Select a session"
+        }
     },
     "tag": {
         "panel": {
@@ -4852,7 +4890,14 @@
             }
         },
         "select": "Select a tag",
-        "memberStatus": "Member status: "
+        "memberStatus": "Member status: ",
+        "modal": {
+            "confirm": {
+                "submit": "Confirm",
+                "text": "This session is part of a group, you are going to untag all the sessions in this group. Do you want to continue?",
+                "title": "Untag"
+            }
+        }
     },
     "login": {
         "forms": {
@@ -5253,7 +5298,8 @@
             "address_line_2": "Address line 2",
             "address_line_1": "Address line 1",
             "address": "Address",
-            "search_address": "Search an address"
+            "search_address": "Search an address",
+            "state": "Status"
         },
         "spotScheduling": {
             "untitled": "Untitled",
@@ -5534,7 +5580,8 @@
                 "todayOnly": "Show only the sessions of the day",
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide passes for private classes",
-                "hidePaymentPack": "Hide passes for group classes"
+                "hidePaymentPack": "Hide passes for group classes",
+                "titleCaption": "{{max}} characters max ( {{count}} / {{max}} )"
             },
             "componentType": {
                 "playlist": "Video playlist",
@@ -7681,6 +7728,10 @@
                     "secondOnOfferStart": "hour(s) before the start of the session",
                     "secondOnBooking": "hour(s) after the booking",
                     "first": "Send a notification"
+                },
+                "creditNotificationType": {
+                    "onOfferStart": "End of the session for which the reservation had brought the number of credits below the threshold defined above",
+                    "onBooking": "Reservation that brings the number of credits below the threshold defined above"
                 }
             },
             "daysPast": {
@@ -8329,7 +8380,8 @@
             },
             "tab": {
                 "general": "General",
-                "pack": "Compatible passes"
+                "pack": "Compatible passes",
+                "group": "Group sessions"
             }
         },
         "name": "Name",
@@ -8364,7 +8416,91 @@
         },
         "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same practice.",
         "disabledMetaActivities": "Archived group activities",
-        "workshop": "Workshop"
+        "workshop": "Workshop",
+        "groupedOption": {
+            "modal": {
+                "form": {
+                    "recurrenceNumberPrefix": "Repeat every",
+                    "impossibleState": "The parameters entered do not allow the generation of a group",
+                    "submit": "Validate",
+                    "back": "Previous",
+                    "save": "save",
+                    "delete": {
+                        "content": "Please note that by deleting this group all sessions within it will be cancelled. The registered students will see their reservations cancelled. This operation is definitive",
+                        "missingOffer": "No offers in the group",
+                        "firstSession": "First meeting on {{-day}}",
+                        "selectHeader": "Select the groups that will be modified",
+                        "selectGroup": "Cancel other similar groups",
+                        "applyRecursive": "Cancel other similar groups",
+                        "title": "Suppression"
+                    },
+                    "copyRecurrence": "Also duplicate future group recurrences",
+                    "required": "At least one group is needed",
+                    "next": "Next",
+                    "groupName": "Name",
+                    "daily": "Every day",
+                    "recurrence": "Recurrence",
+                    "timeStart": "Starting date",
+                    "preview": "Preview",
+                    "recurrenceUntilHelper2": "Groups with a last session after this date will not be created.",
+                    "recurrenceUntilHelper": "Please indicate the date of the last session of the last cycle.",
+                    "timeStartHelper": "Select the date of the first session of the group copy. The other sessions of the group will be copied and shifted according to this date.",
+                    "recurrenceUntil": "Repeat until",
+                    "nameCaption": "Name of the session group",
+                    "recurrenceCount": "Number of repetitions",
+                    "withRecurrence": "Enable recurrence",
+                    "marketPlaceAvailable": "Available for booking (web+app)",
+                    "allowBookingAfterStartCaption": "By default, if a session group has already started, your members will not be able to join it. By activating this feature your members will still be able to register for the remaining sessions.",
+                    "allowBookingAfterStart": "Allow enrolment on the way",
+                    "fullBookingOnlyCaption": "By default, your members will be automatically registered for all the sessions of the group if they register for one of the sessions of the group. If you deactivate this setting, the member will be offered to register for all the sessions in the group but will be able to choose which ones to register for.",
+                    "fullBookingOnly": "Registration for all group sessions",
+                    "name": "Name",
+                    "subtitleRecurrence": "Recurrence",
+                    "subtitleSettings": "Settings",
+                    "addOffers": "Adding sessions",
+                    "subtitleOffers": "Adding sessions",
+                    "subtitle": "General information"
+                },
+                "duplicate": "Duplicate a group",
+                "subtitlePreview": "Preview of the recurrence",
+                "subtitleMetaActivitySelect": "Creation of a group of sessions",
+                "title": "Group sessions"
+            },
+            "offerDescription": "{{ count }} sessions from {{- firstSession }} to {{- lastSession }}",
+            "helperText": {
+                "year": "This group begins {{-day}} , of {{-mont}} every year",
+                "year_plural": "This group begins {{-day}} , of {{-month}} every {{ count }} year",
+                "day": "This group is rehearsed every day",
+                "day_plural": "This group is repeated every {{ count }} day",
+                "week": "This group starts on {{-day}} ,every week",
+                "week_plural": "This group starts on {{-day}} every {{ count }} week",
+                "month": "This group starts on {{-day}} every month",
+                "month_plural": "This group starts on {{-day}} ,every {{ count }} month"
+            },
+            "last": "last",
+            "intervalLabel": {
+                "until": {
+                    "year": "Every year until {{-until}} ",
+                    "year_plural": "Every {{ count }} year until {{-until}} ",
+                    "day": "Every day until {{-until}} ",
+                    "day_plural": "Every {{ count }} day until {{-until}} ",
+                    "week": "Every week until {{-until}} ",
+                    "week_plural": "Every {{ count }} week until {{-until}} ",
+                    "month": "Every month until {{-until}} ",
+                    "month_plural": "Every {{ count }} month until {{-until}} "
+                },
+                "year": "Every year",
+                "year_plural": "Every {{ count }} year",
+                "day": "Every day",
+                "day_plural": "Every {{ count }} day",
+                "week": "Every week",
+                "week_plural": "Every {{ count }} week",
+                "month": "Every month",
+                "month_plural": "Every {{ count }} month"
+            }
+        },
+        "cancelledOffers": "{{count}} cancellations",
+        "workshopSelect": "Search for a workshop"
     },
     "offer": {
         "video": {
@@ -8433,7 +8569,10 @@
             "iConfirm": "I CONFIRM",
             "confirmationExplain": "Please write \"I CONFIRM\" in capital letters to confirm.",
             "success": "Cancellation confirmed",
-            "successInfo": "The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account."
+            "successInfo": "The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account.",
+            "warningOfferGroup": "Please note that the following sessions could not be cancelled because they are part of a group session. To cancel them, please cancel the corresponding group.",
+            "warningOfferGroupTitle": "Sessions not cancelled",
+            "offers": "Non-cancellable sessions"
         },
         "bookingListEmpty": "There are no bookings to display as of yet.",
         "bookingList": "Bookings",
@@ -8447,7 +8586,10 @@
             "cancelSimilarOffers": "Would you like to cancel similar sessions?",
             "selectDelete": "Select the sessions that will be deleted",
             "deleteSimilarOffers": "Would you like to delete similar sessions?",
-            "selectEdit": "Select the sessions that will be modified"
+            "selectEdit": "Select the sessions that will be modified",
+            "cancelSimilarOffersGroup": "Cancel the session in the other group recurrences?",
+            "deleteSimilarOffersGroups": "Do you want to delete future recurrences of the group",
+            "editSimilarOffersGroup": "Change the session in future recurrences of the group?"
         },
         "menu": {
             "download": "Export",
@@ -8487,7 +8629,8 @@
             "customs": "Customized",
             "delete": "Delete",
             "edit": "Edit"
-        }
+        },
+        "recurrenceIndex": "Group nº {{ index }} of the recurrence"
     },
     "emailTemplate": {
         "modal": {
@@ -8653,7 +8796,8 @@
                 },
                 "welcome": "Hello!"
             },
-            "title": "[Form] Sign up"
+            "title": "[Form] Sign up",
+            "newMemberOnlyHelperText": "A member is considered new as long as they have not made a purchase greater than 0 {{ currency }}  on the platform. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the 'New Member' status."
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
@@ -9103,7 +9247,8 @@
                 "title": "Schedule a recurrence",
                 "startFromDate": {
                     "label": "Start the recurrent booking the "
-                }
+                },
+                "groupWarning": "Please note that it is not possible to create a recurrent booking for groups of sessions"
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
@@ -9240,8 +9385,15 @@
                 "bookOption": "Waiting list",
                 "isPast": "Completed",
                 "notAvailable": "Cancelled",
-                "duration": "Duration: {{duration}}"
-            }
+                "duration": "Duration: {{duration}}",
+                "loadMore": "More sessions",
+                "bookTitle": "Book a session"
+            },
+            "warningPartialBooking": "You are booking a session group. However, you are not obliged to attend all the sessions in this group. You can select the sessions you wish to attend.",
+            "warningFullBooking": "You are booking a session group. You will be registered for all {{count}} sessions of this group.",
+            "confirm": "Continue",
+            "cancel": "Cancel",
+            "loadMore": "See more"
         },
         "calendar": {
             "registered": "Reservation confirmed"
@@ -10873,6 +11025,11 @@
                 "error": "Unable to save payment",
                 "success": "Saved payment"
             }
+        },
+        "marketplace": {
+            "update": {
+                "error": "An error has occurred. Please check the requested settings."
+            }
         }
     },
     "navigation": {
@@ -10977,7 +11134,8 @@
             "expenses": "Expenses",
             "instalmentPayment": "Instalments",
             "coachPayroll": "Payroll",
-            "clockIn": "Attendance"
+            "clockIn": "Attendance",
+            "help": "Support"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -11406,7 +11564,8 @@
                 "last_name": "Last name",
                 "first_name": "First name",
                 "sign_up_question": "Sign up form questions",
-                "location": "Favorite location"
+                "location": "Favorite location",
+                "state": "Status"
             },
             "title": "Forms",
             "CustomFormLink": "Direct link to this form",

@@ -199,7 +199,7 @@
             "481": "Wanneer een periodieke afspraak geannuleerd wordt i.v.m. een gebrek aan beschikbaarheid (voor leden)",
             "480": "Wanneer een periodieke afspraak geannuleerd wordt i.v.m. een gebrek aan beschikbaarheid (voor medewerkers)",
             "987": "Incasseringspoging voor een termijnbetaling",
-            "801": "Geannuleerde groepsafspraak"
+            "801": "Afgezegde afspraak groep"
         },
         "tag": {
             "BookingOption": {
@@ -257,7 +257,7 @@
                     "coach": "Instructeur",
                     "activity": "Activiteit",
                     "spot": "Plaats",
-                    "canceled_grouped_session": "Groepsannulering"
+                    "canceled_grouped_session": "Geannuleerde reserveringsgroep"
                 },
                 "name": "Reservering"
             },
@@ -4561,7 +4561,7 @@
                 "startFromDate": {
                     "label": "Startdatum terugkerende reservering "
                 },
-                "groupWarning": "Het is niet mogelijk om een herhalingsregel aan te maken voor evenementen."
+                "groupWarning": "Het is niet mogelijk om een herhalingsregel aan te maken voor evenementen"
             },
             "deleteModal": {
                 "cancel": "Annuleren",

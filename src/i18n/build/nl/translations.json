@@ -565,7 +565,7 @@
             "substitute": "Plaatsvervanger",
             "vod": "Video On Demand",
             "playlist": "Afspeellijsten",
-            "bookGroups": "Evenement reserveren",
+            "bookGroups": "Evenementen",
             "book": "Reserveer",
             "cancel": "Annuleren",
             "discover": "Ontdek",
@@ -735,11 +735,11 @@
                 "waitingSlot": "In behandeling",
                 "confirmBooking": "Bevestigen",
                 "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je annuleert te laat en je verliest je krediet(en).",
-                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Klik dan op \"Verwijderen\" en vervolgens worden je kredieten vergoed.",
+                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\" en vervolgens worden je kredieten vergoed.",
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
                 "myPrivateBooking": "Afspraak",
-                "intro": "Je reservering van {{date}}",
+                "intro": "Sessie van {{date}} verwijderen",
                 "discardGroupImpossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden niet vergoed, omdat deze reservering te laat geannuleerd wordt.",
                 "discardGroupPossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden vergoed en kunnen opnieuw worden gebruikt.",
                 "willNotBeRefund": "Niet vergoedde kredieten",
@@ -1236,7 +1236,7 @@
                 "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden terug op de gebruikte kaart gestort.",
                 "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
-            "revertBookingTitle": "Inschrijving annuleren",
+            "revertBookingTitle": "Annulering",
             "wasRefunded": "Krediet vergoed",
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
             "notifyRevert": "Een annuleringsmail sturen",
@@ -1540,14 +1540,14 @@
             "hideMail": "E-mail verbergen",
             "count": "tekens",
             "showMail": "E-mail tonen",
-            "mailSelection": "Kies een e-mail",
+            "mailSelection": "Selecteer een e-mailsjabloon",
             "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
             "noMailAvailable": "Nog geen e-mail beschikbaar. Begin met het ontwerpen van je eerste e-mail.",
             "mailMissing": "Nog geen e-mail ingevoerd",
             "phoneMissing": "Nog geen telefoonnummer ingevoerd",
             "numberSms": "sms",
             "contentSms": "Inhoud van de sms",
-            "selectTemplate": "Bestaand e-mailsjabloon",
+            "selectTemplate": "E-mailsjabloon",
             "writeMail": "E-mail",
             "dialogTitle": "Bericht",
             "contentNotification": "Inhoud",
@@ -2308,7 +2308,7 @@
                 "typeTitle": "Evenement",
                 "creditType": "Resterende kredieten",
                 "daysType": "Resterende geldigheid",
-                "mailSelection": "Kies een e-mail",
+                "mailSelection": "Selecteer een e-mailsjabloon",
                 "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
                 "showMail": "E-mail tonen",
                 "settingTitle": "Instellingen",
@@ -2539,7 +2539,7 @@
             "bookingsTitle": "Gekoppelde reserveringen",
             "extensionsTitle": "Geldigheid verlengen",
             "refundTitle": "Bijbehorende terugbetaling",
-            "trackModifiedCreditTitle": "Geschiedenis van de kredietwijzigingen",
+            "trackModifiedCreditTitle": "Gebruiksgeschiedenis",
             "penaltyAccount": "Extra facturatie t.w.v. {{currencyDisplay }}{{account_value}}",
             "penaltyBlock": "Deze kaart is voor {{nb_days}} dag(en) geblokkeerd.",
             "penaltyTitle": "Toegepaste sancties"
@@ -2787,7 +2787,7 @@
         "blackList": "Afgekeurde tags",
         "whiteList": "Goedgekeurde tags",
         "accessibility": {
-            "onsitePayment": "Fysieke betalingen zijn geactiveerd",
+            "onsitePayment": "Fysieke betalingen worden geaccepteerd",
             "managerOnly": "Maak dit product onbeschikbaar voor leden",
             "newMembers": "Maak dit product alleen voor nieuwe leden beschikbaar"
         },
@@ -2800,7 +2800,7 @@
             "whiteList": "{{ count }} goedgekeurde tag",
             "whiteList_plural": "{{ count }} goedgekeurde tags"
         },
-        "full_vod": "Geschikt voor Video On Demand.",
+        "full_vod": "Geschikt voor Video On Demand",
         "seeAll": "Toon alles",
         "compatibility": {
             "and": " en ",
@@ -2811,7 +2811,7 @@
             "categories": "{{ count }} categorie",
             "categories_plural": "{{ count }} categorieën",
             "compatible": "Compatibel met: ",
-            "all": "Deze kaart is compatibel met alle categorieën, activiteiten en vestigingen."
+            "all": "Deze kaart is compatibel met alle categorieën, activiteiten en vestigingen"
         },
         "cardDetails": {
             "packBlocking2": " te late annuleringen binnen een week",
@@ -4701,7 +4701,7 @@
                 "duration": "Duur: {{duration}}",
                 "bookOption": "Wachtlijst",
                 "loadMore": "Meer sessies",
-                "bookTitle": "Een sessie reserveren"
+                "bookTitle": "Overzicht"
             },
             "warningPartialBooking": "Selecteer welke sessies van dit evenement je wenst bij te wonen.",
             "warningFullBooking": "Door deze reservering te voltooien sta je ingeschreven bij {{count}} sessie(s).",
@@ -5039,7 +5039,7 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "We gebruiken de interne rekening (Wallet) van dit lid voor de facturatie. Gebruik dit als het lid nog geen online-betaalmethode, zoals creditcard of IBAN, heeft opgeslagen. Dit kun je later wijzigen."
+                "explain": "Gebruik de interne rekening (Wallet) voor de facturatie indien er nog geen andere betaalmethode, zoals IBAN of creditcard is toegevoegd. Dit kan later worden gewijzigd."
             },
             "sepa": "Automatische incasso (SEPA)",
             "card": "Betaalkaart",
@@ -5058,7 +5058,7 @@
             "billing_plan-create": "Toevoegen",
             "billing_plan-stop": "Gestopte betalingen",
             "billing_plan-renew": "Automatische verlengingen",
-            "billing_plan-payment_dispute": "Betwiste betalingen",
+            "billing_plan-payment_dispute": "Gestorneerde betalingen",
             "billing_plan-payment_success": "Succesvolle betalingen",
             "billing_plan-payment_failure": "Geweigerde betalingen",
             "billing_plan-update_payment_method": "Gewijzigde betaalmethoden",
@@ -5081,7 +5081,7 @@
                 "form": {
                     "title": "Leskaart wijzigen",
                     "explain": "Deze nieuwe leskaart zal voortaan worden gebruikt voor de toekomstige facturatie. Sessies die met de oude leskaart gereserveerd zijn worden overgezet naar de nieuwe leskaart, ook als deze niet compatibel zijn.",
-                    "warning": "De facturatie blijft hetzelfde. Als je het maandelijkse bedrag wil verhogen/verlagen, wijzig dan elke maandelijkse betaling afzonderlijk.",
+                    "warning": "De facturatie blijft hetzelfde. Wijzig iedere betaling apart, indien je het bedrag wenst te veranderen.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
                 }
@@ -5094,7 +5094,7 @@
                     "title": "[Formulier] Pauzeren",
                     "name": {
                         "label": "Reden",
-                        "placeholder": "Officiële vakantiedagen"
+                        "placeholder": "Vakantiedag"
                     },
                     "days": {
                         "label": "Aantal dagen"
@@ -5148,7 +5148,7 @@
                 "form": {
                     "submit": "Opslaan",
                     "cancel": "Annuleren",
-                    "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het maandelijks bedrag te wijzigen.",
+                    "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het bedrag te wijzigen.",
                     "explain": "Deze afspraakkaart wordt aan alle toekomstige facturen toegewezen. Alle sessies van de oude afspraakkaart worden ook naar de nieuwe afspraakkaart overgezet.",
                     "title": "De afspraakkaart is bijgewerkt"
                 }
@@ -5254,7 +5254,7 @@
             }
         },
         "subscriptionStatus": {
-            "pending": "Facturatie in behandeling",
+            "pending": "Openstaande factuur",
             "canceledOn": "Gestopt op ",
             "hasEnded": "Facturatie voltooid",
             "isPaused": "Gepauzeerd"
@@ -7628,7 +7628,7 @@
             }
         },
         "invoice": {
-            "error": "Fout bij opslaan - Geannuleerd",
+            "error": "Fout bij het opslaan - Geannuleerd",
             "update": {
                 "success": "Factuur succesvol bijgewerkt"
             },

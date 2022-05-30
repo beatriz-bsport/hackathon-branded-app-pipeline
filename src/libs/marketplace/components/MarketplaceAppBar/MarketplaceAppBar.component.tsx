@@ -193,33 +193,14 @@ const useStyles = makeStyles((theme) => ({
   basketAndProfile: {
     display: 'flex',
     flexDirection: 'row',
-    // justifySelf: 'flex-end',
     justifyContent: 'flex-end',
     flex: 1,
   },
   logo: {
     flex: 1,
     justifySelf: 'flex-start',
-    // display: 'flex',
     justifyContent: 'flex-start',
   },
-  // appbar: {
-  //   maxWidth: '70%',
-  //   justifySelf: 'center',
-  //   flex: 2,
-  //   boxShadow: 'none',
-  //   backgroundColor: 'transparent',
-  //   justifyContent: 'center',
-  //   flexDirection: 'row',
-  //   [theme.breakpoints.down('md')]: {
-  //     maxWidth: '65%',
-  //     flex: 1,
-  //   },
-  //   [theme.breakpoints.down('xs')]: {
-  //     maxWidth: 'unset',
-  //     order: 3,
-  //   },
-  // },
   shoppingBox: {
     padding: theme.spacing(1),
     alignSelf: 'center',

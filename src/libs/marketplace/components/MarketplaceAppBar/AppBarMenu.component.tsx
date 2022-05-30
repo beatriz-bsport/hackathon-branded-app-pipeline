@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   appbar: {
     maxWidth: '70%',
     justifySelf: 'center',
-    flex: 2,
+    flex: 10,
     boxShadow: 'none',
     backgroundColor: 'transparent',
     justifyContent: 'center',
@@ -108,6 +108,7 @@ const useStyles = makeStyles((theme) => ({
       flex: 1,
     },
     [theme.breakpoints.down('xs')]: {
+      height: 'unset',
       maxWidth: 'unset',
       order: 3,
     },
@@ -121,6 +122,9 @@ const useStyles = makeStyles((theme) => ({
   },
   justifyContent: {
     height: '100%',
+    [theme.breakpoints.down('xs')]: {
+      height: 'unset',
+    },
   },
   scrollButton: {
     color: theme.palette.grey.A200,
@@ -138,6 +142,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2.5),
     paddingBottom: theme.spacing(2.5),
     [theme.breakpoints.down('xs')]: {
+      height: 'unset',
       paddingTop: 'inherit',
       paddingBottom: 'inherit',
     },

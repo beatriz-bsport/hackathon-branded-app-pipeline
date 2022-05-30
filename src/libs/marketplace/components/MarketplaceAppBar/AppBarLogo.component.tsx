@@ -28,12 +28,20 @@ const AppBarLogo: React.FC<LogoProps> = ({
         onClick={() => {
           window.location.href = httpParser(websiteURL);
         }}
-        className={classes.icon}
+        className={classes.marginLeft}
       >
         <img height={40} src={logo} alt="bsport logo" />
       </ButtonBase>
     );
-  if (logo) return <img height={40} src={logo} alt="bsport logo" />;
+  if (logo)
+    return (
+      <img
+        height={40}
+        className={classes.marginLeft}
+        src={logo}
+        alt="bsport logo"
+      />
+    );
   return (
     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
       {title}
@@ -41,10 +49,11 @@ const AppBarLogo: React.FC<LogoProps> = ({
   );
 };
 const useStyles = makeStyles((theme) => ({
-  icon: {
+  marginLeft: {
     marginLeft: theme.spacing(2),
   },
   title: {
+    marginLeft: theme.spacing(2),
     display: 'block',
   },
 }));

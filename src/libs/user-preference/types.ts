@@ -4,6 +4,9 @@ import {
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
 import { OffersGroupFilter } from '#libs/meta-activity/types';
+import { ResourceData } from '#libs/private-service/types';
+import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
 
 export type ScheduleFilter = {
   showOfferList: boolean;
@@ -12,6 +15,10 @@ export type ScheduleFilter = {
   hideCancelledEvents: boolean;
   timeGrid: string;
   zoomLevel: number;
+  resourceFilter: {
+    resourceDatatypeFilter: ResourceData;
+    resourceItemsFilter: Coach[] | Establishment[] | [];
+  };
 };
 
 export type PrivateBookingFilter = {

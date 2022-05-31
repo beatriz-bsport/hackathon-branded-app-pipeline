@@ -579,7 +579,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
       if (this.props.resourceDatatypeView) {
         initialView = 'resourceTimeGridDay';
       }
-    } else if (this.props.resourceDatatypeView) {
+    } else if (
+      this.props.resourceDatatypeView &&
+      !initialView.startsWith('resource')
+    ) {
       initialView = 'resourceTimeGridThreeDays';
     }
 

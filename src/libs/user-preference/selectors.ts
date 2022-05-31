@@ -1,13 +1,17 @@
 import { RootState } from '../../reducers';
 import type { ScheduleFilter } from './types';
 
-export const defaultFilters = {
+export const defaultFilters: ScheduleFilter = {
   showOfferList: true,
   showPrivateBookings: true,
   showCustomEvents: true,
   hideCancelledEvents: true,
   timeGrid: 'timeGridWeek',
   zoomLevel: 1,
+  resourceFilter: {
+    resourceDatatypeFilter: null,
+    resourceItemsFilter: [],
+  },
 };
 
 export const getScheduleFilter = (state: RootState): ScheduleFilter =>

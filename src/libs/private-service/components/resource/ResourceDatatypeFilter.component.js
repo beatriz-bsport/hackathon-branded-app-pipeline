@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Hidden from '@material-ui/core/Hidden';
 import { withTranslation, TFunction } from 'react-i18next';
+import { ScheduleFilter } from '../../../user-preference/types';
 
 type Props = {
   classes: Object,
@@ -16,9 +17,8 @@ type Props = {
   anchorEl: ?HTMLElement,
   setAnchorEl: (e: ?HTMLElement) => void,
   resourcesByDatatype: Array<ResourceGroupType>,
-  onResourceDatatypeFilterChange: (
-    resourceGroupTypeList: ?Array<ResourceGroupType>,
-  ) => void,
+  scheduleFilter: ScheduleFilter,
+  setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
 };
 
 export const ResourceDatatypeFilter = (props: Props) => {
@@ -43,7 +43,13 @@ export const ResourceDatatypeFilter = (props: Props) => {
           <MenuItem
             key={datatype}
             onClick={() => {
-              props.onResourceDatatypeFilterChange(datatype, items);
+              props.setScheduleFilter({
+                ...props.scheduleFilter,
+                resourceFilter: {
+                  resourceDatatypeFilter: datatype,
+                  resourceItemsFilter: items,
+                },
+              });
               props.setAnchorEl(null);
             }}
           >
@@ -52,7 +58,13 @@ export const ResourceDatatypeFilter = (props: Props) => {
         ))}
         <MenuItem
           onClick={() => {
-            props.onResourceDatatypeFilterChange(null, []);
+            props.setScheduleFilter({
+              ...props.scheduleFilter,
+              resourceFilter: {
+                resourceDatatypeFilter: null,
+                resourceItemsFilter: [],
+              },
+            });
             props.setAnchorEl(null);
           }}
         >

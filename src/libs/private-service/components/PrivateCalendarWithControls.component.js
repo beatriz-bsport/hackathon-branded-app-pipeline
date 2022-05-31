@@ -84,7 +84,6 @@ type Props = {
   onRequestPrivateBooking: (date: string) => void,
   privateBookingRequestedSlot: ?string,
   resourcesByDatatype: Array<ResourceData>,
-  setResourceFilter: (datatype: string, items: Array<ResourceData>) => void,
   resourceItemsFilter: Array<ResourceData>,
   resourceDatatypeFilter: any,
   collapsResourceSelector: any,
@@ -159,7 +158,8 @@ export const PrivateCalendarWithControls = (props: Props) => {
                 !!props.resourcesByDatatype.length && (
                   <ResourceDatatypeFilter
                     resourcesByDatatype={props.resourcesByDatatype}
-                    onResourceDatatypeFilterChange={props.setResourceFilter}
+                    scheduleFilter={props.scheduleFilter}
+                    setScheduleFilter={props.setScheduleFilter}
                   />
                 )}
             </div>
@@ -242,8 +242,12 @@ export const PrivateCalendarWithControls = (props: Props) => {
           }
           timezone={props.timezone}
           createCustomEvent={props.createCustomEvent}
-          resources={props.resourceItemsFilter}
-          resourceDatatypeView={props.resourceDatatypeFilter}
+          resources={
+            props.scheduleFilter.resourceFilter?.resourceItemsFilter || []
+          }
+          resourceDatatypeView={
+            props.scheduleFilter.resourceFilter?.resourceDatatypeFilter || null
+          }
           customEventList={
             props.scheduleFilter?.showCustomEvents
               ? props.customEventList || []
@@ -379,16 +383,6 @@ export default compose(
         () => (data: { date_start: string, date_end: string }) => {
           return { privateCalendarDateStart: data.date_start };
         },
-    },
-  ),
-  withStateHandlers(
-    { resourceItemsFilter: [], resourceDatatypeFilter: null },
-    {
-      setResourceFilter:
-        () => (resourceDatatypeFilter, resourceItemsFilter) => ({
-          resourceDatatypeFilter,
-          resourceItemsFilter,
-        }),
     },
   ),
   withStateHandlers(

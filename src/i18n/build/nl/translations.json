@@ -175,7 +175,7 @@
             "21": "Nieuwe reservering",
             "19": "Welkomsbericht (voor medewerkers)",
             "18": "Geannuleerde reservering (kosteloos)",
-            "17": "Geannuleerde reservering (te laat en niet vergoed)",
+            "17": "Geannuleerde reservering (te laat en niet terugbetaald)",
             "16": "Gewijzigde sessie",
             "14": "Wanneer een lid zich van de wachtlijst uitschrijft (voor medewerkers)",
             "13": "Wanneer een lid zich van de wachtlijst uitschrijft (voor leden)",
@@ -735,16 +735,19 @@
                 "waitingSlot": "In behandeling",
                 "confirmBooking": "Bevestigen",
                 "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je annuleert te laat en je verliest je krediet(en).",
-                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\" en vervolgens worden je kredieten vergoed.",
+                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\" en vervolgens worden de gebruikte kredieten teruggestort.",
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
                 "myPrivateBooking": "Afspraak",
                 "intro": "Sessie van {{date}} verwijderen",
-                "discardGroupImpossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden niet vergoed, omdat deze reservering te laat geannuleerd wordt.",
-                "discardGroupPossibleExplain": " Deze reservering is gekoppeld aan het evenement \"{{ group }}\". Weet je zeker dat je deze reserveringen wilt annuleren? De kredieten worden vergoed en kunnen opnieuw worden gebruikt.",
-                "willNotBeRefund": "Niet vergoedde kredieten",
-                "willBeRefund": "De sessie van {{-day}} wordt vergoed",
-                "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd."
+                "discardGroupImpossibleExplain": "De kredieten worden niet teruggestort, omdat deze reservering te laat geannuleerd wordt.",
+                "discardGroupPossibleExplain": "De kredieten worden teruggestort en kunnen opnieuw worden gebruikt.",
+                "willNotBeRefund": "Uitstaande kredieten",
+                "willBeRefund": "De sessie van {{-day}} wordt terugbetaald",
+                "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd.",
+                "discardGroup3": "Contacteer de studio, indien je wenst om slechts één sessie te annuleren.",
+                "discardGroup2": "Je wordt automatisch afgemeld van alle sessies die niet voltooid zijn.",
+                "discardGroup1": "Deze reservering is onderdeel van \"{{ group }}\"."
             },
             "help": {
                 "explainCancelBookingOption": "Deze verwijdering is definitief. Als je je opnieuw voor deze sessie aanmeldt, dan sluit je je achteraan de wachtlijst aan.",
@@ -855,7 +858,7 @@
                     "explainCreditBack": "Kredieten van de gebruikte kart terugstorten",
                     "explainHardDelete": "Weet je zeker dat je deze sessie(s) wilt verwijderen? Let op: deze actie is definitief en de verwijderde sessies worden onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen",
-                    "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Niet vergoedde tegoeden worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
+                    "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Terugbetaalde kredieten worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
                     "force": "Alle geselecteerde sessies inclusief de bijbehorende reserveringen verwijderen",
                     "advanced": "Geavanceerd"
                 },
@@ -1095,7 +1098,7 @@
             "emailHelper": "Voeg meerdere e-mailadressen toe door ze met een komma te scheiden.",
             "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
             "tenMinutes": "10 min",
-            "editGroup": "Wijzig deze velden binnen het evenement.",
+            "editGroup": "Wijzig dit veld binnen het evenement.",
             "noWaitingList": "Wachtlijsten zijn niet beschikbaar voor evenementen."
         },
         "shop": {
@@ -1237,7 +1240,7 @@
                 "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
             "revertBookingTitle": "Annulering",
-            "wasRefunded": "Krediet vergoed",
+            "wasRefunded": "Teruggestorte kredieten",
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
             "notifyRevert": "Een annuleringsmail sturen",
             "refundRevert": "Gebruikte kredieten terugbetalen",
@@ -1363,7 +1366,7 @@
             "paymentMethod": "Betaalmethode",
             "until": "Tot",
             "from": "Van",
-            "booking": "Reservering(en)",
+            "booking": "Reservering",
             "saveAndAdd": "Opslaan en opnieuw toevoegen",
             "save": "Opslaan",
             "lastname": "Achternaam",
@@ -2324,8 +2327,8 @@
                 "pushTitle": "Berichtgevingsinstellingen",
                 "mailSettings": "Instellingen",
                 "creditNotificationType": {
-                    "onOfferStart": "Verstuur het bericht na het einde van een sessie",
-                    "onBooking": "Verstuur het bericht na het maken van een reservering"
+                    "onOfferStart": "Verstuur het bericht na het einde van een sessie na reservering:",
+                    "onBooking": "Verstuur het bericht na het maken van reservering:"
                 },
                 "chooseTime": {
                     "first": "Een melding versturen",
@@ -2731,19 +2734,19 @@
         },
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
-            "noManagerOnly": "Beschikbaar",
-            "managerOnly": "Onbeschikbaar",
+            "noManagerOnly": "Beschikbare kaarten",
+            "managerOnly": "Onbeschikbare kaarten",
             "filterManagerOnly": "Alle beschikbaarheid",
             "filterCategory": "Alle categorieën",
             "titleSort": "Sorteren",
-            "titleManagerOnly": "Beschikbare leskaarten",
+            "titleManagerOnly": "Beschikbaarheid",
             "titleCategory": "Categorieën",
             "sorting": {
                 "descendingCredit": "Kredieten: aflopend",
                 "ascendingCredit": "Kredieten: oplopend",
                 "descendingPrice": "Prijs: aflopend",
                 "ascendingPrice": "Prijs: oplopend",
-                "customSort": "Aanvullende bestellingen (MarketPlace en App)"
+                "customSort": "Aanvullende bestellingen (MarketPlace en Mobiele App)"
             }
         },
         "paymentPackTemplate": {
@@ -4384,7 +4387,7 @@
             "web": "Web",
             "saas": "Back Office",
             "other": "Overige",
-            "migration": "Migratie"
+            "migration": "Gegevensoverdracht"
         },
         "customerView": {
             "wasRefunded": "Terugbetaald",
@@ -4523,7 +4526,7 @@
                 "bookingNumberAll": "Iedere reservering",
                 "bookingNumberN": "Reservering: {{notify_booking_nb}}",
                 "addVariable": "Een variabel toevoegen",
-                "pushHelper": "Gebruik push-notificaties spaarzaam. Het spammen van leden met push-notificaties vergroot de kans dat leden de app verwijderen.",
+                "pushHelper": "Gebruik push-notificaties spaarzaam. Het spammen van leden met push-notificaties vergroot de kans dat leden de mobiele app verwijderen.",
                 "needPushUpsell": "De aanvullende dienst voor push-notificaties is niet aangezet",
                 "push": "Push-notificatie",
                 "mail": "E-mail",
@@ -4566,16 +4569,16 @@
             "deleteModal": {
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
-                "content": "Het verwijderen van de herhalingsregel resulteert in de annulering van alle toekomstige reserveringen die deze regel volgen.",
-                "title": "Verwijder herhalingsregel",
+                "content": "Het verwijderen van een periodieke reservering verwijdert ook alle bijbehorende toekomstige reserveringen die aan deze instellingen gekoppeld zijn.",
+                "title": "Periode reservering verwijderen",
                 "success": "De terugkerende reservering is verwijderd"
             },
             "item": {
-                "explain": "Alle voorgaande weken {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}}"
+                "explain": "Iedere {{dayOfWeek}} om {{hour}}:{{minute}}. Reservering: {{delayWeek}}"
             },
             "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden moeten een compatibel en geldige kaart bezitten om te kunnen worden ingeschreven.",
             "needConsumerPack": "Dit lid bezit niet de juiste leskaart. Het is niet mogelijk om een herhalende reservering in te plannen.",
-            "recurrentBookings": "Herhalende reserveringen",
+            "recurrentBookings": "Periodieke reserveringen",
             "actions": {
                 "save": "Opslaan",
                 "close": "Sluit"
@@ -4589,7 +4592,7 @@
             "editModal": {
                 "success": "De terugkerende reservering is gewijzigd"
             },
-            "blockedBookings": "Je leden kunnen zich tot {{days}} dag(en) voor het begin van deze activiteit inschrijven. We raden aan om herhalende reserveringen voor langere tijden toe te staan om overboekingen te voorkomen.",
+            "blockedBookings": "Je leden kunnen zich tot {{days}} dag(en) voor het begin van deze activiteit inschrijven. We raden aan om periodieke reserveringen voor langere tijden toe te staan om overboekingen te voorkomen.",
             "notifyIfCanceled": "Stuur een annuleringsmail",
             "notify": "Een bevestigingsmail versturen wanneer een lid zich registreert",
             "showLess": "Toon minder",
@@ -5175,7 +5178,7 @@
                 "updateRecurrentPrice": "Deze wijzigingen ook toepassen op alle incasseringen na de automatische verlenging"
             },
             "list": {
-                "titleNext": "Eerstvolgende afschrijvingen"
+                "titleNext": "Eerstvolgende incasso's"
             },
             "dateUpdater": {
                 "title": "Wijzig de toekomstige factuur",
@@ -5508,14 +5511,14 @@
                     "youtubeExplain": "Gebruik deze optie om de video's die je op YouTube hebt geplaatst op de beschermde mediaspeler van je BSPORT-account te zetten.",
                     "vimeo": "Vimeo",
                     "youtube": "YouTube",
-                    "ebookExplain": "Upload een eBook (JPG of PNG) om het downloadbaar voor leden te maken.",
+                    "ebookExplain": "Upload een eBook (PDF, JPG of PNG) om het downloadbaar voor leden te maken.",
                     "ebook": "eBooks"
                 },
                 "submit": "Bevestigen",
                 "minutes": "Min.",
                 "hours": "Uur",
                 "durationInputError": "Vermeld de duur van de video",
-                "durationLabel": "Duur van de video",
+                "durationLabel": "Duur",
                 "vimeoUrlInput": "Link naar Vimeo",
                 "youtubeUrlInput": "Link naar YouTube",
                 "contentEbook": "Klik hier om een bestand of foto up te loaden.",
@@ -5535,12 +5538,12 @@
                 },
                 "video_label": "Video",
                 "video_source": {
-                    "change_popup_text": "De huidige video zal worden verwijderd. Leden die deze hebben gekocht, krijgen nu toegang tot de nieuwe video.",
+                    "change_popup_text": "Het huidige bestand zal worden verwijderd. Leden die het bestaande bestand hebben gekocht, krijgen nu toegang tot de nieuwe versie.",
                     "change_popup_title": "Bestand wijzigen",
                     "edit_button": "Bestand wijzigen",
                     "uploaded_video": "Bestand geüpload",
                     "youtube_video": "YouTube-video",
-                    "title": "Video",
+                    "title": "Bestand",
                     "vimeo_video": "Vimeo-video",
                     "ebook": "eBook"
                 },
@@ -5980,7 +5983,7 @@
                 "confirm": "Bevestigen",
                 "title": "Afspraak annuleren",
                 "explain": "Weet je zeker dat je deze reservering wilt annuleren? Deze actie is definitief.",
-                "explainForceRefund": "Gebruikte kredieten vergoeden om een nieuwe reservering toe te staan",
+                "explainForceRefund": "Gebruikte kredieten terugbetalen om een nieuwe reservering toe te staan",
                 "cancel": "Annuleren",
                 "sendCancellationMail": "Stuur {{name}} een annuleringsbevestiging",
                 "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken."
@@ -6051,7 +6054,7 @@
             "form": {
                 "interval": {
                     "explain1": "Beschikbaarheid: ",
-                    "explain2": "Elke {{ day }} van {{ date_start }} t/m {{ date_end }}"
+                    "explain2": "Elke {{ day }} van {{ date_start }} tot {{ date_end }}"
                 },
                 "title": {
                     "disable": "Beschikbaarheid verwijderen",
@@ -6068,7 +6071,7 @@
             "disableRecurrentAvailability": "Terugkerende beschikbaarheid verwijderen",
             "addBooking": "Een afspraak inplannen",
             "toogle": {
-                "showOfferList": "Groepsactiviteiten",
+                "showOfferList": "Groepsactiviteiten & Workshops",
                 "showPrivateBookings": "Afspraken",
                 "showCustomEvents": "Taken / Persoonlijke afspraken",
                 "hideCancelledEvents": "Toon annuleringen",
@@ -7367,7 +7370,7 @@
         "payment": {
             "return": "Terugbetaling"
         },
-        "returnedAmount": "Vergoed: ",
+        "returnedAmount": "Terugbetaald: ",
         "payout": {
             "isEmptyWarning": "Het is mogelijk dat uitbetalingen van vóór 15 maart 2021 niet worden vermeld.",
             "isEmpty": "Er zijn nog geen uitbetalingen geregistreerd om weer te geven.",
@@ -8813,7 +8816,7 @@
         },
         "close": "Sluiten",
         "selector": {
-            "validate": "Confirm",
+            "validate": "Bevestigen",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Selecteer alles"
         },
@@ -9011,7 +9014,7 @@
         "memberStatus": "Ledenstatus: ",
         "modal": {
             "confirm": {
-                "text": "Deze sessie is gekoppeld aan een evenement. Het is mogelijk om alles sessies te ontkoppelen. Weet je zeker dat door wilt gaan?",
+                "text": "Deze sessie is gekoppeld aan een evenement. Je staat op het punt om alle tags te verwijderen. Weet je zeker dat door wilt gaan?",
                 "submit": "Bevestigen",
                 "title": "Tag verwijderen"
             }

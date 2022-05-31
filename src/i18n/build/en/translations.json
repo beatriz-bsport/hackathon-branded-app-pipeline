@@ -4442,9 +4442,9 @@
                         "helperText": "When more than {{number}} people book a session, any additional reservation will only be accepted if the WOMEN / MEN imbalance is less than the following value.",
                         "placeholder": "Check the WOMEN / MEN imbalance when the number of reservations exceeds"
                     },
-                    "checkbox": "Limit the WOMEN / MEN imbalance in reservations (dancing studio...)"
+                    "checkbox": "Automatically manage the male-female ratio per session"
                 },
-                "offerBalance": "Control the WOMEN / MEN balance on each session",
+                "offerBalance": "Gender ratio",
                 "showGenderOffer": "Show the amount of men and women that booked a session",
                 "hideCoach": "Hide teachers' info on the calendar for members",
                 "maxFutureBooking": {
@@ -4459,7 +4459,7 @@
                     "alert": "The schedule's start time must be earlier than the end time",
                     "end": "End time",
                     "begin": "Start time",
-                    "title": "Schedule configuration"
+                    "title": "Schedule"
                 },
                 "coach_can_edit_attendance": "Allow teachers to modify members' present/absent status in the mobile app",
                 "internalAccountWarning1": "We highly recommend to create a report for members' internal account balances before enabling this feature.",
@@ -4470,7 +4470,7 @@
                 "internalAccountNotusableOnContract": "This payment method can't be used for subscriptions.",
                 "internalAccountWarning2": "Go to Reporting > Add a report > Scroll down to \"Payments\" > Select \"Credits\" > Select all columns > and click \"Save\".",
                 "errorURL": "Please enter a valid URL before saving the form",
-                "bookingTitle": "Booking",
+                "bookingTitle": "Bookings",
                 "attendanceTitle": "Attendance",
                 "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product",
                 "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags",
@@ -11186,13 +11186,13 @@
                 },
                 "video_label": "Video",
                 "video_source": {
-                    "change_popup_text": "Please note that the current video will be deleted. Members who purchased the old video will now have the new one.",
-                    "change_popup_title": "Change video",
-                    "edit_button": "Change video",
+                    "change_popup_text": "Please note that the current video/file will be deleted. Members who purchased the old file will now have the new one.",
+                    "change_popup_title": "Change file",
+                    "edit_button": "Change file",
                     "uploaded_video": "Uploaded file",
-                    "youtube_video": "Youtube video",
-                    "title": "Video",
-                    "vimeo_video": "Vimeo Video",
+                    "youtube_video": "YouTube video",
+                    "title": "File",
+                    "vimeo_video": "Vimeo video",
                     "ebook": "eBook"
                 },
                 "confirm": {
@@ -11207,7 +11207,7 @@
                 "dropHere": "Click here to add a video.",
                 "content": "Drop here or select a video",
                 "title": "Upload a video",
-                "urlInputError": "Please enter your URL",
+                "urlInputError": "Please enter the URL",
                 "urlInputLabel": "Youtube link",
                 "type": {
                     "url": "YouTube",
@@ -11218,14 +11218,14 @@
                     "vimeoExplain": "You have a Vimeo video and want to monetize it via bsport.",
                     "vimeo": "Vimeo",
                     "youtube": "Youtube",
-                    "ebookExplain": "Upload an eBook (JPG or PNG) to make it available for download for your members.",
+                    "ebookExplain": "Upload an eBook (PDF, JPG, or PNG) to make it available for download for your members.",
                     "ebook": "eBooks"
                 },
                 "submit": "Save",
                 "minutes": "Minutes",
                 "hours": "Hours",
-                "durationInputError": "Please enter the video duration",
-                "durationLabel": "Video duration",
+                "durationInputError": "Please enter the video's duration",
+                "durationLabel": "Duration",
                 "vimeoUrlInput": "Link to Vimeo",
                 "youtubeUrlInput": "Link to YouTube",
                 "contentEbook": "Click here to upload a file or an image.",
@@ -11747,7 +11747,7 @@
             "editable": "Editable",
             "display": "Show",
             "navigateToSignup": "Edit sign up form",
-            "memberFormTitle": "Modification form for member profiles",
+            "memberFormTitle": "Modification form",
             "signupFormTitle": "Sign up form",
             "layout": {
                 "save": "Save",

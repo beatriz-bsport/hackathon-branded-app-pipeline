@@ -276,6 +276,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
       onClose={onClose}
       title={t('groupedOption.modal.title')}
       subtitle={getSubtitle()}
+      withoutPadding
     >
       <div className={classes.drawerInner}>
         {step === STEP_METACTIVITY_SELECT && (
@@ -291,50 +292,58 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
         )}
 
         {step === STEP_GROUPED_OPTION_FORM && (
-          <GroupedOfferFormSettings
-            initial={
-              groups?.[0]
-                ? {
-                    ...groups[0],
-                    name: groups[0].name.replace(/\((\d)*\)/, ''),
-                  }
-                : null
-            }
-            coaches={coaches}
-            establishments={establishments}
-            availableRoomBlueprints={availableRoomBlueprints}
-            allRoomBlueprints={allRoomBlueprints}
-            coachPaymentRulesByKind={coachPaymentRulesByKind}
-            tagList={tagList}
-            theme={theme}
-            metaActivity={selectedMetaActivity}
-            onSubmit={handleGeneratePreview}
-            handlePreviousStep={handlePreviousStep}
-            customLevels={customLevels}
-            fetchLevelList={fetchLevelList}
-            updateLevel={updateLevel}
-            createLevel={createLevel}
-            deleteLevel={deleteLevel}
-            open={open}
-          />
+          <div className={classes.padding}>
+            <GroupedOfferFormSettings
+              initial={
+                groups?.[0]
+                  ? {
+                      ...groups[0],
+                      name: groups[0].name.replace(/\((\d)*\)/, ''),
+                    }
+                  : null
+              }
+              coaches={coaches}
+              establishments={establishments}
+              availableRoomBlueprints={availableRoomBlueprints}
+              allRoomBlueprints={allRoomBlueprints}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              tagList={tagList}
+              theme={theme}
+              metaActivity={selectedMetaActivity}
+              onSubmit={handleGeneratePreview}
+              handlePreviousStep={handlePreviousStep}
+              customLevels={customLevels}
+              fetchLevelList={fetchLevelList}
+              updateLevel={updateLevel}
+              createLevel={createLevel}
+              deleteLevel={deleteLevel}
+              open={open}
+            />
+          </div>
         )}
         {step === STEP_GROUPED_OPTION_PREVIEW && groupPreview && (
-          <GroupedOfferPreviewForm
-            onSubmit={handleCreateGroup}
-            groups={groups}
-            metaActivity={selectedMetaActivity}
-            handlePreviousStep={handlePreviousStep}
-          />
+          <div className={classes.padding}>
+            <GroupedOfferPreviewForm
+              onSubmit={handleCreateGroup}
+              groups={groups}
+              metaActivity={selectedMetaActivity}
+              handlePreviousStep={handlePreviousStep}
+            />
+          </div>
         )}
       </div>
     </GenericResponsiveDrawer>
   );
 };
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   drawerInner: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+  },
+  padding: {
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
   },
 }));
 

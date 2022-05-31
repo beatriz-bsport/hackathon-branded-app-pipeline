@@ -999,6 +999,7 @@ type SwitchFieldProps = {
   className: string,
   inverse?: boolean,
   helperText?: string,
+  color?: Variant,
 };
 export const SwitchField = (props: SwitchFieldProps) => {
   const { name, disabled, label, inverse, className, helperText } = props;
@@ -1012,7 +1013,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
             checked={inverse ? !field.value : field.value}
             label={label}
             disabled={disabled}
-            control={<Switch />}
+            control={<Switch color={props.color} />}
             className={className}
           />
         )}

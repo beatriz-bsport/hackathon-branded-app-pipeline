@@ -682,6 +682,7 @@ export class Planning extends PureComponent<Props, State> {
         onClose={this.closeCreateOffersModal}
         title={this.props.t('translation:common.offers')}
         subtitle={this.props.t('translation:common.offerCreation')}
+        withoutPadding
       >
         <div className={classes.spaceTop}>
           <OfferFormWithActivity

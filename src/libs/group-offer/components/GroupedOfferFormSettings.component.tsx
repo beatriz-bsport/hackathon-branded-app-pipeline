@@ -297,7 +297,7 @@ export const GroupedOfferFormSettings: React.FC<
       <Form>
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
-            <InfoIcon color="disabled" />
+            <InfoIcon className={classes.icon} />
             <Typography variant="h6">
               {t('groupedOption.modal.form.subtitle')}
             </Typography>
@@ -327,7 +327,7 @@ export const GroupedOfferFormSettings: React.FC<
             <Divider className={classes.divider} />
             <div className={classes.wrapper}>
               <div className={classes.subtitle}>
-                <DateRangeIcon color="disabled" />
+                <DateRangeIcon className={classes.icon} />
                 <Typography variant="h6">
                   {t('groupedOption.modal.form.subtitleOffers')}
                 </Typography>
@@ -365,20 +365,10 @@ export const GroupedOfferFormSettings: React.FC<
             </div>
           </>
         )}
-        <div className={classes.wrapper}>
-          <BlackWhiteListing
-            tagList={tagList}
-            disableTag={false}
-            whitelist_tags={values.whitelist_tags}
-            blacklist_tags={values.blacklist_tags}
-            onWhiteListChange={handleWhiteListChange}
-            onBlackListChange={handleBlackListChange}
-          />
-        </div>
         <Divider className={classes.divider} />
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
-            <ToggleOnIcon color="disabled" />
+            <ToggleOnIcon className={classes.icon} />
             <Typography variant="h6">
               {t('groupedOption.modal.form.subtitleSettings')}
             </Typography>
@@ -414,7 +404,7 @@ export const GroupedOfferFormSettings: React.FC<
             <Divider className={classes.divider} />
             <div className={classes.wrapper}>
               <div className={classes.subtitle}>
-                <RefreshIcon color="disabled" />
+                <RefreshIcon className={classes.icon} />
                 <Typography variant="h6">
                   {t('groupedOption.modal.form.subtitleRecurrence')}
                 </Typography>
@@ -422,6 +412,8 @@ export const GroupedOfferFormSettings: React.FC<
               <SwitchField
                 name="withRecurrence"
                 label={t('groupedOption.modal.form.withRecurrence')}
+                color="primary"
+                className={classes.switch}
               />
 
               <Collapse in={values.withRecurrence}>
@@ -499,6 +491,16 @@ export const GroupedOfferFormSettings: React.FC<
             </div>
           </>
         )}
+        <div className={classes.wrapper}>
+          <BlackWhiteListing
+            tagList={tagList}
+            disableTag={false}
+            whitelist_tags={values.whitelist_tags}
+            blacklist_tags={values.blacklist_tags}
+            onWhiteListChange={handleWhiteListChange}
+            onBlackListChange={handleBlackListChange}
+          />
+        </div>
         <div className={classes.buttonContainer}>
           <Button onClick={handlePreviousStep}>
             {t('translation:common.cancel')}
@@ -827,6 +829,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   divider: {
     marginLeft: theme.spacing(-4),
     marginRight: theme.spacing(-4),
+  },
+  icon: {
+    fill: '#747474',
   },
 }));
 

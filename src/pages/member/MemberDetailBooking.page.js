@@ -215,7 +215,7 @@ type Props = {
   coaches: Array<Coach>,
   fetchAssociatedCoachesList: () => void,
   activityGroups: OffersGroup[],
-  fetchGroupsOfferList: ({
+  fetchGroupsOfferList: (data: {
     meta_activity__in: number[],
     page: number,
     page_size: number,

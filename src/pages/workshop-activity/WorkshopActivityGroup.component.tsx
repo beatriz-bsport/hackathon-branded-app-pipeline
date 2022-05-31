@@ -456,6 +456,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   const hideEmptyState = groupExist || groupList.length > 0;
 
   const _metaActivities = metaActivity ? [metaActivity] : metaActivities;
+
   return (
     <div className={classes.container}>
       <div style={pageHeight ? { maxHeight: pageHeight } : {}}>

@@ -15,7 +15,7 @@ const getMetaActivityOptions = (metaActivities: Array<MetaActivity>) => {
     return 1;
   });
   return metaActivities
-    .filter((ma) => !ma)
+    .filter((ma) => ma)
     .map((ma) => ({
       value: ma.id,
       label: ma.name,
@@ -96,6 +96,7 @@ export default withTranslation(['metaActivity'])(
     } else if (variant === 'workshop') {
       placeholder = t('workshop');
     }
+
     return (
       <div style={{ zIndex: 9999 }}>
         <Select

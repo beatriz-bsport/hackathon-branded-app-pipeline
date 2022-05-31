@@ -116,6 +116,7 @@ const styles = (theme: Theme) => ({
   },
   main: {
     height: '100%',
+    marginTop: theme.spacing(2),
   },
 });
 

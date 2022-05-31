@@ -16,6 +16,7 @@ type OwnProps = {
   anchor?: 'top' | 'bottom' | 'left' | 'right' | undefined;
   onClose?: () => void;
   title?: string;
+  withoutPadding: boolean;
   subtitle?: string;
   width?: string;
   className?: string;
@@ -29,6 +30,7 @@ export const GenericFormDialog: React.FC<Props> = ({
   width,
   className,
   anchor = 'right',
+  withoutPadding = false,
   onClose,
 }) => {
   const classes = useStyles({ width, subtitle });
@@ -75,7 +77,13 @@ export const GenericFormDialog: React.FC<Props> = ({
             </div>
           )}
         </div>
-        <div className={classes.content}>{children}</div>
+        <div
+          className={classNames(classes.content, {
+            [classes.padding]: !withoutPadding,
+          })}
+        >
+          {children}
+        </div>
       </div>
     </Drawer>
   );
@@ -120,9 +128,11 @@ const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
     }),
     content: {
       flex: 1,
+      minWidth: '500px',
+    },
+    padding: {
       padding: theme.spacing(4),
       paddingBottom: theme.spacing(2),
-      minWidth: '500px',
     },
   }),
 );

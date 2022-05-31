@@ -82,7 +82,9 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     [theme],
   );
 
-  const availableOffers = offers.filter((o) => isOfferInThePast(o));
+  const availableOffers = offers.filter(
+    (o) => isOfferInThePast(o) && o.available,
+  );
 
   const handleBook = useCallback(
     () => (offer: Offer) => {

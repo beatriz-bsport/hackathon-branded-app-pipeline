@@ -13,6 +13,7 @@ import { Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
+
 import { getPrivatePassAvailable } from '../selectors/private-pass';
 import {
   getPrivateConsumerPassList,

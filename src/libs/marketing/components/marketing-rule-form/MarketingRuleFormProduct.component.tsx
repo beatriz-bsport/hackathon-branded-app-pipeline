@@ -7,15 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Dialog from '@material-ui/core/Dialog';
-import { makeStyles, useTheme, Theme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@material-ui/core/styles';
+
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import InfoIcon from '@material-ui/icons/Info';
-
-import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { useTranslation } from 'react-i18next';
@@ -27,6 +24,7 @@ import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notifica
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import Tooltip from '#components/Tooltip.component';
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 import {
   IntegerField,
@@ -232,375 +230,359 @@ const ProductNotificationForm = (props: Props) => {
       value: sm.id,
     }),
   );
-  const theme: Theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Dialog open maxWidth="md" fullWidth fullScreen={fullScreen}>
-      <DialogTitle>{t('notificationForm')}</DialogTitle>
-      <div className={classes.dialogContainer}>
-        <Form>
-          <div className={classes.fieldContainer} id="select_notification_type">
+    <GenericResponsiveDrawer
+      open
+      onClose={onCancel}
+      title={t('notificationForm')}
+    >
+      <Form>
+        <div className={classes.fieldContainer} id="select_notification_type">
+          <Typography variant="subtitle2">
+            {t('notification.form.typeTitle')}
+          </Typography>
+          <RadioGroupField
+            name="verboseNotifKind"
+            choices={[
+              {
+                label: t('notification.form.creditType'),
+                value: 'creditsLeft',
+              },
+              {
+                label: t('notification.form.daysType'),
+                value: 'daysLeft',
+              },
+              {
+                label: t('notification.form.daysPastType'),
+                value: 'daysPast',
+              },
+            ]}
+          />
+          {verboseNotifKind === 'creditsLeft' && (
+            <div className={classes.inlineContainer}>
+              <Typography variant="caption">
+                {t('notification.creditsLeft.first')}
+              </Typography>
+              <IntegerField name="credits_left" className={classes.textInput} />
+              <Typography variant="caption">
+                {t('notification.creditsLeft.second')}
+              </Typography>
+            </div>
+          )}
+
+          {verboseNotifKind === 'daysLeft' && (
+            <div className={classes.inlineContainer}>
+              <Typography variant="caption">
+                {t('notification.daysLeft.first')}
+              </Typography>
+              <IntegerField className={classes.textInput} name="days_left" />
+              <Typography variant="caption">
+                {t('notification.daysLeft.second')}
+              </Typography>
+            </div>
+          )}
+
+          {verboseNotifKind === 'daysPast' && (
+            <div className={classes.inlineContainer}>
+              <Typography variant="caption">
+                {t('notification.daysPast.first')}
+              </Typography>
+              <IntegerField className={classes.textInput} name="days_left" />
+              <Typography variant="caption">
+                {t('notification.daysPast.second')}
+              </Typography>
+            </div>
+          )}
+          {verboseNotifKind !== 'creditsLeft' && (
+            <>
+              <div className={classes.smartListSelector}>
+                <Typography variant="caption">
+                  {t('notification.form.smartListHelper')}
+                </Typography>
+                <MaterialUISelector
+                  onChange={(selectedValues: Array<OptionTypeBase>) =>
+                    setFieldValue(
+                      'smartlist_exclude',
+                      selectedValues?.map((opt) => opt?.value),
+                    )
+                  }
+                  options={
+                    smartListSelectOptions ? [...smartListSelectOptions] : []
+                  }
+                  placeholder={t('notification.form.smartListSelection')}
+                  isMulti
+                  isClearable
+                  value={smartListSelectOptions?.filter((opt) =>
+                    smartlist_exclude?.includes(opt?.value),
+                  )}
+                />
+              </div>
+              <div className={classes.smartListSelector}>
+                <Typography variant="caption">
+                  {t('notification.form.smartListHelperInclude')}
+                </Typography>
+                <MaterialUISelector
+                  onChange={(selectedValues: Array<OptionTypeBase>) =>
+                    setFieldValue(
+                      'smartlist_include',
+                      selectedValues?.map((opt) => opt?.value),
+                    )
+                  }
+                  options={
+                    smartListSelectOptions ? [...smartListSelectOptions] : []
+                  }
+                  placeholder={t('notification.form.smartListSelection')}
+                  isMulti
+                  isClearable
+                  value={smartListSelectOptions?.filter((opt) =>
+                    smartlist_include?.includes(opt?.value),
+                  )}
+                />
+              </div>
+              {!smartlist_include.length && !smartlist_exclude.length && (
+                <div className={classes.warningContainer}>
+                  <WarningIcon />
+                  <Typography
+                    style={{ marginRight: '8px', marginLeft: '16px' }}
+                  >
+                    {t('notification.form.warning')}
+                  </Typography>
+                  <Button variant="outlined" onClick={goToSmartlist}>
+                    {t('notification.form.createSmartList')}
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+        {identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft' && (
+          <div className={classes.fieldContainer}>
             <Typography variant="subtitle2">
-              {t('notification.form.typeTitle')}
+              {t('booking:notification.form.chooseKind.title')}
             </Typography>
             <RadioGroupField
-              name="verboseNotifKind"
+              name="creditNotificationKind"
               choices={[
                 {
-                  label: t('notification.form.creditType'),
-                  value: 'creditsLeft',
+                  label: t(
+                    'notification.form.creditNotificationType.onBooking',
+                  ),
+                  value: 'onBooking',
                 },
                 {
-                  label: t('notification.form.daysType'),
-                  value: 'daysLeft',
-                },
-                {
-                  label: t('notification.form.daysPastType'),
-                  value: 'daysPast',
+                  label: t(
+                    'notification.form.creditNotificationType.onOfferStart',
+                  ),
+                  value: 'onOfferStart',
                 },
               ]}
             />
-            {verboseNotifKind === 'creditsLeft' && (
-              <div className={classes.inlineContainer}>
-                <Typography variant="caption">
-                  {t('notification.creditsLeft.first')}
+            <div className={classes.inlineContainer}>
+              <Typography variant="caption">
+                {t('notification.form.chooseTime.first')}
+              </Typography>
+              <IntegerField className={classes.integerInput} name="hours" />
+              <Typography variant="caption">
+                {t(
+                  `notification.form.chooseTime.${
+                    creditNotificationKind === 'onBooking'
+                      ? 'secondOnBooking'
+                      : 'secondOnOfferStart'
+                  }`,
+                )}
+              </Typography>
+            </div>
+          </div>
+        )}
+
+        <FeatureListProvider>
+          {(featureList) => {
+            const hasUpsell =
+              featureList.upsell &&
+              featureList.upsell.find(
+                (f) => f.readable_identifier === 'push_notification',
+              );
+
+            return (
+              <div className={classes.fieldContainer}>
+                <Typography variant="subtitle2" className={classes.spacingTop}>
+                  {t('booking:notification.form.sendingMethod')}
                 </Typography>
-                <IntegerField
-                  name="credits_left"
-                  className={classes.textInput}
+                <CheckboxField
+                  name="send_email"
+                  label={t('booking:notification.form.mail')}
+                  checked={send_email}
                 />
-                <Typography variant="caption">
-                  {t('notification.creditsLeft.second')}
-                </Typography>
-              </div>
-            )}
-
-            {verboseNotifKind === 'daysLeft' && (
-              <div className={classes.inlineContainer}>
-                <Typography variant="caption">
-                  {t('notification.daysLeft.first')}
-                </Typography>
-                <IntegerField className={classes.textInput} name="days_left" />
-                <Typography variant="caption">
-                  {t('notification.daysLeft.second')}
-                </Typography>
-              </div>
-            )}
-
-            {verboseNotifKind === 'daysPast' && (
-              <div className={classes.inlineContainer}>
-                <Typography variant="caption">
-                  {t('notification.daysPast.first')}
-                </Typography>
-                <IntegerField className={classes.textInput} name="days_left" />
-                <Typography variant="caption">
-                  {t('notification.daysPast.second')}
-                </Typography>
-              </div>
-            )}
-            {verboseNotifKind !== 'creditsLeft' && (
-              <>
-                <div className={classes.smartListSelector}>
-                  <Typography variant="caption">
-                    {t('notification.form.smartListHelper')}
+                <Tooltip
+                  title={t('booking:notification.form.needPushUpsell')}
+                  hide={hasUpsell}
+                  placement="bottom-start"
+                >
+                  <div className={classes.flex}>
+                    <CheckboxField
+                      name="send_notification_push"
+                      label={t('booking:notification.form.push')}
+                      checked={send_notification_push}
+                      disabled={!hasUpsell}
+                    />
+                  </div>
+                </Tooltip>
+                {send_notification_push && (
+                  <Typography variant="caption" color="textSecondary">
+                    {t('booking:notification.form.pushHelper')}
                   </Typography>
-                  <MaterialUISelector
-                    onChange={(selectedValues: Array<OptionTypeBase>) =>
-                      setFieldValue(
-                        'smartlist_exclude',
-                        selectedValues?.map((opt) => opt?.value),
-                      )
-                    }
-                    options={
-                      smartListSelectOptions ? [...smartListSelectOptions] : []
-                    }
-                    placeholder={t('notification.form.smartListSelection')}
-                    isMulti
-                    isClearable
-                    value={smartListSelectOptions?.filter((opt) =>
-                      smartlist_exclude?.includes(opt?.value),
-                    )}
-                  />
-                </div>
-                <div className={classes.smartListSelector}>
-                  <Typography variant="caption">
-                    {t('notification.form.smartListHelperInclude')}
-                  </Typography>
-                  <MaterialUISelector
-                    onChange={(selectedValues: Array<OptionTypeBase>) =>
-                      setFieldValue(
-                        'smartlist_include',
-                        selectedValues?.map((opt) => opt?.value),
-                      )
-                    }
-                    options={
-                      smartListSelectOptions ? [...smartListSelectOptions] : []
-                    }
-                    placeholder={t('notification.form.smartListSelection')}
-                    isMulti
-                    isClearable
-                    value={smartListSelectOptions?.filter((opt) =>
-                      smartlist_include?.includes(opt?.value),
-                    )}
-                  />
-                </div>
-                {!smartlist_include.length && !smartlist_exclude.length && (
-                  <div className={classes.warningContainer}>
-                    <WarningIcon />
-                    <Typography
-                      style={{ marginRight: '8px', marginLeft: '16px' }}
-                    >
-                      {t('notification.form.warning')}
+                )}
+              </div>
+            );
+          }}
+        </FeatureListProvider>
+        <Typography
+          variant="subtitle1"
+          className={classNames([classes.spacingTop], [classes.spacingBottom])}
+        >
+          {t('booking:notification.form.settingTitle')}
+        </Typography>
+        {send_email && (
+          <div
+            className={classes.fieldContainer}
+            id="select_notification_template"
+          >
+            <Typography variant="subtitle2">
+              {t('paymentPack:notification.form.mailSettings')}
+            </Typography>
+            <Typography
+              variant="caption"
+              className={errors.email_design ? classes.errorText : null}
+            >
+              {t('notification.form.mailTitle')}
+            </Typography>
+            {emailListLoading ? (
+              <LinearProgress className={classes.selectorContainer} />
+            ) : (
+              <div name="email_design" className={classes.selectorContainer}>
+                <EmailSelector
+                  name="email_design"
+                  emails={emails}
+                  value={email_design}
+                  onChange={(ev) => {
+                    setFieldValue('email_design', ev ? ev.value : null);
+                    if (ev) getEmailDetail(ev.value);
+                  }}
+                  helperText={t('paymentPack:notification.form.mailSelection')}
+                />
+              </div>
+            )}
+            <div className={classes.buttonContainer}>
+              <Button
+                onClick={() =>
+                  setDisplayMailPreview((prevDisplay) => !prevDisplay)
+                }
+              >
+                {displayMailPreview ? (
+                  <div className={classes.inlineContainer}>
+                    <VisibilityOffIcon className={classes.visibilityIcon} />
+                    <Typography variant="caption">
+                      {t('paymentPack:notification.form.hideMail')}
                     </Typography>
-                    <Button variant="outlined" onClick={goToSmartlist}>
-                      {t('notification.form.createSmartList')}
-                    </Button>
+                  </div>
+                ) : (
+                  <div className={classes.inlineContainer}>
+                    <VisibilityIcon className={classes.visibilityIcon} />
+                    <Typography variant="caption">
+                      {t('paymentPack:notification.form.showMail')}
+                    </Typography>
                   </div>
                 )}
-              </>
-            )}
+              </Button>
+            </div>
+            <Collapse in={displayMailPreview}>
+              <div className={classes.mailPreview}>
+                {email_design && !!emailDetails[email_design] ? (
+                  <div>
+                    <div
+                      // eslint-disable-next-line react/no-danger
+                      dangerouslySetInnerHTML={{
+                        __html: emailDetails
+                          ? emailDetails[email_design].html
+                          : null,
+                      }}
+                    />
+                  </div>
+                ) : (
+                  renderEmptyOrLoading(emailDetailLoading, emails, t, classes)
+                )}
+              </div>
+            </Collapse>
           </div>
-          {identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft' && (
-            <div className={classes.fieldContainer}>
-              <Typography variant="subtitle2">
-                {t('booking:notification.form.chooseKind.title')}
-              </Typography>
-              <RadioGroupField
-                name="creditNotificationKind"
-                choices={[
-                  {
-                    label: t(
-                      'notification.form.creditNotificationType.onBooking',
-                    ),
-                    value: 'onBooking',
-                  },
-                  {
-                    label: t(
-                      'notification.form.creditNotificationType.onOfferStart',
-                    ),
-                    value: 'onOfferStart',
-                  },
-                ]}
-              />
-              <div className={classes.inlineContainer}>
-                <Typography variant="caption">
-                  {t('notification.form.chooseTime.first')}
-                </Typography>
-                <IntegerField className={classes.integerInput} name="hours" />
-                <Typography variant="caption">
-                  {t(
-                    `notification.form.chooseTime.${
-                      creditNotificationKind === 'onBooking'
-                        ? 'secondOnBooking'
-                        : 'secondOnOfferStart'
-                    }`,
-                  )}
-                </Typography>
-              </div>
-            </div>
-          )}
+        )}
+        {send_notification_push && (
+          <div className={classes.fieldContainer}>
+            <Typography
+              variant="subtitle2"
+              className={classNames([classes.spacingTop], {
+                [classes.errorText]:
+                  errors.notificationTitle || errors.notificationContent,
+              })}
+            >
+              {t('paymentPack:notification.form.pushTitle')}
+            </Typography>
+            <TextField
+              label={t('communication:mail.titleNotification')}
+              name="notificationTitle"
+              fullWidth
+              inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
+              className={classes.notificationInput}
+            />
+            <Typography variant="caption">
+              {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
+            </Typography>
+            <NotificationContentInput
+              label={t('communication:mail.contentNotification')}
+              name="notificationContent"
+              className={classes.notificationInput}
+              value={notificationContent}
+              tags={tags}
+            />
+          </div>
+        )}
 
-          <FeatureListProvider>
-            {(featureList) => {
-              const hasUpsell =
-                featureList.upsell &&
-                featureList.upsell.find(
-                  (f) => f.readable_identifier === 'push_notification',
-                );
-
-              return (
-                <div className={classes.fieldContainer}>
-                  <Typography
-                    variant="subtitle2"
-                    className={classes.spacingTop}
-                  >
-                    {t('booking:notification.form.sendingMethod')}
-                  </Typography>
-                  <CheckboxField
-                    name="send_email"
-                    label={t('booking:notification.form.mail')}
-                    checked={send_email}
-                  />
-                  <Tooltip
-                    title={t('booking:notification.form.needPushUpsell')}
-                    hide={hasUpsell}
-                    placement="bottom-start"
-                  >
-                    <div className={classes.flex}>
-                      <CheckboxField
-                        name="send_notification_push"
-                        label={t('booking:notification.form.push')}
-                        checked={send_notification_push}
-                        disabled={!hasUpsell}
-                      />
-                    </div>
-                  </Tooltip>
-                  {send_notification_push && (
-                    <Typography variant="caption" color="textSecondary">
-                      {t('booking:notification.form.pushHelper')}
-                    </Typography>
-                  )}
-                </div>
-              );
+        <Actions>
+          <Button
+            onClick={() => {
+              onCancel();
             }}
-          </FeatureListProvider>
-          <Typography
-            variant="subtitle1"
-            className={classNames(
-              [classes.spacingTop],
-              [classes.spacingBottom],
-              [classes.spacingLeft],
-            )}
+            disabled={isSubmitting}
           >
-            {t('booking:notification.form.settingTitle')}
-          </Typography>
-          {send_email && (
-            <div
-              className={classes.fieldContainer}
-              id="select_notification_template"
-            >
-              <Typography variant="subtitle2">
-                {t('paymentPack:notification.form.mailSettings')}
-              </Typography>
-              <Typography
-                variant="caption"
-                className={errors.email_design ? classes.errorText : null}
-              >
-                {t('notification.form.mailTitle')}
-              </Typography>
-              {emailListLoading ? (
-                <LinearProgress className={classes.selectorContainer} />
-              ) : (
-                <div name="email_design" className={classes.selectorContainer}>
-                  <EmailSelector
-                    name="email_design"
-                    emails={emails}
-                    value={email_design}
-                    onChange={(ev) => {
-                      setFieldValue('email_design', ev ? ev.value : null);
-                      if (ev) getEmailDetail(ev.value);
-                    }}
-                    helperText={t(
-                      'paymentPack:notification.form.mailSelection',
-                    )}
-                  />
-                </div>
-              )}
-              <div className={classes.buttonContainer}>
-                <Button
-                  onClick={() =>
-                    setDisplayMailPreview((prevDisplay) => !prevDisplay)
-                  }
-                >
-                  {displayMailPreview ? (
-                    <div className={classes.inlineContainer}>
-                      <VisibilityOffIcon className={classes.visibilityIcon} />
-                      <Typography variant="caption">
-                        {t('paymentPack:notification.form.hideMail')}
-                      </Typography>
-                    </div>
-                  ) : (
-                    <div className={classes.inlineContainer}>
-                      <VisibilityIcon className={classes.visibilityIcon} />
-                      <Typography variant="caption">
-                        {t('paymentPack:notification.form.showMail')}
-                      </Typography>
-                    </div>
-                  )}
-                </Button>
-              </div>
-              <Collapse in={displayMailPreview}>
-                <div className={classes.mailPreview}>
-                  {email_design && !!emailDetails[email_design] ? (
-                    <div>
-                      <div
-                        // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={{
-                          __html: emailDetails
-                            ? emailDetails[email_design].html
-                            : null,
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    renderEmptyOrLoading(emailDetailLoading, emails, t, classes)
-                  )}
-                </div>
-              </Collapse>
-            </div>
-          )}
-          {send_notification_push && (
-            <div className={classes.fieldContainer}>
-              <Typography
-                variant="subtitle2"
-                className={classNames([classes.spacingTop], {
-                  [classes.errorText]:
-                    errors.notificationTitle || errors.notificationContent,
-                })}
-              >
-                {t('paymentPack:notification.form.pushTitle')}
-              </Typography>
-              <TextField
-                label={t('communication:mail.titleNotification')}
-                name="notificationTitle"
-                fullWidth
-                inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
-                className={classes.notificationInput}
-              />
-              <Typography variant="caption">
-                {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
-              </Typography>
-              <NotificationContentInput
-                label={t('communication:mail.contentNotification')}
-                name="notificationContent"
-                className={classes.notificationInput}
-                value={notificationContent}
-                tags={tags}
-              />
-            </div>
-          )}
-          <Actions>
-            <Button
-              onClick={() => {
-                onCancel();
-              }}
-              disabled={isSubmitting}
-            >
-              {t('booking:notification.form.cancel')}
-            </Button>
-            <Submit
-              color="primary"
-              disabled={
-                !!errors.email_design ||
-                !!errors.days_left ||
-                !!errors.credits_left ||
-                !!errors.notificationTitle ||
-                !!errors.notificationContent ||
-                !!errors.atLeastOneChannel
-              }
-            >
-              {t('booking:notification.form.submit')}
-            </Submit>
-          </Actions>
-        </Form>
-      </div>
-    </Dialog>
+            {t('booking:notification.form.cancel')}
+          </Button>
+          <Submit
+            color="primary"
+            disabled={
+              !!errors.email_design ||
+              !!errors.days_left ||
+              !!errors.credits_left ||
+              !!errors.notificationTitle ||
+              !!errors.notificationContent ||
+              !!errors.atLeastOneChannel
+            }
+          >
+            {t('booking:notification.form.submit')}
+          </Submit>
+        </Actions>
+      </Form>
+    </GenericResponsiveDrawer>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   integerInput: {
     width: '70px',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
   },
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(1),
   },
   bottomButtons: {
     display: 'flex',
@@ -611,8 +593,6 @@ const useStyles = makeStyles((theme) => ({
   },
   fieldContainer: {
     marginBottom: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
   },
   textInput: {
     width: '70px',
@@ -633,8 +613,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
     minHeight: '30vh',
     minWidth: '40vh',
   },
@@ -649,13 +627,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     paddingTop: theme.spacing(6),
   },
-  dialogContainer: {
-    padding: theme.spacing(1),
-    minWidth: '500px',
-  },
-  visibilityIcon: {
-    marginRight: theme.spacing(1),
-  },
   errorText: {
     color: 'red',
   },
@@ -664,9 +635,6 @@ const useStyles = makeStyles((theme) => ({
   },
   spacingBottom: {
     marginBottom: theme.spacing(2),
-  },
-  spacingLeft: {
-    marginLeft: theme.spacing(2),
   },
   notificationInput: {
     marginTop: theme.spacing(2),

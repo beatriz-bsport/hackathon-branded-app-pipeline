@@ -671,35 +671,33 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             title={t('translation:common.offers')}
             subtitle={t('translation:common.offerEdition')}
           >
-            <div className={classes.editForm}>
-              <OfferEditForm
-                offer={selectedOffer}
-                coaches={coaches}
-                establishments={establishments}
-                roomBlueprints={availableRoomBlueprints}
-                allRoomBlueprints={allRoomBlueprints}
-                is_whereby_integration_enabled={
-                  theme?.is_whereby_integration_enabled &&
-                  theme?.is_whereby_integration_allowed
-                }
-                loading={coachesLoading || establishmentsLoading}
-                onConfirm={onEditOffer}
-                onCancel={handleCloseEditModal}
-                processing={editOfferProcessing}
-                fetchSimilarOffers={fetchSimilarOffers}
-                similarOffers={similarOffers}
-                similarOfferLoading={similarOfferLoading}
-                coachPaymentRulesByKind={coachPaymentRulesByKind}
-                showPartnership={theme.has_partnership}
-                tagList={allTagsWithTagGroup}
-                activeCustomLevels={customLevels}
-                allCustomLevels={allCustomLevels}
-                fetchLevelList={handleFetchLevel}
-                updateLevel={updateLevel}
-                createLevel={createLevel}
-                deleteLevel={deleteLevel}
-              />
-            </div>
+            <OfferEditForm
+              offer={selectedOffer}
+              coaches={coaches}
+              establishments={establishments}
+              roomBlueprints={availableRoomBlueprints}
+              allRoomBlueprints={allRoomBlueprints}
+              is_whereby_integration_enabled={
+                theme?.is_whereby_integration_enabled &&
+                theme?.is_whereby_integration_allowed
+              }
+              loading={coachesLoading || establishmentsLoading}
+              onConfirm={onEditOffer}
+              onCancel={handleCloseEditModal}
+              processing={editOfferProcessing}
+              fetchSimilarOffers={fetchSimilarOffers}
+              similarOffers={similarOffers}
+              similarOfferLoading={similarOfferLoading}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              showPartnership={theme.has_partnership}
+              tagList={allTagsWithTagGroup}
+              activeCustomLevels={customLevels}
+              allCustomLevels={allCustomLevels}
+              fetchLevelList={handleFetchLevel}
+              updateLevel={updateLevel}
+              createLevel={createLevel}
+              deleteLevel={deleteLevel}
+            />
           </GenericResponsiveDrawer>
         )}
         {deleteOfferModalOpen && (
@@ -811,11 +809,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
     marginTop: theme.spacing(2),
-  },
-  editForm: {
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    paddingTop: theme.spacing(2),
   },
   offerCard: {
     paddingBottom: theme.spacing(8),

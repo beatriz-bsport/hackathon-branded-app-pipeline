@@ -353,8 +353,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   divider: {
     marginTop: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(-6),
+    marginRight: theme.spacing(-6),
     marginBottom: theme.spacing(2),
   },
   list: {

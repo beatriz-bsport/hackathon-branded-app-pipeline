@@ -31,7 +31,7 @@ export const GenericFormDialog: React.FC<Props> = ({
   anchor = 'right',
   onClose,
 }) => {
-  const classes = useStyles({ width });
+  const classes = useStyles({ width, subtitle });
   const { t } = useTranslation('common');
 
   return (
@@ -46,86 +46,84 @@ export const GenericFormDialog: React.FC<Props> = ({
       onClose={onClose}
     >
       <div className={classes.relative}>
-        {onClose && (
-          <div
-            className={classNames(classes.topCancel, {
-              [classes.topCancelLeft]: anchor === 'left',
-              [classes.topCancelRight]: anchor === 'right',
-            })}
-          >
-            <Tooltip title={t('cancel')}>
-              <IconButton onClick={() => onClose()}>
-                <HighlightOffIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-        )}
-        {title && (
-          <div className={classes.titleContainer}>
-            <Typography
-              className={classNames(classes.title, {
-                [classes.titleLeft]: anchor === 'right' && onClose,
+        <div className={classes.firstRow}>
+          {onClose && (
+            <div
+              className={classNames(classes.topCancel, {
+                [classes.topCancelLeft]: anchor === 'left',
+                [classes.topCancelRight]: anchor === 'right',
               })}
-              variant="h4"
             >
-              {title}
-            </Typography>
-            {subtitle && <Typography variant="h5">{subtitle}</Typography>}
-          </div>
-        )}
+              <Tooltip title={t('cancel')}>
+                <IconButton onClick={() => onClose()}>
+                  <HighlightOffIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
+          {title && (
+            <div
+              className={
+                (classes.titleContainer,
+                classNames(classes.title, {
+                  [classes.titleLeft]: anchor === 'right' && onClose,
+                }))
+              }
+            >
+              <Typography variant="h4">{title}</Typography>
+              {subtitle && <Typography variant="body1">{subtitle}</Typography>}
+            </div>
+          )}
+        </div>
         <div className={classes.content}>{children}</div>
       </div>
     </Drawer>
   );
 };
-const useStyles = makeStyles<Theme, { width: string }>((theme) => ({
-  paper: (props) => ({
-    display: 'flex',
-    width: props.width || '40%',
-    overflowX: 'hidden',
-    [theme.breakpoints.down('lg')]: {
-      width: '60%',
+const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
+  (theme) => ({
+    paper: (props) => ({
+      width: props.width || '40%',
+      overflowX: 'hidden',
+      [theme.breakpoints.down('lg')]: {
+        width: props.width || '60%',
+      },
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
+      },
+      backgroundColor: 'transparent',
+    }),
+    relative: {
+      position: 'relative',
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'auto',
+      backgroundColor: 'white',
     },
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
+    firstRow: (props) => ({
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyItems: 'flex-start',
+      marginTop: props.subtitle ? null : theme.spacing(3),
+    }),
+    topCancelLeft: {
+      right: theme.spacing(2),
     },
-    backgroundColor: 'transparent',
+    topCancelRight: {
+      left: theme.spacing(2),
+    },
+    titleLeft: (props) => ({
+      marginLeft: theme.spacing(2),
+      marginTop: props.subtitle ? theme.spacing(3) : null,
+    }),
+    content: {
+      flex: 1,
+      padding: theme.spacing(4),
+      paddingBottom: theme.spacing(2),
+      minWidth: '500px',
+    },
   }),
-  relative: {
-    position: 'relative',
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'auto',
-    backgroundColor: 'white',
-  },
-  topCancel: {
-    position: 'absolute',
-    top: theme.spacing(2),
-  },
-  topCancelLeft: {
-    right: theme.spacing(2),
-  },
-  topCancelRight: {
-    left: theme.spacing(2),
-  },
-  titleContainer: {
-    marginTop: theme.spacing(3),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    paddingBottom: 0,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-  },
-  titleLeft: {
-    marginLeft: theme.spacing(4),
-  },
-  title: {
-    marginBottom: theme.spacing(1),
-  },
-  content: {
-    flex: 1,
-  },
-}));
+);
 export default GenericFormDialog;

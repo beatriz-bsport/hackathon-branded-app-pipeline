@@ -192,11 +192,6 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(2),
     height: '100%',
   },
-  editForm: {
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    paddingTop: theme.spacing(2),
-  },
 });
 
 const omit_list = (offerFilters: OfferFilters, available: boolean) => {
@@ -626,7 +621,6 @@ export class Planning extends PureComponent<Props, State> {
       roomBlueprints,
       allRoomBlueprints,
       allTagsWithTagGroup,
-      classes,
     } = this.props;
     const { editModalOpened } = this.state;
     const { selectedOffer } = this.props;
@@ -638,37 +632,35 @@ export class Planning extends PureComponent<Props, State> {
           title={this.props.t('translation:common.offers')}
           subtitle={this.props.t('translation:common.offerEdition')}
         >
-          <div className={classes.editForm}>
-            <OfferEditForm
-              offer={selectedOffer}
-              metaActivities={this.props.metaActivities}
-              coaches={coaches}
-              establishments={establishments}
-              roomBlueprints={roomBlueprints}
-              allRoomBlueprints={allRoomBlueprints}
-              is_whereby_integration_enabled={
-                this.props.theme &&
-                this.props.theme.is_whereby_integration_enabled &&
-                this.props.theme.is_whereby_integration_allowed
-              }
-              loading={coachesLoading || establishmentsLoading}
-              onConfirm={this.onConfirmModal}
-              onCancel={this.onCancelModal}
-              processing={this.props.editOfferProcessing}
-              fetchSimilarOffers={fetchSimilarOffers}
-              similarOffers={similarOffers}
-              similarOfferLoading={similarOfferLoading}
-              coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-              showPartnership={this.props.showPartnership}
-              tagList={allTagsWithTagGroup}
-              activeCustomLevels={this.props.activeCustomLevels}
-              allCustomLevels={this.props.allCustomLevels}
-              fetchLevelList={this.handleFetchLevel}
-              updateLevel={this.props.updateLevel}
-              createLevel={this.props.createLevel}
-              deleteLevel={this.props.deleteLevel}
-            />
-          </div>
+          <OfferEditForm
+            offer={selectedOffer}
+            metaActivities={this.props.metaActivities}
+            coaches={coaches}
+            establishments={establishments}
+            roomBlueprints={roomBlueprints}
+            allRoomBlueprints={allRoomBlueprints}
+            is_whereby_integration_enabled={
+              this.props.theme &&
+              this.props.theme.is_whereby_integration_enabled &&
+              this.props.theme.is_whereby_integration_allowed
+            }
+            loading={coachesLoading || establishmentsLoading}
+            onConfirm={this.onConfirmModal}
+            onCancel={this.onCancelModal}
+            processing={this.props.editOfferProcessing}
+            fetchSimilarOffers={fetchSimilarOffers}
+            similarOffers={similarOffers}
+            similarOfferLoading={similarOfferLoading}
+            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+            showPartnership={this.props.showPartnership}
+            tagList={allTagsWithTagGroup}
+            activeCustomLevels={this.props.activeCustomLevels}
+            allCustomLevels={this.props.allCustomLevels}
+            fetchLevelList={this.handleFetchLevel}
+            updateLevel={this.props.updateLevel}
+            createLevel={this.props.createLevel}
+            deleteLevel={this.props.deleteLevel}
+          />
         </GenericResponsiveDrawer>
       );
     }

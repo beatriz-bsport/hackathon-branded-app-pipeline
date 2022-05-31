@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
+
 import type { Establishment } from '#libs/establishment/types';
 import PaymentPackForm from './PaymentPackForm.component';
 import type {
@@ -72,6 +73,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
         metaActivityList={metaActivityList}
         tagList={tagList}
         initial={initial}
+        isInDrawer
         onCancelText={onCancelText}
         onSubmit={onSubmit}
         clearPaymentPackToEdit={clearPaymentPackToEdit}

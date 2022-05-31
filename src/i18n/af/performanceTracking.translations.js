@@ -44,6 +44,7 @@ exports.default = {
       addProgram: 'ajouter  un programme',
       delete: 'supprimer le programme',
       modify: 'modifier le programme',
+      update: 'Modifier le programme',
       create: 'Créer un programme',
       generalInfo: 'Informations générales',
       name: 'Nom du programme',

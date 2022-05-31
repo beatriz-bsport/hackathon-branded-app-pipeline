@@ -33,6 +33,7 @@ type OwnProps = {
   resetInitial?: () => void;
   paymentPackList: Array<PaymentPack>;
   privatePassList: Array<PrivatePass>;
+  isInDrawer: boolean;
   comboList: Array<PaymentCombo>;
   shopItemList: Array<ShopItem>;
   giftcardList: Array<Giftcard>;
@@ -47,6 +48,7 @@ export const InstalmentPaymentForm = (props: Props) => {
     submit,
     paymentPackList,
     privatePassList,
+    isInDrawer,
     comboList,
     shopItemList,
     giftcardList,
@@ -86,8 +88,9 @@ export const InstalmentPaymentForm = (props: Props) => {
                   frequency={formikProps.values.frequency}
                   number_of_billing={formikProps.values.number_of_billing}
                   hideFee
+                  isInDrawer
                 />
-                <Divider />
+                <Divider className={classes.divider} />
                 <InstalmentPaymentCompabilityForm
                   setFieldValue={formikProps.setFieldValue}
                   paymentPackList={paymentPackList}
@@ -110,10 +113,11 @@ export const InstalmentPaymentForm = (props: Props) => {
                   is_available_on_all_shop_item={
                     formikProps.values.is_available_on_all_shop_item
                   }
+                  isInDrawer={isInDrawer}
                 />
-                <Divider />
+                <Divider className={classes.divider} />
                 <InstalmentPaymentAdvancedForm />
-                <Divider />
+                <Divider className={classes.divider} />
                 <div className={classes.action}>
                   <Button
                     color="secondary"
@@ -163,15 +167,19 @@ InstalmentPaymentForm.defaultProps = {
 
 const useStyles = makeStyles<Theme>((theme) => ({
   action: {
-    padding: theme.spacing(4),
     display: 'flex',
     justifyContent: 'flex-end',
     gap: theme.spacing(1),
+    padding: theme.spacing(2),
   },
   column: { display: 'flex', flexDirection: 'column', gap: theme.spacing(2) },
   container: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  divider: {
+    marginLeft: theme.spacing(-4),
+    marginRight: theme.spacing(-4),
   },
 }));
 export default InstalmentPaymentForm;

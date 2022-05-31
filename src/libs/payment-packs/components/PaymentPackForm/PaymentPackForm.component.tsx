@@ -93,6 +93,7 @@ type OwnProps = {
   ) => void;
   clearPaymentPackToEdit: () => void;
   provincialTax: number;
+  isInDrawer: boolean;
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
 };
@@ -119,6 +120,7 @@ export const PaymentPackForm = (props: Props) => {
     initial,
     onCancelText,
     provincialTax,
+    isInDrawer,
     onCancel,
     onSubmit,
     closeForm,
@@ -335,7 +337,11 @@ export const PaymentPackForm = (props: Props) => {
       }: FormikProps<PaymentPackFormValues>) => {
         return (
           <Form>
-            <div className={classes.formContainer}>
+            <div
+              className={
+                !isInDrawer ? classes.formContainer : classes.firstFormContainer
+              }
+            >
               <PaymentPackFormGeneral
                 initial={initial}
                 paymentPackCategories={paymentPackCategories}
@@ -448,11 +454,15 @@ const useStyles = makeStyles<Theme>((theme) => ({
 
   divider: {
     backgroundColor: '#C6C6C6',
+    marginLeft: theme.spacing(-4),
+    marginRight: theme.spacing(-4),
   },
   formContainer: {
-    padding: theme.spacing(4),
     paddingBottom: theme.spacing(4),
     paddingTop: theme.spacing(4),
+  },
+  firstFormContainer: {
+    paddingBottom: theme.spacing(4),
   },
   actionContainer: {
     padding: theme.spacing(2),

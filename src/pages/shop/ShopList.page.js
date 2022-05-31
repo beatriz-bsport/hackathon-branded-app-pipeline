@@ -34,6 +34,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
+
 import themeSelectors from '../../libs/theme/selectors';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {

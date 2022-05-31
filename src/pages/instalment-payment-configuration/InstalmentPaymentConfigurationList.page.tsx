@@ -206,6 +206,7 @@ export class InstalmentPaymentList extends Component<Props, State> {
             setInstalmentPaymentToEditId(null);
           }}
           width="45%"
+          title={t('form.create')}
         >
           <InstalmentPaymentForm
             initial={instalmentPaymentToEdit}
@@ -213,6 +214,7 @@ export class InstalmentPaymentList extends Component<Props, State> {
             comboList={comboList}
             privatePassList={privatePassList}
             shopItemList={shopItemList}
+            isInDrawer
             giftcardList={giftcardList}
             submit={(instalmentPayment, options) => {
               createOrUpdateInstalmentPayment(instalmentPayment, options);

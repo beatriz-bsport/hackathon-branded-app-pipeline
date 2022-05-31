@@ -5,7 +5,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
 import { Form, FormikProps } from 'formik';
-import { makeStyles } from '@material-ui/core';
 import GiftcardForm, { GiftcardFormFieldHOC } from './GiftcardForm.component';
 import { OptionCallback } from '../../../state/types';
 import { GiftcardData } from '../types';
@@ -26,7 +25,6 @@ type Props = {
 
 const GiftcardFormDrawer = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
-  const classes = useStyles();
   return (
     <GenericResponsiveDrawer
       open={props.open}
@@ -42,42 +40,40 @@ const GiftcardFormDrawer = (props: Props) => {
           );
       }}
     >
-      <div className={classes.content}>
-        <Form>
-          <GiftcardForm {...props} />
-          <DialogActions>
-            <Button
-              onClick={() => {
-                props.onClose();
-                props.formCancel &&
-                  props.formCancel(
-                    props.initial && props.initial.id
-                      ? { giftcard_id: props.initial.id }
-                      : {},
-                  );
-              }}
-            >
-              {t('form.giftcard.actions.cancel')}
-            </Button>
-            <Button
-              onClick={() => {
-                props.formSubmitIntent &&
-                  props.formSubmitIntent(
-                    props.initial && props.initial.id
-                      ? { giftcard_id: props.initial.id }
-                      : {},
-                  );
-                props.handleSubmit();
-              }}
-              disabled={props.isSubmitting}
-              color="primary"
-              variant="contained"
-            >
-              {t('form.giftcard.actions.submit')}
-            </Button>
-          </DialogActions>
-        </Form>
-      </div>
+      <Form>
+        <GiftcardForm {...props} />
+        <DialogActions>
+          <Button
+            onClick={() => {
+              props.onClose();
+              props.formCancel &&
+                props.formCancel(
+                  props.initial && props.initial.id
+                    ? { giftcard_id: props.initial.id }
+                    : {},
+                );
+            }}
+          >
+            {t('form.giftcard.actions.cancel')}
+          </Button>
+          <Button
+            onClick={() => {
+              props.formSubmitIntent &&
+                props.formSubmitIntent(
+                  props.initial && props.initial.id
+                    ? { giftcard_id: props.initial.id }
+                    : {},
+                );
+              props.handleSubmit();
+            }}
+            disabled={props.isSubmitting}
+            color="primary"
+            variant="contained"
+          >
+            {t('form.giftcard.actions.submit')}
+          </Button>
+        </DialogActions>
+      </Form>
     </GenericResponsiveDrawer>
   );
 };
@@ -88,11 +84,3 @@ export default compose<any, Props>(
   }),
   GiftcardFormFieldHOC,
 )(GiftcardFormDrawer);
-
-const useStyles = makeStyles((theme) => ({
-  content: {
-    paddingBottom: theme.spacing(4),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-  },
-}));

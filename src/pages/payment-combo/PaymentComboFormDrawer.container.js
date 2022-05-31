@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import PaymentComboFormDialog from '../../libs/payment-combo/components/PaymentComboFormDialog.component';
+import PaymentComboFormDrawer from '../../libs/payment-combo/components/PaymentComboFormDrawer.component';
 
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getEnabled as getPaymentPackAvailable } from '../../libs/payment-packs/selectors';
@@ -28,7 +28,7 @@ export class PaymentComboFormContainer extends React.Component<Props> {
   }
 
   render() {
-    return <PaymentComboFormDialog {...this.props} />;
+    return <PaymentComboFormDrawer {...this.props} />;
   }
 }
 

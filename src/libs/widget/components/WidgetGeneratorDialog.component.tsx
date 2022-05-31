@@ -1,13 +1,8 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from '@material-ui/core';
+import { Button, DialogActions, DialogContent } from '@material-ui/core';
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import WidgetGeneratorPage from '../../../pages/settings/WidgetGenerator.page';
 
 type Ownprops = {
@@ -23,15 +18,12 @@ class WidgetGeneratorDialog extends React.PureComponent<Props> {
     const { t } = this.props;
 
     return (
-      <Dialog
-        aria-labelledby="simple-dialog-title"
+      <GenericResponsiveDrawer
         open={this.props.open}
         onClose={this.props.onClose}
-        keepMounted
+        title={t('widget:widget.dialogTitle')}
+        width="85%"
       >
-        <DialogTitle id="simple-dialog-title">
-          {t('widget:widget.dialogTitle')}
-        </DialogTitle>
         <DialogContent>
           <WidgetGeneratorPage
             defaultValue={{
@@ -48,7 +40,7 @@ class WidgetGeneratorDialog extends React.PureComponent<Props> {
             {t('widget:widget.cancel')}
           </Button>
         </DialogActions>
-      </Dialog>
+      </GenericResponsiveDrawer>
     );
   }
 }

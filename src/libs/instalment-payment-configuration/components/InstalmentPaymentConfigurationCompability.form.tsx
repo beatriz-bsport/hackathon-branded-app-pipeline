@@ -25,6 +25,7 @@ type OwnProps = {
   is_available_on_all_payment_combo: boolean;
   is_available_on_all_private_pass: boolean;
   is_available_on_all_shop_item: boolean;
+  isInDrawer: boolean;
   setFieldValue: (field: string, value: any) => void;
 };
 type Props = OwnProps;
@@ -42,6 +43,7 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
     is_available_on_all_payment_combo,
     is_available_on_all_private_pass,
     is_available_on_all_shop_item,
+    isInDrawer,
     setFieldValue,
   } = props;
   const paymentPackOptions = paymentPackList?.length
@@ -79,7 +81,7 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
       }))
     : [];
   return (
-    <div className={classes.padding}>
+    <div className={!isInDrawer ? classes.padding : classes.paddingTop}>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <div className={classes.row}>
@@ -253,6 +255,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   padding: {
     padding: theme.spacing(4),
+  },
+  paddingTop: {
+    paddingTop: theme.spacing(4),
   },
 }));
 export default InstalmentPaymentCompablityForm;

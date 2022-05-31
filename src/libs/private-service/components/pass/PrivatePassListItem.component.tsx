@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
@@ -32,6 +33,13 @@ type Props = {
 
 export const PrivatePassListItem = (props: Props) => {
   const { t } = useTranslation('privateService');
+  if (!props.pass) {
+    return (
+      <ListItem divider={props.divider}>
+        <CircularProgress />
+      </ListItem>
+    );
+  }
   const dateInfo = getValidityInfo(props.pass, t);
 
   return (

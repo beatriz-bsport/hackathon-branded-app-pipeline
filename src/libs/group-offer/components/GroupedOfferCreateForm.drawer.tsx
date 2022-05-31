@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import moment from 'moment';
 
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -289,6 +289,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
             type="workshop"
           />
         )}
+
         {step === STEP_GROUPED_OPTION_FORM && (
           <GroupedOfferFormSettings
             initial={
@@ -329,9 +330,8 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
     </GenericResponsiveDrawer>
   );
 };
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   drawerInner: {
-    paddingTop: theme.spacing(2),
     height: '100%',
     display: 'flex',
     flexDirection: 'column',

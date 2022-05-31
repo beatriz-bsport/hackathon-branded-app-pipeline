@@ -11,6 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import { MenuItem } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import type { PaymentCombo } from '../types';
 import withConfirm from '../../../hocs/with-confirm.hoc';
@@ -80,6 +81,13 @@ const DeleteButtonWithConfirmMenuItem = withConfirm(
 );
 
 export const PaymentComboListItem = (props: Props) => {
+  if (!props.paymentCombo) {
+    return (
+      <ListItem divider={props.divider}>
+        <CircularProgress />
+      </ListItem>
+    );
+  }
   return (
     <ListItem
       divider={!!props.divider}

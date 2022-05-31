@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import { compose } from 'recompose';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+
 import { Submit } from '../../../../components/forms';
 
 import PrivateServiceFields, {
@@ -56,8 +57,6 @@ export const PrivateServiceFormDrawer = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(20),
   },
 }));

@@ -180,6 +180,13 @@ export class ExpenseList extends Component<Props> {
         <GenericResponsiveDrawer
           open={this.props.expenseFormOpen}
           onClose={this.handleClose}
+          title={
+            this.props.expenseList?.find(
+              (exp: Expense) => exp.id === this.props.selectedExpense,
+            )
+              ? t('form.titleEdit')
+              : t('form.titleAdd')
+          }
         >
           <ExpenseForm
             onClose={this.handleClose}
@@ -187,6 +194,7 @@ export class ExpenseList extends Component<Props> {
             initial={this.props.expenseList?.find(
               (exp: Expense) => exp.id === this.props.selectedExpense,
             )}
+            isInDrawer
             onCreateSubmit={this.props.createExpense}
             onUpdateSubmit={this.props.updateExpense}
             editChoice={this.props.editChoice}

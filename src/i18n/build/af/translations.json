@@ -2691,7 +2691,7 @@
     "disabledMetaActivities": "Activités archivées",
     "groupedOption": {
       "modal": {
-        "title": "Séances groupés",
+        "title": "Séances groupées",
         "subtitleMetaActivitySelect": "Création d’un groupe de séances",
         "subtitlePreview": "Prévisualisation de la récurrence",
         "duplicate": "Dupliquer un groupe",
@@ -4043,7 +4043,10 @@
           "name": "Nom de la catégorie",
           "titleNew": "Nouvelle catégorie",
           "titleEdit": "Catégorie",
-          "helper": "Les catégories apparaitront sur la marketplace et l’application mobile pour les cartes disponibles à la vente."
+          "helper": "Les catégories apparaitront sur la marketplace et l’application mobile pour les cartes disponibles à la vente.",
+          "cancel": "Annuler",
+          "create": "Créer",
+          "update": "Renommer"
         }
       },
       "popover": { "edit": "Renommer", "delete": "Supprimer" },
@@ -4305,6 +4308,7 @@
         "addProgram": "ajouter  un programme",
         "delete": "supprimer le programme",
         "modify": "modifier le programme",
+        "update": "Modifier le programme",
         "create": "Créer un programme",
         "generalInfo": "Informations générales",
         "name": "Nom du programme",

@@ -44,6 +44,7 @@ type OwnProps = {
     options?: OptionCallback,
   ) => void;
   editChoice: string | null;
+  isInDrawer: boolean;
   setEditChoice: (editForm: string | null) => void;
 };
 
@@ -54,7 +55,7 @@ type Props = OwnProps &
 export const ExpenseForm = (props: Props) => {
   const { t } = useTranslation(['expense']);
   const classes = useStyles();
-  const { initial, editChoice } = props;
+  const { initial, editChoice, isInDrawer } = props;
   const now = moment().format(DATE_FORMAT);
 
   const [showRepeat, setShowRepeat] = useState(false);
@@ -89,12 +90,14 @@ export const ExpenseForm = (props: Props) => {
   });
 
   return (
-    <div className={classes.formContainer}>
-      <div className={classes.marginBottom}>
-        <Typography variant="h5">
-          {initial ? t('form.titleEdit') : t('form.titleAdd')}
-        </Typography>
-      </div>
+    <div className={!isInDrawer ? classes.formContainer : null}>
+      {!isInDrawer && (
+        <div className={classes.marginBottom}>
+          <Typography variant="h5">
+            {initial ? t('form.titleEdit') : t('form.titleAdd')}
+          </Typography>
+        </div>
+      )}
 
       {!!initial?.rrule && (
         <FormControl className={classes.marginBottom}>

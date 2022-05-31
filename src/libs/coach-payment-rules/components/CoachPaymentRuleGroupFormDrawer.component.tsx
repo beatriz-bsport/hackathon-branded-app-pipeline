@@ -5,11 +5,9 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Form } from 'formik';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Submit } from '../../../components/forms';
 
 import CoachPaymentRuleFormGroupFields, {
@@ -23,34 +21,16 @@ type OwnProps = {
   isSubmitting: boolean;
 };
 type Props = OwnProps & WithTranslation & {};
-export function CoachPaymentRuleGroupFormDialog(props: Props) {
+export function CoachPaymentRuleGroupFormDrawer(props: Props) {
   const { t, open, handleClose, isSubmitting } = props;
   return (
-    <Dialog
-      fullWidth
-      maxWidth="md"
+    <GenericResponsiveDrawer
       open={open}
       onClose={handleClose}
-      disableBackdropClick
-      disableEscapeKeyDown
+      title={t('coach_payment_rule_groups.dialogTitle')}
     >
       <Form>
-        <DialogTitle id="form-dialog-title">
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            {t('coach_payment_rule_groups.dialogTitle')}
-          </div>
-        </DialogTitle>
-
-        <DialogContent>
-          <CoachPaymentRuleFormGroupFields {...props} />
-        </DialogContent>
+        <CoachPaymentRuleFormGroupFields {...props} />
         <DialogActions>
           <Button
             onClick={handleClose}
@@ -64,11 +44,11 @@ export function CoachPaymentRuleGroupFormDialog(props: Props) {
           </Submit>
         </DialogActions>
       </Form>
-    </Dialog>
+    </GenericResponsiveDrawer>
   );
 }
 
 export default compose<any, OwnProps>(
   withTranslation(['paymentRules']),
   CoachPaymentRuleGroupFormHOC,
-)(CoachPaymentRuleGroupFormDialog);
+)(CoachPaymentRuleGroupFormDrawer);

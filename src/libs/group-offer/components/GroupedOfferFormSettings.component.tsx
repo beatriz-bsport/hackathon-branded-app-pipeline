@@ -324,7 +324,7 @@ export const GroupedOfferFormSettings: React.FC<
         </div>
         {!editingLiveOffer && (
           <>
-            <Divider />
+            <Divider className={classes.divider} />
             <div className={classes.wrapper}>
               <div className={classes.subtitle}>
                 <DateRangeIcon color="disabled" />
@@ -375,7 +375,7 @@ export const GroupedOfferFormSettings: React.FC<
             onBlackListChange={handleBlackListChange}
           />
         </div>
-        <Divider />
+        <Divider className={classes.divider} />
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
             <ToggleOnIcon color="disabled" />
@@ -411,7 +411,7 @@ export const GroupedOfferFormSettings: React.FC<
         </div>
         {!editingLiveOffer && (
           <>
-            <Divider />
+            <Divider className={classes.divider} />
             <div className={classes.wrapper}>
               <div className={classes.subtitle}>
                 <RefreshIcon color="disabled" />
@@ -767,8 +767,7 @@ const OffersList: React.FC<{
 
 const useStyles = makeStyles((theme: Theme) => ({
   wrapper: {
-    padding: theme.spacing(2),
-    paddingLeft: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(1),
@@ -824,6 +823,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   coachAvatar: {
     marginRight: theme.spacing(2),
+  },
+  divider: {
+    marginLeft: theme.spacing(-4),
+    marginRight: theme.spacing(-4),
   },
 }));
 

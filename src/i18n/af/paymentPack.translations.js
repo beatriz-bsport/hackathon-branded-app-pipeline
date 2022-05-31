@@ -700,6 +700,9 @@ exports.default = {
         titleEdit: 'Catégorie',
         helper:
           'Les catégories apparaitront sur la marketplace et l’application mobile pour les cartes disponibles à la vente.',
+        cancel: 'Annuler',
+        create: 'Créer',
+        update: 'Renommer',
       },
     },
     popover: {

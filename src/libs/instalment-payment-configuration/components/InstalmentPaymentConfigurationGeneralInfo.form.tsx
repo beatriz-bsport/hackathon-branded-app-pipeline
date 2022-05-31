@@ -17,12 +17,13 @@ type OwnProps = {
   frequency: number;
   number_of_billing: number;
   hideFee?: boolean;
+  isInDrawer: boolean;
 };
 type Props = OwnProps;
 export const InstalmentPaymentGeneralInfoForm: React.FC<Props> = (props) => {
   const { t } = useTranslation('instalmentPayment');
   const classes = useStyles();
-  const { recurrency, frequency, number_of_billing } = props;
+  const { recurrency, frequency, number_of_billing, isInDrawer } = props;
   const RECURRENCY_OPTIONS = [
     { value: DAILY, label: t('form.recurrency.daily') },
     { value: WEEKLY, label: t('form.recurrency.weekly') },
@@ -32,13 +33,8 @@ export const InstalmentPaymentGeneralInfoForm: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div className={classes.padding}>
+      <div className={!isInDrawer ? classes.padding : classes.paddingBottom}>
         <Grid container spacing={4}>
-          <Grid item xs={12}>
-            <Typography variant="h4" className={classes.title}>
-              {t('form.create')}
-            </Typography>
-          </Grid>
           <Grid item xs={12}>
             <div className={classes.row}>
               <div className={classes.icon}>
@@ -161,6 +157,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   padding: {
     padding: theme.spacing(4),
+  },
+  paddingBottom: {
+    paddingBottom: theme.spacing(4),
   },
 }));
 export default InstalmentPaymentGeneralInfoForm;

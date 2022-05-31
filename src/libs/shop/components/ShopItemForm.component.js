@@ -239,7 +239,7 @@ export class ShopItemForm extends Component<Props, State> {
                 </ImageUploader>
               </div>
             </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <TextField
                 label={t('form.shop.item.name')}
                 value={name}
@@ -249,7 +249,7 @@ export class ShopItemForm extends Component<Props, State> {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <TextField
                 label={t('form.shop.item.subtitle')}
                 value={subtitle}
@@ -257,7 +257,7 @@ export class ShopItemForm extends Component<Props, State> {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <div className={classes.description}>
                 <TextField
                   multiline
@@ -301,7 +301,7 @@ export class ShopItemForm extends Component<Props, State> {
                 {this.state.provincialTaxText}
               </Typography>
             </Grid>
-            <Grid item xs={6} className={classes.itemRow}>
+            <Grid item xs={6}>
               <PriceInput
                 variant="outlined"
                 label={t('shop.supplier_price')}
@@ -312,7 +312,7 @@ export class ShopItemForm extends Component<Props, State> {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.itemRow}>
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -328,7 +328,7 @@ export class ShopItemForm extends Component<Props, State> {
             />
           </Grid>
           <div className={classes.marketplaceSettings}>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <PaymentMethodSelectorInput
                 paymentMethodIds={
                   this.state.available_payment_method_identifiers
@@ -345,7 +345,7 @@ export class ShopItemForm extends Component<Props, State> {
                 }
               />
             </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -361,7 +361,7 @@ export class ShopItemForm extends Component<Props, State> {
                 label={t('form.shop.item.featured')}
               />
             </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -377,7 +377,7 @@ export class ShopItemForm extends Component<Props, State> {
                 label={t('form.shop.item.sell_only_on_provision')}
               />
             </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -494,10 +494,6 @@ const styles = (theme) => ({
   price: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(-2),
-  },
-  itemRow: {
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
   },
   leftItem: {
     paddingLeft: `${theme.spacing(5)}px !important`,

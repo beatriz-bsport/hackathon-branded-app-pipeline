@@ -79,6 +79,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
   onCancel = () => {
     this.props.onCancel();
     this.props.closeForm();
+    this.setState({ sourceObjectId: null });
   };
 
   onSubmit = (n: MarketingNotification) => {
@@ -90,6 +91,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
     } else {
       this.props.onCreateMarketingNotification(n);
       this.props.closeForm();
+      this.setState({ sourceObjectId: null });
     }
   };
 

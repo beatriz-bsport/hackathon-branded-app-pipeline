@@ -37,11 +37,21 @@ type OwnProps = {
   initial?: PerformanceTrackingProgram<PerformanceTrackingMetric>;
   closeDialog?: () => void;
   resetInitial?: () => void;
+  isTitleEnabled: boolean;
+  isInDrawer: boolean;
 };
 type Props = OwnProps & WithTranslation;
 
 export const ProgramForm = (props: Props) => {
-  const { t, initial, closeDialog, resetInitial, submit } = props;
+  const {
+    t,
+    initial,
+    closeDialog,
+    resetInitial,
+    submit,
+    isTitleEnabled,
+    isInDrawer,
+  } = props;
 
   const classes = useStyles();
   const theme: Theme = useTheme();
@@ -90,13 +100,15 @@ export const ProgramForm = (props: Props) => {
           return (
             <form onSubmit={formikProps.handleSubmit}>
               <div className={classes.container}>
-                <div className={classes.padding}>
+                <div className={!isInDrawer ? classes.padding : null}>
                   <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                      <Typography className={classes.title} variant="h4">
-                        {t('program.form.create')}
-                      </Typography>
-                    </Grid>
+                    {isTitleEnabled && (
+                      <Grid item xs={12}>
+                        <Typography className={classes.title} variant="h4">
+                          {t('program.form.create')}
+                        </Typography>
+                      </Grid>
+                    )}
                     <Grid item xs={12}>
                       <div className={classes.row}>
                         <div className={classes.icon}>

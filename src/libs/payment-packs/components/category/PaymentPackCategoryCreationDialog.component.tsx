@@ -82,7 +82,7 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="secondary">
-          {t('cancel')}
+          {t('category.form.dialog.cancel')}
         </Button>
         <Button
           onClick={() => {
@@ -92,7 +92,9 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
           disabled={!paymentPackCategoryName}
           color="secondary"
         >
-          {paymentPackCategorySelected ? t('update') : t('create')}
+          {paymentPackCategorySelected
+            ? t('category.form.dialog.update')
+            : t('category.form.dialog.create')}
         </Button>
       </DialogActions>
     </Dialog>

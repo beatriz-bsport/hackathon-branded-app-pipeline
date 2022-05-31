@@ -25,7 +25,7 @@ import {
 import { getInvoice } from '#libs/invoice/selectors';
 import PaymentComboDetailComponent from '#libs/payment-combo/components/PaymentComboDetail.component';
 import PaymentComboDeleteDialog from '#libs/payment-combo/components/PaymentComboDeleteDialog.component';
-import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
+import PaymentComboFormDrawerContainer from './PaymentComboFormDrawer.container';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 import themeSelectors from '../../libs/theme/selectors';
 
@@ -152,7 +152,7 @@ export class PaymentComboDetail extends React.Component<Props> {
           onClose={() => this.props.setDeleteIsOpen(false)}
         />
         {this.props.paymentCombo ? (
-          <PaymentComboFormDialogContainer
+          <PaymentComboFormDrawerContainer
             provincialTax={this.props.theme?.provincial_tax_value}
             initial={this.props.paymentCombo}
             open={this.props.editIsOpen}

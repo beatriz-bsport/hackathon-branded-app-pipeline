@@ -25,7 +25,7 @@ import {
 import FuzeSearch from '../../components/FuzeSearch.component';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
-import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
+import PaymentComboFormDrawerContainer from './PaymentComboFormDrawer.container';
 import PaymentComboList from '#libs/payment-combo/components/PaymentComboList.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -166,7 +166,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
           onCreate={() => openCreateOrUpdateForm(null)}
         />
         {this.props.openForm ? (
-          <PaymentComboFormDialogContainer
+          <PaymentComboFormDrawerContainer
             provincialTax={this.props.theme?.provincial_tax_value}
             initial={this.props.comboInitialData}
             open={this.props.openForm}

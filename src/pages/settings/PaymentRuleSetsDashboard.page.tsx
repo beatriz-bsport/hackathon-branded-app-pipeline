@@ -32,10 +32,10 @@ import {
   getCoachPaymentRuleGroups,
 } from '../../libs/coach-payment-rules/selectors';
 import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
-import CoachPaymentRuleFormDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDialog.component';
-import CoachPaymentRuleGroupFormDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDialog.component';
+import CoachPaymentRuleFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDrawer.component';
+import CoachPaymentRuleGroupFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDrawer.component.tsx';
 import CoachPaymentRuleTabs from '../../libs/coach-payment-rules/components/CoachPaymentRuleTabs.components';
-import CoachPaymentRuleSimulationDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDialog.component';
+import CoachPaymentRuleSimulationDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDrawer.component';
 import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
@@ -144,7 +144,7 @@ export class PaymentRulesDashboard extends Component<Props> {
           ]}
         />
         {this.props.ruleDialogFormOpen ? (
-          <CoachPaymentRuleFormDialog
+          <CoachPaymentRuleFormDrawer
             open={this.props.ruleDialogFormOpen}
             handleClose={this.props.handleClose}
             handleOpen={this.props.handleOpen}
@@ -165,7 +165,7 @@ export class PaymentRulesDashboard extends Component<Props> {
           />
         ) : null}
         {this.props.simulationOpen && this.props.ruleForSimulation ? (
-          <CoachPaymentRuleSimulationDialog
+          <CoachPaymentRuleSimulationDrawer
             open={this.props.simulationOpen}
             onSubmit={this.props.runCoachPaymenrRuleSimulation}
             handleCloseSimulation={this.props.handleCloseSimulation}
@@ -177,7 +177,7 @@ export class PaymentRulesDashboard extends Component<Props> {
           />
         ) : null}
         {this.props.groupDialogFormOpen ? (
-          <CoachPaymentRuleGroupFormDialog
+          <CoachPaymentRuleGroupFormDrawer
             open={this.props.groupDialogFormOpen}
             handleClose={this.props.handleCloseGroup}
             onSubmit={(g) =>

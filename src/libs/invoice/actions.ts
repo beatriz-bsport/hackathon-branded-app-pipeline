@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+
 import {
   revert as revertAPI,
   createQuick as createQuickAPI,

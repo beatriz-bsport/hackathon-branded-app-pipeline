@@ -3,12 +3,9 @@ import { compose } from 'recompose';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { Form } from 'formik';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CoachPaymentRuleFields, {
   CoachPaymentRuleFormHoc,
 } from './coach-payment-rule-form/CoachPaymentRuleForm.component';
@@ -22,24 +19,16 @@ type Props = {
   isSubmitting: boolean,
 };
 
-export function CoachPaymentRuleFormDialog(props: Props) {
+export function CoachPaymentRuleFormDrawer(props: Props) {
   const { t, open, handleClose, isSubmitting } = props;
   return (
-    <Dialog
-      fullWidth
-      maxWidth="md"
+    <GenericResponsiveDrawer
       open={open}
       onClose={handleClose}
-      disableBackdropClick
-      disableEscapeKeyDown
+      title={t('coach_payment_rules.addNewCoachPaymentRule')}
     >
       <Form>
-        <DialogTitle id="form-dialog-title">
-          {t('coach_payment_rules.addNewCoachPaymentRule')}
-        </DialogTitle>
-        <DialogContent>
-          <CoachPaymentRuleFields {...props} />
-        </DialogContent>
+        <CoachPaymentRuleFields {...props} />
         <DialogActions>
           <Button
             onClick={props.handleClose}
@@ -53,11 +42,11 @@ export function CoachPaymentRuleFormDialog(props: Props) {
           </Submit>
         </DialogActions>
       </Form>
-    </Dialog>
+    </GenericResponsiveDrawer>
   );
 }
 
 export default compose(
   withTranslation(['paymentRules']),
   CoachPaymentRuleFormHoc,
-)(CoachPaymentRuleFormDialog);
+)(CoachPaymentRuleFormDrawer);

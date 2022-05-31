@@ -91,7 +91,7 @@ exports.default = {
   disabledMetaActivities: 'Activités archivées',
   groupedOption: {
     modal: {
-      title: 'Séances groupés',
+      title: 'Séances groupées',
       subtitleMetaActivitySelect: 'Création d’un groupe de séances',
       subtitlePreview: 'Prévisualisation de la récurrence',
       duplicate: 'Dupliquer un groupe',

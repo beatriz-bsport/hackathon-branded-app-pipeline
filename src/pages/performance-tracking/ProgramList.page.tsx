@@ -24,7 +24,6 @@ import {
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
 } from '#libs/performance-tracking/types';
-import GenericFormDialog from '#components/genericDialog/GenericFormDialog';
 import ProgramForm from '#libs/performance-tracking/components/program/ProgramForm.component';
 import ProgramListComponent from '#libs/performance-tracking/components/program/ProgramList.component';
 import ProgramDetail from '#libs/performance-tracking/components/program/ProgramDetail.component';
@@ -51,6 +50,7 @@ import withTitle from '#hocs/with-title.hoc';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import { Member } from '#libs/member/types';
 import ProgramListSkeleton from '#libs/performance-tracking/components/program/ProgramListSkeleton.component';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 type OwnProps = {
   programList: Array<PerformanceTrackingProgram>;
@@ -214,8 +214,20 @@ export class ProgramList extends Component<Props, State> {
           </Grid>
         )}
 
-        <GenericFormDialog open={isProgramFormOpen}>
+        <GenericResponsiveDrawer
+          open={isProgramFormOpen}
+          onClose={() => {
+            setIsProgramFormOpen(false);
+            setProgramToEdit(null);
+          }}
+          title={
+            selectedProgramToEdit === null
+              ? t('program.form.create')
+              : t('program.form.update')
+          }
+        >
           <ProgramForm
+            isTitleEnabled={false}
             closeDialog={() => setIsProgramFormOpen(false)}
             resetInitial={() => setProgramToEdit(null)}
             submit={(
@@ -225,8 +237,9 @@ export class ProgramList extends Component<Props, State> {
               createOrUpdateProgram(program, options);
             }}
             initial={{ ...selectedProgramToEdit }}
+            isInDrawer
           />
-        </GenericFormDialog>
+        </GenericResponsiveDrawer>
 
         <BottomActionButtons
           onCreate={() => {

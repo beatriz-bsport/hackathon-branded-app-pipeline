@@ -612,42 +612,40 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             title={this.props.t('translation:common.offers')}
             subtitle={this.props.t('translation:common.offerEdition')}
           >
-            <DialogContent>
-              {this.props.offerEditLoading ? (
-                <LinearProgress />
-              ) : (
-                <OfferEditForm
-                  offer={offer}
-                  coaches={this.props.coaches}
-                  establishments={this.props.establishments}
-                  roomBlueprints={this.props.roomBlueprints}
-                  allRoomBlueprints={this.props.allRoomBlueprints}
-                  metaActivities={this.props.metaActivities}
-                  is_whereby_integration_enabled={
-                    this.props.theme &&
-                    this.props.theme.is_whereby_integration_enabled &&
-                    this.props.theme.is_whereby_integration_allowed
-                  }
-                  onConfirm={this.updateOffer}
-                  onCancel={this.props.closeOfferEditModal}
-                  processing={this.props.offerProcessing}
-                  fetchSimilarOffers={() =>
-                    this.props.fetchSimilarOffers(this.props.offer.id)
-                  }
-                  companyId={this.props.companyId}
-                  similarOffers={this.props.similarOffers}
-                  similarOfferLoading={this.props.similarOfferLoading}
-                  coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-                  tagList={this.props.allTagsWithTagGroup}
-                  allCustomLevels={this.props.allCustomLevels}
-                  activeCustomLevels={this.props.activeCustomLevels}
-                  fetchLevelList={this.handleFetchLevel}
-                  updateLevel={this.props.updateLevel}
-                  createLevel={this.props.createLevel}
-                  deleteLevel={this.props.deleteLevel}
-                />
-              )}
-            </DialogContent>
+            {this.props.offerEditLoading ? (
+              <LinearProgress />
+            ) : (
+              <OfferEditForm
+                offer={offer}
+                coaches={this.props.coaches}
+                establishments={this.props.establishments}
+                roomBlueprints={this.props.roomBlueprints}
+                allRoomBlueprints={this.props.allRoomBlueprints}
+                metaActivities={this.props.metaActivities}
+                is_whereby_integration_enabled={
+                  this.props.theme &&
+                  this.props.theme.is_whereby_integration_enabled &&
+                  this.props.theme.is_whereby_integration_allowed
+                }
+                onConfirm={this.updateOffer}
+                onCancel={this.props.closeOfferEditModal}
+                processing={this.props.offerProcessing}
+                fetchSimilarOffers={() =>
+                  this.props.fetchSimilarOffers(this.props.offer.id)
+                }
+                companyId={this.props.companyId}
+                similarOffers={this.props.similarOffers}
+                similarOfferLoading={this.props.similarOfferLoading}
+                coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+                tagList={this.props.allTagsWithTagGroup}
+                allCustomLevels={this.props.allCustomLevels}
+                activeCustomLevels={this.props.activeCustomLevels}
+                fetchLevelList={this.handleFetchLevel}
+                updateLevel={this.props.updateLevel}
+                createLevel={this.props.createLevel}
+                deleteLevel={this.props.deleteLevel}
+              />
+            )}
           </GenericResponsiveDrawer>
         ) : null}
       </div>

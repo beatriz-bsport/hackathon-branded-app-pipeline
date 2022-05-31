@@ -1715,7 +1715,7 @@
             "close": "Sluiten",
             "submit": "Aanmaken",
             "explain": "Dit wachtwoord is geldig tot {{expirationDate}}. Je hoofdwachtwoord is niet gewijzigd.",
-            "explainRequest": "Je kunt hier een tijdelijk wachtwoord aanvragen. Dit wachtwoord heeft een geldigheid van één week. Dit helpt onze medewerkers om je te helpen, omdat ze tijdelijk met je account kunnen verbinden. Je eigen wachtwoord verandert niet.",
+            "explainRequest": "Door een tijdelijk wachtwoord aan te maken kunnen onze medewerkers je beter assisteren, aangezien ze voor maximaal één week met dit tijdelijke wachtwoord met je account kunnen verbinden. Je eigen wachtwoord verandert niet.",
             "copied": "Wachtwoord gekopieerd",
             "copy": "Kopieer wachtwoord naar klembord"
         },
@@ -1744,7 +1744,7 @@
         "signup": {
             "title": "Inschrijven"
         },
-        "contactUs": "Neem vrijblijvend contact met ons op en leer meer over hoe BSPORT Solution uw studio helpt met het zetten van de volgende stap voor al uw dagelijkse handelingen.",
+        "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe BSPORT Solution uw studio helpt met het zetten van de volgende stap voor al uw dagelijkse handelingen.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -3174,7 +3174,7 @@
                 },
                 "label": {
                     "0": "Geen uitgaven",
-                    "1": "Kwartaal 1",
+                    "1": "Eerste kwartaal",
                     "2": "Gemiddelde",
                     "3": "Laatste kwartaal"
                 }
@@ -6176,7 +6176,7 @@
                 "compatibleConsumerPassTitle": "Mijn kaarten",
                 "compatiblePassTitle": "Beschikbare kaarten",
                 "emptyPassList": "Er is geen compatibele afspraakkaart aangemaakt voor deze activiteit. Gelieve contact opnemen met de studio.",
-                "emptyConsumerPassList": "Je hebt nog geen geldige afspraakkaart met voldoende krediet(en)."
+                "emptyConsumerPassList": "Je hebt nog geen geldige afspraakkaart."
             },
             "private_pass": {
                 "credits": "{{ credits}} krediet(en)"
@@ -10244,7 +10244,7 @@
             "email_template": "E-mails",
             "smart_list": "Smartlists",
             "sequence": "Campagnes",
-            "requestTempPassword": "Toegang verlenen",
+            "requestTempPassword": "Tijdelijk wachtwoord",
             "combo": "Pakketten",
             "marketing_automation": "Geautomatiseerde marketing",
             "digital": "Digitaal aanbod",

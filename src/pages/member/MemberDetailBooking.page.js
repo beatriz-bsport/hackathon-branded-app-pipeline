@@ -654,16 +654,18 @@ export class MemberDetailBooking extends Component<Props, State> {
           onClose={() => this.props.setDiscardBookingOption(null)}
         />
 
-        <RevertBookingDialog
-          handleBookingDeletion={this.handleBookingDeletion}
-          bookingToRevert={this.state.bookingToRevert}
-          offerIsAvailable
-          closeRevertBookingDialog={() =>
-            this.setState({ bookingToRevert: null })
-          }
-          offer={this.props.offer}
-          similarBookings={this.props.similarBookingList}
-        />
+        {this.state.bookingToRevert && (
+          <RevertBookingDialog
+            handleBookingDeletion={this.handleBookingDeletion}
+            bookingToRevert={this.state.bookingToRevert}
+            offerIsAvailable
+            closeRevertBookingDialog={() =>
+              this.setState({ bookingToRevert: null })
+            }
+            offer={this.props.offer}
+            similarBookings={this.props.similarBookingList}
+          />
+        )}
 
         <AsyncSpotSelector
           fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}

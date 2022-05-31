@@ -78,11 +78,19 @@ export const BookingCancellationDialog = (props: Props) => {
                 {props.booking?.offer?.group ? (
                   <>
                     <Typography>
-                      {props.t('consumer.booking.discardGroupPossibleExplain', {
+                      {props.t('consumer.booking.discardGroup1', {
                         group: props.group?.name,
                       })}
                     </Typography>
-
+                    <Typography>
+                      {props.t('consumer.booking.discardGroup2')}
+                    </Typography>
+                    <Typography>
+                      {props.t('consumer.booking.discardGroupPossibleExplain')}
+                    </Typography>
+                    <Typography>
+                      {props.t('consumer.booking.discardGroup3')}
+                    </Typography>
                     <Alert className={classes.alert} severity="error">
                       {props.t('consumer.booking.discardAllGroup')}
                     </Alert>
@@ -116,12 +124,20 @@ export const BookingCancellationDialog = (props: Props) => {
                 {props.booking?.offer?.group ? (
                   <>
                     <Typography>
+                      {props.t('consumer.booking.discardGroup1', {
+                        group: props.group?.name,
+                      })}
+                    </Typography>
+                    <Typography>
+                      {props.t('consumer.booking.discardGroup2')}
+                    </Typography>
+                    <Typography>
                       {props.t(
                         'consumer.booking.discardGroupImpossibleExplain',
-                        {
-                          group: props.booking?.offer?.group?.name,
-                        },
                       )}
+                    </Typography>
+                    <Typography>
+                      {props.t('consumer.booking.discardGroup3')}
                     </Typography>
 
                     <Alert className={classes.alert} severity="error">

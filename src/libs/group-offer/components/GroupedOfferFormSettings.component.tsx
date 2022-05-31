@@ -34,7 +34,6 @@ import {
   TextField,
   Submit,
   SwitchField,
-  CheckboxField,
   DateField,
   IntegerField,
   AlertError,
@@ -63,6 +62,7 @@ import {
 import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
 import { Level } from '#libs/level/types';
 import ManagerOnlyToogle from '#libs/offer/form/ManagerOnlyToogle.component';
+import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
 
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -101,6 +101,8 @@ type Values = {
   until: string;
   recurrence_interval: number;
   recurrence_method: string;
+  whitelist_tags: number[];
+  blacklist_tags: number[];
 };
 
 const GroupedOfferFormSettingsSchema = Yup.object().shape({
@@ -156,6 +158,8 @@ const GroupedOfferFormSettingsSchema = Yup.object().shape({
       }),
     )
     .min(1, 'error'),
+  whitelist_tags: Yup.array().of(Yup.number()),
+  blacklist_tags: Yup.array().of(Yup.number()),
 });
 
 export const GroupedOfferFormSettings: React.FC<
@@ -280,6 +284,14 @@ export const GroupedOfferFormSettings: React.FC<
     [offerEdited, setFieldValue, values.offers],
   );
 
+  const handleWhiteListChange = (tags: number[]) => {
+    setFieldValue('whitelist_tags', tags);
+  };
+
+  const handleBlackListChange = (tags: number[]) => {
+    setFieldValue('blacklist_tags', tags);
+  };
+
   return (
     <>
       <Form>
@@ -353,6 +365,16 @@ export const GroupedOfferFormSettings: React.FC<
             </div>
           </>
         )}
+        <div className={classes.wrapper}>
+          <BlackWhiteListing
+            tagList={tagList}
+            disableTag={false}
+            whitelist_tags={values.whitelist_tags}
+            blacklist_tags={values.blacklist_tags}
+            onWhiteListChange={handleWhiteListChange}
+            onBlackListChange={handleBlackListChange}
+          />
+        </div>
         <Divider />
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
@@ -361,7 +383,8 @@ export const GroupedOfferFormSettings: React.FC<
               {t('groupedOption.modal.form.subtitleSettings')}
             </Typography>
           </div>
-          <CheckboxField
+          {/* Will be MEP when apps are ready */}
+          {/* <CheckboxField
             name="full_booking_only"
             label={t('groupedOption.modal.form.fullBookingOnly')}
           />
@@ -378,7 +401,7 @@ export const GroupedOfferFormSettings: React.FC<
           )}
           <Typography color="textSecondary" variant="caption">
             {t('groupedOption.modal.form.allowBookingAfterStartCaption')}
-          </Typography>
+          </Typography> */}
           <ManagerOnlyToogle
             manager_only={values.manager_only}
             onChange={(manager_only) =>
@@ -585,6 +608,7 @@ const OfferDialogs: React.FC<{
           tagList={tagList}
           isOfferInGroup
           disableWaitingList
+          disableTag
           onSubmit={handleAddOffer}
         />
       </GenericResponsiveDrawer>
@@ -826,13 +850,15 @@ export default compose<any, OuterProps>(
           offers: [...(initial?.offers ?? [])]?.sort(
             (a, b) => a.date_start - b.date_start,
           ),
+          whitelist_tags: initial?.offers?.[0]?.whitelist_tags ?? [],
+          blacklist_tags: initial?.offers?.[0]?.blacklist_tags ?? [],
         };
       }
 
       return {
         name: '',
         level: 1,
-        full_booking_only: true,
+        full_booking_only: false,
         allow_booking_after_start: false,
         manager_only: false,
         withRecurrence: false,
@@ -842,6 +868,8 @@ export default compose<any, OuterProps>(
         count: 1,
         until: moment().add(1, 'month').format('YYYY-MM-DD'),
         offers: [],
+        whitelist_tags: [],
+        blacklist_tags: [],
       };
     },
     validationSchema: GroupedOfferFormSettingsSchema,

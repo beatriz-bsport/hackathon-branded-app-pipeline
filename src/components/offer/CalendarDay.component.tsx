@@ -60,7 +60,6 @@ export const CalendarDay: React.FC<Props> = ({
         [classes.dayButonEndRange]: isLastDayOfRange,
       })}
       color="primary"
-      disabled={isDisabled}
       onClick={() => {
         onDateChange(day.format(DATE_FORMAT));
       }}

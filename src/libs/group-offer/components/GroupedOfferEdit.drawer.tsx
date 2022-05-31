@@ -42,6 +42,8 @@ export type Props = {
     allow_booking_after_start: boolean;
     full_booking_only: boolean;
     manager_only: boolean;
+    whitelist_tags: number[];
+    blacklist_tags: number[];
   }) => void;
   fetchLevelList: () => void;
   updateLevel: (id: number, data: Level, options: OptionCallback) => void;
@@ -81,6 +83,8 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
         allow_booking_after_start,
         full_booking_only,
         manager_only,
+        whitelist_tags,
+        blacklist_tags,
       } = values;
 
       onSubmit({
@@ -89,6 +93,8 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
         allow_booking_after_start,
         full_booking_only,
         manager_only,
+        whitelist_tags,
+        blacklist_tags,
       });
     },
     [onSubmit],

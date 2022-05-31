@@ -82,6 +82,8 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     [theme],
   );
 
+  const availableOffers = offers.filter((o) => isOfferInThePast(o));
+
   const handleBook = useCallback(
     () => (offer: Offer) => {
       onBook(offer, {
@@ -106,36 +108,20 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     if (
       group.full_booking_only &&
       !group.allow_booking_after_start &&
-      offers.some(
-        (o) =>
-          !isOfferInThePast(o) ||
-          !isOfferBookableYet({ ...o, meta_activity: metaActivity }) ||
-          o.full,
-      )
+      offers.some((o) => !isOfferInThePast(o) || o.full)
     ) {
       return true;
     }
 
     if (
       group.allow_booking_after_start &&
-      offers
-        .filter((o) => !isOfferInThePast(o))
-        .some(
-          (o) =>
-            !isOfferBookableYet({ ...o, meta_activity: metaActivity }) ||
-            o.full,
-        )
+      offers.filter((o) => !isOfferInThePast(o)).some((o) => o.full)
     ) {
       return true;
     }
 
-    return !offers.some(
-      (o) =>
-        isOfferInThePast(o) &&
-        isOfferBookableYet({ ...o, meta_activity: metaActivity }) &&
-        !o.full,
-    );
-  }, [group, metaActivity, offers]);
+    return !offers.some((o) => isOfferInThePast(o) && !o.full);
+  }, [group, offers]);
 
   if (loading) {
     return (
@@ -147,6 +133,8 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
       />
     );
   }
+
+  const firstBookableOffer = offers.find((o) => isOfferInThePast(o) && !o.full);
 
   return (
     <>
@@ -183,19 +171,22 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                 'bs-offer-list-item__left__offers__emphasis',
               )}
             >
-              {t('marketplace.offers', { count: offers.length })}
+              {t('marketplace.offers', { count: availableOffers.length })}
             </span>{' '}
             {t('marketplace.from_to', {
-              from: offers?.[0]
+              from: availableOffers?.[0]
                 ? getDate(
-                    offers?.[0],
-                    getEstablishment(offers[0].establishment),
+                    availableOffers?.[0],
+                    getEstablishment(availableOffers[0].establishment),
                   )
                 : '',
-              to: offers?.[offers.length - 1]
+              to: availableOffers?.[availableOffers.length - 1]
                 ? getDate(
-                    offers?.[offers.length - 1],
-                    getEstablishment(offers[offers.length - 1].establishment),
+                    availableOffers?.[availableOffers.length - 1],
+                    getEstablishment(
+                      availableOffers[availableOffers.length - 1]
+                        ?.establishment,
+                    ),
                   )
                 : '',
             })}
@@ -301,12 +292,6 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                   classes.dialogTitle,
                   'bs-offer-dialog__inner__title',
                 )}
-                style={{
-                  borderLeftWidth: metaActivity.color !== '' ? 5 : 1,
-                  borderLeftStyle: 'solid',
-                  borderLeftColor:
-                    metaActivity.color !== '' ? metaActivity.color : '#E0E5EC',
-                }}
               >
                 {metaActivity.name}
               </div>
@@ -342,27 +327,29 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                   'bs-offer-dialog__inner__book_list',
                 )}
               >
-                {offers.map((offer) => {
-                  return (
-                    <MarketplaceOfferListItem
-                      key={offer.id}
-                      offer={{
-                        ...offer,
-                        meta_activity: metaActivity,
-                      }}
-                      establishment={getEstablishment(offer.establishment)}
-                      coach={getCoach(offer.coach_override || offer.coach)}
-                      customLevel={getLevel(offer.custom_level)}
-                      showOfferFilling={showOfferFilling}
-                      theme={theme}
-                      hideCoach={hideCoach}
-                      loading={false}
-                      onBookOption={handleBook()}
-                      onBook={handleBookOption()}
-                      withoutCTA={checkDisabled()}
-                    />
-                  );
-                })}
+                {offers
+                  .filter((o) => o.available && isOfferInThePast(o))
+                  .map((offer) => {
+                    return (
+                      <MarketplaceOfferListItem
+                        key={offer.id}
+                        offer={{
+                          ...offer,
+                          meta_activity: metaActivity,
+                        }}
+                        establishment={getEstablishment(offer.establishment)}
+                        coach={getCoach(offer.coach_override || offer.coach)}
+                        customLevel={getLevel(offer.custom_level)}
+                        showOfferFilling={showOfferFilling}
+                        theme={theme}
+                        hideCoach={hideCoach}
+                        loading={false}
+                        onBookOption={handleBook()}
+                        onBook={handleBookOption()}
+                        withoutCTA={group.full_booking_only}
+                      />
+                    );
+                  })}
               </div>
             </div>
           </DialogContent>
@@ -370,7 +357,6 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             className={classNames(classes.buttons, 'bs-offer-dialog__buttons')}
           >
             <Button
-              variant="contained"
               className="bs-offer-dialog__buttons__cancel"
               onClick={() => {
                 setOpenModal(false);
@@ -384,12 +370,6 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               className="bs-offer-dialog__buttons__book"
               disabled={checkDisabled()}
               onClick={() => {
-                const firstBookableOffer = offers.find(
-                  (o) =>
-                    isOfferInThePast(o) &&
-                    isOfferBookableYet({ ...o, meta_activity: metaActivity }) &&
-                    !o.full,
-                );
                 if (firstBookableOffer?.available) {
                   handleBook()(firstBookableOffer);
                 }
@@ -398,7 +378,12 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                 }
               }}
             >
-              {t('marketplace.book')}
+              {isOfferBookableYet({
+                ...firstBookableOffer,
+                meta_activity: metaActivity,
+              })
+                ? t('marketplace.book')
+                : t('marketplace.bookButton.notBookableYet')}
             </Button>
           </div>
         </Dialog>
@@ -493,7 +478,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   dialogTitle: {
     fontSize: 25,
     letterSpacing: 0.25,
-    paddingLeft: theme.spacing(2),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),
   },
@@ -513,6 +497,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     maxHeight: '100vh',
     minWidth: '100vw',
     [theme.breakpoints.up('sm')]: {
+      maxWidth: '80vw',
       maxHeight: '80vh',
       minWidth: 600,
     },

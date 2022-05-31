@@ -275,6 +275,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     allow_booking_after_start: boolean;
     full_booking_only: boolean;
     manager_only: boolean;
+    whitelist_tags: number[];
+    blacklist_tags: number[];
   }) => {
     editGroupOffer(editingGroup.id, data, {
       onSuccess: () => {
@@ -451,7 +453,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     return <BackofficeLinearProgress />;
   }
 
-  const hideEmptyState = groupExist || groupList.length;
+  const hideEmptyState = groupExist || groupList.length > 0;
 
   const _metaActivities = metaActivity ? [metaActivity] : metaActivities;
   return (

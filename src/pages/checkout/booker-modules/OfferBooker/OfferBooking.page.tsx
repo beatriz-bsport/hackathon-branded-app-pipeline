@@ -224,12 +224,15 @@ class OfferBooking extends React.PureComponent<Props, State> {
       if (
         group.full_booking_only &&
         !group.allow_booking_after_start &&
-        offers.some(
-          (offer) =>
+        offers.some((offer) => {
+          if (offer.tot_slots === 0) return false;
+
+          return (
             offer.bookableStatus?.bookable_status !==
               OFFER_BOOKABLE_STATUS_BOOKABLE ||
-            offer.bookableStatus.blocked_by_tags,
-        )
+            offer.bookableStatus.blocked_by_tags
+          );
+        })
       ) {
         this.setState({
           blockByGroup: true,
@@ -244,6 +247,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
         offers
           .filter((co) => moment(co.date_start).isAfter(moment()))
           .some((offer) => {
+            if (offer.tot_slots === 0) return false;
             return (
               !offer.bookableStatus ||
               offer.bookableStatus?.bookable_status !==
@@ -777,7 +781,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
             hideCoach={this.props.theme.hideCoach}
             similarOffers={
               this.props.offer.group
-                ? this.props.similarOfferGroups
+                ? this.props.similarOfferGroups.filter(
+                    (o) =>
+                      o?.bookableStatus?.bookable_status ===
+                      OFFER_BOOKABLE_STATUS_BOOKABLE,
+                  )
                 : this.props.similarOffers
             }
             loading={this.props.similarLoading}

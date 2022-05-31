@@ -193,7 +193,7 @@ export const GroupedOfferDelete: React.FC<Props> = ({
                       />
                     </ListItem>
                     {similars
-                      .filter((g) => g.id !== group.id)
+                      .filter((g) => g.id !== group.id && g.available)
                       .sort((a, b) => {
                         const aFirstOffer = getOffersListByGroup(a.id)?.[0];
                         const bFirstOffer = getOffersListByGroup(b.id)?.[0];

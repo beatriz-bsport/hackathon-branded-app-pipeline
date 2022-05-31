@@ -185,8 +185,7 @@ export const MarketplaceOfferListItem: React.FC<Props> = ({
             onClickBook={handleBook}
             onClickBookOption={handleBookOption}
             offer={offer}
-            variant="contained"
-            className={classes.button}
+            variant="text"
           />
         )}
       </div>
@@ -266,11 +265,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-  },
-  button: {
-    marginTop: 'auto',
-    borderWidth: 1,
-    borderStyle: 'solid',
   },
 }));
 

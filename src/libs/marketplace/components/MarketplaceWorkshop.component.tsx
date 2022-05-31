@@ -177,7 +177,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     gap: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    gridTemplateColumns: 'repeat(auto-fit, minmax(560px, 1fr) ) ',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(560px, 1fr))',
   },
   forceFlex: {
     display: 'flex',

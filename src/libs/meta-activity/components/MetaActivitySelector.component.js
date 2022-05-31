@@ -14,10 +14,12 @@ const getMetaActivityOptions = (metaActivities: Array<MetaActivity>) => {
     }
     return 1;
   });
-  return metaActivities.map((ma) => ({
-    value: ma.id,
-    label: ma.name,
-  }));
+  return metaActivities
+    .filter((ma) => !ma)
+    .map((ma) => ({
+      value: ma.id,
+      label: ma.name,
+    }));
 };
 
 const metaActivityStyles = {

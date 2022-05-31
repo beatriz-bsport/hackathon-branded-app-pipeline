@@ -7,7 +7,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { useTheme } from '@material-ui/styles';
 
 import MarketplaceOfferListItem from './MarketPlaceOfferListItem.component';
 import { formatMinutes } from '../../../utils/datetime';
@@ -61,7 +60,6 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['marketplace', 'datetime']);
   const classes = useStyles();
-  const materialTheme = useTheme();
 
   if (loading && !offers?.items?.length > 0) {
     return (
@@ -160,11 +158,6 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
             classes.title,
             'bs-workshop-card__content__title',
           )}
-          style={{
-            borderLeftColor: metaActivity.color
-              ? metaActivity.color
-              : materialTheme.palette.primary.main,
-          }}
         >
           {metaActivity.name}
         </div>
@@ -339,9 +332,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 700,
     fontSize: 24,
     color: theme.palette.text.primary,
-    paddingLeft: theme.spacing(2),
-    borderLeftWidth: 5,
-    borderLeftStyle: 'solid',
   },
   row: {
     display: 'flex',

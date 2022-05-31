@@ -65,7 +65,7 @@ type OwnProps = {
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
-const MIN_DATE = Moment().startOf('month').format(DATE_FORMAT);
+const MIN_DATE = Moment().format(DATE_FORMAT);
 const MAX_DATE = Moment()
   .endOf('month')
   .add(1, 'years')

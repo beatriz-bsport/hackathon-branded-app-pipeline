@@ -117,14 +117,9 @@ export class OfferCard extends Component<Props, State> {
   };
 
   getStatsBody = () => {
-    const { classes, t } = this.props;
-    const {
-      bookings,
-      nb_bookings,
-      nb_option,
-      waiting_list_max_size,
-      effectif,
-    } = this.props.offer;
+    const { classes, t, bookings } = this.props;
+    const { nb_bookings, nb_option, waiting_list_max_size, effectif } =
+      this.props.offer;
 
     const nbBookings =
       nb_bookings ||

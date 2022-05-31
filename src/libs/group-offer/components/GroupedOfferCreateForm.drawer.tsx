@@ -209,7 +209,12 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               interval: values.recurrence_interval,
             }
           : null,
-        offers_data: values.offers,
+        offers_data: values.offers.map((o) => ({
+          ...o,
+          whitelist_tags: values.whitelist_tags,
+          blacklist_tags: values.blacklist_tags,
+          manager_only: values.manager_only,
+        })),
       };
 
       generatePreview(previewData, {

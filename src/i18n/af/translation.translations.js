@@ -643,10 +643,15 @@ exports.default = {
       willNotBeRefund: 'Crédits non remboursé',
       discardPossibleExplain:
         'Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.',
-      discardGroupPossibleExplain:
-        ' Cette réservation fait partie du groupe de séance {{ group }}. Êtes-vous sûr de vouloir annuler ces réservations ? Vos crédits seront de nouveau utilisable.',
+      discardGroup1:
+        'Cette réservation fait partie du groupe de séance {{ group }}.',
+      discardGroup2:
+        'Vous serez désinscrit automatiquement de l’ensemble des séances non passées du groupe.',
+      discardGroup3:
+        'Si vous souhaitez annuler seulement une séance du groupe, merci de contacter votre studio.',
+      discardGroupPossibleExplain: 'Vos crédits seront de nouveau utilisable.',
       discardGroupImpossibleExplain:
-        ' Cette réservation fait partie du groupe de séance {{ group }}. Êtes-vous sûr de vouloir annuler ces réservations ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club)..',
+        'Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club).',
       discardImpossibleExplain:
         'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club).',
       confirmBooking: 'Confirmer',

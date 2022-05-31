@@ -177,6 +177,7 @@ type OwnProps = {
   deleteLevel: (id: number, options?: OptionCallback) => void;
   isOfferInGroup: boolean;
   disableWaitingList: boolean;
+  disableTag: boolean;
 };
 
 type Props = OwnProps &
@@ -1098,9 +1099,11 @@ export class OfferForm extends Component<Props, State> {
           </div>
           <div className={classes.fieldGroup}>{this.renderTimeSettings()}</div>
           <div className={classes.fieldGroup}>{this.renderSpecificities()}</div>
-          <div className={classes.fieldGroup}>
-            {this.renderAdvancedSettings()}
-          </div>
+          {!this.props.disableTag && (
+            <div className={classes.fieldGroup}>
+              {this.renderAdvancedSettings()}
+            </div>
+          )}
           <div className={classes.fieldGroup}>{this.renderFooter()}</div>
         </form>
       </div>

@@ -798,7 +798,7 @@ export class OfferEditForm extends Component<Props, State> {
           </div>
         )}
         <div className={this.props.classes.fieldGroup}>
-          {this.renderAdvancedSettings()}
+          {!(this.props.offer?.group ?? false) && this.renderAdvancedSettings()}
         </div>
 
         <FeatureListProvider>

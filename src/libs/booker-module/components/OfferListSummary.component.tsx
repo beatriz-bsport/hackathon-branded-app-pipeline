@@ -162,6 +162,7 @@ class OfferListSummary extends React.PureComponent<Props> {
 
           {!!this.props.onClickAddMoreOffer &&
             !offer?.room_blueprint &&
+            !(offer?.group?.full_booking_only ?? false) &&
             (this.props.additionalGuestList || []).length === 0 && (
               <ButtonBase
                 disabled={!offer}

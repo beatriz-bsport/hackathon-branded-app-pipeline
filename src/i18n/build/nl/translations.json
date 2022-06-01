@@ -615,7 +615,7 @@
                 "BANK_TRANSFER": "Bankoverschrijving",
                 "AMEX": "AMEX",
                 "EVENT_BRITE": "EventBrite",
-                "CASH": "Contant geld",
+                "CASH": "Contant",
                 "HOLIDAY_CHECK": "Vakantiecheques",
                 "CHECK": "Cheque",
                 "CB_MANUAL": "Betaalkaart (handmatig)",
@@ -624,7 +624,7 @@
             "creditAccountBalance": "Lopende rekening: ",
             "paymentMethod": "Betalingswijze",
             "invoice": "Factuur",
-            "paymentMethodCash": "Contant geld",
+            "paymentMethodCash": "Contant",
             "paymentMethodCheck": "Cheque",
             "paymentMethodStripe": "Betaalkaart",
             "total": "TOTAAL",
@@ -1244,7 +1244,7 @@
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
             "notifyRevert": "Een annuleringsmail sturen",
             "refundRevert": "Gebruikte kredieten terugbetalen",
-            "cancellingBookingInGroup": "Meerdere reserveringen annuleren",
+            "cancellingBookingInGroup": "Meerdere sessies annuleren",
             "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\". Andere reserveringen van dit lid voor dit evenement worden niet gewijzigd."
         },
         "workshopActivity": {
@@ -1430,7 +1430,7 @@
             "BANK_TRANSFER": "Bankoverschrijving",
             "AMEX": "AMEX",
             "EVENT_BRITE": "EventBrite",
-            "CASH": "Contant geld",
+            "CASH": "Contant",
             "HOLIDAY_CHECK": "Vakantiecheques",
             "CHECK": "Cheque",
             "CB_MANUAL": "Betaalkaart (handmatig)",
@@ -1860,7 +1860,7 @@
             "none": "Geen",
             "credit_account": "Interne rekening (Wallet)",
             "other": "Overige",
-            "cash": "Contant geld",
+            "cash": "Contant",
             "check": "Cheque",
             "dispute": "Dispuut",
             "sepa": "SEPA",
@@ -1966,7 +1966,7 @@
             "payment_note": "Betaalnotitie",
             "remaining_days": "Overige dagen",
             "payment_method_stripe": "Betaalkaart (online)",
-            "payment_method_cash": "Contant geld",
+            "payment_method_cash": "Contant",
             "payment_method_check": "Cheque",
             "payment_method_manual_credit_card": "Betaalkaart (handmatig)",
             "payment_method_holiday_check": "Vakantiecheques",
@@ -2695,7 +2695,10 @@
                     "titleEdit": "Categorie",
                     "titleNew": "Nieuwe categorie",
                     "name": "Naam van de categorie",
-                    "helper": "Categorieën van beschikbare kaarten verschijnen op de MarketPlace en de Mobiele Applicatie."
+                    "helper": "Categorieën van beschikbare kaarten verschijnen op de MarketPlace en de Mobiele Applicatie.",
+                    "update": "Hernoemen",
+                    "create": "Toevoegen",
+                    "cancel": "Annuleren"
                 }
             },
             "add": "Een categorie toevoegen",
@@ -2779,7 +2782,7 @@
                 "companySharedWithTitle": "Beschikbare studio's:"
             },
             "widget": {
-                "choose": "Selecteer de te delen leskaarten"
+                "choose": "Filter op leskaarten"
             },
             "pass": "Leskaarten"
         },
@@ -3763,7 +3766,7 @@
                     "recurrenceUntilHelper2": "Het is niet mogelijk om sessies na deze datum toe te voegen.",
                     "timeStartHelper": "Selecteer de datum van de eerste sessie van dit evenement. Alle toekomstige sessies worden vervolgens ook aan dit evenement gekoppeld.",
                     "nameCaption": "Naam van dit evenement",
-                    "allowBookingAfterStartCaption": "Standaard is het niet mogelijk voor leden om zich voor reeds begonnen evenementen  in te schrijven. Activeer deze optie om dat juist wel toe te staan.",
+                    "allowBookingAfterStartCaption": "Standaard is het niet mogelijk voor leden om zich voor reeds begonnen evenementen in te schrijven. Activeer deze optie om dat juist wel toe te staan.",
                     "fullBookingOnlyCaption": "Standaard worden leden automatisch voor alle gekoppelde sessies binnen een evenement ingeschreven. Schakel deze optie uit om leden de vrijheid te geven om te selecteren voor welke sessies ze zich wel of niet willen inschrijven.",
                     "impossibleState": "Aan de hand van deze configuratie is het niet mogelijk om een evenement aan te maken.",
                     "copyRecurrence": "Dupliceer ook herhalingen van toekomstige evenementen",
@@ -3784,7 +3787,7 @@
                     "name": "Naam",
                     "subtitleRecurrence": "Frequentie",
                     "subtitleSettings": "Instellingen",
-                    "addOffers": "Een sessie toevoegen",
+                    "addOffers": "Sessies toevoegen",
                     "subtitleOffers": "Sessies",
                     "subtitle": "Algemeen"
                 },
@@ -3993,7 +3996,7 @@
         "edit": "Wijzigen",
         "allCompanies": "Alle studio's",
         "seeAll": "Toon alles",
-        "franchiseEmails": "[Master-Account E-mailsjablonen",
+        "franchiseEmails": "[Master-Account] E-mailsjablonen",
         "companieEmails": "Sjablonen"
     },
     "member": {
@@ -4562,9 +4565,9 @@
                 "at": " op ",
                 "timeGroup": "Instellingen",
                 "startFromDate": {
-                    "label": "Startdatum terugkerende reservering "
+                    "label": "Startdatum "
                 },
-                "groupWarning": "Het is niet mogelijk om een herhalingsregel aan te maken voor evenementen"
+                "groupWarning": "Het is niet mogelijk om een periodieke reservering voor evenementen toe te voegen."
             },
             "deleteModal": {
                 "cancel": "Annuleren",
@@ -4574,7 +4577,7 @@
                 "success": "De terugkerende reservering is verwijderd"
             },
             "item": {
-                "explain": "Iedere {{dayOfWeek}} om {{hour}}:{{minute}}. Reservering: {{delayWeek}}"
+                "explain": "Iedere {{dayOfWeek}} om {{hour}}:{{minute}} - Week: {{delayWeek}}"
             },
             "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden moeten een compatibel en geldige kaart bezitten om te kunnen worden ingeschreven.",
             "needConsumerPack": "Dit lid bezit niet de juiste leskaart. Het is niet mogelijk om een herhalende reservering in te plannen.",
@@ -4583,7 +4586,7 @@
                 "save": "Opslaan",
                 "close": "Sluit"
             },
-            "recurrentRuleBooking": "Herhalende reservering",
+            "recurrentRuleBooking": "Periodieke reservering",
             "createModal": {
                 "create": "Een terugkerende reservering toevoegen",
                 "info": "Je kunt geen bestaande terugkerende reserveringen dupliceren",
@@ -4874,7 +4877,7 @@
     "event": {
         "list": {
             "title": {
-                "latestEvents": "Recente afschrijvingen"
+                "latestEvents": "Recente incasso's"
             }
         },
         "member": {
@@ -6788,7 +6791,7 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Elke {{dayOfWeek}} om {{time}} - {{delayWeek}} week/weken van tevoren",
+                "explain": "Elke {{dayOfWeek}} om {{time}} - Week: {{delayWeek}}",
                 "startFrom": "Van {{ date }}",
                 "allowUnpaid": "Onbetaalde reserveringen worden geaccepteerd"
             },
@@ -6816,7 +6819,7 @@
             },
             "actions": {
                 "save": "Opslaan",
-                "close": "Sluit"
+                "close": "Sluiten"
             },
             "createModal": {
                 "create": "Een terugkerende afspraak toevoegen"
@@ -9586,7 +9589,7 @@
                 "amountPaid": "Betaald",
                 "amountRemaining": "Resterend bedrag",
                 "amountDue": "Totaal verschuldigd",
-                "title": "Samenvatting"
+                "title": "Overzicht"
             },
             "paymentList": {
                 "isEmpty": "Er is geen betaling geregistreerd.",
@@ -10878,7 +10881,7 @@
             "groupByPlaceholder": "Groeperen",
             "franchised": "Studio",
             "groupBy": "Groeperen",
-            "pageTitle": "Sjabloon",
+            "pageTitle": "E-mails",
             "companiesEmails": "[Master-Account E-mailsjablonen",
             "create": "Een sjabloon toevoegen",
             "franchiseEmails": "Sjablonen",
@@ -11123,7 +11126,8 @@
                 "create": "Een programma toevoegen",
                 "modify": "Programma wijzigen",
                 "delete": "Programma verwijderen",
-                "addProgram": "Een programma toevoegen"
+                "addProgram": "Een programma toevoegen",
+                "update": "Programma wijzigen"
             },
             "title": "Programma's",
             "archived": "Gearchiveerd",

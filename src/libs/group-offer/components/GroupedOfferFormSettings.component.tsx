@@ -365,6 +365,7 @@ export const GroupedOfferFormSettings: React.FC<
             </div>
           </>
         )}
+
         <Divider className={classes.divider} />
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
@@ -397,6 +398,17 @@ export const GroupedOfferFormSettings: React.FC<
             onChange={(manager_only) =>
               setFieldValue('manager_only', manager_only)
             }
+          />
+        </div>
+        <Divider className={classes.divider} />
+        <div className={classes.wrapper}>
+          <BlackWhiteListing
+            tagList={tagList}
+            disableTag={false}
+            whitelist_tags={values.whitelist_tags}
+            blacklist_tags={values.blacklist_tags}
+            onWhiteListChange={handleWhiteListChange}
+            onBlackListChange={handleBlackListChange}
           />
         </div>
         {!editingLiveOffer && (
@@ -491,16 +503,6 @@ export const GroupedOfferFormSettings: React.FC<
             </div>
           </>
         )}
-        <div className={classes.wrapper}>
-          <BlackWhiteListing
-            tagList={tagList}
-            disableTag={false}
-            whitelist_tags={values.whitelist_tags}
-            blacklist_tags={values.blacklist_tags}
-            onWhiteListChange={handleWhiteListChange}
-            onBlackListChange={handleBlackListChange}
-          />
-        </div>
         <div className={classes.buttonContainer}>
           <Button onClick={handlePreviousStep}>
             {t('translation:common.cancel')}
@@ -770,6 +772,7 @@ const OffersList: React.FC<{
 const useStyles = makeStyles((theme: Theme) => ({
   wrapper: {
     paddingBottom: theme.spacing(2),
+    padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(1),

@@ -897,7 +897,7 @@
                     "registerToOffer": "Book",
                     "doNotConsumeCredit": "Don't charge the member credits for this booking",
                     "bookSingleInGroup": "Register for this session only",
-                    "bookMoreInGroup": "Register for other group sessions",
+                    "bookMoreInGroup": "Enrol for other events",
                     "groupWarning": "This session is part of the session group {{ name }}"
                 }
             }
@@ -1007,7 +1007,7 @@
             "intermediate": "Intermediate",
             "beginner": "Beginner",
             "all": "All levels",
-            "noDisplay": "No level displayed"
+            "noDisplay": "No level"
         },
         "booking": {
             "seeCustomers": "Show bookings",
@@ -1055,7 +1055,7 @@
             "cancelledFromWaitingList": "Removed from the waiting list",
             "notifyRevert": "Send a cancellation email",
             "refundRevert": "Refund the used credits",
-            "cancellingBookingInGroup": "Cancel for other sessions in this group.",
+            "cancellingBookingInGroup": "Cancel multiple sessions",
             "cancellingOtherBookingInGroup": "Attention this session is a group session of {{ name }} . If the member has other reservations in this group they will not be impacted."
         },
         "workshopActivity": {
@@ -1307,11 +1307,13 @@
                 "cancelBooking": "Cancel booking",
                 "myPrivateBooking": "Appointments",
                 "intro": "Your booking on {{date}}.",
-                "discardGroupImpossibleExplain": " This reservation is part of the session group {{ group }} . Are you sure you want to cancel these reservations? You cancel too late and your course card will not be re-credited (studio terms and conditions).",
-                "discardGroupPossibleExplain": " This reservation is part of the session group {{ group }} . Are you sure you want to cancel these reservations? Your credits will be usable again.",
+                "discardGroupImpossibleExplain": "The credits won't be refunded as this cancellation is being processed too late.",
+                "discardGroupPossibleExplain": "The credits will be refunded and can be used again.",
                 "willNotBeRefund": "Outstanding credits",
                 "willBeRefund": "The session of {{-day}} will be recredited",
-                "discardAllGroup": "All group reservations will be cancelled."
+                "discardAllGroup": "All group reservations will be cancelled.",
+                "discardGroup3": "Contact the studio if you wish to cancel a single session.",
+                "discardGroup1": "This booking is part of \"{{ group }}\"."
             },
             "help": {
                 "explainCancelBookingOption": "Once you delete this, it can't be undone - you'll lose your priority spot on the waiting list.",
@@ -2480,10 +2482,10 @@
             "missing": "Missing email",
             "success": "Your message has been sent.",
             "error": "Please try again later to send your message.",
-            "refreshText": "Refresh the page to see the edits you've made.",
+            "refreshText": "Refresh the page to see your edits.",
             "noObject": "No subject",
             "refreshTextPhone": "Refresh the page to see the update phone number.",
-            "sendSms": "New SMS",
+            "sendSms": "SMS",
             "hideMail": "Hide email",
             "count": "characters",
             "mailSelection": "Select an email",
@@ -2492,17 +2494,17 @@
             "mailMissing": "No email has been selected yet.",
             "numberSms": "SMS",
             "contentSms": "Content of the SMS",
-            "selectTemplate": "Existing email template",
-            "writeMail": "New email",
+            "selectTemplate": "Email template",
+            "writeMail": "Email",
             "dialogTitle": "Message",
             "noMailAvailable": "There are no email templates available yet. Start by adding your first template.",
             "showMail": "Show email",
             "contentNotification": "Content",
             "titleNotification": "Title",
             "sendNotification": "Push notification",
-            "warningConsent2": "Not to respect this decision of your member would be illegal. Bsport cannot be held responsible in the event of abusive use of the direct emails.",
-            "warningConsent1": "Warning! This member does not want to receive promotional emails. Direct emails are a quick and easy way to reach out to your members. They should not be used for advertising or promotional purposes.",
-            "titleInterpolated": "The variables contained in the subject line and the body of the email are updated according to the recipient"
+            "warningConsent2": "It'd be illegal to not respect the decision of your member. The Service Provider cannot be held responsible in the event of abuse or misuse of any of the communication features.",
+            "warningConsent1": "Warning! This member does not want to receive promotional messages. Direct emails or other channels are a quick and easy way to reach out to your members. They should not be used for advertising or promotional purposes.",
+            "titleInterpolated": "The variables contained in the subject line and the body of the email are updated according to the recipient."
         },
         "recipients": "Recipients",
         "common": {
@@ -4746,10 +4748,10 @@
         },
         "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
         "disabledWorkshops": "Archived workshops",
-        "tabGroups": "Group sessions",
+        "tabGroups": "Events",
         "tabList": "List of workshops",
         "group": {
-            "emptyState": "With session groups your students can book all the sessions included in the group at once. For example, use the session groups to create introductory workshops with several sessions. ",
+            "emptyState": "Events allow your members to enrol for all associated sessions at once. This feature is perfect for activities, such as trainings or courses. ",
             "emptySearch": "No groups matching your search",
             "pageSize": "Display by:",
             "backToGroup": "Back to groups",
@@ -4894,7 +4896,7 @@
         "modal": {
             "confirm": {
                 "submit": "Confirm",
-                "text": "This session is part of a group, you are going to untag all the sessions in this group. Do you want to continue?",
+                "text": "This session is associated to an event. You're about to delete all tags. Are you sure that you want to continue?",
                 "title": "Untag"
             }
         }
@@ -5892,7 +5894,7 @@
             "placeholder": "Select a payment configuration",
             "placeholderOverride": "Coach's Default Payroll Rule",
             "coachPaymentRuleForPrivateService": "Appointments",
-            "coachPaymentRuleForSessions": "Group classes",
+            "coachPaymentRuleForSessions": "Group activities",
             "reset": "Use the teacher's default payroll rule",
             "group": "Payroll group",
             "coachPaymentRuleForWorkshops": "Workshops"
@@ -8108,7 +8110,10 @@
                     "name": "Name of the category",
                     "titleNew": "New category",
                     "titleEdit": "Category",
-                    "helper": "The categories will appear on the marketplace and the mobile application for cards available for sale."
+                    "helper": "The categories will appear on the marketplace and the mobile application for cards available for sale.",
+                    "update": "Rename",
+                    "create": "Add",
+                    "cancel": "Cancel"
                 }
             },
             "category": "Pass categories"
@@ -8381,7 +8386,7 @@
             "tab": {
                 "general": "General",
                 "pack": "Compatible passes",
-                "group": "Group sessions"
+                "group": "Events"
             }
         },
         "name": "Name",
@@ -8414,7 +8419,7 @@
             "search": "Search an activity",
             "addActivity": "Add a group activity"
         },
-        "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same practice.",
+        "noActivities": "This module allows you to add, manage, edit, or delete all your group activities.",
         "disabledMetaActivities": "Archived group activities",
         "workshop": "Workshop",
         "groupedOption": {
@@ -8426,7 +8431,7 @@
                     "back": "Previous",
                     "save": "save",
                     "delete": {
-                        "content": "Please note that by deleting this group all sessions within it will be cancelled. The registered students will see their reservations cancelled. This operation is definitive",
+                        "content": "Deleting this event will result in the cancellation of all enrolled members' bookings. This action can't be undone.",
                         "missingOffer": "No offers in the group",
                         "firstSession": "First meeting on {{-day}}",
                         "selectHeader": "Select the groups that will be modified",
@@ -8444,29 +8449,29 @@
                     "preview": "Preview",
                     "recurrenceUntilHelper2": "Groups with a last session after this date will not be created.",
                     "recurrenceUntilHelper": "Please indicate the date of the last session of the last cycle.",
-                    "timeStartHelper": "Select the date of the first session of the group copy. The other sessions of the group will be copied and shifted according to this date.",
+                    "timeStartHelper": "Select the date of this event's first sessions. All future sessions will be associated to the event according to this date.",
                     "recurrenceUntil": "Repeat until",
                     "nameCaption": "Name of the session group",
                     "recurrenceCount": "Number of repetitions",
                     "withRecurrence": "Enable recurrence",
                     "marketPlaceAvailable": "Available for booking (web+app)",
-                    "allowBookingAfterStartCaption": "By default, if a session group has already started, your members will not be able to join it. By activating this feature your members will still be able to register for the remaining sessions.",
+                    "allowBookingAfterStartCaption": "By default, it's not possible for members to enrol for events that have already started. Activate this option to allow enrolments for the remaining sessions.",
                     "allowBookingAfterStart": "Allow enrolment on the way",
-                    "fullBookingOnlyCaption": "By default, your members will be automatically registered for all the sessions of the group if they register for one of the sessions of the group. If you deactivate this setting, the member will be offered to register for all the sessions in the group but will be able to choose which ones to register for.",
-                    "fullBookingOnly": "Registration for all group sessions",
+                    "fullBookingOnlyCaption": "By default, your members will be automatically enrolled for all sessions associated to this event. Deactivate this option to provide your members the opportunity to separately select for which sessions they'd like to enrol for.",
+                    "fullBookingOnly": "Exclusively accept bookings for all sessions associated to this event",
                     "name": "Name",
                     "subtitleRecurrence": "Recurrence",
                     "subtitleSettings": "Settings",
-                    "addOffers": "Adding sessions",
-                    "subtitleOffers": "Adding sessions",
+                    "addOffers": "Add sessions",
+                    "subtitleOffers": "Sessions",
                     "subtitle": "General information"
                 },
                 "duplicate": "Duplicate a group",
                 "subtitlePreview": "Preview of the recurrence",
-                "subtitleMetaActivitySelect": "Creation of a group of sessions",
-                "title": "Group sessions"
+                "subtitleMetaActivitySelect": "Configuration",
+                "title": "Events"
             },
-            "offerDescription": "{{ count }} sessions from {{- firstSession }} to {{- lastSession }}",
+            "offerDescription": "{{ count }} session(s) from {{- firstSession }} until {{- lastSession }}",
             "helperText": {
                 "year": "This group begins {{-day}} , of {{-mont}} every year",
                 "year_plural": "This group begins {{-day}} , of {{-month}} every {{ count }} year",
@@ -8570,8 +8575,8 @@
             "confirmationExplain": "Please write \"I CONFIRM\" in capital letters to confirm.",
             "success": "Cancellation confirmed",
             "successInfo": "The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account.",
-            "warningOfferGroup": "Please note that the following sessions could not be cancelled because they are part of a group session. To cancel them, please cancel the corresponding group.",
-            "warningOfferGroupTitle": "Sessions not cancelled",
+            "warningOfferGroup": "These sessions can't be deleted, because they're associated to an event. Cancel, if necessary, the corresponding event.",
+            "warningOfferGroupTitle": "Valid sessions",
             "offers": "Non-cancellable sessions"
         },
         "bookingListEmpty": "There are no bookings to display as of yet.",
@@ -8619,7 +8624,7 @@
             "deleteModal": {
                 "title": "Deleting",
                 "content": "Are you sure you want to remove this level?",
-                "content2": "Sessions that already have this level will keep it but it cannot be added to future sessions."
+                "content2": "Sessions that are already associated to this level won't be modified. Future sessions will be edited."
             },
             "select": {
                 "add": "Add a level",
@@ -8630,7 +8635,7 @@
             "delete": "Delete",
             "edit": "Edit"
         },
-        "recurrenceIndex": "Group nº {{ index }} of the recurrence"
+        "recurrenceIndex": "Recurrence: {{ index }}"
     },
     "emailTemplate": {
         "modal": {
@@ -8676,7 +8681,7 @@
         "edit": "Edit",
         "allCompanies": "All studios",
         "seeAll": "See all",
-        "franchiseEmails": "[Master Account] Email templates",
+        "franchiseEmails": "[Master Account] Email Templates",
         "companieEmails": "My templates"
     },
     "member": {
@@ -8797,7 +8802,7 @@
                 "welcome": "Hello!"
             },
             "title": "[Form] Sign up",
-            "newMemberOnlyHelperText": "A member is considered new as long as they have not made a purchase greater than 0 {{ currency }}  on the platform. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the 'New Member' status."
+            "newMemberOnlyHelperText": "A member is considered \"new\" as long as they have not made a purchase greater than {{ currency }}0. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the 'New Member' status."
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
@@ -9248,7 +9253,7 @@
                 "startFromDate": {
                     "label": "Start the recurrent booking the "
                 },
-                "groupWarning": "Please note that it is not possible to create a recurrent booking for groups of sessions"
+                "groupWarning": "Please note that it's not possible to add recurrent bookings for events"
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
@@ -9292,8 +9297,8 @@
             },
             "bookingsTitle": "Overview",
             "addSession": "Add sessions",
-            "noPackAvailable": "This session does not have any compatible memberships!",
-            "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
+            "noPackAvailable": "There is no compatible pass to display for this session.",
+            "noPackAvailable_plural": "There is no compatible pass to display for these sessions. Please book these sessions separately.",
             "packTitle": "My booking method",
             "offerStatus": {
                 "waiting_list_status": {
@@ -9389,8 +9394,8 @@
                 "loadMore": "More sessions",
                 "bookTitle": "Book a session"
             },
-            "warningPartialBooking": "You are booking a session group. However, you are not obliged to attend all the sessions in this group. You can select the sessions you wish to attend.",
-            "warningFullBooking": "You are booking a session group. You will be registered for all {{count}} sessions of this group.",
+            "warningPartialBooking": "Please select for which sessions you'd like to enrol for.",
+            "warningFullBooking": "Complete this booking to enrol for {{count}} session(s).",
             "confirm": "Continue",
             "cancel": "Cancel",
             "loadMore": "See more"
@@ -10168,7 +10173,7 @@
             "nb_private_bookings": " ",
             "coachName": "Teacher",
             "total_on_appointments": "Remuneration for appointments",
-            "total_on_sessions": "Remuneration for group activities",
+            "total_on_sessions": "Remuneration (Group activities and Workshops)",
             "nb_appointments": "Number of appointments",
             "nb_sessions": "Number of sessions",
             "totalNetGain": "Net gain (total)",
@@ -12100,7 +12105,8 @@
                 "create": "Add a programme",
                 "modify": "Edit a programme",
                 "delete": "Delete a programme",
-                "addProgram": "Add a programme"
+                "addProgram": "Add a programme",
+                "update": "Edit programme"
             },
             "title": "Programmes",
             "archived": "Archived programmes",

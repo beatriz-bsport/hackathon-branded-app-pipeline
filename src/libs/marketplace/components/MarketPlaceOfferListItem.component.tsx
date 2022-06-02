@@ -171,23 +171,31 @@ export const MarketplaceOfferListItem: React.FC<Props> = ({
             <div
               className={classNames(
                 classes.offerListFilling,
-                'bs-offer-list-item__offer__filling',
+                'bs-offer-list-item__right__row__filling',
               )}
             >
               <PeopleIcon className={classes.offerListFillingIcon} />
               {`${offer?.tot_slots}/${offer?.effectif}`}
             </div>
           )}
-          <LevelComponent variant="caption" customLevel={customLevel} />
+          <div
+            className={classNames(
+              classes.infosRowColumn,
+              'bs-offer-list-item__right__row__column',
+            )}
+          >
+            <LevelComponent variant="caption" customLevel={customLevel} />
+
+            {!withoutCTA && (
+              <MarketplaceBookButton
+                onClickBook={handleBook}
+                onClickBookOption={handleBookOption}
+                offer={offer}
+                variant="text"
+              />
+            )}
+          </div>
         </div>
-        {!withoutCTA && (
-          <MarketplaceBookButton
-            onClickBook={handleBook}
-            onClickBookOption={handleBookOption}
-            offer={offer}
-            variant="text"
-          />
-        )}
       </div>
     </div>
   );
@@ -235,8 +243,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   infosRow: {
     display: 'flex',
     gap: theme.spacing(2),
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-end',
+    height: '100%',
   },
   disabled: {
     cursor: 'unset',
@@ -260,6 +269,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     fontSize: 12,
     fontWeight: 500,
+    marginTop: theme.spacing(1),
+  },
+  infosRowColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    height: '100%',
   },
   right: {
     display: 'flex',

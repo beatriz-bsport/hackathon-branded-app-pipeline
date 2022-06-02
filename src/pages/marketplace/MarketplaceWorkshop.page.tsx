@@ -8,7 +8,9 @@ import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
 
-import { makeStyles, Theme } from '@material-ui/core';
+import classNames from 'classnames';
+import { isWidthDown, makeStyles, Theme, withWidth } from '@material-ui/core';
+import { Breakpoint } from '@material-ui/core/styles';
 
 import {
   snackbarSuccess as snackbarSuccessAction,
@@ -62,6 +64,7 @@ const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 
 type OwnProps = {
   companyId: number;
+  width: Breakpoint;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -102,6 +105,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   fetchOfferBulk,
   coachLoading,
   establishmentLoading,
+  width,
 }) => {
   const classes = useStyles();
 
@@ -236,9 +240,15 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     },
     [fetchOfferByMetaActivity],
   );
+  const isMobile = isWidthDown('md', width);
 
   return (
-    <div className={classes.container}>
+    <div
+      className={classNames(classes.container, 'bs-workshop-page', {
+        [classes.containerMobile]: isMobile,
+        'bs-workshop-page--mobile': isMobile,
+      })}
+    >
       <MarketplaceFilterComponent
         coaches={coaches}
         establishments={establishments}
@@ -281,6 +291,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
+  },
+  containerMobile: {
+    paddingLeft: 0,
+    paddingRight: 0,
   },
 }));
 
@@ -334,6 +348,7 @@ export const MarketplaceWorkshopBase = compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceWorkshop'),
   ),
+  withWidth(),
   connector,
 )(MarketplaceWorkshopPage);
 
@@ -373,4 +388,5 @@ export default compose(
     'otherParams',
     'setOtherParams',
   ]),
+  withWidth(),
 )(MarketplaceWorkshopBase);

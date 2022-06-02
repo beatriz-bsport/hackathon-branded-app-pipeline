@@ -106,8 +106,12 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
   return (
     <div className={classes.fullWidth} ref={refContainer}>
       <div
-        className={classnames(classes.offersWrapper, {
+        className={classnames(classes.offersWrapper, 'bs-worshop-grid', {
           [classes.forceFlex]: refContainer?.current?.clientWidth < 600,
+          'bs-worshop-grid--column': refContainer?.current?.clientWidth < 600,
+          [classes.offersWrapperSmall]:
+            refContainer?.current?.clientWidth < 1200,
+          'bs-worshop-grid--medium': refContainer?.current?.clientWidth < 1200,
         })}
       >
         {filteredMetaActivities.map((m) => {
@@ -178,6 +182,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     gridTemplateColumns: 'repeat(auto-fill, minmax(560px, 1fr))',
+  },
+  offersWrapperSmall: {
+    gap: theme.spacing(1),
+    gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
   },
   forceFlex: {
     display: 'flex',

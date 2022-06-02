@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 
-import { Avatar, makeStyles, Theme } from '@material-ui/core';
+import { Avatar, makeStyles, Theme, useMediaQuery } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import PeopleIcon from '@material-ui/icons/People';
 import RoomIcon from '@material-ui/icons/Room';
+import { useTheme } from '@material-ui/styles';
 
 import { Offer } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -48,6 +49,8 @@ export const MarketplaceOfferListItem: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['marketplace', 'datetime']);
   const classes = useStyles();
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
 
   if (loading) {
     return (
@@ -104,7 +107,10 @@ export const MarketplaceOfferListItem: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(classes.offerListCard, 'bs-offer-list-item__left')}
+      className={classNames(classes.offerListCard, 'bs-offer-list-item', {
+        [classes.offerListCardMobile]: isMobile,
+        'bs-offer-list-item--mobile': isMobile,
+      })}
       style={{
         borderLeftWidth: offer.meta_activity_color ? 5 : 1,
         borderLeftStyle: 'solid',
@@ -239,6 +245,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     outlineWidth: 1,
     padding: theme.spacing(3),
     transition: 'all 0.2s',
+  },
+  offerListCardMobile: {
+    padding: theme.spacing(2),
   },
   infosRow: {
     display: 'flex',

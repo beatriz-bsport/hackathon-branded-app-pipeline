@@ -12,6 +12,8 @@ import {
   DialogContent,
   makeStyles,
   Theme,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
@@ -62,6 +64,9 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const { t } = useTranslation();
   const classes = useStyles();
   const [openModal, setOpenModal] = useState(false);
+
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
 
   const getDate = useCallback(
     (offer: Offer, establishment: Establishment) => {
@@ -143,10 +148,10 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   return (
     <>
       <div
-        className={classNames(
-          classes.offerListCard,
-          'bs-offer-list-item__left',
-        )}
+        className={classNames(classes.offerListCard, 'bs-offer-list-item', {
+          'bs-offer-list-item--mobile': isMobile,
+          [classes.offerListCardMobile]: isMobile,
+        })}
         style={{
           borderLeftWidth: metaActivity.color !== '' ? 5 : 1,
           borderLeftStyle: 'solid',
@@ -434,6 +439,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     outlineWidth: 1,
     padding: theme.spacing(3),
     transition: 'all 0.2s',
+  },
+  offerListCardMobile: {
+    padding: theme.spacing(2),
   },
   infosRow: {
     display: 'flex',

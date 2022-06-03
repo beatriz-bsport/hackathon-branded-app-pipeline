@@ -330,10 +330,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
     {
       icon: Email,
       text: t('backofficeMenu.message'),
-      subtext:
-        Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-          ? t('backofficeMenu.beta')
-          : null,
       type: 'nested',
       defaultTo: '/smart-list',
       permission: 'navigationMenu.marketing',

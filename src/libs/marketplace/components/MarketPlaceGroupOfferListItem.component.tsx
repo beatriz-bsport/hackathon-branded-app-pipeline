@@ -143,7 +143,7 @@ export const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 
   const firstBookableOffer = offers.find((o) => isOfferInThePast(o) && !o.full);
 
-  if (!firstBookableOffer) return null;
+  if (availableOffers.length === 0) return null;
 
   return (
     <>

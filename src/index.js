@@ -10,7 +10,6 @@ export default class BsportWidget {
 
   static mount({ parentElement, ...initialParams } = {}) {
     const component = <Root initialParams={initialParams} />;
-
     function doRender() {
       const el = document.createElement('div');
       const parentElementId = parentElement || 'bsport-widget';

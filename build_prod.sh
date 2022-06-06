@@ -16,6 +16,11 @@ echo "Current env is "
 cat ./config.production.js
 cat ./config.production.js | echo
 
+cd /bsport-saas
+yarn link
+cd -
+yarn link bsport-saas
+
 yarn
 yarn build
 cd dist/

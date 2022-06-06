@@ -1,4 +1,4 @@
-Prepare Docker Builder Image:
+.Prepare Docker Builder Image Base:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
   tags:
     - deployment
@@ -10,4 +10,40 @@ Prepare Docker Builder Image:
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
     - docker build --network host --build-arg ENVIRONMENT=$ENVIRONMENT --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
     - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+
+Prepare Docker Builder Image Staging:
+  extends: .Prepare Docker Builder Image Base
+  only:
+    refs:
+      - master
+  variables:
+    S3BUCKETNAME: bsport-eu-cdn-staging
+    ENVIRONMENT: staging
+    CLOUDFRONT_ID: E2NQSHB4DJBRY8
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.staging.bsport.io
+
+Prepare Docker Builder Image Production:
+  extends: .Prepare Docker Builder Image Base
+  only:
+    refs:
+      - production
+  variables:
+    S3BUCKETNAME: bsport-cdn
+    ENVIRONMENT: production
+    CLOUDFRONT_ID: E3PVSAXDFQZX1T 
+    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.bsport.io
+ 
+Prepare Docker Builder Image Dev:
+  extends: .Prepare Docker Builder Image Base
+  only:
+    refs:
+      - dev
+  variables:
+    ENVIRONMENT: dev
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    S3BUCKETNAME: bsport-eu-cdn-dev
+    CLOUDFRONT_ID: ESH8WNSF9KT1H
+    CDN_DOMAIN: cdn.dev.bsport.io
 

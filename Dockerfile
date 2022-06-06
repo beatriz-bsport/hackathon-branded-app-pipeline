@@ -22,6 +22,8 @@ COPY package.json .
 COPY yarn.lock .
 COPY link_bsport_saas.sh .
 
+ARG TODAY
+RUN echo $TODAY
 RUN ./link_bsport_saas.sh .
 RUN yarn install --frozen-lockfile
 

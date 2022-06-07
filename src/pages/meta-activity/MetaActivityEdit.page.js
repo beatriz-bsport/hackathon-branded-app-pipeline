@@ -69,6 +69,7 @@ const MetaActivityMap = {
   auto_discard_hours_before_start: 'auto_discard_hours_before_start',
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
   category: 'category',
+  alt_cover_main: 'alt_cover_main',
 };
 
 export class MetaActivityFormPage extends Component<Props, State> {
@@ -158,18 +159,27 @@ export default compose(
   ),
   withProps(({ upsertMetaActivity, goToMetaActivity, id, initial }) => ({
     onSubmit: (values, options) => {
-      const formData = mapFormData(values, MetaActivityMap);
-      if (initial) {
-        formData.append('id', initial.id);
+      try {
+        const formData = mapFormData(values, MetaActivityMap);
+        if (initial) {
+          formData.append('id', initial.id);
+        }
+        formData.append('is_workshop', false);
+        upsertMetaActivity(formData, {
+          ...options,
+          onSuccess: () => {
+            if (options.onSuccess) options.onSuccess();
+            goToMetaActivity(id);
+          },
+          onError: (err) => {
+            console.error(err);
+            if (options?.onError) options.onError(err);
+          },
+        });
+      } catch (err) {
+        console.error(err);
+        if (options?.onError) options.onError(err);
       }
-      formData.append('is_workshop', false);
-      upsertMetaActivity(formData, {
-        ...options,
-        onSuccess: () => {
-          if (options.onSuccess) options.onSuccess();
-          goToMetaActivity(id);
-        },
-      });
     },
   })),
   withTitle(({ t }: { t: TFunction }) =>

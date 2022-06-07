@@ -317,6 +317,7 @@ const MetaActivitySchema = Yup.object().shape({
   auto_discard_active: Yup.boolean(),
   auto_discard_hours_before_start: Yup.number(),
   auto_discard_min_bookings_nb: Yup.number(),
+  alt_cover_main: Yup.string(),
   // category: Yup.number().nullable(true),
 });
 
@@ -374,12 +375,12 @@ export default compose(
       }
       onSubmit(data, {
         onSuccess: () => {
-          if (onSuccess && typeof onSuccess === 'function') onSuccess();
           setSubmitting(false);
+          if (onSuccess && typeof onSuccess === 'function') onSuccess();
         },
         onError: () => {
-          if (onError && typeof onError === 'function') onError();
           setSubmitting(false);
+          if (onError && typeof onError === 'function') onError();
         },
       });
     },

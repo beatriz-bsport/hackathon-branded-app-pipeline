@@ -163,6 +163,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         company: this.props.companyId,
         ...this.props.filters,
         ...optionalParams,
+        min_date: moment(this.props.otherParams.date)
+          .startOf('week')
+          .format(DATE_FORMAT),
+        max_date: moment(this.props.otherParams.date)
+          .add(1, 'month')
+          .add(2, 'weel')
+          .format(DATE_FORMAT),
       },
       {
         onSuccess: (result) => {

@@ -105,6 +105,7 @@ const ClockInHistory: React.FC<Props> = ({
               deleteClockIn={deleteClockIn}
             />
           ))}
+          
         </TableBody>
       </Table>
     </TableContainer>
@@ -152,6 +153,10 @@ const ClockInHistoryRow: React.FC<{
       return acc;
     }, 0) ?? 0;
 
+  const hours = Math.floor(moment.duration(totalDuration, 'millisecond').asHours());
+  const mins= Math.floor(moment.duration(totalDuration, 'millisecond').asMinutes()) - hours*60;
+  const totalDurationDisplay = hours + ":" + ((mins> 9)? mins : ("0"+mins)); 
+  
   return (
     <>
       <TableRow>
@@ -173,7 +178,7 @@ const ClockInHistoryRow: React.FC<{
           {`${row.first_name} ${row.last_name}`}
         </TableCell>
         <TableCell colSpan={10}>
-          {moment.utc(totalDuration).format('HH:mm')}
+          {totalDurationDisplay}
         </TableCell>
         <TableCell colSpan={10}>
           {Math.floor(

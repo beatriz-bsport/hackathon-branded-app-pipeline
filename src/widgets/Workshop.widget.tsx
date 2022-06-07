@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
+import { Theme as MuiTheme } from '@material-ui/core';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
@@ -76,9 +77,10 @@ class WorkshopWidget extends Component<Props, State> {
   }
 }
 
-const styles = () => ({
+const styles = (theme: MuiTheme) => ({
   container: {
     width: '100%',
+    fontFamily: theme.typography.fontFamily,
   },
 });
 

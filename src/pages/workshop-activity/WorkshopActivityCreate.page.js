@@ -182,20 +182,22 @@ export class WorkshopActivityFormPage extends Component<Props> {
       (a) => a.SCT,
     );
     return (
-      <PaymentPackForm
-        onSubmit={this.props.onSubmitPass}
-        categoryList={this.props.SCTs.filter(
-          (c) => availableCategoriesId.indexOf(c.id) !== -1,
-        )}
-        metaActivityList={this.props.metaActivitiesAndWorkshops}
-        tagList={this.props.allTagsWithTagGroup}
-        establishmentList={this.props.establishments}
-        loading={this.props.loading}
-        closeForm={() => this.props.setStep(STEP_OFFER)}
-        onCancelText={this.props.t('common.skip')}
-        paymentPackCategories={this.props.paymentPackCategories}
-        provincialTax={this.props.companyTheme?.provincial_tax_value}
-      />
+      <div className={this.props.classes.paymentPackContainer}>
+        <PaymentPackForm
+          onSubmit={this.props.onSubmitPass}
+          categoryList={this.props.SCTs.filter(
+            (c) => availableCategoriesId.indexOf(c.id) !== -1,
+          )}
+          metaActivityList={this.props.metaActivitiesAndWorkshops}
+          tagList={this.props.allTagsWithTagGroup}
+          establishmentList={this.props.establishments}
+          loading={this.props.loading}
+          closeForm={() => this.props.setStep(STEP_OFFER)}
+          onCancelText={this.props.t('common.skip')}
+          paymentPackCategories={this.props.paymentPackCategories}
+          provincialTax={this.props.companyTheme?.provincial_tax_value}
+        />
+      </div>
     );
   };
 
@@ -261,9 +263,13 @@ export class WorkshopActivityFormPage extends Component<Props> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     marginBottom: '20vh',
+  },
+  paymentPackContainer: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
   },
 });
 

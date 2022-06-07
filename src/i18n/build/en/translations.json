@@ -2768,7 +2768,7 @@
             "selectCoachToModifyAvailability": "Select a teacher",
             "addBooking": "Book an appointment",
             "toogle": {
-                "showOfferList": "Group activities",
+                "showOfferList": "Group activities & Workshops",
                 "showPrivateBookings": "Appointments",
                 "showCustomEvents": "Tasks / Personal appointments",
                 "hideCancelledEvents": "Show cancellations",
@@ -4749,7 +4749,7 @@
         "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
         "disabledWorkshops": "Archived workshops",
         "tabGroups": "Events",
-        "tabList": "List of workshops",
+        "tabList": "Workshops",
         "group": {
             "emptyState": "Events allow your members to enrol for all associated sessions at once. This feature is perfect for activities, such as trainings or courses. ",
             "emptySearch": "No groups matching your search",
@@ -6050,7 +6050,7 @@
             "fields": {
                 "private_service": "Appointment",
                 "workshop": "Workshops",
-                "activity": "Activities",
+                "activity": "Group activities",
                 "private_service_name": "Session name",
                 "coach_payment_rule": "Payroll rule",
                 "addPrivateSlot": "Add a rule"
@@ -6821,7 +6821,7 @@
             "actions": {
                 "switchPaymentMethod": "Change the payment method",
                 "switchPack": "Edit pass",
-                "freeze": "Pause this subscription",
+                "freeze": "Pause",
                 "advanceTime": "Advance the invoice",
                 "postPone": "Postpone the invoice",
                 "changeDate": "Edit date",
@@ -6868,7 +6868,7 @@
                 "title": "Cancel this subscription",
                 "explain": "Choose the last payment for the subscription.",
                 "listItem": "Stop this subscription",
-                "summary": "The programmed termination of the last payment is {{-date}}, which corresponds to the last valid pass."
+                "summary": "The last payment will be processed on {{-date}}, which corresponds to the last valid pass."
             },
             "invoice": {
                 "label": "Invoice {{uuid}} : {{price}}"
@@ -7071,7 +7071,7 @@
             "stopExplain": "Future payments, invoices, and bookings will be discarded deleted.",
             "revertCurrentExplain": "Cancel the last invoice and block the pass",
             "revertCurrentExplainHelper": "If the payment was valid, a credit will be attributed to the customer, you can also enter the invoice and click refund on the payment. If the payment was failed, the debt will be cancelled.",
-            "planStop": "Program the termination of this subscription"
+            "planStop": "Terminate"
         },
         "parameters": {
             "parameters": "Settings",
@@ -9385,14 +9385,14 @@
         "workshop": {
             "noWorkshopAvailable": "There are no upcoming workshops to display.",
             "card": {
-                "showMore": "Show More",
+                "showMore": "More information",
                 "book": "Book",
                 "bookOption": "Waiting list",
                 "isPast": "Completed",
                 "notAvailable": "Cancelled",
                 "duration": "Duration: {{duration}}",
                 "loadMore": "More sessions",
-                "bookTitle": "Book a session"
+                "bookTitle": "Overview"
             },
             "warningPartialBooking": "Please select for which sessions you'd like to enrol for.",
             "warningFullBooking": "Complete this booking to enrol for {{count}} session(s).",
@@ -9658,7 +9658,7 @@
         },
         "selectToShowPreview": "Select an email to see a preview of it.",
         "exportList": "Export Smartlist",
-        "membersInList": "Members in the list:",
+        "membersInList": "Members in this Smartlist",
         "modal": {
             "delete": {
                 "title": "Delete Smartlist",
@@ -10770,11 +10770,11 @@
         "subscriptionScheduledStop": {
             "create": {
                 "success": "Scheduled termination of subscription",
-                "error": "Cannot program the termination of the subscription"
+                "error": "Error when terminating this subscription"
             },
             "delete": {
-                "success": "The scheduled termination of the subscription has been removed",
-                "error": "Cannot remove the scheduled termination of the subscription"
+                "success": "The scheduled termination of this subscription has been removed",
+                "error": "Error when removing the scheduled termination of this subscription"
             }
         },
         "dashboard": {

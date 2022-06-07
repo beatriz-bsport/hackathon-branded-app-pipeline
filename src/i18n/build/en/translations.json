@@ -1663,7 +1663,7 @@
             "warningAddEmail": "This email has already been added.",
             "emailHelper": "Add multiple emails by separating them with a comma.",
             "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
-            "tenMinutes": "10 minutes",
+            "tenMinutes": "10 min",
             "editGroup": "Edit this field directly on the session group.",
             "noWaitingList": "Waiting lists are not available for session groups"
         },
@@ -2328,7 +2328,7 @@
         "appbar": {
             "login": "Login",
             "logout": "Logout",
-            "profile": "Go to my profile"
+            "profile": "My account"
         }
     },
     "reminder": {
@@ -2599,7 +2599,7 @@
         "availabilitySlot": {
             "form": {
                 "resourceSelector": {
-                    "title": "Edit the time slot",
+                    "title": "Edit slot",
                     "label": "Edit:",
                     "cancel": "Cancel",
                     "submit": "Save"
@@ -2666,7 +2666,7 @@
                 "cancel": "Cancel",
                 "confirm": "Confirm"
             },
-            "duration": "{{ minutes }} minute(s)"
+            "duration": "{{ minutes }} min."
         },
         "privateBooking": {
             "cancel": "Cancel",
@@ -2804,9 +2804,9 @@
         },
         "slotSearcher": {
             "title": "Appointment",
-            "searchSlot": "Time slot",
+            "searchSlot": "Slot",
             "selectPrivateSlot": "Session",
-            "search": "Time slot",
+            "search": "Slot",
             "selectCoach": "All teachers",
             "emptyDateList": "There's no availability to display for today.",
             "bookableSlots": {
@@ -2836,7 +2836,7 @@
             "establishment": "Establishment",
             "coach": "Teacher",
             "selectService": "Choose a service",
-            "selectSession": "Time slot",
+            "selectSession": "Slot",
             "emptyState": "There's no availability to display at this moment.",
             "previousOffer": "Available session: {{- date }} at {{ hour }}",
             "nextOffer": "First availability: {{- date }} at {{ hour }}",
@@ -2890,7 +2890,7 @@
             "cancel": "Cancel",
             "title": "Book an appointment",
             "error": "Unable to book on this date",
-            "searchSlot": "Time slot",
+            "searchSlot": "Slot",
             "noPrivateServiceAvailable": "There are no appointments to display.",
             "isAtHome": "An address is required for this appointment.",
             "bookingCapabilities": {
@@ -3240,7 +3240,7 @@
                     "submit": "Save"
                 },
                 "last_discard_minutes": {
-                    "helperText": "If a booking is cancelled too late, the credit won't be refunded.",
+                    "helperText": "Credits won't be refunded for late-cancellations.",
                     "label": "Select until when members can cancel for free (late cancellations)"
                 },
                 "managerOnly": {
@@ -3251,7 +3251,7 @@
                 },
                 "paddingEnd": {
                     "helperText0": "The teacher(s) and/or the establishment(s) will be shown as available after the end of the appointment.",
-                    "helperText": "The teacher(s) and/or the establishment(s) will be shown as unavailable {{minutes}} after the end of the appointment.",
+                    "helperText": "The teacher(s) and/or the establishment(s) will be shown as unavailable for {{minutes}} after the end of the appointment.",
                     "label": "Buffer (in minutes) after the end of the appointment"
                 },
                 "paddingStart": {
@@ -5793,7 +5793,7 @@
         "form": {
             "zeroMinute": "0 min",
             "quarterHour": "15 min",
-            "twentyMinutes": "2O min",
+            "twentyMinutes": "20 min",
             "halfHour": "30 min",
             "halfAndQuarterHour": "45 min",
             "oneHour": "1h",
@@ -9257,7 +9257,7 @@
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
-                "explain": "Every {{dayOfWeek}} at {{hour}}:{{minute}} - {{delayWeek}} weeks before"
+                "explain": "Every {{dayOfWeek}} at {{hour}}:{{minute}} - Week: {{delayWeek}}"
             },
             "needConsumerPack": "This member does not have a compatible class pass, it is impossible to schedule a recurrence",
             "recurrentBookings": "Recurrent bookings",

@@ -66,7 +66,7 @@ export default function withQueryParams([
     )(
       class extends React.PureComponent<Props> {
         render() {
-          const { search } = this.props.location;
+          const { search = '' } = this.props?.location ?? {};
           const allParams = parseQueryString(search);
 
           const relatedParams = pick(allParams, paramsArray);
@@ -120,7 +120,7 @@ export function withQueryParamsUndecoded([
     )(
       class extends React.PureComponent<Props> {
         render() {
-          const { search } = this.props.location;
+          const { search = '' } = this.props?.location ?? {};
           const allParams = parseQueryString(search);
 
           const relatedParams = pick(allParams, paramsArray);

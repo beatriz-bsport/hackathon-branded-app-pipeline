@@ -2321,7 +2321,7 @@
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
                 "noMailAvailable": "Er zijn geen e-mailsjablonen om weer te geven.",
                 "createSmartList": "Een Smartlist toevoegen",
-                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
+                "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent aankoop hebben gedaan!",
                 "daysPastType": "Verlopen kaart",
                 "submit": "Bevestigen",
                 "pushTitle": "Berichtgevingsinstellingen",
@@ -2637,7 +2637,7 @@
             "title": "[Formulier] Kredietwijziging"
         },
         "notificationForm": "[Formulier] Melding",
-        "noPaymentPack": "Met leskaarten kunnen leden zich inschrijven voor je workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) leskaart bezitten voordat zij zich ergens voor kunnen inschrijven.",
+        "noPaymentPack": "Met leskaarten kunnen leden zich inschrijven voor workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) leskaart bezitten voordat zij zich ergens voor kunnen inschrijven.",
         "disabledPacks": {
             "hide": "Verberg gearchiveerde leskaarten",
             "show": "Toon gearchiveerde leskaarten"
@@ -3620,7 +3620,7 @@
         },
         "mails": "E-mails",
         "exportList": "Smartlist exporteren",
-        "membersInList": "Leden in de Smartlist:",
+        "membersInList": "Leden in deze Smartlist:",
         "detail": {
             "tab": {
                 "campaign": "Campagnes",
@@ -4646,7 +4646,7 @@
             "similarOffer": {
                 "showMore": "Toon meer",
                 "empty": "Er zijn geen andere sessies om weer te geven.",
-                "title": "Meer sessies reserveren",
+                "title": "Reserveren",
                 "selectAll": "Alles selecteren"
             },
             "bookingForMe": "Mezelf",
@@ -4838,7 +4838,7 @@
         },
         "subscription": {
             "subscriptionCreate": "Abonneren",
-            "subscriptions": "Abonnementen"
+            "subscriptions": "Automatische incasso's"
         },
         "workshopActivity": {
             "workshopActivityList": "Workshops",
@@ -5085,8 +5085,8 @@
             "pauseSection": "Pauzes",
             "switchPack": {
                 "form": {
-                    "title": "Leskaart wijzigen",
-                    "explain": "Deze nieuwe leskaart zal voortaan worden gebruikt voor de toekomstige facturatie. Sessies die met de oude leskaart gereserveerd zijn worden overgezet naar de nieuwe leskaart, ook als deze niet compatibel zijn.",
+                    "title": "[Formulier] Kaartwijziging",
+                    "explain": "De nieuwe kaart wordt voortaan voor toekomstige facturaties gebruikt. Sessies die met de oude leskaart gereserveerd zijn worden overgezet naar de nieuwe kaart, ook als deze niet compatibel zijn.",
                     "warning": "De facturatie blijft hetzelfde. Wijzig iedere betaling apart, indien je het bedrag wenst te veranderen.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
@@ -5094,7 +5094,7 @@
             },
             "freeze": {
                 "form": {
-                    "explainWarning": "Let op! Deze actie is definitief.",
+                    "explainWarning": "Let op: deze actie is definitief.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan",
                     "title": "[Formulier] Pauzeren",
@@ -5112,7 +5112,7 @@
             "actions": {
                 "switchPaymentMethod": "Betaalmethode wijzigen",
                 "freeze": "Pauzeren",
-                "switchPack": "Leskaart bewerken",
+                "switchPack": "Kaart wijzigen",
                 "advanceTime": "Factuur vooraf betalen",
                 "postPone": "Factuur uitstellen",
                 "changeDate": "Wijzig de datum",
@@ -5129,11 +5129,11 @@
             "scheduledStop": {
                 "title": "[Formulier] Beëindiging",
                 "explain": "Selecteer de laatste betaling voor dit abonnement:",
-                "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige leskaart.",
+                "summary": "De laatste betaling wordt op {{-date}} verwerkt en dit komt overeen met de laatste kaart.",
                 "listItem": "Geplande opzegging van het abonnement"
             },
             "invoice": {
-                "label": "Factuur {{uuid}} : {{price}}"
+                "label": "Factuur: {{uuid}} - {{price}}"
             },
             "listItem": {
                 "recurrencePriceIs": "Terugkerende betaling: {{currencyDisplay}}{{ amount }}",
@@ -5144,10 +5144,10 @@
                 "form": {
                     "submit": "Opslaan",
                     "cancel": "Annuleren",
-                    "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het maandelijks bedrag te wijzigen.",
+                    "warning": "De facturatie wordt niet gewijzigd. Bewerk alle facturen apart om het bedrag te wijzigen.",
                     "prewarning": "Wijzig dit abonnement om alle toekomstige facturen te wijzigen.",
-                    "explain": "Dit nieuwe pakket vervangt alle vorige pakketten op de nieuwe facturen na de automatische herhaling van dit abonnement.",
-                    "title": "Pakket is bijgewerkt"
+                    "explain": "Dit nieuwe pakket vervangt alle vorige pakketten op de nieuwe facturen na de automatische verlenging van dit abonnement.",
+                    "title": "Het pakket is bijgewerkt"
                 }
             },
             "switchPrivatePass": {
@@ -5370,7 +5370,7 @@
             "unpaid_private_booking": "Onbetaalde afspraken.",
             "coachName": "Instructeur",
             "total_on_appointments": "Totale vergoeding (Afspraken)",
-            "total_on_sessions": "Totale vergoeding (Groepsactiviteiten en Workshops)",
+            "total_on_sessions": "Totale vergoeding (Groepsactiviteiten & Workshops)",
             "nb_private_bookings": " ",
             "nb_appointments": "Aantal afspraken",
             "nb_sessions": "Aantal sessies",
@@ -7168,7 +7168,7 @@
                 "forInterval": "voor alle intervallen"
             },
             "paymentPackPlaceHolder": "Selecteer leskaarten",
-            "excludePaymentPack": "Reserveringen van bepaalde kaarten niet meetellen",
+            "excludePaymentPack": "Bepaalde kaarten uitsluiten",
             "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
             "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
@@ -7180,11 +7180,11 @@
             "min_remuneration": "Min.",
             "remunerationLimits": "Limiet",
             "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden en te late annuleringen toepassen ",
-            "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
+            "addRemunerationOnCancellation": "Betaal instructeurs voor afwezigen en te late annuleringen",
             "percentage_base": "Een percentage over de marginale waarde van de reserveringen toevoegen",
             "base_remuneration": "Vast bedrag",
-            "forCancelledBookings": "Afwezige leden en te late annuleringen meetellen",
-            "forConfirmedBookings": "Geldt alleen voor aanwezige leden",
+            "forCancelledBookings": "Afwezigen en te late annuleringen",
+            "forConfirmedBookings": "Aanwezigen",
             "calculationMethod": "Rekenmethode",
             "actions": "Acties",
             "coaches": "Instructeurs",
@@ -7196,29 +7196,29 @@
         "tabs": {
             "all": "Selecteer alles",
             "appointment": "Afspraken",
-            "session": "Groepsactiviteiten en Workshops",
+            "session": "Groepsactiviteiten & Workshops",
             "groups": "Payroll-regel groepen"
         },
         "fabButton": {
             "addNewForRDV": "Afspraken",
-            "addNewForSession": "Groepsactiviteiten en Workshops",
+            "addNewForSession": "Groepsactiviteiten & Workshops",
             "addNewPaymentRuleGroup": "Payroll-regel groep"
         },
         "paymentRules": "Payroll-regels",
         "coach_payment_rule_groups": {
-            "dissociate": "Payroll-regels personaliseren",
+            "dissociate": "Payroll personaliseren",
             "fields": {
                 "private_service": "Afspraken",
                 "workshop": "Workshops",
-                "activity": "Activiteiten",
-                "private_service_name": "Naam van de afspraak",
+                "activity": "Groepsactiviteiten",
+                "private_service_name": "Afspraak",
                 "coach_payment_rule": "Payroll-regel",
                 "addPrivateSlot": "Een payroll-regel toevoegen"
             },
             "subtitle": {
                 "coaches": "Gekoppelde instructeur(s)",
-                "specfic_private_slot": "Specifieke payroll-regel voor afspraken",
-                "default": "Standaard payroll-regel",
+                "specfic_private_slot": "Afspraken",
+                "default": "Standaard",
                 "helper": "Je kunt meerdere payroll-regels aan een groep toevoegen voor je groepsactiviteiten, workshops en afspraken. Zodra je instructeurs toevoegt, zullen alle payroll-regels van deze groep op de geselecteerde instructeurs van toepassing zijn. Elke verandering geldt ook voor iedereen die in de groep zit."
             },
             "workshop": "Workshops",
@@ -7986,7 +7986,7 @@
         },
         "subscriptionScheduledStop": {
             "create": {
-                "error": "De beëindiging van het abonnement kan niet worden ingepland",
+                "error": "Fout bij het beëindigen van dit abonnement",
                 "success": "Geplande beëindiging van het abonnement"
             },
             "delete": {
@@ -8028,7 +8028,7 @@
         },
         "bookerModule": {
             "pass": {
-                "nothingAvailable": "Het is niet mogelijk om meerdere sessies tegelijk te reserveren.",
+                "nothingAvailable": "Het is niet mogelijk om meerdere sessies tegelijk te reserveren",
                 "changed": "We hebben de juiste kaart voor deze reservering aangevinkt"
             }
         },
@@ -8335,7 +8335,7 @@
         "noCoach": "Er zijn nog geen instructeurs geregistreerd",
         "noCoachs": "In dit onderdeel kun je al je instructeurs toevoegen, beheren, wijzigen en verwijderen.",
         "inactiveCoaches": "Gearchiveerde instructeurs",
-        "paymentRule": "Vergoeding",
+        "paymentRule": "Payroll",
         "coachAccess": {
             "teacher": "Instructeur",
             "student": "Lid",
@@ -9441,7 +9441,7 @@
             "subscription": {
                 "forms": {
                     "nbRetriesSubscriptionPayments": {
-                        "label": "Aantal mislukte betalingen:",
+                        "label": "Aantal mislukte betalingen",
                         "helperText": "Tussen 0 en 5 pogingen"
                     },
                     "activateSmartRetries": {

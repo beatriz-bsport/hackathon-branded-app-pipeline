@@ -64,6 +64,7 @@ const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 
 type OwnProps = {
   companyId: number;
+  goToBook?: (offerId: number, companyId: number) => void;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -104,6 +105,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   fetchOfferBulk,
   coachLoading,
   establishmentLoading,
+  goToBook: bookWidget,
 }) => {
   const classes = useStyles();
 
@@ -204,6 +206,9 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   const goToBook = React.useCallback(
     (offer: Offer) => {
+      if (bookWidget) {
+        bookWidget(offer.id, companyId);
+      }
       Analytics.workshopClick(offer);
       pushRouter(
         `/customer/payment/offer/${offer.id}/${buildUrlParams({
@@ -211,7 +216,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         })}`,
       );
     },
-    [pushRouter, companyId],
+    [pushRouter, bookWidget, companyId],
   );
 
   const onFetchMore = () => {

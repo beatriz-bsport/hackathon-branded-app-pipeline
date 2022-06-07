@@ -94,7 +94,7 @@ type Props = {
   customEventList: Array<CustomEvent>,
   onRequestCustomEvent: (CustomEventData) => void,
   customEventData: ?CustomEventData,
-  coach: ?Coach,
+  coach?: Coach,
   createOrUpdateCustomEvent: (CustomEventData, OptionCallback) => void,
   closeCustomEventDialog: () => void,
 
@@ -183,14 +183,20 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     });
   };
 
-  setScheduleFilter = (scheduleFilter: ScheduleFilter) =>
-    this.props.setCoachScheduleFilter({
-      coach: this.props.coach.id,
-      scheduleFilter,
-    });
+  setScheduleFilter = (scheduleFilter: ScheduleFilter) => {
+    if (this.props.coach) {
+      this.props.setCoachScheduleFilter({
+        coach: this.props.coach.id,
+        scheduleFilter,
+      });
+    }
+  };
 
   render() {
     const { classes } = this.props;
+    if (!this.props.coach) {
+      return <LinearProgress />;
+    }
     return (
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}

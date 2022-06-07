@@ -173,6 +173,7 @@ exports.default = {
     note: 'Note',
     address: 'Adresse',
     tax: 'TVA',
+    applied_tax: 'TVA',
     voucher: 'Réduction',
     product_price: 'Prix produit',
     total_price: 'Montant facturé TTC',

@@ -36,6 +36,11 @@ exports.default = {
     tax: {
       label: 'TVA',
     },
+    usePaymentComboTaxOnItems: {
+      label: "Appliquer une TVA générale à l'ensemble du pack",
+      helperText:
+        "Par défaut, la taxe appliquée à chaque objet est celle indiquée sur l'objet. En sélectionnant cette option, vous pourrez appliquer une taxe générale sur le pack.",
+    },
     manager_only: {
       label: 'Invisible pour les clients',
     },

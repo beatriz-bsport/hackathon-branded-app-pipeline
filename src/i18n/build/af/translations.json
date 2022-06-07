@@ -3515,6 +3515,10 @@
       "description": { "label": "Description" },
       "price": { "label": "Prix" },
       "tax": { "label": "TVA" },
+      "usePaymentComboTaxOnItems": {
+        "label": "Appliquer une TVA générale à l'ensemble du pack",
+        "helperText": "Par défaut, la taxe appliquée à chaque objet est celle indiquée sur l'objet. En sélectionnant cette option, vous pourrez appliquer une taxe générale sur le pack."
+      },
       "manager_only": { "label": "Invisible pour les clients" },
       "new_member_only": { "label": "Uniquement pour les nouveaux clients" },
       "actions": { "submit": "Enregistrer", "cancel": "Annuler" },
@@ -5424,6 +5428,7 @@
       "note": "Note",
       "address": "Adresse",
       "tax": "TVA",
+      "applied_tax": "TVA",
       "voucher": "Réduction",
       "product_price": "Prix produit",
       "total_price": "Montant facturé TTC",

@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
-import type { State } from '../../../state/types';
 import type {
   PrivatePass,
   PrivatePassWithService,
@@ -23,24 +22,24 @@ export type PrivatePassSelector<LPP = number> = (
   state: RootState,
 ) => Immutable.Immutable<Array<PrivatePass<LPP>> | PrivatePass<LPP>>;
 
-export const _getPrivatePassData = (state) =>
+export const _getPrivatePassData = (state: RootState) =>
   state.privateService.privatePass.byId;
-const _getPrivatePassAsConsumerIds = (state) =>
+const _getPrivatePassAsConsumerIds = (state: RootState) =>
   state.privateService.privatePass.asConsumer.allIds;
 
-const _getPrivatePassListIds = (state) =>
+const _getPrivatePassListIds = (state: RootState) =>
   state.privateService.privatePass.allIds;
 
 export const getPrivatePassById = (
-  state: State,
+  state: RootState,
 ): Array<PrivatePassWithService> => state.privateService.privatePass.byId;
 
 export const getPrivatePass = (
-  state: State,
+  state: RootState,
   id: number,
 ): PrivatePassWithService => getPrivatePassById(state)[id];
 
-export const getPrivatePassListBase: (State) => Array<PrivatePass> =
+export const getPrivatePassListBase: (State: RootState) => Array<PrivatePass> =
   createSelector([_getPrivatePassData, _getPrivatePassListIds], (data, ids) =>
     ids.map((id) => data[id]),
   );
@@ -58,7 +57,7 @@ export const getPrivatePassAsConsumer = createSelector(
 );
 
 export const getPrivatePassListWithPrivateService: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   [_getPrivateServiceDict, getPrivatePassListBase],
   (servicesById, passesList) =>
@@ -69,35 +68,35 @@ export const getPrivatePassListWithPrivateService: (
 );
 
 export const getPrivatePassAvailableListWithPrivateService: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListWithPrivateService,
   (passList) => passList.filter((p) => p.available),
 );
 
 export const getPrivatePassManagerOnlyList: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
   (passList) => passList.filter((p) => p.available && p.manager_only),
 );
 
 export const getPrivatePassListCompatibleWithVideo: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
   (passList) => passList.filter((p) => p.full_vod_access),
 );
 
 export const getPrivatePassCustomerEnabled: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
   (passList) => passList.filter((p) => p.available && !p.manager_only),
 );
 
 export const getAvailablePrivatePasses: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
   (passList) =>
@@ -107,7 +106,7 @@ export const getAvailablePrivatePasses: (
 );
 
 export const getUnavailablePrivatePasses: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListBase,
   (passList) => passList.filter((p) => !p.available),
@@ -149,30 +148,30 @@ export const withAvailable = memoize((selector) =>
 );
 
 export const getDisabledPrivatePassAvailableListWithPrivateService: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListWithPrivateService,
   (passList) => passList.filter((p) => !p.available),
 );
 
-const _getServiceCompatibiltyPassDict = (state: State) =>
+const _getServiceCompatibiltyPassDict = (state: RootState) =>
   state.privateService.compatibleServicePass.byId;
 
-const _getServiceCompatibiltyPassIds = (state: State) =>
+const _getServiceCompatibiltyPassIds = (state: RootState) =>
   state.privateService.compatibleServicePass.allIds;
 
 export const getServiceCompatibilityPassList: (
-  State,
+  State: RootState,
 ) => Array<ServiceCompatibilityPass> = createSelector(
   [_getServiceCompatibiltyPassDict, _getServiceCompatibiltyPassIds],
   (data, ids) => ids.map((id) => data[id]),
 );
 
-export const getCompatibleServicePassLoading = (state: State) =>
+export const getCompatibleServicePassLoading = (state: RootState) =>
   state.privateService.compatibleServicePass.loading;
 
 export const getCompatibilityPassWithService: (
-  State,
+  State: RootState,
 ) => Array<PrivatePassWithService> = createSelector(
   [
     _getPrivateServiceDict,
@@ -300,4 +299,23 @@ export const withLinkedPaymentPack = memoize((selector: PrivatePassSelector) =>
       ),
     }));
   }),
+);
+
+export const _getRelatedPrivatePassData = (state: RootState) =>
+  state.privateService.privatePass.byId;
+const _getRelatedPrivatePassListIds = (state: RootState) =>
+  state.privateService.privatePass.allIds;
+
+export const getRelatedPrivatePassListBase: (
+  state: RootState,
+) => Array<PrivatePass> = createSelector(
+  [_getRelatedPrivatePassData, _getRelatedPrivatePassListIds],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
+export const getRelatedPrivatePassAvailable = createSelector(
+  getRelatedPrivatePassListBase,
+  (pp) => {
+    return pp.filter((p) => p.available);
+  },
 );

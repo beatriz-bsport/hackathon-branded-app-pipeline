@@ -6,7 +6,10 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import PaymentComboFormDrawer from '../../libs/payment-combo/components/PaymentComboFormDrawer.component';
 
-import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassAvailable,
+  getRelatedPrivatePassAvailable,
+} from '../../libs/private-service/selectors/private-pass';
 import { getEnabled as getPaymentPackAvailable } from '../../libs/payment-packs/selectors';
 import { getShopItemsBulk } from '../../libs/shop/selectors';
 import { fetchRelatedPrivatePassBulk } from '../../libs/payment-combo/actions';
@@ -39,8 +42,7 @@ export default compose(
       shopItemList: getShopItemsBulk(state),
       paymentPackList: getPaymentPackAvailable(state),
       privatePassList: getPrivatePassAvailable(state),
-      relatedPrivatePass: state.paymentCombo.relatedPrivatePass.byId,
-      relatedPrivatePassIds: state.paymentCombo.relatedPrivatePass.allIds,
+      relatedPrivatePassList: getRelatedPrivatePassAvailable(state),
       privatePassListLoading: state.paymentCombo.relatedPrivatePass.loading,
       loadingRelatedObjects:
         state.shop.loading ||

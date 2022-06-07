@@ -749,7 +749,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
                       }
                       tax={
                         this.state.selectedPack?.paymentPack?.tax ||
-                        this.state.selectedPack?.paymentPackCombo?.tax
+                        this.state.selectedPack?.paymentPackCombo
+                          ?.tax_calculation
                       }
                       selectedPackId={
                         this.state.selectedPack?.consumerPaymentPack?.id ||

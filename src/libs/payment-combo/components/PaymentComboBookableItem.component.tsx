@@ -31,25 +31,52 @@ const PaymentPackComboBookableItem = (props: Props) => {
     props.paymentCombo.payment_packs.reduce(
       (acc, pp) =>
         acc +
-        parseFloat(getPrice(pp.price, isExcludingTax, pp.tax)) * pp.quantity,
+        parseFloat(
+          getPrice(
+            pp.price,
+            isExcludingTax,
+            props.paymentCombo.use_payment_combo_tax_on_items
+              ? props.paymentCombo.tax_calculation
+              : pp.tax,
+          ),
+        ) *
+          pp.quantity,
       0,
     ) +
     props.paymentCombo.shop_items.reduce(
       (acc, pp) =>
         acc +
-        parseFloat(getPrice(pp.price, isExcludingTax, pp.tax)) * pp.quantity,
+        parseFloat(
+          getPrice(
+            pp.price,
+            isExcludingTax,
+            props.paymentCombo.use_payment_combo_tax_on_items
+              ? props.paymentCombo.tax_calculation
+              : pp.tax,
+          ),
+        ) *
+          pp.quantity,
       0,
     ) +
     props.paymentCombo.private_passes.reduce(
       (acc, pp) =>
         acc +
-        parseFloat(getPrice(pp.price, isExcludingTax, pp.tax)) * pp.quantity,
+        parseFloat(
+          getPrice(
+            pp.price,
+            isExcludingTax,
+            props.paymentCombo.use_payment_combo_tax_on_items
+              ? props.paymentCombo.tax_calculation
+              : pp.tax,
+          ),
+        ) *
+          pp.quantity,
       0,
     );
   const paymentComboPrice = getPrice(
     props.paymentCombo.price,
     isExcludingTax,
-    props.paymentCombo.tax,
+    props.paymentCombo.tax_calculation,
   );
   if (totalItemsPrice > props.paymentCombo.price) {
     showTotalPrice = true;

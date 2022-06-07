@@ -37,7 +37,7 @@ type OwnProps = {
   pack: PaymentPack;
   divider?: boolean;
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
   hidePacksNumber?: boolean;

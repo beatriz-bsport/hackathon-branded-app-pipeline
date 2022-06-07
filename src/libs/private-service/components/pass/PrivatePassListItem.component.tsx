@@ -29,6 +29,7 @@ type Props = {
   draggable?: boolean;
   listeners?: DraggableSyntheticListeners;
   attributes?: any;
+  dense?: boolean;
 };
 
 export const PrivatePassListItem = (props: Props) => {
@@ -45,6 +46,7 @@ export const PrivatePassListItem = (props: Props) => {
   return (
     <Paper>
       <ListItem
+        dense={props.dense}
         divider={props.divider}
         button={!!props.onClick}
         onClick={props.onClick}

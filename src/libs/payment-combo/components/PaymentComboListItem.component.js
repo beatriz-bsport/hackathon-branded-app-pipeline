@@ -100,7 +100,7 @@ export const PaymentComboListItem = (props: Props) => {
         secondary={`${getCurrencyDisplayWithPrice(
           props.paymentCombo.price,
           props.isExcludingTax,
-          props.paymentCombo.tax,
+          props.paymentCombo.tax_calculation,
         )} - ${props.t('detail.containsNProducts', {
           n:
             props.paymentCombo.payment_packs.reduce(

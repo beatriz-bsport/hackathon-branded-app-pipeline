@@ -5,18 +5,18 @@ import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSumm
 
 import Selector from '../../../components/Selector.component';
 
-import { PaymentPack } from '../../../api/types';
+import { PaymentPack } from '../types';
 
 type Props = {
-  classes: Object;
+  classes?: Object;
   paymentPacks: Array<PaymentPack>;
   onChange: (id: number | null) => void;
   helperText: string;
-  value: number | null;
-  selectorClass: string;
-  isMulti: boolean;
+  value?: number | null;
+  selectorClass?: string;
+  isMulti?: boolean;
   nullCurrentValue?: boolean;
-  autofocus: boolean;
+  autofocus?: boolean;
 };
 
 type OptionProps = {

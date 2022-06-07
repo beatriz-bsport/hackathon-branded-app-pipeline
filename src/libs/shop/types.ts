@@ -29,6 +29,7 @@ export type ShopItem = {
   marketplace_enabled: boolean;
   is_deliverable: boolean;
   onsite_payment_available: boolean;
+  disabled: boolean;
 };
 
 export type SubShop = {

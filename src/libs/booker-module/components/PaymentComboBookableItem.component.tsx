@@ -30,7 +30,7 @@ const PaymentPackComboItem = (props: Props) => {
         {getCurrencyDisplayWithPrice(
           props.paymentCombo.price,
           props.isExcludingTax,
-          props.paymentCombo.tax,
+          props.paymentCombo.tax_calculation,
         )}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">

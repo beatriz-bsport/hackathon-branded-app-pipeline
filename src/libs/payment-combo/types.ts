@@ -11,7 +11,9 @@ export type PaymentCombo = {
   name: string;
   description: string;
   price: number;
+  use_payment_combo_tax_on_items: boolean;
   tax: number;
+  tax_calculation: number;
   company: number;
   available: boolean;
   manager_only: boolean;

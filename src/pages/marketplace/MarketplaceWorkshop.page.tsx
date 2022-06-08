@@ -208,6 +208,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     (offer: Offer) => {
       if (bookWidget) {
         bookWidget(offer.id, companyId);
+        return;
       }
       Analytics.workshopClick(offer);
       pushRouter(

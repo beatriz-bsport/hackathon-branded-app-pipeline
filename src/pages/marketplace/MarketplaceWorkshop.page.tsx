@@ -31,7 +31,10 @@ import {
 } from '#libs/establishment/selectors';
 import { getCoachById, getCoaches } from '#libs/associated-coach/selectors';
 import { getOffersListByMetaActivity as getOffersListByMetaActivitySelector } from '#libs/offer/selectors';
-import { getWorkshopsByAllIds } from '#libs/meta-activity/selectors';
+import {
+  getWorkshops,
+  getWorkshopsByAllIds,
+} from '#libs/meta-activity/selectors';
 import {
   getGroupByIdCurried,
   getOffersListByGroup as getOffersListByGroupSelector,
@@ -45,7 +48,7 @@ import { getActiveCustomLevels, getLevelById } from '#libs/level/selectors';
 
 import MarketplaceWorkshop from '#libs/marketplace/components/MarketplaceWorkshop.component';
 import Analytics from '#components/analytics/Analytics.component';
-import { DATE_FORMAT } from '../../utils/datetime';
+import { DATE_FORMAT, sortByDate } from '../../utils/datetime';
 import withTitle from '#hocs/with-title.hoc';
 import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
@@ -106,12 +109,25 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   coachLoading,
   establishmentLoading,
   goToBook: bookWidget,
+  allWorkshops,
 }) => {
   const classes = useStyles();
 
   const [displayedWorkshops, setDisplayedWorkshops] = useState(
     BATCH_SIZE_FOR_META_ACTIVITY,
   );
+
+  const getCompatibleWorkshops = useCallback(
+    (workshops_to_filter: MetaActivity[]) => {
+      return sortByDate(
+        [...workshops_to_filter].filter((w) => w.next_slot),
+        'next_slot',
+      );
+    },
+    [],
+  );
+
+  const compatibleWorkshops = getCompatibleWorkshops(workshops);
 
   // CDM
   useEffect(() => {
@@ -174,7 +190,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     resetMarketplaceOfferByMetaActivityList();
     fetchWorkshopList(metaActivityFilter, {
       onSuccess: async (_workshops: MetaActivity[]) => {
-        _workshops
+        getCompatibleWorkshops(_workshops)
           .slice(0, displayedWorkshops)
           .map((m) => fetchOfferByMetaActivity(m.id));
       },
@@ -223,15 +239,15 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   const onFetchMore = () => {
     let newDisplaidMore = displayedWorkshops + BATCH_SIZE_FOR_META_ACTIVITY;
 
-    if (newDisplaidMore === workshops.length) {
+    if (newDisplaidMore === compatibleWorkshops.length) {
       return;
     }
 
-    if (newDisplaidMore > workshops.length) {
-      newDisplaidMore = workshops.length;
+    if (newDisplaidMore > compatibleWorkshops.length) {
+      newDisplaidMore = compatibleWorkshops.length;
     }
 
-    workshops
+    compatibleWorkshops
       .slice(displayedWorkshops, newDisplaidMore)
       .map((m) => fetchOfferByMetaActivity(m.id));
 
@@ -258,7 +274,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         coaches={coaches}
         establishments={establishments}
         hideCoach={theme && theme.hideCoach}
-        metaActivities={workshops}
+        metaActivities={[...allWorkshops]}
         filters={filters}
         setFilters={setFilters}
         customLevels={customLevels}
@@ -267,11 +283,11 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         showMultiLocalization={theme.enable_multi_localization}
       />
       <MarketplaceWorkshop
-        metaActivities={workshops.slice(0, displayedWorkshops)}
+        metaActivities={[...compatibleWorkshops].slice(0, displayedWorkshops)}
         metaActivityloading={
           workshopsLoading || coachLoading || establishmentLoading
         }
-        hasMoreToLoad={displayedWorkshops < workshops.length}
+        hasMoreToLoad={displayedWorkshops < compatibleWorkshops.length}
         hideCoach={theme && theme.hideCoach}
         getCoach={getCoach}
         getEstablishment={getEstablishment}
@@ -307,6 +323,7 @@ const connector = connect(
   (state: RootState) => ({
     workshopsLoading: state.metaActivity.loading,
     workshops: getWorkshopsByAllIds(state),
+    allWorkshops: getWorkshops(state),
     getCoach: getCoachById(state),
     getLevel: getLevelById(state),
     getEstablishment: getEstablishmentById(state),

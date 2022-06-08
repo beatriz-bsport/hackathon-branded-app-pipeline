@@ -5656,7 +5656,7 @@
         },
         "detail": {
             "section": {
-                "title": "Bestellingsstatus:",
+                "title": "Bestellingsstatus",
                 "deliveryInfo": "Bezorgadres",
                 "productDetail": "Besteloverzicht",
                 "invoice": "Gekoppelde factuur",
@@ -8018,7 +8018,7 @@
             }
         },
         "consumerPass": {
-            "success": "Je aankoop is ontvangen!"
+            "success": "Je aankoop of reservering is ontvangen!"
         },
         "copied": "Gekopieerd naar je klembord",
         "contractPause": {

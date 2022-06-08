@@ -1,14 +1,10 @@
-// @flow
-
 import React from 'react';
-
-import { withTranslation, TFunction } from 'react-i18next';
-import Button from '@material-ui/core/Button';
-
+import { useTranslation } from 'react-i18next';
 import { compose, withProps } from 'recompose';
-
 import * as Yup from 'yup';
 import { withFormik, Form, Field, FieldArray } from 'formik';
+
+import Button from '@material-ui/core/Button';
 
 import {
   AlertError,
@@ -17,21 +13,17 @@ import {
   FormControl,
   Actions,
   defaultHandleSubmit,
-} from '../../components/forms';
-
-import type { ReportCategoryMetadata } from './types';
-
+} from '#components/forms';
+import { ReportMetadataValue, ReportCategoryEnum } from '../types';
 import ReportCategoriesSelector from './ReportCategoriesSelector.component';
 import ReportColumnSelector from './ReportColumnSelector.component';
 
 type Props = {
-  isSubmitting: boolean,
-  categoryMetadata: ReportCategoryMetadata,
-  onClose: () => void,
-  t: TFunction,
-  classes: { [string]: string },
-  categories: *[],
-  globalCategories: *[],
+  isSubmitting: boolean;
+  categoryMetadata: ReportMetadataValue;
+  onClose: () => void;
+  categories: ReportCategoryEnum[];
+  globalCategories: ReportCategoryEnum[];
 };
 
 const ReportConfigurationSchema = Yup.object().shape({
@@ -41,15 +33,15 @@ const ReportConfigurationSchema = Yup.object().shape({
   columns: Yup.array().of(Yup.string().required()).min(1),
 });
 
-export function ReportConfigurationForm(props: Props) {
-  const {
-    isSubmitting,
-    onClose,
-    categoryMetadata,
-    categories,
-    globalCategories,
-    t,
-  } = props;
+const ReportConfigurationForm: React.FC<Props> = ({
+  isSubmitting,
+  onClose,
+  categoryMetadata,
+  categories,
+  globalCategories,
+}) => {
+  const { t } = useTranslation('reporting');
+
   return (
     <Form>
       <TextField required name="name" fullWidth label={t('form.name')} />
@@ -96,10 +88,9 @@ export function ReportConfigurationForm(props: Props) {
       </Actions>
     </Form>
   );
-}
+};
 
 export default compose(
-  withTranslation(['reporting']),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {

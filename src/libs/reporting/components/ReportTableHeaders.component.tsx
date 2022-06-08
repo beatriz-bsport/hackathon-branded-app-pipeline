@@ -1,14 +1,25 @@
 import React from 'react';
+import { makeStyles, Theme } from '@material-ui/core';
 
-import { withTranslation } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
-import { getConverter } from './ReportTable.component';
 
-function CardHeaders(props: Props) {
-  const { headerDetails, headerTitle, classes, t } = props;
+import { ReportHeader } from '../types';
+import { getConverter } from '../utils';
+
+const CardHeaders: React.FC<{
+  headerTitle?: 'average' | 'sum';
+  headerDetails: {
+    column_identifier: string;
+    datatype: string;
+    column_value: null | number;
+  }[];
+}> = ({ headerDetails, headerTitle }) => {
+  const classes = useStyles();
+  const { t } = useTranslation('reporting');
+
   const converters = headerDetails.map((c) => getConverter(c, classes, t));
   return (
     <div>
@@ -19,11 +30,7 @@ function CardHeaders(props: Props) {
         {headerDetails.map((colum, index) => {
           return (
             <Grid item xs={6} md={4} alignItems="stretch" lg={2} key={index}>
-              <Card
-                elevation={1}
-                className={classes.cardStyle}
-                borderColor="#888"
-              >
+              <Card elevation={1} className={classes.cardStyle}>
                 <Typography variant="body2">
                   {t(`columns.${colum.column_identifier}`)}
                 </Typography>
@@ -38,7 +45,6 @@ function CardHeaders(props: Props) {
                 >
                   <Typography
                     variant="h5"
-                    className={classes.typographyValue}
                     {...(converters[index](colum.column_value).cellProps || {})}
                   >
                     {converters[index](colum.column_value).value}
@@ -51,36 +57,36 @@ function CardHeaders(props: Props) {
       </Grid>
     </div>
   );
-}
-export function ReportTableHeaders(props: Props) {
-  const { classes, t, reportHeaders } = props;
+};
+
+const ReportTableHeaders: React.FC<{
+  reportHeaders: ReportHeader;
+}> = ({ reportHeaders }) => {
+  const classes = useStyles();
+
   return (
     <div className={classes.container}>
       {reportHeaders &&
-      reportHeaders.averageable &&
-      reportHeaders.averageable.length !== 0 ? (
-        <CardHeaders
-          headerDetails={reportHeaders.averageable}
-          headerTitle="average"
-          classes={classes}
-          t={t}
-        />
-      ) : null}
+        reportHeaders.averageable &&
+        reportHeaders.averageable.length !== 0 && (
+          <CardHeaders
+            headerDetails={reportHeaders.averageable}
+            headerTitle="average"
+          />
+        )}
       {reportHeaders &&
-      reportHeaders.summable &&
-      reportHeaders.summable.length !== 0 ? (
-        <CardHeaders
-          headerDetails={reportHeaders.summable}
-          t={t}
-          headerTitle="sum"
-          classes={classes}
-        />
-      ) : null}
+        reportHeaders.summable &&
+        reportHeaders.summable.length !== 0 && (
+          <CardHeaders
+            headerDetails={reportHeaders.summable}
+            headerTitle="sum"
+          />
+        )}
     </div>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(2),
@@ -98,8 +104,6 @@ const styles = (theme) => ({
     borderLeft: '8px solid',
     borderColor: theme.palette.primary.main,
   },
-});
+}));
 
-export default withStyles(styles)(
-  withTranslation(['reporting'])(ReportTableHeaders),
-);
+export default ReportTableHeaders;

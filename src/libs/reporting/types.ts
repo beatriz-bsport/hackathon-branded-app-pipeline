@@ -14,18 +14,7 @@ export type ReportingState = {
   error: null | string;
   page_size: number;
   reportId: null | number;
-  reportHeaders: {
-    averageable?: {
-      column_identifier: string;
-      datatype: string;
-      column_value: null | number;
-    }[];
-    summable?: {
-      column_identifier: string;
-      datatype: string;
-      column_value: null | number;
-    }[];
-  };
+  reportHeaders: ReportHeader;
   headersLoading: boolean;
   headersError: null | string;
   excelReportingReducer: {
@@ -49,7 +38,7 @@ export type ReportingState = {
 export type ReportConfiguration = {
   id: number;
   name: string;
-  category: String;
+  category: ReportCategoryEnum;
   description: string;
   columns: string[];
   date_start: Date;
@@ -59,12 +48,38 @@ export type ReportConfiguration = {
 export type ReportCategoryEnum = 'members' | 'payments' | 'products';
 
 export type ReportCategory = {
-  id: number;
-  name: ReportCategoryEnum;
+  id: string;
+  name?: ReportCategoryEnum;
   icon: any;
 };
 
-export type ReportMedadataDataType = 'string' | 'number';
+export type ReportHeader = {
+  averageable?: {
+    column_identifier: string;
+    datatype: string;
+    column_value: null | number;
+  }[];
+  summable?: {
+    column_identifier: string;
+    datatype: string;
+    column_value: null | number;
+  }[];
+};
+
+export type ReportMedadataDataType =
+  | 'price'
+  | 'number'
+  | 'cts'
+  | 'string'
+  | 'int'
+  | 'percent'
+  | 'time'
+  | 'date'
+  | 'dow'
+  | 'boolean'
+  | 'datetime'
+  | 'product_type'
+  | 'payment_method';
 
 export type ReportMetadataColumn = {
   identifier: string;
@@ -74,12 +89,12 @@ export type ReportMetadataColumn = {
 
 export type ReportMetadataValue = {
   global_category: ReportCategoryEnum;
-  category: String;
+  category: ReportCategoryEnum;
   columns: ReportMetadataColumn[];
 };
 
 export type ReportMetadata = {
-  value: ReportMetadataValue[];
+  results: ReportMetadataValue[];
   loading: boolean;
   error?: boolean;
 };

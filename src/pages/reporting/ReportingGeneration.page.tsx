@@ -7,7 +7,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 
-import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
+import ReportGeneration from '../../libs/reporting/components/ReportGeneration.component';
 
 import {
   fetchReportGeneration,

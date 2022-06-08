@@ -17,15 +17,15 @@ import {
   ReportCategoryEnum,
   ReportConfiguration,
   ReportMetadataValue,
-} from './types';
+} from '../types';
 
-import ModalConfirm from '../../components/ModalConfirm.component';
+import ModalConfirm from '#components/ModalConfirm.component';
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
 import ReportListItem from './ReportListItem.component';
 import ReportConfigurationForm from './ReportConfigurationForm.component';
-import { OptionCallback } from '../../state/types';
-import FuzzySearch from '../../components/search/FuzzySearch.component';
+import { OptionCallback } from '../../../state/types';
+import FuzzySearch from '#components/search/FuzzySearch.component';
 
 type OwnProps = {
   metadata: ReportMetadataValue[];
@@ -81,8 +81,6 @@ export function ReportDashboard(props: Props) {
     onDelete: (r: ReportConfiguration) => setSelectedForDeletion(r),
   };
 
-  const categories = metadata.map((c) => c.category) ?? [];
-
   return (
     <div className={classes.root}>
       {reportConfigurations.length ? (
@@ -106,7 +104,7 @@ export function ReportDashboard(props: Props) {
             className={classes.search}
           />
           <ReportCategorySelector
-            categories={categories}
+            categories={metadata?.map((c) => c.category) ?? []}
             onSelect={setSelectedCategory}
             selected={selectedCategory}
           />

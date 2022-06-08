@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -9,61 +7,57 @@ import ReportGenerationForm from './ReportGenerationForm.component';
 import ReportTable from './ReportTable.component';
 import ReportTableHeaders from './ReportTableHeaders.component';
 
-import type {
+import {
   ReportConfiguration,
   ReportExtractResult,
   ReportMetadata,
-} from './types';
+} from '../types';
 
 type Props = {
-  resultLoading?: boolean,
-  report: ReportConfiguration,
-  result: ReportExtractResult,
-  metadata: ReportMetadata,
-  handleGeneratePreviousPage: (data: any) => void,
-  handleGenerateNextPage: (data: any) => void,
-  handleGenerate: (data: any) => void,
-  handleGenerateHeaders: (any: data) => void,
-  reportHeaders: object,
-  reportHeadersLoading: boolean,
-  previousPage: number,
-  nextPage: number,
-  otherPages: Array<number>,
-  pageSize: number,
-  reportStoreRowsLoading: boolean,
-  handleGenerate: () => void,
-  handleExcelExportation: () => void,
-  showDialog: boolean,
-  setShowDialog: () => void,
-  setShowDialog: (boolean: boolean) => void,
-  disableContinue: boolean,
-  setDisableContinue: (boolean: boolean) => void,
+  resultLoading?: boolean;
+  report: ReportConfiguration;
+  result: ReportExtractResult;
+  metadata: ReportMetadata;
+  handleGeneratePreviousPage: (data: any) => void;
+  handleGenerateNextPage: (data: any) => void;
+  handleGenerate: (data: any) => void;
+  handleGenerateHeaders: (data: any) => void;
+  reportHeaders: object;
+  reportHeadersLoading: boolean;
+  previousPage: number;
+  nextPage: number;
+  otherPages: Array<number>;
+  pageSize: number;
+  reportStoreRowsLoading: boolean;
+  handleExcelExportation: () => void;
+  showDialog: boolean;
+  setShowDialog: (boolean: boolean) => void;
+  disableContinue: boolean;
+  setDisableContinue: (boolean: boolean) => void;
 };
 
-export default function ReportGeneration(props: Props) {
-  const {
-    report,
-    result,
-    resultLoading,
-    handleGenerate,
-    handleGeneratePreviousPage,
-    handleGenerateNextPage,
-    handleGenerateHeaders,
-    reportHeaders,
-    reportHeadersLoading,
-    metadata,
-    previousPage,
-    nextPage,
-    otherPages,
-    pageSize,
-    reportStoreRowsLoading,
-    handleExcelExportation,
-    showDialog,
-    setShowDialog,
-    disableContinue,
-    setDisableContinue,
-  } = props;
-
+const ReportGeneration: React.FC<Props> = ({
+  report,
+  result,
+  resultLoading = true,
+  handleGenerate,
+  handleGeneratePreviousPage,
+  handleGenerateNextPage,
+  handleGenerateHeaders,
+  reportHeaders,
+  reportHeadersLoading,
+  metadata,
+  previousPage,
+  nextPage,
+  otherPages,
+  pageSize,
+  reportStoreRowsLoading,
+  handleExcelExportation,
+  showDialog,
+  setShowDialog,
+  disableContinue,
+  setDisableContinue,
+}) => {
   if (!report || metadata.loading) {
     return <LinearProgress />;
   }
@@ -110,8 +104,6 @@ export default function ReportGeneration(props: Props) {
       {reportStoreRowsLoading && result ? <LinearProgress /> : null}
     </div>
   );
-}
-
-ReportGeneration.defaultProps = {
-  resultLoading: true,
 };
+
+export default ReportGeneration;

@@ -9,7 +9,7 @@ import { push } from 'connected-react-router';
 import withTitle from '../../hocs/with-title.hoc';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import ReportDashboard from '../../libs/reporting/ReportDashboard.component';
+import ReportDashboard from '../../libs/reporting/components/ReportDashboard.component';
 
 import {
   fetchReports as fetchReportsAction,

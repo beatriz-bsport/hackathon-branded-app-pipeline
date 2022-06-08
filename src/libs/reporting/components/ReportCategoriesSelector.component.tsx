@@ -1,72 +1,71 @@
-// @flow
-
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
-import { getCategory } from './utils';
-import type { ReportCategoryEnum } from './types';
+import { getCategory } from '../utils';
+import { ReportCategoryEnum } from '../types';
 
 type Props = {
-  classes: { [string]: string },
-  selected: ReportCategoryEnum,
-  categories: ReportCategoryEnum[],
-  globalCategories: array,
-  onSelect: (ReportCategoryEnum) => void,
+  selected: ReportCategoryEnum;
+  categories: ReportCategoryEnum[];
+  globalCategories: ReportCategoryEnum[];
+  onSelect: (value: string) => void;
 };
 
-function getCategories(name, tab1, tab2) {
-  const A = [];
+function getCategoriesInCategoryGroup(
+  name: string,
+  tab1: ReportCategoryEnum[],
+  tab2: ReportCategoryEnum[],
+) {
+  const buffer: ReportCategoryEnum[] = [];
   if (tab1 && tab2) {
     tab2.map((a, i) => {
-      return tab1[i] === name && A.push(a);
+      return tab1[i] === name && buffer.push(a);
     });
   }
-  return A;
+  return buffer;
 }
 
-function isSelectedGlobalCategory(cats, selected) {
-  let isSelected = false;
-  cats.map((c) => {
-    if (c.id === selected) {
-      isSelected = true;
-      return isSelected;
-    }
-    return isSelected;
-  });
-  return isSelected;
-}
-
-export const ReportCategoriesSelector = ({
+const ReportCategoriesSelector: React.FC<Props> = ({
   onSelect,
   selected,
-  categories,
+  categories: categoriesProps,
   globalCategories,
-}: Props) => {
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['reporting']);
+
   const globalCategoryChoices = ['Club', 'Bookings', 'Products', 'Payments'];
   const initial = !selected;
+
   return (
     <div>
       {globalCategoryChoices.map((name) => {
-        const A = getCategories(name, globalCategories, categories);
-        const cats = A.map((c) => getCategory(c));
-        const isSelectedCategory = isSelectedGlobalCategory(cats, selected);
+        const categories = getCategoriesInCategoryGroup(
+          name,
+          globalCategories,
+          categoriesProps,
+        );
+        const categoriesDetail = categories.map((c) => getCategory(c));
+        const isSelectedCategory = categoriesDetail.some(
+          (c) => c.id === selected,
+        );
+
         return (
           <div>
             {(isSelectedCategory || initial) && (
               <div>{t(`globalCategories.${name}`)}</div>
             )}
             <div className={classes.categories}>
-              {cats.map((category) => {
+              {categoriesDetail.map((category) => {
                 const Icon = category.icon;
                 const isSelected = category.id === selected;
                 const color = isSelected ? 'primary' : 'default';
-                const onDelete = isSelected ? () => onSelect('') : null;
+                const onDelete = isSelected ? () => onSelect(null) : null;
+
                 return (
                   <div>
                     {(isSelected || initial) && (
@@ -98,7 +97,7 @@ export const ReportCategoriesSelector = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   categories: {
     display: 'flex',
     flexWrap: 'wrap',

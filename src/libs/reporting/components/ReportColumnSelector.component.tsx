@@ -1,31 +1,32 @@
-// @flow
-
 import React from 'react';
+import { makeStyles, Theme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
-import { withTranslation, TFunction } from 'react-i18next';
-
-import withStyles from '@material-ui/core/styles/withStyles';
 import Chip from '@material-ui/core/Chip';
 
-import type { ReportMetadataColumn } from './types';
+import { ReportMetadataColumn } from '../types';
 
 type Props = {
-  value: string[],
-  onChange: (columns: string[]) => void,
-  columns: ReportMetadataColumn[],
-  classes: { [string]: string },
-  t: TFunction,
+  value: string[];
+  onChange: (columns: string[]) => void;
+  columns: ReportMetadataColumn[];
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   chip: {
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-});
+}));
 
-export function ReportColumnSelector(props: Props) {
-  const { columns, value, classes, onChange, t } = props;
+const ReportColumnSelector: React.FC<Props> = ({
+  columns,
+  value,
+  onChange,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('reporting');
+
   return (
     <div>
       {columns.map(({ identifier }) => {
@@ -51,8 +52,6 @@ export function ReportColumnSelector(props: Props) {
       })}
     </div>
   );
-}
+};
 
-export default withStyles(styles)(
-  withTranslation(['reporting'])(ReportColumnSelector),
-);
+export default ReportColumnSelector;

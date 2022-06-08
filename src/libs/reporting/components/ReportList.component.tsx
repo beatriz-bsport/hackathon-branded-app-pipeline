@@ -1,26 +1,25 @@
-// @flow
-
 import React from 'react';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 
-import type { ReportConfiguration } from './types';
+import { ReportConfiguration } from '../types';
 
 import ReportListItem from './ReportListItem.component';
 
 type Props = {
-  items: ReportConfiguration[],
-  classes: { [string]: string },
-  className: string,
+  items: ReportConfiguration[];
+  className: string;
   itemProps: {
-    onEdit: (report: ReportConfiguration) => void,
-    onDetail: (report: ReportConfiguration) => void,
-  },
+    onEdit: (report: ReportConfiguration) => void;
+    onDetail: (report: ReportConfiguration) => void;
+  };
 };
 
-export function ReportList({ items, classes, className, itemProps }: Props) {
+const ReportList: React.FC<Props> = ({ items, className, itemProps }) => {
+  const classes = useStyle();
+
   return (
     <Paper className={className}>
       <List className={classes.list}>
@@ -36,12 +35,12 @@ export function ReportList({ items, classes, className, itemProps }: Props) {
       </List>
     </Paper>
   );
-}
+};
 
-const styles = () => ({
+const useStyle = makeStyles(() => ({
   list: {
     padding: 0,
   },
-});
+}));
 
-export default withStyles(styles)(ReportList);
+export default ReportList;

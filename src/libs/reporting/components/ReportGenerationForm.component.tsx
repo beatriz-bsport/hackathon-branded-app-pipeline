@@ -1,7 +1,5 @@
 // @flow
-
-import React from 'react';
-
+import React, { useCallback } from 'react';
 import moment from 'moment-timezone';
 
 import { compose } from 'recompose';
@@ -9,9 +7,9 @@ import { compose } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
-import { withTranslation, TFunction } from 'react-i18next';
-
-import withStyles from '@material-ui/core/styles/withStyles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/styles';
+import { Theme } from '@material-ui/core';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -28,29 +26,25 @@ import {
   Submit,
   Actions,
   defaultHandleSubmit,
-} from '../../components/forms';
+} from '#components/forms';
 
-import type { ReportConfiguration as ReportConfigurationType } from './types';
+import { ReportConfiguration as ReportConfigurationType } from '../types';
 
 type Props = {
-  isSubmitting_: boolean,
-  t: TFunction,
-  reportConfiguration: ReportConfigurationType,
-  classes: { [string]: string },
-  reportConfiguration: any,
-  handleExcelExportation: () => void,
-  showDialog: boolean,
-  setShowDialog: (boolean: boolean) => void,
-  disableContinue: boolean,
-  setDisableContinue: (boolean: boolean) => void,
-  values: any,
+  isSubmitting_: boolean;
+  reportConfiguration: ReportConfigurationType;
+  handleExcelExportation: () => void;
+  showDialog: boolean;
+  setShowDialog: (show: boolean) => void;
+  disableContinue: boolean;
+  setDisableContinue: (show: boolean) => void;
+  values: any;
 };
+
 type DownloadButtonProps = {
-  t: TFunction,
-  classes: any,
-  handleExcelExportation: (data: any) => void,
-  isSubmitting_: boolean,
-  values: any,
+  handleExcelExportation: (data: any) => void;
+  isSubmitting_: boolean;
+  values: any;
 };
 
 const ReportGenerationSchema = Yup.object().shape({
@@ -74,46 +68,57 @@ const ReportGenerationSchema = Yup.object().shape({
     ),
 });
 
-function DownloadButton(props: DownloadButtonProps) {
-  const { classes, t, handleExcelExportation, isSubmitting_ } = props;
+const DownloadButton: React.FC<DownloadButtonProps> = ({
+  handleExcelExportation,
+  isSubmitting_,
+  values,
+}) => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+
   return (
     <Button
       variant="contained"
       color="secondary"
-      onClick={() => handleExcelExportation(props.values)}
+      onClick={() => handleExcelExportation(values)}
       disabled={isSubmitting_}
     >
       {t('common.export')}
       <CloudDownloadIcon className={classes.rightIcon} />
     </Button>
   );
-}
+};
 
-export function ReportGenerationForm(props: Props) {
-  const {
-    t,
-    isSubmitting_,
-    classes,
-    reportConfiguration,
-    handleExcelExportation,
-    showDialog,
-    setShowDialog,
-    disableContinue,
-    setDisableContinue,
-  } = props;
+const ReportGenerationForm: React.FC<Props> = ({
+  isSubmitting_,
+  reportConfiguration,
+  values,
+  disableContinue,
+  showDialog,
+  setShowDialog,
+  handleExcelExportation,
+  setDisableContinue,
+}) => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+
+  const handleCloseDialog = useCallback(() => {
+    if (disableContinue) return;
+    setShowDialog(false);
+    setDisableContinue(true);
+  }, [disableContinue, setDisableContinue, setShowDialog]);
+
+  const handleOpenDialog = useCallback(() => {
+    if (disableContinue) return;
+    setShowDialog(false);
+    setDisableContinue(true);
+  }, [disableContinue, setDisableContinue, setShowDialog]);
 
   return (
     <React.Fragment>
       <Dialog
         open={showDialog}
-        onClose={
-          disableContinue
-            ? null
-            : () => {
-                setShowDialog(false);
-                setDisableContinue(true);
-              }
-        }
+        onClose={handleCloseDialog}
         aria-labelledby="popup-excel-report"
         aria-describedby="popup-excel-report"
       >
@@ -131,14 +136,7 @@ export function ReportGenerationForm(props: Props) {
         <DialogActions>
           <Button
             disabled={disableContinue}
-            onClick={
-              disableContinue
-                ? null
-                : () => {
-                    setShowDialog(false);
-                    setDisableContinue(true);
-                  }
-            }
+            onClick={handleOpenDialog}
             color="primary"
             autoFocus
           >
@@ -193,9 +191,7 @@ export function ReportGenerationForm(props: Props) {
           <Grid item>
             <Actions>
               <DownloadButton
-                classes={classes}
-                t={t}
-                values={props.values}
+                values={values}
                 handleExcelExportation={handleExcelExportation}
                 isSubmitting_={isSubmitting_}
               />
@@ -206,9 +202,9 @@ export function ReportGenerationForm(props: Props) {
       </Form>
     </React.Fragment>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(1),
   },
@@ -218,11 +214,9 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-});
+}));
 
 export default compose(
-  withTranslation(),
-  withStyles(styles),
   withFormik({
     mapPropsToValues: ({ initial, reportConfiguration }) => {
       return (

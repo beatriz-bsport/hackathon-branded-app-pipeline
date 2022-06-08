@@ -231,6 +231,14 @@ export const StripePaymentCard = (props: Props) => {
           </div>
         </div>
       )}
+      {!addPaymentMethod && !!props.error && (
+        <div style={{ margin: 8 }}>
+          <StripeErrorCode
+            errorCode={props.error.error_code}
+            declineCode={props.error.decline_code}
+          />
+        </div>
+      )}
       {!addPaymentMethod && !!paymentMethodList.length && (
         <div>
           <PaymentMethodList

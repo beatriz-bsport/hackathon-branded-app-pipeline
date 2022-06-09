@@ -7189,12 +7189,12 @@
         "associatedSubscriptions": "Subscribed members",
         "status": {
             "hasEnded": "Expired subscription",
-            "hasStopped": "Paused subscription",
+            "hasStopped": "Paused",
             "hasNotStartedYet": "Inactive subscription",
             "hasStarted": "Valid subscription"
         },
         "scheduledStop": {
-            "label": "Stop scheduled",
+            "label": "Terminated",
             "unscheduleStop": "Unschedule the stop"
         },
         "end": {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
-import { Theme as MuiTheme } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
@@ -10,6 +10,11 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import '../../vendor/map.css';
 import { getEnv } from '../utils/env';
+import {
+  bridgeRequestRegisteredOfferIdList,
+  bridgeRequestAuthenticationStatus,
+} from '../libs/bridge/actions';
+import { RootState } from '../reducers';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
@@ -21,7 +26,10 @@ type OwnProps = {
   onWindowOpen: (url: string) => void,
 };
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
 type State = {
   filters: any,
@@ -40,6 +48,12 @@ class WorkshopWidget extends Component<Props, State> {
     };
 
     this.state = { filters };
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.authenticated && this.props.authenticated) {
+      this.props.bridgeRequestRegisteredOfferIdList();
+    }
   }
 
   setFilters = (key: any) => {
@@ -64,6 +78,7 @@ class WorkshopWidget extends Component<Props, State> {
     return (
       <div className={classes.container}>
         <MarketplaceWorkshopBaseStyled
+          {...this.props}
           companyId={this.props.companyId}
           filters={this.state.filters}
           setFilters={this.setFilters}
@@ -84,4 +99,17 @@ const styles = (theme: MuiTheme) => ({
   },
 });
 
-export default compose<any, OwnProps>(withStyles(styles))(WorkshopWidget);
+const mapStateToProps = (state: RootState) => ({
+  authenticated: state.bridge.authentication.authenticated,
+  bookedOffers: state.bridge.registeredOffers.ids_list,
+});
+
+const mapDispatchToProps = {
+  bridgeRequestAuthenticationStatus,
+  bridgeRequestRegisteredOfferIdList,
+};
+
+export default compose<any, OwnProps>(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps),
+)(WorkshopWidget);

@@ -1,7 +1,12 @@
 import { TFunction } from 'i18next';
+import memoize from 'memoize-one';
+
 import cloneDeep from 'lodash/cloneDeep';
 import mergeWith from 'lodash/mergeWith';
-import { Permission, Role } from './types';
+import get from 'lodash/get';
+
+import { URLS_PERMISSIONS } from './constants';
+import { Permission, ProtectedUrls, Role } from './types';
 
 export const getRoleName = (role: Role, t: TFunction) => {
   if (role?.editable) {
@@ -29,7 +34,7 @@ export const checkRequiredPermissions = (
 
     return (
       value &&
-      Object.keys(value).some((key) => checkNestedPermission(value[key]))
+      Object.keys(value).some((key) => checkNestedPermission(value?.[key]))
     );
   };
 
@@ -52,6 +57,45 @@ export const checkRequiredPermissions = (
 
   return haveRight;
 };
+
+export const checkRequiredPermissionsForPath = memoize(
+  (url: ProtectedUrls, permissions: Permission) => {
+    const requiredPermissions = URLS_PERMISSIONS[url] ?? [];
+
+    // restricted path are first priority and follow only a "is path included" rule
+    if (permissions.restrictedPaths?.length > 0) {
+      return permissions.restrictedPaths.some((path) => path.includes(url));
+    }
+
+    // if no permissions is provided authorized the access
+    if (requiredPermissions?.length === 0) {
+      return true;
+    }
+
+    // If one permission is valid authorized access
+    return requiredPermissions.some((requiredPermission) => {
+      const accessRight = get(permissions, requiredPermission, undefined);
+
+      if (typeof accessRight === 'boolean') return accessRight;
+
+      // some old right are not fully migrated in this case we check that the parent have at least one
+      // right in this config
+      const parentAccessRight = get(
+        permissions,
+        requiredPermission.split('.').slice(-1).join('.'),
+        undefined,
+      );
+      return (
+        parentAccessRight &&
+        Object.keys(parentAccessRight).some(
+          (key) =>
+            typeof parentAccessRight?.[key] === 'boolean' &&
+            parentAccessRight[key],
+        )
+      );
+    });
+  },
+);
 
 export const parseRestrictedPath = (p: any) => {
   return p

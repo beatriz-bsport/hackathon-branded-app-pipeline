@@ -53,7 +53,10 @@ import Config from '../../../config';
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
-import { checkRequiredPermissions } from '../../../libs/role/utils';
+import {
+  checkRequiredPermissions,
+  checkRequiredPermissionsForPath,
+} from '../../../libs/role/utils';
 import VersionVisualizer from '../../VersionVisualizer.component';
 
 import {
@@ -86,7 +89,6 @@ type DrawerItem =
       subtext?: string | null;
       className?: string;
       to: string | null;
-      permission?: string;
       disabled?: boolean;
       dense?: boolean;
       id?: string;
@@ -102,7 +104,6 @@ type DrawerItem =
       subtext?: string | null;
       className?: string;
       defaultTo?: string;
-      permission?: string;
       nestedItems: DrawerItem[];
     };
 
@@ -138,65 +139,55 @@ const ResponsiveDrawer: React.FC<Props> = ({
       text: t('backofficeMenu.search'),
       icon: Search,
       className: classes.menuMobile,
-      permission: 'member.search',
     },
     { type: 'divider', className: classes.menuMobile },
     {
       to: '/dashboard',
       text: t('backofficeMenu.dashboard'),
       icon: TrendingUp,
-      permission: 'navigationMenu.dashboard',
     },
     { type: 'divider' },
     {
       to: '/calendar',
       icon: DateRangeIcon,
       text: t('backofficeMenu.calendar'),
-      permission: 'navigationMenu.calendar',
     },
     {
       to: '/private-service/calendar/',
       icon: ScheduleIcon,
       text: t('backofficeMenu.schedule'),
-      permission: 'navigationMenu.schedule',
     },
     {
       icon: BusinessCenterIcon,
       text: t('backofficeMenu.myClub'),
       type: 'nested',
-      permission: 'navigationMenu.myClub',
       nestedItems: [
         { type: 'divider' },
         {
           to: '/activity',
           icon: Star,
           text: t('backofficeMenu.activity'),
-          permission: 'navigationMenu.myClub.activities',
         },
         {
           to: '/workshop-activity/tabs/list',
           icon: TodayIcon,
           text: t('backofficeMenu.workshopActivities'),
-          permission: 'navigationMenu.myClub.workshops',
         },
         {
           to: '/private-service/service/',
           icon: ScheduleIcon,
           text: t('backofficeMenu.privateService.services'),
-          permission: 'navigationMenu.myClub.appointments',
         },
         {
           to: '/coach',
           id: 'button_menu_teachers',
           icon: FitnessCenter,
           text: t('backofficeMenu.coaches'),
-          permission: 'navigationMenu.myClub.teachers',
         },
         {
           to: '/establishment/room',
           icon: LocationOn,
           text: t('backofficeMenu.establishment'),
-          permission: 'navigationMenu.myClub.establishments',
         },
         ...(![634, 631, 632, 633, 630].includes(companyId) &&
         !hasUpsellIdentifier(UPSELL_PERFORMANCE_TRACKING_IDENTIFIER)
@@ -206,7 +197,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
                 to: '/performance-tracking',
                 icon: OfflineBoltIcon,
                 text: t('backofficeMenu.programs'),
-                permission: 'navigationMenu.myClub.programs',
               },
             ]),
       ],
@@ -215,51 +205,43 @@ const ResponsiveDrawer: React.FC<Props> = ({
       icon: ShoppingCartIcon,
       text: t('backofficeMenu.product'),
       type: 'nested',
-      permission: 'navigationMenu.products',
       nestedItems: [
         { type: 'divider' },
         {
           to: '/payment-pack',
           icon: VpnKey,
           text: t('backofficeMenu.pass'),
-          permission: 'navigationMenu.products.paymentPack',
         },
         {
           to: '/private-service/pass/',
           icon: ScheduleIcon,
           text: t('backofficeMenu.privateService.pass'),
-          permission: 'navigationMenu.products.privatePass',
         },
         {
           to: '/shop',
           icon: ShoppingCartIcon,
           text: t('backofficeMenu.myShop'),
-          permission: 'navigationMenu.products.shop',
         },
         {
           to: '/combo',
           icon: GroupWorkIcon,
           text: t('backofficeMenu.combo'),
-          permission: 'navigationMenu.products.packs',
         },
         {
           to: '/giftcard/',
           icon: RedeemIcon,
           text: t('backofficeMenu.giftcard'),
-          permission: 'navigationMenu.products.giftcards',
         },
         {
           to: '/coupon/',
           icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
           text: t('backofficeMenu.coupon'),
-          permission: 'navigationMenu.products.promotions',
         },
         { type: 'divider' },
         {
           to: '/subscription/contract',
           icon: Payment,
           text: t('backofficeMenu.contract'),
-          permission: 'navigationMenu.products.contracts',
         },
       ],
     },
@@ -268,44 +250,37 @@ const ResponsiveDrawer: React.FC<Props> = ({
       text: t('backofficeMenu.payment'),
       type: 'nested',
       defaultTo: '/invoice',
-      permission: 'navigationMenu.payments',
       nestedItems: [
         { type: 'divider' },
         {
           to: '/invoice',
           icon: ReceiptIcon,
           text: t('backofficeMenu.invoice'),
-          permission: 'navigationMenu.payments.billings',
         },
         {
           to: '/subscription',
           icon: Payment,
           text: t('backofficeMenu.subscription'),
-          permission: 'navigationMenu.payments.directDebits',
         },
         {
           to: '/coach/performance',
           icon: PersonIcon,
           text: t('backofficeMenu.coachPerformance'),
-          permission: 'navigationMenu.payments.teachers',
         },
         {
           to: '/order/',
           icon: ShoppingCartIcon,
           text: t('backofficeMenu.order'),
-          permission: 'navigationMenu.payments.orders',
         },
         {
           to: '/expense/',
           icon: DescriptionIcon,
           text: t('backofficeMenu.expenses'),
-          permission: 'navigationMenu.payments.expenses',
         },
         {
           to: '/instalment-payment/',
           icon: DoubleArrow,
           text: t('backofficeMenu.instalmentPayment'),
-          permission: 'navigationMenu.payments.installments',
         },
         ...(!hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) ||
         !(
@@ -322,7 +297,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
           : [
               {
                 to: '/clock-in/',
-                permission: 'navigationMenu.payments.clockIn',
                 icon: TimerIcon,
                 text: t('backofficeMenu.clockIn'),
               },
@@ -334,38 +308,32 @@ const ResponsiveDrawer: React.FC<Props> = ({
       text: t('backofficeMenu.message'),
       type: 'nested',
       defaultTo: '/smart-list',
-      permission: 'navigationMenu.marketing',
       nestedItems: [
         { type: 'divider' },
         {
           to: '/email-template',
           icon: Email,
           text: t('backofficeMenu.email_template'),
-          permission: 'navigationMenu.marketing.templates',
         },
         {
           to: '/custom-form',
           icon: AssignmentIcon,
           text: t('backofficeMenu.custom_form'),
-          permission: 'navigationMenu.marketing.customForms',
         },
         {
           to: '/smart-list',
           icon: People,
           text: t('backofficeMenu.smart_list'),
-          permission: 'navigationMenu.marketing.smartlists',
         },
         {
           to: '/marketing/notifications',
           icon: NotificationsActiveIcon,
           text: t('backofficeMenu.marketingNotification'),
-          permission: 'navigationMenu.marketing.notifications',
         },
         {
           to: '/marketing/tags',
           icon: LabelIcon,
           text: t('backofficeMenu.tags'),
-          permission: 'navigationMenu.marketing.tags',
         },
         ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
           ? []
@@ -375,7 +343,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
                 icon: StorageIcon,
                 subtext: t('backofficeMenu.alpha'),
                 text: t('backofficeMenu.sequence'),
-                permission: 'navigationMenu.marketing.strategies',
               },
             ]),
       ],
@@ -384,7 +351,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
       icon: LaptopIcon,
       text: t('backofficeMenu.digital'),
       type: 'nested',
-      permission: 'navigationMenu.digitalOffer',
       nestedItems: [
         { type: 'divider' },
         {
@@ -393,7 +359,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
           disabled: true,
           to: '/vod/video',
           subtext: t('backofficeMenu.alpha'),
-          permission: 'navigationMenu.digitalOffer.videos',
         },
         {
           icon: PlaylistPlayIcon,
@@ -401,7 +366,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
           disabled: true,
           to: '/vod/playlist',
           subtext: t('backofficeMenu.alpha'),
-          permission: 'navigationMenu.digitalOffer.playlists',
         },
       ],
     },
@@ -409,51 +373,43 @@ const ResponsiveDrawer: React.FC<Props> = ({
       to: '/member',
       icon: People,
       text: t('backofficeMenu.member'),
-      permission: 'navigationMenu.member',
     },
     {
       to: '/reporting',
       icon: DescriptionIcon,
       text: t('backofficeMenu.reporting'),
-      permission: 'navigationMenu.reporting',
     },
     { type: 'divider' },
     {
       icon: SettingsIcon,
       text: t('backofficeMenu.settings.settings'),
       type: 'nested',
-      permission: 'navigationMenu.settings',
       nestedItems: [
         { type: 'divider' },
         {
           to: '/settings/general',
           dense: true,
           text: t('backofficeMenu.settings.general'),
-          permission: 'navigationMenu.settings.generals',
         },
         {
           to: '/settings/marketplace-settings',
           dense: true,
           text: t('backofficeMenu.settings.marketplaceSettings'),
-          permission: 'navigationMenu.settings.marketplace',
         },
         {
           to: '/settings/widget',
           dense: true,
           text: t('backofficeMenu.settings.widget'),
-          permission: 'navigationMenu.settings.widgets',
         },
         {
           to: '/settings/role',
           dense: true,
           text: t('backofficeMenu.settings.role'),
-          permission: 'navigationMenu.settings.staffs',
         },
         {
           to: '/settings/personalization',
           dense: true,
           text: t('backofficeMenu.settings.personalization'),
-          permission: 'navigationMenu.settings.personalization',
         },
         ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP) &&
         Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
@@ -462,7 +418,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
                 to: '/settings/mobile-personalization',
                 dense: true,
                 text: t('backofficeMenu.settings.mobilePersonalization'),
-                permission: 'navigationMenu.settings.mobilePersonalization',
               },
             ]
           : []),
@@ -470,85 +425,71 @@ const ResponsiveDrawer: React.FC<Props> = ({
           to: '/settings/forms',
           dense: true,
           text: t('backofficeMenu.settings.forms'),
-          permission: 'navigationMenu.settings.memberForms',
         },
         {
           to: '/settings/broadcast',
           dense: true,
           text: t('backofficeMenu.settings.broadcast'),
-          permission: 'navigationMenu.settings.liveStreaming',
         },
         {
           to: '/settings/notification-rule',
           dense: true,
           text: t('backofficeMenu.settings.notificationRule'),
-          permission: 'navigationMenu.settings.transactionnalEmail',
         },
         {
           to: '/settings/payment-rules',
           dense: true,
           text: t('backofficeMenu.settings.paymentRules'),
-          permission: 'navigationMenu.settings.teacherPayrollRules',
         },
         {
           to: '/settings/payment-methods',
           dense: true,
           text: t('backofficeMenu.settings.paymentMethod'),
-          permission: 'navigationMenu.settings.paymentMethods',
         },
         {
           to: '/settings/company',
           dense: true,
           text: t('backofficeMenu.settings.company'),
-          permission: 'navigationMenu.settings.company',
         },
         {
           to: '/settings/invoice',
           dense: true,
           text: t('backofficeMenu.settings.invoice'),
-          permission: 'navigationMenu.settings.billing',
         },
         {
           to: '/settings/waiting-list',
           dense: true,
           text: t('backofficeMenu.settings.waitingList'),
-          permission: 'navigationMenu.settings.waitingList',
         },
         {
           to: '/settings/shop',
           dense: true,
           text: t('backofficeMenu.settings.shop'),
-          permission: 'navigationMenu.settings.webShop',
         },
         {
           to: '/settings/webhook',
           dense: true,
           text: t('backofficeMenu.settings.webhook'),
-          permission: 'navigationMenu.settings.webHook',
         },
         {
           to: '/settings/partnership',
           dense: true,
           text: t('backofficeMenu.settings.partnership'),
-          permission: 'navigationMenu.settings.partnership',
         },
         {
           to: '/settings/quickbooks',
           dense: true,
           text: t('backofficeMenu.settings.quickbooks'),
-          permission: 'navigationMenu.settings.quickBooks',
         },
         {
           to: '/settings/active-campaign',
           dense: true,
           text: t('backofficeMenu.settings.active_campaign'),
-          permission: 'navigationMenu.settings.activeCampaign',
         },
         {
           to: '/settings/platform-billing',
           dense: true,
           text: t('backofficeMenu.settings.platform_billing'),
-          permission: 'navigationMenu.settings.subscription',
         },
       ],
     },
@@ -566,18 +507,14 @@ const ResponsiveDrawer: React.FC<Props> = ({
     isNested?: boolean,
   ) => {
     const isActive = location.pathname.startsWith(item.to);
-    if (item?.permission) {
-      if (!checkRequiredPermissions(item?.permission, permissions)) {
-        return null;
-      }
+    if (!checkRequiredPermissionsForPath(item?.to, permissions)) {
+      return null;
     }
-
     if (item?.nestedItems) {
       if (
         !item?.nestedItems.some(
           (_item) =>
-            _item?.permission &&
-            checkRequiredPermissions(_item?.permission, permissions),
+            _item.to && checkRequiredPermissionsForPath(_item?.to, permissions),
         )
       ) {
         return null;

@@ -1,5 +1,6 @@
 import {
   checkRequiredPermissions,
+  checkRequiredPermissionsForPath,
   deepMerge,
   setAllValuesInObject,
 } from '../utils';
@@ -96,7 +97,7 @@ const permissionA: Permission = {
   },
 };
 
-describe('TEST OFFER UTILS', () => {
+describe('TEST check on permissions', () => {
   it('Check requiredPermissions', () => {
     expect(
       checkRequiredPermissions('navigationMenu.calendar', permissionA),
@@ -133,6 +134,27 @@ describe('TEST OFFER UTILS', () => {
         permissionA,
       ),
     ).toBe(false);
+  });
+});
+
+describe('TEST check on path', () => {
+  it('Check requiredPath', () => {
+    expect(checkRequiredPermissionsForPath('/calendar', permissionA)).toBe(
+      true,
+    );
+    expect(checkRequiredPermissionsForPath('/search', permissionA)).toBe(true);
+    expect(checkRequiredPermissionsForPath('/vod/video', permissionA)).toBe(
+      false,
+    );
+    expect(
+      checkRequiredPermissionsForPath('/email-template', permissionA),
+    ).toBe(true);
+
+    expect(checkRequiredPermissionsForPath('/search', permissionA)).toBe(true);
+    // Should send true if the url is not known
+    expect(checkRequiredPermissionsForPath('/toto', permissionA)).toBe(true);
+    // Should send true if the permission array is empty
+    expect(checkRequiredPermissionsForPath('/empty', permissionA)).toBe(true);
   });
 });
 

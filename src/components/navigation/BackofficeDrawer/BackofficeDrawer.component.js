@@ -67,6 +67,8 @@ import { LastClockIn } from '#libs/clock-in/types';
 import { UPSELL_IDENTIFIER_CLOCK_IN } from '#libs/platform-billing/upsell-identifiers';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 
+import ProtectedRoutes from '#components/navigation/ProtectedRoutes.component';
+
 export const drawerWidth = 260;
 
 type Props = {
@@ -703,7 +705,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
             <StripeOnboardingBanner
               stripeOnboardingPending={this.props.stripeOnboardingPending}
             />
-            {this.props.children}
+            <ProtectedRoutes>{this.props.children}</ProtectedRoutes>
           </div>
         </div>
       );
@@ -839,7 +841,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
               <StripeOnboardingBanner
                 stripeOnboardingPending={this.props.stripeOnboardingPending}
               />
-              {this.props.children}
+              <ProtectedRoutes>{this.props.children}</ProtectedRoutes>
             </main>
           </div>
         )}

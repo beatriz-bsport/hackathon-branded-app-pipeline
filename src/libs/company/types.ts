@@ -37,7 +37,10 @@ export type CompanySetup = {
   bank_account_entity_type: string;
 };
 
-type UpsellSumup = { upsell_identifier: number; readable_identifier: number };
+export type UpsellSumup = {
+  upsell_identifier: number;
+  readable_identifier: number;
+};
 
 export type CompanyState = {
   byId: {

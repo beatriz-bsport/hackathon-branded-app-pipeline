@@ -270,35 +270,40 @@ export class CreateRoleDialog extends React.Component<Props, State> {
               disabled={disabled}
             />
 
-            <div className={classes.marginTop2} />
-            <Typography variant="h6">
-              {t('forms.role.create.permissions')}
-            </Typography>
-            <div className={classes.marginTop1} />
+            {this.state.permissions.restrictedPaths.length === 0 && (
+              <>
+                <div className={classes.marginTop2} />
+                <Typography variant="h6">
+                  {t('forms.role.create.permissions')}
+                </Typography>
+                <div className={classes.marginTop1} />
 
-            <div className={classes.checkboxesContainer}>
-              {Object.keys(this.state.permissions)
-                .filter((key) => !HIDDEN_PARAMS.includes(key))
-                .map((key) => (
-                  <RecursiveCheckBoxComponent
-                    key={key}
-                    rightKey={key}
-                    checkBoxData={this.state.permissions}
-                    keysAccumulator={[key]}
-                    disabled={this.props.role && !this.props.role.editable}
-                    permissions={this.state.permissions}
-                    updatePermission={(permissions) => {
-                      this.setState({
-                        permissions,
-                      });
-                    }}
-                  />
-                ))}
-            </div>
+                <div className={classes.checkboxesContainer}>
+                  {Object.keys(this.state.permissions)
+                    .filter((key) => !HIDDEN_PARAMS.includes(key))
+                    .map((key) => (
+                      <RecursiveCheckBoxComponent
+                        key={key}
+                        rightKey={key}
+                        checkBoxData={this.state.permissions}
+                        keysAccumulator={[key]}
+                        disabled={this.props.role && !this.props.role.editable}
+                        permissions={this.state.permissions}
+                        updatePermission={(permissions) => {
+                          this.setState({
+                            permissions,
+                          });
+                        }}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
 
             <div className={classes.marginTop4} />
 
-            {!this.state.showAdvanced ? (
+            {!this.state.showAdvanced &&
+            this.state.permissions.restrictedPaths.length === 0 ? (
               <ButtonBase onClick={() => this.setState({ showAdvanced: true })}>
                 <Typography color="primary">
                   {t('forms.role.create.showAdvanced')}

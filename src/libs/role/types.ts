@@ -9,22 +9,22 @@ export type UserRoleData = {
 
 export type Permission = {
   offer: {
-    delete: boolean; // X
-    edit: boolean; // X
-    create: boolean; // X
-  };
-  member: {
-    search: boolean; // X
-    retrieve: boolean; // X
+    delete: boolean;
+    edit: boolean;
     create: boolean;
   };
-  checkin: boolean; // X
-  navigation: boolean; // X
+  member: {
+    search: boolean;
+    retrieve: boolean;
+    create: boolean;
+  };
+  checkin: boolean;
+  navigation: boolean;
   appbarButtons: {
     ledger: boolean;
     notificationCenter: boolean;
   };
-  restrictedPaths: string[]; // X
+  restrictedPaths: string[];
   navigationMenu: {
     dashboard: boolean;
     calendar: boolean;
@@ -132,3 +132,86 @@ export type RoleState = ErrorAndLoading & {
   };
   createOrUpdate: ErrorAndLoading;
 };
+
+export type ProtectedUrls =
+  | '/activity'
+  | '/activity/add'
+  | '/add-offers'
+  | '/calendar'
+  | '/clock-in/history'
+  | '/clock-in/real-time'
+  | '/coach'
+  | '/coach/edit'
+  | '/coach/performance'
+  | '/combo'
+  | '/coupon'
+  | '/custom-form'
+  | '/custom-form/details'
+  | '/dashboard'
+  | '/email-template'
+  | '/email-template/create'
+  | '/empty'
+  | '/establishment'
+  | '/establishment/add'
+  | '/establishment/details'
+  | '/establishment/edit'
+  | '/establishment/location'
+  | '/establishment/room'
+  | '/expense'
+  | '/giftcard'
+  | '/instalment-payment'
+  | '/invoice'
+  | '/invoice/bill-member'
+  | '/marketing'
+  | '/marketing/notifications'
+  | '/marketing/rule'
+  | '/marketing/strategies'
+  | '/marketing/tags'
+  | '/member'
+  | '/member/add'
+  | '/member/edit'
+  | '/offer'
+  | '/order'
+  | '/payment-pack'
+  | '/performance-tracking'
+  | '/private-service'
+  | '/private-service/calendar'
+  | '/private-service/pass'
+  | '/private-service/service'
+  | '/reporting'
+  | '/schedule'
+  | '/search'
+  | '/search/results'
+  | '/settings/active-campaign'
+  | '/settings/broadcast'
+  | '/settings/company_onboarding'
+  | '/settings/company'
+  | '/settings/forms'
+  | '/settings/general'
+  | '/settings/invoice'
+  | '/settings/marketplace-settings'
+  | '/settings/mobile-personalization'
+  | '/settings/notification-rule'
+  | '/settings/partnership'
+  | '/settings/payment-methods'
+  | '/settings/payment-rules'
+  | '/settings/personalization'
+  | '/settings/platform-billing'
+  | '/settings/quickbooks'
+  | '/settings/role'
+  | '/settings/shop'
+  | '/settings/waiting-list'
+  | '/settings/webhook'
+  | '/settings/widget'
+  | '/shop'
+  | '/smart-list'
+  | '/spot-scheduling'
+  | '/subscription'
+  | '/subscription/contract'
+  | '/vod/playlist'
+  | '/vod/video'
+  | '/workshop-activity'
+  | '/workshop-activity/add'
+  | '/workshop-activity/tabs'
+  | '/workshop-activity/tabs/groups'
+  | '/workshop-activity/tabs/list';

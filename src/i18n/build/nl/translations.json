@@ -1811,7 +1811,7 @@
                 "name": {
                     "helperText": "Dit is de weergavenaam van je studio voor je leden.",
                     "placeholder": "Yoga Shala",
-                    "label": "Naam van je studio"
+                    "label": "Handelsnaam"
                 },
                 "title": "Mijn informatie",
                 "timezone": {
@@ -2387,7 +2387,7 @@
         "form": {
             "paymentPack": {
                 "name": {
-                    "helperText": "Naam van de leskaart",
+                    "helperText": "Naam van de leskaart.",
                     "label": "Naam"
                 },
                 "priceIncludingTax": {
@@ -2508,7 +2508,7 @@
                 },
                 "only_vod_access": "Alleen geschikt voor Video On Demand",
                 "category": {
-                    "helperText": "Naam van de categorie",
+                    "helperText": "Naam van de categorie.",
                     "label": "(Optioneel) Categorie"
                 },
                 "error": {
@@ -2558,7 +2558,7 @@
         "validity": "Geldig van ",
         "consumer": {
             "isFromShare": "Gedeeld met een ander account",
-            "isFromDisabledShare": "Delen is gestopt",
+            "isFromDisabledShare": "Delen is uitgezet",
             "expiresOn": "Verloopt op: ",
             "bookingsThisWeek": "reservering(en) deze week",
             "isOwnerOfShares": "Gedeelde kaart"
@@ -5040,7 +5040,7 @@
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
             "revertCurrentExplainHelper": "Als de betaling geldig was, dan zal het lid een tegoed ontvangen. Je kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. De schuld wordt kwijt gescholden indien de betaling mislukte.",
             "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
-            "stop": "Stoppen",
+            "stop": "Beëindigen",
             "planStop": "Beëindigen"
         },
         "paymentMethod": {
@@ -5118,7 +5118,7 @@
                 "changeDate": "Wijzig de datum",
                 "showInvoice": "Toon factuur",
                 "changePrice": "Wijzig de prijs",
-                "stop": "Na deze factuur stoppen",
+                "stop": "Na deze factuur beëindigen",
                 "disableAutoRenew": "Deactiveer automatische verleningen",
                 "enableAutoRenew": "Activeer automatische verleningen"
             },
@@ -5130,7 +5130,7 @@
                 "title": "[Formulier] Beëindiging",
                 "explain": "Selecteer de laatste betaling voor dit abonnement:",
                 "summary": "De laatste betaling wordt op {{-date}} verwerkt en dit komt overeen met de laatste kaart.",
-                "listItem": "Geplande opzegging van het abonnement"
+                "listItem": "Geplande beëindigen van dit abonnement"
             },
             "invoice": {
                 "label": "Factuur: {{uuid}} - {{price}}"
@@ -5172,7 +5172,7 @@
         },
         "plannedInvoice": {
             "priceUpdater": {
-                "title": "Wijzig toekomstig bedrag",
+                "title": "[Formulier] Betaalwijziging",
                 "price": "Nieuw bedrag",
                 "explain": "Alleen deze factuur wordt gewijzigd",
                 "cancel": "Annuleren",
@@ -5184,7 +5184,7 @@
                 "titleNext": "Eerstvolgende incasso's"
             },
             "dateUpdater": {
-                "title": "Wijzig de toekomstige factuur",
+                "title": "Wijzig toekomstige facturen",
                 "actions": {
                     "submit": "Opslaan",
                     "cancel": "Annuleren"
@@ -5261,7 +5261,7 @@
         },
         "subscriptionStatus": {
             "pending": "Openstaande factuur",
-            "canceledOn": "Gestopt op ",
+            "canceledOn": "Beëindigd op ",
             "hasEnded": "Facturatie voltooid",
             "isPaused": "Gepauzeerd"
         },
@@ -5275,20 +5275,20 @@
             "valid": "Geldig",
             "paused": "Gepauzeerd",
             "expired": "Verlopen",
-            "canceled": "Gestopt",
+            "canceled": "Beëindigd",
             "subscribedOn": "Startdatum abonnement: {{- date}}"
         },
         "noAssociatedSubscription": "Er zijn nog geen geabonneerde leden om weer te geven.",
         "associatedSubscriptions": "Geabonneerde leden",
         "status": {
-            "hasEnded": "Verlopen",
+            "hasEnded": "Beëindigd",
             "hasStopped": "Gepauzeerd",
             "hasNotStartedYet": "Inactief",
             "hasStarted": "Actief"
         },
         "scheduledStop": {
-            "unscheduleStop": "Stop uitschakelen",
-            "label": "Stopgezet"
+            "unscheduleStop": "Beëindigen terugdraaien",
+            "label": "Beëindigd"
         },
         "end": {
             "renew": "Automatische verlenging",
@@ -6259,7 +6259,7 @@
                 "addedOn": "Toegevoegd op ",
                 "nbDaysAdded": "+{{nb_days}} dagen"
             },
-            "isFromDisabledShare": "Delen gestopt",
+            "isFromDisabledShare": "Delen is uitgezet",
             "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
             "isFromShare": "Deze kaart wordt met een ander account gedeeld.",
             "warningShareUniversal": "Gelieve de gekoppelde kaarten i.p.v. de universele kaart delen"
@@ -6304,7 +6304,7 @@
                 },
                 "name": {
                     "label": "Naam",
-                    "helperText": "Naam van de afspraakkaart"
+                    "helperText": "Naam van de afspraakkaart."
                 },
                 "tax": {
                     "label": "Btw"
@@ -7609,9 +7609,9 @@
                 "error": "Fout bij het inschrijven"
             },
             "stop": {
-                "error": "Het abonnement kan momenteel niet worden stopgezet",
-                "warning": "Kan momenteel niet worden stopgezet. Is er een betaling in behandeling?",
-                "success": "Het abonnement is stopgezet"
+                "error": "Het abonnement kan momenteel niet worden beëindigd",
+                "warning": "Fout bij het beëindigen van dit abonnement. Is er een betaling in behandeling?",
+                "success": "Het abonnement is beëindigd"
             },
             "contract": {
                 "restore": {
@@ -7990,8 +7990,8 @@
                 "success": "Geplande beëindiging van het abonnement"
             },
             "delete": {
-                "success": "De geplande opzegging van het abonnement is verwijderd",
-                "error": "De geplande opzegging van het abonnement kan niet worden verwijderd"
+                "success": "De geplande beëindiging van dit abonnement is verwijderd",
+                "error": "De geplande beëindiging van dit abonnement kan niet worden verwijderd"
             }
         },
         "dashboard": {
@@ -8362,9 +8362,9 @@
                     "cancel": "Annuleren"
                 },
                 "unlink": {
-                    "title": "Stop met delen",
+                    "title": "Delen uitzetten",
                     "explain": "Het delen wordt gestopt. De masterkaart blijft wel geldig",
-                    "submit": "Stoppen",
+                    "submit": "Uitzetten",
                     "cancel": "Annuleren"
                 },
                 "relink": {
@@ -8419,8 +8419,8 @@
                 "unlink": {
                     "cancel": "Annuleer",
                     "submit": "Stop",
-                    "explain": "Het delen wordt gestopt. De mastercard is nog steeds bruikbaar.",
-                    "title": "Stop delen"
+                    "explain": "Het delen wordt uitgezet. De master-afspraakkaart is nog steeds bruikbaar.",
+                    "title": "Delen uitzetten"
                 },
                 "create": {
                     "noConsumerPackToLink": "Geen deelbare kaarten",
@@ -9339,7 +9339,7 @@
             },
             "title": "Mijn winkelmandje",
             "isEmpty": "Je winkelmandje is nog leeg.",
-            "featured": "Onze aanbevelingen",
+            "featured": "Aanbevelingen",
             "error": {
                 "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd."
             },
@@ -9755,7 +9755,7 @@
                 "delete": "Annuleren",
                 "registerNow": "Uitbetalen",
                 "enable": "Aanzetten",
-                "disable": "Stopzetten",
+                "disable": "Beëindigen",
                 "changeMethod": "Betaalmethode wijzigen"
             },
             "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien.",

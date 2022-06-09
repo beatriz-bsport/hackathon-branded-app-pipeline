@@ -53,7 +53,7 @@ type Props = {
 
   ListItemComponent: ListItem;
   width: string | number;
-
+  hideTitle?: boolean;
   noCategoryHelper: string;
 };
 
@@ -121,12 +121,10 @@ const SortableListItem = React.memo((props: ListItemProps) => {
         draggable={props.draggable}
         item={item}
         divider
-        onEdit={props.onEdit ? () => props.onEdit(item.id) : null}
-        onDelete={props.onDelete ? () => props.onDelete(item.id) : null}
-        onClick={props.onClick ? () => props.onClick(item.id) : null}
-        onDuplicate={
-          props.onDuplicate ? () => props.onDuplicate(item.id) : null
-        }
+        onEdit={props?.onEdit}
+        onDelete={props?.onDelete}
+        onClick={props?.onClick}
+        onDuplicate={props?.onDuplicate}
         selected={props.selectedItem === item.id}
         key={item.id}
         disabled={false}

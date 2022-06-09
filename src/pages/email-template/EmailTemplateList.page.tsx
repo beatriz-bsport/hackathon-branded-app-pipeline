@@ -236,28 +236,16 @@ export class MarketingEmail extends Component<Props, State> {
                           key={`search-${email.id}`}
                           email={email}
                           selected={email.id === this.props.id}
-                          navigateTo={() => {
-                            this.selected(email.id);
-                          }}
+                          navigateTo={this.selected}
                           onEdit={
-                            email.company_id
-                              ? () => {
-                                  this.props.goToEdit(email.id);
-                                }
-                              : undefined
+                            email.company_id ? this.props.goToEdit : undefined
                           }
                           onDuplicate={
-                            email.company_id
-                              ? () => {
-                                  this.onDuplicate(email.id);
-                                }
-                              : undefined
+                            email.company_id ? this.onDuplicate : undefined
                           }
                           onDelete={
                             email.company_id
-                              ? () => {
-                                  this.props.emailTemplateDelete(email.id);
-                                }
+                              ? this.props.emailTemplateDelete
                               : undefined
                           }
                           search={this.state.searchText}

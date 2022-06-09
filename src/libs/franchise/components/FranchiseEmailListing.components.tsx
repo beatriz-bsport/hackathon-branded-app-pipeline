@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-
 import { compose } from 'recompose';
 import { Divider, List, makeStyles, Theme } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -10,28 +9,32 @@ import FuzzySearch from '../../../components/search/FuzzySearch.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
 import { FranchiseCompany } from '../types';
 import EmailListItem from '../../email-editor/components/EmailListItem.components';
+import EmailVirtualizedList from '../../email-virtualized-editor';
 
 export type OwnProps = {
   franchiseEmails: EmailTemplateSummary[];
   companiesEmails: EmailTemplateSummary[];
+  emails: EmailTemplateSummary[];
   selectedId?: number;
   companyDic: Record<number, FranchiseCompany>;
   isGrouped: boolean;
-  navigateTo: (emailId: number) => () => void;
-  onEdit: (emailId: number) => () => void;
-  onDuplicate: (emailId: number) => () => void;
-  onDelete: (emailId: number) => () => void;
+  navigateTo: (emailId: number) => void;
+  onEdit: (emailId: number) => void;
+  onDuplicate: (emailId: number) => void;
+  onDelete: (emailId: number) => void;
   saveFilter: (value: boolean) => void;
+  useVirtualizedList: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
+
+const orderByTitle = (a: EmailTemplateSummary, b: EmailTemplateSummary) =>
+  a.title.localeCompare(b.title);
 
 const FranchiseEmailListing = (props: Props) => {
   const {
     selectedId,
     companyDic,
-    companiesEmails,
-    franchiseEmails,
     isGrouped,
     navigateTo,
     onEdit,
@@ -39,7 +42,16 @@ const FranchiseEmailListing = (props: Props) => {
     onDelete,
     saveFilter,
     t,
+    emails,
+    useVirtualizedList,
   } = props;
+
+  const franchiseEmails = [...emails]
+    .filter((email) => email.company_id === null)
+    .sort(orderByTitle);
+  const companiesEmails = [...emails]
+    .filter((email) => email.company_id !== null)
+    .sort(orderByTitle);
 
   const classes = useStyles();
 
@@ -63,7 +75,7 @@ const FranchiseEmailListing = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className={classes.container}>
       <FuzzySearch
         items={[...franchiseEmails, ...companiesEmails]}
         placeholder={t('emails.searchPlaceholder')}
@@ -75,10 +87,10 @@ const FranchiseEmailListing = (props: Props) => {
                 key={`search_franchise_${email.id}`}
                 email={email}
                 selectedId={selectedId}
-                navigateTo={navigateTo(email.id)}
-                onEdit={onEdit(email.id)}
-                onDuplicate={onDuplicate(email.id)}
-                onDelete={onDelete(email.id)}
+                navigateTo={navigateTo}
+                onEdit={onEdit}
+                onDuplicate={onDuplicate}
+                onDelete={onDelete}
                 search={search}
                 companies={email?.available_for_companies.map(
                   (comp) => companyDic?.[comp],
@@ -87,6 +99,7 @@ const FranchiseEmailListing = (props: Props) => {
                   email?.available_for_companies.length ===
                   Object.keys(companyDic).length
                 }
+                virtualized
               />
             );
           }
@@ -96,11 +109,12 @@ const FranchiseEmailListing = (props: Props) => {
                 key={`search_company_${email.id}`}
                 email={email}
                 selectedId={selectedId}
-                navigateTo={navigateTo(email.id)}
-                onEdit={onEdit(email.id)}
-                onDelete={onDelete(email.id)}
+                navigateTo={navigateTo}
+                onEdit={onEdit}
+                onDelete={onDelete}
                 search={search}
                 companies={[companyDic?.[email.company_id]]}
+                virtualized
               />
             );
           }
@@ -133,92 +147,113 @@ const FranchiseEmailListing = (props: Props) => {
           />
         </div>
       </div>
-      <div className={classes.scroll}>
-        {franchiseEmails.length > 0 && (
-          <div className={classes.franchisedBlock}>
-            <Typography className={classes.title} variant="h5">
-              {t('emails.franchiseEmails')}
-            </Typography>
-            <List className={classes.list}>
-              {franchiseEmails.map((email) => (
-                <EmailListItem
-                  key={`franchise-${email.id}`}
-                  email={email}
-                  selectedId={selectedId}
-                  navigateTo={navigateTo(email.id)}
-                  onEdit={onEdit(email.id)}
-                  onDuplicate={onDuplicate(email.id)}
-                  onDelete={onDelete(email.id)}
-                  companies={email?.available_for_companies.map(
-                    (comp) => companyDic?.[comp],
-                  )}
-                  allCompanies={
-                    email?.available_for_companies.length ===
-                    Object.keys(companyDic).length
-                  }
-                />
-              ))}
-            </List>
-          </div>
-        )}
-        {companiesEmails.length > 0 && (
-          <>
-            <Typography className={classes.title} variant="h5">
-              {t('emails.companiesEmails')}
-            </Typography>
-            {isGrouped && (
-              <>
-                {companiesEmailsByCompanyId &&
-                  Object.keys(companiesEmailsByCompanyId).map((companyId) => (
-                    <React.Fragment key={`company-${companyId}`}>
-                      <Typography
-                        className={classes.companyTitle}
-                        variant="body1"
-                      >
-                        {companyDic?.[parseInt(companyId)]?.name}
-                      </Typography>
-                      <Divider className={classes.divider} />
-                      <List className={classes.list}>
-                        {companiesEmailsByCompanyId[parseInt(companyId)]?.map(
-                          (email) => (
-                            <EmailListItem
-                              key={`group-by-${email.id}`}
-                              email={email}
-                              selectedId={selectedId}
-                              navigateTo={navigateTo(email.id)}
-                              onEdit={onEdit(email.id)}
-                              onDelete={onDelete(email.id)}
-                            />
-                          ),
-                        )}
-                      </List>
-                    </React.Fragment>
-                  ))}
-              </>
-            )}
-            {!isGrouped && (
+      {!useVirtualizedList ? (
+        <div className={classes.scroll}>
+          {franchiseEmails.length > 0 && (
+            <div className={classes.franchisedBlock}>
+              <Typography className={classes.title} variant="h5">
+                {t('emails.franchiseEmails')}
+              </Typography>
               <List className={classes.list}>
-                {companiesEmails.map((email) => (
+                {franchiseEmails.map((email) => (
                   <EmailListItem
-                    key={email.id}
+                    key={`franchise-${email.id}`}
                     email={email}
                     selectedId={selectedId}
-                    navigateTo={navigateTo(email.id)}
-                    onEdit={onEdit(email.id)}
-                    onDelete={onDelete(email.id)}
-                    companies={[companyDic?.[email.company_id]]}
+                    navigateTo={navigateTo}
+                    onEdit={onEdit}
+                    onDuplicate={onDuplicate}
+                    onDelete={onDelete}
+                    companies={email?.available_for_companies.map(
+                      (comp) => companyDic?.[comp],
+                    )}
+                    allCompanies={
+                      email?.available_for_companies.length ===
+                      Object.keys(companyDic).length
+                    }
                   />
                 ))}
               </List>
-            )}
-          </>
-        )}
-      </div>
+            </div>
+          )}
+          {companiesEmails.length > 0 && (
+            <>
+              <Typography className={classes.title} variant="h5">
+                {t('emails.companiesEmails')}
+              </Typography>
+              {isGrouped && (
+                <>
+                  {companiesEmailsByCompanyId &&
+                    Object.keys(companiesEmailsByCompanyId).map((companyId) => (
+                      <React.Fragment key={`company-${companyId}`}>
+                        <Typography
+                          className={classes.companyTitle}
+                          variant="body1"
+                        >
+                          {companyDic?.[parseInt(companyId)]?.name}
+                        </Typography>
+                        <Divider className={classes.divider} />
+                        <List className={classes.list}>
+                          {companiesEmailsByCompanyId[parseInt(companyId)]?.map(
+                            (email) => (
+                              <EmailListItem
+                                key={`group-by-${email.id}`}
+                                email={email}
+                                selectedId={selectedId}
+                                navigateTo={navigateTo}
+                                onEdit={onEdit}
+                                onDelete={onDelete}
+                              />
+                            ),
+                          )}
+                        </List>
+                      </React.Fragment>
+                    ))}
+                </>
+              )}
+              {!isGrouped && (
+                <List className={classes.list}>
+                  {companiesEmails.map((email) => (
+                    <EmailListItem
+                      key={email.id}
+                      email={email}
+                      selectedId={selectedId}
+                      navigateTo={navigateTo}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                      companies={[companyDic?.[email.company_id]]}
+                    />
+                  ))}
+                </List>
+              )}
+            </>
+          )}
+        </div>
+      ) : (
+        <EmailVirtualizedList
+          emails={emails}
+          isGrouped={isGrouped}
+          navigateTo={navigateTo}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onDuplicate={onDuplicate}
+          selectedId={selectedId}
+          companyDic={companyDic}
+          companiesEmailsByCompanyId={companiesEmailsByCompanyId}
+          t={t}
+        />
+      )}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    marginBottom: theme.spacing(2),
+  },
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
@@ -228,11 +263,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   list: {
     backgroundColor: 'white',
-    marginBottom: theme.spacing(2),
     borderRadius: 5,
     boxShadow: theme.shadows[1],
     paddingTop: 0,
     paddingBottom: 0,
+    alignItems: 'center',
   },
   scroll: {
     maxHeight: '75vh',

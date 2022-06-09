@@ -1,20 +1,27 @@
 import React from 'react';
-
+import { compose } from 'recompose';
+import classNames from 'classnames';
 import {
   Chip,
   ListItem,
   ListItemIcon,
-  makeStyles,
   MenuItem,
   Theme,
+  withStyles,
+  WithStyles,
+  createStyles,
+  Hidden,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import {
+  useTranslation,
+  withTranslation,
+  WithTranslation,
+} from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import { TFunction } from 'i18next';
 
@@ -32,11 +39,11 @@ export type OwnProps = {
   item?: EmailTemplateSummary;
   email?: EmailTemplateSummary;
   selected?: boolean;
-  navigateTo?: () => void;
-  onClick?: () => void;
-  onEdit?: () => void;
-  onDuplicate?: () => void;
-  onDelete?: () => void;
+  navigateTo?: (id: number) => void;
+  onClick?: (id: number) => void;
+  onEdit?: (id: number) => void;
+  onDuplicate?: (id: number) => void;
+  onDelete?: (id: number) => void;
   onRestore?: () => void;
   disabled?: boolean;
   search?: string;
@@ -44,6 +51,7 @@ export type OwnProps = {
   allCompanies?: boolean;
   draggable?: boolean;
   listeners?: DraggableSyntheticListeners;
+  virtualized?: boolean;
   attributes?: {
     role: string;
     tabIndex: number;
@@ -51,7 +59,10 @@ export type OwnProps = {
     'aria-roledescription': string;
     'aria-describedby': string;
   };
+  heightItem?: number;
 };
+
+type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
 const DeleteButton = (props: { onClick: () => void }) => (
   <IconButton
@@ -102,134 +113,236 @@ const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
   ),
 });
 
-const EmailListItem = (props: OwnProps) => {
-  const {
-    selected,
-    onEdit,
-    onDuplicate,
-    navigateTo,
-    onDelete,
-    companies,
-    allCompanies,
-    search,
-    onRestore,
-  } = props;
-  const classes = useStyles();
-  const { t } = useTranslation(['emailTemplate']);
-  const email = props.item ? props.item : props.email;
+class EmailListItem extends React.PureComponent<Props> {
+  renderChildren = (containerStyle: any, virtualized: boolean) => {
+    const { companies, allCompanies, search, onRestore, item, classes, t } =
+      this.props;
+    const email = item || this.props.email;
 
-  if (!email) return null;
-  return (
-    <ListItem
-      button={!props.disabled}
-      onClick={navigateTo || props.onClick}
-      selected={selected}
-      className={classes.listItem}
-      divider
-    >
-      {props.draggable && (
-        <IconButton {...props.listeners} {...props.attributes}>
-          <DragHandleIcon />
-        </IconButton>
-      )}
-      <div className={classes.innerList}>
-        <ListItemText
-          primary={
-            <Typography component="span" variant="subtitle1">
+    const onDelete = this.props.onDelete
+      ? () => this.props.onDelete(email.id)
+      : undefined;
+
+    const onDuplicate = this.props.onDuplicate
+      ? () => this.props.onDuplicate(email.id)
+      : undefined;
+
+    const onEdit = this.props.onEdit
+      ? () => this.props.onEdit(email.id)
+      : undefined;
+
+    return (
+      <div className={containerStyle}>
+        {this.props.draggable && (
+          <IconButton {...this.props.listeners} {...this.props.attributes}>
+            <DragHandleIcon />
+          </IconButton>
+        )}
+        <div className={classes.innerList}>
+          <div className={classes.textAndChipsContainer}>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              className={classNames({ [classes.ellipsisStyle]: virtualized })}
+            >
               <HighlightedText text={email.title} highlight={search} />
             </Typography>
-          }
-          secondary={
-            <HighlightedText text={email.subject} highlight={search} />
-          }
-        />
-        {companies?.length > 0 && !allCompanies && (
-          <>
-            {companies
-              .slice(0, 2)
-              .map(
-                (company) =>
-                  company && (
-                    <CompanyChip
-                      key={company.id}
+            <span
+              className={classNames({ [classes.ellipsisStyle]: virtualized })}
+            >
+              <HighlightedText text={email.subject} highlight={search} />
+            </span>
+            {companies?.length > 0 && !allCompanies && (
+              <div className={classes.chipsContainer}>
+                <Hidden mdDown>
+                  {companies
+                    .slice(0, 2)
+                    .map(
+                      (company) =>
+                        company && (
+                          <CompanyChip
+                            key={company.id}
+                            className={classes.chip}
+                            company={company}
+                          />
+                        ),
+                    )}
+                  {companies.length > 2 && (
+                    <FranchiseCompaniesListingTooltip
+                      companies={companies.slice(2)}
+                    >
+                      <Chip
+                        variant="outlined"
+                        color="primary"
+                        label={t('seeAll')}
+                        className={classes.chip}
+                      />
+                    </FranchiseCompaniesListingTooltip>
+                  )}
+                </Hidden>
+                <Hidden lgUp>
+                  <FranchiseCompaniesListingTooltip companies={companies}>
+                    <Chip
+                      variant="outlined"
+                      color="primary"
+                      label={t('seeAll')}
                       className={classes.chip}
-                      company={company}
                     />
-                  ),
-              )}
-            {companies.length > 2 && (
-              <FranchiseCompaniesListingTooltip companies={companies.slice(2)}>
-                <Chip variant="outlined" color="primary" label={t('seeAll')} />
+                  </FranchiseCompaniesListingTooltip>
+                </Hidden>
+              </div>
+            )}
+            {allCompanies && (
+              <FranchiseCompaniesListingTooltip companies={companies}>
+                <Chip
+                  color="primary"
+                  label={t('allCompanies')}
+                  className={classes.chip}
+                />
               </FranchiseCompaniesListingTooltip>
             )}
-          </>
-        )}
-        {allCompanies && (
-          <FranchiseCompaniesListingTooltip companies={companies}>
-            <Chip color="primary" label={t('allCompanies')} />
-          </FranchiseCompaniesListingTooltip>
-        )}
-        <div className={classes.actionList}>
-          <ListItemResponsiveAction
-            actions={[
-              onEdit && {
-                icon: EditIcon,
-                label: `edit-${email.id}`,
-                color: 'primary',
-                onClick: onEdit,
-              },
-              onDuplicate && {
-                icon: FileCopyIcon,
-                label: `duplicate-${email.id}`,
-                color: 'primary',
-                onClick: onDuplicate,
-              },
-              onDelete && {
-                icon: DeleteButton,
-                iconButtonComponent: ButtonWithConfirm,
-                menuItemComponent: ButtonWithConfirmMenuItem,
-                label: `delete-${email.id}`,
-                onClick: onDelete,
-                color: 'secondary',
-              },
-              onRestore && {
-                icon: RestoreFromTrashIcon,
-                label: `restore-${email.id}`,
-                onClick: onRestore,
-              },
-            ]}
-          />
+          </div>
+          <div className={classes.actionList}>
+            <ListItemResponsiveAction
+              actions={[
+                onEdit && {
+                  icon: EditIcon,
+                  label: `edit-${email.id}`,
+                  color: 'primary',
+                  onClick: onEdit,
+                },
+                onDuplicate && {
+                  icon: FileCopyIcon,
+                  label: `duplicate-${email.id}`,
+                  color: 'primary',
+                  onClick: onDuplicate,
+                },
+                onDelete && {
+                  icon: DeleteButton,
+                  iconButtonComponent: ButtonWithConfirm,
+                  menuItemComponent: ButtonWithConfirmMenuItem,
+                  label: `delete-${email.id}`,
+                  onClick: onDelete,
+                  color: 'secondary',
+                },
+                onRestore && {
+                  icon: RestoreFromTrashIcon,
+                  label: `restore-${email.id}`,
+                  onClick: onRestore,
+                },
+              ]}
+            />
+          </div>
         </div>
       </div>
-    </ListItem>
-  );
-};
+    );
+  };
 
-const useStyles = makeStyles((theme: Theme) => ({
-  innerList: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  list: {
-    backgroundColor: 'white',
-    marginBottom: theme.spacing(2),
-    borderRadius: 5,
-    boxShadow: theme.shadows[1],
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  chip: {
-    marginRight: theme.spacing(1),
-  },
-  listItem: {
-    padding: theme.spacing(1),
-  },
-  actionList: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-}));
+  render() {
+    const { selected, disabled, classes, virtualized, heightItem } = this.props;
+    const email = this.props.email ? this.props.email : this.props.item;
 
-export default EmailListItem;
+    let navigationTo;
+    if (this.props.navigateTo) {
+      navigationTo = () => this.props.navigateTo(email.id);
+    } else if (this.props.onClick) {
+      navigationTo = () => this.props.onClick(email.id);
+    } else {
+      navigationTo = undefined;
+    }
+
+    if (!email) return null;
+    if (!virtualized) {
+      return (
+        <ListItem
+          onClick={navigationTo}
+          selected={selected}
+          className={classes.listItem}
+          divider
+          button={!disabled}
+        >
+          {this.renderChildren(classes.flexBox, virtualized)}
+        </ListItem>
+      );
+    }
+    return (
+      <div
+        onKeyUp={navigationTo}
+        tabIndex={0}
+        role="button"
+        onClick={!disabled ? navigationTo : undefined}
+        className={classes.listVirtualizedItem}
+        style={{
+          height: heightItem || 120,
+        }}
+      >
+        {this.renderChildren({}, virtualized)}
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) =>
+  createStyles({
+    innerList: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flex: 1,
+    },
+    chip: {
+      marginRight: theme.spacing(1),
+      width: 'fit-content',
+      marginTop: 5,
+    },
+    chipsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      flexWrap: 'wrap',
+    },
+    listItem: {
+      padding: theme.spacing(1),
+      display: 'flex',
+      flex: 1,
+    },
+    listVirtualizedItem: {
+      padding: theme.spacing(1),
+      minHeight: 120,
+      justifyContent: 'center',
+      display: 'flex',
+      borderBottom: '1px solid #DDD',
+      flexDirection: 'column',
+      cursor: 'pointer',
+      backgroundColor: '#fff',
+      '&:hover': { backgroundColor: '#eee' },
+    },
+    actionList: {
+      display: 'flex',
+      alignItems: 'center',
+      flex: '0 1',
+    },
+    textAndChipsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'left',
+      padding: 8,
+      minWidth: 0,
+      flex: 1,
+    },
+    ellipsisStyle: {
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+    },
+    flexBox: {
+      display: 'flex',
+      flex: 1,
+    },
+  });
+
+export default compose(
+  withStyles(styles),
+  withTranslation(['emailTemplate']),
+)(EmailListItem);

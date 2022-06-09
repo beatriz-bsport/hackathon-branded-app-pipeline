@@ -33,10 +33,10 @@ type OwnProps = {
   divider?: boolean;
   dense?: boolean;
   goToEdit?: (metaActivityId: number) => void;
-  onClick?: (metaActivity?: MetaActivity) => void;
-  onEdit?: () => void;
-  onDuplicate?: () => void;
-  onDelete?: () => void;
+  onClick?: (metaActivityId?: number) => void;
+  onEdit?: (id: number) => void;
+  onDuplicate?: (id: number) => void;
+  onDelete?: (id: number) => void;
   onRestore?: () => void;
   selected?: boolean;
 
@@ -61,19 +61,40 @@ type Props = OwnProps &
   WithTranslation;
 
 const MetaActivityListItem = (props: Props) => {
-  const { onClick, t } = props;
+  const { t } = props;
   const metaActivity = props.metaActivity ? props.metaActivity : props.item;
-  const onEdit = props.goToEdit
-    ? () => props.goToEdit(props.metaActivity.id)
-    : props.onEdit;
 
-  const onDelete = props.deleteMetaActivity
-    ? props.deleteMetaActivity
-    : props.onDelete;
+  let onEdit;
+  if (props.goToEdit) {
+    onEdit = () => props.goToEdit(metaActivity.id);
+  } else if (props.onEdit) {
+    onEdit = () => props.onEdit(metaActivity.id);
+  } else {
+    onEdit = undefined;
+  }
 
-  const onDuplicate = props.onClickCopy
-    ? () => props.onClickCopy(metaActivity.id, t('common.copySuffix'))
-    : props.onDuplicate;
+  let onDelete;
+  if (props.deleteMetaActivity) {
+    onDelete = () => props.deleteMetaActivity();
+  } else if (props.onDelete) {
+    onDelete = () => props.onDelete(metaActivity.id);
+  } else {
+    onDelete = undefined;
+  }
+
+  let onDuplicate;
+  if (props.onClickCopy) {
+    onDuplicate = () =>
+      props.onClickCopy(metaActivity.id, t('common.copySuffix'));
+  } else if (props.onDuplicate) {
+    onDuplicate = () => props.onDuplicate(metaActivity.id);
+  } else {
+    onDuplicate = undefined;
+  }
+
+  const onClick = props.onClick
+    ? () => props.onClick(metaActivity.id)
+    : undefined;
 
   const { next_slot } = metaActivity;
   return (
@@ -82,7 +103,7 @@ const MetaActivityListItem = (props: Props) => {
       divider={props.divider}
       alignItems="center"
       dense={props.dense}
-      onClick={onClick ? () => onClick(metaActivity) : null}
+      onClick={onClick}
       style={{
         borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
         borderLeftColor: metaActivity.color,

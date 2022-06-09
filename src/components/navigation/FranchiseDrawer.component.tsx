@@ -324,7 +324,7 @@ export const FranchiseDrawer = (props: Props) => {
                 justify="flex-start"
                 wrap="nowrap"
               >
-                {isMobileDevice && (
+                {(isMobileDevice || !displayLeftMenu) && (
                   <Grid item zeroMinWidth>
                     <IconButton
                       color="inherit"
@@ -341,7 +341,11 @@ export const FranchiseDrawer = (props: Props) => {
                     color="inherit"
                     noWrap
                     variant="h6"
-                    className={classes.title}
+                    className={
+                      !displayLeftMenu && !isMobileDevice
+                        ? classes.titleAlternative
+                        : classes.title
+                    }
                   >
                     {document?.title}
                   </Typography>
@@ -412,7 +416,7 @@ export const FranchiseDrawer = (props: Props) => {
               })}
             >
               {renderAppBar(displayLeftMenu)}
-              {displayLeftMenu && (
+              {displayLeftMenu ? (
                 <div>
                   <Hidden mdUp>
                     <Drawer
@@ -444,6 +448,21 @@ export const FranchiseDrawer = (props: Props) => {
                     </Drawer>
                   </Hidden>
                 </div>
+              ) : (
+                <Drawer
+                  variant="temporary"
+                  anchor="left"
+                  open={mobileOpen}
+                  onClose={handleDrawerToggle}
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                  }}
+                >
+                  {drawer}
+                </Drawer>
               )}
               <TempPasswordDialog
                 generateTempPassword={generateTempPassword}
@@ -648,6 +667,9 @@ const styles = (theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         paddingLeft: theme.spacing(4),
       },
+    },
+    titleAlternative: {
+      paddingLeft: theme.spacing(4),
     },
     paymentMissingContainer: {
       left: 0,

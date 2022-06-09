@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -31,7 +31,6 @@ import {
 } from '../../libs/email-editor/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import FranchiseEmailListing from '../../libs/franchise/components/FranchiseEmailListing.components';
-import { EmailTemplateSummary } from '../../libs/email-editor/types';
 import EmailPreview from '../../libs/email-editor/components/EmailPreview.components';
 import { getFranchiseCompanyById } from '../../libs/franchise/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
@@ -83,27 +82,39 @@ const FranchiseEmailList = (props: Props) => {
     push('/f/email-template/create');
   };
 
-  const navigateTo = (emailId: number) => () => {
-    push(`/f/email-template/${emailId}`);
-  };
+  const navigateTo = useCallback(
+    (emailId: number) => {
+      push(`/f/email-template/${emailId}`);
+    },
+    [push],
+  );
 
-  const onEdit = (emailId: number) => () => {
-    push(`/f/email-template/${emailId}/edit`);
-  };
+  const onEdit = useCallback(
+    (emailId: number) => {
+      push(`/f/email-template/${emailId}/edit`);
+    },
+    [push],
+  );
 
-  const onDuplicate = (emailId: number) => () => {
-    emailTemplateDuplicate({
-      id: emailId,
-      copyTranslation: t('emails.copy'),
-      options: {
-        onSuccess: (templateId: number) => navigateTo(templateId)(),
-      },
-    });
-  };
+  const onDuplicate = useCallback(
+    (emailId: number) => {
+      emailTemplateDuplicate({
+        id: emailId,
+        copyTranslation: t('emails.copy'),
+        options: {
+          onSuccess: (templateId: number) => navigateTo(templateId),
+        },
+      });
+    },
+    [navigateTo, emailTemplateDuplicate, t],
+  );
 
-  const onDelete = (emailId: number) => () => {
-    deleteTemplate(emailId);
-  };
+  const onDelete = useCallback(
+    (emailId: number) => {
+      deleteTemplate(emailId);
+    },
+    [deleteTemplate],
+  );
 
   const saveFilter = (value: boolean) => {
     updateFranchisePageFilter([
@@ -120,28 +131,24 @@ const FranchiseEmailList = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6}>
+      <Grid container direction="row" spacing={3} style={{ height: '100%' }}>
+        <Grid item xs={12} md={6} className={classes.grid}>
           <FranchiseEmailListing
             companyDic={companiesById}
             isGrouped={savedFilter?.includes('franchised') ?? false}
-            franchiseEmails={[...emails]
-              .filter((email) => email.company_id === null)
-              .sort(orderByTitle)}
-            companiesEmails={[...emails]
-              .filter((email) => email.company_id !== null)
-              .sort(orderByTitle)}
             selectedId={id}
             navigateTo={navigateTo}
             onEdit={onEdit}
             onDuplicate={onDuplicate}
             onDelete={onDelete}
             saveFilter={saveFilter}
+            emails={emails}
+            useVirtualizedList
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <div>
+        <Grid item xs={12} md={6} className={classes.grid}>
+          <div className={classes.scroll}>
             <EmailPreview
               title={t('emails.emptyStateTitle')}
               html={emailDetail?.[id]?.html ?? null}
@@ -158,19 +165,31 @@ const FranchiseEmailList = (props: Props) => {
   );
 };
 
-const orderByTitle = (a: EmailTemplateSummary, b: EmailTemplateSummary) =>
-  a.title.localeCompare(b.title);
-
 const styles = (theme: Theme) =>
   createStyles({
     container: {
       padding: theme.spacing(2),
+      display: 'flex',
+      flex: 1,
+      height: '100%',
     },
     loader: {
       position: 'relative',
       top: 0 - theme.spacing(2),
       left: 0 - theme.spacing(4),
       width: '100vw',
+    },
+    scroll: {
+      paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      overflowY: 'auto',
+      maxHeight: '100%',
+    },
+    grid: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+      maxHeight: '100%',
     },
   });
 

@@ -885,7 +885,7 @@ export class OfferForm extends Component<Props, State> {
           onClick={onCancel}
           className={classes.marginRight}
         >
-          {this.props.discardButtonText || t('form.discard')}
+          {this.props.onCancelText || t('form.discard')}
         </Button>
         {processing ? (
           <CircularProgress

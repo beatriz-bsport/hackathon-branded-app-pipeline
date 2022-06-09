@@ -1,4 +1,11 @@
-import { API_URI, API_V1_URI, get, getAuth, patchAuth } from '../../http';
+import {
+  API_URI,
+  API_V1_URI,
+  buildUrlParams,
+  get,
+  getAuth,
+  patchAuth,
+} from '../../http';
 
 const fetchCompanyMetaActivities = async ({
   companyId,
@@ -14,7 +21,7 @@ const fetchCompanyMetaActivities = async ({
   );
 };
 
-const fetchPaymentPacks = async ({
+const fetchPaymentPacksAsConsumer = async ({
   companyId,
   page,
 }: {
@@ -22,7 +29,13 @@ const fetchPaymentPacks = async ({
   page: number;
 }) => {
   return getAuth(
-    `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}&page=${page}&manager_only=false&disabled=false&as_consumer=true`,
+    `${API_V1_URI}/payment-pack/payment-pack/${buildUrlParams({
+      company: companyId,
+      page,
+      manager_only: false,
+      disabled: false,
+      as_consumer: true,
+    })}`,
   );
 };
 
@@ -97,5 +110,5 @@ export default {
   fetchCompanyCoaches,
   fetchCompanyOffers,
   fetchCompany,
-  fetchPaymentPacks,
+  fetchPaymentPacksAsConsumer,
 };

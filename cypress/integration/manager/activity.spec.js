@@ -18,7 +18,7 @@ context('Manager - MetaActivity', () => {
   });
 
   it('Manager can create new activity with all fields', () => {
-    cy.visit('activity/add');
+    // cy.visit('activity/add');
     cy.server();
     cy.route('POST', `${REACT_APP_URI}/saas/create-meta-activity/`).as(
       'createActivityRequest1',
@@ -74,7 +74,7 @@ context('Manager - MetaActivity', () => {
   });
 
   it('Manager can create new activity with only name and description fields', () => {
-    cy.visit('activity/add');
+    // cy.visit('activity/add');
     cy.server();
     cy.route('POST', `${REACT_APP_URI}/saas/create-meta-activity/`).as(
       'createMetaActivityRequest2',

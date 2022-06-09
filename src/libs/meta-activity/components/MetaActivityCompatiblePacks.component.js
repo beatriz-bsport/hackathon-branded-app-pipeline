@@ -24,7 +24,7 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   classes: Object,
   metaActivity: MetaActivity,
-  fetchPaymentPacks: (id: number) => void,
+  fetchPaymentPacksAsConsumer: (metaActiviyId: number) => void,
   loading: boolean,
   allEstablishmentList: any,
   metaActivityList: any,
@@ -53,7 +53,11 @@ export function CompatiblePaymentPacks(props: Props) {
           page={props.paymentPacks.page}
           itemPerPage={PAGE_SIZE}
           onPageRequested={(page: number, pageSize: number) =>
-            props.fetchPaymentPacks(props.metaActivity.id, page, pageSize)
+            props.fetchPaymentPacksAsConsumer(
+              props.metaActivity.id,
+              page,
+              pageSize,
+            )
           }
           renderEmpty={() => (
             <div>

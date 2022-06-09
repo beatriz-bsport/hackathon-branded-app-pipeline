@@ -6,12 +6,10 @@ import { Route, Switch } from 'react-router';
 import WorkshopActivityDetail from './WorkshopActivityDetail.page';
 import WorkshopActivityInnerRouter from './WorkshopActivityInner.router';
 import WorkshopActivityEdit from './WorkshopActivityEdit.page';
-import WorkshopActivityCreate from './WorkshopActivityCreate.page';
 
 export default () => {
   return (
     <Switch>
-      <Route path="/workshop-activity/add" component={WorkshopActivityCreate} />
       <Route
         path="/workshop-activity/tabs/:tab?"
         component={WorkshopActivityInnerRouter}

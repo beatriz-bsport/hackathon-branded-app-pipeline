@@ -97,7 +97,7 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
             shrink={shrink}
             {...field}
             {...omit(props, ['field'])}
-            error={!!(touched && error)}
+            error={!!(touched && error && !(Object.keys(error).length === 0))}
           />
         );
       }}

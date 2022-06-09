@@ -2,7 +2,7 @@
 //
 import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import { goBack, push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -17,6 +17,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
+import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -25,17 +27,57 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import type { MetaActivity } from '../../api/types';
 
 import {
+  getActivityCompatiblePaymentPacks,
+  getAllPaymentPackCategory,
+} from '../../libs/payment-packs/selectors';
+import {
+  getEnabledMetaActivities,
   getEnabledWorkshops,
+  getMetaActivityCategories,
   getDisabledWorkshops,
 } from '../../libs/meta-activity/selectors';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import {
+  fetchAllOffers as fetchAllOffersActions,
+  createOffers as createOffersActions,
+} from '../../libs/offer/actions';
+
+import {
+  fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
+  createOrUpdate as createOrUpdatePaymentPack,
+} from '../../libs/payment-packs/actions';
+import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
+
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { getAllTagsWithTagGroup } from '../../libs/tag/selectors';
+import {
+  getActiveCustomLevels,
+  getAllCustomLevels,
+} from '#libs/level/selectors';
+
+import {
+  fetchLevelList as fetchLevelListAction,
+  updateLevel as updateLevelAction,
+  createLevel as createLevelAction,
+  deleteLevel as deleteLevelAction,
+} from '#libs/level/actions';
+
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
+import MetaActivityCreate from '../../libs/meta-activity/components/MetaActivityCreate.drawer';
+
 import {
   deleteWorkshop,
   restoreMetaActivity,
   fetchMetaActivities as fetchMetaActivitiesAction,
   makeActivityCopy as makeActivityCopyAction,
+  upsert,
 } from '../../libs/meta-activity/actions';
+
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
+import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
 import { withBookingNotifications } from '../../libs/booking/selectors';
@@ -46,7 +88,6 @@ type Props = {
   loading: boolean,
   notificationLoading: boolean,
 
-  fetchMetaActivities: () => void,
   fetchNotifications: (params?: Object) => void,
   setWorkshopToDelete: (number) => void,
   workshopToDelete: ?number,
@@ -64,12 +105,69 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  loading: ?boolean,
+  classes: Object,
+
+  associatedCoaches: *[],
+  establishments: Array<Establishment>,
+  SCTs: *[],
+
+  metaActivitiesAndWorkshops: Array<MetaActivity>,
+  upsertedWorkshop: ?MetaActivity,
+
+  offerHadError: ?Error,
+  createOffers: () => void,
+  offerIsProcessing: boolean,
+  goToWorkshop: (id: number) => void,
+  fetchEstablishments: () => void,
+  fetchAssociatedCoachesList: () => void,
+
+  t: TFunction,
+  companyTheme: CompanyTheme,
+  fetchRoomBlueprints: () => void,
+  roomBlueprints: Array<RoomBlueprint>,
+  fetchAllCoachPaymentRules: () => void,
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
+  paymentPackCategories: Array<PaymentPackCategory>,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  showPartnership: boolean,
+
+  activeCustomLevels: Level[],
+  allCustomLevels: Level[],
+  createOffers: (data: Offer, options: OptionCallback) => void,
+  fetchLevelList: (
+    params: LevelFilterSet,
+    options?: OptionPaginatedCallback<Level>,
+  ) => void,
+  updateLevel: (id: number, data: Level, options: OptionCallback) => void,
+  createLevel: (data: Level, options?: OptionCallback<Level>) => void,
+  deleteLevel: (id: number, options?: OptionCallback) => void,
+  companyId: number,
+  metaActivityNames: any,
+  coaches: any,
+  compatiblePaymentPacks: any,
+  allEstablishmentList: any,
+  categoryList: any,
+  metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
+  fetchPaymentPacks: () => void,
+  createPass: any,
+  upsertWorkshopActivity: any,
+  resetPaymentPacks: () => void,
+  fetchAllOffers: any,
+  fetchAllActivities: (data: { customer_enabled: true }) => void,
+  fetchMetactivities: () => void,
+  goToPaymentPackCreate: () => void,
+  fetchAllPaymentPackCategory: () => void,
+  createOrUpdatePaymentPackAction: (data: any, options: any) => void,
+  fetchAllMetaActivityCategory: (companyId?: number) => void,
+  upsertMetaActivity: any,
 };
 
 type State = {
   searchText: string,
   searchResult: Array<MetaActivity>,
   showDisabled: boolean,
+  formIsOpen: Boolean,
 };
 
 export class WorkshopActivityList extends React.Component<Props, State> {
@@ -77,10 +175,11 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     searchText: '',
     searchResult: [],
     showDisabled: false,
+    formIsOpen: false,
   };
 
   componentDidMount() {
-    this.props.fetchMetaActivities();
+    this.props.fetchAllActivities();
     this.props.fetchNotifications({ is_meta_activity_notification: true });
   }
 
@@ -104,6 +203,67 @@ export class WorkshopActivityList extends React.Component<Props, State> {
       this.setState({ showDisabled: false });
     }
     this.props.restoreMetaActivity(id);
+  };
+
+  onCancelForm = () => {
+    this.setState({ formIsOpen: false });
+  };
+
+  renderCreateWorkshopActivity = () => {
+    return (
+      <MetaActivityCreate
+        isWorkshop
+        onClose={this.onCancelForm}
+        offerIsProcessing={this.props.offerIsProcessing}
+        offerHadError={this.props.offerHadError}
+        associatedCoaches={this.props.associatedCoaches}
+        establishments={this.props.establishments}
+        SCTs={this.props.SCTs}
+        metaActivityNames={this.props.metaActivityNames}
+        metaActivitiesAndWorkshops={this.props.metaActivitiesAndWorkshops}
+        upsertedWorkshop={this.props.upsertedWorkshop}
+        coaches={this.props.coaches}
+        companyTheme={this.props.companyTheme}
+        compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+        roomBlueprints={this.props.roomBlueprints}
+        coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+        allEstablishmentList={this.props.allEstablishmentList}
+        allTagsWithTagGroup={this.props.allTagsWithTagGroup}
+        paymentPackCategories={this.props.paymentPackCategories}
+        categoryList={this.props.categoryList}
+        showPartnership={this.props.showPartnership}
+        metaActivityCategories={this.props.metaActivityCategories}
+        activeCustomLevels={this.props.activeCustomLevels}
+        allCustomLevels={this.props.allCustomLevels}
+        companyId={this.props.companyId}
+        fetchEstablishments={this.props.fetchEstablishments}
+        fetchAssociatedCoachesList={this.props.fetchAssociatedCoachesList}
+        fetchPaymentPacks={this.props.fetchPaymentPacks}
+        upsertMetaActivity={this.props.upsertMetaActivity}
+        resetPaymentPacks={this.props.resetPaymentPacks}
+        goToMetaActivity={this.props.goToWorkshop}
+        goToPaymentPackCreate={this.props.goToPaymentPackCreate}
+        // goToPaymentPack: (id: number) => push(`/payment-pack/${id}`)
+        fetchAllOffers={this.props.fetchAllOffers}
+        fetchRoomBlueprints={this.props.fetchRoomBlueprints}
+        fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
+        fetchAllActivities={this.props.fetchAllActivities}
+        fetchMetactivities={this.props.fetchMetactivities}
+        fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
+        createOrUpdatePaymentPackAction={
+          this.props.createOrUpdatePaymentPackAction
+        }
+        fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
+        createOffers={this.props.createOffers}
+        fetchLevelList={this.props.fetchLevelList}
+        updateLevel={this.props.updateLevel}
+        createLevel={this.props.createLevel}
+        deleteLevel={this.props.deleteLevel}
+        upsertWorkshopActivity={this.props.upsertWorkshopActivity}
+        createPass={this.props.createPass}
+        goToWorkshop={this.props.goToWorkshop}
+      />
+    );
   };
 
   render() {
@@ -219,7 +379,6 @@ export class WorkshopActivityList extends React.Component<Props, State> {
             </Collapse>
           </div>
         ) : null}
-
         <WorkshopDeleteDialog
           workshopId={this.props.workshopToDelete}
           onClose={() => this.props.setWorkshopToDelete(null)}
@@ -228,8 +387,11 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         />
         <BottomActionsButton
           onCreateLabel={this.props.t('actions.addWorkshopActivity')}
-          onCreate={this.props.onCreate}
+          onCreate={() => {
+            this.setState({ formIsOpen: true });
+          }}
         />
+        {this.state.formIsOpen ? this.renderCreateWorkshopActivity() : ''}
       </div>
     );
   }
@@ -279,6 +441,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
+
   withTranslation(['workshop']),
   connect(
     (state) => ({
@@ -286,11 +449,41 @@ export default compose(
       disabledWorkshopActivities: getDisabledWorkshops(state),
       loading: state.metaActivity.loading,
       notificationLoading: state.booking.notification.loading,
+      // from WorkshopActivityCreate now
+      offerIsProcessing: state.offer.create.loading,
+      offerHadError: state.offer.create.error,
+      associatedCoaches: getActiveCoaches(state),
+      establishments: getAllEstablishments(state),
+      SCTs: state.category.SCTs,
+      companyTheme: themeSelectors.getTheme(state),
+      metaActivityNames: [
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
+      ].map((ma) => ma.name),
+      metaActivitiesAndWorkshops: [
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
+      ],
+      compatiblePaymentPacks: {
+        items: getActivityCompatiblePaymentPacks(state),
+        count: state.paymentPack.byActivity.count,
+        page: state.paymentPack.byActivity.page,
+        loading: state.paymentPack.byActivity.loading,
+      },
+      upsertedWorkshop: state.metaActivity.upsert.data,
+      roomBlueprints: getAvailableRoomBlueprints(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+      paymentPackCategories: getAllPaymentPackCategory(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      showPartnership: state.theme.theme.has_partnership,
+      metaActivityCategories: getMetaActivityCategories(state),
+      activeCustomLevels: getActiveCustomLevels(state),
+      allCustomLevels: getAllCustomLevels(state),
+      companyId: state.theme.theme.company,
     }),
     {
-      fetchMetaActivities: fetchMetaActivitiesAction,
+      fetchAllActivities: fetchMetaActivitiesAction,
       makeActivityCopy: makeActivityCopyAction,
-      onCreate: () => push('/workshop-activity/add'),
       goToPaymentPack: () => push('/payment-pack'),
       deleteWorkshop,
       restoreMetaActivity,
@@ -299,6 +492,23 @@ export default compose(
         push(`/workshop-activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/edit`),
+      upsertWorkshopActivity: upsert,
+      goToPreviousPage: goBack,
+      goToWorkshop: (id: number) => push(`/workshop-activity/${id}/general`),
+      fetchPaymentPacks: fetchActivityCompatiblePaymentPacksAction,
+      createPass: createOrUpdatePaymentPack,
+      fetchAllOffers: fetchAllOffersActions,
+      fetchEstablishments,
+      fetchAssociatedCoachesList,
+      fetchRoomBlueprints,
+      createOrUpdatePaymentPackAction: createOrUpdatePaymentPack,
+
+      fetchAllCoachPaymentRules,
+      createOffers: createOffersActions,
+      fetchLevelList: fetchLevelListAction,
+      updateLevel: updateLevelAction,
+      createLevel: createLevelAction,
+      deleteLevel: deleteLevelAction,
     },
   ),
   withHandlers({

@@ -1,30 +1,34 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
 import MetaActivitySelector from './MetaActivitySelectorWithCard.component';
-import { action } from '@storybook/addon-actions'
+import { action } from '@storybook/addon-actions';
 import { meta_activity_factory } from '../factory';
 
-<Meta title="Library/MetaActivity/SelectorWithCard" component={MetaActivitySelector} argTypes={{
-  metaActivities:{
-    description: 'every existing activity',
-  },
-  placeholder:{
-    description: "text of the selector",
-  },
-  onChange:{
-    description: "action to execute when the content of the selector changes"
-  },
-  value:{
-    description: "selected activity"
-  }
-}}/>
+<Meta
+  title="Library/MetaActivity/SelectorWithCard"
+  component={MetaActivitySelector}
+  argTypes={{
+    metaActivities: {
+      description: 'every existing activity',
+    },
+    placeholder: {
+      description: 'text of the selector',
+    },
+    onChange: {
+      description: 'action to execute when the content of the selector changes',
+    },
+    value: {
+      description: 'selected activity',
+    },
+  }}
+/>
 
 export const actionsData = {
-  onChange: action('onChange')
-}
+  onChange: action('onChange'),
+};
 
 export const Template = (args) => <MetaActivitySelector {...args} />;
 
-export const activities = meta_activity_factory(8)
+export const activities = meta_activity_factory(8);
 
 # Activities
 
@@ -37,7 +41,8 @@ Possibility to select activities
       metaActivities: activities,
       onChange: actionsData.onChange,
       placeholder: 'activity',
-    }}>
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -53,9 +58,10 @@ When the page is opened, the concerned activity is already selected, only one se
       metaActivities: activities,
       onChange: actionsData.onChange,
       value: activities[0],
-    }}>
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
 
-<ArgsTable story='select'/>
+<ArgsTable story="select" />

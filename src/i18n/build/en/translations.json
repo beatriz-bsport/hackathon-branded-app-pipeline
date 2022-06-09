@@ -5299,7 +5299,7 @@
             "address_line_1": "Address line 1",
             "address": "Address",
             "search_address": "Search an address",
-            "state": "Status"
+            "state": "State"
         },
         "spotScheduling": {
             "untitled": "Untitled",

@@ -4647,7 +4647,7 @@
                 "showMore": "Toon meer",
                 "empty": "Er zijn geen andere sessies om weer te geven.",
                 "title": "Reserveren",
-                "selectAll": "Alles selecteren"
+                "selectAll": "Selecteer alles"
             },
             "bookingForMe": "Mezelf",
             "bookingsTitleFor": "Reserveren voor {{name}}"

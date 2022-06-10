@@ -7794,7 +7794,7 @@
                 "tax": {
                     "label": "VAT / Sales tax"
                 },
-                "startOnFirstUse": "Pass starting date start from first billing",
+                "startOnFirstUse": "The validity starts on the day of the first booking",
                 "name": {
                     "label": "Name",
                     "helperText": "Name for the payment pack"
@@ -7805,7 +7805,7 @@
                 },
                 "credits": {
                     "label": "Credit(s)",
-                    "helperText": "This is the amount of the included credit(s) for this pass. Leave blank to make it unlimited.",
+                    "helperText": "This is the amount of the included credits for this pass. Leave blank to make it unlimited.",
                     "bewareChange": "Attention: modifying the credits will affect all previous purchases as well."
                 },
                 "maxBookingPerWeek": {
@@ -7822,8 +7822,8 @@
                     "helperText": "Amount of days in which the pass expires if no booking is made:"
                 },
                 "helper": {
-                    "starting_date": "Start date for pack, leave blank for direct availability",
-                    "ending_date": "End date for pack, leave blank for no end"
+                    "starting_date": "Start of the validity of the pass. Leave blank to make it available at once.",
+                    "ending_date": "End of the validity of the pass. Leave blank to make it unlimited."
                 },
                 "start_date_method": {
                     "on_purchase": "Valid from the billing date",
@@ -7862,8 +7862,8 @@
                 "activities": "Activity",
                 "establishments": "Establishment",
                 "delete": {
-                    "title": "Deleting pass :",
-                    "askConfirmation": "Be careful ! This deletion is definitive. The pass will not be visible anymore and will be unavailable for purchase.",
+                    "title": "Delete pass:",
+                    "askConfirmation": "Attention: this action can't be undone. The pass won't be visible anymore and it'll become unavailable for purchase.",
                     "thereAreConsumers": "Attention: it's possible that members have already bought this pass. Members will continue to be able to use their credits. If you'd like to entirely delete or block the use of this pass right now, we recommend that you reduce the amount of credits the pass includes to 0. Furthermore, the pass will no longer appear for sale.",
                     "actions": {
                         "cancel": "Cancel",
@@ -7873,9 +7873,9 @@
                 },
                 "priceIncludingTax": {
                     "label": "Price (including VAT / Sales Tax)",
-                    "helperText": "Price of the pass"
+                    "helperText": "Price of the pass."
                 },
-                "startOnFirstUseHelper": "Otherwise it starts at the billing date",
+                "startOnFirstUseHelper": "Otherwise it starts on the billing date",
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
                 "maxPurchasePerMember": {
                     "helperText": "Leave this field empty to not set up any restrictions.",
@@ -7893,26 +7893,26 @@
                 "penalty": {
                     "account": {
                         "helperText": "A charge of {{value}} will be applied for this member",
-                        "label": "Charge on the account:"
+                        "label": "Penalty fine:"
                     },
                     "block": {
                         "helperText": "The pass will be blocked for {{nb_days}} days",
-                        "label": "Pass blocking period (in days) :"
+                        "label": "Duration of the blocking period (in days):"
                     },
                     "kind": {
-                        "account": "Create a charge on account for the member involved",
+                        "account": "Apply a fine",
                         "block": "Temporarily block the pass",
                         "label": "Select the type of penalty to apply"
                     },
-                    "nb_days": "Number of days :",
-                    "nb_cancellations": "Number of cancellations :",
+                    "nb_days": "Number of days:",
+                    "nb_cancellations": "Number of late cancellations:",
                     "explain": "A penalty will be applied if there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days",
                     "checkbox": "Apply a penalty in the event of too many late cancellations",
                     "title": "Penalties"
                 },
                 "only_vod_access": "Only for Video On Demand",
                 "error": {
-                    "start_date_method_type": "Please indicate the beginning of validity of the card."
+                    "start_date_method_type": "Please indicate the beginning of validity of the pass."
                 },
                 "category": {
                     "label": "(Optional) Category",

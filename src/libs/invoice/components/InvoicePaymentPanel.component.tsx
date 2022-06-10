@@ -17,6 +17,7 @@ import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER as INVOICE_TYPE_RECEIPT,
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type';
+import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods';
 import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group';
 import {
   PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
@@ -41,6 +42,7 @@ const InvoicePaymentStatus = (props: {
   isDraft: boolean;
   invoice_type: number;
   hasPendingPlannedPaymentEvent: boolean;
+  hasPendingDispute: boolean;
 }) => {
   const classes = useStyles();
   if (props.invoice_type === INVOICE_TYPE_RECEIPT) {
@@ -61,10 +63,13 @@ const InvoicePaymentStatus = (props: {
     <div className={classes.statusContainer}>
       {!props.hasPendingPlannedPaymentEvent &&
         !props.isDraft &&
+        !props.hasPendingDispute &&
         props.amountToPayCts <= 0 && (
           <CheckIcon color="primary" className={classes.statusIcon} />
         )}
-      {(props.hasPendingPlannedPaymentEvent || !!props.isDraft) && (
+      {(props.hasPendingPlannedPaymentEvent ||
+        !!props.isDraft ||
+        props.hasPendingDispute) && (
         <HourglassEmptyIcon color="secondary" className={classes.statusIcon} />
       )}
       {!props.hasPendingPlannedPaymentEvent &&
@@ -300,6 +305,13 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
             props.plannedPaymentEventList.filter(
               (ppe) => ppe.status !== PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
             ).length > 0
+          }
+          hasPendingDispute={
+            !!props.paymentList?.filter(
+              (payment) =>
+                payment.payment_method === PAYMENT_METHOD_DISPUTE.id &&
+                (payment.is_processing || payment.payment_received === null),
+            ).length
           }
           amountToPayCts={amountToPayCts}
           isDraft={props.invoice.is_draft}

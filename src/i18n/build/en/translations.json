@@ -9036,7 +9036,7 @@
                 "isFull": "The class is full, you can still register to the waiting-list. You will be notified by email if a slot becomes available.",
                 "registerOption": "Register to the waiting-list",
                 "isAlreadyRegistered": "The session is full, congratulations you are booked in !",
-                "waitingListOpen": "The session is full, however you can register to the waiting list. We will inform you by email when a spot is available"
+                "waitingListOpen": "This session is full. Join the waitlist and you'll receive a message once a spot becomes available."
             },
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",

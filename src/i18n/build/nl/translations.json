@@ -4344,7 +4344,7 @@
                 "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We laten je per e-mail weten wanneer er een plaats vrij komt.",
                 "isFull": "Deze sessie is volgeboekt! Als je je op de wachtlijst inschrijft zal je per e-mail worden geïnformeerd wanneer er een plaats vrijkomt.",
                 "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je hebt je ingeschreven!",
-                "waitingListOpen": "De sessie is vol, maar je kunt je op de wachtlijst inschrijven. We laten je per e-mail weten wanneer er een plaats vrij komt."
+                "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt."
             },
             "offer": {
                 "isDisabled": "De sessie is helaas geannuleerd.",

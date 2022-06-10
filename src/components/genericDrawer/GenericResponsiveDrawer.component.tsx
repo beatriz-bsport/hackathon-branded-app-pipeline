@@ -48,25 +48,12 @@ export const GenericFormDialog: React.FC<Props> = ({
       onClose={onClose}
     >
       <div className={classes.relative}>
-        {onClose && (
-          <div
-            className={classNames(classes.topCancel, {
-              [classes.topCancelLeft]: anchor === 'left',
-              [classes.topCancelRight]: anchor === 'right',
-            })}
-          >
-            <Tooltip title={t('cancel')}>
-              <IconButton onClick={onClose}>
-                <HighlightOffIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-        )}
-        {title && (
-          <div className={classes.titleContainer}>
-            <Typography
-              className={classNames(classes.title, {
-                [classes.titleLeft]: anchor === 'right' && onClose,
+        <div className={classes.firstRow}>
+          {onClose && (
+            <div
+              className={classNames(classes.topCancel, {
+                [classes.topCancelLeft]: anchor === 'left',
+                [classes.topCancelRight]: anchor === 'right',
               })}
             >
               <Tooltip title={t('cancel')}>
@@ -74,29 +61,29 @@ export const GenericFormDialog: React.FC<Props> = ({
                   <HighlightOffIcon />
                 </IconButton>
               </Tooltip>
-            </Typography>
-          </div>
-        )}
-        {title && (
-          <div
-            className={
-              (classes.titleContainer,
-              classNames(classes.title, {
-                [classes.titleLeft]: anchor === 'right' && onClose,
-              }))
-            }
-          >
-            <Typography variant="h4">{title}</Typography>
-            {subtitle && <Typography variant="body1">{subtitle}</Typography>}
-          </div>
-        )}
-      </div>
-      <div
-        className={classNames(classes.content, {
-          [classes.padding]: !withoutPadding,
-        })}
-      >
-        {children}
+            </div>
+          )}
+          {title && (
+            <div
+              className={
+                (classes.titleContainer,
+                classNames(classes.title, {
+                  [classes.titleLeft]: anchor === 'right' && onClose,
+                }))
+              }
+            >
+              <Typography variant="h4">{title}</Typography>
+              {subtitle && <Typography variant="body1">{subtitle}</Typography>}
+            </div>
+          )}
+        </div>
+        <div
+          className={classNames(classes.content, {
+            [classes.padding]: !withoutPadding,
+          })}
+        >
+          {children}
+        </div>
       </div>
     </Drawer>
   );
@@ -142,6 +129,10 @@ const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
     content: {
       flex: 1,
       minWidth: '500px',
+    },
+    padding: {
+      padding: theme.spacing(4),
+      paddingBottom: theme.spacing(2),
     },
   }),
 );

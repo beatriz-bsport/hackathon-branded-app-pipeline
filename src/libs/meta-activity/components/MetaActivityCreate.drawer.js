@@ -8,7 +8,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
-import { Paper } from '@material-ui/core';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { mapFormData } from '../../../pages/form.utils';
 import withTitle from '../../../hocs/with-title.hoc';
@@ -243,16 +242,14 @@ export class MetaActivityCreateDrawer extends Component<Props> {
             : this.props.t('titles:metaActivity.metaActivityFormPage')
         }
       >
-        <Paper>
+        <StepperForm activeStep={this.props.step} />
+        {this.props.step.id === STEP_ACTIVITY.id &&
+          this.renderMetaActivityStep()}
+        {this.props.step.id === STEP_OFFER.id && this.renderOfferStep()}
+        {this.props.step.id === STEP_PASS.id && this.renderPaymentPackStep()}
+        {this.props.step === STEP_PASS ? null : (
           <StepperForm activeStep={this.props.step} />
-          {this.props.step.id === STEP_ACTIVITY.id &&
-            this.renderMetaActivityStep()}
-          {this.props.step.id === STEP_OFFER.id && this.renderOfferStep()}
-          {this.props.step.id === STEP_PASS.id && this.renderPaymentPackStep()}
-          {this.props.step === STEP_PASS ? null : (
-            <StepperForm activeStep={this.props.step} />
-          )}
-        </Paper>
+        )}
       </GenericResponsiveDrawer>
     );
   }

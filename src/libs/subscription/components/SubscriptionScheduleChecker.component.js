@@ -17,11 +17,15 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
+import { getStripeRegion } from '../../theme/selectors';
 import SubscriptionPayment from './SubscriptionPayment.component';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+
 import type { Establishment } from '../../establishment/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
@@ -36,11 +40,14 @@ type Props = {
   establishments: Array<Establishment>,
   enableMultiLocalization: boolean,
   companyTheme: CompanyTheme,
+  stripeReaders: StripeReader[],
 };
 
 type State = {
   loading: boolean,
 };
+
+const stripeRegion = getStripeRegion();
 
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,
@@ -102,6 +109,9 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                   : [
                       BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
                       BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+                      ...(stripeRegion === 'NorthAmerica'
+                        ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+                        : []),
                     ]
               }
               requestSetupIntentSecret={this.props.requestSetupIntentSecret}
@@ -111,6 +121,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               }
               enableMultiLocalization={this.props.enableMultiLocalization}
               establishments={this.props.establishments}
+              stripeReaders={this.props.stripeReaders}
             />
           </Paper>
         </Grid>

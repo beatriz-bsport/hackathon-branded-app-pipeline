@@ -30,6 +30,7 @@ import type { Establishment } from '../../establishment/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   balance: number;
@@ -65,6 +66,7 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   showPositiveBalance?: boolean;
+  stripeReaders: StripeReader[];
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -105,7 +107,7 @@ export const MemberBillingProblemCard = (props: Props) => {
   const [paymentGroupCompletedCheckSeconds] = React.useState<number>(0.5);
   const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] =
     React.useState<number>(0);
-  const requestClientSecret = (paymentEngine: number) => {
+  const requestClientSecret = (paymentEngine: number, params?: any) => {
     setClientSecret(null);
     setClientSecretLoading(true);
     setClientSecretError(false);
@@ -118,6 +120,7 @@ export const MemberBillingProblemCard = (props: Props) => {
         requested_price_cts: amountToBill
           ? parseInt(parseFloat(amountToBill) * 100, 10)
           : null,
+        ...(params || {}),
       },
     )
       .then((r) => {
@@ -360,6 +363,7 @@ export const MemberBillingProblemCard = (props: Props) => {
           applyBalanceToInvoice={applyBalanceToInvoice}
           creditAccountBalance={props.creditAccountBalance}
           applyBalanceLoading={props.applyBalanceLoading}
+          stripeReaders={props.stripeReaders}
         />
       )}
     </Paper>

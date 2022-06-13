@@ -18,6 +18,16 @@ exports.default = {
     // Reason
     insufficient_funds: 'Votre carte ne dispose pas des fonds suffisants.',
     unknown: 'Erreur réseau, veuillez réessayer dans quelques instants',
+    // Stripe terminal codes
+    no_established_connection: 'Aucun terminal de paiement connecté',
+    network_error: 'Erreur réseau, veuillez réessayer dans quelques instants',
+    network_timeout: 'Erreur réseau, veuillez réessayer dans quelques instants',
+    already_connected: 'Un autre terminal de paiement est déjà connecté',
+    discovery_too_many_readers:
+      'Impossible de se connecter, trop de terminaux aux alentours',
+    setup_intent_authentication_failure:
+      'Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.',
+    none: '',
   },
   error_code: {
     none: '',
@@ -53,5 +63,11 @@ exports.default = {
     do_not_honor:
       "Votre banque a refusé le paiement, veuillez contacter votre conseiller bancaire pour l'autoriser",
     withdrawal_count_limit_exceeded: 'Trop de débit sur cette carte, refusée.',
+    incorrect_pin: 'Code pin incorrect',
+    invalid_pin: 'Code pin incorrect',
+    offline_pin_required: 'Code pin requis',
+    online_or_offline_pin_required: 'Code pin requis',
+    pin_try_exceeded:
+      'Nombre de tentatives max atteint. Essayez un autre moyen de payement',
   },
 };

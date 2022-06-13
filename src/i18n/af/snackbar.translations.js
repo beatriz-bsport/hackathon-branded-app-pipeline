@@ -904,6 +904,12 @@ exports.default = {
     update: {
       error:
         'Une erreur est survenue. Veuillez vérifier les paramètres demandés.',
+      stripeTerminal: {
+        deleteReader: {
+          success: 'Terminal de paiement supprimé',
+          error: 'Impossible de supprimer ce terminal de paiement',
+        },
+      },
     },
   },
 };

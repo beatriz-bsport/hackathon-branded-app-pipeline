@@ -60,7 +60,9 @@ import {
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
 } from '../../libs/invoice/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getStripeReaders } from '#libs/terminal/selectors';
 import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
@@ -87,7 +89,7 @@ import InstalmentPaymentDialog from '../../libs/payment/components/InstalmentPay
 import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import type { Establishment } from '../../libs/establishment/types';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import {
@@ -105,8 +107,11 @@ import type { Payment, PaymentMethod } from '#libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import type { ConsumerGiftcard, Giftcard } from '../../libs/giftcard/types';
 import type { PlannedPaymentEvent } from '../../libs/invoice/types';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import type { StripeReader } from '#libs/terminal/types';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
+const stripeRegion = getStripeRegion();
 
 type Props = {
   fetchCompanyUserRoles: () => void,
@@ -208,6 +213,8 @@ type Props = {
     amount: number,
     options?: OptionCallback,
   ) => void,
+  stripeReaders: StripeReader[],
+  fetchStripeReaders: () => void,
 };
 
 type State = {
@@ -228,6 +235,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.fetchInvoiceData();
     this.props.fetchCompanyUserRoles();
     this.props.fetchEstablishments();
+    this.props.fetchStripeReaders();
   }
 
   fetchInvoiceData = () => {
@@ -351,10 +359,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
     });
   };
 
-  requestClientSecret = (paymentEngine: number) => {
+  requestClientSecret = (paymentEngine: number, params?: any) => {
     this.setState({ clientSecretLoading: true });
     requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_INVOICE, {
       invoice: this.props.uuid,
+      ...(params || {}),
     })
       .then((r) => {
         this.setState({
@@ -519,6 +528,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                  ...(stripeRegion === 'NorthAmerica'
+                    ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+                    : []),
                 ]}
                 availablePaymentMethodList={
                   this.props.payment_method_available_manager
@@ -527,6 +539,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 savedPaymentMethodList={this.props.savedPaymentMethodList}
                 fetchPaymentMethodList={this.fetchPaymentMethodList}
                 onSubmit={this.schedulePayment}
+                stripeReaders={this.props.stripeReaders}
               />
             )}
 
@@ -569,6 +582,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 }
                 defaultUserName={this.props.invoice.member.name}
                 defaultUserEmail={this.props.invoice.member.email}
+                stripeReaders={this.props.stripeReaders}
               />
             )}
             {this.props.openPlannedPaymentMethodDialog && (
@@ -579,6 +593,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                  ...(stripeRegion === 'NorthAmerica'
+                    ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+                    : []),
                 ]}
                 availablePaymentMethodList={
                   this.props.payment_method_available_manager
@@ -611,6 +628,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   this.props.setOpenPlannedPaymentMethodDialog(false);
                   this.props.setRegisterNow(false);
                 }}
+                stripeReaders={this.props.stripeReaders || []}
               />
             )}
           </Grid>
@@ -736,6 +754,7 @@ export default compose(
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
       plannedPaymentEventLoading: state.invoice.planned_payment_event.loading,
+      stripeReaders: getStripeReaders(state),
     }),
     {
       fetchInvoiceItemList,
@@ -771,6 +790,7 @@ export default compose(
       fetchGiftcardBulk: fetchGiftcardBulkAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
       fetchMemberBulkById: fetchMemberBulkByIdAction,
+      fetchStripeReaders,
     },
   ),
   withHandlers({

@@ -3,11 +3,19 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import PaymentMethodList from './payment-method-list/PaymentMethodList.component';
-import { fromPaymentGroupIdentifierToPaymentMethodIdentifier } from '../utils';
+import {
+  fromPaymentGroupIdentifierToPaymentMethodIdentifier,
+  PAYMENT_STRIPE_TERMINAL_FAKE,
+} from '../utils';
+import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import { PaymentMethod } from '../types';
+import type { StripeReader } from '#libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
+    marginTop: theme.spacing(2),
+  },
+  terminalContainer: {
     marginTop: theme.spacing(2),
   },
 }));
@@ -15,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 type Props = {
   savedPaymentMethodList: Array<PaymentMethod>;
   selectedSavedPaymentMethodId: string;
-  requestSetupIntentSecret: (id: string) => void;
+  requestSetupIntentSecret: () => Promise<any>;
   refreshSavedPaymentMethodList: () => void;
   paymentMethodType: string;
   loading: boolean;
@@ -29,6 +37,10 @@ type Props = {
   processing: boolean;
   disabled: boolean;
   selectPaymentMethod: (paymentMethodType: string) => void;
+  onSuccessTerminal: () => void;
+  onCancelTerminal: () => void;
+  stripeReaders: StripeReader[];
+  setProcessing?: (value: boolean) => void;
 };
 
 export const PaymentMethodSelector = (props: Props) => {
@@ -69,6 +81,18 @@ export const PaymentMethodSelector = (props: Props) => {
           sepaDefaultName={props.sepaDefaultName}
           sepaDefaultEmail={props.sepaDefaultEmail}
         />
+      )}
+      {props.paymentMethodType === PAYMENT_STRIPE_TERMINAL_FAKE && (
+        <div className={classes.terminalContainer}>
+          <PaymentStripeTerminalWrapper
+            stripeReaders={props.stripeReaders}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            onCancel={props.onCancelTerminal}
+            onSuccess={props.onSuccessTerminal}
+            setProcessing={props.setProcessing}
+            isSetupIntent
+          />
+        </div>
       )}
     </div>
   );

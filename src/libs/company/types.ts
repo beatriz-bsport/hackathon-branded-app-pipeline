@@ -11,6 +11,15 @@ export type CompanyWithTheme = Company & {
   secondaryRGB: [number, number, number];
 };
 
+export type FeatureList = {
+  upsell: [
+    {
+      upsell_identifier: number;
+      readable_identifier: string;
+    },
+  ];
+};
+
 export type CompanySetup = {
   id: number;
   name: string;

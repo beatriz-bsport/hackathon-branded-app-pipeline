@@ -11,6 +11,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ErrorIcon from '@material-ui/icons/Error';
 import Modal from '@material-ui/core/Modal';
+import AddIcon from '@material-ui/icons/Add';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -22,10 +23,14 @@ import { compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 
 import { withTranslation, TFunction } from 'react-i18next';
+import type { FeatureList } from '#libs/company/types';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
 import { getStripePkKey } from '../../../theme/selectors';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
+import type { StripeReader } from '#libs/terminal/types';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -40,6 +45,8 @@ type Props = {
   classes: Object,
   variant?: 'div' | 'modal',
   content?: string,
+  stripeReaders: StripeReader[],
+  addViaTerminal?: boolean,
 };
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
@@ -56,6 +63,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
     error: false,
     clientSecret: null,
     success: null,
+    displayStripeTerminal: false,
   };
 
   componentDidMount() {
@@ -122,30 +130,43 @@ export class CollectPaymentMethod extends React.Component<Props> {
     const dialogOffset = fullScreen ? '0%' : '50%';
     return (
       <Wrapper variant={this.props.variant}>
-        <>
-          <div
-            style={
-              this.props.variant === 'div'
-                ? {
-                    position: 'unset',
-                    backgroundColor: 'transparent',
-                  }
-                : {
-                    transform: `translate(-${dialogOffset}, -${dialogOffset})`,
-                    top: dialogOffset,
-                    left: dialogOffset,
-                  }
-            }
-            className={classes.modal}
-          >
+        <div
+          style={
+            this.props.variant === 'div'
+              ? {
+                  position: 'unset',
+                  backgroundColor: 'transparent',
+                }
+              : {
+                  transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+                  top: dialogOffset,
+                  left: dialogOffset,
+                }
+          }
+          className={classes.modal}
+        >
+          {!this.state.displayStripeTerminal && (
             <DialogTitle>
               {this.props.t('forms.paymentMethod.collect.title')}
             </DialogTitle>
-            <DialogContent>
+          )}
+          <DialogContent>
+            {!this.state.displayStripeTerminal && (
               <DialogContentText>
                 {this.props.content ||
                   this.props.t('forms.paymentMethod.collect.content')}
               </DialogContentText>
+            )}
+            {this.state.displayStripeTerminal ? (
+              <PaymentStripeTerminal
+                stripeReaders={this.props.stripeReaders}
+                clientSecret={this.state.clientSecret}
+                onCancel={this.props.onClose}
+                onSuccess={this.props.onSuccess}
+                isSetupIntent
+                onlySavePaymentMethod
+              />
+            ) : (
               <div>
                 {this.state.processing && (
                   <div className={classes.centered}>
@@ -217,6 +238,32 @@ export class CollectPaymentMethod extends React.Component<Props> {
                         </div>
                       </div>
                     </div>
+                    {this.props.addViaTerminal && (
+                      <FeatureListProvider>
+                        {(featureList: FeatureList) => (
+                          <Button
+                            className={classes.addViaTerminal}
+                            variant="outlined"
+                            color="primary"
+                            disabled={
+                              !featureList.upsell ||
+                              !featureList.upsell.find(
+                                (f) =>
+                                  f.readable_identifier === 'stripe_terminal',
+                              )
+                            }
+                            onClick={() =>
+                              this.setState({ displayStripeTerminal: true })
+                            }
+                          >
+                            <AddIcon />
+                            {this.props.t(
+                              'invoice:configuration.stripeTerminal.addCard',
+                            )}
+                          </Button>
+                        )}
+                      </FeatureListProvider>
+                    )}
                     <div className={classes.actions}>
                       {this.props.onClose && (
                         <Button
@@ -237,9 +284,9 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   </form>
                 )}
               </div>
-            </DialogContent>
-          </div>
-        </>
+            )}
+          </DialogContent>
+        </div>
       </Wrapper>
     );
   }
@@ -252,6 +299,9 @@ const Card = () => (
 );
 
 const styles = (theme: Theme) => ({
+  addViaTerminal: {
+    marginTop: theme.spacing(2),
+  },
   actions: {
     marginTop: theme.spacing(2),
     display: 'flex',

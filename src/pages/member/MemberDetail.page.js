@@ -35,6 +35,9 @@ import {
   fetchMember,
 } from '../../libs/member/actions';
 import withTitle from '../../hocs/with-title.hoc';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import type { StripeReader } from '#libs/terminal/types';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
@@ -68,6 +71,9 @@ import type { OptionCallback } from '../../state/types';
 import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import MemberActions from '#libs/member/components/ManagerMemberActions.components';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+
+import { getStripeRegion } from '../../libs/theme/selectors';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -157,11 +163,16 @@ type Props = {
   memberArchiveLoading: boolean,
   fetchProgram: (params: any) => void,
   programList: Array<PerformanceTrackingProgram>,
+  fetchStripeReaders: () => void,
+  stripeReaders: StripeReader[],
 };
+
+const stripeRegion = getStripeRegion();
 
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllPaymentPacks();
+    this.props.fetchStripeReaders();
     if (Number.isInteger(this.props.id)) {
       this.props.fetchPaymentMethodList();
       this.props.fetchCountObjects(this.props.id);
@@ -426,6 +437,9 @@ export class MemberDetail extends React.Component<Props> {
             BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
             BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
             BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+            ...(stripeRegion === 'NorthAmerica'
+              ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+              : []),
           ]}
           goToCustomSubscriptionForm={() =>
             this.props.subscribeMember(this.props.id)
@@ -441,6 +455,7 @@ export class MemberDetail extends React.Component<Props> {
           }
           establishments={this.props.establishmentList}
           enableMultiLocalization={this.props.theme.enable_multi_localization}
+          stripeReaders={this.props.stripeReaders || []}
         />
         <MemberArchiveDialog
           open={this.props.openArchiveDialog}
@@ -514,6 +529,7 @@ export default compose(
       memberArchiveStatus: getMemberArchiveStatus(state, id),
       memberArchiveLoading: state.member.archive.loading,
       memberToArchive: getMemberDetail(state, id),
+      stripeReaders: getStripeReaders(state),
     }),
     {
       fetchAllPaymentPacks,
@@ -536,6 +552,7 @@ export default compose(
       interrogateMemberStatus,
       fetchMember,
       fetchProgram: fetchProgramAction,
+      fetchStripeReaders,
     },
   ),
   withHandlers({

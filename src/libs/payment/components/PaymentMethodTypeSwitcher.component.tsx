@@ -10,6 +10,9 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
 } from '@bsport/common/lib/master-data/payment-group';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import type { FeatureList } from '#libs/company/types';
 
 const PaymentMethodTypeSwitcher = (props: {
   onChange: (string) => void;
@@ -35,6 +38,7 @@ const PaymentMethodTypeSwitcher = (props: {
           label={t('paymentMethod.sepa')}
           labelPlacement="bottom"
           disabled={props.disabled}
+          className={classes.paymentMethodRadio}
         />
       )}
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
@@ -46,6 +50,7 @@ const PaymentMethodTypeSwitcher = (props: {
           label={t('paymentMethod.card')}
           labelPlacement="bottom"
           disabled={props.disabled}
+          className={classes.paymentMethodRadio}
         />
       )}
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
@@ -57,7 +62,33 @@ const PaymentMethodTypeSwitcher = (props: {
           label={t('paymentMethod.bsportCredit')}
           labelPlacement="bottom"
           disabled={props.disabled}
+          className={classes.paymentMethodRadio}
         />
+      )}
+
+      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_STRIPE_TERMINAL_FAKE,
+      ) && (
+        <FeatureListProvider>
+          {(featureList: FeatureList) => (
+            <FormControlLabel
+              value={PAYMENT_STRIPE_TERMINAL_FAKE}
+              control={<Radio color="primary" />}
+              label={t(
+                'invoice:configuration.stripeTerminal.paymentDialog.radio',
+              )}
+              labelPlacement="bottom"
+              disabled={
+                props.disabled ||
+                !featureList.upsell ||
+                !featureList.upsell.find(
+                  (f) => f.readable_identifier === 'stripe_terminal',
+                )
+              }
+              className={classes.paymentMethodRadio}
+            />
+          )}
+        </FeatureListProvider>
       )}
     </RadioGroup>
   );
@@ -70,6 +101,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'space-around',
     alignItems: 'flex-start',
     marginBottom: theme.spacing(2),
+    flexWrap: 'nowrap',
+    textAlign: 'center',
+  },
+  paymentMethodRadio: {
+    flex: 1,
   },
 }));
 

@@ -30,10 +30,17 @@ export default handleActions<Immutable.Immutable<ThemeState>>(
         storage.setItem('bsport:stripe:pk_key', payload.stripe_pk_key);
         storage.setItem('bsport:payment:currency_code', payload.currency);
         storage.setItem('bsport:payment:currency_display', '€');
+        storage.setItem('bsport:payment:stripe_region', 'Europe');
         if (payload.currency_display) {
           storage.setItem(
             'bsport:payment:currency_display',
             payload.currency_display,
+          );
+        }
+        if (payload.stripe_region) {
+          storage.setItem(
+            'bsport:payment:stripe_region',
+            payload.stripe_region,
           );
         }
       } catch (err) {

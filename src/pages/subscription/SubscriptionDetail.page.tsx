@@ -12,7 +12,7 @@ import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-gr
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -62,10 +62,13 @@ import SubscriptionPaymentMethodSwitcherDialog from '#libs/subscription/componen
 import SubscriptionScheduledStopDialog from '#libs/subscription/components/SubscriptionScheduledStopDialog.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
 
 import { Subscription } from '#libs/subscription/types';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { RootState } from '../../reducers';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 
@@ -78,6 +81,8 @@ type Props = BeforeHandlerProps &
   WithHandlerType<typeof mapWithHandlers1> &
   WithHandlerType<typeof mapWithHandlers2> &
   MaterialStyleType<ReturnType<typeof styles>>;
+
+const stripeRegion = getStripeRegion();
 
 export class SubscriptionDetail extends Component<Props> {
   componentWillMount() {
@@ -92,6 +97,7 @@ export class SubscriptionDetail extends Component<Props> {
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchPaymentMethodList();
+    this.props.fetchStripeReaders();
   }
 
   render() {
@@ -177,8 +183,12 @@ export class SubscriptionDetail extends Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               this.props.theme.currency === 'eur' &&
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+              ...(stripeRegion === 'NorthAmerica'
+                ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+                : []),
             ]}
             member={this.props.memberById[this.props.subscription.member]}
+            stripeReaders={this.props.stripeReaders || []}
           />
         ) : null}
         {this.props.scheduledStopDialogOpen ? (
@@ -232,6 +242,7 @@ const connector = connect(
     theme: themeSelectors.getTheme(state),
     plannedInvoiceUpdateLoading:
       state.subscription.plannedInvoice.createOrUpdate.loading,
+    stripeReaders: getStripeReaders(state),
   }),
   {
     cancelPause: cancelPauseAction,
@@ -258,6 +269,7 @@ const connector = connect(
     switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
     flagPlannedInvoiceAsLast: flagPlannedInvoiceAsLastAction,
     unflagPlannedInvoiceAsLast: unflagPlannedInvoiceAsLastAction,
+    fetchStripeReaders,
   },
 );
 

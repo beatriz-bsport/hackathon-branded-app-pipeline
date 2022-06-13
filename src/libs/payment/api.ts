@@ -88,6 +88,13 @@ export const fetchPaymentGroupList = async (params: any) => {
   );
 };
 
+export const updateIntentToSavePaymentMethod = async (data: any) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/update_intent_to_save_payment_method/`,
+    data,
+  );
+};
+
 export const fetchPayoutList = async (params: any) => {
   return getAuth(`${API_V1_URI}/payment/payout/${buildUrlParams(params)}`);
 };

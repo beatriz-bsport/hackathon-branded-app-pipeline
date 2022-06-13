@@ -342,6 +342,88 @@ exports.default = {
     nf525Explain:
       'Bsport suit les procédures de mise en conformité NF525, vous pouvez ici télécharger notre attestation officielle.',
     nf525Button: 'Télécharger',
+    stripeTerminal: {
+      title: 'Paiement par terminal',
+      helperText:
+        'Utilisez un terminal de paiement pour payer les factures de vos clients depuis le backoffice. Grâce au terminal, gagnez du temps en encaissant vos clients sans avoir à leur demander leurs coordonnées bancaires. Merci de contacter votre chargé de compte pour en savoir plus.',
+      addReader: 'Connecter un terminal',
+      addCard: 'Ajouter avec le terminal  Stripe',
+      deleteDialog: {
+        title: 'Suppression',
+        content1:
+          'Êtes-vous sûr de vouloir supprimer le terminal de paiement {{label}} ?',
+        content2:
+          "Il n'apparaîtra plus dans les terminaux disponibles lors des paiements.",
+        content3: 'Vous pourrez le connecter de nouveau si vous le souhaitez',
+      },
+      connectDialog: {
+        title: {
+          connect: 'Connexion',
+          success: 'Connexion réussie',
+          error: 'Echec de connexion',
+          edit: 'Modification',
+        },
+        mustCreateStripeLocation:
+          'Pour votre premier enregistrement, veuillez renseigner les informations du studio dans lequel le terminal sera utilisé.',
+        loading1: "Nous tentons d'établir une connexion avec votre terminal.",
+        loading2: 'Merci de patienter.',
+        form: {
+          readerLabel: 'Nom du terminal',
+          registrationCode: 'Code du terminal',
+          registrationCodeHelperText:
+            'Indiquer le code affiché sur votre TPE Stripe',
+          connect: 'Connecter',
+          continue: 'Continuer',
+          retry: 'Réessayer',
+          update: 'Modifier',
+        },
+        success: 'Votre terminal de paiement Stripe a bien été connecté',
+        error1: "Votre terminal de paiement Stripe n'a pas été connecté.",
+        error2: 'Veuillez réessayer.',
+      },
+      paymentDialog: {
+        radio: 'Terminal de paiement',
+        amountToPay: 'Montant à payer',
+        connectAndPay: 'Envoyer sur le terminal',
+        minAmountInfo:
+          "Le paiement par terminal de paiement n'est pas disponible pour un montant inférieur à {{amountString}}.",
+        connectionSuccess: {
+          payment:
+            'La connexion avec le terminal a été effectuée. Le montant à payer devrait être affiché désormais.',
+          intent:
+            'La connexion avec le terminal a été effectuée. Le client devrait être en mesure de présenter sa carte.',
+          processing: 'Votre demande est en cours de traitement',
+        },
+        paymentSuccess: {
+          title: {
+            payment: 'Paiement accepté',
+            setupAndPlan: 'Paiement enregistré',
+            setupOnly: 'Méthode de paiement enregistrée',
+          },
+          content: {
+            payment: 'Le paiement a bien été pris en compte.',
+            wait: 'Encore un petit instant, nous traitons vos données.',
+          },
+        },
+        paymentFailed: {
+          title: {
+            paymentIntent: 'Echec de paiement',
+            setupIntent: "Echec de l'opération",
+          },
+          content: {
+            paymentIntent: "Le paiement n'a pas été pris en compte.",
+            setupIntent: "La méthode de paiement n'a pas été sauvegardée.",
+          },
+          explain: {
+            label: "Raison de l'échec :",
+          },
+        },
+        disconnect: {
+          title: 'Déconnexion',
+          content: 'La connexion a été perdue. Veuillez réessayer',
+        },
+      },
+    },
   },
   invoiceItem: {
     buyableItemIdentifier: {

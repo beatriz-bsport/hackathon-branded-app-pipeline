@@ -23,6 +23,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 import DatePicker from 'material-ui-pickers/DatePicker';
 import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
+import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
@@ -31,6 +32,7 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import type { Establishment } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { getPrice, getTaxPrice } from '../../theme/utils';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   onCancel: () => void,
@@ -45,7 +47,7 @@ type Props = {
   classes: Object,
   t: TFunction,
 
-  requestSetupIntentSecret: () => void,
+  requestSetupIntentSecret: () => Promise<any>,
   refreshSavedPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
 
@@ -73,6 +75,7 @@ type Props = {
   enableMultiLocalization: boolean,
   memberId?: number,
   isExcludingTax?: boolean,
+  stripeReaders: StripeReader[],
 };
 
 type State = {
@@ -83,6 +86,7 @@ type State = {
   voucher: number | null,
   billing_establishment_id: number | null,
   selectedSavedPaymentMethodId: number | null,
+  processingTerminal: boolean,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
@@ -95,6 +99,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       loading: false,
       billing_establishment_id: null,
       selectedSavedPaymentMethodId: null,
+      processingTerminal: false,
     };
   }
 
@@ -147,6 +152,30 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         'bsport:credit',
         null,
         null,
+        (this.state.voucher && this.state.coupon_code) || null,
+        this.state.note,
+        this.state.billing_establishment_id,
+      );
+    } else if (this.props.paymentMethod === 'terminal') {
+      this.setState({ loading: true });
+      this.props.onSubmit(
+        null,
+        'stripe_terminal',
+        {
+          onSuccess: () => {
+            this.setState({
+              loading: false,
+            });
+            if (this.props.refreshSavedPaymentMethodList) {
+              this.props.refreshSavedPaymentMethodList();
+            }
+          },
+          onError: () => {
+            this.setState({
+              loading: false,
+            });
+          },
+        },
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
         this.state.billing_establishment_id,
@@ -371,7 +400,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               enabledPaymentGroupMethodIdentifier={
                 enabledPaymentGroupMethodIdentifier
               }
-              disabled={this.props.disabled}
+              disabled={this.props.disabled || this.state.processingTerminal}
             />
             <Divider />
             <div className={classes.cardContainer}>
@@ -382,6 +411,22 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   </Typography>
                 </div>
               ) : null}
+              {paymentMethod === 'terminal' && (
+                <div className={classes.terminalContainer}>
+                  <PaymentStripeTerminalWrapper
+                    stripeReaders={this.props.stripeReaders}
+                    requestSetupIntentSecret={
+                      this.props.requestSetupIntentSecret
+                    }
+                    onCancel={onCancel}
+                    onSuccess={this.submit}
+                    setProcessing={(value: boolean) =>
+                      this.setState({ processingTerminal: value })
+                    }
+                    isSetupIntent
+                  />
+                </div>
+              )}
               {['card', 'sepa_debit'].includes(paymentMethod) && (
                 <PaymentMethodList
                   showEmpty
@@ -447,38 +492,43 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               />
             </div>
           )}
-        <div className={classes.buttonContainer}>
-          <Button
-            onClick={onCancel}
-            color="secondary"
-            disabled={processing || this.state.loading}
-          >
-            {t('subscription:form.cancel')}
-          </Button>
-          <Button
-            onClick={this.submit}
-            id="stripe-pay"
-            color="primary"
-            disabled={
-              (['sepa_debit', 'card'].includes(paymentMethod) &&
-                !this.state.selectedSavedPaymentMethodId &&
-                !this.isZeroPrice()) ||
-              this.props.disabled
-            }
-          >
-            {this.state.loading || processing ? (
-              <CircularProgress />
-            ) : (
-              t('subscription:form.submit')
-            )}
-          </Button>
-        </div>
+        {paymentMethod !== 'terminal' && (
+          <div className={classes.buttonContainer}>
+            <Button
+              onClick={onCancel}
+              color="secondary"
+              disabled={processing || this.state.loading}
+            >
+              {t('subscription:form.cancel')}
+            </Button>
+            <Button
+              onClick={this.submit}
+              id="stripe-pay"
+              color="primary"
+              disabled={
+                (['sepa_debit', 'card'].includes(paymentMethod) &&
+                  !this.state.selectedSavedPaymentMethodId &&
+                  !this.isZeroPrice()) ||
+                this.props.disabled
+              }
+            >
+              {this.state.loading || processing ? (
+                <CircularProgress />
+              ) : (
+                t('subscription:form.submit')
+              )}
+            </Button>
+          </div>
+        )}
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  terminalContainer: {
+    marginTop: theme.spacing(2),
+  },
   title: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),

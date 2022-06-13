@@ -40,12 +40,21 @@ import {
 } from '../../libs/establishment/actions';
 import EstablishmentBillingGroupTable from '../../libs/establishment/components/EstablishmentBillingGroupTable.component';
 import EstablishmentBillingGroupFormDialog from '../../libs/establishment/components/EstablishmentBillingGroupFormDialog.component';
+import {
+  fetchStripeReaders,
+  createStripeReader,
+  deleteStripeReader,
+  editStripeReader,
+} from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
 import type { EstablishmentBillingGroup as EstablishmentBillingGroupType } from '../../libs/establishment/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { updateCompanyTheme } from '../../libs/theme/actions';
 
 type StateHandlerInit = {
   openDialogForm: boolean;
+  openConnectReaderDialog: boolean;
+  openDeleteReaderDialog: boolean;
   initialBillingGroup: EstablishmentBillingGroupType | null;
   submitting: boolean;
 };
@@ -65,6 +74,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
     this.props.fetchInvoiceConfiguration();
     this.props.fetchAllEstablishmentBillingGroup();
     this.props.fetchEstablishments();
+    this.props.fetchStripeReaders();
   }
 
   render() {
@@ -83,6 +93,11 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
             theme={this.props.theme}
             goToReports={this.props.goToReports}
             patchTheme={this.props.patchTheme}
+            stripeReaders={this.props.stripeReaders || []}
+            setOpenConnectReaderDialog={this.props.setOpenConnectReaderDialog}
+            createReaderAndFetch={this.props.createReaderAndFetch}
+            deleteReaderAndFetch={this.props.deleteReaderAndFetch}
+            editReaderAndFetch={this.props.editReaderAndFetch}
           />
           {this.props.theme.enable_multi_localization && (
             <>
@@ -180,6 +195,7 @@ const mapStateToProps = (state: RootState) => ({
     state,
   ),
   establishments: getAvailableEstablishmentList(state),
+  stripeReaders: getStripeReaders(state),
 });
 const mapDispatchToProps = {
   fetchInvoiceConfiguration,
@@ -192,6 +208,10 @@ const mapDispatchToProps = {
   deleteEstablishmentBillingGroupAction,
   submitTheme: updateCompanyTheme,
   goToReports: () => pushRouter('/reporting'),
+  fetchStripeReaders,
+  createStripeReader,
+  deleteStripeReader,
+  editStripeReader,
 };
 const mapWithHandlers = {
   patchTheme:
@@ -232,9 +252,49 @@ const mapWithHandlers = {
         onError: () => props.setSubmitting(false),
       });
     },
+  createReaderAndFetch:
+    (props: OwnAndConnectedProps) => (data: any, options?: OptionCallback) => {
+      props.createStripeReader(data, {
+        onSuccess: () => {
+          props.fetchStripeReaders();
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
+  deleteReaderAndFetch:
+    (props: OwnAndConnectedProps) =>
+    (readerId: string, options?: OptionCallback) => {
+      props.deleteStripeReader(readerId, {
+        onSuccess: () => {
+          props.fetchStripeReaders();
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
+  editReaderAndFetch:
+    (props: OwnAndConnectedProps) =>
+    (readerId: string, label: string, options?: OptionCallback) => {
+      props.editStripeReader(readerId, label, {
+        onSuccess: () => {
+          props.fetchStripeReaders();
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
 };
 const withStateHandlersInit: StateHandlerInit = {
   openDialogForm: false,
+  openConnectReaderDialog: false,
+  openDeleteReaderDialog: false,
   initialBillingGroup: null,
   submitting: false,
 };
@@ -242,6 +302,12 @@ const withStateHandlersSetter = {
   setOpenDialogForm: () => (openDialogForm: boolean) => {
     return { openDialogForm };
   },
+  setOpenConnectReaderDialog: () => (openConnectReaderDialog: boolean) => ({
+    openConnectReaderDialog,
+  }),
+  setOpenDeleteReaderDialog: () => (openDeleteReaderDialog: boolean) => ({
+    openDeleteReaderDialog,
+  }),
   setInitialBillingGroup:
     () => (initialBillingGroup: EstablishmentBillingGroupType | null) => {
       return { initialBillingGroup };

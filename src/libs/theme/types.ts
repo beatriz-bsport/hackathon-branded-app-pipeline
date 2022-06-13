@@ -68,6 +68,7 @@ export type Theme = {
   schedule_timerange_begin: string;
   schedule_timerange_end: string;
   vod_providers: Array<number>;
+  has_stripe_location: boolean;
 };
 
 export type ThemeState = {

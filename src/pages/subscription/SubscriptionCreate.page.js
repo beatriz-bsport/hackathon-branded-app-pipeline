@@ -40,6 +40,9 @@ import type { Establishment } from '../../libs/establishment/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   member: Member,
@@ -58,6 +61,8 @@ type Props = {
   fetchEstablishments: () => void,
   establishments: Array<Establishment>,
   companyTheme: CompanyTheme,
+  fetchStripeReaders: () => void,
+  stripeReaders: StripeReader[],
 };
 type State = {
   tempSubscription: ?SubscriptionData,
@@ -75,6 +80,7 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
+    this.props.fetchStripeReaders();
   }
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
@@ -124,6 +130,7 @@ export class SubscriptionCreate extends Component<Props, State> {
             enableMultiLocalization={
               this.props.companyTheme.enable_multi_localization
             }
+            stripeReaders={this.props.stripeReaders || []}
           />
         ) : (
           <Paper className={this.props.classes.paper}>
@@ -174,6 +181,7 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       establishments: getAvailableEstablishmentList(state),
       companyTheme: themeSelectors.getTheme(state),
+      stripeReaders: getStripeReaders(state),
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -184,6 +192,7 @@ export default compose(
       fetchPrivatePassList,
       fetchPaymentComboList,
       fetchEstablishments,
+      fetchStripeReaders,
     },
   ),
   withHandlers({

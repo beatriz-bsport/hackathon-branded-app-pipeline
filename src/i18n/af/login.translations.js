@@ -130,6 +130,7 @@ exports.default = {
     BG: 'Bulgarie',
     RO: 'Roumanie',
     SI: 'Slovénie',
+    MX: 'Mexique',
   },
   language: {
     fr: 'français',

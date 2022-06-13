@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Select from '@material-ui/core/Select';
@@ -57,6 +58,10 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLElement>) => void;
   value: string;
   label?: string;
+  distinctCountry?: boolean;
+  hideLang?: boolean;
+  valueKey?: 'locale' | 'country' | 'currencyCode';
+  noMargin?: boolean;
 };
 
 type Locale = {
@@ -373,21 +378,54 @@ export const LOCALE_LIST: Array<Locale> = [
   },
 ];
 
+const getLocaleListForSelector = (
+  distinctCountry: boolean,
+  hideLang: boolean,
+): Array<Locale & { country?: string }> => {
+  let localeList = [...LOCALE_LIST];
+  if (hideLang) {
+    localeList = localeList.map((l) => ({ ...l, showLang: false }));
+  }
+  if (distinctCountry) {
+    localeList = localeList
+      .map((l) => ({ ...l, country: l.locale.split('_')[1] }))
+      .filter(
+        (value, index, self) =>
+          self.findIndex((l) => l.country === value.country) === index,
+      );
+  }
+  return localeList;
+};
+
 export const CountrySelector = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['login']);
+
+  const localeList = getLocaleListForSelector(
+    !!props.distinctCountry,
+    !!props.hideLang,
+  );
+
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl
+      className={classnames(classes.formControl, {
+        [classes.formControlMargin]: !props.noMargin,
+      })}
+    >
       {!!props.label && (
         <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
       )}
       <Select value={props.value} onChange={props.onChange}>
-        {LOCALE_LIST.map((localeContainer) => {
+        {localeList.map((localeContainer) => {
           const [lang, country] = localeContainer.locale.split('_');
           return (
             <MenuItem
               key={localeContainer.locale}
-              value={localeContainer.locale}
+              value={
+                props.valueKey
+                  ? localeContainer[props.valueKey]
+                  : localeContainer.locale
+              }
               className={classes.menuItem}
             >
               <img
@@ -407,8 +445,10 @@ export const CountrySelector = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
+  formControlMargin: {
     margin: theme.spacing(1),
+  },
+  formControl: {
     minWidth: 120,
   },
   selectEmpty: {

@@ -18,3 +18,8 @@ export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
       return '';
   }
 };
+
+// This const is used to identify stripe terminal as a payment method in different dialogs
+// The value 99 isn't sent to the backend, we replace this value with the appropriate one (CB)
+// before calling the api
+export const PAYMENT_STRIPE_TERMINAL_FAKE = 99;

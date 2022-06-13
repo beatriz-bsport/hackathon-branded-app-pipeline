@@ -7,6 +7,11 @@ export type PaymentMethod = {
   additional_info: string;
 };
 
+export type PaymentConfigData = {
+  payment_method: number;
+  payment_method_id: string | null;
+};
+
 export type Payout = {
   date_created: string;
   status: number;

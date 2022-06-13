@@ -24,6 +24,7 @@ import { postContractSubscription as postContractSubscriptionAPI } from '../api'
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 import type { Establishment } from '../../establishment/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   t: TFunction,
@@ -57,6 +58,7 @@ type Props = {
   generalTermsAndConditions: string,
   establishments: Array<Establishment>,
   enableMultiLocalization: boolean,
+  stripeReaders: StripeReader[],
 };
 
 const ContractPickerDialog = (props: {
@@ -215,6 +217,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           withEstablishment
           enableMultiLocalization={props.enableMultiLocalization}
           establishments={props.establishments}
+          stripeReaders={props.stripeReaders}
         />
       </DialogContent>
     </Dialog>

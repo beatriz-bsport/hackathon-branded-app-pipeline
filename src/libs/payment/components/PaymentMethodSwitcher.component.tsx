@@ -13,6 +13,9 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 import { getCurrencyCode } from '../../theme/selectors';
+import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import type { FeatureList } from '#libs/company/types';
 
 type OwnProps = {
   onChange: (param: string) => void;
@@ -51,6 +54,7 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           label={t('subscription:paymentMethod.sepa')}
           labelPlacement="bottom"
           disabled={props.disabled}
+          className={classes.paymentMethodRadio}
         />
       ) : null}
       {(props.enabledPaymentMethods || []).includes(
@@ -65,6 +69,7 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           label={t('subscription:paymentMethod.card')}
           labelPlacement="bottom"
           disabled={props.disabled}
+          className={classes.paymentMethodRadio}
         />
       ) : null}
       {(props.enabledPaymentMethods || []).includes(
@@ -76,8 +81,34 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           label={t('subscription:paymentMethod.bsportCredit')}
           labelPlacement="bottom"
           disabled={props.disabled}
+          className={classes.paymentMethodRadio}
         />
       ) : null}
+
+      {(props.enabledPaymentMethods || []).includes(
+        PAYMENT_STRIPE_TERMINAL_FAKE,
+      ) && (
+        <FeatureListProvider>
+          {(featureList: FeatureList) => (
+            <FormControlLabel
+              value="terminal"
+              control={<Radio color="primary" />}
+              label={t(
+                'invoice:configuration.stripeTerminal.paymentDialog.radio',
+              )}
+              labelPlacement="bottom"
+              disabled={
+                props.disabled ||
+                !featureList.upsell ||
+                !featureList.upsell.find(
+                  (f) => f.readable_identifier === 'stripe_terminal',
+                )
+              }
+              className={classes.paymentMethodRadio}
+            />
+          )}
+        </FeatureListProvider>
+      )}
     </RadioGroup>
   );
 };
@@ -88,6 +119,11 @@ const useStyles = makeStyles<Theme>((theme) => ({
     justifyContent: 'space-around',
     alignItems: 'flex-start',
     marginBottom: theme.spacing(2),
+    flexWrap: 'nowrap',
+    textAlign: 'center',
+  },
+  paymentMethodRadio: {
+    flex: 1,
   },
 }));
 export default PaymentMethodSwitcher;

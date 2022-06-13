@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
 import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
 import CollectPaymentMethod from './CollectPaymentMethod.component';
+import type { StripeReader } from '#libs/terminal/types';
 
 type OwnProps = {
   onChange: (param: string) => void;
@@ -14,6 +15,8 @@ type OwnProps = {
   requestSetupIntentSecret: () => Promise<AxiosResponse<any>>;
   refreshSavedPaymentMethodList: () => void;
   onCancel?: () => void;
+  stripeReaders?: StripeReader[];
+  addViaTerminal?: boolean;
 };
 type Props = OwnProps;
 export const AddPaymentMethod: React.FC<Props> = ({
@@ -26,6 +29,8 @@ export const AddPaymentMethod: React.FC<Props> = ({
   sepaDefaultName,
   sepaDefaultEmail,
   onCancel,
+  stripeReaders,
+  addViaTerminal,
 }) => {
   const { t } = useTranslation('payment');
   return (
@@ -46,6 +51,8 @@ export const AddPaymentMethod: React.FC<Props> = ({
         defaultEmail={sepaDefaultEmail}
         onClose={onCancel}
         content={t('forms.paymentMethod.collect.contentAdd')}
+        stripeReaders={stripeReaders || []}
+        addViaTerminal={!!addViaTerminal}
       />
     </>
   );

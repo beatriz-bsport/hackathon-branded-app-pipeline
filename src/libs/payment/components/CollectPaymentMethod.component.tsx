@@ -3,6 +3,7 @@ import React from 'react';
 
 import CollectPaymentMethodCard from './payment-backend-stripe-deprecated/CollectPaymentMethodCard.component';
 import CollectPaymentMethodSepa from './payment-backend-stripe-deprecated/CollectPaymentMethodSepa.component';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   refreshSavedPaymentMethodList?: () => void;
@@ -14,6 +15,8 @@ type Props = {
   defaultName: string;
   defaultEmail: string;
   content?: string;
+  stripeReaders?: StripeReader[];
+  addViaTerminal?: boolean;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -26,10 +29,14 @@ export const CollectPaymentMethod = (props: Props) => {
           if (props.onSuccess) {
             props.onSuccess();
           }
+          // If stripe terminal, display success screen for 2 sec
+          if (props.addViaTerminal) setTimeout(() => props.onClose(), 2000);
         }}
         onClose={props.onClose}
         variant={props.variant}
         content={props.content}
+        stripeReaders={props.stripeReaders}
+        addViaTerminal={!!props.addViaTerminal}
       />
     );
   }

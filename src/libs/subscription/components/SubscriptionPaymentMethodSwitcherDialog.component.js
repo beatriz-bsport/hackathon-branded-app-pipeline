@@ -4,6 +4,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import type { StripeReader } from '#libs/terminal/types';
 
 import SubscriptionPayment from './SubscriptionPayment.component';
 
@@ -20,6 +21,7 @@ type Props = {
   refreshSavedPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   enabledPaymentMethods: Array<number>,
+  stripeReaders: StripeReader[],
 };
 
 export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Props> {
@@ -57,6 +59,7 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             sepaDefaultName={this.props.member ? this.props.member.name : ''}
             sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
+            stripeReaders={this.props.stripeReaders}
           />
         </DialogContent>
       </Dialog>

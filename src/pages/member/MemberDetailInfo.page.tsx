@@ -55,6 +55,7 @@ import {
   deleteTagGroup,
   deleteTag,
 } from '../../libs/tag/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
 
 import {
   fetchPaymentMethodList,
@@ -94,7 +95,7 @@ import {
   fetchAllEstablishmentGroup,
 } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import { fetchModelBasedAnswer } from '../../libs/custom-form/actions';
@@ -139,6 +140,8 @@ type State = {
   fileToDelete: number;
   paymentMethodType: string;
 };
+
+const stripeRegion = getStripeRegion();
 
 export class MemberDetailPage extends Component<Props> {
   state: State = {
@@ -327,6 +330,7 @@ export class MemberDetailPage extends Component<Props> {
             companyId={this.props.companyId}
             applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
             consumerGiftcardList={this.props.consumerGiftcardList}
+            stripeReaders={this.props.stripeReaders || []}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -396,6 +400,8 @@ export class MemberDetailPage extends Component<Props> {
               sepaDefaultEmail={
                 this.props.member ? this.props.member.email : ''
               }
+              stripeReaders={this.props.stripeReaders || []}
+              addViaTerminal={stripeRegion === 'NorthAmerica'}
             />
           </PaymentModal>
         )}
@@ -495,6 +501,7 @@ const connector = connect(
     consumerGiftcardList: withSender(
       withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
     )(state),
+    stripeReaders: getStripeReaders(state),
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,

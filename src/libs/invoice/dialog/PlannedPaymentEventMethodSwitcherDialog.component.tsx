@@ -28,13 +28,18 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 
 import { CircularProgress, makeStyles, Theme } from '@material-ui/core';
+import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import DateInput from '../../../components/input/DateInput.component';
 import Checkbox from '../../../components/input/Checkbox.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import type { FeatureList } from '#libs/company/types';
 
 import type { PlannedPaymentEvent } from '../types';
 import type { PaymentMethod } from '#libs/payment/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 const PaymentMethodSwitcher = (props: {
   classes: any;
@@ -61,6 +66,7 @@ const PaymentMethodSwitcher = (props: {
         label={props.t('subscription:paymentMethod.sepa')}
         labelPlacement="bottom"
         disabled={props.disabled}
+        className={props.classes.paymentMethodRadio}
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
@@ -72,6 +78,7 @@ const PaymentMethodSwitcher = (props: {
         label={props.t('subscription:paymentMethod.card')}
         labelPlacement="bottom"
         disabled={props.disabled}
+        className={props.classes.paymentMethodRadio}
       />
     ) : null}
 
@@ -88,6 +95,7 @@ const PaymentMethodSwitcher = (props: {
         label={props.t('subscription:paymentMethod.bsportCredit')}
         labelPlacement="bottom"
         disabled={props.disabled}
+        className={props.classes.paymentMethodRadio}
       />
     ) : null}
     {props.registerNow ? (
@@ -97,18 +105,51 @@ const PaymentMethodSwitcher = (props: {
         label={props.t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_BSPORT}`)}
         labelPlacement="bottom"
         disabled={props.disabled}
+        className={props.classes.paymentMethodRadio}
       />
     ) : null}
+    {(props.enabledPaymentMethods || []).includes(
+      PAYMENT_STRIPE_TERMINAL_FAKE,
+    ) && (
+      <FeatureListProvider>
+        {(featureList: FeatureList) => (
+          <FormControlLabel
+            value="terminal"
+            control={<Radio color="primary" />}
+            label={props.t(
+              'invoice:configuration.stripeTerminal.paymentDialog.radio',
+            )}
+            labelPlacement="bottom"
+            disabled={
+              props.disabled ||
+              !featureList.upsell ||
+              !featureList.upsell.find(
+                (f) => f.readable_identifier === 'stripe_terminal',
+              )
+            }
+            className={props.classes.paymentMethodRadio}
+          />
+        )}
+      </FeatureListProvider>
+    )}
   </RadioGroup>
 );
 
 const useStyles = makeStyles((theme: Theme) => ({
+  terminalContainer: {
+    marginTop: theme.spacing(2),
+  },
   paymentMethodSelectorContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     marginBottom: theme.spacing(2),
+    flexWrap: 'nowrap',
+    textAlign: 'center',
+  },
+  paymentMethodRadio: {
+    flex: 1,
   },
   priceContainer: {
     width: '100%',
@@ -147,7 +188,7 @@ type OwnProps = {
   open: boolean;
   selectedPPE: PlannedPaymentEvent;
   enabledPaymentMethods: Array<number>;
-  requestSetupIntentSecret: () => void;
+  requestSetupIntentSecret: () => Promise<any>;
   savedPaymentMethodList: Array<PaymentMethod>;
   refreshSavedPaymentMethodList: () => void;
   sepaDefaultName: string;
@@ -171,6 +212,7 @@ type OwnProps = {
     registerNow: boolean,
     extraData: any,
   ) => void;
+  stripeReaders: StripeReader[];
 };
 
 type Props = OwnProps;
@@ -210,6 +252,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
 
   const [internalDate, setInternalDate] = useState(moment().format());
   const [internalPaymentNote, setInternalPaymentNote] = React.useState('');
+  const [processing, setProcessing] = useState(false);
 
   const currentPPEPaymentMethodIdentifier =
     props.selectedPPE.payment_method_identifier;
@@ -223,6 +266,9 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
     switch (value) {
       case 'sepa_debit':
         setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA);
+        break;
+      case 'terminal':
+        setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_CB);
         break;
       case 'card':
         setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_CB);
@@ -247,6 +293,19 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
       props.selectedPPE.id,
       paymentMethod,
       selectedSavedPaymentMethodId,
+      applyToAllFuturePayments,
+      props.registerNow,
+      extraData,
+    );
+  };
+
+  // Success handler for stripe terminal
+  const onSuccessStripeTerminal = () => {
+    const extraData = {};
+    props.onSubmitChangePaymentMethodAndRegister(
+      props.selectedPPE.id,
+      paymentMethod,
+      'stripe_terminal',
       applyToAllFuturePayments,
       props.registerNow,
       extraData,
@@ -291,16 +350,16 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
               paymentMethodType={paymentMethodType}
               onChange={onMethodTypeChange}
               enabledPaymentMethods={props.enabledPaymentMethods}
-              disabled={props.plannedPaymentEventLoading}
+              disabled={props.plannedPaymentEventLoading || processing}
               registerNow={props.registerNow}
               currentPPEPaymentMethodIdentifier={
                 currentPPEPaymentMethodIdentifier
               }
             />
             <Divider />
-            <div className={classes.explainCredit}>
+            <div>
               {paymentMethodType === 'debt' && (
-                <div>
+                <div className={classes.explainCredit}>
                   <Typography>
                     {t('invoice:paymentMethod.isInternalExplainFuturePayments')}
                   </Typography>
@@ -330,7 +389,6 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
               )}
               {paymentMethodType === 'internal' && (
                 <>
-                  {' '}
                   <FormControl className={classes.field}>
                     <InputLabel id="invoice:payment-method-select-label">
                       {t('invoice:paymentMethod.select.label')}
@@ -385,6 +443,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
             {!props.registerNow && props.dispApplyForAll && (
               <Checkbox
                 checked={applyToAllFuturePayments}
+                disabled={processing}
                 label={t(
                   'invoice:invoiceFuturePaymentsDialog.applyForAllFuturePayments',
                 )}
@@ -393,28 +452,42 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                 }
               />
             )}
-            <DialogActions>
-              <Button color="secondary" onClick={props.onClose}>
-                {t('translation:common.previous')}
-              </Button>
-              {props.processing ? (
-                <CircularProgress />
-              ) : (
-                <Button
-                  color="primary"
-                  variant="contained"
-                  disabled={
-                    props.plannedPaymentEventLoading ||
-                    paymentMethod === null ||
-                    (['sepa_debit', 'card'].includes(paymentMethodType) &&
-                      !selectedSavedPaymentMethodId)
-                  }
-                  onClick={onSubmit}
-                >
-                  {t('translation:common.confirm')}
+            {paymentMethodType === 'terminal' && (
+              <div className={classes.terminalContainer}>
+                <PaymentStripeTerminalWrapper
+                  stripeReaders={props.stripeReaders}
+                  requestSetupIntentSecret={props.requestSetupIntentSecret}
+                  onCancel={props.onClose}
+                  onSuccess={onSuccessStripeTerminal}
+                  setProcessing={setProcessing}
+                  isSetupIntent
+                />
+              </div>
+            )}
+            {paymentMethodType !== 'terminal' && (
+              <DialogActions>
+                <Button color="secondary" onClick={props.onClose}>
+                  {t('translation:common.previous')}
                 </Button>
-              )}
-            </DialogActions>
+                {props.processing ? (
+                  <CircularProgress />
+                ) : (
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    disabled={
+                      props.plannedPaymentEventLoading ||
+                      paymentMethod === null ||
+                      (['sepa_debit', 'card'].includes(paymentMethodType) &&
+                        !selectedSavedPaymentMethodId)
+                    }
+                    onClick={onSubmit}
+                  >
+                    {t('translation:common.confirm')}
+                  </Button>
+                )}
+              </DialogActions>
+            )}
           </>
         )}
       </DialogContent>

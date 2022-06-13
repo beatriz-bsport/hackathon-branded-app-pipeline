@@ -25,7 +25,7 @@ import Fuse, { FuseOptions } from 'fuse.js';
 
 import { TFunction } from 'i18next';
 import { RootState } from '../../reducers';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
@@ -64,6 +64,9 @@ import {
   restoreContract,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
 } from '../../libs/subscription/actions';
+import { fetchStripeReaders } from '#libs/terminal/actions';
+import { getStripeReaders } from '#libs/terminal/selectors';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
@@ -71,6 +74,8 @@ import type { Contract } from '../../libs/subscription/types';
 
 import { Coach } from '../../libs/associated-coach/types';
 import { Member } from '../../libs/member/types';
+
+const stripeRegion = getStripeRegion();
 
 export class SubscriptionList extends React.Component<Props, State> {
   state = {
@@ -82,6 +87,7 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.fetchContractList();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    this.props.fetchStripeReaders();
   }
 
   onClickContract = (id: number) => {
@@ -326,11 +332,15 @@ export class SubscriptionList extends React.Component<Props, State> {
               BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+              ...(stripeRegion === 'NorthAmerica'
+                ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+                : []),
             ]}
             waiver={this.props.theme.waiver}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
+            stripeReaders={this.props.stripeReaders || []}
           />
         ) : null}
         <SubscriptionContractFormDrawer
@@ -415,6 +425,7 @@ const mapStateToProps = (state: RootState) => ({
   paymentComboList: getPaymentComboList(state),
   searchedMembers: getSearchedMembers(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
+  stripeReaders: getStripeReaders(state),
 });
 
 const mapDispatchToProps = {
@@ -431,6 +442,7 @@ const mapDispatchToProps = {
   fetchPaymentMethodList: fetchPaymentMethodListAction,
   goToContractDetail: (contractId: number) =>
     push(`/subscription/contract/${contractId}`),
+  fetchStripeReaders,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

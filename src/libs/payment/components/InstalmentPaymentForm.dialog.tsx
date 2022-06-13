@@ -26,6 +26,8 @@ import PaymentMethodTypeSwitcher from './PaymentMethodTypeSwitcher.component';
 import PaymentMethodSelector from './PaymentMethodSelector.component';
 import { PaymentInstalmentData, PaymentConfigData } from '../types';
 import { OptionCallback } from '../../../state/types';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   enabledPaymentGroupMethodIdentifier: Array<number>;
@@ -38,6 +40,8 @@ type Props = {
   enabledPaymentMethods: Array<number>;
   values: PaymentInstalmentData; // comes from the formik HOC
   totalPriceCts: number;
+  stripeReaders: StripeReader[];
+  requestSetupIntentSecret: () => Promise<any>;
 };
 
 const STEP_CONFIG_RECURRENCE = 0;
@@ -58,6 +62,32 @@ const InstalmentPaymentFormDialog = (props: Props) => {
     payment_method: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     payment_method_id: '',
   });
+
+  const onSubmitSecondStep = () => {
+    setProcessing(true);
+    let updatedPaymentConfig = {};
+    if (paymentConfig.payment_method === PAYMENT_STRIPE_TERMINAL_FAKE) {
+      updatedPaymentConfig = {
+        payment_method: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      };
+    }
+    props.onSubmit(
+      {
+        ...data,
+        ...paymentConfig,
+        ...updatedPaymentConfig,
+      },
+      {
+        onError: () => setProcessing(false),
+        onSuccess: () => {
+          setProcessing(false);
+          props.onClose();
+        },
+      },
+    );
+  };
+  const onCancelSecondStep = () => setStep(STEP_CONFIG_RECURRENCE);
+
   if (step === STEP_CONFIG_RECURRENCE) {
     return (
       <Dialog open>
@@ -107,9 +137,15 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             classes={classes}
             payment_method={paymentConfig.payment_method}
             disabled={processing || props.loading}
-            onChange={(payment_method) =>
-              setPaymentConfig({ payment_method, payment_method_id: '' })
-            }
+            onChange={(payment_method) => {
+              setPaymentConfig({
+                payment_method,
+                payment_method_id:
+                  payment_method === PAYMENT_STRIPE_TERMINAL_FAKE
+                    ? 'stripe_terminal'
+                    : '',
+              });
+            }}
             enabledPaymentGroupMethodIdentifier={
               props.enabledPaymentGroupMethodIdentifier
             }
@@ -126,43 +162,34 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             selectPaymentMethod={(payment_method_id) =>
               setPaymentConfig({ ...paymentConfig, payment_method_id })
             }
+            onSuccessTerminal={onSubmitSecondStep}
+            onCancelTerminal={onCancelSecondStep}
+            stripeReaders={props.stripeReaders}
+            setProcessing={setProcessing}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setStep(STEP_CONFIG_RECURRENCE)}>
-            {t('instalment.form.actions.previous')}
-          </Button>
-          <Button
-            disabled={
-              processing ||
-              props.loading ||
-              (paymentConfig.payment_method !==
-                PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY &&
-                !paymentConfig.payment_method_id)
-            }
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setProcessing(true);
-              props.onSubmit(
-                {
-                  ...data,
-                  ...paymentConfig,
-                },
-                {
-                  onError: () => setProcessing(false),
-                  onSuccess: () => {
-                    setProcessing(false);
-                    props.onClose();
-                  },
-                },
-              );
-            }}
-          >
-            {(processing || props.loading) && <CircularProgress />}
-            {t('instalment.form.actions.submit')}
-          </Button>
-        </DialogActions>
+        {paymentConfig.payment_method !== PAYMENT_STRIPE_TERMINAL_FAKE && (
+          <DialogActions>
+            <Button onClick={onCancelSecondStep}>
+              {t('instalment.form.actions.previous')}
+            </Button>
+            <Button
+              disabled={
+                processing ||
+                props.loading ||
+                (paymentConfig.payment_method !==
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY &&
+                  !paymentConfig.payment_method_id)
+              }
+              variant="contained"
+              color="primary"
+              onClick={onSubmitSecondStep}
+            >
+              {(processing || props.loading) && <CircularProgress />}
+              {t('instalment.form.actions.submit')}
+            </Button>
+          </DialogActions>
+        )}
       </Dialog>
     );
   }

@@ -13,7 +13,6 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
-
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_BSPORT,
@@ -21,14 +20,18 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
+import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
+import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import PaymentBsportInternal from './payment-backend-internal/PaymentBsportInternal.component';
 import { Establishment } from '../../establishment/types';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../api';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   clientSecret: string,
-  requestClientSecret: (number) => void,
+  requestClientSecret: (paymentEngine: number, params?: any) => void,
   classes: Object,
   t: TFunction,
   onError: () => void,
@@ -56,11 +59,13 @@ type Props = {
   allowConsumerToUseInternalAccount?: boolean,
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
+  stripeReaders: StripeReader[],
 };
 
 type State = {
   paymentEngine: number,
   nextPaymentIntentStatusCheckSeconds: number,
+  processingPayment: boolean,
 };
 
 export class PaymentDialog extends React.Component<Props, State> {
@@ -75,6 +80,7 @@ export class PaymentDialog extends React.Component<Props, State> {
     this.state = {
       paymentEngine,
       nextPaymentIntentStatusCheckSeconds: 1,
+      processingPayment: false,
     };
   }
 
@@ -84,7 +90,19 @@ export class PaymentDialog extends React.Component<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (prevState.paymentEngine !== this.state.paymentEngine) {
-      this.props.requestClientSecret(this.state.paymentEngine);
+      if (
+        [PAYMENT_ENGINE_BSPORT, PAYMENT_ENGINE_STRIPE].includes(
+          parseInt(this.state.paymentEngine.toString()),
+        )
+      ) {
+        this.props.requestClientSecret(this.state.paymentEngine);
+      } else if (
+        this.state.paymentEngine === PAYMENT_STRIPE_TERMINAL_FAKE.toString()
+      ) {
+        this.props.requestClientSecret(PAYMENT_ENGINE_STRIPE, {
+          is_physical_payment_intent: true,
+        });
+      }
     }
   }
 
@@ -108,7 +126,7 @@ export class PaymentDialog extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, stripeReaders } = this.props;
 
     let defaultEngine = PAYMENT_ENGINE_STRIPE;
 
@@ -147,7 +165,9 @@ export class PaymentDialog extends React.Component<Props, State> {
               <div className={classes.container}>
                 <FormControl
                   disabled={
-                    !this.props.clientSecret || !!this.props.clientSecretLoading
+                    !this.props.clientSecret ||
+                    !!this.props.clientSecretLoading ||
+                    this.state.processingPayment
                   }
                   style={{ width: '100%' }}
                   component="fieldset"
@@ -158,7 +178,10 @@ export class PaymentDialog extends React.Component<Props, State> {
                       aria-label="position"
                       name="position"
                       defaultValue={`${defaultEngine}`}
-                      disabled={!!this.props.clientSecretLoading}
+                      disabled={
+                        !!this.props.clientSecretLoading ||
+                        this.state.processingPayment
+                      }
                       onChange={(ev, value) =>
                         this.setState({ paymentEngine: value })
                       }
@@ -172,12 +195,36 @@ export class PaymentDialog extends React.Component<Props, State> {
                             label={t(`paymentEngine.label.${engineIdentifier}`)}
                             disabled={
                               !availableEngineList.includes(engineIdentifier) ||
-                              !!this.props.clientSecretLoading
+                              !!this.props.clientSecretLoading ||
+                              this.state.processingPayment
                             }
                             labelPlacement="bottom"
                           />
                         ),
                       )}
+                      <FeatureListProvider>
+                        {(featureList) => (
+                          <FormControlLabel
+                            value={`${PAYMENT_STRIPE_TERMINAL_FAKE}`}
+                            control={<Radio color="primary" />}
+                            label={t(
+                              'configuration.stripeTerminal.paymentDialog.radio',
+                            )}
+                            disabled={
+                              !!this.props.clientSecretLoading ||
+                              !stripeReaders ||
+                              stripeReaders.length === 0 ||
+                              this.state.processingPayment ||
+                              !featureList.upsell ||
+                              !featureList.upsell.find(
+                                (f) =>
+                                  f.readable_identifier === 'stripe_terminal',
+                              )
+                            }
+                            labelPlacement="bottom"
+                          />
+                        )}
+                      </FeatureListProvider>
                     </RadioGroup>
                   )}
                   {this.props.clientSecret &&
@@ -253,6 +300,22 @@ export class PaymentDialog extends React.Component<Props, State> {
                         this.props.applyBalanceLoading ||
                         this.props.clientSecretLoading ||
                         !this.props.clientSecret
+                      }
+                    />
+                  )}
+                  {parseInt(this.state.paymentEngine, 10) ===
+                    PAYMENT_STRIPE_TERMINAL_FAKE && (
+                    <PaymentStripeTerminal
+                      stripeReaders={this.props.stripeReaders}
+                      paymentGroupPriceCts={this.props.paymentGroupPriceCts}
+                      updatePriceCts={this.props.updatePriceCts}
+                      onCancel={this.props.onCancel}
+                      memberId={this.props.memberId}
+                      clientSecret={this.props.clientSecret}
+                      onSuccess={this.onSuccess}
+                      paymentGroupId={this.props.paymentGroupId}
+                      setProcessing={(value: boolean) =>
+                        this.setState({ processingPayment: value })
                       }
                     />
                   )}

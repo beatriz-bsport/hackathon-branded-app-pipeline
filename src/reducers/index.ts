@@ -71,6 +71,7 @@ import video from '#libs/video/reducers';
 import waitingListReducers from '#libs/waiting-list/reducers';
 import webhook from '#libs/webhook/reducers';
 import zoomAppReducers from '#libs/zoom-app/reducers';
+import terminalReducers from '#libs/terminal/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -118,6 +119,7 @@ import { TagState } from '#libs/tag/types';
 import { ThemeState } from '#libs/theme/types';
 import { UserPreference } from '#libs/user-preference/types';
 import { VideoState } from '#libs/video/types';
+import { TerminalState } from '#libs/terminal/types';
 import actionTypes from '../actions/auth.types';
 import { LevelState } from '#libs/level/types';
 
@@ -194,6 +196,7 @@ const rootReducer = (history: any) =>
     performanceTracking,
     expense,
     instalmentPayment,
+    terminal: terminalReducers,
   });
 
 export type RootState = {
@@ -268,6 +271,7 @@ export type RootState = {
   waitingList: any;
   webhook: any;
   zoomApp: any;
+  terminal: TerminalState;
 };
 
 export default (history: any) => (state: any, action: any) => {

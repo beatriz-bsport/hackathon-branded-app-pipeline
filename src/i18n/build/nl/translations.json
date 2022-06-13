@@ -4007,24 +4007,24 @@
         "note": {
             "addNote": "Een notitie toevoegen",
             "myNotes": "Notities",
-            "is_medical": "Essentiële notitie",
+            "is_medical": "Medische informatie",
             "noNoteSaved": "Er is nog geen informatie opgeslagen.",
-            "healthNotes": "Belangrijke informatie"
+            "healthNotes": "Alerts"
         },
         "file": {
             "submit": "Toevoegen",
-            "addButtonBlocked": "Verwijder documenten om nieuwe toe te voegen",
-            "deletion": "Verwijdering",
+            "addButtonBlocked": "Verwijder bestaande documenten om nieuwe versies toe te voegen",
+            "deletion": "Verwijderen",
             "imported": "Document geïmporteerd!",
             "title": "Documenten",
             "deleteFileMessage": "Weet je zeker dat je dit document wilt verwijderen?",
             "confirm": "Bevestigen",
             "add": "Een document toevoegen",
             "nofileSaved": "Er zijn nog geen documenten opgeslagen.",
-            "upload_file": "Een document toevoegen",
+            "upload_file": "Een bestand toevoegen",
             "cancel": "Annuleren",
             "name": "Naam",
-            "drop_file": "Klik hier om een document toe te voegen"
+            "drop_file": "Klik hier om een bestand toe te voegen."
         },
         "menu": {
             "info": "Algemeen",
@@ -4076,13 +4076,13 @@
                 },
                 "button": {
                     "memberOfCompany": "Voltooien",
-                    "notMemberYet": "Informatie verzenden"
+                    "notMemberYet": "Versturen"
                 },
                 "subtitle": {
                     "memberOfCompany": "We verzoeken je vriendelijk om het volgende formulier te voltooien.",
-                    "notMemberYet": "Het lijkt erop dat je voor het eerst naar deze studio gaat."
+                    "notMemberYet": "Het lijkt erop dat je voor het eerst naar onze studio gaat."
                 },
-                "welcome": "Hoi!"
+                "welcome": "Hoi, {{firstname}}!"
             },
             "title": "[Formulier] Inschrijfformulier",
             "newMemberOnlyHelperText": "Een lid wordt als \"nieuw\" gemarkeerd indien de persoon niet meer dan {{ currency }}0 heeft besteed. Attentie: een nieuw lid verliest de status \"nieuw\" indien de persoon een product aanschaft met een korting t.w.v. 100%."
@@ -4143,9 +4143,9 @@
         "cashoutBalance": "Uitbetalen",
         "creditAccountBalance": "Interne rekening (Wallet)",
         "showPaymentPack": "Toon leskaarten",
-        "showSubscriptions": "Zie abonnementen",
+        "showSubscriptions": "Toon abonnementen",
         "relation": {
-            "pleaseSelectRelation": "Selecteer een relatie om de gedeelde kaarten te zien"
+            "pleaseSelectRelation": "Selecteer een persoon om de gedeelde kaarten te zien."
         },
         "showInvoices": "Bekijk facturen",
         "birth": {
@@ -4160,7 +4160,7 @@
         },
         "memberTermsAccepted": " werden op {{- date}} geaccepteerd.",
         "termsAndConditions": "De algemene servicevoorwaarden",
-        "applyBalanceToUnpaidInvoices": "Gebruik het saldo om onbetaalde facturen te betalen",
+        "applyBalanceToUnpaidInvoices": "Gebruik het saldo van de interne rekening (Wallet) om onbetaalde facturen te betalen",
         "adjustBalance": "Saldo aanpassen",
         "unpaidInvoiceTitle": "Onbetaalde factuur",
         "unpaidInvoiceTitle_plural": "Onbetaalde facturen",
@@ -9553,7 +9553,7 @@
                 "close": "Sluiten",
                 "show": "Zie factuur"
             },
-            "explain": "Eén of meerdere betalingen zijn mislukt. De aanbetaling van het lid geeft aan waar het fout ging"
+            "explain": "Eén of meerdere betalingen zijn mislukt. De aanbetaling van het lid geeft aan waar het fout ging."
         },
         "paymentPanel": {
             "fields": {
@@ -9753,14 +9753,14 @@
             "actions": {
                 "edit": "Bewerken",
                 "delete": "Annuleren",
-                "registerNow": "Uitbetalen",
+                "registerNow": "Incasseren",
                 "enable": "Aanzetten",
                 "disable": "Beëindigen",
                 "changeMethod": "Betaalmethode wijzigen"
             },
             "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien.",
             "lockedToday": "De betaling is vandaag verschuldigd, u kunt deze niet meer wijzigen",
-            "registerNowInitialData": "Aanbetaling van: {{-date}}"
+            "registerNowInitialData": "Betaling van: {{-date}}"
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",

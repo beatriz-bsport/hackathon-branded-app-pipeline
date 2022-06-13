@@ -1468,7 +1468,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Aantal uur voor het begin van de sessie:",
                     "explain": "Annuleer sessies met ≤ {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
-                    "checkbox": "Automatisch sessies met te weinig reserveringen annuleren",
+                    "checkbox": "Automatisch onderbezette sessies annuleren",
                     "emailRecipients": "Een e-mail van de automatische annulering wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
                     "min_bookings_nb": "Aantal reserveringen:"
                 }

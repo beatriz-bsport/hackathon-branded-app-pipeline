@@ -98,8 +98,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                 showOfferFilling={this.props.showOfferFilling}
                 key={o.id}
                 offer={o}
-                onClick={this.onClick}
-                onClickOffer={this.handleClick}
+                onClick={this.handleClick(o)}
                 isRegistered={
                   bookedOffers?.length ? bookedOffers.includes(o.id) : false
                 }
@@ -108,7 +107,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                     <Hidden xsDown>
                       <IconButton
                         disabled={!isInThePast}
-                        onClick={this.onClick}
+                        onClick={this.handleClick(o)}
                         color="secondary"
                       >
                         <InfoIcon />

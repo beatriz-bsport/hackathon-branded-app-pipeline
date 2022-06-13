@@ -1048,6 +1048,7 @@ export class Planning extends PureComponent<Props, State> {
                   {(permission) => (
                     <Calendar
                       onDownload={this.onDownload}
+                      showDayName
                       onRequestMassDisable={
                         permission.offer.delete &&
                         this.props.setMassDisablerStartDate

@@ -177,9 +177,13 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
         this.props.fetchEstablishmentBulk([o.establishment]);
         this.props.fetchCoachBulk([o.coach, o.coach_override]);
-        this.props.fetchOfferStatus(o.id, {
-          onSuccess: this.updateOfferConstraints,
-        });
+        this.props.fetchOfferStatus(
+          o.id,
+          {},
+          {
+            onSuccess: this.updateOfferConstraints,
+          },
+        );
         this.fetchSimilarOffers();
 
         if (o && !!o.room_blueprint) {

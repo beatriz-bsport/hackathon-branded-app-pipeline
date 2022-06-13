@@ -8708,7 +8708,7 @@
         "note": {
             "addNote": "Add a note",
             "myNotes": "Notes",
-            "healthNotes": "Health notes",
+            "healthNotes": "Alerts",
             "noNoteSaved": "There are no saved notes to display.",
             "is_medical": "Essential note"
         },
@@ -8717,7 +8717,7 @@
             "imported": "The document has been successfully uploaded.",
             "deletion": "Deletion",
             "title": "Documents",
-            "deleteFileMessage": "Are you sure you want to delete this file ?",
+            "deleteFileMessage": "Are you sure that you want to delete this file?",
             "confirm": "Confirm",
             "submit": "Add",
             "add": "Add a document",
@@ -8789,15 +8789,15 @@
             "needInformationValidation": {
                 "button": {
                     "memberOfCompany": "Complete",
-                    "notMemberYet": "Submit information"
+                    "notMemberYet": "Submit"
                 },
                 "legend": {
-                    "memberOfCompany": "To continue browsing please complete the required information below",
-                    "notMemberYet": "Would you like to submit your information and register? "
+                    "memberOfCompany": "Please complete the required information to continue browsing.",
+                    "notMemberYet": "Have you completed this information correctly and would you like to complete the sign up process? "
                 },
                 "subtitle": {
-                    "memberOfCompany": "Tell us more about yourself.",
-                    "notMemberYet": "Looks like this is your first time logging into this studio"
+                    "memberOfCompany": "Please complete the following form.",
+                    "notMemberYet": "Looks like this will be your first time visiting our studio."
                 },
                 "welcome": "Hello!"
             },

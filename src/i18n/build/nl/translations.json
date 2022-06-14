@@ -632,7 +632,7 @@
             "updateInvoiceVoucher": "Promotiecode toevoegen",
             "addPaymentPack": "Leskaarten",
             "addOffer": "Sessie",
-            "addInvoiceItem": "Aan de factuur toevoegen",
+            "addInvoiceItem": "Aan factuur toevoegen",
             "object": "Beschrijving",
             "paymentDate": "Aankoopdatum",
             "consumer": "Lid",
@@ -738,19 +738,19 @@
                 "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\" en vervolgens worden de gebruikte kredieten teruggestort.",
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
-                "myPrivateBooking": "Afspraak",
-                "intro": "Sessie van {{date}} verwijderen",
+                "myPrivateBooking": "Afspraken",
+                "intro": "Reservering van {{date}}",
                 "discardGroupImpossibleExplain": "De kredieten worden niet teruggestort, omdat deze reservering te laat geannuleerd wordt.",
                 "discardGroupPossibleExplain": "De kredieten worden teruggestort en kunnen opnieuw worden gebruikt.",
                 "willNotBeRefund": "Uitstaande kredieten",
                 "willBeRefund": "De sessie van {{-day}} wordt terugbetaald",
                 "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd.",
                 "discardGroup3": "Contacteer de studio, indien je wenst om slechts één sessie te annuleren.",
-                "discardGroup2": "Je wordt automatisch afgemeld van alle sessies die niet voltooid zijn.",
+                "discardGroup2": "Je wordt automatisch afgemeld van alle toekomstige sessies die aan dit evenement gekoppeld zijn.",
                 "discardGroup1": "Deze reservering is onderdeel van \"{{ group }}\"."
             },
             "help": {
-                "explainCancelBookingOption": "Deze verwijdering is definitief. Als je je opnieuw voor deze sessie aanmeldt, dan sluit je je achteraan de wachtlijst aan.",
+                "explainCancelBookingOption": "Deze verwijdering is definitief. Je zult ook je plaats op deze wachtlijst verliezen.",
                 "areYouSureCancelBookingOption": "Weet je zeker dat je dit wilt annuleren?"
             },
             "company": "Mijn studio",
@@ -1298,10 +1298,10 @@
             "time": "Uur",
             "date": "datum",
             "agenda": "Agenda",
-            "day": "dag",
-            "week": "week",
-            "month": "maand",
-            "today": "vandaag",
+            "day": "Dag",
+            "week": "Week",
+            "month": "Maand",
+            "today": "Vandaag",
             "next": ">",
             "previous": "<",
             "allDay": "dag",
@@ -3705,7 +3705,7 @@
         "name": "Naam",
         "category": "Categorie",
         "addOffers": "Sessies toevoegen",
-        "offersThisDay": "Sessie(s) van vandaag:",
+        "offersThisDay": "Sessies van vandaag:",
         "description": "Beschrijving",
         "modal": {
             "delete": {
@@ -3731,7 +3731,7 @@
             "goToPaymentPack": "Leskaarten"
         },
         "actions": {
-            "search": "Zoek een groepsactiviteit",
+            "search": "Zoek een activiteit",
             "addActivity": "Een activiteit toevoegen"
         },
         "noActivities": "In dit onderdeel kun je al je groepsactiviteiten toevoegen, beheren, wijzigen en verwijderen.",
@@ -4049,18 +4049,18 @@
                 "cancel": "Annuleren",
                 "submit": "Samenvoegen",
                 "error": "Kan leden niet samenvoegen",
-                "srcMember": "We verwijderen dit account",
-                "dstMember": "We bewaren dit account",
+                "srcMember": "Dit account wordt samengevoegd en verwijderd",
+                "dstMember": "Dit account wordt bewaard",
                 "title": "Leden samenvoegen",
                 "explainCredit": "De waarde van de interne rekening (Wallet) wordt naar het nieuwe account overgezet.",
-                "success": "Samengevoegde leden",
-                "seeMemberPage": " Zie ledenpagina",
+                "success": "Leden samengevoegd",
+                "seeMemberPage": " Zie ledenprofiel",
                 "emailWillBeSend": "Beide e-mailadressen worden per e-mail geïnformeerd."
             },
             "error": "Fout bij het opslaan van de wijzigingen",
             "create": {
                 "title": "Nieuw lid",
-                "success": "Lid aangemaakt"
+                "success": "Lid toegevoegd"
             },
             "update": {
                 "title": "Informatie bewerken",
@@ -4093,18 +4093,18 @@
         },
         "member": {
             "existsWithEmail": "Er bestaat al een lid met dit e-mailadres ({{email}}).",
-            "existsWithPhone": "Er bestaat al een lid met dit telefoonnummer {{phonenumber}}."
+            "existsWithPhone": "Er bestaat al een lid met dit telefoonnummer ({{phonenumber}})."
         },
         "exists": {
-            "goTo": "Bekijk lid",
-            "linkUser": "Gebruiker koppelen",
+            "goTo": "Toon lid",
+            "linkUser": "Leden koppelen",
             "merge": "Samenvoegen"
         },
         "linkDialog": {
             "cancel": "Annuleren",
             "confirm": "Ik bevestig",
-            "title": "Koppel een bestaande gebruiker",
-            "content": "Dit account werd oorspronkelijk gebruikt in een andere club en wordt nu aan een nieuwe club gekoppeld."
+            "title": "Leden koppelen",
+            "content": "Dit account werd oorspronkelijk gebruikt in een andere studio en wordt nu aan een nieuwe studio gekoppeld."
         },
         "name": "Naam",
         "table": {
@@ -4341,8 +4341,8 @@
             },
             "option": {
                 "registerOption": "Op de wachtlijst inschrijven",
-                "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We laten je per e-mail weten wanneer er een plaats vrij komt.",
-                "isFull": "Deze sessie is volgeboekt! Als je je op de wachtlijst inschrijft zal je per e-mail worden geïnformeerd wanneer er een plaats vrijkomt.",
+                "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We informeren je wanneer er een plaats vrijkomt.",
+                "isFull": "Deze sessie is volgeboekt. Schrijf je op de wachtlijst in en we sturen je een bericht zodra er een plaats vrijkomt.",
                 "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je hebt je ingeschreven!",
                 "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt."
             },
@@ -4479,7 +4479,7 @@
                     "allEvents": {
                         "notRefunded": "Leden ontvangen deze melding iedere keer zij te laat annuleren.",
                         "refunded": "Deze melding wordt bij elke terugbetaalde annulering verstuurd.",
-                        "absence": "Weetje: deze melding wordt verstuurd elke keer een lid afwezig is.",
+                        "absence": "Deze melding wordt verstuurd elke keer een lid afwezig is.",
                         "attendance": "Deze melding wordt automatisch iedere keer verstuurd wanneer een lid aanwezig."
                     }
                 },
@@ -4810,7 +4810,7 @@
         "coach": {
             "coachList": "Instructeurs",
             "coachFormPage": "[Formulier] Instructeur",
-            "coachPerformance": "Payroll voor {{name}}",
+            "coachPerformance": "Payroll: {{name}}",
             "allCoachPerformance": "Payroll"
         },
         "coupon": {
@@ -4963,7 +4963,7 @@
                 },
                 "interval": {
                     "helperText": "Hoe vaak wordt de klant in rekening gebracht?",
-                    "label": "Instellingen"
+                    "label": "Facturatie"
                 }
             },
             "registerManager": {
@@ -5206,7 +5206,7 @@
             "includingFreeTrialOf2": " niet gefactureerd "
         },
         "parameters": {
-            "autoRenew": "Automatische verlenging",
+            "autoRenew": "Activeer automatische verlengingen",
             "status": "Status",
             "subscribeAgain": "Opnieuw inschrijven",
             "voucher": "Speciale aanbieding",
@@ -5380,7 +5380,7 @@
         },
         "table": {
             "download": "Downloaden",
-            "downloadAll": "Volledige payroll exporteren"
+            "downloadAll": "Payroll exporteren"
         },
         "addBonus": "Een regel toevoegen",
         "pricePerAdditionalBookingHelper": "Het bedrag dat per reservering boven deze drempel geldt",
@@ -5391,7 +5391,7 @@
             "previewModeTitle": "Voorvertoning",
             "downloadMySavedData": "Download",
             "enterPreviewMode": "Overschakelen naar de Voorvertoning",
-            "unresolvedDaterange": "Ongeldige uitbetalingsinterval",
+            "unresolvedDaterange": "Ongeldige payroll-regel",
             "dateRange": "Payroll van {{- startDate }} tot {{- endDate }}",
             "dateSaved": "Aangemaakt op: {{ date }}",
             "title": "Opgeslagen data: {{ count }}",
@@ -5809,7 +5809,7 @@
                 "calendar": "Agenda",
                 "newsletter": "Nieuwsbrief",
                 "loginButton": "Inlogknop",
-                "giftcard": "Cadeaubon",
+                "giftcard": "Cadeaubonnen",
                 "paymentPackTemplate": "Gedeelde leskaarten"
             },
             "preview": "Voorvertoning",
@@ -5893,9 +5893,9 @@
                         "paymentPack": "Kaarten"
                     },
                     "membershipCard": {
-                        "giftcardSubtitle": "Hier staan alle cadeaubonnen die je met je geliefden kunt delen.",
+                        "giftcardSubtitle": "Hier staan alle cadeaubonnen die je kunt delen.",
                         "paymentComboSubtitle": "Bekijk alle actuele bundels.",
-                        "vodSubtitle": "Bekijk de video's van je favoriete instructeurs.",
+                        "vodSubtitle": "Bekijk je favoriete video's waar en wanner je wilt.",
                         "contractSubtitle": "Kies het abonnement dat het beste bij je past.",
                         "paymentPackSubtitle": "Ontdek het gehele aanbod van onze studio.",
                         "mySubscription": "Mijn \nabonnementen",
@@ -7115,8 +7115,8 @@
         "pageTitle": "Payroll",
         "coach_payment_rules": {
             "Simulator": {
-                "student_did_not_attend": "Afwezige leden",
-                "student_attended": "Aanwezige leden",
+                "student_did_not_attend": "Afwezigen",
+                "student_attended": "Aanwezigen",
                 "total_payment": "Laatste betaling",
                 "bonus": "Bonus (totaal)",
                 "marginValue": "Marginale waarde",
@@ -7128,8 +7128,8 @@
                 "students": "leden",
                 "for": "Voor",
                 "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
-                "resultTitle": "Resultaten van je payroll simulatie",
-                "title": "Payroll simulatie",
+                "resultTitle": "Resultaten",
+                "title": "Simulatie",
                 "which": "Verdiensten:",
                 "marginalValueOfReservation": "Marginale waarde per reservering",
                 "numberOfCancellations": "Aantal afwezigen/te late annuleringen",
@@ -7151,17 +7151,17 @@
                 "invalidMaximum": "Het maximumtarief moet groter dan het minimumtarief zijn.",
                 "invalidCancelledBookingRules": "Als je verschillende bonussen voor afwezige studenten wilt gebruiken, dan moet je hieronder minimaal één type payroll-regel instellen.",
                 "invalidMinimum": "Het minimumtarief moet groter of gelijk aan het vaste bedrag zijn.",
-                "uniqueRuleForPrivateSlot": "Deze afspraak staat meerdere keren in de lijst.",
-                "invalidCoachPaymentRule": "Selecteer een payroll-regel.",
-                "invalidPrivateSlot": "Selecteer een afspraak.",
+                "uniqueRuleForPrivateSlot": "Deze afspraak staat meerdere keren in de lijst",
+                "invalidCoachPaymentRule": "Selecteer een payroll-regel",
+                "invalidPrivateSlot": "Selecteer een afspraak",
                 "oneRuleRequired": "Je moet tenminste één payroll-regel selecteren om een groep te maken.",
-                "privateSlotAlreadySelected": "Er is al een payroll-regel voor deze afspraak ingesteld."
+                "privateSlotAlreadySelected": "Er is al een payroll-regel voor deze afspraak ingesteld"
             },
             "Bonuses": {
                 "bonus_rules": "Bonusregels",
                 "forEachBooking": "per reservering",
                 "bookingsThresholds": "Reserveringen (incl. interval)",
-                "to": "tot",
+                "to": "Tot",
                 "from": "Van",
                 "addBonus": "EEN BONUSREGEL TOEVOEGEN",
                 "bonus": "Bonus",
@@ -7170,11 +7170,11 @@
             "paymentPackPlaceHolder": "Selecteer leskaarten",
             "excludePaymentPack": "Bepaalde kaarten uitsluiten",
             "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
-            "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
+            "fixedBonusbyInterval": "Een bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
             "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",
             "taxeConciseHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
-            "add_taxe_rate": "Toe te voegen btw",
+            "add_taxe_rate": "Btw",
             "taxe_rate": "Het btw-tarief over de marginale waarde niet in de berekening opnemen",
             "max_remuneration": "Max.",
             "min_remuneration": "Min.",
@@ -7191,7 +7191,7 @@
             "name": "Naam",
             "addNewCoachPaymentRule": "[Formulier] Payroll-regel",
             "base_remuneration_helper": "Een vast bedrag wordt altijd standaard toegevoegd.",
-            "set_base_remuneration": "Een vast bedrag toevoegen"
+            "set_base_remuneration": "Een vast bedrag per sessie toevoegen"
         },
         "tabs": {
             "all": "Selecteer alles",
@@ -8312,7 +8312,7 @@
         "overrider": "Plaatsvervanger",
         "overrideSelectorTitle": "Instructeur",
         "color": "Kleurcode",
-        "showPerformance": "Toon Payroll",
+        "showPerformance": "Toon payroll",
         "showActivities": "Bekijk activiteiten",
         "showDescription": "Toon beschrijving",
         "pleaseFill": "Vergeet niet om een instructeur toe te voegen!",
@@ -9386,9 +9386,9 @@
             "sectionTitle": "Evenementen"
         },
         "events": {
-            "basket-automaticclean": "Winkelmandjes automatisch legen",
-            "basket-removeitem": "Uit het winkelmandje verwijderen",
-            "basket-additem": "Aan het winkelmandje toevoegen",
+            "basket-automaticclean": "Winkelmandje automatisch legen",
+            "basket-removeitem": "Uit winkelmandje verwijderen",
+            "basket-additem": "Aan winkelmandje toevoegen",
             "basket-finalize": "Winkelmandje klaar / betaald",
             "basket-created": "Winkelmandje is aangemaakt"
         },
@@ -9493,7 +9493,7 @@
                 "2": "Webshop",
                 "1": "Leskaarten",
                 "undefined": "Cadeaubon",
-                "11": "Cadeaubon"
+                "11": "Cadeaubonnen"
             },
             "discount": "Korting"
         },
@@ -9501,7 +9501,7 @@
             "finalize": "Afronden (PDF)",
             "download": "Factuur (PDF) downloaden",
             "equilibrate": "Saldo (aanbetaling)",
-            "addInvoiceItem": "Aan de factuur toevoegen",
+            "addInvoiceItem": "Aan factuur toevoegen",
             "save": "Opslaan",
             "backToInvoiceItemEditor": "Aankoop",
             "goToPaymentEditor": "Betaling",
@@ -9822,21 +9822,21 @@
                 "usedGiftcard": "Gebruikte cadeaubon",
                 "amountToPay": "Met cadeaubon betaald bedrag"
             },
-            "giftcard": "Cadeaubon"
+            "giftcard": "Cadeaubonnen"
         },
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Toepassen op alle toekomstige betalingen"
         }
     },
     "waitingList": {
-        "switchToEnable": "De wachtlijst heractiveren",
-        "switchToDisable": "De wachtlijst heractiveren",
+        "switchToEnable": "Wachtlijst heractiveren",
+        "switchToDisable": "Wachtlijst deactiveren",
         "nbPending": "{{nbPending}} leden in de wachtlijst",
         "nbConvertible": "{{nbConvertible}} in afwachting van bevestiging",
         "form": {
             "dumb_delay_minutes": {
                 "label": "Eenvoudig beheer",
-                "helper": "Een lid heeft N minuten om zich in te schrijven voordat zijn/haar plaats vergaat."
+                "helper": "Een lid heeft X minuten om de reservering te voltooien voordat zij de voorrangsplaats verliezen."
             },
             "smart_delay_percentage": {
                 "label": "Intelligent beheer",
@@ -9851,21 +9851,21 @@
                 "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt"
             },
             "is_option_blocking": {
-                "helper": "Zolang een lid op de wachtlijst staat, wordt er een plaats voor hem/haar vrij gehouden tot hij/zij zich aanmeldt.",
+                "helper": "Houd een plaats vrij voor leden die op de wachtlijst staan totdat zij reserveren.",
                 "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan"
             },
             "autokick_delay": {
-                "helper": "Dit is het aantal meldingen dat een lid ontvangt voordat h/zij van de wachtlijst wordt verwijderd, als h/zij geen actie onderneemt.",
+                "helper": "Dit is het aantal meldingen dat een lid ontvangt voordat ze van de wachtlijst worden verwijderd indien ze geen actie ondernemen.",
                 "label": "Automatische afmelding van de wachtlijst"
             },
             "dynamic": {
                 "label": "Selecteer het type wachtlijst dat je wilt gebruiken",
                 "1": {
-                    "explain": "De wachtlijst is niet gesorteerd. Wanneer er een plaats beschikbaar is, ontvangen alle wachtenden tegelijk een e-mail met een uitnodiging om zich aan te melden voor de beschikbare plaats.",
+                    "explain": "Dit is een ongesorteerde wachtlijst. Iedereen die zich op de wachtlijst heeft ingeschreven ontvangt tegelijk een bericht zodra er een plaats vrijkomt.",
                     "label": "Wie het eerst komt, het eerst maalt"
                 },
                 "0": {
-                    "explain": "Als een lid zich aanmeldt, krijg hij/zij een plaats op de wachtlijst. Wanneer er een plaats vrij komt, wordt de eerste op de wachtlijst hier over geïnformeerd.",
+                    "explain": "Ieder lid dat zich op de wachtlijst krijgt een plaats. De eerstvolgende op de wachtlijst wordt geïnformeerd zodra er een plaats vrijkomt.",
                     "settingsDelay": "Instellingen",
                     "label": "Eén voor één"
                 }
@@ -9875,11 +9875,11 @@
                 "label": "Het automatisch reserveren alleen voltooien als de sessie plaatsvindt in minder dan "
             }
         },
-        "explainWaitingListConf": "Voorbeeld: een sessie begint over 3 uur. Een lid heeft dan nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zijn/haar plaats vergaat.",
+        "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",
         "dialog": {
             "delete": {
-                "title": "Verwijder wachtlijst",
-                "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het lid wordt per e-mail geïnformeerd.",
+                "title": "Van wachtlijst verwijderen",
+                "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het lid wordt hier ook van op de hoogte gebracht.",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
                 "sendEmail": "Stuur een afmeldbericht",
@@ -9891,11 +9891,11 @@
                 "registrationSource": "Oorsprong van de inschrijving",
                 "offerTitle": "Gekoppelde sessie",
                 "registeredOn": "Ingeschreven op",
-                "title": "Details van de wachtlijst"
+                "title": "Details"
             },
-            "empty": "Er zijn nog geen wachtlijsten om weer te geven.",
+            "empty": "Er zijn geen wachtlijsten om weer te geven.",
             "delete": "Verwijderen",
-            "addToBook": "Aanmelden",
+            "addToBook": "Inschrijven",
             "listTitle": "Wachtlijst"
         }
     },
@@ -10243,7 +10243,7 @@
                 "title": "Afspraken"
             },
             "schedule": "Rooster",
-            "alpha": "In ontwikkeling",
+            "alpha": " ",
             "invoice": "Facturen",
             "workshopActivities": "Workshops",
             "order": "Bestellingen",
@@ -10996,7 +10996,7 @@
             "form": {
                 "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
                 "actions": {
-                    "submit": "Aan mijn winkelmandje toevoegen",
+                    "submit": "Aan winkelmandje toevoegen",
                     "cancel": "Annuleer"
                 },
                 "date_send": {

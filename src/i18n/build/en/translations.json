@@ -897,7 +897,7 @@
                     "registerToOffer": "Book",
                     "doNotConsumeCredit": "Don't charge the member credits for this booking",
                     "bookSingleInGroup": "Register for this session only",
-                    "bookMoreInGroup": "Enrol for other events",
+                    "bookMoreInGroup": "Book other events",
                     "groupWarning": "This session is part of the session group {{ name }}"
                 }
             }
@@ -920,7 +920,7 @@
                 "book": "Book",
                 "isPast": "Completed",
                 "notAvailable": "Cancelled",
-                "bookOption": "Waiting list",
+                "bookOption": "Waitlist",
                 "notBookableYet": "Available soon"
             },
             "passListTitle": "Passes",
@@ -1013,7 +1013,7 @@
             "seeCustomers": "Show bookings",
             "free": "available slot(s)",
             "confirmed": "Bookings",
-            "waiting": "Waiting list",
+            "waiting": "Waitlist",
             "lastBooking": "Upcoming session",
             "sources": {
                 "MAN": "Manual",
@@ -1024,7 +1024,7 @@
             "status": {
                 "false": "cancelled",
                 "true": "is booked in",
-                "null": "Waiting list"
+                "null": "waitlist"
             },
             "nb_booking": "Total available slots",
             "fillRate": "Occupancy rate",
@@ -1039,7 +1039,7 @@
             "waitingUserConfirmation": "Pending: member confirmation",
             "add": "Book",
             "onHold": "Pending",
-            "onWaitingList": "On the waiting list",
+            "onWaitingList": "Active waitlists",
             "discard": "Discard",
             "doNotAttend": "Absent",
             "attend": "Present",
@@ -1052,7 +1052,7 @@
             "revertBookingTitle": "Cancel booking",
             "success": "Booking saved",
             "wasRefunded": "Credit refunded",
-            "cancelledFromWaitingList": "Removed from the waiting list",
+            "cancelledFromWaitingList": "Removed from the waitlist",
             "notifyRevert": "Send a cancellation email",
             "refundRevert": "Refund the used credits",
             "cancellingBookingInGroup": "Cancel multiple sessions",
@@ -1128,7 +1128,7 @@
             "allDay": "Day",
             "deleteOffer": "Cancel",
             "modifyOffer": "Edit",
-            "canDeleteWithBooking": "Bookings, cancellations, and waiting lists will be deleted and can't be restored."
+            "canDeleteWithBooking": "Bookings, cancellations, and waitlists will be deleted and can't be restored."
         },
         "login": {
             "error": {
@@ -1282,7 +1282,7 @@
             "email_template": "Emails",
             "smart_list": "Smartlists",
             "sequence": "Strategies",
-            "requestTempPassword": "Authorize access",
+            "requestTempPassword": "Temporary password",
             "combo": "Packs",
             "marketing_automation": "Automated Marketing",
             "digital": "Digital offer",
@@ -1295,8 +1295,8 @@
                 "cancelOption": "Cancel",
                 "noPastBookings": "There are no previous bookings to display.",
                 "noFutureBookings": "There are no upcoming bookings to display.",
-                "noBookingOptions": "There are no waiting lists to display.",
-                "myOptions": "Bookings on my waiting lists",
+                "noBookingOptions": "There are no waitlists to display.",
+                "myOptions": "Waitlist bookings",
                 "myPastBookings": "Previous bookings",
                 "myFutureBookings": "Upcoming sessions",
                 "waitingSlot": "Pending",
@@ -1311,12 +1311,13 @@
                 "discardGroupPossibleExplain": "The credits will be refunded and can be used again.",
                 "willNotBeRefund": "Outstanding credits",
                 "willBeRefund": "The session of {{-day}} will be recredited",
-                "discardAllGroup": "All group reservations will be cancelled.",
+                "discardAllGroup": "All bookings for this event will be cancelled.",
                 "discardGroup3": "Contact the studio if you wish to cancel a single session.",
-                "discardGroup1": "This booking is part of \"{{ group }}\"."
+                "discardGroup1": "This booking is part of \"{{ group }}\".",
+                "discardGroup2": "You'll be automatically unsubscribed from all future sessions that are associated to this event."
             },
             "help": {
-                "explainCancelBookingOption": "Once you delete this, it can't be undone - you'll lose your priority spot on the waiting list.",
+                "explainCancelBookingOption": "Deleting this can't be undone. You'll also lose your priority spot on the waitlist.",
                 "areYouSureCancelBookingOption": "Are you sure that you want to cancel?"
             },
             "company": "Studio",
@@ -1408,7 +1409,7 @@
             "offersWillBeGenerated": "sessions will be added.",
             "credit_price": "Required number of credits for a booking",
             "generateOffers": "Add sessions",
-            "default_waiting_list_max_size": "Size of the waiting list",
+            "default_waiting_list_max_size": "Size of the waitlist",
             "password": "Password",
             "signInPhoneInstruction": "Please enter your phone number. A confirmation code will be sent to you by SMS.",
             "SMSSignInTitle": "Login by SMS",
@@ -1425,7 +1426,7 @@
                     "explainHardDelete": "Are you sure that you want to delete this session? It'll become invisible. This action can't be undone.",
                     "buttonHardDelete": "Delete",
                     "explainForceDanger": "Attention: bookings will permanently be deleted. If you haven't refunded members' credits, they will be lost entirely. Please carefully review the bookings before deleting them.",
-                    "force": "Delete even if reservations are saved",
+                    "force": "Delete all sessions including the associated bookings",
                     "advanced": "Advanced"
                 },
                 "explainNotificationOnEdit": "Notify enrolled members",
@@ -1644,7 +1645,7 @@
                 "streetNumber": "Number",
                 "state": "Status"
             },
-            "waiting_list_max_size": "Size of the waiting list",
+            "waiting_list_max_size": "Size of the waitlist",
             "oneHourFifteen": "1h 15 min",
             "warningCreditChange": "Attention: old bookings won't be taken into account when there's a change in credit.",
             "noAvailableCredit": "Important: you haven't entered a price.",
@@ -1665,7 +1666,7 @@
             "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
             "tenMinutes": "10 min",
             "editGroup": "Edit this field directly on the session group.",
-            "noWaitingList": "Waiting lists are not available for session groups"
+            "noWaitingList": "Waitlists aren't available for events."
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -1684,7 +1685,7 @@
             "myOpenedInvoices": "Quick Billing",
             "noQuickInvoiceOpened": "Start by creating an invoice and by adding products.",
             "reCreateBooking": "Book in again",
-            "createBookingOption": "Waiting list",
+            "createBookingOption": "Waitlist",
             "bill": "Bill",
             "createBooking": "Book in",
             "hasBooked": "Is booked in",
@@ -1704,7 +1705,7 @@
             "noPackAvailableForOfferPurchase": "There is no compatible pass with this session!",
             "offersPendingDelete": "Sessions that will be deleted:",
             "offersPendingChange": "Sessions that will be modified:",
-            "sizeOfWaitingList": "Size of the waiting list",
+            "sizeOfWaitingList": "Size of the waitlist",
             "broadcast_link": "Link to the livestream",
             "effectif": "Available slots",
             "maxBookingsNb": "slots",
@@ -2011,7 +2012,7 @@
             "booking": "Bookings",
             "waitingList": "Waiting-list",
             "subscription": "Subscriptions",
-            "waiting-list": "Waiting lists",
+            "waiting-list": "Waitlists",
             "private_booking": "Appointments",
             "marketing": "Marketing",
             "invoice": "Billing",
@@ -2080,7 +2081,7 @@
                 }
             },
             "BookingOption": {
-                "name": "Waiting lists",
+                "name": "Waitlist",
                 "tags": {
                     "activity": "Activity",
                     "coach": "Teacher",
@@ -2089,7 +2090,7 @@
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address",
                     "option_payment_url": "Booking link",
-                    "option_expiration_date": "Expiration date for the waiting list"
+                    "option_expiration_date": "Waitlist expiration date"
                 }
             },
             "PrivateBooking": {
@@ -2122,7 +2123,7 @@
             "8": "Booking + pass purchase",
             "9": "A member has unsubscribed from the waiting list, opening a spot",
             "10": "A member's spot on the waiting list has expired",
-            "12": "A member has subscribed to the waiting list",
+            "12": "A member joined the waitlist",
             "13": "A member has unsubscribed from the waiting list (for members)",
             "14": "A member has unsubscribed from the waiting list (for staff)",
             "16": "Session modified",
@@ -2278,7 +2279,7 @@
             "showMore": "Show more",
             "noBooking": "There are no future sessions to display.",
             "noPackCurrentlyActive": "There are no valid passes to display.",
-            "optionTitle": "On the waiting list"
+            "optionTitle": "Active waitlists"
         },
         "congratulation": {
             "cancel": "Close",
@@ -2514,7 +2515,7 @@
         },
         "dialogReceiverChoice": {
             "reservation": "Bookings",
-            "waitingList": "Waiting list",
+            "waitingList": "Waitlist",
             "title": "Select the recipients",
             "canceledReservation": "Cancelled bookings"
         },
@@ -3233,7 +3234,7 @@
                     "label": "Establishment"
                 },
                 "description": {
-                    "label": "Description of the service"
+                    "label": "Description"
                 },
                 "actions": {
                     "cancel": "Cancel",
@@ -3954,10 +3955,10 @@
                     "area": "Area chart",
                     "bar": "Histogram",
                     "qualitativeInvoiceItem": "Division",
-                    "temporalPlannedInvoice": "Development over time",
+                    "temporalPlannedInvoice": "Historic development",
                     "temporalPayment": "Development over time",
                     "qualitativeBooking": "Divide",
-                    "temporalBooking": "Development over time",
+                    "temporalBooking": "Historic development",
                     "temporalTimeslotBooking": "Frequency per day and per hour",
                     "temporalMember": "Development over time",
                     "temporalPrivateBooking": "Evolution over time"
@@ -3975,7 +3976,7 @@
                         "placeholder": "Select the data.",
                         "isEmpty": "No data has been selected."
                     },
-                    "privateBooking": "Appointment"
+                    "privateBooking": "Appointments"
                 },
                 "graphComponent": "Display",
                 "datatype": "Type of graph",
@@ -3998,7 +3999,7 @@
         },
         "noGraphToDisplay": "No graphs set up in this tab. Add one here.",
         "privateBooking": {
-            "title": "Appointment",
+            "title": "Appointments",
             "caption": "Saved appointments",
             "popover": "The total number of booked appointments for this date. You can filter cancellations / refunds / ..."
         }
@@ -4194,7 +4195,7 @@
                         "_label": "Billing"
                     },
                     "waitingList": {
-                        "_label": "Waiting-list"
+                        "_label": "Waitlist"
                     },
                     "webShop": {
                         "_label": "Shop"
@@ -4314,13 +4315,13 @@
                 "myClub": {
                     "_label": "My studio",
                     "activities": {
-                        "_label": "Activities"
+                        "_label": "Group activities"
                     },
                     "workshops": {
                         "_label": "Workshops"
                     },
                     "appointments": {
-                        "_label": "Appointment"
+                        "_label": "Appointments"
                     },
                     "teachers": {
                         "_label": "Teachers"
@@ -4752,7 +4753,7 @@
         "tabList": "Workshops",
         "group": {
             "emptyState": "Events allow your members to enrol for all associated sessions at once. This feature is perfect for activities, such as trainings or courses. ",
-            "emptySearch": "No groups matching your search",
+            "emptySearch": "There are no search results to display.",
             "pageSize": "Display by:",
             "backToGroup": "Back to groups",
             "emptySelect": "Select a session"
@@ -5038,60 +5039,60 @@
         }
     },
     "waitingList": {
-        "switchToEnable": "Switch waiting-list on",
-        "switchToDisable": "Disable waiting list",
-        "nbPending": "{{ nbPending }} waiting for a slot",
-        "nbConvertible": "{{ nbConvertible }} pending booking confirmation",
+        "switchToEnable": "Reactivate waitlist",
+        "switchToDisable": "Deactivate waitlist",
+        "nbPending": "{{ nbPending }} members have joined the waitlist",
+        "nbConvertible": "{{ nbConvertible }} pending booking confirmation(s)",
         "form": {
             "dumb_delay_minutes": {
-                "label": "Simple waiting-list",
-                "helper": "If a slot becomes available, the member has N minutes to book in before the next one takes his/her slot."
+                "label": "Simple waitlist",
+                "helper": "A member has X minutes to book before they lose their priority spot on the waitlist."
             },
             "smart_delay_percentage": {
-                "label": "Smart waiting-list",
-                "helper": "If a slot becomes available, the client has a time proportional to the time left before the session."
+                "label": "Intelligent waitlist",
+                "helper": "A member has X minutes, which equals a Y percentage of the remaining time, before the session begins to complete the booking."
             },
-            "submit": "Submit",
+            "submit": "Save",
             "auto_cancellation_type": {
-                "title": "Waiting-list management"
+                "title": "Waitlist management"
             },
             "auto_consume_pack": {
-                "helper": "If the member has a valid pass when a spot becomes available, he/she is automatically booked in and a credit will be deducted from his/her pass. The pass that expires the earliest, and with the least amount of credits available, is used first.",
-                "label": "Automatically deduct credit(s) from a valid pass and book in the member when a spot becomes available."
+                "helper": "A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expires the soonest.",
+                "label": "Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass"
             },
             "is_option_blocking": {
-                "helper": "As long as a member is on the waiting list, a spot is blocked for him/her while waiting for him/her to register.",
-                "label": "Reserve openings exclusively for members on the waiting list"
+                "helper": "A spot will be saved for members that joined the waitlist until they book.",
+                "label": "Save openings exclusively for members that joined the waitlist"
             },
             "autokick_delay": {
-                "helper": "Number of reminders before a member is automatically removed from the waiting list, if they don't respond.",
-                "label": "Automatic removal from the waiting list"
+                "helper": "This is the number of notifications a member on a waitlist will receive before they're automatically removes if no response is registered.",
+                "label": "Automatic waitlist removal"
             },
             "dynamic": {
-                "label": "Waiting list priority management",
+                "label": "Select your waitlist priorty management",
                 "1": {
-                    "explain": "The waiting list has no order. When a space becomes available all those on the waiting list receive an email at the same time inviting them to book.",
+                    "explain": "This is an unsorted and unranked waitlists. All members that joined this waitlist will be informed simultanously once a spot becomes available.",
                     "label": "First come, first served"
                 },
                 "0": {
-                    "explain": "When a member signs in, they're given a place on the waiting list. When an opening becomes available, the first person on the list can register, whilst the others have to wait their turn.",
-                    "settingsDelay": "Deadline for registering on the waiting list",
-                    "label": "One at a time"
+                    "explain": "Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.",
+                    "settingsDelay": "Settings",
+                    "label": "One by one"
                 }
             },
             "last_delay_before_auto_consume": {
-                "label": "Book automatically only if the session takes place in less than ",
+                "label": "Only accept bookings automatically if a session takes place in less than ",
                 "helper": "If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass"
             }
         },
-        "explainWaitingListConf": "Example: With 3h left before the start of the sessions, the member has {{ nbMinutesBeforeBookingOptionExpire }} minutes to respond before they're put back on the waiting list.",
+        "explainWaitingListConf": "Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.",
         "dialog": {
             "delete": {
-                "title": "Waiting-list removal",
-                "content": "Are you sure you want to remove this member from the waiting-list ? He will be notified by email.",
+                "title": "Remove from waitlist",
+                "content": "Are you sure that you want to remove this member from the waitlist? The member will also be notified of this.",
                 "cancel": "Cancel",
-                "confirm": "Remove",
-                "sendEmail": "Send an unsubscribe email",
+                "confirm": "Delete",
+                "sendEmail": "Send a message of the removal",
                 "contentV2": "Are you sure you want to remove this member from the waitlist?"
             }
         },
@@ -5099,13 +5100,13 @@
             "detail": {
                 "offerTitle": "Associated session",
                 "registrationSource": "Booking channel",
-                "registeredOn": "Registered on",
-                "title": "Waiting list details"
+                "registeredOn": "Joined on",
+                "title": "Details"
             },
-            "empty": "There are no waiting lists to display.",
+            "empty": "There are no waitlists to display.",
             "delete": "Delete",
-            "addToBook": "Book in",
-            "listTitle": "Waiting list"
+            "addToBook": "Join",
+            "listTitle": "Waitlist"
         }
     },
     "checkout": {
@@ -5163,7 +5164,7 @@
         "validation": {
             "sections": {
                 "offerNotBookable": "Unable to register",
-                "offerPreBooked": "Registration on waiting list",
+                "offerPreBooked": "You've joined the waitlist for",
                 "offerBooked": "You've booked",
                 "basket": "Your basket",
                 "title": "Congratulations! You have successfully completed your purchase.",
@@ -5184,8 +5185,8 @@
             "basket-created": "Basket created",
             "basket-finalize": "Finalized/paid cart",
             "basket-additem": "Add to cart",
-            "basket-removeitem": "Removal of the basket",
-            "basket-automaticclean": "Automatic basket cleaning"
+            "basket-removeitem": "Remove from basket",
+            "basket-automaticclean": "Automatically clear basket"
         },
         "eventHistory": {
             "sectionTitle": "Events",
@@ -5416,14 +5417,14 @@
         },
         "actions": {
             "flagAsCancelled": "Cancel",
-            "flagAsOnSiteDelivery": "Deliver on-site",
+            "flagAsOnSiteDelivery": "To collect",
             "flagAsSent": "Sent"
         },
         "detail": {
             "section": {
                 "title": "Order status:",
                 "deliveryInfo": "Delivery address",
-                "productDetail": "Product listing",
+                "productDetail": "Order overview",
                 "invoice": "Related invoice",
                 "member": "Buyer"
             }
@@ -5471,7 +5472,7 @@
             "company": "Company",
             "broadcast": "Livestreaming",
             "invoice": "Billing",
-            "waitingList": "Waiting-list",
+            "waitingList": "Waitlist",
             "shop": "Webshop",
             "role": "Staff",
             "personalization": "Personalization",
@@ -5572,14 +5573,14 @@
                 "selectActivity": "Choose an activity",
                 "selectEstablishment": "Choose an establishment",
                 "selectCoach": "Choose a coach",
-                "selectComponent": "Choose a component",
+                "selectComponent": "Select a widget",
                 "showAdvanced": "See more options",
                 "selectVideo": "Choose a video",
                 "selectPrivateServiceGroups": "Choose your categories",
                 "selectPrivateServiceTypeDetail": "My appointment",
                 "selectPrivateServiceTypeList": "All appointments",
                 "selectPrivateServiceType": "Type",
-                "todayOnly": "Show only the sessions of the day",
+                "todayOnly": "Exclusively display today's sessions",
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide passes for private classes",
                 "hidePaymentPack": "Hide passes for group classes",
@@ -5617,7 +5618,7 @@
             "methodPaymentSubscriptionHelper": "Select which payment method(s) you wish to enable for recurring payments (subscriptions):",
             "methodPaymentSubscription": "Recurring payments",
             "methodPaymentBasketHelper": "Select which payment method(s) you wish to enable for one time payments:",
-            "methodPaymentBasket": "One time payments"
+            "methodPaymentBasket": "Single payments"
         },
         "billing_group": {
             "header": "Billing group",
@@ -5640,36 +5641,36 @@
         "mobilePersonalization": {
             "externalShopRedirection": {
                 "popupPreview": {
-                    "inventory": "Your inventory",
-                    "ourOffers": "Our Offers",
+                    "inventory": "My inventory",
+                    "ourOffers": "Our offer",
                     "category": {
                         "giftcard": "Gift cards",
-                        "contract": "Memberships",
-                        "paymentCombo": "Special offers",
-                        "paymentPack": "All passes"
+                        "contract": "Subscriptions",
+                        "paymentCombo": "Packs",
+                        "paymentPack": "Passes"
                     },
                     "membershipCard": {
-                        "giftcardSubtitle": "Find all your studio's gift cards here",
-                        "paymentComboSubtitle": "Find here all the special offers of your studio",
-                        "vodSubtitle": "Find here all your studio's video-on-demand offer",
-                        "contractSubtitle": "Find all your studio's membership offers here",
-                        "paymentPackSubtitle": "Find here all the passes of your studio",
-                        "mySubscription": "My \nmemberships",
-                        "paymentComboEmpty": "No offer available",
-                        "contractEmpty": "No membership available for sale",
-                        "invoiceEmpty": "No invoice",
-                        "privatePassListEmpty": "No appointment pass available",
-                        "privateConsumerPassListEmpty": "No appointment pass owned",
-                        "vod": "Access Video-on-Demand",
-                        "consumerPaymentPackEmpty": "No pass owned",
-                        "paymentPackEmpty": "No pass available",
+                        "giftcardSubtitle": "Browse through our gift cards.",
+                        "paymentComboSubtitle": "Have a look at all our current bundels.",
+                        "vodSubtitle": "Watch your preferred videos anywhere at any time.",
+                        "contractSubtitle": "Choose the subscription that best fits you.",
+                        "paymentPackSubtitle": "Discover this studio's entire offer.",
+                        "mySubscription": "My \nsubscriptions",
+                        "paymentComboEmpty": "There are no packs to display.",
+                        "contractEmpty": "There are no subscriptions to display.",
+                        "invoiceEmpty": "There are no invoices to display.",
+                        "privatePassListEmpty": "There are no appointment passes to display.",
+                        "privateConsumerPassListEmpty": "You don't own any appointment pass yet.",
+                        "vod": "Video On Demand",
+                        "consumerPaymentPackEmpty": "You don't own any pass yet.",
+                        "paymentPackEmpty": "There are no passes to display.",
                         "invoice": "My invoices",
                         "consumerPaymentPack": "My passes",
                         "paymentPack": "Passes",
-                        "contract": "Membership"
+                        "contract": "Subscriptions"
                     },
                     "title": "Preview",
-                    "cancel": "Go back"
+                    "cancel": "Close"
                 },
                 "deleteModal": {
                     "content": "Are you sure you want to remove this link? This action is final",
@@ -5834,8 +5835,8 @@
             }
         },
         "provision": {
-            "total_sales": "Total sales:",
-            "current_stock": "Current provisions:",
+            "total_sales": "Total sales",
+            "current_stock": "Current stock",
             "noProvisionHistory": "No sale history",
             "form": {
                 "title": "Update provision",
@@ -5845,7 +5846,7 @@
                 "submit": "Save"
             },
             "action": {
-                "update": "Set inventory"
+                "update": "Update inventory"
             }
         },
         "shopitem": {
@@ -5857,10 +5858,10 @@
                 "enabled": "Yes",
                 "disabled": "No",
                 "title": "Product",
-                "provisionHistory": "Stock history",
+                "provisionHistory": "Inventory",
                 "parameters": "Settings",
                 "supplier_price": "Supplier price",
-                "marketplace_enabled": "Available on web marketplace",
+                "marketplace_enabled": "Available on the webshop",
                 "is_deliverable": "Delivery fees",
                 "onsite_payment_available": "Enable in-studio payments"
             },
@@ -5913,7 +5914,7 @@
         },
         "dateTitle": "Period",
         "coaches": "Teachers",
-        "setPaymentRuleSetForCoachFirst": "This payroll rule has to be assigned to a teacher.",
+        "setPaymentRuleSetForCoachFirst": "Please associate this payroll rule to at least one teacher.",
         "modal": {
             "delete": {
                 "title": "Delete a rule",
@@ -5938,7 +5939,7 @@
         "coach_payment_rules": {
             "Simulator": {
                 "student_did_not_attend": "Absentees",
-                "student_attended": "Present students",
+                "student_attended": "Attendees",
                 "total_payment": "Final payment",
                 "marginValue": "Marginal value",
                 "forCancelledBookings": "Number of absentees",
@@ -5948,11 +5949,11 @@
                 "and": "And",
                 "students": "students",
                 "for": "For",
-                "resultTitle": "Payroll simulation",
-                "title": "Payroll rule simulator",
+                "resultTitle": "Results",
+                "title": "Simulation",
                 "bonus": "Total bonus",
                 "which": "Earnings",
-                "helper": "Check here that your payroll rule matches your expectations",
+                "helper": "Check if these settings meet your expectations.",
                 "marginalValueOfReservation": "Marginal value per booking",
                 "numberOfCancellations": "Number of absentees/late-cancellations",
                 "numberOfStudent": "Number of members"
@@ -5975,14 +5976,14 @@
                 "baseRemunerationRequired": "This is a mandatory field if you have ticked the 'Fixed amount' box above.",
                 "privateSlotAlreadySelected": "A remuneration rule is already defined for this appointment",
                 "uniqueRuleForPrivateSlot": "This appointment appears several times in the list",
-                "invalidCoachPaymentRule": "A pay rule must be selected",
-                "invalidPrivateSlot": "An appointment must be selected",
-                "oneRuleRequired": "You must define at least one remuneration rule to create a group"
+                "invalidCoachPaymentRule": "Select a payroll rule",
+                "invalidPrivateSlot": "Select an appointment",
+                "oneRuleRequired": "You must select at least one payroll rule to create a group."
             },
             "Bonuses": {
                 "bonus_rules": "Bonus rules",
                 "forEachBooking": "per booking",
-                "to": "to",
+                "to": "To",
                 "from": "From",
                 "addBonus": "ADD A BONUS RULE",
                 "bonus": "Bonus",
@@ -5990,7 +5991,7 @@
                 "forInterval": "for the whole range"
             },
             "paymentPackPlaceHolder": "Select passes",
-            "excludePaymentPack": "Ignore bookings made with specific passes",
+            "excludePaymentPack": "Exclude specific passes",
             "bonusForEachReservationInInterval": "Add a bonus for each individual booking in this range",
             "fixedBonusbyInterval": "Add a bonus for the whole range",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
@@ -6000,20 +6001,20 @@
             "taxe_rate": "Exclude your local VAT / Sales Tax from the computation of the marginal value.",
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
-            "remunerationLimits": "Remuneration limits",
+            "remunerationLimits": "Limit",
             "differentRemunerationForCancellation": "Apply different payroll rules for absentees and late-cancellations ",
             "addRemunerationOnCancellation": "Compensate teachers for absentees and late-cancellations",
             "percentage_base": "Add a percentage of the margin value of the bookings",
             "base_remuneration": "Fixed amount",
-            "forCancelledBookings": "For cancellations after the deadline and absences",
-            "forConfirmedBookings": "Payroll rule for attendees",
+            "forCancelledBookings": "Absentees and late cancellations",
+            "forConfirmedBookings": "Attendees",
             "calculationMethod": "Calculation method",
             "actions": "Actions",
             "coaches": "Teachers",
             "name": "Name",
             "addNewCoachPaymentRule": "New payment rule",
             "base_remuneration_helper": "Teachers will always receive this as compensation for their session.",
-            "set_base_remuneration": "Define a fixed amount that'll be paid out by default per session"
+            "set_base_remuneration": "Add a fixed rate per session"
         },
         "tabs": {
             "all": "All activities",
@@ -6022,7 +6023,7 @@
             "groups": "Payroll group"
         },
         "fabButton": {
-            "addNewForRDV": "Appointment",
+            "addNewForRDV": "Appointments",
             "addNewForSession": "Group activities & Workshops",
             "addNewPaymentRuleGroup": "Payroll group"
         },
@@ -6031,14 +6032,14 @@
             "subtitle": {
                 "helper": "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",
                 "coaches": "Associated teachers",
-                "specfic_private_slot": "Specific payroll rules for appointments",
-                "default": "Default compensation"
+                "specfic_private_slot": "Appointments",
+                "default": "Default"
             },
             "workshop": "Workshops",
             "session": "Group classes",
-            "private_service": "Appointment",
+            "private_service": "Appointments",
             "dialogTitle": "Payroll group",
-            "dissociate": "Customize the rules",
+            "dissociate": "Custom payroll",
             "modal": {
                 "delete": {
                     "content": "By deleting this group, it will be dissociated from all the teachers to which it is currently assigned",
@@ -6048,25 +6049,25 @@
                 }
             },
             "fields": {
-                "private_service": "Appointment",
+                "private_service": "Appointments",
                 "workshop": "Workshops",
                 "activity": "Group activities",
-                "private_service_name": "Session name",
+                "private_service_name": "Appointment",
                 "coach_payment_rule": "Payroll rule",
-                "addPrivateSlot": "Add a rule"
+                "addPrivateSlot": "Add a payroll rule"
             }
         },
         "search": "(Optional) Apply a payroll rule",
         "simulate": "Simulate",
-        "privateSlotLabel": "Appointment"
+        "privateSlotLabel": "Appointments"
     },
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",
-        "bookAnotherOption": "Add me again on the waiting-list",
-        "bookAnOption": "Book on waiting-list",
+        "bookAnotherOption": "Rejoin waitlist",
+        "bookAnOption": "Join waitlist",
         "availablePaymentPacks": "Compatible Passes: ",
         "goBack": "Go back",
-        "hasOneOrMoreOption": "You are already on the waiting-list",
+        "hasOneOrMoreOption": "You've already joined this waitlist",
         "method": {
             "CB": "Card",
             "CREDIT_ACCOUNT": "In-studio payments",
@@ -6310,12 +6311,12 @@
             "subscription": {
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
-                        "label": "Cancel associated bookings for passes when payments fail",
+                        "label": "Cancel associated bookings for subscriptions when payments fail",
                         "warning": "Attention! Previously cancelled bookings resulting from a failed payment won't be recreated if a later payment was successful.",
                         "helperText": "The system will automatically refund the credits and cancel associated bookings for blocked passes for subscriptions whose payments have failed or have been disputed."
                     },
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Block passes for failed payment",
+                        "label": "Deactivate subscriptions when payments fail",
                         "helperText": "The system will automatically block passes from subscriptions whose payments have failed or have been disputed until the outstanding amount has been paid."
                     },
                     "nbRetriesSubscriptionPayments": {
@@ -6354,7 +6355,7 @@
         },
         "invoice": {
             "editor": {
-                "title": "Create the invoice",
+                "title": "Invoicing",
                 "save": "Issue the invoice",
                 "sumup": "Sum up"
             },
@@ -6394,7 +6395,7 @@
             },
             "invoiceItemList": {
                 "total": "Total",
-                "isEmpty": "No purchases",
+                "isEmpty": "Please start by adding products to this invoice.",
                 "title": "Purchases",
                 "titleReverse": "Purchase breakdown",
                 "billing_establishment": "(Optional) Billing establishment"
@@ -6465,7 +6466,7 @@
                         "priceExcTax": "Total (excl. VAT / Sales Tax)",
                         "price": "Total (incl. VAT / Sales Tax)"
                     },
-                    "isEmpty": "No purchases",
+                    "isEmpty": "Please start by adding products to this invoice.",
                     "title": "Purchases"
                 }
             },
@@ -6705,7 +6706,7 @@
         "baseCoach": "Default",
         "overrider": "Substitute",
         "overrideSelectorTitle": "Teacher",
-        "showPerformance": "Payroll",
+        "showPerformance": "Show payroll",
         "showActivities": "Show activities",
         "showDescription": "Show description",
         "description": "Description",
@@ -6799,17 +6800,17 @@
             "list": {
                 "title": "Last events"
             },
-            "billing_plan-pause": "Pause",
+            "billing_plan-pause": "Paused payments",
             "billing_plan-create": "Create",
-            "billing_plan-stop": "End",
-            "billing_plan-renew": "Auto-renew",
+            "billing_plan-stop": "Stopped payments",
+            "billing_plan-renew": "Automatic renewals",
             "billing_plan-payment_dispute": "Payment: disputed",
             "billing_plan-payment_success": "Payment: successful",
             "billing_plan-payment_failure": "Payment: refused",
             "billing_plan-update_payment_method": "Payment method updated",
-            "billing_plan-update_payment_pack": "Pass updated",
-            "billing_plan-update_payment_combo": "Pack has been modified",
-            "billing_plan-update_private_pass": "Appointment pass has been modified"
+            "billing_plan-update_payment_pack": "Modified passes",
+            "billing_plan-update_payment_combo": "Modified packs",
+            "billing_plan-update_private_pass": "Modified appointment passes"
         },
         "table": {
             "noContent": "There are no subscribers to display."
@@ -6828,7 +6829,7 @@
                 "showInvoice": "See invoice",
                 "changePrice": "Edit price",
                 "stop": "Stop after this invoice",
-                "disableAutoRenew": "Deactivate the auto-renewal",
+                "disableAutoRenew": "Deactivate automatic renewals",
                 "enableAutoRenew": "Activate auto-renew"
             },
             "freeze": {
@@ -6908,13 +6909,13 @@
                 "explainCustomSubscriptionForm": "Add a custom subscription"
             },
             "description": "Description",
-            "legal": "Legal notice",
+            "legal": "Terms",
             "actions": {
-                "iAcceptCondition": "I accept the legal notice.",
+                "iAcceptCondition": "I accept the terms.",
                 "iwanttostarton": "Preferred starting date of my subscription: ",
                 "subscribe": "Subscribe",
                 "create": "Add a subscription",
-                "iAcceptGeneralCondition": " I accept the legal notice."
+                "iAcceptGeneralCondition": " I accept the terms."
             },
             "duration": "{{month}} bills",
             "list": {
@@ -6922,7 +6923,7 @@
                 "isEmpty": "No contract",
                 "addButton": "Add a subscription",
                 "register": "Subscribe a member",
-                "titleManagerOnly": "Contracts not available for sale",
+                "titleManagerOnly": "Unavailable subcriptions",
                 "titleCustomerAvailable": "Available subscriptions",
                 "titleInactive": "Archived subscriptions"
             },
@@ -6939,13 +6940,13 @@
                     "label": "Unavailable for purchase"
                 },
                 "autoRenewal": {
-                    "label": "Auto renewal"
+                    "label": "Activate the automatic renewal"
                 },
                 "recurrent_price": {
                     "label": "Recurring payment"
                 },
                 "contract": {
-                    "label": "Legal notice",
+                    "label": "Terms",
                     "placeholder": "Enter here all legal terms and conditions (refund etc...)."
                 },
                 "flat_fee": {
@@ -6980,11 +6981,11 @@
                     "helperText": " "
                 },
                 "recurrence": {
-                    "explain": "The subscription will be charged every {{ recurrence_basis }} {{ interval }} for a total duration of {{ total_interval_duration }} {{ interval }} and will create {{ nb_interval }} bills",
+                    "explain": "This subscription will be billed evert {{ recurrence_basis }}{{ interval }}, has a total duration of {{ total_interval_duration }}{{ interval }}, and members will be invoiced {{ nb_interval }} times in total.",
                     "section": "Frequency"
                 },
                 "interval": {
-                    "label": "Frequency",
+                    "label": "BIlling",
                     "helperText": "How often will clients be charged?"
                 }
             },
@@ -7075,7 +7076,7 @@
         },
         "parameters": {
             "parameters": "Settings",
-            "autoRenew": "Automatic renewal",
+            "autoRenew": "Activate the automatic renewal",
             "subscribeAgain": "Resubscribe",
             "voucher": "Promotion",
             "trial_nb": "Number of free invoices",
@@ -7518,8 +7519,8 @@
             "button_new": "Add a report"
         },
         "subheader": {
-            "average": "Average",
-            "total": "Total"
+            "average": "Averages",
+            "total": "Totals"
         },
         "categories": {
             "dayBookings": "Bookings per day (group activities)",
@@ -8347,7 +8348,7 @@
     },
     "metaActivity": {
         "metaActivity": "Activity",
-        "search": "Search an activity",
+        "search": "Search a group activity",
         "forms": {
             "create": {
                 "compatible_packs": {
@@ -8392,7 +8393,7 @@
         "name": "Name",
         "category": "Sport",
         "addOffers": "Add sessions",
-        "offersThisDay": "Sessions this day:",
+        "offersThisDay": "Today's sessions:",
         "description": "Description",
         "settings": {
             "title": "Settings",
@@ -8520,9 +8521,9 @@
         "disabled": "Cancelled",
         "credit_price": " Credit(s)",
         "booking": {
-            "confirmed": "Booking(s)",
+            "confirmed": "Bookings",
             "fillRate": "Occupancy rate",
-            "waiting": "Waiting list"
+            "waiting": "Waitlist"
         },
         "extraordinaryEstablishment": "(temporary establishments)",
         "substitute": "Substitute",
@@ -8631,7 +8632,7 @@
                 "title": "Level",
                 "placeholder": "Level"
             },
-            "customs": "Customized",
+            "customs": "Custom",
             "delete": "Delete",
             "edit": "Edit"
         },
@@ -8682,7 +8683,7 @@
         "allCompanies": "All studios",
         "seeAll": "See all",
         "franchiseEmails": "[Master Account] Email Templates",
-        "companieEmails": "My templates"
+        "companieEmails": "Templates"
     },
     "member": {
         "date_joined": "Sign up date",
@@ -8764,9 +8765,9 @@
                 "seeMemberPage": " See member page",
                 "success": "Members merged",
                 "error": "Impossible to merge members",
-                "srcMember": "We'll merge and delete this account",
-                "dstMember": "We'll keep this account",
-                "title": "Merge member",
+                "srcMember": "This account will be merged and deleted",
+                "dstMember": "This account will be saved",
+                "title": "Merge members",
                 "explainCredit": "The internal credit balance will be transferred",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Bookings, passes, notes and invoices will be transfered.",
                 "explainTags": "Tags from the deleted member will not be transferred",
@@ -8872,7 +8873,7 @@
                     "6": "Scheduled appointments",
                     "5": "Recurring bookings",
                     "4": "Future bookings",
-                    "3": "Subscription with automatic renewals in progress",
+                    "3": "Subscriptions with automatic renewals",
                     "2": "Current subscription",
                     "1": "Unpaid invoice(s)",
                     "0": "Negative internal account balance"
@@ -9032,16 +9033,16 @@
                 "contract": "Available subscriptions"
             },
             "option": {
-                "isAlreadyOnWaitingList": "You are registered on the waiting-list, we will inform you by email when a spot is available.",
-                "isFull": "The class is full, you can still register to the waiting-list. You will be notified by email if a slot becomes available.",
-                "registerOption": "Register to the waiting-list",
+                "isAlreadyOnWaitingList": "You've joined the waitlist. We'll let you know when a spot becomes available.",
+                "isFull": "This session is full. Join the waitlist and we'll let you know when a spot becomes available.",
+                "registerOption": "Join waitlist",
                 "isAlreadyRegistered": "The session is full, congratulations you are booked in !",
                 "waitingListOpen": "This session is full. Join the waitlist and you'll receive a message once a spot becomes available."
             },
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",
                 "isTooLate": "Registration for this class is now closed.",
-                "isWaitingListFull": "The class and the waiting list are full.",
+                "isWaitingListFull": "This session and the waitlist are full.",
                 "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later.",
                 "isAlreadyRegistered": "You are already registered to this session",
                 "blockedByTags": "You do not have the necessary rights to sign up for this session."
@@ -9150,8 +9151,8 @@
                     "notifyAllEvents": {
                         "notRefunded": "For every late cancellation",
                         "refunded": "For every refunded cancellation",
-                        "absence": "For each time a member is absent",
-                        "attendance": "For each time the member is present"
+                        "absence": "For every absence",
+                        "attendance": "For every attendance"
                     },
                     "birthday": "Send on birthday"
                 },
@@ -9253,7 +9254,7 @@
                 "startFromDate": {
                     "label": "Start the recurrent booking the "
                 },
-                "groupWarning": "Please note that it's not possible to add recurrent bookings for events"
+                "groupWarning": "Please note that it's not possible to add recurrent bookings for events."
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
@@ -9290,7 +9291,7 @@
         "offer": {
             "showMore": "See more",
             "mainButton": {
-                "registerWaitingList": "Register to waiting list",
+                "registerWaitingList": "Join waitlist",
                 "book": "Book",
                 "numberOfBook": "{{count}} booking",
                 "numberOfBook_plural": "{{count}} bookings"
@@ -9303,15 +9304,15 @@
             "offerStatus": {
                 "waiting_list_status": {
                     "3": "Full",
-                    "1": "Bookings closed",
-                    "0": "Waiting list",
-                    "2": "Bookings closed",
-                    "6003": "Already on the waiting list",
-                    "6002": "The waiting list is full",
+                    "1": "Closed",
+                    "0": "Waitlist",
+                    "2": "Closed",
+                    "6003": "Waitlist: joined",
+                    "6002": "Waitlist: full",
                     "7": "Unbalanced male / female ratio",
                     "6": "Unbalanced male / female ratio",
                     "5": "Already registered",
-                    "4": "Bookings closed",
+                    "4": "Closed",
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
                 "bookable_status": {
@@ -9321,7 +9322,7 @@
                     "0": "Bookings open",
                     "9": "It's not allowed to exceed the maximum amount of future bookings"
                 },
-                "waiting_list": "Waiting list",
+                "waiting_list": "Waitlist",
                 "book": "Sign up",
                 "blockedByTags": "Booking not allowed"
             },
@@ -9387,14 +9388,14 @@
             "card": {
                 "showMore": "More information",
                 "book": "Book",
-                "bookOption": "Waiting list",
+                "bookOption": "Waitlist",
                 "isPast": "Completed",
                 "notAvailable": "Cancelled",
                 "duration": "Duration: {{duration}}",
                 "loadMore": "More sessions",
                 "bookTitle": "Overview"
             },
-            "warningPartialBooking": "Please select for which sessions you'd like to enrol for.",
+            "warningPartialBooking": "Please select which sessions you'd like to attend.",
             "warningFullBooking": "Complete this booking to enrol for {{count}} session(s).",
             "confirm": "Continue",
             "cancel": "Cancel",
@@ -9484,7 +9485,7 @@
         },
         "coach": {
             "coachList": "Teachers",
-            "coachPerformance": "Payroll for {{name}}",
+            "coachPerformance": "Payroll: {{name}}",
             "coachFormPage": "[Form] Teacher",
             "allCoachPerformance": "Payroll"
         },
@@ -10164,8 +10165,8 @@
             "nb_bookings": "Bookings",
             "name": "Session name",
             "date": "Date",
-            "rule": "This activity's payroll rule",
-            "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher.",
+            "rule": "Payroll rule",
+            "error": "It appears that certain activities are not yet associated to a payroll rule. Please correctly configure your activities and instructors to use the payroll.",
             "total": "Total payout",
             "cancelled_bookings": "Cancelled bookings",
             "confirmed_bookings": "Attendees",
@@ -10173,7 +10174,7 @@
             "nb_private_bookings": " ",
             "coachName": "Teacher",
             "total_on_appointments": "Remuneration for appointments",
-            "total_on_sessions": "Remuneration (Group activities and Workshops)",
+            "total_on_sessions": "Remuneration (Group activities & Workshops)",
             "nb_appointments": "Number of appointments",
             "nb_sessions": "Number of sessions",
             "totalNetGain": "Net gain (total)",
@@ -10182,7 +10183,7 @@
         },
         "table": {
             "download": "Download",
-            "downloadAll": "Export entire payroll"
+            "downloadAll": "Export payroll"
         },
         "addBonus": "Add a rule",
         "dateTitle": "Date range",
@@ -10210,7 +10211,7 @@
             "previewModeTitle": "Preview Mode",
             "downloadMySavedData": "Download",
             "enterPreviewMode": "Switch to Preview Mode",
-            "unresolvedDaterange": "Invalid remuneration payroll",
+            "unresolvedDaterange": "Invalid payroll rule",
             "dateRange": "Payroll from {{- startDate }} to {{- endDate }}",
             "dateSaved": "Generated on: {{ date }}",
             "title": "Saved data ({{ count }})",
@@ -10220,7 +10221,7 @@
         "export": {
             "completed": {
                 "message": "The export file for the teacher payroll is available. You can retrieve it from the \"Saved Data\" section.",
-                "title": "Export teacher payroll"
+                "title": "Export payroll"
             },
             "dialog": {
                 "buttonText": "Confirm",
@@ -10862,8 +10863,8 @@
         "canNotBuyErrorCode": {
             "generic": "Error while booking",
             "8001": "Your chosen spot is no longer available",
-            "6003": "You're already on this waiting list",
-            "6002": "The waiting list is full",
+            "6003": "You've already joined this waitlist",
+            "6002": "The waitlist is full",
             "2012": "This pass is not compatible with this session",
             "2011": "This pass can only be used for Video On Demand (i.e. not for in-studio activities)",
             "2010": "This pass is not compatible with this establishment",
@@ -11055,7 +11056,7 @@
                 "personalization": "Personalization",
                 "role": "Staff",
                 "shop": "Webshop",
-                "waitingList": "Waiting-list",
+                "waitingList": "Waitlist",
                 "invoice": "Billing",
                 "company": "Company",
                 "platform_billing": "Subscription",
@@ -11098,14 +11099,14 @@
                 "title": "Appointments"
             },
             "schedule": "Schedule",
-            "alpha": "In development",
+            "alpha": " ",
             "invoice": "Invoices",
             "workshopActivities": "Workshops",
             "order": "Orders",
             "email_template": "Templates",
             "smart_list": "Smartlists",
             "sequence": "Strategies",
-            "requestTempPassword": "Authorize access",
+            "requestTempPassword": "Temporary password",
             "combo": "Packs",
             "marketing_automation": "Marketing automation",
             "digital": "Digital offer",
@@ -11441,16 +11442,16 @@
             "browserLanguage": "Browser language",
             "languageHelper": "The widget will by default be in the language selected here. Select \"Browser language\" so the language on the widget automatically adapts to the language of the end user.",
             "pickALanguage": "Choose the default language",
-            "configTitle": "My widget",
+            "configTitle": "Configuration",
             "containerConfiguration": {
-                "title": "Widget configuration"
+                "title": "Settings"
             },
             "dialogSize": {
                 "window": "Window",
                 "fullScreen": "Full screen"
             },
             "dialogSizeLabel": "Popup dimension",
-            "responsiveIframe": "Activate the responsive mode"
+            "responsiveIframe": "Activate responsive mode"
         }
     },
     "marketing": {
@@ -11879,7 +11880,7 @@
             "pageTitle": "Template",
             "companiesEmails": "[Master Account] Email templates",
             "create": "Add a template",
-            "franchiseEmails": "My templates",
+            "franchiseEmails": "Templates",
             "emptyStateDescription": "Select an email to see a preview of it.",
             "emptyStateTitle": "Preview",
             "searchPlaceholder": "Search a template"
@@ -12090,7 +12091,7 @@
             "deleteHeader": "Are you sure that you want to delete this metric?"
         },
         "program": {
-            "detail": "Programme details",
+            "detail": "Details",
             "member": {
                 "name": "Name",
                 "title": "Members",
@@ -12166,7 +12167,7 @@
     },
     "expense": {
         "filters": {
-            "showFuture": "Future expenses",
+            "showFuture": "Show future expenses",
             "filterStaff": "All staff",
             "filterSupplier": "All suppliers",
             "filterCategory": "All categories",
@@ -12497,7 +12498,7 @@
             "lastname": "Last name",
             "staff": "Staff",
             "email": "Email",
-            "lastClockIn": "Last punch",
+            "lastClockIn": "Last attendance",
             "status": "Status",
             "action": "Action",
             "role": "Role",

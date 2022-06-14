@@ -284,7 +284,7 @@ export const PrivatePassForm = (props: Props) => {
           <SwitchField
             name="is_universal_pass"
             label={t('privatePass.form.universalPass.label')}
-            disabled={props.initial && !!props.initial?.linked_payment_pack}
+            disabled={props.initial || !!props.initial?.linked_payment_pack}
           />
           <Typography variant="caption" color="textSecondary">
             {t('privatePass.form.universalPass.helperText')}

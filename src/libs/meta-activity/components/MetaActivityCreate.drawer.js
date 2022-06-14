@@ -312,24 +312,23 @@ export default compose(
       },
     }),
   ),
-  withProps(
-    ({ upsertedWorkshop, fetchAllOffers, goToWorkshop, createOffers }) => ({
-      createWorkshopOffers: async (data: any) => {
-        createOffers(
-          {
-            ...data,
-            meta_activity: upsertedWorkshop.id,
+  withProps(({ upsertedWorkshop, fetchAllOffers, setStep, createOffers }) => ({
+    createWorkshopOffers: async (data: any) => {
+      createOffers(
+        {
+          ...data,
+          meta_activity: upsertedWorkshop.id,
+        },
+        {
+          onSuccess: () => {
+            fetchAllOffers();
+            setStep(STEP_PASS);
+            window.scrollTo(0, 0);
           },
-          {
-            onSuccess: () => {
-              fetchAllOffers();
-              goToWorkshop(upsertedWorkshop.id);
-            },
-          },
-        );
-      },
-    }),
-  ),
+        },
+      );
+    },
+  })),
   withTitle(({ t }) => t('titles:metaActivity.metaActivityFormPage')),
   withHandlers({
     createPaymentPack:

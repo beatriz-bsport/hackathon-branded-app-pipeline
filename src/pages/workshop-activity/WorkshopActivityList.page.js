@@ -96,7 +96,6 @@ type Props = {
   goToDetail: (metaActivityId: number) => void,
   goToPaymentPack: () => void,
   goToEdit: (metaActivityId: number) => void,
-  onCreate: () => void,
   makeActivityCopy: (
     id: number,
     suffix: string,
@@ -276,12 +275,17 @@ export class WorkshopActivityList extends React.Component<Props, State> {
       !this.props.loading
     ) {
       return (
-        <IsEmptyList
-          text={this.props.t('noWorkshops')}
-          button={this.props.t('actions.addWorkshopActivity')}
-          onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('actions.addWorkshopActivity')}
-        />
+        <div>
+          <IsEmptyList
+            text={this.props.t('noWorkshops')}
+            button={this.props.t('actions.addWorkshopActivity')}
+            onCreateLabel={this.props.t('actions.addWorkshopActivity')}
+            onCreate={() => {
+              this.setState({ formIsOpen: true });
+            }}
+          />
+          {!!this.state.formIsOpen && this.renderCreateWorkshopActivity()}
+        </div>
       );
     }
     return (

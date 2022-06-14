@@ -372,12 +372,17 @@ export class MetaActivityListPage extends React.Component<Props, State> {
       !this.props.loading
     ) {
       return (
-        <IsEmptyList
-          text={this.props.t('noActivities')}
-          button={this.props.t('actions.addActivity')}
-          onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('actions.addActivity')}
-        />
+        <div>
+          <IsEmptyList
+            text={this.props.t('noActivities')}
+            button={this.props.t('actions.addActivity')}
+            onCreate={() => {
+              this.setState({ formIsOpen: true });
+            }}
+            onCreateLabel={this.props.t('actions.addActivity')}
+          />
+          {!!this.state.formIsOpen && this.renderCreateActivity()}
+        </div>
       );
     }
     return (

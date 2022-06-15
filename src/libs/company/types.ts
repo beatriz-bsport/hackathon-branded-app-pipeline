@@ -1,3 +1,11 @@
+import { ErrorAndLoading } from '#libs/types';
+import {
+  BANK_ACCOUNT_CONFIGURATION_STEP,
+  ACCOUNT_CONFIGURATION_FINAL_STEP,
+  PAYMENT_METHOD_CONFIGURATION_STEP,
+  STRIPE_CONFIGURATION_STEP,
+} from './constants';
+
 export type Company = {
   id: number;
   name: string;
@@ -52,6 +60,8 @@ export type UpsellSumup = {
 };
 
 export type CompanyState = {
+  setupLoading: boolean;
+  stripeCompany?: { data: StripeCompany } & ErrorAndLoading;
   byId: {
     [id: number]: Company;
   };
@@ -69,3 +79,24 @@ export type CompanyState = {
   };
   setup: CompanySetup | null;
 };
+
+export type StripeCompany = {
+  currently_due_verifications: number;
+  currently_due_deadline: number;
+  past_due_verifications: number;
+  company: number;
+  stripe_id: string;
+  has_no_need_for_stripe_configuration: boolean;
+  has_no_need_for_bank_account_configuration: boolean;
+  has_no_need_for_payment_method_configuration: boolean;
+  has_completed_stripe_configuration: boolean;
+  has_completed_bank_account_configuration: boolean;
+  has_completed_payment_method_configuration: boolean;
+  has_completed_account_configuration_on_boarding: boolean;
+};
+
+export type AccountConfigurationStep =
+  | typeof STRIPE_CONFIGURATION_STEP
+  | typeof BANK_ACCOUNT_CONFIGURATION_STEP
+  | typeof PAYMENT_METHOD_CONFIGURATION_STEP
+  | typeof ACCOUNT_CONFIGURATION_FINAL_STEP;

@@ -88,7 +88,10 @@ export const CompanyDetail = (props: Props) => {
       <BankAccountFormDialog
         country={company.country}
         currency={company.currency}
-        onSubmit={props.attachExternalAccount}
+        onSubmit={(data, options) => {
+          props.setAddExternalAccountOpen(false);
+          props.attachExternalAccount(data, options);
+        }}
         open={props.addExternalAccountOpen}
         onClose={() => props.setAddExternalAccountOpen(false)}
         company={company}

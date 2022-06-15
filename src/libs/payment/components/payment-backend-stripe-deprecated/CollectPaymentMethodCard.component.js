@@ -47,6 +47,7 @@ type Props = {
   content?: string,
   stripeReaders: StripeReader[],
   addViaTerminal?: boolean,
+  labelClose?: string,
 };
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
@@ -130,163 +131,172 @@ export class CollectPaymentMethod extends React.Component<Props> {
     const dialogOffset = fullScreen ? '0%' : '50%';
     return (
       <Wrapper variant={this.props.variant}>
-        <div
-          style={
-            this.props.variant === 'div'
-              ? {
-                  position: 'unset',
-                  backgroundColor: 'transparent',
-                }
-              : {
-                  transform: `translate(-${dialogOffset}, -${dialogOffset})`,
-                  top: dialogOffset,
-                  left: dialogOffset,
-                }
-          }
-          className={classes.modal}
-        >
-          {!this.state.displayStripeTerminal && (
-            <DialogTitle>
-              {this.props.t('forms.paymentMethod.collect.title')}
-            </DialogTitle>
-          )}
-          <DialogContent>
+        {/* This fragment is important for compability with 3d secure, please do not delete */}
+        <>
+          <div
+            style={
+              this.props.variant === 'div'
+                ? {
+                    position: 'unset',
+                    backgroundColor: 'transparent',
+                  }
+                : {
+                    transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+                    top: dialogOffset,
+                    left: dialogOffset,
+                  }
+            }
+            className={classes.modal}
+          >
             {!this.state.displayStripeTerminal && (
-              <DialogContentText>
-                {this.props.content ||
-                  this.props.t('forms.paymentMethod.collect.content')}
-              </DialogContentText>
+              <DialogTitle id="collectPaymentMethodCardDialogTitle">
+                {this.props.t('forms.paymentMethod.collect.title')}
+              </DialogTitle>
             )}
-            {this.state.displayStripeTerminal ? (
-              <PaymentStripeTerminal
-                stripeReaders={this.props.stripeReaders}
-                clientSecret={this.state.clientSecret}
-                onCancel={this.props.onClose}
-                onSuccess={this.props.onSuccess}
-                isSetupIntent
-                onlySavePaymentMethod
-              />
-            ) : (
-              <div>
-                {this.state.processing && (
-                  <div className={classes.centered}>
-                    <CircularProgress />
-                  </div>
-                )}
-                {!!this.state.success && (
-                  <div>
+            <DialogContent id="collectPaymentMethodCardDialogContent">
+              {!this.state.displayStripeTerminal && (
+                <DialogContentText id="collectPaymentMethodCardDialogContentText">
+                  {this.props.content ||
+                    this.props.t('forms.paymentMethod.collect.content')}
+                </DialogContentText>
+              )}
+              {this.state.displayStripeTerminal ? (
+                <PaymentStripeTerminal
+                  stripeReaders={this.props.stripeReaders}
+                  clientSecret={this.state.clientSecret}
+                  onCancel={this.props.onClose}
+                  onSuccess={this.props.onSuccess}
+                  isSetupIntent
+                  onlySavePaymentMethod
+                />
+              ) : (
+                <div>
+                  {this.state.processing && (
                     <div className={classes.centered}>
-                      <CheckIcon
-                        style={{ height: 100, width: 100 }}
-                        color="primary"
-                      />
-                      <Typography className={classes.message}>
-                        {this.props.t('forms.paymentMethod.message.success')}
-                      </Typography>
+                      <CircularProgress />
                     </div>
-                    <div className={classes.actions}>
-                      {this.props.onClose && (
-                        <Button onClick={this.props.onClose}>
-                          {this.props.t('forms.paymentMethod.actions.close')}
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                )}
-                {!!this.state.error && (
-                  <div>
-                    <div className={classes.centered}>
-                      <ErrorIcon
-                        style={{ height: 100, width: 100 }}
-                        color="secondary"
-                      />
-                      <Typography className={classes.message}>
-                        {this.props.t('forms.paymentMethod.message.error')}
-                      </Typography>
-                      {this.state.stripe_error_code ||
-                      this.state.stripe_decline_code ? (
-                        <StripeErrorCode
-                          errorCode={this.state.stripe_error_code}
-                          declineCode={this.state.stripe_decline_code}
+                  )}
+                  {!!this.state.success && (
+                    <div>
+                      <div className={classes.centered}>
+                        <CheckIcon
+                          style={{ height: 100, width: 100 }}
+                          color="primary"
                         />
-                      ) : null}
-                    </div>
-                    <div className={classes.actions}>
-                      {this.props.onClose && (
-                        <Button onClick={this.props.onClose}>
-                          {this.props.t('forms.paymentMethod.actions.close')}
-                        </Button>
-                      )}
-                      <Button
-                        onClick={() =>
-                          this.setState({ error: null, success: null })
-                        }
-                      >
-                        {this.props.t('forms.paymentMethod.actions.retry')}
-                      </Button>
-                    </div>
-                  </div>
-                )}
-                {!this.state.error && !this.state.success && (
-                  <form onSubmit={this.handleSubmit}>
-                    <div
-                      style={this.state.processing ? { display: 'none' } : {}}
-                    >
-                      <div className={classes.sensitiveDataContainer}>
-                        <div className={classes.sensitiveData}>
-                          <Card />
-                        </div>
+                        <Typography className={classes.message}>
+                          {this.props.t('forms.paymentMethod.message.success')}
+                        </Typography>
                       </div>
-                    </div>
-                    {this.props.addViaTerminal && (
-                      <FeatureListProvider>
-                        {(featureList: FeatureList) => (
-                          <Button
-                            className={classes.addViaTerminal}
-                            variant="outlined"
-                            color="primary"
-                            disabled={
-                              !featureList.upsell ||
-                              !featureList.upsell.find(
-                                (f) =>
-                                  f.readable_identifier === 'stripe_terminal',
-                              )
-                            }
-                            onClick={() =>
-                              this.setState({ displayStripeTerminal: true })
-                            }
-                          >
-                            <AddIcon />
-                            {this.props.t(
-                              'invoice:configuration.stripeTerminal.addCard',
-                            )}
+                      <div className={classes.actions}>
+                        {this.props.onClose && (
+                          <Button onClick={this.props.onClose}>
+                            {this.props.labelClose ||
+                              this.props.t('forms.paymentMethod.actions.close')}
                           </Button>
                         )}
-                      </FeatureListProvider>
-                    )}
-                    <div className={classes.actions}>
-                      {this.props.onClose && (
-                        <Button
-                          disabled={this.state.processing}
-                          onClick={this.props.onClose}
-                        >
-                          {this.props.t('forms.paymentMethod.actions.close')}
-                        </Button>
-                      )}
-                      <Button
-                        color="primary"
-                        disabled={this.state.processing}
-                        type="submit"
-                      >
-                        {this.props.t('forms.paymentMethod.actions.collect')}
-                      </Button>
+                      </div>
                     </div>
-                  </form>
-                )}
-              </div>
-            )}
-          </DialogContent>
-        </div>
+                  )}
+                  {!!this.state.error && (
+                    <div>
+                      <div className={classes.centered}>
+                        <ErrorIcon
+                          style={{ height: 100, width: 100 }}
+                          color="secondary"
+                        />
+                        <Typography className={classes.message}>
+                          {this.props.t('forms.paymentMethod.message.error')}
+                        </Typography>
+                        {this.state.stripe_error_code ||
+                        this.state.stripe_decline_code ? (
+                          <StripeErrorCode
+                            errorCode={this.state.stripe_error_code}
+                            declineCode={this.state.stripe_decline_code}
+                          />
+                        ) : null}
+                      </div>
+                      <div className={classes.actions}>
+                        {this.props.onClose && (
+                          <Button onClick={this.props.onClose}>
+                            {this.props.labelClose ||
+                              this.props.t('forms.paymentMethod.actions.close')}
+                          </Button>
+                        )}
+                        <Button
+                          onClick={() =>
+                            this.setState({ error: null, success: null })
+                          }
+                        >
+                          {this.props.t('forms.paymentMethod.actions.retry')}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                  {!this.state.error && !this.state.success && (
+                    <form onSubmit={this.handleSubmit}>
+                      <div
+                        style={this.state.processing ? { display: 'none' } : {}}
+                      >
+                        <div className={classes.sensitiveDataContainer}>
+                          <div
+                            className={classes.sensitiveData}
+                            id="collectPaymentMethodCardSensitiveData"
+                          >
+                            <Card />
+                          </div>
+                        </div>
+                      </div>
+                      {this.props.addViaTerminal && (
+                        <FeatureListProvider>
+                          {(featureList: FeatureList) => (
+                            <Button
+                              className={classes.addViaTerminal}
+                              variant="outlined"
+                              color="primary"
+                              disabled={
+                                !featureList.upsell ||
+                                !featureList.upsell.find(
+                                  (f) =>
+                                    f.readable_identifier === 'stripe_terminal',
+                                )
+                              }
+                              onClick={() =>
+                                this.setState({ displayStripeTerminal: true })
+                              }
+                            >
+                              <AddIcon />
+                              {this.props.t(
+                                'invoice:configuration.stripeTerminal.addCard',
+                              )}
+                            </Button>
+                          )}
+                        </FeatureListProvider>
+                      )}
+                      <div className={classes.actions}>
+                        {this.props.onClose && (
+                          <Button
+                            disabled={this.state.processing}
+                            onClick={this.props.onClose}
+                          >
+                            {this.props.labelClose ||
+                              this.props.t('forms.paymentMethod.actions.close')}
+                          </Button>
+                        )}
+                        <Button
+                          color="primary"
+                          disabled={this.state.processing}
+                          type="submit"
+                        >
+                          {this.props.t('forms.paymentMethod.actions.collect')}
+                        </Button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              )}
+            </DialogContent>
+          </div>
+        </>
       </Wrapper>
     );
   }

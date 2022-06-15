@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { compose, withProps } from 'recompose';
+import React, { useEffect, useState } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
@@ -33,6 +33,7 @@ export const UserspaceSwitcher = (props: Props) => {
     storedToken,
     disconnect,
     companyId,
+    has_completed_account_configuration_on_boarding,
   } = props;
   const [tokenChangedInOtherTab, setTokenChangedInOtherTab] = useState(false);
   const [authToken, setAuthToken] = useState(getAuthToken());
@@ -74,6 +75,9 @@ export const UserspaceSwitcher = (props: Props) => {
   }
 
   if (isManager) {
+    if (!has_completed_account_configuration_on_boarding) {
+      return <Redirect to="/login/accountConfiguration/" />;
+    }
     return <Route path="/" component={Backoffice} />;
   }
   if (isCoach && companyId && !WidgetUtils.isWidget()) {
@@ -95,6 +99,8 @@ const connector = connect(
     isManager: state.auth.is_manager,
     isFranchisor: state.auth.is_franchisor,
     storedToken: state.auth.token,
+    has_completed_account_configuration_on_boarding:
+      state.auth.has_completed_account_configuration_on_boarding,
   }),
   {
     disconnect: disconnectAction,

@@ -15,6 +15,7 @@ const initialState = Immutable({
   is_franchisor: false,
   initializating: false,
   invalidFields: null,
+  has_completed_account_configuration_on_boarding: false,
   role: null,
   loadingImpersonation: false,
   emailExists: {
@@ -83,6 +84,7 @@ export default function authReducers(state = initialState, action = {}) {
         is_franchisor,
         role,
         name,
+        has_completed_account_configuration_on_boarding,
       } = action;
 
       setAuthToken(token);
@@ -97,7 +99,11 @@ export default function authReducers(state = initialState, action = {}) {
         .set('authenticated', true)
         .set('error', false)
         .set('loading', false)
-        .set('role', role);
+        .set('role', role)
+        .set(
+          'has_completed_account_configuration_on_boarding',
+          has_completed_account_configuration_on_boarding,
+        );
     }
 
     case actionTypes.CHECK_ACCESS_LEVEL: {

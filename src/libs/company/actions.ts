@@ -7,9 +7,17 @@ import {
   attachExternalAccount as attachExternalAccountAPI,
   retrieveMyCompanySetup as retrieveMyCompanySetupAPI,
   getFeatureList as getFeatureListAPI,
+  retrieveStripeCompanyAPI,
+  validateAccountConfigurationStepAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import { Company, CompanySetup, UpsellSumup } from './types';
+import {
+  AccountConfigurationStep,
+  Company,
+  CompanySetup,
+  StripeCompany,
+  UpsellSumup,
+} from './types';
 
 export const searchActions = {
   success: createAction('COMPANY/SEARCH/SUCCESS'),
@@ -158,7 +166,7 @@ export const retrieveMyCompanyActions = {
   error: createAction('COMPANY/ME/ERROR'),
 };
 
-export function retrieveMyCompanySetup(options: OptionCallback<CompanySetup>) {
+export function retrieveMyCompanySetup(options?: OptionCallback<CompanySetup>) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveMyCompanyActions.isLoading(true));
     dispatch(retrieveMyCompanyActions.error(null));
@@ -175,5 +183,57 @@ export function retrieveMyCompanySetup(options: OptionCallback<CompanySetup>) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(retrieveMyCompanyActions.isLoading(false));
+  };
+}
+
+export const stripeCompanyRetrieveActions = {
+  error: createAction('STRIPE_COMPANY/FETCH/ERROR'),
+  isLoading: createAction('STRIPE_COMPANY/FETCH/IS_LOADING'),
+  success: createAction('STRIPE_COMPANY/FETCH/SUCCESS'),
+};
+
+export function retrieveStripeCompanyAction(
+  options?: OptionCallback<StripeCompany>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(stripeCompanyRetrieveActions.isLoading(true));
+    dispatch(stripeCompanyRetrieveActions.error(null));
+    try {
+      const response = await retrieveStripeCompanyAPI();
+      dispatch(stripeCompanyRetrieveActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(stripeCompanyRetrieveActions.error(error));
+      options?.onError && options.onError(error);
+    }
+    dispatch(stripeCompanyRetrieveActions.isLoading(false));
+  };
+}
+
+export const validateAccountConfigurationStepActions = {
+  isLoading: createAction('ACCOUNT_CONFIGURATION_STEP/VALIDATE/LOADING'),
+  error: createAction('ACCOUNT_CONFIGURATION_STEP/VALIDATE/ERROR'),
+  success: createAction('ACCOUNT_CONFIGURATION_STEP/VALIDATE/SUCCESS'),
+};
+
+export function validateAccountConfigurationStepAction(
+  data: { step: AccountConfigurationStep },
+  options?: OptionCallback<void>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(validateAccountConfigurationStepActions.isLoading(true));
+    dispatch(validateAccountConfigurationStepActions.error(null));
+    try {
+      const response = await validateAccountConfigurationStepAPI(data);
+      dispatch(validateAccountConfigurationStepActions.success(data.step));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(validateAccountConfigurationStepActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(validateAccountConfigurationStepActions.isLoading(false));
   };
 }

@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 export const PaymentMethodListItem: FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
+
   const withGeneralConditions = props.withGeneralConditions
     ? props.withGeneralConditions
     : true;
@@ -61,7 +62,9 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
       props.onClick(props.paymentMethod.id);
     }
   };
-
+  if (!props.paymentMethod) {
+    return null;
+  }
   return (
     <ListItem
       button={!!props.onClick}

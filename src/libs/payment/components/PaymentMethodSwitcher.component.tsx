@@ -26,7 +26,7 @@ type OwnProps = {
 };
 type Props = OwnProps;
 export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
-  const { t } = useTranslation(['']);
+  const { t } = useTranslation('subscription');
   const classes = useStyles();
   if (!(props.enabledPaymentMethods?.length > 1)) {
     return null;
@@ -41,6 +41,21 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
       value={props.paymentMethod}
       onChange={(ev) => props.onChange(ev.target.value)}
     >
+      {(props.enabledPaymentMethods || []).includes(
+        BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+      ) ||
+      (props.enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      ) ? (
+        <FormControlLabel
+          value="card"
+          control={<Radio color="primary" />}
+          label={t('paymentMethod.card')}
+          labelPlacement="bottom"
+          disabled={props.disabled}
+          className={classes.paymentMethodRadio}
+        />
+      ) : null}
       {((props.enabledPaymentMethods || []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
       ) ||
@@ -51,22 +66,7 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         <FormControlLabel
           value="sepa_debit"
           control={<Radio color="primary" />}
-          label={t('subscription:paymentMethod.sepa')}
-          labelPlacement="bottom"
-          disabled={props.disabled}
-          className={classes.paymentMethodRadio}
-        />
-      ) : null}
-      {(props.enabledPaymentMethods || []).includes(
-        BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-      ) ||
-      (props.enabledPaymentGroupMethodIdentifier || []).includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-      ) ? (
-        <FormControlLabel
-          value="card"
-          control={<Radio color="primary" />}
-          label={t('subscription:paymentMethod.card')}
+          label={t('paymentMethod.sepa')}
           labelPlacement="bottom"
           disabled={props.disabled}
           className={classes.paymentMethodRadio}
@@ -78,7 +78,7 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         <FormControlLabel
           value="bsport:credit"
           control={<Radio color="primary" />}
-          label={t('subscription:paymentMethod.bsportCredit')}
+          label={t('paymentMethod.bsportCredit')}
           labelPlacement="bottom"
           disabled={props.disabled}
           className={classes.paymentMethodRadio}

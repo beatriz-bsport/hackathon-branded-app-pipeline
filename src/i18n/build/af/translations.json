@@ -645,7 +645,12 @@
     "endBeforeStart": "La date de fin doit être supérieure à la date de début",
     "startAfterEnd": "La date de début doit être inférieure à la date de fin",
     "requiredField": "ce champ est requis",
-    "save": "Sauvegarder"
+    "save": "Sauvegarder",
+    "start": "Commencer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "letsGo": "C'est parti !",
+    "finish": "Terminer"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
@@ -1947,6 +1952,42 @@
     }
   },
   "login": {
+    "accountConfiguration": {
+      "bankAccount": {
+        "owner_address": "Owner Address",
+        "address": "Address",
+        "bank_details": "Informations bancaires",
+        "general": "General",
+        "fields": { "iban": "IBAN", "bank_account_holder": "Titulaire du compte" }
+      },
+      "paymentMethodSuccess": "Le moyen de paiement indiqué est valide. Vous pourrez toujours le modifier dans les paramètres d'abonnement Bsport.",
+      "accountSuccess": "Votre compte Stripe a bien été créé. Vous pourrez modifier ces informations plus tard dans le backoffice dans les paramètres d’entreprise.",
+      "goToBackoffice": "Cliquez sur “C’est parti” pour être redirigé vers le backoffice.",
+      "bankAccountSuccess": "Votre IBAN est validé. Vous pourrez modifier ces informations plus tard dans le backoffice dans les paramètres d’entreprise.",
+      "welcomeTitle": "Bienvenue sur Bsport",
+      "welcomeDescription": "Nous sommes heureux de vous accueillir sur votre nouvelle plateforme. Avant de commencer votre expérience, il nous manque quelques informations.",
+      "welcomeConfigure": "Configurez votre compte en seulement {{numberOfSteps}} étape !",
+      "welcomeConfigure_plural": "Configurez votre compte en seulement {{numberOfSteps}} étapes !",
+      "stripeStep": "Configuration stripe",
+      "ibanStep": "Renseignement de l’IBAN",
+      "cardStep": "Moyen de paiement",
+      "finishStep": "Terminé !",
+      "createStripe": "Créez votre compte stripe",
+      "configureStripe": "Configurer votre compte stripe. Il est nécessaire pour que vos clients effectuent leurs achats et paiements en ligne.",
+      "companyName": "Nom de l’entreprise",
+      "companyAdress": "Adresse",
+      "configureStripeAction": "Configurer Stripe",
+      "infoGoingBack": "Si vous quittez la page maintenant, vous pourrez reprendre au même endroit à votre retour.",
+      "stripeConfiguration": "Configurer Stripe",
+      "stripeConfigurationExplain": "Vous allez être redirigé vers le formulaire de stripe. Une fois cette étape terminée vos informations seront enregistrées automatiquement sur Bsport.",
+      "redirecting": "Nous vous redirigeons vers le formulaire de stripe...",
+      "companyStripeName": "Compte stripe",
+      "managerIbanExplain": "Indiquez sur quel compte vous souhaitez recevoir par virements les montants payés en ligne via Bsport",
+      "paymentMethodTitle": "Indiquez votre moyen de paiement",
+      "paymentMethodExplain": "Renseignez le moyen de paiement que vous souhaitez utiliser pour payer votre abonnement à Bsport",
+      "congrats": "Félicitations !",
+      "finishExplain": "Votre configuration est terminée, vous pouvez maintenant utiliser Bsport."
+    },
     "emailValidation": {
       "explain": "Nous vous avons envoyé un email de validation, vous y êtes presque !",
       "success": "Votre email a été validé, vous allez être redirigé d'ici quelques secondes.",
@@ -3529,8 +3570,8 @@
         "invalid": "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",
         "accountNumber": { "label": "Numéro de compte", "placeholder": "FR89370400440532013000" },
         "bankCode": { "label": "Bank code" },
-        "institutionNumber": { "label": "Institution number" },
-        "transitNumber": { "label": "Transit number" },
+        "institutionNumber": { "label": "Institution number", "placeholder": "Institution number" },
+        "transitNumber": { "label": "Transit number", "placeholder": "Transit number" },
         "branchCode": { "label": "Branch code" },
         "clearingCode": { "label": "Clearing code" },
         "unknownCountry": "Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io",

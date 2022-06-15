@@ -17,6 +17,7 @@ type Props = {
   content?: string;
   stripeReaders?: StripeReader[];
   addViaTerminal?: boolean;
+  labelClose?: string;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -25,7 +26,9 @@ export const CollectPaymentMethod = (props: Props) => {
       <CollectPaymentMethodCard
         requestSetupIntentSecret={props.requestSetupIntentSecret}
         onSuccess={() => {
-          props.refreshSavedPaymentMethodList();
+          if (props.refreshSavedPaymentMethodList) {
+            props.refreshSavedPaymentMethodList();
+          }
           if (props.onSuccess) {
             props.onSuccess();
           }
@@ -37,6 +40,7 @@ export const CollectPaymentMethod = (props: Props) => {
         content={props.content}
         stripeReaders={props.stripeReaders}
         addViaTerminal={!!props.addViaTerminal}
+        labelClose={props.labelClose}
       />
     );
   }
@@ -46,7 +50,9 @@ export const CollectPaymentMethod = (props: Props) => {
       <CollectPaymentMethodSepa
         requestSetupIntentSecret={props.requestSetupIntentSecret}
         onSuccess={() => {
-          props.refreshSavedPaymentMethodList();
+          if (props.refreshSavedPaymentMethodList) {
+            props.refreshSavedPaymentMethodList();
+          }
           if (props.onSuccess) {
             props.onSuccess();
           }
@@ -56,6 +62,7 @@ export const CollectPaymentMethod = (props: Props) => {
         defaultEmail={props.defaultEmail}
         variant={props.variant}
         content={props.content}
+        labelClose={props.labelClose}
       />
     );
   }

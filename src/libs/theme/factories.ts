@@ -1,12 +1,18 @@
-import FactoryBotProvincialTax from 'ya-factorybot';
+import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
 
 faker.locale = 'fr';
 
-FactoryBotProvincialTax.define('ProvincialTax', {
-  id: FactoryBotProvincialTax.sequence(),
+FactoryBot.define('companyTheme', {
+  id: FactoryBot.sequence(),
+  company_name: () => faker.random.word(),
+  stripe_pk_key: () => faker.random.word(),
+});
+
+FactoryBot.define('ProvincialTax', {
+  id: FactoryBot.sequence(),
   name: () => faker.random.word(),
   value: () => faker.datatype.float(),
 });
 
-export default FactoryBotProvincialTax;
+export default FactoryBot;

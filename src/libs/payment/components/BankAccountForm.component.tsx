@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
+import { OptionCallback } from '../../../state/types';
 import { getStripePkKey } from '../../theme/selectors';
 import { LOCALE_LIST } from '../../../components/input/LocaleSelector.component';
 import { CompanySetup } from '../types';
@@ -16,11 +17,12 @@ const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   company: CompanySetup;
-  onSubmit: () => void;
-  error: Error | null;
-  loading: boolean;
+  onSubmit: (token: string, options?: OptionCallback<CompanySetup>) => void;
+  error?: Error | null;
+  loading?: boolean;
   onClose: () => void;
   currency: string;
+  labelOnClose: string;
 };
 
 export const BankAccountForm = (props: Props) => {
@@ -44,10 +46,15 @@ export const BankAccountForm = (props: Props) => {
         error={props.error}
         loading={props.loading}
         onClose={props.onClose}
+        labelOnClose={props.labelOnClose}
       />
     );
   }
-  return <div className={classes.container}>{content}</div>;
+  return (
+    <div className={classes.container} id="bankAccountFormContainer">
+      {content}
+    </div>
+  );
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -75,15 +82,7 @@ const BankAccountFormComposed = compose(
   withState('loading', 'setLoading', false),
   withHandlers({
     onSubmit:
-      ({
-        onSubmit,
-        country,
-        currency,
-        stripe,
-        setError,
-        onClose,
-        setLoading,
-      }) =>
+      ({ onSubmit, country, currency, stripe, setError, setLoading }) =>
       (
         account_holder_name: string,
         account_number: string,
@@ -105,7 +104,6 @@ const BankAccountFormComposed = compose(
             setError(false);
             onSubmit(token.id, {
               onSuccess: () => {
-                onClose();
                 setLoading(false);
               },
               onError: () => {

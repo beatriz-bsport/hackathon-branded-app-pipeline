@@ -38,4 +38,9 @@ exports.default = {
   startAfterEnd: 'La date de début doit être inférieure à la date de fin',
   requiredField: 'ce champ est requis',
   save: 'Sauvegarder',
+  start: 'Commencer',
+  next: 'Suivant',
+  previous: 'Précédent',
+  letsGo: "C'est parti !",
+  finish: 'Terminer',
 };

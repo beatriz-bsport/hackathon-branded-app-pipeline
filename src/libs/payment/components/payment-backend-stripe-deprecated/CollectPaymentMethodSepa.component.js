@@ -45,6 +45,7 @@ type Props = {
   defaultEmail?: string,
   variant?: 'div' | 'modal',
   content?: string,
+  labelClose?: string,
 };
 const Wrapper: React.FC<{ variant: string }> = ({ children, variant }) => {
   if (variant === 'div') {
@@ -145,7 +146,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
             }
             className={classes.modal}
           >
-            <DialogTitle>
+            <DialogTitle id="collectPaymentMethodTitle">
               {this.props.t('forms.paymentMethod.collect.title')}
             </DialogTitle>
             <DialogContent>
@@ -173,7 +174,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     <div className={classes.actions}>
                       {this.props.onClose && (
                         <Button onClick={this.props.onClose}>
-                          {this.props.t('forms.paymentMethod.actions.close')}
+                          {this.props.labelClose ||
+                            this.props.t('forms.paymentMethod.actions.close')}
                         </Button>
                       )}
                     </div>
@@ -200,7 +202,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     <div className={classes.actions}>
                       {this.props.onClose && (
                         <Button onClick={this.props.onClose}>
-                          {this.props.t('forms.paymentMethod.actions.close')}
+                          {this.props.labelClose ||
+                            this.props.t('forms.paymentMethod.actions.close')}
                         </Button>
                       )}
                       <Button
@@ -273,7 +276,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                           disabled={this.state.processing}
                           onClick={this.props.onClose}
                         >
-                          {this.props.t('forms.paymentMethod.actions.close')}
+                          {this.props.labelClose ||
+                            this.props.t('forms.paymentMethod.actions.close')}
                         </Button>
                       )}
                       <Button

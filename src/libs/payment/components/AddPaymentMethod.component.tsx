@@ -6,17 +6,19 @@ import CollectPaymentMethod from './CollectPaymentMethod.component';
 import type { StripeReader } from '#libs/terminal/types';
 
 type OwnProps = {
-  onChange: (param: string) => void;
-  paymentMethodType: string;
+  onChange?: (param: string) => void;
+  paymentMethodType?: string;
   enabledPaymentMethods: Array<number>;
   disabled?: boolean;
   sepaDefaultEmail: string;
   sepaDefaultName: string;
   requestSetupIntentSecret: () => Promise<AxiosResponse<any>>;
-  refreshSavedPaymentMethodList: () => void;
+  refreshSavedPaymentMethodList?: () => void;
   onCancel?: () => void;
   stripeReaders?: StripeReader[];
   addViaTerminal?: boolean;
+  onSuccess?: () => void;
+  labelClose?: string;
 };
 type Props = OwnProps;
 export const AddPaymentMethod: React.FC<Props> = ({
@@ -28,24 +30,32 @@ export const AddPaymentMethod: React.FC<Props> = ({
   disabled,
   sepaDefaultName,
   sepaDefaultEmail,
+  labelClose,
   onCancel,
   stripeReaders,
   addViaTerminal,
+  onSuccess,
 }) => {
   const { t } = useTranslation('payment');
+  const [paymentMethodTypeControlled, setPaymentMethodTypeControlled] =
+    React.useState('card');
+  const changePaymentMethod = (value: string) => {
+    setPaymentMethodTypeControlled(value);
+  };
   return (
     <>
       <PaymentMethodSwitcher
-        paymentMethod={paymentMethodType}
+        paymentMethod={paymentMethodType || paymentMethodTypeControlled}
         enabledPaymentMethods={enabledPaymentMethods}
         disabled={disabled}
-        onChange={onChange}
+        onChange={onChange || changePaymentMethod}
       />
 
       <CollectPaymentMethod
+        onSuccess={onSuccess}
         variant="div"
         requestSetupIntentSecret={requestSetupIntentSecret}
-        paymentMethodType={paymentMethodType}
+        paymentMethodType={paymentMethodType || paymentMethodTypeControlled}
         refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
         defaultName={sepaDefaultName}
         defaultEmail={sepaDefaultEmail}
@@ -53,6 +63,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
         content={t('forms.paymentMethod.collect.contentAdd')}
         stripeReaders={stripeReaders || []}
         addViaTerminal={!!addViaTerminal}
+        labelClose={labelClose}
       />
     </>
   );

@@ -25,7 +25,7 @@ export const listSavedPaymentMethodListActions = {
 
 export function fetchPaymentMethodList(
   params: any = {},
-  options?: OptionCallback<PaymentMethod>,
+  options?: OptionCallback<Array<PaymentMethod>>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listSavedPaymentMethodListActions.isLoading(true));

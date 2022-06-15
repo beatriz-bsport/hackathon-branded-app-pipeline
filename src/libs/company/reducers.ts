@@ -7,8 +7,15 @@ import {
   searchActions,
   listFeatureActions,
   retrieveMyCompanyActions,
+  stripeCompanyRetrieveActions,
+  validateAccountConfigurationStepActions,
 } from './actions';
 import { CompanyState, Company } from './types';
+import {
+  BANK_ACCOUNT_CONFIGURATION_STEP,
+  PAYMENT_METHOD_CONFIGURATION_STEP,
+  STRIPE_CONFIGURATION_STEP,
+} from './constants';
 
 const initialState: Immutable.Immutable<CompanyState> = Immutable({
   byId: {},
@@ -25,6 +32,12 @@ const initialState: Immutable.Immutable<CompanyState> = Immutable({
     allIds: [],
   },
   setup: null,
+  setupLoading: false,
+  stripeCompany: {
+    loading: false,
+    error: null,
+    data: null,
+  },
 });
 
 export default handleActions(
@@ -59,8 +72,56 @@ export default handleActions(
     [listFeatureActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['feature', 'error'], payload);
     },
+    [validateAccountConfigurationStepActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      let propertyModified = null;
+      switch (payload) {
+        case STRIPE_CONFIGURATION_STEP:
+          propertyModified = 'has_completed_stripe_configuration';
+          break;
+        case BANK_ACCOUNT_CONFIGURATION_STEP:
+          propertyModified = 'has_completed_bank_account_configuration';
+          break;
+        case PAYMENT_METHOD_CONFIGURATION_STEP:
+          propertyModified = 'has_completed_payment_method_configuration';
+          break;
+        default:
+          propertyModified = 'has_completed_account_configuration_on_boarding';
+          break;
+      }
+      return state.setIn(['stripeCompany', 'data', propertyModified], true);
+    },
+    [validateAccountConfigurationStepActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['stripeCompany', 'loading'], payload);
+    },
+    [validateAccountConfigurationStepActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['stripeCompany', 'error'], payload);
+    },
     [retrieveMyCompanyActions.success.toString()]: (state, { payload }) => {
       return state.set('setup', payload);
+    },
+    [retrieveMyCompanyActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('setupLoading', payload);
+    },
+    [stripeCompanyRetrieveActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['stripeCompany', 'data'], payload);
+    },
+    [stripeCompanyRetrieveActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['stripeCompany', 'loading'], payload);
+    },
+    [stripeCompanyRetrieveActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['stripeCompany', 'error'], payload);
     },
   },
   initialState,

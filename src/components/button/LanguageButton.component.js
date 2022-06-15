@@ -24,6 +24,7 @@ type Props = {
   handleChange: (any) => void,
   value: string,
   allowNull?: boolean,
+  noLabel?: boolean,
 };
 
 const countryFlag = {
@@ -37,9 +38,10 @@ const countryFlag = {
 };
 
 const LanguageSelectBase = (props: Props) => {
-  const { classes, value, handleChange, closeMenu, allowNull, t } = props;
+  const { classes, value, handleChange, closeMenu, allowNull, noLabel, t } =
+    props;
 
-  const renderMenuItem = (lng) => {
+  const renderMenuItem = (lng, noLabelMenuItem?: boolean) => {
     return (
       <MenuItem key={lng} value={lng}>
         <img
@@ -47,7 +49,7 @@ const LanguageSelectBase = (props: Props) => {
           src={countryFlag[lng.replace('-', '_')]}
           alt="text"
         />
-        {t(`language.${lng}`)}
+        {!noLabelMenuItem && t(`language.${lng}`)}
       </MenuItem>
     );
   };
@@ -57,6 +59,7 @@ const LanguageSelectBase = (props: Props) => {
       <Select
         labelId="langage-selector"
         value={value}
+        renderValue={(valueRendered) => renderMenuItem(valueRendered, noLabel)}
         onChange={(e) => {
           handleChange(e);
           if (closeMenu) {
@@ -97,6 +100,12 @@ export default class extends Component<any> {
 
   render() {
     const { language } = i18n;
-    return <LanguageSelect value={language} handleChange={this.handleChange} />;
+    return (
+      <LanguageSelect
+        value={language}
+        handleChange={this.handleChange}
+        {...this.props}
+      />
+    );
   }
 }

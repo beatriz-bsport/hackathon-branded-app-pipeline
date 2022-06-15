@@ -35,6 +35,7 @@ type Props = {
   error: Error | null;
   loading: boolean;
   onClose: () => void;
+  labelOnClose: string;
 };
 
 const EuropeanBankAccount = (props: Props) => {
@@ -44,10 +45,10 @@ const EuropeanBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -77,7 +78,7 @@ const EuropeanBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -104,10 +105,10 @@ const CanadaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -157,7 +158,7 @@ const CanadaBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -196,10 +197,10 @@ const USABankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -239,7 +240,7 @@ const USABankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -268,10 +269,10 @@ const MexicoBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -301,7 +302,7 @@ const MexicoBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -327,10 +328,10 @@ const AustraliaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -370,7 +371,7 @@ const AustraliaBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -404,10 +405,10 @@ const BrazilBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -457,7 +458,7 @@ const BrazilBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -496,10 +497,10 @@ const HongKongBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -549,7 +550,7 @@ const HongKongBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -587,10 +588,10 @@ const IndiaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -630,7 +631,7 @@ const IndiaBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -662,10 +663,10 @@ const MalaysiaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -695,7 +696,7 @@ const MalaysiaBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -720,10 +721,10 @@ const NewZealandBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -753,7 +754,7 @@ const NewZealandBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -780,10 +781,10 @@ const SingapourBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -833,7 +834,7 @@ const SingapourBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
@@ -870,10 +871,10 @@ const UnitedKingdomBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
         {t('bankAccount.form.title')}
       </Typography>
-      <Typography className={classes.content}>
+      <Typography className={classes.content} id="bankAccountContent">
         {t('bankAccount.form.content')}
       </Typography>
       <TextField
@@ -913,7 +914,7 @@ const UnitedKingdomBankAccount = (props: Props) => {
       )}
       <div className={classes.actions}>
         <Button onClick={props.onClose} disabled={props.loading}>
-          {t('bankAccount.form.actions.cancel')}
+          {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />

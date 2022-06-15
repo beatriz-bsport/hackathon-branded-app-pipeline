@@ -201,8 +201,11 @@ exports.default = {
         placeholder: 'FR89370400440532013000',
       },
       bankCode: { label: 'Bank code' },
-      institutionNumber: { label: 'Institution number' },
-      transitNumber: { label: 'Transit number' },
+      institutionNumber: {
+        label: 'Institution number',
+        placeholder: 'Institution number',
+      },
+      transitNumber: { label: 'Transit number', placeholder: 'Transit number' },
       branchCode: { label: 'Branch code' },
       clearingCode: { label: 'Clearing code' },
       unknownCountry:

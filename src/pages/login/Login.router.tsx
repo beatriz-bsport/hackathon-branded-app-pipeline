@@ -29,6 +29,7 @@ import {
   getFranchiseThemeLoading,
 } from '#libs/franchise/selectors';
 import { FranchiseDetails } from '#libs/franchise/types';
+import LanguageButton from '../../components/button/LanguageButton.component';
 
 const Signout = asyncComponent(() => import('./Signout.page'));
 
@@ -46,6 +47,9 @@ const DoubleLogin = asyncComponent(() => import('./DoubleLogin.page'));
 
 const CompanyOnboardingRouter = asyncComponent(
   () => import('./company-onboarding/CompanyOnboarding.router'),
+);
+const AccountConfigurationRouter = asyncComponent(
+  () => import('./account-configuration/AccountConfiguration.router'),
 );
 
 const SignupPage = asyncComponent(() => import('./Signup.page'));
@@ -148,13 +152,19 @@ export class LoginRouter extends React.Component<Props> {
             }
           />
           <Fade in>
-            <div>
+            <div className={classes.header}>
               <img src={src} className={classes.logo} alt={alt} />
+
+              <LanguageButton />
             </div>
           </Fade>
         </Hidden>
         <div className={classes.loginContainer}>
           <Switch>
+            <Route
+              path="/login/accountConfiguration"
+              component={AccountConfigurationRouter}
+            />
             <Route path="/login/signout" component={Signout} />
             <Route path="/login/reset_password" component={ResetPassword} />
             <Route path="/login/customer" component={LoginPage} />
@@ -186,7 +196,7 @@ export class LoginRouter extends React.Component<Props> {
   }
 }
 
-const styles = (): any => ({
+const styles = (theme) => ({
   loginContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -194,12 +204,17 @@ const styles = (): any => ({
     minHeight: '100vh',
     zIndex: 2,
   },
-  logo: {
+  header: {
+    display: 'flex',
     position: 'absolute',
-    left: '6%',
-    top: '6%',
-    height: 50,
+    padding: theme.spacing(5),
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     zIndex: 9,
+  },
+  logo: {
+    height: 50,
   },
   circularProgress: {
     position: 'fixed',

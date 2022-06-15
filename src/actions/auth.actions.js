@@ -84,6 +84,7 @@ export function fetchAccessLevel(
         role,
         name,
         username,
+        has_completed_account_configuration_on_boarding,
       } = response.data;
       if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
@@ -98,6 +99,7 @@ export function fetchAccessLevel(
           is_franchisor,
           role,
           name,
+          has_completed_account_configuration_on_boarding,
         }),
       );
       try {
@@ -267,6 +269,7 @@ export function setLogin({
   is_coach,
   role,
   name,
+  has_completed_account_configuration_on_boarding,
 }: {
   username: string,
   token: string,
@@ -276,6 +279,7 @@ export function setLogin({
   is_coach: boolean,
   role: number,
   name: string,
+  has_completed_account_configuration_on_boarding: boolean,
 }) {
   return {
     type: types.LOGIN_SUCCESSFUL,
@@ -287,6 +291,7 @@ export function setLogin({
     is_coach,
     is_consumer,
     is_franchisor,
+    has_completed_account_configuration_on_boarding,
   };
 }
 
@@ -445,33 +450,15 @@ export function navigateAsCompanyAdmin(
       const storage = window.localStorage;
       storage.setItem('bsport:franchise:http:token', franchiseConnexionToken);
 
-      const {
-        data: {
-          id,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          is_coach,
-          role,
-          name,
-          username,
-        },
-      } = await accessLevelAPI(newToken);
+      const { data } = await accessLevelAPI(newToken);
 
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
       await dispatch(
         setLogin({
-          id,
-          username,
+          ...data,
           token: newToken,
-          is_manager,
-          is_consumer,
-          is_coach,
-          is_franchisor,
-          role,
-          name,
         }),
       );
 
@@ -503,17 +490,7 @@ export function navigateBackToFranchise() {
       const storage = window.localStorage;
       const newToken = storage.getItem('bsport:franchise:http:token');
 
-      const {
-        data: {
-          is_coach,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          role,
-          name,
-          username,
-        },
-      } = await accessLevelAPI(newToken);
+      const { data } = await accessLevelAPI(newToken);
 
       storage.removeItem('bsport:franchise:http:token');
       dispatch((() => ({ type: types.RESET_STORE }))());
@@ -521,14 +498,8 @@ export function navigateBackToFranchise() {
       // Set new access level
       await dispatch(
         setLogin({
-          is_coach,
-          username,
+          ...data,
           token: newToken,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          role,
-          name,
         }),
       );
 
@@ -566,32 +537,14 @@ export function navigateToRelationAccount(
       const storage = window.localStorage;
       storage.setItem('bsport:relatedMemberMaster:http:token', masterToken);
 
-      const {
-        data: {
-          is_coach,
-          id,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          role,
-          name,
-          username,
-        },
-      } = await accessLevelAPI(newToken);
+      const { data } = await accessLevelAPI(newToken);
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level
       await dispatch(
         setLogin({
-          id,
-          username,
+          ...data,
           token: newToken,
-          is_coach,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          role,
-          name,
         }),
       );
       if (params.companyName) {
@@ -650,17 +603,7 @@ export function navigateBackToMasterRelation(params: {
       const storage = window.localStorage;
       const newToken = storage.getItem('bsport:relatedMemberMaster:http:token');
 
-      const {
-        data: {
-          is_coach,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          role,
-          name,
-          username,
-        },
-      } = await accessLevelAPI(newToken);
+      const { data } = await accessLevelAPI(newToken);
 
       storage.removeItem('bsport:relatedMemberMaster:http:token');
       dispatch((() => ({ type: types.RESET_STORE }))());
@@ -668,14 +611,8 @@ export function navigateBackToMasterRelation(params: {
       // Set new access level
       await dispatch(
         setLogin({
-          username,
+          ...data,
           token: newToken,
-          is_manager,
-          is_consumer,
-          is_franchisor,
-          is_coach,
-          role,
-          name,
         }),
       );
       if (params.companyName) {

@@ -14,7 +14,23 @@ exports.default = {
     info: 'En activant cette fonctionnalité, tous les prix sur la marketplace, le widget et l’application seront indiqués hors taxes.',
   },
   forms: {
-    acceptGuest: 'Autoriser la réservation pour invité',
+    allowGuest: {
+      title: 'Autoriser la réservation pour invité',
+      frequencies: {
+        week: 'Semaine',
+        month: 'Mois',
+        year: 'Année',
+        text: ' fois par ',
+        placeholder: 'Frequence',
+      },
+      dialog: {
+        dialogTitle: 'Attention',
+        dialogContent:
+          'Attention, si vous désactivez cette option, il ne sera plus possible pour vos membres de réserver pour un invité.',
+        dialogButtonCancel: 'Annuler',
+        dialogButtonConfirm: 'Confirmer',
+      },
+    },
     provincialTax: {
       title: 'Taxe provinciale',
       info: 'Renseignez ici le nom et la valeur de votre taxe provinciale. Sur l’ensemble des produits de la plateforme indiquez la taxe totale appliquée (taxe fédérale + taxe provinciale). La taxe fédérale et la taxe provinciale seront indiquées sur les factures de vos clients.',

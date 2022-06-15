@@ -34,6 +34,7 @@ exports.default = {
         submit: 'Valider',
         close: 'Annuler',
         addGuest: 'Ajouter un invité',
+        limitGuest: "(Aucune carte de cours ne permet d'ajouter des invités)",
       },
     },
   },
@@ -385,6 +386,19 @@ exports.default = {
     bookingsTitle: 'Je réserve',
     bookingsTitleFor: 'Je réserve pour {{name}}',
     bookingForMe: 'moi',
+    bookingForAGuest: {
+      addGuest: 'Ajouter un invité',
+      warningLeveledSession:
+        'Cette séance est réservée aux personnes avec le niveau : {{level}}. Assurez-vous que la personne que vous invitez possède le niveau attendu.',
+      addGuestLimit: "Vous avez atteint la limite d'invitations pour",
+      addGuestNumberLeftSeveral:
+        'Vous pouvez inviter encore {{number}} personnes sur',
+      addGuestNumberLeftOne: 'Vous pouvez inviter encore 1 personne sur',
+      frequencyWeekly: 'cette semaine.',
+      frequencyMonthly: 'ce mois-ci.',
+      frequencyYearly: "l'année en cours.",
+      frequencyGeneric: 'la période en cours.',
+    },
     mainButton: {
       book: 'Reserver',
       registerWaitingList: "M'inscrire sur liste d'attente",

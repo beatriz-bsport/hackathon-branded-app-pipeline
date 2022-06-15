@@ -1,5 +1,14 @@
+import { TFunction } from 'i18next';
 import { getPrice } from '#libs/theme/utils';
 import { Basket, PrepaidLine } from './types';
+import {
+  EXCEPTION_BOOKING_GUEST_GENERIC,
+  EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,
+  EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_PASS,
+  EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_SETTINGS,
+  EXCEPTION_BOOKING_GUEST_OVERCOME_LIMIT,
+  EXCEPTION_BOOKING_GUEST_REACHED_LIMIT,
+} from './constants';
 
 export const getBasketTotalPriceExcludingTax = (
   basket: Basket | Basket<string, PrepaidLine>,
@@ -44,4 +53,29 @@ export const getBasketTotalPriceExcludingTax = (
     0,
   );
   return parseFloat(getPrice(sum_prices, true, mean_tax)).toFixed(2);
+};
+
+export const getBookingGuestErrorMessage = (
+  t: TFunction,
+  codeError?: number,
+) => {
+  if (!codeError) {
+    return t('validation.sections.errorExplain.generic');
+  }
+  switch (codeError) {
+    case EXCEPTION_BOOKING_GUEST_GENERIC:
+      return t('validation.sections.errorExplain.guestGeneric');
+    case EXCEPTION_BOOKING_GUEST_OVERCOME_LIMIT:
+      return t('validation.sections.errorExplain.guestOvercomeLimit');
+    case EXCEPTION_BOOKING_GUEST_REACHED_LIMIT:
+      return t('validation.sections.errorExplain.guestReachedLimit');
+    case EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_SETTINGS:
+      return t('validation.sections.errorExplain.guestSettings');
+    case EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER:
+      return t('validation.sections.errorExplain.guestOffer');
+    case EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_PASS:
+      return t('validation.sections.errorExplain.guestPass');
+    default:
+      return t('validation.sections.errorExplain.generic');
+  }
 };

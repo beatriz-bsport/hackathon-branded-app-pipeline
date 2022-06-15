@@ -44,7 +44,10 @@ export type Theme = {
   consumer_regularize_debt: boolean;
   allow_consumer_to_use_internal_account: boolean;
   accept_double_booking: boolean;
-  accept_guest: boolean;
+  allow_guest: boolean;
+  allow_guest_activatable: boolean;
+  allow_guest_frequency: string;
+  allow_guest_max_number: number;
   vod: boolean;
   show_booked_gender_offer: boolean;
   is_checking_balance: boolean;

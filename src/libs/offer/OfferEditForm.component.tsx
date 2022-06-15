@@ -53,6 +53,7 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import { Level } from '#libs/level/types';
 import { OptionCallback } from '../../state/types';
 import LevelSelector from '#libs/level/components/LevelSelector.component';
+import FormToggle from '#components/forms/FormToggle.component';
 
 type OwnProps = {
   processing: boolean;
@@ -65,7 +66,7 @@ type OwnProps = {
   establishments: Array<Establishment>;
   roomBlueprints: RoomBlueprint[];
   allRoomBlueprints: RoomBlueprint[];
-
+  allowGuestMaster?: boolean;
   onCancel: () => void;
   fetchSimilarOffers: (id: number) => void;
   onConfirm: ({ offerId, data }: { offerId: number; data: FormData }) => void;
@@ -102,6 +103,7 @@ type State = {
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
   level: number;
+  allow_guest_offer?: boolean;
 };
 
 export type FormData = Object;
@@ -203,6 +205,7 @@ export class OfferEditForm extends Component<Props, State> {
       whitelist_tags: props.offer.whitelist_tags?.map((tag) => tag.id) || [],
       blacklist_tags: props.offer.blacklist_tags?.map((tag) => tag.id) || [],
       openAdvancedOptions: false,
+      allow_guest_offer: !!props.offer.allow_guest_offer,
     };
     this.initialOfferState = {
       date_start: Moment(props.offer.date_start),
@@ -227,6 +230,7 @@ export class OfferEditForm extends Component<Props, State> {
       level: props.offer.level_id,
       whitelist_tags: props.offer.whitelist_tags?.map((tag) => tag.id) || [],
       blacklist_tags: props.offer.blacklist_tags?.map((tag) => tag.id) || [],
+      allow_guest_offer: props.offer.allow_guest_offer,
     };
   }
 
@@ -349,6 +353,7 @@ export class OfferEditForm extends Component<Props, State> {
       custom_selection_ids: this.state.similarOffersWithSelectedStatus
         .filter((so) => so.selected)
         .map((so) => so.id),
+      allow_guest_offer: this.state.allow_guest_offer,
     };
     if (this.hasChangedDatetime()) {
       data.date_start = Moment(
@@ -915,6 +920,17 @@ export class OfferEditForm extends Component<Props, State> {
                     }
                     selectAll={this.selectAll}
                     unselectAll={this.unselectAll}
+                  />
+                </div>
+              )}
+              {this.props.allowGuestMaster && (
+                <div className={this.props.classes.field}>
+                  <FormToggle
+                    value={this.state.allow_guest_offer}
+                    onChange={(allow_guest_offer: boolean) =>
+                      this.setState({ allow_guest_offer: !allow_guest_offer })
+                    }
+                    title={this.props.t('form.offer.explainAllowGuest')}
                   />
                 </div>
               )}

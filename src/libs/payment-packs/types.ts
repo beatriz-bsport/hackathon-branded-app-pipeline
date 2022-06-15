@@ -64,6 +64,7 @@ export type PaymentPack<LPP = number | null> = {
   blacklist_tags: Array<number>;
   template_instance: number;
   linked_private_pass: LPP;
+  allow_guest_pass?: boolean;
 };
 
 export type ConsumerPaymentPack = {
@@ -244,4 +245,5 @@ export type PaymentPackFormValues<LPP = number> = {
   is_universal_pass: boolean;
   linked_private_pass?: LPP;
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;
+  allow_guest_pass?: boolean;
 };

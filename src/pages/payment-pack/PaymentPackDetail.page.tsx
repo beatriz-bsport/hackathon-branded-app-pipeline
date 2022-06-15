@@ -527,6 +527,10 @@ export class PaymentPackDetail extends Component<Props, State> {
           }}
           privateServices={this.props.privateServices}
           compatibleServicePass={this.props.compatibleServicePass}
+          allowGuestMaster={
+            this.props.theme?.allow_guest &&
+            this.props.theme?.allow_guest_activatable
+          }
         />
       </Grid>
     );

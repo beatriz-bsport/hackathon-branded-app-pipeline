@@ -64,7 +64,12 @@
         "email": { "label": "Email" },
         "firstname": { "label": "Prénom" },
         "lastname": { "label": "Nom" },
-        "actions": { "submit": "Valider", "close": "Annuler", "addGuest": "Ajouter un invité" }
+        "actions": {
+          "submit": "Valider",
+          "close": "Annuler",
+          "addGuest": "Ajouter un invité",
+          "limitGuest": "(Aucune carte de cours ne permet d'ajouter des invités)"
+        }
       }
     },
     "performanceTracking": { "stat": "Statistiques" },
@@ -326,6 +331,17 @@
       "bookingsTitle": "Je réserve",
       "bookingsTitleFor": "Je réserve pour {{name}}",
       "bookingForMe": "moi",
+      "bookingForAGuest": {
+        "addGuest": "Ajouter un invité",
+        "warningLeveledSession": "Cette séance est réservée aux personnes avec le niveau : {{level}}. Assurez-vous que la personne que vous invitez possède le niveau attendu.",
+        "addGuestLimit": "Vous avez atteint la limite d'invitations pour",
+        "addGuestNumberLeftSeveral": "Vous pouvez inviter encore {{number}} personnes sur",
+        "addGuestNumberLeftOne": "Vous pouvez inviter encore 1 personne sur",
+        "frequencyWeekly": "cette semaine.",
+        "frequencyMonthly": "ce mois-ci.",
+        "frequencyYearly": "l'année en cours.",
+        "frequencyGeneric": "la période en cours."
+      },
       "mainButton": {
         "book": "Reserver",
         "registerWaitingList": "M'inscrire sur liste d'attente",
@@ -396,7 +412,15 @@
         "offerPreBooked": "Inscription sur la liste d'attente",
         "offerNotBookable": "Inscription impossible",
         "error": "Erreur",
-        "errorExplain": "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer."
+        "errorExplain": {
+          "generic": "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer.",
+          "guestGeneric": "Un problème est survenu avec la réservation pour un invité.",
+          "guestOvercomeLimit": "Le nombre d'invités ajoutés pour cette réservation dépasse le nombre autorisé.",
+          "guestReachedLimit": "Vous avez déjà atteint la limite de réservation pour un invité sur la période en cours. Il n'est plus possible d'en faire.",
+          "guestSettings": "Le studio a désactivé la fonctionnalité de réservation pour un invité.",
+          "guestOffer": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette session.",
+          "guestPass": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours."
+        }
       }
     },
     "internalAccount": {
@@ -1473,7 +1497,7 @@
     "list": {
       "validity": "Valable {{ duration }} jours",
       "unlimited": "Illimitée",
-      "explainIfEmpty": "Les cartes cadeaux permettent à vos membres d'offrir à leurs proches un montant à dépenser dans votre studio.",
+      "explainIfEmpty": "Les cartes cadeaux permettent à vos membres d'offrir à leurs invités un montant à dépenser dans votre studio.",
       "visibility": "Non visible",
       "activeTitle": "Disponible à la vente",
       "unavailableForSaleTitle": "Indisponible à la vente",
@@ -2843,7 +2867,9 @@
           "save": "sauvegarder",
           "back": "Précédent",
           "submit": "Valider",
-          "impossibleState": "Les paramêtres saisis ne permettent pas de génerer un groupe"
+          "impossibleState": "Les paramêtres saisis ne permettent pas de génerer un groupe",
+          "allowGuest": "Compatible avec la réservation pour un invité",
+          "allowGuestUnavailable": "Cette fonctionnalité n'est pas disponible sur les séances groupées."
         }
       },
       "intervalLabel": {
@@ -4054,7 +4080,8 @@
       "vod": "VOD",
       "vodAccessCard": "Donne l’accès à la VOD",
       "only_vod_access": "Restreindre l’utilisation de la carte à de la VOD uniquement",
-      "sumNotZero": "le nombre de jour final ne peut être nul"
+      "sumNotZero": "le nombre de jour final ne peut être nul",
+      "allowGuest": "Compatible avec la réservation pour un invité"
     },
     "disabled": "Désactivé",
     "disableConsumer": "Bloquer",
@@ -7735,7 +7762,16 @@
       "info": "En activant cette fonctionnalité, tous les prix sur la marketplace, le widget et l’application seront indiqués hors taxes."
     },
     "forms": {
-      "acceptGuest": "Autoriser la réservation pour invité",
+      "allowGuest": {
+        "title": "Autoriser la réservation pour invité",
+        "frequencies": { "week": "Semaine", "month": "Mois", "year": "Année", "text": " fois par ", "placeholder": "Frequence" },
+        "dialog": {
+          "dialogTitle": "Attention",
+          "dialogContent": "Attention, si vous désactivez cette option, il ne sera plus possible pour vos membres de réserver pour un invité.",
+          "dialogButtonCancel": "Annuler",
+          "dialogButtonConfirm": "Confirmer"
+        }
+      },
       "provincialTax": {
         "title": "Taxe provinciale",
         "info": "Renseignez ici le nom et la valeur de votre taxe provinciale. Sur l’ensemble des produits de la plateforme indiquez la taxe totale appliquée (taxe fédérale + taxe provinciale). La taxe fédérale et la taxe provinciale seront indiquées sur les factures de vos clients.",
@@ -8429,6 +8465,7 @@
         "explainNotificationOnEdit": "Voulez-vous informer vos clients de cette modification ?",
         "explainPartnership": "On marketplaces (ClassPass, OneFit...)",
         "explainManagerOnly": "Disponible à la réservation (web+app)",
+        "explainAllowGuest": "Autoriser la réservation pour un invité",
         "delete": {
           "advanced": "Avancé",
           "force": "Supprimer même si des réservations sont enregistrées",

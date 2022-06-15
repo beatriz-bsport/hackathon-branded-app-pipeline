@@ -81,7 +81,6 @@ import {
   disableOffer as disableOfferAction,
   hardDeleteOffers as hardDeleteOffersAction,
 } from '../../libs/offer/actions';
-
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
@@ -397,7 +396,6 @@ export class Planning extends PureComponent<Props, State> {
     );
 
     this.handleFetchLevel();
-
     Promise.all([
       promiseCoaches,
       promiseEstablishments,
@@ -660,6 +658,10 @@ export class Planning extends PureComponent<Props, State> {
             updateLevel={this.props.updateLevel}
             createLevel={this.props.createLevel}
             deleteLevel={this.props.deleteLevel}
+            allowGuestMaster={
+              this.props.theme.allow_guest_activatable &&
+              this.props.theme.allow_guest
+            }
           />
         </GenericResponsiveDrawer>
       );
@@ -710,6 +712,10 @@ export class Planning extends PureComponent<Props, State> {
             updateLevel={this.props.updateLevel}
             createLevel={this.props.createLevel}
             deleteLevel={this.props.deleteLevel}
+            allowGuestMaster={
+              this.props.theme.allow_guest_activatable &&
+              this.props.theme.allow_guest
+            }
           />
         </div>
       </GenericResponsiveDrawer>

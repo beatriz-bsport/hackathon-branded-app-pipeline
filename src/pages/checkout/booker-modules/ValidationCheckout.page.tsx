@@ -42,6 +42,7 @@ import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
 import { sortByDate } from '../../../utils/datetime';
+import { getBookingGuestErrorMessage } from '../../../libs/checkout/utils';
 
 type OwnProps = {
   queryParams: any;
@@ -117,7 +118,10 @@ export class ValidationCheckout extends React.Component<Props> {
             {this.props.t('validation.sections.error')}
           </Typography>
           <Typography className={classes.confirmation}>
-            {this.props.t('validation.sections.errorExplain')}
+            {getBookingGuestErrorMessage(
+              this.props.t,
+              this.props.offerNotBookableIdWithErrorCodeList[0][1],
+            )}
           </Typography>
         </div>
       );

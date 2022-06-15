@@ -135,6 +135,16 @@ export class AdditionalGuestForm extends React.Component<Props, State> {
             {t('guest.form.actions.addGuest')}
           </Typography>
         </ButtonBase>
+        {this.props.disabled && (
+          <Typography
+            variant="caption"
+            align="left"
+            color="textSecondary"
+            className={classes.alert}
+          >
+            {t('guest.form.actions.limitGuest')}
+          </Typography>
+        )}
       </>
     );
   }
@@ -163,6 +173,10 @@ const styles = (theme: Theme) =>
     bigIcon: {
       height: 64,
       width: 64,
+    },
+    alert: {
+      marginLeft: theme.spacing(2),
+      alignSelf: 'flex-start',
     },
   });
 

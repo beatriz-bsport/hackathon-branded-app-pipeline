@@ -562,6 +562,7 @@ exports.default = {
     only_vod_access:
       'Restreindre l’utilisation de la carte à de la VOD uniquement',
     sumNotZero: 'le nombre de jour final ne peut être nul',
+    allowGuest: 'Compatible avec la réservation pour un invité',
   },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',

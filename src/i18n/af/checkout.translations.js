@@ -103,8 +103,22 @@ exports.default = {
       offerPreBooked: "Inscription sur la liste d'attente",
       offerNotBookable: 'Inscription impossible',
       error: 'Erreur',
-      errorExplain:
-        "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer.",
+      errorExplain: {
+        generic:
+          "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer.",
+        guestGeneric:
+          'Un problème est survenu avec la réservation pour un invité.',
+        guestOvercomeLimit:
+          "Le nombre d'invités ajoutés pour cette réservation dépasse le nombre autorisé.",
+        guestReachedLimit:
+          "Vous avez déjà atteint la limite de réservation pour un invité sur la période en cours. Il n'est plus possible d'en faire.",
+        guestSettings:
+          'Le studio a désactivé la fonctionnalité de réservation pour un invité.',
+        guestOffer:
+          'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette session.',
+        guestPass:
+          'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours.',
+      },
     },
   },
   internalAccount: {

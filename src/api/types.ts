@@ -135,6 +135,7 @@ export type Offer = {
   custom_level: number;
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
+  allow_guest_offer: boolean;
 };
 
 export type MetaActivity = {

@@ -423,6 +423,10 @@ export class PaymentPackList extends React.Component<Props, State> {
             initial={this.state.paymentPackToEdit}
             privateServices={this.props.privateServices}
             compatibleServicePass={this.props.compatibleServicePass}
+            allowGuestMaster={
+              this.props.theme.allow_guest_activatable &&
+              this.props.theme.allow_guest
+            }
           />
         </>
       );
@@ -604,6 +608,10 @@ export class PaymentPackList extends React.Component<Props, State> {
             initial={this.state.paymentPackToEdit}
             privateServices={this.props.privateServices}
             compatibleServicePass={this.props.compatibleServicePass}
+            allowGuestMaster={
+              this.props.theme.allow_guest &&
+              this.props.theme.allow_guest_activatable
+            }
           />
           <BottomActionsButton
             onCreateLabel={this.props.t('addButton')}

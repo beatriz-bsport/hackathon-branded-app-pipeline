@@ -141,6 +141,10 @@ export class OfferFormPage extends Component<Props, {}> {
               updateLevel={this.props.updateLevel}
               createLevel={this.props.createLevel}
               deleteLevel={this.props.deleteLevel}
+              allowGuestMaster={
+                this.props.theme.allow_guest &&
+                this.props.theme.allow_guest_activatable
+              }
             />
           </Paper>
         </Grid>

@@ -18,6 +18,7 @@ import {
 } from '@bsport/common/lib/master-data/available-payment';
 
 import { replace as replaceAction } from 'connected-react-router';
+import memoize from 'memoize-one';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';
 import { MaterialStyleType, WithHandlerType } from '../../../../utils/types';
@@ -82,9 +83,10 @@ type OwnProps = {
   loading: boolean;
   selectedPack: SelectedPack;
   onPackChange: (selectedPack: SelectedPack) => void;
-  paymentPackForBookingNextPage: number;
+  paymentPackForBookingNextPage?: number;
   isExcludingTax: boolean;
-  theme: CompanyTheme;
+  theme?: CompanyTheme;
+  setGuestMaxNumber: (maxNumber: number) => void;
 };
 
 type OwnAndConnectedProps = OwnProps &
@@ -246,6 +248,35 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     }
   };
 
+  getGuestMaxNumberFromAllPacks = memoize(
+    (
+      availableConsumerPacks: any,
+      availablePaymentPacks: any,
+      availableComboPacks: any,
+    ) => {
+      let maxNumber = 0;
+      availableConsumerPacks.forEach((cp: any) => {
+        if (cp.payment_pack.allow_guest_pass) {
+          if (cp.available_credits > maxNumber)
+            maxNumber = cp.available_credits;
+        }
+      });
+      availablePaymentPacks.forEach((pp: any) => {
+        if (pp.allow_guest_pass) {
+          if (pp.credits > maxNumber) maxNumber = pp.credits;
+        }
+      });
+      availableComboPacks.forEach((combo: any) => {
+        combo.payment_packs.forEach((cpp: any) => {
+          if (cpp.allow_guest_pass) {
+            if (cpp.credits > maxNumber) maxNumber = cpp.credits;
+          }
+        });
+      });
+      return maxNumber;
+    },
+  );
+
   render() {
     const { offerStatus, loading } = this.props;
     if (
@@ -284,6 +315,12 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     const availablePaymentPackCategories =
       this.getAvailablePaymentPackCategories(availablePaymentPacks);
     const availableComboPacks = this.props.getAvailableComboPacks();
+    const maxNumber = this.getGuestMaxNumberFromAllPacks(
+      availableConsumerPacks,
+      availablePaymentPacks,
+      availableComboPacks,
+    );
+    this.props.setGuestMaxNumber(maxNumber);
 
     return (
       <React.Fragment>

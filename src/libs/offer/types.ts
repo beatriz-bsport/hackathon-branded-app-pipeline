@@ -110,6 +110,7 @@ export type Offer<
   blacklist_tags: Array<T>;
   duration_minute: number;
   group: G;
+  allow_guest_offer: boolean;
 };
 
 export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;
@@ -200,4 +201,7 @@ export type OfferState = ErrorAndLoading & {
       allIds: number[];
     }
   >;
+  bookingGuest: {
+    bookingGuestNumberLeft: number;
+  };
 };

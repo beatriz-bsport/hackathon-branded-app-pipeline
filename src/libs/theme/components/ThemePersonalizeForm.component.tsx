@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
+import Select from 'react-select';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { makeStyles, Switch, Theme } from '@material-ui/core';
+import {
+  makeStyles,
+  Switch,
+  Theme,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+} from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import {
   BOOKING_DATE_ORDER,
@@ -29,6 +39,8 @@ interface FormikValues {
   show_offers_filling: boolean;
   accept_double_booking: boolean;
   allow_guest: boolean;
+  allow_guest_max_number: number;
+  allow_guest_frequency: string;
   hide_unnecessary_compatible_purchase_method: boolean;
   hidden_from_marketplace: boolean;
   coach_can_edit_attendance: boolean;
@@ -67,6 +79,21 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   const { t } = useTranslation(['theme']);
   const classes = useStyles();
 
+  const [showDialogGuest, setShowDialogGuest] = useState(false);
+  const guestFrequencyOptions = [
+    {
+      value: 'every_week',
+      label: t('forms.allowGuest.frequencies.week'),
+    },
+    {
+      value: 'every_month',
+      label: t('forms.allowGuest.frequencies.month'),
+    },
+    {
+      value: 'every_year',
+      label: t('forms.allowGuest.frequencies.year'),
+    },
+  ];
   return (
     <Form>
       <div className={classes.main}>
@@ -82,14 +109,82 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="accept_double_booking"
             label={t('forms.themePersonalization.acceptDoubleBooking')}
           />
-          <SwitchField
-            disabled={
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-              !theme.allow_guest_activatable
-            }
-            name="allow_guest"
-            label={t('forms.acceptGuest')}
-          />
+          <div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={values.allow_guest}
+                  onChange={() => {
+                    values.allow_guest
+                      ? setShowDialogGuest(true)
+                      : setFieldValue('allow_guest', true);
+                  }}
+                  disabled={
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                    !theme.allow_guest_activatable
+                  }
+                />
+              }
+              label={t('forms.allowGuest.title')}
+            />
+            {theme.allow_guest_activatable && values.allow_guest && (
+              <div className={classes.frequencyContainer}>
+                <IntegerField
+                  name="allow_guest_max_number"
+                  InputProps={{
+                    inputProps: { min: 1, step: 1, max: 200 },
+                  }}
+                />
+                <div className={classes.frequencyText}>
+                  <Typography variant="body1" align="left">
+                    {t('forms.allowGuest.frequencies.text')}
+                  </Typography>
+                </div>
+                <Select
+                  options={guestFrequencyOptions}
+                  placeholder={t('forms.allowGuest.frequencies.placeholder')}
+                  className={classes.frequencySelector}
+                  onChange={(option) =>
+                    setFieldValue('allow_guest_frequency', option.value)
+                  }
+                  defaultValue={guestFrequencyOptions.find(
+                    (element) => element.value === values.allow_guest_frequency,
+                  )}
+                />
+              </div>
+            )}
+            {showDialogGuest && (
+              <Dialog open={showDialogGuest}>
+                <DialogTitle>
+                  {t('forms.allowGuest.dialog.dialogTitle')}
+                </DialogTitle>
+                <DialogContent>
+                  <div className={classes.dialogContent}>
+                    <div className={classes.dialogIconContainer}>
+                      <ErrorOutlineIcon color="error" />
+                    </div>
+                    <Typography variant="body1" align="left">
+                      {t('forms.allowGuest.dialog.dialogContent')}
+                    </Typography>
+                  </div>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => setShowDialogGuest(false)}>
+                    {t('forms.allowGuest.dialog.dialogButtonCancel')}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowDialogGuest(false);
+                      setFieldValue('allow_guest', false);
+                    }}
+                    style={{ color: 'red' }}
+                  >
+                    {t('forms.allowGuest.dialog.dialogButtonConfirm')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            )}
+          </div>
 
           <div>
             <FormControlLabel
@@ -408,12 +503,38 @@ const useStyles = makeStyles((theme: Theme) => ({
   confirm: {
     marginTop: theme.spacing(2),
   },
+  dialogContent: {
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    border: 'solid 1px red',
+    borderRadius: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dialogIconContainer: {
+    marginRight: theme.spacing(3),
+  },
+  frequencyContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: theme.spacing(4),
+  },
+  frequencySelector: {
+    textAlign: 'left',
+    width: 180,
+  },
+  frequencyText: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
 }));
 
 const ThemePersonalizeFormSchema = Yup.object().shape({
   show_offers_filling: Yup.boolean().required(),
   accept_double_booking: Yup.boolean().required(),
-  allow_guest: Yup.boolean(),
   hidden_from_marketplace: Yup.boolean().required(),
   coach_can_edit_attendance: Yup.boolean().required(),
   default_attendance: Yup.boolean().required(),
@@ -425,12 +546,15 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   is_checking_balance: Yup.boolean().required(),
   hide_member_details_in_app_private_booking_for_coach:
     Yup.boolean().required(),
+  allow_guest: Yup.boolean().required(),
 
   gender_max_shift_for_booking: Yup.number().required(),
   max_future_booking: Yup.number().required(),
   basket_expiration_days: Yup.number().required(),
   nb_to_check_balance: Yup.number().required(),
+  allow_guest_max_number: Yup.number().required(),
 
+  allow_guest_frequency: Yup.string().required(),
   default_booking_ordering: Yup.string().required(),
   schedule_timerange_begin: Yup.string().required(),
   schedule_timerange_end: Yup.string().test(
@@ -470,6 +594,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         show_offers_filling: theme.show_offers_filling,
         accept_double_booking: theme.accept_double_booking,
         allow_guest: theme.allow_guest,
+        allow_guest_frequency: theme.allow_guest_frequency,
+        allow_guest_max_number: theme.allow_guest_max_number,
         hide_unnecessary_compatible_purchase_method:
           theme.hide_unnecessary_compatible_purchase_method,
         hidden_from_marketplace: theme.hidden_from_marketplace,
@@ -505,7 +631,9 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
     return {
       show_offers_filling: false,
       accept_double_booking: false,
-      allow_guest: false,
+      allow_guest: true,
+      allow_guest_frequency: 'week',
+      allow_guest_max_number: 1,
       hide_unnecessary_compatible_purchase_method: false,
       hidden_from_marketplace: false,
       coach_can_edit_attendance: false,
@@ -536,6 +664,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'show_offers_filling',
       'accept_double_booking',
       'allow_guest',
+      'allow_guest_frequency',
+      'allow_guest_max_number',
       'hidden_from_marketplace',
       'max_future_booking',
       'default_booking_ordering',

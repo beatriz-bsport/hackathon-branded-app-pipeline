@@ -472,7 +472,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             </Button>
           )}
 
-          {(isWidthUp('lg', width) || !selectedOffer) && hideEmptyState && (
+          {(isWidthUp('lg', width) || !selectedOffer) && !!hideEmptyState && (
             <Grid item xs={12} lg={6}>
               <MetaActivityGroupsFilter
                 metaActivities={[..._metaActivities]}
@@ -550,7 +550,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               )}
             </Grid>
           )}
-          {hideEmptyState && (
+          {!!hideEmptyState && (
             <Grid item xs={12} lg={6}>
               {selectedOffer ? (
                 <div className={classes.offerCard}>

@@ -58,6 +58,7 @@ import type { Tag, TagGroup } from '#libs/tag/types';
 import LevelSelector from '#libs/level/components/LevelSelector.component';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { OptionCallback } from '../../state/types';
+import FormToggle from '#components/forms/FormToggle.component';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -158,8 +159,9 @@ type OwnProps = {
     duration_minute: number;
     broadcast_link: string;
     room_blueprint?: number;
+    allow_guest_offer?: boolean;
   }) => void;
-
+  allowGuestMaster?: boolean;
   is_whereby_integration_enabled: boolean;
   timezone: string;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
@@ -214,6 +216,7 @@ type State = {
   whitelist_tags: number[];
   blacklist_tags: number[];
   openAdvancedOptions: boolean;
+  allow_guest_offer: boolean;
 };
 
 export class OfferForm extends Component<Props, State> {
@@ -261,6 +264,7 @@ export class OfferForm extends Component<Props, State> {
       whitelist_tags: [],
       blacklist_tags: [],
       openAdvancedOptions: false,
+      allow_guest_offer: true,
     };
   }
 
@@ -291,6 +295,7 @@ export class OfferForm extends Component<Props, State> {
       manager_only,
       whitelist_tags,
       blacklist_tags,
+      allow_guest_offer,
     } = this.state;
 
     const offer: any = {
@@ -309,6 +314,7 @@ export class OfferForm extends Component<Props, State> {
       manager_only,
       whitelist_tags,
       blacklist_tags,
+      allow_guest_offer,
     };
 
     if (roomBlueprint) {
@@ -634,6 +640,15 @@ export class OfferForm extends Component<Props, State> {
             onChange={(manager_only: boolean) =>
               this.setState({ manager_only })
             }
+          />
+        )}
+        {this.props.allowGuestMaster && (
+          <FormToggle
+            value={this.state.allow_guest_offer}
+            onChange={(allow_guest_offer: boolean) =>
+              this.setState({ allow_guest_offer: !allow_guest_offer })
+            }
+            title={this.props.t('form.offer.explainAllowGuest')}
           />
         )}
         <FeatureListProvider>

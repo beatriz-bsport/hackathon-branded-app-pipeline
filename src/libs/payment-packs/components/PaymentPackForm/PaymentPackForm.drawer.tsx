@@ -37,6 +37,7 @@ type OwnProps = {
   provincialTax: number;
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
+  allowGuestMaster?: boolean;
 };
 type Props = OwnProps & WithTranslation;
 export const PaymentPackFormDrawer = (props: Props) => {
@@ -56,6 +57,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
     closeForm,
     privateServices,
     compatibleServicePass,
+    allowGuestMaster,
   } = props;
 
   return (
@@ -80,6 +82,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
         closeForm={closeForm}
         privateServices={privateServices}
         compatibleServicePass={compatibleServicePass}
+        allowGuestMaster={!!allowGuestMaster}
       />
     </GenericResponsiveDrawer>
   );

@@ -29,6 +29,7 @@ import {
   disableOfferActions,
   hardDeleteOfferActions,
   fetchOffersInGroupAction,
+  bookingGuestNumberActions,
 } from './actions';
 import { OfferState } from './types';
 
@@ -149,6 +150,9 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     error: null,
   },
   groups: {},
+  bookingGuest: {
+    bookingGuestNumberLeft: 0,
+  },
 });
 
 export default handleActions<Immutable.Immutable<OfferState>>(
@@ -560,6 +564,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
           ['groups', payload?.results?.[0]?.group, 'allIds'],
           payload?.results?.map((o) => o.id),
         );
+    },
+    [bookingGuestNumberActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['bookingGuest', 'bookingGuestNumberLeft'], payload);
     },
   },
   initialState,

@@ -206,6 +206,11 @@ export async function unTagOffer(params: { offer_id: number; tag_id: number }) {
     },
   );
 }
+
+export async function fetchBookingGuestNumber(offer_id: number) {
+  return getAuth(`${API_V1_URI}/offer/${offer_id}/booking_for_guest/`);
+}
+
 export default {
   fetchAllEvents,
   fetchCompatiblePacks,

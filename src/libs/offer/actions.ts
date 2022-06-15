@@ -36,6 +36,7 @@ import {
   editOffers as editOffersAPI,
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
+  fetchBookingGuestNumber as fetchBookingGuestNumberAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -1228,5 +1229,33 @@ export function fetchOffersInGroup(
       if (options && options.onError) options.onError(error);
     }
     dispatch(fetchOffersInGroupAction.isLoading(false));
+  };
+}
+
+export const bookingGuestNumberActions = {
+  isLoading: createAction('OFFER/GUEST/IS_LOADING'),
+  error: createAction('OFFER/GUEST/ERROR'),
+  success: createAction('OFFER/GUEST/SUCCESS'),
+};
+
+export function fetchBookingGuestNumber(
+  offerId: number,
+  options?: OptionCallback<number>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bookingGuestNumberActions.error(null));
+    dispatch(bookingGuestNumberActions.isLoading(true));
+
+    try {
+      const response = await fetchBookingGuestNumberAPI(offerId);
+      const result = response.data;
+      dispatch(bookingGuestNumberActions.success(result));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(bookingGuestNumberActions.error(error));
+      options && options.onError && options.onError(error);
+    }
+
+    dispatch(bookingGuestNumberActions.isLoading(false));
   };
 }

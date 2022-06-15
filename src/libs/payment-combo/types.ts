@@ -1,9 +1,12 @@
+import { PaymentPack } from '../payment-packs/types';
+
 export type PaymentComboItem = {
   id: number;
   price: number;
   name: string;
   quantity: number;
   tax: string;
+  data: PaymentPack;
 };
 
 export type PaymentCombo = {

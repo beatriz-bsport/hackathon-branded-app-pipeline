@@ -34,6 +34,7 @@ type Props = {
   metaActivityList: Array<MetaActivity>;
   initial: PaymentPack<PrivatePass>;
   disabledUniversalPassFields: boolean;
+  allowGuestMaster: boolean;
 };
 export const PaymentPackFormRestrictions = (props: Props) => {
   const {
@@ -42,6 +43,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
     metaActivityList,
     initial,
     disabledUniversalPassFields,
+    allowGuestMaster,
   } = props;
   const { t } = useTranslation('paymentPack');
   const [openVodOptions, setOpenVodOptions] = useState<boolean>(
@@ -131,6 +133,12 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               />
               <Typography>{t('addPaymentPack.inShopPayment')}</Typography>
             </div>
+            {allowGuestMaster && (
+              <div className={classes.row}>
+                <SwitchField name="allow_guest_pass" />
+                <Typography>{t('addPaymentPack.allowGuest')}</Typography>
+              </div>
+            )}
           </div>
         </Grid>
         <Grid item xs={6}>

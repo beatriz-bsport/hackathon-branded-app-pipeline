@@ -644,6 +644,10 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                 updateLevel={this.props.updateLevel}
                 createLevel={this.props.createLevel}
                 deleteLevel={this.props.deleteLevel}
+                allowGuestMaster={
+                  this.props.theme.allow_guest_activatable &&
+                  this.props.theme.allow_guest
+                }
               />
             )}
           </GenericResponsiveDrawer>

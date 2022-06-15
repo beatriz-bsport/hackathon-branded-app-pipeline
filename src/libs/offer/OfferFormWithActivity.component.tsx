@@ -44,6 +44,7 @@ type Props = {
   updateLevel: (id: number, data: Level, options: OptionCallback) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
+  allowGuestMaster: boolean;
 };
 
 export const OfferFormWithActivity: React.FC<Props> = ({
@@ -67,6 +68,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   updateLevel,
   createLevel,
   deleteLevel,
+  allowGuestMaster,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['metaActivity', 'translation']);
@@ -137,6 +139,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       updateLevel={updateLevel}
       createLevel={createLevel}
       deleteLevel={deleteLevel}
+      allowGuestMaster={allowGuestMaster}
     />
   );
 };

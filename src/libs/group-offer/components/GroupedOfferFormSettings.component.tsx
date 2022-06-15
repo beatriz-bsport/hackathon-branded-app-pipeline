@@ -63,6 +63,7 @@ import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.comp
 import { Level } from '#libs/level/types';
 import ManagerOnlyToogle from '#libs/offer/form/ManagerOnlyToogle.component';
 import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
+import FormToggle from '#components/forms/FormToggle.component';
 
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -399,6 +400,17 @@ export const GroupedOfferFormSettings: React.FC<
               setFieldValue('manager_only', manager_only)
             }
           />
+          {theme.allow_guest_activatable && theme.allow_guest && (
+            <div>
+              <FormToggle
+                disabled
+                title={t('groupedOption.modal.form.allowGuest')}
+              />
+              <Typography color="textSecondary" variant="caption">
+                {t('groupedOption.modal.form.allowGuestUnavailable')}
+              </Typography>
+            </div>
+          )}
         </div>
         <Divider className={classes.divider} />
         <div className={classes.wrapper}>

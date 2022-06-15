@@ -10,7 +10,7 @@ exports.default = {
     validity: 'Valable {{ duration }} jours',
     unlimited: 'Illimitée',
     explainIfEmpty:
-      "Les cartes cadeaux permettent à vos membres d'offrir à leurs proches un montant à dépenser dans votre studio.",
+      "Les cartes cadeaux permettent à vos membres d'offrir à leurs invités un montant à dépenser dans votre studio.",
     visibility: 'Non visible',
     activeTitle: 'Disponible à la vente',
     unavailableForSaleTitle: 'Indisponible à la vente',

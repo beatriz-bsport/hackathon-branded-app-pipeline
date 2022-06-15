@@ -96,6 +96,7 @@ type OwnProps = {
   isInDrawer: boolean;
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
+  allowGuestMaster?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -127,6 +128,7 @@ export const PaymentPackForm = (props: Props) => {
     clearPaymentPackToEdit,
     privateServices,
     compatibleServicePass,
+    allowGuestMaster,
   } = props;
   const classes = useStyles();
   const now = moment().format(DATE_FORMAT);
@@ -219,6 +221,7 @@ export const PaymentPackForm = (props: Props) => {
               linked_private_pass: null,
               is_universal_pass: false,
               linked_private_pass_compatibility: [],
+              allow_guest_pass: true,
             }
       }
       onSubmit={(values, actions) => {
@@ -303,6 +306,7 @@ export const PaymentPackForm = (props: Props) => {
           'validity_daterange',
           'linked_private_pass_compatibility',
           'is_universal_pass',
+          'allow_guest_pass',
         ];
         const data = pick(sanithizedValues, keys);
         onSubmit(data, {
@@ -365,6 +369,7 @@ export const PaymentPackForm = (props: Props) => {
                 metaActivityList={metaActivityList}
                 initial={initial}
                 disabledUniversalPassFields={disabledUniversalPassFields}
+                allowGuestMaster={!!allowGuestMaster}
               />
             </div>
             <Divider className={classes.divider} />
@@ -633,4 +638,5 @@ const paymentPackSchema = Yup.object().shape({
   only_vod_access: Yup.boolean(),
   whitelist_tags: Yup.array().of(Yup.number()),
   blacklist_tags: Yup.array().of(Yup.number()),
+  allow_guest_pass: Yup.boolean(),
 });

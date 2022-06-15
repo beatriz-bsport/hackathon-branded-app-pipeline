@@ -433,3 +433,7 @@ export const withBookableStatus = memoize(
       },
     ),
 );
+
+export const getBookingGuestNumberLeft = (state: RootState) => {
+  return state.offer.bookingGuest?.bookingGuestNumberLeft;
+};

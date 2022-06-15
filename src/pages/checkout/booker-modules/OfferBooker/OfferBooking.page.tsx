@@ -39,6 +39,7 @@ import {
   withMetaActivity,
   getOffersListByGroup,
   withBookableStatus,
+  getBookingGuestNumberLeft,
 } from '#libs/offer/selectors';
 import {
   fetchOfferStatusList,
@@ -48,6 +49,7 @@ import {
   resetSimilarOffers,
   retrieveOffer as fetchOffer,
   fetchOffersInGroup as fetchOffersInGroupAction,
+  fetchBookingGuestNumber as fetchBookingGuestNumberAction,
 } from '#libs/offer/actions';
 import {
   snackbarError as snackbarErrorAction,
@@ -106,6 +108,8 @@ type State = {
   selectedMember?: MemberMinimal;
   showSpotSelector: boolean;
   blockByGroup: boolean;
+  packAllowsBookingForAGuest: boolean;
+  guestMaxNumberOverAllPacks: number;
 };
 
 const SIMILAR_OFFER_PAGE_SIZE = 7;
@@ -124,6 +128,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
       showLoader: false,
       showSpotSelector: false,
       blockByGroup: false,
+      packAllowsBookingForAGuest: false,
+      guestMaxNumberOverAllPacks: 0,
     };
   }
 
@@ -133,6 +139,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.props.fetchMetaActivityBulk([o.meta_activity]);
         this.props.fetchMyRelatedMemberList(o.company);
         this.props.fetchCompanyTheme(o.company);
+        this.props.fetchBookingGuestNumber(o.id);
 
         if (o.group !== null) {
           this.props.fetchGroup(o.group, {
@@ -424,7 +431,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
           offer_id: offerData.offer.id,
           extra_data: {
             ...(offerData.extra_data || {}),
-            additional_guest_info: this.state.additionalGuestList,
+            additional_guest_info: this.state.packAllowsBookingForAGuest
+              ? this.state.additionalGuestList
+              : undefined,
             booking_for_member: this.state.selectedMember
               ? this.state.selectedMember.id
               : null,
@@ -657,6 +666,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
         loading={
           loading || !this.props.offer || !this.props.offer.meta_activity
         }
+        setGuestMaxNumber={(maxNumber: number) =>
+          this.setState({ guestMaxNumberOverAllPacks: maxNumber })
+        }
       />
     );
   };
@@ -685,6 +697,21 @@ class OfferBooking extends React.PureComponent<Props, State> {
     );
   };
 
+  comboPackAllowsBookingForAGuest = (pack: SelectedPack) => {
+    let maxComboGuest = 0;
+    let comboAllowsGuest = false;
+    if (pack?.paymentPackCombo) {
+      pack.paymentPackCombo.payment_packs.forEach((item) => {
+        if (item.data.allow_guest_pass) {
+          comboAllowsGuest = true;
+          if (item.data.credits > maxComboGuest)
+            maxComboGuest = item.data.credits;
+        }
+      });
+    }
+    return { maxComboGuest, comboAllowsGuest };
+  };
+
   render() {
     const { classes } = this.props;
     if (!this.props.offer || !this.props.theme) {
@@ -694,6 +721,18 @@ class OfferBooking extends React.PureComponent<Props, State> {
         </ConsumerAppBarContainer>
       );
     }
+
+    const { maxComboGuest, comboAllowsGuest } =
+      this.comboPackAllowsBookingForAGuest(this.state.selectedPack);
+
+    this.setState((prevState: State) => ({
+      packAllowsBookingForAGuest:
+        prevState.selectedPack?.paymentPack?.allow_guest_pass ||
+        prevState.selectedPack?.consumerPaymentPack?.payment_pack
+          ?.allow_guest_pass ||
+        (comboAllowsGuest &&
+          prevState.additionalGuestList?.length + 1 <= maxComboGuest),
+    }));
 
     const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
     return (
@@ -730,11 +769,23 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     onRemoveGuest={this.removeGuest}
                     additionalGuestList={this.state.additionalGuestList}
                     onAddAdditionalGuest={
-                      this.showBookingButton() &&
+                      this.props.theme?.allow_guest_activatable &&
                       this.props.theme?.allow_guest &&
+                      this.props.offer.allow_guest_offer &&
                       !this.props.offer.group
                         ? this.addAdditionalGuest
                         : null
+                    }
+                    numberBookingGuestLeft={this.props.bookingGuestNumberLeft}
+                    showBookingButton={this.showBookingButton()}
+                    packAllowsBookingGuest={
+                      this.state.packAllowsBookingForAGuest
+                    }
+                    frequencyBookingGuest={
+                      this.props.theme.allow_guest_frequency
+                    }
+                    maxGuestNumberFromAllPacks={
+                      this.state.guestMaxNumberOverAllPacks
                     }
                   />
                 </div>
@@ -1002,6 +1053,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       state.offer.offerStatus.loading ||
       (state.offer.groups?.[offer?.group?.id ?? offer?.group]?.loading ??
         false),
+    bookingGuestNumberLeft: getBookingGuestNumberLeft(state),
   };
 };
 
@@ -1025,6 +1077,7 @@ const mapDispatchToProps = {
   fetchCompanyTheme: fetchCompanyThemeAction,
   fetchGroup: fetchGroupOfferAction,
   fetchOffersInGroup: fetchOffersInGroupAction,
+  fetchBookingGuestNumber: fetchBookingGuestNumberAction,
 };
 
 export default compose(

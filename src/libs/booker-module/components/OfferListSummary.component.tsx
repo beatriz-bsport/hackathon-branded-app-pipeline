@@ -17,14 +17,16 @@ import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment-timezone';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { MaterialStyleType } from '../../../utils/types';
 import { Offer_FULL, OfferStatus } from '../../offer/types';
 import OfferBookableItem from './OfferBookableItem.component';
 import DividerLinearGradient from '../../../components/DividerLinearGradient.component';
 import { OfferData, AdditionalGuest } from '../types';
-import { MemberMinimal } from '../../member/types';
+import { Member, MemberMinimal } from '../../member/types';
 import AdditionalGuestForm from '#libs/booker-module/components/AdditionalGuestForm.component';
 import AdditionalGuestList from '#libs/booker-module/components/AdditionalGuestList.component';
+import { getLevelTrad } from '#libs/level/utils';
 
 type OwnProps = {
   offer: Offer_FULL;
@@ -36,20 +38,51 @@ type OwnProps = {
   onClickRemoveOffer: (offer: Offer_FULL) => void;
   selectedOffers: OfferData[];
   relatedMemberList: MemberMinimal[];
-  member?: MemberMinimal;
+  member?: Member;
   offerStatusById: { [key: string]: OfferStatus };
   onSelectMember: (id: number) => void;
   onAddAdditionalGuest: (guest: AdditionalGuest) => void;
   isRegisteringForWaitingList: boolean;
+  acceptDoubleBooking?: boolean;
+  hideGenericOffer?: boolean;
+  onRemoveGuest: (idx: number) => void;
+  numberBookingGuestLeft?: number;
+  showBookingButton: boolean;
+  packAllowsBookingGuest: boolean;
+  frequencyBookingGuest: string;
+  maxGuestNumberFromAllPacks: number;
 };
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
+const BOOKING_FOR_GUEST_EVERY_WEEK = 'every_week';
+const BOOKING_FOR_GUEST_EVERY_MONTH = 'every_month';
+const BOOKING_FOR_GUEST_EVERY_YEAR = 'every_year';
+
 class OfferListSummary extends React.PureComponent<Props> {
+  getFrequencyTraduction() {
+    switch (this.props.frequencyBookingGuest) {
+      case BOOKING_FOR_GUEST_EVERY_WEEK:
+        return this.props.t('booking:offer.bookingForAGuest.frequencyWeekly');
+      case BOOKING_FOR_GUEST_EVERY_MONTH:
+        return this.props.t('booking:offer.bookingForAGuest.frequencyMonthly');
+      case BOOKING_FOR_GUEST_EVERY_YEAR:
+        return this.props.t('booking:offer.bookingForAGuest.frequencyYearly');
+      default:
+        return this.props.t('booking:offer.bookingForAGuest.frequencyGeneric');
+    }
+  }
+
   render() {
     const { classes, t, offer, offerStatus } = this.props;
+
+    const offerLevelTranslation = getLevelTrad(
+      Number.parseInt(this.props.offer.level),
+      ' ',
+      this.props.t,
+    );
 
     if (
       !offer ||
@@ -75,6 +108,11 @@ class OfferListSummary extends React.PureComponent<Props> {
         this.props.acceptDoubleBooking,
       );
 
+    const hasLevel =
+      Number.parseInt(offer.level) !== 1 && Number.parseInt(offer.level) !== 5;
+    const numberOfGuestsAvailable =
+      this.props.numberBookingGuestLeft -
+      this.props.additionalGuestList?.length;
     return (
       <div className={classes.container}>
         <div className={classes.topRow}>
@@ -179,7 +217,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 </Typography>
               </ButtonBase>
             )}
-          {this.props.onClickAddMoreGuest && (
+          {!!this.props.onClickAddMoreGuest && (
             <ButtonBase
               disabled={!offer || this.props.selectedOffers?.length}
               onClick={this.props.onClickAddMoreGuest}
@@ -191,7 +229,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 align="left"
                 color={offer ? 'primary' : 'textSecondary'}
               >
-                {t('booking:offer.addGuest')}
+                {t('booking:offer.bookingForAGuest.addGuest')}
               </Typography>
             </ButtonBase>
           )}
@@ -199,14 +237,67 @@ class OfferListSummary extends React.PureComponent<Props> {
             (this.props.selectedOffers || []).length < 1 &&
             !this.props.isRegisteringForWaitingList && (
               <>
-                <AdditionalGuestForm
-                  onAddAdditionalGuest={this.props.onAddAdditionalGuest}
-                />
-                <AdditionalGuestList
-                  guestList={this.props.additionalGuestList}
-                  onRemoveGuest={this.props.onRemoveGuest}
-                />
+                {numberOfGuestsAvailable > 0 &&
+                  this.props.showBookingButton &&
+                  this.props.packAllowsBookingGuest && (
+                    <AdditionalGuestForm
+                      onAddAdditionalGuest={this.props.onAddAdditionalGuest}
+                      disabled={
+                        this.props.additionalGuestList?.length + 1 >=
+                        this.props.maxGuestNumberFromAllPacks
+                      }
+                    />
+                  )}
+                {((this.props.showBookingButton &&
+                  this.props.packAllowsBookingGuest) ||
+                  !this.props.showBookingButton) && (
+                  <AdditionalGuestList
+                    guestList={this.props.additionalGuestList}
+                    onRemoveGuest={this.props.onRemoveGuest}
+                  />
+                )}
+                {this.props.showBookingButton &&
+                  this.props.packAllowsBookingGuest && (
+                    <>
+                      {this.props.numberBookingGuestLeft >
+                      this.props.additionalGuestList?.length ? (
+                        <Typography variant="body2" align="left">
+                          {numberOfGuestsAvailable > 1
+                            ? t(
+                                'booking:offer.bookingForAGuest.addGuestNumberLeftSeveral',
+                                {
+                                  number: numberOfGuestsAvailable,
+                                },
+                              )
+                            : t(
+                                'booking:offer.bookingForAGuest.addGuestNumberLeftOne',
+                              )}{' '}
+                          {this.getFrequencyTraduction()}
+                        </Typography>
+                      ) : (
+                        <Typography variant="body2" align="left">
+                          {t('booking:offer.bookingForAGuest.addGuestLimit')}{' '}
+                          {this.getFrequencyTraduction()}
+                        </Typography>
+                      )}
+                    </>
+                  )}
               </>
+            )}
+          {hasLevel &&
+            !!this.props.onAddAdditionalGuest &&
+            this.props.packAllowsBookingGuest &&
+            numberOfGuestsAvailable > 1 && (
+              <div className={classes.levelWarningContainer}>
+                <div className={classes.levelWarningIcon}>
+                  <ErrorOutlineIcon />
+                </div>
+                <Typography variant="body2" align="left">
+                  {t('booking:offer.bookingForAGuest.warningLeveledSession', {
+                    level: offerLevelTranslation,
+                  })}
+                </Typography>
+              </div>
             )}
         </div>
       </div>
@@ -252,10 +343,23 @@ const styles = (theme: Theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  levelWarningContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(3),
+  },
+  levelWarningIcon: {
+    transform: 'rotate(180deg)',
+    color: '#009ccf',
+    marginRight: theme.spacing(2),
+  },
 });
 
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  withTranslation(['booking', 'paymentPack']),
+  withTranslation(['booking', 'paymentPack', 'translation']),
 )(OfferListSummary);

@@ -6341,7 +6341,67 @@
             },
             "invoiceGeneral": "Invoice PDF",
             "stripeTerminal": {
-                "title": "Payment by terminal"
+                "title": "Payment by terminal",
+                "connectDialog": {
+                    "title": {
+                        "edit": "Modification",
+                        "connect": "Connect",
+                        "success": "Successfully connected",
+                        "error": "Connection failed"
+                    },
+                    "success": "Your Stripe payment terminal has been successfully connected",
+                    "mustCreateStripeLocation": "For your first registration, please fill in the information of the studio where the terminal will be used.",
+                    "loading1": "We are trying to establish a connection with your terminal.",
+                    "loading2": "Please wait.",
+                    "form": {
+                        "readerLabel": "Name of the terminal",
+                        "registrationCode": "Code of the terminal",
+                        "registrationCodeHelperText": "Enter the code displayed on your Stripe POS terminal",
+                        "connect": "Connect",
+                        "continue": "Continue",
+                        "retry": "Retry",
+                        "update": "Modify"
+                    },
+                    "error1": "Your Stripe payment terminal has not been connected.",
+                    "error2": "Please try again."
+                },
+                "paymentDialog": {
+                    "minAmountInfo": "Payment by payment terminal is not available for amounts below {{amountString}}",
+                    "paymentSuccess": {
+                        "content": {
+                            "payment": "The payment has been taken into account.",
+                            "wait": "Just a moment, we are processing your data."
+                        },
+                        "title": {
+                            "payment": "Payment accepted",
+                            "setupAndPlan": "Registered payment",
+                            "setupOnly": "Registered payment method"
+                        }
+                    },
+                    "paymentFailed": {
+                        "title": {
+                            "setupIntent": "Failed operation",
+                            "paymentIntent": "Failed payment"
+                        }
+                    },
+                    "radio": "Payment terminal",
+                    "amountToPay": "Amount to be paid",
+                    "connectAndPay": "Send to terminal",
+                    "connectionSuccess": {
+                        "payment": "The connection with the terminal has been made. The amount to be paid should now be displayed.",
+                        "intent": "The connection with the terminal has been made. The customer should be able to present their card.",
+                        "processing": "Your application is being processed"
+                    }
+                },
+                "helperText": "",
+                "addCard": "Add with Stripe terminal",
+                "deleteDialog": {
+                    "title": "Delete",
+                    "content1": "Are you sure you want to remove the payment terminal {{label}} ?",
+                    "content2": "It will no longer appear in the terminals available for payments.",
+                    "content3": "You can connect it again if you wish"
+                },
+                "addReader": "Connect a terminal"
             }
         },
         "actions": {

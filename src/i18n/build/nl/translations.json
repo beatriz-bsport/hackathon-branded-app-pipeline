@@ -1690,6 +1690,10 @@
             "maxPurchasePerMember": {
                 "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                 "label": "Maximale aankopen per lid"
+            },
+            "usePaymentComboTaxOnItems": {
+                "helperText": "Standaard wordt een individueel btw-tarief gehanteerd per product. Activeer deze optie om een algemeen btw-tarief te hanteren.",
+                "label": "Een algemeen btw-tarief of pakketten toepassen"
             }
         },
         "list": {
@@ -1787,7 +1791,8 @@
             "SK": "Slowakije",
             "CY": "Cyprus",
             "US": "Verenigde Staten van Amerika",
-            "EE": "Estland"
+            "EE": "Estland",
+            "MX": "Mexico"
         },
         "signupCompany": {
             "form": {
@@ -1846,6 +1851,45 @@
             "connect": "Log in om verder te gaan.",
             "connection": "Aanmelden",
             "selectYourCurrentEmail": "Selecteer je huidige inloggegevens."
+        },
+        "accountConfiguration": {
+            "bankAccount": {
+                "owner_address": "Adres eigenaar",
+                "address": "Adres",
+                "bank_details": "Rekeningnummer",
+                "general": "Algemeen",
+                "fields": {
+                    "iban": "IBAN",
+                    "bank_account_holder": "Rekeninghouder"
+                }
+            },
+            "paymentMethodSuccess": "De toegevoege betaalmethode is in goede orde geconfigureerd. Onder Instellingen > Abonnement kan dit later, indien nodig, gewijzigd worden.",
+            "accountSuccess": "Je Stripe-account is in goede orde geconfigureerd. Indien nodig kunnen accountgegevens onder Instellingen > Onderneming gewijzigd worden.",
+            "goToBackoffice": "Klik op \"Back Office\" om terug naar het hoofdscherm te keren.",
+            "bankAccountSuccess": "Je IBAN is in goede orde geconfigureerd. Indien nodig kunnen accountgegevens onder Instellingen > Onderneming gewijzigd worden.",
+            "welcomeTitle": "Welkom bij BSPORT!",
+            "welcomeDescription": "Van harte welkom op ons platform - je nieuwe alles-in-1 partner voor alles binnen je onderneming. Voltooi de volgende ontbrekende gegevens voordat we van start kunnen gaan.",
+            "stripeStep": "Configuratie met Stripe",
+            "ibanStep": "IBAN",
+            "cardStep": "Betaalmethode",
+            "finishStep": "Voltooid!",
+            "createStripe": "Stripe-account aanmaken",
+            "welcomeConfigure": "Binnen {{numberOfSteps}} klik je account configuren!",
+            "welcomeConfigure_plural": "Binnen {{numberOfSteps}} kliks je account configureren!",
+            "configureStripe": "Het is noodzakelijk dat er een Stripe-account aangemaakt wordt om betalingen te verwerken.",
+            "companyName": "Bedrijfsnaam",
+            "companyAdress": "Adres",
+            "configureStripeAction": "Stripe configureren",
+            "stripeConfiguration": "Stripe configureren",
+            "infoGoingBack": "Dit kan later voltooid worden, indien je nu de pagina verlaat.",
+            "companyStripeName": "Stripe-account",
+            "paymentMethodTitle": "Selecteer een betaalmethode",
+            "redirecting": "Redirecting you to Stripe...",
+            "stripeConfigurationExplain": "Je wordt doorverwezen naar Stripe. Zodra dit formulier voltooid is wordt je teruggestuurd naar je BSPORT Back Office.",
+            "managerIbanExplain": "Selecteer op welke rekening je de uitbetalingen vanuit BSPORT wilt ontvangen",
+            "congrats": "Gefeliciteerd!",
+            "paymentMethodExplain": "Selecteer de betaalmethode die je wenst te gebruiken voor de facturatie vanuit BSPORT",
+            "finishExplain": "De configuratie is voltooid. Je kunt nu BSPORT gebruiken."
         }
     },
     "reporting": {
@@ -1864,7 +1908,12 @@
             "check": "Cheque",
             "dispute": "Dispuut",
             "sepa": "SEPA",
-            "credit_card": "Betaalkaart"
+            "credit_card": "Betaalkaart",
+            "bancontact": "Bancontact",
+            "sofort": "Sofort",
+            "ideal": "iDEAL",
+            "eps": "EPS",
+            "giropay": "Giropay"
         },
         "product_type": {
             "shop_item": "Webshop",
@@ -1873,7 +1922,10 @@
             "payment_pack": "Leskaart",
             "top_up": "Saldo van het lid wijzigen",
             "payment_combo": "Pakket",
-            "refund": "Terugbetaalde kredieten"
+            "refund": "Terugbetaalde kredieten",
+            "booking": "Reservering",
+            "coupon": "Pomotie",
+            "giftcard": "Cadeaubon"
         },
         "form": {
             "title": "[Formulier] Rapportage",
@@ -2104,7 +2156,11 @@
             "universal_nb_private_bookings": "Aantal reserveringen (afspraken)",
             "universal_nb_bookings": "Aantal reserveringen (groepsactiviteiten)",
             "paid": "Betaald",
-            "amount_due": "Verschuldigd bedrag"
+            "amount_due": "Verschuldigd bedrag",
+            "payout": "Bankoverschrijving",
+            "payout_status": "Status bankoverschrijving",
+            "payout_date_created": "Datum bankoverschrijving",
+            "applied_tax": "Btw"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2176,9 +2232,126 @@
         },
         "header": {
             "average": "Gemiddeld",
-            "sum": "Totaal"
+            "sum": "Totaal",
+            "selectDate": "Selecteer een datum",
+            "from": "Van",
+            "to": "Tot",
+            "start": "Start",
+            "end": "Einde",
+            "rapidChoice": "Snelkeuze",
+            "helper": {
+                "today": "Vandaag",
+                "week": "Vorige week",
+                "month": "Vorige maand",
+                "year": "Afgelopen jaar",
+                "trimester": "Afgelopen 3 maanden"
+            },
+            "from_to": "Van {{-from}} tot {{-to}}",
+            "save": "Opslaan",
+            "selectRange": "Kies een datumbereik"
         },
-        "search": "Zoek een rapportage"
+        "search": "Zoek een rapportage",
+        "filter": {
+            "emptyFilter": "Alle gegevens",
+            "createFilter": "Een gefilterde weergave toevoegen",
+            "deleteModal": {
+                "title": "Verwijderen",
+                "content": "Weet je zeker dat je deze gefilterde weergave wilt verwijderen? Deze actie is definitief."
+            },
+            "form": {
+                "title": "Gefilterde weergave",
+                "name": "Naam",
+                "filter": "Filters",
+                "operandSelect": "Filterregels",
+                "add": "Toevoegen",
+                "addGroupOption": "Filtergroep",
+                "addFilterOption": "Filter",
+                "groupOperand": {
+                    "0": "Of",
+                    "1": "En"
+                },
+                "groupOperandHelperText": {
+                    "0": "Er moet ten minste één filter kunnen worden toegepast.",
+                    "1": "Alles filters moeten worden toegepast."
+                },
+                "filterComparator": {
+                    "0": {
+                        "5": "Bevat geen",
+                        "4": "Inhoud"
+                    },
+                    "1": {
+                        "0": "Staat gelijk aan",
+                        "1": "Staat niet gelijk aan",
+                        "2": "Gelijk aan of kleiner dan",
+                        "4": "Tussen",
+                        "5": "Buiten",
+                        "3": "Groter dan of staat gelijk aan"
+                    },
+                    "3": {
+                        "4": "Binnen",
+                        "0": "Is de",
+                        "1": "Is niet"
+                    },
+                    "2": {
+                        "0": "Is",
+                        "1": "Is niet"
+                    }
+                },
+                "subDataType": {
+                    "day": "Datum",
+                    "hour": "Uur"
+                },
+                "placeholderList": "Selecteer",
+                "isTrue": "Waar",
+                "isFalse": "Onwaar",
+                "error": {
+                    "invalidTypeForColumns": "Fout bij het uitvoeren van deze handelingen",
+                    "needAtLeatOneFilter": "Selecteer een minimum",
+                    "wrongOrdering": "De waarden zijn niet gesorteerd",
+                    "byIdDuplicate": "Er worden dubbele filters toegepast"
+                },
+                "submit": "Opslaan",
+                "cancel": "Annuleren",
+                "edit": "Bewerken",
+                "columnError": "De filter wordt alsnog toegepast binnen de gefilterde kolommen.",
+                "information": "Algemeen",
+                "addFilter": "Een filter toevoegen",
+                "emptyState": "Er zijn geen filterbare kolommen om weer te geven."
+            },
+            "title": "Gefilterde weergave"
+        },
+        "datatype": {
+            "price": "Prijs",
+            "cts": "Prijs (in centen)",
+            "coupon": "Promotie",
+            "contract": "Abonnement",
+            "date": "Datum",
+            "time": "Tijd",
+            "dow": "Weekdag",
+            "datetime": "Datum",
+            "establishment": "Vestiging",
+            "coach": "Instructeurs",
+            "giftcard": "Cadeaubon",
+            "payment_pack": "Leskaart",
+            "int": "Naam",
+            "number": "Naam",
+            "percent": "Percentage",
+            "email": "E-mail",
+            "user": "Lid",
+            "boolean": "Waar / Onwaar",
+            "private_pass": "Afspraakkaart",
+            "private_slot": "Afspraak",
+            "subshop": "Categorie",
+            "billing_establishment": "Gefactureerde vestiging",
+            "billing_group": "Groepsfacturatie",
+            "activity": "Activiteit",
+            "booking_status_code": "Status reservering",
+            "payout_status": "Status bankoverschrijving",
+            "payout": "Bankoverschrijving",
+            "payment_method": "Betaalmethode",
+            "video": "Video",
+            "private_service": "Afspraak"
+        }
     },
     "alerting": {
         "list": {
@@ -7282,7 +7455,25 @@
             "BANCONTACT": "Bancontact",
             "SEPA": "SEPA",
             "CHECK": "Cheque",
-            "CASH": "Contant"
+            "CASH": "Contant",
+            "1": "Contant",
+            "2": "Cheque",
+            "5": "Vakantiecheque",
+            "6": "AMEX",
+            "7": "Bankoverschrijving",
+            "9": "Fysieke betaling",
+            "10": "Automatische incasso",
+            "11": "Anders",
+            "12": "Stornering",
+            "13": "SEPA",
+            "30": "Sofort",
+            "8": "Eventbrite",
+            "50": "EPS",
+            "0": "Betaalkaart",
+            "4": "Betaalkaart (handmatig)",
+            "20": "Bancontact",
+            "40": "iDEAL",
+            "60": "Giropay"
         },
         "forms": {
             "cancelPayment": "Terug",
@@ -7360,10 +7551,12 @@
                     "label": "Branch Code"
                 },
                 "transitNumber": {
-                    "label": "Transit Number"
+                    "label": "Transit Number",
+                    "placeholder": "Transit Number"
                 },
                 "institutionNumber": {
-                    "label": "Institution Number"
+                    "label": "Institution Number",
+                    "placeholder": "Institution Number"
                 },
                 "bankCode": {
                     "label": "Bank Code"
@@ -8250,7 +8443,13 @@
         },
         "marketplace": {
             "update": {
-                "error": "Fout bij het bijwerken van de informatie"
+                "error": "Fout bij het bijwerken van de informatie",
+                "stripeTerminal": {
+                    "deleteReader": {
+                        "success": "Pinapparaat verwijdered",
+                        "error": "Fout bij het verwijderen van dit pinapparaat"
+                    }
+                }
             }
         }
     },
@@ -8615,7 +8814,14 @@
             "incorrect_cvc": "De beveiligingscode van uw kaart is onjuist.",
             "payment_intent_authentication_failure": "De betaling is door uw bank geweigerd.",
             "insufficient_funds": "Controleer of je voldoende saldo hebt.",
-            "unknown": "Netwerkfout, probeer het over enkele ogenblikken opnieuw"
+            "unknown": "Netwerkfout, probeer het over enkele ogenblikken opnieuw",
+            "discovery_too_many_readers": "Fout bij het verbinden, omdat er te veel verbonden pinapparaten zijn",
+            "no_established_connection": "Er zijn geen verbonden pinapparaten om weer te geven.",
+            "network_error": "Netwerkfout - Probeer het later opnieuw",
+            "network_timeout": "Netwerkfout - Probeer het later opnieuw",
+            "already_connected": "Er is al een ander pinapparaat verbonden",
+            "setup_intent_authentication_failure": "Fout bij het oplsaan van deze betaalkaart. Probeer een andere betaalmethode.",
+            "none": " "
         },
         "error_code": {
             "payment_intent_authentication_failure": "De betaling is door uw bank geweigerd.",
@@ -8643,7 +8849,12 @@
             "withdrawal_count_limit_exceeded": "Te veel debet op deze kaart, geweigerd.",
             "transaction_not_allowed": "Uw kaart is door uw bank geweigerd",
             "do_not_honor": "Je bank heeft de betaling geweigerd! Contacteer je bank om de betaling te autoriseren.",
-            "none": " "
+            "none": " ",
+            "incorrect_pin": "Ongeldige pincode",
+            "invalid_pin": "Ongeldige pincode",
+            "offline_pin_required": "Pincode vereist",
+            "online_or_offline_pin_required": "Pincode vereist",
+            "pin_try_exceeded": "Het maximaal aantal pogingen is momenteel bereikt. Probeer een andere betaalmethode."
         }
     },
     "dashboard": {
@@ -8839,7 +9050,8 @@
         "start": "Start",
         "next": "Volgende",
         "previous": "Terug",
-        "finish": "Afgelopen"
+        "finish": "Afgelopen",
+        "letsGo": "Back Office"
     },
     "workshop": {
         "modal": {
@@ -9484,27 +9696,64 @@
                         "error": "Verbindingsfout",
                         "edit": "Wijzigingen"
                     },
-                    "loading2": "Bedankt voor het wachten.",
+                    "loading2": "Momentje geduld alsjeblieft",
                     "form": {
                         "readerLabel": "Naam pinapparaat",
                         "registrationCode": "Code pinapparaat",
                         "connect": "Verbinden",
                         "continue": "Verder",
                         "retry": "Opnieuw proberen",
-                        "update": "Bewerken"
+                        "update": "Bewerken",
+                        "registrationCodeHelperText": "Code invoeren dat op je pinapparaat (Stripe Terminal) wordt weergegeven."
                     },
                     "success": "Dit pinapparaat van Stripe Terminal is succesvol verbonden",
                     "error1": "Dit pinapparaat van Stripe Terminal is niet verbonden",
-                    "error2": "Opnieuw proberen"
+                    "error2": "Opnieuw proberen",
+                    "mustCreateStripeLocation": "Gelieve alle informatie en bedrijfsgegevens doorsturen over waar je het pinapparaat wenst te gebruiken."
                 },
                 "paymentDialog": {
                     "connectAndPay": "Naar pinapparaat versturen",
                     "radio": "Pinappraat",
-                    "amountToPay": "Uitstaand bedrag"
+                    "amountToPay": "Uitstaand bedrag",
+                    "minAmountInfo": "Het minimumbedrag om dit pinapparaat te gebruiken is {{amountString}}.",
+                    "connectionSuccess": {
+                        "payment": "Dit pinapparaat is verbonden. Het bedrag zal zo dadelijk op het scherm getoond worden.",
+                        "intent": "Dit pinapparaat is verbonden. De klant kan de betaalkaart zo dadelijk gebruiken.",
+                        "processing": "De aanvraag wordt verwerkt"
+                    },
+                    "paymentSuccess": {
+                        "title": {
+                            "payment": "Betaling geaccepteerd",
+                            "setupAndPlan": "Betaling opgeslagen",
+                            "setupOnly": "Betaalmethode opgeslagen"
+                        },
+                        "content": {
+                            "payment": "De betaling is verwerkt.",
+                            "wait": "De betaling wordt verwerkt."
+                        }
+                    },
+                    "paymentFailed": {
+                        "title": {
+                            "paymentIntent": "Betaling mislukt",
+                            "setupIntent": "Operatie mislukt"
+                        },
+                        "content": {
+                            "paymentIntent": "Fout bij het verwerken van de betaling.",
+                            "setupIntent": "De betaalmethode is niet opgeslagen."
+                        },
+                        "explain": {
+                            "label": "Mislukt:"
+                        }
+                    },
+                    "disconnect": {
+                        "title": "Verbreken",
+                        "content": "De verbinding is onderbroken. Probeer het opnieuw."
+                    }
                 },
                 "title": "Pinapparaat",
                 "addReader": "Een pinapparaat verbinden",
-                "addCard": "Pinapparaat (Stripe Terminal) toevoegen"
+                "addCard": "Pinapparaat (Stripe Terminal) toevoegen",
+                "helperText": "Gebruik pinapparaten om betalingen direct vanuit de Back Office te verwerken en bespaar tijd door al het handmatige werk omtrent fysieke betalingen te vermijden. Gelieve contact opnement met je accountmanager voor meer informatie."
             }
         },
         "section": {

@@ -1441,7 +1441,7 @@
                 "changeDate": "Edit time/date",
                 "cancelTitle": "Cancel session",
                 "deleteTitle": "Delete session",
-                "warningPackonEdit": "Attention: changes might make this session incompatible with certain passes. Ensure that all compatibilities are still set up correctly for your teachers/establishments",
+                "warningPackonEdit": "These changes might make this session incompatible with certain passes. Please ensure that you've correctly configured the compatibility of all your products, teachers, and establishments.",
                 "substituteEstablishmentLabel": "Substitute establishment",
                 "establishmentLabel": "Default establishment",
                 "coachLabel": "Default teacher",
@@ -6266,7 +6266,7 @@
                 },
                 "transitNumber": {
                     "label": "Transit Number",
-                    "placeholder": "Transit number"
+                    "placeholder": "Transit Number"
                 },
                 "institutionNumber": {
                     "label": "Institution Number",
@@ -6442,7 +6442,7 @@
                     "error2": "Please try again."
                 },
                 "paymentDialog": {
-                    "minAmountInfo": "Payment by payment terminal is not available for amounts below {{amountString}}",
+                    "minAmountInfo": "The minimum purchase amount for using the terminal is {{amountString}}.",
                     "paymentSuccess": {
                         "content": {
                             "payment": "The payment has been processed.",

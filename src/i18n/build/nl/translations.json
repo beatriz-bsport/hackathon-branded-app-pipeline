@@ -8835,7 +8835,11 @@
         "monthly": "Maandelijks",
         "weekly": "Wekelijks",
         "showLess": "Toon minder",
-        "showMore": "Toon meer ({{count}})"
+        "showMore": "Toon meer ({{count}})",
+        "start": "Start",
+        "next": "Volgende",
+        "previous": "Terug",
+        "finish": "Afgelopen"
     },
     "workshop": {
         "modal": {
@@ -9464,7 +9468,44 @@
                 },
                 "title": "Abonnementsbetalingen"
             },
-            "invoiceGeneral": "Facturen"
+            "invoiceGeneral": "Facturen",
+            "stripeTerminal": {
+                "deleteDialog": {
+                    "content2": "Dit pinapparaat wordt niet langer gebruikt voor fysieke betalingen.",
+                    "title": "Verwijderen",
+                    "content1": "Weet je zeker dat je dit pinapparaat ({{label}}) wilt verwijderen?",
+                    "content3": "Opnieuw verbinden"
+                },
+                "connectDialog": {
+                    "loading1": "De pinapparaten van Stripe Terminal dienen te worden verbonden.",
+                    "title": {
+                        "connect": "Verbinden",
+                        "success": "Succesvolle verbinding",
+                        "error": "Verbindingsfout",
+                        "edit": "Wijzigingen"
+                    },
+                    "loading2": "Bedankt voor het wachten.",
+                    "form": {
+                        "readerLabel": "Naam pinapparaat",
+                        "registrationCode": "Code pinapparaat",
+                        "connect": "Verbinden",
+                        "continue": "Verder",
+                        "retry": "Opnieuw proberen",
+                        "update": "Bewerken"
+                    },
+                    "success": "Dit pinapparaat van Stripe Terminal is succesvol verbonden",
+                    "error1": "Dit pinapparaat van Stripe Terminal is niet verbonden",
+                    "error2": "Opnieuw proberen"
+                },
+                "paymentDialog": {
+                    "connectAndPay": "Naar pinapparaat versturen",
+                    "radio": "Pinappraat",
+                    "amountToPay": "Uitstaand bedrag"
+                },
+                "title": "Pinapparaat",
+                "addReader": "Een pinapparaat verbinden",
+                "addCard": "Pinapparaat (Stripe Terminal) toevoegen"
+            }
         },
         "section": {
             "paymentList": {

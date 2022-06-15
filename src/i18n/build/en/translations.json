@@ -4714,7 +4714,12 @@
         "monthly": "Monthly",
         "weekly": "Weekly",
         "showLess": "Show less",
-        "showMore": "Show more ({{count}})"
+        "showMore": "Show more ({{count}})",
+        "start": "Start",
+        "next": "Next",
+        "previous": "Previous",
+        "letsGo": "Let's go!",
+        "finish": "Finish"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -6334,7 +6339,10 @@
                 },
                 "title": "Subscription"
             },
-            "invoiceGeneral": "Invoice PDF"
+            "invoiceGeneral": "Invoice PDF",
+            "stripeTerminal": {
+                "title": "Payment by terminal"
+            }
         },
         "actions": {
             "equilibrate": "Regularize (deposit)",

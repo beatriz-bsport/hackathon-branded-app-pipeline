@@ -5041,6 +5041,40 @@
             "connect": "Please log in or create an account to continue.",
             "connection": "Log in",
             "selectYourCurrentEmail": "Select your current login credentials."
+        },
+        "accountConfiguration": {
+            "bankAccount": {
+                "owner_address": "Owner Address",
+                "address": "Address",
+                "bank_details": "Banking information",
+                "general": "General",
+                "fields": {
+                    "iban": "IBAN",
+                    "bank_account_holder": "Account holder"
+                }
+            },
+            "paymentMethodSuccess": "The payment method indicated is valid. You can always change it in the Bsport subscription settings.",
+            "welcomeDescription": "We are pleased to welcome you to your new platform. Before you begin your experience, we are missing some information.",
+            "infoGoingBack": "If you leave the page now, you can pick up at the same place on your return.",
+            "accountSuccess": "Your Stripe account has been created. You can change this information later in the back office in the company settings.",
+            "goToBackoffice": "Click on \"Let's go\" to be redirected to the back office.",
+            "bankAccountSuccess": "Your IBAN is validated. You can change this information later in the backoffice in the company settings.",
+            "welcomeTitle": "Welcome to Bsport",
+            "stripeStep": "Stripe configuration",
+            "welcomeConfigure": "Set up your account in just {{numberOfSteps}} step!",
+            "welcomeConfigure_plural": "Set up your account in just {{numberOfSteps}} steps!",
+            "ibanStep": "IBAN information",
+            "cardStep": "Payment method",
+            "finishStep": "Finished!",
+            "createStripe": "Create your stripe account",
+            "configureStripe": "Set up your stripe account. It is necessary for your customers to make their purchases and payments online.",
+            "companyName": "Company name",
+            "companyAdress": "Address",
+            "configureStripeAction": "Setting up Stripe",
+            "stripeConfiguration": "Setting up Stripe",
+            "stripeConfigurationExplain": "You will be redirected to the stripe form. Once this step is completed your information will be automatically registered on Bsport.",
+            "redirecting": "We redirect you to the stripe form...",
+            "companyStripeName": "Stripe account"
         }
     },
     "waitingList": {
@@ -6369,8 +6403,8 @@
                     "minAmountInfo": "Payment by payment terminal is not available for amounts below {{amountString}}",
                     "paymentSuccess": {
                         "content": {
-                            "payment": "The payment has been taken into account.",
-                            "wait": "Just a moment, we are processing your data."
+                            "payment": "The payment has been processed.",
+                            "wait": "The payment is being processed."
                         },
                         "title": {
                             "payment": "Payment accepted",
@@ -6380,8 +6414,15 @@
                     },
                     "paymentFailed": {
                         "title": {
-                            "setupIntent": "Failed operation",
-                            "paymentIntent": "Failed payment"
+                            "setupIntent": "Operation failed",
+                            "paymentIntent": "Payment failed"
+                        },
+                        "content": {
+                            "paymentIntent": "The payment was not processed.",
+                            "setupIntent": "The payment method has not been saved."
+                        },
+                        "explain": {
+                            "label": "Reason for failure :"
                         }
                     },
                     "radio": "Payment terminal",
@@ -6391,6 +6432,10 @@
                         "payment": "The connection with the terminal has been made. The amount to be paid should now be displayed.",
                         "intent": "The connection with the terminal has been made. The customer should be able to present their card.",
                         "processing": "Your application is being processed"
+                    },
+                    "disconnect": {
+                        "title": "Disconnect",
+                        "content": "The connection has been lost. Please try again"
                     }
                 },
                 "helperText": "",

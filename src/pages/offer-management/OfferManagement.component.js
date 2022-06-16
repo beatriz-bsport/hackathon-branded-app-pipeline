@@ -55,7 +55,7 @@ import { OptionCallback } from '../../state/types';
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
 type Props = {
-  goToMemberBooking: (memberId: number, bookingId: number) => void,
+  goToMemberBooking: (memberId: number, bookingId?: number) => void,
   t: TFunction,
   fullScreen: boolean,
   offerId: number,
@@ -827,8 +827,10 @@ export default compose(
     },
   ),
   withHandlers({
-    goToMemberBooking: () => (memberId: number, bookingId: number) => {
-      const url = `/member/${memberId}/bookings/${`${bookingId}/` || ''}`;
+    goToMemberBooking: () => (memberId: number, bookingId?: number) => {
+      const url = `/member/${memberId}/bookings/${
+        bookingId ? `${bookingId}` : ''
+      }`;
       const win = window.open(url);
       win.focus();
     },

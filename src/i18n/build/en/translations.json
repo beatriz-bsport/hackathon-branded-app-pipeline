@@ -1461,7 +1461,8 @@
                     },
                     "header": "Advanced"
                 },
-                "editingGroup": "Attention this session is part of the session group {{ name }}"
+                "editingGroup": "Attention this session is part of the session group {{ name }}",
+                "explainAllowGuest": "Allow the booking for a guest feature"
             },
             "payment": {
                 "additionalInformationHelper": "(Optional) Payment reference",
@@ -4580,7 +4581,23 @@
                 "info": "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
                 "title": "Provincial Tax"
             },
-            "acceptGuest": "Allow booking for a guest"
+            "acceptGuest": "Allow booking for a guest",
+            "allowGuest": {
+                "title": "Allow the booking for a guest feature",
+                "frequencies": {
+                    "week": "Week",
+                    "month": "Month",
+                    "year": "Year",
+                    "text": " times by ",
+                    "placeholder": "Frequency"
+                },
+                "dialog": {
+                    "dialogTitle": "Warning",
+                    "dialogContent": "Please note that if you deactivate this option, it will no longer be possible for your members to reserve for a guest.",
+                    "dialogButtonCancel": "Cancel",
+                    "dialogButtonConfirm": "Confirm"
+                }
+            }
         },
         "general_terms_and_conditions": {
             "label": "General terms and conditions",
@@ -5229,7 +5246,15 @@
                 "offerBooked": "You've booked",
                 "basket": "Your basket",
                 "title": "Congratulations! You have successfully completed your purchase.",
-                "errorExplain": "This operation could not be performed. Please try again.",
+                "errorExplain": {
+                    "generic": "The operation could not be performed. We invite you to try again.",
+                    "guestGeneric": "A problem occurred with the reservation for a guest.",
+                    "guestOvercomeLimit": "The number of guests added for this reservation exceeds the allowed number.",
+                    "guestReachedLimit": "You have already reached the reservation limit for one guest for the current period. It is not possible to make any more.",
+                    "guestSettings": "The studio has disabled the booking for a guest feature.",
+                    "guestOffer": "The studio has disabled the booking for a guest feature for this session.",
+                    "guestPass": "The studio has disabled the booking for a guest feature for this pass."
+                },
                 "error": "Error",
                 "recap": "Summary",
                 "explain": "Your transaction has been processed. We will send you a confirmation email."
@@ -6157,7 +6182,8 @@
             "30": "Sofort",
             "40": "iDEAL",
             "50": "EPS",
-            "60": "Giropay"
+            "60": "Giropay",
+            "3": "Pass"
         },
         "order": {
             "success": "Your payment has been successfully registered"
@@ -7810,11 +7836,13 @@
                         "5": "Outside"
                     },
                     "2": {
-                        "1": "Is not"
+                        "1": "Is not",
+                        "0": "is"
                     },
                     "3": {
                         "1": "Is not",
-                        "4": "Between"
+                        "4": "Between",
+                        "0": "is on"
                     }
                 },
                 "subDataType": {
@@ -7827,11 +7855,13 @@
                 "error": {
                     "invalidTypeForColumns": "Error when processing this action",
                     "needAtLeatOneFilter": "Select a minimum",
-                    "wrongOrdering": "These values aren't sorted"
+                    "wrongOrdering": "These values aren't sorted",
+                    "byIdDuplicate": "Multiple selection fields are present in duplicate"
                 },
                 "submit": "Save",
                 "cancel": "Cancel",
-                "edit": "Edit"
+                "edit": "Edit",
+                "columnError": "Please note that the column filtered here has been removed from the report. However, the filter on this column is still applied."
             }
         },
         "datatype": {
@@ -8608,7 +8638,8 @@
             "requiredField": "This field is mandatory",
             "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
             "migration": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
-            "franchise": "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified."
+            "franchise": "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
+            "allowGuest": "Compatible with the booking for a guest feature"
         },
         "universalPass": {
             "restore": {
@@ -8745,7 +8776,9 @@
                     "subtitleSettings": "Settings",
                     "addOffers": "Add sessions",
                     "subtitleOffers": "Sessions",
-                    "subtitle": "General information"
+                    "subtitle": "General information",
+                    "allowGuest": "Compatible with the booking for a guest feature",
+                    "allowGuestUnavailable": "This feature is not available on grouped sessions."
                 },
                 "duplicate": "Duplicate a group",
                 "subtitlePreview": "Preview of the recurrence",
@@ -9613,7 +9646,18 @@
                 "selectAll": "Select all"
             },
             "bookingForMe": "Myself",
-            "bookingsTitleFor": "Booking for {{name}}"
+            "bookingsTitleFor": "Booking for {{name}}",
+            "bookingForAGuest": {
+                "addGuest": "Add a guest",
+                "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",
+                "addGuestLimit": "You have reached the invitation limit for",
+                "addGuestNumberLeftSeveral": "You can still invite {{number}} people on",
+                "addGuestNumberLeftOne": "You can invite 1 more person on",
+                "frequencyWeekly": "this week.",
+                "frequencyMonthly": "this month.",
+                "frequencyYearly": "the current year.",
+                "frequencyGeneric": "the current period."
+            }
         },
         "setSpot": "Assign a spot",
         "changeSpot": "Change your spot",
@@ -9634,7 +9678,8 @@
                 "actions": {
                     "addGuest": "Add guest",
                     "close": "Go back",
-                    "submit": "Confirm"
+                    "submit": "Confirm",
+                    "limitGuest": "(None of the available passes can be used to add guests)"
                 },
                 "lastname": {
                     "label": "Last name"
@@ -12334,7 +12379,7 @@
             "archivedTitle": "Archived gift cards",
             "unavailableForSaleTitle": "Unavailable gift cards",
             "activeTitle": "Available gift cards",
-            "explainIfEmpty": "Gift cards allow your members to share offers with their loved ones and to increase your studio's potential reach.",
+            "explainIfEmpty": "Gift cards allow your members to share offers with their guests and to increase your studio's potential reach.",
             "actions": {
                 "create": "Add a gift card",
                 "goToGiftcard": "See all gift cards"

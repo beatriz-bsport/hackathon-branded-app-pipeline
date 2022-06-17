@@ -26,6 +26,7 @@ import WriteNotification from './WriteNotification.component';
 import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constant';
 
 import type { MemberMailData } from '../types';
+import Config from '../../../config';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
@@ -174,13 +175,14 @@ export class CommunicationDialog extends Component<Props> {
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
                   disabled={
-                    !this.props.allIdsWithPhone.filter(
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                    (!this.props.allIdsWithPhone.filter(
                       (item) => !this.state.unCheckedMembers.includes(item),
                     ).length ||
-                    !featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f) => f.readable_identifier === 'sms',
-                    )
+                      !featureList.upsell ||
+                      !featureList.upsell.find(
+                        (f) => f.readable_identifier === 'sms',
+                      ))
                   }
                   onChange={() =>
                     this.setState({
@@ -203,10 +205,11 @@ export class CommunicationDialog extends Component<Props> {
                 <Radio
                   checked={this.state.actionType === SEND_PUSH_NOTIFICATION}
                   disabled={
-                    !featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f) => f.readable_identifier === 'push_notification',
-                    )
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                    (!featureList.upsell ||
+                      !featureList.upsell.find(
+                        (f) => f.readable_identifier === 'push_notification',
+                      ))
                   }
                   onChange={() =>
                     this.setState({

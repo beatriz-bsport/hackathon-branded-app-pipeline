@@ -1,6 +1,7 @@
 const {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
+  COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } = require('@bsport/common/lib/master-data/communication-kind');
 
 const RECIPIENT_STATUS = require('@bsport/common/lib/master-data/recipient-status');
@@ -39,7 +40,7 @@ exports.default = {
     success: 'Communication envoyée',
     error: 'Communication non envoyé, veuillez réessayer un peu plus tard',
     noMailAvailable: 'Aucun mail disponible, pensez à en créer un',
-    selectToShowPreview: 'Sélectionnez un mail pour avoir son apperçu',
+    selectToShowPreview: 'Sélectionnez un mail pour avoir son aperçu',
     mailSelection: 'Choisir un mail',
 
     showMail: 'Voir le mail',
@@ -101,6 +102,7 @@ exports.default = {
     kind: {
       [COMMUNICATION_KIND_EMAIL]: 'Email',
       [COMMUNICATION_KIND_SMS]: 'SMS',
+      [COMMUNICATION_KIND_PUSH_NOTIFICATION]: 'Notification push',
     },
   },
   recipient: {
@@ -108,6 +110,7 @@ exports.default = {
     clicksCount: 'Clic',
     showEmail: "Voir l'email",
     showSms: 'Voir le SMS',
+    showNotification: 'Voir la notification',
 
     status: {
       [EMAIL_RECIPIENT_DELIVERED]: 'Reçu',

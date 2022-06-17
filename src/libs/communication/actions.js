@@ -198,6 +198,7 @@ export const campaignByMemberActions = {
   error: createAction('CAMPAIGN/BY_MEMBER/ERROR'),
   isLoading: createAction('CAMPAIGN/BY_MEMBER/LOADING'),
   success: createAction('CAMPAIGN/BY_MEMBER/SUCCESS'),
+  reset: createAction('CAMPAIGN/BY_MEMBER/RESET'),
 };
 
 export function fetchCampaignByMember(
@@ -206,6 +207,9 @@ export function fetchCampaignByMember(
   options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
+    if (page === 1) {
+      campaignByMemberActions.reset();
+    }
     dispatch(campaignByMemberActions.isLoading(true));
     dispatch(campaignByMemberActions.error(null));
     try {

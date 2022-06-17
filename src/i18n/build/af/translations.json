@@ -692,7 +692,7 @@
       "success": "Communication envoyée",
       "error": "Communication non envoyé, veuillez réessayer un peu plus tard",
       "noMailAvailable": "Aucun mail disponible, pensez à en créer un",
-      "selectToShowPreview": "Sélectionnez un mail pour avoir son apperçu",
+      "selectToShowPreview": "Sélectionnez un mail pour avoir son aperçu",
       "mailSelection": "Choisir un mail",
       "showMail": "Voir le mail",
       "count": "caractères",
@@ -735,13 +735,14 @@
         "recipientList": "Détail par destinataire",
         "noTopLink": "Aucun clic"
       },
-      "kind": { "0": "Email", "1": "SMS" }
+      "kind": { "0": "Email", "1": "SMS", "2": "Notification push" }
     },
     "recipient": {
       "readCount": "Ouverture",
       "clicksCount": "Clic",
       "showEmail": "Voir l'email",
       "showSms": "Voir le SMS",
+      "showNotification": "Voir la notification",
       "status": { "0": "En cours", "1": "En cours", "2": "Refusé", "3": "Attente", "4": "Reçu", "5": "Erreur" },
       "table": {
         "columns": {
@@ -3809,7 +3810,7 @@
       "addButton": "Ajouter une notification",
       "form": {
         "noMailAvailable": "Aucun mail disponible, pensez à en créer un",
-        "selectToShowPreview": "Sélectionnez un mail pour avoir son apperçu",
+        "selectToShowPreview": "Sélectionnez un mail pour avoir son aperçu",
         "mailSettings": "Paramètres du mail",
         "mailTitle": "Mail à envoyer",
         "pushTitle": "Paramètres de la notification",

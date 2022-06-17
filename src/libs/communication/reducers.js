@@ -167,6 +167,9 @@ export default handleActions(
     [campaignBySmartlistActions.isLoading]: (state, { payload }) => {
       return state.setIn(['campaign', 'bySmartlist', 'loading'], payload);
     },
+    [campaignByMemberActions.reset]: (state) => {
+      return state.setIn(['campaign', 'byMember', 'allIds'], []);
+    },
     [campaignByMemberActions.success]: (state, { payload }) => {
       return state
         .setIn(

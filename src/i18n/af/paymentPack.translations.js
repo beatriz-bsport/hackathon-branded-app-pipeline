@@ -169,7 +169,7 @@ exports.default = {
     addButton: 'Ajouter une notification',
     form: {
       noMailAvailable: 'Aucun mail disponible, pensez à en créer un',
-      selectToShowPreview: 'Sélectionnez un mail pour avoir son apperçu',
+      selectToShowPreview: 'Sélectionnez un mail pour avoir son aperçu',
       mailSettings: 'Paramètres du mail',
       mailTitle: 'Mail à envoyer',
       pushTitle: 'Paramètres de la notification',

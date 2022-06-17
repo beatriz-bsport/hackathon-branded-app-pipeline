@@ -9,11 +9,13 @@ import Button from '@material-ui/core/Button';
 import VisibilityOnIcon from '@material-ui/icons/Visibility';
 import MailIcon from '@material-ui/icons/Mail';
 import SmsIcon from '@material-ui/icons/Sms';
+import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare';
 import Divider from '@material-ui/core/Divider';
 
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
+  COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
 import { Campaign, Recipient } from '../types';
 
@@ -103,9 +105,10 @@ const SingleRecipientInfo: React.FC<{
       >
         <VisibilityOnIcon className={classes.leftIcon} />
         {t(
-          kind === COMMUNICATION_KIND_EMAIL
-            ? 'recipient.showEmail'
-            : 'recipient.showSms',
+          (kind === COMMUNICATION_KIND_EMAIL && 'recipient.showEmail') ||
+            (kind === COMMUNICATION_KIND_SMS && 'recipient.showSms') ||
+            (kind === COMMUNICATION_KIND_PUSH_NOTIFICATION &&
+              'recipient.showNotification'),
         )}
       </Button>
     </React.Fragment>
@@ -155,6 +158,9 @@ export const CampaignListItem: React.FC<Props> = ({
           {kind === COMMUNICATION_KIND_SMS && (
             <SmsIcon className={classes.mailIcon} />
           )}
+          {kind === COMMUNICATION_KIND_PUSH_NOTIFICATION && (
+            <MobileScreenShareIcon className={classes.mailIcon} />
+          )}
           <div className={classes.leftPanel}>
             {subject ? (
               <>
@@ -193,9 +199,7 @@ export const CampaignListItem: React.FC<Props> = ({
         {singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
           <SingleRecipientInfo
             recipient={singleRecipientData}
-            onClickShow={() =>
-              onClickShow(interpolate(body || campaign.sms_text))
-            }
+            onClickShow={() => onClickShow(interpolate(body || campaign.text))}
             kind={kind}
           />
         ) : (

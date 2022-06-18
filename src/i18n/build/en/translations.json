@@ -1014,7 +1014,7 @@
             "free": "available slot(s)",
             "confirmed": "Bookings",
             "waiting": "Waitlist",
-            "lastBooking": "Upcoming session",
+            "lastBooking": "Next session",
             "sources": {
                 "MAN": "Manual",
                 "WEB": "Web",
@@ -1698,7 +1698,7 @@
             "compatiblePacks": "Compatible passes",
             "substitute": "Substitute",
             "disabled": "cancelled",
-            "nextOffer": "Upcoming session",
+            "nextOffer": "Next session",
             "previousOffer": "Previous session",
             "backToCalendar": "Calendar",
             "noConsumerPackAvailableForPurchase": "This member doesn't own any compatible pass for this booking.",
@@ -1710,7 +1710,7 @@
             "broadcast_link": "Link to the livestream",
             "effectif": "Available slots",
             "maxBookingsNb": "slots",
-            "nonAttendant": "absent(s)",
+            "nonAttendant": "absentee(s)",
             "attendant": "attendee(s)",
             "noEmptyDuration": "The duration must be positive.",
             "restoreModal": {
@@ -2000,7 +2000,7 @@
     },
     "membership": {
         "selector": {
-            "placeholder": "Search a studio/location/club...",
+            "placeholder": "Search a studio or an establishment...",
             "noMatchingCompany": "No results",
             "explainConsumer": "With <1> BSPORT Solution</2> you've got all your information in one single account!",
             "fetchMore": "Show more"
@@ -2290,7 +2290,7 @@
             "goToSubscription": "See all subscriptions",
             "goToPass": "See all passes",
             "goToCalendar": "Open the calendar",
-            "goToHome": "See all services"
+            "goToHome": "See our entire offer"
         },
         "debt": {
             "explainPayment": "This amount will be paid to the studio to regularize your outstanding debt.",
@@ -3420,7 +3420,7 @@
                 "next": "Next",
                 "chooseTime": {
                     "second": {
-                        "after": "hour(s) after the end of the session.",
+                        "after": "hour(s) after the end of the session",
                         "before": "hour(s) before the start of the session."
                     },
                     "first": "Send this notification",
@@ -3690,7 +3690,7 @@
         },
         "connectedAs": {
             "title": "Login as",
-            "selectRelation": "Select a person:",
+            "selectRelation": "Select a person",
             "info": "Log into one of your connected accounts.",
             "wichUser": "Choose an account:"
         }
@@ -4026,7 +4026,7 @@
             "unknown": "A network error occurred. Try again later.",
             "lost_card": null,
             "stolen_card": null,
-            "no_established_connection": "No payment terminal connected",
+            "no_established_connection": "There are no connected terminals to display.",
             "network_error": "Network error, please try again in a few moments",
             "network_timeout": "Network error, please try again in a few moments",
             "already_connected": "Another payment terminal is already connected",
@@ -4969,7 +4969,7 @@
             "signin": "Log in"
         },
         "or": " or ",
-        "contactUs": "Interested in learning more about how BSPORT Solution helps your boutique studio with all your daily activities?\nContact us for more information.",
+        "contactUs": "Click here if you're interest in learning more about how BSPORT Solution helps your business with automating, streamlining, and simplifying all of your daily tasks.",
         "signup": {
             "title": "Signup"
         },
@@ -5251,7 +5251,7 @@
                     "guestGeneric": "A problem occurred with the reservation for a guest.",
                     "guestOvercomeLimit": "The number of guests added for this reservation exceeds the allowed number.",
                     "guestReachedLimit": "You have already reached the reservation limit for one guest for the current period. It is not possible to make any more.",
-                    "guestSettings": "The studio has disabled the booking for a guest feature.",
+                    "guestSettings": "Inviting guests isn't available.",
                     "guestOffer": "The studio has disabled the booking for a guest feature for this session.",
                     "guestPass": "The studio has disabled the booking for a guest feature for this pass."
                 },
@@ -5278,7 +5278,7 @@
             "sectionTitle": "Events",
             "pleaseSelectABasket": "Select a basket to see the history"
         },
-        "historyTitle": "Basket history",
+        "historyTitle": "History",
         "bookerMethod": {
             "section": {
                 "combo": "Packs",
@@ -5397,7 +5397,7 @@
                 "content": "Are you sure you want to delete this video? This operation is irreversible.",
                 "title": "Delete seating plan"
             },
-            "add": "Add a spot selection",
+            "add": "Add a Spot Scheduling configuration",
             "subtitle": "Add a custom seating plan to your establishment to allow members book their specific spot for your sessions.",
             "title": "Spot Scheduling"
         },
@@ -5604,11 +5604,11 @@
             "submit": "Save",
             "seeUpsell": "Learn more",
             "zoom": {
-                "enabled": "Activate ZOOM integration",
-                "label": "Configuring ZOOM Accounts",
+                "enabled": "Activate the automatic Zoom integration",
+                "label": "Configure Zoom",
                 "explainValid": "We automatically generate your Zoom Meetings 15 minutes before the start of your livestreams. Relevant members will also be automatically notified 15 minutes beforehand so they can join your Meeting Room straight away. Check if you've got a valid Zoom Account. Important: Zoom only allows one connection per licence and non-Premium Zoom Accounts are limited to 40 minute sessions.",
                 "explainInvalid": "Invalid account",
-                "revoke": "Deactivate ZOOM"
+                "revoke": "Deactivate Zoom"
             }
         },
         "active_campaign": {
@@ -5688,7 +5688,7 @@
             },
             "preview": "Preview",
             "saveButton": "Save",
-            "link": "Logout and open the MarketPlace",
+            "link": "Log out and open the MarketPlace",
             "explainMarketplace": "Here you can edit your MarketPlace (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
             "addButton": "Add a tab"
         },
@@ -6443,7 +6443,7 @@
             },
             "invoiceGeneral": "Invoice PDF",
             "stripeTerminal": {
-                "title": "Payment by terminal",
+                "title": "Payment terminals",
                 "connectDialog": {
                     "title": {
                         "edit": "Modifications",
@@ -6451,21 +6451,21 @@
                         "success": "Successfully connected",
                         "error": "Connection failed"
                     },
-                    "success": "Your Stripe payment terminal has been successfully connected",
+                    "success": "Your Stripe Terminal has succesfully connected",
                     "mustCreateStripeLocation": "For your first registration, please fill in the information of the studio where the terminal will be used.",
                     "loading1": "We are trying to establish a connection with your terminal.",
-                    "loading2": "Please wait.",
+                    "loading2": "Please wait",
                     "form": {
                         "readerLabel": "Name of the terminal",
-                        "registrationCode": "Code of the terminal",
+                        "registrationCode": "Terminal code",
                         "registrationCodeHelperText": "Enter the code displayed on your Stripe POS terminal",
                         "connect": "Connect",
                         "continue": "Continue",
                         "retry": "Retry",
                         "update": "Modify"
                     },
-                    "error1": "Your Stripe payment terminal has not been connected.",
-                    "error2": "Please try again."
+                    "error1": "Your Stripe Terminal has not been connected.",
+                    "error2": "Retry"
                 },
                 "paymentDialog": {
                     "minAmountInfo": "The minimum purchase amount for using the terminal is {{amountString}}.",
@@ -6476,8 +6476,8 @@
                         },
                         "title": {
                             "payment": "Payment accepted",
-                            "setupAndPlan": "Registered payment",
-                            "setupOnly": "Registered payment method"
+                            "setupAndPlan": "Payment saved",
+                            "setupOnly": "Payment method saved"
                         }
                     },
                     "paymentFailed": {
@@ -6493,8 +6493,8 @@
                             "label": "Reason for failure :"
                         }
                     },
-                    "radio": "Payment terminal",
-                    "amountToPay": "Amount to be paid",
+                    "radio": "Payment Terminal",
+                    "amountToPay": "Amount due",
                     "connectAndPay": "Send to terminal",
                     "connectionSuccess": {
                         "payment": "The connection with the terminal has been made. The amount to be paid should now be displayed.",
@@ -6507,12 +6507,12 @@
                     }
                 },
                 "helperText": "Use terminals to directly complete transactions from the Back Office and to save time on cutting out all the manual work for physical payments. Please contact your Account Manager for more information.",
-                "addCard": "Add with Stripe terminal",
+                "addCard": "Add Stripe terminal",
                 "deleteDialog": {
                     "title": "Delete",
-                    "content1": "Are you sure you want to remove the payment terminal {{label}} ?",
-                    "content2": "It will no longer appear in the terminals available for payments.",
-                    "content3": "You can connect it again if you wish"
+                    "content1": "Are you sure that you want to remove this payment terminal ({{label}})?",
+                    "content2": "This terminal will no langer appear for physical payments.",
+                    "content3": "Reconnect"
                 },
                 "addReader": "Connect a terminal"
             }
@@ -7017,8 +7017,8 @@
                 "form": {
                     "submit": "Save",
                     "cancel": "Cancel",
-                    "explainWarning": "Beware, this operation can not be reverted!",
-                    "explain": "Next payments and pass will be postpone",
+                    "explainWarning": "Attention: this action can't be undone.",
+                    "explain": "Indicate the number of days that the next and future payments will be postponed with.",
                     "days": {
                         "label": "Number of days"
                     },
@@ -7027,7 +7027,7 @@
                         "label": "Note"
                     },
                     "title": "Paused",
-                    "explainInvoice": "From which invoice (included) do you want to postpone the subscription?"
+                    "explainInvoice": "Select from which invoice you'd like to pause this subscription:"
                 }
             },
             "switchPack": {
@@ -7093,7 +7093,7 @@
             "legal": "Terms",
             "actions": {
                 "iAcceptCondition": "I accept the terms.",
-                "iwanttostarton": "Preferred starting date of my subscription: ",
+                "iwanttostarton": "Preferred starting date of this subscription: ",
                 "subscribe": "Subscribe",
                 "create": "Add a subscription",
                 "iAcceptGeneralCondition": " I accept the terms."
@@ -7267,7 +7267,7 @@
             "dateCreated": "Date of creation",
             "nbInterval": "Number of billings",
             "recurrent_price": "Recurring payment",
-            "paymentPack": "Passes",
+            "paymentPack": "Pass",
             "nbMonths": "Number of billings",
             "dateStart": "First billing",
             "firstBilling": "First billing",
@@ -7370,10 +7370,10 @@
         "noAssociatedSubscription": "There are no saved subscriptions to display.",
         "associatedSubscriptions": "Subscribed members",
         "status": {
-            "hasEnded": "Expired subscription",
+            "hasEnded": "Ended",
             "hasStopped": "Paused",
-            "hasNotStartedYet": "Inactive subscription",
-            "hasStarted": "Valid subscription"
+            "hasNotStartedYet": "Inactive",
+            "hasStarted": "Active"
         },
         "scheduledStop": {
             "label": "Terminated",
@@ -7824,8 +7824,8 @@
                 },
                 "filterComparator": {
                     "0": {
-                        "4": "Content",
-                        "5": "Does not contain"
+                        "4": "Is",
+                        "5": "Is not"
                     },
                     "1": {
                         "0": "Equals",
@@ -8038,7 +8038,7 @@
                 "pushTitle": "Notification settings",
                 "mailSettings": "Email settings",
                 "chooseTime": {
-                    "secondOnOfferStart": "hour(s) before the start of the session",
+                    "secondOnOfferStart": "hour(s) after the end of the session",
                     "secondOnBooking": "hour(s) after the booking",
                     "first": "Send a notification"
                 },
@@ -8087,7 +8087,7 @@
                 },
                 "explain": {
                     "oldDate": "Original: ",
-                    "newDate": "Adjustment: "
+                    "newDate": "New date: "
                 },
                 "warning": "Please check that the new date is included in the same fiscal year as the old one. If not, please check with your accounting this operation is correct.",
                 "nbDays": {
@@ -8369,14 +8369,14 @@
         },
         "disabledPacksTitle": "Archived passes",
         "filters": {
-            "hasCreditNull": "Without credit",
-            "hasCreditLeft": "With credit",
+            "hasCreditNull": "Without credits",
+            "hasCreditLeft": "With credits",
             "isActive": "Active",
             "isExpired": "Expired",
-            "invoice": "Invoice",
-            "reverted": "Invoice cancelled",
-            "notReverted": "Invoice not cancelled",
-            "credits": "Credit(s)",
+            "invoice": "Invoices",
+            "reverted": "Cancelled invoices",
+            "notReverted": "Valid invoices",
+            "credits": "Credits",
             "expiration": "Validity",
             "all": "All passes"
         },
@@ -8848,7 +8848,7 @@
         "manageOffer": "Manage bookings",
         "forms": {
             "old_date": "Original:",
-            "new_date": "Adjustment:",
+            "new_date": "New:",
             "delete": {
                 "buttonHardDelete": "Delete"
             }
@@ -8902,11 +8902,11 @@
             "editSimilarOffers": "Select the sessions that will be modified",
             "noSimilarOffer": "No similar sessions found. Only this session will be affected.",
             "selectCancel": "Select the sessions that will be cancelled",
-            "cancelSimilarOffers": "Would you like to cancel similar sessions?",
+            "cancelSimilarOffers": "Cancel similar sessions",
             "selectDelete": "Select the sessions that will be deleted",
             "deleteSimilarOffers": "Would you like to delete similar sessions?",
             "selectEdit": "Select the sessions that will be modified",
-            "cancelSimilarOffersGroup": "Cancel the session in the other group recurrences?",
+            "cancelSimilarOffersGroup": "Cancelling other sessions associated to this event",
             "deleteSimilarOffersGroups": "Do you want to delete future recurrences of the group",
             "editSimilarOffersGroup": "Change the session in future recurrences of the group?"
         },
@@ -9498,7 +9498,7 @@
                     "title": "Event"
                 },
                 "chooseTime": {
-                    "second_after": "hour(s) after the end of the session.",
+                    "second_after": "hour(s) after the end of the session",
                     "second_before": "hour(s) before the start of the session.",
                     "first": "Send email"
                 },
@@ -9651,12 +9651,12 @@
                 "addGuest": "Add a guest",
                 "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",
                 "addGuestLimit": "You have reached the invitation limit for",
-                "addGuestNumberLeftSeveral": "You can still invite {{number}} people on",
+                "addGuestNumberLeftSeveral": "You can still invite {{number}} people for",
                 "addGuestNumberLeftOne": "You can invite 1 more person on",
                 "frequencyWeekly": "this week.",
                 "frequencyMonthly": "this month.",
-                "frequencyYearly": "the current year.",
-                "frequencyGeneric": "the current period."
+                "frequencyYearly": "this year.",
+                "frequencyGeneric": "this period."
             }
         },
         "setSpot": "Assign a spot",
@@ -10498,7 +10498,7 @@
             "unpaid_private_booking": "Unpaid appointments.",
             "nb_private_bookings": " ",
             "coachName": "Teacher",
-            "total_on_appointments": "Remuneration for appointments",
+            "total_on_appointments": "Remuneration (Appointments)",
             "total_on_sessions": "Remuneration (Group activities & Workshops)",
             "nb_appointments": "Number of appointments",
             "nb_sessions": "Number of sessions",
@@ -11362,7 +11362,7 @@
                 "error": "An error has occurred. Please check the requested settings.",
                 "stripeTerminal": {
                     "deleteReader": {
-                        "success": "Payment terminal removed",
+                        "success": "Payment terminal deleted",
                         "error": "Unable to delete this payment terminal"
                     }
                 }
@@ -12136,10 +12136,10 @@
             "pointer": "Cursor"
         },
         "placeCount": "{{count}} spot(s)",
-        "roomBlueprints": "Spot selection",
+        "roomBlueprints": "Spot Scheduling",
         "saveError": "Error",
         "errorLessSpotThanEffectif": "Cannot save. The spot selection must contain more space than the size of the session capacity",
-        "saved": "Spot selection saved",
+        "saved": "Saved",
         "effectifError": "The number of places must be greater than or equal to the size of the session",
         "searchHelper": "(Optional) Members may use the Spot Scheduling plan to book their preferred spot in the establishment",
         "search": "Search a plan for Spot Scheduling",

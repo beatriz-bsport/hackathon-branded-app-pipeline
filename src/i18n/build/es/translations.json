@@ -1230,7 +1230,8 @@
                     "invoice": "Compras",
                     "payment": "Pagos",
                     "booking": "Reservas",
-                    "member": "Nuevos miembros"
+                    "member": "Nuevos miembros",
+                    "privateBooking": "Cita"
                 },
                 "graphComponent": "Representación deseada",
                 "datatype": "Tipo de gráfico",
@@ -1248,7 +1249,8 @@
                     "qualitativeBooking": "División",
                     "temporalBooking": "Evolución en el tiempo",
                     "temporalTimeslotBooking": "Frecuencias diarias y horarias",
-                    "temporalMember": "Evolución en el tiempo"
+                    "temporalMember": "Evolución en el tiempo",
+                    "temporalPrivateBooking": "Evolución en el tiempo"
                 },
                 "aggregateHelper": "Ej: muestra la evolución del número total de miembros, en lugar del número de nuevos miembros, cada mes.",
                 "aggregate": "Acumular",
@@ -1261,6 +1263,17 @@
             "popover": "El número total de reservas registradas para esa fecha. Puede filtrar las cancelaciones / cancelaciones tardías / ...",
             "caption": "Reservas guardadas",
             "title": "Reservas"
+        },
+        "noGraphToDisplay": "No hay gráficos configurados en esta pestaña. Añade uno aquí.",
+        "privateBooking": {
+            "title": "cita",
+            "caption": "Citas registradas",
+            "popover": "El número total de citas registradas para esta fecha. Puede filtrar las cancelaciones / reembolsos / ..."
+        },
+        "tabNameDialog": {
+            "titleAdd": "Añadir una nueva pestaña",
+            "titleRename": "Cambiar el nombre de la pestaña",
+            "placeholder": "Nombre"
         }
     },
     "stripe": {
@@ -1657,7 +1670,8 @@
             "address_line_2": "Dirección línea 2",
             "address_line_1": "Dirección línea 1",
             "address": "Dirección",
-            "search_address": "Buscar una dirección"
+            "search_address": "Buscar una dirección",
+            "state": "Estado"
         },
         "spotScheduling": {
             "add": "Añadir un plan de asientos",
@@ -2484,7 +2498,51 @@
                 },
                 "title": "Suscripción"
             },
-            "invoiceGeneral": "Factura en PDF"
+            "invoiceGeneral": "Factura en PDF",
+            "stripeTerminal": {
+                "title": "Pago por terminal",
+                "helperText": "Utilice un terminal de pago para pagar las facturas de sus clientes desde la oficina. Gracias al terminal, ahorre tiempo cobrando a sus clientes sin tener que pedirles sus datos bancarios. Para más información, póngase en contacto con su gestor de cuentas.",
+                "addReader": "Conectar un terminal",
+                "addCard": "Añadir el terminal Stripe",
+                "deleteDialog": {
+                    "title": "Supresión",
+                    "content1": "¿Está seguro de que quiere eliminar el terminal de pago {{label}}?",
+                    "content2": "Ya no aparecerá en los terminales disponibles para los pagos.",
+                    "content3": "Puedes conectarlo de nuevo si lo deseas"
+                },
+                "connectDialog": {
+                    "title": {
+                        "connect": "Conexión",
+                        "success": "Conexión correcta",
+                        "error": "Fallo de conexión",
+                        "edit": "Modificación"
+                    },
+                    "mustCreateStripeLocation": "Para su primer registro, rellene los datos del estudio donde se utilizará el terminal.",
+                    "loading1": "Estamos intentando establecer una conexión con su terminal.",
+                    "loading2": "Gracias por esperar.",
+                    "form": {
+                        "registrationCode": "Código del terminal",
+                        "registrationCodeHelperText": "Introduzca el código que aparece en su terminal POS de Stripe",
+                        "connect": "Conectar",
+                        "continue": "Seguir",
+                        "retry": "Intentar de nuevo",
+                        "update": "Editar",
+                        "readerLabel": "Nombre del terminal"
+                    },
+                    "success": "Su terminal de pago Stripe se ha conectado con éxito",
+                    "error1": "Su terminal de pago Stripe no se ha conectado.",
+                    "error2": "Por favor, inténtalo de nuevo."
+                },
+                "paymentDialog": {
+                    "radio": "Terminal de pago",
+                    "amountToPay": "Importe a pagar",
+                    "connectAndPay": "Enviar al terminal",
+                    "minAmountInfo": "El pago por terminal de pago no está disponible para los importes inferiores a {{amountString}}.",
+                    "connectionSuccess": {
+                        "payment": "La conexión con el terminal se ha realizado. Ahora debería aparecer el importe a pagar."
+                    }
+                }
+            }
         },
         "section": {
             "paymentList": {
@@ -2918,7 +2976,9 @@
         },
         "search": "Buscar un profesor",
         "selector": {
-            "label": "Profesor"
+            "label": "Profesor",
+            "enabled": "Profesores activos",
+            "disabled": "Profesores archivados"
         },
         "pleaseFill": "Por favor informa a un profesor",
         "color": "Código de color",
@@ -2943,7 +3003,8 @@
             "student": "alumno",
             "info": "Hemos detectado que usted es profesor en este estudio. ¿Desea acceder a su área de estudiantes o a su área de profesores?",
             "access": "Acceso"
-        }
+        },
+        "numberCoaches": "{{ number }} Profesores"
     },
     "subscription": {
         "table": {
@@ -4306,7 +4367,9 @@
             "notCancelled": "No cancelado",
             "isUnpaid": "Reservas impagadas",
             "isPaid": "Reservas pagadas",
-            "paid": "Pago"
+            "paid": "Pago",
+            "pickCoach": "Buscar un profesor...",
+            "coach": "Profesor"
         },
         "actions": {
             "bill": "Facturar",
@@ -4441,7 +4504,8 @@
                 "title": "Programar una recurrencia",
                 "startFromDate": {
                     "label": "Empieze la reserva recurrente el "
-                }
+                },
+                "groupWarning": "Tenga en cuenta que no es posible crear una repetición de reservas para grupos de sesiones"
             },
             "recurrentRuleBooking": "Reserva recurrente",
             "item": {
@@ -4519,7 +4583,18 @@
             "bookingsTitle": "Reservar ahora",
             "addSession": "Añadir una sesión",
             "bookingForMe": "yo",
-            "bookingsTitleFor": "Estoy reservando para {{name}}"
+            "bookingsTitleFor": "Estoy reservando para {{name}}",
+            "bookingForAGuest": {
+                "warningLeveledSession": "Esta sesión es para personas con el nivel: {{level}}. Asegúrate de que la persona que invitas tiene el nivel esperado.",
+                "addGuestNumberLeftSeveral": "Puedes invitar de nuevo {{number}} personas en",
+                "addGuest": "Añadir un invitado",
+                "addGuestLimit": "Ha alcanzado el límite de invitaciones para",
+                "addGuestNumberLeftOne": "Puedes invitar a 1 persona más en",
+                "frequencyWeekly": "esta semana.",
+                "frequencyMonthly": "este mes.",
+                "frequencyYearly": "el año en curso.",
+                "frequencyGeneric": "el período actual."
+            }
         },
         "placeNumber": "Sitios {{count}}",
         "noSpotAttributed": "No hay lugar asignado",
@@ -4540,7 +4615,8 @@
                 "actions": {
                     "submit": "Validar",
                     "close": "Cerrar",
-                    "addGuest": "Añadir invitado"
+                    "addGuest": "Añadir invitado",
+                    "limitGuest": "(Ningún bono permite añadir invitados)"
                 },
                 "email": {
                     "label": "Correo electrónico"
@@ -4943,7 +5019,12 @@
         "subscription": {
             "isEmpty": "No tienes ninguna suscripción en curso"
         },
-        "Basket": "Mi cesta"
+        "Basket": "Mi cesta",
+        "appbar": {
+            "profile": "Ir a mi perfil",
+            "logout": "Desconexión",
+            "login": "Conexión"
+        }
     },
     "coupon": {
         "code": {
@@ -7154,7 +7235,15 @@
                 "explain": "Tu transacción ha sido procesada. Te enviaremos un correo electrónico de confirmación.",
                 "recap": "Resumen",
                 "error": "Error",
-                "errorExplain": "Esta operación no se ha podido realizar. Por favor, inténtelo de nuevo."
+                "errorExplain": {
+                    "guestOvercomeLimit": "El número de invitados añadidos para esta reserva excede el número permitido.",
+                    "guestOffer": "El estudio ha desactivado la función de reserva de invitados para esta sesión.",
+                    "generic": "La operación no se ha podido realizar. Por favor, inténtalo de nuevo.",
+                    "guestGeneric": "Hubo un problema con la reserva de un invitado.",
+                    "guestReachedLimit": "Ya ha alcanzado el límite de reservas para un invitado en el período actual. No es posible hacer más.",
+                    "guestSettings": "El estudio ha desactivado la función de reserva de invitados.",
+                    "guestPass": "El estudio ha desactivado la función de reserva de invitados para esta tarjeta de curso."
+                }
             },
             "actions": {
                 "back": "Anteriormente",
@@ -7345,7 +7434,12 @@
         "monthly": "Mensual",
         "weekly": "Semanal",
         "showLess": "Ver menos",
-        "showMore": "Ver más ({{count}})"
+        "showMore": "Ver más ({{count}})",
+        "start": "Iniciar",
+        "next": "Siguiente",
+        "previous": "Anterior",
+        "letsGo": "¡Vamos!",
+        "finish": "Finalizar"
     },
     "snackbar": {
         "invoice": {

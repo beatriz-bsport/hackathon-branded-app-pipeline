@@ -348,7 +348,28 @@ class Calendar extends PureComponent<Props, State> {
 
     switch (this.state.displayMode) {
       case WEEKMODE:
-        return this.renderWeekFrom(dateSelected.clone().startOf('week'));
+        return (
+          <>
+            <div className={this.props.classes.weekRowContainer}>
+              {moment.weekdaysShort(true).map((wds: string) => (
+                <div
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  key={wds}
+                >
+                  <Typography variant="caption" color="textSecondary">
+                    {wds[0]}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+            {this.renderWeekFrom(dateSelected.clone().startOf('week'))}
+          </>
+        );
       case MONTHMODE:
       default:
         return this.renderMonthFrom(

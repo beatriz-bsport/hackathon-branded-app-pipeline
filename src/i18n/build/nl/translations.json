@@ -1670,7 +1670,7 @@
                 "submit": "Opslaan"
             },
             "manager_only": {
-                "label": "Maak dit product onbeschikbaar voor leden"
+                "label": "Onbeschikbaar voor leden"
             },
             "tax": {
                 "label": "Btw"
@@ -1885,7 +1885,7 @@
             "infoGoingBack": "Dit kan later voltooid worden, indien je nu de pagina verlaat.",
             "companyStripeName": "Stripe-account",
             "paymentMethodTitle": "Selecteer een betaalmethode",
-            "redirecting": "Redirecting you to Stripe...",
+            "redirecting": "Doorverwijzen naar Stripe...",
             "stripeConfigurationExplain": "Je wordt doorverwezen naar Stripe. Zodra dit formulier voltooid is wordt je teruggestuurd naar je BSPORT Back Office.",
             "managerIbanExplain": "Selecteer op welke rekening je de uitbetalingen vanuit BSPORT wilt ontvangen",
             "congrats": "Gefeliciteerd!",
@@ -2579,7 +2579,7 @@
                     "label": "De vervaldatum indien deze kaart niet gebruikt wordt:",
                     "helperText": "De geldigheid van deze kaart verloopt na X aantal dagen als het niet gebruikt wordt."
                 },
-                "managerOnly": "Maak dit product onbeschikbaar voor leden",
+                "managerOnly": "Onbeschikbaar voor leden",
                 "helper": {
                     "starting_date": "Begin van de geldigheid van de leskaart. Laat dit veld leeg om het direct geldig te maken.",
                     "ending_date": "Einde van de geldigheid van de leskaart. Als dit veld leeg is blijft de leskaart geldig."
@@ -2968,7 +2968,7 @@
         "whiteList": "Goedgekeurde tags",
         "accessibility": {
             "onsitePayment": "Fysieke betalingen worden geaccepteerd",
-            "managerOnly": "Maak dit product onbeschikbaar voor leden",
+            "managerOnly": "Onbeschikbaar voor leden",
             "newMembers": "Maak dit product alleen voor nieuwe leden beschikbaar"
         },
         "activities": "Activiteiten",
@@ -3015,7 +3015,7 @@
         },
         "validityTo": " tot ",
         "addPaymentPack": {
-            "notForSell": "Maak dit product onbeschikbaar voor leden",
+            "notForSell": "Onbeschikbaar voor leden",
             "limited": "Beperkt",
             "sumNotZero": "Het aantal dagen kan niet 0 zijn",
             "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
@@ -3868,7 +3868,7 @@
         "detail": {
             "pack": {
                 "noCompatiblePass": "Geen compatibele leskaart",
-                "consumerPacks": "Gekocht door",
+                "consumerPacks": "Aangeschaft door",
                 "paymentPacks": "Compatibele kaarten"
             },
             "tab": {
@@ -4262,7 +4262,7 @@
                 "welcome": "Hoi, {{firstname}}!"
             },
             "title": "[Formulier] Inschrijfformulier",
-            "newMemberOnlyHelperText": "Een lid wordt als \"nieuw\" gemarkeerd indien de persoon niet meer dan {{ currency }}0 heeft besteed. Attentie: een nieuw lid verliest de status \"nieuw\" indien de persoon een product aanschaft met een korting t.w.v. 100%."
+            "newMemberOnlyHelperText": "Een lid wordt als \"nieuw\" gemarkeerd indien de persoon niet meer dan {{ currency }}0 heeft besteed. Een nieuw lid verliest ook de status \"nieuw\" indien de persoon een product aanschaft met een korting t.w.v. 100%."
         },
         "user": {
             "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
@@ -4883,7 +4883,7 @@
         },
         "warning": {
             "disconnect": "Afmelden",
-            "backToBackoffice": "Mijn Back Office openen",
+            "backToBackoffice": "Terug naar Back Office",
             "isManager": "Momenteel ben je met een medewerkersaccount verbonden. Meld je af om de ledenweergave te bekijken of ga terug naar de Back Office."
         },
         "workshop": {
@@ -5115,7 +5115,7 @@
                     "label": "Voorwaarden"
                 },
                 "managerOnly": {
-                    "label": "Maak dit product onbeschikbaar voor leden"
+                    "label": "Onbeschikbaar voor leden"
                 },
                 "autoRenewal": {
                     "label": "Automatisch verlengen"
@@ -5772,7 +5772,7 @@
                 "alert": "Een afbeelding is vereist"
             },
             "manager_only_helper": "Maak deze video onbeschikbaar voor leden én alleen zichtbaar voor medewerkers met de juiste bevoegdheden.",
-            "manager_only": "Deze video onbeschikbaar maken",
+            "manager_only": "Onbeschikbaar voor leden",
             "duplicate": "Dupliceren",
             "rental": {
                 "buyDate": "Aankooptijd",
@@ -6003,7 +6003,7 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Afmelden en mijn MarketPlace openen",
+            "link": "Afmelden en MarketPlace openen",
             "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je agenda, webshop, kaarten, enz.). In dit onderdeel kan de MarketPlace verder gepersonaliseerd worden.",
             "addButton": "Een tabblad toevoegen"
         },
@@ -6282,10 +6282,10 @@
             "searchSlot": "Tijdstip",
             "search": "Tijdstip",
             "selectCoach": "Alle instructeurs",
-            "emptyDateList": "Geen beschikbaarheid vandaag",
+            "emptyDateList": "Er is geen beschikbaarheid om weer te geven.",
             "bookableSlots": {
                 "title": "Beschikbare plaatsen",
-                "isEmpty": "Geen plaatsen beschikbaar"
+                "isEmpty": "Geen beschikbaarheid"
             },
             "groupIdentifier": {
                 "evening": {
@@ -6489,7 +6489,7 @@
                 },
                 "title": "[Formulier] Afspraakkaart",
                 "managerOnly": {
-                    "label": "Maak dit product onbeschikbaar voor leden"
+                    "label": "Onbeschikbaar voor leden"
                 },
                 "name": {
                     "label": "Naam",
@@ -6589,7 +6589,7 @@
                 "nbCredits_plural": "{{ credits }} kredieten",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
-                "managerOnly": "Maak dit product onbeschikbaar voor leden"
+                "managerOnly": "Onbeschikbaar voor leden"
             },
             "compatibleServices": {
                 "title": "Compatibele afspraken",
@@ -6627,7 +6627,7 @@
                     "label": "Naam"
                 },
                 "managerOnly": {
-                    "label": "Maak dit product onbeschikbaar voor leden"
+                    "label": "Onbeschikbaar voor leden"
                 },
                 "last_discard_minutes": {
                     "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
@@ -6658,7 +6658,7 @@
                 },
                 "use_full_establishment_capacity": {
                     "label": "Vereist de gehele vestiging",
-                    "helperText": "Schakel het selectievakje uit om tegelijkertijd meerdere activiteiten/afspraken in dezelfde ruimte toe te staan als de capaciteit dit toelaat."
+                    "helperText": "Activeer Dynamic Resource Management om tegelijkertijd meerdere activiteiten in dezelfde ruimte toe te staan als de capaciteit dit toelaat."
                 },
                 "title": "Afspraak",
                 "createButton": "Een afspraak toevoegen",
@@ -6830,7 +6830,7 @@
             },
             "allocationWarning": {
                 "showCalendar": "Toon de kalender",
-                "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip",
+                "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip.",
                 "coach": "Deze instructeur is niet beschikbaar op dit tijdstip.",
                 "title": "Er is geen beschikbaarheid om weer te geven.",
                 "loading": "Beschikbaarheid controleren",
@@ -9940,7 +9940,7 @@
             "amountRemaining": "Resterend bedrag: {{ amount }}",
             "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
             "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt.",
-            "errorSecretExplain1": "Deze betaalmethode is momenteel onbeschikbaar",
+            "errorSecretExplain1": "Deze betaalmethode is momenteel onbeschikbaar.",
             "plannedPaymentEvent": {
                 "title": "Geplande betaling",
                 "title_plural": "Geplande betalingen"
@@ -11266,7 +11266,7 @@
         "form": {
             "giftcard": {
                 "manager_only": {
-                    "label": "Maak dit product onbeschikbaar voor leden"
+                    "label": "Onbeschikbaar voor leden"
                 },
                 "unlimited": {
                     "label": "Onbeperkt"

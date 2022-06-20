@@ -2701,8 +2701,8 @@
                 },
                 "pleaseSelectCoachAndSlot": "Firstly select a teacher and a time slot.",
                 "cancel": "Cancel",
-                "compatiblePrivatePass": "Bill an appointment pass",
-                "compatiblePrivateConsumerPass": "Appointment passes owned by member:",
+                "compatiblePrivatePass": "Quick Billing",
+                "compatiblePrivateConsumerPass": "Available appointment passes",
                 "emptyPrivateConsumerPass": "This member doesn't own any appointment pass.",
                 "emptyPrivatePass": "There are no compatible appointment passes to display.",
                 "privateConsumerPassNeedRefresh": "Refresh"
@@ -2817,7 +2817,7 @@
             "emptyDateList": "There's no availability to display for today.",
             "bookableSlots": {
                 "title": "Available slots",
-                "isEmpty": "No available slots"
+                "isEmpty": "No availability"
             },
             "groupIdentifier": {
                 "evening": {
@@ -5088,32 +5088,32 @@
                 }
             },
             "paymentMethodSuccess": "The payment method indicated is valid. You can always change it in the Bsport subscription settings.",
-            "welcomeDescription": "We are pleased to welcome you to your new platform. Before you begin your experience, we are missing some information.",
-            "infoGoingBack": "If you leave the page now, you can pick up at the same place on your return.",
+            "welcomeDescription": "We are pleased to welcome you to your new platform. Please complete the following steps to get started with the platform.",
+            "infoGoingBack": "This can be completed later if you leave this page.",
             "accountSuccess": "Your Stripe account has been created. You can change this information later in the back office in the company settings.",
             "goToBackoffice": "Click on \"Let's go\" to be redirected to the back office.",
             "bankAccountSuccess": "Your IBAN is validated. You can change this information later in the backoffice in the company settings.",
-            "welcomeTitle": "Welcome to Bsport",
+            "welcomeTitle": "Welcome to BSPORT!",
             "stripeStep": "Stripe configuration",
             "welcomeConfigure": "Set up your account in just {{numberOfSteps}} step!",
             "welcomeConfigure_plural": "Set up your account in just {{numberOfSteps}} steps!",
-            "ibanStep": "IBAN information",
+            "ibanStep": "IBAN",
             "cardStep": "Payment method",
-            "finishStep": "Finished!",
-            "createStripe": "Create your stripe account",
-            "configureStripe": "Set up your stripe account. It is necessary for your customers to make their purchases and payments online.",
+            "finishStep": "Complete!",
+            "createStripe": "Stripe",
+            "configureStripe": "It's required to configure your Stripe account to continue.",
             "companyName": "Company name",
             "companyAdress": "Address",
-            "configureStripeAction": "Setting up Stripe",
-            "stripeConfiguration": "Setting up Stripe",
-            "stripeConfigurationExplain": "You will be redirected to the stripe form. Once this step is completed your information will be automatically registered on Bsport.",
+            "configureStripeAction": "Stripe configuration",
+            "stripeConfiguration": "Stripe configuration",
+            "stripeConfigurationExplain": "You'll be redirected to Stripe. Completing the form will return you to your Back Office to complete the configuration.",
             "redirecting": "Redirecting you to Stripe...",
             "companyStripeName": "Stripe account",
-            "managerIbanExplain": "Indicate to which account you wish to receive the amounts paid online via Bsport",
-            "paymentMethodTitle": "Indicate your payment method",
-            "paymentMethodExplain": "Enter the payment method you wish to use to pay your subscription to Bsport",
+            "managerIbanExplain": "Select the bank account on which you'd like to receive the payouts through BSPORT",
+            "paymentMethodTitle": "Select your payment method",
+            "paymentMethodExplain": "Select the payment method that you'd like to use for the BSPORT billing",
             "congrats": "Congratulations!",
-            "finishExplain": "Your configuration is complete, you can now use Bsport."
+            "finishExplain": "The configuration is complete. You can now use BSPORT."
         }
     },
     "waitingList": {
@@ -8863,7 +8863,7 @@
                 "lastname": "Sort by: last name",
                 "firstname": "Sort by: first name"
             },
-            "unevenQuickInvoices": "There are open invoices without any payment methods on this page. Are you sure you want to quit?"
+            "unevenQuickInvoices": "There are open invoices without any payment methods on this page. Are you sure that you want to quit?"
         },
         "massDisabler": {
             "actions": {

@@ -13,15 +13,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 // import Collapse from '@material-ui/core/Collapse';
 // import ButtonBase from '@material-ui/core/ButtonBase';
 // import Typography from '@material-ui/core/Typography';
 // import List from '@material-ui/core/List';
 // import Switch from '@material-ui/core/Switch';
 
-import { makeStyles } from '@material-ui/core';
-
-import RedButton from '../../../components/button/RedButton.component';
+import RedButton from '#components/button/RedButton.component';
 
 import type { Booking } from '../types';
 
@@ -87,14 +87,12 @@ export function RevertBookingDialog(props: Props) {
   }
   if (bookingToRevert.consumer_payment_pack) {
     return (
-      <Dialog
+      <GenericResponsiveDialog
+        maxWidth="sm"
         open={!!bookingToRevert}
         onClose={closeRevertBookingDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        classes={{
-          paper: classes.dialog,
-        }}
       >
         <DialogTitle id="alert-dialog-title">
           {t('booking.revertBookingTitle')}
@@ -225,7 +223,7 @@ export function RevertBookingDialog(props: Props) {
             </React.Fragment>
           )}
         </DialogActions>
-      </Dialog>
+      </GenericResponsiveDialog>
     );
   }
   return (
@@ -256,9 +254,6 @@ export function RevertBookingDialog(props: Props) {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  dialog: {
-    minWidth: 600,
-  },
   similarListHeader: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import '../../vendor/map.css';
@@ -15,8 +14,6 @@ import {
   bridgeRequestAuthenticationStatus,
 } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
-
-const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
 type OwnProps = {
   companyId: number,
@@ -77,7 +74,7 @@ class WorkshopWidget extends Component<Props, State> {
 
     return (
       <div className={classes.container}>
-        <MarketplaceWorkshopBaseStyled
+        <MarketplaceWorkshopBase
           {...this.props}
           companyId={this.props.companyId}
           filters={this.state.filters}

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
-import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
+// We need to use the referencre to the bsport saas instance of material ui
+// otherwise it is considered as two different provider
+import {
+  MuiThemeProvider,
+  withStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import URI from 'urijs';
 import i18n from 'bsport-saas/src/i18n';
@@ -18,6 +23,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR_DEPRECATED,
 } from 'bsport-saas/src/libs/exportable-components/constants';
 
 // eslint-disable-next-line
@@ -63,6 +69,9 @@ const GiftcardWidget = asyncComponent(
 const CalendarWidget = asyncComponent(
   () => import('./widgets/Calendar.widget'),
 );
+const CalendarV2Widget = asyncComponent(
+  () => import('./widgets/CalendarV2.widget'),
+);
 const VODWidget = asyncComponent(() => import('./widgets/Vod.widget'));
 const PrivateServiceWidget = asyncComponent(
   () => import('./widgets/PrivateService.widget'),
@@ -96,7 +105,8 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION]: SubscriptionWidget,
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER]: NewsletterWidget,
   [EXPORTABLE_COMPONENT_TYPE_GIFTCARD]: GiftcardWidget,
-  [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,
+  [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarV2Widget,
+  [EXPORTABLE_COMPONENT_TYPE_CALENDAR_DEPRECATED]: CalendarWidget,
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]: PaymentPackTemplate,
 };
 
@@ -174,7 +184,8 @@ class BsportWidget extends Component<Props> {
         </div>
       );
     }
-    const Widget = WidgetByType[widgetType] || CalendarWidget;
+
+    const Widget = WidgetByType[widgetType] || CalendarV2Widget;
 
     const companyId =
       this.props.companyId || (this.props.franchisor?.companies || [])[0]?.id;

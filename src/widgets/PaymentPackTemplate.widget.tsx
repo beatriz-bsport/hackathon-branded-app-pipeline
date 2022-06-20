@@ -6,7 +6,7 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import WidgetPaymentPackTemplateListPage from 'bsport-saas/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import { MarketplacePaymentPackTemplateData } from '../../../bsport-saas/src/libs/marketplace/types';
+import { MarketplacePaymentPackTemplateData } from 'bsport-saas/src/libs/marketplace/types';
 import { buildFranchiseSelectionThenCheckoutUrl } from './utils';
 
 const WidgetPaymentPackTemplateListPageStyled = themify(

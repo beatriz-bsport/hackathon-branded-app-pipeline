@@ -2270,7 +2270,7 @@
             "discard": "Cancel",
             "bookAgain": "Book again",
             "accessLive": "Access livestream",
-            "spotNumber": "Place {{count}}",
+            "spotNumber": "Place: {{count}}",
             "isUnpaid": "Outstanding payment"
         },
         "dashboard": {
@@ -2299,10 +2299,10 @@
             "regularize": "Regularize"
         },
         "unsubscriber": {
-            "success": "You've been unsubscribed.",
+            "success": "You've unsubscribed.",
             "error": "Error while unsubscribing",
             "doUnsubscribe": "Unsubscribe",
-            "explain": "Are you sure that you want to unsubscribe from your studio's newsletter?"
+            "explain": "Are you sure that you want to unsubscribe from of this studio's newsletters?"
         },
         "myVideos": {
             "title": "My videos",
@@ -2521,8 +2521,8 @@
         "dialogReceiverChoice": {
             "reservation": "Bookings",
             "waitingList": "Waitlist",
-            "title": "Select the recipients",
-            "canceledReservation": "Cancelled bookings"
+            "title": "[Form] Recipients",
+            "canceledReservation": "Cancellations"
         },
         "campaign": {
             "recipientCount": "Recipients: {{ total_recipients }}",
@@ -5484,7 +5484,7 @@
             "0": "On hold",
             "700": "Paid",
             "1100": "Cancelled",
-            "1200": "On site delivery",
+            "1200": "Click & Collect",
             "9000": "Sent"
         },
         "table": {
@@ -5503,14 +5503,14 @@
         },
         "actions": {
             "flagAsCancelled": "Cancel",
-            "flagAsOnSiteDelivery": "To collect",
+            "flagAsOnSiteDelivery": "Click & Collect",
             "flagAsSent": "Sent"
         },
         "detail": {
             "section": {
                 "title": "Order status:",
                 "deliveryInfo": "Delivery address",
-                "productDetail": "Order overview",
+                "productDetail": "Overview",
                 "invoice": "Related invoice",
                 "member": "Buyer"
             }
@@ -5530,7 +5530,7 @@
             },
             "forms": {
                 "create": "Add a delivery fee",
-                "title": "Delivery fee form",
+                "title": "[Form] Delivery fee",
                 "feeLabel": "Delivery fee",
                 "nameLabel": "Name",
                 "freeThresholdLabel": "Free delivery from",
@@ -6537,8 +6537,8 @@
         "invoice": {
             "editor": {
                 "title": "Invoicing",
-                "save": "Issue the invoice",
-                "sumup": "Sum up"
+                "save": "Issue invoice",
+                "sumup": "Overview"
             },
             "title": "Invoice {{ uuid }}",
             "header": {
@@ -8257,7 +8257,7 @@
             "bookingsTitle": "Associated bookings",
             "extensionsTitle": "Validity extension",
             "refundTitle": "Associated reimbursement",
-            "trackModifiedCreditTitle": "Credit history changed",
+            "trackModifiedCreditTitle": "History",
             "penaltyAccount": "Additional billing of {{account_value}} {{currencyDisplay }}",
             "penaltyBlock": "This pass is blocked for {{nb_days}} day(s).",
             "penaltyTitle": "Penalties applied"
@@ -8928,7 +8928,7 @@
         "tagManagementInfo": "{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized",
         "levels": {
             "modal": {
-                "title": "Change the level",
+                "title": "Custom levels",
                 "name": "Name",
                 "nameCaption": "{{max}} characters max ({{count}}/{{max}})",
                 "color": "Colour code",
@@ -9387,7 +9387,7 @@
         },
         "details": {
             "pleaseSelectABooking": "Select a booking to display further details.",
-            "title": "Booking details",
+            "title": "Details",
             "offerTitle": "Associated session",
             "consumerPaymentPackTitle": "Used pass"
         },
@@ -9803,7 +9803,7 @@
             "memberForm": "Add a member"
         },
         "invoice": {
-            "invoiceEdit": "Edit Invoice",
+            "invoiceEdit": "Invoice",
             "invoiceCreatePage": "Create Invoice",
             "invoiceList": "Invoices",
             "invoiceCreate": "Bill"
@@ -10376,7 +10376,7 @@
             },
             "501": {
                 "explanation": "Display an overview of members' last booking",
-                "second": "days ago without any upcoming future bookings.",
+                "second": "day(s) ago and no upcoming bookings have been registered.",
                 "first": "The last booking was more than",
                 "name": "Last booking"
             },
@@ -10479,7 +10479,7 @@
                 "1": "Non-archived",
                 "0": "Archived and Non-archived"
             },
-            "helperText": "This Smartlist applies to all members."
+            "helperText": "Select which members you'd like to display in this Smartlist"
         }
     },
     "coachPerformance": {

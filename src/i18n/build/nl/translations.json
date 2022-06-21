@@ -89,7 +89,7 @@
             "titlePrivateBooking": "Afspraken",
             "titleBooking": "Groepsactiviteiten",
             "accessLive": "Online les openen",
-            "spotNumber": "Plaats {{count}}",
+            "spotNumber": "Plaats: {{count}}",
             "isUnpaid": "Openstaande betaling"
         },
         "pack": {
@@ -125,7 +125,7 @@
             "success": "Je bent uitgeschreven.",
             "error": "Fout tijdens het uitschrijven",
             "doUnsubscribe": "Uitschrijven",
-            "explain": "Wil je je voor alle nieuwsbrieven van de studio uitschrijven?"
+            "explain": "Weet je zeker dat je je voor alle nieuwsbrieven van deze studio wilt uitschrijven?"
         },
         "myVideos": {
             "title": "Mijn video's",
@@ -5742,7 +5742,7 @@
                 "confirm": {
                     "button": "Bevestigen",
                     "unlimitedToRent": "Deze video wordt een permanent beschikbare video i.p.v. een huurvideo. Alle leden die het gekocht hebben zullen de toegang verliezen indien de vervaldatum in het verleden ligt. Weet je zeker dat je verder wilt?",
-                    "rentToUnlimited": "Deze video wordt een huurvideo i.p.v. een die permanent beschikbaar is. Alle leden die het (voorheen) gekocht hebben kunnen deze video bekijken. Weet je zeker dat je verder wilt?",
+                    "rentToUnlimited": "Deze video wordt een huurvideo i.p.v. een video die permanent beschikbaar is. Alle leden die het (voorheen) gekocht hebben kunnen deze video bekijken. Weet je zeker dat je verder wilt?",
                     "title": "Geldigheidsduur"
                 }
             },
@@ -6015,7 +6015,7 @@
             "methodPaymentSubscription": "Terugkerende betalingen",
             "save": "Opslaan",
             "methodPaymentSubscriptionError": "Selecteer ten minste één betaalmethode",
-            "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen (contracten) wilt accepteren:",
+            "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen wilt accepteren:",
             "methodPaymentBasketHelper": "Selecteer welke betaalmethode(n) je voor eenmalige betalingen wilt accepteren:",
             "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
             "subtitle": "Je kunt bepaalde betaalmethoden voor je leden aan- en/of uitzetten.",
@@ -7338,7 +7338,7 @@
                 "invalidBonusAmount": "De bonus moet gelijk of groter dan 0,1 zijn.",
                 "nameRequired": "Dit veld is verplicht.",
                 "invalidMaximum": "Het maximumtarief moet groter dan het minimumtarief zijn.",
-                "invalidCancelledBookingRules": "Als je verschillende bonussen voor afwezige studenten wilt gebruiken, dan moet je hieronder minimaal één type payroll-regel instellen.",
+                "invalidCancelledBookingRules": "Configureer hier minimaal één payroll-regel voor afwezigenen te late annuleringen.",
                 "invalidMinimum": "Het minimumtarief moet groter of gelijk aan het vaste bedrag zijn.",
                 "uniqueRuleForPrivateSlot": "Deze afspraak staat meerdere keren in de lijst",
                 "invalidCoachPaymentRule": "Selecteer een payroll-regel",
@@ -10289,7 +10289,7 @@
                 "name": "Systeembeheerder"
             },
             "3": {
-                "description": "Gebruik deze Rol als je wilt dat leden zichzelf via je tablet inchecken. Contacteer je contactpersoon bij BSPORT voor meer informatie.",
+                "description": "Gebruik deze Rol als je wilt dat leden zichzelf autonoom via je tablet(s) inchecken. Contacteer je contactpersoon bij BSPORT voor meer informatie.",
                 "name": "Check-in | Tablet"
             },
             "2": {

@@ -2270,7 +2270,7 @@
             "discard": "Cancel",
             "bookAgain": "Book again",
             "accessLive": "Access livestream",
-            "spotNumber": "{{count}} spot(s)",
+            "spotNumber": "Place {{count}}",
             "isUnpaid": "Outstanding payment"
         },
         "dashboard": {

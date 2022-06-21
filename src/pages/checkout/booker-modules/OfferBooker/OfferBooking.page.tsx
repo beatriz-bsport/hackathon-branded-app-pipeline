@@ -706,6 +706,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
           comboAllowsGuest = true;
           if (item.data.credits > maxComboGuest)
             maxComboGuest = item.data.credits;
+          if (item.data.unlimited) {
+            maxComboGuest = this.props.theme.allow_guest_max_number;
+          }
         }
       });
     }

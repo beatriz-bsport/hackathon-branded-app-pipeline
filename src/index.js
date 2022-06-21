@@ -14,5 +14,4 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-
 registerServiceWorker();

@@ -257,18 +257,27 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
       let maxNumber = 0;
       availableConsumerPacks.forEach((cp: any) => {
         if (cp.payment_pack.allow_guest_pass) {
+          if (cp.payment_pack.unlimited) {
+            maxNumber = this.props.theme.allow_guest_max_number;
+          }
           if (cp.available_credits > maxNumber)
             maxNumber = cp.available_credits;
         }
       });
       availablePaymentPacks.forEach((pp: any) => {
         if (pp.allow_guest_pass) {
+          if (pp.unlimited) {
+            maxNumber = this.props.theme.allow_guest_max_number;
+          }
           if (pp.credits > maxNumber) maxNumber = pp.credits;
         }
       });
       availableComboPacks.forEach((combo: any) => {
         combo.payment_packs.forEach((cpp: any) => {
           if (cpp.allow_guest_pass) {
+            if (cpp.unlimited) {
+              maxNumber = this.props.theme.allow_guest_max_number;
+            }
             if (cpp.credits > maxNumber) maxNumber = cpp.credits;
           }
         });

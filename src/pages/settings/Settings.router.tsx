@@ -25,7 +25,7 @@ import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.page';
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
-import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings.pages';
+import PaymentMethodSettings from './PaymentMethodSettings.page';
 import MarketplaceSettings from './MarketplaceSettings.page';
 import CustomSignUpConfiguration from './CustomSignUpConfiguration.page';
 import WidgetGeneratorPage from './WidgetGenerator.page';

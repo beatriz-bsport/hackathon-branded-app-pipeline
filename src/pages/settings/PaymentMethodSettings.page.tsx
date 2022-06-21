@@ -12,17 +12,14 @@ import {
   Button,
 } from '@material-ui/core';
 
-import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
 
-import { MaterialStyleType } from '../../../utils/types';
-import { RootState } from '../../../reducers';
-import BackofficeLinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
-import PaymentMethodMultiSelector from '../../../libs/payment/components/PaymentMethodMultiSelector.component';
-import { updateCompanyTheme } from '../../../libs/theme/actions';
-import { snackbarError, snackbarSuccess } from '../../../libs/snackbar/actions';
+import { MaterialStyleType } from '../../utils/types';
+import { RootState } from '../../reducers';
+import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import PaymentMethodMultiSelector from '#libs/payment/components/PaymentMethodMultiSelector.component';
+import { updateCompanyTheme } from '#libs/theme/actions';
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
 type OwnProps = {};
 
@@ -216,12 +213,7 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
                 <PaymentMethodMultiSelector
                   paymentMethodsSelected={payment_method_available_subscription}
                   paymentMethodChoices={
-                    this.props.theme.currency.toLowerCase() === 'eur'
-                      ? [
-                          PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-                          PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-                        ]
-                      : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
+                    this.props.theme.payment_method_available_recurringly
                   }
                   selectPaymentMethod={this.onSubscriptionMethodsChange}
                 />

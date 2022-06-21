@@ -369,6 +369,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           bookedOffers={this.props.bookedOffers}
           nextAvailableOffer={this.props.nextAvailableOffer}
           goToFirstAvailableSession={this.goToFirstAvailableSession}
+          locale={(this.props.theme?.locale || '').slice(0, 2)}
         />
         {this.state.displayGroupPopup && (
           <GroupRulePopup

@@ -37,6 +37,7 @@ type Props = {
   showOfferGender: boolean,
   hideCoach: boolean,
   bookedOffers?: number[],
+  locale: string,
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
@@ -77,7 +78,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
     const displayedDate = moment(date, DATE_FORMAT)
       .clone()
       .add(i, 'days')
-      .format('dddd Do MMMM');
+      .format(this.props.locale === 'nl' ? 'dddd D MMMM' : 'dddd Do MMMM');
 
     return (
       <div key={displayedDate} className={classes.container}>

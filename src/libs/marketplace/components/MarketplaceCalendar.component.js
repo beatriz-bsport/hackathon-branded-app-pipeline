@@ -64,6 +64,7 @@ type Props = {
   bookedOffers?: number[],
   t: TFunction,
   activeCustomLevels: Level[],
+  locale: string,
 };
 
 const getEventsFrom = memoize((offers) => {
@@ -95,6 +96,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       compactMode,
       width,
       nextAvailableOffer,
+      locale,
     } = this.props;
 
     const noOfferDisplayed = !loading && this.props.offers?.length === 0;
@@ -133,6 +135,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           establishmentLoading={this.props.establishmentLoading}
           activityLoading={this.props.activityLoading}
           bookedOffers={this.props.bookedOffers}
+          locale={locale}
         />
       );
     }
@@ -209,6 +212,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
                 establishmentLoading={this.props.establishmentLoading}
                 activityLoading={this.props.activityLoading}
                 bookedOffers={this.props.bookedOffers}
+                locale={locale}
               />
             ) : (
               <MarketplaceWeekTimetable
@@ -224,6 +228,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
                 establishmentLoading={this.props.establishmentLoading}
                 activityLoading={this.props.activityLoading}
                 bookedOffers={this.props.bookedOffers}
+                locale={locale}
               />
             )}
             {noOfferDisplayed && (

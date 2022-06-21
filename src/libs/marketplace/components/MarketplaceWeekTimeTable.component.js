@@ -36,6 +36,7 @@ type Props = {
   offers: Array<Offer>,
   showOfferGender?: boolean,
   bookedOffers?: number[],
+  locale: string,
 };
 
 type State = {
@@ -228,7 +229,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   variant="h5"
                   color={isToday ? 'primary' : 'textSecondary'}
                 >
-                  {`${day} ${currentDate.format('Do')}`}
+                  {`${day} ${currentDate.format(
+                    this.props.locale === 'nl' ? 'D' : 'Do',
+                  )}`}
                 </Typography>
               </div>
             );

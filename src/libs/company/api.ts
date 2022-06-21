@@ -25,10 +25,14 @@ export const getOnboardingLink = (data: any) => {
   );
 };
 
-export const retrieveStripeCompanyAPI = () => {
+export const retrieveStripeCompanyRefreshedAPI = () => {
   return getAuth(
     `${API_V1_URI}/payment_backend/stripe/company/get_stripe_company_refreshed/`,
   );
+};
+
+export const retrieveStripeCompanyAPI = () => {
+  return getAuth(`${API_V1_URI}/payment_backend/stripe/company/me/`);
 };
 
 export const attachExternalAccount = (token: string) => {

@@ -39,7 +39,7 @@ export const AccountConfiguration: React.FC<
   const classes = useStyles();
 
   React.useEffect(() => {
-    retrieveStripeCompany();
+    retrieveStripeCompany({ refreshed: true });
     fetchCompanyTheme();
   }, [retrieveStripeCompany, fetchCompanyTheme]);
 

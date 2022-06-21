@@ -10,8 +10,12 @@ import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
-
 import clx from 'classnames';
+import {
+  retrieveStripeCompanyAction,
+  getFeatureList,
+} from '#libs/company/actions';
+import { StripeCompany } from '../libs/company/types';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
 
@@ -26,7 +30,6 @@ import LoadingBackoffice from '../components/navigation/LoadingBackoffice.compon
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
-import { getFeatureList } from '../libs/company/actions';
 import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 
 // FIXME clean that
@@ -269,6 +272,8 @@ type Props = {
     options?: OptionCallback<void>,
   ) => Promise<void>,
   getLastClockin: ({}) => Promise<void>,
+  retrieveStripeCompany: () => void,
+  stripeCompany: StripeCompany,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -352,6 +357,7 @@ export class Backoffice extends Component<Props, State> {
         company: this.props.theme.company,
       });
     }
+    this.props.retrieveStripeCompany();
   }
 
   componentWillUnmount() {
@@ -415,7 +421,6 @@ export class Backoffice extends Component<Props, State> {
         );
       }
     }
-
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -441,8 +446,16 @@ export class Backoffice extends Component<Props, State> {
                 fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
                 tempPasswordState={this.props.tempPasswordState}
                 generateTempPassword={this.props.generateTempPassword}
-                paymentMethodMissing={this.props.theme.payment_method_missing}
+                paymentMethodMissing={
+                  this.props.stripeCompany &&
+                  !this.props.stripeCompany
+                    ?.has_no_need_for_payment_method_configuration &&
+                  this.props.theme.payment_method_missing
+                }
                 stripeOnboardingPending={
+                  this.props.stripeCompany &&
+                  !this.props.stripeCompany
+                    ?.has_no_need_for_stripe_configuration &&
                   !!this.props.alertings
                     .filter((ag) => (ag.results || []).length)
                     .find((ag) => ag.alert_kind === '5')
@@ -588,6 +601,8 @@ export default compose(
       lastClockin: getLastClockin(state),
 
       isPluginActivated: state.plugin.isPluginActivated,
+
+      stripeCompany: state.company.stripeCompany.data,
     }),
     {
       fetchCompanyTheme,
@@ -627,6 +642,7 @@ export default compose(
       navigateBackToFranchise: navigateBackToFranchiseAction,
       fetchCompanyCustomMemberForm,
       fetchCompanyCustomSignUp,
+      retrieveStripeCompany: retrieveStripeCompanyAction,
 
       getStaffsAttendanceRealTime: getStaffsAttendanceRealTimeAction,
       fetchCompanyUserRolesPaginated: fetchCompanyUserRolesPaginatedAction,

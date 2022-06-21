@@ -7,8 +7,9 @@ import {
   attachExternalAccount as attachExternalAccountAPI,
   retrieveMyCompanySetup as retrieveMyCompanySetupAPI,
   getFeatureList as getFeatureListAPI,
-  retrieveStripeCompanyAPI,
+  retrieveStripeCompanyRefreshedAPI,
   validateAccountConfigurationStepAPI,
+  retrieveStripeCompanyAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 import {
@@ -193,13 +194,16 @@ export const stripeCompanyRetrieveActions = {
 };
 
 export function retrieveStripeCompanyAction(
+  params?: { refreshed?: boolean },
   options?: OptionCallback<StripeCompany>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(stripeCompanyRetrieveActions.isLoading(true));
     dispatch(stripeCompanyRetrieveActions.error(null));
     try {
-      const response = await retrieveStripeCompanyAPI();
+      const response = params?.refreshed
+        ? await retrieveStripeCompanyRefreshedAPI()
+        : await retrieveStripeCompanyAPI();
       dispatch(stripeCompanyRetrieveActions.success(response.data));
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {

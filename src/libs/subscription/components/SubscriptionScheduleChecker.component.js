@@ -35,6 +35,7 @@ type Props = {
   requestSetupIntentSecret: () => void,
   establishments: Array<Establishment>,
   enableMultiLocalization: boolean,
+  companyTheme: CompanyTheme,
 };
 
 type State = {
@@ -91,11 +92,18 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               onSubmit={this.props.onSubmit}
               processing={this.props.processing}
               member={this.props.member}
-              enabledPaymentMethods={[
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-                BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-              ]}
+              enabledPaymentMethods={
+                this.props.companyTheme.currency.toLowerCase() === 'eur'
+                  ? [
+                      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                      BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+                    ]
+                  : [
+                      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+                    ]
+              }
               requestSetupIntentSecret={this.props.requestSetupIntentSecret}
               savedPaymentMethodList={this.props.savedPaymentMethodList}
               refreshSavedPaymentMethodList={

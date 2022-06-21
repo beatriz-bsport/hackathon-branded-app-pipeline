@@ -215,10 +215,14 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
               <div className={classes.selectorContainer}>
                 <PaymentMethodMultiSelector
                   paymentMethodsSelected={payment_method_available_subscription}
-                  paymentMethodChoices={[
-                    PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-                    PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-                  ]}
+                  paymentMethodChoices={
+                    this.props.theme.currency.toLowerCase() === 'eur'
+                      ? [
+                          PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+                          PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+                        ]
+                      : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
+                  }
                   selectPaymentMethod={this.onSubscriptionMethodsChange}
                 />
                 {this.state.subscriptionError && (

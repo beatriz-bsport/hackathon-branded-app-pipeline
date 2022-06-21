@@ -120,6 +120,7 @@ export class SubscriptionCreate extends Component<Props, State> {
             savedPaymentMethodList={this.props.savedPaymentMethodList}
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             establishments={this.props.establishments}
+            companyTheme={this.props.companyTheme}
             enableMultiLocalization={
               this.props.companyTheme.enable_multi_localization
             }

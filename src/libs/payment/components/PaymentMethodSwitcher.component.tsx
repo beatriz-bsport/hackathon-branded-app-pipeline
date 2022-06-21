@@ -12,6 +12,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
+import { getCurrencyCode } from '../../theme/selectors';
 
 type OwnProps = {
   onChange: (param: string) => void;
@@ -28,6 +29,8 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
     return null;
   }
 
+  const currency = getCurrencyCode().toLowerCase();
+
   return (
     <RadioGroup
       aria-label="payment-method"
@@ -35,12 +38,13 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
       value={props.paymentMethod}
       onChange={(ev) => props.onChange(ev.target.value)}
     >
-      {(props.enabledPaymentMethods || []).includes(
+      {((props.enabledPaymentMethods || []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
       ) ||
-      (props.enabledPaymentGroupMethodIdentifier || []).includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-      ) ? (
+        (props.enabledPaymentGroupMethodIdentifier || []).includes(
+          PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        )) &&
+      currency === 'eur' ? (
         <FormControlLabel
           value="sepa_debit"
           control={<Radio color="primary" />}

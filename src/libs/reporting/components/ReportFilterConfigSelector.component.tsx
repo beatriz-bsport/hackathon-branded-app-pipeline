@@ -70,7 +70,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editFilterId, setEditFilterId] = useState<number>(null);
   const [deleteFilterId, setDeletefilterId] = useState<number>(null);
-  const [isPreview, setIsPreview] = useState(false);
 
   const containerRef = useRef(null);
 
@@ -84,8 +83,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
       values: Omit<ReportFilterConfig, 'id'>;
       options: OptionCallback<ReportFilterConfig>;
     }) => {
-      // setIsPreview(false);
-
       if (id) {
         editReportFilterConfig(id, values, {
           onSuccess: () => {
@@ -162,7 +159,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditFilterId(null);
-    // setIsPreview(false);
   };
 
   const uniqsDataTypeForSelectedFilter = selectedFilter
@@ -278,7 +274,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
                 onClick={() => {
                   setEditFilterId(selectedFilter);
                   setIsModalOpen(true);
-                  // setIsPreview(true);
                 }}
               />
             ))}
@@ -288,7 +283,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
                 onClick={() => {
                   setEditFilterId(selectedFilter);
                   setIsModalOpen(true);
-                  // setIsPreview(true);
                 }}
               >
                 <EditIcon color="primary" />
@@ -301,7 +295,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
       {isModalOpen && (
         <ReportFilterConfigFormDrawer
           open
-          isPreview={isPreview}
           columns={columnsMetadata}
           initial={reportFilterConfigs.find((r) => r.id === editFilterId)}
           onClose={handleCloseModal}

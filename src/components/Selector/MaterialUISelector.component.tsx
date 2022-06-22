@@ -14,7 +14,6 @@ import {
   MenuItem,
   Typography,
 } from '@material-ui/core';
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import Select, {
   NamedProps,
   components,
@@ -393,7 +392,6 @@ const ShowMoreButton: React.FC<{
   overflowValues: number;
 }> = ({ overflowValues }) => {
   const { t } = useTranslation('common');
-  const classes = useStyles();
 
   return (
     <SelectorContext.Consumer>

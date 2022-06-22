@@ -22,7 +22,6 @@ import {
   MenuItem,
   Typography,
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddIcon from '@material-ui/icons/Add';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
@@ -284,7 +283,6 @@ const ReportFilterConfigFormDrawer: React.FC<
   OuterProps & FormikProps<Values>
 > = ({
   open,
-  initial,
   isSubmitting,
   isValid,
   values,

@@ -407,7 +407,6 @@ const ReportFilterConfigFormDrawer: React.FC<
       open={open}
       onClose={onClose}
       title={t('filter.form.title')}
-      subtitle={initial?.name || null}
       width="1000px"
       withoutPadding
     >
@@ -417,12 +416,6 @@ const ReportFilterConfigFormDrawer: React.FC<
             {!isPreview && (
               <>
                 <div className={classes.innerContainer}>
-                  <div className={classes.row}>
-                    <InfoIcon color="disabled" />
-                    <Typography variant="h6">
-                      {t('filter.form.information')}
-                    </Typography>
-                  </div>
                   <DelayTextField
                     fullWidth
                     name="name"
@@ -559,6 +552,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     height: '100%',
     paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
   divider: {
     marginTop: theme.spacing(2),

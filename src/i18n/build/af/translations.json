@@ -5770,7 +5770,7 @@
           "1": "Les éléments filtrés devront correspondre à tous les filtres."
         },
         "filterComparator": {
-          "0": { "4": "Contient", "5": "Ne contient pas" },
+          "0": { "4": "Est", "5": "N'est pas" },
           "1": {
             "0": "Egal à",
             "1": "N'est pas égal à",
@@ -5879,7 +5879,7 @@
       "private_pass": "Carte de rendez-vous",
       "private_slot": "Type de rendez vous",
       "subshop": "Catégorie",
-      "billing_establishment": "Etablissemennt de facturation",
+      "billing_establishment": "Etablissement de facturation",
       "billing_group": "Groupe de facturation",
       "activity": "Activité",
       "booking_status_code": "Statut de la réservation",

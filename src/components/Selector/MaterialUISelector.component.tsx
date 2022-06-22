@@ -398,32 +398,25 @@ const ShowMoreButton: React.FC<{
   return (
     <SelectorContext.Consumer>
       {({ displayMore, setDisplayMore }) => (
-        <div
+        <Chip
           aria-hidden
+          color="secondary"
+          variant="outlined"
           onMouseDown={(ev: React.MouseEvent) => {
             ev.preventDefault();
             ev.stopPropagation();
           }}
-        >
-          <Button
-            className={classes.buttonShowMore}
-            onClick={() => {
-              setDisplayMore(!displayMore);
-            }}
-          >
-            <DoubleArrowIcon
-              className={classNames({
-                [classes.rightIcon]: !displayMore,
-                [classes.leftIcon]: displayMore,
-              })}
-            />
-            {displayMore
+          onClick={() => {
+            setDisplayMore(!displayMore);
+          }}
+          label={
+            displayMore
               ? t('showLess')
               : t('showMore', {
                   count: overflowValues,
-                })}
-          </Button>
-        </div>
+                })
+          }
+        />
       )}
     </SelectorContext.Consumer>
   );

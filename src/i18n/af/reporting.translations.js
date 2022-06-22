@@ -348,8 +348,8 @@ exports.default = {
       },
       filterComparator: {
         [FILTER_OPERAND_LIST_ID]: {
-          [FILTER_OUT_OPERAND]: 'Ne contient pas',
-          [FILTER_IN_OPERAND]: 'Contient',
+          [FILTER_OUT_OPERAND]: "N'est pas",
+          [FILTER_IN_OPERAND]: 'Est',
         },
         [FILTER_OPERAND_FLOAT_ID]: {
           [FILTER_EQUAL_OPERAND]: 'Egal à',
@@ -475,7 +475,7 @@ exports.default = {
     private_pass: 'Carte de rendez-vous',
     private_slot: 'Type de rendez vous',
     subshop: 'Catégorie',
-    billing_establishment: 'Etablissemennt de facturation',
+    billing_establishment: 'Etablissement de facturation',
     billing_group: 'Groupe de facturation',
     activity: 'Activité',
     booking_status_code: 'Statut de la réservation',

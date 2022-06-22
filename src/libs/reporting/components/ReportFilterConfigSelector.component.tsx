@@ -84,7 +84,7 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
       values: Omit<ReportFilterConfig, 'id'>;
       options: OptionCallback<ReportFilterConfig>;
     }) => {
-      setIsPreview(false);
+      // setIsPreview(false);
 
       if (id) {
         editReportFilterConfig(id, values, {
@@ -162,7 +162,7 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditFilterId(null);
-    setIsPreview(false);
+    // setIsPreview(false);
   };
 
   const uniqsDataTypeForSelectedFilter = selectedFilter
@@ -278,10 +278,22 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
                 onClick={() => {
                   setEditFilterId(selectedFilter);
                   setIsModalOpen(true);
-                  setIsPreview(true);
+                  // setIsPreview(true);
                 }}
               />
             ))}
+            {!!uniqsDataTypeForSelectedFilter.length && (
+              <IconButton
+                size="small"
+                onClick={() => {
+                  setEditFilterId(selectedFilter);
+                  setIsModalOpen(true);
+                  // setIsPreview(true);
+                }}
+              >
+                <EditIcon color="primary" />
+              </IconButton>
+            )}
           </div>
         )}
       </div>

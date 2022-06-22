@@ -108,8 +108,12 @@ class OfferListSummary extends React.PureComponent<Props> {
         this.props.acceptDoubleBooking,
       );
 
+    const hasCustomLevel =
+      this.props.offer.level !== this.props.offer?.custom_level;
     const hasLevel =
-      Number.parseInt(offer.level) !== 1 && Number.parseInt(offer.level) !== 5;
+      (Number.parseInt(offer.level) !== 1 &&
+        Number.parseInt(offer.level) !== 5) ||
+      hasCustomLevel;
     const numberOfGuestsAvailable =
       this.props.numberBookingGuestLeft -
       this.props.additionalGuestList?.length;
@@ -293,9 +297,16 @@ class OfferListSummary extends React.PureComponent<Props> {
                   <ErrorOutlineIcon />
                 </div>
                 <Typography variant="body2" align="left">
-                  {t('booking:offer.bookingForAGuest.warningLeveledSession', {
-                    level: offerLevelTranslation,
-                  })}
+                  {hasCustomLevel
+                    ? t(
+                        'booking:offer.bookingForAGuest.warningCustomLeveledSession',
+                      )
+                    : t(
+                        'booking:offer.bookingForAGuest.warningLeveledSession',
+                        {
+                          level: offerLevelTranslation,
+                        },
+                      )}
                 </Typography>
               </div>
             )}

@@ -333,6 +333,7 @@
       "bookingForMe": "moi",
       "bookingForAGuest": {
         "addGuest": "Ajouter un invité",
+        "warningCustomLeveledSession": "Cette séance possède un niveau personnalisé. Assurez-vous que la personne que vous invitez possède le niveau attendu.",
         "warningLeveledSession": "Cette séance est réservée aux personnes avec le niveau : {{level}}. Assurez-vous que la personne que vous invitez possède le niveau attendu.",
         "addGuestLimit": "Vous avez atteint la limite d'invitations pour",
         "addGuestNumberLeftSeveral": "Vous pouvez inviter encore {{number}} personnes sur",
@@ -735,7 +736,7 @@
         "recipientList": "Détail par destinataire",
         "noTopLink": "Aucun clic"
       },
-      "kind": { "0": "Email", "1": "SMS", "undefined": "Notification push" }
+      "kind": { "0": "Email", "1": "SMS", "2": "Notification push" }
     },
     "recipient": {
       "readCount": "Ouverture",

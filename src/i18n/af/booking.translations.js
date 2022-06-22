@@ -388,6 +388,8 @@ exports.default = {
     bookingForMe: 'moi',
     bookingForAGuest: {
       addGuest: 'Ajouter un invité',
+      warningCustomLeveledSession:
+        'Cette séance possède un niveau personnalisé. Assurez-vous que la personne que vous invitez possède le niveau attendu.',
       warningLeveledSession:
         'Cette séance est réservée aux personnes avec le niveau : {{level}}. Assurez-vous que la personne que vous invitez possède le niveau attendu.',
       addGuestLimit: "Vous avez atteint la limite d'invitations pour",

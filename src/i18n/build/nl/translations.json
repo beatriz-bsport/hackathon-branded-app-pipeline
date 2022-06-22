@@ -3078,9 +3078,9 @@
             "credit": "Kredieten",
             "unlimited": "Onbeperkt",
             "numberOfCredit": "Aantal kredieten",
-            "namePaymentPack": "Naam van de leskaart",
+            "namePaymentPack": "Naam van de leskaart.",
             "name": "Naam",
-            "generalInfo": "Algemene informatie",
+            "generalInfo": "Algemeen",
             "paymentPack": "Leskaart",
             "minusZero": "Dit veld kan niet 0 zijn",
             "requiredField": "Dit veld is verplicht",
@@ -4364,7 +4364,7 @@
                 },
                 "helper_text_2": "Dit lid verschijnt niet meer in het ledenbestand.",
                 "helper_text_1": "Weet je zeker dat je dit lid wilt archiveren?",
-                "title": "Een lid archiveren"
+                "title": "[Formulier] Profiel archiveren"
             },
             "archivedMember": "Gearchiveerd lid: {{name}}"
         },
@@ -4564,7 +4564,7 @@
         },
         "source": {
             "app": "Mobiele app",
-            "web": "Web",
+            "web": "Website",
             "saas": "Back Office",
             "other": "Overige",
             "migration": "Gegevensoverdracht"
@@ -5118,7 +5118,7 @@
                     "label": "Onbeschikbaar voor leden"
                 },
                 "autoRenewal": {
-                    "label": "Automatisch verlengen"
+                    "label": "Automatisch verlengen activeren"
                 },
                 "recurrent_price": {
                     "label": "Doorlopende betaling"
@@ -5304,7 +5304,7 @@
                 "switchPack": "Kaart wijzigen",
                 "advanceTime": "Factuur vooraf betalen",
                 "postPone": "Factuur uitstellen",
-                "changeDate": "Wijzig de datum",
+                "changeDate": "Wijzig de factuurdatum",
                 "showInvoice": "Toon factuur",
                 "changePrice": "Wijzig de prijs",
                 "stop": "Na deze factuur beëindigen",
@@ -5373,12 +5373,12 @@
                 "titleNext": "Eerstvolgende incasso's"
             },
             "dateUpdater": {
-                "title": "Wijzig toekomstige facturen",
+                "title": "[Formulier] Factuurdatum wijzigen",
                 "actions": {
                     "submit": "Opslaan",
                     "cancel": "Annuleren"
                 },
-                "explain": "Alleen toekomstige facturen worden gewijzigd",
+                "explain": "Alleen deze factuur wordt gewijzigd.",
                 "label": "Incassodatum"
             }
         },
@@ -5407,7 +5407,7 @@
             "payment_method": {
                 "0": "Betaalkaart",
                 "1": "Automatische incasso (SEPA)",
-                "2": "Op rekening",
+                "2": "Interne rekening (Wallet)",
                 "label": "Betaalmethode"
             },
             "trial_nb": "Totaal aantal gratis facturen",
@@ -6556,7 +6556,7 @@
                     "compatibility": "Compatibiliteit",
                     "validity": "Geldigheid",
                     "paymentMeans": "Geaccepteerde betaalmethode(n)",
-                    "info": "Algemene informatie",
+                    "info": "Algemeen",
                     "compatibilityAppointment": "Compatibiliteit voor afspraken"
                 },
                 "selector": {
@@ -8065,7 +8065,7 @@
             "success": "Opgeslagen webhook",
             "error": "Kan webhook niet opslaan",
             "testError": "Controleer de URL",
-            "testSuccess": "Juiste URL"
+            "testSuccess": "Geldige url"
         },
         "login": {
             "passwordChangedSuccess": "Wachtwoord aangepast!"
@@ -9690,7 +9690,7 @@
             "submit_stripe_footer": "Bijwerken",
             "forms": {
                 "stripe_footer_placeholder": "Geen aanvullende informatie",
-                "show_company_email_in_invoice": "Toon je zakelijke e-mailadres op je facturen"
+                "show_company_email_in_invoice": "Toon het zakelijke e-mailadres op alle facturen"
             },
             "nf525Button": "Downloaden",
             "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Download hier het officiële bestand.",
@@ -9830,7 +9830,7 @@
         },
         "actions": {
             "finalize": "Afronden (PDF)",
-            "download": "Factuur (PDF) downloaden",
+            "download": "Factuur downloaden (PDF)",
             "equilibrate": "Saldo (aanbetaling)",
             "addInvoiceItem": "Aan factuur toevoegen",
             "save": "Opslaan",
@@ -9973,7 +9973,7 @@
                     "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een handmatige terugbetaling, een bankoverschrijving of een cheque."
                 },
                 "label": {
-                    "1": "Krediet(en) terugbetalen (saldo)",
+                    "1": "Terugstorten op interne rekening (Wallet)",
                     "0": "Directe terugbetaling",
                     "2": "Handmatige terugbetaling"
                 },
@@ -11453,7 +11453,7 @@
                 "color": "Kleur",
                 "description": "Beschrijving",
                 "name": "Naam van dit programma",
-                "generalInfo": "Algemene informatie",
+                "generalInfo": "Algemeen",
                 "create": "Een programma toevoegen",
                 "modify": "Programma wijzigen",
                 "delete": "Programma verwijderen",
@@ -11741,7 +11741,7 @@
             "save": "Opslaan",
             "compatibility": "Compatibiliteit",
             "create": "Termijnbetalingen",
-            "generalInfo": "Algemene informatie",
+            "generalInfo": "Algemeen",
             "name": "Naam",
             "info": {
                 "startDay": "Betalingen worden elke {{frequency}} dag(en) geïncasseerd",

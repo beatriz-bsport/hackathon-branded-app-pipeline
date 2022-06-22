@@ -214,7 +214,8 @@ export const generateNewGroup = (
 export const generateNewFilterItem = (column: ReportMetadataColumn) => {
   const comparator = getComparatorsByDataType(column?.datatype)?.[0];
   const datatype = column?.datatype;
-  const sub_datatype = datatype === 'datetime' ? DATE_SUBDATA_TYPE : null;
+  const sub_datatype =
+    datatype === 'datetime' || datatype === 'date' ? DATE_SUBDATA_TYPE : null;
 
   return {
     datatype,

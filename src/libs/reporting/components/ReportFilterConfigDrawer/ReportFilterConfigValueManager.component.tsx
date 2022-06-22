@@ -49,8 +49,8 @@ import {
   MaterialUiMultiSelectorField,
 } from '#libs/custom-form/components/GenericFormik.input';
 import NestedAlertError from './NestedAlertError.component';
-import MaterialUISelectorMembers from '#components/Selector/MaterialUISelectorMembers.component';
-import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.component';
+import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelectorConsumers.container';
+import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
 
 const ReportFilterConfigValueManager: React.FC<{
   comparator: AllComparator;
@@ -401,7 +401,7 @@ const ReportFilterConfigValueList: React.FC<{
           meta,
         }: FieldAttributes<any>) => {
           return (
-            <MaterialUISelectorMembers
+            <MaterialUISelectorConsumers
               isMulti
               onChange={(optionList) => {
                 const valueList = optionList.map((option) => option.value);
@@ -414,6 +414,7 @@ const ReportFilterConfigValueList: React.FC<{
               error={!!(meta.touched && meta.error)}
               defaultNumberShown={1}
               isDisabled={isPreview}
+              kind={datatype}
             />
           );
         }}
@@ -467,7 +468,7 @@ const ReportFilterConfigValueList: React.FC<{
       'contract',
       'company',
     ].includes(datatype) &&
-    getOptions()?.length === 0
+    getOptions() === null
   ) {
     return <CircularProgress />;
   }

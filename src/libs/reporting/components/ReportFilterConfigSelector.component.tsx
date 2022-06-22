@@ -91,6 +91,7 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
           onSuccess: () => {
             setEditFilterId(null);
             setIsModalOpen(false);
+            onSelect(id);
 
             fetchReportFilterConfigList();
             options.onSuccess();

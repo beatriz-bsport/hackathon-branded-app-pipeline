@@ -173,7 +173,7 @@ export const listPayoutActions = {
 
 export function fetchPayoutList(
   params: any = {},
-  options: OptionCallback<Payout[]>,
+  options?: OptionCallback<Payout[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(listPayoutActions.isLoading(true));

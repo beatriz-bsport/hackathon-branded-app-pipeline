@@ -403,7 +403,7 @@ export class ReportingGeneration extends Component<Props, State> {
       this.props.dynamicDataLoading[type] &&
       !this.props.dynamicDataHasBeenLoaded[type]
     ) {
-      return [];
+      return null;
     }
 
     switch (type) {
@@ -471,7 +471,7 @@ export class ReportingGeneration extends Component<Props, State> {
         }));
       case 'contract':
         return this.props.contracts.map((contract) => ({
-          label: contract.contract,
+          label: contract.name,
           value: contract.id,
         }));
       case 'subshop':

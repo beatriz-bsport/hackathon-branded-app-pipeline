@@ -105,7 +105,9 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
               props?.onChange?.(ev);
               setFieldTouched(props.name);
               if (props.castAsNumber) {
-                setFieldValue(props.name, Number.parseFloat(ev.target.value));
+                const value = Number.parseFloat(ev.target.value);
+
+                setFieldValue(props.name, Number.isNaN(value) ? 0 : value);
 
                 return;
               }

@@ -1,34 +1,20 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
-import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core';
+import uniqBy from 'lodash/uniqBy';
 
 import MaterialUISelectorHandleScroll from './MaterialUISelectorHandleScroll.component';
-import {
-  resetIncrementalPayouList as resetIncrementalPayouListAction,
-  fetchIncrementalPayoutList as fetchIncrementalPayoutListAction,
-} from '#libs/payment/actions';
+import { MaterialUISelectorPayoutProps } from './MaterialUISelectorPayout.container';
 
-import { getIncrementalPayoutList } from '#libs/payment/selectors';
-import { RootState } from '../../reducers';
-import { MuiSelectProps } from './MaterialUISelector.component';
-
-type Props = MuiSelectProps<{
-  label: string;
-  value: string;
-}> &
-  ConnectedProps<typeof connector> & {
-    value: number[];
-  };
-
-const MaterialUISelectorPayout: React.FC<Props> = ({
+const MaterialUISelectorPayout: React.FC<MaterialUISelectorPayoutProps> = ({
   payoutList,
   isLoading,
   value,
   nextPage,
+  defaultPayout,
   fetchIncrementalPayoutList,
   resetIncrementalPayouList,
+  fetchPayoutList,
   ...muiSelectProps
 }) => {
   const classes = useStyles();
@@ -39,7 +25,14 @@ const MaterialUISelectorPayout: React.FC<Props> = ({
       page: 1,
       page_size: 10,
     });
-  }, [fetchIncrementalPayoutList, resetIncrementalPayouList]);
+    if (value?.length > 0) {
+      fetchPayoutList({
+        page_size: 300,
+        id__in: value,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchIncrementalPayoutList, resetIncrementalPayouList, fetchPayoutList]);
 
   const handleFetch = useCallback(
     (page: number, search: string) => {
@@ -51,11 +44,11 @@ const MaterialUISelectorPayout: React.FC<Props> = ({
   );
 
   const getOptions = useCallback(() => {
-    return [...payoutList].map((payout) => ({
+    return uniqBy([...defaultPayout, ...payoutList], 'id').map((payout) => ({
       label: payout.readable_identifier,
       value: payout.id,
     }));
-  }, [payoutList]);
+  }, [payoutList, defaultPayout]);
 
   const values = useMemo(
     () =>
@@ -86,17 +79,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const connector = connect(
-  (state: RootState) => ({
-    payoutList: getIncrementalPayoutList(state),
-
-    isLoading: state.paymentBackend.incrementalPayout.loading,
-    nextPage: state.paymentBackend.incrementalPayout.nextPage,
-  }),
-  {
-    resetIncrementalPayouList: resetIncrementalPayouListAction,
-    fetchIncrementalPayoutList: fetchIncrementalPayoutListAction,
-  },
-);
-
-export default compose<any, Props>(connector)(MaterialUISelectorPayout);
+export default MaterialUISelectorPayout;

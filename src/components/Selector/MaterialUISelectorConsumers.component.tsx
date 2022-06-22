@@ -1,34 +1,22 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core';
+import uniqBy from 'lodash/uniqBy';
 
 import MaterialUISelectorHandleScroll from './MaterialUISelectorHandleScroll.component';
+import { MaterialUISelectorConsumersProps } from './MaterialUISelectorConsumers.container';
 
-import {
-  resetTncrementalSearch as resetTncrementalSearchAction,
-  incrementalSearch as incrementalSearchAction,
-} from '../../libs/member/actions';
-import { getIncrementalSearchedMembers } from '#libs/member/selectors';
-import { RootState } from '../../reducers';
-import { MuiSelectProps } from './MaterialUISelector.component';
-
-type Props = MuiSelectProps<{
-  label: string;
-  value: string;
-}> &
-  ConnectedProps<typeof connector> & {
-    value: number[];
-  };
-
-const MaterialUISelectorMembers: React.FC<Props> = ({
+const MaterialUISelectorConsumers: React.FC<
+  MaterialUISelectorConsumersProps
+> = ({
   members,
   resetTncrementalSearch,
   incrementalSearch,
+  fetchMemberBulk,
+  defaultMember,
   isLoading,
   value,
   nextPage,
+  kind = 'user',
   ...muiSelectProps
 }) => {
   const classes = useStyles();
@@ -36,7 +24,13 @@ const MaterialUISelectorMembers: React.FC<Props> = ({
   useEffect(() => {
     resetTncrementalSearch();
     incrementalSearch('', 1);
-  }, [resetTncrementalSearch, incrementalSearch]);
+    if (value?.length > 0) {
+      fetchMemberBulk({
+        consumer_id__in: value,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetTncrementalSearch, incrementalSearch, fetchMemberBulk]);
 
   const handleFetch = useCallback(
     (page: number, search: string) => {
@@ -48,11 +42,11 @@ const MaterialUISelectorMembers: React.FC<Props> = ({
   );
 
   const getOptions = useCallback(() => {
-    return [...members].map((member) => ({
-      label: member.name,
-      value: member.id,
+    return uniqBy([...defaultMember, ...members], 'id').map((member) => ({
+      label: kind === 'user' ? member.name : member.email,
+      value: member.consumer,
     }));
-  }, [members]);
+  }, [defaultMember, members, kind]);
 
   const values = useMemo(
     () =>
@@ -83,16 +77,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const connector = connect(
-  (state: RootState) => ({
-    members: getIncrementalSearchedMembers(state),
-    isLoading: state.member.search.incremental.loading,
-    nextPage: state.member.search.incremental.nextPage,
-  }),
-  {
-    resetTncrementalSearch: resetTncrementalSearchAction,
-    incrementalSearch: incrementalSearchAction,
-  },
-);
-
-export default compose<any, Props>(connector)(MaterialUISelectorMembers);
+export default MaterialUISelectorConsumers;

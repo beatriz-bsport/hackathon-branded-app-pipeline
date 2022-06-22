@@ -66,7 +66,10 @@ const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
     (selection: { timePeriod: DateFilterEnum; getTimeStamp: () => number }) =>
     () => {
       setFieldValue('timePeriod', selection.timePeriod);
-      setFieldValue('date', moment(selection.getTimeStamp()).startOf('day'));
+      setFieldValue(
+        'date',
+        moment.unix(selection.getTimeStamp()).startOf('day'),
+      );
     };
 
   const getDisplayDate = () => {

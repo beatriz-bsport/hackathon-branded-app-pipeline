@@ -92,8 +92,8 @@ const ReportFilterConfigFormDrawerSchema = Yup.object().shape({
                 const defaultSchema = {
                   identifier: Yup.string().required(),
                   datatype: Yup.string().required(),
-                  sub_datatype: Yup.number().nullable(),
-                  time_period: Yup.string().nullable(),
+                  sub_datatype: Yup.number().nullable(true),
+                  time_period: Yup.string().nullable(true),
                   comparator: Yup.number()
                     .required()
                     .test(
@@ -207,7 +207,10 @@ const ReportFilterConfigFormDrawerSchema = Yup.object().shape({
                         DATE_SUBDATA_TYPE,
                         HOUR_SUBDATA_TYPE,
                       ]),
-                      time_period: Yup.string().required(),
+                      time_period:
+                        filer_data.sub_datatype !== HOUR_SUBDATA_TYPE
+                          ? Yup.string().required()
+                          : Yup.string().nullable(),
                       value: Yup.array()
                         .of(Yup.number().required())
                         .required()
@@ -235,7 +238,7 @@ const ReportFilterConfigFormDrawerSchema = Yup.object().shape({
                   if (filer_data.sub_datatype === HOUR_SUBDATA_TYPE) {
                     return Yup.object().shape({
                       ...defaultSchema,
-                      time_period: Yup.string().nullable(),
+                      // time_period: Yup.string().nullable(true),
                       sub_datatype: Yup.number().oneOf([HOUR_SUBDATA_TYPE]),
                       value: Yup.number().required(),
                     });
@@ -406,117 +409,123 @@ const ReportFilterConfigFormDrawer: React.FC<
       title={t('filter.form.title')}
       subtitle={initial?.name || null}
       width="1000px"
+      withoutPadding
     >
       <div className={classes.main}>
         <Form className={classes.form}>
           <div className={classes.container}>
             {!isPreview && (
               <>
-                {' '}
-                <div className={classes.row}>
-                  <InfoIcon color="disabled" />
-                  <Typography variant="h6">
-                    {t('filter.form.information')}
-                  </Typography>
+                <div className={classes.innerContainer}>
+                  <div className={classes.row}>
+                    <InfoIcon color="disabled" />
+                    <Typography variant="h6">
+                      {t('filter.form.information')}
+                    </Typography>
+                  </div>
+                  <DelayTextField
+                    fullWidth
+                    name="name"
+                    required
+                    label={t('filter.form.name')}
+                  />
                 </div>
-                <DelayTextField
-                  fullWidth
-                  name="name"
-                  required
-                  label={t('filter.form.name')}
-                />
                 <Divider className={classes.divider} />
               </>
             )}
-            <div className={classNames(classes.row, classes.formTitle)}>
-              <FilterListIcon color="disabled" />
-              <Typography variant="h6">{t('filter.form.filter')}</Typography>
-            </div>
-            <div className={classes.groupOperand}>
-              <OperandSelect
-                name="config.group_operand"
-                isPreview={isPreview}
-              />
-            </div>
-            <Typography color="textSecondary" className={classes.helper}>
-              {t(
-                `filter.form.groupOperandHelperText.${values.config.group_operand}`,
-              )}
-            </Typography>
-            {reportColumns?.length === 0 && (
-              <Typography color="error">
-                {t('filter.form.emptyState')}
-              </Typography>
-            )}
-            {reportColumns?.length > 0 && (
-              <>
-                <div className={classes.verticalRows}>
-                  {values.config.groups.map((filterGroup, indexGroup) => (
-                    <ReportFilterConfigGroupRow
-                      filterGroup={filterGroup}
-                      key={filterGroup.uuid}
-                      consumableColumns={consumableColumns}
-                      reportColumns={reportColumns}
-                      groupOperand={values.config.group_operand}
-                      prefix={`config.groups[${indexGroup}]`}
-                      setFieldValue={setFieldValue}
-                      hidePrefix={indexGroup === 0}
-                      addFilter={handleAddFilterInGroup(indexGroup)}
-                      checkOtherRowExist={checkOtherRowExist}
-                      onDelete={handleDeleteFilter}
-                      getDataByType={handleGetDynamicDataForReport}
-                      isPreview={isPreview}
-                    />
-                  ))}
-                </div>
-                <NestedAlertError name="config.groups[0].filters_data">
-                  {(error_msg: string) => (
-                    <Typography variant="caption" color="error">
-                      {t(`${error_msg}`)}
-                    </Typography>
-                  )}
-                </NestedAlertError>
-                <NestedAlertError name="config.groups">
-                  {(error_msg: string) => (
-                    <Typography variant="caption" color="error">
-                      {t(`${error_msg}`)}
-                    </Typography>
-                  )}
-                </NestedAlertError>
-                {consumableColumns?.length > 0 && !isPreview && (
-                  <ButtonBase
-                    color="primary"
-                    onClick={handleOpenMenu}
-                    className={classes.buttonAdd}
-                    ref={buttonRef}
-                  >
-                    <AddIcon color="primary" />
-                    {t('filter.form.add')?.toUpperCase()}
-                  </ButtonBase>
+            <div className={classes.innerContainer}>
+              <div className={classNames(classes.row, classes.formTitle)}>
+                <FilterListIcon color="disabled" />
+                <Typography variant="h6">{t('filter.form.filter')}</Typography>
+              </div>
+              <div className={classes.groupOperand}>
+                <OperandSelect
+                  name="config.group_operand"
+                  isPreview={isPreview}
+                />
+              </div>
+              <Typography color="textSecondary" className={classes.helper}>
+                {t(
+                  `filter.form.groupOperandHelperText.${values.config.group_operand}`,
                 )}
-                <Menu
-                  anchorEl={buttonRef.current}
-                  open={isMenuOpen}
-                  onClose={handleCloseMenu}
-                  className={classes.menu}
-                >
-                  <MenuItem
-                    className={classes.menuItem}
-                    onClick={handleAddFilter}
+              </Typography>
+              {reportColumns?.length === 0 && (
+                <Typography color="error">
+                  {t('filter.form.emptyState')}
+                </Typography>
+              )}
+              {reportColumns?.length > 0 && (
+                <>
+                  <div className={classes.verticalRows}>
+                    {values.config.groups.map((filterGroup, indexGroup) => (
+                      <ReportFilterConfigGroupRow
+                        filterGroup={filterGroup}
+                        key={filterGroup.uuid}
+                        consumableColumns={consumableColumns}
+                        reportColumns={reportColumns}
+                        groupOperand={values.config.group_operand}
+                        prefix={`config.groups[${indexGroup}]`}
+                        setFieldValue={setFieldValue}
+                        hidePrefix={indexGroup === 0}
+                        addFilter={handleAddFilterInGroup(indexGroup)}
+                        checkOtherRowExist={checkOtherRowExist}
+                        onDelete={handleDeleteFilter}
+                        getDataByType={handleGetDynamicDataForReport}
+                        isPreview={isPreview}
+                      />
+                    ))}
+                  </div>
+                  <NestedAlertError name="config.groups[0].filters_data">
+                    {(error_msg: string) => (
+                      <Typography variant="caption" color="error">
+                        {t(`${error_msg}`)}
+                      </Typography>
+                    )}
+                  </NestedAlertError>
+                  <NestedAlertError name="config.groups">
+                    {(error_msg: string) => (
+                      <Typography variant="caption" color="error">
+                        {t(`${error_msg}`)}
+                      </Typography>
+                    )}
+                  </NestedAlertError>
+                  {consumableColumns?.length > 0 && !isPreview && (
+                    <ButtonBase
+                      color="primary"
+                      onClick={handleOpenMenu}
+                      className={classes.buttonAdd}
+                      ref={buttonRef}
+                    >
+                      <AddIcon color="primary" />
+                      {t('filter.form.add')?.toUpperCase()}
+                    </ButtonBase>
+                  )}
+                  <Menu
+                    anchorEl={buttonRef.current}
+                    open={isMenuOpen}
+                    onClose={handleCloseMenu}
+                    className={classes.menu}
                   >
-                    <AddToPhotosIcon />
-                    <Typography>{t('filter.form.addFilterOption')}</Typography>
-                  </MenuItem>
-                  <MenuItem
-                    className={classes.menuItem}
-                    onClick={handleAddFilterGroup}
-                  >
-                    <AddIcon />
-                    <Typography>{t('filter.form.addGroupOption')}</Typography>
-                  </MenuItem>
-                </Menu>
-              </>
-            )}
+                    <MenuItem
+                      className={classes.menuItem}
+                      onClick={handleAddFilter}
+                    >
+                      <AddIcon />
+                      <Typography>
+                        {t('filter.form.addFilterOption')}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem
+                      className={classes.menuItem}
+                      onClick={handleAddFilterGroup}
+                    >
+                      <AddToPhotosIcon />
+                      <Typography>{t('filter.form.addGroupOption')}</Typography>
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
+            </div>
           </div>
           {!isPreview && (
             <div className={classes.buttonContainer}>
@@ -549,6 +558,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
+    paddingBottom: theme.spacing(2),
   },
   divider: {
     marginTop: theme.spacing(2),
@@ -556,10 +566,16 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonContainer: {
     marginTop: theme.spacing(6),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
     padding: theme.spacing(2),
     display: 'flex',
     justifyContent: 'flex-end',
     gap: theme.spacing(1),
+  },
+  innerContainer: {
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
   },
   form: {
     display: 'flex',

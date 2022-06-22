@@ -154,10 +154,10 @@ function MaterialUISelector<T extends OptionTypeBase>(
 
   useEffect(() => {
     // Manually enforce focus on the input on asyncrhounous select
-    if (selectRef?.current?.select?.inputRef?.value !== '') {
+    if (selectRef?.current?.state?.menuIsOpen && onInputChange) {
       selectRef?.current?.select?.focusInput();
     }
-  }, [options]);
+  }, [options, onInputChange]);
 
   return (
     <SelectorContext.Provider

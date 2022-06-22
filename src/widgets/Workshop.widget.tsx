@@ -7,6 +7,8 @@ import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/Marke
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
+import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+
 import '../../vendor/map.css';
 import { getEnv } from '../utils/env';
 import {
@@ -14,6 +16,8 @@ import {
   bridgeRequestAuthenticationStatus,
 } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
+
+const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
 type OwnProps = {
   companyId: number,
@@ -74,7 +78,7 @@ class WorkshopWidget extends Component<Props, State> {
 
     return (
       <div className={classes.container}>
-        <MarketplaceWorkshopBase
+        <MarketplaceWorkshopBaseStyled
           {...this.props}
           companyId={this.props.companyId}
           filters={this.state.filters}

@@ -8,6 +8,7 @@ import {
 } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarV2.page';
 import { MarketplaceCalendarV2Data } from 'bsport-saas/src/libs/marketplace/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
+import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import '../../vendor/map.css';
 
@@ -19,6 +20,8 @@ import {
 } from '../libs/bridge/actions';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
+
+const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
 type OwnProps = {
   companyId: number,
@@ -104,7 +107,7 @@ export class CalendarWidget extends Component<Props, State> {
 
   render() {
     return (
-      <MarketplaceCalendar
+      <MarketplaceCalendarStyled
         {...this.props}
         companyId={this.props.companyId}
         compactMode={

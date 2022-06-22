@@ -895,7 +895,7 @@
                     "passCompatibleNotOwnedByMember": "Bill a new pass",
                     "passOwnedByMember": "Owned passes",
                     "registerToOffer": "Book",
-                    "doNotConsumeCredit": "Don't charge the member credits for this booking",
+                    "doNotConsumeCredit": "Don't charge any credits for this booking",
                     "bookSingleInGroup": "Register for this session only",
                     "bookMoreInGroup": "Book other events",
                     "groupWarning": "This session is part of the session group {{ name }}"
@@ -1206,7 +1206,7 @@
             "payment": "Payment",
             "yourBasket": "Your purchase",
             "noBookingsLeftOnPack": "This pass can't be used for this week anymore.",
-            "noCreditLeft": "Insufficient credit(s)",
+            "noCreditLeft": "Insufficient credits",
             "bookWithUnlimitedPack": "Book",
             "actions": "Actions",
             "invoiceFinalizedThusNotEditable": "The invoice has been finalized, meaning it can't be modified.",
@@ -1422,7 +1422,7 @@
                 "delete": {
                     "explainModalities": "Attention: the sessions won't be visible for your members, but you'll still have access to them. This action can't be undone.",
                     "explainNotify": "Send a notification to all members who booked in",
-                    "explainCreditBack": "Refund the credit to the pass",
+                    "explainCreditBack": "Refund the credits to the used pass",
                     "explainHardDelete": "Are you sure that you want to delete this session? It'll become invisible. This action can't be undone.",
                     "buttonHardDelete": "Delete",
                     "explainForceDanger": "Attention: bookings will permanently be deleted. If you haven't refunded members' credits, they will be lost entirely. Please carefully review the bookings before deleting them.",
@@ -2066,7 +2066,7 @@
                     "pass_name": "Name of the pass",
                     "pass_starting_date": "Start date of the pass",
                     "pass_expiration": "Expiration date of the pass",
-                    "pass_credit_left": "Remaining available credits"
+                    "pass_credit_left": "Remaining credits"
                 }
             },
             "BillingPlan": {
@@ -2108,7 +2108,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_credit_left": "Number of remaining credits",
+                    "pass_credit_left": "Remaining credits",
                     "pass_expiration": "Expiration date of the appointment pass",
                     "pass_starting_date": "Start date of the appointment pass",
                     "pass_name": "Name of the appointment pass",
@@ -2386,7 +2386,7 @@
             "noEmail": "This email doesn't exist in our member data base.",
             "explain1": "Which email do you use to log in?",
             "explain2": "We'll send you the password reset instructions shortly.",
-            "emailHasBeenSent": "We've sent a message to {{email}} to reset your password.",
+            "emailHasBeenSent": "We've sent a message to \"{{email}}\" to reset your password.",
             "actions": {
                 "cancel": "Cancel",
                 "reset": "OK",
@@ -2487,7 +2487,7 @@
             "content": "Content of the email",
             "missing": "Missing email",
             "success": "Your message has been sent.",
-            "error": "Please try again later to send your message.",
+            "error": "Error when sending this message",
             "refreshText": "Refresh the page to see your edits.",
             "noObject": "No subject",
             "refreshTextPhone": "Refresh the page to see the update phone number.",
@@ -3019,7 +3019,7 @@
                 "managerOnly": "Unavailable appointment passes"
             },
             "parameters": {
-                "nbCredits": "{{ credits }} credit(s)",
+                "nbCredits": "{{ credits }} credit",
                 "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
                 "tax": "VAT / Sales Tax: {{ tax }}%",
@@ -4947,7 +4947,7 @@
             }
         },
         "tempPassword": {
-            "title": "Creating and sharing a temporary password",
+            "title": "Temporary password",
             "close": "Close",
             "submit": "Generate",
             "explainRequest": "You may generate and request a temporary password which will be valid for up to 1 week to share it with our Support Team for assistance. Your main and usual password won't be affected.",
@@ -5203,7 +5203,7 @@
         },
         "autoAdd": {
             "paymentPack": {
-                "locked": "You can not buy this pass."
+                "locked": "This product is not available for purchase."
             },
             "privatePass": {
                 "error": "This pass for appointments is not available"
@@ -5223,16 +5223,16 @@
             "isEmpty": "Your basket is empty.",
             "featured": "Featured",
             "error": {
-                "invalidBasket": "Your basket contained items which aren't available anymore. No payment has been processed."
+                "invalidBasket": "Your basket contained items which are no longer available. No payment has been processed."
             },
             "actions": {
                 "closeBasket": "Continue shopping",
-                "checkoutBasket": "Buy",
-                "payZero": "Confirm my basket"
+                "checkoutBasket": "Purchase",
+                "payZero": "Confirm basket"
             },
-            "isFinalized": "Your basket has been validated",
-            "checkingPaymentStatus": "Please wait, we are checking the status of your payment",
-            "totalQuantity": "Contains {{ qty }} element(s)"
+            "isFinalized": "Your basket has been validated.",
+            "checkingPaymentStatus": "Your payment status is being reviewed.",
+            "totalQuantity": "Contains: {{ qty }} product(s)"
         },
         "payLater": {
             "submit": "Pay later",
@@ -5574,7 +5574,7 @@
                 }
             },
             "cancel": "cancel",
-            "submit": "submit",
+            "submit": "Confirm",
             "createTitle": "Form webhook",
             "testSuccess": "Correct Url",
             "testError": "Please verify url",
@@ -5612,7 +5612,7 @@
             }
         },
         "active_campaign": {
-            "submit": "Submit",
+            "submit": "Confirm",
             "cancel": "Cancel",
             "account": {
                 "helpTitle": "Where can I fin my account informations ?",
@@ -5651,7 +5651,7 @@
                 "noServiceError": "Please select an appointment type",
                 "noTitleError": "Please enter a title",
                 "noComponentTypeError": "Please select a component",
-                "submit": "Submit",
+                "submit": "Confirm",
                 "cancel": "Cancel",
                 "inputTitle": "Tab name",
                 "selectPlaylist": "Choose a playlist",
@@ -6589,12 +6589,12 @@
                 "label": "Credit"
             },
             "buyableItemIdentifier": {
-                "10": "Pack",
-                "9": "Appointment pass",
+                "10": "Packs",
+                "9": "Appointment passes",
                 "3": "Credit",
                 "2": "Webshop",
                 "1": "Passes",
-                "11": "Gift card",
+                "11": "Gift cards",
                 "undefined": "Gift card"
             },
             "discount": "Discount"
@@ -6669,7 +6669,7 @@
             "updaterDialog": {
                 "actions": {
                     "cancel": "Cancel",
-                    "submit": "Submit"
+                    "submit": "Next"
                 },
                 "debt": "Deduct",
                 "explainTopup": "The member's account balance will be increased by: €{{ amount }}.",
@@ -6820,7 +6820,7 @@
         },
         "paymentGroup": {
             "requiresAction": "The bank did not authenticate payment (3DSecure)",
-            "validateRequiresAction": "Confirm the payment method"
+            "validateRequiresAction": "Confirm payment method"
         },
         "invoicePaymentPackTagWarningDialog": {
             "confirm": "Confirm",
@@ -6925,7 +6925,7 @@
             "error_email_exists": "A teacher with this email address already exists, please use the new teacher form",
             "linkByEmail": {
                 "cancel": "Cancel",
-                "submit": "Submit",
+                "submit": "Confirm",
                 "title": "Teacher's email address",
                 "success": "Teacher successfully linked",
                 "emailLabel": "Email",
@@ -7045,7 +7045,7 @@
             "delete": "Delete",
             "register": "Subscribe",
             "edit": "Edit",
-            "buy": "Buy",
+            "buy": "Purchase",
             "scheduledStop": {
                 "title": "Cancel this subscription",
                 "explain": "Choose the last payment for the subscription.",
@@ -7584,7 +7584,7 @@
             "level_activity": "Level",
             "sct_name": "Category",
             "duration_second": "Duration (in seconds)",
-            "credit_price": "Price in credit",
+            "credit_price": "Price (in credits)",
             "purchases": "Purchases",
             "views_unique": "Unique views",
             "views_total": "Views",
@@ -7638,7 +7638,7 @@
             "reverted": "Canceled",
             "sum_available_amount_non_expired": "Remaining credits",
             "sum_consumed_amount": "Consumed credits",
-            "sum_available_amount_expired": "Offered and expired credits",
+            "sum_available_amount_expired": "Used and expired credits",
             "nb_expired": "Number of expired passes",
             "price_bought": "Purchase price",
             "is_rent": "Video rental",
@@ -7689,7 +7689,7 @@
             "payment_combo": "Pack",
             "private_pass": "Appointment pass",
             "fee": "Fee",
-            "refund": "Credit refund",
+            "refund": "Refunded credits",
             "booking": "Booking",
             "coupon": "Promotion",
             "giftcard": "Gift card"
@@ -7804,7 +7804,7 @@
                 "content": "Are you sure that you want to delete this filtered view? This action can't be undone."
             },
             "form": {
-                "title": "Filtered view",
+                "title": "[Form] Filtered view",
                 "name": "Name",
                 "information": "General",
                 "filter": "Filters",
@@ -8019,8 +8019,8 @@
             "form": {
                 "noMailAvailable": "There are no email templates to display.",
                 "selectToShowPreview": "Select an email to see a preview of it.",
-                "mailTitle": "Select the email that will be sent",
-                "typeTitle": "Type of notification",
+                "mailTitle": "Select the email template that will be sent",
+                "typeTitle": "Trigger",
                 "creditType": "Remaining credits",
                 "daysType": "Remaining validity",
                 "daysPastType": "Expiration",
@@ -8032,19 +8032,19 @@
                 "submit": "Confirm",
                 "cancel": "Cancel",
                 "createSmartList": "Add a Smartlist",
-                "warning": "By selecting no Smartlist at all, you might notify members who've already bought another pass.",
+                "warning": "By selecting no Smartlist at all, you might notify members who've already made a recent purchase!",
                 "smartListHelper": "Don't send the notification if the member is present in one of the following Smartlists",
                 "smartListHelperInclude": "Only send the notification if the member is present in one of the following Smartlists",
-                "pushTitle": "Notification settings",
-                "mailSettings": "Email settings",
+                "pushTitle": "Settings",
+                "mailSettings": "Content",
                 "chooseTime": {
                     "secondOnOfferStart": "hour(s) after the end of the session",
                     "secondOnBooking": "hour(s) after the booking",
                     "first": "Send a notification"
                 },
                 "creditNotificationType": {
-                    "onOfferStart": "End of the session for which the reservation had brought the number of credits below the threshold defined above",
-                    "onBooking": "Reservation that brings the number of credits below the threshold defined above"
+                    "onOfferStart": "Send the notification after the end of the session",
+                    "onBooking": "Send the notification after completing the booking"
                 }
             },
             "daysPast": {
@@ -8275,7 +8275,7 @@
         "disableConsumer": "Block",
         "enableConsumer": "Unblock",
         "credit": {
-            "updated": "Credits updated"
+            "updated": "Changes saved"
         },
         "consumer": {
             "isFromShare": "Shared from another account",
@@ -8298,7 +8298,7 @@
         "expirationDate": "Expiration date",
         "never": "Never",
         "unlimitedCredits": "Unlimited",
-        "credits": "Credit(s)",
+        "credits": "Credit",
         "credits_plural": "Credits",
         "availableOnFollowingSports": "Available on following categories: ",
         "availableOnFollowingEstablishments": "Available on following establishments: ",
@@ -8324,7 +8324,7 @@
         "specifications": {
             "price": "{{ price, price }}",
             "unlimitedCredits": "Unlimited",
-            "nbCredits": "{{credits}} credit(s)",
+            "nbCredits": "{{credits}} credit",
             "nbCredits_plural": "{{credits}} credits"
         },
         "ht": "Excl. VAT / Sales Tax",
@@ -8359,7 +8359,7 @@
             "scaleDown": "Divide",
             "parameterLegend": "Settings",
             "explain": "You can multiply the credit on the card (3/7 x2 becomes 6/14) or divide them in case of error (3/7 ÷ 2 becomes 1/3): rounded down.",
-            "title": "Change in total credit"
+            "title": "[Form] Changing credits"
         },
         "notificationForm": "Notification form",
         "noPaymentPack": "Members need a valid pass to book your group activities and workshops.",
@@ -9342,30 +9342,30 @@
                 "consumerPacks": "My passes",
                 "contracts": "Subscriptions",
                 "paymentPacks": "Available passes",
-                "paymentCombos": "Promos",
+                "paymentCombos": "Packs",
                 "contract": "Available subscriptions"
             },
             "option": {
                 "isAlreadyOnWaitingList": "You've joined the waitlist. We'll let you know when a spot becomes available.",
                 "isFull": "This session is full. Join the waitlist and we'll let you know when a spot becomes available.",
                 "registerOption": "Join waitlist",
-                "isAlreadyRegistered": "The session is full, congratulations you are booked in !",
+                "isAlreadyRegistered": "Congrats, your booking has been completed. The session is now full.",
                 "waitingListOpen": "This session is full. Join the waitlist and you'll receive a message once a spot becomes available."
             },
             "offer": {
-                "isDisabled": "Unfortunately the class has been canceled.",
-                "isTooLate": "Registration for this class is now closed.",
+                "isDisabled": "This session has been cancelled.",
+                "isTooLate": "Bookings are closed.",
                 "isWaitingListFull": "This session and the waitlist are full.",
-                "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later.",
-                "isAlreadyRegistered": "You are already registered to this session",
-                "blockedByTags": "You do not have the necessary rights to sign up for this session."
+                "isTooSoon": "Bookings open on {{ date_ }}.",
+                "isAlreadyRegistered": "You've already booked this session.",
+                "blockedByTags": "It's not possible to book this session without the correct tags."
             },
             "messages": {
-                "offerLocked": "You can't book this session",
+                "offerLocked": "Error when booking",
                 "maleUnavailable": "The session is no longer available for reservation for men.",
                 "femaleUnavailable": "The session is no longer available for reservation for women."
             },
-            "hasRegistered": "You've already booked your spot for this session.",
+            "hasRegistered": "You've already booked this session.",
             "recurrent": {
                 "backToRegistererChoice": "Back",
                 "bookMultiple": "Book",
@@ -9376,12 +9376,12 @@
                 "unknowError": "Error while booking - try again later"
             },
             "tags": {
-                "unAuthorized": "You do not have the necessary rights to sign up for this session.",
+                "unAuthorized": "It's not possible to book this session without the correct tags.",
                 "managerDialogWarningDialog": {
                     "confirm": "Confirm",
                     "cancel": "Cancel",
                     "title": "Info",
-                    "content": "Please note that this member does not have the necessary tags to be signed up for this session. Do you want to sign them up anyway?"
+                    "content": "Please note that this member doesn't have the requiered tags for this session. Do you want to book them in anyway?"
                 }
             }
         },
@@ -9444,7 +9444,7 @@
             "coach": "Teacher",
             "pickCoach": "Search for a teacher..."
         },
-        "creditConsumed": "{{ credit_consumed }} credit(s)",
+        "creditConsumed": "{{ credit_consumed }} credit",
         "creditConsumed_plural": "{{credit_consumed}} credits",
         "actions": {
             "unregister": "Unregister",
@@ -9455,10 +9455,10 @@
                 "listItemPrimary": {
                     "cancelledDeprecated": "Cancellation: {{notify_booking_nb}}",
                     "bookingDeprecated": "Booking: {{notify_booking_nb}}",
-                    "notRefunded": "Late-cancellations: {{notify_booking_nb}}",
+                    "notRefunded": "Late cancellations: {{notify_booking_nb}}",
                     "refunded": "Refunded cancellations: {{notify_booking_nb}}",
                     "absence": "Absence: {{notify_booking_nb}}",
-                    "attendance": "Booking: {{notify_booking_nb}}",
+                    "attendance": "Attendance: {{notify_booking_nb}}",
                     "after": "This notification will be sent {{hours}} hour(s) after the end of the session.",
                     "before": "This notification will be sent {{hours}} hour(s) before the start of the session.",
                     "notifyAllEvents": {
@@ -9467,17 +9467,17 @@
                         "absence": "For every absence",
                         "attendance": "For every attendance"
                     },
-                    "birthday": "Send on birthday"
+                    "birthday": "Send on birthdays"
                 },
                 "cancel": "Cancel",
                 "next": "Next",
-                "submit": "Submit",
+                "submit": "Confirm",
                 "help": {
-                    "notRefunded": "Number of late cancellations: {{notify_booking_nb}}",
-                    "refunded": "Number of refunded cancellations: {{notify_booking_nb}}",
+                    "notRefunded": "a member registered {{notify_booking_nb}} late cancellation(s).",
+                    "refunded": "has registered {{notify_booking_nb}} late cancellation(s).",
                     "absence": "Absence: {{notify_booking_nb}}",
-                    "attendance": "Presence: {{notify_booking_nb}}",
-                    "text": "This notification will be sent to the member when",
+                    "attendance": "a member booked {{notify_booking_nb}} time(s).",
+                    "text": "This notification will be sent to relevant members when",
                     "allEvents": {
                         "notRefunded": "This notification will be sent every time a member late cancels.",
                         "refunded": "This notification will be sent after every refunded cancellation.",
@@ -9500,21 +9500,21 @@
                 "chooseTime": {
                     "second_after": "hour(s) after the end of the session",
                     "second_before": "hour(s) before the start of the session.",
-                    "first": "Send email"
+                    "first": "Send this notification"
                 },
                 "sendAfterMail": "Send this notification after the session has ended",
                 "sendBeforeMail": "Send this notification before the start of the session",
-                "eventNb": "Set up which booking triggers the notification:",
+                "eventNb": "Select which booking triggers this notification:",
                 "settingTitle": "Settings",
                 "typeTitle": "Trigger",
-                "explain": "Add an automatic notification to contact your member based on the criteria below.",
+                "explain": "Add an automatic notification to contact relevant member based on the following criteria.",
                 "title": "[Form] Notification",
                 "notifyAllEvents": "Send this notification for every booking or cancellation",
                 "ifKind": {
-                    "attendance": "If the member is present",
-                    "notRefunded": "If the booking has been cancelled too late",
-                    "refunded": "If the booking has been cancelled on time",
-                    "absence": "If the member is absent"
+                    "attendance": "Presence",
+                    "notRefunded": "Late cancellations",
+                    "refunded": "Timely cancellations",
+                    "absence": "Absence"
                 },
                 "bookingNumber": "All bookings",
                 "bookingNumber_plural": "1st booking",
@@ -9523,17 +9523,17 @@
                 "bookingNumberSecond": "Booking: 2",
                 "bookingNumberThird": "Booking: 3",
                 "bookingNumberN": "Booking: {{notify_booking_nb}}",
-                "bookingNumberAll": "All bookings",
+                "bookingNumberAll": "Every booking",
                 "addVariable": "Add a variable",
-                "pushHelper": "Use push notifications sparingly, as spamming members may lead to people deleting the app.",
-                "needPushUpsell": "You've not activated the Add-On for push notifications.",
+                "pushHelper": "Use push notifications sparingly, as spamming members may lead to people deleting your app.",
+                "needPushUpsell": "Please activate the push notification Add On to use this feature.",
                 "push": "Push notification",
                 "mail": "Email",
-                "sendingMethod": "Sending method",
-                "sendAfterNotifications": "Send the notifications after the end of the session",
-                "sendAfterNotification": "Send the push notification after the end of the session",
-                "sendBeforeNotifications": "Send the notifications before the start of the session",
-                "sendBeforeNotification": "Send the push notification before the start of the session"
+                "sendingMethod": "Channel",
+                "sendAfterNotifications": "Send these notifications after the session has ended",
+                "sendAfterNotification": "Send this push notification after the session has ended",
+                "sendBeforeNotifications": "Send these notifications before the start of the session",
+                "sendBeforeNotification": "Send this push notification before the start of the session"
             },
             "addNotification": "Add a notification",
             "title": "Notification"
@@ -10814,7 +10814,7 @@
             },
             "credit": {
                 "error": "Error while saving",
-                "updated": "Credits updated"
+                "updated": "Changes saved"
             },
             "paymentPackDisabled": {
                 "error": "Impossible to disable pass",
@@ -10987,7 +10987,7 @@
         "privateConsumerPass": {
             "creditUpdate": {
                 "error": "Impossible to save the account",
-                "success": "Credits updated"
+                "success": "Changes saved"
             }
         },
         "video": {
@@ -11197,8 +11197,8 @@
             "2008": "This pass is not compatible with this activity",
             "2007": "This pass is not compatible with this session",
             "2006": "This pass is not compatible for a booking on the chosen date",
-            "2005": "This pass is not available for sale",
-            "2004": "This pass is not available for sale",
+            "2005": "This pass is not available for purchase",
+            "2004": "This pass is not available for purchase",
             "2003": "This pass is no longer available for purchase",
             "2002": "This pass is only available for new members",
             "1114": "This pack is no longer available for purchase",
@@ -11518,7 +11518,7 @@
                 "cancel": "Cancel",
                 "edit": "Edit",
                 "creditPrice": {
-                    "label": "Price in credit(s)",
+                    "label": "Price (in credits)",
                     "helperText": "Leave at 0 if you want the video to be accessible to all your members"
                 },
                 "video_label": "Video",
@@ -11575,7 +11575,7 @@
                 "title": "Deletion"
             },
             "status": {
-                "processed": "Detail",
+                "processed": "Statistics",
                 "error": "Retry",
                 "processing": "Processing",
                 "submitted": "Draft"
@@ -11611,13 +11611,13 @@
             "lock": {
                 "pleaseAuthenticated": "You must login to access this video",
                 "accessDenied": "Please click on the button below to watch this video.",
-                "buyPass": "Buy a pass",
-                "useConsumerPass": "Watch this video",
+                "buyPass": "Purchase a pass",
+                "useConsumerPass": "Unlock access",
                 "accessDeniedEbook": "You don't have access to this eBook."
             },
-            "creditPrice": "Cost (credit)",
+            "creditPrice": "Price (in credits)",
             "register": {
-                "buyPass": "Buy a pass",
+                "buyPass": "Purchase a pass",
                 "title": "Play this video",
                 "noPassAvailable": "You don't own a compatible pass yet."
             },
@@ -11632,7 +11632,7 @@
             },
             "viewsListTitle": "List of views",
             "purchaseListTitle": "List of purchases",
-            "viewedOn": "Video viewed the {{-date}} at {{hour}}",
+            "viewedOn": "Viewed on: {{-date}} at {{hour}}",
             "boughtOn": "Purchase made on the {{-date}}",
             "noVideoView": "No views",
             "noVideoPurchase": "No purchase recorded",
@@ -11800,15 +11800,15 @@
             }
         },
         "notifications": {
-            "selectNotificationRules": "Select a rule to display more information.",
+            "selectNotificationRules": "Select a notification to display more information.",
             "createNotificationFabLabel": "Add a notification",
             "notificationsEmpty": "There are no automatic notifications set up for this group to display.",
             "deleteDialogText": "Are you sure that you want to delete this rule? This operation can't be undone.",
-            "deleteDialogTitle": "Deleting the rule",
+            "deleteDialogTitle": "Delete this rule",
             "removeRule": "Delete rule",
             "editRule": "Edit rule",
             "paymentPackKind": {
-                "credit": "Number of credits",
+                "credit": "Credits",
                 "validity": "Validity"
             },
             "groupTitle": {
@@ -11834,7 +11834,7 @@
             "selectIdentifierLabel": {
                 "payment_pack": "Select a pass",
                 "private_service": "Select an appointment",
-                "establishment": "Select a location",
+                "establishment": "Select an establishment",
                 "meta_activity": "Select an activity",
                 "workshop": "Select a workshop",
                 "private_pass": "Select an appointment pass",
@@ -11844,7 +11844,7 @@
             "stats": {
                 "total_mail_opened": "Click rate",
                 "opened_rate": "Open rate",
-                "total_mail_send": "Number of sent emails"
+                "total_mail_send": "Sent emails"
             },
             "mail": "Email ",
             "notificationDetails": "Overview",
@@ -11855,7 +11855,7 @@
             "dialogTitle": "Add a notification",
             "listTitle": "Notifications",
             "create": "Add a notification",
-            "handleNotification": "Notification management",
+            "handleNotification": "Notification",
             "noNotification": "There are no activated notifications to display."
         },
         "customForm": {

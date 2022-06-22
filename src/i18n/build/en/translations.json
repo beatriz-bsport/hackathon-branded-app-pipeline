@@ -3109,7 +3109,7 @@
                     "compatibility": "Compatibility",
                     "validity": "Pass validity",
                     "paymentMeans": "Payment method",
-                    "info": "General information",
+                    "info": "General",
                     "compatibilityAppointment": "Compatibility for appointments"
                 },
                 "selector": {
@@ -6410,11 +6410,11 @@
             "submit_stripe_footer": "Update",
             "forms": {
                 "stripe_footer_placeholder": "No additional legal information",
-                "show_company_email_in_invoice": "Show your company email address on invoices"
+                "show_company_email_in_invoice": "Display the company emaill address on all invoices"
             },
             "nf525Button": "Download",
-            "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Here, you can download our official certificate.",
-            "nf525": "Certification",
+            "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.",
+            "nf525": "NF252 Certification",
             "subscription": {
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
@@ -6519,7 +6519,7 @@
         },
         "actions": {
             "equilibrate": "Regularize (deposit)",
-            "download": "Download the invoice",
+            "download": "Download invoice (PDF)",
             "addInvoiceItem": "Add to invoice",
             "save": "Save",
             "backToInvoiceItemEditor": "Purchase",
@@ -6615,7 +6615,7 @@
                 },
                 "label": {
                     "2": "Manual refund",
-                    "1": "Refund on credit (balance)",
+                    "1": "Refund on internal account",
                     "0": "Direct refund"
                 },
                 "explainEmptyPayment": "Are you sure you want to cancel this invoice?"
@@ -7276,7 +7276,7 @@
             "status": "Status",
             "payment_method": {
                 "label": "Payment method",
-                "2": "Credit",
+                "2": "Internal account balance",
                 "1": "SEPA Transfer",
                 "0": "Card"
             },
@@ -8632,7 +8632,7 @@
             "numberOfCredit": "Number of credits",
             "namePaymentPack": "Name of the pass",
             "name": "Name",
-            "generalInfo": "General information",
+            "generalInfo": "General",
             "paymentPack": "Pass",
             "minusZero": "This field can't be 0",
             "requiredField": "This field is mandatory",
@@ -8776,7 +8776,7 @@
                     "subtitleSettings": "Settings",
                     "addOffers": "Add sessions",
                     "subtitleOffers": "Sessions",
-                    "subtitle": "General information",
+                    "subtitle": "General",
                     "allowGuest": "Compatible with the booking for a guest feature",
                     "allowGuestUnavailable": "This feature is not available on grouped sessions."
                 },
@@ -12433,7 +12433,7 @@
                 "color": "Color",
                 "description": "Description",
                 "name": "Name of the programme",
-                "generalInfo": "General information",
+                "generalInfo": "General",
                 "create": "Add a programme",
                 "modify": "Edit a programme",
                 "delete": "Delete a programme",
@@ -12733,7 +12733,7 @@
             "save": "Save",
             "compatibility": "Compatibility",
             "create": "Payments by installments",
-            "generalInfo": "General information",
+            "generalInfo": "General",
             "name": "Name",
             "frequency": {
                 "start": "Repeat every"

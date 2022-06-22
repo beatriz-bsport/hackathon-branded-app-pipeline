@@ -621,7 +621,7 @@
                 "CB_MANUAL": "Betaalkaart (handmatig)",
                 "CB": "Betaalkaart"
             },
-            "creditAccountBalance": "Lopende rekening: ",
+            "creditAccountBalance": "Saldo interne rekening (Wallet): ",
             "paymentMethod": "Betalingswijze",
             "invoice": "Factuur",
             "paymentMethodCash": "Contant",
@@ -655,7 +655,7 @@
             "paymentCombo": "Pakketten",
             "return": "Terugbetaling",
             "privatePass": "Afspraakkaarten",
-            "credit": "Krediet(en)",
+            "credit": "Kredieten",
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
             "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
@@ -773,7 +773,7 @@
             "SMSSent": "Verzonden sms'jes",
             "action": "Actie",
             "totalBuy": "Totale omzet",
-            "averageBuy": "Gemiddelde winkelmandwaarde",
+            "averageBuy": "Gem. winkelmandwaarde",
             "sales": "Verkoop",
             "conversionRate": "Conversiepercentage",
             "dashboard": "Campagnes"
@@ -855,7 +855,7 @@
                 "delete": {
                     "explainModalities": "Let op: deze wijziging is definitief. De sessie zal niet langer zichtbaar voor je leden zijn.",
                     "explainNotify": "Een melding naar alle ingeschreven leden sturen",
-                    "explainCreditBack": "Kredieten van de gebruikte kart terugstorten",
+                    "explainCreditBack": "Kredieten van de gebruikte kaart terugstorten",
                     "explainHardDelete": "Weet je zeker dat je deze sessie(s) wilt verwijderen? Let op: deze actie is definitief en de verwijderde sessies worden onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen",
                     "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Terugbetaalde kredieten worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
@@ -1532,7 +1532,7 @@
     },
     "communication": {
         "mail": {
-            "error": "Probeer het later opnieuw om de e-mail te versturen",
+            "error": "Fout bij het versturen van dit bericht",
             "success": "Je bericht is verzonden.",
             "missing": "Geen e-mail beschikbaar",
             "content": "Inhoud van de e-mail",
@@ -2260,7 +2260,7 @@
                 "content": "Weet je zeker dat je deze gefilterde weergave wilt verwijderen? Deze actie is definitief."
             },
             "form": {
-                "title": "Gefilterde weergave",
+                "title": "[Formulier] Gefilterde weergave",
                 "name": "Naam",
                 "filter": "Filters",
                 "operandSelect": "Filterregels",
@@ -2481,15 +2481,15 @@
             "addButton": "Een melding toevoegen",
             "form": {
                 "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
-                "mailTitle": "Selecteer de te versturen e-mail",
+                "mailTitle": "Selecteer de te versturen e-mailsjabloon",
                 "typeTitle": "Evenement",
                 "creditType": "Resterende kredieten",
                 "daysType": "Resterende geldigheid",
                 "mailSelection": "Selecteer een e-mailsjabloon",
                 "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
-                "showMail": "E-mail tonen",
+                "showMail": "Toon e-mail",
                 "settingTitle": "Instellingen",
-                "hideMail": "E-mail verbergen",
+                "hideMail": "Verberg e-mail",
                 "cancel": "Annuleren",
                 "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
@@ -2499,14 +2499,14 @@
                 "daysPastType": "Verlopen kaart",
                 "submit": "Bevestigen",
                 "pushTitle": "Berichtgevingsinstellingen",
-                "mailSettings": "Instellingen",
+                "mailSettings": "Inhoud",
                 "creditNotificationType": {
-                    "onOfferStart": "Verstuur het bericht na het einde van een sessie na reservering:",
-                    "onBooking": "Verstuur het bericht na het maken van reservering:"
+                    "onOfferStart": "Verstuur het bericht na het einde van een sessie na reservering",
+                    "onBooking": "Verstuur het bericht na het maken van reservering"
                 },
                 "chooseTime": {
                     "first": "Een melding versturen",
-                    "secondOnOfferStart": "uur voor het begin van de sessie",
+                    "secondOnOfferStart": "uur na het einde van de sessie",
                     "secondOnBooking": "uur na de reservering"
                 }
             },
@@ -4513,18 +4513,18 @@
                 "consumerPacks": "Mijn kaarten",
                 "contracts": "Abonnementen",
                 "paymentPacks": "Beschikbare kaarten",
-                "paymentCombos": "Promoties",
+                "paymentCombos": "Pakketten",
                 "contract": "Beschikbare abonnementen"
             },
             "option": {
                 "registerOption": "Op de wachtlijst inschrijven",
                 "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We informeren je wanneer er een plaats vrijkomt.",
                 "isFull": "Deze sessie is volgeboekt. Schrijf je op de wachtlijst in en we sturen je een bericht zodra er een plaats vrijkomt.",
-                "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je hebt je ingeschreven!",
+                "isAlreadyRegistered": "Je reservering is voltooid. De sessie is nu vol.",
                 "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt."
             },
             "offer": {
-                "isDisabled": "De sessie is helaas geannuleerd.",
+                "isDisabled": "Deze sessie is geannuleerd.",
                 "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
                 "isTooSoon": "Reserveringen worden vanaf {{ date_ }} geaccepteerd.",
@@ -4551,7 +4551,7 @@
                 "managerDialogWarningDialog": {
                     "confirm": "Bevestigen",
                     "cancel": "Annuleren",
-                    "content": "Waarschuwing! Dit lid bezit niet de juiste Tags om deze sessie te reserveren. Wil je jezelf inschrijven?",
+                    "content": "Dit lid bezit niet de juiste tags voor deze sessie. Weet je zeker dat je dit lid alsnog wilt inboeken?",
                     "title": "Attentie"
                 }
             }
@@ -4625,15 +4625,15 @@
             "form": {
                 "listItemPrimary": {
                     "cancellation": "Annulering n° {{notify_booking_nb}}",
-                    "attendance": "Aantal keer aanwezig: {{notify_booking_nb}}",
+                    "attendance": "Aanwezigheid: {{notify_booking_nb}}",
                     "booking": "Reservering n° {{notify_booking_nb}}",
-                    "after": "Melding {{hours}} uur na de sessie",
+                    "after": "Deze melding wordt {{hours}} uur/uren na het einde van de sessie verstuurd.",
                     "before": "Deze melding wordt {{hours}} uur/uren voor het begin van de sessie verstuurd.",
                     "notRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
-                    "cancelledDeprecated": "Aantal annuleringen: {{notify_booking_nb}}",
-                    "bookingDeprecated": "Aantal reserveringen: {{notify_booking_nb}}",
+                    "cancelledDeprecated": "Annulering: {{notify_booking_nb}}",
+                    "bookingDeprecated": "Reservering: {{notify_booking_nb}}",
                     "refunded": "Aantal terugbetaalde annuleringen: {{notify_booking_nb}}",
-                    "absence": "Aantal keer afwezig: {{notify_booking_nb}}",
+                    "absence": "Afwezigheid: {{notify_booking_nb}}",
                     "notifyAllEvents": {
                         "notRefunded": "Bij iedere te late annulering",
                         "refunded": "Bij iedere terugbetaalde annulering",
@@ -4651,7 +4651,7 @@
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
                     "text": "Deze melding wordt automatisch verstuurd wanneer een lid",
                     "notRefunded": "{{notify_booking_nb}} keer te laat heeft geannuleerd.",
-                    "refunded": "aantal terugbetaalde annuleringen {{notify_booking_nb}}",
+                    "refunded": "{{notify_booking_nb}} te late annulering(en) heeft geregistreerd.",
                     "absence": "{{notify_booking_nb}} keer heeft geannuleerd.",
                     "allEvents": {
                         "notRefunded": "Leden ontvangen deze melding iedere keer zij te laat annuleren.",
@@ -4707,7 +4707,7 @@
                 "bookingNumberN": "Reservering: {{notify_booking_nb}}",
                 "addVariable": "Een variabel toevoegen",
                 "pushHelper": "Gebruik push-notificaties spaarzaam. Het spammen van leden met push-notificaties vergroot de kans dat leden de mobiele app verwijderen.",
-                "needPushUpsell": "De aanvullende dienst voor push-notificaties is niet aangezet",
+                "needPushUpsell": "Activeer de aanvullende dienst voor push-notificaties om deze functie te gebruiken.",
                 "push": "Push-notificatie",
                 "mail": "E-mail",
                 "sendingMethod": "Communicatiekanaal",
@@ -5679,7 +5679,7 @@
                 "submitted": "Video uploaden",
                 "processing": "Bezig",
                 "error": "Opnieuw proberen",
-                "processed": "Meer informatie"
+                "processed": "Statistieken"
             },
             "delete": {
                 "title": "Verwijderen",
@@ -5765,7 +5765,7 @@
             "purchaseListTitle": "Overzicht van aankopen",
             "noVideoView": "Deze video is nog niet door iemand bekeken.",
             "viewsListTitle": "Bekeken door",
-            "viewedOn": "Heeft de video op {{-date}} om {{hour}} bekeken.",
+            "viewedOn": "Beken op: {{-date}} om {{hour}}",
             "boughtOn": "Op {{-date}} aangeschaft",
             "noVideoPurchase": "Er zijn nog geen aankopen geregistreerd.",
             "coverMain": {
@@ -5904,7 +5904,7 @@
             "url": "URL",
             "urlPlaceHolder": "http://wwww.google.com",
             "payload": "Laadvermogen",
-            "submit": "bevestigen",
+            "submit": "Bevestigen",
             "createTitle": "[Formulier] Webhook",
             "add": "Een Webhook toevoegen",
             "test": "Test"
@@ -6196,7 +6196,7 @@
                 "source": "Gereserveerd via ",
                 "slotTitle": "Afspraak",
                 "passTitle": "Afspraakkaart",
-                "wasRefunded": "Het tegoed wordt teruggestort op de kaart",
+                "wasRefunded": "De kredieten worden op de kaart teruggestort",
                 "wasRefundedYes": "Ja",
                 "wasRefundedNo": "Nee",
                 "address": "Adres",
@@ -6901,8 +6901,8 @@
         },
         "noPrivateConsumerPass": "Er zijn nog geen leden met deze afspraakkaart.",
         "filters": {
-            "hasCreditNull": "Zonder krediet(en)",
-            "hasCreditLeft": "Met krediet(en)",
+            "hasCreditNull": "Zonder kredieten",
+            "hasCreditLeft": "Met kredieten",
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Factuur",
@@ -9593,9 +9593,9 @@
                 "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd."
             },
             "actions": {
-                "closeBasket": "Doorgaan met winkelen",
+                "closeBasket": "Doorgaan",
                 "checkoutBasket": "Afrekenen",
-                "payZero": "Mijn winkelmandje bevestigen"
+                "payZero": "Winkelmandje bevestigen"
             },
             "isFinalized": "Je winkelmandje is bevestigd.",
             "checkingPaymentStatus": "We controleren momenteel de status van de betaling.",
@@ -9606,7 +9606,7 @@
         },
         "payLater": {
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
-            "submit": "Bevestigen"
+            "submit": "Later afrekenen"
         },
         "or": "of",
         "expire_in": "Verloopt over ",
@@ -9664,9 +9664,9 @@
             "confirm": "Bevestigen",
             "cancel": "Annuleren",
             "label": "Beschikbaar bedrag: ",
-            "use": "Mijn saldo gebruiken",
-            "myInternalAccount": "Mijn saldo",
-            "useMyInternalAccount": "Mijn interne saldo gebruiken"
+            "use": "Mijn interne rekening (Wallet) gebruiken",
+            "myInternalAccount": "Mijn interne rekening (Wallet)",
+            "useMyInternalAccount": "Mijn interne rekening (Wallet) gebruiken"
         },
         "payment": {
             "total": "Totaal (incl. btw)",
@@ -9820,7 +9820,7 @@
             "buyableItemIdentifier": {
                 "10": "Pakketten",
                 "9": "Afspraakkaarten",
-                "3": "Krediet(en)",
+                "3": "Kredieten",
                 "2": "Webshop",
                 "1": "Leskaarten",
                 "undefined": "Cadeaubon",
@@ -10807,11 +10807,11 @@
             "deleteDialogText": "Weet je zeker dat je deze regel wilt verwijderen? Deze actie is definitief.",
             "createNotificationFabLabel": "Een melding toevoegen",
             "notificationsEmpty": "Er zijn nog geen meldingen aan deze groep toegevoegd.",
-            "deleteDialogTitle": "[Formulier] Regel verwijderen",
+            "deleteDialogTitle": "Regel verwijderen",
             "removeRule": "Regel verwijderen",
             "editRule": "Regel wijzigen",
             "paymentPackKind": {
-                "credit": "Aantal kredieten",
+                "credit": "Kredieten",
                 "validity": "Geldigheid"
             },
             "groupTitle": {

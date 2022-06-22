@@ -179,6 +179,7 @@ type PriceFieldProps = {
 export function PriceField(props: PriceFieldProps) {
   return (
     <TextField
+      castAsNumber
       InputProps={{
         inputProps: { min: props.min ?? 0, step: 0.01 },
         startAdornment: (
@@ -200,6 +201,7 @@ type IntegerFieldProps = {
 export function IntegerField(props: IntegerFieldProps) {
   return (
     <TextField
+      castAsNumber
       InputProps={{
         inputProps: { min: props.min ?? 0, step: 1 },
       }}
@@ -212,6 +214,7 @@ export function IntegerField(props: IntegerFieldProps) {
 export function PercentField(props: any) {
   return (
     <TextField
+      castAsNumber
       InputProps={{
         inputProps: { min: 0, step: props.step || 1, max: 100 },
         endAdornment: <InputAdornment position="end">%</InputAdornment>,

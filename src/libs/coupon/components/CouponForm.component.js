@@ -38,6 +38,7 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
+import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import TagSelector from '../../tag/components/TagSelector.selector';
 import { Moment } from '../../../i18n';
 
@@ -202,7 +203,7 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   renderVoucherConfig = () => {
-    const { t, classes } = this.props;
+    const { t, classes, initial } = this.props;
     return (
       <div>
         <FormControl component="fieldset" className={classes.radioGroup}>
@@ -222,6 +223,7 @@ export class CouponForm extends React.Component<Props, State> {
               control={
                 <Radio
                   checked={VOUCHER_TYPE_PERCENT === this.state.voucher_type}
+                  disabled={!!initial?.coupon_template_instance}
                 />
               }
               label={t('form.voucher_type.percent')}
@@ -231,6 +233,7 @@ export class CouponForm extends React.Component<Props, State> {
               control={
                 <Radio
                   checked={VOUCHER_TYPE_AMOUNT === this.state.voucher_type}
+                  disabled={!!initial?.coupon_template_instance}
                 />
               }
               label={t('form.voucher_type.amount')}
@@ -239,6 +242,7 @@ export class CouponForm extends React.Component<Props, State> {
           <Collapse in={this.state.voucher_type === VOUCHER_TYPE_PERCENT}>
             <PercentInput
               fullWidth
+              disabled={!!initial?.coupon_template_instance}
               label={t('form.percent_off.label')}
               value={this.state.percent_off}
               onChange={this.handleChange('percent_off', true)}
@@ -247,6 +251,7 @@ export class CouponForm extends React.Component<Props, State> {
           <Collapse in={this.state.voucher_type === VOUCHER_TYPE_AMOUNT}>
             <PriceInput
               fullWidth
+              disabled={!!initial?.coupon_template_instance}
               label={t('form.amount_off.label')}
               value={this.state.amount_off}
               onChange={this.handleChange('amount_off', true)}
@@ -258,11 +263,12 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   renderSubscriptionModeConfig = () => {
-    const { t, classes } = this.props;
+    const { t, classes, initial } = this.props;
     return (
       <div>
         <FormControl component="fieldset" className={classes.radioGroup}>
           <RadioGroup
+            disabled={!!initial?.coupon_template_instance}
             aria-label="Subscription mode"
             name="subscription_mode"
             value={this.state.subscription_mode}
@@ -277,6 +283,7 @@ export class CouponForm extends React.Component<Props, State> {
               value={COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE}
               control={
                 <Radio
+                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE ===
                     this.state.subscription_mode
@@ -291,6 +298,7 @@ export class CouponForm extends React.Component<Props, State> {
               value={COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE}
               control={
                 <Radio
+                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE ===
                     this.state.subscription_mode
@@ -305,6 +313,7 @@ export class CouponForm extends React.Component<Props, State> {
               value={COUPON_SUBSCRIPTION_MODE_ALL_INVOICES}
               control={
                 <Radio
+                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_ALL_INVOICES ===
                     this.state.subscription_mode
@@ -319,6 +328,7 @@ export class CouponForm extends React.Component<Props, State> {
               value={COUPON_SUBSCRIPTION_MODE_NONE}
               control={
                 <Radio
+                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_NONE ===
                     this.state.subscription_mode
@@ -336,13 +346,13 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   renderExpirationDate = () => {
-    const { classes, t } = this.props;
+    const { classes, t, initial } = this.props;
     return (
       <div className={classes.field}>
         <Checkbox
           checked={this.state.with_expiration_date}
+          disabled={!!initial?.coupon_template_instance || this.state.is_active}
           label={t('form.with_expiration_date.label')}
-          disabled={!this.state.is_active}
           onChange={(ev) =>
             this.handleChange('with_expiration_date', false)(ev.target.checked)
           }
@@ -374,7 +384,11 @@ export class CouponForm extends React.Component<Props, State> {
             }}
             openToYearSelection
             clearable
-            disabled={!this.state.with_expiration_date || !this.state.is_active}
+            disabled={
+              !!initial?.coupon_template_instance ||
+              !this.state.with_expiration_date ||
+              !this.state.is_active
+            }
             required={this.state.with_expiration_date && this.state.is_active}
             value={this.state.expiration_date}
             label={t('form.expiration_date.label')}
@@ -399,6 +413,7 @@ export class CouponForm extends React.Component<Props, State> {
       paymentCombos,
       t,
       classes,
+      initial,
     } = this.props;
     return (
       <div className={classes.fullWidth}>
@@ -428,12 +443,16 @@ export class CouponForm extends React.Component<Props, State> {
           <FormControlLabel
             value={BUYABLE_ITEM_PASS}
             control={
-              <Radio checked={BUYABLE_ITEM_PASS === this.state.applies_to} />
+              <Radio
+                checked={BUYABLE_ITEM_PASS === this.state.applies_to}
+                disabled={!!initial?.coupon_template_instance}
+              />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_PASS}`)}
           />
           <div className={classes.fullWidth}>
             <PaymentPackSelector
+              disabled={!!initial?.coupon_template_instance}
               paymentPacks={paymentPacks
                 .filter((pp) => !pp.disabled)
                 .filter((pp) => !this.state.only_on_objects.includes(pp.id))}
@@ -453,6 +472,7 @@ export class CouponForm extends React.Component<Props, State> {
             {this.state.applies_to === BUYABLE_ITEM_PASS
               ? this.state.only_on_objects.map((id, i) => (
                   <PaymentPackListItem
+                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     pack={paymentPacks.find((pp) => pp.id === id)}
                     onDelete={() => {
@@ -469,6 +489,7 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_SHOP_ITEM}
             control={
               <Radio
+                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_SHOP_ITEM === this.state.applies_to}
               />
             }
@@ -476,6 +497,7 @@ export class CouponForm extends React.Component<Props, State> {
           />
           <div className={classes.fullWidth}>
             <ShopItemSelector
+              disabled={!!initial?.coupon_template_instance}
               shopItemList={shopItems
                 .filter((item) => item.subshop && !item.disabled)
                 .filter(
@@ -499,6 +521,7 @@ export class CouponForm extends React.Component<Props, State> {
             {this.state.applies_to === BUYABLE_ITEM_SHOP_ITEM
               ? this.state.only_on_objects.map((id, i) => (
                   <ShopItemListItem
+                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
                     shopitem={shopItems.find((si) => si.id === id)}
@@ -516,6 +539,7 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_PRIVATE_PASS}
             control={
               <Radio
+                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_PRIVATE_PASS === this.state.applies_to}
               />
             }
@@ -523,6 +547,7 @@ export class CouponForm extends React.Component<Props, State> {
           />
           <div className={classes.fullWidth}>
             <PrivatePassSelector
+              disabled={!!initial?.coupon_template_instance}
               privatePassList={privatePasses
                 .filter((pp) => pp.available)
                 .filter(
@@ -548,6 +573,7 @@ export class CouponForm extends React.Component<Props, State> {
             privatePasses.length
               ? this.state.only_on_objects.map((id, i) => (
                   <PrivatePassListItem
+                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
                     pass={privatePasses.find((pp) => pp.id === id)}
@@ -565,6 +591,7 @@ export class CouponForm extends React.Component<Props, State> {
             value={BUYABLE_ITEM_COMBO_ITEM}
             control={
               <Radio
+                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_COMBO_ITEM === this.state.applies_to}
               />
             }
@@ -572,6 +599,7 @@ export class CouponForm extends React.Component<Props, State> {
           />
           <div className={classes.fullWidth}>
             <PaymentComboSelector
+              disabled={!!initial?.coupon_template_instance}
               paymentComboList={paymentCombos.filter(
                 (combo) => !this.state.only_on_objects.includes(combo.id),
               )}
@@ -595,6 +623,7 @@ export class CouponForm extends React.Component<Props, State> {
             paymentCombos.length
               ? this.state.only_on_objects.map((id, i) => (
                   <PaymentComboListItem
+                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
                     paymentCombo={paymentCombos.find(
@@ -613,13 +642,21 @@ export class CouponForm extends React.Component<Props, State> {
           <FormControlLabel
             value={BUYABLE_ITEM_FEE}
             control={
-              <Radio checked={BUYABLE_ITEM_FEE === this.state.applies_to} />
+              <Radio
+                disabled={!!initial?.coupon_template_instance}
+                checked={BUYABLE_ITEM_FEE === this.state.applies_to}
+              />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_FEE}`)}
           />
           <FormControlLabel
             value={ALL_BUYABLES}
-            control={<Radio checked={ALL_BUYABLES === this.state.applies_to} />}
+            control={
+              <Radio
+                disabled={!!initial?.coupon_template_instance}
+                checked={ALL_BUYABLES === this.state.applies_to}
+              />
+            }
             label={t('form.applies_to.choices.all')}
           />
         </RadioGroup>
@@ -628,7 +665,7 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   renderTags = (tag_list_kind: string) => {
-    const { t, classes, tagList } = this.props;
+    const { t, classes, tagList, initial } = this.props;
     return (
       <React.Fragment>
         <div className={classes.sectionTitle}>
@@ -645,6 +682,7 @@ export class CouponForm extends React.Component<Props, State> {
         <div className={classes.flexFormControl}>
           <div className={classes.selector}>
             <TagSelector
+              isDisabled={!!initial?.coupon_template_instance}
               allTagsWithTagGroup={tagList.filter((tag) => {
                 switch (tag_list_kind) {
                   case 'whitelist_tags':
@@ -677,11 +715,20 @@ export class CouponForm extends React.Component<Props, State> {
   };
 
   render() {
-    const { t, classes } = this.props;
+    const { t, classes, initial } = this.props;
     return (
       <form className={classes.container} onSubmit={this.onSubmit}>
+        {!!initial?.coupon_template_instance && (
+          <div className={classes.notEditableContainer}>
+            <InfoOutlined className={classes.redLeftIcon} />
+            <Typography variant="body1" className={classes.darkRed}>
+              {t('couponTemplate.notEditable')}
+            </Typography>
+          </div>
+        )}
         <Typography variant="h6">{t('form.section.general')}</Typography>
         <TextField
+          disabled={!!initial?.coupon_template_instance}
           fullWidth
           onChange={this.handleChange('name', true)}
           label={t('form.name.label')}
@@ -690,6 +737,7 @@ export class CouponForm extends React.Component<Props, State> {
           required
         />
         <TextField
+          disabled={!!initial?.coupon_template_instance}
           fullWidth
           onChange={this.handleChange('code', true)}
           label={t('form.code.label')}
@@ -711,6 +759,7 @@ export class CouponForm extends React.Component<Props, State> {
           {t('form.section.availability')}
         </Typography>
         <Checkbox
+          disabled={!!initial?.coupon_template_instance}
           checked={this.state.is_active}
           label={t('form.is_active.label')}
           helperText={t('form.is_active.helperText')}
@@ -724,6 +773,7 @@ export class CouponForm extends React.Component<Props, State> {
         </Typography>
         <div className={classes.field}>
           <NumericInput
+            disabled={!!initial?.coupon_template_instance}
             fullWidth
             label={t('form.usage_per_member.label')}
             value={this.state.usage_per_member}
@@ -732,6 +782,7 @@ export class CouponForm extends React.Component<Props, State> {
         </div>
         <div className={classes.field}>
           <NumericInput
+            disabled={!!initial?.coupon_template_instance}
             fullWidth
             value={this.state.usage_total}
             label={t('form.usage_total.label')}
@@ -748,6 +799,7 @@ export class CouponForm extends React.Component<Props, State> {
           {t('form.section.advanced')}
         </Typography>
         <Checkbox
+          disabled={!!initial?.coupon_template_instance}
           checked={this.state.only_on_first_checkout}
           onChange={(ev) =>
             this.handleChange(
@@ -758,6 +810,7 @@ export class CouponForm extends React.Component<Props, State> {
           label={t('form.only_on_first_checkout.label')}
         />
         <Checkbox
+          disabled={!!initial?.coupon_template_instance}
           checked={this.state.combinable}
           onChange={(ev) =>
             this.handleChange('combinable', false)(ev.target.checked)
@@ -766,6 +819,7 @@ export class CouponForm extends React.Component<Props, State> {
         />
         <div className={classes.field}>
           <PriceInput
+            disabled={!!initial?.coupon_template_instance}
             fullWidth
             value={this.state.minimum_amount}
             onChange={this.handleChange('minimum_amount', true)}
@@ -804,7 +858,11 @@ export class CouponForm extends React.Component<Props, State> {
             variant="contained"
             color="primary"
             className={classes.actionButton}
-            disabled={this.props.processing || this.state.tag_selection_error}
+            disabled={
+              !!initial?.coupon_template_instance ||
+              this.props.processing ||
+              this.state.tag_selection_error
+            }
             onClick={(ev) => {
               if (this.props.formSubmitIntent) {
                 this.props.formSubmitIntent(
@@ -831,6 +889,24 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     width: '100%',
+  },
+  redLeftIcon: {
+    color: theme.palette.error.main,
+    marginRight: theme.spacing(2),
+  },
+  darkRed: {
+    color: '#621B16',
+  },
+  notEditableContainer: {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: theme.palette.error.main,
+    borderRadius: '5px',
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3),
   },
   sectionTitle: {
     width: '100%',

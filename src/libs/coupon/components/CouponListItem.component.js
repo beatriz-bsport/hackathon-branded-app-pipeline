@@ -61,11 +61,12 @@ export const CouponListItem = (props: Props) => {
               color: 'primary',
               onClick: () => props.onEdit(coupon),
             },
-            props.onDelete && {
-              icon: DeleteIcon,
-              label: t('common.delete'),
-              onClick: () => props.onDelete(coupon.id),
-            },
+            props.onDelete &&
+              !coupon.coupon_template_instance && {
+                icon: DeleteIcon,
+                label: t('common.delete'),
+                onClick: () => props.onDelete(coupon.id),
+              },
           ]}
         />
       </div>

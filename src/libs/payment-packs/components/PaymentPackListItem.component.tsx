@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -91,7 +89,8 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           primary={
             <span>
               <Typography component="span">{this.props.pack.name}</Typography>
-              {this.props.hidePacksNumber ? null : (
+              {this.props.hidePacksNumber ||
+              this.props.pack.nb_consumer_payment_packs === undefined ? null : (
                 <Typography variant="caption" component="span" color="primary">
                   {` (${this.props.pack.nb_consumer_payment_packs})`}
                 </Typography>

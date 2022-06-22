@@ -2,20 +2,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Chip from '@material-ui/core/Chip';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import FranchiseCompanyChipList from '../../../components/franchise/FranchiseCompanyChipList.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getValidityInfo } from '../utils';
 
-import CompanyChip from '../../../components/franchise/CompanyChip.component';
-import FranchiseCompaniesListingTooltip from '../../franchise/components/FranchiseCompaniesListingTooltip.component';
 import { PaymentPackTemplate } from '../types';
 
 type Props = {
@@ -28,7 +25,6 @@ type Props = {
 
 const PaymentPackTemplateListItem = React.memo((props: Props) => {
   const { t } = useTranslation(['paymentPack']);
-  const classes = useStyles();
   const {
     paymentPackTemplate: template,
     onEdit,
@@ -56,29 +52,7 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
             : t('specifications.unlimitedCredits')
         } - ${getCurrencyDisplayWithPrice(template.price)}${` - ${dateInfo}`}`}
       />
-      {template.payment_pack_template_instances.length > 0 && (
-        <>
-          {template.companies
-            .slice(0, 2)
-            .map(
-              (company) =>
-                company && (
-                  <CompanyChip
-                    key={company.id}
-                    className={classes.chip}
-                    company={company}
-                  />
-                ),
-            )}
-          {template.companies.length > 2 && (
-            <FranchiseCompaniesListingTooltip
-              companies={template.companies.slice(2)}
-            >
-              <Chip variant="outlined" color="primary" label={t('seeAll')} />
-            </FranchiseCompaniesListingTooltip>
-          )}
-        </>
-      )}
+      <FranchiseCompanyChipList companies={template.companies} />
       {template.manager_only && !template.disabled && (
         <IconButton onClick={null}>
           <Tooltip title={t('form.paymentPack.managerOnly')}>
@@ -128,12 +102,5 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
     </ListItem>
   );
 });
-
-const useStyles = makeStyles((theme: Theme) => ({
-  chip: {
-    marginLeft: theme.spacing(0.5),
-    marginRight: theme.spacing(0.5),
-  },
-}));
 
 export default PaymentPackTemplateListItem;

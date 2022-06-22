@@ -11,15 +11,18 @@ import { pure } from 'recompose';
 
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import type { Discount } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { FranchiseCompany } from '#libs/franchise/types';
 
 type Props = {
   discount: Discount,
   goToInvoice: (uuid: string) => void,
   goToBillingPlan: (id: number) => void,
   divider?: boolean,
+  company?: FranchiseCompany,
 };
 
 export const DiscountListItem = (props: Props) => {
@@ -31,6 +34,13 @@ export const DiscountListItem = (props: Props) => {
         primary={
           <div className={classes.flex}>
             <Typography>{props.discount.name}</Typography>
+            {props.company && (
+              <CompanyChip
+                company={props.company}
+                className={classes.chip}
+                size="small"
+              />
+            )}
             {props.discount?.memberArchived && (
               <Typography variant="caption" color="secondary">
                 {`${'\u00A0'}(${t('archived')})`}
@@ -70,10 +80,13 @@ export const DiscountListItem = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   flex: {
     display: 'flex',
     alignItems: 'center',
+  },
+  chip: {
+    margin: `0 ${theme.spacing(2)}px`,
   },
 }));
 

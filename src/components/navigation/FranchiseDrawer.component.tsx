@@ -1,7 +1,9 @@
 // @flow
 import React, { useEffect, useState } from 'react';
 
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Location } from 'history';
@@ -51,6 +53,7 @@ import Settings from '@material-ui/icons/Settings';
 import DescriptionIcon from '@material-ui/icons/Description';
 
 import { colors } from '@bsport/common/lib/colors';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import { DrawerContext, DrawerContextValue } from '../../context';
 import { openIntercomHelp } from '../../intercom';
@@ -516,6 +519,11 @@ const getNavigationItems = (props: {
           to: '/f/private-pass-template',
           text: 'backofficeMenu.privateService.pass',
           icon: ScheduleIcon,
+        },
+        {
+          to: '/f/coupon-template',
+          text: 'backofficeMenu.coupon',
+          icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
         },
       ],
     },

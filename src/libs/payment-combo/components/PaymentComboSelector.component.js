@@ -19,6 +19,7 @@ type Props = {
   value: ?number,
   selectorClass: string,
   autofocus: boolean,
+  disabled?: boolean,
 };
 
 type OptionProps = {
@@ -71,6 +72,7 @@ export function PaymentComboSelector(props: Props) {
       components={{ Option: paymentComboOption }}
       placeholder={helperText}
       onChange={(event) => onChange(event.value)}
+      isDisabled={!!props.disabled}
     />
   );
 }

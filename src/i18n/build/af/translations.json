@@ -735,7 +735,7 @@
         "recipientList": "Détail par destinataire",
         "noTopLink": "Aucun clic"
       },
-      "kind": { "0": "Email", "1": "SMS", "2": "Notification push" }
+      "kind": { "0": "Email", "1": "SMS", "undefined": "Notification push" }
     },
     "recipient": {
       "readCount": "Ouverture",
@@ -890,7 +890,11 @@
         "blacklist_tags": "Non - Autorisé"
       },
       "name": { "label": "Nom" },
-      "code": { "label": "Code", "helperText": "Le code que vous transmettrez aux clients concernés" },
+      "code": {
+        "label": "Code",
+        "helperText": "Le code que vous transmettrez aux clients concernés",
+        "helperTextFranchise": "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios."
+      },
       "voucher_type": { "percent": "En pourcentage", "amount": "En valeur" },
       "subscription_mode": {
         "0": "Toutes les facturations",
@@ -917,7 +921,8 @@
           "10": "Pack",
           "all": "Ensemble du panier",
           "null": "Ensemble du panier"
-        }
+        },
+        "choicesFranchise": { "1": "Cartes de cours partagées", "9": "Cartes de RDV partagées" }
       },
       "actions": { "cancel": "Annuler", "submit": "Valider" },
       "tag": {
@@ -943,7 +948,32 @@
       }
     },
     "search": "Rechercher un code promo",
-    "reverted": "Facture annulée"
+    "reverted": "Facture annulée",
+    "couponTemplate": {
+      "formDisclaimer": "Si dans le futur, vous souhaitez modifier cette section pour rendre cette promotion applicable sur une ou plusieurs cartes de cours/RDV en particulier, la liste des studios qui partageront cette promotion sera remise à zéro pour des questions de compatibilité.",
+      "warningDialog": {
+        "title": "Confirmer la modification",
+        "content1": "Attention, vous souhaitez modifier des paramètres d’application de la promotion partagée sur certaines cartes de cours ou de RDV.",
+        "content2": "Cette opération va réinitialiser la liste des studios avec lesquels la promotion sera partagée.",
+        "content3": "Vous pourrez de nouveau choisir les studios qui partageront cette promotion."
+      },
+      "actions": { "create": "Ajouter un code partagé" },
+      "isEmptyExplain": "Aucun code promotionnel partagé enregistré",
+      "notEditable": "Ce coupon est un coupon partagé par le compte franchiseur. Les éléments ont été définis par le compte franchiseur et ne sont pas modifiables."
+    },
+    "couponTemplateInstance": {
+      "create": {
+        "title": "Configurer mes studios",
+        "explain1": "Les studios suivants seront compatibles avec les produits sélectionnés dans votre coupon.",
+        "explain2": "Si un membre applique un code promo dans l'un des studios compatibles, il pourra également l'utiliser dans les autres studios que vous avez défini."
+      },
+      "delete": {
+        "title": "Stopper le partage",
+        "explain1": "Êtes-vous sûr de vouloir stopper le partage du code promotionnel pour {{name}} ?",
+        "explain2": "Vous pourrez l'ajouter de nouveau par la suite."
+      },
+      "companyEmpty": "Aucun studio n'est configuré pour accepter cette promotion"
+    }
   },
   "dashboard": {
     "save": "Sauvegarder",
@@ -6862,7 +6892,9 @@
       "delete": { "error": "Impossible de supprimer cette promotion", "success": "Code promotionel supprimé" },
       "update": { "error": "Impossible de modifier ce code", "success": "Code promotionnel modifié" },
       "create": { "error": "Impossible de créer ce code", "success": "Code promotionnel enregistré" },
-      "attachToBasket": { "error": "Aucun code promo compatible trouvé" }
+      "createOrUpdate": { "success": "Code promotionnel enregistré", "error": "Erreur lors de l'enregistrement du code promotionnel" },
+      "attachToBasket": { "error": "Aucun code promo compatible trouvé" },
+      "templateInstance": { "create": { "error": "Impossible de partager cette promotion avec ce(s) studio(s)" } }
     },
     "email": {
       "create": { "success": "Email créé", "error": "Impossible d'enregistrer l'email" },

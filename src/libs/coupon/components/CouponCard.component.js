@@ -33,6 +33,11 @@ type Props = {
 export const CouponCard = (props: Props) => {
   const { coupon, classes, t } = props;
   const currentlyActive = isCurrentlyActive(coupon);
+
+  const displayNbUses = `${t('card.uses')}: ${props.coupon.nb_discounts}${
+    props.coupon.coupon_template_instance ? '' : `/${props.coupon.usage_total}`
+  }`;
+
   return (
     <Paper className={classes.paperContainer}>
       <div className={classes.headline}>
@@ -61,11 +66,7 @@ export const CouponCard = (props: Props) => {
           <ListItemIcon>
             <ArrowRightIcon />
           </ListItemIcon>
-          <ListItemText
-            primary={`${t('card.uses')} ${props.coupon.nb_discounts}/${
-              props.coupon.usage_total
-            }`}
-          />
+          <ListItemText primary={displayNbUses} />
         </ListItem>
         <ListItem>
           <ListItemIcon>

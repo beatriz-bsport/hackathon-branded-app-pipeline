@@ -59,6 +59,9 @@ const FranchisePaymentPackTemplateRouter = asyncComponent(
 const FranchisePrivatePassTemplateRouter = asyncComponent(
   () => import('./private-pass-template/FranchisePrivatePassTemplate.router'),
 );
+const FranchiseCouponTemplateRouter = asyncComponent(
+  () => import('./coupon-template/FranchiseCouponTemplate.router'),
+);
 const WidgetGeneratorPage = asyncComponent(
   () => import('../settings/WidgetGenerator.page'),
 );
@@ -159,6 +162,10 @@ const FranchiseRouter = (props: Props) => {
             <Route
               path="/f/private-pass-template"
               component={FranchisePrivatePassTemplateRouter}
+            />
+            <Route
+              path="/f/coupon-template"
+              component={FranchiseCouponTemplateRouter}
             />
             <Route
               path="/f/settings/notification-rule/:notificationId?"

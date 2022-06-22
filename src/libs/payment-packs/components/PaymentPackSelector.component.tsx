@@ -5,11 +5,12 @@ import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSumm
 
 import Selector from '../../../components/Selector.component';
 
-import { PaymentPack } from '../types';
+import { PaymentPack } from '../../../api/types';
+import type { PaymentPackTemplate } from '#libs/payment-packs/types';
 
 type Props = {
   classes?: Object;
-  paymentPacks: Array<PaymentPack>;
+  paymentPacks: Array<PaymentPack> | Array<PaymentPackTemplate>;
   onChange: (id: number | null) => void;
   helperText: string;
   value?: number | null;
@@ -17,6 +18,7 @@ type Props = {
   isMulti?: boolean;
   nullCurrentValue?: boolean;
   autofocus?: boolean;
+  disabled?: boolean;
 };
 
 type OptionProps = {
@@ -74,6 +76,7 @@ export function PaymentPackSelector(props: Props) {
         }
       }}
       isMulti={props.isMulti}
+      isDisabled={!!props.disabled}
     />
   );
 }

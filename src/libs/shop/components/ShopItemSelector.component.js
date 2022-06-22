@@ -20,6 +20,7 @@ type Props = {
   selectorClass: string,
   t: TFunction,
   autofocus: boolean,
+  disabled?: boolean,
 };
 
 type OptionProps = {
@@ -85,6 +86,7 @@ export function ShopItemSelector(props: Props) {
       filterOption={filterShopItem}
       placeholder={helperText || props.t('shopitem.selector.placeholder')}
       onChange={(event) => onChange(event.value)}
+      isDisabled={!!props.disabled}
     />
   );
 }

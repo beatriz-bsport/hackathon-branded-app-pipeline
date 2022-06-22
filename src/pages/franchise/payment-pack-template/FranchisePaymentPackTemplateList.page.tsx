@@ -108,7 +108,6 @@ export class FranchisePaymentPackTemplateListPage extends Component<Props> {
                 {this.props.paymentPackTemplateListManagerOnly.map((ppt) => (
                   <PaymentPackTemplateListItem
                     paymentPackTemplate={ppt}
-                    diviver
                     key={ppt.id}
                     onEdit={this.props.openEditDialog}
                     onClick={this.props.goToTemplateDetail}

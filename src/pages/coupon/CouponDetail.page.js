@@ -159,7 +159,11 @@ export class CouponCreate extends Component<Props, State> {
               couponFormState: { open: true, initial: this.props.coupon },
             })
           }
-          onDelete={this.openDeleteModal}
+          onDelete={
+            this.props.coupon.coupon_template_instance
+              ? null
+              : this.openDeleteModal
+          }
         />
         <CouponDeleteModal
           open={!!this.props.deleteModalOpen}

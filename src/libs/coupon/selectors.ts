@@ -2,10 +2,18 @@
 
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import type { Coupon, Discount } from './types';
+import type {
+  Coupon,
+  CouponTemplate,
+  CouponTemplateAPI,
+  CouponTemplateInstance,
+  Discount,
+} from './types';
+import { Company } from '../company/types';
 import { isCurrentlyActive } from './utils';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 import { RootState } from '../../reducers';
+import { getFranchiseCompanyById } from '../franchise/selectors';
 
 export const getAllCoupons = (state: RootState) => state.coupon.coupon.items;
 export const getAllDiscounts = (state: RootState) =>
@@ -60,4 +68,65 @@ export const getActiveCoupons: (state: RootState) => Array<Coupon> =
 export const getInactiveCoupons: (State) => Array<Coupon> = createSelector(
   getAvailableCoupons,
   (coupons) => coupons.filter((coupon) => !isCurrentlyActive(coupon)),
+);
+
+export const getCouponTemplateData = (state: RootState) =>
+  state.coupon.couponTemplate.byId;
+
+const getCouponTemplateIdList = (state: RootState) =>
+  state.coupon.couponTemplate.allIds;
+
+export const getCouponTemplateList: (
+  state: RootState,
+) => Array<CouponTemplate> = createSelector(
+  [getCouponTemplateData, getCouponTemplateIdList, getFranchiseCompanyById],
+  (data, ids, companyData) =>
+    ids
+      .map((id: number) => data[id])
+      .filter((ct) => !ct.disabled)
+      .map((ct: CouponTemplateAPI) => ({
+        ...ct,
+        companies: ct.coupon_template_instances
+          .filter((cti) => !cti.disabled)
+          .map((cti) => companyData[cti.company])
+          .filter((c: Company) => !!c),
+      })),
+);
+
+export const getActiveCouponTemplates: (
+  state: RootState,
+) => Array<CouponTemplate> = createSelector(
+  [getCouponTemplateList],
+  (couponTemplateList) =>
+    couponTemplateList.filter((ct) => isCurrentlyActive(ct)),
+);
+
+export const getInactiveCouponTemplates: (
+  state: RootState,
+) => Array<CouponTemplate> = createSelector(
+  [getCouponTemplateList],
+  (couponTemplateList) =>
+    couponTemplateList.filter((ct) => !isCurrentlyActive(ct)),
+);
+
+const _getId = (state: RootState, id: number) => id;
+
+export const getCouponTemplate: (
+  state: RootState,
+  id: number,
+) => CouponTemplate = createSelector(
+  [getCouponTemplateData, getFranchiseCompanyById, _getId],
+  (data, companyData, id) => {
+    const template = data[id];
+    if (!template) return null;
+    return {
+      ...template,
+      companies: template.coupon_template_instances
+        .map(
+          (cti: CouponTemplateInstance) =>
+            !cti.disabled && companyData[cti.company],
+        )
+        .filter((c: Company) => !!c),
+    };
+  },
 );

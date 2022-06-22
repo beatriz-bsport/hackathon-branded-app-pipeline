@@ -85,6 +85,8 @@ exports.default = {
     code: {
       label: 'Code',
       helperText: 'Le code que vous transmettrez aux clients concernés',
+      helperTextFranchise:
+        "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios.",
     },
     voucher_type: {
       percent: 'En pourcentage',
@@ -140,6 +142,10 @@ exports.default = {
         [BUYABLE_ITEM_COMBO_ITEM]: 'Pack',
         [null]: 'Ensemble du panier',
       },
+      choicesFranchise: {
+        [BUYABLE_ITEM_PASS]: 'Cartes de cours partagées',
+        [BUYABLE_ITEM_PRIVATE_PASS]: 'Cartes de RDV partagées',
+      },
     },
     actions: {
       cancel: 'Annuler',
@@ -169,4 +175,39 @@ exports.default = {
   },
   search: 'Rechercher un code promo',
   reverted: 'Facture annulée',
+  couponTemplate: {
+    formDisclaimer:
+      'Si dans le futur, vous souhaitez modifier cette section pour rendre cette promotion applicable sur une ou plusieurs cartes de cours/RDV en particulier, la liste des studios qui partageront cette promotion sera remise à zéro pour des questions de compatibilité.',
+    warningDialog: {
+      title: 'Confirmer la modification',
+      content1:
+        'Attention, vous souhaitez modifier des paramètres d’application de la promotion partagée sur certaines cartes de cours ou de RDV.',
+      content2:
+        'Cette opération va réinitialiser la liste des studios avec lesquels la promotion sera partagée.',
+      content3:
+        'Vous pourrez de nouveau choisir les studios qui partageront cette promotion.',
+    },
+    actions: {
+      create: 'Ajouter un code partagé',
+    },
+    isEmptyExplain: 'Aucun code promotionnel partagé enregistré',
+    notEditable:
+      'Ce coupon est un coupon partagé par le compte franchiseur. Les éléments ont été définis par le compte franchiseur et ne sont pas modifiables.',
+  },
+  couponTemplateInstance: {
+    create: {
+      title: 'Configurer mes studios',
+      explain1:
+        'Les studios suivants seront compatibles avec les produits sélectionnés dans votre coupon.',
+      explain2:
+        "Si un membre applique un code promo dans l'un des studios compatibles, il pourra également l'utiliser dans les autres studios que vous avez défini.",
+    },
+    delete: {
+      title: 'Stopper le partage',
+      explain1:
+        'Êtes-vous sûr de vouloir stopper le partage du code promotionnel pour {{name}} ?',
+      explain2: "Vous pourrez l'ajouter de nouveau par la suite.",
+    },
+    companyEmpty: "Aucun studio n'est configuré pour accepter cette promotion",
+  },
 };

@@ -3,6 +3,7 @@ import {
   getAuth,
   postAuth,
   patchAuth,
+  putAuth,
   deleteAuth,
   buildUrlParams,
   post,
@@ -25,6 +26,10 @@ export const fetchCouponDiscounts = async (couponId: number, params: any) => {
       ...(params || {}),
     })}`,
   );
+};
+
+export const fetchDiscountList = async (params: any = {}) => {
+  return getAuth(`${COUPON_URI}discount/${buildUrlParams(params)}`);
 };
 
 export const createCoupon = async (data: any) => {
@@ -73,3 +78,38 @@ export const appliesToInvoice = async (
     invoice,
   });
 };
+
+export async function fetchCouponTemplateList(params?: {
+  franchisor?: number;
+  id__in?: Array<number>;
+}) {
+  return getAuth(
+    `${API_V1_URI}/coupon/coupon_template/${buildUrlParams(params)}`,
+  );
+}
+
+export async function retrieveCouponTemplate(id: number) {
+  return getAuth(`${API_V1_URI}/coupon/coupon_template/${id}/`);
+}
+
+export async function createOrUpdateCouponTemplate(data: any) {
+  if (!data.id) {
+    return postAuth(`${API_V1_URI}/coupon/coupon_template/`, data);
+  }
+  return putAuth(`${API_V1_URI}/coupon/coupon_template/${data.id}/`, data);
+}
+
+export async function deleteCouponTemplate(id: number) {
+  return deleteAuth(`${API_V1_URI}/coupon/coupon_template/${id}/`);
+}
+
+export async function createCouponTemplateInstance(data: any) {
+  return postAuth(
+    `${API_V1_URI}/coupon/coupon_template_instance/multi_create/`,
+    data,
+  );
+}
+
+export async function deleteCouponTemplateInstance(id: number) {
+  return deleteAuth(`${API_V1_URI}/coupon/coupon_template_instance/${id}/`);
+}

@@ -368,8 +368,17 @@ exports.default = {
       error: 'Impossible de créer ce code',
       success: 'Code promotionnel enregistré',
     },
+    createOrUpdate: {
+      success: 'Code promotionnel enregistré',
+      error: "Erreur lors de l'enregistrement du code promotionnel",
+    },
     attachToBasket: {
       error: 'Aucun code promo compatible trouvé',
+    },
+    templateInstance: {
+      create: {
+        error: 'Impossible de partager cette promotion avec ce(s) studio(s)',
+      },
     },
   },
   email: {

@@ -9,10 +9,12 @@ import {
   ListItem,
   ListItemText,
   Button,
+  ButtonBase,
   makeStyles,
   Theme,
 } from '@material-ui/core';
 import FilterIcon from '@material-ui/icons/FilterList';
+import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
@@ -266,29 +268,22 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
           </Button>
         </div>
         {selectedFilter && (
-          <div className={classes.chipList}>
+          <ButtonBase
+            onClick={() => {
+              setEditFilterId(selectedFilter);
+              setIsModalOpen(true);
+            }}
+            className={classes.chipList}
+          >
             {uniqsDataTypeForSelectedFilter.map((datatype) => (
-              <ReportFilterChip
-                datatype={datatype}
-                key={datatype}
-                onClick={() => {
-                  setEditFilterId(selectedFilter);
-                  setIsModalOpen(true);
-                }}
-              />
+              <ReportFilterChip datatype={datatype} key={datatype} />
             ))}
             {!!uniqsDataTypeForSelectedFilter.length && (
-              <IconButton
-                size="small"
-                onClick={() => {
-                  setEditFilterId(selectedFilter);
-                  setIsModalOpen(true);
-                }}
-              >
-                <EditIcon color="primary" />
+              <IconButton size="small" variant="contained">
+                <AddIcon color="primary" />
               </IconButton>
             )}
-          </div>
+          </ButtonBase>
         )}
       </div>
 
@@ -391,7 +386,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexWrap: 'wrap',
     gap: theme.spacing(1),
     marginBottom: theme.spacing(1),
+
     marginTop: theme.spacing(1),
+    borderRadius: 16,
+    padding: theme.spacing(1),
+    '&:hover': {
+      backgroundColor: '#efefef',
+    },
   },
 }));
 

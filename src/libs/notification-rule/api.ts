@@ -2,6 +2,7 @@ import {
   getAuth,
   postAuth,
   putAuth,
+  patchAuth,
   deleteAuth,
   API_V1_URI,
   buildUrlParams,
@@ -22,7 +23,7 @@ export const fetchNotificationRuleGenericList = async () => {
 
 export const createOrUpdateNotificationRule = (data: any) => {
   if (data.id && (data.company || data?.companies?.length > 0)) {
-    return putAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/${data.id}/`, data);
+    return patchAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/${data.id}/`, data);
   }
   return postAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/`, data);
 };

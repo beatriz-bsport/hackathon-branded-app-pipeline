@@ -1,23 +1,25 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
 
-import { Redirect, useLocation } from 'react-router';
+// import { Redirect, useLocation } from 'react-router';
 import { compose } from 'recompose';
 
 import { getPermissions } from '#libs/role/selectors';
 import { RootState } from '../../reducers';
-import Config from '../../config';
-import { UPSELL_PERFORMANCE_TRACKING_IDENTIFIER } from '#libs/platform-billing/upsell-identifiers';
-import { URLS_PERMISSIONS, URLS_UPSELL } from '#libs/role/constants';
-import { checkRequiredPermissionsForPath } from '#libs/role/utils';
+// import Config from '../../config';
+// import { UPSELL_PERFORMANCE_TRACKING_IDENTIFIER } from '#libs/platform-billing/upsell-identifiers';
+// import { URLS_PERMISSIONS, URLS_UPSELL } from '#libs/role/constants';
+// import { checkRequiredPermissionsForPath } from '#libs/role/utils';
 
 const ProtectedRoutes: React.FC<ConnectedProps<typeof connector>> = ({
-  permissions,
-  companyId,
-  featureList,
+  // permissions,
+  // companyId,
+  // featureList,
   children,
 }) => {
+  return <>{children}</>;
+  /*
   const hasUpsellIdentifier = useCallback(
     (identifier: number) =>
       Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
@@ -67,6 +69,7 @@ const ProtectedRoutes: React.FC<ConnectedProps<typeof connector>> = ({
   }
 
   return <>{children}</>;
+  */
 };
 
 const connector = connect(

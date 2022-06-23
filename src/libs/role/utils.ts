@@ -60,11 +60,16 @@ export const checkRequiredPermissions = (
 
 export const checkRequiredPermissionsForPath = memoize(
   (url: ProtectedUrls, permissions: Permission) => {
-    const requiredPermissions = URLS_PERMISSIONS[url] ?? [];
+    const urlWithoutTrailingSlash: ProtectedUrls =
+      url?.replace(/\/$/, '') ?? '';
+
+    const requiredPermissions = URLS_PERMISSIONS[urlWithoutTrailingSlash] ?? [];
 
     // restricted path are first priority and follow only a "is path included" rule
     if (permissions.restrictedPaths?.length > 0) {
-      return permissions.restrictedPaths.some((path) => path.includes(url));
+      return permissions.restrictedPaths.some((path) =>
+        path.includes(urlWithoutTrailingSlash),
+      );
     }
 
     // if no permissions is provided authorized the access

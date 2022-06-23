@@ -94,6 +94,7 @@ export class MemberDetailPayment extends Component<Props> {
             containerComponent={Paper}
             page={this.props.page}
             onClickInvoice={this.props.goToInvoice}
+            onChangePage={this.onChangePage}
           />
         </div>
         <div className={this.props.classes.table}>

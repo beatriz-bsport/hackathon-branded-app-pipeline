@@ -112,6 +112,7 @@ export type ReportMedadataDataType =
   | 'private_slot'
   | 'string'
   | 'subshop'
+  | 'staff'
   | 'time'
   | 'user'
   | 'video';
@@ -186,6 +187,7 @@ export type ReportFilterConfigItemTypeById =
   | 'private_service'
   | 'private_slot'
   | 'subshop'
+  | 'staff'
   | 'user'
   | 'video';
 
@@ -307,6 +309,7 @@ export type DynamicFilterDataType =
   | 'private_service'
   | 'private_slot'
   | 'subshop'
+  | 'staff'
   | 'video';
 
 export type ReportFilterConfigParams = {

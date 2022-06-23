@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import uniqBy from 'lodash/uniqBy';
 
 import classNames from 'classnames';
 import { compose } from 'recompose';
@@ -315,16 +316,19 @@ const ReportFilterConfigFormDrawer: React.FC<
   //
   const consumableColumns = useMemo(
     () =>
-      columns.filter((d) => {
-        if (!d.is_filterable) return false;
-        // by Id filter sould be uniq across the filter as a product decision
-        if (
-          DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
-          checkColumnAlreadyExist(d.datatype, values.config.groups)
-        )
-          return false;
-        return true;
-      }),
+      uniqBy(
+        columns.filter((d) => {
+          if (!d.is_filterable) return false;
+          // by Id filter sould be uniq across the filter as a product decision
+          if (
+            DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
+            checkColumnAlreadyExist(d.datatype, values.config.groups)
+          )
+            return false;
+          return true;
+        }),
+        'datatype',
+      ),
     [columns, values.config.groups],
   );
 

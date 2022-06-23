@@ -485,5 +485,6 @@ exports.default = {
     booking_status_code: 'Statut de la réservation',
     payout_status: 'Status du virement',
     payout: 'Virement',
+    staff: 'Staff',
   },
 };

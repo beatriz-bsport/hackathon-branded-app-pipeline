@@ -22,7 +22,7 @@ import {
   fetchReportFilterConfigList as fetchReportFilterConfigListAction,
   deleteReportFilterConfig as deleteReportFilterConfigAction,
 } from '../../libs/reporting/actions';
-
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '../../libs/role/actions';
 import {
   DynamicFilterDataType,
   ReportConfiguration,
@@ -79,6 +79,7 @@ import { getVideoList } from '#libs/video/selectors';
 import { getAvailableContractList } from '#libs/subscription/selectors';
 import { getTheme } from '#libs/theme/selectors';
 import { getSubShopsByCompany } from '#libs/shop/selectors';
+import { getUsersWithRole } from '#libs/role/selectors';
 
 type OwnProps = {
   id: number;
@@ -395,6 +396,13 @@ export class ReportingGeneration extends Component<Props, State> {
             },
           });
           break;
+        case 'staff':
+          this.props.fetchCompanyUserRoles({
+            onSuccess: () => {
+              this.props.setDynamicDataHasBeenLoaded('staff');
+            },
+          });
+          break;
         default:
       }
     }
@@ -481,6 +489,11 @@ export class ReportingGeneration extends Component<Props, State> {
             value: subshop.id,
           })) ?? []
         );
+      case 'staff':
+        return this.props.staffs.map((staff) => ({
+          value: staff.id,
+          label: `${staff.first_name} ${staff.last_name}`,
+        }));
       default:
         return [];
     }
@@ -569,6 +582,7 @@ const connector = connect(
     reportFilterConfigs: getReportFilterConfigList(state),
     contracts: getAvailableContractList(state),
     subshops: getSubShopsByCompany(state, getTheme(state).company),
+    staffs: getUsersWithRole(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,
@@ -596,6 +610,7 @@ const connector = connect(
     deleteReportFilterConfig: deleteReportFilterConfigAction,
     fetchContractList: fetchContractListAction,
     fetchAllSubShop: fetchAllSubShopAction,
+    fetchCompanyUserRoles: fetchCompanyUserRolesAction,
   },
 );
 

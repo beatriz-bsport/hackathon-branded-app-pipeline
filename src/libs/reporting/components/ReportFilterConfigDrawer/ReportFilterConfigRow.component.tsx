@@ -69,12 +69,20 @@ const ReportFilterConfigRow: React.FC<Props> = ({
       uniqBy(
         [
           {
-            label: t(`columns.${filterItem.identifier}`),
+            label: t(
+              `columns.${
+                filterItem.datatype !== 'user'
+                  ? filterItem.identifier
+                  : 'member'
+              }`,
+            ),
             value: filterItem.identifier,
             datatype: filterItem.datatype,
           },
           ...consumableColumns.map((c) => ({
-            label: t(`columns.${c.identifier}`),
+            label: t(
+              `columns.${c.datatype !== 'user' ? c.identifier : 'member'}`,
+            ),
             value: c.identifier,
             datatype: c.datatype,
           })),

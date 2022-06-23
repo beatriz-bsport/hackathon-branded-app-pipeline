@@ -9,7 +9,11 @@ import {
   updateCompanyRole as updateCompanyRoleAPI,
   deleteCompanyRole as deleteCompanyRoleAPI,
 } from './api';
-import { Dispatch, OptionPaginatedCallback } from '../../state/types';
+import {
+  Dispatch,
+  OptionCallback,
+  OptionPaginatedCallback,
+} from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { Permission, Role, UserRoleData } from './types';
 
@@ -35,7 +39,7 @@ export const userRoleDelete = {
   success: createAction('ROLE/USER/DELETE/ERROR'),
 };
 
-export function fetchCompanyUserRoles() {
+export function fetchCompanyUserRoles(options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(userRoleList.isLoading(true));
     dispatch(userRoleList.error(null));
@@ -45,10 +49,12 @@ export function fetchCompanyUserRoles() {
       const roles = response.data;
       dispatch(userRoleList.success(roles));
       dispatch(userRoleList.isLoading(false));
+      options?.onSuccess && options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(userRoleList.error(err));
       dispatch(userRoleList.isLoading(false));
+      options?.onError && options.onError();
     }
   };
 }

@@ -39,6 +39,7 @@ export const COLUMN_FILTERABLE_DATATYPE = [
   'time',
   'user',
   'video',
+  'staff',
 ];
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -71,6 +72,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'subshop',
   'user',
   'video',
+  'staff',
 ];
 
 export const DATATYPE_FILTERABLE_BY_DATE = ['datetime', 'date', 'time'];
@@ -129,6 +131,7 @@ export const defaultDynamicDataHasBeenLoaded = {
   coupon: false,
   giftcard: false,
   video: false,
+  staff: false,
   private_service: false,
   private_slot: false,
   email: false,

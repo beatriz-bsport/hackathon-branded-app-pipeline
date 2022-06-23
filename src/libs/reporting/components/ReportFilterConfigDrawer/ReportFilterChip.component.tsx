@@ -61,6 +61,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
         return <ExposurePlus1Icon />;
       case 'email':
       case 'user':
+      case 'staff':
         return <PeopleIcon />;
       case 'boolean':
         return <CheckBoxIcon />;

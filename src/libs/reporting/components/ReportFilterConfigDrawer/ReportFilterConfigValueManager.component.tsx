@@ -321,6 +321,7 @@ const ReportFilterConfigValueList: React.FC<{
       case 'private_slot':
       case 'subshop':
       case 'video':
+      case 'staff':
         return getDataByType(datatype);
 
       case 'payout_status':
@@ -467,6 +468,7 @@ const ReportFilterConfigValueList: React.FC<{
       'video',
       'contract',
       'company',
+      'staff',
     ].includes(datatype) &&
     getOptions() === null
   ) {

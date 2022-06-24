@@ -17,6 +17,7 @@ import {
   DATE_SUBDATA_TYPE,
   FILTER_IN_OPERAND,
   GROUP_AND_OPERAND,
+  HOUR_SUBDATA_TYPE,
 } from '../../constants';
 
 import {
@@ -169,7 +170,12 @@ export const getDefaultValueForTimePeriod = (details: {
   currentTimePeriod: string | null;
 }) => {
   const { sub_datatype, comparator, datatype, currentTimePeriod } = details;
-  if (datatype !== 'date' && sub_datatype !== DATE_SUBDATA_TYPE) return null;
+  if (
+    datatype !== 'date' &&
+    sub_datatype !== DATE_SUBDATA_TYPE &&
+    sub_datatype !== HOUR_SUBDATA_TYPE
+  )
+    return null;
 
   if (currentTimePeriod) {
     if (

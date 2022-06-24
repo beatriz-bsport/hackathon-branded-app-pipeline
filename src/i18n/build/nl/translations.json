@@ -480,7 +480,7 @@
                 "invoiceList": "Facturen",
                 "invoiceCreatePage": "Factureren",
                 "invoiceFormPage": "Factuur",
-                "coachFormPage": "Instructeur",
+                "coachFormPage": "[Formulier] Instructeur",
                 "coachPerformance": "Payroll",
                 "offerFormPage": "Sessies toevoegen",
                 "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
@@ -1604,7 +1604,8 @@
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
                 "1": "Sms",
-                "0": "E-mail"
+                "0": "E-mail",
+                "2": "Push-notificatie"
             },
             "unavailableMail": "Er is geen voorvertoning om weer te geven."
         },
@@ -1629,7 +1630,8 @@
                     "status": "Status"
                 }
             },
-            "showSms": "Toon de sms"
+            "showSms": "Toon de sms",
+            "showNotification": "Toon melding"
         },
         "send": {
             "success": "E-mail wordt verzonden...",
@@ -1914,7 +1916,8 @@
             "sofort": "Sofort",
             "ideal": "iDEAL",
             "eps": "EPS",
-            "giropay": "Giropay"
+            "giropay": "Giropay",
+            "debt": "Interne rekening (Wallet)"
         },
         "product_type": {
             "shop_item": "Webshop",
@@ -2161,7 +2164,12 @@
             "payout": "Bankoverschrijving",
             "payout_status": "Status bankoverschrijving",
             "payout_date_created": "Datum bankoverschrijving",
-            "applied_tax": "Btw"
+            "applied_tax": "Btw",
+            "couponamount_off": "Vaste korting",
+            "couponpercent_off": "Kortingspercentage",
+            "baskettotal_price": "Bedrag (incl. btw)",
+            "establishment_title": "Vestiging",
+            "billing_planrecurrent_price": "Bedrag"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2442,7 +2450,7 @@
             "details": {
                 "actions": {
                     "refund": "Omzetten in saldo",
-                    "applyVoucher": "Saldo terugstorten"
+                    "applyVoucher": "Terugbetaling"
                 }
             },
             "maxout": {
@@ -2904,7 +2912,7 @@
                 },
                 "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
                 "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
-                "title": "Mijn studio's configureren"
+                "title": "Beschikbaarheid"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld met een andere studio",
             "paymentPackSharedFromFranchisor": "Kaart van het Master-Account"
@@ -4837,7 +4845,8 @@
                 "frequencyWeekly": "deze week.",
                 "frequencyMonthly": "deze maand.",
                 "frequencyYearly": "dit jaar.",
-                "frequencyGeneric": "deze periode."
+                "frequencyGeneric": "deze periode.",
+                "warningCustomLeveledSession": "Er is een gepersonaliseerd niveau op deze sessie van toepassing. Houd er rekening mee dat je gast(en) ook aan dit niveau voldoen."
             }
         },
         "setSpot": "Een plaats toewijzen",
@@ -7092,7 +7101,7 @@
                 },
                 "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
                 "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
-                "title": "Mijn studio's configureren"
+                "title": "Beschikbaarheid"
             },
             "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een andere studio",
             "privatePassSharedFromFranchisor": "Kaart van het Master-Account"
@@ -7793,6 +7802,15 @@
             },
             "attachToBasket": {
                 "error": "Geen compatibele kortingscode gevonden"
+            },
+            "createOrUpdate": {
+                "success": "Promotie opgeslagen",
+                "error": "Fout bij het opslaan van deze promotiecode"
+            },
+            "templateInstance": {
+                "create": {
+                    "error": "Fout bij het opslaan en het delen van deze promotie"
+                }
             }
         },
         "subscription": {
@@ -8691,6 +8709,10 @@
                     "6": "Verzendkosten",
                     "all": "Volledige winkelmand",
                     "10": "Pakketten"
+                },
+                "choicesFranchise": {
+                    "9": "Gedeelde afspraakkaarten",
+                    "1": "Gedeelde leskaarten"
                 }
             },
             "selectorPlaceholder": {
@@ -8717,7 +8739,8 @@
             },
             "code": {
                 "helperText": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren.",
-                "label": "Promotiecode"
+                "label": "Promotiecode",
+                "helperTextFranchise": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren. Controleer of deze promotie niet al bij bestaande studio's wordt gebruikt."
             },
             "voucher_type": {
                 "percent": "Percentage",
@@ -8776,7 +8799,7 @@
                 "tag": "Sub-tag",
                 "tag_group": "Hoofd-tag"
             },
-            "title": "Promotie"
+            "title": "[Formulier] Promotie"
         },
         "list": {
             "activeCoupons": "Actieve promoties",
@@ -8815,7 +8838,34 @@
             }
         },
         "search": "Zoek een promotiecode",
-        "reverted": "Geannuleerde factuur"
+        "reverted": "Geannuleerde factuur",
+        "couponTemplate": {
+            "formDisclaimer": "De beschikbaarheid voor alle studio's wordt gereset indien je de gekoppelde producten wijzigt.",
+            "notEditable": "Deze promotie is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
+            "isEmptyExplain": "Er zijn geen gedeelde promoties om weer te geven.",
+            "actions": {
+                "create": "Een promotiecode toevoegen"
+            },
+            "warningDialog": {
+                "content3": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
+                "content2": "De beschikbaarheid wordt opnieuw geïnitialiseerd met deze wijzigingen.",
+                "content1": "Controleer of deze wijzigingen eventueel invloed hebben op de gedeelde leskaarten en afspraakkaarten.",
+                "title": "Wijzigingen bevestigen"
+            }
+        },
+        "couponTemplateInstance": {
+            "companyEmpty": "Er zijn geen studio's aan deze promotie gekoppeld.",
+            "delete": {
+                "explain2": "Het kan later, indien nodig, opnieuw worden toegevoegd.",
+                "explain1": "Weet je zeker dat je de beschikbaarheid van deze promotie ({{name}}) wilt wijzigen?",
+                "title": "Stop delen"
+            },
+            "create": {
+                "explain2": "Leden kunnen deze promotiecode voor de geselecteerde producten bij alle gekoppelde studio's gebruiken.",
+                "explain1": "Leden kunnen deze promotiecode voor de geselecteerde producten bij alle gekoppelde studio's gebruiken.",
+                "title": "Beschikbaarheid"
+            }
+        }
     },
     "stripe": {
         "errors": {
@@ -10539,7 +10589,7 @@
             },
             "appbarButtons": {
                 "notificationCenter": {
-                    "_label": "Meldingencentrum"
+                    "_label": "Meldingen & Alerts"
                 },
                 "ledger": {
                     "_label": "Kasboek"

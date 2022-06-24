@@ -858,18 +858,18 @@
                 "searchResults": "Search",
                 "reportingDashboard": "Reports",
                 "marketingDashboard": "Marketing",
-                "subscriptions": "Subscription",
+                "subscriptions": "Subscriptions",
                 "marketingRule": "Marketing strategies",
                 "establishmentFormPage": "[Form] Establishment",
                 "establishmentList": "Establishments",
-                "memberFormPage": "[Form] Existing Member",
+                "memberFormPage": "[Form] Member",
                 "member": "Member",
                 "members": "Members",
                 "paymentPackList": "Passes",
                 "paymentPackFormPage": "Add a pass",
                 "invoiceList": "Transactions",
                 "invoiceCreatePage": "Bill",
-                "invoiceFormPage": "Edit invoice",
+                "invoiceFormPage": "Invoice",
                 "coachFormPage": "[Form] Teacher",
                 "coachPerformance": "Payroll",
                 "offerFormPage": "Add sessions",
@@ -2547,7 +2547,8 @@
             "showMail": "Show email",
             "kind": {
                 "1": "SMS",
-                "0": "Email"
+                "0": "Email",
+                "2": "Push notification"
             },
             "unavailableMail": "There's no preview to display."
         },
@@ -2572,7 +2573,8 @@
                     "status": "Status"
                 }
             },
-            "showSms": "Show SMS"
+            "showSms": "Show SMS",
+            "showNotification": "Show notification"
         },
         "send": {
             "error": "Error while sending",
@@ -3511,7 +3513,7 @@
                     "close": "Close"
                 },
                 "explain1": "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
-                "title": "Configure my studios"
+                "title": "Availability"
             },
             "privateConsumerPassSharedFromOtherFranchisee": "Shared from a franchisee",
             "actions": {
@@ -3745,7 +3747,8 @@
             },
             "code": {
                 "label": "Code",
-                "helperText": "Your members will need to use this exact promotional code."
+                "helperText": "Your members will need to use this exact promotional code.",
+                "helperTextFranchise": "Your members will need to use this exact promotional code. Please revise if any of the studios have already applied this promotion."
             },
             "voucher_type": {
                 "percent": "Percentage",
@@ -3793,6 +3796,10 @@
                     "all": "Applies to the entire basket",
                     "null": "Applies to the entire basket",
                     "10": "Packs"
+                },
+                "choicesFranchise": {
+                    "9": "Shared appointment passes",
+                    "1": "Shared passes"
                 }
             },
             "actions": {
@@ -3815,7 +3822,7 @@
                 "tag": "Sub Tag",
                 "tag_group": "Master Tag"
             },
-            "title": "Promotion"
+            "title": "[Form] Promotion"
         },
         "noDiscount": "This promotional code hasn't been used yet.",
         "createCoupon": "Add a promotion",
@@ -3857,7 +3864,34 @@
             }
         },
         "search": "Search a promotion",
-        "reverted": "Invoice cancelled"
+        "reverted": "Invoice cancelled",
+        "couponTemplate": {
+            "formDisclaimer": "The availability for all studios will be reset if you change the products on which this promotion will be applicable to.",
+            "warningDialog": {
+                "content2": "This will reinitialise the list of studios in which this promotion will be shared.",
+                "content1": "Please revise the modifications that you're about to process for this shared promotion on the selected passes and appointment passes.",
+                "content3": "Please select in which studio(s) this promotion will be shared.",
+                "title": "Confirm edits"
+            },
+            "notEditable": "The promotion is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
+            "isEmptyExplain": "There are no promotions to display.",
+            "actions": {
+                "create": "Add a promotion"
+            }
+        },
+        "couponTemplateInstance": {
+            "create": {
+                "title": "Availability",
+                "explain2": "Members may use this promotion at any of the compatible studios.",
+                "explain1": "The following studios will automatically offer this promotion for the selected product(s)."
+            },
+            "companyEmpty": "There are no studios offering this promotion to display.",
+            "delete": {
+                "explain2": "It can be readded later if necessary.",
+                "explain1": "Are you sure that you want to edit the availability for this promotion ({{name}})?",
+                "title": "Stop sharing"
+            }
+        }
     },
     "dashboard": {
         "current_week": "Last week",
@@ -4158,7 +4192,7 @@
                     "_label": "Access to member profiles"
                 },
                 "search": {
-                    "_label": "Search"
+                    "_label": "Search members"
                 },
                 "edit": {
                     "_label": "Edit"
@@ -4166,7 +4200,7 @@
                 "create": {
                     "_label": "Adding members"
                 },
-                "_label": "Member"
+                "_label": "Member database"
             },
             "appbarActions": {
                 "_helper": "For adding member profiles, processing in-studio payments, etc.",
@@ -4287,7 +4321,7 @@
                         "_label": "Expenses"
                     },
                     "installments": {
-                        "_label": "Payment by installments"
+                        "_label": "Instalments"
                     },
                     "teachers": {
                         "_label": "Teachers"
@@ -4382,7 +4416,7 @@
             },
             "appbarButtons": {
                 "notificationCenter": {
-                    "_label": "Notification center"
+                    "_label": "Notifications & Alerts"
                 },
                 "ledger": {
                     "_label": "Ledger"
@@ -4969,7 +5003,7 @@
             "signin": "Log in"
         },
         "or": " or ",
-        "contactUs": "Click here if you're interest in learning more about how BSPORT Solution helps your business with automating, streamlining, and simplifying all of your daily tasks.",
+        "contactUs": "Click here if you're interested in learning more about how BSPORT Solution helps your business with automating, streamlining, and simplifying all of your daily tasks.",
         "signup": {
             "title": "Signup"
         },
@@ -5263,7 +5297,7 @@
                 "back": "Go back",
                 "continue": "Continue shopping",
                 "widgetContinue": "Next",
-                "member": "Member Account"
+                "member": "My profile"
             }
         },
         "expire_in": "Expires in ",
@@ -7656,7 +7690,12 @@
             "applied_tax": "VAT",
             "payout": "Transfer",
             "payout_status": "Transfer: status",
-            "payout_date_created": "Transfer: date"
+            "payout_date_created": "Transfer: date",
+            "couponamount_off": "Fixed discount",
+            "couponpercent_off": "Discount (in %)",
+            "baskettotal_price": "Price (incl. VAT / Sales Tax)",
+            "establishment_title": "Establishment",
+            "billing_planrecurrent_price": "Amount"
         },
         "yes": "Yes",
         "no": "No",
@@ -7680,7 +7719,8 @@
             "sofort": "Sofort",
             "ideal": "iDEAL",
             "eps": "EPS",
-            "giropay": "Giropay"
+            "giropay": "Giropay",
+            "debt": "Internal account"
         },
         "product_type": {
             "payment_pack": "Pass",
@@ -7955,7 +7995,7 @@
             "details": {
                 "actions": {
                     "refund": "Transform in credit",
-                    "applyVoucher": "Apply discount"
+                    "applyVoucher": "Refund"
                 }
             },
             "refund": {
@@ -7987,7 +8027,7 @@
                 "months": "month",
                 "weeks": "week",
                 "days": "day",
-                "limit_reach": "Reservation limit until {{unit}} is reached"
+                "limit_reach": "The booking limit has been reacher for this {{unit}}"
             }
         },
         "notificationToolTip": "Notifications are definied for this pass",
@@ -8340,7 +8380,7 @@
             "booking": "Valid from the 1st booking",
             "purchase": "Valid from the billing date",
             "daysMonths": "{{ duration_months }} month(s) and {{ duration_days }} day(s)",
-            "valid": "Valid ",
+            "valid": "Validity: ",
             "validFor": "for "
         },
         "paymentPackDisabled": {
@@ -8489,7 +8529,7 @@
                 },
                 "explain2": "Members that have bought this pass may use the pass at any of the compatible studios.",
                 "explain1": "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
-                "title": "Configure my studios"
+                "title": "Availability"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Shared with a studio",
             "paymentPackSharedFromFranchisor": "Master Account Pass"
@@ -8787,14 +8827,14 @@
             },
             "offerDescription": "{{ count }} session(s) from {{- firstSession }} until {{- lastSession }}",
             "helperText": {
-                "year": "This group begins {{-day}} , of {{-mont}} every year",
-                "year_plural": "This group begins {{-day}} , of {{-month}} every {{ count }} year",
+                "year": "This event starts every year on: {{-day}} {{-mont}}",
+                "year_plural": "This event starts every year on: {{-day}} {{-month}} for {{ count }} year(s)",
                 "day": "This group is rehearsed every day",
                 "day_plural": "This group is repeated every {{ count }} day",
                 "week": "This group starts on {{-day}} ,every week",
                 "week_plural": "This group starts on {{-day}} every {{ count }} week",
-                "month": "This group starts on {{-day}} every month",
-                "month_plural": "This group starts on {{-day}} ,every {{ count }} month"
+                "month": "This event starts every month on: {{-day}}",
+                "month_plural": "This event starts every month on: {{-day}} for {{ count }} month(s)"
             },
             "last": "last",
             "intervalLabel": {
@@ -8806,7 +8846,7 @@
                     "week": "Every week until {{-until}} ",
                     "week_plural": "Every {{ count }} week until {{-until}} ",
                     "month": "Every month until {{-until}} ",
-                    "month_plural": "Every {{ count }} month until {{-until}} "
+                    "month_plural": "Every month from {{ count }} until {{-until}} "
                 },
                 "year": "Every year",
                 "year_plural": "Every {{ count }} year",
@@ -9656,7 +9696,8 @@
                 "frequencyWeekly": "this week.",
                 "frequencyMonthly": "this month.",
                 "frequencyYearly": "this year.",
-                "frequencyGeneric": "this period."
+                "frequencyGeneric": "this period.",
+                "warningCustomLeveledSession": "This session has a custom level. Please ensure that your guest(s) meet this session's requirements."
             }
         },
         "setSpot": "Assign a spot",
@@ -10805,6 +10846,15 @@
             "delete": {
                 "success": "Promotional code deleted",
                 "error": "Impossible to delete this coupon"
+            },
+            "templateInstance": {
+                "create": {
+                    "error": "Error when sharing this promotion between studios"
+                }
+            },
+            "createOrUpdate": {
+                "error": "Error when saving promotion",
+                "success": "Promotion saved"
             }
         },
         "paymentPack": {

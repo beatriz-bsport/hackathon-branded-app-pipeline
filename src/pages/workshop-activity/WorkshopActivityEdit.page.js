@@ -24,6 +24,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
 
 type Props = {
   id: ?number,
@@ -38,6 +40,7 @@ type Props = {
   onSubmit: () => void,
 
   goToPreviousPage: () => void,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
 const WorkshopActivityMap = {
   cover_main: 'cover_main',
@@ -54,6 +57,7 @@ const WorkshopActivityMap = {
   auto_discard_active: 'auto_discard_active',
   auto_discard_hours_before_start: 'auto_discard_hours_before_start',
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  custom_restriction_rule: 'custom_restriction_rule',
 };
 
 export class WorkshopActivityEditPage extends React.Component<Props> {
@@ -90,6 +94,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
               metaActivityNames={[]}
               initial={{ ...initialData, images: (initial || {}).images || [] }}
               imageUploader={id ? imageUploader : null}
+              tags={this.props.allTagsWithTagGroup}
             />
           </Paper>
         </Grid>
@@ -107,6 +112,7 @@ export default compose(
       companyTheme: themeSelectors.getTheme(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       upsertWorkshopActivity: upsert,

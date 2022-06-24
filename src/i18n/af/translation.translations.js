@@ -861,7 +861,27 @@ exports.default = {
     sctExplain:
       "Ces catégories indiquent le type d'activité. Elles apparaîtront sur la marketplace et l'application.",
   },
+  restrictions: {
+    header: 'Restrictions',
+    lastBookingBeforeMinutes: 'Dernière réservation',
+    lastDiscardBeforeMinutes: 'Dernière annulation',
+    firstBookingMinutesUntil: 'Ouvrir les réservations',
+    personnalizedHeader: 'Restrictions personnalisées',
+    personnalizedHelper:
+      'Indiquer des restrictions différentes pour certains membres grâce aux tags. Les membres disposants de l’un des tags sélectionnés auront des restrictions différentes des autres.',
+    add: 'Ajouter des règles différents ({{ count }}/{{ max }})',
+    personnalizedRestrictionsIndex: 'Restriction personnalisée n°{{ count }}',
+    next: 'Suivant',
+    back: 'Précédent',
+    tags: {
+      selectPlaceHolder: 'Choisir un tag',
+      header: 'Tags sélectionnés',
+      mandatory: 'Sélectionnez au moins 1 Tag',
+    },
+  },
   activity: {
+    generalInfo: 'Informations générales',
+    autoDiscard: 'Annulation automatique',
     explainImage: 'Recommandé: 1920x1080 jpeg (fullHD)',
     altCoverMain: "Description de l'image pour les malvoyants",
     nextSlotAt: 'Prochaine séance le ',

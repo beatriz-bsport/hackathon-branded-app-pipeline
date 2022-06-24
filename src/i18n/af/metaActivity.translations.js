@@ -1,5 +1,7 @@
 exports.default = {
   metaActivity: 'Activité',
+  edit: 'Modifier',
+  close: 'Fermer',
   workshop: 'Atelier',
   search: 'Chercher une activité',
   workshopSelect: 'Chercher un atelier',
@@ -76,14 +78,22 @@ exports.default = {
   settings: {
     conditions: 'Conditions',
     title: 'Paramètres',
-    lastBookingBeforeMinutes:
-      "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
-    lastDiscardBeforeMinutes:
-      "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
+    lastBookingBeforeMinutesHeader:
+      'Avant le début du cours, dernière réservation possible',
+    lastBookingBeforeMinutes: "Jusqu'à {{m}}  avant le début de la séance",
+    lastDiscardBeforeMinutesHeader:
+      'Avant le début du cours, dernière annulation possible',
+    lastDiscardBeforeMinutes: "Jusqu'à {{m}} avant le début de la séance",
+    firstBookingMinutesUntilHeader:
+      'Les élèves peuvent réserver les séances futures si elles débutent dans moins de',
     firstBookingMinutesUntil:
       'Les réservations sont bloquées avant {{m}} du début de la séance',
+    autoDiscardHeader: 'La séance sera annulée si',
     autoDiscard:
       'La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance',
+    restrictionsHeader: 'Restrictions personnalisées',
+    restrictions: ' Restriction personnalisée n°{{ count }}',
+    seeRestrictions: 'Voir',
   },
   packsAvailable: 'Eligible aux pass :',
 

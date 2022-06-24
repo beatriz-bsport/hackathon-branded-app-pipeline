@@ -646,11 +646,11 @@
     "form": {
       "requiredField": "ce champ est requis",
       "duration": {
-        "minute": "Minute:",
+        "minute": "Durée en minutes",
         "minute_plural": "Minutes:",
-        "hour": "Heure:",
+        "hour": "Durée en heures",
         "hour_plural": "Heures:",
-        "day": "Jour:",
+        "day": "Durée en jours",
         "day_plural": "Jours:"
       }
     },
@@ -1086,9 +1086,12 @@
   },
   "datetime": {
     "shortDayIdentifier": "j",
+    "longDayIdentifer": "jours",
     "never": "Jamais",
     "shortMinuteIdentifier": "min",
+    "longMinuteIdentifier": "minutes",
     "shortHourIdentifier": "h",
+    "longHourIdentifier": "heures",
     "time": {
       "weekday": {
         "sunday": "Dimanche",
@@ -2795,6 +2798,8 @@
   },
   "metaActivity": {
     "metaActivity": "Activité",
+    "edit": "Modifier",
+    "close": "Fermer",
     "workshop": "Atelier",
     "search": "Chercher une activité",
     "workshopSelect": "Chercher un atelier",
@@ -2851,10 +2856,17 @@
     "settings": {
       "conditions": "Conditions",
       "title": "Paramètres",
-      "lastBookingBeforeMinutes": "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
-      "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
+      "lastBookingBeforeMinutesHeader": "Avant le début du cours, dernière réservation possible",
+      "lastBookingBeforeMinutes": "Jusqu'à {{m}}  avant le début de la séance",
+      "lastDiscardBeforeMinutesHeader": "Avant le début du cours, dernière annulation possible",
+      "lastDiscardBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
+      "firstBookingMinutesUntilHeader": "Les élèves peuvent réserver les séances futures si elles débutent dans moins de",
       "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
-      "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance"
+      "autoDiscardHeader": "La séance sera annulée si",
+      "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
+      "restrictionsHeader": "Restrictions personnalisées",
+      "restrictions": " Restriction personnalisée n°{{ count }}",
+      "seeRestrictions": "Voir"
     },
     "packsAvailable": "Eligible aux pass :",
     "reviews": "Avis clients: ",
@@ -4303,7 +4315,9 @@
           "continue": "Continuer"
         }
       }
-    }
+    },
+    "next": "Suivant",
+    "previous": "Précédent"
   },
   "paymentRules": {
     "simulate": "Simuler",
@@ -8085,7 +8099,9 @@
     "metaActivity": {
       "metaActivityList": "Activités",
       "metaActivityEditForm": "Formulaire Activité",
-      "metaActivityFormPage": "Formulaire Activité"
+      "metaActivityFormPage": "Formulaire Activité",
+      "metaActivityFormSubtitle": "Création d'un activité",
+      "metaActivityEditFormSubtitle": "Modification d'une activité"
     },
     "invoice": { "invoiceList": "Mes transactions", "invoiceCreate": "Facturer", "invoiceEdit": "Edition facture" },
     "expense": { "expenseList": "Mes dépenses" },
@@ -8119,7 +8135,9 @@
     "workshopActivity": {
       "workshopActivityList": "Ateliers",
       "workshopActivityCreate": "Créer un atelier",
-      "workshopActivityFormPage": "Formulaire ateliers"
+      "workshopActivityFormPage": "Formulaire ateliers",
+      "workshopActivityFormSubtitle": "Création d'un atelier",
+      "workshopActivityEditFormSubtitle": "Modification d'un atelier"
     },
     "paymentPack": { "paymentPackFormPage": "Formulaire carte de cours", "paymentPackList": "Cartes de cours" },
     "marketing": { "marketingDashboard": "Dashboard", "marketingRule": "Stratégies marketing", "notifications": "Notifications" },
@@ -8837,7 +8855,26 @@
       "explain": "Ces catégories servent uniquement à ordonner les activités sur le backoffice à votre guise. Elles n'ont pas d'impact côté client",
       "sctExplain": "Ces catégories indiquent le type d'activité. Elles apparaîtront sur la marketplace et l'application."
     },
+    "restrictions": {
+      "header": "Restrictions",
+      "lastBookingBeforeMinutes": "Dernière réservation",
+      "lastDiscardBeforeMinutes": "Dernière annulation",
+      "firstBookingMinutesUntil": "Ouvrir les réservations",
+      "personnalizedHeader": "Restrictions personnalisées",
+      "personnalizedHelper": "Indiquer des restrictions différentes pour certains membres grâce aux tags. Les membres disposants de l’un des tags sélectionnés auront des restrictions différentes des autres.",
+      "add": "Ajouter des règles différents ({{ count }}/{{ max }})",
+      "personnalizedRestrictionsIndex": "Restriction personnalisée n°{{ count }}",
+      "next": "Suivant",
+      "back": "Précédent",
+      "tags": {
+        "selectPlaceHolder": "Choisir un tag",
+        "header": "Tags sélectionnés",
+        "mandatory": "Sélectionnez au moins 1 Tag"
+      }
+    },
     "activity": {
+      "generalInfo": "Informations générales",
+      "autoDiscard": "Annulation automatique",
       "explainImage": "Recommandé: 1920x1080 jpeg (fullHD)",
       "altCoverMain": "Description de l'image pour les malvoyants",
       "nextSlotAt": "Prochaine séance le ",

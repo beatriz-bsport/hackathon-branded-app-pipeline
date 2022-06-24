@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import { Tag, TagGroup } from '../../tag/types';
 import TagChip from '../../tag/components/TagChip.component';
@@ -36,8 +37,8 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
   };
 
   return (
-    <Dialog open={open} className={classes.dialog} maxWidth="xl">
-      <div className={classes.dialogContent}>
+    <GenericResponsiveDialog open={open} maxWidth="sm">
+      <DialogContent>
         <div className={classes.tagsBlock}>
           <Typography variant="h6">{t('whiteList')}</Typography>
           <Divider />
@@ -53,16 +54,16 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
             {renderTags(blacklistTags, t('noUnauthorizedTag'))}
           </div>
         </div>
-      </div>
+      </DialogContent>
       <DialogActions>
-        <Button id="button_modify" color="primary" onClick={props.onModify}>
-          {t('actions.edit')}
-        </Button>
         <Button id="button_exit" onClick={props.onClose}>
           {t('actions.close')}
         </Button>
+        <Button id="button_modify" color="primary" onClick={props.onModify}>
+          {t('actions.edit')}
+        </Button>
       </DialogActions>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
 };
 
@@ -74,15 +75,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     margin: theme.spacing(2),
   },
-  dialogContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(4),
-    width: 750,
-    maxWidth: '100%',
-    maxHeight: '70vh',
-    overflow: 'scroll',
-  },
+
   tagsBlock: {
     display: 'flex',
     flexDirection: 'column',
@@ -97,9 +90,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5),
-    },
+    gap: theme.spacing(0.5),
   },
   tag: {
     margin: theme.spacing(0.5),

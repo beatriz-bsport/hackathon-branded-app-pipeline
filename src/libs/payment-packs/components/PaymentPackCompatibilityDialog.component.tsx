@@ -1,20 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import CategoryIcon from '@material-ui/icons/Category';
 import StarIcon from '@material-ui/icons/Star';
 import RoomIcon from '@material-ui/icons/Room';
-import { useTheme } from '@material-ui/styles';
 
-import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import { Theme, makeStyles } from '@material-ui/core/styles';
-
-import { useMediaQuery } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import DialogContent from '@material-ui/core/DialogContent';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { SCS } from '#libs/category/types';
@@ -33,111 +33,214 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack']);
   const { open, categories, establishments, activities, isManager } = props;
-  const theme: Theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  return (
-    <Dialog
-      open={open}
-      className={classes.dialog}
-      maxWidth="md"
-      fullWidth
-      fullScreen={fullScreen}
-    >
-      <div className={classes.dialogContent}>
-        {categories?.length ? (
-          <div className={classes.compatibilityList}>
-            <CategoryIcon className={classes.topIcon} />
-            <Typography variant="h6">{t('categories')}</Typography>
-            <List>
-              {categories.map((c: SCS) =>
-                c ? (
-                  <ListItem className={classes.listItem} key={c.id}>
-                    {c.name}
-                  </ListItem>
-                ) : null,
-              )}
-            </List>
-          </div>
-        ) : null}
-        {activities?.length ? (
-          <div className={classes.compatibilityList}>
-            <StarIcon className={classes.topIcon} />
-            <Typography variant="h6">{t('activities')}</Typography>
-            <List>
-              {activities.map((a: MetaActivity) =>
-                a ? (
-                  <ListItem className={classes.listItem} key={a.id}>
-                    {a.name}
-                  </ListItem>
-                ) : null,
-              )}
-            </List>
-          </div>
-        ) : null}
-        {establishments?.length ? (
-          <div className={classes.compatibilityList}>
-            <RoomIcon className={classes.topIcon} />
-            <Typography variant="h6">{t('establishments')}</Typography>
-            <List>
-              {establishments.map((e: Establishment) =>
-                e ? (
-                  <ListItem className={classes.listItem} key={e.id}>
-                    {e.title}
-                  </ListItem>
-                ) : null,
-              )}
-            </List>
-          </div>
-        ) : null}
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = 3;
+  const theme = useTheme();
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+  const renderCompatibableWithAll = () => {
+    return (
+      <div className={classes.allCompatibilitySection}>
+        <Typography>{t('compatibility.all')}</Typography>
       </div>
+    );
+  };
+  const renderCategories = () => {
+    if (!categories?.length) {
+      return renderCompatibableWithAll();
+    }
+    return (
+      <div className={classes.compatibilityList}>
+        {categories.map((c: SCS) =>
+          c ? <Chip key={c.id} label={c.name} /> : null,
+        )}
+      </div>
+    );
+  };
+  const renderActivities = () => {
+    if (!activities?.length) {
+      return renderCompatibableWithAll();
+    }
+    return (
+      <div className={classes.compatibilityList}>
+        {activities.map((a: MetaActivity) =>
+          a ? <Chip key={a.id} label={a.name} /> : null,
+        )}
+      </div>
+    );
+  };
+
+  const renderEstablishments = () => {
+    if (!establishments?.length) {
+      return renderCompatibableWithAll();
+    }
+    return (
+      <div className={classes.compatibilityList}>
+        {establishments.map((e: Establishment) =>
+          e ? <Chip key={e.id} label={e.title} /> : null,
+        )}
+      </div>
+    );
+  };
+  return (
+    <GenericResponsiveDialog open={open} maxWidth="md">
+      <DialogContent>
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          variant="text"
+          activeStep={activeStep}
+          classes={{ root: classes.transparentBackGround }}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+            >
+              {t('next')}
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              {t('previous')}
+            </Button>
+          }
+        />
+        <div className={classes.allSteps}>
+          <div className={classes.stepWithIcon}>
+            <CategoryIcon
+              className={classNames(classes.topIcon, {
+                [classes.highligthed]: activeStep === 0,
+              })}
+            />
+            <Typography
+              variant="h6"
+              className={classNames({
+                [classes.highligthed]: activeStep === 0,
+              })}
+            >
+              {t('categories')}
+            </Typography>
+          </div>
+          <div className={classes.stepWithIcon}>
+            <StarIcon
+              className={classNames(classes.topIcon, {
+                [classes.highligthed]: activeStep === 1,
+              })}
+            />
+            <Typography
+              variant="h6"
+              className={classNames({
+                [classes.highligthed]: activeStep === 1,
+              })}
+            >
+              {t('activities')}
+            </Typography>
+          </div>
+          <div className={classes.stepWithIcon}>
+            <RoomIcon
+              className={classNames(classes.topIcon, {
+                [classes.highligthed]: activeStep === 2,
+              })}
+            />
+            <Typography
+              variant="h6"
+              className={classNames({
+                [classes.highligthed]: activeStep === 2,
+              })}
+            >
+              {t('establishments')}
+            </Typography>
+          </div>
+        </div>
+        <div className={classes.stepContainer}>
+          {activeStep === 0 ? renderCategories() : null}
+          {activeStep === 1 ? renderActivities() : null}
+          {activeStep === 2 ? renderEstablishments() : null}
+        </div>
+      </DialogContent>
       <DialogActions>
+        <Button id="button_exit" onClick={props.onClose}>
+          {t('actions.close')}
+        </Button>
         {isManager && (
           <Button id="button_modify" color="primary" onClick={props.onModify}>
             {t('actions.edit')}
           </Button>
         )}
-        <Button id="button_exit" onClick={props.onClose}>
-          {t('actions.close')}
-        </Button>
       </DialogActions>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  dialog: {
-    maxHeight: '80vh',
-    overflow: 'no',
-    minWidth: '60vw',
-    justifyContent: 'center',
-  },
-  dialogContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: theme.spacing(2),
-    width: '100%',
-    maxHeight: '70vh',
-    overflow: 'scroll',
-    justifyContent: 'center',
-  },
   topIcon: {
     color: '#868686',
-    marginBottom: theme.spacing(1.5),
     height: 30,
+  },
+  highligthed: {
+    color: theme.palette.primary.main,
   },
   compatibilityList: {
     display: 'flex',
-    flexDirection: 'column',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
     alignItems: 'center',
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    width: '15vw',
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  transparentBackGround: {
+    backgroundColor: 'transparent',
   },
   listItem: {
     textAlign: 'center',
     justifyContent: 'center',
+  },
+  allSteps: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  stepContainer: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  stepWithIcon: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  allCompatibilitySection: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
   },
 }));
 

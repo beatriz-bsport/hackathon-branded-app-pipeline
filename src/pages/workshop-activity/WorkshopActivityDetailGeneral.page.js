@@ -8,48 +8,53 @@ import moment from 'moment';
 
 import { withTranslation } from 'react-i18next';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import WorkshopDeleteDialog from '#libs/meta-activity/components/WorkshopDeleteDialog.component';
+import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
 
-import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
-import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-
-import { getWorkshops } from '../../libs/meta-activity/selectors';
+import { getWorkshops } from '#libs/meta-activity/selectors';
 import {
   getEventsByMetaActivity,
   withEstablishment,
   withCoach,
   getOffersByDay,
-} from '../../libs/offer/selectors';
+} from '#libs/offer/selectors';
 import {
   fetchOffersByDay as fetchOffersByDayAction,
   fetchMetaActivityOffers as fetchMetaActivityOffersAction,
-} from '../../libs/offer/actions';
-import { deleteWorkshop } from '../../libs/meta-activity/actions';
-import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
+} from '#libs/offer/actions';
+import { deleteWorkshop, upsert } from '#libs/meta-activity/actions';
+import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '#libs/meta-activity/api/common';
 
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '../../libs/marketing/actions';
-import { getBookingNotifications } from '../../libs/marketing/selectors';
+} from '#libs/marketing/actions';
+import { getBookingNotifications } from '#libs/marketing/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
+} from '#libs/email-editor/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '../../libs/email-editor/actions';
-import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
+} from '#libs/email-editor/actions';
+import WidgetGeneratorDialog from '#libs/widget/components/WidgetGeneratorDialog.component';
+import { mapFormData, unmap } from '../form.utils';
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
+import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
+import { OptionCallBack } from '../../state/types';
+import { SCT } from '#libs/category/types';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
 
 type Props = {
   id: number,
@@ -66,11 +71,10 @@ type Props = {
     id: number,
     options: ?{ onSuccess: ?() => void, onError: ?() => void },
   ) => void,
-  onEdit: (id: number) => void,
   createActivityOffers: (id: number) => void,
   goToOffer: (offer: Offer) => void,
   classes: Object,
-  setOpenWidgetDialog: () => void,
+  setOpenWidgetDialog: (open: boolean) => void,
   openWidgetDialog: Boolean,
 
   email_templates_list: Array<any>,
@@ -85,8 +89,30 @@ type Props = {
   createNotification: (date: any) => void,
   updateNotification: (data: any) => void,
   deleteNotification: (notificationId: number) => void,
+  openEditDrawer: boolean,
+  setOpenEditDrawer: (open: boolean) => void,
+  onSubmit: (values: MetaActivityType, options: OptionCallBack) => void,
+  SCTs: Array<SCT>,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
-
+const MetaActivityMap = {
+  cover_main: 'cover_main',
+  description: 'description',
+  name: 'name',
+  last_booking_minutes: 'last_booking_minutes',
+  last_discard_minutes: 'last_discard_minutes',
+  first_booking_minutes_until: 'first_booking_minutes_until',
+  is_workshop: 'is_workshop',
+  SCT: 'SCT',
+  color: 'color',
+  is_broadcast: 'is_broadcast',
+  auto_discard_active: 'auto_discard_active',
+  auto_discard_hours_before_start: 'auto_discard_hours_before_start',
+  auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
+  alt_cover_main: 'alt_cover_main',
+  custom_restriction_rule: 'custom_restriction_rule',
+};
 type State = {
   editable: boolean,
   data: any,
@@ -118,15 +144,30 @@ export class WorkshopActivity extends Component<Props, State> {
     this.props.createActivityOffers(this.props.id);
   };
 
+  onEdit = () => {
+    this.props.setOpenEditDrawer(true);
+  };
+
+  onCancelEdit = () => {
+    this.props.setOpenEditDrawer(false);
+  };
+
   render() {
-    if (!this.props.workshopActivity) {
+    const { workshopActivity, SCTs } = this.props;
+    if (!workshopActivity) {
       return <LinearProgress />;
     }
+    const initialData = workshopActivity
+      ? {
+          ...unmap(workshopActivity, MetaActivityMap),
+          SCT: workshopActivity.SCT,
+        }
+      : null;
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityDetail
-          metaActivity={this.props.workshopActivity}
+          metaActivity={workshopActivity}
           fetchOffersByDay={this.props.fetchOffersByDay}
           events={this.props.events}
           offers={this.props.offers.filter(
@@ -146,11 +187,12 @@ export class WorkshopActivity extends Component<Props, State> {
           createNotification={this.props.createNotification}
           updateNotification={this.props.updateNotification}
           deleteNotification={this.props.deleteNotification}
+          onEdit={this.onEdit}
         />
         <BottomActionButtons
-          onEdit={() => this.props.onEdit(this.props.id)}
+          onEdit={this.onEdit}
           onDelete={
-            this.props.workshopActivity.customer_enabled
+            workshopActivity.customer_enabled
               ? () => this.setState({ deleteOpen: true })
               : null
           }
@@ -177,6 +219,17 @@ export class WorkshopActivity extends Component<Props, State> {
             },
           }}
         />
+        <MetaActivityEditDrawer
+          initial={{
+            ...initialData,
+            images: (workshopActivity || {}).images || [],
+          }}
+          onSubmit={this.props.onSubmit}
+          SCTs={SCTs}
+          open={this.props.openEditDrawer}
+          onCancel={this.onCancelEdit}
+          tags={this.props.allTagsWithTagGroup}
+        />
       </div>
     );
   }
@@ -192,10 +245,12 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(),
   withState('openWidgetDialog', 'setOpenWidgetDialog', false),
+  withState('openEditDrawer', 'setOpenEditDrawer', false),
   withStyles(styles),
   connect(
     (state, { id }) => ({
       id,
+      SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       workshopActivities: getWorkshops(state),
       workshopActivity: getWorkshops(state).find((ma) => ma.id === id),
@@ -210,6 +265,7 @@ export default compose(
         items: getBookingNotifications(state),
         loading: state.marketingNotification.loading,
       },
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchOffersByDay: fetchOffersByDayAction,
@@ -217,7 +273,6 @@ export default compose(
       deleteWorkshop,
       goToOffer: (o) => routerPush(`/offer/${o.id}`),
       goToList: () => routerPush('/workshop-activity'),
-      onEdit: (id) => routerPush(`/workshop-activity/${id}/edit`),
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
@@ -226,21 +281,51 @@ export default compose(
       updateNotification: updateMarketingNotification,
       deleteNotification: deleteMarketingNotificationAction,
       fetchNotifications: fetchMarketingNotificationListAction,
+      upsertMetaActivity: upsert,
     },
   ),
-  withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
-    fetchOffersByDay: (momentDate) => {
-      fetchMetaActivityOffers(id, {
-        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
-      });
-      fetchOffersByDay({
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
-      });
-    },
-  })),
+  withProps(
+    ({
+      fetchOffersByDay,
+      fetchMetaActivityOffers,
+      id,
+      upsertMetaActivity,
+      setOpenEditDrawer,
+    }) => ({
+      fetchOffersByDay: (momentDate) => {
+        fetchMetaActivityOffers(id, {
+          min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+          max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+        });
+        fetchOffersByDay({
+          year: momentDate.year(),
+          month: momentDate.month() + 1,
+          day: momentDate.date(),
+        });
+      },
+      onSubmit: (values, options) => {
+        try {
+          const formData = mapFormData(values, MetaActivityMap);
+          formData.append('id', id);
+          formData.append('is_workshop', true);
+          upsertMetaActivity(formData, {
+            ...options,
+            onSuccess: () => {
+              if (options.onSuccess) options.onSuccess();
+              setOpenEditDrawer(false);
+            },
+            onError: (err) => {
+              console.error(err);
+              if (options?.onError) options.onError(err);
+            },
+          });
+        } catch (err) {
+          console.error(err);
+          if (options?.onError) options.onError(err);
+        }
+      },
+    }),
+  ),
   withHandlers({
     fetchNotificationsAndTemplates:
       ({ fetchNotifications, fetchEmailTemplateSummariesBulk }) =>

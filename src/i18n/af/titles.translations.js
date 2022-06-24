@@ -24,6 +24,8 @@ exports.default = {
     metaActivityList: 'Activités',
     metaActivityEditForm: 'Formulaire Activité',
     metaActivityFormPage: 'Formulaire Activité',
+    metaActivityFormSubtitle: "Création d'un activité",
+    metaActivityEditFormSubtitle: "Modification d'une activité",
   },
   invoice: {
     invoiceList: 'Mes transactions',
@@ -73,6 +75,8 @@ exports.default = {
     workshopActivityList: 'Ateliers',
     workshopActivityCreate: 'Créer un atelier',
     workshopActivityFormPage: 'Formulaire ateliers',
+    workshopActivityFormSubtitle: "Création d'un atelier",
+    workshopActivityEditFormSubtitle: "Modification d'un atelier",
   },
   paymentPack: {
     paymentPackFormPage: 'Formulaire carte de cours',

@@ -42,6 +42,7 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+  onEdit: () => void,
 };
 
 const getEvents = memoize((events) => {
@@ -63,7 +64,7 @@ export const MetaActivityDetail = (props: Props) => {
   return (
     <Grid container direction="row" alignItems="stretch">
       <Grid item sm={12} md={6} className={classes.panel}>
-        <MetaActivityCard metaActivity={metaActivity} />
+        <MetaActivityCard metaActivity={metaActivity} onEdit={props.onEdit} />
         <BookingCreationNotification
           notifications={props.notifications}
           objectId={props.metaActivity.id}

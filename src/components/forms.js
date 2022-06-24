@@ -378,8 +378,18 @@ export const TimeField = (props: TimeFieldProps) => {
     />
   );
 };
+const DurationFieldstyles = (theme) => ({
+  alertError: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    color: theme.palette.error.dark,
+  },
+  inputLabelContainer: {
+    paddingBottom: theme.spacing(0.5),
+  },
+});
 
-export const DurationField = withStyles(styles)(
+export const DurationField = withStyles(DurationFieldstyles)(
   withTranslation(['common'])((props: DateFieldProps) => {
     return (
       <Field
@@ -403,9 +413,9 @@ export const DurationField = withStyles(styles)(
             >
               {!!props.label && (
                 <div className={props.classes.inputLabelContainer}>
-                  <InputLabel htmlFor={props.name} shrink>
+                  <Typography variant="body1" htmlFor={props.name} shrink>
                     {props.label}
-                  </InputLabel>
+                  </Typography>
                 </div>
               )}
               <div
@@ -418,6 +428,9 @@ export const DurationField = withStyles(styles)(
               >
                 <Grid container direction="row" alignItems="center">
                   <Grid item xs={12} md={4}>
+                    <FormHelperText>
+                      {props.t('form.duration.day', { count: days })}
+                    </FormHelperText>
                     <TextField
                       fullWidth
                       onChange={(value) => {
@@ -430,11 +443,6 @@ export const DurationField = withStyles(styles)(
                       }}
                       InputProps={{
                         inputProps: { min: 0, step: 1 },
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            {props.t('form.duration.day', { count: days })}
-                          </InputAdornment>
-                        ),
                       }}
                       type="number"
                       value={days}
@@ -449,27 +457,33 @@ export const DurationField = withStyles(styles)(
                       }}
                     >
                       <AddIcon style={{ marginRight: 4 }} />
-                      <TextField
-                        fullWidth
-                        InputProps={{
-                          inputProps: { min: 0, step: 1, max: 23 },
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              {props.t('form.duration.hour', { count: hours })}
-                            </InputAdornment>
-                          ),
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          width: '100%',
                         }}
-                        onChange={(value) => {
-                          setFieldValue(
-                            props.name,
-                            parseInt(value.target.value || 0, 10) * 60 +
-                              days * 60 * 24 +
-                              minutes,
-                          );
-                        }}
-                        type="number"
-                        value={hours}
-                      />
+                      >
+                        <FormHelperText>
+                          {props.t('form.duration.hour', { count: hours })}
+                        </FormHelperText>
+                        <TextField
+                          fullWidth
+                          InputProps={{
+                            inputProps: { min: 0, step: 1, max: 23 },
+                          }}
+                          onChange={(value) => {
+                            setFieldValue(
+                              props.name,
+                              parseInt(value.target.value || 0, 10) * 60 +
+                                days * 60 * 24 +
+                                minutes,
+                            );
+                          }}
+                          type="number"
+                          value={hours}
+                        />
+                      </div>
                     </div>
                   </Grid>
                   <Grid item xs={12} md={4}>
@@ -481,29 +495,33 @@ export const DurationField = withStyles(styles)(
                       }}
                     >
                       <AddIcon style={{ marginRight: 4 }} />
-                      <TextField
-                        fullWidth
-                        InputProps={{
-                          inputProps: { min: 0, max: 59, step: 1 },
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              {props.t('form.duration.minute', {
-                                count: minutes,
-                              })}
-                            </InputAdornment>
-                          ),
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          width: '100%',
                         }}
-                        type="number"
-                        value={minutes}
-                        onChange={(value) => {
-                          setFieldValue(
-                            props.name,
-                            parseInt(value.target.value || 0, 10) +
-                              days * 60 * 24 +
-                              hours * 60,
-                          );
-                        }}
-                      />
+                      >
+                        <FormHelperText>
+                          {props.t('form.duration.minute', { count: minutes })}
+                        </FormHelperText>
+                        <TextField
+                          fullWidth
+                          InputProps={{
+                            inputProps: { min: 0, max: 59, step: 1 },
+                          }}
+                          type="number"
+                          value={minutes}
+                          onChange={(value) => {
+                            setFieldValue(
+                              props.name,
+                              parseInt(value.target.value || 0, 10) +
+                                days * 60 * 24 +
+                                hours * 60,
+                            );
+                          }}
+                        />
+                      </div>
                     </div>
                   </Grid>
                 </Grid>

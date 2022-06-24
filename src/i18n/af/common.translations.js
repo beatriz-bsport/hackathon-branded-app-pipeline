@@ -2,11 +2,11 @@ exports.default = {
   form: {
     requiredField: 'ce champ est requis',
     duration: {
-      minute: 'Minute:',
+      minute: 'Durée en minutes',
       minute_plural: 'Minutes:',
-      hour: 'Heure:',
+      hour: 'Durée en heures',
       hour_plural: 'Heures:',
-      day: 'Jour:',
+      day: 'Durée en jours',
       day_plural: 'Jours:',
     },
   },

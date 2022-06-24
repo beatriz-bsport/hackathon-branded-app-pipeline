@@ -35,6 +35,7 @@ import {
   getEnabledWorkshops,
   getMetaActivityCategories,
   getDisabledWorkshops,
+  getMetaActivity,
 } from '../../libs/meta-activity/selectors';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import {
@@ -81,7 +82,27 @@ import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/action
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
 import { withBookingNotifications } from '../../libs/booking/selectors';
+import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
+import { mapFormData, unmap } from '../form.utils';
 
+const MetaActivityMap = {
+  cover_main: 'cover_main',
+  description: 'description',
+  name: 'name',
+  last_booking_minutes: 'last_booking_minutes',
+  last_discard_minutes: 'last_discard_minutes',
+  first_booking_minutes_until: 'first_booking_minutes_until',
+  is_workshop: 'is_workshop',
+  SCT: 'SCT',
+  color: 'color',
+  is_broadcast: 'is_broadcast',
+  auto_discard_active: 'auto_discard_active',
+  auto_discard_hours_before_start: 'auto_discard_hours_before_start',
+  auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
+  alt_cover_main: 'alt_cover_main',
+  custom_restriction_rule: 'custom_restriction_rule',
+};
 type Props = {
   workshopActivities: Array<MetaActivity>,
   disabledWorkshopActivities: Array<MetaActivity>,
@@ -95,7 +116,6 @@ type Props = {
   restoreMetaActivity: (id: number) => void,
   goToDetail: (metaActivityId: number) => void,
   goToPaymentPack: () => void,
-  goToEdit: (metaActivityId: number) => void,
   makeActivityCopy: (
     id: number,
     suffix: string,
@@ -153,13 +173,16 @@ type Props = {
   upsertWorkshopActivity: any,
   resetPaymentPacks: () => void,
   fetchAllOffers: any,
-  fetchAllActivities: (data: { customer_enabled: true }) => void,
+  fetchAllActivities: (data?: { customer_enabled: true }) => void,
   fetchMetactivities: () => void,
   goToPaymentPackCreate: () => void,
   fetchAllPaymentPackCategory: () => void,
   createOrUpdatePaymentPackAction: (data: any, options: any) => void,
   fetchAllMetaActivityCategory: (companyId?: number) => void,
   upsertMetaActivity: any,
+  selectedMetaActivity: MetaActivityCategoryWithActivities,
+  setSelectedMetaActivityId: (id: null | number) => void,
+  onSubmit: (values: MetaActivity, options: OptionCallback) => void,
 };
 
 type State = {
@@ -211,62 +234,81 @@ export class WorkshopActivityList extends React.Component<Props, State> {
   renderCreateWorkshopActivity = () => {
     return (
       <MetaActivityCreate
-        isWorkshop
-        onClose={this.onCancelForm}
-        offerIsProcessing={this.props.offerIsProcessing}
-        offerHadError={this.props.offerHadError}
-        associatedCoaches={this.props.associatedCoaches}
-        establishments={this.props.establishments}
-        SCTs={this.props.SCTs}
-        metaActivityNames={this.props.metaActivityNames}
-        metaActivitiesAndWorkshops={this.props.metaActivitiesAndWorkshops}
-        upsertedWorkshop={this.props.upsertedWorkshop}
-        coaches={this.props.coaches}
-        companyTheme={this.props.companyTheme}
-        compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-        roomBlueprints={this.props.roomBlueprints}
-        coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-        allEstablishmentList={this.props.allEstablishmentList}
-        allTagsWithTagGroup={this.props.allTagsWithTagGroup}
-        paymentPackCategories={this.props.paymentPackCategories}
-        categoryList={this.props.categoryList}
-        showPartnership={this.props.showPartnership}
-        metaActivityCategories={this.props.metaActivityCategories}
+        // goToPaymentPack: (id: number) => push(`/payment-pack/${id}`)
         activeCustomLevels={this.props.activeCustomLevels}
         allCustomLevels={this.props.allCustomLevels}
+        allEstablishmentList={this.props.allEstablishmentList}
+        allTagsWithTagGroup={this.props.allTagsWithTagGroup}
+        associatedCoaches={this.props.associatedCoaches}
+        categoryList={this.props.categoryList}
+        coaches={this.props.coaches}
+        coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
         companyId={this.props.companyId}
-        fetchEstablishments={this.props.fetchEstablishments}
-        fetchAssociatedCoachesList={this.props.fetchAssociatedCoachesList}
-        fetchPaymentPacks={this.props.fetchPaymentPacks}
-        upsertMetaActivity={this.props.upsertMetaActivity}
-        resetPaymentPacks={this.props.resetPaymentPacks}
-        goToMetaActivity={this.props.goToWorkshop}
-        goToPaymentPackCreate={this.props.goToPaymentPackCreate}
-        // goToPaymentPack: (id: number) => push(`/payment-pack/${id}`)
-        fetchAllOffers={this.props.fetchAllOffers}
-        fetchRoomBlueprints={this.props.fetchRoomBlueprints}
-        fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
-        fetchAllActivities={this.props.fetchAllActivities}
-        fetchMetactivities={this.props.fetchMetactivities}
-        fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
+        companyTheme={this.props.companyTheme}
+        compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+        createLevel={this.props.createLevel}
+        createOffers={this.props.createOffers}
         createOrUpdatePaymentPackAction={
           this.props.createOrUpdatePaymentPackAction
         }
-        fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
-        createOffers={this.props.createOffers}
-        fetchLevelList={this.props.fetchLevelList}
-        updateLevel={this.props.updateLevel}
-        createLevel={this.props.createLevel}
-        deleteLevel={this.props.deleteLevel}
-        upsertWorkshopActivity={this.props.upsertWorkshopActivity}
         createPass={this.props.createPass}
+        deleteLevel={this.props.deleteLevel}
+        establishments={this.props.establishments}
+        fetchAllActivities={this.props.fetchAllActivities}
+        fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
+        fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
+        fetchAllOffers={this.props.fetchAllOffers}
+        fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
+        fetchAssociatedCoachesList={this.props.fetchAssociatedCoachesList}
+        fetchEstablishments={this.props.fetchEstablishments}
+        fetchLevelList={this.props.fetchLevelList}
+        fetchMetactivities={this.props.fetchMetactivities}
+        fetchPaymentPacks={this.props.fetchPaymentPacks}
+        fetchRoomBlueprints={this.props.fetchRoomBlueprints}
+        goToMetaActivity={this.props.goToWorkshop}
+        goToPaymentPackCreate={this.props.goToPaymentPackCreate}
         goToWorkshop={this.props.goToWorkshop}
+        isWorkshop
+        metaActivitiesAndWorkshops={this.props.metaActivitiesAndWorkshops}
+        metaActivityCategories={this.props.metaActivityCategories}
+        metaActivityNames={this.props.metaActivityNames}
+        offerHadError={this.props.offerHadError}
+        offerIsProcessing={this.props.offerIsProcessing}
+        onClose={this.onCancelForm}
+        paymentPackCategories={this.props.paymentPackCategories}
+        resetPaymentPacks={this.props.resetPaymentPacks}
+        roomBlueprints={this.props.roomBlueprints}
+        SCTs={this.props.SCTs}
+        showPartnership={this.props.showPartnership}
+        updateLevel={this.props.updateLevel}
+        upsertedWorkshop={this.props.upsertedWorkshop}
+        upsertMetaActivity={this.props.upsertMetaActivity}
+        upsertWorkshopActivity={this.props.upsertWorkshopActivity}
       />
     );
   };
 
+  editMetaActivity = (id: number) => {
+    this.props.setSelectedMetaActivityId(id);
+  };
+
+  onCancelEdit = () => {
+    this.props.setSelectedMetaActivityId(null);
+  };
+
+  getSelectedMetaActivityInitialData = () => {
+    const { selectedMetaActivity } = this.props;
+    const initialData = selectedMetaActivity
+      ? {
+          ...unmap(selectedMetaActivity, MetaActivityMap),
+          SCT: selectedMetaActivity.SCT,
+        }
+      : null;
+    return initialData;
+  };
+
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, selectedMetaActivity } = this.props;
 
     if (
       (this.props.workshopActivities || []).length +
@@ -335,7 +377,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
                 <MetaActivityList
                   metaActivities={this.state.searchResult}
                   goToDetail={this.props.goToDetail}
-                  goToEdit={this.props.goToEdit}
+                  goToEdit={this.editMetaActivity}
                   deleteMetaActivity={this.props.setWorkshopToDelete}
                 />
               </Collapse>
@@ -345,7 +387,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         <MetaActivityList
           metaActivities={this.props.workshopActivities}
           goToDetail={this.props.goToDetail}
-          goToEdit={this.props.goToEdit}
+          goToEdit={this.editMetaActivity}
           deleteMetaActivity={this.props.setWorkshopToDelete}
           makeActivityCopy={this.props.makeActivityCopy}
         />
@@ -375,7 +417,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
               <MetaActivityList
                 metaActivities={this.props.disabledWorkshopActivities}
                 goToDetail={this.props.goToDetail}
-                goToEdit={this.props.goToEdit}
+                goToEdit={this.editMetaActivity}
                 deleteMetaActivity={this.props.setWorkshopToDelete}
                 restoreMetaActivity={this.restoreMetaActivity}
                 makeActivityCopy={this.props.makeActivityCopy}
@@ -388,6 +430,17 @@ export class WorkshopActivityList extends React.Component<Props, State> {
           onClose={() => this.props.setWorkshopToDelete(null)}
           canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
           deleteWorkshop={this.props.deleteWorkshop}
+        />
+        <MetaActivityEditDrawer
+          initial={{
+            ...this.getSelectedMetaActivityInitialData(),
+            images: (selectedMetaActivity || {}).images || [],
+          }}
+          onSubmit={this.props.onSubmit}
+          SCTs={this.props.SCTs}
+          open={!!this.props.selectedMetaActivity}
+          onCancel={this.onCancelEdit}
+          tags={this.props.allTagsWithTagGroup}
         />
         <BottomActionsButton
           onCreateLabel={this.props.t('actions.addWorkshopActivity')}
@@ -445,14 +498,15 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-
+  withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
   withTranslation(['workshop']),
   connect(
-    (state) => ({
+    (state, { selectedMetaActivityId }) => ({
       workshopActivities: withBookingNotifications(getEnabledWorkshops)(state),
       disabledWorkshopActivities: getDisabledWorkshops(state),
       loading: state.metaActivity.loading,
       notificationLoading: state.booking.notification.loading,
+      selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
       // from WorkshopActivityCreate now
       offerIsProcessing: state.offer.create.loading,
       offerHadError: state.offer.create.error,
@@ -494,8 +548,6 @@ export default compose(
       fetchNotifications,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/general`),
-      goToEdit: (metaActivityId) =>
-        push(`/workshop-activity/${metaActivityId}/edit`),
       upsertWorkshopActivity: upsert,
       goToPreviousPage: goBack,
       goToWorkshop: (id: number) => push(`/workshop-activity/${id}/general`),
@@ -520,6 +572,33 @@ export default compose(
       ({ makeActivityCopy, fetchMetaActivities }) =>
       (id, suffix) => {
         makeActivityCopy(id, suffix, { onSuccess: fetchMetaActivities });
+      },
+    onSubmit:
+      ({
+        selectedMetaActivityId,
+        upsertWorkshopActivity,
+        setSelectedMetaActivityId,
+      }) =>
+      (values: any, options: OptionCallback) => {
+        try {
+          const formData = mapFormData(values, MetaActivityMap);
+          formData.append('id', selectedMetaActivityId);
+          formData.append('is_workshop', true);
+          upsertWorkshopActivity(formData, {
+            ...options,
+            onSuccess: () => {
+              if (options.onSuccess) options.onSuccess();
+              setSelectedMetaActivityId(null);
+            },
+            onError: (err) => {
+              console.error(err);
+              if (options?.onError) options.onError(err);
+            },
+          });
+        } catch (err) {
+          console.error(err);
+          if (options?.onError) options.onError(err);
+        }
       },
   }),
   withState('workshopToDelete', 'setWorkshopToDelete', null),

@@ -1,8 +1,11 @@
 exports.default = {
   shortDayIdentifier: 'j',
+  longDayIdentifer: 'jours',
   never: 'Jamais',
   shortMinuteIdentifier: 'min',
+  longMinuteIdentifier: 'minutes',
   shortHourIdentifier: 'h',
+  longHourIdentifier: 'heures',
   time: {
     weekday: {
       sunday: 'Dimanche',

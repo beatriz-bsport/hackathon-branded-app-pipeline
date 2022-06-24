@@ -36,6 +36,9 @@ const styles = (theme) => ({
   text: {
     fontSize: 16,
   },
+  subHelper: {
+    paddingTop: theme.spacing(2),
+  },
 });
 
 type Props = {
@@ -44,6 +47,7 @@ type Props = {
   onChange: () => void,
   id: number,
   children?: React.ReactChild,
+  subHelper?: string,
 };
 type State = {
   previewUrl: string,
@@ -139,6 +143,13 @@ export class ImageField extends Component<Props, State> {
                         >
                           {this.props.t('common.uploadOneImage.new')}
                         </Typography>
+                        {this.props.subHelper && (
+                          <div className={this.props.classes.subHelper}>
+                            <Typography variant="caption" color="textSecondary">
+                              {this.props.subHelper}
+                            </Typography>
+                          </div>
+                        )}
                         {this.props?.children}
                       </div>
                     )}

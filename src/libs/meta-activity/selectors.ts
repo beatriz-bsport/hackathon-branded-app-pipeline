@@ -6,6 +6,7 @@ import pickBy from 'lodash/pickBy';
 import memoize from 'memoize-one';
 import type { MetaActivity } from './types';
 import { RootState } from '../../reducers';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 export const getMetaActivityAbstractDict = (state: RootState) =>
   state.metaActivity.byId;
@@ -167,4 +168,35 @@ export const getMetaActivityByCategoryWithActivities = memoize(
         ];
       },
     ),
+);
+
+export const withCustomRestrictionsTags = memoize((selector: any) =>
+  createSelector(
+    [selector, getAllTagsWithTagGroup],
+    (metaActivities, tagList) => {
+      if (Array.isArray(metaActivities)) {
+        return metaActivities.map((meta) => ({
+          ...meta,
+          custom_restriction_rule: meta?.custom_restriction_rule?.map(
+            (crr) => ({
+              ...crr,
+              tags: tagList.filter((tag) => crr?.tags.includes(tag.id)),
+            }),
+          ),
+        }));
+      }
+      if (metaActivities) {
+        return {
+          ...metaActivities,
+          custom_restriction_rule: metaActivities?.custom_restriction_rule?.map(
+            (crr) => ({
+              ...crr,
+              tags: tagList.filter((tag) => crr?.tags.includes(tag.id)),
+            }),
+          ),
+        };
+      }
+      return metaActivities;
+    },
+  ),
 );

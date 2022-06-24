@@ -30,6 +30,7 @@ type Props = {
   setProcessing: (boolean) => void,
   similarBookings: Booking[],
   group: OffersGroup,
+  memberTags: Array<any>,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +52,28 @@ const useStyles = makeStyles((theme) => ({
 
 export const BookingCancellationDialog = (props: Props) => {
   const classes = useStyles();
+  const is_discardable = () => {
+    if (!props.booking?.offer.meta_activity?.custom_restriction_rule) {
+      return (props.booking || {}).is_discardable;
+    }
+    const custom_restriction_rule =
+      props.booking?.offer.meta_activity?.custom_restriction_rule ?? [];
+    const last_discard_minutes = custom_restriction_rule.reduce(
+      (acc: number, crr: any) => {
+        if ((props.memberTags || []).some((tag) => crr.tags.includes(tag))) {
+          return Math.min(acc, crr.last_discard_minutes);
+        }
+        return acc;
+      },
+      props.booking?.offer.meta_activity?.custom_restriction_rule[0]
+        .last_discard_minutes,
+    );
+
+    return moment()
+      .add('minutes', last_discard_minutes)
+      .isBefore(moment(props.booking.offer.date_start));
+  };
+
   return (
     <Dialog
       open={!!props.open}
@@ -73,7 +96,7 @@ export const BookingCancellationDialog = (props: Props) => {
           <CircularProgress />
         ) : (
           <>
-            {(props.booking || {}).is_discardable && (
+            {is_discardable() && (
               <>
                 {props.booking?.offer?.group ? (
                   <>
@@ -119,7 +142,7 @@ export const BookingCancellationDialog = (props: Props) => {
                 )}
               </>
             )}
-            {!(props.booking || {}).is_discardable && (
+            {!is_discardable() && (
               <>
                 {props.booking?.offer?.group ? (
                   <>

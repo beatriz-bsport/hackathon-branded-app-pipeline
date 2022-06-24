@@ -20,9 +20,21 @@ export function formatAsDatetime(date: string, tzname?: string) {
   return `${formatAsDate(date)} - ${formatAsTime(date, tzname)}`;
 }
 
-export function formatMinutes(minutesNumber: number, t: TFunction) {
+export function formatMinutes(
+  minutesNumber: number,
+  t: TFunction,
+  longIdentifier?: boolean,
+) {
   if (minutesNumber === 999999) {
     return t('datetime:never');
+  }
+  let dayIdentifier = 'datetime:shortDayIdentifier';
+  let hourIdentifier = 'datetime:shortHourIdentifier';
+  let minuteIdentifier = 'datetime:shortMinuteIdentifier';
+  if (longIdentifier) {
+    dayIdentifier = 'datetime:longDayIdentifer';
+    hourIdentifier = 'datetime:longHourIdentifier';
+    minuteIdentifier = 'datetime:longMinuteIdentifier';
   }
   const minutesMinusDays = minutesNumber % (60 * 24);
   const minutesMinusHours = minutesNumber % 60;
@@ -32,16 +44,14 @@ export function formatMinutes(minutesNumber: number, t: TFunction) {
 
   let readableDuration = '';
   if (days) {
-    readableDuration += `${days}${t('datetime:shortDayIdentifier')} `;
+    readableDuration += `${days}${'\u00A0'}${t(dayIdentifier)} `;
   }
   if (hours) {
-    readableDuration += `${hours}${t('datetime:shortHourIdentifier')} `;
+    readableDuration += `${hours}${'\u00A0'}${t(hourIdentifier)} `;
   }
 
   if (minutesMinusHours || readableDuration === '') {
-    readableDuration += `${minutesMinusHours}${t(
-      'datetime:shortMinuteIdentifier',
-    )}`;
+    readableDuration += `${minutesMinusHours}${'\u00A0'}${t(minuteIdentifier)}`;
   }
 
   return readableDuration;

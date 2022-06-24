@@ -88,9 +88,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
           <Grid item xs={8}>
             <div className={classes.header}>
               <div>
-                <Typography className={classes.title} variant="h4">
-                  {name}
-                </Typography>
+                <Typography variant="h4">{name}</Typography>
                 {privatePassCategory ? (
                   <Typography className={classes.category} variant="h6">
                     {privatePassCategory.name}
@@ -110,11 +108,15 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                   <div className={classes.detailInfo}>
                     <div className={classes.detailCategory}>
                       <StarIcon className={classes.leftIcon} />
-                      <Typography variant="h6">
+                      <Typography variant="subtitle2">
                         {t('privatePass.detailTitles.credit_quantity')}
                       </Typography>
                     </div>
-                    <Typography variant="body1" className={classes.passInfo}>
+                    <Typography
+                      variant="caption"
+                      color="textSecondary"
+                      className={classes.passInfo}
+                    >
                       {`${pass.credits}${t('privatePass.parameters.nbCredits', {
                         count: pass.credits,
                       }).toLowerCase()}`}
@@ -169,11 +171,15 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
           <div className={classes.detailInfo}>
             <div className={classes.detailCategory}>
               <DateRangeIcon className={classes.leftIcon} />
-              <Typography variant="h6">
+              <Typography variant="subtitle2">
                 {t('privatePass.detailTitles.validity')}
               </Typography>
             </div>
-            <Typography variant="body1" className={classes.passInfo}>
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              className={classes.passInfo}
+            >
               {getValidityInfo(pass, t, true)}
             </Typography>
           </div>
@@ -182,22 +188,30 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
             <div className={classes.detailInfo}>
               <div className={classes.detailCategory}>
                 <VisibilityIcon className={classes.leftIcon} />
-                <Typography variant="h6">
+                <Typography variant="subtitle2">
                   {t('privatePass.detailTitles.accessibility')}
                 </Typography>
               </div>
-              <Typography variant="body1" className={classes.passInfo}>
+              <div className={classes.flexInfo}>
                 {new_member_only && !manager_only && (
-                  <p className={classes.detailContent}>
+                  <Typography
+                    variant="caption"
+                    color="textSecondary"
+                    className={classes.passInfo}
+                  >
                     {t('privatePass.form.new_member_only.label')}
-                  </p>
+                  </Typography>
                 )}
                 {manager_only && (
-                  <p className={classes.detailContent}>
+                  <Typography
+                    variant="caption"
+                    color="textSecondary"
+                    className={classes.passInfo}
+                  >
                     {t('privatePass.form.managerOnly.label')}
-                  </p>
+                  </Typography>
                 )}
-              </Typography>
+              </div>
             </div>
           )}
 
@@ -205,14 +219,16 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
             <div className={classes.detailInfo}>
               <div className={classes.detailCategory}>
                 <OndemandVideoIcon className={classes.leftIcon} />
-                <Typography variant="h6">
+                <Typography variant="subtitle2">
                   {t('privatePass.detailTitles.vod')}
                 </Typography>
               </div>
-              <Typography variant="body1" className={classes.passInfo}>
-                <p className={classes.detailContent}>
-                  {t('privatePass.form.full_vod_access.label')}
-                </p>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                className={classes.passInfo}
+              >
+                {t('privatePass.form.full_vod_access.label')}
               </Typography>
             </div>
           )}
@@ -220,38 +236,48 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
           <div className={classes.detailInfo}>
             <div className={classes.detailCategory}>
               <PaymentIcon className={classes.leftIcon} />
-              <Typography variant="h6">
+              <Typography variant="subtitle2">
                 {t('privatePass.detailTitles.paymentMeans')}
               </Typography>
             </div>
-            <Typography variant="body1" className={classes.passInfo}>
+            <div className={classes.flexInfo}>
               {available_payment_method_identifiers.includes(CB.id) && (
-                <p className={classes.detailContent}>
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  className={classes.passInfo}
+                >
                   {t(`translation:paymentMethod.${CB.text}`)}
-                </p>
+                </Typography>
               )}
               {available_payment_method_identifiers.includes(
                 CREDIT_ACCOUNT.id,
               ) && (
-                <p className={classes.detailContent}>
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  className={classes.passInfo}
+                >
                   {t(`translation:paymentMethod.${CREDIT_ACCOUNT.text}`)}
-                </p>
+                </Typography>
               )}
-            </Typography>
+            </div>
           </div>
 
           {!!pass?.linked_payment_pack && (
             <div className={classes.detailInfo}>
               <div className={classes.detailCategory}>
                 <StyleIcon className={classes.leftIcon} />
-                <Typography variant="h6">
+                <Typography variant="subtitle2">
                   {t('paymentPack:detailTitles.universalPass')}
                 </Typography>
               </div>
-              <Typography variant="body1" className={classes.passInfo}>
-                <p className={classes.detailContent}>
-                  {t('paymentPack:cardDetails.universalPass')}
-                </p>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                className={classes.passInfo}
+              >
+                {t('paymentPack:cardDetails.universalPass')}
               </Typography>
             </div>
           )}
@@ -269,9 +295,6 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  title: {
-    fontWeight: 300,
   },
   category: {
     fontStyle: 'italic',
@@ -293,37 +316,20 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   passInfo: {
-    color: 'rgba(0, 0, 0, 0.6)',
     marginLeft: theme.spacing(5),
-  },
-  titleWithSeeAll: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   detailContent: {
     marginTop: 0,
     marginBottom: theme.spacing(1),
   },
-  penaltyTitle: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
   horizontalBlock: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
-  },
-  noRestriction: {
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
   },
   buttonBlock: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-  },
-  multiDivButton: {
-    textAlign: 'right',
   },
   price: {
     fontWeight: 700,
@@ -349,10 +355,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
-  restrictionBlock: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
   link: {
     padding: theme.spacing(1),
     marginBottom: theme.spacing(2),
@@ -368,6 +370,10 @@ const useStyles = makeStyles((theme) => ({
   },
   marginTop: {
     marginTop: theme.spacing(3),
+  },
+  flexInfo: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }));
 

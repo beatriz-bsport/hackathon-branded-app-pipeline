@@ -16,13 +16,13 @@ type OwnProps = {
   anchor?: 'top' | 'bottom' | 'left' | 'right' | undefined;
   onClose?: () => void;
   title?: string;
-  withoutPadding: boolean;
+  withoutPadding?: boolean;
   subtitle?: string;
   width?: string;
   className?: string;
 };
 type Props = OwnProps;
-export const GenericFormDialog: React.FC<Props> = ({
+export const GenericResponsiveDrawer: React.FC<Props> = ({
   children,
   open,
   title,
@@ -136,4 +136,4 @@ const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
     },
   }),
 );
-export default GenericFormDialog;
+export default GenericResponsiveDrawer;

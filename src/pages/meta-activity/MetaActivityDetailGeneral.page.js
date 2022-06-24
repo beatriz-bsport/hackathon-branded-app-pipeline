@@ -12,42 +12,52 @@ import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
-import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import { deleteMetaActivity } from '../../libs/meta-activity/actions';
-import { getMetaActivity } from '../../libs/meta-activity/selectors';
+import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
+import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
+import { deleteMetaActivity, upsert } from '#libs/meta-activity/actions';
+import {
+  getMetaActivity,
+  withCustomRestrictionsTags,
+} from '#libs/meta-activity/selectors';
 import {
   getEventsByMetaActivity,
   withEstablishment,
   withCoach,
   getOffersByDay,
-} from '../../libs/offer/selectors';
+} from '#libs/offer/selectors';
 
 import {
   fetchOffersByDay as fetchOffersByDayActions,
   fetchMetaActivityOffers as fetchMetaActivityOffersAction,
-} from '../../libs/offer/actions';
-import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
+} from '#libs/offer/actions';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#libs/meta-activity/api/common';
 
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
   updateMarketingNotification,
   deleteMarketingNotification as deleteMarketingNotificationAction,
-} from '../../libs/marketing/actions';
-import { getBookingNotifications } from '../../libs/marketing/selectors';
+} from '#libs/marketing/actions';
+import { getBookingNotifications } from '#libs/marketing/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
+} from '#libs/email-editor/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '../../libs/email-editor/actions';
-import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
+} from '#libs/email-editor/actions';
+
+import WidgetGeneratorDialog from '#libs/widget/components/WidgetGeneratorDialog.component';
+import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
+import { mapFormData, unmap } from '../form.utils';
+import { OptionCallBack } from '../../state/types';
+import { SCT } from '#libs/category/types';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -67,9 +77,8 @@ type Props = {
   createActivityOffers: (id: number) => void,
   goToOffer: (Offer) => void,
   goToList: () => void,
-  onEdit: (id: number) => void,
-  deleteMetaActivity: (id: number) => void,
-  setOpenWidgetDialog: () => void,
+  deleteMetaActivity: (id: number, options: OptionCallBack) => void,
+  setOpenWidgetDialog: (open: boolean) => void,
   openWidgetDialog: Boolean,
   classes: Object,
 
@@ -85,8 +94,30 @@ type Props = {
   createNotification: (date: any) => void,
   updateMarketingNotification: (id: number, data: any) => void,
   deleteMarketingNotification: (id: number) => void,
+  openEditDrawer: boolean,
+  setOpenEditDrawer: (open: boolean) => void,
+  onSubmit: (values: MetaActivityType, options: OptionCallBack) => void,
+  SCTs: Array<SCT>,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 };
-
+const MetaActivityMap = {
+  cover_main: 'cover_main',
+  description: 'description',
+  name: 'name',
+  last_booking_minutes: 'last_booking_minutes',
+  last_discard_minutes: 'last_discard_minutes',
+  first_booking_minutes_until: 'first_booking_minutes_until',
+  is_workshop: 'is_workshop',
+  SCT: 'SCT',
+  color: 'color',
+  is_broadcast: 'is_broadcast',
+  auto_discard_active: 'auto_discard_active',
+  auto_discard_hours_before_start: 'auto_discard_hours_before_start',
+  auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
+  alt_cover_main: 'alt_cover_main',
+  custom_restriction_rule: 'custom_restriction_rule',
+};
 type State = {
   deleteOpen: boolean,
 };
@@ -112,16 +143,37 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
     this.props.createActivityOffers(this.props.id);
   };
 
+  onEdit = () => {
+    this.props.setOpenEditDrawer(true);
+  };
+
+  onCancelEdit = () => {
+    this.props.setOpenEditDrawer(false);
+  };
+
   render() {
-    if (!this.props.metaActivity) {
+    const { metaActivity, SCTs } = this.props;
+
+    if (!metaActivity) {
       return <LinearProgress />;
     }
+    const initialData = metaActivity
+      ? {
+          ...unmap(metaActivity, MetaActivityMap),
+          SCT: metaActivity.SCT,
+          custom_restriction_rule:
+            metaActivity?.custom_restriction_rule?.map((crr) => ({
+              ...crr,
+              tags: crr.tags?.map((tag) => tag.id),
+            })) ?? [],
+        }
+      : null;
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityDetail
           coverImages={this.props.metaActivityImages}
-          metaActivity={this.props.metaActivity}
+          metaActivity={metaActivity}
           fetchOffersByDay={this.props.fetchOffersByDay}
           events={this.props.events}
           offers={this.props.offers.filter(
@@ -140,9 +192,10 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
           createNotification={this.props.createNotification}
           updateNotification={this.props.updateMarketingNotification}
           deleteNotification={this.props.deleteMarketingNotification}
+          onEdit={this.onEdit}
         />
         <BottomActionButtons
-          onEdit={() => this.props.onEdit(this.props.id)}
+          onEdit={this.onEdit}
           onDelete={() => this.setState({ deleteOpen: true })}
           onShare={() => this.props.setOpenWidgetDialog(true)}
         />
@@ -167,6 +220,17 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
             },
           }}
         />
+        <MetaActivityEditDrawer
+          initial={{
+            ...initialData,
+            images: (metaActivity || {}).images || [],
+          }}
+          onSubmit={this.props.onSubmit}
+          SCTs={SCTs}
+          open={this.props.openEditDrawer}
+          onCancel={this.onCancelEdit}
+          tags={this.props.allTagsWithTagGroup}
+        />
       </div>
     );
   }
@@ -182,10 +246,12 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
   withState('openWidgetDialog', 'setOpenWidgetDialog', false),
+  withState('openEditDrawer', 'setOpenEditDrawer', false),
   connect(
     (state, { id }) => ({
       loading: state.metaActivity.loading,
-      metaActivity: getMetaActivity(state, id),
+      SCTs: state.category.SCTs,
+      metaActivity: withCustomRestrictionsTags(getMetaActivity)(state, id),
       events: getEventsByMetaActivity(state),
       offers: withEstablishment(withCoach(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,
@@ -197,6 +263,7 @@ export default compose(
         items: getBookingNotifications(state),
         loading: state.marketingNotification.loading,
       },
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchOffersByDay: fetchOffersByDayActions,
@@ -205,7 +272,6 @@ export default compose(
       deleteMetaActivity,
       goToOffer: (o) => routerPush(`/offer/${o.id}`),
       goToList: () => routerPush('/activity'),
-      onEdit: (id) => routerPush(`/activity/${id}/edit`),
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
@@ -215,21 +281,51 @@ export default compose(
       createMarketingNotification: createMarketingNotificationAction,
       updateMarketingNotification,
       deleteMarketingNotification: deleteMarketingNotificationAction,
+      upsertMetaActivity: upsert,
     },
   ),
-  withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
-    fetchOffersByDay: (momentDate) => {
-      fetchMetaActivityOffers(id, {
-        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
-      });
-      fetchOffersByDay({
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
-      });
-    },
-  })),
+  withProps(
+    ({
+      fetchOffersByDay,
+      fetchMetaActivityOffers,
+      id,
+      upsertMetaActivity,
+      setOpenEditDrawer,
+    }) => ({
+      fetchOffersByDay: (momentDate) => {
+        fetchMetaActivityOffers(id, {
+          min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+          max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+        });
+        fetchOffersByDay({
+          year: momentDate.year(),
+          month: momentDate.month() + 1,
+          day: momentDate.date(),
+        });
+      },
+      onSubmit: (values, options) => {
+        try {
+          const formData = mapFormData(values, MetaActivityMap);
+          formData.append('id', id);
+          formData.append('is_workshop', false);
+          upsertMetaActivity(formData, {
+            ...options,
+            onSuccess: () => {
+              if (options.onSuccess) options.onSuccess();
+              setOpenEditDrawer(false);
+            },
+            onError: (err) => {
+              console.error(err);
+              if (options?.onError) options.onError(err);
+            },
+          });
+        } catch (err) {
+          console.error(err);
+          if (options?.onError) options.onError(err);
+        }
+      },
+    }),
+  ),
   withHandlers({
     fetchNotificationsAndTemplates:
       ({

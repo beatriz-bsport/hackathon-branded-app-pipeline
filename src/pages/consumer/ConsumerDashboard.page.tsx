@@ -11,110 +11,112 @@ import TodayIcon from '@material-ui/icons/Today';
 
 import { Theme } from '@material-ui/core/styles';
 import flatten from 'lodash/flatten';
-import { WidgetUtils } from '../../libs/widget/WidgetUtils';
-import themeSelectors from '../../libs/theme/selectors';
-import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
-import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
-import BookingOptionCancelDialog from '../../libs/waiting-list/components/BookingOptionCancelDialog.component';
-import ConsumerDashboardBookingPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
-import ConsumerDashboardHeader from '../../libs/consumer-space/components/ConsumerDashboardHeader.component';
-import ConsumerDashboardPassPanel from '../../libs/consumer-space/components/ConsumerDashboardPassPanel.component';
-import ConsumerDashboardBookingOptionPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
-import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
-import { fetchMember } from '../../libs/member/actions';
+import { WidgetUtils } from '#libs/widget/WidgetUtils';
+import themeSelectors from '#libs/theme/selectors';
+import BookingCancellationDialog from '#libs/booking/components/BookingCancellationDialog.component';
+import MemberBillingProblemCard from '#libs/member/components/MemberBillingProblemCard.component';
+import BookingOptionCancelDialog from '#libs/waiting-list/components/BookingOptionCancelDialog.component';
+import ConsumerDashboardBookingPanel from '#libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
+import ConsumerDashboardHeader from '#libs/consumer-space/components/ConsumerDashboardHeader.component';
+import ConsumerDashboardPassPanel from '#libs/consumer-space/components/ConsumerDashboardPassPanel.component';
+import ConsumerDashboardBookingOptionPanel from '#libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
+import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
+import { fetchMember } from '#libs/member/actions';
 
-import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
-import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
-import { retrieveGroupOffer } from '../../libs/group-offer/selectors';
+import { getFavoriteEstablishment } from '#libs/establishment/selectors';
+import { getFavoriteMetaActivity } from '#libs/meta-activity/selectors';
+import { retrieveGroupOffer } from '#libs/group-offer/selectors';
+import { getMemberTagsIdsList } from '#libs/tag/selectors';
 
 import { buildUrlParams } from '../../http';
 import {
   getPrivateConsumerPassList,
   excludeUnPaidPrivateConsumerPass,
-} from '../../libs/private-service/selectors/private-consumer-pass';
+} from '#libs/private-service/selectors/private-consumer-pass';
 
-import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
+import { getConsumerPacksByMemberWithPaymentPack } from '#libs/consumer-payment-pack/selectors';
 import {
   cancelBooking as cancelBookingAction,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
-} from '../../libs/booking/actions';
-import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
+} from '#libs/booking/actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import {
   fetchEstablishmentFavorite,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../libs/establishment/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+} from '#libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
 import {
   fetchMetaActivityFavorite,
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
-} from '../../libs/meta-activity/actions';
+} from '#libs/meta-activity/actions';
 import {
   resetGroupOffer as resetGroupOfferAction,
   fetchGroupOffer as fetchGroupOfferAction,
-} from '../../libs/group-offer/actions';
-import { getBookingOptionConsumerList } from '../../libs/waiting-list/selectors';
+} from '#libs/group-offer/actions';
+import { getBookingOptionConsumerList } from '#libs/waiting-list/selectors';
 import {
   fetchBookingOptionAsConsumer,
   discardBookingOption as cancelBookingOptionAction,
-} from '../../libs/waiting-list/actions';
+} from '#libs/waiting-list/actions';
 import { withCoach } from '#libs/offer/selectors';
 import {
   fetchPrivateConsumerPassList,
   disablePrivateBooking,
-} from '../../libs/private-service/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
+} from '#libs/private-service/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+import { fetchByMember as fetchConsumerPackByMemberAction } from '#libs/consumer-payment-pack/actions';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 import {
   fetchInvoiceList as fetchInvoiceListAction,
   applyBalanceToInvoice as applyBalanceToInvoiceAction,
-} from '../../libs/invoice/actions';
+} from '#libs/invoice/actions';
 import {
   getSimilarBookingList,
   withOfferFull as withOffer,
 } from '#libs/booking/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
-import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
+import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
 import { RootState } from '../../reducers';
-import { Membership } from '../../libs/membership/types';
+import { Membership } from '#libs/membership/types';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import type { Booking } from '../../libs/booking/types';
-import { Invoice } from '../../libs/invoice/types';
+import type { Booking } from '#libs/booking/types';
+import { Invoice } from '#libs/invoice/types';
 import {
   fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction,
   BookingsAndPrivateBookingsTypeEnum,
-} from '../../libs/consumer-space/actions';
-import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
-import { PrivateBooking } from '../../libs/private-service/types';
-import PrivateBookingCancellationDialog from '../../libs/private-service/components/booking/PrivateBookingCancellationDialog';
-import { MetaActivity } from '../../libs/meta-activity/types';
+} from '#libs/consumer-space/actions';
+import { getAllBookingAndPrivateBooking } from '#libs/consumer-space/selectors';
+import { PrivateBooking } from '#libs/private-service/types';
+import PrivateBookingCancellationDialog from '#libs/private-service/components/booking/PrivateBookingCancellationDialog';
+import { MetaActivity } from '#libs/meta-activity/types';
 import {
   detachPaymentMethod,
   fetchPaymentMethodList,
-} from '../../libs/payment/actions';
-import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
+} from '#libs/payment/actions';
+import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import {
   fromConfigToUrl,
   getMarketplaceRoute,
-} from '../../libs/marketplace/routing-utils';
-import { MarketplaceTabConfig } from '../../libs/marketplace/types';
-import { getMember } from '../../libs/member/selectors';
+} from '#libs/marketplace/routing-utils';
+import { MarketplaceTabConfig } from '#libs/marketplace/types';
+import { getMember } from '#libs/member/selectors';
 import {
   fetchAssetForBlueprint,
   fetchRoomBlueprintDetail,
-} from '../../libs/spot-scheduling/actions';
-import { Offer } from '../../libs/offer/types';
-import { Coach } from '../../libs/associated-coach/types';
-import { Establishment } from '../../libs/establishment/types';
-import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
-import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
+} from '#libs/spot-scheduling/actions';
+import { Offer } from '#libs/offer/types';
+import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
+import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
+import CanvasPreviewDialog from '#libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 import withQueryParams from '../../hocs/with-query-params.hoc';
-import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
-import { withIsSharedActive } from '../../libs/relationship/selectors';
+import { fetchConsumerPaymentPackLinks } from '#libs/relationship/actions';
+import { withIsSharedActive } from '#libs/relationship/selectors';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
+import { fetchMemberTagList } from '#libs/tag/actions';
 
 type OwnProps = {
   hideCoach: boolean;
@@ -154,6 +156,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchMember(this.props.membership.id);
     this.props.fetchMembership(this.props.membership.id);
     this.fetchBookingOption();
+    this.props.fetchMemberTagList(this.props.membership.company);
   }
 
   refreshDebtStatus = () => {
@@ -356,6 +359,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             this.onDiscardBooking(this.props.bookingToCancel.id, options)
           }
           group={this.props.group}
+          memberTags={this.props.memberTags}
         />
 
         <PrivateBookingCancellationDialog
@@ -448,6 +452,7 @@ const mapStateToProps = (state: RootState, props) => ({
   similarBooking: withCustomLevel(withCoach(withOffer(getSimilarBookingList)))(
     state,
   ),
+  memberTags: getMemberTagsIdsList(state),
   group: retrieveGroupOffer(state),
 });
 
@@ -496,6 +501,7 @@ const mapDispatchToProps = {
   fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
   resetGroupOffer: resetGroupOfferAction,
   fetchGroupOffer: fetchGroupOfferAction,
+  fetchMemberTagList,
 };
 
 type StateHandlerInit = {

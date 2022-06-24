@@ -6,7 +6,7 @@ type MetaActivityImage = {
 };
 
 // MetaActivity & Workshop
-export type MetaActivity = {
+export type MetaActivity<T = number> = {
   id: number;
   name: string;
   cover_main: string;
@@ -35,8 +35,14 @@ export type MetaActivity = {
 
   category: number;
   ordering_in_category: number;
+  custom_restriction_rule: Array<MetaActivityCustomRestriction<T>>;
 };
-
+export type MetaActivityCustomRestriction<T = number> = {
+  tags: Array<T>;
+  last_discard_minutes: number;
+  last_booking_minutes: number;
+  first_booking_minutes_until: number;
+};
 export type MetaActivityCategory = {
   id: number;
   name: string;

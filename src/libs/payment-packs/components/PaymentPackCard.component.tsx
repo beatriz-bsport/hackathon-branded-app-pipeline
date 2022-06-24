@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import LinkIcon from '@material-ui/icons/Link';
 import StarIcon from '@material-ui/icons/Star';
@@ -78,6 +79,11 @@ export class PaymentPackCard extends Component<Props, State> {
     tagsDialogOpen: false,
   };
 
+  onEditPaymentPack = () => {
+    this.props.onEditButtonClick();
+    this.setState({ compatibilityDialogOpen: false, tagsDialogOpen: false });
+  };
+
   renderLinkToPaymentPage = () => {
     const { pack, t } = this.props;
     return !this.props.onlyPublic && pack.id && pack.company ? (
@@ -105,7 +111,7 @@ export class PaymentPackCard extends Component<Props, State> {
     if (pack.disabled) {
       return (
         <Grid container item justify="center" alignItems="center">
-          <Typography color="error" variant="h6">
+          <Typography color="error" variant="subtitle2">
             {t('disabled')}
           </Typography>
         </Grid>
@@ -127,7 +133,7 @@ export class PaymentPackCard extends Component<Props, State> {
         <Button
           id="button_pass_modify"
           color="primary"
-          onClick={this.props.onEditButtonClick}
+          onClick={this.onEditPaymentPack}
           className={`${classes.buttonWidth} ${classes.buttonAlign}`}
         >
           <Hidden xsDown>{t('actions.edit')}</Hidden>
@@ -160,11 +166,9 @@ export class PaymentPackCard extends Component<Props, State> {
         <Grid item xs={8}>
           <div className={classes.header}>
             <div>
-              <Typography className={classes.title} variant="h4">
-                {name}
-              </Typography>
+              <Typography variant="h4">{name}</Typography>
               {paymentPackCategory && (
-                <Typography className={classes.category} variant="h6">
+                <Typography className={classes.category} variant="subtitle2">
                   {paymentPackCategory}
                 </Typography>
               )}
@@ -180,11 +184,15 @@ export class PaymentPackCard extends Component<Props, State> {
                 <div className={classes.detailInfo}>
                   <div className={classes.detailCategory}>
                     <StarIcon className={classes.leftIcon} />
-                    <Typography className={classes.categoryTitle} variant="h6">
+                    <Typography variant="subtitle2">
                       {t('detailTitles.credit_quantity')}
                     </Typography>
                   </div>
-                  <Typography variant="body1" className={classes.packInfo}>
+                  <Typography
+                    variant="caption"
+                    color="textSecondary"
+                    className={classes.packInfo}
+                  >
                     {getCreditInfo(pack, t, isManager)}
                   </Typography>
                 </div>
@@ -203,7 +211,7 @@ export class PaymentPackCard extends Component<Props, State> {
               )}
             </Typography>
             {onlyPublic ? null : (
-              <Typography variant="caption" className={classes.priceWithoutTax}>
+              <Typography variant="caption" color="textSecondary">
                 {getCurrencyDisplayWithPrice(pack.price, true, pack.tax)}
                 {t('ht')}
               </Typography>
@@ -357,135 +365,150 @@ export class PaymentPackCard extends Component<Props, State> {
       <div>
         {pack.disabled ? (
           <div className={classes.disabledLabel}>
-            <Typography color="error" variant="h6">
+            <Typography color="error" variant="subtitle2">
               {t('disabled')}
             </Typography>
           </div>
         ) : null}
 
         {this.renderCardHeader()}
+        <div className={classes.detailInfo}>
+          <div className={classes.detailCategory}>
+            <DateRangeIcon className={classes.leftIcon} />
+            <Typography variant="subtitle2">
+              {t('detailTitles.validity')}
+            </Typography>
+          </div>
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            className={classes.packInfo}
+          >
+            {getValidityInfo(pack, t, true)}
+          </Typography>
+        </div>
 
-        <div>
-          <div className={classes.detailInfo}>
+        <div className={classes.detailInfo}>
+          <div className={classes.titleWithSeeAll}>
             <div className={classes.detailCategory}>
-              <DateRangeIcon className={classes.leftIcon} />
-              <Typography className={classes.categoryTitle} variant="h6">
-                {t('detailTitles.validity')}
+              <DoneAllIcon className={classes.leftIcon} />
+              <Typography variant="subtitle2">
+                {t('detailTitles.compatibility')}
               </Typography>
             </div>
-            <Typography variant="body1" className={classes.packInfo}>
-              {getValidityInfo(pack, t, true)}
-            </Typography>
+            {categories.length ||
+            establishments.length ||
+            metaActivities.length ? (
+              <IconButton
+                color="primary"
+                onClick={() => this.setState({ compatibilityDialogOpen: true })}
+              >
+                <VisibilityIcon fontSize="small" />
+              </IconButton>
+            ) : null}
           </div>
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            className={classes.packInfo}
+          >
+            {getCompatibilityInfo(pack, t)}
+          </Typography>
+        </div>
 
+        {accessibility && (
           <div className={classes.detailInfo}>
-            <div className={classes.titleWithSeeAll}>
-              <div className={classes.detailCategory}>
-                <DoneAllIcon className={classes.leftIcon} />
-                <Typography className={classes.categoryTitle} variant="h6">
-                  {t('detailTitles.compatibility')}
-                </Typography>
-              </div>
-              {categories.length ||
-              establishments.length ||
-              metaActivities.length ? (
-                <Button
-                  id="button_pass_seeAll"
-                  color="primary"
-                  onClick={() =>
-                    this.setState({ compatibilityDialogOpen: true })
-                  }
-                  className={classes.seeAllCompatibility}
-                >
-                  {t('seeAll')}
-                </Button>
-              ) : null}
+            <div className={classes.detailCategory}>
+              <VisibilityIcon className={classes.leftIcon} />
+              <Typography variant="subtitle2">
+                {t('detailTitles.accessibility')}
+              </Typography>
             </div>
-            <Typography variant="body1" className={classes.packInfo}>
-              {getCompatibilityInfo(pack, t)}
-            </Typography>
-          </div>
-
-          {accessibility && (
-            <div className={classes.detailInfo}>
-              <div className={classes.detailCategory}>
-                <VisibilityIcon className={classes.leftIcon} />
-                <Typography className={classes.categoryTitle} variant="h6">
-                  {t('detailTitles.accessibility')}
-                </Typography>
-              </div>
-              <Typography variant="body1" className={classes.packInfo}>
+            <div className={classes.packInfo}>
+              <Typography variant="caption" color="textSecondary">
                 {accessibility}
               </Typography>
             </div>
-          )}
-          {!!pack?.linked_private_pass && (
-            <div className={classes.detailInfo}>
-              <div className={classes.detailCategory}>
-                <StyleIcon className={classes.leftIcon} />
-                <Typography className={classes.categoryTitle} variant="h6">
-                  {t('detailTitles.universalPass')}
-                </Typography>
-              </div>
-              <Typography variant="body1" className={classes.packInfo}>
-                <p className={classes.detailContent}>
-                  {t('cardDetails.universalPass')}
-                </p>
+          </div>
+        )}
+        {!!pack?.linked_private_pass && (
+          <div className={classes.detailInfo}>
+            <div className={classes.detailCategory}>
+              <StyleIcon className={classes.leftIcon} />
+              <Typography variant="subtitle2">
+                {t('detailTitles.universalPass')}
               </Typography>
             </div>
-          )}
-          {VOD && (
-            <div className={classes.detailInfo}>
-              <div className={classes.detailCategory}>
-                <OndemandVideoIcon className={classes.leftIcon} />
-                <Typography className={classes.categoryTitle} variant="h6">
-                  {t('detailTitles.vod')}
-                </Typography>
-              </div>
-              <Typography variant="body1" className={classes.packInfo}>
-                {VOD}
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              className={classes.packInfo}
+            >
+              <p className={classes.detailContent}>
+                {t('cardDetails.universalPass')}
+              </p>
+            </Typography>
+          </div>
+        )}
+        {VOD && (
+          <div className={classes.detailInfo}>
+            <div className={classes.detailCategory}>
+              <OndemandVideoIcon className={classes.leftIcon} />
+              <Typography variant="subtitle2">
+                {t('detailTitles.vod')}
               </Typography>
             </div>
-          )}
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              className={classes.packInfo}
+            >
+              {VOD}
+            </Typography>
+          </div>
+        )}
 
-          {isManager && tags && (
-            <div className={classes.detailInfo}>
-              <div className={classes.titleWithSeeAll}>
-                <div className={classes.detailCategory}>
-                  <LocalOfferIcon className={classes.leftIcon} />
-                  <Typography className={classes.categoryTitle} variant="h6">
-                    {t('detailTitles.tags')}
-                  </Typography>
-                  <Button
-                    id="button_pass_seeAll"
-                    color="primary"
-                    onClick={() => this.setState({ tagsDialogOpen: true })}
-                    className={classes.seeAllTags}
-                  >
-                    {t('seeAll')}
-                  </Button>
-                </div>
+        {isManager && tags && (
+          <div className={classes.detailInfo}>
+            <div className={classes.titleWithSeeAll}>
+              <div className={classes.detailCategory}>
+                <LocalOfferIcon className={classes.leftIcon} />
+                <Typography variant="subtitle2">
+                  {t('detailTitles.tags')}
+                </Typography>
+                <IconButton
+                  color="primary"
+                  onClick={() => this.setState({ tagsDialogOpen: true })}
+                >
+                  <VisibilityIcon fontSize="small" />
+                </IconButton>
               </div>
-              <Typography variant="body1" className={classes.packInfo}>
-                {tags}
+            </div>
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              className={classes.packInfo}
+            >
+              {tags}
+            </Typography>
+          </div>
+        )}
+
+        {restrictions && (
+          <div className={classes.detailInfo}>
+            <div className={classes.detailCategory}>
+              <NotInterestedIcon className={classes.leftIcon} />
+              <Typography variant="subtitle2">
+                {t('detailTitles.restrictions')}
               </Typography>
             </div>
-          )}
-
-          {restrictions && (
-            <div className={classes.detailInfo}>
-              <div className={classes.detailCategory}>
-                <NotInterestedIcon className={classes.leftIcon} />
-                <Typography className={classes.categoryTitle} variant="h6">
-                  {t('detailTitles.restrictions')}
-                </Typography>
-              </div>
-              <Typography variant="body1" className={classes.packInfo}>
+            <div className={classes.packInfo}>
+              <Typography variant="caption" color="textSecondary">
                 {restrictions}
               </Typography>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -522,7 +545,7 @@ export class PaymentPackCard extends Component<Props, State> {
           establishments={establishments}
           open={this.state.compatibilityDialogOpen}
           onClose={() => this.setState({ compatibilityDialogOpen: false })}
-          onModify={this.props.onEditButtonClick}
+          onModify={this.onEditPaymentPack}
           isManager={isManager}
         />
         <PaymentPackTagsDialog
@@ -530,7 +553,7 @@ export class PaymentPackCard extends Component<Props, State> {
           whitelistTags={whitelist_tags}
           open={this.state.tagsDialogOpen}
           onClose={() => this.setState({ tagsDialogOpen: false })}
-          onModify={this.props.onEditButtonClick}
+          onModify={this.onEditPaymentPack}
         />
       </Paper>
     );
@@ -546,9 +569,6 @@ const styles = (theme: any) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  title: {
-    fontWeight: 300,
-  },
   category: {
     fontStyle: 'italic',
     color: 'rgba(0, 0, 0, 0.6)',
@@ -558,7 +578,7 @@ const styles = (theme: any) => ({
     marginLeft: -theme.spacing(1),
   },
   detailInfo: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   detailCategory: {
     display: 'flex',
@@ -569,7 +589,6 @@ const styles = (theme: any) => ({
     marginRight: theme.spacing(2),
   },
   packInfo: {
-    color: 'rgba(0, 0, 0, 0.6)',
     marginLeft: theme.spacing(5),
   },
   titleWithSeeAll: {
@@ -581,20 +600,12 @@ const styles = (theme: any) => ({
     marginTop: 0,
     marginBottom: theme.spacing(1),
   },
-  penaltyTitle: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
   disabled: {
     backgroundColor: '#F8F8F8',
   },
   horizontalBlock: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
-  },
-  noRestriction: {
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
   },
   buttonBlock: {
     display: 'flex',
@@ -606,9 +617,6 @@ const styles = (theme: any) => ({
   },
   price: {
     fontWeight: 700,
-  },
-  priceWithoutTax: {
-    color: 'rgba(0, 0, 0, 0.38)',
   },
   buttonAlign: {
     marginRight: -theme.spacing(1),
@@ -628,10 +636,6 @@ const styles = (theme: any) => ({
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
-  restrictionBlock: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
   disabledLabel: {
     display: 'flex',
     alignItems: 'center',
@@ -650,12 +654,6 @@ const styles = (theme: any) => ({
   linkTypo: {
     paddingLeft: theme.spacing(2),
     textAlign: 'left',
-  },
-  seeAllTags: {
-    marginBottom: -theme.spacing(0.4),
-  },
-  seeAllCompatibility: {
-    marginBottom: -theme.spacing(0.2),
   },
   marginTop: {
     marginTop: theme.spacing(3),

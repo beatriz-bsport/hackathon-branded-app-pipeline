@@ -103,6 +103,7 @@ export const MetaActivityMap = {
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
   category: 'category',
   alt_cover_main: 'alt_cover_main',
+  custom_restriction_rule: 'custom_restriction_rule',
 };
 
 const StepperForm = withTranslation(['metaActivity'])(
@@ -143,6 +144,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       }
       onCancel={this.props.onClose}
       is_broadcast_enabled
+      tags={this.props.allTagsWithTagGroup}
     />
   );
 
@@ -240,6 +242,13 @@ export class MetaActivityCreateDrawer extends Component<Props> {
           this.props.isWorkshop
             ? this.props.t('titles:workshopActivity.workshopActivityFormPage')
             : this.props.t('titles:metaActivity.metaActivityFormPage')
+        }
+        subtitle={
+          this.props.isWorkshop
+            ? this.props.t(
+                'titles:workshopActivity.workshopActivityFormSubtitle',
+              )
+            : this.props.t('titles:metaActivity.metaActivityFormSubtitle')
         }
       >
         <StepperForm activeStep={this.props.step} />

@@ -5,6 +5,12 @@ import classnames from 'classnames';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TuneIcon from '@material-ui/icons/Tune';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventBusyIcon from '@material-ui/icons/EventBusy';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import InfoIcon from '@material-ui/icons/Info';
+import CancelIcon from '@material-ui/icons/Cancel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -12,8 +18,6 @@ import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
 import { compose } from 'recompose';
-// import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
-// import ImageList from '../../../components/ImageList.component';
 import ImageField from '../../../components/forms/ImageField.component';
 import {
   Submit,
@@ -24,49 +28,35 @@ import {
   IntegerField,
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
-// import { MetaActivityCategoryWithActivities } from '../types';
-// import CategorySelector from '../../../components/ordering/CategorySelector.component';
+import MetaActivityCustomRestrictionsForm from './MetaActivityCustomRestrictionsForm.component';
+import { Tag, TagGroup } from '#libs/tag/types';
 
 type Props = {
   SCTs: *[],
   classes: Object,
-  // initial: ?MetaActivity,
   t: TFunction,
   onCancel: () => void,
   isSubmitting: boolean,
   variant: ?string,
   is_broadcast_enabled: boolean,
-  //  imageUploader: ?{
-  //    onAddImage: (image: File) => void,
-  //    onRemoveImage: (image: File) => void,
-  //  },
   values: any,
-  // metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
-  // setFieldValue: (field: string, value: any) => void,
+  tags: Array<Tag<TagGroup>>,
 };
 
 export function MetaActivityForm(props: Props) {
-  const { isSubmitting, SCTs, classes, t, variant } = props;
-  // const images = (props.initial || {}).images || [];
-  // const [selectedCategory, setSelectedCategory] = useState(
-  //   props.initial?.category,
-  // );
+  const { isSubmitting, SCTs, classes, t, variant, tags } = props;
   const {
     auto_discard_hours_before_start,
     auto_discard_min_bookings_nb,
     auto_discard_active,
   } = props.values;
-
   return (
     <Form>
-      <ImageField id="button_activity_image" name="cover_main" />
-      <Typography
-        style={{ margin: 12 }}
-        variant="caption"
-        color="textSecondary"
-      >
-        {props.t('activity.explainImage')}
-      </Typography>
+      <ImageField
+        id="button_activity_image"
+        name="cover_main"
+        subHelper={props.t('activity.explainImage')}
+      />
       <div className={classnames(classes.field, classes.altField)}>
         <TextField
           label={t('activity.altCoverMain')}
@@ -75,6 +65,12 @@ export function MetaActivityForm(props: Props) {
         />
       </div>
       <div className={classes.container}>
+        <div className={classes.headerWithIcon}>
+          <InfoIcon
+            className={classnames(classes.leftIcon, classes.greyIcon)}
+          />
+          <Typography variant="h6">{t('activity.generalInfo')}</Typography>
+        </div>
         <TextField
           id="textfield_activity_title"
           label={t('activity.name')}
@@ -83,26 +79,6 @@ export function MetaActivityForm(props: Props) {
           fullWidth
           inputProps={{ maxLength: 100 }}
         />
-        {/*
-        variant !== 'workshop' && (
-          <div className={classes.field}>
-            <CategorySelector
-              categories={props.metaActivityCategories}
-              selected={selectedCategory}
-              onChange={(item: { value: number, label: string }) => {
-                setSelectedCategory(item?.value);
-                props.setFieldValue('category', item ? item.value : null);
-              }}
-            />
-            <Typography
-              className={classes.explain}
-              variant="caption"
-              color="textSecondary"
-            >
-              {props.t('metaActivityCategory.explain')}
-            </Typography>
-          </div>
-	) */}
         <div className={classes.field}>
           <SCTSelectField
             scts={SCTs}
@@ -132,28 +108,6 @@ export function MetaActivityForm(props: Props) {
             variant="outlined"
           />
         </div>
-        {/* imageUploader ? (
-          <div className={classes.field}>
-            <label>Carousel</label>
-            <MultipleImageUploader
-              initial={images}
-              onAddImage={imageUploader.onAddImage}
-              onRemoveImage={imageUploader.onRemoveImage}
-            />
-            {images.length ? (
-              <ImageList
-                images={images}
-                onRemoveImage={imageUploader.onRemoveImage}
-              />
-            ) : null}
-          </div>
-        ) : (
-          <p>
-            {variant === 'workshop'
-              ? t('workshopActivity.imageUploaderRequireEditMessage')
-              : t('metaActivity.update.imageUploaderRequireEditMessage')}
-          </p>
-	) */}
         <div className={classes.field}>
           <CheckboxField
             name="is_broadcast"
@@ -170,82 +124,132 @@ export function MetaActivityForm(props: Props) {
             transparentColorAvailable
           />
         </div>
-        <div className={classes.field}>
-          <DurationField
-            label={
-              variant === 'workshop'
-                ? t('workshopActivity.lastBookingBeforeMinutes')
-                : t('activity.lastBookingBeforeMinutes')
-            }
-            name="last_booking_minutes"
-            variant={variant === 'workshop' ? 'long' : null}
-            fullWidth
-            required
-          />
-        </div>
-        <div className={classes.field}>
-          <DurationField
-            name="last_discard_minutes"
-            label={
-              variant === 'workshop'
-                ? t('workshopActivity.lastDiscardBeforeMinutes')
-                : t('activity.lastDiscardBeforeMinutes')
-            }
-            fullWidth
-            required
-          />
-        </div>
-        <div className={classes.field}>
-          <DurationField
-            name="first_booking_minutes_until"
-            label={t('activity.firstBookingMinutesUntil')}
-            fullWidth
-            required
-          />
-        </div>
-        <div className={classes.field}>
-          <CheckboxField
-            name="auto_discard_active"
-            id="checkbox_auto_discard_active"
-            label={t('metaActivity.forms.autoDiscard.checkbox')}
-          />
-        </div>
-        {auto_discard_active ? (
-          <>
-            <Typography className={classes.field}>
-              {t('metaActivity.forms.autoDiscard.explain', {
-                hours: auto_discard_hours_before_start,
-                bookings_nb: auto_discard_min_bookings_nb,
-              })}
-            </Typography>
-            <div className={classes.paramContainer}>
-              <div className={classes.inlineNumericField}>
-                <Typography variant="caption" className={classes.params}>
-                  {t('metaActivity.forms.autoDiscard.min_bookings_nb')}
-                </Typography>
-                <IntegerField
-                  name="auto_discard_min_bookings_nb"
-                  className={classes.numericField}
-                />
-              </div>
-              <div className={classes.inlineNumericField}>
-                <Typography variant="caption" className={classes.params}>
-                  {t('metaActivity.forms.autoDiscard.hours_before_start')}
-                </Typography>
-                <IntegerField
-                  name="auto_discard_hours_before_start"
-                  className={classes.numericField}
-                />
-              </div>
+        <div className={classes.restrictionsSection}>
+          <div className={classes.headerWithIcon}>
+            <TuneIcon
+              className={classnames(classes.leftIcon, classes.greyIcon)}
+            />
+            <Typography variant="h6">{t('restrictions.header')}</Typography>
+          </div>
+          <div className={classes.restrictionSubSection}>
+            <div className={classes.headerWithIcon}>
+              <EventAvailableIcon
+                className={classnames(classes.leftIcon, classes.greyIcon)}
+              />
+              <Typography variant="subtitle1" className={classes.subtitle1bold}>
+                {t('restrictions.lastBookingBeforeMinutes')}
+              </Typography>
             </div>
-            <Typography
-              className={`${classes.field} ${classes.grey}`}
-              variant="caption"
-            >
-              {t('metaActivity.forms.autoDiscard.emailRecipients')}
-            </Typography>
-          </>
-        ) : null}
+            <div className={classes.field}>
+              <DurationField
+                label={
+                  variant === 'workshop'
+                    ? t('workshopActivity.lastBookingBeforeMinutes')
+                    : t('activity.lastBookingBeforeMinutes')
+                }
+                name="last_booking_minutes"
+                variant={variant === 'workshop' ? 'long' : null}
+                fullWidth
+                required
+              />
+            </div>
+          </div>
+          <div className={classes.restrictionSubSection}>
+            <div className={classes.headerWithIcon}>
+              <EventBusyIcon
+                className={classnames(classes.leftIcon, classes.greyIcon)}
+              />
+              <Typography variant="subtitle1" className={classes.subtitle1bold}>
+                {t('restrictions.lastDiscardBeforeMinutes')}
+              </Typography>
+            </div>
+            <div className={classes.field}>
+              <DurationField
+                name="last_discard_minutes"
+                label={
+                  variant === 'workshop'
+                    ? t('workshopActivity.lastDiscardBeforeMinutes')
+                    : t('activity.lastDiscardBeforeMinutes')
+                }
+                fullWidth
+                required
+              />
+            </div>
+          </div>
+          <div className={classes.restrictionSubSection}>
+            <div className={classes.headerWithIcon}>
+              <DateRangeIcon
+                className={classnames(classes.leftIcon, classes.greyIcon)}
+              />
+              <Typography variant="subtitle1" className={classes.subtitle1bold}>
+                {t('restrictions.firstBookingMinutesUntil')}
+              </Typography>
+            </div>
+            <div className={classes.field}>
+              <DurationField
+                name="first_booking_minutes_until"
+                label={t('activity.firstBookingMinutesUntil')}
+                fullWidth
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <MetaActivityCustomRestrictionsForm variant={variant} tags={tags} />
+        <div className={classes.autoDiscardSection}>
+          <div className={classes.headerWithIcon}>
+            <CancelIcon
+              className={classnames(classes.leftIcon, classes.greyIcon)}
+            />
+            <Typography variant="h6">{t('activity.autoDiscard')}</Typography>
+          </div>
+          <div className={classes.autoDiscardInnerSection}>
+            <div className={classes.field}>
+              <CheckboxField
+                name="auto_discard_active"
+                id="checkbox_auto_discard_active"
+                label={t('metaActivity.forms.autoDiscard.checkbox')}
+              />
+            </div>
+            {auto_discard_active ? (
+              <>
+                <Typography className={classes.field}>
+                  {t('metaActivity.forms.autoDiscard.explain', {
+                    hours: auto_discard_hours_before_start,
+                    bookings_nb: auto_discard_min_bookings_nb,
+                  })}
+                </Typography>
+                <div className={classes.paramContainer}>
+                  <div className={classes.inlineNumericField}>
+                    <Typography variant="caption" className={classes.params}>
+                      {t('metaActivity.forms.autoDiscard.min_bookings_nb')}
+                    </Typography>
+                    <IntegerField
+                      name="auto_discard_min_bookings_nb"
+                      className={classes.numericField}
+                    />
+                  </div>
+                  <div className={classes.inlineNumericField}>
+                    <Typography variant="caption" className={classes.params}>
+                      {t('metaActivity.forms.autoDiscard.hours_before_start')}
+                    </Typography>
+                    <IntegerField
+                      name="auto_discard_hours_before_start"
+                      className={classes.numericField}
+                    />
+                  </div>
+                </div>
+                <Typography
+                  className={`${classes.field} ${classes.grey}`}
+                  variant="caption"
+                >
+                  {t('metaActivity.forms.autoDiscard.emailRecipients')}
+                </Typography>
+              </>
+            ) : null}
+          </div>
+        </div>
+
         <div className={classes.buttonContainer}>
           <Button onClick={props.onCancel} disabled={isSubmitting}>
             {t('form.discard')}
@@ -302,6 +306,33 @@ const styles = (theme) => ({
   explain: {
     marginBottom: theme.spacing(2),
   },
+  explainImage: {
+    paddingLeft: theme.spacing(3),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  headerWithIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingBottom: theme.spacing(2),
+  },
+  greyIcon: {
+    color: '#868686',
+  },
+  restrictionsSection: {
+    paddingTop: theme.spacing(2),
+  },
+  autoDiscardSection: {
+    paddingTop: theme.spacing(2),
+  },
+  autoDiscardInnerSection: {
+    paddingLeft: theme.spacing(2),
+  },
+  subtitle1bold: {
+    fontWeight: 500,
+  },
 });
 
 const MetaActivitySchema = Yup.object().shape({
@@ -319,6 +350,16 @@ const MetaActivitySchema = Yup.object().shape({
   auto_discard_min_bookings_nb: Yup.number(),
   alt_cover_main: Yup.string(),
   // category: Yup.number().nullable(true),
+  custom_restriction_rule: Yup.array()
+    .of(
+      Yup.object().shape({
+        tags: Yup.array().of(Yup.number()).min(1).required(),
+        last_discard_minutes: Yup.number().nullable(false),
+        last_booking_minutes: Yup.number().nullable(false),
+        first_booking_minutes_until: Yup.number().nullable(false),
+      }),
+    )
+    .max(3),
 });
 
 export default compose(
@@ -341,9 +382,13 @@ export default compose(
           auto_discard_active: false,
           auto_discard_hours_before_start: 6,
           auto_discard_min_bookings_nb: 1,
+          custom_restriction_rule: [],
           // category: null,
         },
-        { ...initial } || {},
+        {
+          ...initial,
+          custom_restriction_rule: initial?.custom_restriction_rule || [],
+        } || {},
       ),
     validationSchema: MetaActivitySchema,
     handleSubmit: (
@@ -363,6 +408,7 @@ export default compose(
         'auto_discard_active',
         'auto_discard_hours_before_start',
         'auto_discard_min_bookings_nb',
+        'custom_restriction_rule',
         // 'category',
       ];
       const { cover_main } = values;

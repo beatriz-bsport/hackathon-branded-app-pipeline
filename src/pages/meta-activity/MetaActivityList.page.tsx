@@ -37,6 +37,7 @@ import {
   getEnabledWorkshops,
   getActivitiesByIdList,
   getMetaActivityCategories,
+  getMetaActivity,
 } from '../../libs/meta-activity/selectors';
 import {
   deleteMetaActivity,
@@ -116,7 +117,27 @@ import { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { CompanyTheme } from '#libs/theme/types';
+import { mapFormData, unmap } from '../form.utils';
+import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 
+const MetaActivityMap = {
+  cover_main: 'cover_main',
+  description: 'description',
+  name: 'name',
+  last_booking_minutes: 'last_booking_minutes',
+  last_discard_minutes: 'last_discard_minutes',
+  first_booking_minutes_until: 'first_booking_minutes_until',
+  is_workshop: 'is_workshop',
+  SCT: 'SCT',
+  color: 'color',
+  is_broadcast: 'is_broadcast',
+  auto_discard_active: 'auto_discard_active',
+  auto_discard_hours_before_start: 'auto_discard_hours_before_start',
+  auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
+  alt_cover_main: 'alt_cover_main',
+  custom_restriction_rule: 'custom_restriction_rule',
+};
 type StepType = {
   id: number;
   label: string;
@@ -190,7 +211,6 @@ type OwnProps = {
 
   fetchAllMetactivities: () => void;
   goToDetail: (metaActivityId: number) => void;
-  goToEdit: (metaActivityId: number) => void;
   onCreate: () => void;
   deleteMetaActivity: (metaActivityId: number) => void;
   restoreMetaActivity: (MetaActivityId: number) => void;
@@ -226,6 +246,10 @@ type OwnProps = {
   ) => void;
   categoryLoading: boolean;
   fetchMetaActivityBulkAfterCategoryDelete: (ids: Array<number>) => void;
+  selectedMetaActivity: MetaActivityCategoryWithActivities;
+  setSelectedMetaActivityId: (id: null | number) => void;
+  selectedMetaActivityId: null | number;
+  onSubmit: (values: MetaActivity, options: OptionCallback) => void;
 };
 
 type Props = OwnProps &
@@ -363,8 +387,27 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     );
   };
 
+  editMetaActivity = (id: number) => {
+    this.props.setSelectedMetaActivityId(id);
+  };
+
+  onCancelEdit = () => {
+    this.props.setSelectedMetaActivityId(null);
+  };
+
+  getSelectedMetaActivityInitialData = () => {
+    const { selectedMetaActivity } = this.props;
+    const initialData = selectedMetaActivity
+      ? {
+          ...unmap(selectedMetaActivity, MetaActivityMap),
+          SCT: selectedMetaActivity.SCT,
+        }
+      : null;
+    return initialData;
+  };
+
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, selectedMetaActivity } = this.props;
     if (
       (this.props.enabledMetaActivities || []).length +
         (this.props.disabledMetaActivities || []).length ===
@@ -385,6 +428,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         </div>
       );
     }
+
     return (
       <div className={classes.container}>
         {this.props.loading || this.props.notificationLoading ? (
@@ -432,7 +476,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 <MetaActivityList
                   metaActivities={this.state.searchResult}
                   goToDetail={this.props.goToDetail}
-                  goToEdit={this.props.goToEdit}
+                  goToEdit={this.editMetaActivity}
                   deleteMetaActivity={this.props.setActivityToDelete}
                 />
               </Collapse>
@@ -462,7 +506,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         {!this.props.categoryLoading && (
           <CategoryList
             onClickItem={this.props.goToDetail}
-            onEditItem={this.props.goToEdit}
+            onEditItem={this.editMetaActivity}
             onDeleteItem={this.props.setActivityToDelete}
             onDuplicateItem={this.onDuplicate}
             updateItemOrder={this.props.editOrderMetaActivity}
@@ -502,7 +546,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               <MetaActivityList
                 metaActivities={this.props.disabledMetaActivities}
                 goToDetail={this.props.goToDetail}
-                goToEdit={this.props.goToEdit}
+                goToEdit={this.editMetaActivity}
                 deleteMetaActivity={this.props.setActivityToDelete}
                 makeActivityCopy={this.props.makeActivityCopy}
                 restoreMetaActivity={this.restoreMetaActivity}
@@ -516,6 +560,17 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           onClose={() => this.props.setActivityToDelete(null)}
           canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
           deleteMetaActivity={this.props.deleteMetaActivity}
+        />
+        <MetaActivityEditDrawer
+          initial={{
+            ...this.getSelectedMetaActivityInitialData(),
+            images: (selectedMetaActivity || {}).images || [],
+          }}
+          onSubmit={this.props.onSubmit}
+          SCTs={this.props.SCTs}
+          open={!!this.props.selectedMetaActivity}
+          onCancel={this.onCancelEdit}
+          tags={this.props.allTagsWithTagGroup}
         />
         <BottomActionButtons
           onCreateLabel={this.props.t('actions.addActivity')}
@@ -574,12 +629,13 @@ const styles = (theme: Theme) =>
 export default compose(
   withStyles(styles),
   withTranslation(['metaActivity', 'titles']),
+  withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
   routerParamsToProps({ id: 'id:number' }),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityList'),
   ),
   connect(
-    (state: RootState) => ({
+    (state: RootState, { selectedMetaActivityId }) => ({
       metaActivities: uniqBy(
         [
           ...getEnabledMetaActivities(state),
@@ -588,6 +644,8 @@ export default compose(
         ],
         'id',
       ),
+      selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
+      SCTs: state.category.SCTs,
       enabledMetaActivities: withBookingNotification(
         getPageEnabledMetaActivities,
       )(state),
@@ -604,7 +662,6 @@ export default compose(
       offerIsProcessing: state.offer.create.loading,
       offerHadError: state.offer.create.error,
       establishments: getAvailableEstablishmentList(state),
-      SCTs: state.category.SCTs,
       metaActivityNames: [
         ...getEnabledMetaActivities(state),
         ...getEnabledWorkshops(state),
@@ -633,8 +690,6 @@ export default compose(
       makeActivityCopy: makeActivityCopyAction,
       goToDetail: (metaActivityId: number) =>
         push(`/activity/${metaActivityId}/general`),
-      goToEdit: (metaActivityId: number) =>
-        push(`/activity/${metaActivityId}/edit`),
       goToPaymentPack: () => push('/payment-pack'),
       deleteMetaActivity,
       restoreMetaActivity,
@@ -674,6 +729,33 @@ export default compose(
         makeActivityCopy(id, suffix, {
           onSuccess: () => fetchAllActivities({ customer_enabled: true }),
         });
+      },
+    onSubmit:
+      ({
+        selectedMetaActivityId,
+        upsertMetaActivity,
+        setSelectedMetaActivityId,
+      }) =>
+      (values: any, options: OptionCallback) => {
+        try {
+          const formData = mapFormData(values, MetaActivityMap);
+          formData.append('id', selectedMetaActivityId);
+          formData.append('is_workshop', false);
+          upsertMetaActivity(formData, {
+            ...options,
+            onSuccess: () => {
+              if (options.onSuccess) options.onSuccess();
+              setSelectedMetaActivityId(null);
+            },
+            onError: (err) => {
+              console.error(err);
+              if (options?.onError) options.onError(err);
+            },
+          });
+        } catch (err) {
+          console.error(err);
+          if (options?.onError) options.onError(err);
+        }
       },
   }),
   withState('activityToDelete', 'setActivityToDelete', null),

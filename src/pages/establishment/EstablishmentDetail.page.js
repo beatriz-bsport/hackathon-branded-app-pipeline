@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';

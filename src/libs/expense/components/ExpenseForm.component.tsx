@@ -13,7 +13,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { LinearProgress, Theme, Typography } from '@material-ui/core';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import RRule from 'rrule';
 import { DATE_FORMAT } from '../../../utils/datetime';
 import { OptionCallback } from '../../../state/types';

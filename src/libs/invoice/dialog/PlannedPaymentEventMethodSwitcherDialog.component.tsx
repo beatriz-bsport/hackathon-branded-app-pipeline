@@ -1,5 +1,4 @@
-import moment from 'moment-timezone';
-import type { Moment as MomentType } from 'moment';
+import moment, { Moment as MomentType } from 'moment-timezone';
 
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';

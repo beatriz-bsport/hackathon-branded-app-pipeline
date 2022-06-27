@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Moment as MomentType } from 'moment';
+import moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AppBar from '@material-ui/core/AppBar';
 import { WithStyles, createStyles, Theme } from '@material-ui/core';
-import moment from 'moment-timezone';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import CoachPerformanceForm from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';

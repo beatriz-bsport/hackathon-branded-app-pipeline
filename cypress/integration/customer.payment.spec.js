@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { REACT_APP_URI, REACT_APP_TEST_URI } from './common.utils';
 
 context('Payment', () => {
@@ -13,7 +13,7 @@ context('Payment', () => {
       });
   });
 
-  it('user can book an activity', function() {
+  it('user can book an activity', function () {
     cy.visit(`/m/${this.db.marketplace.company.slug}`);
 
     const offer = this.db.marketplace.offer;
@@ -29,20 +29,11 @@ context('Payment', () => {
     cy.get('.__PrivateStripeElement > iframe').then(($iframe) => {
       const doc = $iframe.contents().find('body');
       let input = doc.find('[name=cardnumber]');
-      cy.wrap(input)
-        .type('4242')
-        .type('4242')
-        .type('4242')
-        .type('4242');
+      cy.wrap(input).type('4242').type('4242').type('4242').type('4242');
       input = doc.find('[name=exp-date]');
-      cy.wrap(input)
-        .clear()
-        .type('12')
-        .type('20');
+      cy.wrap(input).clear().type('12').type('20');
       input = doc.find('[name=cvc]');
-      cy.wrap(input)
-        .type('123')
-        .type('{enter}');
+      cy.wrap(input).type('123').type('{enter}');
     });
     cy.get('#stripe-pay').click();
 

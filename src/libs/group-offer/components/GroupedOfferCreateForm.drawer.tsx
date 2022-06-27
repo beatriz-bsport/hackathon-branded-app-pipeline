@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup, GroupPreviewData } from '#libs/group-offer/types';

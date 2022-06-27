@@ -1,18 +1,16 @@
 /// <reference types="Cypress" />
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { fillSignUpForm } from './customer.utils';
 import { REACT_APP_TEST_URI } from './common.utils';
 
 context('Booking', () => {
   beforeEach(() => {
-    cy.request(REACT_APP_TEST_URI)
-      .its('body')
-      .as('db');
+    cy.request(REACT_APP_TEST_URI).its('body').as('db');
   });
 
-  it('user can cancel a booking', function() {
+  it('user can cancel a booking', function () {
     cy.setCookie('auth_token', this.db.users.customer.token);
 
     const bookingId = this.db.marketplace.booking;
@@ -26,7 +24,7 @@ context('Booking', () => {
     cy.get('body').contains('You have no booking on waiting list');
   });
 
-  it('unauthenticated user is redirected to booking page after sign in', function() {
+  it('unauthenticated user is redirected to booking page after sign in', function () {
     const offer = this.db.marketplace.offer;
     const company = this.db.marketplace.company;
     const path = `/customer/payment/offer/${offer.id}`;
@@ -38,12 +36,10 @@ context('Booking', () => {
 
     cy.get('#btn-signin').click();
 
-    cy.url()
-      .location('pathname')
-      .should('eq', path);
+    cy.url().location('pathname').should('eq', path);
   });
 
-  it('unauthenticated user is redirected to booking page after sign up', function() {
+  it('unauthenticated user is redirected to booking page after sign up', function () {
     const offer = this.db.marketplace.offer;
     const company = this.db.marketplace.company;
     const path = `/customer/payment/offer/${offer.id}`;
@@ -56,12 +52,10 @@ context('Booking', () => {
 
     cy.get('#btn-signup-skip').click();
 
-    cy.url()
-      .location('pathname')
-      .should('eq', path);
+    cy.url().location('pathname').should('eq', path);
   });
 
-  it('auth customer can book with an existing pass', function() {
+  it('auth customer can book with an existing pass', function () {
     cy.setCookie('auth_token', this.db.users.customer.token);
 
     const offer = this.db.marketplace.offer;
@@ -71,9 +65,7 @@ context('Booking', () => {
     cy.visit(`/customer/payment/offer/${offer.id}?membership=${company.id}`);
 
     cy.get(`#btn-payment-pack-user-${cpp}`).click();
-    cy.url()
-      .location('pathname')
-      .should('eq', '/');
+    cy.url().location('pathname').should('eq', '/');
     cy.get('body').contains('Booking confirmed');
   });
 });

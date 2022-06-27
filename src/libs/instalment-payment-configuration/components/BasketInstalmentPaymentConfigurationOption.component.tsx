@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Radio, Typography, Collapse } from '@material-ui/core';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import chroma from 'chroma-js';
 import { InstalmentPayment } from '../types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';

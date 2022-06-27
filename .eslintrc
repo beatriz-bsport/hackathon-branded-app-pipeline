@@ -117,7 +117,8 @@
     "no-empty": 1,
     "no-sequences": 1,
     // Custom rules
-    "bsport/no-redux-in-component": 2
+    "bsport/no-redux-in-component": 2,
+    "bsport/no-moment-without-timezone": 2
   },
   "globals": {
     "snapshot": false,

@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withProps, withHandlers, withState } from 'recompose';

@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
 import { Divider, LinearProgress } from '@material-ui/core';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import pick from 'lodash/pick';
 import {
   START_ON_PURCHASE,

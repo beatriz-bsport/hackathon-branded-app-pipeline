@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 export const getIntercomLink = () =>
   `https://intercom.help/bsport-helpcenter/${moment

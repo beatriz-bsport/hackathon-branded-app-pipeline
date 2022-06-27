@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { store, setBookings, setPrivateBookings } from './actionTestHelper';
 import { fetchBookingsAndPrivateBookings } from '../actions';
 import { DATA_SET_1, DATA_SET_2, DATA_SET_3 } from './dataSet';

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, IconButton, Typography } from '@material-ui/core';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import TimeoutButton from '#components/button/TimeoutButton.component';
 import IntercomIcon from '#components/icons/IntercomIcon.component';
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import type { Moment as MomentType } from 'moment';
-import Moment from 'moment-timezone';
+import Moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
 import {
   compose,

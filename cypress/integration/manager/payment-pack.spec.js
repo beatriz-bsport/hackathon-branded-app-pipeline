@@ -1,6 +1,6 @@
 // / <reference types="Cypress" />
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import {
   generateNumber,
@@ -81,9 +81,7 @@ context('Manager - PaymentPack', () => {
     cy.get('[name=duration_days]').should('be.visible');
     // pass validity by range
     cy.get('[type=radio][name=timeType][value=VALID_BY_DATERANGE]').check();
-    cy.get('[name=lower_date]')
-      .should('be.visible')
-      .click();
+    cy.get('[name=lower_date]').should('be.visible').click();
     pickUpDate();
     // check the picked date
     cy.get('[name=lower_date]').then((input) => {

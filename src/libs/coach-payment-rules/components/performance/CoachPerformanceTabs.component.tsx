@@ -10,7 +10,7 @@ import {
   COACH_PERFORMANCE_FOR_ALL,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/core';
 import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
 import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';

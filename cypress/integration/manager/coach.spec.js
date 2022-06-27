@@ -1,5 +1,5 @@
 // / <reference types="Cypress" />
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {
   REACT_APP_URI,
   REACT_APP_TEST_URI,

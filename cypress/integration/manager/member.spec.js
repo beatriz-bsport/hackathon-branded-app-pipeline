@@ -1,6 +1,6 @@
 // / <reference types="Cypress" />
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import FactoryBot from '../../../src/libs/member/Member.factory';
 import { pickUpDate } from '../datepicker.utils';
 import {
@@ -31,9 +31,7 @@ context('Manager - Member', () => {
     cy.upload_file('user.png', 'image/png', 'input[type=file]');
     cy.get('[name=firstname]').type(member.first_name);
     cy.get('[name=lastname]').type(member.last_name);
-    cy.get('[name=gender]')
-      .closest('div')
-      .click();
+    cy.get('[name=gender]').closest('div').click();
     cy.get(`[data-value="${member.gender}"]`).click();
     cy.get('[name=email]').type(member.email);
     cy.get('[name=membership_ID]').type(member.membership_id);
@@ -121,9 +119,7 @@ context('Manager - Member', () => {
       expect(createdMember.photo).to.be.null;
     });
     // redirect to member list page
-    cy.url()
-      .location('pathname')
-      .should('contains', '/member');
+    cy.url().location('pathname').should('contains', '/member');
   });
 
   it('Manager can update member', () => {
@@ -150,19 +146,11 @@ context('Manager - Member', () => {
       );
     });
     // get the form data, it will be used to compare it with the response data
-    cy.get('[name=firstname]')
-      .clear()
-      .type(member.first_name);
-    cy.get('[name=lastname]')
-      .clear()
-      .type(member.last_name);
-    cy.get('[name=gender]')
-      .closest('div')
-      .click();
+    cy.get('[name=firstname]').clear().type(member.first_name);
+    cy.get('[name=lastname]').clear().type(member.last_name);
+    cy.get('[name=gender]').closest('div').click();
     cy.get(`[data-value="${member.gender}"]`).click();
-    cy.get('[name=email]')
-      .clear()
-      .type(member.email);
+    cy.get('[name=email]').clear().type(member.email);
 
     cy.get('[name="birthday"]').click();
     pickUpDate();
@@ -189,21 +177,11 @@ context('Manager - Member', () => {
         const phone = value.replace(/ /g, '');
         member.phone.phone_number = phone.replace(/^0/g, '+212');
       });
-    cy.get('[name=address_line_1]')
-      .clear()
-      .type(member.address.address_line_1);
-    cy.get('[name=address_line_2]')
-      .clear()
-      .type(member.address.address_line_2);
-    cy.get('[name=city]')
-      .clear()
-      .type(member.address.city);
-    cy.get('[name=zipcode]')
-      .clear()
-      .type(member.address.zipcode);
-    cy.get('[name=country]')
-      .clear()
-      .type(member.address.country);
+    cy.get('[name=address_line_1]').clear().type(member.address.address_line_1);
+    cy.get('[name=address_line_2]').clear().type(member.address.address_line_2);
+    cy.get('[name=city]').clear().type(member.address.city);
+    cy.get('[name=zipcode]').clear().type(member.address.zipcode);
+    cy.get('[name=country]').clear().type(member.address.country);
     // click on the submit button
     cy.get('[type=submit]').click();
     cy.get('body').contains('Member details updated');
@@ -228,9 +206,7 @@ context('Manager - Member', () => {
       // expect(member.phone).to.deep.equal(memberData.phone);
     });
     // redirect to member list page
-    cy.url()
-      .location('pathname')
-      .should('contains', '/member');
+    cy.url().location('pathname').should('contains', '/member');
   });
 
   it('Manager can update member', () => {
@@ -333,9 +309,7 @@ context('Manager - Member', () => {
       expect(member.phone).to.deep.equal(memberData.phone);
     });
     // redirect to member list page
-    cy.url()
-      .location('pathname')
-      .should('contains', '/member');
+    cy.url().location('pathname').should('contains', '/member');
   });
 
   it('Manager can update member', () => {
@@ -367,16 +341,10 @@ context('Manager - Member', () => {
       .then((value) => {
         memberData.first_name = value;
       });
-    cy.get('[name=lastname]')
-      .clear()
-      .type(member.last_name);
-    cy.get('[name=gender]')
-      .closest('div')
-      .click();
+    cy.get('[name=lastname]').clear().type(member.last_name);
+    cy.get('[name=gender]').closest('div').click();
     cy.get(`[data-value="${member.gender}"]`).click();
-    cy.get('[name=email]')
-      .clear()
-      .type(member.email);
+    cy.get('[name=email]').clear().type(member.email);
 
     cy.get('[name="birthday"]').click();
     pickUpDate();
@@ -403,21 +371,11 @@ context('Manager - Member', () => {
         const phone = value.replace(/ /g, '');
         member.phone.phone_number = phone.replace(/^0/g, '+212');
       });
-    cy.get('[name=address_line_1]')
-      .clear()
-      .type(member.address.address_line_1);
-    cy.get('[name=address_line_2]')
-      .clear()
-      .type(member.address.address_line_2);
-    cy.get('[name=city]')
-      .clear()
-      .type(member.address.city);
-    cy.get('[name=zipcode]')
-      .clear()
-      .type(member.address.zipcode);
-    cy.get('[name=country]')
-      .clear()
-      .type(member.address.country);
+    cy.get('[name=address_line_1]').clear().type(member.address.address_line_1);
+    cy.get('[name=address_line_2]').clear().type(member.address.address_line_2);
+    cy.get('[name=city]').clear().type(member.address.city);
+    cy.get('[name=zipcode]').clear().type(member.address.zipcode);
+    cy.get('[name=country]').clear().type(member.address.country);
     // click on the submit button
     cy.get('[type=submit]').click();
     cy.get('body').contains('Member details updated');
@@ -442,9 +400,7 @@ context('Manager - Member', () => {
       // expect(member.phone).to.deep.equal(memberData.phone);
     });
     // redirect to member list page
-    cy.url()
-      .location('pathname')
-      .should('contains', '/member');
+    cy.url().location('pathname').should('contains', '/member');
   });
 
   it('Manager can update member', () => {
@@ -547,8 +503,6 @@ context('Manager - Member', () => {
       expect(member.phone).to.deep.equal(memberData.phone);
     });
     // redirect to member list page
-    cy.url()
-      .location('pathname')
-      .should('contains', '/member');
+    cy.url().location('pathname').should('contains', '/member');
   });
 });

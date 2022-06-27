@@ -2,7 +2,7 @@
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {
   Event as EventIcon,
   Room as RoomIcon,

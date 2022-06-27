@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { RootState } from '../../reducers';
 import { fetchCurrentBasket } from '../../libs/checkout/actions';

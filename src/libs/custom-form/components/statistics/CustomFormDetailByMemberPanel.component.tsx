@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import MUIDataTable from 'mui-datatables';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';

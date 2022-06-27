@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import {
   ConsumerGiftcard,

@@ -1,6 +1,6 @@
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,

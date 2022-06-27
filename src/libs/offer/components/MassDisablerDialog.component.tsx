@@ -12,7 +12,7 @@ import {
   Collapse,
   ButtonBase,
 } from '@material-ui/core';
-import moment, { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowForwardIos,

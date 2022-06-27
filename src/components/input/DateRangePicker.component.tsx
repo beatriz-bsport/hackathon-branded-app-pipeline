@@ -5,10 +5,9 @@ import {
   MuiPickersUtilsProvider,
 } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import { Moment } from 'moment';
 import chroma from 'chroma-js';
 
 import { getTextColorFromRGB } from '../../utils/color';

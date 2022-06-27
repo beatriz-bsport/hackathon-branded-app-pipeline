@@ -1,6 +1,6 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 

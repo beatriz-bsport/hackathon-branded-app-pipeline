@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { DATE_FORMAT } from '../../utils/datetime';
 import { Expense } from './types';
 

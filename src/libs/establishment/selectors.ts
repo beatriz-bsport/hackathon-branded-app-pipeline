@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 import { RootState } from '../../reducers';
+import { withBookingNotification } from '#libs/marketing/selectors';
 import {
   AssociatedEstablishment,
   Establishment,
@@ -85,7 +86,7 @@ export const getFavoriteEstablishment = (state: RootState) =>
   state.establishment.byId[state.establishment.favorite.id];
 
 export const getEstablishmentGroupByAddress = createSelector(
-  [getAvailableEstablishmentList],
+  [withBookingNotification(getAvailableEstablishmentList)],
   (establishmentList) =>
     establishmentList.reduce((accumulator, establishmentItem) => {
       const temp = accumulator.findIndex(

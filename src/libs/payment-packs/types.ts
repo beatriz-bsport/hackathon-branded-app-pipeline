@@ -151,17 +151,6 @@ export type PaymentPackState = Immutable.Immutable<{
   compatible: ErrorAndLoading & {
     allIds: Array<number>;
   };
-  notification: ErrorAndLoading & {
-    itemsById: { [id: number]: any }; // deprecate anyway
-    loading: false;
-    error: null;
-    create: ErrorAndLoading;
-    delete: ErrorAndLoading;
-    update: {
-      id: null | number;
-      error: Error | null;
-    };
-  };
   paymentPackCategory: ErrorAndLoading & {
     byId: { [id: number]: PaymentPackCategory };
     allIds: Array<number>;

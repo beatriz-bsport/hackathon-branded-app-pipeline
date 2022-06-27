@@ -300,7 +300,7 @@ export default compose(
   connect(
     (state) => ({
       loading: state.establishment.loading,
-      notificationLoading: state.booking.notification.loading,
+      notificationLoading: state.marketingNotification.loading,
       establishments: withBookingNotification(getAvailableEstablishmentList)(
         state,
       ),

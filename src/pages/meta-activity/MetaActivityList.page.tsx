@@ -651,7 +651,7 @@ export default compose(
       )(state),
       disabledMetaActivities: getPageDisabledMetaActivities(state),
       loading: state.metaActivity.loading || state.metaActivity.delete.loading,
-      notificationLoading: state.booking.notification.loading,
+      notificationLoading: state.marketingNotification.loading,
       metaActivityCategories: getMetaActivityCategories(state),
       metaActivityCategoriesWithActivities:
         getMetaActivityByCategoryWithActivities(

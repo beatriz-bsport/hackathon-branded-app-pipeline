@@ -24,10 +24,6 @@ const _getConsumerPackBookingId = (state: RootState) =>
   state.booking.byConsumerPack.allIds;
 const _getConsumerDashboardId = (state: RootState) =>
   state.booking.consumerDashboard.allIds;
-const _getNotificationsIds = (state: RootState) =>
-  state.booking.notification.allIds;
-const _getNotifications = (state: RootState) =>
-  state.booking.notification.itemsById;
 
 export const getMemberBookingList = createSelector(
   [_getData, _getMemberBookingId],
@@ -116,24 +112,6 @@ export const withOfferFull = memoize((selector) =>
       bookingList.map((b) => ({
         ...b,
         offer: offerData.find((o) => o.id === b.offer),
-      })),
-  ),
-);
-
-export const getFirstTimeNotifications = createSelector(
-  [_getNotifications, _getNotificationsIds],
-  (data, ids) => ids.map((id) => data[id]).filter((n) => !!n),
-);
-
-export const withBookingNotifications = memoize((selector) =>
-  createSelector([selector, _getNotifications], (data, notificationList) =>
-    data
-      .filter((d) => !!d)
-      .map((d) => ({
-        ...d,
-        on_booking_notification: (d.on_booking_notification || []).map(
-          (notifId) => notificationList[notifId],
-        ),
       })),
   ),
 );

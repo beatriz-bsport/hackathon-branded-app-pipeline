@@ -10,10 +10,6 @@ import {
   retrieveBookingBroadcastRoom,
   retrieveActions,
   updateActions,
-  notificationListActions,
-  notificationCreateActions,
-  notificationDeleteActions,
-  notificationUpdateActions,
   listRecurrenceRuleBookingActions,
   createRecurrenceRuleBookingActions,
   updateRecurrenceRuleBookingActions,
@@ -71,24 +67,6 @@ export const initialState: Immutable.Immutable<BookingsState> =
     bulkRetrieve: {
       loading: false,
       error: null,
-    },
-    notification: {
-      itemsById: {},
-      allIds: [],
-      loading: false,
-      error: null,
-      create: {
-        loading: false,
-        error: null,
-      },
-      delete: {
-        loading: false,
-        error: null,
-      },
-      update: {
-        id: null,
-        error: null,
-      },
     },
     recurrenceRule: {
       byId: {},
@@ -302,80 +280,6 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
             return acc;
           }, {}),
         },
-        { deep: true },
-      );
-    },
-    [notificationListActions.isLoading.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.setIn(['notification', 'loading'], payload);
-    },
-    [notificationListActions.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['notification', 'error'], payload);
-    },
-    [notificationListActions.success.toString()]: (state, { payload }: any) => {
-      return state
-        .setIn(['notification', 'itemsById'], payload.notifDict)
-        .setIn(['notification', 'allIds'], payload.notifIdList);
-    },
-    [notificationCreateActions.isLoading.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.setIn(['notification', 'create', 'loading'], payload);
-    },
-    [notificationCreateActions.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['notification', 'create', 'error'], payload);
-    },
-    [notificationCreateActions.success.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.merge(
-        { notification: { itemsById: { [payload.id]: payload } } },
-        { deep: true },
-      );
-    },
-    [notificationDeleteActions.isLoading.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.setIn(['notification', 'delete', 'loading'], payload);
-    },
-    [notificationDeleteActions.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['notification', 'delete', 'error'], payload);
-    },
-    [notificationDeleteActions.success.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      const items = { ...state.notification.itemsById };
-      const ids = [...state.notification.allIds.asMutable()];
-      delete items[payload];
-      ids.splice(
-        ids.findIndex((id) => id === payload),
-        1,
-      );
-      return state
-        .setIn(['notification', 'itemsById'], items)
-        .setIn(['notification', 'allIds'], ids);
-    },
-    [notificationUpdateActions.isLoading.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.setIn(['notification', 'update', 'id'], payload);
-    },
-    [notificationUpdateActions.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['notification', 'update', 'error'], payload);
-    },
-    [notificationUpdateActions.success.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.merge(
-        { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
     },

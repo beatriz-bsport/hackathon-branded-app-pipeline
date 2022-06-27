@@ -195,13 +195,6 @@ export const withTags = memoize((selector: PaymentPackSelector) =>
   ),
 );
 
-export const getPaymentPackNotifications = (state: RootState, id: number) =>
-  Immutable(
-    Object.values(state.paymentPack.notification.itemsById).filter(
-      (notification) => notification.payment_pack === id,
-    ),
-  );
-
 export const getEnabled: PaymentPackArraySelector = createSelector(
   getAll,
   (pps) => pps.filter((pp: PaymentPack) => !pp.disabled),
@@ -260,7 +253,6 @@ export default {
   getAll,
   getEnabled,
   getActivityCompatiblePaymentPacks,
-  getPaymentPackNotifications,
 };
 
 export const filterByNoCategory = memoize(

@@ -10,6 +10,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
@@ -80,8 +81,8 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
-import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
-import { withBookingNotifications } from '../../libs/booking/selectors';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import { withBookingNotification } from '../../libs/marketing/selectors';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { mapFormData, unmap } from '../form.utils';
 
@@ -109,7 +110,7 @@ type Props = {
   loading: boolean,
   notificationLoading: boolean,
 
-  fetchNotifications: (params?: Object) => void,
+  fetchMarketingNotificationList: (params: any) => void,
   setWorkshopToDelete: (number) => void,
   workshopToDelete: ?number,
   deleteWorkshop: (number) => void,
@@ -202,7 +203,10 @@ export class WorkshopActivityList extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllActivities();
-    this.props.fetchNotifications({ is_meta_activity_notification: true });
+    this.props.fetchMarketingNotificationList({
+      active: true,
+      kind: NOTIFICATION_KIND.BOOKING_CREATION,
+    });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -502,10 +506,10 @@ export default compose(
   withTranslation(['workshop']),
   connect(
     (state, { selectedMetaActivityId }) => ({
-      workshopActivities: withBookingNotifications(getEnabledWorkshops)(state),
+      workshopActivities: withBookingNotification(getEnabledWorkshops)(state),
       disabledWorkshopActivities: getDisabledWorkshops(state),
       loading: state.metaActivity.loading,
-      notificationLoading: state.booking.notification.loading,
+      notificationLoading: state.marketingNotification.loading,
       selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
       // from WorkshopActivityCreate now
       offerIsProcessing: state.offer.create.loading,
@@ -545,7 +549,7 @@ export default compose(
       goToPaymentPack: () => push('/payment-pack'),
       deleteWorkshop,
       restoreMetaActivity,
-      fetchNotifications,
+      fetchMarketingNotificationList,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/general`),
       upsertWorkshopActivity: upsert,

@@ -95,16 +95,6 @@ export type BookingsState = {
   byOffer: ErrorAndLoading & { allIds: [] };
   createOrUpdate: ErrorAndLoading;
   bulkRetrieve: ErrorAndLoading;
-  notification: ErrorAndLoading & {
-    itemsById: { [key: string]: BookingCreationNotification };
-    allIds: number[];
-    create: ErrorAndLoading;
-    delete: ErrorAndLoading;
-    update: {
-      id?: number | null;
-      error?: Error;
-    };
-  };
   recurrenceRule: ErrorAndLoading &
     WithPagination & {
       byId: { [key: string]: RecurrenceRuleBooking };

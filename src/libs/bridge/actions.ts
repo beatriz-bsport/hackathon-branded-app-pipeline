@@ -223,6 +223,11 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
     case WidgetMessageType.RESPONSE_CLOSE_SUBSCRIPTION_MODAL_ON_ERROR:
       dispatch(closeUserInteractionPortal());
       break;
+
+    case WidgetMessageType.CLOSE_MODAL:
+      dispatch(closeUserInteractionPortal());
+      break;
+
     default:
       break;
   }

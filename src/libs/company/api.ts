@@ -62,3 +62,9 @@ export const validateAccountConfigurationStepAPI = ({
     },
   );
 };
+
+export const retrieveStripeAccountStatusAPI = async () => {
+  return getAuth(
+    `${API_V1_URI}/payment_backend/stripe/company/retrieve_stripe_account_status/`,
+  );
+};

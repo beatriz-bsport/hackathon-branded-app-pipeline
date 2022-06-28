@@ -9,6 +9,7 @@ import {
   retrieveMyCompanyActions,
   stripeCompanyRetrieveActions,
   validateAccountConfigurationStepActions,
+  retrieveStripeAccountStatusActions,
 } from './actions';
 import { CompanyState, Company } from './types';
 import {
@@ -37,6 +38,11 @@ const initialState: Immutable.Immutable<CompanyState> = Immutable({
     loading: false,
     error: null,
     data: null,
+  },
+  stripeAccountStatus: {
+    data: null,
+    loading: false,
+    error: null,
   },
 });
 
@@ -122,6 +128,24 @@ export default handleActions(
     },
     [stripeCompanyRetrieveActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['stripeCompany', 'error'], payload);
+    },
+    [retrieveStripeAccountStatusActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['stripeAccountStatus', 'loading'], payload);
+    },
+    [retrieveStripeAccountStatusActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['stripeAccountStatus', 'error'], payload);
+    },
+    [retrieveStripeAccountStatusActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['stripeAccountStatus', 'data'], payload);
     },
   },
   initialState,

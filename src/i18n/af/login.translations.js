@@ -10,6 +10,9 @@ exports.default = {
         bank_account_holder: 'Titulaire du compte',
       },
     },
+    configureMyStripeAccount: 'Configurer mon compte Stripe',
+    needToConfigureStripeInfo:
+      "Il est nécessaire d'ajouter un moyen de paiement pour régulariser une facture.",
     paymentMethodSuccess:
       "Le moyen de paiement indiqué est valide. Vous pourrez toujours le modifier dans les paramètres d'abonnement Bsport.",
     accountSuccess:
@@ -50,6 +53,20 @@ exports.default = {
     congrats: 'Félicitations !',
     finishExplain:
       'Votre configuration est terminée, vous pouvez maintenant utiliser Bsport.',
+  },
+  needStripe: {
+    stripeAccount: 'Compte Stripe',
+    infoDateBlocked:
+      "Vous n'avez pas configuré votre compte Stripe, veuillez configurer votre compte Stripe avant le {{ dateAccountIsBLockedFormattedLL }} pour continuer à bénéficier des services de Bsport.",
+    info: "Vous n'avez pas configuré votre compte Stripe, veuillez configurer votre compte Stripe pour continuer à bénéficier des services de Bsport.",
+    actionRegularize: 'Configurer mon compte Stripe',
+  },
+  regularizeInvoice: {
+    needPaymentMethod: 'Échec de paiement',
+    needPaymentMethodContent:
+      'Vous avez une ou plusieurs factures en échec de paiement. Veuillez régulariser votre facture pour continuer à bénéficier des services de Bsport.',
+    actionRegularize: 'Régulariser ma facture',
+    contactSuport: 'Contacter le support',
   },
   emailValidation: {
     explain:

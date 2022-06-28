@@ -11,6 +11,7 @@ import {
   listBillingStageActions,
   listUpsellPackageSubscribedActions,
   retrievePlatformBillingPlanGroupActions,
+  retrievePlatformSubscriptionPaymentStatusActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -56,6 +57,11 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  subscriptionPaymentStatus: {
+    data: null,
+    loading: false,
+    error: null,
+  },
 });
 
 export default handleActions(
@@ -71,6 +77,24 @@ export default handleActions(
     },
     [retrievePlatformBillingPlanGroupActions.success]: (state, { payload }) => {
       return state.setIn(['platformBillingGroup', 'data'], payload);
+    },
+    [retrievePlatformSubscriptionPaymentStatusActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['subscriptionPaymentStatus', 'loading'], payload);
+    },
+    [retrievePlatformSubscriptionPaymentStatusActions.error]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['subscriptionPaymentStatus', 'error'], payload);
+    },
+    [retrievePlatformSubscriptionPaymentStatusActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['subscriptionPaymentStatus', 'data'], payload);
     },
     [retrieveSubscriptionActions.isLoading]: (state, { payload }) => {
       return state.setIn(['platformSubscription', 'loading'], payload);

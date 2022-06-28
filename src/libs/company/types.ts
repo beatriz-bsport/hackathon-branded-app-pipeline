@@ -1,3 +1,8 @@
+import {
+  BLOCK_BACKOFFICE,
+  DO_NOTHING,
+  WARN,
+} from '#libs/platform-billing/constant';
 import { ErrorAndLoading } from '#libs/types';
 import {
   BANK_ACCOUNT_CONFIGURATION_STEP,
@@ -54,12 +59,16 @@ export type CompanySetup = {
   bank_account_entity_type: string;
 };
 
-export type UpsellSumup = {
-  upsell_identifier: number;
-  readable_identifier: number;
+type StripeAccountStatus = {
+  action: typeof BLOCK_BACKOFFICE | typeof WARN | typeof DO_NOTHING;
+  reason: string;
+  date_account_blocked: string;
 };
 
+type UpsellSumup = { upsell_identifier: number; readable_identifier: number };
+
 export type CompanyState = {
+  stripeAccountStatus: ErrorAndLoading & { data: StripeAccountStatus };
   setupLoading: boolean;
   stripeCompany?: { data: StripeCompany } & ErrorAndLoading;
   byId: {

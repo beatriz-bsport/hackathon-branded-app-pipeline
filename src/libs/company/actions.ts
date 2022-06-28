@@ -10,6 +10,7 @@ import {
   retrieveStripeCompanyRefreshedAPI,
   validateAccountConfigurationStepAPI,
   retrieveStripeCompanyAPI,
+  retrieveStripeAccountStatusAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 import {
@@ -239,5 +240,29 @@ export function validateAccountConfigurationStepAction(
       if (options && options.onError) options.onError();
     }
     dispatch(validateAccountConfigurationStepActions.isLoading(false));
+  };
+}
+export const retrieveStripeAccountStatusActions = {
+  isLoading: createAction('RETRIEVE_STRIPE_ACCOUNT_STATUS/LOADING'),
+  error: createAction('RETRIEVE_STRIPE_ACCOUNT_STATUS/ERROR'),
+  success: createAction('RETRIEVE_STRIPE_ACCOUNT_STATUS/SUCCESS'),
+};
+
+export function retrieveStripeAccountStatusAction(options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveStripeAccountStatusActions.isLoading(true));
+    dispatch(retrieveStripeAccountStatusActions.error(null));
+    try {
+      const response = await retrieveStripeAccountStatusAPI();
+      dispatch(retrieveStripeAccountStatusActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveStripeAccountStatusActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(retrieveStripeAccountStatusActions.isLoading(false));
   };
 }

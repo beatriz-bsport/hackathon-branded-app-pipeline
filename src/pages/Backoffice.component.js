@@ -11,14 +11,16 @@ import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
+import moment from 'moment-timezone';
 import {
+  retrieveStripeAccountStatusAction,
   retrieveStripeCompanyAction,
   getFeatureList,
 } from '#libs/company/actions';
-import { StripeCompany } from '../libs/company/types';
+import GenericResponsiveDialog from '../components/genericDialog/GenericResponsiveDialog';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
-
+import { retrievePlatformSubscriptionPaymentStatusAction } from '../libs/platform-billing/actions';
 import { DrawerContext, PermissionContext } from '../context';
 
 import { getAuthToken } from '../http';
@@ -30,6 +32,7 @@ import LoadingBackoffice from '../components/navigation/LoadingBackoffice.compon
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
+
 import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 
 // FIXME clean that
@@ -73,6 +76,8 @@ import alertingSelectors from '../libs/alerting/selectors';
 import {
   fetchAccessLevel,
   navigateBackToFranchise as navigateBackToFranchiseAction,
+  stampLastPlatformSubscriptionWarningDateAction,
+  stampLastStripeAccountConfigurationWarningDateAction,
 } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
@@ -103,6 +108,19 @@ import {
   getLastClockin,
   withRealTimeAttendance,
 } from '#libs/clock-in/selectors';
+import RegularizingInvoiceInformation from '../libs/settings/components/RegularizingInvoiceInformation.component';
+import StripeAccountConfiguration from '../libs/settings/components/NeedStripeAccountConfiguration.component';
+import type { PlatformSubscriptionPaymentStatus } from '../libs/platform-billing/type';
+import { BLOCK_BACKOFFICE, WARN } from '../libs/platform-billing/constant';
+import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
+
+const CompanyDetailPage = asyncComponent(() =>
+  import('./settings/CompanyDetailPage.page'),
+);
+
+const PlatformBillingSettingPage = asyncComponent(() =>
+  import('./settings/PlatformBillingSetting.page'),
+);
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -182,7 +200,7 @@ type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
   permissions: Permission,
-
+  platformSubscriptionPaymentStatus: PlatformSubscriptionPaymentStatus,
   fetchAccessLevel: (token: string) => void,
   disconnect: () => void,
   deleteAlert: (id: number) => void,
@@ -274,9 +292,22 @@ type Props = {
   getLastClockin: ({}) => Promise<void>,
   retrieveStripeCompany: () => void,
   stripeCompany: StripeCompany,
+  lastPlatformSubscriptionWarningDate: string,
+  stampLastPlatformSubscriptionWarningDate: () => void,
+  retrievePlatformSubscriptionPaymentStatus: () => void,
+  stampLastStripeAccountConfigurationWarningDate: () => void,
+  retrieveStripeAccountStatus: () => void,
+  stripeAccountStatus: StripeAccountStatus,
+  lastStripeConfigurationWarningDate: string,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
+  if (props.blockBackofficeToPayPlatformBilling) {
+    return <Route path="/" component={PlatformBillingSettingPage} />;
+  }
+  if (props.blockBackofficeToConfigureStripe) {
+    return <Route path="/" component={CompanyDetailPage} />;
+  }
   return (
     <Switch>
       <Route path="/shop" component={Shop} />
@@ -323,6 +354,7 @@ export class Backoffice extends Component<Props, State> {
 
   state = {
     displayLeftMenu: true,
+    need_regularizing_invoice_modal: false,
   };
 
   componentWillMount() {
@@ -358,7 +390,98 @@ export class Backoffice extends Component<Props, State> {
       });
     }
     this.props.retrieveStripeCompany();
+    this.props.retrievePlatformSubscriptionPaymentStatus({
+      onSuccess: () => {
+        this.props.retrieveStripeAccountStatus();
+      },
+    });
   }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.stripeAccountStatus !== this.props.stripeAccountStatus &&
+      this.props.stripeAccountStatus
+    ) {
+      this.checkPlatformSubscriptionPaymentStatusAndStripeConfiguration();
+    }
+  }
+
+  checkPlatformSubscriptionPaymentStatusAndStripeConfiguration = () => {
+    switch (this.props.platformSubscriptionPaymentStatus?.action) {
+      case BLOCK_BACKOFFICE:
+        this.setState({ need_regularizing_invoice_modal: true });
+        return;
+
+      case WARN:
+        if (
+          (!this.props.lastPlatformSubscriptionWarningDate ||
+            !moment(this.props.lastPlatformSubscriptionWarningDate).isSame(
+              moment(),
+              'day',
+            )) &&
+          this.props.stripeAccountStatus?.action !== BLOCK_BACKOFFICE
+        ) {
+          this.setState(
+            {
+              need_regularizing_invoice_modal: true,
+            },
+            () => {
+              this.props.stampLastPlatformSubscriptionWarningDate();
+              this.checkStripeAccountConfiguration();
+            },
+          );
+          return;
+        }
+        this.checkStripeAccountConfiguration();
+        return;
+
+      default:
+        this.checkStripeAccountConfiguration();
+    }
+  };
+
+  checkStripeAccountConfiguration = () => {
+    switch (this.props.stripeAccountStatus?.action) {
+      case BLOCK_BACKOFFICE:
+        this.setState({ need_configuring_stripe_account_dialog: true });
+        return;
+
+      case WARN:
+        if (
+          !this.props.lastStripeConfigurationWarningDate ||
+          !moment(this.props.lastStripeConfigurationWarningDate).isSame(
+            moment(),
+            'day',
+          )
+        ) {
+          this.openStripeConfigurationModal();
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  openStripeConfigurationModal = () => {
+    if (this.state.need_regularizing_invoice_modal) {
+      setTimeout(() => {
+        this.setState(
+          { need_configuring_stripe_account_dialog: true },
+          this.props.stampLastStripeAccountConfigurationWarningDate,
+        );
+      }, 10 * 60000);
+    } else {
+      this.setState(
+        { need_configuring_stripe_account_dialog: true },
+        this.props.stampLastStripeAccountConfigurationWarningDate,
+      );
+    }
+  };
+
+  redirect = (path: string) => () => {
+    this.props.pushRouter(path);
+  };
 
   componentWillUnmount() {
     if (this.refreshInterval) {
@@ -373,6 +496,16 @@ export class Backoffice extends Component<Props, State> {
   showLeftMenuAction() {
     this.setState({ displayLeftMenu: true });
   }
+
+  redirectToPlatformBilling = () => {
+    this.props.pushRouter('/settings/platform-billing');
+    this.setState({ need_regularizing_invoice_modal: false });
+  };
+
+  redirectToCompanySettings = () => {
+    this.props.pushRouter('/settings/company');
+    this.setState({ need_configuring_stripe_account_dialog: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -514,6 +647,7 @@ export class Backoffice extends Component<Props, State> {
                       action_color={this.props.theme.primary_color}
                     />
                   )}
+
                 <Analytics username={this.props.username} isInternal />
                 <main
                   className={clx({
@@ -522,13 +656,64 @@ export class Backoffice extends Component<Props, State> {
                       this.props.location.pathname.includes('/spot-scheduling'),
                   })}
                 >
-                  <BackofficeRoute vodEnabled={this.props.theme?.vod ?? null} />
+                  <BackofficeRoute
+                    vodEnabled={this.props.theme?.vod ?? null}
+                    blockBackofficeToPayPlatformBilling={
+                      this.props.platformSubscriptionPaymentStatus?.action ===
+                      BLOCK_BACKOFFICE
+                    }
+                    blockBackofficeToConfigureStripe={
+                      this.props.stripeAccountStatus?.action ===
+                      BLOCK_BACKOFFICE
+                    }
+                  />
                 </main>
               </BackofficeDrawer>
             </BannerProvider>
             <GenericDialog />
           </DrawerContext.Provider>
         </PermissionContext.Provider>
+        {this.props.platformSubscriptionPaymentStatus && (
+          <GenericResponsiveDialog
+            open={this.state.need_regularizing_invoice_modal}
+          >
+            <RegularizingInvoiceInformation
+              goNext={this.redirectToPlatformBilling}
+              contactSupport={this.redirectToPlatformBilling}
+              cancel={
+                this.props.platformSubscriptionPaymentStatus?.action === WARN
+                  ? () => {
+                      this.setState({ need_regularizing_invoice_modal: false });
+                    }
+                  : undefined
+              }
+            />
+          </GenericResponsiveDialog>
+        )}
+        {this.props.stripeAccountStatus && (
+          <GenericResponsiveDialog
+            open={this.state.need_configuring_stripe_account_dialog}
+          >
+            <StripeAccountConfiguration
+              contactSupport={this.redirectToCompanySettings}
+              dateAccountIsBlocked={
+                this.props.stripeAccountStatus.action === BLOCK_BACKOFFICE
+                  ? undefined
+                  : this.props.stripeAccountStatus?.date_account_blocked
+              }
+              goNext={this.redirectToCompanySettings}
+              cancel={
+                this.props.stripeAccountStatus.action === WARN
+                  ? () => {
+                      this.setState({
+                        need_configuring_stripe_account_dialog: false,
+                      });
+                    }
+                  : undefined
+              }
+            />
+          </GenericResponsiveDialog>
+        )}
       </MuiThemeProvider>
     );
   }
@@ -599,12 +784,21 @@ export default compose(
         getUsersPaginatedWithRole,
       )(state),
       lastClockin: getLastClockin(state),
-
+      lastPlatformSubscriptionWarningDate:
+        state.auth.lastPlatformSubscriptionWarningDate,
+      lastStripeConfigurationWarningDate:
+        state.auth.lastStripeConfigurationWarningDate,
       isPluginActivated: state.plugin.isPluginActivated,
 
       stripeCompany: state.company.stripeCompany.data,
+      platformSubscriptionPaymentStatus:
+        state.platformBilling.subscriptionPaymentStatus.data,
+      stripeAccountStatus: state.company.stripeAccountStatus.data,
     }),
     {
+      retrievePlatformSubscriptionPaymentStatus:
+        retrievePlatformSubscriptionPaymentStatusAction,
+      retrieveStripeAccountStatus: retrieveStripeAccountStatusAction,
       fetchCompanyTheme,
       fetchTags,
       fetchCompanyRoles,
@@ -649,6 +843,11 @@ export default compose(
       getLastClockin: getLastClockinAction,
       clockOut: clockOutAction,
       clockIn: clockInAction,
+
+      stampLastPlatformSubscriptionWarningDate:
+        stampLastPlatformSubscriptionWarningDateAction,
+      stampLastStripeAccountConfigurationWarningDate:
+        stampLastStripeAccountConfigurationWarningDateAction,
     },
   ),
   withHandlers({

@@ -60,3 +60,9 @@ export const checkPlatformSubscriptionSetup = async () => {
     `${API_V1_URI}/platform_billing/platform_subscription/check_setup/`,
   );
 };
+
+export const retrievePlatformSubscriptionPaymentStatusAPI = async () => {
+  return getAuth(
+    `${API_V1_URI}/platform_billing/platform_subscription/retrieve_payment_status/`,
+  );
+};

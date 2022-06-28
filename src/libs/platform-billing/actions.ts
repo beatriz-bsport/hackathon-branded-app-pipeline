@@ -13,10 +13,12 @@ import {
   requestUpsellPackage as requestUpsellPackageAPI,
   checkPlatformSubscriptionSetup as checkPlatformSubscriptionSetupAPI,
   payInvoice as payInvoiceAPI,
+  retrievePlatformSubscriptionPaymentStatusAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
+import { PlatformSubscriptionPaymentStatus } from './type';
 
 export const listPlatformInvoiceActions = {
   isLoading: createAction('PLATFORM_INVOICE/LIST/IS_LOADING'),
@@ -288,5 +290,37 @@ export function payNowInvoice(
       if (options && options.onError) options.onError();
     }
     dispatch(payInvoiceActions.isLoading(false));
+  };
+}
+export const retrievePlatformSubscriptionPaymentStatusActions = {
+  isLoading: createAction(
+    'RETRIEVE_PLATFORM_SUBSCRIPTION_PAYMENT_STATUS/LOADING',
+  ),
+  error: createAction('RETRIEVE_PLATFORM_SUBSCRIPTION_PAYMENT_STATUS/ERROR'),
+  success: createAction(
+    'RETRIEVE_PLATFORM_SUBSCRIPTION_PAYMENT_STATUS/SUCCESS',
+  ),
+};
+
+export function retrievePlatformSubscriptionPaymentStatusAction(
+  options: OptionCallback<PlatformSubscriptionPaymentStatus>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrievePlatformSubscriptionPaymentStatusActions.isLoading(true));
+    dispatch(retrievePlatformSubscriptionPaymentStatusActions.error(null));
+    try {
+      const response = await retrievePlatformSubscriptionPaymentStatusAPI();
+      dispatch(
+        retrievePlatformSubscriptionPaymentStatusActions.success(response.data),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrievePlatformSubscriptionPaymentStatusActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(retrievePlatformSubscriptionPaymentStatusActions.isLoading(false));
   };
 }

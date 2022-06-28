@@ -2,6 +2,10 @@ import Immutable from 'seamless-immutable';
 
 import { setAuthToken } from '../http';
 import actionTypes from '../actions/auth.types';
+import {
+  stampLastPlatformSubscriptionWarningDateSuccess,
+  stampLastStripeAccountConfigurationWarningDateSuccess,
+} from '../actions/auth.actions';
 
 const initialState = Immutable({
   username: '',
@@ -18,6 +22,9 @@ const initialState = Immutable({
   has_completed_account_configuration_on_boarding: false,
   role: null,
   loadingImpersonation: false,
+  lastPlatformSubscriptionWarningDate: null,
+  lastStripeConfigurationWarningDate: null,
+
   emailExists: {
     loading: false,
     error: null,
@@ -85,10 +92,17 @@ export default function authReducers(state = initialState, action = {}) {
         role,
         name,
         has_completed_account_configuration_on_boarding,
+        context,
       } = action;
 
       setAuthToken(token);
-      return state
+      let res = state;
+      if (!context?.accessLevel) {
+        res = state
+          .set('lastStripeConfigurationWarningDate', null)
+          .set('lastPlatformSubscriptionWarningDate', null);
+      }
+      return res
         .set('username', username)
         .set('token', token)
         .set('name', name || '')
@@ -144,6 +158,18 @@ export default function authReducers(state = initialState, action = {}) {
       return state.setIn(['emailExists', 'error'], action.error);
     case actionTypes.CHECK_EMAIL_EXISTS_SUCCESS:
       return state.setIn(['emailExists', 'exists'], action.exists);
+
+    case stampLastPlatformSubscriptionWarningDateSuccess.toString():
+      return state.setIn(
+        ['lastPlatformSubscriptionWarningDate'],
+        action.payload,
+      );
+
+    case stampLastStripeAccountConfigurationWarningDateSuccess.toString():
+      return state.setIn(
+        ['lastStripeConfigurationWarningDate'],
+        action.payload,
+      );
     case actionTypes.IMPERSONATE_MANAGER_LOADING:
       return state.set(['loadingImpersonation'], action.loading);
     default:

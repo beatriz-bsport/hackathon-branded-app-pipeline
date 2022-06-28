@@ -4,6 +4,7 @@ import * as Sentry from '@sentry/react';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
+import moment from 'moment-timezone';
 import {
   updateProfile as updateProfileAPI,
   getRelationToken as getRelationTokenAPI,
@@ -90,17 +91,20 @@ export function fetchAccessLevel(
         dispatch(errorLogin());
       }
       dispatch(
-        setLogin({
-          username,
-          token,
-          is_manager,
-          is_coach,
-          is_consumer,
-          is_franchisor,
-          role,
-          name,
-          has_completed_account_configuration_on_boarding,
-        }),
+        setLogin(
+          {
+            username,
+            token,
+            is_manager,
+            is_coach,
+            is_consumer,
+            is_franchisor,
+            role,
+            name,
+            has_completed_account_configuration_on_boarding,
+          },
+          { accessLevel: true },
+        ),
       );
       try {
         Sentry.configureScope((scope) => {
@@ -224,7 +228,6 @@ export function requestLogin(
         }),
       );
       if (!err.status) {
-        console.error(err);
         dispatch(networkError(err));
       }
       if (options && options.onDone) options.onDone();
@@ -260,27 +263,68 @@ export function checkEmailExists(email: string, options: OptionCallback) {
   };
 }
 
-export function setLogin({
-  username,
-  token,
-  is_manager,
-  is_consumer,
-  is_franchisor,
-  is_coach,
-  role,
-  name,
-  has_completed_account_configuration_on_boarding,
-}: {
-  username: string,
-  token: string,
-  is_manager: boolean,
-  is_consumer: boolean,
-  is_franchisor: boolean,
-  is_coach: boolean,
-  role: number,
-  name: string,
-  has_completed_account_configuration_on_boarding: boolean,
-}) {
+export const stampLastPlatformSubscriptionWarningDateSuccess = createAction(
+  'STAMP_PLATFORM_SUBSCRIPTION_LAST_WARNING_DATE_SUCCESS',
+);
+
+export function stampLastPlatformSubscriptionWarningDateAction(
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        stampLastPlatformSubscriptionWarningDateSuccess(moment().format()),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      if (options && options.onError) options.onError();
+    }
+  };
+}
+export const stampLastStripeAccountConfigurationWarningDateSuccess =
+  createAction('STAMP_STRIPE_CONFIGURATION_LAST_WARNING_DATE_SUCCESS');
+
+export function stampLastStripeAccountConfigurationWarningDateAction(
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        stampLastStripeAccountConfigurationWarningDateSuccess(
+          moment().format(),
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      if (options && options.onError) options.onError();
+    }
+  };
+}
+
+export function setLogin(
+  {
+    username,
+    token,
+    is_manager,
+    is_consumer,
+    is_franchisor,
+    is_coach,
+    role,
+    name,
+    has_completed_account_configuration_on_boarding,
+  }: {
+    username: string,
+    token: string,
+    is_manager: boolean,
+    is_consumer: boolean,
+    is_franchisor: boolean,
+    is_coach: boolean,
+    role: number,
+    name: string,
+    has_completed_account_configuration_on_boarding: boolean,
+  },
+  context?: { accessLevel?: boolean },
+) {
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
@@ -292,6 +336,7 @@ export function setLogin({
     is_consumer,
     is_franchisor,
     has_completed_account_configuration_on_boarding,
+    context,
   };
 }
 

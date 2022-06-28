@@ -1108,7 +1108,9 @@
                 }
             },
             "firstBookingMinutesUntil": "Limit future bookings of members that take place in ",
-            "altCoverMain": "Description of the image for the visually impaired"
+            "altCoverMain": "Description of the image for the visually impaired",
+            "autoDiscard": "Automatic cancellation",
+            "generalInfo": "General"
         },
         "calendar": {
             "pleaseSelectOffer": "Click on a session for more information or double-click on a session to manage the bookings.",
@@ -1938,6 +1940,23 @@
         "metaActivityCategory": {
             "explain": "These categories are used to order and sort group activities to your preferred display on the Management View. Members won't be affected by your display decisions.",
             "sctExplain": "These categories will appear on the MarketPlace and the Mobile App and represent the different types of activities."
+        },
+        "restrictions": {
+            "personnalizedHelper": "Apply tags to differentiate restrictions between segments to determine which rules will be applied to whom.",
+            "firstBookingMinutesUntil": "Opening of booking window",
+            "lastBookingBeforeMinutes": "Closing of booking window",
+            "lastDiscardBeforeMinutes": "Cancellation policy",
+            "tags": {
+                "mandatory": "Select at least 1 tag",
+                "header": "Selected tags",
+                "selectPlaceHolder": "Select a tag"
+            },
+            "back": "Previous",
+            "next": "Next",
+            "personnalizedRestrictionsIndex": "Custom restriction: {{ count }}",
+            "add": "Add different rules ({{ count }}/{{ max }})",
+            "personnalizedHeader": "Custom restrictions",
+            "header": "Restrictions"
         }
     },
     "search": {
@@ -4755,11 +4774,11 @@
         },
         "form": {
             "duration": {
-                "day": "Day:",
+                "day": "Duration in days:",
                 "day_plural": "Days:",
-                "hour": "Hour:",
+                "hour": "Duration in hours:",
                 "hour_plural": "Hours:",
-                "minute": "Minute:",
+                "minute": "Duration in minutes:",
                 "minute_plural": "Minutes:"
             },
             "requiredField": "This field is mandatory."
@@ -5934,7 +5953,10 @@
             "never": "Never",
             "oneHourFifteen": "1h15",
             "fiftyMinutes": "50 min"
-        }
+        },
+        "longHourIdentifier": "hours",
+        "longMinuteIdentifier": "minuten",
+        "longDayIdentifer": "days"
     },
     "shop": {
         "select": {
@@ -8695,7 +8717,9 @@
                     "title": "Delete pass"
                 }
             }
-        }
+        },
+        "previous": "Previous",
+        "next": "Next"
     },
     "metaActivity": {
         "metaActivity": "Activity",
@@ -8752,7 +8776,14 @@
             "lastDiscardBeforeMinutes": "Members can cancel free-of-charge for up to {{m}} before the start of the session.",
             "firstBookingMinutesUntil": "Members can book sessions for up to {{m}} in the future.",
             "conditions": "Cancellation policy",
-            "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session."
+            "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session.",
+            "firstBookingMinutesUntilHeader": "Opening of booking window",
+            "lastDiscardBeforeMinutesHeader": "Cancellation policy",
+            "seeRestrictions": "See",
+            "restrictions": " Custom restriction: {{ count }}",
+            "restrictionsHeader": "Custom restrictions",
+            "autoDiscardHeader": "The session will be cancelled if",
+            "lastBookingBeforeMinutesHeader": "Last possibility of booking before the start of the session"
         },
         "modal": {
             "delete": {
@@ -8840,7 +8871,7 @@
             "intervalLabel": {
                 "until": {
                     "year": "Every year until {{-until}} ",
-                    "year_plural": "Every {{ count }} year until {{-until}} ",
+                    "year_plural": "Every {{ count }} year(s) until {{-until}} ",
                     "day": "Every day until {{-until}} ",
                     "day_plural": "Every {{ count }} day until {{-until}} ",
                     "week": "Every week until {{-until}} ",
@@ -8859,7 +8890,9 @@
             }
         },
         "cancelledOffers": "{{count}} cancellations",
-        "workshopSelect": "Search for a workshop"
+        "workshopSelect": "Search for a workshop",
+        "close": "Close",
+        "edit": "Edit"
     },
     "offer": {
         "video": {
@@ -9197,7 +9230,7 @@
         "birth": {
             "unknown_F": "Born on -",
             "unknown": "Born on -",
-            "bornIn_F": "Born on {{-date}} - {{age}} years old",
+            "bornIn_F": "Born on {{-date}} ({{age}})",
             "bornIn": "Born on {{-date}} - {{age}} years old"
         },
         "search": {
@@ -9677,7 +9710,7 @@
                 },
                 "waiting_list": "Waitlist",
                 "book": "Sign up",
-                "blockedByTags": "Booking not allowed"
+                "blockedByTags": "Invalid tags"
             },
             "similarOffer": {
                 "showMore": "See more",
@@ -9774,22 +9807,22 @@
     "selfCheckIn": {
         "offerStatus": {
             "hasEnded": "Has ended since",
-            "startIn": "Begins in ",
+            "startIn": "Starts in ",
             "inProgress": "Has begun since"
         },
         "addMember": {
-            "button": "Register an account"
+            "button": "Create an account"
         },
         "offerList": {
-            "refresh": "Refresh sessions",
-            "emptyList": "No session planned"
+            "refresh": "Refresh",
+            "emptyList": "There are no activities to display."
         },
         "filter": {
             "establishment": "Filter by establishments"
         },
         "signout": {
-            "title": "Log-off",
-            "explain": "To sign-out, please use the email/passwor of the CheckIn App account",
+            "title": "Logout",
+            "explain": "Use the password of this Check-In Tablet's account to log out.",
             "passwordError": "Invalid password",
             "cancel": "Cancel",
             "signout": "Disconnect",
@@ -9803,13 +9836,13 @@
             }
         },
         "offerDetail": {
-            "emptyList": "No student registered to this class",
-            "noConsumerPaymentPack": "No valid pass!",
-            "backToOfferList": "Back to classes",
+            "emptyList": "There are bo bookings to display.",
+            "noConsumerPaymentPack": "You don't own any valid membership to complete this booking.",
+            "backToOfferList": "Return to activities",
             "cancelRegistration": "Cancel",
-            "isFull": "Session full",
-            "register": "Register myself to the class",
-            "activateBarcode": "Barcode detector",
+            "isFull": "Full",
+            "register": "Book",
+            "activateBarcode": "Scan barcode",
             "actions": {
                 "createAccount": "Create an account",
                 "restartAnalyze": "Restart",
@@ -9819,16 +9852,16 @@
             "activateFaceId": "Face ID"
         },
         "memberList": {
-            "checkIn": "Check in",
+            "checkIn": "Check-in",
             "checkedIn": "Present",
-            "empty": "No student registered for this session"
+            "empty": "There are no bookings to display."
         },
         "confirmPage": {
-            "classLocation": "Your class is in",
-            "signIn": "Signed In",
+            "classLocation": "Please go to the following establishment to participate:",
+            "signIn": "Checked in",
             "expires": "Expires",
             "headOnIn": "Head on in!",
-            "visitsLeft": "Visits left"
+            "visitsLeft": "Remaining visits"
         }
     },
     "titles": {
@@ -9863,7 +9896,9 @@
             "metaActivity": "Activities",
             "metaActivityEditForm": "[Form] Group activity",
             "metaActivityList": "Activities",
-            "metaActivityFormPage": "[Form] Group activity"
+            "metaActivityFormPage": "[Form] Group activity",
+            "metaActivityEditFormSubtitle": "Edit a group activity",
+            "metaActivityFormSubtitle": "Add a group activity"
         },
         "coupon": {
             "couponCreate": "Create coupon",
@@ -9895,7 +9930,9 @@
         "workshopActivity": {
             "workshopActivityList": "Workshops",
             "workshopActivityFormPage": "[Form] Workshop",
-            "workshopActivityCreate": "Create workshop"
+            "workshopActivityCreate": "Create workshop",
+            "workshopActivityEditFormSubtitle": "Edit a workshop",
+            "workshopActivityFormSubtitle": "Create a workshop"
         },
         "paymentPack": {
             "paymentPackFormPage": "[Form] Pass",
@@ -10050,7 +10087,7 @@
                 }
             },
             "bookingsSegments": {
-                "title": "Last booking",
+                "title": "Closing of booking window",
                 "label": {
                     "0": "Last month",
                     "1": "Between 1 and 12 months",

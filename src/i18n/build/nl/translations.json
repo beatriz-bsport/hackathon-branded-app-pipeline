@@ -1288,7 +1288,9 @@
             "nextSlotAt": "De eerstvolgende sessie is op: ",
             "explainImage": "Aanbevolen: 1920 x 1080 .JPG (Full HD)",
             "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over ",
-            "altCoverMain": "Afbeeldingsbeschrijving"
+            "altCoverMain": "Afbeeldingsbeschrijving",
+            "autoDiscard": "Automatische annulering",
+            "generalInfo": "Algemeen"
         },
         "calendar": {
             "pleaseSelectOffer": "Selecteer een sessie voor meer informatie of dubbelklik op een sessie om de reserveringen te beheren.",
@@ -1528,6 +1530,23 @@
         "metaActivityCategory": {
             "explain": "Deze categorieën worden alleen voor het sorteren van groepsactiviteiten aan de achterkant gebruikt om de Managerweergaven naar wens in te richten. Leden ondervinden geen impact van deze wijzigingen.",
             "sctExplain": "Categorieën worden gebruikt om de verschillende activiteiten te beheren en worden ook getoond op de MarketPlace en de Mobiele App."
+        },
+        "restrictions": {
+            "firstBookingMinutesUntil": "Opening reserveringen",
+            "lastBookingBeforeMinutes": "Sluiting reserveringen",
+            "lastDiscardBeforeMinutes": "Annuleringsvoorwaarden",
+            "tags": {
+                "mandatory": "Selecteer minstens één tag",
+                "header": "Geselecteerde tags",
+                "selectPlaceHolder": "Selecteer een tag"
+            },
+            "back": "Terug",
+            "next": "Volgende",
+            "personnalizedRestrictionsIndex": "Gepersonaliseerde beperking: {{ count }}",
+            "add": "Voeg verschillende regels toe ({{ count }}/{{ max }})",
+            "personnalizedHelper": "Gebruik tags om verschillende beperkingen op te leggen aan zelfbepaalde segmenten binnen het ledenbestand.",
+            "personnalizedHeader": "Gepersonaliseerde beperkingen",
+            "header": "Beperkingen"
         }
     },
     "communication": {
@@ -3112,7 +3131,9 @@
                     "title": "Verwijderen"
                 }
             }
-        }
+        },
+        "previous": "Terug",
+        "next": "Volgende"
     },
     "establishment": {
         "capacity": {
@@ -3369,7 +3390,7 @@
                 }
             },
             "bookingsSegments": {
-                "title": "Laatste reservering",
+                "title": "Sluiting reserveringen",
                 "label": {
                     "0": "Vorige maand",
                     "1": "Tussen 1 en 12 maanden",
@@ -3904,7 +3925,14 @@
             "title": "Instellingen",
             "firstBookingMinutesUntil": "Leden kunnen zich tot {{m}} in de toekomst voor deze sessie inschrijven.",
             "conditions": "Annuleringsvoorwaarden",
-            "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reserveringen zijn."
+            "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reserveringen zijn.",
+            "firstBookingMinutesUntilHeader": "Opening reserveringen",
+            "lastDiscardBeforeMinutesHeader": "Annuleringsvoorwaarden",
+            "lastBookingBeforeMinutesHeader": "Opening reserveringen",
+            "seeRestrictions": "Toon",
+            "restrictions": " Gepersonaliseerde beperking: {{ count }}",
+            "restrictionsHeader": "Gepersonaliseerde beperkingen",
+            "autoDiscardHeader": "De sessie wordt geannuleerd als"
         },
         "metaActivity": "Activiteit",
         "search": "Zoek een groepsactiviteit",
@@ -3915,7 +3943,7 @@
         },
         "actions": {
             "search": "Zoek een activiteit",
-            "addActivity": "Een activiteit toevoegen"
+            "addActivity": "Een groepsactiviteit toevoegen"
         },
         "noActivities": "In dit onderdeel kun je al je groepsactiviteiten toevoegen, beheren, wijzigen en verwijderen.",
         "disabledMetaActivities": "Gearchiveerde groepsactiviteiten",
@@ -4005,7 +4033,9 @@
             }
         },
         "cancelledOffers": "{{count}} annuleringen",
-        "workshopSelect": "Zoek een workshop"
+        "workshopSelect": "Zoek een workshop",
+        "close": "Sluiten",
+        "edit": "Bewerken"
     },
     "offer": {
         "video": {
@@ -4336,7 +4366,7 @@
         "birth": {
             "unknown_F": "Geboren op -",
             "unknown": "Geboren op -",
-            "bornIn_F": "Geboren op {{-date}} - {{age}} jaar oud",
+            "bornIn_F": "Geboren op {{-date}} ({{age}})",
             "bornIn": "Geboren op {{-date}} - {{age}} jaar oud"
         },
         "search": {
@@ -4924,7 +4954,7 @@
         "offerStatus": {
             "hasEnded": "Voltooid sinds",
             "inProgress": "is reeds begonnen sinds",
-            "startIn": "Begint in "
+            "startIn": "Begint over "
         },
         "addMember": {
             "button": "Een account aanmaken"
@@ -4933,12 +4963,12 @@
             "establishment": "Filter op vestiging"
         },
         "offerList": {
-            "refresh": "Ververs sessies",
-            "emptyList": "Geen sessie(s)"
+            "refresh": "Verversen",
+            "emptyList": "Er zijn geen activiteiten om weer te geven."
         },
         "signout": {
             "title": "Afmelden",
-            "passwordError": "Verkeerd wachtwoord",
+            "passwordError": "Ongeldig wachtwoord",
             "cancel": "Annuleren",
             "signout": "Afmelden",
             "form": {
@@ -4949,15 +4979,15 @@
                     "label": "Wachtwoord"
                 }
             },
-            "explain": "Voer het wachtwoord van uw CheckIn-account in om uit te loggen"
+            "explain": "Voer het wachtwoord van het account van deze Check-in Tablet in om uit te loggen."
         },
         "offerDetail": {
-            "emptyList": "Geen enkele student heeft zich voor deze cursus ingeschreven",
-            "noConsumerPaymentPack": "Waarschuwing! Je bezig geen geldige leskaart om de reservering te voltooien.",
-            "backToOfferList": "Terug naar sessies",
+            "emptyList": "Er zijn geen reserveringen om weer te geven.",
+            "noConsumerPaymentPack": "Je bezit nog geen geldig lidmaatschap om deze reservering te voltooien.",
+            "backToOfferList": "Terug naar activiteiten",
             "cancelRegistration": "Annuleren",
-            "register": "Mezelf aanmelden",
-            "activateBarcode": "Streepjescode detector",
+            "register": "Reserveren",
+            "activateBarcode": "Scan streepjescode",
             "isFull": "Vol",
             "actions": {
                 "createAccount": "Een account aanmaken",
@@ -4968,15 +4998,15 @@
             "activateFaceId": "Face ID"
         },
         "memberList": {
-            "checkIn": "Check in",
-            "checkedIn": "Opgeslagen",
-            "empty": "Geen enkele student heeft zich voor deze les ingeschreven"
+            "checkIn": "Inchecken",
+            "checkedIn": "Aanwezig",
+            "empty": "Er zijn geen reserveringen om weer te geven."
         },
         "confirmPage": {
-            "classLocation": "Uw sessie vindt plaats op",
+            "classLocation": "Ga naar de volgende vestiging om deel te nemen:",
             "expires": "Verlopen",
-            "signIn": "Opgeslagen",
-            "headOnIn": "Alles is klaar!",
+            "signIn": "Ingecheckt",
+            "headOnIn": "Gereed!",
             "visitsLeft": "Resterende bezoeken"
         }
     },
@@ -4998,7 +5028,9 @@
         "metaActivity": {
             "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
             "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
-            "metaActivityList": "Activiteiten"
+            "metaActivityList": "Activiteiten",
+            "metaActivityEditFormSubtitle": "Een groepsactiviteit bewerken",
+            "metaActivityFormSubtitle": "Een groepsactiviteit toevoegen"
         },
         "invoice": {
             "invoiceList": "Facturen",
@@ -5041,7 +5073,9 @@
         "workshopActivity": {
             "workshopActivityList": "Workshops",
             "workshopActivityCreate": "Workshop toevoegen",
-            "workshopActivityFormPage": "[Formulier] Workshop"
+            "workshopActivityFormPage": "[Formulier] Workshop",
+            "workshopActivityEditFormSubtitle": "Een workshop bewerken",
+            "workshopActivityFormSubtitle": "Een workshop toevoegen"
         },
         "paymentPack": {
             "paymentPackFormPage": "[Formulier] Leskaart",
@@ -5328,7 +5362,7 @@
                 "title": "[Formulier] Beëindiging",
                 "explain": "Selecteer de laatste betaling voor dit abonnement:",
                 "summary": "De laatste betaling wordt op {{-date}} verwerkt en dit komt overeen met de laatste kaart.",
-                "listItem": "Geplande beëindigen van dit abonnement"
+                "listItem": "Geplande beëindiging van dit abonnement"
             },
             "invoice": {
                 "label": "Factuur: {{uuid}} - {{price}}"
@@ -7201,7 +7235,10 @@
                 "1": "Maandag"
             }
         },
-        "shortDayIdentifier": "d"
+        "shortDayIdentifier": "d",
+        "longHourIdentifier": "uur",
+        "longMinuteIdentifier": "minuten",
+        "longDayIdentifer": "dagen"
     },
     "shop": {
         "link": {
@@ -9082,12 +9119,12 @@
         },
         "form": {
             "duration": {
-                "hour": "Uur:",
-                "hour_plural": "Uur:",
-                "day": "Dag:",
-                "day_plural": "Dagen:",
-                "minute": "Minuut:",
-                "minute_plural": "Minuten:"
+                "hour": "Duur in uren:",
+                "hour_plural": "Duur in uren:",
+                "day": "Duur in dagen:",
+                "day_plural": "Duur in dagen:",
+                "minute": "Duur in minuten:",
+                "minute_plural": "Duur in minuten:"
             },
             "requiredField": "Dit veld is verplicht."
         },

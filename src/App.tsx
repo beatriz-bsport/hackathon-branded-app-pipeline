@@ -39,6 +39,7 @@ import {
 import { getTheme, getFranchiseTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
+import WidgetApplyCustomTheme from 'bsport-saas/src/libs/widget/components/WidgetApplyCustomTheme.component';
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
@@ -204,6 +205,7 @@ class BsportWidget extends Component<Props> {
                 : getTheme(this.props.theme)
             }
           >
+            <WidgetApplyCustomTheme styles={this.props.theme.widget_theme} />
             <Widget
               companyId={companyId}
               franchiseId={franchiseId}

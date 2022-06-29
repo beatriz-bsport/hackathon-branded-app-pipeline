@@ -5166,7 +5166,21 @@
             "paymentMethodTitle": "Select your payment method",
             "paymentMethodExplain": "Select the payment method that you'd like to use for the BSPORT billing",
             "congrats": "Congratulations!",
-            "finishExplain": "The configuration is complete. You can now use BSPORT."
+            "finishExplain": "The configuration is complete. You can now use BSPORT.",
+            "needToConfigureStripeInfo": "It's requiered to add a payment method to settle invoices.",
+            "configureMyStripeAccount": "Configure my Stripe account"
+        },
+        "regularizeInvoice": {
+            "contactSuport": "Contact Support Team",
+            "actionRegularize": "Settle invoice",
+            "needPaymentMethodContent": "You've got 1 or more outstanding invoices. Please review your payment method and invoices to continue benefitting from BSPORT's services.",
+            "needPaymentMethod": "Payment failed"
+        },
+        "needStripe": {
+            "actionRegularize": "Configure my Stripe account",
+            "info": "Please configure your Stripe account to continue benefitting from BSPORT's services.",
+            "infoDateBlocked": "Please configure your Stripe account before {{ dateAccountIsBLockedFormattedLL }} to continue benefitting from BSPORT's services.",
+            "stripeAccount": "Stripe account"
         }
     },
     "waitingList": {
@@ -5700,35 +5714,35 @@
         "marketplaceSettings": {
             "createDialog": {
                 "dialogTitle": "Edit tab",
-                "noPlaylistError": "Please select a playlist",
-                "noServiceError": "Please select an appointment type",
-                "noTitleError": "Please enter a title",
-                "noComponentTypeError": "Please select a component",
+                "noPlaylistError": "Select a playlist",
+                "noServiceError": "Select an appointment type",
+                "noTitleError": "Enter a title",
+                "noComponentTypeError": "Select a component",
                 "submit": "Confirm",
                 "cancel": "Cancel",
                 "inputTitle": "Tab name",
-                "selectPlaylist": "Choose a playlist",
-                "selectPrivateService": "Choose a service",
-                "selectActivity": "Choose an activity",
-                "selectEstablishment": "Choose an establishment",
-                "selectCoach": "Choose a coach",
+                "selectPlaylist": "Select a playlist",
+                "selectPrivateService": "Select a service",
+                "selectActivity": "Select an activity",
+                "selectEstablishment": "Select an establishment",
+                "selectCoach": "Select an instructor",
                 "selectComponent": "Select a widget",
                 "showAdvanced": "See more options",
-                "selectVideo": "Choose a video",
+                "selectVideo": "Select a video",
                 "selectPrivateServiceGroups": "Choose your categories",
-                "selectPrivateServiceTypeDetail": "My appointment",
+                "selectPrivateServiceTypeDetail": "My appointments",
                 "selectPrivateServiceTypeList": "All appointments",
                 "selectPrivateServiceType": "Type",
                 "todayOnly": "Exclusively display today's sessions",
                 "hidePaymentCombo": "Hide packs",
-                "hidePrivatePass": "Hide passes for private classes",
-                "hidePaymentPack": "Hide passes for group classes",
+                "hidePrivatePass": "Hide appointment passes",
+                "hidePaymentPack": "Hide passes",
                 "titleCaption": "{{max}} characters max ( {{count}} / {{max}} )"
             },
             "componentType": {
-                "playlist": "Video playlist",
+                "playlist": "Playlists",
                 "shop": "Webshop",
-                "subscription": "Subscription",
+                "subscription": "Subscriptions",
                 "vod": "Video On Demand",
                 "pass": "Passes",
                 "privateService": "Appointments",
@@ -5736,7 +5750,7 @@
                 "calendar": "Calendar",
                 "newsletter": "Newsletter",
                 "loginButton": "Login button",
-                "giftcard": "Gift card",
+                "giftcard": "Gift cards",
                 "paymentPackTemplate": "Shared passes"
             },
             "preview": "Preview",
@@ -6580,7 +6594,7 @@
             "save": "Save",
             "backToInvoiceItemEditor": "Purchase",
             "goToPaymentEditor": "Payment",
-            "goToSubscription": "See the subscription",
+            "goToSubscription": "Show subscription",
             "revert": "Cancel",
             "invoiceReverted": "Invoice cancelled",
             "finalize": "Finalize (PDF)",
@@ -7250,13 +7264,13 @@
             },
             "item": {
                 "intervalLabel": {
-                    "year": "Every year",
+                    "year": "Yearly",
                     "year_plural": "Every {{ count }} years",
-                    "day": "Every day",
+                    "day": "Daily",
                     "day_plural": "Every {{ count }} days",
-                    "week": "Every week",
+                    "week": "Weekly",
                     "week_plural": "Every {{ count }} weeks",
-                    "month": "Every month",
+                    "month": "Monthly",
                     "month_plural": "Every {{ count }} months"
                 },
                 "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}",
@@ -8966,7 +8980,7 @@
             "warningOfferGroupTitle": "Valid sessions",
             "offers": "Non-cancellable sessions"
         },
-        "bookingListEmpty": "There are no bookings to display as of yet.",
+        "bookingListEmpty": "There are no bookings to display.",
         "bookingList": "Bookings",
         "liveOfferEdit": {
             "unselectAll": "Unselect all",

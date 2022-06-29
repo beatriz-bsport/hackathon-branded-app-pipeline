@@ -1911,7 +1911,21 @@
             "managerIbanExplain": "Selecteer op welke rekening je de uitbetalingen vanuit BSPORT wilt ontvangen",
             "congrats": "Gefeliciteerd!",
             "paymentMethodExplain": "Selecteer de betaalmethode die je wenst te gebruiken voor de facturatie vanuit BSPORT",
-            "finishExplain": "De configuratie is voltooid. Je kunt nu BSPORT gebruiken."
+            "finishExplain": "De configuratie is voltooid. Je kunt nu BSPORT gebruiken.",
+            "needToConfigureStripeInfo": "Het toevoegen van een betaalmethode is een vereiste om facturen te betalen.",
+            "configureMyStripeAccount": "Mijn Stripe-account configureren"
+        },
+        "regularizeInvoice": {
+            "contactSuport": "Contacteer Klantenservice",
+            "actionRegularize": "Factuur betalen",
+            "needPaymentMethodContent": "Er zijn 1 of meerdere betalingachterstanden. Controleer de betaalmethode en de facturen om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+            "needPaymentMethod": "Betaling mislukt"
+        },
+        "needStripe": {
+            "actionRegularize": "Mijn Stripe-account configureren",
+            "info": "Configureer je Stripe-account om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+            "infoDateBlocked": "Configureer je Stripe-account voor {{ dateAccountIsBLockedFormattedLL }} om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+            "stripeAccount": "Stripe-account"
         }
     },
     "reporting": {
@@ -6598,7 +6612,7 @@
                 "categoryTitle": {
                     "compatibility": "Compatibiliteit",
                     "validity": "Geldigheid",
-                    "paymentMeans": "Geaccepteerde betaalmethode(n)",
+                    "paymentMeans": "Betaalmethoden",
                     "info": "Algemeen",
                     "compatibilityAppointment": "Compatibiliteit voor afspraken"
                 },
@@ -11375,7 +11389,7 @@
                     "label": "Beschrijving"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Geaccepteerde betaalmethode(n)",
+                    "label": "Geaccepteerde betaalmethoden",
                     "helperText": "  "
                 },
                 "name": {
@@ -11401,7 +11415,7 @@
             },
             "detail": {
                 "manager_only": "Kan niet door leden online worden gekocht",
-                "availablePaymentMethods": "Geaccepteerde betaalmethode(n)",
+                "availablePaymentMethods": "Betaalmethoden",
                 "expirationDate": "Geldigheid voor de vervaldatum: {{ expiration_days }} dag(en)"
             },
             "configurationTitle": "Cadeaubon"

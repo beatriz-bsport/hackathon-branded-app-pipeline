@@ -191,6 +191,7 @@ export type PrivateBooking<
   CoachNumber = number,
   EstablishmentNumber = number,
   PrivateServiceNumber = number,
+  RecurrenceRulePrivateBooking = number,
 > = {
   id: number;
   date_start: string;
@@ -213,6 +214,7 @@ export type PrivateBooking<
   timezone_name: string;
   date_canceled: string;
   is_unpaid: boolean;
+  recurrence_rule_private_booking: RecurrenceRulePrivateBooking;
 };
 
 export type PrivateBookingPreview = {

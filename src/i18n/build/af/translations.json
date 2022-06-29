@@ -4805,9 +4805,12 @@
           }
         },
         "title": "Annulation réservation",
+        "hardDeleteTitle": "Suppression d'une réservation",
         "explain": "Êtes- vous sûr de vouloir annuler cette réservation ? Cette opération est irréversible.",
         "explainWithRestore": "Êtes- vous sûr de vouloir annuler cette réservation ? Vous pourrez annuler cette opération plus tard.",
         "explainHardDelete": "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
+        "explainMoreHardDeleteReccurentBookingTitle": "Rendez-vous récurrent",
+        "explainMoreHardDeleteReccurentBooking": "Cette réservation est liée à une règle de rendez-vous récurrents. Si vous supprimez cette réservation le système cherchera à la créer de nouveau. Si vous ne souhaitez pas que cette réservation soit re-générée veuillez ne pas la supprimer et laisser sont status en tant qu'annulé.",
         "explainForceRefund": "Rembourser le crédit utilisé sur la carte pour permettre une nouvelle réservation.",
         "sendCancellationMail": "Prévenir {{name}} de l'annulation du rendez-vous par mail",
         "cancel": "Annuler",

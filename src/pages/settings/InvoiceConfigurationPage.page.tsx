@@ -7,7 +7,6 @@ import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'connected-react-router';
@@ -16,6 +15,8 @@ import { OptionCallback } from '../../state/types';
 import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers/index';
+
+import InfoTypography from '#components/typo/InfoTypography.components';
 
 import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
 import {
@@ -106,12 +107,10 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
                   {t('billing_group.header')}
                 </Typography>
                 <div className={classes.textAndIcon}>
-                  <InfoIcon className={classes.leftIcon} fontSize="small" />
-                  <div className={classes.helperTextContainer}>
-                    <Typography variant="caption">
-                      {t('billing_group.helperText')}
-                    </Typography>
-                  </div>
+                  <InfoTypography
+                    content={t('billing_group.helperText')}
+                    variant="caption"
+                  />
                 </div>
                 <Button
                   variant="outlined"
@@ -173,17 +172,6 @@ const styles = (theme: Theme) => ({
   textAndIcon: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    display: 'flex',
-    alignItems: 'center',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  helperTextContainer: {
-    backgroundColor: '#e0e0e0',
-    borderRadius: theme.spacing(0.5),
-    paddingRight: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
   },
 });
 const mapStateToProps = (state: RootState) => ({

@@ -316,7 +316,6 @@ export const PaymentStripeTerminal = (props: Props) => {
         payment_intent_id: resultProcess.paymentIntent.id,
       });
       setStep('paymentSuccess');
-      props.setProcessing && props.setProcessing(false);
       props.onSuccess();
       return;
     }

@@ -424,6 +424,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             <div className={classes.infoText}>
               <InfoTypography
                 content={t('configuration.stripeTerminal.helperText')}
+                variant="caption"
               />
             </div>
             <Grid

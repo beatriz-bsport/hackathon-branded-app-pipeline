@@ -19,8 +19,8 @@ import { StripeReader } from '#libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
   dialogPaper: {
     minWidth: '30vw',
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   loadingExplain: {
     fontWeight: 400,
+    textAlign: 'center',
   },
   successTitle: {
     fontWeight: 500,

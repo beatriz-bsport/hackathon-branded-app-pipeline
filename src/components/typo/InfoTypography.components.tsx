@@ -3,9 +3,11 @@ import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Info } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
+import { Variant } from '@material-ui/core/styles/createTypography';
 
 type OwnProps = {
   content: string;
+  variant?: Variant;
 };
 type Props = OwnProps;
 export const InfoTypography: React.FC<Props> = (props) => {
@@ -13,7 +15,10 @@ export const InfoTypography: React.FC<Props> = (props) => {
   return (
     <div className={classes.infoRow}>
       <Info />
-      <Typography className={classes.grey} variant="body2">
+      <Typography
+        className={classes.grey}
+        variant={props.variant ? props.variant : 'body2'}
+      >
         {props.content}
       </Typography>
     </div>

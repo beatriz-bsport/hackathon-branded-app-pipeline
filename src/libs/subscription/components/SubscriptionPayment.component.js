@@ -528,6 +528,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 const styles = (theme) => ({
   terminalContainer: {
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   title: {
     paddingTop: theme.spacing(1),

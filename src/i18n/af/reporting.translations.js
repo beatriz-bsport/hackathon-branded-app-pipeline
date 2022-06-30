@@ -213,6 +213,7 @@ exports.default = {
     tax: 'TVA',
     applied_tax: 'TVA',
     voucher: 'Réduction',
+    negative_voucher: 'Réduction',
     product_price: 'Prix produit',
     total_price: 'Montant facturé TTC',
     baskettotal_price: 'Montant facturé TTC',

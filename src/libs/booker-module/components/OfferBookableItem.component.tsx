@@ -97,6 +97,7 @@ type OfferBookableItemProps = {
   offerStatus: OfferStatusType;
   isRegistered: boolean;
   hideCoach: boolean;
+  offerSpot?: number | undefined;
 };
 export const OfferBookableItem = (props: OfferBookableItemProps) => {
   const classes = useStyles();
@@ -142,6 +143,13 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
               .tz(props.offer.timezone_name)
               .format('dddd')}`}
           </Typography>
+          {props.offerSpot && (
+            <Typography color="primary">
+              {t('booking:placeNumber', {
+                count: props.offerSpot,
+              })}
+            </Typography>
+          )}
           {!props.hideCoach && (
             <Typography variant="body2" align="left">
               <strong>{coachName}</strong>

@@ -34,7 +34,6 @@ type OwnProps = {
   hideCoach: boolean;
   additionalGuestList: Array<AdditionalGuest>;
   onClickAddMoreOffer: () => void;
-  onClickAddMoreGuest: () => void;
   onClickRemoveOffer: (offer: Offer_FULL) => void;
   selectedOffers: OfferData[];
   relatedMemberList: MemberMinimal[];
@@ -51,6 +50,7 @@ type OwnProps = {
   packAllowsBookingGuest: boolean;
   frequencyBookingGuest: string;
   maxGuestNumberFromAllPacks: number;
+  spotsForOffers: { [offerId: number]: number };
 };
 
 type Props = OwnProps &
@@ -163,16 +163,16 @@ class OfferListSummary extends React.PureComponent<Props> {
               isBookable={isBookable}
               isWaitingList={isWaitingList}
               isRegistered={isRegistered}
+              offerSpot={this.props.spotsForOffers[offer.id]}
             />
           )}
           <Divider />
           {this.props.selectedOffers
-            .sort((a, b) => {
-              if (moment(a.date_start).isBefore(moment(b.date_start))) {
-                return -1;
-              }
-              return 1;
-            })
+            .sort((a, b) =>
+              moment(a.offer.date_start).isBefore(moment(b.offer.date_start))
+                ? -1
+                : 1,
+            )
             .map((offerData) => {
               const offerFeature = getOfferFeature(
                 offerData.offer,
@@ -196,6 +196,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                         : this.props.onClickRemoveOffer
                     }
                     isRegistered={offerFeature.isRegistered}
+                    offerSpot={this.props.spotsForOffers[offerData.offer.id]}
                   />
                   <Divider />
                 </React.Fragment>
@@ -203,7 +204,6 @@ class OfferListSummary extends React.PureComponent<Props> {
             })}
 
           {!!this.props.onClickAddMoreOffer &&
-            !offer?.room_blueprint &&
             !(offer?.group?.full_booking_only ?? false) &&
             (this.props.additionalGuestList || []).length === 0 && (
               <ButtonBase
@@ -221,25 +221,10 @@ class OfferListSummary extends React.PureComponent<Props> {
                 </Typography>
               </ButtonBase>
             )}
-          {!!this.props.onClickAddMoreGuest && (
-            <ButtonBase
-              disabled={!offer || this.props.selectedOffers?.length}
-              onClick={this.props.onClickAddMoreGuest}
-              className={classes.bookButtonInner}
-            >
-              <AddIcon className={classes.leftIcon} />
-              <Typography
-                variant="body1"
-                align="left"
-                color={offer ? 'primary' : 'textSecondary'}
-              >
-                {t('booking:offer.bookingForAGuest.addGuest')}
-              </Typography>
-            </ButtonBase>
-          )}
           {!!this.props.onAddAdditionalGuest &&
             (this.props.selectedOffers || []).length < 1 &&
-            !this.props.isRegisteringForWaitingList && (
+            !this.props.isRegisteringForWaitingList &&
+            !offer?.room_blueprint && (
               <>
                 {numberOfGuestsAvailable > 0 &&
                   this.props.showBookingButton &&
@@ -261,6 +246,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                   />
                 )}
                 {this.props.showBookingButton &&
+                  !offer.room_blueprint &&
                   this.props.packAllowsBookingGuest && (
                     <>
                       {this.props.numberBookingGuestLeft >

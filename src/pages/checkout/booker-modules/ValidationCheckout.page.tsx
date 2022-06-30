@@ -21,6 +21,7 @@ import { fetchBasket } from '../../../libs/checkout/actions';
 import { getBasket } from '../../../libs/checkout/selectors';
 import CheckoutItemListItem from '../../../libs/checkout/components/CheckoutItemListItem.component';
 import { Offer_FULL } from '../../../libs/offer/types';
+import { withExtraDataFromQueryParams } from '#libs/booker-module/utils';
 import withTheme from '#hocs/company-themifier.hoc';
 import {
   getOfferFromList,
@@ -215,6 +216,7 @@ export class ValidationCheckout extends React.Component<Props> {
                               key={o.id}
                               hideCoach={this.props.hideCoach}
                               offer={o}
+                              offerSpot={o.spot_id}
                             />
                           ))}
                         </div>
@@ -472,20 +474,30 @@ const connector = connect(
       offerBookedIdList,
       offerPreBookedIdList,
       offerNotBookableIdWithErrorCodeList,
+      offerExtraDataList,
     },
   ) => ({
     hideCoach: themeSelectors.getTheme(state).hideCoach,
-    offerBookedList: withCoach(
-      withMetaActivity(withEstablishment(getOfferFromList)),
-    )(state, offerBookedIdList),
-    offerPreBookedList: withCoach(
-      withMetaActivity(withEstablishment(getOfferFromList)),
-    )(state, offerPreBookedIdList),
-    offerNotBookableList: withCoach(
-      withMetaActivity(withEstablishment(getOfferFromList)),
-    )(
-      state,
-      offerNotBookableIdWithErrorCodeList.map((ie) => ie[0]),
+    offerBookedList: withExtraDataFromQueryParams(
+      withCoach(withMetaActivity(withEstablishment(getOfferFromList)))(
+        state,
+        offerBookedIdList,
+      ),
+      offerExtraDataList,
+    ),
+    offerPreBookedList: withExtraDataFromQueryParams(
+      withCoach(withMetaActivity(withEstablishment(getOfferFromList)))(
+        state,
+        offerPreBookedIdList,
+      ),
+      offerExtraDataList,
+    ),
+    offerNotBookableList: withExtraDataFromQueryParams(
+      withCoach(withMetaActivity(withEstablishment(getOfferFromList)))(
+        state,
+        offerNotBookableIdWithErrorCodeList.map((ie) => ie[0]),
+      ),
+      offerExtraDataList,
     ),
   }),
   {
@@ -537,6 +549,7 @@ export default compose<any, OwnProps>(
       (user_registration_response || {}).offer_on_waiting_list || [],
     offerNotBookableIdWithErrorCodeList:
       (user_registration_response || {}).error_codes || [],
+    offerExtraDataList: (user_registration_response || {}).extra_data || [],
   })),
   connector,
   withHandlers(mapWithHandlers),

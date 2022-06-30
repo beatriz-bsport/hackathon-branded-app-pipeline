@@ -34,6 +34,12 @@ export class WidgetUtils {
     });
   }
 
+  static closeModal() {
+    WidgetUtils.postMessage({
+      type: WidgetMessageType.CLOSE_MODAL,
+    });
+  }
+
   static videoRegistered(videoId) {
     WidgetUtils.postMessage({
       type: WidgetMessageType.VIDEO_REGISTERED,

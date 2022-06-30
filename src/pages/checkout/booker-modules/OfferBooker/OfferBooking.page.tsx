@@ -1,8 +1,8 @@
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { push } from 'connected-react-router';
+import { push as pushAction } from 'connected-react-router';
 import moment from 'moment-timezone';
 
 import {
@@ -23,13 +23,17 @@ import {
   getCanIBook,
 } from '@bsport/common/lib/master-data/available-payment';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import WidgetUtils from '../../../../libs/widget/WidgetUtils';
+import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
 
 import Analytics from '#components/analytics/Analytics.component';
 import withTheme from '#hocs/company-themifier.hoc';
 import { RootState } from '../../../../reducers';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
+import { urlToMarketplace } from '../../../../libs/marketplace/utils';
 import themeSelectors from '#libs/theme/selectors';
+import { buildUrlParams } from '../../../../http';
 
 import {
   getOfferById,
@@ -62,7 +66,6 @@ import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '#libs/establishment/actions';
-import { MaterialStyleType } from '../../../../utils/types';
 import { Offer_FULL, Offer } from '#libs/offer/types';
 import SimilarOffers from '#libs/booker-module/components/SimilarOfferSelector.component';
 import BookerModuleHeader from '#libs/booker-module/components/BookerModuleHeader.component';
@@ -96,6 +99,7 @@ type ConnectedProps = ReturnType<typeof mapStateToProps> &
 type Props = OwnProps &
   ConnectedProps &
   MaterialStyleType<ReturnType<typeof styles>> &
+  WithHandlerType<typeof mapWithHandlers> &
   WithTranslation;
 
 type State = {
@@ -106,10 +110,12 @@ type State = {
   selectedPack: SelectedPack;
   showLoader: boolean;
   selectedMember?: MemberMinimal;
-  showSpotSelector: boolean;
+  hasInitShowSpotSelector: boolean;
   blockByGroup: boolean;
   packAllowsBookingForAGuest: boolean;
   guestMaxNumberOverAllPacks: number;
+  spotsForOffers: { [offerId: number]: number };
+  offersWaitingForSpotSelection: Array<Offer_FULL>;
 };
 
 const SIMILAR_OFFER_PAGE_SIZE = 7;
@@ -126,10 +132,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
       selectedOffers: [],
       additionalGuestList: [],
       showLoader: false,
-      showSpotSelector: false,
+      hasInitShowSpotSelector: false,
       blockByGroup: false,
       packAllowsBookingForAGuest: false,
       guestMaxNumberOverAllPacks: 0,
+      spotsForOffers: {},
+      offersWaitingForSpotSelection: [],
     };
   }
 
@@ -275,7 +283,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
       const offersToAdd = offers.filter(
         (offer) =>
-          !offer.bookableStatus.blocked_by_tags &&
+          !offer.bookableStatus?.blocked_by_tags &&
           (offer.bookableStatus?.bookable_status ===
             OFFER_BOOKABLE_STATUS_BOOKABLE ||
             offer.bookableStatus?.waiting_list_status ===
@@ -296,6 +304,19 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.updateOfferConstraints,
       );
     }
+
+    // Spot Scheduling: must wait until some props are done loading
+    // before determining if we should open the spot selector
+    if (
+      !this.state.hasInitShowSpotSelector &&
+      !this.props.offerLoading &&
+      !this.props.similarOfferGroupsLoading &&
+      !this.props.offerStatusLoading &&
+      this.props.theme
+    ) {
+      this.updateOffersWaitingForSpotSelection();
+      this.setState({ hasInitShowSpotSelector: true });
+    }
   }
 
   openSimilarOfferSelector = () => {
@@ -308,12 +329,20 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
   onClickRemoveOffer = (offer: Offer_FULL) => {
     this.setState(
-      (prevState) => ({
-        selectedOffers: prevState.selectedOffers.filter(
-          (o) => !(o.offer.id === offer.id),
-        ),
-      }),
-      this.updateOfferConstraints,
+      (prevState) => {
+        const newSpotsForOffer = { ...prevState.spotsForOffers };
+        delete newSpotsForOffer[offer.id];
+        return {
+          selectedOffers: prevState.selectedOffers.filter(
+            (o) => !(o.offer.id === offer.id),
+          ),
+          spotsForOffers: newSpotsForOffer,
+        };
+      },
+      () => {
+        this.updateOfferConstraints();
+        this.updateOffersWaitingForSpotSelection();
+      },
     );
   };
 
@@ -343,7 +372,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
           { offer, extra_data: {} },
         ],
       }),
-      this.updateOfferConstraints,
+      () => {
+        this.updateOfferConstraints();
+        this.updateOffersWaitingForSpotSelection();
+      },
     );
   };
 
@@ -364,43 +396,65 @@ class OfferBooking extends React.PureComponent<Props, State> {
     );
   };
 
-  onClickBook = () => {
-    let showSpotSelector = false;
+  updateOffersWaitingForSpotSelection = () => {
+    const allOffers: Array<Offer_FULL> = [
+      this.props.offer,
+      ...this.state.selectedOffers.map((offerData) => offerData.offer),
+    ];
 
-    if (
-      this.props.offer &&
-      typeof this.props.offer.room_blueprint === 'number' &&
-      !getOfferFeature(
-        this.props.offer,
-        this.props.offerStatusById,
-        this.props.theme.accept_double_booking,
-      ).isWaitingList
-    ) {
-      showSpotSelector = true;
-    }
-
-    this.state.selectedOffers.forEach((offerData) => {
-      if (
-        typeof offerData.offer.room_blueprint === 'number' &&
-        !getOfferFeature(
-          offerData.offer,
+    const offersWaitingForSpotSelection = allOffers
+      .filter((offer) => {
+        const offerFeature = getOfferFeature(
+          offer,
           this.props.offerStatusById,
           this.props.theme.accept_double_booking,
-        ).isWaitingList
-      ) {
-        showSpotSelector = true;
-      }
-    });
+        );
+        return (
+          offer &&
+          typeof offer.room_blueprint === 'number' &&
+          !offerFeature.isWaitingList
+        );
+      })
+      .filter(
+        (offer) => !(typeof this.state.spotsForOffers[offer.id] === 'number'),
+      )
+      .sort((a, b) =>
+        moment(a.date_start).isBefore(moment(b.date_start)) ? -1 : 1,
+      );
 
-    if (showSpotSelector) {
-      this.setState({ showSpotSelector: true });
-      return;
-    }
-
-    this.bookOffers();
+    this.setState({ offersWaitingForSpotSelection });
   };
 
-  bookOffers = (selectedSpot?: { offer: number; spot: number }[]) => {
+  updateSpotsForOffers = (offerId: number, spot: number) => {
+    this.closeSimilarOfferSelector();
+    this.setState((prevState) => {
+      return {
+        spotsForOffers: { ...prevState.spotsForOffers, [offerId]: spot },
+      };
+    }, this.updateOffersWaitingForSpotSelection);
+  };
+
+  onCancelSpotSelection = (offer: Offer_FULL) => {
+    this.closeSimilarOfferSelector();
+    if (
+      (!!this.state.offersWaitingForSpotSelection.length &&
+        this.state.offersWaitingForSpotSelection[0].id ===
+          this.props.offer.id) ||
+      !!this.props.offer.group
+    ) {
+      return () => {
+        this.props.goToCalendar({
+          date: moment(this.props.offer.date_start).format('YYYY-MM-DD'),
+        });
+      };
+    }
+
+    return () => {
+      this.onClickRemoveOffer(offer);
+    };
+  };
+
+  bookOffers = () => {
     this.setState({ showLoader: true });
     const data: any = {};
     if (this.state.selectedPack.consumerPaymentPack) {
@@ -439,15 +493,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
               : null,
           },
         };
+        const spotForOffer = this.state.spotsForOffers[offerData.offer.id];
 
-        if (selectedSpot) {
-          const spotForOffer = selectedSpot.find(
-            (current) => current.offer === offerData.offer.id,
-          );
-
-          if (spotForOffer) {
-            _data.extra_data.spot_id = spotForOffer.spot;
-          }
+        if (typeof spotForOffer === 'number') {
+          _data.extra_data.spot_id = spotForOffer;
         }
 
         return _data;
@@ -595,11 +644,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking,
     );
     return areWaitingList && !areBookable;
-  };
-
-  onSubmitSpot = (selectedSpot: { offer: number; spot: number }[]) => {
-    this.bookOffers(selectedSpot);
-    this.setState({ showSpotSelector: false });
   };
 
   renderBookingMethodSelector = () => {
@@ -790,6 +834,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     maxGuestNumberFromAllPacks={
                       this.state.guestMaxNumberOverAllPacks
                     }
+                    spotsForOffers={this.state.spotsForOffers}
                   />
                 </div>
                 {this.showBookingButton() && (
@@ -814,7 +859,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                       is_tax_excluded_in_marketplace={
                         this.props.theme.is_tax_excluded_in_marketplace
                       }
-                      onClickBook={this.onClickBook}
+                      onClickBook={this.bookOffers}
                     />
                   </div>
                 )}
@@ -854,30 +899,17 @@ class OfferBooking extends React.PureComponent<Props, State> {
             hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
             acceptDoubleBooking={this.props.theme.accept_double_booking}
           />
-          {this.state.showSpotSelector && (
+          {!!this.state.offersWaitingForSpotSelection.length && (
             <OfferSpotSelector
-              offer={this.props.offer}
+              offer={this.state.offersWaitingForSpotSelection[0]}
+              updateSpotsForOffer={this.updateSpotsForOffers}
               refreshOfferStatus={(id) => this.fetchOfferStatusList([id])}
-              selectedOffer={[...(this.state.selectedOffers ?? [])]
-                .sort((a, b) =>
-                  moment(a.date_start).isBefore(moment(b.date_start)) ? -1 : 1,
-                )
-                .filter(
-                  (offerData) =>
-                    typeof offerData.offer.room_blueprint === 'number' &&
-                    !getOfferFeature(
-                      offerData.offer,
-                      this.props.offerStatusById,
-                      this.props.theme.accept_double_booking,
-                    ).isWaitingList,
-                )}
               roomBlueprintsById={this.props.roomBlueprintsById}
               assetByIdBlueprintByIdentifier={
                 this.props.assetByIdBlueprintByIdentifier
               }
-              onCancel={() => this.setState({ showSpotSelector: false })}
+              onCancel={this.onCancelSpotSelection}
               offerStatusById={this.props.offerStatusById}
-              onSubmit={this.onSubmitSpot}
             />
           )}
           <Backdrop
@@ -1034,7 +1066,9 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
   )(state, props.id);
   return {
     offer,
+    offerLoading: state.offer.retrieve.loading,
     offerStatusById: state.offer.offerStatus.byId,
+    offerStatusLoading: state.offer.offerStatus.loading,
     similarOffers: withMetaActivity(withCoach(withEstablishment(getSimilars)))(
       state,
     ) as Offer_FULL[],
@@ -1067,10 +1101,10 @@ const mapDispatchToProps = {
   fetchMyRelatedMemberList,
   fetchMetaActivityBulk,
   offerUserRegistration,
-  push,
+  push: pushAction,
   fetchSimilarOffers,
   resetSimilarOffers,
-  goToUserSpace: (id: number) => push(`/c/${id}/`),
+  goToUserSpace: (id: number) => pushAction(`/c/${id}/`),
   snackbarError: snackbarErrorAction,
   snackbarWarning: snackbarWarningAction,
   fetchOfferStatusList,
@@ -1083,11 +1117,28 @@ const mapDispatchToProps = {
   fetchBookingGuestNumber: fetchBookingGuestNumberAction,
 };
 
+const mapWithHandlers = {
+  goToCalendar: (props: OwnProps & ConnectedProps) => (params: any) => {
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.closeModal();
+      window.close();
+    } else {
+      props.push(
+        `${urlToMarketplace(
+          props.theme.company_name,
+          props.theme.company.toString(),
+        )}/calendar/${buildUrlParams(params)}`,
+      );
+    }
+  },
+};
+
 export default compose(
   // @ts-ignore
   withTranslation(['booking']),
   routerParamsToProps({ id: 'id:number' }),
   connect(mapStateToProps, mapDispatchToProps),
   withTheme,
+  withHandlers(mapWithHandlers),
   withStyles(styles),
 )(OfferBooking);

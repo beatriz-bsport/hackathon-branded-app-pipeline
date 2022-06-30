@@ -25,3 +25,8 @@ export type AdditionalGuest = {
   last_name: string;
   email: string;
 };
+
+export type ExtraDataFromQueryParams = Array<{
+  offer_id: number;
+  spot_id?: number;
+}>;

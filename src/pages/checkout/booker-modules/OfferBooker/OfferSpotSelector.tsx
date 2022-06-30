@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SpotSelectorDialog from '../../../../libs/spot-scheduling/component/SpotSelector/SpotSelectorDialog.component';
-import { OfferData } from '../../../../libs/booker-module/types';
 import { Offer, OfferStatus } from '../../../../libs/offer/types';
 import {
   AssetForBlueprint,
@@ -9,109 +8,52 @@ import {
 
 interface Props {
   offer: Offer<any, any, any>;
-  selectedOffer: OfferData[];
+  updateSpotsForOffer: (offerId: number, spot: number) => void;
   roomBlueprintsById: { [key: string]: RoomBlueprint };
   assetByIdBlueprintByIdentifier: {
     [key: string]: { [key: string]: AssetForBlueprint };
   };
-  onCancel: () => void;
+  onCancel: (offer: Offer) => () => void;
   offerStatusById: { [key: string]: OfferStatus };
-  onSubmit: (spotForOffer: { offer: number; spot: number }[]) => void;
   refreshOfferStatus: (offerId: number) => void;
 }
 
-interface State {
-  spotForOffers: { offer: Offer; spot?: number }[];
-  currentOffer: number;
-}
+const OfferSpotSelector = (props: Props) => {
+  const { offer } = props;
+  const [selectedSpot, setSelectedSpot] = useState(null);
 
-class OfferSpotSelector extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    const spotForOffers: State['spotForOffers'] = [];
-    const offers = [props.offer, ...props.selectedOffer.map((d) => d.offer)];
-
-    offers.forEach((o) => {
-      if (o.room_blueprint) {
-        spotForOffers.push({ offer: o });
-      }
-    });
-
-    this.state = {
-      spotForOffers,
-      currentOffer: 0,
-    };
-  }
-
-  onSelectSpot = (offerId: number, spot: number) => {
-    this.props.refreshOfferStatus(offerId);
+  const onSelectSpot = (offerId: number, spot: number) => {
+    props.refreshOfferStatus(offerId);
     if (typeof spot !== 'number') {
       console.warn('Spot id should be a number');
     }
-
-    this.setState((prevState) => {
-      const spotForOffers = [...prevState.spotForOffers];
-      const index = spotForOffers.findIndex(
-        (data) => data.offer.id === offerId,
-      );
-
-      if (index !== -1) {
-        spotForOffers[index].spot = spot;
-      }
-
-      return {
-        spotForOffers,
-      };
-    });
+    setSelectedSpot(spot);
   };
 
-  onSubmit = () => {
-    if (this.state.currentOffer < this.state.spotForOffers.length - 1) {
-      this.setState((prevState) => ({
-        currentOffer: prevState.currentOffer + 1,
-      }));
-      return;
-    }
-    this.props.onSubmit(
-      this.state.spotForOffers.map((spotForOffer) => ({
-        ...spotForOffer,
-        offer: spotForOffer.offer.id,
-      })),
-    );
+  const onSubmit = () => {
+    props.updateSpotsForOffer(offer.id, selectedSpot);
+    setSelectedSpot(null);
   };
 
-  render() {
-    const spotForOffer = this.state.spotForOffers[this.state.currentOffer];
+  const roomBlueprint = props.roomBlueprintsById[offer.room_blueprint];
+  const assets = props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
+  const offerStatus = props.offerStatusById[offer.id];
+  const takenSpot = offerStatus?.taken_spots || [];
 
-    if (spotForOffer) {
-      const offer = spotForOffer.offer;
-      const roomBlueprint = this.props.roomBlueprintsById[offer.room_blueprint];
-      const assets =
-        this.props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
-
-      const offerStatus = this.props.offerStatusById[offer.id];
-      const takenSpot = offerStatus?.taken_spots || [];
-      const selectedSpot = spotForOffer.spot;
-
-      return (
-        <SpotSelectorDialog
-          open
-          offer={offer}
-          roomBlueprint={roomBlueprint}
-          assets={assets}
-          onClose={this.props.onCancel}
-          onSubmit={this.onSubmit}
-          takenSpot={takenSpot}
-          selectedSpot={selectedSpot}
-          onSelectSpot={(spot) => this.onSelectSpot(offer.id, spot)}
-          forceFullScreen
-        />
-      );
-    }
-
-    return null;
-  }
-}
+  return (
+    <SpotSelectorDialog
+      open
+      offer={offer}
+      roomBlueprint={roomBlueprint}
+      assets={assets}
+      onClose={props.onCancel(offer)}
+      onSubmit={onSubmit}
+      takenSpot={takenSpot}
+      selectedSpot={selectedSpot}
+      onSelectSpot={(spot) => onSelectSpot(offer.id, spot)}
+      forceFullScreen
+    />
+  );
+};
 
 export default OfferSpotSelector;

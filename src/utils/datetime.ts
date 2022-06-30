@@ -5,6 +5,9 @@ export const DATE_FORMAT = 'YYYY-MM-DD';
 
 export function formatAsDate(date: string) {
   const momentDate = moment(date);
+  if (momentDate.locale() === 'en-gb' || momentDate.locale() === 'en-US') {
+    momentDate.locale('en');
+  }
   return momentDate.format('L');
 }
 
@@ -12,6 +15,9 @@ export function formatAsTime(date: string, tzname: string) {
   const momentDate = moment(date);
   if (tzname) {
     momentDate.tz(tzname);
+  }
+  if (momentDate.locale() === 'en-gb' || momentDate.locale() === 'en-US') {
+    momentDate.locale('en');
   }
   return momentDate.format('LT');
 }

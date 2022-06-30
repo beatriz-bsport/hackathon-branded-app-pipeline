@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import CoachChip from '../../../../../libs/associated-coach/components/CoachChip.component';
 import { Establishment } from '../../../../../libs/establishment/types';
 import { Coach } from '../../../../../libs/associated-coach/types';
+import { formatAsTime } from '../../../../../utils/datetime';
 
 type Props = {
   coach: Coach | null;
@@ -43,12 +44,18 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
 
       <div className={classes.sessionsContainer}>
         {props.sessions.map((session) => {
-          const start = moment(session).tz(props.timezoneName).format('HH:mm');
+          const start = formatAsTime(session, props.timezoneName);
 
-          const end = `${moment(session)
+          const momentEnd = moment(session)
             .tz(props.timezoneName)
-            .add(props.durationMinutes, 'minutes')
-            .format('HH:mm')}`;
+            .add(props.durationMinutes, 'minutes');
+          if (
+            momentEnd.locale() === 'en-gb' ||
+            momentEnd.locale() === 'en-US'
+          ) {
+            momentEnd.locale('en');
+          }
+          const end = `${momentEnd.format('LT')}`;
 
           return (
             <div className={classes.sessionItemContainer} key={session}>

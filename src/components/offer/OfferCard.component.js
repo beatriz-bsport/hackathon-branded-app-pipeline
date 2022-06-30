@@ -43,6 +43,7 @@ import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
+import { formatAsTime } from '../../utils/datetime';
 
 type Props = {
   t: TFunction,
@@ -288,9 +289,7 @@ export class OfferCard extends Component<Props, State> {
                   <TimeIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary={moment(offer.date_start)
-                    .tz(offer.timezone_name)
-                    .format('LT')}
+                  primary={formatAsTime(offer.date_start, offer.timezone_name)}
                   secondary={moment(offer.date_start)
                     .tz(offer.timezone_name)
                     .format('LL')}

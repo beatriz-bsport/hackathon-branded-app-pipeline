@@ -585,7 +585,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
     ) {
       initialView = 'resourceTimeGridThreeDays';
     }
-
     return (
       <div className={classes.container}>
         {!isWidthUp('sm', this.props.width) && (

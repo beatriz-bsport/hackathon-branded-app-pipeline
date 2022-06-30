@@ -259,18 +259,14 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (data) => {
         const coach_id =
-          (data && data.coach && data.coach.id && data.coach.id) ?? null;
+          data && data.coach && data.coach.id ? data.coach.id : null;
         const coach_override_id =
-          (data &&
-            data.coach_override &&
-            data.coach_override.id &&
-            data.coach_override.id) ??
-          null;
-        if (coach_id || coach_override_id) {
-          this.props.fetchAssociatedCoachesList({
-            id__in: [coach_id, coach_override_id],
-          });
-        }
+          data && data.coach_override && data.coach_override.id
+            ? data.coach.id
+            : null;
+        this.props.fetchAssociatedCoachesList({
+          id__in: [coach_id, coach_override_id],
+        });
       },
     });
     this.props.fetchOfferData(this.props.booking_ordering);

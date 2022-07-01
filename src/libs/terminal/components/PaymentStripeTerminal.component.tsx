@@ -37,6 +37,7 @@ import { OptionCallback } from '../../../state/types';
 import { StripeReader } from '#libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  container: { minWidth: '20vw' },
   actionRow: {
     display: 'flex',
     flexDirection: 'row',
@@ -144,6 +145,8 @@ export const PaymentStripeTerminal = (props: Props) => {
   const [step, setStep] = useState('paymentSettings');
   const [error, setError] = useState(null);
   const [retryHandler, setRetryHandler] = useState(null);
+  const [cancelCollectHandler, setCancelCollectHandler] = useState(null);
+  const [errorWhenCancelling, setErrorWhenCancelling] = useState(false);
 
   const displayMinAmountMsg =
     props.paymentGroupPriceCts &&
@@ -191,8 +194,8 @@ export const PaymentStripeTerminal = (props: Props) => {
   };
 
   const initiatePayment = async (clientSecret: string) => {
-    await connectToReader();
-    await collectAndProcessPayment(clientSecret);
+    const isConnected = await connectToReader();
+    isConnected && (await collectAndProcessPayment(clientSecret));
   };
 
   const initiateSavePaymentMethod = async (clientSecret: string) => {
@@ -204,14 +207,15 @@ export const PaymentStripeTerminal = (props: Props) => {
     setError(null);
     props.setProcessing && props.setProcessing(true);
     setStep('connecting');
-    // const config = { simulated: false };
-    const config = { simulated: true };
-    // terminal.setSimulatorConfiguration({ testCardNumber: '4000000000009995' });
-    terminal.setSimulatorConfiguration({
-      testCardNumber: '4000000000009995',
-    });
+
+    // const config = { simulated: true };
+    // terminal.setSimulatorConfiguration({
+    //   testCardNumber: '4000000000009995',
+    // });
+
+    const config = { simulated: false };
+
     const discoverResult = await terminal.discoverReaders(config);
-    // const connectResult = await terminal.connectReader(selectedReader);
     if ('error' in discoverResult) {
       props.setProcessing && props.setProcessing(false);
       setError(discoverResult.error);
@@ -220,11 +224,25 @@ export const PaymentStripeTerminal = (props: Props) => {
         setError(null);
         setStep('paymentSettings');
       });
-      return;
+      return false;
     }
 
+    if (
+      !discoverResult.discoveredReaders.find(
+        (discoveredReader) =>
+          discoveredReader.serial_number === selectedReader.serial_number &&
+          discoveredReader.status === 'online',
+      )
+    ) {
+      setError({ code: 'reader_not_found' });
+      setStep('connectionError');
+      return false;
+    }
     const connectResult = await terminal.connectReader(
-      discoverResult.discoveredReaders[0],
+      discoverResult.discoveredReaders.find(
+        (discoveredReader) =>
+          discoveredReader.serial_number === selectedReader.serial_number,
+      ),
     );
     if ('error' in connectResult) {
       props.setProcessing && props.setProcessing(false);
@@ -234,7 +252,9 @@ export const PaymentStripeTerminal = (props: Props) => {
         setError(null);
         setStep('paymentSettings');
       });
+      return false;
     }
+    return true;
   };
 
   // -------------------------- PAYMENT INTENT --------------------------
@@ -242,19 +262,33 @@ export const PaymentStripeTerminal = (props: Props) => {
     props.setProcessing && props.setProcessing(true);
     setError(null);
     setStep('collecting');
-    const resultCollect = await terminal.collectPaymentMethod(clientSecret);
-    if ('error' in resultCollect) {
-      // When clicking on retry, we should try to collect payment method again
-      props.setProcessing && props.setProcessing(false);
-      setError(resultCollect.error);
-      setStep('paymentError');
-      setRetryHandler(() => () => {
-        collectAndProcessPayment(clientSecret);
-      });
-      return;
-    }
+    terminal.collectPaymentMethod(clientSecret).then((resultCollect) => {
+      if ('error' in resultCollect) {
+        // When clicking on retry, we should try to collect payment method again
+        props.setProcessing && props.setProcessing(false);
+        if (resultCollect.error.code === 'canceled') return;
+        setError(resultCollect.error);
+        setStep('paymentError');
+        setRetryHandler(() => () => {
+          collectAndProcessPayment(clientSecret);
+        });
+        return;
+      }
+      processPayment(clientSecret, resultCollect.paymentIntent);
+    });
 
-    processPayment(clientSecret, resultCollect.paymentIntent);
+    // This line is immediately executed after terminal.collectPaymentMethod
+    // the cancelCollectHandler needs to be set when collectPaymentMethod is in progress
+    setCancelCollectHandler(() => async () => {
+      const cancelResults = await terminal.cancelCollectPaymentMethod();
+      if ('error' in cancelResults) {
+        setErrorWhenCancelling(true);
+        return;
+      }
+      setErrorWhenCancelling(false);
+      terminal.disconnectReader();
+      setStep('paymentSettings');
+    });
   };
 
   const processPayment = async (
@@ -263,6 +297,7 @@ export const PaymentStripeTerminal = (props: Props) => {
   ) => {
     props.setProcessing && props.setProcessing(true);
     setError(null);
+    setErrorWhenCancelling(false);
     setStep('processing');
     const resultProcess = await terminal.processPayment(paymentIntent);
 
@@ -319,26 +354,40 @@ export const PaymentStripeTerminal = (props: Props) => {
     props.setProcessing && props.setProcessing(true);
     setError(null);
     setStep('collecting');
-    const resultCollect = await terminal.collectSetupIntentPaymentMethod(
-      clientSecret,
-      true,
-    );
-    if ('error' in resultCollect) {
-      // When clicking on retry, we should try to collect payment method again
-      props.setProcessing && props.setProcessing(false);
-      setError(resultCollect.error);
-      setStep('paymentError');
-      setRetryHandler(() => () => {
-        collectAndProcessPayment(clientSecret);
+    terminal
+      .collectSetupIntentPaymentMethod(clientSecret, true)
+      .then((resultCollect) => {
+        if ('error' in resultCollect) {
+          // When clicking on retry, we should try to collect payment method again
+          props.setProcessing && props.setProcessing(false);
+          if (resultCollect.error.code === 'canceled') return;
+          setError(resultCollect.error);
+          setStep('paymentError');
+          setRetryHandler(() => () => {
+            collectAndProcessPayment(clientSecret);
+          });
+          return;
+        }
+        confirmSetup(clientSecret, resultCollect.setupIntent);
       });
-      return;
-    }
 
-    confirmSetup(clientSecret, resultCollect.setupIntent);
+    // This line is immediately executed after terminal.collectSetupIntentPaymentMethod
+    // the cancelCollectHandler needs to be set when collectSetupIntentPaymentMethod is in progress
+    setCancelCollectHandler(() => async () => {
+      const cancelResults = await terminal.cancelCollectPaymentMethod();
+      if ('error' in cancelResults) {
+        setErrorWhenCancelling(true);
+        return;
+      }
+      setErrorWhenCancelling(false);
+      terminal.disconnectReader();
+      setStep('paymentSettings');
+    });
   };
 
   const confirmSetup = async (clientSecret: string, setupIntent: any) => {
     props.setProcessing && props.setProcessing(true);
+    setErrorWhenCancelling(false);
     setError(null);
     setStep('processing');
     const resultConfirm = await terminal.confirmSetupIntent(setupIntent);
@@ -362,12 +411,14 @@ export const PaymentStripeTerminal = (props: Props) => {
   // --------------------------------------------------------------------
 
   return (
-    <div>
+    <div className={classes.container}>
       {step === 'connecting' && <StripeTerminalConnectingLoading />}
       {['collecting', 'processing'].includes(step) && (
         <StripeTerminalConnectingSuccess
           isSetupIntent={!!props.isSetupIntent}
           isProcessing={step === 'processing'}
+          onCancel={cancelCollectHandler}
+          errorWhenCancelling={errorWhenCancelling}
         />
       )}
       {step === 'paymentSuccess' && (

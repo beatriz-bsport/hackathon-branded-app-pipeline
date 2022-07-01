@@ -27,6 +27,10 @@ exports.default = {
       'Impossible de se connecter, trop de terminaux aux alentours',
     setup_intent_authentication_failure:
       'Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.',
+    reader_not_found:
+      'Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.',
+    reader_error:
+      'Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.',
     none: '',
   },
   error_code: {

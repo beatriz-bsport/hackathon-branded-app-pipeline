@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    textAlign: 'center',
   },
   loadingTitle: {
     marginTop: theme.spacing(6),

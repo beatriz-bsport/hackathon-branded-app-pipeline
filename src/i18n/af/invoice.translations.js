@@ -393,6 +393,13 @@ exports.default = {
           intent:
             'La connexion avec le terminal a été effectuée. Le client devrait être en mesure de présenter sa carte.',
           processing: 'Votre demande est en cours de traitement',
+          cancel: {
+            title: 'Annulation',
+            cancelExplain1: "Êtes-vous sûr de vouloir annuler l'opération ?",
+            cancelExplain2:
+              'Vous serez redirigé vers le choix du terminal de paiement.',
+            error: "Une erreur est survenue lors de l'annulation.",
+          },
         },
         paymentSuccess: {
           title: {

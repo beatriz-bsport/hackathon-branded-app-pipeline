@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(2),
+    textAlign: 'center',
   },
   bold: {
     fontWeight: 'bold',
@@ -24,7 +24,7 @@ export const StripeTerminalPaymentError = (props: Props) => {
 
   const { t } = useTranslation(['invoice']);
 
-  if (!props.error.decline_code && !props.error.code) return null;
+  if (!props.error?.decline_code && !props.error?.code) return null;
   return (
     <Typography className={classes.container}>
       <span className={classes.bold}>

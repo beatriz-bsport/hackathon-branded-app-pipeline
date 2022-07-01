@@ -1889,7 +1889,13 @@
           "connectionSuccess": {
             "payment": "La connexion avec le terminal a été effectuée. Le montant à payer devrait être affiché désormais.",
             "intent": "La connexion avec le terminal a été effectuée. Le client devrait être en mesure de présenter sa carte.",
-            "processing": "Votre demande est en cours de traitement"
+            "processing": "Votre demande est en cours de traitement",
+            "cancel": {
+              "title": "Annulation",
+              "cancelExplain1": "Êtes-vous sûr de vouloir annuler l'opération ?",
+              "cancelExplain2": "Vous serez redirigé vers le choix du terminal de paiement.",
+              "error": "Une erreur est survenue lors de l'annulation."
+            }
           },
           "paymentSuccess": {
             "title": {
@@ -7262,6 +7268,8 @@
       "already_connected": "Un autre terminal de paiement est déjà connecté",
       "discovery_too_many_readers": "Impossible de se connecter, trop de terminaux aux alentours",
       "setup_intent_authentication_failure": "Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.",
+      "reader_not_found": "Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.",
+      "reader_error": "Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.",
       "none": ""
     },
     "error_code": {

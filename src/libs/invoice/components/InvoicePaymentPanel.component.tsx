@@ -74,6 +74,7 @@ const InvoicePaymentStatus = (props: {
       )}
       {!props.hasPendingPlannedPaymentEvent &&
         !props.isDraft &&
+        !props.hasPendingDispute &&
         props.amountToPayCts > 0 && (
           <CancelIcon color="error" className={classes.statusIcon} />
         )}

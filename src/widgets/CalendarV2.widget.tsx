@@ -5,7 +5,7 @@ import { Moment } from 'bsport-saas/src/i18n';
 import {
   MarketplaceCalendar,
   CalendarDataContainer,
-} from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarV2.page';
+} from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
 import { MarketplaceCalendarV2Data } from 'bsport-saas/src/libs/marketplace/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';

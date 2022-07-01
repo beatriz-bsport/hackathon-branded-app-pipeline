@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './i18n';
 
 import Root from './Root';
-import '../vendor/cleanslate.css';
+import '../vendor/stronger-cleanslate.css';
 import { logWidgetConfigUsage } from './utils/log';
 import { WidgetConfig } from './utils/widget-props';
 

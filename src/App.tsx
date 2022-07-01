@@ -34,6 +34,7 @@ import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
 import { retrieveFranchise } from 'bsport-saas/src/libs/franchise/actions';
 import { getFranchisor } from 'bsport-saas/src/libs/franchise/selectors';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from 'bsport-saas/src/libs/exportable-components/actions';
 
 import {
   SnackbarDataProvider,
@@ -41,8 +42,9 @@ import {
 } from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme, getFranchiseTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+import ApplyCustomCssStyles from 'bsport-saas/src/libs/widget/components/ApplyCustomCssStyles.component';
 
-import WidgetApplyCustomTheme from 'bsport-saas/src/libs/widget/components/WidgetApplyCustomTheme.component';
+import ApplyCustomTheme from 'bsport-saas/src/libs/exportable-components/ApplyCustomTheme.component';
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
@@ -148,6 +150,7 @@ class BsportWidget extends Component<Props> {
     this.props.fetchSCT();
     if (this.props.companyId) {
       this.props.fetchCompanyTheme(this.props.companyId, {});
+      this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     }
     if (this.props.franchiseId) {
       this.props.retrieveFranchise(this.props.franchiseId);
@@ -208,9 +211,13 @@ class BsportWidget extends Component<Props> {
                 : getTheme(this.props.theme)
             }
           >
-            <WidgetApplyCustomTheme
-              styles={styles || this.props.theme.widget_theme}
-            />
+            <ApplyCustomTheme styles={this.props.theme.widget_theme} />
+            {!!this.props.customConfiguration && (
+              <ApplyCustomCssStyles
+                customConfiguration={this.props.customConfiguration}
+                fromWidget
+              />
+            )}
             <Widget
               companyId={companyId}
               franchiseId={franchiseId}
@@ -270,6 +277,7 @@ const mapStateToProps = (state: RootState) => ({
   themeLoading: state.theme.loading,
   dialog: state.modal,
   franchisor: getFranchisor(state),
+  customConfiguration: state.exportableComponent.customCss,
 });
 
 const mapDispatchToProps = {
@@ -278,6 +286,7 @@ const mapDispatchToProps = {
   openUserInteractionPortal,
   closeUserInteractionPortal,
   retrieveFranchise,
+  retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };
 
 export default compose(

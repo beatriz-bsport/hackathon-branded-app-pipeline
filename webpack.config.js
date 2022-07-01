@@ -95,7 +95,7 @@ const defaultConfig = {
                   ident: 'postcss',
                   plugins: [
                     increaseSpecificity({
-                      stackableRoot: '.cleanslate',
+                      stackableRoot: '[id*="bsport-widget"] .cleanslate',
                       repeat: 1,
                     }),
                   ],

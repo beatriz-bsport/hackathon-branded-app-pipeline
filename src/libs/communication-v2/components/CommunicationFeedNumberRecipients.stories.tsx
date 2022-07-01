@@ -41,7 +41,8 @@ export const CompactMode = CustomTemplate.bind({});
 CompactMode.args = {
   members: MembersFactory(10),
   numberRecipients: 10,
-  compact: true,
+  compactText: true,
+  compactAvatars: true,
 };
 
 export default {

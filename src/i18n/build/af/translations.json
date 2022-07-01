@@ -849,6 +849,27 @@
       },
       "noMail": "email non renseigné",
       "noPhone": "numéro non renseigné"
+    },
+    "sendMessage": {
+      "icons": {
+        "mail": "Email",
+        "sms": "SMS",
+        "notification": "Notification push",
+        "balise": "Balises",
+        "template": "Template email"
+      },
+      "textField": {
+        "content": "Message",
+        "title": "Titre",
+        "object": "Objet",
+        "warningLength": "{{number_sms}} SMS seront envoyés"
+      },
+      "buttons": { "send": "Envoyer", "selectRecipients": "Choisissez destinataires", "selectRecipientsMobile": "dest." },
+      "sendDisabled": {
+        "missingRecipients": "Choisissez d'abord des destinataires",
+        "missingContent": "Votre message n'est pas complet."
+      },
+      "refresh": "Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir."
     }
   },
   "consumerSpace": {

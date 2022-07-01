@@ -6,19 +6,20 @@ import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { Member } from '#libs/member/types';
 
+const MAX_DISPLAY_COMPACT = 2;
+const MAX_DISPLAY = 4;
+
 export type Props = {
   members: Array<Member>;
   numberRecipients?: number;
-  compact?: boolean;
+  compactText?: boolean;
+  compactAvatars?: boolean;
 };
 
-const MAX_DISPLAY = 4;
-const MAX_DISPLAY_COMPACT = 2;
-
 const CommunicationFeedNumberRecipients = (props: Props) => {
-  const { members, numberRecipients, compact } = props;
+  const { members, numberRecipients, compactText, compactAvatars } = props;
   const allImageLinks = members.map((m) => m.photo);
-  const nbImagesMax = compact ? MAX_DISPLAY_COMPACT : MAX_DISPLAY;
+  const nbImagesMax = compactAvatars ? MAX_DISPLAY_COMPACT : MAX_DISPLAY;
   const slicedImageLinks =
     allImageLinks.length > nbImagesMax
       ? allImageLinks.slice(0, nbImagesMax)
@@ -43,7 +44,7 @@ const CommunicationFeedNumberRecipients = (props: Props) => {
         <Typography variant="body2" className={classes.text}>
           {t(
             `recipient.${
-              compact ? 'numberOfRecipientsCompact' : 'numberOfRecipients'
+              compactText ? 'numberOfRecipientsCompact' : 'numberOfRecipients'
             }`,
             { count: numberRecipients },
           )}

@@ -58,7 +58,6 @@ export type Props = {
   pageSize: number;
   selectedFilters?: number[];
   setSelectedFilters?: (filters: number[]) => void;
-  setRecipients?: (selectedIds: number[]) => void;
   setUncheckedMembers: (listIdsUnchecked: number[]) => void;
   uncheckedMembers: number[];
 } & WithTranslation;
@@ -92,30 +91,6 @@ export class CommunicationRecipientsModal extends React.Component<
         return this.props.allIdsWithoutEmail ?? [];
       case COMMUNICATION_KIND_SMS:
         return this.props.allIdsWithoutPhone ?? [];
-      default:
-        return [];
-    }
-  };
-
-  getCheckedMember = () => {
-    switch (this.props.kind) {
-      case COMMUNICATION_KIND_SMS:
-        // First, get members with phone number, then return those checked
-        return this.props.allIds
-          .filter(
-            (memberId) => !this.props.allIdsWithoutPhone.includes(memberId),
-          )
-          .filter((item) => !this.state.uncheckedMembers.includes(item));
-      case COMMUNICATION_KIND_EMAIL:
-        return this.props.allIds
-          .filter(
-            (memberId) => !this.props.allIdsWithoutEmail.includes(memberId),
-          )
-          .filter((item) => !this.state.uncheckedMembers.includes(item));
-      case COMMUNICATION_KIND_PUSH_NOTIFICATION:
-        return this.props.allIds.filter(
-          (item) => !this.state.uncheckedMembers.includes(item),
-        );
       default:
         return [];
     }
@@ -188,10 +163,6 @@ export class CommunicationRecipientsModal extends React.Component<
   };
 
   onConfirm = () => {
-    if (this.props.setRecipients) {
-      const recipients = this.getCheckedMember();
-      this.props.setRecipients(recipients);
-    }
     this.props.setUncheckedMembers(this.state.uncheckedMembers);
     this.onClose();
   };
@@ -623,6 +594,7 @@ const styles = (theme: Theme) => ({
     borderWidth: '1px',
     borderStyle: 'solid',
     lineHeight: 1,
+    zIndex: 1000,
   },
   popperWarningText: {
     color: red[900],

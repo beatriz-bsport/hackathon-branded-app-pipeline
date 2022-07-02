@@ -7468,7 +7468,7 @@
         "filters": {
             "1": {
                 "name": "Dette",
-                "first": "Le solde du client, soustrait des factures impayées, est",
+                "first": "Le solde du client, prenant en compte les factures impayées, est",
                 "second": " à   ",
                 "third": "{{ currencyDisplay }}",
                 "explanation": "A X {{ currencyDisplay }} sur son compte",

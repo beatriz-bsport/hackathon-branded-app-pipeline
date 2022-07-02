@@ -147,7 +147,7 @@
             "de": "Duits"
         },
         "subscription": {
-            "isEmpty": "Momenteel bezit je nog geen abonnement."
+            "isEmpty": "Er zijn actieve abonnementen om weer te geven."
         },
         "Basket": "Mijn winkelmandje",
         "appbar": {
@@ -243,7 +243,7 @@
                     "pass_expiration": "Vervaldatum van de afspraakkaart",
                     "pass_starting_date": "Startdatum van de afspraakkaart",
                     "pass_name": "Naam van de afspraakkaart",
-                    "pass_price": "Prijs van de afspraakkaart"
+                    "pass_price": "Dit is de verkoopprijs."
                 },
                 "name": "Afspraakkaarten"
             },
@@ -1076,7 +1076,7 @@
                 "city": "Stad",
                 "addressLine2": "Aanvulling adres",
                 "addressLine1": "Adres",
-                "streetNumber": "Aantal",
+                "streetNumber": "Nummer",
                 "state": "Staat"
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
@@ -1504,7 +1504,7 @@
             "sport": "Activiteit"
         },
         "blockBooking": "Blokkeer de reserveringen van nieuwe leden",
-        "languageToolTip": "Beschikbaar in de webshop",
+        "languageToolTip": "Beschikbaar op de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
         "onlyNewMember": "Alleen reserveringen van nieuwe leden accepteren",
         "replaceCoach": "Wijzig de instructeur",
@@ -1543,7 +1543,7 @@
             "back": "Terug",
             "next": "Volgende",
             "personnalizedRestrictionsIndex": "Gepersonaliseerde beperking: {{ count }}",
-            "add": "Voeg verschillende regels toe ({{ count }}/{{ max }})",
+            "add": "Een regel toevoegen ({{ count }}/{{ max }})",
             "personnalizedHelper": "Gebruik tags om verschillende beperkingen op te leggen aan zelfbepaalde segmenten binnen het ledenbestand.",
             "personnalizedHeader": "Gepersonaliseerde beperkingen",
             "header": "Beperkingen"
@@ -1608,7 +1608,7 @@
             "showReport": "Rapportages",
             "list": {
                 "showMore": "Toon meer",
-                "isEmpty": "Er zijn nog geen eerder verstuurde berichten om weer te geven."
+                "isEmpty": "Er zijn geen verstuurde berichten om weer te geven."
             },
             "report": {
                 "totalRead": "Aantal keer geopend",
@@ -1715,7 +1715,7 @@
             },
             "usePaymentComboTaxOnItems": {
                 "helperText": "Standaard wordt een individueel btw-tarief gehanteerd per product. Activeer deze optie om een algemeen btw-tarief te hanteren.",
-                "label": "Een algemeen btw-tarief of pakketten toepassen"
+                "label": "Een algemeen btw-tarief op dit pakket toepassen"
             }
         },
         "list": {
@@ -1857,7 +1857,7 @@
             "linkExpired": "Je validatielink is verlopen",
             "hasSentAgain": "E-mail verzonden",
             "sendAgain": "Opnieuw een bevestigingsmail versturen",
-            "success": "Je e-mail is gevalideerd! Je wordt binnen enkele seconden doorverwezen.",
+            "success": "Je e-mail is gevalideerd! Je wordt doorverwezen naar je Back Office.",
             "explain": "Zojuist hebben we je een bevestigingsmail gestuurd. We zijn er bijna!"
         },
         "language": {
@@ -3570,7 +3570,7 @@
                     "first": "vestiging(en):"
                 },
                 "payment_pack": {
-                    "first": "leskaart(en):"
+                    "first": "kaart(en):"
                 },
                 "coach": {
                     "first": "instructeur(s):"
@@ -4107,7 +4107,7 @@
             "title": "In bulk annuleren",
             "secondWarningConfirm": "Weet je zeker dat je verder wilt gaan?",
             "secondWarning": "Klik op \"BEVESTIGEN\" om de sessies in de geselecteerde periode te annuleren. Deze actie is definitief.",
-            "warning": "Waarschuwing! Deze actie is definitief.",
+            "warning": "Deze actie is definitief.",
             "info": "Selecteer de data waartussen de sessies geannuleerd moeten worden.",
             "endDateLabel": "Einddatum",
             "startDateLabel": "Startdatum",
@@ -4237,7 +4237,7 @@
             "addNote": "Een notitie toevoegen",
             "myNotes": "Notities",
             "is_medical": "Medische informatie",
-            "noNoteSaved": "Er is nog geen informatie opgeslagen.",
+            "noNoteSaved": "Er is geen informatie om weer te geven.",
             "healthNotes": "Alerts"
         },
         "file": {
@@ -4773,7 +4773,7 @@
         },
         "recurrenceRule": {
             "form": {
-                "title": "Terugkerende afspraak inplannen",
+                "title": "[Formulier] Periodieke reservering",
                 "delayWeek": {
                     "helperText": "Geef aan hoeveel weken dit lid zal worden ingeschreven",
                     "label": "Aantal weken"
@@ -4967,7 +4967,7 @@
     "selfCheckIn": {
         "offerStatus": {
             "hasEnded": "Voltooid sinds",
-            "inProgress": "is reeds begonnen sinds",
+            "inProgress": "Reeds begonnen",
             "startIn": "Begint over "
         },
         "addMember": {
@@ -6235,7 +6235,10 @@
                 "explainForceRefund": "Gebruikte kredieten terugbetalen om een nieuwe reservering toe te staan",
                 "cancel": "Annuleren",
                 "sendCancellationMail": "Stuur {{name}} een annuleringsbevestiging",
-                "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken."
+                "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken.",
+                "explainMoreHardDeleteReccurentBooking": "Deze reservering is gekoppeld aan een regel voor periodieke afspraken. Als deze reservering verwijdert wordt, zal het systeem deze opnieuw aanmaken om aan de criteria van de regel te voldoen. Vermijd dit door de status van de reservering op \"Geannuleerd\" te laten.",
+                "explainMoreHardDeleteReccurentBookingTitle": "Periodieke afspraak",
+                "hardDeleteTitle": "Sessie verwijderen"
             },
             "editTime": "Bewerken",
             "updateTime": {
@@ -6257,7 +6260,7 @@
                 "wasRefundedYes": "Ja",
                 "wasRefundedNo": "Nee",
                 "address": "Adres",
-                "attachCoach": "Aan een instructeur toewijzen",
+                "attachCoach": "Instructeur toewijzen",
                 "coach": "Instructeur",
                 "cancelledOn": "Geannuleerd op ",
                 "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken."
@@ -6538,7 +6541,7 @@
             "form": {
                 "credits": {
                     "label": "Aantal kredieten",
-                    "helperText": "Geef aan hoeveel iedere afspraak in kredieten kost."
+                    "helperText": "Geef aan wat het aantal inbegrepen kredieten is."
                 },
                 "durationDays": {
                     "helperText": "Geldigheidsduur (in dagen) ",
@@ -8681,7 +8684,7 @@
                 "email": "Berichtgeving",
                 "access": "Accounttoegang",
                 "accountInfo": "Door de toegang tot andere accounts te activeren kunnen bepaalde leden als een gekoppeld persoon inloggen.",
-                "autorization": "Geef \"{{name_1}}\" toegang tot het account van\"{{name_2}}\"",
+                "autorization": "Geef \"{{name_1}}\" toegang tot het account van \"{{name_2}}\"",
                 "confirm": "Bevestigen"
             },
             "list": {
@@ -8779,7 +8782,7 @@
                 "voucherConfig": "Korting",
                 "applies_to": "Producten",
                 "advanced": "Geavanceerd",
-                "subscription": "Abonnementen (contracten)",
+                "subscription": "Abonnementen",
                 "whitelist_tags": "[Whitelist] Kan alleen worden gebruikt door leden met de tag(s):",
                 "tags": "Tags",
                 "blacklist_tags": "[Blacklist] Kan niet worden gebruikt door leden met de tag(s):",
@@ -8858,7 +8861,7 @@
             "inactiveCoupons": "Verlopen of gedeactiveerde promoties"
         },
         "detail": {
-            "seeParameters": "Bekijk instellingen"
+            "seeParameters": "Bewerken"
         },
         "noDiscount": "Deze promotiecode is nog niet gebruikt.",
         "createCoupon": "Een promotiecode toevoegen",
@@ -11235,7 +11238,7 @@
             },
             "title": "Hulpmiddelen",
             "showGrid": "Toon raster",
-            "customIconButton": "Mijn pictogrammen uploaden",
+            "customIconButton": "Pictogrammen uploaden",
             "customIconLabel": "Pictogrammen",
             "hand": "Hand",
             "pointer": "Muis"
@@ -11841,7 +11844,7 @@
             "cancel": "Annuleren",
             "save": "Opslaan",
             "compatibility": "Compatibiliteit",
-            "create": "Termijnbetalingen",
+            "create": "[Formulier] Termijnbetalingen",
             "generalInfo": "Algemeen",
             "name": "Naam",
             "info": {

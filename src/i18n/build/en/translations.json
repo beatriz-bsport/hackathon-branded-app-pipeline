@@ -1646,7 +1646,7 @@
                 "addressLine2": "Additional address information",
                 "addressLine1": "Address",
                 "streetNumber": "Number",
-                "state": "Status"
+                "state": "State"
             },
             "waiting_list_max_size": "Size of the waitlist",
             "oneHourFifteen": "1h 15 min",
@@ -1668,7 +1668,7 @@
             "emailHelper": "Add multiple emails by separating them with a comma.",
             "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
             "tenMinutes": "10 min",
-            "editGroup": "Edit this field directly on the session group.",
+            "editGroup": "Edit this field directly within the event.",
             "noWaitingList": "Waitlists aren't available for events."
         },
         "shop": {
@@ -1954,7 +1954,7 @@
             "back": "Previous",
             "next": "Next",
             "personnalizedRestrictionsIndex": "Custom restriction: {{ count }}",
-            "add": "Add different rules ({{ count }}/{{ max }})",
+            "add": "Add a rule ({{ count }}/{{ max }})",
             "personnalizedHeader": "Custom restrictions",
             "header": "Restrictions"
         }
@@ -2027,7 +2027,7 @@
     },
     "notificationRule": {
         "ruleGroup": {
-            "member": "New member sign up",
+            "member": "Member registration",
             "offer": "Sessions",
             "booking": "Bookings",
             "waitingList": "Waiting-list",
@@ -2089,7 +2089,7 @@
                 }
             },
             "BillingPlan": {
-                "name": "Subscription",
+                "name": "Subscriptions",
                 "tags": {
                     "subscription_name": "Subscription name",
                     "subscription_recurrent_price": "Monthly price",
@@ -2131,27 +2131,27 @@
                     "pass_expiration": "Expiration date of the appointment pass",
                     "pass_starting_date": "Start date of the appointment pass",
                     "pass_name": "Name of the appointment pass",
-                    "pass_price": "Price of the appointment pass"
+                    "pass_price": "This is the selling price."
                 },
                 "name": "Appointment passes"
             }
         },
         "eventType": {
-            "3": "Session cancelled",
+            "3": "Cancelled session",
             "6": "For newly enrolled members (for members)",
             "7": "Booking with pass",
             "8": "Booking + pass purchase",
-            "9": "A member has unsubscribed from the waiting list, opening a spot",
-            "10": "A member's spot on the waiting list has expired",
+            "9": "A member has unsubscribed from the waitlist (opening up a spot)",
+            "10": "A member's spot on the waitlist has expired",
             "12": "A member joined the waitlist",
-            "13": "A member has unsubscribed from the waiting list (for members)",
+            "13": "A member has unsubscribed from the waitlist (for members)",
             "14": "A member has unsubscribed from the waiting list (for staff)",
-            "16": "Session modified",
+            "16": "Modified session",
             "17": "Booking cancelled: credit not refunded",
             "18": "Booking cancelled: credit refunded",
             "19": "For newly enrolled members (for staff)",
             "21": "New booking",
-            "24": "Subscription created",
+            "24": "Purchased subscription (for members)",
             "25": "Payment method modified",
             "26": "Subscription paused",
             "27": "Subscription ended or terminated",
@@ -2160,14 +2160,14 @@
             "453": "Modified timetable (for members)",
             "452": "New appointment (for members)",
             "451": "Appointment canceled - refunded (for members)",
-            "450": "Appointment - out of time (for members)",
+            "450": "Appointment - late-cancel (for members)",
             "403": "Modification in timetable (for staff)",
             "402": "New appointment (for staff)",
             "401": "The appointment was cancelled and has been refunded (for staff)",
             "400": "The appointment was cancelled too late (for staff)",
-            "300": "A member that hasn't responded in time and has been kicked from the waiting list",
+            "300": "A member that hasn't responded in time and has been kicked from the waitlist",
             "22": "Invoice confirmation",
-            "601": "Automatic cancellation, as there were too few bookings X hour(s) before the start of the session",
+            "601": "When underoccupied sessions get automatically cancelled",
             "702": "Penalty: a fine has been added to the internal account balance (for members)",
             "701": "Penalty: the pass has been temporarily blocked (for members)",
             "530": "Disputed payment for a subscription",
@@ -2472,8 +2472,8 @@
                 "label": "Maximum number of purchases per member"
             },
             "usePaymentComboTaxOnItems": {
-                "label": "Apply a general VAT to the whole package",
-                "helperText": "By default, the tax applied to each object is the one indicated on the object. By selecting this option, you will be able to apply a general tax to the pack."
+                "label": "Apply a general VAT / Sales Tax rate on this pack",
+                "helperText": "By default, a unique VAT / Sales Tax rate will be applied per product. Activate this option to apply a general VAT / Sales Tax rate."
             }
         },
         "detail": {
@@ -2702,14 +2702,14 @@
             "detail": {
                 "title": "Booking",
                 "registeredOn": "Booked on ",
-                "source": "Booking via ",
+                "source": "Booked via ",
                 "slotTitle": "Session",
-                "passTitle": "Passes",
+                "passTitle": "Appointment pass",
                 "wasRefunded": "The credit(s) will be refunded to the pass.",
                 "wasRefundedYes": "Yes",
                 "wasRefundedNo": "No",
                 "address": "Address",
-                "attachCoach": "Assign to a teacher",
+                "attachCoach": "Assign a teacher",
                 "coach": "Teacher",
                 "cancelledOn": "Cancelled on ",
                 "unpaidBooking": "The member selected the option to pay later. The {{ credits}} credit(s) for this unpaid booking will be debited from the first purchased appointment pass."
@@ -2745,7 +2745,10 @@
                     "title": "Cancel the appointment"
                 },
                 "sendCancellationMail": "Send {{name}} a cancellation email.",
-                "explainWithRestore": "Are you sure you want to cancel this booking? You can undo this later."
+                "explainWithRestore": "Are you sure you want to cancel this booking? You can undo this later.",
+                "explainMoreHardDeleteReccurentBooking": "This booking is associated to a rule for recurring appointments. Delete the booking will cause the system to regenerate it to match the rule's criteria. Avoid the regeneration by leaving the status on \"Cancelled\".",
+                "hardDeleteTitle": "Delete session",
+                "explainMoreHardDeleteReccurentBookingTitle": "Recurring appointment"
             },
             "discard": "Cancel the appointment",
             "updateTime": {
@@ -2969,7 +2972,7 @@
             "detail": {
                 "invoice": "Associated invoice",
                 "booking": "Associated appointments",
-                "extensionsTitle": "Extensions of the validity"
+                "extensionsTitle": "Extend the validity"
             },
             "expiresOn": "Expiration date: {{date}}",
             "actions": {
@@ -2990,7 +2993,7 @@
                     },
                     "submit": "Add",
                     "cancel": "Cancel",
-                    "title": "Extend the validity of a pass"
+                    "title": "[Form] Extend validity"
                 },
                 "delete": {
                     "confirm": "Confirm",
@@ -3062,8 +3065,8 @@
                     "helperText": "Name of the appointment pass"
                 },
                 "credits": {
-                    "label": "Number of included credits",
-                    "helperText": "Indicate the price per session in credits."
+                    "label": "Number of credits",
+                    "helperText": "Indicate the number of included credits."
                 },
                 "price": {
                     "label": "Price (incl. VAT / Sales Tax)",
@@ -3128,7 +3131,7 @@
                 "category": "Category name",
                 "categoryTitle": {
                     "compatibility": "Compatibility",
-                    "validity": "Pass validity",
+                    "validity": "Validity",
                     "paymentMeans": "Payment method",
                     "info": "General",
                     "compatibilityAppointment": "Compatibility for appointments"
@@ -3410,7 +3413,7 @@
                 "notify_member": "Send a confirmation email",
                 "timeGroup": "Date of the session",
                 "configuration": "Bookings",
-                "title": "Schedule a recurring appointment",
+                "title": "[Form] Recurring appointment",
                 "override_availabilities": "Complete the booking even though the appointment/establishment/teacher is unavailable",
                 "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)"
             },
@@ -3723,7 +3726,7 @@
             "activeCoupons": "Active promotions"
         },
         "detail": {
-            "seeParameters": "See settings"
+            "seeParameters": "Edit"
         },
         "card": {
             "first_buy": "Can only be used for the first purchase",
@@ -4836,7 +4839,7 @@
         "actions": {
             "search": "Search a workshop",
             "addWorkshopActivity": "Add a workshop",
-            "addWorkshopGroup": "Add a session group"
+            "addWorkshopGroup": "Add an event"
         },
         "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
         "disabledWorkshops": "Archived workshops",
@@ -4847,7 +4850,7 @@
             "emptySearch": "There are no search results to display.",
             "pageSize": "Display by:",
             "backToGroup": "Back to groups",
-            "emptySelect": "Select a session"
+            "emptySelect": "Select a workshop or event to display more information."
         }
     },
     "tag": {
@@ -5112,7 +5115,7 @@
             "linkExpired": "Your validation link has expired",
             "hasSentAgain": "Email sent",
             "sendAgain": "Resend a confirmation email",
-            "success": "Your email has been validated, you will be redirected within a few seconds.",
+            "success": "Your email has been validated! You're being redirected to your Back Office.",
             "explain": "We sent you a validation email, you're almost there!"
         },
         "language": {
@@ -5461,10 +5464,10 @@
             "untitled": "Untitled",
             "placeCount": "{{count}} places",
             "delete": {
-                "content": "Are you sure you want to delete this video? This operation is irreversible.",
-                "title": "Delete seating plan"
+                "content": "Are you sure you want to delete this Spot Scheduling layout? This action can't be undone.",
+                "title": "Delete Spot Scheduling configuration"
             },
-            "add": "Add a Spot Scheduling configuration",
+            "add": "Add a layout",
             "subtitle": "Add a custom seating plan to your establishment to allow members book their specific spot for your sessions.",
             "title": "Spot Scheduling"
         },
@@ -5575,7 +5578,7 @@
         },
         "detail": {
             "section": {
-                "title": "Order status:",
+                "title": "Order",
                 "deliveryInfo": "Delivery address",
                 "productDetail": "Overview",
                 "invoice": "Related invoice",
@@ -7035,13 +7038,13 @@
             "coachSpace": "Teacher View"
         },
         "noCoach": "No teachers is registered yet",
-        "noCoachs": "No registered teachers, manage your teachers here, contributors and their payment.",
+        "noCoachs": "This module allows you to add, manage, edit, and delete instructors.",
         "inactiveCoaches": "Archived teachers",
         "paymentRule": "Payroll",
         "coachAccess": {
             "teacher": "Teacher",
             "student": "Member",
-            "info": "We've detected that you're also a Teacher at this studio. Would you like to access the Member View or the Teacher View?",
+            "info": "We've detected that you're also an Teacher at this studio. Would you like to access the Member View or the Teacher View?",
             "access": "Access"
         },
         "numberCoaches": "{{ number }} teachers"
@@ -7405,11 +7408,11 @@
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} days",
             "pausedAt": "{{days}} day(s) - {{date}}",
             "actions": {
-                "delete": "Cancel the pause"
+                "delete": "Cancel pause"
             },
             "secondaryLabel": " : {{ note }}",
             "label": "Paused for {{days}} day(s)",
-            "createdAt": "Create the "
+            "createdAt": "Paused at "
         },
         "messages": {
             "youSubscribed": {
@@ -8260,7 +8263,7 @@
                 },
                 "priceIncludingTax": {
                     "label": "Price (including VAT / Sales Tax)",
-                    "helperText": "Price of the pass."
+                    "helperText": "This is selling price."
                 },
                 "startOnFirstUseHelper": "Otherwise it starts on the billing date",
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
@@ -8647,7 +8650,7 @@
             "only_vod_access": "Restrict usage to Video On Demand",
             "vodAccessCard": "Enable acces to Video On Demand",
             "vod": "Video On Demand",
-            "compatibility": "Your pass will only be compatible with the compatible sessions, activities, categories, and/or establishments.",
+            "compatibility": "This pass will only be compatible with the selected sessions, activities, categories, and/or establishments.",
             "letBlank": "Leave this field empty to implement no restrictions",
             "activities": "Activities",
             "room": "Establishments",
@@ -8700,7 +8703,7 @@
             "availabilityGivenNumber": "Make this pass valid for a set number of days after the purchase date",
             "penalityRule": "This penalty can only be applied to unlimited passes",
             "penality": "Apply a penalty for too many late cancellations",
-            "packValidity": "Pass validity",
+            "packValidity": "Validity",
             "numberOfAvailableCredits": "Number of available credits",
             "credit": "Credit",
             "unlimited": "Unlimited",
@@ -8964,7 +8967,7 @@
             "title": "Grouped cancellation",
             "secondWarningConfirm": "Are you sure you want to continue?",
             "secondWarning": "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back.",
-            "warning": "Attention! This action can't be undone.",
+            "warning": "This action can't be undone.",
             "info": "Select the dates of the sessions that you wish to cancel.",
             "endDateLabel": "End date",
             "startDateLabel": "Start date",
@@ -9051,7 +9054,7 @@
         "duplicate": "Duplicate",
         "search": "Search a template",
         "listTitle": "Templates",
-        "editTitle": "Template edition",
+        "editTitle": "Edit template",
         "createTitle": "Template",
         "detail": "Detail informations",
         "create": "Add a template",
@@ -9529,7 +9532,7 @@
             "isPaid": "Paid bookings",
             "paid": "Payment",
             "coach": "Teacher",
-            "pickCoach": "Search for a teacher..."
+            "pickCoach": "Search a teacher..."
         },
         "creditConsumed": "{{ credit_consumed }} credit",
         "creditConsumed_plural": "{{credit_consumed}} credits",
@@ -9585,7 +9588,7 @@
                     "title": "Event"
                 },
                 "chooseTime": {
-                    "second_after": "hour(s) after the end of the session",
+                    "second_after": "hour(s) after the end of the session.",
                     "second_before": "hour(s) before the start of the session.",
                     "first": "Send this notification"
                 },
@@ -9650,7 +9653,7 @@
                 },
                 "at": " at ",
                 "timeGroup": "Date of the session",
-                "title": "Schedule a recurrence",
+                "title": "[Form] Recurring booking",
                 "startFromDate": {
                     "label": "Start the recurrent booking the "
                 },
@@ -9992,7 +9995,7 @@
         },
         "booking": {
             "register": {
-                "name": "New booking",
+                "name": "New bookings",
                 "description": "Is triggered when a new booking is made by a manager"
             }
         },
@@ -10158,7 +10161,7 @@
         "filters": {
             "1": {
                 "name": "Account balance",
-                "first": "The account balance of the member is (excluding unpaid invoices)",
+                "first": "The account balance of the member is (including unpaid invoices)",
                 "second": " than   ",
                 "third": "{{ currencyDisplay }}",
                 "explanation": "Display an overview of all members whose account balance is {{ currencyDisplay }}X",
@@ -12125,7 +12128,7 @@
                 },
                 "empty": "There are no notifications for this form.",
                 "addNewDisplayRule": "Add a rule",
-                "header": "Notification rules",
+                "header": "Notifications",
                 "form": {
                     "dialog": {
                         "helperTextRegisteredMembers": "This form will appear as a pop-up on the marketplace and the widget for all relevant members.",
@@ -12217,22 +12220,22 @@
             "rotation": "Rotate",
             "eraser": "Rubber",
             "sections": {
-                "custom": "Customize Colour",
-                "elements": "Other Elements",
+                "custom": "Custom",
+                "elements": "Elements",
                 "place": "Position",
-                "walls": "Room Shape",
+                "walls": "Walls",
                 "edition": "Edit"
             },
             "title": "Toolbox",
-            "customFill": "Fill colour",
-            "customStroke": "Line color",
+            "customFill": "Filling",
+            "customStroke": "Lines",
             "screen": "Screen",
             "teacher": "Teacher",
             "undo": "Previous",
             "redo": "Next",
             "showGrid": "Show grid",
             "customIconButton": "Upload custom icons",
-            "customIconLabel": "Location icons",
+            "customIconLabel": "Icons",
             "hand": "Hand",
             "pointer": "Cursor"
         },
@@ -12255,7 +12258,7 @@
         "toolbar": {
             "loadExistingBlueprint": "Load an existing plan",
             "exit": "Close",
-            "titleLabel": "Plan name",
+            "titleLabel": "Name",
             "save": "Save"
         },
         "spotImageDialog": {
@@ -12536,8 +12539,8 @@
                 "name": "Name of the programme",
                 "generalInfo": "General",
                 "create": "Add a programme",
-                "modify": "Edit a programme",
-                "delete": "Delete a programme",
+                "modify": "Edit programme",
+                "delete": "Delete programme",
                 "addProgram": "Add a programme",
                 "update": "Edit programme"
             },
@@ -12833,7 +12836,7 @@
             "cancel": "Cancel",
             "save": "Save",
             "compatibility": "Compatibility",
-            "create": "Payments by installments",
+            "create": "[Form] Instalments",
             "generalInfo": "General",
             "name": "Name",
             "frequency": {

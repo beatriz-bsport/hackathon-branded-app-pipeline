@@ -5626,7 +5626,9 @@
         },
         "table": {
             "download": "Downloaden",
-            "downloadAll": "Payroll exporteren"
+            "downloadAll": "Payroll exporteren",
+            "downloadPDF": "Downloaden (PDF)",
+            "downloadCSV": "Downloaden (CSV)"
         },
         "addBonus": "Een regel toevoegen",
         "pricePerAdditionalBookingHelper": "Het bedrag dat per reservering boven deze drempel geldt",

@@ -10603,7 +10603,9 @@
         },
         "table": {
             "download": "Download",
-            "downloadAll": "Export payroll"
+            "downloadAll": "Export payroll",
+            "downloadPDF": "Download (PDF)",
+            "downloadCSV": "Download (CSV)"
         },
         "addBonus": "Add a rule",
         "dateTitle": "Date range",

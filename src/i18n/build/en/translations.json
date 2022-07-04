@@ -896,9 +896,9 @@
                     "passOwnedByMember": "Owned passes",
                     "registerToOffer": "Book",
                     "doNotConsumeCredit": "Don't charge any credits for this booking",
-                    "bookSingleInGroup": "Register for this session only",
+                    "bookSingleInGroup": "Exclusively book this session",
                     "bookMoreInGroup": "Book other events",
-                    "groupWarning": "This session is part of the session group {{ name }}"
+                    "groupWarning": "This session is associated to an event ({{ name }})."
                 }
             }
         },
@@ -957,7 +957,7 @@
             "playlist": "Playlists",
             "book": "Book",
             "cancel": "return",
-            "bookGroups": "Book a session group",
+            "bookGroups": "Events",
             "discover": "Discover",
             "from_to": "from {{-from}} to {{-to}}",
             "offers": "{{ count }} sessions"
@@ -1056,7 +1056,7 @@
             "notifyRevert": "Send a cancellation email",
             "refundRevert": "Refund the used credits",
             "cancellingBookingInGroup": "Cancel multiple sessions",
-            "cancellingOtherBookingInGroup": "Attention this session is a group session of {{ name }} . If the member has other reservations in this group they will not be impacted."
+            "cancellingOtherBookingInGroup": "This session is associated to an event ({{ name }}). Other bookings associated to this event won't be edited."
         },
         "workshopActivity": {
             "forms": {
@@ -1463,7 +1463,7 @@
                     },
                     "header": "Advanced"
                 },
-                "editingGroup": "Attention this session is part of the session group {{ name }}",
+                "editingGroup": "This session is associated to the event \"{{ name }}\".",
                 "explainAllowGuest": "Allow the booking for a guest feature"
             },
             "payment": {
@@ -2515,8 +2515,8 @@
             "count": "characters",
             "mailSelection": "Select an email",
             "selectToShowPreview": "Select an email to see a preview of it.",
-            "phoneMissing": "No phone number has been selected yet.",
-            "mailMissing": "No email has been selected yet.",
+            "phoneMissing": "There's no phone number to display.",
+            "mailMissing": "There's no email address to display.",
             "numberSms": "SMS",
             "contentSms": "Content of the SMS",
             "selectTemplate": "Email template",
@@ -2742,7 +2742,7 @@
                     },
                     "confirm": "Confirm",
                     "cancel": "Cancel",
-                    "title": "Cancel the appointment"
+                    "title": "Cancel appointment"
                 },
                 "sendCancellationMail": "Send {{name}} a cancellation email.",
                 "explainWithRestore": "Are you sure you want to cancel this booking? You can undo this later.",
@@ -2750,7 +2750,7 @@
                 "hardDeleteTitle": "Delete session",
                 "explainMoreHardDeleteReccurentBookingTitle": "Recurring appointment"
             },
-            "discard": "Cancel the appointment",
+            "discard": "Cancel appointment",
             "updateTime": {
                 "cancel": "Cancel",
                 "submit": "Save",
@@ -2924,10 +2924,10 @@
             "noPrivateServiceAvailable": "There are no appointments to display.",
             "isAtHome": "An address is required for this appointment.",
             "bookingCapabilities": {
-                "compatibleConsumerPassTitle": "Your compatible passes",
-                "emptyConsumerPassList": "You're not yet in possession of any valid pass.",
-                "compatiblePassTitle": "Compatible passes:",
-                "emptyPassList": "There are no compatible passes to display."
+                "compatibleConsumerPassTitle": "My passes",
+                "emptyConsumerPassList": "Please purchase a valid pass to complete the booking.",
+                "compatiblePassTitle": "Compatible passes",
+                "emptyPassList": "There are no compatible passes to display. Please contact the studio directly."
             },
             "useCredit": "Book",
             "private_pass": {
@@ -6195,7 +6195,7 @@
                 "default": "Default"
             },
             "workshop": "Workshops",
-            "session": "Group classes",
+            "session": "Group activities",
             "private_service": "Appointments",
             "dialogTitle": "Payroll group",
             "dissociate": "Custom payroll",
@@ -8833,7 +8833,7 @@
                     "delete": {
                         "content": "Deleting this event will result in the cancellation of all enrolled members' bookings. This action can't be undone.",
                         "missingOffer": "No offers in the group",
-                        "firstSession": "First meeting on {{-day}}",
+                        "firstSession": "The first upcoming session is on: {{-day}}",
                         "selectHeader": "Select the groups that will be modified",
                         "selectGroup": "Cancel other similar groups",
                         "applyRecursive": "Cancel other similar groups",
@@ -8847,11 +8847,11 @@
                     "recurrence": "Recurrence",
                     "timeStart": "Starting date",
                     "preview": "Preview",
-                    "recurrenceUntilHelper2": "Groups with a last session after this date will not be created.",
-                    "recurrenceUntilHelper": "Please indicate the date of the last session of the last cycle.",
+                    "recurrenceUntilHelper2": "It's not possible to add sessions after this date.",
+                    "recurrenceUntilHelper": "Please indicate the end date of this event.",
                     "timeStartHelper": "Select the date of this event's first sessions. All future sessions will be associated to the event according to this date.",
                     "recurrenceUntil": "Repeat until",
-                    "nameCaption": "Name of the session group",
+                    "nameCaption": "Event name",
                     "recurrenceCount": "Number of repetitions",
                     "withRecurrence": "Enable recurrence",
                     "marketPlaceAvailable": "Available for booking (web+app)",
@@ -8866,7 +8866,7 @@
                     "subtitleOffers": "Sessions",
                     "subtitle": "General",
                     "allowGuest": "Compatible with the booking for a guest feature",
-                    "allowGuestUnavailable": "This feature is not available on grouped sessions."
+                    "allowGuestUnavailable": "This feature isn't availble for events."
                 },
                 "duplicate": "Duplicate a group",
                 "subtitlePreview": "Preview of the recurrence",
@@ -8996,9 +8996,9 @@
             "selectDelete": "Select the sessions that will be deleted",
             "deleteSimilarOffers": "Would you like to delete similar sessions?",
             "selectEdit": "Select the sessions that will be modified",
-            "cancelSimilarOffersGroup": "Cancelling other sessions associated to this event",
+            "cancelSimilarOffersGroup": "Cancel other sessions associated to this event",
             "deleteSimilarOffersGroups": "Do you want to delete future recurrences of the group",
-            "editSimilarOffersGroup": "Change the session in future recurrences of the group?"
+            "editSimilarOffersGroup": "Also edit this event's future sessions"
         },
         "menu": {
             "download": "Export",
@@ -10887,7 +10887,7 @@
         },
         "coupon": {
             "attachToBasket": {
-                "error": "No compatible coupon found"
+                "error": "Invalid promotional code"
             },
             "create": {
                 "success": "Registered promotional code",
@@ -11189,7 +11189,7 @@
             "timeout": "The server took too long to respond. Try refreshing the page",
             "error": "An error has occurred, try again later",
             "success": "Completed",
-            "pending": "The changes are being processed..."
+            "pending": "Processing changes..."
         },
         "offer": {
             "restore": {

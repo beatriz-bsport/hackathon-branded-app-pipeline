@@ -1566,8 +1566,8 @@
             "mailSelection": "Selecteer een e-mailsjabloon",
             "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
             "noMailAvailable": "Nog geen e-mail beschikbaar. Begin met het ontwerpen van je eerste e-mail.",
-            "mailMissing": "Nog geen e-mail ingevoerd",
-            "phoneMissing": "Nog geen telefoonnummer ingevoerd",
+            "mailMissing": "Geen e-mailadres om weer te geven.",
+            "phoneMissing": "Geen telefoonnummer om weer te geven.",
             "numberSms": "sms",
             "contentSms": "Inhoud van de sms",
             "selectTemplate": "E-mailsjabloon",
@@ -2277,7 +2277,7 @@
             "sum": "Totaal",
             "selectDate": "Selecteer een datum",
             "from": "Van",
-            "to": "Tot",
+            "to": "Tot en met",
             "start": "Start",
             "end": "Einde",
             "rapidChoice": "Snelkeuze",
@@ -4023,7 +4023,7 @@
                 "title": "Evenementen",
                 "subtitlePreview": "Voorvertoning"
             },
-            "offerDescription": "{{ count }} sessie(s) van {{- firstSession }} tot {{- lastSession }}",
+            "offerDescription": "{{ count }} sessie(s) van {{- firstSession }} tot en met {{- lastSession }}",
             "last": "Terug",
             "intervalLabel": {
                 "until": {
@@ -6430,8 +6430,8 @@
             "bookingCapabilities": {
                 "compatibleConsumerPassTitle": "Mijn kaarten",
                 "compatiblePassTitle": "Beschikbare kaarten",
-                "emptyPassList": "Er is geen compatibele afspraakkaart aangemaakt voor deze activiteit. Gelieve contact opnemen met de studio.",
-                "emptyConsumerPassList": "Je hebt nog geen geldige afspraakkaart."
+                "emptyPassList": "Er zijn geen compatibele afspraakkaarten om weer te geven. Contacteer de studio voor meer informatie.",
+                "emptyConsumerPassList": "Schaf een geldige afspraakkaart aan om de reservering de voltooien."
             },
             "private_pass": {
                 "credits": "{{ credits}} krediet(en)"
@@ -7855,7 +7855,7 @@
                 "success": "Kortingscode gewijzigd"
             },
             "attachToBasket": {
-                "error": "Geen compatibele kortingscode gevonden"
+                "error": "Ongeldige promotiecode"
             },
             "createOrUpdate": {
                 "success": "Promotie opgeslagen",
@@ -8258,7 +8258,7 @@
             "timeout": "Server reageert niet. Ververs de pagina alsjeblieft",
             "error": "Er is iets misgegaan! Probeer het later opnieuw alsjeblieft",
             "success": "Voltooid",
-            "pending": "Een moment geduld alsjeblieft"
+            "pending": "Wijzigingen verwerken..."
         },
         "offer": {
             "restore": {

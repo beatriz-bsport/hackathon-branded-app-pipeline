@@ -13,6 +13,7 @@ import {
   runSimulationAPI,
   exportAsyncCoachPerformanceExcel as exportAsyncCoachPerformanceExcelAPI,
   fetchCoachPerformanceCachedData as fetchCoachPerformanceCachedDataAPI,
+  exportAsyncCoachPerformancePdf as exportAsyncCoachPerformancePdfAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 import type {
@@ -24,6 +25,7 @@ import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
+import { openPdfDocument } from './utils';
 
 export const fetchAllPaymentRules = {
   success: createAction('COACH-PAYMENT/LIST/SUCCESS'),
@@ -549,5 +551,45 @@ export function fetchCoachPerformanceCachedData(
       if (options && options.onError) options.onError();
     }
     dispatch(fetchCoachPerformanceCachedDataActions.isLoading(false));
+  };
+}
+
+export const exportPdfPerformanceActions = {
+  isLoading: createAction('COACH_PERFORMANCE/PDF/IS_LOADING'),
+  error: createAction('COACH_PERFORMANCE/PDF/ERROR'),
+  success: createAction('COACH_PERFORMANCE/PDF/SUCCESS'),
+  create: createAction('COACH_PERFORMANCE/PDF/CREATE'),
+};
+
+export function exportPdfPerformance(
+  params: {
+    start_timestamp?: number;
+    end_timestamp?: number;
+    score_timestamp?: number;
+    associated_coaches_in?: Array<number>;
+    data_to_export?: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(exportPdfPerformanceActions.isLoading(true));
+    dispatch(exportPdfPerformanceActions.error(null));
+    try {
+      const response = await exportAsyncCoachPerformancePdfAPI(params);
+      dispatch(exportPdfPerformanceActions.success(response.data));
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            if (options?.onSuccess) options.onSuccess();
+            openPdfDocument(response);
+          },
+        }),
+      );
+    } catch (err) {
+      dispatch(exportPdfPerformanceActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(exportPdfPerformanceActions.isLoading(false));
   };
 }

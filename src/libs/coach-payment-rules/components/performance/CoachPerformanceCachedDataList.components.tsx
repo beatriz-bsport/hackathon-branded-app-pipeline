@@ -112,7 +112,7 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
                     <IconButton
                       onClick={() =>
                         handleExcelExportation({
-                          score_timestamp: data.timestamp,
+                          score_timestamp: data.score,
                         })
                       }
                     >

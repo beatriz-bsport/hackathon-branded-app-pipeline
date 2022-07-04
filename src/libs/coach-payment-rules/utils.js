@@ -5,6 +5,7 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
+import axios from 'axios';
 
 export const bonusCoachPaymentRuleConstructor = (
   coach_payment_rule_id: number | null,
@@ -115,3 +116,20 @@ export const computePerformanceSynthese = (CoachesWithPerformances) => {
 export const DISSOCIATED_COACH_PAYMENT_RULE = -9999;
 export const DISSOCIATED_COACH_PAYMENT_RULE_GROUP = -8000;
 export const ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP = -8001;
+
+export const openPdfDocument = (response) => {
+  const filename = response.data.split('/').at(-1);
+  axios
+    .get(response.data, {
+      responseType: 'blob',
+    })
+    .then((res) => {
+      const url = window.URL.createObjectURL(res.data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
+};

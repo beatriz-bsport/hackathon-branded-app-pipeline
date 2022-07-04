@@ -7,6 +7,9 @@ import {
   buildUrlParams,
 } from '../../http';
 
+const COACH_PERFORMANCE_EXPORT_PDF = 0;
+const COACH_PERFORMANCE_EXPORT_EXCEL = 1;
+
 export const fetchCoachPaymentRules = async () => {
   return getAuth(`${API_V1_URI}/coach_payment_rules/get_coach_payment_rules/`);
 };
@@ -155,11 +158,12 @@ export const exportAsyncCoachPerformanceExcel = async (params: {
   associated_coaches_in?: Array<number>;
 }) => {
   const { associated_coaches_in, ...urlParams } = params;
+  const export_format = COACH_PERFORMANCE_EXPORT_EXCEL;
   return postAuth(
-    `${API_V1_URI}/coach_payment_rules/export_excel/${buildUrlParams(
+    `${API_V1_URI}/coach_payment_rules/export_data/${buildUrlParams(
       urlParams,
     )}`,
-    { associated_coaches_in },
+    { associated_coaches_in, export_format },
   );
 };
 
@@ -170,5 +174,22 @@ export const fetchCoachPerformanceCachedData = async (params: {
     `${API_V1_URI}/coach_payment_rules/get_last_cached_data/${buildUrlParams(
       params,
     )}`,
+  );
+};
+
+export const exportAsyncCoachPerformancePdf = async (params: {
+  start_timestamp?: number;
+  end_timestamp?: number;
+  score_timestamp?: number;
+  associated_coaches_in?: Array<number>;
+  data_to_export?: number;
+}) => {
+  const { associated_coaches_in, data_to_export, ...urlParams } = params;
+  const export_format = COACH_PERFORMANCE_EXPORT_PDF;
+  return postAuth(
+    `${API_V1_URI}/coach_payment_rules/export_data/${buildUrlParams(
+      urlParams,
+    )}`,
+    { associated_coaches_in, data_to_export, export_format },
   );
 };

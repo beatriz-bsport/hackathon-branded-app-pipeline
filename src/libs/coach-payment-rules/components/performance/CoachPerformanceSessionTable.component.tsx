@@ -33,6 +33,8 @@ type Props = {
   hideRuleSetter?: boolean;
   asCoach?: boolean;
   displayChip?: boolean;
+  handlePdfExportation?: () => void;
+  disablePdfButton?: boolean;
 };
 
 export function CoachPerformanceSessionTable(props: Props) {
@@ -41,9 +43,11 @@ export function CoachPerformanceSessionTable(props: Props) {
     coachPaymentRulesList,
     setSessionCoachPaymentRule,
     performances,
+    handlePdfExportation,
+    disablePdfButton,
   } = props;
   const { t } = useTranslation('coachPerformance');
-  const classes = useStyles();
+  const classes = useStyles(!!props.displayChip);
   const coach_payment_error =
     performances && performances.find((perf) => perf.error);
 
@@ -70,48 +74,60 @@ export function CoachPerformanceSessionTable(props: Props) {
           />
         )}
         {!props.asCoach && (
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ margin: 12 }}
-            disabled={!performances}
-            onClick={() =>
-              downloadAsCsv(
-                [
-                  t('fields.name'),
-                  t('fields.date'),
-                  t('fields.duration'),
-                  t('fields.confirmed_bookings'),
-                  t('fields.cancelled_bookings'),
-                  t('fields.base'),
-                  t('fields.bonus'),
-                  t('fields.total'),
-                  t('fields.rule'),
-                ],
-                performances.map((session) => [
-                  session.session_name,
-                  `${moment(session.date_start).format('L')} ${moment(
-                    session.date_start,
-                  ).format('LT')}`,
-                  session.duration_minute,
-                  session.confirmed_bookings,
-                  session.cancelled_bookings,
-                  session.base_remuneration,
-                  session.coach_bonus,
-                  session.coach_total_payment,
-                  (
-                    coachPaymentRulesList.find(
-                      (cpr) => cpr.id === session.coach_payment_rule,
-                    ) || { name: 'default' }
-                  ).name,
-                ]),
-                'payroll.csv',
-              )
-            }
-          >
-            <AttachIcon style={{ marginRight: 12 }} />
-            {t('table.download')}
-          </Button>
+          <div className={classes.downloadButtonsContainer}>
+            <Button
+              variant="contained"
+              className={classes.buttonCSV}
+              color="primary"
+              disabled={!performances}
+              onClick={() =>
+                downloadAsCsv(
+                  [
+                    t('fields.name'),
+                    t('fields.date'),
+                    t('fields.duration'),
+                    t('fields.confirmed_bookings'),
+                    t('fields.cancelled_bookings'),
+                    t('fields.base'),
+                    t('fields.bonus'),
+                    t('fields.total'),
+                    t('fields.rule'),
+                  ],
+                  performances.map((session) => [
+                    session.session_name,
+                    `${moment(session.date_start).format('L')} ${moment(
+                      session.date_start,
+                    ).format('LT')}`,
+                    session.duration_minute,
+                    session.confirmed_bookings,
+                    session.cancelled_bookings,
+                    session.base_remuneration,
+                    session.coach_bonus,
+                    session.coach_total_payment,
+                    (
+                      coachPaymentRulesList.find(
+                        (cpr) => cpr.id === session.coach_payment_rule,
+                      ) || { name: 'default' }
+                    ).name,
+                  ]),
+                  'payroll.csv',
+                )
+              }
+            >
+              <AttachIcon style={{ marginRight: 12 }} />
+              {t('table.downloadCSV')}
+            </Button>
+            <Button
+              variant="contained"
+              disabled={!performances || disablePdfButton}
+              onClick={handlePdfExportation}
+              className={classes.buttonPDF}
+              color="secondary"
+            >
+              <AttachIcon style={{ marginRight: 12 }} />
+              {t('table.downloadPDF')}
+            </Button>
+          </div>
         )}
       </div>
       <Table size="small">
@@ -230,7 +246,7 @@ export function CoachPerformanceSessionTable(props: Props) {
   );
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   flexHeaderContainer: {
     display: 'flex',
     width: '100%',
@@ -244,6 +260,18 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
       backgroundColor: '#FFC1C1',
     },
+  },
+  downloadButtonsContainer: {
+    display: 'flex',
+    flexDirection: (reverse) => (reverse ? 'row-reverse' : 'row'),
+  },
+  buttonCSV: {
+    margin: theme.spacing(1.5),
+    color: '#fff',
+  },
+  buttonPDF: {
+    margin: theme.spacing(1.5),
+    color: '#fff',
   },
 }));
 

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Moment as MomentType } from 'moment';
+import moment, { Moment as MomentType } from 'moment-timezone';
 import * as Yup from 'yup';
 import {
   withFormik,
@@ -14,7 +14,6 @@ import {
 
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
-import Moment from 'moment-timezone';
 import makeStyles from '@material-ui/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -35,7 +34,7 @@ import RedButton from '#components/button/RedButton.component';
 import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {
-  dateStart: Moment.Moment;
+  dateStart: MomentType;
   frequency: 'w' | 'M';
 };
 
@@ -64,10 +63,12 @@ type Props = {
     },
     options?: OptionCallback,
   ) => void;
+  updateStateDate: (start: number, end: number) => void;
 } & FormikProps<InitialValues>;
 
 export function CoachPerformanceForm(props: Props) {
-  const { isSubmitting, loading, handleDateFiltersChange } = props;
+  const { isSubmitting, loading, handleDateFiltersChange, updateStateDate } =
+    props;
   const [openExportDialog, setOpenExportDialog] = React.useState<boolean>();
   const { values, setSubmitting, initialValues }: FormikProps<InitialValues> =
     useFormikContext();
@@ -88,7 +89,7 @@ export function CoachPerformanceForm(props: Props) {
     };
     const params = {
       start_timestamp: props.values.dateStart.unix(),
-      end_timestamp: Moment(props.values.dateStart).endOf('month').unix(),
+      end_timestamp: moment(props.values.dateStart).endOf('month').unix(),
     };
 
     props.exportExcelPerformance(params, {
@@ -110,12 +111,16 @@ export function CoachPerformanceForm(props: Props) {
       handleDateFiltersChange(
         {
           ...values,
-          dateEnd: Moment(values.dateStart).add(1, values.frequency),
+          dateEnd: moment(values.dateStart).add(1, values.frequency),
         },
         {
           onSuccess: () => setSubmitting(false),
           onError: () => setSubmitting(false),
         },
+      );
+      updateStateDate(
+        moment(values.dateStart).unix(),
+        moment(values.dateStart).add(1, values.frequency).unix(),
       );
     }
   }, [
@@ -125,6 +130,7 @@ export function CoachPerformanceForm(props: Props) {
     setSubmitting,
     loading,
     previousValues,
+    updateStateDate,
   ]);
   return (
     <>
@@ -246,14 +252,14 @@ const CoachPerformanceSchema = Yup.object().shape({
 export default compose<any, Props>(
   withFormik({
     mapPropsToValues: () => ({
-      dateStart: Moment().startOf('month'),
-      frequency: 'M' as Moment.unitOfTime.DurationConstructor,
+      dateStart: moment().startOf('month'),
+      frequency: 'M' as moment.unitOfTime.DurationConstructor,
     }),
     validationSchema: CoachPerformanceSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
       const timeIntervalValue = {
         ...values,
-        dateEnd: Moment(values.dateStart).add(1, values.frequency),
+        dateEnd: moment(values.dateStart).add(1, values.frequency),
       };
       onSubmit(timeIntervalValue, {
         onError: () => setSubmitting(false),

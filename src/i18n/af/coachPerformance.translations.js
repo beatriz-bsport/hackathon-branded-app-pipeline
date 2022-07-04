@@ -27,7 +27,8 @@ exports.default = {
     totalNetGain: 'Gain net total',
   },
   table: {
-    download: 'Télécharger',
+    downloadCSV: 'Télécharger (.csv)',
+    downloadPDF: 'Télécharger (.pdf)',
     downloadAll: 'Synthèse',
   },
   performance: {

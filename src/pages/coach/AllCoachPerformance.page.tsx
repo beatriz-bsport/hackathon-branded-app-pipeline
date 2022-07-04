@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import type { Moment as MomentType } from 'moment';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import AppBar from '@material-ui/core/AppBar';
-import Moment from 'moment-timezone';
+import moment, { Moment as MomentType } from 'moment-timezone';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
@@ -33,6 +32,7 @@ import {
   setPrivateBookingCoachPaymentRule as updatePrivateBookingCoachPaymentRule,
   exportExcelPerformance,
   fetchCoachPerformanceCachedData,
+  exportPdfPerformance,
 } from '#libs/coach-payment-rules/actions';
 
 import {
@@ -115,7 +115,20 @@ type Props = OwnAndConnectedProps &
   WithStyles<typeof styles> &
   WithTranslation;
 
-export class AllCoachPerformancePage extends Component<Props> {
+type State = {
+  startTimestamp: number;
+  endTimestamp: number;
+};
+
+export class AllCoachPerformancePage extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      startTimestamp: moment().startOf('month').unix(),
+      endTimestamp: moment().endOf('month').unix(),
+    };
+  }
+
   componentDidMount() {
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAssociatedCoachesList(
@@ -193,6 +206,10 @@ export class AllCoachPerformancePage extends Component<Props> {
     this.props.setCoachesFilter(null);
   };
 
+  changeDate = (dateStart: number, dateEnd: number) => {
+    this.setState({ startTimestamp: dateStart, endTimestamp: dateEnd });
+  };
+
   render() {
     const { classes } = this.props;
     let associatedCoachWithCoachPaymentRuleAndPerformanceSelected = [];
@@ -208,7 +225,6 @@ export class AllCoachPerformancePage extends Component<Props> {
       !!this.props.selectedCachedTimestamp &&
       !!this.props
         .associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData;
-
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default" className={classes.bar}>
@@ -222,6 +238,7 @@ export class AllCoachPerformancePage extends Component<Props> {
               this.props.isSubmitLoading
             }
             exportExcelPerformance={this.props.exportExcelPerformance}
+            updateStateDate={this.changeDate}
           />
         </AppBar>
 
@@ -268,6 +285,9 @@ export class AllCoachPerformancePage extends Component<Props> {
           setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
           pagination={this.props.coachPaginationState}
           changePage={this.changePage}
+          exportPdfPerformance={this.props.exportPdfPerformance}
+          startTimestamp={this.state.startTimestamp}
+          endTimestamp={this.state.endTimestamp}
         />
       </div>
     );
@@ -322,6 +342,7 @@ const connector = connect(
     setCoachPaymentRuleGroupAction: setCoachPaymentRuleGroup,
     exportExcelPerformanceAction: exportExcelPerformance,
     fetchCoachPerformanceCachedDataAction: fetchCoachPerformanceCachedData,
+    exportPdfPerformanceAction: exportPdfPerformance,
   },
 );
 
@@ -404,6 +425,27 @@ const mapWithHandlers = {
         },
         onError: () => {
           fetchCoachPerformanceCachedDataAction({ max_range: 10 });
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
+  exportPdfPerformance:
+    ({ exportPdfPerformanceAction }: OwnAndConnectedProps) =>
+    (
+      params: {
+        start_timestamp?: number;
+        end_timestamp?: number;
+        score_timestamp?: number;
+        associated_coaches_in?: Array<number>;
+        data_to_export?: number;
+      },
+      options?: OptionCallback,
+    ) => {
+      exportPdfPerformanceAction(params, {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
           if (options && options.onError) options.onError();
         },
       });
@@ -747,8 +789,8 @@ const mapWithHandlers = {
 
 const withStateHandlersInit = {
   formDates: {
-    dateStart: Moment().startOf('month').unix(),
-    dateEnd: Moment(Moment().startOf('month')).endOf('month').unix(),
+    dateStart: moment().startOf('month').unix(),
+    dateEnd: moment(moment().startOf('month')).endOf('month').unix(),
   },
   coachPaginationState: {
     page: 1,

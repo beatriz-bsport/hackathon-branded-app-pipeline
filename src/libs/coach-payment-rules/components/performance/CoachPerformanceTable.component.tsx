@@ -31,6 +31,7 @@ import type {
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import AllCoachPerformancePagination from '#libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
+import type { OptionCallback } from '../../../../state/types';
 
 type CoachwithPerformance = Coach & {
   performanceLoading: boolean;
@@ -88,6 +89,10 @@ type CoachPaymentRuleObjects = {
 export type CoachPerformanceTableRowProps = {
   previewMode?: boolean;
   coachWithPerformance: CoachwithPerformance;
+  handlePdfExportation: (
+    associatedCoachId: number,
+    dataToExport: number,
+  ) => void;
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
@@ -108,6 +113,7 @@ export const CoachPerformanceTableRow = (
     setCoachPrivatePaymentRule,
     setCoachWorkShopPaymentRule,
     setCoachPaymentRuleGroup,
+    handlePdfExportation,
   } = props;
   const [openCollapse, setOpenCollapse] = React.useState<boolean>(false);
   const classes = useStyles();
@@ -285,6 +291,7 @@ export const CoachPerformanceTableRow = (
               coachPaymentRuleGroups={coachPaymentRuleGroups}
               coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
               setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+              handlePdfExportation={handlePdfExportation}
             />
           </Collapse>
         </TableCell>
@@ -305,11 +312,25 @@ type OwnProps = {
   loading: boolean;
   previewMode?: boolean;
   leavePreviewMode: () => void;
+  exportPdfPerformance: (
+    params: {
+      start_timestamp?: number;
+      end_timestamp?: number;
+      score_timestamp?: number;
+      associated_coaches_in?: Array<number>;
+      data_to_export?: number;
+    },
+    options?: OptionCallback,
+  ) => void;
+  startTimestamp: number;
+  endTimestamp: number;
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
+
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof useStyles>> &
   WithTranslation;
+
 export const CoachPerformanceTable = (props: Props) => {
   const {
     associatedCoachWithPerformance,
@@ -322,10 +343,24 @@ export const CoachPerformanceTable = (props: Props) => {
     setCoachPrivatePaymentRule,
     setCoachWorkShopPaymentRule,
     setCoachPaymentRuleGroup,
+    exportPdfPerformance,
   } = props;
   const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
   const { t } = useTranslation(['coachPerformance', 'coach', 'paymentRules']);
   const classes = useStyles();
+
+  const handlePdfExportation = (
+    associatedCoachId: number,
+    dataToExport: number,
+  ) => {
+    const params = {
+      start_timestamp: props.startTimestamp,
+      end_timestamp: props.endTimestamp,
+      associated_coaches_in: [associatedCoachId],
+      data_to_export: dataToExport,
+    };
+    exportPdfPerformance(params);
+  };
   const tableHeaders: Array<HeadersProps> = [
     { title: '', align: 'center', colSpan: 1 },
     { title: '', align: 'center', colSpan: 1 },
@@ -455,6 +490,7 @@ export const CoachPerformanceTable = (props: Props) => {
               coachPaymentRuleGroups={coachPaymentRuleGroups}
               coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
               setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+              handlePdfExportation={handlePdfExportation}
             />
           ))}
         </TableBody>

@@ -589,7 +589,7 @@
       "netGain": "Gain net",
       "totalNetGain": "Gain net total"
     },
-    "table": { "download": "Télécharger", "downloadAll": "Synthèse" },
+    "table": { "downloadCSV": "Télécharger (.csv)", "downloadPDF": "Télécharger (.pdf)", "downloadAll": "Synthèse" },
     "performance": {
       "table": { "header": { "coachName": "Professeur", "nbSessions": "Nombre de cours collectifs", "confirmedBookings": "" } }
     },

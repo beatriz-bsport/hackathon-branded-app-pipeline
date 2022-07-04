@@ -76,6 +76,7 @@ export type CoachPaymentRuleGroup = {
 
 export type CoachPerformanceCachedData = {
   timestamp: number;
+  score: number;
   bookings: { [coach_id: number]: Array<CoachPerformance> };
   private_bookings: { [coach_id: number]: Array<CoachPerformance> };
   metadata: {

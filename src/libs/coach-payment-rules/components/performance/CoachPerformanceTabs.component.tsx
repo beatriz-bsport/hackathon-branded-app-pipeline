@@ -41,21 +41,49 @@ type TabPanelProps = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   hideRuleSetter?: boolean;
   asCoach?: boolean;
+  handlePdfExportation?: (
+    associatedCoachId: number,
+    dataToExport: number,
+  ) => void;
 } & CoachPaymentRuleTabPanelActions;
 
 export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
+  const handlePdfExportation = props.handlePdfExportation;
+  const associatedCoachId = props.coachWithPerformance.associated_coach_id;
   const coachSessionPaymentRulesList =
     (!props.hideRuleSetter &&
       !props.asCoach &&
       props.coachPaymentRulesByKind &&
       props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]) ||
     [];
+
   const coachPrivateServicePaymentRulesList =
     (!props.hideRuleSetter &&
       !props.asCoach &&
       props.coachPaymentRulesByKind &&
       props.coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]) ||
     [];
+
+  const handlePdfExportationSession = React.useCallback(
+    () =>
+      handlePdfExportation?.(associatedCoachId, COACH_PAYMENT_RULE_FOR_SESSION),
+    [handlePdfExportation, associatedCoachId],
+  );
+
+  const handlePdfExportationAppointment = React.useCallback(
+    () =>
+      handlePdfExportation?.(
+        associatedCoachId,
+        COACH_PERFORMANCE_FOR_APPOINTMENT,
+      ),
+    [handlePdfExportation, associatedCoachId],
+  );
+
+  const handlePdfExportationAll = React.useCallback(
+    () => handlePdfExportation?.(associatedCoachId, COACH_PERFORMANCE_FOR_ALL),
+    [handlePdfExportation, associatedCoachId],
+  );
+
   if (props.value === COACH_PERFORMANCE_FOR_SESSION) {
     return (
       <CoachPerformanceSessionTable
@@ -69,6 +97,8 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
         hideRuleSetter={props.hideRuleSetter}
         asCoach={props.asCoach}
+        handlePdfExportation={handlePdfExportationSession}
+        disablePdfButton={!handlePdfExportation}
       />
     );
   }
@@ -87,6 +117,8 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         }
         hideRuleSetter={props.hideRuleSetter}
         asCoach={props.asCoach}
+        handlePdfExportation={handlePdfExportationAppointment}
+        disablePdfButton={!handlePdfExportation}
       />
     );
   }
@@ -105,6 +137,8 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           hideRuleSetter={props.hideRuleSetter}
           asCoach={props.asCoach}
           displayChip
+          handlePdfExportation={handlePdfExportationAll}
+          disablePdfButton={!handlePdfExportation}
         />
 
         <CoachPerformancePrivateServiceTable
@@ -166,6 +200,7 @@ type CoachPaymentRuleObjects = {
   coachPaymentRuleGroups?: Array<CoachPaymentRuleGroup>;
   coachPaymentRuleGroupsDict?: { [groupId: number]: CoachPaymentRuleGroup };
 };
+
 type CoachwithPerformance = Coach & {
   performanceLoading: boolean;
   performance: {
@@ -173,14 +208,17 @@ type CoachwithPerformance = Coach & {
     [COACH_PERFORMANCE_FOR_APPOINTMENT]: Array<CoachPerformance>;
   };
 };
+
 type TabProps = {
   coachWithPerformance: CoachwithPerformance;
   hideRuleSetter?: boolean;
   asCoach?: boolean;
   loading?: boolean;
   displayLastUpdate?: boolean;
+  handlePdfExportation?: (coachId: number, dataToExport: number) => void;
 } & CoachPaymentRuleTabsActions &
   CoachPaymentRuleObjects;
+
 export const CoachPerformanceTabs = (props: TabProps) => {
   const { coachWithPerformance, loading } = props;
   const { performance } = coachWithPerformance;
@@ -285,6 +323,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         }
         hideRuleSetter={props.hideRuleSetter}
         asCoach={props.asCoach}
+        handlePdfExportation={props.handlePdfExportation ?? undefined}
       />
     </div>
   );

@@ -84,6 +84,12 @@ type Props = OwnProps & FormikProps<InitialValues> & WithStateProps;
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    reductionInputs: {
+      width: '50%',
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+    },
     fullWidth: { width: '100%' },
     radioField: {
       marginBottom: theme.spacing(1),
@@ -181,26 +187,32 @@ export const CouponTemplateForm = (props: Props) => {
               />
             </div>
             {values.voucher_type === VOUCHER_TYPE_PERCENT.toString() && (
-              <TextField
-                name="percent_off"
-                label={t('form.percent_off.label')}
-                type="number"
-                required
-                max={100}
-                InputProps={{
-                  inputProps: { min: 0, max: 100, step: 0.005 },
-                  endAdornment: (
-                    <InputAdornment position="end">%</InputAdornment>
-                  ),
-                }}
-              />
+              <div className={classes.reductionInputs}>
+                <TextField
+                  fullWidth
+                  name="percent_off"
+                  label={t('form.percent_off.label')}
+                  type="number"
+                  required
+                  max={100}
+                  InputProps={{
+                    inputProps: { min: 0, max: 100, step: 0.005 },
+                    endAdornment: (
+                      <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
             )}
             {values.voucher_type === VOUCHER_TYPE_AMOUNT.toString() && (
-              <PriceField
-                name="amount_off"
-                label={t('form.amount_off.label')}
-                required
-              />
+              <div className={classes.reductionInputs}>
+                <PriceField
+                  fullWidth
+                  name="amount_off"
+                  label={t('form.amount_off.label')}
+                  required
+                />
+              </div>
             )}
           </div>
         </div>

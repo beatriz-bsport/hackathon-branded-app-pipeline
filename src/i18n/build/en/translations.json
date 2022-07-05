@@ -8737,7 +8737,15 @@
             }
         },
         "previous": "Previous",
-        "next": "Next"
+        "next": "Next",
+        "maxoutInfo": {
+            "month": "This pass can be used {{count}} time per month",
+            "month_plural": "This pass can be used {{count}} times per month",
+            "week": "This pass can be used {{count}} time per week",
+            "week_plural": "This pass can be used {{count}} times per week",
+            "day": "This pass can be used {{count}} time per year",
+            "day_plural": "This pass can be used {{count}} times per year"
+        }
     },
     "metaActivity": {
         "metaActivity": "Activity",

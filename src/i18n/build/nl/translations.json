@@ -3148,7 +3148,15 @@
             }
         },
         "previous": "Terug",
-        "next": "Volgende"
+        "next": "Volgende",
+        "maxoutInfo": {
+            "month": "Deze kaart kan {{count}} keer per maand gebruikt worden",
+            "month_plural": "Deze kaart kan {{count}} keer per maand gebruikt worden",
+            "week": "Deze kaart kan {{count}} keer per week gebruikt worden",
+            "week_plural": "Deze kaart kan {{count}} keer per week gebruikt worden",
+            "day": "Deze kaart kan {{count}} keer per jaar gebruikt worden",
+            "day_plural": "Deze kaart kan {{count}} keer per jaar gebruikt worden"
+        }
     },
     "establishment": {
         "capacity": {
@@ -5043,7 +5051,7 @@
         "metaActivity": {
             "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
             "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
-            "metaActivityList": "Activiteiten",
+            "metaActivityList": "Groepsactiviteiten",
             "metaActivityEditFormSubtitle": "Een groepsactiviteit bewerken",
             "metaActivityFormSubtitle": "Een groepsactiviteit toevoegen"
         },

@@ -1,14 +1,17 @@
 import moment from 'moment-timezone';
-import { Offer } from './types';
+import { TFunction } from 'i18next';
 
 import Config from '../../config';
+import { Offer, Offer_FULL } from '#libs/offer/types';
+import { Establishment } from '#libs/establishment/types';
+import { Theme } from '#libs/theme/types';
 
-export function isOfferInThePast(offer: Offer) {
+export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
   return !moment(offer.date_start).isSameOrBefore(moment());
 }
 
-export function isOfferBookableYet(offer: Offer) {
+export function isOfferBookableYet(offer: Offer_FULL) {
   if (offer.meta_activity) {
     return moment(offer.date_start)
       .add(-offer.meta_activity.first_booking_minutes_until, 'minutes')
@@ -154,3 +157,58 @@ export function httpParser(url) {
   const regex = /^https?:\/\//;
   return regex.test(url) ? url : `http://${url}`;
 }
+
+export const getBookingButtonTraduction = (
+  offer: Offer_FULL,
+  isRegistered: boolean = false,
+  t: TFunction,
+) => {
+  let text = offer.full
+    ? t('translation:marketplace.bookButton.bookOption')
+    : t('translation:marketplace.bookButton.book');
+  if (!isOfferInThePast(offer)) {
+    text = t('translation:marketplace.bookButton.isPast');
+  }
+  if (!offer.available) {
+    text = t('translation:marketplace.bookButton.notAvailable');
+  }
+  if (!isOfferBookableYet(offer)) {
+    text = t('translation:marketplace.bookButton.notBookableYet');
+  }
+
+  if (isRegistered) {
+    text = t('translation:marketplace.bookButton.alreadyRegistered');
+  }
+  return text;
+};
+
+export const getOfferHours = (
+  offer: Offer_FULL,
+  establishment: Establishment,
+  theme: Theme,
+) => {
+  if (offer.date_start && establishment.tzname) {
+    const startHour = moment(offer?.date_start)
+      .tz(establishment?.tzname)
+      .format('HH:mm');
+    const endHour = moment(offer?.date_start)
+      .add(moment.duration(offer?.duration_minute, 'minutes'))
+      .tz(establishment?.tzname)
+      .format('HH:mm');
+
+    return `${startHour} - ${endHour}`;
+  }
+
+  if (offer.date_start) {
+    const startHour = moment(offer?.date_start)
+      .tz(theme.timezone_name)
+      .format('HH:mm');
+    const endHour = moment(offer?.date_start)
+      .add(moment.duration(offer?.duration_minute, 'minutes'))
+      .tz(theme.timezone_name)
+      .format('HH:mm');
+
+    return `${startHour} - ${endHour}`;
+  }
+  return '';
+};

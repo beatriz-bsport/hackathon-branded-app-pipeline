@@ -1,0 +1,15 @@
+/*  */
+/* Filter list */
+/*  */
+.bs-marketplace-filters {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bs-marketplace-filters__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -35,5 +35,9 @@ exports.default = {
   },
   calendar: {
     registered: 'Déjà inscrit(e)',
+    broadcast: 'En ligne',
+    conditions: 'Conditions',
+    description: 'Description',
+    close: 'Fermer',
   },
 };

@@ -1,0 +1,285 @@
+/*  */
+/* Activity details */
+/*  */
+.bs-activity {
+  border-radius: var(--border-radius-2);
+  background-color: var(--color-grey-200);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.bs-activity__top {
+  border-top-left-radius: var(--border-radius-2);
+  border-top-right-radius: var(--border-radius-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-activity__top__content {
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--spacing-4);
+  margin-top: var(--spacing-4);
+  gap: var(--spacing-2);
+  color: var(--color-primary-contrastText);
+}
+
+.bs-activity__top__content__title {
+  font-family: var(--h3-fontFamily);
+  font-style: normal;
+  font-weight: var(--h3-fontWeight);
+  font-size: var(--h3-fontSize);
+  mix-blend-mode: exclusion;
+  line-height: var(--h1-lineHeight);
+}
+
+.bs-activity__top__content__time {
+  display: flex;
+  gap: var(--spacing-4);
+  font-family: var(--h3-fontFamily);
+  font-style: normal;
+  mix-blend-mode: exclusion;
+  font-weight: var(--fontWeightMedium);
+}
+
+.bs-activity__top__content__time__day {
+  display: flex;
+  gap: var(--spacing-1);
+  align-items: center;
+}
+
+.bs-activity__top__content__time__hour {
+  display: flex;
+  gap: var(--spacing-1);
+  align-items: center;
+}
+
+.bs-activity__top__content__location {
+  display: flex;
+  gap: var(--spacing-1);
+  mix-blend-mode: exclusion;
+  align-items: center;
+}
+
+.bs-activity__top__content__location__address {
+  font-weight: var(--fontWeightMedium);
+}
+
+.bs-activity__top__content__status {
+  display: flex;
+  gap: var(--spacing-2);
+  height: var(--spacing-3);
+  margin-bottom: var(--spacing-10);
+}
+
+.bs-activity__top__content__status__level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-0) var(--spacing-1);
+  height: 100%;
+}
+
+.bs-activity__top__content__status__online {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-0) var(--spacing-1);
+  gap: var(--spacing-1);
+
+  background: var(--color-primary-light);
+  border-radius: var(--border-radius-1);
+}
+
+.bs-activity__top__content__status__online__text {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--fontSize);
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.15px;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  color: var(--color-primary-contrastText);
+}
+
+.bs-activity__top__content__status__online__videocam {
+  color: var(--color-primary-contrastText);
+}
+
+.bs-activity__middle {
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--spacing-4);
+  margin-right: var(--spacing-4);
+  margin-bottom: var(--spacing-1);
+  gap: var(--spacing-4);
+}
+
+.bs-activity__middle__top {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-activity__middle__top__description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  flex: 1;
+}
+
+.bs-activity__middle__top__description__title {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSize);
+}
+
+.bs-activity__middle__top__description__full {
+  font-family: var(--body1-fontFamily);
+  font-style: normal;
+  font-weight: var(--body1-fontWeightRegular);
+  font-size: var(--body1-fontSize);
+  color: var(--color-grey-main);
+}
+
+.bs-activity__middle__top__map {
+  min-height: 200px;
+  height: 200px;
+  flex: 1;
+  border-radius: var(--border-radius-1);
+  overflow: hidden;
+}
+
+.bs-activity__middle__conditions {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-activity__middle__conditions__title {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSize);
+}
+
+.bs-activity__middle__conditions__full {
+  color: var(--color-grey-main);
+  font-weight: var(--fontWeightRegular);
+  gap: var(--spacing-2);
+}
+
+li {
+  list-style-type: disc;
+}
+
+.bs-activity__middle__coach {
+  display: flex;
+  flex-direction: column;
+  font-weight: var(--fontWeightMedium);
+  gap: var(--spacing-1);
+}
+
+
+.bs-activity__middle__coach__title {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-size: var(--fontSize);
+}
+
+
+.bs-activity__middle__coach__overrider__personality {
+  opacity: 0.3;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-activity__middle__coach__overrider__personality__avatar {
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-radius: var(--spacing-8);
+}
+
+.bs-activity__middle__coach__overrider__personality__right__override {
+  font-family: var(--caption-fontFamily);
+  font-style: normal;
+  font-size: var(--caption-fontSize);
+  font-weight: var(--caption-fontWeight);
+  text-transform: capitalize;
+  color: var(--color-grey-main);
+}
+
+.bs-activity__middle__coach__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-activity__middle__coach__main__personality {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-activity__middle__coach__main__personality__avatar {
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: 50%;
+}
+
+.bs-activity__middle__coach__main__personality__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-activity__middle__coach__main__personality__right__name {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-size: var(--fontSize);
+}
+
+
+.bs-activity__middle__coach__main__personality__right__override {
+  font-family: var(--body2-fontFamily);
+  font-style: normal;
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  color: var(--color-grey-main);
+}
+
+.bs-activity__middle__coach__main__social__icon {
+  width: var(--spacing-3);
+  height: var(--spacing-3);
+  color: var(--color-grey-main)
+}
+
+.bs-activity__middle__coach__description {
+  margin-top: var(--spacing-1);
+}
+
+.bs-activity__bottom {
+  border-top: thin double var(--color-grey-400);
+}
+
+.bs-activity__bottom__content {
+  margin-top: var(--spacing-4);
+  display: flex;
+  justify-content: flex-end;
+  margin-right: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
+  gap: var(--spacing-3);
+}
+
+.bs-activity__bottom__content__closeButton {
+  color: var(--color-primary-main);
+}

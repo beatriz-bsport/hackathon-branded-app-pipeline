@@ -2512,7 +2512,13 @@
       "warningFullBooking": "Vous êtes en train de réserver un groupe de séance. Vous serez inscrits à l'ensemble des {{count}} séances de ce groupe.",
       "warningPartialBooking": "Vous êtes en train de réserver un groupe de séance. Vous n'êtes cependant pas obliger de participer à toutes les séances de ce groupe. Vous pourrez sélectionner les séances que vous souhaitez."
     },
-    "calendar": { "registered": "Déjà inscrit(e)" }
+    "calendar": {
+      "registered": "Déjà inscrit(e)",
+      "broadcast": "En ligne",
+      "conditions": "Conditions",
+      "description": "Description",
+      "close": "Fermer"
+    }
   },
   "member": {
     "search": { "createMember": "Ajouter un membre", "cancel": "Fermer" },
@@ -6235,6 +6241,7 @@
       "preview": "Aperçu",
       "componentType": {
         "calendar": "Calendrier",
+        "calendarV2": "Calendrier (nouveau design)",
         "workshop": "Ateliers",
         "privateService": "Sur rendez-vous",
         "pass": "Carte de cours",
@@ -9045,7 +9052,8 @@
         "bookOption": "Liste d'attente",
         "notAvailable": "Annulée",
         "isPast": "Passée",
-        "notBookableYet": "Bientôt"
+        "notBookableYet": "Bientôt",
+        "alreadyRegistered": "Réservée"
       },
       "sessionThisDay": "Séance ce jour :",
       "calendar": "Calendrier",
@@ -9374,6 +9382,7 @@
       "configTitle": "Mon Widget",
       "listDisplay": "Vision semaine liste",
       "calendarDisplay": "Vision semaine card (calendrier)",
+      "todayOnly": "Afficher seulement les séances du jour",
       "responsiveDisplay": "Affichage responsive",
       "cancel": "Annuler",
       "show": "Visualiser",
@@ -9401,7 +9410,10 @@
       "dialogSize": { "fullScreen": "Plein écran", "window": "Fenêtre popup" },
       "pickALanguage": "Choisir la langue par défaut",
       "languageHelper": "Le widget aura par défaut le langue sélectionné ici. Sélectionner \"Langue du navigateur\" pour que la langue du widget s'adapte automatiquement à la langue de votre client.",
-      "browserLanguage": "Langue du navigateur"
+      "browserLanguage": "Langue du navigateur",
+      "variant": "Mettre en avant",
+      "variantOption": { "activityName": "L'activité", "coach": "Le professeur", "time": "L'horaire" },
+      "groupSessionByPeriod": "Séparer matin, après midi et soir"
     }
   },
   "workshop": {

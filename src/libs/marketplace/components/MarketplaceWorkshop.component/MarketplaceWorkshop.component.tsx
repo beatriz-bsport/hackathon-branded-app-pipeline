@@ -4,17 +4,18 @@ import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/styles';
-import { Button, CircularProgress, Theme } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 
 import { CompanyTheme } from '#libs/theme/types';
-import MarketPlaceWorkshopCard from './MarketPlaceWorkshopCard.component';
+import MarketPlaceWorkshopCard from '../MarketplaceWorkshopCard.component';
 import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Offer } from '#libs/offer/types';
-import useIsVisibleOnScreen from '../../../hooks/useIsVisibleOnScreen';
+import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
 import { Level } from '#libs/level/types';
+
+import './MarketplaceWorkshop.css';
 
 type Props = {
   metaActivities: Array<MetaActivity>;
@@ -24,6 +25,7 @@ type Props = {
   offerDetailsloading: boolean;
   showOfferFilling: boolean;
   hasMoreToLoad: boolean;
+  bookedOffers: number[];
   getOffersListByMetaActivity: (id: number) => any;
   onBook: (offer: Offer) => void;
   onBookOption: (offer: Offer) => void;
@@ -36,7 +38,7 @@ type Props = {
   getOffersListByGroup: (id: number) => Offer[];
 };
 
-export const MarketplaceWorkshop: React.FC<Props> = ({
+const MarketplaceWorkshop: React.FC<Props> = ({
   metaActivities,
   theme,
   hideCoach,
@@ -44,6 +46,7 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
   offerDetailsloading,
   showOfferFilling,
   hasMoreToLoad,
+  bookedOffers,
   getOffersListByMetaActivity,
   onBook,
   onBookOption,
@@ -55,7 +58,6 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
   getGroup,
   getOffersListByGroup,
 }) => {
-  const classes = useStyles();
   const { t } = useTranslation(['marketplace']);
   const refContainer = useRef<HTMLDivElement>();
 
@@ -84,7 +86,7 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
     !hasMoreToLoad
   ) {
     return (
-      <div className={classes.centeredText}>
+      <div className="bs-worshop-page__empty-state">
         <Typography color="textSecondary">
           {t('workshop.noWorkshopAvailable')}
         </Typography>
@@ -97,21 +99,20 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
     (metaActivityloading || offersLoading)
   ) {
     return (
-      <div className={classes.centeredText}>
+      <div className="bs-worshop-page__loading">
         <CircularProgress />
       </div>
     );
   }
 
   return (
-    <div className={classes.fullWidth} ref={refContainer}>
+    <div className="bs-workshop-page__workshops" ref={refContainer}>
       <div
-        className={classnames(classes.offersWrapper, 'bs-worshop-grid', {
-          [classes.forceFlex]: refContainer?.current?.clientWidth < 600,
-          'bs-worshop-grid--column': refContainer?.current?.clientWidth < 600,
-          [classes.offersWrapperSmall]:
+        className={classnames('bs-workshop-page__workshops__lists', {
+          'bs-workshop-page__workshops__lists--column':
+            refContainer?.current?.clientWidth < 600,
+          'bs-workshop-page__workshops__lists--medium':
             refContainer?.current?.clientWidth < 1200,
-          'bs-worshop-grid--medium': refContainer?.current?.clientWidth < 1200,
         })}
       >
         {filteredMetaActivities.map((m) => {
@@ -130,6 +131,7 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
                 showOfferFilling={showOfferFilling}
                 loading={false}
                 hideCoach={hideCoach}
+                bookedOffers={bookedOffers}
                 onBook={onBook}
                 onBookOption={onBookOption}
                 offerDetailsloading={offerDetailsloading}
@@ -139,30 +141,12 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
             </div>
           );
         })}
-        {/* on reachEnd dom listener */}
-        {filteredMetaActivities.length > 0 &&
-          !metaActivityloading &&
-          hasMoreToLoad && (
-            <div ref={currentElement}>
-              <MarketPlaceWorkshopCard
-                theme={theme}
-                metaActivity={null}
-                showOfferFilling={false}
-                loading
-                getLevel={getLevel}
-                getOffersListByGroup={getOffersListByGroup}
-                hideCoach={false}
-                offers={null}
-                onBook={null}
-                onBookOption={null}
-                onLoadMoreOffer={null}
-                offerDetailsloading
-              />
-            </div>
-          )}
         {/* Should be automatic but better safe than sorry */}
-        {!offersLoading && hasMoreToLoad && (
-          <div className={classes.flex}>
+        {!offersLoading && hasMoreToLoad && filteredMetaActivities.length > 0 && (
+          <div
+            ref={currentElement}
+            className="bs-workshop-page__workshops__lists__load-more"
+          >
             <Button onClick={onEndReach}> {t('workshop.loadMore')}</Button>
           </div>
         )}
@@ -170,39 +154,5 @@ export const MarketplaceWorkshop: React.FC<Props> = ({
     </div>
   );
 };
-
-const useStyles = makeStyles((theme: Theme) => ({
-  fullWidth: {
-    width: '100%',
-  },
-  offersWrapper: {
-    display: 'grid',
-    marginTop: theme.spacing(2),
-    gap: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    gridTemplateColumns: 'repeat(auto-fill, minmax(560px, 1fr))',
-  },
-  offersWrapperSmall: {
-    gap: theme.spacing(1),
-    gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
-  },
-  forceFlex: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  flex: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  centeredText: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    paddingTop: theme.spacing(3),
-  },
-}));
 
 export default React.memo(MarketplaceWorkshop);

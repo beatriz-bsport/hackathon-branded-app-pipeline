@@ -1,0 +1,11 @@
+/*  */
+/* Level */
+/*  */
+.bs-level {
+  padding: var(--spacing-0) var(--spacing-1);
+  border-radius: var(--border-radius-2);
+  background-color: var(--level-background-color);
+  color: var(--level-color);
+  white-space: nowrap;
+  align-items: center;
+}

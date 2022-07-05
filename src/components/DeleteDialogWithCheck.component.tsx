@@ -49,6 +49,7 @@ export class DeleteDialogWithCheck extends Component<
       this.setState({
         loading: true,
       });
+
       this.props
         .checkCanDeleteObjectAPI(this.props.idToDelete)
         .then((res) => {

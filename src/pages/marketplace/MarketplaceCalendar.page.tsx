@@ -168,7 +168,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           .format(DATE_FORMAT),
         max_date: moment(this.props.otherParams.date)
           .add(1, 'month')
-          .add(2, 'weel')
+          .add(2, 'week')
           .format(DATE_FORMAT),
       },
       {

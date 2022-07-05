@@ -1,0 +1,228 @@
+/*  */
+/* Offer list Item for Group */
+/*  */
+.bs-offer-list-group-item {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background: var(--color-background-paper);
+  outline-style: solid;
+  outline-color: var(--color-grey-300);
+  outline-width: 1px;
+  padding: var(--spacing-3);
+  transition: all 0.2s;
+}
+
+.bs-offer-list-group-item--mobile {
+  padding: var(--spacing-2);
+}
+
+.bs-offer-list-group-item__offer__subtitle,
+.bs-offer-list-group-item__left__subtitle {
+  font-size: var(--body1-fontSize);
+  margin-bottom: var(--spacing-1);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.bs-offer-list-group-item__offer__coach {
+  height: var(--spacing-4);
+  width: var(--spacing-4);
+}
+.bs-offer-list-group-item__left__icon {
+  margin-left: calc(var(--spacing-1) / 2);
+  margin-right: calc(var(--spacing-1) / 2);
+}
+.bs-offer-list-group-item__left__offers,
+.bs-offer-list-group-item__left__title {
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--h5-fontSize);
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-offer-list-group-item__left__offers__emphasis {
+  color: var(--color-primary-main);
+}
+
+.bs-offer-list-group-item__right__row {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bs-offer-list-group-item__offer__filling__icon {
+  color: var(--color-text-secondary);
+  margin-right: var(--spacing-1);
+  height: var(--body1-fontSize);
+}
+
+.bs-offer-list-group-item__offer__filling {
+  color: var(--color-text-secondary);
+  display: flex;
+  font-size: var(--caption-fontSize);
+  font-weight: var(--fontWeightMedium);
+}
+
+.bs-offer-list-group-item__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bs-offer-dialog__content__buttons__book,
+.bs-offer-list-group-item__right__row__button {
+  cursor: pointer;
+  border-radius: var(--border-radius-2);
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: inherit;
+  position: relative;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  color: var(--color-primary-main);
+}
+
+.bs-offer-dialog__content__buttons__book::before,
+.bs-offer-list-group-item__right__row__button::before {
+  transition: 0.2s background-color;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+}
+
+.bs-offer-dialog__content__buttons__book:hover::before,
+.bs-offer-list-group-item__right__row__button:hover::before {
+  background-color: var(--color-primary-light);
+  border-radius: var(--border-radius-2);
+}
+
+/*  */
+/* Modal for Group offer*/
+/*  */
+
+.bs-offer-dialog {
+  position: relative;
+  max-height: 100vh;
+  min-width: 100vw;
+}
+
+/* Here not possible yet to use breakpoints from css var */
+@media (min-width: 600px) {
+  .bs-offer-dialog {
+    max-width: 80vw;
+    max-height: 80vh;
+    min-width: 60vw;
+  }
+}
+
+.bs-offer-dialog__content__inner__group {
+  font-size: var(--h5-fontSize);
+}
+
+.bs-offer-dialog__content__inner__title {
+  font-size: var(--h4-fontSize);
+  letter-spacing: 0.25;
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-3);
+}
+
+.bs-offer-dialog__content__inner__book_title {
+  font-size: var(--h5-fontSize);
+  font-weight: var(--fontWeightMedium);
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+.bs-offer-dialog__content__media {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.bs-offer-dialog__content__buttons {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--spacing-8);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #e0e5ec;
+}
+
+.bs-offer-dialog__content__buttons__cancel {
+  cursor: pointer;
+  border-radius: var(--border-radius-2);
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: inherit;
+  position: relative;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  color: var(--color-text-primary);
+}
+
+.bs-offer-dialog__content__buttons__cancel::before {
+  transition: 0.2s background-color;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+}
+
+.bs-offer-dialog__content__buttons__cancel:hover::before {
+  background-color: var(--color-grey-500);
+  border-radius: var(--border-radius-2);
+}
+
+.bs-offer-dialog__content__buttons__book--disabled {
+  cursor: inherit;
+  color: var(--color-text-secondary);
+}
+
+.bs-offer-dialog__content__buttons__book--disabled::before {
+  display: none;
+}
+
+.bs-offer-dialog__content__inner__book_list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.bs-offer-dialog__content {
+  padding-top: 0;
+  padding: 0;
+}
+
+.bs-offer-dialog__content__inner {
+  padding: var(--spacing-3);
+}

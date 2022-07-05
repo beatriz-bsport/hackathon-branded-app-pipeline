@@ -1,6 +1,7 @@
 import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_VOD,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
   EXPORTABLE_COMPONENT_TYPE_PASS,
@@ -12,6 +13,7 @@ import {
 } from '../exportable-components/constants';
 
 export const MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS = [
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
   EXPORTABLE_COMPONENT_TYPE_VOD,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
@@ -38,3 +40,13 @@ export const getMarketplaceDefaultConfig = () =>
     config: { [mc.identifier]: mc.defaultConfig },
     index,
   }));
+
+export const MARKETPLACE_PATH_TAB_CALENDAR = 'calendar';
+export const MARKETPLACE_PATH_TAB_CALENDAR_V2 = 'calendar-V2';
+export const MARKETPLACE_PATH_TAB_PASS = 'pass';
+export const MARKETPLACE_PATH_TAB_VOD = 'vod';
+export const MARKETPLACE_PATH_TAB_CONTRACT = 'subscription';
+export const MARKETPLACE_PATH_TAB_WORKSHOP = 'workshop';
+export const MARKETPLACE_PATH_TAB_PRIVATE_SERVICE = 'private-service';
+export const MARKETPLACE_PATH_TAB_SHOP = 'shop';
+export const MARKETPLACE_PATH_TAB_GIFTCARD = 'giftcard';

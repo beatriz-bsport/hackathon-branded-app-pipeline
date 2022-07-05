@@ -1058,6 +1058,7 @@ exports.default = {
       notAvailable: 'Annulée',
       isPast: 'Passée',
       notBookableYet: 'Bientôt',
+      alreadyRegistered: 'Réservée',
     },
     sessionThisDay: 'Séance ce jour :',
     calendar: 'Calendrier',

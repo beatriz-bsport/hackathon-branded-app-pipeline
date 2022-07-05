@@ -1,0 +1,179 @@
+import React from 'react';
+import { pure } from 'recompose';
+import './MarketplaceCardOfferCSSOnly.css';
+import GroupIcon from '@material-ui/icons/Group';
+import { Avatar } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles/createTheme';
+import classNames from 'classnames';
+import MaleIcon from '../../../../components/icons/MaleIcon.component';
+import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
+import MarketplaceBookButton from '../MarketplaceBookButtonCSSOnly';
+import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
+import { Offer_FULL } from '#libs/offer/types';
+import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
+import { getOfferHours } from '../../utils';
+import { Coach } from '#libs/associated-coach/types';
+
+type OwnProps = {
+  offer: Offer_FULL;
+  coach: Coach;
+  theme: Theme;
+  variant?: 'activityName' | 'coach' | 'time';
+  isRegistered: boolean;
+  showOfferFilling: boolean;
+  showOfferGender: boolean;
+  hideCoach: boolean;
+  onClickBook: (offer: Offer_FULL) => void;
+  onClickOffer: (id: number) => void;
+  onClickBookOption: (offer: Offer_FULL) => void;
+  getLevel: (id: number) => void;
+  isBookingDisabled: boolean;
+};
+
+type Props = OwnProps;
+
+const MarketPlaceCardOfferV2 = (props: Props) => {
+  const isVariantTimeHighlighted = props.variant === 'time';
+  const isVariantCoachHighlighted = props.variant === 'coach';
+
+  const { offer, coach } = props;
+  const metaActivity = offer.meta_activity;
+
+  const handleClick = () => {
+    props.onClickOffer(offer.id);
+  };
+  const handleBook = () => {
+    props.onClickBook(offer);
+  };
+
+  const handleBookOption = () => {
+    props.onClickBookOption(offer);
+  };
+
+  return (
+    <button
+      type="button"
+      className={classNames({
+        'bs-card-offer': true,
+        'bs-card-offer--disabled': props.isBookingDisabled,
+      })}
+      onClick={handleClick}
+      disabled={props.isBookingDisabled}
+    >
+      <div className="bs-card-offer__content">
+        <div className="bs-card-offer__content__top">
+          <div
+            className={classNames('bs-card-offer__content__title', {
+              'bs-card-offer__content__title--time-highlighted':
+                isVariantTimeHighlighted,
+              'bs-card-offer__content__title--coach-highlighted':
+                isVariantCoachHighlighted,
+            })}
+          >
+            {metaActivity.name}
+          </div>
+          <div
+            className={classNames('bs-card-offer__content__time', {
+              'bs-card-offer__content__time--time-highlighted':
+                isVariantTimeHighlighted,
+              'bs-card-offer__content__time--coach-highlighted':
+                isVariantCoachHighlighted,
+            })}
+          >
+            {getOfferHours(offer, offer.establishment, props.theme)}
+          </div>
+          <div className="bs-card-offer__content__status">
+            <MarketplaceLevel
+              customLevel={props.getLevel(offer.custom_level)}
+              className="bs-card-offer__content__status__level"
+            />
+            {metaActivity && metaActivity.is_broadcast ? (
+              <MarketplaceBroadcast />
+            ) : (
+              ''
+            )}
+          </div>
+
+          <div className="bs-card-offer__content__establishment">
+            {offer.establishment.title}
+          </div>
+          {!props.hideCoach ? (
+            <div
+              className={classNames('bs-card-offer__content__coach', {
+                'bs-card-offer__content__coach--time-highlighted':
+                  isVariantTimeHighlighted,
+                'bs-card-offer__content__coach--coach-highlighted':
+                  isVariantCoachHighlighted,
+              })}
+            >
+              <div
+                className={classNames('bs-card-offer__content__coach__name', {
+                  'bs-card-offer__content__coach__name--coach-highlighted':
+                    isVariantCoachHighlighted,
+                })}
+              >
+                {coach.name}
+              </div>
+              <div>
+                <Avatar
+                  src={coach ? coach.photo : ''}
+                  className={classNames(
+                    'bs-card-offer__content__coach__avatar',
+                    {
+                      'bs-card-offer__content__coach__avatar--coach-highlighted':
+                        isVariantCoachHighlighted,
+                    },
+                  )}
+                />
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
+        <div className="bs-card-offer__content__bottom">
+          <div className="bs-card-offer__content__bottom__left">
+            {props.showOfferGender ? (
+              <div className="bs-card-offer__content__bottom__left__gender">
+                <MaleIcon />
+                <div>{offer.male}</div>
+                <FemaleIcon />
+                <div>{offer.female}</div>
+                {offer.otherGender ? <div>+{offer.otherGender}</div> : ''}
+              </div>
+            ) : (
+              ''
+            )}
+            {props.showOfferFilling ? (
+              <div className="bs-card-offer__content__bottom__left__group">
+                <GroupIcon className="bs-card-offer__icon" />
+                <div className="bs-card-offer__content__bottom__left__group__number">
+                  {props.showOfferFilling
+                    ? `  ${offer.tot_slots}/${offer.effectif}`
+                    : ''}{' '}
+                </div>
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+
+          <MarketplaceBookButton
+            offer={offer}
+            onClickBook={(ev) => {
+              ev.stopPropagation();
+              handleBook();
+            }}
+            onClickBookOption={(ev) => {
+              ev.stopPropagation();
+              handleBookOption();
+            }}
+            isRegistered={props.isRegistered}
+          />
+        </div>
+      </div>
+    </button>
+  );
+};
+
+export default pure(MarketPlaceCardOfferV2);

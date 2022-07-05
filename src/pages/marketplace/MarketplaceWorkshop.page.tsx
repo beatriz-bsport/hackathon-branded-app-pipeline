@@ -9,7 +9,7 @@ import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
 
 import classNames from 'classnames';
-import { isWidthDown, makeStyles, Theme } from '@material-ui/core';
+import { isWidthDown } from '@material-ui/core';
 
 import {
   snackbarSuccess as snackbarSuccessAction,
@@ -30,16 +30,19 @@ import {
   getEstablishmentById,
 } from '#libs/establishment/selectors';
 import { getCoachById, getCoaches } from '#libs/associated-coach/selectors';
-import { getOffersListByMetaActivity as getOffersListByMetaActivitySelector } from '#libs/offer/selectors';
 import {
   getWorkshops,
   getWorkshopsByAllIds,
 } from '#libs/meta-activity/selectors';
 import {
+  getBookedOffers,
+  getOffersListByMetaActivity as getOffersListByMetaActivitySelector,
+} from '#libs/offer/selectors';
+import {
   getGroupByIdCurried,
   getOffersListByGroup as getOffersListByGroupSelector,
 } from '#libs/group-offer/selectors';
-import MarketplaceFilterComponent from '#libs/marketplace/components/MarketplaceFilter.component';
+import MarketplaceFilters from '#libs/marketplace/components/MarketplaceFilterCSSOnly';
 import { RootState } from '../../reducers';
 import themeSelectors from '#libs/theme/selectors';
 
@@ -54,6 +57,7 @@ import {
   fetchMarketplaceOfferByMetaActivityList as fetchMarketplaceOfferByMetaActivityListAction,
   fetchOfferBulk as fetchOfferBulkAction,
   resetMarketplaceOfferByMetaActivityList as resetMarketplaceOfferByMetaActivityListAction,
+  fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
 } from '#libs/offer/actions';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -62,6 +66,9 @@ import { Offer } from '#libs/offer/types';
 import { buildUrlParams } from '../../http';
 import { convertMarketplaceFilterForMetaActivityCall } from '#libs/meta-activity/utils';
 import { useWidth } from '../../hooks/useWidth';
+
+import './MarketplaceWorkshop.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 
@@ -91,6 +98,8 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   establishmentGroupList,
   customLevels,
   getOffersListByMetaActivity,
+  authenticated,
+  bookedOffers,
   fetchEstablishments,
   fetchWorkshopList,
   fetchAssociatedCoachesList,
@@ -110,9 +119,8 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   establishmentLoading,
   goToBook: bookWidget,
   allWorkshops,
+  fetchOfferRegisteredIds,
 }) => {
-  const classes = useStyles();
-
   const [displayedWorkshops, setDisplayedWorkshops] = useState(
     BATCH_SIZE_FOR_META_ACTIVITY,
   );
@@ -136,6 +144,12 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       company: companyId,
     });
   }, [companyId, fetchAllEstablishmentGroup, fetchLevelList]);
+
+  useEffect(() => {
+    if (authenticated) {
+      fetchOfferRegisteredIds();
+    }
+  }, [authenticated, fetchOfferRegisteredIds]);
 
   const fetchOfferByMetaActivity = useCallback(
     (id: number, page: number = 1) => {
@@ -222,11 +236,12 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   const goToBook = React.useCallback(
     (offer: Offer) => {
+      Analytics.workshopClick(offer);
       if (bookWidget) {
         bookWidget(offer.id, companyId);
         return;
       }
-      Analytics.workshopClick(offer);
+
       pushRouter(
         `/customer/payment/offer/${offer.id}/${buildUrlParams({
           membership: companyId,
@@ -265,12 +280,11 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(classes.container, 'bs-workshop-page', {
-        [classes.containerMobile]: isMobile,
+      className={classNames('bs-workshop-page', {
         'bs-workshop-page--mobile': isMobile,
       })}
     >
-      <MarketplaceFilterComponent
+      <MarketplaceFilters
         coaches={coaches}
         establishments={establishments}
         hideCoach={theme && theme.hideCoach}
@@ -302,22 +316,11 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         getOffersListByMetaActivity={getOffersListByMetaActivity}
         onEndReach={onFetchMore}
         theme={theme}
+        bookedOffers={bookedOffers}
       />
     </div>
   );
 };
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    padding: theme.spacing(2),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-  },
-  containerMobile: {
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-}));
 
 const connector = connect(
   (state: RootState) => ({
@@ -344,6 +347,7 @@ const connector = connect(
     customLevels: getActiveCustomLevels(state),
     establishmentLoading: state.establishment.loading,
     coachLoading: state.coach.loading,
+    authenticated: state.auth.authenticated,
   }),
   {
     fetchWorkshopList: fetchWorkshopListAction,
@@ -360,12 +364,15 @@ const connector = connect(
     snackbarError: snackbarErrorAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchLevelList: fetchLevelListAction,
+    fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
+
     pushRouter: push,
   },
 );
 
 // Used in the widget
 export const MarketplaceWorkshopBase = compose<any, OwnProps>(
+  marketplaceCssHoc(),
   withTranslation(['booking', 'titles']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceWorkshop'),
@@ -375,7 +382,13 @@ export const MarketplaceWorkshopBase = compose<any, OwnProps>(
 
 // Used in marketplace
 export default compose(
+  marketplaceCssHoc(),
   withRouter,
+  // avoid conflict with widget
+  connect((state: RootState) => ({
+    bookedOffers: getBookedOffers(state),
+  })),
+
   withReplaceQueryParams(
     [
       'f_coaches',

@@ -1,15 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 
-import { Button, makeStyles, Theme } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import MarketplaceOfferListItem from './MarketPlaceOfferListItem.component';
-import { formatMinutes } from '../../../utils/datetime';
+import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
+import { formatMinutes } from '../../../../utils/datetime';
 import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
 import UnfoldableText from '#components/typo/UnfoldableText.component';
 import { CompanyTheme } from '#libs/theme/types';
@@ -17,7 +14,9 @@ import { Offer } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
-import { MarketplaceGroupOfferListItem } from './MarketPlaceGroupOfferListItem.component';
+import MarketplaceGroupOfferListItem from '../MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
+
+import './MarketplaceWorkshopCard.css';
 
 export type Props = {
   metaActivity: MetaActivity;
@@ -30,6 +29,7 @@ export type Props = {
   showOfferFilling: boolean;
   loading: boolean;
   offerDetailsloading: boolean;
+  bookedOffers: number[];
   hideCoach: boolean;
   onBookOption: (offer: Offer) => void;
   onBook: (offer: Offer) => void;
@@ -49,6 +49,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
   offerDetailsloading,
   hideCoach,
   offers,
+  bookedOffers,
   onBookOption,
   onBook,
   onLoadMoreOffer,
@@ -59,31 +60,18 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
   getOffersListByGroup,
 }) => {
   const { t } = useTranslation(['marketplace', 'datetime']);
-  const classes = useStyles();
 
   if (loading && !offers?.items?.length > 0) {
     return (
-      <Card
-        className={classNames(classes.container, 'bs-workshop-card--loading')}
-      >
+      <div className="bs-workshop-card bs-workshop-card--loading">
         <Skeleton animation="wave" variant="rect" width="100%">
           <div>
-            <div
-              className={classNames(
-                classes.mediaWrapper,
-                'bs-workshop-card__cover--loading',
-              )}
-            />
+            <div className="bs-workshop-card__cover--loading" />
           </div>
         </Skeleton>
 
-        <CardContent className="bs-workshop-card__content--loading">
-          <div
-            className={classNames(
-              classes.title,
-              'bs-workshop-card__content__title--loading',
-            )}
-          >
+        <div className="bs-workshop-card__content bs-workshop-card__content--loading">
+          <div className="bs-workshop-card__content__title--loading">
             <Skeleton animation="wave" width="80%" height={40} variant="text" />
           </div>
 
@@ -91,28 +79,15 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
             animation="wave"
             variant="text"
             height={128}
-            className={classNames(
-              classes.description,
-              'bs-workshop-card__content__description--loading',
-            )}
+            className="bs-workshop-card__content__description--loading"
           />
 
-          <div
-            className={classNames(
-              classes.offerListCardTitleWrapper,
-              'bs-workshop-card__offer-list__title-wrapper--loading',
-            )}
-          >
+          <div className="bs-workshop-card__offer-list__title-wrapper--loading">
             <Skeleton animation="wave" width="80%" height={40} variant="text" />
           </div>
-        </CardContent>
+        </div>
 
-        <div
-          className={classNames(
-            classes.offerList,
-            'bs-workshop-card__offer-list',
-          )}
-        >
+        <div className="bs-workshop-card__offer-list">
           {Array(3)
             .fill(0)
             .map((_, index) => {
@@ -127,75 +102,45 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               );
             })}
         </div>
-        <div
-          className={classNames(
-            classes.conditions,
-            'bs-workshop-card__offer-list__offer__conditions',
-          )}
-        >
+        <div className="bs-workshop-card__offer-list__offer__conditions">
           <Skeleton animation="wave" variant="text" width="20%" />
         </div>
-      </Card>
+      </div>
     );
   }
 
   return (
-    <Card className={classNames(classes.container, 'bs-workshop-card')}>
-      <div
-        className={classNames(classes.mediaWrapper, 'bs-workshop-card__cover')}
-      >
+    <div className="bs-workshop-card">
+      <div className="bs-workshop-card__cover">
         <CardMedia
           component="img"
           image={metaActivity.cover_main}
           alt={metaActivity.alt_cover_main}
-          className={classes.fill}
+          className="bs-workshop-card__cover__image"
         />
       </div>
 
-      <CardContent className="bs-workshop-card__content">
-        <div
-          className={classNames(
-            classes.title,
-            'bs-workshop-card__content__title',
-          )}
-        >
+      <div className="bs-workshop-card__content">
+        <div className="bs-workshop-card__content__title">
           {metaActivity.name}
         </div>
 
         <UnfoldableText
           text={metaActivity.description}
           maxLines={6}
-          className={classNames(
-            classes.description,
-            'bs-workshop-card__content__description',
-          )}
+          className="bs-workshop-card__content__description"
           ids={{
             button: 'bs-workshop-card__content__description__unfold',
           }}
         />
-        <div
-          className={classNames(
-            classes.offerListCardTitleWrapper,
-            'bs-workshop-card__offer-list__title-wrapper',
-          )}
-        >
-          <div
-            className={classNames(
-              classes.offerListTitle,
-              'bs-workshop-card__offer-list__title',
-            )}
-          >
+        <div className="bs-workshop-card__offer-list__title-wrapper">
+          <div className="bs-workshop-card__offer-list__title">
             {t('marketplace:workshop.card.bookTitle')}
           </div>
         </div>
-      </CardContent>
+      </div>
 
-      <div
-        className={classNames(
-          classes.offerList,
-          'bs-workshop-card__offer-list',
-        )}
-      >
+      <div className="bs-workshop-card__offer-list">
         {offers?.items?.map((offer) => {
           if (offer.group) {
             const group = getGroup(offer.group);
@@ -210,12 +155,14 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                   theme={theme}
                   getEstablishment={getEstablishment}
                   getCoach={getCoach}
+                  getLevel={getLevel}
                   hideCoach
                   loading
                   onBookOption={() => {}}
                   onBook={() => {}}
                   offers={[]}
                   metaActivity={metaActivity}
+                  bookedOffers={[]}
                 />
               );
 
@@ -235,6 +182,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 metaActivity={metaActivity}
                 onBookOption={onBookOption}
                 onBook={onBook}
+                bookedOffers={bookedOffers}
               />
             );
           }
@@ -250,11 +198,15 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               coach={getCoach(offer.coach_override || offer.coach)}
               customLevel={getLevel(offer.custom_level)}
               showOfferFilling={showOfferFilling}
+              getLevel={getLevel}
               theme={theme}
               hideCoach={hideCoach}
               loading={offerDetailsloading}
               onBookOption={onBookOption}
               onBook={onBook}
+              isRegistered={
+                bookedOffers?.length ? bookedOffers.includes(offer.id) : false
+              }
             />
           );
         })}
@@ -263,10 +215,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
             onClick={() => {
               onLoadMoreOffer(offers.nextPage);
             }}
-            className={classNames(
-              classes.loadMore,
-              'bs-workshop-card__offer-list__offer__load-more',
-            )}
+            className="bs-workshop-card__offer-list__offer__load-more"
           >
             {t('marketplace:workshop.card.loadMore')}
           </Button>
@@ -284,108 +233,13 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               />
             ))}
       </div>
-      <div
-        className={classNames(
-          classes.conditions,
-          'bs-workshop-card__offer-list__offer__conditions',
-        )}
-      >
+      <div className="bs-workshop-card__offer-list__offer__conditions">
         {t('metaActivity:settings.lastDiscardBeforeMinutes', {
           m: formatMinutes(metaActivity.last_discard_minutes, t),
         })}
       </div>
-    </Card>
+    </div>
   );
 };
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    width: '100%',
-    borderRadius: 20,
-    boxShadow: theme.shadows[5],
-  },
-  mediaWrapper: {
-    position: 'relative',
-    width: '100%',
-    paddingTop: '56.25%',
-  },
-  fillLoading: {
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  fill: {
-    objectFit: 'cover',
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  title: {
-    fontWeight: 700,
-    fontSize: 24,
-    color: theme.palette.text.primary,
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  iconDuration: {
-    fill: theme.palette.text.secondary,
-    height: 20,
-  },
-  rowText: {
-    fontSize: 12,
-    marginLeft: theme.spacing(1),
-    color: theme.palette.text.secondary,
-  },
-  description: {
-    fontSize: 14,
-    lineHeight: 1.6,
-    marginTop: theme.spacing(4),
-    whiteSpace: 'break-spaces',
-  },
-  buttonFlatPrimary: {
-    fontSize: 16,
-    color: theme.palette.primary.main,
-    padding: theme.spacing(1),
-  },
-  offerListTitle: {
-    fontWeight: 700,
-    fontSize: 18,
-    color: theme.palette.text.primary,
-    marginTop: theme.spacing(4),
-  },
-  offerListCardTitleWrapper: {
-    display: 'flex',
-    marginBottom: theme.spacing(1),
-  },
-  offerListCardTitle: {
-    fontWeight: 700,
-    fontSize: 18,
-    alignSelf: 'center',
-  },
-  offerList: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  conditions: {
-    marginLeft: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    fontSize: 14,
-    color: theme.palette.text.secondary,
-    marginTop: theme.spacing(2),
-  },
-  loadMore: {
-    color: theme.palette.primary.main,
-  },
-}));
 
 export default React.memo(MarketplaceWorkshopCard);

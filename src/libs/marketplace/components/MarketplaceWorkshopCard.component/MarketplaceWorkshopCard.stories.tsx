@@ -1,7 +1,9 @@
 import React from 'react';
 import MarketPlaceWorkshopCard, {
   Props,
-} from './MarketPlaceWorkshopCard.component';
+} from './MarketplaceWorkshopCard.component';
+import { coachFactory } from '#libs/associated-coach/factories';
+import { defaultThemeParams } from '../../../../theme';
 
 const metaActivity = {
   id: 36497,
@@ -30,6 +32,94 @@ const metaActivity = {
   auto_discard_min_bookings_nb: 1,
   ordering_in_category: 516,
   category: null,
+};
+
+const offer = {
+  id: 364927,
+  company: 89,
+  activity: 125631,
+  level: 1,
+  available: true,
+  coach_override: false,
+  coach: {
+    firstname: 'Stessy',
+    lastname: 'Leduc',
+    name: 'Stessy Leduc',
+    gender: 'F',
+    rating: '-1.00',
+    id: 21828,
+    birthday: '1988-08-17',
+    photo: 'https://d2r95z4j5cc9cx.cloudfront.net/user/46_MnjAD5z.jpg',
+    description:
+      "Ancienne journaliste, c’est lors d’un long voyage initiatique autour du monde il y a 5 ans, que j’ai découvert le yoga et la spiritualité. Je me suis alors formée à différentes pratiques pour devenir professeure de Kundalini Yoga, de Shakti dance (le yoga de la danse) et animatrice d'ateliers méditation et philosophie dans les écoles, avec l’association SEVE, fondée par l’écrivain et philosophe Frederic Lenoir.\r\n\r\nDepuis, je donne des cours dans différents studios à Nantes, à Paris et j’organise des retraites pour les femmes dans plusieurs régions de France. Passionnée par la puissance du féminin sacré, je propose aussi des cercles de femmes et des rituels autour de cette thématique. ",
+    phone: '+33768326992',
+    color: '',
+    email: 'stessyleduc@gmail.com',
+    associated_coach_id: 30955,
+    associatedcoach_set: [30955, 22871],
+    disabled: false,
+    default_payment_rule_id: null,
+    coach_payment_rule_id: null,
+    workshop_coach_payment_rule_id: null,
+    private_coach_payment_rule_id: null,
+    coach_payment_rule_group_id: null,
+    private_slots_coach_payment_rules: [],
+    facebook_url: '',
+    instagram_url: '',
+    has_access_to_coach_space: false,
+  },
+  partner_max_booking_count: 6,
+  establishment: {
+    id: 154,
+    title: 'LA GRANDE SALLE DU CENTRE ELEMENT',
+    cover:
+      'https://d2r95z4j5cc9cx.cloudfront.net/etablissement/Horizontale_crocodile_Suspensions_gong.jpg',
+    location: {
+      address: '7 Rue des Guillemites, 75004 Paris, France',
+      address_line_1: '7 Rue des Guillemites',
+      address_line_2: '',
+      zipcode: '75004',
+      city: 'Paris',
+      state: '',
+      country: 'France',
+      country_code: 'FR',
+      geometry: 'SRID=4326;POINT (48.8584229 2.3574909)',
+      latitude: 48.8584229,
+      longitude: 2.3574909,
+    },
+    specific_info:
+      'Le Centre Elément a pour vocation de proposer une approche holistique du bien-être, en travaillant sur le corps physique, émotionnel et énergétique. Amplifiez votre expérience en ajoutant à votre pratique régulière : Un air purifié et énergisant, une eau vivifiée, des technologies innovantes.',
+    easy_access: { id: 3539, lines: ['M1', 'M11'], name: 'Hôtel De Ville' },
+    associatedestablishment_set: [52],
+    tzname: 'Europe/Paris',
+    practical_info: 'porte en verre sur rue',
+    capacity: 30,
+    on_booking_notification: [],
+    disabled: false,
+    has_next_slots: true,
+    establishment_billing_group_id: null,
+  },
+  credit_price_override: 1,
+  credit_price: 1,
+  date_start: '2022-04-30T14:30:00+02:00',
+  duration_minute: 150,
+  effectif: 30,
+  establishment_override: null,
+  recurrence_id: '4879da5d-fdec-47d1-a507-985a072d63a5',
+  waiting_list_max_size: 5,
+  waiting_list_disabled: false,
+  bookings: [],
+  booking_options: [],
+  meta_activity_color: '',
+  tot_slots: 0,
+  validated_booking_count: 0,
+  full: true,
+  is_waiting_list_full: false,
+  timezone_name: 'Europe/Paris',
+  room_blueprint: null,
+  coach_payment_rule_id: 78,
+  available_on_partnership: true,
+  manager_only: false,
 };
 
 const offers = {
@@ -225,6 +315,15 @@ ListState.args = {
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
+  theme: defaultThemeParams,
+  getCoach: coachFactory,
+  getEstablishment: () => offer.establishment,
+  getLevel: (id: number) => {
+    id: id;
+    company: 0;
+    name: 'company name for demo';
+    color: '#ff0000';
+  },
 };
 
 export const LoadingState = CustomTemplate.bind({});

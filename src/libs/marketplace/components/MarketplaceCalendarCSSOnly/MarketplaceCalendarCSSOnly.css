@@ -1,0 +1,60 @@
+/*  */
+/* Marketplace Page */
+/*  */
+.bs-calendar {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-6);
+  gap: var(--spacing-5)
+}
+
+.bs-calendar--loading {
+  padding: var(--spacing-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-calendar--no-offer {
+  display: flex;
+  justify-content: center;
+}
+
+.bs-calendar--no-offer--no-next {
+  margin-top: var(--spacing-12);
+  align-items: center;
+  display: flex;
+  gap: var(--spacing-2);
+  background-color: var(--color-grey-200);
+  border-radius: var(--border-radius-4);
+}
+
+.bs-calendar--no-offer--no-next__icon {
+  margin: var(--spacing-2);
+}
+
+.bs-calendar--no-offer--no-next__text {
+  margin-right: var(--spacing-2);
+}
+
+.bs-calendar--no-offer--yes-next {
+  margin-top: var(--spacing-12);
+  align-items: center;
+  display: flex;
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+  border-radius: var(--border-radius-4);
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.bs-calendar--no-offer--yes-next__icon {
+  margin: var(--spacing-2);
+}
+
+.bs-calendar--no-offer--yes-next__text {
+  font-weight: var(--fontWeightBold);
+  margin-right: var(--spacing-2);
+  color: var(--color-primary-contrastText);
+}

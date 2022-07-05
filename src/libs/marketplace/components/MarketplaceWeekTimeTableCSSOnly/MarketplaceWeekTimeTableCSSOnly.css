@@ -1,0 +1,140 @@
+/*  */
+/* Marketplace time table */
+/*  */
+.bs-week {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-2);
+}
+
+.bs-week-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.bs-week__header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  flex-wrap: noWrap;
+  min-width: 65%;
+}
+
+.bs-week__header__date--is-abled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.bs-week__header__date--is-disabled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: none;
+  color: black;
+}
+
+.bs-week__header__date__weekDay {
+  font-weight: var(--fontFamily);
+  font-size: var(--fontSize);
+  font-weight: var(--fontWeightLight);
+  text-transform: capitalize;
+  color: var(--color-grey-main);
+}
+
+.bs-week__header__date__weekDay--is-selected {
+  color: var(--color-primary-main);
+}
+
+.bs-week__header__date__monthDay {
+  font-weight: var(--fontFamily);
+  font-size: var(--h4-fontSize);
+  height: var(--spacing-5);
+  align-items: center;
+  font-weight: var(--fontWeightBold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-week__header__date__dots {
+  display: flex;
+  gap: var(--spacing-1) / 2;
+}
+
+.bs-week__header__date__monthDay--is-selected {
+  background-color: var(--color-primary-main);
+  border-radius: var(--spacing-4);
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  color: var(--color-primary-contrastText);
+}
+
+.bs-week__listMode__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 870px;
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
+  gap: var(--spacing-5);
+  border-bottom: thin var(--color-grey-100);
+}
+
+.bs-week__listMode__content__day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-width: 65%;
+}
+
+.bs-week__listMode__content__day__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: flex-start;
+  font-weight: var(--fontFamily);
+  font-size: var(--fontSize);
+  text-transform: capitalize;
+}
+
+.bs-week__cardMode__period {
+  display: flex;
+}
+
+.bs-week__cardMode__period__button {
+  margin-left: var(--spacing-1);
+}
+
+.bs-week__cardMode__sessionsGroup {
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-week__cardMode__offerRow {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 14.2%);
+  gap: var(--spacing-1);
+  align-items: stretch;
+  justify-content: space-between;
+  padding-right: var(--spacing-8);
+}
+
+.bs-week__cardMode__offerRow__item {
+  flex-grow: 1;
+  flex-basis: 150px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.bs-week__cardMode__dayPart {
+  font-weight: var(--fontFamily);
+  font-size: var(--fontSize);
+  font-weight: var(--fontWeightLight);
+  text-transform: uppercase;
+}

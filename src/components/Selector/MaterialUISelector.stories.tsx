@@ -163,6 +163,15 @@ DefaultMultiSelectSelectedWithShowMore.args = {
   value: [options[1], options[2], options[3], options[4], options[5]],
 };
 
+export const DefaultMultiSelectSelectedWithShowMore3 = CustomTemplate.bind({});
+
+DefaultMultiSelectSelectedWithShowMore3.args = {
+  ...defaultOption,
+  isMulti: false,
+  defaultNumberShown: 3,
+  value: [options[1], options[2], options[3], options[4], options[5]],
+};
+
 export const MultiSelectCustomChip = CustomTemplate.bind({});
 
 MultiSelectCustomChip.args = {

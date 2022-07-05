@@ -1,0 +1,20 @@
+/*  */
+/* Broadcast button */
+/*  */
+.bs-broadcast {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-0) var(--spacing-1);
+  gap: var(--spacing-1);
+  background: var(--color-primary-main);
+  border-radius: var(--border-radius-1);
+}
+
+.bs-broadcast__text {
+  color: var(--color-primary-contrastText);
+  order: 1;
+}
+
+.bs-broadcast__videocam {
+  color: var(--color-primary-contrastText);
+}

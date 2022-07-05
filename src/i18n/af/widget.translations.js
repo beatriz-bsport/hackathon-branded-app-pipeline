@@ -6,6 +6,7 @@ exports.default = {
     configTitle: 'Mon Widget',
     listDisplay: 'Vision semaine liste',
     calendarDisplay: 'Vision semaine card (calendrier)',
+    todayOnly: 'Afficher seulement les séances du jour',
     responsiveDisplay: 'Affichage responsive',
     cancel: 'Annuler',
     show: 'Visualiser',
@@ -43,5 +44,12 @@ exports.default = {
     languageHelper:
       'Le widget aura par défaut le langue sélectionné ici. Sélectionner "Langue du navigateur" pour que la langue du widget s\'adapte automatiquement à la langue de votre client.',
     browserLanguage: 'Langue du navigateur',
+    variant: 'Mettre en avant',
+    variantOption: {
+      activityName: "L'activité",
+      coach: 'Le professeur',
+      time: "L'horaire",
+    },
+    groupSessionByPeriod: 'Séparer matin, après midi et soir',
   },
 };

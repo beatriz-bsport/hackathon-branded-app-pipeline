@@ -1,4 +1,7 @@
+import Config from '../../config';
+
 export const EXPORTABLE_COMPONENT_TYPE_VOD = 'vod';
+export const EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 = 'calendarV2';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR = 'calendar';
 export const EXPORTABLE_COMPONENT_TYPE_WORKSHOP = 'workshop';
 export const EXPORTABLE_COMPONENT_TYPE_PASS = 'pass';
@@ -13,16 +16,22 @@ export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
   'paymentPackTemplate';
 
 export const EXPORTABLE_COMPONENTS = [
-  {
-    identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
-    label: 'marketplace.calendar',
-    defaultConfig: {
-      coaches: [],
-      establishments: [],
-      metaActivities: [],
-      levels: [],
-    },
-  },
+  ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+    ? [
+        {
+          identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
+          label: 'marketplace.calendar',
+          defaultConfig: {
+            coaches: [],
+            establishments: [],
+            metaActivities: [],
+            levels: [],
+            variant: null,
+            groupSessionByPeriod: true,
+          },
+        },
+      ]
+    : []),
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
     label: 'marketplace.workshop',
@@ -81,5 +90,15 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
     label: 'loginButton',
+  },
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+    label: 'marketplace.calendar',
+    defaultConfig: {
+      coaches: [],
+      establishments: [],
+      metaActivities: [],
+      levels: [],
+    },
   },
 ];

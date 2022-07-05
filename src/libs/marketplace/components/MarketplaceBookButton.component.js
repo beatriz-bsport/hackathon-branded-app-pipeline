@@ -68,7 +68,7 @@ const MarketplaceBookButton = (props: Props) => {
         className,
       )}
     >
-      <div>
+      <>
         <Hidden smUp>
           {!offer.available ? (
             <CancelIcon color={colors.orange} />
@@ -83,7 +83,7 @@ const MarketplaceBookButton = (props: Props) => {
               : '')}
         </Hidden>
         {props.showOfferGender && showGender()}
-      </div>
+      </>
     </Button>
   );
 };

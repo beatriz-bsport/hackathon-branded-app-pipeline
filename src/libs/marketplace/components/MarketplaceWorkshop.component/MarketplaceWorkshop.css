@@ -1,0 +1,40 @@
+/*  */
+/* Workshop page */
+/*  */
+.bs-workshop-page__workshops {
+  width: 100%;
+}
+
+.bs-workshop-page__workshops__lists {
+  display: grid;
+  margin-top: var(--spacing-2);
+  gap: var(--spacing-2);
+  padding-left: var(--spacing-2);
+  padding-right: var(--spacing-2);
+  grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
+}
+
+.bs-workshop-page__workshops__lists--medium {
+  gap: var(--spacing-1);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.bs-workshop-page__workshops__lists--column {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-worshop-page__empty-state,
+.bs-worshop-page__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: var(--spacing-3);
+}
+
+.bs-workshop-page__workshops__lists__load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

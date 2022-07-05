@@ -1,0 +1,74 @@
+/*  */
+/* Workshop Card */
+/*  */
+.bs-workshop-card {
+  width: 100%;
+  border-radius: var(--border-radius-5);
+  box-shadow: var(--shadow-5);
+  background-color: var(--color-background-paper);
+  padding-bottom: var(--spacing-1);
+  overflow: hidden;
+}
+
+.bs-workshop-card__cover {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.bs-workshop-card__cover__image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.bs-workshop-card__content {
+  padding-left: var(--spacing-2);
+  padding-right: var(--spacing-2);
+}
+
+.bs-workshop-card__content__title {
+  font-weight: var(--fontWeightBold);
+  font-size: var(--h4-fontSize);
+  color: var(--color-text-primary);
+}
+
+.bs-workshop-card__content__description {
+  font-size: var(--body2-fontSize);
+  line-height: 1.6;
+  margin-top: var(--spacing-4);
+  white-space: break-spaces;
+}
+
+.bs-workshop-card__offer-list__title {
+  font-weight: var(--fontWeightBold);
+  font-size: var(--h5-fontSize);
+  color: var(--color-text-primary);
+  margin-top: var(--spacing-4);
+}
+
+.bs-workshop-card__offer-list__title-wrapper {
+  display: flex;
+  margin-bottom: var(--spacing-1);
+}
+
+.bs-workshop-card__offer-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-workshop-card__offer-list__offer__conditions {
+  font-size: var(--body2-fontSize);
+  margin-left: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-2);
+}
+
+.bs-workshop-card__offer-list__offer__load-more {
+  color: var(--color-primary-main);
+}

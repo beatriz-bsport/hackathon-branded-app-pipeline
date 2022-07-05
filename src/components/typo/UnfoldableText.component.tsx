@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
 
@@ -7,11 +8,12 @@ const UnfoldableText: React.FC<{
   text: string;
   maxLines: number;
   className?: string;
+  buttonClassName?: string;
   id?: string;
   ids?: {
     button?: string;
   };
-}> = ({ text, maxLines, className, id, ids }) => {
+}> = ({ text, maxLines, className, buttonClassName, id, ids }) => {
   const { t } = useTranslation(['common']);
   const classes = useStyles();
 
@@ -65,7 +67,7 @@ const UnfoldableText: React.FC<{
           onClick={() => {
             setisOpen(!isOpen);
           }}
-          className={classes.showMore}
+          className={classNames(buttonClassName, classes.showMore)}
           id={ids?.button}
         >
           {t(isOpen ? 'text.showLessText' : 'text.showMoreText')}

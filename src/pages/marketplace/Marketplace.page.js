@@ -79,6 +79,17 @@ import type { RootState } from '../../reducers';
 import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
 import { getMyControlableMemberList } from '../../libs/relationship/selectors';
 import { fetchMyControlableMemberList } from '../../libs/relationship/actions';
+import {
+  MARKETPLACE_PATH_TAB_CALENDAR,
+  MARKETPLACE_PATH_TAB_CALENDAR_V2,
+  MARKETPLACE_PATH_TAB_PASS,
+  MARKETPLACE_PATH_TAB_VOD,
+  MARKETPLACE_PATH_TAB_CONTRACT,
+  MARKETPLACE_PATH_TAB_WORKSHOP,
+  MARKETPLACE_PATH_TAB_PRIVATE_SERVICE,
+  MARKETPLACE_PATH_TAB_SHOP,
+  MARKETPLACE_PATH_TAB_GIFTCARD,
+} from '#libs/marketplace/constants';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -92,6 +103,9 @@ const MarketplaceShopPage = asyncComponent(() =>
 );
 const MarketplaceCalendarPage = asyncComponent(() =>
   import('./MarketplaceCalendar.page'),
+);
+const MarketplaceCalendarPageV2 = asyncComponent(() =>
+  import('./MarketplaceCalendarCSSOnly.page'),
 );
 const MarketplaceWorkshopPage = asyncComponent(() =>
   import('./MarketplaceWorkshop.page'),
@@ -172,15 +186,6 @@ type State = {
   currentBasketOpen: boolean,
   loginDialogOpen: boolean,
 };
-
-const TAB_CALENDAR = 'calendar';
-const TAB_PASS = 'pass';
-const TAB_VOD = 'vod';
-const TAB_CONTRACT = 'subscription';
-const TAB_WORKSHOP = 'workshop';
-const TAB_PRIVATE_SERVICE = 'private-service';
-const TAB_SHOP = 'shop';
-const TAB_GIFTCARD = 'giftcard';
 
 export class MarketPlace extends Component<Props, State> {
   state = {
@@ -284,75 +289,100 @@ export class MarketPlace extends Component<Props, State> {
     }
 
     switch (this.props.subcomponent) {
-      case TAB_PASS:
+      case MARKETPLACE_PATH_TAB_PASS:
         return (
           <MarketplacePassPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}
-            requestSignUp={() => this.toggleLogin(true)}
+            requestSignUp={this.openLogin}
             toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
           />
         );
-      case TAB_CONTRACT:
+      case MARKETPLACE_PATH_TAB_CONTRACT:
         return (
           <MarketplaceContractPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}
-            requestSignUp={() => this.toggleLogin(true)}
+            requestSignUp={this.openLogin}
             authenticated={this.props.auth.authenticated}
             goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
           />
         );
-      case TAB_SHOP:
+      case MARKETPLACE_PATH_TAB_SHOP:
         return (
           <MarketplaceShopPage
             key={this.props.tabSelected}
-            requestSignUp={() => this.toggleLogin(true)}
+            requestSignUp={this.openLogin}
             toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             companyId={this.props.companyId}
           />
         );
-      case TAB_PRIVATE_SERVICE:
+      case MARKETPLACE_PATH_TAB_PRIVATE_SERVICE:
         return (
           <MarketplacePrivateServiceRouter
             key={this.props.tabSelected}
             companyId={this.props.companyId}
             authenticated={this.props.auth.authenticated}
-            requestLogin={() => this.toggleLogin(true)}
+            requestLogin={this.openLogin}
           />
         );
-      case TAB_WORKSHOP:
+      case MARKETPLACE_PATH_TAB_WORKSHOP:
         return (
           <MarketplaceWorkshopPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}
           />
         );
-      case TAB_VOD:
+      case MARKETPLACE_PATH_TAB_VOD:
         return (
           <MarketplaceVodRouter
             key={this.props.tabSelected}
-            requestSignUp={() => this.toggleLogin(true)}
+            requestSignUp={this.openLogin}
           />
         );
-      case TAB_GIFTCARD:
+      case MARKETPLACE_PATH_TAB_GIFTCARD:
         return (
           <MarketplaceGiftcardPage
-            requestSignUp={() => this.toggleLogin(true)}
+            requestSignUp={this.openLogin}
             authenticated={this.props.auth.authenticated}
             toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             key={this.props.tabSelected}
             companyId={this.props.companyId}
           />
         );
-      case TAB_CALENDAR:
+      case MARKETPLACE_PATH_TAB_CALENDAR:
+        return (
+          <div className={this.props.classes.calendarContainer}>
+            <MarketplaceCalendarPage
+              key={this.props.tabSelected}
+              companyId={this.props.companyId}
+              requestSignUp={this.openLogin}
+              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
+              startWeekThisWeekday={false}
+              authenticated={this.props.auth.authenticated}
+            />
+          </div>
+        );
+      case MARKETPLACE_PATH_TAB_CALENDAR_V2:
+        return (
+          <div className={this.props.classes.calendarContainer}>
+            <MarketplaceCalendarPageV2
+              key={this.props.tabSelected}
+              companyId={this.props.companyId}
+              requestSignUp={this.openLogin}
+              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
+              startWeekThisWeekday={false}
+              authenticated={this.props.auth.authenticated}
+            />
+          </div>
+        );
       default: {
         return (
           <div className={this.props.classes.calendarContainer}>
             <MarketplaceCalendarPage
               key={this.props.tabSelected}
               companyId={this.props.companyId}
-              requestSignUp={() => this.toggleLogin(true)}
+              requestSignUp={this.openLogin}
               toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
               startWeekThisWeekday={false}
               authenticated={this.props.auth.authenticated}
@@ -382,11 +412,13 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ signupDialogOpen: value });
   };
 
-  toggleLogin = (value: boolean) => {
-    if (value) {
-      Analytics.signinShow();
-    }
-    this.setState({ loginDialogOpen: value });
+  openLogin = () => {
+    Analytics.signinShow();
+    this.setState({ loginDialogOpen: true });
+  };
+
+  closeLogin = () => {
+    this.setState({ loginDialogOpen: false });
   };
 
   closeSignup = () => this.setState({ signupDialogOpen: false });
@@ -470,7 +502,7 @@ export class MarketPlace extends Component<Props, State> {
               currentBasket={this.props.currentBasket}
               openCurrentBasket={() => this.toggleCurrentBasketOpen(true)}
               requestSignUp={() => this.toggleSignUp(true)}
-              requestLogin={() => this.toggleLogin(true)}
+              requestLogin={this.openLogin}
               disconnect={() => {
                 this.props.disconnect();
               }}
@@ -509,7 +541,7 @@ export class MarketPlace extends Component<Props, State> {
               open={
                 this.state.loginDialogOpen && !this.props.auth.authenticated
               }
-              onClose={() => this.toggleLogin(false)}
+              onClose={this.closeLogin}
             >
               <DialogContent>
                 <div className={classes.loginDialog}>

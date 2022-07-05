@@ -7,7 +7,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import MarketPlaceActivity from './MarketplaceActivity.component';
+import MarketplaceActivity from './MarketplaceActivity.component';
 
 type Props = {
   open: ?boolean,
@@ -31,7 +31,7 @@ export function MarketplaceActivityDialog(props: Props) {
       fullScreen={fullScreen}
     >
       <DialogContent className={classes.dialogContent}>
-        {props.open ? <MarketPlaceActivity {...props} /> : null}
+        {props.open ? <MarketplaceActivity {...props} /> : null}
       </DialogContent>
     </Dialog>
   );

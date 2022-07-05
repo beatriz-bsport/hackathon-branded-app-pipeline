@@ -20,6 +20,15 @@ export type MarketplaceCalendarData = MarketplaceCommonFilter & {
   todayOnly?: boolean;
 };
 
+export type MarketplaceCalendarV2Data = MarketplaceCommonFilter & {
+  compactMode?: true | false | null;
+  todayOnly?: boolean;
+  variant?: MarketplaceCalendarVariant;
+  groupSessionByPeriod?: boolean;
+};
+
+export type MarketplaceCalendarVariant = 'activityName' | 'coach' | 'time';
+
 export type MarketplaceWorkshopData = MarketplaceCommonFilter;
 
 export type MarketplacePrivateServiceData = {

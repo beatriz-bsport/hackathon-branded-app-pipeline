@@ -1,0 +1,104 @@
+/*  */
+/* Book button */
+/*  */
+
+.bs-book-button {
+  cursor: pointer;
+  border-radius: var(--border-radius-2);
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: inherit;
+  position: relative;
+}
+
+.bs-book-button::before {
+  transition: 0.2s background-color;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+}
+
+.bs-book-button:hover::before {
+  background-color: var(--color-primary-light);
+  border-radius: var(--border-radius-2);
+}
+
+.bs-book-button--booked:hover::before {
+  background-color: var(--color-success-light);
+}
+
+.bs-book-button--disabled::before {
+  display: none;
+}
+
+.bs-book-button--disabled {
+  cursor: default;
+}
+
+.bs-book-button--disabled:hover {
+  background-color: inherit;
+}
+
+.bs-book-button__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  position: relative;
+}
+
+.bs-book-button__inner__icon__not-available {
+  color: var(--color-error-main);
+}
+
+.bs-book-button__inner__icon__past {
+  color: var(--color-text-secondary);
+}
+
+.bs-book-button__inner__icon__book {
+  color: var(--color-primary-main);
+}
+
+.bs-book-button__inner__icon__already-booked {
+  color: var(--color-success-main);
+}
+
+.bs-book-button__inner__text {
+  display: none;
+  color: var(--color-primary-main);
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+}
+
+.bs-book-button__inner__text--not-available {
+  color: var(--color-error-main);
+}
+
+.bs-book-button__inner__text--disabled {
+  color: var(--color-text-secondary);
+}
+
+
+.bs-book-button__inner__text--booked {
+  color: var(--color-success-main);
+}
+
+@media (min-width: 430px) {
+  .bs-book-button__inner__text {
+    display: block;
+  }
+
+  .bs-book-button__inner__icon__book {
+    display: none;
+  }
+}

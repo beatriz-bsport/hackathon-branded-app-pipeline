@@ -1,5 +1,16 @@
 import moment from 'moment-timezone';
 import { buildUrlParams } from '../../http';
+import {
+  MARKETPLACE_PATH_TAB_CALENDAR,
+  MARKETPLACE_PATH_TAB_CALENDAR_V2,
+  MARKETPLACE_PATH_TAB_PASS,
+  MARKETPLACE_PATH_TAB_VOD,
+  MARKETPLACE_PATH_TAB_CONTRACT,
+  MARKETPLACE_PATH_TAB_WORKSHOP,
+  MARKETPLACE_PATH_TAB_PRIVATE_SERVICE,
+  MARKETPLACE_PATH_TAB_SHOP,
+  MARKETPLACE_PATH_TAB_GIFTCARD,
+} from './constants';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -24,7 +35,7 @@ export const fromConfigToUrl = (
   if (component_type === 'privateService' && tabConfig.config.privateService) {
     const privateServiceConf = tabConfig.config.privateService;
 
-    path = 'private-service';
+    path = MARKETPLACE_PATH_TAB_PRIVATE_SERVICE;
 
     let typeValue = privateServiceConf.type;
 
@@ -40,7 +51,7 @@ export const fromConfigToUrl = (
       typeValue === 'detail' &&
       typeof privateServiceConf.serviceId === 'number'
     ) {
-      path = `private-service/${privateServiceConf.serviceId}`;
+      path = `${MARKETPLACE_PATH_TAB_PRIVATE_SERVICE}/${privateServiceConf.serviceId}`;
     } else if (
       privateServiceConf.privateGroups &&
       privateServiceConf.privateGroups.length
@@ -56,7 +67,7 @@ export const fromConfigToUrl = (
       if (tabConfig.config.workshop) {
         conf = tabConfig.config.workshop;
       }
-      path = 'workshop';
+      path = MARKETPLACE_PATH_TAB_WORKSHOP;
     }
 
     conf.metaActivities &&
@@ -108,21 +119,63 @@ export const fromConfigToUrl = (
         conf.levels.length &&
         Object.assign(query, { levels: conf.levels.join(',') });
     }
-    path = 'calendar';
+    path = MARKETPLACE_PATH_TAB_CALENDAR;
+  } else if (component_type === 'calendarV2') {
+    if (tabConfig.config?.calendarV2?.todayOnly) {
+      Object.assign(query, {
+        ...query,
+        onlyDay: true,
+        date: moment().format('YYYY-MM-DD'),
+      });
+    }
+    if (tabConfig.config?.calendarV2) {
+      const conf = tabConfig.config.calendarV2;
+      conf.metaActivities &&
+        conf.metaActivities.length &&
+        Object.assign(query, { activity__in: conf.metaActivities.join(',') });
+      conf.coaches &&
+        conf.coaches.length &&
+        Object.assign(query, { coaches: conf.coaches.join(',') });
+      conf.establishmentGroups &&
+        conf.establishmentGroups.length &&
+        Object.assign(query, {
+          establishment_group__in: conf.establishmentGroups.join(','),
+        });
+      conf.establishments &&
+        conf.establishments.length &&
+        Object.assign(query, {
+          establishments: conf.establishments.join(','),
+        });
+      conf.levels &&
+        conf.levels.length &&
+        Object.assign(query, { levels: conf.levels.join(',') });
+      if (conf.compactMode) {
+        Object.assign(query, { compactMode: conf.compactMode });
+      }
+      if (conf.variant) {
+        Object.assign(query, { variant: conf.variant });
+      }
+      if (conf.groupSessionByPeriod === false) {
+        Object.assign(query, {
+          groupSessionByPeriod: conf.groupSessionByPeriod,
+        });
+      }
+    }
+    path = MARKETPLACE_PATH_TAB_CALENDAR_V2;
   } else if (component_type === 'pass') {
-    path = 'pass';
+    path = MARKETPLACE_PATH_TAB_PASS;
     Object.assign(query, tabConfig.config.pass);
   } else if (component_type === 'subscription') {
-    path = 'subscription';
+    path = MARKETPLACE_PATH_TAB_CONTRACT;
   } else if (component_type === 'shop') {
-    path = 'shop';
+    path = MARKETPLACE_PATH_TAB_SHOP;
   } else if (component_type === 'vod') {
-    path = 'vod';
+    path = MARKETPLACE_PATH_TAB_VOD;
     if (tabConfig?.config?.vod?.videoId) {
       path = `vod/video/${tabConfig.config.vod.videoId}`;
     }
   } else if (component_type === 'giftcard') {
-    path = 'giftcard';
+    path = MARKETPLACE_PATH_TAB_GIFTCARD;
     const conf = tabConfig.config.giftcard || {};
     conf.giftcards &&
       conf.giftcards.length &&

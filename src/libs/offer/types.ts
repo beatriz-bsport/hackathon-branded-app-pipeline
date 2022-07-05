@@ -111,6 +111,9 @@ export type Offer<
   duration_minute: number;
   group: G;
   allow_guest_offer: boolean;
+  male?: number;
+  female?: number;
+  otherGender?: number;
 };
 
 export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;

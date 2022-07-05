@@ -21,7 +21,7 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-export const ClassComponent = (props: Props) => {
+const ClassComponent = (props: Props) => {
   const { title } = props;
   const classes = useStyles();
 

@@ -60,6 +60,8 @@ type State = {
 };
 
 class Calendar extends PureComponent<Props, State> {
+  anchorRef: React.RefObject<unknown>;
+
   constructor(props: Props) {
     super(props);
     this.state = {

@@ -17,6 +17,7 @@ export type Props = {
   noStyle?: boolean;
   isChip?: boolean;
   showVoid?: boolean;
+  className?: string;
   variant?: Variant;
   align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
   onRemove?: (() => void) | null;
@@ -24,6 +25,7 @@ export type Props = {
 
 export const LevelComponent: React.FC<Props> = ({
   customLevel,
+  className,
   noStyle = false,
   variant = 'body1',
   align = 'center',
@@ -41,12 +43,15 @@ export const LevelComponent: React.FC<Props> = ({
       align={align}
       variant={variant}
       noWrap
-      className={classNames({
-        [classes.level]: !noStyle,
-        [classes.noStyle]: noStyle,
-        [classes.chip]: isChip,
-        [classes.removableChip]: isChip && onRemove,
-      })}
+      className={classNames(
+        {
+          [classes.level]: !noStyle,
+          [classes.noStyle]: noStyle,
+          [classes.chip]: isChip,
+          [classes.removableChip]: isChip && onRemove,
+        },
+        className,
+      )}
     >
       {getLevelTrad(customLevel.id, customLevel.name, t)}
       {onRemove && (

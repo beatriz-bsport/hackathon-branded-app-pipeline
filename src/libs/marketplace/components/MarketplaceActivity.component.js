@@ -44,7 +44,7 @@ type Props = {
   mapContainerClassName?: string,
 };
 
-export class MarketPlaceActivity extends React.Component<Props> {
+export class MarketplaceActivity extends React.Component<Props> {
   getSocialLink = (url: string) => {
     if (url && !url.toLowerCase().includes('http')) {
       return `http://${url}`;
@@ -351,4 +351,4 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'datetime']),
-)(MarketPlaceActivity);
+)(MarketplaceActivity);

@@ -1,11 +1,13 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
+
+import useCurrentLanguageIsoCode from '../../hooks/useCurrentLanguageIsoCode';
 
 import i18n, { availableLanguages } from '../../i18n';
 
@@ -93,19 +95,15 @@ export const LanguageSelect = withStyles(styles)(
   withTranslation(['consumerSpace'])(LanguageSelectBase),
 );
 
-export default class extends Component<any> {
-  handleChange = (event) => {
+const UserLanguagePicker = (props) => {
+  const language = useCurrentLanguageIsoCode();
+
+  const handleChange = (event) => {
     i18n.changeLanguage(event.target.value);
   };
 
-  render() {
-    const { language } = i18n;
-    return (
-      <LanguageSelect
-        value={language}
-        handleChange={this.handleChange}
-        {...this.props}
-      />
-    );
-  }
-}
+  return (
+    <LanguageSelect value={language} handleChange={handleChange} {...props} />
+  );
+};
+export default UserLanguagePicker;

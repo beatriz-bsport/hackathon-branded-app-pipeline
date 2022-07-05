@@ -24,6 +24,7 @@ import i18n from '../../i18n';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import Config from '../../config';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
+import useCurrentLanguageIsoCode from '../../hooks/useCurrentLanguageIsoCode';
 
 type Props = {
   setOpenWidgetDialog: () => void,
@@ -47,7 +48,7 @@ export const WidgetButton = (props: Props) => {
   const [openIframe, setOpenIframe] = useState(false);
   const [checked, setChecked] = React.useState(false);
 
-  const { language } = i18n;
+  const language = useCurrentLanguageIsoCode();
   const classes = useStyles();
   const handleChangeCompactMode = (event) => {
     setCompactMode(event.target.value);
@@ -159,9 +160,7 @@ export const WidgetButton = (props: Props) => {
             {!checked ? (
               <div className={classes.code}>
                 <Typography>
-                  {
-                    `<script src="https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget"></script>`
-                  }
+                  {`<script src="https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget"></script>`}
                 </Typography>
                 <Typography>{'<script>'}</Typography>
                 <Typography className={classes.alinea}>
@@ -215,9 +214,7 @@ export const WidgetButton = (props: Props) => {
                   }
                 </Typography>
                 <Typography className={classes.alinea}>
-                  {
-										`<script src="https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget"></script>`
-                  }
+                  {`<script src="https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget"></script>`}
                 </Typography>
                 <Typography className={classes.alinea}>{'<script>'}</Typography>
                 <Typography className={classes.alinea2}>
@@ -308,9 +305,10 @@ export const WidgetButton = (props: Props) => {
           <DialogContentText id="alert-dialog-description">
             <a
               target="blank"
-							href={`https://backoffice.bsport.io${
-									urlToMarketplace(props.companyName, props.companyId)
-							}/${
+              href={`https://backoffice.bsport.io${urlToMarketplace(
+                props.companyName,
+                props.companyId,
+              )}/${
                 props.activities
                   ? `?f_metaActivities=[${props.activities}]`
                   : ''
@@ -321,9 +319,10 @@ export const WidgetButton = (props: Props) => {
               }${props.levels ? `&f_levels=[${props.levels}]` : ''}`}
             >
               <Typography>
-								{`https://backoffice.bsport.io${
-									urlToMarketplace(props.companyName, props.companyId)
-                }/${
+                {`https://backoffice.bsport.io${urlToMarketplace(
+                  props.companyName,
+                  props.companyId,
+                )}/${
                   props.activities
                     ? `?f_metaActivities=[${props.activities}]`
                     : ''
@@ -346,9 +345,10 @@ export const WidgetButton = (props: Props) => {
             {t('widget.return')}
           </Button>
           <CopyToClipboard
-						text={`https://backoffice.bsport.io${
-							urlToMarketplace(props.companyName, props.companyId)
-						}/?f_metaActivities=[${
+            text={`https://backoffice.bsport.io${urlToMarketplace(
+              props.companyName,
+              props.companyId,
+            )}/?f_metaActivities=[${
               props.activities ? props.activities : ''
             }]&f_coaches=[${
               props.coaches ? props.coaches : ''
@@ -378,7 +378,9 @@ export const WidgetButton = (props: Props) => {
             srcDoc={`<div>
             <div id='bsport-widget'/>
 
-            <script src='https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget'></script>
+            <script src='https://${
+              Config.REACT_APP_CDN_DOMAIN
+            }/scripts/widget'></script>
             <script>
             BsportWidget.mount({
               parentElement: "bsport-widget",

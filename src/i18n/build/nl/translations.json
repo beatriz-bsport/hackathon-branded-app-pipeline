@@ -553,7 +553,8 @@
                 "notAvailable": "Geannuleerd",
                 "bookOption": "Wachtlijst",
                 "book": "Reserveer",
-                "notBookableYet": "Binnenkort beschikbaar"
+                "notBookableYet": "Binnenkort beschikbaar",
+                "alreadyRegistered": "Gereserveerd"
             },
             "passListTitle": "Leskaarten",
             "privatePassListTitle": "Afspraakkaarten",
@@ -4970,7 +4971,11 @@
             "addToCart": "Winkelmandje"
         },
         "calendar": {
-            "registered": "Reservering bevestigd"
+            "registered": "Reservering bevestigd",
+            "close": "Sluiten",
+            "description": "Beschrijving",
+            "conditions": "Voorwaarden",
+            "broadcast": "Online"
         }
     },
     "selfCheckIn": {
@@ -6067,7 +6072,8 @@
                 "newsletter": "Nieuwsbrief",
                 "loginButton": "Inlogknop",
                 "giftcard": "Cadeaubonnen",
-                "paymentPackTemplate": "Gedeelde leskaarten"
+                "paymentPackTemplate": "Gedeelde leskaarten",
+                "calendarV2": "Kalender (nieuw ontwerp)"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -10843,7 +10849,15 @@
                 "fullScreen": "Volledig scherm"
             },
             "dialogSizeLabel": "Dimensie",
-            "responsiveIframe": "Activeer de responsieve-modus"
+            "responsiveIframe": "Activeer de responsieve-modus",
+            "groupSessionByPeriod": "Splits de ochtend, middag en avond op",
+            "variantOption": {
+                "time": "Rooster",
+                "coach": "Instructeur",
+                "activityName": "Activiteit"
+            },
+            "variant": "Uitlichten",
+            "todayOnly": "Toon alleen de sessies van vandaag"
         }
     },
     "platformBilling": {

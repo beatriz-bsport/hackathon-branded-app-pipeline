@@ -921,7 +921,8 @@
                 "isPast": "Completed",
                 "notAvailable": "Cancelled",
                 "bookOption": "Waitlist",
-                "notBookableYet": "Available soon"
+                "notBookableYet": "Available soon",
+                "alreadyRegistered": "Booked"
             },
             "passListTitle": "Passes",
             "privatePassListTitle": "Appointment passes",
@@ -5754,7 +5755,8 @@
                 "newsletter": "Newsletter",
                 "loginButton": "Login button",
                 "giftcard": "Gift cards",
-                "paymentPackTemplate": "Shared passes"
+                "paymentPackTemplate": "Shared passes",
+                "calendarV2": "Calendar (redesign)"
             },
             "preview": "Preview",
             "saveButton": "Save",
@@ -9827,7 +9829,11 @@
             "loadMore": "See more"
         },
         "calendar": {
-            "registered": "Reservation confirmed"
+            "registered": "Reservation confirmed",
+            "close": "Close",
+            "description": "Description",
+            "conditions": "Conditions",
+            "broadcast": "Online"
         }
     },
     "selfCheckIn": {
@@ -11897,7 +11903,15 @@
                 "fullScreen": "Full screen"
             },
             "dialogSizeLabel": "Popup dimension",
-            "responsiveIframe": "Activate responsive mode"
+            "responsiveIframe": "Activate responsive mode",
+            "groupSessionByPeriod": "Seperate the morning, afternoon, and evening",
+            "variantOption": {
+                "time": "Schedule",
+                "coach": "Teacher",
+                "activityName": "Activity"
+            },
+            "variant": "Highlight",
+            "todayOnly": "Only display today's sessions"
         }
     },
     "marketing": {

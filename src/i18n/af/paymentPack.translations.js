@@ -772,4 +772,12 @@ exports.default = {
   },
   next: 'Suivant',
   previous: 'Précédent',
+  maxoutInfo: {
+    day: 'Carte limitée à {{count}} utilisation maximum par jour',
+    day_plural: 'Carte limitée à {{count}} utilisations maximum par jour',
+    week: 'Carte limitée à {{count}} utilisation maximum par semaine',
+    week_plural: 'Carte limitée à {{count}} utilisations maximum par semaine',
+    month: 'Carte limitée à {{count}} utilisation maximum par mois',
+    month_plural: 'Carte limitée à {{count}} utilisations maximum par mois',
+  },
 };

@@ -6,6 +6,7 @@ type Props = {
   onClick: () => void;
   bottomBorder?: boolean;
   renderItem: any;
+  disabled?: boolean;
 };
 
 export const RadioItem = (props: Props) => {
@@ -15,13 +16,18 @@ export const RadioItem = (props: Props) => {
     <ButtonBase
       className={classes.itemContainer}
       onClick={() => props.onClick()}
+      disabled={!!props.disabled}
     >
       <div
         className={`${classes.itemContainer} ${
           props.bottomBorder ? classes.borderBottom : ''
         }`}
       >
-        <Radio checked={props.selected} onClick={() => props.onClick()} />
+        <Radio
+          disabled={!!props.disabled}
+          checked={props.selected}
+          onClick={props.onClick}
+        />
         <div className={classes.itemContent}>{props.renderItem()}</div>
       </div>
     </ButtonBase>

@@ -7,13 +7,17 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PaymentPackBookableItem from './PaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
-import { PaymentPackCategoryWithPacks } from '../../payment-packs/types';
+import {
+  PaymentPack,
+  PaymentPackCategoryWithPacks,
+  MaxoutData,
+} from '../../payment-packs/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { SelectedPack } from '../types';
 import CollapsibleSection from '../../../components/CollapsibleSection';
 
 type OwnProps = {
-  paymentPackCategory: PaymentPackCategoryWithPacks;
+  paymentPackCategory: PaymentPackCategoryWithPacks<PaymentPack & MaxoutData>;
   selectedPack?: SelectedPack;
   onPackChange: (selectedPack: SelectedPack) => void;
   opened: boolean;
@@ -42,6 +46,7 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
             .map((pack) => (
               <div key={pack.id}>
                 <RadioItem
+                  disabled={pack.exceedsBookingMaxout}
                   selected={pack.id === props.selectedPack?.paymentPack?.id}
                   onClick={() => props.onPackChange({ paymentPack: pack })}
                   renderItem={() => (

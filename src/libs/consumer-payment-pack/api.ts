@@ -8,7 +8,7 @@ import {
 
 export async function fetchByOfferByMember(offer: any, data: any = {}) {
   return postAuth(
-    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible_with_offer/${buildUrlParams(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible_with_offer_unfiltered/${buildUrlParams(
       data,
     )}`,
     { offer },

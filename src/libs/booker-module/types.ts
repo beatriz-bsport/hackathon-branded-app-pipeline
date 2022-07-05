@@ -1,7 +1,7 @@
 import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { Offer_FULL } from '../offer/types';
 import { PaymentCombo } from '../payment-combo/types';
-import { PaymentPack } from '../payment-packs/types';
+import { PaymentPack, MaxoutData } from '../payment-packs/types';
 
 export type OfferData = {
   offer: Offer_FULL;
@@ -9,9 +9,9 @@ export type OfferData = {
 };
 
 export type SelectedPack = {
-  consumerPaymentPack?: ConsumerPaymentPack<PaymentPack> | null;
-  paymentPackCombo?: PaymentCombo | null;
-  paymentPack?: PaymentPack | null;
+  consumerPaymentPack?: (ConsumerPaymentPack<PaymentPack> & MaxoutData) | null;
+  paymentPackCombo?: (PaymentCombo & MaxoutData) | null;
+  paymentPack?: (PaymentPack & MaxoutData) | null;
 };
 
 export type OfferConstraint = {

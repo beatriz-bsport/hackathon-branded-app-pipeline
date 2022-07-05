@@ -186,9 +186,10 @@ export const actionTypes = {
     'RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS',
 };
 
-export type PaymentPackCategoryWithPacks = PaymentPackCategory & {
-  packs: Array<PaymentPack>;
-};
+export type PaymentPackCategoryWithPacks<PP = PaymentPack> =
+  PaymentPackCategory & {
+    packs: Array<PP>;
+  };
 
 export type PaymentPackFormValues<LPP = number> = {
   id?: number;
@@ -235,4 +236,12 @@ export type PaymentPackFormValues<LPP = number> = {
   linked_private_pass?: LPP;
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;
   allow_guest_pass?: boolean;
+};
+
+export type MaxoutData = {
+  exceedsBookingMaxout: boolean;
+  maxoutInfo: null | {
+    period: 'day' | 'week' | 'month';
+    nb: number;
+  };
 };

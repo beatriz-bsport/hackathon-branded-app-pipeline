@@ -2,6 +2,7 @@ import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { ButtonBase, Theme, Typography, withStyles } from '@material-ui/core';
+import classNames from 'classnames';
 import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { MaterialStyleType } from '../../../utils/types';
@@ -16,17 +17,14 @@ import { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
+  MaxoutData,
 } from '../../payment-packs/types';
+import { ContractWithPaymentPack } from '#libs/subscription/types';
 import { PaymentCombo } from '../../payment-combo/types';
 import { Offer_FULL } from '../../offer/types';
 import PaymentPackCategoryBookableItem from './PaymentPackCategoryBookableItem.component';
 import { CompanyTheme } from '#libs/theme/types';
-
-type SelectedPack = {
-  consumerPaymentPack?: ConsumerPaymentPack<PaymentPack> | null;
-  paymentPackCombo?: PaymentCombo | null;
-  paymentPack?: PaymentPack | null;
-};
+import { SelectedPack } from '../types';
 
 type OwnProps = {
   offersConstraint: {
@@ -40,10 +38,13 @@ type OwnProps = {
     offer: Offer_FULL;
     extra_data: any;
   }[];
-  availableConsumerPacks: ConsumerPaymentPack<PaymentPack>[];
-  unCategorizedPacks: PaymentPack[];
-  availableComboPacks: PaymentCombo[];
-  paymentPackCategories: PaymentPackCategoryWithPacks[];
+  availableConsumerPacks: Array<ConsumerPaymentPack<PaymentPack> & MaxoutData>;
+  unCategorizedPacks: Array<PaymentPack & MaxoutData>;
+  availableComboPacks: Array<PaymentCombo & MaxoutData>;
+  paymentPackCategories: Array<
+    PaymentPackCategoryWithPacks<PaymentPack & MaxoutData>
+  >;
+  contractList: Array<ContractWithPaymentPack & MaxoutData>;
   isExcludingTax?: boolean;
   theme: CompanyTheme;
   offerTagStatus: boolean;
@@ -95,22 +96,26 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
         !this.props.selectedPack.paymentPack &&
         !this.props.selectedPack.paymentPackCombo) ||
       (this.props.selectedPack.consumerPaymentPack &&
-        !availableConsumerPacks.some(
-          (cpp) => cpp.id === this.props.selectedPack.consumerPaymentPack.id,
-        )) ||
+        !availableConsumerPacks
+          ?.filter((cpp) => !cpp.exceedsBookingMaxout)
+          .some(
+            (cpp) => cpp.id === this.props.selectedPack.consumerPaymentPack.id,
+          )) ||
       (this.props.selectedPack.paymentPack &&
-        !unCategorizedPacks.some(
-          (cpp) => cpp.id === this.props.selectedPack.paymentPack.id,
-        ) &&
+        !unCategorizedPacks
+          ?.filter((p) => !p.exceedsBookingMaxout)
+          .some((cpp) => cpp.id === this.props.selectedPack.paymentPack.id) &&
         !this.props.paymentPackCategories.some((cat) =>
-          cat.packs.find(
-            (p) => p.id === this.props.selectedPack.paymentPack.id,
-          ),
+          cat.packs
+            ?.filter((p) => !p.exceedsBookingMaxout)
+            .find((p) => p.id === this.props.selectedPack.paymentPack.id),
         )) ||
       (this.props.selectedPack.paymentPackCombo &&
-        !availableComboPacks.some(
-          (cpp) => cpp.id === this.props.selectedPack.paymentPackCombo.id,
-        ))
+        !availableComboPacks
+          ?.filter((cp) => !cp.exceedsBookingMaxout)
+          .some(
+            (cpp) => cpp.id === this.props.selectedPack.paymentPackCombo.id,
+          ))
     ) {
       this.setDefaultPack();
     }
@@ -128,18 +133,34 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     let openPacks: CollapsePackEnum | null = null;
     let openedCategory = null;
 
-    if (availableConsumerPacks.length) {
-      selectedPack.consumerPaymentPack = availableConsumerPacks[0];
+    if (
+      availableConsumerPacks?.filter((cpp) => !cpp.exceedsBookingMaxout).length
+    ) {
+      selectedPack.consumerPaymentPack = availableConsumerPacks.filter(
+        (cpp) => !cpp.exceedsBookingMaxout,
+      )[0];
       openPacks = CollapsePackEnum.consumerPacks;
-    } else if (unCategorizedPacks.length) {
-      selectedPack.paymentPack = unCategorizedPacks[0];
+    } else if (
+      unCategorizedPacks?.filter((pp) => !pp.exceedsBookingMaxout).length
+    ) {
+      selectedPack.paymentPack = unCategorizedPacks.filter(
+        (cpp) => !cpp.exceedsBookingMaxout,
+      )[0];
       openPacks = CollapsePackEnum.paymentPacks;
-    } else if (availableComboPacks.length) {
-      selectedPack.paymentPackCombo = availableComboPacks[0];
+    } else if (
+      availableComboPacks?.filter((cp) => !cp.exceedsBookingMaxout).length
+    ) {
+      selectedPack.paymentPackCombo = availableComboPacks.filter(
+        (cpp) => !cpp.exceedsBookingMaxout,
+      )[0];
       openPacks = CollapsePackEnum.paymentCombo;
     } else {
-      const category = paymentPackCategories.find((cat) => cat.packs.length);
-      selectedPack.paymentPack = category?.packs[0];
+      const category = paymentPackCategories.find(
+        (cat) => cat.packs?.filter((p) => !p.exceedsBookingMaxout).length,
+      );
+      selectedPack.paymentPack = category?.packs.filter(
+        (cpp) => !cpp.exceedsBookingMaxout,
+      )[0];
       openedCategory = category?.id;
     }
 
@@ -154,11 +175,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     let selectedPack = this.props.selectedPack;
 
     if (isCategory) {
-      selectedPack = {
-        paymentPack: this.props.paymentPackCategories.find(
-          (cat) => cat.id === id,
-        ).packs[0],
-      };
+      const category = this.props.paymentPackCategories.find(
+        (cat) => cat.id === id,
+      );
+      if (category?.packs?.filter((p) => !p.exceedsBookingMaxout).length) {
+        selectedPack = {
+          paymentPack: category.packs.filter((p) => !p.exceedsBookingMaxout)[0],
+        };
+      }
       this.setState(() => {
         return {
           openPacks: null,
@@ -167,18 +191,35 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       });
     } else {
       if (id === CollapsePackEnum.consumerPacks) {
-        if (availableConsumerPacks.length) {
-          selectedPack = { consumerPaymentPack: availableConsumerPacks[0] };
+        if (
+          availableConsumerPacks?.filter((cpp) => !cpp.exceedsBookingMaxout)
+            .length
+        ) {
+          selectedPack = {
+            consumerPaymentPack: availableConsumerPacks.filter(
+              (cpp) => !cpp.exceedsBookingMaxout,
+            )[0],
+          };
         }
       }
       if (id === CollapsePackEnum.paymentPacks) {
-        if (unCategorizedPacks.length) {
-          selectedPack = { paymentPack: unCategorizedPacks[0] };
+        if (unCategorizedPacks?.filter((p) => !p.exceedsBookingMaxout).length) {
+          selectedPack = {
+            paymentPack: unCategorizedPacks.filter(
+              (p) => !p.exceedsBookingMaxout,
+            )[0],
+          };
         }
       }
       if (id === CollapsePackEnum.paymentCombo) {
-        if (availableComboPacks.length) {
-          selectedPack = { paymentPackCombo: availableComboPacks[0] };
+        if (
+          availableComboPacks?.filter((cp) => !cp.exceedsBookingMaxout).length
+        ) {
+          selectedPack = {
+            paymentPackCombo: availableComboPacks.filter(
+              (cp) => !cp.exceedsBookingMaxout,
+            )[0],
+          };
         }
       }
       this.setState((prevState: State) => {
@@ -249,6 +290,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                 return (
                   <div className={classes.item} key={consumerPaymentPack.id}>
                     <RadioItem
+                      disabled={consumerPaymentPack.exceedsBookingMaxout}
                       selected={
                         consumerPaymentPack.id ===
                         this.props.selectedPack?.consumerPaymentPack?.id
@@ -295,15 +337,27 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     return (
                       <div className={classes.item} key={contract.id}>
                         <ButtonBase
-                          className={classes.item}
+                          disabled={contract.exceedsBookingMaxout}
+                          className={classNames(
+                            classes.item,
+                            classes.fullWidth,
+                          )}
                           onClick={() => {
                             this.props.onOpenSubscriptionModal(contract);
                           }}
                         >
-                          <div className={classes.row}>
+                          <div
+                            className={classNames(
+                              classes.row,
+                              classes.fullWidth,
+                            )}
+                          >
                             <VisibilityIcon
                               color="primary"
-                              className={classes.iconLeft}
+                              className={classNames({
+                                [classes.opacity]:
+                                  contract.exceedsBookingMaxout,
+                              })}
                             />
                             <ContractBookableItem
                               contract={contract}
@@ -350,6 +404,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       return (
                         <div className={classes.item} key={paymentPack.id}>
                           <RadioItem
+                            disabled={paymentPack.exceedsBookingMaxout}
                             selected={
                               paymentPack.id ===
                               this.props.selectedPack?.paymentPack?.id
@@ -400,6 +455,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       return (
                         <div className={classes.item} key={paymentPackCombo.id}>
                           <RadioItem
+                            disabled={paymentPackCombo.exceedsBookingMaxout}
                             selected={
                               paymentPackCombo.id ===
                               this.props.selectedPack?.paymentPackCombo?.id
@@ -481,6 +537,7 @@ const styles = (theme: Theme) => ({
   item: {
     paddingTop: theme.spacing(1),
   },
+  fullWidth: { width: '100%' },
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -492,6 +549,9 @@ const styles = (theme: Theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
+  },
+  opacity: {
+    opacity: 0.5,
   },
 });
 

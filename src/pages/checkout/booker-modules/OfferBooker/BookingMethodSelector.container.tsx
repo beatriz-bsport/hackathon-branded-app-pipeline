@@ -15,6 +15,7 @@ import {
   getAvailablePaymentPacks,
   getAvailableConsumerPack,
   getAvailableComboPacks,
+  getAvailableContracts,
 } from '@bsport/common/lib/master-data/available-payment';
 
 import { replace as replaceAction } from 'connected-react-router';
@@ -324,6 +325,7 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     const availablePaymentPackCategories =
       this.getAvailablePaymentPackCategories(availablePaymentPacks);
     const availableComboPacks = this.props.getAvailableComboPacks();
+    const availableContracts = this.props.getAvailableContracts();
     const maxNumber = this.getGuestMaxNumberFromAllPacks(
       availableConsumerPacks,
       availablePaymentPacks,
@@ -344,7 +346,7 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
             (pack) => !pack.category,
           )}
           availableComboPacks={availableComboPacks}
-          contractList={this.props.contractList}
+          contractList={availableContracts}
           onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
           paymentPackCategories={availablePaymentPackCategories}
           theme={this.props.theme}
@@ -402,7 +404,16 @@ const mapHandlers = {
     return getAvailableComboPacks(
       props.offersConstraint,
       props.paymentComboList,
-      props.selectedOffers,
+      props.selectedOffers.map((data) => data.offer),
+      props.offer,
+      props.offer.timezone_name,
+    );
+  },
+  getAvailableContracts: (props: OwnAndConnectedProps) => () => {
+    return getAvailableContracts(
+      props.offersConstraint,
+      props.contractList,
+      props.selectedOffers.map((data) => data.offer),
       props.offer,
       props.offer.timezone_name,
     );

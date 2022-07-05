@@ -1,15 +1,22 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
 import StyleIcon from '@material-ui/icons/Style';
 import IconButton from '@material-ui/core/IconButton';
-import { PaymentPack, PaymentPackTemplate } from '../../payment-packs/types';
+import {
+  PaymentPack,
+  PaymentPackTemplate,
+  MaxoutData,
+} from '../../payment-packs/types';
 import { getValidityInfo } from '../../payment-packs/utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import Tooltip from '#components/Tooltip.component';
+import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 
 interface Props {
-  paymentPack: PaymentPack | PaymentPackTemplate;
+  paymentPack: (PaymentPack | PaymentPackTemplate) & Partial<MaxoutData>;
   isExcludingTax?: boolean;
 }
 
@@ -29,7 +36,11 @@ const PaymentPackItem = (props: Props) => {
   return (
     <div className={classes.itemContainer}>
       <div className={classes.row}>
-        <div>
+        <div
+          className={classNames({
+            [classes.opacity]: !!props.paymentPack.exceedsBookingMaxout,
+          })}
+        >
           <div className={classes.priceRow}>
             <Typography variant="h6">
               {getCurrencyDisplayWithPrice(
@@ -57,11 +68,21 @@ const PaymentPackItem = (props: Props) => {
           {!!props.paymentPack.linked_private_pass && (
             <Tooltip title={t('form.paymentPack.universalPass.label')}>
               <IconButton onClick={null}>
-                <StyleIcon color="inherit" />
+                <StyleIcon
+                  color="inherit"
+                  className={classNames({
+                    [classes.opacity]: !!props.paymentPack.exceedsBookingMaxout,
+                  })}
+                />
               </IconButton>
             </Tooltip>
           )}
         </div>
+        {props.paymentPack.exceedsBookingMaxout && (
+          <div className={classes.maxoutMessageContainer}>
+            <MaxoutInfoMessage maxoutInfo={props.paymentPack.maxoutInfo} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -73,6 +94,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    position: 'relative',
+  },
+  maxoutMessageContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    transform: 'translateY(50%)',
   },
   priceRow: {
     display: 'flex',
@@ -88,6 +116,9 @@ const useStyles = makeStyles((theme) => ({
   creditText: {
     marginLeft: theme.spacing(1),
     color: theme.palette.primary.main,
+  },
+  opacity: {
+    opacity: 0.5,
   },
 }));
 

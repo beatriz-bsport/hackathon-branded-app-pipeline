@@ -553,12 +553,16 @@ export const couponTemplateFormikHOC = withFormik<
       combinable: values.combinable,
       minimum_amount: values.minimum_amount,
       subscription_mode: parseInt(values.subscription_mode, 10),
+      amount_off: values.amount_off,
     } as any;
 
     if (data.voucher_type === VOUCHER_TYPE_PERCENT) {
       data.percent_off = values.percent_off;
+      data.amount_off = 0;
     } else {
       data.voucher_type = VOUCHER_TYPE_AMOUNT;
+      data.percent_off = 0;
+      data.amount_off = values.amount_off;
     }
 
     if (values.applies_to !== ALL_BUYABLES.toString()) {

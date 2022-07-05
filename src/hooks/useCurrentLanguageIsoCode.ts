@@ -10,7 +10,9 @@ const useCurrentLanguageIsoCode = () => {
 
   if (isAvailable) return language;
 
-  const split = language.split('-')[0];
+  // Some navigator doesn't give language on private session
+  const split = language?.split('-')?.[0] ?? 'en-US';
+
   const isSplitAvailable = availableLanguages.find(
     ({ lang }) => lang === split,
   );

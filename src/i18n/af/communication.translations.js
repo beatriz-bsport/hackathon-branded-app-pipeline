@@ -15,6 +15,20 @@ const {
   EMAIL_RECIPIENT_BOUNCED,
 } = RECIPIENT_STATUS;
 
+const COMMUNICATION_FILTERS = require('@bsport/common/lib/master-data/communication-filters');
+
+const {
+  COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
+  COMMUNICATION_CHANNEL_NOTIFICATION,
+  COMMUNICATION_CHANNEL_SESSION,
+  COMMUNICATION_CHANNEL_SMARTLIST,
+  COMMUNICATION_RECIPIENT_BOOKINGS,
+  COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
+  COMMUNICATION_RECIPIENT_WAITING_LIST,
+  COMMUNICATION_SEND_PARAMETER_AUTO,
+  COMMUNICATION_SEND_PARAMETER_MANUAL,
+} = COMMUNICATION_FILTERS;
+
 exports.default = {
   table: {
     columns: {
@@ -135,5 +149,49 @@ exports.default = {
       'Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.',
     warningConsent2:
       "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs.",
+  },
+  filter: {
+    applyFilter: 'Appliquer',
+    filterAction: 'Filtrer',
+    dateFilter: {
+      title: "Date d'envoi",
+      period: 'Période',
+      dateStart: 'Date de début',
+      dateEnd: 'Date de fin',
+    },
+    numberFilter: {
+      severalFilters: 'filtres appliqués',
+      oneFilter: '1 filtre appliqué',
+    },
+    kind: {
+      title: "Type d'envoi",
+      placeholder: "Sélectionnez un type d'envoi",
+    },
+    channel: {
+      title: 'Channels',
+      placeholder: 'Sélectionnez un type de channel',
+    },
+    recipient: {
+      title: 'Destinataires',
+      placeholder: 'Sélectionnez un type de destinataire',
+    },
+    sendParameter: {
+      title: "Paramètre d'envoi",
+      placeholder: "Sélectionnez un paramètre d'envoi",
+    },
+    choicesLabels: {
+      [COMMUNICATION_KIND_EMAIL]: 'Email',
+      [COMMUNICATION_KIND_SMS]: 'SMS',
+      [COMMUNICATION_KIND_PUSH_NOTIFICATION]: 'Notification push',
+      [COMMUNICATION_RECIPIENT_BOOKINGS]: 'Réservations',
+      [COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED]: 'Réservations annulées',
+      [COMMUNICATION_RECIPIENT_WAITING_LIST]: "Liste d'attente",
+      [COMMUNICATION_CHANNEL_SESSION]: 'Session',
+      [COMMUNICATION_CHANNEL_NOTIFICATION]: 'Notification',
+      [COMMUNICATION_CHANNEL_SMARTLIST]: 'Smartlist',
+      [COMMUNICATION_CHANNEL_MESSAGE_DIRECT]: 'Message direct',
+      [COMMUNICATION_SEND_PARAMETER_AUTO]: 'Automatique',
+      [COMMUNICATION_SEND_PARAMETER_MANUAL]: 'Manuel',
+    },
   },
 };

@@ -1,0 +1,149 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles, Theme } from '@material-ui/core';
+import { Moment as MomentType } from 'moment-timezone';
+import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
+import CommunicationFilterDateField from './CommunicationFilterDateField.component';
+import {
+  FILTER_IDENTIFIER_KIND,
+  FILTER_IDENTIFIER_CHANNEL,
+  FILTER_IDENTIFIER_RECIPIENT,
+  FILTER_IDENTIFIER_SEND_PARAMETER,
+} from '../constants';
+import { getFieldChoicesByIdentifier } from '../utils';
+import { SelectFieldItem } from '../types';
+
+export type FilterModalProps = {
+  hasKindFilter?: boolean;
+  hasRecipientFilter?: boolean;
+  hasChannelFilter?: boolean;
+  hasSendParameterFilter?: boolean;
+  hasDatesFilter?: boolean;
+  kindFilterValues?: SelectFieldItem[];
+  kindFilterSetter?: (args: SelectFieldItem[]) => void;
+  kindFilterOptionsOverride?: SelectFieldItem[];
+  recipientFilterValues?: SelectFieldItem[];
+  recipientFilterSetter?: (args: SelectFieldItem[]) => void;
+  recipientFilterOptionsOverride?: SelectFieldItem[];
+  channelFilterValues?: SelectFieldItem[];
+  channelFilterSetter?: (args: SelectFieldItem[]) => void;
+  channelFilterOptionsOverride?: SelectFieldItem[];
+  sendParameterFilterValues?: SelectFieldItem[];
+  sendParameterFilterSetter?: (args: SelectFieldItem[]) => void;
+  sendParameterFilterOptionsOverride?: SelectFieldItem[];
+  dateStartValue?: MomentType;
+  dateStartSetter?: (newDate: MomentType) => void;
+  dateEndValue?: MomentType;
+  dateEndSetter?: (newDate: MomentType) => void;
+  periodHasChanged?: boolean;
+  handleFiltersSubmit: () => void;
+};
+
+export const CommunicationFilterCollapse = (props: FilterModalProps) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['communication']);
+  const enableSubmitButton =
+    (props.hasKindFilter && props.kindFilterValues.length > 0) ||
+    (props.hasRecipientFilter && props.recipientFilterValues.length > 0) ||
+    (props.hasChannelFilter && props.channelFilterValues.length > 0) ||
+    (props.hasSendParameterFilter &&
+      props.sendParameterFilterValues.length > 0) ||
+    props.periodHasChanged;
+  return (
+    <Paper className={classes.container}>
+      <div className={classes.filtersContainer}>
+        {props.hasKindFilter && (
+          <CommunicationFilterGenericField
+            fieldName={t(`filter.kind.title`)}
+            fieldPlaceholder={t(`filter.kind.placeholder`)}
+            fieldValues={props.kindFilterValues}
+            fieldValuesSetter={props.kindFilterSetter}
+            fieldChoices={
+              props.kindFilterOptionsOverride ??
+              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_KIND, t)
+            }
+          />
+        )}
+        {props.hasDatesFilter && (
+          <CommunicationFilterDateField
+            fieldStartValue={props.dateStartValue}
+            fieldStartSetter={props.dateStartSetter}
+            fieldEndValue={props.dateEndValue}
+            fieldEndSetter={props.dateEndSetter}
+          />
+        )}
+        {props.hasRecipientFilter && (
+          <CommunicationFilterGenericField
+            fieldName={t(`filter.recipient.title`)}
+            fieldPlaceholder={t(`filter.recipient.placeholder`)}
+            fieldValues={props.recipientFilterValues}
+            fieldValuesSetter={props.recipientFilterSetter}
+            fieldChoices={
+              props.recipientFilterOptionsOverride ??
+              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_RECIPIENT, t)
+            }
+          />
+        )}
+        {props.hasChannelFilter && (
+          <CommunicationFilterGenericField
+            fieldName={t(`filter.channel.title`)}
+            fieldPlaceholder={t(`filter.channel.placeholder`)}
+            fieldValues={props.channelFilterValues}
+            fieldValuesSetter={props.channelFilterSetter}
+            fieldChoices={
+              props.channelFilterOptionsOverride ??
+              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_CHANNEL, t)
+            }
+          />
+        )}
+        {props.hasSendParameterFilter && (
+          <CommunicationFilterGenericField
+            fieldName={t(`filter.sendParameter.title`)}
+            fieldPlaceholder={t(`filter.sendParameter.placeholder`)}
+            fieldValues={props.sendParameterFilterValues}
+            fieldValuesSetter={props.sendParameterFilterSetter}
+            fieldChoices={
+              props.sendParameterFilterOptionsOverride ??
+              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_SEND_PARAMETER, t)
+            }
+            noMulti
+          />
+        )}
+      </div>
+      <Button
+        className={classes.submitButton}
+        onClick={props.handleFiltersSubmit}
+        variant="contained"
+        color="secondary"
+        disabled={!enableSubmitButton}
+      >
+        {t('filter.applyFilter')}
+      </Button>
+    </Paper>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    padding: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  filtersContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  submitButton: {
+    borderRadius: theme.spacing(1),
+    alignSelf: 'flex-end',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+}));
+
+export default CommunicationFilterCollapse;

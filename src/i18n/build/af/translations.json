@@ -758,6 +758,30 @@
     "sms": {
       "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
       "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs."
+    },
+    "filter": {
+      "applyFilter": "Appliquer",
+      "filterAction": "Filtrer",
+      "dateFilter": { "title": "Date d'envoi", "period": "Période", "dateStart": "Date de début", "dateEnd": "Date de fin" },
+      "numberFilter": { "severalFilters": "filtres appliqués", "oneFilter": "1 filtre appliqué" },
+      "kind": { "title": "Type d'envoi", "placeholder": "Sélectionnez un type d'envoi" },
+      "channel": { "title": "Channels", "placeholder": "Sélectionnez un type de channel" },
+      "recipient": { "title": "Destinataires", "placeholder": "Sélectionnez un type de destinataire" },
+      "sendParameter": { "title": "Paramètre d'envoi", "placeholder": "Sélectionnez un paramètre d'envoi" },
+      "choicesLabels": {
+        "0": "Email",
+        "1": "SMS",
+        "2": "Notification push",
+        "3": "Session",
+        "4": "Notification",
+        "5": "Smartlist",
+        "6": "Message direct",
+        "7": "Réservations",
+        "8": "Réservations annulées",
+        "9": "Liste d'attente",
+        "10": "Automatique",
+        "11": "Manuel"
+      }
     }
   },
   "consumerSpace": {

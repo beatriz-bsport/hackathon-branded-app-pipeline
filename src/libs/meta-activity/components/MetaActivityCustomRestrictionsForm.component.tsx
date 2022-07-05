@@ -80,7 +80,9 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
         </div>
         <>{openCustomRestrcition ? <ExpandLessIcon /> : <ExpandMoreIcon />}</>
       </ButtonBase>
-      <Typography>{t('restrictions.personnalizedHelper')}</Typography>
+      <Typography variant="body2">
+        {t('restrictions.personnalizedHelper')}
+      </Typography>
       <Collapse in={openCustomRestrcition}>
         {maxSteps ? (
           <MobileStepper

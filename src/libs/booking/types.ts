@@ -31,12 +31,12 @@ export type RecurrenceRuleBooking = {
   notify_if_booked: boolean;
 };
 
-export type Booking<Offer = number> = {
+export type Booking<Offer = number, Member = number, PP = number> = {
   name: string;
   nb_bookings: number;
   offer: Offer;
   id: number;
-  member: number;
+  member: Member;
   booking_status_code: number;
   date: string;
   date_canceled: string;
@@ -45,11 +45,12 @@ export type Booking<Offer = number> = {
   attendance: boolean;
   date_start: string;
   offer_date_start: string;
-  payment_pack: number;
+  payment_pack: PP;
   consumer_payment_pack: ConsumerPaymentPack;
   was_refunded: false;
   first_in_company: false;
   spot_id: number | null;
+  is_discardable?: boolean;
 };
 
 export type BookingOption<O = Offer> = {

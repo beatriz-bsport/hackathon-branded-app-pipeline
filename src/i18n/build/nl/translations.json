@@ -1870,7 +1870,7 @@
             "pt": "Portugees"
         },
         "signin": {
-            "connect": "Log in om verder te gaan.",
+            "connect": "Meld je aan of maak een account aan om verder te gaan.",
             "connection": "Aanmelden",
             "selectYourCurrentEmail": "Selecteer je huidige inloggegevens."
         },
@@ -2202,7 +2202,8 @@
             "couponpercent_off": "Kortingspercentage",
             "baskettotal_price": "Bedrag (incl. btw)",
             "establishment_title": "Vestiging",
-            "billing_planrecurrent_price": "Bedrag"
+            "billing_planrecurrent_price": "Bedrag",
+            "negative_voucher": "Korting"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"

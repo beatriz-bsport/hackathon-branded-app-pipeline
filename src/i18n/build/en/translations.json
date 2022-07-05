@@ -7734,7 +7734,8 @@
             "couponpercent_off": "Discount (in %)",
             "baskettotal_price": "Price (incl. VAT / Sales Tax)",
             "establishment_title": "Establishment",
-            "billing_planrecurrent_price": "Amount"
+            "billing_planrecurrent_price": "Amount",
+            "negative_voucher": "Discount"
         },
         "yes": "Yes",
         "no": "No",

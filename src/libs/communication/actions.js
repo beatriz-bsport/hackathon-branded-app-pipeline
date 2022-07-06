@@ -50,7 +50,11 @@ export function fetchCampaignSmartlist(
     dispatch(campaignBySmartlistActions.isLoading(true));
     dispatch(campaignBySmartlistActions.error(null));
     try {
-      const response = await fetchCampaignListAPI({ smartlist, page });
+      const response = await fetchCampaignListAPI({
+        smartlist,
+        page,
+        no_automated_campaign: true,
+      });
       dispatch(campaignBySmartlistActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -61,6 +65,43 @@ export function fetchCampaignSmartlist(
       if (options && options.onError) options.onError(error);
     }
     dispatch(campaignBySmartlistActions.isLoading(false));
+  };
+}
+export const smartlistAutomatedCampaignListActions = {
+  error: createAction('AUTOMATED_CAMPAIGN/LIST/ERROR'),
+  isLoading: createAction('AUTOMATED_CAMPAIGN/LIST/LOADING'),
+  success: createAction('AUTOMATED_CAMPAIGN/LIST/SUCCESS'),
+};
+
+export function fetchCampaignSmartlistAutomated(
+  smartlist: number,
+  page: number,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(smartlistAutomatedCampaignListActions.isLoading(true));
+    dispatch(smartlistAutomatedCampaignListActions.error(null));
+    try {
+      const response = await fetchCampaignListAPI({
+        smartlist,
+        page,
+        only_automated_campaign: true,
+      });
+      dispatch(
+        smartlistAutomatedCampaignListActions.success({
+          ...response.data,
+          page,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      dispatch(smartlistAutomatedCampaignListActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(smartlistAutomatedCampaignListActions.isLoading(false));
   };
 }
 

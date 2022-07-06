@@ -1,4 +1,5 @@
 import { ErrorAndLoading } from '../types';
+import type { AutomatedCampaign } from '#libs/smart-list/types';
 
 export type MemberMailData = {
   members: Array<number>;
@@ -47,6 +48,11 @@ export type Campaign = {
   total_click: number;
   sms_text: string;
   kind: number;
+  metadata: {
+    smartlist_id?: number;
+    automated_campaign_id?: number;
+  };
+  automated_campaign?: AutomatedCampaign;
 };
 
 export type Report = {
@@ -99,4 +105,27 @@ export type MailState = {
       count: number;
     };
   };
+  automatedCampaign: {
+    byId: { [uuid: string]: Campaign };
+    bySmartlist: {
+      allIds: Array<string>;
+      loading: boolean;
+      error?: Error;
+      page?: number;
+      next_page?: number;
+      count: number;
+    };
+  };
+  availablePushNotificationRecipient: {
+    allIds: number[];
+  } & ErrorAndLoading;
+};
+
+export type SendDirectCommunicationType = {
+  email_temaplte?: number | null;
+  body: string;
+  kind: string;
+  subject: string;
+  notification_title?: string;
+  members: Array<number>;
 };

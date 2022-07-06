@@ -22,10 +22,44 @@ export type SmartListState = ErrorAndLoading & {
   allIds: number[];
   upsert: ErrorAndLoading;
   filter: ErrorAndLoading;
+  filtersByCategoryId: { [identifier: string]: any[] };
   smartListTagRules: ErrorAndLoading & {
     byId: { [key: string]: AutoTagRule };
+    allIds: number[];
   };
   smartListFiltered: ErrorAndLoading & {
     items: SmartList[];
   };
+  automatedCampaign: ErrorAndLoading & {
+    byId: { [key: number]: AutomatedCampaign };
+    allIds: number[];
+    bySmartListId: { [key: number]: AutomatedCampaign };
+    createOrUpdate: ErrorAndLoading;
+    delete: ErrorAndLoading;
+  };
+};
+
+export type AutomatedCampaignQueryParams = {
+  id__in?: Array<number>;
+  smartlist__id_in?: Array<number>;
+  event_kind?: number;
+  communication_kind?: number;
+  smartlist_id?: number;
+  page?: number;
+  page_size?: number | null;
+  exclude_disabled?: boolean;
+};
+
+export type AutomatedCampaign<C = number, SM = number, ED = number> = {
+  id?: number;
+  company?: C;
+  smartlist: SM;
+  event_kind: number;
+  communication_kind: number;
+  text: string | null;
+  email_design: ED | null;
+  title: string | null;
+  disabled: boolean;
+  date_created: string;
+  max_communications_sent_per_member: number;
 };

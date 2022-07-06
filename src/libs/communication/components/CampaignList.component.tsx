@@ -1,16 +1,14 @@
-// @flow
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
-
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import CampaignListItem from './CampaignListItem.component';
 import type { Campaign, Recipient } from '../types';
 
@@ -18,7 +16,7 @@ type Props = {
   loading: boolean;
   campaignList: [Campaign, Recipient][];
   fetchMore: () => void;
-  onClickReport: (value: string) => void;
+  onClickReport: (campaign_uuid: string) => void;
 };
 
 export const CampaignList: React.FC<Props> = ({
@@ -58,7 +56,7 @@ export const CampaignList: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <Dialog open={!!showEmail}>
+      <GenericResponsiveDialog open={!!showEmail}>
         <DialogContent>
           <div
             // eslint-disable-next-line
@@ -70,7 +68,7 @@ export const CampaignList: React.FC<Props> = ({
             {t('common:close')}
           </Button>
         </DialogActions>
-      </Dialog>
+      </GenericResponsiveDialog>
     </div>
   );
 };

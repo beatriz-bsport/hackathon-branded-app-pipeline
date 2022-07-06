@@ -7,6 +7,7 @@ import { handleActions } from 'redux-actions';
 import {
   membersMailAction,
   campaignBySmartlistActions,
+  smartlistAutomatedCampaignListActions,
   campaignDetailActions,
   campaignReportActions,
   recipientListActions,
@@ -52,6 +53,17 @@ const initialState: MailState = Immutable({
       count: 0,
     },
     byMember: {
+      allIds: [],
+      loading: false,
+      error: null,
+      page: null,
+      next_page: null,
+      count: 0,
+    },
+  },
+  automatedCampaign: {
+    byId: {},
+    bySmartlist: {
       allIds: [],
       loading: false,
       error: null,
@@ -166,6 +178,43 @@ export default handleActions(
     },
     [campaignBySmartlistActions.isLoading]: (state, { payload }) => {
       return state.setIn(['campaign', 'bySmartlist', 'loading'], payload);
+    },
+
+    // AUTOMATED CAMPAIGN
+    [smartlistAutomatedCampaignListActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['automatedCampaign', 'bySmartlist', 'allIds'],
+          payload.page > 1
+            ? [
+                ...state.campaign.bySmartlist.allIds,
+                ...payload.results.map((foo) => foo.uuid),
+              ]
+            : payload.results.map((foo) => foo.uuid),
+        )
+        .setIn(['automatedCampaign', 'bySmartlist', 'page'], payload.page)
+        .setIn(
+          ['automatedCampaign', 'bySmartlist', 'next_page'],
+          payload.next_page,
+        )
+        .setIn(['automatedCampaign', 'bySmartlist', 'count'], payload.count)
+        .merge(
+          {
+            automatedCampaign: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.uuid] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [smartlistAutomatedCampaignListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['automatedCampaign', 'bySmartlist', 'loading'],
+        payload,
+      );
     },
     [campaignByMemberActions.reset]: (state) => {
       return state.setIn(['campaign', 'byMember', 'allIds'], []);

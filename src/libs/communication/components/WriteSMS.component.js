@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';
@@ -14,6 +13,8 @@ type Props = {
   smsContent: string,
   onChangeContent: (string) => void,
   countReceivers: number,
+  hideSmsCount?: boolean,
+  contentLengthError?: Boolean,
 };
 
 export function WriteSMS(props: Props) {
@@ -93,17 +94,22 @@ export function WriteSMS(props: Props) {
         variant="outlined"
       />
       <div className={props.classes.countContainer}>
-        <Typography vraient="caption">
+        <Typography
+          variant="caption"
+          color={props.contentLengthError ? 'error' : ''}
+        >
           {`${props.smsContent.length} / ${smsMaxLength} ${t('mail.count')}`}
         </Typography>
-        <Typography
-          variant={props.countReceivers > 200 ? 'h6' : undefined}
-          color={props.countReceivers > 200 ? 'error' : undefined}
-        >
-          {`= ${
-            props.countReceivers ? `${props.countReceivers} x ` : ''
-          }${computeNbSms(smsMaxLength)} ${t('mail.numberSms')}`}
-        </Typography>
+        {!props.hideSmsCount && (
+          <Typography
+            variant={props.countReceivers > 200 ? 'h6' : undefined}
+            color={props.countReceivers > 200 ? 'error' : undefined}
+          >
+            {`= ${
+              props.countReceivers ? `${props.countReceivers} x ` : ''
+            }${computeNbSms(smsMaxLength)} ${t('mail.numberSms')}`}
+          </Typography>
+        )}
       </div>
     </div>
   );

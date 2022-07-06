@@ -6,16 +6,15 @@ import Button from '@material-ui/core/Button';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
-import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Radio from '@material-ui/core/Radio';
-
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 
 import ReceiversCollapseItem from './ReceiversCollapseItem.component';
@@ -27,6 +26,7 @@ import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constant';
 
 import type { MemberMailData } from '../types';
 import Config from '../../../config';
+import type { Member } from '#libs/member/types';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
@@ -39,7 +39,6 @@ type Props = {
   send: (data: MemberMailData) => void,
   classes: Object,
   t: TFunction,
-  fullScreen: boolean,
   getEmails: () => void,
   getEmailDetail: (id: number) => void,
   emailListLoading: boolean,
@@ -60,8 +59,8 @@ type Props = {
   allIds: Array<number>,
   allIdsWithPhone: Array<number>,
   allIdsWithEmail: Array<number>,
-  fetchPreviousPage: (page_size: number) => void,
-  fetchNextPage: (page_size: number) => void,
+  fetchPreviousPage: (page: number, page_size: number) => void,
+  fetchNextPage: (page: number, page_size: number) => void,
   initMembers: () => void,
   page: number,
   page_size: number,
@@ -69,9 +68,21 @@ type Props = {
   membersAllLoading: boolean,
 };
 
+type State = {
+  openRefreshDialog: boolean,
+  unCheckedMembers: Array<number>,
+  mailTitle: string | null,
+  mailContent: string,
+  actionType: number,
+  selectedTemplate: null,
+  smsContent: string,
+  notificationTitle: string,
+  notificationContent: string,
+  page_size: number,
+};
 const MEMBER_PAGE_SIZE = 5;
 
-export class CommunicationDialog extends Component<Props> {
+export class CommunicationDrawer extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -122,12 +133,13 @@ export class CommunicationDialog extends Component<Props> {
     });
   };
 
-  renderTypeEmailChoice = () => {
+  renderCommunicationTypeChoice = () => {
+    const { classes, t } = this.props;
     return (
-      <div className={this.props.classes.radioContainer}>
+      <div className={classes.radioContainer}>
         {!this.props.hideWrittenMail && (
           <FormControlLabel
-            classes={{ label: this.props.classes.center }}
+            classes={{ label: classes.center }}
             control={
               <Radio
                 checked={this.state.actionType === WRITE_EMAIL}
@@ -140,13 +152,13 @@ export class CommunicationDialog extends Component<Props> {
                 }
               />
             }
-            label={this.props.t('mail.writeMail')}
+            label={t('mail.writeMail')}
             labelPlacement="bottom"
           />
         )}
         {!this.props.hideTemplateMail && (
           <FormControlLabel
-            classes={{ label: this.props.classes.center }}
+            classes={{ label: classes.center }}
             control={
               <Radio
                 checked={this.state.actionType === SELECT_EMAIL}
@@ -163,14 +175,14 @@ export class CommunicationDialog extends Component<Props> {
                 }
               />
             }
-            label={this.props.t('mail.selectTemplate')}
+            label={t('mail.selectTemplate')}
             labelPlacement="bottom"
           />
         )}
         <FeatureListProvider>
           {(featureList) => (
             <FormControlLabel
-              classes={{ label: this.props.classes.center }}
+              classes={{ label: classes.center }}
               control={
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
@@ -192,7 +204,7 @@ export class CommunicationDialog extends Component<Props> {
                   }
                 />
               }
-              label={this.props.t('mail.sendSms')}
+              label={t('mail.sendSms')}
               labelPlacement="bottom"
             />
           )}
@@ -200,7 +212,7 @@ export class CommunicationDialog extends Component<Props> {
         <FeatureListProvider>
           {(featureList) => (
             <FormControlLabel
-              classes={{ label: this.props.classes.center }}
+              classes={{ label: classes.center }}
               control={
                 <Radio
                   checked={this.state.actionType === SEND_PUSH_NOTIFICATION}
@@ -219,7 +231,7 @@ export class CommunicationDialog extends Component<Props> {
                   }
                 />
               }
-              label={this.props.t('mail.sendNotification')}
+              label={t('mail.sendNotification')}
               labelPlacement="bottom"
             />
           )}
@@ -229,20 +241,21 @@ export class CommunicationDialog extends Component<Props> {
   };
 
   renderConsentWarning = () => {
+    const { t, classes } = this.props;
     if (
       this.props.showEmailConsentWarning &&
       [WRITE_EMAIL, SELECT_EMAIL].includes(this.state.actionType)
     ) {
       return (
-        <div className={this.props.classes.emailConsentWarningContainer}>
-          <div className={this.props.classes.warningParagraph}>
+        <div className={classes.emailConsentWarningContainer}>
+          <div className={classes.warningParagraph}>
             <Typography variant="caption">
-              {this.props.t('mail.warningConsent1')}
+              {t('mail.warningConsent1')}
             </Typography>
           </div>
-          <div className={this.props.classes.warningParagraph}>
+          <div className={classes.warningParagraph}>
             <Typography variant="caption">
-              {this.props.t('mail.warningConsent2')}
+              {t('mail.warningConsent2')}
             </Typography>
           </div>
         </div>
@@ -253,15 +266,15 @@ export class CommunicationDialog extends Component<Props> {
       this.state.actionType === SEND_SMS
     ) {
       return (
-        <div className={this.props.classes.emailConsentWarningContainer}>
-          <div className={this.props.classes.warningParagraph}>
+        <div className={classes.emailConsentWarningContainer}>
+          <div className={classes.warningParagraph}>
             <Typography variant="caption">
-              {this.props.t('sms.warningConsent1')}
+              {t('sms.warningConsent1')}
             </Typography>
           </div>
-          <div className={this.props.classes.warningParagraph}>
+          <div className={classes.warningParagraph}>
             <Typography variant="caption">
-              {this.props.t('sms.warningConsent2')}
+              {t('sms.warningConsent2')}
             </Typography>
           </div>
         </div>
@@ -283,7 +296,7 @@ export class CommunicationDialog extends Component<Props> {
     });
   };
 
-  openMemberPage = (event: SyntheticEvent<any>, id) => {
+  openMemberPage = (event: SyntheticEvent<any>, id: number) => {
     event.preventDefault();
     const url = `/member/edit/${id}`;
     const win = window.open(url);
@@ -410,7 +423,6 @@ export class CommunicationDialog extends Component<Props> {
       emailDetails,
       emailListLoading,
       emails,
-      fullScreen,
       hideTemplateMail,
       hideWrittenMail,
       mailDefaultTitle,
@@ -425,18 +437,24 @@ export class CommunicationDialog extends Component<Props> {
       fetchNextPage,
       fetchPreviousPage,
       t,
-      classes,
     } = this.props;
 
     return (
-      <Dialog fullScreen={fullScreen} open={open}>
-        <div className={classes.title}>
-          <DialogTitle>{t('mail.dialogTitle')}</DialogTitle>
-        </div>
-        <DialogContent>
-          <div className={classes.sendMailDialogBox}>
-            <form className={classes.formContent} onSubmit={this.onSubmit}>
-              <Dialog open={this.state.openRefreshDialog}>
+      <GenericResponsiveDrawer
+        title={t('mail.dialogTitle')}
+        open={open}
+        onClose={() => {
+          this.onClose();
+          onCancel();
+        }}
+      >
+        <>
+          <div>
+            <form onSubmit={this.onSubmit}>
+              <GenericResponsiveDialog
+                maxWidth="sm"
+                open={this.state.openRefreshDialog}
+              >
                 <DialogContent>
                   <p>
                     {this.state.actionType === SEND_SMS
@@ -462,8 +480,8 @@ export class CommunicationDialog extends Component<Props> {
                     </Button>
                   </DialogActions>
                 </DialogContent>
-              </Dialog>
-              {this.renderTypeEmailChoice()}
+              </GenericResponsiveDialog>
+              {this.renderCommunicationTypeChoice()}
               {this.renderConsentWarning()}
               <ReceiversCollapseItem
                 members={membersToDisplay}
@@ -561,53 +579,20 @@ export class CommunicationDialog extends Component<Props> {
               </DialogActions>
             </form>
           </div>
-        </DialogContent>
-      </Dialog>
+        </>
+      </GenericResponsiveDrawer>
     );
   }
 }
 
 const styles = (theme) => ({
-  title: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
   radioContainer: {
     marginBottom: theme.spacing(2),
-
+    width: '100%',
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  inlineContainer: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  sendMailDialogBox: {
-    display: 'flex',
-    direction: 'column',
-    alignItems: 'flex-start',
-  },
-  mailTitle: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  formContent: {},
-  IconMargin: {
-    marginRight: theme.spacing(2),
-  },
-  addIcon: {
-    marginLeft: theme.spacing(1),
-  },
-  editIcon: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: '-20px',
   },
   emailConsentWarningContainer: {
     border: 'solid 1px rgb(255, 0, 0)',
@@ -628,4 +613,4 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['communication']),
   withStyles(styles),
-)(CommunicationDialog);
+)(CommunicationDrawer);

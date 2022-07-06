@@ -1,5 +1,5 @@
 import moment from 'moment-timezone';
-import { TFunction } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 

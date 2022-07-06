@@ -29,12 +29,26 @@ import {
   applySmartListAutoTagRules as applySmartListAutoTagRulesAPI,
   applyAsyncSmartListAutoTagRules as applyAsyncSmartListAutoTagRulesAPI,
   deleteMultiSmartListAutoTagRules as deleteMultiSmartListAutoTagRulesAPI,
+  getSmartListAutomatedCampaign as getSmartListAutomatedCampaignAPI,
+  fetchSmartListAutomatedCampaigns as fetchSmartListAutomatedCampaignsAPI,
+  createSmartListAutomatedCampaign as createSmartListAutomatedCampaignAPI,
+  updateSmartListAutomatedCampaign as updateSmartListAutomatedCampaignAPI,
+  deleteSmartListAutomatedCampaign as deleteSmartListAutomatedCampaignAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  OptionPaginatedCallback,
+} from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { SmartList } from './types';
+import {
+  AutomatedCampaign,
+  AutomatedCampaignQueryParams,
+  SmartList,
+} from './types';
 import { RootState } from '../../reducers';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -212,7 +226,7 @@ export const updateSmartListAction = {
 export function smartListUpdate(
   id: number,
   data: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(updateSmartListAction.isLoading(true));
@@ -555,3 +569,155 @@ export function applyAsyncSmartListAutoTagRules(
     dispatch(applyAsyncSmartListAutoTagRulesActions.isLoading(false));
   };
 }
+export const retrieveSmartListAutomatedCampaignActions = {
+  error: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/RETRIEVE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/RETRIEVE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTOMATED_CAMPAIGN/RETRIEVE/SUCCESS'),
+};
+
+export function retrieveSmartListAutomatedCampaign(
+  id: number,
+  options?: OptionCallback<AutomatedCampaign>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveSmartListAutomatedCampaignActions.isLoading(true));
+    dispatch(retrieveSmartListAutomatedCampaignActions.error(null));
+
+    try {
+      const response = await getSmartListAutomatedCampaignAPI(id);
+      dispatch(
+        retrieveSmartListAutomatedCampaignActions.success(response.data),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(retrieveSmartListAutomatedCampaignActions.error(error));
+    }
+    dispatch(retrieveSmartListAutomatedCampaignActions.isLoading(false));
+  };
+}
+
+export const listSmartListAutomatedCampaignActions = {
+  error: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/LIST/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/LIST/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTOMATED_CAMPAIGN/LIST/SUCCESS'),
+};
+
+export function fetchSmartListAutomatedCampaign(
+  params: AutomatedCampaignQueryParams,
+  options?: OptionPaginatedCallback<AutomatedCampaign[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listSmartListAutomatedCampaignActions.isLoading(true));
+    dispatch(listSmartListAutomatedCampaignActions.error(null));
+
+    try {
+      const response = await fetchSmartListAutomatedCampaignsAPI(params);
+      dispatch(
+        listSmartListAutomatedCampaignActions.success(response.data.results),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(listSmartListAutomatedCampaignActions.error(error));
+    }
+    dispatch(listSmartListAutomatedCampaignActions.isLoading(false));
+  };
+}
+
+export const createSmartListAutomatedCampaignActions = {
+  error: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/CREATE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/CREATE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTOMATED_CAMPAIGN/CREATE/SUCCESS'),
+};
+
+export const createSmartListAutomatedCampaign = (
+  data: AutomatedCampaign,
+  options?: OptionCallback<AutomatedCampaign>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(createSmartListAutomatedCampaignActions.isLoading(true));
+    dispatch(createSmartListAutomatedCampaignActions.error(null));
+    try {
+      const response = await createSmartListAutomatedCampaignAPI(data);
+      dispatch(createSmartListAutomatedCampaignActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(createSmartListAutomatedCampaignActions.error(error));
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `automatedCampaign.errors.${error.response.data.error_code}`,
+          ),
+        );
+      }
+      if (options && options.onError) options.onError();
+    }
+    dispatch(createSmartListAutomatedCampaignActions.isLoading(false));
+  };
+};
+export const updateSmartListAutomatedCampaignActions = {
+  error: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/UPDATE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/UPDATE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTOMATED_CAMPAIGN/UPDATE/SUCCESS'),
+};
+
+export const updateSmartListAutomatedCampaign = (
+  id: number,
+  data: AutomatedCampaign,
+  options?: OptionCallback<AutomatedCampaign>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateSmartListAutomatedCampaignActions.isLoading(true));
+    dispatch(updateSmartListAutomatedCampaignActions.error(null));
+    try {
+      const response = await updateSmartListAutomatedCampaignAPI(id, data);
+      dispatch(updateSmartListAutomatedCampaignActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(updateSmartListAutomatedCampaignActions.error(error));
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `automatedCampaign.errors.${error.response.data.error_code}`,
+          ),
+        );
+      }
+      if (options && options.onError) options.onError();
+    }
+    dispatch(updateSmartListAutomatedCampaignActions.isLoading(false));
+  };
+};
+
+export const deleteSmartListAutomatedCampaignActions = {
+  error: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/DELETE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTOMATED_CAMPAIGN/DELETE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTOMATED_CAMPAIGN/DELETE/SUCCESS'),
+};
+
+export const deleteSmartListAutomatedCampaign = (
+  id: number,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteSmartListAutomatedCampaignActions.isLoading(true));
+    dispatch(deleteSmartListAutomatedCampaignActions.error(null));
+    try {
+      await deleteSmartListAutomatedCampaignAPI(id);
+      dispatch(deleteSmartListAutomatedCampaignActions.success({ id }));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteSmartListAutomatedCampaignActions.error(error));
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `automatedCampaign.errors.${error.response.data.error_code}`,
+          ),
+        );
+      }
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteSmartListAutomatedCampaignActions.isLoading(false));
+  };
+};

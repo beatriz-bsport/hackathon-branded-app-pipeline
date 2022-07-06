@@ -14,6 +14,10 @@ const {
   EMAIL_RECIPIENT_PENDING,
   EMAIL_RECIPIENT_BOUNCED,
 } = RECIPIENT_STATUS;
+const {
+  SEND_COMMUNICATION_ON_JOIN,
+  SEND_COMMUNICATION_ON_LEFT,
+} = require('@bsport/common/lib/master-data/smart-list');
 
 const COMMUNICATION_FILTERS = require('@bsport/common/lib/master-data/communication-filters');
 
@@ -96,6 +100,8 @@ exports.default = {
     title: 'Sélection des destinataires',
   },
   campaign: {
+    manualTitle: 'Envois manuels',
+    automatedTitle: 'Envois automatiques',
     recipientCount: 'Destinataire: {{ total_recipients }}',
     showMail: "Voir l'email",
     unavailableMail: 'Preview non disponible',
@@ -121,6 +127,52 @@ exports.default = {
       [COMMUNICATION_KIND_EMAIL]: 'Email',
       [COMMUNICATION_KIND_SMS]: 'SMS',
       [COMMUNICATION_KIND_PUSH_NOTIFICATION]: 'Notification push',
+    },
+    automated: {
+      onJoin: "A l'entrée de la smartlist",
+      onLeft: 'A la sortie de la smartlist',
+      create: 'Création ',
+      eventKind: {
+        [SEND_COMMUNICATION_ON_JOIN]: 'Entrée',
+        [SEND_COMMUNICATION_ON_LEFT]: 'Sortie',
+      },
+      activeSince: 'Actif depuis le {{-date}}',
+      form: {
+        submit: 'Confirmer',
+        advancedSection: 'Avancé',
+        max_communications_sent_per_member:
+          "Nombre d'envois maximum par membre",
+        max_communications_sent_per_member_limit: 'Valeur maximale : {{ max }}',
+        subtitles: {
+          update: {
+            joinSmartList:
+              'Modification d’une règle d’envoi automatique en entrée de la smartlist',
+            leftSmartList:
+              'Modification d’une règle d’envoi automatique en sortie de la smartlist',
+          },
+          create: {
+            joinSmartList:
+              'Création d’une règle d’envoi automatique en entrée de la smartlist',
+            leftSmartList:
+              'Création d’une règle d’envoi automatique en sortie de la smartlist',
+          },
+        },
+        frequenceHelper:
+          "Cette communication sera envoyée pour {{ max }} {{ event_kind }} de la smartlist pour chaque membre. Après {{ max }} {{ event_kind }} de la smartlist pour un même membre, il ne recevra plus cette communication. Vous pouvez changer ce paramètre dans 'Avancé'.",
+      },
+      panel: {
+        title: "Règle d'envoi automatique",
+        add: 'Ajouter',
+        subtitle: {
+          onJoin: 'En entrée',
+          onLeft: 'En sortie',
+        },
+      },
+      deleteDialog: {
+        title: 'Suppresion',
+        content:
+          "Êtes-vous sûr de vouloir supprimer cette règle d'envoi automatique ? Cette action est définitive.",
+      },
     },
   },
   recipient: {

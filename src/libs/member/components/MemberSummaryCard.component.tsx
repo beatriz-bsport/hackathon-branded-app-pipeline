@@ -43,7 +43,7 @@ import type { Member } from '../types';
 import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-import CommunicationDialog from '../../communication/components/CommunicationDialog.component';
+import CommunicationDrawer from '../../communication/components/CommunicationDrawer.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
 import VaccinationStatus from './VaccinationStatus.component';
 import { EstablishmentGroup } from '../../establishment/types';
@@ -202,7 +202,7 @@ export class MemberSummaryCard extends Component<Props> {
           <VaccinationStatus vaccinationStatus={member.vaccination_status} />
         )}
         {this.state.displayMailDialog && (
-          <CommunicationDialog
+          <CommunicationDrawer
             getEmails={this.props.getEmails}
             emails={this.props.emails}
             getEmailDetail={this.props.getEmailDetail}

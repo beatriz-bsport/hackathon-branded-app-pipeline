@@ -8,6 +8,7 @@ import {
   patchAuth,
   deleteAuth,
 } from '../../http';
+import { AutomatedCampaignQueryParams, AutomatedCampaign } from './types';
 
 const SMART_LIST_URI = `${API_V1_URI}/smartlist/group/`;
 
@@ -122,4 +123,34 @@ export const updateFilter = (
 
 export const deleteFilter = (filter_identifier: number, id: number) => {
   return deleteAuth(`${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/${id}/`);
+};
+
+// AutomatedCampaign
+export const getSmartListAutomatedCampaign = async (id: number) => {
+  return getAuth(`${API_V1_URI}/smartlist/automated_campaign/${id}`);
+};
+
+export const fetchSmartListAutomatedCampaigns = async (
+  params?: AutomatedCampaignQueryParams,
+) => {
+  return getAuth(
+    `${API_V1_URI}/smartlist/automated_campaign/${buildUrlParams(params)}`,
+  );
+};
+
+export const createSmartListAutomatedCampaign = async (
+  data: AutomatedCampaign,
+) => {
+  return postAuth(`${API_V1_URI}/smartlist/automated_campaign/`, data);
+};
+
+export const updateSmartListAutomatedCampaign = async (
+  id: number,
+  data: AutomatedCampaign,
+) => {
+  return patchAuth(`${API_V1_URI}/smartlist/automated_campaign/${id}/`, data);
+};
+
+export const deleteSmartListAutomatedCampaign = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/smartlist/automated_campaign/${id}/`);
 };

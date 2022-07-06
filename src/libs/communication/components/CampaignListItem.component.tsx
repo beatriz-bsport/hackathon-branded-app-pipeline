@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import VisibilityOnIcon from '@material-ui/icons/Visibility';
 import MailIcon from '@material-ui/icons/Mail';
 import SmsIcon from '@material-ui/icons/Sms';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare';
 import Divider from '@material-ui/core/Divider';
 
@@ -17,6 +17,11 @@ import {
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
+
+import {
+  SEND_COMMUNICATION_ON_JOIN,
+  SEND_COMMUNICATION_ON_LEFT,
+} from '@bsport/common/lib/master-data/smart-list';
 import { Campaign, Recipient } from '../types';
 
 type Props = {
@@ -30,16 +35,15 @@ const MultiRecipientStat: React.FC<{
   total_read: number;
   total_click: number;
   total_recipients: number;
-  onClickReport: () => void;
   kind: number;
-}> = ({ total_read, total_click, total_recipients, kind, onClickReport }) => {
+}> = ({ total_read, total_click, total_recipients, kind }) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
 
   return (
-    <React.Fragment>
+    <>
       {kind === COMMUNICATION_KIND_EMAIL && (
-        <React.Fragment>
+        <div className={classes.countersContainer}>
           <div className={classes.counters}>
             <Typography variant="subtitle2">
               {`${((total_read / total_recipients) * 100).toFixed(1)}%`}
@@ -56,32 +60,41 @@ const MultiRecipientStat: React.FC<{
               {t('campaign.clickCount')}
             </Typography>
           </div>
-        </React.Fragment>
+        </div>
       )}
-      <Button
-        onClick={onClickReport}
-        variant="outlined"
-        className={classes.button}
-      >
-        <VisibilityOnIcon className={classes.leftIcon} />
-        {t('campaign.showReport')}
-      </Button>
-    </React.Fragment>
+    </>
+  );
+};
+
+const MultiRecipientStatAction: React.FC<{
+  onClickReport: () => void;
+}> = ({ onClickReport }) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['communication']);
+
+  return (
+    <Button
+      onClick={onClickReport}
+      variant="outlined"
+      className={classes.button}
+    >
+      <VisibilityOnIcon className={classes.leftIcon} />
+      {t('campaign.showReport')}
+    </Button>
   );
 };
 
 const SingleRecipientInfo: React.FC<{
   recipient: Recipient;
   kind: number;
-  onClickShow: () => void;
-}> = ({ recipient, kind, onClickShow }) => {
+}> = ({ recipient, kind }) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
 
   return (
-    <React.Fragment>
+    <>
       {kind === COMMUNICATION_KIND_EMAIL && (
-        <React.Fragment>
+        <div className={classes.countersContainer}>
           <div className={classes.counters}>
             <Typography variant="subtitle2">{recipient.read_count}</Typography>
             <Typography color="textSecondary">
@@ -96,22 +109,28 @@ const SingleRecipientInfo: React.FC<{
               {t('recipient.clicksCount')}
             </Typography>
           </div>
-        </React.Fragment>
+        </div>
       )}
-      <Button
-        onClick={onClickShow}
-        variant="outlined"
-        className={classes.button}
-      >
-        <VisibilityOnIcon className={classes.leftIcon} />
-        {t(
-          (kind === COMMUNICATION_KIND_EMAIL && 'recipient.showEmail') ||
-            (kind === COMMUNICATION_KIND_SMS && 'recipient.showSms') ||
-            (kind === COMMUNICATION_KIND_PUSH_NOTIFICATION &&
-              'recipient.showNotification'),
-        )}
-      </Button>
-    </React.Fragment>
+    </>
+  );
+};
+
+const SingleRecipientInfoAction: React.FC<{
+  kind: number;
+  onClickShow: () => void;
+}> = ({ kind, onClickShow }) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['communication']);
+  return (
+    <Button onClick={onClickShow} variant="outlined" className={classes.button}>
+      <VisibilityOnIcon className={classes.leftIcon} />
+      {t(
+        (kind === COMMUNICATION_KIND_EMAIL && 'recipient.showEmail') ||
+          (kind === COMMUNICATION_KIND_SMS && 'recipient.showSms') ||
+          (kind === COMMUNICATION_KIND_PUSH_NOTIFICATION &&
+            'recipient.showNotification'),
+      )}
+    </Button>
   );
 };
 
@@ -131,6 +150,7 @@ export const CampaignListItem: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
+
   const { subject, body, tags_groups } = data;
   const regexInterpolateValue = /[^{]*{[^}]*}/;
 
@@ -148,72 +168,111 @@ export const CampaignListItem: React.FC<Props> = ({
     return newString;
   };
 
+  const handleClickShow = () => onClickShow(interpolate(body || campaign.text));
+
   return (
-    <div>
+    <>
       <div className={classes.container}>
-        <div className={classes.firstLeftPanel}>
-          {kind === COMMUNICATION_KIND_EMAIL && (
-            <MailIcon className={classes.mailIcon} />
-          )}
-          {kind === COMMUNICATION_KIND_SMS && (
-            <SmsIcon className={classes.mailIcon} />
-          )}
-          {kind === COMMUNICATION_KIND_PUSH_NOTIFICATION && (
-            <MobileScreenShareIcon className={classes.mailIcon} />
-          )}
-          <div className={classes.leftPanel}>
-            {subject ? (
+        <div className={classes.campaignInfoOutter}>
+          <div className={classes.campaignInfoInner}>
+            <div className={classes.info}>
+              {kind === COMMUNICATION_KIND_EMAIL && (
+                <MailIcon className={classes.mailIcon} />
+              )}
+              {kind === COMMUNICATION_KIND_SMS && (
+                <SmsIcon className={classes.mailIcon} />
+              )}
+              {kind === COMMUNICATION_KIND_PUSH_NOTIFICATION && (
+                <MobileScreenShareIcon className={classes.mailIcon} />
+              )}
               <>
-                <Typography variant="h6" color="primary">
-                  {interpolate(subject)}
-                </Typography>
-                {subject.match(regexInterpolateValue) &&
-                  ((tags_groups ?? []).length === 0 ||
-                    tags_groups?.length > 1) && (
-                    <Typography variant="caption" color="secondary">
-                      {t('mail.titleInterpolated')}
+                <div className={classes.column}>
+                  {subject ? (
+                    <>
+                      <Typography variant="h6" color="primary">
+                        {interpolate(subject)}
+                      </Typography>
+                      {subject.match(regexInterpolateValue) &&
+                        ((tags_groups ?? []).length === 0 ||
+                          tags_groups?.length > 1) && (
+                          <Typography variant="caption" color="secondary">
+                            {t('mail.titleInterpolated')}
+                          </Typography>
+                        )}
+                    </>
+                  ) : (
+                    <Typography variant="h6" color="primary">
+                      {t(`campaign.kind.${kind}`)}
                     </Typography>
                   )}
+                  {singleRecipientData ? (
+                    <Typography>
+                      {t(`recipient.status.${singleRecipientData.status}`)}
+                    </Typography>
+                  ) : (
+                    <Typography>
+                      {t('campaign.recipientCount', { total_recipients })}
+                    </Typography>
+                  )}
+                  <Typography color="textSecondary">
+                    {t('campaign.sentAt', {
+                      date_created: moment(date_created).format('LLLL'),
+                    })}
+                  </Typography>
+                </div>
               </>
-            ) : (
-              <Typography variant="h6" color="primary">
-                {t(`campaign.kind.${kind}`)}
-              </Typography>
-            )}
-            {singleRecipientData ? (
-              <Typography>
-                {t(`recipient.status.${singleRecipientData.status}`)}
-              </Typography>
-            ) : (
-              <Typography>
-                {t('campaign.recipientCount', { total_recipients })}
-              </Typography>
-            )}
-            <Typography color="textSecondary">
-              {t('campaign.sentAt', {
-                date_created: moment(date_created).format('LLLL'),
-              })}
-            </Typography>
+            </div>
+            {campaign?.automated_campaign?.event_kind ===
+            SEND_COMMUNICATION_ON_JOIN ? (
+              <div className={classes.row}>
+                <DoubleArrowIcon
+                  fontSize="small"
+                  className={classes.joinIcon}
+                />
+                <Typography variant="caption">
+                  {t('campaign.automated.onJoin')}
+                </Typography>
+              </div>
+            ) : null}
+            {campaign?.automated_campaign?.event_kind ===
+            SEND_COMMUNICATION_ON_LEFT ? (
+              <div className={classes.row}>
+                <DoubleArrowIcon
+                  fontSize="small"
+                  className={classes.leavingIcon}
+                />
+                <Typography variant="caption">
+                  {t('campaign.automated.onLeft')}
+                </Typography>
+              </div>
+            ) : null}
           </div>
         </div>
-        {singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
-          <SingleRecipientInfo
-            recipient={singleRecipientData}
-            onClickShow={() => onClickShow(interpolate(body || campaign.text))}
-            kind={kind}
-          />
-        ) : (
-          <MultiRecipientStat
-            total_read={total_read}
-            total_recipients={total_recipients}
-            total_click={total_click}
-            kind={kind}
-            onClickReport={onClickReport}
-          />
-        )}
+        <div className={classes.campaignStatsOutter}>
+          {singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
+            <SingleRecipientInfo recipient={singleRecipientData} kind={kind} />
+          ) : (
+            <MultiRecipientStat
+              total_read={total_read}
+              total_recipients={total_recipients}
+              total_click={total_click}
+              kind={kind}
+            />
+          )}
+        </div>
+        <div className={classes.campaignActionsOutter}>
+          {singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
+            <SingleRecipientInfoAction
+              onClickShow={handleClickShow}
+              kind={kind}
+            />
+          ) : (
+            <MultiRecipientStatAction onClickReport={onClickReport} />
+          )}
+        </div>
       </div>
       <Divider className={classes.divider} />
-    </div>
+    </>
   );
 };
 
@@ -224,13 +283,38 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    [theme.breakpoints.down('md')]: {
+      alignItems: 'center',
+    },
   },
-  firstLeftPanel: {
+  campaignInfoOutter: {
+    flex: 2,
+  },
+  campaignInfoInner: {
     display: 'flex',
-    width: '40%',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+  },
+  info: {
+    display: 'flex',
+  },
+  campaignStatsOutter: {
+    flex: 2,
+  },
+  campaignActionsOutter: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down('md')]: {
+      flex: '1 0 100%',
+      justifyContent: 'flex-start',
+      paddingTop: theme.spacing(1),
+    },
   },
   divider: {
     marginTop: theme.spacing(2),
@@ -243,15 +327,47 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(1) / 2,
   },
-  leftPanel: {
+  column: {
     display: 'flex',
     flexDirection: 'column',
   },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      paddingTop: theme.spacing(1),
+      paddingLeft: theme.spacing(5.5),
+    },
+  },
+  countersContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
+  },
   counters: {
     marginTop: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+    },
   },
   button: {
     marginTop: theme.spacing(1),
+  },
+  joinIcon: {
+    color: '#00c853',
+    marginRight: theme.spacing(1),
+  },
+  leavingIcon: {
+    color: '#ff3d00',
+    transform: 'rotate(180deg)',
+    marginRight: theme.spacing(1),
   },
 }));
 

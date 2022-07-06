@@ -51,6 +51,15 @@ const {
 const {
   INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
 } = require('@bsport/common/lib/master-data/error-codes/giftcard');
+const {
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN,
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_LIMIT_FOR_SMARTLIST_REACHED,
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_TITLE,
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_BODY,
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_SMS_WITH_NO_BODY,
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_TITLE,
+  EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_BODY,
+} = require('@bsport/common/lib/master-data/smart-list');
 
 exports.default = {
   canNotBuyErrorCode: {
@@ -565,6 +574,21 @@ exports.default = {
       limit_reached:
         'Impossible : Vous avez atteint la limite de création (10)',
     },
+  },
+  automatedCampaign: {
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN]: 'Une erreur est servenue',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_LIMIT_FOR_SMARTLIST_REACHED]:
+      "Erreur: Nombre limite d'envois par membre invalide",
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_TITLE]:
+      'Erreur: Titre obligatoire',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_BODY]:
+      "Erreur: Contenu de l'email obligatoire",
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_SMS_WITH_NO_BODY]:
+      'Erreur: Contenu du SMS obligatoire',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_TITLE]:
+      'Erreur: Titre de notification obligatoire',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_BODY]:
+      'Erreur: Contenu de la notification obligatoire',
   },
   subscription: {
     switchPaymentMethod: {

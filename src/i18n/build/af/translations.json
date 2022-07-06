@@ -726,6 +726,8 @@
       "title": "Sélection des destinataires"
     },
     "campaign": {
+      "manualTitle": "Envois manuels",
+      "automatedTitle": "Envois automatiques",
       "recipientCount": "Destinataire: {{ total_recipients }}",
       "showMail": "Voir l'email",
       "unavailableMail": "Preview non disponible",
@@ -744,7 +746,40 @@
         "recipientList": "Détail par destinataire",
         "noTopLink": "Aucun clic"
       },
-      "kind": { "0": "Email", "1": "SMS", "2": "Notification push" }
+      "kind": { "0": "Email", "1": "SMS", "2": "Notification push" },
+      "automated": {
+        "onJoin": "A l'entrée de la smartlist",
+        "onLeft": "A la sortie de la smartlist",
+        "create": "Création ",
+        "eventKind": { "0": "Entrée", "1": "Sortie" },
+        "activeSince": "Actif depuis le {{-date}}",
+        "form": {
+          "submit": "Confirmer",
+          "advancedSection": "Avancé",
+          "max_communications_sent_per_member": "Nombre d'envois maximum par membre",
+          "max_communications_sent_per_member_limit": "Valeur maximale : {{ max }}",
+          "subtitles": {
+            "update": {
+              "joinSmartList": "Modification d’une règle d’envoi automatique en entrée de la smartlist",
+              "leftSmartList": "Modification d’une règle d’envoi automatique en sortie de la smartlist"
+            },
+            "create": {
+              "joinSmartList": "Création d’une règle d’envoi automatique en entrée de la smartlist",
+              "leftSmartList": "Création d’une règle d’envoi automatique en sortie de la smartlist"
+            }
+          },
+          "frequenceHelper": "Cette communication sera envoyée pour {{ max }} {{ event_kind }} de la smartlist pour chaque membre. Après {{ max }} {{ event_kind }} de la smartlist pour un même membre, il ne recevra plus cette communication. Vous pouvez changer ce paramètre dans 'Avancé'."
+        },
+        "panel": {
+          "title": "Règle d'envoi automatique",
+          "add": "Ajouter",
+          "subtitle": { "onJoin": "En entrée", "onLeft": "En sortie" }
+        },
+        "deleteDialog": {
+          "title": "Suppresion",
+          "content": "Êtes-vous sûr de vouloir supprimer cette règle d'envoi automatique ? Cette action est définitive."
+        }
+      }
     },
     "recipient": {
       "readCount": "Ouverture",
@@ -7081,6 +7116,15 @@
         "error": "Impossible d'appliquer cette règle",
         "limit_reached": "Impossible : Vous avez atteint la limite de création (10)"
       }
+    },
+    "automatedCampaign": {
+      "17000": "Une erreur est servenue",
+      "17101": "Erreur: Titre obligatoire",
+      "17102": "Erreur: Contenu de l'email obligatoire",
+      "17103": "Erreur: Contenu du SMS obligatoire",
+      "17104": "Erreur: Titre de notification obligatoire",
+      "17105": "Erreur: Contenu de la notification obligatoire",
+      "170001": "Erreur: Nombre limite d'envois par membre invalide"
     },
     "subscription": {
       "switchPaymentMethod": { "success": "Méthode de paiement mise à jour", "error": "Impossible de modifier la méthode de paiement" },

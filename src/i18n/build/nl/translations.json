@@ -1599,7 +1599,11 @@
         "common": {
             "cancel": "Annuleren",
             "submit": "Verzenden",
-            "refresh": "Vernieuwen"
+            "refresh": "Verversen",
+            "recipient": "ontvanger",
+            "recipient_plural": "ontvangers",
+            "confirm": "Bevestigen",
+            "close": "Sluiten"
         },
         "campaign": {
             "showMail": "Toon e-mail",
@@ -1704,6 +1708,15 @@
             },
             "filterAction": "Filteren",
             "applyFilter": "Toepassen"
+        },
+        "dialogInformation": {
+            "status": {
+                "notReceived": "Mislukt",
+                "4": "Ontvangen",
+                "1": "Bezig"
+            },
+            "headerOpen": "Open",
+            "headerStatus": "Status"
         }
     },
     "paymentCombo": {
@@ -2147,7 +2160,7 @@
             "availability": "Geldigheid",
             "min_credit": "Kredieten (min.)",
             "max_credit": "Kredieten (max.)",
-            "canceled_bookings": "Aantal geannuleerde reserveringen",
+            "canceled_bookings": "Aantal annuleringen",
             "c": "Instructeur",
             "private_slot": "Sessie",
             "private_service": "Afspraak",
@@ -5012,7 +5025,7 @@
             "loadMore": "Toon meer"
         },
         "paymentCombo": {
-            "addToCart": "Winkelmandje"
+            "addToCart": "Aanschaffen"
         },
         "calendar": {
             "registered": "Reservering bevestigd",

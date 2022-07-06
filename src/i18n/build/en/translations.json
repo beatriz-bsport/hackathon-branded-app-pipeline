@@ -2536,7 +2536,11 @@
         "common": {
             "cancel": "Cancel",
             "submit": "Send",
-            "refresh": "Refresh"
+            "refresh": "Refresh",
+            "recipient": "recipient",
+            "recipient_plural": "recipients",
+            "confirm": "Confirm",
+            "close": "Close"
         },
         "dialogReceiverChoice": {
             "reservation": "Bookings",
@@ -2647,6 +2651,15 @@
             },
             "filterAction": "Filter",
             "applyFilter": "Apply"
+        },
+        "dialogInformation": {
+            "status": {
+                "notReceived": "Failed",
+                "4": "Delivered",
+                "1": "Pending"
+            },
+            "headerOpen": "Open",
+            "headerStatus": "Status"
         }
     },
     "privateService": {
@@ -7680,7 +7693,7 @@
             "availability": "Validity",
             "min_credit": "Minimum credits",
             "max_credit": "Maximum credits",
-            "canceled_bookings": "Number of cancelled bookings",
+            "canceled_bookings": "Number of cancellations",
             "c": "Teacher",
             "private_slot": "Session",
             "private_service": "Appointment",

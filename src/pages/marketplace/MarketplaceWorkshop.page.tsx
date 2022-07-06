@@ -245,6 +245,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       pushRouter(
         `/customer/payment/offer/${offer.id}/${buildUrlParams({
           membership: companyId,
+          fromWorkshop: true,
         })}`,
       );
     },

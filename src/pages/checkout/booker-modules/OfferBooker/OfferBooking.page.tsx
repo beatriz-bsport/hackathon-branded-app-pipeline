@@ -23,6 +23,7 @@ import {
   getCanIBook,
 } from '@bsport/common/lib/master-data/available-payment';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import withQueryParams from '#hocs/with-query-params.hoc';
 import WidgetUtils from '../../../../libs/widget/WidgetUtils';
 import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
 
@@ -1122,6 +1123,13 @@ const mapWithHandlers = {
     if (WidgetUtils.isWidget()) {
       WidgetUtils.closeModal();
       window.close();
+    } else if (props.queryParams.fromWorkshop === 'true') {
+      props.push(
+        `${urlToMarketplace(
+          props.theme.company_name,
+          props.theme.company.toString(),
+        )}/workshop`,
+      );
     } else {
       props.push(
         `${urlToMarketplace(
@@ -1134,6 +1142,7 @@ const mapWithHandlers = {
 };
 
 export default compose(
+  withQueryParams([['fromWorkshop'], 'queryParams']),
   // @ts-ignore
   withTranslation(['booking']),
   routerParamsToProps({ id: 'id:number' }),

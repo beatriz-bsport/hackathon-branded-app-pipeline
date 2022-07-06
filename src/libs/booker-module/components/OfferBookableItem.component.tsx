@@ -144,7 +144,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
               .format('dddd')}`}
           </Typography>
           {props.offerSpot && (
-            <Typography color="primary">
+            <Typography color="primary" variant="body2">
               {t('booking:placeNumber', {
                 count: props.offerSpot,
               })}
@@ -229,7 +229,6 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     left: 0,
     backgroundColor: 'rgba(255, 255, 255, .5)',
-    zIndex: 9999,
   },
   hasRegisteredContainer: {
     paddingLeft: theme.spacing(0.5),

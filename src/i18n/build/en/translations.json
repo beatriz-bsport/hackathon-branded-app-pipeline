@@ -4634,7 +4634,7 @@
                 "title": "Default status for a booking made by a member"
             },
             "websiteURL": {
-                "label": "Link to your own website",
+                "label": "Website",
                 "helperText": "Use this field to add the link to your own website.",
                 "placeholder": "https://studio.com/",
                 "errorText": "This URL is invalid"

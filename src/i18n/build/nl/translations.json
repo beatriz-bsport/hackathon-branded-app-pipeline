@@ -9561,7 +9561,7 @@
                 "helperText": "Kies een complementaire themakleur."
             },
             "websiteURL": {
-                "label": "Link naar eigen website",
+                "label": "Website",
                 "helperText": "Plak hier de link naar de hoofdpagina van je eigen website.",
                 "placeholder": "https://studio.nl/",
                 "errorText": "De URL is ongeldig"

@@ -1660,6 +1660,50 @@
         "sms": {
             "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
             "warningConsent1": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt."
+        },
+        "filter": {
+            "choicesLabels": {
+                "11": "Handmatig",
+                "10": "Automatisch",
+                "9": "Wachtlijst",
+                "8": "Annuleringen",
+                "7": "Reserveringen",
+                "6": "Direct bericht",
+                "5": "Smartlist",
+                "4": "Melding",
+                "3": "Sessie",
+                "2": "Push-notificatie",
+                "1": "Sms",
+                "0": "E-mail"
+            },
+            "sendParameter": {
+                "placeholder": "Selecteer een instelling",
+                "title": "Instellingen"
+            },
+            "recipient": {
+                "placeholder": "Selecteer een ontvanger",
+                "title": "Ontvangers"
+            },
+            "channel": {
+                "placeholder": "Selecteer een kanaal",
+                "title": "Kanalen"
+            },
+            "kind": {
+                "placeholder": "Selecteer een type",
+                "title": "Type"
+            },
+            "numberFilter": {
+                "oneFilter": "1 toegepaste filter",
+                "severalFilters": "Toegepaste filters"
+            },
+            "dateFilter": {
+                "dateEnd": "Einddatum",
+                "dateStart": "Startdatum",
+                "period": "Periode",
+                "title": "Verzenddatum:"
+            },
+            "filterAction": "Filteren",
+            "applyFilter": "Toepassen"
         }
     },
     "paymentCombo": {

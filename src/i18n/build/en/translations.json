@@ -2603,6 +2603,50 @@
         "sms": {
             "warningConsent2": "Not to respect this decision of your member would be illegal. Bsport cannot be held responsible in the event of abusive use of the direct sms.",
             "warningConsent1": "Warning! This member does not want to receive promotional sms. Direct sms allow you to reach out to your members in a simple and fast way. They should not be used for advertising or promotional purposes."
+        },
+        "filter": {
+            "choicesLabels": {
+                "11": "Manual",
+                "10": "Automatic",
+                "9": "Waitlist",
+                "8": "Cancellations",
+                "7": "Bookings",
+                "6": "Direct message",
+                "5": "Smartlist",
+                "4": "Notification",
+                "3": "Session",
+                "2": "Push notification",
+                "1": "SMS",
+                "0": "Email"
+            },
+            "sendParameter": {
+                "placeholder": "Select a setting",
+                "title": "Settings"
+            },
+            "recipient": {
+                "placeholder": "Select a recipient",
+                "title": "Recipients"
+            },
+            "channel": {
+                "placeholder": "Select a channel",
+                "title": "Channels"
+            },
+            "kind": {
+                "placeholder": "Select a type",
+                "title": "Type"
+            },
+            "numberFilter": {
+                "oneFilter": "1 applied filter",
+                "severalFilters": "Applied filters"
+            },
+            "dateFilter": {
+                "dateEnd": "End date",
+                "dateStart": "Start date",
+                "period": "Period",
+                "title": "Sent on:"
+            },
+            "filterAction": "Filter",
+            "applyFilter": "Apply"
         }
     },
     "privateService": {

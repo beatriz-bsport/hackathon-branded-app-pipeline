@@ -78,8 +78,12 @@ exports.default = {
   recipients: 'Destinataires',
   common: {
     cancel: 'Annuler',
+    close: 'Fermer',
+    confirm: 'Confirmer',
     submit: 'Envoyer',
-    refresh: 'Actualiser',
+    refresh: 'Rafraichir',
+    recipient: 'destinataire',
+    recipient_plural: 'destinataires',
   },
   send: {
     success: "Email en cours d'envoi...",
@@ -192,6 +196,15 @@ exports.default = {
       [COMMUNICATION_CHANNEL_MESSAGE_DIRECT]: 'Message direct',
       [COMMUNICATION_SEND_PARAMETER_AUTO]: 'Automatique',
       [COMMUNICATION_SEND_PARAMETER_MANUAL]: 'Manuel',
+    },
+  },
+  dialogInformation: {
+    headerStatus: 'Statut',
+    headerOpen: 'Ouvert',
+    status: {
+      [EMAIL_RECIPIENT_DELIVERED]: 'reçu',
+      [EMAIL_RECIPIENT_PROCESSED]: 'en attente',
+      notReceived: 'non reçu',
     },
   },
 };

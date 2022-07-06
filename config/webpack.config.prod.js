@@ -500,7 +500,13 @@ module.exports = {
       filename: cssFilename,
       }),
       */
-    new MiniCssExtractPlugin({ filename: cssFilename }),
+    new MiniCssExtractPlugin({
+      filename: cssFilename,
+      ignoreOrder: true,
+      // Ignoring order as for our repo use CSS in js or BEM so we dont have css selector conflict
+      // See more about it :
+      // https://github.com/webpack-contrib/mini-css-extract-plugin/issues/250#issuecomment-415345126
+    }),
 
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without

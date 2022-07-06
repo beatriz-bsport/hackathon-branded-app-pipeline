@@ -259,4 +259,16 @@ exports.default = {
       notReceived: 'non reçu',
     },
   },
+  dialogRecipients: {
+    warnings: {
+      header: 'Attention',
+      phoneOrMailMissing:
+        'Certains destinataires ne possèdent pas de mail/numéro de téléphone.',
+      recipientsNotAllSelected:
+        "Tous les destinataires n'ont pas été sélectionnés.",
+      full: "Certains destinataires ne possèdent pas de mail/numéro de téléphone, et tous les destinataires n'ont pas été sélectionnés.",
+    },
+    noMail: 'email non renseigné',
+    noPhone: 'numéro non renseigné',
+  },
 };

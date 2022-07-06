@@ -222,6 +222,9 @@ const styles = (theme: Theme) => ({
   },
   paginationContainer: {
     marginTop: theme.spacing(2),
+    '& li': {
+      listStyle: 'none',
+    },
   },
   recipientName: {
     marginLeft: theme.spacing(2),

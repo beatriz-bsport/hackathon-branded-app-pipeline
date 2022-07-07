@@ -693,7 +693,7 @@ export class BookingItemForManager extends Component<Props, State> {
                         <strong>{this.getHasNoteIndicator()}</strong>
                       </Typography>
                       <Typography variant="body2" inline>
-                        {BookingStatusCodeText(booking)}
+                        <BookingStatusCodeText booking={booking} />
                       </Typography>
                     </div>
                   }

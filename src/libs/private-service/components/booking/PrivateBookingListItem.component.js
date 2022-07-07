@@ -55,7 +55,7 @@ export const PrivateBookingListItem = (props: Props) => {
             </Typography>
             <Typography color="primary">{getIsRecurrentBooking()}</Typography>
             <Typography variant="body2" inline>
-              {BookingStatusCodeText(props.private_booking)}
+              <BookingStatusCodeText booking={props.private_booking} />
             </Typography>
             {props.private_booking.is_unpaid ? null : (
               <Typography variant="body2" inline style={{ marginLeft: 'auto' }}>

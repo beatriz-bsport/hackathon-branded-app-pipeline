@@ -19,6 +19,7 @@ import PublicIcon from '@material-ui/icons/Public';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
+import { TFunction } from 'i18next';
 import { BOOKING_CANCELLED_BY_STAFF } from '#libs/booking/components/constants';
 import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
@@ -78,15 +79,20 @@ export const getPrivateBookingStatusCodeForCalendar = (
     : ['privateBooking.isCancelled'];
 };
 
-export const BookingStatusCodeText = (booking: Booking) => {
+export const BookingStatusCodeText: React.FC<{
+  booking: Booking | PrivateBooking;
+}> = ({ booking }) => {
   const classes = useStyles();
+  const { t } = useTranslation('booking');
   return (
-    <span className={classes.preWrap}>{_getBookingStatusCode(booking)}</span>
+    <span className={classes.preWrap}>{getBookingStatusCode(booking, t)}</span>
   );
 };
 
-const _getBookingStatusCode = (booking: Booking) => {
-  const { t } = useTranslation('booking');
+const getBookingStatusCode = (
+  booking: Booking | PrivateBooking,
+  t: TFunction,
+) => {
   const cancelled_by = [
     ...booking?.staff_history?.filter(
       (sh) =>
@@ -150,8 +156,7 @@ const _getBookingStatusCode = (booking: Booking) => {
   }
 };
 
-export const _getBookingSourceText = (source: number) => {
-  const { t } = useTranslation('booking');
+export const getBookingSourceText = (source: number, t: TFunction) => {
   return t(
     `source.${
       (BOOKING_SOURCES.find((s) => s.id === source) || { text: 'Other' }).text
@@ -177,10 +182,11 @@ type SourceProps = {
 };
 export const BookingSource: React.FC<SourceProps> = ({ source }) => {
   const classes = useStyles();
+  const { t } = useTranslation('booking');
   return (
     <div className={classes.bookingSourceRow}>
       <div className={classes.marginRight}>{getBookingSourceIcon(source)}</div>
-      <Typography>{_getBookingSourceText(source)}</Typography>
+      <Typography>{getBookingSourceText(source, t)}</Typography>
     </div>
   );
 };

@@ -1,6 +1,9 @@
 import { Offer, OfferDetail } from '../offer/types';
 import type { ConsumerPaymentPack } from '../payment-packs/types';
-import type { StaffModificationHistory } from '#libs/role/types';
+import type {
+  StaffModificationHistory,
+  BookingModificationActionIdentifier,
+} from '#libs/role/types';
 
 export type BookingBroadCastRoom = {
   id: number;
@@ -51,7 +54,9 @@ export type Booking<Offer = number, Member = number, PP = number> = {
   was_refunded: false;
   first_in_company: false;
   spot_id: number | null;
-  staff_history: Array<StaffModificationHistory>;
+  staff_history: Array<
+    StaffModificationHistory<BookingModificationActionIdentifier>
+  >;
 };
 
 export type BookingOption<O = Offer> = {

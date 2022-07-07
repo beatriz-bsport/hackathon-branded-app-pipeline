@@ -24,7 +24,7 @@ const MarketplacePlaylistSettingsForm: React.FC<Props> = (props) => {
   const { t } = useTranslation('settings');
 
   useEffect(() => {
-    if (config.playlistId === undefined && playlists.length) {
+    if (config && config.playlistId === undefined && playlists.length) {
       onChange({ playlistId: playlists[0].id });
     }
   }, [config, playlists, onChange]);
@@ -37,7 +37,7 @@ const MarketplacePlaylistSettingsForm: React.FC<Props> = (props) => {
         </InputLabel>
         <Select
           value={
-            config.playlistId !== undefined
+            config?.playlistId !== undefined
               ? config.playlistId
               : (playlists.length && playlists[0].id) || -1
           }

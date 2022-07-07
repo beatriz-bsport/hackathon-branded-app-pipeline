@@ -290,7 +290,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                         }}
                         establishment={getEstablishment(offer.establishment)}
                         coach={getCoach(offer.coach_override || offer.coach)}
-                        customLevel={getLevel(offer.custom_level)}
+                        getLevel={getLevel}
                         showOfferFilling={showOfferFilling}
                         theme={theme}
                         hideCoach={hideCoach}

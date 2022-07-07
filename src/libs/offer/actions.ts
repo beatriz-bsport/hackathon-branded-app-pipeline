@@ -884,6 +884,7 @@ export function fetchMarketplaceOfferByMetaActivityList(
         ...createOfferFilter(filters),
         activity__in: [metaActivityId],
         is_workshop: true,
+        with_tags: true,
       });
       dispatch(
         offerMarketplaceByMetaActivityListActions.success({

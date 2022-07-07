@@ -1631,7 +1631,48 @@
                 "0": "E-mail",
                 "2": "Push-notificatie"
             },
-            "unavailableMail": "Er is geen voorvertoning om weer te geven."
+            "unavailableMail": "Er is geen voorvertoning om weer te geven.",
+            "automated": {
+                "deleteDialog": {
+                    "content": "Weet je zeker dat je deze regel wilt verwijderen? Deze actie is definitief.",
+                    "title": "Verwijderen"
+                },
+                "panel": {
+                    "subtitle": {
+                        "onLeft": "Afmelding",
+                        "onJoin": "Aanmelding"
+                    },
+                    "add": "Toevoegen",
+                    "title": "Automatische regel"
+                },
+                "form": {
+                    "frequenceHelper": "Dit bericht wordt {{ max }} {{ event_kind }} per lid van deze Smartlist verzonden. Na {{ max }} {{ event_kind }} berichten zullen leden geen berichten meer ontvangen. De instellingen kunnen onder \"Geavanceerd\" gewijzigd worden.",
+                    "subtitles": {
+                        "update": {
+                            "leftSmartList": "Automatisch de regel wijzigen zodra een lid een Smartlist verlaat",
+                            "joinSmartList": "Automatisch de regel wijzigen zodra een lid in een Smartlist gezet wordt"
+                        },
+                        "create": {
+                            "leftSmartList": "Automatisch de regel aanmaken zodra een lid een Smartlist verlaat",
+                            "joinSmartList": "Automatisch de regel aanmaken zodra een lid in een Smartlist gezet wordt"
+                        }
+                    },
+                    "max_communications_sent_per_member_limit": "Maximum: {{ max }}",
+                    "max_communications_sent_per_member": "Maximale verzendingen per lid",
+                    "advancedSection": "Geavanceerd",
+                    "submit": "Bevestigen"
+                },
+                "activeSince": "Actief sinds: {{-date}}",
+                "eventKind": {
+                    "1": "Verlating",
+                    "0": "Aanmelding"
+                },
+                "create": "Toevoegen ",
+                "onLeft": "Wanneer een lid een Smartlist verlaat",
+                "onJoin": "Wanneer een lid in een Smartlist gezet wordt"
+            },
+            "automatedTitle": "Automatische verzendingen",
+            "manualTitle": "Handmatige verzendingen"
         },
         "recipient": {
             "readCount": "Aantal keer geopend",
@@ -1717,6 +1758,16 @@
             },
             "headerOpen": "Open",
             "headerStatus": "Status"
+        },
+        "dialogRecipients": {
+            "noPhone": "Geen telefoonnummer",
+            "noMail": "Geen e-mailadres",
+            "warnings": {
+                "full": "Sommige ontvangers hebben geen e-mailadres en/of telefoonnummer opgeslagen en niet alle ontvangers zijn geselecteerd.",
+                "recipientsNotAllSelected": "Niet alle ontvangers zijn geselecteerd.",
+                "phoneOrMailMissing": "Sommige ontvangers hebben geen e-mailadres en/of telefoonnummer opgeslagen.",
+                "header": "Waarschuwing"
+            }
         }
     },
     "paymentCombo": {
@@ -8614,6 +8665,15 @@
                     }
                 }
             }
+        },
+        "automatedCampaign": {
+            "170001": "Ongeldig maximum aantal berichten per lid",
+            "17105": "Inhoud voor een push-notificatie is een vereiste",
+            "17104": "Een titel voor een push-notificatie is een vereiste",
+            "17103": "Inhoud voor een sms'je is een vereiste",
+            "17102": "Inhoud voor de e-mail is een vereiste",
+            "17101": "Een titel is een vereiste",
+            "17000": "Er is een fout opgetreden"
         }
     },
     "coach": {

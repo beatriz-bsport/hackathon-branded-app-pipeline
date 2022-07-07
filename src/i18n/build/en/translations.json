@@ -2574,7 +2574,48 @@
                 "0": "Email",
                 "2": "Push notification"
             },
-            "unavailableMail": "There's no preview to display."
+            "unavailableMail": "There's no preview to display.",
+            "automated": {
+                "deleteDialog": {
+                    "content": "Are you sure that you want to delete this rule? This action can't be undone.",
+                    "title": "Delete"
+                },
+                "panel": {
+                    "subtitle": {
+                        "onLeft": "Leaving",
+                        "onJoin": "Entering"
+                    },
+                    "add": "Add",
+                    "title": "Automatic rule"
+                },
+                "form": {
+                    "frequenceHelper": "This message will be sent to {{ max }} {{ event_kind }} from the Smartlist for each member. After {{ max }} {{ event_kind }}, members will no longer receive the message. Settings can be changed under \"Advanced\".",
+                    "subtitles": {
+                        "create": {
+                            "leftSmartList": "Automatic rule creation when leaving a Smartlist",
+                            "joinSmartList": "Automatic rule creation when entering a Smartlist"
+                        },
+                        "update": {
+                            "leftSmartList": "Automatic rule modification when leaving a Smartlist",
+                            "joinSmartList": "Automatic rule modification when entering a Smartlist"
+                        }
+                    },
+                    "max_communications_sent_per_member_limit": "Maximum value: {{ max }}",
+                    "max_communications_sent_per_member": "Maximum entries per member",
+                    "advancedSection": "Advanced",
+                    "submit": "Confirm"
+                },
+                "activeSince": "Active since: {{-date}}",
+                "eventKind": {
+                    "1": "Exiting",
+                    "0": "Entering"
+                },
+                "create": "Add ",
+                "onLeft": "When leaving a Smartlist",
+                "onJoin": "When joining a Smartlist"
+            },
+            "automatedTitle": "Automatic submissions",
+            "manualTitle": "Manual submissions"
         },
         "recipient": {
             "readCount": "Open rate",
@@ -2660,6 +2701,16 @@
             },
             "headerOpen": "Open",
             "headerStatus": "Status"
+        },
+        "dialogRecipients": {
+            "noPhone": "No phone number",
+            "noMail": "No email address",
+            "warnings": {
+                "full": "Certain recipients don't have a saved email addres and/or phone number and not all recipients have been selected.",
+                "recipientsNotAllSelected": "Not all recipients have been selected.",
+                "phoneOrMailMissing": "Certain recipients don't have a saved email addres and/or phone number.",
+                "header": "Warning"
+            }
         }
     },
     "privateService": {
@@ -11545,6 +11596,15 @@
                     }
                 }
             }
+        },
+        "automatedCampaign": {
+            "170001": "Invalid of maximum submissions per member",
+            "17105": "A push notification content is requiered",
+            "17104": "A notification title is requiered",
+            "17103": "SMS content is requiered",
+            "17102": "Email content is requiered",
+            "17101": "A title is requiered",
+            "17000": "There was an error"
         }
     },
     "navigation": {

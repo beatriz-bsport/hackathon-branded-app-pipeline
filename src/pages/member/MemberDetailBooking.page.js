@@ -17,10 +17,10 @@ import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
+import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+import { getActiveCoaches } from '#libs/associated-coach/selectors';
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
@@ -38,39 +38,36 @@ import {
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAction,
   setSpotForBooking,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
-} from '../../libs/booking/actions';
+} from '#libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../libs/establishment/actions';
+} from '#libs/establishment/actions';
 
 import {
   fetchManagerFiltersSettings,
   updateManagerFiltersSettings,
-} from '../../libs/dashboard/actions';
+} from '#libs/dashboard/actions';
 
 import {
   fetchOfferById as fetchOfferByIdAction,
   fetchOfferStatus as fetchOfferStatusAction,
-} from '../../libs/offer/actions';
+} from '#libs/offer/actions';
 
-import {
-  getDetailedOffer,
-  withEstablishment,
-} from '../../libs/offer/selectors';
+import { getDetailedOffer, withEstablishment } from '#libs/offer/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
 
-import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
+import { fetchMember as fetchMemberAction } from '#libs/member/actions';
 import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
-} from '../../libs/spot-scheduling/actions';
+} from '#libs/spot-scheduling/actions';
 
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   updateCredit as updateCreditAction,
-} from '../../libs/consumer-payment-pack/actions';
+} from '#libs/consumer-payment-pack/actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
   fetchAllActivities as fetchAllActivitiesAction,
@@ -79,18 +76,18 @@ import {
   fetchGroupOffer as fetchGroupOfferAction,
   fetchGroupsOfferList as fetchGroupsOfferListAction,
 } from '#libs/group-offer/actions';
-import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
-import { withGroup, getGroupListCount } from '../../libs/group-offer/selectors';
+import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+import { withGroup, getGroupListCount } from '#libs/group-offer/selectors';
 
-import { Member } from '../../libs/member/types';
-import { PaymentPack } from '../../libs/payment-packs/types';
+import { Member } from '#libs/member/types';
+import { PaymentPack } from '#libs/payment-packs/types';
 
-import BookingItemForManagerV2 from '../../libs/booking/components/BookingItemForManagerV2.component';
-import BookingDetail from '../../libs/booking/components/BookingDetail.component';
-import RecurrenceRuleBookingFormDialog from '../../libs/booking/components/RecurrenceRuleBookingFormDialog.component';
-import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
-import BookingFilters from '../../libs/booking/components/BookingFilters.component';
-import RecurrenceRuleBookingListItem from '../../libs/booking/components/RecurrenceRuleBookingListItem.component';
+import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
+import BookingDetail from '#libs/booking/components/BookingDetail.component';
+import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
+import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
+import BookingFilters from '#libs/booking/components/BookingFilters.component';
+import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
 import TemporalBarChart from '../../components/graph/TemporalBarChart.component';
 
 import {
@@ -98,6 +95,7 @@ import {
   getMemberBookingWithConsumerPack,
   getRecurrenceRuleBookingList,
   getSimilarBookingList,
+  withStaffModificationHistory,
 } from '../../libs/booking/selectors';
 import { getMember } from '../../libs/member/selectors';
 import paymentPackSelectors, {
@@ -106,22 +104,23 @@ import paymentPackSelectors, {
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../libs/statistics/actions';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '../../libs/role/actions';
 import { getStatisticTemporal } from '../../libs/statistics/selectors';
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
 import { Theme } from '../../libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
-} from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
+} from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 import {
   discardBookingOption as discardBookingOptionAction,
   fetchBookingOptionForMember,
-} from '../../libs/waiting-list/actions';
-import { getBookingOptionListForMember } from '../../libs/waiting-list/selectors';
+} from '#libs/waiting-list/actions';
+import { getBookingOptionListForMember } from '#libs/waiting-list/selectors';
 import type { Offer } from '../../api/types';
-import { BookingOptionWithActivity, Booking } from '../../libs/booking/types';
-import WaitingListDetail from '../../libs/waiting-list/components/WaitingListDetail.component';
-import PaginatedBookingOptionList from '../../libs/waiting-list/components/PaginatedBookingOptionList.component';
-import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
+import { BookingOptionWithActivity, Booking } from '#libs/booking/types';
+import WaitingListDetail from '#libs/waiting-list/components/WaitingListDetail.component';
+import PaginatedBookingOptionList from '#libs/waiting-list/components/PaginatedBookingOptionList.component';
+import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type { Coach } from '#libs/associated-coach/types';
 
@@ -138,6 +137,7 @@ type Props = {
   bookingCount: number,
   bookingCurrentPage: number,
   fetchMemberBookingsList: (page: number, pageSize: number) => void,
+  fetchCompanyUserRoles: () => void,
 
   fetchEstablishmentList: () => void,
   establishmentList: Array<Establishment>,
@@ -241,6 +241,7 @@ export class MemberDetailBooking extends Component<Props, State> {
     if (this.props.bookingId) {
       this.fetchBookingDetails();
     }
+    this.props.fetchCompanyUserRoles();
     this.props.fetchAllActivities();
     this.props.fetchRecurrenceRuleBooking(1);
     this.props.fetchMemberBookingStatistics();
@@ -737,9 +738,14 @@ export default compose(
     (state, { id, bookingId, chartRange }) => ({
       theme: themeSelectors.getTheme(state),
       member: getMember(state, id),
-      bookings: getMemberBookingListWithConsumerPack(state),
+      bookings: withStaffModificationHistory(
+        getMemberBookingListWithConsumerPack,
+      )(state),
       selectedBooking: bookingId
-        ? getMemberBookingWithConsumerPack(state, bookingId)
+        ? withStaffModificationHistory(getMemberBookingWithConsumerPack)(
+            state,
+            bookingId,
+          )
         : null,
       bookingCurrentPage: state.booking.byMember.page,
       bookingsLoading: state.booking.byMember.loading,
@@ -780,7 +786,7 @@ export default compose(
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
       retrieveBooking,
       fetchOffer: fetchOfferByIdAction,
-
+      fetchCompanyUserRoles: fetchCompanyUserRolesAction,
       fetchEstablishmentList,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
 

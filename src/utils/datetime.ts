@@ -25,6 +25,9 @@ export function formatAsTime(date: string, tzname: string) {
 export function formatAsDatetime(date: string, tzname?: string) {
   return `${formatAsDate(date)} - ${formatAsTime(date, tzname)}`;
 }
+export function formatAsDatetimeWithoutHyphen(date: string, tzname?: string) {
+  return `${formatAsDate(date)}\u00A0${formatAsTime(date, tzname)}`;
+}
 
 export function formatMinutes(
   minutesNumber: number,

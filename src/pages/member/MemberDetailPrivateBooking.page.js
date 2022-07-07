@@ -26,6 +26,7 @@ import PaginatedListBase from '../../components/PaginatedListBase.component';
 import PrivateBookingFilters from '#libs/booking/components/PrivateBookingFilters.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
 
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../libs/establishment/actions';
@@ -51,6 +52,7 @@ import {
   getPrivateBookingListBase,
   getPrivateBooking,
   withRelatedFields,
+  withStaffModificationHistory,
   getRecurrenceRulePrivateBookingList,
 } from '../../libs/private-service/selectors/private-booking';
 import { getPrivateConsumerPassDict } from '../../libs/private-service/selectors/private-consumer-pass';
@@ -112,6 +114,7 @@ type Props = {
   private_booking: ?PrivateBooking,
   privateBookingId: ?number,
   fetchPrivateBookingDetails: (options?: OptionCallBack) => void,
+  fetchCompanyUserRoles: () => void,
   fetchPrivateConsumerPass: (id: number) => void,
   privateBookingsLoading: boolean,
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
@@ -155,6 +158,7 @@ export class MemberDetailPrivateBooking extends Component<Props> {
   }
 
   componentDidMount() {
+    this.props.fetchCompanyUserRoles();
     this.props.fetchMember(this.props.id);
     if (this.props.privateBookingId) {
       this.props.fetchPrivateBookingDetails();
@@ -386,11 +390,12 @@ export default compose(
   withState('selectedRecurrentRule', 'setSelectedRecurrentRule', null),
   connect(
     (state, { privateBookingId }) => ({
-      private_booking_list: withRelatedFields(getPrivateBookingListBase)(state),
-      private_booking: withRelatedFields(getPrivateBooking)(
-        state,
-        privateBookingId,
-      ),
+      private_booking_list: withStaffModificationHistory(
+        withRelatedFields(getPrivateBookingListBase),
+      )(state),
+      private_booking: withStaffModificationHistory(
+        withRelatedFields(getPrivateBooking),
+      )(state, privateBookingId),
       privateBookingCurrentPage: state.privateService.privateBooking.page,
       bookingCount: state.privateService.privateBooking.count,
       privateBookingsLoading: state.privateService.privateBooking.loading,
@@ -411,6 +416,7 @@ export default compose(
       fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
       fetchRecurrenceRulePrivateBooking: fetchRecurenceRulePrivateBookingAction,
+      fetchCompanyUserRoles,
       forceRegularizeUnpaid: forceRegularizeUnpaidAction,
       deleteRecurrenceRulePrivateBooking:
         deleteRecurrenceRulePrivateBookingAction,

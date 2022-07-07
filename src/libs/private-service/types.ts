@@ -1,6 +1,10 @@
 import { CancelTokenSource } from 'axios';
 import { Company } from '../company/types';
 import { WithPagination } from '../types';
+import type {
+  PrivateBookingModificationActionIdentifier,
+  StaffModificationHistory,
+} from '#libs/role/types';
 
 export enum ResourceAttributionEnum {
   auto = 0,
@@ -192,6 +196,9 @@ export type PrivateBooking<
   EstablishmentNumber = number,
   PrivateServiceNumber = number,
   RecurrenceRulePrivateBooking = number,
+  StaffHistory = Array<
+    StaffModificationHistory<PrivateBookingModificationActionIdentifier>
+  >,
 > = {
   id: number;
   date_start: string;
@@ -215,6 +222,7 @@ export type PrivateBooking<
   date_canceled: string;
   is_unpaid: boolean;
   recurrence_rule_private_booking: RecurrenceRulePrivateBooking;
+  staff_history: StaffHistory;
 };
 
 export type PrivateBookingPreview = {

@@ -40,6 +40,7 @@ import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import { getPrivateBookingStatusCodeForCalendar } from '../../../booking/utils';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -88,7 +89,7 @@ type Props = {
 
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
-  const { t } = useTranslation(['privateService']);
+  const { t } = useTranslation(['privateService', 'booking']);
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -205,12 +206,11 @@ export const PrivateBookingCard = (props: Props) => {
           BOOKING_STATUS_OK.id ? (
             <div className={classes.firstRow}>
               <Typography variant="h6" color="error">
-                {private_booking.date_canceled
-                  ? t('privateBooking.isCancelledDate', {
-                      date: moment(private_booking.date_canceled).format('L'),
-                      time: moment(private_booking.date_canceled).format('LT'),
-                    })
-                  : t('privateBooking.isCancelled')}
+                {t(
+                  ...getPrivateBookingStatusCodeForCalendar(
+                    props.private_booking,
+                  ),
+                )}
               </Typography>
               <div className={classes.chipContainer}>
                 {props.private_booking.was_refunded ? (

@@ -32,7 +32,7 @@ import {
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { sendCommunication } from '#libs/communication/actions';
-
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '#libs/shop/actions/shopitem';
 import themeSelectors from '#libs/theme/selectors';
 import {
@@ -59,6 +59,7 @@ import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
   getSimilarBookingList,
+  withStaffModificationHistory,
 } from '#libs/booking/selectors';
 import { withCustomLevel } from '#libs/level/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
@@ -187,7 +188,9 @@ export default compose(
       country: state.theme.theme.locale.split('_')[1],
 
       // booking
-      bookings: getOfferBookingListWithConsumerPack(state),
+      bookings: withStaffModificationHistory(
+        getOfferBookingListWithConsumerPack,
+      )(state),
       bookingLoading: state.booking.loading,
       bookingOptionsPending: state.waitingList.option.items,
       recurrenceRuleBooking: getRecurrenceRuleBookingList(state),
@@ -245,10 +248,13 @@ export default compose(
       discardOption: discardBookingOptionAction,
       fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
 
-      // buyyable stuff
+      // buyable stuff
       fetchShopItems,
       fetchPrivatePassList,
       fetchPaymentComboList,
+
+      // fetch staff users
+      fetchCompanyUserRoles,
 
       // fetch booking member and consumerpack
       fetchBookingsByOffer: fetchBookingsByOfferAction,

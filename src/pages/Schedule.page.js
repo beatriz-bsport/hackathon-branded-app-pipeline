@@ -25,6 +25,7 @@ import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
 import { getScheduleFilter } from '../libs/user-preference/selectors';
 import { ScheduleFilter } from '../libs/user-preference/types';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -74,6 +75,7 @@ type Props = {
   fetchOfferList: () => void,
   fetchEstablishments: () => void,
   fetchAssociatedCoachesList: (params: any) => void,
+  fetchCompanyUserRoles: () => void,
   resourcesByDatatype: Array<ResourceDataGroup>,
 
   enableAvailabilitySlotMultipleResource: (data: any) => void,
@@ -94,7 +96,6 @@ type Props = {
   fetchResourceList: () => void,
   closeCustomEventDialog: () => void,
   companyTheme: CompanyTheme,
-
   resourceFiltersArray: Array<Ressource>,
   fetchRessourcesFilters: () => void,
   updateManagerRessourcesFilters: () => void,
@@ -120,6 +121,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList({ disabled: false });
     this.props.fetchRessourcesFilters();
+    this.props.fetchCompanyUserRoles();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -351,6 +353,7 @@ export default compose(
       fetchCustomEventList: fetchCustomEventListAction,
       fetchEstablishments,
       fetchAssociatedCoachesList,
+      fetchCompanyUserRoles,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       resetCustomEvent,

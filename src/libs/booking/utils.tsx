@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { makeStyles, Theme } from '@material-ui/core';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import {
@@ -17,40 +19,130 @@ import PublicIcon from '@material-ui/icons/Public';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
-import { withTranslation } from 'react-i18next';
-
-import { TFunction } from 'i18next';
+import { BOOKING_CANCELLED_BY_STAFF } from '#libs/booking/components/constants';
+import {
+  PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+  RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+} from '#libs/private-service/components/constants';
 import type { Booking } from './types';
+import { UserRoleData } from '#libs/role/types';
+import { PrivateBooking } from '#libs/private-service/types';
 
-export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
-  switch (booking.booking_status_code) {
-    case BOOKING_STATUS_CANCELLED_BY_MANAGER.id:
+export const getStaffName = (staff: UserRoleData) =>
+  staff?.first_name?.length && staff?.last_name?.length
+    ? `${staff?.first_name} ${staff?.last_name}`
+    : staff?.email;
+
+export const getPrivateBookingStatusCodeForCalendar = (
+  private_booking: PrivateBooking,
+) => {
+  const cancelled_by = [
+    ...private_booking?.staff_history?.filter(
+      (sh) =>
+        sh?.action_identifier === PRIVATE_BOOKING_CANCELLED_BY_STAFF ||
+        sh?.action_identifier === RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+    ),
+  ].sort((sh, sh_) => {
+    if (sh.timestamp < sh_.timestamp) {
+      return 1;
+    }
+    return -1;
+  })[0]?.staff;
+
+  if (cancelled_by?.id) {
+    return private_booking.date_canceled
+      ? [
+          'privateBooking.isCancelledByManagerDate',
+          {
+            date: moment(private_booking.date_canceled).format('L'),
+            time: moment(private_booking.date_canceled).format('LT'),
+            cancelled_by: getStaffName(cancelled_by),
+          },
+        ]
+      : [
+          'privateBooking.isCancelledByManager',
+          {
+            cancelled_by: getStaffName(cancelled_by),
+          },
+        ];
+  }
+
+  return private_booking.date_canceled
+    ? [
+        'privateBooking.isCancelledDate',
+        {
+          date: moment(private_booking.date_canceled).format('L'),
+          time: moment(private_booking.date_canceled).format('LT'),
+        },
+      ]
+    : ['privateBooking.isCancelled'];
+};
+
+export const BookingStatusCodeText = (booking: Booking) => {
+  const classes = useStyles();
+  return (
+    <span className={classes.preWrap}>{_getBookingStatusCode(booking)}</span>
+  );
+};
+
+const _getBookingStatusCode = (booking: Booking) => {
+  const { t } = useTranslation('booking');
+  const cancelled_by = [
+    ...booking?.staff_history?.filter(
+      (sh) =>
+        sh?.action_identifier === BOOKING_CANCELLED_BY_STAFF ||
+        sh?.action_identifier === PRIVATE_BOOKING_CANCELLED_BY_STAFF ||
+        sh?.action_identifier === RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+    ),
+  ].sort((sh, sh_) => {
+    if (sh.timestamp < sh_.timestamp) {
+      return 1;
+    }
+    return -1;
+  })[0]?.staff;
+  switch (booking?.booking_status_code) {
+    case BOOKING_STATUS_CANCELLED_BY_MANAGER?.id:
+      if (cancelled_by?.id) {
+        return ` (${
+          booking.date_canceled
+            ? t('statusCode.cancelledByManagerDate', {
+                date: moment(booking.date_canceled).format('L'),
+                time: moment(booking.date_canceled).format('LT'),
+                cancelled_by: getStaffName(cancelled_by),
+              })
+            : t('statusCode.cancelledByManager', {
+                cancelled_by: getStaffName(cancelled_by),
+              })
+        })`;
+      }
+
       return ` (${
         booking.date_canceled
-          ? t('booking:statusCode.cancelledByManagerDate', {
+          ? t('statusCode.cancelledByAnonymousManagerDate', {
               date: moment(booking.date_canceled).format('L'),
               time: moment(booking.date_canceled).format('LT'),
             })
-          : t('booking:statusCode.cancelledByManager')
+          : t('statusCode.cancelledByAnonymousManager')
       })`;
+
     case BOOKING_STATUS_CANCELLED_BY_CONSUMER.id:
       return ` (${
         booking.date_canceled
-          ? t('booking:statusCode.cancelledByConsumerDate', {
+          ? t('statusCode.cancelledByConsumerDate', {
               date: moment(booking.date_canceled).format('L'),
               time: moment(booking.date_canceled).format('LT'),
             })
-          : t('booking:statusCode.cancelledByConsumer')
+          : t('statusCode.cancelledByConsumer')
       })`;
 
     case BOOKING_STATUS_CANCELLED_BY_OFFER.id:
       return ` (${
         booking.date_canceled
-          ? t('booking:statusCode.cancelledByOfferDate', {
+          ? t('statusCode.cancelledByOfferDate', {
               date: moment(booking.date_canceled).format('L'),
               time: moment(booking.date_canceled).format('LT'),
             })
-          : t('booking:statusCode.cancelledByOffer')
+          : t('statusCode.cancelledByOffer')
       })`;
 
     default:
@@ -58,7 +150,8 @@ export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
   }
 };
 
-export const getBookingSourceText = (t: TFunction, source: number) => {
+export const _getBookingSourceText = (source: number) => {
+  const { t } = useTranslation('booking');
   return t(
     `source.${
       (BOOKING_SOURCES.find((s) => s.id === source) || { text: 'Other' }).text
@@ -79,18 +172,29 @@ export const getBookingSourceIcon = (source: number) => {
   }
 };
 
-const BookingSourceComponent = (props: { t: TFunction; source: number }) => {
+type SourceProps = {
+  source: number;
+};
+export const BookingSource: React.FC<SourceProps> = ({ source }) => {
+  const classes = useStyles();
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-    >
-      <div style={{ marginRight: 8 }}>{getBookingSourceIcon(props.source)}</div>
-      <Typography>{getBookingSourceText(props.t, props.source)}</Typography>
+    <div className={classes.bookingSourceRow}>
+      <div className={classes.marginRight}>{getBookingSourceIcon(source)}</div>
+      <Typography>{_getBookingSourceText(source)}</Typography>
     </div>
   );
 };
 
-export const BookingSource = withTranslation(['booking'])(
-  // @ts-ignore
-  BookingSourceComponent,
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  preWrap: {
+    whiteSpace: 'pre-wrap',
+  },
+  bookingSourceRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  marginRight: {
+    marginRight: theme.spacing(1),
+  },
+}));

@@ -81,6 +81,7 @@ type Props = {
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
   fetchShopItems: () => void,
+  fetchCompanyUserRoles: () => void,
 
   communicationDialogIsOpen: boolean,
 
@@ -246,6 +247,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    this.props.fetchCompanyUserRoles();
     if (this.props.offer) {
       this.props.fetchMetaActivityBulk([this.props.offer.meta_activity_id]);
     }

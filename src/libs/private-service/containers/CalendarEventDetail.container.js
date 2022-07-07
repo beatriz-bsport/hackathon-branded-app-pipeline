@@ -39,6 +39,7 @@ import {
   withRelatedFields,
   composeBookingsWithMemberProgram,
 } from '../selectors/private-booking';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
 import {
   fetchPrivateBooking as fetchPrivateBookingAction,
   fetchPrivateSlot as fetchPrivateSlotAction,
@@ -204,6 +205,7 @@ type Props = {
   updatePrivateBookingCoachHandler: (updatedCoachId: number) => void,
   goToCoachCalendar: () => void,
   fetchAllActivities: () => void,
+  fetchCompanyUserRoles: () => void,
   metaActivities: Array<MetaActivity>,
 
   customEvent: ?CustomEvent,
@@ -268,6 +270,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllActivities();
+    this.props.fetchCompanyUserRoles();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
     this.handleFetchLevel();
@@ -886,6 +889,7 @@ export default compose(
       fetchPrivateBooking: fetchPrivateBookingAction,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchAllActivities,
+      fetchCompanyUserRoles,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchRoomBlueprints,

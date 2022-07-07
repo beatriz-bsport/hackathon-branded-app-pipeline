@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import { getBookingStatusCode } from '../../../booking/utils';
+import { BookingStatusCodeText } from '../../../booking/utils';
 import { formatAsDatetime, formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
@@ -55,7 +55,7 @@ export const PrivateBookingListItem = (props: Props) => {
             </Typography>
             <Typography color="primary">{getIsRecurrentBooking()}</Typography>
             <Typography variant="body2" inline>
-              {getBookingStatusCode(t, props.private_booking)}
+              {BookingStatusCodeText(props.private_booking)}
             </Typography>
             {props.private_booking.is_unpaid ? null : (
               <Typography variant="body2" inline style={{ marginLeft: 'auto' }}>

@@ -13,6 +13,8 @@ import { getMemberListData } from '../member/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { RootState } from '../../reducers';
+import { getRoleStateById as getUsersById } from '../role/selectors';
+import { StaffModificationHistory } from '#libs/role/types';
 
 const _getData = (state: State) => state.booking.byId;
 
@@ -82,6 +84,32 @@ export const getMemberBookingWithConsumerPack = (state, id) => ({
     (cpp) => cpp.id === _getData(state)[id].consumer_payment_pack,
   ),
 });
+
+export const withStaffModificationHistory = memoize((selector) =>
+  createSelector([selector, getUsersById], (booking, staffDict) => {
+    if (!booking) return booking;
+    if (Array.isArray(booking)) {
+      return booking.map((b) => ({
+        ...b,
+        staff_history: (b?.staff_history || []).map(
+          (staffEvent: StaffModificationHistory) => ({
+            ...staffEvent,
+            staff: staffDict[staffEvent?.staff_id],
+          }),
+        ),
+      }));
+    }
+    return {
+      ...booking,
+      staff_history: (booking.staff_history || []).map(
+        (staffEvent: StaffModificationHistory) => ({
+          ...staffEvent,
+          staff: staffDict[staffEvent?.staff_id],
+        }),
+      ),
+    };
+  }),
+);
 
 export const getOfferBookingListWithConsumerPack = createSelector(
   [getOfferBookingList, getConsumerPacksWithPaymentPack],

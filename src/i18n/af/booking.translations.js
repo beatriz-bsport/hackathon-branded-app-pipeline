@@ -200,6 +200,7 @@ exports.default = {
   parameters: {
     registeredOn: 'Réservé le ',
     cancelledOn: 'Annulé le ',
+    by: 'Par',
     source: 'Canal de réservation',
   },
   source: {
@@ -226,8 +227,12 @@ exports.default = {
   setSpot: 'Attribuer une place',
 
   statusCode: {
-    cancelledByManager: 'Annulation manager',
-    cancelledByManagerDate: 'Annulation manager le {{-date}} à {{time}}',
+    cancelledByAnonymousManager: 'Annulation manager',
+    cancelledByAnonymousManagerDate:
+      'Annulation manager le {{-date}} à {{time}}',
+    cancelledByManager: 'Annulation manager par {{cancelled_by}}',
+    cancelledByManagerDate:
+      'Annulation manager le {{-date}} à {{time}} par {{cancelled_by}}',
     cancelledByConsumer: 'Annulation client',
     cancelledByConsumerDate: 'Annulation client le {{-date}} à {{time}}',
     cancelledByOffer: 'Séance annulée par le club',

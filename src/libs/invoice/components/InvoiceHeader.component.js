@@ -24,6 +24,7 @@ import {
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import type { Invoice } from '../types';
 import type { Establishment } from '../../establishment/types';
+import { getStaffName } from '#libs/booking/utils';
 
 type Props = {
   invoice: ?Invoice,
@@ -102,8 +103,8 @@ export const InvoiceHeader = (props: Props) => {
         <div className={classes.row}>
           <ReceiptIcon fontSize="small" className={classes.leftIcon} />
           <Typography color="textSecondary">
-            {invoice.author
-              ? invoice.author.email
+            {invoice?.author
+              ? getStaffName(invoice.author)
               : t('invoice.header.clientAuthor')}
           </Typography>
         </div>

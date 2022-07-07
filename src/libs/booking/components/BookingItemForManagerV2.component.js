@@ -38,7 +38,7 @@ import {
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import { EventSeat, OfflineBolt } from '@material-ui/icons';
-import { getBookingStatusCode } from '../utils';
+import { BookingStatusCodeText } from '../utils';
 
 import Tooltip from '../../../components/Tooltip.component';
 import RedButton from '../../../components/button/RedButton.component';
@@ -693,7 +693,7 @@ export class BookingItemForManager extends Component<Props, State> {
                         <strong>{this.getHasNoteIndicator()}</strong>
                       </Typography>
                       <Typography variant="body2" inline>
-                        {getBookingStatusCode(t, booking)}
+                        {BookingStatusCodeText(booking)}
                       </Typography>
                     </div>
                   }

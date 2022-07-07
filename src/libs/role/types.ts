@@ -1,10 +1,24 @@
 import { ErrorAndLoading } from '../types';
-
+import {
+  PRIVATE_BOOKING_CREATED_BY_STAFF,
+  PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+  PRIVATE_BOOKING_DATE_TIME_MODIFIED_BY_STAFF,
+  PRIVATE_BOOKING_COACH_MODIFIED_BY_STAFF,
+  PRIVATE_BOOKING_RESTORED_BY_STAFF,
+  RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+} from '#libs/private-service/components/constants';
+import {
+  BOOKING_CREATED_BY_STAFF,
+  BOOKING_CANCELLED_BY_STAFF,
+} from '#libs/booking/components/constants';
 // FOR CREATING A STAFF USER
 export type UserRoleData = {
+  id: number;
   email: string;
   password: string;
   role: number;
+  first_name: string;
+  last_name: string;
 };
 
 export type Permission = {
@@ -117,6 +131,8 @@ export type UserRole<R = number> = {
 };
 
 export type RoleState = ErrorAndLoading & {
+  allIds: number[];
+  byId: { [key: number]: UserRole };
   users: UserRole[];
   users_paginated: ErrorAndLoading & {
     next_page: number;
@@ -215,3 +231,37 @@ export type ProtectedUrls =
   | '/workshop-activity/tabs'
   | '/workshop-activity/tabs/groups'
   | '/workshop-activity/tabs/list';
+
+export type AllActionIdentifier =
+  | typeof PRIVATE_BOOKING_CREATED_BY_STAFF
+  | typeof PRIVATE_BOOKING_CANCELLED_BY_STAFF
+  | typeof PRIVATE_BOOKING_DATE_TIME_MODIFIED_BY_STAFF
+  | typeof PRIVATE_BOOKING_COACH_MODIFIED_BY_STAFF
+  | typeof PRIVATE_BOOKING_RESTORED_BY_STAFF
+  | typeof RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF
+  | typeof BOOKING_CREATED_BY_STAFF
+  | typeof BOOKING_CANCELLED_BY_STAFF;
+
+export type BookingModificationActionIdentifier =
+  | typeof BOOKING_CREATED_BY_STAFF
+  | typeof BOOKING_CANCELLED_BY_STAFF;
+
+export type PrivateBookingModificationActionIdentifier =
+  | typeof PRIVATE_BOOKING_CANCELLED_BY_STAFF
+  | typeof PRIVATE_BOOKING_DATE_TIME_MODIFIED_BY_STAFF
+  | typeof PRIVATE_BOOKING_COACH_MODIFIED_BY_STAFF
+  | typeof PRIVATE_BOOKING_RESTORED_BY_STAFF
+  | typeof RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF;
+
+export type StaffModificationHistory<
+  ActionIdentifierChoices = AllActionIdentifier,
+> = {
+  staff?: UserRoleData;
+  staff_id: number;
+  action_identifier: ActionIdentifierChoices;
+  timestamp: number;
+  old_date_start: number;
+  new_date_start: number;
+  old_coach: number;
+  new_coach: number;
+};

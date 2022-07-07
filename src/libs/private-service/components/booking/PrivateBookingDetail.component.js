@@ -9,12 +9,16 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-
+import PrivateBookingStaffHistory from '../history/PrivateBookingStaffHistory.component';
 import PrivateSlotListItem from '../slot/PrivateSlotListItem.component';
 import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
 import { formatAsDatetime } from '../../../../utils/datetime';
-import { BookingSource } from '../../../booking/utils';
-
+import { BookingSource, getStaffName } from '../../../booking/utils';
+import {
+  PRIVATE_BOOKING_CREATED_BY_STAFF,
+  PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+  RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+} from '#libs/private-service/components/constants';
 import type {
   PrivateBooking,
   PrivateConsumerPass,
@@ -36,9 +40,25 @@ type Props = {
 export const PrivateBookingDetail = (props: Props) => {
   const { t, classes, private_service, private_booking } = props;
   const [regularizeProcessing, setRegularizeProcessing] = React.useState(false);
+  const created_by = private_booking?.staff_history?.find(
+    (sh) => sh?.action_identifier === PRIVATE_BOOKING_CREATED_BY_STAFF,
+  )?.staff;
+  const last_cancel = [
+    ...private_booking?.staff_history?.filter(
+      (sh) =>
+        sh?.action_identifier === PRIVATE_BOOKING_CANCELLED_BY_STAFF ||
+        sh?.action_identifier === RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
+    ),
+  ].sort((sh, sh_) => {
+    if (sh.timestamp < sh_.timestamp) {
+      return 1;
+    }
+    return -1;
+  })[0];
+  const cancelled_by = last_cancel?.staff;
 
   return (
-    <div>
+    <div className={classes.preWrap}>
       <div className={classes.section}>
         <Typography className={classes.sectionTitle} variant="h5">
           {t('privateBooking.detail.title')}
@@ -46,38 +66,56 @@ export const PrivateBookingDetail = (props: Props) => {
         <Paper className={classes.paperContainer}>
           <div className={classes.parameterRow}>
             <Typography inline>
-              {t('privateBooking.detail.registeredOn')}:
+              {t('privateBooking.detail.registeredOn')} :
             </Typography>
             <Typography inline>
               {formatAsDatetime(private_booking.date_created)}
             </Typography>
           </div>
-          {private_booking.date_canceled && (
+          {!!created_by && (
+            <div className={classes.parameterRow}>
+              <Typography inline>{t('privateBooking.detail.by')} :</Typography>
+              <Typography inline>{getStaffName(created_by)}</Typography>
+            </div>
+          )}
+          <div className={classes.parameterRow}>
+            <Typography inline>
+              {t('privateBooking.detail.source')} :
+            </Typography>
+            <BookingSource t={t} source={private_booking.source} />
+          </div>
+          {!!private_booking.date_canceled && (
             <div className={classes.parameterRow}>
               <Typography inline>
-                {t('privateBooking.detail.cancelledOn')}:
+                {last_cancel?.action_identifier ===
+                PRIVATE_BOOKING_CANCELLED_BY_STAFF
+                  ? `${t('privateBooking.detail.cancelledOn')} :`
+                  : `${t('privateBooking.detail.cancelledByRecurrenceOn')} :`}
               </Typography>
               <Typography inline>
                 {formatAsDatetime(private_booking.date_canceled)}
               </Typography>
             </div>
           )}
+          {!!cancelled_by &&
+            private_booking.booking_status_code !== BOOKING_STATUS_OK.id && (
+              <div className={classes.parameterRow}>
+                <Typography inline>
+                  {t('privateBooking.detail.by')} :
+                </Typography>
+                <Typography inline>{getStaffName(cancelled_by)}</Typography>
+              </div>
+            )}
           <div className={classes.parameterRow}>
             <Typography inline>
-              {`${t('privateBooking.detail.source')}: `}
-            </Typography>
-            <BookingSource t={t} source={private_booking.source} />
-          </div>
-          <div className={classes.parameterRow}>
-            <Typography inline>
-              {t('privateBooking.detail.address')}:
+              {t('privateBooking.detail.address')} :
             </Typography>
             <Typography inline>{private_booking.address}</Typography>
           </div>
           {!!private_service && private_service.coaches.length && (
             <div className={classes.parameterRow}>
               <Typography inline>
-                {t('privateBooking.detail.coach')}:
+                {t('privateBooking.detail.coach')} :
               </Typography>
               {!!private_booking.coach && (
                 <Typography inline>{private_booking.coach.name}</Typography>
@@ -96,7 +134,7 @@ export const PrivateBookingDetail = (props: Props) => {
           {private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (
             <div className={classes.parameterRow}>
               <Typography inline>
-                {`${t('privateBooking.detail.wasRefunded')}: `}
+                {t('privateBooking.detail.wasRefunded')} :
               </Typography>
               <Typography inline>
                 {t(
@@ -107,6 +145,15 @@ export const PrivateBookingDetail = (props: Props) => {
               </Typography>
             </div>
           ) : null}
+        </Paper>
+      </div>
+      <div className={classes.section}>
+        <Typography className={classes.sectionTitle} variant="h6">
+          {t('privateBooking.detail.historyTitle')}
+        </Typography>
+
+        <Paper>
+          <PrivateBookingStaffHistory privateBooking={private_booking} />
         </Paper>
       </div>
       <div className={classes.section}>
@@ -184,6 +231,9 @@ const styles = (theme) => ({
   sectionTitle: {
     marginBottom: theme.spacing(1),
   },
+  preWrap: {
+    whiteSpace: 'pre-wrap',
+  },
   section: {
     marginBottom: theme.spacing(2),
   },
@@ -201,6 +251,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    whiteSpace: 'pre-wrap',
   },
   paddingTop: {
     marginTop: theme.spacing(1),

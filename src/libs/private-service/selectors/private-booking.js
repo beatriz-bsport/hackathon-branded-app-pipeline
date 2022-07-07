@@ -6,6 +6,7 @@ import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import type { State } from '../../../state/types';
 import type { PrivateBooking } from '../types';
+import { getRoleStateById as getUsersById } from '../../role/selectors';
 
 import {
   getMemberListData,
@@ -42,6 +43,27 @@ export const getPrivateBookingDict: (State) => {
   [id: number]: PrivateBooking,
 } = (state) => state.privateService.privateBooking.byId;
 
+export const withStaffModificationHistory = memoize((selector) =>
+  createSelector([selector, getUsersById], (bookings, staffDict) => {
+    if (!bookings) return null;
+    if (!Array.isArray(bookings)) {
+      return {
+        ...bookings,
+        staff_history: (bookings?.staff_history || []).map((staffEvent) => ({
+          ...staffEvent,
+          staff: staffDict[staffEvent?.staff_id],
+        })),
+      };
+    }
+    return bookings.map((b) => ({
+      ...b,
+      staff_history: (b?.staff_history || []).map((staffEvent) => ({
+        ...staffEvent,
+        staff: staffDict[staffEvent?.staff_id],
+      })),
+    }));
+  }),
+);
 export const withRelatedFields = memoize((selector) =>
   createSelector(
     [

@@ -21,7 +21,7 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-const ClassComponent = (props: Props) => {
+export const FunctionalComponent = (props: Props) => {
   const { title } = props;
   const classes = useStyles();
 
@@ -45,4 +45,4 @@ const connector = connect(
   },
 );
 
-export default connector(ClassComponent);
+export default connector(FunctionalComponent);

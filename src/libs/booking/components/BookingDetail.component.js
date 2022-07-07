@@ -14,8 +14,11 @@ import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.c
 
 import type { Booking } from '../types';
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-import { BookingSource } from '../utils';
-// import type { Offer } from '../../libs/offer/types';
+import { BookingSource, getStaffName } from '../utils';
+import {
+  BOOKING_CREATED_BY_STAFF,
+  BOOKING_CANCELLED_BY_STAFF,
+} from '#libs/booking/components/constants';
 
 type Props = {
   classes: Object,
@@ -33,6 +36,12 @@ type Props = {
 export class BookingDetail extends Component<Props> {
   render() {
     const { classes, t, booking } = this.props;
+    const created_by = booking?.staff_history?.find(
+      (sh) => sh?.action_identifier === BOOKING_CREATED_BY_STAFF,
+    )?.staff;
+    const cancelled_by = booking?.staff_history?.find(
+      (sh) => sh?.action_identifier === BOOKING_CANCELLED_BY_STAFF,
+    )?.staff;
     if (!this.props.booking) {
       return (
         <div className={classes.container}>
@@ -65,6 +74,18 @@ export class BookingDetail extends Component<Props> {
               <Typography inline>{t('parameters.registeredOn')}:</Typography>
               <Typography inline>{formatAsDatetime(booking.date)}</Typography>
             </div>
+
+            {!!created_by && (
+              <div className={classes.parameter}>
+                <Typography inline>{t('parameters.by')}:</Typography>
+                <Typography inline>{getStaffName(created_by)}</Typography>
+              </div>
+            )}
+
+            <div className={classes.parameter}>
+              <Typography inline>{`${t('parameters.source')}: `}</Typography>
+              <BookingSource t={this.props.t} source={booking.source} />
+            </div>
             {booking.date_canceled && (
               <div className={classes.parameter}>
                 <Typography inline>{t('parameters.cancelledOn')}:</Typography>
@@ -73,10 +94,12 @@ export class BookingDetail extends Component<Props> {
                 </Typography>
               </div>
             )}
-            <div className={classes.parameter}>
-              <Typography inline>{`${t('parameters.source')}: `}</Typography>
-              <BookingSource t={this.props.t} source={booking.source} />
-            </div>
+            {!!cancelled_by && (
+              <div className={classes.parameter}>
+                <Typography inline>{t('parameters.by')}:</Typography>
+                <Typography inline>{getStaffName(cancelled_by)}</Typography>
+              </div>
+            )}
           </div>
         </Paper>
         <Typography component="h3" variant="h6">

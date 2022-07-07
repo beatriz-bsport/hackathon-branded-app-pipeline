@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-
 import {
   userRoleList,
   userRoleUpdate,
@@ -13,6 +12,8 @@ import {
 import type { RoleState } from './types';
 
 const initialState: Immutable.Immutable<RoleState> = Immutable<RoleState>({
+  allIds: [],
+  byId: {},
   users: [],
   users_paginated: {
     next_page: 0,
@@ -44,7 +45,21 @@ const initialState: Immutable.Immutable<RoleState> = Immutable<RoleState>({
 export default handleActions<Immutable.Immutable<RoleState>>(
   {
     [userRoleList.success.toString()]: (state, { payload }) => {
-      return state.set('users', payload);
+      return state
+        .set('users', payload)
+        .set(
+          'allIds',
+          payload.map((user) => user.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce((acc, r) => {
+              acc[r.id] = r;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [userRoleList.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);

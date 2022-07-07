@@ -3,6 +3,8 @@ import { Role, RoleState } from './types';
 import { RootState } from '../../reducers';
 import { OWNER_ROLE } from './role-types';
 
+export const getRoleStateAllIds = (state: RootState) => state.role.allIds;
+export const getRoleStateById = (state: RootState) => state.role.byId;
 const getRoleState = (state: RootState): RoleState => state.role;
 const getAuthState = (state: RootState) => state.auth;
 const _getRoleDict = (state: RootState) => state.role.role.byId;

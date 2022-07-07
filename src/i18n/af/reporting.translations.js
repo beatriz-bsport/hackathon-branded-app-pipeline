@@ -150,6 +150,7 @@ exports.default = {
     remaining_credits: 'Crédit restant',
     annotated_remaining_credits: 'Crédit restant',
     private_passcredits: 'Crédit restant',
+    remaining_credits_annotated: "Crédit restant aujourd'hui",
     duration: 'Durée (minutes)',
     date_start: 'Date complète',
     date_start_date: 'Date',

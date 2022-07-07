@@ -116,12 +116,27 @@ export const withPaymentPack = memoize((selector: (State) => any) =>
           payment_combo: paymentComboData[contracts.payment_combo],
         };
       }
-      return contracts.map((c) => ({
-        ...c,
-        payment_pack: paymentPackData[c.payment_pack],
-        private_pass: privatePassData[c.private_pass],
-        payment_combo: paymentComboData[c.payment_combo],
-      }));
+      return contracts.map((c) => {
+        let allPaymentPacks = [];
+        if (c.payment_pack) {
+          allPaymentPacks = paymentPackData[c.payment_pack]
+            ? [paymentPackData[c.payment_pack]]
+            : [];
+        }
+        if (c.payment_combo) {
+          allPaymentPacks =
+            paymentComboData[c.payment_combo]?.payment_packs
+              ?.map((pp) => paymentPackData[pp.id])
+              .filter((pp_) => !!pp_) ?? [];
+        }
+        return {
+          ...c,
+          payment_pack: paymentPackData[c.payment_pack],
+          private_pass: privatePassData[c.private_pass],
+          payment_combo: paymentComboData[c.payment_combo],
+          allPaymentPacks,
+        };
+      });
     },
   ),
 );

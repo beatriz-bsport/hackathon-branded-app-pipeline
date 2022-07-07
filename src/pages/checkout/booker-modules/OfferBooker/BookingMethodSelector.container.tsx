@@ -1,4 +1,5 @@
 import React from 'react';
+import uniq from 'lodash/uniq';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { Box, Theme, withStyles } from '@material-ui/core';
@@ -20,6 +21,7 @@ import {
 
 import { replace as replaceAction } from 'connected-react-router';
 import memoize from 'memoize-one';
+import { OptionCallback } from '../../../../state/types';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../../libs/offer/types';
 import { MaterialStyleType, WithHandlerType } from '../../../../utils/types';
@@ -46,7 +48,10 @@ import {
   fetchAllPaymentPackCategory,
   resetPaymentPackForBooking,
 } from '../../../../libs/payment-packs/actions';
-import { fetchPaymentComboForBooking } from '../../../../libs/payment-combo/actions';
+import {
+  fetchPaymentComboForBooking,
+  fetchPaymentComboList as fetchPaymentComboListAction,
+} from '../../../../libs/payment-combo/actions';
 import {
   fetchConsumerPaymentPackForBooking,
   fetchConsumerPaymentPackMaxoutBooking,
@@ -123,7 +128,10 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     this.fetchConsumerPaymentPack();
     this.fetchPaymentPack(1);
     this.fetchComboPack();
-    this.props.fetchContractForBooking(this.props.offerId, this.props.company);
+    this.props.fetchContractForBookingHandler(
+      this.props.offerId,
+      this.props.company,
+    );
     this.props.fetchMemberTagList(this.props.company);
     this.props.fetchAllPaymentPackCategory(this.props.company);
   }
@@ -195,7 +203,7 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     if (prevProps.company !== this.props.company) {
       this.fetchPaymentPack(1);
       this.fetchComboPack();
-      this.props.fetchContractForBooking(
+      this.props.fetchContractForBookingHandler(
         this.props.offerId,
         this.props.company,
       );
@@ -418,12 +426,35 @@ const mapHandlers = {
       props.offer.timezone_name,
     );
   },
-  fetchContractForBooking:
-    ({ fetchContractForBooking, fetchPaymentPackBulk }) =>
+  fetchContractForBookingHandler:
+    ({
+      fetchContractForBooking,
+      fetchPaymentPackBulk,
+      fetchPaymentComboList,
+    }: OwnAndConnectedProps) =>
     (offer, company) => {
       fetchContractForBooking(offer, company, {
-        onSuccess: (contractList) =>
-          fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
+        onSuccess: (contractList) => {
+          fetchPaymentPackBulk(contractList.map((c) => c.payment_pack));
+          fetchPaymentComboList(
+            {
+              company,
+              id__in: uniq(contractList.map((c) => c.payment_combo)),
+            },
+            {
+              onSuccess: (paymentComboList: Array<PaymentCombo>) => {
+                const paymentPackIds = paymentComboList.reduce(
+                  (allIds: Array<number>, combo: PaymentCombo) => [
+                    ...allIds,
+                    ...combo.payment_packs.map((pp) => pp.id),
+                  ],
+                  [],
+                );
+                fetchPaymentPackBulk(paymentPackIds);
+              },
+            },
+          );
+        },
       });
     },
 };
@@ -470,9 +501,17 @@ const mapDispatchToProps = {
   replace: replaceAction,
   fetchConsumerPaymentPackForBooking,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+  fetchPaymentComboList: fetchPaymentComboListAction as (
+    params: any,
+    options: OptionCallback<Array<PaymentCombo>>,
+  ) => void,
   fetchPaymentPackForBooking,
   fetchPaymentComboForBooking,
-  fetchContractForBooking: fetchContractForBookingAction,
+  fetchContractForBooking: fetchContractForBookingAction as (
+    offer: number,
+    company: number,
+    options: OptionCallback,
+  ) => void,
   resetContractForBooking: resetContractForBookingAction,
   fetchConsumerPaymentPackMaxoutBooking,
   fetchMemberTagList,

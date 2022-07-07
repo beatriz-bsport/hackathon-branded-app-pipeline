@@ -11,7 +11,7 @@ import {
 } from './api';
 import { fetchPrivatePassList as fetchPrivatePassListAPI } from '../private-service/api';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import type { PaymentComboPayload } from './types';
+import type { PaymentComboPayload, PaymentCombo } from './types';
 
 export const paymentComboListActions = {
   error: createAction('PAYMENT_COMBO/LIST/ERROR'),
@@ -60,7 +60,10 @@ export function fetchPaymentCombo(
   };
 }
 
-export function fetchPaymentComboList(params: any): ThunkAction {
+export function fetchPaymentComboList(
+  params: any,
+  options?: OptionCallback<Array<PaymentCombo>>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboListActions.isLoading(true));
     dispatch(paymentComboListActions.error(null));
@@ -69,9 +72,11 @@ export function fetchPaymentComboList(params: any): ThunkAction {
       const response = await fetchPaymentComboListAPI(params);
       dispatch(paymentComboListActions.success(response.data));
       dispatch(paymentComboListActions.error(null));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(paymentComboListActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
 
     dispatch(paymentComboListActions.isLoading(false));

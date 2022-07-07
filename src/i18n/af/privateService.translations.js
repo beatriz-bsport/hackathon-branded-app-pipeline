@@ -284,7 +284,7 @@ exports.default = {
         "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
       explainMoreHardDeleteReccurentBookingTitle: 'Rendez-vous récurrent',
       explainMoreHardDeleteReccurentBooking:
-        "Cette réservation est liée à une règle de rendez-vous récurrents. Si vous supprimez cette réservation le système cherchera à la créer de nouveau. Si vous ne souhaitez pas que cette réservation soit re-générée veuillez ne pas la supprimer et laisser sont status en tant qu'annulé.",
+        "Cette réservation est liée à une règle de rendez-vous récurrents. Si vous supprimez cette réservation le système cherchera à la créer de nouveau. Si vous ne souhaitez pas que cette réservation soit re-générée veuillez ne pas la supprimer et laisser son status en tant qu'annulée.",
       explainForceRefund:
         'Rembourser le crédit utilisé sur la carte pour permettre une nouvelle réservation.',
       sendCancellationMail:

@@ -505,6 +505,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               onClick={this.submit}
               id="stripe-pay"
               color="primary"
+              variant="contained"
               disabled={
                 (['sepa_debit', 'card'].includes(paymentMethod) &&
                   !this.state.selectedSavedPaymentMethodId &&
@@ -535,7 +536,10 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(2),
   },
   buttonContainer: {
-    padding: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   explainCredit: {
     padding: theme.spacing(2),

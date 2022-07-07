@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withState, withHandlers, compose } from 'recompose';
 import moment from 'moment-timezone';
@@ -15,6 +14,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { Moment } from '../../../i18n';
 
 import SubscriptionPayment from './SubscriptionPayment.component';
@@ -71,7 +71,7 @@ const ContractPickerDialog = (props: {
   onClose: () => void,
   goToCustomSubscriptionForm: () => void,
 }) => (
-  <Dialog open={props.open}>
+  <GenericResponsiveDialog open={props.open} maxWidth="sm">
     <DialogTitle>{props.t('contract.registerManager.title')}</DialogTitle>
     <DialogContent>
       <Typography className={props.classes.contentText}>
@@ -111,7 +111,7 @@ const ContractPickerDialog = (props: {
         {props.t('contract.registerManager.actions.cancel')}
       </Button>
     </DialogActions>
-  </Dialog>
+  </GenericResponsiveDialog>
 );
 
 export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
@@ -161,7 +161,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
   // );
 
   return (
-    <Dialog open={props.open}>
+    <GenericResponsiveDialog open={props.open} maxWidth="sm">
       <DialogTitle>{props.contract.name}</DialogTitle>
       <DialogContent>
         <div className={props.classes.row}>
@@ -220,7 +220,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           stripeReaders={props.stripeReaders}
         />
       </DialogContent>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
 };
 

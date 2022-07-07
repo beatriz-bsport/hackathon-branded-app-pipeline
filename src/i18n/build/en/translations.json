@@ -2314,9 +2314,9 @@
         },
         "debt": {
             "explainPayment": "This amount will be paid to the studio to regularize your outstanding debt.",
-            "titlePaymentDialog": "Regularize",
+            "titlePaymentDialog": "Complete payment",
             "title": "Outstanding debt",
-            "regularize": "Regularize"
+            "regularize": "Complete payment"
         },
         "unsubscriber": {
             "success": "You've unsubscribed.",
@@ -2503,7 +2503,7 @@
             }
         },
         "mail": {
-            "title": "Subject of the email",
+            "title": "Subject of the message",
             "content": "Content of the email",
             "missing": "Missing email",
             "success": "Your message has been sent.",
@@ -2582,33 +2582,33 @@
                 },
                 "panel": {
                     "subtitle": {
-                        "onLeft": "Leaving",
-                        "onJoin": "Entering"
+                        "onLeft": "Removal",
+                        "onJoin": "Entry"
                     },
                     "add": "Add",
-                    "title": "Automatic rule"
+                    "title": "Automatic Messaging"
                 },
                 "form": {
-                    "frequenceHelper": "This message will be sent to {{ max }} {{ event_kind }} from the Smartlist for each member. After {{ max }} {{ event_kind }}, members will no longer receive the message. Settings can be changed under \"Advanced\".",
+                    "frequenceHelper": "This message will be sent upon {{ max }} {{ max }} to each member in this Smartlist. After {{ event_kind }} {{ max }}, members will no longer receive the message. Use \"Advanced\" to edit these settings.",
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Automatic rule creation when leaving a Smartlist",
-                            "joinSmartList": "Automatic rule creation when entering a Smartlist"
+                            "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
+                            "joinSmartList": "Add an automatic message for members that enter this Smartlist."
                         },
                         "update": {
-                            "leftSmartList": "Automatic rule modification when leaving a Smartlist",
-                            "joinSmartList": "Automatic rule modification when entering a Smartlist"
+                            "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
+                            "joinSmartList": "Add an automatic message for members that enter this Smartlist."
                         }
                     },
                     "max_communications_sent_per_member_limit": "Maximum value: {{ max }}",
-                    "max_communications_sent_per_member": "Maximum entries per member",
+                    "max_communications_sent_per_member": "Maximum number of messages per member",
                     "advancedSection": "Advanced",
                     "submit": "Confirm"
                 },
                 "activeSince": "Active since: {{-date}}",
                 "eventKind": {
                     "1": "Exiting",
-                    "0": "Entering"
+                    "0": "Entry"
                 },
                 "create": "Add ",
                 "onLeft": "When leaving a Smartlist",
@@ -2821,7 +2821,23 @@
                 "attachCoach": "Assign a teacher",
                 "coach": "Teacher",
                 "cancelledOn": "Cancelled on ",
-                "unpaidBooking": "The member selected the option to pay later. The {{ credits}} credit(s) for this unpaid booking will be debited from the first purchased appointment pass."
+                "unpaidBooking": "The member selected the option to pay later. The {{ credits}} credit(s) for this unpaid booking will be debited from the first purchased appointment pass.",
+                "cancelledByRecurrenceBy": "Cancelled by",
+                "cancelledBy": "Cancelled by",
+                "restoredBy": "Restored by",
+                "dateModifiedBy": "Edited by",
+                "coachModifiedBy": "Edited by",
+                "cancelledByRecurrence": "Recurring booking cancellation",
+                "cancelled": "Cancellation",
+                "restored": "Restore",
+                "dateModified": "Edit",
+                "coachModified": "Edit",
+                "canal": "Channel",
+                "initialDateTime": "Initial time and date",
+                "emptyHistory": "There's no history to display.",
+                "historyTitle": "History",
+                "by": "By",
+                "cancelledByRecurrenceOn": "Recurring booking cancelled on "
             },
             "managerAdd": {
                 "title": "New booking",
@@ -2882,7 +2898,9 @@
             "notRefunded": "Not refunded",
             "isRefunded": "Refunded",
             "isUnpaid": "Outstanding payment",
-            "bookingIsUnpaid": "Unpaid booking"
+            "bookingIsUnpaid": "Unpaid booking",
+            "isCancelledByManagerDate": "Cancelled on {{-date}} at {{time}} by {{cancelled_by}}",
+            "isCancelledByManager": "Cancelled by {{cancelled_by}}"
         },
         "privateService": {
             "delete": {
@@ -9279,7 +9297,7 @@
             "no": "No",
             "yes": "Yes"
         },
-        "regularizeBalance": "Regularize",
+        "regularizeBalance": "Complete payment",
         "cashoutBalance": "Cashout balance",
         "merge": "Merge",
         "forms": {
@@ -9603,7 +9621,8 @@
         "parameters": {
             "registeredOn": "Booked on ",
             "source": "Booked via",
-            "cancelledOn": "Cancelled on: "
+            "cancelledOn": "Cancelled on: ",
+            "by": "By"
         },
         "source": {
             "web": "Web",
@@ -9621,12 +9640,14 @@
         "loading": "Loading",
         "wasRefunded": "Refunded",
         "statusCode": {
-            "cancelledByManager": "Cancelled by manager",
+            "cancelledByManager": "Cancelled by manager ({{cancelled_by}})",
             "cancelledByConsumer": "Cancelled by customer",
             "cancelledByOffer": "Session cancelled",
             "cancelledByOfferDate": "Cancelled by the studio on{{-date}} at {{time}}.",
             "cancelledByConsumerDate": "Cancelled by customer on the {{-date}} at {{time}}",
-            "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}}"
+            "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}} by {{cancelled_by}}",
+            "cancelledByAnonymousManagerDate": "Cancelled by the studio on {{-date}} at {{time}}",
+            "cancelledByAnonymousManager": "Cancelled by the studio"
         },
         "filters": {
             "notRefunded": "Not refunded",
@@ -11939,7 +11960,7 @@
                 "succeeded": "Payment: successful",
                 "missing_charge": "There's no attempted payment to display."
             },
-            "bill": "Regularize"
+            "bill": "Complete payment"
         },
         "upsellPackage": {
             "billOnce": "{{price_cts, price }}",

@@ -80,7 +80,7 @@
             "currentPassTitle": "Mijn kaarten",
             "nextBookingTitle": "Mijn reserveringen",
             "optionTitle": "Actieve wachtlijsten",
-            "favoriteTitle": "Uitgelichte sessie"
+            "favoriteTitle": "Uitgelicht"
         },
         "booking": {
             "bookAgain": "Opnieuw reserveren",
@@ -735,8 +735,8 @@
                 "myFutureBookings": "Volgende sessies",
                 "waitingSlot": "Afwachten",
                 "confirmBooking": "Bevestigen",
-                "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Je annuleert te laat en je verliest je krediet(en).",
-                "discardPossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\" en vervolgens worden de gebruikte kredieten teruggestort.",
+                "discardImpossibleExplain": "Weet je zeker dat je deze reservering wilt annuleren? Indien ja, klik dan op \"Verwijderen\". Dit is op basis van de annuleringsvoorwaarden een te late annulering.",
+                "discardPossibleExplain": "Weet je zeker dat je deze reservering kosteloos wilt annuleren? Indien ja, klik dan op \"Verwijderen\".",
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
                 "myPrivateBooking": "Afspraken",
@@ -1556,7 +1556,7 @@
             "success": "Je bericht is verzonden.",
             "missing": "Geen e-mail beschikbaar",
             "content": "Inhoud van de e-mail",
-            "title": "Onderwerp van de e-mail",
+            "title": "Onderwerp van dit bericht",
             "refreshText": "Ververs de pagina om de wijzigingen in de e-mail te zien.",
             "noObject": "Geen onderwerp",
             "refreshTextPhone": "Ververs de pagina om de wijzigingen te zien",
@@ -1574,7 +1574,7 @@
             "selectTemplate": "E-mailsjabloon",
             "writeMail": "E-mail",
             "dialogTitle": "Bericht",
-            "contentNotification": "Inhoud",
+            "contentNotification": "Inhoud van de push-notificatie",
             "titleNotification": "Titel",
             "sendNotification": "Push-notificatie",
             "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
@@ -1643,22 +1643,22 @@
                         "onJoin": "Aanmelding"
                     },
                     "add": "Toevoegen",
-                    "title": "Automatische regel"
+                    "title": "Automatische berichtgeving"
                 },
                 "form": {
-                    "frequenceHelper": "Dit bericht wordt {{ max }} {{ event_kind }} per lid van deze Smartlist verzonden. Na {{ max }} {{ event_kind }} berichten zullen leden geen berichten meer ontvangen. De instellingen kunnen onder \"Geavanceerd\" gewijzigd worden.",
+                    "frequenceHelper": "Dit bericht wordt bij {{ event_kind }} {{ max }} naar een lid in deze Smartlist verzonden. Na {{ event_kind }} {{ max }} zullen leden geen berichten meer ontvangen. Deze instellingen kunnen onder \"Geavanceerd\" gewijzigd worden.",
                     "subtitles": {
                         "update": {
                             "leftSmartList": "Automatisch de regel wijzigen zodra een lid een Smartlist verlaat",
-                            "joinSmartList": "Automatisch de regel wijzigen zodra een lid in een Smartlist gezet wordt"
+                            "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
                         },
                         "create": {
-                            "leftSmartList": "Automatisch de regel aanmaken zodra een lid een Smartlist verlaat",
-                            "joinSmartList": "Automatisch de regel aanmaken zodra een lid in een Smartlist gezet wordt"
+                            "leftSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist verlaat.",
+                            "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
                         }
                     },
                     "max_communications_sent_per_member_limit": "Maximum: {{ max }}",
-                    "max_communications_sent_per_member": "Maximale verzendingen per lid",
+                    "max_communications_sent_per_member": "Maximaal aantal berichten per lid",
                     "advancedSection": "Geavanceerd",
                     "submit": "Bevestigen"
                 },
@@ -2032,8 +2032,8 @@
         },
         "needStripe": {
             "actionRegularize": "Mijn Stripe-account configureren",
-            "info": "Configureer je Stripe-account om gebruik te kunnen blijven maken van de diensten van BSPORT.",
-            "infoDateBlocked": "Configureer je Stripe-account voor {{ dateAccountIsBLockedFormattedLL }} om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+            "info": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie om gebruik te kunnen blijven maken van de diensten van BSPORT.",
+            "infoDateBlocked": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie vóór {{ dateAccountIsBLockedFormattedLL }} om gebruik te kunnen blijven maken van de diensten van BSPORT.",
             "stripeAccount": "Stripe-account"
         }
     },
@@ -4318,7 +4318,7 @@
         "create": "Een sjabloon toevoegen",
         "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mailsjablonen aanmaken m.b.v. onze Drag-&-Drop Bewerker. Vervolgens kun je deze direct naar leden versturen en aan automatische notificaties koppelen om in contact met je leden te blijven.",
         "modification_date": "Laatste wijziging op",
-        "subject": "Onderwerp van de e-mail:",
+        "subject": "Onderwerp:",
         "preview": "Voorvertoning",
         "no_subject": "Geen onderwerp",
         "editor": {
@@ -4329,7 +4329,7 @@
             },
             "title": "Naam van de e-mail",
             "save": "Opslaan",
-            "subject": "Onderwerp van de e-mail",
+            "subject": "Onderwerp",
             "cancel": "Annuleren",
             "exportHtml": "Als HTML exporteren",
             "selectorPlaceholder": "Selecteer studio's",
@@ -4748,17 +4748,20 @@
         "wasRefunded": "Terugbetaald",
         "statusCode": {
             "cancelledByOffer": "Sessie geannuleerd door de studio",
-            "cancelledByManager": "Geannuleerd (manager)",
+            "cancelledByManager": "Geannuleerd door de studio ({{cancelled_by}})",
             "cancelledByConsumer": "Geannuleerd (leden)",
             "cancelledByOfferDate": "De sessie is door de studio op {{-date}} om {{time}} geannuleerd",
             "cancelledByConsumerDate": "Door het lid op {{-date}} om {{time}} geannuleerd",
-            "cancelledByManagerDate": "Door de studio op {{-date}} om {{time}} geannuleerd"
+            "cancelledByManagerDate": "Door {{cancelled_by}} op {{-date}} om {{time}} geannuleerd",
+            "cancelledByAnonymousManagerDate": "Geannuleerd door de studio op {{-date}} om {{time}}",
+            "cancelledByAnonymousManager": "Geannuleerd door de studio"
         },
         "attend": "Aanwezig",
         "parameters": {
             "registeredOn": "Gereserveerd op ",
             "source": "Gereserveerd via",
-            "cancelledOn": "Geannuleerd op "
+            "cancelledOn": "Geannuleerd op ",
+            "by": "Door"
         },
         "filters": {
             "notRefunded": "Niet terugbetaald",
@@ -6346,7 +6349,7 @@
             "delete": {
                 "consumer": {
                     "content": {
-                        "discardable": "Weet je zeker dat je deze afspraak wilt annuleren? Je tegoed wordt teruggestort.",
+                        "discardable": "Weet je zeker dat je deze afspraak kosteloos wilt annuleren?",
                         "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Dit is geen kosteloze annulering, omdat het te laat geannuleerd wordt."
                     },
                     "title": "Afspraak annuleren",
@@ -6388,7 +6391,23 @@
                 "attachCoach": "Instructeur toewijzen",
                 "coach": "Instructeur",
                 "cancelledOn": "Geannuleerd op ",
-                "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken."
+                "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
+                "cancelledByRecurrenceBy": "Geannuleerd door",
+                "cancelledBy": "Geannuleerd door",
+                "restoredBy": "Hersteld door",
+                "dateModifiedBy": "Gewijzigd door",
+                "coachModifiedBy": "Gewijzigd door",
+                "cancelledByRecurrence": "Periodieke reserveringen annuleren",
+                "cancelled": "Annulering",
+                "restored": "Herstellen",
+                "dateModified": "Wijzigen",
+                "coachModified": "Wijzigen",
+                "canal": "Kanaal",
+                "initialDateTime": "Starttijd en startdatum",
+                "emptyHistory": "Er is geen geschiedenis om weer te geven.",
+                "historyTitle": "Geschiedenis",
+                "by": "Door",
+                "cancelledByRecurrenceOn": "Periodieke reservering geannuleerd op "
             },
             "cancel": "Annuleren",
             "attachCoach": {
@@ -6406,7 +6425,9 @@
             "notRefunded": "Niet terugbetaald",
             "isRefunded": "Terugbetaald",
             "isUnpaid": "Openstaande betaling",
-            "bookingIsUnpaid": "Onbetaalde reservering"
+            "bookingIsUnpaid": "Onbetaalde reservering",
+            "isCancelledByManagerDate": "Geannuleerd op {{-date}} om {{time}} door {{cancelled_by}}",
+            "isCancelledByManager": "Geannuleerd door {{cancelled_by}}"
         },
         "privateService": {
             "delete": {

@@ -4273,7 +4273,8 @@
         "parameters": {
             "registeredOn": "Reservado el ",
             "source": "Canal de compra",
-            "cancelledOn": "Cancelado el "
+            "cancelledOn": "Cancelado el ",
+            "by": "Por"
         },
         "source": {
             "web": "En el sitio web",
@@ -4291,12 +4292,14 @@
         "loading": "Cargando",
         "wasRefunded": "Reembolsada",
         "statusCode": {
-            "cancelledByManager": "Cancelación manager",
+            "cancelledByManager": "Cancelación manager por {{cancelled_by}}",
             "cancelledByConsumer": "Cancelación cliente",
             "cancelledByOffer": "Clase cancelada por el club",
             "cancelledByOfferDate": "Sesión cancelada por el club el {{-date}} a las {{time}}",
             "cancelledByConsumerDate": "Cancelado por el cliente el {{-date}} a las {{time}}",
-            "cancelledByManagerDate": "Cancelado por el manager el {{-date}} a las {{time}}"
+            "cancelledByManagerDate": "Cancelación manager el {{-date}} a las {{time}} por {{cancelled_by}}",
+            "cancelledByAnonymousManagerDate": "Cancelado por el manager el {{-date}} a las {{time}}",
+            "cancelledByAnonymousManager": "Cancelación manager"
         },
         "bookingModule": {
             "messages": {
@@ -4593,7 +4596,8 @@
                 "frequencyWeekly": "esta semana.",
                 "frequencyMonthly": "este mes.",
                 "frequencyYearly": "el año en curso.",
-                "frequencyGeneric": "el período actual."
+                "frequencyGeneric": "el período actual.",
+                "warningCustomLeveledSession": "Esta sesión tiene un nivel personalizado. Asegúrate de que la persona que invitas tiene el nivel esperado."
             }
         },
         "placeNumber": "Sitios {{count}}",
@@ -6211,7 +6215,8 @@
             "readCount": "Apertura",
             "showEmail": "Ver el email",
             "clicksCount": "Click",
-            "showSms": "Ver SMS"
+            "showSms": "Ver SMS",
+            "showNotification": "Ver la notificación"
         },
         "campaign": {
             "report": {
@@ -6236,14 +6241,60 @@
             "recipientCount": "Destinatario: {{ total_recipients }}",
             "kind": {
                 "1": "SMS",
-                "0": "Email"
+                "0": "Email",
+                "2": "Notificación push"
             },
-            "unavailableMail": "Vista previa no disponible"
+            "unavailableMail": "Vista previa no disponible",
+            "automated": {
+                "deleteDialog": {
+                    "content": "¿Está seguro de que quiere eliminar esta regla de envío automático? Esta acción es definitiva.",
+                    "title": "Supresión"
+                },
+                "panel": {
+                    "subtitle": {
+                        "onJoin": "Al entrar",
+                        "onLeft": "Al salir"
+                    },
+                    "add": "Añadir",
+                    "title": "Regla de envío automático"
+                },
+                "form": {
+                    "frequenceHelper": "Esta comunicación se enviará para {{ max }} {{ event_kind }} de la smartlist para cada miembro. Después de {{ max }} {{ event_kind }} de la smartlist para el mismo miembro, éste ya no recibirá esta comunicación. Puede cambiar esta configuración en \"Avanzado\".",
+                    "subtitles": {
+                        "create": {
+                            "leftSmartList": "Creación de una regla de envío automático a la salida de la smartlist",
+                            "joinSmartList": "Creación de una regla de envío automático a la entrada a la smartlist"
+                        },
+                        "update": {
+                            "leftSmartList": "Modificación de una regla de envío automático a la salida de la smartlist",
+                            "joinSmartList": "Modificación de una regla de envío automático en la smartlist"
+                        }
+                    },
+                    "max_communications_sent_per_member_limit": "Valor máximo : {{ max }}",
+                    "max_communications_sent_per_member": "Número máximo de envíos por miembros",
+                    "advancedSection": "Avanzado",
+                    "submit": "Confirmar"
+                },
+                "activeSince": "Activo desde el {{-date}}",
+                "eventKind": {
+                    "1": "Salida",
+                    "0": "Entrada"
+                },
+                "create": "Creación ",
+                "onLeft": "Al final de la smartlist",
+                "onJoin": "En la entrada de la smartlist"
+            },
+            "automatedTitle": "Envíos automáticos",
+            "manualTitle": "Envíos manuales"
         },
         "common": {
-            "refresh": "Actualizar",
+            "refresh": "Refrescar",
             "submit": "Enviar",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "recipient": "destinatario",
+            "recipient_plural": "destinatarios",
+            "confirm": "Confirmar",
+            "close": "Cerrar"
         },
         "recipients": "Destinatarios",
         "mail": {
@@ -6297,6 +6348,20 @@
         "sms": {
             "warningConsent2": "No respetar esta decisión de tu socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo del sms directo.",
             "warningConsent1": "Advertencia: este miembro no quiere recibir sms promocionales. Los sms directos te permiten llegar a tus socios de forma sencilla y rápida. No deben utilizarse con fines publicitarios o promocionales."
+        },
+        "filter": {
+            "numberFilter": {
+                "oneFilter": "1 filtro aplicado",
+                "severalFilters": "filtros aplicados"
+            },
+            "dateFilter": {
+                "dateEnd": "Fecha de finalización",
+                "dateStart": "Fecha de inicio",
+                "period": "Periodo",
+                "title": "Fecha de envío"
+            },
+            "filterAction": "Filtrar",
+            "applyFilter": "Aplicar"
         }
     },
     "paymentCombo": {
@@ -7408,11 +7473,11 @@
         },
         "form": {
             "duration": {
-                "day": "Día:",
+                "day": "Duración en días",
                 "day_plural": "Días:",
-                "hour": "Hora:",
+                "hour": "Duración en horas",
                 "hour_plural": "Horas:",
-                "minute": "Minuto:",
+                "minute": "Duración en minutos",
                 "minute_plural": "Minutos:"
             },
             "requiredField": "este campo es obligatorio"
@@ -9417,7 +9482,9 @@
         "addBonus": "Añadir una regla",
         "table": {
             "downloadAll": "Síntesis",
-            "download": "Descargar"
+            "download": "Descargar",
+            "downloadPDF": "Descargar (PDF)",
+            "downloadCSV": "Descargar (.csv)"
         },
         "fields": {
             "rule": "Normativa sobre la remuneración de la sesión",

@@ -9643,7 +9643,7 @@
             "cancelledByManager": "Cancelled by manager ({{cancelled_by}})",
             "cancelledByConsumer": "Cancelled by customer",
             "cancelledByOffer": "Session cancelled",
-            "cancelledByOfferDate": "Cancelled by the studio on{{-date}} at {{time}}.",
+            "cancelledByOfferDate": "Cancelled by the studio on {{-date}} at {{time}}.",
             "cancelledByConsumerDate": "Cancelled by customer on the {{-date}} at {{time}}",
             "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}} by {{cancelled_by}}",
             "cancelledByAnonymousManagerDate": "Cancelled by the studio on {{-date}} at {{time}}",
@@ -12042,15 +12042,44 @@
             },
             "dialogSizeLabel": "Popup dimension",
             "responsiveIframe": "Activate responsive mode",
-            "groupSessionByPeriod": "Seperate the morning, afternoon, and evening",
+            "groupSessionByPeriod": "Separate the morning, afternoon, and evening",
             "variantOption": {
                 "time": "Schedule",
                 "coach": "Teacher",
                 "activityName": "Activity"
             },
             "variant": "Highlight",
-            "todayOnly": "Only display today's sessions"
-        }
+            "todayOnly": "Only display today's sessions",
+            "cssEditor": {
+                "typography": "Typography",
+                "general": "Spacing & Rounding",
+                "dialog": {
+                    "confirm": "Confirm",
+                    "cancel": "Cancel",
+                    "content": "Warning! You're about to reset all previously personalized fields.",
+                    "title": "Reset settings"
+                },
+                "submit": "Save",
+                "selectAlert": "Widget personalization is currently only available for the workshops display.",
+                "preview": "Preview",
+                "spacingHelper": "The angles have a rounding of {{base}} pixels.",
+                "roundingHelper": "Rounding is based on {{base}} pixels.",
+                "reset": "Reset",
+                "backgroundColorElement": "Elements color",
+                "backgroundColorPage": "Background color",
+                "borderColor": "Border color",
+                "secondaryColor": "Secondary color",
+                "mainColor": "Primary color",
+                "subtypographyColor": "Subtitle color",
+                "typographyColor": "Text color",
+                "rounding": "Rounding",
+                "spacing": "Spacing",
+                "backgroundColor": "Background color",
+                "colors": "Colors"
+            }
+        },
+        "customize": "Personalization",
+        "create": "General"
     },
     "marketing": {
         "newsletter": {

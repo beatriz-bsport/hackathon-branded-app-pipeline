@@ -10995,8 +10995,37 @@
                 "activityName": "Activiteit"
             },
             "variant": "Uitlichten",
-            "todayOnly": "Toon alleen de sessies van vandaag"
-        }
+            "todayOnly": "Toon alleen de sessies van vandaag",
+            "cssEditor": {
+                "dialog": {
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren",
+                    "content": "Dit zal alle gepersonaliseerde velden worden ook hersteld.",
+                    "title": "Instellingen herstellen"
+                },
+                "submit": "Opslaan",
+                "selectAlert": "Het personaliseren van de widgets is momenteel alleen voor de workshops beschikbaar.",
+                "preview": "Voorvertoning",
+                "spacingHelper": "De hoeken worden afgerond op basis van {{base}} pixels.",
+                "roundingHelper": "De rounding is gebaseerd op {{base}} pixels.",
+                "reset": "Resetten",
+                "backgroundColorElement": "Kleur elementen",
+                "backgroundColorPage": "Achtergrondkleur",
+                "borderColor": "Randkleur",
+                "secondaryColor": "Secundaire kleur",
+                "mainColor": "Primaire kleur",
+                "subtypographyColor": "Kleur ondertitels",
+                "typographyColor": "Tekstkleur",
+                "rounding": "Rounding",
+                "spacing": "Spacing",
+                "backgroundColor": "Achtergrondkleur",
+                "colors": "Kleuren",
+                "typography": "Tekstopmaak",
+                "general": "Spacing & Rounding"
+            }
+        },
+        "customize": "Personalisering",
+        "create": "Algemeen"
     },
     "platformBilling": {
         "platformBillingPlan": {

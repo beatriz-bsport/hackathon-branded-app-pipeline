@@ -397,7 +397,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
           text: t('backofficeMenu.settings.marketplaceSettings'),
         },
         {
-          to: '/settings/widget',
+          to: '/settings/widget/create',
           dense: true,
           text: t('backofficeMenu.settings.widget'),
         },

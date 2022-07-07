@@ -1,13 +1,8 @@
-import {
-  FormControl,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Select,
-  Typography,
-} from '@material-ui/core';
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 interface Props {
   source: string[];
@@ -21,27 +16,39 @@ const ExportableComponentSelector = (props: Props) => {
 
   const { t } = useTranslation('settings');
   const { value, onChange, error } = props;
+  const options = useMemo(
+    () =>
+      props.source.map((component) => ({
+        label: t(`marketplaceSettings.componentType.${component}`),
+        value: component,
+      })),
+    [props.source, t],
+  );
+
+  const selected = useMemo(
+    () => options.find((opt) => opt.value === value),
+    [options, value],
+  );
+
+  const onSelect = useCallback(
+    (option) => {
+      onChange(option.value);
+    },
+    [onChange],
+  );
 
   return (
-    <FormControl className={classes.fullWidth}>
-      <InputLabel>
+    <div className={classes.fullWidth}>
+      <Typography variant="caption">
         {t('marketplaceSettings.createDialog.selectComponent')}
-      </InputLabel>
-      <Select
-        value={value}
-        color="primary"
-        onChange={(ev: any) => onChange(ev.target.value)}
-      >
-        {props.source.map((component) => {
-          return (
-            <MenuItem key={component} value={component}>
-              {t(`marketplaceSettings.componentType.${component}`)}
-            </MenuItem>
-          );
-        })}
-      </Select>
+      </Typography>
+      <MaterialUISelector
+        value={selected}
+        onChange={onSelect}
+        options={options}
+      />
       {error && <Typography color="error">{error}</Typography>}
-    </FormControl>
+    </div>
   );
 };
 

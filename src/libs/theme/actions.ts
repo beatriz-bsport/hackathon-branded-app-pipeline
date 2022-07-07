@@ -54,6 +54,7 @@ export function updateCompanyTheme(
   return async (dispatch: Dispatch) => {
     dispatch(themeUpdate.isLoading(true));
     dispatch(themeUpdate.error(null));
+
     try {
       const response = await api.updateCompanyTheme(companyId, data);
       const theme = response.data;

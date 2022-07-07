@@ -72,6 +72,7 @@ export type Theme = {
   schedule_timerange_end: string;
   vod_providers: Array<number>;
   has_stripe_location: boolean;
+  widget_theme: WidgetCustomCSS;
 };
 
 export type ThemeState = {
@@ -88,6 +89,19 @@ export type ThemeState = {
   };
   loading: boolean;
   error?: Error;
+};
+
+export type WidgetCustomCSS = {
+  fontFamily?: string;
+  spacing?: number;
+  border?: number;
+  backgroundPaper?: string;
+  background?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+  greyDark?: string;
+  grey?: string;
+  greyLight?: string;
 };
 
 export type CompanyTheme = Theme;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import ExportableComponentConfigurator from '../../exportable-components/components/ExportableComponentConfigurator.component';
@@ -7,6 +7,7 @@ import ExportableComponentSelector from '../../exportable-components/components/
 import {
   WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
   WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS,
+  CSS_SUPPORTED_EXPORTABLE_COMPONENTS,
 } from '../constants';
 import { EXPORTABLE_COMPONENT_TYPE_PLAYLIST } from '../../exportable-components/constants';
 
@@ -56,6 +57,7 @@ type Props = {
   giftcards?: Array<Giftcard>;
   paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
   isFranchisor?: boolean;
+  cssOnly?: boolean;
   customLevels: Level[];
 };
 
@@ -92,9 +94,14 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
       },
     });
   };
-  const selectorSource = props.isFranchisor
-    ? WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS
-    : WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS;
+
+  const selectorSource = useMemo(() => {
+    if (props.isFranchisor)
+      return WIDGET_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS;
+    if (props.cssOnly) return CSS_SUPPORTED_EXPORTABLE_COMPONENTS;
+    return WIDGET_NOT_FRANCHISOR_SUPPORTED_EXPORTABLE_COMPONENTS;
+  }, [props.cssOnly, props.isFranchisor]);
+
   return (
     <div>
       {!props.hideTypeSelector && (

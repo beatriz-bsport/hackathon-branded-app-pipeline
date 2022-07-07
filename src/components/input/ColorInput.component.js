@@ -20,6 +20,17 @@ export class ColorInput extends Component<Props> {
     this.buttonRef = React.createRef();
   }
 
+  onColorChange = ({ hex, rgb }) => {
+    // Change in opacity
+    if (typeof rgb.a === 'number' && rgb.a !== 1) {
+      const opacityInHexa = Math.round(254 * rgb.a).toString(16);
+      this.props?.onChange?.(`${hex}${opacityInHexa}`);
+      return;
+    }
+
+    this.props?.onChange?.(hex);
+  };
+
   render() {
     const { classes, t, theme } = this.props;
 
@@ -57,10 +68,8 @@ export class ColorInput extends Component<Props> {
           }}
         >
           <SketchPicker
-            disableAlpha
-            onChangeComplete={(color) =>
-              this.props.onChange && this.props.onChange(color.hex)
-            }
+            disableAlpha={!this.props.withAlpha}
+            onChangeComplete={this.onColorChange}
             color={this.props.color}
           />
           {this.props.transparentColorAvailable ||

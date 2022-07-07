@@ -1,11 +1,34 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 
 import { useMuiThemeToCssVars } from '../hooks/useMuiThemeToCssVars';
 
 const MuiThemeToCssVarsHOC = (props: { children: React.ReactNode }) => {
-  const style = useMuiThemeToCssVars();
+  const styles = useMuiThemeToCssVars();
 
-  return <div style={style}>{props.children}</div>;
+  return (
+    <>
+      <Helmet>
+        <style>
+          {`
+            /* Here is the setup of the variables */
+            #bs-setup-derived-variable {
+              ${styles.id}
+            }
+
+            /* using the lesser class priority for derived variables */
+            .bs-setup-variable {
+              ${styles.classes}
+            }
+
+          `}
+        </style>
+      </Helmet>
+      <div className="bs-setup-variable" id="bs-setup-derived-variable">
+        {props.children}
+      </div>
+    </>
+  );
 };
 
 export function marketplaceCssHoc<P>(): (

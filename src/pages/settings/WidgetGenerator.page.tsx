@@ -166,6 +166,16 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       });
     }
+    if (prevState.componentType !== this.state.componentType) {
+      this.setState({
+        uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
+      });
+    }
+    if (prevState.config !== this.state.config) {
+      this.setState({
+        uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
+      });
+    }
   }
 
   onComponentTypeChange = ({

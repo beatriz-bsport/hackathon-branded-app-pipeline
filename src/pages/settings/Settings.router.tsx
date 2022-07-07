@@ -28,7 +28,7 @@ import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings.page';
 import MarketplaceSettings from './MarketplaceSettings.page';
 import CustomSignUpConfiguration from './CustomSignUpConfiguration.page';
-import WidgetGeneratorPage from './WidgetGenerator.page';
+import WidgetRouter from './SettingsWidget.router';
 import QuickBookPage from './QuickBooks.page';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -51,7 +51,7 @@ export const Settings = () => {
         component={MarketplaceSettings}
       />
 
-      <Route exact path="/settings/widget" component={WidgetGeneratorPage} />
+      <Route exact path="/settings/widget/:tab" component={WidgetRouter} />
 
       <Route
         exact

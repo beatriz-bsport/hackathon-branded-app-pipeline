@@ -20,7 +20,7 @@ interface Props {
   customLevels: Level[];
 }
 
-export const ExportableWorkshopSettings = (props: Props) => (
+export const ExportableWorkshopSettings: React.FC<Props> = (props) => (
   <CommonSettings
     coaches={props.coaches}
     establishmentGroupList={props.establishmentGroupList}

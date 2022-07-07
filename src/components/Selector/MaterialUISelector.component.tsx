@@ -64,7 +64,7 @@ type BaseProps<T extends OptionTypeBase> = {
     isDisabled: boolean;
   }) => React.ReactNode;
   headerListRenderer?: () => React.ReactChild;
-  onEndMenuListReach: () => void;
+  onEndMenuListReach?: () => void;
   onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 

@@ -9488,6 +9488,8 @@
     }
   },
   "widget": {
+    "create": "Général",
+    "customize": "Personnalisation",
     "widget": {
       "containerConfiguration": { "title": "Configuration générale" },
       "configTitle": "Mon Widget",
@@ -9524,7 +9526,34 @@
       "browserLanguage": "Langue du navigateur",
       "variant": "Mettre en avant",
       "variantOption": { "activityName": "L'activité", "coach": "Le professeur", "time": "L'horaire" },
-      "groupSessionByPeriod": "Séparer matin, après midi et soir"
+      "groupSessionByPeriod": "Séparer matin, après midi et soir",
+      "cssEditor": {
+        "general": "Espacement et arrondi",
+        "typography": "Typographie",
+        "colors": "Couleurs",
+        "backgroundColor": "Couleur de fond",
+        "spacing": "Espacement",
+        "rounding": "Arrondi des objets",
+        "typographyColor": "Couleur du texte",
+        "subtypographyColor": "Couleur des sous titres",
+        "mainColor": "Couleur principale",
+        "secondaryColor": "Couleur secondaire",
+        "borderColor": "Couleur des bordures",
+        "backgroundColorPage": "Couleur de fond de la page",
+        "backgroundColorElement": "Couleur de fond des éléments",
+        "reset": "réinitialiser",
+        "roundingHelper": "L’espacement se base sur les multiples de {{base}}px",
+        "spacingHelper": "Les angles ont un arrondi en multiple {{base}}px",
+        "preview": "Preview",
+        "selectAlert": "La personnalisation du widget n’est disponible que sur les ateliers pour le moment",
+        "submit": "Enregistrer",
+        "dialog": {
+          "title": "Réinitialiser les paramètres",
+          "content": "Attention vous êtes sur le points de réinitialiser tous les champs déjà personnalisés.",
+          "cancel": "Annuler",
+          "confirm": "Confirmer"
+        }
+      }
     }
   },
   "workshop": {

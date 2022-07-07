@@ -218,8 +218,8 @@ export const metaActivityListActions = {
 };
 
 export function fetchAllActivities(
-  params: any = {},
-  options: OptionCallback,
+  params?: any,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(metaActivityListActions.isLoading(true));
@@ -228,7 +228,7 @@ export function fetchAllActivities(
     try {
       const response = await fetchAllActivitiesAPI({
         page_size: null,
-        ...params,
+        ...(params ?? {}),
       });
       dispatch(metaActivityListActions.success(response.data));
       if (options && options.onSuccess) {

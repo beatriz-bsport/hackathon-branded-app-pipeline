@@ -7,7 +7,6 @@ import { withStyles, Theme } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Pagination from '@material-ui/lab/Pagination';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -39,6 +38,7 @@ import {
   COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
   COMMUNICATION_RECIPIENT_WAITING_LIST,
 } from '@bsport/common/lib/master-data/communication-filters';
+import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
 
 import { Member } from '#libs/member/types';
 
@@ -477,13 +477,16 @@ export class CommunicationRecipientsModal extends React.Component<
     const pageCount = Math.ceil(allIds?.length / pageSize);
     const allIdsWithoutKind = this.getAllIdsWithoutKind();
     return (
-      <Dialog fullScreen={fullScreen} open={open}>
-        <DialogTitle>
-          <div className={classes.dialogTitle}>
-            {t('dialogReceiverChoice.title')}
-          </div>
-        </DialogTitle>
-        <DialogContent className={classes.dialogContent}>
+      <CommunicationWrapperDialog
+        open={open}
+        fullScreen={fullScreen}
+        title={t('dialogReceiverChoice.title')}
+        buttonCancelText={t('common.cancel')}
+        buttonConfirmText={t('common.confirm')}
+        onCancel={this.onClose}
+        onConfirm={this.onConfirm}
+      >
+        <>
           {hasFilters && this.renderCheckboxFilters()}
           <Table
             className={classes.table}
@@ -520,17 +523,9 @@ export class CommunicationRecipientsModal extends React.Component<
               className={classes.paginationContainer}
             />
           )}
-        </DialogContent>
-        <DialogActions>
-          <Button className={classes.buttonClose} onClick={this.onClose}>
-            {t('common.cancel')}
-          </Button>
-          <Button color="primary" onClick={this.onConfirm}>
-            {t('common.confirm')}
-          </Button>
-        </DialogActions>
-        {this.state.openRefreshDialog && this.renderRefreshDialog()}
-      </Dialog>
+          {this.state.openRefreshDialog && this.renderRefreshDialog()}
+        </>
+      </CommunicationWrapperDialog>
     );
   }
 }
@@ -570,14 +565,6 @@ const styles = (theme: Theme) => ({
     '&:hover': {
       backgroundColor: '#fff',
     },
-  },
-  dialogContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  dialogTitle: {
-    fontWeight: 'bold',
   },
   flexRowContainer: {
     display: 'flex',

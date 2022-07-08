@@ -6,12 +6,7 @@ import { withStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import Select from 'react-select';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Pagination from '@material-ui/lab/Pagination';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -20,9 +15,11 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 
-import { RecipientWithMember, SelectFieldItem } from '../types';
 import CommunicationInformationStatusChip from './CommunicationInformationStatusChip.component';
 import CommunicationInformationOpenChip from './CommunicationInformationOpenChip.component';
+import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
+
+import { RecipientWithMember, SelectFieldItem } from '../types';
 
 export type Props = {
   classes: any;
@@ -89,14 +86,18 @@ export class CommunicationInformationModal extends React.Component<
       classes,
     } = this.props;
     const pageCount = Math.ceil(membersCount / pageSize);
+    const title = `${t(`campaign.kind.${kind}`)} -  ${dateCreated.format(
+      'L - LT',
+    )}`;
     return (
-      <Dialog fullScreen={fullScreen} open={open}>
-        <DialogTitle>
-          <div className={classes.title}>
-            {t(`campaign.kind.${kind}`)} - {dateCreated.format('L - LT')}
-          </div>
-        </DialogTitle>
-        <DialogContent className={classes.dialogContent}>
+      <CommunicationWrapperDialog
+        open={open}
+        fullScreen={fullScreen}
+        title={title}
+        buttonCancelText={t('common.close')}
+        onCancel={this.onClose}
+      >
+        <>
           {!!this.props.contextTitle && (
             <div className={classes.contextContainer}>
               <Typography variant="body1" className={classes.boldTypo}>
@@ -188,13 +189,8 @@ export class CommunicationInformationModal extends React.Component<
               className={classes.paginationContainer}
             />
           )}
-        </DialogContent>
-        <DialogActions>
-          <Button color="secondary" onClick={this.onClose}>
-            {t('common.close')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        </>
+      </CommunicationWrapperDialog>
     );
   }
 }
@@ -210,11 +206,6 @@ const styles = (theme: Theme) => ({
   contextContainer: {
     alignSelf: 'flex-start',
     marginBottom: theme.spacing(2),
-  },
-  dialogContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
   },
   filterSelector: {
     width: '100%',

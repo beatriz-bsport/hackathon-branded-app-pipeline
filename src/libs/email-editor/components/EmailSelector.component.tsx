@@ -1,7 +1,4 @@
-// @flow
 import React from 'react';
-
-import { withTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,31 +8,30 @@ import Typography from '@material-ui/core/Typography';
 import Selector from '../../../components/Selector.component';
 
 type Props = {
-  classes: Object,
-  emails: Array<EmailTemplateDetail>,
-  onChange: (id: ?number) => void,
-  helperText: string,
-  value: ?number,
-  selectorClass: string,
-  nullCurrentValue?: boolean,
-  disabled?: boolean,
+  classes?: any;
+  emails: Array<any>;
+  onChange: (id?: number) => void;
+  helperText: string;
+  value?: number;
+  selectorClass?: string;
+  nullCurrentValue?: boolean;
+  disabled?: boolean;
 };
 
 type OptionProps = {
-  data: Object,
-  innerRef: Object,
-  innerProps: Object,
-  isSelected?: boolean,
-  isFocused: boolean,
+  data: any;
+  innerRef: any;
+  innerProps: any;
+  isSelected?: boolean;
+  isFocused: boolean;
 };
 
-function emailOption(props: OptionProps) {
+const emailOption = (props: OptionProps) => {
   const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
     <div ref={innerRef} {...innerProps}>
       <ListItem button divider selected={isFocused || isSelected}>
         <ListItemText
-          dense
           primary={
             <Typography component="span" variant="subtitle1">
               {data.pp.title}
@@ -46,9 +42,9 @@ function emailOption(props: OptionProps) {
       </ListItem>
     </div>
   );
-}
+};
 
-export function EmailSelector(props: Props) {
+export const EmailSelector = (props: Props) => {
   const {
     value,
     onChange,
@@ -62,7 +58,7 @@ export function EmailSelector(props: Props) {
 
   const suggestions = [...emails]
     .sort((pp, pp_) => {
-      if (moment(pp.date_modifed) > moment(pp_.date_modifed)) return 1;
+      if (moment(pp.date_modified) > moment(pp_.date_modified)) return 1;
       return -1;
     })
     .map((pp) => ({
@@ -84,6 +80,6 @@ export function EmailSelector(props: Props) {
       isDisabled={disabled}
     />
   );
-}
+};
 
-export default withTranslation()(EmailSelector);
+export default EmailSelector;

@@ -259,6 +259,11 @@ exports.default = {
       notReceived: 'non reçu',
     },
   },
+  dialogTemplate: {
+    title: 'Sélection de template',
+    refreshText:
+      'Pour voir apparaître votre nouveau template dans la liste, merci de cliquer sur le bouton rafraichir.',
+  },
   dialogRecipients: {
     warnings: {
       header: 'Attention',

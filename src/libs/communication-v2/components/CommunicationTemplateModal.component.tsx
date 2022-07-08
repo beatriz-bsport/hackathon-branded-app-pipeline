@@ -1,0 +1,366 @@
+import React, { Component } from 'react';
+import { withStyles, Theme } from '@material-ui/core';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Collapse from '@material-ui/core/Collapse';
+import Fab from '@material-ui/core/Fab';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
+import {
+  Add as AddIcon,
+  Edit as EditIcon,
+  InfoOutlined as InfoIcon,
+  Refresh as RefreshIcon,
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
+} from '@material-ui/icons';
+
+import EmailSelector from '../../email-editor/components/EmailSelector.component';
+import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
+
+export type Props = {
+  classes: any;
+  closeDialog: () => void;
+  emailSummariesLoading: boolean;
+  emailSummaries: Array<any>;
+  emailDetailLoading: boolean;
+  emailDetails: Array<any>;
+  fullScreen: boolean;
+  getEmailDetail: (id: number) => void;
+  open: boolean;
+  selectedTemplate: number;
+  selectedTitle: string;
+  setTemplate: (id: number) => void;
+  setTitle: (title: string) => void;
+} & WithTranslation;
+
+type State = {
+  displayTemplatePreview: boolean;
+  displayRefreshAlert: boolean;
+  selectedTemplate: number;
+  currentTitle: string;
+};
+
+export class CommunicationTemplateModal extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      displayTemplatePreview: false,
+      displayRefreshAlert: false,
+      selectedTemplate: props.selectedTemplate,
+      currentTitle: props.selectedTitle ?? '',
+    };
+  }
+
+  onChangeTemplate = (templateId: number) => {
+    this.setState({
+      selectedTemplate: templateId,
+      currentTitle: templateId
+        ? this.props.emailSummaries.find((email) => email.id === templateId)
+            .subject
+        : '',
+    });
+  };
+
+  onCloseDialog = () => {
+    this.setState(
+      {
+        displayTemplatePreview: false,
+        displayRefreshAlert: false,
+      },
+      this.props.closeDialog,
+    );
+  };
+
+  onEditClick = () => {
+    this.setState({ displayRefreshAlert: true });
+    const url = `/email-template/${this.state.selectedTemplate}/edit`;
+    const win = window.open(url);
+    win.focus();
+  };
+
+  onCreateClick = () => {
+    this.setState({ displayRefreshAlert: true });
+    const url = '/email-template/create';
+    const win = window.open(url);
+    win.focus();
+  };
+
+  onTitleChange = (e: React.ChangeEvent) => {
+    const target = e.target as HTMLInputElement;
+    this.setState({ currentTitle: target.value });
+  };
+
+  onSelectTemplate = (ev: any) => {
+    if (ev) {
+      this.onChangeTemplate(ev.value);
+      this.props.getEmailDetail(ev.value);
+    } else {
+      this.onChangeTemplate(null);
+    }
+  };
+
+  onShowTemplateClick = () =>
+    this.setState((prevState) => ({
+      displayTemplatePreview: !prevState.displayTemplatePreview,
+    }));
+
+  onRefreshClick = () => document.location.reload();
+
+  onConfirm = () => {
+    this.props.setTemplate(this.state.selectedTemplate);
+    this.props.setTitle(this.state.currentTitle);
+    this.onCloseDialog();
+  };
+
+  renderLoadingOrEmpty = (loading: boolean, emails: Array<any>) => {
+    const { t, classes } = this.props;
+    if (loading) {
+      return <CircularProgress />;
+    }
+    return (
+      <div className={classes.previewEmpty}>
+        <InfoIcon fontSize="large" color="disabled" />
+        <Typography color="textSecondary">
+          {emails?.length > 0
+            ? t('mail.selectToShowPreview')
+            : t('mail.noMailAvailable')}
+        </Typography>
+      </div>
+    );
+  };
+
+  renderContent = () => {
+    const { t, classes } = this.props;
+    return (
+      <div>
+        <TextField
+          name="Mail title"
+          placeholder={t('mail.title')}
+          fullWidth
+          required
+          className={classes.mailTitle}
+          value={this.state.currentTitle}
+          onChange={this.onTitleChange}
+        />
+        {this.props.emailSummariesLoading ? (
+          <LinearProgress className={classes.selectorContainer} />
+        ) : (
+          <div className={classes.selectorContainer}>
+            <EmailSelector
+              emails={this.props.emailSummaries}
+              value={this.state.selectedTemplate}
+              onChange={this.onSelectTemplate}
+              helperText={t('mail.mailSelection')}
+            />
+            <Fab
+              onClick={this.onCreateClick}
+              size="small"
+              color="secondary"
+              className={classes.addIcon}
+            >
+              <AddIcon />
+            </Fab>
+          </div>
+        )}
+        <div className={classes.container}>
+          {this.state.displayRefreshAlert && (
+            <div className={classes.refreshContainer}>
+              <Button
+                onClick={this.onRefreshClick}
+                color="secondary"
+                variant="outlined"
+              >
+                <RefreshIcon className={classes.icon} color="secondary" />
+                <Typography variant="caption" color="secondary">
+                  {t('common.refresh')}
+                </Typography>
+              </Button>
+              <div className={classes.refreshText}>
+                <InfoIcon className={classes.refreshInfoIcon} />
+                <Typography
+                  className={classes.refreshTypography}
+                  variant="body2"
+                  align="left"
+                >
+                  {t('dialogTemplate.refreshText')}
+                </Typography>
+              </div>
+            </div>
+          )}
+          <div className={classes.buttonContainer}>
+            <Button onClick={this.onShowTemplateClick}>
+              {this.state.displayTemplatePreview ? (
+                <div className={classes.inlineContainer}>
+                  <VisibilityOffIcon className={classes.icon} />
+                  <Typography variant="caption">
+                    {t('mail.hideMail')}
+                  </Typography>
+                </div>
+              ) : (
+                <div className={classes.inlineContainer}>
+                  <VisibilityIcon className={classes.icon} />
+                  <Typography variant="caption">
+                    {t('mail.showMail')}
+                  </Typography>
+                </div>
+              )}
+            </Button>
+          </div>
+          <Collapse
+            in={this.state.displayTemplatePreview}
+            className={classes.collapse}
+          >
+            {this.state.selectedTemplate && !this.props.emailDetailLoading ? (
+              <div className={classes.editIcon}>
+                <Fab
+                  onClick={this.onEditClick}
+                  color="secondary"
+                  size="small"
+                  disabled={this.state.selectedTemplate === null}
+                  classes={{ disabled: classes.disabled }}
+                >
+                  <EditIcon />
+                </Fab>
+              </div>
+            ) : null}
+            <div className={classes.mailPreview}>
+              {this.state.selectedTemplate && !this.props.emailDetailLoading ? (
+                <div>
+                  <div
+                    // eslint-disable-next-line
+                    dangerouslySetInnerHTML={{
+                      __html: this.props.emailDetails?.find(
+                        (email) => email.id === this.state.selectedTemplate,
+                      ).html,
+                    }}
+                  />
+                </div>
+              ) : (
+                this.renderLoadingOrEmpty(
+                  this.props.emailDetailLoading,
+                  this.props.emailSummaries,
+                )
+              )}
+            </div>
+          </Collapse>
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    const { open, fullScreen, t } = this.props;
+    return (
+      <CommunicationWrapperDialog
+        title={t('dialogTemplate.title')}
+        buttonCancelText={t('common.cancel')}
+        buttonConfirmText={t('common.confirm')}
+        onCancel={this.onCloseDialog}
+        onConfirm={this.onConfirm}
+        open={open}
+        fullScreen={fullScreen}
+      >
+        {this.renderContent()}
+      </CommunicationWrapperDialog>
+    );
+  }
+}
+
+const styles = (theme: Theme) => ({
+  addIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  collapse: {
+    width: '100%',
+  },
+  container: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  editIcon: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: theme.spacing(-2),
+    marginRight: theme.spacing(-2),
+  },
+  flexRowContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  icon: {
+    marginRight: theme.spacing(1),
+  },
+  inlineContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  mailPreview: {
+    border: '1px solid grey',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '30vh',
+    width: '100%',
+  },
+  mailTitle: {
+    marginBottom: theme.spacing(2),
+  },
+  previewEmpty: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: theme.spacing(6),
+  },
+  refreshTypography: {
+    color: theme.palette.info.dark,
+    maxWidth: 'fit-content',
+  },
+  refreshContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  refreshInfoIcon: {
+    color: theme.palette.info.main,
+    width: theme.spacing(2.5),
+    height: theme.spacing(2.5),
+    marginRight: theme.spacing(2),
+  },
+  refreshText: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
+  selectorContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(1),
+  },
+});
+
+export default compose(
+  withTranslation(['communication']),
+  withStyles(styles),
+)(CommunicationTemplateModal);

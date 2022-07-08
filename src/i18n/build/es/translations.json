@@ -6596,6 +6596,10 @@
             "maxPurchasePerMember": {
                 "helperText": "Dejar vacío para no imponer un límite",
                 "label": "Compra máxima por socio"
+            },
+            "usePaymentComboTaxOnItems": {
+                "helperText": "Por defecto, el impuesto que se aplica a cada objeto es el indicado en el mismo. Al seleccionar esta opción, podrá aplicar un impuesto general al paquete.",
+                "label": "Aplicar un IVA general a todo el paquete"
             }
         },
         "list": {
@@ -8708,7 +8712,16 @@
                 "selectToShowPreview": "Selecciona un email para tener su visión general",
                 "noMailAvailable": "Ningún mail disponible, recorda crear uno",
                 "pushTitle": "Configuración de las notificaciones",
-                "mailSettings": "Configuración del correo"
+                "mailSettings": "Configuración del correo",
+                "creditNotificationType": {
+                    "onOfferStart": "Fin de la sesión en la que la reserva ha hecho que el número de créditos sea inferior al umbral definido anteriormente",
+                    "onBooking": "Reserva que hace pasar el número de créditos por debajo del umbral definido anteriormente"
+                },
+                "chooseTime": {
+                    "secondOnOfferStart": "hora(s) después de la sesión",
+                    "secondOnBooking": "hora(s) después de la reserva",
+                    "first": "Enviar un email"
+                }
             },
             "addButton": "Añadir una notificación",
             "listItem": {
@@ -8751,7 +8764,9 @@
             "daysLeftLabel": "Notificar cuando queda {{day}} día de validez del pase",
             "daysLeftLabel_plural": "Notificar cuando queda {{day}} días de validez del pase",
             "creditsLeftLabel": "Notificar cuando quedan {{count}} crédito",
-            "creditsLeftLabel_plural": "Notificar cuando quedan {{count}} créditos"
+            "creditsLeftLabel_plural": "Notificar cuando quedan {{count}} créditos",
+            "creditsLeftOnOfferStart": "{{hours}}h después de la sesión",
+            "creditsLeftOnBooking": "{{hours}}h después de la reserva"
         },
         "notificationToolTip": "Se han establecido notificaciones para esta tarjeta",
         "noPaymentPack": "Los bonos permiten a los miembros registrarse a las actividades, es necesario tener un bono para registrarse.",
@@ -8915,7 +8930,10 @@
                     "titleNew": "Nueva categoría",
                     "titleEdit": "Categoría",
                     "name": "Nombre de la categoría",
-                    "helper": "Las categorías aparecerán en el mercado y en la aplicación móvil para las tarjetas disponibles para la venta."
+                    "helper": "Las categorías aparecerán en el mercado y en la aplicación móvil para las tarjetas disponibles para la venta.",
+                    "update": "Renombrar",
+                    "create": "Crear",
+                    "cancel": "Cancelar"
                 }
             },
             "deleteModal": {
@@ -9080,7 +9098,8 @@
             "requiredField": "Este campo es obligatorio",
             "creditWarning": "Si cambia el número de créditos, todas las tarjetas existentes se verán afectadas.",
             "migration": "Este mapa del curso es el resultado de una migración, algunos campos no son editables para respetar el historial. Las actividades/categorías compatibles siguen siendo editables.",
-            "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables"
+            "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
+            "allowGuest": "Compatible con la reserva de invitados"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -9156,7 +9175,15 @@
                     "title": "Eliminación de la tarjeta"
                 }
             }
-        }
+        },
+        "maxoutInfo": {
+            "week": "Tarjeta limitada a {{count}} uso máximo por semana",
+            "week_plural": "Tarjeta limitada a {{count}} usos máximos por semana",
+            "day": "Tarjeta limitada a {{count}} uso máximo por día",
+            "day_plural": "Tarjeta limitada a {{count}} usos máximos por día"
+        },
+        "previous": "Anterior",
+        "next": "Siguiente"
     },
     "selfCheckIn": {
         "offerList": {
@@ -9368,7 +9395,8 @@
                     "subtitleSettings": "Parámetros",
                     "addOffers": "Añadir una sesión",
                     "subtitleOffers": "Añadir sesiones",
-                    "subtitle": "Informaciones generales"
+                    "subtitle": "Informaciones generales",
+                    "recurrenceUntilHelper": "Indique la fecha de la última sesión del último ciclo."
                 },
                 "duplicate": "Duplicar un grupo",
                 "subtitlePreview": "Pre-visualización de la recurrencia",

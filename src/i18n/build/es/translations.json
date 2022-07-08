@@ -5662,7 +5662,18 @@
                 "source": "Canal de reserva ",
                 "registeredOn": "Reservado el ",
                 "cancelledOn": "Cancelado el ",
-                "unpaidBooking": "El cliente utilizó la opción de pagar más tarde. {{ credits}} Los créditos se cargarán automáticamente en la próxima compra de una tarjeta compatible."
+                "unpaidBooking": "El cliente utilizó la opción de pagar más tarde. {{ credits}} Los créditos se cargarán automáticamente en la próxima compra de una tarjeta compatible.",
+                "cancelledByRecurrence": "Anulación de reserva recurrente",
+                "cancelled": "Cancelación",
+                "restored": "Restauración",
+                "dateModified": "Modificación",
+                "coachModified": "Modificación",
+                "canal": "Canal",
+                "initialDateTime": "Fecha y hora inicial",
+                "emptyHistory": "No historial",
+                "historyTitle": "Historial",
+                "by": "Por",
+                "cancelledByRecurrenceOn": "Anulación de la reserva recurrente el "
             },
             "isCancelled": "Cancelado",
             "attachCoach": {
@@ -5690,7 +5701,9 @@
             "notRefunded": "No reembolsado",
             "isRefunded": "Reembolsado",
             "bookingIsUnpaid": "Reservas impagadas",
-            "isUnpaid": "No pagado"
+            "isUnpaid": "No pagado",
+            "isCancelledByManagerDate": "Cancelado el {{-date}} a las {{time}} por {{canceled_by}}",
+            "isCancelledByManager": "Cancelado por {{canceled_by}}"
         },
         "consumerPass": {
             "detail": {
@@ -9180,7 +9193,9 @@
             "week": "Tarjeta limitada a {{count}} uso máximo por semana",
             "week_plural": "Tarjeta limitada a {{count}} usos máximos por semana",
             "day": "Tarjeta limitada a {{count}} uso máximo por día",
-            "day_plural": "Tarjeta limitada a {{count}} usos máximos por día"
+            "day_plural": "Tarjeta limitada a {{count}} usos máximos por día",
+            "month": "Tarjeta limitada a {{count}} uso máximo por mes",
+            "month_plural": "Tarjeta limitada a {{count}} usos máximos por mes"
         },
         "previous": "Anterior",
         "next": "Siguiente"
@@ -11354,7 +11369,8 @@
                 "create": "Crear un programa",
                 "modify": "modificar el programa",
                 "delete": "eliminar el programa",
-                "addProgram": "añadir un programa"
+                "addProgram": "añadir un programa",
+                "update": "Modificar el programa"
             },
             "title": "Programas",
             "archived": "Archivado",

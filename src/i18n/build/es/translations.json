@@ -1215,7 +1215,7 @@
         "resetModal": {
             "confirm": "Continuar",
             "cancel": "Cancelar",
-            "content": "Los ajustes de los diferentes gráficos volverán a su valor por defecto, quieres continuar?",
+            "content": "Los parámetros de las distintas pestañas volverán a sus valores por defecto, ¿desea continuar?",
             "title": "Restablecer la configuración"
         },
         "save": "Guardar",
@@ -1566,7 +1566,8 @@
             "SK": "Eslovaquia",
             "CY": "Chipre",
             "US": "Estados Unidos",
-            "EE": "Estonia"
+            "EE": "Estonia",
+            "MX": "México"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1590,6 +1591,59 @@
             "connect": "Inicia sesión para continuar.",
             "connection": "Conexión",
             "selectYourCurrentEmail": "Seleccione su dirección de acceso actual."
+        },
+        "regularizeInvoice": {
+            "contactSuport": "Contactar el soporte",
+            "actionRegularize": "Regularizar mi factura",
+            "needPaymentMethodContent": "Tienes una o más facturas impagadas. Por favor, regulariza su factura para seguir beneficiándote de los servicios de Bsport.",
+            "needPaymentMethod": "Fallo de pago"
+        },
+        "needStripe": {
+            "actionRegularize": "Configurar mi cuenta Stripe",
+            "info": "No has configurado su cuenta Stripe, por favor configura tu cuenta Stripe para seguir beneficiándote de los servicios de Bsport.",
+            "infoDateBlocked": "No ha configurado tu cuenta Stripe, por favor configura su cuenta Stripe antes de {{ dateAccountIsBLockedFormattedLL }} para seguir beneficiándote de los servicios de Bsport.",
+            "stripeAccount": "Cuenta Stripe"
+        },
+        "accountConfiguration": {
+            "finishExplain": "Su configuración está completa, ahora puedes utilizar Bsport.",
+            "congrats": "¡Felicidades!",
+            "paymentMethodExplain": "Introduce el método de pago que deseas utilizar para pagar tu suscripción a Bsport",
+            "paymentMethodTitle": "Indica tu forma de pago",
+            "managerIbanExplain": "Indica en qué cuenta deseas recibir los importes pagados en línea a través de Bsport",
+            "companyStripeName": "Cuenta stripe",
+            "redirecting": "Te redirigimos al formulario de stripe...",
+            "stripeConfigurationExplain": "Se le redirigirás al formulario de la raya. Una vez completado este paso, tu información se registrará automáticamente en Bsport.",
+            "stripeConfiguration": "Configurar Stripe",
+            "infoGoingBack": "Si abandona la página ahora, puede volver al mismo lugar cuando regrese.",
+            "configureStripeAction": "Configurar Stripe",
+            "companyAdress": "Dirección",
+            "companyName": "Nombre de la empresa",
+            "configureStripe": "Configura tu cuenta de stripe. Es necesario para que tus clientes realicen compras y pagos en línea.",
+            "createStripe": "Crea tu cuenta stripe",
+            "finishStep": "¡Terminado!",
+            "cardStep": "Medio de pago",
+            "ibanStep": "Información del IBAN",
+            "stripeStep": "Configuración stripe",
+            "welcomeConfigure": "¡Configura tu cuenta en sólo {{numberOfSteps}} etapa!",
+            "welcomeConfigure_plural": "¡Configura tu cuenta en sólo {{numberOfSteps}} etapas!",
+            "welcomeDescription": "Nos complace darte la bienvenida a tu nueva plataforma. Antes de que comience su experiencia, nos faltan algunos datos.",
+            "welcomeTitle": "Bienvenido a Bsport",
+            "bankAccountSuccess": "Su IBAN está validado. Esta información se puede modificar posteriormente en el backoffice en la configuración de la empresa.",
+            "goToBackoffice": "Haga clic en \"¡Vamos!\" para ser redirigido al back office.",
+            "accountSuccess": "Tu cuenta Stripe ha sido creada. Esta información se puede modificar posteriormente en el back office, en la configuración de la empresa.",
+            "paymentMethodSuccess": "El método de pago indicado es válido. Siempre puedes cambiarlo en la configuración de la suscripción a Bsport.",
+            "needToConfigureStripeInfo": "Es necesario añadir un medio de pago para regularizar una factura.",
+            "configureMyStripeAccount": "Configurar mi cuenta Stripe",
+            "bankAccount": {
+                "fields": {
+                    "bank_account_holder": "Titular de la cuenta",
+                    "iban": "IBAN"
+                },
+                "general": "General",
+                "bank_details": "Informaciones bancarias",
+                "address": "Dirección",
+                "owner_address": "Dirección del propietario"
+            }
         }
     },
     "establishment": {
@@ -2174,7 +2228,10 @@
             "zeroMinute": "0 min",
             "fiftyMinutes": "50 min"
         },
-        "never": "Nunca"
+        "never": "Nunca",
+        "longHourIdentifier": "horas",
+        "longMinuteIdentifier": "minutos",
+        "longDayIdentifer": "días"
     },
     "shop": {
         "select": {
@@ -2539,7 +2596,37 @@
                     "connectAndPay": "Enviar al terminal",
                     "minAmountInfo": "El pago por terminal de pago no está disponible para los importes inferiores a {{amountString}}.",
                     "connectionSuccess": {
-                        "payment": "La conexión con el terminal se ha realizado. Ahora debería aparecer el importe a pagar."
+                        "payment": "La conexión con el terminal se ha realizado. Ahora debería aparecer el importe a pagar.",
+                        "processing": "Su solicitud está siendo procesada",
+                        "intent": "La conexión con el terminal se ha realizado. El cliente debe poder presentar su tarjeta."
+                    },
+                    "disconnect": {
+                        "content": "La conexión se ha perdido. Por favor, inténtelo de nuevo",
+                        "title": "Desconexión"
+                    },
+                    "paymentFailed": {
+                        "explain": {
+                            "label": "Motivo del fracaso :"
+                        },
+                        "content": {
+                            "setupIntent": "No se guardó el método de pago.",
+                            "paymentIntent": "El pago no se tuvo en cuenta."
+                        },
+                        "title": {
+                            "setupIntent": "Fallo de operación",
+                            "paymentIntent": "Fallo de pago"
+                        }
+                    },
+                    "paymentSuccess": {
+                        "content": {
+                            "wait": "Un momento más, estamos procesando sus datos.",
+                            "payment": "El pago se ha tenido en cuenta."
+                        },
+                        "title": {
+                            "setupOnly": "Método de pago registrado",
+                            "setupAndPlan": "Pago registrado",
+                            "payment": "Pago aceptado"
+                        }
                     }
                 }
             }
@@ -4023,7 +4110,8 @@
                     "memberOfCompany": "Para continuar navegando, por favor complete la información requerida a continuación"
                 }
             },
-            "title": "Información para el usuario"
+            "title": "Información para el usuario",
+            "newMemberOnlyHelperText": "Un miembro se considera nuevo siempre que no haya realizado una compra superior a 0 {{ currency }} en la plataforma. Tenga en cuenta que cualquier compra de un artículo de pago con un descuento del 100% sobre su precio hará que se pierda la condición de 'Nuevo Miembro'"
         },
         "user": {
             "existsWithEmail": "Un cliente con este correo electronico {{email}} existe.",
@@ -4649,8 +4737,15 @@
                 "bookOption": "Lista de espera",
                 "isPast": "Pasada",
                 "notAvailable": "Cancelada",
-                "duration": "Duración: {{duration}}"
-            }
+                "duration": "Duración: {{duration}}",
+                "loadMore": "Más sesiones",
+                "bookTitle": "Reserva una sesión"
+            },
+            "warningPartialBooking": "Estás reservando un grupo de sesiones. Sin embargo, no estás obligado a asistir a todas las sesiones de este grupo. Puedes seleccionar las sesiones a las que deseas asistir.",
+            "warningFullBooking": "Estás reservando un grupo de sesiones. Estarás inscrito en las {{count}} sesiones de este grupo.",
+            "confirm": "Continuar",
+            "cancel": "Cancelar",
+            "loadMore": "Ver más"
         },
         "warning": {
             "backToBackoffice": "Interfaz manager",
@@ -4661,7 +4756,11 @@
             "addToCart": "Añadir a la cesta"
         },
         "calendar": {
-            "registered": "Ya está registrado"
+            "registered": "Ya está registrado",
+            "close": "Cerrar",
+            "description": "Descripción",
+            "conditions": "Condiciones",
+            "broadcast": "En línea"
         }
     },
     "notificationRule": {
@@ -5056,6 +5155,10 @@
                     "2": "Tienda",
                     "1": "Bono",
                     "10": "Pack"
+                },
+                "choicesFranchise": {
+                    "9": "Tarjeta de cita compartido",
+                    "1": "Tarjeta de curso compartido"
                 }
             },
             "minimum_amount": {
@@ -5097,7 +5200,8 @@
             },
             "code": {
                 "helperText": "El código que enviarás a los clientes interesados",
-                "label": "Código"
+                "label": "Código",
+                "helperTextFranchise": "El código que se transmitirá a los clientes interesados. Asegúrese de que el código no existe ya en sus diferentes estudios."
             },
             "name": {
                 "label": "Nombre"
@@ -5175,7 +5279,34 @@
             "isEmpty": "Código promocional registrado"
         },
         "search": "Buscar un código promocional",
-        "reverted": "Factura anulada"
+        "reverted": "Factura anulada",
+        "couponTemplateInstance": {
+            "companyEmpty": "Ningún estudio está configurado para aceptar esta promoción",
+            "delete": {
+                "explain2": "Puedes añadirlo de nuevo más tarde.",
+                "explain1": "¿Estás seguro de que desea dejar de compartir el código promocional de {{name}} ?",
+                "title": "Deja de compartir"
+            },
+            "create": {
+                "explain2": "Si un miembro aplica un código promocional en uno de los estudios compatibles, también podrá utilizarlo en los demás estudios que hayas definido.",
+                "explain1": "Los siguientes estudios serán compatibles con los productos seleccionados en su cupón.",
+                "title": "Configurar mis estudios"
+            }
+        },
+        "couponTemplate": {
+            "notEditable": "Este cupón es un cupón compartido por la cuenta del franquiciador. Los elementos han sido definidos por la cuenta del franquiciador y no pueden ser modificados.",
+            "isEmptyExplain": "No se han registrado códigos promocionales compartidos",
+            "actions": {
+                "create": "Añadir un código compartido"
+            },
+            "warningDialog": {
+                "content3": "De nuevo podrás elegir los estudios que compartirán esta promoción.",
+                "content2": "Esto restablecerá la lista de estudios con los que se compartirá la promoción.",
+                "content1": "Tenga en cuenta que desea cambiar la configuración para la aplicación de la promoción compartida en determinadas tarjetas de cursos o cita.",
+                "title": "Confirmar la modificación"
+            },
+            "formDisclaimer": "Si en el futuro desea modificar esta sección para que esta promoción se aplique a una o varias tarjetas de curso/cita en particular, la lista de estudios que compartirán esta promoción se pondrá a cero por motivos de compatibilidad."
+        }
     },
     "privateService": {
         "service": {
@@ -6216,7 +6347,10 @@
             "showEmail": "Ver el email",
             "clicksCount": "Click",
             "showSms": "Ver SMS",
-            "showNotification": "Ver la notificación"
+            "showNotification": "Ver la notificación",
+            "numberOfRecipientsCompact": "{{count}} destinatorios.",
+            "numberOfRecipients": "Enviado a 1 destinatario",
+            "numberOfRecipients_plural": "Enviado a {{count}} destinatarios"
         },
         "campaign": {
             "report": {
@@ -6400,7 +6534,8 @@
                 "recipientsNotAllSelected": "No todos los beneficiarios han sido seleccionados.",
                 "phoneOrMailMissing": "Algunos destinatarios no tienen correo electrónico/número de teléfono.",
                 "header": "Cuidado"
-            }
+            },
+            "noPhone": "número no suministrado"
         },
         "dialogInformation": {
             "status": {
@@ -6410,6 +6545,10 @@
             },
             "headerOpen": "Abierto",
             "headerStatus": "Estado"
+        },
+        "dialogTemplate": {
+            "refreshText": "Para que su nueva plantilla aparezca en la lista, haga clic en el botón de actualización.",
+            "title": "Selección de plantilla"
         }
     },
     "paymentCombo": {
@@ -9131,11 +9270,18 @@
         "packsAvailable": "Elegible para pases:",
         "settings": {
             "firstBookingMinutesUntil": "Las reservas están bloqueadas antes del {{m}} del inicio de la sesión",
-            "lastDiscardBeforeMinutes": "Las cancelaciones son posibles hasta {{m}} antes del inicio de la sesión",
-            "lastBookingBeforeMinutes": "Las reservas son posibles para esta actividad hasta {{m}} antes del inicio de la sesión",
+            "lastDiscardBeforeMinutes": "Hasta {{m}} antes del inicio de la sesión",
+            "lastBookingBeforeMinutes": "Hasta {{m}} antes del inicio de la sesión",
             "title": "Parámetros",
             "conditions": "Condiciones",
-            "autoDiscard": "La sesión será cancelada si hay {{nb_bookings}} reserva (s) o menos {{hours}} h antes del inicio de la sesión"
+            "autoDiscard": "La sesión será cancelada si hay {{nb_bookings}} reserva (s) o menos {{hours}} h antes del inicio de la sesión",
+            "seeRestrictions": "Ver",
+            "restrictions": " Restricción personalizada n°{{count}}",
+            "restrictionsHeader": "Restricciones personalizadas",
+            "autoDiscardHeader": "La sesión se cancelará si",
+            "firstBookingMinutesUntilHeader": "Los miembros pueden reservar futuras sesiones si comienzan en menos de",
+            "lastDiscardBeforeMinutesHeader": "Antes del inicio del curso, última cancelación posible",
+            "lastBookingBeforeMinutesHeader": "Antes del inicio del curso, última reserva posible"
         },
         "modal": {
             "delete": {
@@ -9153,7 +9299,8 @@
         "detail": {
             "tab": {
                 "pack": "Tarjetas compatibles",
-                "general": "General"
+                "general": "General",
+                "group": "Sesiones de grupo"
             },
             "pack": {
                 "paymentPacks": "Tarjetas compatibles",
@@ -9201,7 +9348,37 @@
         "search": "Buscar une actividad",
         "metaActivity": "Actividad",
         "disabledMetaActivities": "Actividades archivadas",
-        "workshop": "Taller"
+        "workshop": "Taller",
+        "groupedOption": {
+            "modal": {
+                "form": {
+                    "recurrenceUntil": "Repetir hasta",
+                    "recurrenceCount": "Número de repeticiones",
+                    "timeStart": "Fecha de inicio",
+                    "timeStartHelper": "Selecciona la fecha de la primera sesión de la copia de grupo. Las demás sesiones del grupo se copiarán y desplazarán en función de esta fecha.",
+                    "nameCaption": "Nombre del grupo de sesión",
+                    "withRecurrence": "Activar la recurrencia",
+                    "marketPlaceAvailable": "Disponible para reservar (web+app)",
+                    "allowBookingAfterStartCaption": "Por defecto, si un grupo de sesiones ya se ha iniciado, tus miembros no podrán inscribirse a él. Al activar esta función, tus miembros podrán seguir inscribiéndose en las sesiones restantes.",
+                    "allowBookingAfterStart": "Permitir la inscripción en el camino",
+                    "fullBookingOnlyCaption": "Por defecto, tus miembros se inscribirán automáticamente en todas las sesiones del grupo si se inscriben en una de las sesiones del grupo. Si desactivas esta opción, se ofrecerá al miembro la posibilidad de inscribirse en todas las sesiones del grupo, pero podrá elegir a cuáles inscribirse.",
+                    "fullBookingOnly": "Inscripción en todas las sesiones de grupo",
+                    "name": "Nombre",
+                    "subtitleRecurrence": "Recurrencia",
+                    "subtitleSettings": "Parámetros",
+                    "addOffers": "Añadir una sesión",
+                    "subtitleOffers": "Añadir sesiones",
+                    "subtitle": "Informaciones generales"
+                },
+                "duplicate": "Duplicar un grupo",
+                "subtitlePreview": "Pre-visualización de la recurrencia",
+                "subtitleMetaActivitySelect": "Creación de un grupo de sesiones",
+                "title": "Sesiones de grupo"
+            }
+        },
+        "workshopSelect": "Buscar un taller",
+        "close": "Cerrar",
+        "edit": "Modificar"
     },
     "navigation": {
         "backofficeMenu": {
@@ -10589,7 +10766,8 @@
                 "last_name": "Apellido",
                 "first_name": "Nombre",
                 "sign_up_question": "Pregunta en el formulario de inscripción",
-                "location": "Ubicación preferida"
+                "location": "Ubicación preferida",
+                "state": "Estado"
             },
             "tab": {
                 "general": "Contenido",
@@ -11070,7 +11248,7 @@
             "unavailableForSaleTitle": "No disponible para la venta",
             "activeTitle": "Disponible a la venta",
             "visibility": "No es visible",
-            "explainIfEmpty": "Las tarjetas regalo permiten a sus miembros ofrecer a sus seres queridos una cantidad para gastar en su estudio.",
+            "explainIfEmpty": "Las tarjetas regalo permiten a sus miembros ofrecer a sus invitados una cantidad para gastar en su estudio.",
             "unlimited": "Ilimitado",
             "validity": "Válido {{ duración }} días"
         },

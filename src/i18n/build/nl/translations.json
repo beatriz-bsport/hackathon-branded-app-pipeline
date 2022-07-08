@@ -1696,7 +1696,10 @@
                 }
             },
             "showSms": "Toon de sms",
-            "showNotification": "Toon melding"
+            "showNotification": "Toon melding",
+            "numberOfRecipientsCompact": "Ontvangers: {{count}}",
+            "numberOfRecipients": "Verstuur naar ontvanger (1)",
+            "numberOfRecipients_plural": "Verstuur naar ontvangers ({{count}})"
         },
         "send": {
             "success": "E-mail wordt verzonden...",

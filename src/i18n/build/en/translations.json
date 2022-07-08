@@ -2711,6 +2711,10 @@
                 "phoneOrMailMissing": "Certain recipients don't have a saved email addres and/or phone number.",
                 "header": "Warning"
             }
+        },
+        "dialogTemplate": {
+            "refreshText": "Click the refresh button to see the newest templates.",
+            "title": "Select a template"
         }
     },
     "privateService": {

@@ -6361,7 +6361,55 @@
                 "title": "Fecha de envío"
             },
             "filterAction": "Filtrar",
-            "applyFilter": "Aplicar"
+            "applyFilter": "Aplicar",
+            "choicesLabels": {
+                "11": "Manual",
+                "10": "Automático",
+                "9": "Lista de espera",
+                "8": "Reservas canceladas",
+                "7": "Reservas",
+                "6": "Mensaje directo",
+                "5": "Smartlist",
+                "4": "Notificación",
+                "3": "Sesión",
+                "2": "Notificación push",
+                "1": "SMS",
+                "0": "Email"
+            },
+            "sendParameter": {
+                "placeholder": "Seleccione un parámetro de envío",
+                "title": "Parámetro de envío"
+            },
+            "recipient": {
+                "placeholder": "Seleccione un tipo de destinatario",
+                "title": "Destinatarios"
+            },
+            "channel": {
+                "placeholder": "Seleccione un tipo de canal",
+                "title": "Canales"
+            },
+            "kind": {
+                "placeholder": "Seleccione un tipo de envío",
+                "title": "Tipo de envío"
+            }
+        },
+        "dialogRecipients": {
+            "noMail": "correo electrónico no suministrado",
+            "warnings": {
+                "full": "Algunos destinatarios no tienen correo electrónico/número de teléfono y no se han seleccionado todos los destinatarios.",
+                "recipientsNotAllSelected": "No todos los beneficiarios han sido seleccionados.",
+                "phoneOrMailMissing": "Algunos destinatarios no tienen correo electrónico/número de teléfono.",
+                "header": "Cuidado"
+            }
+        },
+        "dialogInformation": {
+            "status": {
+                "1": "esperando",
+                "notReceived": "no recibido",
+                "4": "recibido"
+            },
+            "headerOpen": "Abierto",
+            "headerStatus": "Estado"
         }
     },
     "paymentCombo": {

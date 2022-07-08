@@ -1768,6 +1768,10 @@
                 "phoneOrMailMissing": "Sommige ontvangers hebben geen e-mailadres en/of telefoonnummer opgeslagen.",
                 "header": "Waarschuwing"
             }
+        },
+        "dialogTemplate": {
+            "refreshText": "Klik op verversen om de nieuwste sjablonen weer te geven.",
+            "title": "Selecteer een sjabloon"
         }
     },
     "paymentCombo": {

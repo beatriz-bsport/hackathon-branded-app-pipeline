@@ -4280,7 +4280,7 @@
         "restoreOffer": "Herstellen",
         "maximumNumberDescription": "Het maximum aantal reserveringen ({{effectif}}) is reeds bereikt. Weet je zeker dat je dit lid wilt inboeken? Deze actie overschrijdt het vooraf ingestelde maximum aantal reserveringen.",
         "maximumNumber": "Maximum aantal reserveringen",
-        "warningOfferFull": "Het maximum aantal reserveringen is bereikt",
+        "warningOfferFull": "Het maximum aantal reserveringen is bereikt.",
         "tagManagementInfo": "{{authorized}} goedgekeurde tag(s) en {{unauthorized}} afgekeurde tag(s)",
         "levels": {
             "edit": "Wijzigen",
@@ -9879,7 +9879,7 @@
         "expire_in": "Verloopt over ",
         "validation": {
             "sections": {
-                "offerBooked": "Je hebt je ingeschreven voor",
+                "offerBooked": "Mijn reservering",
                 "offerNotBookable": "Het is niet mogelijk om je aan te melden voor",
                 "offerPreBooked": "Je staat op de wachtlijst voor",
                 "basket": "Mijn winkelmandje",

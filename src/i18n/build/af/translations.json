@@ -798,7 +798,10 @@
           "clicked": "Clics",
           "status": "Status"
         }
-      }
+      },
+      "numberOfRecipients": "Envoyé à 1 destinataire",
+      "numberOfRecipients_plural": "Envoyé à {{count}} destinataires",
+      "numberOfRecipientsCompact": "{{count}} dest."
     },
     "sms": {
       "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",

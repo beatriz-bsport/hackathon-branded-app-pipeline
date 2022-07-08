@@ -181,7 +181,6 @@ exports.default = {
     showEmail: "Voir l'email",
     showSms: 'Voir le SMS',
     showNotification: 'Voir la notification',
-
     status: {
       [EMAIL_RECIPIENT_DELIVERED]: 'Reçu',
       [EMAIL_RECIPIENT_DEFERRED]: 'Attente',
@@ -199,6 +198,9 @@ exports.default = {
         status: 'Status',
       },
     },
+    numberOfRecipients: 'Envoyé à 1 destinataire',
+    numberOfRecipients_plural: 'Envoyé à {{count}} destinataires',
+    numberOfRecipientsCompact: '{{count}} dest.',
   },
   sms: {
     warningConsent1:

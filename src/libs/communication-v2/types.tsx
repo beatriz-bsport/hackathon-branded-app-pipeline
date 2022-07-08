@@ -23,3 +23,23 @@ export type RecipientWithMember = {
   sms_error_code?: number | null;
   sms_message_sid: string;
 };
+
+export type Communication = {
+  uuid: string;
+  campaign_id: string;
+  data: {
+    subject: string;
+    body: string;
+    uuid: string;
+    recipient_list: Array<any>;
+    tags_group: Array<any>;
+  };
+  total_recipients: number;
+  date_created: string;
+  total_read: number;
+  total_click: number;
+  text: string;
+  sms_text: string;
+  title: string;
+  kind: number;
+};

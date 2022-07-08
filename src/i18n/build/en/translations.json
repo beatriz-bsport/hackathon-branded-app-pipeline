@@ -2871,7 +2871,7 @@
                 },
                 "sendCancellationMail": "Send {{name}} a cancellation email.",
                 "explainWithRestore": "Are you sure you want to cancel this booking? You can undo this later.",
-                "explainMoreHardDeleteReccurentBooking": "This booking is associated to a rule for recurring appointments. Delete the booking will cause the system to regenerate it to match the rule's criteria. Avoid the regeneration by leaving the status on \"Cancelled\".",
+                "explainMoreHardDeleteReccurentBooking": "This booking is associated to a rule for recurring appointments. Deleting the booking will cause the system to regenerate it to match the rule's criteria. Avoid this regeneration by leaving the status on \"Cancelled\".",
                 "hardDeleteTitle": "Delete session",
                 "explainMoreHardDeleteReccurentBookingTitle": "Recurring appointment"
             },
@@ -5882,7 +5882,7 @@
                 "loginButton": "Login button",
                 "giftcard": "Gift cards",
                 "paymentPackTemplate": "Shared passes",
-                "calendarV2": "Calendar (redesign)"
+                "calendarV2": "Calendar (Redesign)"
             },
             "preview": "Preview",
             "saveButton": "Save",

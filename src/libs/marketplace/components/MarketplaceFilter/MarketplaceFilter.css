@@ -73,6 +73,7 @@
 
 .bs-marketplace-filter__right__chip {
   color: var(--color-primary-contrastText);
+  background-color: var(--color-primary-main);
   padding: calc(var(--spacing-1) / 2);
   border-radius: calc(var(--spacing-3) / 2);
   height: var(--spacing-3);

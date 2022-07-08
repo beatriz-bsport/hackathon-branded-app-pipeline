@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   InputLabel,
   FormControl,
@@ -34,13 +34,17 @@ interface Props {
   customLevels: Level[];
 }
 
-const COMPACT_MODE_TYPE = {
-  listDisplay: true,
-  calendarDisplay: false,
-  // @ts-ignore
-  responsiveDisplay: null,
-  todayOnly: 'today',
-};
+const LIST_DISPLAY = 'listDisplay';
+const CALENDAR_DISPLAY = 'calendarDisplay';
+const RESPONSIVE_DISPLAY = 'responsiveDisplay';
+const TODAY_ONLY = 'todayOnly';
+
+const COMPACT_MODE_TYPE = [
+  LIST_DISPLAY,
+  CALENDAR_DISPLAY,
+  RESPONSIVE_DISPLAY,
+  TODAY_ONLY,
+];
 
 const VARIANTS: MarketplaceCalendarVariant[] = [
   'activityName',
@@ -60,19 +64,35 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
   } = props;
 
   const setCompactMode = useCallback(
-    (value: keyof typeof COMPACT_MODE_TYPE) => {
+    (value: string) => {
       const newConfig: MarketplaceCalendarV2Data = {
         ...config,
-        todayOnly: COMPACT_MODE_TYPE[value] === 'today',
+        todayOnly: value === TODAY_ONLY,
         compactMode:
-          COMPACT_MODE_TYPE[value] === 'today'
-            ? true
-            : COMPACT_MODE_TYPE[value],
+          value === RESPONSIVE_DISPLAY
+            ? null
+            : value === TODAY_ONLY || value === LIST_DISPLAY,
       };
+
       onChange(newConfig);
     },
     [config, onChange],
   );
+
+  const compactMode = useMemo(() => {
+    if (config.todayOnly) {
+      return TODAY_ONLY;
+    }
+
+    if (config.compactMode) {
+      return LIST_DISPLAY;
+    }
+
+    if (config.compactMode === null) {
+      return RESPONSIVE_DISPLAY;
+    }
+    return CALENDAR_DISPLAY;
+  }, [config]);
 
   const setVariant = useCallback(
     (variant: MarketplaceCalendarVariant) => {
@@ -110,15 +130,10 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
           <InputLabel>{t('widget:widget.choice')}</InputLabel>
           <Select
             className={classes.fullWidth}
-            value={
-              Object.keys(COMPACT_MODE_TYPE).find(
-                (key: keyof typeof COMPACT_MODE_TYPE) =>
-                  COMPACT_MODE_TYPE[key] === config.compactMode,
-              ) ?? 'responsiveDisplay'
-            }
+            value={compactMode}
             onChange={(ev: any) => setCompactMode(ev.target.value)}
           >
-            {Object.keys(COMPACT_MODE_TYPE).map((key) => {
+            {COMPACT_MODE_TYPE.map((key) => {
               return (
                 <MenuItem key={key} value={key}>
                   {t(`widget:widget.${key}`)}

@@ -3,6 +3,7 @@
 /*  */
 .bs-workshop-page__workshops {
   width: 100%;
+  height: 100%;
 }
 
 .bs-workshop-page__workshops__lists {
@@ -31,6 +32,9 @@
   justify-content: center;
   width: 100%;
   padding-top: var(--spacing-3);
+  padding-bottom: var(--spacing-3);
+  margin-top: var(--spacing-10);
+  margin-bottom: var(--spacing-14);
 }
 
 .bs-workshop-page__workshops__lists__load-more {

@@ -96,11 +96,7 @@ import {
   fetchPaymentMethodList,
 } from '#libs/payment/actions';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
-import {
-  fromConfigToUrl,
-  getMarketplaceRoute,
-} from '#libs/marketplace/routing-utils';
-import { MarketplaceTabConfig } from '#libs/marketplace/types';
+import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import { getMember } from '#libs/member/selectors';
 import {
   fetchAssetForBlueprint,
@@ -650,15 +646,8 @@ const mapWithHandlers = {
       );
     },
   goToHomeTab: (props: Props) => () => {
-    const tabConfig: MarketplaceTabConfig =
-      props.marketplaceSettings?.config[0];
-    const path = fromConfigToUrl(tabConfig, { tabSelected: 0 });
     props.push(
-      getMarketplaceRoute(
-        props.companyTheme.company_name,
-        props.companyId,
-        path,
-      ),
+      getMarketplaceRoute(props.companyTheme.company_name, props.companyId, ''),
     );
   },
   previewSpotHandler:

@@ -7871,7 +7871,7 @@
             "establishment_title": "Establishment",
             "billing_planrecurrent_price": "Amount",
             "negative_voucher": "Discount",
-            "remaining_credits_annotated": "Remaining credits today"
+            "remaining_credits_annotated": "Today's remaining credits"
         },
         "yes": "Yes",
         "no": "No",

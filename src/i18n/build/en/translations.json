@@ -5447,9 +5447,9 @@
             "sections": {
                 "offerNotBookable": "Unable to register",
                 "offerPreBooked": "You've joined the waitlist for",
-                "offerBooked": "You've booked",
+                "offerBooked": "My booking",
                 "basket": "Your basket",
-                "title": "Congratulations! You have successfully completed your purchase.",
+                "title": "Congratulations!",
                 "errorExplain": {
                     "generic": "The operation could not be performed. We invite you to try again.",
                     "guestGeneric": "A problem occurred with the reservation for a guest.",
@@ -5461,13 +5461,13 @@
                 },
                 "error": "Error",
                 "recap": "Summary",
-                "explain": "Your transaction has been processed. We will send you a confirmation email."
+                "explain": "Your purchase has been processed. Shortly, you'll also receive a confirmation email."
             },
             "actions": {
                 "back": "Go back",
                 "continue": "Continue shopping",
                 "widgetContinue": "Next",
-                "member": "My profile"
+                "member": "My account"
             }
         },
         "expire_in": "Expires in ",
@@ -5819,7 +5819,7 @@
             "submit": "Confirm",
             "cancel": "Cancel",
             "account": {
-                "helpTitle": "Where can I fin my account informations ?",
+                "helpTitle": "Where do I find my account information?",
                 "helpContent": "The URL and the Authentication Token can be accessed in your ActiveCampaign Account, by clicking on the \"Development\" Tab.",
                 "title": "Informations to access your ActiveCampaign API",
                 "dialogTitle": "My ActiveCampaign API informations",
@@ -6588,7 +6588,7 @@
                 "button_text": "Retry",
                 "text_status": "Your purchase couldn't be completed!",
                 "text_content": "Your purchase could not be completed, you can try again or return to your member account.",
-                "userSpace": "Member Account",
+                "userSpace": "My account",
                 "title": "Error during payment"
             },
             "success": {
@@ -9159,7 +9159,7 @@
         "restoreOffer": "Restore session",
         "maximumNumberDescription": "The maximum number of bookings ({{effectif}}) has been reached. Are you sure that you want to book in this member? This action will override the initial maximum number of bookings.",
         "maximumNumber": "Maximum number of bookings",
-        "warningOfferFull": "Maximum number of bookings has been reached",
+        "warningOfferFull": "The maximum number of bookings has been reached.",
         "tagManagementInfo": "{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized",
         "levels": {
             "modal": {
@@ -11680,11 +11680,11 @@
             "reporting": "Reporting",
             "consumer": {
                 "order": "My orders",
-                "profile": "My profile",
+                "profile": "My account",
                 "bookings": "My bookings ",
                 "pass": "Passes",
                 "subscriptions": "My subscriptions",
-                "myAccount": "My profile"
+                "myAccount": "My account"
             },
             "beta": "beta",
             "coachPerformance": "Payroll",
@@ -12232,7 +12232,7 @@
             "emptyCustomForm": "This form has no fields to display.",
             "addFieldLong": "Add a field",
             "unaccessibleForm": "This form is currently inaccessible. Please click on the link below to return to your profile.",
-            "backToUserSpace": "My profile",
+            "backToUserSpace": "My account",
             "changesDetected": "Save this form to apply the changes.",
             "noChanges": "This form is up to date.",
             "actions": {

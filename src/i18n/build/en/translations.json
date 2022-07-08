@@ -7870,7 +7870,8 @@
             "baskettotal_price": "Price (incl. VAT / Sales Tax)",
             "establishment_title": "Establishment",
             "billing_planrecurrent_price": "Amount",
-            "negative_voucher": "Discount"
+            "negative_voucher": "Discount",
+            "remaining_credits_annotated": "Remaining credits today"
         },
         "yes": "Yes",
         "no": "No",

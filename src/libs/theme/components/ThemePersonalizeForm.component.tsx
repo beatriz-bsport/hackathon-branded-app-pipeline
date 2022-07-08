@@ -42,7 +42,7 @@ interface FormikValues {
   allow_guest_max_number: number;
   allow_guest_frequency: string;
   hide_unnecessary_compatible_purchase_method: boolean;
-  hidden_from_marketplace: boolean;
+  show_studio_on_general_app: boolean;
   coach_can_edit_attendance: boolean;
   default_attendance: boolean;
   show_cancelled_offers_manager: boolean;
@@ -68,7 +68,6 @@ type Props = {
 
 const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   isSubmitting,
-  dirty,
   isValid,
   handleSubmit,
   setFieldValue,
@@ -102,7 +101,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {t('forms.themePersonalization.bookingTitle')}
           </Typography>
           <SwitchField
-            name="hidden_from_marketplace"
+            name="show_studio_on_general_app"
             label={t('forms.themePersonalization.hiddenFromMarketplace')}
           />
           <SwitchField
@@ -448,7 +447,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
         </div>
       </div>
       <Button
-        disabled={isSubmitting || !dirty || !isValid}
+        disabled={isSubmitting || !isValid}
         variant="contained"
         color="primary"
         onClick={() => handleSubmit()}
@@ -535,7 +534,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ThemePersonalizeFormSchema = Yup.object().shape({
   show_offers_filling: Yup.boolean().required(),
   accept_double_booking: Yup.boolean().required(),
-  hidden_from_marketplace: Yup.boolean().required(),
+  show_studio_on_general_app: Yup.boolean().required(),
   coach_can_edit_attendance: Yup.boolean().required(),
   default_attendance: Yup.boolean().required(),
   show_cancelled_offers_manager: Yup.boolean().required(),
@@ -598,7 +597,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         allow_guest_max_number: theme.allow_guest_max_number,
         hide_unnecessary_compatible_purchase_method:
           theme.hide_unnecessary_compatible_purchase_method,
-        hidden_from_marketplace: theme.hidden_from_marketplace,
+        show_studio_on_general_app: !theme.hidden_from_marketplace,
         coach_can_edit_attendance: theme.coach_can_edit_attendance,
         default_attendance: theme.default_attendance,
         show_cancelled_offers_manager: theme.show_cancelled_offers_manager,
@@ -635,7 +634,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       allow_guest_frequency: 'week',
       allow_guest_max_number: 1,
       hide_unnecessary_compatible_purchase_method: false,
-      hidden_from_marketplace: false,
+
+      show_studio_on_general_app: true,
       coach_can_edit_attendance: false,
       default_attendance: false,
       show_cancelled_offers_manager: false,
@@ -666,7 +666,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'allow_guest',
       'allow_guest_frequency',
       'allow_guest_max_number',
-      'hidden_from_marketplace',
+      'show_studio_on_general_app',
       'max_future_booking',
       'default_booking_ordering',
       'coach_can_edit_attendance',
@@ -686,7 +686,13 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'hide_unnecessary_compatible_purchase_method',
       'hide_sessions_with_tags_when_not_eligible',
     ];
-    keys.forEach((key) => data.append(key, values[key]));
+    keys.forEach((key) => {
+      if (key === 'show_studio_on_general_app') {
+        data.append('hidden_from_marketplace', !values[key]);
+      } else {
+        data.append(key, values[key]);
+      }
+    });
 
     onSubmit(theme.company, data, {
       onSuccess: () => setSubmitting(false),

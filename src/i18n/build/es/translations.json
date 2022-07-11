@@ -2351,7 +2351,26 @@
             "BANCONTACT": "Contacto bancario",
             "SEPA": "SEPA",
             "CHECK": "Consulte",
-            "CASH": "Especies"
+            "CASH": "Especies",
+            "60": "Giropay",
+            "50": "EPS",
+            "40": "iDEAL",
+            "30": "Sofort",
+            "20": "Bancontact",
+            "13": "SEPA",
+            "12": "Litigio",
+            "11": "Otro",
+            "10": "Pago automático",
+            "9": "Pagos en persona",
+            "8": "Event brite",
+            "7": "Transferencia",
+            "6": "AMEX",
+            "5": "Cheque de vacaciones",
+            "4": "Tarjeta (manual)",
+            "3": "Pass",
+            "2": "Cheque",
+            "1": "Efectivo",
+            "0": "Tarjeta"
         },
         "paymentComboSectionTitle": "Pack",
         "actions": {
@@ -2416,10 +2435,12 @@
                     "label": "Branch code"
                 },
                 "transitNumber": {
-                    "label": "Transit number"
+                    "label": "Transit number",
+                    "placeholder": "Transit number"
                 },
                 "institutionNumber": {
-                    "label": "Institution number"
+                    "label": "Institution number",
+                    "placeholder": "Institution number"
                 },
                 "bankCode": {
                     "label": "Bank code"
@@ -3750,7 +3771,20 @@
             "is_recurring": "Recurrente",
             "amount_expense": "Importe",
             "universal_nb_bookings": "Número de reservas (clases en grupo)",
-            "universal_nb_private_bookings": "Número de reservas (citas previas)"
+            "universal_nb_private_bookings": "Número de reservas (citas previas)",
+            "amount_due": "Cantidad a pagar",
+            "paid": "Cobrado",
+            "couponamount_off": "Reducción fija",
+            "couponpercent_off": "Reducción (en %)",
+            "baskettotal_price": "Total con impuestos incluidos",
+            "negative_voucher": "Rebaja",
+            "applied_tax": "IVA",
+            "establishment_title": "Local",
+            "remaining_credits_annotated": "Créditos restantes hoy",
+            "billing_planrecurrent_price": "Monto",
+            "payout_date_created": "Fecha de transferencia",
+            "payout_status": "Estado de transferencia",
+            "payout": "Transferencia"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3767,7 +3801,13 @@
             "other": "Otros",
             "dispute": "Litigio",
             "sepa": "SEPA",
-            "credit_card": "Tarjeta de pago"
+            "credit_card": "Tarjeta de pago",
+            "debt": "Crédito interno",
+            "giropay": "Giropay",
+            "eps": "EPS",
+            "ideal": "iDeal",
+            "sofort": "Sofort",
+            "bancontact": "Bancontact"
         },
         "product_type": {
             "payment_pack": "Bono",
@@ -3776,7 +3816,10 @@
             "private_pass": "Tarjeta de cita",
             "payment_combo": "Pack",
             "fee": "Tarifas",
-            "refund": "Reembolso de crédito"
+            "refund": "Reembolso de crédito",
+            "giftcard": "Tarjeta regalo",
+            "coupon": "Bono",
+            "booking": "Reserva"
         },
         "report": {
             "delete_message": "Esta seguro suprimir el informe {{name}} ?"
@@ -3861,9 +3904,117 @@
         },
         "header": {
             "average": "Por término medio",
-            "sum": "Suma"
+            "sum": "Suma",
+            "save": "Guardar",
+            "from_to": "Del {{-from}} hasta el {{-to}}",
+            "helper": {
+                "year": "El año pasado",
+                "trimester": "Últimos tres meses",
+                "month": "El mes pasado",
+                "week": "Semana pasada",
+                "today": "Hoy"
+            },
+            "rapidChoice": "Elección rápida",
+            "end": "Final",
+            "start": "Inicio",
+            "to": "hasta el",
+            "from": "Del",
+            "selectDate": "Seleccionar una fecha",
+            "selectRange": "Seleccionar un rango de fechas"
         },
-        "search": "Buscar un informe"
+        "search": "Buscar un informe",
+        "datatype": {
+            "private_service": "Cita",
+            "boolean": "Verdadero/Falso",
+            "user": "Miembro",
+            "email": "Email",
+            "percent": "Porcentaje",
+            "number": "Número",
+            "int": "Número",
+            "payment_pack": "Bono",
+            "video": "Vídeo",
+            "giftcard": "Tarjetas regalo",
+            "coach": "Profesores",
+            "establishment": "Establecimiento",
+            "datetime": "Fecha",
+            "dow": "Día de la semana",
+            "time": "Hora",
+            "date": "Fecha",
+            "contract": "Contrato",
+            "coupon": "Bono",
+            "payment_method": "Método de pago",
+            "cts": "Precio en céntimos",
+            "price": "Precio"
+        },
+        "filter": {
+            "form": {
+                "columnError": "Tenga en cuenta que la columna filtrada aquí se ha eliminado del informe. Sin embargo, el filtro de esta columna se sigue aplicando.",
+                "edit": "Modificar",
+                "cancel": "Cancelar",
+                "submit": "Guardar",
+                "error": {
+                    "wrongOrdering": "Los valores no están en orden ascendente",
+                    "needAtLeatOneFilter": "Se requiere un filtro mínimo",
+                    "byIdDuplicate": "Algunos campos de selección múltiple están presentes por duplicado",
+                    "invalidTypeForColumns": "Operación imposible en esta columna"
+                },
+                "isFalse": "Falso",
+                "isTrue": "Verdadero",
+                "placeholderList": "Seleccionar",
+                "subDataType": {
+                    "hour": "Hora",
+                    "day": "Fecha"
+                },
+                "filterComparator": {
+                    "3": {
+                        "4": "En el intervalo",
+                        "1": "No es el",
+                        "0": "Es el"
+                    },
+                    "2": {
+                        "0": "Es",
+                        "1": "No es"
+                    },
+                    "1": {
+                        "5": "Fuera del intervalo",
+                        "4": "En el intervalo",
+                        "3": "Mayor o igual a",
+                        "2": "Menos de o igual a",
+                        "1": "No es igual a",
+                        "0": "Igual a"
+                    },
+                    "0": {
+                        "5": "No está",
+                        "4": "Está"
+                    }
+                },
+                "groupOperandHelperText": {
+                    "0": "Los elementos filtrados deben coincidir con al menos a un filtro.",
+                    "1": "Los elementos filtrados deben coincidir con todos los filtros."
+                },
+                "groupOperand": {
+                    "1": "Y",
+                    "0": "O"
+                },
+                "emptyState": "Ninguna columna de este informe se puede filtrar",
+                "addFilter": "Añadir un filtro",
+                "addFilterOption": "Un filtro",
+                "addGroupOption": "Un grupo de filtros",
+                "add": "Añadir",
+                "operandSelect": "Regla entre filtros",
+                "filter": "Filtros",
+                "information": "Informaciones generales",
+                "name": "Nombre",
+                "title": "Vista filtrada"
+            },
+            "deleteModal": {
+                "content": "¿Estás seguro de que quieres eliminar esta vista filtrada? Esta acción es irreversible.",
+                "title": "Supresión"
+            },
+            "createFilter": "Añadir una vista filtrada",
+            "emptyFilter": "Todos los datos",
+            "title": "Vista filtrada"
+        }
     },
     "alerting": {
         "list": {
@@ -3984,7 +4135,10 @@
             "successInfo": "Se ha tenido en cuenta la eliminación de todas las sesiones entre {{start_date}} y {{end_date}}.",
             "iConfirm": "CONFIRMO",
             "confirmationExplain": "Por favor, escriba \"CONFIRMO\" abajo en letras mayúsculas.",
-            "success": "Anulación confirmada"
+            "success": "Anulación confirmada",
+            "warningOfferGroup": "Tenga en cuenta que las siguientes sesiones no han podido ser canceladas por formar parte de un grupo de sesiones. Para anularlos, anula el grupo correspondiente.",
+            "warningOfferGroupTitle": "Sesiones no canceladas",
+            "offers": "Sesiones no cancelables"
         },
         "bookingList": "Reservas",
         "bookingListEmpty": "Ninguna reserva",
@@ -3998,7 +4152,10 @@
             "cancelSimilarOffers": "Le gustaría cancelar sesiones similares?",
             "selectDelete": "Seleccione las sesiones que serán eliminadas",
             "deleteSimilarOffers": "Desea eliminar sesiones similares?",
-            "selectEdit": "Seleccione las sesiones que serán modificadas"
+            "selectEdit": "Seleccione las sesiones que serán modificadas",
+            "cancelSimilarOffersGroup": "¿Cancelar la sesión en las otras recurrencias del grupo?",
+            "deleteSimilarOffersGroups": "Desea eliminar las futuras recurrencias del grupo",
+            "editSimilarOffersGroup": "¿Cambiar la sesión en futuras recurrencias del grupo?"
         },
         "menu": {
             "download": "Resumen",
@@ -4015,7 +4172,31 @@
         "maximumNumberDescription": "Ya se ha alcanzado el número máximo de {{effectif}} reservas y al inscribir a este miembro se superará el número original de reservas. ¿Está seguro de que quiere registrar a este miembro?",
         "maximumNumber": "Número máximo de reservas",
         "warningOfferFull": "Ya se ha alcanzado el número máximo de reservas",
-        "tagManagementInfo": "{{authorized}} tag(s) autorizado(s), {{unauthorized}} tag(s) no autorizado(s)"
+        "tagManagementInfo": "{{authorized}} tag(s) autorizado(s), {{unauthorized}} tag(s) no autorizado(s)",
+        "levels": {
+            "edit": "Modificar",
+            "delete": "Suprimir",
+            "customs": "Personalizados",
+            "select": {
+                "placeholder": "Nivel",
+                "title": "Nivel",
+                "add": "Añadir un nivel"
+            },
+            "deleteModal": {
+                "content2": "Las sesiones que ya tienen este nivel lo mantendrán pero no se podrá añadir a futuras sesiones.",
+                "content": "¿Estás seguro de que quieres eliminar este nivel?",
+                "title": "Supresión"
+            },
+            "modal": {
+                "submit": "Guardar",
+                "cancel": "Cancelar",
+                "color": "Código color",
+                "nameCaption": "{{max}} caracteres máximos ({{count}}/{max}})",
+                "name": "Nombre",
+                "title": "Cambiar el nivel"
+            }
+        },
+        "recurrenceIndex": "Grupo n°{{ index }} de la recurrencia"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -4816,7 +4997,8 @@
             "510": "Pago fallido de una suscripción",
             "481": "Cita recurrente anulada por falta de disponibilidad (estudiante)",
             "480": "Cita recurrente anulada por falta de disponibilidad (profesor)",
-            "987": "Intentar cobrar un plazo"
+            "987": "Intentar cobrar un plazo",
+            "801": "Grupo de citas cancelado"
         },
         "tag": {
             "BookingOption": {
@@ -4842,7 +5024,8 @@
                     "date": "Hora/fecha de la sesión",
                     "coach": "Profesor",
                     "activity": "Actividad",
-                    "spot": "Lugar"
+                    "spot": "Lugar",
+                    "canceled_grouped_session": "Grupo de reserva anulado"
                 }
             },
             "ConsumerPaymentPack": {
@@ -5647,7 +5830,10 @@
                 "explain": "¿Estás seguro de que quieres cancelar esta reserva? Esta operación es irreversible.",
                 "title": "Cancelación reserva",
                 "sendCancellationMail": "Notifica a {{name}} sobre la cancelación de la cita por email",
-                "explainWithRestore": "Estás seguro de que deseas cancelar esta reserva? Puede deshacer esto más tarde."
+                "explainWithRestore": "Estás seguro de que deseas cancelar esta reserva? Puede deshacer esto más tarde.",
+                "explainMoreHardDeleteReccurentBooking": "Esta reserva está vinculada a una regla de citas periódicas. Si elimina esta reserva, el sistema intentará crearla de nuevo. Si no desea que esta reserva se vuelva a generar, no la elimine y deje su estado como cancelado.",
+                "explainMoreHardDeleteReccurentBookingTitle": "Cita recurrente",
+                "hardDeleteTitle": "Supresión de una reserva"
             },
             "detail": {
                 "address": "Dirección",
@@ -5673,7 +5859,12 @@
                 "emptyHistory": "No historial",
                 "historyTitle": "Historial",
                 "by": "Por",
-                "cancelledByRecurrenceOn": "Anulación de la reserva recurrente el "
+                "cancelledByRecurrenceOn": "Anulación de la reserva recurrente el ",
+                "cancelledByRecurrenceBy": "Cancelado por",
+                "cancelledBy": "Cancelado por",
+                "restoredBy": "Restaurado por",
+                "dateModifiedBy": "Modificado por",
+                "coachModifiedBy": "Modificado por"
             },
             "isCancelled": "Cancelado",
             "attachCoach": {
@@ -5836,7 +6027,7 @@
                     "label": "Número de crédito(s)"
                 },
                 "pre_selected_choices": "Duraciones predefinidas",
-                "durationError": "Duración no válida (entre 15min y 1d)"
+                "durationError": "Duración no válida (entre 10min y 1d)"
             },
             "parameters": {
                 "credit": "{{ credit }} crédito"
@@ -9411,17 +9602,74 @@
                     "addOffers": "Añadir una sesión",
                     "subtitleOffers": "Añadir sesiones",
                     "subtitle": "Informaciones generales",
-                    "recurrenceUntilHelper": "Indique la fecha de la última sesión del último ciclo."
+                    "recurrenceUntilHelper": "Indique la fecha de la última sesión del último ciclo.",
+                    "allowGuestUnavailable": "Esta función no está disponible en las sesiones de grupo.",
+                    "allowGuest": "Compatible con la reserva de invitados",
+                    "impossibleState": "Los parámetros introducidos no permiten la generación de un grupo",
+                    "submit": "Validar",
+                    "back": "Anterior",
+                    "save": "Guardar",
+                    "delete": {
+                        "content": "Tenga en cuenta que al eliminar este grupo se cancelarán todas las sesiones que contenga. A los estudiantes inscritos se les anulará la reserva. Esta operación es definitiva",
+                        "missingOffer": "Ninguna oferta en el grupo",
+                        "firstSession": "Primera sesión el {{-day}}",
+                        "selectHeader": "Selecciona los grupos a modificar",
+                        "selectGroup": "Cancelar otros grupos similares",
+                        "applyRecursive": "Cancelar otros grupos similares",
+                        "title": "Supresión"
+                    },
+                    "copyRecurrence": "También duplicar futuras recurrencias del grupo",
+                    "required": "Se necesita al menos un grupo",
+                    "next": "Siguiente",
+                    "groupName": "Nombre",
+                    "daily": "Todos los días",
+                    "recurrence": "Recurrencia",
+                    "recurrenceNumberPrefix": "Repetir todos los",
+                    "preview": "Previsualizar",
+                    "recurrenceUntilHelper2": "No se crearán grupos cuya última sesión sea posterior a esta fecha."
                 },
                 "duplicate": "Duplicar un grupo",
                 "subtitlePreview": "Pre-visualización de la recurrencia",
                 "subtitleMetaActivitySelect": "Creación de un grupo de sesiones",
                 "title": "Sesiones de grupo"
+            },
+            "offerDescription": "{{ count }} sesiones desde {{- firstSession }} hasta {{- lastSession }}",
+            "helperText": {
+                "year": "Este grupo comienza el {{-day}}, de {{-mont}} cada año",
+                "year_plural": "Este grupo comienza el {{-day}}, de {{-month}} cada {{ count }} años",
+                "day": "Este grupo se ensaya cada día",
+                "day_plural": "Este grupo se ensaya cada {{ count }} días",
+                "week": "Este grupo comienza el {{-day}}, cada semana",
+                "week_plural": "Este grupo comienza el {{-day}}, cada {{ count }} semanas",
+                "month": "Este grupo comienza el {{-day}}, cada mes",
+                "month_plural": "Este grupo comienza el {{-day}}, cada {{ count }} meses"
+            },
+            "last": "último",
+            "intervalLabel": {
+                "until": {
+                    "year": "Cada año hasta {{-until}} ",
+                    "year_plural": "Cada {{ count }} años hasta {{-until}} ",
+                    "day": "Cada día hasta {{-until}} ",
+                    "day_plural": "Cada {{ count }} días hasta {{-until}} ",
+                    "week": "Cada semana hasta ",
+                    "week_plural": "Cada {{ count }} semanas hasta {{-until}} ",
+                    "month": "Cada mes hasta {{-until}} ",
+                    "month_plural": "Cada {{ count }} meses hasta {{-until}} "
+                },
+                "year": "Cada año",
+                "year_plural": "Cada {{ count }} años",
+                "day": "Cada día",
+                "day_plural": "Cada {{ count }} días",
+                "week": "Cada semana",
+                "week_plural": "Cada {{ count }} semanas",
+                "month": "Cada mes",
+                "month_plural": "Cada {{ count }} meses"
             }
         },
         "workshopSelect": "Buscar un taller",
         "close": "Cerrar",
-        "edit": "Modificar"
+        "edit": "Modificar",
+        "cancelledOffers": "{{count}} cancelaciones"
     },
     "navigation": {
         "backofficeMenu": {
@@ -9525,7 +9773,8 @@
             "expenses": "Gastos",
             "instalmentPayment": "Pagos fraccionados",
             "coachPayroll": "Remuneración",
-            "clockIn": "Reloj de fichaje"
+            "clockIn": "Reloj de fichaje",
+            "help": "Ayuda"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",

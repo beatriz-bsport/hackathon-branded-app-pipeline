@@ -74,7 +74,7 @@
             "goToHome": "Toon het gehele aanbod"
         },
         "dashboard": {
-            "noBooking": "Je hebt nog geen reserveringen om weer te geven.",
+            "noBooking": "Er zijn geen reserveringen om weer te geven.",
             "noPackCurrentlyActive": "Je bezit nog geen kaarten om weer te geven.",
             "showMore": "Toon meer",
             "currentPassTitle": "Mijn kaarten",
@@ -1664,15 +1664,15 @@
                 },
                 "activeSince": "Actief sinds: {{-date}}",
                 "eventKind": {
-                    "1": "Verlating",
+                    "1": "Afmelding",
                     "0": "Aanmelding"
                 },
                 "create": "Toevoegen ",
                 "onLeft": "Wanneer een lid een Smartlist verlaat",
                 "onJoin": "Wanneer een lid in een Smartlist gezet wordt"
             },
-            "automatedTitle": "Automatische verzendingen",
-            "manualTitle": "Handmatige verzendingen"
+            "automatedTitle": "Automatische berichtgevingen",
+            "manualTitle": "Handmatige berichtgevingen"
         },
         "recipient": {
             "readCount": "Aantal keer geopend",
@@ -5648,7 +5648,7 @@
             "provisionalTitle": "Betaaloverzicht",
             "paymentMethodTitle": "Betaalmethode"
         },
-        "noContracts": "In dit onderdeel worden alle abonnementen beheerd. Selecteer de incassering (dagelijks/wekelijks/maandelijks/jaarlijks), voeg eventuele inschrijfkosten toe en voeg de actuele voorwaarden toe.",
+        "noContracts": "In dit onderdeel worden alle abonnementen beheerd. Selecteer de incassering (dagelijks, wekelijks, maandelijks ofjaarlijks), bereken eventuele inschrijfkosten en voeg de actuele voorwaarden toe.",
         "copyLink": "De directe link naar de betaalpagina kopiëren",
         "listItem": {
             "valid": "Geldig",
@@ -7501,7 +7501,7 @@
         "common": {
             "from": "Begin",
             "until": "Einde",
-            "pick_a_month": "Kies een maand"
+            "pick_a_month": "Selecteer een maand"
         },
         "calculate": "Bereken",
         "title": "Salarisoverzicht van {{name}}",

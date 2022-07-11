@@ -9424,7 +9424,7 @@
             },
             "primary_color": {
                 "label": "Couleur principale",
-                "helperText": "Priviligéiez une couleur, évitez le monochrome"
+                "helperText": "Privilégiez une couleur, évitez le monochrome"
             },
             "secondary_color": {
                 "label": "Couleur secondaire",

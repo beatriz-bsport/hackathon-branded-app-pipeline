@@ -21,6 +21,8 @@ import {
   deleteCompanyRole,
 } from '../../libs/role/actions';
 import { getUsersWithRole, getAllRoles } from '../../libs/role/selectors';
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
+import { getActiveCoaches } from '#libs/associated-coach/selectors';
 // @ts-ignore
 import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
@@ -34,6 +36,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 export class RoleConfiguration extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchCompanyUserRoles();
+    this.props.fetchAssociatedCoachesList();
   }
 
   render() {
@@ -60,9 +63,11 @@ export class RoleConfiguration extends React.Component<Props> {
           <UserWithRoleList
             users={users}
             roles={roles}
-            onChangeRole={this.props.updateUserRole}
-            deleteUser={this.props.deleteStaffUser}
-            createUser={this.props.createStaffUser}
+            updateUserRole={this.props.updateUserRole}
+            deleteUserRole={this.props.deleteStaffUser}
+            createUserRole={this.props.createStaffUser}
+            coachList={this.props.coachList}
+            coachListLoading={this.props.coachListLoading}
           />
         </Paper>
         <Typography variant="h5" className={classes.sectionTitle}>
@@ -131,6 +136,8 @@ const mapStateToProps = (state: RootState) => ({
   users: getUsersWithRole(state),
   roles: getAllRoles(state),
   updateLoading: state.role.role.createOrUpdate.loading,
+  coachList: getActiveCoaches(state),
+  coachListLoading: state.coach.loading,
 });
 
 const mapDispatchToProps = {
@@ -141,6 +148,7 @@ const mapDispatchToProps = {
   createCompanyRole,
   updateCompanyRole,
   deleteCompanyRole,
+  fetchAssociatedCoachesList,
 };
 
 export default compose(

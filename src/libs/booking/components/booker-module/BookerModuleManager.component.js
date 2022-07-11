@@ -39,6 +39,7 @@ import type { Establishment } from '../../../establishment/types';
 import type { Theme as CompanyTheme } from '../../../theme/types';
 import type { OptionCallback } from '../../../../state/types';
 import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
+import { Role } from '#libs/role/types';
 // import OfferListItem from '#libs/offer/components/OfferListItemV2.component';
 
 type Props = {
@@ -119,6 +120,8 @@ type Props = {
   // setSelectedSimilarGroupOfferIds: (value: number[]) => void,
   // fetchOffersInGroup: (id: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
+  userRole: Role,
+  fetchCompanyUserRoles: () => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -179,6 +182,7 @@ export class BookerModuleManager extends PureComponent<Props> {
         this.props.offer.group?.id ?? this.props.offer.group,
       );
     }
+    this.props.fetchCompanyUserRoles();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -464,6 +468,9 @@ export class BookerModuleManager extends PureComponent<Props> {
                   member={this.props.member}
                   memberDetails={this.props.memberDetails}
                   closeDialog={this.props.onCancel}
+                  isNotAllowedToOverbook={
+                    !this.props.userRole?.has_booking_override_control
+                  }
                 />
               )}
               {this.props.step === OFFER_CHOICE && (

@@ -12,13 +12,19 @@ import UserWithRole from './UserWithRoleItem.component';
 import CreateStaffUser from './CreateStaffUser.component';
 import { UserRole, UserRoleData, Role } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
+import { Coach } from '#libs/associated-coach/types';
 
 type OwnProps = {
   users: Array<UserRole>;
   roles: Role[];
-  deleteUser: (id: number) => void;
-  createUser: (data: UserRoleData) => void;
-  onChangeRole: (userId: number, roleId: number) => void;
+  deleteUserRole: (id: number) => void;
+  createUserRole: (data: UserRoleData) => void;
+  updateUserRole: (
+    userId: number,
+    params: { roleId?: number; coaches?: number[] },
+  ) => void;
+  coachList: Array<Coach>;
+  coachListLoading: boolean;
 };
 
 type WithStateType = {
@@ -38,19 +44,28 @@ export const UserWithRoleList = (props: Props) => (
         <UserWithRole
           user={user}
           roles={props.roles}
-          handleRoleChange={(role) => props.onChangeRole(user.id, role)}
-          deleteUser={() => props.deleteUser(user.id)}
+          handleRoleChange={(role) =>
+            props.updateUserRole(user.id, { roleId: role })
+          }
+          deleteUser={() => props.deleteUserRole(user.id)}
+          coachList={props.coachList}
+          coachListLoading={props.coachListLoading}
+          editUserSelectedCoaches={(coachesIds: number[]) =>
+            props.updateUserRole(user.id, { coaches: coachesIds })
+          }
         />
       </div>
     ))}
     <CreateStaffUser
       open={props.createOpen}
       onSubmit={(data) => {
-        props.createUser(data);
+        props.createUserRole(data);
         props.setCreateOpen(false);
       }}
       onClose={() => props.setCreateOpen(false)}
       roles={props.roles}
+      coachList={props.coachList}
+      coachListLoading={props.coachListLoading}
     />
     <Button
       variant="outlined"

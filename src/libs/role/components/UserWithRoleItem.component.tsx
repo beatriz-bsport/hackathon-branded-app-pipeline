@@ -15,10 +15,12 @@ import IconButton from '@material-ui/core/IconButton';
 
 // @ts-ignore
 import withConfirm from '../../../hocs/with-confirm.hoc';
-import { Role, UserRole } from '../types';
+import { Role, UserRole, CoachOption } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
-import { getRoleName } from '../utils';
-import { OWNER_ROLE, CHECKIN_APP_ROLE } from '../role-types';
+import { getRoleName, getCoachOptionsFromCoachIds } from '../utils';
+import COMMON_ROLES, { OWNER_ROLE, CHECKIN_APP_ROLE } from '../role-types';
+import { Coach } from '#libs/associated-coach/types';
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 const DeleteButton = withConfirm(
   (props: { deleteUser: () => void }) => (
@@ -28,11 +30,11 @@ const DeleteButton = withConfirm(
   ),
   'deleteUser',
   {
-    title: 'role:forms.user.delete.title',
-    cancel: 'role:forms.user.delete.cancel',
-    confirm: 'role:forms.user.delete.confirm',
+    title: 'forms.user.delete.title',
+    cancel: 'forms.user.delete.cancel',
+    confirm: 'forms.user.delete.confirm',
     Content: ({ t }: { t: TFunction }) => (
-      <p>{t('role:forms.user.delete.content')}</p>
+      <p>{t('forms.user.delete.content')}</p>
     ),
   },
 );
@@ -42,70 +44,136 @@ type OwnProps = {
   user: UserRole;
   roles: Role[];
   deleteUser: (id: number) => void;
+  coachList: Array<Coach>;
+  coachListLoading: boolean;
+  editUserSelectedCoaches: (coachIds: number[]) => void;
 };
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-const UserWithRole = (props: Props) => {
-  return (
-    <div className={props.classes.roleFieldContainer}>
-      <TextField
-        className={props.classes.roleField}
-        disabled
-        value={props.user.email}
-      />
-      <TextField
-        className={props.classes.roleField}
-        disabled
-        value={`${props.user.first_name} ${props.user.last_name}`}
-      />
-      <FormControl>
-        <Select
-          className={props.classes.roleField}
-          disabled={
-            props.user.role === OWNER_ROLE ||
-            props.user.role === CHECKIN_APP_ROLE
-          }
-          value={props.user.role || 0}
-          onChange={(ev: any) => {
-            props.handleRoleChange(parseInt(ev.target.value, 10));
-          }}
-          name="role"
-        >
-          {props.roles.map((role) => (
-            <MenuItem
-              disabled={role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE}
-              key={role.id}
-              value={role.id}
-            >
-              {getRoleName(role, props.t)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      {props.user.role !== OWNER_ROLE ? (
-        <DeleteButton t={props.t} deleteUser={props.deleteUser} />
-      ) : null}
-    </div>
-  );
+type State = {
+  selectedCoaches: CoachOption[];
 };
+
+class UserWithRole extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      selectedCoaches: null,
+    };
+  }
+
+  handleCoachesChange = () => {
+    const coachIds =
+      this.state.selectedCoaches?.map((coach: CoachOption) => coach.value) ??
+      [];
+    this.props.editUserSelectedCoaches(coachIds);
+  };
+
+  render() {
+    const {
+      classes,
+      t,
+      handleRoleChange,
+      user,
+      roles,
+      deleteUser,
+      coachList,
+      coachListLoading,
+    } = this.props;
+
+    const selectedCoachesInitial =
+      this.props.user.coaches_selected_in_role && this.props.coachList
+        ? getCoachOptionsFromCoachIds(
+            this.props.user.coaches_selected_in_role || [],
+            this.props.coachList || [],
+          )
+        : [];
+
+    return (
+      <div className={classes.roleFieldContainer}>
+        <TextField className={classes.roleField} disabled value={user.email} />
+        <TextField
+          className={classes.roleField}
+          disabled
+          value={`${user.first_name} ${user.last_name}`}
+        />
+        <FormControl>
+          <Select
+            className={classes.roleField}
+            disabled={
+              user.role === OWNER_ROLE || user.role === CHECKIN_APP_ROLE
+            }
+            value={user.role || 0}
+            onChange={(ev: any) => {
+              handleRoleChange(parseInt(ev.target.value, 10));
+            }}
+            name="role"
+          >
+            {roles.map((role) => (
+              <MenuItem
+                disabled={
+                  role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE
+                }
+                key={role.id}
+                value={role.id}
+              >
+                {getRoleName(role, t)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {user.role !== OWNER_ROLE ? (
+          <DeleteButton t={t} deleteUser={deleteUser} />
+        ) : null}
+        {!Object.values(COMMON_ROLES).includes(user.role) && (
+          <div className={classes.selectorField}>
+            <MaterialUISelector
+              placeholder={t('forms.user.selectCoach')}
+              isLoading={coachListLoading}
+              name="coaches"
+              menuPlacement="bottom"
+              value={this.state.selectedCoaches ?? selectedCoachesInitial}
+              onChange={(values: CoachOption[]) => {
+                this.setState(
+                  { selectedCoaches: values },
+                  this.handleCoachesChange,
+                );
+              }}
+              options={[...coachList]?.map((coach: Coach) => ({
+                value: coach.id,
+                label: coach.name,
+              }))}
+              isMulti
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
 const styles = (theme: Theme) => ({
   roleFieldContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   roleField: {
     marginRight: theme.spacing(1),
     minWidth: 200,
+  },
+  selectorField: {
+    marginRight: theme.spacing(1),
+    minWidth: 280,
   },
 });
 
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  withTranslation(),
+  withTranslation('role'),
 )(UserWithRole);

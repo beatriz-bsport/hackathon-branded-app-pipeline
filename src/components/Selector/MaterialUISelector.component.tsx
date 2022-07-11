@@ -38,6 +38,10 @@ export type OptionTypeBase =
     }
   | {
       label: string;
+      value: number;
+    }
+  | {
+      label: string;
       options: OptionTypeBase[];
     };
 

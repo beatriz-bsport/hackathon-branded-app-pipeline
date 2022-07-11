@@ -86,13 +86,16 @@ export function fetchCompanyUserRolesPaginated(
     }
   };
 }
-export function updateUserRole(userId: number, roleId: number) {
+export function updateUserRole(
+  userId: number,
+  params: { roleId?: number; coaches?: number[] },
+) {
   return async (dispatch: Dispatch) => {
     dispatch(userRoleUpdate.isLoading(true));
     dispatch(userRoleUpdate.error(null));
 
     try {
-      const response = await updateUserRoleAPI(userId, roleId);
+      const response = await updateUserRoleAPI(userId, params);
       const role = response.data;
       dispatch(userRoleUpdate.success(role));
       dispatch(userRoleUpdate.isLoading(false));
@@ -182,6 +185,7 @@ export function createCompanyRole(data: {
   name: string;
   description: string;
   permissions: Permission;
+  has_booking_override_control: boolean;
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(roleUpdate.isLoading(true));
@@ -202,6 +206,7 @@ export function updateCompanyRole(data: {
   name: string;
   description: string;
   permissions: Permission;
+  has_booking_override_control: boolean;
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(roleUpdate.isLoading(true));

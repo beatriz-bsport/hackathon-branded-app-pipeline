@@ -53,6 +53,7 @@ type Props = {
   member: Member,
   memberDetails: { [id: number]: Member },
   closeDialog: () => void,
+  isNotAllowedToOverbook?: Boolean,
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
@@ -192,9 +193,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
         <DialogTitle>{t('offer:maximumNumber')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t('offer:maximumNumberDescription', {
-              effectif: props.offer.effectif,
-            })}
+            {props.isNotAllowedToOverbook
+              ? t('role:overbookingForbidden')
+              : t('offer:maximumNumberDescription', {
+                  effectif: props.offer.effectif,
+                })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

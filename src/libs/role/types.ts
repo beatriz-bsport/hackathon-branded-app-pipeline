@@ -11,14 +11,16 @@ import {
   BOOKING_CREATED_BY_STAFF,
   BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/booking/components/constants';
+
 // FOR CREATING A STAFF USER
 export type UserRoleData = {
-  id: number;
+  id?: number;
   email: string;
   password: string;
   role: number;
   first_name: string;
   last_name: string;
+  coaches_in_role_ids: number[];
 };
 
 export type Permission = {
@@ -119,6 +121,12 @@ export type Role = {
   editable: boolean;
   company: number;
   permissions: Permission;
+  has_booking_override_control: boolean;
+};
+
+export type CoachOption = {
+  value: number;
+  label: string;
 };
 
 export type UserRole<R = number> = {
@@ -128,6 +136,7 @@ export type UserRole<R = number> = {
   last_name: string;
   is_restricted: boolean;
   role: R;
+  coaches_selected_in_role: number[];
 };
 
 export type RoleState = ErrorAndLoading & {

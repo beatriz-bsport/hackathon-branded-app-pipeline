@@ -15,13 +15,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 // @ts-ignore
 import PasswordInput from '../../../components/input/PasswordInput.component';
-import { Role, UserRoleData } from '../types';
+import { Role, UserRoleData, CoachOption } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
-import { OWNER_ROLE } from '../role-types';
+import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
+import { Coach } from '#libs/associated-coach/types';
 
 type OwnProps = {
   onSubmit: (
@@ -33,6 +35,8 @@ type OwnProps = {
   open: boolean;
   roles: Role[];
   onClose: () => void;
+  coachList: Array<Coach>;
+  coachListLoading: boolean;
 };
 
 type Props = OwnProps &
@@ -45,6 +49,7 @@ type State = {
   role?: number | null;
   first_name: string;
   last_name: string;
+  coaches: CoachOption[];
 };
 
 export class CreateStaffUser extends React.Component<Props, State> {
@@ -54,19 +59,33 @@ export class CreateStaffUser extends React.Component<Props, State> {
     role: null,
     last_name: '',
     first_name: '',
+    coaches: [],
   };
 
   onSubmit = (ev: any) => {
     ev.preventDefault();
-    const { email, password, role, last_name, first_name } = this.state;
+    const { email, password, role, last_name, first_name, coaches } =
+      this.state;
     if (!email || !password || !role) return;
-    this.props.onSubmit({ email, password, role, last_name, first_name });
+    const coaches_in_role_ids =
+      !Object.values(COMMON_ROLES).includes(role) && coaches
+        ? coaches.map((coach: CoachOption) => coach.value)
+        : [];
+    this.props.onSubmit({
+      email,
+      password,
+      role,
+      last_name,
+      first_name,
+      coaches_in_role_ids,
+    });
     this.setState({
       email: null,
       password: null,
       role: null,
       last_name: '',
       first_name: '',
+      coaches: [],
     });
   };
 
@@ -137,6 +156,30 @@ export class CreateStaffUser extends React.Component<Props, State> {
                   ))}
               </Select>
             </FormControl>
+            {!Object.values(COMMON_ROLES).includes(this.state.role) &&
+              !!this.state.role && (
+                <div className={classes.field}>
+                  <InputLabel htmlFor="rol-help" shrink>
+                    {t('forms.user.selectCoach')}
+                  </InputLabel>
+                  <MaterialUISelector
+                    placeholder={t('forms.user.selectCoach')}
+                    isLoading={this.props.coachListLoading}
+                    name="coaches"
+                    menuPlacement="top"
+                    menuPosition="fixed"
+                    value={this.state.coaches}
+                    onChange={(values: CoachOption[]) =>
+                      this.setState({ coaches: values })
+                    }
+                    options={[...this.props.coachList].map((coach: Coach) => ({
+                      value: coach?.id,
+                      label: coach?.name,
+                    }))}
+                    isMulti
+                  />
+                </div>
+              )}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.props.onClose} color="secondary">

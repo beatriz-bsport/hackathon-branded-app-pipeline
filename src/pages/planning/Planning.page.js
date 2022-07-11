@@ -38,34 +38,34 @@ import {
   BOOKING_STATUS_CANCELLED_BY_OFFER,
 } from '@bsport/common/lib/master-data/booking_status_code';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 
 import {
   getNumberOfMassDisabledOffer,
   getMassDisabledOfferInGroup,
   getSimilars as getSimilarsOffers,
-} from '../../libs/offer/selectors';
-import OfferCard from '../../components/offer/OfferCard.component';
-import TimeTable from '../../components/offer/TimeTable.component';
-import Calendar from '../../components/offer/Calendar.component';
-import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { fetchAllActivities } from '../../libs/meta-activity/actions';
+} from '#libs/offer/selectors';
+import OfferCard from '#components/offer/OfferCard.component';
+import TimeTable from '#components/offer/TimeTable.component';
+import Calendar from '#components/offer/Calendar.component';
+import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+import {
+  getActiveCoaches,
+  getCoachesSelectedInRole,
+} from '#libs/associated-coach/selectors';
+import { fetchAllActivities } from '#libs/meta-activity/actions';
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
-} from '../../libs/establishment/actions';
+} from '#libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
-} from '../../libs/establishment/selectors';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import {
-  Establishment,
-  EstablishmentGroup,
-} from '../../libs/establishment/types';
-import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
+} from '#libs/establishment/selectors';
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import BookingStatisticsCard from '#libs/booking/components/BookingStatisticsCard.component';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
@@ -80,7 +80,7 @@ import {
   editOffers as editOffersActions,
   disableOffer as disableOfferAction,
   hardDeleteOffers as hardDeleteOffersAction,
-} from '../../libs/offer/actions';
+} from '#libs/offer/actions';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
@@ -92,50 +92,50 @@ import {
   getAllCustomLevels,
 } from '#libs/level/selectors';
 import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#libs/reporting/actions';
-import { setCalendarFilter as setCalendarFilterAction } from '../../libs/user-preference/actions';
+import { setCalendarFilter as setCalendarFilterAction } from '#libs/user-preference/actions';
 
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
-import { getAllMembers, withTags } from '../../libs/member/selectors';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
+import { getAllMembers, withTags } from '#libs/member/selectors';
 
-import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '../../libs/booking/actions';
-import { getOfferBookingList } from '../../libs/booking/selectors';
+import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#libs/booking/actions';
+import { getOfferBookingList } from '#libs/booking/selectors';
 
-import { fetchBookingStatistics as fetchBookingStatisticsAction } from '../../libs/statistics/actions';
+import { fetchBookingStatistics as fetchBookingStatisticsAction } from '#libs/statistics/actions';
 
 import {
   getBookingRelatedStatisticLoading,
   getStats,
 } from '../../state/stats/selectors';
 
-import type { Offer, Coach } from '../../api/types';
-import type { OfferFilter } from '../../libs/offer/types';
+import type { Offer, Coach } from '#api/types';
+import type { OfferFilter } from '#libs/offer/types';
 
-import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
-import OfferEditForm from '../../libs/offer/OfferEditForm.component';
-import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
-import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
-import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import OfferEditForm from '#libs/offer/OfferEditForm.component';
+import MassDisablerDialog from '#libs/offer/components/MassDisablerDialog.component';
+import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
+import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
 import { DATE_FORMAT } from '../../utils/datetime';
 
-import CoachSelector from '../../libs/associated-coach/components/coach-selector/CoachSelector.component';
-import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
-import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
-import EstablishmentGroupSelector from '../../libs/establishment/components/EstablishmentGroupSelector.component';
+import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
+import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
+import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
+import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
 
-import { monitorBackgroundTask } from '../../libs/background-task/actions';
-import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
+import CheckPermission from '#libs/role/components/CheckPermission.component';
 import { PermissionContext } from '../../context';
 import {
   getAvailableRoomBlueprints,
   getRoomBlueprints,
-} from '../../libs/spot-scheduling/selector';
-import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
-import { RoomBlueprint } from '../../libs/spot-scheduling/types';
-import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
-import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
-import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
+} from '#libs/spot-scheduling/selector';
+import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
+import { RoomBlueprint } from '#libs/spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
+import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { OptionCallback } from '../../state/types';
-import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
@@ -350,6 +350,7 @@ type Props = {
     options: OptionCallback,
   ) => void,
   deletingOffer: boolean,
+  coachesSelectedInRole: Coach[],
 };
 
 type State = {
@@ -358,6 +359,10 @@ type State = {
   createOfferModalOpened: boolean,
   restoreModalOpen: boolean,
 };
+
+const FILTER_COACH = 0;
+const FILTER_ESTABLISHMENT = 1;
+const FILTER_ACTIVITY = 2;
 
 export class Planning extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -405,8 +410,20 @@ export class Planning extends PureComponent<Props, State> {
       const filterEstablishments = this.props.establishments?.filter((e) =>
         this.props.offerFilters?.establishments?.includes(e.id),
       );
+      let coachListBase: number[] = this.props.offerFilters?.coaches || [];
+      if (this.props.coachesSelectedInRole?.length > 0) {
+        const coachIdListToFilter = this.props.coachesSelectedInRole.map(
+          (coach: Coach) => coach.id,
+        );
+        coachListBase =
+          coachListBase.length === 0
+            ? coachIdListToFilter
+            : coachListBase.filter((coachId: number) =>
+                coachIdListToFilter.includes(coachId),
+              );
+      }
       const filterCoaches = this.props.coaches?.filter((c) =>
-        this.props.offerFilters?.coaches?.includes(c.id),
+        coachListBase?.includes(c.id),
       );
       const filterActivities = this.props.metaActivities?.filter((a) =>
         this.props.offerFilters?.activity__in?.includes(a.id),
@@ -884,6 +901,38 @@ export class Planning extends PureComponent<Props, State> {
     }
   };
 
+  setCalendarFilter = (
+    newValues: Array<{ label: string, value: number | string }>,
+    identifier: number,
+  ) => {
+    switch (identifier) {
+      case FILTER_COACH:
+        this.props.setCalendarFilter({
+          ...this.props.offerFilters,
+          coaches:
+            newValues?.length === 0 &&
+            this.props.coachesSelectedInRole?.length > 0
+              ? this.props.coachesSelectedInRole.map((coach: Coach) => coach.id)
+              : newValues.map((e) => e.value),
+        });
+        break;
+      case FILTER_ESTABLISHMENT:
+        this.props.setCalendarFilter({
+          ...this.props.offerFilters,
+          establishments: newValues.map((e) => e.value),
+        });
+        break;
+      case FILTER_ACTIVITY:
+        this.props.setCalendarFilter({
+          ...this.props.offerFilters,
+          activity__in: newValues.map((e) => e.value),
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   searchBar = () => {
     const {
       theme,
@@ -892,13 +941,17 @@ export class Planning extends PureComponent<Props, State> {
       establishmentsLoading,
       offerFilters,
       classes,
-      setCalendarFilter,
       coachesLoading,
       metaActivities,
       activitiesLoading,
+      coachesSelectedInRole,
     } = this.props;
 
-    const coachList = this.props.coaches.map((e) => ({
+    const coachBaselist =
+      coachesSelectedInRole?.length > 0
+        ? coachesSelectedInRole
+        : this.props.coaches;
+    const coachList = coachBaselist.map((e) => ({
       ...e,
       user: { name: e.name },
     }));
@@ -938,12 +991,7 @@ export class Planning extends PureComponent<Props, State> {
             selectedCoaches={
               this.props.filterVerification && offerFilters.coaches
             }
-            selectOption={(ev) => {
-              setCalendarFilter({
-                ...offerFilters,
-                coaches: ev.map((e) => e.value),
-              });
-            }}
+            selectOption={(ev) => this.setCalendarFilter(ev, FILTER_COACH)}
             isLoading={coachesLoading}
           />
         </Grid>
@@ -957,7 +1005,7 @@ export class Planning extends PureComponent<Props, State> {
               selectOption={(ev: SelectOptions) => {
                 const { establishments: _establishments, ...rest } =
                   offerFilters;
-                setCalendarFilter({
+                this.props.setCalendarFilter({
                   ...rest,
                   establishment_group__in: ev.map((e) => e.value),
                 });
@@ -976,12 +1024,9 @@ export class Planning extends PureComponent<Props, State> {
             selectedEstablishments={
               this.props.filterVerification && offerFilters.establishments
             }
-            selectOption={(ev) => {
-              setCalendarFilter({
-                ...offerFilters,
-                establishments: ev.map((e) => e.value),
-              });
-            }}
+            selectOption={(ev) =>
+              this.setCalendarFilter(ev, FILTER_ESTABLISHMENT)
+            }
             isLoading={establishmentsLoading}
           />
         </Grid>
@@ -998,12 +1043,7 @@ export class Planning extends PureComponent<Props, State> {
             selectedMetaActivities={
               this.props.filterVerification && offerFilters.activity__in
             }
-            selectOption={(ev) => {
-              setCalendarFilter({
-                ...offerFilters,
-                activity__in: ev.map((e) => e.value),
-              });
-            }}
+            selectOption={(ev) => this.setCalendarFilter(ev, FILTER_ACTIVITY)}
             isLoading={activitiesLoading}
           />
         </Grid>
@@ -1226,6 +1266,7 @@ export default compose(
 
       coaches: getActiveCoaches(state),
       coachesLoading: state.coach.loading,
+      coachesSelectedInRole: getCoachesSelectedInRole(state),
       numberOfMassDisabledOfferLoading:
         state.offer.numberOfMassDisabledOffer.loading ||
         state.offer.numberOfMassDisabledOfferInGroup.loading,

@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import memoize from 'memoize-one';
 
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
@@ -17,7 +18,10 @@ import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
 import { getAllPageEstablishments } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
-import { getActiveCoaches } from '../libs/associated-coach/selectors';
+import {
+  getActiveCoaches,
+  getCoachesSelectedInRole,
+} from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
@@ -56,6 +60,13 @@ import {
   updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
 } from '../libs/dashboard/actions';
 import { CompanyTheme } from '../libs/theme/types';
+import { Coach } from '../libs/associated-coach/types';
+import { Offer } from '../libs/offer/types';
+import {
+  PrivateBooking,
+  AvailabilitySlot,
+  ResourceData,
+} from '../libs/private-service/types';
 
 type Props = {
   classes: Object,
@@ -85,6 +96,7 @@ type Props = {
 
   customEventData: any,
   availableCoaches: Array<Coach>,
+  coachesSelectedInRole: Array<Coach>,
   createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void,
   resetAvailabilitySlots: () => void,
   fetchAvailabilitySlots: (params: any, options: OptionCallback) => void,
@@ -227,25 +239,108 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.onCancelAvailabilityUpdate();
   };
 
+  filteredDataListsOnCoaches = memoize(
+    (
+      coachSelectedInRoleList: Array<Coach>,
+      previousOfferList: Array<Offer>,
+      previousAvailabilitySlotList: Array<AvailabilitySlot>,
+      previousPrivateBookingList: Array<PrivateBooking>,
+      previousResourceData: Array<ResourceData>,
+    ) => {
+      const coachesIdsToFilter = coachSelectedInRoleList.map(
+        (coach: Coach) => coach.id,
+      );
+      const associatedCoachesIdsToFilter = coachSelectedInRoleList.map(
+        (coach: Coach) => coach.associated_coach_id,
+      );
+      const offerList = previousOfferList.filter((offer: Offer) =>
+        coachesIdsToFilter.includes(offer.coach),
+      );
+      const availabilitySlotList = previousAvailabilitySlotList.filter(
+        (slot: AvailabilitySlot) => coachesIdsToFilter.includes(slot.coach),
+      );
+      const privateBookingList = previousPrivateBookingList.filter(
+        (privateBooking: PrivateBooking) =>
+          associatedCoachesIdsToFilter.includes(
+            privateBooking.associated_coach,
+          ),
+      );
+      const resourceAvailable = previousResourceData.map(
+        (resourceData: ResourceData) => {
+          if (resourceData.datatype === 'associated_coach') {
+            const filteredResourceData = { ...resourceData };
+            filteredResourceData.data = resourceData.data.filter(
+              (coachResource) =>
+                associatedCoachesIdsToFilter.includes(
+                  coachResource.resource_id,
+                ),
+            );
+            return filteredResourceData;
+          }
+          return resourceData;
+        },
+      );
+      return [
+        coachSelectedInRoleList,
+        offerList,
+        availabilitySlotList,
+        privateBookingList,
+        resourceAvailable,
+      ];
+    },
+  );
+
   render() {
     const { classes } = this.props;
+
+    let coachList: Coach[];
+    let offerList: Offer[];
+    let availabilitySlotList: AvailabilitySlot[];
+    let privateBookingList: PrivateBooking[];
+    let resourceAvailable: ResourceData[];
+    const filterOnCoaches = this.props.coachesSelectedInRole?.length > 0;
+
+    if (filterOnCoaches) {
+      const lists = this.filteredDataListsOnCoaches(
+        this.props.coachesSelectedInRole,
+        this.props.offerList,
+        this.props.availabilitySlots,
+        this.props.privateBookingList,
+        this.props.resourceData,
+      );
+      [
+        coachList,
+        offerList,
+        availabilitySlotList,
+        privateBookingList,
+        resourceAvailable,
+      ] = lists;
+    } else {
+      coachList = this.props.availableCoaches;
+      // eslint-disable-next-line prefer-destructuring
+      offerList = this.props.offerList;
+      availabilitySlotList = this.props.availabilitySlots;
+      // eslint-disable-next-line prefer-destructuring
+      privateBookingList = this.props.privateBookingList;
+      resourceAvailable = this.props.resourceData;
+    }
     return (
       <div className={classes.container}>
         <PrivateCalendarWithControls
           enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
           disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
-          availabilitySlots={this.props.availabilitySlots}
+          availabilitySlots={availabilitySlotList}
           timezone={this.props.companyTheme.timezone_name}
           customEventList={this.props.customEventList}
-          privateBookings={this.props.privateBookingList}
+          privateBookings={privateBookingList}
           createCustomEvent={this.props.onRequestCustomEvent}
           disableAvailabilitySlotDisplay
           collapsResourceSelector
-          resourceAvailable={this.props.resourceData}
+          resourceAvailable={resourceAvailable}
           setResourceFiltered={this.props.setResourceFiltersArray}
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
-          offerList={this.props.offerList}
+          offerList={offerList}
           resourcesByDatatype={this.props.resourcesByDatatype}
           refreshOffers={this.props.fetchOfferList}
           refreshPrivateBookings={this.props.fetchPrivateBookingList}
@@ -258,10 +353,11 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           scheduleFilter={this.props.scheduleFilter}
           setScheduleFilter={this.props.setScheduleFilter}
+          coachesSelectedInRole={this.props.coachesSelectedInRole}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
-            resourceAvailable={this.props.resourceData}
+            resourceAvailable={resourceAvailable}
             onSubmit={this.submitAvailabilitySlotUpdate}
             onClose={this.onCancelAvailabilityUpdate}
             open={!!this.state.updateAvailabilitySlotData}
@@ -269,7 +365,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
         ) : null}
         {this.props.customEventData && (
           <CustomEvenFormDialog
-            coaches={this.props.availableCoaches}
+            coaches={coachList}
             onSubmit={this.props.createOrUpdateCustomEvent}
             onClose={this.props.closeCustomEventDialog}
             open
@@ -311,11 +407,18 @@ export default compose(
         },
         {
           datatype: 'coach',
-          items: getActiveCoaches(state).map((c) => ({
-            title: c.name,
-            id: c.id,
-            color: c.color,
-          })),
+          items:
+            state.auth.coaches_selected_in_role?.length > 0
+              ? getCoachesSelectedInRole(state).map((c) => ({
+                  title: c.name,
+                  id: c.id,
+                  color: c.color,
+                }))
+              : getActiveCoaches(state).map((c) => ({
+                  title: c.name,
+                  id: c.id,
+                  color: c.color,
+                })),
         },
       ],
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
@@ -334,6 +437,7 @@ export default compose(
         return true;
       }),
       availableCoaches: getActiveCoaches(state),
+      coachesSelectedInRole: getCoachesSelectedInRole(state),
       customEventList: getCustomEventList(state, periodFilter),
       resourceData: getResourceDataList(state),
       resourceDataLoading: state.privateService.resource.loading,

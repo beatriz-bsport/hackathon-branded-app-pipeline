@@ -49,6 +49,8 @@ import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
 
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
+import { getUserRole } from '#libs/role/selectors';
 
 export default compose(
   connect(
@@ -76,6 +78,7 @@ export default compose(
       )(state, props.offer.group?.id ?? props.offer.group),
       compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
       compatiblePacksLoading: state.offer.compatiblePacks.loading,
+      userRole: getUserRole(state),
     }),
     {
       fetchPaymentPackBulk,
@@ -98,6 +101,7 @@ export default compose(
       fetchOffersInGroup: fetchOffersInGroupAction,
       fetcOffersBulk: fetchOfferBulkAction,
       fetchCompatiblePacks: fetchCompatiblePacksAction,
+      fetchCompanyUserRoles,
     },
   ),
 

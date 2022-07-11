@@ -62,7 +62,16 @@ export class ResourceAllocationConfirmDialog extends React.Component<
     if (!data) {
       return false;
     }
-    return !data.find(
+    // if we updating date_start of private_booking, the current slot turns to be available
+    const allIntervals = this.props.dateStart
+      ? data.concat([
+          [
+            moment(this.props.privateBooking.date_start).format(),
+            moment(this.props.privateBooking.date_end).format(),
+          ],
+        ])
+      : data;
+    return !allIntervals.find(
       (interval: string[]) =>
         moment(
           this.props.dateStart || this.props.privateBooking.date_start,

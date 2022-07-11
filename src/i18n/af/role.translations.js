@@ -15,6 +15,8 @@ exports.default = {
     'Un accès staff permet de se connecter à https://backoffice.bsport.io via ordinateur ou mobile',
   explainStaffDoNot:
     "Un accès staff ne permet pas de se connecter à l'application mobile (professeur et élèves uniquement)",
+  overbookingForbidden:
+    'Les droits qui vous ont été attribués en temps que staff ne vous permettent pas de dépasser le nombre maximum de réservations.',
   forms: {
     user: {
       create: {
@@ -41,6 +43,7 @@ exports.default = {
         cancel: 'Annuler',
         confirm: 'Supprimer',
       },
+      selectCoach: 'Selectionner les professeurs',
     },
     role: {
       create: {
@@ -54,6 +57,9 @@ exports.default = {
         restrictedUrlPlaceholder: 'ex: /member/',
         permissions: 'Permissions',
         showAdvanced: 'Voir plus',
+        authorizeManagerAction: "Donner au staff le contrôle d'un manager",
+        authorizeManagerExplain:
+          "Le staff portant ce rôle pourra forcer les actions comme le manager : forcer la réservation d'une séance dans une salle indisponible, forcer la réservation avec un professeur indisponible, dépasser le nombre maximal de membres inscrits à une séance.",
       },
       delete: {
         title: 'Suppression rôle',

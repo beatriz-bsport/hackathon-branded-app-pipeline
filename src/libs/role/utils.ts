@@ -6,7 +6,8 @@ import mergeWith from 'lodash/mergeWith';
 import get from 'lodash/get';
 
 import { URLS_PERMISSIONS } from './constants';
-import { Permission, ProtectedUrls, Role } from './types';
+import { Permission, ProtectedUrls, Role, CoachOption } from './types';
+import { Coach } from '#libs/associated-coach/types';
 
 export const getRoleName = (role: Role, t: TFunction) => {
   if (role?.editable) {
@@ -146,3 +147,14 @@ export const deepMerge = (
     return a;
   });
 };
+
+export const getCoachOptionsFromCoachIds = memoize(
+  (ids: number[], coachList: Coach[]): CoachOption[] => {
+    return coachList
+      .filter((coach: Coach) => ids.includes(coach.id))
+      .map((coach: Coach) => ({
+        value: coach.id,
+        label: coach.name,
+      }));
+  },
+);

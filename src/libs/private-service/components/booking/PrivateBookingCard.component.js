@@ -136,6 +136,10 @@ export const PrivateBookingCard = (props: Props) => {
   const onSubmit = () =>
     props.updateTime(props.updatedTime, {
       onSuccess: () => props.closeUpdateTimeForm(),
+      onError: () => {
+        props.closeUpdateTimeForm();
+        setOpenAllocationModal(false);
+      },
     });
 
   if (

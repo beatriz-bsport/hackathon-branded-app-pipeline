@@ -30,7 +30,9 @@ import {
 import type { Coach } from '../../api/types';
 import {
   getActiveCoaches,
+  getCoachesSelectedInRole,
   getInactiveCoaches,
+  getInactiveCoachesSelectedInRole,
 } from '../../libs/associated-coach/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import FuzeSearch from '../../components/FuzeSearch.component';
@@ -43,6 +45,8 @@ type Props = {
   loading: boolean,
   associatedCoaches: Array<Coach>,
   inactiveCoaches: Array<Coach>,
+  coachesSelectedInRole: Array<Coach>,
+  inactiveCoachesSelectedInRole: Array<Coach>,
 
   fetchAssociatedCoachesList: () => void,
 
@@ -106,16 +110,34 @@ export class CoachList extends React.Component<Props, State> {
         />
       );
     }
+
+    let coachesList = this.props.associatedCoaches;
+    if (this.props.coachesSelectedInRole?.length > 0) {
+      coachesList = coachesList.filter((coach: Coach) =>
+        this.props.coachesSelectedInRole.includes(coach),
+      );
+    }
+
+    let inactiveCoachesList = this.props.inactiveCoaches;
+    if (
+      this.props.inactiveCoachesSelectedInRole?.length > 0 ||
+      (this.props.coachesSelectedInRole?.length > 0 &&
+        this.props.inactiveCoachesSelectedInRole?.length === 0)
+    ) {
+      inactiveCoachesList = inactiveCoachesList.filter((coach: Coach) =>
+        this.props.inactiveCoachesSelectedInRole.includes(coach),
+      );
+    }
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
-        {this.props.associatedCoaches.length > 0 ? (
+        {coachesList.length > 0 ? (
           <div className={this.props.classes.search}>
             <FuzeSearch
               searchText={this.state.searchText}
               clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
-              items={this.props.associatedCoaches}
+              items={coachesList}
               placeholder={t('coach:search')}
               searchFields={['name', 'email']}
               searchResult={this.state.searchResult}
@@ -173,7 +195,7 @@ export class CoachList extends React.Component<Props, State> {
         )}
         <Paper>
           <List component="nav" dense disablePadding>
-            {this.props.associatedCoaches.map((coach) => (
+            {coachesList.map((coach) => (
               <CoachListItem
                 divider
                 coach={coach}
@@ -191,24 +213,24 @@ export class CoachList extends React.Component<Props, State> {
           />
         </Paper>
 
-        {(this.props.inactiveCoaches || []).length ? (
+        {(inactiveCoachesList || []).length ? (
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}
               onClick={this.onShowDisabled}
-              disabled={!(this.props.inactiveCoaches || []).length}
+              disabled={!(inactiveCoachesList || []).length}
             >
               <Typography
                 variant="h5"
                 color={
-                  (this.props.inactiveCoaches || []).length
+                  (inactiveCoachesList || []).length
                     ? 'default'
                     : 'textSecondary'
                 }
                 className={this.props.classes.titleContainer}
               >
                 {`${t('coach:inactiveCoaches')} (${
-                  (this.props.inactiveCoaches || []).length
+                  (inactiveCoachesList || []).length
                 })`}
               </Typography>
 
@@ -226,7 +248,7 @@ export class CoachList extends React.Component<Props, State> {
             >
               <Paper>
                 <List component="nav" dense disablePadding>
-                  {this.props.inactiveCoaches.map((coach) => (
+                  {inactiveCoachesList.map((coach) => (
                     <CoachListItem
                       divider
                       coach={coach}
@@ -313,6 +335,8 @@ export default compose(
       loading: state.coach.loading,
       associatedCoaches: getActiveCoaches(state),
       inactiveCoaches: getInactiveCoaches(state),
+      coachesSelectedInRole: getCoachesSelectedInRole(state),
+      inactiveCoachesSelectedInRole: getInactiveCoachesSelectedInRole(state),
     }),
     {
       fetchAssociatedCoachesList,

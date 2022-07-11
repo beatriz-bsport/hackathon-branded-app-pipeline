@@ -68,7 +68,11 @@ import {
   fetchMember,
 } from '../../member/actions';
 
-import { getActiveCoaches } from '../../associated-coach/selectors';
+import {
+  getActiveCoaches,
+  getCoachesSelectedInRole,
+} from '#libs/associated-coach/selectors';
+import { Coach } from '#libs/associated-coach/types';
 import { getAllEstablishments } from '../../establishment/selectors';
 
 import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
@@ -167,6 +171,7 @@ type Props = {
   similarOffers: Array<Offer>,
 
   coaches: Array<Coach>,
+  coachesSelectedInRole: Array<Coach>,
   establishments: Array<Establishment>,
 
   openDisablePrivateBookingModal: () => void,
@@ -253,6 +258,7 @@ type Props = {
   createLevel: (data: Level, options?: OptionCallback<Level>) => void,
   deleteLevel: (id: number, options?: OptionCallback) => void,
 };
+
 type State = {
   clientSecretLoading: boolean,
   clientSecret: ?string,
@@ -361,11 +367,15 @@ export class CalendarEventDetail extends React.Component<Props, State> {
         </div>
       );
     }
+    const filteredCoaches =
+      this.props.coachesSelectedInRole?.length > 0
+        ? this.props.coachesSelectedInRole
+        : this.props.coaches;
     if (privateBooking) {
       return this.props.isUpdateCoachFormOpen ? (
         <PrivateBookingUpdateCoachDialog
           privateBooking={privateBooking}
-          coaches={this.props.coaches}
+          coaches={filteredCoaches}
           updatePrivateBookingCoach={
             this.props.updatePrivateBookingCoachHandler
           }
@@ -541,6 +551,10 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 
   render() {
     const { offer } = this.props;
+    const filteredCoaches =
+      this.props.coachesSelectedInRole?.length > 0
+        ? this.props.coachesSelectedInRole
+        : this.props.coaches;
     return (
       <div>
         <Popover
@@ -620,7 +634,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             ) : (
               <OfferEditForm
                 offer={offer}
-                coaches={this.props.coaches}
+                coaches={filteredCoaches}
                 establishments={this.props.establishments}
                 roomBlueprints={this.props.roomBlueprints}
                 allRoomBlueprints={this.props.allRoomBlueprints}
@@ -705,6 +719,7 @@ const OfferEditorContainer = compose(
       offerEditLoading: state.establishment.loading || state.coach.loading,
       similarOffers: getSimilarsOffers(state),
       coaches: getActiveCoaches(state),
+      coachesSelectedInRole: getCoachesSelectedInRole(state),
       establishments: getAllEstablishments(state),
       metaActivities: getEnabledMetaActivities(state),
       roomBlueprints: getRoomBlueprints(state),

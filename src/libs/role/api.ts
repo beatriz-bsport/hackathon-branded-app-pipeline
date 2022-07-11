@@ -20,8 +20,18 @@ export const fetchCompanyUserRoles = async (params?: {
   return getAuth(`${API_V1_URI}/role/user/${buildUrlParams(params)}`);
 };
 
-export const updateUserRole = async (userId: number, roleId: number) => {
-  return patchAuth(`${API_V1_URI}/role/user/${userId}/`, { role: roleId });
+export const updateUserRole = async (
+  userId: number,
+  params: { roleId?: number; coaches?: number[] },
+) => {
+  if (params.roleId) {
+    return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
+      role: params.roleId,
+    });
+  }
+  return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
+    coaches_in_role_ids: params.coaches,
+  });
 };
 
 export const deleteStaffUser = async (userId: number) => {
@@ -40,6 +50,7 @@ export const createCompanyRole = async (data: {
   name: string;
   description: string;
   permissions: string;
+  has_booking_override_control: boolean;
 }) => {
   return postAuth(`${API_V1_URI}/role/role/`, data);
 };

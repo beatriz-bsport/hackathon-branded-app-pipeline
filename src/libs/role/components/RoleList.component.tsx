@@ -32,6 +32,7 @@ type OwnProps = {
     name: string;
     description: string;
     permissions: Permission;
+    has_booking_override_control: boolean;
   }) => void;
   onEditRole: (role: Role) => void;
   onDeleteRole: (role: Role) => void;

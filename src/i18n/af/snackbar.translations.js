@@ -520,6 +520,20 @@ exports.default = {
       errorEmail:
         'Cet email est déjà utilisé pour un compte élève ou professeur',
     },
+    noMasterControl: {
+      overbookingNotAllowed:
+        'Vous ne pouvez pas dépasser le nombre maximum de réservations.',
+      overbookingNotAllowedInWaitingList:
+        "Vous ne pouvez pas dépasser la capacité maximale de la liste d'attente.",
+      overrideEstablishmentNotAllowed:
+        'Vous ne pouvez pas forcer le rendez-vous dans cette salle.',
+      overrideCoachNotAllowed:
+        'Vous ne pouvez pas forcer le rendez-vous avec ce professeur.',
+      changeDateEstablishmentUnaivalable:
+        "Impossible de réserver sur cette date : la salle n'est pas libre.",
+      changeDateCoachUnaivalable:
+        "Impossible de réserver sur cette date : le professeur n'est pas libre.",
+    },
   },
   shop: {
     subShop: {

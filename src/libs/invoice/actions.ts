@@ -40,6 +40,7 @@ import type { Dispatch, OptionCallback } from '../../state/types';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 import type { Invoice } from './types';
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '../role/constants';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -209,6 +210,13 @@ export function createQuickInvoice(
       }
     } catch (err) {
       dispatch(quickInvoiceActions.error(err));
+      if (
+        err.response?.status === 499 &&
+        err.response?.data?.error_code ===
+          EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED
+      ) {
+        dispatch(snackbarError('role.noMasterControl.overbookingNotAllowed'));
+      }
       if (options && options.onError) {
         options.onError(err);
       }

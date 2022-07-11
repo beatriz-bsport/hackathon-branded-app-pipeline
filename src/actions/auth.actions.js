@@ -83,6 +83,7 @@ export function fetchAccessLevel(
         is_franchisor,
         is_coach,
         role,
+        coaches_selected_in_role,
         name,
         username,
         has_completed_account_configuration_on_boarding,
@@ -100,6 +101,7 @@ export function fetchAccessLevel(
             is_consumer,
             is_franchisor,
             role,
+            coaches_selected_in_role,
             name,
             has_completed_account_configuration_on_boarding,
           },
@@ -158,8 +160,15 @@ export function fetchAccessLevelWithoutConnect(
   return async (dispatch: Dispatch) => {
     try {
       const response = await accessLevelAPI(token);
-      const { is_manager, is_consumer, is_franchisor, role, name, username } =
-        response.data;
+      const {
+        is_manager,
+        is_consumer,
+        is_franchisor,
+        role,
+        coaches_selected_in_role,
+        name,
+        username,
+      } = response.data;
 
       dispatch({
         type: types.CHECK_ACCESS_LEVEL,
@@ -169,6 +178,7 @@ export function fetchAccessLevelWithoutConnect(
           is_consumer,
           is_franchisor,
           role,
+          coaches_selected_in_role,
           name,
           username,
         },
@@ -310,6 +320,7 @@ export function setLogin(
     is_franchisor,
     is_coach,
     role,
+    coaches_selected_in_role,
     name,
     has_completed_account_configuration_on_boarding,
   }: {
@@ -320,6 +331,7 @@ export function setLogin(
     is_franchisor: boolean,
     is_coach: boolean,
     role: number,
+    coaches_selected_in_role: number[],
     name: string,
     has_completed_account_configuration_on_boarding: boolean,
   },
@@ -331,6 +343,7 @@ export function setLogin(
     name: name || '',
     token,
     role,
+    coaches_selected_in_role,
     is_manager,
     is_coach,
     is_consumer,

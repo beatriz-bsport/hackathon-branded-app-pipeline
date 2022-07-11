@@ -13,6 +13,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
@@ -42,6 +44,7 @@ type State = {
   description: string;
   permissions: Permission;
   restrictedPathNew: string;
+  hasBookingOverrideControl: boolean;
   showAdvanced: boolean;
 };
 
@@ -165,6 +168,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       permissions: defaultPermissions,
       restrictedPathNew: '',
       showAdvanced: false,
+      hasBookingOverrideControl: true,
     };
 
     if (props.role) {
@@ -174,6 +178,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         cloneDeep(props.role.permissions),
         setAllValuesInObject(defaultPermissions, false),
       ) as Permission;
+      state.hasBookingOverrideControl = props.role.has_booking_override_control;
     }
 
     if (!state.permissions.restrictedPaths) {
@@ -186,19 +191,22 @@ export class CreateRoleDialog extends React.Component<Props, State> {
   onSubmit = (ev: any) => {
     ev.preventDefault();
 
-    const { name, description, permissions } = this.state;
+    const { name, description, permissions, hasBookingOverrideControl } =
+      this.state;
     if (!name || !permissions) return;
     this.props.onSubmit({
       ...this.props.role,
       name,
       description,
       permissions,
+      has_booking_override_control: hasBookingOverrideControl,
     });
     this.setState({
       name: '',
       description: '',
       permissions: defaultPermissions,
       restrictedPathNew: '',
+      hasBookingOverrideControl: true,
     });
   };
 
@@ -221,6 +229,12 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         permissions,
       };
     });
+  };
+
+  onCheckManagerControl = () => {
+    this.setState((prevState: State) => ({
+      hasBookingOverrideControl: !prevState.hasBookingOverrideControl,
+    }));
   };
 
   onClickRemoveRestrictedPath = (i: number) => {
@@ -364,6 +378,33 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     <AddIcon color={disabled ? 'disabled' : 'primary'} />
                   </ButtonBase>
                 </div>
+                {!disabled && (
+                  <>
+                    <div className={classes.checkboxManagerContainer}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            indeterminate={
+                              this.state.hasBookingOverrideControl === undefined
+                            }
+                            checked={!!this.state.hasBookingOverrideControl}
+                            onChange={this.onCheckManagerControl}
+                            name="checkManagerControl"
+                            color="secondary"
+                          />
+                        }
+                        label={
+                          <Typography>
+                            {t('forms.role.create.authorizeManagerAction')}
+                          </Typography>
+                        }
+                      />
+                    </div>
+                    <Typography variant="caption" color="textSecondary">
+                      {t('forms.role.create.authorizeManagerExplain')}
+                    </Typography>
+                  </>
+                )}
               </>
             )}
           </DialogContent>
@@ -387,6 +428,11 @@ export class CreateRoleDialog extends React.Component<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
+  checkboxManagerContainer: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+  },
   checkboxesContainer: {
     display: 'flex',
     flexDirection: 'column',

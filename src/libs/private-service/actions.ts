@@ -121,6 +121,12 @@ import {
   PrivatePass,
 } from './types';
 import { PrivateBookingFilter } from '#libs/user-preference/types';
+import {
+  EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED,
+  EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED,
+  EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE,
+  EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE,
+} from '#libs/role/constants';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -1940,12 +1946,29 @@ export function registerPrivateBooking(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      if (err.response.status === 499 && err.response.data?.error_code) {
-        dispatch(
-          snackbarWarning(
-            `privateBooking.register.warning.${err.response.data.error_code}`,
-          ),
-        );
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        const error_code = err.response.data.error_code;
+        switch (error_code) {
+          case EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED:
+            dispatch(
+              snackbarError('role.noMasterControl.overrideCoachNotAllowed'),
+            );
+            break;
+          case EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED:
+            dispatch(
+              snackbarError(
+                'role.noMasterControl.overrideEstablishmentNotAllowed',
+              ),
+            );
+            break;
+          default:
+            dispatch(
+              snackbarWarning(
+                `privateBooking.register.warning.${err.response.data.error_code}`,
+              ),
+            );
+            break;
+        }
       } else {
         dispatch(privateBookingCreateOrUpdateActions.error(null));
         dispatch(snackbarError('privateBooking.register.error'));
@@ -1977,6 +2000,26 @@ export function updatePrivateBookingDatetime(
     } catch (err) {
       console.error(err);
       dispatch(privateBookingCreateOrUpdateActions.error(null));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        const error_code = err.response.data.error_code;
+        switch (error_code) {
+          case EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE:
+            dispatch(
+              snackbarError('role.noMasterControl.changeDateCoachUnaivalable'),
+            );
+            break;
+          case EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE:
+            dispatch(
+              snackbarError(
+                'role.noMasterControl.changeDateEstablishmentUnaivalable',
+              ),
+            );
+            break;
+          default:
+            dispatch(snackbarError('privateBooking.register.error'));
+            break;
+        }
+      }
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));

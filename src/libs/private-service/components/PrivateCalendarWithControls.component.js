@@ -98,6 +98,7 @@ type Props = {
 
   scheduleFilter: ScheduleFilter,
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
+  coachesSelectedInRole?: Array<Coach>,
 };
 
 export const PrivateCalendarWithControls = (props: Props) => {
@@ -295,6 +296,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
             props.closePrivateBooker();
             if (props.refreshPrivateBookings) props.refreshPrivateBookings();
           }}
+          coachesSelectedInRole={props.coachesSelectedInRole || []}
         />
         {props.createCustomEvent && (
           <FabPrivateCalendar

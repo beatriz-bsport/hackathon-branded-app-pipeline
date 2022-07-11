@@ -115,3 +115,18 @@ export const coachPerformanceSelector = {
 export const getFreshCoachIds = createSelector(getAllCoachesDict, (coachDict) =>
   Object.keys(coachDict).map((k) => parseInt(k, 10)),
 );
+
+export const getAllCoachesSelectedInRole = (state: RootState) =>
+  state.auth.coaches_selected_in_role;
+
+export const getCoachesSelectedInRole = createSelector(
+  [getActiveCoaches, getAllCoachesSelectedInRole],
+  (allCoaches, selectedCoaches) =>
+    allCoaches.filter((c) => selectedCoaches?.includes(c.id)),
+);
+
+export const getInactiveCoachesSelectedInRole = createSelector(
+  [getInactiveCoaches, getAllCoachesSelectedInRole],
+  (allCoaches, selectedCoaches) =>
+    allCoaches.filter((c) => selectedCoaches?.includes(c.id)),
+);

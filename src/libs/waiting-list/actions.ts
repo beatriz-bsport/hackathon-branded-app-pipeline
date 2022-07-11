@@ -8,7 +8,11 @@ import {
   registerOptionToWaitingList as registerOptionToWaitingListAPI,
 } from './api';
 
+import { snackbarError } from '../snackbar/actions';
+
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
+
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#libs/role/constants';
 
 export const configurationDetail = {
   error: createAction('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
@@ -135,6 +139,17 @@ export function registerToWaitingList(
     } catch (err) {
       console.error(err);
       dispatch(registerOptionActions.error(err));
+      if (
+        err.response?.status === 499 &&
+        err.response?.data?.error_code ===
+          EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED
+      ) {
+        dispatch(
+          snackbarError(
+            'role.noMasterControl.overbookingNotAllowedInWaitingList',
+          ),
+        );
+      }
       if (options && options.onError) options.onError(err);
     }
     dispatch(registerOptionActions.isLoading(false));

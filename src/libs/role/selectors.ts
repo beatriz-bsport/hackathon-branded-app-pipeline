@@ -67,3 +67,6 @@ export const getUsersPaginatedWithRole = (state: RootState) => ({
 export type UsersPaginatedWithRoleSelector = ReturnType<
   typeof getUsersPaginatedWithRole
 >;
+
+export const getUserRole = (state: RootState) =>
+  state.role.role.byId[state.auth.role];

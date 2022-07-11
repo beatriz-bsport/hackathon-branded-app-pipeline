@@ -36,6 +36,7 @@ type Props = {
     resourceId: number,
     dateStart: string,
   ) => void,
+  coachesSelectedInRole: Array<Coach>,
 };
 
 type State = {
@@ -147,48 +148,54 @@ export class SlotSearcherParams extends React.Component<Props, State> {
     }
   };
 
-  getResourceState = () => ({
-    coachResourceState: {
-      needChoice: false,
-      choices: this.state.private_service
-        ? this.state.private_service.coaches.filter((c) => c && c.id)
-        : [],
-      disabled:
-        this.state.private_service &&
-        this.state.private_service.coaches.length === 1,
-      canSelect:
-        this.state.private_service &&
-        this.state.private_service.coaches.length >= 1 &&
-        (this.state.private_service.coach_attribution ===
-          RESOURCE_ATTRIBUTION_CONSUMER ||
-          this.props.asManager),
+  getResourceState = () => {
+    const coachBaseList =
+      this.state.private_service?.coaches.filter((c) => c && c.id) || [];
+    const coachBaseListFiltered =
+      this.props.coachesSelectedInRole?.length > 0
+        ? coachBaseList.filter((c: Coach) =>
+            this.props.coachesSelectedInRole.includes(c),
+          )
+        : coachBaseList;
+    return {
+      coachResourceState: {
+        needChoice: false,
+        choices: coachBaseListFiltered,
+        disabled: coachBaseListFiltered.length === 1,
+        canSelect:
+          coachBaseListFiltered.length >= 1 &&
+          (this.state.private_service.coach_attribution ===
+            RESOURCE_ATTRIBUTION_CONSUMER ||
+            this.props.asManager),
 
-      hasChosen: !!(this.state.coaches_selected && this.state.coaches_selected)
-        .length,
-    },
-    establishmentResourceState: {
-      disabled:
-        !this.state.private_service ||
-        this.state.private_service.establishments.length === 1,
-      choices: this.state.private_service
-        ? this.state.private_service.establishments.filter((c) => !!c)
-        : [],
-      needChoice:
-        this.state.private_service &&
-        this.state.private_service.establishments.length > 1 &&
-        (this.state.private_service.establishment_attribution ===
-          RESOURCE_ATTRIBUTION_CONSUMER ||
-          this.props.asManager),
-      canSelect:
-        this.state.private_service &&
-        this.state.private_service.establishments.length >= 1 &&
-        (this.state.private_service.establishment_attribution ===
-          RESOURCE_ATTRIBUTION_CONSUMER ||
-          this.props.asManager),
+        hasChosen: !!(
+          this.state.coaches_selected && this.state.coaches_selected
+        ).length,
+      },
+      establishmentResourceState: {
+        disabled:
+          !this.state.private_service ||
+          this.state.private_service.establishments.length === 1,
+        choices: this.state.private_service
+          ? this.state.private_service.establishments.filter((c) => !!c)
+          : [],
+        needChoice:
+          this.state.private_service &&
+          this.state.private_service.establishments.length > 1 &&
+          (this.state.private_service.establishment_attribution ===
+            RESOURCE_ATTRIBUTION_CONSUMER ||
+            this.props.asManager),
+        canSelect:
+          this.state.private_service &&
+          this.state.private_service.establishments.length >= 1 &&
+          (this.state.private_service.establishment_attribution ===
+            RESOURCE_ATTRIBUTION_CONSUMER ||
+            this.props.asManager),
 
-      hasChosen: !!this.state.establishment_selected,
-    },
-  });
+        hasChosen: !!this.state.establishment_selected,
+      },
+    };
+  };
 
   handleServiceChange = (
     privateServiceId: number,

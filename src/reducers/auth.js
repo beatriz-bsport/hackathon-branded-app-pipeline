@@ -21,6 +21,7 @@ const initialState = Immutable({
   invalidFields: null,
   has_completed_account_configuration_on_boarding: false,
   role: null,
+  coaches_selected_in_role: null,
   loadingImpersonation: false,
   lastPlatformSubscriptionWarningDate: null,
   lastStripeConfigurationWarningDate: null,
@@ -90,6 +91,7 @@ export default function authReducers(state = initialState, action = {}) {
         is_consumer,
         is_franchisor,
         role,
+        coaches_selected_in_role,
         name,
         has_completed_account_configuration_on_boarding,
         context,
@@ -114,6 +116,7 @@ export default function authReducers(state = initialState, action = {}) {
         .set('error', false)
         .set('loading', false)
         .set('role', role)
+        .set('coaches_selected_in_role', coaches_selected_in_role)
         .set(
           'has_completed_account_configuration_on_boarding',
           has_completed_account_configuration_on_boarding,

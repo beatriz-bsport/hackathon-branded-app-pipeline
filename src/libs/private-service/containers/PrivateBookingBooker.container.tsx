@@ -19,6 +19,7 @@ import {
   getPrivateConsumerPassList,
   getUnPaidBookingAvailabilityForPrivateslot,
 } from '../selectors/private-consumer-pass';
+import { getCoachesSelectedInRole } from '#libs/associated-coach/selectors';
 import { MemberMap } from '../../member/utils';
 import { mapFormData } from '../../../pages/form.utils';
 import {
@@ -67,6 +68,7 @@ type OwnProps = {
   open: boolean;
   requestedSlot: string;
   onClose: () => void;
+  coachesSelectedInRole: Array<Coach>;
 };
 
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -293,6 +295,17 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     }
 
     const missingResources = this.missingResourceConf();
+    const coachIdToFilterList = this.props.coachesSelectedInRole?.map(
+      (coach: Coach) => coach.id,
+    );
+    const privateServiceList =
+      coachIdToFilterList?.length > 0
+        ? this.props.private_services.filter((ps: any) =>
+            ps.coaches?.some((coach: Coach) =>
+              coachIdToFilterList.includes(coach.id),
+            ),
+          )
+        : this.props.private_services;
     return (
       <GenericResponsiveDrawer
         title={`${moment(this.state.date_start)
@@ -316,13 +329,14 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           <fieldset className={this.props.classes.fieldset}>
             <legend>{t('bookerModule.step.configuration')}</legend>
             <SlotSearcherParams
-              private_services={this.props.private_services}
+              private_services={privateServiceList}
               onConfigurationChange={this.handleConfigurationChange}
               resourceAllocationChecker={resourceAllocationCheckerAPI}
               coachUnique
               establishmentUnique
               asManager
               dateStart={this.state.date_start}
+              coachesSelectedInRole={this.props.coachesSelectedInRole}
             />
             <MissingResourceForBookingHelper
               missingResources={missingResources}
@@ -459,6 +473,7 @@ const mapStateToProps = (
   { requestedPrivateSlot }: { requestedPrivateSlot: number },
 ) => ({
   theme: state.theme.theme,
+  coachesSelectedInRole: getCoachesSelectedInRole(state),
   private_services: getAvailablePrivateServices(state),
   compatiblePassLoading:
     state.privateService.privatePass.loading ||

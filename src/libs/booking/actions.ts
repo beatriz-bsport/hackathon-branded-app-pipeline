@@ -23,6 +23,7 @@ import {
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { Booking } from './types';
+import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),
@@ -379,6 +380,13 @@ export function registerBooking(
     } catch (err) {
       console.error(err);
       dispatch(registerActions.error(err));
+      if (
+        err.response?.status === 499 &&
+        err.response?.data?.error_code ===
+          EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED
+      ) {
+        dispatch(snackbarError('role.noMasterControl.overbookingNotAllowed'));
+      }
       if (options && options.onError) {
         options.onError(err);
       }

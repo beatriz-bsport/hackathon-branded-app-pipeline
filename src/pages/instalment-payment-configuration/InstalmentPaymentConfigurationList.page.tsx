@@ -328,7 +328,7 @@ export const mapWhithHandlers = {
     },
   fetckAllItemInfo:
     (props: RouterProps & ConnectedProps<typeof connector>) => () => {
-      props.fetchPaymentPackList({ disabled: false });
+      props.fetchPaymentPackList({ disabled: false, page_size: 1000 });
       props.fetchPaymentComboList();
       props.fetchGiftcardList();
       props.fetchPrivatePassList();

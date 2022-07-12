@@ -1290,7 +1290,12 @@
             "processing_error": "Se produjo un error durante el registro de tu pago. Por favor intenta de nuevo en unos momentos.",
             "insufficient_funds": "No hay suficiente dinero es tu tarjeta.",
             "unknown": "Error de red, intenta nuevamente en unos instantes",
-            "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco."
+            "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
+            "discovery_too_many_readers": "No se puede conectar, hay demasiados terminales alrededor",
+            "already_connected": "Otro terminal de pago ya está conectado",
+            "network_timeout": "Error de red, por favor, inténtalo de nuevo en unos momentos",
+            "network_error": "Error de red, por favor, inténtalo de nuevo en unos momentos",
+            "no_established_connection": "No hay ningún terminal de pago conectado"
         },
         "error_code": {
             "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
@@ -1998,7 +2003,8 @@
                 "todayOnly": "Mostrar sólo las sesiones diarias",
                 "hidePaymentCombo": "Ocultar packs",
                 "hidePrivatePass": "Pases ocultos para clases particulares",
-                "hidePaymentPack": "Pases ocultos para las clases colectivas"
+                "hidePaymentPack": "Pases ocultos para las clases colectivas",
+                "titleCaption": "{{max}} caracteres máximos ({{count}}/{max}})"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -2012,7 +2018,8 @@
                 "newsletter": "Newsletter",
                 "loginButton": "Botón de inicio de sesión",
                 "giftcard": "Tarjeta regalo",
-                "paymentPackTemplate": "Tarjeta de curso compartida"
+                "paymentPackTemplate": "Tarjeta de curso compartida",
+                "calendarV2": "Calendario (nuevo diseño)"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -3944,7 +3951,16 @@
             "coupon": "Bono",
             "payment_method": "Método de pago",
             "cts": "Precio en céntimos",
-            "price": "Precio"
+            "price": "Precio",
+            "payout": "Transferencia",
+            "payout_status": "Estado de transferencia",
+            "booking_status_code": "Estado de la reserva",
+            "activity": "Actividad",
+            "billing_group": "Grupo de facturación",
+            "billing_establishment": "Establecimiento de facturación",
+            "subshop": "Categoría",
+            "private_slot": "Tipo de cita",
+            "private_pass": "Tarjetas de citas"
         },
         "filter": {
             "form": {
@@ -8008,6 +8024,12 @@
             "restore": {
                 "error": "No se puede restablecer la cita, no hay suficientes créditos en esta tarjeta de cita.",
                 "success": "La cita ha sido restaurada"
+            },
+            "register": {
+                "error": "No se puede reservar en esta fecha",
+                "warning": {
+                    "11106": "Ya has reservado esta franja horaria"
+                }
             }
         },
         "communication": {
@@ -8275,6 +8297,15 @@
             "delete": {
                 "success": "Código promocional suprimido",
                 "error": "No es posible suprimir esta promoción"
+            },
+            "templateInstance": {
+                "create": {
+                    "error": "Imposible compartir esta promoción con este(os) estudio(s)"
+                }
+            },
+            "createOrUpdate": {
+                "error": "Error al registrar el código promocional",
+                "success": "Código promocional guardado"
             }
         },
         "paymentRules": {
@@ -8679,6 +8710,26 @@
                 "error": "No se puede registrar el pago",
                 "success": "Pago registrado"
             }
+        },
+        "marketplace": {
+            "update": {
+                "stripeTerminal": {
+                    "deleteReader": {
+                        "error": "No se puede eliminar este terminal de pago",
+                        "success": "Terminal de pago eliminado"
+                    }
+                },
+                "error": "Se ha producido un error. Por favor, compruebe los ajustes solicitados."
+            }
+        },
+        "automatedCampaign": {
+            "170001": "Error: Número inválido de envíos por miembro",
+            "17105": "Error: Contenido de notificación requerido",
+            "17104": "Error: Título de notificación obligatorio",
+            "17103": "Error: contenido del SMS requerido",
+            "17102": "Error: contenido del correo electrónico requerido",
+            "17101": "Error: Título obligatorio",
+            "17000": "Se ha producido un error"
         }
     },
     "paymentPack": {

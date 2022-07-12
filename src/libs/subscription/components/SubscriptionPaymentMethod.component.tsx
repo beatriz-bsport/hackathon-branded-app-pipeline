@@ -53,7 +53,7 @@ export const SubscriptionPaymentMethod = (props: Props) => {
       {props.paymentEngine === PAYMENT_ENGINE_STRIPE &&
         !props.paymentMethod &&
         (props.loading ? (
-          <CircularProgress />
+          <CircularProgress color="inherit" />
         ) : (
           <div className={classes.inconsistentMsg}>
             <AlertIcon color="error" className={classes.iconLeft} />

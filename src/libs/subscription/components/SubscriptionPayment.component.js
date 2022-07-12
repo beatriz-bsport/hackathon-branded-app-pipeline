@@ -510,11 +510,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 (['sepa_debit', 'card'].includes(paymentMethod) &&
                   !this.state.selectedSavedPaymentMethodId &&
                   !this.isZeroPrice()) ||
-                this.props.disabled
+                this.props.disabled ||
+                this.state.loading ||
+                processing
               }
             >
               {this.state.loading || processing ? (
-                <CircularProgress />
+                <CircularProgress color="inherit" />
               ) : (
                 t('subscription:form.submit')
               )}

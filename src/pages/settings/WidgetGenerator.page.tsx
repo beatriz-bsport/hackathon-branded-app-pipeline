@@ -151,7 +151,6 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchGiftcardList();
     this.props.fetchLevelList({
       is_active: true,
-      company: this.props.company,
     });
 
     this.props.franchiseId &&

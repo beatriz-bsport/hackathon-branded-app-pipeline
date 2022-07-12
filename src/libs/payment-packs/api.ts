@@ -81,11 +81,14 @@ export async function fetchAllPaymentPackCategory({
 }: {
   companyId?: number;
 }) {
-  return getAuth(
-    `${API_V1_URI}/payment-pack/payment-pack-category/${buildUrlParams({
-      companyId,
-    })}`,
-  );
+  if (companyId) {
+    return getAuth(
+      `${API_V1_URI}/payment-pack/payment-pack-category/${buildUrlParams({
+        companyId,
+      })}`,
+    );
+  }
+  return getAuth(`${API_V1_URI}/payment-pack/payment-pack-category/`);
 }
 
 export async function fetchPaymentPackTemplateList(params?: {

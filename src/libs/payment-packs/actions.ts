@@ -459,7 +459,9 @@ export function fetchAllPaymentPackCategory(companyId?: number) {
     dispatch(listAllPaymentPackCategoryActions.error(null));
     dispatch(listAllPaymentPackCategoryActions.isLoading(true));
     try {
-      const response = await fetchAllPaymentPackCategoryAPI({ companyId });
+      const response = await fetchAllPaymentPackCategoryAPI({
+        ...(companyId ? { companyId } : {}),
+      });
       const paymentPacks = response.data;
       dispatch(listAllPaymentPackCategoryActions.success(paymentPacks));
     } catch (err) {

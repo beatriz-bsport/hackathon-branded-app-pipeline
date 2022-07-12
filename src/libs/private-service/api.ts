@@ -660,11 +660,14 @@ export async function fetchAllPrivatePassCategory({
 }: {
   companyId?: number;
 }) {
-  return getAuth(
-    `${API_V1_URI}/private_service/private_pass_category/${buildUrlParams({
-      companyId,
-    })}`,
-  );
+  if (companyId) {
+    return getAuth(
+      `${API_V1_URI}/private_service/private_pass_category/${buildUrlParams({
+        companyId,
+      })}`,
+    );
+  }
+  return getAuth(`${API_V1_URI}/private_service/private_pass_category/`);
 }
 export async function updatePrivatePassCategory(
   privatePassCategory: PrivatePassCategory,

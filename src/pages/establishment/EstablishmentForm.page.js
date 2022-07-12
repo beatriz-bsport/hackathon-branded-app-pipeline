@@ -45,6 +45,7 @@ const establishmentMap = {
   on_booking_notification: 'on_booking_notification',
   disabled: 'disabled',
   has_next_slots: 'has_next_slots',
+  related_company: 'related_company',
 };
 
 export class EstablishmentFormPage extends Component<Props> {

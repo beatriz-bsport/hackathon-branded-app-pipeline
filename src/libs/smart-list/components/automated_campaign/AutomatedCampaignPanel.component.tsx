@@ -17,7 +17,6 @@ import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -96,15 +95,37 @@ const CommunicationChip: React.FC<CommunicationChipProps> = ({ kind }) => {
   return <div />;
 };
 
-const useListItemStyles = makeStyles(() => ({
-  listItemTextRoot: {
+const useListItemStyles = makeStyles((theme: Theme) => ({
+  listItemOutter: {
+    backgroundColor: 'white',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
-  listItem: {
-    backgroundColor: 'white',
+  leftItem: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    flex: 2,
+  },
+  listItemIcon: {
+    flex: 1,
+  },
+  listItemText: {
+    flex: 1,
+    [theme.breakpoints.down('md')]: {
+      flex: '1 0 100%',
+      justifyContent: 'flex-start',
+      paddingTop: theme.spacing(1),
+    },
+  },
+  listItemAction: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flex: 1,
   },
 }));
 
@@ -116,24 +137,29 @@ const AutoCompaignItem: React.FC<AutoCompaignItemProps> = ({
   const { t } = useTranslation('communication');
   const classes = useListItemStyles();
   return (
-    <ListItem className={classes.listItem}>
-      <ListItemIcon>
-        <CommunicationChip kind={campaign?.communication_kind} />
-      </ListItemIcon>
-      <ListItemText
-        classes={{ root: classes.listItemTextRoot }}
-        secondary={t('campaign.automated.activeSince', {
-          date: formatAsDate(campaign?.date_created),
-        })}
-      />
-      <ListItemSecondaryAction>
+    <ListItem classes={{ root: classes.listItemOutter }}>
+      <div className={classes.leftItem}>
+        <div className={classes.listItemIcon}>
+          <ListItemIcon>
+            <CommunicationChip kind={campaign?.communication_kind} />
+          </ListItemIcon>
+        </div>
+        <div className={classes.listItemText}>
+          <ListItemText
+            secondary={t('campaign.automated.activeSince', {
+              date: formatAsDate(campaign?.date_created),
+            })}
+          />
+        </div>
+      </div>
+      <div className={classes.listItemAction}>
         <IconButton onClick={() => onEdit(campaign.id)}>
           <EditIcon color="primary" />
         </IconButton>
         <IconButton onClick={() => onDelete(campaign.id)}>
           <DeleteIcon />
         </IconButton>
-      </ListItemSecondaryAction>
+      </div>
     </ListItem>
   );
 };

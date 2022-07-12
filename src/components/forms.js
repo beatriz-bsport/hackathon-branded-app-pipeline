@@ -176,12 +176,18 @@ export const DelayTextField = withStyles(textFieldStyles)((props: Props) => {
 
 type PriceFieldProps = {
   min?: number,
+  fullWidth?: boolean,
 } & TextFieldProps;
+
+PriceField.defaultProps = {
+  fullWidth: false,
+};
 
 export function PriceField(props: PriceFieldProps) {
   return (
     <TextField
       castAsNumber
+      fullWidth={props.fullWidth}
       InputProps={{
         inputProps: { min: props.min ?? 0, step: 0.01 },
         startAdornment: (

@@ -53,10 +53,16 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
             <Typography variant="h6" className={classes.creditAccountBalance}>
               {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
             </Typography>
-            <Collapse in={!open} timeout={{ appear: 10000 }}>
+            <Collapse
+              in={!open}
+              className={classes.fullWidth}
+              timeout={{ appear: 10000 }}
+            >
               <div className={classes.container}>
                 <div className={classes.outterButtonContainer}>
                   <Button
+                    className={classes.fullWidth}
+                    fullWidth
                     disabled={props.loading || props.disabled}
                     onClick={() => setOpen(true)}
                     color="primary"
@@ -93,11 +99,12 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                 }}
               >
                 {(formik) => (
-                  <Form>
+                  <Form className={classes.fullWidth}>
                     <Collapse in={open}>
                       <div className={classes.flexCollaspe}>
                         <PriceField
                           name="amount"
+                          fullWidth
                           label={`${t(
                             'internalAccount.label',
                           )}${'\u00A0'}${getCurrencyDisplayWithPrice(
@@ -186,6 +193,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   greyContainer: {
     backgroundColor: grey[100],
@@ -197,6 +207,14 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      flexWrap: 'wrap',
+    },
+  },
+  fullWidth: {
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   flexCollaspe: {
     display: 'flex',

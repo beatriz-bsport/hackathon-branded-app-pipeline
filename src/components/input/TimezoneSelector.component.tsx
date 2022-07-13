@@ -16,6 +16,7 @@ const getTimezoneListExtended = (
       moment.tz.zone('Indian/Reunion'),
       moment.tz.zone('America/Martinique'),
       moment.tz.zone('Indian/Antananarivo'),
+      moment.tz.zone('America/Cayenne'),
     ];
   }
   if (country === 'US') {

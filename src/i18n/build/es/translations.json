@@ -233,7 +233,8 @@
                 "addressLine2": "Complemento de dirección",
                 "city": "Ciudad",
                 "country": "País",
-                "zipcode": "Código postal"
+                "zipcode": "Código postal",
+                "state": "Estado"
             },
             "login": {
                 "changePasswordTitle": "Modificación de la contraseña",
@@ -450,7 +451,9 @@
                         "helperText": "Utilices tags para que la sesión sea reservable sólo para un grupo deseado de miembros. Si selecciona los tags, la sesión sólo podrá ser reservada por los miembros que tengan uno de los tags seleccionados. O puedes seleccionar tags para que la sesión no sea reservable sólo para los miembros con unos de los tags seleccionados."
                     },
                     "header": "Avanzado"
-                }
+                },
+                "explainAllowGuest": "Autorizar la reserva para un invitado",
+                "editingGroup": "Cuidado esta sesión forma parte del grupo de sesiones {{ name }}"
             },
             "paymentPack": {
                 "newMemberOnly": "Uniquement pour les nouveaux clients",
@@ -576,7 +579,9 @@
             "warningAddEmail": "Este correo electrónico ya ha sido añadido.",
             "emailHelper": "Para añadir varios correos electrónicos, escriba una coma o un espacio después de cada correo.",
             "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)",
-            "tenMinutes": "10 minutos"
+            "tenMinutes": "10 minutos",
+            "editGroup": "Modificar este campo directamente en el grupo de sesiones.",
+            "noWaitingList": "Las listas de espera no están disponibles para los grupos de sesiones"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -621,7 +626,13 @@
                 "noPastBookings": "Ninguna reserva anterior",
                 "cancelOption": "Cancelar",
                 "myPrivateBooking": "Cita",
-                "intro": "Su reserva el {{date}}"
+                "intro": "Su reserva el {{date}}",
+                "discardGroupPossibleExplain": "Tus créditos volverán a ser utilizables.",
+                "discardGroup3": "Si desea cancelar sólo una sesión del grupo, póngase en contacto con su estudio.",
+                "discardGroup1": "Esta reserva forma parte del grupo de sesiones {{ group }}.",
+                "willNotBeRefund": "Créditos no reembolsados",
+                "willBeRefund": "La sesión del {{-day}} se volverá a acreditar",
+                "discardAllGroup": "Todas las reservas del grupos serán canceladas."
             },
             "myPrivatePass": "Mis tarjetas de cita"
         },
@@ -838,7 +849,10 @@
             "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
             "color": "Código de colores",
             "firstBookingMinutesUntil": "Los miembros pueden reservar futuras sesiones programadas en menos de ",
-            "is_broadcast": "Curso streaming en vivo"
+            "is_broadcast": "Curso streaming en vivo",
+            "altCoverMain": "Descripción de la imagen para los discapacitados visuales",
+            "autoDiscard": "Cancelación automática",
+            "generalInfo": "Informaciones generales"
         },
         "workshopActivity": {
             "addWorkshopActivity": "Añadir un taller",
@@ -901,14 +915,17 @@
             },
             "cancelledFromWaitingList": "Eliminado de la lista de espera",
             "notifyRevert": "Enviar un email de cancelación",
-            "refundRevert": "Reembolso de los créditos utilizados"
+            "refundRevert": "Reembolso de los créditos utilizados",
+            "cancellingBookingInGroup": "Cancelar para otras sesiones de este grupo.",
+            "cancellingOtherBookingInGroup": "Cuidado, esta sesión es una sesión de grupo de {{ name }}. Si el miembro tiene otras reservas en este grupo no se verán afectadas."
         },
         "level": {
             "all": "Todos los niveles",
             "beginner": "Principiante",
             "intermediate": "Intermedio",
             "intermediary": "Intermedio",
-            "advanced": "Avanzado"
+            "advanced": "Avanzado",
+            "noDisplay": "No se muestra el nivel"
         },
         "time": {
             "weekday": {
@@ -960,7 +977,8 @@
                 "bookOption": "Lista de espera",
                 "notAvailable": "Cancelada",
                 "isPast": "Pasada",
-                "notBookableYet": "Muy pronto"
+                "notBookableYet": "Muy pronto",
+                "alreadyRegistered": "Reservada"
             },
             "sessionThisDay": "Clases de este día :",
             "calendar": "Calendario",
@@ -1001,7 +1019,13 @@
             "passListTitle": "Bonos para clases colectivas",
             "privatePassListTitle": "Tarjetas de cita",
             "vod": "VOD",
-            "playlist": "Playlist"
+            "playlist": "Playlist",
+            "book": "Reservar",
+            "cancel": "volver",
+            "bookGroups": "Reserva un grupo de sesiones",
+            "discover": "Descubrir",
+            "from_to": "del {{-from}} hasta el {{-to}}",
+            "offers": "{{ count }} sesiones"
         },
         "appbar": {
             "title": {
@@ -1059,7 +1083,10 @@
                     "passCompatibleNotOwnedByMember": "Facturación de un nuevo pase",
                     "passOwnedByMember": "Pase(s) propiedad del miembro",
                     "registerToOffer": "Inscripción para la sesión",
-                    "doNotConsumeCredit": "No deducir créditos a los miembros para registrarse"
+                    "doNotConsumeCredit": "No deducir créditos a los miembros para registrarse",
+                    "bookSingleInGroup": "Inscribir sólo en esta sesión",
+                    "bookMoreInGroup": "Inscribir en otras sesiones de grupo",
+                    "groupWarning": "Esta sesión forma parte del grupo de sesiones {{ name }}"
                 }
             }
         },
@@ -1106,6 +1133,23 @@
         "metaActivityCategory": {
             "sctExplain": "Estas categorías indican el tipo de actividad. Aparecerán en el marketplace y en la aplicación.",
             "explain": "Estas categorías sólo sirven para ordenar las actividades en el back office como usted desee. No tienen impacto en el lado del cliente"
+        },
+        "restrictions": {
+            "tags": {
+                "mandatory": "Selecciona al menos 1 etiqueta",
+                "header": "Etiquetas seleccionadas",
+                "selectPlaceHolder": "Elegir una etiqueta"
+            },
+            "back": "Anterior",
+            "next": "Siguiente",
+            "personnalizedRestrictionsIndex": "Restricción personalizada n°{{ count }}",
+            "add": "Añadir diferentes reglas ({{ count }}/{{ max }})",
+            "personnalizedHelper": "Indicar diferentes restricciones para ciertos miembros utilizando etiquetas. Los miembros con una de las etiquetas seleccionadas tendrán diferentes restricciones que los demás.",
+            "personnalizedHeader": "Restricciones personalizadas",
+            "firstBookingMinutesUntil": "Abrir las reservas",
+            "lastDiscardBeforeMinutes": "Última cancelación",
+            "lastBookingBeforeMinutes": "Última reserva",
+            "header": "Restricciones"
         }
     },
     "search": {
@@ -1295,7 +1339,8 @@
             "already_connected": "Otro terminal de pago ya está conectado",
             "network_timeout": "Error de red, por favor, inténtalo de nuevo en unos momentos",
             "network_error": "Error de red, por favor, inténtalo de nuevo en unos momentos",
-            "no_established_connection": "No hay ningún terminal de pago conectado"
+            "no_established_connection": "No hay ningún terminal de pago conectado",
+            "setup_intent_authentication_failure": "No se puede guardar esta tarjeta. Por favor, intenta otro método de pago."
         },
         "error_code": {
             "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
@@ -1323,7 +1368,12 @@
             "incorrect_cvc": "El código de seguridad no es válido.",
             "incorrect_number": "El número de tarjeta no es válido.",
             "card_not_supported": "Tu tarjeta no es reconocida.",
-            "none": " "
+            "none": " ",
+            "pin_try_exceeded": "Número máximo de intentos alcanzado. Prueba otro método de pago",
+            "online_or_offline_pin_required": "Código PIN requerido",
+            "offline_pin_required": "Código PIN requerido",
+            "invalid_pin": "Código pin erróneo",
+            "incorrect_pin": "Código pin erróneo"
         }
     },
     "tag": {
@@ -1459,7 +1509,14 @@
             }
         },
         "select": "Seleccione una etiqueta",
-        "memberStatus": "Estado de miembro : "
+        "memberStatus": "Estado de miembro : ",
+        "modal": {
+            "confirm": {
+                "submit": "Confirmar",
+                "text": "Esta sesión forma parte de un grupo, se desmarcarán todas las sesiones de este grupo. ¿Quieres continuar?",
+                "title": "Desctivar la etiqueta"
+            }
+        }
     },
     "login": {
         "forms": {
@@ -3359,7 +3416,8 @@
                 "explain": "Solo esta futura factura será modificada",
                 "price": "Nueva cantidad",
                 "title": "Modificar cantidad futura",
-                "updateAll": "Actualizar todos los pagos futuros"
+                "updateAll": "Actualizar todos los pagos futuros previstos (antes de la renovación)",
+                "updateRecurrentPrice": "Aplicar este cambio a los pagos generados después de la renovación"
             },
             "list": {
                 "titleNext": "Próximos retiros"
@@ -7027,7 +7085,23 @@
                 "info": "Introduzca aquí el nombre y el valor de su impuesto provincial. En todos los productos de la plataforma, indique el impuesto total aplicado (impuesto federal + impuesto provincial). El impuesto federal y provincial aparecerá en las facturas de sus clientes.",
                 "title": "Impuesto provincial"
             },
-            "acceptGuest": "Autorizar la reserva para un invitado"
+            "acceptGuest": "Autorizar la reserva para un invitado",
+            "allowGuest": {
+                "dialog": {
+                    "dialogButtonConfirm": "Confirmar",
+                    "dialogButtonCancel": "Cancelar",
+                    "dialogContent": "Cuidado, si desactivas esta opción, ya no será posible que tus afiliados reserven para un invitado.",
+                    "dialogTitle": "Cuidado"
+                },
+                "frequencies": {
+                    "placeholder": "Frecuencia",
+                    "text": " veces por ",
+                    "year": "Año",
+                    "month": "Mes",
+                    "week": "Semana"
+                },
+                "title": "Autorizar la reserva para un invitado"
+            }
         },
         "pageTitles": {
             "theme": "General",
@@ -10816,14 +10890,16 @@
         "workshopActivity": {
             "workshopActivityFormPage": "Formulario talleres",
             "workshopActivityCreate": "Crear un taller",
-            "workshopActivityList": "Talleres"
+            "workshopActivityList": "Talleres",
+            "workshopActivityEditFormSubtitle": "Modificación de un taller",
+            "workshopActivityFormSubtitle": "Creación de un taller"
         },
         "subscription": {
             "subscriptions": "Cuotas",
             "subscriptionCreate": "Crear una suscripción"
         },
         "dashboard": {
-            "dashboard": "dashboard",
+            "dashboard": "Dashboard",
             "reportingDashboard": "Informes",
             "marketingDashboard": "Marketing"
         },
@@ -10862,7 +10938,9 @@
         "metaActivity": {
             "metaActivityFormPage": "Formulario Actividad",
             "metaActivityEditForm": "Formulario Actividad",
-            "metaActivityList": "Actividades"
+            "metaActivityList": "Actividades",
+            "metaActivityEditFormSubtitle": "Modificación de una actividad",
+            "metaActivityFormSubtitle": "Creación de una actividad"
         },
         "order": {
             "orderDetail": "Detalles pedida",
@@ -10931,8 +11009,27 @@
                 "fullScreen": "Pantalla completa"
             },
             "dialogSizeLabel": "Tamaño de la ventana emergente",
-            "responsiveIframe": "Activar el modo responsivo"
-        }
+            "responsiveIframe": "Activar el modo responsivo",
+            "cssEditor": {
+                "typographyColor": "Color de texto",
+                "rounding": "Redondeo de objetos",
+                "spacing": "Espaciamiento",
+                "backgroundColor": "Color de fondo",
+                "colors": "Colores",
+                "typography": "Tipografía",
+                "general": "Espaciamiento y redondeo"
+            },
+            "groupSessionByPeriod": "Separar la mañana, la tarde y la noche",
+            "variantOption": {
+                "time": "El horario",
+                "coach": "El profesor",
+                "activityName": "La actividad"
+            },
+            "variant": "Destacar",
+            "todayOnly": "Mostrar sólo las sesiones del día"
+        },
+        "customize": "Personalización",
+        "create": "General"
     },
     "platformBilling": {
         "upsellPackage": {

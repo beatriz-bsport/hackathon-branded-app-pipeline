@@ -62,6 +62,7 @@ type Props = {
   hideLang?: boolean;
   valueKey?: 'locale' | 'country' | 'currencyCode';
   noMargin?: boolean;
+  required?: boolean;
 };
 
 type Locale = {
@@ -70,6 +71,7 @@ type Locale = {
   currencyCode: string;
   currencyDisplay: string;
   showLang?: boolean;
+  variant?: string;
 };
 
 export const LOCALE_LIST: Array<Locale> = [
@@ -413,9 +415,19 @@ export const CountrySelector = (props: Props) => {
       })}
     >
       {!!props.label && (
-        <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
+        <InputLabel
+          style={props.variant === 'outlined' ? { marginLeft: 16 } : {}}
+          id="locale-simple-select-label"
+        >
+          {props.label}
+        </InputLabel>
       )}
-      <Select value={props.value} onChange={props.onChange}>
+      <Select
+        variant={props.variant}
+        requried={props.required}
+        value={props.value}
+        onChange={props.onChange}
+      >
         {localeList.map((localeContainer) => {
           const [lang, country] = localeContainer.locale.split('_');
           return (

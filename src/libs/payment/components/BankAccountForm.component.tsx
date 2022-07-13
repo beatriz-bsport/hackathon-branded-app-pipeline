@@ -87,13 +87,14 @@ const BankAccountFormComposed = compose(
         account_holder_name: string,
         account_number: string,
         routing_number: string | null,
+        countryForm: string,
       ) => {
         setLoading(true);
         stripe
           .createToken('bank_account', {
             account_number,
             account_holder_name,
-            country,
+            country: countryForm || country,
             currency,
             ...(routing_number ? { routing_number } : {}),
           })

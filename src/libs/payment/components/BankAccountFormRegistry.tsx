@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
+import LocaleSelector from '#components/input/LocaleSelector.component';
+
 const useStyles = makeStyles((theme) => ({
   container: { padding: theme.spacing(2) },
   title: {
@@ -31,6 +33,7 @@ type Props = {
     account_holder_name: string,
     account_number: string,
     routingNumber?: string,
+    country: string,
   ) => void;
   error: Error | null;
   loading: boolean;
@@ -41,7 +44,8 @@ type Props = {
 const EuropeanBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -71,6 +75,14 @@ const EuropeanBankAccount = (props: Props) => {
         value={account_number}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -86,7 +98,14 @@ const EuropeanBankAccount = (props: Props) => {
           <Button
             color="primary"
             disabled={!account_holder_name || !account_number}
-            onClick={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() =>
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                undefined,
+                country.slice(3, 5),
+              )
+            }
           >
             {t('bankAccount.form.actions.submit')}
           </Button>
@@ -101,7 +120,8 @@ const CanadaBankAccount = (props: Props) => {
   const [account_number, setAccountNumber] = React.useState('');
   const [institutionNumber, setInstitutionNumber] = React.useState('');
   const [transitNumber, setTransitNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -151,6 +171,18 @@ const CanadaBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          required
+          value={country}
+          distinctCountry
+          hideLang
+          noMargin
+          variant="outlined"
+          onChange={(ev) => setCountry(ev.target.value)}
+          label={`${t('login:signupCompany.form.country.label')}*`}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -178,6 +210,7 @@ const CanadaBankAccount = (props: Props) => {
                 account_holder_name,
                 account_number,
                 `${transitNumber}${institutionNumber}`,
+                country.slice(3, 5),
               )
             }
           >
@@ -193,7 +226,8 @@ const USABankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
   const [routingNumber, setRoutingNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -233,6 +267,16 @@ const USABankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -251,7 +295,12 @@ const USABankAccount = (props: Props) => {
               !!(!account_holder_name || !account_number || !routingNumber)
             }
             onClick={() =>
-              props.onSubmit(account_holder_name, account_number, routingNumber)
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                routingNumber,
+                country.slice(3, 5),
+              )
             }
           >
             {t('bankAccount.form.actions.submit')}
@@ -265,7 +314,8 @@ const USABankAccount = (props: Props) => {
 const MexicoBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -295,6 +345,16 @@ const MexicoBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -310,7 +370,13 @@ const MexicoBankAccount = (props: Props) => {
           <Button
             disabled={!account_holder_name || !account_number || props.loading}
             color="primary"
-            onClick={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() =>
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                country.slice(3, 5),
+              )
+            }
           >
             {t('bankAccount.form.actions.submit')}
           </Button>
@@ -324,7 +390,8 @@ const AustraliaBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
   const [routingNumber, setRoutingNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -364,6 +431,16 @@ const AustraliaBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -385,7 +462,13 @@ const AustraliaBankAccount = (props: Props) => {
               props.loading
             }
             onClick={() =>
-              props.onSubmit(account_holder_name, account_number, routingNumber)
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                routingNumber,
+
+                country.slice(3, 5),
+              )
             }
           >
             {t('bankAccount.form.actions.submit')}
@@ -401,7 +484,8 @@ const BrazilBankAccount = (props: Props) => {
   const [account_number, setAccountNumber] = React.useState('');
   const [bankCode, setBankCode] = React.useState('');
   const [branchCode, setBranchCode] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -451,6 +535,16 @@ const BrazilBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -477,6 +571,7 @@ const BrazilBankAccount = (props: Props) => {
                 account_holder_name,
                 account_number,
                 `${bankCode}${branchCode}`,
+                country.slice(3, 5),
               )
             }
           >
@@ -493,7 +588,8 @@ const HongKongBankAccount = (props: Props) => {
   const [account_number, setAccountNumber] = React.useState('');
   const [clearingCode, setClearingCode] = React.useState('');
   const [branchCode, setBranchCode] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -543,6 +639,16 @@ const HongKongBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -569,6 +675,7 @@ const HongKongBankAccount = (props: Props) => {
                 account_holder_name,
                 account_number,
                 `${clearingCode}-${branchCode}`,
+                country.slice(3, 5),
               )
             }
           >
@@ -584,7 +691,8 @@ const IndiaBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
   const [ifscCode, setIfscCode] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -624,6 +732,16 @@ const IndiaBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -645,7 +763,13 @@ const IndiaBankAccount = (props: Props) => {
               props.loading
             }
             onClick={() =>
-              props.onSubmit(account_holder_name, account_number, ifscCode)
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                ifscCode,
+
+                country.slice(3, 5),
+              )
             }
           >
             {t('bankAccount.form.actions.submit')}
@@ -659,7 +783,8 @@ const IndiaBankAccount = (props: Props) => {
 const MalaysiaBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -689,6 +814,16 @@ const MalaysiaBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -703,7 +838,15 @@ const MalaysiaBankAccount = (props: Props) => {
         ) : (
           <Button
             color="primary"
-            onClick={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() =>
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                undefined,
+
+                country.slice(3, 5),
+              )
+            }
             disabled={!account_holder_name || !account_number || props.loading}
           >
             {t('bankAccount.form.actions.submit')}
@@ -717,7 +860,8 @@ const MalaysiaBankAccount = (props: Props) => {
 const NewZealandBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -747,6 +891,16 @@ const NewZealandBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -761,7 +915,13 @@ const NewZealandBankAccount = (props: Props) => {
         ) : (
           <Button
             color="primary"
-            onClick={() => props.onSubmit(account_holder_name, account_number)}
+            onClick={() =>
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                country.slice(3, 5),
+              )
+            }
             disabled={!account_holder_name || !account_number || props.loading}
           >
             {t('bankAccount.form.actions.submit')}
@@ -777,7 +937,8 @@ const SingapourBankAccount = (props: Props) => {
   const [account_number, setAccountNumber] = React.useState('');
   const [bankCode, setBankCode] = React.useState('');
   const [branchCode, setBranchCode] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -827,6 +988,16 @@ const SingapourBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -853,6 +1024,7 @@ const SingapourBankAccount = (props: Props) => {
                 account_holder_name,
                 account_number,
                 `${bankCode}-${branchCode}`,
+                country.slice(3, 5),
               )
             }
           >
@@ -867,7 +1039,8 @@ const UnitedKingdomBankAccount = (props: Props) => {
   const [account_holder_name, setAccountHolderName] = React.useState('');
   const [account_number, setAccountNumber] = React.useState('');
   const [sortCode, setSortCode] = React.useState('');
-  const { t } = useTranslation(['payment']);
+  const [country, setCountry] = React.useState('');
+  const { t } = useTranslation(['payment', 'login']);
   const classes = useStyles();
   return (
     <div className={classes.field}>
@@ -907,6 +1080,16 @@ const UnitedKingdomBankAccount = (props: Props) => {
         value={account_number || ''}
         onChange={(ev) => setAccountNumber(ev.target.value)}
       />
+      <div style={{ marginTop: 8 }}>
+        <LocaleSelector
+          distinctCountry
+          hideLang
+          label={`${t('login:signupCompany.form.country.label')}*`}
+          required
+          value={country}
+          onChange={(ev) => setCountry(ev.target.value)}
+        />
+      </div>
       {props.error && (
         <Typography variant="caption" color="error">
           {t('bankAccount.form.invalid')}
@@ -928,7 +1111,12 @@ const UnitedKingdomBankAccount = (props: Props) => {
               props.loading
             }
             onClick={() =>
-              props.onSubmit(account_holder_name, account_number, sortCode)
+              props.onSubmit(
+                account_holder_name,
+                account_number,
+                sortCode,
+                country.slice(3, 5),
+              )
             }
           >
             {t('bankAccount.form.actions.submit')}

@@ -217,6 +217,7 @@ export type PrivateBooking<
   establishment: EstablishmentNumber;
   date_created: string;
   source: number;
+  first_in_company: boolean;
   was_refunded: boolean;
   timezone_name: string;
   date_canceled: string;

@@ -1,34 +1,32 @@
-// @flow
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import UndoIcon from '@material-ui/icons/Undo';
 import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateIcon from '@material-ui/icons/Update';
 import Typography from '@material-ui/core/Typography';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import { BookingStatusCodeText } from '../../../booking/utils';
 import { formatAsDatetime, formatAsTime } from '../../../../utils/datetime';
+import { PrivateBooking } from '#libs/private-service/types';
 
 type Props = {
-  divider?: boolean,
-  onClick?: () => void,
-  selected?: boolean,
-  private_booking: PrivateBooking,
-  onDelete?: () => void,
-  onRestore?: () => void,
+  divider?: boolean;
+  onClick?: () => void;
+  selected?: boolean;
+  private_booking: PrivateBooking;
+  onDelete?: () => void;
+  onRestore?: () => void;
 };
-export const PrivateBookingListItem = (props: Props) => {
+export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
   const getIsRecurrentBooking = () => {
     if (props.private_booking.recurrence_rule_private_booking) {
-      return <UpdateIcon color="primary" fontsize="small" />;
+      return <UpdateIcon color="primary" fontSize="small" />;
     }
     return '';
   };
@@ -47,6 +45,7 @@ export const PrivateBookingListItem = (props: Props) => {
       }
     >
       <ListItemText
+        className={classes.listItemText}
         primary={
           <div className={classes.rowPrimary}>
             <Typography variant="body2">
@@ -54,11 +53,11 @@ export const PrivateBookingListItem = (props: Props) => {
                 (props.private_booking.first_in_company ? ' ★' : '')}
             </Typography>
             <Typography color="primary">{getIsRecurrentBooking()}</Typography>
-            <Typography variant="body2" inline>
+            <Typography variant="body2">
               <BookingStatusCodeText booking={props.private_booking} />
             </Typography>
             {props.private_booking.is_unpaid ? null : (
-              <Typography variant="body2" inline style={{ marginLeft: 'auto' }}>
+              <Typography variant="body2" style={{ marginLeft: 'auto' }}>
                 {props.private_booking.booking_status_code !==
                   BOOKING_STATUS_OK.id &&
                   `${
@@ -102,28 +101,25 @@ export const PrivateBookingListItem = (props: Props) => {
           </div>
         }
       />
-      <ListItemSecondaryAction>
-        {props.onRestore &&
-          !props.private_booking.is_unpaid &&
-          props.private_booking.booking_status_code !==
-            BOOKING_STATUS_OK.id && (
-            <IconButton onClick={props.onRestore}>
-              <UndoIcon />
-            </IconButton>
-          )}
-        {props.private_booking.is_unpaid && (
-          <IconButton disabled>
-            <Typography variant="body2" inline color="error">
-              {t('privateBooking.isUnpaid')}
-            </Typography>
+      {props.onRestore &&
+        !props.private_booking.is_unpaid &&
+        props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id && (
+          <IconButton onClick={props.onRestore}>
+            <UndoIcon />
           </IconButton>
         )}
-        {props.onDelete ? (
-          <IconButton onClick={props.onDelete}>
-            <CancelIcon />
-          </IconButton>
-        ) : null}
-      </ListItemSecondaryAction>
+      {props.private_booking.is_unpaid && (
+        <IconButton disabled>
+          <Typography variant="body2" color="error">
+            {t('privateBooking.isUnpaid')}
+          </Typography>
+        </IconButton>
+      )}
+      {props.onDelete ? (
+        <IconButton onClick={props.onDelete}>
+          <CancelIcon />
+        </IconButton>
+      ) : null}
     </ListItem>
   );
 };
@@ -145,4 +141,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose()(PrivateBookingListItem);
+export default PrivateBookingListItem;

@@ -13,6 +13,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import PauseIcon from '@material-ui/icons/Pause';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { OptionCallback } from '../../state/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -21,13 +22,28 @@ import ContractDeleteDialog from '#libs/subscription/components/SubscriptionCont
 import SubscriptionContractFormDrawer from '#libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '#libs/theme/selectors';
+import { getContractNotifications } from '#libs/marketing/selectors';
+
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
-
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '#libs/email-editor/selectors';
+import {
+  fetchMarketingNotificationList as fetchMarketingNotificationListAction,
+  createMarketingNotification as createMarketingNotificationAction,
+  updateMarketingNotification as updateMarketingNotificationAction,
+  deleteMarketingNotification as deleteMarketingNotificationAction,
+} from '#libs/marketing/actions';
 import ContractPauseFormDialog from '#libs/subscription/components/ContractPauseFormDialog.component';
-
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '#libs/email-editor/actions';
 import {
   getContract,
   withPaymentPack,
@@ -38,6 +54,7 @@ import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selecto
 import { withMember } from '#libs/order/selectors';
 import ContractDetail from '#libs/subscription/components/ContractDetail.component';
 import ContractPauseDetail from '#libs/subscription/components/ContractPauseListDetail.component';
+import { fetchTagList } from '#libs/notification-rule/actions';
 import {
   fetchContractDetail as fetchContractDetailAction,
   deleteContract,
@@ -56,25 +73,36 @@ import {
   Subscription,
 } from '#libs/subscription/types';
 import { RootState } from '../../reducers';
+import { getMergeTags } from '#libs/marketing/utils';
+import { getTagCategories } from '#libs/notification-rule/selectors';
+import MarketingRuleFormContract from '#libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
+import MarketingRuleListItemContract from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
 
 type OwnProps = {
   contractId: number;
   page: number;
-  deleteOpen: boolean;
+  deleteModalOpen: boolean;
   contractToEdit?: Contract;
   setDeleteModalOpen: (open: boolean) => void;
   setContractToEdit: (contract?: Contract) => void;
+  closeForm: () => void;
+  submitNotificationForm: (data: any) => void;
   submitEditForm: (data: any, options?: OptionCallback) => void;
   contractPauseLoading: boolean;
   setContractPauseLoading: (pause: boolean) => void;
   contractPauseFormOpen: boolean;
+  contractNotificationFormOpen: boolean;
+  setContractNotificationFormOpen: (open: boolean) => void;
   setContractPauseOpen: (open: boolean) => void;
+  selectedNotification: any;
+  setSelectedNotification: (notification: any) => void;
   fetchSubscriptionsByContract: (
     page: number,
     page_size: number,
     options?: OptionCallback,
   ) => void;
   fetchMembersBySubscription: (subscriptions: Array<Subscription>) => void;
+  fetchNotificationsAndTemplates: () => void;
 };
 
 type Props = OwnProps &
@@ -94,6 +122,8 @@ export class ContractDetailPage extends Component<Props, State> {
     this.props.refreshAllPaymentPack();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    this.props.fetchTagList();
+    this.props.fetchNotificationsAndTemplates();
     this.props.fetchSubscriptionsByContract(1, SUBSCRIPTION_PAGINATION_SIZE);
     this.props.fetchContractPauseList(
       { contract: this.props.contractId },
@@ -121,6 +151,44 @@ export class ContractDetailPage extends Component<Props, State> {
               }}
               snackbarSuccess={this.props.snackbarSuccess}
             />
+            <MarketingRuleListItemContract
+              notifications={this.props.notifications}
+              updateNotification={this.props.updateMarketingNotification}
+              deleteNotification={this.props.deleteMarketingNotification}
+              deleteModalOpen={this.props.deleteModalOpen}
+              setDeleteModalOpen={this.props.setDeleteModalOpen}
+              selectedNotification={this.props.selectedNotification}
+              setSelectedNotification={this.props.setSelectedNotification}
+              setContractNotificationFormOpen={
+                this.props.setContractNotificationFormOpen
+              }
+              emails={this.props.email_templates_list}
+            />
+
+            <div className={classes.notificationButtonContainer}>
+              <Button
+                onClick={() => this.props.setContractNotificationFormOpen(true)}
+                variant="outlined"
+                color="primary"
+              >
+                {t('addNotification')}
+              </Button>
+            </div>
+            {this.props.contractNotificationFormOpen && (
+              <MarketingRuleFormContract
+                id={this.props.contractId}
+                onCancel={this.props.closeForm}
+                emails={this.props.email_templates_list}
+                emailListLoading={this.props.emailListLoading}
+                getEmailDetail={this.props.fetchEmailTemplateDetail}
+                emailDetails={this.props.email_templates_details}
+                getEmails={this.props.fetchEmailTemplatesSummaries}
+                emailDetailLoading={this.props.emailDetailLoading}
+                initial={this.props.selectedNotification}
+                tags={getMergeTags(this.props.tagCategories, t)}
+                onSubmit={this.props.submitNotificationForm}
+              />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h6" className={classes.title}>
@@ -171,7 +239,7 @@ export class ContractDetailPage extends Component<Props, State> {
                     </div>
                   ),
                 )}
-                <div className={classes.buttonContainer}>
+                <div className={classes.pauseButtonContainer}>
                   <Button
                     onClick={() => this.props.setContractPauseOpen(true)}
                     variant="outlined"
@@ -262,7 +330,14 @@ const styles = (theme: Theme) => ({
   pauseItemContainer: {
     paddingTop: theme.spacing(3),
   },
-  buttonContainer: {
+  notificationButtonContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(1),
+  },
+  pauseButtonContainer: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -285,10 +360,19 @@ const connector = connect(
     contract: withPaymentPack(getContract)(state, contractId),
     paymentPacks: getPaymentPackEnabled(state),
     privatePassList: getPrivatePassAvailable(state),
+    email_templates_list: getAllEmailTemplatesSummaries(state),
+    email_templates_details: getEmailTemplatesDetail(state),
+    emailListLoading: state.emailTemplate.loading,
+    emailDetailLoading: state.emailTemplate.detail.loading,
     paymentComboList: getPaymentComboList(state),
     theme: themeSelectors.getTheme(state),
     contractPauseList: getContractPauseList(state, contractId),
     subscriptionData: state.subscription.byId,
+    tagCategories: getTagCategories(state),
+    notifications: {
+      items: getContractNotifications(state),
+      loading: state.marketingNotification.loading,
+    },
   }),
   {
     fetchContractDetail: fetchContractDetailAction,
@@ -297,18 +381,26 @@ const connector = connect(
     createContractPause,
     refreshAllPaymentPack,
     fetchPrivatePassList,
+    fetchTagList,
     fetchPaymentComboList,
     createOrUpdateContract: createOrUpdateContractAction,
     fetchSubscriptionList: fetchSubscriptionListAction,
     fetchFilteredMembers: fetchFilteredMembersAction,
     fetchSubscriptionBulk,
+    fetchMarketingNotificationList: fetchMarketingNotificationListAction,
     snackbarSuccess,
+    fetchEmailTemplatesSummaries,
+    fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
     goToList: () => push('/subscription/contract'),
     goToSubscription: (id: number) => push(`/subscription/${id}`),
     goToPaymentPackDetail: (packId: number) => push(`/payment-pack/${packId}/`),
     goToPrivatePass: (packId: number) =>
       push(`/private-service/pass/${packId}/`),
     goToCombo: (id: number) => push(`/combo/${id}/`),
+    updateMarketingNotification: updateMarketingNotificationAction,
+    deleteMarketingNotification: deleteMarketingNotificationAction,
+    createNotification: createMarketingNotificationAction,
   },
 );
 
@@ -316,9 +408,15 @@ export default compose(
   withStyles(styles),
   withTranslation(['subscription']),
   routerParamsToProps({ id: 'contractId:number' }),
-  withState('deleteOpen', 'setDeleteModalOpen', false),
+  withState('deleteModalOpen', 'setDeleteModalOpen', false),
   withState('contractToEdit', 'setContractToEdit', null),
   withState('page', 'setPage', 1),
+  withState(
+    'contractNotificationFormOpen',
+    'setContractNotificationFormOpen',
+    false,
+  ),
+  withState('selectedNotification', 'setSelectedNotification', null),
   withState('contractPauseFormOpen', 'setContractPauseOpen', false),
   withState('contractPauseLoading', 'setContractPauseLoading', true),
   connector,
@@ -336,6 +434,29 @@ export default compose(
           options,
         );
       },
+    closeForm:
+      ({ setContractNotificationFormOpen, setSelectedNotification }) =>
+      () => {
+        setSelectedNotification(null);
+        setContractNotificationFormOpen(false);
+      },
+    submitNotificationForm:
+      ({
+        createNotification,
+        updateMarketingNotification,
+        selectedNotification,
+        setContractNotificationFormOpen,
+        setSelectedNotification,
+      }) =>
+      (data: any) => {
+        if (selectedNotification !== null) {
+          updateMarketingNotification(selectedNotification.id, data);
+        } else {
+          createNotification(data);
+        }
+        setContractNotificationFormOpen(false);
+        setSelectedNotification(null);
+      },
     submitEditForm:
       ({ createOrUpdateContract, fetchContractDetail, contractId }) =>
       (data: any, options: OptionCallback) => {
@@ -347,6 +468,33 @@ export default compose(
             }
           },
         });
+      },
+    fetchNotificationsAndTemplates:
+      ({
+        contractId,
+        fetchMarketingNotificationList,
+        fetchEmailTemplateSummariesBulk,
+      }) =>
+      () => {
+        fetchMarketingNotificationList(
+          {
+            kind__in: [
+              NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION,
+              NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
+              NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END,
+            ],
+            event_rules__contract_id: contractId,
+          },
+          {
+            onSuccess: (notificationList: any) => {
+              fetchEmailTemplateSummariesBulk(
+                notificationList.map(
+                  (notification: any) => notification.email_design,
+                ),
+              );
+            },
+          },
+        );
       },
     fetchMembersBySubscription:
       ({ fetchFilteredMembers }) =>

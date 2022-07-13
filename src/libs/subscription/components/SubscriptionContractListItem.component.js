@@ -4,19 +4,23 @@ import React, { useEffect } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation, TFunction } from 'react-i18next';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '#components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import type { SubscriptionContract } from '../types';
+import type { Contract } from '../types';
 
 type Props = {
   t: TFunction,
   company?: { id: number, name: string },
-  contract: SubscriptionContract,
+  contract: Contract,
   onDelete: () => void,
   onEdit: () => void,
   onClick?: () => void,
@@ -72,6 +76,20 @@ export const SubscriptionContractListItem = (props: Props) => {
               })}`
         }`}
       />
+      {props.contract.hasActiveNotification && (
+        <Tooltip
+          title={
+            <Typography variant="subtitle2">
+              {props.t('notificationToolTip')}
+            </Typography>
+          }
+          aria-label="info"
+        >
+          <IconButton>
+            <NotificationsIcon />
+          </IconButton>
+        </Tooltip>
+      )}
       <ListItemResponsiveAction
         actions={[
           props.onRegister && {

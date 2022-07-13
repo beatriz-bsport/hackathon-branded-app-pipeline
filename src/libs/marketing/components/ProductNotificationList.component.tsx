@@ -16,7 +16,7 @@ import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-r
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { PaymentPack } from '../../../api/types';
-import MarketingNotificationsList from './NotificationsList.Component';
+import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
 import { SmartList } from '../../smart-list/types';
 import type { PrivatePass } from '#libs/private-service/types';

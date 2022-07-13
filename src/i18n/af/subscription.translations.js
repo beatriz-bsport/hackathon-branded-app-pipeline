@@ -24,6 +24,7 @@ exports.default = {
     hasStopped: 'Stoppé',
     hasEnded: 'Terminé',
   },
+  notificationToolTip: 'Des notifications sont définies pour cet abonnement',
   events: {
     list: {
       title: 'Derniers évènements',
@@ -42,6 +43,7 @@ exports.default = {
   },
   cancel: 'annuler',
   save: 'valider',
+  addNotification: 'Ajouter une notification',
   table: {
     noContent: 'Aucune souscription enregistrée',
   },
@@ -179,6 +181,80 @@ exports.default = {
       cancel: 'Annuler',
       submit: 'Enregistrer',
     },
+  },
+  notificationForm: {
+    title: 'Règle de notifications',
+    subtitle: 'Abonnement',
+    warning:
+      "Prévenez vos clients lorsque leur abonnement a un changement d'état : fin de l'abonnement, début de l'abonnement.",
+    typeSection: {
+      title: 'État à notifier',
+      contractStart: "Début de l'abonnement",
+      contractEnd: "Fin de l'abonnement",
+    },
+    triggeringEvent: {
+      title: 'Événement déclencheur',
+      contractCreation: "Création de l'abonnement",
+      firstBilling: 'Première facture',
+    },
+    notificationType: {
+      title: 'Type de notification',
+      sendNotification: 'Envoyer la notification',
+      day: 'Jour',
+      day_plural: 'Jours',
+      hour: 'Heure',
+      hour_plural: 'Heures',
+      before: 'Avant',
+      after: 'Après',
+      afterSubcriptionCreation: 'Après la création de l’abonnement.',
+      firstBilling: "La première facture de l'abonnement.",
+      contractEnd: "La fin de l'abonnement.",
+      warningDayFirst:
+        'Le nombre de jours indiqué est par rapport à la date de la première facture à minuit',
+      warningHourFirst:
+        "Le nombre d'heures indiqué est par rapport à la date de la première facture à minuit",
+      warningDayLast:
+        'Le nombre de jours indiqué est par rapport à la date de la dernière facture à minuit',
+      warningHourLast:
+        "Le nombre d'heures indiqué est par rapport à la date de la dernière facture à minuit",
+    },
+    sendingMethod: {
+      title: "Méthode d'envoi",
+      email: 'Mail',
+      notificationPush: 'Notification push',
+    },
+    emailNotification: {
+      parameters: 'Paramètres du mail',
+      emailToSend: 'Mail à envoyer',
+    },
+    notificationPush: {
+      warning:
+        'Attention, les notifications push sont à utiliser avec parcimonie. Trop de notifications push peut amener certains membres à désinstaller l’application.',
+      parameters: 'Paramètres de la notification',
+      title: 'Titre',
+      content: 'Contenu',
+      addTag: 'Ajouter une balise',
+    },
+    buttons: {
+      cancel: 'Annuler',
+      submit: 'Valider',
+    },
+  },
+  notification: {
+    title: 'Notifier {{count}} {{periodScale}} {{notificationKind}}',
+    creation: 'Après la création',
+    beforefirstBilling: 'Avant la première facture',
+    afterfirstBilling: 'Après la première facture',
+    beforeSubscriptionEnd: 'Avant la fin de l’abonnement',
+    afterSubscriptionEnd: 'Après la fin de l’abonnement',
+    days: 'Jour',
+    days_plural: 'Jours',
+    hours: 'Heure',
+    hours_plural: 'Heures',
+  },
+  contractNotification: {
+    creation: 'À la création de l’abonnement',
+    firstBilling: 'À la première facture',
   },
   contract: {
     item: {

@@ -9,13 +9,16 @@ export type MarketingNotification = {
     credits_left?: number; // 4
     payment_pack_id?: number; // 3, 4
     private_pass_id?: number;
+    contract_id?: number;
     meta_activity_id?: number; // 2
     establishment_id?: number; // 2
     establishment_group_id?: number;
     private_service_id?: number; // 1
     notify_booking_nb?: number; // 1, 2
+    days?: number;
     hours?: number; // 2
     kind?: number; // 1
+    disabled_if_in_contract?: boolean;
   };
   email_design: number;
   is_event_based?: boolean;

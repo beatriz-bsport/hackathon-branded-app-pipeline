@@ -174,9 +174,14 @@ exports.default = {
       mailTitle: 'Mail à envoyer',
       pushTitle: 'Paramètres de la notification',
       typeTitle: 'Type de notification',
+      contractTitle: 'Abonnement',
       creditType: 'Crédits restants',
       daysType: 'Jours de validité restants',
       daysPastType: 'Jours de péremption',
+      dontSendIfInContract:
+        'Ne pas envoyer quand la carte est dans un abonnement',
+      infoContract:
+        "Les membres qui ont obtenu cette carte dans un abonnement ne recevront que les notifications sur l'abonnement et pas celles de la carte. En désactivant cette option ils recevront les deux.",
       mailSelection: 'Choisir un mail',
       smartListSelection: 'Choisir des listes (optionnel)',
       showMail: 'Voir le mail',

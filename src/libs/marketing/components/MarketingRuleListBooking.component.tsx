@@ -22,7 +22,7 @@ import { MarketingNotification } from '../types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { PrivateService } from '../../private-service/types';
-import MarketingNotificationsList from './NotificationsList.Component';
+import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
 
 const getLabelForKind = (

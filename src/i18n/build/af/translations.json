@@ -2427,7 +2427,8 @@
         "establishment": "Sélectionnez une salle",
         "private_service": "Sélectionnez un rendez-vous",
         "payment_pack": "Sélectionnez une carte de cours",
-        "private_pass": "Sélectionnez une carte de de rendez-vous"
+        "private_pass": "Sélectionnez une carte de rendez-vous",
+        "contract": "Sélectionnez un abonnement"
       },
       "paymentPackPlaceholder": "Carte de cours",
       "privatePassPlaceholder": "Carte de rendez-vous",
@@ -2441,16 +2442,19 @@
         "establishment": "Salle",
         "private_service": "Rendez-vous",
         "payment_pack": "Carte de cours",
-        "private_pass": "Carte de rendez-vous"
+        "private_pass": "Carte de rendez-vous",
+        "contract": "Abonnement"
       },
       "groupTitle": {
         "birthday": "Anniversaire",
         "booking": "Réservation",
         "privateBooking": "Rendez-vous",
         "paymentPack": "Carte de cours",
-        "privatePass": "Carte de rendez-vous"
+        "privatePass": "Carte de rendez-vous",
+        "contract": "Abonnement"
       },
       "paymentPackKind": { "validity": "Validité de la carte", "credit": "Nombre de crédits" },
+      "contractKind": { "contractStart": "Début de l’abonnement", "contractEnd": "Fin de l’abonnement" },
       "notificationDetails": "Détails de la notification",
       "statisticDetails": "Statistiques",
       "notificationPreview": "Apercu de la notification",
@@ -4105,9 +4109,12 @@
         "mailTitle": "Mail à envoyer",
         "pushTitle": "Paramètres de la notification",
         "typeTitle": "Type de notification",
+        "contractTitle": "Abonnement",
         "creditType": "Crédits restants",
         "daysType": "Jours de validité restants",
         "daysPastType": "Jours de péremption",
+        "dontSendIfInContract": "Ne pas envoyer quand la carte est dans un abonnement",
+        "infoContract": "Les membres qui ont obtenu cette carte dans un abonnement ne recevront que les notifications sur l'abonnement et pas celles de la carte. En désactivant cette option ils recevront les deux.",
         "mailSelection": "Choisir un mail",
         "smartListSelection": "Choisir des listes (optionnel)",
         "showMail": "Voir le mail",
@@ -7663,6 +7670,7 @@
       "hasStopped": "Stoppé",
       "hasEnded": "Terminé"
     },
+    "notificationToolTip": "Des notifications sont définies pour cet abonnement",
     "events": {
       "list": { "title": "Derniers évènements" },
       "billing_plan-pause": "Pause",
@@ -7679,6 +7687,7 @@
     },
     "cancel": "annuler",
     "save": "valider",
+    "addNotification": "Ajouter une notification",
     "table": { "noContent": "Aucune souscription enregistrée" },
     "noContracts": "Les contrats vous permettront de facturer régulièrement (mensuellement) vos membres pour une carte de cours recréditée tous les mois/jours/années.",
     "subscription": {
@@ -7783,6 +7792,57 @@
         "submit": "Enregistrer"
       }
     },
+    "notificationForm": {
+      "title": "Règle de notifications",
+      "subtitle": "Abonnement",
+      "warning": "Prévenez vos clients lorsque leur abonnement a un changement d'état : fin de l'abonnement, début de l'abonnement.",
+      "typeSection": { "title": "État à notifier", "contractStart": "Début de l'abonnement", "contractEnd": "Fin de l'abonnement" },
+      "triggeringEvent": {
+        "title": "Événement déclencheur",
+        "contractCreation": "Création de l'abonnement",
+        "firstBilling": "Première facture"
+      },
+      "notificationType": {
+        "title": "Type de notification",
+        "sendNotification": "Envoyer la notification",
+        "day": "Jour",
+        "day_plural": "Jours",
+        "hour": "Heure",
+        "hour_plural": "Heures",
+        "before": "Avant",
+        "after": "Après",
+        "afterSubcriptionCreation": "Après la création de l’abonnement.",
+        "firstBilling": "La première facture de l'abonnement.",
+        "contractEnd": "La fin de l'abonnement.",
+        "warningDayFirst": "Le nombre de jours indiqué est par rapport à la date de la première facture à minuit",
+        "warningHourFirst": "Le nombre d'heures indiqué est par rapport à la date de la première facture à minuit",
+        "warningDayLast": "Le nombre de jours indiqué est par rapport à la date de la dernière facture à minuit",
+        "warningHourLast": "Le nombre d'heures indiqué est par rapport à la date de la dernière facture à minuit"
+      },
+      "sendingMethod": { "title": "Méthode d'envoi", "email": "Mail", "notificationPush": "Notification push" },
+      "emailNotification": { "parameters": "Paramètres du mail", "emailToSend": "Mail à envoyer" },
+      "notificationPush": {
+        "warning": "Attention, les notifications push sont à utiliser avec parcimonie. Trop de notifications push peut amener certains membres à désinstaller l’application.",
+        "parameters": "Paramètres de la notification",
+        "title": "Titre",
+        "content": "Contenu",
+        "addTag": "Ajouter une balise"
+      },
+      "buttons": { "cancel": "Annuler", "submit": "Valider" }
+    },
+    "notification": {
+      "title": "Notifier {{count}} {{periodScale}} {{notificationKind}}",
+      "creation": "Après la création",
+      "beforefirstBilling": "Avant la première facture",
+      "afterfirstBilling": "Après la première facture",
+      "beforeSubscriptionEnd": "Avant la fin de l’abonnement",
+      "afterSubscriptionEnd": "Après la fin de l’abonnement",
+      "days": "Jour",
+      "days_plural": "Jours",
+      "hours": "Heure",
+      "hours_plural": "Heures"
+    },
+    "contractNotification": { "creation": "À la création de l’abonnement", "firstBilling": "À la première facture" },
     "contract": {
       "item": {
         "identifier": "Abonnement",

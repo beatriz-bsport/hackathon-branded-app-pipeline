@@ -27,10 +27,12 @@ exports.default = {
       establishment: 'Sélectionnez une salle',
       private_service: 'Sélectionnez un rendez-vous',
       payment_pack: 'Sélectionnez une carte de cours',
-      private_pass: 'Sélectionnez une carte de de rendez-vous',
+      private_pass: 'Sélectionnez une carte de rendez-vous',
+      contract: 'Sélectionnez un abonnement',
     },
     paymentPackPlaceholder: 'Carte de cours',
     privatePassPlaceholder: 'Carte de rendez-vous',
+
     next: 'Suivant',
     cancel: 'Annuler',
     fabLabels: {
@@ -42,6 +44,7 @@ exports.default = {
       private_service: 'Rendez-vous',
       payment_pack: 'Carte de cours',
       private_pass: 'Carte de rendez-vous',
+      contract: 'Abonnement',
     },
     groupTitle: {
       birthday: 'Anniversaire',
@@ -49,10 +52,15 @@ exports.default = {
       privateBooking: 'Rendez-vous',
       paymentPack: 'Carte de cours',
       privatePass: 'Carte de rendez-vous',
+      contract: 'Abonnement',
     },
     paymentPackKind: {
       validity: 'Validité de la carte',
       credit: 'Nombre de crédits',
+    },
+    contractKind: {
+      contractStart: 'Début de l’abonnement',
+      contractEnd: 'Fin de l’abonnement',
     },
     notificationDetails: 'Détails de la notification',
     statisticDetails: 'Statistiques',

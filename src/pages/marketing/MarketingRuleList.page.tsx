@@ -30,13 +30,13 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
   fetchEmailTemplateSummariesBulk,
 } from '#libs/email-editor/actions';
+import { getActiveContractList } from '#libs/subscription/selectors';
 import {
   fetchAllPrivateServices,
   fetchPrivateServiceBulk,
   fetchPrivatePassList,
 } from '#libs/private-service/actions';
 import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
-
 import {
   fetchActivitiesCompany,
   fetchMetaActivityBulk,
@@ -50,6 +50,7 @@ import {
   fetchEstablishments,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
 } from '#libs/establishment/actions';
+import { fetchContractList } from '#libs/subscription/actions';
 import {
   getAllEmailTemplatesDict,
   getAllEmailTemplatesSummaries,
@@ -70,7 +71,7 @@ import MarketingRuleListPrivateBooking from '#libs/marketing/components/Marketin
 import { MarketingNotification } from '#libs/marketing/types';
 import MarketingRuleDetail from '#libs/marketing/components/MarketingRuleDetail.component';
 import { EmailTemplateSummary } from '#libs/email-editor/types';
-import NotificationFormGeneric from '#libs/marketing/components/NotificationFormGeneric';
+import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFormGeneric.component';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
@@ -83,12 +84,13 @@ import {
   withEstablishment,
 } from '#libs/establishment/selectors';
 import { _getPrivateServices } from '#libs/private-service/selectors/private-service';
-import NotificationsList from '#libs/marketing/components/NotificationsList.Component';
+import NotificationsList from '#libs/marketing/components/MarketingRuleNotificationList.component';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import { EstablishmentGroup } from '#libs/establishment/types';
 
 import FabWithItems from '#components/button/FabWithItems';
+import MarketingRuleListContract from '#libs/marketing/components/MarketingRuleListContract.component';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -143,6 +145,9 @@ export class MarketingRuleListPage extends Component<Props, State> {
         NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
         NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
         NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
+        NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION,
+        NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
+        NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END,
       ],
     });
 
@@ -150,6 +155,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
     const privateServiceIds: number[] = [];
     const establishmentIds: number[] = [];
     const paymentPackIds: number[] = [];
+    const contractIds: number[] = [];
     const emailDesignIds: number[] = [];
 
     notifications.forEach((n: MarketingNotification) => {
@@ -165,6 +171,9 @@ export class MarketingRuleListPage extends Component<Props, State> {
       if (n.event_rules.private_service_id !== undefined) {
         privateServiceIds.push(n.event_rules.private_service_id);
       }
+      if (n.event_rules.contract_id !== undefined) {
+        contractIds.push(n.event_rules.contract_id);
+      }
       emailDesignIds.push(n.email_design);
     });
     await Promise.all([
@@ -172,6 +181,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
       this.props.fetchEstablishmentBulk(establishmentIds),
       this.props.fetchPrivateServiceBulk(privateServiceIds),
       this.props.fetchMetaActivityBulk(metaActivityIds),
+      this.props.fetchContractList(contractIds),
       this.props.fetchEmailTemplateSummariesBulk(emailDesignIds),
       this.props.fetchActivitiesCompany(this.props.theme.company),
       this.props.fetchEstablishments(),
@@ -295,6 +305,10 @@ export class MarketingRuleListPage extends Component<Props, State> {
       onClick: () => this.setState({ createFormOpen: 'payment_pack' }),
     },
     {
+      label: this.props.t('marketing:notifications.fabLabels.contract'),
+      onClick: () => this.setState({ createFormOpen: 'contract' }),
+    },
+    {
       label: this.props.t('marketing:notifications.fabLabels.private_pass'),
       onClick: () => this.setState({ createFormOpen: 'private_pass' }),
     },
@@ -351,6 +365,14 @@ export class MarketingRuleListPage extends Component<Props, State> {
             onUpdateNotification={this.props.updateMarketingNotification}
             smartLists={this.props.smartLists}
           />
+          <MarketingRuleListContract
+            contractNotifications={this.props.notifications.byContract}
+            contractById={this.props.contractById}
+            onClickNotification={this.onClickNotification}
+            emailSummariesById={this.props.emailSummariesById}
+            onUpdateNotification={this.props.updateMarketingNotification}
+          />
+
           <Typography className={classes.classTitle} variant="h5">
             {this.props.t('marketing:notifications.groupTitle.birthday')}
           </Typography>
@@ -397,12 +419,13 @@ export class MarketingRuleListPage extends Component<Props, State> {
             privateServiceById={this.props.privateServicebyId}
             paymentPackById={this.props.paymentPackById}
             privatePassById={this.props.privatePassById}
+            contractById={this.props.contractById}
             notificationsStatById={this.props.notificationsStatById}
             theme={this.props.theme}
           />
         </div>
 
-        <NotificationFormGeneric
+        <MarketingRuleFormGeneric
           establishmentGroups={this.props.establishmentGroups}
           selectedNotification={this.state.editNotification}
           emailSummaryList={this.props.emailSummaryList}
@@ -423,6 +446,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
           establishments={this.props.establishments}
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
+          contracts={this.props.contracts}
           tags={this.props.tagCategories}
           privatePasses={this.props.privatePasses}
           createFormOpenType={this.state.createFormOpen}
@@ -485,6 +509,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentGroupById: state.establishment.establishmentGroup.byId,
   privateServicebyId: state.privateService.privateService.byId,
   metaActivityById: state.metaActivity.byId,
+  contractById: state.subscription.contract.byId,
   emailTemplateLoading: state.emailTemplate.loading,
   emailSummariesById: getAllEmailTemplatesDict(state),
   emailDetailById: getEmailTemplatesDetail(state),
@@ -505,6 +530,7 @@ const mapStateToProps = (state: RootState) => ({
   ) as Array<EstablishmentGroup>,
   privateServices: _getPrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),
+  contracts: getActiveContractList(state),
   comm: state.communication,
   theme: getTheme(state),
   tagCategories: getTagCategories(state),
@@ -532,6 +558,7 @@ const mapDispatchToProps = {
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   fetchPrivatePassList,
   fetchAllPaymentPacks,
+  fetchContractList,
   fetchMarketingNotificationCampaignSummary,
   fetchTagList,
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,

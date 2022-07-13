@@ -24,6 +24,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Fuse, { FuseOptions } from 'fuse.js';
 
 import { TFunction } from 'i18next';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { RootState } from '../../reducers';
 import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -36,13 +37,14 @@ import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
+import { withContractNotification } from '#libs/marketing/selectors';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractFormDrawer from '../../libs/subscription/components/SubscriptionContractFormDrawer.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
-
+import { fetchMarketingNotificationList } from '#libs/marketing/actions';
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
@@ -88,6 +90,13 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchStripeReaders();
+    this.props.fetchMarketingNotificationList({
+      kind__in: [
+        NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION,
+        NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
+        NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END,
+      ],
+    });
   }
 
   onClickContract = (id: number) => {
@@ -117,8 +126,8 @@ export class SubscriptionList extends React.Component<Props, State> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        {this.props.contractListAvailableAll.length === 0 &&
-        this.props.contractListManagerOnly.length === 0 &&
+        {this.props.contractListAvailableAll?.length === 0 &&
+        this.props.contractListManagerOnly?.length === 0 &&
         !this.props.contractLoading ? (
           <IsEmptyList
             text={this.props.t('noContracts')}
@@ -187,7 +196,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           </div>
         )}
         <Grid container spacing={2}>
-          {!!this.props.contractListAvailableAll.length && (
+          {!!this.props.contractListAvailableAll?.length && (
             <Grid item xs={12} lg={6}>
               <Typography
                 className={this.props.classes.sectionTitle}
@@ -231,7 +240,7 @@ export class SubscriptionList extends React.Component<Props, State> {
               />
             </Grid>
           )}
-          {!!this.props.contractListManagerOnly.length && (
+          {!!this.props.contractListManagerOnly?.length && (
             <Grid item xs={12} lg={6}>
               <Typography
                 className={this.props.classes.sectionTitle}
@@ -269,7 +278,7 @@ export class SubscriptionList extends React.Component<Props, State> {
               />
             </Grid>
           )}
-          {!!this.props.inactiveContracts.length && (
+          {!!this.props.inactiveContracts?.length && (
             <Grid item xs={12} lg={6}>
               <ButtonBase
                 onClick={() =>
@@ -282,7 +291,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                 >
                   {`${this.props.t(
                     'subscription:contract.list.titleInactive',
-                  )} (${this.props.inactiveContracts.length})`}
+                  )} (${this.props.inactiveContracts?.length})`}
                 </Typography>
                 {this.props.showDisabled ? (
                   <ExpandLessIcon />
@@ -415,13 +424,15 @@ type Props = MaterialStyleType<ReturnType<typeof styles>> &
 
 const mapStateToProps = (state: RootState) => ({
   theme: themeSelectors.getTheme(state),
-  contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
-    state,
-  ),
-  contractListAvailableAll: withPaymentPack(getAvailableContractListCustomer)(
-    state,
-  ),
-  inactiveContracts: withPaymentPack(getInactiveContractList)(state),
+  contractListManagerOnly: withContractNotification(
+    withPaymentPack(getAvailableContractListManager),
+  )(state),
+  contractListAvailableAll: withContractNotification(
+    withPaymentPack(getAvailableContractListCustomer),
+  )(state),
+  inactiveContracts: withContractNotification(
+    withPaymentPack(getInactiveContractList),
+  )(state),
   contractLoading: state.subscription.contract.loading,
   paymentPacks: getPaymentPackEnabled(state),
   privatePassList: getPrivatePassAvailable(state),
@@ -446,6 +457,7 @@ const mapDispatchToProps = {
   goToContractDetail: (contractId: number) =>
     push(`/subscription/contract/${contractId}`),
   fetchStripeReaders,
+  fetchMarketingNotificationList,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

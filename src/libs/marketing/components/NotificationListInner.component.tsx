@@ -3,9 +3,10 @@ import { Theme, Typography, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import { MarketingNotification } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -68,8 +69,60 @@ const getLabelForRules = (
     return creditsLeftLabel;
   }
 
+  if (
+    notification.kind ===
+      NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION ||
+    notification.kind ===
+      NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING ||
+    notification.kind === NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END
+  ) {
+    const { days, hours } = notification.event_rules;
+    const kind = notification.kind;
+    let period = 0;
+    if (days !== null) {
+      period = days;
+    } else if (hours !== null) {
+      period = hours;
+    }
+    let count = period;
+    let isAfterEvent = true;
+    if (period < 0) {
+      count = -period;
+      isAfterEvent = false;
+    }
+    const notificationKind = (() => {
+      switch (kind) {
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION:
+          return t('subscription:notification.creation').toLowerCase();
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING: {
+          return isAfterEvent
+            ? t('subscription:notification.afterfirstBilling').toLowerCase()
+            : t('subscription:notification.beforefirstBilling').toLowerCase();
+        }
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END: {
+          return isAfterEvent
+            ? t('subscription:notification.afterSubscriptionEnd').toLowerCase()
+            : t(
+                'subscription:notification.beforeSubscriptionEnd',
+              ).toLowerCase();
+        }
+        default: {
+          return '';
+        }
+      }
+    })();
+    return t('subscription:notification.title', {
+      count,
+      periodScale:
+        days !== null
+          ? t('subscription:notification.days', { count }).toLowerCase()
+          : t('subscription:notification.hours', { count }).toLowerCase(),
+      notificationKind,
+    });
+  }
+
   if (notification.kind === 0) {
-    return t('notificationRule:marketingNotification.birthday');
+    return t('notificationRule.marketingNotification.birthday');
   }
   return '';
 };
@@ -77,7 +130,7 @@ const getLabelForRules = (
 type OwnProps = {
   notification: MarketingNotification;
   emailTitle: string;
-  smartLists: SmartList[];
+  smartLists?: SmartList[];
 };
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -91,9 +144,7 @@ const NotificationListInner = (props: Props) => {
       <FeatureListProvider>
         {(featureList) => (
           <div className={classes.contentContainer}>
-            <Typography className={classes.title}>
-              {getLabelForRules(notification, t)}
-            </Typography>
+            <Typography>{getLabelForRules(notification, t)}</Typography>
             {featureList.upsell &&
               featureList.upsell.find(
                 (f) => f.readable_identifier === 'push_notification',
@@ -166,9 +217,8 @@ const styles = (theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     flex: 1,
-  },
-  title: {
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(1.5),
   },
   row: {
     display: 'flex',

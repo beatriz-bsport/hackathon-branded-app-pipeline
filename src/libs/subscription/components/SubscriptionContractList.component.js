@@ -9,6 +9,7 @@ import List from '@material-ui/core/List';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import { Contract } from '../types';
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 import SubscriptionContractFormDrawer from './SubscriptionContractFormDrawer.component';
@@ -45,13 +46,13 @@ type Props = {
 export const SubscriptionContractList = (props: Props) => {
   return (
     <div>
-      {props.contractList.length === 0 && !props.loading
+      {props.contractList?.length === 0 && !props.loading
         ? props.t('contract.list.isEmpty')
         : null}
       {props.loading ? <LinearProgress /> : null}
       <Paper>
         <List disablePadding>
-          {props.contractList.map((c) => (
+          {props.contractList?.map((c) => (
             <SubscriptionContractListItem
               key={c.id}
               contract={c}
@@ -86,7 +87,7 @@ export const SubscriptionContractList = (props: Props) => {
               variant="contained"
               onClick={() =>
                 props.onRegister(
-                  props.contractList.find(
+                  props.contractList?.find(
                     (c) => c.id === props.selectedContract,
                   ),
                 )

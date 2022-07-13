@@ -13,6 +13,7 @@ import MarketingRuleFormPrivateBooking from './marketing-rule-form/MarketingRule
 import MarketingRuleFormBooking from './marketing-rule-form/MarketingRuleFormBooking.component';
 import MarketingRuleFormProduct from './marketing-rule-form/MarketingRuleFormProduct.component';
 
+import { Contract } from '#libs/subscription/types';
 import MarketingRuleFormBirthday from './marketing-rule-form/MarketingRuleFormBirthday.component';
 import NotificationSourceSelector from './NotificationSourceSelector.component';
 
@@ -20,6 +21,7 @@ import { MetaActivity } from '../../meta-activity/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
+import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
 
 type Identifier =
   | 'birthday'
@@ -27,6 +29,7 @@ type Identifier =
   | 'meta_activity'
   | 'establishment'
   | 'private_service'
+  | 'contract'
   | 'payment_pack'
   | 'private_pass'
   | 'workshop'
@@ -52,6 +55,7 @@ type OwnProps = {
   establishments: Establishment[];
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
+  contracts: Contract[];
   tags: { [tag_name: string]: string[] };
   privatePasses: PrivatePass[];
   withoutBirthday: boolean;
@@ -66,7 +70,10 @@ type State = {
   sourceObjectId: number | null;
 };
 
-export class NotificationFormGeneric extends React.PureComponent<Props, State> {
+export class MarketingRuleFormGeneric extends React.PureComponent<
+  Props,
+  State
+> {
   constructor(props) {
     super(props);
     this.state = {
@@ -143,6 +150,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
           privatePasses={this.props.privatePasses}
+          contracts={this.props.contracts}
         />
       );
     }
@@ -152,7 +160,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
 
     if (this.state.sourceObjectId) {
       /* eslint-disable-next-line */
-      identifier = this.props.createFormOpenType
+      identifier = this.props.createFormOpenType;
       /* eslint-disable-next-line */
       objectId = this.state.sourceObjectId;
     }
@@ -165,6 +173,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
         private_service_id,
         payment_pack_id,
         private_pass_id,
+        contract_id,
       } = this.props.selectedNotification.event_rules;
 
       if (meta_activity_id !== undefined) {
@@ -192,6 +201,10 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
       if (private_pass_id !== undefined) {
         identifier = 'private_pass';
         objectId = private_pass_id;
+      }
+      if (contract_id !== undefined) {
+        identifier = 'contract';
+        objectId = contract_id;
       }
     }
 
@@ -282,10 +295,28 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
       );
     }
 
+    if (identifier === 'contract') {
+      return (
+        <MarketingRuleFormContract
+          id={objectId}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailListLoading={this.props.emailListLoading}
+          getEmails={this.props.getEmails}
+          getEmailDetail={this.props.getEmailDetail}
+          emails={this.props.emailSummaryList}
+          emailDetails={this.props.emailDetails}
+          initial={this.props.selectedNotification}
+          onCancel={this.onCancel}
+          onSubmit={this.onSubmit}
+          tags={this.getMergeTags()}
+        />
+      );
+    }
+
     return null;
   }
 }
 
 export default compose<any, OwnProps>(withTranslation(['marketing']))(
-  NotificationFormGeneric,
+  MarketingRuleFormGeneric,
 );

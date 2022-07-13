@@ -5,6 +5,7 @@ import setWith from 'lodash/setWith';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { RootState } from '../../reducers';
 import { MarketingNotification } from './types';
+import { Contract } from '#libs/subscription/types';
 
 export const BIRTHDAY_NOTIFICATION = 0;
 
@@ -80,6 +81,21 @@ export const getPaymentPackNotifications = createSelector(
       );
   },
 );
+
+export const getContractNotifications = createSelector(
+  [_getNotificationIds, _getNotifications],
+  (ids, data) => {
+    return ids
+      .map((id) => data[id])
+      .filter((notif) =>
+        [
+          NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION,
+          NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
+          NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END,
+        ].includes(notif.kind),
+      );
+  },
+);
 export const getPrivatePassNotifications = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {
@@ -108,6 +124,9 @@ export const getNotificationForMarketingPage = createSelector(
           NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
           NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_TIME,
           NOTIFICATION_KIND.PRIVATE_CONSUMER_PASS_CREDIT,
+          NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION,
+          NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
+          NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END,
         ].includes(notif.kind),
       );
   },
@@ -118,6 +137,7 @@ export const getNotificationGrouped = createSelector(
   (notifications) => {
     const byPaymentPack: { [key: string]: MarketingNotification[] } = {};
     const byPrivatePass: { [key: string]: MarketingNotification[] } = {};
+    const byContract: { [key: string]: MarketingNotification[] } = {};
     const bookings: {
       [key: string]: {
         identifier:
@@ -142,6 +162,7 @@ export const getNotificationGrouped = createSelector(
         meta_activity_id,
         private_service_id,
         notify_booking_nb,
+        contract_id,
         kind,
       } = n.event_rules;
       if (payment_pack_id !== undefined) {
@@ -155,6 +176,12 @@ export const getNotificationGrouped = createSelector(
           byPrivatePass[private_pass_id] = [];
         }
         byPrivatePass[private_pass_id].push(n);
+      }
+      if (contract_id !== undefined) {
+        if (byContract[contract_id] === undefined) {
+          byContract[contract_id] = [];
+        }
+        byContract[contract_id].push(n);
       }
       if (meta_activity_id !== undefined && meta_activity_id !== null) {
         const _path = [
@@ -229,6 +256,7 @@ export const getNotificationGrouped = createSelector(
     return {
       byPaymentPack,
       byPrivatePass,
+      byContract,
       bookings,
       privateBookings,
       birthday,
@@ -249,6 +277,24 @@ export const withPrivateBookingNotification = (selector: any) =>
           return { ...service, hasActiveNotification: true };
         }
         return { ...service, hasActiveNotification: false };
+      }),
+  );
+export const withContractNotification = (
+  selector: (state: RootState) => Array<Contract>,
+) =>
+  createSelector(
+    [selector, getContractNotifications],
+    (contractList: Array<Contract>, notifList: Array<MarketingNotification>) =>
+      contractList?.map((contract: Contract) => {
+        if (
+          notifList?.find(
+            (notif: MarketingNotification) =>
+              notif.event_rules.contract_id === contract.id,
+          ) !== undefined
+        ) {
+          return { ...contract, hasActiveNotification: true };
+        }
+        return { ...contract, hasActiveNotification: false };
       }),
   );
 

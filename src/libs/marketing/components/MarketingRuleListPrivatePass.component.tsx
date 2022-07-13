@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { PaymentPack } from '../../../api/types';
-import MarketingNotificationsList from './NotificationsList.Component';
+import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
 import { SmartList } from '../../smart-list/types';
 import type { PrivatePass } from '#libs/private-service/types';

@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -21,6 +22,7 @@ import { compose } from 'recompose';
 import WarningIcon from '@material-ui/icons/Warning';
 
 import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events';
+import { Switch } from '@material-ui/core';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import Tooltip from '#components/Tooltip.component';
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
@@ -67,6 +69,7 @@ interface InitialFormikValues {
   identifier: 'payment_pack' | 'private_pass';
   hours: number;
   creditNotificationKind: 'onBooking' | 'onOfferStart';
+  disabled_if_in_contract: boolean;
 }
 interface FinalFormikData extends MarketingNotification {
   send_email: boolean;
@@ -91,6 +94,7 @@ interface FinalFormikData extends MarketingNotification {
   smartlist_exclude: Array<number>;
   hours: number;
   creditNotificationKind: 'onBooking' | 'onOfferStart';
+  disabled_if_in_contract: boolean;
 }
 
 const getKind = (identifer: string, values: any) => {
@@ -211,6 +215,7 @@ const ProductNotificationForm = (props: Props) => {
     email_design,
     identifier,
     creditNotificationKind,
+    disabled_if_in_contract,
   } = values;
 
   useEffect(() => {
@@ -395,6 +400,32 @@ const ProductNotificationForm = (props: Props) => {
             </div>
           </div>
         )}
+
+        <Typography variant="subtitle2">
+          {t('notification.form.contractTitle')}
+        </Typography>
+        <div className={classes.switchContainer}>
+          <Switch
+            checked={disabled_if_in_contract}
+            onChange={() =>
+              setFieldValue('disabled_if_in_contract', !disabled_if_in_contract)
+            }
+          />
+          <Typography variant="body1">
+            {t('notification.form.dontSendIfInContract')}
+          </Typography>
+        </div>
+        <div className={classes.infoContainer}>
+          <div className={classes.infoIcon}>
+            <InfoOutlinedIcon color="inherit" />
+          </div>
+          <Typography
+            variant="body2"
+            className={classNames([classes.breakSpaces])}
+          >
+            {t('notification.form.infoContract')}
+          </Typography>
+        </div>
 
         <FeatureListProvider>
           {(featureList) => {
@@ -637,6 +668,28 @@ const useStyles = makeStyles((theme) => ({
   flex: {
     display: 'flex',
   },
+  infoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(4),
+    gap: theme.spacing(2),
+  },
+  infoIcon: {
+    color: theme.palette.info.main,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  switchContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(-1),
+  },
+  breakSpaces: {
+    whiteSpace: 'break-spaces',
+  },
 }));
 
 const ProductNotificationSchema = Yup.object().shape({
@@ -712,6 +765,7 @@ export default compose<any, Props>(
           smartlist_include,
           smartlist_exclude,
           hours,
+          disabled_if_in_contract,
         } = initial.event_rules;
         const verboseNotifKind = getNotificationKind(initial);
         const creditNotificationKind = getPpCreditNotificationKind(initial);
@@ -733,6 +787,7 @@ export default compose<any, Props>(
           creditNotificationKind,
           verboseNotifKind,
           identifier,
+          disabled_if_in_contract: disabled_if_in_contract ?? true,
         };
       }
       const values: InitialFormikValues = {
@@ -755,6 +810,7 @@ export default compose<any, Props>(
         smartlist_exclude: [],
         verboseNotifKind: 'creditsLeft',
         identifier,
+        disabled_if_in_contract: true,
       };
       return values;
     },
@@ -780,6 +836,7 @@ export default compose<any, Props>(
             : {
                 private_pass_id: values.private_pass_id,
               }),
+          disabled_if_in_contract: values.disabled_if_in_contract,
         },
       };
       switch (values.verboseNotifKind) {

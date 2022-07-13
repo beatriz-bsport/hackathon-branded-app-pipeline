@@ -12,10 +12,12 @@ import {
 } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
+import { Contract } from '#libs/subscription/types';
 import { MetaActivity } from '../../meta-activity/types';
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
+import ContractSelector from '#libs/subscription/components/ContractSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
@@ -31,7 +33,8 @@ type Identifier =
   | 'payment_pack'
   | 'workshop'
   | 'private_pass'
-  | 'establishment_group';
+  | 'establishment_group'
+  | 'contract';
 
 type OwnProps = {
   onClose: () => void;
@@ -42,6 +45,7 @@ type OwnProps = {
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
   privatePasses: PrivatePass[];
+  contracts: Contract[];
   establishmentGroups: Array<EstablishmentGroup>;
 };
 
@@ -56,6 +60,7 @@ type State = {
   selectedPaymentPack?: number | null;
   selectedPrivatePass?: number | null;
   selectedEstablishmentGroup?: number | null;
+  selectedContract?: number | null;
 };
 
 class NotificationSourceSelector extends React.PureComponent<Props, State> {
@@ -66,6 +71,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     selectedPaymentPack: null,
     selectedPrivatePass: null,
     selectedEstablishmentGroup: null,
+    selectedContract: null,
   };
 
   onChange = (identifier: Identifier, value: number) => {
@@ -75,6 +81,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
       selectedPrivateService: null,
       selectedPaymentPack: null,
       selectedPrivatePass: null,
+      selectedContract: null,
     };
 
     if (['meta_activity', 'workshop'].includes(identifier)) {
@@ -94,6 +101,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     }
     if (identifier === 'private_pass') {
       state.selectedPrivatePass = value;
+    }
+    if (identifier === 'contract') {
+      state.selectedContract = value;
     }
 
     this.setState(state);
@@ -122,6 +132,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     if (identifier === 'payment_pack') {
       objectId = this.state.selectedPaymentPack;
     }
+    if (identifier === 'contract') {
+      objectId = this.state.selectedContract;
+    }
     if (identifier === 'private_pass') {
       objectId = this.state.selectedPrivatePass;
     }
@@ -139,6 +152,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
     }
     if (identifier === 'private_service') {
       return typeof this.state.selectedPrivateService !== 'number';
+    }
+    if (identifier === 'contract') {
+      return typeof this.state.selectedContract !== 'number';
     }
     if (identifier === 'payment_pack') {
       return typeof this.state.selectedPaymentPack !== 'number';
@@ -215,6 +231,13 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                 onChange={(value) => this.onChange('payment_pack', value)}
                 helperText={t('notifications.paymentPackPlaceholder')}
                 isMulti={false}
+              />
+            )}
+            {identifier === 'contract' && (
+              <ContractSelector
+                contracts={this.props.contracts}
+                contractId={this.state.selectedContract}
+                onChange={(value) => this.onChange('contract', value)}
               />
             )}
 

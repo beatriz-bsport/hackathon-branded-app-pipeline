@@ -32,6 +32,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   subtitle,
   width,
   className,
+  minWidth,
   anchor = 'right',
   withoutPadding = false,
   flexContent,
@@ -39,7 +40,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   withoutHeaderContainer,
   onClose,
 }) => {
-  const classes = useStyles({ width, subtitle });
+  const classes = useStyles({ width, subtitle, minWidth });
   const { t } = useTranslation('common');
 
   return (
@@ -142,18 +143,9 @@ const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
       flex: 1,
       minWidth: '500px',
     },
-    contentResized: {
-      [theme.breakpoints.down('sm')]: {
-        minWidth: '350px',
-      },
-    },
     padding: {
       padding: theme.spacing(4),
       paddingBottom: theme.spacing(2),
-    },
-    flex: {
-      display: 'flex',
-      flexDirection: 'column',
     },
   }),
 );

@@ -52,7 +52,7 @@ import {
 import { getmarketingNotificationbyEstablishmentGroup } from '#libs/marketing/selectors';
 import { MarketingNotification } from '#libs/marketing/types';
 import { EmailTemplateSummary } from '#libs/email-editor/types';
-import NotificationFormGeneric from '#libs/marketing/components/NotificationFormGeneric';
+import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFormGeneric.component';
 
 type StateHandlerInit = {
   openDialogForm: boolean;
@@ -233,7 +233,7 @@ export class EstablishmentGroup extends React.Component<Props> {
           </div>
         </GenericFormDialog>
         {this.state.establishmentGroupForNotificationCreation && (
-          <NotificationFormGeneric
+          <MarketingRuleFormGeneric
             sourceObjectId={
               this.state.establishmentGroupForNotificationCreation
             }
@@ -256,7 +256,7 @@ export class EstablishmentGroup extends React.Component<Props> {
             }
           />
         )}
-        <NotificationFormGeneric
+        <MarketingRuleFormGeneric
           selectedNotification={this.props.notificationToEdit}
           emailSummaryList={this.props.emailSummaryList}
           emailListLoading={this.props.emailListLoading}

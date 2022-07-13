@@ -25,7 +25,7 @@ type OwnProps = {
     data: DeepPartial<MarketingNotification>,
   ) => void;
   emailSummariesById: { [key: string]: EmailTemplateSummary };
-  smartLists: SmartList[];
+  smartLists?: SmartList[];
 };
 
 type Props = OwnProps &
@@ -43,6 +43,17 @@ const sortNotifications = (
     ].includes(a.kind)
   ) {
     return a.event_rules.hours - b.event_rules.hours;
+  }
+  if (
+    a.kind === NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION ||
+    a.kind === NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING ||
+    a.kind === NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END
+  ) {
+    return (
+      a.event_rules.hours +
+      24 * a.event_rules.days -
+      (b.event_rules.hours + 24 * b.event_rules.days)
+    );
   }
   if (a.kind === NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME) {
     return a.event_rules.days_left - b.event_rules.days_left;

@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 
+import { TFunction } from 'i18next';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -34,6 +35,7 @@ import NotificationPushPreview from '#components/notification-push/NotificationP
 
 import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
 import HTMLPreview from '#components/html/HTMLPreview.component';
+import { Contract } from '#libs/subscription/types';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -49,6 +51,7 @@ type OwnProps = {
   privateServiceById: { [key: string]: PrivateService };
   paymentPackById: { [key: string]: PaymentPack };
   privatePassById: { [key: string]: PrivatePass };
+  contractById: { [key: string]: Contract };
   notificationsStatById: { [key: string]: MarketingNotificationMailStat };
   theme: CompanyTheme;
 };
@@ -103,6 +106,52 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
       opened_rate,
     };
   }
+
+  getContractLabel = (notification: MarketingNotification, t: TFunction) => {
+    const { days, hours } = notification.event_rules;
+    const kind = notification.kind;
+    let period = 0;
+    if (days !== null) {
+      period = days;
+    } else if (hours !== null) {
+      period = hours;
+    }
+    let count = period;
+    let isAfterEvent = true;
+    if (period < 0) {
+      count = -period;
+      isAfterEvent = false;
+    }
+    const notificationKind = (() => {
+      switch (kind) {
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_CREATION:
+          return t('subscription:notification.creation').toLowerCase();
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_FIRST_BILLING: {
+          return isAfterEvent
+            ? t('subscription:notification.afterfirstBilling').toLowerCase()
+            : t('subscription:notification.beforefirstBilling').toLowerCase();
+        }
+        case NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END: {
+          return isAfterEvent
+            ? t('subscription:notification.afterSubscriptionEnd').toLowerCase()
+            : t(
+                'subscription:notification.beforeSubscriptionEnd',
+              ).toLowerCase();
+        }
+        default: {
+          return '';
+        }
+      }
+    })();
+    return t('subscription:notification.title', {
+      count,
+      periodScale:
+        days !== null
+          ? t('subscription:notification.days', { count }).toLowerCase()
+          : t('subscription:notification.hours', { count }).toLowerCase(),
+      notificationKind,
+    });
+  };
 
   getNotificationKind = (kind: number) => {
     // Deprecated stuff, for compatibility reasons
@@ -187,6 +236,9 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
           )}`}
         </Typography>
       );
+    }
+    if (notif.event_rules.contract_id !== undefined) {
+      return <Typography>{this.getContractLabel(notif, t)}</Typography>;
     }
 
     if (notif.kind === NOTIFICATION_KIND.BIRTHDAY) {
@@ -367,6 +419,7 @@ const getLabel = (props: Props) => {
     establishmentById,
     establishmentGroupById,
     privatePassById,
+    contractById,
   } = props;
 
   if (!selectedNotification) {
@@ -380,6 +433,7 @@ const getLabel = (props: Props) => {
     private_service_id,
     private_pass_id,
     establishment_group_id,
+    contract_id,
   } = selectedNotification.event_rules;
 
   if (establishment_id !== undefined && establishmentById[establishment_id]) {
@@ -407,6 +461,9 @@ const getLabel = (props: Props) => {
   }
   if (private_pass_id && privatePassById[private_pass_id]) {
     return privatePassById[private_pass_id].name;
+  }
+  if (contract_id && contractById[contract_id]) {
+    return contractById[contract_id].name;
   }
   return '';
 };

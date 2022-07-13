@@ -95,6 +95,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    gap: theme.spacing(1),
   },
 }));
 export default RegularizingInvoiceInformation;

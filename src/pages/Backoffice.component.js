@@ -303,10 +303,25 @@ type Props = {
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
   if (props.blockBackofficeToPayPlatformBilling) {
-    return <Route path="/" component={PlatformBillingSettingPage} />;
+    return (
+      <Switch>
+        <Route
+          path="/settings/platform-billing"
+          component={PlatformBillingSettingPage}
+        />
+
+        <Redirect to="/settings/platform-billing" />
+      </Switch>
+    );
   }
   if (props.blockBackofficeToConfigureStripe) {
-    return <Route path="/" component={CompanyDetailPage} />;
+    return (
+      <Switch>
+        <Route path="/settings/company" component={CompanyDetailPage} />
+
+        <Redirect to="/settings/company" />
+      </Switch>
+    );
   }
   return (
     <Switch>

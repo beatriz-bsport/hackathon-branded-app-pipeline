@@ -7939,11 +7939,20 @@
         },
         "actions": {
             "search": "Buscar un taller",
-            "addWorkshopActivity": "Añadir un taller"
+            "addWorkshopActivity": "Añadir un taller",
+            "addWorkshopGroup": "Añadir un grupo de sesiones"
         },
         "search": "Buscar un taller",
         "noWorkshops": "Administra tus talleres aquí, un taller es un evento cuya fecha se fija de antemano.",
-        "disabledWorkshops": "Talleres archivados"
+        "disabledWorkshops": "Talleres archivados",
+        "tabGroups": "Sesiones de grupo",
+        "tabList": "Lista de talleres",
+        "group": {
+            "emptySearch": "No hay grupos que coincidan con tu búsqueda",
+            "pageSize": "Mostrar por:",
+            "backToGroup": "Volver a los grupos",
+            "emptySelect": "Selecciona una sesión"
+        }
     },
     "common": {
         "close": "Cerrar",
@@ -11017,7 +11026,25 @@
                 "backgroundColor": "Color de fondo",
                 "colors": "Colores",
                 "typography": "Tipografía",
-                "general": "Espaciamiento y redondeo"
+                "general": "Espaciamiento y redondeo",
+                "dialog": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "content": "Tenga en cuenta que va a restablecer todos los campos ya personalizados.",
+                    "title": "Restablecer la configuración"
+                },
+                "submit": "Salvar",
+                "selectAlert": "La personalización del widget sólo está disponible en los talleres por el momento",
+                "preview": "Preview",
+                "spacingHelper": "Las esquinas se redondean en múltiplos {{base}}px",
+                "roundingHelper": "El espaciamiento se basa en múltiplos de {{base}}px",
+                "reset": "reiniciar",
+                "backgroundColorElement": "Color de fondo de los elementos",
+                "backgroundColorPage": "Color de fondo de la página",
+                "borderColor": "Color de los bordes",
+                "secondaryColor": "Color secundario",
+                "mainColor": "Color principal",
+                "subtypographyColor": "Color de los subtítulos"
             },
             "groupSessionByPeriod": "Separar la mañana, la tarde y la noche",
             "variantOption": {

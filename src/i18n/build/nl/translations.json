@@ -8348,7 +8348,7 @@
             },
             "register": {
                 "success": "De video is in de videotheek opgeslagen",
-                "error": "Het uploaden van de video kon niet worden voltooid. Probeer het later opnieuw"
+                "error": "Fout bij het bekijken van deze video"
             }
         },
         "privateBooking": {

@@ -18,10 +18,10 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import Star from '@material-ui/icons/Star';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
-import { ReportMedadataDataType } from '#libs/reporting/types';
+import { DataSourceMedadataDataType } from '#libs/datatype-filtering/types';
 
 type ReportFilterChipProps = {
-  datatype: ReportMedadataDataType;
+  datatype: DataSourceMedadataDataType;
   onClick: () => void;
 };
 const ReportFilterChip: React.FC<ReportFilterChipProps> = ({

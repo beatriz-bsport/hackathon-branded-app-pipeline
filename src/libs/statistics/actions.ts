@@ -13,6 +13,9 @@ import statsAPI, {
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAPI,
 } from './api-deprecated';
 
+import { fetchDataSourceDashboardStatistics as fetchDataSourceDashboardStatisticsAPI } from './api';
+import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
+
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
 export const statIsLoading = createAction('STATISTICS/IS_LOADING');
 export const statLoaded = createAction('STATISTICS/LOADED');
@@ -245,6 +248,45 @@ export function fetchPrivateBookingTemporal(
       identifier,
       params,
       statsAPI.fetchPrivateBookingStatistics,
+    );
+  };
+}
+
+// ------------------------------------
+export const fetchDataSourceDashboardStatisticsActions = {
+  isLoading: createAction('DATA_SOURCE_DASHBOARD/STATISTICS/IS_LOADING'),
+  error: createAction('DATA_SOURCE_DASHBOARD/STATISTICS/ERROR'),
+  success: createAction('DATA_SOURCE_DASHBOARD/STATISTICS/SUCCESS'),
+};
+
+export function fetchDataSourceDashboardStatistics(
+  graph: DataSourceDashboardGraph,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchDataSourceDashboardStatisticsActions.error(null));
+    dispatch(
+      fetchDataSourceDashboardStatisticsActions.isLoading({
+        uuid: graph.uuid,
+        loading: true,
+      }),
+    );
+    try {
+      const response = await fetchDataSourceDashboardStatisticsAPI(graph);
+      dispatch(
+        fetchDataSourceDashboardStatisticsActions.success({
+          uuid: graph.uuid,
+          data: response.data,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchDataSourceDashboardStatisticsActions.error(err));
+    }
+    dispatch(
+      fetchDataSourceDashboardStatisticsActions.isLoading({
+        uuid: graph.uuid,
+        loading: false,
+      }),
     );
   };
 }

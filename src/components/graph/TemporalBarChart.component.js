@@ -9,8 +9,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Label,
 } from 'recharts';
 import { dateFormatter, numberFormatter } from '../../libs/statistics/utils';
+import TemporalCustomYLabel from './TemporalCustomYLabel.component';
 
 type Props = {
   height?: number | string,
@@ -28,10 +30,10 @@ type Props = {
   noGrid?: boolean,
   xLabel?: string,
   yLabel?: string,
-  yLabelOffset?: number,
   barSize?: number,
   allowDecimals?: boolean,
   refreshKey?: string,
+  isCurrencyFormat?: boolean,
 };
 
 export function TemporalBarChart(props: Props) {
@@ -47,6 +49,7 @@ export function TemporalBarChart(props: Props) {
     chartOptions,
     noGrid,
     barSize,
+    isCurrencyFormat,
   } = props;
   const start = moment(data[0].d);
   const end = moment(data[data.length - 1].d);
@@ -55,7 +58,7 @@ export function TemporalBarChart(props: Props) {
     <ResponsiveContainer width={width || '100%'} height={height || 400}>
       <BarChart
         data={data}
-        margin={margin || { top: 40, right: 20, bottom: 20, left: 30 }}
+        margin={margin || { top: 5, right: 20, bottom: 20, left: 30 }}
       >
         {noGrid ? null : <CartesianGrid strokeDasharray="3 3" />}
         <XAxis
@@ -69,14 +72,19 @@ export function TemporalBarChart(props: Props) {
           allowDecimals={!!allowDecimals}
           key={refreshKey}
           tickFormatter={numberFormatter(false)}
-          label={{
-            value: yLabel,
-            angle: -90,
-            position: 'insideLeft',
-            offset: props.yLabelOffset || -20,
-          }}
-        />
-        {props.tooltip && <Tooltip />}
+        >
+          <Label
+            content={
+              <TemporalCustomYLabel
+                chartHeight={height || 400}
+                yLabel={yLabel}
+              />
+            }
+          />
+        </YAxis>
+        {props.tooltip && (
+          <Tooltip formatter={numberFormatter(isCurrencyFormat)} />
+        )}
         {chartOptions.map((barData) => {
           return (
             <Bar

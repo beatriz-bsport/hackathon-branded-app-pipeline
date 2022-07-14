@@ -1,0 +1,260 @@
+import moment, { Moment as MomentType } from 'moment-timezone';
+import memoize from 'memoize-one';
+import { v4 as uuidv4 } from 'uuid';
+import { TFunction } from 'i18next';
+import type { Graph } from '../statistics/types';
+import type {
+  DataSourceDashboardGraph,
+  DataSourceDashboardGraphMetadata,
+} from './types';
+import { DASHBOARD_COLOR_PALETTE } from './colors';
+import { DATATYPE_PRESET_INTEGER_VALUE } from '#libs/datatype-filtering/constants';
+import {
+  IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES,
+  BOOKING_GRAPH_IDENTIFIER,
+  PRIVATE_BOOKING_GRAPH_IDENTIFIER,
+  SUBSCRIPTION_GRAPH_IDENTIFIER,
+} from '#libs/dashboard/constants';
+import { DatatypeFilterConfig } from '#libs/datatype-filtering/types';
+
+export const replaceDates: (graphList: Array<Graph>) => Array<Graph> = (
+  graphList,
+) => {
+  return graphList.map((graph) => {
+    const dateRange = { ...graph.dateRange };
+    if (dateRange.kind !== 'custom') {
+      switch (dateRange.kind) {
+        case 'current_year':
+          dateRange.start = moment().subtract(1, 'years').format('YYYY-MM-DD');
+          dateRange.end = moment().format('YYYY-MM-DD');
+          break;
+        case 'last_three_months':
+          dateRange.start = moment().subtract(3, 'months').format('YYYY-MM-DD');
+          dateRange.end = moment().format('YYYY-MM-DD');
+          break;
+        case 'current_month':
+          dateRange.start = moment().subtract(1, 'months').format('YYYY-MM-DD');
+          dateRange.end = moment().format('YYYY-MM-DD');
+          break;
+        case 'current_week':
+          dateRange.start = moment().subtract(1, 'weeks').format('YYYY-MM-DD');
+          dateRange.end = moment().format('YYYY-MM-DD');
+          break;
+        default:
+          break;
+      }
+    }
+    return { ...graph, dateRange };
+  });
+};
+
+// ------------------------------------------
+// Extract date range from graph date_filter_config's filters_data to display as a chip
+export const getDateRangeFromGraphFilter = (
+  graph: DataSourceDashboardGraph,
+): { timePeriod: string; start: MomentType; end: MomentType } | null => {
+  const { date_filter_config: dateFilterConfig } = graph;
+  const dateFilterDict = dateFilterConfig.groups?.at(0)?.filters_data?.at(0);
+  if (!dateFilterDict) return null;
+  let start;
+  let end = moment();
+  let startTimestamp;
+  let endTimestamp;
+  switch (dateFilterDict.time_period) {
+    case 'year':
+      start = moment(end).subtract(1, 'year');
+      break;
+    case 'trimester':
+      start = moment(end).subtract(3, 'months');
+      break;
+    case 'month':
+      start = moment(end).subtract(1, 'month');
+      break;
+    case 'week':
+      start = moment(end).subtract(1, 'week');
+      break;
+    default:
+      [startTimestamp, endTimestamp] = dateFilterDict.value;
+      start = moment(startTimestamp.toString(), 'X');
+      end = moment(endTimestamp.toString(), 'X');
+  }
+  return { timePeriod: dateFilterDict.time_period, start, end };
+};
+
+export const getNbOfFiltersFromGraph = (
+  graph: DataSourceDashboardGraph,
+): number => {
+  const { filter_config: filterConfig } = graph;
+  return (
+    filterConfig?.groups?.reduce(
+      (nbFilters, group) => nbFilters + (group.filters_data?.length ?? 0),
+      0,
+    ) ?? 0
+  );
+};
+
+export const prepareGraphPropsForDisplay = memoize(
+  (
+    t: TFunction,
+    partialGraphList: Array<
+      Omit<DataSourceDashboardGraph, 'filter_config' | 'date_filter_config'>
+    >,
+    graphMetadata: Array<DataSourceDashboardGraphMetadata>,
+  ) => {
+    return partialGraphList.reduce(
+      (acc, partialGraph, index) => ({
+        ...acc,
+        [partialGraph.uuid]: getDisplayPropsForOneGraph(
+          t,
+          partialGraph,
+          graphMetadata?.find(
+            (m) =>
+              m.dashboard_graph_identifier ===
+              partialGraph.dashboard_graph_identifier,
+          ),
+          index,
+        ),
+      }),
+      {},
+    );
+  },
+);
+
+// Prepare props for chart rendering (color, labels, currency)
+const getDisplayPropsForOneGraph = (
+  t: TFunction,
+  partialGraph: Omit<
+    DataSourceDashboardGraph,
+    'filter_config' | 'date_filter_config'
+  >,
+  graphMetadata: DataSourceDashboardGraphMetadata,
+  index: number,
+) => {
+  const baseColor =
+    DASHBOARD_COLOR_PALETTE[index % DASHBOARD_COLOR_PALETTE.length];
+
+  let isCurrencyFormat = false;
+
+  if (['temporal', 'qualitative'].includes(partialGraph.graph_family)) {
+    const fieldIdentifier =
+      partialGraph.graph_params[
+        partialGraph.graph_family === 'temporal'
+          ? 'date_value'
+          : 'group_by_value'
+      ];
+    const valueDatatype = graphMetadata?.metadata?.find(
+      (metadata) => metadata.identifier === fieldIdentifier,
+    )?.datatype;
+    isCurrencyFormat = valueDatatype === 'price';
+  }
+
+  if (partialGraph.graph_family === 'temporal') {
+    const { date, date_value } = partialGraph.graph_params;
+    const xLabel = t(`dataSourceIdentifiers.${date}`);
+    let yLabel = t(
+      `dataSourceIdentifiers.${
+        partialGraph.graph_params.accumulate_total_data
+          ? `${date_value}_accumulate`
+          : date_value
+      }`,
+    );
+    if (
+      ['avg', 'min', 'max'].includes(
+        partialGraph.graph_params.aggregation_function_name,
+      )
+    ) {
+      yLabel = `${yLabel} (${t(
+        `dashboard:graphFormDrawer.aggregation.${partialGraph.graph_params.aggregation_function_name}`,
+      )})`;
+    }
+
+    const chartOptions = [
+      {
+        dataKey: 'v',
+        caption: yLabel,
+        stroke: baseColor,
+        fill: baseColor,
+      },
+    ];
+    return { xLabel, yLabel, tooltip: true, chartOptions, isCurrencyFormat };
+  }
+
+  if (partialGraph.graph_family === 'qualitative') {
+    const { group_by } = partialGraph.graph_params;
+    const groupByDatatype = graphMetadata?.metadata?.find(
+      (m) => m.identifier === group_by,
+    ).datatype;
+
+    let translationKey = null;
+    if (DATATYPE_PRESET_INTEGER_VALUE.includes(groupByDatatype)) {
+      translationKey = `reporting:presetValuesByDatatype.${groupByDatatype}`;
+    } else if (IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES.includes(group_by)) {
+      translationKey = `reporting:presetValuesByIdentifier.${group_by}`;
+    }
+
+    return { tooltip: true, translationKey, legend: true, isCurrencyFormat };
+  }
+
+  // week_timeslots chart does not require specific props
+  return {};
+};
+
+export const getHelperTextForDrawerSelector = (
+  dashboardGraphIdentifier: string,
+  fieldValue: string,
+  fieldName: string,
+  t: TFunction,
+) => {
+  if (
+    [BOOKING_GRAPH_IDENTIFIER, PRIVATE_BOOKING_GRAPH_IDENTIFIER].includes(
+      dashboardGraphIdentifier,
+    ) &&
+    fieldName === 'filterable_date'
+  ) {
+    // Helper text for filterable date
+    return t(
+      `dashboard:graphFormDrawer.helperText.${
+        fieldValue === 'date_start' ? 'dateStart' : 'dateCreated'
+      }`,
+    );
+  }
+
+  if (
+    dashboardGraphIdentifier === SUBSCRIPTION_GRAPH_IDENTIFIER &&
+    fieldName === 'date_value'
+  ) {
+    // Helper text for graph param
+    return t(
+      `dashboard:graphFormDrawer.helperText.${
+        fieldValue === 'price' ? 'subscriptionPrice' : 'subscriptionCount'
+      }`,
+    );
+  }
+
+  return null;
+};
+
+export const generateFilterConfigBookingStatusOk: () => DatatypeFilterConfig =
+  () => {
+    return {
+      groups: [
+        {
+          uuid: uuidv4(),
+          filters_data: [
+            {
+              uuid: uuidv4(),
+              value: [0],
+              datatype: 'booking_status_code',
+              comparator: 4,
+              identifier: 'booking_status_code',
+              time_period: null,
+              sub_datatype: null,
+            },
+          ],
+          inner_operand: 1,
+          display_has_single: true,
+        },
+      ],
+      group_operand: 1,
+    };
+  };

@@ -22,7 +22,6 @@ import {
   deleteReportFilterConfig as deleteReportFilterConfigAPI,
 } from './api';
 import {
-  DynamicFilterDataType,
   ReportConfiguration,
   ReportFilterConfig,
   ReportFilterConfigParams,
@@ -301,26 +300,6 @@ export function updateReport(props: {
       dispatch(updateReportActions.error(error));
       if (typeof options?.onError === 'function') options?.onError(error);
     }
-  };
-}
-
-export const setDynamicDataHasBeenLoadedAction = createAction(
-  'REPORT/FILTER/DYNAMIC/LOADED',
-);
-
-export function setDynamicDataHasBeenLoaded(type: DynamicFilterDataType) {
-  return async (dispatch: Dispatch) => {
-    dispatch(setDynamicDataHasBeenLoadedAction(type));
-  };
-}
-
-export const resetDynamicDataHasBeenLoadedAction = createAction(
-  'REPORT/FILTER/DYNAMIC/RESET',
-);
-
-export function resetDynamicDataHasBeenLoaded() {
-  return async (dispatch: Dispatch) => {
-    dispatch(setDynamicDataHasBeenLoadedAction());
   };
 }
 

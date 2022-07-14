@@ -27,7 +27,7 @@ import { TemporalBarChart } from '../../components/graph/TemporalBarChart.compon
 import { TemporalAreaChart } from '../../components/graph/TemporalAreaChart.component';
 import { TimeslotGridChart } from '../../components/graph/TimeslotGridChart.component';
 import { QualitativeBarChart } from '../../components/graph/QualitativeBarChart.component';
-import { PieChartV2 } from '../../components/graph/PieChartV2.component';
+import PieChart from '../../components/graph/PieChart.component';
 
 import BookingFilters from '../booking/components/BookingFilters.component';
 import PrivateBookingFilters from '../booking/components/PrivateBookingFilters.component';
@@ -152,7 +152,7 @@ export const graphRessources = {
     action: fetchBookingQualitativeAction,
     selector: getStatisticTemporalGrid,
     object: { type: 'booking', icon: ScheduleIcon },
-    chartComponents: { pie: PieChartV2, bar: QualitativeBarChart },
+    chartComponents: { pie: PieChart, bar: QualitativeBarChart },
     iconResource: InsertChartIcon,
     filtersComponent: BookingFilters,
     timeSettings: 'range',
@@ -174,7 +174,7 @@ export const graphRessources = {
     action: fetchInvoiceItemQualitativeAction,
     selector: getStatisticTemporalGrid,
     object: { type: 'invoice', icon: ReceiptIcon },
-    chartComponents: { pie: PieChartV2, bar: QualitativeBarChart },
+    chartComponents: { pie: PieChart, bar: QualitativeBarChart },
     iconResource: InsertChartIcon,
     filtersComponent: null,
     timeSettings: 'range',

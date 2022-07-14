@@ -1,3 +1,47 @@
+const BOOKING_SOURCES = require('@bsport/common/lib/master-data/booking_source');
+const BOOKING_STATUS_CODES = require('@bsport/common/lib/master-data/booking_status_code');
+const {
+  CB,
+  CB_MANUAL,
+  CHECK,
+  HOLIDAY_CHECK,
+  CASH,
+  EVENT_BRITE,
+  AMEX,
+  BANK_TRANSFER,
+  CREDIT_ACCOUNT,
+  DISPUTE,
+  SUBSCRIPTION_CB,
+  SEPA,
+  BANCONTACT,
+  OTHER,
+  GIROPAY,
+  EPS,
+  IDEAL,
+  SOFORT,
+  PAYMENT_PACK,
+} = require('@bsport/common/lib/master-data/payment-methods');
+
+const {
+  BOOKING_SOURCE_APP,
+  BOOKING_SOURCE_WEB,
+  BOOKING_SOURCE_SAAS,
+  BOOKING_SOURCE_OTHER,
+  BOOKING_SOURCE_MIGRATION,
+} = BOOKING_SOURCES;
+
+const {
+  PAYMENT_ENGINE_STRIPE,
+  PAYMENT_ENGINE_BSPORT,
+} = require('@bsport/common/lib/master-data/payment-group');
+
+const {
+  BOOKING_STATUS_OK,
+  BOOKING_STATUS_CANCELLED_BY_MANAGER,
+  BOOKING_STATUS_CANCELLED_BY_CONSUMER,
+  BOOKING_STATUS_CANCELLED_BY_OFFER,
+} = BOOKING_STATUS_CODES;
+
 const GROUP_OR_OPERAND = 0;
 const GROUP_AND_OPERAND = 1;
 
@@ -493,5 +537,64 @@ exports.default = {
     payout_status: 'Status du virement',
     payout: 'Virement',
     staff: 'Staff',
+  },
+  presetValuesByDatatype: {
+    source_device: {
+      [BOOKING_SOURCE_APP.id.toString()]: 'Application',
+      [BOOKING_SOURCE_WEB.id.toString()]: 'Web',
+      [BOOKING_SOURCE_SAAS.id.toString()]: 'Backoffice bsport',
+      [BOOKING_SOURCE_OTHER.id.toString()]: 'Autre',
+      [BOOKING_SOURCE_MIGRATION.id.toString()]: 'Migration de données',
+    },
+    booking_status_code: {
+      [BOOKING_STATUS_OK.id.toString()]: 'Non-annulé',
+      [BOOKING_STATUS_CANCELLED_BY_MANAGER.id.toString()]: 'Annulation manager',
+      [BOOKING_STATUS_CANCELLED_BY_CONSUMER.id.toString()]: 'Annulation client',
+      [BOOKING_STATUS_CANCELLED_BY_OFFER.id.toString()]: 'Séance annulée',
+    },
+    payment_method: {
+      [CB.id]: 'Carte',
+      [CB_MANUAL.id]: 'Carte (manuel)',
+      [CREDIT_ACCOUNT.id]: 'Paiement sur place',
+      [HOLIDAY_CHECK.id]: 'Chèque vacances',
+      [AMEX.id]: 'AMEX',
+      [BANK_TRANSFER.id]: 'Virement',
+      [SUBSCRIPTION_CB.id]: 'Paiement automatique',
+      [CASH.id]: 'Espèces',
+      [CHECK.id]: 'Chèque',
+      [SEPA.id]: 'SEPA',
+      [EVENT_BRITE.id]: 'Event brite',
+      [BANCONTACT.id]: 'Bancontact',
+      [SOFORT.id]: 'Sofort',
+      [IDEAL.id]: 'iDEAL',
+      [EPS.id]: 'EPS',
+      [GIROPAY.id]: 'Giropay',
+      [PAYMENT_PACK.id]: 'Pass',
+      [OTHER.id]: 'Other',
+      [DISPUTE.id]: 'Dispute',
+    },
+    payment_engine: {
+      [PAYMENT_ENGINE_BSPORT]: 'Payment manuel',
+      [PAYMENT_ENGINE_STRIPE]: 'Payment en ligne',
+    },
+  },
+  presetValuesByIdentifier: {
+    attendance: {
+      False: 'Absent',
+      True: 'Présent',
+    },
+    is_recurrent_booking: {
+      False: 'Non récurrente',
+      True: 'Récurrente',
+    },
+    activity_kind: {
+      True: 'Atelier',
+      False: 'Activité',
+    },
+    gender: {
+      X: 'Autres',
+      M: 'Hommes',
+      F: 'Femmes',
+    },
   },
 };

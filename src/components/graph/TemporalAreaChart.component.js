@@ -9,8 +9,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Label,
 } from 'recharts';
 import { dateFormatter, numberFormatter } from '../../libs/statistics/utils';
+import TemporalCustomYLabel from './TemporalCustomYLabel.component';
 
 type Props = {
   height?: number | string,
@@ -31,6 +33,7 @@ type Props = {
   yLabel?: string,
   allowDecimals?: boolean,
   refreshKey?: string,
+  isCurrencyFormat?: boolean,
 };
 
 export function TemporalAreaChart(props: Props) {
@@ -45,6 +48,7 @@ export function TemporalAreaChart(props: Props) {
     margin,
     chartOptions,
     noGrid,
+    isCurrencyFormat,
   } = props;
   const start = moment(data[0].d);
   const end = moment(data[data.length - 1].d);
@@ -53,7 +57,7 @@ export function TemporalAreaChart(props: Props) {
     <ResponsiveContainer width={width || '100%'} height={height || 400}>
       <AreaChart
         data={data}
-        margin={margin || { top: 40, right: 20, bottom: 20, left: 30 }}
+        margin={margin || { top: 5, right: 20, bottom: 20, left: 30 }}
       >
         <defs>
           {chartOptions.map((areaData) => {
@@ -93,14 +97,19 @@ export function TemporalAreaChart(props: Props) {
           allowDecimals={!!allowDecimals}
           key={refreshKey}
           tickFormatter={numberFormatter(false)}
-          label={{
-            value: yLabel,
-            angle: -90,
-            position: 'insideLeft',
-            offset: -5,
-          }}
-        />
-        {props.tooltip && <Tooltip />}
+        >
+          <Label
+            content={
+              <TemporalCustomYLabel
+                chartHeight={height || 400}
+                yLabel={yLabel}
+              />
+            }
+          />
+        </YAxis>
+        {props.tooltip && (
+          <Tooltip formatter={numberFormatter(isCurrencyFormat)} />
+        )}
         {chartOptions.map((areaData) => {
           return (
             <Area

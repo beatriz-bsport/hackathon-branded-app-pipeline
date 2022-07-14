@@ -1,11 +1,17 @@
 // @flow
 
+import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
 import moment, { Moment } from 'moment-timezone';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
 import { State, Dispatch } from '../../state/types';
 import { Graph } from './types';
+import { getDateRangeFromGraphFilter } from '#libs/dashboard/utils';
+import type {
+  DataSourceDashboardGraph,
+  DataSourceDashboardTab,
+} from '../dashboard/types';
 
 export const getGraphData = (
   state: State,
@@ -102,3 +108,78 @@ export const getStatisticTemporalGrid = (state: State, identifier: string) => {
   }
   return { data, loading };
 };
+
+// -----------------------------------
+const _getDataSourceDashboardStatisticsByUuid = (state: State) =>
+  state.stats.dataSourceDashboard.byUuid;
+
+export const _getDataSourceDashboardGraphStatistics = (
+  dataSourceDashboardStatisticsByUuid,
+  graph: DataSourceDashboardGraph,
+) => {
+  let graph_data = [];
+  let loading = true;
+  let base_value_for_accumulate = null;
+
+  if (dataSourceDashboardStatisticsByUuid[graph.uuid]?.data) {
+    ({ graph_data, base_value_for_accumulate } = Immutable(
+      dataSourceDashboardStatisticsByUuid[graph.uuid].data,
+    ));
+    ({ loading } = dataSourceDashboardStatisticsByUuid[graph.uuid]);
+  }
+
+  if (graph.graph_family === 'qualitative') {
+    // Order desc for legend display
+    const sortedData = [...graph_data].sort((a, b) => b.value - a.value);
+    return { data: sortedData, loading };
+  }
+
+  if (graph.graph_family !== 'temporal') {
+    return { data: graph_data, loading };
+  }
+
+  const { start, end } = getDateRangeFromGraphFilter(graph);
+  const processedData = discretizeAndFillMissing(
+    graph_data,
+    start,
+    end,
+    graph.graph_params.aggregation_function_name,
+  );
+
+  if (!graph.graph_params.accumulate_total_data) {
+    return { data: processedData, loading };
+  }
+
+  // in this case, cumsum starting from 'base_value_for_accumulate'
+  let v = base_value_for_accumulate;
+  const aggregatedData = [];
+  for (let i = 0; i < processedData.length; i += 1) {
+    aggregatedData.push({ ...processedData[i], v: processedData[i].v + v });
+    v += processedData[i].v;
+  }
+  return { data: aggregatedData, loading };
+};
+
+export const getDataSourceDashboardTabStatistics = createSelector(
+  [
+    _getDataSourceDashboardStatisticsByUuid,
+    (state, dashboardTab) => dashboardTab,
+  ],
+  (
+    dataSourceDashboardStatisticsByUuid,
+    dashboardTab: DataSourceDashboardTab,
+  ) => {
+    return (
+      dashboardTab.graphs?.reduce(
+        (acc, graph) => ({
+          ...acc,
+          [graph.uuid]: _getDataSourceDashboardGraphStatistics(
+            dataSourceDashboardStatisticsByUuid,
+            graph,
+          ),
+        }),
+        {},
+      ) || {}
+    );
+  },
+);

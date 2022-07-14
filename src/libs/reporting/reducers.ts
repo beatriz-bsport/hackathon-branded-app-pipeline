@@ -10,15 +10,13 @@ import {
   deleteReportActions,
   updateReportActions,
   fetchReportOfferManagementActions,
-  setDynamicDataHasBeenLoadedAction,
-  resetDynamicDataHasBeenLoadedAction,
   createReportFilterConfigActions,
   editReportFilterConfigActions,
   fetchReportFilterConfigListActions,
   deleteReportFilterConfigActions,
 } from './actions';
 import { ReportingState } from './types';
-import { defaultDynamicDataHasBeenLoaded } from './constants';
+import { defaultDynamicDataHasBeenLoaded } from '#libs/datatype-filtering/constants';
 
 const initialState: Immutable.Immutable<ReportingState> =
   Immutable<ReportingState>({
@@ -167,18 +165,6 @@ export default handleActions<Immutable.Immutable<ReportingState>>(
       { payload },
     ) => {
       return state.setIn(['offerManagement', 'error'], payload);
-    },
-    [setDynamicDataHasBeenLoadedAction.toString()]: (state, { payload }) => {
-      return state.setIn(
-        ['reportFilterConfigs', 'dynamicDataHasBeenLoaded', payload],
-        true,
-      );
-    },
-    [resetDynamicDataHasBeenLoadedAction.toString()]: (state) => {
-      return state.setIn(
-        ['reportFilterConfigs', 'dynamicDataHasBeenLoaded'],
-        defaultDynamicDataHasBeenLoaded,
-      );
     },
     [createReportFilterConfigActions.isLoading.toString()]: (
       state,

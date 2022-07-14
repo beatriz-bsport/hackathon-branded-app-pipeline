@@ -2,6 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import defaultDashboardConfiguration from './dashboardGraphs';
+import defaultDataSourceDashboardConfiguration from './defaultDataSourceDashboardSettings';
 import {
   fetchDashboardSettings as fetchDashboardSettingsAPI,
   updateDashboardSettings as updateDashboardSettingsAPI,
@@ -9,9 +10,14 @@ import {
   updateManagerFiltersSettings as updateManagerFiltersSettingsAPI,
   fetchManagerRessourceFilters as fetchManagerRessourceFiltersAPI,
   updateManagerRessousrcesFilters as updateManagerRessousrcesFiltersAPI,
+  // -------------------------------------------------------------------
+  fetchDataSourceDashboardGraphMetadata as fetchDataSourceDashboardGraphMetadataAPI,
+  fetchDataSourceDashboardSettings as fetchDataSourceDashboardSettingsAPI,
+  updateDataSourceDashboardSettings as updateDataSourceDashboardSettingsAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { Dispatch, OptionCallback } from '../../state/types';
+import type { DataSourceDashboardSettings } from './types';
 
 export const dashboardSettings = {
   isLoading: createAction('DASHBOARD/SETTINGS/IS_LOADING'),
@@ -147,5 +153,86 @@ export function updateManagerRessourcesFilters(filters: Object) {
       dispatch(managerRessourcesFilters.error(err));
     }
     dispatch(managerRessourcesFilters.isLoading(false));
+  };
+}
+// ----------------------------------------------------------------
+export const dataSourceDashboardGraphMetadataActions = {
+  isLoading: createAction('DATA_SOURCE_DASHBOARD/METADATA/LOADING'),
+  success: createAction('DATA_SOURCE_DASHBOARD/METADATA/SUCCESS'),
+  error: createAction('DATA_SOURCE_DASHBOARD/METADATA/ERROR'),
+};
+
+export function fetchDataSourceDashboardGraphMetadata() {
+  return async (dispatch: Dispatch) => {
+    dispatch(dataSourceDashboardGraphMetadataActions.error(null));
+    dispatch(dataSourceDashboardGraphMetadataActions.isLoading(true));
+    try {
+      const response = await fetchDataSourceDashboardGraphMetadataAPI();
+      dispatch(dataSourceDashboardGraphMetadataActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(dataSourceDashboardGraphMetadataActions.error(err));
+    }
+    dispatch(dataSourceDashboardGraphMetadataActions.isLoading(false));
+  };
+}
+
+export const dataSourceDashboardSettingsActions = {
+  isLoading: createAction('DATA_SOURCE_DASHBOARD/SETTINGS/LOADING'),
+  success: createAction('DATA_SOURCE_DASHBOARD/SETTINGS/SUCCESS'),
+  error: createAction('DATA_SOURCE_DASHBOARD/SETTINGS/ERROR'),
+};
+
+export function fetchDataSourceDashboardSettings() {
+  return async (dispatch: Dispatch) => {
+    dispatch(dataSourceDashboardSettingsActions.error(null));
+    dispatch(dataSourceDashboardSettingsActions.isLoading(true));
+    try {
+      const response = await fetchDataSourceDashboardSettingsAPI();
+      const { settings } = response.data;
+      dispatch(
+        dataSourceDashboardSettingsActions.success(
+          settings?.length === 0
+            ? defaultDataSourceDashboardConfiguration
+            : settings,
+        ),
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(dataSourceDashboardSettingsActions.error(err));
+    }
+    dispatch(dataSourceDashboardSettingsActions.isLoading(false));
+  };
+}
+
+export function updateDataSourceDashboardSettings(
+  settings: DataSourceDashboardSettings,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(dataSourceDashboardSettingsActions.isLoading(true));
+    dispatch(dataSourceDashboardSettingsActions.error(null));
+
+    try {
+      const response = await updateDataSourceDashboardSettingsAPI({
+        settings,
+      });
+      const { settings: responseSettings } = response.data;
+      dispatch(
+        dataSourceDashboardSettingsActions.success(
+          responseSettings?.length === 0
+            ? defaultDataSourceDashboardConfiguration
+            : responseSettings,
+        ),
+      );
+      dispatch(snackbarSuccess('dashboard.save.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(dataSourceDashboardSettingsActions.error(error));
+      dispatch(snackbarError('dashboard.save.error'));
+    }
+
+    dispatch(dataSourceDashboardSettingsActions.isLoading(false));
   };
 }

@@ -18,8 +18,15 @@ export const dateFormatter = (domain) => {
 
 // add spaces and if float, makes sure that displayd with 2 decimal digits
 export const numberFormatter = (isCurrencyFormat) => (x) => {
-  const parts = parseInt(x, 10).toString().split('.');
+  const parts = parseFloat(x, 10).toString().split('.');
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  if (parts.length === 2 && parts[1].length === 1) parts[1] += '0';
-  return `${parts.join('.')}${isCurrencyFormat ? getCurrencyDisplay() : ''}`;
+  if (parts.length === 2) {
+    if (parts[1].length === 1) parts[1] += '0';
+    parts[1] = parts[1].slice(0, 2);
+  }
+  const currencyDisplay = getCurrencyDisplay();
+  if (currencyDisplay === '€')
+    return `${parts.join('.')}${isCurrencyFormat ? getCurrencyDisplay() : ''}`;
+
+  return `${isCurrencyFormat ? getCurrencyDisplay() : ''}${parts.join('.')}`;
 };

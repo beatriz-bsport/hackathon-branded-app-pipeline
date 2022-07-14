@@ -2,6 +2,7 @@
 
 import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
+import type { RootState } from '../../reducers';
 import { replaceDates } from './utils';
 
 const _getDashboardSettings = (state: State) =>
@@ -31,5 +32,25 @@ export const getDashboardConfigurationTab = createSelector(
       return tabConfigurationList[tabIndex];
     }
     return null;
+  },
+);
+
+// ---------------------------------------------
+export const getDataSourceDashboardGraphMetadata = (state: RootState) =>
+  state.dashboardSettings.dataSourceDashboardGraphs.metadata.results;
+
+export const getDataSourceDashboardSettings = (state: RootState) =>
+  state.dashboardSettings.dataSourceDashboardGraphs.settings.results;
+
+export const getDataSourceDashboardSettingsTab = createSelector(
+  [getDataSourceDashboardSettings, (state, tabIndex) => tabIndex],
+  (dataSourceDashboardSettings, tabIndex) => {
+    if (
+      dataSourceDashboardSettings?.length >= tabIndex + 1 &&
+      dataSourceDashboardSettings[tabIndex]
+    ) {
+      return dataSourceDashboardSettings[tabIndex];
+    }
+    return {};
   },
 );

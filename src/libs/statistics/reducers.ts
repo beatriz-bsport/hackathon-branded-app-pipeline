@@ -10,6 +10,7 @@ import {
   statIsLoading,
   statLoaded,
   statError,
+  fetchDataSourceDashboardStatisticsActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -26,6 +27,9 @@ const initialState = Immutable({
     items: [],
   },
   bySmartListId: {},
+  dataSourceDashboard: {
+    byUuid: {},
+  },
 });
 
 export default handleActions(
@@ -81,6 +85,24 @@ export default handleActions(
           },
         },
         { deep: true },
+      );
+    },
+    [fetchDataSourceDashboardStatisticsActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['dataSourceDashboard', 'byUuid', payload.uuid, 'loading'],
+        payload.loading,
+      );
+    },
+    [fetchDataSourceDashboardStatisticsActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['dataSourceDashboard', 'byUuid', payload.uuid, 'data'],
+        payload.data,
       );
     },
   },

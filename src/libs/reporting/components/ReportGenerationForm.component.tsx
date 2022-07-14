@@ -25,12 +25,12 @@ import DatePickerSelector from '#components/date/DatePickerSelector.component';
 import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
 
 import {
-  DynamicFilterDataType,
   ReportConfiguration as ReportConfigurationType,
   ReportFilterConfigParams,
   ReportMetadataValue,
   ReportFilterConfig,
 } from '../types';
+import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {

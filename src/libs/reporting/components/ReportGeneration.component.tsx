@@ -8,13 +8,13 @@ import ReportTable from './ReportTable.component';
 import ReportTableHeaders from './ReportTableHeaders.component';
 
 import {
-  DynamicFilterDataType,
   ReportConfiguration,
   ReportExtractResult,
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportMetadata,
 } from '../types';
+import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { getColumn } from '../utils';
 import { OptionCallback } from '../../../state/types';
 

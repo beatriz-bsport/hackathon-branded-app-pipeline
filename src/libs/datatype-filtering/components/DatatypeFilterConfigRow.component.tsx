@@ -8,31 +8,34 @@ import { makeStyles, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+import { ReportMetadataColumn } from '#libs/reporting/types';
 import {
   AllComparator,
   DynamicFilterDataType,
-  ReportFilterConfigGroupOperand,
-  ReportFilterConfigItem,
-  ReportMetadataColumn,
-} from '../../types';
+  DatatypeFilterConfigGroupOperand,
+  DatatypeFilterConfigItem,
+} from '#libs/datatype-filtering/types';
 
-import { DATE_SUBDATA_TYPE, HOUR_SUBDATA_TYPE } from '../../constants';
+import {
+  DATE_SUBDATA_TYPE,
+  HOUR_SUBDATA_TYPE,
+} from '#libs/datatype-filtering/constants';
 import {
   getComparatorsByDataType,
   getComparatorCategoryByDataType,
   getDefaultValueForComparator,
   getDefaultValueForTimePeriod,
-} from './utils';
+} from '#libs/datatype-filtering/utils';
 
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import HoverableWarning from '#components/HoverableWarning.component';
-import ReportFilterConfigValueManager from './ReportFilterConfigValueManager.component';
+import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 
 type Props = {
-  filterItem: ReportFilterConfigItem;
+  filterItem: DatatypeFilterConfigItem;
   consumableColumns: ReportMetadataColumn[];
   reportColumns: string[];
-  groupOperand: ReportFilterConfigGroupOperand;
+  groupOperand: DatatypeFilterConfigGroupOperand;
   prefix: string;
   displayAsFirstOrderRow?: boolean;
   hidePrefix?: boolean;
@@ -41,9 +44,10 @@ type Props = {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   onDelete?: () => void;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
+  dashboardTranslationNamespace?: boolean;
 };
 
-const ReportFilterConfigRow: React.FC<Props> = ({
+const DatatypeFilterConfigRow: React.FC<Props> = ({
   hideDelete,
   hidePrefix,
   consumableColumns,
@@ -56,10 +60,15 @@ const ReportFilterConfigRow: React.FC<Props> = ({
   setFieldValue,
   onDelete,
   getDataByType,
+  dashboardTranslationNamespace,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
   const rowRef = useRef(null);
+
+  const translationPrefix = dashboardTranslationNamespace
+    ? 'dashboard:dataSourceIdentifiers'
+    : 'columns';
 
   //
   // Options
@@ -70,7 +79,7 @@ const ReportFilterConfigRow: React.FC<Props> = ({
         [
           {
             label: t(
-              `columns.${
+              `${translationPrefix}.${
                 filterItem.datatype !== 'user'
                   ? filterItem.identifier
                   : 'member'
@@ -81,7 +90,9 @@ const ReportFilterConfigRow: React.FC<Props> = ({
           },
           ...consumableColumns.map((c) => ({
             label: t(
-              `columns.${c.datatype !== 'user' ? c.identifier : 'member'}`,
+              `${translationPrefix}.${
+                c.datatype !== 'user' ? c.identifier : 'member'
+              }`,
             ),
             value: c.identifier,
             datatype: c.datatype,
@@ -89,7 +100,13 @@ const ReportFilterConfigRow: React.FC<Props> = ({
         ],
         'value',
       ),
-    [consumableColumns, t, filterItem.identifier, filterItem.datatype],
+    [
+      consumableColumns,
+      t,
+      filterItem.identifier,
+      filterItem.datatype,
+      translationPrefix,
+    ],
   );
 
   const filterComparators: AllComparator[] = useMemo(
@@ -267,7 +284,7 @@ const ReportFilterConfigRow: React.FC<Props> = ({
             filterItem.sub_datatype === DATE_SUBDATA_TYPE,
         })}
       >
-        <ReportFilterConfigValueManager
+        <DatatypeFilterConfigValueManager
           comparator={filterItem.comparator}
           prefix={prefix}
           filterItem={filterItem}
@@ -330,4 +347,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ReportFilterConfigRow;
+export default DatatypeFilterConfigRow;

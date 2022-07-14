@@ -25,11 +25,8 @@ import ModalConfirm from '#components/ModalConfirm.component';
 import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
 
 import { OptionCallback } from '../../../state/types';
-import {
-  DynamicFilterDataType,
-  ReportFilterConfig,
-  ReportMetadataColumn,
-} from '../types';
+import { ReportFilterConfig, ReportMetadataColumn } from '../types';
+import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import HoverableWarning from '#components/HoverableWarning.component';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 

@@ -5,21 +5,23 @@ import classNames from 'classnames';
 import { ButtonBase, makeStyles, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import {
-  DynamicFilterDataType,
-  ReportFilterConfigGroup,
-  ReportFilterConfigGroupOperand,
-  ReportMetadataColumn,
-} from '../../types';
+import { ReportMetadataColumn } from '#libs/reporting/types';
 
-import ReportFilterConfigRow from './ReportFilterConfigRow.component';
-import OperandSelect from './OperandSelect.component';
+import {
+  DataSourceFieldMetadata,
+  DynamicFilterDataType,
+  DatatypeFilterConfigGroupOperand,
+  DatatypeFilterConfigGroup,
+} from '#libs/datatype-filtering/types';
+
+import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
+import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
 
 type Props = {
-  filterGroup: ReportFilterConfigGroup;
-  consumableColumns: ReportMetadataColumn[];
+  filterGroup: DatatypeFilterConfigGroup;
+  consumableColumns: Array<DataSourceFieldMetadata | ReportMetadataColumn>;
   reportColumns: string[];
-  groupOperand: ReportFilterConfigGroupOperand;
+  groupOperand: DatatypeFilterConfigGroupOperand;
   prefix: string;
   hidePrefix?: boolean;
   isPreview?: boolean;
@@ -28,9 +30,11 @@ type Props = {
   onDelete?: (uuid: number) => () => void;
   addFilter: () => void;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
+  noHideDelete?: boolean;
+  dashboardTranslationNamespace?: boolean;
 };
 
-const ReportFilterConfigGroupRow: React.FC<Props> = ({
+const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
   consumableColumns,
   reportColumns,
   groupOperand,
@@ -43,6 +47,8 @@ const ReportFilterConfigGroupRow: React.FC<Props> = ({
   setFieldValue,
   onDelete,
   getDataByType,
+  noHideDelete,
+  dashboardTranslationNamespace,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -71,7 +77,7 @@ const ReportFilterConfigGroupRow: React.FC<Props> = ({
         )}
         <div className={classes.verticalRows}>
           {filterGroup.filters_data.map((filterItem, indexFilter) => (
-            <ReportFilterConfigRow
+            <DatatypeFilterConfigRow
               key={filterItem.uuid}
               consumableColumns={consumableColumns}
               reportColumns={reportColumns}
@@ -82,9 +88,10 @@ const ReportFilterConfigGroupRow: React.FC<Props> = ({
               hidePrefix={indexFilter === 0}
               isPreview={isPreview}
               displayAsFirstOrderRow={filterGroup.display_has_single}
-              hideDelete={!checkOtherRowExist(filterItem.uuid)}
+              hideDelete={!noHideDelete && !checkOtherRowExist(filterItem.uuid)}
               onDelete={onDelete(filterItem.uuid)}
               getDataByType={getDataByType}
+              dashboardTranslationNamespace={dashboardTranslationNamespace}
             />
           ))}
         </div>
@@ -148,4 +155,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ReportFilterConfigGroupRow;
+export default DatatypeFilterConfigGroupRow;

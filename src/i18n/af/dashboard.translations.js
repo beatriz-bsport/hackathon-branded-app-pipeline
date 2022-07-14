@@ -18,6 +18,12 @@ const {
   BUYABLE_ITEM_COMBO_ITEM,
 } = BUYABLE_ITEM;
 
+const MEMBER_GRAPH_IDENTIFIER = 'graph_members';
+const BOOKING_GRAPH_IDENTIFIER = 'graph_bookings';
+const PRIVATE_BOOKING_GRAPH_IDENTIFIER = 'graph_private_bookings';
+const PAYMENT_GRAPH_IDENTIFIER = 'graph_payments';
+const SUBSCRIPTION_GRAPH_IDENTIFIER = 'graph_subscriptions';
+
 exports.default = {
   save: 'Sauvegarder',
   resetModal: {
@@ -154,5 +160,129 @@ exports.default = {
         pie: 'Diagramme circulaire',
       },
     },
+  },
+  filterChipLabel: '{{count}} filtre',
+  filterChipLabel_plural: '{{count}} filtres',
+  addFilter: 'Ajouter un filtre',
+  showMoreLegend: '+ {{count}} légende',
+  showMoreLegend_plural: '+ {{count}} légendes',
+  graphActions: {
+    edit: 'Modifier',
+    delete: 'Supprimer',
+  },
+  graphFormDrawer: {
+    title: {
+      create: "Création d'un graphique",
+      edit: "Modification d'un graphique",
+    },
+    sectionTitles: {
+      general: 'Informations générales',
+      dashboardGraphIdentifier: 'Type de données',
+      graphFamily: 'Graphique',
+      graphParams: 'Données',
+      timePeriod: 'Période',
+      filterConfig: 'Filtres',
+    },
+    labels: {
+      title: 'Nom',
+      graphFamily: {
+        temporal: 'Évolution dans le temps',
+        qualitative: 'Répartition',
+      },
+      groupByField: 'Répartir sur',
+      dateFilterField: 'Donnée pour la date',
+      dataToDisplay: 'Donnée affichée',
+      dividedBy: 'Divisée par',
+      aggregationName: 'Agrégation',
+    },
+    placeholders: {
+      dashboardGraphIdentifier: 'Choisir un type de données',
+      aggregationSelector: 'Choisissez une opération',
+    },
+    chartComponents: {
+      bar: 'Histogramme',
+      area: 'Diagramme en aires',
+      pie: 'Diagramme circulaire',
+      timeslots: 'Fréquences journalières et horaires',
+    },
+    graphFamily: {
+      temporal: 'Évolution dans le temps',
+      qualitative: 'Répartition',
+      week_timeslots: 'Fréquences journalières et horaires',
+    },
+    aggregation: {
+      sum: 'Somme',
+      avg: 'Moyenne',
+      min: 'Minimum',
+      max: 'Maximum',
+    },
+    dashboardGraphIdentifier: {
+      [MEMBER_GRAPH_IDENTIFIER]: 'Nouveaux membres',
+      [BOOKING_GRAPH_IDENTIFIER]: 'Réservations',
+      [PRIVATE_BOOKING_GRAPH_IDENTIFIER]: 'RDV',
+      [PAYMENT_GRAPH_IDENTIFIER]: 'Paiements',
+      [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Abonnements',
+    },
+    accumulate: {
+      total: 'Accumuler',
+    },
+    helperText: {
+      dateStart:
+        'Les données seront représentées dans le temps en fonction de la date de début des séances.',
+      dateCreated:
+        'Les données seront représentées dans le temps en fonction de la date à laquelle les réservations ont été effectuées.',
+      subscriptionPrice:
+        'Somme de tous les paiements reçus liés aux souscriptions.',
+      subscriptionCount: 'Nombre de factures liées aux souscriptions.',
+      booking_effectif_timeslots:
+        'Effectif moyen des séances par créneau horaire.',
+      accumulateMembers: "Affiche l'évolution du nombre total de membres.",
+    },
+  },
+  dataSourceIdentifiers: {
+    date_joined: "Date d'inscription",
+    member_pk: 'Nombre de nouveaux membres',
+    member_pk_accumulate: 'Nombre de membres',
+    booking_pk: 'Nombre de réservations',
+    is_recurrent_booking: 'Réservation récurrente',
+    source_device: 'Origine',
+    privatebooking_pk: 'Nombre de RDV',
+    payment_pk: 'Nombre de paiements',
+    plannedinvoice_pk: 'Nombre de factures',
+    booking_effectif_timeslots: 'Effectif moyen',
+    activity_kind: 'Type de cours',
+    is_workshop: 'Atelier',
+    payment_engine: 'Type de paiement',
+    attendance: 'Présent',
+    date_start: 'Date de la séance',
+    date_created: 'Date de la réservation',
+    booking_status_code: 'Statut de la réservation',
+    was_refunded: 'Remboursé',
+    coach: 'Professeurs',
+    establishment: 'Etablissement',
+    billing_group: 'Groupe de facturation',
+    billing_establishment: 'Localisation',
+    gender: 'Sexe',
+    accept_email: 'Accepte les emails',
+    accept_sms: 'Accepte les SMS',
+    payment_date: 'Date de paiement',
+    payment_price: 'Prix',
+    payment_method: 'Méthode de paiement',
+    date: 'Date',
+    contract: 'Contrat',
+    price: 'Prix',
+    private_service_name: 'Rendez-vous',
+    margin_value: 'Apport marginal',
+    activity: 'Activité',
+  },
+  graphDefaultTitles: {
+    paymentTemporal: 'Encaissements',
+    bookingTimeslots: 'Effectif moyen',
+    bookingQualitative: 'Origine des réservations',
+    bookingTemporal: 'Réservations',
+    subscriptionTemporalCount: 'Nombre de factures de souscription',
+    subscriptionTemporalSum: 'Encaissement des souscriptions',
+    memberTemporal: 'Nouveaux membres',
+    privateBookingTemporal: 'Rendez-vous',
   },
 };

@@ -130,7 +130,7 @@ const PerformanceTracking = asyncComponent(() =>
   import('./performance-tracking/PerformanceTracking.router'),
 );
 
-const Dashboard = asyncComponent(() => import('./Dashboard.component'));
+const Dashboard = asyncComponent(() => import('./Dashboard.page'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
 const Settings = asyncComponent(() => import('./settings/Settings.router'));

@@ -1,0 +1,241 @@
+import {
+  GROUP_OR_OPERAND,
+  GROUP_AND_OPERAND,
+  FILTER_EQUAL_OPERAND,
+  FILTER_NOT_EQUAL_OPERAND,
+  FILTER_LTE_OPERAND,
+  FILTER_GTE_OPERAND,
+  FILTER_IN_OPERAND,
+  FILTER_OUT_OPERAND,
+} from './constants';
+
+export type DatatypeFilteringState = {
+  dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
+};
+
+export type DataSourceMedadataDataType =
+  | 'activity'
+  | 'billing_establishment'
+  | 'billing_group'
+  | 'booking_status_code'
+  | 'boolean'
+  | 'coach'
+  | 'contract'
+  | 'coupon'
+  | 'cts'
+  | 'date'
+  | 'datetime'
+  | 'dow'
+  | 'email'
+  | 'establishment'
+  | 'giftcard'
+  | 'int'
+  | 'number'
+  | 'payment_engine'
+  | 'payment_method'
+  | 'payment_pack'
+  | 'payout'
+  | 'payout_status'
+  | 'percent'
+  | 'price'
+  | 'private_pass'
+  | 'private_service'
+  | 'private_slot'
+  | 'source_device'
+  | 'string'
+  | 'subshop'
+  | 'staff'
+  | 'time'
+  | 'user'
+  | 'video';
+
+export type DataSourceMetadata = {
+  identifier: string;
+  name: string;
+  datatype: DataSourceMedadataDataType;
+  is_filterable: boolean;
+  summable: boolean;
+  averageable: boolean;
+};
+
+export type DateFilterRangeEnum =
+  | 'week'
+  | 'month'
+  | 'trimester'
+  | 'year'
+  | 'custom';
+
+export type DateFilterEnum = 'today';
+
+export type DatatypeFilterConfigGroupOperand =
+  | typeof GROUP_OR_OPERAND
+  | typeof GROUP_AND_OPERAND;
+
+export type DatatypeFilterConfigItemTypeById =
+  | 'activity'
+  | 'billing_establishment'
+  | 'billing_group'
+  | 'booking_status_code'
+  | 'coach'
+  | 'company'
+  | 'contract'
+  | 'coupon'
+  | 'dow'
+  | 'email'
+  | 'establishment'
+  | 'giftcard'
+  | 'payment_engine'
+  | 'payment_method'
+  | 'payment_pack'
+  | 'payout'
+  | 'payout_status'
+  | 'private_pass'
+  | 'private_service'
+  | 'private_slot'
+  | 'source_device'
+  | 'subshop'
+  | 'staff'
+  | 'user'
+  | 'video';
+
+export type DatatypeFilterConfigItemComparatorById =
+  | typeof FILTER_IN_OPERAND
+  | typeof FILTER_OUT_OPERAND;
+
+export type DatatypeFilterConfigItemTypeFloat =
+  | 'int'
+  | 'price'
+  | 'number'
+  | 'percent';
+export type DatatypeFilterConfigItemComparatorFloatSingle =
+  | typeof FILTER_EQUAL_OPERAND
+  | typeof FILTER_NOT_EQUAL_OPERAND
+  | typeof FILTER_LTE_OPERAND
+  | typeof FILTER_GTE_OPERAND;
+
+export type DatatypeFilterConfigItemComparatorFloatMultiple =
+  | typeof FILTER_IN_OPERAND
+  | typeof FILTER_OUT_OPERAND;
+
+export type DatatypeFilterConfigItemComparatorBoolean =
+  | typeof FILTER_EQUAL_OPERAND
+  | typeof FILTER_NOT_EQUAL_OPERAND;
+
+export type DatatypeFilterConfigItemTypeDate = 'date' | 'time';
+export type DatatypeFilterConfigItemTypeCompleteDate = 'datetime';
+export type DatatypeFilterConfigItemComparatorDateSingle =
+  | typeof FILTER_EQUAL_OPERAND
+  | typeof FILTER_NOT_EQUAL_OPERAND
+  | typeof FILTER_LTE_OPERAND
+  | typeof FILTER_GTE_OPERAND;
+
+export type DatatypeFilterConfigItemComparatorDateMultiple =
+  typeof FILTER_IN_OPERAND;
+
+export type DatatypeFilterConfigItem = {
+  identifier: string;
+  uuid: string;
+} & (
+  | {
+      datatype: DatatypeFilterConfigItemTypeById;
+      sub_datatype: null;
+      time_period: null;
+      comparator: DatatypeFilterConfigItemComparatorById;
+      value: number[];
+    }
+  | {
+      datatype: DatatypeFilterConfigItemTypeFloat;
+      sub_datatype: null;
+      time_period: null;
+      comparator: DatatypeFilterConfigItemComparatorFloatSingle;
+      value: number;
+    }
+  | {
+      datatype: DatatypeFilterConfigItemTypeFloat;
+      sub_datatype: null;
+      time_period: null;
+      comparator: DatatypeFilterConfigItemComparatorFloatMultiple;
+      value: [number, number];
+    }
+  | {
+      datatype: DatatypeFilterConfigItemTypeDate;
+      sub_datatype: null;
+      time_period: DateFilterEnum;
+      comparator: DatatypeFilterConfigItemComparatorDateSingle;
+      value: number;
+    }
+  | {
+      datatype: DatatypeFilterConfigItemTypeDate;
+      sub_datatype: null;
+      time_period: DateFilterRangeEnum;
+      comparator: DatatypeFilterConfigItemComparatorDateMultiple;
+      value: [number, number];
+    }
+  | {
+      datatype: DatatypeFilterConfigItemTypeCompleteDate;
+      sub_datatype: 0 | 1;
+      time_period: DateFilterEnum;
+      comparator: DatatypeFilterConfigItemComparatorDateSingle;
+      value: number;
+    }
+  | {
+      datatype: DatatypeFilterConfigItemTypeCompleteDate;
+      sub_datatype: 0 | 1;
+      time_period: DateFilterRangeEnum;
+      comparator: DatatypeFilterConfigItemComparatorDateMultiple;
+      value: [number, number];
+    }
+  | {
+      datatype: 'boolean';
+      time_period: null;
+      sub_datatype: null;
+      comparator: DatatypeFilterConfigItemComparatorBoolean;
+      value: boolean;
+    }
+);
+
+export type AllComparator =
+  | DatatypeFilterConfigItemComparatorFloatSingle
+  | DatatypeFilterConfigItemComparatorFloatMultiple
+  | DatatypeFilterConfigItemComparatorBoolean
+  | DatatypeFilterConfigItemComparatorDateSingle
+  | DatatypeFilterConfigItemComparatorDateMultiple;
+
+export type DynamicFilterDataType =
+  | 'activity'
+  | 'billing_establishment'
+  | 'billing_group'
+  | 'coach'
+  | 'company'
+  | 'contract'
+  | 'coupon'
+  | 'establishment'
+  | 'giftcard'
+  | 'payment_pack'
+  | 'private_pass'
+  | 'private_service'
+  | 'private_slot'
+  | 'subshop'
+  | 'staff'
+  | 'video';
+
+export type DataSourceFieldMetadata = {
+  identifier: string;
+  name: string;
+  datatype: DataSourceMedadataDataType;
+  is_filterable: boolean;
+  summable: boolean;
+  averageable: boolean;
+};
+
+export type DatatypeFilterConfig = {
+  group_operand: DatatypeFilterConfigGroupOperand;
+  groups: Array<DatatypeFilterConfigGroup>;
+};
+
+export type DatatypeFilterConfigGroup = {
+  inner_operand: DatatypeFilterConfigGroupOperand;
+  filters_data: DatatypeFilterConfigItem[];
+  uuid: string;
+  display_has_single: boolean;
+};

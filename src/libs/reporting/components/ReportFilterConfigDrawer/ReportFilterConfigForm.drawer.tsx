@@ -5,8 +5,8 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import { useTranslation } from 'react-i18next';
 import uniqBy from 'lodash/uniqBy';
+import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import { compose } from 'recompose';
@@ -27,41 +27,37 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import AddIcon from '@material-ui/icons/Add';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import EditIcon from '@material-ui/icons/Edit';
+import { DatatypeFilterConfigSchemaWithRequiredGroups } from '#libs/datatype-filtering/validation_schema';
+
+import { ReportFilterConfig, ReportMetadataColumn } from '../../types';
 
 import {
   DynamicFilterDataType,
-  ReportFilterConfig,
-  ReportFilterConfigGroup,
-  ReportFilterConfigGroupOperand,
-  ReportMetadataColumn,
-} from '../../types';
+  DatatypeFilterConfigGroupOperand,
+  DatatypeFilterConfigGroup,
+} from '#libs/datatype-filtering/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Submit, DelayTextField } from '#components/forms';
 
 import {
-  DATATYPE_FILTERABLE_BY_FLOAT_RANGE,
   DATATYPE_FILTERABLE_BY_ID_IN,
-  DATE_SUBDATA_TYPE,
-  FILTER_IN_OPERAND,
   GROUP_AND_OPERAND,
-  HOUR_SUBDATA_TYPE,
-} from '../../constants';
+} from '#libs/datatype-filtering/constants';
 import {
-  getComparatorsByDataType,
   checkColumnAlreadyExist,
   generateNewGroup,
   generateNewFilterItem,
-} from './utils';
+} from '#libs/datatype-filtering/utils';
 
 import NestedAlertError from './NestedAlertError.component';
-import OperandSelect from './OperandSelect.component';
-import ReportFilterConfigGroupRow from './ReportFilterConfigGroupRow.component';
+import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
+import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
 
 type Values = {
   name: string;
   config: {
-    group_operand: ReportFilterConfigGroupOperand;
-    groups: ReportFilterConfigGroup[];
+    group_operand: DatatypeFilterConfigGroupOperand;
+    groups: DatatypeFilterConfigGroup[];
   };
 };
 
@@ -80,204 +76,7 @@ export type OuterProps = {
 
 const ReportFilterConfigFormDrawerSchema = Yup.object().shape({
   name: Yup.string().required(),
-  config: Yup.object().shape({
-    group_operand: Yup.number().required(),
-    groups: Yup.array()
-      .of(
-        Yup.object().shape({
-          inner_operand: Yup.number().required(),
-          filters_data: Yup.array()
-            .of(
-              Yup.lazy((filer_data) => {
-                const defaultSchema = {
-                  identifier: Yup.string().required(),
-                  datatype: Yup.string().required(),
-                  sub_datatype: Yup.number().nullable(true),
-                  time_period: Yup.string().nullable(true),
-                  comparator: Yup.number()
-                    .required()
-                    .test(
-                      'Is Type allowed',
-                      'filter.form.error.invalidTypeForColumns',
-                      function CheckAmout(item) {
-                        return getComparatorsByDataType(
-                          this.parent.datatype,
-                        ).includes(item);
-                      },
-                    ),
-                };
-
-                if (filer_data.datatype === 'boolean') {
-                  return Yup.object().shape({
-                    ...defaultSchema,
-                    value: Yup.boolean().required('filter.form.error.required'),
-                  });
-                }
-
-                if (
-                  DATATYPE_FILTERABLE_BY_FLOAT_RANGE.includes(
-                    filer_data.datatype,
-                  )
-                ) {
-                  if (filer_data.comparator === FILTER_IN_OPERAND) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      value: Yup.array()
-                        .of(Yup.number().required())
-                        .required()
-                        .min(2)
-                        .max(2)
-                        .test(
-                          'Is in rigth order',
-                          'filter.form.error.wrongOrdering',
-                          function CheckOrder(item) {
-                            return item[0] < item[1];
-                          },
-                        ),
-                    });
-                  }
-
-                  if (
-                    DATATYPE_FILTERABLE_BY_ID_IN.includes(filer_data.datatype)
-                  ) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      value: Yup.array().of(Yup.number()).required().min(1),
-                    });
-                  }
-                }
-
-                if (filer_data.datatype === 'date') {
-                  if (filer_data.comparator === FILTER_IN_OPERAND) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      time_period: Yup.string().required(),
-                      value: Yup.array()
-                        .of(Yup.number().required())
-                        .required()
-                        .min(2)
-                        .max(2)
-                        .test(
-                          'Is in rigth order',
-                          'filter.form.error.wrongOrdering',
-                          function CheckOrder(item) {
-                            return item[0] < item[1];
-                          },
-                        ),
-                    });
-                  }
-
-                  return Yup.object().shape({
-                    ...defaultSchema,
-                    time_period: Yup.string().required(),
-                    value: Yup.number().required(),
-                  });
-                }
-
-                if (filer_data.datatype === 'time') {
-                  if (filer_data.comparator === FILTER_IN_OPERAND) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      value: Yup.array()
-                        .of(Yup.number().required())
-                        .required()
-                        .min(2)
-                        .max(2)
-                        .test(
-                          'Is in rigth order',
-                          'filter.form.error.wrongOrdering',
-                          function CheckOrder(item) {
-                            return item[0] < item[1];
-                          },
-                        ),
-                    });
-                  }
-
-                  return Yup.object().shape({
-                    ...defaultSchema,
-                    value: Yup.number().required(),
-                  });
-                }
-
-                if (filer_data.datatype === 'datetime') {
-                  if (filer_data.comparator === FILTER_IN_OPERAND) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      sub_datatype: Yup.number().oneOf([
-                        DATE_SUBDATA_TYPE,
-                        HOUR_SUBDATA_TYPE,
-                      ]),
-                      time_period:
-                        filer_data.sub_datatype !== HOUR_SUBDATA_TYPE
-                          ? Yup.string().required()
-                          : Yup.string().nullable(),
-                      value: Yup.array()
-                        .of(Yup.number().required())
-                        .required()
-                        .min(2)
-                        .max(2)
-                        .test(
-                          'Is in rigth order',
-                          'filter.form.error.wrongOrdering',
-                          function CheckOrder(item) {
-                            return item[0] < item[1];
-                          },
-                        ),
-                    });
-                  }
-
-                  if (filer_data.sub_datatype === DATE_SUBDATA_TYPE) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      time_period: Yup.string().required(),
-                      sub_datatype: Yup.number().oneOf([DATE_SUBDATA_TYPE]),
-                      value: Yup.number().required(),
-                    });
-                  }
-
-                  if (filer_data.sub_datatype === HOUR_SUBDATA_TYPE) {
-                    return Yup.object().shape({
-                      ...defaultSchema,
-                      // time_period: Yup.string().nullable(true),
-                      sub_datatype: Yup.number().oneOf([HOUR_SUBDATA_TYPE]),
-                      value: Yup.number().required(),
-                    });
-                  }
-                }
-
-                return Yup.object().shape({
-                  ...defaultSchema,
-                  value: Yup.number().required(),
-                });
-              }),
-            )
-            .required('filter.form.error.needAtLeatOneFilter')
-            .min(1),
-        }),
-      )
-      .required()
-      .min(1)
-      .test(
-        'Is byId duplicate',
-        'filter.form.error.byIdDuplicate',
-        function CheckAmout(item) {
-          const allDatatypes = item.flatMap((fg) =>
-            fg.filters_data.map((data) => data.datatype),
-          );
-          const datatypesCount = allDatatypes.reduce((acc, datatype) => {
-            if (!acc[datatype]) {
-              acc[datatype] = 0;
-            }
-            acc[datatype] += 1;
-            return acc;
-          }, {});
-
-          return !DATATYPE_FILTERABLE_BY_ID_IN.some(
-            (datatype) => datatypesCount[datatype] > 1,
-          );
-        },
-      ),
-  }),
+  config: DatatypeFilterConfigSchemaWithRequiredGroups,
 });
 
 const ReportFilterConfigFormDrawer: React.FC<
@@ -453,7 +252,7 @@ const ReportFilterConfigFormDrawer: React.FC<
                 <>
                   <div className={classes.verticalRows}>
                     {values.config.groups.map((filterGroup, indexGroup) => (
-                      <ReportFilterConfigGroupRow
+                      <DatatypeFilterConfigGroupRow
                         filterGroup={filterGroup}
                         key={filterGroup.uuid}
                         consumableColumns={consumableColumns}

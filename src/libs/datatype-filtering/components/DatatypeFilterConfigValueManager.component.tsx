@@ -14,6 +14,14 @@ import {
   PAYOUT_STATUS_SUCCESS,
   PAYOUT_STATUS_TRANSIT,
 } from '@bsport/common/lib/master-data/payout-status';
+
+import {
+  BOOKING_SOURCE_APP,
+  BOOKING_SOURCE_WEB,
+  BOOKING_SOURCE_SAAS,
+  BOOKING_SOURCE_OTHER,
+  BOOKING_SOURCE_MIGRATION,
+} from '@bsport/common/lib/master-data/booking_source';
 import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
 import { Field, FieldAttributes, useFormikContext } from 'formik';
 import {
@@ -27,11 +35,15 @@ import get from 'lodash/get';
 import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
 
 import {
+  PAYMENT_ENGINE_STRIPE,
+  PAYMENT_ENGINE_BSPORT,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
   AllComparator,
   DynamicFilterDataType,
-  ReportFilterConfigItem,
-  ReportFilterConfigItemTypeById,
-} from '../../types';
+  DatatypeFilterConfigItem,
+  DatatypeFilterConfigItemTypeById,
+} from '#libs/datatype-filtering/types';
 import { PriceField, PercentField, TextField } from '#components/forms';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import DatePickerSelector from '#components/date/DatePickerSelector.component';
@@ -42,7 +54,7 @@ import {
   DATE_SUBDATA_TYPE,
   FILTER_IN_OPERAND,
   HOUR_SUBDATA_TYPE,
-} from '../../constants';
+} from '#libs/datatype-filtering/constants';
 
 import {
   MaterialUiSingleSelectorField,
@@ -52,10 +64,10 @@ import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelectorConsumers.container';
 import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
 
-const ReportFilterConfigValueManager: React.FC<{
+const DatatypeFilterConfigValueManager: React.FC<{
   comparator: AllComparator;
   prefix: string;
-  filterItem: ReportFilterConfigItem;
+  filterItem: DatatypeFilterConfigItem;
   isPreview?: boolean;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
 }> = ({ prefix, filterItem, comparator, isPreview, getDataByType }) => {
@@ -99,12 +111,12 @@ const ReportFilterConfigValueManager: React.FC<{
             )}
           </NestedAlertError>
           <div className={classes.rowValue}>
-            <ReportFilterConfigValueFloat
+            <DatatypeFilterConfigValueFloat
               name={`${prefix}.value[0]`}
               datatype={filterItem.datatype}
               isPreview={isPreview}
             />
-            <ReportFilterConfigValueFloat
+            <DatatypeFilterConfigValueFloat
               name={`${prefix}.value[1]`}
               datatype={filterItem.datatype}
               isPreview={isPreview}
@@ -115,7 +127,7 @@ const ReportFilterConfigValueManager: React.FC<{
     }
 
     return (
-      <ReportFilterConfigValueFloat
+      <DatatypeFilterConfigValueFloat
         name={`${prefix}.value`}
         datatype={filterItem.datatype}
         isPreview={isPreview}
@@ -125,7 +137,7 @@ const ReportFilterConfigValueManager: React.FC<{
 
   if (DATATYPE_FILTERABLE_BY_ID_IN.includes(filterItem.datatype)) {
     return (
-      <ReportFilterConfigValueList
+      <DatatypeFilterConfigValueList
         key={`${prefix}.value`}
         name={`${prefix}.value`}
         datatype={filterItem.datatype}
@@ -258,7 +270,7 @@ const DatePickerSelectorFormik: React.FC<{
   );
 };
 
-const ReportFilterConfigValueFloat: React.FC<{
+const DatatypeFilterConfigValueFloat: React.FC<{
   name: string;
   datatype: 'price' | 'number' | 'percent' | 'cts' | 'int';
   isPreview?: boolean;
@@ -292,9 +304,9 @@ const ReportFilterConfigValueFloat: React.FC<{
   );
 };
 
-const ReportFilterConfigValueList: React.FC<{
+const DatatypeFilterConfigValueList: React.FC<{
   name: string;
-  datatype: ReportFilterConfigItemTypeById;
+  datatype: DatatypeFilterConfigItemTypeById;
   isPreview?: boolean;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
 }> = ({ name, datatype, isPreview, getDataByType }) => {
@@ -354,6 +366,51 @@ const ReportFilterConfigValueList: React.FC<{
             label: t('booking:filters.canceled'),
           },
         ];
+      case 'source_device':
+        return [
+          {
+            value: BOOKING_SOURCE_APP.id,
+            label: t(
+              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_APP.id.toString()}`,
+            ),
+          },
+          {
+            value: BOOKING_SOURCE_SAAS.id,
+            label: t(
+              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_SAAS.id.toString()}`,
+            ),
+          },
+          {
+            value: BOOKING_SOURCE_WEB.id,
+            label: t(
+              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_WEB.id.toString()}`,
+            ),
+          },
+          {
+            value: BOOKING_SOURCE_OTHER.id,
+            label: t(
+              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_OTHER.id.toString()}`,
+            ),
+          },
+          {
+            value: BOOKING_SOURCE_MIGRATION.id,
+            label: t(
+              `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_MIGRATION.id.toString()}`,
+            ),
+          },
+        ];
+      case 'payment_engine':
+        return [
+          {
+            value: PAYMENT_ENGINE_BSPORT,
+            label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_BSPORT}`),
+          },
+          {
+            value: PAYMENT_ENGINE_STRIPE,
+            label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_STRIPE}`),
+          },
+        ];
+
       case 'payment_method':
         return [...PAYMENT_METHODS].map(({ id }) => ({
           value: id ?? 0,
@@ -503,4 +560,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ReportFilterConfigValueManager;
+export default DatatypeFilterConfigValueManager;

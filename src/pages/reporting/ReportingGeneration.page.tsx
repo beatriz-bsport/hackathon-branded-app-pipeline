@@ -7,7 +7,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 
-import ReportGeneration from '../../libs/reporting/components/ReportGeneration.component';
+import ReportGeneration from '#libs/reporting/components/ReportGeneration.component';
 
 import {
   fetchReportGeneration,
@@ -15,19 +15,13 @@ import {
   exportExcelReport,
   fetchReportMetadata as fetchReportMetadataAction,
   fetchReports as fetchReportsAction,
-  setDynamicDataHasBeenLoaded as setDynamicDataHasBeenLoadedAction,
-  resetDynamicDataHasBeenLoaded as resetDynamicDataHasBeenLoadedAction,
   createReportFilterConfig as createReportFilterConfigAction,
   editReportFilterConfig as editReportFilterConfigAction,
   fetchReportFilterConfigList as fetchReportFilterConfigListAction,
   deleteReportFilterConfig as deleteReportFilterConfigAction,
-} from '../../libs/reporting/actions';
-import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '../../libs/role/actions';
-import {
-  DynamicFilterDataType,
-  ReportConfiguration,
-} from '../../libs/reporting/types';
+} from '#libs/reporting/actions';
 
+import { ReportConfiguration } from '#libs/reporting/types';
 import {
   getReportRows,
   getReportRowsLoading,
@@ -39,47 +33,14 @@ import {
   getReportMetadata,
   getReports,
   getReport,
-  getDynamicDataLoading,
-  getDynamicDataHasBeenLoaded,
   getReportFilterConfigList,
-} from '../../libs/reporting/selectors';
+} from '#libs/reporting/selectors';
+
+import withDatatypeDynamicData, {
+  withDatatypeDynamicDataProps,
+} from '#libs/datatype-filtering/dynamic-data-hoc';
+
 import { RootState } from '../../reducers';
-import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { refreshFilteredMembers as refreshFilteredMembersAction } from '#libs/member/actions';
-import { fetchAllPaymentPacks as fetchAllPaymentPacksAction } from '#libs/payment-packs/actions';
-import {
-  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-  fetchEstablishments as fetchEstablishmentsAction,
-} from '#libs/establishment/actions';
-import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
-import {
-  fetchAllPrivateServices as fetchAllPrivateServicesAction,
-  fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
-  fetchPrivatePassList as fetchPrivatePassListAction,
-} from '#libs/private-service/actions';
-import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
-import { fetchCoupons as fetchCouponsAction } from '#libs/coupon/actions';
-import { fetchVideoList as fetchVideoListAction } from '#libs/video/actions';
-import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
-import { getPageMetaActivities } from '#libs/meta-activity/selectors';
-import { getAll as getAllPaymentPack } from '#libs/payment-packs/selectors';
-import { getAllCoaches } from '#libs/associated-coach/selectors';
-import {
-  getAllEstablishments,
-  getEstablishmentBillingroup,
-} from '#libs/establishment/selectors';
-import { getAllMembers } from '#libs/member/selectors';
-import { getPrivatePassListBase } from '#libs/private-service/selectors/private-pass';
-import { _getPrivateServices as getPrivateServices } from '#libs/private-service/selectors/private-service';
-import { fetchAllSubShop as fetchAllSubShopAction } from '#libs/shop/actions/subshop';
-import { getAllPrivateSlots } from '#libs/private-service/selectors/private-slot';
-import { getAllGiftcardList } from '#libs/giftcard/selectors';
-import { getAllCoupons } from '#libs/coupon/selectors';
-import { getVideoList } from '#libs/video/selectors';
-import { getAvailableContractList } from '#libs/subscription/selectors';
-import { getTheme } from '#libs/theme/selectors';
-import { getSubShopsByCompany } from '#libs/shop/selectors';
-import { getUsersWithRole } from '#libs/role/selectors';
 
 type OwnProps = {
   id: number;
@@ -95,7 +56,10 @@ type State = {
   timePeriod: string;
 };
 
-type Props = OwnProps & ConnectedProps<typeof connector> & WithTranslation;
+type Props = OwnProps &
+  ConnectedProps<typeof connector> &
+  WithTranslation &
+  withDatatypeDynamicDataProps;
 
 export class ReportingGeneration extends Component<Props, State> {
   constructor(props: Props) {
@@ -267,239 +231,6 @@ export class ReportingGeneration extends Component<Props, State> {
     });
   };
 
-  handleGetDynamicDataForReport = (type: DynamicFilterDataType) => {
-    if (
-      !this.props.dynamicDataLoading[type] &&
-      !this.props.dynamicDataHasBeenLoaded[type]
-    ) {
-      switch (type) {
-        case 'activity':
-          this.props.fetchActivitiesCompany(
-            this.props.companyId,
-            {},
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('activity');
-              },
-            },
-          );
-          break;
-        case 'payment_pack':
-          this.props.fetchAllPaymentPacks({
-            onSuccess: () => {
-              this.props.setDynamicDataHasBeenLoaded('payment_pack');
-            },
-          });
-          break;
-        case 'coach':
-          this.props.fetchAssociatedCoachesList(
-            {},
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('coach');
-              },
-            },
-          );
-          break;
-        case 'billing_establishment':
-        case 'establishment':
-          this.props.fetchEstablishments(
-            {},
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('establishment');
-                this.props.setDynamicDataHasBeenLoaded('billing_establishment');
-              },
-            },
-          );
-          break;
-
-        case 'billing_group':
-          this.props.fetchAllEstablishmentBillingGroup({
-            onSuccess: () => {
-              this.props.setDynamicDataHasBeenLoaded('billing_group');
-            },
-          });
-          break;
-        case 'private_service':
-          this.props.fetchAllPrivateServices(
-            { page_size: null },
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('private_service');
-              },
-            },
-          );
-          break;
-        case 'private_slot':
-          this.props.fetchAllPrivateSlots(
-            { page_size: null, company: this.props.companyId },
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('private_slot');
-              },
-            },
-          );
-          break;
-
-        case 'private_pass':
-          this.props.fetchPrivatePassList(
-            { page_size: null },
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('private_pass');
-              },
-            },
-          );
-          break;
-        case 'giftcard':
-          this.props.fetchGiftcardList(
-            { page_size: null },
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('giftcard');
-              },
-            },
-          );
-          break;
-        case 'coupon':
-          this.props.fetchCoupons(
-            { page_size: null },
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('coupon');
-              },
-            },
-          );
-          break;
-        case 'video':
-          this.props.fetchVideoList({ page_size: null }, 1, {
-            onSuccess: () => {
-              this.props.setDynamicDataHasBeenLoaded('video');
-            },
-          });
-          break;
-
-        case 'contract':
-          this.props.fetchContractList(
-            { page_size: null },
-            {
-              onSuccess: () => {
-                this.props.setDynamicDataHasBeenLoaded('contract');
-              },
-            },
-          );
-          break;
-        case 'subshop':
-          this.props.fetchAllSubShop(this.props.companyId, {
-            onSuccess: () => {
-              this.props.setDynamicDataHasBeenLoaded('subshop');
-            },
-          });
-          break;
-        case 'staff':
-          this.props.fetchCompanyUserRoles({
-            onSuccess: () => {
-              this.props.setDynamicDataHasBeenLoaded('staff');
-            },
-          });
-          break;
-        default:
-      }
-    }
-
-    if (
-      this.props.dynamicDataLoading[type] &&
-      !this.props.dynamicDataHasBeenLoaded[type]
-    ) {
-      return null;
-    }
-
-    switch (type) {
-      case 'activity':
-        return this.props.metaActivities.map((m) => ({
-          label: m.name,
-          value: m.id,
-        }));
-      case 'payment_pack':
-        return this.props.paymentPacks.map((p) => ({
-          label: p.name,
-          value: p.id,
-        }));
-      case 'coach':
-        return this.props.coaches.map((c) => ({
-          label: c.name,
-          value: c.id,
-        }));
-      case 'billing_establishment':
-        return this.props.establishments.map((e) => ({
-          label: e.location.address,
-          value: e.id,
-        }));
-      case 'establishment':
-        return this.props.establishments.map((e) => ({
-          label: e.title,
-          value: e.id,
-        }));
-      case 'private_service':
-        return this.props.privateServices.map((ps) => ({
-          label: ps.name,
-          value: ps.id,
-        }));
-      case 'private_slot':
-        return this.props.privateSlots.map((ps) => ({
-          label: ps.name,
-          value: ps.id,
-        }));
-      case 'private_pass':
-        return this.props.privatePasses
-          .filter((pp) => pp.credits > 0)
-          .map((pp) => ({
-            label: pp.name,
-            value: pp.id,
-          }));
-      case 'giftcard':
-        return this.props.giftCards.map((gc) => ({
-          label: gc.name,
-          value: gc.id,
-        }));
-      case 'coupon':
-        return this.props.coupons.map((c) => ({
-          label: c.name,
-          value: c.id,
-        }));
-      case 'video':
-        return this.props.videos.map((v) => ({
-          label: v.name,
-          value: v.id,
-        }));
-      case 'billing_group':
-        return this.props.billingGroups.map((bg) => ({
-          label: bg.name,
-          value: bg.id,
-        }));
-      case 'contract':
-        return this.props.contracts.map((contract) => ({
-          label: contract.name,
-          value: contract.id,
-        }));
-      case 'subshop':
-        return (
-          this.props.subshops?.map((subshop) => ({
-            label: subshop.name,
-            value: subshop.id,
-          })) ?? []
-        );
-      case 'staff':
-        return this.props.staffs.map((staff) => ({
-          value: staff.id,
-          label: `${staff.first_name} ${staff.last_name}`,
-        }));
-      default:
-        return [];
-    }
-  };
-
   render() {
     const {
       report,
@@ -539,7 +270,9 @@ export class ReportingGeneration extends Component<Props, State> {
           setShowDialog={this.setShowDialog}
           setDisableContinue={this.setDisableContinue}
           disableContinue={this.state.disableContinue}
-          handleGetDynamicDataForReport={this.handleGetDynamicDataForReport}
+          handleGetDynamicDataForReport={
+            this.props.handleGetDynamicDataForFilters
+          }
           reportFilterConfigs={this.props.reportFilterConfigs}
           createReportFilterConfig={this.props.createReportFilterConfig}
           editReportFilterConfig={this.props.editReportFilterConfig}
@@ -554,7 +287,6 @@ export class ReportingGeneration extends Component<Props, State> {
 
 const connector = connect(
   (state: RootState, props: { id: number }) => ({
-    companyId: getTheme(state).company,
     resultLoading: getReports(state).loading,
     report: getReport(state, props.id),
     metadata: getReportMetadata(state),
@@ -566,24 +298,7 @@ const connector = connect(
     otherPages: getOtherPages(state, props.id),
     reportHeaders: getReportHeaders(state, props.id),
     reportHeadersLoading: getReportHeadersLoading(state),
-    dynamicDataLoading: getDynamicDataLoading(state),
-    dynamicDataHasBeenLoaded: getDynamicDataHasBeenLoaded(state),
-    metaActivities: getPageMetaActivities(state),
-    paymentPacks: getAllPaymentPack(state),
-    coaches: getAllCoaches(state),
-    establishments: getAllEstablishments(state),
-    users: getAllMembers(state),
-    privatePasses: getPrivatePassListBase(state),
-    privateServices: getPrivateServices(state),
-    privateSlots: getAllPrivateSlots(state),
-    giftCards: getAllGiftcardList(state),
-    coupons: getAllCoupons(state),
-    billingGroups: getEstablishmentBillingroup(state),
-    videos: getVideoList(state),
     reportFilterConfigs: getReportFilterConfigList(state),
-    contracts: getAvailableContractList(state),
-    subshops: getSubShopsByCompany(state, getTheme(state).company),
-    staffs: getUsersWithRole(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,
@@ -591,27 +306,10 @@ const connector = connect(
     fetchExtractResult: fetchReportGeneration,
     fecthRelatedHeaders: fetchReportHeaders,
     fetchExcelReport: exportExcelReport,
-    setDynamicDataHasBeenLoaded: setDynamicDataHasBeenLoadedAction,
-    resetDynamicDataHasBeenLoaded: resetDynamicDataHasBeenLoadedAction,
-    fetchActivitiesCompany: fetchActivitiesCompanyAction,
-    fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
-    fetchEstablishments: fetchEstablishmentsAction,
-    refreshFilteredMembers: refreshFilteredMembersAction,
-    fetchAllPaymentPacks: fetchAllPaymentPacksAction,
-    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
-    fetchAllPrivateServices: fetchAllPrivateServicesAction,
-    fetchAllPrivateSlots: fetchAllPrivateSlotsAction,
-    fetchPrivatePassList: fetchPrivatePassListAction,
-    fetchGiftcardList: fetchGiftcardListAction,
-    fetchCoupons: fetchCouponsAction,
-    fetchVideoList: fetchVideoListAction,
     createReportFilterConfig: createReportFilterConfigAction,
     editReportFilterConfig: editReportFilterConfigAction,
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,
     deleteReportFilterConfig: deleteReportFilterConfigAction,
-    fetchContractList: fetchContractListAction,
-    fetchAllSubShop: fetchAllSubShopAction,
-    fetchCompanyUserRoles: fetchCompanyUserRolesAction,
   },
 );
 
@@ -619,6 +317,7 @@ export default compose<any, OwnProps>(
   withTranslation(),
   routerParamsToProps({ reportId: 'id:number' }),
   connector,
+  withDatatypeDynamicData,
   withTitle(
     (value: { report: ReportConfiguration }) => value?.report?.name ?? '',
   ),

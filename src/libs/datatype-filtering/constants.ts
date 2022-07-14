@@ -1,13 +1,13 @@
 import {
-  ReportFilterConfigItemComparatorBoolean,
-  ReportFilterConfigItemComparatorById,
-  ReportFilterConfigItemComparatorDateMultiple,
-  ReportFilterConfigItemComparatorDateSingle,
-  ReportFilterConfigItemComparatorFloatMultiple,
-  ReportFilterConfigItemComparatorFloatSingle,
+  DatatypeFilterConfigItemComparatorBoolean,
+  DatatypeFilterConfigItemComparatorById,
+  DatatypeFilterConfigItemComparatorDateMultiple,
+  DatatypeFilterConfigItemComparatorDateSingle,
+  DatatypeFilterConfigItemComparatorFloatMultiple,
+  DatatypeFilterConfigItemComparatorFloatSingle,
 } from './types';
 
-export const COLUMN_FILTERABLE_DATATYPE = [
+export const DATA_SOURCE_FILTERABLE_DATATYPE = [
   'activity',
   'billing_establishment',
   'billing_group',
@@ -24,6 +24,7 @@ export const COLUMN_FILTERABLE_DATATYPE = [
   'giftcard',
   'int',
   'number',
+  'payment_engine',
   'payment_method',
   'payment_pack',
   'payout_status',
@@ -59,6 +60,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'coupon',
   'dow',
   'email',
+  'payment_engine',
   'establishment',
   'giftcard',
   'payment_method',
@@ -69,10 +71,19 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'private_pass',
   'private_service',
   'private_slot',
+  'source_device',
   'subshop',
   'user',
   'video',
   'staff',
+];
+
+export const DATATYPE_PRESET_INTEGER_VALUE = [
+  'payment_method',
+  'payout_status',
+  'booking_status_code',
+  'source_device',
+  'payment_engine',
 ];
 
 export const DATATYPE_FILTERABLE_BY_DATE = ['datetime', 'date', 'time'];
@@ -89,14 +100,14 @@ export const FILTER_OUT_OPERAND = 5;
 
 export const GROUP_OPERAND_LIST = [GROUP_OR_OPERAND, GROUP_AND_OPERAND];
 
-export const FILTER_OPERAND_LIST: ReportFilterConfigItemComparatorById[] = [
+export const FILTER_OPERAND_LIST: DatatypeFilterConfigItemComparatorById[] = [
   FILTER_IN_OPERAND,
   FILTER_OUT_OPERAND,
 ];
 
 export const FILTER_OPERAND_FLOAT: (
-  | ReportFilterConfigItemComparatorFloatSingle
-  | ReportFilterConfigItemComparatorFloatMultiple
+  | DatatypeFilterConfigItemComparatorFloatSingle
+  | DatatypeFilterConfigItemComparatorFloatMultiple
 )[] = [
   FILTER_EQUAL_OPERAND,
   FILTER_NOT_EQUAL_OPERAND,
@@ -105,12 +116,12 @@ export const FILTER_OPERAND_FLOAT: (
   FILTER_IN_OPERAND,
 ];
 
-export const FILTER_OPERAND_BOOLEAN: ReportFilterConfigItemComparatorBoolean[] =
+export const FILTER_OPERAND_BOOLEAN: DatatypeFilterConfigItemComparatorBoolean[] =
   [FILTER_EQUAL_OPERAND, FILTER_NOT_EQUAL_OPERAND];
 
 export const FILTER_OPERAND_DATE: (
-  | ReportFilterConfigItemComparatorDateSingle
-  | ReportFilterConfigItemComparatorDateMultiple
+  | DatatypeFilterConfigItemComparatorDateSingle
+  | DatatypeFilterConfigItemComparatorDateMultiple
 )[] = [FILTER_EQUAL_OPERAND, FILTER_IN_OPERAND, FILTER_NOT_EQUAL_OPERAND];
 
 export const FILTER_OPERAND_LIST_ID = 0;

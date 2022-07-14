@@ -10,6 +10,7 @@ type Props = {
   data: Array<{ value: number, count: number, week_day: number, hour: number }>,
   schedule_timerange_begin: string,
   schedule_timerange_end: string,
+  height: number,
 };
 
 const Cell = (props: {
@@ -41,7 +42,7 @@ export const TimeslotGridChart = (props: Props) => {
   const hour_end = schedule_timerange_end
     ? moment(props.schedule_timerange_end).hour()
     : 23;
-  const classes = useStyles();
+  const classes = useStyles(props.height);
   const { t } = useTranslation(['datetime']);
   const allValues = props.data.map(
     ({ value, count }) => (value || 0) / (count || 1),
@@ -71,7 +72,7 @@ export const TimeslotGridChart = (props: Props) => {
                 (d) => d.week_day === n && d.hour === m + hour_start,
               ) || { value: 0, count: 0 };
               return (
-                <div key={m} style={{ flex: 1 }}>
+                <div key={m} style={{ flex: 1, height: 'inherit' }}>
                   <Cell max={max} data={data} />
                 </div>
               );
@@ -85,6 +86,7 @@ export const TimeslotGridChart = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
+    height: (height) => height,
   },
   row: {
     display: 'flex',
@@ -92,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     width: '100%',
+    height: (height) => height / 8,
   },
   cell: {
     display: 'flex',

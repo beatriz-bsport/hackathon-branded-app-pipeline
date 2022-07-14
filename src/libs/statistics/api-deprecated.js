@@ -65,6 +65,10 @@ export async function fetchInvoiceItemQualitative(params) {
   );
 }
 
+export async function fetchStatisticV2(params) {
+  return postAuth(`${API_URI}/statistics/test_v2`, params);
+}
+
 export default {
   bookings,
   newMembers,

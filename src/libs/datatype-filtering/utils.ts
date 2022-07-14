@@ -18,18 +18,18 @@ import {
   FILTER_IN_OPERAND,
   GROUP_AND_OPERAND,
   HOUR_SUBDATA_TYPE,
-} from '../../constants';
+} from '#libs/datatype-filtering/constants';
 
 import {
   AllComparator,
-  ReportFilterConfigGroup,
-  ReportFilterConfigItemTypeById,
-  ReportFilterConfigItemTypeCompleteDate,
-  ReportFilterConfigItemTypeDate,
-  ReportFilterConfigItemTypeFloat,
-  ReportMetadataColumn,
-  ReportMedadataDataType,
-} from '../../types';
+  DatatypeFilterConfigItemTypeById,
+  DatatypeFilterConfigItemTypeCompleteDate,
+  DatatypeFilterConfigItemTypeDate,
+  DatatypeFilterConfigItemTypeFloat,
+  DataSourceMedadataDataType,
+  DatatypeFilterConfigGroup,
+  DataSourceFieldMetadata,
+} from '#libs/datatype-filtering/types';
 import { TIME_PERIODS_RANGE } from '#components/date/DateRangeSelector.component';
 import { TIME_PERIODS_SINGLE } from '#components/date/DatePickerSelector.component';
 
@@ -37,7 +37,7 @@ import { TIME_PERIODS_SINGLE } from '#components/date/DatePickerSelector.compone
 // Getters
 //
 export const getComparatorsByDataType = (
-  dataType: ReportMedadataDataType,
+  dataType: DataSourceMedadataDataType,
 ): AllComparator[] => {
   if (dataType === 'string') return [];
 
@@ -56,7 +56,7 @@ export const getComparatorsByDataType = (
 };
 
 export const getComparatorCategoryByDataType = (
-  dataType: ReportMedadataDataType,
+  dataType: DataSourceMedadataDataType,
 ): AllComparator => {
   if (dataType === 'string') return null;
 
@@ -78,10 +78,10 @@ export const getDefaultValueForComparator = (details: {
   comparator: AllComparator;
   datatype:
     | 'boolean'
-    | ReportFilterConfigItemTypeById
-    | ReportFilterConfigItemTypeFloat
-    | ReportFilterConfigItemTypeDate
-    | ReportFilterConfigItemTypeCompleteDate;
+    | DatatypeFilterConfigItemTypeById
+    | DatatypeFilterConfigItemTypeFloat
+    | DatatypeFilterConfigItemTypeDate
+    | DatatypeFilterConfigItemTypeCompleteDate;
   currentValue: any;
   isChangingComparator?: boolean;
 }) => {
@@ -163,10 +163,10 @@ export const getDefaultValueForTimePeriod = (details: {
   sub_datatype: 0 | 1 | null;
   datatype:
     | 'boolean'
-    | ReportFilterConfigItemTypeById
-    | ReportFilterConfigItemTypeFloat
-    | ReportFilterConfigItemTypeDate
-    | ReportFilterConfigItemTypeCompleteDate;
+    | DatatypeFilterConfigItemTypeById
+    | DatatypeFilterConfigItemTypeFloat
+    | DatatypeFilterConfigItemTypeDate
+    | DatatypeFilterConfigItemTypeCompleteDate;
   currentTimePeriod: string | null;
 }) => {
   const { sub_datatype, comparator, datatype, currentTimePeriod } = details;
@@ -197,10 +197,10 @@ export const getDefaultValueForTimePeriod = (details: {
 //
 
 export const generateNewGroup = (
-  defaultColumn: ReportMetadataColumn,
+  defaultMetadata: DataSourceFieldMetadata,
   hidden?: boolean,
 ) => {
-  if (!defaultColumn) {
+  if (!defaultMetadata) {
     return {
       inner_operand: GROUP_AND_OPERAND,
       filters_data: [],
@@ -211,15 +211,15 @@ export const generateNewGroup = (
 
   return {
     inner_operand: GROUP_AND_OPERAND,
-    filters_data: [generateNewFilterItem(defaultColumn)],
+    filters_data: [generateNewFilterItem(defaultMetadata)],
     uuid: uuidv4(),
     display_has_single: hidden,
   };
 };
 
-export const generateNewFilterItem = (column: ReportMetadataColumn) => {
-  const comparator = getComparatorsByDataType(column?.datatype)?.[0];
-  const datatype = column?.datatype;
+export const generateNewFilterItem = (metadata: DataSourceFieldMetadata) => {
+  const comparator = getComparatorsByDataType(metadata?.datatype)?.[0];
+  const datatype = metadata?.datatype;
   const sub_datatype =
     datatype === 'datetime' || datatype === 'date' ? DATE_SUBDATA_TYPE : null;
 
@@ -227,7 +227,7 @@ export const generateNewFilterItem = (column: ReportMetadataColumn) => {
     datatype,
     sub_datatype,
     comparator,
-    identifier: column.identifier,
+    identifier: metadata.identifier,
     time_period: getDefaultValueForTimePeriod({
       comparator,
       sub_datatype,
@@ -243,6 +243,66 @@ export const generateNewFilterItem = (column: ReportMetadataColumn) => {
   };
 };
 
+export const generateNewGroupForDateRange = (
+  metadata: DataSourceFieldMetadata,
+  time_period: 'week' | 'month' | 'trimester' | 'year',
+) => {
+  return {
+    inner_operand: GROUP_AND_OPERAND,
+    filters_data: [generateNewFilterDateInItem(metadata, time_period)],
+    uuid: uuidv4(),
+    display_has_single: true,
+  };
+};
+
+export const generateNewFilterDateInItem = (
+  metadata: DataSourceFieldMetadata,
+  time_period: 'week' | 'month' | 'trimester' | 'year',
+) => {
+  const comparator = FILTER_IN_OPERAND;
+  const datatype = metadata?.datatype;
+  const sub_datatype =
+    datatype === 'datetime' || datatype === 'date' ? DATE_SUBDATA_TYPE : null;
+  const value = getDateRangeValueForTimePeriod(time_period);
+
+  return {
+    datatype,
+    sub_datatype,
+    comparator,
+    identifier: metadata.identifier,
+    time_period,
+    value,
+    uuid: uuidv4(),
+  };
+};
+
+const getDateRangeValueForTimePeriod = (
+  timePeriod: 'week' | 'month' | 'trimester' | 'year',
+) => {
+  switch (timePeriod) {
+    case 'week':
+      return [
+        moment().subtract(1, 'week').startOf('day').unix(),
+        moment().endOf('day').unix(),
+      ];
+    case 'month':
+      return [
+        moment().subtract(1, 'month').startOf('day').unix(),
+        moment().endOf('day').unix(),
+      ];
+    case 'trimester':
+      return [
+        moment().subtract(3, 'month').startOf('day').unix(),
+        moment().endOf('day').unix(),
+      ];
+    default:
+      return [
+        moment().subtract(1, 'year').startOf('day').unix(),
+        moment().endOf('day').unix(),
+      ];
+  }
+};
+
 const getIsTimestamp = (value: number) => {
   // 1 Millions is probably a timestamp otherwise no alternative is possible
   return value > 1000000000;
@@ -251,8 +311,7 @@ const getIsTimestamp = (value: number) => {
 //
 // Checker
 //
-
 export const checkColumnAlreadyExist = memoize(
-  (datatype: string, groups: ReportFilterConfigGroup[]) =>
+  (datatype: string, groups: DatatypeFilterConfigGroup[]) =>
     groups.some((fg) => fg.filters_data.some((fd) => fd.datatype === datatype)),
 );

@@ -72,6 +72,7 @@ import waitingListReducers from '#libs/waiting-list/reducers';
 import webhook from '#libs/webhook/reducers';
 import zoomAppReducers from '#libs/zoom-app/reducers';
 import terminalReducers from '#libs/terminal/reducers';
+import datatypeFilteringReducers from '#libs/datatype-filtering/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -122,6 +123,7 @@ import { VideoState } from '#libs/video/types';
 import { TerminalState } from '#libs/terminal/types';
 import actionTypes from '../actions/auth.types';
 import { LevelState } from '#libs/level/types';
+import { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -197,6 +199,7 @@ const rootReducer = (history: any) =>
     expense,
     instalmentPayment,
     terminal: terminalReducers,
+    datatypeFiltering: datatypeFilteringReducers,
   });
 
 export type RootState = {
@@ -272,6 +275,7 @@ export type RootState = {
   webhook: any;
   zoomApp: any;
   terminal: TerminalState;
+  datatypeFiltering: DatatypeFilteringState;
 };
 
 export default (history: any) => (state: any, action: any) => {

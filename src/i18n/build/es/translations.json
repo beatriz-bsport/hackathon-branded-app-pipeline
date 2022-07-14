@@ -632,7 +632,9 @@
                 "discardGroup1": "Esta reserva forma parte del grupo de sesiones {{ group }}.",
                 "willNotBeRefund": "Créditos no reembolsados",
                 "willBeRefund": "La sesión del {{-day}} se volverá a acreditar",
-                "discardAllGroup": "Todas las reservas del grupos serán canceladas."
+                "discardAllGroup": "Todas las reservas del grupos serán canceladas.",
+                "discardGroupImpossibleExplain": "Cancelas demasiado tarde y no te volverá a acreditar la tarjeta del curso (condiciones del club).",
+                "discardGroup2": "Te le darás de baja automáticamente de todas las sesiones no pasadas del grupo."
             },
             "myPrivatePass": "Mis tarjetas de cita"
         },
@@ -1340,7 +1342,8 @@
             "network_timeout": "Error de red, por favor, inténtalo de nuevo en unos momentos",
             "network_error": "Error de red, por favor, inténtalo de nuevo en unos momentos",
             "no_established_connection": "No hay ningún terminal de pago conectado",
-            "setup_intent_authentication_failure": "No se puede guardar esta tarjeta. Por favor, intenta otro método de pago."
+            "setup_intent_authentication_failure": "No se puede guardar esta tarjeta. Por favor, intenta otro método de pago.",
+            "none": " "
         },
         "error_code": {
             "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
@@ -1462,7 +1465,8 @@
                 "member_count": "Miembros con etiqueta",
                 "smartlist_count": "Normas de etiquetado",
                 "actions": "Acciones ",
-                "offer_count": "Sesiones vinculadas"
+                "offer_count": "Sesiones vinculadas",
+                "coupon_count": " "
             },
             "deleteTagDialog": {
                 "title": "Supresión de tag",
@@ -2543,7 +2547,8 @@
                         "year": "año",
                         "year_plural": "años"
                     },
-                    "label": "Repite todo"
+                    "label": "Repite todo",
+                    "helperText": " "
                 },
                 "recurrence": {
                     "explain": "El pago se repartirá en {{ total_interval_duration }} {{ intervalo }} cada {{ recurrence_basis }} {{ intervalo }} y generará {{ nb_interval }} ingresos en efectivo",
@@ -3328,7 +3333,8 @@
                         "year": "año",
                         "year_plural": "años"
                     },
-                    "label": "Repite todo"
+                    "label": "Repite todo",
+                    "helperText": " "
                 },
                 "recurrence": {
                     "explain": "La suscripción se facturará cada {{ recurrence_basis }} {{ interval }} sobre una duración total de {{ total_interval_duration }} {{ interval }} y generará {{ nb_interval }} facturas",
@@ -7951,7 +7957,8 @@
             "emptySearch": "No hay grupos que coincidan con tu búsqueda",
             "pageSize": "Mostrar por:",
             "backToGroup": "Volver a los grupos",
-            "emptySelect": "Selecciona una sesión"
+            "emptySelect": "Selecciona una sesión",
+            "emptyState": "Con los grupos de sesiones, tus alumnos pueden reservar todas las sesiones incluidas en el grupo a la vez. Por ejemplo, utiliza los grupos de sesiones para crear talleres introductorios con varias sesiones. "
         }
     },
     "common": {
@@ -10157,7 +10164,8 @@
             "nb_sessions": "Número de sesiones",
             "totalNetGain": "Ganancia neta total",
             "netGain": "Ganancia neta",
-            "marginValue": "Contribución marginal"
+            "marginValue": "Contribución marginal",
+            "nb_private_bookings": " "
         },
         "cachedData": {
             "leavePreviewMode": "Salir del modo de vista previa",
@@ -10187,7 +10195,8 @@
             "table": {
                 "header": {
                     "nbSessions": "Número de cursos en grupo",
-                    "coachName": "Profesor"
+                    "coachName": "Profesor",
+                    "confirmedBookings": " "
                 }
             }
         },
@@ -11600,7 +11609,8 @@
                     "label": "Descripción"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Medios de pago disponibles"
+                    "label": "Medios de pago disponibles",
+                    "helperText": " "
                 },
                 "name": {
                     "label": "Nombre"

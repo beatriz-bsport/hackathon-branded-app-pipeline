@@ -29,6 +29,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
+  CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
 import type {
   CustomFormField,
@@ -40,7 +41,6 @@ import { Member, MemberAddress, UserProfile } from '../member/types';
 
 export const MODEL_BASED_QUESTION_ANY = 0;
 export const MODEL_BASED_QUESTION_FAVORITE = 1;
-export const CUSTOM_FORM_FIELD_LOCATION_OPTION = 10;
 
 export const CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP = 0;
 export const CUSTOM_FORM_DATATYPE_COACH = 1;

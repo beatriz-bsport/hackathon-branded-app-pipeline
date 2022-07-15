@@ -21,9 +21,8 @@ import {
   CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
   CUSTOM_FORM_FIELD_FILE_OPTION,
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
+  CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
-
-import { CUSTOM_FORM_FIELD_LOCATION_OPTION } from '../utils';
 
 type Props = {
   field_id: number;

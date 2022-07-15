@@ -101,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     top: 0,
     transform: 'translateY(50%)',
+    maxWidth: '40%',
   },
   priceRow: {
     display: 'flex',

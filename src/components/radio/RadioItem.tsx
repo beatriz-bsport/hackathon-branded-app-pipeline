@@ -41,6 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    // Allow tooltip inside disabled button base
+    pointerEvents: 'auto',
   },
   itemContent: {
     marginLeft: theme.spacing(1),

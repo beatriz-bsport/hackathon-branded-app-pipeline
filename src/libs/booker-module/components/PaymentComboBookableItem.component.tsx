@@ -90,6 +90,7 @@ const useStyles = makeStyles(() => ({
     right: 0,
     top: 0,
     transform: 'translateY(50%)',
+    maxWidth: '40%',
   },
   opacity: {
     opacity: 0.5,

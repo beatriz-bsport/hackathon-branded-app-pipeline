@@ -335,7 +335,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       return null;
                     }
                     return (
-                      <div className={classes.item} key={contract.id}>
+                      <div
+                        className={classNames(classes.item)}
+                        key={contract.id}
+                      >
                         <ButtonBase
                           disabled={contract.exceedsBookingMaxout}
                           className={classNames(
@@ -350,6 +353,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                             className={classNames(
                               classes.row,
                               classes.fullWidth,
+                              classes.pointerEvents,
                             )}
                           >
                             <VisibilityIcon
@@ -497,6 +501,8 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
+  // allow tooltip inside disabled button base
+  pointerEvents: { pointerEvents: 'auto' },
   container: {
     width: '100%',
   },

@@ -242,7 +242,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               blacklist_tags: o.blacklist_tags,
               broadcast_link: o.broadcast_link,
               coach: o.coach,
-              coach_payment_rule: o.coach_payment_rule,
+              coach_payment_rule_id: o.coach_payment_rule,
               date_start: o.date_start,
               duration_minute: o.duration_minute,
               establishment: o.establishment,

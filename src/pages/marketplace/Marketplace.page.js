@@ -431,8 +431,8 @@ export class MarketPlace extends Component<Props, State> {
 
     if (
       !!this.props.theme.company_name &&
-      decodeURI(this.props.companyName.toLowerCase().replace(/ /g, '-')) !==
-        this.props.theme.company_name.toLowerCase().replace(/ /g, '-')
+      this.props.companyName.toLowerCase() !==
+        this.props.theme.company_name.toLowerCase()
     ) {
       this.props.replace(
         `${urlToMarketplace(

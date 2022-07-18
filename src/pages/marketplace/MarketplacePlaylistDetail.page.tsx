@@ -22,6 +22,7 @@ import {
   withCategory,
   getPlaybackUrlById,
 } from '../../libs/video/selectors';
+import { urlToMarketplaceTab } from '#libs/marketplace/utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
@@ -244,7 +245,11 @@ const mapHandlers = {
         );
         return;
       }
-      const url = `/m/${props.companyName}/${props.companyId}/vod/playlist/${props.id}/video/${videoId}`;
+      const url = urlToMarketplaceTab(
+        props.companyName,
+        props.companyId,
+        `vod/playlist/${props.id}/video/${videoId}`,
+      );
       props.pushRouter(url);
     },
   replaceToVideoInPlaylist:
@@ -259,7 +264,11 @@ const mapHandlers = {
         return;
       }
 
-      const url = `/m/${props.companyName}/${props.companyId}/vod/playlist/${id}/video/${videoId}`;
+      const url = urlToMarketplaceTab(
+        props.companyName,
+        props.companyId,
+        `vod/playlist/${id}/video/${videoId}`,
+      );
       props.replaceRouter(url);
     },
 };

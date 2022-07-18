@@ -17,6 +17,7 @@ import {
 
 import withQueryParams from '#hocs/with-query-params.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { urlToMarketplaceTab } from '#/libs/marketplace/utils';
 
 import VideoSearchBar from '#libs/video/components/VideoSearchBar.component';
 import VideoItemList from '#libs/video/components/VideoItemList.component';
@@ -293,7 +294,13 @@ const mapHandlers = {
       return;
     }
 
-    props.push(`/m/${props.companyName}/${props.companyId}/vod/playlist/${id}`);
+    props.push(
+      urlToMarketplaceTab(
+        props.companyName,
+        props.companyId,
+        `vod/playlist/${id}`,
+      ),
+    );
   },
 };
 

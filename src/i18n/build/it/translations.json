@@ -6386,7 +6386,7 @@
             "expirationDate": "Scade se nessuna prenotazione iniziale",
             "beginningDate": "Data di inizio",
             "attendance": "Alla prima presenza",
-            "firstBooking": "Alla fatturazione",
+            "firstBooking": "Alla prima registrazione",
             "billing": "Alla fatturazione",
             "validForDuration": {
                 "day": "Questa carta sarà valida per {{ duration_day }} giorni",

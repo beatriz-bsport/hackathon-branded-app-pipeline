@@ -29,6 +29,7 @@ const MaxoutInfoMessage = (props: Props) => {
 
       <Hidden smUp>
         <ToolTip
+          enterTouchDelay={150}
           title={t(`maxoutInfo.${props.maxoutInfo.period}`, {
             count: props.maxoutInfo.nb,
           })}

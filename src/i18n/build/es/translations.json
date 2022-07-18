@@ -11661,10 +11661,10 @@
                     "label": "Mensaje personal"
                 },
                 "message_is_from": {
-                    "label": "Desde "
+                    "label": "De "
                 },
                 "message_is_for": {
-                    "label": "A la atención de "
+                    "label": "Para "
                 },
                 "name": {
                     "label": "Nombre de la tarjeta"
@@ -11686,8 +11686,8 @@
             "willInviteOn": "Invitación a enviar en {{- d }}",
             "invitedOn": "Enviado el {{- d }}",
             "value": "Valor",
-            "isFrom": "Desde ",
-            "isFor": "A la atención de ",
+            "isFrom": "De ",
+            "isFor": "Para ",
             "isEmpty": "No hay tarjetas de regalo",
             "linkedInvoice": "Factura vinculada",
             "list": {

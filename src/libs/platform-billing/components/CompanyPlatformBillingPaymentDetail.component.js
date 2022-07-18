@@ -11,20 +11,20 @@ import { Divider } from '@material-ui/core';
 import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
-// import { getCurrencyCode } from '../../theme/selectors';
+import { getCurrencyCode } from '../../theme/selectors';
 
 type Props = {
   platformInvoiceList: Array<PlatformInvoice>,
   collectPaymentMethodCBIsOpen: boolean,
-  // collectPaymentMethodSepaIsOpen: boolean,
+  collectPaymentMethodSepaIsOpen: boolean,
   paymentMethodList: Array<PaymentMethod>,
   setCollectPaymentMethodCBIsOpen: (boolean) => void,
-  // setCollectPaymentMethodSepaIsOpen: (boolean) => void,
+  setCollectPaymentMethodSepaIsOpen: (boolean) => void,
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
   onCollectPaymentMethodSuccess: ?() => void,
-  // sepaDefaultName?: string,
-  // sepaDefaultEmail?: string,
+  sepaDefaultName?: string,
+  sepaDefaultEmail?: string,
   payNowInvoice: (payment_backend_id: string) => void,
 };
 
@@ -70,14 +70,15 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
           />
         )}
         <div className={classes.addPaymentMethodButtonRow}>
-          {/* (getCurrencyCode() || '').toLowerCase() === 'eur' && (
-            <Button
-              onClick={() => props.setCollectPaymentMethodSepaIsOpen(true)}
-              variant="outlined"
-            >
-              {t('paymentMethod.actions.createSepa')}
-            </Button>
-					) */}
+          {window.location.href.includes('show-iban=true') &&
+            (getCurrencyCode() || '').toLowerCase() === 'eur' && (
+              <Button
+                onClick={() => props.setCollectPaymentMethodSepaIsOpen(true)}
+                variant="outlined"
+              >
+                {t('paymentMethod.actions.createSepa')}
+              </Button>
+            )}
           <Button
             onClick={() => props.setCollectPaymentMethodCBIsOpen(true)}
             variant="outlined"
@@ -85,18 +86,21 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
             {t('paymentMethod.actions.createCard')}
           </Button>
         </div>
-        {/* props.collectPaymentMethodSepaIsOpen && (
-          <CollectPaymentMethod
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
-            paymentMethodType="sepa_debit"
-            setAsDefault
-            onSuccess={props.onCollectPaymentMethodSuccess}
-            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-            onClose={() => props.setCollectPaymentMethodSepaIsOpen(false)}
-            defaultName={props.sepaDefaultName}
-            defaultEmail={props.sepaDefaultEmail}
-          />
-				) */}
+        {window.location.href.includes('show-iban=true') &&
+          props.collectPaymentMethodSepaIsOpen && (
+            <CollectPaymentMethod
+              requestSetupIntentSecret={props.requestSetupIntentSecret}
+              paymentMethodType="sepa_debit"
+              setAsDefault
+              onSuccess={props.onCollectPaymentMethodSuccess}
+              refreshSavedPaymentMethodList={
+                props.refreshSavedPaymentMethodList
+              }
+              onClose={() => props.setCollectPaymentMethodSepaIsOpen(false)}
+              defaultName={props.sepaDefaultName}
+              defaultEmail={props.sepaDefaultEmail}
+            />
+          )}
         {props.collectPaymentMethodCBIsOpen && (
           <CollectPaymentMethod
             requestSetupIntentSecret={props.requestSetupIntentSecret}

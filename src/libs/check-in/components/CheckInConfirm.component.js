@@ -58,7 +58,7 @@ class CheckInConfirm extends Component<Props> {
               hideConsumer
               noDivider
               consumerPack={booking.consumer_payment_pack}
-              paymentPack={booking.consumer_payment_pack.payment_pack}
+              paymentPack={booking.consumer_payment_pack?.payment_pack}
             />
           </Paper>
         </div>

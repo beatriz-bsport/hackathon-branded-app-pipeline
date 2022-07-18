@@ -42,7 +42,7 @@ export class CheckInConfirmPage extends React.Component<Props> {
         <CheckInConfirm
           offer={this.props.offer}
           booking={this.props.booking}
-          paymentPack={this.props.booking.consumer_payment_pack.paymentPack}
+          paymentPack={this.props.booking.consumer_payment_pack?.paymentPack}
           member={this.props.member}
           goBack={this.props.goBack}
         />

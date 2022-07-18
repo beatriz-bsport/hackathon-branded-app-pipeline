@@ -70,7 +70,7 @@ export function detachPaymentMethod(params: any, options?: OptionCallback) {
       if (options && options.onError) {
         options.onError(err);
       }
-      dispatch(detachPaymentMethodActions.error(err.response.data));
+      dispatch(detachPaymentMethodActions.error(err.response?.data || err));
     }
     dispatch(detachPaymentMethodActions.isLoading(false));
   };

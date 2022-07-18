@@ -55,7 +55,7 @@ export const withCoach = memoize((selector: any) =>
           coaches: v.coaches
             .map((c) =>
               Object.values(coachData).find((coach) =>
-                coach.associatedcoach_set.includes(c),
+                coach.associatedcoach_set?.includes(c),
               ),
             )
             .filter((c) => !!c),
@@ -67,7 +67,7 @@ export const withCoach = memoize((selector: any) =>
         ...videoList,
         coaches: videoList.coaches.map((c) =>
           Object.values(coachData).find((coach) =>
-            coach.associatedcoach_set.includes(c),
+            coach.associatedcoach_set?.includes(c),
           ),
         ),
       };
@@ -213,7 +213,7 @@ export const withVideoCoach = (selector: any) =>
           ...v,
           coaches: v.coaches
             .map((c) =>
-              coachList.find((coach) => coach.associatedcoach_set.includes(c)),
+              coachList.find((coach) => coach.associatedcoach_set?.includes(c)),
             )
             .filter((c) => !!c),
         }));
@@ -223,7 +223,7 @@ export const withVideoCoach = (selector: any) =>
       return {
         ...videoList,
         coaches: videoList.coaches.map((c) =>
-          coachList.find((coach) => coach.associatedcoach_set.includes(c)),
+          coachList.find((coach) => coach.associatedcoach_set?.includes(c)),
         ),
       };
     },

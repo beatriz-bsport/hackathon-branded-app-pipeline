@@ -92,5 +92,6 @@ exports.default = {
     de: 'Allemand',
     it: 'Italien',
     nl: 'Néerlandais',
+    none: 'Automatique',
   },
 };

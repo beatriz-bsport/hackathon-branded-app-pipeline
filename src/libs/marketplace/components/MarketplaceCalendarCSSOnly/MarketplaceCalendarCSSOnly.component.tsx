@@ -54,7 +54,7 @@ type Props = {
   activeCustomLevels: Level[];
   theme: Theme;
   variant?: 'activityName' | 'coach' | 'time';
-  groupSessionsByPeriod: boolean;
+  groupSessionByPeriod: boolean;
   events: Array<Event>;
   companyId: number;
   fetchAllOffers: (props: {
@@ -77,9 +77,9 @@ export const MarketplaceCalendar = (props: Props) => {
     setFilters,
     filters,
     forceDayDisplayOnly,
-    compactMode,
+    compactMode = null,
     nextAvailableOffer,
-    groupSessionsByPeriod,
+    groupSessionByPeriod,
   } = props;
 
   const weekOffers = offers.filter((offer) =>
@@ -88,19 +88,20 @@ export const MarketplaceCalendar = (props: Props) => {
   const refContainer = useRef(null);
 
   const showDayParts =
-    groupSessionsByPeriod == null || groupSessionsByPeriod === true;
+    groupSessionByPeriod == null || groupSessionByPeriod === true;
 
   const noOfferDisplayed = !loading && weekOffers.length === 0;
   // compact calendar
   const isCompact =
-    (compactMode != null && compactMode === true) ||
-    (compactMode == null && (refContainer?.current?.innerWidth ?? 1200) < 600);
+    (compactMode !== null && compactMode === true) ||
+    (compactMode === null &&
+      (refContainer?.current?.clientWidth ?? 1200) < 600);
 
   // large calendar
   const isLarge =
     (compactMode != null && compactMode === false) ||
     (compactMode == null &&
-      !((refContainer?.current?.innerWidth ?? 1240) < 600));
+      !((refContainer?.current?.clientWidth ?? 1240) < 600));
 
   const renderNoOffer = () => {
     return (
@@ -165,7 +166,7 @@ export const MarketplaceCalendar = (props: Props) => {
       />
       {loading && <LoadingIndicator />}
       {!loading && (
-        <div>
+        <>
           <MarketplaceWeekTimetableV2
             offers={props.offers}
             showOfferFilling={props.showOfferFilling}
@@ -189,7 +190,7 @@ export const MarketplaceCalendar = (props: Props) => {
             forceDayDisplayOnly={forceDayDisplayOnly}
           />
           {noOfferDisplayed && renderNoOffer()}
-        </div>
+        </>
       )}
     </div>
   );

@@ -55,7 +55,15 @@ const getDefault = (theme: CompanyTheme) => ({
 
 export const WidgetCssThemeOverrideForm: React.FC<
   OuterProps & FormikProps<Values>
-> = ({ theme, isSubmitting, isValid, values, setValues, onPreview }) => {
+> = ({
+  theme,
+  isSubmitting,
+  isValid,
+  values,
+  onSubmit,
+  setValues,
+  onPreview,
+}) => {
   const { t } = useTranslation(['widget']);
   const classes = useStyles();
 
@@ -66,7 +74,8 @@ export const WidgetCssThemeOverrideForm: React.FC<
   const handleReset = useCallback(() => {
     const defaultStyle = getDefault(theme);
     setValues(defaultStyle);
-  }, [setValues, theme]);
+    onSubmit(defaultStyle);
+  }, [onSubmit, setValues, theme]);
 
   return (
     <Form>
@@ -230,16 +239,46 @@ const ButtonWithConfirmMenuItem = withConfirm(
 
 const SAFE_FONTS = [
   { label: 'Roboto', value: 'Roboto' },
-  { label: 'Arial', value: 'Arial' },
-  { label: 'Verdana', value: 'Verdana' },
-  { label: 'Helvetica', value: 'Helvetica' },
-  { label: 'Tahoma', value: 'Tahoma' },
-  { label: 'Trebuchet MS', value: 'Trebuchet MS' },
-  { label: 'Times New Roman', value: 'Times New Roman' },
-  { label: 'Georgia', value: 'Georgia' },
-  { label: 'Garamond', value: 'Garamond' },
-  { label: 'Courier New', value: 'Courier New' },
-  { label: 'Brush Script MT', value: 'Brush Script MT' },
+  {
+    label: 'Arial',
+    value: 'Arial, sans-serif, Roboto, Arial',
+  },
+  {
+    label: 'Verdana',
+    value: 'Verdana, sans-serif, Roboto, Arial',
+  },
+  {
+    label: 'Helvetica',
+    value: 'Helvetica, sans-serif, Roboto, Arial',
+  },
+  {
+    label: 'Tahoma',
+    value: 'Tahoma, sans-serif, Roboto, Arial',
+  },
+  {
+    label: 'Trebuchet MS',
+    value: "'Trebuchet MS', sans-serif,  Roboto, Arial",
+  },
+  {
+    label: 'Times New Roman',
+    value: "'Times New Roman', serif,  Roboto, Arial",
+  },
+  {
+    label: 'Georgia',
+    value: 'Georgia, serif, Roboto, Arial',
+  },
+  {
+    label: 'Garamond',
+    value: 'Garamond, serif, Roboto, Arial',
+  },
+  {
+    label: 'Courier New',
+    value: "'Courier New', monospace,  Roboto, Arial",
+  },
+  {
+    label: 'Brush Script MT',
+    value: "'Brush Script MT', cursive,  Roboto, Arial",
+  },
 ];
 
 const useStyles = makeStyles((theme: Theme) => ({

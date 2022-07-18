@@ -152,7 +152,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const offersRows = this.periodByRow(period);
 
     return flattenDeep(period).length ? (
-      <div key={DAY_PARTS[i]}>
+      <React.Fragment key={DAY_PARTS[i]}>
         <div className="bs-week__cardMode__period">
           <IconButton
             onClick={this.handlePanelCollapse(i)}
@@ -160,32 +160,30 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           >
             {panelsStatus[i] ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
-          <div className="bs-week__cardMode__dayPart">
-            <p>{t(`dayParts.${DAY_PARTS[i]}`)}</p>
-          </div>
+          <p className="bs-week__cardMode__dayPart">
+            {t(`dayParts.${DAY_PARTS[i]}`)}
+          </p>
         </div>
+
         <Collapse
           in={panelsStatus[i]}
           timeout="auto"
           unmountOnExit
           className="bs-week__cardMode__sessionsGroup"
         >
-          {this.renderOffersRows(offersRows)}
+          <div className="bs-week__cardMode__sessionsGroup__inner">
+            {this.renderOffersRows(offersRows)}
+          </div>
         </Collapse>
-      </div>
-    ) : (
-      ''
-    );
+      </React.Fragment>
+    ) : null;
   };
 
   renderOffersRows = (offersRows: Array<Array<Offer_FULL>>) => {
     return (
-      <div>
+      <>
         {offersRows.map((row, idx) => (
-          <div
-            key={`row-${row?.[0]?.id ?? idx}`}
-            className="bs-week__cardMode__offerRow"
-          >
+          <React.Fragment key={`row-${row?.[0]?.id ?? idx}`}>
             {row.map((o: Offer_FULL, index) => {
               if (o === undefined) {
                 return (
@@ -196,7 +194,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 );
               }
               return (
-                <div className="bs-week__cardMode__offerRow__item" key={o.id}>
+                <div className="bs-week__cardMode__offerRow__offer-wrapper">
                   <MarketPlaceCardOfferV2
                     showOfferFilling={this.props.showOfferFilling}
                     hideCoach={this.props.hideCoach}
@@ -217,9 +215,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 </div>
               );
             })}
-          </div>
+          </React.Fragment>
         ))}
-      </div>
+      </>
     );
   };
 
@@ -228,15 +226,13 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const offersRows = this.periodByRow(weekOffers);
 
     return (
-      <div>
-        <div className="bs-week__cardMode__sessionsGroup">
-          {!this.props.showDayParts
-            ? this.renderOffersRows(offersRows)
-            : offers.map((period, i) =>
-                this.renderPeriodOffersCardVersion(period, i),
-              )}
-        </div>
-      </div>
+      <>
+        {!this.props.showDayParts
+          ? this.renderOffersRows(offersRows)
+          : offers.map((period, i) =>
+              this.renderPeriodOffersCardVersion(period, i),
+            )}
+      </>
     );
   };
 
@@ -319,7 +315,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     return (
       <div className={bs_week}>
-        <div className="bs-week__header">
+        <>
           {weekDays.map((_: any, i: number) => {
             const currentDate = start_date.clone().add(i, 'days');
             const isSelectedDate = currentDate.isSame(main_date, 'day');
@@ -363,7 +359,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
               </button>
             );
           })}
-        </div>
+        </>
         {!isCardModeDisplay || this.props.forceDayDisplayOnly
           ? this.renderNextDaysOffersListVersion(main_date.format('YYYY-MM-DD'))
           : this.renderOffersCardVersion(offers)}

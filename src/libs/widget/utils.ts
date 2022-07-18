@@ -102,18 +102,18 @@ export const getCustomWidgetStyle = (styles: WidgetCustomCSS) => {
   }
 
   if (fontFamily) {
-    classes += `--fontFamily: "${fontFamily}"; \n`;
+    classes += `--fontFamily: ${fontFamily}; \n`;
     id += `
-    --body1-fontFamily: "${fontFamily}"; \n
-    --body2-fontFamily: "${fontFamily}"; \n
-    --button-fontFamily: "${fontFamily}"; \n
-    --caption-fontFamily: "${fontFamily}"; \n
-    --h1-fontFamily: "${fontFamily}"; \n
-    --h2-fontFamily: "${fontFamily}"; \n
-    --h3-fontFamily: "${fontFamily}"; \n
-    --h4-fontFamily: "${fontFamily}"; \n
-    --h5-fontFamily: "${fontFamily}"; \n
-    --h6-fontFamily: "${fontFamily}"; \n
+    --body1-fontFamily: ${fontFamily}; \n
+    --body2-fontFamily: ${fontFamily}; \n
+    --button-fontFamily: ${fontFamily}; \n
+    --caption-fontFamily: ${fontFamily}; \n
+    --h1-fontFamily: ${fontFamily}; \n
+    --h2-fontFamily: ${fontFamily}; \n
+    --h3-fontFamily: ${fontFamily}; \n
+    --h4-fontFamily: ${fontFamily}; \n
+    --h5-fontFamily: ${fontFamily}; \n
+    --h6-fontFamily: ${fontFamily}; \n
     `;
   }
 

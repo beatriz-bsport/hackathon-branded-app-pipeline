@@ -2,23 +2,20 @@
 /* Marketplace time table */
 /*  */
 .bs-week {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
   margin-top: var(--spacing-2);
+  display: grid;
+  flex: 1 1 100%;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: var(--spacing-2);
+  row-gap: var(--spacing-2);
+
+  overflow: hidden;
 }
 
 .bs-week-list {
   width: 100%;
-  display: flex;
+  /* display: flex; */
   align-items: center;
-}
-
-.bs-week__header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  flex-wrap: noWrap;
-  min-width: 65%;
 }
 
 .bs-week__header__date--is-abled {
@@ -76,10 +73,10 @@
 }
 
 .bs-week__listMode__content {
+  grid-column: 2 / 7;
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 870px;
   padding-left: var(--spacing-4);
   padding-right: var(--spacing-4);
   gap: var(--spacing-5);
@@ -105,6 +102,7 @@
 
 .bs-week__cardMode__period {
   display: flex;
+  grid-column: 1 / -1;
 }
 
 .bs-week__cardMode__period__button {
@@ -112,24 +110,19 @@
 }
 
 .bs-week__cardMode__sessionsGroup {
-  margin-bottom: var(--spacing-2);
+  grid-column: 1 / -1;
 }
 
-.bs-week__cardMode__offerRow {
-  width: 100%;
+.bs-week__cardMode__sessionsGroup__inner {
   display: grid;
-  grid-template-columns: repeat(7, 14.2%);
-  gap: var(--spacing-1);
-  align-items: stretch;
-  justify-content: space-between;
-  padding-right: var(--spacing-8);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: var(--spacing-2);
+  row-gap: var(--spacing-2);
 }
 
-.bs-week__cardMode__offerRow__item {
-  flex-grow: 1;
-  flex-basis: 150px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+.bs-week__cardMode__offerRow__offer-wrapper {
+  min-width: 0;
+  min-height: 0;
 }
 
 .bs-week__cardMode__dayPart {

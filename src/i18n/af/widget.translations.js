@@ -68,8 +68,8 @@ exports.default = {
       backgroundColorPage: 'Couleur de fond de la page',
       backgroundColorElement: 'Couleur de fond des éléments',
       reset: 'réinitialiser',
-      roundingHelper: 'L’espacement se base sur les multiples de {{base}}px',
-      spacingHelper: 'Les angles ont un arrondi en multiple {{base}}px',
+      spacingHelper: 'L’espacement se base sur les multiples de {{base}}px',
+      roundingHelper: 'Les angles ont un arrondi en multiple {{base}}px',
       preview: 'Preview',
       selectAlert:
         'La personnalisation du widget n’est disponible que sur les ateliers pour le moment',

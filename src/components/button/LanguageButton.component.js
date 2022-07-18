@@ -46,11 +46,13 @@ const LanguageSelectBase = (props: Props) => {
   const renderMenuItem = (lng, noLabelMenuItem?: boolean) => {
     return (
       <MenuItem key={lng} value={lng}>
-        <img
-          className={classes.flag}
-          src={countryFlag[lng.replace('-', '_')]}
-          alt="text"
-        />
+        {lng !== 'none' && (
+          <img
+            className={classes.flag}
+            src={countryFlag[lng.replace('-', '_')]}
+            alt="text"
+          />
+        )}
         {!noLabelMenuItem && t(`language.${lng}`)}
       </MenuItem>
     );

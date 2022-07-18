@@ -83,6 +83,8 @@ type OwnProps = {
   companyId: number;
   startWeekThisWeekday?: boolean;
   compactMode: boolean;
+  groupSessionByPeriod: boolean;
+  variant?: 'activityName' | 'coach' | 'time';
   requestSignUp: () => void;
   toggleCurrentBasketOpen: (value: boolean) => void;
   onCompletePurchase?: (offerId: number, packId: number) => void;
@@ -320,7 +322,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     }
 
     return (
-      <div>
+      <>
         <MarketplaceActivityDialogV2
           open={!!this.state.offerId}
           offerId={this.state.offerId}
@@ -371,6 +373,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           theme={this.props.theme}
           fetchAllOffers={this.props.fetchAllOffers}
           events={this.props.events}
+          groupSessionByPeriod={this.props.groupSessionByPeriod}
+          variant={this.props.variant}
         />
         {this.state.displayGroupPopup && (
           <GroupRulePopup
@@ -380,7 +384,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             onSubmit={this.handleContinueGroupPopup}
           />
         )}
-      </div>
+      </>
     );
   }
 }

@@ -88,12 +88,11 @@
   color: var(--color-text-secondary);
 }
 
-
 .bs-book-button__inner__text--booked {
   color: var(--color-success-main);
 }
 
-@media (min-width: 430px) {
+@media only screen and (min-width: 600px) {
   .bs-book-button__inner__text {
     display: block;
   }

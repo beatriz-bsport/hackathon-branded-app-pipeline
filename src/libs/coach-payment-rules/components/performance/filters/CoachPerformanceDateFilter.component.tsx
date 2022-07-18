@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import moment, { Moment as MomentType } from 'moment-timezone';
 import * as Yup from 'yup';

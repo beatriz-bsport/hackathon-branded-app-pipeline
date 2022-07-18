@@ -9,7 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { WithStyles, createStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
-import CoachPerformanceForm from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
+import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
@@ -63,14 +63,17 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     coachWithPerformance,
     performanceLoading,
     handleDateFiltersChange,
+    changeDate,
   } = props;
+
   return (
     <div className={classes.container}>
       <AppBar position="static" color="default" className={classes.bar}>
-        <CoachPerformanceForm
+        <CoachPerformanceDateFilter
           onSubmit={onSubmit}
           loading={loading || performanceLoading}
           handleDateFiltersChange={handleDateFiltersChange}
+          updateStateDate={changeDate}
           hideExport
         />
       </AppBar>
@@ -144,6 +147,11 @@ const mapWithHandlers = {
       });
       if (options?.onSuccess) options.onSuccess();
     },
+
+  changeDate:
+    ({ setFormDates }: OwnAndConnectedProps & stateHandlerType) =>
+    (dateStart: number, dateEnd: number) =>
+      setFormDates({ dateStart, dateEnd }),
 };
 const connector = connect(
   (state: RootState) => ({

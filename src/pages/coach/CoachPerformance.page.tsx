@@ -1,13 +1,7 @@
 import React from 'react';
 import Moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
-import {
-  compose,
-  withProps,
-  withHandlers,
-  withState,
-  withStateHandlers,
-} from 'recompose';
+import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import AppBar from '@material-ui/core/AppBar';
@@ -35,7 +29,7 @@ import {
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
-import CoachPerformanceForm from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
+import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { Coach } from '../../libs/associated-coach/types';
@@ -65,6 +59,10 @@ export class CoachPerformance extends React.Component<Props> {
     });
   }
 
+  changeDate = (dateStart: number, dateEnd: number) => {
+    this.props.setFormDates({ dateStart, dateEnd });
+  };
+
   render() {
     const {
       classes,
@@ -78,9 +76,10 @@ export class CoachPerformance extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default" className={classes.bar}>
-          <CoachPerformanceForm
+          <CoachPerformanceDateFilter
             onSubmit={onSubmit}
             handleDateFiltersChange={handleDateFiltersChange}
+            updateStateDate={this.changeDate}
             loading={loading || performanceLoading}
             hideExport
           />
@@ -329,7 +328,6 @@ export default compose(
   withStyles(styles),
   withTranslation('paymentRules'),
   mapParamsToProps(['associatedCoachId']),
-  withState('formDates', 'setFormDates', {}),
   withProps((props: OwnProps) => ({
     associatedCoachId: +props.associatedCoachId,
   })),

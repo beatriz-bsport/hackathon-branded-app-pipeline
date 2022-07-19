@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';

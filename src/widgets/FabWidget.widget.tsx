@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import {
   Badge,
   ButtonBase,
@@ -349,7 +349,6 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  theme: state.theme.theme,
   dialogUrl: state.modal.url,
   authenticated: state.bridge.authentication.authenticated,
   authenticationLoading: state.bridge.authentication.loading,

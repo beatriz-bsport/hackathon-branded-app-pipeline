@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MarketplacePassBase } from 'bsport-saas/src/pages/marketplace/MarketplacePass.page';
 import { MarketplacePassData } from 'bsport-saas/src/libs/marketplace/types';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';

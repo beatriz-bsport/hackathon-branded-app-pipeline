@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MarketplaceGiftcardBase } from 'bsport-saas/src/pages/marketplace/MarketplaceGiftcard.page';
 import { MarketplaceGiftcardData } from 'bsport-saas/src/libs/marketplace/types';

@@ -13,7 +13,6 @@ import {
 import { getValidityInfo } from '../../payment-packs/utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import Tooltip from '#components/Tooltip.component';
-import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 
 interface Props {
   paymentPack: (PaymentPack | PaymentPackTemplate) & Partial<MaxoutData>;
@@ -78,11 +77,6 @@ const PaymentPackItem = (props: Props) => {
             </Tooltip>
           )}
         </div>
-        {props.paymentPack.exceedsBookingMaxout && (
-          <div className={classes.maxoutMessageContainer}>
-            <MaxoutInfoMessage maxoutInfo={props.paymentPack.maxoutInfo} />
-          </div>
-        )}
       </div>
     </div>
   );
@@ -94,14 +88,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    position: 'relative',
-  },
-  maxoutMessageContainer: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    transform: 'translateY(50%)',
-    maxWidth: '40%',
   },
   priceRow: {
     display: 'flex',

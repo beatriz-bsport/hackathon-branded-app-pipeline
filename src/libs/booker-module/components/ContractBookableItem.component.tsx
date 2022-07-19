@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import { MaxoutData } from '../../payment-packs/types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Contract, ContractWithPaymentPack } from '#libs/subscription/types';
-import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 
 type Props = {
   isExcludingTax?: boolean;
@@ -46,11 +45,6 @@ const ContractBookableItem = (props: Props) => {
           {contract.name}
         </Typography>
       </div>
-      {contract.exceedsBookingMaxout && (
-        <div className={classes.maxoutMessageContainer}>
-          <MaxoutInfoMessage maxoutInfo={contract.maxoutInfo} />
-        </div>
-      )}
     </div>
   );
 };
@@ -61,14 +55,6 @@ const useStyles = makeStyles((theme: any) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    position: 'relative',
-  },
-  maxoutMessageContainer: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    transform: 'translateY(50%)',
-    maxWidth: '40%',
   },
   opacity: {
     opacity: 0.5,

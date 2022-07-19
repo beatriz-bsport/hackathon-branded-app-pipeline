@@ -1,10 +1,19 @@
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import { ButtonBase, Theme, Typography, withStyles } from '@material-ui/core';
+import {
+  ButtonBase,
+  DialogActions,
+  Theme,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 import { MaterialStyleType } from '../../../utils/types';
 
 import CollapsibleSection from '../../../components/CollapsibleSection';
@@ -14,6 +23,7 @@ import ContractBookableItem from './ContractBookableItem.component';
 import ConsumerPaymentPackBookableItem from './ConsumerPaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
 import { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
+import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
@@ -66,6 +76,7 @@ type State = {
   paymentPackMore: boolean;
   paymentComboPackMore: boolean;
   openedCategory: number | null;
+  maxoutMessageModaleText: null | string;
 };
 
 class BookingMethodSelector extends React.PureComponent<Props, State> {
@@ -75,6 +86,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     paymentPackMore: false,
     paymentComboPackMore: false,
     openedCategory: null,
+    maxoutMessageModaleText: null,
   };
 
   componentDidMount() {
@@ -86,6 +98,16 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       this.shouldAutoSelectDefaultPack();
     }
   }
+
+  openMaxoutMessageModale = (msg: string) =>
+    this.setState({
+      maxoutMessageModaleText: msg,
+    });
+
+  closeMaxoutMessageModale = () =>
+    this.setState({
+      maxoutMessageModaleText: null,
+    });
 
   shouldAutoSelectDefaultPack = () => {
     const { availableConsumerPacks, unCategorizedPacks, availableComboPacks } =
@@ -288,7 +310,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                   return null;
                 }
                 return (
-                  <div className={classes.item} key={consumerPaymentPack.id}>
+                  <div
+                    className={classNames(classes.item, classes.relative)}
+                    key={consumerPaymentPack.id}
+                  >
                     <RadioItem
                       disabled={consumerPaymentPack.exceedsBookingMaxout}
                       selected={
@@ -304,6 +329,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                         />
                       )}
                     />
+                    {consumerPaymentPack.exceedsBookingMaxout && (
+                      <div className={classes.maxoutMessageContainer}>
+                        <MaxoutInfoMessage
+                          maxoutInfo={consumerPaymentPack.maxoutInfo}
+                          openModale={this.openMaxoutMessageModale}
+                        />
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -336,7 +369,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     }
                     return (
                       <div
-                        className={classNames(classes.item)}
+                        className={classNames(classes.item, classes.relative)}
                         key={contract.id}
                       >
                         <ButtonBase
@@ -353,7 +386,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                             className={classNames(
                               classes.row,
                               classes.fullWidth,
-                              classes.pointerEvents,
                             )}
                           >
                             <VisibilityIcon
@@ -369,6 +401,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                             />
                           </div>
                         </ButtonBase>
+                        {contract.exceedsBookingMaxout && (
+                          <div className={classes.maxoutMessageContainer}>
+                            <MaxoutInfoMessage
+                              maxoutInfo={contract.maxoutInfo}
+                              openModale={this.openMaxoutMessageModale}
+                            />
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -385,6 +425,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     opened={this.state.openedCategory === cat.id}
                     openPacks={(id) => this.openPacks(id, true)}
                     isExcludingTax={this.props.isExcludingTax}
+                    openModale={this.openMaxoutMessageModale}
                   />
                 ))
               : null}
@@ -406,7 +447,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                         return null;
                       }
                       return (
-                        <div className={classes.item} key={paymentPack.id}>
+                        <div
+                          className={classNames(classes.item, classes.relative)}
+                          key={paymentPack.id}
+                        >
                           <RadioItem
                             disabled={paymentPack.exceedsBookingMaxout}
                             selected={
@@ -423,6 +467,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                               />
                             )}
                           />
+                          {paymentPack.exceedsBookingMaxout && (
+                            <div className={classes.maxoutMessageContainer}>
+                              <MaxoutInfoMessage
+                                maxoutInfo={paymentPack.maxoutInfo}
+                                openModale={this.openMaxoutMessageModale}
+                              />
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -457,7 +509,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                         return null;
                       }
                       return (
-                        <div className={classes.item} key={paymentPackCombo.id}>
+                        <div
+                          className={classNames(classes.item, classes.relative)}
+                          key={paymentPackCombo.id}
+                        >
                           <RadioItem
                             disabled={paymentPackCombo.exceedsBookingMaxout}
                             selected={
@@ -474,6 +529,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                               />
                             )}
                           />
+                          {paymentPackCombo.exceedsBookingMaxout && (
+                            <div className={classes.maxoutMessageContainer}>
+                              <MaxoutInfoMessage
+                                maxoutInfo={paymentPackCombo.maxoutInfo}
+                                openModale={this.openMaxoutMessageModale}
+                              />
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -495,14 +558,24 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
             )}
           </>
         )}
+        {!!this.state.maxoutMessageModaleText && (
+          <Dialog open>
+            <DialogContent>
+              <Typography>{this.state.maxoutMessageModaleText}</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.closeMaxoutMessageModale}>
+                {t('common:close')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
       </div>
     );
   }
 }
 
 const styles = (theme: Theme) => ({
-  // allow tooltip inside disabled button base
-  pointerEvents: { pointerEvents: 'auto' },
   container: {
     width: '100%',
   },
@@ -558,6 +631,18 @@ const styles = (theme: Theme) => ({
   },
   opacity: {
     opacity: 0.5,
+  },
+  relative: {
+    position: 'relative',
+  },
+  maxoutMessageContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    transform: 'translateY(50%)',
+    maxWidth: '40%',
+    paddingRight: theme.spacing(2),
+    textAlign: 'center',
   },
 });
 

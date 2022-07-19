@@ -5,7 +5,6 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../../payment-combo/types';
 import { MaxoutData } from '../../payment-packs/types';
 import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
-import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 
 interface Props {
   paymentCombo: PaymentCombo & Partial<MaxoutData>;
@@ -60,13 +59,6 @@ const PaymentPackComboItem = (props: Props) => {
           </Typography>
         ))}
       </div>
-      <div>
-        {props.paymentCombo.exceedsBookingMaxout && (
-          <div className={classes.maxoutMessageContainer}>
-            <MaxoutInfoMessage maxoutInfo={props.paymentCombo.maxoutInfo} />
-          </div>
-        )}
-      </div>
     </div>
   );
 };
@@ -83,14 +75,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    position: 'relative',
-  },
-  maxoutMessageContainer: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    transform: 'translateY(50%)',
-    maxWidth: '40%',
   },
   opacity: {
     opacity: 0.5,

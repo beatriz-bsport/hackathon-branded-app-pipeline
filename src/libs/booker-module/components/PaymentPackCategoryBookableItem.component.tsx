@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PaymentPackBookableItem from './PaymentPackBookableItem.component';
 import { RadioItem } from '../../../components/radio/RadioItem';
+import MaxoutInfoMessage from '#libs/booker-module/components/MaxoutInfoMessage.component';
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
@@ -23,6 +24,7 @@ type OwnProps = {
   opened: boolean;
   openPacks: (id: number) => void;
   isExcludingTax?: boolean;
+  openModale: (msg: string) => void;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -44,7 +46,7 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
         ? paymentPackCategory.packs
             .slice(0, paymentPackMore ? paymentPackCategory.packs.length : 3)
             .map((pack) => (
-              <div key={pack.id}>
+              <div key={pack.id} className={classes.relative}>
                 <RadioItem
                   disabled={pack.exceedsBookingMaxout}
                   selected={pack.id === props.selectedPack?.paymentPack?.id}
@@ -56,6 +58,14 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
                     />
                   )}
                 />
+                {pack.exceedsBookingMaxout && (
+                  <div className={classes.maxoutMessageContainer}>
+                    <MaxoutInfoMessage
+                      maxoutInfo={pack.maxoutInfo}
+                      openModale={props.openModale}
+                    />
+                  </div>
+                )}
               </div>
             ))
         : null}
@@ -90,6 +100,17 @@ const styles = (theme: Theme) => ({
   },
   buttonBase: {
     marginLeft: theme.spacing(1.5),
+  },
+  relative: {
+    position: 'relative',
+  },
+  maxoutMessageContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    transform: 'translateY(50%)',
+    maxWidth: '40%',
+    paddingRight: theme.spacing(2),
   },
 });
 export default compose<any, OwnProps>(

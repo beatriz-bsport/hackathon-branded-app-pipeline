@@ -3643,7 +3643,7 @@
             "name": "Nombre",
             "identifier": "Identificador",
             "first_name": "Nombre",
-            "last_name": "Nombre",
+            "last_name": "Apellido",
             "email": "Correo electrónico",
             "phonenumber": "Teléfono",
             "date_joined": "Fecha de registro",

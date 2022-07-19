@@ -8,8 +8,11 @@ import { RootState } from '../../../reducers';
 import PaymentMethodStep from '#libs/login/components/account-configuration/AccountConfigurationPaymentMethodStep.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import { fetchMyUserProfile } from '#libs/member/actions';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAction,
+  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
+} from '../../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { PaymentMethod } from '#libs/payment/types';
 import { updateCompanyTheme } from '#libs/theme/actions';
 import {
@@ -41,6 +44,19 @@ export class AccountConfigurationPaymentMethodStepPage extends Component<Props> 
 
   fetchPaymentMethodList = () => {
     this.props.fetchPaymentMethodList({ as_company: true });
+  };
+
+  onPaymentMethodAdded = (stripeSetupIntentCallResult: any) => {
+    const paymentMethodId =
+      stripeSetupIntentCallResult?.setupIntent?.payment_method;
+
+    if (paymentMethodId) {
+      this.props.setPaymentMethodAsDefault({
+        payment_backend_payment_method_id: paymentMethodId,
+        as_company: true,
+      });
+    }
+    this.fetchPaymentMethodList();
   };
 
   goPrevious = this.props.stripeCompany.has_no_need_for_stripe_configuration
@@ -85,7 +101,7 @@ export class AccountConfigurationPaymentMethodStepPage extends Component<Props> 
         has_no_need_for_payment_method_configuration={
           this.props.stripeCompany.has_no_need_for_payment_method_configuration
         }
-        onPaymentMethodSuccess={this.fetchPaymentMethodList}
+        onPaymentMethodSuccess={this.onPaymentMethodAdded}
         goNext={this.validatePaymentMethodStep}
         goPrevious={this.goPrevious}
         currency={this.props.companySetup?.currency}
@@ -122,6 +138,7 @@ const connector = connect(
     fetchMyUserProfile,
     fetchPaymentMethodList: fetchPaymentMethodListAction,
     updateCompanyTheme,
+    setPaymentMethodAsDefault: setPaymentMethodAsDefaultAction,
     retrieveMyCompanySetup: retrieveMyCompanySetupAction,
     validateAccountConfigurationStep: validateAccountConfigurationStepAction,
   },

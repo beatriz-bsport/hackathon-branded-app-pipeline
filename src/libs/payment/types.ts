@@ -30,3 +30,9 @@ export type PaymentInstalmentData = {
 };
 
 export type IntervalType = 'month' | 'week' | 'year' | 'day';
+
+export type StripeSetupIntentResponse = {
+  setupIntent: {
+    payment_method_id: string;
+  };
+};

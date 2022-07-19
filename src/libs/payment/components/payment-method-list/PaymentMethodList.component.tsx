@@ -31,6 +31,7 @@ type Props = {
   detachPaymentMethod?: (pm_id: number, options?: OptionCallback) => void;
   snackbarErrorMsg?: (msg: string) => void;
   snackbarSuccessMsg?: (msg: string) => void;
+  onlyDefault?: boolean;
 
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;
@@ -56,10 +57,17 @@ export const PaymentMethodList = (props: Props) => {
       )
     : props.savedPaymentMethodList;
 
+  const defaultPaymentMethod = relevantSavedPaymentMethodList.find(
+    (pm) => pm.is_default,
+  );
+
   return (
     <div className={classes.container}>
       {disableDuringDetach && <LinearProgress />}
-      {relevantSavedPaymentMethodList.map((pm) => (
+      {(props.onlyDefault && defaultPaymentMethod
+        ? [defaultPaymentMethod]
+        : relevantSavedPaymentMethodList
+      ).map((pm) => (
         <PaymentMethodListItem
           paymentMethod={pm}
           key={pm.id}

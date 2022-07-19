@@ -28,6 +28,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   fetchPayoutList as fetchPayoutListAction,
+  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
 } from '../../libs/payment/actions';
 import {
   getSavedPaymentMethodList,
@@ -71,6 +72,10 @@ type Props = {
 
   checkSubscriptionSetup: () => void,
   payNowInvoice: (payment_backend_id: string) => void,
+  setPaymentMethodAsDefault: (data: {
+    payment_method_id: string,
+    as_company: boolean,
+  }) => void,
 };
 
 export class PlatformBillingSettings extends React.Component<Props> {
@@ -84,6 +89,19 @@ export class PlatformBillingSettings extends React.Component<Props> {
     this.props.fetchUpsellPackageList();
     this.props.fetchPayoutList({ page: 1 });
   }
+
+  finalizePaymentMethodChange = (stripeSetupIntentCallResult: any) => {
+    const paymentMethodId =
+      stripeSetupIntentCallResult?.setupIntent?.payment_method;
+
+    if (paymentMethodId) {
+      this.props.setPaymentMethodAsDefault({
+        payment_backend_payment_method_id: paymentMethodId,
+        as_company: true,
+      });
+    }
+    this.props.checkSubscriptionSetup();
+  };
 
   render() {
     const { loading, classes } = this.props;
@@ -105,7 +123,7 @@ export class PlatformBillingSettings extends React.Component<Props> {
           platformInvoiceList={this.props.platformInvoiceList}
           refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-          onCollectPaymentMethodSuccess={this.props.checkSubscriptionSetup}
+          onCollectPaymentMethodSuccess={this.finalizePaymentMethodChange}
           fetchMorePlatformInvoiceList={this.props.fetchPlatformInvoiceList}
         />
         <CompanyPlatformBillinGroupDetail
@@ -151,6 +169,7 @@ export default compose(
       fetchUpsellPackageList,
       fetchUpsellPackageSubscribedList,
       checkSubscriptionSetup: checkSubscriptionSetupAction,
+      setPaymentMethodAsDefault: setPaymentMethodAsDefaultAction,
       requestUpsellPackage: requestUpsellPackageAction,
       fetchCompanyTheme: fetchCompanyThemeAction,
       fetchPayoutList: fetchPayoutListAction,

@@ -39,6 +39,7 @@ export type PlannedPaymentEvent = {
 export type PaymentGroup = {
   id: number;
   member: number;
+  invoice: string;
   basket: string;
   payment_method_identifier: number;
   client_secret: string;

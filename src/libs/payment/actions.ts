@@ -13,6 +13,7 @@ import {
   fetchPayoutList as fetchPayoutListAPI,
   updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
   detachPaymentMethod as detachPaymentMethodAPI,
+  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
 } from './api';
 import { PaymentMethod, Payout } from './types';
 
@@ -75,6 +76,44 @@ export function detachPaymentMethod(params: any, options?: OptionCallback) {
     dispatch(detachPaymentMethodActions.isLoading(false));
   };
 }
+
+export const setPaymentMethodAsDefaultActions = {
+  isLoading: createAction('PAYMENT_METHOD/SET_DEFAULT/LOADING'),
+  error: createAction('PAYMENT_METHOD/SET_DEFAULT/ERROR'),
+  success: createAction('PATMENT_METHOD/SET_DEFAULT/SUCCESS'),
+};
+export function setPaymentMethodAsDefault(
+  params: any,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(setPaymentMethodAsDefaultActions.error(null));
+    dispatch(setPaymentMethodAsDefaultActions.isLoading(true));
+    try {
+      const response = await setPaymentMethodAsDefaultAPI(params);
+      dispatch(setPaymentMethodAsDefaultActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(setPaymentMethodAsDefaultActions.success({}));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(`paymentMethod.errors.${err.response.data.error_code}`),
+        );
+      }
+      if (options && options.onError) {
+        options.onError(err);
+      }
+      dispatch(
+        setPaymentMethodAsDefaultActions.error(err.response?.data || err),
+      );
+    }
+    dispatch(setPaymentMethodAsDefaultActions.isLoading(false));
+  };
+}
+
 export const onSpotPaymentReportActions = {
   isLoading: createAction('ON-SPOT-PAYMENT/REPORT/LOADING'),
   error: createAction('ON-SPOT-PAYMENT/REPORT/ERROR'),

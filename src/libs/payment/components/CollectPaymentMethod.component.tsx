@@ -25,12 +25,12 @@ export const CollectPaymentMethod = (props: Props) => {
     return (
       <CollectPaymentMethodCard
         requestSetupIntentSecret={props.requestSetupIntentSecret}
-        onSuccess={() => {
+        onSuccess={(data: any) => {
           if (props.refreshSavedPaymentMethodList) {
             props.refreshSavedPaymentMethodList();
           }
           if (props.onSuccess) {
-            props.onSuccess();
+            props.onSuccess(data);
           }
           // If stripe terminal, display success screen for 2 sec
           if (props.addViaTerminal) setTimeout(() => props.onClose(), 2000);
@@ -49,12 +49,12 @@ export const CollectPaymentMethod = (props: Props) => {
     return (
       <CollectPaymentMethodSepa
         requestSetupIntentSecret={props.requestSetupIntentSecret}
-        onSuccess={() => {
+        onSuccess={(data: any) => {
           if (props.refreshSavedPaymentMethodList) {
             props.refreshSavedPaymentMethodList();
           }
           if (props.onSuccess) {
-            props.onSuccess();
+            props.onSuccess(data);
           }
         }}
         onClose={props.onClose}

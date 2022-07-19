@@ -93,7 +93,11 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
       <ListItemText
         primary={`**** **** **** ${props.paymentMethod.readable_identifier}`}
         secondary={
-          props.paymentMethod.type === 'card' ? props.paymentMethod.brand : null
+          props.paymentMethod.type === 'card'
+            ? `${props.paymentMethod.additional_info || ' '} ${
+                props.paymentMethod.brand
+              }`
+            : null
         }
       />
       {props.onEdit && (

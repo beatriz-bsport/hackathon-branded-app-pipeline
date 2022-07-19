@@ -38,7 +38,7 @@ type Props = {
   fullScreen: boolean,
   t: TFunction,
   onClose?: () => void,
-  onSuccess: () => void,
+  onSuccess: (stripeSetupIntentCallResult: any) => void,
   requestSetupIntentSecret: () => void,
   stripe: Stripe,
   elements: StripeElement,
@@ -120,7 +120,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
           success: true,
         });
         if (this.props.onSuccess) {
-          this.props.onSuccess();
+          this.props.onSuccess(result);
         }
       }
     });

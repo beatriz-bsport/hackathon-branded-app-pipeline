@@ -65,6 +65,7 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
 
         {!!props.paymentMethodList?.length && (
           <PaymentMethodList
+            onlyDefault
             savedPaymentMethodList={props.paymentMethodList}
             refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           />

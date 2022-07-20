@@ -660,6 +660,7 @@ export class Backoffice extends Component<Props, State> {
                       release={RELEASE}
                       role={this.props.permissions.name}
                       action_color={this.props.theme.primary_color}
+                      custom_launcher_selector="#intercomIcon"
                     />
                   )}
 

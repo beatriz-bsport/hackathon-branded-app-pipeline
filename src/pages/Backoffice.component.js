@@ -196,6 +196,10 @@ const Giftcard = asyncComponent(() => import('./giftcard/Giftcard.router'));
 
 const ClockIn = asyncComponent(() => import('./clock-in/ClockIn.router'));
 
+const CompanyOnboarding = asyncComponent(() =>
+  import('./settings/CompanyOnboardingSetting.page'),
+);
+
 type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
@@ -317,6 +321,10 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
   if (props.blockBackofficeToConfigureStripe) {
     return (
       <Switch>
+        <Route
+          path="/settings/company_onboarding"
+          component={CompanyOnboarding}
+        />
         <Route path="/settings/company" component={CompanyDetailPage} />
 
         <Redirect to="/settings/company" />

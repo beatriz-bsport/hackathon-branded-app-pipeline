@@ -343,7 +343,7 @@ export function fetchPaymentPackBulk(
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    const ids_uniq = uniq(ids);
+    const ids_uniq = uniq((ids || []).filter((_id) => !!_id));
     if (ids_uniq.length === 0) {
       return;
     }

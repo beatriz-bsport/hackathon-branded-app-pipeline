@@ -319,6 +319,9 @@ export function fetchGroupsOfferBulk(
   options?: OptionCallback<OffersGroup[]>,
 ) {
   return async (dispatch: Dispatch) => {
+    if (!id__in || id__in.length === 0) {
+      return;
+    }
     dispatch(fetchGroupsOfferBulkActions.loading(true));
     dispatch(fetchGroupsOfferBulkActions.error(null));
 

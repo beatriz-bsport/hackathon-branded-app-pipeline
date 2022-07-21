@@ -1223,7 +1223,7 @@ export function fetchPrivatePassBulk(
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    const id__in = uniq(ids.filter((id) => !!id));
+    const id__in = uniq((ids || []).filter((id) => !!id));
     if (!id__in.length) return;
     dispatch(privatePassBulkActions.isLoading(true));
     dispatch(privatePassBulkActions.error(null));

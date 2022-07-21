@@ -153,10 +153,14 @@ const DataHOC = compose(
         fetchContracts(params, {
           onSuccess: (contractList) => {
             fetchPaymentPackBulk([
-              ...contractList.map((contract) => contract.payment_pack),
+              ...contractList
+                .filter((_contract) => !!_contract.payment_pack)
+                .map((contract) => contract.payment_pack),
             ]);
             fetchPrivatePassBulk([
-              ...contractList.map((contract) => contract.private_pass),
+              ...contractList
+                .filter((_contract) => !!_contract.private_pass)
+                .map((contract) => contract.private_pass),
             ]);
           },
         }),

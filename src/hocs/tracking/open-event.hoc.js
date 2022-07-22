@@ -4,7 +4,7 @@ import React from 'react';
 
 /* eslint-disable */
 export default (pageName) =>
-  function(WrappedComponent) {
+  function (WrappedComponent) {
     return class extends React.Component {
       componentDidMount() {
         window.Intercom &&

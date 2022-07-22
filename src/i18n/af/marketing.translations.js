@@ -13,15 +13,15 @@ exports.default = {
     },
   },
   notifications: {
-    noNotification:'Aucune notification activée',
+    noNotification: 'Aucune notification activée',
     handleNotification: 'Gérer les notifications',
-    create:'Créer une notification',
+    create: 'Créer une notification',
     dialogTitle: 'Créer une notification',
     listTitle: 'Notifications',
     selectNotificationRules: 'Sélectionnez une règle pour voir les détails',
     createNotification: 'Formulaire de notification',
     selectIdentifierLabel: {
-      establishment_group:'Sélectionnez une localisation',
+      establishment_group: 'Sélectionnez une localisation',
       meta_activity: 'Sélectionnez une activité',
       workshop: 'Sélectionnez un atelier',
       establishment: 'Sélectionnez une salle',
@@ -34,7 +34,7 @@ exports.default = {
     next: 'Suivant',
     cancel: 'Annuler',
     fabLabels: {
-      establishmentGroup:'Localisation',
+      establishmentGroup: 'Localisation',
       birthday: 'Anniversaire',
       meta_activity: 'Activité',
       workshop: 'Atelier',

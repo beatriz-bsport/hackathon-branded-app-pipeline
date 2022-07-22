@@ -4,7 +4,7 @@ import React from 'react';
 
 /* eslint-disable */
 export default (eventName, secondToTrack) =>
-  function(WrappedComponent) {
+  function (WrappedComponent) {
     return class extends React.Component {
       componentDidMount() {
         this.timeoutList = (secondToTrack || []).map((second) =>

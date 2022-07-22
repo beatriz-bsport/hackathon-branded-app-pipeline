@@ -3,7 +3,7 @@
 import React from 'react';
 
 /* eslint-disable */
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
   return class extends React.Component {
     state = { error: null };
 

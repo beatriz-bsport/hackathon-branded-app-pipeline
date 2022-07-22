@@ -1,11 +1,11 @@
 // import React from 'react';
-// 
+//
 // import { object, array } from '@storybook/addon-knobs';
-// 
+//
 // import { storiesOf } from '../../../stories';
-// 
+//
 // import TagGroupList from './TagGroupList.component'
-// 
+//
 // storiesOf('Tag-Management/TagGroupList', module).add('default', () => {
 //   const tagGroupList = array('tagGroupList', [
 //       object('Tag Group 1', {

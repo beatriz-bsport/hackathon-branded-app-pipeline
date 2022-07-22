@@ -7,7 +7,7 @@ import React from 'react';
 import '../errors.scss';
 
 /* eslint-disable */
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
   return class extends React.Component {
     state = { error: null };
 
@@ -34,7 +34,7 @@ export default function(WrappedComponent) {
               <p>Something in the platform misbehaved</p>
               <p>
                 {
-                  "We have just received an alert, and are probably already working on it."
+                  'We have just received an alert, and are probably already working on it.'
                 }
               </p>
               <div className="buttons">
@@ -43,14 +43,14 @@ export default function(WrappedComponent) {
                     window.location = '/?storeReload';
                   }}
                   className="btn btn-info"
-		>
-		  Reload
+                >
+                  Reload
                 </a>
                 <a
                   onClick={() => Sentry.showReportDialog()}
                   className="btn btn-error"
-		>
-		  I give my feedback
+                >
+                  I give my feedback
                 </a>
               </div>
             </div>

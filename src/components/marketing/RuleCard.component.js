@@ -78,7 +78,9 @@ export class RuleCard extends React.Component<{}> {
                   <ShoppingCart color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="h6">{getCurrencyDisplayWithPrice(rule.averageBuy)}</Typography>
+                  <Typography variant="h6">
+                    {getCurrencyDisplayWithPrice(rule.averageBuy)}
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -95,7 +97,9 @@ export class RuleCard extends React.Component<{}> {
                   <Stars color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="h6">{getCurrencyDisplayWithPrice(rule.totalBuy)}</Typography>
+                  <Typography variant="h6">
+                    {getCurrencyDisplayWithPrice(rule.totalBuy)}
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>

@@ -903,7 +903,8 @@ export const CoachPaymentRuleFormHoc = withFormik({
       valuesWithConcatBonuses.bonus_coach_payment.push(
         bonusCoachPaymentRuleConstructor(values.id, {
           // eslint-disable-next-line
-          applicability: BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
+          applicability:
+            BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
           kind: BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
           bonus: values.percentage_base_confirmed_bookings,
           lower_interval: 1,
@@ -914,7 +915,8 @@ export const CoachPaymentRuleFormHoc = withFormik({
       valuesWithConcatBonuses.bonus_coach_payment.push(
         bonusCoachPaymentRuleConstructor(values.id, {
           // eslint-disable-next-line
-          applicability: BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
+          applicability:
+            BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
           kind: BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
           bonus: values.percentage_base_cancelled_bookings,
           lower_interval: 1,

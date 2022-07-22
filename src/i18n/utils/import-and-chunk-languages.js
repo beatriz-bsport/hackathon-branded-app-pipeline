@@ -16,22 +16,22 @@ const generateChunkJSONTranslations = () => {
 
   dirList.map((dirName) => {
     console.log(`- ${dirName}`);
-    let tr = {}
+    let tr = {};
     if (dirName === 'fr') {
       tr = jsonMerger.mergeFiles([
-	path.join(
-	  path.dirname(fs.realpathSync(__filename)),
-	  '../build/fr/translations.json',
-	),
-	path.join(
-	  path.dirname(fs.realpathSync(__filename)),
-	  '../build/af/translations.json',
-	),
-      ])
+        path.join(
+          path.dirname(fs.realpathSync(__filename)),
+          '../build/fr/translations.json',
+        ),
+        path.join(
+          path.dirname(fs.realpathSync(__filename)),
+          '../build/af/translations.json',
+        ),
+      ]);
     } else {
       tr = require(path.join(
-	path.dirname(fs.realpathSync(__filename)),
-	`../build/${dirName}/translations.json`,
+        path.dirname(fs.realpathSync(__filename)),
+        `../build/${dirName}/translations.json`,
       ));
     }
     Object.entries(tr).map(([key, value]) => {

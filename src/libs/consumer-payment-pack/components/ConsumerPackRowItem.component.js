@@ -398,7 +398,7 @@ export class ConsumerPackRowItem extends Component<Props> {
                       ? (paymentPack && paymentPack.name) || ' - '
                       : `${
                           // eslint-disable-next-line
-                      consumer && consumer.name
+                          consumer && consumer.name
                             ? consumer.name
                             : consumer && consumer.first_name
                             ? consumer.first_name

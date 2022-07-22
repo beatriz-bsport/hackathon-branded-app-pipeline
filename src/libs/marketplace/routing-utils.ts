@@ -6,8 +6,7 @@ export const getMarketplaceRoute = (
   companyId: number,
   tab?: string,
 ) => {
-  const company = (companyName || '-').replace(/ /g, '-');
-  return `/m/${company}/${companyId}/${tab || ''}`;
+  return `/m/${encodeURI(companyName)}/${companyId}/${tab || ''}`;
 };
 
 export const fromConfigToUrl = (

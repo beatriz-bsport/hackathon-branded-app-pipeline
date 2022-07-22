@@ -3246,7 +3246,7 @@
             "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal kredieten wordt gewijzigd.",
             "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
             "franchise": "Deze kaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
-            "allowGuest": "Het is toegestaan om gasten uit te nodigen"
+            "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt"
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -4141,7 +4141,7 @@
                     "addOffers": "Sessies toevoegen",
                     "subtitleOffers": "Sessies",
                     "subtitle": "Algemeen",
-                    "allowGuest": "Het is toegestaan om gasten uit te nodigen",
+                    "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
                     "allowGuestUnavailable": "Deze functie is niet beschikbaar voor groepsactiviteiten."
                 },
                 "duplicate": "Een evenement dupliceren",

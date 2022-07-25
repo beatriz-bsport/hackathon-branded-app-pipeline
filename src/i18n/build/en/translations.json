@@ -2589,7 +2589,7 @@
                     "title": "Automatic Messaging"
                 },
                 "form": {
-                    "frequenceHelper": "This message will be sent upon {{ max }} {{ max }} to each member in this Smartlist. After {{ event_kind }} {{ max }}, members will no longer receive the message. Use \"Advanced\" to edit these settings.",
+                    "frequenceHelper": "This message will be sent upon {{ max }} {{ event_kind }} to each member in this Smartlist. After {{ max }} {{ event_kind }}, members will no longer receive the message. Use \"Advanced\" to edit these settings.",
                     "subtitles": {
                         "create": {
                             "leftSmartList": "Add an automatic message for members that leave this Smartlist.",

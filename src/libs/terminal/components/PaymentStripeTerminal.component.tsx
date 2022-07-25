@@ -4,6 +4,7 @@ import {
   ISdkManagedPaymentIntent,
   loadStripeTerminal,
 } from '@stripe/terminal-js';
+import * as Sentry from '@sentry/react';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
@@ -219,6 +220,9 @@ export const PaymentStripeTerminal = (props: Props) => {
     if ('error' in discoverResult) {
       props.setProcessing && props.setProcessing(false);
       setError(discoverResult.error);
+      if (discoverResult.error?.code === 'reader_error') {
+        Sentry.captureException(discoverResult.error);
+      }
       setStep('connectionError');
       setRetryHandler(() => () => {
         setError(null);
@@ -247,6 +251,9 @@ export const PaymentStripeTerminal = (props: Props) => {
     if ('error' in connectResult) {
       props.setProcessing && props.setProcessing(false);
       setError(connectResult.error);
+      if (connectResult.error?.code === 'reader_error') {
+        Sentry.captureException(connectResult.error);
+      }
       setStep('connectionError');
       setRetryHandler(() => () => {
         setError(null);
@@ -268,6 +275,9 @@ export const PaymentStripeTerminal = (props: Props) => {
         props.setProcessing && props.setProcessing(false);
         if (resultCollect.error.code === 'canceled') return;
         setError(resultCollect.error);
+        if (resultCollect.error?.code === 'reader_error') {
+          Sentry.captureException(resultCollect.error);
+        }
         setStep('paymentError');
         setRetryHandler(() => () => {
           collectAndProcessPayment(clientSecret);
@@ -313,6 +323,9 @@ export const PaymentStripeTerminal = (props: Props) => {
 
     props.setProcessing && props.setProcessing(false);
     setError(resultProcess.error);
+    if (resultProcess.error?.code === 'reader_error') {
+      Sentry.captureException(resultProcess.error);
+    }
     setStep('paymentError');
 
     if (!resultProcess.error.payment_intent) {
@@ -362,6 +375,9 @@ export const PaymentStripeTerminal = (props: Props) => {
           props.setProcessing && props.setProcessing(false);
           if (resultCollect.error.code === 'canceled') return;
           setError(resultCollect.error);
+          if (resultCollect.error?.code === 'reader_error') {
+            Sentry.captureException(resultCollect.error);
+          }
           setStep('paymentError');
           setRetryHandler(() => () => {
             collectAndProcessPayment(clientSecret);
@@ -394,6 +410,9 @@ export const PaymentStripeTerminal = (props: Props) => {
     if ('error' in resultConfirm) {
       // call processPayment again with the same PaymentIntent to retry the request.
       setError(resultConfirm.error);
+      if (resultConfirm.error?.code === 'reader_error') {
+        Sentry.captureException(resultConfirm.error);
+      }
       props.setProcessing && props.setProcessing(false);
       setStep('paymentError');
       setRetryHandler(() => () => {

@@ -187,7 +187,7 @@ export default handleActions(
           ['automatedCampaign', 'bySmartlist', 'allIds'],
           payload.page > 1
             ? [
-                ...state.campaign.bySmartlist.allIds,
+                ...state.automatedCampaign.bySmartlist.allIds,
                 ...payload.results.map((foo) => foo.uuid),
               ]
             : payload.results.map((foo) => foo.uuid),

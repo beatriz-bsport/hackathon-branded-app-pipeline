@@ -151,7 +151,7 @@ export const CampaignListItem: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
 
-  const { subject, body, tags_groups } = data;
+  const { subject, body, tags_groups } = data || {};
   const regexInterpolateValue = /[^{]*{[^}]*}/;
 
   const interpolate = (value: string) => {
@@ -249,7 +249,11 @@ export const CampaignListItem: React.FC<Props> = ({
           </div>
         </div>
         <div className={classes.campaignStatsOutter}>
-          {singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
+          {singleRecipientData ||
+          [
+            COMMUNICATION_KIND_SMS,
+            COMMUNICATION_KIND_PUSH_NOTIFICATION,
+          ].includes(kind) ? (
             <SingleRecipientInfo recipient={singleRecipientData} kind={kind} />
           ) : (
             <MultiRecipientStat
@@ -261,7 +265,11 @@ export const CampaignListItem: React.FC<Props> = ({
           )}
         </div>
         <div className={classes.campaignActionsOutter}>
-          {singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
+          {singleRecipientData ||
+          [
+            COMMUNICATION_KIND_SMS,
+            COMMUNICATION_KIND_PUSH_NOTIFICATION,
+          ].includes(kind) ? (
             <SingleRecipientInfoAction
               onClickShow={handleClickShow}
               kind={kind}

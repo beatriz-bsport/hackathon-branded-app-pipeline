@@ -35,6 +35,7 @@
   font-weight: var(--fontWeightBold);
   font-size: var(--h4-fontSize);
   color: var(--color-text-primary);
+  margin-top: var(--spacing-1);
 }
 
 .bs-workshop-card__content__description {

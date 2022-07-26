@@ -163,6 +163,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                   offers={[]}
                   metaActivity={metaActivity}
                   bookedOffers={[]}
+                  isWorkshop
                 />
               );
 
@@ -183,6 +184,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 onBookOption={onBookOption}
                 onBook={onBook}
                 bookedOffers={bookedOffers}
+                isWorkshop
               />
             );
           }
@@ -204,6 +206,8 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               loading={offerDetailsloading}
               onBookOption={onBookOption}
               onBook={onBook}
+              isWorkshop
+              showDate
               isRegistered={
                 bookedOffers?.length ? bookedOffers.includes(offer.id) : false
               }

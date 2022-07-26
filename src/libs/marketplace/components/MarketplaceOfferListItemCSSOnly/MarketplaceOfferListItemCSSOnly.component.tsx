@@ -8,6 +8,7 @@ import { Avatar, useMediaQuery, useTheme } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
+import moment from 'moment-timezone';
 import MaleIcon from '../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
 
@@ -43,6 +44,8 @@ export type Props = {
   showOfferGender: boolean;
   getLevel: (id: number) => void;
   isBookingDisabled: boolean;
+  isWorkshop?: boolean;
+  showDate?: boolean;
 };
 
 const MarketplaceOfferListItem: React.FC<Props> = ({
@@ -62,6 +65,8 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   showOfferGender,
   variant = 'activityName',
   isBookingDisabled,
+  isWorkshop,
+  showDate,
 }) => {
   const { t } = useTranslation('translation');
   const muiTheme = useTheme();
@@ -92,6 +97,22 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
     onBookOption(offer.id);
   };
 
+  const date = (() => {
+    if (offer.date_start && establishment) {
+      return moment(offer?.date_start)
+        .tz(establishment?.tzname ?? 'Europe/Paris')
+        .format('L');
+    }
+
+    if (offer.date_start) {
+      return moment(offer?.date_start)
+        .tz(theme.timezone_name ?? 'Europe/Paris')
+        .format('L');
+    }
+
+    return '';
+  })();
+
   return (
     <button
       type="button"
@@ -114,17 +135,19 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       <div className="bs-offer-list-item__content">
         <div className="bs-offer-list-item__content__offer">
           <div className="bs-offer-list-item__content__offer__left">
-            <div
-              className={classNames(
-                'bs-offer-list-item__content__offer__left__title',
-                {
-                  'bs-offer-list-item__content__offer__left__title--time-highlighted':
-                    isVariantTimeHighlighted,
-                },
-              )}
-            >
-              {offer.meta_activity.name}
-            </div>
+            {!isWorkshop && (
+              <div
+                className={classNames(
+                  'bs-offer-list-item__content__offer__left__title',
+                  {
+                    'bs-offer-list-item__content__offer__left__title--time-highlighted':
+                      isVariantTimeHighlighted,
+                  },
+                )}
+              >
+                {offer.meta_activity.name}
+              </div>
+            )}
             <div
               className={classNames(
                 'bs-offer-list-item__content__offer__left__time',
@@ -134,7 +157,8 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 },
               )}
             >
-              {getOfferHours(offer, establishment, theme)}
+              {(showDate ? `${date} ` : '') +
+                getOfferHours(offer, establishment, theme)}
             </div>
             <div className="bs-offer-list-item__content__offer__left__bottom">
               {establishment && (

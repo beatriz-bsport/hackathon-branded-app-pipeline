@@ -188,25 +188,33 @@ export const getOfferHours = (
   theme: Theme,
 ) => {
   if (offer.date_start && establishment?.tzname) {
-    const startHour = moment(offer?.date_start)
-      .tz(establishment?.tzname)
-      .format('HH:mm');
-    const endHour = moment(offer?.date_start)
+    const startMoment = moment(offer?.date_start).tz(establishment?.tzname);
+    const startHour = startMoment.format('HH:mm');
+
+    const endMoment = moment(offer?.date_start)
       .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(establishment?.tzname)
-      .format('HH:mm');
+      .tz(establishment?.tzname);
+
+    if (!endMoment.isSame(startMoment, 'day')) {
+      return startHour;
+    }
+    const endHour = endMoment.format('HH:mm');
 
     return `${startHour} - ${endHour}`;
   }
 
   if (offer.date_start) {
-    const startHour = moment(offer?.date_start)
-      .tz(theme.timezone_name)
-      .format('HH:mm');
-    const endHour = moment(offer?.date_start)
+    const startMoment = moment(offer?.date_start).tz(theme.timezone_name);
+    const startHour = startMoment.format('HH:mm');
+
+    const endMoment = moment(offer?.date_start)
       .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(theme.timezone_name)
-      .format('HH:mm');
+      .tz(theme.timezone_name);
+    const endHour = endMoment.format('HH:mm');
+
+    if (!endMoment.isSame(startMoment, 'day')) {
+      return startHour;
+    }
 
     return `${startHour} - ${endHour}`;
   }

@@ -187,7 +187,7 @@ export const getOfferHours = (
   establishment: Establishment,
   theme: Theme,
 ) => {
-  if (offer.date_start && establishment.tzname) {
+  if (offer.date_start && establishment?.tzname) {
     const startHour = moment(offer?.date_start)
       .tz(establishment?.tzname)
       .format('HH:mm');

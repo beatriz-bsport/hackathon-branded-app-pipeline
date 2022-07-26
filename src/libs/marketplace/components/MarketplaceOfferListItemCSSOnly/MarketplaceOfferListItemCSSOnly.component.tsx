@@ -86,11 +86,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   }
 
   const handleClick = () => {
-    onClick(offer.id);
+    (onClick || onBook)(offer.id);
   };
 
   const handleBook = () => {
-    onBook(offer.id);
+    (onBook || onClick)(offer.id);
   };
 
   const handleBookOption = () => {

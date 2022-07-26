@@ -238,12 +238,12 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     (offer: Offer) => {
       Analytics.workshopClick(offer);
       if (bookWidget) {
-        bookWidget(offer.id, companyId);
+        bookWidget(offer.id || offer, companyId);
         return;
       }
 
       pushRouter(
-        `/customer/payment/offer/${offer.id}/${buildUrlParams({
+        `/customer/payment/offer/${offer.id || offer}/${buildUrlParams({
           membership: companyId,
           fromWorkshop: true,
         })}`,

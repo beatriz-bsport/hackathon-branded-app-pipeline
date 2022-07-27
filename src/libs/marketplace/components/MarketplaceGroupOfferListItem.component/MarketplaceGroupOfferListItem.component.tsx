@@ -231,15 +231,6 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               className="bs-offer-list-group-item__right__row__level"
             />
           </div>
-          <button
-            className="bs-offer-list-group-item__right__row__button"
-            onClick={() => {
-              setOpenModal(true);
-            }}
-            type="button"
-          >
-            {t('marketplace.discover')}
-          </button>
         </div>
       </div>
       {openModal && (

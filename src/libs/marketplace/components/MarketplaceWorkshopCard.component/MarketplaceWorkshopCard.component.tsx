@@ -59,7 +59,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
   getGroup,
   getOffersListByGroup,
 }) => {
-  const { t } = useTranslation(['marketplace', 'datetime']);
+  const { t } = useTranslation(['marketplace', 'datetime', 'metaActivity']);
 
   if (loading && !offers?.items?.length > 0) {
     return (

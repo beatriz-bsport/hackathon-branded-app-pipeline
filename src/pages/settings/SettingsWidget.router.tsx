@@ -12,7 +12,6 @@ import AppBar from '@material-ui/core/AppBar';
 
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import Config from '../../config';
 
 const WidgetGeneratorPage = asyncComponent(
   () => import('./WidgetGenerator.page'),
@@ -32,17 +31,15 @@ const SettingsWidget: React.FC<Props> = ({ tab, pushToWidgetTab, t }) => {
   return (
     <div className={classes.container}>
       <AppBar position="static" color="default">
-        {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
-          <Tabs
-            scrollButtons="off"
-            variant="scrollable"
-            value={tab}
-            onChange={pushToWidgetTab}
-          >
-            <Tab label={t('create')} value="create" />
-            <Tab label={t('customize')} value="customize" />
-          </Tabs>
-        )}
+        <Tabs
+          scrollButtons="off"
+          variant="scrollable"
+          value={tab}
+          onChange={pushToWidgetTab}
+        >
+          <Tab label={t('create')} value="create" />
+          <Tab label={t('customize')} value="customize" />
+        </Tabs>
       </AppBar>
       <div className={classes.content}>
         <Switch>

@@ -6344,7 +6344,8 @@
         },
         "header": {
             "sum": "Somme",
-            "average": "En moyenne"
+            "average": "En moyenne",
+            "selectRange": "Sélectionner une plage de dates"
         },
         "columns": {
             "initial_price": "Prix d'achat",
@@ -6612,6 +6613,18 @@
             "generate": "Générer",
             "ready": "Votre rapport \"{{ name }}\" est prêt à être télécharger.",
             "category": "Rapport Excel  : {{category}}"
+        },
+        "filter": {
+            "form": {
+                "filterComparator": {
+                    "1": {
+                        "4": "Dans l'intervalle"
+                    },
+                    "3": {
+                        "4": "Dans l'intervalle"
+                    }
+                }
+            }
         }
     },
     "role": {

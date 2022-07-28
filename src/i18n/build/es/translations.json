@@ -1343,7 +1343,9 @@
             "network_error": "Error de red, por favor, inténtalo de nuevo en unos momentos",
             "no_established_connection": "No hay ningún terminal de pago conectado",
             "setup_intent_authentication_failure": "No se puede guardar esta tarjeta. Por favor, intenta otro método de pago.",
-            "none": " "
+            "none": " ",
+            "reader_not_found": "Se ha producido un error. Asegúrate de que tu terminal está en línea y conectado a la misma red wifi que tu dispositivo.",
+            "reader_error": "Se ha producido un error. Asegúrate de que tu terminal está en línea y conectado a la misma red wifi que tu dispositivo."
         },
         "error_code": {
             "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
@@ -2448,7 +2450,7 @@
             "label": "Medios de pago",
             "11": "Diverso",
             "10": "Pago automático",
-            "9": "Cuenta interna (crédito)",
+            "9": "Pagar in situ",
             "8": "EventBrite",
             "7": "Transferancia",
             "6": "AMEX",
@@ -2688,7 +2690,13 @@
                     "connectionSuccess": {
                         "payment": "La conexión con el terminal se ha realizado. Ahora debería aparecer el importe a pagar.",
                         "processing": "Su solicitud está siendo procesada",
-                        "intent": "La conexión con el terminal se ha realizado. El cliente debe poder presentar su tarjeta."
+                        "intent": "La conexión con el terminal se ha realizado. El cliente debe poder presentar su tarjeta.",
+                        "cancel": {
+                            "title": "Cancelación",
+                            "error": "Se ha producido un error durante el proceso de cancelación.",
+                            "cancelExplain1": "¿Estás seguro de que quieres cancelar la operación?",
+                            "cancelExplain2": "Se le redirigirá a la elección del terminal de pago."
+                        }
                     },
                     "disconnect": {
                         "content": "La conexión se ha perdido. Por favor, inténtelo de nuevo",
@@ -3632,7 +3640,7 @@
             "establishment": "Establecimiento",
             "activity": "Actividad",
             "pass": "Bono",
-            "remaining_credits": "Créditos restantes a día de hoy",
+            "remaining_credits": "Créditos restantes",
             "duration": "Duración (minutos)",
             "date_start": "Fecha",
             "duration_minute": "Duración (minutos)",
@@ -3855,7 +3863,9 @@
             "billing_planrecurrent_price": "Monto",
             "payout_date_created": "Fecha de transferencia",
             "payout_status": "Estado de transferencia",
-            "payout": "Transferencia"
+            "payout": "Transferencia",
+            "annotated_remaining_credits": "Crédito restante",
+            "private_passcredits": "Crédito restante"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4024,7 +4034,8 @@
             "billing_establishment": "Establecimiento de facturación",
             "subshop": "Categoría",
             "private_slot": "Tipo de cita",
-            "private_pass": "Tarjetas de citas"
+            "private_pass": "Tarjetas de citas",
+            "staff": "Personal"
         },
         "filter": {
             "form": {
@@ -5380,7 +5391,8 @@
             "es": "Español",
             "de": "Alemán",
             "it": "Italiano",
-            "nl": "Holandés"
+            "nl": "Holandés",
+            "none": "Automático"
         },
         "subscription": {
             "isEmpty": "No tienes ninguna suscripción en curso"
@@ -11045,8 +11057,8 @@
                 "submit": "Salvar",
                 "selectAlert": "La personalización del widget sólo está disponible en los talleres por el momento",
                 "preview": "Preview",
-                "spacingHelper": "Las esquinas se redondean en múltiplos {{base}}px",
-                "roundingHelper": "El espaciamiento se basa en múltiplos de {{base}}px",
+                "spacingHelper": "El espaciado se basa en múltiplos de {{base}}px",
+                "roundingHelper": "Las esquinas se redondean en múltiplos {{base}}px",
                 "reset": "reiniciar",
                 "backgroundColorElement": "Color de fondo de los elementos",
                 "backgroundColorPage": "Color de fondo de la página",

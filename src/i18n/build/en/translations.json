@@ -2341,7 +2341,8 @@
             "es": "Spanish",
             "en-GB": "English (UK)",
             "en-US": "English (US)",
-            "fr": "French"
+            "fr": "French",
+            "none": "Automatic"
         },
         "subscription": {
             "isEmpty": "There are no active subscriptions to display."
@@ -4222,7 +4223,9 @@
             "already_connected": "Another payment terminal is already connected",
             "discovery_too_many_readers": "Unable to connect, too many terminals around",
             "setup_intent_authentication_failure": "Unable to save this card. Please try another payment method.",
-            "none": " "
+            "none": " ",
+            "reader_error": "An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.",
+            "reader_not_found": "An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device."
         },
         "error_code": {
             "none": " ",
@@ -4980,7 +4983,7 @@
         "tabGroups": "Events",
         "tabList": "Workshops",
         "group": {
-            "emptyState": "Events allow your members to enrol for all associated sessions at once. This feature is perfect for activities, such as trainings or courses. ",
+            "emptyState": "With session groups your students can book all the sessions included in the group at once. For example, use the session groups to create introductory workshops with several sessions. ",
             "emptySearch": "There are no search results to display.",
             "pageSize": "Display by:",
             "backToGroup": "Back to groups",
@@ -6440,7 +6443,7 @@
         "paymentMethod": {
             "11": "Other",
             "10": "Automatic payment",
-            "9": "Credit account balance applied",
+            "9": "Pay on site",
             "8": "EventBrite",
             "7": "Bank transfer",
             "6": "AMEX",
@@ -6707,7 +6710,13 @@
                     "connectionSuccess": {
                         "payment": "The connection with the terminal has been made. The amount to be paid should now be displayed.",
                         "intent": "The connection with the terminal has been made. The customer should be able to present their card.",
-                        "processing": "Your application is being processed"
+                        "processing": "Your application is being processed",
+                        "cancel": {
+                            "title": "Cancellation",
+                            "cancelExplain1": "Are you sure you want to cancel the operation?",
+                            "cancelExplain2": "You will be redirected to payment terminal's choice.",
+                            "error": "An error occurred during cancellation."
+                        }
                     },
                     "disconnect": {
                         "title": "Disconnect",
@@ -7871,7 +7880,9 @@
             "establishment_title": "Establishment",
             "billing_planrecurrent_price": "Amount",
             "negative_voucher": "Discount",
-            "remaining_credits_annotated": "Today's remaining credits"
+            "remaining_credits_annotated": "Today's remaining credits",
+            "annotated_remaining_credits": "Remaning credits",
+            "private_passcredits": "Remaning credits"
         },
         "yes": "Yes",
         "no": "No",
@@ -8110,7 +8121,8 @@
             "activity": "Activity",
             "booking_status_code": "Booking status",
             "payout_status": "Status transfer",
-            "payout": "Transfer"
+            "payout": "Transfer",
+            "staff": "Staff"
         }
     },
     "alerting": {
@@ -8812,7 +8824,7 @@
             "penalityNumberDay": "Number of days",
             "penalityNumberCancel": "Number of cancellations",
             "marginalContributionHelperText": "This is used to calculate the payroll of the teachers. Example: €10 for 1 booking means that the teacher will be paid €10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.",
-            "marginalContribution": "Theoretical marginal value excl. VAT",
+            "marginalContribution": "Theoretical marginal value incl. VAT",
             "expirationDateHelper": "If the pass hasn't been used during this set number of days, it'll automatically expire.",
             "expirationDate": "Amount of days in which the pass expires if no booking is made",
             "beginningDate": "Start date",
@@ -12070,8 +12082,8 @@
                 "submit": "Save",
                 "selectAlert": "Widget personalization is currently only available for the workshops display.",
                 "preview": "Preview",
-                "spacingHelper": "The angles have a rounding of {{base}} pixels.",
-                "roundingHelper": "Rounding is based on {{base}} pixels.",
+                "spacingHelper": "Spacing is based on multiples of {{base}}px",
+                "roundingHelper": "Corners are rounded in multiples {{base}}px",
                 "reset": "Reset",
                 "backgroundColorElement": "Elements color",
                 "backgroundColorPage": "Background color",
@@ -12206,7 +12218,7 @@
                 "first_name": "First name",
                 "sign_up_question": "Sign up form questions",
                 "location": "Favorite location",
-                "state": "Status"
+                "state": "State"
             },
             "title": "Forms",
             "CustomFormLink": "Direct link to this form",

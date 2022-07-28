@@ -144,7 +144,8 @@
             "fr": "Frans",
             "nl": "Nederlands",
             "it": "Italiaans",
-            "de": "Duits"
+            "de": "Duits",
+            "none": "Automatisch"
         },
         "subscription": {
             "isEmpty": "Er zijn actieve abonnementen om weer te geven."
@@ -2320,7 +2321,9 @@
             "establishment_title": "Vestiging",
             "billing_planrecurrent_price": "Bedrag",
             "negative_voucher": "Korting",
-            "remaining_credits_annotated": "Overige kredieten van vandaag"
+            "remaining_credits_annotated": "Overige kredieten van vandaag",
+            "annotated_remaining_credits": "Overige kredieten",
+            "private_passcredits": "Overige kredieten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2510,7 +2513,8 @@
             "payout": "Bankoverschrijving",
             "payment_method": "Betaalmethode",
             "video": "Video",
-            "private_service": "Afspraak"
+            "private_service": "Afspraak",
+            "staff": "Medewerkers"
         }
     },
     "alerting": {
@@ -5326,14 +5330,14 @@
                     "helperText": " ",
                     "label": "Dit abonnement wordt ieder(e)",
                     "intervalName": {
-                        "week": "week vernieuwd",
-                        "week_plural": "weken vernieuwd",
-                        "day": "dag vernieuwd",
-                        "day_plural": "periode vernieuwd",
-                        "month": "maand vernieuwd",
-                        "month_plural": "maanden vernieuwd",
-                        "year": "jaar vernieuwd",
-                        "year_plural": "jaar vernieuwd"
+                        "week": "week/weken geïncasseerd",
+                        "week_plural": "weken geïncasseerd",
+                        "day": "dag(en) geïncasseerd",
+                        "day_plural": "dagen geïncasseerd",
+                        "month": "maand(en) geïncasseerd",
+                        "month_plural": "maanden geïncasseerd",
+                        "year": "jaar geïncasseerd",
+                        "year_plural": "jaar geïncasseerd"
                     }
                 },
                 "recurrence": {
@@ -9105,7 +9109,9 @@
             "network_timeout": "Netwerkfout - Probeer het later opnieuw",
             "already_connected": "Er is al een ander pinapparaat verbonden",
             "setup_intent_authentication_failure": "Fout bij het oplsaan van deze betaalkaart. Probeer een andere betaalmethode.",
-            "none": " "
+            "none": " ",
+            "reader_not_found": "Er is een fout opgetreden. Controleer of de Stripe Terminal-pinapparaat aanstaat en of het met hetzelfde WiFi-netwerk als dit apparaat is verbonden.",
+            "reader_error": "Er is een fout opgetreden. Controleer of de Stripe Terminal-pinapparaat aanstaat en of het met hetzelfde WiFi-netwerk als dit apparaat is verbonden."
         },
         "error_code": {
             "payment_intent_authentication_failure": "De betaling is door uw bank geweigerd.",
@@ -10027,7 +10033,13 @@
                     "connectionSuccess": {
                         "payment": "Dit pinapparaat is verbonden. Het bedrag zal zo dadelijk op het scherm getoond worden.",
                         "intent": "Dit pinapparaat is verbonden. De klant kan de betaalkaart zo dadelijk gebruiken.",
-                        "processing": "De aanvraag wordt verwerkt"
+                        "processing": "De aanvraag wordt verwerkt",
+                        "cancel": {
+                            "title": "Annulering",
+                            "cancelExplain1": "Weet je zeker dat je deze handeling wilt annuleren?",
+                            "cancelExplain2": "Je wordt doorverwezen naar het geselecteerde pinapparaat.",
+                            "error": "Fout bij het annuleren."
+                        }
                     },
                     "paymentSuccess": {
                         "title": {
@@ -10998,7 +11010,7 @@
             "responsiveIframe": "Activeer de responsieve-modus",
             "groupSessionByPeriod": "Splits de ochtend, middag en avond op",
             "variantOption": {
-                "time": "Rooster",
+                "time": "Tijden",
                 "coach": "Instructeur",
                 "activityName": "Activiteit"
             },
@@ -11014,8 +11026,8 @@
                 "submit": "Opslaan",
                 "selectAlert": "Het personaliseren van de widgets is momenteel alleen voor de workshops beschikbaar.",
                 "preview": "Voorvertoning",
-                "spacingHelper": "De hoeken worden afgerond op basis van {{base}} pixels.",
-                "roundingHelper": "De rounding is gebaseerd op {{base}} pixels.",
+                "spacingHelper": "Spacing is gebaseerd op veelvouden {{base}} pixels.",
+                "roundingHelper": "Rounding is gebaseerd op veelvouden {{base}} pixels.",
                 "reset": "Resetten",
                 "backgroundColorElement": "Kleur elementen",
                 "backgroundColorPage": "Achtergrondkleur",

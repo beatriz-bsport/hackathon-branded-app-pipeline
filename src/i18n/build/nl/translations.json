@@ -7834,16 +7834,16 @@
             "form": {
                 "recurrence_basis": {
                     "intervalName": {
-                        "week": "week",
+                        "week": "week/weken",
                         "week_plural": "weken",
                         "year": "jaar",
                         "year_plural": "jaar",
-                        "month": "maand",
+                        "month": "maand(en)",
                         "month_plural": "maanden",
-                        "day": "dag",
+                        "day": "dag(en)",
                         "day_plural": "dagen"
                     },
-                    "label": "Wordt iedere",
+                    "label": "Incasseer ieder(e)",
                     "helperText": " "
                 },
                 "actions": {

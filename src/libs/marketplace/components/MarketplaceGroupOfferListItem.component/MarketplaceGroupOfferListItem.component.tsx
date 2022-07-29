@@ -92,22 +92,24 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 
   const handleBook = useCallback(
     () => (offer: Offer) => {
+      setOpenModal(false);
       onBook(offer, {
         fbo: group.full_booking_only ? 1 : 0,
         offer_in_group: group.offers,
       });
     },
-    [group, onBook],
+    [group, onBook, setOpenModal],
   );
 
   const handleBookOption = useCallback(
     () => (offer: Offer) => {
+      setOpenModal(false);
       onBookOption(offer, {
         fbo: group.full_booking_only,
         offer_in_group: group.offers,
       });
     },
-    [group, onBookOption],
+    [group, onBookOption, setOpenModal],
   );
 
   const checkDisabled = useCallback(() => {
@@ -231,6 +233,15 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               className="bs-offer-list-group-item__right__row__level"
             />
           </div>
+          <button
+            className="bs-offer-list-group-item__right__row__button"
+            onClick={() => {
+              setOpenModal(true);
+            }}
+            type="button"
+          >
+            {t('marketplace.discover')}
+          </button>
         </div>
       </div>
       {openModal && (

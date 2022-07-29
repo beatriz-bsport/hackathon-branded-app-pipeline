@@ -134,6 +134,7 @@ export class QuickInvoice extends Component<Props, State> {
           <Grid item>
             <CreditMemberBadge
               credit={quickInvoice.member.credit_account_balance}
+              unpaidAmount={quickInvoice.member.total_unpaid_amount}
             >
               <Typography variant="h6" inline>
                 {quickInvoiceTitle}

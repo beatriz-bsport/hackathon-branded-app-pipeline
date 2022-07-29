@@ -89,7 +89,7 @@ type Props = {
 
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
-  const { t } = useTranslation(['privateService', 'booking']);
+  const { t } = useTranslation(['privateService', 'member']);
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -295,6 +295,7 @@ export const PrivateBookingCard = (props: Props) => {
           showVaccinationStatus={props.showVaccinationStatus}
           fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
           programDataLoading={props.programDataLoading}
+          bottomCredit
         />
         {private_booking.coach && !props.isCoach ? (
           <CoachListItem
@@ -314,7 +315,9 @@ export const PrivateBookingCard = (props: Props) => {
         {props.unpaidInvoiceList && props.unpaidInvoiceList.length ? (
           <>
             <Typography className={classes.bookingsHeader} variant="h6">
-              {t('translation:offer.unpaidInvoices')}
+              {t('member:unpaidInvoiceTitle', {
+                count: props.unpaidInvoiceList.length,
+              })}
             </Typography>
             <div className={classes.invoiceTable}>
               <Divider />

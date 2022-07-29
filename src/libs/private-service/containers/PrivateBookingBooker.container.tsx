@@ -305,6 +305,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           <MemberMinimalListItem
             member={this.state.member}
             showVaccinationStatus={this.props.showVaccinationStatus}
+            bottomCredit
           />
           <DateTimeForm
             timezone={this.props.timezone}

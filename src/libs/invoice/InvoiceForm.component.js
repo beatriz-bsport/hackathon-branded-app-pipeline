@@ -446,7 +446,10 @@ export class InvoiceForm extends Component<Props, State> {
         </Hidden>
       </Button>
       {this.props.member ? (
-        <CreditMemberBadge credit={this.props.member.credit_account_balance}>
+        <CreditMemberBadge
+          credit={this.props.member.credit_account_balance}
+          unpaidAmount={this.props.member.total_unpaid_amount}
+        >
           <Button
             variant="contained"
             color="secondary"

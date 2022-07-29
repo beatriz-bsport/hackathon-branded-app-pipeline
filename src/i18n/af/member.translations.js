@@ -12,6 +12,7 @@ exports.default = {
   archiveMember: 'Archiver',
   actions: 'Actions',
   archived: 'Archivé',
+  accountBalance: 'Solde',
   table: {
     show: 'Voir',
   },

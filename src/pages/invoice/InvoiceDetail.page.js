@@ -645,6 +645,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 <Grow in={this.props.invoice && this.props.invoice.member}>
                   <CreditMemberBadge
                     credit={this.props.invoice.member.credit_account_balance}
+                    unpaidAmount={this.props.invoice.member.total_unpaid_amount}
                   >
                     <Fab
                       variant="extended"
@@ -678,7 +679,7 @@ const styles = (theme) => ({
   navigationButton: {
     position: 'fixed',
     bottom: theme.spacing(2),
-    right: theme.spacing(4),
+    right: theme.spacing(8),
   },
   rightText: {
     marginRight: theme.spacing(1),

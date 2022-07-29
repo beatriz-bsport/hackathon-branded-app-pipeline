@@ -35,18 +35,14 @@ import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
-import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
 import { EventSeat, OfflineBolt } from '@material-ui/icons';
 import { BookingStatusCodeText } from '../utils';
+import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
 
 import Tooltip from '../../../components/Tooltip.component';
 import RedButton from '../../../components/button/RedButton.component';
 
-import {
-  getCurrencyDisplay,
-  getCurrencyDisplayWithPrice,
-} from '../../theme/selectors';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 
@@ -56,7 +52,6 @@ import type { PaymentPack } from '../../../libs/payment-packs/types';
 import type { Member } from '../../../libs/member/types';
 import { Booking } from '../types';
 import VaccinationBadge from '../../member/components/VaccinationBadge.component';
-import { TagBadge } from '../../member/components/TagBadge';
 
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
@@ -509,25 +504,6 @@ export class BookingItemForManager extends Component<Props, State> {
       case 'date_start':
         return null;
       default: {
-        const credits = parseFloat(member.credit_account_balance);
-        let creditsFormatted = '';
-        let creditColor = 'primary';
-        if (credits >= 0) {
-          creditsFormatted = `${getCurrencyDisplayWithPrice(
-            credits.toFixed(1),
-          )}`;
-          creditColor = 'primary';
-        }
-        if (!credits) {
-          creditColor = 'secondary';
-        }
-        if (credits < 0) {
-          creditsFormatted = `${getCurrencyDisplayWithPrice(
-            -credits.toFixed(1),
-          )}`;
-          creditColor = 'error';
-        }
-
         let Wrapper = (p) => <div>{p.children}</div>;
         if (this.props.showVaccinationStatus)
           Wrapper = (p) => (
@@ -541,36 +517,26 @@ export class BookingItemForManager extends Component<Props, State> {
 
         return (
           <ListItemAvatar
-            className={classNames({
-              [classes.hoverCredit]:
-                this.props.member?.tags && this.props.member.tags.length !== 0
-                  ? [...this.props.member.tags].reduce(
-                      (value, tag) =>
-                        value || (!!tag?.icon && tag?.icon.length !== 0),
-                      false,
-                    )
-                  : false,
-            })}
+            className={classNames(
+              {
+                [classes.hoverCredit]:
+                  this.props.member?.tags && this.props.member.tags.length !== 0
+                    ? [...this.props.member.tags].reduce(
+                        (value, tag) =>
+                          value || (!!tag?.icon && tag?.icon.length !== 0),
+                        false,
+                      )
+                    : false,
+              },
+              classes.avatar,
+            )}
           >
             <Wrapper>
-              <TagBadge
-                tags={this.props.member?.tags}
-                name={this.props.member?.name}
-                topLeftIcons
-              >
-                <Badge
-                  badgeContent={creditsFormatted}
-                  color={creditColor}
-                  classes={{ badge: classes.badge }}
-                  className="creditContainer"
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                >
-                  <Avatar src={this.props.member?.photo} />
-                </Badge>
-              </TagBadge>
+              <AvatarWithBadge
+                member={member}
+                classes={{ badge: classes.badge }}
+                bottomCredit
+              />
             </Wrapper>
           </ListItemAvatar>
         );
@@ -802,6 +768,9 @@ const styles = (theme) => ({
   },
   rightButton: {
     marginLeft: theme.spacing(1),
+  },
+  avatar: {
+    margin: theme.spacing(1),
   },
   badge: {
     right: '50%',

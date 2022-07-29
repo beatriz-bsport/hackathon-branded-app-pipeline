@@ -13,7 +13,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/';
-import classnames from 'classnames';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { Member } from '#libs/member/types';
@@ -36,6 +35,7 @@ type Props = {
   fetchPerformanceTrackingData: (member: number) => void;
   firstPrivateBooking: boolean;
   programDataLoading: boolean;
+  bottomCredit?: boolean;
 };
 export const MemberMinimalListItem: React.FC<Props> = ({
   member,
@@ -50,6 +50,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   fetchPerformanceTrackingData,
   firstPrivateBooking,
   programDataLoading,
+  bottomCredit,
 }) => {
   const classes = useStyles();
   const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
@@ -86,17 +87,12 @@ export const MemberMinimalListItem: React.FC<Props> = ({
         button={!!onClick}
         onClick={onClick ? () => onClick(member.id) : null}
       >
-        <ListItemAvatar
-          className={classnames({
-            [classes.hoverCredit]: member?.tags?.some(
-              (tag) => !!tag?.icon && tag?.icon.length !== 0,
-            ),
-          })}
-        >
+        <ListItemAvatar className={classes.avatar}>
           <Wrapper>
             <AvatarWithBadge
               member={member}
               classes={{ badge: 'currencyBadge' }}
+              bottomCredit={bottomCredit}
             />
           </Wrapper>
         </ListItemAvatar>
@@ -157,21 +153,12 @@ const useStyles = makeStyles<Theme>((theme) => ({
   listItem: {
     minWidth: theme.spacing(50),
   },
+  avatar: {
+    margin: theme.spacing(1),
+  },
   flexDiv: {
     display: 'flex',
     alignItems: 'center',
-  },
-  hoverCredit: {
-    '& $span.currencyBadge': {
-      opacity: 1,
-      transition: 'opacity 0.2s',
-    },
-    '&:hover': {
-      '& $span.currencyBadge': {
-        opacity: 0,
-        transition: 'opacity 0.2s',
-      },
-    },
   },
 }));
 

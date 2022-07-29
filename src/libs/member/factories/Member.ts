@@ -1,4 +1,5 @@
 import type { Member } from '../types';
+import FactoryBotTag from '../../tag/factory';
 
 function random_int(max: number) {
   return Math.floor(Math.random() * max);
@@ -64,7 +65,17 @@ function randomBoolean() {
   return table[random_int(2)];
 }
 
-export function MemberFactory(): Member {
+type MemberProps = {
+  credit_account_balance?: number;
+  total_unpaid_amount?: string;
+  number_tags: number;
+};
+
+export function MemberFactory({
+  credit_account_balance = random_int(50),
+  total_unpaid_amount = `${random_int(50)}`,
+  number_tags = 0,
+}: MemberProps): Member {
   const wichGender = random_int(2);
   const firstname = firstnames[random_int(lastnames.length - 1)];
   const lastname = lastnames[random_int(lastnames.length - 1)];
@@ -83,9 +94,10 @@ export function MemberFactory(): Member {
     email: `${firstname}@member.bsport`,
     address: '3 Avenue du Bar',
     internal_account: random_int(50),
-    credit_account_balance: random_int(50),
+    credit_account_balance,
+    total_unpaid_amount,
     notes: [],
-    tags: [],
+    tags: FactoryBotTag.Tag.create(number_tags),
     next_booking: randomDate(),
     previous_booking: randomDate(),
     billing_plans: null,
@@ -106,5 +118,5 @@ export function MemberFactory(): Member {
 
 export default function MembersFactory(length: number): Array<Member> {
   const res = new Array(length).fill(0);
-  return res.map(() => MemberFactory());
+  return res.map(() => MemberFactory({}));
 }

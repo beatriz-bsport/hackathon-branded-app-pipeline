@@ -236,6 +236,7 @@ export class OfferCard extends Component<Props, State> {
                           showVaccinationStatus={
                             this.props.showVaccinationStatus
                           }
+                          bottomCredit
                         />
                       ))}
                   </List>

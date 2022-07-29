@@ -79,7 +79,10 @@ export const MemberRelationListItem = (props: Props) => {
         divider
       >
         <ListItemAvatar>
-          <CreditMemberBadge credit={relatedMember.credit_account_balance}>
+          <CreditMemberBadge
+            credit={relatedMember.credit_account_balance}
+            unpaidAmount={relatedMember.total_unpaid_amount}
+          >
             <Avatar src={relatedMember.photo} />
           </CreditMemberBadge>
         </ListItemAvatar>

@@ -82,6 +82,7 @@ export type Member<Tag = number, CA = number> = {
   address: string;
   internal_account: number;
   credit_account_balance: CA;
+  total_unpaid_amount: string;
   notes: Array<MemberNote>;
   tags: Array<Tag>;
   next_booking: string; // date

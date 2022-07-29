@@ -279,7 +279,10 @@ export class MemberSummaryCard extends Component<Props> {
             alignItems: 'center',
           }}
         >
-          <CreditMemberBadge credit={member.credit_account_balance}>
+          <CreditMemberBadge
+            credit={member.credit_account_balance}
+            unpaidAmount={member.total_unpaid_amount}
+          >
             <Avatar user={member.consumer} variant="mediumNoname" noname />
           </CreditMemberBadge>
           <div className={this.props.classes.consumerName}>

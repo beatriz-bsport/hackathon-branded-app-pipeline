@@ -252,9 +252,16 @@ export const MemberBillingProblemCard = (props: Props) => {
           )}
           <Divider className={classes.divider} />
           <div className={classes.invoiceContainer}>
-            <Typography className={classes.padding} variant="h6">
-              {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
-            </Typography>
+            <div className={classes.unpaidAmountHeader}>
+              <Typography className={classes.padding} variant="h6">
+                {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
+              </Typography>
+              <Typography variant="h6" component="span" color="error">
+                {` ${getCurrencyDisplayWithPrice(
+                  props.member.total_unpaid_amount,
+                )}`}
+              </Typography>
+            </div>
             <InvoiceTable
               asConsumer={props.asConsumer}
               compactMode
@@ -395,6 +402,13 @@ const useStyles = makeStyles((theme) => ({
   },
   visibilityIcon: {
     marginLeft: theme.spacing(1),
+  },
+  unpaidAmountHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingRight: theme.spacing(4),
   },
   invoiceContainer: {
     display: 'flex',

@@ -53,6 +53,7 @@ export class ResultList extends Component<Props> {
           this.props.selectEntity({ data: item, type: 'member' });
         }}
         showVaccinationStatus={this.props.showVaccinationStatus}
+        bottomCredit
       />
     ));
   };

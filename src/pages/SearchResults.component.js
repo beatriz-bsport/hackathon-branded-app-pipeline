@@ -214,6 +214,7 @@ export class SearchResults extends Component<Props, State> {
                     );
                   }}
                   showVaccinationStatus={this.props.showVaccinationStatus}
+                  bottomCredit
                 />
               </div>
             </Paper>
@@ -287,6 +288,7 @@ export class SearchResults extends Component<Props, State> {
                       );
                     }}
                     showVaccinationStatus={this.props.showVaccinationStatus}
+                    bottomCredit
                   />
                 </div>
               </Paper>

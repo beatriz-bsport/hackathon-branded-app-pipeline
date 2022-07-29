@@ -190,6 +190,7 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
             <Grow in={this.props.invoice && this.props.invoice.member}>
               <CreditMemberBadge
                 credit={this.props.invoice.member.credit_account_balance}
+                unpaidAmount={this.props.invoice.member.total_unpaid_amount}
               >
                 <Fab
                   variant="contained"

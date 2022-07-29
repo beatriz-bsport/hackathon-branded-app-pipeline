@@ -12,7 +12,7 @@ function randomBoolean() {
 
 export function RecipientWithMemberFactory(): RecipientWithMember {
   return {
-    member: MemberFactory(),
+    member: MemberFactory({}),
     email_sent: randomInt(1000),
     campaign: 'My campaign',
     communication_sent: 'My communication sent',

@@ -4687,7 +4687,8 @@
             "pendingValidation": "Het verzoek voor het wijzigen van het e-mailadres \"{{ email }}\" is momenteel in behandeling."
         },
         "actions": "Acties",
-        "archiveMember": "Archiveer"
+        "archiveMember": "Archiveer",
+        "accountBalance": "Saldo"
     },
     "booking": {
         "bookingModule": {

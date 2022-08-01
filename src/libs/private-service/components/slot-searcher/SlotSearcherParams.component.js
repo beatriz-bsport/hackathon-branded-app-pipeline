@@ -45,6 +45,7 @@ type State = {
   coaches_selected: Array<number>,
   establishment_selected: number,
   privateSlotCredit: ?number,
+  privateSlotDuration?: number,
 };
 
 export class SlotSearcherParams extends React.Component<Props, State> {
@@ -61,6 +62,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
         coaches_selected: props.coach ? [props.coach] : [],
         establishment_selected: props.establishment || null,
         privateSlotCredit: null,
+        privateSlotDuration: null,
       };
     } else {
       this.state = {
@@ -70,6 +72,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
         coaches_selected: [],
         establishment_selected: null,
         privateSlotCredit: null,
+        privateSlotDuration: null,
       };
     }
   }
@@ -191,6 +194,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
     privateServiceId: number,
     privateSlotId: number,
     privateSlotCredit: number,
+    slotDuration: number,
   ) => {
     const private_service = this.props.private_services.find(
       (ps) => ps.id === privateServiceId,
@@ -201,6 +205,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
         privateSlotId,
         private_service,
         privateSlotCredit,
+        privateSlotDuration: slotDuration,
       },
       () => {
         this.handleCoachChange([]);
@@ -245,6 +250,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
                 resourceType="establishment"
                 resourceAllocationChecker={this.props.resourceAllocationChecker}
                 privateSlotId={this.state.privateSlotId}
+                privateSlotDuration={this.state.privateSlotDuration || 0}
               />
             )}
           </div>
@@ -275,6 +281,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
                 resourceAllocationChecker={this.props.resourceAllocationChecker}
                 resourceType="coach"
                 privateSlotId={this.state.privateSlotId}
+                privateSlotDuration={this.state.privateSlotDuration || 0}
               />
             )}
           </div>

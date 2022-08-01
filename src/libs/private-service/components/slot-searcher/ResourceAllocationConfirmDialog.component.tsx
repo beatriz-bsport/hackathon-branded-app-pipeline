@@ -67,9 +67,12 @@ export class ResourceAllocationConfirmDialog extends React.Component<
         moment(
           this.props.dateStart || this.props.privateBooking.date_start,
         ).isSameOrAfter(interval[0]) &&
-        moment(
-          this.props.dateStart || this.props.privateBooking.date_start,
-        ).isSameOrBefore(interval[1]),
+        moment(this.props.dateStart || this.props.privateBooking.date_start)
+          .add(
+            this.props.privateBooking.private_slot.duration_minutes,
+            'minutes',
+          )
+          .isSameOrBefore(interval[1]),
     );
   };
 

@@ -21,7 +21,12 @@ type Props = {
   privateSlotId: ?number,
   privateServiceList: Array<PrivateService>,
   menuAnchor: ?HTMLElement,
-  onSelect: (serviceId: number, slotId: number, credit?: number) => void,
+  onSelect: (
+    serviceId: number,
+    slotId: number,
+    credit?: number,
+    slotDuration?: number,
+  ) => void,
 };
 
 export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
@@ -96,13 +101,18 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                       borderLeft: `4px solid ${ps.color || 'white'}`,
                     }}
                   >
-                    {ps.slots.map((s) => (
+                    {ps.slots.map((s, index) => (
                       <ListItem
                         dense
                         disableGutters
                         button
                         onClick={() => {
-                          this.props.onSelect(ps.id, s.id, s.credit);
+                          this.props.onSelect(
+                            ps.id,
+                            s.id,
+                            s.credit,
+                            ps.slots_duration_minute[index],
+                          );
                           this.props.setMenuAnchor(null);
                         }}
                       >

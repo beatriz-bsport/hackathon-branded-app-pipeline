@@ -14,6 +14,7 @@ type OwnProps = {
   resourceType: string;
   updatedTime: string;
   privateSlotId: number;
+  privateSlotDuration: number;
   resourceAllocationChecker: (
     privateSlotId: number,
     resourceType: string,
@@ -55,12 +56,13 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
         this.props.resourceId,
         this.props.updatedTime,
       );
-
       this.setState({
         errorAllocation: !response.data.find(
           (interval: string[]) =>
             moment(this.props.updatedTime).isSameOrAfter(interval[0]) &&
-            moment(this.props.updatedTime).isSameOrBefore(interval[1]),
+            moment(this.props.updatedTime)
+              .add(this.props.privateSlotDuration, 'minutes')
+              .isSameOrBefore(interval[1]),
         ),
       });
     } catch (error) {

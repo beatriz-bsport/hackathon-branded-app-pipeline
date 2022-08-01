@@ -11,6 +11,7 @@ import { Coach } from '../../../associated-coach/types';
 import { Level } from '#libs/level/types';
 import { MarketPlaceFilter } from '../../types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
+import { getLevelTrad } from '#libs/level/utils';
 
 import './MarketplaceFilterCSSOnly.css';
 
@@ -44,9 +45,9 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     () =>
       customLevels.map((level) => ({
         value: level.id,
-        label: level.name,
+        label: getLevelTrad(level.id, level.name, t),
       })),
-    [customLevels],
+    [customLevels, t],
   );
 
   const coachesOptions = useMemo(

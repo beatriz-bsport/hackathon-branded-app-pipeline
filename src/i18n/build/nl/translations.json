@@ -6181,7 +6181,7 @@
                 "hidePrivatePass": "Geen afspraakkaarten tonen",
                 "hidePaymentPack": "Geen leskaarten tonen",
                 "hidePaymentCombo": "Geen pakketten tonen",
-                "todayOnly": "Toon alleen de sessies van de dag",
+                "todayOnly": "Toon alleen de sessies van vandaag",
                 "titleCaption": "Maximaal aantal tekens: {{count}} / {{max}}"
             },
             "componentType": {
@@ -6197,7 +6197,7 @@
                 "loginButton": "Inlogknop",
                 "giftcard": "Cadeaubonnen",
                 "paymentPackTemplate": "Gedeelde leskaarten",
-                "calendarV2": "Kalender (nieuw ontwerp)"
+                "calendarV2": "Agenda (nieuw weekoverzicht)"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -11030,16 +11030,16 @@
                 "spacingHelper": "Spacing is gebaseerd op veelvouden {{base}} pixels.",
                 "roundingHelper": "Rounding is gebaseerd op veelvouden {{base}} pixels.",
                 "reset": "Resetten",
-                "backgroundColorElement": "Kleur elementen",
+                "backgroundColorElement": "Elementenkleur",
                 "backgroundColorPage": "Achtergrondkleur",
                 "borderColor": "Randkleur",
                 "secondaryColor": "Secundaire kleur",
                 "mainColor": "Primaire kleur",
-                "subtypographyColor": "Kleur ondertitels",
+                "subtypographyColor": "Tekstkleur ondertitels",
                 "typographyColor": "Tekstkleur",
                 "rounding": "Rounding",
                 "spacing": "Spacing",
-                "backgroundColor": "Achtergrondkleur",
+                "backgroundColor": "Achtergrond",
                 "colors": "Kleuren",
                 "typography": "Tekstopmaak",
                 "general": "Spacing & Rounding"

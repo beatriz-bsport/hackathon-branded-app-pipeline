@@ -4621,7 +4621,8 @@
             "pendingValidation": "Cambio pendiente: {{ email }}"
         },
         "actions": "Acciones",
-        "archiveMember": "Archivar"
+        "archiveMember": "Archivar",
+        "accountBalance": "Saldo"
     },
     "booking": {
         "details": {

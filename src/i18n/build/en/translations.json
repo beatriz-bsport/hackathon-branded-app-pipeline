@@ -8891,7 +8891,7 @@
             "month_plural": "This pass can be used {{count}} times per month",
             "week": "This pass can be used {{count}} time per week",
             "week_plural": "This pass can be used {{count}} times per week",
-            "day": "This pass can be used {{count}} time per year",
+            "day": "This pass can be used {{count}} time per day",
             "day_plural": "This pass can be used {{count}} times per year"
         }
     },
@@ -9581,7 +9581,8 @@
             "pendingValidation": "The request to change the email address \"{{ email }}\" is currently pending validation."
         },
         "actions": "Actions",
-        "archiveMember": "Archive"
+        "archiveMember": "Archive",
+        "accountBalance": "Balance"
     },
     "booking": {
         "bookingModule": {

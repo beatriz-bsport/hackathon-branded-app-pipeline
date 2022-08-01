@@ -23,6 +23,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
 import chroma from 'chroma-js';
+import Config from '../../config';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 
@@ -364,9 +365,23 @@ export class MarketPlace extends Component<Props, State> {
           </div>
         );
       case MARKETPLACE_PATH_TAB_CALENDAR_V2:
+        if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
+          return (
+            <div className={this.props.classes.calendarContainer}>
+              <MarketplaceCalendarPageV2
+                key={this.props.tabSelected}
+                companyId={this.props.companyId}
+                requestSignUp={this.openLogin}
+                toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
+                startWeekThisWeekday={false}
+                authenticated={this.props.auth.authenticated}
+              />
+            </div>
+          );
+        }
         return (
           <div className={this.props.classes.calendarContainer}>
-            <MarketplaceCalendarPageV2
+            <MarketplaceCalendarPage
               key={this.props.tabSelected}
               companyId={this.props.companyId}
               requestSignUp={this.openLogin}
@@ -376,6 +391,7 @@ export class MarketPlace extends Component<Props, State> {
             />
           </div>
         );
+
       default: {
         return (
           <div className={this.props.classes.calendarContainer}>

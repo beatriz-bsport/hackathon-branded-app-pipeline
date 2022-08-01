@@ -45,6 +45,9 @@ const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
 const NOTIFICATION_GROUPED_OFFERS_CANCELLED = 801;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP = 701;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT = 702;
+const NOTIFICATION_BOOKING_BROADCAST_TO_TEACHER = 101;
+const NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER_TO_TEACHER = 102;
+const NOTIFICATION_OFFER_IN_BOOKING_MODIFIED_TO_TEACHER = 103;
 
 exports.default = {
   pageTitle: 'Emails transactionnels',
@@ -168,10 +171,10 @@ exports.default = {
     },
   },
   eventType: {
-    [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance',
+    [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance (élèves)',
     [NOTIFICATION_MEMBERSHIP_CREATION_WEB]: 'Inscription membre (élève)',
     [NOTIFICATION_BOOKING_PASS_CHECKOUT]: 'Réservation via carte de cours',
-    [NOTIFICATION_BOOKING_CREATED]: 'Nouvelle réservation',
+    [NOTIFICATION_BOOKING_CREATED]: 'Nouvelle réservation (élèves)',
     [NOTIFICATION_BOOKING_PLUS_PASS_STRIPE_CHECKOUT]:
       'Réservation + achat carte de cours simultané',
     [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]:
@@ -186,10 +189,11 @@ exports.default = {
       "Désinscription de la liste d'attente (élève)",
     [NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_MANAGER]:
       "Désinscription de la liste d'attente (manager)",
-    [NOTIFICATION_OFFER_IN_BOOKING_MODIFIED]: 'Séance modifiée',
+    [NOTIFICATION_OFFER_IN_BOOKING_MODIFIED]: 'Séance modifiée (élèves)',
     [NOTIFICATION_BOOKING_NOT_REFUNDED]:
-      'Réservation annulée : crédit non remboursé',
-    [NOTIFICATION_BOOKING_REFUNDED]: 'Réservation annulée : crédit remboursé',
+      'Réservation annulée : crédit non remboursé (élèves)',
+    [NOTIFICATION_BOOKING_REFUNDED]:
+      'Réservation annulée : crédit remboursé (élèves)',
     [NOTIFICATION_MEMBERSHIP_CREATION_SAAS]: 'Inscription membre (manager)',
     [NOTIFICATION_SUBSCRIPTION_CREATE]: 'Abonnement créé',
     [NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD]:
@@ -197,7 +201,8 @@ exports.default = {
     [NOTIFICATION_SUBSCRIPTION_PAUSE]: 'Abonnement mis en pause',
     [NOTIFICATION_SUBSCRIPTION_STOP]: 'Abonnement stoppé ou terminé',
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Paiement reçu',
-    [NOTIFICATION_BOOKING_BROADCAST]: 'Rappel cours en ligne dans 15 min',
+    [NOTIFICATION_BOOKING_BROADCAST]:
+      'Rappel cours en ligne dans 15 min (élèves)',
     [NOTIFICATION_PRIVATE_BOOKING_CREATE_CONSUMER]:
       'Nouveau rendez-vous (élève)',
     [NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_CONSUMER]:
@@ -215,7 +220,7 @@ exports.default = {
     [NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_COACH]:
       'Rendez-vous annulé - remboursé (professeur)',
     [NOTIFICATION_OFFER_AUTO_DISCARD]:
-      'Trop peu de réservations N heures avant le début de la séance',
+      'Trop peu de réservations N heures avant le début de la séance (élèves et professeurs)',
     [NOTIFICATION_GROUPED_OFFERS_CANCELLED]: 'Groupe de rendez vous annulé',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP]:
       'Pénalité carte de cours : carte bloquée (élève)',
@@ -235,6 +240,12 @@ exports.default = {
       "Paiement d'une souscription échoué",
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_FAIL_WILL_RETRY]:
       "Paiement d'une souscription échoué, sera retenté",
+    [NOTIFICATION_BOOKING_BROADCAST_TO_TEACHER]:
+      'Rappel cours en ligne dans 15 min (professeurs)',
+    [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER_TO_TEACHER]:
+      'Annulation séance (professeurs)',
+    [NOTIFICATION_OFFER_IN_BOOKING_MODIFIED_TO_TEACHER]:
+      'Séance modifiée (professeurs)',
   },
   franchise: {
     emptySelect:

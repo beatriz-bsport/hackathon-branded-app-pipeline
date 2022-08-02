@@ -240,7 +240,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             }}
             type="button"
           >
-            {t('marketplace.discover')}
+            {t('marketplace.book')}
           </button>
         </div>
       </div>

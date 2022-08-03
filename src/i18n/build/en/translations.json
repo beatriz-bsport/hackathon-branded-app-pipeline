@@ -2138,7 +2138,7 @@
             }
         },
         "eventType": {
-            "3": "Cancelled session",
+            "3": "Cancelled session (for members)",
             "6": "For newly enrolled members (for members)",
             "7": "Booking with pass",
             "8": "Booking + pass purchase",
@@ -2147,17 +2147,17 @@
             "12": "A member joined the waitlist",
             "13": "A member has unsubscribed from the waitlist (for members)",
             "14": "A member has unsubscribed from the waiting list (for staff)",
-            "16": "Modified session",
-            "17": "Booking cancelled: credit not refunded",
-            "18": "Booking cancelled: credit refunded",
+            "16": "Modified session (for members)",
+            "17": "Booking cancelled: credit not refunded (for members)",
+            "18": "Booking cancelled: credit refunded (for members)",
             "19": "For newly enrolled members (for staff)",
-            "21": "New booking",
+            "21": "New booking (for members)",
             "24": "Purchased subscription (for members)",
             "25": "Payment method modified",
             "26": "Subscription paused",
             "27": "Subscription ended or terminated",
             "28": "Payment received",
-            "29": "Reminder that the livestream starts in 15 minutes",
+            "29": "Reminder that the livestream starts in 15 minutes (for members)",
             "453": "Modified timetable (for members)",
             "452": "New appointment (for members)",
             "451": "Appointment canceled - refunded (for members)",
@@ -2168,7 +2168,7 @@
             "400": "The appointment was cancelled too late (for staff)",
             "300": "A member that hasn't responded in time and has been kicked from the waitlist",
             "22": "Invoice confirmation",
-            "601": "When underoccupied sessions get automatically cancelled",
+            "601": "When underoccupied sessions get automatically cancelled (for members and staff)",
             "702": "Penalty: a fine has been added to the internal account balance (for members)",
             "701": "Penalty: the pass has been temporarily blocked (for members)",
             "530": "Disputed payment for a subscription",
@@ -2178,7 +2178,10 @@
             "481": "Recurring appointment has been cancelled due to a lack of availability (member)",
             "480": "Recurring appointment has been cancelled due to a lack of availability (teacher)",
             "987": "Attempt to collect an installment payment",
-            "801": "Cancelled appointment group"
+            "801": "Cancelled appointment group",
+            "103": "Modified session (for staff)",
+            "102": "Cancelled session (for staff)",
+            "101": "Reminder that the livestream starts in 15 minutes (for staff)"
         },
         "messages": {
             "createOrUpdate": {
@@ -4644,7 +4647,7 @@
                     "helperText": "This is the number of days before an abandoned basket is automatically emptied.",
                     "label": "Basket expiration date"
                 },
-                "cancelledOffersManager": "Show cancelled sessions on the calendar your calendar",
+                "cancelledOffersManager": "By default show cancelled sessions on the manager calendar",
                 "checkBalance": {
                     "shiftRatio": {
                         "explain": "If more than {{numberCheck}} reservations are recorded on a session, no reservation will be authorized which creates a WOMEN / MEN imbalance greater than {{gender_max_shift_for_booking}} people.",
@@ -5307,7 +5310,7 @@
             "paymentMethodExplain": "Select the payment method that you'd like to use for the BSPORT billing",
             "congrats": "Congratulations!",
             "finishExplain": "The configuration is complete. You can now use BSPORT.",
-            "needToConfigureStripeInfo": "It's requiered to add a payment method to settle invoices.",
+            "needToConfigureStripeInfo": "It's required to add a payment method to settle invoices.",
             "configureMyStripeAccount": "Configure my Stripe account"
         },
         "regularizeInvoice": {
@@ -9629,7 +9632,7 @@
                     "confirm": "Confirm",
                     "cancel": "Cancel",
                     "title": "Info",
-                    "content": "Please note that this member doesn't have the requiered tags for this session. Do you want to book them in anyway?"
+                    "content": "Please note that this member doesn't have the required tags for this session. Do you want to book them in anyway?"
                 }
             }
         },
@@ -11641,11 +11644,11 @@
         },
         "automatedCampaign": {
             "170001": "Invalid of maximum submissions per member",
-            "17105": "A push notification content is requiered",
-            "17104": "A notification title is requiered",
-            "17103": "SMS content is requiered",
-            "17102": "Email content is requiered",
-            "17101": "A title is requiered",
+            "17105": "A push notification content is required",
+            "17104": "A notification title is required",
+            "17103": "SMS content is required",
+            "17102": "Email content is required",
+            "17101": "A title is required",
             "17000": "There was an error"
         }
     },

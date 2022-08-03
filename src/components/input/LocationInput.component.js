@@ -48,6 +48,7 @@ type State = {
   country_code: string,
   candidates: Array<any>,
   center: Array<number>,
+  geocoded_data: any,
   geometry: Object<number>,
   valid: boolean,
   isLoading: boolean,
@@ -79,6 +80,7 @@ export class LocationInput extends Component<Props, State> {
         country_code: '',
         candidates: [],
         center: CENTER,
+        geocoded_data: {},
         zoom: 12,
         valid: false,
         isLoading: false,
@@ -210,16 +212,19 @@ export class LocationInput extends Component<Props, State> {
   selectCandidate = (c) => {
     const { street_number, route, ...InputToState } =
       this.handleFormatingCandidateAddressToState(c);
+
     const { zoom } = this.state;
+
     this.setState(
       {
+        geocoded_data: c,
         center: [c.geometry.location.lat, c.geometry.location.lng],
         candidates: [],
         zoom: Math.max(zoom, 12),
         valid: true,
         ...InputToState,
       },
-      () => this.props.onChange(InputToState),
+      () => this.props.onChange(InputToState, c),
     );
   };
 

@@ -61,7 +61,8 @@ type State = {
     state: string,
     city: string,
     country: string,
-    geometry: object,
+    geometry: any,
+    geocoded_data: any,
   },
   cover: ?string,
   capacity: number,
@@ -87,6 +88,7 @@ export class EstablishmentForm extends Component<Props, State> {
             x: props.initial.location.latitude,
             y: props.initial.location.longitude,
           },
+          geocoded_data: props.initial.location.geocoded_data,
         },
         capacity: props.initial.capacity,
         cover: props.initial.cover,
@@ -108,6 +110,7 @@ export class EstablishmentForm extends Component<Props, State> {
             x: 0,
             y: 0,
           },
+          geocoded_data: {},
         },
         capacity: 30,
         cover: '',
@@ -133,6 +136,7 @@ export class EstablishmentForm extends Component<Props, State> {
         country: location.country,
         zipcode: location.zipcode,
         geometry: location.geometry,
+        geocoded_data: location.geocoded_data,
       },
     };
     if (cover && typeof cover !== 'string') {
@@ -264,8 +268,8 @@ export class EstablishmentForm extends Component<Props, State> {
                       ...this.state.location,
                     }
                   }
-                  onChange={(data) => {
-                    this.setState({ location: { ...data } });
+                  onChange={(data, geocoded_data) => {
+                    this.setState({ location: { ...data, geocoded_data } });
                   }}
                   t={this.props.t}
                 />

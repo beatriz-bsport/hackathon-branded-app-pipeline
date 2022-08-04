@@ -42,6 +42,7 @@ const {
 
 // should import that from common
 const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
+const NOTIFICATION_OFFER_AUTO_DISCARD_TO_STUDENT = 602;
 const NOTIFICATION_GROUPED_OFFERS_CANCELLED = 801;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP = 701;
 const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT = 702;
@@ -220,16 +221,18 @@ exports.default = {
     [NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_COACH]:
       'Rendez-vous annulé - remboursé (professeur)',
     [NOTIFICATION_OFFER_AUTO_DISCARD]:
-      'Trop peu de réservations N heures avant le début de la séance (élèves et professeurs)',
+      'Trop peu de réservations N heures avant le début de la séance (professeurs)',
+    [NOTIFICATION_OFFER_AUTO_DISCARD_TO_STUDENT]:
+      'Trop peu de réservations N heures avant le début de la séance (élèves)',
     [NOTIFICATION_GROUPED_OFFERS_CANCELLED]: 'Groupe de rendez vous annulé',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP]:
-      'Pénalité carte de cours : carte bloquée (élève)',
+      'Pénalité carte de cours : carte bloquée (élèves)',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT]:
-      'Pénalité carte de cours : acompte créé (élève)',
+      'Pénalité carte de cours : acompte créé (élèves)',
     [NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH]:
       'Rendez-vous récurrent annulé pour manque de disponibilité (professeur)',
     [NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER]:
-      'Rendez-vous récurrent annulé pour manque de disponibilité (élève)',
+      'Rendez-vous récurrent annulé pour manque de disponibilité (élèves)',
     [NOTIFICATION_PAYMENT_INSTALMENT_PREPARED]:
       "Tentative d'encaissement d'un paiement échelonné",
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_DISPUTED]:

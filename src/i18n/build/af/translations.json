@@ -3374,14 +3374,15 @@
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
       "480": "Rendez-vous récurrent annulé pour manque de disponibilité (professeur)",
-      "481": "Rendez-vous récurrent annulé pour manque de disponibilité (élève)",
+      "481": "Rendez-vous récurrent annulé pour manque de disponibilité (élèves)",
       "510": "Paiement d'une souscription échoué",
       "515": "Carte de cours de la souscription automatiquement désactivée",
       "520": "Paiement d'une souscription échoué, sera retenté",
       "530": "Litige sur paiement d'une souscription",
-      "601": "Trop peu de réservations N heures avant le début de la séance (élèves et professeurs)",
-      "701": "Pénalité carte de cours : carte bloquée (élève)",
-      "702": "Pénalité carte de cours : acompte créé (élève)",
+      "601": "Trop peu de réservations N heures avant le début de la séance (professeurs)",
+      "602": "Trop peu de réservations N heures avant le début de la séance (élèves)",
+      "701": "Pénalité carte de cours : carte bloquée (élèves)",
+      "702": "Pénalité carte de cours : acompte créé (élèves)",
       "801": "Groupe de rendez vous annulé",
       "987": "Tentative d'encaissement d'un paiement échelonné"
     },
@@ -8345,7 +8346,7 @@
         "autoDiscard": {
           "checkbox": "Annuler les séances trop peu remplies",
           "explain": "Annuler la séance et Envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
-          "emailRecipients": "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question.",
+          "emailRecipients": "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question. Vous pouvez aussi configurer un mail à envoyer aux élèves.",
           "min_bookings_nb": "Nombre de réservation(s) :",
           "hours_before_start": "Heure(s) avant la séance :"
         }

@@ -24,7 +24,7 @@ exports.default = {
         explain:
           "Annuler la séance et Envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
         emailRecipients:
-          "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question.",
+          "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question. Vous pouvez aussi configurer un mail à envoyer aux élèves.",
         min_bookings_nb: 'Nombre de réservation(s) :',
         hours_before_start: 'Heure(s) avant la séance :',
       },

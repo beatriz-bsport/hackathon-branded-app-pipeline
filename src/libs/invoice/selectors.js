@@ -160,6 +160,21 @@ export const withMember = memoize((selector) =>
   ),
 );
 
+export const getInvoiceMemberFullDetail = memoize((selector) =>
+  createSelector(
+    [selector, getMemberDetailData],
+    (invoiceObject, memberDetailData) => {
+      if (!invoiceObject) return invoiceObject;
+      if (Array.isArray(invoiceObject)) {
+        return invoiceObject
+          .filter((inv) => !!inv)
+          .map((_inv) => memberDetailData[_inv.member]);
+      }
+      return memberDetailData[invoiceObject.member];
+    },
+  ),
+);
+
 export const withAuthor = memoize((selector) =>
   createSelector([selector, getStaff], (invoice, staffData) => {
     if (!invoice) return invoice;

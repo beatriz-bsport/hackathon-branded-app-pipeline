@@ -31,6 +31,7 @@ import {
   getPaymentListInInvoice,
   getPlannedPaymentEventList,
   withEstablishment,
+  getInvoiceMemberFullDetail,
 } from '../../libs/invoice/selectors';
 import {
   getPaymentGroupRequiringActionList,
@@ -121,6 +122,7 @@ type Props = {
   editCustomFooter: (footer: string, options?: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
   invoice: Invoice,
+  member: Member,
   openPaymentDialog: () => void,
   detachPaymentMethod: (pm_id: string) => void,
   detachPaymentMethodLoading: boolean,
@@ -644,8 +646,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
               <div className={this.props.classes.navigationButton}>
                 <Grow in={this.props.invoice && this.props.invoice.member}>
                   <CreditMemberBadge
-                    credit={this.props.invoice.member.credit_account_balance}
-                    unpaidAmount={this.props.invoice.member.total_unpaid_amount}
+                    credit={this.props.member?.credit_account_balance ?? 0}
+                    unpaidAmount={this.props.member?.total_unpaid_amount ?? 0}
                   >
                     <Fab
                       variant="extended"
@@ -733,6 +735,7 @@ export default compose(
       invoice: withAuthor(
         withInvoiceItem(withMember(withEstablishment(getInvoice))),
       )(state, uuid),
+      member: getInvoiceMemberFullDetail(getInvoice)(state, uuid),
       memberLoading: state.member.loading,
       paymentList: getPaymentListInInvoice(state, uuid),
       paymentLoading: state.invoice.payment.loading,

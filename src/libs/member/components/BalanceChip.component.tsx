@@ -30,7 +30,7 @@ export const BalanceChip: React.FC<Props> = (props: Props) => {
 
   let chipColor: Color = Color.COLOR_SECONDARY;
   let unpaidIconOn: boolean = false;
-  const unpaidAmount_number = parseFloat(parseInt(unpaidAmount, 10));
+  const unpaidAmount_number = parseFloat(unpaidAmount);
   let creditFormatted = (credit - unpaidAmount_number)?.toFixed?.(2) ?? ' -';
 
   switch (chipChoice) {

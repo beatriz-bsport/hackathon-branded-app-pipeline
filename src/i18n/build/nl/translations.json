@@ -1792,7 +1792,7 @@
                 "missingRecipients": "Selecteer allereerst de ontvangers."
             },
             "textField": {
-                "warningLength": "Aantal verstuurde sms'jes: {{number_sms}}",
+                "warningLength": "Aantal te versturen sms'jes: {{number_sms}}",
                 "object": "Onderwerp",
                 "title": "Titel",
                 "content": "Bericht"

@@ -2722,6 +2722,31 @@
         "dialogTemplate": {
             "refreshText": "Click the refresh button to see the newest templates.",
             "title": "Select a template"
+        },
+        "sendMessage": {
+            "icons": {
+                "balise": "Variables",
+                "template": "Email template",
+                "notification": "Push notification",
+                "sms": "SMS",
+                "mail": "Email"
+            },
+            "refresh": "To see the new version of your template, please click on the refresh button.",
+            "sendDisabled": {
+                "missingContent": "Your message is incomplete.",
+                "missingRecipients": "First choose recipients"
+            },
+            "buttons": {
+                "selectRecipientsMobile": "to",
+                "selectRecipients": "Choose recipients",
+                "send": "Send"
+            },
+            "textField": {
+                "warningLength": "{{number_sms}} SMS will be sent",
+                "object": "Subject",
+                "title": "Title",
+                "content": "Message"
+            }
         }
     },
     "privateService": {

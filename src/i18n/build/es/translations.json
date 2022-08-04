@@ -6849,6 +6849,31 @@
         "dialogTemplate": {
             "refreshText": "Para que su nueva plantilla aparezca en la lista, haga clic en el botón de actualización.",
             "title": "Selección de plantilla"
+        },
+        "sendMessage": {
+            "icons": {
+                "balise": "Etiquetas",
+                "template": "Plantilla de email",
+                "notification": "Notificación push",
+                "sms": "SMS",
+                "mail": "Email"
+            },
+            "refresh": "Para ver la nueva versión de tu plantilla, haz clic en el botón de actualización.",
+            "sendDisabled": {
+                "missingContent": "Tu mensaje no está completo.",
+                "missingRecipients": "Primero elige a los destinatarios"
+            },
+            "buttons": {
+                "selectRecipientsMobile": "dest.",
+                "selectRecipients": "Elige destinatarios",
+                "send": "Enviar"
+            },
+            "textField": {
+                "warningLength": "Se enviarán {{number_sms}} SMS",
+                "object": "Asunto",
+                "title": "Título",
+                "content": "Mensaje"
+            }
         }
     },
     "paymentCombo": {

@@ -1779,6 +1779,31 @@
         "dialogTemplate": {
             "refreshText": "Klik op verversen om de nieuwste sjablonen weer te geven.",
             "title": "Selecteer een sjabloon"
+        },
+        "sendMessage": {
+            "buttons": {
+                "selectRecipientsMobile": "Ontvangers",
+                "selectRecipients": "Selecteer de ontvangers",
+                "send": "Versturen"
+            },
+            "refresh": "Ververs om het nieuwe e-mailsjabloon te zien.",
+            "sendDisabled": {
+                "missingContent": "Dit bericht is incompleet.",
+                "missingRecipients": "Selecteer allereerst de ontvangers."
+            },
+            "textField": {
+                "warningLength": "Aantal verstuurde sms'jes: {{number_sms}}",
+                "object": "Onderwerp",
+                "title": "Titel",
+                "content": "Bericht"
+            },
+            "icons": {
+                "template": "E-mailsjabloon",
+                "balise": "Tags",
+                "notification": "Push-notificatie",
+                "sms": "Sms'je",
+                "mail": "E-mail"
+            }
         }
     },
     "paymentCombo": {
@@ -2848,7 +2873,7 @@
                 },
                 "only_vod_access": "Alleen geschikt voor Video On Demand",
                 "category": {
-                    "helperText": "Naam van de categorie.",
+                    "helperText": "Naam van de categorie",
                     "label": "(Optioneel) Categorie"
                 },
                 "error": {
@@ -11572,7 +11597,7 @@
             "unavailableForSaleTitle": "Onbeschikbare cadeaubonnen",
             "activeTitle": "Beschikbare cadeaubonnen",
             "visibility": "Onbeschikbaar",
-            "explainIfEmpty": "In dit onderdeel worden alle cadeaubonnen beheerd. De gekozen waarde wordt op de interne rekening (Wallet) van de ontvanger gezet."
+            "explainIfEmpty": "In dit onderdeel worden alle cadeaubonnen beheerd. De geselecteerde waarde wordt op de interne rekening (Wallet) van de ontvanger gezet."
         },
         "backgroundImage": {
             "dialog": {

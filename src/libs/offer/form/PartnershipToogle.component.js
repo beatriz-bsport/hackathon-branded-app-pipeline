@@ -10,6 +10,7 @@ type Props = {
   available_on_partnership: boolean,
   onChange: (boolean) => void,
   t: TFunction,
+  disabled: ?boolean,
 };
 
 export function PartnershipToogle(props: Props) {
@@ -18,6 +19,7 @@ export function PartnershipToogle(props: Props) {
       <Grid item>
         <Switch
           color="primary"
+          disabled={props.disabled}
           checked={props.available_on_partnership}
           onChange={(event) => {
             props.onChange(event.target.checked);
@@ -25,7 +27,9 @@ export function PartnershipToogle(props: Props) {
         />
       </Grid>
       <Grid item>
-        <Typography>{props.t('form.offer.explainPartnership')}</Typography>
+        <Typography color={props.disabled ? 'textSecondary' : undefined}>
+          {props.t('form.offer.explainPartnership')}
+        </Typography>
       </Grid>
     </Grid>
   );

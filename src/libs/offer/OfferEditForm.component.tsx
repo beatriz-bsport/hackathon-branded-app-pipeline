@@ -872,6 +872,7 @@ export class OfferEditForm extends Component<Props, State> {
               {!!this.props.showPartnership && (
                 <div className={this.props.classes.field}>
                   <PartnershipToogle
+                    disabled={this.state.manager_only}
                     available_on_partnership={
                       this.state.available_on_partnership
                     }

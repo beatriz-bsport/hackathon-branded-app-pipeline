@@ -108,7 +108,7 @@ const getFillingInfo = (offer: Offer) => {
     color: offer.nb_bookings < offer.effectif ? 'error' : 'primary',
   };
   const formattedFillingRate = `${parseInt(
-    (offer.nb_bookings / offer.effectif) * 100,
+    (offer.nb_bookings / (offer.effectif || 1)) * 100,
     10,
   )}%`;
 

@@ -70,6 +70,8 @@ export const MarketplaceAppBar: React.FC<Props> = ({
   tabSelected,
   settings,
   theme,
+  franchisor,
+  onCompanySelected,
   photo,
 }) => {
   const classes = useStyles();
@@ -114,6 +116,9 @@ export const MarketplaceAppBar: React.FC<Props> = ({
             logo={logo}
             websiteURL={websiteURL}
             title={theme.company_name}
+            franchisor={franchisor}
+            onCompanySelected={onCompanySelected}
+            currentTheme={theme}
           />
         </div>
         {withNavigation && (

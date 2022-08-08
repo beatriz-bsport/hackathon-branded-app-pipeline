@@ -467,6 +467,10 @@ export class MarketPlace extends Component<Props, State> {
     });
   };
 
+  onCompanySelected = (company) => {
+    this.props.push(getMarketplaceRoute(company.name, company.id));
+  };
+
   render() {
     const { companyThemeLoading, classes, t } = this.props;
 
@@ -511,6 +515,8 @@ export class MarketPlace extends Component<Props, State> {
                 )
               }
               controlableMemberList={this.props.controlableMemberList}
+              franchisor={this.props.franchisor}
+              onCompanySelected={this.onCompanySelected}
               navigateBackToMasterRelation={
                 this.props.navigateBackToMasterRelation
               }

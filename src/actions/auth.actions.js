@@ -368,13 +368,14 @@ function resetPasswordSent(payload) {
 export function resetPassword(
   email: string,
   membership?: number,
+  franchisor?: number,
   options: any,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(errorResetLogin(null));
     dispatch(isLoadingResetLogin(true));
     try {
-      const response = await resetPasswordAPI(email, membership);
+      const response = await resetPasswordAPI(email, membership, franchisor);
       dispatch(resetPasswordSent(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {

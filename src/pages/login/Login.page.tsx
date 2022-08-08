@@ -45,8 +45,8 @@ type OwnProps = {
   step: number;
   setQueryParams: (queryParam: string) => (value: string) => void;
   membership: string;
-  franchisor: string;
-  franchiseTheme: FranchiseDetails;
+  franchisorId?: number;
+  franchisor: FranchiseDetails;
   selectedFranchisee: number;
   setSelectedFranchisee: (id: number) => void;
   goToCompanyMemberProfilePage: (id: number) => void;
@@ -89,6 +89,7 @@ export class ConsumerLoginPage extends Component<Props> {
       theme,
       membership,
       franchisor,
+      franchisorId,
       step,
       goToSignup,
       goNext,
@@ -105,11 +106,11 @@ export class ConsumerLoginPage extends Component<Props> {
       );
     }
 
-    if (franchisor && !this.props.franchiseTheme) {
+    if (franchisorId && !this.props.franchisor) {
       return null;
     }
 
-    let companiesSelectable = this.props.franchiseTheme.companies;
+    let companiesSelectable = this.props.franchisor.companies;
 
     const companyList = paymentPackTemplateCompanies
       ?.split(',')
@@ -123,14 +124,15 @@ export class ConsumerLoginPage extends Component<Props> {
 
     return (
       <div className={classes.container}>
-        {(!franchisor || (franchisor && step === STEPS.loginToFranchise)) && (
+        {(!franchisorId ||
+          (franchisorId && step === STEPS.loginToFranchise)) && (
           <Login
             doEmailLogin={this.props.doEmailLogin}
             error={this.props.errorLogin}
             errorFields={this.props.errorFields}
             loading={this.props.loginProcessing}
             requestSignUp={
-              franchisor
+              franchisorId
                 ? () =>
                     this.props.setQueryParams('step')(STEPS.franchiseeSelection)
                 : () =>
@@ -140,7 +142,7 @@ export class ConsumerLoginPage extends Component<Props> {
             isPremium={this.props.is_premium}
             theme={theme}
             t={t}
-            franchisor={!!franchisor}
+            franchisor={franchisor}
           />
         )}
 
@@ -153,7 +155,8 @@ export class ConsumerLoginPage extends Component<Props> {
             setSelectedFranchisee={this.props.setSelectedFranchisee}
             goToSignup={goToSignup}
             setStep={this.props.setQueryParams('step')}
-            franchisor={this.props.franchisor}
+            franchisor={this.props.franchisorId}
+            franchiseTheme={this.props.franchisor}
           />
         )}
 
@@ -220,7 +223,7 @@ const mapWithHandlers = {
 
 const mapStateToProps = (
   state: RootState,
-  { membership, franchisor }: { membership: string; franchisor: string },
+  { membership, franchisorId }: { membership: string; franchisorId: string },
 ) => ({
   theme: !!membership && themeSelectors.getTheme(state),
   authenticated: state.auth.authenticated,
@@ -230,8 +233,8 @@ const mapStateToProps = (
   checkEmailExistsLoading: state.auth.emailExists.loading,
   emailExists: state.auth.emailExists.exists,
   is_premium: state.theme.theme.is_premium,
-  franchiseTheme: !!franchisor && getFranchisor(state),
-  franchiseThemeLoading: !!franchisor && getFranchiseThemeLoading(state),
+  franchisor: !!franchisorId && getFranchisor(state),
+  franchiseThemeLoading: !!franchisorId && getFranchiseThemeLoading(state),
   // membershipThemeLoading: !!membership && getThemeLoading(state),
 });
 
@@ -276,7 +279,7 @@ export default compose(
 
     return {
       membership,
-      franchisor,
+      franchisorId: franchisor ? parseInt(franchisor, 10) : null,
       goNext: next,
       context,
       paymentPackTemplateCompanies,

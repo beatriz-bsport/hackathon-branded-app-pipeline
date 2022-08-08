@@ -4,11 +4,11 @@ import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withState } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+import { MuiThemeProvider, Theme } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import type { Theme } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { parseQueryString } from '../../http';
@@ -23,6 +23,7 @@ import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 
 import { fetchFranchiseTheme } from '#libs/franchise/actions';
+import { getFranchiseTheme } from '../../theme';
 import {
   getFranchiseThemeLoading,
   getFranchisor,
@@ -83,7 +84,9 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
       );
     }
     return (
-      <>
+      <MuiThemeProvider
+        theme={franchiseTheme ? getFranchiseTheme(franchiseTheme) : undefined}
+      >
         <Hidden xsDown>
           <LoginBackground franchise />
           <Fade in>
@@ -110,7 +113,7 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
 
           {/* {!!theme && <Analytics username="" theme={theme} />} */}
         </div>
-      </>
+      </MuiThemeProvider>
     );
   }
 }
@@ -120,7 +123,6 @@ const mapDispatchToProps = {
   fetchFranchiseTheme,
   disconnect,
   pushRouter: push,
-  goToCompanyMemberProfilePage: (companyId: number) => push(`/c/${companyId}`),
 };
 
 const mapStateToProps = (state: RootState) => ({
@@ -159,13 +161,15 @@ const styles = (theme: Theme): any => ({
 });
 
 const mapWithHandlers = {
-  goToNextPage: (props: OwnProps & ConnectedProps) => (companyId: number) => {
-    if (props.next) {
-      props.pushRouter(`/checkout/${companyId}/${props.next}`);
-    } else {
-      props.pushRouter(`/c/${companyId}`);
-    }
-  },
+  goToNextPage:
+    (props: OwnProps & ConnectedProps) =>
+    (companyId: number, companyName: string) => {
+      if (props.next) {
+        props.pushRouter(`/checkout/${companyId}/${props.next}`);
+      } else {
+        props.pushRouter(`/m/${encodeURIComponent(companyName)}/${companyId}`);
+      }
+    },
 };
 
 export default compose(

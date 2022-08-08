@@ -27,7 +27,7 @@ type Props = {
   loading: boolean,
   membershipList: Array<Membership>,
   classes: Object,
-  goToConsumerHome: (company: number) => void,
+  goToConsumerHome: (company: number, companyName: string) => void,
   searchCompany: (string) => void,
   companyLoading: boolean,
   companyList: Array<Company>,
@@ -134,7 +134,7 @@ class CompanySelectorBase extends React.Component<{
               company={c}
               noDivider
               button
-              onClick={() => this.props.onClick(c.id)}
+              onClick={() => this.props.onClick(c.id, c.name)}
             />
           ))}
         </Paper>

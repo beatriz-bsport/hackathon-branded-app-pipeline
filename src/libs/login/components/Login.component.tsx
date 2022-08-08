@@ -29,6 +29,8 @@ import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import Config from '../../../config';
+import { Franchise } from '#libs/franchise/types';
+import { buildUrlParams } from '../../../http';
 
 type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
@@ -46,7 +48,7 @@ type Props = {
   theme?: CompanyTheme;
   logoHidden?: boolean;
   marketplace?: boolean;
-  franchisor?: boolean;
+  franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;
 };
@@ -215,11 +217,14 @@ export class ConsumerLogin extends Component<Props, State> {
             )}
           >
             <a
-              href={`${Config.PUBLIC_URL}/login/reset_password${
-                this.props.theme
-                  ? `?membership=${this.props.theme.company}`
-                  : ''
-              }`}
+              href={`${Config.PUBLIC_URL}/login/reset_password${buildUrlParams({
+                ...(this.props.theme
+                  ? { membership: this.props.theme.company }
+                  : {}),
+                ...(this.props.franchisor
+                  ? { franchisor: this.props.franchisor.id }
+                  : {}),
+              })}`}
               style={{ textDecoration: 'none' }}
             >
               <Typography variant="body2" align="center">

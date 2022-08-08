@@ -51,7 +51,7 @@ export default compose(
         state.membership.memberShipValidation.missingInformation.validated,
     }),
     {
-      goToConsumerHome: (id) => push(`/c/${id}/`),
+      goToConsumerHome: (id) => push(`/m/aaa/${id}/`),
     },
   ),
 )(ConsumerMembershipValidator);

@@ -30,7 +30,7 @@ export type OwnProps = {
   companies: FranchiseCompany[];
   selectedCompanyId?: number;
   asManager: boolean;
-  handleCompanySelected: (company: number) => () => void;
+  handleCompanySelected: (company: number, name: string) => () => void;
   createOrUpdateCompanyGroup: (
     data: any,
     options: OptionCallback<CompanyGroup>,
@@ -62,7 +62,7 @@ const FranchiseCompanySearchList = (props: Props) => {
             divider
             selected={company.id === selectedCompanyId}
             className={classes.row}
-            onClick={handleCompanySelected(company.id)}
+            onClick={handleCompanySelected(company.id, company.name)}
           >
             <div className={classes.companyRow}>
               <Avatar
@@ -106,7 +106,7 @@ const FranchiseCompanySearchList = (props: Props) => {
                   <CompanyListItem
                     company={c}
                     key={c.id}
-                    onClick={handleCompanySelected(c.id)}
+                    onClick={handleCompanySelected(c.id, c.name)}
                   />
                 ))}
             </Paper>
@@ -120,7 +120,7 @@ const FranchiseCompanySearchList = (props: Props) => {
               <CompanyListItem
                 company={company}
                 key={company.id}
-                onClick={handleCompanySelected(company.id)}
+                onClick={handleCompanySelected(company.id, company.name)}
               />
             ))}
         </Paper>

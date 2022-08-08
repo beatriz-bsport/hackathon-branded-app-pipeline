@@ -74,12 +74,14 @@ import {
 import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
 import CustomFormViewDialogComponent from '#libs/custom-form/components/consumer-form/CustomFormViewDialog.component';
 import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
+import { retrieveFranchise } from '#libs/franchise/actions';
 import type { OptionCallback } from '../../state/types';
 import type { CustomFormFilled } from '#libs/custom-form/types';
 import type { RootState } from '../../reducers';
 import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
 import { getMyControlableMemberList } from '../../libs/relationship/selectors';
 import { fetchMyControlableMemberList } from '../../libs/relationship/actions';
+import { getFranchisor } from '../../libs/franchise/selectors';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
   MARKETPLACE_PATH_TAB_CALENDAR_V2,
@@ -196,7 +198,11 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   fetchData = () => {
-    this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyTheme(this.props.companyId, {
+      onSuccess: (theme) => {
+        if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
+      },
+    });
     this.props.fetchCompanyCustomSignUp({ company: this.props.companyId });
     this.props.fetchMarketplaceSettings(this.props.companyId, {
       onSuccess: this.sanitizeURL,
@@ -567,7 +573,9 @@ export class MarketPlace extends Component<Props, State> {
                     error={this.props.auth.error}
                     loading={this.props.auth.loading}
                     requestSignUp={() => this.toggleSignUp(true)}
+                    franchisor={this.props.franchisor}
                     company
+                    theme={this.props.theme}
                     isPremium
                     logoHidden
                     marketplace
@@ -757,10 +765,14 @@ export default compose(
       navigateToRelationAccount: navigateToRelationAccountAction,
       navigateBackToMasterRelation: navigateBackToMasterRelationAction,
       fetchMyControlableMemberList,
+      retrieveFranchise,
       // navigation
       replace,
     },
   ),
+  connect((state: RootState, { theme }) => ({
+    franchisor: theme?.franchisor ? getFranchisor(state) : undefined,
+  })),
   withHandlers({
     navigateBackToMasterRelation:
       ({ companyId, navigateBackToMasterRelation, companyName }) =>

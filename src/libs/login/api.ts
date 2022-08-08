@@ -7,6 +7,7 @@ import {
   postAuth,
   putAuth,
   post,
+  buildUrlParams,
 } from '../../http';
 
 export const fetchTempPassword = () =>
@@ -42,11 +43,16 @@ export const signup = async (formData: any) => {
   return post(`${API_URI}/auth/signup`, formData);
 };
 
-export const resetPassword = async (email: string, membership: number) => {
+export const resetPassword = async (
+  email: string,
+  membership: number,
+  franchisorId?: number | null,
+) => {
   return axios.get(
-    `${BASE_URI}/authentication/password_reset_email/${email}${
-      membership ? `?company=${membership}` : ''
-    }`,
+    `${BASE_URI}/authentication/password_reset_email/${email}${buildUrlParams({
+      ...(membership ? { company: membership } : {}),
+      ...(franchisorId ? { franchisor: franchisorId } : {}),
+    })}`,
   );
 };
 

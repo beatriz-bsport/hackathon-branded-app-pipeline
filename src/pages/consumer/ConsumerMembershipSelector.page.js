@@ -94,7 +94,7 @@ export default compose(
       fetchMoreMembership,
       linkMeToCompany: linkMeToCompanyAction,
       searchCompany: searchCompanyAction,
-      goToConsumerHome: (id) => push(`/c/${id}/`),
+      goToConsumerHome: (id, name) => push(`/m/${name || 'aaa'}/${id}/`),
     },
   ),
   withProps(({ linkMeToCompany, goToConsumerHome }) => ({

@@ -73,6 +73,7 @@ export type Theme = {
   vod_providers: Array<number>;
   has_stripe_location: boolean;
   widget_theme: WidgetCustomCSS;
+  franchisor: number | null;
 };
 
 export type ThemeState = {

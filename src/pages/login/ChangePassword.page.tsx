@@ -12,12 +12,14 @@ import { push as pushRouter } from 'connected-react-router';
 import { withProps, compose } from 'recompose';
 import { RootState } from '../../reducers';
 import themeSelectors from '#libs/theme/selectors';
-import { parseQueryString } from '../../http';
+import { parseQueryString, buildUrlParams } from '../../http';
 
 import LoginBase from '../../components/navigation/LoginBase.component';
 import { changePassword as changePasswordAPI } from '../../libs/login/api';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { retrieveFranchise } from '../../libs/franchise/actions';
+import { getFranchisor } from '../../libs/franchise/selectors';
 
 const styles = (theme: Theme) => ({
   formContainer: {
@@ -67,7 +69,14 @@ export class ChangePassword extends Component<Props, State> {
     this.token = this.props.match.params.token;
 
     if (this.props.membership) {
-      this.props.fetchCompanyTheme(this.props.membership);
+      this.props.fetchCompanyTheme(this.props.membership, {
+        onSuccess: (theme) => {
+          if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
+        },
+      });
+    }
+    if (this.props.franchisor) {
+      this.props.retrieveFranchise(this.props.franchisorId);
     }
   }
 
@@ -106,6 +115,7 @@ export class ChangePassword extends Component<Props, State> {
           this.props.pushToLogin(
             'login.passwordChangedSuccess',
             this.props.membership,
+            this.props.franchisorId,
           );
         }
       } catch (e) {
@@ -129,7 +139,7 @@ export class ChangePassword extends Component<Props, State> {
     const { t, classes } = this.props;
     const { processing, hasExpired, password1, error, password2 } = this.state;
     return (
-      <LoginBase theme={this.props.theme}>
+      <LoginBase theme={this.props.franchisor || this.props.theme}>
         <form onSubmit={this.onSubmit} className={classes.formContainer}>
           <Grid container direction="column" spacing={2} alignItems="center">
             <Grid item>
@@ -183,7 +193,10 @@ export class ChangePassword extends Component<Props, State> {
               {!!hasExpired && (
                 <Button
                   onClick={() =>
-                    this.props.requestResetLink(this.props.membership)
+                    this.props.requestResetLink(
+                      this.props.membership,
+                      this.props.franchisorId,
+                    )
                   }
                   color="primary"
                   variant="contained"
@@ -211,19 +224,32 @@ function mapDispatchToProps(dispatch: Dispatch) {
     fetchCompanyTheme(companyId: number) {
       dispatch(fetchCompanyTheme(companyId));
     },
-    requestResetLink(membership: number | null) {
+    retrieveFranchise(franchisorId: number) {
+      dispatch(retrieveFranchise(franchisorId));
+    },
+    requestResetLink(membership: number | null, franchisorId: number | null) {
       dispatch(
         pushRouter(
-          `/login/reset_password${
-            membership ? `?membership=${membership}` : ''
-          }`,
+          `/login/reset_password${buildUrlParams({
+            ...(membership ? { membership } : {}),
+            ...(franchisorId ? { franchisor: franchisorId } : {}),
+          })}`,
         ),
       );
     },
-    pushToLogin(successMessage: string, membership: number | null) {
+    pushToLogin(
+      successMessage: string,
+      membership: number | null,
+      franchisorId: number | null,
+    ) {
       dispatch(snackbarSuccess(successMessage));
       dispatch(
-        pushRouter(`/login${membership ? `?membership=${membership}` : ''}`),
+        pushRouter(
+          `/login${buildUrlParams({
+            ...(membership ? { membership } : {}),
+            ...(franchisorId ? { franchisor: franchisorId } : {}),
+          })}`,
+        ),
       );
     },
   };
@@ -235,10 +261,17 @@ export default compose(
   withStyles(styles),
   withTranslation(),
   withProps((props) => {
-    const { membership } = parseQueryString(props.location?.search || '');
+    const { membership, franchisor } = parseQueryString(
+      props.location?.search || '',
+    );
     return {
       membership,
+      franchisorId: franchisor,
     };
   }),
   connector,
+  connect((state: RootState, { theme, franchisorId }) => ({
+    franchisor:
+      theme?.franchisor || franchisorId ? getFranchisor(state) : undefined,
+  })),
 )(ChangePassword);

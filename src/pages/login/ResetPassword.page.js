@@ -13,7 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/HelpOutlined';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { parseQueryString } from '../../http';
+import { parseQueryString, buildUrlParams } from '../../http';
 
 import { resetPassword } from '../../actions/auth.actions';
 
@@ -29,6 +29,7 @@ type Props = {
   t: TFunction,
   last_password_reset_request: string,
   membership: null | number,
+  franchisorId: ?string,
 };
 
 type State = {
@@ -59,9 +60,14 @@ export class ResetPassword extends Component<Props, State> {
   };
 
   resetPassword = () => {
-    this.props.resetPassword(this.state.email, this.props.membership, {
-      onSuccess: () => this.setState({ hasSent: true }),
-    });
+    this.props.resetPassword(
+      this.state.email,
+      this.props.membership,
+      this.props.franchisorId && parseInt(this.props.franchisorId, 10),
+      {
+        onSuccess: () => this.setState({ hasSent: true }),
+      },
+    );
   };
 
   getSendingButton = () => (
@@ -74,9 +80,18 @@ export class ResetPassword extends Component<Props, State> {
     >
       <Link
         style={{ textDecoration: 'none' }}
-        to={`/login${
-          this.props.membership ? `?membership=${this.props.membership}` : ''
-        }`}
+        to={`/login${buildUrlParams({
+          ...(this.props.membership
+            ? {
+                membership: this.props.membership,
+              }
+            : {}),
+          ...(this.props.franchisorId
+            ? {
+                franchisor: this.props.franchisorId,
+              }
+            : {}),
+        })}`}
       >
         <Button>{this.props.t('resetPassword.actions.cancel')}</Button>
       </Link>
@@ -245,5 +260,6 @@ export default compose(
   withStyles(styles),
   withProps((props) => ({
     membership: parseQueryString(props.location.search)?.membership,
+    franchisorId: parseQueryString(props.location.search)?.franchisor,
   })),
 )(ResetPassword);

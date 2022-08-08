@@ -18,7 +18,7 @@ export type OwnProps = {
   disconnect: () => void;
   selectedFranchisee: number;
   setSelectedFranchisee: (id: number) => void;
-  goToCompanyMemberProfilePage?: (id: number) => void;
+  goToCompanyMemberProfilePage?: (id: number, name: string) => void;
   // goToSignup?: ({
   //   membership,
   //   franchisor,
@@ -37,13 +37,14 @@ const FranchiseCompanyLogin = (props: Props) => {
   const { authenticated, companies, setStep, t, disconnect, context } = props;
   const classes = useStyles();
 
-  const handleCompanySelected = (selectedCompany: number) => () => {
-    if (props.authenticated) {
-      props.goToCompanyMemberProfilePage(selectedCompany);
-    } else {
-      props.goToSignup(selectedCompany);
-    }
-  };
+  const handleCompanySelected =
+    (selectedCompany: number, name: string) => () => {
+      if (props.authenticated) {
+        props.goToCompanyMemberProfilePage(selectedCompany, name);
+      } else {
+        props.goToSignup(selectedCompany);
+      }
+    };
 
   return (
     <div className={classes.container}>

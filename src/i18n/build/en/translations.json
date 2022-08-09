@@ -1882,7 +1882,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Hour(s) before the start of the session:",
                     "min_bookings_nb": "Number of booking(s) :",
-                    "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session.",
+                    "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session. You can also set up an email to send to students.",
                     "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had booked this session will be informed that the session has been cancelled.",
                     "checkbox": "Automatically cancel underoccupied sessions"
                 }
@@ -2162,26 +2162,27 @@
             "452": "New appointment (for members)",
             "451": "Appointment canceled - refunded (for members)",
             "450": "Appointment - late-cancel (for members)",
-            "403": "Modification in timetable (for staff)",
-            "402": "New appointment (for staff)",
-            "401": "The appointment was cancelled and has been refunded (for staff)",
-            "400": "The appointment was cancelled too late (for staff)",
+            "403": "Modification in timetable (for teachers)",
+            "402": "New appointment (for teachers)",
+            "401": "The appointment was cancelled and has been refunded (for teachers)",
+            "400": "The appointment was cancelled too late (for teachers)",
             "300": "A member that hasn't responded in time and has been kicked from the waitlist",
             "22": "Invoice confirmation",
-            "601": "When underoccupied sessions get automatically cancelled (for members and staff)",
+            "601": "When underoccupied sessions get automatically cancelled (teachers)",
             "702": "Penalty: a fine has been added to the internal account balance (for members)",
             "701": "Penalty: the pass has been temporarily blocked (for members)",
             "530": "Disputed payment for a subscription",
             "520": "A Smart Retry will be done for a failed payment for a subscription",
             "515": "The pass of the subscription has been automatically deactivated",
             "510": "Failed payment for a subscription",
-            "481": "Recurring appointment has been cancelled due to a lack of availability (member)",
+            "481": "Recurring appointment has been cancelled due to a lack of availability (members)",
             "480": "Recurring appointment has been cancelled due to a lack of availability (teacher)",
             "987": "Attempt to collect an installment payment",
             "801": "Cancelled appointment group",
-            "103": "Modified session (for staff)",
-            "102": "Cancelled session (for staff)",
-            "101": "Reminder that the livestream starts in 15 minutes (for staff)"
+            "103": "Modified session (for teachers)",
+            "102": "Cancelled session (for teachers)",
+            "101": "Reminder that the livestream starts in 15 minutes (for teachers)",
+            "602": "When underoccupied sessions get automatically cancelled (members)"
         },
         "messages": {
             "createOrUpdate": {
@@ -4322,7 +4323,8 @@
                     "success": "Access rights modified",
                     "error": "Impossible to modify access rights",
                     "errorEmail": "This email is already used for a teacher or member account"
-                }
+                },
+                "selectCoach": "Select teachers"
             },
             "role": {
                 "delete": {
@@ -4340,7 +4342,9 @@
                     "buttonCreate": "Add role  ",
                     "restrictedUrl": "Restricted URLs",
                     "restrictedUrlPlaceholder": "Example: /member/",
-                    "restrictedUrlExplain": "Use this option to Whitelist the URLs and access for people associated to this Role."
+                    "restrictedUrlExplain": "Use this option to Whitelist the URLs and access for people associated to this Role.",
+                    "authorizeManagerExplain": "The staff with this role will be able to force actions like the manager : force the booking of a session in an unavailable establishment, force the booking with an unavailable teacher, exceed the maximum number of members registered to a session.",
+                    "authorizeManagerAction": "Give staff the control of a manager"
                 }
             }
         },
@@ -4610,7 +4614,8 @@
                 },
                 "_label": "AppBar actions"
             }
-        }
+        },
+        "overbookingForbidden": "The rights you have been granted as a staff member do not allow you to exceed the maximum number of reservations."
     },
     "theme": {
         "forms": {
@@ -7910,7 +7915,9 @@
             "negative_voucher": "Discount",
             "remaining_credits_annotated": "Today's remaining credits",
             "annotated_remaining_credits": "Remaning credits",
-            "private_passcredits": "Remaning credits"
+            "private_passcredits": "Remaning credits",
+            "unpaid_amount": "Total unpaid amount",
+            "total_unpaid_amount": "Total unpaid amount"
         },
         "yes": "Yes",
         "no": "No",
@@ -8243,7 +8250,7 @@
                 "months": "month",
                 "weeks": "week",
                 "days": "day",
-                "limit_reach": "The booking limit has been reacher for this {{unit}}"
+                "limit_reach": "The booking limit has been reached for this {{unit}}"
             }
         },
         "notificationToolTip": "Notifications are definied for this pass",
@@ -10994,6 +11001,14 @@
             },
             "update": {
                 "success": "Modified permissions"
+            },
+            "noMasterControl": {
+                "overrideCoachNotAllowed": "You cannot force an appointment with this teacher.",
+                "changeDateCoachUnaivalable": "Impossible to book on this date: the teacher is not available.",
+                "changeDateEstablishmentUnaivalable": "Impossible to book on this date: the establishment is not available.",
+                "overrideEstablishmentNotAllowed": "You cannot force an appointment in this establishment.",
+                "overbookingNotAllowedInWaitingList": "You cannot exceed the maximum capacity of the waiting list.",
+                "overbookingNotAllowed": "You cannot exceed the maximum number of reservations."
             }
         },
         "notificationRule": {

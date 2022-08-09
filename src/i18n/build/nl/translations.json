@@ -189,9 +189,9 @@
             "3": "Geannuleerde sessies (leden)",
             "22": "Factuurbevestiging",
             "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
-            "601": "Automatische annulering van onderbezette sessies (leden en instructeurs)",
-            "702": "Sanctie: er is een boete opgelegd (voor leden)",
-            "701": "Sanctie: de kaart is tijdelijk geblokkeerd (voor leden)",
+            "601": "Automatische annulering van onderbezette sessies (instructeurs)",
+            "702": "Sanctie: er is een boete opgelegd (leden)",
+            "701": "Sanctie: de kaart is tijdelijk geblokkeerd (leden)",
             "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
             "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
             "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
@@ -203,7 +203,8 @@
             "801": "Afgezegde afspraak groep",
             "103": "Gewijzigde sessies (instructeurs)",
             "102": "Geannuleerde sessies (instructeurs)",
-            "101": "Herinnering 15 minuten voor de online les (instructeurs)"
+            "101": "Herinnering 15 minuten voor de online les (instructeurs)",
+            "602": "Automatische annulering van onderbezette sessies (leden)"
         },
         "tag": {
             "BookingOption": {
@@ -443,7 +444,7 @@
             "sessions": {
                 "title": "Sessies"
             },
-            "closeMemberMatch": "Op zoek naar dit lid?",
+            "closeMemberMatch": "Voorgesteld zoekresultaat",
             "archived": "Gearchiveerde leden"
         },
         "noResult": "Geen resultaat",
@@ -1477,7 +1478,7 @@
                     "hours_before_start": "Aantal uur voor het begin van de sessie:",
                     "explain": "Annuleer sessies met ≤ {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
                     "checkbox": "Automatisch onderbezette sessies annuleren",
-                    "emailRecipients": "Een e-mail van de automatische annulering wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
+                    "emailRecipients": "Een e-mail van de automatische annulering wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie. Het is ook mogelijk om direct een bericht naar de ingeschreven leden te versturen.",
                     "min_bookings_nb": "Aantal reserveringen:"
                 }
             }
@@ -2351,7 +2352,9 @@
             "negative_voucher": "Korting",
             "remaining_credits_annotated": "Overige kredieten van vandaag",
             "annotated_remaining_credits": "Overige kredieten",
-            "private_passcredits": "Overige kredieten"
+            "private_passcredits": "Overige kredieten",
+            "unpaid_amount": "Onbetaald (totaal)",
+            "total_unpaid_amount": "Onbetaald (totaal)"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -8265,6 +8268,14 @@
             },
             "update": {
                 "success": "Machtigingen gewijzigd"
+            },
+            "noMasterControl": {
+                "changeDateCoachUnaivalable": "Deze instructeur is niet beschikbaar voor deze reservering",
+                "changeDateEstablishmentUnaivalable": "Deze vestiging is niet beschikbaar voor deze reservering",
+                "overrideCoachNotAllowed": "Het is niet toegestaan om een reservering met deze instructeur voor deze afspraak te forceren",
+                "overrideEstablishmentNotAllowed": "Het is niet toegestaan om een reservering binnen deze vestiging te forceren",
+                "overbookingNotAllowedInWaitingList": "Het is niet toegestaan om de maximale capaciteit van de wachtlijst te overschrijden",
+                "overbookingNotAllowed": "Het is niet toegestaan om het maximum aantal reserveringen te overschrijden"
             }
         },
         "shop": {
@@ -10567,7 +10578,8 @@
                     "content": "Weet je zeker dat je dit account wilt verwijderen?",
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
-                }
+                },
+                "selectCoach": "Selecteer de instructeurs"
             },
             "role": {
                 "delete": {
@@ -10585,7 +10597,9 @@
                     "name": "Naam",
                     "title": "[Formulier] Rol",
                     "buttonCreate": "Een rol toevoegen  ",
-                    "restrictedUrlExplain": "Gebruik deze optie om bepaalde URL's op de Whitelist te zetten zodat alleen gekoppelde medewerkers bepaalde onderdelen kan gebruiken."
+                    "restrictedUrlExplain": "Gebruik deze optie om bepaalde URL's op de Whitelist te zetten zodat alleen gekoppelde medewerkers bepaalde onderdelen kan gebruiken.",
+                    "authorizeManagerAction": "Managersbevoegdheden verlenen",
+                    "authorizeManagerExplain": "Medewerkersaccounts met deze rol kunnen de volgende acties doen: (1) reserveringen forceren indien een vestiging onbeschikbaar is, (2) reserveringen forceren indien een instructeur onbeschikbaar is en (3) het maximum aantal leden per sessie overschrijden."
                 }
             }
         },
@@ -10854,7 +10868,8 @@
                 },
                 "_label": "AppBar-acties"
             }
-        }
+        },
+        "overbookingForbidden": "Je medewerkersaccount kan niet het maximum aantal reserveringen overschrijden."
     },
     "navigation": {
         "backofficeMenu": {

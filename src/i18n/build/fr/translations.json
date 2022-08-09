@@ -3250,7 +3250,7 @@
         "settings": {
             "conditions": "Conditions",
             "title": "Paramètres",
-            "lastBookingBeforeMinutes": "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
+            "lastBookingBeforeMinutes": "Les membres peuvent annuler sans frais jusqu'à {{m}} avant le début de la séance",
             "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
             "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
             "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance"
@@ -3991,7 +3991,7 @@
             "6": "AMEX",
             "7": "Virement",
             "8": "EventBrite",
-            "9": "Compte interne (crédit)",
+            "9": "Payer sur place",
             "10": "Paiement automatique",
             "11": "Divers",
             "12": "Litige",
@@ -9744,7 +9744,7 @@
             "EVENT_BRITE": "EventBrite",
             "AMEX": "AMEX",
             "BANK_TRANSFER": "Virement",
-            "CREDIT_ACCOUNT": "Compte interne (crédit)",
+            "CREDIT_ACCOUNT": "Payer sur place",
             "SUBSCRIPTION_CB": "Paiement automatique",
             "OTHER": "Divers"
         },
@@ -10375,7 +10375,7 @@
                 "EVENT_BRITE": "EventBrite",
                 "AMEX": "AMEX",
                 "BANK_TRANSFER": "Virement",
-                "CREDIT_ACCOUNT": "Compte interne (crédit)",
+                "CREDIT_ACCOUNT": "Payer sur place",
                 "SUBSCRIPTION_CB": "Paiement planifié",
                 "OTHER": "Divers",
                 "DISPUTE": "Litige"

@@ -28,7 +28,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Hora(s) antes de la sesión :",
                     "min_bookings_nb": "Número de reserva(s):",
-                    "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión.",
+                    "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión. También puedes configurar un correo electrónico para enviarlo a los estudiantes.",
                     "explain": "Cancele la sesión y envíe una notificación por correo a los estudiantes si hay {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
                     "checkbox": "Cancelar sesiones con muy pocas reservas"
                 }
@@ -3865,7 +3865,9 @@
             "payout_status": "Estado de transferencia",
             "payout": "Transferencia",
             "annotated_remaining_credits": "Crédito restante",
-            "private_passcredits": "Crédito restante"
+            "private_passcredits": "Crédito restante",
+            "unpaid_amount": "Importe total pendiente",
+            "total_unpaid_amount": "Importe total pendiente"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5080,20 +5082,21 @@
             "25": "Cambio de método de pago",
             "300": "Kick (No validada a tiempo demasiadas veces)",
             "22": "Confirmación de factura",
-            "601": "Muy pocas reservas N horas antes del comienzo de la sesión (miembros y profesores)",
-            "701": "Penalización de bono: bono bloqueado (estudiante)",
-            "702": "Penalización de bono: cargo en la cuenta creada (estudiante)",
+            "601": "Muy pocas reservas N horas antes del comienzo de la sesión (profesores)",
+            "701": "Penalización de bono: bono bloqueado (estudiantes)",
+            "702": "Penalización de bono: cargo en la cuenta creada (estudiantes)",
             "530": "Disputa sobre el pago de una suscripción",
             "520": "El pago fallido de una suscripción se volverá a intentar",
             "515": "Bono del abono desactivado automáticamente",
             "510": "Pago fallido de una suscripción",
-            "481": "Cita recurrente anulada por falta de disponibilidad (estudiante)",
+            "481": "Cita recurrente anulada por falta de disponibilidad (estudiantes)",
             "480": "Cita recurrente anulada por falta de disponibilidad (profesor)",
             "987": "Intentar cobrar un plazo",
             "801": "Grupo de citas cancelado",
             "103": "Sesión modificada (profesor)",
             "102": "Cancelación sesión (profesor)",
-            "101": "Recordatoria curso en línea en 15 minutos (profesor)"
+            "101": "Recordatoria curso en línea en 15 minutos (profesor)",
+            "602": "Muy pocas reservas N horas antes del comienzo de la sesión (estudiantes)"
         },
         "tag": {
             "BookingOption": {
@@ -7280,7 +7283,8 @@
                     "lastName": {
                         "label": "Apellido"
                     }
-                }
+                },
+                "selectCoach": "Seleccionar a los profesores"
             },
             "role": {
                 "delete": {
@@ -7298,7 +7302,9 @@
                     "name": "Nombre",
                     "title": "Definir el nivel de acceso",
                     "buttonCreate": "Añadir nivel de acceso  ",
-                    "restrictedUrlExplain": "Utilice esta configuración para definir una lista blanca de URLs para este rol. El personal asociado a este rol sólo podrá acceder a las URLs que se indican a continuación"
+                    "restrictedUrlExplain": "Utilice esta configuración para definir una lista blanca de URLs para este rol. El personal asociado a este rol sólo podrá acceder a las URLs que se indican a continuación",
+                    "authorizeManagerExplain": "El staff con este papel podrá forzar acciones como el manager: forzar la reserva de una sesión en un establecimiento no disponible, forzar la reserva con un profesor no disponible, superar el número máximo de miembros registrados a una sesión.",
+                    "authorizeManagerAction": "Dar al staff el control de un manager"
                 }
             }
         },
@@ -7570,7 +7576,8 @@
                 },
                 "_label": "Barra de aplicación de acciones"
             }
-        }
+        },
+        "overbookingForbidden": "Los derechos que se te han concedido como staff no te permite superar el número máximo de reservas."
     },
     "authentication": {
         "resetPassword": {
@@ -8295,6 +8302,14 @@
             },
             "update": {
                 "success": "Permisos modificados"
+            },
+            "noMasterControl": {
+                "changeDateCoachUnaivalable": "Imposible reservar en esta fecha: el profesor no está disponible.",
+                "changeDateEstablishmentUnaivalable": "Imposible reservar en esta fecha: el establecimiento no está disponible.",
+                "overrideEstablishmentNotAllowed": "No puedes forzar la cita en este establecimiento.",
+                "overrideCoachNotAllowed": "No puedes forzar la cita con este profesor.",
+                "overbookingNotAllowedInWaitingList": "No puedes superar la capacidad máxima de la lista de espera.",
+                "overbookingNotAllowed": "No puedes superar el número máximo de reservas."
             }
         },
         "notificationRule": {

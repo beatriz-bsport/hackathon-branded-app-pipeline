@@ -1,8 +1,7 @@
-// @flow
-
 import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
@@ -15,18 +14,27 @@ import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
+import { Theme, WithStyles } from '@material-ui/core';
+import { AxiosResponse } from 'axios';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
-
 import { formatAsDate } from '../../utils/datetime';
+
+import { Member } from '#libs/member/types';
+import { Tag } from '#libs/tag/types';
 
 const MEMBER_PER_PAGE = 50;
 
-const renderRows = (members, t, goToMember, interrogateMemberStatus) => {
-  return members.map((member) =>
+const renderRows = (
+  members: Member[],
+  t: TFunction,
+  goToMember: (id: number) => any,
+  interrogateMemberStatus: (id: number) => void,
+) => {
+  return members.map((member: Member) =>
     renderRow(member, t, goToMember, interrogateMemberStatus),
   );
 };
-const getColumnData = (t) => {
+const getColumnData = (t: TFunction) => {
   return [
     {
       name: 'name',
@@ -77,7 +85,11 @@ const renderCreditAccountBalance = (credit_account_balance: number) => (
   </Typography>
 );
 
-const renderActions = (id, goToMemberPage, interrogateMemberStatus) => (
+const renderActions = (
+  id: number,
+  goToMemberPage: (id: number) => any,
+  interrogateMemberStatus: (id: number) => void,
+) => (
   <>
     <IconButton onClick={() => goToMemberPage(id)} color="primary">
       <VisibilityIcon />
@@ -95,7 +107,12 @@ const renderActions = (id, goToMemberPage, interrogateMemberStatus) => (
     )}
   </>
 );
-const renderRow = (member, t, goToMemberPage, interrogateMemberStatus) => {
+const renderRow = (
+  member: Member,
+  t: TFunction,
+  goToMemberPage: (id: number) => any,
+  interrogateMemberStatus: (id: number) => void,
+) => {
   const { credit_account_balance, date_joined, name, id, accept_email } =
     member;
   return {
@@ -111,27 +128,40 @@ const renderRow = (member, t, goToMemberPage, interrogateMemberStatus) => {
   };
 };
 
-type Props = {
-  t: TFunction,
-  classes: Object,
-  fetch: ({ page: number, page_size: number }) => void,
-  goToMember: (id: number) => void,
-  addMember: () => void,
-  tagsExcluded: Array<Tag>,
-  tagsIncluded: Array<Tag>,
-  customToolBar: () => any,
-  onValueChangeActiveMemberFetch: boolean,
-  hideAddButton: boolean,
-  interrogateMemberStatus: (id: number) => void,
-  disabledMemberId: Array<number>,
-  noDataText?: string,
+type OwnProps = {
+  fetch: ({
+    page,
+    page_size,
+    tags_included,
+    tags_excluded,
+    exclude_archived,
+  }: {
+    page: number;
+    page_size: number;
+    tags_included?: Array<Tag['id']>;
+    tags_excluded?: Array<Tag['id']>;
+    exclude_archived?: boolean;
+  }) => Promise<AxiosResponse<any>>;
+  goToMember: (id: number) => void;
+  addMember?: () => void;
+  tagsExcluded?: Array<Tag['id']>;
+  tagsIncluded?: Array<Tag['id']>;
+  customToolBar?: () => any;
+  onValueChangeActiveMemberFetch?: boolean;
+  hideAddButton: boolean;
+  interrogateMemberStatus?: (id: number) => void;
+  disabledMemberId?: Array<number>;
+  noDataText?: string;
 };
 
+type Props = OwnProps & WithTranslation & WithStyles;
+
 type State = {
-  members: Array<Member>,
-  loading: boolean,
-  count: number,
-  tableState: { page: number },
+  members: Array<Member>;
+  loading: boolean;
+  count: number;
+  tableState: { page: number };
+  memberPerPage: number;
 };
 
 export class MemberTable extends Component<Props, State> {
@@ -142,15 +172,16 @@ export class MemberTable extends Component<Props, State> {
     tableState: {
       page: 0,
     },
+    memberPerPage: MEMBER_PER_PAGE,
   };
 
-  fetchMemberPage = (page: number, force: ?boolean) => {
+  fetchMemberPage = (page: number, force?: boolean) => {
     if ((force || page !== this.state.tableState.page) && !this.state.loading) {
       this.setState({ loading: true });
       this.props
         .fetch({
           page,
-          page_size: MEMBER_PER_PAGE,
+          page_size: this.state.memberPerPage,
           tags_included: this.props.tagsIncluded,
           tags_excluded: this.props.tagsExcluded,
           exclude_archived: true,
@@ -189,14 +220,11 @@ export class MemberTable extends Component<Props, State> {
     }
   }
 
-  refreshPage = (id: number) => {
-    this.setState((prevState) => ({
-      processing: [...prevState.processing, id],
-    }));
-    this.fetchMemberPage(this.state.tableState.page);
+  refreshForce = () => {
+    this.fetchMemberPage(1, true);
   };
 
-  onRowClick = (rowData, { rowIndex }) => {
+  onRowClick = (rowData: any, { rowIndex }: { rowIndex: number }) => {
     this.props.goToMember(this.state.members[rowIndex].id);
   };
 
@@ -231,16 +259,16 @@ export class MemberTable extends Component<Props, State> {
           noMatch: loading ? null : noMember,
         },
       },
-      onTableChange: (action, tableState) => {
+      onTableChange: (action: any, tableState: any) => {
         this.fetchMemberPage(tableState.page + 1);
       },
       customToolbar: this.props.customToolBar,
       customFooter: (
-        count,
-        page,
-        rowsPerPage,
-        changeRowsPerPage,
-        changePage,
+        count: number,
+        page: number,
+        rowsPerPage: number,
+        changeRowsPerPage: (rows: number) => void,
+        changePage: (page: number) => void,
       ) => (
         <React.Fragment>
           {!!this.state.loading && <LinearProgress style={{ width: '100%' }} />}
@@ -263,10 +291,14 @@ export class MemberTable extends Component<Props, State> {
                   count={count}
                   rowsPerPage={rowsPerPage}
                   page={page}
-                  onChangePage={(_, page_) => changePage(page_)}
-                  onChangeRowsPerPage={(event) =>
-                    changeRowsPerPage(event.target.value)
-                  }
+                  onPageChange={(_, page_) => changePage(page_)}
+                  onRowsPerPageChange={(event) => {
+                    this.setState(
+                      { memberPerPage: parseInt(event.target.value) },
+                      this.refreshForce,
+                    );
+                    changeRowsPerPage(parseInt(event.target.value));
+                  }}
                   rowsPerPageOptions={[10, 15, MEMBER_PER_PAGE, 100]}
                 />
               </div>
@@ -293,7 +325,7 @@ export class MemberTable extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -305,7 +337,7 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['member']),
 )(MemberTable);

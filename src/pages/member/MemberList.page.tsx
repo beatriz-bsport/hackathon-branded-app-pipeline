@@ -10,15 +10,15 @@ import { compose, withState } from 'recompose';
 import { createStyles, WithStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { TFunction } from 'i18next';
-import { fetchMemberList } from '../../libs/member/api';
+import { fetchMemberList } from '#libs/member/api';
 import withTitle from '../../hocs/with-title.hoc';
-import { getPermissions } from '../../libs/role/selectors';
-import MemberTable from '../../libs/member/MemberTable.component';
-import TagChipList from '../../libs/tag/components/TagChipList.component';
-import TagFilterForm from '../../libs/tag/components/TagFilterForm.component';
-import tagSelectors from '../../libs/tag/selectors';
-import type { Tag } from '../../libs/tag/types';
-import { fetchTags } from '../../libs/tag/actions';
+import { getPermissions } from '#libs/role/selectors';
+import MemberTable from '#libs/member/MemberTable.component';
+import TagChipList from '#libs/tag/components/TagChipList.component';
+import TagFilterForm from '#libs/tag/components/TagFilterForm.component';
+import tagSelectors from '#libs/tag/selectors';
+import type { Tag } from '#libs/tag/types';
+import { fetchTags } from '#libs/tag/actions';
 import { RootState } from '../../reducers';
 import {
   archiveMember,

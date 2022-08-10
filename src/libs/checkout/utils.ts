@@ -16,10 +16,7 @@ export const getBasketTotalPriceExcludingTax = (
   // if we don't have items, or items with no quantity, price returned is always 0
   if (
     !basket.checkout_items.length ||
-    basket.checkout_items.reduce(
-      (acc, ci) => (ci.tax ? acc + ci.quantity : acc),
-      0,
-    ) === 0
+    basket.checkout_items.reduce((acc, ci) => acc + ci.quantity || 0, 0) === 0
   ) {
     return 0;
   }
@@ -34,19 +31,14 @@ export const getBasketTotalPriceExcludingTax = (
     sum_prices_without_vouchers !== 0
       ? // if the sum of the prices is not null, we take the mean tax pondered by prices
         basket.checkout_items.reduce(
-          (acc, ci) =>
-            ci.tax ? acc + ci.unit_price * ci.tax * ci.quantity : acc,
+          (acc, ci) => acc + ci.unit_price * (ci.tax || 0) * ci.quantity,
           0,
         ) / sum_prices_without_vouchers
       : // else, in the situation where all prices are null, we ponderate through quantity
         basket.checkout_items.reduce(
-          (acc, ci) => (ci.tax ? acc + ci.tax * ci.quantity : acc),
+          (acc, ci) => acc + (ci.tax || 0) * ci.quantity,
           0,
-        ) /
-        basket.checkout_items.reduce(
-          (acc, ci) => (ci.tax ? acc + ci.quantity : acc),
-          0,
-        );
+        ) / basket.checkout_items.reduce((acc, ci) => acc + ci.quantity, 0);
 
   const sum_prices = basket.checkout_items.reduce(
     (acc, ci) => acc + ci.unit_price * ci.quantity,

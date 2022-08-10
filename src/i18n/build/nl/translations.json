@@ -4164,7 +4164,7 @@
                     "groupName": "Naam",
                     "daily": "Dagelijks",
                     "recurrence": "Frequentie",
-                    "recurrenceNumberPrefix": "Herhaal alles",
+                    "recurrenceNumberPrefix": "Herhaal ieder(e)",
                     "preview": "Voorvertoning",
                     "recurrenceUntil": "Herhalen tot",
                     "recurrenceCount": "Aantal herhalingen",
@@ -6228,7 +6228,7 @@
                 "loginButton": "Inlogknop",
                 "giftcard": "Cadeaubonnen",
                 "paymentPackTemplate": "Gedeelde leskaarten",
-                "calendarV2": "Agenda (nieuw weekoverzicht)"
+                "calendarV2": "Agenda (herontwerp)"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -6980,7 +6980,7 @@
                 "slots": {
                     "title": "Sessie",
                     "isEmpty": "Je hebt nog geen sessies toegevoegd.",
-                    "explainIsEmpty": "Configureer hier je afspraken (duur, kosten, etc.)"
+                    "explainIsEmpty": "Configureer de verschillende sessies van dit type afspraak, zoals de duur, prijzen en meer."
                 },
                 "description": "Beschrijving",
                 "coaches": {
@@ -7493,7 +7493,7 @@
         "provision": {
             "total_sales": "Aantal verkochte artikelen:",
             "current_stock": "Huidige voorraad",
-            "noProvisionHistory": "Geen verkoopgeschiedenis",
+            "noProvisionHistory": "Er is geen geschiedenis om weer te geven.",
             "form": {
                 "title": "Voorraadwijziging",
                 "quantityLabel": "Aantal",
@@ -7586,7 +7586,7 @@
                 "baseRemunerationTypeError": "Het vaste bedrag moet een positief getal zijn.",
                 "baseRemunerationRequired": "Het veld \"Vast bedrag\" is een verplicht veld als je dit hebt aangevinkt.",
                 "invalideUpperInterval": "De maximale interval moet een getal zijn.",
-                "invalideIntervals": "Je kunt intervallen voor bonussen niet combineren.",
+                "invalideIntervals": "Intervallen kunnen niet gecombineerd worden.",
                 "invalidLowerInterval": "Het bovenste interval moet groter dan het onderste interval zijn.",
                 "invalidBonusAmount": "De bonus moet gelijk of groter dan 0,1 zijn.",
                 "nameRequired": "Dit veld is verplicht.",
@@ -7607,11 +7607,11 @@
                 "from": "Van",
                 "addBonus": "EEN BONUSREGEL TOEVOEGEN",
                 "bonus": "Bonus",
-                "forInterval": "voor alle intervallen"
+                "forInterval": "per interval"
             },
             "paymentPackPlaceHolder": "Selecteer leskaarten",
             "excludePaymentPack": "Bepaalde kaarten uitsluiten",
-            "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
+            "bonusForEachReservationInInterval": "Een bonus per reservering toevoegen",
             "fixedBonusbyInterval": "Een bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
             "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",

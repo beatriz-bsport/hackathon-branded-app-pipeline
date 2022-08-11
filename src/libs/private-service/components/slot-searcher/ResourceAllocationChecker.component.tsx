@@ -37,7 +37,8 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       prevProps.resourceId !== this.props.resourceId ||
-      prevProps.updatedTime !== this.props.updatedTime
+      prevProps.updatedTime !== this.props.updatedTime ||
+      prevProps.privateSlotDuration !== this.props.privateSlotDuration
     ) {
       if (!this.props.resourceId || !this.props.updatedTime) {
         this.setState({ errorAllocation: false });

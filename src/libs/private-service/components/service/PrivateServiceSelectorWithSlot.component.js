@@ -101,7 +101,7 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                       borderLeft: `4px solid ${ps.color || 'white'}`,
                     }}
                   >
-                    {ps.slots.map((s, index) => (
+                    {ps.slots.map((s) => (
                       <ListItem
                         dense
                         disableGutters
@@ -111,7 +111,7 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                             ps.id,
                             s.id,
                             s.credit,
-                            ps.slots_duration_minute[index],
+                            s.duration_minutes,
                           );
                           this.props.setMenuAnchor(null);
                         }}

@@ -260,10 +260,14 @@ export class MarketingRuleListPage extends Component<Props, State> {
   };
 
   getCreateButtonSpec = () => [
-    {
-      label: this.props.t('marketing:notifications.fabLabels.birthday'),
-      onClick: () => this.setState({ createFormOpen: 'birthday' }),
-    },
+    ...(this.props.notifications?.birthday?.length === 0
+      ? [
+          {
+            label: this.props.t('marketing:notifications.fabLabels.birthday'),
+            onClick: () => this.setState({ createFormOpen: 'birthday' }),
+          },
+        ]
+      : []),
     {
       label: this.props.t('marketing:notifications.fabLabels.meta_activity'),
       onClick: () => this.setState({ createFormOpen: 'meta_activity' }),
@@ -290,7 +294,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
       label: this.props.t('marketing:notifications.fabLabels.payment_pack'),
       onClick: () => this.setState({ createFormOpen: 'payment_pack' }),
     },
-    this.props.notifications?.birthday?.length > 0 && {
+    {
       label: this.props.t('marketing:notifications.fabLabels.private_pass'),
       onClick: () => this.setState({ createFormOpen: 'private_pass' }),
     },

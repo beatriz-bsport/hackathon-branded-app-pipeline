@@ -27,7 +27,7 @@ import {
   getActivitiesByIdList,
 } from '../../libs/meta-activity/selectors';
 import {
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivityBulk,
   fetchMetactivities as fetchMetactivitiesAction,
 } from '../../libs/meta-activity/actions';
@@ -60,7 +60,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
-  fetchAllActivities: () => void,
+  fetchActivitiesCompany: (company: number, params?: any) => void,
   fetchMetactivities: () => void,
   onSubmit: () => void,
   onCancel: () => void,
@@ -89,7 +89,9 @@ export class PaymentPackFormPage extends React.Component<Props> {
       });
     }
     this.props.fetchEstablishments();
-    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchActivitiesCompany(this.props.theme.company, {
+      customer_enabled: true,
+    });
     this.props.fetchMetactivities();
     this.props.fetchVideoFilterableParams({ mine: true });
     this.props.fetchAllPaymentPackCategory();
@@ -192,7 +194,7 @@ export default compose(
     },
     {
       fetchEstablishments,
-      fetchAllActivities,
+      fetchActivitiesCompany,
       fetchMetaActivityBulk,
       fetchPaymentPack,
       fetchMetactivities: fetchMetactivitiesAction,

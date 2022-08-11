@@ -86,7 +86,7 @@ import {
   getEnabledWorkshops,
 } from '#libs/meta-activity/selectors';
 import {
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import {
@@ -188,7 +188,9 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
-    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchActivitiesCompany(this.props.companyId, {
+      customer_enabled: true,
+    });
     this.props.fetchMetaActivities();
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllPaymentPackCategory();
@@ -746,7 +748,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchEstablishments,
   fetchAllPaymentPacks,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchAllPaymentPackCategory,
 

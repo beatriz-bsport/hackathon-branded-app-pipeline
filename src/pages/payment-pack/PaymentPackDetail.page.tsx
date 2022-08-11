@@ -17,7 +17,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import uniqBy from 'lodash/uniqBy';
 import {
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
   fetchMetaActivityBulk,
 } from '#libs/meta-activity/actions';
@@ -199,7 +199,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
-    this.props.fetchAllActivities();
+    this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchNotificationsAndTemplatesAndSmartLists();
     this.props.fetchMassExtensionList({
@@ -677,7 +677,7 @@ const mapDispatchToProps = {
   fetchMassExtensionList,
   deleteMassExtension,
   fetchEstablishments,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
   createOrUpdatePaymentPackAction,
   fetchTagList,

@@ -28,7 +28,7 @@ import {
 } from '../../libs/establishment/selectors';
 import { fetchGiftcardList as fetchGiftcardListAction } from '../../libs/giftcard/actions';
 import { getGiftcardListEnabled } from '../../libs/giftcard/selectors';
-import { fetchAllActivities as fetchAllActivitiesAction } from '../../libs/meta-activity/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '../../libs/meta-activity/actions';
 import { fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction } from '../../libs/payment-packs/actions';
 import {
   getEnabledWorkshops,
@@ -71,7 +71,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchAllPrivateServices,
     fetchAssociatedCoachesList,
     fetchEstablishments,
-    fetchAllActivities,
+    fetchActivitiesCompany,
     fetchPlaylistList,
     fetchVideoList,
     fetchPrivateServiceGroupList,
@@ -109,7 +109,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchAllPrivateServices({ mine: true });
     fetchAssociatedCoachesList();
     fetchEstablishments();
-    fetchAllActivities();
+    fetchActivitiesCompany(company);
     fetchVideoList({ mine: true });
     fetchPlaylistList({ mine: true });
     fetchPrivateServiceGroupList({ mine: true });
@@ -126,7 +126,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     fetchAllPrivateServices,
     fetchAssociatedCoachesList,
     fetchEstablishments,
-    fetchAllActivities,
+    fetchActivitiesCompany,
     fetchVideoList,
     fetchPlaylistList,
     fetchPrivateServiceGroupList,
@@ -335,7 +335,7 @@ const mapDispatchToProps = {
   fetchAllPrivateServices: fetchAllPrivateServicesAction,
   fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
   fetchEstablishments: fetchEstablishmentsAction,
-  fetchAllActivities: fetchAllActivitiesAction,
+  fetchActivitiesCompany: fetchActivitiesCompanyAction,
   fetchPlaylistList: fetchPlaylistListAction,
   fetchVideoList: fetchVideoListAction,
   fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,

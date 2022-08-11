@@ -38,7 +38,7 @@ import {
 import { getPrivatePassListBase as getPrivatePasses } from '../../libs/private-service/selectors/private-pass';
 
 import {
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivityBulk,
 } from '#libs/meta-activity/actions';
 import {
@@ -173,7 +173,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
       this.props.fetchPrivateServiceBulk(privateServiceIds),
       this.props.fetchMetaActivityBulk(metaActivityIds),
       this.props.fetchEmailTemplateSummariesBulk(emailDesignIds),
-      this.props.fetchAllActivities(),
+      this.props.fetchActivitiesCompany(this.props.theme.company),
       this.props.fetchEstablishments(),
       this.props.fetchAllPrivateServices(),
       this.props.fetchAllPaymentPacks(),
@@ -523,7 +523,7 @@ const mapDispatchToProps = {
   updateMarketingNotification,
   createMarketingNotification,
   deleteMarketingNotification,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchEstablishments,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   fetchPrivatePassList,

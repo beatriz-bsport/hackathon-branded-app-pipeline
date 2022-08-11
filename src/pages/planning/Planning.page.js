@@ -53,7 +53,7 @@ import {
   getActiveCoaches,
   getCoachesSelectedInRole,
 } from '#libs/associated-coach/selectors';
-import { fetchAllActivities } from '#libs/meta-activity/actions';
+import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
@@ -222,7 +222,7 @@ type Props = {
   cancelledBookingStatsLoading: boolean,
   numberOfMassDisabledOfferLoading: boolean,
   fetchAssociatedCoachesList: () => void,
-  fetchAllActivities: () => void,
+  fetchActivitiesCompany: (companyId: number, params?: any) => void,
   fetchFilteredMembers: (params: any, OptionCallback) => void,
   fetchBookingsByOffer: (params: any) => void,
   fetchBookingStatsOfTheWeek: () => void,
@@ -393,9 +393,12 @@ export class Planning extends PureComponent<Props, State> {
     this.props.fetchAllCoachPaymentRules();
     const promiseCoaches = this.props.fetchAssociatedCoachesList();
     const promiseEstablishments = this.props.fetchEstablishments();
-    const promiseActivities = this.props.fetchAllActivities({
-      customer_enabled: true,
-    });
+    const promiseActivities = this.props.fetchActivitiesCompany(
+      this.props.companyId,
+      {
+        customer_enabled: true,
+      },
+    );
     const promiseEstablishmentGroups = this.props.fetchAllEstablishmentGroup(
       this.props.companyId,
     );
@@ -1339,7 +1342,7 @@ export default compose(
       fetchBookingsByOffer: fetchBookingsByOfferAction,
       fetchEstablishments,
       fetchAssociatedCoachesList,
-      fetchAllActivities,
+      fetchActivitiesCompany,
       retrieveNumberOfMassDisabledOffer:
         retrieveNumberOfMassDisabledOfferAction,
       retrieveNumberOfMassDisabledOfferInGroup:

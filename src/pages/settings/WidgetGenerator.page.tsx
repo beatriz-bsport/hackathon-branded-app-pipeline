@@ -21,7 +21,7 @@ import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
 } from '../../libs/establishment/actions';
-import { fetchAllActivities } from '../../libs/meta-activity/actions';
+import { fetchActivitiesCompany } from '../../libs/meta-activity/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
 import {
   fetchAllPaymentPackCategory,
@@ -139,7 +139,9 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.props.fetchAssociatedCoachesList();
-    this.props.fetchAllActivities();
+    if (this.props.theme?.company) {
+      this.props.fetchActivitiesCompany(this.props.theme.company);
+    }
     this.props.fetchAllPrivateServices();
     this.props.fetchEstablishments();
     this.props.fetchAllPaymentPackCategory();
@@ -405,7 +407,7 @@ const mapDispatchToProps = {
   fetchAllPrivateServices,
   fetchAssociatedCoachesList,
   fetchEstablishments,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchPlaylistList,
   fetchVideoList,
   fetchPrivateServiceGroupList,

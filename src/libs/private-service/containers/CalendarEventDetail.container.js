@@ -53,7 +53,7 @@ import {
 } from '../actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
-  fetchAllActivities,
+  fetchActivitiesCompany,
 } from '../../meta-activity/actions';
 import {
   fetchCoachBulk as fetchCoachBulkAction,
@@ -209,7 +209,7 @@ type Props = {
   updatePrivateBookingDatetime: (date: string, options: OptionCallback) => void,
   updatePrivateBookingCoachHandler: (updatedCoachId: number) => void,
   goToCoachCalendar: () => void,
-  fetchAllActivities: () => void,
+  fetchActivitiesCompany: (company: number) => void,
   fetchCompanyUserRoles: () => void,
   metaActivities: Array<MetaActivity>,
 
@@ -275,7 +275,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchAllActivities();
+    this.props.fetchActivitiesCompany(this.props.theme.company);
     this.props.fetchCompanyUserRoles();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
@@ -903,7 +903,7 @@ export default compose(
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
       fetchPrivateBooking: fetchPrivateBookingAction,
       fetchCoachBulk: fetchCoachBulkAction,
-      fetchAllActivities,
+      fetchActivitiesCompany,
       fetchCompanyUserRoles,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,

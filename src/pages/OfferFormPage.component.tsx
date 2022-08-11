@@ -24,7 +24,7 @@ import {
   createOffers as createOffersActions,
 } from '../libs/offer/actions';
 
-import { fetchAllActivities } from '#libs/meta-activity/actions';
+import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
 
 import { fetchRoomBlueprints } from '../libs/spot-scheduling/actions';
 import { getAvailableRoomBlueprints } from '../libs/spot-scheduling/selector';
@@ -76,7 +76,9 @@ export class OfferFormPage extends Component<Props, {}> {
     this.props.fetchAssociatedCoachesList();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
-    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchActivitiesCompany(this.props.theme.company, {
+      customer_enabled: true,
+    });
     this.handleFetchLevel();
   }
 
@@ -188,7 +190,7 @@ const connector = connect(
     goBack: goBackAction,
     fetchRoomBlueprints,
     fetchAllCoachPaymentRules,
-    fetchAllActivities,
+    fetchActivitiesCompany,
     createOffers: createOffersActions,
     fetchLevelList: fetchLevelListAction,
     updateLevel: updateLevelAction,

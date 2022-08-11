@@ -50,7 +50,7 @@ import {
   updateMetaActivityCategoryOrder,
   fetchMetaActivityBulkAfterCategoryDelete,
   upsert,
-  fetchAllActivities as fetchAllActivitiesAction,
+  fetchActivitiesCompany as fetchActivitiesCompanyAction,
   fetchMetaActivities as fetchMetactivitiesAction,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
@@ -175,7 +175,10 @@ type OwnProps = {
   roomBlueprints: Array<RoomBlueprint>;
   fetchAllCoachPaymentRules: () => void;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
-  fetchAllActivities: (data: { customer_enabled: true }) => void;
+  fetchActivitiesCompany: (
+    companyId: number,
+    data?: { customer_enabled: true },
+  ) => void;
   fetchMetactivities: () => void;
   fetchAllPaymentPacks: () => void;
   fetchAllPaymentPackCategory: () => void;
@@ -278,7 +281,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchAllActivities();
+    this.props.fetchActivitiesCompany(this.props.companyId);
 
     this.props.fetchAllMetaActivityCategory();
     this.props.fetchMarketingNotificationList({
@@ -334,6 +337,9 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     this.setState({ formIsOpen: false });
   };
 
+  fetchAllActivities = () =>
+    this.props.fetchActivitiesCompany(this.props.companyId);
+
   renderCreateActivity = () => {
     return (
       <MetaActivityCreate
@@ -371,7 +377,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         fetchAllOffers={this.props.fetchAllOffers}
         fetchRoomBlueprints={this.props.fetchRoomBlueprints}
         fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
-        fetchAllActivities={this.props.fetchAllActivities}
+        fetchAllActivities={this.fetchAllActivities}
         fetchMetactivities={this.props.fetchMetactivities}
         fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
         createOrUpdatePaymentPackAction={
@@ -711,7 +717,7 @@ export default compose(
       fetchAllOffers: fetchAllOffersAction,
       fetchRoomBlueprints,
       fetchAllCoachPaymentRules,
-      fetchAllActivities: fetchAllActivitiesAction,
+      fetchActivitiesCompany: fetchActivitiesCompanyAction,
       fetchMetactivities: fetchMetactivitiesAction,
       fetchAllPaymentPackCategory,
       createOrUpdatePaymentPackAction: createPaymentPack,
@@ -724,10 +730,11 @@ export default compose(
   ),
   withHandlers({
     makeActivityCopy:
-      ({ makeActivityCopy, fetchAllActivities }) =>
+      ({ makeActivityCopy, fetchActivitiesCompany, companyId }) =>
       (id: number, suffix: string) => {
         makeActivityCopy(id, suffix, {
-          onSuccess: () => fetchAllActivities({ customer_enabled: true }),
+          onSuccess: () =>
+            fetchActivitiesCompany(companyId, { customer_enabled: true }),
         });
       },
     onSubmit:

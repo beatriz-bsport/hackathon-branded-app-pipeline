@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import { getTheme } from '#libs/theme/selectors';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import withTitle from '../../hocs/with-title.hoc';
 import withQueryParams from '../../hocs/with-query-params.hoc';
@@ -67,7 +68,7 @@ import {
   unTagAllOffers as unTagAllOffersAction,
   unTagOffer as unTagOfferAction,
 } from '#libs/offer/actions';
-import { fetchAllActivities } from '#libs/meta-activity/actions';
+import { fetchActivitiesCompany } from '#libs/meta-activity/actions';
 import {
   getOfferCalendarState,
   getOfferCalendarStateData,
@@ -143,7 +144,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchAllGroups();
     this.props.fetchAllTags();
-    this.props.fetchAllActivities();
+    this.props.fetchActivitiesCompany(this.props.theme.company);
     this.fetchTagData();
   }
 
@@ -627,6 +628,7 @@ const mapStateToProps = (state: RootState) => ({
   couponsLoading: state.coupon.coupon.loading,
   smartlist: state.smartList.smartListFiltered.items,
   smartlistLoading: state.smartList.smartListFiltered.loading,
+  theme: getTheme(state),
 
   autotagRuleBySmartList: getAutotagRuleBySmartlist(state),
   autotagRuleLoading: state.smartList.smartListTagRules.loading,
@@ -662,7 +664,7 @@ const mapDispatchToProps = {
   goToActivity: (id: number) => push(`/activity/${id}/general`),
   fetchAllOffersAction,
   fetchAllOffersPaginatedAction,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   unTagAllOffersAction,
   unTagOfferAction,
 };

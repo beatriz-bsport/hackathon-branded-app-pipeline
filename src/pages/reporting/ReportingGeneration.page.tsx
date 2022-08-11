@@ -44,7 +44,7 @@ import {
   getReportFilterConfigList,
 } from '../../libs/reporting/selectors';
 import { RootState } from '../../reducers';
-import { fetchAllActivities as fetchAllActivitiesAction } from '#libs/meta-activity/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
 import { refreshFilteredMembers as refreshFilteredMembersAction } from '#libs/member/actions';
 import { fetchAllPaymentPacks as fetchAllPaymentPacksAction } from '#libs/payment-packs/actions';
 import {
@@ -274,7 +274,8 @@ export class ReportingGeneration extends Component<Props, State> {
     ) {
       switch (type) {
         case 'activity':
-          this.props.fetchAllActivities(
+          this.props.fetchActivitiesCompany(
+            this.props.companyId,
             {},
             {
               onSuccess: () => {
@@ -592,7 +593,7 @@ const connector = connect(
     fetchExcelReport: exportExcelReport,
     setDynamicDataHasBeenLoaded: setDynamicDataHasBeenLoadedAction,
     resetDynamicDataHasBeenLoaded: resetDynamicDataHasBeenLoadedAction,
-    fetchAllActivities: fetchAllActivitiesAction,
+    fetchActivitiesCompany: fetchActivitiesCompanyAction,
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
     fetchEstablishments: fetchEstablishmentsAction,
     refreshFilteredMembers: refreshFilteredMembersAction,

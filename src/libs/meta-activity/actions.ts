@@ -47,7 +47,9 @@ export function fetchMetaActivityBulk(
   return async (dispatch: Dispatch, getState) => {
     const freshIdList = getFreshMetaActivityList(getState());
 
-    const ids_uniq = uniq(ids).filter((id) => !freshIdList.includes(id));
+    const ids_uniq = uniq(ids)
+      .filter((id) => !!id)
+      .filter((id) => !freshIdList.includes(id));
     if (ids_uniq.length === 0) {
       return;
     }
@@ -75,7 +77,7 @@ export function fetchMetaActivityBulkAfterCategoryDelete(
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    if (ids.length === 0) {
+    if (ids.filter((id) => !!id).length === 0) {
       return;
     }
     dispatch(metaActivityBulkActions.isLoading(true));
@@ -149,7 +151,7 @@ export function deleteMetaActivity(
     try {
       await deleteMetaActivityAPI(id);
       dispatch(snackbarSuccess('metaActivity.del.success'));
-      dispatch(fetchAllActivities());
+      dispatch(deleteAction.success(id));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
@@ -217,17 +219,20 @@ export const metaActivityListActions = {
   success: createAction('META_ACTIVITIES/LIST/SUCCESS'),
 };
 
-export function fetchAllActivities(
+export function fetchActivitiesCompany(
+  company: number,
   params?: any,
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
+    if (!company) return;
     dispatch(metaActivityListActions.isLoading(true));
     dispatch(metaActivityListActions.error(null));
 
     try {
       const response = await fetchAllActivitiesAPI({
         page_size: null,
+        company,
         ...(params ?? {}),
       });
       dispatch(metaActivityListActions.success(response.data));

@@ -80,6 +80,12 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
     [deleteAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['delete', 'error'], payload);
     },
+    [deleteAction.success.toString()]: (state, { payload }) => {
+      return state.set(
+        'allIds',
+        state.allIds.filter((id) => id !== payload),
+      );
+    },
     [metaActivityListActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },

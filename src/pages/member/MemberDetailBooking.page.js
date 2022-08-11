@@ -70,7 +70,7 @@ import {
 } from '#libs/consumer-payment-pack/actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
-  fetchAllActivities as fetchAllActivitiesAction,
+  fetchActivitiesCompany as fetchActivitiesCompanyAction,
 } from '#libs/meta-activity/actions';
 import {
   fetchGroupOffer as fetchGroupOfferAction,
@@ -182,7 +182,7 @@ type Props = {
   recurrentBookingCurrentPage: number,
   setBookerInAvanceDialog: () => void,
   bookerInAvanceDialog: boolean,
-  fetchAllActivities: () => void,
+  fetchActivitiesCompany: (company: number) => void,
   metaActivities: Array,
   setSelectedRecurrentBooking: () => void,
   selectedRecurrentBooking: boolean,
@@ -242,7 +242,7 @@ export class MemberDetailBooking extends Component<Props, State> {
       this.fetchBookingDetails();
     }
     this.props.fetchCompanyUserRoles();
-    this.props.fetchAllActivities();
+    this.props.fetchActivitiesCompany(this.props.theme.company);
     this.props.fetchRecurrenceRuleBooking(1);
     this.props.fetchMemberBookingStatistics();
     this.props.fetchAssociatedCoachesList();
@@ -572,7 +572,9 @@ export class MemberDetailBooking extends Component<Props, State> {
                         )
                       }
                       onEdit={() => {
-                        this.props.fetchAllActivities();
+                        this.props.fetchActivitiesCompany(
+                          this.props.theme.company,
+                        );
                         this.props.fetchEstablishmentList();
                         this.props.setBookerInAvanceDialog(true);
                         this.props.setSelectedRecurrentBooking(r);
@@ -604,7 +606,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 variant="outlined"
                 onClick={() => {
                   this.props.setBookerInAvanceDialog(true);
-                  this.props.fetchAllActivities();
+                  this.props.fetchActivitiesCompany(this.props.theme.company);
                   this.props.fetchEstablishmentList();
                 }}
                 color="primary"
@@ -794,7 +796,7 @@ export default compose(
       deleteRecurrenceRuleBooking: deleteRecurrenceRuleBookingAction,
       fetchMember: fetchMemberAction,
       createRecurrenceRuleBooking: createRecurrenceRuleBookingAction,
-      fetchAllActivities: fetchAllActivitiesAction,
+      fetchActivitiesCompany: fetchActivitiesCompanyAction,
       updateRecurrenceRuleBooking: updateRecurrenceRuleBookingAction,
 
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,

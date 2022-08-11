@@ -17,7 +17,7 @@ import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
 } from '../../libs/establishment/actions';
-import { fetchAllActivities } from '../../libs/meta-activity/actions';
+import { fetchActivitiesCompany } from '../../libs/meta-activity/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import {
   getAvailableEstablishmentList,
@@ -90,7 +90,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.props.fetchAssociatedCoachesList();
-    this.props.fetchAllActivities();
+    this.props.fetchActivitiesCompany(this.props.theme.company);
     this.props.fetchEstablishments();
     this.props.fetchAllEstablishmentGroup();
     this.props.fetchLevelList({
@@ -230,7 +230,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchAssociatedCoachesList,
   fetchEstablishments,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchAllEstablishmentGroup,
   snackbarInfo,
   fetchLevelList: fetchLevelListAction,

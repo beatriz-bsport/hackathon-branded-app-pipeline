@@ -94,7 +94,7 @@ import {
 } from '#libs/meta-activity/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import {
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
@@ -169,7 +169,9 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.props.fetchAllPrivatePassCategory();
 
     this.props.fetchEstablishments();
-    this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchActivitiesCompany(this.props.theme.company, {
+      customer_enabled: true,
+    });
     this.props.fetchMetaActivities();
   }
 
@@ -726,7 +728,7 @@ const mapDispatchToProps = {
   isPrivatePassUsedInCombo,
   fetchPaymentPack: fetchPaymentPackAction,
   fetchEstablishments,
-  fetchAllActivities,
+  fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
 };
 

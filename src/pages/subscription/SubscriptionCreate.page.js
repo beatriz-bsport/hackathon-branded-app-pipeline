@@ -63,6 +63,7 @@ type Props = {
   companyTheme: CompanyTheme,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
+  onlinePaymentEnabled: boolean,
 };
 type State = {
   tempSubscription: ?SubscriptionData,
@@ -70,7 +71,7 @@ type State = {
 };
 
 export class SubscriptionCreate extends Component<Props, State> {
-  state = {
+  state: State = {
     tempSubscription: null,
     processing: false,
   };
@@ -131,6 +132,7 @@ export class SubscriptionCreate extends Component<Props, State> {
               this.props.companyTheme.enable_multi_localization
             }
             stripeReaders={this.props.stripeReaders || []}
+            onlinePaymentEnabled={this.props.onlinePaymentEnabled}
           />
         ) : (
           <Paper className={this.props.classes.paper}>
@@ -182,6 +184,7 @@ export default compose(
       establishments: getAvailableEstablishmentList(state),
       companyTheme: themeSelectors.getTheme(state),
       stripeReaders: getStripeReaders(state),
+      onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,

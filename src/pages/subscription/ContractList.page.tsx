@@ -328,6 +328,7 @@ export class SubscriptionList extends React.Component<Props, State> {
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
+            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,

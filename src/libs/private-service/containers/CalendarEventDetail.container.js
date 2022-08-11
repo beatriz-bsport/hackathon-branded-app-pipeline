@@ -431,6 +431,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           requestClientSecret={this.requestClientSecret}
           consumerGiftcardList={this.props.consumerGiftcardList}
           applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+          onlinePaymentEnabled={this.props.theme?.online_payment_enabled}
           fetchConsumerGiftcardReceivedList={
             this.props.fetchConsumerGiftcardReceivedList
           }

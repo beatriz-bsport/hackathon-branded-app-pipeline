@@ -59,6 +59,8 @@ type Props = {
   establishments: Array<Establishment>,
   enableMultiLocalization: boolean,
   stripeReaders: StripeReader[],
+
+  onlinePaymentEnabled: boolean,
 };
 
 const ContractPickerDialog = (props: {
@@ -212,6 +214,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           savedPaymentMethodList={props.savedPaymentMethodList}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           enabledPaymentMethods={props.enabledPaymentMethods}
+          onlinePaymentEnabled={props.onlinePaymentEnabled}
           withNote
           withCoupon
           withEstablishment

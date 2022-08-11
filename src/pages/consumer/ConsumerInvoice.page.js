@@ -95,6 +95,9 @@ export class ConsumerInvoice extends React.Component<Props> {
               }
               snackbarErrorMsg={this.props.snackbarErrorMsg}
               snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+              onlinePaymentEnabled={
+                this.props.companyTheme.online_payment_enabled
+              }
             />
           )}
 

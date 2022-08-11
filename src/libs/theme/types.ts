@@ -74,6 +74,7 @@ export type Theme = {
   has_stripe_location: boolean;
   widget_theme: WidgetCustomCSS;
   franchisor: number | null;
+  online_payment_enabled: boolean;
 };
 
 export type ThemeState = {

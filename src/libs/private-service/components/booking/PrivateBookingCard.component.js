@@ -85,6 +85,7 @@ type Props = {
   ) => void,
   fetchConsumerGiftcardReceivedList: (memberId: number) => void,
   isCoach: boolean,
+  onlinePaymentEnabled?: boolean,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -388,6 +389,7 @@ export const PrivateBookingCard = (props: Props) => {
           availablePaymentMethodList={props.availablePaymentMethodList}
           defaultUserName={props.invoiceToBill.member.name}
           defaultUserEmail={props.invoiceToBill.member.email}
+          onlinePaymentEnabled={props.onlinePaymentEnabled}
         />
       )}
     </>

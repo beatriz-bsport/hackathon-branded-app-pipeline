@@ -138,7 +138,6 @@ export class BasketFinalizer extends React.Component<Props, State> {
             </Button>
           );
         }
-
         return (
           <React.Fragment>
             {this.props.basket.available_payment_methods.includes(

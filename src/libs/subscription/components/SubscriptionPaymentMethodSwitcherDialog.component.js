@@ -22,6 +22,8 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
   enabledPaymentMethods: Array<number>,
   stripeReaders: StripeReader[],
+
+  onlinePaymentEnabled?: boolean,
 };
 
 export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Props> {
@@ -60,6 +62,7 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
             sepaDefaultName={this.props.member ? this.props.member.name : ''}
             sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
             stripeReaders={this.props.stripeReaders}
+            onlinePaymentEnabled={this.props.onlinePaymentEnabled}
           />
         </DialogContent>
       </Dialog>

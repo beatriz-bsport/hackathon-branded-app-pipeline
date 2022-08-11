@@ -19,6 +19,7 @@ const PaymentMethodTypeSwitcher = (props: {
   payment_method: string;
   enabledPaymentGroupMethodIdentifier: Array<number>;
   disabled: boolean;
+  onlinePaymentEnabled: boolean;
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
@@ -37,7 +38,7 @@ const PaymentMethodTypeSwitcher = (props: {
           control={<Radio color="primary" />}
           label={t('paymentMethod.sepa')}
           labelPlacement="bottom"
-          disabled={props.disabled}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           className={classes.paymentMethodRadio}
         />
       )}
@@ -49,7 +50,7 @@ const PaymentMethodTypeSwitcher = (props: {
           control={<Radio color="primary" />}
           label={t('paymentMethod.card')}
           labelPlacement="bottom"
-          disabled={props.disabled}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           className={classes.paymentMethodRadio}
         />
       )}

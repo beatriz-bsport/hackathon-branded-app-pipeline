@@ -28,6 +28,7 @@ import type { Establishment } from '../../establishment/types';
 import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
+  onlinePaymentEnabled: boolean,
   subscriptionData: ?SubscriptionData,
   processing: boolean,
   onSubmit: (token: string) => void,
@@ -98,6 +99,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
             <SubscriptionPayment
               onSubmit={this.props.onSubmit}
               processing={this.props.processing}
+              onlinePaymentEnabled={this.props.onlinePaymentEnabled}
               member={this.props.member}
               enabledPaymentMethods={
                 this.props.companyTheme.currency.toLowerCase() === 'eur'

@@ -612,6 +612,9 @@ export class OfferManagement extends Component<Props, State> {
             memberDetails={this.props.memberDetails}
             applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
             consumerGiftcardList={this.props.consumerGiftcardList}
+            onlinePaymentEnabled={
+              this.props.company_theme.online_payment_enabled
+            }
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}

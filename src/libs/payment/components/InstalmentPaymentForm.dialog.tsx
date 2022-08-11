@@ -42,6 +42,7 @@ type Props = {
   totalPriceCts: number;
   stripeReaders: StripeReader[];
   requestSetupIntentSecret: () => Promise<any>;
+  onlinePaymentEnabled?: boolean;
 };
 
 const STEP_CONFIG_RECURRENCE = 0;
@@ -146,6 +147,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
                     : '',
               });
             }}
+            onlinePaymentEnabled={props.onlinePaymentEnabled}
             enabledPaymentGroupMethodIdentifier={
               props.enabledPaymentGroupMethodIdentifier
             }
@@ -158,7 +160,12 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             requestSetupIntentSecret={props.requestSetupIntentSecret}
             savedPaymentMethodList={props.savedPaymentMethodList}
             refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
-            disabled={processing || props.loading}
+            disabled={
+              processing ||
+              props.loading ||
+              props.onlinePaymentEnabled === false
+            }
+            onlinePaymentEnabled={props.onlinePaymentEnabled}
             selectPaymentMethod={(payment_method_id) =>
               setPaymentConfig({ ...paymentConfig, payment_method_id })
             }

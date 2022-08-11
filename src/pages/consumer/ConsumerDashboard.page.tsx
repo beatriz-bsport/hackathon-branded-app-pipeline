@@ -280,34 +280,37 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           goToCalendar={this.props.goToCalendar}
         />
         <div style={{ marginBottom: 32 }}>
-          <MemberBillingProblemCard
-            invoiceLoading={this.props.invoiceLoading}
-            memberId={this.props.membership.id}
-            unpaidInvoiceList={this.props.unpaidInvoiceList}
-            goToInvoice={this.goToInvoice}
-            balance={this.props.membership.credit_account_balance}
-            fetchInvoiceListUnpaid={this.refreshDebtStatus}
-            showPositiveBalance={
-              this.props.companyTheme?.allow_consumer_to_use_internal_account
-            }
-            asConsumer
-            availablePaymentMethodList={
-              this.props.payment_method_available_basket
-            }
-            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-            detachPaymentMethod={this.props.detachPaymentMethod}
-            snackbarErrorMsg={this.props.snackbarErrorMsg}
-            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-            member={this.props.member}
-            selectedInvoiceId={this.props.queryParams.invoiceInPayment}
-            onInvoicePaymentDialogClose={this.onInvoicePaymentDialogClose}
-            allowConsumerToUseInternalAccount={
-              this.props.companyTheme.allow_consumer_to_use_internal_account
-            }
-            applyBalanceToInvoice={this.props.applyBalanceToInvoice}
-            creditAccountBalance={this.props.creditAccountBalance}
-            applyBalanceLoading={this.props.applyBalanceLoading}
-          />
+          {!!this.props.member && (
+            <MemberBillingProblemCard
+              invoiceLoading={this.props.invoiceLoading}
+              memberId={this.props.membership.id}
+              unpaidInvoiceList={this.props.unpaidInvoiceList}
+              goToInvoice={this.goToInvoice}
+              balance={this.props.membership.credit_account_balance}
+              fetchInvoiceListUnpaid={this.refreshDebtStatus}
+              showPositiveBalance={
+                this.props.companyTheme?.allow_consumer_to_use_internal_account
+              }
+              asConsumer
+              availablePaymentMethodList={
+                this.props.payment_method_available_basket
+              }
+              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+              detachPaymentMethod={this.props.detachPaymentMethod}
+              snackbarErrorMsg={this.props.snackbarErrorMsg}
+              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+              member={this.props.member}
+              selectedInvoiceId={this.props.queryParams.invoiceInPayment}
+              onInvoicePaymentDialogClose={this.onInvoicePaymentDialogClose}
+              allowConsumerToUseInternalAccount={
+                this.props.companyTheme.allow_consumer_to_use_internal_account
+              }
+              applyBalanceToInvoice={this.props.applyBalanceToInvoice}
+              creditAccountBalance={this.props.creditAccountBalance}
+              applyBalanceLoading={this.props.applyBalanceLoading}
+              onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+            />
+          )}
         </div>
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} md={6}>
@@ -432,6 +435,7 @@ const mapStateToProps = (state: RootState, props) => ({
   favoriteEstablishment: getFavoriteEstablishment(state),
   unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
   invoiceLoading: state.invoice.list.loading,
+  onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
   payment_method_available_basket:
     state.theme.theme.payment_method_available_basket,
   metaActivitiesById: state.metaActivity.byId,

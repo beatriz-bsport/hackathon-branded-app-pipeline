@@ -41,6 +41,7 @@ type Props = {
   onCancelTerminal: () => void;
   stripeReaders: StripeReader[];
   setProcessing?: (value: boolean) => void;
+  onlinePaymentEnabled?: boolean;
 };
 
 export const PaymentMethodSelector = (props: Props) => {
@@ -67,6 +68,7 @@ export const PaymentMethodSelector = (props: Props) => {
           savedPaymentMethodList={props.savedPaymentMethodList}
           selectedSavedPaymentMethodId={props.selectedSavedPaymentMethodId}
           requestSetupIntentSecret={props.requestSetupIntentSecret}
+          onlinePaymentEnabled={props.onlinePaymentEnabled}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           paymentMethodType={fromPaymentGroupIdentifierToPaymentMethodIdentifier(
             props.paymentGroupMethodIdentifier,

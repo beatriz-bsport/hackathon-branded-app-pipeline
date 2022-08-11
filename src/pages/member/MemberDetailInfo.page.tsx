@@ -331,6 +331,8 @@ export class MemberDetailPage extends Component<Props> {
             applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
             consumerGiftcardList={this.props.consumerGiftcardList}
             stripeReaders={this.props.stripeReaders || []}
+            onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+            forceOnlyInternal={this.props.onlinePaymentEnabled === false}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -486,6 +488,7 @@ const connector = connect(
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
     companyCountry: state.theme.theme.locale.split('_')[1],
+    onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
     companyId: state.theme.theme.company,
     unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
     invoiceLoading: state.invoice.list.loading,

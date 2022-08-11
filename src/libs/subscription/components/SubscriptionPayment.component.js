@@ -76,6 +76,8 @@ type Props = {
   memberId?: number,
   isExcludingTax?: boolean,
   stripeReaders: StripeReader[],
+
+  onlinePaymentEnabled?: boolean,
 };
 
 type State = {
@@ -397,6 +399,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 this.setState({ selectedSavedPaymentMethodId: null });
               }}
               enabledPaymentMethods={enabledPaymentMethods}
+              onlinePaymentEnabled={this.props.onlinePaymentEnabled}
               enabledPaymentGroupMethodIdentifier={
                 enabledPaymentGroupMethodIdentifier
               }
@@ -427,41 +430,45 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   />
                 </div>
               )}
-              {['card', 'sepa_debit'].includes(paymentMethod) && (
-                <PaymentMethodList
-                  showEmpty
-                  isExpanded
-                  onDelete
-                  savedPaymentMethodList={this.props.savedPaymentMethodList}
-                  selectedSavedPaymentMethodId={
-                    this.state.selectedSavedPaymentMethodId
-                  }
-                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                  refreshSavedPaymentMethodList={
-                    this.props.refreshSavedPaymentMethodList
-                  }
-                  paymentMethodType={paymentMethod}
-                  onSelect={(selectedSavedPaymentMethodId) =>
-                    this.setState({
-                      selectedSavedPaymentMethodId,
-                    })
-                  }
-                  disabled={
-                    this.state.loading ||
-                    this.props.processing ||
-                    this.props.disabled
-                  }
-                  detachPaymentMethodLoading={
-                    this.props.detachPaymentMethodLoading
-                  }
-                  companyId={this.props.companyId}
-                  detachPaymentMethod={this.props.detachPaymentMethod}
-                  snackbarErrorMsg={this.props.snackbarErrorMsg}
-                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                  sepaDefaultName={this.props.sepaDefaultName}
-                  sepaDefaultEmail={this.props.sepaDefaultEmail}
-                />
-              )}
+              {['card', 'sepa_debit'].includes(paymentMethod) &&
+                !(this.props.onlinePaymentEnabled === false) && (
+                  <PaymentMethodList
+                    showEmpty
+                    isExpanded
+                    onDelete
+                    savedPaymentMethodList={this.props.savedPaymentMethodList}
+                    selectedSavedPaymentMethodId={
+                      this.state.selectedSavedPaymentMethodId
+                    }
+                    requestSetupIntentSecret={
+                      this.props.requestSetupIntentSecret
+                    }
+                    refreshSavedPaymentMethodList={
+                      this.props.refreshSavedPaymentMethodList
+                    }
+                    paymentMethodType={paymentMethod}
+                    onSelect={(selectedSavedPaymentMethodId) =>
+                      this.setState({
+                        selectedSavedPaymentMethodId,
+                      })
+                    }
+                    disabled={
+                      this.state.loading ||
+                      this.props.processing ||
+                      this.props.disabled ||
+                      this.props.onlinePaymentEnabled === false
+                    }
+                    detachPaymentMethodLoading={
+                      this.props.detachPaymentMethodLoading
+                    }
+                    companyId={this.props.companyId}
+                    detachPaymentMethod={this.props.detachPaymentMethod}
+                    snackbarErrorMsg={this.props.snackbarErrorMsg}
+                    snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                    sepaDefaultName={this.props.sepaDefaultName}
+                    sepaDefaultEmail={this.props.sepaDefaultEmail}
+                  />
+                )}
             </div>
           </>
         )}

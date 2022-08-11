@@ -599,9 +599,11 @@ export default compose(
               {
                 onSuccess: (bookingList) => {
                   if (bookingList && bookingList.length) {
-                    fetchInvoiceListUnpaid({
-                      member__in: bookingList.map((b) => b.member),
-                    });
+                    if (bookingList?.length) {
+                      fetchInvoiceListUnpaid({
+                        member__in: bookingList.map((b) => b.member),
+                      });
+                    }
                   }
                 },
               },

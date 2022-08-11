@@ -12,7 +12,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
   PAYMENT_INTENT_TYPE_DEBT,
 } from '@bsport/common/lib/master-data/payment-group';
@@ -42,6 +41,7 @@ type Props = {
   detachPaymentMethodLoading: boolean,
   detachPaymentMethod: (pm_id: string, options: any) => void,
   fetchMembership: () => void,
+  onlinePaymentEnabled?: boolean,
 };
 
 type State = {
@@ -200,7 +200,7 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
                       this.props.member.credit_account_balance,
                     ).toFixed(2) *
                       100 <
-                    0
+                      0 || this.props.onlinePaymentEnabled === false
                   }
                   asConsumer
                   clientSecretError={this.state.clientSecretError}
@@ -213,9 +213,7 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
                     this.props.closeDialog();
                   }}
                   availablePaymentMethodList={
-                    this.props.availablePaymentMethodList?.length
-                      ? this.props.availablePaymentMethodList
-                      : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
+                    this.props.availablePaymentMethodList
                   }
                   detachPaymentMethod={this.props.detachPaymentMethod}
                   detachPaymentMethodLoading={

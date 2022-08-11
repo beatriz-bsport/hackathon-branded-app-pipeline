@@ -537,6 +537,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 availablePaymentMethodList={
                   this.props.payment_method_available_manager
                 }
+                onlinePaymentEnabled={
+                  this.props.companyTheme.online_payment_enabled
+                }
                 onClose={this.props.closeInstalmentPaymentDialog}
                 savedPaymentMethodList={this.props.savedPaymentMethodList}
                 fetchPaymentMethodList={this.fetchPaymentMethodList}
@@ -585,6 +588,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 defaultUserName={this.props.invoice.member.name}
                 defaultUserEmail={this.props.invoice.member.email}
                 stripeReaders={this.props.stripeReaders}
+                onlyInternal={!this.props.companyTheme.online_payment_enabled}
               />
             )}
             {this.props.openPlannedPaymentMethodDialog && (

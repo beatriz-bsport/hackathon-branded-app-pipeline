@@ -67,6 +67,7 @@ type Props = {
   ) => void;
   showPositiveBalance?: boolean;
   stripeReaders: StripeReader[];
+  onlinePaymentEnabled: boolean;
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -267,7 +268,11 @@ export const MemberBillingProblemCard = (props: Props) => {
               compactMode
               hideMemberName
               loading={props.invoiceLoading}
-              onBill={setInvoiceToBill}
+              onBill={
+                props.asConsumer && props.onlinePaymentEnabled === false
+                  ? null
+                  : setInvoiceToBill
+              }
               hidePagination
               invoiceList={unpaidInvoiceList}
               onClickInvoice={props.goToInvoice}
@@ -335,7 +340,9 @@ export const MemberBillingProblemCard = (props: Props) => {
           clientSecret={clientSecretLoading ? null : clientSecret}
           clientSecretLoading={clientSecretLoading}
           paymentGroupId={paymentGroupId}
-          onlyInternal={amountToBill && amountToBill < 0}
+          onlyInternal={
+            (amountToBill && amountToBill < 0) || props.forceOnlyInternal
+          }
           asConsumer={props.asConsumer}
           clientSecretError={clientSecretError}
           amountToPay={

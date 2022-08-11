@@ -35,6 +35,7 @@ type Props = {
 
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;
+  onlinePaymentEnabled?: boolean;
 };
 
 export const PaymentMethodList = (props: Props) => {
@@ -60,6 +61,8 @@ export const PaymentMethodList = (props: Props) => {
   const defaultPaymentMethod = relevantSavedPaymentMethodList.find(
     (pm) => pm.is_default,
   );
+
+  const onlinePaymentEnabled = props.onlinePaymentEnabled !== false;
 
   return (
     <div className={classes.container}>
@@ -89,7 +92,7 @@ export const PaymentMethodList = (props: Props) => {
           className={classes.item}
         />
       ))}
-      {!!props.requestSetupIntentSecret && (
+      {!!props.requestSetupIntentSecret && onlinePaymentEnabled && (
         <ListItem button onClick={() => setCollectPaymentMethodIsOpen(true)}>
           <ListItemIcon>
             <AddIcon />

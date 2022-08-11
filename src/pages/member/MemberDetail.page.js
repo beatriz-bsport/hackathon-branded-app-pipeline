@@ -430,6 +430,7 @@ export class MemberDetail extends React.Component<Props> {
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
           savedPaymentMethodList={this.props.savedPaymentMethodList}
+          onlinePaymentEnabled={this.props.theme.online_payment_enabled}
           member={this.props.member}
           open={this.props.contractDialogOpen}
           onClose={this.props.closeContractDialog}

@@ -71,12 +71,12 @@ type State = {
 export class PaymentDialog extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    let paymentEngine = PAYMENT_ENGINE_STRIPE;
-    if (this.props.onlyInternal) {
-      paymentEngine = PAYMENT_ENGINE_BSPORT;
-    } else {
-      paymentEngine = PAYMENT_ENGINE_STRIPE;
-    }
+    const paymentEngine = this.getAvailableEngineList().includes(
+      PAYMENT_ENGINE_STRIPE,
+    )
+      ? PAYMENT_ENGINE_STRIPE
+      : PAYMENT_ENGINE_BSPORT;
+
     this.state = {
       paymentEngine,
       nextPaymentIntentStatusCheckSeconds: 1,
@@ -125,21 +125,8 @@ export class PaymentDialog extends React.Component<Props, State> {
       .catch(console.error);
   };
 
-  render() {
-    const { classes, t, stripeReaders } = this.props;
-
-    let defaultEngine = PAYMENT_ENGINE_STRIPE;
-
-    if (this.props.onlyInternal) {
-      defaultEngine = PAYMENT_ENGINE_BSPORT;
-    }
-    if (this.props.asConsumer) {
-      defaultEngine = PAYMENT_ENGINE_STRIPE;
-    }
-    const availableEngineList = [
-      PAYMENT_ENGINE_STRIPE,
-      PAYMENT_ENGINE_BSPORT,
-    ].filter((e) => {
+  getAvailableEngineList = () => {
+    return [PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT].filter((e) => {
       if (this.props.asConsumer) {
         return e === PAYMENT_ENGINE_STRIPE;
       }
@@ -148,6 +135,12 @@ export class PaymentDialog extends React.Component<Props, State> {
       }
       return true;
     });
+  };
+
+  render() {
+    const { classes, t, stripeReaders } = this.props;
+
+    const availableEngineList = this.getAvailableEngineList();
 
     const dialogOffset = '50%';
     return (
@@ -177,7 +170,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       row
                       aria-label="position"
                       name="position"
-                      defaultValue={`${defaultEngine}`}
+                      defaultValue={`${availableEngineList[0]}`}
                       disabled={
                         !!this.props.clientSecretLoading ||
                         this.state.processingPayment

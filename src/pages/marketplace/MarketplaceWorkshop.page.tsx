@@ -25,6 +25,7 @@ import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-
 
 import {
   getAllEstablishments,
+  getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
   getEstablishmentById,
@@ -94,6 +95,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   coaches,
   offerDetailsloading,
   establishments,
+  allEstablishments,
   workshops,
   establishmentGroupList,
   customLevels,
@@ -288,6 +290,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       <MarketplaceFilters
         coaches={coaches}
         establishments={establishments}
+        allEstablishments={allEstablishments}
         hideCoach={theme && theme.hideCoach}
         metaActivities={[...allWorkshops]}
         filters={filters}
@@ -340,7 +343,8 @@ const connector = connect(
     ),
     offerDetailsloading: state.metaActivity.loading || state.coach.loading,
     coaches: getCoaches(state),
-    establishments: getAllEstablishments(state),
+    establishments: getAvailableEstablishmentList(state),
+    allEstablishments: getAllEstablishments(state),
     theme: themeSelectors.getTheme(state),
     establishmentGroupList: groupWithEstablishment(
       getAssociatedEstablishmentGroup,

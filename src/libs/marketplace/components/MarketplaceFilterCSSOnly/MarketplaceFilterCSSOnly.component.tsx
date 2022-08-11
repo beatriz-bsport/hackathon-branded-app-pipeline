@@ -19,6 +19,7 @@ type Props = {
   coaches: Coach[];
   hideCoach: boolean;
   establishments: Establishment[];
+  allEstablishments: Establishment[];
   establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: MetaActivity[];
   filters: MarketPlaceFilter;
@@ -34,6 +35,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   metaActivities,
   variant,
   establishments,
+  allEstablishments,
   establishmentGroupList,
   setFilters,
   showMultiLocalization,
@@ -83,6 +85,19 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
       })),
     [establishments],
   );
+
+  const disabledEstablishmentOptions = useMemo(() => {
+    const options: { label: string; value: number }[] = [];
+    filters.establishments.forEach((id: number) => {
+      if (!establishments.find((est: Establishment) => est.id === id)) {
+        const label = allEstablishments.find(
+          (est: Establishment) => est.id === id,
+        )?.title;
+        options.push({ label, value: id });
+      }
+    });
+    return options;
+  }, [filters.establishments, allEstablishments, establishments]);
 
   const establishmentGroupOption = useMemo(
     () =>
@@ -141,7 +156,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         />
         <MarketplaceFilter
           text={t('establishment:room')}
-          options={establishmentsOption}
+          options={establishmentsOption.concat(disabledEstablishmentOptions)}
           selectedOptions={filters.establishments}
           onSelect={handleChange('establishments')}
         />

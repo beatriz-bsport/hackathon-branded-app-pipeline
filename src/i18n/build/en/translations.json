@@ -9639,7 +9639,7 @@
                 "isDisabled": "This session has been cancelled.",
                 "isTooLate": "Bookings are closed.",
                 "isWaitingListFull": "This session and the waitlist are full.",
-                "isTooSoon": "Bookings open on {{ date_ }}.",
+                "isTooSoon": "Bookings open on {{ -date }}.",
                 "isAlreadyRegistered": "You've already booked this session.",
                 "blockedByTags": "It's not possible to book this session without the correct tags."
             },

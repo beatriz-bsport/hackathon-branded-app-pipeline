@@ -200,6 +200,7 @@ type OwnProps = {
   selectedTags?: Array<number>;
   allTagsWithTagGroup: Array<Tag>;
   inScrollBar: boolean;
+  menuPlacement: 'auto' | 'top';
 };
 
 type Props = WithTranslation & OwnProps;
@@ -216,6 +217,7 @@ export function TagSelector(props: Props) {
     onChange,
     onDeleteTag,
     inScrollBar,
+    menuPlacement,
   } = props;
   const uuid = useRef(uuidv4());
   const tagsOptionsSelected = selectedTags
@@ -246,6 +248,7 @@ export function TagSelector(props: Props) {
           isClearable={isClearable}
           tagList={allTagsWithTagGroup}
           onDeleteTag={onDeleteTag}
+          menuPlacement={menuPlacement}
           styles={{
             ...tagGroupStyles,
             menuPortal: (base) => ({
@@ -281,6 +284,7 @@ export function TagSelector(props: Props) {
       isClearable={isClearable}
       tagList={allTagsWithTagGroup}
       onDeleteTag={onDeleteTag}
+      menuPlacement={menuPlacement}
     />
   );
 }

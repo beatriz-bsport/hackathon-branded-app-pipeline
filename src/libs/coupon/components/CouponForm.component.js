@@ -707,6 +707,9 @@ export class CouponForm extends React.Component<Props, State> {
                 );
                 this.handleChange(tag_list_kind)(newObject);
               }}
+              menuPlacement={
+                tag_list_kind === 'whitelist_tags' ? 'auto' : 'top'
+              }
             />
           </div>
         </div>

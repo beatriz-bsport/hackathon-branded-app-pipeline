@@ -25,6 +25,7 @@ import {
   setPrivateBookingCoachPaymentRule as updatePrivateBookingCoachPaymentRule,
   fetchBulkCoachSessionPerformance,
   fetchBulkPrivateServicePerformance,
+  exportPdfPerformance,
 } from '../../libs/coach-payment-rules/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
@@ -102,6 +103,7 @@ export class CoachPerformance extends React.Component<Props> {
                 }}
                 loading={this.props.loading || this.props.performanceLoading}
                 displayLastUpdate
+                handlePdfExportation={this.props.handlePdfExportation}
               />
             </Paper>
           </>
@@ -182,6 +184,7 @@ const connector = connect(
     fetchBulkCoachSessionPerformanceAction: fetchBulkCoachSessionPerformance,
     fetchBulkPrivateServicePerformanceAction:
       fetchBulkPrivateServicePerformance,
+    exportPdfPerformanceAction: exportPdfPerformance,
   },
 );
 
@@ -322,6 +325,17 @@ const mapWithHandlers = {
           });
         },
       });
+    },
+  handlePdfExportation:
+    ({ exportPdfPerformanceAction, formDates }: OwnAndConnectedProps) =>
+    (associatedCoachId: number, dataToExport: number) => {
+      const params = {
+        start_timestamp: formDates.dateStart,
+        end_timestamp: formDates.dateEnd,
+        associated_coaches_in: [associatedCoachId],
+        data_to_export: dataToExport,
+      };
+      exportPdfPerformanceAction(params);
     },
 };
 export default compose(

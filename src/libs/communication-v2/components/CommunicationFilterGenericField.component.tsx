@@ -48,7 +48,6 @@ export const CommunicationFilterGenericField = (props: GenericProps) => {
           options={fieldChoices}
           onChange={setFieldValue}
           className={classes.selector}
-          menuPortalTarget={document.querySelector('body')}
           value={fieldValues}
         />
       </Grid>

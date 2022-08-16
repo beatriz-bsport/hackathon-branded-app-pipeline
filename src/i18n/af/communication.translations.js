@@ -208,6 +208,7 @@ exports.default = {
     warningConsent2:
       "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs.",
   },
+  communication: 'Communications',
   filter: {
     applyFilter: 'Appliquer',
     filterAction: 'Filtrer',
@@ -303,5 +304,6 @@ exports.default = {
     },
     refresh:
       'Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir.',
+    writeCommunication: 'Envoyer un message',
   },
 };

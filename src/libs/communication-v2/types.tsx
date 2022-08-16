@@ -25,6 +25,7 @@ export type RecipientWithMember = {
 };
 
 export type Communication = {
+  id: number;
   uuid: string;
   campaign_id: string;
   data: {
@@ -42,4 +43,21 @@ export type Communication = {
   sms_text: string;
   title: string;
   kind: number;
+};
+
+export type ThreadCommunication = {
+  channel: string;
+  communication: Communication;
+  members: number[];
+  photos: string[];
+};
+
+export type MessageData = {
+  subject?: string; // mail title
+  email_template?: number; // mail template id
+  body?: string; // mail content if no template
+  sms?: string; // sms content
+  notification_title?: string;
+  notification_content?: string;
+  members: number[]; // recipients
 };

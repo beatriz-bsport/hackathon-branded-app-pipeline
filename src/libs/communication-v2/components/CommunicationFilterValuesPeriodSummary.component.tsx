@@ -23,7 +23,7 @@ export const CommunicationFilterValuesPeriodSummary = (props: PeriodProps) => {
   )}. ${dateEndBase.year()}`;
 
   const dateStartFormat = dateStart
-    ? `${months[dateStart.month()].substring(0, 3)}. ${
+    ? `${dateStart.date()} ${months[dateStart.month()].substring(0, 3)}. ${
         dateStart.year() !== dateEndBase.year() ? dateStart.year() : ''
       } - `
     : ' < '; // If no starting date, get all messages before the ending date

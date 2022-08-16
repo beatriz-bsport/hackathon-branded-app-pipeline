@@ -1,28 +1,39 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import CommunicationInformationModal, { Props } from './CommunicationInformationModal.component';
+import CommunicationInformationModal, {
+  Props,
+} from './CommunicationInformationModal.component';
 import RecipientsWithMemberFactory from '../factories/RecipientWithMember';
 
-const CustomTemplate = (args: Props) => <CommunicationInformationModal {...args} />;
+const CustomTemplate = (args: Props) => (
+  <CommunicationInformationModal {...args} />
+);
 
-export const CreateState = CustomTemplate.bind({});
+export const InformationModal = CustomTemplate.bind({});
 
-CreateState.args = {
-  open: true,
-  fullScreen: true,
-  membersCount: 4,
-  pageSize: 4,
-  membersList: RecipientsWithMemberFactory(3),
-  kind: 1,
-  dateCreated: moment(),
-  filterOptions: [{ value: 1, label: 'coree du sud' }, { value: 2, label: 'coree du nord' }],
-  contextTitle: 'Séance',
+InformationModal.args = {
   contextInformation: 'Yoga au lit - Lundi 25 Décembre',
-  fetchPage: (page: number, filters: any[]) => { console.log("This is page ", page, " with filters ", filters) },
+  contextTitle: 'Séance',
+  dateCreated: moment(),
+  fetchPage: (page: number, filters: any[]) => {
+    console.log('This is page ', page, ' with filters ', filters);
+  },
+  filterOptions: [
+    { value: 1, label: 'coree du sud' },
+    { value: 2, label: 'coree du nord' },
+  ],
+  fullScreen: true,
+  handleCloseDialog: () => {},
+  kind: 1,
+  loadingRecipientList: true,
+  open: true,
+  paginationSize: 4,
+  recipientList: RecipientsWithMemberFactory(8),
+  recipientsCount: 8,
 };
 
 export default {
-  title: 'Library/Communication-V2/InformationModal',
+  title: 'Library/Communication-V2/Modals',
   component: CommunicationInformationModal,
   parameters: {
     docs: {

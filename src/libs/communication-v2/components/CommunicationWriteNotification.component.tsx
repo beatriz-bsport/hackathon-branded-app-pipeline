@@ -18,17 +18,19 @@ type Props = {
   children: any;
   handleChangeContent: (event: React.ChangeEvent) => void;
   handleChangeTitle: (event: React.ChangeEvent) => void;
+  isMobileSize?: boolean;
   notificationContent: string;
   notificationTitle: string;
   onFocus: (identifier: number) => void;
 };
 
-const CommunicationWriteEmail = (props: Props) => {
+const CommunicationWriteNotification = (props: Props) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
   const {
     handleChangeContent,
     handleChangeTitle,
+    isMobileSize,
     notificationContent,
     notificationTitle,
     onFocus,
@@ -56,7 +58,7 @@ const CommunicationWriteEmail = (props: Props) => {
         name="Mail content"
         value={notificationContent}
         changeValue={handleChangeContent}
-        minRows={6}
+        minRows={isMobileSize ? 2 : 6}
         inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
         withColumnDirection
         onFocus={onContentFocus}
@@ -85,4 +87,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationWriteEmail;
+export default CommunicationWriteNotification;

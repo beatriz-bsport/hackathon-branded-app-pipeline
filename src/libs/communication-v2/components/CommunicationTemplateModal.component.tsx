@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, Theme } from '@material-ui/core';
+import { withStyles, Theme, WithStyles } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   Add as AddIcon,
   Edit as EditIcon,
-  InfoOutlined as InfoIcon,
+  Info as InfoIcon,
   Refresh as RefreshIcon,
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
@@ -23,13 +23,12 @@ import {
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
 
-export type Props = {
-  classes: any;
+type OwnProps = {
   closeDialog: () => void;
-  emailSummariesLoading: boolean;
-  emailSummaries: Array<any>;
-  emailDetailLoading: boolean;
-  emailDetails: Array<any>;
+  emailSummaryListLoading: boolean;
+  emailSummaryList: Array<any>;
+  emailDetailListLoading: boolean;
+  emailDetailList: Array<any>;
   fullScreen: boolean;
   getEmailDetail: (id: number) => void;
   open: boolean;
@@ -37,7 +36,9 @@ export type Props = {
   selectedTitle: string;
   setTemplate: (id: number) => void;
   setTitle: (title: string) => void;
-} & WithTranslation;
+};
+
+export type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
   displayTemplatePreview: boolean;
@@ -61,7 +62,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
     this.setState({
       selectedTemplate: templateId,
       currentTitle: templateId
-        ? this.props.emailSummaries.find((email) => email.id === templateId)
+        ? this.props.emailSummaryList.find((email) => email.id === templateId)
             .subject
         : '',
     });
@@ -126,7 +127,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
     return (
       <div className={classes.previewEmpty}>
         <InfoIcon fontSize="large" color="disabled" />
-        <Typography color="textSecondary">
+        <Typography color="textSecondary" className={classes.previewEmptyText}>
           {emails?.length > 0
             ? t('mail.selectToShowPreview')
             : t('mail.noMailAvailable')}
@@ -137,6 +138,11 @@ export class CommunicationTemplateModal extends Component<Props, State> {
 
   renderContent = () => {
     const { t, classes } = this.props;
+    const html =
+      !this.props.emailDetailListLoading &&
+      this.props.emailDetailList?.find(
+        (email) => email.id === this.state.selectedTemplate,
+      )?.html;
     return (
       <div>
         <TextField
@@ -148,12 +154,12 @@ export class CommunicationTemplateModal extends Component<Props, State> {
           value={this.state.currentTitle}
           onChange={this.onTitleChange}
         />
-        {this.props.emailSummariesLoading ? (
+        {this.props.emailSummaryListLoading ? (
           <LinearProgress className={classes.selectorContainer} />
         ) : (
           <div className={classes.selectorContainer}>
             <EmailSelector
-              emails={this.props.emailSummaries}
+              emails={this.props.emailSummaryList}
               value={this.state.selectedTemplate}
               onChange={this.onSelectTemplate}
               helperText={t('mail.mailSelection')}
@@ -216,7 +222,8 @@ export class CommunicationTemplateModal extends Component<Props, State> {
             in={this.state.displayTemplatePreview}
             className={classes.collapse}
           >
-            {this.state.selectedTemplate && !this.props.emailDetailLoading ? (
+            {this.state.selectedTemplate &&
+            !this.props.emailDetailListLoading ? (
               <div className={classes.editIcon}>
                 <Fab
                   onClick={this.onEditClick}
@@ -230,21 +237,21 @@ export class CommunicationTemplateModal extends Component<Props, State> {
               </div>
             ) : null}
             <div className={classes.mailPreview}>
-              {this.state.selectedTemplate && !this.props.emailDetailLoading ? (
+              {this.state.selectedTemplate &&
+              !this.props.emailDetailListLoading &&
+              !!html ? (
                 <div>
                   <div
                     // eslint-disable-next-line
                     dangerouslySetInnerHTML={{
-                      __html: this.props.emailDetails?.find(
-                        (email) => email.id === this.state.selectedTemplate,
-                      ).html,
+                      __html: html,
                     }}
                   />
                 </div>
               ) : (
                 this.renderLoadingOrEmpty(
-                  this.props.emailDetailLoading,
-                  this.props.emailSummaries,
+                  this.props.emailDetailListLoading && !!html,
+                  this.props.emailSummaryList,
                 )
               )}
             </div>
@@ -272,7 +279,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
+const styles: any = (theme: Theme) => ({
   addIcon: {
     marginLeft: theme.spacing(1),
   },
@@ -326,6 +333,11 @@ const styles = (theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: theme.spacing(6),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+  },
+  previewEmptyText: {
+    marginTop: theme.spacing(2),
   },
   refreshTypography: {
     color: theme.palette.info.dark,
@@ -360,7 +372,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['communication']),
   withStyles(styles),
 )(CommunicationTemplateModal);

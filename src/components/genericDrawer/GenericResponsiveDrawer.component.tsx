@@ -20,6 +20,9 @@ type OwnProps = {
   subtitle?: string;
   width?: string;
   className?: string;
+  flexContent?: boolean;
+  withSmallMinWidth?: boolean;
+  withoutHeaderContainer?: boolean;
 };
 type Props = OwnProps;
 export const GenericResponsiveDrawer: React.FC<Props> = ({
@@ -31,6 +34,9 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   className,
   anchor = 'right',
   withoutPadding = false,
+  flexContent,
+  withSmallMinWidth,
+  withoutHeaderContainer,
   onClose,
 }) => {
   const classes = useStyles({ width, subtitle });
@@ -48,38 +54,44 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
       onClose={onClose}
     >
       <div className={classes.relative}>
-        <div className={classes.firstRow}>
-          {onClose && (
-            <div
-              className={classNames(classes.topCancel, {
-                [classes.topCancelLeft]: anchor === 'left',
-                [classes.topCancelRight]: anchor === 'right',
-              })}
-            >
-              <Tooltip title={t('cancel')}>
-                <IconButton onClick={() => onClose()}>
-                  <HighlightOffIcon />
-                </IconButton>
-              </Tooltip>
-            </div>
-          )}
-          {title && (
-            <div
-              className={
-                (classes.titleContainer,
-                classNames(classes.title, {
-                  [classes.titleLeft]: anchor === 'right' && onClose,
-                }))
-              }
-            >
-              <Typography variant="h4">{title}</Typography>
-              {subtitle && <Typography variant="body1">{subtitle}</Typography>}
-            </div>
-          )}
-        </div>
+        {!withoutHeaderContainer && (
+          <div className={classes.firstRow}>
+            {onClose && (
+              <div
+                className={classNames(classes.topCancel, {
+                  [classes.topCancelLeft]: anchor === 'left',
+                  [classes.topCancelRight]: anchor === 'right',
+                })}
+              >
+                <Tooltip title={t('cancel')}>
+                  <IconButton onClick={() => onClose()}>
+                    <HighlightOffIcon />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )}
+            {title && (
+              <div
+                className={
+                  (classes.titleContainer,
+                  classNames(classes.title, {
+                    [classes.titleLeft]: anchor === 'right' && onClose,
+                  }))
+                }
+              >
+                <Typography variant="h4">{title}</Typography>
+                {subtitle && (
+                  <Typography variant="body1">{subtitle}</Typography>
+                )}
+              </div>
+            )}
+          </div>
+        )}
         <div
           className={classNames(classes.content, {
             [classes.padding]: !withoutPadding,
+            [classes.flex]: flexContent,
+            [classes.contentResized]: withSmallMinWidth,
           })}
         >
           {children}
@@ -130,9 +142,18 @@ const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
       flex: 1,
       minWidth: '500px',
     },
+    contentResized: {
+      [theme.breakpoints.down('sm')]: {
+        minWidth: '350px',
+      },
+    },
     padding: {
       padding: theme.spacing(4),
       paddingBottom: theme.spacing(2),
+    },
+    flex: {
+      display: 'flex',
+      flexDirection: 'column',
     },
   }),
 );

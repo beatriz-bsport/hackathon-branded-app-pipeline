@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
+import { blueGrey } from '@material-ui/core/colors';
 import { useTranslation } from 'react-i18next';
 import {
   COMMUNICATION_KIND_EMAIL,
@@ -14,56 +15,63 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { getTextColorFromRGB } from '../../../utils/color';
-import { Member } from '#libs/member/types';
 import { Communication } from '../types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
-import CommunicationFeedNumberRecipients from './CommunicationFeedNumberRecipients.component';
+import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
+const useStyles = makeStyles<Theme, { reverse: boolean }>((theme) => ({
+  container: (props) => ({
     width: '100%',
     padding: theme.spacing(4),
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: props.reverse ? 'flex-start' : 'flex-end',
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(1.5),
       paddingRight: theme.spacing(1.5),
       paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+      paddingBottom: theme.spacing(2),
     },
-  },
+  }),
   messageInfoContainer: {
     width: '70%',
     position: 'relative',
     [theme.breakpoints.down('sm')]: {
       width: '80%',
     },
+    zIndex: 2,
   },
-  messageBubble: {
-    background: theme.palette.grey[300],
+  messageBubble: (props) => ({
+    background: props.reverse ? blueGrey[50] : theme.palette.grey[100],
     borderTopLeftRadius: theme.spacing(2),
     borderTopRightRadius: theme.spacing(2),
-    borderBottomRightRadius: theme.spacing(0.5),
-    borderBottomLeftRadius: theme.spacing(2),
+    borderBottomRightRadius: props.reverse
+      ? theme.spacing(2)
+      : theme.spacing(0.5),
+    borderBottomLeftRadius: props.reverse
+      ? theme.spacing(0.5)
+      : theme.spacing(2),
     padding: theme.spacing(1.5),
-  },
+  }),
   row: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  flexEnd: {
+  flexEnd: (props) => ({
     display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  channelContainer: () => {
+    justifyContent: props.reverse ? 'flex-start' : 'flex-end',
+  }),
+  channelContainer: (props) => {
     const backgroundColorChroma = chroma(theme.palette.primary.main).alpha(0.5);
+    const absolutePosition = props.reverse
+      ? { right: 0 - theme.spacing(1.5) }
+      : { left: 0 - theme.spacing(1.5) };
     return {
+      ...absolutePosition,
       position: 'absolute',
       top: 0 - theme.spacing(4.5),
-      left: 0 - theme.spacing(1.5),
       background: backgroundColorChroma.hex(),
       borderRadius: theme.spacing(2),
       zIndex: -1,
@@ -94,16 +102,28 @@ const sanitizeRegex = /<script[\s\S]*?>[\s\S]*?<\/script>/gi;
 
 type OwnProps = {
   channel: string;
-  members: Array<Member>;
+  photos: Array<string>;
   communication: Communication;
+  isSingleRecipientThread: boolean;
+  onShowInformationClick: () => void;
+  onShowEmailTemplate: (title: string, html: string) => void;
+  reverse?: boolean;
 };
 
 export type Props = OwnProps;
 
-export const CommunicationFeedMessageBubble = (props: Props) => {
-  const { communication, channel, members } = props;
+export const CommunicationThreadMessageBubble = (props: Props) => {
+  const {
+    communication,
+    channel,
+    isSingleRecipientThread,
+    photos,
+    onShowInformationClick,
+    onShowEmailTemplate,
+    reverse,
+  } = props;
 
-  const classes = useStyles();
+  const classes = useStyles({ reverse });
 
   const { t } = useTranslation('communication');
 
@@ -128,8 +148,8 @@ export const CommunicationFeedMessageBubble = (props: Props) => {
             <Typography variant="h5">
               {t(`campaign.kind.${communication.kind}`)}
             </Typography>
-            <IconButton size="small">
-              <InfoOutlined fontSize="small" />
+            <IconButton size="small" onClick={onShowInformationClick}>
+              <InfoOutlined />
             </IconButton>
           </div>
           {[
@@ -146,7 +166,15 @@ export const CommunicationFeedMessageBubble = (props: Props) => {
                 // eslint-disable-next-line
                 dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
               />
-              <ButtonBase className={classes.showEmail}>
+              <ButtonBase
+                className={classes.showEmail}
+                onClick={() =>
+                  onShowEmailTemplate(
+                    communication.data.subject,
+                    communication.data.body,
+                  )
+                }
+              >
                 <VisibilityIcon className={classes.leftIcon} />
                 <Typography variant="button">
                   {t('recipient.showEmail')}
@@ -158,10 +186,12 @@ export const CommunicationFeedMessageBubble = (props: Props) => {
               {communication.data.body}
             </TypographyMultiline>
           )}
-          <CommunicationFeedNumberRecipients
-            members={members}
-            numberRecipients={communication.total_recipients}
-          />
+          {!isSingleRecipientThread && (
+            <CommunicationThreadNumberRecipients
+              photos={photos}
+              numberRecipients={communication.total_recipients}
+            />
+          )}
         </div>
         <div className={classes.flexEnd}>
           <Typography variant="subtitle1">
@@ -173,4 +203,4 @@ export const CommunicationFeedMessageBubble = (props: Props) => {
   );
 };
 
-export default CommunicationFeedMessageBubble;
+export default CommunicationThreadMessageBubble;

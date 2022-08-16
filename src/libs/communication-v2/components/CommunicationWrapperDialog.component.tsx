@@ -23,7 +23,7 @@ const CommunicationWrapperDialog = (props: Props) => {
   return (
     <Dialog fullScreen={props.fullScreen} open={props.open}>
       {props.title && (
-        <DialogTitle>
+        <DialogTitle className={classes.dialogTitleContainer}>
           <div className={classes.dialogTitle}>{props.title}</div>
         </DialogTitle>
       )}
@@ -55,6 +55,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   dialogTitle: {
     fontWeight: 'bold',
+  },
+  dialogTitleContainer: {
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: theme.spacing(1),
+    },
   },
   buttonClose: {
     color: theme.palette.text.secondary,

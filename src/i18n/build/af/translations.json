@@ -807,6 +807,7 @@
       "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
       "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs."
     },
+    "communication": "Communications",
     "filter": {
       "applyFilter": "Appliquer",
       "filterAction": "Filtrer",
@@ -869,7 +870,8 @@
         "missingRecipients": "Choisissez d'abord des destinataires",
         "missingContent": "Votre message n'est pas complet."
       },
-      "refresh": "Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir."
+      "refresh": "Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir.",
+      "writeCommunication": "Envoyer un message"
     }
   },
   "consumerSpace": {

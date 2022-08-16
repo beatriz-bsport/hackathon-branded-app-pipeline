@@ -24,6 +24,7 @@ type Props = {
   emailTitle: string;
   handleChangeContent: (event: React.ChangeEvent) => void;
   handleChangeTitle: (event: React.ChangeEvent) => void;
+  isMobileSize?: boolean;
   loadingTemplateDetails: boolean;
   onEditTemplate: () => void;
   onFocus: (identifier: number) => void;
@@ -40,6 +41,7 @@ const CommunicationWriteEmail = (props: Props) => {
     emailTemplateDetails,
     emailTemplateSelected,
     emailTitle,
+    isMobileSize,
     loadingTemplateDetails,
     onFocus,
     onRemoveTemplate,
@@ -81,7 +83,7 @@ const CommunicationWriteEmail = (props: Props) => {
           name="Mail content"
           value={emailContent}
           changeValue={handleChangeContent}
-          minRows={6}
+          minRows={isMobileSize ? 2 : 6}
           withColumnDirection
           onFocus={onContentFocus}
         >
@@ -141,6 +143,7 @@ const EmailPreview = (props: PreviewProps) => {
                   (email) => email.id === emailTemplateSelected,
                 ).html,
               }}
+              className={classes.htmlPreview}
             />
           ) : (
             <CircularProgress />
@@ -176,6 +179,10 @@ const RefreshDialog = (props: RefreshProps) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  htmlPreview: {
+    overflow: 'hidden',
+    maxHeight: '30vh',
+  },
   mailPreviewContainer: {
     borderRadius: theme.spacing(2),
     display: 'flex',

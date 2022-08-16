@@ -1,12 +1,12 @@
 import React from 'react';
 
-import CommunicationFeedNumberRecipients, {
+import CommunicationThreadNumberRecipients, {
   Props,
-} from './CommunicationFeedNumberRecipients.component';
+} from './CommunicationThreadNumberRecipients.component';
 import MembersFactory from '../../member/factories/Member';
 
 const CustomTemplate = (args: Props) => (
-  <CommunicationFeedNumberRecipients {...args} />
+  <CommunicationThreadNumberRecipients {...args} />
 );
 
 export const NoPictureToDisplay = CustomTemplate.bind({});
@@ -46,8 +46,8 @@ CompactMode.args = {
 };
 
 export default {
-  title: 'Library/Communication-V2/FeedNumberRecipients',
-  component: CommunicationFeedNumberRecipients,
+  title: 'Library/Communication-V2/ThreadNumberRecipients',
+  component: CommunicationThreadNumberRecipients,
   parameters: {
     docs: {
       page: null,

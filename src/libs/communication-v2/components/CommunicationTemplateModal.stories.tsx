@@ -1,62 +1,36 @@
 import React from 'react';
-import CommunicationTemplateModal, { Props } from './CommunicationTemplateModal.component';
-import EmailTemplateSummaryFactoryBot from '../../email-editor/factories/EmailTemplateSummary';
-import EmailTemplateDetailFactoryBot from '../../email-editor/factories/EmailTemplateDetail';
-import { EmailTemplateSummary, EmailTemplateDetail } from '../../email-editor/types';
+import CommunicationTemplateModal, {
+  Props,
+} from './CommunicationTemplateModal.component';
+import EmailTemplateDetailSummaryListsFactory from '../factories/Emails';
 
-const defaultOptions = {
+const [emailTemplateDetailList, emailTemplateSummaryList] =
+  EmailTemplateDetailSummaryListsFactory(6);
+
+const CustomTemplate = (args: Props) => (
+  <CommunicationTemplateModal {...args} />
+);
+
+export const TemplateSelector = CustomTemplate.bind({});
+
+TemplateSelector.args = {
   fullScreen: false,
   open: true,
-  closeDialog: () => { },
+  closeDialog: () => {},
   setTemplate: (id: number) => console.log(id),
   setTitle: (title: string) => console.log(title),
-  getEmailDetail: (id: number) => console.log("Fetch email detail of email n°", id),
-  selectedTemplate: undefined,
-  selectedTitle: undefined,
-};
-const emailSummaries: Array<EmailTemplateSummary> = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(2);
-const emailDetails: Array<EmailTemplateDetail> = EmailTemplateDetailFactoryBot.EmailTemplateDetail.create(2);
-for (let i = 0; i < 2; i += 1){ 
-  emailDetails[i].id = emailSummaries[i].id;
-}
-console.log(emailSummaries, emailDetails);
-
-const CustomTemplate = (args: Props) => <CommunicationTemplateModal {...args} />;
-
-export const LoadingState = CustomTemplate.bind({});
-
-LoadingState.args = {
-  ...defaultOptions,
-  emailSummaries: undefined,
-  emailSummariesLoading: true,
-  emailDetailsloading: true,
-  emailDetails: undefined
-};
-
-export const LoadedState = CustomTemplate.bind({});
-
-LoadedState.args = {
-  ...defaultOptions,
-  emailSummaries: emailSummaries,
-  emailSummariesLoading: false,
-  emailDetailsloading: false,
-  emailDetails: emailDetails,
-};
-
-export const SeeAlreadySelectedTemplate = CustomTemplate.bind({});
-
-SeeAlreadySelectedTemplate.args = {
-  ...defaultOptions,
-  emailSummaries: emailSummaries,
-  emailSummariesLoading: false,
-  emailDetailsloading: false,
-  emailDetails: emailDetails,
-  selectedTitle: "Je suis le titre de ce super mail",
-  selectedTemplate: emailSummaries[0].id,
+  getEmailDetail: (id: number) =>
+    console.log('Fetch email detail of email n°', id),
+  emailSummaryList: emailTemplateSummaryList,
+  emailSummaryListLoading: false,
+  emailDetailListLoading: false,
+  emailDetailList: emailTemplateDetailList,
+  selectedTitle: emailTemplateSummaryList[0].subject,
+  selectedTemplate: emailTemplateSummaryList[0].id,
 };
 
 export default {
-  title: 'Library/Communication-V2/TemplateModal',
+  title: 'Library/Communication-V2/Modals',
   component: CommunicationTemplateModal,
   parameters: {
     docs: {

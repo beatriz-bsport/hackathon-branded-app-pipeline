@@ -51,6 +51,7 @@ const EmailPreview = (props: Props) => {
           dangerouslySetInnerHTML={{
             __html: sanitizedHTML,
           }}
+          className={classes.previewFull}
         />
       </Paper>
     </>
@@ -70,6 +71,12 @@ const styles = (theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       paddingTop: theme.spacing(6),
+    },
+    previewFull: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
     },
     emptyMessageText: {
       marginTop: theme.spacing(2),

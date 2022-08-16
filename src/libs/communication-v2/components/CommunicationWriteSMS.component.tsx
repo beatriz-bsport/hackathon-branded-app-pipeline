@@ -13,6 +13,7 @@ const MAX_LENGTH_SMS = 160;
 type Props = {
   children: any;
   handleChangeContent: (event: React.ChangeEvent) => void;
+  isMobileSize?: boolean;
   onFocus: () => void;
   smsContent: string;
 };
@@ -20,7 +21,7 @@ type Props = {
 const CommunicationWriteSMS = (props: Props) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
-  const { handleChangeContent, onFocus, smsContent } = props;
+  const { handleChangeContent, onFocus, smsContent, isMobileSize } = props;
   const nbSmsToSend = Math.ceil(smsContent?.length / MAX_LENGTH_SMS);
   return (
     <React.Fragment>
@@ -29,7 +30,7 @@ const CommunicationWriteSMS = (props: Props) => {
         name="Sms content"
         value={smsContent}
         changeValue={handleChangeContent}
-        minRows={6}
+        minRows={isMobileSize ? 2 : 6}
         withColumnDirection
         onFocus={onFocus}
       >

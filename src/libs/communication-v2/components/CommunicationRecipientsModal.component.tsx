@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { withStyles, Theme } from '@material-ui/core';
+import { withStyles, Theme, WithStyles } from '@material-ui/core';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -42,25 +42,25 @@ import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
 
 import { Member } from '#libs/member/types';
 
-export type Props = {
+type OwnProps = {
   allIds: number[];
   allIdsWithoutEmail?: number[];
   allIdsWithoutPhone?: number[];
-  classes: any;
-  fetchPage: (page: number) => void;
+  fetchPage: (page: number, filters: number[]) => void;
   fullScreen?: boolean;
   handleCloseDialog: () => void;
-  hasFilters?: boolean;
   kind: number;
-  loadingMembersList: boolean;
-  membersList: Member[];
+  loadingMemberList: boolean;
+  memberList: Member[];
   open?: boolean;
   pageSize: number;
   selectedFilters?: number[];
-  setSelectedFilters?: (filters: number[]) => void;
+  setSelectedFilters?: (filters: number[], callback: () => void) => void;
   setUncheckedMembers: (listIdsUnchecked: number[]) => void;
   uncheckedMembers: number[];
-} & WithTranslation;
+};
+
+export type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
   page: number;
@@ -119,7 +119,7 @@ export class CommunicationRecipientsModal extends React.Component<
     event: React.ChangeEvent<unknown> | null,
     page: number = 1,
   ) => {
-    this.props.fetchPage(page);
+    this.props.fetchPage(page, this.props.selectedFilters);
     this.setState({ page });
   };
 
@@ -145,8 +145,9 @@ export class CommunicationRecipientsModal extends React.Component<
     } else {
       nextFilterValues.splice(filterIndex, 1);
     }
-    this.props.setSelectedFilters(nextFilterValues);
-    this.handleChangePage(null, 1);
+    this.props.setSelectedFilters(nextFilterValues, () =>
+      this.handleChangePage(null, 1),
+    );
   };
 
   onClose = () => {
@@ -437,9 +438,10 @@ export class CommunicationRecipientsModal extends React.Component<
     const {
       allIds,
       fullScreen,
-      hasFilters,
-      loadingMembersList,
-      membersList,
+      selectedFilters,
+      setSelectedFilters,
+      loadingMemberList,
+      memberList,
       open,
       pageSize,
       t,
@@ -458,7 +460,9 @@ export class CommunicationRecipientsModal extends React.Component<
         onConfirm={this.onConfirm}
       >
         <>
-          {hasFilters && this.renderCheckboxFilters()}
+          {setSelectedFilters &&
+            selectedFilters &&
+            this.renderCheckboxFilters()}
           <Table
             className={classes.table}
             aria-label="simple table"
@@ -471,9 +475,9 @@ export class CommunicationRecipientsModal extends React.Component<
                   this.state.uncheckedMembers?.length > 0,
               )}
             </TableHead>
-            {!loadingMembersList && (
+            {!loadingMemberList && (
               <TableBody>
-                {membersList.map((member: Member) => (
+                {memberList.map((member: Member) => (
                   <React.Fragment key={member.id}>
                     {this.renderRow(member, allIdsWithoutKind)}
                   </React.Fragment>
@@ -481,7 +485,7 @@ export class CommunicationRecipientsModal extends React.Component<
               </TableBody>
             )}
           </Table>
-          {loadingMembersList && (
+          {loadingMemberList && (
             <div className={classes.loadingContainer}>
               <CircularProgress />
             </div>
@@ -501,7 +505,7 @@ export class CommunicationRecipientsModal extends React.Component<
   }
 }
 
-const styles = (theme: Theme) => ({
+const styles: any = (theme: Theme) => ({
   avatar: {
     width: theme.spacing(4),
     height: theme.spacing(4),
@@ -535,6 +539,9 @@ const styles = (theme: Theme) => ({
   checkboxDisableHover: {
     '&:hover': {
       backgroundColor: '#fff',
+    },
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
     },
   },
   flexRowContainer: {
@@ -611,7 +618,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['communication']),
   withStyles(styles),
 )(CommunicationRecipientsModal);

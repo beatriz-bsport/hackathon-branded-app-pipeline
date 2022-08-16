@@ -32,7 +32,7 @@ export default function useIsVisibleOnScreen<Element extends HTMLElement>(
     let innerHeight = window.innerHeight;
     if (scrollContainer?.current) {
       const container = scrollContainer.current.getBoundingClientRect();
-      innerHeight = container.x;
+      innerHeight = container.y;
     }
 
     const top = currentElement.current.getBoundingClientRect()?.top ?? 0;

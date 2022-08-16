@@ -1,11 +1,12 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { Moment as MomentType } from 'moment-timezone';
+import moment from 'moment-timezone';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
+import { Theme, WithStyles } from '@material-ui/core';
 import Select from 'react-select';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
@@ -21,21 +22,23 @@ import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
 
 import { RecipientWithMember, SelectFieldItem } from '../types';
 
-export type Props = {
-  classes: any;
+type OwnProps = {
   contextInformation?: string;
   contextTitle?: string;
-  dateCreated: MomentType;
-  fetchPage: (page: number, filters: SelectFieldItem[]) => void;
+  dateCreated: string;
+  fetchPage: (page: number, filters: number[]) => void;
   filterOptions?: SelectFieldItem[];
   fullScreen?: boolean;
   handleCloseDialog: () => void;
   kind: number;
-  membersList: RecipientWithMember[];
-  membersCount: number;
+  loadingRecipientList: boolean;
+  recipientsCount: number;
   open?: boolean;
-  pageSize: number;
-} & WithTranslation;
+  paginationSize: number;
+  recipientList: RecipientWithMember[];
+};
+
+export type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
   page: number;
@@ -58,15 +61,21 @@ export class CommunicationInformationModal extends React.Component<
     event: React.ChangeEvent<unknown> | null,
     page: number = 1,
   ) => {
-    this.props.fetchPage(page, this.state.filters);
+    this.props.fetchPage(
+      page,
+      this.state.filters.map((field: SelectFieldItem) => field.value),
+    );
     this.setState({ page });
   };
 
   handleSelectFilter = (values: SelectFieldItem[]) =>
-    this.setState(() => ({ filters: values }), this.sendFilters);
+    this.setState(() => ({ filters: values }), this.fetchPageWithFilters);
 
-  sendFilters = () => {
-    this.props.fetchPage(1, this.state.filters);
+  fetchPageWithFilters = () => {
+    this.props.fetchPage(
+      1,
+      this.state.filters.map((field: SelectFieldItem) => field.value),
+    );
   };
 
   onClose = () => {
@@ -79,16 +88,17 @@ export class CommunicationInformationModal extends React.Component<
       fullScreen,
       open,
       kind,
-      membersCount,
-      membersList,
-      pageSize,
+      loadingRecipientList,
+      recipientsCount,
+      recipientList,
+      paginationSize,
       t,
       classes,
     } = this.props;
-    const pageCount = Math.ceil(membersCount / pageSize);
-    const title = `${t(`campaign.kind.${kind}`)} -  ${dateCreated.format(
-      'L - LT',
-    )}`;
+    const pageCount = Math.ceil(recipientsCount / paginationSize);
+    const title = `${t(`campaign.kind.${kind}`)} -  ${moment(
+      dateCreated,
+    ).format('L - LT')}`;
     return (
       <CommunicationWrapperDialog
         open={open}
@@ -127,9 +137,9 @@ export class CommunicationInformationModal extends React.Component<
               <TableRow>
                 <TableCell>
                   <Typography variant="body1" className={classes.boldTypo}>
-                    {membersCount}{' '}
+                    {recipientsCount}{' '}
                     {t('common.recipient', {
-                      count: membersCount,
+                      count: recipientsCount,
                     })}
                   </Typography>
                 </TableCell>
@@ -145,42 +155,49 @@ export class CommunicationInformationModal extends React.Component<
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {membersList.map((recipient: RecipientWithMember) => (
-                <TableRow key={recipient.id}>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    className={classes.tableCell}
-                  >
-                    <div className={classes.tableCellRecipient}>
-                      <Avatar
-                        alt={recipient.member.name}
-                        src={recipient.member.photo}
-                        className={classes.avatar}
+            {!loadingRecipientList && (
+              <TableBody>
+                {recipientList.map((recipient: RecipientWithMember) => (
+                  <TableRow key={recipient.id}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      className={classes.tableCell}
+                    >
+                      <div className={classes.tableCellRecipient}>
+                        <Avatar
+                          alt={recipient.member.name}
+                          src={recipient.member.photo}
+                          className={classes.avatar}
+                        />
+                        <Typography
+                          variant="body1"
+                          className={classes.recipientName}
+                        >
+                          {recipient.member.name}
+                        </Typography>
+                      </div>
+                    </TableCell>
+                    <TableCell align="center" className={classes.tableCell}>
+                      <CommunicationInformationStatusChip
+                        statusNumber={recipient.status}
                       />
-                      <Typography
-                        variant="body1"
-                        className={classes.recipientName}
-                      >
-                        {recipient.member.name}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableCell}>
-                    <CommunicationInformationStatusChip
-                      statusNumber={recipient.status}
-                    />
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableCell}>
-                    <CommunicationInformationOpenChip
-                      openStatus={recipient.read_count > 0}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                    </TableCell>
+                    <TableCell align="center" className={classes.tableCell}>
+                      <CommunicationInformationOpenChip
+                        openStatus={recipient.read_count > 0}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
           </Table>
+          {loadingRecipientList && (
+            <div className={classes.circularProgressContainer}>
+              <CircularProgress />
+            </div>
+          )}
           {pageCount > 1 && (
             <Pagination
               page={this.state.page}
@@ -195,13 +212,18 @@ export class CommunicationInformationModal extends React.Component<
   }
 }
 
-const styles = (theme: Theme) => ({
+const styles: any = (theme: Theme) => ({
   avatar: {
     width: theme.spacing(4),
     height: theme.spacing(4),
   },
   boldTypo: {
     fontWeight: 'bold',
+  },
+  circularProgressContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(2),
   },
   contextContainer: {
     alignSelf: 'flex-start',
@@ -234,7 +256,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['communication']),
   withStyles(styles),
 )(CommunicationInformationModal);

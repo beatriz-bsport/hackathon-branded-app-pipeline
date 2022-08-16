@@ -15,8 +15,11 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import {
   Mail as MailIcon,
-  NotificationsNone as NotificationIcon,
+  MailOutlined as MailOutlinedIcon,
+  Notifications as NotificationIcon,
+  NotificationsNone as NotificationOutlinedIcon,
   Sms as SmsIcon,
+  SmsOutlined as SmsOutlinedIcon,
   MoreVert as MenuIcon,
   LibraryBooks as TemplateIcon,
   SettingsEthernet as BaliseIcon,
@@ -24,11 +27,12 @@ import {
   People as PeopleIcon,
 } from '@material-ui/icons';
 
-import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
+// @ts-ignore
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import Config from '../../../config';
 
 import NestedList from '#components/NestedMenu.component';
-import CommunicationFeedNumberRecipients from './CommunicationFeedNumberRecipients.component';
+import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
 
 import { Member } from '#libs/member/types';
 
@@ -47,9 +51,9 @@ type Props = {
   fullScreen: boolean;
   handleSelectTemplate: () => void;
   handleSelectRecipients: () => void;
-  membersList: Member[];
+  memberList: Member[];
   onBaliseItemClick: (item: string) => void;
-  selectedMembersList: Member[];
+  selectedMemberList: Member[];
   sendMessage: (data: any) => void;
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
@@ -64,9 +68,9 @@ const BottomBarIcons = (props: Props) => {
     fullScreen,
     handleSelectTemplate,
     handleSelectRecipients,
-    membersList,
+    memberList,
     onBaliseItemClick,
-    selectedMembersList,
+    selectedMemberList,
     sendMessage,
     setActionType,
     tags,
@@ -87,7 +91,7 @@ const BottomBarIcons = (props: Props) => {
             color={actionType === WRITE_EMAIL ? 'primary' : 'default'}
             className={classes.iconButton}
           >
-            <MailIcon />
+            {actionType === WRITE_EMAIL ? <MailIcon /> : <MailOutlinedIcon />}
           </IconButton>
         </Tooltip>
         <FeatureListProvider>
@@ -105,7 +109,7 @@ const BottomBarIcons = (props: Props) => {
                     ))
                 }
               >
-                <SmsIcon />
+                {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
               </IconButton>
             </Tooltip>
           )}
@@ -130,7 +134,11 @@ const BottomBarIcons = (props: Props) => {
                     ))
                 }
               >
-                <NotificationIcon />
+                {actionType === WRITE_PUSH_NOTIFICATION ? (
+                  <NotificationIcon />
+                ) : (
+                  <NotificationOutlinedIcon />
+                )}
               </IconButton>
             </Tooltip>
           )}
@@ -220,8 +228,8 @@ const BottomBarIcons = (props: Props) => {
             onClick={handleSelectRecipients}
           >
             {allSelectedMembers?.length > 0 ? (
-              <CommunicationFeedNumberRecipients
-                members={selectedMembersList ?? membersList}
+              <CommunicationThreadNumberRecipients
+                members={selectedMemberList ?? memberList}
                 numberRecipients={allSelectedMembers.length}
                 compactText
                 compactAvatars={fullScreen}

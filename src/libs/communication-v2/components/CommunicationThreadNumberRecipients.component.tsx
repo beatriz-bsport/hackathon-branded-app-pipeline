@@ -10,15 +10,19 @@ const MAX_DISPLAY_COMPACT = 2;
 const MAX_DISPLAY = 4;
 
 export type Props = {
-  members: Array<Member>;
+  members?: Array<Member>;
+  photos?: Array<string>;
   numberRecipients?: number;
   compactText?: boolean;
   compactAvatars?: boolean;
 };
 
-const CommunicationFeedNumberRecipients = (props: Props) => {
-  const { members, numberRecipients, compactText, compactAvatars } = props;
-  const allImageLinks = members.map((m) => m.photo);
+const CommunicationThreadNumberRecipients = (props: Props) => {
+  const { numberRecipients, compactText, compactAvatars } = props;
+  const allImageLinks =
+    props.members?.length > 0
+      ? props.members.map((m) => m.photo)
+      : props.photos || [];
   const nbImagesMax = compactAvatars ? MAX_DISPLAY_COMPACT : MAX_DISPLAY;
   const slicedImageLinks =
     allImageLinks.length > nbImagesMax
@@ -26,8 +30,7 @@ const CommunicationFeedNumberRecipients = (props: Props) => {
       : allImageLinks;
 
   const { t } = useTranslation(['communication']);
-  const sideWidth = 30;
-  const classes = useStyles({ sideWidth });
+  const classes = useStyles();
   return (
     <div className={classes.container}>
       <AvatarGroup className={classes.container} spacing="small">
@@ -69,4 +72,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationFeedNumberRecipients;
+export default CommunicationThreadNumberRecipients;

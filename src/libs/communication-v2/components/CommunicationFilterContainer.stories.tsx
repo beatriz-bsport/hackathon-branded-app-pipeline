@@ -1,19 +1,16 @@
 import React from 'react';
-import CommunicationFilterContainer, { FilterProps } from './CommunicationFilterContainer.component';
+import CommunicationFilterContainer, {
+  Props,
+} from './CommunicationFilterContainer.component';
 
-const CustomTemplate = (args: FilterProps) => <CommunicationFilterContainer {...args} />;
+const CustomTemplate = (args: Props) => (
+  <CommunicationFilterContainer {...args} />
+);
 
 export const CreateState = CustomTemplate.bind({});
 
 CreateState.args = {
-  hasKindFilter: true,
-  hasDatesFilter: true,
-  hasChannelFilter: true,
-  hasRecipientFilter: true,
-  hasSendParameterFilter: true,
-  kindFilterOptionsOverride: [{
-    value: 1, label: 'exemple override'
-  }]
+  contextIdentifier: 1,
 };
 
 export default {

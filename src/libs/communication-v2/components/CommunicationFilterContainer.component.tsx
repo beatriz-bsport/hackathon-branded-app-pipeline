@@ -10,6 +10,7 @@ import {
   Theme,
   Hidden,
   Chip,
+  WithStyles,
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 import { Tune, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
@@ -19,21 +20,18 @@ import CommunicationFilterCollapse from './CommunicationFilterCollapse.component
 import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
 import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
 import { SelectFieldItem } from '../types';
+import { getFiltersToEnable, getFilterOptionsOverride } from '../utils';
 
-export type FilterProps = {
-  hasKindFilter?: boolean;
-  hasRecipientFilter?: boolean;
-  hasChannelFilter?: boolean;
-  hasSendParameterFilter?: boolean;
-  hasDatesFilter?: boolean;
-  kindFilterOptionsOverride?: SelectFieldItem[];
-  channelFilterOptionsOverride?: SelectFieldItem[];
-  recipientFilterOptionsOverride?: SelectFieldItem[];
-  sendParameterFilterOptionsOverride?: SelectFieldItem[];
-  classes: any;
+type OwnProps = {
+  contextIdentifier: number;
+  handleFilters: (
+    filters: number[],
+    dateStart: number,
+    dateEnd: number,
+  ) => void;
 };
 
-type OwnProps = FilterProps & WithTranslation;
+export type Props = OwnProps & WithTranslation & WithStyles;
 
 type FilterState = {
   dateStart: MomentType;
@@ -45,10 +43,10 @@ type FilterState = {
   showFilterModal: boolean;
 };
 export class CommunicationFilterContainer extends React.Component<
-  OwnProps,
+  Props,
   FilterState
 > {
-  constructor(props: OwnProps) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       dateStart: null,
@@ -101,13 +99,11 @@ export class CommunicationFilterContainer extends React.Component<
 
     this.setState({ showFilterModal: false });
 
-    // We may have to change how the relevant data are returned
-    const dataToSubmit = {
-      filters: filtersNumbers,
-      date_start: this.state.dateStart?.unix() ?? null,
-      date_end: this.state.dateEnd?.unix() ?? null,
-    };
-    return dataToSubmit;
+    this.props.handleFilters(
+      filtersNumbers,
+      this.state.dateStart?.unix() ?? null,
+      this.state.dateEnd?.unix() ?? null,
+    );
   };
 
   resetFilters = () => {
@@ -273,13 +269,27 @@ export class CommunicationFilterContainer extends React.Component<
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, contextIdentifier } = this.props;
     const periodHasChanged = !!this.state.dateStart || !!this.state.dateEnd;
     const hasSetSomeFilters =
       this.state.kindFilterValues.length > 0 ||
       this.state.recipientFilterValues.length > 0 ||
       this.state.channelFilterValues.length > 0 ||
       this.state.sendParameterFilterValues.length > 0;
+
+    const {
+      hasKindFilter,
+      hasChannelFilter,
+      hasDatesFilter,
+      hasRecipientFilter,
+      hasSendParameterFilter,
+    } = getFiltersToEnable(contextIdentifier);
+    const {
+      kindFilterOptionsOverride,
+      recipientFilterOptionsOverride,
+      channelFilterOptionsOverride,
+      sendParameterFilterOptionsOverride,
+    } = getFilterOptionsOverride(contextIdentifier, this.props.t);
 
     const updateKindFilterValues = (newValues: SelectFieldItem[]) =>
       this.setState({ kindFilterValues: newValues });
@@ -294,7 +304,7 @@ export class CommunicationFilterContainer extends React.Component<
     const updateDateEndValue = (newDate: MomentType) =>
       this.setState({ dateEnd: newDate });
     return (
-      <Paper>
+      <Paper className={classes.container}>
         <ButtonBase
           onClick={this.onCollapseClick}
           className={classes.filterDisplayer}
@@ -313,29 +323,25 @@ export class CommunicationFilterContainer extends React.Component<
         </ButtonBase>
         <Collapse in={this.state.showFilterModal}>
           <CommunicationFilterCollapse
-            hasKindFilter={this.props.hasKindFilter}
+            hasKindFilter={hasKindFilter}
             kindFilterValues={this.state.kindFilterValues}
             kindFilterSetter={updateKindFilterValues}
-            kindFilterOptionsOverride={this.props.kindFilterOptionsOverride}
-            hasRecipientFilter={this.props.hasRecipientFilter}
+            kindFilterOptionsOverride={kindFilterOptionsOverride}
+            hasRecipientFilter={hasRecipientFilter}
             recipientFilterValues={this.state.recipientFilterValues}
             recipientFilterSetter={updateRecipientFilterValues}
-            recipientFilterOptionsOverride={
-              this.props.recipientFilterOptionsOverride
-            }
-            hasChannelFilter={this.props.hasChannelFilter}
+            recipientFilterOptionsOverride={recipientFilterOptionsOverride}
+            hasChannelFilter={hasChannelFilter}
             channelFilterValues={this.state.channelFilterValues}
             channelFilterSetter={updateChannelFilterValues}
-            channelFilterOptionsOverride={
-              this.props.channelFilterOptionsOverride
-            }
-            hasSendParameterFilter={this.props.hasSendParameterFilter}
+            channelFilterOptionsOverride={channelFilterOptionsOverride}
+            hasSendParameterFilter={hasSendParameterFilter}
             sendParameterFilterValues={this.state.sendParameterFilterValues}
             sendParameterFilterSetter={updateSendParameterFilterValues}
             sendParameterFilterOptionsOverride={
-              this.props.sendParameterFilterOptionsOverride
+              sendParameterFilterOptionsOverride
             }
-            hasDatesFilter={this.props.hasDatesFilter}
+            hasDatesFilter={hasDatesFilter}
             dateStartValue={this.state.dateStart}
             dateStartSetter={updateDateStartValue}
             dateEndValue={this.state.dateEnd}
@@ -349,7 +355,7 @@ export class CommunicationFilterContainer extends React.Component<
   }
 }
 
-const styles = (theme: Theme) => ({
+const styles: any = (theme: Theme) => ({
   arrowIconRotation: {
     transform: 'rotate(180deg)',
   },
@@ -357,8 +363,20 @@ const styles = (theme: Theme) => ({
     borderRadius: theme.spacing(0.5),
     marginRight: theme.spacing(1),
   },
+  container: {
+    zIndex: 500,
+  },
   filterDisplayer: {
-    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+      paddingBottom: theme.spacing(1.5),
+      paddingTop: theme.spacing(1.5),
+    },
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -379,9 +397,8 @@ const styles = (theme: Theme) => ({
     color: theme.palette.grey[600],
   },
   filterValuesContainer: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    padding: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
     borderLeft: 'solid 1px',
     borderLeftColor: theme.palette.grey[300],
     flex: 1,
@@ -391,7 +408,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['communication']),
 )(CommunicationFilterContainer);

@@ -71,14 +71,21 @@ type MemberProps = {
   number_tags: number;
 };
 
-export function MemberFactory({
-  credit_account_balance = random_int(50),
-  total_unpaid_amount = `${random_int(50)}`,
-  number_tags = 0,
-}: MemberProps): Member {
+export function MemberFactory(
+  {
+    credit_account_balance = random_int(50),
+    total_unpaid_amount = `${random_int(50)}`,
+    number_tags = 0,
+  }: MemberProps,
+  withoutPhoneOrEmail?: boolean,
+): Member {
   const wichGender = random_int(2);
   const firstname = firstnames[random_int(lastnames.length - 1)];
   const lastname = lastnames[random_int(lastnames.length - 1)];
+  let email = `${firstname}@member.bsport`;
+  let phone_number = `00645545${random_int(9)}`;
+  if (withoutPhoneOrEmail && Math.random() < 0.3) email = '';
+  if (withoutPhoneOrEmail && Math.random() < 0.3) phone_number = '';
   return {
     id: random_int(1000),
     name: `${firstname} ${lastname}`,
@@ -91,7 +98,7 @@ export function MemberFactory({
     membership_ID: '1',
     accept_email: randomBoolean(),
     accept_sms: randomBoolean(),
-    email: `${firstname}@member.bsport`,
+    email,
     address: '3 Avenue du Bar',
     internal_account: random_int(50),
     credit_account_balance,
@@ -102,7 +109,7 @@ export function MemberFactory({
     previous_booking: randomDate(),
     billing_plans: null,
     photo: photo[wichGender],
-    phone_number: `00645545${random_int(9)}`,
+    phone_number,
     birthday: randomDate(),
     files: [],
     general_terms_and_conditions_date_accepted: null,
@@ -116,7 +123,10 @@ export function MemberFactory({
   };
 }
 
-export default function MembersFactory(length: number): Array<Member> {
+export default function MembersFactory(
+  length: number,
+  withoutPhoneOrEmail?: boolean,
+): Array<Member> {
   const res = new Array(length).fill(0);
-  return res.map(() => MemberFactory({}));
+  return res.map(() => MemberFactory({}, withoutPhoneOrEmail));
 }

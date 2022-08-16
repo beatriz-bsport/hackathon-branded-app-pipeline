@@ -127,9 +127,19 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+      paddingBottom: theme.spacing(1.5),
+      paddingTop: theme.spacing(1.5),
+    },
+    zIndex: 500,
   },
   filtersContainer: {
     display: 'flex',

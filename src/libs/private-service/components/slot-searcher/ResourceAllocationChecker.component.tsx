@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
+import { joinIntervalList } from '#libs/private-service/utils';
 
 type OwnProps = {
   resourceId: number;
@@ -57,8 +58,9 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
         this.props.resourceId,
         this.props.updatedTime,
       );
+      const allIntervals = joinIntervalList(response.data);
       this.setState({
-        errorAllocation: !response.data.find(
+        errorAllocation: !allIntervals.some(
           (interval: string[]) =>
             moment(this.props.updatedTime).isSameOrAfter(interval[0]) &&
             moment(this.props.updatedTime)

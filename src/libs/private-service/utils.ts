@@ -295,3 +295,29 @@ export const getPassDate = (privateConsumerPass: PrivateConsumerPass) => {
 
 export const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;
 export const PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT = 6;
+
+export const joinIntervalList = (intervalList: Array<Array<string>>) => {
+  if (intervalList?.length < 2) return intervalList;
+  // Must filter on moments and not strings due to different date string format
+  const sortedIntervalList = intervalList.sort((slot, _slot) =>
+    moment(slot[0]).isAfter(moment(_slot[0])) ? 1 : -1,
+  );
+  const slots: Array<Array<string>> = [];
+  sortedIntervalList.forEach(([start, end]) => {
+    if (slots.length === 0) {
+      slots.push([start, end]);
+    } else {
+      const previousSlotEnd = slots[slots.length - 1][1];
+      if (moment(start).isSameOrBefore(previousSlotEnd)) {
+        slots[slots.length - 1][1] = moment(previousSlotEnd).isBefore(
+          moment(end),
+        )
+          ? end
+          : previousSlotEnd;
+      } else {
+        slots.push([start, end]);
+      }
+    }
+  });
+  return slots;
+};

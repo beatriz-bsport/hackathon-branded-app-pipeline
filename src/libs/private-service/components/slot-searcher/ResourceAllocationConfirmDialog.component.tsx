@@ -16,6 +16,7 @@ import type { PrivateBooking, PrivateSlot, PrivateService } from '../../types';
 import type { Coach } from '../../../associated-coach/types';
 import { Establishment } from '../../../establishment/types';
 import { resourceAllocationChecker } from '../../api';
+import { joinIntervalList } from '#libs/private-service/utils';
 
 type OwnProps = {
   onCancel: () => void;
@@ -62,26 +63,30 @@ export class ResourceAllocationConfirmDialog extends React.Component<
     if (!data) {
       return false;
     }
+    const filteredData = data.filter(
+      (interval: string[]) => !!interval[0] && !!interval[1],
+    );
     // if we updating date_start of private_booking, the current slot turns to be available
     const allIntervals = this.props.dateStart
-      ? data.concat([
+      ? filteredData.concat([
           [
-            moment(this.props.privateBooking.date_start).format(),
-            moment(this.props.privateBooking.date_end).format(),
+            this.props.privateBooking.date_start,
+            this.props.privateBooking.date_end,
           ],
         ])
-      : data;
-    return !allIntervals.find(
+      : filteredData;
+    const joinedIntervals = joinIntervalList(allIntervals);
+    return !joinedIntervals.some(
       (interval: string[]) =>
         moment(
           this.props.dateStart || this.props.privateBooking.date_start,
-        ).isSameOrAfter(interval[0]) &&
+        ).isSameOrAfter(moment(interval[0])) &&
         moment(this.props.dateStart || this.props.privateBooking.date_start)
           .add(
             this.props.privateBooking.private_slot.duration_minutes,
             'minutes',
           )
-          .isSameOrBefore(interval[1]),
+          .isSameOrBefore(moment(interval[1])),
     );
   };
 

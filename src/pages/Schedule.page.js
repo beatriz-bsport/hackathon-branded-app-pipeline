@@ -257,7 +257,10 @@ export class CoachPrivateCalendar extends React.Component<Props> {
         coachesIdsToFilter.includes(offer.coach),
       );
       const availabilitySlotList = previousAvailabilitySlotList.filter(
-        (slot: AvailabilitySlot) => coachesIdsToFilter.includes(slot.coach),
+        (slot: AvailabilitySlot) =>
+          slot.establishment ||
+          slot.associated_establishment ||
+          coachesIdsToFilter.includes(slot.coach),
       );
       const privateBookingList = previousPrivateBookingList.filter(
         (privateBooking: PrivateBooking) =>
@@ -299,7 +302,6 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     let privateBookingList: PrivateBooking[];
     let resourceAvailable: ResourceData[];
     const filterOnCoaches = this.props.coachesSelectedInRole?.length > 0;
-
     if (filterOnCoaches) {
       const lists = this.filteredDataListsOnCoaches(
         this.props.coachesSelectedInRole,

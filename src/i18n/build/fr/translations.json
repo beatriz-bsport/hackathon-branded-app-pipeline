@@ -7845,7 +7845,7 @@
             "tag_on_join_and_untag_on_left": "Tagger si présent dans la smartlist",
             "tag_on_join": "Tagger en entrée de smartlist",
             "tag_on_left": "Tagger en sortie de smartlist",
-            "create": "Créer un règle",
+            "create": "Créer une règle",
             "associated_tag": "Tag associé",
             "display_tag_rules": "Afficher les règles de Tag",
             "cancel": "Annuler",

@@ -17,6 +17,7 @@ const getTimezoneListExtended = (
       moment.tz.zone('America/Martinique'),
       moment.tz.zone('Indian/Antananarivo'),
       moment.tz.zone('America/Cayenne'),
+      moment.tz.zone('Africa/Casablanca'),
     ];
   }
   if (country === 'US') {

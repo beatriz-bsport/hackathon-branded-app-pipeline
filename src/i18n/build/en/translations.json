@@ -8218,7 +8218,7 @@
             "details": {
                 "actions": {
                     "refund": "Transform in credit",
-                    "applyVoucher": "Refund"
+                    "applyVoucher": "Apply a discount"
                 }
             },
             "refund": {

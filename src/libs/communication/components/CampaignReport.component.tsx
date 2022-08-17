@@ -11,14 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import amber from '@material-ui/core/colors/amber';
 import { Theme, makeStyles } from '@material-ui/core';
 import clx from 'classnames';
 import RecipientTable from './RecipientTable.component';
 import type { Campaign, Report, Recipient } from '../types';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 const useStyles = makeStyles((theme: Theme) => ({
   statBanner: {
@@ -245,17 +243,11 @@ export const CampaignReport = (props: Props) => {
         recipientState={props.recipientState}
         goToMember={props.goToMember}
       />
-      <Dialog open={!!showMail}>
-        <DialogContent>
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{ __html: showMail }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowMail(null)}>{t('common:close')}</Button>
-        </DialogActions>
-      </Dialog>
+      <HTMLPreviewDialog
+        open={!!showMail}
+        html={showMail}
+        onClose={() => setShowMail(null)}
+      />
     </div>
   );
 };

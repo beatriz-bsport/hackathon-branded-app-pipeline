@@ -2,13 +2,13 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
-import CommunicationMailPreview from './CommunicationMailPreview.component';
 import CommunicationInformationModal from './CommunicationInformationModal.component';
 import CommunicationThreadScrollableView from './CommunicationThreadScrollableView.component';
 import InfoGenericBox from '#components/box/InfoGenericBox.component';
 
 import { getOfferRecipientsFilters } from '../utils';
 import { ThreadCommunication, RecipientWithMember } from '../types';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 type OwnProps = {
   consentWarning?: string;
@@ -124,9 +124,8 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
           isSingleRecipientThread={isSingleRecipientThread}
         />
         {this.state.openEmailView && (
-          <CommunicationMailPreview
+          <HTMLPreviewDialog
             open={this.state.openEmailView}
-            fullScreen={fullScreen}
             onClose={this.closeEmailView}
             html={this.state.selectedMailBody}
             title={this.state.selectedMailTitle}

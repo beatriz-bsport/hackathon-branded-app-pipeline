@@ -18,7 +18,8 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { useTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { compose } from 'recompose';
 
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
@@ -29,6 +30,7 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { Actions, Submit, CheckboxField, TextField } from '#components/forms';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 type Props = {
   getEmails: () => void;
@@ -221,16 +223,10 @@ const MarketingRuleFormBirthday = (props: Props) => {
             <Collapse in={displayMailPreview}>
               <div className={classes.mailPreview}>
                 {email_design && !!emailDetails[email_design] ? (
-                  <div>
-                    <div
-                      // eslint-disable-next-line react/no-danger
-                      dangerouslySetInnerHTML={{
-                        __html: emailDetails
-                          ? emailDetails[email_design].html
-                          : null,
-                      }}
-                    />
-                  </div>
+                  <HTMLPreview
+                    html={emailDetails?.[email_design]?.html}
+                    scrolling
+                  />
                 ) : (
                   renderEmptyOrLoading(emailDetailLoading, emails, t, classes)
                 )}

@@ -8,7 +8,7 @@ import { Member } from '../../member/types';
 import MembersFactory, { MemberFactory } from '../../member/factories/Member';
 import { WRITE_EMAIL, WRITE_SMS } from '../constants';
 import { getMemberIdListsFromMemberList } from '../utils';
-import EmailTemplateDetailSummaryListsFactory from '../factories/Emails';
+import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
 
 const memberList = MembersFactory(8, true);
 const [allMemberIds, allMemberIdsWithoutEmail, allMemberIdsWithoutPhone] =

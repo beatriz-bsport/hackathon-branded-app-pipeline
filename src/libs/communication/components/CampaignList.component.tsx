@@ -3,14 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import CampaignListItem from './CampaignListItem.component';
 import type { Campaign, Recipient } from '../types';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 type Props = {
   loading: boolean;
@@ -56,19 +54,11 @@ export const CampaignList: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <GenericResponsiveDialog open={!!showEmail}>
-        <DialogContent>
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{ __html: showEmail }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowEmail(null)}>
-            {t('common:close')}
-          </Button>
-        </DialogActions>
-      </GenericResponsiveDialog>
+      <HTMLPreviewDialog
+        open={!!showEmail}
+        html={showEmail}
+        onClose={() => setShowEmail(null)}
+      />
     </div>
   );
 };

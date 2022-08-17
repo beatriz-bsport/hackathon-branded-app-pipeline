@@ -23,6 +23,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
+import HTMLPreview from '../../../components/html/HTMLPreview.component';
 
 type Props = {
   onCancel: () => void,
@@ -158,6 +159,7 @@ export class SelectTemplate extends Component<Props> {
                   size="small"
                   disabled={this.props.selectedMail === null}
                   classes={{ disabled: classes.disabled }}
+                  className={classes.advanceIndex}
                 >
                   <EditIcon />
                 </Fab>
@@ -166,16 +168,12 @@ export class SelectTemplate extends Component<Props> {
             <div className={classes.mailPreview}>
               {this.props.selectedMail &&
               !!this.props.emailDetails[this.props.selectedMail] ? (
-                <div>
-                  <div
-                    // eslint-disable-next-line
-                    dangerouslySetInnerHTML={{
-                      __html: this.props.emailDetails
-                        ? this.props.emailDetails[this.props.selectedMail].html
-                        : null,
-                    }}
-                  />
-                </div>
+                <HTMLPreview
+                  scrolling
+                  html={
+                    this.props.emailDetails?.[this.props.selectedMail]?.html
+                  }
+                />
               ) : (
                 this.renderLoadingOrEmpty(
                   this.props.emailDetailLoading,
@@ -235,6 +233,10 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: '-20px',
+    zIndex: 100,
+  },
+  advanceIndex: {
+    zIndex: 10,
   },
 });
 

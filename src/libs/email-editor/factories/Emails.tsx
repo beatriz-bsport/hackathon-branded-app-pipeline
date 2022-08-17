@@ -1,10 +1,11 @@
 // @ts-ignore
 import faker from 'faker';
-import { fakerHTML } from './Communication';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
 } from '#libs/email-editor/types';
+
+import fakerHTML from '#components/html/fakerHTML';
 
 faker.locale = 'fr';
 

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { IconButton, Theme, makeStyles } from '@material-ui/core';
+import { IconButton, Theme, makeStyles, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import CropFreeIcon from '@material-ui/icons/CropFree';
@@ -41,7 +41,7 @@ const NotificationRulePreview = (props: Props) => {
     if (rule && !rule.email_design) {
       showEmailPreviewHTML(rule.email_template);
     } else {
-      showEmailPreview(rule.email_design);
+      showEmailPreview(rule?.email_design);
     }
   };
 
@@ -58,15 +58,16 @@ const NotificationRulePreview = (props: Props) => {
         </div>
       )}
       {event && displayMode === 'email' && (
-        <div className={classes.preview}>
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{
-              __html:
-                previewEmail?.[event?.rule?.email_design]?.html ||
-                event?.rule?.email_template,
-            }}
+        <Paper className={classes.preview}>
+          <iframe
+            title="notification-rule-preview-iframe"
+            srcDoc={
+              previewEmail?.[event?.rule?.email_design]?.html ||
+              event?.rule?.email_template
+            }
             className={classes.html}
+            scrolling="no"
+            frameBorder="0"
           />
           <IconButton
             onClick={handleShowEmail(event.rule)}
@@ -74,7 +75,7 @@ const NotificationRulePreview = (props: Props) => {
           >
             <CropFreeIcon color="disabled" />
           </IconButton>
-        </div>
+        </Paper>
       )}
       {displayMode === 'notification' && (
         <>
@@ -126,15 +127,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   preview: {
     position: 'relative',
-    backgroundColor: '#E7E7E7',
     display: 'flex',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    borderRadius: 4,
-    overflow: 'hidden',
-    marginBottom: theme.spacing(2),
-    justifyContent: 'space-around',
     flex: 1,
+    borderRadius: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      minHeight: 300,
+    },
   },
   fullAvailableSize: {
     flex: 1,
@@ -144,11 +143,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   html: {
     position: 'absolute',
+    height: '100%',
+    width: '100%',
   },
   showMore: {
     position: 'absolute',
     bottom: theme.spacing(3),
     right: theme.spacing(3),
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 

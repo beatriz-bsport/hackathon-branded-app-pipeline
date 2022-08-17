@@ -22,6 +22,7 @@ import {
 
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 type OwnProps = {
   closeDialog: () => void;
@@ -144,7 +145,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
         (email) => email.id === this.state.selectedTemplate,
       )?.html;
     return (
-      <div>
+      <div className={classes.contentContainer}>
         <TextField
           name="Mail title"
           placeholder={t('mail.title')}
@@ -231,6 +232,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
                   size="small"
                   disabled={this.state.selectedTemplate === null}
                   classes={{ disabled: classes.disabled }}
+                  className={classes.advancedIndex}
                 >
                   <EditIcon />
                 </Fab>
@@ -240,14 +242,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
               {this.state.selectedTemplate &&
               !this.props.emailDetailListLoading &&
               !!html ? (
-                <div>
-                  <div
-                    // eslint-disable-next-line
-                    dangerouslySetInnerHTML={{
-                      __html: html,
-                    }}
-                  />
-                </div>
+                <HTMLPreview html={html} scrolling />
               ) : (
                 this.renderLoadingOrEmpty(
                   this.props.emailDetailListLoading && !!html,
@@ -283,6 +278,9 @@ const styles: any = (theme: Theme) => ({
   addIcon: {
     marginLeft: theme.spacing(1),
   },
+  advancedIndex: {
+    zIndex: 10,
+  },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -297,11 +295,15 @@ const styles: any = (theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  contentContainer: {
+    width: '100%',
+  },
   editIcon: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: theme.spacing(-2),
     marginRight: theme.spacing(-2),
+    zIndex: 100,
   },
   flexRowContainer: {
     display: 'flex',

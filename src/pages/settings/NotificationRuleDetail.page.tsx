@@ -2,9 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 import { push as pushRouter } from 'connected-react-router';
@@ -41,6 +38,7 @@ import {
 import { getCelebrationBirthday } from '#libs/marketing/selectors';
 
 import withTitle from '#hocs/with-title.hoc';
+// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import { NotificationRuleSettings } from '#libs/notification-rule/types';
@@ -49,6 +47,7 @@ import NotificationRulePreview from '#libs/notification-rule/components/Notifica
 import NotificationRulePreviewHeader from '#libs/notification-rule/components/NotificationRulePreviewHeader.component';
 import NotificationRuleListItem from '#libs/notification-rule/components/NotificationRuleListItem.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,
@@ -228,56 +227,60 @@ const NotificationRuleDetail = (props: Props) => {
   return (
     <div>
       {loading && <BackofficeLinearProgress />}
-      <div className={classes.wrapper} style={{ maxHeight: pageHeight }}>
-        <div className={classes.sticky}>
-          <NotificationRuleGroupHeader
-            eventGroupName={eventName}
-            eventsList={eventTypeList}
-            settings={notificationRuleSettings}
-            isOpen
-            onToggleClick={navigateToGeneral}
-          />
-        </div>
-        <div className={classes.sticky}>
-          <NotificationRulePreviewHeader
-            className={classes.preview}
-            value={displayNotification ? 'notification' : 'email'}
-            onChange={handleSetDisplayNotification}
-          />
+      <div style={{ maxHeight: pageHeight }} className={classes.page}>
+        <div className={classes.gridContainer}>
+          <div className={classes.gridItemLeft}>
+            <NotificationRuleGroupHeader
+              eventGroupName={eventName}
+              eventsList={eventTypeList}
+              settings={notificationRuleSettings}
+              isOpen
+              onToggleClick={navigateToGeneral}
+            />
+          </div>
+          <div className={classes.gridItemRight}>
+            <NotificationRulePreviewHeader
+              value={displayNotification ? 'notification' : 'email'}
+              onChange={handleSetDisplayNotification}
+              className={classes.notificationHeader}
+            />
+          </div>
         </div>
         {eventTypeList.map((event) => (
           <React.Fragment key={event.notification_event}>
-            <NotificationRuleListItem
-              event={event.notification_event}
-              rule={event.rule}
-              emailDesignList={emailDesignList}
-              updateNotification={handleUpdateNotification}
-              showEmailPreview={handleShowEmailPreview}
-              showEmailPreviewHTML={setPreviewEmailHtml}
-              onDeleteNotificationRule={deleteNotificationRule}
-              franchisedOwned={!!event.rule?.franchisor ?? false}
-              disabled={
-                notificationRuleSettings?.[event.notification_event]
-                  ?.disabled ?? false
-              }
-              sendCompany={
-                notificationRuleSettings?.[event.notification_event]
-                  ?.send_company ?? false
-              }
-              onDisable={handleSettingsDisable(event.notification_event)}
-              onSendCompany={handleSettingsCopy(event.notification_event)}
-              tags={getMergeTags()}
-              className={classes.listItem}
-            />
-            <NotificationRulePreview
-              event={event}
-              previewEmail={previewEmail}
-              displayMode={displayNotification ? 'notification' : 'email'}
-              showEmailPreview={handleShowEmailPreview}
-              showEmailPreviewHTML={setPreviewEmailHtml}
-              theme={theme}
-              className={classes.shrink}
-            />
+            <div className={classes.gridContainer}>
+              <NotificationRuleListItem
+                event={event.notification_event}
+                rule={event.rule}
+                emailDesignList={emailDesignList}
+                updateNotification={handleUpdateNotification}
+                showEmailPreview={handleShowEmailPreview}
+                showEmailPreviewHTML={setPreviewEmailHtml}
+                onDeleteNotificationRule={deleteNotificationRule}
+                franchisedOwned={!!event.rule?.franchisor ?? false}
+                disabled={
+                  notificationRuleSettings?.[event.notification_event]
+                    ?.disabled ?? false
+                }
+                sendCompany={
+                  notificationRuleSettings?.[event.notification_event]
+                    ?.send_company ?? false
+                }
+                onDisable={handleSettingsDisable(event.notification_event)}
+                onSendCompany={handleSettingsCopy(event.notification_event)}
+                tags={getMergeTags()}
+                className={classes.gridItemLeft}
+              />
+              <NotificationRulePreview
+                event={event}
+                previewEmail={previewEmail}
+                displayMode={displayNotification ? 'notification' : 'email'}
+                showEmailPreview={handleShowEmailPreview}
+                showEmailPreviewHTML={setPreviewEmailHtml}
+                theme={theme}
+                className={classes.gridItemRight}
+              />
+            </div>
           </React.Fragment>
         ))}
       </div>
@@ -285,51 +288,68 @@ const NotificationRuleDetail = (props: Props) => {
         (!!previewEmailId &&
           previewEmail[previewEmailId] &&
           previewEmail[previewEmailId].html)) && (
-        <Dialog open>
-          <div
-            // eslint-disable-next-line
-                dangerouslySetInnerHTML={{
-              __html: previewEmailHtml || previewEmail[previewEmailId].html,
-            }}
-          />
-          <DialogActions>
-            <Button onClick={handleCloseEmailPreview}>
-              {t('emailDesign.closePreview')}
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <HTMLPreviewDialog
+          open
+          html={previewEmailHtml || previewEmail[previewEmailId]?.html}
+          onClose={handleCloseEmailPreview}
+          buttonText={t('emailDesign.closePreview')}
+        />
       )}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  sticky: {
-    position: 'sticky',
+  gridContainerTop: {
+    display: 'flex',
+    marginBottom: theme.spacing(3),
+    alignItems: 'flex-end',
+  },
+  notificationHeader: {
     width: '100%',
-    top: 0,
-    left: 0,
-    backgroundColor: theme.palette.background.default,
-    zIndex: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
-  preview: {
-    paddingTop: theme.spacing(6),
+  gridContainer: {
+    display: 'flex',
+    marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
-  listItem: {
-    flexShrink: 0,
-    marginLeft: 2,
-    marginRight: 2,
+  gridItemLeft: {
+    width: '60%',
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginRight: 0,
+    },
   },
-  wrapper: {
-    overflow: 'auto',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2,1fr)',
-    gridGap: theme.spacing(3),
-  },
-  shrink: {
+  gridItemRight: {
+    width: '40%',
     display: 'flex',
     flex: 1,
-    position: 'relative',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  gridItemRightTop: {
+    width: '40%',
+    display: 'flex',
+    flex: 1,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  page: {
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
   },
 }));
 
@@ -340,7 +360,7 @@ const connector = connect(
     previewEmail: getEmailTemplatesDetail(state),
     loading:
       state.notificationRule.rule.loading ||
-      state.emailTemplate.isLoading ||
+      state.emailTemplate.loading ||
       state.notificationRule.settings.loading ||
       state.marketingNotification.loading,
     settingsData: state.notificationRule.settings.data,

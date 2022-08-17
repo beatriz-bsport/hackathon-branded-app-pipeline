@@ -26,8 +26,8 @@ import {
   getUnavailableEmailTemplatesSummaries,
 } from '../../libs/email-editor/selectors';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import EmailPreview from '../../libs/email-editor/components/EmailPreview.components';
-import EmailListItem from '../../libs/email-editor/components/EmailListItem.components';
+import HTMLPreview from '#components/html/HTMLPreview.component';
+import EmailListItem from '#libs/email-editor/components/EmailListItem.components';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -325,10 +325,11 @@ export class MarketingEmail extends Component<Props, State> {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <EmailPreview
+            <HTMLPreview
               title={this.props.t('preview')}
               html={this.props.email_templates_details?.[this.props.id]?.html}
               loading={this.props.loading}
+              scrolling
             />
           </Grid>
         </Grid>

@@ -20,6 +20,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 type Props = {
   open: boolean,
@@ -178,16 +179,10 @@ export class SendEmailDialog extends Component<Props> {
           <div className={classes.mailPreview}>
             {this.state.selectedMail &&
             !!this.props.emailDetails[this.state.selectedMail] ? (
-              <div>
-                <div
-                  // eslint-disable-next-line
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.emailDetails
-                      ? this.props.emailDetails[this.state.selectedMail].html
-                      : null,
-                  }}
-                />
-              </div>
+              <HTMLPreview
+                scrolling
+                html={this.props.emailDetails?.[this.state.selectedMail]?.html}
+              />
             ) : (
               this.renderLoadingOrEmpty(
                 this.props.emailDetailLoading,

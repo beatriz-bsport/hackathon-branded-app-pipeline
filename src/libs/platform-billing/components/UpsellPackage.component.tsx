@@ -107,6 +107,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
     },
   },
+  iframe: {
+    height: '100%',
+    width: '100%',
+  },
 }));
 
 const UpsellPackageCustomApp = (props: Props) => {
@@ -284,11 +288,11 @@ const DefaultTemplate = (props: Props) => {
             <Typography variant="h6">{upsellPackage.name}</Typography>
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
-                <div
-                  // eslint-disable-next-line
-                  dangerouslySetInnerHTML={{
-                    __html: props.upsellPackage.description_html,
-                  }}
+                <iframe
+                  title="upsell-package-default-template-iframe"
+                  srcDoc={props.upsellPackage.description_html}
+                  className={classes.iframe}
+                  frameBorder="0"
                 />
               ) : (
                 <Typography>{upsellPackage.description}</Typography>
@@ -341,11 +345,11 @@ const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
           <Typography variant="h6">{upsellPackage.name}</Typography>
           <div className={classes.innerDescription}>
             {upsellPackage.description_html ? (
-              <div
-                // eslint-disable-next-line
-                dangerouslySetInnerHTML={{
-                  __html: props.upsellPackage.description_html,
-                }}
+              <iframe
+                title="upsell-package-sms-iframe"
+                srcDoc={props.upsellPackage.description_html}
+                className={classes.iframe}
+                frameBorder="0"
               />
             ) : (
               <Typography>{upsellPackage.description}</Typography>

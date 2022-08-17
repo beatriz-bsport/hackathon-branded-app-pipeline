@@ -33,6 +33,7 @@ import { CompanyTheme } from '../../theme/types';
 import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
 
 import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -306,14 +307,7 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
                   {t('marketing:notifications.mailTitle')}
                 </Typography>
                 <Divider className={classes.divider} />
-                <Paper className={classes.mailPreview}>
-                  <div
-                    // eslint-disable-next-line
-                    dangerouslySetInnerHTML={{
-                      __html: this.props.emailDetails.html,
-                    }}
-                  />
-                </Paper>
+                <HTMLPreview html={this.props.emailDetails.html} scrolling />
               </>
             )}
             <FeatureListProvider>

@@ -23,6 +23,7 @@ import EmailSelector from '#libs/email-editor/components/EmailSelector.component
 import Tooltip from '#components/Tooltip.component';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 
+import HTMLPreview from '#components/html/HTMLPreview.component';
 import {
   IntegerField,
   RadioGroupField,
@@ -407,16 +408,10 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
                   <Collapse in={displayMailPreview}>
                     <div className={classes.mailPreview}>
                       {email_design && !!emailDetails[email_design] ? (
-                        <div>
-                          <div
-                            // eslint-disable-next-line
-                              dangerouslySetInnerHTML={{
-                              __html: emailDetails
-                                ? emailDetails[email_design].html
-                                : null,
-                            }}
-                          />
-                        </div>
+                        <HTMLPreview
+                          html={emailDetails?.[email_design]?.html}
+                          scrolling
+                        />
                       ) : (
                         renderEmptyOrLoading(
                           emailDetailLoading,

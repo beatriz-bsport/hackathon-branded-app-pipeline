@@ -12,7 +12,8 @@ import {
 
 import TextFieldWithChildren from '#components/input/TextFieldWithChildren.component';
 import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
-import { EmailTemplateDetail } from '../../email-editor/types';
+import { EmailTemplateDetail } from '#libs/email-editor/types';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 import { TEXTFIELD_MAIL_TITLE, TEXTFIELD_MAIL_CONTENT } from '../constants';
 
@@ -136,14 +137,12 @@ const EmailPreview = (props: PreviewProps) => {
         </div>
         <div className={classes.mailPreviewContent}>
           {!loadingTemplateDetails ? (
-            <div
-              // eslint-disable-next-line
-              dangerouslySetInnerHTML={{
-                __html: emailTemplateDetails.find(
+            <HTMLPreview
+              html={
+                emailTemplateDetails.find(
                   (email) => email.id === emailTemplateSelected,
-                ).html,
-              }}
-              className={classes.htmlPreview}
+                )?.html
+              }
             />
           ) : (
             <CircularProgress />
@@ -179,10 +178,6 @@ const RefreshDialog = (props: RefreshProps) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  htmlPreview: {
-    overflow: 'hidden',
-    maxHeight: '30vh',
-  },
   mailPreviewContainer: {
     borderRadius: theme.spacing(2),
     display: 'flex',
@@ -209,6 +204,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    width: '100%',
+    overflow: 'hidden',
+    height: '20vh',
   },
 }));
 export default CommunicationWriteEmail;

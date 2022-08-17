@@ -3,7 +3,7 @@ import CommunicationDrawer, { Props } from './CommunicationDrawer.component';
 import MembersFactory, { MemberFactory } from '#libs/member/factories/Member';
 import ThreadCommunicationListFactory from '../factories/Communication';
 import { RecipientWithMemberFromThreadCommunicationFactory } from '../factories/RecipientWithMember';
-import EmailTemplateDetailSummaryListsFactory from '../factories/Emails';
+import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
 
 import {
   getMemberIdListsFromMemberList,

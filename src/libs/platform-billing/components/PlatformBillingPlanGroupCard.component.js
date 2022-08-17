@@ -69,11 +69,11 @@ const PlatformBillingPlanCard = (props: {
       <Divider />
       <div className={classes.planDescription}>
         {platformBillingPlan.description_html ? (
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{
-              __html: platformBillingPlan.description_html,
-            }}
+          <iframe
+            title="platform-billing-plan-card-iframe"
+            srcDoc={platformBillingPlan.description_html}
+            className={classes.iframe}
+            frameBorder="0"
           />
         ) : (
           <TypographyMultiline>

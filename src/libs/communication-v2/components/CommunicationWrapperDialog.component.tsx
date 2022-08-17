@@ -21,7 +21,12 @@ type Props = {
 const CommunicationWrapperDialog = (props: Props) => {
   const classes = useStyles();
   return (
-    <Dialog fullScreen={props.fullScreen} open={props.open}>
+    <Dialog
+      fullScreen={props.fullScreen}
+      open={props.open}
+      fullWidth
+      maxWidth="sm"
+    >
       {props.title && (
         <DialogTitle className={classes.dialogTitleContainer}>
           <div className={classes.dialogTitle}>{props.title}</div>

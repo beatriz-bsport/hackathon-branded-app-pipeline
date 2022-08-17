@@ -48,6 +48,7 @@ import {
   CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING,
   CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START,
 } from '#libs/payment-packs/utils';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -498,16 +499,10 @@ const ProductNotificationForm = (props: Props) => {
             <Collapse in={displayMailPreview}>
               <div className={classes.mailPreview}>
                 {email_design && !!emailDetails[email_design] ? (
-                  <div>
-                    <div
-                      // eslint-disable-next-line react/no-danger
-                      dangerouslySetInnerHTML={{
-                        __html: emailDetails
-                          ? emailDetails[email_design].html
-                          : null,
-                      }}
-                    />
-                  </div>
+                  <HTMLPreview
+                    html={emailDetails?.[email_design]?.html}
+                    scrolling
+                  />
                 ) : (
                   renderEmptyOrLoading(emailDetailLoading, emails, t, classes)
                 )}

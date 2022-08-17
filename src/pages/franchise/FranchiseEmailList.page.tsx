@@ -31,7 +31,7 @@ import {
 } from '../../libs/email-editor/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import FranchiseEmailListing from '../../libs/franchise/components/FranchiseEmailListing.components';
-import EmailPreview from '../../libs/email-editor/components/EmailPreview.components';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 import { getFranchiseCompanyById } from '../../libs/franchise/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
 import withTitle from '../../hocs/with-title.hoc';
@@ -149,10 +149,11 @@ const FranchiseEmailList = (props: Props) => {
 
         <Grid item xs={12} md={6} className={classes.grid}>
           <div className={classes.scroll}>
-            <EmailPreview
+            <HTMLPreview
               title={t('emails.emptyStateTitle')}
               html={emailDetail?.[id]?.html ?? null}
               loading={emailDetailLoading}
+              scrolling
             />
           </div>
         </Grid>
@@ -184,6 +185,7 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing(2),
       overflowY: 'auto',
       maxHeight: '100%',
+      height: '100%',
     },
     grid: {
       display: 'flex',

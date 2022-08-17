@@ -18,6 +18,7 @@ import { getTextColorFromRGB } from '../../../utils/color';
 import { Communication } from '../types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
 import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
+import HTMLPreview from '#components/html/HTMLPreview.component';
 
 const useStyles = makeStyles<Theme, { reverse: boolean }>((theme) => ({
   container: (props) => ({
@@ -85,7 +86,8 @@ const useStyles = makeStyles<Theme, { reverse: boolean }>((theme) => ({
   },
   htmlPreview: {
     overflow: 'hidden',
-    maxHeight: '40vh',
+    maxHeight: '30vh',
+    width: '100%',
   },
   showEmail: {
     display: 'flex',
@@ -161,11 +163,9 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
 
           {communication.kind === COMMUNICATION_KIND_EMAIL ? (
             <>
-              <div
-                className={classes.htmlPreview}
-                // eslint-disable-next-line
-                dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-              />
+              <div className={classes.htmlPreview}>
+                <HTMLPreview html={sanitizedHtml} />
+              </div>
               <ButtonBase
                 className={classes.showEmail}
                 onClick={() =>

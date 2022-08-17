@@ -31,6 +31,7 @@ import {
   EmailTemplateSummary,
 } from '../../email-editor/types';
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 export type OwnProps = {
   rule?: FranchiseCompleteNotificationRule;
@@ -184,19 +185,12 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
         </DialogActions>
       </Dialog>
       {showPreview && previewEmail && (
-        <Dialog open>
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{
-              __html: previewEmail.html,
-            }}
-          />
-          <DialogActions>
-            <Button onClick={() => setShowPreview(false)}>
-              {t('franchise.form.cancel')}
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <HTMLPreviewDialog
+          open
+          html={previewEmail?.html}
+          onClose={() => setShowPreview(false)}
+          buttonText={t('franchise.form.cancel')}
+        />
       )}
     </>
   );

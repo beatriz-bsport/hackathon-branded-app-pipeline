@@ -67,7 +67,7 @@ const ReportConfigurationForm: React.FC<Props> = ({
         <AlertError name="category" />
       </FormControl>
       {categoryMetadata ? (
-        <FormControl label={t('form.columns')}>
+        <FormControl>
           <FieldArray name="columns">
             {({ name, form: { values, setFieldValue } }) => (
               <ReportColumnSelector

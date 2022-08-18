@@ -6,7 +6,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
@@ -26,6 +25,7 @@ import ReportListItem from './ReportListItem.component';
 import ReportConfigurationForm from './ReportConfigurationForm.component';
 import { OptionCallback } from '../../../state/types';
 import FuzzySearch from '#components/search/FuzzySearch.component';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type OwnProps = {
   metadata: ReportMetadataValue[];
@@ -156,7 +156,7 @@ export function ReportDashboard(props: Props) {
         <AddIcon />
       </Fab>
       {showModalAdd ? (
-        <Dialog open>
+        <GenericResponsiveDialog open maxWidth="sm">
           <DialogTitle>
             {reportConfiguration?.name ?? t('form.title')}
           </DialogTitle>
@@ -178,7 +178,7 @@ export function ReportDashboard(props: Props) {
               }}
             />
           </DialogContent>
-        </Dialog>
+        </GenericResponsiveDialog>
       ) : null}
     </div>
   );

@@ -327,7 +327,7 @@ const ReportFilterConfigFormDrawer: React.FC<
             return false;
           return true;
         }),
-        'datatype',
+        (column) => [column.datatype, column.identifier],
       ),
     [columns, values.config.groups],
   );

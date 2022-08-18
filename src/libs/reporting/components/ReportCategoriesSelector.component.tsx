@@ -63,7 +63,7 @@ const ReportCategoriesSelector: React.FC<Props> = ({
                 const Icon = category.icon;
                 const isSelected = category.id === selected;
                 const color = isSelected ? 'primary' : 'default';
-                const onDelete = isSelected ? () => onSelect(null) : null;
+                const onDelete = isSelected ? () => onSelect('') : null;
 
                 return (
                   <div>

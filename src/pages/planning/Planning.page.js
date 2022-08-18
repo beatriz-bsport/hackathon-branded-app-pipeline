@@ -1111,6 +1111,7 @@ export class Planning extends PureComponent<Props, State> {
                           : !this.props.offerFilters.available
                       }
                       setShowCancelledOffers={this.props.setShowCancelledOffers}
+                      showDayName
                     />
                   )}
                 </PermissionContext.Consumer>

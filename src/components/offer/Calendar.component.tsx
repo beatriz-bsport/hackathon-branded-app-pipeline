@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import moment, { Moment } from 'moment-timezone';
+import { Moment as MomentType } from 'moment-timezone';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
@@ -25,6 +25,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
+import { Moment } from '../../i18n';
 
 import { DATE_FORMAT, formatAsTitle } from '../../utils/datetime';
 import { CalendarDay } from './CalendarDay.component';
@@ -73,10 +74,10 @@ class Calendar extends PureComponent<Props, State> {
   }
 
   getDateSelected = () => {
-    return moment(this.props.date, DATE_FORMAT).clone();
+    return Moment(this.props.date, DATE_FORMAT).clone();
   };
 
-  renderDay = (day: Moment) => {
+  renderDay = (day: MomentType) => {
     const dateSelected = this.getDateSelected();
     return (
       <CalendarDay
@@ -95,7 +96,7 @@ class Calendar extends PureComponent<Props, State> {
     const dateSelected = this.getDateSelected();
 
     if (this.state.displayMode === MONTHMODE) {
-      const dateMonth = moment.months()[dateSelected.month()];
+      const dateMonth = Moment.months()[dateSelected.month()];
       const dateYear = dateSelected.year();
       return `${dateMonth} ${dateYear}`;
     }
@@ -276,7 +277,7 @@ class Calendar extends PureComponent<Props, State> {
     );
   };
 
-  renderWeekFrom = (firstDayWeek: Moment) => {
+  renderWeekFrom = (firstDayWeek: MomentType) => {
     return (
       <div className={this.props.classes.weekRowContainer}>
         {this.renderDay(firstDayWeek.clone().add(0, 'days'))}
@@ -290,7 +291,7 @@ class Calendar extends PureComponent<Props, State> {
     );
   };
 
-  renderMonthFrom = (firstDayMonth: Moment) => {
+  renderMonthFrom = (firstDayMonth: MomentType) => {
     const weekRows = [];
     for (let i = 0; i < 6; i += 1) {
       const firstDayInRow = firstDayMonth.clone().add(i * 7, 'days');
@@ -306,7 +307,7 @@ class Calendar extends PureComponent<Props, State> {
     return (
       <Grid container direction="column" alignItems="stretch">
         <Grid item className={this.props.classes.weekdayNameRow}>
-          {moment.weekdaysShort(true).map((wds: string) => (
+          {Moment.weekdaysShort(true).map((wds: string) => (
             <div
               style={{
                 flex: 1,
@@ -350,7 +351,22 @@ class Calendar extends PureComponent<Props, State> {
 
     switch (this.state.displayMode) {
       case WEEKMODE:
-        return this.renderWeekFrom(dateSelected.clone().startOf('week'));
+        return (
+          <>
+            {!this.props.showDayName && (
+              <div className={this.props.classes.weekRowContainer}>
+                {Moment.weekdaysShort(true).map((wds: string) => (
+                  <div className={this.props.classes.weekDayShort} key={wds}>
+                    <Typography variant="caption" color="textSecondary">
+                      {wds[0]}
+                    </Typography>
+                  </div>
+                ))}
+              </div>
+            )}
+            {this.renderWeekFrom(dateSelected.clone().startOf('week'))}
+          </>
+        );
       case MONTHMODE:
       default:
         return this.renderMonthFrom(
@@ -440,6 +456,12 @@ const styles = (theme: Theme) =>
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
       width: '100%',
+    },
+    weekDayShort: {
+      flex: 1,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     textCapitalize: {
       textTransform: 'capitalize',

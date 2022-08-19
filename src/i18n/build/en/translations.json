@@ -2747,8 +2747,10 @@
                 "object": "Subject",
                 "title": "Title",
                 "content": "Message"
-            }
-        }
+            },
+            "writeCommunication": "Send a message"
+        },
+        "communication": "Communications"
     },
     "privateService": {
         "serviceGroup": {
@@ -4227,7 +4229,127 @@
             "title": "Appointments",
             "caption": "Saved appointments",
             "popover": "The total number of booked appointments for this date. You can filter cancellations / refunds / ..."
-        }
+        },
+        "graphDefaultTitles": {
+            "privateBookingTemporal": "Appointment",
+            "memberTemporal": "New members",
+            "subscriptionTemporalSum": "Receipt of subscriptions",
+            "subscriptionTemporalCount": "Number of subscription invoices",
+            "bookingTemporal": "Bookings",
+            "bookingQualitative": "Sources of the bookings",
+            "bookingTimeslots": "Average number of people",
+            "paymentTemporal": "Receipts"
+        },
+        "dataSourceIdentifiers": {
+            "activity": "Activity",
+            "margin_value": "Marginal value",
+            "private_service_name": "Appointment",
+            "price": "Price",
+            "contract": "Subscription",
+            "date": "Date",
+            "payment_method": "Payment method",
+            "payment_price": "Price",
+            "payment_date": "Payment date",
+            "accept_sms": "Accepts text messages",
+            "accept_email": "Accept emails",
+            "gender": "Gender",
+            "billing_establishment": "Location",
+            "billing_group": "Billing group",
+            "establishment": "Establishment",
+            "coach": "Teachers",
+            "was_refunded": "Refunded",
+            "booking_status_code": "Booking status",
+            "date_start": "Session date",
+            "date_created": "Booking date",
+            "attendance": "Present",
+            "payment_engine": "Type of payment",
+            "is_workshop": "Workshop",
+            "activity_kind": "Type of session",
+            "booking_effectif_timeslots": "Average number of people",
+            "plannedinvoice_pk": "Number of invoices",
+            "payment_pk": "Number of payments",
+            "privatebooking_pk": "Number of appointments",
+            "source_device": "Origin",
+            "is_recurrent_booking": "Recurrent booking",
+            "booking_pk": "Number of bookings",
+            "member_pk_accumulate": "Number of members",
+            "member_pk": "Number of new members",
+            "date_joined": "Sign up date"
+        },
+        "graphFormDrawer": {
+            "helperText": {
+                "booking_effectif_timeslots": "Average number of sessions per time slot.",
+                "accumulateMembers": "Shows the evolution of the total number of members.",
+                "subscriptionCount": "Number of invoices related to subscriptions.",
+                "subscriptionPrice": "Sum of all payments received related to subscriptions.",
+                "dateCreated": "The data will be represented in time according to the date on which the bookings were made.",
+                "dateStart": "The data will be plotted over time according to the start date of the sessions."
+            },
+            "accumulate": {
+                "total": "Accumulate"
+            },
+            "dashboardGraphIdentifier": {
+                "graph_subscriptions": "Subscriptions",
+                "graph_payments": "Payments",
+                "graph_private_bookings": "Appointments",
+                "graph_bookings": "Bookings",
+                "graph_members": "New members"
+            },
+            "aggregation": {
+                "max": "Maximum",
+                "min": "Minimum",
+                "avg": "Average",
+                "sum": "Total"
+            },
+            "graphFamily": {
+                "week_timeslots": "Daily and hourly frequencies",
+                "qualitative": "Distribution",
+                "temporal": "Evolution over time"
+            },
+            "chartComponents": {
+                "timeslots": "Daily and hourly frequencies",
+                "pie": "Pie chart",
+                "area": "Area diagram",
+                "bar": "Histogram"
+            },
+            "placeholders": {
+                "aggregationSelector": "Choose an operation",
+                "dashboardGraphIdentifier": "Choose a data type"
+            },
+            "labels": {
+                "aggregationName": "Aggregation",
+                "dividedBy": "Divided by",
+                "dataToDisplay": "Data displayed",
+                "dateFilterField": "Data for the date",
+                "groupByField": "Distribute over",
+                "graphFamily": {
+                    "qualitative": "Distribution",
+                    "temporal": "Evolution over time"
+                },
+                "title": "Name"
+            },
+            "sectionTitles": {
+                "filterConfig": "Filters",
+                "timePeriod": "Period",
+                "graphParams": "Data",
+                "graphFamily": "Graph",
+                "dashboardGraphIdentifier": "Type of data",
+                "general": "General information"
+            },
+            "title": {
+                "edit": "Modification of a graph",
+                "create": "Creation of a graph"
+            }
+        },
+        "graphActions": {
+            "delete": "Delete",
+            "edit": "Edit"
+        },
+        "showMoreLegend": "+ {{count}} legend",
+        "showMoreLegend_plural": "+ {{count}} legends",
+        "addFilter": "Add a filter",
+        "filterChipLabel": "{{count}} filter",
+        "filterChipLabel_plural": "{{count}} filters"
     },
     "stripe": {
         "errors": {
@@ -7808,7 +7930,7 @@
             "cancel_rate": "Cancellation rate",
             "rate_non_attendance": "Absence rate",
             "rate_attendance": "Attendance rate",
-            "availability": "Validity",
+            "availability": "Active",
             "min_credit": "Minimum credits",
             "max_credit": "Maximum credits",
             "canceled_bookings": "Number of cancellations",
@@ -7917,7 +8039,12 @@
             "annotated_remaining_credits": "Remaning credits",
             "private_passcredits": "Remaning credits",
             "unpaid_amount": "Total unpaid amount",
-            "total_unpaid_amount": "Total unpaid amount"
+            "total_unpaid_amount": "Total unpaid amount",
+            "unSelectAll": "Unselect all",
+            "selectAll": "Select all",
+            "payment_legal_identifier": "Legal invoice identifier",
+            "member_default_billing_establishment": "Billing address",
+            "archived": "Archived"
         },
         "yes": "Yes",
         "no": "No",
@@ -8158,6 +8285,65 @@
             "payout_status": "Status transfer",
             "payout": "Transfer",
             "staff": "Staff"
+        },
+        "presetValuesByIdentifier": {
+            "gender": {
+                "F": "Women",
+                "M": "Men",
+                "X": "Others"
+            },
+            "activity_kind": {
+                "False": "Activity",
+                "True": "Workshop"
+            },
+            "is_recurrent_booking": {
+                "True": "Recurring",
+                "False": "Non-recurring"
+            },
+            "attendance": {
+                "True": "Present",
+                "False": "Absent"
+            }
+        },
+        "presetValuesByDatatype": {
+            "payment_engine": {
+                "1": "Online payment",
+                "0": "Manual payment"
+            },
+            "payment_method": {
+                "60": "Giropay",
+                "50": "EPS",
+                "40": "iDEAL",
+                "30": "Sofort",
+                "20": "Bancontact",
+                "13": "SEPA",
+                "12": "Dispute",
+                "11": "Other",
+                "10": "Automatic payment",
+                "9": "In-studio payments",
+                "8": "Eventbrite",
+                "7": "Transfer",
+                "6": "AMEX",
+                "5": "Holiday check",
+                "4": "Card (manual)",
+                "3": "Pass",
+                "2": "Check",
+                "1": "Cash",
+                "0": "Card"
+            },
+            "booking_status_code": {
+                "3": "Session cancelled",
+                "2": "Cancelled by member",
+                "1": "Cancelled by manager",
+                "0": "Not cancelled"
+            },
+            "source_device": {
+                "4": "Data migration",
+                "3": "Other",
+                "2": "Bsport Backoffice",
+                "1": "Web",
+                "0": "App"
+            }
         }
     },
     "alerting": {

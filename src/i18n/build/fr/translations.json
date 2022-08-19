@@ -6625,6 +6625,9 @@
                     }
                 }
             }
+        },
+        "datatype": {
+            "boolean": "Vrai/Faux"
         }
     },
     "role": {

@@ -1804,8 +1804,10 @@
                 "notification": "Push-notificatie",
                 "sms": "Sms'je",
                 "mail": "E-mail"
-            }
-        }
+            },
+            "writeCommunication": "Een bericht versturen"
+        },
+        "communication": "Communicaties"
     },
     "paymentCombo": {
         "delete": {
@@ -9335,7 +9337,33 @@
             "title": "Afspraken",
             "caption": "Opgeslagen afspraken",
             "popover": "Dit geeft het totaal aantal afspraken voor deze datum weer, zoals het aantal annuleringen, terugbetalingen en meer."
-        }
+        },
+        "graphFormDrawer": {
+            "labels": {
+                "title": "Naam"
+            },
+            "sectionTitles": {
+                "filterConfig": "Filters",
+                "timePeriod": "Periode",
+                "graphParams": "Gegevens",
+                "graphFamily": "Grafiek",
+                "dashboardGraphIdentifier": "Type gegevens",
+                "general": "Algemene informatie"
+            },
+            "title": {
+                "edit": "Bewerk een grafiek",
+                "create": "Creatie van een grafiek"
+            }
+        },
+        "graphActions": {
+            "delete": "Verwijder",
+            "edit": "Bewerk"
+        },
+        "showMoreLegend": "+ {{count}} Legenda",
+        "showMoreLegend_plural": "+ {{count}} Legenda´s",
+        "addFilter": "Een filter toevoegen",
+        "filterChipLabel": "{{count}} Filter",
+        "filterChipLabel_plural": "{{count}} Filters"
     },
     "common": {
         "colorPicker": {

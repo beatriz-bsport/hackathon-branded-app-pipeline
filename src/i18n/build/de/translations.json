@@ -5739,7 +5739,8 @@
                 "title": "Plane eine Wiederholung",
                 "startFromDate": {
                     "label": "Beginn der Wiederholung am "
-                }
+                },
+                "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Sitzungen zu erstellen"
             },
             "recurrentRuleBooking": "Wiederkehrende Buchung",
             "item": {
@@ -5826,7 +5827,8 @@
                 "actions": {
                     "addGuest": "Einen Gast hinzufügen",
                     "close": "Abbrechen",
-                    "submit": "Bestätigen"
+                    "submit": "Bestätigen",
+                    "limitGuest": "(Keine Kurskarte erlaubt das Hinzufügen von Gästen)"
                 },
                 "lastname": {
                     "label": "Nachname"

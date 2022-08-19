@@ -7805,7 +7805,77 @@
             "fromUntil": "Only if invoiced between {{from}} and {{until}} included"
         },
         "seeMore": "Show more",
-        "search": "Search a subscription"
+        "search": "Search a subscription",
+        "notificationToolTip": "Notifications are set for this subscription",
+        "addNotification": "Add a notification",
+        "notificationForm": {
+            "title": "Notification rules",
+            "subtitle": "Subscription",
+            "typeSection": {
+                "title": "Status to be notified",
+                "contractStart": "Start of subscription",
+                "contractEnd": "End of subscription"
+            },
+            "triggeringEvent": {
+                "title": "Triggering event",
+                "contractCreation": "Subscription creation",
+                "firstBilling": "First invoice"
+            },
+            "notificationType": {
+                "title": "Type of notification",
+                "sendNotification": "Send the notification",
+                "day": "Day",
+                "day_plural": "Days",
+                "hour": "Hour",
+                "hour_plural": "Hours",
+                "before": "Before",
+                "after": "After",
+                "afterSubcriptionCreation": "After creation of the subscription.",
+                "firstBilling": "The first invoice of the subscription.",
+                "warningDayFirst": "The number of days indicated is in relation to the date of the first invoice at midnight",
+                "warningDayLast": "The number of days indicated is in relation to the date of the last invoice at midnight",
+                "warningHourLast": "The number of hours indicated is in relation to the date of the last invoice at midnight",
+                "contractEnd": "End of subscription.",
+                "warningHourFirst": "The number of hours indicated is in relation to the date of the first invoice at midnight"
+            },
+            "sendingMethod": {
+                "title": "Sending method",
+                "notificationPush": "Push notification",
+                "email": "Email"
+            },
+            "emailNotification": {
+                "parameters": "Email settings",
+                "emailToSend": "Email to send"
+            },
+            "notificationPush": {
+                "parameters": "Notification settings",
+                "title": "Title",
+                "content": "Content",
+                "addTag": "Add a variable",
+                "warning": "Be careful, push notifications should be used sparingly. Too many push notifications can lead some members to uninstall the application."
+            },
+            "buttons": {
+                "cancel": "Cancel",
+                "submit": "Save"
+            },
+            "warning": "Notify your members when their subscription has a change of status : end of subscription, start of subscription."
+        },
+        "notification": {
+            "title": "Notify {{count}} {{periodScale}} {{notificationKind}}",
+            "creation": "After creation",
+            "beforefirstBilling": "Before the first invoice",
+            "afterfirstBilling": "After the first invoice",
+            "afterSubscriptionEnd": "After the end of the subscription",
+            "days": "Day",
+            "days_plural": "Days",
+            "hours": "Hour",
+            "hours_plural": "Hours",
+            "beforeSubscriptionEnd": "Before the end of the subscription"
+        },
+        "contractNotification": {
+            "creation": "At the creation of the subscription",
+            "firstBilling": "At the first invoice"
+        }
     },
     "reporting": {
         "columns": {
@@ -8494,7 +8564,10 @@
                 "creditNotificationType": {
                     "onOfferStart": "Send the notification after the end of the session",
                     "onBooking": "Send the notification after completing the booking"
-                }
+                },
+                "contractTitle": "Subscription",
+                "infoContract": "Members who got this card as part of a subscription will only receive notifications about the subscription and not about the card. By deactivating this option they will receive both.",
+                "dontSendIfInContract": "Do not send when the card is part of a subscription"
             },
             "daysPast": {
                 "second": "day(s).",
@@ -12362,7 +12435,8 @@
                 "privateBooking": "Appointments",
                 "booking": "Group activities",
                 "privatePass": "Appointment passes",
-                "birthday": "Birthday"
+                "birthday": "Birthday",
+                "contract": "Subscription"
             },
             "fabLabels": {
                 "private_service": "Appointments",
@@ -12372,7 +12446,8 @@
                 "workshop": "Workshops",
                 "private_pass": "Appointment passes",
                 "birthday": "Birthday",
-                "establishmentGroup": "Location"
+                "establishmentGroup": "Location",
+                "contract": "Subscription"
             },
             "cancel": "Cancel",
             "next": "Next",
@@ -12384,7 +12459,8 @@
                 "meta_activity": "Select an activity",
                 "workshop": "Select a workshop",
                 "private_pass": "Select an appointment pass",
-                "establishment_group": "Select a location"
+                "establishment_group": "Select a location",
+                "contract": "Select a subscription"
             },
             "createNotification": "[Form] Notification",
             "stats": {
@@ -12402,7 +12478,11 @@
             "listTitle": "Notifications",
             "create": "Add a notification",
             "handleNotification": "Notification",
-            "noNotification": "There are no activated notifications to display."
+            "noNotification": "There are no activated notifications to display.",
+            "contractKind": {
+                "contractStart": "Start of subscription",
+                "contractEnd": "End of subscription"
+            }
         },
         "customForm": {
             "field": {

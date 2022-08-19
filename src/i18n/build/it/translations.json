@@ -6957,12 +6957,14 @@
     },
     "booking": {
         "statusCode": {
-            "cancelledByManager": "Gestisci cancellazione",
+            "cancelledByManager": "Gestisci cancellazione {{cancelled_by}}",
             "cancelledByConsumer": "Cancellazione del cliente",
             "cancelledByOffer": "Sessione annullata dal club",
             "cancelledByOfferDate": "Sessione annullata dal club il {{-date}} alle {{time}}",
             "cancelledByConsumerDate": "Cancellato dal cliente il {{-date}} alle {{time}}",
-            "cancelledByManagerDate": "Cancellato dal gestore il {{-date}} alle {{time}}"
+            "cancelledByManagerDate": "Cancellato dal gestore il {{-date}} alle {{time}} da  {{cancelled_by}}",
+            "cancelledByAnonymousManager": "Cancellazioni delle gestore",
+            "cancelledByAnonymousManagerDate": "Cancellazioni gestore delle {{-date}} a {{time}}"
         },
         "bookingModule": {
             "section": {
@@ -7021,7 +7023,8 @@
         "parameters": {
             "registeredOn": "Prenotato il ",
             "source": "Canale di prenotazione",
-            "cancelledOn": "Annullato il "
+            "cancelledOn": "Annullato il ",
+            "by": "Da"
         },
         "source": {
             "web": "Web",
@@ -7059,7 +7062,9 @@
             "notCancelled": "Non annullato",
             "isUnpaid": "Prenotazioni non pagate",
             "isPaid": "Prenotazioni pagate",
-            "paid": "Pagamento"
+            "paid": "Pagamento",
+            "coach": "Professore",
+            "pickCoach": "Ricerca di un insegnante..."
         },
         "creditConsumed": "{{credit_consumed}} credito",
         "creditConsumed_plural": "{{credit_consumed}} crediti",
@@ -7193,7 +7198,8 @@
                 "title": "Programma una ricorrenza",
                 "startFromDate": {
                     "label": "Inizio della ricorrenza su "
-                }
+                },
+                "groupWarning": "Si noti che non è possibile creare una ricorrenza di prenotazioni per gruppi di sessioni"
             },
             "recurrentRuleBooking": "Prenotazione ricorrente",
             "item": {
@@ -7272,7 +7278,10 @@
                 "numberOfBook_plural": "{{count}} iscrizioni"
             },
             "bookingForMe": "me",
-            "bookingsTitleFor": "Prenoto per {{name}}"
+            "bookingsTitleFor": "Prenoto per {{name}}",
+            "bookingForAGuest": {
+                "addGuest": "Aggiungere un ospite"
+            }
         },
         "setSpot": "Assegnare un posto",
         "changeSpot": "Cambiare il posto",
@@ -7288,7 +7297,8 @@
                 "actions": {
                     "addGuest": "Aggiungere un ospite",
                     "close": "Cancellare",
-                    "submit": "Confermare"
+                    "submit": "Confermare",
+                    "limitGuest": "(Nessuna carta dei corsi consente di aggiungere ospiti)"
                 },
                 "lastname": {
                     "label": "Nome"

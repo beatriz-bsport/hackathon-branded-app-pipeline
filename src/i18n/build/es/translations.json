@@ -3753,7 +3753,77 @@
             "title": "Pausar todas las cuotas"
         },
         "seeMore": "Ver más",
-        "search": "Buscar un contrato"
+        "search": "Buscar un contrato",
+        "notificationToolTip": "Las notificaciones están definidas para esta suscripción",
+        "addNotification": "Añadir una notificación",
+        "notificationForm": {
+            "title": "Norma de notificación",
+            "subtitle": "Suscripción",
+            "warning": "Notifica a tus clientes cuando su suscripción tiene un cambio de estatus : fin de suscripción, inicio de suscripción.",
+            "typeSection": {
+                "title": "Estatus a notificar",
+                "contractStart": "Inicio de la suscripción",
+                "contractEnd": "Fin de la suscripción"
+            },
+            "triggeringEvent": {
+                "title": "Evento desencadenante",
+                "contractCreation": "Creación de la suscripción",
+                "firstBilling": "Primera factura"
+            },
+            "notificationType": {
+                "title": "Tipo de notificación",
+                "sendNotification": "Enviar la notificación",
+                "day": "Día",
+                "day_plural": "Días",
+                "hour": "Hora",
+                "hour_plural": "Horas",
+                "before": "Antes",
+                "after": "Después",
+                "afterSubcriptionCreation": "Después de la creación de la suscripción.",
+                "firstBilling": "La primera factura de la suscripción.",
+                "contractEnd": "El final de la suscripción.",
+                "warningHourFirst": "El número de horas indicado se refiere a la fecha de la primera factura a medianoche",
+                "warningDayFirst": "El número de días indicado se refiere a la fecha de la primera factura a medianoche",
+                "warningDayLast": "El número de días indicado se refiere a la fecha de la última factura a medianoche",
+                "warningHourLast": "El número de horas indicado se refiere a la fecha de la última factura a medianoche"
+            },
+            "sendingMethod": {
+                "title": "Método de envío",
+                "email": "Correo",
+                "notificationPush": "Notificación push"
+            },
+            "emailNotification": {
+                "parameters": "Configuración del correo",
+                "emailToSend": "Correo a enviar"
+            },
+            "notificationPush": {
+                "warning": "Cuidado, las notificaciones push deben utilizarse con parsimonia. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación.",
+                "parameters": "Configuración de la notificación",
+                "title": "Título",
+                "content": "Contenido",
+                "addTag": "Añadir una etiqueta"
+            },
+            "buttons": {
+                "cancel": "Cancelar",
+                "submit": "Validar"
+            }
+        },
+        "notification": {
+            "title": "Notificar {{count}} {{periodScale}} {{notificationKind}}",
+            "creation": "Después de la creación",
+            "beforefirstBilling": "Antes de la primera factura",
+            "afterfirstBilling": "Después de la primera factura",
+            "beforeSubscriptionEnd": "Antes del final de la suscripción",
+            "afterSubscriptionEnd": "Después del final de la suscripción",
+            "days": "Día",
+            "days_plural": "Días",
+            "hours": "Hora",
+            "hours_plural": "Horas"
+        },
+        "contractNotification": {
+            "creation": "Al crear la suscripción",
+            "firstBilling": "A la primera factura"
+        }
     },
     "reporting": {
         "columns": {
@@ -9308,7 +9378,10 @@
                     "secondOnOfferStart": "hora(s) después de la sesión",
                     "secondOnBooking": "hora(s) después de la reserva",
                     "first": "Enviar un email"
-                }
+                },
+                "contractTitle": "Suscripción",
+                "dontSendIfInContract": "No enviar cuando la tarjeta está en una suscripción",
+                "infoContract": "Los miembros que hayan obtenido esta tarjeta como parte de una suscripción sólo recibirán notificaciones sobre la suscripción y no sobre la tarjeta. Desactivando esta opción, recibirán ambos."
             },
             "addButton": "Añadir una notificación",
             "listItem": {
@@ -11397,7 +11470,8 @@
                 "privateBooking": "Cita",
                 "booking": "Reservar",
                 "privatePass": "Tarjeta de cita",
-                "birthday": "Cumpleaños"
+                "birthday": "Cumpleaños",
+                "contract": "Suscripción"
             },
             "fabLabels": {
                 "payment_pack": "Bono",
@@ -11407,7 +11481,8 @@
                 "workshop": "Taller",
                 "private_pass": "Tarjeta de cita",
                 "birthday": "Cumpleaños",
-                "establishmentGroup": "Ubicación"
+                "establishmentGroup": "Ubicación",
+                "contract": "Suscripción"
             },
             "cancel": "Cancelar",
             "next": "Siguiente",
@@ -11419,7 +11494,8 @@
                 "meta_activity": "Seleccione una actividad",
                 "workshop": "Seleccione un taller",
                 "private_pass": "Seleccione una tarjeta de cita",
-                "establishment_group": "Seleccione una ubicación"
+                "establishment_group": "Seleccione una ubicación",
+                "contract": "Selecciona una cuota"
             },
             "createNotification": "Formulario de notificación",
             "selectNotificationRules": "Seleccione una regla para ver los detalles",
@@ -11438,7 +11514,11 @@
             "listTitle": "Notificaciones",
             "create": "Crear una notificación",
             "handleNotification": "Gestión de las notificaciones",
-            "noNotification": "No se ha habilitado ninguna notificación"
+            "noNotification": "No se ha habilitado ninguna notificación",
+            "contractKind": {
+                "contractStart": "Inicio de la suscripción",
+                "contractEnd": "Fin de la suscripción"
+            }
         },
         "customForm": {
             "unaccessibleForm": "Este formulario no está disponible actualmente, para volver a su página de perfil haga clic en el botón de abajo.",

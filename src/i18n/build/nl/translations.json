@@ -9340,7 +9340,16 @@
         },
         "graphFormDrawer": {
             "labels": {
-                "title": "Naam"
+                "title": "Naam",
+                "graphFamily": {
+                    "temporal": "Evolutie in de loop van de tijd",
+                    "qualitative": "Verdeling"
+                },
+                "dateFilterField": "Datum gegevens",
+                "dataToDisplay": "Getoonde gegevens",
+                "dividedBy": "Verdeeld door",
+                "groupByField": "Verdelen over",
+                "aggregationName": "Samenvoeging"
             },
             "sectionTitles": {
                 "filterConfig": "Filters",
@@ -9353,6 +9362,45 @@
             "title": {
                 "edit": "Bewerk een grafiek",
                 "create": "Creatie van een grafiek"
+            },
+            "placeholders": {
+                "dashboardGraphIdentifier": "Gegevens kiezen",
+                "aggregationSelector": "Een bewerking kiezen"
+            },
+            "chartComponents": {
+                "area": "Vlakdiagram",
+                "pie": "Cirkeldiagram",
+                "timeslots": "Dagelijkse en uurlijkse frequenties",
+                "bar": "Kolommendiagram"
+            },
+            "graphFamily": {
+                "temporal": "Evolutie in de loop van de tijd",
+                "qualitative": "Verdeling",
+                "week_timeslots": "Dagelijkse en uurlijkse frequenties"
+            },
+            "aggregation": {
+                "sum": "Totaal",
+                "avg": "Gemiddelde",
+                "min": "Minimum",
+                "max": "Maximum"
+            },
+            "dashboardGraphIdentifier": {
+                "graph_members": "Nieuwe leden",
+                "graph_bookings": "Boekingen",
+                "graph_private_bookings": "Afspraken",
+                "graph_payments": "Betalingen",
+                "graph_subscriptions": "Abonnementen"
+            },
+            "accumulate": {
+                "total": "Verzamelen"
+            },
+            "helperText": {
+                "dateStart": "De gegevens worden in tijd uitgezet op basis van de begindatum van de sessies.",
+                "dateCreated": "De gegevens zullen in tijd worden weergegeven overeenkomstig de datum waarop de boekingen werden verricht.",
+                "subscriptionPrice": "Samenvatting van alle ontvangen betalingen in verband met abonnementen.",
+                "subscriptionCount": "Aantal facturen in verband met abonnementen.",
+                "booking_effectif_timeslots": "Gemiddeld aantal sessies per tijdslot.",
+                "accumulateMembers": "Toont de evolutie van het totale aantal leden."
             }
         },
         "graphActions": {
@@ -9363,7 +9411,50 @@
         "showMoreLegend_plural": "+ {{count}} Legenda´s",
         "addFilter": "Een filter toevoegen",
         "filterChipLabel": "{{count}} Filter",
-        "filterChipLabel_plural": "{{count}} Filters"
+        "filterChipLabel_plural": "{{count}} Filters",
+        "dataSourceIdentifiers": {
+            "date_joined": "Datum van inschrijving",
+            "member_pk": "Aantal nieuwe leden",
+            "member_pk_accumulate": "Aantal leden",
+            "booking_pk": "Aantal boekingen",
+            "is_recurrent_booking": "Terugkerende boeking",
+            "source_device": "Oorsprong",
+            "privatebooking_pk": "Aantal afspraken",
+            "payment_pk": "Aantal betalingen",
+            "plannedinvoice_pk": "Aantal facturen",
+            "booking_effectif_timeslots": "Gemiddeld aantal personen",
+            "activity_kind": "Type sessie",
+            "is_workshop": "Workshop",
+            "payment_engine": "Type betaling",
+            "attendance": "Aanwezig",
+            "date_start": "Datum sessie",
+            "date_created": "Boekingsdatum",
+            "booking_status_code": "Boekingsstatus",
+            "was_refunded": "Terugbetaald",
+            "coach": "Leraren",
+            "establishment": "Vestiging",
+            "billing_group": "Facturatiegroep",
+            "billing_establishment": "Locatie",
+            "gender": "Geslacht",
+            "accept_email": "E-mails accepteren",
+            "accept_sms": "Sms-berichten accepteren",
+            "payment_date": "Betaaldatum",
+            "payment_price": "Prijs",
+            "payment_method": "Betaalmethode",
+            "date": "Datum",
+            "contract": "Abonnement",
+            "price": "Prijs",
+            "private_service_name": "Afspraak",
+            "margin_value": "Marginale opbrengst",
+            "activity": "Activiteit"
+        },
+        "graphDefaultTitles": {
+            "paymentTemporal": "Bonnen",
+            "bookingTimeslots": "Gemiddeld aantal personen",
+            "bookingQualitative": "Oorsprong van de boekingen",
+            "bookingTemporal": "Boekingen",
+            "subscriptionTemporalCount": "Aantal abonnementsfacturen"
+        }
     },
     "common": {
         "colorPicker": {

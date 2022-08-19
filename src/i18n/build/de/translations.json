@@ -5580,7 +5580,8 @@
         "parameters": {
             "registeredOn": "Gebucht, am ",
             "source": "Buchungs-Kanal",
-            "cancelledOn": "Storniert am "
+            "cancelledOn": "Storniert am ",
+            "by": "Durch"
         },
         "loading": "Es lädt ...",
         "wasRefunded": "Zurückerstattet",

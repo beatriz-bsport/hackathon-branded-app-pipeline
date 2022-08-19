@@ -588,24 +588,10 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   onDownload = () => {
-    const { filters } = this.props.offerFilters;
-    const params = {};
-    if (filters?.coaches?.length > 0) {
-      params.coach_in = filters.coaches;
-    }
-    if (filters?.establishments?.length > 0) {
-      params.establishment_in = filters.establishments;
-    }
-    if (filters?.levels?.length > 0) {
-      params.level_in = filters.levels;
-    }
-    if (filters?.metaActivities?.length > 0) {
-      params.activity_in = filters.metaActivities;
-    }
-
+    const { offerFilters } = this.props;
     this.props.fetchReportOfferManagement(
       {
-        ...params,
+        ...(offerFilters || {}),
         date: this.props.date,
       },
       {

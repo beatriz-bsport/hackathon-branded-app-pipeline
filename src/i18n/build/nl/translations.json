@@ -2356,7 +2356,12 @@
             "annotated_remaining_credits": "Overige kredieten",
             "private_passcredits": "Overige kredieten",
             "unpaid_amount": "Onbetaald (totaal)",
-            "total_unpaid_amount": "Onbetaald (totaal)"
+            "total_unpaid_amount": "Onbetaald (totaal)",
+            "unSelectAll": "Alles deselecteren",
+            "archived": "Gearchiveerd",
+            "member_default_billing_establishment": "Factuuradres",
+            "payment_legal_identifier": "Referentie wettelijke factuur",
+            "selectAll": "Alles selecteren"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2548,6 +2553,65 @@
             "video": "Video",
             "private_service": "Afspraak",
             "staff": "Medewerkers"
+        },
+        "presetValuesByDatatype": {
+            "source_device": {
+                "0": "Applicatie",
+                "1": "Web",
+                "2": "Backoffice Bsport",
+                "3": "Anders",
+                "4": "Gegevensmigratie"
+            },
+            "booking_status_code": {
+                "0": "Niet geannuleerd",
+                "1": "Geannuleerd door manager",
+                "2": "Geannuleerd door lid",
+                "3": "Sessie geannuleerd"
+            },
+            "payment_method": {
+                "0": "Kaart",
+                "1": "Contant",
+                "2": "Cheque",
+                "3": "Pass",
+                "4": "Kaart (handmatig)",
+                "5": "Vakantie cheque",
+                "6": "AMEX",
+                "7": "Transfer",
+                "8": "Eventbrite",
+                "9": "Betalingen in de studio",
+                "10": "Automatische betaling",
+                "11": "Anders",
+                "12": "Geschil",
+                "13": "SEPA",
+                "20": "Bancontact",
+                "30": "Sofort",
+                "40": "iDEAL",
+                "50": "EPS",
+                "60": "Giropay"
+            },
+            "payment_engine": {
+                "0": "Handmatige betaling",
+                "1": "Online betaling"
+            }
+        },
+        "presetValuesByIdentifier": {
+            "attendance": {
+                "False": "Afwezig",
+                "True": "Aanwezig"
+            },
+            "is_recurrent_booking": {
+                "False": "Eenmalig",
+                "True": "Terugkerend"
+            },
+            "activity_kind": {
+                "True": "Workshop",
+                "False": "Activiteit"
+            },
+            "gender": {
+                "X": "Anders",
+                "M": "Heren",
+                "F": "Vrouwen"
+            }
         }
     },
     "alerting": {
@@ -2704,7 +2768,10 @@
                     "first": "Een melding versturen",
                     "secondOnOfferStart": "uur na het einde van de sessie",
                     "secondOnBooking": "uur na de reservering"
-                }
+                },
+                "infoContract": "Leden die deze kaart als onderdeel van een abonnement hebben gekregen, ontvangen alleen notificaties over het abonnement en niet over de kaart. Door deze optie te deactiveren zullen zij beide ontvangen.",
+                "contractTitle": "Abonnement",
+                "dontSendIfInContract": "Niet versturen als de kaart deel uitmaakt van een abonnement"
             },
             "daysPast": {
                 "second": "dag(en) verlopen is.",
@@ -5761,7 +5828,77 @@
             "title": "Abonnementspauze"
         },
         "seeMore": "Toon meer",
-        "search": "Zoek een abonnement"
+        "search": "Zoek een abonnement",
+        "notificationToolTip": "Notificaties zijn ingesteld voor dit abonnement",
+        "notificationForm": {
+            "subtitle": "Abonnement",
+            "warning": "Waarschuw uw leden wanneer de status van hun abonnement wijzigt : einde van abonnement, begin van abonnement.",
+            "notificationType": {
+                "firstBilling": "De eerste factuur van het abonnement.",
+                "contractEnd": "Einde van het abonnement.",
+                "warningHourFirst": "Het aantal aangegeven uren is gerelateerd aan de datum van de eerste factuur te middernacht",
+                "title": "Type notificatie",
+                "sendNotification": "De notificatie verzenden",
+                "day": "Dag",
+                "day_plural": "Dagen",
+                "hour": "Uur",
+                "hour_plural": "Uren",
+                "before": "Voor",
+                "after": "Na",
+                "afterSubcriptionCreation": "Na het aanmaken van het abonnement.",
+                "warningDayFirst": "Het aantal aangegeven dagen is gerelateerd aan de datum van de eerste factuur te middernacht",
+                "warningDayLast": "Het aantal aangegeven dagen is gerelateerd aan de datum van de laatste factuur te middernacht",
+                "warningHourLast": "Het aantal aangegeven uren is gerelateerd aan de datum van de laatste factuur te middernacht"
+            },
+            "notificationPush": {
+                "warning": "Wees voorzichtig, push-meldingen moeten spaarzaam worden gebruikt. Te veel push-meldingen kunnen ertoe leiden dat sommige leden de applicatie verwijderen.",
+                "parameters": "Notificatie instellingen",
+                "title": "Titel",
+                "content": "Content",
+                "addTag": "Een variabele toevoegen"
+            },
+            "title": "Notificatie regels",
+            "typeSection": {
+                "title": "Status te melden",
+                "contractStart": "Start van het abonnement",
+                "contractEnd": "Einde van het abonnement"
+            },
+            "triggeringEvent": {
+                "title": "Gebeurtenis in gang zetten",
+                "contractCreation": "Abonnement aanmaken",
+                "firstBilling": "Eerste factuur"
+            },
+            "sendingMethod": {
+                "title": "Verzendmethode",
+                "email": "Email",
+                "notificationPush": "Push-notificatie"
+            },
+            "emailNotification": {
+                "parameters": "Email instellingen",
+                "emailToSend": "Te verzenden email"
+            },
+            "buttons": {
+                "cancel": "Annuleren",
+                "submit": "Opslaan"
+            }
+        },
+        "notification": {
+            "title": "Waarschuw {{count}} {{periodScale}} {{notificationKind}}",
+            "creation": "Na de aanmaak",
+            "beforefirstBilling": "Voor de eerste factuur",
+            "afterfirstBilling": "Na de eerste factuur",
+            "beforeSubscriptionEnd": "Voor het einde van het abonnement",
+            "afterSubscriptionEnd": "Na het einde van het abonnement",
+            "days": "Dag",
+            "days_plural": "Dagen",
+            "hours": "Uur",
+            "hours_plural": "Uren"
+        },
+        "addNotification": "Een notificatie toevoegen",
+        "contractNotification": {
+            "creation": "Bij het aanmaken van het abonnement",
+            "firstBilling": "Bij de eerste factuur"
+        }
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -9449,11 +9586,14 @@
             "activity": "Activiteit"
         },
         "graphDefaultTitles": {
-            "paymentTemporal": "Bonnen",
+            "paymentTemporal": "Inkomsten",
             "bookingTimeslots": "Gemiddeld aantal personen",
             "bookingQualitative": "Oorsprong van de boekingen",
             "bookingTemporal": "Boekingen",
-            "subscriptionTemporalCount": "Aantal abonnementsfacturen"
+            "subscriptionTemporalCount": "Aantal abonnementsfacturen",
+            "memberTemporal": "Nieuwe leden",
+            "subscriptionTemporalSum": "Inkomsten van abonnementen",
+            "privateBookingTemporal": "Afspraak"
         }
     },
     "common": {
@@ -11298,7 +11438,8 @@
                 "privateBooking": "Afspraken",
                 "booking": "Groepsactiviteiten",
                 "privatePass": "Afspraakkaarten",
-                "birthday": "Verjaardag"
+                "birthday": "Verjaardag",
+                "contract": "Abonnement"
             },
             "fabLabels": {
                 "payment_pack": "Leskaarten",
@@ -11308,7 +11449,8 @@
                 "workshop": "Workshops",
                 "private_pass": "Afspraakkaarten",
                 "birthday": "Verjaardag",
-                "establishmentGroup": "Locatie"
+                "establishmentGroup": "Locatie",
+                "contract": "Abonnement"
             },
             "cancel": "Annuleren",
             "next": "Volgende",
@@ -11320,7 +11462,8 @@
                 "meta_activity": "Selecteer een activiteit",
                 "workshop": "Selecteer een workshop",
                 "private_pass": "Selecteer een afspraakkaart",
-                "establishment_group": "Selecteer een locatie"
+                "establishment_group": "Selecteer een locatie",
+                "contract": "Selecteer een abonnement"
             },
             "createNotification": "[Formulier] Melding",
             "selectNotificationRules": "Selecteer een melding voor een gedetailleerd overzicht.",
@@ -11339,7 +11482,11 @@
             "listTitle": "Meldingen",
             "create": "Een melding toevoegen",
             "handleNotification": "Berichtgeving",
-            "noNotification": "Er zijn geen actieve meldingen om weer te geven."
+            "noNotification": "Er zijn geen actieve meldingen om weer te geven.",
+            "contractKind": {
+                "contractStart": "Start van het abonnement",
+                "contractEnd": "Einde van het abonnement"
+            }
         },
         "customForm": {
             "title": "Formulieren",

@@ -31,7 +31,10 @@ type Props = {
   margin?: { top: number, right: number, bottom: number, left: number },
   isCurrencyFormat?: boolean,
   translationKey?: string,
+  placeholderEmptyTranslationKey: string | null,
 };
+
+const MAX_NB_ENTRIES_LEGEND = 6;
 
 const RenderLegend = (props: { payload: any }) => {
   const classes = useStyles();
@@ -66,7 +69,7 @@ const RenderLegend = (props: { payload: any }) => {
     <>
       <div className={classes.legendContainer}>
         <Grid container direction="row">
-          {payload.slice(0, 10).map((entry, index) => (
+          {payload.slice(0, MAX_NB_ENTRIES_LEGEND).map((entry, index) => (
             <Grid item xs={6} key={entry.payload.name}>
               <div
                 className={
@@ -91,12 +94,14 @@ const RenderLegend = (props: { payload: any }) => {
           ))}
         </Grid>
 
-        {payload.length > 10 && (
+        {payload.length > MAX_NB_ENTRIES_LEGEND && (
           <div className={classes.legendChipContainer} ref={legendPopperRef}>
             <Chip
               clickable
               variant="outlined"
-              label={t('showMoreLegend', { count: payload.length - 10 })}
+              label={t('showMoreLegend', {
+                count: payload.length - MAX_NB_ENTRIES_LEGEND,
+              })}
               onClick={() => setLegendPopperOpen(true)}
             />
           </div>
@@ -154,6 +159,7 @@ export function PieChartComponent(props: Props) {
     legend,
     isCurrencyFormat,
     translationKey,
+    placeholderEmptyTranslationKey,
   } = props;
   const classes = useStyles(height);
   const { t } = useTranslation();
@@ -169,7 +175,14 @@ export function PieChartComponent(props: Props) {
       name: t(`${translationKey}.${entry.name}`),
     }));
   } else {
-    data = data.map((entry) => ({ ...entry, name: entry.name ?? 'None' }));
+    data = data.map((entry) => ({
+      ...entry,
+      name:
+        entry.name ??
+        (placeholderEmptyTranslationKey
+          ? t(placeholderEmptyTranslationKey)
+          : 'None'),
+    }));
   }
 
   if (data && data.length === 0) {

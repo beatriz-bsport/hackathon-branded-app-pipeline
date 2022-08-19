@@ -19,6 +19,49 @@ import { DateFilterRangeEnum } from '#libs/reporting/types';
 
 import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
 
+const getStartEndDates: (
+  timePeriod: DateFilterRangeEnum,
+  date_start: number,
+  date_end: number,
+) => { dateStart: Moment; dateEnd: Moment; timePeriod: DateFilterRangeEnum } = (
+  timePeriod,
+  date_start,
+  date_end,
+) => {
+  switch (timePeriod) {
+    case 'week':
+      return {
+        dateStart: moment().subtract(1, 'week').startOf('day'),
+        dateEnd: moment().endOf('day'),
+        timePeriod,
+      };
+    case 'month':
+      return {
+        dateStart: moment().subtract(1, 'month').startOf('day'),
+        dateEnd: moment().endOf('day'),
+        timePeriod,
+      };
+    case 'trimester':
+      return {
+        dateStart: moment().subtract(3, 'month').startOf('day'),
+        dateEnd: moment().endOf('day'),
+        timePeriod,
+      };
+    case 'year':
+      return {
+        dateStart: moment().subtract(1, 'year').startOf('day'),
+        dateEnd: moment().endOf('day'),
+        timePeriod,
+      };
+    default:
+      return {
+        dateStart: moment.unix(date_start),
+        dateEnd: moment.unix(date_end),
+        timePeriod,
+      };
+  }
+};
+
 export type Props = {
   date_start: number;
   date_end: number;
@@ -69,8 +112,13 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   const handleClose = () => {
     setIsOpen(false);
     setFieldValue('timePeriod', timePeriod);
-    setFieldValue('dateStart', moment.unix(date_start));
-    setFieldValue('dateEnd', moment.unix(date_end));
+    const { dateStart, dateEnd } = getStartEndDates(
+      timePeriod,
+      date_start,
+      date_end,
+    );
+    setFieldValue('dateStart', dateStart);
+    setFieldValue('dateEnd', dateEnd);
   };
 
   const handleOpen = () => {
@@ -291,11 +339,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default compose<any, Props>(
   withFormik({
     mapPropsToValues: ({ date_start, date_end, timePeriod }) => {
-      return {
-        dateStart: moment.unix(date_start),
-        dateEnd: moment.unix(date_end),
+      const { dateStart, dateEnd } = getStartEndDates(
         timePeriod,
-      };
+        date_start,
+        date_end,
+      );
+      return { dateStart, dateEnd, timePeriod };
     },
     validationSchema: DateRangeSelectorSchema,
     handleSubmit: defaultHandleSubmit,

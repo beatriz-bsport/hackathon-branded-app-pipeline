@@ -596,5 +596,9 @@ exports.default = {
       M: 'Hommes',
       F: 'Femmes',
     },
+    is_unpaid: {
+      True: 'Impayé',
+      False: 'Payé',
+    },
   },
 };

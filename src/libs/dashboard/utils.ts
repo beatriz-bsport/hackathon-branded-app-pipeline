@@ -180,7 +180,7 @@ const getDisplayPropsForOneGraph = (
   }
 
   if (partialGraph.graph_family === 'qualitative') {
-    const { group_by } = partialGraph.graph_params;
+    const { group_by, group_by_value } = partialGraph.graph_params;
     const groupByDatatype = graphMetadata?.metadata?.find(
       (m) => m.identifier === group_by,
     ).datatype;
@@ -191,8 +191,20 @@ const getDisplayPropsForOneGraph = (
     } else if (IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES.includes(group_by)) {
       translationKey = `reporting:presetValuesByIdentifier.${group_by}`;
     }
+    let placeholderEmptyTranslationKey = null;
+    if (['coach', 'establishment'].includes(group_by)) {
+      placeholderEmptyTranslationKey = `dashboard:placeholderEmptyValues.${group_by}`;
+    }
+    const xLabel = t(`dataSourceIdentifiers.${group_by_value}`);
 
-    return { tooltip: true, translationKey, legend: true, isCurrencyFormat };
+    return {
+      tooltip: true,
+      translationKey,
+      legend: true,
+      isCurrencyFormat,
+      placeholderEmptyTranslationKey,
+      xLabel,
+    };
   }
 
   // week_timeslots chart does not require specific props
@@ -203,6 +215,7 @@ export const getHelperTextForDrawerSelector = (
   dashboardGraphIdentifier: string,
   fieldValue: string,
   fieldName: string,
+  aggregationFunctionName: string | null,
   t: TFunction,
 ) => {
   if (
@@ -224,11 +237,19 @@ export const getHelperTextForDrawerSelector = (
     fieldName === 'date_value'
   ) {
     // Helper text for graph param
-    return t(
-      `dashboard:graphFormDrawer.helperText.${
-        fieldValue === 'price' ? 'subscriptionPrice' : 'subscriptionCount'
-      }`,
-    );
+    if (fieldValue === 'plannedinvoice_pk') {
+      return t('dashboard:graphFormDrawer.helperText.plannedInvoiceCount');
+    }
+    switch (aggregationFunctionName) {
+      case 'sum':
+        return t('dashboard:graphFormDrawer.helperText.subscriptionPrice.sum');
+      case 'avg':
+        return t('dashboard:graphFormDrawer.helperText.subscriptionPrice.avg');
+      case 'min':
+        return t('dashboard:graphFormDrawer.helperText.subscriptionPrice.min');
+      default:
+        return t('dashboard:graphFormDrawer.helperText.subscriptionPrice.max');
+    }
   }
 
   return null;

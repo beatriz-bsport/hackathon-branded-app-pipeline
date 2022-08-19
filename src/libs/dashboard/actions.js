@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import defaultDashboardConfiguration from './dashboardGraphs';
-import defaultDataSourceDashboardConfiguration from './defaultDataSourceDashboardSettings';
+import { getDefaultDataSourceDashboardSettings } from './defaultDataSourceDashboardSettings';
 import {
   fetchDashboardSettings as fetchDashboardSettingsAPI,
   updateDashboardSettings as updateDashboardSettingsAPI,
@@ -193,7 +193,7 @@ export function fetchDataSourceDashboardSettings() {
       dispatch(
         dataSourceDashboardSettingsActions.success(
           settings?.length === 0
-            ? defaultDataSourceDashboardConfiguration
+            ? getDefaultDataSourceDashboardSettings()
             : settings,
         ),
       );
@@ -221,7 +221,7 @@ export function updateDataSourceDashboardSettings(
       dispatch(
         dataSourceDashboardSettingsActions.success(
           responseSettings?.length === 0
-            ? defaultDataSourceDashboardConfiguration
+            ? getDefaultDataSourceDashboardSettings()
             : responseSettings,
         ),
       );

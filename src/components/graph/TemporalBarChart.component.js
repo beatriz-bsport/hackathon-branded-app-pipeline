@@ -11,7 +11,8 @@ import {
   ResponsiveContainer,
   Label,
 } from 'recharts';
-import { dateFormatter, numberFormatter } from '../../libs/statistics/utils';
+import { dateFormatter, numberFormatter } from '#libs/statistics/utils';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 import TemporalCustomYLabel from './TemporalCustomYLabel.component';
 
 type Props = {
@@ -54,6 +55,11 @@ export function TemporalBarChart(props: Props) {
   const start = moment(data[0].d);
   const end = moment(data[data.length - 1].d);
   const xFormatter = dateFormatter([start, end]);
+
+  const yLabelFormatted = `${yLabel}${
+    isCurrencyFormat ? ` (${getCurrencyDisplay()})` : ''
+  }`;
+
   return (
     <ResponsiveContainer width={width || '100%'} height={height || 400}>
       <BarChart
@@ -77,7 +83,7 @@ export function TemporalBarChart(props: Props) {
             content={
               <TemporalCustomYLabel
                 chartHeight={height || 400}
-                yLabel={yLabel}
+                yLabel={yLabelFormatted}
               />
             }
           />

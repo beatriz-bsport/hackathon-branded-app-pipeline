@@ -17,6 +17,7 @@ const CHART_ICONS = {
   bar: EqualizerIcon,
   timeslots: TableChartIcon,
   area: ShowChartIcon,
+  qualitativeBar: EqualizerIcon,
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -51,7 +52,7 @@ type BaseFieldProps = {
 };
 
 type ChartComponentFieldOwnProps = {
-  options: Array<'bar' | 'area' | 'pie' | 'timeslots'>;
+  options: Array<'bar' | 'area' | 'pie' | 'timeslots' | 'qualitativeBar'>;
   className?: string;
 };
 

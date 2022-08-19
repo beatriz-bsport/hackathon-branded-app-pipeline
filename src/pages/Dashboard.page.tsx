@@ -25,6 +25,7 @@ import { TemporalBarChart } from '#components/graph/TemporalBarChart.component';
 import { TemporalAreaChart } from '#components/graph/TemporalAreaChart.component';
 import { TimeslotGridChart } from '#components/graph/TimeslotGridChart.component';
 import PieChart from '#components/graph/PieChart.component';
+import QualitativeBarChart from '#components/graph/QualitativeBarChart.component';
 import withTitle from '../hocs/with-title.hoc';
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
@@ -85,6 +86,7 @@ const MAP_GRAPH_TO_CHART_COMPONENT = {
   bar: TemporalBarChart,
   timeslots: TimeslotGridChart,
   pie: PieChart,
+  qualitativeBar: QualitativeBarChart,
 };
 
 export class DashboardPage extends Component<Props> {
@@ -92,6 +94,12 @@ export class DashboardPage extends Component<Props> {
     this.props.resetDynamicDataHasBeenLoaded();
     this.props.fetchMetadata();
     this.props.fetchSettings();
+    // fetch graph statistics if settings already in store
+    if (this.props.dashboardTab?.graphs?.length) {
+      this.props.dashboardTab.graphs.forEach((g: DataSourceDashboardGraph) => {
+        this.props.fetchGraphStatistics(g);
+      });
+    }
   }
 
   componentDidUpdate(prevProps: Props) {

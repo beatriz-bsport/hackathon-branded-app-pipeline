@@ -4082,6 +4082,10 @@
         }
     },
     "dashboard": {
+        "placeholderEmptyValues": {
+            "coach": "No teacher",
+            "establishment": "No establishment"
+        },
         "current_week": "Last week",
         "current_month": "Last month",
         "last_three_months": "Last 3 months",
@@ -4241,14 +4245,12 @@
             "paymentTemporal": "Receipts"
         },
         "dataSourceIdentifiers": {
-            "activity": "Activity",
-            "margin_value": "Marginal value",
             "private_service_name": "Appointment",
-            "price": "Price",
+            "price": "Price incl. VAT / Sales Tax",
             "contract": "Subscription",
-            "date": "Date",
+            "date": "Payment date",
             "payment_method": "Payment method",
-            "payment_price": "Price",
+            "payment_price": "Price incl. VAT / Sales Tax",
             "payment_date": "Payment date",
             "accept_sms": "Accepts text messages",
             "accept_email": "Accept emails",
@@ -4274,14 +4276,28 @@
             "booking_pk": "Number of bookings",
             "member_pk_accumulate": "Number of members",
             "member_pk": "Number of new members",
-            "date_joined": "Sign up date"
+            "date_joined": "Sign up date",
+            "margin_value": "Marginal value incl. VAT / Sales Tax",
+            "activity": "Activity",
+            "payment_pack": "Pass",
+            "private_pass": "Appointment pass",
+            "payout_date_created": "Transfer: date",
+            "payout_identifier": "Transfer",
+            "payout_status": "Transfer: status",
+            "is_unpaid": "Unpaid"
         },
         "graphFormDrawer": {
             "helperText": {
                 "booking_effectif_timeslots": "Average number of sessions per time slot.",
                 "accumulateMembers": "Shows the evolution of the total number of members.",
                 "subscriptionCount": "Number of invoices related to subscriptions.",
-                "subscriptionPrice": "Sum of all payments received related to subscriptions.",
+                "subscriptionPrice": {
+                    "sum": "Sum of all payments received related to subscriptions.",
+                    "avg": "Average of all payments received related to subscriptions.",
+                    "min": "Minimum of all payments received related to subscriptions.",
+                    "max": "Maximum of all payments received related to subscriptions."
+                },
+                "plannedInvoiceCount": "Number of invoices related to subscriptions.",
                 "dateCreated": "The data will be represented in time according to the date on which the bookings were made.",
                 "dateStart": "The data will be plotted over time according to the start date of the sessions."
             },
@@ -4310,7 +4326,8 @@
                 "timeslots": "Daily and hourly frequencies",
                 "pie": "Pie chart",
                 "area": "Area diagram",
-                "bar": "Histogram"
+                "bar": "Histogram",
+                "qualitativeBar": "Histogram"
             },
             "placeholders": {
                 "aggregationSelector": "Choose an operation",
@@ -8373,6 +8390,10 @@
             "attendance": {
                 "True": "Present",
                 "False": "Absent"
+            },
+            "is_unpaid": {
+                "True": "Unpaid",
+                "False": "Paid"
             }
         },
         "presetValuesByDatatype": {

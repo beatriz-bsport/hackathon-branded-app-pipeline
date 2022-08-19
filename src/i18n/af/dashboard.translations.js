@@ -201,6 +201,7 @@ exports.default = {
     },
     chartComponents: {
       bar: 'Histogramme',
+      qualitativeBar: 'Histogramme',
       area: 'Diagramme en aires',
       pie: 'Diagramme circulaire',
       timeslots: 'Fréquences journalières et horaires',
@@ -221,7 +222,7 @@ exports.default = {
       [BOOKING_GRAPH_IDENTIFIER]: 'Réservations',
       [PRIVATE_BOOKING_GRAPH_IDENTIFIER]: 'RDV',
       [PAYMENT_GRAPH_IDENTIFIER]: 'Paiements',
-      [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Abonnements',
+      [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Souscriptions',
     },
     accumulate: {
       total: 'Accumuler',
@@ -231,8 +232,13 @@ exports.default = {
         'Les données seront représentées dans le temps en fonction de la date de début des séances.',
       dateCreated:
         'Les données seront représentées dans le temps en fonction de la date à laquelle les réservations ont été effectuées.',
-      subscriptionPrice:
-        'Somme de tous les paiements reçus liés aux souscriptions.',
+      plannedInvoiceCount: 'Nombre de factures liées aux souscriptions.',
+      subscriptionPrice: {
+        sum: 'Somme de tous les paiements reçus liés aux souscriptions.',
+        avg: 'Moyenne de tous les paiements reçus liés aux souscriptions.',
+        min: 'Minimum de tous les paiements reçus liés aux souscriptions.',
+        max: 'Maximum de tous les paiements reçus liés aux souscriptions.',
+      },
       subscriptionCount: 'Nombre de factures liées aux souscriptions.',
       booking_effectif_timeslots:
         'Effectif moyen des séances par créneau horaire.',
@@ -266,14 +272,20 @@ exports.default = {
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
     payment_date: 'Date de paiement',
-    payment_price: 'Prix',
+    payment_price: 'Prix TTC',
     payment_method: 'Méthode de paiement',
-    date: 'Date',
+    date: 'Date de paiement',
     contract: 'Contrat',
-    price: 'Prix',
+    price: 'Prix TTC',
     private_service_name: 'Rendez-vous',
-    margin_value: 'Apport marginal',
+    margin_value: 'Apport marginal TTC',
     activity: 'Activité',
+    payment_pack: 'Carte de cours',
+    private_pass: 'Carte de RDV',
+    payout_date_created: 'Date du virement',
+    payout_identifier: 'Virement',
+    payout_status: 'Status du virement',
+    is_unpaid: 'Impayé',
   },
   graphDefaultTitles: {
     paymentTemporal: 'Encaissements',
@@ -284,5 +296,9 @@ exports.default = {
     subscriptionTemporalSum: 'Encaissement des souscriptions',
     memberTemporal: 'Nouveaux membres',
     privateBookingTemporal: 'Rendez-vous',
+  },
+  placeholderEmptyValues: {
+    coach: 'Pas de professeur',
+    establishment: "Pas d'établissement",
   },
 };

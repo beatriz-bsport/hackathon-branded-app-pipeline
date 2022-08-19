@@ -24,7 +24,7 @@ export const GRAPH_DATE_TYPE_NONE = 'none';
 
 export const CHART_COMPONENTS_CHOICES_PER_GRAPH_FAMILY = {
   temporal: ['bar', 'area'],
-  qualitative: ['pie'],
+  qualitative: ['pie', 'qualitativeBar'],
   week_timeslots: ['timeslots'],
 };
 
@@ -34,6 +34,7 @@ export const IDENTIFIER_NEEDING_TRANSLATION_FOR_VALUES = [
   'is_recurrent_booking',
   'activity_kind',
   'gender',
+  'is_unpaid',
 ];
 
 export const MEMBER_GRAPH_IDENTIFIER = 'graph_members';

@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   BarChart,
   Bar,
@@ -13,21 +13,23 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import { getPalette, getAnalogColors } from './color-utils';
 import { numberFormatter } from '../../libs/statistics/utils';
+import { DASHBOARD_COLOR_PALETTE } from '#libs/dashboard/colors';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 type Props = {
   height?: number | string,
   width?: number | string,
   data: Array<any>,
-  baseColor: string,
-  valueCaption: string,
   tooltip?: boolean,
   margin?: { top: number, right: number, bottom: number, left: number },
   noGrid?: boolean,
   barSize?: number,
   allowDecimals?: boolean,
   translationKey?: string,
+  isCurrencyFormat?: boolean,
+  xLabel: string,
+  placeholderEmptyTranslationKey: string | null,
 };
 
 export function QualitativeBarChart(props: Props) {
@@ -37,14 +39,26 @@ export function QualitativeBarChart(props: Props) {
     margin,
     noGrid,
     barSize,
-    baseColor,
-    valueCaption,
     tooltip,
     allowDecimals,
     translationKey,
+    isCurrencyFormat,
+    xLabel,
+    placeholderEmptyTranslationKey,
   } = props;
   const { t } = useTranslation(['dashboard']);
   const classes = useStyles(height);
+
+  const xLabelFormatted = `${xLabel}${
+    isCurrencyFormat ? ` (${getCurrencyDisplay()})` : ''
+  }`;
+
+  const formatter = useCallback(
+    (value) => {
+      return [numberFormatter(isCurrencyFormat)(value), xLabel];
+    },
+    [isCurrencyFormat, xLabel],
+  );
 
   let data = props.data
     .map((entry) => ({ ...entry, value: Math.abs(entry.value) }))
@@ -54,6 +68,15 @@ export function QualitativeBarChart(props: Props) {
     data = data.map((entry) => ({
       ...entry,
       name: t(`${translationKey}.${entry.name}`),
+    }));
+  } else {
+    data = data.map((entry) => ({
+      ...entry,
+      name:
+        entry.name ??
+        (placeholderEmptyTranslationKey
+          ? t(placeholderEmptyTranslationKey)
+          : 'None'),
     }));
   }
 
@@ -65,31 +88,25 @@ export function QualitativeBarChart(props: Props) {
     );
   }
 
-  let colors = [];
-
-  if (data.length <= 4) {
-    colors = getAnalogColors(baseColor);
-  } else {
-    colors = getPalette(baseColor);
-  }
+  const colors = DASHBOARD_COLOR_PALETTE;
 
   return (
     <ResponsiveContainer width={width || '100%'} height={height || 400}>
       <BarChart
         data={data}
-        margin={margin || { top: 10, right: 20, bottom: 20, left: 50 }}
+        margin={margin || { top: 10, right: 20, bottom: 20, left: 0 }}
         layout="vertical"
       >
         {noGrid ? null : <CartesianGrid strokeDasharray="3 3" />}
         <XAxis
           type="number"
-          tickFormatter={numberFormatter(false)}
-          label={{ value: valueCaption, position: 'bottom' }}
+          tickFormatter={numberFormatter(isCurrencyFormat)}
+          label={{ value: xLabelFormatted, position: 'bottom' }}
           allowDecimals={allowDecimals}
         />
-        <YAxis type="category" dataKey="name" />
-        {tooltip && <Tooltip />}
-        <Bar dataKey="value" barSize={barSize} name={tooltip && valueCaption}>
+        <YAxis type="category" dataKey="name" tick={false} />
+        {tooltip && <Tooltip formatter={formatter} />}
+        <Bar dataKey="value" barSize={barSize}>
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}

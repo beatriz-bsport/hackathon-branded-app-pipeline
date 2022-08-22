@@ -1,16 +1,11 @@
-# Context
+# User Story
 
-# Feature proposal
+As a , I would like, because
 
-# Userspace impacted
+# Description
 
-# UX proposed (pages / components)
+# Design link
 
-# Architecture
+# Links (csm and ops)
 
-## Where should it live ?
-
-## Model specification
-
-## Compatibity issue to check
-
+# Tech spec

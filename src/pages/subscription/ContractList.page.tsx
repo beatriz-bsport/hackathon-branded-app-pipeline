@@ -332,7 +332,9 @@ export class SubscriptionList extends React.Component<Props, State> {
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+              ...(this.props.theme.currency === 'eur'
+                ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+                : []),
               ...(stripeRegion === 'NorthAmerica'
                 ? [PAYMENT_STRIPE_TERMINAL_FAKE]
                 : []),

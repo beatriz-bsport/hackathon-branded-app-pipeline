@@ -20,7 +20,7 @@ import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selector
 import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
-import { getMetaActivities } from '#libs/meta-activity/selectors';
+import { getPureMetaActivities } from '#libs/meta-activity/selectors';
 import { withGroup } from '#libs/group-offer/selectors';
 import { isOfferInThePast } from '../../libs/marketplace/utils';
 
@@ -407,7 +407,7 @@ const mapStateToProps = (state: RootState) => ({
   activityLoading: state.metaActivity.loading,
   coaches: getCoaches(state),
   establishments: getAllEstablishments(state),
-  metaActivities: getMetaActivities(state),
+  metaActivities: getPureMetaActivities(state),
   theme: themeSelectors.getTheme(state),
 
   currentBasket: getCurrentBasket(state),

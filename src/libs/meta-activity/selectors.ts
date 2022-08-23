@@ -11,9 +11,14 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 export const getMetaActivityAbstractDict = (state: RootState) =>
   state.metaActivity.byId;
 
-export const getMetaActivitiesDict = createSelector(
+export const getPureMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
   (data) => pickBy(data, (v) => !v.is_workshop),
+);
+
+export const getMetaActivitiesDict = createSelector(
+  getMetaActivityAbstractDict,
+  (data) => pickBy(data),
 );
 
 const getMetaActivityWorkshopIds = (state: RootState) =>
@@ -24,6 +29,11 @@ export const getMetaActivitiesIdList = (state: RootState) =>
 
 export const getMetaActivity = (state: RootState, id: number): MetaActivity =>
   state.metaActivity.byId[id];
+
+export const getPureMetaActivities = createSelector(
+  getPureMetaActivitiesDict,
+  (metaActivities) => Immutable<MetaActivity[]>(Object.values(metaActivities)),
+);
 
 export const getMetaActivities = createSelector(
   getMetaActivitiesDict,
@@ -38,8 +48,8 @@ export const getEnabledMetaActivities = createSelector(
     ),
 );
 
-export const getDisabledMetaActivities = createSelector(
-  getMetaActivitiesDict,
+export const getDisabledPureMetaActivities = createSelector(
+  getPureMetaActivitiesDict,
   (metactivities) =>
     Immutable(Object.values(metactivities)).filter(
       (ma) => !ma.customer_enabled,
@@ -55,21 +65,27 @@ export const getActivitiesByIdList = memoize((state: RootState, idList: any) =>
   })(state),
 );
 
+export const getPagePureMetaActivities = createSelector(
+  [getMetaActivitiesIdList, getPureMetaActivitiesDict],
+  (idList, metaActivities) =>
+    idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
+);
+
 export const getPageMetaActivities = createSelector(
   [getMetaActivitiesIdList, getMetaActivitiesDict],
   (idList, metaActivities) =>
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 
-export const getPageEnabledMetaActivities = createSelector(
-  getPageMetaActivities,
+export const getPageEnabledPureMetaActivities = createSelector(
+  getPagePureMetaActivities,
   (metactivities) => {
     return metactivities.filter((ma) => !!ma.customer_enabled);
   },
 );
 
-export const getPageDisabledMetaActivities = createSelector(
-  getPageMetaActivities,
+export const getPageDisabledPureMetaActivities = createSelector(
+  getPagePureMetaActivities,
   (metactivities) => {
     return metactivities.filter((ma) => !ma.customer_enabled);
   },
@@ -124,8 +140,8 @@ export const getDisabledWorkshops = createSelector(getWorkshops, (workshops) =>
   workshops.filter((ma) => !ma.customer_enabled),
 );
 
-export const getFreshMetaActivityList = createSelector(
-  getMetaActivitiesDict,
+export const getFreshPureMetaActivityList = createSelector(
+  getPureMetaActivitiesDict,
   (m) => Object.keys(m).map((id) => parseInt(id, 10)),
 );
 

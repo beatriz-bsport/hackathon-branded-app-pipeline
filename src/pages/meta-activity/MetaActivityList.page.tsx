@@ -30,8 +30,8 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import {
-  getPageEnabledMetaActivities,
-  getPageDisabledMetaActivities,
+  getPageEnabledPureMetaActivities,
+  getPageDisabledPureMetaActivities,
   getMetaActivityByCategoryWithActivities,
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -653,15 +653,15 @@ export default compose(
       selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
       SCTs: state.category.SCTs,
       enabledMetaActivities: withBookingNotification(
-        getPageEnabledMetaActivities,
+        getPageEnabledPureMetaActivities,
       )(state),
-      disabledMetaActivities: getPageDisabledMetaActivities(state),
+      disabledMetaActivities: getPageDisabledPureMetaActivities(state),
       loading: state.metaActivity.loading || state.metaActivity.delete.loading,
       notificationLoading: state.marketingNotification.loading,
       metaActivityCategories: getMetaActivityCategories(state),
       metaActivityCategoriesWithActivities:
         getMetaActivityByCategoryWithActivities(
-          withBookingNotification(getPageEnabledMetaActivities),
+          withBookingNotification(getPageEnabledPureMetaActivities),
         )(state),
       categoryLoading: state.metaActivity.metaActivityCategory.loading,
       // from MetaActivityCreate now

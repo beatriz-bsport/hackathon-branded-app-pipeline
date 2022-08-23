@@ -32,7 +32,7 @@ import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '../../li
 import { fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction } from '../../libs/payment-packs/actions';
 import {
   getEnabledWorkshops,
-  getPageEnabledMetaActivities,
+  getPageEnabledPureMetaActivities,
 } from '../../libs/meta-activity/selectors';
 import { MarketplaceTabConfig } from '../../libs/marketplace/types';
 import {
@@ -313,7 +313,7 @@ const mapStateToProps = (state: RootState) => ({
   privateServices: getAvailablePrivateServices(state),
   coaches: getActiveCoaches(state),
   establishments: getAvailableEstablishmentList(state),
-  metaActivities: getPageEnabledMetaActivities(state),
+  metaActivities: getPageEnabledPureMetaActivities(state),
   metaActivitiesWorkshop: getEnabledWorkshops(state),
   playlists: getPlaylistList(state),
   videoList: getVideoList(state),

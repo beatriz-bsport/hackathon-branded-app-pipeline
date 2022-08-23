@@ -26,7 +26,7 @@ import {
 } from '../../libs/establishment/selectors';
 import {
   getEnabledWorkshops,
-  getPageEnabledMetaActivities,
+  getPageEnabledPureMetaActivities,
 } from '../../libs/meta-activity/selectors';
 import { snackbarInfo } from '../../libs/snackbar/actions';
 
@@ -217,7 +217,7 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState) => ({
   coaches: getActiveCoaches(state),
   establishments: getAvailableEstablishmentList(state),
-  metaActivities: getPageEnabledMetaActivities(state),
+  metaActivities: getPageEnabledPureMetaActivities(state),
   metaActivitiesWorkshop: getEnabledWorkshops(state),
   theme: state.theme.theme,
   themeLoading: state.theme.loading,

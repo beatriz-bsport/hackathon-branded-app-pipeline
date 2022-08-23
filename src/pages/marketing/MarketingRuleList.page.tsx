@@ -75,7 +75,7 @@ import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFo
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
-  getPageEnabledMetaActivities,
+  getPageEnabledPureMetaActivities,
   getEnabledWorkshops,
 } from '#libs/meta-activity/selectors';
 import {
@@ -522,7 +522,7 @@ const mapStateToProps = (state: RootState) => ({
   ) as EmailTemplateSummary[],
   smartLists: getAllSmartList(state),
   smartListLoading: state.smartList.loading,
-  metaActivities: getPageEnabledMetaActivities(state),
+  metaActivities: getPageEnabledPureMetaActivities(state),
   workshopList: getEnabledWorkshops(state),
   establishments: getAvailableEstablishmentList(state),
   establishmentGroups: withEstablishment(getAssociatedEstablishmentGroup)(

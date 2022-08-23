@@ -18,6 +18,6 @@ export const resetDynamicDataHasBeenLoadedAction = createAction(
 
 export function resetDynamicDataHasBeenLoaded() {
   return async (dispatch: Dispatch) => {
-    dispatch(setDynamicDataHasBeenLoadedAction());
+    dispatch(resetDynamicDataHasBeenLoadedAction());
   };
 }

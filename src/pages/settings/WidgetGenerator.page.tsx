@@ -44,7 +44,7 @@ import {
 } from '../../libs/establishment/selectors';
 import {
   getEnabledWorkshops,
-  getPageEnabledMetaActivities,
+  getPageEnabledPureMetaActivities,
 } from '../../libs/meta-activity/selectors';
 import { getGiftcardListEnabled } from '../../libs/giftcard/selectors';
 import { getPlaylistList } from '../../libs/playlist/selectors';
@@ -381,7 +381,7 @@ const mapStateToProps = (state: RootState) => ({
   privateServices: getAvailablePrivateServices(state),
   coaches: getActiveCoaches(state),
   establishments: getAvailableEstablishmentList(state),
-  metaActivities: getPageEnabledMetaActivities(state),
+  metaActivities: getPageEnabledPureMetaActivities(state),
   metaActivitiesWorkshop: getEnabledWorkshops(state),
   playlists: getPlaylistList(state),
   videoList: getVideoList(state),

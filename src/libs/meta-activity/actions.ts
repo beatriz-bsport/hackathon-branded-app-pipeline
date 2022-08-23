@@ -4,7 +4,7 @@ import uniq from 'lodash/uniq';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
-import { getFreshMetaActivityList } from './selectors';
+import { getFreshPureMetaActivityList } from './selectors';
 
 import { postAuth, deleteAuth, API_URI } from '../../http';
 import {
@@ -45,7 +45,7 @@ export function fetchMetaActivityBulk(
   options?: OptionCallback<MetaActivity[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
-    const freshIdList = getFreshMetaActivityList(getState());
+    const freshIdList = getFreshPureMetaActivityList(getState());
 
     const ids_uniq = uniq(ids)
       .filter((id) => !!id)

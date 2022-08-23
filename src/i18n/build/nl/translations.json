@@ -4587,7 +4587,7 @@
         "row": {
             "headers": {
                 "actions": "Acties",
-                "newsletter_email": "Accepteert marketingmails"
+                "newsletter_email": "Accepteert emails"
             },
             "update": "Bewerken",
             "no": "Nee",
@@ -5500,7 +5500,7 @@
                 "month_plural": "maanden"
             },
             "item": {
-                "identifier": "Abonnement",
+                "identifier": "Abonnementen",
                 "intervalLabel": {
                     "year": "Incassering: jaarlijks",
                     "year_plural": "Incassering: iedere {{ count }} jaar",
@@ -5831,51 +5831,51 @@
         "search": "Zoek een abonnement",
         "notificationToolTip": "Notificaties zijn ingesteld voor dit abonnement",
         "notificationForm": {
-            "subtitle": "Abonnement",
-            "warning": "Waarschuw uw leden wanneer de status van hun abonnement wijzigt : einde van abonnement, begin van abonnement.",
+            "subtitle": "Abonnementen",
+            "warning": "Gebruik deze meldingen om leden te informeren over de status van hun abonnement.",
             "notificationType": {
-                "firstBilling": "De eerste factuur van het abonnement.",
-                "contractEnd": "Einde van het abonnement.",
-                "warningHourFirst": "Het aantal aangegeven uren is gerelateerd aan de datum van de eerste factuur te middernacht",
-                "title": "Type notificatie",
-                "sendNotification": "De notificatie verzenden",
-                "day": "Dag",
-                "day_plural": "Dagen",
-                "hour": "Uur",
-                "hour_plural": "Uren",
-                "before": "Voor",
-                "after": "Na",
-                "afterSubcriptionCreation": "Na het aanmaken van het abonnement.",
-                "warningDayFirst": "Het aantal aangegeven dagen is gerelateerd aan de datum van de eerste factuur te middernacht",
-                "warningDayLast": "Het aantal aangegeven dagen is gerelateerd aan de datum van de laatste factuur te middernacht",
-                "warningHourLast": "Het aantal aangegeven uren is gerelateerd aan de datum van de laatste factuur te middernacht"
+                "firstBilling": "de eerste facturatie voor dit abonnement.",
+                "contractEnd": "Einde abonnement",
+                "warningHourFirst": "Deze melding wordt X uur voor middernacht van de eerste factuurdatum verstuurd.",
+                "title": "Notificatie",
+                "sendNotification": "Verstuur deze melding",
+                "day": "dag(en)",
+                "day_plural": "dagen",
+                "hour": "uur",
+                "hour_plural": "uur",
+                "before": "voor",
+                "after": "na",
+                "afterSubcriptionCreation": "na het afsluiten van het abonnement.",
+                "warningDayFirst": "Deze melding wordt X dag(en) voor middernacht van de eerste factuurdatum verstuurd.",
+                "warningDayLast": "Deze melding wordt X dag(en) na middernacht van de eerste factuurdatum verstuurd.",
+                "warningHourLast": "Deze melding wordt X uur na middernacht van de eerste factuurdatum verstuurd."
             },
             "notificationPush": {
-                "warning": "Wees voorzichtig, push-meldingen moeten spaarzaam worden gebruikt. Te veel push-meldingen kunnen ertoe leiden dat sommige leden de applicatie verwijderen.",
-                "parameters": "Notificatie instellingen",
+                "warning": "Gebruik push-notificaties spaarzaam. Het spammen van leden met push-notificaties vergroot de kans dat leden de app verwijderen.",
+                "parameters": "Instellingen",
                 "title": "Titel",
-                "content": "Content",
-                "addTag": "Een variabele toevoegen"
+                "content": "Inhoud",
+                "addTag": "Een tag toevoegen"
             },
-            "title": "Notificatie regels",
+            "title": "[Formulier] Melding",
             "typeSection": {
-                "title": "Status te melden",
-                "contractStart": "Start van het abonnement",
-                "contractEnd": "Einde van het abonnement"
+                "title": "Status",
+                "contractStart": "Aanschaf abonnement",
+                "contractEnd": "Einde abonnement"
             },
             "triggeringEvent": {
-                "title": "Gebeurtenis in gang zetten",
-                "contractCreation": "Abonnement aanmaken",
-                "firstBilling": "Eerste factuur"
+                "title": "Evenement",
+                "contractCreation": "Bij het afsluiten van het abonnement",
+                "firstBilling": "Rondom de eerste facturatie"
             },
             "sendingMethod": {
-                "title": "Verzendmethode",
-                "email": "Email",
+                "title": "Communicatiekanaal",
+                "email": "E-mail",
                 "notificationPush": "Push-notificatie"
             },
             "emailNotification": {
-                "parameters": "Email instellingen",
-                "emailToSend": "Te verzenden email"
+                "parameters": "Instellingen",
+                "emailToSend": "Selecteer de te versturen e-mail:"
             },
             "buttons": {
                 "cancel": "Annuleren",
@@ -5883,21 +5883,21 @@
             }
         },
         "notification": {
-            "title": "Waarschuw {{count}} {{periodScale}} {{notificationKind}}",
-            "creation": "Na de aanmaak",
-            "beforefirstBilling": "Voor de eerste factuur",
-            "afterfirstBilling": "Na de eerste factuur",
-            "beforeSubscriptionEnd": "Voor het einde van het abonnement",
-            "afterSubscriptionEnd": "Na het einde van het abonnement",
-            "days": "Dag",
-            "days_plural": "Dagen",
-            "hours": "Uur",
-            "hours_plural": "Uren"
+            "title": "Contacteer {{count}} {{periodScale}} {{notificationKind}}",
+            "creation": "Bij afsluiting",
+            "beforefirstBilling": "Voor de eerste facturatie",
+            "afterfirstBilling": "Na de eerste facturatie",
+            "beforeSubscriptionEnd": "Voor de einddatum van het abonnement",
+            "afterSubscriptionEnd": "Na de einddatum van het abonnement",
+            "days": "dag(en)",
+            "days_plural": "dagen",
+            "hours": "uur",
+            "hours_plural": "uur"
         },
         "addNotification": "Een notificatie toevoegen",
         "contractNotification": {
-            "creation": "Bij het aanmaken van het abonnement",
-            "firstBilling": "Bij de eerste factuur"
+            "creation": "Bij het afsluiten van dit abonnement",
+            "firstBilling": "Bij de eerste facturatie"
         }
     },
     "coachPerformance": {
@@ -9422,13 +9422,13 @@
         "customChart": {
             "form": {
                 "radio": {
-                    "qualitativeBooking": "Distributie",
+                    "qualitativeBooking": "Verdeling",
                     "temporalTimeslotBooking": "Frequentie per dag en per uur",
                     "pie": "Cirkeldiagram",
                     "grid": "Frequentietabel",
                     "area": "Gebiedskaart",
                     "bar": "Kolommendiagram",
-                    "qualitativeInvoiceItem": "Distributie",
+                    "qualitativeInvoiceItem": "Verdeling",
                     "temporalPlannedInvoice": "Historische ontwikkeling",
                     "temporalPayment": "Historische ontwikkeling",
                     "temporalBooking": "Historische ontwikkeling",
@@ -9485,8 +9485,8 @@
                 "dateFilterField": "Data",
                 "dataToDisplay": "Getoonde gegevens",
                 "dividedBy": "Verdeeld door",
-                "groupByField": "Verdelen over",
-                "aggregationName": "Samenvoeging"
+                "groupByField": "Verdeling",
+                "aggregationName": "Samenvoegen"
             },
             "sectionTitles": {
                 "filterConfig": "Filters",
@@ -9502,18 +9502,18 @@
             },
             "placeholders": {
                 "dashboardGraphIdentifier": "Selecteer de gegevens",
-                "aggregationSelector": "Een bewerking kiezen"
+                "aggregationSelector": "Selecteer een optie"
             },
             "chartComponents": {
                 "area": "Vlakdiagram",
                 "pie": "Cirkeldiagram",
-                "timeslots": "Dagelijkse en uurlijkse frequenties",
+                "timeslots": "Dagelijkse en uurlijkse frequentie",
                 "bar": "Kolommendiagram"
             },
             "graphFamily": {
                 "temporal": "Historische ontwikkeling",
-                "qualitative": "Distributie",
-                "week_timeslots": "Frequentie per dag en per uur"
+                "qualitative": "Verdeling",
+                "week_timeslots": "Dagelijkse en uurlijkse frequentie"
             },
             "aggregation": {
                 "sum": "Totaal",
@@ -9523,21 +9523,21 @@
             },
             "dashboardGraphIdentifier": {
                 "graph_members": "Nieuwe leden",
-                "graph_bookings": "Boekingen",
+                "graph_bookings": "Reserveringen",
                 "graph_private_bookings": "Afspraken",
                 "graph_payments": "Betalingen",
                 "graph_subscriptions": "Abonnementen"
             },
             "accumulate": {
-                "total": "Verzamelen"
+                "total": "Accumuleer"
             },
             "helperText": {
-                "dateStart": "De gegevens worden in tijd uitgezet op basis van de begindatum van de sessies.",
-                "dateCreated": "De gegevens zullen in tijd worden weergegeven overeenkomstig de datum waarop de boekingen werden verricht.",
+                "dateStart": "De gegevens worden in de tijd uitgezet op basis van de begindatum van de sessies.",
+                "dateCreated": "De gegevens zullen in de tijd worden weergegeven overeenkomstig de datum waarop de boekingen werden verricht.",
                 "subscriptionPrice": "Samenvatting van alle ontvangen betalingen in verband met abonnementen.",
                 "subscriptionCount": "Aantal facturen in verband met abonnementen.",
                 "booking_effectif_timeslots": "Gemiddeld aantal sessies per tijdslot.",
-                "accumulateMembers": "Toont de evolutie van het totale aantal leden."
+                "accumulateMembers": "Toont de ontwikkeling van het totale aantal leden."
             }
         },
         "graphActions": {
@@ -9573,7 +9573,7 @@
             "billing_group": "Facturatiegroep",
             "billing_establishment": "Locatie",
             "gender": "Geslacht",
-            "accept_email": "E-mails accepteren",
+            "accept_email": "Accepteert emails",
             "accept_sms": "Sms-berichten accepteren",
             "payment_date": "Betaaldatum",
             "payment_price": "Prijs",

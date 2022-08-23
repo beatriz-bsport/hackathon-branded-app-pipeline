@@ -31,7 +31,18 @@ export const EXPORTABLE_COMPONENTS = [
           },
         },
       ]
-    : []),
+    : [
+        {
+          identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+          label: 'marketplace.calendar',
+          defaultConfig: {
+            coaches: [],
+            establishments: [],
+            metaActivities: [],
+            levels: [],
+          },
+        },
+      ]),
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
     label: 'marketplace.workshop',
@@ -90,15 +101,5 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
     label: 'loginButton',
-  },
-  {
-    identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
-    label: 'marketplace.calendar',
-    defaultConfig: {
-      coaches: [],
-      establishments: [],
-      metaActivities: [],
-      levels: [],
-    },
   },
 ];

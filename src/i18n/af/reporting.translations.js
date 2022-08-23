@@ -162,6 +162,7 @@ exports.default = {
     available_credits: 'Crédits disponible PCA',
     baskettotal_price: 'Montant facturé TTC',
     billing_date_start: 'Date de première facturation',
+    billing_date_start_annotated: 'Date de première facturation',
     billing_establishment: 'Adresse',
     billing_group: 'Groupe de facturation',
     billing_planrecurrent_price: 'Montant',

@@ -7991,6 +7991,7 @@
             "products": "Contents of the basket",
             "time": "Hour",
             "billing_date_start": "First billing date",
+            "billing_date_start_annotated": "First billing date",
             "payment_status": "Payment status",
             "adjusted_price": "Adjusted price",
             "nb_interval": "Number of recurrences",

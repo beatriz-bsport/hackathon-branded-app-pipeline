@@ -1807,7 +1807,7 @@
             },
             "writeCommunication": "Een bericht versturen"
         },
-        "communication": "Communicaties"
+        "communication": "Bericht"
     },
     "paymentCombo": {
         "delete": {
@@ -5712,7 +5712,7 @@
             "paymentPack": "Leskaart",
             "nbMonths": "Aantal incasso's",
             "dateStart": "Eerste factuurdatum",
-            "firstBilling": "Eerste factuurdatum",
+            "firstBilling": "Eerste factuur",
             "payment_pack": "Leskaarten",
             "private_pass": "Afspraakkaarten",
             "privatePass": "Afspraakkaart",
@@ -8040,7 +8040,7 @@
                 },
                 "anchor_date": {
                     "helperText": "De betaling wordt in de loop van de ochtend geïncasseerd.",
-                    "label": "Eerste betaling"
+                    "label": "Eerste termijn"
                 }
             }
         },
@@ -9370,12 +9370,12 @@
         },
         "plannedPayment": {
             "popover": "Som van alle betalingen voor abonnementen",
-            "title": "Omzet uit abonnementen",
+            "title": "Omzet van de abonnementen",
             "caption": "Omzet"
         },
         "noData": "Er zijn nog geen gegevens om weer te geven.",
         "bookingSource": {
-            "title": "Oorsprong reserveringen",
+            "title": "Bron van de reserveringen",
             "saas": "BSPORT Back Office",
             "other": "Anders",
             "migration": "Gegevensoverdracht",
@@ -9422,13 +9422,13 @@
         "customChart": {
             "form": {
                 "radio": {
-                    "qualitativeBooking": "Opsplitsen",
+                    "qualitativeBooking": "Distributie",
                     "temporalTimeslotBooking": "Frequentie per dag en per uur",
                     "pie": "Cirkeldiagram",
                     "grid": "Frequentietabel",
                     "area": "Gebiedskaart",
                     "bar": "Kolommendiagram",
-                    "qualitativeInvoiceItem": "Opsplitsen",
+                    "qualitativeInvoiceItem": "Distributie",
                     "temporalPlannedInvoice": "Historische ontwikkeling",
                     "temporalPayment": "Historische ontwikkeling",
                     "temporalBooking": "Historische ontwikkeling",
@@ -9436,7 +9436,7 @@
                     "temporalPrivateBooking": "Historische ontwikkeling"
                 },
                 "graphComponent": "Gewenste weergave",
-                "aggregateHelper": "Voorbeeld: toont de progressie van het aantal totale leden i.p.v. het aantal nieuwe leden per maand.",
+                "aggregateHelper": "Voorbeeld: toont de ontwikkeling van het aantal totale leden i.p.v. het aantal nieuwe leden per maand.",
                 "aggregate": "Accumuleer",
                 "name": "Titel van de grafiek",
                 "selector": {
@@ -9479,10 +9479,10 @@
             "labels": {
                 "title": "Naam",
                 "graphFamily": {
-                    "temporal": "Evolutie in de loop van de tijd",
+                    "temporal": "Historische ontwikkeling",
                     "qualitative": "Verdeling"
                 },
-                "dateFilterField": "Datum gegevens",
+                "dateFilterField": "Data",
                 "dataToDisplay": "Getoonde gegevens",
                 "dividedBy": "Verdeeld door",
                 "groupByField": "Verdelen over",
@@ -9493,15 +9493,15 @@
                 "timePeriod": "Periode",
                 "graphParams": "Gegevens",
                 "graphFamily": "Grafiek",
-                "dashboardGraphIdentifier": "Type gegevens",
-                "general": "Algemene informatie"
+                "dashboardGraphIdentifier": "Gegevens",
+                "general": "Algemeen"
             },
             "title": {
-                "edit": "Bewerk een grafiek",
-                "create": "Creatie van een grafiek"
+                "edit": "[Formulier] Grafiek bewerken",
+                "create": "[Formulier] Grafiek toevoegen"
             },
             "placeholders": {
-                "dashboardGraphIdentifier": "Gegevens kiezen",
+                "dashboardGraphIdentifier": "Selecteer de gegevens",
                 "aggregationSelector": "Een bewerking kiezen"
             },
             "chartComponents": {
@@ -9511,9 +9511,9 @@
                 "bar": "Kolommendiagram"
             },
             "graphFamily": {
-                "temporal": "Evolutie in de loop van de tijd",
-                "qualitative": "Verdeling",
-                "week_timeslots": "Dagelijkse en uurlijkse frequenties"
+                "temporal": "Historische ontwikkeling",
+                "qualitative": "Distributie",
+                "week_timeslots": "Frequentie per dag en per uur"
             },
             "aggregation": {
                 "sum": "Totaal",
@@ -9541,14 +9541,14 @@
             }
         },
         "graphActions": {
-            "delete": "Verwijder",
-            "edit": "Bewerk"
+            "delete": "Verwijderen",
+            "edit": "Bewerken"
         },
-        "showMoreLegend": "+ {{count}} Legenda",
-        "showMoreLegend_plural": "+ {{count}} Legenda´s",
+        "showMoreLegend": "+ {{count}} legenda",
+        "showMoreLegend_plural": "+ {{count}} legenda's",
         "addFilter": "Een filter toevoegen",
-        "filterChipLabel": "{{count}} Filter",
-        "filterChipLabel_plural": "{{count}} Filters",
+        "filterChipLabel": "{{count}} filter",
+        "filterChipLabel_plural": "{{count}} filters",
         "dataSourceIdentifiers": {
             "date_joined": "Datum van inschrijving",
             "member_pk": "Aantal nieuwe leden",
@@ -9588,7 +9588,7 @@
         "graphDefaultTitles": {
             "paymentTemporal": "Inkomsten",
             "bookingTimeslots": "Gemiddeld aantal personen",
-            "bookingQualitative": "Oorsprong van de boekingen",
+            "bookingQualitative": "Bron van de boekingen",
             "bookingTemporal": "Boekingen",
             "subscriptionTemporalCount": "Aantal abonnementsfacturen",
             "memberTemporal": "Nieuwe leden",

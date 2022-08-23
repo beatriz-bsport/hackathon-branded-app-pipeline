@@ -52,11 +52,16 @@ const IBAN_ELEMENT_OPTIONS = {
 };
 
 type PropsIban = {
+  withAddress: boolean | null,
   disabled: boolean,
   processing: boolean,
   isActive: boolean,
   error: ?Error,
-  billingDetails: { name: string, email: string },
+  billingDetails: {
+    name: string,
+    email: string,
+    address: { line1: string, country: string },
+  },
   setBillingDetails: ({ name: string, email: string }) => void,
 };
 
@@ -64,6 +69,7 @@ const IbanForm = (props: PropsIban) => {
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
   const { billingDetails, setBillingDetails, processing } = props;
+
   return (
     <div>
       <div className={classes.nameAndEmailContainer}>
@@ -98,6 +104,25 @@ const IbanForm = (props: PropsIban) => {
             });
           }}
         />
+        {props.withAddress && (
+          <TextField
+            required
+            fullWidth
+            value={billingDetails.address.line1}
+            variant="outlined"
+            placeholder={t('mandate.address_line_1')}
+            onChange={(ev) => {
+              const { value } = ev.target;
+              setBillingDetails({
+                ...billingDetails,
+                address: {
+                  ...billingDetails.address,
+                  line1: value,
+                },
+              });
+            }}
+          />
+        )}
       </div>
       <div style={processing ? { display: 'none' } : {}}>
         <div className={classes.sensitiveDataContainer}>
@@ -186,7 +211,54 @@ export const PaymentStripeSEPA = (props: Props) => {
   const [billingDetails, setBillingDetails] = React.useState({
     name: props.userDefaultName || '',
     email: props.userDefaultEmail || '',
+    address: {
+      line1: '',
+      country: '',
+    },
   });
+
+  const [needBillingDetailAddress, setNeedBillingDetailAddress] =
+    React.useState(false);
+
+  const iban = elements.getElement(IbanElement);
+  React.useEffect(() => {
+    if (iban) {
+      iban.addEventListener('change', (data) => {
+        if (
+          [
+            'AD',
+            'PF',
+            'TF',
+            'GI',
+            'GB',
+            'GG',
+            'VA',
+            'IM',
+            'JE',
+            'MC',
+            'NC',
+            'BL',
+            'PM',
+            'SM',
+            'CH',
+            'WF',
+          ].includes(data?.country)
+        ) {
+          setNeedBillingDetailAddress(true);
+          setBillingDetails({
+            ...billingDetails,
+            address: {
+              line1: billingDetails.address.line1,
+              country: data?.country,
+            },
+          });
+        } else {
+          setNeedBillingDetailAddress(false);
+        }
+      });
+    }
+    return () => iban?.removeEventListener('change');
+  }, [!!iban]);
 
   const handleSubmit = async (event) => {
     if (!stripe || !elements) {
@@ -220,14 +292,17 @@ export const PaymentStripeSEPA = (props: Props) => {
       }
     }
 
-    const iban = elements.getElement(IbanElement);
+    const iban_ = elements.getElement(IbanElement);
 
     const result = await stripe.confirmSepaDebitPayment(props.clientSecret, {
       payment_method: paymentMethodSelected || {
-        sepa_debit: iban,
+        sepa_debit: iban_,
         billing_details: {
           name: billingDetails.name,
           email: billingDetails.email,
+          ...(needBillingDetailAddress
+            ? { address: billingDetails.address }
+            : {}),
         },
       },
       ...(saveForLater || props.forceSave
@@ -267,6 +342,7 @@ export const PaymentStripeSEPA = (props: Props) => {
       {addPaymentMethod && (
         <div>
           <IbanForm
+            withAddress={needBillingDetailAddress}
             setBillingDetails={setBillingDetails}
             billingDetails={billingDetails}
             error={error}

@@ -64,9 +64,51 @@ export class CollectPaymentMethod extends React.Component<Props> {
       billing_details: {
         name: props.defaultName || '',
         email: props.defaultEmail || '',
+        address: {
+          line1: '',
+          country: '',
+        },
       },
+      billingAddressNeeded: false,
     };
   }
+
+  updateBillingAddressNeeds = (country) => {
+    if (
+      [
+        'AD',
+        'PF',
+        'TF',
+        'GI',
+        'GB',
+        'GG',
+        'VA',
+        'IM',
+        'JE',
+        'MC',
+        'NC',
+        'BL',
+        'PM',
+        'SM',
+        'CH',
+        'WF',
+      ].includes(country)
+    ) {
+      this.setState((prevState) => ({
+        ...prevState,
+        billingAddressNeeded: true,
+        billing_details: {
+          ...prevState.billing_details,
+          address: { ...prevState.billing_details.address, country },
+        },
+      }));
+    } else {
+      this.setState((prevState) => ({
+        ...prevState,
+        billingAddressNeeded: false,
+      }));
+    }
+  };
 
   componentDidMount() {
     this.props
@@ -89,6 +131,32 @@ export class CollectPaymentMethod extends React.Component<Props> {
             null,
         });
       });
+
+    if (this.props.elements) {
+      this.props.elements
+        .getElement(PAYMENT_METHOD.type)
+        .addEventListener('change', (data) =>
+          this.updateBillingAddressNeeds(data?.country),
+        );
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.elements) {
+      this.props.elements
+        .getElement(PAYMENT_METHOD.type)
+        .removeEventListener('change');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.elements && !!this.props.elements) {
+      this.props.elements
+        .getElement(PAYMENT_METHOD.type)
+        .addEventListener('change', (data) =>
+          this.updateBillingAddressNeeds(data?.country),
+        );
+    }
   }
 
   handleSubmit = (ev: SyntheticEvent<HTMLElement>) => {
@@ -103,7 +171,12 @@ export class CollectPaymentMethod extends React.Component<Props> {
     this.props.stripe[PAYMENT_METHOD.method](this.state.clientSecret, {
       payment_method: {
         sepa_debit: element,
-        billing_details: this.state.billing_details,
+        billing_details: this.state.billingAddressNeeded
+          ? this.state.billing_details
+          : {
+              name: this.state.billing_details.name,
+              email: this.state.billing_details.email,
+            },
       },
     }).then((result) => {
       if (result.error) {
@@ -260,10 +333,46 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     >
                       <div className={classes.sensitiveDataContainer}>
                         <div className={classes.sensitiveData}>
-                          <SepaDebit />
+                          <IbanElement
+                            ref={this.ibanRef}
+                            options={{
+                              supportedCountries: ['SEPA'],
+                              style: {
+                                height: 40,
+                                base: { height: 40, fontSize: '18px' },
+                              },
+                            }}
+                          />
                         </div>
                       </div>
                     </div>
+                    {this.state.billingAddressNeeded && (
+                      <div className={classes.nameAndEmailContainer}>
+                        <TextField
+                          required={this.state.billingAddressNeeded}
+                          fullWidth
+                          value={this.state.billing_details.address.line1}
+                          variant="outlined"
+                          placeholder={this.props.t(
+                            'subscription:mandate.address_line_1',
+                          )}
+                          onChange={(ev) => {
+                            const { value } = ev.target;
+                            this.setState((prevState) => {
+                              return {
+                                billing_details: {
+                                  ...prevState.billing_details,
+                                  address: {
+                                    ...prevState.billing_details.address,
+                                    line1: value,
+                                  },
+                                },
+                              };
+                            });
+                          }}
+                        />
+                      </div>
+                    )}
                     <Typography
                       color="textSecondary"
                       className={classes.mandate}
@@ -298,15 +407,6 @@ export class CollectPaymentMethod extends React.Component<Props> {
     );
   }
 }
-
-const SepaDebit = () => (
-  <IbanElement
-    options={{
-      supportedCountries: ['SEPA'],
-      style: { height: 40, base: { height: 40, fontSize: '18px' } },
-    }}
-  />
-);
 
 const styles = (theme) => ({
   actions: {

@@ -156,20 +156,32 @@ export const PaymentStripeTerminal = (props: Props) => {
   useEffect(() => {
     const instanciateTerminal = async () => {
       const onFetchConnectionToken = async () => {
-        const response = await fetchConnectionTokenAPI();
-        return response.data.secret;
+        try {
+          const response = await fetchConnectionTokenAPI();
+          return response.data.secret;
+        } catch (err) {
+          console.error(err);
+          Sentry.captureException(err);
+          throw err;
+        }
       };
       const onUnexpectedReaderDisconnect = () => {
         setProcessing && setProcessing(false);
         setStep('unexpectedDisconnect');
       };
 
-      const StripeTerminal = await loadStripeTerminal();
-      const terminalInstance = StripeTerminal.create({
-        onFetchConnectionToken,
-        onUnexpectedReaderDisconnect,
-      });
-      setTerminal(terminalInstance);
+      try {
+        const StripeTerminal = await loadStripeTerminal();
+        const terminalInstance = StripeTerminal.create({
+          onFetchConnectionToken,
+          onUnexpectedReaderDisconnect,
+        });
+        setTerminal(terminalInstance);
+      } catch (err) {
+        console.error(err);
+        Sentry.captureException(err);
+        throw err;
+      }
     };
     instanciateTerminal();
   }, [setProcessing]);
@@ -188,6 +200,7 @@ export const PaymentStripeTerminal = (props: Props) => {
         clientSecret = response.data.client_secret;
       } catch (e) {
         console.error(e);
+        Sentry.captureException(e);
       }
     }
     if (!props.isSetupIntent) initiatePayment(clientSecret);
@@ -195,8 +208,14 @@ export const PaymentStripeTerminal = (props: Props) => {
   };
 
   const initiatePayment = async (clientSecret: string) => {
-    const isConnected = await connectToReader();
-    isConnected && (await collectAndProcessPayment(clientSecret));
+    try {
+      const isConnected = await connectToReader();
+      isConnected && (await collectAndProcessPayment(clientSecret));
+    } catch (err) {
+      Sentry.captureException(err);
+      console.error(err);
+      throw err;
+    }
   };
 
   const initiateSavePaymentMethod = async (clientSecret: string) => {
@@ -221,6 +240,8 @@ export const PaymentStripeTerminal = (props: Props) => {
       props.setProcessing && props.setProcessing(false);
       setError(discoverResult.error);
       if (discoverResult.error?.code === 'reader_error') {
+        // eslint-disable-next-line
+        console.log(discoverResult);
         Sentry.captureException(discoverResult.error);
       }
       setStep('connectionError');
@@ -272,6 +293,8 @@ export const PaymentStripeTerminal = (props: Props) => {
     terminal.collectPaymentMethod(clientSecret).then((resultCollect) => {
       if ('error' in resultCollect) {
         // When clicking on retry, we should try to collect payment method again
+        // eslint-disable-next-line
+        console.log(resultCollect);
         props.setProcessing && props.setProcessing(false);
         if (resultCollect.error.code === 'canceled') return;
         setError(resultCollect.error);
@@ -290,14 +313,20 @@ export const PaymentStripeTerminal = (props: Props) => {
     // This line is immediately executed after terminal.collectPaymentMethod
     // the cancelCollectHandler needs to be set when collectPaymentMethod is in progress
     setCancelCollectHandler(() => async () => {
-      const cancelResults = await terminal.cancelCollectPaymentMethod();
-      if ('error' in cancelResults) {
-        setErrorWhenCancelling(true);
-        return;
+      try {
+        const cancelResults = await terminal.cancelCollectPaymentMethod();
+        if ('error' in cancelResults) {
+          setErrorWhenCancelling(true);
+          return;
+        }
+        setErrorWhenCancelling(false);
+        terminal.disconnectReader();
+        setStep('paymentSettings');
+      } catch (err) {
+        console.error(err);
+        Sentry.captureException(err);
+        throw err;
       }
-      setErrorWhenCancelling(false);
-      terminal.disconnectReader();
-      setStep('paymentSettings');
     });
   };
 
@@ -312,16 +341,24 @@ export const PaymentStripeTerminal = (props: Props) => {
     const resultProcess = await terminal.processPayment(paymentIntent);
 
     if (!('error' in resultProcess)) {
-      await capturePaymentIntentAPI({
-        payment_intent_id: resultProcess.paymentIntent.id,
-      });
-      setStep('paymentSuccess');
-      props.onSuccess();
-      return;
+      try {
+        await capturePaymentIntentAPI({
+          payment_intent_id: resultProcess.paymentIntent.id,
+        });
+        setStep('paymentSuccess');
+        props.onSuccess();
+        return;
+      } catch (err) {
+        console.error(err);
+        Sentry.captureException(err);
+        throw err;
+      }
     }
 
     props.setProcessing && props.setProcessing(false);
     setError(resultProcess.error);
+    // eslint-disable-next-line
+    console.log(resultProcess)
     if (resultProcess.error?.code === 'reader_error') {
       Sentry.captureException(resultProcess.error);
     }
@@ -370,6 +407,8 @@ export const PaymentStripeTerminal = (props: Props) => {
       .collectSetupIntentPaymentMethod(clientSecret, true)
       .then((resultCollect) => {
         if ('error' in resultCollect) {
+          // eslint-disable-next-line
+          console.log(resultCollect)
           // When clicking on retry, we should try to collect payment method again
           props.setProcessing && props.setProcessing(false);
           if (resultCollect.error.code === 'canceled') return;
@@ -384,46 +423,64 @@ export const PaymentStripeTerminal = (props: Props) => {
           return;
         }
         confirmSetup(clientSecret, resultCollect.setupIntent);
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
       });
 
     // This line is immediately executed after terminal.collectSetupIntentPaymentMethod
     // the cancelCollectHandler needs to be set when collectSetupIntentPaymentMethod is in progress
     setCancelCollectHandler(() => async () => {
-      const cancelResults = await terminal.cancelCollectPaymentMethod();
-      if ('error' in cancelResults) {
-        setErrorWhenCancelling(true);
-        return;
+      try {
+        const cancelResults = await terminal.cancelCollectPaymentMethod();
+        if ('error' in cancelResults) {
+          setErrorWhenCancelling(true);
+          return;
+        }
+        setErrorWhenCancelling(false);
+        terminal.disconnectReader();
+        setStep('paymentSettings');
+      } catch (err) {
+        console.error(err);
+        Sentry.captureException(err);
+        throw err;
       }
-      setErrorWhenCancelling(false);
-      terminal.disconnectReader();
-      setStep('paymentSettings');
     });
   };
 
   const confirmSetup = async (clientSecret: string, setupIntent: any) => {
-    props.setProcessing && props.setProcessing(true);
-    setErrorWhenCancelling(false);
-    setError(null);
-    setStep('processing');
-    const resultConfirm = await terminal.confirmSetupIntent(setupIntent);
-    if ('error' in resultConfirm) {
-      // call processPayment again with the same PaymentIntent to retry the request.
-      setError(resultConfirm.error);
-      if (resultConfirm.error?.code === 'reader_error') {
-        Sentry.captureException(resultConfirm.error);
+    try {
+      props.setProcessing && props.setProcessing(true);
+      setErrorWhenCancelling(false);
+      setError(null);
+      setStep('processing');
+      const resultConfirm = await terminal.confirmSetupIntent(setupIntent);
+      if ('error' in resultConfirm) {
+        // eslint-disable-next-line
+        console.log(resultConfirm);
+        // call processPayment again with the same PaymentIntent to retry the request.
+        setError(resultConfirm.error);
+        if (resultConfirm.error?.code === 'reader_error') {
+          Sentry.captureException(resultConfirm.error);
+        }
+        props.setProcessing && props.setProcessing(false);
+        setStep('paymentError');
+        setRetryHandler(() => () => {
+          collectAndConfirmSetup(clientSecret);
+        });
+        return;
       }
-      props.setProcessing && props.setProcessing(false);
-      setStep('paymentError');
-      setRetryHandler(() => () => {
-        collectAndConfirmSetup(clientSecret);
-      });
-      return;
-    }
 
-    setStep('paymentSuccess');
-    props.setProcessing && props.setProcessing(false);
-    if (props.onSuccess) {
-      props.onSuccess();
+      setStep('paymentSuccess');
+      props.setProcessing && props.setProcessing(false);
+      if (props.onSuccess) {
+        props.onSuccess();
+      }
+    } catch (err) {
+      console.error(err);
+      Sentry.captureException(err);
+      throw err;
     }
   };
   // --------------------------------------------------------------------

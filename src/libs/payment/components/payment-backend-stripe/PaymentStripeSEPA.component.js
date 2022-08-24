@@ -258,7 +258,8 @@ export const PaymentStripeSEPA = (props: Props) => {
       });
     }
     return () => iban?.removeEventListener('change');
-  }, [!!iban]);
+    // eslint-disable-next-line
+  }, [!!iban, setNeedBillingDetailAddress, setBillingDetails, billingDetails]);
 
   const handleSubmit = async (event) => {
     if (!stripe || !elements) {

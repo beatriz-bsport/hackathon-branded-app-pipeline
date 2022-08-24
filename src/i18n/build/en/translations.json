@@ -8588,8 +8588,8 @@
                     "onBooking": "Send the notification after completing the booking"
                 },
                 "contractTitle": "Subscription",
-                "infoContract": "Members who got this card as part of a subscription will only receive notifications about the subscription and not about the card. By deactivating this option they will receive both.",
-                "dontSendIfInContract": "Do not send when the card is part of a subscription"
+                "infoContract": "Members who got this pass as part of a subscription will only receive notifications about the subscription and not about the card. By deactivating this option they will receive both.",
+                "dontSendIfInContract": "Do not send when the pass is part of a subscription"
             },
             "daysPast": {
                 "second": "day(s).",

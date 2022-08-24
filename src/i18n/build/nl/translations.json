@@ -5883,12 +5883,12 @@
             }
         },
         "notification": {
-            "title": "Contacteer {{count}} {{periodScale}} {{notificationKind}}",
-            "creation": "Bij afsluiting",
-            "beforefirstBilling": "Voor de eerste facturatie",
-            "afterfirstBilling": "Na de eerste facturatie",
-            "beforeSubscriptionEnd": "Voor de einddatum van het abonnement",
-            "afterSubscriptionEnd": "Na de einddatum van het abonnement",
+            "title": "Verstuur deze melding {{count}} {{periodScale}} {{notificationKind}}.",
+            "creation": "na het afsluiten van dit abonnement",
+            "beforefirstBilling": "voor de eerste facturatie plaatsvindt",
+            "afterfirstBilling": "nadat de eerste facturatie heeft plaatsgevonden",
+            "beforeSubscriptionEnd": "voor de einddatum van het abonnement",
+            "afterSubscriptionEnd": "na de einddatum van het abonnement",
             "days": "dag(en)",
             "days_plural": "dagen",
             "hours": "uur",
@@ -5896,8 +5896,8 @@
         },
         "addNotification": "Een notificatie toevoegen",
         "contractNotification": {
-            "creation": "Bij het afsluiten van dit abonnement",
-            "firstBilling": "Bij de eerste facturatie"
+            "creation": "Afsluiting",
+            "firstBilling": "Eerste facturatie"
         }
     },
     "coachPerformance": {
@@ -9465,7 +9465,7 @@
             "title": "Reserveringen"
         },
         "tabNameDialog": {
-            "titleAdd": "Een nieuw tabblad toevoegen",
+            "titleAdd": "Een tabblad toevoegen",
             "titleRename": "Tabblad hernoemen",
             "placeholder": "Naam"
         },
@@ -9534,9 +9534,9 @@
             "helperText": {
                 "dateStart": "De gegevens worden in de tijd uitgezet op basis van de begindatum van de sessies.",
                 "dateCreated": "De gegevens zullen in de tijd worden weergegeven overeenkomstig de datum waarop de boekingen werden verricht.",
-                "subscriptionPrice": "Samenvatting van alle ontvangen betalingen in verband met abonnementen.",
-                "subscriptionCount": "Aantal facturen in verband met abonnementen.",
-                "booking_effectif_timeslots": "Gemiddeld aantal sessies per tijdslot.",
+                "subscriptionPrice": "Dit is het totaalbedrag voor alle ontvangen abonnementsbetalingen.",
+                "subscriptionCount": "Dit is het aantal gefactureerde abonnementen.",
+                "booking_effectif_timeslots": "Dit is de gemiddelde bezetting per sessie per uur.",
                 "accumulateMembers": "Toont de ontwikkeling van het totale aantal leden."
             }
         },
@@ -9579,21 +9579,21 @@
             "payment_price": "Prijs",
             "payment_method": "Betaalmethode",
             "date": "Datum",
-            "contract": "Abonnement",
+            "contract": "Abonnementen",
             "price": "Prijs",
             "private_service_name": "Afspraak",
             "margin_value": "Marginale opbrengst",
             "activity": "Activiteit"
         },
         "graphDefaultTitles": {
-            "paymentTemporal": "Inkomsten",
-            "bookingTimeslots": "Gemiddeld aantal personen",
-            "bookingQualitative": "Bron van de boekingen",
-            "bookingTemporal": "Boekingen",
-            "subscriptionTemporalCount": "Aantal abonnementsfacturen",
+            "paymentTemporal": "Incasso's",
+            "bookingTimeslots": "Gemiddelde bezetting",
+            "bookingQualitative": "Oorsprong reserveringen",
+            "bookingTemporal": "Reserveringen",
+            "subscriptionTemporalCount": "Aantal gefactureerde abonnementen",
             "memberTemporal": "Nieuwe leden",
-            "subscriptionTemporalSum": "Inkomsten van abonnementen",
-            "privateBookingTemporal": "Afspraak"
+            "subscriptionTemporalSum": "Abonnementsbetalingen",
+            "privateBookingTemporal": "Afspraken"
         }
     },
     "common": {
@@ -11439,7 +11439,7 @@
                 "booking": "Groepsactiviteiten",
                 "privatePass": "Afspraakkaarten",
                 "birthday": "Verjaardag",
-                "contract": "Abonnement"
+                "contract": "Abonnementen"
             },
             "fabLabels": {
                 "payment_pack": "Leskaarten",
@@ -11450,7 +11450,7 @@
                 "private_pass": "Afspraakkaarten",
                 "birthday": "Verjaardag",
                 "establishmentGroup": "Locatie",
-                "contract": "Abonnement"
+                "contract": "Abonnementen"
             },
             "cancel": "Annuleren",
             "next": "Volgende",
@@ -11484,8 +11484,8 @@
             "handleNotification": "Berichtgeving",
             "noNotification": "Er zijn geen actieve meldingen om weer te geven.",
             "contractKind": {
-                "contractStart": "Start van het abonnement",
-                "contractEnd": "Einde van het abonnement"
+                "contractStart": "Start",
+                "contractEnd": "Einde"
             }
         },
         "customForm": {

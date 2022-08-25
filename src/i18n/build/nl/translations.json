@@ -2361,7 +2361,8 @@
             "archived": "Gearchiveerd",
             "member_default_billing_establishment": "Factuuradres",
             "payment_legal_identifier": "Referentie wettelijke factuur",
-            "selectAll": "Alles selecteren"
+            "selectAll": "Alles selecteren",
+            "billing_date_start_annotated": "Eerste factuurdatum"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2611,6 +2612,10 @@
                 "X": "Anders",
                 "M": "Heren",
                 "F": "Vrouwen"
+            },
+            "is_unpaid": {
+                "False": "Betaald",
+                "True": "Onbetaald"
             }
         }
     },
@@ -9508,7 +9513,8 @@
                 "area": "Vlakdiagram",
                 "pie": "Cirkeldiagram",
                 "timeslots": "Dagelijkse en uurlijkse frequentie",
-                "bar": "Kolommendiagram"
+                "bar": "Kolommendiagram",
+                "qualitativeBar": "Kolommendiagram"
             },
             "graphFamily": {
                 "temporal": "Historische ontwikkeling",
@@ -9534,10 +9540,16 @@
             "helperText": {
                 "dateStart": "De gegevens worden in de tijd uitgezet op basis van de begindatum van de sessies.",
                 "dateCreated": "De gegevens zullen in de tijd worden weergegeven overeenkomstig de datum waarop de boekingen werden verricht.",
-                "subscriptionPrice": "Dit is het totaalbedrag voor alle ontvangen abonnementsbetalingen.",
+                "subscriptionPrice": {
+                    "max": "Dit is het maximumbedrag voor alle ontvangen abonnementsbetalingen.",
+                    "min": "Dit is het minumumbedrag voor alle ontvangen abonnementsbetalingen.",
+                    "avg": "Dit is het gemiddelde voor alle ontvangen abonnementsbetalingen.",
+                    "sum": "Dit is het totaalbedrag voor alle ontvangen abonnementsbetalingen."
+                },
                 "subscriptionCount": "Dit is het aantal gefactureerde abonnementen.",
                 "booking_effectif_timeslots": "Dit is de gemiddelde bezetting per sessie per uur.",
-                "accumulateMembers": "Toont de ontwikkeling van het totale aantal leden."
+                "accumulateMembers": "Toont de ontwikkeling van het totale aantal leden.",
+                "plannedInvoiceCount": "Dit is het aantal gefactureerde abonnementen."
             }
         },
         "graphActions": {
@@ -9576,14 +9588,20 @@
             "accept_email": "Accepteert emails",
             "accept_sms": "Sms-berichten accepteren",
             "payment_date": "Betaaldatum",
-            "payment_price": "Prijs",
+            "payment_price": "Prijs (incl. btw)",
             "payment_method": "Betaalmethode",
-            "date": "Datum",
+            "date": "Betaaldatum",
             "contract": "Abonnementen",
-            "price": "Prijs",
+            "price": "Prijs (incl. btw)",
             "private_service_name": "Afspraak",
-            "margin_value": "Marginale opbrengst",
-            "activity": "Activiteit"
+            "margin_value": "Marginale opbrengst (incl. btw)",
+            "activity": "Activiteit",
+            "is_unpaid": "Onbetaald",
+            "payout_status": "Status",
+            "payout_identifier": "Bankoverschrijving",
+            "payout_date_created": "Overschrijfdatum",
+            "private_pass": "Afspraakkaart",
+            "payment_pack": "Leskaart"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -9594,6 +9612,10 @@
             "memberTemporal": "Nieuwe leden",
             "subscriptionTemporalSum": "Abonnementsbetalingen",
             "privateBookingTemporal": "Afspraken"
+        },
+        "placeholderEmptyValues": {
+            "establishment": "Zonder vestiging",
+            "coach": "Zonder instructeur"
         }
     },
     "common": {

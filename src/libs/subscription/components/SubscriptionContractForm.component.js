@@ -25,6 +25,7 @@ import {
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
+import InfoBox from '#components/box/InfoBox.component';
 
 import type { SubscriptionContract } from '../types';
 import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
@@ -157,8 +158,16 @@ export function SubscriptionContractFields(props: Props) {
         label={t('contract.form.recurrent_price.label')}
         required
         fullWidth
-        className={classes.field}
+        className={classes.fieldMargin2}
       />
+      {props.initial?.id &&
+        parseFloat(props.values.recurrent_price) !==
+          parseFloat(props.initial.recurrent_price) && (
+          <InfoBox
+            content={t('contract.form.recurrent_price.infoBox')}
+            className={classes.fieldMargin2}
+          />
+        )}
       <PriceField
         name="flat_fee"
         label={t('contract.form.flat_fee.label')}
@@ -211,6 +220,9 @@ const styles = (theme) => ({
   },
   field: {
     marginBottom: theme.spacing(3),
+  },
+  fieldMargin2: {
+    marginBottom: theme.spacing(2),
   },
   fieldMain: { marginBottom: theme.spacing(5) },
   section: {

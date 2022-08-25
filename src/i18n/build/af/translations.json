@@ -7946,7 +7946,10 @@
             "week_plural": "semaines"
           }
         },
-        "recurrent_price": { "label": "Paiement récurrent" },
+        "recurrent_price": {
+          "label": "Paiement récurrent",
+          "infoBox": "Vous êtes sur le point de modifier le prix de votre souscription. Seul le prix des nouvelles souscriptions créées sera impacté. Le prix des souscriptions en cours et des souscriptions avec renouvellement déjà existantes ne changera pas (même après renouvellement)."
+        },
         "description": { "placeholder": "Nouvelle offre exclusive limitée", "label": "Description" },
         "managerOnly": { "label": "Invisible pour les clients" },
         "autoRenewal": { "label": "Renouvellement tacite" },

@@ -209,7 +209,7 @@ class BsportWidget extends Component<Props> {
             <Widget
               companyId={companyId}
               franchiseId={franchiseId}
-              config={config[widgetType]}
+              config={config[widgetType] || {}}
               store={store}
               theme={theme}
               onWindowOpen={this.onWindowOpen}

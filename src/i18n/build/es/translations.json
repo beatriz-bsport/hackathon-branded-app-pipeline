@@ -3448,7 +3448,8 @@
                     "placeholder": "Nueva oferta exclusiva limitada"
                 },
                 "recurrent_price": {
-                    "label": "Pago recurrente"
+                    "label": "Pago recurrente",
+                    "infoBox": "Está a punto de cambiar el precio de tu cuota. Sólo se verá afectado el precio de las cuotas recién creadas. El precio de las cuotas existentes y de las cuotas de renovación no cambiará (incluso después de la renovación)."
                 },
                 "nb_interval": {
                     "helperText": "Al menos 2 meses",

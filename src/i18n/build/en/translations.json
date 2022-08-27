@@ -5538,7 +5538,7 @@
                 }
             },
             "last_delay_before_auto_consume": {
-                "label": "Only accept bookings automatically if a session takes place in less than ",
+                "label": "Do not accept bookings automatically if a session takes place in less than ",
                 "helper": "If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass"
             }
         },
@@ -7513,7 +7513,8 @@
                     "label": "Activate the automatic renewal"
                 },
                 "recurrent_price": {
-                    "label": "Recurring payment"
+                    "label": "Recurring payment",
+                    "infoBox": "You are about to change your subscription price. Only the price of newly created subscriptions will be affected. The price of existing subscriptions and renewal subscriptions will not change (even after renewal)."
                 },
                 "contract": {
                     "label": "Terms",

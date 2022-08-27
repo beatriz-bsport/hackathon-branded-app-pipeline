@@ -10938,6 +10938,9 @@
             "submit": "Enregistrer",
             "auto_cancellation_type": {
                 "title": "Gestion de la liste d'attente"
+            },
+            "last_delay_before_auto_consume": {
+                "label": "Ne pas auto inscrire si la séance a lieu dans moins de "
             }
         },
         "explainWaitingListConf": "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",

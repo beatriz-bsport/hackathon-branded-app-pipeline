@@ -2433,11 +2433,11 @@
             "excel_report": "Excel"
         },
         "header": {
-            "average": "Gemiddeld",
+            "average": "Gemiddelde",
             "sum": "Totaal",
             "selectDate": "Selecteer een datum",
             "from": "Van",
-            "to": "Tot en met",
+            "to": "tot en met",
             "start": "Start",
             "end": "Einde",
             "rapidChoice": "Snelkeuze",
@@ -2450,7 +2450,7 @@
             },
             "from_to": "Van {{-from}} tot {{-to}}",
             "save": "Opslaan",
-            "selectRange": "Kies een datumbereik"
+            "selectRange": "Selecteer een datumbereik"
         },
         "search": "Zoek een rapportage",
         "filter": {

@@ -721,9 +721,11 @@ const mapWithHandlers = {
     },
   scaleCredit: (props: WithStateProps) => (id_: number, data: any) => {
     props.scaleCredit(id_, data, {
-      onSuccess: () => {
-        props.fetchPaymentPack(props.id);
-        props.fetchConsumerPacks(props.id, 1, CONSUMER_PACK_PAGINATION_SIZE);
+      onBackgroundSuccess: () => {
+        if (window.location.pathname === `/payment-pack/${props.id}`) {
+          props.fetchPaymentPack(props.id);
+          props.fetchConsumerPacks(props.id, 1, CONSUMER_PACK_PAGINATION_SIZE);
+        }
       },
     });
   },

@@ -26,6 +26,7 @@ import {
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
   editCategoryOrder,
 } from './api';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import {
@@ -37,7 +38,12 @@ import {
 } from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
-import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  ThunkAction,
+  OptionBackgroundCallback,
+} from '../../state/types';
 
 export const scalePaymentPackCreditActions = {
   isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),
@@ -48,7 +54,7 @@ export const scalePaymentPackCreditActions = {
 export function scalePaymentPackCredit(
   id: number,
   data: any,
-  options: OptionCallback,
+  options: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(scalePaymentPackCreditActions.error(null));
@@ -56,10 +62,15 @@ export function scalePaymentPackCredit(
     try {
       // TODO update reducer after endpoint/serializer cleaning
       const response = await scalePaymentPackCreditAPI(id, data);
-      dispatch(scalePaymentPackCreditActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      options?.onSuccess?.();
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options?.onBackgroundSuccess,
+          onError: options?.onBackgroundError,
+        }),
+      );
     } catch (err) {
       console.error(err);
       dispatch(scalePaymentPackCreditActions.error(err));

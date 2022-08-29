@@ -43,6 +43,12 @@ export default handleActions<Immutable.Immutable<ThemeState>>(
             payload.stripe_region,
           );
         }
+        if (payload.locale) {
+          storage.setItem(
+            'bsport:payment:company_country',
+            payload.locale.split('_')[1],
+          );
+        }
       } catch (err) {
         console.error(err);
       }

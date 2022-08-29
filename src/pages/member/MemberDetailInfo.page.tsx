@@ -95,7 +95,10 @@ import {
   fetchAllEstablishmentGroup,
 } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
+import themeSelectors, {
+  getStripeRegion,
+  getCompanyCountry,
+} from '../../libs/theme/selectors';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import { fetchModelBasedAnswer } from '../../libs/custom-form/actions';
@@ -123,6 +126,7 @@ import {
 import type { ConsumerGiftcard } from '#libs/giftcard/types';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -142,6 +146,7 @@ type State = {
 };
 
 const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 
 export class MemberDetailPage extends Component<Props> {
   state: State = {
@@ -403,7 +408,10 @@ export class MemberDetailPage extends Component<Props> {
                 this.props.member ? this.props.member.email : ''
               }
               stripeReaders={this.props.stripeReaders || []}
-              addViaTerminal={stripeRegion === 'NorthAmerica'}
+              addViaTerminal={
+                stripeRegion === 'NorthAmerica' &&
+                TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
+              }
             />
           </PaymentModal>
         )}

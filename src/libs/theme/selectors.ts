@@ -38,6 +38,14 @@ export const getStripeRegion = () => {
   }
   return key;
 };
+
+export const getCompanyCountry = () => {
+  const key = storage.getItem('bsport:payment:company_country');
+  if (!key || key === 'null' || key === 'undefined') {
+    return '';
+  }
+  return key;
+};
 /**
  * @returns the price of the product, possibly excluded from tax, with its currency.
  * @param  {any} price mandatory - the including tax price of the product

@@ -72,8 +72,9 @@ import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialo
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import MemberActions from '#libs/member/components/ManagerMemberActions.components';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
-import { getStripeRegion } from '../../libs/theme/selectors';
+import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -168,6 +169,7 @@ type Props = {
 };
 
 const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
@@ -437,7 +439,8 @@ export class MemberDetail extends React.Component<Props> {
           enabledPaymentMethods={[
             BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
             BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-            ...(stripeRegion === 'NorthAmerica'
+            ...(stripeRegion === 'NorthAmerica' &&
+            TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
               ? [PAYMENT_STRIPE_TERMINAL_FAKE]
               : []),
             ...(this.props.theme.currency === 'eur'

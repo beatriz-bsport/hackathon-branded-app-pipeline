@@ -26,7 +26,10 @@ import Fuse, { FuseOptions } from 'fuse.js';
 import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 import { RootState } from '../../reducers';
-import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
+import themeSelectors, {
+  getStripeRegion,
+  getCompanyCountry,
+} from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
@@ -69,6 +72,7 @@ import {
 import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
@@ -78,6 +82,7 @@ import { Coach } from '../../libs/associated-coach/types';
 import { Member } from '../../libs/member/types';
 
 const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 
 export class SubscriptionList extends React.Component<Props, State> {
   state = {
@@ -344,7 +349,8 @@ export class SubscriptionList extends React.Component<Props, State> {
               ...(this.props.theme.currency === 'eur'
                 ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
                 : []),
-              ...(stripeRegion === 'NorthAmerica'
+              ...(stripeRegion === 'NorthAmerica' &&
+              TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
                 ? [PAYMENT_STRIPE_TERMINAL_FAKE]
                 : []),
             ]}

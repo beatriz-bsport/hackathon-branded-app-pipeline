@@ -1,9 +1,8 @@
 export const getStripeTerminalMinAmountCts = () => {
   const currency: string = localStorage.getItem('bsport:payment:currency_code');
   switch (currency) {
-    // For testing purposes, should be 1000 for euros, to change
     case 'eur':
-      return 200;
+      return 1000;
     case 'usd':
       return 1000;
     case 'cad':

@@ -17,12 +17,13 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
-import { getStripeRegion } from '../../theme/selectors';
+import { getStripeRegion, getCompanyCountry } from '../../theme/selectors';
 import SubscriptionPayment from './SubscriptionPayment.component';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
 import type { Establishment } from '../../establishment/types';
 import type { StripeReader } from '#libs/terminal/types';
@@ -49,6 +50,7 @@ type State = {
 };
 
 const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,
@@ -111,7 +113,10 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                   : [
                       BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
                       BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-                      ...(stripeRegion === 'NorthAmerica'
+                      ...(stripeRegion === 'NorthAmerica' &&
+                      TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(
+                        companyCountry,
+                      )
                         ? [PAYMENT_STRIPE_TERMINAL_FAKE]
                         : []),
                     ]

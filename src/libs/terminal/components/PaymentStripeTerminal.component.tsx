@@ -30,7 +30,7 @@ import {
 } from '../api';
 import {
   getCurrencyDisplayWithPrice,
-  getStripeRegion,
+  getCompanyCountry,
 } from '../../theme/selectors';
 import { updateIntentToSavePaymentMethod } from '#libs/payment/api';
 
@@ -124,7 +124,7 @@ export type Props = {
   onlySavePaymentMethod?: boolean;
 };
 
-const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 const stripeTerminalMinAmountCts = getStripeTerminalMinAmountCts();
 
 export const PaymentStripeTerminal = (props: Props) => {
@@ -358,7 +358,7 @@ export const PaymentStripeTerminal = (props: Props) => {
     props.setProcessing && props.setProcessing(false);
     setError(resultProcess.error);
     // eslint-disable-next-line
-    console.log(resultProcess)
+    console.log(resultProcess);
     if (resultProcess.error?.code === 'reader_error') {
       Sentry.captureException(resultProcess.error);
     }
@@ -408,7 +408,7 @@ export const PaymentStripeTerminal = (props: Props) => {
       .then((resultCollect) => {
         if ('error' in resultCollect) {
           // eslint-disable-next-line
-          console.log(resultCollect)
+          console.log(resultCollect);
           // When clicking on retry, we should try to collect payment method again
           props.setProcessing && props.setProcessing(false);
           if (resultCollect.error.code === 'canceled') return;
@@ -613,7 +613,10 @@ export const PaymentStripeTerminal = (props: Props) => {
                   </>
                 ))}
               </div>
-              {stripeRegion === 'NorthAmerica' && (
+              {/* Save card for later when paying only available in US
+              https://stripe.com/docs/terminal/features/saving-cards/save-after-payment */}
+              {(!!props.isSetupIntent ||
+                (!props.isSetupIntent && companyCountry === 'US')) && (
                 <div className={classes.row}>
                   <Checkbox
                     checked={saveForLater}

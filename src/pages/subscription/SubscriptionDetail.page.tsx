@@ -12,7 +12,10 @@ import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-gr
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
-import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
+import themeSelectors, {
+  getStripeRegion,
+  getCompanyCountry,
+} from '../../libs/theme/selectors';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -71,6 +74,7 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { RootState } from '../../reducers';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
 type BeforeHandlerProps = RouterProps &
   typeof stateHandlerInit &
@@ -83,6 +87,7 @@ type Props = BeforeHandlerProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 
 export class SubscriptionDetail extends Component<Props> {
   componentWillMount() {
@@ -183,7 +188,8 @@ export class SubscriptionDetail extends Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               this.props.theme.currency === 'eur' &&
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-              ...(stripeRegion === 'NorthAmerica'
+              ...(stripeRegion === 'NorthAmerica' &&
+              TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
                 ? [PAYMENT_STRIPE_TERMINAL_FAKE]
                 : []),
             ]}

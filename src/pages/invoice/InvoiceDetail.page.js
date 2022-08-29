@@ -90,7 +90,10 @@ import InstalmentPaymentDialog from '../../libs/payment/components/InstalmentPay
 import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import type { Establishment } from '../../libs/establishment/types';
-import themeSelectors, { getStripeRegion } from '../../libs/theme/selectors';
+import themeSelectors, {
+  getStripeRegion,
+  getCompanyCountry,
+} from '../../libs/theme/selectors';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import {
@@ -109,10 +112,12 @@ import type { OptionCallback } from '../../state/types';
 import type { ConsumerGiftcard, Giftcard } from '../../libs/giftcard/types';
 import type { PlannedPaymentEvent } from '../../libs/invoice/types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 import type { StripeReader } from '#libs/terminal/types';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 const stripeRegion = getStripeRegion();
+const companyCountry = getCompanyCountry();
 
 type Props = {
   fetchCompanyUserRoles: () => void,
@@ -530,7 +535,10 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
-                  ...(stripeRegion === 'NorthAmerica'
+                  ...(stripeRegion === 'NorthAmerica' &&
+                  TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(
+                    companyCountry,
+                  )
                     ? [PAYMENT_STRIPE_TERMINAL_FAKE]
                     : []),
                 ]}

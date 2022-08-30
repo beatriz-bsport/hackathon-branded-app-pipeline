@@ -5421,7 +5421,8 @@
                     "label": "Automatisch verlengen activeren"
                 },
                 "recurrent_price": {
-                    "label": "Doorlopende betaling"
+                    "label": "Doorlopende betaling",
+                    "infoBox": "De gewijzigde prijs wordt alleen toegepast op abonnementen die na het opslaan van deze wijzigingen worden afgesloten. Lopende abonnementen worden niet gewijzigd. Dit geldt ook voor lopende abonnementen die automatisch vernieuwd worden."
                 },
                 "object_type": {
                     "paymentPack": "Leskaarten",

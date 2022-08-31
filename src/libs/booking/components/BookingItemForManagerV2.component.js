@@ -196,7 +196,7 @@ export class BookingItemForManager extends Component<Props, State> {
       return [
         [`${payment_pack.name}`, 'secondary'],
         [
-          `${packDates} - illimité${
+          `${packDates} - ${t('unlimited').toLowerCase()}${
             booking.was_refunded ? ` (${t('wasRefunded')})` : ''
           }`,
           soonExpired ? 'error' : 'primary',

@@ -218,6 +218,7 @@ exports.default = {
   doNotAttend: 'Absent',
   loading: 'Chargement',
   wasRefunded: 'Remboursé',
+  unlimited: 'Illimité',
   creditConsumed: '{{credit_consumed}} crédit',
   creditConsumed_plural: '{{credit_consumed}} crédits',
   placeNumber: 'Place {{count}}',

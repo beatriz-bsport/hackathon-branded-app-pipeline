@@ -5,6 +5,7 @@ import { handleActions } from 'redux-actions';
 
 import {
   paymentComboListActions,
+  paymentComboBulkActions,
   paymentComboDeleteActions,
   paymentComboCreateOrUpdateActions,
   paymentComboRetrieveActions,
@@ -72,6 +73,12 @@ export default handleActions(
     [paymentComboListActions.error]: (state, { payload }) => {
       return state.set('error', payload);
     },
+    [paymentComboBulkActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [paymentComboBulkActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
     [paymentComboCreateOrUpdateActions.error]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
@@ -103,6 +110,17 @@ export default handleActions(
           'allIds',
           payload.map((pc) => pc.id),
         );
+    },
+    [paymentComboBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
     },
 
     [paymentComboPurchaseListActions.isLoading]: (state, { payload }) => {

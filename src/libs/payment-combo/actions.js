@@ -19,6 +19,12 @@ export const paymentComboListActions = {
   success: createAction('PAYMENT_COMBO/LIST/SUCCESS'),
 };
 
+export const paymentComboBulkActions = {
+  error: createAction('PAYMENT_COMBO/BULK/ERROR'),
+  isLoading: createAction('PAYMENT_COMBO/BULK/IS_LOADING'),
+  success: createAction('PAYMENT_COMBO/BULK/SUCCESS'),
+};
+
 export const paymentComboCreateOrUpdateActions = {
   error: createAction('PAYMENT_COMBO/CREATE_OR_UPDATE/ERROR'),
   isLoading: createAction('PAYMENT_COMBO/CREATE_OR_UPDATE/IS_LOADING'),
@@ -80,6 +86,29 @@ export function fetchPaymentComboList(
     }
 
     dispatch(paymentComboListActions.isLoading(false));
+  };
+}
+
+export function fetchPaymentComboBulk(
+  params: any,
+  options?: OptionCallback<Array<PaymentCombo>>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(paymentComboBulkActions.isLoading(true));
+    dispatch(paymentComboBulkActions.error(null));
+
+    try {
+      const response = await fetchPaymentComboListAPI(params);
+      dispatch(paymentComboBulkActions.success(response.data));
+      dispatch(paymentComboBulkActions.error(null));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(paymentComboBulkActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(paymentComboBulkActions.isLoading(false));
   };
 }
 

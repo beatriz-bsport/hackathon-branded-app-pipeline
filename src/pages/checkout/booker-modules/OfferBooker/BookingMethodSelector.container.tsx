@@ -50,7 +50,7 @@ import {
 } from '../../../../libs/payment-packs/actions';
 import {
   fetchPaymentComboForBooking,
-  fetchPaymentComboList as fetchPaymentComboListAction,
+  fetchPaymentComboBulk as fetchPaymentComboBulkAction,
 } from '../../../../libs/payment-combo/actions';
 import {
   fetchConsumerPaymentPackForBooking,
@@ -430,13 +430,13 @@ const mapHandlers = {
     ({
       fetchContractForBooking,
       fetchPaymentPackBulk,
-      fetchPaymentComboList,
+      fetchPaymentComboBulk,
     }: OwnAndConnectedProps) =>
     (offer, company) => {
       fetchContractForBooking(offer, company, {
         onSuccess: (contractList) => {
           fetchPaymentPackBulk(contractList.map((c) => c.payment_pack));
-          fetchPaymentComboList(
+          fetchPaymentComboBulk(
             {
               company,
               id__in: uniq(contractList.map((c) => c.payment_combo)),
@@ -501,7 +501,7 @@ const mapDispatchToProps = {
   replace: replaceAction,
   fetchConsumerPaymentPackForBooking,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
-  fetchPaymentComboList: fetchPaymentComboListAction as (
+  fetchPaymentComboBulk: fetchPaymentComboBulkAction as (
     params: any,
     options: OptionCallback<Array<PaymentCombo>>,
   ) => void,

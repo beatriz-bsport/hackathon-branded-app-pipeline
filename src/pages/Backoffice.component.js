@@ -12,6 +12,7 @@ import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
 import moment from 'moment-timezone';
+import i18n from '../i18n/index';
 import {
   retrieveStripeAccountStatusAction,
   retrieveStripeCompanyAction,
@@ -113,6 +114,7 @@ import StripeAccountConfiguration from '../libs/settings/components/NeedStripeAc
 import type { PlatformSubscriptionPaymentStatus } from '../libs/platform-billing/type';
 import { BLOCK_BACKOFFICE, WARN } from '../libs/platform-billing/constant';
 import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
+import { getCurrentLanguageIsoCode } from '../utils/language';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -577,6 +579,8 @@ export class Backoffice extends Component<Props, State> {
         );
       }
     }
+    const { language } = i18n;
+    const isoLanguage = getCurrentLanguageIsoCode(language);
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -669,6 +673,7 @@ export class Backoffice extends Component<Props, State> {
                       role={this.props.permissions.name}
                       action_color={this.props.theme.primary_color}
                       custom_launcher_selector="#intercomIcon"
+                      language_override={isoLanguage}
                     />
                   )}
 

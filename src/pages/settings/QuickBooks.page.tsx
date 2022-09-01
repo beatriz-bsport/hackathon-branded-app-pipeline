@@ -91,7 +91,7 @@ export class QuickBooks extends React.Component<Props, State> {
           client_id: Config.REACT_APP_QUICKBOOKS_CLIENT_ID,
           scope: 'com.intuit.quickbooks.accounting',
           redirect_uri: window.location.href.includes('localhost')
-            ? `https://bsport-hp.ngrok.io${window.location.pathname}`
+            ? `https://bsport-hp.ngrok.eu.io${window.location.pathname}`
             : window.location.origin + window.location.pathname,
           response_type: 'code',
           state: 'security_token',

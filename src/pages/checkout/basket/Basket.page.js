@@ -560,7 +560,8 @@ export default compose(
           }${
             queryParams?.user_registration_response
               ? `&user_registration_response=${
-                  queryParams && queryParams.user_registration_response
+                  queryParams &&
+                  encodeURIComponent(queryParams.user_registration_response)
                 }`
               : ''
           }${

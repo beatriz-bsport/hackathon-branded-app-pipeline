@@ -12,33 +12,55 @@ export default class CanvasSpotTool extends CanvasAbstractTool<CanvasSpotProps> 
 
   hideNativeCursor = true;
 
-  onClick = (params: CanvasSvgMouseParamsI) => {
+  onClick = (params: CanvasSvgMouseParamsI, spotTypeId: number) => {
     const { x, y, elements } = params;
 
-    const index = elements.filter((el) => el.type === this.type).length;
-
+    const index = elements.filter((el) => el.type === 'spot').length;
+    const indexType = elements.filter(
+      (el) =>
+        (el?.data?.spotTypeId || -1) === spotTypeId &&
+        el?.data?.index <= index &&
+        el.type === 'spot',
+    ).length;
     const spot = this.newElement({
       x,
       y,
       index: index + 1,
-      asset_identifier: 'spot_free',
+      indexType: indexType + 1,
+      spotTypeId,
+      taken: false,
       selected: false,
     });
 
     return [...elements, spot];
   };
 
-  onMove = (params: CanvasSvgMouseParamsI) => {
+  onMove = (params: CanvasSvgMouseParamsI, spotTypeId: number) => {
     const { x, y } = params;
-    new SpotDOMController().select(this.draftId).setPosition(x, y);
+
+    if (!spotTypeId) {
+      new SpotDOMController().select(this.draftId).setPosition(x, y);
+    } else {
+      new SpotDOMController().select(`spot-${spotTypeId}`).setPosition(x, y);
+    }
   };
 
-  onMouseOut = () => {
-    new SpotDOMController().select(this.draftId).setPosition(-100, -100);
+  onMouseOut = (spotTypeId: number) => {
+    if (!spotTypeId) {
+      new SpotDOMController().select(this.draftId).setPosition(-100, -100);
+    }
+    new SpotDOMController()
+      .select(`spot-${spotTypeId}`)
+      .setPosition(-100, -100);
   };
 
-  onCancel = () => {
-    new SpotDOMController().select(this.draftId).setPosition(-100, -100);
+  onCancel = (spotTypeId: number) => {
+    if (!spotTypeId) {
+      new SpotDOMController().select(this.draftId).setPosition(-100, -100);
+    }
+    new SpotDOMController()
+      .select(`spot-${spotTypeId}`)
+      .setPosition(-100, -100);
     return true;
   };
 

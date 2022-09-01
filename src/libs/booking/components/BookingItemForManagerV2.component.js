@@ -56,6 +56,8 @@ import VaccinationBadge from '../../member/components/VaccinationBadge.component
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 
+import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
+
 type Props = {
   t: TFunction,
   classes: Object,
@@ -687,11 +689,16 @@ export class BookingItemForManager extends Component<Props, State> {
 
                       {this.props.spotSchedulingEnabled &&
                         (typeof this.props.booking.spot_id === 'number' ? (
-                          <Typography variant="body2">
-                            {t('placeNumber', {
-                              count: this.props.booking.spot_id,
-                            })}
-                          </Typography>
+                          <PlaceNumber
+                            spotInformation={
+                              Object.keys(this.props.booking.spot_information)
+                                .length > 0
+                                ? this.props.booking.spot_information
+                                : {
+                                    indexType: this.props.booking.spot_id,
+                                  }
+                            }
+                          />
                         ) : (
                           <Typography variant="body2" color="error">
                             {t('noSpotAttributed')}

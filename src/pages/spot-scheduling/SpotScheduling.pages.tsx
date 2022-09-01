@@ -14,19 +14,27 @@ import { RootState } from '../../reducers';
 
 import {
   createAssetForBlueprint,
+  createSpotForBlueprint,
   fetchAssetForBlueprint,
+  fetchSpotForBlueprint,
   fetchRoomBlueprintDetail,
   fetchRoomBlueprints,
   updateRoomBlueprint,
+  updateSpotForBlueprint,
+  deleteSpotType,
 } from '../../libs/spot-scheduling/actions';
-import { RoomBlueprint } from '../../libs/spot-scheduling/types';
+import { RoomBlueprint, SpotType } from '../../libs/spot-scheduling/types';
 import {
   getAssetByIdentifier,
   getRoomBlueprint,
   getAvailableRoomBlueprints,
+  getSpotTypesOfCompanyByBlueprintId,
 } from '../../libs/spot-scheduling/selector';
 import { snackbar } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
+import CanvasSpotCreatorDrawer from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
+import CanvasSpotDeleteModal from '#libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
+import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
 
 type OwnProps = {
   id: number;
@@ -38,30 +46,89 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 class SpotSchedulingPages extends React.PureComponent<Props> {
+  state = {
+    creationFormIsOpen: false,
+    spotTypeToUpdate: false,
+    deleteModalOpen: false,
+    spotTypeToDelete: true,
+    defaultSpot: false,
+    spotToSelect: null,
+  };
+
   componentDidMount() {
     this.props.fetchRoomBlueprintDetail(this.props.id);
     this.props.fetchRoomBlueprints();
     this.props.fetchAssetForBlueprint({ blueprint: this.props.id });
   }
 
-  onSave = async (roomBlueprint: RoomBlueprint) => {
-    await this.props.updateRoomBlueprint(
-      this.props.roomBlueprint.id,
-      roomBlueprint,
-      {
-        onSuccess: () => this.props.success('spotScheduling:saved'),
-        onError: (error) => {
-          const error_code = error?.reponse?.data?.error?.code;
-          if (
-            error_code === ROOM_BLUEPRINT_ERROR_CODE.LESS_SPOT_THAN_EFFECTIF
-          ) {
-            this.props.error('spotScheduling:errorLessSpotThanEffectif');
-          } else {
-            this.props.error('spotScheduling:saveError');
-          }
-        },
+  onSave = (roomBlueprint: RoomBlueprint) => {
+    this.props.updateRoomBlueprint(this.props.roomBlueprint.id, roomBlueprint, {
+      onSuccess: () => this.props.success('spotScheduling:saved'),
+      onError: (error) => {
+        const error_code = error?.reponse?.data?.error?.code;
+        if (error_code === ROOM_BLUEPRINT_ERROR_CODE.LESS_SPOT_THAN_EFFECTIF) {
+          this.props.error('spotScheduling:errorLessSpotThanEffectif');
+        } else {
+          this.props.error('spotScheduling:saveError');
+        }
       },
+    });
+  };
+
+  onUpdateSpotType = async (spotType: SpotType, options: OptionCallback) => {
+    const spot = new FormData();
+    spot.append('blueprint', this.props.id.toString());
+    spot.append('name', spotType.name);
+    spot.append('prefix', spotType.prefix);
+    spot.append('customization', spotType.customization);
+    spot.append('shape', spotType.shape);
+    spot.append('fill_color', spotType.fill_color);
+    spot.append('stroke_color', spotType.stroke_color);
+    let free_image = '';
+    let selected_image = '';
+    let taken_image = '';
+    free_image = spotType.free_image;
+    selected_image = spotType.selected_image;
+    taken_image = spotType.selected_image;
+
+    if (spotType.customization === PERSONALIZED_CUSTOMIZATION) {
+      typeof free_image !== 'string' && spot.append('free_image', free_image);
+
+      typeof taken_image !== 'string' &&
+        spot.append('taken_image', taken_image);
+
+      typeof selected_image !== 'string' &&
+        spot.append('selected_image', selected_image);
+    }
+    spot.append(
+      'establishment',
+      this.props.roomBlueprint.establishment.toString(),
     );
+    spot.append('company', this.props.roomBlueprint.company.toString());
+
+    let error = false;
+
+    this.props.updateSpotForBlueprint(spotType.id, spot, {
+      onSuccess: () => {
+        this.props.success('spotScheduling:spotCreatorForm.saved');
+
+        this.setState({
+          spotToSelect: spotType.id,
+          selectedTool: 'spot',
+        });
+      },
+      onError: () => {
+        error = true;
+      },
+    });
+
+    if (error) {
+      this.props.error('spotScheduling:saveError');
+      options && options.onError && options.onError();
+    } else {
+      this.props.success('spotScheduling:spotCreatorForm.saved');
+      options && options.onSuccess && options.onSuccess();
+    }
   };
 
   onUpdateImages = async (
@@ -104,26 +171,174 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }
   };
 
+  onCreateSpot = async (
+    {
+      name,
+      prefix,
+      customization,
+      shape,
+      stroke_color,
+      fill_color,
+      free_image,
+      taken_image,
+      selected_image,
+    }: SpotType,
+    options: OptionCallback,
+    default_spot: boolean,
+  ) => {
+    const spot = new FormData();
+    spot.append('blueprint', this.props.id.toString());
+    spot.append('name', name);
+    spot.append('prefix', prefix);
+    spot.append('customization', customization);
+    spot.append('shape', shape);
+    spot.append('fill_color', fill_color);
+    spot.append('stroke_color', stroke_color);
+    spot.append('default_spot', default_spot);
+    if (customization === PERSONALIZED_CUSTOMIZATION) {
+      spot.append('free_image', free_image);
+
+      spot.append('taken_image', taken_image);
+
+      spot.append('selected_image', selected_image);
+    }
+    spot.append('establishment', '2286');
+
+    let error = false;
+
+    const promise = [
+      this.props.createSpotForBlueprint(spot, {
+        onSuccess: (response) => {
+          this.setState({
+            spotToSelect: response.data.id,
+            selectedTool: 'spot',
+          });
+        },
+        onError: () => {
+          error = true;
+        },
+      }),
+    ];
+
+    await Promise.all(promise);
+
+    if (error) {
+      this.props.error('spotScheduling:saveError');
+      options && options.onError && options.onError();
+    } else {
+      this.props.success('spotScheduling:spotCreatorForm.saved');
+      options && options.onSuccess && options.onSuccess();
+    }
+  };
+
+  newOnDeleteSpot = async (id: number, options: OptionCallback) => {
+    let error = false;
+
+    const promise = [
+      this.props.deleteSpotType(id, {
+        onError: () => {
+          error = true;
+        },
+      }),
+    ];
+
+    await Promise.all(promise);
+
+    if (error) {
+      this.props.error('spotScheduling:saveError');
+      options && options.onError && options.onError();
+    } else {
+      this.props.success('spotScheduling:spotCreatorForm.deleted');
+      options && options.onSuccess && options.onSuccess();
+    }
+  };
+
   onExit = () => {
     this.props.push(
       `/establishment/details/${this.props.roomBlueprint.establishment}`,
     );
   };
 
+  openSpotCreationForm = (defaultSpot: boolean) => {
+    this.setState({ creationFormIsOpen: true });
+    this.setState({ defaultSpot });
+  };
+
+  openSpotUpdateForm = (spotTypeToUpdate: SpotType) => {
+    this.setState({ creationFormIsOpen: true, spotTypeToUpdate });
+  };
+
+  openDeleteModal = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  closeDeleteModal = () => {
+    this.setState({ deleteModalOpen: false });
+    this.props.fetchRoomBlueprintDetail(this.props.id);
+    this.props.fetchSpotForBlueprint({
+      company: this.props.roomBlueprint.company,
+    });
+  };
+
+  onDeleteSpotType = (spotTypeToDelete: SpotType) => {
+    this.setState({ deleteModalOpen: true, spotTypeToDelete });
+  };
+
+  closeCreationForm = (defaultSpot: boolean) => {
+    this.setState({ creationFormIsOpen: false, spotTypeToUpdate: false });
+    if (defaultSpot) {
+      this.props.fetchRoomBlueprintDetail(this.props.id);
+      this.props.fetchSpotForBlueprint({
+        company: this.props.roomBlueprint.company,
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
-
     return (
       <div className={classes.containerSpotScheduling}>
         {this.props.roomBlueprint ? (
-          <CanvasEditorComponent
-            blueprints={this.props.allBlueprints}
-            selectedRoomBlueprint={this.props.roomBlueprint}
-            onSave={this.onSave}
-            onUpdateImages={this.onUpdateImages}
-            assets={this.props.assets}
-            onExit={this.onExit}
-          />
+          <div style={{ width: '100%' }}>
+            <CanvasEditorComponent
+              blueprints={this.props.allBlueprints}
+              selectedRoomBlueprint={this.props.roomBlueprint}
+              onSave={this.onSave}
+              onUpdateImages={this.onUpdateImages}
+              assets={this.props.assets}
+              onExit={this.onExit}
+              openSpotCreationForm={this.openSpotCreationForm}
+              openSpotUpdateForm={this.openSpotUpdateForm}
+              openDeleteModal={this.openDeleteModal}
+              spotTypes={this.props.spotTypes.concat({ id: -1 })}
+              spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
+              fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              onDeleteSpotType={this.onDeleteSpotType}
+              spotToSelect={this.state.spotToSelect}
+              selectedTool={this.state.selectedTool}
+            />
+            <CanvasSpotCreatorDrawer
+              open={this.state.creationFormIsOpen}
+              defaultSpot={this.state.defaultSpot}
+              closeDialog={this.closeCreationForm}
+              onCreateSpot={this.onCreateSpot}
+              onUpdateSpot={this.onUpdateSpotType}
+              spotTypeToUpdate={this.state.spotTypeToUpdate}
+            />
+            <CanvasSpotDeleteModal
+              spotTypeToDeleteId={
+                this.state.deleteModalOpen
+                  ? this.state.spotTypeToDelete || true
+                  : null
+              }
+              onClose={() => this.setState({ deleteModalOpen: false })}
+              deleteSpotType={(spotType) => {
+                this.newOnDeleteSpot(spotType.id, {
+                  onSuccess: this.closeDeleteModal,
+                });
+              }}
+            />
+          </div>
         ) : (
           <div className={classes.fullCenter}>
             <CircularProgress />
@@ -154,14 +369,19 @@ const mapStateToProps = (state: RootState, props: OwnProps) => ({
   roomBlueprint: getRoomBlueprint(state, props.id),
   allBlueprints: getAvailableRoomBlueprints(state),
   assets: getAssetByIdentifier(state, props.id),
+  spotTypes: getSpotTypesOfCompanyByBlueprintId(state, props.id),
 });
 
 const mapDispatchToProps = {
   fetchRoomBlueprintDetail,
   fetchRoomBlueprints,
   updateRoomBlueprint,
+  updateSpotForBlueprint,
   fetchAssetForBlueprint,
+  fetchSpotForBlueprint,
   createAssetForBlueprint,
+  createSpotForBlueprint,
+  deleteSpotType,
   push,
   success: snackbar.success,
   error: snackbar.error,

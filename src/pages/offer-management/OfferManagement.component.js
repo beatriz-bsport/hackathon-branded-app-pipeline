@@ -225,6 +225,8 @@ type Props = {
     company: number,
   }) => void,
   fetchAssociatedCoachesList: (params: any) => void,
+  fetchSpotForBlueprint: (company: number) => void,
+  spotTypes: SpotType[],
 };
 
 type State = {
@@ -253,6 +255,9 @@ export class OfferManagement extends Component<Props, State> {
     }
     this.props.fetchEstablishmentList();
     this.props.fetchLevelList({
+      company: this.props.company_theme.company,
+    });
+    this.props.fetchSpotForBlueprint({
       company: this.props.company_theme.company,
     });
   }
@@ -590,6 +595,8 @@ export class OfferManagement extends Component<Props, State> {
               offer={this.props.offer}
               roomBlueprintById={this.props.roomBlueprintById}
               assetsForBlueprintById={this.props.assetsForBlueprintById}
+              fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              spotTypes={this.props.spotTypes}
               offerStatusById={this.props.offerStatusById}
             />
           )}
@@ -719,6 +726,8 @@ export class OfferManagement extends Component<Props, State> {
             offer={this.props.offer}
             offerStatusById={this.props.offerStatusById}
             assetsForBlueprintById={this.props.assetsForBlueprintById}
+            spotTypes={this.props.spotTypes}
+            onCancelRegisterMember={() => this.props.setMemberToRegister(null)}
           />
         )}
         <GenericDialog />

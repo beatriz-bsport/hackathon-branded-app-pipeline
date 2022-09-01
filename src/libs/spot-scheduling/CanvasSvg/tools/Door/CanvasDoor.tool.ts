@@ -15,7 +15,9 @@ export default class CanvasDoorTool extends CanvasAbstractTool<CanvasDoorProps> 
 
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, elements, settings } = params;
-    const { fillColor, strokeColor } = settings;
+
+    const fillColor = settings.fillColor;
+    const strokeColor = settings.strokeColor;
 
     const teacher = this.newElement({
       x,

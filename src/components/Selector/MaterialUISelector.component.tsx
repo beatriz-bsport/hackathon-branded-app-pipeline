@@ -108,6 +108,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     onChange,
     onEndMenuListReach,
     onInputChange,
+    defaultValue,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -182,6 +183,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
         <Select
           id={id}
           value={value}
+          defaultValue={defaultValue}
           isMulti={isMulti}
           inScrollBar={inScrollBar}
           isMenuListPaddingDisabled={isMenuListPaddingDisabled}

@@ -221,7 +221,7 @@ exports.default = {
   unlimited: 'Illimité',
   creditConsumed: '{{credit_consumed}} crédit',
   creditConsumed_plural: '{{credit_consumed}} crédits',
-  placeNumber: 'Place {{count}}',
+  place: 'Place',
   asGuest: 'Invité',
   noSpotAttributed: 'Aucune place attribuée',
   changeSpot: 'Changer la place',

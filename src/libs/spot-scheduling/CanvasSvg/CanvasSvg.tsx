@@ -28,6 +28,7 @@ interface Props {
   showGrid?: boolean;
   onEnterUnsafeZone: () => void;
   onLeaveUnsafeZone: () => void;
+  disabledEdit: boolean;
 }
 
 interface State {
@@ -117,7 +118,9 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
       zoomIn: this.zoomIn,
       zoomOut: this.zoomOut,
     });
-    this.svg && this.svg.addEventListener('wheel', this.onWheelChange);
+    !this.props.disabledEdit &&
+      this.svg &&
+      this.svg.addEventListener('wheel', this.onWheelChange);
     window.addEventListener('resize', this.setDimensions);
     this.setDimensions();
   };
@@ -383,17 +386,22 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
           onMouseOver={this.onMouseOver}
           id={this.svgId}
           viewBox={this.viewBox}
+          style={{ maxWidth: '100%' }}
         >
-          <rect
-            className="svg-element"
-            x={-SVG_WALL_SIZE}
-            y={-SVG_WALL_SIZE}
-            width={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
-            height={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
-            stroke="black"
-            fill="grey"
-            style={{ cursor: this.props.enablePan ? undefined : 'not-allowed' }}
-          />
+          {!this.props.disabledEdit && (
+            <rect
+              className="svg-element"
+              x={-SVG_WALL_SIZE}
+              y={-SVG_WALL_SIZE}
+              width={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
+              height={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
+              stroke="black"
+              fill="#DFDFE2"
+              style={{
+                cursor: this.props.enablePan ? undefined : 'not-allowed',
+              }}
+            />
+          )}
 
           <rect
             className="svg-element"

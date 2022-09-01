@@ -1,14 +1,10 @@
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
+import clx from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/styles/withStyles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -16,10 +12,14 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { Theme } from '@material-ui/core/styles';
 import moment from 'moment-timezone';
 
-import { AssetForBlueprint, RoomBlueprint } from '../../types';
+import { DialogContent, Dialog, Grid } from '@material-ui/core';
+import { withTheme } from '@material-ui/styles';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import SpotSelector from './SpotSelector.component';
 import { Offer } from '../../../offer/types';
 import { MaterialStyleType } from '../../../../utils/types';
+import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
 
 interface OwnProps {
   offer?: Offer;
@@ -29,10 +29,13 @@ interface OwnProps {
   open: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  onSelectSpot: (spot: number) => void;
+  onSelectSpot: (index: number, spot?: number) => void;
   selectedSpot?: number;
   forceFullScreen: boolean | null;
   fullScreen: boolean;
+  spotTypesOfBlueprint: SpotType[];
+  theme: Theme;
+  width: any;
 }
 
 type Props = OwnProps &
@@ -48,9 +51,115 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     takenSpotError: false,
   };
 
-  onSelectSpot = (spot: number) => {
+  renderRowLegend = (spotType?: SpotType) => {
+    const { classes, t } = this.props;
+    let x = 25;
+    let y = 4;
+    switch (spotType.shape) {
+      case 'rectangle':
+        x = 2;
+        break;
+      case 'triangle':
+        x = 17;
+        y = 0;
+        break;
+      default:
+        break;
+    }
+
+    return (
+      <Grid container className={classes.container} direction="row" spacing={3}>
+        <Grid
+          xs={4}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <svg width={105} height={73}>
+            <CanvasSpotComponent
+              x={x}
+              y={y}
+              spotType={spotType}
+              selectingSpot
+            />
+          </svg>
+          <Typography variant="body2" className={classes.spotStatus}>
+            {spotType?.name
+              ? t('spotCreatorForm.freePersonalized', {
+                  name: spotType.name,
+                })
+              : t('spotCreatorForm.free')}
+          </Typography>
+        </Grid>
+        <Grid
+          xs={4}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <svg width={105} height={73}>
+            <CanvasSpotComponent
+              x={x}
+              y={y}
+              spotType={spotType}
+              taken
+              selectingSpot
+            />
+          </svg>
+          <Typography variant="body2" className={classes.spotStatus}>
+            {spotType?.name
+              ? t('spotCreatorForm.takenPersonalized', {
+                  name: spotType.name,
+                })
+              : t('spotCreatorForm.taken')}
+          </Typography>
+        </Grid>
+        <Grid
+          xs={4}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <svg width={105} height={73}>
+            <CanvasSpotComponent
+              x={x}
+              y={y}
+              spotType={spotType}
+              selected
+              selectingSpot
+            />
+          </svg>
+          <Typography variant="body2" className={classes.spotStatus}>
+            {spotType?.name
+              ? t('spotCreatorForm.selectedPersonalized', {
+                  name: spotType.name,
+                })
+              : t('spotCreatorForm.selected')}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderOtherSpotTypesLegend = () => {
+    return (
+      <div className={this.props.classes.spotTypesLegendContainer}>
+        {this.props?.spotTypesOfBlueprint.map((spotType) =>
+          this.renderRowLegend(spotType),
+        )}
+      </div>
+    );
+  };
+
+  onSelectSpot = (index: number, spotTypeId: number) => {
     this.setState({ takenSpotError: false });
-    this.props.onSelectSpot(spot);
+    this.props.onSelectSpot(index, spotTypeId);
   };
 
   onSelectTakenSpot = () => {
@@ -58,7 +167,9 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
   };
 
   renderContent = () => {
-    const { classes, t } = this.props;
+    const { classes, t, width } = this.props;
+
+    const isMobile = isWidthDown('sm', width);
 
     if (!this.props.offer) {
       return (
@@ -69,120 +180,230 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     }
 
     return (
-      <div className={classes.content}>
-        <div className={classes.topRow}>
-          <div className={classes.dateContainer}>
-            <Typography variant="h6">
-              {moment(this.props.offer.date_start)
-                .tz(this.props.offer.timezone_name)
-                .format('LT')}
-            </Typography>
+      this.props.roomBlueprint && (
+        <div
+          className={clx({
+            [classes.content]: true,
+            [classes.contentIsMobile]: isMobile,
+          })}
+        >
+          <SpotSelector
+            roomBlueprint={this.props.roomBlueprint}
+            assets={this.props.assets}
+            takenSpot={this.props.takenSpot}
+            onSelectSpot={this.onSelectSpot}
+            onSelectTakenSpot={this.onSelectTakenSpot}
+            selectedSpot={this.props.selectedIndex}
+            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+            spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
+            coach={this.props.offer?.coach}
+            isMobile={isMobile}
+          />
+          <div
+            className={clx([
+              classes.selectMenu,
+              isMobile ? classes.selectMenuIsMobile : null,
+            ])}
+          >
+            {!isMobile && (
+              <IconButton
+                className={classes.closeButton}
+                aria-label="close"
+                onClick={this.props.onClose}
+              >
+                <CloseIcon />
+              </IconButton>
+            )}
+            {!isMobile && (
+              <div>
+                <Typography variant="h5">
+                  {t('spotSelectorDialog.title')}
+                </Typography>
+                <Typography variant="h6" className={classes.metaActivityName}>
+                  {this.props.offer?.meta_activity?.name}
+                </Typography>
+                <div className={classes.dateContainer}>
+                  <Typography variant="subtitle1">
+                    {`${moment(this.props.offer.date_start)
+                      .tz(this.props.offer.timezone_name)
+                      .format('LL')}, ${moment(this.props.offer.date_start)
+                      .tz(this.props.offer.timezone_name)
+                      .format('dddd')} ${moment(this.props.offer.date_start)
+                      .tz(this.props.offer.timezone_name)
+                      .format('LT')}`}
+                  </Typography>
+                </div>
+              </div>
+            )}
 
-            <Typography className={classes.marginLeft}>
-              {`${moment(this.props.offer.date_start)
-                .tz(this.props.offer.timezone_name)
-                .format('LL')}, ${moment(this.props.offer.date_start)
-                .tz(this.props.offer.timezone_name)
-                .format('dddd')}`}
-            </Typography>
+            <div className={classes.legend}>
+              <Typography variant="h6">
+                {t('spotSelectorDialog.legend')}
+              </Typography>
+            </div>
+            {this.props?.spotTypesOfBlueprint &&
+              this.renderOtherSpotTypesLegend()}
+            {!isMobile && (
+              <div className={this.props.classes.buttonContainer}>
+                <button
+                  type="button"
+                  disabled={
+                    !this.props.selectedIndex || this.state.takenSpotError
+                  }
+                  onClick={this.props.onSubmit}
+                  className={clx([
+                    classes.submitButton,
+                    this.props.selectedIndex && !this.state.takenSpotError
+                      ? classes.submitButtonAvailable
+                      : null,
+                  ])}
+                >
+                  <Typography
+                    variant="subtitle1"
+                    className={classes.submitText}
+                  >
+                    {typeof this.props.selectedIndex === 'number'
+                      ? t('spotSelectorDialog.book', {
+                          prefix: this.props.selectedSpot?.prefix,
+                          indexType:
+                            this.props?.selectedIndexType ||
+                            this.props.selectedIndex,
+                        })
+                      : t('spotSelectorDialog.title')}
+                  </Typography>
+                </button>
+                {this.state.takenSpotError && (
+                  <div className={classes.errorContainer}>
+                    <WarningIcon color="error" />
+                    <Typography className={classes.marginLeft}>
+                      {t('spotSelectorDialog.takeSpotError')}
+                    </Typography>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-
-          <Typography variant="h6" className={classes.topRowItem}>
-            {typeof this.props.selectedSpot === 'number'
-              ? t('spotSelectorDialog.spot', {
-                  count: this.props.selectedSpot,
-                })
-              : ''}
-          </Typography>
-
-          <div className={classes.topRowItem} />
+          {isMobile && (
+            <div
+              className={clx([
+                this.props.classes.buttonContainer,
+                this.props.classes.buttonContainerMobile,
+              ])}
+            >
+              <button
+                type="button"
+                disabled={
+                  !this.props.selectedIndex || this.state.takenSpotError
+                }
+                onClick={this.props.onSubmit}
+                className={clx([
+                  classes.submitButton,
+                  classes.submitButtonMobile,
+                  this.props.selectedIndex && !this.state.takenSpotError
+                    ? classes.submitButtonAvailable
+                    : null,
+                ])}
+              >
+                <Typography variant="subtitle1" className={classes.submitText}>
+                  {typeof this.props.selectedIndex === 'number'
+                    ? t('spotSelectorDialog.book', {
+                        prefix: this.props.selectedSpot?.prefix,
+                        indexType:
+                          this.props?.selectedIndexType ||
+                          this.props.selectedIndex,
+                      })
+                    : t('spotSelectorDialog.title')}
+                </Typography>
+              </button>
+              {this.state.takenSpotError && (
+                <div className={classes.errorContainer}>
+                  <WarningIcon color="error" />
+                  <Typography className={classes.marginLeft}>
+                    {t('spotSelectorDialog.takeSpotError')}
+                  </Typography>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-
-        {this.props.roomBlueprint && (
-          <div style={{ height: 750 }}>
-            <SpotSelector
-              roomBlueprint={this.props.roomBlueprint}
-              assets={this.props.assets}
-              takenSpot={this.props.takenSpot}
-              onSelectSpot={this.onSelectSpot}
-              onSelectTakenSpot={this.onSelectTakenSpot}
-              selectedSpot={this.props.selectedSpot}
-              coach={this.props.offer?.coach}
-            />
-          </div>
-        )}
-
-        {this.state.takenSpotError && (
-          <div className={classes.errorContainer}>
-            <WarningIcon color="error" />
-            <Typography className={classes.marginLeft}>
-              {t('spotSelectorDialog.takeSpotError')}
-            </Typography>
-          </div>
-        )}
-      </div>
+      )
     );
   };
 
   render() {
-    const { t } = this.props;
-
+    const { classes, width, t } = this.props;
+    const isMobile = isWidthDown('sm', width);
     return (
       <Dialog
-        fullScreen={this.props.fullScreen || !!this.props.forceFullScreen}
+        fullScreen={this.props.fullScreen || this.props.forceFullScreen}
         open={this.props.open}
+        maxWidth="lg"
+        fullWidth
+        PaperProps={
+          !this.props.fullScreen && {
+            style: { borderRadius: 20 },
+          }
+        }
+        classes={{ paper: this.props.classes.dialogPaper }}
       >
-        <MuiDialogTitle
-          disableTypography
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h6">{t('spotSelectorDialog.title')}</Typography>
-          <IconButton aria-label="close" onClick={this.props.onClose}>
-            <CloseIcon />
-          </IconButton>
-        </MuiDialogTitle>
+        {isMobile && (
+          <div className={classes.mobileTitle}>
+            <div className={classes.topMobileTitle}>
+              <Typography variant="h5" style={{ width: '100%' }}>
+                {t('spotSelectorDialog.title')}
+              </Typography>
+              <IconButton onClick={this.props.onClose}>
+                <CloseIcon />
+              </IconButton>
+            </div>
 
-        <DialogContent>{this.renderContent()}</DialogContent>
-        <DialogActions>
-          <div className={this.props.classes.bottomButton}>
-            <Button onClick={this.props.onClose}>
-              {t('spotSelectorDialog.cancel')}
-            </Button>
-            <Button
-              color="primary"
-              disabled={!this.props.selectedSpot}
-              onClick={this.props.onSubmit}
-            >
-              {t('spotSelectorDialog.submit')}
-            </Button>
+            <Typography variant="h6" className={classes.metaActivityNameMobile}>
+              {this.props.offer?.meta_activity?.name}
+            </Typography>
+            <div className={classes.dateContainer}>
+              <Typography variant="subtitle1">
+                {`${moment(this.props.offer.date_start)
+                  .tz(this.props.offer.timezone_name)
+                  .format('LL')}, ${moment(this.props.offer.date_start)
+                  .tz(this.props.offer.timezone_name)
+                  .format('dddd')} ${moment(this.props.offer.date_start)
+                  .tz(this.props.offer.timezone_name)
+                  .format('LT')}`}
+              </Typography>
+            </div>
           </div>
-        </DialogActions>
+        )}
+        <DialogContent className={this.props.classes.dialogContent}>
+          {this.renderContent()}
+        </DialogContent>
       </Dialog>
     );
   }
 }
 
 const styles = (theme: Theme) => ({
+  dialogPaper: {
+    minWidth: '70%',
+  },
+  container: {
+    padding: theme.spacing(3),
+  },
   content: {
     display: 'flex',
+  },
+  contentIsMobile: {
     flexDirection: 'column',
-    height: '100%',
-    maxWidth: '100%',
+    borderTop: `1px solid ${theme.palette.grey[200]}`,
   },
-  topRow: {
-    '&>*': {
-      marginBottom: theme.spacing(1),
-    },
+  dialogContent: {
+    padding: 0,
+    paddingTop: '0 !important',
+    height: '80vh',
+    paddingBottom: '0 !important',
   },
-  dateContainer: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-  },
+  closeButton: { alignSelf: 'flex-end', marginTop: theme.spacing(2) },
+  closeButtonIsMobile: { position: 'absolute', right: '10px' },
+  dateContainer: { display: 'flex', color: '#687586' },
   bottomButton: {
     display: 'flex',
     alignItem: 'center',
@@ -199,6 +420,8 @@ const styles = (theme: Theme) => ({
     justifyContent: 'center',
   },
   errorContainer: {
+    width: '90%',
+    alignItems: 'center',
     display: 'flex',
     alignItem: 'center',
   },
@@ -210,11 +433,88 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  selectMenu: {
+    width: '40%',
+    backgroundColor: 'rgba(161, 179, 199, 0.15)',
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(2),
+    fontWeight: 400,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  selectMenuIsMobile: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    width: '100%',
+  },
+  metaActivityName: {
+    marginTop: theme.spacing(4),
+    fontWeight: 600,
+  },
+  metaActivityNameMobile: {
+    marginTop: theme.spacing(1),
+    fontWeight: 600,
+  },
+  submitButton: {
+    textTransform: 'uppercase',
+    marginTop: theme.spacing(5),
+    width: '90%',
+    backgroundColor: theme.palette.grey[400],
+    border: 'none',
+    borderRadius: 90,
+    marginBottom: theme.spacing(3),
+  },
+  submitButtonMobile: {
+    textTransform: 'uppercase',
+    marginTop: theme.spacing(2),
+    width: '90%',
+    backgroundColor: theme.palette.grey[400],
+    border: 'none',
+    borderRadius: 90,
+    marginBottom: theme.spacing(1),
+  },
+  submitButtonAvailable: {
+    backgroundColor: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
+  submitText: { color: 'white' },
+  legend: { marginTop: theme.spacing(5), fontWeight: 400 },
+  spotStatus: { textAlign: 'center' },
+  mobileTitle: {
+    paddingLeft: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'rgba(161, 179, 199, 0.15)',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+  topMobileTitle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    alignItems: 'center',
+  },
+  spotTypesLegendContainer: {
+    paddingBottom: '50px',
+  },
+  buttonContainer: {
+    paddingBottom: theme.spacing(1),
+    width: '100%%',
+    backgroundColor: theme.palette.grey[100],
+    position: 'sticky',
+    bottom: '0px',
+  },
+  buttonContainerMobile: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 });
-
 export default compose<any, OwnProps>(
+  withTheme,
   withTranslation(['spotScheduling']),
   // @ts-ignore
   withStyles(styles),
-  withMobileDialog(),
+  withMobileDialog({ breakpoint: 'xs' }),
+  withWidth(),
 )(SpotSelectorDialog);

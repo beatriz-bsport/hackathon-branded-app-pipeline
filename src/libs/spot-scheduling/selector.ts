@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import { AssetForBlueprint } from './types';
+import themeSelectors from '../theme/selectors';
 
 export const getRoomBlueprint = (state: RootState, id: number) => {
   return state.spotScheduling.roomBlueprint.byId[id];
@@ -91,3 +92,37 @@ export const getAssetForEstablishment = (
 
   return assetsByBlueprintByIdentifier;
 };
+
+export const getState = (state: RootState) => {
+  return state.spotScheduling.spotForBlueprint;
+};
+
+export const getSpotTypesOfCompanyByBlueprintId = (
+  state: RootState,
+  blueprint: number,
+) => {
+  return state.spotScheduling.spotForBlueprint.ids
+    .map((spotTypeId) => state.spotScheduling.spotForBlueprint.byId[spotTypeId])
+    .filter(
+      (spotType) =>
+        !!spotType &&
+        spotType.company.toString() ===
+          state.spotScheduling.roomBlueprint.byId[
+            blueprint
+          ].company.toString() &&
+        !spotType.disabled,
+    );
+};
+
+export const getSpotTypesOfCompany = createSelector(
+  [themeSelectors.getTheme, getState],
+  (theme, spotForBlueprint) =>
+    spotForBlueprint.ids
+      .map((spotTypeId) => spotForBlueprint.byId[spotTypeId])
+      .filter(
+        (spotType) =>
+          !!spotType &&
+          spotType.company.toString() === theme.company.toString() &&
+          !spotType.disabled,
+      ),
+);

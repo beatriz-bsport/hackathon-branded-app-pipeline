@@ -27,6 +27,8 @@ import { Member, MemberMinimal } from '../../member/types';
 import AdditionalGuestForm from '#libs/booker-module/components/AdditionalGuestForm.component';
 import AdditionalGuestList from '#libs/booker-module/components/AdditionalGuestList.component';
 import { getLevelTrad } from '#libs/level/utils';
+import { SpotType } from '#libs/spot-scheduling/types';
+import { getSpotTypeMinimal } from '#libs/spot-scheduling/utils';
 
 type OwnProps = {
   offer: Offer_FULL;
@@ -50,6 +52,8 @@ type OwnProps = {
   packAllowsBookingGuest: boolean;
   frequencyBookingGuest: string;
   maxGuestNumberFromAllPacks: number;
+
+  spotTypes: SpotType[];
   spotsForOffers: { [offerId: number]: number };
 };
 
@@ -117,6 +121,17 @@ class OfferListSummary extends React.PureComponent<Props> {
     const numberOfGuestsAvailable =
       this.props.numberBookingGuestLeft -
       this.props.additionalGuestList?.length;
+
+    const spotId = this.props.spotsForOffers[offer.id];
+
+    const roomBlueprint = this.props?.roomBlueprintsById[offer.room_blueprint];
+
+    const spotInformation = getSpotTypeMinimal(
+      roomBlueprint,
+      spotId,
+      this.props.spotTypes,
+    );
+
     return (
       <div className={classes.container}>
         <div className={classes.topRow}>
@@ -163,7 +178,8 @@ class OfferListSummary extends React.PureComponent<Props> {
               isBookable={isBookable}
               isWaitingList={isWaitingList}
               isRegistered={isRegistered}
-              offerSpot={this.props.spotsForOffers[offer.id]}
+              offerSpot={spotId}
+              offerSpotInformation={spotInformation}
             />
           )}
           <Divider />
@@ -174,6 +190,18 @@ class OfferListSummary extends React.PureComponent<Props> {
                 : 1,
             )
             .map((offerData) => {
+              const similarOfferSpotId =
+                this.props.spotsForOffers[offerData.offer.id];
+
+              const similarOfferRoomBlueprint =
+                this.props?.roomBlueprintsById[offerData.offer.room_blueprint];
+
+              const similarOfferSpotInformation = getSpotTypeMinimal(
+                similarOfferRoomBlueprint,
+                similarOfferSpotId,
+                this.props.spotTypes,
+              );
+
               const offerFeature = getOfferFeature(
                 offerData.offer,
                 this.props.offerStatusById,
@@ -196,7 +224,8 @@ class OfferListSummary extends React.PureComponent<Props> {
                         : this.props.onClickRemoveOffer
                     }
                     isRegistered={offerFeature.isRegistered}
-                    offerSpot={this.props.spotsForOffers[offerData.offer.id]}
+                    offerSpot={spotId}
+                    offerSpotInformation={similarOfferSpotInformation}
                   />
                   <Divider />
                 </React.Fragment>

@@ -27,4 +27,53 @@ export type SpotSchedulingState = {
     byId: { [key: string]: AssetForBlueprint };
     ids: number[];
   };
+  spotForBlueprint: ErrorAndLoading & {
+    byId: { [key: string]: SpotType };
+    ids: number[];
+  };
+};
+
+export type PredefinedCustomization = {
+  shape: string;
+  stroke: string;
+  fill: string;
+};
+export type PersonalizedCustomization = {
+  assetFree: string;
+  assetTaken: string;
+  AssetSelected: string;
+}; // not sure of the string types
+
+export type SpotCustomization =
+  | PredefinedCustomization
+  | PersonalizedCustomization;
+
+export type SpotType = {
+  id: number;
+  name: string;
+  prefix: string;
+  customization: string;
+  fill_color: string;
+  stroke_color: string;
+  free_image: string;
+  selected_image: string;
+  taken_image: string;
+  shape: 'circular' | 'rectangle' | 'square' | 'triangle';
+  company?: number;
+  blueprint?: number;
+};
+
+export type Spot_FULL = {
+  spotType: SpotType;
+  index: number;
+  indexType: number;
+};
+
+export type SpotInformation = {
+  name: string;
+  prefix: string;
+  shape: string;
+  fill: string;
+  stroke: string;
+  indexType: number;
 };

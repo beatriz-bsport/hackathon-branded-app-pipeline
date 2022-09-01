@@ -58,10 +58,12 @@ import {
   deleteRoomBlueprint as deleteRoomBlueprintAction,
   fetchAssetForBlueprint,
   fetchRoomBlueprints,
+  fetchSpotForBlueprint,
 } from '../../libs/spot-scheduling/actions';
 import {
   getAssetForEstablishment,
   getRoomBlueprintsForEstablishment,
+  getSpotTypesOfCompany,
 } from '../../libs/spot-scheduling/selector';
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
@@ -123,6 +125,8 @@ type Props = {
   getSmartLists: () => void,
   smartLists: SmartList[],
   smartListLoading: Boolean,
+  fetchSpotForBlueprint: () => void,
+  spotTypes: SpotType[],
 };
 
 type State = {
@@ -212,6 +216,8 @@ export class EstablishmentDetails extends React.Component<Props, State> {
         <CanvasPreviewDialog
           open={this.props.previewBlueprint}
           roomBlueprint={this.props.previewBlueprint}
+          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+          spotTypes={this.props.spotTypes}
           assets={
             this.props.assetsByBlueprintByIdentifier[
               { id: '', ...this.props.previewBlueprint }.id
@@ -256,6 +262,7 @@ export default compose(
       assetsByBlueprintByIdentifier: getAssetForEstablishment(state, id),
       smartLists: getAllSmartList(state),
       smartListLoading: state.smartList.loading,
+      spotTypes: getSpotTypesOfCompany(state),
     }),
     {
       fetchEstablishmentBulk,
@@ -278,6 +285,7 @@ export default compose(
       deleteRoomBlueprint: deleteRoomBlueprintAction,
       fetchRoomBlueprints,
       fetchAssetForBlueprint,
+      fetchSpotForBlueprint,
       pushRouter: push,
       goToSmartlist: () => push('/smart-list/'),
       getSmartLists: fetchAllSmartLists,

@@ -3,7 +3,8 @@ import React from 'react';
 import SpotSelectorDialog from './SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../offer/types';
 import { OptionCallback } from '../../../../state/types';
-import { AssetForBlueprint, RoomBlueprint } from '../../types';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
+import { getSpotIndexType } from '#libs/spot-scheduling/utils';
 
 export const asyncSelectSpotForBlueprint = (offerId?: number) => {
   return new Promise((resolve, reject) => {
@@ -40,7 +41,8 @@ type Props = OwnProps;
 
 interface State {
   open: boolean;
-  selectedSpot: null | number;
+  selectedIndex: null | number;
+  selectedSpotTypeId: null | number;
   offer: Offer;
 }
 
@@ -50,8 +52,9 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
 > {
   state: State = {
     open: false,
-    selectedSpot: null,
     offer: null,
+    selectedSpotTypeId: null,
+    selectedIndex: null,
   };
 
   callback: (spot: number | undefined) => void;
@@ -93,23 +96,40 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
     this.setState({ open: true });
   };
 
-  onSelectSpot = (spot_id: number) => {
-    this.setState({ selectedSpot: spot_id });
+  onSelectSpot = (index: number, spotTypeId: number) => {
+    this.setState({ selectedSpotTypeId: spotTypeId, selectedIndex: index });
   };
 
   onSubmit = () => {
-    if (this.state.selectedSpot !== null) {
-      const spot = this.state.selectedSpot;
-      this.setState({ open: false, selectedSpot: null, offer: null }, () => {
-        this.callback && this.callback(spot);
-      });
+    if (this.state.selectedIndex !== null) {
+      const spot_id = this.state.selectedIndex;
+      this.setState(
+        {
+          open: false,
+          selectedSpotTypeId: null,
+          selectedIndex: null,
+          offer: null,
+        },
+        () => {
+          this.callback && this.callback(spot_id);
+        },
+      );
     }
   };
 
   onClose = () => {
-    this.setState({ open: false, selectedSpot: null, offer: null }, () => {
-      this.callback && this.callback(undefined);
-    });
+    this.props.onCancelRegisterMember();
+    this.setState(
+      {
+        open: false,
+        selectedSpotTypeId: null,
+        selectedIndex: null,
+        offer: null,
+      },
+      () => {
+        this.callback && this.callback(undefined);
+      },
+    );
   };
 
   render() {
@@ -117,9 +137,24 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
 
     const takenSpot = this.props.offerStatusById[offer?.id]?.taken_spots || [];
 
+    const roomBlueprint = this.props.roomBlueprintById[offer?.room_blueprint];
+
+    const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements.map(
+      (element) => element.data.spotTypeId,
+    );
+
     if (!this.state.open) {
       return null;
     }
+
+    const selectedSpotType = this.props.spotTypes.filter(
+      (spotType: SpotType) => spotType.id === this.state.selectedSpotTypeId,
+    )[0];
+
+    const selectedIndexType = getSpotIndexType(
+      roomBlueprint,
+      this.state.selectedIndex,
+    );
 
     return (
       <SpotSelectorDialog
@@ -131,7 +166,13 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
         onSelectSpot={this.onSelectSpot}
         open={this.state.open}
         takenSpot={takenSpot}
-        selectedSpot={this.state.selectedSpot}
+        selectedIndex={this.state.selectedIndex}
+        selectedIndexType={selectedIndexType}
+        selectedSpot={selectedSpotType}
+        spotTypesOfBlueprint={this.props.spotTypes.filter((spotType) =>
+          spotTypesIdOfBlueprint?.includes(spotType.id),
+        )}
+        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
       />
     );
   }

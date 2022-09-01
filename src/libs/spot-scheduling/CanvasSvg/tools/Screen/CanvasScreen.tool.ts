@@ -15,14 +15,13 @@ export default class CanvasScreenTool extends CanvasAbstractTool<CanvasScreenPro
 
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, elements, settings } = params;
-    const { fillColor, strokeColor } = settings;
 
     const teacher = this.newElement({
       x,
       y,
       rotation: 0,
-      fill: fillColor,
-      stroke: strokeColor,
+      fill: settings.fillColor,
+      stroke: settings.strokeColor,
     });
 
     return [...elements, teacher];

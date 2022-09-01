@@ -4,6 +4,9 @@ import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
 import isEqual from 'lodash/isEqual';
 
+import classNames from 'classnames';
+import { isWidthDown } from '@material-ui/core/withWidth';
+import { withTheme } from '@storybook/theming';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
@@ -18,13 +21,16 @@ import {
 } from './tools/CanvasStrategy';
 import SpotImageUploadDialog from './SpotImageUploadDialog.component';
 import CanvasToolbar from './CanvasToolbar.component';
-import { AssetForBlueprint, RoomBlueprint } from '../types';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../types';
 import { OptionCallback } from '../../../state/types';
+import { Theme } from '#libs/theme/types';
 
 type UndoRedoState = {
   elements: CanvasElement<any>[];
   strokeColor?: string;
   fillColor?: string;
+  wallStrokeColor?: string;
+  wallFillColor?: string;
 };
 
 type OwnProps = {
@@ -43,6 +49,9 @@ type OwnProps = {
   assets: { [identifier: string]: AssetForBlueprint };
   onSelectElement?: (element: CanvasElement<any>) => void;
   coach?: any;
+  openSpotCreationForm: (defaultSpot: boolean) => void;
+  onCreateSpot: (spot: SpotType) => void;
+  selectingSpot: boolean;
 };
 
 type Props = OwnProps &
@@ -51,9 +60,11 @@ type Props = OwnProps &
 
 type State = {
   selectedTool: CanvasSelectableToolsEnum;
+  spotTypeId: number;
   name: string;
   showImageDialog: boolean;
   showGrid: boolean;
+  coachHeight: number;
 };
 
 class CanvasEditorComponent extends React.PureComponent<Props, State> {
@@ -78,17 +89,27 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           : CANVAS_SELECTABLE_TOOLS.pointer,
       showImageDialog: false,
       showGrid: false,
+      coachHeight: this.props.selectedRoomBlueprint.canvas.coachHeight || 1,
     };
   }
 
   componentDidMount = () => {
     window.addEventListener('keydown', this.onKeyDown);
     this.setInitialState();
+    this.props.fetchSpotForBlueprint &&
+      this.props.fetchSpotForBlueprint({
+        company: this.props.selectedRoomBlueprint.company,
+      });
   };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.selectedRoomBlueprint !== this.props.selectedRoomBlueprint) {
       this.setInitialState();
+    }
+    if (prevProps.spotToSelect !== this.props.spotToSelect) {
+      this.props.selectedTool &&
+        this.props.spotToSelect &&
+        this.onChangeTool('spot', this.props.spotToSelect);
     }
   }
 
@@ -101,6 +122,8 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
       elements,
       strokeColor: 'black',
       fillColor: undefined,
+      wallStrokeColor: 'black',
+      wallFillColor: undefined,
     });
   };
 
@@ -114,24 +137,34 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   toolCancel = () => {
     let res = true;
     if (this.tool && this.tool.onCancel) {
-      res = !!this.tool.onCancel();
+      res = !!this.tool.onCancel(this.state.spotTypeId);
     }
     res && this.setState({ selectedTool: CANVAS_SELECTABLE_TOOLS.pointer });
   };
 
-  onChangeTool = (_selectedTool: CanvasSelectableToolsEnum) => {
+  onChangeTool = (
+    _selectedTool: CanvasSelectableToolsEnum,
+    spotTypeId?: number,
+  ) => {
     Object.values(CanvasSelectableToolStrategy).forEach((tool) => {
       if (tool.onCancel) {
-        tool.onCancel();
+        tool.onCancel(this.state.spotTypeId);
       }
     });
 
     let selectedTool = _selectedTool;
-    if (this.state.selectedTool === _selectedTool) {
+    if (
+      this.state.selectedTool === _selectedTool &&
+      this.state.spotTypeId === spotTypeId
+    ) {
       selectedTool = CANVAS_SELECTABLE_TOOLS.pointer;
     }
 
-    this.setState({ selectedTool });
+    this.setState({ selectedTool, spotTypeId });
+  };
+
+  onHeightCoachChange = (coefficient: string) => {
+    this.setState({ coachHeight: coefficient });
   };
 
   onClickSave = () => {
@@ -141,6 +174,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
         name: this.state.name,
         canvas: {
           elements: this.props.current.elements,
+          coachHeight: this.state.coachHeight,
         },
       };
 
@@ -171,6 +205,12 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     });
   };
 
+  deleteSpotType = (spotType) => {
+    this.onClickSave();
+    this.props.onDeleteSpotType(spotType);
+    this.toolCancel();
+  };
+
   hasBlueprintChanged = () => {
     let old_elements = [];
     if (this.props.selectedRoomBlueprint.canvas?.elements?.asMutable) {
@@ -196,10 +236,18 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, width } = this.props;
+    const isMobile = isWidthDown('md', width);
 
     return (
-      <div className={classes.container}>
+      <div
+        className={classNames(classes.container, {
+          [classes.containerIsMobile]: this.props.isMobile,
+          [classes.containerSelecting]: this.props.selectingSpot,
+          [classes.containerSelectingIsNotMobile]:
+            this.props.selectingSpot && !isMobile,
+        })}
+      >
         <div className={classes.toolbarCanvasContainer}>
           {!this.props.disableEdit && (
             <CanvasToolbar
@@ -218,7 +266,9 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               elements={this.elements}
               selectedTool={this.state.selectedTool}
               strokeColor={this.props.current.strokeColor}
+              wallStrokeColor={this.props.current.wallStrokeColor}
               fillColor={this.props.current.fillColor}
+              wallFillColor={this.props.current.wallFillColor}
               onElementsChange={(elements: CanvasElement<any>[]) =>
                 this.props.setStateWithHistory({ elements })
               }
@@ -227,6 +277,10 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               disabledEdit={this.props.disableEdit}
               showGrid={this.state.showGrid && !this.props.disableEdit}
               coach={this.props.coach}
+              coachHeight={this.state.coachHeight}
+              selectingSpot={this.props.selectingSpot}
+              spotTypes={this.props.spotTypes}
+              spotTypeId={this.state.spotTypeId}
             />
           </div>
         </div>
@@ -239,15 +293,22 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               onClickUndo={this.props.undo}
               onClickRedo={this.props.redo}
               strokeColor={this.props.current.strokeColor}
+              wallStrokeColor={this.props.current.wallStrokeColor}
+              wallFillColor={this.props.current.wallFillColor}
               fillColor={this.props.current.fillColor}
-              onStrokeColorChange={(strokeColor) =>
+              onStrokeColorChange={(fillColor) => {
                 this.props.setStateWithHistory({
-                  strokeColor: strokeColor || 'transparent',
+                  strokeColor: fillColor || 'transparent',
+                });
+              }}
+              onwallStrokeColorChange={(strokeColor) =>
+                this.props.setStateWithHistory({
+                  wallStrokeColor: strokeColor || 'transparent',
                 })
               }
-              onFillColorChange={(fillColor) =>
+              onwallFillColorChange={(fillColor) =>
                 this.props.setStateWithHistory({
-                  fillColor: fillColor || 'transparent',
+                  wallFillColor: fillColor || 'transparent',
                 })
               }
               onClickUploadImage={() =>
@@ -255,6 +316,19 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               }
               showGrid={this.state.showGrid}
               onChangeGridVisibility={(showGrid) => this.setState({ showGrid })}
+              onHeightCoachChange={this.onHeightCoachChange}
+              coachHeight={this.state.coachHeight}
+              openSpotCreationForm={(defaultSpot: boolean) => {
+                if (defaultSpot) {
+                  this.onClickSave();
+                }
+                this.props.openSpotCreationForm(defaultSpot);
+              }}
+              openSpotUpdateForm={this.props.openSpotUpdateForm}
+              openDeleteModal={this.props.openDeleteModal}
+              spotTypes={this.props.spotTypes}
+              onDeleteSpotType={this.deleteSpotType}
+              spotTypeIdSelected={this.state.spotTypeId}
             />
           </div>
         )}
@@ -271,7 +345,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flex: 1,
@@ -282,6 +356,17 @@ const styles = () => ({
     borderTopWidth: 1,
     borderStyle: 'solid',
     margin: 0,
+  },
+  containerIsMobile: {
+    border: 'none',
+  },
+  containerSelectingIsNotMobile: {
+    minHeight: '80vh',
+  },
+  containerSelecting: {
+    paddingRight: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
+    minHeight: '80vh',
   },
   toolbarCanvasContainer: {
     display: 'flex',
@@ -303,10 +388,13 @@ const styles = () => ({
 
 export default compose<any, OwnProps>(
   // @ts-ignore
+  withTheme,
   withStyles(styles),
   withUndoRedoState({
     elements: [],
     strokeColor: 'black',
     fillColor: undefined,
+    wallStrokeColor: 'black',
+    wallFillColor: undefined,
   }),
 )(CanvasEditorComponent);

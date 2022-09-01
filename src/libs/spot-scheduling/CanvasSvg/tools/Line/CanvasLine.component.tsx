@@ -5,7 +5,6 @@ export interface CanvasLineProps {
   points: Array<Array<number>>;
   stroke?: string;
   fill?: string;
-  strokeWidth?: number | string;
 }
 
 export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineProps> {
@@ -21,7 +20,7 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
   }
 
   render() {
-    const { stroke, fill, strokeWidth } = this.props;
+    const { stroke, fill } = this.props;
 
     return (
       <polyline
@@ -30,7 +29,7 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
         points={this.pointsStr}
         stroke={stroke || 'black'}
         fill={fill || 'transparent'}
-        strokeWidth={strokeWidth || 2}
+        strokeWidth={2}
       />
     );
   }

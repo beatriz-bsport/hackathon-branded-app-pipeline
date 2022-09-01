@@ -41,3 +41,22 @@ export const fetchAssetForBlueprint = async (params: any) => {
 export const createAssetForBlueprint = async (data: FormData) => {
   return postAuth(`${API}/asset-for-blueprint/`, data);
 };
+
+export const fetchSpotForBlueprint = async (params: any) => {
+  return getAuth(`${API}/spot-for-blueprint/${buildUrlParams(params)}`);
+};
+
+export const createSpotForBlueprint = async (data: FormData) => {
+  return postAuth(`${API}/spot-for-blueprint/`, data);
+};
+
+export const updateSpotForBlueprint = async (
+  id: number,
+  data: DeepPartial<RoomBlueprint> | FormData,
+) => {
+  return patchAuth(`${API}/spot-for-blueprint/${id}/`, data);
+};
+
+export const deleteSpotType = (id: number) => {
+  return deleteAuth(`${API}/spot-for-blueprint/${id}/`);
+};

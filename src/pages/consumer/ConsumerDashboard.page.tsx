@@ -36,6 +36,16 @@ import {
 
 import { getConsumerPacksByMemberWithPaymentPack } from '#libs/consumer-payment-pack/selectors';
 import {
+  fetchSpotForBlueprint as fetchSpotForBlueprintAction,
+  fetchAssetForBlueprint,
+  fetchRoomBlueprintDetail,
+} from '#libs/spot-scheduling/actions';
+
+import {
+  getSpotTypesOfCompany,
+  getAssetByBlueprintByIdentifier,
+} from '#libs/spot-scheduling/selector';
+import {
   cancelBooking as cancelBookingAction,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
 } from '#libs/booking/actions';
@@ -98,14 +108,9 @@ import {
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import { getMember } from '#libs/member/selectors';
-import {
-  fetchAssetForBlueprint,
-  fetchRoomBlueprintDetail,
-} from '#libs/spot-scheduling/actions';
 import { Offer } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
-import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
 import CanvasPreviewDialog from '#libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 import withQueryParams from '../../hocs/with-query-params.hoc';
@@ -384,6 +389,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             }
             selectedSpot={this.props.spotPreview.spot}
             onClose={() => this.props.setSpotPreview(null)}
+            spotTypes={this.props.spotTypes}
+            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
           />
         )}
       </div>
@@ -454,6 +461,7 @@ const mapStateToProps = (state: RootState, props) => ({
   ),
   memberTags: getMemberTagsIdsList(state),
   group: retrieveGroupOffer(state),
+  spotTypes: getSpotTypesOfCompany(state),
 });
 
 const mapDispatchToProps = {
@@ -502,6 +510,7 @@ const mapDispatchToProps = {
   resetGroupOffer: resetGroupOfferAction,
   fetchGroupOffer: fetchGroupOfferAction,
   fetchMemberTagList,
+  fetchSpotForBlueprint: fetchSpotForBlueprintAction,
 };
 
 type StateHandlerInit = {

@@ -10,7 +10,9 @@ export function withExtraDataFromQueryParams(
       offerExtraDataList.find((data) => {
         return data.offer_id === offer.id;
       }) || {};
-    const { spot_id } = offerExtraData;
-    return { ...offer, spot_id };
+    const spot_id = offerExtraData?.spot_id;
+    const spot_information = offerExtraData?.spot_information;
+
+    return { ...offer, spot_id, spot_information };
   });
 }

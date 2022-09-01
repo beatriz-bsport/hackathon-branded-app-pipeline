@@ -40,8 +40,8 @@ export default class CanvasLineTool extends CanvasAbstractTool<CanvasLineProps> 
           id: this.draft.id,
           data: {
             points: [[this.draft.lastX, this.draft.lastY]],
-            stroke: settings.strokeColor,
-            fill: settings.fillColor,
+            stroke: settings.wallStrokeColor,
+            fill: settings.wallFillColor,
           },
         };
       }
@@ -69,7 +69,8 @@ export default class CanvasLineTool extends CanvasAbstractTool<CanvasLineProps> 
     const { x, y, settings } = params;
 
     if (this.draft) {
-      const { fillColor, strokeColor } = settings;
+      const fillColor = settings.wallFillColor;
+      const strokeColor = settings.wallStrokeColor;
 
       const points = [];
       points.push([this.draft.lastX, this.draft.lastY]);

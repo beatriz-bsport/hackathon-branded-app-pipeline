@@ -8,14 +8,12 @@ export interface CanvasRectProps {
   height: number;
   stroke?: string;
   fill?: string;
-  strokeWidth?: number | string;
   rotation?: number;
 }
 
 export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectProps> {
   render() {
-    const { x, y, width, height, stroke, fill, strokeWidth, rotation } =
-      this.props;
+    const { x, y, width, height, stroke, fill, rotation } = this.props;
 
     return (
       <rect
@@ -27,7 +25,7 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
         height={height || 0}
         stroke={stroke || 'black'}
         fill={fill || 'transparent'}
-        strokeWidth={strokeWidth || 2}
+        strokeWidth={2}
         data-rotation={rotation || 0}
         transform={
           rotation && `rotate(${rotation} ${x + width / 2} ${y + height / 2})`

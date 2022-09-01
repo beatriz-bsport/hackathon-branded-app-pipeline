@@ -24,7 +24,7 @@ import {
 } from '@bsport/common/lib/master-data/available-payment';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import withQueryParams from '#hocs/with-query-params.hoc';
-import WidgetUtils from '../../../../libs/widget/WidgetUtils';
+import WidgetUtils from '#libs/widget/WidgetUtils';
 import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
 
 import Analytics from '#components/analytics/Analytics.component';
@@ -32,7 +32,7 @@ import withTheme from '#hocs/company-themifier.hoc';
 import { RootState } from '../../../../reducers';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 
-import { urlToMarketplace } from '../../../../libs/marketplace/utils';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 import themeSelectors from '#libs/theme/selectors';
 import { buildUrlParams } from '../../../../http';
 
@@ -59,8 +59,17 @@ import {
 import {
   snackbarError as snackbarErrorAction,
   snackbarWarning as snackbarWarningAction,
-} from '../../../../libs/snackbar/actions';
+} from '#libs/snackbar/actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import {
+  fetchSpotForBlueprint,
+  fetchRoomBlueprintDetail,
+  fetchAssetForBlueprint,
+} from '#libs/spot-scheduling/actions';
+import {
+  getSpotTypesOfCompany,
+  getAssetByBlueprintByIdentifier,
+} from '#libs/spot-scheduling/selector';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
@@ -83,11 +92,6 @@ import {
   AdditionalGuest,
 } from '#libs/booker-module/types';
 import { MemberMinimal } from '#libs/member/types';
-import {
-  fetchRoomBlueprintDetail,
-  fetchAssetForBlueprint,
-} from '#libs/spot-scheduling/actions';
-import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
 
 import OfferSpotSelector from './OfferSpotSelector';
 import BookButton from '#libs/booker-module/components/BookButton.components';
@@ -120,6 +124,7 @@ type State = {
 };
 
 const SIMILAR_OFFER_PAGE_SIZE = 7;
+const DEFAULT_SPOT_TYPE = { id: -1 };
 
 class OfferBooking extends React.PureComponent<Props, State> {
   constructor(props: Props) {
@@ -426,11 +431,14 @@ class OfferBooking extends React.PureComponent<Props, State> {
     this.setState({ offersWaitingForSpotSelection });
   };
 
-  updateSpotsForOffers = (offerId: number, spot: number) => {
+  updateSpotsForOffers = (offerId: number, index: number) => {
     this.closeSimilarOfferSelector();
     this.setState((prevState) => {
       return {
-        spotsForOffers: { ...prevState.spotsForOffers, [offerId]: spot },
+        spotsForOffers: {
+          ...prevState.spotsForOffers,
+          [offerId]: index,
+        },
       };
     }, this.updateOffersWaitingForSpotSelection);
   };
@@ -495,11 +503,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
           },
         };
         const spotForOffer = this.state.spotsForOffers[offerData.offer.id];
-
         if (typeof spotForOffer === 'number') {
           _data.extra_data.spot_id = spotForOffer;
         }
-
         return _data;
       });
 
@@ -836,6 +842,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
                       this.state.guestMaxNumberOverAllPacks
                     }
                     spotsForOffers={this.state.spotsForOffers}
+                    spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
+                    roomBlueprintsById={this.props.roomBlueprintsById}
                   />
                 </div>
                 {this.showBookingButton() && (
@@ -911,6 +919,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
               }
               onCancel={this.onCancelSpotSelection}
               offerStatusById={this.props.offerStatusById}
+              fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
             />
           )}
           <Backdrop
@@ -1092,6 +1102,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       (state.offer.groups?.[offer?.group?.id ?? offer?.group]?.loading ??
         false),
     bookingGuestNumberLeft: getBookingGuestNumberLeft(state),
+    spotTypes: getSpotTypesOfCompany(state),
   };
 };
 
@@ -1116,6 +1127,7 @@ const mapDispatchToProps = {
   fetchGroup: fetchGroupOfferAction,
   fetchOffersInGroup: fetchOffersInGroupAction,
   fetchBookingGuestNumber: fetchBookingGuestNumberAction,
+  fetchSpotForBlueprint,
 };
 
 const mapWithHandlers = {

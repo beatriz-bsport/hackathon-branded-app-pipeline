@@ -1,7 +1,13 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import { SpotSchedulingState } from './types';
-import { assetForBlueprintActions, roomBlueprintActions } from './actions';
+import {
+  assetForBlueprintActions,
+  createOrUpdateSpotForBlueprintActions,
+  roomBlueprintActions,
+  spotForBlueprintActions,
+  deleteSpotForBlueprintActions,
+} from './actions';
 
 const initialState: Immutable.Immutable<SpotSchedulingState> =
   Immutable<SpotSchedulingState>({
@@ -12,6 +18,12 @@ const initialState: Immutable.Immutable<SpotSchedulingState> =
       error: null,
     },
     assetForBlueprint: {
+      byId: {},
+      ids: [],
+      loading: false,
+      error: null,
+    },
+    spotForBlueprint: {
       byId: {},
       ids: [],
       loading: false,
@@ -94,6 +106,60 @@ export default handleActions(
       return state
         .setIn(['assetForBlueprint', 'byId'], byId)
         .setIn(['assetForBlueprint', 'ids'], ids);
+    },
+    [createOrUpdateSpotForBlueprintActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['spotForBlueprint', 'loading'], payload);
+    },
+    [createOrUpdateSpotForBlueprintActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['spotForBlueprint', 'error'], payload);
+    },
+    [createOrUpdateSpotForBlueprintActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const ids = [...state.spotForBlueprint.ids.asMutable()];
+      const index = ids.findIndex((id) => id === payload.id);
+      index === -1 && ids.push(payload.id);
+
+      return state
+        .setIn(['spotForBlueprint', 'byId', payload.id], payload)
+        .setIn(['spotForBlueprint', 'ids'], ids);
+    },
+    [spotForBlueprintActions.list.toString()]: (state, { payload }) => {
+      const ids = payload.map((spotType) => spotType.id);
+      return state.merge(
+        {
+          spotForBlueprint: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+            ids,
+          },
+        },
+        { deep: true },
+      );
+    },
+    [deleteSpotForBlueprintActions.delete.toString()]: (state, { payload }) => {
+      const byId = { ...state.spotForBlueprint.byId };
+
+      const ids = [...state.spotForBlueprint.ids.asMutable()];
+      const index = ids.findIndex((id) => parseInt(id) === parseInt(payload));
+
+      index !== -1 && ids.splice(index, 1);
+
+      return state
+        .setIn(['spotForBlueprint', 'byId'], byId)
+        .setIn(['spotForBlueprint', 'ids'], ids);
+    },
+    [deleteSpotForBlueprintActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['spotForBlueprint', 'error'], payload);
     },
   },
   initialState,

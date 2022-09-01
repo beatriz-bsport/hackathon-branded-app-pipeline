@@ -39,6 +39,8 @@ class CanvasPreview extends React.PureComponent<Props> {
         assets={this.props.assets}
         selectedTool={CANVAS_SELECTABLE_TOOLS.hand}
         disableEdit
+        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+        spotTypes={this.props?.spotTypes?.concat({ id: -1 })}
         coach={this.props.coach}
       />
     );

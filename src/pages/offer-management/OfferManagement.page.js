@@ -51,6 +51,17 @@ import {
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
 } from '#libs/booking/actions';
 import {
+  fetchSpotForBlueprint as fetchSpotForBlueprintAction,
+  fetchAssetForBlueprint as fetchAssetForBlueprintAction,
+  fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
+} from '#libs/spot-scheduling/actions';
+
+import {
+  getSpotTypesOfCompany,
+  getAssetByBlueprintByIdentifier,
+} from '#libs/spot-scheduling/selector';
+
+import {
   discardBookingOption as discardBookingOptionAction,
   registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
@@ -116,12 +127,7 @@ import withTitle from '#hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import type { Offer } from '../../api/types';
-import {
-  fetchAssetForBlueprint as fetchAssetForBlueprintAction,
-  fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
-} from '#libs/spot-scheduling/actions';
 import { RootState } from '../../reducers';
-import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
 import { Booking } from '#libs/booking/types';
 import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
@@ -230,6 +236,7 @@ export default compose(
         withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardList))),
       )(state),
       activityGroups: getGroupListCount(state),
+      spotTypes: getSpotTypesOfCompany(state),
       similarBookingList: withEstablishment(
         withCustomLevel(getSimilarBookingList),
       )(state),
@@ -322,6 +329,8 @@ export default compose(
 
       fetchLevelList: fetchLevelListAction,
       fetchAssociatedCoachesList,
+
+      fetchSpotForBlueprint: fetchSpotForBlueprintAction,
     },
   ),
   withHandlers({

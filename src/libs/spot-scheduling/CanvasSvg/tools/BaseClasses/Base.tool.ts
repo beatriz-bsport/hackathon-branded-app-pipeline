@@ -26,6 +26,8 @@ export type CanvasSvgMouseParamsI = {
   settings: {
     strokeColor: string;
     fillColor: string;
+    wallStrokeColor: string;
+    wallFillColor: string;
   };
   /**
    * The original mouse event

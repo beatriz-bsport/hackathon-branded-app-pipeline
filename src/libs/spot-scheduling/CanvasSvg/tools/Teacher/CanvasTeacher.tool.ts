@@ -12,7 +12,7 @@ export default class CanvasTeacherTool extends CanvasAbstractTool<CanvasTeacherP
 
   hideNativeCursor = true;
 
-  onClick = (params: CanvasSvgMouseParamsI) => {
+  onClick = (params: CanvasSvgMouseParamsI, coachHeight: number) => {
     const { x, y, elements, settings } = params;
     const { fillColor, strokeColor } = settings;
 
@@ -22,6 +22,7 @@ export default class CanvasTeacherTool extends CanvasAbstractTool<CanvasTeacherP
       rotation: 0,
       fill: fillColor,
       stroke: strokeColor,
+      coachHeight,
     });
 
     return [...elements, teacher];

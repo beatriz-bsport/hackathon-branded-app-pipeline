@@ -217,6 +217,7 @@ export class ValidationCheckout extends React.Component<Props> {
                               hideCoach={this.props.hideCoach}
                               offer={o}
                               offerSpot={o.spot_id}
+                              offerSpotInformation={o.spot_information}
                             />
                           ))}
                         </div>
@@ -258,6 +259,7 @@ export class ValidationCheckout extends React.Component<Props> {
                               key={o.id}
                               hideCoach={this.props.hideCoach}
                               offer={o}
+                              offerSpotInformation={o.spot_information}
                             />
                           ))}
                         </div>
@@ -287,6 +289,7 @@ export class ValidationCheckout extends React.Component<Props> {
                                 <OfferBookableItem
                                   hideCoach={this.props.hideCoach}
                                   offer={o}
+                                  offerSpotInformation={o.spot_information}
                                 />
                                 <div className={classes.row}>
                                   <WarningIcon
@@ -531,11 +534,13 @@ export default compose<any, OwnProps>(
       fetchBasket,
     },
   ),
-  withProps(({ queryParams }) => ({
-    user_registration_response:
-      queryParams?.user_registration_response &&
-      JSON.parse(decodeURIComponent(queryParams.user_registration_response)),
-  })),
+  withProps(({ queryParams }) => {
+    return {
+      user_registration_response:
+        queryParams?.user_registration_response &&
+        JSON.parse(decodeURIComponent(queryParams.user_registration_response)),
+    };
+  }),
   withProps(({ user_registration_response, basket }) => ({
     offerBookedIdList: [
       ...((user_registration_response || {}).offers_booked || []),

@@ -10,7 +10,7 @@ export default class RectDOMController extends ElementDOMController<CanvasRectPr
     const width = parseInt(this.elm.getAttribute('width'));
     const height = parseInt(this.elm.getAttribute('height'));
     const stroke = this.elm.getAttribute('stroke');
-    const strokeWidth = parseInt(this.elm.getAttribute('stroke-width'));
+    const strokeWidth = '2';
     const fill = this.elm.getAttribute('fill');
     let rotation = 0;
 

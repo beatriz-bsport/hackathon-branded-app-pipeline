@@ -9,7 +9,7 @@ interface Props {
   roomBlueprint: RoomBlueprint;
   assets: { [identifier: string]: AssetForBlueprint };
   takenSpot: number[];
-  onSelectSpot: (spot: number) => void;
+  onSelectSpot: (spot: number, spotTypeId: number) => void;
   selectedSpot?: number;
   onSelectTakenSpot: () => void;
   coach?: any;
@@ -27,8 +27,12 @@ export default class SpotSelector extends React.PureComponent<Props> {
   onSelectElement = (element: CanvasElement<any>) => {
     if (element.type === CANVAS_SELECTABLE_TOOLS.spot) {
       const spot = element.data.index;
+
       if (!this.props.takenSpot.includes(spot)) {
-        this.props.onSelectSpot(element.data.index);
+        this.props.onSelectSpot(
+          element.data.index,
+          element.data?.spotTypeId || -1,
+        );
       } else {
         this.props.onSelectTakenSpot();
       }
@@ -45,6 +49,10 @@ export default class SpotSelector extends React.PureComponent<Props> {
         disableEdit
         onSelectElement={this.onSelectElement}
         coach={this.props.coach}
+        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+        spotTypes={this.props.spotTypesOfBlueprint}
+        selectingSpot
+        isMobile={this.props.isMobile}
       />
     );
   }

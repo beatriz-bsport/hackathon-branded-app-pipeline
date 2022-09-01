@@ -221,7 +221,6 @@ export const SpotImageFormHOC = withFormik({
       spot_free,
       spot_taken,
     };
-
     onSubmit(data, {
       onSuccess: () => {
         setSubmitting(false);

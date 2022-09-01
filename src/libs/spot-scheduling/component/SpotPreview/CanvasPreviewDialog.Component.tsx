@@ -47,6 +47,8 @@ class CanvasPreviewDialog extends React.PureComponent<Props> {
             assets={this.props.assets}
             takenSpot={this.props.takenSpot}
             selectedSpot={this.props.selectedSpot}
+            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+            spotTypes={this.props.spotTypes}
           />
         </DialogContent>
       </Dialog>

@@ -8,8 +8,10 @@ export interface CanvasTeacherProps {
   stroke: string;
   fill: string;
   coach?: any;
+  coachHeight: number;
 }
 
+const MARGIN_BETWEEN_AVATAR_AND_TEXT = 15;
 export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTeacherProps> {
   static zIndex = 99;
 
@@ -23,6 +25,8 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
 
   render() {
     const { x, y, rotation } = this.props;
+    const avatarSize =
+      CanvasTeacherComponent.avatarSize * this.props.coachHeight;
 
     return (
       <g
@@ -34,23 +38,23 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
         )}
       >
         <svg
-          width={CanvasTeacherComponent.avatarSize}
-          height={CanvasTeacherComponent.avatarSize}
-          x={-CanvasTeacherComponent.avatarSize / 4}
-          y={-CanvasTeacherComponent.avatarSize / 4}
+          width={avatarSize}
+          height={avatarSize}
+          x={-avatarSize / 4}
+          y={-avatarSize / 4}
         >
           <defs>
             <pattern
               id="image"
               patternUnits="userSpaceOnUse"
-              height={CanvasTeacherComponent.avatarSize}
-              width={CanvasTeacherComponent.avatarSize}
+              height={avatarSize}
+              width={avatarSize}
             >
               <image
                 x={0}
                 y={0}
-                height={CanvasTeacherComponent.avatarSize}
-                width={CanvasTeacherComponent.avatarSize}
+                height={avatarSize}
+                width={avatarSize}
                 xlinkHref={
                   this.props.coach?.photo ||
                   'https://d2r95z4j5cc9cx.cloudfront.net/gymnast-female.png'
@@ -61,24 +65,24 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
           </defs>
           <circle
             id="top"
-            cx={CanvasTeacherComponent.avatarSize / 2}
-            cy={CanvasTeacherComponent.avatarSize / 2}
-            r={CanvasTeacherComponent.avatarSize / 2}
+            cx={avatarSize / 2}
+            cy={avatarSize / 2}
+            r={avatarSize / 2}
             fill="url(#image)"
           />
         </svg>
         <rect
           visibility="visible"
-          width={40 * 2}
-          height={40 * 2}
-          x={-50 / 2}
-          y={-40 / 2}
+          width={avatarSize}
+          height={avatarSize}
+          x={-avatarSize / 4}
+          y={-avatarSize / 4}
           stroke="transparent"
           fill="transparent"
         />
         <text
-          x={CanvasTeacherComponent.avatarSize / 4}
-          y={CanvasTeacherComponent.avatarSize}
+          x={avatarSize / 4}
+          y={avatarSize - avatarSize / 4 + MARGIN_BETWEEN_AVATAR_AND_TEXT}
           dominantBaseline="middle"
           textAnchor="middle"
           style={{ userSelect: 'none' }}

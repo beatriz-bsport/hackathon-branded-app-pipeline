@@ -1,0 +1,81 @@
+import { Grid, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { ColorField } from '../../../../components/forms';
+import CanvasSpotComponent from '../../CanvasSvg/tools/Spot/CanvasSpot.component';
+import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+
+export const PersonalizedSpotCreator = (props) => {
+  const { t } = useTranslation('spotScheduling');
+  const { classes, choices, values, setFieldValue } = props;
+  return (
+    <div>
+      <MaterialUISelector
+        options={choices}
+        fullWidth
+        className={classes.selectField}
+        name="shape"
+        defaultValue={props.defaultValue}
+        onChange={(option) => {
+          setFieldValue('shape', option.value);
+        }}
+      />
+      <Grid className={classes.sectionContainer}>
+        <Grid item xs={3}>
+          <Typography className={classes.customItemContainer}>
+            {t('toolsMenu.customStroke')}
+          </Typography>
+          <ColorField name="stroke_color" />
+        </Grid>
+        <Grid item xs={3}>
+          <Typography className={classes.customItemContainer}>
+            {t('toolsMenu.customFill')}
+          </Typography>
+          <ColorField name="fill_color" />
+        </Grid>
+        <Grid item xs={7} className={classes.preview}>
+          <Typography>{t('spotCreatorForm.preview')}</Typography>
+          <svg width={115} height={70}>
+            <CanvasSpotComponent
+              x={1}
+              y={4}
+              index={1}
+              indexType={1}
+              prefix={values?.prefix}
+              stroke={values?.stroke_color}
+              fill={values?.fill_color}
+              type={values?.shape}
+              trianglePreview={values?.shape === 'triangle'}
+            />
+          </svg>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
+const styles = (theme) => ({
+  selectField: { marginTop: theme.spacing(4), maxWidth: '40%' },
+  sectionContainer: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  customItemContainer: {
+    opacity: '35%',
+    height: '100%',
+  },
+  preview: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    border: `1px solid ${theme.palette.grey[100]}`,
+    borderRadius: theme.spacing(1),
+    justifyContent: 'space-around',
+    maxWidth: '300px',
+    height: '78px',
+  },
+});
+
+export default withStyles(styles)(PersonalizedSpotCreator);

@@ -44,6 +44,7 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   fetchPerformanceTrackingData: (member: number) => void,
   programDataLoading: boolean,
+  refresh: () => void,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -107,7 +108,10 @@ export class BookingTable extends PureComponent<Props> {
             booking={b}
             bookings={bookings}
             showRevertBookingButton={showRevertBookingButton}
-            handleRevert={() => handleRevert(b)}
+            handleRevert={() => {
+              handleRevert(b);
+              this.props.refresh();
+            }}
             discardBookingAttendance={() => discardBookingAttendance(b.id)}
             confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
             spotSchedulingEnabled={this.props.spotSchedulingEnabled}

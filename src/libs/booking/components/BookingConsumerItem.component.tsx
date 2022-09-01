@@ -27,6 +27,7 @@ import { Coach } from '../../associated-coach/types';
 import { Establishment } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import WidgetUtils from '../../widget/WidgetUtils';
+import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
 
 type OwnProps = {
   booking: Booking<Offer<Coach, Establishment, MetaActivity>>;
@@ -53,6 +54,7 @@ export const BookingConsumerItem = (props: Props) => {
   if (establishment && meta_activity && !offer.meta_activity.is_broadcast) {
     dateStart.tz(establishment.tzname);
   }
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>
@@ -74,7 +76,7 @@ export const BookingConsumerItem = (props: Props) => {
           secondary={offer ? dateStart.format('LT') : ' - '}
         />
       </ListItem>
-
+      <div>{props.booking?.spot_prefix}</div>
       {typeof props.booking.spot_id === 'number' && (
         <ListItem dense className={classes.translucentPaper}>
           <ListItemIcon>
@@ -82,9 +84,17 @@ export const BookingConsumerItem = (props: Props) => {
           </ListItemIcon>
 
           <div className={classes.spotContainer}>
-            <Typography>
-              {t('booking.spotNumber', { count: props.booking.spot_id })}
-            </Typography>
+            {props.booking.spot_id && (
+              <PlaceNumber
+                spotInformation={
+                  Object.keys(props.booking.spot_information).length > 0
+                    ? props.booking.spot_information
+                    : {
+                        indexType: props.booking.spot_id,
+                      }
+                }
+              />
+            )}
 
             {props.onClickBlueprintPreview && (
               <Button

@@ -30,6 +30,15 @@ export default class CanvasEraserTool extends CanvasAbstractTool<any> {
 
       if (deleted.type === CANVAS_SELECTABLE_TOOLS.spot) {
         secondHalf = secondHalf.map((el) => {
+          if (deleted.data.spotTypeId === el.data.spotTypeId)
+            return {
+              ...el,
+              data: {
+                ...el.data,
+                index: el.data.index - 1,
+                indexType: el.data.indexType - 1,
+              },
+            };
           return {
             ...el,
             data: {

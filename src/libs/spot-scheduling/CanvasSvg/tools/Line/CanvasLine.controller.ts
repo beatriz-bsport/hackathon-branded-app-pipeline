@@ -8,7 +8,7 @@ export default class LineDOMController extends ElementDOMController<CanvasLinePr
     const points: number[][] = [];
     let stroke = 'black';
     let fill = 'transparent';
-    let strokeWidth = '3';
+    const strokeWidth = '2';
 
     if (this.elm) {
       const pointsStr = this.elm.getAttribute('points');
@@ -19,7 +19,6 @@ export default class LineDOMController extends ElementDOMController<CanvasLinePr
       }
 
       stroke = this.elm.getAttribute('stroke');
-      strokeWidth = this.elm.getAttribute('stroke-width');
       fill = this.elm.getAttribute('fill');
     }
 

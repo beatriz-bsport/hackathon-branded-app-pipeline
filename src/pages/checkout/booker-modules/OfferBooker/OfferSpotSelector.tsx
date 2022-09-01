@@ -4,6 +4,7 @@ import { Offer, OfferStatus } from '../../../../libs/offer/types';
 import {
   AssetForBlueprint,
   RoomBlueprint,
+  SpotType,
 } from '../../../../libs/spot-scheduling/types';
 
 interface Props {
@@ -16,29 +17,43 @@ interface Props {
   onCancel: (offer: Offer) => () => void;
   offerStatusById: { [key: string]: OfferStatus };
   refreshOfferStatus: (offerId: number) => void;
+  spotTypes: SpotType[];
 }
 
 const OfferSpotSelector = (props: Props) => {
   const { offer } = props;
-  const [selectedSpot, setSelectedSpot] = useState(null);
+  const [selectedSpotTypeId, setSelectedSpotTypeId] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const onSelectSpot = (offerId: number, spot: number) => {
+  const onSelectSpot = (offerId: number, index: number, spotTypeId: number) => {
     props.refreshOfferStatus(offerId);
-    if (typeof spot !== 'number') {
-      console.warn('Spot id should be a number');
-    }
-    setSelectedSpot(spot);
+    setSelectedSpotTypeId(spotTypeId);
+    setSelectedIndex(index);
   };
 
+  const selectedSpotType = props.spotTypes.filter(
+    (spotType) => spotType.id === selectedSpotTypeId,
+  )[0];
+
   const onSubmit = () => {
-    props.updateSpotsForOffer(offer.id, selectedSpot);
-    setSelectedSpot(null);
+    props.updateSpotsForOffer(offer.id, selectedIndex);
+    setSelectedIndex(null);
   };
 
   const roomBlueprint = props.roomBlueprintsById[offer.room_blueprint];
   const assets = props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
   const offerStatus = props.offerStatusById[offer.id];
+
   const takenSpot = offerStatus?.taken_spots || [];
+
+  const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements.map(
+    (element) => element.data.spotTypeId,
+  );
+
+  const selectedIndexType = roomBlueprint?.canvas.elements
+    .filter((element) => element.data.index <= selectedIndex)
+    .map((element) => element.data.spotTypeId)
+    .filter((id) => id === selectedSpotTypeId).length;
 
   return (
     <SpotSelectorDialog
@@ -49,8 +64,16 @@ const OfferSpotSelector = (props: Props) => {
       onClose={props.onCancel(offer)}
       onSubmit={onSubmit}
       takenSpot={takenSpot}
-      selectedSpot={selectedSpot}
-      onSelectSpot={(spot) => onSelectSpot(offer.id, spot)}
+      selectedSpot={selectedSpotType}
+      selectedIndex={selectedIndex}
+      selectedIndexType={selectedIndexType}
+      onSelectSpot={(index, spotTypeId) =>
+        onSelectSpot(offer.id, index, spotTypeId)
+      }
+      spotTypesOfBlueprint={props.spotTypes.filter((spotType) =>
+        spotTypesIdOfBlueprint?.includes(spotType.id),
+      )}
+      fetchSpotForBlueprint={props.fetchSpotForBlueprint}
       forceFullScreen
     />
   );

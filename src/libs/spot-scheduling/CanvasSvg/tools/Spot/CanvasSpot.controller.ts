@@ -5,7 +5,6 @@ export default class SpotDOMController extends ElementDOMController<CanvasSpotPr
   getProps = () => {
     let x = 0;
     let y = 0;
-    let index = 1;
 
     const position = this.getPosition();
 
@@ -16,17 +15,10 @@ export default class SpotDOMController extends ElementDOMController<CanvasSpotPr
 
     const rotation = this.getRotation();
 
-    if (this.elm && this.elm.children[2]) {
-      const text = this.elm.children[2];
-      const content = text.textContent.trim();
-      index = parseInt(content);
-    }
-
     return {
       x,
       y,
       rotation,
-      index,
     };
   };
 
@@ -59,7 +51,17 @@ export default class SpotDOMController extends ElementDOMController<CanvasSpotPr
   setPosition = (x: number, y: number) => {
     if (this.elm) {
       const rotation = this.getRotation();
-      const transform = CanvasSpotComponent.getTransform(x, y, rotation);
+      let transform = CanvasSpotComponent.getTransform(x, y, rotation);
+      switch (this.elm.getAttribute('type')) {
+        case 'rectangle':
+          transform = CanvasSpotComponent.getTransformRectangle(x, y, rotation);
+          break;
+        case 'triangle':
+          transform = CanvasSpotComponent.getTransformTriangle(x, y, rotation);
+          break;
+        default:
+          break;
+      }
       this.elm.setAttribute('transform', transform);
     }
     return this;
@@ -68,14 +70,16 @@ export default class SpotDOMController extends ElementDOMController<CanvasSpotPr
   focus = () => {
     if (this.elm) {
       const outline = this.elm.children[3];
-      outline.setAttribute('stroke', 'red');
+      if (outline?.getAttribute('stroke'))
+        outline.setAttribute('stroke', 'red');
     }
   };
 
   blur = () => {
     if (this.elm) {
       const outline = this.elm.children[3];
-      outline.setAttribute('stroke', 'transparent');
+      if (outline?.getAttribute('stroke'))
+        outline.setAttribute('stroke', 'transparent');
     }
   };
 }

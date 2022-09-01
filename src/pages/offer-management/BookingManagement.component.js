@@ -121,6 +121,7 @@ type Props = {
   fetchPerformanceTrackingData: (member: number) => void,
   programList: Array<PerformanceTrackingProgram>,
   programDataLoading: boolean,
+  refresh: () => void,
 };
 
 type State = {
@@ -451,6 +452,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       spotSchedulingEnabled={!!this.props.offer.room_blueprint}
                       onClickChangeSpot={this.props.onClickChangeSpot}
                       showVaccinationStatus={this.props.showVaccinationStatus}
+                      refresh={this.props.refresh}
                     />
                   </>
                 )}

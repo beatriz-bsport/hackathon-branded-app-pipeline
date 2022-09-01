@@ -51,6 +51,9 @@ export default class CanvasRectTool extends CanvasAbstractTool<CanvasRectProps> 
   onClick = (params: CanvasSvgMouseParamsI) => {
     const { x, y, settings, elements } = params;
 
+    const fillColor = settings.wallFillColor;
+    const strokeColor = settings.wallStrokeColor;
+
     if (!this.draft) {
       this.draft = {
         x,
@@ -60,8 +63,8 @@ export default class CanvasRectTool extends CanvasAbstractTool<CanvasRectProps> 
       const data = this.getData(x, y);
       const rectElement = this.newElement({
         ...data,
-        fill: settings.fillColor,
-        stroke: settings.strokeColor,
+        fill: fillColor,
+        stroke: strokeColor,
       });
 
       this.draft = null;
@@ -74,6 +77,10 @@ export default class CanvasRectTool extends CanvasAbstractTool<CanvasRectProps> 
 
   onMove = (params: CanvasSvgMouseParamsI) => {
     const { x, y, settings } = params;
+
+    const fillColor = settings.wallFillColor;
+    const strokeColor = settings.wallStrokeColor;
+
     if (this.draft) {
       const data = this.getData(x, y);
 
@@ -81,8 +88,8 @@ export default class CanvasRectTool extends CanvasAbstractTool<CanvasRectProps> 
         .select(this.draftId)
         .setPosition(data.x, data.y)
         .setDimension(data.width, data.height)
-        .setStroke(settings.strokeColor)
-        .setFill(settings.fillColor);
+        .setStroke(strokeColor)
+        .setFill(fillColor);
     }
   };
 

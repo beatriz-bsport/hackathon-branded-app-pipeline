@@ -26,6 +26,8 @@ import { formatMinutes } from '../../../utils/datetime';
 import type { OfferStatus as OfferStatusType, Offer } from '#libs/offer/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
+import { SpotInformation } from '#libs/spot-scheduling/types';
+import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
 
 const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
   let statusColor = 'green';
@@ -98,6 +100,7 @@ type OfferBookableItemProps = {
   isRegistered: boolean;
   hideCoach: boolean;
   offerSpot?: number | undefined;
+  offerSpotInformation?: SpotInformation;
 };
 export const OfferBookableItem = (props: OfferBookableItemProps) => {
   const classes = useStyles();
@@ -144,11 +147,13 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
               .format('dddd')}`}
           </Typography>
           {props.offerSpot && (
-            <Typography color="primary" variant="body2">
-              {t('booking:placeNumber', {
-                count: props.offerSpot,
-              })}
-            </Typography>
+            <PlaceNumber
+              spotInformation={
+                Object.keys(props?.offerSpotInformation || {}).length > 0
+                  ? props.offerSpotInformation
+                  : { indexType: props.offerSpot }
+              }
+            />
           )}
           {!props.hideCoach && (
             <Typography variant="body2" align="left">
@@ -160,10 +165,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
           </Typography>
           <div className={classes.rightPanel}>
             {props.onRemove ? (
-              <IconButton
-                onClick={() => props.onRemove(props.offer)}
-                className={classes.deleteButton}
-              >
+              <IconButton onClick={() => props.onRemove(props.offer)}>
                 <CloseIcon fontSize="small" />
               </IconButton>
             ) : (

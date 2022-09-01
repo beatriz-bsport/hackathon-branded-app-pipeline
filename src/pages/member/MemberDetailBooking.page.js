@@ -17,7 +17,10 @@ import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { getAssetByBlueprintByIdentifier } from '#libs/spot-scheduling/selector';
+import {
+  getAssetByBlueprintByIdentifier,
+  getSpotTypesOfCompany,
+} from '#libs/spot-scheduling/selector';
 import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
@@ -62,6 +65,7 @@ import { fetchMember as fetchMemberAction } from '#libs/member/actions';
 import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
+  fetchSpotForBlueprint as fetchSpotForBlueprintAction,
 } from '#libs/spot-scheduling/actions';
 
 import {
@@ -169,6 +173,7 @@ type Props = {
   similarBookingList: Booking[],
   roomBlueprintById: { [number]: RoomBlueprint },
   fetchAssetForBlueprint: (number) => void,
+  fetchSpotForBlueprint: (company: number) => void,
   fetchOfferStatus: (number) => void,
   offerStatusById: { [number]: OfferStatus },
   assetsForBlueprintById: { [number]: AssetForBlueprint },
@@ -223,6 +228,7 @@ type Props = {
   fetchLevelList: ({
     company: number,
   }) => void,
+  spotTypes: SpotType[],
 };
 
 type State = {
@@ -674,11 +680,13 @@ export class MemberDetailBooking extends Component<Props, State> {
           fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
           roomBlueprintById={this.props.roomBlueprintById}
           fetchAssetForBlueprint={this.props.fetchAssetForBlueprint}
+          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
           fetchOfferStatus={this.props.fetchOfferStatus}
           fetchOfferById={this.props.fetchOffer}
           offer={this.props.offer}
           offerStatusById={this.props.offerStatusById}
           assetsForBlueprintById={this.props.assetsForBlueprintById}
+          spotTypes={this.props.spotTypes}
         />
       </Grid>
     );
@@ -782,6 +790,7 @@ export default compose(
       similarBookingList: withEstablishment(
         withCustomLevel(getSimilarBookingList),
       )(state),
+      spotTypes: getSpotTypesOfCompany(state),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -829,6 +838,7 @@ export default compose(
       fetchGroupOffer: fetchGroupOfferAction,
       fetchSimilarFuturBookingInGroup: fetchSimilarFuturBookingInGroupAction,
       fetchLevelList: fetchLevelListAction,
+      fetchSpotForBlueprint: fetchSpotForBlueprintAction,
     },
   ),
   withState('filters', 'setFilters', (props) => {

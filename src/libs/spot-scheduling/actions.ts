@@ -20,6 +20,23 @@ export const assetForBlueprintActions = {
   error: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/ERROR'),
 };
 
+export const createOrUpdateSpotForBlueprintActions = {
+  success: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/CREATE/SUCCESS'),
+  isLoading: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/CREATE/IS_LOADING'),
+  error: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/CREATE/ERROR'),
+};
+
+export const spotForBlueprintActions = {
+  list: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/LIST'),
+  isLoading: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/IS_LOADING'),
+  error: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/ERROR'),
+};
+
+export const deleteSpotForBlueprintActions = {
+  delete: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/DELETE/SUCCESS'),
+  error: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/DELETE/ERROR'),
+};
+
 export function fetchRoomBlueprints(
   data?: any,
   options?: OptionCallback<RoomBlueprint[]>,
@@ -187,5 +204,93 @@ export function createAssetForBlueprint(
     }
     dispatch(assetForBlueprintActions.isLoading(false));
     return response;
+  };
+}
+
+export function createSpotForBlueprint(
+  data: FormData,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    let response = null;
+    dispatch(createOrUpdateSpotForBlueprintActions.isLoading(true));
+    dispatch(createOrUpdateSpotForBlueprintActions.error(null));
+    try {
+      response = await api.createSpotForBlueprint(data);
+      dispatch(createOrUpdateSpotForBlueprintActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response);
+      }
+    } catch (error) {
+      dispatch(createOrUpdateSpotForBlueprintActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(createOrUpdateSpotForBlueprintActions.isLoading(false));
+    return response;
+  };
+}
+
+export function updateSpotForBlueprint(
+  id: number,
+  data: DeepPartial<RoomBlueprint> | FormData,
+  options?: OptionCallback<RoomBlueprint>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateSpotForBlueprintActions.isLoading(true));
+    dispatch(createOrUpdateSpotForBlueprintActions.error(null));
+    try {
+      const response = await api.updateSpotForBlueprint(id, data);
+      dispatch(createOrUpdateSpotForBlueprintActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(createOrUpdateSpotForBlueprintActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(createOrUpdateSpotForBlueprintActions.isLoading(false));
+  };
+}
+
+export function fetchSpotForBlueprint(
+  data: any,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(spotForBlueprintActions.isLoading(true));
+    dispatch(spotForBlueprintActions.error(null));
+    try {
+      const response = await api.fetchSpotForBlueprint(data);
+      dispatch(spotForBlueprintActions.list(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(spotForBlueprintActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(spotForBlueprintActions.isLoading(false));
+  };
+}
+
+export function deleteSpotType(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    try {
+      await api.deleteSpotType(id);
+      dispatch(deleteSpotForBlueprintActions.delete(id));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteSpotForBlueprintActions.error(err));
+      if (options && options.onError) options.onError();
+    }
   };
 }

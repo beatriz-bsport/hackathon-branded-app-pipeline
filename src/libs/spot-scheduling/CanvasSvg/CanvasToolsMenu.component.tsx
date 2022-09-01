@@ -3,7 +3,9 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  TextField,
   Theme,
+  Tooltip,
   Typography,
   withStyles,
 } from '@material-ui/core';
@@ -14,17 +16,22 @@ import clx from 'classnames';
 
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CreateIcon from '@material-ui/icons/Create';
-import AdjustIcon from '@material-ui/icons/Adjust';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import AddIcon from '@material-ui/icons/Add';
 import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import UndoIcon from '@material-ui/icons/Undo';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+import HeightIcon from '@material-ui/icons/Height';
 import RedoIcon from '@material-ui/icons/Redo';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 import ColorInput from '../../../components/input/ColorInput.component';
 import { MaterialStyleType } from '../../../utils/types';
+import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 import EraserIcon from './tools/Eraser/Eraser.icon';
+import CanvasSpotToolMenu from './CanvasSpotToolMenu.component';
 
 import {
   CANVAS_SELECTABLE_TOOLS,
@@ -32,19 +39,32 @@ import {
 } from './tools/CanvasStrategy';
 import PointerIcon from './tools/Pointer/Pointer.icon';
 import HandIcon from './tools/Hand/Hand.icon';
+import { SpotType } from '../types';
 
 type OwnProps = {
   selectedTool: CanvasSelectableToolsEnum;
-  onSelectTool: (tool: CanvasSelectableToolsEnum) => void;
+  onSelectTool: (tool: CanvasSelectableToolsEnum, spotId?: number) => void;
   onClickUndo: () => void;
   onClickRedo: () => void;
   strokeColor: string;
   fillColor: string;
+  wallStrokeColor: string;
+  wallFillColor: string;
   onStrokeColorChange: (color: string) => void;
-  onFillColorChange: (color: string) => void;
+  onwallStrokeColorChange: (color: string) => void;
+  onwallFillColorChange: (color: string) => void;
   onClickUploadImage: () => void;
   showGrid: boolean;
   onChangeGridVisibility: (value: boolean) => void;
+  onHeightCoachChange: (coefficient: string) => void;
+  coachHeight: number;
+  openSpotCreationForm: () => void;
+  onDeleteSpot: () => void;
+  spotTypes: SpotType[];
+  openDeleteModal: () => void;
+  openSpotUpdateForm: (spotType: SpotType) => void;
+  onDeleteSpotType: (spotType: SpotType) => void;
+  spotTypeIdSelected?: number;
 };
 
 type Props = OwnProps &
@@ -53,7 +73,9 @@ type Props = OwnProps &
 
 class CanvasToolsMenu extends React.PureComponent<Props> {
   render() {
+    const sortSpots = (a, b) => b.id - a.id;
     const { classes, t } = this.props;
+    const copySpotTypes = [...(this.props.spotTypes || [])];
 
     return (
       <div className={classes.toolsMenuContainer}>
@@ -202,6 +224,29 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           </Grid>
         </Grid>
 
+        <Grid spacing={4}>
+          <Grid item xs={9}>
+            <Typography className={classes.customItemContainer}>
+              {t('toolsMenu.customStroke')}
+            </Typography>
+            <ColorInput
+              color={this.props.wallStrokeColor}
+              onChange={this.props.onwallStrokeColorChange}
+              transparentColorAvailable
+            />
+          </Grid>
+
+          <Grid item xs={9}>
+            <Typography className={classes.customItemContainer}>
+              {t('toolsMenu.customFill')}
+            </Typography>
+            <ColorInput
+              color={this.props.wallFillColor}
+              onChange={this.props.onwallFillColorChange}
+              transparentColorAvailable
+            />
+          </Grid>
+        </Grid>
         <div className={classes.otherOptions}>
           <FormControlLabel
             control={
@@ -221,29 +266,68 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           {t('toolsMenu.sections.place')}
         </Typography>
         <Grid container spacing={4} className={classes.sectionContainer}>
-          <Grid item xs={4}>
-            <div className={classes.itemContainer}>
+          {copySpotTypes.sort(sortSpots).map((spotType) => {
+            if (spotType.id === DEFAULT_SPOT_TYPE_ID)
+              return (
+                <Grid item xs={4}>
+                  <CanvasSpotToolMenu
+                    openSpotUpdateForm={() => {
+                      this.props.openSpotCreationForm(true);
+                    }}
+                    selected={
+                      this.props.selectedTool ===
+                        CANVAS_SELECTABLE_TOOLS.spot &&
+                      this.props.spotTypeIdSelected === DEFAULT_SPOT_TYPE_ID
+                    }
+                    onSelectTool={() =>
+                      this.props.onSelectTool(
+                        CANVAS_SELECTABLE_TOOLS.spot,
+                        DEFAULT_SPOT_TYPE_ID,
+                      )
+                    }
+                    default
+                  />
+                </Grid>
+              );
+            return (
+              <Grid item xs={4}>
+                <CanvasSpotToolMenu
+                  spotType={spotType}
+                  onDeleteSpot={this.props.openDeleteModal}
+                  openSpotUpdateForm={this.props.openSpotUpdateForm}
+                  selected={
+                    this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.spot &&
+                    this.props.spotTypeIdSelected === spotType.id
+                  }
+                  onSelectTool={() => {
+                    this.props.onSelectTool(
+                      CANVAS_SELECTABLE_TOOLS.spot,
+                      spotType.id,
+                    );
+                  }}
+                  onDeleteSpotType={this.props.onDeleteSpotType}
+                />
+              </Grid>
+            );
+          })}
+          <Grid item xs={4} className={classes.addSpotContainer}>
+            <Tooltip title={t('toolsMenu.addSpotType')}>
               <ButtonBase
-                className={clx({
-                  [classes.item]: true,
-                  [classes.itemSelected]:
-                    this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.spot,
-                })}
-                onClick={() =>
-                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.spot)
-                }
+                onClick={() => {
+                  this.props.openSpotCreationForm(false);
+                }}
+                className={classes.addSpotButton}
               >
-                <AdjustIcon fontSize="large" />
+                <AddIcon />
               </ButtonBase>
-              <Typography> {t('toolsMenu.spot')}</Typography>
-            </div>
+            </Tooltip>
           </Grid>
         </Grid>
 
         <Typography variant="h6" className={classes.sectionTitle}>
-          {t('toolsMenu.sections.elements')}
+          {t('toolsMenu.teacher')}
         </Typography>
-        <Grid container spacing={3} className={classes.sectionContainer}>
+        <Grid container spacing={4} className={classes.sectionContainer}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -252,16 +336,48 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.teacher,
                 })}
-                onClick={() =>
-                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.teacher)
-                }
+                onClick={() => {
+                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.teacher);
+                }}
               >
                 <AccessibilityIcon fontSize="large" />
               </ButtonBase>
               <Typography> {t('toolsMenu.teacher')}</Typography>
             </div>
           </Grid>
+          <Grid item xs={5}>
+            <div>
+              <Typography variant="body2" className={classes.teacherHeight}>
+                Taille
+              </Typography>
+              <TextField
+                defaultValue={1}
+                value={this.props.coachHeight}
+                error={this.props.coachHeight <= 0}
+                helperText={
+                  this.props.coachHeight <= 0 && t('toolsMenu.helperText')
+                }
+                type="number"
+                onChange={(ev) =>
+                  this.props.onHeightCoachChange(ev.target.value)
+                }
+                InputProps={{
+                  inputProps: { min: 1 },
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <HeightIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
+          </Grid>
+        </Grid>
 
+        <Typography variant="h6" className={classes.sectionTitle}>
+          {t('toolsMenu.sections.elements')}
+        </Typography>
+        <Grid container spacing={3} className={classes.sectionContainer}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -298,46 +414,16 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           </Grid>
         </Grid>
-
-        <Typography variant="h6" className={classes.sectionTitle}>
-          {t('toolsMenu.sections.custom')}
-        </Typography>
-
-        <Grid container spacing={4}>
-          <Grid item xs={6}>
-            <div className={classes.customItemContainer}>
-              <Typography>{t('toolsMenu.customStroke')}</Typography>
-              <ColorInput
-                color={this.props.strokeColor}
-                onChange={this.props.onStrokeColorChange}
-                transparentColorAvailable
-              />
-            </div>
-          </Grid>
-
-          <Grid item xs={6}>
-            <div className={classes.customItemContainer}>
-              <Typography>{t('toolsMenu.customFill')}</Typography>
-              <ColorInput
-                color={this.props.fillColor}
-                onChange={this.props.onFillColorChange}
-                transparentColorAvailable
-              />
-            </div>
-          </Grid>
+        <Grid item xs={9}>
+          <Typography className={classes.customItemContainer}>
+            {t('toolsMenu.customFill')}
+          </Typography>
+          <ColorInput
+            color={this.props.strokeColor}
+            onChange={this.props.onStrokeColorChange}
+            transparentColorAvailable
+          />
         </Grid>
-
-        <div className={classes.customItemContainer}>
-          <Typography>{t('toolsMenu.customIconLabel')}</Typography>
-          <ButtonBase
-            className={classes.buttonImage}
-            onClick={this.props.onClickUploadImage}
-          >
-            <Typography color="textSecondary">
-              {t('toolsMenu.customIconButton')}
-            </Typography>
-          </ButtonBase>
-        </div>
       </div>
     );
   }
@@ -364,6 +450,7 @@ const styles = (theme: Theme) => ({
   sectionContainer: {
     marginTop: theme.spacing(0),
   },
+
   itemContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -380,12 +467,45 @@ const styles = (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  spot: {
+    padding: theme.spacing(2),
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderRadius: 3,
+    borderColor: '#AAA',
+    color: '#626262',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  createIcon: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    background: theme.palette.primary.main,
+    color: 'white',
+    right: -15,
+    top: -15,
+  },
+  deleteIcon: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+    background: 'red',
+    color: 'white',
+    right: 50,
+    top: -15,
+  },
   itemSelected: {
     backgroundColor: '#EEE',
     borderColor: 'black',
   },
   customItemContainer: {
     marginTop: theme.spacing(2),
+    opacity: '35%',
   },
   buttonImage: {
     borderRadius: theme.spacing(1),
@@ -396,6 +516,25 @@ const styles = (theme: Theme) => ({
   },
   otherOptions: {
     marginTop: theme.spacing(2),
+  },
+  teacherHeight: {
+    color: '#626262',
+    opacity: '35%',
+  },
+  addSpotContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: theme.spacing(3),
+  },
+  addSpotButton: {
+    width: 45,
+    height: 45,
+    '&:hover': {
+      backgroundColor: '#E8E8E8',
+      borderRadius: theme.spacing(3),
+    },
   },
 });
 

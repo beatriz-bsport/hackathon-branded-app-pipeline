@@ -16,12 +16,16 @@ import {
 import CanvasScreenComponent from './tools/Screen/CanvasScreen.component';
 import CanvasTeacherComponent from './tools/Teacher/CanvasTeacher.component';
 import CanvasZoomButtons from './CanvasZoomButtons.component';
+import { SpotType } from '../types';
+import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 
 interface OwnProps {
   elements: CanvasElement<any>[];
   selectedTool: CanvasSelectableToolsEnum;
   strokeColor?: string;
   fillColor?: string;
+  wallStrokeColor?: string;
+  wallFillColor?: string;
   onElementsChange: (elements: CanvasElement<any>[]) => void;
   selectedElement?: CanvasElement<any>;
   onChangeSelectedElement: (element: CanvasElement<any>) => void;
@@ -30,6 +34,9 @@ interface OwnProps {
   disabledEdit?: boolean;
   showGrid: boolean;
   coach?: any;
+  coachHeight: number;
+  spotType?: number;
+  spotTypes: SpotType[];
 }
 
 type Props = OwnProps &
@@ -124,16 +131,22 @@ class CanvasViewController extends React.PureComponent<Props> {
 
   onSvgClick = (x: number, y: number, mouseEvent: any) => {
     if (this.tool && this.tool.onClick) {
-      const elements = this.tool.onClick({
-        x,
-        y,
-        elements: this.props.elements,
-        settings: {
-          fillColor: this.props.fillColor,
-          strokeColor: this.props.strokeColor,
+      const elements = this.tool.onClick(
+        {
+          x,
+          y,
+          elements: this.props.elements,
+          settings: {
+            fillColor: this.props.fillColor,
+            strokeColor: this.props.strokeColor,
+            wallFillColor: this.props.wallFillColor,
+            wallStrokeColor: this.props.wallStrokeColor,
+          },
+          mouseEvent,
         },
-        mouseEvent,
-      });
+        this.props.spotTypeId,
+        this.props.coachHeight,
+      );
       elements && this.props.onElementsChange(elements);
     }
   };
@@ -155,16 +168,21 @@ class CanvasViewController extends React.PureComponent<Props> {
     }
 
     if (this.tool && this.tool.onMove) {
-      const elements = this.tool.onMove({
-        x,
-        y,
-        elements: this.props.elements,
-        settings: {
-          fillColor: this.props.fillColor,
-          strokeColor: this.props.strokeColor,
+      const elements = this.tool.onMove(
+        {
+          x,
+          y,
+          elements: this.props.elements,
+          settings: {
+            fillColor: this.props.fillColor,
+            strokeColor: this.props.strokeColor,
+            wallFillColor: this.props.wallFillColor,
+            wallStrokeColor: this.props.wallStrokeColor,
+          },
+          mouseEvent,
         },
-        mouseEvent,
-      });
+        this.props.spotTypeId,
+      );
       elements && this.props.onElementsChange(elements);
     }
   };
@@ -176,16 +194,21 @@ class CanvasViewController extends React.PureComponent<Props> {
     }
 
     if (this.tool && this.tool.onMouseOut) {
-      this.tool.onMouseOut({
-        x: 0,
-        y: 0,
-        elements: this.props.elements,
-        settings: {
-          fillColor: this.props.fillColor,
-          strokeColor: this.props.strokeColor,
+      this.tool.onMouseOut(
+        {
+          x: 0,
+          y: 0,
+          elements: this.props.elements,
+          settings: {
+            fillColor: this.props.fillColor,
+            strokeColor: this.props.strokeColor,
+            wallFillColor: this.props.wallFillColor,
+            wallStrokeColor: this.props.wallStrokeColor,
+          },
+          mouseEvent,
         },
-        mouseEvent,
-      });
+        this.props.spotTypeId,
+      );
     }
   };
 
@@ -309,11 +332,24 @@ class CanvasViewController extends React.PureComponent<Props> {
         // @ts-ignore
         const tool = CanvasSelectableToolStrategy[elementOrDraft.draftType];
 
-        if (this.props.selectedTool !== elementOrDraft.draftType) {
+        if (this.state.isUnsafeZone) {
           return null;
         }
 
-        if (this.state.isUnsafeZone) {
+        if (elementOrDraft.draftType === 'spotCustomized') {
+          return this.props?.spotTypes?.map((spotType) => {
+            return (
+              <DraftComponent
+                key={`spot-${spotType?.id}`}
+                id={`spot-${spotType?.id}`}
+                getAsset={this.props.getAsset}
+                spotType={spotType}
+              />
+            );
+          });
+        }
+
+        if (this.props.selectedTool !== elementOrDraft.draftType) {
           return null;
         }
 
@@ -322,15 +358,15 @@ class CanvasViewController extends React.PureComponent<Props> {
             key={tool.draftId}
             id={tool.draftId}
             getAsset={this.props.getAsset}
+            coachHeight={this.props.coachHeight}
           />
         );
       }
-
       if (elementOrDraft.element) {
         const { element } = elementOrDraft;
         const Component = CanvasComponentClasses[elementOrDraft.element.type];
 
-        if (Component) {
+        if (Component || element.data.asset_identifier) {
           return (
             <Component
               key={element.id}
@@ -343,6 +379,15 @@ class CanvasViewController extends React.PureComponent<Props> {
               onMouseUp={(evt: any) => this.onMouseUpElement(evt, element)}
               {...element.data}
               coach={this.props.coach}
+              coachHeight={this.props.coachHeight}
+              spotType={
+                this.props?.spotTypes?.filter(
+                  (spotType) =>
+                    spotType.id ===
+                    (element?.data?.spotTypeId || DEFAULT_SPOT_TYPE_ID),
+                )[0] || null
+              }
+              selectingSpot={this.props?.selectingSpot}
             />
           );
         }
@@ -380,6 +425,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           showGrid={this.props.showGrid}
           onEnterUnsafeZone={() => this.setState({ isUnsafeZone: true })}
           onLeaveUnsafeZone={() => this.setState({ isUnsafeZone: false })}
+          disabledEdit={this.props.disabledEdit}
         >
           {this.renderElements()}
         </CanvasSvg>

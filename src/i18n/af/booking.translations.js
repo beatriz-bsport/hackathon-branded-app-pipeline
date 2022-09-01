@@ -291,6 +291,15 @@ exports.default = {
       bookingNumberSecond: '2ème réservation',
       bookingNumberThird: '3ème réservation',
       bookingNumberN: '{{notify_booking_nb}}ème réservation',
+      smartListSelection: 'Choisir des listes (optionnel)',
+      warning:
+        'En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours',
+      advanced: 'Avancé',
+      smartListHelper:
+        "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
+      smartListHelperInclude:
+        "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
+      createSmartList: 'Créer une smartlist',
       help: {
         text: 'Aide : la notification sera envoyée au membre lors de',
         attendance: 'sa présence n° {{notify_booking_nb}}',

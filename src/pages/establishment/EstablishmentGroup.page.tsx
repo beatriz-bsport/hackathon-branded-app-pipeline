@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { push } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -18,6 +19,8 @@ import {
   upsertEstablishmentGroup as upsertEstablishmentGroupAction,
   deleteEstablishmentGroup as deleteEstablishmentGroupAction,
 } from '../../libs/establishment/actions';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   getAssociatedEstablishmentGroup,
   withEstablishment,
@@ -254,6 +257,9 @@ export class EstablishmentGroup extends React.Component<Props> {
             closeForm={() =>
               this.setState({ establishmentGroupForNotificationCreation: null })
             }
+            goToSmartlist={this.props.goToSmartlist}
+            getSmartLists={this.props.getSmartLists}
+            smartLists={this.props.smartLists}
           />
         )}
         <MarketingRuleFormGeneric
@@ -267,6 +273,9 @@ export class EstablishmentGroup extends React.Component<Props> {
           onCancel={this.closeNotificationEditForm}
           closeForm={this.closeNotificationEditForm}
           onUpdateMarketingNotification={this.updateNotification}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
         />
       </>
     );
@@ -307,6 +316,8 @@ const mapStateToProps = (state: RootState, props: StateHandlerType) => ({
   ) as EmailTemplateSummary[],
   emailListLoading: state.emailTemplate.loading,
   emailDetailLoading: state.emailTemplate.detail.loading,
+  smartLists: getAllSmartList(state),
+  smartListLoading: state.smartList.loading,
 });
 const mapDispatchToProps = {
   fetchEmailTemplateDetail: emailTemplateDetail,
@@ -321,6 +332,8 @@ const mapDispatchToProps = {
   updateMarketingNotification: updateMarketingNotificationAction,
   deleteMarketingNotification: deleteMarketingNotificationAction,
   createMarketingNotification,
+  goToSmartlist: () => push('/smart-list/'),
+  getSmartLists: fetchAllSmartLists,
 };
 const mapWithHandlers = {
   upsertEstablishmentGroup:

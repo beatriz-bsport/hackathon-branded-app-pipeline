@@ -337,6 +337,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
+            smartLists={this.props.smartLists}
           />
           <MarketingRuleListPrivateBooking
             privateBookingNotifications={
@@ -347,6 +348,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             privateServiceById={this.props.privateServicebyId}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
+            smartLists={this.props.smartLists}
             onUpdateNotification={this.props.updateMarketingNotification}
           />
           <MarketingRuleListPaymentPack
@@ -371,6 +373,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
+            smartLists={this.props.smartLists}
           />
 
           <Typography className={classes.classTitle} variant="h5">

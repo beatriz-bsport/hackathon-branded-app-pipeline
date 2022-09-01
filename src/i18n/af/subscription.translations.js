@@ -218,6 +218,17 @@ exports.default = {
       warningHourLast:
         "Le nombre d'heures indiqué est par rapport à la date de la dernière facture à minuit",
     },
+    smartLists: {
+      smartListSelection: 'Choisir des listes (optionnel)',
+      warning:
+        'En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours',
+      advanced: 'Avancé',
+      smartListHelper:
+        "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
+      smartListHelperInclude:
+        "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
+      createSmartList: 'Créer une smartlist',
+    },
     sendingMethod: {
       title: "Méthode d'envoi",
       email: 'Mail',

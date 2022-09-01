@@ -21,6 +21,7 @@ import { DATE_FORMAT } from '../../../utils/datetime';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { centerMarker } from '../../../components/map/utils';
+import { SmartList } from '#libs/smart-list/types';
 
 const CENTER = [48.86, 2.33];
 const DEFAULT_SPORT = 7;
@@ -52,6 +53,9 @@ type OwnProps = {
   onDeleteRoomBlueprint: (r: RoomBlueprint) => void;
   onPreviewRoomBlueprint: (r: RoomBlueprint) => void;
   roomBlueprints: RoomBlueprint[];
+  goToSmartlist: () => void;
+  getSmartLists: () => void;
+  smartLists: SmartList[];
 };
 
 type Props = OwnProps &
@@ -205,6 +209,9 @@ export class EstablishmentDetail extends Component<Props, State> {
                 updateNotification={this.props.updateNotification}
                 deleteNotification={this.props.deleteNotification}
                 identifier="establishment"
+                goToSmartlist={this.props.goToSmartlist}
+                getSmartLists={this.props.getSmartLists}
+                smartLists={this.props.smartLists}
               />
             </Grid>
             <Grid item sm={12} md={6} className={classes.calendarBlock}>

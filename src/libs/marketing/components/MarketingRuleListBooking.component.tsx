@@ -24,6 +24,7 @@ import { MetaActivity } from '../../meta-activity/types';
 import { PrivateService } from '../../private-service/types';
 import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
+import { SmartList } from '#libs/smart-list/types';
 
 const getLabelForKind = (
   kind: BOOKING_EVENT_RULES | PRIVATEBOOKING_EVENT_RULES,
@@ -92,6 +93,7 @@ type OwnProps = {
   establishmentGroupById: { [key: string]: EstablishmentGroup };
   metaActivityBydId: { [key: string]: MetaActivity };
   privateServiceById: { [key: string]: PrivateService };
+  smartLists: SmartList[];
   emailSummariesById: { [key: string]: EmailTemplateSummary };
   onUpdateNotification: (
     id: number,
@@ -135,6 +137,7 @@ export class MarketingRuleListBooking extends React.PureComponent<
                 emailSummariesById={this.props.emailSummariesById}
                 onClickNotification={this.props.onClickNotification}
                 onUpdateNotification={this.props.onUpdateNotification}
+                smartLists={this.props.smartLists}
               />
             </div>
           );

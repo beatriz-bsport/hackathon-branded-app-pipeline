@@ -22,6 +22,7 @@ import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
+import { SmartList } from '#libs/smart-list/types';
 
 type Identifier =
   | 'birthday'
@@ -48,7 +49,7 @@ type OwnProps = {
   onCreateMarketingNotification: (n: MarketingNotification) => any;
   goToSmartlist: () => void;
   getSmartLists: () => void;
-  smartLists: any[];
+  smartLists: SmartList[];
   smartListLoading: boolean;
   metaActivities: MetaActivity[];
   workshopList: MetaActivity[];
@@ -230,6 +231,9 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
         />
       );
     }
@@ -248,6 +252,9 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
         />
       );
     }
@@ -291,6 +298,9 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
         />
       );
     }
@@ -309,6 +319,10 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
+          smartListLoading={this.props.smartListLoading}
         />
       );
     }

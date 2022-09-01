@@ -26,6 +26,8 @@ import { getContractNotifications } from '#libs/marketing/selectors';
 
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import {
@@ -163,6 +165,7 @@ export class ContractDetailPage extends Component<Props, State> {
                 this.props.setContractNotificationFormOpen
               }
               emails={this.props.email_templates_list}
+              smartLists={this.props.smartLists}
             />
 
             <div className={classes.notificationButtonContainer}>
@@ -187,6 +190,10 @@ export class ContractDetailPage extends Component<Props, State> {
                 initial={this.props.selectedNotification}
                 tags={getMergeTags(this.props.tagCategories, t)}
                 onSubmit={this.props.submitNotificationForm}
+                goToSmartlist={this.props.goToSmartlist}
+                getSmartLists={this.props.getSmartLists}
+                smartLists={this.props.smartLists}
+                smartListLoading={this.props.smartListLoading}
               />
             )}
           </Grid>
@@ -373,6 +380,8 @@ const connector = connect(
       items: getContractNotifications(state),
       loading: state.marketingNotification.loading,
     },
+    smartLists: getAllSmartList(state),
+    smartListLoading: state.smartList.loading,
   }),
   {
     fetchContractDetail: fetchContractDetailAction,
@@ -401,6 +410,8 @@ const connector = connect(
     updateMarketingNotification: updateMarketingNotificationAction,
     deleteMarketingNotification: deleteMarketingNotificationAction,
     createNotification: createMarketingNotificationAction,
+    goToSmartlist: () => push('/smart-list/'),
+    getSmartLists: fetchAllSmartLists,
   },
 );
 

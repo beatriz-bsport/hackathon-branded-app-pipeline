@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { compose, withState, withHandlers } from 'recompose';
+import { SmartList } from '#libs/smart-list/types';
 
 import MarketingRuleFormBooking from '../../marketing/components/marketing-rule-form/MarketingRuleFormBooking.component';
 
@@ -45,6 +46,9 @@ type Props = {
 
   closeForm: () => void;
   onSubmit: (data: any) => void;
+  goToSmartlist: () => void;
+  getSmartLists: () => void;
+  smartLists: SmartList[];
 };
 
 const BookingCreationNotification = (props: Props) => {
@@ -75,6 +79,7 @@ const BookingCreationNotification = (props: Props) => {
                       (email) => email.id === notif.email_design,
                     )?.title ?? ''
                   }
+                  smartLists={props.smartLists}
                 />
               </div>
               <Switch
@@ -130,6 +135,9 @@ const BookingCreationNotification = (props: Props) => {
           onCancel={props.closeForm}
           initial={props.selectedNotification}
           onSubmit={props.onSubmit}
+          goToSmartlist={props.goToSmartlist}
+          getSmartLists={props.getSmartLists}
+          smartLists={props.smartLists}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

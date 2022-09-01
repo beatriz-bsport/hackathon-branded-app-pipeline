@@ -38,9 +38,7 @@ import {
 } from '#components/forms';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
-import MaterialUISelector, {
-  OptionTypeBase,
-} from '#components/Selector/MaterialUISelector.component';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 import { MarketingNotification } from '../../types';
 import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
@@ -51,6 +49,7 @@ import {
   CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START,
 } from '#libs/payment-packs/utils';
 import HTMLPreview from '#components/html/HTMLPreview.component';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -301,17 +300,15 @@ const ProductNotificationForm = (props: Props) => {
           )}
           {verboseNotifKind !== 'creditsLeft' && (
             <>
+              <Typography variant="subtitle2" className={classes.spacingTop}>
+                {t('booking:notification.form.advanced')}
+              </Typography>
               <div className={classes.smartListSelector}>
                 <Typography variant="caption">
                   {t('notification.form.smartListHelper')}
                 </Typography>
-                <MaterialUISelector
-                  onChange={(selectedValues: Array<OptionTypeBase>) =>
-                    setFieldValue(
-                      'smartlist_exclude',
-                      selectedValues?.map((opt) => opt?.value),
-                    )
-                  }
+                <MaterialUiMultiSelectorField
+                  name="smartlist_exclude"
                   options={
                     smartListSelectOptions ? [...smartListSelectOptions] : []
                   }
@@ -327,13 +324,8 @@ const ProductNotificationForm = (props: Props) => {
                 <Typography variant="caption">
                   {t('notification.form.smartListHelperInclude')}
                 </Typography>
-                <MaterialUISelector
-                  onChange={(selectedValues: Array<OptionTypeBase>) =>
-                    setFieldValue(
-                      'smartlist_include',
-                      selectedValues?.map((opt) => opt?.value),
-                    )
-                  }
+                <MaterialUiMultiSelectorField
+                  name="smartlist_include"
                   options={
                     smartListSelectOptions ? [...smartListSelectOptions] : []
                   }
@@ -347,13 +339,18 @@ const ProductNotificationForm = (props: Props) => {
               </div>
               {!smartlist_include.length && !smartlist_exclude.length && (
                 <div className={classes.warningContainer}>
-                  <WarningIcon />
+                  <WarningIcon className={classes.warningIcon} />
                   <Typography
-                    style={{ marginRight: '8px', marginLeft: '16px' }}
+                    variant="body2"
+                    className={classes.warningContent}
                   >
                     {t('notification.form.warning')}
                   </Typography>
-                  <Button variant="outlined" onClick={goToSmartlist}>
+                  <Button
+                    variant="outlined"
+                    onClick={goToSmartlist}
+                    className={classes.createSmartList}
+                  >
                     {t('notification.form.createSmartList')}
                   </Button>
                 </div>
@@ -607,8 +604,9 @@ const useStyles = makeStyles((theme) => ({
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
+    justifyContent: 'space-between',
   },
   bottomButtons: {
     display: 'flex',
@@ -690,6 +688,18 @@ const useStyles = makeStyles((theme) => ({
   breakSpaces: {
     whiteSpace: 'break-spaces',
   },
+  warningContent: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    color: theme.palette.warning.main,
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+  },
+  createSmartList: {
+    borderColor: theme.palette.warning.main,
+    color: theme.palette.warning.main,
+  },
 }));
 
 const ProductNotificationSchema = Yup.object().shape({
@@ -714,8 +724,8 @@ const ProductNotificationSchema = Yup.object().shape({
         identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft',
       then: Yup.number().required(),
     }),
-  smartlist_include: Yup.array().of(Yup.number()).nullable(),
-  smartlist_exclude: Yup.array().of(Yup.number()).nullable(),
+  smartlist_include: Yup.array().of(Yup.number()),
+  smartlist_exclude: Yup.array().of(Yup.number()),
 
   atLeastOneChannel: Yup.boolean().when(
     ['send_notification_push', 'send_email'],

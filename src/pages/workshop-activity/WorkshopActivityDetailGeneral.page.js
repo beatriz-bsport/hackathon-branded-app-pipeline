@@ -12,6 +12,8 @@ import WorkshopDeleteDialog from '#libs/meta-activity/components/WorkshopDeleteD
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
 
 import { getWorkshops } from '#libs/meta-activity/selectors';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   getEventsByMetaActivity,
   withEstablishment,
@@ -55,6 +57,7 @@ import { OptionCallBack } from '../../state/types';
 import { SCT } from '#libs/category/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Tag, TagGroup } from '#libs/tag/types';
+import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   id: number,
@@ -94,6 +97,9 @@ type Props = {
   onSubmit: (values: MetaActivityType, options: OptionCallBack) => void,
   SCTs: Array<SCT>,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -188,6 +194,9 @@ export class WorkshopActivity extends Component<Props, State> {
           updateNotification={this.props.updateNotification}
           deleteNotification={this.props.deleteNotification}
           onEdit={this.onEdit}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
         />
         <BottomActionButtons
           onEdit={this.onEdit}
@@ -266,6 +275,8 @@ export default compose(
         loading: state.marketingNotification.loading,
       },
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      smartLists: getAllSmartList(state),
+      smartListLoading: state.smartList.loading,
     }),
     {
       fetchOffersByDay: fetchOffersByDayAction,
@@ -282,6 +293,8 @@ export default compose(
       deleteNotification: deleteMarketingNotificationAction,
       fetchNotifications: fetchMarketingNotificationListAction,
       upsertMetaActivity: upsert,
+      goToSmartlist: () => routerPush('/smart-list/'),
+      getSmartLists: fetchAllSmartLists,
     },
   ),
   withProps(

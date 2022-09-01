@@ -15,6 +15,8 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
 import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import { deleteMetaActivity, upsert } from '#libs/meta-activity/actions';
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   getMetaActivity,
   withCustomRestrictionsTags,
@@ -58,6 +60,7 @@ import { OptionCallBack } from '../../state/types';
 import { SCT } from '#libs/category/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Tag, TagGroup } from '#libs/tag/types';
+import { SmartList } from '#libs/smart-list/types';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -99,6 +102,9 @@ type Props = {
   onSubmit: (values: MetaActivityType, options: OptionCallBack) => void,
   SCTs: Array<SCT>,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -193,6 +199,9 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
           updateNotification={this.props.updateMarketingNotification}
           deleteNotification={this.props.deleteMarketingNotification}
           onEdit={this.onEdit}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
         />
         <BottomActionButtons
           onEdit={this.onEdit}
@@ -264,6 +273,8 @@ export default compose(
         loading: state.marketingNotification.loading,
       },
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      smartLists: getAllSmartList(state),
+      smartListLoading: state.smartList.loading,
     }),
     {
       fetchOffersByDay: fetchOffersByDayActions,
@@ -282,6 +293,8 @@ export default compose(
       updateMarketingNotification,
       deleteMarketingNotification: deleteMarketingNotificationAction,
       upsertMetaActivity: upsert,
+      goToSmartlist: () => routerPush('/smart-list/'),
+      getSmartLists: fetchAllSmartLists,
     },
   ),
   withProps(

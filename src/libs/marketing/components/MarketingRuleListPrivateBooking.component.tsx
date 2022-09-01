@@ -23,6 +23,7 @@ import { Establishment, EstablishmentGroup } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
 import { PrivateService } from '../../private-service/types';
 import MarketingNotificationsList from './MarketingRuleNotificationList.component';
+import { SmartList } from '#libs/smart-list/types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 
 const getLabelForKind = (
@@ -87,6 +88,7 @@ type OwnProps = {
     };
   };
 
+  smartLists: SmartList[];
   onClickNotification: (notification: MarketingNotification) => void;
   establishmentById: { [key: string]: Establishment };
   establishmentGroupById: { [key: string]: EstablishmentGroup };
@@ -156,6 +158,7 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
                     notifications={notifications}
                     emailSummariesById={this.props.emailSummariesById}
                     onClickNotification={this.props.onClickNotification}
+                    smartLists={this.props.smartLists}
                     onUpdateNotification={this.props.onUpdateNotification}
                   />
                 </div>

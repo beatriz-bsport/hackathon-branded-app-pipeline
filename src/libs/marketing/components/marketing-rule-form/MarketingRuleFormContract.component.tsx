@@ -11,6 +11,8 @@ import {
   Divider,
   CircularProgress,
   LinearProgress,
+  Grid,
+  ButtonBase,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -24,8 +26,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { TFunction } from 'i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import WarningIcon from '@material-ui/icons/Warning';
 import Tooltip from '#components/Tooltip.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
@@ -39,10 +45,12 @@ import {
   CheckboxField,
   TextField,
 } from '#components/forms';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { MarketingNotification } from '../../types';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import type { FeatureList } from '#libs/company/types';
 import { EmailTemplateDetail } from '#libs/email-editor/types';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -109,7 +117,6 @@ const renderEmptyOrLoading = (
     </div>
   );
 };
-
 const getEventRulesKind = (values: FinalFormikData) => {
   if (values.contractPeriod === CONTRACT_START) {
     return values.triggeringEvent === CONTRACT_CREATION
@@ -160,6 +167,9 @@ type Props = {
   errors: any;
   isSubmitting: boolean;
   tags: { [tag_name: string]: string[] };
+  smartLists: Array<any>;
+  getSmartLists: () => void;
+  goToSmartlist: () => void;
 } & FormikProps<InitialFormikValues>;
 
 const MarketingRuleFormContract = (props: Props) => {
@@ -177,6 +187,9 @@ const MarketingRuleFormContract = (props: Props) => {
     errors,
     isSubmitting,
     tags,
+    smartLists,
+    getSmartLists,
+    goToSmartlist,
   } = props;
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
@@ -184,7 +197,17 @@ const MarketingRuleFormContract = (props: Props) => {
   useEffect(() => {
     if (initial) getEmailDetail(initial.email_design);
     getEmails();
-  }, [initial, getEmailDetail, getEmails]);
+    getSmartLists();
+  }, [initial, getEmailDetail, getEmails, getSmartLists]);
+
+  const smartListSelectOptions: Array<OptionTypeBase> = smartLists?.map(
+    (sm) => ({
+      label: sm.name,
+      value: sm.id,
+    }),
+  );
+  const [openAdvancedOptions, setOpenAdvancedOptions] =
+    useState<boolean>(false);
 
   const {
     contractPeriod,
@@ -198,6 +221,8 @@ const MarketingRuleFormContract = (props: Props) => {
     notificationTitle,
     daysCountdown1,
     daysCountdown2,
+    smartlist_exclude,
+    smartlist_include,
   } = values;
 
   return (
@@ -343,6 +368,90 @@ const MarketingRuleFormContract = (props: Props) => {
                 </div>
               </>
             )}
+          <Divider className={classes.divider} />
+          <div className={classes.advancedOptionsSection}>
+            <Grid container spacing={4}>
+              <div className={classes.row}>
+                <ButtonBase
+                  onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+                  className={classes.advancedOptionsHeader}
+                >
+                  <div className={classes.rowLeft}>
+                    <SettingsIcon className={classes.icon} />
+                    <Typography variant="h6">
+                      {t('notificationForm.smartLists.advanced')}
+                    </Typography>
+                  </div>
+                  {openAdvancedOptions ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ButtonBase>
+              </div>
+              <Collapse in={openAdvancedOptions} style={{ width: '100%' }}>
+                <div className={classes.smartListSelector}>
+                  <Typography variant="caption">
+                    {t('notificationForm.smartLists.smartListHelper')}
+                  </Typography>
+                  <MaterialUiMultiSelectorField
+                    name="smartlist_exclude"
+                    options={
+                      smartListSelectOptions ? [...smartListSelectOptions] : []
+                    }
+                    placeholder={t(
+                      'notificationForm.smartLists.smartListSelection',
+                    )}
+                    isMulti
+                    isClearable
+                    value={smartListSelectOptions?.filter((opt) =>
+                      smartlist_exclude?.includes(opt?.value),
+                    )}
+                  />
+                </div>
+                <div className={classes.smartListSelector}>
+                  <Typography variant="caption">
+                    {t('notificationForm.smartLists.smartListHelperInclude')}
+                  </Typography>
+                  <MaterialUiMultiSelectorField
+                    name="smartlist_include"
+                    options={
+                      smartListSelectOptions ? [...smartListSelectOptions] : []
+                    }
+                    placeholder={t(
+                      'notificationForm.smartLists.smartListSelection',
+                    )}
+                    isMulti
+                    isClearable
+                    value={smartListSelectOptions?.filter((opt) =>
+                      smartlist_include?.includes(opt?.value),
+                    )}
+                  />
+                </div>
+                {!smartlist_include.length && !smartlist_exclude.length && (
+                  <div className={classes.warningContainerSmartlist}>
+                    <WarningIcon className={classes.warningIcon} />
+                    <Typography
+                      variant="body2"
+                      className={classes.warningContent}
+                    >
+                      {t('notificationForm.smartLists.warning')}
+                      sheehd
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={goToSmartlist}
+                      className={classes.createSmartList}
+                    >
+                      {t('notificationForm.smartLists.createSmartList')}
+                    </Button>
+                  </div>
+                )}
+              </Collapse>
+            </Grid>
+          </div>
+          <Divider className={classes.divider} />
+
           {contractPeriod === CONTRACT_START &&
             triggeringEvent === FIRST_BILLING && (
               <>
@@ -855,7 +964,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'red',
   },
   spacingTop: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
   },
   spacingBottom: {
     marginBottom: theme.spacing(2),
@@ -869,6 +978,61 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginLeft: theme.spacing(-4),
     marginRight: theme.spacing(-4),
+  },
+
+  smartListSelector: {
+    marginTop: theme.spacing(2),
+  },
+  warningContainerSmartlist: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    justifyContent: 'space-between',
+  },
+  warningContent: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    color: theme.palette.warning.main,
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+  },
+  createSmartList: {
+    borderColor: theme.palette.warning.main,
+    color: theme.palette.warning.main,
+  },
+  column: { display: 'flex', flexDirection: 'column', gap: theme.spacing(1) },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  },
+  icon: {
+    display: 'flex',
+    alignItems: 'center',
+    color: '#868686',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  advancedOptionsSection: {
+    paddingTop: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
+  },
+  padding: {
+    paddingRight: theme.spacing(3),
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
+  rowLeft: { display: 'flex', gap: theme.spacing(2), alignItems: 'center' },
+  advancedOptionsHeader: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }));
 
@@ -908,6 +1072,8 @@ const MarketingRuleFormContractSchema = Yup.object().shape({
     then: Yup.number().required(),
     otherwise: Yup.number().nullable(),
   }),
+  smartlist_include: Yup.array().of(Yup.number()),
+  smartlist_exclude: Yup.array().of(Yup.number()),
 });
 
 export default compose<any, Props>(
@@ -926,7 +1092,13 @@ export default compose<any, Props>(
           push_notification_title,
           push_notification_content,
         } = initial;
-        const { contract_id, days, hours } = initial.event_rules;
+        const {
+          contract_id,
+          days,
+          hours,
+          smartlist_include,
+          smartlist_exclude,
+        } = initial.event_rules;
         return {
           send_email: !!email_design,
           send_notification_push:
@@ -941,6 +1113,8 @@ export default compose<any, Props>(
           notificationTitle: push_notification_title,
           daysCountdown1: Math.abs(days || hours),
           daysCountdown2: Math.abs(days || hours),
+          smartlist_include: smartlist_include || [],
+          smartlist_exclude: smartlist_exclude || [],
         };
       }
       return {
@@ -955,6 +1129,8 @@ export default compose<any, Props>(
         send_notification_push: false,
         notificationContent: '',
         notificationTitle: '',
+        smartlist_include: [],
+        smartlist_exclude: [],
       };
     },
     validationSchema: MarketingRuleFormContractSchema,
@@ -976,6 +1152,8 @@ export default compose<any, Props>(
           contract_id: values.contract_id,
           days: values.periodScale === DAY ? getPeriodCount(values) : null,
           hours: values.periodScale === HOUR ? getPeriodCount(values) : null,
+          smartlist_include: values.smartlist_include,
+          smartlist_exclude: values.smartlist_exclude,
         },
       };
       onSubmit(data, {

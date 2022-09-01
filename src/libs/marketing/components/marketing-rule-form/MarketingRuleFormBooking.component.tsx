@@ -16,6 +16,7 @@ import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import InfoIcon from '@material-ui/icons/Info';
 
+import WarningIcon from '@material-ui/icons/Warning';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { useTranslation } from 'react-i18next';
@@ -37,6 +38,8 @@ import {
 } from '#components/forms';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -60,6 +63,9 @@ type Props = {
   setFieldValue: (key: string, value: any) => void;
   errors: any;
   tags: { [tag_name: string]: string[] };
+  smartLists: Array<any>;
+  getSmartLists: () => void;
+  goToSmartlist: () => void;
 };
 
 const getNotificationKind = (kind: number) => {
@@ -119,6 +125,9 @@ const MarketingRuleFormBooking = (props: Props) => {
     setFieldValue,
     errors,
     tags,
+    smartLists,
+    getSmartLists,
+    goToSmartlist,
   } = props;
   const { t } = useTranslation(['booking', 'paymentPack']);
   const classes = useStyles();
@@ -131,6 +140,8 @@ const MarketingRuleFormBooking = (props: Props) => {
     send_notification_push,
     notificationContent,
     notificationTitle,
+    smartlist_exclude,
+    smartlist_include,
   } = values;
   const [formIsSecondStep, setFormIsSecondStep] = useState(false);
   const [displayMailPreview, setDisplayMailPreview] = useState(false);
@@ -144,8 +155,15 @@ const MarketingRuleFormBooking = (props: Props) => {
   useEffect(() => {
     if (initial) getEmailDetail(initial.email_design);
     getEmails();
-  }, [initial, getEmails, getEmailDetail]);
+    getSmartLists();
+  }, [initial, getEmails, getEmailDetail, getSmartLists]);
 
+  const smartListSelectOptions: Array<OptionTypeBase> = smartLists?.map(
+    (sm) => ({
+      label: sm.name,
+      value: sm.id,
+    }),
+  );
   // Update kind when bookingStatus changes so that we always have a checked
   // radio input on the screen
   if (
@@ -348,6 +366,67 @@ const MarketingRuleFormBooking = (props: Props) => {
                 </Typography>
               </div>
             </div>
+            <>
+              <Typography variant="subtitle2" className={classes.spacingTop}>
+                {t('booking:notification.form.advanced')}
+              </Typography>
+              <div className={classes.smartListSelector}>
+                <Typography variant="caption">
+                  {t('booking:notification.form.smartListHelper')}
+                </Typography>
+                <MaterialUiMultiSelectorField
+                  name="smartlist_exclude"
+                  options={
+                    smartListSelectOptions ? [...smartListSelectOptions] : []
+                  }
+                  placeholder={t(
+                    'booking:notification.form.smartListSelection',
+                  )}
+                  isMulti
+                  isClearable
+                  value={smartListSelectOptions?.filter((opt) =>
+                    smartlist_exclude?.includes(opt?.value),
+                  )}
+                />
+              </div>
+              <div className={classes.smartListSelector}>
+                <Typography variant="caption">
+                  {t('booking:notification.form.smartListHelperInclude')}
+                </Typography>
+                <MaterialUiMultiSelectorField
+                  name="smartlist_include"
+                  options={
+                    smartListSelectOptions ? [...smartListSelectOptions] : []
+                  }
+                  placeholder={t(
+                    'booking:notification.form.smartListSelection',
+                  )}
+                  isMulti
+                  isClearable
+                  value={smartListSelectOptions?.filter((opt) =>
+                    smartlist_include?.includes(opt?.value),
+                  )}
+                />
+              </div>
+              {!smartlist_include.length && !smartlist_exclude.length && (
+                <div className={classes.warningContainer}>
+                  <WarningIcon className={classes.warningIcon} />
+                  <Typography
+                    variant="body2"
+                    className={classes.warningContent}
+                  >
+                    {t('booking:notification.form.warning')}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    onClick={goToSmartlist}
+                    className={classes.createSmartList}
+                  >
+                    {t('booking:notification.form.createSmartList')}
+                  </Button>
+                </div>
+              )}
+            </>
             <FeatureListProvider>
               {(featureList) => {
                 const hasUpsell =
@@ -597,6 +676,27 @@ const useStyles = makeStyles((theme) => ({
   notificationInput: {
     marginTop: theme.spacing(2),
   },
+  smartListSelector: {
+    marginTop: theme.spacing(2),
+  },
+  warningContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+  },
+  warningContent: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    color: theme.palette.warning.main,
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+  },
+  createSmartList: {
+    borderColor: theme.palette.warning.main,
+    color: theme.palette.warning.main,
+  },
 }));
 
 const BookingNotificationSchema = Yup.object().shape({
@@ -626,6 +726,8 @@ const BookingNotificationSchema = Yup.object().shape({
     then: Yup.number().required(),
     otherwise: Yup.number().nullable(),
   }),
+  smartlist_include: Yup.array().of(Yup.number()),
+  smartlist_exclude: Yup.array().of(Yup.number()),
 });
 
 export default compose(
@@ -645,6 +747,8 @@ export default compose(
           meta_activity_id,
           notify_booking_nb,
           hours,
+          smartlist_include,
+          smartlist_exclude,
         } = initial.event_rules;
 
         return {
@@ -663,6 +767,8 @@ export default compose(
           kind,
           when: hours > 0 ? 'after' : 'before',
           notifyAllEvents: notify_booking_nb === 0,
+          smartlist_include: smartlist_include || [],
+          smartlist_exclude: smartlist_exclude || [],
         };
       }
       const values = {
@@ -678,6 +784,8 @@ export default compose(
         hours: 2,
         kind: BOOKING_NOTIFICATION_VALID_ATTENDANCE,
         bookingStatus: 'valid',
+        smartlist_include: [],
+        smartlist_exclude: [],
       };
       if (identifier === 'establishment') {
         values.establishment_id = objectId;
@@ -718,6 +826,8 @@ export default compose(
             : values.notify_booking_nb,
           kind: parseInt(values.kind, 10),
           hours: values.when === 'before' ? values.hours * -1 : values.hours,
+          smartlist_include: values.smartlist_include,
+          smartlist_exclude: values.smartlist_exclude,
         },
       };
       onSubmit(data);

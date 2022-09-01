@@ -20,6 +20,7 @@ import { MarketingNotification } from '../types';
 import { Contract } from '#libs/subscription/types.ts';
 import MarketingNotificationsList from './MarketingRuleNotificationList.component';
 import { EmailTemplateSummary } from '../../email-editor/types';
+import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   contractNotifications: { [key: string]: MarketingNotification[] };
@@ -30,6 +31,7 @@ type Props = {
     id: number,
     data: DeepPartial<MarketingNotification>,
   ) => void;
+  smartLists: SmartList[];
 };
 
 const ContractNotificationList: React.FC<Props> = (props: Props) => {
@@ -119,6 +121,7 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                             notifications={contractStartCreation}
                             emailSummariesById={props.emailSummariesById}
                             onClickNotification={props.onClickNotification}
+                            smartLists={props.smartLists}
                             onUpdateNotification={props.onUpdateNotification}
                           />
                         </div>
@@ -134,6 +137,7 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                             notifications={contractStartFirstBilling}
                             emailSummariesById={props.emailSummariesById}
                             onClickNotification={props.onClickNotification}
+                            smartLists={props.smartLists}
                             onUpdateNotification={props.onUpdateNotification}
                           />
                         </div>
@@ -154,6 +158,7 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                           notifications={contractEnd}
                           emailSummariesById={props.emailSummariesById}
                           onClickNotification={props.onClickNotification}
+                          smartLists={props.smartLists}
                           onUpdateNotification={props.onUpdateNotification}
                         />
                       </div>

@@ -253,6 +253,12 @@
         "bookingNumberSecond": "2ème réservation",
         "bookingNumberThird": "3ème réservation",
         "bookingNumberN": "{{notify_booking_nb}}ème réservation",
+        "smartListSelection": "Choisir des listes (optionnel)",
+        "warning": "En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours",
+        "advanced": "Avancé",
+        "smartListHelper": "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
+        "smartListHelperInclude": "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
+        "createSmartList": "Créer une smartlist",
         "help": {
           "text": "Aide : la notification sera envoyée au membre lors de",
           "attendance": "sa présence n° {{notify_booking_nb}}",
@@ -7835,6 +7841,14 @@
         "warningHourFirst": "Le nombre d'heures indiqué est par rapport à la date de la première facture à minuit",
         "warningDayLast": "Le nombre de jours indiqué est par rapport à la date de la dernière facture à minuit",
         "warningHourLast": "Le nombre d'heures indiqué est par rapport à la date de la dernière facture à minuit"
+      },
+      "smartLists": {
+        "smartListSelection": "Choisir des listes (optionnel)",
+        "warning": "En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours",
+        "advanced": "Avancé",
+        "smartListHelper": "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
+        "smartListHelperInclude": "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
+        "createSmartList": "Créer une smartlist"
       },
       "sendingMethod": { "title": "Méthode d'envoi", "email": "Mail", "notificationPush": "Notification push" },
       "emailNotification": { "parameters": "Paramètres du mail", "emailToSend": "Mail à envoyer" },

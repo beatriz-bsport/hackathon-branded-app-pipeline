@@ -12,6 +12,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
   fetchOffersByDay as fetchOffersByDayAction,
   fetchEstablishmentEvents as fetchEstablishmentEventsAction,
@@ -64,6 +66,7 @@ import {
 import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
+import { SmartList } from '#libs/smart-list/types';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -116,6 +119,10 @@ type Props = {
       max_date: string,
     },
   ) => void,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
+  smartListLoading: Boolean,
 };
 
 type State = {
@@ -170,6 +177,10 @@ export class EstablishmentDetails extends React.Component<Props, State> {
           onEditRoomBlueprint={this.props.gotoSpotSchedulingEditor}
           onPreviewRoomBlueprint={this.props.setPreviewBlueprint}
           roomBlueprints={this.props.roomBlueprints}
+          goToSmartlist={this.props.goToSmartlist}
+          getSmartLists={this.props.getSmartLists}
+          smartLists={this.props.smartLists}
+          smartListLoading={this.props.smartListLoading}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
@@ -243,6 +254,8 @@ export default compose(
       theme: state.theme.theme,
       roomBlueprints: getRoomBlueprintsForEstablishment(state, id),
       assetsByBlueprintByIdentifier: getAssetForEstablishment(state, id),
+      smartLists: getAllSmartList(state),
+      smartListLoading: state.smartList.loading,
     }),
     {
       fetchEstablishmentBulk,
@@ -266,6 +279,8 @@ export default compose(
       fetchRoomBlueprints,
       fetchAssetForBlueprint,
       pushRouter: push,
+      goToSmartlist: () => push('/smart-list/'),
+      getSmartLists: fetchAllSmartLists,
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({

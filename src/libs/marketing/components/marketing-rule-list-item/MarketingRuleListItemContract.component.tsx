@@ -21,6 +21,7 @@ import { EmailTemplateSummary } from '#libs/email-editor/types.ts';
 import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';
 import { MarketingNotification } from '#libs/marketing/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { SmartList } from '#libs/smart-list/types';
 
 type OwnProps = {
   updateNotification: (id: number, data: any) => void;
@@ -32,6 +33,7 @@ type OwnProps = {
   setSelectedNotification: (n: MarketingNotification) => void;
   setContractNotificationFormOpen: (v: boolean) => void;
   emails: EmailTemplateSummary[];
+  smartLists: SmartList[];
 };
 
 type Props = OwnProps &
@@ -85,6 +87,7 @@ class MarketingRuleListItemContract extends React.PureComponent<Props> {
                       (email) => email.id === notif.email_design,
                     )?.title ?? ''
                   }
+                  smartLists={this.props.smartLists}
                 />
                 <div className={classes.secondaryAction}>
                   <Switch

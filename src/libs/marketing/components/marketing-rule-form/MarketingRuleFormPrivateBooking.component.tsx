@@ -17,6 +17,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import InfoIcon from '@material-ui/icons/Info';
 import { DialogContent } from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
@@ -34,6 +35,9 @@ import {
 } from '#components/forms';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { SmartList } from '#libs/smart-list/types';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
@@ -55,6 +59,9 @@ type Props = {
   values: any;
   setFieldValue: (key: string, value: any) => void;
   errors: any;
+  smartLists: Array<SmartList>;
+  getSmartLists: () => void;
+  goToSmartlist: () => void;
   tags: { [tag_name: string]: string[] };
 };
 
@@ -113,6 +120,9 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
     setFieldValue,
     errors,
     tags,
+    smartLists,
+    getSmartLists,
+    goToSmartlist,
   } = props;
 
   const { t } = useTranslation(['paymentPack', 'privateService']);
@@ -124,6 +134,8 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
     send_notification_push,
     notificationContent,
     notificationTitle,
+    smartlist_exclude,
+    smartlist_include,
   } = values;
   const classes = useStyles();
   const [formIsSecondStep, setFormIsSecondStep] = useState(false);
@@ -138,8 +150,15 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
   useEffect(() => {
     if (initial) getEmailDetail(initial.email_design);
     getEmails();
-  }, [initial, getEmailDetail, getEmails]);
+    getSmartLists();
+  }, [initial, getEmailDetail, getEmails, getSmartLists]);
 
+  const smartListSelectOptions: Array<OptionTypeBase> = smartLists?.map(
+    (sm) => ({
+      label: sm.name,
+      value: sm.id,
+    }),
+  );
   const getWordingBefore = () => {
     if (send_email && send_notification_push)
       return 'privateService:privateBookingNotification.form.chooseWhen.beforeNotifications';
@@ -293,6 +312,63 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
                   </Typography>
                 </div>
               </div>
+              <>
+                <Typography variant="subtitle2" className={classes.spacingTop}>
+                  {t('booking:notification.form.advanced')}
+                </Typography>
+                <div className={classes.smartListSelector}>
+                  <Typography variant="caption">
+                    {t('notification.form.smartListHelper')}
+                  </Typography>
+                  <MaterialUiMultiSelectorField
+                    name="smartlist_exclude"
+                    options={
+                      smartListSelectOptions ? [...smartListSelectOptions] : []
+                    }
+                    placeholder={t('notification.form.smartListSelection')}
+                    isMulti
+                    isClearable
+                    value={smartListSelectOptions?.filter((opt) =>
+                      smartlist_exclude?.includes(opt?.value),
+                    )}
+                  />
+                </div>
+                <div className={classes.smartListSelector}>
+                  <Typography variant="caption">
+                    {t('notification.form.smartListHelperInclude')}
+                  </Typography>
+                  <MaterialUiMultiSelectorField
+                    name="smartlist_include"
+                    options={
+                      smartListSelectOptions ? [...smartListSelectOptions] : []
+                    }
+                    placeholder={t('notification.form.smartListSelection')}
+                    isMulti
+                    isClearable
+                    value={smartListSelectOptions?.filter((opt) =>
+                      smartlist_include?.includes(opt?.value),
+                    )}
+                  />
+                </div>
+                {!smartlist_include.length && !smartlist_exclude.length && (
+                  <div className={classes.warningContainer}>
+                    <WarningIcon className={classes.warningIcon} />
+                    <Typography
+                      variant="body2"
+                      className={classes.warningContent}
+                    >
+                      {t('notification.form.warning')}
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={goToSmartlist}
+                      className={classes.createSmartList}
+                    >
+                      {t('notification.form.createSmartList')}
+                    </Button>
+                  </div>
+                )}
+              </>
               <FeatureListProvider>
                 {(featureList) => {
                   const hasUpsell =
@@ -337,6 +413,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
                   );
                 }}
               </FeatureListProvider>
+
               <Typography
                 variant="subtitle1"
                 className={classNames(
@@ -549,6 +626,27 @@ const useStyles = makeStyles((theme) => ({
   notificationInput: {
     marginTop: theme.spacing(2),
   },
+  smartListSelector: {
+    marginTop: theme.spacing(2),
+  },
+  warningContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    justifyContent: 'space-between',
+  },
+  warningContent: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+  },
+  createSmartList: {
+    borderColor: theme.palette.warning.main,
+    color: theme.palette.warning.main,
+  },
 }));
 
 const PrivateBookingNotificationSchema = Yup.object().shape({
@@ -576,6 +674,8 @@ const PrivateBookingNotificationSchema = Yup.object().shape({
     then: Yup.number().required(),
     otherwise: Yup.number().nullable(),
   }),
+  smartlist_include: Yup.array().of(Yup.number()),
+  smartlist_exclude: Yup.array().of(Yup.number()),
 });
 
 export default compose(
@@ -588,8 +688,14 @@ export default compose(
           push_notification_title,
           push_notification_content,
         } = initial;
-        const { kind, private_service_id, notify_booking_nb, hours } =
-          initial.event_rules;
+        const {
+          kind,
+          private_service_id,
+          notify_booking_nb,
+          hours,
+          smartlist_include,
+          smartlist_exclude,
+        } = initial.event_rules;
 
         return {
           send_email: !!email_design,
@@ -605,6 +711,8 @@ export default compose(
           kind,
           when: hours > 0 ? 'after' : 'before',
           notifyAllEvents: notify_booking_nb === 0,
+          smartlist_include: smartlist_include || [],
+          smartlist_exclude: smartlist_exclude || [],
         };
       }
       return {
@@ -620,6 +728,8 @@ export default compose(
         notify_booking_nb: 1,
         hours: 2,
         kind: PRIVATE_BOOKING_NOTIFICATION_KIND_VALID,
+        smartlist_include: [],
+        smartlist_exclude: [],
       };
     },
     validationSchema: PrivateBookingNotificationSchema,
@@ -640,6 +750,8 @@ export default compose(
             : values.notify_booking_nb,
           kind: parseInt(values.kind, 10),
           hours: values.when === 'before' ? values.hours * -1 : values.hours,
+          smartlist_include: values.smartlist_include,
+          smartlist_exclude: values.smartlist_exclude,
         },
       };
       onSubmit(data);

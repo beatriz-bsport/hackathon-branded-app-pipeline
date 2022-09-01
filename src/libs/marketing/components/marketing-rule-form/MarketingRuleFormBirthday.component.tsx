@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import WarningIcon from '@material-ui/icons/Warning';
 import InfoIcon from '@material-ui/icons/Info';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -31,6 +32,9 @@ import { Actions, Submit, CheckboxField, TextField } from '#components/forms';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
 import HTMLPreview from '#components/html/HTMLPreview.component';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   getEmails: () => void;
@@ -46,6 +50,9 @@ type Props = {
   errors: any;
   isSubmitting: boolean;
   tags: { [tag_name: string]: string[] };
+  smartLists: Array<SmartList>;
+  getSmartLists: () => void;
+  goToSmartlist: () => void;
 };
 
 const renderEmptyOrLoading = (
@@ -92,6 +99,9 @@ const MarketingRuleFormBirthday = (props: Props) => {
     errors,
     isSubmitting,
     tags,
+    smartLists,
+    getSmartLists,
+    goToSmartlist,
   } = props;
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
@@ -102,13 +112,22 @@ const MarketingRuleFormBirthday = (props: Props) => {
     notificationContent,
     notificationTitle,
     email_design,
+    smartlist_exclude,
+    smartlist_include,
   } = values;
 
   useEffect(() => {
     if (initial) getEmailDetail(initial.email_design);
     getEmails();
-  }, [initial, getEmailDetail, getEmails]);
+    getSmartLists();
+  }, [initial, getEmailDetail, getEmails, getSmartLists]);
 
+  const smartListSelectOptions: Array<OptionTypeBase> = smartLists?.map(
+    (sm) => ({
+      label: sm.name,
+      value: sm.id,
+    }),
+  );
   return (
     <GenericResponsiveDrawer
       open
@@ -157,6 +176,60 @@ const MarketingRuleFormBirthday = (props: Props) => {
             );
           }}
         </FeatureListProvider>
+        <>
+          <Typography variant="subtitle2" className={classes.spacingTop}>
+            {t('booking:notification.form.advanced')}
+          </Typography>
+          <div className={classes.smartListSelector}>
+            <Typography variant="caption">
+              {t('notification.form.smartListHelper')}
+            </Typography>
+            <MaterialUiMultiSelectorField
+              name="smartlist_exclude"
+              options={
+                smartListSelectOptions ? [...smartListSelectOptions] : []
+              }
+              placeholder={t('notification.form.smartListSelection')}
+              isMulti
+              isClearable
+              value={smartListSelectOptions?.filter((opt) =>
+                smartlist_exclude?.includes(opt?.value),
+              )}
+            />
+          </div>
+          <div className={classes.smartListSelector}>
+            <Typography variant="caption">
+              {t('notification.form.smartListHelperInclude')}
+            </Typography>
+            <MaterialUiMultiSelectorField
+              name="smartlist_include"
+              options={
+                smartListSelectOptions ? [...smartListSelectOptions] : []
+              }
+              placeholder={t('notification.form.smartListSelection')}
+              isMulti
+              isClearable
+              value={smartListSelectOptions?.filter((opt) =>
+                smartlist_include?.includes(opt?.value),
+              )}
+            />
+          </div>
+          {!smartlist_include.length && !smartlist_exclude.length && (
+            <div className={classes.warningContainerSmartLists}>
+              <WarningIcon className={classes.warningIcon} />
+              <Typography variant="body2" className={classes.warningContent}>
+                {t('notification.form.warning')}
+              </Typography>
+              <Button
+                variant="outlined"
+                onClick={goToSmartlist}
+                className={classes.createSmartList}
+              >
+                {t('notification.form.createSmartList')}
+              </Button>
+            </div>
+          )}
+        </>
         <Typography
           variant="subtitle1"
           className={classNames(
@@ -294,7 +367,7 @@ const useStyles = makeStyles((theme) => ({
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
   },
   bottomButtons: {
@@ -358,6 +431,28 @@ const useStyles = makeStyles((theme) => ({
   flex: {
     display: 'flex',
   },
+  smartListSelector: {
+    marginTop: theme.spacing(2),
+  },
+  warningContainerSmartLists: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    justifyContent: 'space-between',
+  },
+  warningContent: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    color: theme.palette.warning.main,
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+  },
+  createSmartList: {
+    borderColor: theme.palette.warning.main,
+    color: theme.palette.warning.main,
+  },
 }));
 
 const BirthdayNotificationSchema = Yup.object().shape({
@@ -379,6 +474,8 @@ const BirthdayNotificationSchema = Yup.object().shape({
     then: Yup.number().required(),
     otherwise: Yup.number().nullable(),
   }),
+  smartlist_include: Yup.array().of(Yup.number()),
+  smartlist_exclude: Yup.array().of(Yup.number()),
 });
 
 export default compose(
@@ -391,6 +488,7 @@ export default compose(
           push_notification_title,
           push_notification_content,
         } = initial;
+        const { smartlist_include, smartlist_exclude } = initial.event_rules;
         return {
           email_design,
           send_email: !!email_design,
@@ -398,6 +496,8 @@ export default compose(
             push_notification_title !== '' || push_notification_content !== '',
           notificationContent: push_notification_content,
           notificationTitle: push_notification_title,
+          smartlist_include: smartlist_include || [],
+          smartlist_exclude: smartlist_exclude || [],
         };
       }
       const values = {
@@ -405,6 +505,8 @@ export default compose(
         send_notification_push: false,
         notificationContent: '',
         notificationTitle: '',
+        smartlist_include: [],
+        smartlist_exclude: [],
       };
       return values;
     },
@@ -419,6 +521,10 @@ export default compose(
           ? values.notificationContent
           : '',
         kind: NOTIFICATION_KIND.BIRTHDAY,
+        event_rules: {
+          smartlist_include: values.smartlist_include,
+          smartlist_exclude: values.smartlist_exclude,
+        },
       };
 
       onSubmit(data);

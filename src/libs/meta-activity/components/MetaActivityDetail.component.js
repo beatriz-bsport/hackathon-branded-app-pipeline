@@ -18,6 +18,7 @@ import TimeTable from '../../../components/offer/TimeTable.component';
 import { DATE_FORMAT } from '../../../utils/datetime';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import MetaActivityCard from './MetaActivityCard.component';
+import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   metaActivity: MetaActivity,
@@ -43,6 +44,9 @@ type Props = {
   classes: Object,
   t: TFunction,
   onEdit: () => void,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
 };
 
 const getEvents = memoize((events) => {
@@ -78,6 +82,9 @@ export const MetaActivityDetail = (props: Props) => {
           updateNotification={props.updateNotification}
           deleteNotification={props.deleteNotification}
           identifier="meta_activity"
+          goToSmartlist={props.goToSmartlist}
+          getSmartLists={props.getSmartLists}
+          smartLists={props.smartLists}
         />
       </Grid>
       <Grid item sm={12} md={6} className={classes.panel}>

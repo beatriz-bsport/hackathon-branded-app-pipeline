@@ -5005,7 +5005,13 @@
                 "sendAfterNotifications": "Stuur deze melding nadat de sessie afgelopen is",
                 "sendAfterNotification": "Stuur deze push-notificatie nadat de sessie afgelopen is",
                 "sendBeforeNotifications": "Stuur deze meldingen voor het begin van de sessie",
-                "sendBeforeNotification": "Stuur deze push-notificatie voor het begin van de sessie"
+                "sendBeforeNotification": "Stuur deze push-notificatie voor het begin van de sessie",
+                "createSmartList": "Een Smartlist toevoegen",
+                "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
+                "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
+                "advanced": "Gevorderd",
+                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
+                "smartListSelection": "(Optioneel) Selecteer Smartlists"
             },
             "addNotification": "Een melding toevoegen",
             "title": "Melding"
@@ -5159,7 +5165,9 @@
                     "label": "E-mail"
                 }
             }
-        }
+        },
+        "place": "Plaats",
+        "unlimited": "Ongelimiteerd"
     },
     "marketplace": {
         "selector": {
@@ -5886,6 +5894,14 @@
             "buttons": {
                 "cancel": "Annuleren",
                 "submit": "Opslaan"
+            },
+            "smartLists": {
+                "createSmartList": "Een Smartlist toevoegen",
+                "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
+                "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
+                "advanced": "Gevorderd",
+                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
+                "smartListSelection": "(Optioneel) Selecteer Smartlists"
             }
         },
         "notification": {
@@ -9566,7 +9582,7 @@
             "date_joined": "Datum van inschrijving",
             "member_pk": "Aantal nieuwe leden",
             "member_pk_accumulate": "Aantal leden",
-            "booking_pk": "Aantal boekingen",
+            "booking_pk": "Reserveringen",
             "is_recurrent_booking": "Terugkerende boeking",
             "source_device": "Oorsprong",
             "privatebooking_pk": "Aantal afspraken",
@@ -11786,7 +11802,9 @@
             "customIconButton": "Pictogrammen uploaden",
             "customIconLabel": "Pictogrammen",
             "hand": "Hand",
-            "pointer": "Muis"
+            "pointer": "Muis",
+            "addSpotType": "Een type plaats toevoegen",
+            "helperText": "De grootte moet positief zijn."
         },
         "placeCount": "{{count}} plaats(en)",
         "roomBlueprints": "Plattegrond",
@@ -11800,7 +11818,9 @@
             "submit": "Bevestigen",
             "cancel": "Annuleer",
             "spot": "Plaats {{count}}",
-            "title": "Selecteer een plaats"
+            "title": "Selecteer een plaats",
+            "book": "Reserveer plaats: {{prefix}}{{indexType}}",
+            "legend": "Legenda"
         },
         "toolbar": {
             "loadExistingBlueprint": "Een bestaande plattegrond gebruiken",
@@ -11823,7 +11843,50 @@
             "helper": "Je kunt de vorm van de locaties verder personaliseren door je eigen pictogrammen up te loaden. Je moet 2 verschillende pictogrammen uploaden: één voor vrije plaatsen en één voor gereserveerde plaatsen. Zorg ervoor dat de pictogrammen even groot zijn en dat ze geen nummers bevatten."
         },
         "effectifError": "Het aantal plaatsen moet groter of gelijk zijn aan de beschikbare plaatsen",
-        "errorLessSpotThanEffectif": "Fout bij het opslaan van de wijzigingen. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie."
+        "errorLessSpotThanEffectif": "Fout bij het opslaan van de wijzigingen. De plattegrond moet meer plaatsen hebben dan de gekoppelde grootte van de sessie.",
+        "spotCreatorForm": {
+            "alertDefaultSpot": "Deze wijzigingen worden op alle plaatsen toegepast.",
+            "deleted": "Verwijderde plaats",
+            "saved": "Opgeslagen plaats",
+            "missImageSelected": "Er mist een afbeelding voor de geselecteerde plaatsen.",
+            "missImageTaken": "Er mist een afbeelding voor de gereserveerde plaatsen.",
+            "missImageFree": "Er mist een afbeelding voor de vrije plaatsen.",
+            "selectedPersonalized": "Geselecteerd: {{name}}",
+            "selected": "Geselecteerde plaats",
+            "takenPersonalized": "Gereserveerd: {{name}}",
+            "freePersonalized": "Beschikbaar: {{name}}",
+            "taken": "Gereserveerd",
+            "free": "Vrij",
+            "personalizedExplain": "Upload 2 verschillende iconen om gepersonaliseerde afbeeldingen voor vrije en gereserveerde plaatsen te gebruiken. Deze iconen moeten dezelfde grootte hebben en niet bedrukt met letters of cijfers zijn.",
+            "preview": "Voorvertoning",
+            "generalInfo": "Algemeen",
+            "square": "Vierkant",
+            "triangle": "Driehoek",
+            "rectangle": "Rechthoek",
+            "circular": "Cirkel",
+            "personalized": "Gepersonaliseerde afbeeldingen",
+            "predefined": "Sjablonen",
+            "customization": "Personalisering",
+            "prefixError": "Het voorvoegsel kan slechts één letter zijn.",
+            "prefixExplain": "Dit karakter is een voorvoegsel voor de plaatsnummers.",
+            "prefix": "Voorvoegsel",
+            "nameExplain": "Naam van de plattegrond",
+            "name": "Naam",
+            "subtitle": "Ontwerp een gepersonaliseerde plattegrond",
+            "title": "Spot Scheduling"
+        },
+        "forms": {
+            "delete": {
+                "actions": {
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren"
+                },
+                "content": {
+                    "canDelete": "Weet je zeker dat je dit wilt verwijderen? Deze actie is definitief. De standaardplaats wordt opnieuw toegvoegd."
+                },
+                "title": "Verwijderen"
+            }
+        }
     },
     "franchise": {
         "member": {

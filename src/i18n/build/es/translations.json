@@ -3824,6 +3824,14 @@
             "buttons": {
                 "cancel": "Cancelar",
                 "submit": "Validar"
+            },
+            "smartLists": {
+                "createSmartList": "Crear una smartlist",
+                "smartListHelperInclude": "Enviar un email sólo si el miembro pertenece a una de las siguientes listas",
+                "smartListHelper": "No enviar email si el miembro pertenece a una de las siguientes listas",
+                "advanced": "Avanzado",
+                "warning": "Si no se selecciona una smartlist, se corre el riesgo de notificar a los miembros que ya han comprado otro bono",
+                "smartListSelection": "Elegir listas (opcional)"
             }
         },
         "notification": {
@@ -5113,7 +5121,13 @@
                 "sendBeforeNotifications": "Enviar las notificaciones al socio antes de la reunión a la que se refiere la notificación",
                 "sendBeforeNotification": "Enviar la notificación push al socio antes de la reunión a la que se refiere la notificación",
                 "addVariable": "Añadir una etiqueta",
-                "pushHelper": "Cuidado, las notificaciones push deben utilizarse con moderación. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación."
+                "pushHelper": "Cuidado, las notificaciones push deben utilizarse con moderación. Demasiadas notificaciones push pueden llevar a algunos miembros a desinstalar la aplicación.",
+                "createSmartList": "Crear una smartlist",
+                "smartListHelper": "No enviar email si el miembro pertenece a una de las siguientes listas",
+                "smartListHelperInclude": "Enviar un email sólo si el miembro pertenece a una de las siguientes listas",
+                "advanced": "Avanzado",
+                "warning": "Si no se selecciona una smartlist, se corre el riesgo de notificar a los miembros que ya han comprado otro bono",
+                "smartListSelection": "Elegir listas (opcional)"
             },
             "addNotification": "Añadir una notificación",
             "title": "Notificación"
@@ -5268,7 +5282,8 @@
             }
         },
         "asGuest": "Invitado",
-        "unlimited": "Ilimitado"
+        "unlimited": "Ilimitado",
+        "place": "Sitio"
     },
     "marketplace": {
         "selector": {
@@ -11819,7 +11834,9 @@
             "customIconButton": "Descargar mis iconos",
             "showGrid": "Mostrar la cuadrícula",
             "pointer": "Cursor",
-            "hand": "Mano"
+            "hand": "Mano",
+            "addSpotType": "Añadir un tipo de sitio",
+            "helperText": "El tamaño del profesor debe ser estrictamente positivo"
         },
         "spotImageDialog": {
             "helper": "Puede personalizar la forma de las ranuras importando sus propias imágenes. Para ello necesitamos 2 iconos diferentes. Uno para indicar que el lugar está disponible, otro cuando está reservado. Asegúrese de que son del mismo tamaño y no incluya ningún número en sus iconos.",
@@ -11842,11 +11859,13 @@
             "loadExistingBlueprint": "Cargar un plan existente"
         },
         "spotSelectorDialog": {
-            "title": "Elija un sitio",
+            "title": "Selecciona un sitio",
             "spot": "Sitio {{count}}",
             "cancel": "Cancelar",
             "submit": "Confirmar",
-            "takeSpotError": "La plaza que ha seleccionado para este curso ya no está disponible. Por favor, seleccione uno nuevo."
+            "takeSpotError": "El sitio que ha seleccionado para este curso ya no está disponible. Por favor, seleccione uno nuevo.",
+            "legend": "Leyenda",
+            "book": "Reservar el sitio {{prefix}}{{indexType}}"
         },
         "roomBlueprintSelectorTitle": "Elija un plan",
         "search": "Encuentre un plan para el spot scheduling",
@@ -11856,7 +11875,50 @@
         "searchHelper": "Ayuda: permite a sus alumnos reservar la ubicación que deseen en la sala. Campos no obligatorios",
         "errorLessSpotThanEffectif": "El ahorro no es posible. El plan de asientos debe contener más espacio que el número de personas de la sesión a la que está asociado",
         "saveError": "Error",
-        "roomBlueprints": "Plano de la planta"
+        "roomBlueprints": "Plano de la planta",
+        "forms": {
+            "delete": {
+                "actions": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar"
+                },
+                "content": {
+                    "canDelete": "¿Estás seguro de que quieres eliminar este sitio? Esta acción es irreversible. Se eliminará y se sustituirá por el sitio por defecto en este plan y en todos los demás a los que se haya añadido."
+                },
+                "title": "Supresión"
+            }
+        },
+        "spotCreatorForm": {
+            "alertDefaultSpot": "Al modificar el sitio por defecto, todos los sitios por defecto presentes en todos los planos se modificarán de forma idéntica",
+            "deleted": "Sitio eliminado",
+            "saved": "Sitio registrado",
+            "missImageSelected": "No ha cargado la imagen para el sitio seleccionado",
+            "missImageTaken": "No ha cargado la imagen para el sitio reservado",
+            "missImageFree": "No ha cargado la imagen para el sitio libre",
+            "selectedPersonalized": "{{name}} seleccionado",
+            "selected": "Sitio seleccionado",
+            "takenPersonalized": "{{name}} reservado",
+            "taken": "Sitio reservado",
+            "freePersonalized": "{{name}} disponible",
+            "free": "Sitio disponible",
+            "personalizedExplain": "Puedes personalizar la forma de los sitios importando tus propias imágenes. Para ello necesitamos 3 iconos diferentes. Uno para indicar que el sitio está disponible, otro cuando está reservado. Asegúrate de que son del mismo tamaño y no incluyas ningún número en tus iconos.",
+            "preview": "Vista previa",
+            "generalInfo": "Informaciones generales",
+            "square": "Cuadrado",
+            "triangle": "Triángulo",
+            "rectangle": "Rectángulo",
+            "circular": "Círculo",
+            "personalized": "Imágenes personalizadas",
+            "predefined": "Formas predefinidas",
+            "customization": "Personalización",
+            "prefixError": "El prefijo debe ser una sola letra",
+            "prefixExplain": "El carácter indicado aquí aparecerá como prefijo de los números de sitios",
+            "prefix": "Prefijo",
+            "nameExplain": "Nombre del tipo de sitio",
+            "name": "Nombre",
+            "subtitle": "Creación de un tipo de sitio",
+            "title": "Plano del establecimiento"
+        }
     },
     "franchise": {
         "companies": {

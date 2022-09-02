@@ -1942,7 +1942,7 @@
                     "label": "Illimité"
                 },
                 "manager_only": {
-                    "label": "Invisible pour les clients"
+                    "label": "Indisponible à la vente"
                 }
             }
         },
@@ -4117,7 +4117,7 @@
                 "label": "TVA"
             },
             "manager_only": {
-                "label": "Invisible pour les clients"
+                "label": "Indisponible à la vente"
             },
             "new_member_only": {
                 "label": "Uniquement pour les nouveaux clients"
@@ -4436,7 +4436,7 @@
                     "label": "Expiration si aucune réservation initiale",
                     "helperText": "Si la carte de cours n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide"
                 },
-                "managerOnly": "Invisible pour les clients",
+                "managerOnly": "Indisponible à la vente",
                 "helper": {
                     "starting_date": "Début de validité du pass, laisser vide pour le rendre valable immédiatement",
                     "ending_date": "Fin de validité du pass, laisser vide pour qu'il reste toujours actif"
@@ -5711,7 +5711,7 @@
                 "nbCredits_plural": "{{ credits }} crédits",
                 "price": "{{ price, price}}",
                 "tax": "TVA: {{ tax }}%",
-                "managerOnly": "Invisible pour les clients"
+                "managerOnly": "Indisponible à la vente"
             },
             "compatibleServices": {
                 "title": "RDV compatibles",
@@ -5747,7 +5747,7 @@
                     "label": "Donne accès à la VOD"
                 },
                 "managerOnly": {
-                    "label": "Invisible pour les clients"
+                    "label": "Indisponible à la vente"
                 },
                 "new_member_only": {
                     "label": "Uniquement pour les nouveaux clients"
@@ -5859,7 +5859,7 @@
                     "label": "Prendre en compte avant même la réservation"
                 },
                 "managerOnly": {
-                    "label": "Invisible pour les clients"
+                    "label": "Indisponible à la vente"
                 },
                 "last_discard_minutes": {
                     "label": "Dernière annulation remboursable jusqu'à",
@@ -9011,7 +9011,7 @@
                     "label": "Description"
                 },
                 "managerOnly": {
-                    "label": "Invisible pour les clients"
+                    "label": "Indisponible à la vente"
                 },
                 "autoRenewal": {
                     "label": "Renouvellement tacite"

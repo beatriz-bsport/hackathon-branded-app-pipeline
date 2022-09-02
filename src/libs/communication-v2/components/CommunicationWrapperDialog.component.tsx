@@ -7,12 +7,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 type Props = {
   buttonCancelText?: string;
   buttonConfirmText?: string;
   children: any;
+  closeDialog?: () => void;
   fullScreen: boolean;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   onCancel?: () => void;
   onConfirm?: () => void;
   open: boolean;
@@ -25,11 +28,14 @@ const CommunicationWrapperDialog = (props: Props) => {
       fullScreen={props.fullScreen}
       open={props.open}
       fullWidth
-      maxWidth="sm"
+      maxWidth={props.maxWidth ?? 'sm'}
+      onClose={props.closeDialog}
     >
       {props.title && (
         <DialogTitle className={classes.dialogTitleContainer}>
-          <div className={classes.dialogTitle}>{props.title}</div>
+          <Typography variant="h6" className={classes.dialogTitle}>
+            {props.title}
+          </Typography>
         </DialogTitle>
       )}
       <DialogContent className={classes.dialogContent}>

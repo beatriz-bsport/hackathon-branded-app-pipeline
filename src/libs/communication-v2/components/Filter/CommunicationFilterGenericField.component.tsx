@@ -3,7 +3,7 @@ import Select from 'react-select';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { SelectFieldItem } from '../types';
+import { SelectFieldItem } from '#libs/communication-v2/types';
 
 type GenericProps = {
   fieldName: string;

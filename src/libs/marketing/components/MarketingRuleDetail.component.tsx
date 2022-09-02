@@ -36,6 +36,9 @@ import NotificationPushPreview from '#components/notification-push/NotificationP
 import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import { Contract } from '#libs/subscription/types';
+// INCOMING COMMUNICATION CHAT
+// import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+// import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -44,7 +47,6 @@ type OwnProps = {
   onClickEdit: () => void;
   onClickRemove: () => void;
   selectedNotification?: MarketingNotification;
-
   establishmentById: { [key: string]: Establishment };
   establishmentGroupById: { [key: string]: EstablishmentGroup };
   metaActivityBydId: { [key: string]: MetaActivity };
@@ -60,7 +62,20 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
+// INCOMING COMMUNICATION CHAT
+// type State = {
+//   openCommunicationDrawer: boolean;
+// };
+
 class MarketingRuleDetail extends React.PureComponent<Props> {
+  // INCOMING COMMUNICATION CHAT
+  // constructor(props: Props) {
+  //   super(props);
+  //   this.state = {
+  //     openCommunicationDrawer: false,
+  //   };
+  // }
+
   get statData() {
     const { notificationsStatById, selectedNotification } = this.props;
 
@@ -191,6 +206,66 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
     return 'creditsLeft';
   };
 
+  getPrimaryText = (notif: MarketingNotification) => {
+    const { notify_booking_nb, kind, hours } = notif.event_rules;
+    const { t } = this.props;
+
+    if (notif.event_rules.payment_pack_id !== undefined) {
+      const notificationKind = this.getPaymentPackNotificationKind(notif);
+      if (notificationKind === 'creditsLeft') {
+        return `${t('paymentPack:notification.creditsLeft.first')} ${
+          notif.event_rules.credits_left
+        } ${t('paymentPack:notification.creditsLeft.second')}`;
+      }
+      return `${t(
+        `paymentPack:notification.${notificationKind}.first`,
+      )} ${Math.abs(notif.event_rules.days_left)} ${t(
+        `paymentPack:notification.${notificationKind}.second`,
+      )}`;
+    }
+    if (notif.event_rules.private_pass_id !== undefined) {
+      const notificationKind = this.getPrivatePassNotificationKind(notif);
+      if (notificationKind === 'creditsLeft') {
+        return `${t('paymentPack:notification.creditsLeft.first')} ${
+          notif.event_rules.credits_left
+        } ${t('paymentPack:notification.creditsLeft.second')}`;
+      }
+      return `${t(
+        `paymentPack:notification.${notificationKind}.first`,
+      )} ${Math.abs(notif.event_rules.days_left)} ${t(
+        `paymentPack:notification.${notificationKind}.second`,
+      )}`;
+    }
+
+    if (notif.kind === NOTIFICATION_KIND.BIRTHDAY) {
+      return t('booking:notification.form.listItemPrimary.birthday');
+    }
+
+    return `${
+      notify_booking_nb === 0
+        ? t(
+            `booking:notification.form.listItemPrimary.notifyAllEvents.${this.getNotificationKind(
+              kind,
+            )}`,
+          )
+        : t(
+            `booking:notification.form.listItemPrimary.${this.getNotificationKind(
+              kind,
+            )}`,
+            {
+              notify_booking_nb,
+            },
+          )
+    } | ${t(
+      `booking:notification.form.listItemPrimary.${
+        hours > 0 ? 'after' : 'before'
+      }`,
+      {
+        hours: Math.abs(hours),
+      },
+    )}`;
+  };
+
   renderPrimaryText = (notif: MarketingNotification) => {
     const { notify_booking_nb, kind, hours } = notif.event_rules;
     const { t } = this.props;
@@ -278,134 +353,176 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
     );
   };
 
+  // INCOMING COMMUNICATION CHAT
+  // onOpenCommunicationDrawerClick = () => {
+  //   this.setState({ openCommunicationDrawer: true });
+  // };
+
+  // onCloseCommunicationDrawerClick = () => {
+  //   this.setState({ openCommunicationDrawer: false });
+  // };
+
   render() {
     const { classes, t } = this.props;
-
     return (
-      <div className={classes.container}>
-        {this.props.selectedNotification &&
-        this.statData &&
-        !this.props.loading ? (
-          <div className={classes.container2}>
-            <Typography variant="h5" className={classes.sectionTitle}>
-              {t('marketing:notifications.notificationDetails')}
-            </Typography>
-            <Divider className={classes.divider} />
+      <React.Fragment>
+        {/* INCOMING COMMUNICATION CHAT
+          {!!this.props.selectedNotification && (
+          <CommunicationDrawer
+            openDrawer={this.state.openCommunicationDrawer}
+            onDrawerClose={this.onCloseCommunicationDrawerClick}
+            contextIdentifier={CONTEXT_NOTIFICATION}
+            contextObjectId={this.props.selectedNotification?.id}
+            contextTitle={this.getPrimaryText(this.props.selectedNotification)}
+          />
+        )} */}
+        <div className={classes.container}>
+          {this.props.selectedNotification &&
+          this.statData &&
+          !this.props.loading ? (
+            <div className={classes.container2}>
+              <Typography variant="h5" className={classes.sectionTitle}>
+                {t('marketing:notifications.notificationDetails')}
+              </Typography>
+              <Divider className={classes.divider} />
 
-            <Paper className={classes.paperDetail}>
-              <Typography variant="h6">{getLabel(this.props)}</Typography>
-              {this.renderPrimaryText(this.props.selectedNotification)}
+              <Paper className={classes.paperDetail}>
+                <Typography variant="h6">{getLabel(this.props)}</Typography>
+                {this.renderPrimaryText(this.props.selectedNotification)}
 
-              <div className={classes.notificationActions}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={this.props.onClickEdit}
-                >
-                  {t('marketing:notifications.editRule')}
-                </Button>
+                <div className={classes.notificationActions}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.props.onClickEdit}
+                  >
+                    {t('marketing:notifications.editRule')}
+                  </Button>
 
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.removeContainer}
-                  onClick={this.props.onClickRemove}
-                >
-                  {t('marketing:notifications.removeRule')}
-                </Button>
-              </div>
-            </Paper>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={classes.removeContainer}
+                    onClick={this.props.onClickRemove}
+                  >
+                    {t('marketing:notifications.removeRule')}
+                  </Button>
+                </div>
+              </Paper>
 
-            {this.props.emailSummary && this.props.emailDetails && (
-              <>
-                <Typography variant="h5" className={classes.titleMarginTop}>
-                  {t('marketing:notifications.statisticDetails')}
-                </Typography>
-
-                <Divider className={classes.divider} />
-                <Paper className={classes.paperStats}>
-                  <div className={classes.statItem}>
-                    <Typography variant="h5" align="center">
-                      {this.statDataForDisplay.total_recipients}
-                    </Typography>
-
-                    <Typography variant="caption" align="center" component="p">
-                      {t('marketing:notifications.stats.total_mail_send')}
-                    </Typography>
-                  </div>
-
-                  <div className={classes.statItem}>
-                    <Typography variant="h5" align="center">
-                      {this.statDataForDisplay.opened_rate}
-                    </Typography>
-
-                    <Typography variant="caption" align="center" component="p">
-                      {t('marketing:notifications.stats.opened_rate')}
-                    </Typography>
-                  </div>
-
-                  <div className={classes.statItem}>
-                    <Typography variant="h5" align="center">
-                      {this.statDataForDisplay.total_read}
-                    </Typography>
-
-                    <Typography variant="caption" align="center" component="p">
-                      {t('marketing:notifications.stats.total_mail_opened')}
-                    </Typography>
-                  </div>
-                </Paper>
-
-                <Typography variant="h5" className={classes.emailSummary}>
-                  {t('marketing:notifications.mailTitle')}
-                </Typography>
-                <Divider className={classes.divider} />
-                <HTMLPreview html={this.props.emailDetails.html} scrolling />
-              </>
-            )}
-            <FeatureListProvider>
-              {(featureList) => (
+              {this.props.emailSummary && this.props.emailDetails && (
                 <>
-                  {featureList.upsell &&
-                    featureList.upsell.find(
-                      (f) => f.readable_identifier === 'push_notification',
-                    ) &&
-                    this.props.selectedNotification.push_notification_title !==
-                      '' && (
-                      <>
-                        <Typography
-                          variant="h5"
-                          className={classes.titleMarginTop}
-                        >
-                          {t('marketing:notifications.notificationPreview')}
-                        </Typography>
+                  <Typography variant="h5" className={classes.titleMarginTop}>
+                    {t('marketing:notifications.statisticDetails')}
+                  </Typography>
 
-                        <Divider className={classes.divider} />
+                  <Divider className={classes.divider} />
+                  <Paper className={classes.paperStats}>
+                    <div className={classes.statItem}>
+                      <Typography variant="h5" align="center">
+                        {this.statDataForDisplay.total_recipients}
+                      </Typography>
 
-                        <NotificationPushPreview
-                          notification={this.props.selectedNotification}
-                          theme={this.props.theme}
-                        />
-                      </>
-                    )}
+                      <Typography
+                        variant="caption"
+                        align="center"
+                        component="p"
+                      >
+                        {t('marketing:notifications.stats.total_mail_send')}
+                      </Typography>
+                    </div>
+
+                    <div className={classes.statItem}>
+                      <Typography variant="h5" align="center">
+                        {this.statDataForDisplay.opened_rate}
+                      </Typography>
+
+                      <Typography
+                        variant="caption"
+                        align="center"
+                        component="p"
+                      >
+                        {t('marketing:notifications.stats.opened_rate')}
+                      </Typography>
+                    </div>
+
+                    <div className={classes.statItem}>
+                      <Typography variant="h5" align="center">
+                        {this.statDataForDisplay.total_read}
+                      </Typography>
+
+                      <Typography
+                        variant="caption"
+                        align="center"
+                        component="p"
+                      >
+                        {t('marketing:notifications.stats.total_mail_opened')}
+                      </Typography>
+                    </div>
+                  </Paper>
+
+                  {/* INCOMING COMMUNICATION CHAT
+                  <Button
+                    onClick={this.onOpenCommunicationDrawerClick}
+                    variant="contained"
+                    color="primary"
+                    size="medium"
+                  >
+                    {t('communication:generic.history')}
+                  </Button> */}
+
+                  <Typography variant="h5" className={classes.emailSummary}>
+                    {t('marketing:notifications.mailTitle')}
+                  </Typography>
+                  <Divider className={classes.divider} />
+                  <HTMLPreview html={this.props.emailDetails.html} scrolling />
                 </>
               )}
-            </FeatureListProvider>
-          </div>
-        ) : (
-          <div>
-            {this.props.loading ? (
-              <CircularProgress />
-            ) : (
-              <div className={classes.selectRulesContainer}>
-                <InfoIcon />
-                <Typography className={classes.marginTop}>
-                  {t('marketing:notifications.selectNotificationRules')}
-                </Typography>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+              <FeatureListProvider>
+                {(featureList) => (
+                  <>
+                    {featureList.upsell &&
+                      featureList.upsell.find(
+                        (f) => f.readable_identifier === 'push_notification',
+                      ) &&
+                      this.props.selectedNotification
+                        .push_notification_title !== '' && (
+                        <>
+                          <Typography
+                            variant="h5"
+                            className={classes.titleMarginTop}
+                          >
+                            {t('marketing:notifications.notificationPreview')}
+                          </Typography>
+
+                          <Divider className={classes.divider} />
+
+                          <NotificationPushPreview
+                            notification={this.props.selectedNotification}
+                            theme={this.props.theme}
+                          />
+                        </>
+                      )}
+                  </>
+                )}
+              </FeatureListProvider>
+            </div>
+          ) : (
+            <div>
+              {this.props.loading ? (
+                <CircularProgress />
+              ) : (
+                <div className={classes.selectRulesContainer}>
+                  <InfoIcon />
+                  <Typography className={classes.marginTop}>
+                    {t('marketing:notifications.selectNotificationRules')}
+                  </Typography>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </React.Fragment>
     );
   }
 }

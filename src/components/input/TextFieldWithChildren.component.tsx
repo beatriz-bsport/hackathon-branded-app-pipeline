@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     width: '100%',
     border: 'solid 1px',
-    borderColor: theme.palette.grey[100],
+    borderColor: theme.palette.divider,
     borderRadius: theme.spacing(1),
   },
   inputFieldOverride: {
@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    '&::placeholder': {
+      color: theme.palette.grey[900],
+    },
   },
   textField: {
     padding: theme.spacing(1),

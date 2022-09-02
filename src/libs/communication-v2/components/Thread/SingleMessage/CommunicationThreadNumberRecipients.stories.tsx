@@ -3,7 +3,7 @@ import React from 'react';
 import CommunicationThreadNumberRecipients, {
   Props,
 } from './CommunicationThreadNumberRecipients.component';
-import MembersFactory from '../../member/factories/Member';
+import MembersFactory from '#libs/member/factories/Member';
 
 const CustomTemplate = (args: Props) => (
   <CommunicationThreadNumberRecipients {...args} />

@@ -7,8 +7,7 @@ import { ReportProblemOutlined as WarningIcon } from '@material-ui/icons';
 import { amber, red } from '@material-ui/core/colors';
 
 import TextFieldWithChildren from '#components/input/TextFieldWithChildren.component';
-
-const MAX_LENGTH_SMS = 160;
+import { MAX_LENGTH_SMS } from '#libs/communication-v2/constants';
 
 type Props = {
   children: any;

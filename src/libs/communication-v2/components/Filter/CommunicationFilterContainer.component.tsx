@@ -3,7 +3,6 @@ import { Moment as MomentType } from 'moment-timezone';
 import { compose } from 'recompose';
 import {
   Collapse,
-  Paper,
   Typography,
   ButtonBase,
   IconButton,
@@ -19,8 +18,11 @@ import { withStyles } from '@material-ui/styles';
 import CommunicationFilterCollapse from './CommunicationFilterCollapse.component';
 import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
 import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
-import { SelectFieldItem } from '../types';
-import { getFiltersToEnable, getFilterOptionsOverride } from '../utils';
+import { SelectFieldItem } from '#libs/communication-v2/types';
+import {
+  getFiltersToEnable,
+  getFilterOptionsOverride,
+} from '#libs/communication-v2/utils';
 
 type OwnProps = {
   contextIdentifier: number;
@@ -41,6 +43,7 @@ type FilterState = {
   channelFilterValues: Array<SelectFieldItem>;
   sendParameterFilterValues: Array<SelectFieldItem>;
   showFilterModal: boolean;
+  allPreviousFilters: { filters: number[]; dateStart: number; dateEnd: number };
 };
 export class CommunicationFilterContainer extends React.Component<
   Props,
@@ -56,6 +59,7 @@ export class CommunicationFilterContainer extends React.Component<
       channelFilterValues: [],
       sendParameterFilterValues: [],
       showFilterModal: false,
+      allPreviousFilters: { filters: [], dateStart: null, dateEnd: null },
     };
   }
 
@@ -67,29 +71,29 @@ export class CommunicationFilterContainer extends React.Component<
 
   handleFiltersSubmit = () => {
     const filtersNumbers: number[] = [];
-    if (this.props.hasKindFilter && this.state.kindFilterValues.length > 0) {
+    const {
+      hasKindFilter,
+      hasChannelFilter,
+      hasRecipientFilter,
+      hasSendParameterFilter,
+    } = getFiltersToEnable(this.props.contextIdentifier);
+    if (hasKindFilter && this.state.kindFilterValues.length > 0) {
       this.state.kindFilterValues.forEach((item: SelectFieldItem) =>
         filtersNumbers.push(item.value),
       );
     }
-    if (
-      this.props.hasRecipientFilter &&
-      this.state.recipientFilterValues.length > 0
-    ) {
+    if (hasRecipientFilter && this.state.recipientFilterValues.length > 0) {
       this.state.recipientFilterValues.forEach((item: SelectFieldItem) =>
         filtersNumbers.push(item.value),
       );
     }
-    if (
-      this.props.hasChannelFilter &&
-      this.state.channelFilterValues.length > 0
-    ) {
+    if (hasChannelFilter && this.state.channelFilterValues.length > 0) {
       this.state.channelFilterValues.forEach((item: SelectFieldItem) =>
         filtersNumbers.push(item.value),
       );
     }
     if (
-      this.props.hasSendParameterFilter &&
+      hasSendParameterFilter &&
       this.state.sendParameterFilterValues.length > 0
     ) {
       this.state.sendParameterFilterValues.forEach((item: SelectFieldItem) =>
@@ -97,8 +101,14 @@ export class CommunicationFilterContainer extends React.Component<
       );
     }
 
-    this.setState({ showFilterModal: false });
-
+    this.setState((previousState: FilterState) => ({
+      showFilterModal: false,
+      allPreviousFilters: {
+        filters: filtersNumbers,
+        dateStart: previousState.dateStart?.unix() ?? null,
+        dateEnd: previousState.dateEnd?.unix() ?? null,
+      },
+    }));
     this.props.handleFilters(
       filtersNumbers,
       this.state.dateStart?.unix() ?? null,
@@ -304,7 +314,7 @@ export class CommunicationFilterContainer extends React.Component<
     const updateDateEndValue = (newDate: MomentType) =>
       this.setState({ dateEnd: newDate });
     return (
-      <Paper className={classes.container}>
+      <div className={classes.container}>
         <ButtonBase
           onClick={this.onCollapseClick}
           className={classes.filterDisplayer}
@@ -348,9 +358,10 @@ export class CommunicationFilterContainer extends React.Component<
             dateEndSetter={updateDateEndValue}
             periodHasChanged={periodHasChanged}
             handleFiltersSubmit={this.handleFiltersSubmit}
+            allPreviousFilter={this.state.allPreviousFilters}
           />
         </Collapse>
-      </Paper>
+      </div>
     );
   }
 }
@@ -364,13 +375,16 @@ const styles: any = (theme: Theme) => ({
     marginRight: theme.spacing(1),
   },
   container: {
-    zIndex: 500,
+    borderRadius: 0,
+    borderBottom: 'solid 1px',
+    borderBottomColor: theme.palette.divider,
+    zIndex: 1000,
   },
   filterDisplayer: {
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),

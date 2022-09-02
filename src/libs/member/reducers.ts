@@ -207,6 +207,11 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
           { deep: true },
         );
     },
+    [memberListPaginatedActions.reset.toString()]: (state) => {
+      return state
+        .setIn(['communication', 'page'], 1)
+        .setIn(['communication', 'allPageIds'], []);
+    },
     [memberCountObject.success.toString()]: (state, action) => {
       return state.setIn(['count', 'data'], action.payload);
     },

@@ -2,35 +2,39 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
-import CommunicationInformationModal from './CommunicationInformationModal.component';
+import CommunicationInformationModal from './ModalInformation/CommunicationInformationModal.component';
 import CommunicationThreadScrollableView from './CommunicationThreadScrollableView.component';
 import InfoGenericBox from '#components/box/InfoGenericBox.component';
-
-import { getOfferRecipientsFilters } from '../utils';
-import { ThreadCommunication, RecipientWithMember } from '../types';
+import {
+  ThreadCommunication,
+  Recipient,
+  FilteringMemberIdsByGenericCategories,
+} from '#libs/communication-v2/types';
+import { Member } from '#libs/member/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 type OwnProps = {
+  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   consentWarning?: string;
-  displayFiltersInModal?: boolean;
+  contextMember?: Member;
+  currentPage: number;
   threadCommunicationList: Array<ThreadCommunication>;
-  fetchPageInformation: (
+  fetchRecipientPaginatedList: (
     communicationId: number,
-    page: number,
-    filters: number[],
+    memberIdPaginatedList: number[],
   ) => void;
   fetchMoreThreadCommunications: () => void;
   fullScreen: boolean;
-  isSingleRecipientThread: boolean;
   loadingThreadDataList: boolean;
-  loadingRecipientsList: boolean;
+  loadingRecipientList: boolean;
   paginationSize: number;
-  recipientsList: RecipientWithMember[];
+  recipientList: Recipient<Member>[];
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
+  forceRerenderAfterMount: boolean;
   openEmailView: boolean;
   openInformationModal: boolean;
   selectedCommunication: ThreadCommunication;
@@ -42,6 +46,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      forceRerenderAfterMount: false,
       openEmailView: false,
       openInformationModal: false,
       selectedCommunication: null,
@@ -55,11 +60,6 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
   closeInformationModal = () => this.setState({ openInformationModal: false });
 
   showCommunicationInformation = (threadCommunication: ThreadCommunication) => {
-    this.props.fetchPageInformation(
-      threadCommunication.communication.id,
-      1,
-      [],
-    );
     this.setState({
       selectedCommunication: threadCommunication,
       openInformationModal: true,
@@ -74,33 +74,35 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
     });
   };
 
+  componentDidMount() {
+    if (!this.state.forceRerenderAfterMount) {
+      this.setState({ forceRerenderAfterMount: true });
+    }
+  }
+
   render() {
     const {
       classes,
       t,
       consentWarning,
-      displayFiltersInModal,
+      contextMember,
       threadCommunicationList,
       fetchMoreThreadCommunications,
-      fetchPageInformation,
+      fetchRecipientPaginatedList,
       fullScreen,
-      isSingleRecipientThread,
       loadingThreadDataList,
-      loadingRecipientsList,
+      loadingRecipientList,
       paginationSize,
-      recipientsList,
+      recipientList,
     } = this.props;
-
-    const modalFilterOptions = getOfferRecipientsFilters(
-      displayFiltersInModal,
-      t,
-    );
     let modalContextTitle = '';
     let modalContextInformation = '';
-    if (isSingleRecipientThread) {
-      modalContextTitle = this.state.selectedCommunication?.channel || '';
+    if (contextMember) {
+      modalContextTitle = this.state.selectedCommunication?.channel
+        ? t(`filter.choicesLabels.${this.state.selectedCommunication.channel}`)
+        : '';
       modalContextInformation =
-        this.state.selectedCommunication?.communication.data.subject || '';
+        this.state.selectedCommunication?.communication.data?.subject || '';
     }
     return (
       <div className={classes.threadContainer}>
@@ -121,7 +123,8 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
           loadingThreadDataList={loadingThreadDataList}
           showCommunicationInformation={this.showCommunicationInformation}
           showEmailTemplate={this.showEmailTemplate}
-          isSingleRecipientThread={isSingleRecipientThread}
+          oneToOneThreadMember={contextMember}
+          currentPage={this.props.currentPage}
         />
         {this.state.openEmailView && (
           <HTMLPreviewDialog
@@ -133,29 +136,18 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
         )}
         {this.state.openInformationModal && (
           <CommunicationInformationModal
+            allMemberCategoryList={this.props.allMemberCategoryList}
             contextInformation={modalContextInformation}
+            contextMember={contextMember}
             contextTitle={modalContextTitle}
-            dateCreated={
-              this.state.selectedCommunication?.communication.date_created
-            }
-            fetchPage={(page: number, filters: number[]) =>
-              fetchPageInformation(
-                this.state.selectedCommunication?.communication.id,
-                page,
-                filters,
-              )
-            }
+            fetchRecipientPaginatedList={fetchRecipientPaginatedList}
             fullScreen={fullScreen}
             handleCloseDialog={this.closeInformationModal}
-            kind={this.state.selectedCommunication?.communication.kind}
-            loadingRecipientList={loadingRecipientsList}
-            recipientList={recipientsList}
-            recipientsCount={
-              this.state.selectedCommunication?.communication.total_recipients
-            }
+            loadingRecipientList={loadingRecipientList}
             open={this.state.openInformationModal}
             paginationSize={paginationSize}
-            filterOptions={modalFilterOptions}
+            recipientList={recipientList}
+            selectedCommunication={this.state.selectedCommunication}
           />
         )}
       </div>

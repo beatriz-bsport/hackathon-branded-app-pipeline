@@ -4,11 +4,7 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import Pagination from '@material-ui/lab/Pagination';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -16,8 +12,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import Hidden from '@material-ui/core/Hidden';
@@ -33,20 +27,20 @@ import {
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
   COMMUNICATION_KIND_SMS,
 } from '@bsport/common/lib/master-data/communication-kind';
-import {
-  COMMUNICATION_RECIPIENT_BOOKINGS,
-  COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
-  COMMUNICATION_RECIPIENT_WAITING_LIST,
-} from '@bsport/common/lib/master-data/communication-filters';
-import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
+import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
+import { FilteringMemberIdsByGenericCategories } from '#libs/communication-v2/types';
+import CommunicationRecipientModalFilter from './CommunicationRecipientsModalFilter.component';
 
 import { Member } from '#libs/member/types';
 
 type OwnProps = {
-  allIds: number[];
-  allIdsWithoutEmail?: number[];
-  allIdsWithoutPhone?: number[];
-  fetchPage: (page: number, filters: number[]) => void;
+  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
+  availableMemberIdList: number[];
+  availableMemberWithoutEmailIdList?: number[];
+  availableMemberWithoutPhoneIdList?: number[];
+  checkedMemberCategoriesFilters: number[];
+  fetchAvailableRecipientMemberIdLists: () => void;
+  fetchPaginatedMemberList: (params: any, member_id_in: number[]) => void;
   fullScreen?: boolean;
   handleCloseDialog: () => void;
   kind: number;
@@ -54,8 +48,8 @@ type OwnProps = {
   memberList: Member[];
   open?: boolean;
   pageSize: number;
-  selectedFilters?: number[];
-  setSelectedFilters?: (filters: number[], callback: () => void) => void;
+  setAvailableMemberIdList: (idsList: number[], callback: () => void) => void;
+  setCheckedMemberCategoriesFilters: (nextList: number[]) => void;
   setUncheckedMembers: (listIdsUnchecked: number[]) => void;
   uncheckedMembers: number[];
 };
@@ -85,12 +79,27 @@ export class CommunicationRecipientsModal extends React.Component<
     };
   }
 
-  getAllIdsWithoutKind = () => {
+  componentDidMount(): void {
+    if (this.props.availableMemberIdList) {
+      this.handleChangePage(null, 1);
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (
+      !prevProps.availableMemberIdList?.length &&
+      !!this.props.availableMemberIdList?.length
+    ) {
+      this.handleChangePage(null, 1);
+    }
+  }
+
+  getAvailableMemberWithoutKindIdList = () => {
     switch (this.props.kind) {
       case COMMUNICATION_KIND_EMAIL:
-        return this.props.allIdsWithoutEmail ?? [];
+        return this.props.availableMemberWithoutEmailIdList ?? [];
       case COMMUNICATION_KIND_SMS:
-        return this.props.allIdsWithoutPhone ?? [];
+        return this.props.availableMemberWithoutPhoneIdList ?? [];
       default:
         return [];
     }
@@ -99,9 +108,9 @@ export class CommunicationRecipientsModal extends React.Component<
   getWarningMessage = () => {
     const hasMissingPhonesOrEmails =
       (this.props.kind === COMMUNICATION_KIND_SMS &&
-        this.props.allIdsWithoutPhone?.length > 0) ||
+        this.props.availableMemberWithoutPhoneIdList?.length > 0) ||
       (this.props.kind === COMMUNICATION_KIND_EMAIL &&
-        this.props.allIdsWithoutEmail?.length > 0);
+        this.props.availableMemberWithoutEmailIdList?.length > 0);
     const hasUnselectedRecipients = this.state.uncheckedMembers?.length > 0;
     if (hasMissingPhonesOrEmails && hasUnselectedRecipients) {
       return this.props.t('dialogRecipients.warnings.full');
@@ -119,8 +128,36 @@ export class CommunicationRecipientsModal extends React.Component<
     event: React.ChangeEvent<unknown> | null,
     page: number = 1,
   ) => {
-    this.props.fetchPage(page, this.props.selectedFilters);
-    this.setState({ page });
+    const idx = [
+      (page - 1) * this.props.pageSize,
+      Math.min(
+        page * this.props.pageSize,
+        this.props.availableMemberIdList.length,
+      ),
+    ];
+    const memberList =
+      this.props.availableMemberIdList?.slice(idx[0], idx[1]) || [];
+    const fetchPaginatedMemberOnCallback = () =>
+      this.props.fetchPaginatedMemberList(
+        {
+          page: 1,
+          pageSize: this.props.pageSize,
+          reset: memberList.length === 0,
+        },
+        memberList,
+      );
+    this.setState({ page }, fetchPaginatedMemberOnCallback);
+  };
+
+  handleChangePageAsCallback = () => {
+    this.handleChangePage(null, 1);
+  };
+
+  handleFilterChange = (availableMemberIdList: number[]) => {
+    this.props.setAvailableMemberIdList(
+      availableMemberIdList,
+      this.handleChangePageAsCallback,
+    );
   };
 
   handleToggle = (memberId: number) => () => {
@@ -136,28 +173,12 @@ export class CommunicationRecipientsModal extends React.Component<
     });
   };
 
-  onCheckFilter = (identifier: number) => {
-    const selectedFilters = this.props.selectedFilters;
-    const filterIndex = selectedFilters.indexOf(identifier);
-    const nextFilterValues = [...selectedFilters];
-    if (filterIndex === -1) {
-      nextFilterValues.push(identifier);
-    } else {
-      nextFilterValues.splice(filterIndex, 1);
-    }
-    this.props.setSelectedFilters(nextFilterValues, () =>
-      this.handleChangePage(null, 1),
-    );
-  };
-
   onClose = () => {
     this.setState(
       {
-        page: 1,
         displayWarningFull: false,
         openRefreshDialog: false,
         anchorEl: null,
-        uncheckedMembers: [],
       },
       this.props.handleCloseDialog,
     );
@@ -176,77 +197,9 @@ export class CommunicationRecipientsModal extends React.Component<
     this.setState({ openRefreshDialog: true });
   };
 
-  renderCheckboxFilters = () => {
-    const { classes, t } = this.props;
-    const onCheckBookings = () =>
-      this.onCheckFilter(COMMUNICATION_RECIPIENT_BOOKINGS);
-    const onCheckCancelledBookings = () =>
-      this.onCheckFilter(COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED);
-    const onCheckWaitingList = () =>
-      this.onCheckFilter(COMMUNICATION_RECIPIENT_WAITING_LIST);
-    return (
-      <div className={classes.checkboxContainer}>
-        <ListItem
-          button
-          onClick={onCheckBookings}
-          className={classes.checkboxDisableHover}
-        >
-          <Checkbox
-            edge="start"
-            checked={
-              this.props.selectedFilters.indexOf(
-                COMMUNICATION_RECIPIENT_BOOKINGS,
-              ) !== -1
-            }
-          />
-          <ListItemText
-            id="bookings"
-            primary={t('dialogReceiverChoice.reservation')}
-          />
-        </ListItem>
-        <ListItem
-          button
-          onClick={onCheckCancelledBookings}
-          className={classes.checkboxDisableHover}
-        >
-          <Checkbox
-            edge="start"
-            checked={
-              this.props.selectedFilters.indexOf(
-                COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
-              ) !== -1
-            }
-          />
-          <ListItemText
-            id="cancelled-bookings"
-            primary={t('dialogReceiverChoice.canceledReservation')}
-          />
-        </ListItem>
-        <ListItem
-          button
-          onClick={onCheckWaitingList}
-          className={classes.checkboxDisableHover}
-        >
-          <Checkbox
-            edge="start"
-            checked={
-              this.props.selectedFilters.indexOf(
-                COMMUNICATION_RECIPIENT_WAITING_LIST,
-              ) !== -1
-            }
-          />
-          <ListItemText
-            id="waitingList"
-            primary={t('dialogReceiverChoice.waitingList')}
-          />
-        </ListItem>
-      </div>
-    );
-  };
-
   renderHeader = (displayWarning: boolean) => {
-    const { classes, allIds, t } = this.props;
-    const idsCount = allIds ? allIds.length : 0;
+    const { classes, availableMemberIdList, t } = this.props;
+    const idsCount = availableMemberIdList ? availableMemberIdList.length : 0;
     return (
       <>
         <TableRow>
@@ -315,16 +268,17 @@ export class CommunicationRecipientsModal extends React.Component<
     );
   };
 
-  renderRow = (member: Member, allIdsWithoutKind: number[]) => {
+  renderRow = (member: Member, availableMemberWithoutKindIdList: number[]) => {
     const { t, classes } = this.props;
-    const memberWithoutPhoneOrEmail = allIdsWithoutKind?.includes(member.id);
+    const memberWithoutPhoneOrEmail =
+      availableMemberWithoutKindIdList?.includes(member.id);
     const missingPhoneOrEmailContent =
       this.props.kind === COMMUNICATION_KIND_SMS
         ? t('dialogRecipients.noPhone')
         : t('dialogRecipients.noMail');
     const memberPhoneOrEmailContent =
       this.props.kind === COMMUNICATION_KIND_SMS
-        ? member?.phone_number
+        ? member?.phone || member?.phone_number
         : member?.email;
     const onEditClick = (event: React.MouseEvent) => {
       this.openMemberPage(event, member.id);
@@ -410,36 +364,29 @@ export class CommunicationRecipientsModal extends React.Component<
   };
 
   renderRefreshDialog = () => {
-    const { t, kind, classes } = this.props;
-    const onCloseDialog = () => this.setState({ openRefreshDialog: false });
-    const onRefreshPage = () => document.location.reload();
+    const { t } = this.props;
+    const onRefreshMemberData = () => {
+      this.props.fetchAvailableRecipientMemberIdLists();
+      this.handleChangePage(null, this.state.page);
+      this.setState({ openRefreshDialog: false });
+    };
     return (
-      <Dialog open={this.state.openRefreshDialog}>
-        <DialogContent>
-          <p>
-            {kind === COMMUNICATION_KIND_SMS
-              ? t('mail.refreshTextPhone')
-              : t('mail.refreshText')}
-          </p>
-          <DialogActions>
-            <Button className={classes.buttonClose} onClick={onCloseDialog}>
-              {t('common.cancel')}
-            </Button>
-            <Button type="submit" color="primary" onClick={onRefreshPage}>
-              {t('common.refresh')}
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
+      <CommunicationWrapperDialog
+        open={this.state.openRefreshDialog}
+        fullScreen={false}
+        buttonConfirmText={t('common.refresh')}
+        onConfirm={onRefreshMemberData}
+        maxWidth="xs"
+      >
+        <p>{t('dialogRecipients.refreshMemberData')}</p>
+      </CommunicationWrapperDialog>
     );
   };
 
   render() {
     const {
-      allIds,
+      availableMemberIdList,
       fullScreen,
-      selectedFilters,
-      setSelectedFilters,
       loadingMemberList,
       memberList,
       open,
@@ -447,8 +394,9 @@ export class CommunicationRecipientsModal extends React.Component<
       t,
       classes,
     } = this.props;
-    const pageCount = Math.ceil(allIds?.length / pageSize);
-    const allIdsWithoutKind = this.getAllIdsWithoutKind();
+    const pageCount = Math.ceil(availableMemberIdList?.length / pageSize);
+    const availableMemberWithoutKindIdList =
+      this.getAvailableMemberWithoutKindIdList();
     return (
       <CommunicationWrapperDialog
         open={open}
@@ -458,11 +406,17 @@ export class CommunicationRecipientsModal extends React.Component<
         buttonConfirmText={t('common.confirm')}
         onCancel={this.onClose}
         onConfirm={this.onConfirm}
+        closeDialog={this.onClose}
       >
         <>
-          {setSelectedFilters &&
-            selectedFilters &&
-            this.renderCheckboxFilters()}
+          {!!this.props.allMemberCategoryList && (
+            <CommunicationRecipientModalFilter
+              genericMemberCategories={this.props.allMemberCategoryList}
+              setAllIdList={this.handleFilterChange}
+              checkedFilters={this.props.checkedMemberCategoriesFilters}
+              setCheckedFilters={this.props.setCheckedMemberCategoriesFilters}
+            />
+          )}
           <Table
             className={classes.table}
             aria-label="simple table"
@@ -471,7 +425,7 @@ export class CommunicationRecipientsModal extends React.Component<
           >
             <TableHead>
               {this.renderHeader(
-                allIdsWithoutKind?.length > 0 ||
+                availableMemberWithoutKindIdList?.length > 0 ||
                   this.state.uncheckedMembers?.length > 0,
               )}
             </TableHead>
@@ -479,9 +433,12 @@ export class CommunicationRecipientsModal extends React.Component<
               <TableBody>
                 {memberList.map((member: Member) => (
                   <React.Fragment key={member.id}>
-                    {this.renderRow(member, allIdsWithoutKind)}
+                    {this.renderRow(member, availableMemberWithoutKindIdList)}
                   </React.Fragment>
                 ))}
+                {memberList?.length === 0 && (
+                  <div className={classes.emptyTableBody} />
+                )}
               </TableBody>
             )}
           </Table>
@@ -530,19 +487,8 @@ const styles: any = (theme: Theme) => ({
   cellWithoutBorder: {
     borderBottom: 'none',
   },
-  checkboxContainer: {
-    alignSelf: 'flex-start',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  checkboxDisableHover: {
-    '&:hover': {
-      backgroundColor: '#fff',
-    },
-    [theme.breakpoints.down('sm')]: {
-      padding: 0,
-    },
+  emptyTableBody: {
+    height: theme.spacing(4),
   },
   flexRowContainer: {
     display: 'flex',
@@ -557,8 +503,8 @@ const styles: any = (theme: Theme) => ({
     flexWrap: 'wrap',
   },
   headerTextRecipients: {
-    fontWeight: 'bold',
     marginRight: theme.spacing(2),
+    fontWeight: 'bold',
   },
   headerWarningContainer: {
     alignItems: 'center',

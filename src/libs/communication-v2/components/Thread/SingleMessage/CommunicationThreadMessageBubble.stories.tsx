@@ -8,10 +8,15 @@ import {
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
-import { Communication } from '../types';
+import { Communication } from '#libs/communication-v2/types';
 import { Member } from '#libs/member/types';
-import { CommunicationFactory } from '../factories/Communication';
+import { CommunicationFactory } from '#libs/communication-v2/factories/Communication';
 import MembersFactory from '#libs/member/factories/Member';
+import {
+  COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
+  COMMUNICATION_CHANNEL_SESSION,
+  COMMUNICATION_CHANNEL_SMARTLIST,
+} from '@bsport/common/lib/master-data/communication-filters';
 
 const CustomTemplate = (args: Props) => (
   <CommunicationThreadMessageBubble {...args} />
@@ -52,7 +57,7 @@ export const Email = CustomTemplate.bind({});
 
 Email.args = {
   ...options,
-  channel: 'Session',
+  channel: COMMUNICATION_CHANNEL_SESSION,
   communication: communicationEmail,
 };
 
@@ -60,7 +65,7 @@ export const Sms = CustomTemplate.bind({});
 
 Sms.args = {
   ...options,
-  channel: 'Smartlist',
+  channel: COMMUNICATION_CHANNEL_SMARTLIST,
   communication: communicationSMS,
 };
 
@@ -68,7 +73,7 @@ export const PushNotif = CustomTemplate.bind({});
 
 PushNotif.args = {
   ...options,
-  channel: 'Notification',
+  channel: COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
   communication: communicationPush,
 };
 

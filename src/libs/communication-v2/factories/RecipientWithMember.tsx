@@ -1,4 +1,8 @@
-import type { RecipientWithMember, ThreadCommunication } from '../types';
+import type {
+  Recipient,
+  ThreadCommunication,
+  RecipientCompact,
+} from '../types';
 import { Member } from '#libs/member/types';
 import { MemberFactory } from '#libs/member/factories/Member';
 
@@ -10,9 +14,40 @@ function randomBoolean() {
   return Math.random() < 0.5;
 }
 
-export function RecipientWithMemberFactory(
-  member?: Member,
-): RecipientWithMember {
+export function RecipientCompactFactory(member?: Member): RecipientCompact {
+  const memberSource =
+    member ??
+    MemberFactory(
+      {
+        credit_account_balance: 0,
+        total_unpaid_amount: '0',
+        number_tags: 0,
+      },
+      true,
+    );
+  return {
+    accept_marketing_email: memberSource.accept_email,
+    accept_marketing_sms: memberSource.accept_sms,
+    email: memberSource.email,
+    phone_number: memberSource.phone ?? memberSource.phone_number,
+    member_id: memberSource.id,
+    user_id: randomInt(50000),
+    name: memberSource.name,
+  };
+}
+
+export function RecipientCompactListFactory(
+  length: number,
+  memberList?: Member[],
+): RecipientCompact[] {
+  if (memberList) {
+    return memberList.map((member: Member) => RecipientCompactFactory(member));
+  }
+  const recipientCompactList = new Array(length);
+  return recipientCompactList.map(() => RecipientCompactFactory());
+}
+
+export function RecipientWithMemberFactory(member?: Member): Recipient<Member> {
   return {
     member:
       member ??
@@ -42,24 +77,22 @@ export function RecipientWithMemberFactory(
   };
 }
 
-export function RecipientWithMemberFromThreadCommunicationFactory(
-  communication: ThreadCommunication,
-  memberList: Member[],
-): Array<RecipientWithMember> {
-  const recipients: Array<RecipientWithMember> = [];
-  communication.members.forEach((memberId: number) =>
-    recipients.push(
-      RecipientWithMemberFactory(
-        memberList.find((member: Member) => member.id === memberId),
-      ),
-    ),
-  );
-  return recipients;
-}
-
 export default function RecipientsWithMemberFactory(
   length: number,
-): Array<RecipientWithMember> {
+): Array<Recipient<Member>> {
   const res = new Array(length).fill(0);
   return res.map(() => RecipientWithMemberFactory());
+}
+
+export function RecipientWithMemberFromThreadCommunicationFactory(
+  communication: ThreadCommunication,
+  allMemberList: Member[],
+): Array<Recipient<Member>> {
+  const recipients: Array<Recipient<Member>> = [];
+  const nbRecipients = communication.communication.total_recipients;
+  allMemberList
+    .sort(() => Math.random() - 0.5)
+    .slice(0, nbRecipients)
+    .forEach((member) => recipients.push(RecipientWithMemberFactory(member)));
+  return recipients;
 }

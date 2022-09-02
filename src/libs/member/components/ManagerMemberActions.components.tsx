@@ -11,11 +11,13 @@ import { Theme, useTheme } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Send } from '@material-ui/icons';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import type { Member } from '../types';
 import RedFab from '#components/button/RedFab.component';
 import GreenFab from '#components/button/GreenFab.component';
 import FabWithItems from '#components/button/FabWithItems';
+import Config from '../../../config';
 
 type OwnProps = {
   billMember: () => void;
@@ -23,6 +25,7 @@ type OwnProps = {
   interrogateMemberStatus: () => void;
   unArchiveMember: () => void;
   member: Member;
+  openCommunicationDrawer: () => void;
 };
 type Props = OwnProps;
 export const MemberActions: React.FC<Props> = (props: Props) => {
@@ -35,30 +38,69 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
     return (
       <FabWithItems
         label={t('actions')}
-        items={[
-          {
-            label: t('paymentAction.toBill'),
-            onClick: () => props.billMember(),
-          },
-          {
-            label: t('paymentAction.toSubscribe'),
-            onClick: () => props.subscribeMember(),
-          },
-          props.member?.archived
-            ? {
-                label: t('restoreMember'),
-                onClick: () => props.unArchiveMember(),
-              }
-            : {
-                label: t('archiveMember'),
-                onClick: () => props.interrogateMemberStatus(),
-              },
-        ]}
+        items={
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local'
+            ? [
+                {
+                  label: t('communication'),
+                  onClick: props.openCommunicationDrawer,
+                },
+                {
+                  label: t('paymentAction.toBill'),
+                  onClick: () => props.billMember(),
+                },
+                {
+                  label: t('paymentAction.toSubscribe'),
+                  onClick: () => props.subscribeMember(),
+                },
+                props.member?.archived
+                  ? {
+                      label: t('restoreMember'),
+                      onClick: () => props.unArchiveMember(),
+                    }
+                  : {
+                      label: t('archiveMember'),
+                      onClick: () => props.interrogateMemberStatus(),
+                    },
+              ]
+            : [
+                {
+                  label: t('paymentAction.toBill'),
+                  onClick: () => props.billMember(),
+                },
+                {
+                  label: t('paymentAction.toSubscribe'),
+                  onClick: () => props.subscribeMember(),
+                },
+                props.member?.archived
+                  ? {
+                      label: t('restoreMember'),
+                      onClick: () => props.unArchiveMember(),
+                    }
+                  : {
+                      label: t('archiveMember'),
+                      onClick: () => props.interrogateMemberStatus(),
+                    },
+              ]
+        }
       />
     );
   }
   return (
     <div className={classes.bottomButtonContainer}>
+      {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+        Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
+        <Fab
+          color="secondary"
+          className={classes.bottomButton}
+          variant="extended"
+          onClick={props.openCommunicationDrawer}
+        >
+          <Send className={classes.leftIcon} />
+          {t('communication')}
+        </Fab>
+      )}
       <Fab
         color="primary"
         variant="extended"

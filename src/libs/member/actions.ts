@@ -235,6 +235,7 @@ export const memberListPaginatedActions = {
   isLoading: createAction('MEMBER/LIST_PAGINATED/LOADING'),
   error: createAction('MEMBER/LIST_PAGINATED/ERROR'),
   success: createAction('MEMBER/LIST_PAGINATED/SUCCESS'),
+  reset: createAction('MEMBER/LIST_PAGINATED/RESET'),
 };
 
 export function fetchCommunicationsPaginatedMembers(
@@ -245,18 +246,22 @@ export function fetchCommunicationsPaginatedMembers(
   return async (dispatch: Dispatch) => {
     dispatch(memberListPaginatedActions.isLoading(true));
     try {
-      const response = await fetchCommunicationsPaginatedMembersAPI(
-        params,
-        id__in,
-      );
-      dispatch(
-        memberListPaginatedActions.success({
-          ...response.data,
-          page: params.page || 1,
-        }),
-      );
-      if (options && options.onSuccess) {
-        options.onSuccess();
+      if (params?.reset) {
+        dispatch(memberListPaginatedActions.reset());
+      } else {
+        const response = await fetchCommunicationsPaginatedMembersAPI(
+          params,
+          id__in,
+        );
+        dispatch(
+          memberListPaginatedActions.success({
+            ...response.data,
+            page: params.page || 1,
+          }),
+        );
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
       }
     } catch (error) {
       dispatch(memberListPaginatedActions.error(error));

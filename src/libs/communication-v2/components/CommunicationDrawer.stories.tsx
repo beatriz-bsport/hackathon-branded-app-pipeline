@@ -5,25 +5,26 @@ import ThreadCommunicationListFactory from '../factories/Communication';
 import { RecipientWithMemberFromThreadCommunicationFactory } from '../factories/RecipientWithMember';
 import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
 
-import {
-  getMemberIdListsFromMemberList,
-  getFiltersByCategory,
-  getChannelIdByString,
-} from '../utils';
+import { getMemberIdListsFromMemberList } from '../utils';
 
 import { ThreadCommunication } from '../types';
 import { Member } from '#libs/member/types';
 
 import {
   CONTEXT_NOTIFICATION,
-  CONTEXT_COMMUNICATION,
   CONTEXT_OFFER,
   CONTEXT_SMARTLIST,
   CONTEXT_MEMBER,
   WRITE_SMS,
-  PAGINATION_SIZE,
+  PAGINATION_SIZE_RECIPIENTS,
   FILTER_IDENTIFIER_CHANNEL,
+  FILTER_IDENTIFIER_RECIPIENT,
+  FILTER_IDENTIFIER_SEND_PARAMETER,
   FILTER_IDENTIFIER_KIND,
+  FILTER_CHANNELS,
+  FILTER_KINDS,
+  FILTER_RECIPIENTS,
+  FILTER_SEND_PARAMETERS,
 } from '../constants';
 
 // UTILS JUST FOR STORYBOOK
@@ -35,6 +36,34 @@ const getAllRecipientsWithMember = (
     key: com.communication.id,
     value: RecipientWithMemberFromThreadCommunicationFactory(com, allMembers),
   };
+};
+
+const getFiltersByCategory = (filters: number[]) => {
+  const filtersByCategory = [
+    {
+      key: FILTER_IDENTIFIER_CHANNEL,
+      value: filters.filter((id: number) =>
+        Object.keys(FILTER_CHANNELS).includes(id.toString()),
+      ),
+    },
+    {
+      key: FILTER_IDENTIFIER_KIND,
+      value: filters.filter((id: number) => FILTER_KINDS.includes(id)),
+    },
+    {
+      key: FILTER_IDENTIFIER_RECIPIENT,
+      value: filters.filter((id: number) =>
+        Object.keys(FILTER_RECIPIENTS).includes(id.toString()),
+      ),
+    },
+    {
+      key: FILTER_IDENTIFIER_SEND_PARAMETER,
+      value: filters.filter((id: number) =>
+        FILTER_SEND_PARAMETERS.includes(id),
+      ),
+    },
+  ];
+  return filtersByCategory;
 };
 
 const getFilteredThreadCommunicationList = (
@@ -54,7 +83,7 @@ const getFilteredThreadCommunicationList = (
           break;
         case FILTER_IDENTIFIER_CHANNEL:
           communicationsFiltered = communicationsFiltered.filter((currentCom) =>
-            category.value.includes(getChannelIdByString(currentCom.channel)),
+            category.value.includes(currentCom.channel),
           );
           break;
         default:
@@ -92,7 +121,7 @@ const options = {
   loadingRecipientsModalMemberList: false,
   loadingTemplateDetailList: false,
   loadingTempalteSummaryList: false,
-  sendCommunication: (data: any) => console.log(data),
+  sendCommunication: (data: any) => {},
 };
 
 const WrapperWithState = (args: Props) => {
@@ -150,8 +179,8 @@ const WrapperWithState = (args: Props) => {
       (element) => element.key === communicationId,
     ).value;
     const range = [
-      (page - 1) * PAGINATION_SIZE,
-      Math.min(page * PAGINATION_SIZE, recipients.length),
+      (page - 1) * PAGINATION_SIZE_RECIPIENTS,
+      Math.min(page * PAGINATION_SIZE_RECIPIENTS, recipients.length),
     ];
     const nextList = recipients.slice(range[0], range[1]);
     setModalInformationList(nextList);
@@ -159,12 +188,12 @@ const WrapperWithState = (args: Props) => {
 
   // TO SIMULATE FETCH MEMBERS FOR RECIPIENTS MODAL
   const [modalRecipientsList, setModalRecipientsList] = useState(
-    allMemberList.slice(0, PAGINATION_SIZE),
+    allMemberList.slice(0, PAGINATION_SIZE_RECIPIENTS),
   );
   const fetchPageForRecipientsModal = (page: number, filters: number[]) => {
     const range = [
-      (page - 1) * PAGINATION_SIZE,
-      Math.min(page * PAGINATION_SIZE, allMemberList.length),
+      (page - 1) * PAGINATION_SIZE_RECIPIENTS,
+      Math.min(page * PAGINATION_SIZE_RECIPIENTS, allMemberList.length),
     ];
     const nextList = allMemberList.slice(range[0], range[1]);
     setModalRecipientsList(nextList);
@@ -198,13 +227,6 @@ const WrapperWithState = (args: Props) => {
 };
 
 const CustomTemplate = (args: Props) => <WrapperWithState {...args} />;
-
-export const CommunicationContext = CustomTemplate.bind({});
-
-CommunicationContext.args = {
-  ...options,
-  contextIdentifier: CONTEXT_COMMUNICATION,
-};
 
 export const MemberContext = CustomTemplate.bind({});
 

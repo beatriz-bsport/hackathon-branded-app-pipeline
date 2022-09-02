@@ -11,16 +11,19 @@ import {
 } from '@material-ui/icons';
 
 import TextFieldWithChildren from '#components/input/TextFieldWithChildren.component';
-import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
+import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import { EmailTemplateDetail } from '#libs/email-editor/types';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 
-import { TEXTFIELD_MAIL_TITLE, TEXTFIELD_MAIL_CONTENT } from '../constants';
+import {
+  TEXTFIELD_MAIL_TITLE,
+  TEXTFIELD_MAIL_CONTENT,
+} from '#libs/communication-v2/constants';
 
 type Props = {
   children: any;
   emailContent: string;
-  emailTemplateDetails: Array<EmailTemplateDetail>;
+  emailTemplateDetails: Record<number, EmailTemplateDetail>;
   emailTemplateSelected: number;
   emailTitle: string;
   handleChangeContent: (event: React.ChangeEvent) => void;
@@ -31,6 +34,7 @@ type Props = {
   onFocus: (identifier: number) => void;
   onSeeTemplate: () => void;
   onRemoveTemplate: () => void;
+  refreshTemplateData: (templateId: number) => void;
 };
 
 const CommunicationWriteEmail = (props: Props) => {
@@ -47,11 +51,15 @@ const CommunicationWriteEmail = (props: Props) => {
     onFocus,
     onRemoveTemplate,
     onSeeTemplate,
+    refreshTemplateData,
   } = props;
   const [showRefreshDialog, setShowRefreshDialog] = useState(false);
   const onTitleFocus = () => onFocus(TEXTFIELD_MAIL_TITLE);
   const onContentFocus = () => onFocus(TEXTFIELD_MAIL_CONTENT);
-  const onCloseDialog = () => setShowRefreshDialog(false);
+  const onRefreshTemplateData = () => {
+    setShowRefreshDialog(false);
+    refreshTemplateData(emailTemplateSelected);
+  };
   const onEditTemplate = () => {
     props.onEditTemplate();
     setShowRefreshDialog(true);
@@ -94,7 +102,7 @@ const CommunicationWriteEmail = (props: Props) => {
       {showRefreshDialog && (
         <RefreshDialog
           openDialog={showRefreshDialog}
-          onCloseDialog={onCloseDialog}
+          refreshTemplateData={onRefreshTemplateData}
         />
       )}
     </React.Fragment>
@@ -103,7 +111,7 @@ const CommunicationWriteEmail = (props: Props) => {
 
 type PreviewProps = {
   children: any;
-  emailTemplateDetails: Array<EmailTemplateDetail>;
+  emailTemplateDetails: Record<number, EmailTemplateDetail>;
   emailTemplateSelected: number;
   loadingTemplateDetails: boolean;
   onSeeTemplate: () => void;
@@ -138,11 +146,7 @@ const EmailPreview = (props: PreviewProps) => {
         <div className={classes.mailPreviewContent}>
           {!loadingTemplateDetails ? (
             <HTMLPreview
-              html={
-                emailTemplateDetails.find(
-                  (email) => email.id === emailTemplateSelected,
-                )?.html
-              }
+              html={emailTemplateDetails[emailTemplateSelected]?.html}
             />
           ) : (
             <CircularProgress />
@@ -157,19 +161,18 @@ const EmailPreview = (props: PreviewProps) => {
 
 type RefreshProps = {
   openDialog: boolean;
-  onCloseDialog: () => void;
+  refreshTemplateData: () => void;
 };
 
 const RefreshDialog = (props: RefreshProps) => {
   const { t } = useTranslation('communication');
-  const onRefreshPage = () => document.location.reload();
   return (
     <CommunicationWrapperDialog
-      onCancel={props.onCloseDialog}
-      onConfirm={onRefreshPage}
+      onConfirm={props.refreshTemplateData}
       buttonConfirmText={t('common.refresh')}
       buttonCancelText={t('common.cancel')}
       fullScreen={false}
+      maxWidth="xs"
       open={props.openDialog}
     >
       <Typography variant="body2">{t('sendMessage.refresh')}</Typography>

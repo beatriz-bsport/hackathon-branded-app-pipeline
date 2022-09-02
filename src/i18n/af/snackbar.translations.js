@@ -678,6 +678,10 @@ exports.default = {
     success: "Mail en cours d'envoi",
     error: "Problème lors de l'envoi du mail",
   },
+  communicationv2: {
+    success: "Communication en cours d'envoi",
+    error: "Problème lors de l'envoi de la communication",
+  },
   privateBooking: {
     register: {
       warning: {

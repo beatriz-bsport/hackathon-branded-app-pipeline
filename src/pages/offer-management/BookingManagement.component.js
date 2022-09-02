@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MailIcon from '@material-ui/icons/Mail';
+import SendIcon from '@material-ui/icons/Send';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import moment from 'moment-timezone';
@@ -45,6 +46,8 @@ import CheckPermission from '../../libs/role/components/CheckPermission.componen
 import { Tag, TagGroup } from '../../libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
+import GenericBottomActionsButton from '../../components/button/GenericBottomActionsButton.component';
+import Config from '../../config';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -58,7 +61,7 @@ type Props = {
   bookings: Array<Booking>,
   bookingOptionsPending: Array<BookingOption>,
   openMailDialog: () => void,
-
+  openCommunicationDrawer: () => void,
   offer: ?Offer,
 
   addToQuickInvoicePanel: (number) => void,
@@ -304,6 +307,26 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       >
                         <MailIcon />
                       </IconButton>
+                      {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+                        Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
+                        <GenericBottomActionsButton
+                          buttonsProperties={[
+                            {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                this.props.openCommunicationDrawer();
+                              },
+                              color: 'primary',
+                              disabled:
+                                this.props.bookingLoading || this.props.loading,
+                              icon: <SendIcon />,
+                              text: t('communication:generic.communication'),
+                              keepTextUnderSelectedMinWidth: true,
+                            },
+                          ]}
+                          minWidth="xs"
+                        />
+                      )}
                     </CheckPermission>
                     <PermissionContext.Consumer>
                       {(permissions) => (
@@ -647,5 +670,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation(['offer', 'translation']),
+  withTranslation(['offer', 'translation', 'communication']),
 )(BookingManagement);

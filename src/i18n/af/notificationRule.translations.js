@@ -103,7 +103,7 @@ exports.default = {
       },
     },
     User: {
-      name: 'Elève',
+      name: 'Élève',
       tags: {
         firstname: 'Prénom élève',
         lastname: 'Nom élève',

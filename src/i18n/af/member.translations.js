@@ -380,4 +380,5 @@ exports.default = {
       },
     },
   },
+  communication: 'Communication',
 };

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -20,7 +20,7 @@ type Props = {
   nextPage: number,
   fetchCampaignList: (page: number) => void,
   campaignRecipientList: Array<[Campaign, Recipient]>,
-};
+} & WithTranslation;
 export class MemberDetailContact extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchCampaignList(1);

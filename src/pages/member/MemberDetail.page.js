@@ -73,8 +73,11 @@ import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import MemberActions from '#libs/member/components/ManagerMemberActions.components';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
+import Config from '../../config';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -127,7 +130,9 @@ type Props = {
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
   fetchAllPaymentPacks: () => void,
-
+  openCommunicationDrawer: () => void,
+  closeCommunicationDrawer: () => void,
+  communicationDrawerOpen: boolean,
   openContractDialog: () => void,
   contractList: Array<Contract>,
   contractLoading: boolean,
@@ -413,6 +418,7 @@ export class MemberDetail extends React.Component<Props> {
           interrogateMemberStatus={this.interrogateMemberStatus}
           member={this.props.member}
           unArchiveMember={this.unArchiveMember}
+          openCommunicationDrawer={this.props.openCommunicationDrawer}
         />
         {!!this.props.invoiceInfo && (
           <InvoiceInfoDialog
@@ -473,6 +479,16 @@ export class MemberDetail extends React.Component<Props> {
           }}
           onConfirm={this.archiveMember}
         />
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
+          <CommunicationDrawer
+            openDrawer={this.props.communicationDrawerOpen}
+            onDrawerClose={this.props.closeCommunicationDrawer}
+            contextIdentifier={CONTEXT_MEMBER}
+            contextObjectId={this.props.member?.id ?? this.props.id}
+            contextMember={this.props.member}
+          />
+        )}
       </div>
     );
   }
@@ -580,6 +596,7 @@ export default compose(
   withState('contractDialogOpen', 'setContractDialogOpen', false),
   withState('contractToBill', 'setContractToBill', null),
   withState('openArchiveDialog', 'setOpenArchiveDialog', false),
+  withState('communicationDrawerOpen', 'setCommunicationDrawerOpen', false),
   withHandlers({
     closeContractDialog:
       ({ setContractDialogOpen, setContractToBill }) =>
@@ -593,6 +610,16 @@ export default compose(
         fetchContractList();
         setContractDialogOpen(true);
         setContractToBill(null);
+      },
+    closeCommunicationDrawer:
+      ({ setCommunicationDrawerOpen }) =>
+      () => {
+        setCommunicationDrawerOpen(false);
+      },
+    openCommunicationDrawer:
+      ({ setCommunicationDrawerOpen }) =>
+      () => {
+        setCommunicationDrawerOpen(true);
       },
     fetchPaymentMethodList:
       ({ id, fetchPaymentMethodList }) =>

@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import { CircularProgress } from '@material-ui/core';
 import { Member } from '#libs/member/types';
+import { MAX_DISPLAY } from '#libs/communication-v2/constants';
 
 const MAX_DISPLAY_COMPACT = 2;
-const MAX_DISPLAY = 4;
 
 export type Props = {
   members?: Array<Member>;
@@ -15,10 +16,11 @@ export type Props = {
   numberRecipients?: number;
   compactText?: boolean;
   compactAvatars?: boolean;
+  loading?: boolean;
 };
 
 const CommunicationThreadNumberRecipients = (props: Props) => {
-  const { numberRecipients, compactText, compactAvatars } = props;
+  const { numberRecipients, compactText, compactAvatars, loading } = props;
   const allImageLinks =
     props.members?.length > 0
       ? props.members.map((m) => m.photo)
@@ -33,16 +35,25 @@ const CommunicationThreadNumberRecipients = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <AvatarGroup className={classes.container} spacing="small">
-        {slicedImageLinks.map((imgLink, idx) => (
-          <Avatar
-            src={imgLink}
-            alt={imgLink}
-            key={`${idx}-${imgLink}`}
-            className={classes.img}
-          />
-        ))}
-      </AvatarGroup>
+      {loading ? (
+        <CircularProgress className={classes.img} />
+      ) : (
+        <AvatarGroup className={classes.container} spacing="small">
+          {slicedImageLinks.map((_imgLink, idx) => {
+            const imgLink =
+              _imgLink ??
+              'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png';
+            return (
+              <Avatar
+                src={imgLink}
+                alt={imgLink}
+                key={`${idx}-${imgLink}`}
+                className={classes.img}
+              />
+            );
+          })}
+        </AvatarGroup>
+      )}
       {numberRecipients && numberRecipients > 0 && (
         <Typography variant="body2" className={classes.text}>
           {t(

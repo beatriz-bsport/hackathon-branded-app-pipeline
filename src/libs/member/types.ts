@@ -89,7 +89,8 @@ export type Member<Tag = number, CA = number> = {
   previous_booking: string; // date
   billing_plans: any;
   photo: string;
-  phone_number: string;
+  phone_number?: string;
+  phone?: string;
   birthday: string;
   files: MemberUploadedFile[];
   general_terms_and_conditions_date_accepted: string | null;

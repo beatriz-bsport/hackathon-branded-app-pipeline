@@ -21,7 +21,7 @@ type OwnProps = {
   width?: string;
   className?: string;
   flexContent?: boolean;
-  withSmallMinWidth?: boolean;
+  mobileMinWidth?: string;
   withoutHeaderContainer?: boolean;
 };
 type Props = OwnProps;
@@ -32,15 +32,14 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   subtitle,
   width,
   className,
-  minWidth,
   anchor = 'right',
   withoutPadding = false,
   flexContent,
-  withSmallMinWidth,
+  mobileMinWidth,
   withoutHeaderContainer,
   onClose,
 }) => {
-  const classes = useStyles({ width, subtitle, minWidth });
+  const classes = useStyles({ width, subtitle, mobileMinWidth });
   const { t } = useTranslation('common');
 
   return (
@@ -92,7 +91,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
           className={classNames(classes.content, {
             [classes.padding]: !withoutPadding,
             [classes.flex]: flexContent,
-            [classes.contentResized]: withSmallMinWidth,
+            [classes.contentResized]: !!mobileMinWidth,
           })}
         >
           {children}
@@ -101,52 +100,62 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
     </Drawer>
   );
 };
-const useStyles = makeStyles<Theme, { width: string; subtitle: boolean }>(
-  (theme) => ({
-    paper: (props) => ({
-      width: props.width || '40%',
-      overflowX: 'hidden',
-      [theme.breakpoints.down('lg')]: {
-        width: props.width || '60%',
-      },
-      [theme.breakpoints.down('md')]: {
-        width: '100%',
-      },
-      backgroundColor: 'transparent',
-    }),
-    relative: {
-      position: 'relative',
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      overflow: 'auto',
-      backgroundColor: 'white',
+const useStyles = makeStyles<
+  Theme,
+  { width: string; subtitle: boolean; mobileMinWidth: string }
+>((theme) => ({
+  paper: (props) => ({
+    width: props.width || '40%',
+    overflowX: 'hidden',
+    [theme.breakpoints.down('lg')]: {
+      width: props.width || '60%',
     },
-    firstRow: (props) => ({
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyItems: 'flex-start',
-      marginTop: props.subtitle ? null : theme.spacing(3),
-    }),
-    topCancelLeft: {
-      right: theme.spacing(2),
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
     },
-    topCancelRight: {
-      left: theme.spacing(2),
-    },
-    titleLeft: (props) => ({
-      marginLeft: theme.spacing(2),
-      marginTop: props.subtitle ? theme.spacing(3) : null,
-    }),
-    content: {
-      flex: 1,
-      minWidth: '500px',
-    },
-    padding: {
-      padding: theme.spacing(4),
-      paddingBottom: theme.spacing(2),
+    backgroundColor: 'transparent',
+  }),
+  relative: {
+    position: 'relative',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'auto',
+    backgroundColor: 'white',
+  },
+  firstRow: (props) => ({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyItems: 'flex-start',
+    marginTop: props.subtitle ? null : theme.spacing(3),
+  }),
+  topCancelLeft: {
+    right: theme.spacing(2),
+  },
+  topCancelRight: {
+    left: theme.spacing(2),
+  },
+  titleLeft: (props) => ({
+    marginLeft: theme.spacing(2),
+    marginTop: props.subtitle ? theme.spacing(3) : null,
+  }),
+  content: {
+    flex: 1,
+    minWidth: '500px',
+  },
+  flex: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  contentResized: (props) => ({
+    [theme.breakpoints.down('sm')]: {
+      minWidth: props.mobileMinWidth ?? '350px',
     },
   }),
-);
+  padding: {
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+  },
+}));
 export default GenericResponsiveDrawer;

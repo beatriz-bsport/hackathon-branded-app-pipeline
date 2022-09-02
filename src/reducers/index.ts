@@ -14,6 +14,7 @@ import ClockinReducer from '#libs/clock-in/reducers';
 import CoachPaymentRuleReducer from '#libs/coach-payment-rules/reducers';
 import coachReducers from '#libs/associated-coach/reducers';
 import communicationReducers from '#libs/communication/reducers';
+import communicationV2Reducers from '#libs/communication-v2/reducers';
 import company from '#libs/company/reducers';
 import consumerPaymentPackReducers from '#libs/consumer-payment-pack/reducers';
 import consumerReducers from '#libs/consumer-space/reducers';
@@ -83,6 +84,7 @@ import { CheckoutState } from '#libs/checkout/types';
 import { ClockInState } from '#libs/clock-in/types';
 import { CoachPaymentRuleState } from '#libs/coach-payment-rules/types';
 import { CoachState } from '#libs/associated-coach/types';
+import { CommunicationState } from '#libs/communication-v2/types';
 import { CompanyState } from '#libs/company/types';
 import { ConsumerPaymentPackState } from '#libs/consumer-payment-pack/types';
 import { ConsumerState } from '#libs/consumer-space/types';
@@ -130,6 +132,7 @@ const rootReducer = (history: any) =>
     reports: reportingReducer,
     router: connectRouter(history),
     communication: communicationReducers,
+    communicationV2: communicationV2Reducers,
     checkout: checkoutReducers,
     paymentRules: paymentRulesReducer,
     clockIn: ClockinReducer,
@@ -217,6 +220,7 @@ export type RootState = {
   coach: CoachState;
   coachPaymentRules: CoachPaymentRuleState;
   communication: MailState;
+  communicationV2: CommunicationState;
   company: CompanyState;
   consumer: ConsumerState;
   consumerPaymentPack: ConsumerPaymentPackState;

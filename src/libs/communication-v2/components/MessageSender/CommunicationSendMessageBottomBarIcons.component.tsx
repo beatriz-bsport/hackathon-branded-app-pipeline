@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
-
 import { Theme, makeStyles } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -29,20 +28,21 @@ import {
 
 // @ts-ignore
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import Config from '../../../config';
+import Config from '../../../../config';
 
 import NestedList from '#components/NestedMenu.component';
-import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
+import CommunicationThreadNumberRecipients from '../Thread/SingleMessage/CommunicationThreadNumberRecipients.component';
 
 import { Member } from '#libs/member/types';
 
+import { getValidityTooltipMessage } from '#libs/communication-v2/utils';
 import {
   WRITE_EMAIL,
   WRITE_SMS,
   WRITE_PUSH_NOTIFICATION,
-  CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS,
   CAN_SEND_MESSAGE,
-} from '../constants';
+  MAX_DISPLAY,
+} from '#libs/communication-v2/constants';
 
 type Props = {
   actionType: number;
@@ -52,8 +52,8 @@ type Props = {
   handleSelectTemplate: () => void;
   handleSelectRecipients: () => void;
   memberList: Member[];
+  memberListLoading: boolean;
   onBaliseItemClick: (item: string) => void;
-  selectedMemberList: Member[];
   sendMessage: (data: any) => void;
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
@@ -69,8 +69,8 @@ const BottomBarIcons = (props: Props) => {
     handleSelectTemplate,
     handleSelectRecipients,
     memberList,
+    memberListLoading,
     onBaliseItemClick,
-    selectedMemberList,
     sendMessage,
     setActionType,
     tags,
@@ -229,10 +229,16 @@ const BottomBarIcons = (props: Props) => {
           >
             {allSelectedMembers?.length > 0 ? (
               <CommunicationThreadNumberRecipients
-                members={selectedMemberList ?? memberList}
+                members={
+                  memberList?.slice(
+                    0,
+                    Math.min(MAX_DISPLAY, memberList.length),
+                  ) ?? []
+                }
                 numberRecipients={allSelectedMembers.length}
                 compactText
                 compactAvatars={fullScreen}
+                loading={memberListLoading}
               />
             ) : (
               <>
@@ -253,30 +259,24 @@ const BottomBarIcons = (props: Props) => {
           </ButtonBase>
         )}
         {validity === CAN_SEND_MESSAGE ? (
-          <Button
-            endIcon={<SendIcon />}
-            color="primary"
-            variant="contained"
-            onClick={sendMessage}
-          >
-            <Hidden xsDown>{t('sendMessage.buttons.send')}</Hidden>
+          <Button color="primary" variant="contained" onClick={sendMessage}>
+            <Hidden xsDown>
+              <p className={classes.buttonSendText}>
+                {t('sendMessage.buttons.send')}
+              </p>
+            </Hidden>
+            <SendIcon fontSize="small" />
           </Button>
         ) : (
-          <Tooltip
-            title={
-              validity === CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS
-                ? t(`sendMessage.sendDisabled.missingRecipients`)
-                : t(`sendMessage.sendDisabled.missingContent`)
-            }
-          >
+          <Tooltip title={getValidityTooltipMessage(validity, t)}>
             <span id="need-this-span-to-display-tooltip-with-disabled-button">
-              <Button
-                endIcon={<SendIcon />}
-                color="primary"
-                variant="contained"
-                disabled
-              >
-                <Hidden xsDown>{t('sendMessage.buttons.send')}</Hidden>
+              <Button color="primary" variant="contained" disabled>
+                <Hidden xsDown>
+                  <p className={classes.buttonSendText}>
+                    {t('sendMessage.buttons.send')}
+                  </p>
+                </Hidden>
+                <SendIcon fontSize="small" />
               </Button>
             </span>
           </Tooltip>
@@ -330,15 +330,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   bottomRecipientSelectorIcon: {
     color: theme.palette.text.secondary,
   },
+  buttonSendText: {
+    padding: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: theme.spacing(1),
+  },
   divider: {
     margin: theme.spacing(1),
   },
   iconButton: {
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(1.5),
     },
     [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(0.5),
+      padding: theme.spacing(1),
     },
   },
   mobileIcon: {

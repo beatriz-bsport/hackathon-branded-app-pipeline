@@ -51,6 +51,10 @@ import { Tag, TagGroup } from '../../libs/tag/types';
 import GenericDialog from '../../components/genericDialog/GenericDialog';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import { OptionCallback } from '../../state/types';
+import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
+import { getOfferCategories } from '#libs/communication-v2/utils';
+import Config from '../../config';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -84,6 +88,7 @@ type Props = {
   fetchCompanyUserRoles: () => void,
 
   communicationDialogIsOpen: boolean,
+  communicationDrawerIsOpen: boolean,
 
   fetchEmailTemplatesSummaries: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
@@ -166,6 +171,8 @@ type Props = {
 
   openCommunicationDialog: () => void,
   closeCommunicationDialog: () => void,
+  openCommunicationDrawer: () => void,
+  closeCommunicationDrawer: () => void,
   createRecurrenceRuleBooking: () => void,
   onDeleteRecurrenceRuleBooking: (id: number) => void,
   setBookerInAvanceDialog: () => void,
@@ -550,6 +557,7 @@ export class OfferManagement extends Component<Props, State> {
             company_theme={this.props.company_theme}
             bookingOptionsPending={this.props.bookingOptionsPending}
             openMailDialog={this.props.openCommunicationDialog}
+            openCommunicationDrawer={this.props.openCommunicationDrawer}
             searchedText={this.props.searchedText}
             memberSearchLoading={this.props.memberSearchLoading}
             clearSearch={this.props.clearSearch}
@@ -730,6 +738,23 @@ export class OfferManagement extends Component<Props, State> {
             onCancelRegisterMember={() => this.props.setMemberToRegister(null)}
           />
         )}
+        {!!this.props.offer &&
+          this.props.communicationDrawerIsOpen &&
+          (Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
+            <CommunicationDrawer
+              openDrawer={this.props.communicationDrawerIsOpen}
+              onDrawerClose={this.props.closeCommunicationDrawer}
+              contextIdentifier={CONTEXT_OFFER}
+              contextObjectId={this.props.offer.id ?? this.props.offerId}
+              contextTitle={this.props.offer?.name}
+              allMemberCategoryList={getOfferCategories(
+                this.props.t,
+                bookings,
+                bookingOptionsPending,
+              )}
+            />
+          )}
         <GenericDialog />
       </Grid>
     );
@@ -753,7 +778,7 @@ const styles = (theme) => ({
 export default compose(
   withMobileDialog(),
   withStyles(styles),
-  withTranslation(['offer', 'translation']),
+  withTranslation(['offer', 'translation', 'communication']),
   withStateHandlers(
     { bookingToRevert: null },
     {
@@ -779,6 +804,7 @@ export default compose(
       searchedText: '',
       addMemberModal: false,
       communicationDialogIsOpen: false,
+      communicationDrawerIsOpen: false,
       optionToDiscard: null,
       optionToDiscardWithDialog: null,
       confirmOptionToDiscard: false,
@@ -789,6 +815,12 @@ export default compose(
       }),
       openCommunicationDialog: () => () => ({
         communicationDialogIsOpen: true,
+      }),
+      closeCommunicationDrawer: () => () => ({
+        communicationDrawerIsOpen: false,
+      }),
+      openCommunicationDrawer: () => () => ({
+        communicationDrawerIsOpen: true,
       }),
       closeAddMemberModal: () => () => ({ addMemberModal: false }),
       openAddMemberModal: () => () => ({

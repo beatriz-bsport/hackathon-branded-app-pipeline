@@ -11,34 +11,43 @@ import {
   COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
   COMMUNICATION_RECIPIENT_WAITING_LIST,
   COMMUNICATION_CHANNEL_SESSION,
-  COMMUNICATION_CHANNEL_NOTIFICATION,
+  COMMUNICATION_CHANNEL_MARKETING_NOTIFICATION,
+  COMMUNICATION_CHANNEL_NOTIFICATION_RULE,
   COMMUNICATION_CHANNEL_SMARTLIST,
   COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
   COMMUNICATION_SEND_PARAMETER_AUTO,
   COMMUNICATION_SEND_PARAMETER_MANUAL,
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-
-import { SelectFieldItem } from './types';
-import { Booking, BookingOption } from '#libs/booking/types';
-import { Member } from '#libs/member/types';
-
 import {
   FILTER_IDENTIFIER_CHANNEL,
   FILTER_IDENTIFIER_KIND,
   FILTER_IDENTIFIER_RECIPIENT,
   FILTER_IDENTIFIER_SEND_PARAMETER,
-  CONTEXT_COMMUNICATION,
-  CONTEXT_OFFER,
-  CONTEXT_SMARTLIST,
-  CONTEXT_MEMBER,
-  CONTEXT_NOTIFICATION,
   FILTER_CHANNELS,
   FILTER_KINDS,
   FILTER_RECIPIENTS,
   FILTER_SEND_PARAMETERS,
-  CHANNELS,
+  CONTEXT_MEMBER,
+  CONTEXT_OFFER,
+  CONTEXT_SMARTLIST,
+  CONTEXT_NOTIFICATION,
+  CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS,
+  CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
+  CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
+  CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
 } from './constants';
+
+import {
+  SelectFieldItem,
+  FilterParams,
+  FormatedContext,
+  FilteringMemberIdsByGenericCategories,
+} from './types';
+import { Booking, BookingOption } from '#libs/booking/types';
+import { Member } from '#libs/member/types';
+
+// #region FILTER CONTAINER
 
 export const getFieldChoicesByIdentifier = memoize(
   (identifier: number, t: TFunction) => {
@@ -65,9 +74,15 @@ export const getFieldChoicesByIdentifier = memoize(
             label: t(`filter.choicesLabels.${COMMUNICATION_CHANNEL_SESSION}`),
           },
           {
-            value: COMMUNICATION_CHANNEL_NOTIFICATION,
+            value: COMMUNICATION_CHANNEL_MARKETING_NOTIFICATION,
             label: t(
-              `filter.choicesLabels.${COMMUNICATION_CHANNEL_NOTIFICATION}`,
+              `filter.choicesLabels.${COMMUNICATION_CHANNEL_MARKETING_NOTIFICATION}`,
+            ),
+          },
+          {
+            value: COMMUNICATION_CHANNEL_NOTIFICATION_RULE,
+            label: t(
+              `filter.choicesLabels.${COMMUNICATION_CHANNEL_NOTIFICATION_RULE}`,
             ),
           },
           {
@@ -146,12 +161,6 @@ export const getFilterOptionsOverride = memoize(
               t,
             )
           : undefined,
-      // @ts-ignore
-      channelFilterOptionsOverride: undefined,
-      // @ts-ignore
-      sendParameterOptionsOverride: undefined,
-      // @ts-ignore
-      recipientFilterOptionsOverride: undefined,
     };
   },
 );
@@ -162,13 +171,6 @@ export const getFiltersToEnable = memoize((contextIdentifier: number) => {
     hasDatesFilter: true,
   };
   switch (contextIdentifier) {
-    case CONTEXT_COMMUNICATION:
-      return {
-        ...sharedFilters,
-        hasChannelFilter: true,
-        hasRecipientFilter: false,
-        hasSendParameterFilter: false,
-      };
     case CONTEXT_OFFER:
       return {
         ...sharedFilters,
@@ -199,6 +201,199 @@ export const getFiltersToEnable = memoize((contextIdentifier: number) => {
       };
   }
 });
+
+// #endregion
+
+// #region THREAD CONTAINER
+
+export const getConsentWarning = memoize(
+  (member: Member, kind: number, t: TFunction) => {
+    if (!member) {
+      return '';
+    }
+    switch (kind) {
+      case COMMUNICATION_KIND_EMAIL:
+        return member.accept_email
+          ? ''
+          : `${t('mail.warningConsent1')} 
+      ${t('mail.warningConsent2')}`;
+      case COMMUNICATION_KIND_SMS:
+        return member.accept_sms
+          ? ''
+          : `${t('sms.warningConsent1')} 
+      ${t('sms.warningConsent2')}`;
+      default:
+        return '';
+    }
+  },
+);
+
+// #endregion
+
+// #region GENERIC FILTERS BY MEMBER CATEGORY (IN RECIPIENT OR INFORMATION MODAL)
+
+export const getOfferCategories = memoize(
+  (
+    t: TFunction,
+    bookings: Array<Booking>,
+    bookingOptionsPending: Array<BookingOption>,
+  ) => {
+    const memberCategoriesInOffer = [
+      {
+        categoryMemberIdList: bookings
+          .filter(
+            (booking: Booking) =>
+              booking.booking_status_code === BOOKING_STATUS_OK.id,
+          )
+          .map((booking: Booking) => booking.member),
+        categoryLabel: t('communication:dialogReceiverChoice.reservation'),
+        categoryIdentifier: COMMUNICATION_RECIPIENT_BOOKINGS,
+      },
+      {
+        categoryMemberIdList: bookingOptionsPending.map(
+          (booking: BookingOption) => booking.member,
+        ),
+        categoryLabel: t('communication:dialogReceiverChoice.waitingList'),
+        categoryIdentifier: COMMUNICATION_RECIPIENT_WAITING_LIST,
+      },
+      {
+        categoryMemberIdList: bookings
+          .filter(
+            (booking: Booking) =>
+              booking.booking_status_code !== BOOKING_STATUS_OK.id,
+          )
+          .map((booking: Booking) => booking.member),
+        categoryLabel: t(
+          'communication:dialogReceiverChoice.canceledReservation',
+        ),
+        categoryIdentifier: COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
+      },
+    ];
+    return {
+      categories: memberCategoriesInOffer.filter(
+        (category) => category.categoryMemberIdList.length > 0,
+      ),
+      filterPlaceholder: t('communication:recipients'),
+    };
+  },
+);
+
+export const getFilterOptionsForFilteringByMemberCategory = memoize(
+  (genericMemberCategories: FilteringMemberIdsByGenericCategories) => {
+    const choices: SelectFieldItem[] = [];
+    genericMemberCategories.categories.forEach((category) => {
+      choices.push({
+        value: category.categoryIdentifier,
+        label: category.categoryLabel,
+      });
+    });
+    return choices;
+  },
+);
+
+// #endregion
+
+// #region SEND MESSAGE CONTAINER
+
+export const getValidityTooltipMessage = memoize(
+  (validityIdentifier: number, t: TFunction) => {
+    switch (validityIdentifier) {
+      case CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL:
+        return t('sendMessage.sendDisabled.missingEmailInDirectMember');
+      case CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER:
+        return t('sendMessage.sendDisabled.missingPhoneInDirectMember');
+      case CAN_NOT_SEND_BECAUSE_MISSING_CONTENT:
+        return t('sendMessage.sendDisabled.missingContent');
+      case CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS:
+        return t('sendMessage.sendDisabled.missingRecipients');
+      default:
+        return '';
+    }
+  },
+);
+
+// To send message, we only have user tags available
+// The others are not tackled (unlike in email designs)
+export const getAvailableTagsFromContext = memoize(
+  (contextIdentifier: number) => {
+    switch (contextIdentifier) {
+      case CONTEXT_MEMBER:
+      case CONTEXT_SMARTLIST:
+      case CONTEXT_OFFER:
+        return {
+          User: ['firstname', 'lastname'],
+        };
+      default:
+        return {
+          Offer: [
+            'activity',
+            'coach',
+            'date',
+            'establishment',
+            'establishment_practical_info',
+            'address',
+          ],
+          BillingPlan: [
+            'subscription_name',
+            'subscription_recurrent_price',
+            'subscription_nb_months',
+            'subscription_flat_fee',
+            'subscription_payment_method',
+            'subscription_nb_days_pause',
+            'subscription_next_invoice_date',
+          ],
+          User: ['firstname', 'lastname', 'unsubscribe_link'],
+          Booking: [
+            'activity',
+            'coach',
+            'date',
+            'establishment',
+            'establishment_practical_info',
+            'address',
+            'ics_calendar_link',
+            'spot',
+            'canceled_grouped_session',
+          ],
+          PrivateConsumerPass: [
+            'pass_price',
+            'pass_name',
+            'pass_starting_date',
+            'pass_expiration',
+            'pass_credit_left',
+          ],
+          PrivateBooking: [
+            'activity',
+            'coach',
+            'date',
+            'address',
+            'establishment',
+            'establishment_practical_info',
+            'ics_calendar_link',
+          ],
+          ConsumerPaymentPack: [
+            'pass_price',
+            'pass_name',
+            'pass_starting_date',
+            'pass_expiration',
+            'pass_credit_left',
+          ],
+          BookingOption: [
+            'activity',
+            'coach',
+            'date',
+            'establishment',
+            'establishment_practical_info',
+            'address',
+            'option_payment_url',
+            'option_expiration_date',
+          ],
+        };
+    }
+  },
+);
+
+// #endregion
+// #region DWELL WITH MEMBER LISTS
 
 export const getMemberListFromFilteredBooking = memoize(
   (
@@ -259,68 +454,91 @@ export const getMemberIdListsFromMemberList = memoize(
   },
 );
 
-export const getFiltersByCategory = memoize((filters: number[]) => {
-  const filtersByCategory = [
-    {
-      key: FILTER_IDENTIFIER_CHANNEL,
-      value: filters.filter((id: number) => FILTER_CHANNELS.includes(id)),
-    },
-    {
-      key: FILTER_IDENTIFIER_KIND,
-      value: filters.filter((id: number) => FILTER_KINDS.includes(id)),
-    },
-    {
-      key: FILTER_IDENTIFIER_RECIPIENT,
-      value: filters.filter((id: number) => FILTER_RECIPIENTS.includes(id)),
-    },
-    {
-      key: FILTER_IDENTIFIER_SEND_PARAMETER,
-      value: filters.filter((id: number) =>
-        FILTER_SEND_PARAMETERS.includes(id),
-      ),
-    },
-  ];
-  return filtersByCategory;
-});
+// #endregion
 
-export const getChannelIdByString = memoize((channel: string) => {
-  return CHANNELS.find((element) => element.value === channel).value;
-});
+// #region CONNECTORS
 
-export const getConsentWarning = memoize(
-  (member: Member, kind: number, t: TFunction) => {
-    if (!member) {
-      return '';
-    }
-    switch (kind) {
-      case COMMUNICATION_KIND_EMAIL:
-        return member.accept_email
-          ? ''
-          : `${t('mail.warningConsent1')} 
-      ${t('mail.warningConsent2')}`;
-      case COMMUNICATION_KIND_SMS:
-        return member.accept_sms
-          ? ''
-          : `${t('sms.warningConsent1')} 
-      ${t('sms.warningConsent2')}`;
+// HOC
+export const getFormatedContext = (context: {
+  identifier: number;
+  objectId: number;
+}) => {
+  switch (context.identifier) {
+    case CONTEXT_OFFER:
+      return { offer_id: context.objectId };
+    case CONTEXT_MEMBER:
+      return { member_id: context.objectId };
+    case CONTEXT_SMARTLIST:
+      return { smartlist_id: context.objectId };
+    case CONTEXT_NOTIFICATION:
+      return { marketing_notification_id: context.objectId };
+    default:
+      return {};
+  }
+};
+
+// SELECTORS
+export const getChannelFromMetadata = (metadata: FormatedContext) => {
+  if (Object.keys(metadata).length > 0) {
+    const key = Object.keys(metadata)[0];
+    switch (key) {
+      case 'offer_id':
+        return COMMUNICATION_CHANNEL_SESSION;
+      case 'marketing_notification_id':
+        return COMMUNICATION_CHANNEL_MARKETING_NOTIFICATION;
+      case 'notification_rule':
+      case 'notification_event':
+        return COMMUNICATION_CHANNEL_NOTIFICATION_RULE;
+      case 'smartlist_id':
+      case 'automated_campaign_id':
+        return COMMUNICATION_CHANNEL_SMARTLIST;
+      case 'member_id':
+        return COMMUNICATION_CHANNEL_MESSAGE_DIRECT;
       default:
-        return '';
+        return undefined;
     }
+  } else {
+    return undefined;
+  }
+};
+
+// ACTIONS
+export const getFormatedFiltersToFetchCommunicationSent = memoize(
+  (filters: number[], dateStart: number, dateEnd: number): FilterParams => {
+    const channelIds: string[] = Object.keys(FILTER_CHANNELS);
+    const channelList = filters
+      .filter((id: number) => channelIds.includes(id.toString()))
+      // @ts-ignore
+      .map((id: number) => FILTER_CHANNELS[id]);
+    const channel = channelList?.length > 0 ? channelList : undefined;
+
+    const kindList = filters.filter((id: number) => FILTER_KINDS.includes(id));
+    const filter_kind = kindList?.length > 0 ? kindList : undefined;
+
+    const recipientList = filters.filter((id: number) =>
+      FILTER_RECIPIENTS.includes(id),
+    );
+    const filter_recipient =
+      recipientList?.length > 0 ? recipientList : undefined;
+
+    const filter_send_parameter = filters.find((id: number) =>
+      FILTER_SEND_PARAMETERS.includes(id),
+    );
+
+    const filterParams: FilterParams = {};
+    // @ts-ignore
+    if (channel) filterParams.filter_channel = channel;
+    // @ts-ignore
+    if (filter_kind) filterParams.filter_kind = filter_kind;
+    // @ts-ignore
+    if (filter_recipient) filterParams.filter_recipient = filter_recipient;
+    if (filter_send_parameter)
+      filterParams.filter_send_parameter = filter_send_parameter;
+    if (dateStart) filterParams.filter_date_start = dateStart;
+    if (dateEnd) filterParams.filter_date_end = dateEnd;
+
+    return filterParams;
   },
 );
 
-export const getOfferRecipientsFilters = (
-  hasFilters: boolean,
-  t: TFunction,
-) => {
-  return hasFilters
-    ? getPersonnalizedChoicesByIdentifier(
-        [
-          COMMUNICATION_RECIPIENT_BOOKINGS,
-          COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
-          COMMUNICATION_RECIPIENT_WAITING_LIST,
-        ],
-        t,
-      )
-    : null;
-};
+// #endregion

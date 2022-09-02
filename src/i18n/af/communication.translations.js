@@ -23,9 +23,10 @@ const COMMUNICATION_FILTERS = require('@bsport/common/lib/master-data/communicat
 
 const {
   COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
-  COMMUNICATION_CHANNEL_NOTIFICATION,
+  COMMUNICATION_CHANNEL_MARKETING_NOTIFICATION,
   COMMUNICATION_CHANNEL_SESSION,
   COMMUNICATION_CHANNEL_SMARTLIST,
+  COMMUNICATION_CHANNEL_NOTIFICATION_RULE,
   COMMUNICATION_RECIPIENT_BOOKINGS,
   COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
   COMMUNICATION_RECIPIENT_WAITING_LIST,
@@ -208,7 +209,6 @@ exports.default = {
     warningConsent2:
       "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs.",
   },
-  communication: 'Communications',
   filter: {
     applyFilter: 'Appliquer',
     filterAction: 'Filtrer',
@@ -227,8 +227,8 @@ exports.default = {
       placeholder: "Sélectionnez un type d'envoi",
     },
     channel: {
-      title: 'Channels',
-      placeholder: 'Sélectionnez un type de channel',
+      title: 'Canaux',
+      placeholder: 'Sélectionnez un type de canal',
     },
     recipient: {
       title: 'Destinataires',
@@ -246,9 +246,10 @@ exports.default = {
       [COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED]: 'Réservations annulées',
       [COMMUNICATION_RECIPIENT_WAITING_LIST]: "Liste d'attente",
       [COMMUNICATION_CHANNEL_SESSION]: 'Session',
-      [COMMUNICATION_CHANNEL_NOTIFICATION]: 'Notification',
+      [COMMUNICATION_CHANNEL_MARKETING_NOTIFICATION]: 'Notification',
       [COMMUNICATION_CHANNEL_SMARTLIST]: 'Smartlist',
       [COMMUNICATION_CHANNEL_MESSAGE_DIRECT]: 'Message direct',
+      [COMMUNICATION_CHANNEL_NOTIFICATION_RULE]: 'Emails transactionnels',
       [COMMUNICATION_SEND_PARAMETER_AUTO]: 'Automatique',
       [COMMUNICATION_SEND_PARAMETER_MANUAL]: 'Manuel',
     },
@@ -260,6 +261,8 @@ exports.default = {
       [EMAIL_RECIPIENT_DELIVERED]: 'reçu',
       [EMAIL_RECIPIENT_PROCESSED]: 'en attente',
       notReceived: 'non reçu',
+      openYes: 'oui',
+      openNo: 'non',
     },
   },
   dialogTemplate: {
@@ -278,6 +281,8 @@ exports.default = {
     },
     noMail: 'email non renseigné',
     noPhone: 'numéro non renseigné',
+    refreshMemberData:
+      'Pour voir apparaître vos modifications, merci de cliquer sur le bouton rafraichir.',
   },
   sendMessage: {
     icons: {
@@ -301,9 +306,16 @@ exports.default = {
     sendDisabled: {
       missingRecipients: "Choisissez d'abord des destinataires",
       missingContent: "Votre message n'est pas complet.",
+      missingEmailInDirectMember: "Cet utilisateur n'a pas d'adresse email.",
+      missingPhoneInDirectMember:
+        "Cet utilisateur n'a pas de numéro de téléphone",
     },
     refresh:
       'Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir.',
     writeCommunication: 'Envoyer un message',
+  },
+  generic: {
+    communication: 'Communication',
+    history: 'Historique',
   },
 };

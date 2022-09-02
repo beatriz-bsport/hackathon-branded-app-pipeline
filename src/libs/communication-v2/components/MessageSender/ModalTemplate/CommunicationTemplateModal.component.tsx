@@ -14,22 +14,24 @@ import Typography from '@material-ui/core/Typography';
 import {
   Add as AddIcon,
   Edit as EditIcon,
-  Info as InfoIcon,
+  InfoOutlined as InfoIcon,
   Refresh as RefreshIcon,
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
 } from '@material-ui/icons';
 
-import EmailSelector from '../../email-editor/components/EmailSelector.component';
-import CommunicationWrapperDialog from './CommunicationWrapperDialog.component';
+import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
+import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
+import { EmailTemplateDetail } from '#libs/email-editor/types';
 
 type OwnProps = {
   closeDialog: () => void;
   emailSummaryListLoading: boolean;
   emailSummaryList: Array<any>;
   emailDetailListLoading: boolean;
-  emailDetailList: Array<any>;
+  emailDetailList: Record<number, EmailTemplateDetail>;
+  fetchEmailSummaryList: () => void;
   fullScreen: boolean;
   getEmailDetail: (id: number) => void;
   open: boolean;
@@ -57,6 +59,12 @@ export class CommunicationTemplateModal extends Component<Props, State> {
       selectedTemplate: props.selectedTemplate,
       currentTitle: props.selectedTitle ?? '',
     };
+  }
+
+  componentDidMount(): void {
+    if (!this.props.emailSummaryList?.length) {
+      this.props.fetchEmailSummaryList();
+    }
   }
 
   onChangeTemplate = (templateId: number) => {
@@ -112,7 +120,11 @@ export class CommunicationTemplateModal extends Component<Props, State> {
       displayTemplatePreview: !prevState.displayTemplatePreview,
     }));
 
-  onRefreshClick = () => document.location.reload();
+  onRefreshClick = () => {
+    this.props.fetchEmailSummaryList();
+    this.props.getEmailDetail(this.state.selectedTemplate);
+    this.setState({ displayRefreshAlert: false });
+  };
 
   onConfirm = () => {
     this.props.setTemplate(this.state.selectedTemplate);
@@ -128,7 +140,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
     return (
       <div className={classes.previewEmpty}>
         <InfoIcon fontSize="large" color="disabled" />
-        <Typography color="textSecondary" className={classes.previewEmptyText}>
+        <Typography className={classes.previewEmptyText}>
           {emails?.length > 0
             ? t('mail.selectToShowPreview')
             : t('mail.noMailAvailable')}
@@ -141,9 +153,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
     const { t, classes } = this.props;
     const html =
       !this.props.emailDetailListLoading &&
-      this.props.emailDetailList?.find(
-        (email) => email.id === this.state.selectedTemplate,
-      )?.html;
+      this.props.emailDetailList?.[this.state.selectedTemplate]?.html;
     return (
       <div className={classes.contentContainer}>
         <TextField
@@ -267,6 +277,7 @@ export class CommunicationTemplateModal extends Component<Props, State> {
         onConfirm={this.onConfirm}
         open={open}
         fullScreen={fullScreen}
+        closeDialog={this.onCloseDialog}
       >
         {this.renderContent()}
       </CommunicationWrapperDialog>
@@ -340,9 +351,9 @@ const styles: any = (theme: Theme) => ({
   },
   previewEmptyText: {
     marginTop: theme.spacing(2),
+    color: theme.palette.text.disabled,
   },
   refreshTypography: {
-    color: theme.palette.info.dark,
     maxWidth: 'fit-content',
   },
   refreshContainer: {

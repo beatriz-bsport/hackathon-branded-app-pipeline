@@ -9,10 +9,9 @@ import TextFieldWithChildren from '#components/input/TextFieldWithChildren.compo
 import {
   TEXTFIELD_NOTIFICATION_TITLE,
   TEXTFIELD_NOTIFICATION_CONTENT,
-} from '../constants';
-
-const MAX_LENGTH_PUSH_CONTENT = 200;
-const MAX_LENGTH_PUSH_TITLE = 25;
+  MAX_LENGTH_PUSH_CONTENT,
+  MAX_LENGTH_PUSH_TITLE,
+} from '#libs/communication-v2/constants';
 
 type Props = {
   children: any;

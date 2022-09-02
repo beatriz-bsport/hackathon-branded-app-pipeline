@@ -1,24 +1,29 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { Theme, withStyles, Paper, WithStyles } from '@material-ui/core';
 
-import { OptionCallback } from '../../../state/types';
-import CommunicationRecipientsModal from './CommunicationRecipientsModal.component';
-import CommunicationTemplateModal from './CommunicationTemplateModal.component';
-import CommunicationWriteEmail from './CommunicationWriteEmail.component';
-import CommunicationWriteNotification from './CommunicationWriteNotification.component';
-import CommunicationWriteSMS from './CommunicationWriteSMS.component';
+import { OptionCallback } from '../../../../state/types';
+import CommunicationRecipientsModal from './ModalRecipient/CommunicationRecipientsModal.component';
+import CommunicationTemplateModal from './ModalTemplate/CommunicationTemplateModal.component';
+import CommunicationWriteEmail from './Writers/CommunicationWriteEmail.component';
+import CommunicationWriteNotification from './Writers/CommunicationWriteNotification.component';
+import CommunicationWriteSMS from './Writers/CommunicationWriteSMS.component';
 import BottomBarIcons from './CommunicationSendMessageBottomBarIcons.component';
+import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
 import { Member } from '#libs/member/types';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
-} from '../../email-editor/types';
+} from '#libs/email-editor/types';
 
+import { getAvailableTagsFromContext } from '#libs/communication-v2/utils';
 import {
+  MAX_LENGTH_PUSH_CONTENT,
+  MAX_LENGTH_PUSH_TITLE,
   TEXTFIELD_MAIL_CONTENT,
   TEXTFIELD_MAIL_TITLE,
   TEXTFIELD_NOTIFICATION_CONTENT,
@@ -27,24 +32,31 @@ import {
   WRITE_EMAIL,
   WRITE_SMS,
   WRITE_PUSH_NOTIFICATION,
+  CAN_SEND_MESSAGE,
   CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS,
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
-  CAN_SEND_MESSAGE,
-} from '../constants';
-
-const MAX_DISPLAY = 4;
+  CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
+  CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
+} from '#libs/communication-v2/constants';
+import {
+  MessageData,
+  FilteringMemberIdsByGenericCategories,
+} from '#libs/communication-v2/types';
 
 type OwnProps = {
-  allIds: number[];
-  allIdsWithoutPhone: number[];
-  allIdsWithoutEmail: number[];
-  canFilterRecipients?: boolean;
+  availableMemberToSendCommunicationIdList: number[];
+  availableMemberWithoutEmailToSendCommunicationIdList: number[];
+  availableMemberWithoutPhoneToSendCommunicationIdList: number[];
+  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   communicationKind: number;
+  contextIdentifier: number;
   directMember?: Member;
-  emailTemplateDetailList: Array<EmailTemplateDetail>;
+  emailTemplateDetailList: Record<number, EmailTemplateDetail>;
   emailTemplateSummaryList: Array<EmailTemplateSummary>;
-  fetchRecipientsPage: (page: number, filters: number[]) => void;
-  fetchSelectedMemberList: (memberIds: number[]) => void;
+  fetchAvailableRecipientMemberIdLists: () => void;
+  fetchEmailSummaryList: () => void;
+  fetchPaginatedMemberList: (params: any, memberIds: number[]) => void;
+  fetchSelectedMemberListToSendCommunication: (ids: number[]) => void;
   fullScreen: boolean;
   getEmailDetail: (templateId: number) => void;
   loadingMemberList: boolean;
@@ -52,14 +64,18 @@ type OwnProps = {
   loadingTemplateDetailList: boolean;
   memberList: Member[];
   pageSize: number;
-  selectedMemberList: Member[];
+  selectedMemberListToSendCommunication: Member[];
+  selectedMemberListToSendCommunicationLoading: boolean;
   sendCommunication: (data: any, options?: OptionCallback<void>) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
+  updateThreadList: (kind: number) => void;
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
+  availableMemberIds: number[];
+  checkedMemberCategoryFilter: number[];
   focusTextField: number;
   mailTitle: string;
   mailContent: string;
@@ -68,7 +84,7 @@ type State = {
   notificationTitle: string;
   openRecipientSelector: boolean;
   openTemplateSelector: boolean;
-  recipientFilterList: number[];
+  openTemplateVisualizer: boolean;
   selectedMembers: number[];
   smsContent: string;
   uncheckedMembers: number[];
@@ -84,7 +100,6 @@ export class CommunicationSendMessageContainer extends React.Component<
     this.state = {
       uncheckedMembers: [],
       selectedMembers: [],
-      recipientFilterList: [],
       mailTemplateSelected: null,
       mailTitle: '',
       mailContent: '',
@@ -93,14 +108,49 @@ export class CommunicationSendMessageContainer extends React.Component<
       notificationContent: '',
       focusTextField: null,
       openTemplateSelector: false,
+      openTemplateVisualizer: false,
       openRecipientSelector: false,
       validity: null,
+      availableMemberIds: props.availableMemberToSendCommunicationIdList,
+      checkedMemberCategoryFilter:
+        props.allMemberCategoryList?.categories?.map(
+          (category) => category.categoryIdentifier,
+        ) || [],
     };
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (
+      !isEqual(
+        this.props.availableMemberToSendCommunicationIdList,
+        prevProps.availableMemberToSendCommunicationIdList,
+      )
+    ) {
+      this.setState({
+        availableMemberIds: this.props.availableMemberToSendCommunicationIdList,
+      });
+    }
   }
 
   checkValidity = () => {
     if (!this.props.directMember && this.state.selectedMembers.length === 0) {
       this.setState({ validity: CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS });
+    } else if (
+      !!this.props.directMember &&
+      !this.props.directMember.email &&
+      this.props.communicationKind === WRITE_EMAIL
+    ) {
+      this.setState({
+        validity: CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
+      });
+    } else if (
+      !!this.props.directMember &&
+      !this.props.directMember.phone_number &&
+      this.props.communicationKind === WRITE_SMS
+    ) {
+      this.setState({
+        validity: CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
+      });
     } else {
       switch (this.props.communicationKind) {
         case WRITE_EMAIL:
@@ -139,20 +189,25 @@ export class CommunicationSendMessageContainer extends React.Component<
 
   getSelectedMembersDetails = () => {
     this.checkValidity();
-    this.props.fetchSelectedMemberList(
-      this.state.selectedMembers.slice(0, MAX_DISPLAY),
+    this.props.fetchSelectedMemberListToSendCommunication(
+      this.state.selectedMembers,
     );
   };
 
+  handleCheckMemberCategoryFilter = (nextList: number[]) => {
+    this.setState({ checkedMemberCategoryFilter: nextList });
+  };
+
   onBaliseItemClick = (selectedItem: string) => {
+    const tagLength = selectedItem?.length + 2; // 2 for the brackets
     if (this.props.communicationKind === WRITE_EMAIL) {
       if (this.state.focusTextField === TEXTFIELD_MAIL_TITLE) {
         this.setState((prevState: State) => ({
-          mailTitle: `${prevState.mailTitle}{${selectedItem}} `,
+          mailTitle: `${prevState.mailTitle}{${selectedItem}}`,
         }));
       } else if (this.state.focusTextField === TEXTFIELD_MAIL_CONTENT) {
         this.setState((prevState: State) => ({
-          mailContent: `${prevState.mailContent}{${selectedItem}} `,
+          mailContent: `${prevState.mailContent}{${selectedItem}}`,
         }));
       }
     } else if (
@@ -160,27 +215,37 @@ export class CommunicationSendMessageContainer extends React.Component<
       this.state.focusTextField === TEXTFIELD_SMS_CONTENT
     ) {
       this.setState((prevState: State) => ({
-        smsContent: `${prevState.smsContent}{${selectedItem}} `,
+        smsContent: `${prevState.smsContent}{${selectedItem}}`,
       }));
     } else if (this.props.communicationKind === WRITE_PUSH_NOTIFICATION) {
-      if (this.state.focusTextField === TEXTFIELD_NOTIFICATION_TITLE) {
+      if (
+        this.state.focusTextField === TEXTFIELD_NOTIFICATION_TITLE &&
+        this.state.notificationTitle?.length + tagLength <=
+          MAX_LENGTH_PUSH_TITLE
+      ) {
         this.setState((prevState: State) => ({
-          notificationTitle: `${prevState.notificationTitle}{${selectedItem}} `,
+          notificationTitle: `${prevState.notificationTitle}{${selectedItem}}`,
         }));
-      } else if (this.state.focusTextField === TEXTFIELD_NOTIFICATION_CONTENT) {
+      } else if (
+        this.state.focusTextField === TEXTFIELD_NOTIFICATION_CONTENT &&
+        this.state.notificationContent?.length + tagLength <=
+          MAX_LENGTH_PUSH_CONTENT
+      ) {
         this.setState((prevState: State) => ({
-          notificationContent: `${prevState.notificationContent}{${selectedItem}} `,
+          notificationContent: `${prevState.notificationContent}{${selectedItem}}`,
         }));
       }
     }
   };
 
-  sendMessageWithFlushEditCallback = (data: any) => {
-    const onSuccess = () =>
+  onCloseHTMLPreviewDialog = () =>
+    this.setState({ openTemplateVisualizer: false });
+
+  sendMessageWithFlushEditAndRefreshCallback = (data: MessageData) => {
+    const onSuccess = () => {
       this.setState({
         uncheckedMembers: [],
         selectedMembers: [],
-        recipientFilterList: [],
         mailTemplateSelected: null,
         mailTitle: '',
         mailContent: '',
@@ -190,8 +255,13 @@ export class CommunicationSendMessageContainer extends React.Component<
         focusTextField: null,
         openTemplateSelector: false,
         openRecipientSelector: false,
+        openTemplateVisualizer: false,
         validity: null,
+        availableMemberIds: this.props.availableMemberToSendCommunicationIdList,
+        checkedMemberCategoryFilter: [],
       });
+      this.props.updateThreadList(this.props.communicationKind);
+    };
     this.props.sendCommunication(data, { onSuccess });
   };
 
@@ -202,13 +272,13 @@ export class CommunicationSendMessageContainer extends React.Component<
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:
         if (this.state.mailTemplateSelected) {
-          this.sendMessageWithFlushEditCallback({
+          this.sendMessageWithFlushEditAndRefreshCallback({
             subject: this.state.mailTitle,
             members,
             email_template: this.state.mailTemplateSelected,
           });
         } else {
-          this.sendMessageWithFlushEditCallback({
+          this.sendMessageWithFlushEditAndRefreshCallback({
             subject: this.state.mailTitle,
             members,
             body: this.state.mailContent,
@@ -216,13 +286,13 @@ export class CommunicationSendMessageContainer extends React.Component<
         }
         break;
       case WRITE_SMS:
-        this.sendMessageWithFlushEditCallback({
+        this.sendMessageWithFlushEditAndRefreshCallback({
           members,
           sms: this.state.smsContent,
         });
         break;
       case WRITE_PUSH_NOTIFICATION:
-        this.sendMessageWithFlushEditCallback({
+        this.sendMessageWithFlushEditAndRefreshCallback({
           members,
           notification_title: this.state.notificationTitle,
           notification_content: this.state.notificationContent,
@@ -233,10 +303,13 @@ export class CommunicationSendMessageContainer extends React.Component<
     }
   };
 
+  setAllIds = (idsList: number[], callback: () => void) =>
+    this.setState({ availableMemberIds: idsList }, callback);
+
   setUncheckedMembers = (uncheckedIds: number[]) => {
     this.setState({ uncheckedMembers: uncheckedIds });
 
-    if (!this.props.allIds) {
+    if (!this.state.availableMemberIds) {
       this.setState({
         selectedMembers: [],
       });
@@ -245,21 +318,27 @@ export class CommunicationSendMessageContainer extends React.Component<
       switch (this.props.communicationKind) {
         case WRITE_SMS:
           // First, get members with phone number, then return those checked
-          selectedMembersIds = this.props.allIds
+          selectedMembersIds = this.state.availableMemberIds
             .filter(
-              (memberId) => !this.props.allIdsWithoutPhone?.includes(memberId),
+              (memberId) =>
+                !this.props.availableMemberWithoutPhoneToSendCommunicationIdList?.includes(
+                  memberId,
+                ),
             )
             .filter((memberId) => !uncheckedIds.includes(memberId));
           break;
         case WRITE_EMAIL:
-          selectedMembersIds = this.props.allIds
+          selectedMembersIds = this.state.availableMemberIds
             .filter(
-              (memberId) => !this.props.allIdsWithoutEmail?.includes(memberId),
+              (memberId) =>
+                !this.props.availableMemberWithoutEmailToSendCommunicationIdList?.includes(
+                  memberId,
+                ),
             )
             .filter((memberId) => !uncheckedIds.includes(memberId));
           break;
         case WRITE_PUSH_NOTIFICATION:
-          selectedMembersIds = this.props.allIds.filter(
+          selectedMembersIds = this.state.availableMemberIds.filter(
             (memberId) => !uncheckedIds.includes(memberId),
           );
           break;
@@ -277,7 +356,7 @@ export class CommunicationSendMessageContainer extends React.Component<
   };
 
   renderWriteEmail = () => {
-    const onSeeTemplate = () => this.setState({ openTemplateSelector: true });
+    const onSeeTemplate = () => this.setState({ openTemplateVisualizer: true });
     const onEditTemplate = () => {
       const url = `/email-template/${this.state.mailTemplateSelected}/edit`;
       const win = window.open(url);
@@ -309,6 +388,7 @@ export class CommunicationSendMessageContainer extends React.Component<
         onFocus={onFocus}
         onRemoveTemplate={onRemoveTemplate}
         onSeeTemplate={onSeeTemplate}
+        refreshTemplateData={this.props.getEmailDetail}
       >
         {this.renderBottomIcons()}
       </CommunicationWriteEmail>
@@ -368,9 +448,7 @@ export class CommunicationSendMessageContainer extends React.Component<
     const setActionType = (kind: number) => {
       this.props.setCommunicationKind(kind, this.checkValidity);
     };
-    const tags = {
-      User: ['firstname', 'lastname', 'unsubscribe_link'],
-    };
+    const tags = getAvailableTagsFromContext(this.props.contextIdentifier);
     return (
       <BottomBarIcons
         actionType={this.props.communicationKind}
@@ -379,9 +457,11 @@ export class CommunicationSendMessageContainer extends React.Component<
         fullScreen={this.props.fullScreen}
         handleSelectTemplate={onSelectTemplate}
         handleSelectRecipients={onSelectRecipients}
-        memberList={this.props.memberList}
+        memberList={this.props.selectedMemberListToSendCommunication}
+        memberListLoading={
+          this.props.selectedMemberListToSendCommunicationLoading
+        }
         onBaliseItemClick={this.onBaliseItemClick}
-        selectedMemberList={this.props.selectedMemberList}
         sendMessage={this.sendMessage}
         setActionType={setActionType}
         tags={tags}
@@ -403,6 +483,7 @@ export class CommunicationSendMessageContainer extends React.Component<
         emailDetailList={this.props.emailTemplateDetailList}
         emailSummaryListLoading={this.props.loadingTemplateSummaryList}
         emailSummaryList={this.props.emailTemplateSummaryList}
+        fetchEmailSummaryList={this.props.fetchEmailSummaryList}
         fullScreen={this.props.fullScreen}
         getEmailDetail={this.props.getEmailDetail}
         open={this.state.openTemplateSelector}
@@ -417,16 +498,21 @@ export class CommunicationSendMessageContainer extends React.Component<
   renderRecipientSelector = () => {
     const handleCloseDialog = () =>
       this.setState({ openRecipientSelector: false });
-    const setRecipientFilterList = this.props.canFilterRecipients
-      ? (filterList: number[], callback: () => void) =>
-          this.setState({ recipientFilterList: filterList }, callback)
-      : undefined;
     return (
       <CommunicationRecipientsModal
-        allIds={this.props.allIds}
-        allIdsWithoutEmail={this.props.allIdsWithoutEmail}
-        allIdsWithoutPhone={this.props.allIdsWithoutPhone}
-        fetchPage={this.props.fetchRecipientsPage}
+        availableMemberIdList={this.state.availableMemberIds}
+        availableMemberWithoutEmailIdList={this.props.availableMemberWithoutEmailToSendCommunicationIdList.filter(
+          (id: number) => this.state.availableMemberIds.includes(id),
+        )}
+        availableMemberWithoutPhoneIdList={this.props.availableMemberWithoutPhoneToSendCommunicationIdList.filter(
+          (id: number) => this.state.availableMemberIds.includes(id),
+        )}
+        allMemberCategoryList={this.props.allMemberCategoryList}
+        checkedMemberCategoriesFilters={this.state.checkedMemberCategoryFilter}
+        fetchAvailableRecipientMemberIdLists={
+          this.props.fetchAvailableRecipientMemberIdLists
+        }
+        fetchPaginatedMemberList={this.props.fetchPaginatedMemberList}
         fullScreen={this.props.fullScreen}
         handleCloseDialog={handleCloseDialog}
         kind={this.props.communicationKind}
@@ -434,8 +520,8 @@ export class CommunicationSendMessageContainer extends React.Component<
         memberList={this.props.memberList}
         open={this.state.openRecipientSelector}
         pageSize={this.props.pageSize}
-        selectedFilters={this.state.recipientFilterList}
-        setSelectedFilters={setRecipientFilterList}
+        setAvailableMemberIdList={this.setAllIds}
+        setCheckedMemberCategoriesFilters={this.handleCheckMemberCategoryFilter}
         setUncheckedMembers={this.setUncheckedMembers}
         uncheckedMembers={this.state.uncheckedMembers}
       />
@@ -443,6 +529,10 @@ export class CommunicationSendMessageContainer extends React.Component<
   };
 
   render() {
+    const html =
+      !this.props.loadingTemplateDetailList &&
+      this.props.emailTemplateDetailList?.[this.state.mailTemplateSelected]
+        ?.html;
     return (
       <Paper className={this.props.classes.mainContainer}>
         {this.props.communicationKind === WRITE_EMAIL &&
@@ -450,10 +540,20 @@ export class CommunicationSendMessageContainer extends React.Component<
         {this.props.communicationKind === WRITE_SMS && this.renderWriteSms()}
         {this.props.communicationKind === WRITE_PUSH_NOTIFICATION &&
           this.renderWriteNotification()}
-        {this.state.openRecipientSelector && this.renderRecipientSelector()}
+        {this.renderRecipientSelector()}
         {this.state.openTemplateSelector &&
           this.props.communicationKind === WRITE_EMAIL &&
           this.renderEmailTemplateSelector()}
+        {this.state.openTemplateVisualizer &&
+          this.props.communicationKind === WRITE_EMAIL &&
+          !!html && (
+            <HTMLPreviewDialog
+              open={this.state.openTemplateVisualizer}
+              onClose={this.onCloseHTMLPreviewDialog}
+              html={html}
+              title={this.state.mailTitle}
+            />
+          )}
       </Paper>
     );
   }
@@ -466,6 +566,10 @@ const styles: any = (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: theme.spacing(2),
+    borderTopWidth: 1,
+    borderTopColor: theme.palette.divider,
+    borderTopStyle: 'solid',
+    borderRadius: 0,
   },
 });
 

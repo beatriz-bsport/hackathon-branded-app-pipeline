@@ -231,7 +231,7 @@ const MarketingRuleFormContract = (props: Props) => {
       onClose={props.onCancel}
       title={t('notificationForm.title')}
       subtitle={t('notificationForm.subtitle')}
-      minWidth="0"
+      mobileMinWidth="0px"
     >
       <div
         className={classNames({

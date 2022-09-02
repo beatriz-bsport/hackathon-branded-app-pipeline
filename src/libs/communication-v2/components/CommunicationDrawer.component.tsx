@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
-
 import {
   Typography,
   withMobileDialog,
@@ -10,95 +9,33 @@ import {
   WithStyles,
   WithMobileDialog,
 } from '@material-ui/core';
-import { KeyboardArrowDown, KeyboardArrowUp, Send } from '@material-ui/icons';
+import { KeyboardArrowDown, Send } from '@material-ui/icons';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
-import { OptionCallback } from '../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
-import CommunicationFilterContainer from './CommunicationFilterContainer.component';
-import CommunicationThreadContainer from './CommunicationThreadContainer.component';
-import CommunicationSendMessageContainer from './CommunicationSendMessageContainer.component';
+import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
+import CommunicationThreadContainer from './Thread/CommunicationThreadContainer.component';
+import CommunicationSendMessageContainer from './MessageSender/CommunicationSendMessageContainer.component';
+import withCommunicationData, {
+  WithCommunicationDataProps,
+} from '../communication-drawer-hoc';
 
 import { getConsentWarning } from '../utils';
 
-import { Member } from '#libs/member/types';
-import {
-  RecipientWithMember,
-  MessageData,
-  ThreadCommunication,
-} from '../types';
-import {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-} from '#libs/email-editor/types';
+import { DrawerProps } from '../types';
 
 import {
   CONTEXT_NOTIFICATION,
-  CONTEXT_COMMUNICATION,
-  CONTEXT_OFFER,
   CONTEXT_MEMBER,
-  PAGINATION_SIZE,
+  PAGINATION_SIZE_RECIPIENTS,
   WRITE_EMAIL,
 } from '../constants';
 
-type DrawerProps = {
-  onDrawerClose: () => void;
-  openDrawer: boolean;
-};
-
-type ContextualProps = {
-  contextIdentifier: number; // see in constants
-  contextMember?: Member; // if we are on a member page
-  contextTitle?: string; // notification/smarlist/session name
-};
-
-type ThreadProps = {
-  // --- for Information Modal ---
-  fetchPageInformationRecipientList: (
-    communicationId: number,
-    page: number,
-    filters: number[],
-  ) => void;
-  loadingInformationRecipientList: boolean;
-  informationRecipientList: RecipientWithMember[];
-  // --- for Thread ---
-  fetchPageThreadCommunicationList: (
-    page: number,
-    filters: number[],
-    dateStart: number,
-    dateEnd: number,
-  ) => void;
-  threadCommunicationListHasNextPage: boolean;
-  loadingThreadCommunicationList: boolean;
-  threadCommunicationList: ThreadCommunication[];
-};
-
-type SendMessageProps = {
-  allMembersIds?: number[];
-  allMembersIdsWithoutEmail?: number[];
-  allMembersIdsWithoutPhone?: number[];
-  communicationKindToWrite?: number;
-  emailTemplateDetailList?: Array<EmailTemplateDetail>;
-  emailTemplateSummaryList?: Array<EmailTemplateSummary>;
-  fetchPageRecipientsModalMemberList: (page: number, filters: number[]) => void;
-  fetchSelectedMembersDetails: (memberIds: number[]) => void;
-  fetchEmailDetail: (templateId: number) => void;
-  loadingRecipientsModalMemberList: boolean;
-  loadingTemplateDetailList: boolean;
-  loadingTemplateSummaryList: boolean;
-  recipientsModalMemberList: Member[];
-  selectedMemberList: Member[];
-  sendCommunication?: (
-    data: MessageData,
-    options?: OptionCallback<void>,
-  ) => void;
-};
-
-type OwnProps = DrawerProps & ContextualProps & ThreadProps & SendMessageProps;
-
-export type Props = OwnProps & WithTranslation & WithMobileDialog & WithStyles;
+export type Props = WithCommunicationDataProps &
+  WithTranslation &
+  WithMobileDialog &
+  WithStyles;
 
 type State = {
   threadPage: number;
@@ -123,6 +60,18 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     };
   }
 
+  componentDidMount(): void {
+    this.props.fetchAvailableRecipientMemberIdLists();
+    this.fetchThreadCommunicationList();
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (prevProps.contextObjectId !== this.props.contextObjectId) {
+      this.fetchThreadCommunicationList();
+      this.props.fetchAvailableRecipientMemberIdLists();
+    }
+  }
+
   fetchThreadCommunicationList = () => {
     this.props.fetchPageThreadCommunicationList(
       this.state.threadPage,
@@ -130,6 +79,10 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       this.state.filterDateStart,
       this.state.filterDateEnd,
     );
+  };
+
+  fetchLastThreadCommunication = () => {
+    this.setState({ threadPage: 1 }, this.fetchThreadCommunicationList);
   };
 
   fetchMoreThreadCommunications = () => {
@@ -187,24 +140,22 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       loadingThreadCommunicationList,
       threadCommunicationList,
       // --- SendMessage ---
-      allMembersIds,
-      allMembersIdsWithoutEmail,
-      allMembersIdsWithoutPhone,
+      availableMemberToSendCommunicationIdList,
+      availableMemberWithoutEmailToSendCommunicationIdList,
+      availableMemberWithoutPhoneToSendCommunicationIdList,
       emailTemplateDetailList,
       emailTemplateSummaryList,
-      fetchPageRecipientsModalMemberList,
+      fetchPaginatedMemberList,
+      fetchSelectedMemberListToSendCommunication,
       fetchEmailDetail,
-      fetchSelectedMembersDetails,
       loadingRecipientsModalMemberList,
-      loadingTemplateDetailList,
-      loadingTemplateSummaryList,
+      loadingEmailTemplateDetailList,
+      loadingEmailTemplateSummaryList,
       recipientsModalMemberList,
-      selectedMemberList,
+      selectedMemberListToSendCommunication,
+      selectedMemberListToSendCommunicationLoading,
       sendCommunication,
     } = this.props;
-
-    // --- for thread and sendMessage components ---
-    const displayFiltersInModal = contextIdentifier === CONTEXT_OFFER;
 
     // --- for thread component ---
     const consentWarning =
@@ -214,19 +165,18 @@ export class CommunicationDrawer extends React.Component<Props, State> {
         this.state.communicationKindBeingWritten,
         t,
       );
-
     return (
       <GenericResponsiveDrawer
         open={openDrawer}
         withoutPadding
         withoutHeaderContainer
         flexContent
-        withSmallMinWidth
+        mobileMinWidth="350px"
+        onClose={this.props.onDrawerClose}
       >
         <CommunicationHeader
-          contextIdentifier={contextIdentifier}
-          contextMember={contextMember}
-          contextTitle={contextTitle}
+          contextAvatar={contextMember?.photo}
+          contextTitle={contextMember?.name || contextTitle}
           onDrawerClose={onDrawerClose}
         />
         <CommunicationFilterContainer
@@ -234,99 +184,122 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           handleFilters={this.handleFilterChange}
         />
         <CommunicationThreadContainer
+          allMemberCategoryList={this.props.allMemberCategoryList}
           consentWarning={consentWarning}
-          displayFiltersInModal={displayFiltersInModal}
-          threadCommunicationList={threadCommunicationList}
-          fetchPageInformation={fetchPageInformationRecipientList}
+          currentPage={this.state.threadPage}
+          fetchRecipientPaginatedList={fetchPageInformationRecipientList}
           fetchMoreThreadCommunications={this.fetchMoreThreadCommunications}
           fullScreen={fullScreen}
-          isSingleRecipientThread={
-            contextIdentifier === CONTEXT_MEMBER && !!contextMember
-          }
+          contextMember={contextMember}
           loadingThreadDataList={loadingThreadCommunicationList}
-          loadingRecipientsList={loadingInformationRecipientList}
-          paginationSize={PAGINATION_SIZE}
-          recipientsList={informationRecipientList}
+          loadingRecipientList={loadingInformationRecipientList}
+          paginationSize={PAGINATION_SIZE_RECIPIENTS}
+          recipientList={informationRecipientList}
+          threadCommunicationList={threadCommunicationList}
         />
-        {contextIdentifier !== CONTEXT_NOTIFICATION &&
-          contextIdentifier !== CONTEXT_COMMUNICATION && (
-            <>
-              <Divider variant="fullWidth" className={classes.divider} />
+        {contextIdentifier !== CONTEXT_NOTIFICATION && (
+          <>
+            {this.state.showMessageWritter ? (
               <ButtonBase
                 onClick={this.onShowMessageWriter}
                 disableRipple
                 disableTouchRipple
               >
-                {this.state.showMessageWritter ? (
-                  <KeyboardArrowDown className={classes.buttonIconClose} />
-                ) : (
-                  <div className={classes.buttonMessageWriter}>
-                    <div className={classes.buttonMessageLeft}>
-                      <Send fontSize="small" />
-                      <Typography
-                        variant="subtitle1"
-                        className={classes.buttonText}
-                      >
-                        {t('sendMessage.writeCommunication')}
-                      </Typography>
-                    </div>
-                    <KeyboardArrowUp fontSize="medium" />
-                  </div>
-                )}
+                <KeyboardArrowDown className={classes.buttonIconClose} />
               </ButtonBase>
-              <Collapse in={this.state.showMessageWritter} timeout={500}>
-                <CommunicationSendMessageContainer
-                  allIds={allMembersIds}
-                  allIdsWithoutPhone={allMembersIdsWithoutPhone}
-                  allIdsWithoutEmail={allMembersIdsWithoutEmail}
-                  canFilterRecipients={displayFiltersInModal}
-                  communicationKind={this.state.communicationKindBeingWritten}
-                  directMember={
-                    contextIdentifier === CONTEXT_MEMBER && contextMember
-                  }
-                  emailTemplateDetailList={emailTemplateDetailList}
-                  emailTemplateSummaryList={emailTemplateSummaryList}
-                  fetchRecipientsPage={fetchPageRecipientsModalMemberList}
-                  fetchSelectedMemberList={fetchSelectedMembersDetails}
-                  fullScreen={fullScreen}
-                  getEmailDetail={fetchEmailDetail}
-                  loadingMemberList={loadingRecipientsModalMemberList}
-                  loadingTemplateSummaryList={loadingTemplateSummaryList}
-                  loadingTemplateDetailList={loadingTemplateDetailList}
-                  memberList={recipientsModalMemberList}
-                  pageSize={PAGINATION_SIZE}
-                  selectedMemberList={selectedMemberList}
-                  sendCommunication={sendCommunication}
-                  setCommunicationKind={this.setCommunicationKindBeingWritten}
-                />
-              </Collapse>
-            </>
-          )}
+            ) : (
+              <div className={classes.buttonMessageWriterContainer}>
+                <ButtonBase
+                  onClick={this.onShowMessageWriter}
+                  disableRipple
+                  disableTouchRipple
+                  className={classes.buttonMessageWriter}
+                >
+                  <Send fontSize="small" />
+                  <Typography
+                    variant="subtitle1"
+                    className={classes.buttonText}
+                  >
+                    {t('sendMessage.writeCommunication')}
+                  </Typography>
+                </ButtonBase>
+              </div>
+            )}
+            <Collapse in={this.state.showMessageWritter} timeout={500}>
+              <CommunicationSendMessageContainer
+                allMemberCategoryList={this.props.allMemberCategoryList}
+                availableMemberToSendCommunicationIdList={
+                  availableMemberToSendCommunicationIdList
+                }
+                availableMemberWithoutEmailToSendCommunicationIdList={
+                  availableMemberWithoutEmailToSendCommunicationIdList
+                }
+                availableMemberWithoutPhoneToSendCommunicationIdList={
+                  availableMemberWithoutPhoneToSendCommunicationIdList
+                }
+                communicationKind={this.state.communicationKindBeingWritten}
+                contextIdentifier={contextIdentifier}
+                directMember={
+                  contextIdentifier === CONTEXT_MEMBER && contextMember
+                }
+                emailTemplateDetailList={emailTemplateDetailList}
+                emailTemplateSummaryList={emailTemplateSummaryList}
+                fetchAvailableRecipientMemberIdLists={
+                  this.props.fetchAvailableRecipientMemberIdLists
+                }
+                fetchEmailSummaryList={this.props.fetchEmailSummaryList}
+                fetchPaginatedMemberList={fetchPaginatedMemberList}
+                fetchSelectedMemberListToSendCommunication={
+                  fetchSelectedMemberListToSendCommunication
+                }
+                fullScreen={fullScreen}
+                getEmailDetail={fetchEmailDetail}
+                loadingMemberList={loadingRecipientsModalMemberList}
+                loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
+                loadingTemplateDetailList={loadingEmailTemplateDetailList}
+                memberList={recipientsModalMemberList}
+                pageSize={PAGINATION_SIZE_RECIPIENTS}
+                selectedMemberListToSendCommunication={
+                  selectedMemberListToSendCommunication
+                }
+                selectedMemberListToSendCommunicationLoading={
+                  selectedMemberListToSendCommunicationLoading
+                }
+                sendCommunication={sendCommunication}
+                setCommunicationKind={this.setCommunicationKindBeingWritten}
+                updateThreadList={this.fetchLastThreadCommunication}
+              />
+            </Collapse>
+          </>
+        )}
       </GenericResponsiveDrawer>
     );
   }
 }
 
 const styles: any = (theme: Theme) => ({
-  buttonMessageLeft: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   buttonMessageWriter: {
+    width: '100%',
+    justifyContent: 'flex-start',
     display: 'flex',
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: theme.spacing(1),
+    borderRadius: theme.spacing(3),
+    borderColor: theme.palette.divider,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  buttonMessageWriterContainer: {
     paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-      paddingTop: theme.spacing(0.5),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       paddingBottom: theme.spacing(0.5),
     },
     color: theme.palette.grey[600],
@@ -334,7 +307,6 @@ const styles: any = (theme: Theme) => ({
   buttonText: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    textTransform: 'uppercase',
   },
   buttonIconClose: {
     marginTop: theme.spacing(-1),
@@ -345,13 +317,11 @@ const styles: any = (theme: Theme) => ({
     color: theme.palette.background.default,
     backgroundColor: theme.palette.secondary.main,
   },
-  divider: {
-    paddingBottom: 1,
-  },
 });
 
-export default compose<any, OwnProps>(
+export default compose<any, DrawerProps>(
   withTranslation(['communication']),
   withMobileDialog(),
   withStyles(styles),
+  withCommunicationData,
 )(CommunicationDrawer);

@@ -10,18 +10,22 @@ const TEXT_COLOR_VARIANT = 900;
 const FONT_WEIGHT = 500;
 
 const CommunicationInformationOpenChip = (props: { openStatus: boolean }) => {
-  const { t } = useTranslation(['translation']);
+  const { t } = useTranslation('communication');
   const classes = useStyles();
   if (props.openStatus)
     return (
       <Chip
         className={classes.successChip}
-        label={t('common.yes')}
+        label={t('dialogInformation.status.openYes')}
         size="small"
       />
     );
   return (
-    <Chip className={classes.errorChip} label={t('common.no')} size="small" />
+    <Chip
+      className={classes.errorChip}
+      label={t('dialogInformation.status.openNo')}
+      size="small"
+    />
   );
 };
 

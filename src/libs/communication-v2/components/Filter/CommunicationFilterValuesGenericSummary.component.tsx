@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, Chip, Typography } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
-import { SelectFieldItem } from '../types';
+import { SelectFieldItem } from '#libs/communication-v2/types';
 
 type GenericProps = {
   title: string;

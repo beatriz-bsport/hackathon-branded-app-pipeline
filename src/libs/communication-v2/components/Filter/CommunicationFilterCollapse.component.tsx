@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 import { Moment as MomentType } from 'moment-timezone';
+import isEqual from 'lodash/isEqual';
 import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
 import CommunicationFilterDateField from './CommunicationFilterDateField.component';
 import {
@@ -11,9 +12,9 @@ import {
   FILTER_IDENTIFIER_CHANNEL,
   FILTER_IDENTIFIER_RECIPIENT,
   FILTER_IDENTIFIER_SEND_PARAMETER,
-} from '../constants';
-import { getFieldChoicesByIdentifier } from '../utils';
-import { SelectFieldItem } from '../types';
+} from '#libs/communication-v2/constants';
+import { getFieldChoicesByIdentifier } from '#libs/communication-v2/utils';
+import { SelectFieldItem } from '#libs/communication-v2/types';
 
 export type FilterModalProps = {
   hasKindFilter?: boolean;
@@ -39,18 +40,26 @@ export type FilterModalProps = {
   dateEndSetter?: (newDate: MomentType) => void;
   periodHasChanged?: boolean;
   handleFiltersSubmit: () => void;
+  allPreviousFilter: {
+    filters: number[];
+    dateStart: number;
+    dateEnd: number;
+  };
 };
 
 export const CommunicationFilterCollapse = (props: FilterModalProps) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
+  const allFilterNumbers = []
+    .concat(props.kindFilterValues?.map((field) => field.value))
+    .concat(props.recipientFilterValues?.map((field) => field.value))
+    .concat(props.channelFilterValues?.map((field) => field.value))
+    .concat(props.sendParameterFilterValues?.map((field) => field.value));
   const enableSubmitButton =
-    (props.hasKindFilter && props.kindFilterValues.length > 0) ||
-    (props.hasRecipientFilter && props.recipientFilterValues.length > 0) ||
-    (props.hasChannelFilter && props.channelFilterValues.length > 0) ||
-    (props.hasSendParameterFilter &&
-      props.sendParameterFilterValues.length > 0) ||
-    props.periodHasChanged;
+    (props.dateStartValue?.unix() || null) !==
+      props.allPreviousFilter.dateStart ||
+    (props.dateEndValue?.unix() || null) !== props.allPreviousFilter.dateEnd ||
+    !isEqual(allFilterNumbers, props.allPreviousFilter.filters);
   return (
     <Paper className={classes.container}>
       <div className={classes.filtersContainer}>
@@ -131,13 +140,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-      paddingBottom: theme.spacing(1.5),
-      paddingTop: theme.spacing(1.5),
+      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(1),
     },
     zIndex: 500,
   },
@@ -147,7 +156,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'flex-start',
   },
   submitButton: {
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.spacing(0.5),
     alignSelf: 'flex-end',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),

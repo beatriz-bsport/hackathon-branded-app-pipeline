@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +49,7 @@ import TrendingUp from '@material-ui/icons/TrendingUp';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VpnKey from '@material-ui/icons/VpnKey';
 import { colors } from '@bsport/common/lib/colors';
+import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
@@ -79,6 +81,7 @@ type Props = {
   permissions: Permission;
   disconnect: () => void;
   onMenuItemClick: () => void;
+  nbTutorialAlerting: number;
 };
 
 type DrawerItem =
@@ -115,6 +118,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   permissions,
   disconnect,
   onMenuItemClick,
+  nbTutorialAlerting,
 }) => {
   const { t } = useTranslation(['navigation']);
   const classes = useStyles();
@@ -493,6 +497,16 @@ const ResponsiveDrawer: React.FC<Props> = ({
         },
       ],
     },
+    ...(checkRequiredPermissions('navigationMenu.tutorial', permissions) &&
+    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+      ? [
+          {
+            to: '/tutorial',
+            icon: TutorialIconWithAlertings,
+            text: t('backofficeMenu.tutorial'),
+          },
+        ]
+      : []),
     {
       action: disconnect,
       to: null,
@@ -591,11 +605,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
           }}
           dense={item.dense || isNested}
           selected={isActive}
-          className={isNested ? classes.nestedItem : null}
+          className={classNames({
+            [classes.nestedItem]: isNested,
+          })}
         >
           {item.icon ? (
-            <ListItemIcon className={isNested ? classes.nestedIcon : null}>
-              <item.icon />
+            <ListItemIcon
+              className={classNames({ [classes.nestedIcon]: isNested })}
+            >
+              <item.icon nbTutorialAlerting={nbTutorialAlerting} />
             </ListItemIcon>
           ) : null}
 

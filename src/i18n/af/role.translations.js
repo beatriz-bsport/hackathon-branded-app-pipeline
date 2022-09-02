@@ -298,6 +298,9 @@ exports.default = {
           _label: 'Abonnement bsport',
         },
       },
+      tutorial: {
+        _label: 'Tutoriel',
+      },
     },
   },
   roleDescription: {

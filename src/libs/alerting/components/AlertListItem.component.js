@@ -14,13 +14,19 @@ import {
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
+  NEW_TUTORIAL_SECTION_OR_LESSON,
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
-import type { Alerting, UnevenInvoiceAlerting } from '../types';
+import type {
+  Alerting,
+  UnevenInvoiceAlerting,
+  NewTutorialSectionOrLessonAlerting,
+} from '../types';
+import i18n from '../../../i18n';
 
 type Props = {
   alerting: Alerting,
@@ -304,6 +310,45 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
     </ListItem>
   );
 };
+
+const NewTutorialSectionOrLessonListItem = (props: {
+  pushRouter: (string) => void,
+  alerting: NewTutorialSectionOrLessonAlerting,
+}) => {
+  const { alerting } = props;
+  const { t } = useTranslation(['alerting']);
+  const classes = useStyles();
+  const { names, section_id, new_section } = alerting.data;
+  const notificationType = new_section ? 'newSection' : 'newLesson';
+  const lang: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' = [
+    'en-GB',
+    'en-US',
+  ].includes(i18n?.language)
+    ? 'en'
+    : i18n?.language;
+
+  const title = t(`newTutorialSectionOrLesson.${notificationType}.title`);
+  const content = t(`newTutorialSectionOrLesson.${notificationType}.content`, {
+    name: names[lang],
+  });
+  return (
+    <ListItem divider style={{ paddingTop: 0 }}>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <Typography variant="subtitle1" component="h3">
+            {title}
+          </Typography>
+          <IconButton
+            onClick={() => props.pushRouter(`/tutorial/${section_id}`)}
+          >
+            <ArrowForwardIcon color="secondary" />
+          </IconButton>
+        </div>
+        {content}
+      </div>
+    </ListItem>
+  );
+};
 export default function AlertList(props: Props) {
   const { alerting, pushRouter } = props;
   switch (alerting.alert_kind) {
@@ -334,6 +379,13 @@ export default function AlertList(props: Props) {
     case UNPAID_PRIVATE_BOOKING_ALERT.alert_kind:
       return (
         <UnpaidPrivateBookingIncompleteListItem
+          alerting={alerting}
+          pushRouter={pushRouter}
+        />
+      );
+    case NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind:
+      return (
+        <NewTutorialSectionOrLessonListItem
           alerting={alerting}
           pushRouter={pushRouter}
         />

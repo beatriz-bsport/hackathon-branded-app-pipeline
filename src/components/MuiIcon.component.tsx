@@ -6,11 +6,12 @@ import muiIconNames from './input/muiIcon/muiIconNames';
 type Props = {
   icon: string;
   className?: string;
+  defaultIcon?: string;
 };
 
 const MuiIcon = (props: Props) => {
-  const { icon } = props;
-  const MuiIconComponent = muiIconNames[icon];
+  const { icon, defaultIcon } = props;
+  const MuiIconComponent = muiIconNames[icon] ?? muiIconNames[defaultIcon];
   const classes = useStyles();
   // const iconComponent = React.createElement(muiIconComponent?.type, {
   //   className: props.className || classes.small,

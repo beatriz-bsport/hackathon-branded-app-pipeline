@@ -111,6 +111,7 @@ export type Permission = {
       subscription: boolean;
       mobilePersonalization: boolean;
     };
+    tutorial: boolean;
   };
 };
 

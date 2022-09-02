@@ -5,6 +5,7 @@ const {
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
+  NEW_TUTORIAL_SECTION_OR_LESSON,
 } = require('@bsport/common/lib/master-data/alerting_kind');
 
 exports.default = {
@@ -19,6 +20,7 @@ exports.default = {
     [PRIVATE_BOOKING_INCOMPLETE_ALERT.alert_kind]: 'RDV à compléter',
     [COMPANY_ONBOARDING_ALERT.alert_kind]: 'Informations légales',
     [UNPAID_PRIVATE_BOOKING_ALERT.alert_kind]: 'Rendez-vous impayés',
+    [NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind]: 'Tutoriels',
   },
   showMore: 'Voir davantage',
   unevenInvoice: {
@@ -60,6 +62,16 @@ exports.default = {
       title: 'Paiement en ligne désactivé',
       content:
         'Pour pouvoir encaisser des paiements carte et SEPA, veuillez vérifier vos informations légales',
+    },
+  },
+  newTutorialSectionOrLesson: {
+    newSection: {
+      title: 'Nouvelle section',
+      content: 'La section {{name}} a été ajoutée, formez vous dès maintenant.',
+    },
+    newLesson: {
+      title: 'Nouveau Cours',
+      content: 'Un nouveau cours a été ajouté à la section {{name}}',
     },
   },
 };

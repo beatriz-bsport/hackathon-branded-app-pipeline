@@ -3,6 +3,7 @@ import { PaymentRulesState } from '../libs/payment-rules/types';
 import { StatsState } from './stats/types';
 import { CoachState } from '../libs/associated-coach/types';
 import { SubscriptionState } from '../libs/subscription/types';
+import { TutorialState } from '../libs/platform-tutorial/types';
 import { MemberState } from '../libs/member/types';
 import { PaymentPackState } from '../libs/payment-packs/types';
 import { BookingsState } from '../libs/booking/types';
@@ -62,6 +63,7 @@ export type State = {
   subscription: SubscriptionState;
   tag: TagState;
   theme: ThemeState;
+  tutorial: TutorialState;
 };
 export type Action = SearchAction | AuthAction;
 

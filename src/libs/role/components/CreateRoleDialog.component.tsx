@@ -136,6 +136,7 @@ const defaultPermissions: Permission = {
       subscription: true,
       mobilePersonalization: true,
     },
+    tutorial: true,
   },
 };
 

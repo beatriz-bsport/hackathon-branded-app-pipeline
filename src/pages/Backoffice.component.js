@@ -202,9 +202,12 @@ const CompanyOnboarding = asyncComponent(() =>
   import('./settings/CompanyOnboardingSetting.page'),
 );
 
+const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
+
 type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
+  nbTutorialAlerting: number,
   permissions: Permission,
   platformSubscriptionPaymentStatus: PlatformSubscriptionPaymentStatus,
   fetchAccessLevel: (token: string) => void,
@@ -345,6 +348,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/invoice" component={Invoice} />
       <Route path="/expense" component={Expense} />
       <Route path="/subscription" component={Subscription} />
+      <Route path="/tutorial" component={Tutorial} />
       <Route path="/member" component={Member} />
       <Route path="/activity" component={MetaActivity} />
       <Route path="/workshop-activity" component={WorkshopActivity} />
@@ -600,6 +604,7 @@ export class Backoffice extends Component<Props, State> {
                 onSubmit={this.props.updateCashBook}
                 alertings={this.props.alertings}
                 nbAlerting={this.props.nbAlerting}
+                nbTutorialAlerting={this.props.nbTutorialAlerting}
                 deleteAlert={this.props.deleteAlert}
                 disconnect={this.props.disconnect}
                 displayLeftMenu={this.state.displayLeftMenu}
@@ -791,6 +796,7 @@ export default compose(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),
       nbAlerting: alertingSelectors.countAlerting(state),
+      nbTutorialAlerting: alertingSelectors.countTutorialAlerting(state),
       username: state.auth.username,
       name: state.auth.name,
       roleId: state.auth.role,

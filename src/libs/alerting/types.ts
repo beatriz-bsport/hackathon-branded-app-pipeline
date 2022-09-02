@@ -1,3 +1,5 @@
+import type { LanguageDict } from '#libs/platform-tutorial/types';
+
 export type AlertGroup = {
   results: Array<Alerting>;
   loading: boolean;
@@ -35,6 +37,13 @@ export type NewOrderAlerting = Alerting & {
   };
 };
 
+export type NewTutorialSectionOrLessonAlerting = Alerting & {
+  data: {
+    names: LanguageDict;
+    section_id: number;
+    new_section: boolean;
+  };
+};
 // TODO TYPES
 export type AlertingState = {
   items_by_kind: any; // TODO CHECK THIS

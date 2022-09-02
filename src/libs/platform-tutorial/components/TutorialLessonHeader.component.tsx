@@ -1,0 +1,316 @@
+import {
+  Button,
+  makeStyles,
+  Paper,
+  Theme,
+  Typography,
+} from '@material-ui/core';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import React from 'react';
+import chroma from 'chroma-js';
+import classNames from 'classnames';
+import { Skeleton } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
+import { TutorialCompletion, TutorialLesson, TutorialSection } from '../types';
+import ToolTip from '#components/Tooltip.component';
+import MuiIcon from '#components/MuiIcon.component';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import { isLessonCompleted } from '../utils';
+import { FeatureList } from '#libs/company/types';
+
+export type Props = {
+  selectedLesson: TutorialLesson;
+  section: TutorialSection;
+  goToLesson: (sectionId: number | string, lessonId: number | string) => void;
+  tutorial_completion: TutorialCompletion;
+};
+
+const TutorialLessonHeader: React.FC<Props> = (props: Props) => {
+  const { selectedLesson, section, goToLesson, tutorial_completion } = props;
+  const classes = useStyles();
+  const { t } = useTranslation('tutorial');
+  const sectionCompleted =
+    (
+      section?.lessons?.filter(
+        (lesson) => !isLessonCompleted(lesson, tutorial_completion),
+      ) || []
+    ).length === 0;
+
+  if (!section) {
+    return (
+      <Paper elevation={0} className={classes.paper}>
+        <div className={classNames(classes.secondRow, classes.skeleton)}>
+          {[1, 2, 3, 4, 5, 6].map((idx) => (
+            <div key={`skeleton_${idx}`} style={{ width: '100%' }}>
+              <Skeleton
+                animation="wave"
+                width="80%"
+                variant="text"
+                height={30}
+              />
+            </div>
+          ))}
+        </div>
+      </Paper>
+    );
+  }
+
+  return (
+    <Paper elevation={0} className={classes.paper}>
+      <div className={classes.firstRow}>
+        <div
+          className={classNames(
+            classes.box,
+            {
+              [classes.boxPrimary]: sectionCompleted,
+            },
+            {
+              [classes.boxGrey]: !sectionCompleted,
+            },
+          )}
+        >
+          <MuiIcon
+            icon={section?.icon}
+            defaultIcon="BusinessCenter"
+            className={classNames(
+              {
+                [classes.iconPrimary]: sectionCompleted,
+              },
+              {
+                [classes.iconDisabled]: !sectionCompleted,
+              },
+            )}
+          />
+        </div>
+        <Typography className={classes.textContainer} variant="h4">
+          {section?.translated_name}
+        </Typography>
+        <FeatureListProvider>
+          {(featureList: FeatureList) => {
+            const hasUpsell = !section?.upsell_identifiers.every(
+              (id) =>
+                featureList.upsell &&
+                featureList.upsell.find((f) => f.upsell_identifier === id),
+            );
+            return (
+              <>
+                {hasUpsell && (
+                  <div className={classes.chipAddOn}>
+                    {t('lessonHeader.addOn')}
+                  </div>
+                )}
+              </>
+            );
+          }}
+        </FeatureListProvider>
+      </div>
+      <div className={classes.secondRow}>
+        <PlayArrowIcon className={classes.icon} color="primary" />
+        {section?.lessons?.map((lesson) => {
+          return (
+            <ToolTip
+              key={`lesson_button_${lesson.id}`}
+              title={lesson?.translated_name}
+              placement="bottom"
+            >
+              <Button
+                disableElevation
+                className={classNames(
+                  classes.lessonButton,
+                  {
+                    [classes.outlined]:
+                      selectedLesson.id === lesson.id &&
+                      isLessonCompleted(lesson, tutorial_completion),
+                  },
+                  {
+                    [classes.semiTransparent]:
+                      selectedLesson.id === lesson.id &&
+                      !isLessonCompleted(lesson, tutorial_completion),
+                  },
+                )}
+                classes={{
+                  root: classNames(classes.rootButton, {
+                    [classes.overrideMuiLessonCompletedButtonRootHoverMobile]:
+                      isLessonCompleted(lesson, tutorial_completion),
+                    [classes.overrideMuiLessonSelectedButtonRootHoverMobile]:
+                      selectedLesson.id === lesson.id &&
+                      !isLessonCompleted(lesson, tutorial_completion),
+                  }),
+                }}
+                variant="contained"
+                color={
+                  isLessonCompleted(lesson, tutorial_completion)
+                    ? 'primary'
+                    : 'default'
+                }
+                onClick={() => goToLesson(section.id, lesson.id)}
+              />
+            </ToolTip>
+          );
+        })}
+        <EmojiEventsIcon
+          fontSize="medium"
+          className={classes.icon}
+          color={sectionCompleted ? 'primary' : 'disabled'}
+        />
+      </div>
+      <FeatureListProvider>
+        {(featureList: FeatureList) => {
+          const hasUpsell = !section?.upsell_identifiers.every(
+            (id) =>
+              featureList.upsell &&
+              featureList.upsell.find((f) => f.upsell_identifier === id),
+          );
+          return (
+            <>
+              {hasUpsell && (
+                <div className={classes.warningContainer}>
+                  <div className={classes.infoIcon}>
+                    <InfoOutlinedIcon color="inherit" />
+                  </div>
+                  <Typography variant="body2" className={classes.breakSpaces}>
+                    {t('lessonHeader.warning')}
+                  </Typography>
+                </div>
+              )}
+            </>
+          );
+        }}
+      </FeatureListProvider>
+    </Paper>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(3),
+    gap: theme.spacing(1),
+  },
+  skeleton: {
+    width: '100%',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+  box: {
+    borderRadius: theme.spacing(1),
+    width: theme.spacing(5.5),
+    height: theme.spacing(5.5),
+    minWidth: theme.spacing(5.5),
+    minHeight: theme.spacing(5.5),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconPrimary: {
+    fill: theme.palette.primary.main,
+  },
+  iconDisabled: {
+    fill: theme.palette.text.disabled,
+  },
+  boxGrey: {
+    backgroundColor: theme.palette.action.selected,
+  },
+
+  boxPrimary: {
+    backgroundColor: chroma(theme.palette.primary.main).alpha(0.2).hex(),
+  },
+  textContainer: {
+    wordBreak: 'break-word',
+  },
+
+  firstRow: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+    justifyContent: 'start',
+    width: '100%',
+  },
+
+  secondRow: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+    width: '100%',
+    overflowX: 'auto',
+    overflowY: 'hidden',
+    paddingBottom: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      gap: theme.spacing(1),
+    },
+  },
+  icon: {
+    marginTop: theme.spacing(1),
+  },
+  outlined: {
+    outline: `1px solid ${theme.palette.primary.main}`,
+    outlineOffset: theme.spacing(0.5),
+  },
+  lessonButton: {
+    overflowY: 'visible',
+    width: theme.spacing(12.5),
+    height: theme.spacing(3),
+    marginTop: theme.spacing(1),
+  },
+  semiTransparent: {
+    backgroundColor: chroma(theme.palette.primary.main).alpha(0.5).hex(),
+  },
+  rootButton: {
+    minWidth: theme.spacing(2.5),
+    borderRadius: theme.spacing(1),
+  },
+  overrideMuiLessonCompletedButtonRootHoverMobile: {
+    [theme.breakpoints.down('sm')]: {
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
+  },
+  overrideMuiLessonSelectedButtonRootHoverMobile: {
+    [theme.breakpoints.down('sm')]: {
+      '&:hover': {
+        backgroundColor: chroma(theme.palette.primary.main).alpha(0.5).hex(),
+      },
+    },
+  },
+  chipAddOn: {
+    display: 'flex',
+    borderRadius: theme.spacing(0.5),
+    justifyContent: 'center',
+    backgroundColor: chroma(theme.palette.info.main).alpha(0.1).hex(),
+    color: theme.palette.info.main,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+  },
+  warningContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(2),
+    gap: theme.spacing(2),
+    outline: `1px solid ${theme.palette.info.main}`,
+    padding: theme.spacing(1.5),
+    borderRadius: theme.spacing(1),
+  },
+  infoIcon: {
+    color: theme.palette.info.main,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  breakSpaces: {
+    whiteSpace: 'break-spaces',
+  },
+}));
+
+export default TutorialLessonHeader;

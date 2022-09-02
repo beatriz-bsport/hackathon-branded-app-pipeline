@@ -140,8 +140,15 @@ const setLanguage = (lng: string) => {
   }
 };
 
+const getLanguage = () => {
+  if (window.localStorage) {
+    return window.localStorage.getItem('i18nextLng');
+  }
+  return 'en';
+};
+
 export default i18n;
-export { Moment, availableLanguages, setLanguage };
+export { Moment, availableLanguages, setLanguage, getLanguage };
 
 export const browserCountryCode = () => {
   if (navigator && navigator.language) {

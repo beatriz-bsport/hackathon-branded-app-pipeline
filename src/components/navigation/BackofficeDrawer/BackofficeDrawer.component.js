@@ -76,6 +76,7 @@ type Props = {
   theme: Object,
   classes: Object,
   nbAlerting: number,
+  nbTutorialAlerting: number,
   alertings: Array<Alerting>,
   disconnect: () => void,
   logo: ?string,
@@ -693,7 +694,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, theme, hidden } = this.props;
+    const { classes, theme, hidden, nbTutorialAlerting } = this.props;
     if (hidden) {
       return (
         <div style={{ width: '100%' }}>
@@ -745,6 +746,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                       permissions={this.props.permissions}
                       disconnect={this.props.disconnect}
                       onMenuItemClick={this.hideMobileDrawer}
+                      nbTutorialAlerting={nbTutorialAlerting}
                     />
                   </Drawer>
                 </Hidden>
@@ -766,6 +768,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                       permissions={this.props.permissions}
                       disconnect={this.props.disconnect}
                       onMenuItemClick={() => {}}
+                      nbTutorialAlerting={nbTutorialAlerting}
                     />
                   </Drawer>
                 </Hidden>
@@ -791,6 +794,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                   permissions={this.props.permissions}
                   disconnect={this.props.disconnect}
                   onMenuItemClick={this.hideMobileDrawer}
+                  nbTutorialAlerting={nbTutorialAlerting}
                 />
               </Drawer>
             )}

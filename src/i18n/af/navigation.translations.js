@@ -102,6 +102,8 @@ exports.default = {
       forms: 'Formulaire membre',
       mobilePersonalization: 'Personalisation app',
     },
+    tutorial: 'Tutoriel',
+    tutorialInfo: 'Retrouvez notre guide de démarrage dans l’onglet Tutoriel.',
     marketingNotification: 'Notifications',
     tags: 'Tags',
     myClub: 'Mon Club',

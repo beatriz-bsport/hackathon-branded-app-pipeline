@@ -2659,8 +2659,8 @@
         },
         "filter": {
             "choicesLabels": {
-                "11": "Manual",
-                "10": "Automatic",
+                "11": "Direct message",
+                "10": "Session",
                 "9": "Waitlist",
                 "8": "Cancellations",
                 "7": "Bookings",
@@ -2670,7 +2670,15 @@
                 "3": "Session",
                 "2": "Push notification",
                 "1": "SMS",
-                "0": "Email"
+                "0": "Email",
+                "51": "Manual",
+                "50": "Automatic",
+                "32": "Waiting list",
+                "31": "Cancelled bookings",
+                "30": "Bookings",
+                "14": "Transactional notifications",
+                "13": "Notification",
+                "12": "Smartlist"
             },
             "sendParameter": {
                 "placeholder": "Select a setting",
@@ -2705,7 +2713,9 @@
             "status": {
                 "notReceived": "Failed",
                 "4": "Delivered",
-                "1": "Pending"
+                "1": "Pending",
+                "openNo": "No",
+                "openYes": "Yes"
             },
             "headerOpen": "Open",
             "headerStatus": "Status"
@@ -2718,7 +2728,8 @@
                 "recipientsNotAllSelected": "Not all recipients have been selected.",
                 "phoneOrMailMissing": "Certain recipients don't have a saved email addres and/or phone number.",
                 "header": "Warning"
-            }
+            },
+            "refreshMemberData": "To see your changes, please click on the refresh button."
         },
         "dialogTemplate": {
             "refreshText": "Click the refresh button to see the newest templates.",
@@ -2735,7 +2746,9 @@
             "refresh": "To see the new version of your template, please click on the refresh button.",
             "sendDisabled": {
                 "missingContent": "Your message is incomplete.",
-                "missingRecipients": "First choose recipients"
+                "missingRecipients": "First choose recipients",
+                "missingPhoneInDirectMember": "This user doesn't have a phone number",
+                "missingEmailInDirectMember": "This user doesn't have an email address."
             },
             "buttons": {
                 "selectRecipientsMobile": "to",
@@ -2750,7 +2763,11 @@
             },
             "writeCommunication": "Send a message"
         },
-        "communication": "Communications"
+        "communication": "Communications",
+        "generic": {
+            "history": "History",
+            "communication": "Communication"
+        }
     },
     "privateService": {
         "serviceGroup": {
@@ -4727,7 +4744,10 @@
                     "_helper": "Mobile only",
                     "_label": "Search members"
                 },
-                "_label": "Navigation menu"
+                "_label": "Navigation menu",
+                "tutorial": {
+                    "_label": "Tutorial"
+                }
             },
             "offer": {
                 "edit": {
@@ -8458,7 +8478,8 @@
             "3": "Tasks",
             "4": "Appointment to complete",
             "5": "Legal information",
-            "6": "Unpaid appointments"
+            "6": "Unpaid appointments",
+            "7": "Tutorials"
         },
         "showMore": "Show more",
         "unevenInvoice": {
@@ -8497,6 +8518,16 @@
         },
         "unpaidPrivateBooking": {
             "credits_due": "{{ credits }} unpaid credit(s)"
+        },
+        "newTutorialSectionOrLesson": {
+            "newLesson": {
+                "content": "A new lesson has been added to the {{name}} section",
+                "title": "New lesson"
+            },
+            "newSection": {
+                "content": "The {{name}} section has been added, get trained now.",
+                "title": "New section"
+            }
         }
     },
     "paymentPack": {
@@ -9907,7 +9938,8 @@
         },
         "actions": "Actions",
         "archiveMember": "Archive",
-        "accountBalance": "Balance"
+        "accountBalance": "Balance",
+        "communication": "Communication"
     },
     "booking": {
         "bookingModule": {
@@ -11988,6 +12020,10 @@
             "17102": "Email content is required",
             "17101": "A title is required",
             "17000": "There was an error"
+        },
+        "communicationv2": {
+            "error": "Problem when sending the communication",
+            "success": "Communication being sent"
         }
     },
     "navigation": {
@@ -12093,7 +12129,9 @@
             "instalmentPayment": "Instalments",
             "coachPayroll": "Payroll",
             "clockIn": "Attendance",
-            "help": "Support"
+            "help": "Support",
+            "tutorialInfo": "You can find our Getting Started Guide in the Tutorial tab.",
+            "tutorial": "Tutorial"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -13581,6 +13619,60 @@
                 "message": "Your export is ready to be downloaded.",
                 "title": "Export time clock history"
             }
+        }
+    },
+    "tutorial": {
+        "lessonContent": {
+            "finish": "End the section",
+            "nextLesson": "Next",
+            "previousLesson": "Previous"
+        },
+        "allFinishDialog": {
+            "continueButton": "Continue",
+            "infoText": "Well done you have completed all the lessons offered by Bsport. You now know the platform like the back of your hand! You know how to use all the basic features, many others are waiting for you to help you develop your activity.",
+            "title": "Finished!"
+        },
+        "sectionFinishDialog": {
+            "continueButton": "Continue",
+            "infoText": "You have completed all the lessons in {{name}} section. Continue to improve by completing the next section.",
+            "title": "Congratulations !"
+        },
+        "shareDialog": {
+            "continueButton": "Continue",
+            "infoTextLesson": "Share the {{name}} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.",
+            "infoTextSection": "Share all the lessons in the {{name}} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.",
+            "title": "Share"
+        },
+        "welcomeDialog": {
+            "approveButton": "Let's get started!",
+            "rejectButton": "I want to learn on my own",
+            "infoText": "Welcome to your new management platform. Let's learn together to discover all the features of Bsport to launch your studio in the best conditions.",
+            "title": "Welcome to Bsport!"
+        },
+        "lessonHeader": {
+            "warning": "This feature is an add-on. You don't have this feature, please contact your account manager.",
+            "addOn": "Add-on",
+            "backToList": "Back to the list"
+        },
+        "menuHeader": {
+            "infoText": "Learn how to use all the basic features of Bsport with our different lessons.",
+            "title": "Welcome to our Getting Started Guide."
+        },
+        "sectionList": {
+            "missingUpsell": "You don't have this feature, please contact your account manager.",
+            "addOn": "Add-on",
+            "new": "New",
+            "shareSection": "Share the section"
+        },
+        "lessonList": {
+            "addOn": "Add-on",
+            "new": "New",
+            "shareLesson": "Share the lesson",
+            "share": "Share",
+            "start": "Start"
+        },
+        "menu": {
+            "helpButton": "Find help"
         }
     }
 }

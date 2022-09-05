@@ -2587,7 +2587,7 @@
             "label": "Medios de pago",
             "11": "Diverso",
             "10": "Pago automático",
-            "9": "Pagar in situ",
+            "9": "Cuenta interna (crédito)",
             "8": "EventBrite",
             "7": "Transferancia",
             "6": "AMEX",
@@ -4405,7 +4405,8 @@
             "4": "Cita a completar",
             "3": "Tarea",
             "5": "Informaciones legales",
-            "6": "Citas no pagadas"
+            "6": "Citas no pagadas",
+            "7": "Tutoriales"
         },
         "showMore": "Ver más",
         "unevenInvoice": {
@@ -4444,6 +4445,16 @@
         },
         "unpaidPrivateBooking": {
             "credits_due": "Créditos a pagar : {{ credits }}"
+        },
+        "newTutorialSectionOrLesson": {
+            "newLesson": {
+                "content": "Se ha añadido una nueva clase a la sección {{name}}",
+                "title": "Nueva clase"
+            },
+            "newSection": {
+                "content": "La sección {{name}} ha sido añadida, así que fórmate ahora.",
+                "title": "Nueva sección"
+            }
         }
     },
     "offer": {
@@ -4909,7 +4920,8 @@
         },
         "actions": "Acciones",
         "archiveMember": "Archivar",
-        "accountBalance": "Saldo"
+        "accountBalance": "Saldo",
+        "communication": "Comunicación"
     },
     "booking": {
         "details": {
@@ -5457,7 +5469,7 @@
                     "lastname": "Nombre estudiante",
                     "firstname": "Nombre estudiante"
                 },
-                "name": "Estudiante"
+                "name": "Miembro"
             },
             "BillingPlan": {
                 "tags": {
@@ -7093,8 +7105,8 @@
             "filterAction": "Filtrar",
             "applyFilter": "Aplicar",
             "choicesLabels": {
-                "11": "Manual",
-                "10": "Automático",
+                "11": "Mensaje directo",
+                "10": "Sesión",
                 "9": "Lista de espera",
                 "8": "Reservas canceladas",
                 "7": "Reservas",
@@ -7104,7 +7116,15 @@
                 "3": "Sesión",
                 "2": "Notificación push",
                 "1": "SMS",
-                "0": "Email"
+                "0": "Email",
+                "51": "Manual",
+                "50": "Automático",
+                "32": "Lista de espera",
+                "31": "Reservas canceladas",
+                "30": "Reservas",
+                "14": "Emails transaccionales",
+                "13": "Notificación",
+                "12": "Smartlist"
             },
             "sendParameter": {
                 "placeholder": "Seleccione un parámetro de envío",
@@ -7131,13 +7151,16 @@
                 "phoneOrMailMissing": "Algunos destinatarios no tienen correo electrónico/número de teléfono.",
                 "header": "Cuidado"
             },
-            "noPhone": "número no suministrado"
+            "noPhone": "número no suministrado",
+            "refreshMemberData": "Para ver los cambios, haz clic en el botón de actualización."
         },
         "dialogInformation": {
             "status": {
                 "1": "esperando",
                 "notReceived": "no recibido",
-                "4": "recibido"
+                "4": "recibido",
+                "openNo": "no",
+                "openYes": "sí"
             },
             "headerOpen": "Abierto",
             "headerStatus": "Estado"
@@ -7157,7 +7180,9 @@
             "refresh": "Para ver la nueva versión de tu plantilla, haz clic en el botón de actualización.",
             "sendDisabled": {
                 "missingContent": "Tu mensaje no está completo.",
-                "missingRecipients": "Primero elige a los destinatarios"
+                "missingRecipients": "Primero elige a los destinatarios",
+                "missingPhoneInDirectMember": "Este miembro no tiene un número de teléfono",
+                "missingEmailInDirectMember": "Este miembro no tiene correo electrónico."
             },
             "buttons": {
                 "selectRecipientsMobile": "dest.",
@@ -7172,7 +7197,11 @@
             },
             "writeCommunication": "Enviar un mensaje"
         },
-        "communication": "Comunicaciones"
+        "communication": "Comunicaciones",
+        "generic": {
+            "history": "Historia",
+            "communication": "Comunicación"
+        }
     },
     "paymentCombo": {
         "detail": {
@@ -7826,7 +7855,10 @@
                     "_helper": "Sólo móvil",
                     "_label": "Buscar miembros"
                 },
-                "_label": "Menú de navegación"
+                "_label": "Menú de navegación",
+                "tutorial": {
+                    "_label": "Tutorial"
+                }
             },
             "member": {
                 "search": {
@@ -9171,6 +9203,10 @@
             "17102": "Error: contenido del correo electrónico requerido",
             "17101": "Error: Título obligatorio",
             "17000": "Se ha producido un error"
+        },
+        "communicationv2": {
+            "error": "Problema al enviar la comunicación",
+            "success": "Comunicación que se está enviando"
         }
     },
     "paymentPack": {
@@ -10269,7 +10305,9 @@
             "instalmentPayment": "Pagos fraccionados",
             "coachPayroll": "Remuneración",
             "clockIn": "Reloj de fichaje",
-            "help": "Ayuda"
+            "help": "Ayuda",
+            "tutorialInfo": "Puedes encontrar nuestra Guía de inicio en la pestaña de Tutorial.",
+            "tutorial": "Tutorial"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -12617,6 +12655,60 @@
             "missing": "Ausente",
             "createStaff": "crear un acceso para el personal",
             "emptyState": "Todavía no ha dado acceso al personal. Para definir los accesos del personal vaya a la configuración y luego al personal o haga clic en el botón de abajo. Para seguir los horarios de su personal no olvide activar \"Reloj de tiempo\" al crear su rol."
+        }
+    },
+    "tutorial": {
+        "lessonContent": {
+            "finish": "Finalizar la sección",
+            "nextLesson": "Siguiente",
+            "previousLesson": "Anterior"
+        },
+        "allFinishDialog": {
+            "continueButton": "Continuar",
+            "infoText": "Bien hecho, has completado todos las clases ofrecidoas por Bsport. Ahora conoces la plataforma como la palma de tu mano. Ya sabes cómo utilizar todas las funcionalidades básicas, muchas otras te están esperando para ayudarte a desarrollar tu actividad.",
+            "title": "¡Terminado!"
+        },
+        "sectionFinishDialog": {
+            "continueButton": "Continuar",
+            "infoText": "Has completado todos las clases de la sección {{name}}. Sigue mejorando completando la siguiente sección.",
+            "title": "¡Felicidades!"
+        },
+        "shareDialog": {
+            "continueButton": "Continuar",
+            "infoTextLesson": "Compartir la clase {{name}} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de este curso.",
+            "infoTextSection": "Compartir todas las clases de la sección {{name}} con los miembros de tu personal que no tienen acceso a la pestaña de tutoriales. Sólo podrán navegar dentro de esta sección.",
+            "title": "Compartir"
+        },
+        "welcomeDialog": {
+            "approveButton": "¡Vamos!",
+            "rejectButton": "Quiero aprender por mi cuenta",
+            "infoText": "Bienvenido a tu nueva plataforma de gestión. Aprendamos juntos a descubrir todas las características de Bsport para poner en marcha tu estudio en las mejores condiciones.",
+            "title": "¡Bienvenido a Bsport!"
+        },
+        "lessonHeader": {
+            "warning": "Esta función es un add-on. No dispones de esta funcionalidad, ponte en contacto con el gestor de tu cuenta.",
+            "addOn": "Add-on",
+            "backToList": "Volver a la lista"
+        },
+        "menuHeader": {
+            "infoText": "Aprenda a utilizar todas las funcionalidades básicas de Bsport con nuestras diferentes clases.",
+            "title": "Bienvenido a nuestra Guía de inicio."
+        },
+        "sectionList": {
+            "missingUpsell": "No dispones de esta funcionalidad, ponte en contacto con el gestor de tu cuenta.",
+            "addOn": "Add-on",
+            "new": "Nuevo",
+            "shareSection": "Compartir la sección"
+        },
+        "lessonList": {
+            "addOn": "Add-on",
+            "new": "Nuevo",
+            "shareLesson": "Compartir la clase",
+            "share": "Compartir",
+            "start": "Empezar"
+        },
+        "menu": {
+            "helpButton": "Encontrar ayuda"
         }
     }
 }

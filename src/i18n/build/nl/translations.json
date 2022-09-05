@@ -1731,8 +1731,8 @@
                 "51": "Handmatig",
                 "50": "Automatisch",
                 "32": "Wachtlijst",
-                "31": "Geannuleerde boekingen",
-                "30": "Boekingen",
+                "31": "Annuleringen",
+                "30": "Reserveringen",
                 "14": "Transactionele meldingen",
                 "13": "Melding",
                 "12": "Smartlist"
@@ -1786,7 +1786,7 @@
                 "phoneOrMailMissing": "Sommige ontvangers hebben geen e-mailadres en/of telefoonnummer opgeslagen.",
                 "header": "Waarschuwing"
             },
-            "refreshMemberData": "Om de wijzigingen te zien, klik op de vernieuw knop."
+            "refreshMemberData": "Ververs om de wijzigingen in te zien."
         },
         "dialogTemplate": {
             "refreshText": "Klik op verversen om de nieuwste sjablonen weer te geven.",
@@ -2691,7 +2691,7 @@
         "newTutorialSectionOrLesson": {
             "newLesson": {
                 "title": "Nieuwe les",
-                "content": "Er is een nieuwe les toegevoegd aan de {{naam}} sectie"
+                "content": "Er is een nieuwe les toegevoegd aan deze sectie (\"{{name}}\")."
             },
             "newSection": {
                 "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar.",
@@ -8601,7 +8601,7 @@
             "register": {
                 "error": "Fout bij het reserveren op deze datum",
                 "warning": {
-                    "11106": "Dit heb je reeds gereserveerd"
+                    "11106": "Deze afspraak is recent gereserveerd"
                 }
             }
         },
@@ -8939,7 +8939,7 @@
             "17000": "Er is een fout opgetreden"
         },
         "communicationv2": {
-            "error": "Probleem met het verzenden van het bericht",
+            "error": "Fout bij het versturen van dit bericht",
             "success": "Communicatie wordt verzonden"
         }
     },
@@ -11310,7 +11310,7 @@
             "clockIn": "Urenregistratie",
             "help": "Hulp",
             "tutorial": "Handleiding",
-            "tutorialInfo": "U vindt onze Aan de slag-gids in het tabblad Handleiding."
+            "tutorialInfo": "Onder \"Handleiding\" staat alle nuttige informatie voor beginners om aan de slag te gaan."
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -12632,13 +12632,13 @@
             "previousLesson": "Terug"
         },
         "allFinishDialog": {
-            "continueButton": "Ga verder",
-            "infoText": "Goed gedaan. Je hebt alle lessen van Bsport gevolgd. U kent het platform nu op uw duimpje! U weet hoe u alle basisfuncties moet gebruiken, vele andere wachten op u om u te helpen uw activiteit te ontwikkelen.",
-            "title": "Klaar!"
+            "continueButton": "Volgende",
+            "infoText": "Gefeliciteerd! Je hebt alle lessen over de basisfuncties voltooid.",
+            "title": "Voltooid!"
         },
         "sectionFinishDialog": {
-            "continueButton": "Ga verder",
-            "infoText": "U heeft alle lessen in {{name}} voltooid. Ga door met verbeteren door de volgende sectie te voltooien.",
+            "continueButton": "Verder",
+            "infoText": "Je hebt alle lessen van deze sectie (\"{{name}}\") voltooid. Begin met de volgende sectie om meer te leren.",
             "title": "Gefeliciteerd !"
         },
         "shareDialog": {
@@ -12650,33 +12650,33 @@
         "welcomeDialog": {
             "approveButton": "Laten we beginnen!",
             "rejectButton": "Ik wil het zelf leren",
-            "infoText": "Welkom op uw nieuwe management platform. Laten we samen alle functies van Bsport ontdekken om uw studio in de beste omstandigheden te lanceren.",
-            "title": "Welkom bij Bsport!"
+            "infoText": "Namens iedereen bij BSPORT wensen we je van harte welkom bij je nieuwe en ultieme hulpmiddelen. Laten we gezamenlijk de basis doornemen om het opstartproces zo soepel mogelijk te laten verlopen.",
+            "title": "Welkom bij BSPORT!"
         },
         "lessonHeader": {
-            "warning": "Deze functie is een aanvullende dienst. Als u deze functie niet heeft, neem dan contact op met uw account manager.",
+            "warning": "Deze functie is een aanvullende dienst. Contacteer je accountmanager, indien je interesse hebt in het activeren van deze optie.",
             "addOn": "Aanvullende dienst",
-            "backToList": "Terug naar de lijst"
+            "backToList": "Terug"
         },
         "menuHeader": {
-            "infoText": "Leer alle basisfuncties van Bsport te gebruiken met onze verschillende lessen.",
-            "title": "Welkom bij onze Aan de slag-gids."
+            "infoText": "In dit tabblad lichten we alle basisfuncties toe en hoe je deze naar wens kunt configureren.",
+            "title": "Welkom bij onze handleiding."
         },
         "sectionList": {
-            "missingUpsell": "U hebt deze functie niet, neem contact op met uw account manager.",
+            "missingUpsell": "Contacteer je accountmanager om deze aanvullende dienst te activeren.",
             "addOn": "Aanvullende dienst",
             "new": "Nieuw",
-            "shareSection": "De sectie delen"
+            "shareSection": "Sectie delen"
         },
         "lessonList": {
             "addOn": "Aanvullende dienst",
             "new": "Nieuw",
-            "shareLesson": "De les delen",
-            "share": "Deel",
+            "shareLesson": "Les delen",
+            "share": "Delen",
             "start": "Start"
         },
         "menu": {
-            "helpButton": "Hulp zoeken"
+            "helpButton": "Artikelen"
         }
     }
 }

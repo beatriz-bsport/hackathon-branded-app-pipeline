@@ -1716,8 +1716,8 @@
         },
         "filter": {
             "choicesLabels": {
-                "11": "Handmatig",
-                "10": "Automatisch",
+                "11": "Rechtstreeks bericht",
+                "10": "Sessie",
                 "9": "Wachtlijst",
                 "8": "Annuleringen",
                 "7": "Reserveringen",
@@ -1727,7 +1727,15 @@
                 "3": "Sessie",
                 "2": "Push-notificatie",
                 "1": "Sms",
-                "0": "E-mail"
+                "0": "E-mail",
+                "51": "Handmatig",
+                "50": "Automatisch",
+                "32": "Wachtlijst",
+                "31": "Geannuleerde boekingen",
+                "30": "Boekingen",
+                "14": "Transactionele meldingen",
+                "13": "Melding",
+                "12": "Smartlist"
             },
             "sendParameter": {
                 "placeholder": "Selecteer een instelling",
@@ -1762,7 +1770,9 @@
             "status": {
                 "notReceived": "Mislukt",
                 "4": "Ontvangen",
-                "1": "Bezig"
+                "1": "Bezig",
+                "openNo": "Nee",
+                "openYes": "Ja"
             },
             "headerOpen": "Open",
             "headerStatus": "Status"
@@ -1775,7 +1785,8 @@
                 "recipientsNotAllSelected": "Niet alle ontvangers zijn geselecteerd.",
                 "phoneOrMailMissing": "Sommige ontvangers hebben geen e-mailadres en/of telefoonnummer opgeslagen.",
                 "header": "Waarschuwing"
-            }
+            },
+            "refreshMemberData": "Om de wijzigingen te zien, klik op de vernieuw knop."
         },
         "dialogTemplate": {
             "refreshText": "Klik op verversen om de nieuwste sjablonen weer te geven.",
@@ -1790,7 +1801,9 @@
             "refresh": "Ververs om het nieuwe e-mailsjabloon te zien.",
             "sendDisabled": {
                 "missingContent": "Dit bericht is incompleet.",
-                "missingRecipients": "Selecteer allereerst de ontvangers."
+                "missingRecipients": "Selecteer allereerst de ontvangers.",
+                "missingPhoneInDirectMember": "Dit lid heeft geen telefoonnummer",
+                "missingEmailInDirectMember": "Dit lid heeft geen e-mailadres."
             },
             "textField": {
                 "warningLength": "Aantal te versturen sms'jes: {{number_sms}}",
@@ -1807,7 +1820,11 @@
             },
             "writeCommunication": "Een bericht versturen"
         },
-        "communication": "Bericht"
+        "communication": "Bericht",
+        "generic": {
+            "history": "Historie",
+            "communication": "Communicatie"
+        }
     },
     "paymentCombo": {
         "delete": {
@@ -2630,7 +2647,8 @@
             "3": "Openstaande taken",
             "4": "Openstaande afspraken",
             "5": "Juridische kennisgeving",
-            "6": "Onbetaalde afspraken"
+            "6": "Onbetaalde afspraken",
+            "7": "Handleiding"
         },
         "showMore": "Zie meer",
         "unevenInvoice": {
@@ -2669,6 +2687,16 @@
         },
         "unpaidPrivateBooking": {
             "credits_due": "{{ credits }} onbetaalde krediet(en)"
+        },
+        "newTutorialSectionOrLesson": {
+            "newLesson": {
+                "title": "Nieuwe les",
+                "content": "Er is een nieuwe les toegevoegd aan de {{naam}} sectie"
+            },
+            "newSection": {
+                "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar.",
+                "title": "Nieuwe sectie"
+            }
         }
     },
     "paymentPack": {
@@ -4793,7 +4821,8 @@
         },
         "actions": "Acties",
         "archiveMember": "Archiveer",
-        "accountBalance": "Saldo"
+        "accountBalance": "Saldo",
+        "communication": "Communicatie"
     },
     "booking": {
         "bookingModule": {
@@ -8908,6 +8937,10 @@
             "17102": "Inhoud voor de e-mail is een vereiste",
             "17101": "Een titel is een vereiste",
             "17000": "Er is een fout opgetreden"
+        },
+        "communicationv2": {
+            "error": "Probleem met het verzenden van het bericht",
+            "success": "Communicatie wordt verzonden"
         }
     },
     "coach": {
@@ -11125,7 +11158,10 @@
                     "_helper": "Alleen op mobiel",
                     "_label": "Leden zoeken"
                 },
-                "_label": "Navigatiemenu"
+                "_label": "Navigatiemenu",
+                "tutorial": {
+                    "_label": "Handleiding"
+                }
             },
             "member": {
                 "search": {
@@ -11272,7 +11308,9 @@
             "instalmentPayment": "Termijnbetalingen",
             "coachPayroll": "Payroll",
             "clockIn": "Urenregistratie",
-            "help": "Hulp"
+            "help": "Hulp",
+            "tutorial": "Handleiding",
+            "tutorialInfo": "U vindt onze Aan de slag-gids in het tabblad Handleiding."
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -12585,6 +12623,60 @@
                 "message": "De export is klaar om gedownload te worden.",
                 "title": "Geschiedenis exporteren"
             }
+        }
+    },
+    "tutorial": {
+        "lessonContent": {
+            "finish": "De sectie beëindigen",
+            "nextLesson": "Volgende",
+            "previousLesson": "Vorige"
+        },
+        "allFinishDialog": {
+            "continueButton": "Ga verder",
+            "infoText": "Goed gedaan. Je hebt alle lessen van Bsport gevolgd. U kent het platform nu op uw duimpje! U weet hoe u alle basisfuncties moet gebruiken, vele andere wachten op u om u te helpen uw activiteit te ontwikkelen.",
+            "title": "Klaar!"
+        },
+        "sectionFinishDialog": {
+            "continueButton": "Ga verder",
+            "infoText": "U heeft alle lessen in {{name}} voltooid. Ga door met verbeteren door de volgende sectie te voltooien.",
+            "title": "Gefeliciteerd !"
+        },
+        "shareDialog": {
+            "continueButton": "Ga verder",
+            "infoTextLesson": "Deel de {{name}} les met uw personeelsleden die geen toegang hebben tot de handleidingen tab. Zij zullen alleen binnen deze les kunnen navigeren.",
+            "infoTextSection": "Deel alle lessen in de {{name}} sectie met uw personeelsleden die geen toegang hebben tot de handleidingen tab. Zij zullen alleen in deze sectie kunnen navigeren.",
+            "title": "Delen"
+        },
+        "welcomeDialog": {
+            "approveButton": "Laten we beginnen!",
+            "rejectButton": "Ik wil het zelf leren",
+            "infoText": "Welkom op uw nieuwe management platform. Laten we samen alle functies van Bsport ontdekken om uw studio in de beste omstandigheden te lanceren.",
+            "title": "Welkom bij Bsport!"
+        },
+        "lessonHeader": {
+            "warning": "Deze functie is een aanvullende dienst. Als u deze functie niet heeft, neem dan contact op met uw account manager.",
+            "addOn": "Aanvullende dienst",
+            "backToList": "Terug naar de lijst"
+        },
+        "menuHeader": {
+            "infoText": "Leer alle basisfuncties van Bsport te gebruiken met onze verschillende lessen.",
+            "title": "Welkom bij onze Aan de slag-gids."
+        },
+        "sectionList": {
+            "missingUpsell": "U hebt deze functie niet, neem contact op met uw account manager.",
+            "addOn": "Aanvullende dienst",
+            "new": "Nieuw",
+            "shareSection": "De sectie delen"
+        },
+        "lessonList": {
+            "addOn": "Aanvullende dienst",
+            "new": "Nieuw",
+            "shareLesson": "De les delen",
+            "share": "Deel",
+            "start": "Start"
+        },
+        "menu": {
+            "helpButton": "Hulp zoeken"
         }
     }
 }

@@ -12629,7 +12629,7 @@
         "lessonContent": {
             "finish": "De sectie beëindigen",
             "nextLesson": "Volgende",
-            "previousLesson": "Vorige"
+            "previousLesson": "Terug"
         },
         "allFinishDialog": {
             "continueButton": "Ga verder",

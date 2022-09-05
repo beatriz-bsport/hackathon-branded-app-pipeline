@@ -422,7 +422,8 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       };
     if (this.props?.spotType?.customization === PERSONALIZED_CUSTOMIZATION)
       return this.renderPersonalizedSpot(this.props.spotType);
-    if (asset?.asset) return this.renderPersonalizedSpot(oldVersionSpotType);
+    if (asset?.asset && this.props?.asset_identifier)
+      return this.renderPersonalizedSpot(oldVersionSpotType);
     switch (predefinedSpotType.shape) {
       case 'square':
         return this.renderSquareSpot(predefinedSpotType);

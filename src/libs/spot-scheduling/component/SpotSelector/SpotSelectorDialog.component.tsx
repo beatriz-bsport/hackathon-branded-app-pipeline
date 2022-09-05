@@ -51,7 +51,17 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     takenSpotError: false,
   };
 
-  renderRowLegend = (spotType?: SpotType) => {
+  getAsset = (identifier: string) => {
+    if (this.props.assets) {
+      return this.props.assets[identifier];
+    }
+    return undefined;
+  };
+
+  renderRowLegend = (
+    spotType?: SpotType,
+    getAsset?: (identifier: string) => AssetForBlueprint,
+  ) => {
     const { classes, t } = this.props;
     let x = 25;
     let y = 4;
@@ -82,7 +92,10 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               x={x}
               y={y}
               spotType={spotType}
+              getAsset={getAsset}
+              assets={this.props.assets}
               selectingSpot
+              asset_identifier="spot_free"
             />
           </svg>
           <Typography variant="body2" className={classes.spotStatus}>
@@ -108,6 +121,9 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               spotType={spotType}
               taken
               selectingSpot
+              getAsset={getAsset}
+              assets={this.props.assets}
+              asset_identifier="spot_taken"
             />
           </svg>
           <Typography variant="body2" className={classes.spotStatus}>
@@ -133,6 +149,9 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               spotType={spotType}
               selected
               selectingSpot
+              getAsset={getAsset}
+              assets={this.props.assets}
+              asset_identifier="spot_taken"
             />
           </svg>
           <Typography variant="body2" className={classes.spotStatus}>
@@ -150,6 +169,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
   renderOtherSpotTypesLegend = () => {
     return (
       <div className={this.props.classes.spotTypesLegendContainer}>
+        {this.props.assets && this.renderRowLegend({}, this.getAsset)}
         {this.props?.spotTypesOfBlueprint.map((spotType) =>
           this.renderRowLegend(spotType),
         )}
@@ -441,6 +461,7 @@ const styles = (theme: Theme) => ({
     fontWeight: 400,
     display: 'flex',
     flexDirection: 'column',
+    height: '100vh',
   },
   selectMenuIsMobile: {
     paddingLeft: theme.spacing(2),

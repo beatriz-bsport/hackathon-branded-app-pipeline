@@ -366,7 +366,7 @@ const styles = (theme: Theme) => ({
   containerSelecting: {
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    minHeight: '80vh',
+    minHeight: '100vh',
   },
   toolbarCanvasContainer: {
     display: 'flex',

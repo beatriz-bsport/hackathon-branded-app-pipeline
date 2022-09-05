@@ -17,11 +17,16 @@ export default class SpotSchedulingHelper {
         const data = { ...el.data } as CanvasSpotProps;
         if (params.takenSpot && params.takenSpot.includes(el.data.index)) {
           data.taken = true;
-          data.asset_identifier = 'spot_taken';
+          if (data.asset_identifier) {
+            data.asset_identifier = 'spot_taken';
+          }
         }
 
         if (params.selectedSpot === data.index) {
           data.selected = true;
+          if (data.asset_identifier) {
+            data.asset_identifier = 'spot_taken';
+          }
         }
 
         return {

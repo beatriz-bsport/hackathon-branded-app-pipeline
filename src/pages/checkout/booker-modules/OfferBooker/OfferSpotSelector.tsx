@@ -6,6 +6,7 @@ import {
   RoomBlueprint,
   SpotType,
 } from '../../../../libs/spot-scheduling/types';
+import { getSpotIndexType } from '#libs/spot-scheduling/utils';
 
 interface Props {
   offer: Offer<any, any, any>;
@@ -50,10 +51,7 @@ const OfferSpotSelector = (props: Props) => {
     (element) => element.data.spotTypeId,
   );
 
-  const selectedIndexType = roomBlueprint?.canvas.elements
-    .filter((element) => element.data.index <= selectedIndex)
-    .map((element) => element.data.spotTypeId)
-    .filter((id) => id === selectedSpotTypeId).length;
+  const selectedIndexType = getSpotIndexType(roomBlueprint, selectedIndex);
 
   return (
     <SpotSelectorDialog

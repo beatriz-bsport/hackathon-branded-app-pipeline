@@ -79,7 +79,7 @@ const MarketplaceBookButton = (props: Props) => {
         <Hidden xsDown>
           {text +
             (props.showOfferFilling
-              ? `  (${offer.tot_slots}/${offer.effectif})`
+              ? `  (${offer.validated_booking_count}/${offer.effectif})`
               : '')}
         </Hidden>
         {props.showOfferGender && showGender()}

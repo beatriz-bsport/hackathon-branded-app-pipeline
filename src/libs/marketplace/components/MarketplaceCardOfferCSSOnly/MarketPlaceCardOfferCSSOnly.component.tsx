@@ -149,7 +149,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
                 <GroupIcon className="bs-card-offer__icon" />
                 <div className="bs-card-offer__content__bottom__left__group__number">
                   {props.showOfferFilling
-                    ? `  ${offer.tot_slots}/${offer.effectif}`
+                    ? `  ${offer.validated_booking_count}/${offer.effectif}`
                     : ''}{' '}
                 </div>
               </div>

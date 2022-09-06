@@ -134,7 +134,7 @@ export const OfferListItemConsumer = (props: Props) => {
                 <Typography className={classes.coachName} variant="caption">
                   {`  ${coachName}${
                     props.showOfferFilling
-                      ? ` (${offer.tot_slots}/${offer.effectif})`
+                      ? ` (${offer.validated_booking_count}/${offer.effectif})`
                       : ''
                   }`}
                 </Typography>

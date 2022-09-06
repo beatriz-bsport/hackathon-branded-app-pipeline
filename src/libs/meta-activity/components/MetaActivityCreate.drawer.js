@@ -20,6 +20,8 @@ import { Establishment } from '../../establishment/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { CoachPaymentRule } from '../../coach-payment-rules/types';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type StepType = {
   id: number,
@@ -142,7 +144,9 @@ export class MetaActivityCreateDrawer extends Component<Props> {
           ? this.props.onSubmitWorkshopActivity
           : this.props.onSubmitMetaActivity
       }
-      onCancel={this.props.onClose}
+      onCancel={() => {
+        this.props.onClose();
+      }}
       is_broadcast_enabled
       tags={this.props.allTagsWithTagGroup}
     />
@@ -230,6 +234,11 @@ export class MetaActivityCreateDrawer extends Component<Props> {
     if (this.props.loading) {
       return <LinearProgress />;
     }
+    const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
+      this.props.isWorkshop
+        ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
+        : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+    );
 
     return (
       <GenericResponsiveDrawer
@@ -237,6 +246,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
         onClose={() => {
           this.props.fetchAllActivities();
           this.props.onClose();
+          trackFormCancel();
         }}
         title={
           this.props.isWorkshop

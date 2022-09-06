@@ -9,6 +9,7 @@ import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
+import { OptionCallback } from '../../state/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
@@ -257,7 +258,10 @@ export class MarketingRuleListPage extends Component<Props, State> {
     this.props.updateMarketingNotification(id, n);
   };
 
-  handleCreate = (notification: MarketingNotification) => {
+  handleCreate = (
+    notification: MarketingNotification,
+    option?: OptionCallback,
+  ) => {
     this.props.createMarketingNotification(notification, {
       onSuccess: (data: MarketingNotification) => {
         if (data.email_design) {
@@ -265,6 +269,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
         }
         this.props.fetchMarketingNotificationCampaignSummary(data.id);
         this.props.push(`/marketing/notifications/${data.id}`);
+        option?.onSuccess && option?.onSuccess();
       },
     });
   };

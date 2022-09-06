@@ -18,6 +18,7 @@ import type {
   PrivateServiceWithSlots,
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
 type OwnProps = {
   open: boolean;
@@ -66,6 +67,10 @@ export const PaymentPackFormDrawer = (props: Props) => {
       onClose={closeForm}
       title={t('addPaymentPack.paymentPack')}
       subtitle={initial?.name || null}
+      trackingObjectIdentifier={
+        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK
+      }
+      trackingObjectId={initial?.id}
     >
       <PaymentPackForm
         provincialTax={provincialTax}

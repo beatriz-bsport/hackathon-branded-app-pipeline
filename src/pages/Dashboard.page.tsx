@@ -413,7 +413,7 @@ const mapWithHandlers = {
           props.fetchGraphStatistics(graphToUpdate);
           props.setGraphToEdit(null);
           props.setIsDrawerOpen(false);
-          if (options && options.onError) options.onError();
+          if (options && options.onSuccess) options.onSuccess();
         },
       });
     },

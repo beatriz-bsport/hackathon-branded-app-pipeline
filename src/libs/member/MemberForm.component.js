@@ -37,6 +37,18 @@ import ToolTip from '#components/Tooltip.component';
 
 import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
 
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.MEMBER,
+);
+
 const styles = (theme) => ({
   redPaperContainer: {
     padding: theme.spacing(3),
@@ -175,7 +187,12 @@ export function MemberForm(props: Props) {
     asManager,
     userStatus,
     setFieldValue,
+    memberId,
   } = props;
+  React.useEffect(() => {
+    trackFormAdd(memberId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const mdSize = variant === 'merge-form' ? 12 : 6;
   const validationErrors = () => {
     const { errors } = props;
@@ -575,7 +592,13 @@ export function MemberForm(props: Props) {
               {!disabled ? (
                 <Actions>
                   {props.onCancel ? (
-                    <Button onClick={props.onCancel} disabled={isSubmitting}>
+                    <Button
+                      onClick={() => {
+                        trackFormCancel(memberId);
+                        props.onCancel();
+                      }}
+                      disabled={isSubmitting}
+                    >
                       {t('translation:common.cancel')}
                     </Button>
                   ) : null}
@@ -587,6 +610,9 @@ export function MemberForm(props: Props) {
                         !props.emailExistsError &&
                         !props.memberId)
                     }
+                    onClick={() => {
+                      trackFormSubmitIntent(memberId);
+                    }}
                   >
                     {t('translation:form.send')}
                   </Submit>
@@ -697,7 +723,10 @@ export default compose(
       },
     enableReinitialize: true,
 
-    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    handleSubmit: (
+      values,
+      { props: { onSubmit, memberId }, setSubmitting },
+    ) => {
       setSubmitting(true);
       let { avatar } = values;
       if (typeof avatar === 'string' && avatar.includes('data:image/')) {
@@ -729,7 +758,10 @@ export default compose(
           Moment(values.birthday).format('YYYY-MM-DD'),
       };
       onSubmit(data, {
-        onSuccess: () => setSubmitting(false),
+        onSuccess: () => {
+          trackFormSuccess(memberId);
+          setSubmitting(false);
+        },
         onError: () => setSubmitting(false),
       });
     },

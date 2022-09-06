@@ -38,6 +38,7 @@ type Identifier =
 
 type OwnProps = {
   onClose: () => void;
+  onCancel: () => void;
   onSubmit: (identifier: Identifier, objectId: number) => void;
   identifier: Identifier;
   metaActivities: MetaActivity[];
@@ -256,6 +257,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
           <DialogActions>
             <Button
               onClick={() => {
+                this.props.onCancel();
                 this.props.onClose();
               }}
             >

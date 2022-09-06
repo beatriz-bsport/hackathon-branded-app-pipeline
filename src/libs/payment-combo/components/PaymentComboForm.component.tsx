@@ -28,8 +28,14 @@ import { PaymentCombo, PaymentComboItem } from '../types';
 import { PaymentPack } from '../../payment-packs/types';
 import { ShopItem } from '../../shop/types';
 import { PrivatePass } from '../../private-service/types';
-import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const { trackFormAdd, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO,
+  );
 
 type Props = {
   provincialTax: number;
@@ -40,7 +46,7 @@ type Props = {
   privatePassListLoading: boolean;
   relatedPrivatePassList: Array<PrivatePass>;
   initial: PaymentCombo;
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 
 function repeat(arr: number[], n: number) {
   const a: number[] = [];
@@ -64,15 +70,13 @@ export const PaymentComboForm: React.FC<Props> = ({
   privatePassListLoading,
   relatedPrivatePassList,
   initial,
-  formAdd,
 }) => {
   const { t } = useTranslation('paymentCombo');
   const classes = useStyles();
 
   React.useEffect(() => {
-    if (formAdd) {
-      formAdd(initial && initial.id ? { payment_combo_id: initial.id } : {});
-    }
+    trackFormAdd(initial?.id);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -323,18 +327,15 @@ export const PaymentComboFormHoc = withFormik({
   validationSchema: PaymentComboFieldsSchema,
   handleSubmit: (
     valuesFormik,
-    { props: { onSubmit, formSuccess, initial }, setSubmitting },
+    { props: { onSubmit, initial }, setSubmitting },
   ) => {
     onSubmit(
       omit(valuesFormik, ['payment_packs', 'private_passes', 'shop_items']),
       {
         onSuccess: () => {
           setSubmitting(false);
-          if (formSuccess) {
-            formSuccess(
-              initial && initial.id ? { payment_combo_id: initial.id } : {},
-            );
-          }
+
+          trackFormSuccess(initial?.id);
         },
         onError: () => setSubmitting(false),
       },

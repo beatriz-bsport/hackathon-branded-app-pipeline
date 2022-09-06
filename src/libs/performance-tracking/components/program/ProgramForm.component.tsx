@@ -28,6 +28,13 @@ import {
 } from '#libs/performance-tracking/types';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import MetricConfigurationTable from '../metrics/MetricConfigurationTable.component';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PERFORMANCE_TRACKING_PROGRAM,
+  );
 
 type OwnProps = {
   submit: (
@@ -80,6 +87,7 @@ export const ProgramForm = (props: Props) => {
         onSubmit={(values, actions) => {
           submit(values, {
             onSuccess: () => {
+              trackFormSuccess(initial?.id);
               actions.setSubmitting(false);
               closeDialog && closeDialog();
               resetInitial && resetInitial();
@@ -180,13 +188,21 @@ export const ProgramForm = (props: Props) => {
                   <Button
                     color="secondary"
                     onClick={() => {
+                      trackFormCancel(initial?.id);
                       closeDialog && closeDialog();
                       resetInitial && resetInitial();
                     }}
                   >
                     {t('form.cancel')}
                   </Button>
-                  <Button color="primary" type="submit" variant="contained">
+                  <Button
+                    color="primary"
+                    type="submit"
+                    variant="contained"
+                    onClick={() => {
+                      trackFormSubmitIntent(initial?.id);
+                    }}
+                  >
                     {t('form.save')}
                   </Button>
                 </div>

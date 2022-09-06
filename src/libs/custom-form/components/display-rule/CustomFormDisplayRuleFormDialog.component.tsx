@@ -32,13 +32,18 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import type { CustomFormDisplayRule } from '../../types';
 import { IntegerField } from '../../../../components/forms';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../state/types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_DISPLAY_RULE,
+);
 type InitialValues = { initial?: CustomFormDisplayRule };
 type OwnProps = InitialValues & {
   onSubmit: (data: CustomFormDisplayRule, options?: OptionCallback) => void;
@@ -46,7 +51,7 @@ type OwnProps = InitialValues & {
   open: boolean;
   onClose: () => void;
   signUpRuleAlreadyExists: boolean;
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 type Props = OwnProps &
   WithTranslation &
   FormikProps<InitialValues> &
@@ -74,13 +79,8 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
   const [expandAdvancedOptions, setExpandAdvancedOptions] =
     React.useState(false);
   React.useEffect(() => {
-    if (props.formAdd) {
-      props.formAdd(
-        props.initial?.id
-          ? { custom_form_display_rule_id: props.initial.id }
-          : {},
-      );
-    }
+    trackFormAdd(props.initial?.id);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (props.isSubmitting) {
@@ -115,13 +115,7 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
         return props.onSubmit(
           { ...values },
           {
-            onSuccess: () =>
-              props.formSuccess &&
-              props.formSuccess(
-                props.initial && props.initial.id
-                  ? { custom_form_display_rule_id: props.initial.id }
-                  : {},
-              ),
+            onSuccess: () => trackFormSuccess(props.initial?.id),
           },
         );
       }}
@@ -303,15 +297,8 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                   color="primary"
                   variant="text"
                   onClick={() => {
-                    if (props.formCancel) {
-                      props.formCancel(
-                        props.initial && props.initial.id
-                          ? {
-                              custom_form_display_rule_id: props.initial.id,
-                            }
-                          : {},
-                      );
-                    }
+                    trackFormCancel(props.initial?.id);
+
                     props.onClose();
                   }}
                 >
@@ -323,16 +310,7 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    if (props.formSubmitIntent) {
-                      props.formSubmitIntent(
-                        props.initial && props.initial.id
-                          ? {
-                              custom_form_display_rule_id: props.initial.id,
-                            }
-                          : {},
-                      );
-                    }
-
+                    trackFormSubmitIntent(props.initial?.id);
                     formik.handleSubmit();
                   }}
                 >
@@ -381,10 +359,6 @@ const styles = (theme: Theme) =>
   });
 
 export default compose<any, OwnProps>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_DISPLAY_RULE,
-  }),
   withStyles(styles),
   withTranslation('marketing'),
 )(CustomFormDisplayRuleFormDialog);

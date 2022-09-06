@@ -60,6 +60,7 @@ const CoachMap = {
   facebook_url: 'facebook_url',
   instagram_url: 'instagram_url',
   color: 'color',
+  id: 'id',
 };
 
 export class CoachFormPage extends React.Component<Props> {

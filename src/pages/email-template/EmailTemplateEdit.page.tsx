@@ -30,7 +30,13 @@ import { getTagCategories } from '../../libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
 
 import { EmailTemplate } from '../../libs/email-editor/types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
+const { trackFormAdd, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EMAIL_TEMPLATE,
+  );
 type OwnProps = {
   id: number;
   create: number;
@@ -51,6 +57,9 @@ export class MarketingEmail extends Component<Props> {
   }
 
   componentDidMount() {
+    // check if the page fully loaded
+    // to improve later
+    if (!this.props.hasBeenLoadedOnce) trackFormAdd(this.props.id);
     this.props.emailTemplateComplete(this.props.id);
     this.props.fetchTagList();
     this.props.fetchAllEmailTemplateCategory();
@@ -58,17 +67,28 @@ export class MarketingEmail extends Component<Props> {
 
   onSave = (id: number, data: EmailTemplate) => {
     if (this.props.create === 1) {
-      this.props.emailDesignCreate({
-        ...data,
-        company_id: this.props.company_id,
-      });
+      this.props.emailDesignCreate(
+        {
+          ...data,
+          company_id: this.props.company_id,
+        },
+        { onSuccess: () => trackFormSuccess() },
+      );
       this.props.goToList();
     } else {
-      this.props.emailTemplateUpdate(id, {
-        ...data,
-        company_id: this.props.company_id,
-      });
-      this.props.goToDetailList(id);
+      this.props.emailTemplateUpdate(
+        id,
+        {
+          ...data,
+          company_id: this.props.company_id,
+        },
+        {
+          onSuccess: () => {
+            trackFormSuccess(id);
+            this.props.goToDetailList(id);
+          },
+        },
+      );
     }
   };
 

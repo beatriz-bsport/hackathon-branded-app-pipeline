@@ -23,7 +23,13 @@ import { FranchiseCompany } from '../../franchise/types';
 import { OptionTypeBase } from '../../../components/Selector/MaterialUISelector.component';
 import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
 import CategorySelector from '#components/ordering/CategorySelector.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
+const { trackFormSubmitIntent, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EMAIL_TEMPLATE,
+  );
 export type OwnProps = {
   autoSaveEnabled?: boolean;
   emailToEdit?: EmailTemplate & EmailTemplateSummary;
@@ -180,6 +186,7 @@ export class EmailEditorPanel extends Component<Props, State> {
   }
 
   handlSaveClick = () => {
+    trackFormSubmitIntent(this.props.emailToEdit?.id);
     this.setState({ notReadyToLeave: false });
     this.exportHtml();
   };
@@ -307,7 +314,13 @@ export class EmailEditorPanel extends Component<Props, State> {
           )}
         </div>
         <div className={classes.buttonsContainer}>
-          <Button className={classes.button} onClick={this.props.goToList}>
+          <Button
+            className={classes.button}
+            onClick={() => {
+              this.props.goToList();
+              trackFormCancel(this.props.emailToEdit?.id);
+            }}
+          >
             {t('emailTemplate:editor.cancel')}
           </Button>
           <div className={classes.rightContainer}>

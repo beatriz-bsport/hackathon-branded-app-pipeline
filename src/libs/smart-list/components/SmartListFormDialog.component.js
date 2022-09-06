@@ -13,13 +13,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import type { OptionCallback } from '../../../state/types';
 import type { SmartList } from '../types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type Props = {
   t: TFunction,
@@ -31,8 +28,16 @@ type Props = {
   ) => void,
   classes: Object,
   open: boolean,
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SMARTLIST,
+);
 export class SmartListFormDialog extends Component<Props, state> {
   state = {
     name: '',
@@ -46,13 +51,9 @@ export class SmartListFormDialog extends Component<Props, state> {
         description: this.props.smartlist.description,
       });
     }
-    if (this.props.formAdd) {
-      this.props.formAdd(
-        this.props.smartlist && this.props.smartlist.id
-          ? { smartlist_id: this.props.smartlist.id }
-          : {},
-      );
-    }
+    // only track the event at
+    // the creation of a new smart list
+    if (this.props.open) trackFormAdd();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -76,13 +77,9 @@ export class SmartListFormDialog extends Component<Props, state> {
       name: '',
       description: '',
     });
-    if (this.props.formCancel) {
-      this.props.formCancel(
-        this.props.smartlist && this.props.smartlist.id
-          ? { smartlist_id: this.props.smartlist.id }
-          : {},
-      );
-    }
+
+    trackFormCancel(this.props.smartlist?.id);
+
     this.props.onCancel();
   };
 
@@ -98,13 +95,7 @@ export class SmartListFormDialog extends Component<Props, state> {
             <form
               onSubmit={(ev) => {
                 ev.preventDefault();
-                if (this.props.formSubmitIntent) {
-                  this.props.formSubmitIntent(
-                    this.props.smartlist && this.props.smartlist.id
-                      ? { smartlist_id: this.props.smartlist.id }
-                      : {},
-                  );
-                }
+                trackFormSubmitIntent(this.props.smartlist?.id);
                 this.props.updateSmartList(
                   {
                     name: this.state.name,
@@ -112,13 +103,7 @@ export class SmartListFormDialog extends Component<Props, state> {
                   },
                   {
                     onSuccess: () => {
-                      if (this.props.formSuccess) {
-                        this.props.formSuccess(
-                          this.props.smartlist && this.props.smartlist.id
-                            ? { smartlist_id: this.props.smartlist.id }
-                            : {},
-                        );
-                      }
+                      trackFormSuccess(this.props.smartlist?.id);
                     },
                   },
                 );
@@ -180,9 +165,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withFormTrackingHOC({
-    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SMARTLIST,
-  }),
   withStyles(styles),
   withTranslation(['smartList']),
 )(SmartListFormDialog);

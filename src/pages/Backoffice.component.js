@@ -96,7 +96,7 @@ import {
   fetchCompanyCustomSignUp,
 } from '../libs/custom-form/actions';
 import { BannerProvider } from '../hocs/banner.hoc';
-import withSegmentHistoryTracker from '../components/analytics/segment/with-segment-history-tracking';
+import withRudderStackHistoryTracker from '../components/analytics/rudderstack/with-rudderstack-history-tracking';
 import { getSegmentAnalyticsToWindow } from '../components/analytics/segment/utils';
 
 import {
@@ -912,5 +912,5 @@ export default compose(
         });
       },
   }),
-  withSegmentHistoryTracker,
+  withRudderStackHistoryTracker,
 )(themedBackoffice);

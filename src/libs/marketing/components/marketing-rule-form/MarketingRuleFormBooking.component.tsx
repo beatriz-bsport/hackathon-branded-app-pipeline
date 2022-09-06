@@ -53,6 +53,7 @@ type Props = {
 
   onCancel: () => void;
   getEmails: () => void;
+  onSubmitIntent: () => void;
   emails: Array<any>;
   getEmailDetail: (id: number) => void;
   emailDetails: Array<any>;
@@ -114,6 +115,7 @@ const MarketingRuleFormBooking = (props: Props) => {
   const {
     isSubmitting,
     onCancel,
+    onSubmitIntent,
     getEmails,
     emails,
     getEmailDetail,
@@ -596,6 +598,7 @@ const MarketingRuleFormBooking = (props: Props) => {
                 {t('booking:notification.form.cancel')}
               </Button>
               <Submit
+                onClick={onSubmitIntent}
                 color="primary"
                 disabled={
                   !!errors.hours ||

@@ -25,7 +25,6 @@ export const CategoryCreationEditDialog = (props: Props) => {
   const { categorySelected } = props;
   const { t } = useTranslation(['ordering']);
   const classes = useStyles();
-
   const [categoryName, setCategoryName] = React.useState(
     categorySelected?.name || '',
   );
@@ -81,7 +80,12 @@ export const CategoryCreationEditDialog = (props: Props) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} color="secondary">
+        <Button
+          onClick={() => {
+            props.onClose();
+          }}
+          color="secondary"
+        >
           {t('category.creationDialog.cancel')}
         </Button>
         <Button

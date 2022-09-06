@@ -11,21 +11,24 @@ import { Form, FormikProps } from 'formik';
 import SubscriptionContractFields, {
   SubscriptionContractFormHoc,
 } from './SubscriptionContractForm.component';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import type { Subscription } from '../types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormSubmitIntent,
+
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
+);
 type Props = {
   open: boolean;
   onClose: () => void;
   isSubmitting: boolean;
   initial: Subscription;
-} & WithSegmentAnalyticsFormTrackerHandlers &
-  FormikProps<Subscription>;
+} & FormikProps<Subscription>;
 export const SubscriptionContractFormDrawer = (props: Props) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
@@ -35,6 +38,10 @@ export const SubscriptionContractFormDrawer = (props: Props) => {
       onClose={props.onClose}
       title={t('contract.form.title')}
       subtitle={props.initial?.name}
+      trackingObjectIdentifier={
+        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION
+      }
+      trackingObjectId={props.initial?.id}
     >
       <Form>
         <div className={classes.content}>
@@ -43,12 +50,7 @@ export const SubscriptionContractFormDrawer = (props: Props) => {
         <DialogActions>
           <Button
             onClick={() => {
-              props.formCancel &&
-                props.formCancel(
-                  props.initial && props.initial.id
-                    ? { subscription_id: props.initial.id }
-                    : {},
-                );
+              trackFormCancel(props.initial?.id);
               props.onClose();
             }}
           >
@@ -56,12 +58,7 @@ export const SubscriptionContractFormDrawer = (props: Props) => {
           </Button>
           <Button
             onClick={() => {
-              props.formSubmitIntent &&
-                props.formSubmitIntent(
-                  props.initial && props.initial.id
-                    ? { subscription_id: props.initial.id }
-                    : {},
-                );
+              trackFormSubmitIntent(props.initial?.id);
               props.handleSubmit();
             }}
             disabled={props.isSubmitting}
@@ -85,10 +82,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose<any, Props>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
-  }),
-  SubscriptionContractFormHoc,
-)(SubscriptionContractFormDrawer);
+export default compose<any, Props>(SubscriptionContractFormHoc)(
+  SubscriptionContractFormDrawer,
+);

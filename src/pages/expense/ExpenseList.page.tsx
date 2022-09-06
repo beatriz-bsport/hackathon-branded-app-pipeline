@@ -34,6 +34,13 @@ import { getUsers } from '#libs/role/selectors';
 import { fetchCompanyUserRoles } from '#libs/role/actions';
 import { UserRole } from '#libs/role/types';
 
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXPENSE,
+);
+
 type StateHandlerInit = {
   expenseFormOpen: boolean;
   selectedExpense: number;
@@ -179,7 +186,14 @@ export class ExpenseList extends Component<Props> {
 
         <GenericResponsiveDrawer
           open={this.props.expenseFormOpen}
-          onClose={this.handleClose}
+          onClose={() => {
+            trackFormCancel(
+              this.props.expenseList?.find(
+                (exp: Expense) => exp.id === this.props.selectedExpense,
+              )?.id,
+            );
+            this.handleClose();
+          }}
           title={
             this.props.expenseList?.find(
               (exp: Expense) => exp.id === this.props.selectedExpense,

@@ -64,11 +64,7 @@ import PrivatePassCategorySelector from '../../../../payment-packs/components/ca
 import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
 import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { provincialTaxHelperText } from '#libs/theme/utils';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pass/components/UniversalPassFormPaymentPackCompatibility.component';
@@ -76,6 +72,7 @@ import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 export interface FormikValues {
   name: string | null;
@@ -124,8 +121,7 @@ type Props = {
   categoryList: Array<SCT>;
   establishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
-} & WithSegmentAnalyticsFormTrackerHandlers &
-  FormikProps<FormikValues>;
+} & FormikProps<FormikValues>;
 
 const getExcludedSlots = (
   ps: PrivateServiceWithSlots,
@@ -147,11 +143,17 @@ const getIncludedSlots = (
     : ps.slots;
 };
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS,
+);
 export const PrivatePassForm = (props: Props) => {
   React.useEffect(() => {
-    props?.formAdd(
-      props.initial?.id ? { private_pass_id: props.initial.id } : {},
-    );
+    trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { t } = useTranslation(['privateService']);
@@ -617,18 +619,14 @@ export const PrivatePassForm = (props: Props) => {
         <Button
           onClick={(e: MouseEvent) => {
             props.onCancel(e);
-            props?.formCancel(
-              props.initial?.id ? { private_pass_id: props.initial.id } : {},
-            );
+            trackFormCancel(props.initial?.id);
           }}
         >
           {t('privatePass.form.actions.cancel')}
         </Button>
         <Button
           onClick={() => {
-            props?.formSubmitIntent(
-              props.initial?.id ? { private_pass_id: props.initial.id } : {},
-            );
+            trackFormSubmitIntent(props.initial?.id);
             props.handleSubmit();
           }}
           disabled={isSubmitting}
@@ -852,10 +850,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  handleSubmit: (
-    values,
-    { props: { onSubmit, initial, formSuccess }, setSubmitting },
-  ) => {
+  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     const { linked_payment_pack, ...otherValues } = values;
 
     const newValues = {
@@ -872,8 +867,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
     };
     onSubmit(newValues, {
       onSuccess: () => {
-        formSuccess &&
-          formSuccess(initial?.id ? { private_pass_id: initial.id } : {});
+        trackFormSuccess(initial?.id);
         setSubmitting(false);
       },
       onError: () => setSubmitting(false),
@@ -882,10 +876,6 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
 });
 
 export default compose<any, Props>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS,
-  }),
   PrivatePassFormikHOC,
   withState(
     'openCompatibleServiceForm',

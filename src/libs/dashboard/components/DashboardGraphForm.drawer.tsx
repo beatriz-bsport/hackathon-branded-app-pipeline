@@ -71,6 +71,14 @@ import {
   GROUP_AND_OPERAND,
 } from '#libs/datatype-filtering/constants';
 
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd, trackFormSuccess, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.DASHBOARD,
+  );
+
 type Values = DataSourceDashboardGraph;
 
 export type OuterProps = {
@@ -82,6 +90,25 @@ export type OuterProps = {
   handleGetDynamicDataForFilters: (datatype: DynamicFilterDataType) => any[];
   onSubmit: (data: DataSourceDashboardGraph, options?: OptionCallback) => void;
   t: TFunction;
+};
+
+const onTrack = (initial, values, track) => {
+  /**
+   * track an event
+   * @param intial initial object (null if create a new graph)
+   * @param values values in the form to create a dashboard
+   * @param track tracking
+   */
+  if (initial || track.name !== 'trackFormAdd') {
+    // edit a dashboard or create one if tracking is not trackFormAdd
+
+    // send all data generated when creating/updating the graph
+    const dashboard_spec = { ...values };
+    delete dashboard_spec.uuid;
+    track(values.uuid, dashboard_spec);
+  } else {
+    track(values.uuid);
+  }
 };
 
 const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
@@ -97,6 +124,11 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
   initial,
   t,
 }) => {
+  // strack when graph creation/edition
+  React.useEffect(() => {
+    onTrack(initial, values, trackFormAdd);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const classes = useStyles();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -362,7 +394,10 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
   return (
     <GenericResponsiveDrawer
       open={open}
-      onClose={onClose}
+      onClose={() => {
+        onTrack(initial, values, trackFormCancel);
+        onClose();
+      }}
       title={t(`graphFormDrawer.title.${initial ? 'edit' : 'create'}`)}
       width="1000px"
       withoutPadding
@@ -652,7 +687,14 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
           </div>
 
           <div className={classes.buttonContainer}>
-            <Button onClick={onClose}>{t('common:cancel')}</Button>
+            <Button
+              onClick={() => {
+                onTrack(initial, values, trackFormCancel);
+                onClose();
+              }}
+            >
+              {t('common:cancel')}
+            </Button>
             <Submit disabled={isSubmitting || !isValid} color="primary">
               {isSubmitting ? (
                 <CircularProgress />
@@ -893,7 +935,7 @@ export default compose(
     validationSchema: DashboardGraphFormSchema,
     handleSubmit: (
       values,
-      { props: { onSubmit, graphMetadata }, setSubmitting },
+      { props: { onSubmit, graphMetadata, initial }, setSubmitting },
     ) => {
       const selectedGraphMetadata = graphMetadata.find(
         (gm) =>
@@ -961,7 +1003,10 @@ export default compose(
       data.graph_params = graph_params;
 
       onSubmit(data, {
-        onSuccess: () => setSubmitting(false),
+        onSuccess: () => {
+          onTrack(initial, values, trackFormSuccess);
+          setSubmitting(false);
+        },
         onError: () => setSubmitting(false),
       });
     },

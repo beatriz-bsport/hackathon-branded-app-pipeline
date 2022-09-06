@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
+import { OptionCallback } from '../../../state/types';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -23,6 +24,9 @@ import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
 import { SmartList } from '#libs/smart-list/types';
+
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type Identifier =
   | 'birthday'
@@ -46,7 +50,10 @@ type OwnProps = {
   emailDetails: { [key: string]: EmailTemplateDetail };
   onCancel: () => void;
   onUpdateMarketingNotification: (id: number, n: MarketingNotification) => any;
-  onCreateMarketingNotification: (n: MarketingNotification) => any;
+  onCreateMarketingNotification: (
+    n: MarketingNotification,
+    option: OptionCallback,
+  ) => any;
   goToSmartlist: () => void;
   getSmartLists: () => void;
   smartLists: SmartList[];
@@ -71,6 +78,15 @@ type State = {
   sourceObjectId: number | null;
 };
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.MARKETING_NOTIFICATION,
+);
+
 export class MarketingRuleFormGeneric extends React.PureComponent<
   Props,
   State
@@ -85,19 +101,32 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
   state: State = {};
 
   onCancel = () => {
+    trackFormCancel(this.props.selectedNotification?.id, {
+      kind: this.props.createFormOpenType,
+    });
     this.props.onCancel();
     this.props.closeForm();
     this.setState({ sourceObjectId: null });
   };
 
+  onSubmitIntent = () => {
+    trackFormSubmitIntent(this.props.selectedNotification?.id, {
+      kind: this.props.createFormOpenType,
+    });
+  };
+
   onSubmit = (n: MarketingNotification) => {
     if (this.props.selectedNotification) {
+      trackFormSuccess(this.props.selectedNotification?.id, {
+        kind: this.props.createFormOpenType,
+      });
       this.props.onUpdateMarketingNotification(
         this.props.selectedNotification.id,
         n,
       );
     } else {
-      this.props.onCreateMarketingNotification(n);
+      trackFormSuccess(undefined, { kind: this.props.createFormOpenType });
+      this.props.onCreateMarketingNotification(n, {});
       this.props.closeForm();
       this.setState({ sourceObjectId: null });
     }
@@ -126,6 +155,20 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     return null;
   };
 
+  componentDidUpdate(prevProps: Props) {
+    if (
+      (prevProps.createFormOpenType !== this.props.createFormOpenType &&
+        this.props.createFormOpenType) ||
+      (this.props.selectedNotification?.id !==
+        prevProps.selectedNotification?.id &&
+        this.props.selectedNotification?.id)
+    ) {
+      trackFormAdd(this.props.selectedNotification?.id, {
+        kind: this.props.createFormOpenType,
+      });
+    }
+  }
+
   render() {
     if (
       this.props.createFormOpenType &&
@@ -136,6 +179,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
         <NotificationSourceSelector
           identifier={this.props.createFormOpenType}
           onClose={this.props.closeForm}
+          onCancel={this.onCancel}
           onSubmit={(sourceObjectId) => {
             this.setState({
               sourceObjectId,
@@ -230,6 +274,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
+          onSubmitIntent={this.onSubmitIntent}
           tags={this.getMergeTags()}
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
@@ -251,6 +296,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
+          onSubmitIntent={this.onSubmitIntent}
           tags={this.getMergeTags()}
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
@@ -276,6 +322,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           smartListLoading={this.props.smartListLoading}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
+          onSubmitIntent={this.onSubmitIntent}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
         />
@@ -296,6 +343,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           emailDetails={this.props.emailDetails}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
+          onSubmitIntent={this.onSubmitIntent}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
           goToSmartlist={this.props.goToSmartlist}

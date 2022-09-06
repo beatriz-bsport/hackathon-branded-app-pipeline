@@ -123,6 +123,7 @@ type Props = {
   emailDetailLoading: boolean;
   emailDetails: Array<any>;
   onCancel: () => void;
+  onSubmitIntent: () => void;
   goToSmartlist: () => void;
   initial: MarketingNotification;
   values: FinalFormikData;
@@ -190,6 +191,7 @@ const ProductNotificationForm = (props: Props) => {
     emailDetailLoading,
     emailDetails,
     onCancel,
+    onSubmitIntent,
     goToSmartlist,
     initial,
     values,
@@ -579,6 +581,7 @@ const ProductNotificationForm = (props: Props) => {
             {t('booking:notification.form.cancel')}
           </Button>
           <Submit
+            onClick={onSubmitIntent}
             color="primary"
             disabled={
               !!errors.email_design ||

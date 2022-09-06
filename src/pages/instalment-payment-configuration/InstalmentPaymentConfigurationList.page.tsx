@@ -51,6 +51,13 @@ import InstalmentPaymentListComponent from '#libs/instalment-payment-configurati
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import InstalmentPaymentDetail from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationDetail.component';
 
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.INSTALMENT_PAYMENT,
+);
+
 type OwnProps = {
   title: string;
 };
@@ -202,6 +209,7 @@ export class InstalmentPaymentList extends Component<Props, State> {
         <GenericResponsiveDrawer
           open={isCreationFormOpen || !!instalmentPaymentToEditId}
           onClose={() => {
+            trackFormCancel(instalmentPaymentToEdit?.id);
             setIsCreationFormOpen(false);
             setInstalmentPaymentToEditId(null);
           }}

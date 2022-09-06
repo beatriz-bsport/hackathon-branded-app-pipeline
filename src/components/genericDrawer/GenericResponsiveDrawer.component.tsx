@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import Tooltip from '#components/Tooltip.component';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type OwnProps = {
   open: boolean;
@@ -23,8 +25,11 @@ type OwnProps = {
   flexContent?: boolean;
   mobileMinWidth?: string;
   withoutHeaderContainer?: boolean;
+  trackingObjectIdentifier?: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM;
+  trackingObjectId?: number;
 };
 type Props = OwnProps;
+
 export const GenericResponsiveDrawer: React.FC<Props> = ({
   children,
   open,
@@ -38,9 +43,21 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   mobileMinWidth,
   withoutHeaderContainer,
   onClose,
+  trackingObjectIdentifier,
+  trackingObjectId,
 }) => {
   const classes = useStyles({ width, subtitle, mobileMinWidth });
   const { t } = useTranslation('common');
+
+  const close = React.useCallback(() => {
+    onClose && onClose();
+    if (trackingObjectIdentifier) {
+      const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
+        trackingObjectIdentifier,
+      );
+      trackFormCancel(trackingObjectId);
+    }
+  }, [trackingObjectIdentifier, trackingObjectId, onClose]);
 
   return (
     <Drawer
@@ -51,7 +68,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
         hideBackdrop: false,
         disableEnforceFocus: true,
       }}
-      onClose={onClose}
+      onClose={close}
     >
       <div className={classes.relative}>
         {!withoutHeaderContainer && (
@@ -64,7 +81,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
                 })}
               >
                 <Tooltip title={t('cancel')}>
-                  <IconButton onClick={() => onClose()}>
+                  <IconButton onClick={close}>
                     <HighlightOffIcon />
                   </IconButton>
                 </Tooltip>

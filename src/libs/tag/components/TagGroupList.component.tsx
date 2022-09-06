@@ -13,6 +13,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import InfoIcon from '@material-ui/icons/Info';
 import TextField from '@material-ui/core/TextField';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 import TagGroupItem from './TagGroupItem.component';
 import { Tag, TagGroup } from '../types';
@@ -33,6 +35,11 @@ interface State {
   createTag: string | null;
 }
 
+const { trackFormAdd, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.TAG_GROUP,
+  );
+
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
@@ -48,6 +55,7 @@ class TagGroupList extends React.PureComponent<Props> {
       name: this.state.createTag,
       kind: TAG_KIND_MEMBER.id,
     });
+
     this.setState({ createTag: null });
   };
 
@@ -60,7 +68,10 @@ class TagGroupList extends React.PureComponent<Props> {
           className={classes.addGroup}
           variant="outlined"
           color="primary"
-          onClick={() => this.setState({ createTag: '' })}
+          onClick={() => {
+            trackFormAdd();
+            this.setState({ createTag: '' });
+          }}
         >
           {t('management.addGroup')}
         </Button>
@@ -106,7 +117,12 @@ class TagGroupList extends React.PureComponent<Props> {
               </FormControl>
 
               <DialogActions className={classes.dialogActions}>
-                <Button onClick={() => this.setState({ createTag: null })}>
+                <Button
+                  onClick={() => {
+                    trackFormCancel();
+                    this.setState({ createTag: null });
+                  }}
+                >
                   {t('management.cancel')}
                 </Button>
                 <Button

@@ -49,14 +49,19 @@ import { MaterialStyleType } from '../../../../../utils/types';
 import CustomFormFieldTagRuleSelector from '../CustomFormBuilderTagRule.selector';
 import { TagGroup, Tag } from '../../../../tag/types';
 import { Theme as CompanyTheme } from '../../../../theme/types';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../../state/types';
 import { ALLOWED_COUNTRIES_FOR_STATES } from '../../../../member/constants';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_QUESTION,
+);
 type OwnProps = {
   open: boolean;
   handleClose: () => void;
@@ -71,8 +76,7 @@ type OwnProps = {
 
 type Props = OwnProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithSegmentAnalyticsFormTrackerHandlers;
+  MaterialStyleType<ReturnType<typeof styles>>;
 const CustomFormFieldFormSchema = Yup.object().shape({
   id: Yup.number().nullable(true),
   kind: Yup.number().nullable(false),
@@ -135,16 +139,14 @@ export function CustomFormFieldBuilderDialog(props: Props) {
         ),
     );
 
-  React.useEffect(() => {
-    if (props.formAdd) {
-      props.formAdd(
-        props.initial && props.initial.id
-          ? { custom_form_question_id: props.initial.id }
-          : {},
-      );
-    }
+  React.useEffect(
+    () => {
+      trackFormAdd(props.initial?.id);
+    },
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [],
+  );
   return (
     <Dialog
       fullWidth
@@ -194,15 +196,8 @@ export function CustomFormFieldBuilderDialog(props: Props) {
         }
         enableReinitialize
         onSubmit={(values) => {
-          if (props.formSuccess) {
-            props.formSuccess(
-              props.initial && props.initial.id
-                ? {
-                    custom_form_question_id: props.initial.id,
-                  }
-                : {},
-            );
-          }
+          trackFormSuccess(props.initial?.id);
+
           return props.onSubmit({
             ...values,
             ...(CUSTOM_FORM_FIELDS_WITH_CHOICES.includes(values.kind)
@@ -428,13 +423,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
             <DialogActions>
               <Button
                 onClick={() => {
-                  if (props.formCancel) {
-                    props.formCancel(
-                      props.initial && props.initial.id
-                        ? { custom_form_question_id: props.initial.id }
-                        : {},
-                    );
-                  }
+                  trackFormCancel(props.initial?.id);
                   handleClose();
                 }}
                 color="secondary"
@@ -448,15 +437,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  if (props.formSubmitIntent) {
-                    props.formSubmitIntent(
-                      props.initial && props.initial.id
-                        ? {
-                            custom_form_question_id: props.initial.id,
-                          }
-                        : {},
-                    );
-                  }
+                  trackFormSubmitIntent(props.initial?.id);
                   formik.handleSubmit();
                 }}
               >
@@ -506,10 +487,6 @@ const styles = (theme: Theme) => ({
   },
 });
 export default compose<any, OwnProps>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_QUESTION,
-  }),
   withTranslation('marketing'),
   withStyles(styles),
 )(CustomFormFieldBuilderDialog);

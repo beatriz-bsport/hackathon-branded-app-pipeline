@@ -21,7 +21,7 @@ import BackgroundSnackbar from './libs/background-task/components/BackgroundSnac
 import BackgroundDialog from './libs/background-dialog/components/BackgroundDialog.component';
 import Root from './Root';
 import initStore from './store';
-
+import { rudderInitialize } from './components/analytics/rudderstack/utils';
 import theme from './theme';
 
 export class App extends Component<{}, {}> {
@@ -42,6 +42,7 @@ export class App extends Component<{}, {}> {
   }
 
   componentDidMount() {
+    rudderInitialize();
     if (!this.state.reloaded && window.location.search === '?storeReload') {
       // eslint-disable-next-line
       this.setState({ reloaded: true });

@@ -51,12 +51,13 @@ import type { OptionCallback } from '../../../state/types';
 import FilterCard from './FilterListItem.component';
 import MemberBaseFilter from './filters/MemberBaseFilter.component';
 import type { SmartList } from '#libs/smart-list/types';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SMARTLIST_FILTER,
+  );
 const MEMBER_INFO = 1;
 const PAYMENT_PACK = 2;
 const BOOKING = 3;
@@ -127,7 +128,7 @@ type Props = {
   coaches: Array<any>,
   smartListUpdate: (id: number, smartlist: SmartList) => void,
   customLevels: Level[],
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 
 type State = {
   new_filter: any,
@@ -159,32 +160,22 @@ export class FiltersPanel extends Component<Props, State> {
   };
 
   createFilter = (filterNameId, data) => {
-    if (this.props.formAdd) {
-      this.props.formAdd({});
-    }
+    trackFormAdd();
+
     this.setState({ new_filter: null, displayFilters: true });
     this.props.createFilter(filterNameId, data, {
       onSuccess: () => {
-        if (this.props.formSuccess) {
-          this.props.formSuccess({});
-        }
+        trackFormSuccess();
       },
     });
   };
 
   updateFilter = (filterNameId: number, filterId: number, data: any) => {
-    if (this.props.formSubmitIntent) {
-      this.props.formSubmitIntent({
-        smartlist_filter_id: filterId,
-      });
-    }
+    trackFormSubmitIntent(filterId);
+
     this.props.updateFilter(filterNameId, filterId, data, {
       onSuccess: () => {
-        if (this.props.formSuccess) {
-          this.props.formSuccess({
-            smartlist_filter_id: filterId,
-          });
-        }
+        trackFormSuccess(filterId);
       },
     });
   };
@@ -217,9 +208,9 @@ export class FiltersPanel extends Component<Props, State> {
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
                 event.stopPropagation();
-                if (this.props.formAdd) {
-                  this.props.formAdd({});
-                }
+
+                trackFormAdd();
+
                 this.setState({ anchorEl: event.currentTarget });
                 this.setState((previousState) => ({
                   displayAddFilter: !previousState.displayAddFilter,
@@ -478,10 +469,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SMARTLIST_FILTER,
-  }),
   withStyles(styles),
   withTranslation(['smartList']),
 )(FiltersPanel);

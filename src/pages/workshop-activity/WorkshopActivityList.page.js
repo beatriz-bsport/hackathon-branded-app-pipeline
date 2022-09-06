@@ -103,6 +103,7 @@ const MetaActivityMap = {
   category: 'category',
   alt_cover_main: 'alt_cover_main',
   custom_restriction_rule: 'custom_restriction_rule',
+  id: 'id',
 };
 type Props = {
   workshopActivities: Array<MetaActivity>,
@@ -442,6 +443,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
           }}
           onSubmit={this.props.onSubmit}
           SCTs={this.props.SCTs}
+          isWorkshop
           open={!!this.props.selectedMetaActivity}
           onCancel={this.onCancelEdit}
           tags={this.props.allTagsWithTagGroup}

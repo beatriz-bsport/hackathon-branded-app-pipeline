@@ -10,6 +10,7 @@ import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
 type OwnProps = {
   open: boolean;
@@ -28,7 +29,7 @@ type OwnProps = {
 type Props = OwnProps;
 
 export const CouponFormDrawer = (props: Props) => {
-  const { open, onClose } = props;
+  const { open, onClose, initial } = props;
   const { t } = useTranslation('coupon');
   return (
     <GenericResponsiveDrawer
@@ -36,6 +37,10 @@ export const CouponFormDrawer = (props: Props) => {
       onClose={onClose}
       title={t('form.title')}
       subtitle={props.initial?.name}
+      trackingObjectIdentifier={
+        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COUPON
+      }
+      trackingObjectId={initial?.id}
     >
       <CouponForm {...props} />
     </GenericResponsiveDrawer>

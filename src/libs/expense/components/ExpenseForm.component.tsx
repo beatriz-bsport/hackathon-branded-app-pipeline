@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Field, Form, Formik, FormikProps } from 'formik';
@@ -25,13 +24,20 @@ import {
   DateField,
   PriceField,
 } from '../../../components/forms';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
 import { UserRole } from '#libs/role/types';
 import ExpenseRecurrencySelector from '../../../components/input/ExpenseRecurrencySelector.component';
+
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXPENSE,
+);
 
 type OwnProps = {
   initial?: ExpenseWithUser;
@@ -48,9 +54,7 @@ type OwnProps = {
   setEditChoice: (editForm: string | null) => void;
 };
 
-type Props = OwnProps &
-  WithSegmentAnalyticsFormTrackerHandlers &
-  FormikProps<ExpenseFormValues>;
+type Props = OwnProps & FormikProps<ExpenseFormValues>;
 
 export const ExpenseForm = (props: Props) => {
   const { t } = useTranslation(['expense']);
@@ -74,7 +78,10 @@ export const ExpenseForm = (props: Props) => {
     dtstart: null,
     until: null,
   });
-
+  React.useEffect(() => {
+    trackFormAdd(initial?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const staffChoices = [...props.staffList].map((staff) => {
     return {
       value: staff.id,
@@ -160,6 +167,7 @@ export const ExpenseForm = (props: Props) => {
           }
           const options = {
             onSuccess: () => {
+              trackFormSuccess(initial?.id);
               actions.setSubmitting(false);
               props.onClose();
             },
@@ -280,6 +288,7 @@ export const ExpenseForm = (props: Props) => {
                     <div className={classes.actionContainer}>
                       <Button
                         onClick={() => {
+                          trackFormCancel(initial?.id);
                           props.onClose();
                         }}
                       >
@@ -287,6 +296,7 @@ export const ExpenseForm = (props: Props) => {
                       </Button>
                       <Button
                         onClick={() => {
+                          trackFormSubmitIntent(initial?.id);
                           if (initial?.rrule && editChoice === 'details') {
                             setEditDialogOpen(true);
                             setEditScope('current');
@@ -346,7 +356,9 @@ export const ExpenseForm = (props: Props) => {
                       {t('dialogEditExpense.cancel')}
                     </Button>
                     <Button
-                      onClick={() => formikProps.handleSubmit()}
+                      onClick={() => {
+                        formikProps.handleSubmit();
+                      }}
                       color="primary"
                       variant="contained"
                     >
@@ -396,11 +408,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default compose<any, Props>(
-  withFormTrackingHOC({
-    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXPENSE,
-  }),
-)(ExpenseForm);
+export default ExpenseForm;
 
 export const expenseSchema = Yup.object().shape({
   date_due: Yup.string().required('form.requiredField'),

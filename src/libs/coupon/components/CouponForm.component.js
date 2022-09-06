@@ -63,12 +63,17 @@ import { PrivatePass } from '../../private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
 import type { OptionCallback } from '../../../state/types';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSuccess,
+  trackFormSubmitIntent,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COUPON,
+);
 const ALL_BUYABLES = 100;
 
 type Props = {
@@ -86,7 +91,7 @@ type Props = {
   paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 type State = {
   with_expiration_date: boolean,
 } & Coupon;
@@ -144,13 +149,7 @@ export class CouponForm extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.formAdd) {
-      this.props.formAdd(
-        this.props.initial && this.props.initial.id
-          ? { coupon_id: this.props.initial.id }
-          : {},
-      );
-    }
+    trackFormAdd(this.props.initial?.id);
   }
 
   handleChange = (key: string, isEvent: boolean) => (value) => {
@@ -192,12 +191,8 @@ export class CouponForm extends React.Component<Props, State> {
     }
 
     this.props.onSubmit(data, {
-      onSuccess: () => {
-        if (this.props.formSuccess) {
-          this.props.formSuccess(
-            this.props.initial?.id ? { coupon_id: this.props.initial.id } : {},
-          );
-        }
+      onSuccess: (id) => {
+        trackFormSuccess(id);
       },
     });
   };
@@ -845,13 +840,7 @@ export class CouponForm extends React.Component<Props, State> {
         <div className={classes.buttonContainer}>
           <Button
             onClick={() => {
-              if (this.props.formCancel) {
-                this.props.formCancel(
-                  this.props.initial?.id
-                    ? { coupon_id: this.props.initial.id }
-                    : {},
-                );
-              }
+              trackFormCancel(this.props.initial?.id);
               this.props.onCancel();
             }}
           >
@@ -867,13 +856,8 @@ export class CouponForm extends React.Component<Props, State> {
               this.state.tag_selection_error
             }
             onClick={(ev) => {
-              if (this.props.formSubmitIntent) {
-                this.props.formSubmitIntent(
-                  this.props.initial?.id
-                    ? { coupon_id: this.props.initial.id }
-                    : {},
-                );
-              }
+              ev.preventDefault();
+              trackFormSubmitIntent(this.props.initial?.id);
               this.onSubmit(ev);
             }}
           >
@@ -971,9 +955,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withFormTrackingHOC({
-    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COUPON,
-  }),
   withTranslation(['coupon']),
   withStyles(styles),
 )(CouponForm);

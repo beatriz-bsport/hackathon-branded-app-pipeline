@@ -6,13 +6,17 @@ import React, { useCallback } from 'react';
 
 type Props = {
   setShowCategoryDialog: (show: boolean) => void;
+  onClick: () => void;
 };
 
 export const AddCategoryButton = (props: Props) => {
   const { t } = useTranslation(['ordering']);
   const classes = useStyles();
 
-  const onClick = useCallback(() => props.setShowCategoryDialog(true), [props]);
+  const onClick = useCallback(() => {
+    if (props.onClick) props.onClick();
+    props.setShowCategoryDialog(true);
+  }, [props]);
 
   return (
     <div className={classes.buttonRow}>

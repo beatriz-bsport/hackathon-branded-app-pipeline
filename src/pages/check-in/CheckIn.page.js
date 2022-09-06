@@ -32,6 +32,7 @@ import CheckInAppBar from '../../libs/check-in/components/CheckInAppBar.componen
 import CheckInSignout from '../../libs/check-in/components/CheckInSignout.component';
 import CheckInRouter from './CheckIn.router';
 import { fetchCompanyRoles } from '../../libs/role/actions';
+import withRudderStackHistoryTracker from '../../components/analytics/rudderstack/with-rudderstack-history-tracking';
 
 type Props = {
   fetchEstablishments: () => void,
@@ -181,4 +182,5 @@ export default compose(
         push(`/external/${companyId}/add-member/`),
     },
   ),
+  withRudderStackHistoryTracker,
 )(CheckInPage);

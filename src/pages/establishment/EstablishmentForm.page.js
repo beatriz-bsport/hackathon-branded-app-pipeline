@@ -21,6 +21,13 @@ import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 import withTitle from '../../hocs/with-title.hoc';
 import { mapFormDataWithObject } from '../form.utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormSuccess, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ESTABLISHMENT,
+  );
 
 type Props = {
   upsertEstablishmentV2: () => void,
@@ -78,11 +85,17 @@ export class EstablishmentFormPage extends Component<Props> {
       mapFormDataWithObject(updatedDataClean, establishmentMap, ['cover']),
       {
         onSuccess: () => {
+          trackFormSuccess(this.props.update?.id);
           this.props.fetchEstablishments();
           this.props.goToEstablishmentList();
         },
       },
     );
+  };
+
+  cancel = () => {
+    trackFormCancel(this.props.update?.id);
+    this.props.goToEstablishmentList();
   };
 
   render() {
@@ -97,7 +110,7 @@ export class EstablishmentFormPage extends Component<Props> {
         initial={update}
         update={this.props.update}
         // imageUploader={imageUploader}
-        onCancel={this.props.goToEstablishmentList}
+        onCancel={this.cancel}
       />
     );
   }

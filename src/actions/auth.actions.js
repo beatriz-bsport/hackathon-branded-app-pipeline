@@ -22,8 +22,10 @@ import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
 import { USER_EMAIL_EXISTS } from '../api/constants';
 import { getAuthToken } from '../http';
-import { segmentIdentify } from '#components/analytics/segment/utils';
+import { rudderStackIdentify } from '#components/analytics/rudderstack/utils';
+
 import { urlToMarketplace } from '../libs/marketplace/utils';
+
 import {
   MEMBERISNOTAUTHORIZEDTOACCESSACCOUNT,
   RELATIONMISSPARAMETERS,
@@ -112,17 +114,15 @@ export function fetchAccessLevel(
         Sentry.configureScope((scope) => {
           scope.setUser({ email: username });
         });
-        if (is_manager || is_franchisor) {
-          segmentIdentify({
-            userId: id,
-            userTraits: {
-              email: username,
-              manager: is_manager,
-              is_franchisor,
-              name,
-            },
-          });
-        }
+        rudderStackIdentify({
+          userId: id,
+          userTraits: {
+            email: username,
+            manager: is_manager,
+            is_franchisor,
+            name,
+          },
+        });
       } catch (err) {
         console.error(err);
       }

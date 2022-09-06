@@ -55,6 +55,7 @@ type Props = {
   emailDetailLoading: boolean;
 
   onCancel: () => void;
+  onSubmitIntent: () => void;
   initial: any;
   values: any;
   setFieldValue: (key: string, value: any) => void;
@@ -115,6 +116,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
     emailListLoading,
     emailDetailLoading,
     onCancel,
+    onSubmitIntent,
     initial,
     values,
     setFieldValue,
@@ -546,6 +548,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
                 {t('privateService:serviceGroup.form.actions.cancel')}
               </Button>
               <Submit
+                onClick={onSubmitIntent}
                 color="primary"
                 disabled={
                   !!errors.hours ||

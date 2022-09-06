@@ -14,13 +14,15 @@ import { makeStyles } from '@material-ui/core';
 import PaymentComboFields, {
   PaymentComboFormHoc,
 } from './PaymentComboForm.component';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormSubmitIntent, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO,
+  );
 
 type Props = {
   open: boolean;
@@ -30,8 +32,7 @@ type Props = {
   onSubmit: () => void;
   isSubmitting: boolean;
   initial: PaymentCombo;
-} & WithSegmentAnalyticsFormTrackerHandlers &
-  FormikProps<PaymentCombo>;
+} & FormikProps<PaymentCombo>;
 
 export function PaymentComboFormDrawer(props: Props) {
   const { open, handleClose, isSubmitting } = props;
@@ -43,6 +44,10 @@ export function PaymentComboFormDrawer(props: Props) {
       onClose={handleClose}
       title={t('form.title')}
       subtitle={props.initial?.name}
+      trackingObjectIdentifier={
+        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO
+      }
+      trackingObjectId={props.initial?.id}
     >
       <Form>
         <div className={classes.content}>
@@ -51,11 +56,7 @@ export function PaymentComboFormDrawer(props: Props) {
             <Button
               onClick={() => {
                 props.handleClose();
-                props.formCancel(
-                  props.initial && props.initial.id
-                    ? { payment_combo_id: props.initial.id }
-                    : {},
-                );
+                trackFormCancel(props.initial?.id);
               }}
               disabled={isSubmitting}
             >
@@ -63,11 +64,7 @@ export function PaymentComboFormDrawer(props: Props) {
             </Button>
             <Button
               onClick={() => {
-                props.formSubmitIntent(
-                  props.initial && props.initial.id
-                    ? { payment_combo_id: props.initial.id }
-                    : {},
-                );
+                trackFormSubmitIntent(props.initial?.id);
                 props.handleSubmit();
               }}
               disabled={isSubmitting}
@@ -89,10 +86,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose<any, Props>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO,
-  }),
-  PaymentComboFormHoc,
-)(PaymentComboFormDrawer);
+export default compose<any, Props>(PaymentComboFormHoc)(PaymentComboFormDrawer);

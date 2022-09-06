@@ -1,8 +1,7 @@
-INSTALLATION
-============
+# INSTALLATION
 
-Running with a local backend server
------------------------------------
+## Running with a local backend server
+
 Follow instructions https://gitlab.com/bsport/bsport-django
 
 ```sh
@@ -11,21 +10,19 @@ cp ./envs/dev ./env.js
 
 This will prepare the db and create test accounts
 
-Running with the distant (staging) backend server
--------------------------------------------------
+## Running with the distant (staging) backend server
 
 ```sh
 cp ./envs/local ./env.js
 ```
 
-GENERATE TRANSLATIONS
-=====================
+# GENERATE TRANSLATIONS
+
 ```sh
 yarn updateTranslation
 ```
 
-LOGIN
-=====
+# LOGIN
 
 You can use the following user
 
@@ -34,21 +31,21 @@ username: contact@classdiggers.com
 password: demo
 ```
 
-RUN
-===
+# RUN
 
 Now you can run
+
 ```sh
 yarn       // install all deps
 yarn start // start the dev server
 ```
 
-CREATE NEW ALLIAS
-=================
+# CREATE NEW ALLIAS
 
 To create a new allias you need to add them at multiple places
 
 ### .babelrc
+
 ```
   "alias": {
     ...
@@ -57,6 +54,7 @@ To create a new allias you need to add them at multiple places
 ```
 
 ### .eslintrc
+
 ```
   "alias": {
     ...
@@ -65,6 +63,7 @@ To create a new allias you need to add them at multiple places
 ```
 
 ### .tsconfig.json
+
 ```
   "paths": {
     ...
@@ -73,6 +72,7 @@ To create a new allias you need to add them at multiple places
 ```
 
 ### config/webpack.config.dev.js and config/webpack.config.js
+
 ```
   "paths": {
     ...
@@ -84,22 +84,21 @@ the alias need to respect some convention use a # as a prefix to make it clear i
 
 > :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build
 
-
 ### Tests
 
 The tests are if not the most important tool for continous integration and continous developoment it give the security that the software is behaving properly at any time and new development doesn't create regression or unwanted behavior. That's why the test are run by the ci on each merge request and new one should be added in all merge request
 
 > “More than the act of testing, the act of designing tests is one of the best bug preventers known. The thinking that must be done to create a useful test can discover and eliminate bugs before they are coded – indeed, test-design thinking can discover and eliminate bugs at every stage in the creation of software, from conception to specification, to design, coding and the rest.” – Boris Beizer
 
-
-#### There is 4 existing type of test: 
+#### There is 4 existing type of test:
 
 #### - Unit testing:
 
-**definition**:  type of software testing where individual units or components of a software are tested. To put it shortly we are testing if the functions are behaving consistently in sucess and fail cases for a suite of params
+**definition**: type of software testing where individual units or components of a software are tested. To put it shortly we are testing if the functions are behaving consistently in sucess and fail cases for a suite of params
 
-example: ```util.test.ts```
-```ts 
+example: `util.test.ts`
+
+```ts
 import {
   myFirstFunction,
   mySecondFunction,
@@ -107,7 +106,7 @@ import {
 
 // "Describe" is the function to tell that it represent a suite of test
 describe('Utils: MyFirstFunction', () => {
-  // "it" describe a single test 
+  // "it" describe a single test
   it('Check if the function send true on empty', () => {
     const result = myFirstFunction()
 
@@ -142,12 +141,13 @@ describe('Utils: MySecondFunction', () => {
 
 **definition**: type of software testing where we compare the visual output of the software view
 
-We are not currently using it but a draft to implement it with storybook is present in the file ```initStore.test.ts``` and need some tweaking to function properly
+We are not currently using it but a draft to implement it with storybook is present in the file `initStore.test.ts` and need some tweaking to function properly
+
 #### - Integration testing
 
 **definition**: type of software testing where individual software modules are combined and tested as a group. Integration testing is conducted to evaluate the compliance of a system or component with specified functional requirements. To put it shortly when we are testing that the interaction from semi-complex component are interacting well between them
 
-example: ```FuzzySearch.test.tsx```
+example: `FuzzySearch.test.tsx`
 
 ```ts
 // Here mandatory for jsx element we tell jest to require a dom
@@ -224,7 +224,6 @@ describe('FuzeSearch: <FuzeSearch />', () => {
     expect(results.length).toBe(1);
   });
 });
-
 ```
 
 #### - End to end testing
@@ -232,3 +231,87 @@ describe('FuzeSearch: <FuzeSearch />', () => {
 **definition**: End-to-end testing is a technique that tests the entire software product from beginning to end to ensure the application flow behaves as expected. To put it shortly we test if the all website is behaving like expected for a flow
 
 Currently we are not implementing end to end testing for the moment
+
+# Tracking Event
+
+All the forms and the pages are tracked. When a new form is implemented it is necessary to add the event trackers. To track events we are using rudderstack, see the documentation for the <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/">JS SDK</a>.
+
+## Events to track for a Form
+
+The 4 events that are tracked when dealing with forms are :
+
+- **add** when a user want to add _or_ edit a form => add or edit button
+- **cancel** when a user cancel the creation of a form => cancel or cross button
+- **submitIntent** when a user click on the 'save' button (but it's useless if the 'save' button is block when the the user fill not correclty, for exemple if the user forgot to fill a field and the button save is blocked) => save button
+- **submitSuccess** when a user successfully submit a form => after the event **onSuccess**
+
+## Implementation
+
+To track these events, 4 functions have been created in the files _.../src/components/analytics/utils_. The generic shape of these functions are :
+
+```js
+function trackEvent(id, additional_data) => void
+```
+
+The first argument _id_ is the id of the object you are tracking (for exemple if the user wants to edit a form related to a member, _id_ will be the id of the member), it can be empty if the object is not created yet. The second argument _additional_data_ is any data you think is important.
+
+To initialize the use of tracking functions you first need to add a constant name in the file _src/components/analytics/segment/constants_. Then at the top of a component file that contains a form, enter the following code :
+
+```js
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXEMPLE,
+);
+```
+
+## Example
+
+See the exemple for the integration of the tracking functions :
+
+```js
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXAMPLE,
+  );
+
+type Props = yourProps;
+
+const handleSubmit = () => {
+  ...
+  onSuccess: () => trackFormSuccess(object?.id);
+}
+
+export const ExampleForm = (props: Props) => {
+  yourConst;
+  React.useEffect(() => trackFormAdd(object?.id), []);
+  return (
+    THE_FORM ...
+    <Actions>
+      <Button
+        onClick={() => {
+          trackFormCancel(object?.id);
+          closeFunction()
+        }}
+      >
+      {t('form.actions.cancel')}
+      <Button
+        onClick={() => {
+          trackFormSubmitIntent(object?.id);
+          handleSubmit()
+        }}
+
+      >
+    </Actions>
+  )
+}
+```

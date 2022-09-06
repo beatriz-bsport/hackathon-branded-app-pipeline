@@ -58,6 +58,14 @@ import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const { trackFormAdd, trackFormCancel, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CATEGORY_EMAIL,
+  );
+
 type OwnProps = {
   goToEdit: (id: number) => void;
   emailTemplateDelete: (id: number) => void;
@@ -258,6 +266,9 @@ export class MarketingEmail extends Component<Props, State> {
             ) : null}
             <AddCategoryButton
               setShowCategoryDialog={this.setShowCategoryDialog}
+              onClick={() => {
+                trackFormAdd();
+              }}
             />
             <div className={classes.panel}>
               {this.props.email_templates?.filter((email) => !!email.company_id)
@@ -340,13 +351,18 @@ export class MarketingEmail extends Component<Props, State> {
         {this.state.showCategoryDialog ? (
           <CategoryCreationEditDialog
             open={this.state.showCategoryDialog}
-            onClose={() =>
+            onClose={() => {
+              trackFormCancel();
               this.setState({
                 showCategoryDialog: false,
                 selectedCategory: null,
+              });
+            }}
+            onSubmit={(category) =>
+              this.props.upsertEmailTemplateCategory(category, {
+                onSuccess: trackFormSuccess,
               })
             }
-            onSubmit={this.props.upsertEmailTemplateCategory}
             categorySelected={this.state.selectedCategory}
           />
         ) : null}

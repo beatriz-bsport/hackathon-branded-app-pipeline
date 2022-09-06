@@ -78,11 +78,7 @@ import {
 } from '#libs/user-preference/actions';
 import { OptionCallback } from '../../state/types';
 import { getFormInitial } from '#libs/private-service/utils';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { fetchOne as fetchPaymentPackAction } from '#libs/payment-packs/actions';
 import type { PaymentPack } from '#libs/payment-packs/types';
@@ -99,6 +95,16 @@ import {
 } from '../../libs/meta-activity/actions';
 import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
 import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_CATEGORY,
+);
 
 type OwnProps = {
   setOpenDeleteCompatibility: (id: number) => void;
@@ -125,18 +131,14 @@ type StateHandlerType = typeof withStateHandlersInit &
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-type OwnAndConnectedProps = OwnProps &
-  ConnectedProps &
-  StateHandlerType &
-  WithSegmentAnalyticsFormTrackerHandlers;
+type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
 
 type Props = OwnProps &
   ConnectedProps &
   StateHandlerType &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
-  WithHandlerType<typeof mapWithHandlers> &
-  WithSegmentAnalyticsFormTrackerHandlers;
+  WithHandlerType<typeof mapWithHandlers>;
 
 type State = {
   searchText: string;
@@ -149,7 +151,6 @@ type State = {
     ordering_in_category: number;
   }> | null;
 };
-
 export class PrivatePassList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -365,6 +366,9 @@ export class PrivatePassList extends React.Component<Props, State> {
             open={this.props.openCreateForm}
             onClose={() => this.props.closePrivatePassForm()}
             title={this.props.t('privatePass.form.title')}
+            trackingObjectIdentifier={
+              SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+            }
           >
             <PrivatePassForm
               privatePassCategories={this.props.privatePassCategories}
@@ -400,7 +404,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               variant="outlined"
               onClick={() => {
                 this.props.setShowCategoryDialog(true);
-                this.props.formAdd && this.props.formAdd({});
+                trackFormAdd();
               }}
               color="primary"
             >
@@ -521,6 +525,10 @@ export class PrivatePassList extends React.Component<Props, State> {
           onClose={() => this.props.closePrivatePassForm()}
           title={this.props.t('privatePass.form.title')}
           subtitle={this.props.selectedPrivatePass?.name}
+          trackingObjectIdentifier={
+            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+          }
+          trackingObjectId={this.props.selectedPrivatePass?.id}
         >
           <PrivatePassForm
             provincialTax={this.props.theme?.provincial_tax_value}
@@ -568,28 +576,12 @@ export class PrivatePassList extends React.Component<Props, State> {
             open={this.props.showCategoryDialog}
             handleClose={() => {
               this.props.closePrivatePassCategoryForm();
-              this.props.formCancel &&
-                this.props.formCancel(
-                  this.props.selectedCategory
-                    ? {
-                        private_pass_category_id:
-                          this.props.selectedCategory.id || null,
-                      }
-                    : {},
-                );
+              trackFormCancel(this.props.selectedCategory?.id);
             }}
             onSubmit={this.props.upsertPrivatePassCategory}
             privatePassCategorySelected={this.props.selectedCategory}
             trackIntent={() =>
-              this.props.formSubmitIntent &&
-              this.props.formSubmitIntent(
-                this.props.selectedCategory
-                  ? {
-                      private_pass_category_id:
-                        this.props.selectedCategory.id || null,
-                    }
-                  : {},
-              )
+              trackFormSubmitIntent(this.props.selectedCategory?.id)
             }
           />
         )}
@@ -786,14 +778,7 @@ const mapWithHandlers = {
     (props: OwnAndConnectedProps) => (category: PrivatePassCategory) => {
       props.upsertPrivatePassCategoryAction(category, {
         onSuccess: () => {
-          props.formSuccess &&
-            props.formSuccess(
-              category
-                ? {
-                    private_pass_category_id: category.id || null,
-                  }
-                : {},
-            );
+          trackFormSuccess(category?.id);
           props.closePrivatePassCategoryForm();
           props.fetchAllPrivatePassCategory();
         },
@@ -850,10 +835,6 @@ const mapWithHandlers = {
 };
 
 export default compose(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_CATEGORY,
-  }),
   routerParamsToProps({
     id: 'id:number',
   }),

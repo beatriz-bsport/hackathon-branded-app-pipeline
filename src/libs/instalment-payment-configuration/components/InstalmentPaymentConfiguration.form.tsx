@@ -22,6 +22,17 @@ import InstalmentPaymentCompabilityForm from './InstalmentPaymentConfigurationCo
 import InstalmentPaymentGeneralInfoForm from './InstalmentPaymentConfigurationGeneralInfo.form';
 import { PrivatePass } from '#libs/private-service/types';
 import InstalmentPaymentAdvancedForm from './InstalmentPaymentConfigurationAdvanced.form';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.INSTALMENT_PAYMENT,
+);
 
 type OwnProps = {
   submit: (
@@ -53,6 +64,10 @@ export const InstalmentPaymentForm = (props: Props) => {
     shopItemList,
     giftcardList,
   } = props;
+  React.useEffect(() => {
+    trackFormAdd(initial?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const classes = useStyles();
   const { t } = useTranslation('instalmentPayment');
@@ -67,6 +82,7 @@ export const InstalmentPaymentForm = (props: Props) => {
         onSubmit={(values, actions) => {
           submit(values, {
             onSuccess: () => {
+              trackFormSuccess(initial?.id);
               actions.setSubmitting(false);
               closeDialog && closeDialog();
               resetInitial && resetInitial();
@@ -122,13 +138,21 @@ export const InstalmentPaymentForm = (props: Props) => {
                   <Button
                     color="secondary"
                     onClick={() => {
+                      trackFormCancel(initial?.id);
                       closeDialog && closeDialog();
                       resetInitial && resetInitial();
                     }}
                   >
                     {t('form.cancel')}
                   </Button>
-                  <Button color="primary" type="submit" variant="contained">
+                  <Button
+                    color="primary"
+                    type="submit"
+                    variant="contained"
+                    onClick={() => {
+                      trackFormSubmitIntent(initial?.id);
+                    }}
+                  >
                     {t('form.save')}
                   </Button>
                 </div>

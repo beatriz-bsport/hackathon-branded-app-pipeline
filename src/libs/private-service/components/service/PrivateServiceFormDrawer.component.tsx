@@ -16,7 +16,13 @@ import type { AssociatedEstablishment } from '#libs/establishment/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { PrivateService } from '#libs/private-service/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_SERVICE,
+  );
 type OwnProps = {
   fullScreen: boolean;
   open: boolean;
@@ -30,21 +36,35 @@ type Props = OwnProps & WithTranslation;
 export const PrivateServiceFormDrawer = (props: Props) => {
   const { t } = useTranslation('privateService');
   const classes = useStyles();
+  const { onCancel, initial } = props;
+  const cancel = React.useCallback(() => {
+    onCancel();
+    trackFormCancel(initial?.id);
+  }, [onCancel, initial?.id]);
+
+  React.useEffect(() => {
+    if (props.open) {
+      trackFormAdd(props.initial?.id);
+    }
+  }, [props.initial?.id, props.open]);
   return (
     <GenericResponsiveDrawer
       open={props.open}
       title={t('service.form.title')}
       subtitle={props.initial?.name}
-      onClose={props.onCancel}
+      onClose={cancel}
     >
       <div className={classes.container}>
         <Form>
           <PrivateServiceFields {...props} />
           <DialogActions>
-            <Button onClick={props.onCancel}>
-              {t('service.form.actions.cancel')}
-            </Button>
-            <Submit disabled={props.isSubmitting}>
+            <Button onClick={cancel}>{t('service.form.actions.cancel')}</Button>
+            <Submit
+              disabled={props.isSubmitting}
+              onClick={() => {
+                trackFormSubmitIntent(props.initial?.id);
+              }}
+            >
               {t('service.form.actions.submit')}
             </Submit>
           </DialogActions>

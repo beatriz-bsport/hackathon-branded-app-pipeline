@@ -28,11 +28,17 @@ import PaymentComboSelectorField from '../../payment-combo/components/PaymentCom
 import InfoBox from '#components/box/InfoBox.component';
 
 import type { SubscriptionContract } from '../types';
-import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+
+const { trackFormAdd, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
+  );
 
 type Props = { t: TFunction, classes: * } & SubscriptionContract & {
     onSubmit: (SubscriptionContract) => void,
-  } & WithSegmentAnalyticsFormTrackerHandlers;
+  };
 
 const OBJECT_TYPE_PAYMENT_PACK = 'payment_pack';
 const OBJECT_TYPE_PRIVATE_PASS = 'private_pass';
@@ -41,13 +47,7 @@ const OBJECT_TYPE_PAYMENT_COMBO = 'payment_combo';
 export function SubscriptionContractFields(props: Props) {
   const { t, classes } = props;
   React.useEffect(() => {
-    if (props.formAdd) {
-      props.formAdd(
-        props.initial && props.initial.id
-          ? { subscription_id: props.initial.id }
-          : {},
-      );
-    }
+    trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -327,10 +327,7 @@ export const SubscriptionContractFormHoc = withFormik({
   },
   enableReinitialize: true,
   validationSchema: SubscriptionContractFieldsSchema,
-  handleSubmit: (
-    values,
-    { props: { onSubmit, formSuccess, initial }, setSubmitting },
-  ) => {
+  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     const valuesCleaned = {
       ...omit(values, ['object_type']),
       private_pass:
@@ -349,11 +346,8 @@ export const SubscriptionContractFormHoc = withFormik({
 
     onSubmit(valuesCleaned, {
       onSuccess: () => {
-        if (formSuccess) {
-          formSuccess(
-            initial && initial.id ? { subscription_id: initial.id } : {},
-          );
-        }
+        trackFormSuccess(initial?.id);
+
         setSubmitting(false);
       },
       onError: () => setSubmitting(false),

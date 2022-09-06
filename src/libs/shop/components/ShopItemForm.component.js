@@ -21,13 +21,18 @@ import PriceInput from '../../../components/input/PriceInput.component';
 import ImageUploader from '../../../components/input/ImageUploader.component';
 
 import PaymentMethodSelectorInput from '../../payment/components/PaymentMethodSelectorInput.component';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import type { OptionCallback } from '../../../state/types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SHOP_ITEM,
+);
 type Props = {
   initial: ?ShopItem,
   t: TFunction,
@@ -36,7 +41,7 @@ type Props = {
   onCancel: () => void,
   loading: boolean,
   provincialTax: number,
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 type State = {
   name: ?string,
   subtitle: ?string,
@@ -140,13 +145,7 @@ export class ShopItemForm extends Component<Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.formAdd) {
-      this.props.formAdd(
-        this.props.initial && this.props.initial.id
-          ? { shop_item_id: this.props.initial.id }
-          : {},
-      );
-    }
+    trackFormAdd(this.props.initial?.id);
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
@@ -202,13 +201,9 @@ export class ShopItemForm extends Component<Props, State> {
     data.append('sell_only_on_provision', this.state.sell_only_on_provision);
     data.append('is_deliverable', this.state.is_deliverable);
     this.props.createOrUpdate(data, id, {
-      onSuccess: () =>
-        this.props.formSuccess &&
-        this.props.formSuccess(
-          this.props.initial && this.props.initial.id
-            ? { shop_item_id: this.props.initial.id }
-            : {},
-        ),
+      onSuccess: () => {
+        trackFormSuccess(this.props.initial?.id);
+      },
     });
   };
 
@@ -412,13 +407,7 @@ export class ShopItemForm extends Component<Props, State> {
                 <Button
                   onClick={() => {
                     this.props.onCancel();
-                    if (this.props.formCancel) {
-                      this.props.formCancel(
-                        this.props.initial && this.props.initial.id
-                          ? { shop_item_id: this.props.initial.id }
-                          : {},
-                      );
-                    }
+                    trackFormCancel(this.props.initial?.id);
                   }}
                   className={classes.button}
                 >
@@ -427,18 +416,12 @@ export class ShopItemForm extends Component<Props, State> {
                 <Button
                   color="primary"
                   variant="contained"
-                  type="submit"
                   className={classes.button}
-                  onclick={(ev) => {
+                  onClick={(ev) => {
                     ev.preventDefault();
-                    if (this.props.formSubmitIntent) {
-                      this.props.formSubmitIntent(
-                        this.props.initial && this.props.initial.id
-                          ? { shop_item_id: this.props.initial.id }
-                          : {},
-                      );
-                    }
-                    this.onSubmit();
+                    trackFormSubmitIntent(this.props.initial?.id);
+                    // to improve
+                    this.onSubmit(ev);
                   }}
                 >
                   {t('common.save')}
@@ -521,10 +504,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withFormTrackingHOC({
-    object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SHOP_ITEM,
-  }),
-  withStyles(styles),
-  withTranslation(),
-)(ShopItemForm);
+export default compose(withStyles(styles), withTranslation())(ShopItemForm);

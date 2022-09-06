@@ -14,24 +14,23 @@ import {
   SwitchField,
 } from '../../../components/forms';
 import ImageField from '../../../components/forms/ImageField.component';
-import { WithSegmentAnalyticsFormTrackerHandlers } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
 type Props = {
   values: any;
   initial: any;
-} & WithSegmentAnalyticsFormTrackerHandlers;
+};
 
+const { trackFormAdd, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.GIFTCARD,
+  );
 const GiftcardForm = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles();
   React.useEffect(() => {
-    if (props.formAdd) {
-      props.formAdd(
-        props.initial && props.initial.id
-          ? { giftcard_id: props.initial.id }
-          : {},
-      );
-    }
+    trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -182,12 +181,7 @@ export const GiftcardFormFieldHOC = withFormik<Props, any>({
     );
     props.onSubmit(formData, {
       onSuccess: () => {
-        props.formSuccess &&
-          props.formSuccess(
-            props.initial && props.initial.id
-              ? { giftcard_id: props.initial.id }
-              : {},
-          );
+        trackFormSuccess(props.initial?.id);
         if (props.onSuccess && typeof props.onSuccess === 'function')
           props.onSuccess();
         setSubmitting(false);

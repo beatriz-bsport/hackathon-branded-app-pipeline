@@ -22,6 +22,13 @@ import MultipleImageUploader from '../../../components/MultipleImageUploader.com
 import { Establishment as EstablishmentType } from '../../../api/types';
 
 import ImageList from '../../../components/ImageList.component';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd, trackFormSubmitIntent } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ESTABLISHMENT,
+  );
 
 const addressParser = (location: Location) => {
   return location.address_line_1
@@ -118,6 +125,10 @@ export class EstablishmentForm extends Component<Props, State> {
     }
   }
 
+  componentDidMount() {
+    trackFormAdd(this.props.initial?.id);
+  }
+
   onSubmit = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
     const { title, specific_info, practical_info, location, cover, capacity } =
@@ -172,6 +183,9 @@ export class EstablishmentForm extends Component<Props, State> {
             !!this.state.location.geometry &&
             (!this.state.location.geometry.x || !this.state.location.geometry.y)
           }
+          onClick={() => {
+            trackFormSubmitIntent(this.props.initial?.id);
+          }}
         >
           {this.props.t('form.send')}
         </Button>

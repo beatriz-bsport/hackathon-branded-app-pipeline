@@ -30,6 +30,8 @@ import {
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import MetaActivityCustomRestrictionsForm from './MetaActivityCustomRestrictionsForm.component';
 import { Tag, TagGroup } from '#libs/tag/types';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type Props = {
   SCTs: *[],
@@ -41,15 +43,34 @@ type Props = {
   is_broadcast_enabled: boolean,
   values: any,
   tags: Array<Tag<TagGroup>>,
+  initial: any,
 };
 
 export function MetaActivityForm(props: Props) {
-  const { isSubmitting, SCTs, classes, t, variant, tags } = props;
+  const { isSubmitting, SCTs, classes, t, variant, tags, initial } = props;
   const {
     auto_discard_hours_before_start,
     auto_discard_min_bookings_nb,
     auto_discard_active,
   } = props.values;
+  const {
+    trackFormSubmitIntent,
+
+    trackFormCancel,
+    trackFormAdd,
+  } = React.useMemo(
+    () =>
+      rudderStackFormTrackingFunctionsRegistry(
+        variant === 'workshop'
+          ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
+          : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+      ),
+    [variant],
+  );
+  React.useEffect(() => {
+    trackFormAdd(initial?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Form>
       <ImageField
@@ -251,10 +272,22 @@ export function MetaActivityForm(props: Props) {
         </div>
 
         <div className={classes.buttonContainer}>
-          <Button onClick={props.onCancel} disabled={isSubmitting}>
+          <Button
+            onClick={() => {
+              props.onCancel();
+              trackFormCancel(initial?.id);
+            }}
+            disabled={isSubmitting}
+          >
             {t('form.discard')}
           </Button>
-          <Submit id="button_activity_onsubmit" disabled={isSubmitting}>
+          <Submit
+            id="button_activity_onsubmit"
+            disabled={isSubmitting}
+            onClick={() => {
+              trackFormSubmitIntent(initial?.id);
+            }}
+          >
             {t('form.send')}
           </Submit>
         </div>
@@ -393,7 +426,10 @@ export default compose(
     validationSchema: MetaActivitySchema,
     handleSubmit: (
       values,
-      { props: { onSubmit, onSuccess, onError }, setSubmitting },
+      {
+        props: { onSubmit, onSuccess, onError, initial, variant },
+        setSubmitting,
+      },
     ) => {
       const keys = [
         'name',
@@ -419,9 +455,16 @@ export default compose(
       if (typeof cover_main !== 'string' && !!cover_main) {
         data.cover_main = cover_main;
       }
+      const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
+        variant === 'workshop'
+          ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
+          : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+      );
+
       onSubmit(data, {
         onSuccess: () => {
           setSubmitting(false);
+          trackFormSuccess(initial?.id);
           if (onSuccess && typeof onSuccess === 'function') onSuccess();
         },
         onError: () => {

@@ -4,8 +4,8 @@ export enum SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM {
   PAYMENT_PACK_CATEGORY = 'payment_pack_category',
 
   // TRACK PRIVATE PASS
-  PRIVATE_PASS = 'add_private_pass',
-  PRIVATE_PASS_TEMPLATE = 'add_private_pass_template',
+  PRIVATE_PASS = 'private_pass',
+  PRIVATE_PASS_TEMPLATE = 'private_pass_template',
   PRIVATE_PASS_CATEGORY = 'private_pass_category',
 
   // SHOP_ITEM
@@ -41,8 +41,35 @@ export enum SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM {
 
   // TAGS
   TAG_GROUP = 'tag_group',
-  TAG = 'tag',
 
   // EXPENSES
   EXPENSE = 'expense',
+
+  // PERFORMANCE TRACKING
+
+  PERFORMANCE_TRACKING_PROGRAM = 'performance_tracking_program',
+
+  ESTABLISHMENT = 'establishment',
+
+  COACH = 'coach',
+
+  PRIVATE_SERVICE = 'private-service',
+
+  ACTIVITY = 'activity',
+
+  WORKSHOP = 'workshop',
+
+  TAG = 'tag',
+
+  REPORT = 'report',
+
+  DASHBOARD = 'dashboard',
+
+  MEMBER = 'member',
+
+  EXPENSE = 'expense',
+
+  INSTALMENT_PAYMENT = 'instalment_payment',
+
+  CATEGORY_EMAIL = 'category_email',
 }

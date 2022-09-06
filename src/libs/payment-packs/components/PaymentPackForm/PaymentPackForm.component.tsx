@@ -33,16 +33,13 @@ import PaymentPackFormTag from './PaymentPackFormTag.component';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { Actions } from '#components/forms';
 import { Moment } from '../../../../i18n';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import type {
   PrivateServiceWithSlots,
   PrivatePass,
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
@@ -98,17 +95,21 @@ type OwnProps = {
   compatibleServicePass: Array<ServiceCompatibilityPass>;
   allowGuestMaster?: boolean;
 };
-type Props = OwnProps &
-  WithTranslation &
-  WithSegmentAnalyticsFormTrackerHandlers;
+type Props = OwnProps & WithTranslation;
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK,
+);
 export const PaymentPackForm = (props: Props) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
   React.useEffect(() => {
-    props?.formAdd(
-      props.initial?.id ? { payment_pack_id: props.initial.id } : {},
-    );
+    trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const {
@@ -312,9 +313,7 @@ export const PaymentPackForm = (props: Props) => {
         onSubmit(data, {
           onSuccess: () => {
             actions.setSubmitting(false);
-            props?.formSuccess(
-              props.initial?.id ? { payment_pack_id: props.initial.id } : {},
-            );
+            trackFormSuccess(props.initial?.id);
             if (clearPaymentPackToEdit) {
               clearPaymentPackToEdit();
             }
@@ -399,13 +398,7 @@ export const PaymentPackForm = (props: Props) => {
                 {onCancel || closeForm ? (
                   <Button
                     onClick={() => {
-                      props?.formCancel(
-                        props.initial?.id
-                          ? {
-                              payment_pack_id: props.initial.id,
-                            }
-                          : {},
-                      );
+                      trackFormCancel(props.initial?.id);
                       if (clearPaymentPackToEdit) {
                         clearPaymentPackToEdit();
                       }
@@ -422,11 +415,7 @@ export const PaymentPackForm = (props: Props) => {
                 ) : null}
                 <Button
                   onClick={() => {
-                    props?.formSubmitIntent(
-                      props.initial?.id
-                        ? { payment_pack_id: props.initial.id }
-                        : {},
-                    );
+                    trackFormSubmitIntent(props.initial?.id);
                     handleSubmit();
                   }}
                   disabled={isSubmitting}
@@ -474,13 +463,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default compose<any, OwnProps>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK,
-  }),
-  withTranslation('paymentPack'),
-)(PaymentPackForm);
+export default compose<any, OwnProps>(withTranslation('paymentPack'))(
+  PaymentPackForm,
+);
 
 const paymentPackSchema = Yup.object().shape({
   name: Yup.string().required('paymentPack:addPaymentPack.requiredField'),

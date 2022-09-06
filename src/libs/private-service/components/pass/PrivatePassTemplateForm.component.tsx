@@ -31,12 +31,17 @@ import {
 } from '../../../../components/forms';
 import { PrivatePassWithCompatibility } from '../../types';
 import { getValidityInfo } from '../../utils';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_TEMPLATE,
+);
 interface FormikValues {
   name: string | null;
   tax: number;
@@ -54,14 +59,11 @@ type Props = {
   onCancel: (ev: MouseEvent) => void;
   values: any;
   initial?: PrivatePassWithCompatibility;
-} & WithSegmentAnalyticsFormTrackerHandlers &
-  FormikProps<FormikValues>;
+} & FormikProps<FormikValues>;
 
 export const PrivatePassTemplateForm = (props: Props) => {
   React.useEffect(() => {
-    props?.formAdd(
-      props.initial?.id ? { private_pass_id: props.initial.id } : {},
-    );
+    trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { t } = useTranslation(['privateService']);
@@ -206,18 +208,14 @@ export const PrivatePassTemplateForm = (props: Props) => {
         <Button
           onClick={(e: MouseEvent) => {
             props.onCancel(e);
-            props?.formCancel(
-              props.initial?.id ? { private_pass_id: props.initial.id } : {},
-            );
+            trackFormCancel(props.initial?.id);
           }}
         >
           {t('privatePass.form.actions.cancel')}
         </Button>
         <Button
           onClick={() => {
-            props?.formSubmitIntent(
-              props.initial?.id ? { private_pass_id: props.initial.id } : {},
-            );
+            trackFormSubmitIntent(props.initial?.id);
             props.handleSubmit();
           }}
           disabled={isSubmitting}
@@ -351,14 +349,10 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  handleSubmit: (
-    values,
-    { props: { onSubmit, initial, formSuccess }, setSubmitting },
-  ) => {
+  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => {
-        formSuccess &&
-          formSuccess(initial?.id ? { private_pass_id: initial.id } : {});
+        trackFormSuccess(initial?.id);
         setSubmitting(false);
       },
       onError: (err) => {
@@ -369,10 +363,6 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
   },
 });
 
-export default compose<any, Props>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_TEMPLATE,
-  }),
-  PrivatePassTemplateFormikHOC,
-)(PrivatePassTemplateForm);
+export default compose<any, Props>(PrivatePassTemplateFormikHOC)(
+  PrivatePassTemplateForm,
+);

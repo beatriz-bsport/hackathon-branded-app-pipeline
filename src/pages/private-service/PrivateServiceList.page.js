@@ -57,6 +57,7 @@ import type { PrivateService } from '../../libs/private-service/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
+import { OptionCallback } from '../../state/types';
 
 type Props = {
   fetchAllPrivateServices: () => void,
@@ -131,9 +132,12 @@ export class PrivateServiceList extends React.Component<Props, State> {
     this.props.setOpenCreateForm(false);
   };
 
-  createOrUpdatePrivateService = (data: *) => {
+  createOrUpdatePrivateService = (data: *, option: OptionCallback) => {
     this.props.createOrUpdatePrivateService(data, {
       onSuccess: (service) => {
+        if (option.onSuccess) {
+          option.onSuccess();
+        }
         this.props.setOpenEditForm(null);
         this.props.setOpenCreateForm(false);
         this.props.fetchAllPrivateServices();

@@ -105,6 +105,7 @@ import { getAllSmartList } from '#libs/smart-list/selectors';
 import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchTagList } from '#libs/notification-rule/actions';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
 type OwnProps = {
   id: number;
@@ -388,6 +389,10 @@ export class PrivatePassDetails extends Component<Props> {
           onClose={() => this.props.setOpenEditForm(false)}
           title={this.props.t('privatePass.form.title')}
           subtitle={this.props.privatePass?.name}
+          trackingObjectIdentifier={
+            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+          }
+          trackingObjectId={this.props.privatePass?.id}
         >
           <PrivatePassForm
             provincialTax={this.props.theme?.provincial_tax_value}

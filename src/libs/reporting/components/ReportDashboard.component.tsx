@@ -26,7 +26,17 @@ import ReportConfigurationForm from './ReportConfigurationForm.component';
 import { OptionCallback } from '../../../state/types';
 import FuzzySearch from '#components/search/FuzzySearch.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.REPORT,
+);
 type OwnProps = {
   metadata: ReportMetadataValue[];
   reportConfigurations: ReportConfiguration[];
@@ -76,6 +86,7 @@ export function ReportDashboard(props: Props) {
     onEdit: (report: ReportConfiguration) => {
       setReportConfigurationToEdit(report);
       setShowModalAdd(true);
+      trackFormAdd(report?.id, { category: report.category });
     },
     onDetail: onReportDetail,
     onDelete: (r: ReportConfiguration) => setSelectedForDeletion(r),
@@ -96,6 +107,7 @@ export function ReportDashboard(props: Props) {
                 onEdit={() => {
                   setReportConfigurationToEdit(report);
                   setShowModalAdd(true);
+                  trackFormAdd(report?.id, { category: report.category });
                 }}
                 onDetail={() => onReportDetail(report.id)}
                 onDelete={() => setSelectedForDeletion(report)}
@@ -138,6 +150,7 @@ export function ReportDashboard(props: Props) {
             onClick={() => {
               setReportConfigurationToEdit(null);
               setShowModalAdd(true);
+              trackFormAdd(reportConfiguration?.id);
             }}
             className={classes.buttonNew}
           >
@@ -151,6 +164,7 @@ export function ReportDashboard(props: Props) {
         onClick={() => {
           setReportConfigurationToEdit(null);
           setShowModalAdd(true);
+          trackFormAdd(reportConfiguration?.id);
         }}
       >
         <AddIcon />
@@ -164,7 +178,13 @@ export function ReportDashboard(props: Props) {
             <ReportConfigurationForm
               metadata={metadata}
               initial={reportConfiguration}
-              onClose={() => setShowModalAdd(false)}
+              onClose={() => {
+                setShowModalAdd(false);
+                trackFormCancel(reportConfiguration?.id);
+              }}
+              trackintent={() => {
+                trackFormSubmitIntent(reportConfiguration?.id);
+              }}
               onSubmit={(data: ReportConfiguration) => {
                 upsertReportConfiguration({
                   data,
@@ -172,6 +192,10 @@ export function ReportDashboard(props: Props) {
                     onSuccess: (response) => {
                       setShowModalAdd(false);
                       onReportDetail(data?.id || response?.id);
+                      trackFormSuccess(
+                        data?.id,
+                        data?.category && { category: data?.category },
+                      );
                     },
                   },
                 });

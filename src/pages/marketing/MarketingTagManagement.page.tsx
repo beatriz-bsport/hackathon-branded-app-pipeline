@@ -81,6 +81,8 @@ import TagDetailSmartlist from '#libs/marketing/components/TagDetailSmartlist';
 import TagDetailCoupon from '#libs/marketing/components/TagDetailCoupon';
 import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.component';
 import TadDetailOfferFilters from '#libs/marketing/components/TagDetailOfferFilters.components';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 export enum TagAuthorizationFilter {
   showAll = 0,
@@ -140,6 +142,9 @@ const TAG_KIND_COUPON = 'coupon';
 const TAG_KIND_SMARTLIST = 'smartlist';
 const TAG_KIND_OFFER = 'offer';
 
+const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.TAG_GROUP,
+);
 class MarketingTagManagement extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchAllGroups();
@@ -251,10 +256,12 @@ class MarketingTagManagement extends React.PureComponent<Props> {
 
   createOrUpdateTagGroup = (data: { id: number; name: string }) => {
     this.props.createOrUpdateTagGroup(data, {
-      onSuccess: () =>
+      onSuccess: () => {
+        trackFormSuccess(data?.id);
         this.props.fetchAllGroups({
           onSuccess: () => this.scrollToGroupName(),
-        }),
+        });
+      },
     });
   };
 

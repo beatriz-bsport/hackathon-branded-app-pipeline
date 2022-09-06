@@ -21,7 +21,13 @@ import { getTagCategories } from '../../libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
 import { EmailTemplate } from '../../libs/email-editor/types';
 import { getEmailTemplateCategories } from '#libs/email-editor/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
+const { trackFormAdd, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EMAIL_TEMPLATE,
+  );
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 export class EmailTemplateCreate extends Component<Props> {
@@ -35,6 +41,9 @@ export class EmailTemplateCreate extends Component<Props> {
   }
 
   componentDidMount() {
+    // check if the page fully loaded
+    // to improve later
+    if (!this.props.hasBeenLoadedOnce) trackFormAdd();
     this.props.fetchTagList();
     this.props.setHasBeenLoaded();
     this.props.fetchAllEmailTemplateCategory();
@@ -49,6 +58,7 @@ export class EmailTemplateCreate extends Component<Props> {
       {
         onSuccess: (templateId: number) => {
           this.props.goToListDetail(templateId);
+          trackFormSuccess();
         },
       },
     );

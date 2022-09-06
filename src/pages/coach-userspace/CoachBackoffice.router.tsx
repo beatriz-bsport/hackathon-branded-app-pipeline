@@ -20,6 +20,7 @@ import CoachDrawer from './CoachDrawer.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import { getTheme } from '#libs/theme/selectors';
 import LoadingBackoffice from '#components/navigation/LoadingBackoffice.component';
+import withRudderStackHistoryTracker from '../../components/analytics/rudderstack/with-rudderstack-history-tracking';
 
 type RouterProps = { companyId: number };
 type OwnProps = {
@@ -131,4 +132,5 @@ export default compose<any, OwnProps>(
       },
   }),
   withThemeProvider,
+  withRudderStackHistoryTracker,
 )(CoachBackoffice);

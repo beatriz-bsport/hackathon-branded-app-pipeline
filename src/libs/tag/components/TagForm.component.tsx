@@ -22,10 +22,21 @@ import {
 } from '../../../components/forms';
 import { MaterialStyleType } from '../../../utils/types';
 import { Tag, TagGroupAPI } from '../types';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.TAG,
+);
 type OwnProps = {
   isSubmitting: boolean;
   onCancel: () => void;
+  initial: Tag<TagGroupAPI>;
 };
 
 type FormProps = {
@@ -51,7 +62,11 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export function TagForm(props: Props) {
-  const { classes, t, isSubmitting, onCancel } = props;
+  const { classes, t, isSubmitting, onCancel, initial } = props;
+  React.useEffect(() => {
+    trackFormAdd(initial?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Form>
       <TextField
@@ -78,10 +93,24 @@ export function TagForm(props: Props) {
         <Typography>{t('form.tag.info')}</Typography>
       </div>
       <Actions>
-        <Button color="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button
+          color="secondary"
+          onClick={() => {
+            trackFormCancel(initial?.id);
+            onCancel();
+          }}
+          disabled={isSubmitting}
+        >
           {t('form.tag.delete.cancel')}
         </Button>
-        <Submit disabled={isSubmitting}>{t('form.tag.submit')}</Submit>
+        <Submit
+          onClick={() => {
+            trackFormSubmitIntent(initial?.id);
+          }}
+          disabled={isSubmitting}
+        >
+          {t('form.tag.submit')}
+        </Submit>
       </Actions>
     </Form>
   );
@@ -127,7 +156,7 @@ export default compose<any, Props>(
           },
     handleSubmit: (
       values,
-      { props: { onSubmit, onCancel }, setSubmitting },
+      { props: { onSubmit, onCancel, initial }, setSubmitting },
     ) => {
       const data = {
         ...values,
@@ -135,6 +164,7 @@ export default compose<any, Props>(
       onSubmit(data, {
         onSuccess: () => {
           setSubmitting(false);
+          trackFormSuccess(initial?.id);
           onCancel();
         },
         onError: () => {

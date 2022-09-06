@@ -113,6 +113,9 @@ export class CouponCreate extends Component<Props, State> {
       data,
       {
         onSuccess: () => {
+          const id = JSON.parse(
+            JSON.stringify(this.state.couponFormState.initial.id),
+          );
           this.setState({
             couponFormState: {
               open: false,
@@ -120,7 +123,9 @@ export class CouponCreate extends Component<Props, State> {
             },
           });
           this.props.fetchCouponPage(1);
-          if (options && options.onSuccess) options.onSuccess();
+          if (options && options.onSuccess) {
+            options.onSuccess(id);
+          }
         },
         onError: () => {
           if (options && options.onError) options.onError();

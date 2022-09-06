@@ -22,6 +22,7 @@ type Props = {
   isSubmitting: boolean;
   categoryMetadata: ReportMetadataValue;
   onClose: () => void;
+  trackintent: () => void;
   categories: ReportCategoryEnum[];
   globalCategories: ReportCategoryEnum[];
 };
@@ -36,6 +37,7 @@ const ReportConfigurationSchema = Yup.object().shape({
 const ReportConfigurationForm: React.FC<Props> = ({
   isSubmitting,
   onClose,
+  trackintent,
   categoryMetadata,
   categories,
   globalCategories,
@@ -84,7 +86,9 @@ const ReportConfigurationForm: React.FC<Props> = ({
       ) : null}
       <Actions>
         <Button onClick={onClose}>{t('form.cancel')}</Button>
-        <Submit disabled={isSubmitting}>{t('form.save')}</Submit>
+        <Submit onClick={trackintent} disabled={isSubmitting}>
+          {t('form.save')}
+        </Submit>
       </Actions>
     </Form>
   );

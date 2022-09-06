@@ -51,6 +51,12 @@ import BottomActionButtons from '#components/button/BottomActionsButton.componen
 import { Member } from '#libs/member/types';
 import ProgramListSkeleton from '#libs/performance-tracking/components/program/ProgramListSkeleton.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PERFORMANCE_TRACKING_PROGRAM,
+);
 
 type OwnProps = {
   programList: Array<PerformanceTrackingProgram>;
@@ -105,6 +111,7 @@ export class ProgramList extends Component<Props, State> {
   };
 
   onEditProgram = (program: PerformanceTrackingProgram) => {
+    trackFormAdd(program?.id);
     this.props.setIsProgramFormOpen(true);
     this.props.fetchMetric(
       { program: program?.id },
@@ -213,36 +220,42 @@ export class ProgramList extends Component<Props, State> {
             </Grid>
           </Grid>
         )}
-
-        <GenericResponsiveDrawer
-          open={isProgramFormOpen}
-          onClose={() => {
-            setIsProgramFormOpen(false);
-            setProgramToEdit(null);
-          }}
-          title={
-            selectedProgramToEdit === null
-              ? t('program.form.create')
-              : t('program.form.update')
-          }
-        >
-          <ProgramForm
-            isTitleEnabled={false}
-            closeDialog={() => setIsProgramFormOpen(false)}
-            resetInitial={() => setProgramToEdit(null)}
-            submit={(
-              program,
-              options?: OptionCallback<PerformanceTrackingProgram>,
-            ) => {
-              createOrUpdateProgram(program, options);
+        {isProgramFormOpen && (
+          <GenericResponsiveDrawer
+            open
+            onClose={() => {
+              setIsProgramFormOpen(false);
+              setProgramToEdit(null);
             }}
-            initial={{ ...selectedProgramToEdit }}
-            isInDrawer
-          />
-        </GenericResponsiveDrawer>
+            title={
+              selectedProgramToEdit === null
+                ? t('program.form.create')
+                : t('program.form.update')
+            }
+            trackingObjectIdentifier={
+              SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PERFORMANCE_TRACKING_PROGRAM
+            }
+            trackingObjectId={selectedProgramToEdit?.id}
+          >
+            <ProgramForm
+              isTitleEnabled={false}
+              closeDialog={() => setIsProgramFormOpen(false)}
+              resetInitial={() => setProgramToEdit(null)}
+              submit={(
+                program,
+                options?: OptionCallback<PerformanceTrackingProgram>,
+              ) => {
+                createOrUpdateProgram(program, options);
+              }}
+              initial={{ ...selectedProgramToEdit }}
+              isInDrawer
+            />
+          </GenericResponsiveDrawer>
+        )}
 
         <BottomActionButtons
           onCreate={() => {
+            trackFormAdd();
             setIsProgramFormOpen(true);
           }}
           onCreateLabel={t('program.form.addProgram')}

@@ -44,6 +44,7 @@ type Props = {
   emailDetailLoading: boolean;
   emailDetails: Array<any>;
   onCancel: () => void;
+  onSubmitIntent: () => void;
   initial: any;
   values: any;
   setFieldValue: (key: string, value: any) => void;
@@ -93,6 +94,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
     emailDetailLoading,
     emailDetails,
     onCancel,
+    onSubmitIntent,
     initial,
     values,
     setFieldValue,
@@ -347,6 +349,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
             {t('booking:notification.form.cancel')}
           </Button>
           <Submit
+            onClick={onSubmitIntent}
             color="primary"
             disabled={
               !!errors.email_design ||

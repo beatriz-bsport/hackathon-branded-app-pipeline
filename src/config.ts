@@ -16,6 +16,8 @@ type ConfigType = {
   REACT_APP_QUICKBOOKS_CLIENT_ID: string;
   REACT_APP_QUICKBOOKS_CLIENT_SECRET: string;
   REACT_APP_SEGMENT_API_KEY: string;
+  REACT_APP_RUDDERSTACK_KEY: string;
+  REACT_APP_RUDDERSTACK_DATAPLANEURL: string;
 };
 
 export const Config = {} as ConfigType;

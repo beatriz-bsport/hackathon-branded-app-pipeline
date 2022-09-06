@@ -137,6 +137,7 @@ const MetaActivityMap = {
   category: 'category',
   alt_cover_main: 'alt_cover_main',
   custom_restriction_rule: 'custom_restriction_rule',
+  id: 'id',
 };
 type StepType = {
   id: number;
@@ -567,6 +568,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
           deleteMetaActivity={this.props.deleteMetaActivity}
         />
+
         <MetaActivityEditDrawer
           initial={{
             ...this.getSelectedMetaActivityInitialData(),
@@ -578,6 +580,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           onCancel={this.onCancelEdit}
           tags={this.props.allTagsWithTagGroup}
         />
+
         <BottomActionButtons
           onCreateLabel={this.props.t('actions.addActivity')}
           onCreate={() => {

@@ -29,6 +29,17 @@ import {
 } from '#components/forms';
 
 import type { CoachDetailed } from '../../../api/types';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COACH,
+);
 
 type Props = {
   isSubmitting: boolean;
@@ -50,6 +61,15 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
   const classes = useStyles();
 
   const { t } = useTranslation('translation');
+
+  React.useEffect(() => {
+    trackFormAdd(initial?.id);
+  }, [initial?.id]);
+
+  const cancel = React.useCallback(() => {
+    onCancel();
+    trackFormCancel(initial?.id);
+  }, [initial?.id, onCancel]);
 
   return (
     <Paper className={classes.paperContainer}>
@@ -141,10 +161,17 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
           </Grid>
         </Grid>
         <Actions>
-          <Button color="secondary" onClick={onCancel} disabled={isSubmitting}>
+          <Button color="secondary" onClick={cancel} disabled={isSubmitting}>
             {t('form.discard')}
           </Button>
-          <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+          <Submit
+            disabled={isSubmitting}
+            onClick={() => {
+              trackFormSubmitIntent(initial?.id);
+            }}
+          >
+            {t('form.send')}
+          </Submit>
         </Actions>
       </Form>
       <LinearProgress
@@ -220,7 +247,10 @@ export const CoachFormHOC = withFormik({
       email: values.email || '',
     };
     onSubmit(data, {
-      onSuccess: () => setSubmitting(false),
+      onSuccess: () => {
+        trackFormSuccess(data?.id);
+        setSubmitting(false);
+      },
       onError: () => {
         setSubmitting(false);
       },

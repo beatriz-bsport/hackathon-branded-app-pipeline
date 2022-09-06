@@ -4,6 +4,8 @@ import MetaActivityForm from './MetaActivityForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../../state/types';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
 type OwnProps = {
   open: boolean;
@@ -17,11 +19,17 @@ type OwnProps = {
 type Props = OwnProps & WithTranslation;
 export const MetaActivityEditDrawer = (props: Props) => {
   const { t } = useTranslation('');
+  const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
+    props.isWorkshop
+      ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
+      : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+  );
   return (
     <GenericResponsiveDrawer
       open={props.open}
       onClose={() => {
         props.onCancel();
+        trackFormCancel(props.initial?.id);
       }}
       title={
         props.isWorkshop
@@ -46,4 +54,5 @@ export const MetaActivityEditDrawer = (props: Props) => {
     </GenericResponsiveDrawer>
   );
 };
+
 export default MetaActivityEditDrawer;

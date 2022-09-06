@@ -89,11 +89,7 @@ import {
   fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
-import {
-  withFormTrackingHOC,
-  WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
-} from '#components/analytics/segment';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import themeSelectors from '../../libs/theme/selectors';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import { getCompatibilityPassWithService as getCompatibleServicePass } from '#libs/private-service/selectors/private-pass';
@@ -105,7 +101,16 @@ import {
   fetchAllPrivateSlots,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
 } from '#libs/private-service/actions';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK_CATEGORY,
+);
 type StateHandlerInit = {
   showCategoryDialog: boolean;
   selectedCategory: PaymentPackCategory;
@@ -117,10 +122,7 @@ type StateHandlerType = typeof withStateHandlersInit &
 type OwnProps = {};
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-type OwnAndConnectedProps = OwnProps &
-  ConnectedProps &
-  StateHandlerType &
-  WithSegmentAnalyticsFormTrackerHandlers;
+type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -457,7 +459,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               onClick={() => {
                 this.props.setSelectedCategory(null);
                 this.props.setShowCategoryDialog(true);
-                this.props.formAdd && this.props.formAdd({});
+                trackFormAdd();
               }}
               color="primary"
               className={classes.buttonAdd}
@@ -624,30 +626,14 @@ export class PaymentPackList extends React.Component<Props, State> {
           <PaymentPackCategoryCreationDialog
             open={this.props.showCategoryDialog}
             handleClose={() => {
-              this.props.formCancel &&
-                this.props.formCancel(
-                  this.props.selectedCategory
-                    ? {
-                        payment_pack_category_id:
-                          this.props.selectedCategory.id || null,
-                      }
-                    : {},
-                );
+              trackFormCancel(this.props.selectedCategory?.id);
               this.props.setShowCategoryDialog(false);
               this.props.setSelectedCategory(null);
             }}
             paymentPackCategorySelected={this.props.selectedCategory}
             onSubmit={this.props.upsertPaymenPackCategory}
             trackIntent={() =>
-              this.props.formSubmitIntent &&
-              this.props.formSubmitIntent(
-                this.props.selectedCategory
-                  ? {
-                      payment_pack_category_id:
-                        this.props.selectedCategory.id || null,
-                    }
-                  : {},
-              )
+              trackFormSubmitIntent(this.props.selectedCategory?.id)
             }
             privateServices={this.props.privateServices}
             compatibleServicePass={this.props.compatibleServicePass}
@@ -821,14 +807,8 @@ const mapWithHandlers = {
           props.setSelectedCategory(null);
           props.setUpsertCategoryLoading(false);
           props.fetchAllPaymentPackCategory();
-          props.formSuccess &&
-            props.formSuccess(
-              category
-                ? {
-                    payment_pack_category_id: category.id || null,
-                  }
-                : {},
-            );
+
+          trackFormSuccess(category?.id);
         },
       });
     },
@@ -903,10 +883,6 @@ const withStateHandlersSetter = {
   },
 };
 export default compose<any, OwnProps>(
-  withFormTrackingHOC({
-    object_identifier:
-      SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK_CATEGORY,
-  }),
   withTranslation('paymentPack'),
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

@@ -31,6 +31,7 @@ import {
   isShopItemUsedInCombo,
 } from '../../libs/shop/actions/shopitem';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
+import { OptionCallback } from '../../state/types';
 
 import {
   fetchProvisions,
@@ -40,6 +41,7 @@ import shopSelectors from '../../libs/shop/selectors';
 import type { ShopItem, Provision } from '../../libs/shop/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import themeSelectors from '../../libs/theme/selectors';
+import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 
 type Props = {
   id: number,
@@ -101,9 +103,9 @@ export class ShopItemDetail extends Component<Props, State> {
     this.setState({ provisionFormOpen: false });
   };
 
-  createOrUpdateShopItem = (data: *) => {
+  createOrUpdateShopItem = (data: *, id: number, callback: OptionCallback) => {
     this.closeEditForm();
-    this.props.createOrUpdateShopItem(data, this.props.id);
+    this.props.createOrUpdateShopItem(data, this.props.id, callback);
   };
 
   createProvisionUpdate = (data: *) => {
@@ -194,6 +196,10 @@ export class ShopItemDetail extends Component<Props, State> {
           onClose={this.closeEditForm}
           title={this.props.t('shop:shopitem.form.title')}
           subtitle={this.props.shopitem?.name}
+          trackingObjectIdentifier={
+            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SHOP_ITEM
+          }
+          trackingObjectId={this.props.shopitem?.id}
         >
           <ShopItemForm
             initial={this.props.shopitem}

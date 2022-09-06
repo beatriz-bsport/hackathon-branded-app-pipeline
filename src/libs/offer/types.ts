@@ -114,7 +114,6 @@ export type Offer<
   male?: number;
   female?: number;
   otherGender?: number;
-  validated_booking_count?: number;
 };
 
 export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;

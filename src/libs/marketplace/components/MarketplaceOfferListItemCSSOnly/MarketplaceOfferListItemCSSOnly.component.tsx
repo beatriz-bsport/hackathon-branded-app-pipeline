@@ -190,9 +190,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               {showOfferFilling && (
                 <div className="bs-offer-list-item__content__offer__right__top__group">
                   <GroupIcon className="bs-offer-list-item__content__offer__right__top__group__icon" />
-                  <div>
-                    {`${offer?.validated_booking_count}/${offer?.effectif}`}{' '}
-                  </div>
+                  <div>{`${offer?.tot_slots}/${offer?.effectif}`} </div>
                 </div>
               )}
               {showOfferGender && (

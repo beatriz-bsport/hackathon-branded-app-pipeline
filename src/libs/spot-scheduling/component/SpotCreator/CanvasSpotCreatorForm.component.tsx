@@ -209,7 +209,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
                 </div>
               </Typography>
             </div>
-            {renderExample(classes.exampleTop, '1B')}
+            {renderExample(classes.exampleTop, 'B1')}
             <Divider className={classes.divider} />
             <div className={classes.field}>
               <div className={classes.headerWithIcon}>

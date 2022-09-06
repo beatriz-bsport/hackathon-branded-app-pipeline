@@ -319,12 +319,13 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               onHeightCoachChange={this.onHeightCoachChange}
               coachHeight={this.state.coachHeight}
               openSpotCreationForm={(defaultSpot: boolean) => {
-                if (defaultSpot) {
-                  this.onClickSave();
-                }
+                this.onClickSave();
                 this.props.openSpotCreationForm(defaultSpot);
               }}
-              openSpotUpdateForm={this.props.openSpotUpdateForm}
+              openSpotUpdateForm={() => {
+                this.onClickSave();
+                this.props.openSpotUpdateForm();
+              }}
               openDeleteModal={this.props.openDeleteModal}
               spotTypes={this.props.spotTypes}
               onDeleteSpotType={this.deleteSpotType}

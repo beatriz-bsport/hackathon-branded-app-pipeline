@@ -128,6 +128,8 @@ import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardB
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type { Coach } from '#libs/associated-coach/types';
 
+const DEFAULT_SPOT_TYPE = { id: -1 };
+
 type Props = {
   classes: any,
   t: TFunction,
@@ -686,7 +688,7 @@ export class MemberDetailBooking extends Component<Props, State> {
           offer={this.props.offer}
           offerStatusById={this.props.offerStatusById}
           assetsForBlueprintById={this.props.assetsForBlueprintById}
-          spotTypes={this.props.spotTypes}
+          spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
         />
       </Grid>
     );

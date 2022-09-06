@@ -4,7 +4,10 @@ import SpotSelectorDialog from './SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../offer/types';
 import { OptionCallback } from '../../../../state/types';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
-import { getSpotIndexType } from '#libs/spot-scheduling/utils';
+import {
+  DEFAULT_SPOT_TYPE_ID,
+  getSpotIndexType,
+} from '#libs/spot-scheduling/utils';
 
 export const asyncSelectSpotForBlueprint = (offerId?: number) => {
   return new Promise((resolve, reject) => {
@@ -139,9 +142,9 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
 
     const roomBlueprint = this.props.roomBlueprintById[offer?.room_blueprint];
 
-    const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements.map(
-      (element) => element.data.spotTypeId,
-    );
+    const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements
+      .filter((element) => element.type === 'spot')
+      .map((element) => element.data.spotTypeId || DEFAULT_SPOT_TYPE_ID);
 
     if (!this.state.open) {
       return null;

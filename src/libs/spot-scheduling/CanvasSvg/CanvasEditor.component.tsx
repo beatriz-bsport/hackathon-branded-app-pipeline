@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/styles';
 import isEqual from 'lodash/isEqual';
 
 import classNames from 'classnames';
-import { isWidthDown } from '@material-ui/core/withWidth';
 import { withTheme } from '@storybook/theming';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';
@@ -52,6 +51,10 @@ type OwnProps = {
   openSpotCreationForm: (defaultSpot: boolean) => void;
   onCreateSpot: (spot: SpotType) => void;
   selectingSpot: boolean;
+  spotToSelect: SpotType;
+  spotTypes: SpotType[];
+  openSpotUpdateForm: (spotType: SpotType) => void;
+  openDeleteModal: () => void;
 };
 
 type Props = OwnProps &
@@ -236,8 +239,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { classes, width } = this.props;
-    const isMobile = isWidthDown('md', width);
+    const { classes } = this.props;
 
     return (
       <div
@@ -245,7 +247,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           [classes.containerIsMobile]: this.props.isMobile,
           [classes.containerSelecting]: this.props.selectingSpot,
           [classes.containerSelectingIsNotMobile]:
-            this.props.selectingSpot && !isMobile,
+            this.props.selectingSpot && !this.props.isMobile,
         })}
       >
         <div className={classes.toolbarCanvasContainer}>
@@ -322,9 +324,9 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
                 this.onClickSave();
                 this.props.openSpotCreationForm(defaultSpot);
               }}
-              openSpotUpdateForm={() => {
+              openSpotUpdateForm={(spotType: SpotType) => {
                 this.onClickSave();
-                this.props.openSpotUpdateForm();
+                this.props.openSpotUpdateForm(spotType);
               }}
               openDeleteModal={this.props.openDeleteModal}
               spotTypes={this.props.spotTypes}
@@ -362,12 +364,12 @@ const styles = (theme: Theme) => ({
     border: 'none',
   },
   containerSelectingIsNotMobile: {
-    minHeight: '80vh',
+    minHeight: '100vh',
   },
   containerSelecting: {
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    minHeight: '100vh',
+    backgroundColor: 'white',
   },
   toolbarCanvasContainer: {
     display: 'flex',
@@ -377,7 +379,8 @@ const styles = (theme: Theme) => ({
   canvasContainer: {
     display: 'flex',
     flex: 1,
-    maxHeight: '100%',
+    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
     overflow: 'hidden',
   },
   toolMenuContainer: {

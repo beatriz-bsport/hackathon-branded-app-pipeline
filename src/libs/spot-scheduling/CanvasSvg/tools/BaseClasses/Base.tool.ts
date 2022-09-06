@@ -5,6 +5,7 @@ export type CanvasElement<D> = {
   type: CanvasSelectableToolsEnum;
   data: D;
   id: string;
+  coachHeight?: number;
 };
 
 export type CanvasSvgMouseParamsI = {

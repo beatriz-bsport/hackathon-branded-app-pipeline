@@ -6,7 +6,10 @@ import {
   RoomBlueprint,
   SpotType,
 } from '../../../../libs/spot-scheduling/types';
-import { getSpotIndexType } from '#libs/spot-scheduling/utils';
+import {
+  DEFAULT_SPOT_TYPE_ID,
+  getSpotIndexType,
+} from '#libs/spot-scheduling/utils';
 
 interface Props {
   offer: Offer<any, any, any>;
@@ -47,9 +50,9 @@ const OfferSpotSelector = (props: Props) => {
 
   const takenSpot = offerStatus?.taken_spots || [];
 
-  const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements.map(
-    (element) => element.data.spotTypeId,
-  );
+  const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements
+    .filter((element) => element.type === 'spot')
+    .map((element) => element.data.spotTypeId || DEFAULT_SPOT_TYPE_ID);
 
   const selectedIndexType = getSpotIndexType(roomBlueprint, selectedIndex);
 

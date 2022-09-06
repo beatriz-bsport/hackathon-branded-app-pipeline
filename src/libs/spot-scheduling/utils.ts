@@ -3,6 +3,7 @@ import { CanvasSpotProps } from './CanvasSvg/tools/Spot/CanvasSpot.component';
 import { RoomBlueprint, SpotType } from './types';
 
 export const DEFAULT_SPOT_TYPE_ID = -1;
+export const DEFAULT_SPOT_TYPE = { id: DEFAULT_SPOT_TYPE_ID };
 
 export default class SpotSchedulingHelper {
   static canvasTransformer = (params: {

@@ -336,7 +336,11 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                 </Typography>
               </button>
               {this.state.takenSpotError && (
-                <div className={classes.errorContainer}>
+                <div
+                  className={clx(classes.errorContainer, {
+                    [classes.errorContainerMobile]: isMobile,
+                  })}
+                >
                   <WarningIcon color="error" />
                   <Typography className={classes.marginLeft}>
                     {t('spotSelectorDialog.takeSpotError')}
@@ -393,7 +397,11 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             </div>
           </div>
         )}
-        <DialogContent className={this.props.classes.dialogContent}>
+        <DialogContent
+          className={clx(this.props.classes.dialogContent, {
+            [this.props.classes.dialogContentMobile]: isMobile,
+          })}
+        >
           {this.renderContent()}
         </DialogContent>
       </Dialog>
@@ -414,12 +422,16 @@ const styles = (theme: Theme) => ({
   contentIsMobile: {
     flexDirection: 'column',
     borderTop: `1px solid ${theme.palette.grey[200]}`,
+    height: '100%',
   },
   dialogContent: {
     padding: 0,
     paddingTop: '0 !important',
     height: '80vh',
     paddingBottom: '0 !important',
+  },
+  dialogContentMobile: {
+    backgroundColor: 'rgba(161, 179, 199, 0.15)',
   },
   closeButton: { alignSelf: 'flex-end', marginTop: theme.spacing(2) },
   closeButtonIsMobile: { position: 'absolute', right: '10px' },
@@ -445,6 +457,13 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItem: 'center',
   },
+  errorContainerMobile: {
+    backgroundColor: 'rgba(240, 240, 240)',
+    border: `1px solid ${theme.palette.grey[500]}`,
+    borderRadius: theme.spacing(2),
+    width: '95%',
+    padding: theme.spacing(1),
+  },
   loadingContainer: {
     display: 'flex',
     width: '100%',
@@ -461,12 +480,13 @@ const styles = (theme: Theme) => ({
     fontWeight: 400,
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
   },
   selectMenuIsMobile: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    backgroundColor: 'transparent',
     width: '100%',
+    height: 'auto',
   },
   metaActivityName: {
     marginTop: theme.spacing(4),
@@ -489,10 +509,10 @@ const styles = (theme: Theme) => ({
     textTransform: 'uppercase',
     marginTop: theme.spacing(2),
     width: '90%',
-    backgroundColor: theme.palette.grey[400],
     border: 'none',
     borderRadius: 90,
     marginBottom: theme.spacing(1),
+    zIndex: 11,
   },
   submitButtonAvailable: {
     backgroundColor: theme.palette.primary.main,
@@ -522,13 +542,15 @@ const styles = (theme: Theme) => ({
   buttonContainer: {
     paddingBottom: theme.spacing(1),
     width: '100%%',
-    backgroundColor: theme.palette.grey[100],
     position: 'sticky',
     bottom: '0px',
+    zIndex: 10,
   },
   buttonContainerMobile: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column-reverse',
   },
 });
 export default compose<any, OwnProps>(

@@ -691,8 +691,9 @@ export class BookingItemForManager extends Component<Props, State> {
                         (typeof this.props.booking.spot_id === 'number' ? (
                           <PlaceNumber
                             spotInformation={
-                              Object.keys(this.props.booking.spot_information)
-                                .length > 0
+                              Object.keys(
+                                this.props.booking.spot_information || {},
+                              ).length > 0
                                 ? this.props.booking.spot_information
                                 : {
                                     indexType: this.props.booking.spot_id,

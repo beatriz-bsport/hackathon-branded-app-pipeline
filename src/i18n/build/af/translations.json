@@ -3931,7 +3931,8 @@
       "40": "iDEAL",
       "50": "EPS",
       "60": "Giropay",
-      "label": "Moyen de paiement"
+      "label": "Moyen de paiement",
+      "disputeWon": "Résolu"
     },
     "actions": { "addThisPaymentItem": "Ajouter ce moyen de paiement" },
     "bankAccount": {

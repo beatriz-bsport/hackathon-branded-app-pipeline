@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckIcon from '@material-ui/icons/Check';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import PAYMENT_METHODS, {
   DISPUTE as PAYMENT_METHOD_DISPUTE,
 } from '@bsport/common/lib/master-data/payment-methods';
@@ -46,7 +47,15 @@ export const PaymentItem = (props: Props) => {
             <WarningIcon color="error" />
           )}
         {!paymentItem.is_processing &&
-          paymentItem.payment_received === false && (
+          // eslint-disable-next-line
+          false === paymentItem.payment_received &&
+          paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id && (
+            <CheckCircleOutlineIcon color="primary" />
+          )}
+        {!paymentItem.is_processing &&
+          // eslint-disable-next-line
+          false === paymentItem.payment_received &&
+          paymentItem.payment_method !== PAYMENT_METHOD_DISPUTE.id && (
             <CancelIcon color="secondary" />
           )}
         {(!!paymentItem.is_processing ||
@@ -54,9 +63,33 @@ export const PaymentItem = (props: Props) => {
           <HourglassEmpty color="secondary" />
         )}
         <div className={classes.leftText}>
-          <Typography className={paymentItem.reverted ? classes.revert : null}>
-            {`${t(`paymentMethod.${paymentItem.payment_method}`)}`}
-          </Typography>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <Typography
+              className={
+                paymentItem.reverted ||
+                (!paymentItem.is_processing &&
+                  // eslint-disable-next-line
+                  false === paymentItem.payment_received &&
+                  paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id)
+                  ? classes.revert
+                  : null
+              }
+            >
+              {`${t(`paymentMethod.${paymentItem.payment_method}`)}
+              `}
+            </Typography>
+            {!paymentItem.is_processing &&
+            // eslint-disable-next-line
+            false === paymentItem.payment_received &&
+            paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ? (
+              <Typography style={{ marginLeft: 4 }}>
+                {`${t('paymentMethod.disputeWon')}`}
+              </Typography>
+            ) : (
+              <div />
+            )}
+          </div>
+
           <Typography
             variant="caption"
             color="textSecondary"

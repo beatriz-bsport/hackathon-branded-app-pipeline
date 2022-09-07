@@ -6651,7 +6651,8 @@
             "50": "EPS",
             "40": "iDEAL",
             "30": "Sofort",
-            "20": "Bancontact"
+            "20": "Bancontact",
+	    "disputeWon": "Won"
         },
         "actions": {
             "addThisPaymentItem": "Add this payment method"

@@ -2040,7 +2040,8 @@
                 "12": "EPS",
                 "13": "Giropay",
                 "14": "Acompte client (dette)",
-                "15": "Carte (manuel)"
+                "15": "Carte (manuel)",
+		"disputeWon": "Résolu"
             },
             "detach": {
                 "pm_deleted": "Moyen de paiement supprimé",

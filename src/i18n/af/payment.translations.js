@@ -196,6 +196,7 @@ exports.default = {
     [EPS.id]: 'EPS',
     [IDEAL.id]: 'iDEAL',
     [SOFORT.id]: 'Sofort',
+    disputeWon: 'Résolu',
   },
   actions: {
     addThisPaymentItem: 'Ajouter ce moyen de paiement',

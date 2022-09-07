@@ -73,10 +73,25 @@ export const CanvasSpotCreatorForm = (props: Props) => {
     selected_image: '',
   };
   let updating = '';
+  let initialShape = SPOT_SHAPE_CHOICE[0];
   if (spotTypeToUpdate) {
     updating = spotTypeToUpdate.free_image;
 
     const customization = spotTypeToUpdate.customization;
+
+    switch (spotTypeToUpdate.shape) {
+      case 'triangle':
+        initialShape = SPOT_SHAPE_CHOICE[1];
+        break;
+      case 'rectangle':
+        initialShape = SPOT_SHAPE_CHOICE[2];
+        break;
+      case 'square':
+        initialShape = SPOT_SHAPE_CHOICE[3];
+        break;
+      default:
+        break;
+    }
     initialValues = {
       ...spotTypeToUpdate,
       customization,
@@ -231,7 +246,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
                 choices={SPOT_SHAPE_CHOICE}
                 setFieldValue={formikProps.setFieldValue}
                 values={formikProps.values}
-                defaultValue={SPOT_SHAPE_CHOICE[0]}
+                defaultValue={initialShape}
               />
             )}
 

@@ -20,6 +20,7 @@ import SpotSelector from './SpotSelector.component';
 import { Offer } from '../../../offer/types';
 import { MaterialStyleType } from '../../../../utils/types';
 import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
+import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 
 interface OwnProps {
   offer?: Offer;
@@ -170,9 +171,12 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     return (
       <div className={this.props.classes.spotTypesLegendContainer}>
         {this.props.assets && this.renderRowLegend({}, this.getAsset)}
-        {this.props?.spotTypesOfBlueprint.map((spotType) =>
-          this.renderRowLegend(spotType),
-        )}
+        {this.props?.spotTypesOfBlueprint
+          .filter(
+            (spotType) =>
+              spotType.id !== DEFAULT_SPOT_TYPE_ID || !this.props.assets,
+          )
+          .map((spotType) => this.renderRowLegend(spotType))}
       </div>
     );
   };

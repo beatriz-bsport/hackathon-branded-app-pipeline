@@ -41,6 +41,7 @@ export type DataSourceMedadataDataType =
   | 'private_pass'
   | 'private_service'
   | 'private_slot'
+  | 'product_type'
   | 'source_device'
   | 'string'
   | 'subshop'

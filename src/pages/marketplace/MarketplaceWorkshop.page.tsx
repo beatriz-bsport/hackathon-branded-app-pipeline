@@ -255,11 +255,11 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   );
 
   const onFetchMore = () => {
-    let newDisplaidMore = displayedWorkshops + BATCH_SIZE_FOR_META_ACTIVITY;
-
-    if (newDisplaidMore === compatibleWorkshops.length) {
+    if (displayedWorkshops === compatibleWorkshops.length) {
       return;
     }
+
+    let newDisplaidMore = displayedWorkshops + BATCH_SIZE_FOR_META_ACTIVITY;
 
     if (newDisplaidMore > compatibleWorkshops.length) {
       newDisplaidMore = compatibleWorkshops.length;

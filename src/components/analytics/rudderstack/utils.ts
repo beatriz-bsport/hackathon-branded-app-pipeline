@@ -4,10 +4,15 @@ import Config from '../../../config';
 import { TrackProperties, UserTraits } from './type';
 
 export function rudderInitialize() {
-  rudderanalytics.load(
-    Config.REACT_APP_RUDDERSTACK_KEY,
-    Config.REACT_APP_RUDDERSTACK_DATAPLANEURL,
-  );
+  try {
+    rudderanalytics.load(
+      Config.REACT_APP_RUDDERSTACK_KEY,
+      Config.REACT_APP_RUDDERSTACK_DATAPLANEURL,
+    );
+  } catch (err) {
+    console.error(err);
+    SentryCaptureException(err);
+  }
 }
 
 export async function rudderStackIdentify(params: {

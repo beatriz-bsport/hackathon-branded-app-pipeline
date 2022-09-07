@@ -9,7 +9,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import DialogActions from '@material-ui/core/DialogActions';
-import omit from 'lodash/omit';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -72,6 +71,8 @@ import {
   PrivatePassCategory,
   PrivateSlot,
   PrivatePass,
+  PrivatePassFilters,
+  PrivatePassFiltersOpener,
 } from '#libs/private-service/types';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 import {
@@ -106,6 +107,7 @@ import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchTagList } from '#libs/notification-rule/actions';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { setGenericFilterValue } from '#libs/payment-packs/utils';
 
 type OwnProps = {
   id: number;
@@ -547,7 +549,7 @@ const mapDispatchToProps = {
     privatePassId: number,
     page: number,
     pageSize: number,
-    filters: any,
+    filters: PrivatePassFilters,
     options: OptionCallback,
   ) => fetchByPrivatePass(privatePassId, page, pageSize, options, filters),
   fetchFilteredMembers: fetchFilteredMembersActions,
@@ -575,22 +577,17 @@ const mapDispatchToProps = {
 };
 
 const mapWithHandlers = {
-  setOpenValue: (props: WithStateProps) => (name: string) => {
-    props.setOpen({
-      ...props.open,
-      [name]: !props.open[name],
-    });
-  },
-  setFilterValue: (props: WithStateProps) => (name: string, value: any) => {
-    if (value === null) {
-      props.setFilters(omit(props.filters, name));
-    } else {
-      props.setFilters({
-        ...props.filters,
-        [name]: value,
+  setOpenValue:
+    (props: WithStateProps) => (name: keyof PrivatePassFiltersOpener) => {
+      props.setOpen({
+        ...props.open,
+        [name]: !props.open[name],
       });
-    }
-  },
+    },
+  setFilterValue:
+    (props: WithStateProps) =>
+    (filterDict: PrivatePassFilters<boolean | null>) =>
+      setGenericFilterValue(props.filters, filterDict, props.setFilters),
   deletePrivatePass: (props: WithStateProps) => (pass: number) => {
     props.deletePrivatePass(pass, {
       onSuccess: () => {
@@ -662,8 +659,8 @@ const mapWithHandlers = {
 };
 
 type StateHandlerInit = {
-  filters: any;
-  open: any;
+  filters: PrivatePassFilters;
+  open: PrivatePassFiltersOpener;
   openDeletePassDialog: number | null;
   openEditForm: boolean;
   openMassExtensionDialog: boolean;
@@ -680,10 +677,10 @@ const withStateHandlersInit: StateHandlerInit = {
 };
 
 const withStateHandlersSetter = {
-  setFilters: () => (filters: any) => {
+  setFilters: () => (filters: PrivatePassFilters) => {
     return { filters };
   },
-  setOpen: () => (open: boolean) => {
+  setOpen: () => (open: PrivatePassFiltersOpener) => {
     return { open };
   },
   setOpenDeletePassDialog: () => (openDeletePassDialog: number | null) => {

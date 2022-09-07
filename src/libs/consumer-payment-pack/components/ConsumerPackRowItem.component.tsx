@@ -1,6 +1,4 @@
-// @flow
-
-import React, { Component, Node } from 'react';
+import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -16,48 +14,52 @@ import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+
 import moment from 'moment-timezone';
 
-import { withStyles } from '@material-ui/core/styles';
-import Tooltip from '../../../components/Tooltip.component';
+import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
+import { MaterialStyleType } from '../../../utils/types';
+import Tooltip from '#components/Tooltip.component';
 
 import { formatAsDate } from '../../../utils/datetime';
-import RedButton from '../../../components/button/RedButton.component';
-import { PaymentPack } from '../../payment-packs/types';
-import { MaxoutBooking, ConsumerPaymentPack } from '../types';
+import RedButton from '#components/button/RedButton.component';
+import { PaymentPack } from '#libs/payment-packs/types';
+import {
+  MaxoutBooking,
+  ConsumerPaymentPack,
+} from '#libs/consumer-payment-pack/types';
 
-import CreditStatus from './CreditStatus.component';
-import { showDeleteDialog } from '../../../components/genericDialog/CustomDialogs';
-import { Offer } from '../../offer/types';
-import { WithIsSharedActive } from '../../relationship/types';
+import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
+import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
+import { Offer } from '#libs/offer/types';
+import { WithIsSharedActive } from '#libs/relationship/types';
 
 type Props = {
-  loading: boolean,
-  hideConsumer: ?boolean,
-  selected?: boolean,
-  noDivider: ?boolean,
-  disabled: ?boolean,
+  loading: boolean;
+  hideConsumer?: boolean;
+  selected?: boolean;
+  noDivider?: boolean;
+  disabled?: boolean;
 
-  consumerPack: WithIsSharedActive<ConsumerPaymentPack>,
-  paymentPack: ?PaymentPack,
-  maxoutBooking?: MaxoutBooking,
-  button: ?Node,
+  consumerPack: WithIsSharedActive<ConsumerPaymentPack>;
+  paymentPack?: PaymentPack;
+  maxoutBooking?: MaxoutBooking;
+  button?: Node;
 
-  unblock: ?(id: number) => void,
+  unblock?: (id: number) => void;
 
-  onClick: ?() => void,
-  incrementCredit: (id: number) => void,
-  decrementCredit: (id: number) => void,
-  onBook: ?(id: number) => void,
+  onClick?: () => void;
+  incrementCredit: (id: number) => void;
+  decrementCredit: (id: number) => void;
+  onBook?: (id: number) => void;
 
-  t: TFunction,
-  isNonCompatible?: boolean,
-  classes: Object,
-  onBookOne: (id: number) => void,
-  onBookMultiple: (id: number) => void,
-  offer?: Offer,
-};
+  isNonCompatible?: boolean;
+  onBookOne: (id: number) => void;
+  onBookMultiple: (id: number) => void;
+  offer?: Offer;
+} & WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 export class ConsumerPackRowItem extends Component<Props> {
   checkMaxoutBeforeBook = async (callback: () => void) => {
@@ -67,7 +69,7 @@ export class ConsumerPackRowItem extends Component<Props> {
       this.props.offer,
     );
 
-    let book = true;
+    let book: boolean | unknown = true;
 
     if (maxoutStatus) {
       let maxBooking = 0;
@@ -199,7 +201,7 @@ export class ConsumerPackRowItem extends Component<Props> {
       }
       return (
         <RedButton
-          onClick={(ev) => {
+          onClick={(ev: React.ChangeEvent) => {
             ev.preventDefault();
             ev.stopPropagation();
             decrementCredit(consumerPack.id);
@@ -367,7 +369,6 @@ export class ConsumerPackRowItem extends Component<Props> {
     const { t, consumerPack, button, hideConsumer, paymentPack, onClick } =
       this.props;
     const { consumer } = consumerPack;
-    const isExpired = moment(consumerPack.ending_date).isBefore(moment());
     const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;
     return (
       <div>
@@ -422,10 +423,11 @@ export class ConsumerPackRowItem extends Component<Props> {
               </div>
             }
             secondary={
-              <div variant="caption" color={isExpired ? 'error' : 'inherit'}>
+              <div>
                 <Typography>
-                  {t('consumer.expiresOn')}
-                  {formatAsDate(consumerPack.ending_date)}
+                  {`${formatAsDate(consumerPack.starting_date)}→${formatAsDate(
+                    consumerPack.ending_date,
+                  )}`}
                 </Typography>
                 {this.renderMaxoutError()}
               </div>
@@ -457,13 +459,14 @@ export class ConsumerPackRowItem extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  buttonRow: {
-    '&>*': {
-      marginLeft: theme.spacing(1),
+const styles = (theme: Theme) =>
+  createStyles({
+    buttonRow: {
+      '&>*': {
+        marginLeft: theme.spacing(1),
+      },
     },
-  },
-});
+  });
 
 export default compose(
   withTranslation(['paymentPack']),

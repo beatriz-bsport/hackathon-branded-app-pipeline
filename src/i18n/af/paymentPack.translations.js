@@ -78,6 +78,7 @@ exports.default = {
     invoice: 'Facture',
     isExpired: 'Expirée',
     isActive: 'Active',
+    isValidToday: 'Valide',
     hasCreditLeft: 'Avec crédit',
     hasCreditNull: 'Sans crédit',
   },

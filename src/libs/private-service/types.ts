@@ -13,6 +13,19 @@ export enum ResourceAttributionEnum {
   home = 4,
 }
 
+export type PrivatePassFilters<FilterValue = boolean> = {
+  is_expired?: FilterValue;
+  is_valid_today?: FilterValue;
+  reverted?: FilterValue;
+  has_credit_left?: FilterValue;
+};
+
+export type PrivatePassFiltersOpener = {
+  expiration?: boolean;
+  reverted?: boolean;
+  credit_left?: boolean;
+};
+
 export type CustomEvents = {
   id: number;
   name: string;
@@ -175,7 +188,7 @@ export type PrivatePassWithCompatibility<LPP = number | null> = {
   linked_payment_pack?: LPP;
 };
 
-export type PrivateConsumerPass = {
+export type PrivateConsumerPass<AssociatedMember = number> = {
   no_private_booking_active: boolean;
   id: number;
   used_credits: number;
@@ -185,9 +198,12 @@ export type PrivateConsumerPass = {
   reverted: boolean;
   date_bought: string;
   extension_days: number;
-  member: number;
+  member: AssociatedMember;
   linked_consumer_payment_pack: number | null;
   is_universal_consumer_pass_source: boolean;
+  dst_private_consumer_pass?: Array<PrivateConsumerPass>;
+  src_private_consumer_pass?: Array<PrivateConsumerPass>;
+  disabled?: boolean;
 };
 
 export type PrivateBooking<

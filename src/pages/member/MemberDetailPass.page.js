@@ -617,7 +617,7 @@ export default compose(
     if (userFilters && userFilters.pass_filters) {
       return userFilters.pass_filters;
     }
-    return { reverted: false };
+    return { reverted: false, is_valid_today: true };
   }),
   withStateHandlers(
     { consumerPaymentPackToRefund: null, showCreditRefund: true },
@@ -687,15 +687,16 @@ export default compose(
       },
     setFilterValue:
       ({ setFilters, filters }) =>
-      (name: string, value) => {
-        if (value === null) {
-          setFilters(omit(filters, name));
-        } else {
-          setFilters({
-            ...filters,
-            [name]: value,
-          });
+      (filterDict: { [name: string]: boolean | null }) => {
+        let newFilters = { ...filters };
+        for (const [name, value] of Object.entries(filterDict)) {
+          if (value === null) {
+            newFilters = omit(newFilters, name);
+          } else {
+            newFilters[name] = value;
+          }
         }
+        setFilters(newFilters);
       },
     refundConsumerPaymentPack:
       ({

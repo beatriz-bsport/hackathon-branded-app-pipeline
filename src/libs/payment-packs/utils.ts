@@ -1,9 +1,11 @@
 import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
+import omit from 'lodash/omit';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import { PaymentPack, PaymentPackTemplate } from './types';
+import { PaymentPack, PaymentPackFilters, PaymentPackTemplate } from './types';
+import { PrivatePassFilters } from '#libs/private-service/types';
 
 export const getValidityInfo = (
   pack: PaymentPack | PaymentPackTemplate,
@@ -261,6 +263,28 @@ export const getCreditInfo = (
     }
   }
   return creditInfo;
+};
+
+export const setGenericFilterValue = (
+  filters: PaymentPackFilters | PrivatePassFilters,
+  filterDict: PaymentPackFilters | PrivatePassFilters,
+  setFilters: (filters: PaymentPackFilters | PrivatePassFilters) => void,
+) => {
+  const newFilters = Object.keys(filterDict).reduce(
+    (
+      acc: PaymentPackFilters | PrivatePassFilters,
+      name: keyof PaymentPackFilters | keyof PrivatePassFilters,
+    ) => {
+      if (filterDict[name] == null) {
+        return omit(acc, name);
+      }
+
+      acc[name] = filterDict[name];
+      return acc;
+    },
+    filters,
+  );
+  setFilters(newFilters);
 };
 
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING = 0;

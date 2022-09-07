@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import omit from 'lodash/omit';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
@@ -86,7 +85,12 @@ import {
 import withTitle from '#hocs/with-title.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import { PaymentPack, PaymentPackFormValues } from '#libs/payment-packs/types';
+import {
+  PaymentPack,
+  PaymentPackFilters,
+  PaymentPackFiltersOpener,
+  PaymentPackFormValues,
+} from '#libs/payment-packs/types';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
 import { OptionCallback } from '../../state/types';
 
@@ -132,6 +136,7 @@ import {
 } from '#libs/private-service/actions';
 import type { PrivateSlot } from '#libs/private-service/types';
 import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
+import { setGenericFilterValue } from '#libs/payment-packs/utils';
 
 type OwnProps = {
   id: number;
@@ -658,7 +663,7 @@ const mapDispatchToProps = {
     paymentPackId: number,
     page: number,
     pageSize: number,
-    filters?: any,
+    filters?: PaymentPackFilters,
     options?: OptionCallback,
   ) =>
     fetchByPaymentPackAction(paymentPackId, page, pageSize, options, filters),
@@ -693,22 +698,17 @@ const mapDispatchToProps = {
 };
 
 const mapWithHandlers = {
-  setOpenValue: (props: WithStateProps) => (name: string) => {
-    props.setOpen({
-      ...props.open,
-      [name]: !props.open[name],
-    });
-  },
-  setFilterValue: (props: WithStateProps) => (name: string, value: any) => {
-    if (value === null) {
-      props.setFilters(omit(props.filters, name));
-    } else {
-      props.setFilters({
-        ...props.filters,
-        [name]: value,
+  setOpenValue:
+    (props: WithStateProps) => (name: keyof PaymentPackFiltersOpener) => {
+      props.setOpen({
+        ...props.open,
+        [name]: !props.open[name],
       });
-    }
-  },
+    },
+  setFilterValue:
+    (props: WithStateProps) =>
+    (filterDict: PaymentPackFilters<boolean | null>) =>
+      setGenericFilterValue(props.filters, filterDict, props.setFilters),
   fetchConsumerPacksList:
     (props: WithStateProps) => (page: number, pageSize: number) => {
       props.fetchConsumerPacks(props.pack.id, page, pageSize, props.filters, {
@@ -790,8 +790,8 @@ const mapWithHandlers = {
 };
 
 type StateHandlerInit = {
-  filters: any;
-  open: any;
+  filters: PaymentPackFilters;
+  open: PaymentPackFiltersOpener;
   openMassExtensionDialog: boolean;
   loadingMassExtension: boolean;
 };
@@ -804,10 +804,10 @@ const withStateHandlersInit: StateHandlerInit = {
 };
 
 const withStateHandlersSetter = {
-  setFilters: () => (filters: any) => {
+  setFilters: () => (filters: PaymentPackFilters) => {
     return { filters };
   },
-  setOpen: () => (open: boolean) => {
+  setOpen: () => (open: PaymentPackFiltersOpener) => {
     return { open };
   },
   setOpenMassExtensionDialog: () => (openMassExtensionDialog: boolean) => {

@@ -845,10 +845,10 @@ export default compose(
   ),
   withState('filters', 'setFilters', (props) => {
     const { userFilters } = props;
-    if (userFilters && userFilters.private_pass_filters) {
+    if (userFilters && userFilters.booking_filters) {
       return userFilters.booking_filters;
     }
-    return {};
+    return { future_booking: true };
   }),
   withHandlers({
     fetchRecurrenceRuleBooking:

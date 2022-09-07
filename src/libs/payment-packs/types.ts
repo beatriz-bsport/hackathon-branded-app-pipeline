@@ -12,6 +12,19 @@ export type ConsumerPaymentPackExtension = {
   id: number;
 };
 
+export type PaymentPackFilters<FilterValue = boolean> = {
+  is_expired?: FilterValue;
+  is_valid_today?: FilterValue;
+  reverted?: FilterValue;
+  has_credit_left?: FilterValue;
+};
+
+export type PaymentPackFiltersOpener = {
+  expiration?: boolean;
+  reverted?: boolean;
+  credit_left?: boolean;
+};
+
 export type PaymentPack<LPP = number | null> = {
   id: number;
   name: string;

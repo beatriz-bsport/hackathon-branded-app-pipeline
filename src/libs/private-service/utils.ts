@@ -15,6 +15,7 @@ import {
   PrivatePassTemplate,
 } from './types';
 import { formatAsDate } from '../../utils/datetime';
+import { Member } from '#libs/member/types';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -159,7 +160,9 @@ export const getValidityInfo = (
   return dateInfo;
 };
 
-export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
+export const getExpirationDate = (
+  privateConsumerPass: PrivateConsumerPass | PrivateConsumerPass<Member>,
+) => {
   if (
     privateConsumerPass.private_pass.start_date_method !== START_ON_PURCHASE &&
     privateConsumerPass.no_private_booking_active
@@ -283,7 +286,9 @@ export const filterPrivateService = (
   return !include;
 };
 
-export const getPassDate = (privateConsumerPass: PrivateConsumerPass) => {
+export const getPassDate = (
+  privateConsumerPass: PrivateConsumerPass | PrivateConsumerPass<Member>,
+) => {
   const ending_date = getExpirationDate(privateConsumerPass);
   return [
     `${formatAsDate(privateConsumerPass.date_bought)}→${formatAsDate(

@@ -95,6 +95,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   metaActivityId,
   metaActivity,
   pageHeight,
+  zoomAppDetail,
   hardDeleteOffers,
   restoreOffer,
   fetchSimilarOffers,
@@ -126,6 +127,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   deleteLevel,
   resetPreview,
   push,
+  fetchZoomApp,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -181,7 +183,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     fetchMetaActivities();
     handleFetchLevel();
     fetchExistingGroupOffer();
-
+    fetchZoomApp(companyId);
     setWorkshopGroupFilter({
       ...filter,
       min_date: moment().format('YYYY-MM-DD'),
@@ -202,6 +204,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     fetchMetaActivityBulk,
     setWorkshopGroupFilter,
     metaActivityId,
+    companyId,
   ]);
 
   useEffect(() => {
@@ -614,6 +617,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           groupPreview={groupPreview}
           createGroupOffers={handleCreateGroup}
           onClose={handleCloseCreateModal}
+          zoomAppDetail={zoomAppDetail}
         />
         <GroupedOfferEditDrawer
           open={!!editingGroup}
@@ -635,6 +639,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           createLevel={createLevel}
           deleteLevel={deleteLevel}
           onClose={handleCloseEditGroupModal}
+          zoomAppDetail={zoomAppDetail}
         />
         {deletingGroup && (
           <GroupedOfferDeleteDialog
@@ -698,6 +703,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               updateLevel={updateLevel}
               createLevel={createLevel}
               deleteLevel={deleteLevel}
+              zoomAppDetail={zoomAppDetail}
             />
           </GenericResponsiveDrawer>
         )}

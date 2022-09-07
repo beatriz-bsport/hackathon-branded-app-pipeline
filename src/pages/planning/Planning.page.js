@@ -139,6 +139,9 @@ import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
+import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 const styles = (theme) => ({
   container: {
@@ -351,6 +354,8 @@ type Props = {
   ) => void,
   deletingOffer: boolean,
   coachesSelectedInRole: Coach[],
+  zoomAppDetail: ZoomApp,
+  fetchZoomApp: (companyId: number) => void,
 };
 
 type State = {
@@ -391,6 +396,7 @@ export class Planning extends PureComponent<Props, State> {
     this.props.fetchBookingStatsOfTheWeek();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
+    this.props.fetchZoomApp(this.props.companyId);
     const promiseCoaches = this.props.fetchAssociatedCoachesList();
     const promiseEstablishments = this.props.fetchEstablishments();
     const promiseActivities = this.props.fetchActivitiesCompany(
@@ -668,6 +674,7 @@ export class Planning extends PureComponent<Props, State> {
               this.props.theme.allow_guest_activatable &&
               this.props.theme.allow_guest
             }
+            zoomAppDetail={this.props.zoomAppDetail}
           />
         </GenericResponsiveDrawer>
       );
@@ -722,6 +729,7 @@ export class Planning extends PureComponent<Props, State> {
               this.props.theme.allow_guest_activatable &&
               this.props.theme.allow_guest
             }
+            zoomAppDetail={this.props.zoomAppDetail}
           />
         </div>
       </GenericResponsiveDrawer>
@@ -1314,6 +1322,7 @@ export default compose(
       allCustomLevels: getAllCustomLevels(state),
       isDownloadingReport: state.reports.offerManagement.loading,
       deletingOffer: state.offer.delete.loading || state.offer.disable.loa,
+      zoomAppDetail: zoomAppSelectors.getZoomApp(state),
     }),
     {
       goBack: goBackRouter,
@@ -1352,6 +1361,7 @@ export default compose(
       createLevel: createLevelAction,
       deleteLevel: deleteLevelAction,
       fetchReportOfferManagement: fetchReportOfferManagementActions,
+      fetchZoomApp: fetchZoomAppAction,
     },
   ),
   withHandlers({

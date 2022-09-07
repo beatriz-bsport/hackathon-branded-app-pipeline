@@ -59,6 +59,7 @@ import LevelSelector from '#libs/level/components/LevelSelector.component';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { OptionCallback } from '../../state/types';
 import FormToggle from '#components/forms/FormToggle.component';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -180,6 +181,7 @@ type OwnProps = {
   isOfferInGroup: boolean;
   disableWaitingList: boolean;
   disableTag: boolean;
+  zoomAppDetail: ZoomApp;
 };
 
 type Props = OwnProps &
@@ -677,7 +679,12 @@ export class OfferForm extends Component<Props, State> {
                       value={this.state.broadcast_link}
                       label={this.props.t('offer.broadcast_link')}
                       placeholder="https://zoom.us/123456789"
-                      disabled={hasZoomApp}
+                      disabled={
+                        hasZoomApp &&
+                        (this.props.zoomAppDetail
+                          ? !this.props.zoomAppDetail.is_disabled
+                          : false)
+                      }
                       error={hasError}
                       onChange={(event) => {
                         this.onFormFieldChange('broadcast_link')(
@@ -687,9 +694,11 @@ export class OfferForm extends Component<Props, State> {
                       helperText={
                         // eslint-disable-next-line
                         hasZoomApp
-                          ? this.props.t('offer.broadcast_link.explainZoomApp')
+                          ? this.props.t(
+                              'form.offer.broadcast_link.explainZoomApp',
+                            )
                           : hasError
-                          ? this.props.t('offer.broadcast_link.error')
+                          ? this.props.t('form.offer.broadcast_link.error')
                           : null
                       }
                       fullWidth

@@ -64,6 +64,7 @@ import { Level } from '#libs/level/types';
 import ManagerOnlyToogle from '#libs/offer/form/ManagerOnlyToogle.component';
 import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
 import FormToggle from '#components/forms/FormToggle.component';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -87,6 +88,7 @@ type OuterProps = {
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
   handlePreviousStep: () => void;
+  zoomAppDetail: ZoomApp;
 };
 
 type Values = {
@@ -187,6 +189,7 @@ export const GroupedOfferFormSettings: React.FC<
   setFieldValue,
   handlePreviousStep,
   resetForm,
+  zoomAppDetail,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -550,6 +553,7 @@ export const GroupedOfferFormSettings: React.FC<
         handleResetEdit={handleResetEdit}
         handleEditOffer={handleEditOffer}
         handleAddOffer={handleAddOffer}
+        zoomAppDetail={zoomAppDetail}
       />
     </>
   );
@@ -576,6 +580,7 @@ const OfferDialogs: React.FC<{
     data: Object;
   }) => void;
   handleAddOffer: () => void;
+  zoomAppDetail: ZoomApp;
 }> = ({
   theme,
   coaches,
@@ -591,6 +596,7 @@ const OfferDialogs: React.FC<{
   allRoomBlueprints,
   handleEditOffer,
   handleAddOffer,
+  zoomAppDetail,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -626,6 +632,7 @@ const OfferDialogs: React.FC<{
           disableWaitingList
           disableTag
           onSubmit={handleAddOffer}
+          zoomAppDetail={zoomAppDetail}
         />
       </GenericResponsiveDrawer>
       <GenericResponsiveDrawer
@@ -654,6 +661,7 @@ const OfferDialogs: React.FC<{
             tagList={tagList}
             onConfirm={handleEditOffer}
             onCancel={handleResetEdit}
+            zoomAppDetail={zoomAppDetail}
           />
         </div>
       </GenericResponsiveDrawer>

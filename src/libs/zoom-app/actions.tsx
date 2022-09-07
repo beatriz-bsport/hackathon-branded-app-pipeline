@@ -1,12 +1,15 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import {
   fetchZoomApp as fetchZoomAppAPI,
   updateZoomApp as updateZoomAppAPI,
   revokeZoomApp as revokeZoomAppAPI,
 } from './api';
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  State,
+} from '../../state/types';
 
 export const zoomAppDetailAction = {
   success: createAction('ZOOM_APP/DETAIL/SUCCESS'),
@@ -14,13 +17,37 @@ export const zoomAppDetailAction = {
   loading: createAction('ZOOM_APP/DETAIL/IS_LOADING'),
 };
 
+export type ZoomApp = {
+  id: number;
+  company: number;
+  zoom_user_id: string;
+  is_disabled: boolean;
+  is_configured: boolean;
+};
+
 export function fetchZoomApp(companyId: number) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: () => State) => {
     dispatch(zoomAppDetailAction.error(null));
     dispatch(zoomAppDetailAction.loading(true));
     try {
-      const response = await fetchZoomAppAPI(companyId);
-      dispatch(zoomAppDetailAction.success(response.data));
+      const featureList = getState().company.feature.data;
+      const hasZoom = !!featureList?.upsell?.find(
+        (f: any) => f.readable_identifier === 'zoom',
+      );
+      if (!hasZoom) {
+        dispatch(
+          zoomAppDetailAction.success({
+            id: null,
+            company: companyId,
+            zoom_user_id: '',
+            is_disabled: true,
+            is_configured: false,
+          }),
+        );
+      } else {
+        const response = await fetchZoomAppAPI(companyId);
+        dispatch(zoomAppDetailAction.success(response.data));
+      }
     } catch (error) {
       dispatch(zoomAppDetailAction.error(error));
     }

@@ -54,6 +54,7 @@ import { Level } from '#libs/level/types';
 import { OptionCallback } from '../../state/types';
 import LevelSelector from '#libs/level/components/LevelSelector.component';
 import FormToggle from '#components/forms/FormToggle.component';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 type OwnProps = {
   processing: boolean;
@@ -80,6 +81,7 @@ type OwnProps = {
   updateLevel: (id: number, data: Level, options: OptionCallback) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
+  zoomAppDetail: ZoomApp;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -831,15 +833,20 @@ export class OfferEditForm extends Component<Props, State> {
                         error={hasError}
                         value={this.state.broadcast_link}
                         label={this.props.t('offer.broadcast_link')}
-                        disabled={hasZoomApp}
+                        disabled={
+                          hasZoomApp &&
+                          (this.props.zoomAppDetail
+                            ? !this.props.zoomAppDetail.is_disabled
+                            : false)
+                        }
                         helperText={
                           // eslint-disable-next-line
                           hasZoomApp
                             ? this.props.t(
-                                'offer.broadcast_link.explainZoomApp',
+                                'form.offer.broadcast_link.explainZoomApp',
                               )
                             : hasError
-                            ? this.props.t('offer.broadcast_link.error')
+                            ? this.props.t('form.offer.broadcast_link.error')
                             : null
                         }
                         placeholder="https://zoom.us/123456789"

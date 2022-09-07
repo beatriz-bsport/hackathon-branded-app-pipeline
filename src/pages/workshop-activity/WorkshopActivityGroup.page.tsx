@@ -91,6 +91,8 @@ import {
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import WorkshopActivityGroup from './WorkshopActivityGroup.component';
+import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
 
 export const workshopActivityGroupConnector = connect(
   (
@@ -144,6 +146,7 @@ export const workshopActivityGroupConnector = connect(
     customLevels: getActiveCustomLevels(state),
     companyId: state.theme.theme.company,
     showVaccinationStatus: showVaccinationStatusSelector(state),
+    zoomAppDetail: zoomAppSelectors.getZoomApp(state),
   }),
   {
     fetchGroupsOfferList: fetchGroupsOfferListAction,
@@ -183,6 +186,7 @@ export const workshopActivityGroupConnector = connect(
     fetchMetaActivityBulk: fetchMetaActivityBulkAction,
     goBack: goBackRouter,
     push: pushRouter,
+    fetchZoomApp: fetchZoomAppAction,
   },
 );
 

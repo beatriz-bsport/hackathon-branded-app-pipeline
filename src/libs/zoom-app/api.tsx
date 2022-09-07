@@ -1,5 +1,3 @@
-// @flow
-
 import {
   API_V1_URI,
   getAuth,
@@ -16,7 +14,11 @@ export const updateZoomApp = (companyId: number, data: any) => {
   return patchAuth(`${API_V1_URI}/zoom_app/company/${companyId}/`, data);
 };
 
-export const requestZoomAccessToken = (companyId, code, redirect_uri) => {
+export const requestZoomAccessToken = (
+  companyId: number,
+  code: string,
+  redirect_uri: string,
+) => {
   return postAuth(
     `${API_V1_URI}/zoom_app/company/${companyId}/request_access_token/`,
     {

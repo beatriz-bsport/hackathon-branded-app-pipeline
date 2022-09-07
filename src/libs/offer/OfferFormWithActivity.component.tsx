@@ -16,6 +16,7 @@ import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 const STEP_META_ACTIVITY_CHOSER = 0;
 const STEP_OFFER_FORM = 1;
@@ -45,6 +46,7 @@ type Props = {
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
   allowGuestMaster: boolean;
+  zoomAppDetail: ZoomApp;
 };
 
 export const OfferFormWithActivity: React.FC<Props> = ({
@@ -69,6 +71,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   createLevel,
   deleteLevel,
   allowGuestMaster,
+  zoomAppDetail,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['metaActivity', 'translation']);
@@ -140,6 +143,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       createLevel={createLevel}
       deleteLevel={deleteLevel}
       allowGuestMaster={allowGuestMaster}
+      zoomAppDetail={zoomAppDetail}
     />
   );
 };

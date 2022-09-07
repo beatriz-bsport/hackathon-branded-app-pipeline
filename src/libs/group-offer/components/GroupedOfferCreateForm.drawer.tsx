@@ -25,6 +25,7 @@ import {
 } from '#libs/group-offer/constants';
 import { Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 export type Props = {
   open: boolean;
@@ -66,6 +67,7 @@ export type Props = {
   ) => void;
   resetPreview: () => void;
   onClose?: () => void;
+  zoomAppDetail: ZoomApp;
 };
 
 const STEP_METACTIVITY_SELECT = 0;
@@ -94,6 +96,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
   onClose,
   generatePreview,
   createGroupOffers,
+  zoomAppDetail,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -318,6 +321,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               createLevel={createLevel}
               deleteLevel={deleteLevel}
               open={open}
+              zoomAppDetail={zoomAppDetail}
             />
           </div>
         )}

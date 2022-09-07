@@ -16,6 +16,7 @@ import { OptionCallback } from '../../../state/types';
 
 import { Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
+import { ZoomApp } from '#libs/zoom-app/types';
 
 export type Props = {
   open: boolean;
@@ -51,6 +52,7 @@ export type Props = {
   deleteLevel: (id: number, options?: OptionCallback) => void;
   handlePreviousStep: () => void;
   onClose?: () => void;
+  zoomAppDetail: ZoomApp;
 };
 
 export const GroupedOfferEditDrawer: React.FC<Props> = ({
@@ -71,6 +73,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
   createLevel,
   deleteLevel,
   onClose,
+  zoomAppDetail,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -126,6 +129,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
           createLevel={createLevel}
           deleteLevel={deleteLevel}
           editingLiveOffer
+          zoomAppDetail={zoomAppDetail}
         />
       </div>
     </GenericResponsiveDrawer>

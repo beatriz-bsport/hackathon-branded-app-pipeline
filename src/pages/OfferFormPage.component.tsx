@@ -37,7 +37,8 @@ import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
 import OfferForm from '../libs/offer/OfferForm.component';
-
+import { fetchZoomApp } from '#libs/zoom-app/actions';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -80,6 +81,7 @@ export class OfferFormPage extends Component<Props, {}> {
       customer_enabled: true,
     });
     this.handleFetchLevel();
+    this.props.fetchZoomApp(this.props.companyId);
   }
 
   handleFetchLevel = () => {
@@ -147,6 +149,7 @@ export class OfferFormPage extends Component<Props, {}> {
                 this.props.theme.allow_guest &&
                 this.props.theme.allow_guest_activatable
               }
+              zoomAppDetail={this.props.zoomAppDetail}
             />
           </Paper>
         </Grid>
@@ -182,6 +185,7 @@ const connector = connect(
     activeCustomLevels: getActiveCustomLevels(state),
     allCustomLevels: getAllCustomLevels(state),
     companyId: state.theme.theme.company,
+    zoomAppDetail: zoomAppSelectors.getZoomApp(state),
   }),
   {
     fetchEstablishments,
@@ -197,6 +201,7 @@ const connector = connect(
     createLevel: createLevelAction,
     deleteLevel: deleteLevelAction,
     push,
+    fetchZoomApp,
   },
 );
 export default compose(

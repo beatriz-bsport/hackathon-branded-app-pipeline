@@ -235,7 +235,7 @@ export function MemberForm(props: Props) {
           <div className={classes.mergeTitle}>
             <Typography variant="h6" component="h2">
               {disabled
-                ? t('c.merge.srcMember')
+                ? t('member:forms.merge.srcMember')
                 : t('member:forms.merge.dstMember')}
             </Typography>
           </div>

@@ -3123,7 +3123,8 @@
             "notReverted": "Geldige facturen",
             "credits": "Kredieten",
             "expiration": "Geldigheid",
-            "all": "Alle kaarten"
+            "all": "Alle kaarten",
+            "isValidToday": "Geldig"
         },
         "multipleBookingTooltip": "Meerdere reserveringen",
         "maxNBookingsByMonth2": " reservering(en) per maand",
@@ -7350,7 +7351,8 @@
             "notReverted": "Geldige facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
-            "all": "Alle kaarten"
+            "all": "Alle kaarten",
+            "isValidToday": "Geldig"
         },
         "privateBookingNotification": {
             "form": {

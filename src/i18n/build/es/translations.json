@@ -6696,7 +6696,8 @@
             "notReverted": "Factura no cancelada",
             "credits": "Crédito",
             "expiration": "Validez",
-            "all": "Todas las tarjetas"
+            "all": "Todas las tarjetas",
+            "isValidToday": "Válido"
         },
         "recurrenceRule": {
             "item": {
@@ -9633,7 +9634,8 @@
             "notReverted": "Factura no cancelada",
             "credits": "Crédito",
             "expiration": "Validez",
-            "all": "Todas las tarjetas"
+            "all": "Todas las tarjetas",
+            "isValidToday": "Válido"
         },
         "multipleBookingTooltip": "Reservas múltiples",
         "maxNBookingsByMonth2": " reservas por mes",

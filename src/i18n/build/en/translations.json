@@ -3570,7 +3570,8 @@
             "notReverted": "Non-cancelled invoice",
             "credits": "Credit(s)",
             "expiration": "Validity",
-            "all": "All passes"
+            "all": "All passes",
+            "isValidToday": "Valid"
         },
         "recurrenceRule": {
             "item": {
@@ -8963,7 +8964,8 @@
             "notReverted": "Valid invoices",
             "credits": "Credits",
             "expiration": "Validity",
-            "all": "All passes"
+            "all": "All passes",
+            "isValidToday": "Valid"
         },
         "multipleBookingTooltip": "Multiple bookings",
         "maxNBookingsByMonth2": " bookings per month",

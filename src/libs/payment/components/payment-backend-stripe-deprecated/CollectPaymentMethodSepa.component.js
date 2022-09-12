@@ -145,7 +145,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
     if (this.props.elements) {
       this.props.elements
         .getElement(PAYMENT_METHOD.type)
-        .removeEventListener('change');
+        ?.removeEventListener('change');
     }
   }
 

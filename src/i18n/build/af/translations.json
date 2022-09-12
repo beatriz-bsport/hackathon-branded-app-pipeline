@@ -821,15 +821,15 @@
         "0": "Email",
         "1": "SMS",
         "2": "Notification push",
-        "3": "Session",
-        "4": "Notification",
-        "5": "Smartlist",
-        "6": "Message direct",
-        "7": "Réservations",
-        "8": "Réservations annulées",
-        "9": "Liste d'attente",
-        "10": "Automatique",
-        "11": "Manuel"
+        "10": "Session",
+        "11": "Message direct",
+        "12": "Smartlist",
+        "30": "Réservations",
+        "31": "Réservations annulées",
+        "32": "Liste d'attente",
+        "50": "Automatique",
+        "51": "Manuel",
+        "undefined": "Notification"
       }
     },
     "dialogInformation": {

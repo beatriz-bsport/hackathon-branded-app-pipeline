@@ -149,7 +149,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                     : null
                 }
               >
-                {moment(plannedPaymentEvent.future_date).format('L')}
+                {moment(plannedPaymentEvent.future_date).isSameOrBefore(
+                  moment(),
+                )
+                  ? moment().format('L')
+                  : moment(plannedPaymentEvent.future_date).format('L')}
               </Typography>
             </div>
           )}

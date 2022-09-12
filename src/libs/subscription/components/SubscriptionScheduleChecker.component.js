@@ -33,6 +33,7 @@ type Props = {
   subscriptionData: ?SubscriptionData,
   processing: boolean,
   onSubmit: (token: string) => void,
+  onCancel: () => void,
   t: TFunction,
   classes: Object,
   member: Member,
@@ -81,6 +82,10 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
       return null;
     }
 
+    const firstBillingDateInThePast = moment(
+      subscriptionData.first_billing_timestamp * 1000,
+    ).isBefore(moment().startOf('day'));
+
     const scheduledInvoices =
       getScheduledInvoicesFromSubscriptionData(subscriptionData);
     return (
@@ -98,8 +103,16 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
             {t('subscription:schedule.paymentMethodTitle')}
           </Typography>
           <Paper className={classes.paymentContainer}>
+            {firstBillingDateInThePast && (
+              <Typography variant="h6">
+                {this.props.t(
+                  'subscription:contract.pastDate.futureInvoicesPayment',
+                )}
+              </Typography>
+            )}
             <SubscriptionPayment
               onSubmit={this.props.onSubmit}
+              onCancel={this.props.onCancel}
               processing={this.props.processing}
               onlinePaymentEnabled={this.props.onlinePaymentEnabled}
               member={this.props.member}
@@ -129,6 +142,11 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               enableMultiLocalization={this.props.enableMultiLocalization}
               establishments={this.props.establishments}
               stripeReaders={this.props.stripeReaders}
+              subscriptionData={this.props.subscriptionData}
+              pastInvoices={moment(
+                subscriptionData.first_billing_timestamp * 1000,
+              ).isBefore(moment().startOf('day'))}
+              date={subscriptionData.first_billing_timestamp * 1000}
             />
           </Paper>
         </Grid>

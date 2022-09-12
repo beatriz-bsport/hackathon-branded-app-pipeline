@@ -10,6 +10,9 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
@@ -27,6 +30,8 @@ import { PaymentPack } from '../../payment-packs/types';
 import { Member } from '../../member/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { PaymentCombo } from '../../payment-combo/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 type OwnProps = {
   paymentPacks: Array<PaymentPack>;
@@ -49,8 +54,10 @@ type State = {
   nb_interval?: number;
   recurrent_voucher: number;
   first_billing_timestamp: number;
+  firstBillingDate: string;
   name: string;
   warnManagerOnInvoice: boolean;
+  alertPickedDateInThePast: boolean;
 };
 
 export class SubscriptionCreate extends Component<Props, State> {
@@ -64,7 +71,9 @@ export class SubscriptionCreate extends Component<Props, State> {
       recurrent_voucher: 0,
       name: '',
       first_billing_timestamp: parseInt((moment() + 0) / 1000, 10),
+      firstBillingDate: moment().format(DATE_FORMAT),
       warnManagerOnInvoice: false,
+      alertPickedDateInThePast: false,
     };
   }
 
@@ -178,6 +187,8 @@ export class SubscriptionCreate extends Component<Props, State> {
   updateFirstBillingTimestamp = (event: any) =>
     this.setState({
       first_billing_timestamp: parseInt((event + 0) / 1000, 10),
+      firstBillingDate: moment(event).format(DATE_FORMAT),
+      alertPickedDateInThePast: moment(event).isBefore(moment().startOf('day')),
     });
 
   updateRecurrentVoucher = (event: any) =>
@@ -290,14 +301,55 @@ export class SubscriptionCreate extends Component<Props, State> {
               fullWidth
             />
           </div>
-          <div className={classes.field}>
-            <DateInput
-              minDate={moment().format('YYYY/MM/DD')}
-              value={this.state.first_billing_timestamp * 1000}
-              label={t('parameters.firstBilling')}
-              onChange={this.updateFirstBillingTimestamp}
-            />
-          </div>
+          <DateInput
+            minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
+            value={this.state.first_billing_timestamp * 1000}
+            label={t('parameters.firstBilling')}
+            onChange={this.updateFirstBillingTimestamp}
+          />
+          <GenericResponsiveDialog
+            open={this.state.alertPickedDateInThePast}
+            maxWidth="sm"
+          >
+            <DialogTitle>{this.props.t('contract.pastDate.title')}</DialogTitle>
+            <DialogContent>
+              {moment(this.state.firstBillingDate).isSame(moment(), 'month') ? (
+                this.props.t('contract.pastDate.alertSameMonth', {
+                  lostDays: moment().diff(
+                    moment(this.state.firstBillingDate),
+                    'days',
+                  ),
+                })
+              ) : (
+                <div>
+                  {this.props.t('contract.pastDate.alertDifferentMonth')}
+                </div>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  this.setState({
+                    first_billing_timestamp: moment().unix(),
+                    firstBillingDate: moment().format(DATE_FORMAT),
+                    alertPickedDateInThePast: false,
+                  });
+                }}
+                color="secondary"
+              >
+                {this.props.t('contract.pastDate.cancel')}
+              </Button>
+              <Button
+                onClick={() => {
+                  this.setState({ alertPickedDateInThePast: false });
+                }}
+                variant="contained"
+                color="primary"
+              >
+                {this.props.t('contract.pastDate.validate')}
+              </Button>
+            </DialogActions>
+          </GenericResponsiveDialog>
           <div className={classes.field}>
             <div className={classes.voucherFields}>
               <Typography variant="subtitle1">

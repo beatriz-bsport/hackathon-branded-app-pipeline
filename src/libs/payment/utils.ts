@@ -1,6 +1,6 @@
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
@@ -14,7 +14,7 @@ export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
       return 'card';
     case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
       return 'sepa_debit';
-    case PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY:
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT:
       return 'debt';
     default:
       return '';

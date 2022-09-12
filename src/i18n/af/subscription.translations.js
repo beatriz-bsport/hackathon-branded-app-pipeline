@@ -307,7 +307,35 @@ exports.default = {
       iAcceptGeneralCondition: " J'accepte les mentions légales",
       iwanttostarton: 'Je souhaite débuter la facturation le : ',
       subscribe: "M'abonner",
+      title: 'Date passée',
+      alertPastDateSameMonth:
+        "Attention, vous avez choisi une date passée, si l'abonnement contient une carte, la validité de celle-ci commencera à la date sélectionnée. Dans le cas d'une validité d'un mois, votre membre perdra {{lostDays}} jours de validité.",
     },
+    pastDate: {
+      title: 'Date passée',
+      alertSameMonth:
+        "Attention, vous avez choisi une date passée, si l'abonnement contient une carte, la validité de celle-ci commencera à la date sélectionnée. Dans le cas d'une validité d'un mois, votre membre perdra {{lostDays}} jours de validité.",
+      alertDifferentMonth:
+        "Attention, vous avez choisi une date dans un mois passé. Votre membre risque d'avoir une ou plusieurs cartes facturées qui seront déjà expirées.",
+      alertDifferentMonthConfirmAsk:
+        'Vous êtes sur le point de facturer {{valuePastInvoicesPrice}} à votre membre. Pour confirmer cette action, tapez {{valuePastInvoices}}',
+      alertDifferentMonthInput: 'Valeur factures passées',
+      valuePastInvoicesInputError:
+        'La valeur ne correspond pas. Veuillez réessayer',
+      futureInvoicesPayment: 'Paiement des factures futures',
+      payment: {
+        registeredMethodPayment: 'Débiter sur le moyen de paiement enregistré',
+        pastInvoicesPayment: 'Paiement des factures passées',
+        manualPayment: 'Paiement manuel',
+        registeredInfo:
+          'Toutes les factures futures et passées seront débitées sous 24h sur le moyen de paiement indiqué sur la souscription.',
+        manualInfo:
+          'Les factures passées seront indiquées comme payées manuellement et les prochaines factures seront débitées sur le moyen de paiement rentré par le membre.',
+      },
+      validate: 'Confirmer',
+      cancel: 'Annuler',
+    },
+
     list: {
       title: 'Contrats',
       titleCustomerAvailable: 'Contrats disponibles à la vente',

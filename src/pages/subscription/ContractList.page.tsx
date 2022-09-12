@@ -37,7 +37,9 @@ import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import { withContractNotification } from '#libs/marketing/selectors';
@@ -102,6 +104,7 @@ export class SubscriptionList extends React.Component<Props, State> {
         NOTIFICATION_KIND.SUBSCRIPTION_NOTIFICATION_END,
       ],
     });
+    this.props.fetchEstablishments();
   }
 
   onClickContract = (id: number) => {
@@ -359,6 +362,8 @@ export class SubscriptionList extends React.Component<Props, State> {
               this.props.theme.general_terms_and_conditions
             }
             stripeReaders={this.props.stripeReaders || []}
+            establishments={this.props.establishmentList}
+            enableMultiLocalization={this.props.theme.enable_multi_localization}
           />
         ) : null}
         <SubscriptionContractFormDrawer
@@ -446,6 +451,7 @@ const mapStateToProps = (state: RootState) => ({
   searchedMembers: getSearchedMembers(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   stripeReaders: getStripeReaders(state),
+  establishmentList: getAvailableEstablishmentList(state),
 });
 
 const mapDispatchToProps = {
@@ -464,6 +470,7 @@ const mapDispatchToProps = {
     push(`/subscription/contract/${contractId}`),
   fetchStripeReaders,
   fetchMarketingNotificationList,
+  fetchEstablishments,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

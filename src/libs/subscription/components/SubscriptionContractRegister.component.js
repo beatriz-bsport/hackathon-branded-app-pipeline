@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withState, withHandlers, compose } from 'recompose';
@@ -117,6 +117,19 @@ const ContractPickerDialog = (props: {
 );
 
 export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
+  const [alertPickedDateInThePast, setAlertPickedDateInThePast] =
+    useState(false);
+  const [pickedDateInThePast, setPickedDateInThePast] = useState(false);
+
+  useMemo(() => {
+    setAlertPickedDateInThePast(
+      moment(props.date).isBefore(moment().startOf('day')),
+    );
+    setPickedDateInThePast(
+      moment(props.date).isBefore(moment().startOf('day')),
+    );
+  }, [props.date]);
+
   if (!props.member) {
     return (
       <MemberSearchModal
@@ -166,6 +179,45 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
     <GenericResponsiveDialog open={props.open} maxWidth="sm">
       <DialogTitle>{props.contract.name}</DialogTitle>
       <DialogContent>
+        {pickedDateInThePast && (
+          <Typography variant="h6" style={{ marginBottom: '16px' }}>
+            {props.t('contract.pastDate.futureInvoicesPayment')}
+          </Typography>
+        )}
+        <GenericResponsiveDialog open={alertPickedDateInThePast} maxWidth="sm">
+          <DialogTitle>{props.t('contract.pastDate.title')}</DialogTitle>
+
+          <DialogContent>
+            {moment(props.date).isSame(moment(), 'month') ? (
+              props.t('contract.pastDate.alertSameMonth', {
+                lostDays: moment().diff(moment(props.date), 'days'),
+              })
+            ) : (
+              <div className={props.classes.alertContent}>
+                {props.t('contract.pastDate.alertDifferentMonth')}
+              </div>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                props.setDate(moment());
+              }}
+              color="secondary"
+            >
+              {props.t('contract.pastDate.cancel')}
+            </Button>
+            <Button
+              onClick={() => {
+                setAlertPickedDateInThePast(false);
+              }}
+              variant="contained"
+              color="primary"
+            >
+              {props.t('contract.pastDate.validate')}
+            </Button>
+          </DialogActions>
+        </GenericResponsiveDialog>
         <div className={props.classes.row}>
           <Typography className={props.classes.buttonLeftText}>
             {props.t('contract.actions.iwanttostarton')}
@@ -198,7 +250,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
                 return [];
               }}
               returnMoment={false}
-              disablePast
+              minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
             />
           </MuiPickersUtilsProvider>
         </div>
@@ -208,6 +260,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           contract={props.contract}
           onCancel={props.onClose}
           member={props.member}
+          date={props.date}
           onSubmit={props.onSubmit}
           processing={props.processing}
           requestSetupIntentSecret={props.requestSetupIntentSecret}
@@ -221,6 +274,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           enableMultiLocalization={props.enableMultiLocalization}
           establishments={props.establishments}
           stripeReaders={props.stripeReaders}
+          pastInvoices={pickedDateInThePast}
         />
       </DialogContent>
     </GenericResponsiveDialog>
@@ -244,6 +298,11 @@ const styles = (theme) => ({
   button: {
     margin: theme.spacing(4),
   },
+  alertContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
 });
 
 export default compose(
@@ -257,6 +316,8 @@ export default compose(
       async (
         token: string,
         paymentMethodId?: string,
+        isPaymentMethodForPastInvoicesSaved: boolean,
+        paymentMethodPastInvoicesId?: string,
         options,
         coupon,
         note,
@@ -271,6 +332,9 @@ export default compose(
             stripe_source: token,
             member: member.id,
             payment_method_id: paymentMethodId,
+            is_payment_method_for_past_invoices_saved:
+              isPaymentMethodForPastInvoicesSaved,
+            payment_method_past_invoices_id: paymentMethodPastInvoicesId,
             coupon,
             first_billing_timestamp,
             note,

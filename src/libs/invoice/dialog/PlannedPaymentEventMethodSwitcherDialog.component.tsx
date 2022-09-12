@@ -21,7 +21,7 @@ import { TFunction } from 'i18next';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
@@ -82,12 +82,12 @@ const PaymentMethodSwitcher = (props: {
     ) : null}
 
     {(props.enabledPaymentMethods || []).includes(
-      PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+      PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
     ) &&
     (!props.registerNow ||
       (props.registerNow &&
         props.currentPPEPaymentMethodIdentifier ===
-          PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY)) ? (
+          PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT)) ? (
       <FormControlLabel
         value="debt"
         control={<Radio color="primary" />}
@@ -226,7 +226,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
         return 'card';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
         return 'sepa_debit';
-      case PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY:
+      case PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT:
         return 'debt';
       default:
         return 'internal';
@@ -273,7 +273,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
         setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_CB);
         break;
       case 'debt':
-        setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY);
+        setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT);
         break;
       default:
         setPaymentMethod(null);

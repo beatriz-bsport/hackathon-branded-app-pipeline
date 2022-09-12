@@ -91,6 +91,8 @@ export class SubscriptionCreate extends Component<Props, State> {
   createSubscription = async (
     _,
     payment_method_id: string,
+    is_payment_method_for_past_invoices_saved: boolean,
+    payment_method_past_invoices_id: String,
     _callback,
     _voucher,
     _note,
@@ -102,6 +104,8 @@ export class SubscriptionCreate extends Component<Props, State> {
         ...this.state.tempSubscription,
         stripe_source: null,
         payment_method_id,
+        is_payment_method_for_past_invoices_saved,
+        payment_method_past_invoices_id,
         billing_establishment_id,
       });
       this.props.pushToSubscription(response.data.id);

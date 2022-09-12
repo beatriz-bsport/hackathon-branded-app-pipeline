@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group';
 import { Form } from 'formik';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -185,7 +185,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
                 processing ||
                 props.loading ||
                 (paymentConfig.payment_method !==
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY &&
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT &&
                   !paymentConfig.payment_method_id)
               }
               variant="contained"

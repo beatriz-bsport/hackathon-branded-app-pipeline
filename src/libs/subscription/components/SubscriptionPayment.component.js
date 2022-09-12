@@ -10,17 +10,32 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
+import moment from 'moment-timezone';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import { withTranslation, TFunction } from 'react-i18next';
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
+import Select from '@material-ui/core/Select';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_BY_ENGINE,
+  PAYMENT_ENGINE_BSPORT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+} from '@bsport/common/lib/master-data/payment-group';
 
 import FormControl from '@material-ui/core/FormControl';
+import { Alert } from '@material-ui/lab';
 import Checkbox from '@material-ui/core/Checkbox';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import PaymentMethodSwitcher from '../../payment/components/PaymentMethodSwitcher.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
@@ -32,7 +47,13 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import type { Establishment } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { getPrice, getTaxPrice } from '../../theme/utils';
+import type { SubscriptionData } from '../types';
 import type { StripeReader } from '#libs/terminal/types';
+import NumericInput from '#components/input/NumericInput.component';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+
+const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
+const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';
 
 type Props = {
   onCancel: () => void,
@@ -41,6 +62,7 @@ type Props = {
   paymentMethod: string,
   enabledPaymentMethods: Array<number>,
   enabledPaymentGroupMethodIdentifier: Array<number>,
+  subscriptionData: SubscriptionData,
 
   onSubmit: (source: string) => void,
 
@@ -77,6 +99,7 @@ type Props = {
   isExcludingTax?: boolean,
   stripeReaders: StripeReader[],
 
+  pastInvoices: boolean,
   onlinePaymentEnabled?: boolean,
 };
 
@@ -102,6 +125,12 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       billing_establishment_id: null,
       selectedSavedPaymentMethodId: null,
       processingTerminal: false,
+      paymentMethodForPastInvoices: SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES,
+      manualPaymentMethodForPastInvoices: PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
+      lastConfirmDifferentMonth: false,
+      amountValuePastInvoices: 0,
+      errorValuePastInvoices: false,
+      theoricalAmountValuePastInvoices: null,
     };
   }
 
@@ -116,6 +145,29 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     if (prevProps.contract !== this.props.contract) {
       this.deleteCoupon();
     }
+
+    if (
+      prevProps.date !== this.props.date ||
+      prevProps.subscriptionData !== this.props.subscriptionData ||
+      prevProps?.contract !== this.props.contract
+    ) {
+      this.setState({
+        theoricalAmountValuePastInvoices:
+          Math.ceil(
+            Math.abs(moment(this.props.date).diff(moment(), 'months', true)),
+          ) *
+            parseFloat(
+              this.props?.contract?.recurrent_price ||
+                this.props?.subscriptionData?.recurrent_price,
+            ) +
+          parseFloat(
+            this.props?.contract?.flat_fee ||
+              this.props?.subscriptionData?.flat_fee ||
+              0,
+          ),
+      });
+    }
+
     if (
       prevProps.savedPaymentMethodList?.length !==
         this.props.savedPaymentMethodList?.length ||
@@ -136,6 +188,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     }
   };
 
+  handleChangePaymentMethodForPastInvoices = (event) => {
+    this.setState({ paymentMethodForPastInvoices: event.target.value });
+  };
+
   isZeroPrice = () => {
     if (this.props.contract) {
       return (
@@ -148,11 +204,26 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     return false;
   };
 
-  submit = async () => {
+  submit = async (pastMonth?: boolean) => {
+    if (
+      this.state.amountValuePastInvoices !==
+        Number(this.state.theoricalAmountValuePastInvoices) &&
+      pastMonth
+    ) {
+      this.setState({ errorValuePastInvoices: true });
+      return;
+    }
+    this.setState({ lastConfirmDifferentMonth: false });
     if (this.props.paymentMethod === 'bsport:credit' || this.isZeroPrice()) {
       this.props.onSubmit(
         'bsport:credit',
         null,
+        this.state.paymentMethodForPastInvoices ===
+          SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES,
+        this.state.paymentMethodForPastInvoices ===
+          SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES
+          ? this.state.selectedSavedPaymentMethodId
+          : this.state.manualPaymentMethodForPastInvoices,
         null,
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
@@ -163,6 +234,12 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       this.props.onSubmit(
         null,
         'stripe_terminal',
+        this.state.paymentMethodForPastInvoices ===
+          SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES,
+        this.state.paymentMethodForPastInvoices ===
+          SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES
+          ? this.state.selectedSavedPaymentMethodId
+          : this.state.manualPaymentMethodForPastInvoices,
         {
           onSuccess: () => {
             this.setState({
@@ -187,6 +264,12 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       this.props.onSubmit(
         null,
         this.state.selectedSavedPaymentMethodId,
+        this.state.paymentMethodForPastInvoices ===
+          SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES,
+        this.state.paymentMethodForPastInvoices ===
+          SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES
+          ? this.state.selectedSavedPaymentMethodId
+          : this.state.manualPaymentMethodForPastInvoices,
         {
           onSuccess: () => {
             this.setState({
@@ -499,6 +582,75 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               />
             </div>
           )}
+        {this.props.pastInvoices && (
+          <div className={classes.pastInvoicesContent}>
+            <Typography variant="h6">
+              {this.props.t(
+                'subscription:contract.pastDate.payment.pastInvoicesPayment',
+              )}
+            </Typography>
+            <RadioGroup
+              aria-label="displayType"
+              name="displayType"
+              value={this.state.paymentMethodForPastInvoices}
+              onChange={this.handleChangePaymentMethodForPastInvoices}
+            >
+              <FormControlLabel
+                value={SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES}
+                control={<Radio />}
+                label={this.props.t(
+                  'subscription:contract.pastDate.payment.registeredMethodPayment',
+                )}
+              />
+              <FormControlLabel
+                value={MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES}
+                control={<Radio />}
+                label={this.props.t(
+                  'subscription:contract.pastDate.payment.manualPayment',
+                )}
+              />
+            </RadioGroup>
+            {this.state.paymentMethodForPastInvoices ===
+              MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES && (
+              <Alert severity="info">
+                {this.props.t(
+                  'subscription:contract.pastDate.payment.manualInfo',
+                )}
+              </Alert>
+            )}
+            {this.state.paymentMethodForPastInvoices ===
+              MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES && (
+              <FormControl className={classes.field}>
+                <Select
+                  id="payment-method-select"
+                  value={this.state.manualPaymentMethodForPastInvoices}
+                  fullWidth
+                  onChange={(ev) => {
+                    this.setState({
+                      manualPaymentMethodForPastInvoices: ev.target.value,
+                    });
+                  }}
+                >
+                  {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].filter(
+                    (pm) => pm !== PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+                  ).map((pm) => (
+                    <MenuItem fullWidth value={pm}>
+                      {t(`invoice:paymentMethod.label.${pm}`)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+            {this.state.paymentMethodForPastInvoices ===
+              SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES && (
+              <Alert severity="info">
+                {this.props.t(
+                  'subscription:contract.pastDate.payment.registeredInfo',
+                )}
+              </Alert>
+            )}
+          </div>
+        )}
         {paymentMethod !== 'terminal' && (
           <div className={classes.buttonContainer}>
             <Button
@@ -509,7 +661,17 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               {t('subscription:form.cancel')}
             </Button>
             <Button
-              onClick={this.submit}
+              onClick={() => {
+                this.setState({
+                  lastConfirmDifferentMonth: !moment(this.props.date).isSame(
+                    moment(),
+                    'month',
+                  ),
+                });
+                if (moment(this.props.date).isSameOrAfter(moment(), 'month')) {
+                  this.submit();
+                }
+              }}
               id="stripe-pay"
               color="primary"
               variant="contained"
@@ -530,6 +692,56 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             </Button>
           </div>
         )}
+        <GenericResponsiveDialog
+          open={this.props.pastInvoices && this.state.lastConfirmDifferentMonth}
+          maxWidth="sm"
+        >
+          <DialogTitle>{this.props.t('contract.pastDate.title')}</DialogTitle>
+          <DialogContent className={classes.alertContentDifferentMonth}>
+            <Alert severity="error" variant="outlined">
+              {this.props.t('contract.pastDate.alertDifferentMonthConfirmAsk', {
+                valuePastInvoices: this.state.theoricalAmountValuePastInvoices,
+                valuePastInvoicesPrice: getCurrencyDisplayWithPrice(
+                  this.state.theoricalAmountValuePastInvoices,
+                ),
+              })}
+            </Alert>
+            <NumericInput
+              required
+              label={this.props.t('contract.pastDate.alertDifferentMonthInput')}
+              helperText={
+                this.state.errorValuePastInvoices &&
+                this.props.t('contract.pastDate.valuePastInvoicesInputError')
+              }
+              error={this.state.errorValuePastInvoices}
+              onChange={(event) =>
+                this.setState({
+                  amountValuePastInvoices: Number(event.target.value),
+                })
+              }
+              className={classes.confirmValue}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                this.setState({ lastConfirmDifferentMonth: false });
+              }}
+              color="secondary"
+            >
+              {this.props.t('contract.pastDate.cancel')}
+            </Button>
+            <Button
+              onClick={() => {
+                this.submit(true);
+              }}
+              variant="contained"
+              color="primary"
+            >
+              {this.props.t('contract.pastDate.validate')}
+            </Button>
+          </DialogActions>
+        </GenericResponsiveDialog>
       </div>
     );
   }
@@ -595,6 +807,18 @@ const styles = (theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
+  pastInvoicesContent: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  alertContentDifferentMonth: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  confirmValue: { maxWidth: '150px' },
 });
 
 export default compose(

@@ -14,7 +14,7 @@ import {
   PAYMENT_INTENT_TYPE_INVOICE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group';
 import {
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
@@ -534,7 +534,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 enabledPaymentGroupMethodIdentifier={[
                   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
                   ...(stripeRegion === 'NorthAmerica' &&
                   TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(
                     companyCountry,
@@ -606,7 +606,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 enabledPaymentMethods={[
                   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
                   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
                   ...(stripeRegion === 'NorthAmerica'
                     ? [PAYMENT_STRIPE_TERMINAL_FAKE]
                     : []),

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
@@ -55,10 +55,10 @@ const PaymentMethodTypeSwitcher = (props: {
         />
       )}
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+        PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
       ) && (
         <FormControlLabel
-          value={PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY}
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT}
           control={<Radio color="primary" />}
           label={t('paymentMethod.bsportCredit')}
           labelPlacement="bottom"

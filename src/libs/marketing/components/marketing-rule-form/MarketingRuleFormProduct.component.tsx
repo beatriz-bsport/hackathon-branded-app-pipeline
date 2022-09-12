@@ -300,65 +300,60 @@ const ProductNotificationForm = (props: Props) => {
               </Typography>
             </div>
           )}
-          {verboseNotifKind !== 'creditsLeft' && (
-            <>
-              <Typography variant="subtitle2" className={classes.spacingTop}>
-                {t('booking:notification.form.advanced')}
+          <>
+            <Typography variant="subtitle2" className={classes.spacingTop}>
+              {t('booking:notification.form.advanced')}
+            </Typography>
+            <div className={classes.smartListSelector}>
+              <Typography variant="caption">
+                {t('notification.form.smartListHelper')}
               </Typography>
-              <div className={classes.smartListSelector}>
-                <Typography variant="caption">
-                  {t('notification.form.smartListHelper')}
+              <MaterialUiMultiSelectorField
+                name="smartlist_exclude"
+                options={
+                  smartListSelectOptions ? [...smartListSelectOptions] : []
+                }
+                placeholder={t('notification.form.smartListSelection')}
+                isMulti
+                isClearable
+                value={smartListSelectOptions?.filter((opt) =>
+                  smartlist_exclude?.includes(opt?.value),
+                )}
+              />
+            </div>
+            <div className={classes.smartListSelector}>
+              <Typography variant="caption">
+                {t('notification.form.smartListHelperInclude')}
+              </Typography>
+              <MaterialUiMultiSelectorField
+                name="smartlist_include"
+                options={
+                  smartListSelectOptions ? [...smartListSelectOptions] : []
+                }
+                placeholder={t('notification.form.smartListSelection')}
+                isMulti
+                isClearable
+                value={smartListSelectOptions?.filter((opt) =>
+                  smartlist_include?.includes(opt?.value),
+                )}
+              />
+            </div>
+            {!smartlist_include.length && !smartlist_exclude.length && (
+              <div className={classes.warningContainer}>
+                <WarningIcon className={classes.warningIcon} />
+                <Typography variant="body2" className={classes.warningContent}>
+                  {t('notification.form.warning')}
                 </Typography>
-                <MaterialUiMultiSelectorField
-                  name="smartlist_exclude"
-                  options={
-                    smartListSelectOptions ? [...smartListSelectOptions] : []
-                  }
-                  placeholder={t('notification.form.smartListSelection')}
-                  isMulti
-                  isClearable
-                  value={smartListSelectOptions?.filter((opt) =>
-                    smartlist_exclude?.includes(opt?.value),
-                  )}
-                />
+                <Button
+                  variant="outlined"
+                  onClick={goToSmartlist}
+                  className={classes.createSmartList}
+                >
+                  {t('notification.form.createSmartList')}
+                </Button>
               </div>
-              <div className={classes.smartListSelector}>
-                <Typography variant="caption">
-                  {t('notification.form.smartListHelperInclude')}
-                </Typography>
-                <MaterialUiMultiSelectorField
-                  name="smartlist_include"
-                  options={
-                    smartListSelectOptions ? [...smartListSelectOptions] : []
-                  }
-                  placeholder={t('notification.form.smartListSelection')}
-                  isMulti
-                  isClearable
-                  value={smartListSelectOptions?.filter((opt) =>
-                    smartlist_include?.includes(opt?.value),
-                  )}
-                />
-              </div>
-              {!smartlist_include.length && !smartlist_exclude.length && (
-                <div className={classes.warningContainer}>
-                  <WarningIcon className={classes.warningIcon} />
-                  <Typography
-                    variant="body2"
-                    className={classes.warningContent}
-                  >
-                    {t('notification.form.warning')}
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    onClick={goToSmartlist}
-                    className={classes.createSmartList}
-                  >
-                    {t('notification.form.createSmartList')}
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
+            )}
+          </>
         </div>
         {identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft' && (
           <div className={classes.fieldContainer}>
@@ -867,6 +862,8 @@ export default compose<any, Props>(
           if (identifier === 'payment_pack') {
             data.event_rules.hours = values.hours;
             data.event_rules.kind = getEventRulesKind(values);
+            data.event_rules.smartlist_include = values.smartlist_include;
+            data.event_rules.smartlist_exclude = values.smartlist_exclude;
           }
           data.event_rules.credits_left = values.credits_left;
           break;

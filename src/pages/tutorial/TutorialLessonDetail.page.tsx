@@ -37,6 +37,7 @@ import {
   fetchUserTutorialCompletion as fetchUserTutorialCompletionAction,
   retrieveTutorialSection as retrieveTutorialSectionAction,
   retrieveTutorialLesson as retrieveTutorialLessonAction,
+  updateUserAcknowlegdeTutorial,
 } from '#libs/platform-tutorial/actions';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 import {
@@ -74,6 +75,7 @@ type Props = OwnAndConnectedProps &
 
 class TutorialLessonDetail extends React.Component<Props> {
   componentDidMount(): void {
+    this.props.updateUserAcknowlegdeTutorial();
     if (this.props.lessonRestricted) {
       if (this.props.checkTutorialPermission) {
         this.props.fetchListTutorialLessons({ lesson_restricted: true });
@@ -299,6 +301,7 @@ const mapDispatchToProps = {
   goToMenuPermitted: () => push(`/tutorial`),
   goToMenuWithAllFinishDialogPermitted: () =>
     push(`/tutorial/?${ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS}`),
+  updateUserAcknowlegdeTutorial,
 };
 
 const mapWithHandlers = {

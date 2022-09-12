@@ -12,6 +12,8 @@ import FinalStep from '#libs/login/components/account-configuration/AccountConfi
 import { PaymentMethod } from '#libs/payment/types';
 import { validateAccountConfigurationStepAction } from '#libs/company/actions';
 import { ACCOUNT_CONFIGURATION_FINAL_STEP } from '#libs/company/constants';
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 
 export type Props = ConnectedProps<typeof connector>;
 type State = {
@@ -19,7 +21,13 @@ type State = {
 };
 export class AccountConfiguationWelcomeStepPage extends Component<Props> {
   goToBackoffice = () => {
-    this.props.push('/');
+    if (!platformTutorialActivated()) {
+      this.props.push('/');
+    } else {
+      this.props.push(
+        `/calendar/?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`,
+      );
+    }
   };
 
   state: State = {};

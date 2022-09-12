@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
 import memoize from 'memoize-one';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
@@ -142,6 +142,8 @@ import type { Tag, TagGroup } from '#libs/tag/types';
 import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
 import zoomAppSelectors from '#libs/zoom-app/selectors';
 import { ZoomApp } from '#libs/zoom-app/types';
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 
 const styles = (theme) => ({
   container: {
@@ -208,6 +210,7 @@ const omit_list = (offerFilters: OfferFilters, available: boolean) => {
 
 type Props = {
   t: TFunction,
+  location: Location,
   classes: Object,
   date: string,
   selectedOffer: Offer,
@@ -490,9 +493,21 @@ export class Planning extends PureComponent<Props, State> {
 
   loadDayData = (day: ?string) => {
     const date = moment(day || this.props.date, DATE_FORMAT);
-    this.props.replaceRouter(
-      `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`,
-    );
+    const base = `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`;
+
+    if (!platformTutorialActivated()) {
+      this.props.replaceRouter(base);
+    } else if (
+      this.props.location.search.includes(
+        `?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`,
+      )
+    ) {
+      this.props.replaceRouter(
+        `${base}/?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`,
+      );
+    } else {
+      this.props.replaceRouter(base);
+    }
     this.props.fetchOffersByDay({
       year: date.year(),
       month: date.month() + 1,

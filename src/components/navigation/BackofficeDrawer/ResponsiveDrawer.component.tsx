@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
-import Collapse from '@material-ui/core/Collapse';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
-import Divider from '@material-ui/core/Divider';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import Email from '@material-ui/icons/Email';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import Grid from '@material-ui/core/Grid';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
@@ -26,8 +20,6 @@ import LabelIcon from '@material-ui/icons/Label';
 import LaptopIcon from '@material-ui/icons/Laptop';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import LocationOn from '@material-ui/icons/LocationOn';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
@@ -48,17 +40,14 @@ import TodayIcon from '@material-ui/icons/Today';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VpnKey from '@material-ui/icons/VpnKey';
-import { colors } from '@bsport/common/lib/colors';
+import { SvgIconComponent } from '@material-ui/icons';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
-import {
-  checkRequiredPermissions,
-  checkRequiredPermissionsForPath,
-} from '../../../libs/role/utils';
+import { checkRequiredPermissions } from '../../../libs/role/utils';
 import VersionVisualizer from '../../VersionVisualizer.component';
 
 import {
@@ -67,12 +56,13 @@ import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
 } from '#libs/platform-billing/upsell-identifiers';
 import { Permission } from '#libs/role/types';
+import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 export const drawerWidth = 260;
 
 type Props = {
   logo?: string;
-  location: Object;
+  location: Location;
   companyId: number;
   featureList: {
     upsell_identifier: number;
@@ -82,11 +72,14 @@ type Props = {
   disconnect: () => void;
   onMenuItemClick: () => void;
   nbTutorialAlerting: number;
+  userAcknowlegdePlatformTutorial?: boolean;
+  tutorialDialogOpen?: boolean;
+  updateUserAcknowlegdeTutorial?: () => void;
 };
 
-type DrawerItem =
+export type DrawerItem =
   | {
-      icon?: React.ElementType;
+      icon?: SvgIconComponent | React.FC<{ nbTutorialAlerting?: number }>;
       action?: () => void;
       text: string;
       subtext?: string | null;
@@ -95,19 +88,33 @@ type DrawerItem =
       disabled?: boolean;
       dense?: boolean;
       id?: string;
+      nestedItems?: undefined;
+      type?: string | null;
     }
   | {
-      type: 'divider';
+      type: 'divider' | 'nested';
       className?: string;
+      icon?: undefined;
+      id?: undefined;
+      text?: undefined;
+      subtext?: undefined;
+      nestedItems?: undefined;
+      to?: undefined;
+      action?: undefined;
+      dense?: undefined;
     }
   | {
-      icon: React.ElementType;
+      icon: SvgIconComponent;
       text: string;
-      type: 'nested';
+      type: 'divider' | 'nested';
       subtext?: string | null;
       className?: string;
       defaultTo?: string;
       nestedItems: DrawerItem[];
+      to?: undefined;
+      action?: undefined;
+      dense?: boolean;
+      id?: string;
     };
 
 const ResponsiveDrawer: React.FC<Props> = ({
@@ -119,6 +126,9 @@ const ResponsiveDrawer: React.FC<Props> = ({
   disconnect,
   onMenuItemClick,
   nbTutorialAlerting,
+  userAcknowlegdePlatformTutorial,
+  updateUserAcknowlegdeTutorial,
+  tutorialDialogOpen,
 }) => {
   const { t } = useTranslation(['navigation']);
   const classes = useStyles();
@@ -514,122 +524,6 @@ const ResponsiveDrawer: React.FC<Props> = ({
     },
   ];
 
-  const renderDrawerItem = (
-    item: DrawerItem,
-    i: number,
-    isNested?: boolean,
-  ) => {
-    const isActive = location.pathname.startsWith(item.to);
-    if (!checkRequiredPermissionsForPath(item?.to, permissions)) {
-      return null;
-    }
-    if (item?.nestedItems) {
-      if (
-        !item?.nestedItems.some(
-          (_item) =>
-            _item.to && checkRequiredPermissionsForPath(_item?.to, permissions),
-        )
-      ) {
-        return null;
-      }
-    }
-
-    if (item.type === 'nested') {
-      return (
-        <React.Fragment key={item.text}>
-          <ListItem
-            id="button_menu_item"
-            button
-            onClick={handleToggle(i)}
-            selected={isActive}
-          >
-            {item?.icon && (
-              <ListItemIcon>
-                <item.icon />
-              </ListItemIcon>
-            )}
-            <ListItemText
-              id={item?.id}
-              primary={item?.text}
-              secondary={item?.subtext}
-              secondaryTypographyProps={{
-                style: { color: colors.primaryDark },
-              }}
-            />
-            {toggledMenu[i] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItem>
-          <Collapse
-            in={toggledMenu[i]}
-            key={`${i}-collapse`}
-            timeout="auto"
-            unmountOnExit
-          >
-            <List disablePadding className={classes.nestedList}>
-              {item?.nestedItems.map((subitem, subi) =>
-                renderDrawerItem(subitem, subi, true),
-              )}
-            </List>
-          </Collapse>
-          {toggledMenu[i] ? (
-            <Divider key={`${i}-second-nestedDivider`} />
-          ) : null}
-        </React.Fragment>
-      );
-    }
-    if (item?.type === 'divider') {
-      return <Divider key={i} className={item?.className} />;
-    }
-
-    let Wrapper = (p) => <React.Fragment>{p.children}</React.Fragment>;
-    if (item?.to) {
-      Wrapper = (p) => (
-        <Link
-          key={i}
-          to={item.to}
-          style={{ textDecoration: 'none' }}
-          className={item.className || ''}
-        >
-          {p.children}
-        </Link>
-      );
-    }
-
-    return (
-      <Wrapper key={item.text}>
-        <ListItem
-          button
-          onClick={() => {
-            item.action && item.action();
-            onMenuItemClick();
-          }}
-          dense={item.dense || isNested}
-          selected={isActive}
-          className={classNames({
-            [classes.nestedItem]: isNested,
-          })}
-        >
-          {item.icon ? (
-            <ListItemIcon
-              className={classNames({ [classes.nestedIcon]: isNested })}
-            >
-              <item.icon nbTutorialAlerting={nbTutorialAlerting} />
-            </ListItemIcon>
-          ) : null}
-
-          <ListItemText
-            id={item.id}
-            primary={item.text}
-            primaryTypographyProps={{
-              style: { color: 'initial' },
-            }}
-            secondary={item.subtext}
-            secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
-          />
-        </ListItem>
-      </Wrapper>
-    );
-  };
-
   return (
     <div className={classes.scrollable}>
       <div>
@@ -646,7 +540,22 @@ const ResponsiveDrawer: React.FC<Props> = ({
           </Grid>
         </div>
         <List>
-          {items.map((item, i) => renderDrawerItem(item, i))}
+          {items.map((item, i) => (
+            <ResponsiveDrawerItem
+              key={`responsive_drawer_item${i}`}
+              item={item}
+              i={i}
+              permissions={permissions}
+              location={location}
+              handleToggle={handleToggle}
+              toggledMenu={toggledMenu}
+              onMenuItemClick={onMenuItemClick}
+              nbTutorialAlerting={nbTutorialAlerting}
+              userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
+              updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
+              tutorialDialogOpen={tutorialDialogOpen}
+            />
+          ))}
           <ListItem />
           <ListItem />
           <ListItem />
@@ -686,6 +595,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  relativeDiv: {
+    position: 'relative',
+    backgroundColor: 'red',
+    display: 'inline-block',
+  },
+  redBackGround: {
+    backgroundColor: 'red',
+  },
+  absoluteDiv: {
+    position: 'absolute',
+    top: '50%',
+    left: '100%',
+    transform: 'translate(-50%,-50%)',
+  },
+  alert: {
+    alignItems: 'center',
   },
 }));
 

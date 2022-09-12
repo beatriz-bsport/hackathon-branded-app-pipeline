@@ -8,8 +8,8 @@ import { compose } from 'recompose';
 import { RootState } from '../../../reducers';
 import WelcomeStepPage from './AccountConfigurationWelcomeStep.page';
 import PaymentMethodStepPage from './AccountConfigurationPaymentMethodStep.page';
-import FinalStepPage from './AccountConfigurationFinalStep.page';
-import StepSwitcher from './AccountConfigurationStepSwitcher.router';
+import AccountConfigurationFinalStepPage from './AccountConfigurationFinalStep.page';
+import AccountConfigurationStepSwitcherRouter from './AccountConfigurationStepSwitcher.router';
 import { retrieveStripeCompanyAction } from '#libs/company/actions';
 import AccountConfigurationStripeStepPage from './AccountConfigurationStripeStep.page';
 import AccountConfigurationBankAccountStepPage from './AccountConfigurationBankAccountStep.page';
@@ -62,7 +62,7 @@ export const AccountConfiguration: React.FC<
       has_no_need_for_payment_method_configuration &&
       has_no_need_for_bank_account_configuration)
   ) {
-    return <Route path="/" component={FinalStepPage} />;
+    return <Route path="/" component={AccountConfigurationFinalStepPage} />;
   }
   const bankAccountStepCompletedOrNotMandatory =
     has_completed_bank_account_configuration ||
@@ -126,10 +126,10 @@ export const AccountConfiguration: React.FC<
           paymentMethodStepCompletedOrNotMandatory && (
             <Route
               path={AccountConfigurationFinalStepUrl}
-              component={FinalStepPage}
+              component={AccountConfigurationFinalStepPage}
             />
           )}
-        <Route path="/" component={StepSwitcher} />
+        <Route path="/" component={AccountConfigurationStepSwitcherRouter} />
       </Switch>
     </div>
   );

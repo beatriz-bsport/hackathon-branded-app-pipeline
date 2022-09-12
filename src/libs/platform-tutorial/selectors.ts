@@ -5,7 +5,7 @@ import { RootState } from '../../reducers';
 import { TutorialCompletion, TutorialLesson, TutorialSection } from './types';
 import { checkRequiredPermissions } from '../role/utils';
 import { getPermissions } from '../role/selectors';
-
+import { platformTutorialActivated } from './utils';
 // SECTION
 const _getTutorialSectionAllIds = (state: RootState) =>
   state.tutorial.section.allIds;
@@ -20,22 +20,35 @@ const _getTutorialLessonbyId = (state: RootState) => state.tutorial.lesson.byId;
 // TUTORIAL COMPLETION
 const _getTutorialUserStatusState = (state: RootState) =>
   state.tutorial.tutorial_user_status;
+
+const _getTutorialUserStatusLoadingState = (state: RootState) =>
+  state.tutorial.tutorial_user_status.loading;
 export const getUserTutorialCompletion = (state: RootState) =>
   _getTutorialUserStatusState(state).tutorial_completion;
 
 export const userAcknowlegdePlatformTutorial = createSelector(
-  [getUserTutorialCompletion, getPermissions],
-  (tutorialCompletion, permissions) => {
-    if (!permissions || !tutorialCompletion) {
-      return false;
+  [
+    getUserTutorialCompletion,
+    getPermissions,
+    _getTutorialUserStatusLoadingState,
+  ],
+  (tutorialCompletion, permissions, loading) => {
+    if (
+      !permissions ||
+      tutorialCompletion.has_seen_tutorial_section_timestamp === null ||
+      loading ||
+      !platformTutorialActivated()
+    ) {
+      return true;
     }
     const checkTutorialPermission = checkRequiredPermissions(
       'navigationMenu.tutorial',
       permissions,
     );
+
     return (
       checkTutorialPermission &&
-      tutorialCompletion.has_seen_tutorial_section_timestamp === 0
+      tutorialCompletion.has_seen_tutorial_section_timestamp !== 0
     );
   },
 );

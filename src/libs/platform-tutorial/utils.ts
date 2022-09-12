@@ -1,4 +1,5 @@
 import { TutorialCompletion, TutorialLesson } from './types';
+import { Config } from '../../config';
 
 export const isLessonCompleted = (
   lesson: TutorialLesson,
@@ -15,3 +16,7 @@ export const isLessonViewed = (
   (
     (tutorial_completion?.viewed_by_section_id || {})[lesson.section] || []
   ).includes(lesson.id);
+
+export const platformTutorialActivated = () => {
+  return Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production';
+};

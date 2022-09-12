@@ -36,6 +36,7 @@ import {
   fetchListTutorialSections as fetchListTutorialSectionsAction,
   fetchListTutorialLessons as fetchListTutorialLessonsAction,
   fetchUserTutorialCompletion as fetchUserTutorialCompletionAction,
+  updateUserAcknowlegdeTutorial,
 } from '#libs/platform-tutorial/actions';
 import TutorialSectionList from '#libs/platform-tutorial/components/TutorialSectionList.component';
 import {
@@ -48,6 +49,7 @@ import { openIntercomHelp } from '../../intercom';
 
 import TutorialMenuHeader from '#libs/platform-tutorial/components/TutorialMenuHeader.component';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
+import { fetchAll as fetchAllAlertings } from '#libs/alerting/actions';
 
 type IdentifierType =
   | typeof TUTORIAL_GENERIC_DIALOG_SHARE_SECTION
@@ -96,6 +98,7 @@ export class TutorialMenu extends React.Component<Props> {
     this.props.fetchListTutorialSections();
     this.props.fetchListTutorialLessons();
     this.props.fetchUserTutorialCompletion();
+    this.props.updateUserAcknowlegdeTutorial();
     if (this.props.finishAllDialog) {
       this.props.setOpenShareDialog({
         dialogOpen: true,
@@ -151,6 +154,10 @@ export class TutorialMenu extends React.Component<Props> {
           this.closeDialog();
         };
       case TUTORIAL_GENERIC_DIALOG_ALL_FINISH:
+        return () => {
+          this.props.fetchAllAlertings();
+          this.closeDialog();
+        };
       default:
         return this.closeDialog;
     }
@@ -235,6 +242,8 @@ const mapDispatchToProps = {
   pushToLesson: (sectionId: number | string, lessonId: number | string) =>
     push(`/tutorial/${sectionId}/${lessonId}`),
   snackbarInfo,
+  updateUserAcknowlegdeTutorial,
+  fetchAllAlertings,
 };
 
 const mapWithHandlers = {

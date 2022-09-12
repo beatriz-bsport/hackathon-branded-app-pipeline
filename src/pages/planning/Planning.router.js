@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router';
+import { Route, Switch, Redirect, withRouter } from 'react-router';
 import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
@@ -26,13 +26,33 @@ import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../li
 import { withCustomLevel } from '#libs/level/selectors';
 import { withGroup } from '#libs/group-offer/selectors';
 
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
+
 const formatDate = (date) => {
   const formatedDate = Moment(date);
   return formatedDate.isValid() ? formatedDate : Moment();
 };
 
-export default function PlanningRouter() {
+export function PlanningRouter({ location }: { location: Location }) {
   const momentDate = Moment();
+
+  const getfallBack = () => {
+    const base = `/calendar/${momentDate.year()}/${
+      momentDate.month() + 1
+    }/${momentDate.date()}`;
+    if (!platformTutorialActivated()) {
+      return base;
+    }
+
+    if (
+      location.search.includes(`?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`)
+    ) {
+      return `${base}/?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`;
+    }
+
+    return base;
+  };
   return (
     <Switch>
       <Route
@@ -43,16 +63,12 @@ export default function PlanningRouter() {
         path="/calendar/:year/:month/:date"
         component={PlanningWithDateAndOffer}
       />
-      <Redirect
-        from="/"
-        to={`/calendar/${momentDate.year()}/${
-          momentDate.month() + 1
-        }/${momentDate.date()}`}
-      />
+      <Redirect from="/" to={getfallBack()} />
     </Switch>
   );
 }
 
+export default compose(withRouter)(PlanningRouter);
 const PlanningWithDateAndOffer = compose(
   routerParamsToProps({
     offerId: 'offerId:number',

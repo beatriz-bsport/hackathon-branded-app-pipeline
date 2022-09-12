@@ -58,7 +58,11 @@ import {
   getUsersPaginatedWithRole,
 } from '../libs/role/selectors';
 import { parseRestrictedPath } from '../libs/role/utils';
-
+import { userAcknowlegdePlatformTutorial } from '../libs/platform-tutorial/selectors';
+import {
+  fetchUserTutorialCompletion,
+  updateUserAcknowlegdeTutorial,
+} from '../libs/platform-tutorial/actions';
 import { getTempPasswordState } from '../libs/login/selectors';
 import {
   generateTempPassword,
@@ -208,6 +212,7 @@ type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
   nbTutorialAlerting: number,
+  userAcknowlegdePlatformTutorial: boolean,
   permissions: Permission,
   platformSubscriptionPaymentStatus: PlatformSubscriptionPaymentStatus,
   fetchAccessLevel: (token: string) => void,
@@ -308,6 +313,8 @@ type Props = {
   retrieveStripeAccountStatus: () => void,
   stripeAccountStatus: StripeAccountStatus,
   lastStripeConfigurationWarningDate: string,
+  fetchUserTutorialCompletion: () => void,
+  updateUserAcknowlegdeTutorial: () => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -410,6 +417,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
+    this.props.fetchUserTutorialCompletion();
     if (this.props.theme && this.props.theme.company) {
       this.props.fetchCompanyCustomSignUp({
         company: this.props.theme.company,
@@ -585,6 +593,7 @@ export class Backoffice extends Component<Props, State> {
     }
     const { language } = i18n;
     const isoLanguage = getCurrentLanguageIsoCode(language);
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -605,6 +614,12 @@ export class Backoffice extends Component<Props, State> {
                 alertings={this.props.alertings}
                 nbAlerting={this.props.nbAlerting}
                 nbTutorialAlerting={this.props.nbTutorialAlerting}
+                userAcknowlegdePlatformTutorial={
+                  this.props.userAcknowlegdePlatformTutorial
+                }
+                updateUserAcknowlegdeTutorial={
+                  this.props.updateUserAcknowlegdeTutorial
+                }
                 deleteAlert={this.props.deleteAlert}
                 disconnect={this.props.disconnect}
                 displayLeftMenu={this.state.displayLeftMenu}
@@ -797,6 +812,7 @@ export default compose(
       alertings: alertingSelectors.getByKind(state),
       nbAlerting: alertingSelectors.countAlerting(state),
       nbTutorialAlerting: alertingSelectors.countTutorialAlerting(state),
+      userAcknowlegdePlatformTutorial: userAcknowlegdePlatformTutorial(state),
       username: state.auth.username,
       name: state.auth.name,
       roleId: state.auth.role,
@@ -883,6 +899,8 @@ export default compose(
         stampLastPlatformSubscriptionWarningDateAction,
       stampLastStripeAccountConfigurationWarningDate:
         stampLastStripeAccountConfigurationWarningDateAction,
+      fetchUserTutorialCompletion,
+      updateUserAcknowlegdeTutorial,
     },
   ),
   withHandlers({

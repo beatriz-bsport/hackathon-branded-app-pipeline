@@ -66,7 +66,12 @@ import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { LastClockIn } from '#libs/clock-in/types';
 import { UPSELL_IDENTIFIER_CLOCK_IN } from '#libs/platform-billing/upsell-identifiers';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
-
+import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
+import {
+  TUTORIAL_GENERIC_DIALOG_WELCOME,
+  TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS,
+} from '#libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import ProtectedRoutes from '#components/navigation/ProtectedRoutes.component';
 
 export const drawerWidth = 260;
@@ -77,6 +82,8 @@ type Props = {
   classes: Object,
   nbAlerting: number,
   nbTutorialAlerting: number,
+  userAcknowlegdePlatformTutorial: boolean,
+  updateUserAcknowlegdeTutorial: () => void,
   alertings: Array<Alerting>,
   disconnect: () => void,
   logo: ?string,
@@ -143,6 +150,9 @@ type Props = {
     options?: OptionCallback<void>,
   ) => Promise<void>,
   getLastClockin: ({}) => Promise<void>,
+  openWelcometutorialDialog: boolean,
+  setOpenWelcometutorialDialog: (open: boolean) => void,
+  handleGoToTutorial: () => void,
 };
 
 type State = {
@@ -162,6 +172,34 @@ class BackofficeDrawer extends React.Component<Props, State> {
     anchorElMini: null,
     dialogOpen: null,
   };
+
+  componentDidMount(): void {
+    if (
+      this.props.location.search.includes(
+        `?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`,
+      )
+    ) {
+      if (!platformTutorialActivated()) {
+        return this.props.setOpenWelcometutorialDialog(false);
+      }
+      return this.props.setOpenWelcometutorialDialog(true);
+    }
+    return this.props.setOpenWelcometutorialDialog(false);
+  }
+  // eslint-disable-next-line
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.location.search !== this.props.location.search &&
+      !this.props.openWelcometutorialDialog &&
+      platformTutorialActivated()
+    ) {
+      return this.props.setOpenWelcometutorialDialog(
+        this.props.location.search.includes(
+          `?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`,
+        ),
+      );
+    }
+  }
 
   handleDrawerToggle = () => {
     if (this.state.mobileOpen) {
@@ -746,7 +784,7 @@ class BackofficeDrawer extends React.Component<Props, State> {
                       permissions={this.props.permissions}
                       disconnect={this.props.disconnect}
                       onMenuItemClick={this.hideMobileDrawer}
-                      nbTutorialAlerting={nbTutorialAlerting}
+                      userAcknowlegdePlatformTutorial
                     />
                   </Drawer>
                 </Hidden>
@@ -769,6 +807,13 @@ class BackofficeDrawer extends React.Component<Props, State> {
                       disconnect={this.props.disconnect}
                       onMenuItemClick={() => {}}
                       nbTutorialAlerting={nbTutorialAlerting}
+                      userAcknowlegdePlatformTutorial={
+                        this.props.userAcknowlegdePlatformTutorial
+                      }
+                      updateUserAcknowlegdeTutorial={
+                        this.props.updateUserAcknowlegdeTutorial
+                      }
+                      tutorialDialogOpen={this.props.openWelcometutorialDialog}
                     />
                   </Drawer>
                 </Hidden>
@@ -828,6 +873,15 @@ class BackofficeDrawer extends React.Component<Props, State> {
                 getLastClockin={this.props.getLastClockin}
               />
             )}
+            {!this.props.userAcknowlegdePlatformTutorial && (
+              <TutorialGenericDialog
+                open={this.props.openWelcometutorialDialog}
+                identifier={TUTORIAL_GENERIC_DIALOG_WELCOME}
+                onClose={this.props.handleGoToTutorial}
+                onCancel={() => this.props.setOpenWelcometutorialDialog(false)}
+              />
+            )}
+
             <main
               className={classnames({
                 [classes.fullContent]:
@@ -1000,9 +1054,11 @@ export default compose(
     }),
     {
       handleOpenOnSpotPaymentReport: (id) => pushRouter(`/reporting/${id}`),
+      handleGoToTutorial: () => pushRouter('/tutorial'),
     },
   ),
   withState('openCash', 'setOpenCash', false),
+  withState('openWelcometutorialDialog', 'setOpenWelcometutorialDialog', false),
   withTranslation(['navigation']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,

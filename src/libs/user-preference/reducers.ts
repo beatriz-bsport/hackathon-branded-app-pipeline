@@ -27,6 +27,7 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
   memberPrivateBookingFilter: {},
   workshopGroupFilter: {},
   workshopDetailGroupFilter: {},
+  shrinkResponsiveDrawer: false,
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -132,6 +133,13 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload },
     ) => {
       return state.setIn(['workshopDetailGroupFilter'], payload);
+    },
+
+    [userPreferenceActions.setShrinkResponsiveDrawer.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['shrinkResponsiveDrawer'], payload);
     },
   },
   initialState,

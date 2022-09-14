@@ -45,3 +45,6 @@ export const getWorkshopGroupFilter = (state: RootState) =>
 
 export const getWorkshopDetailGroupFilter = (state: RootState) =>
   state.userPreference.workshopDetailGroupFilter || {};
+
+export const getShrinkResponsiveDrawer = (state: RootState) =>
+  state.userPreference.shrinkResponsiveDrawer || false;

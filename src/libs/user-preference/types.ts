@@ -46,4 +46,5 @@ export type UserPreference = {
   memberPrivateBookingFilter: PrivateBookingFilter;
   workshopGroupFilter: OffersGroupFilter;
   workshopDetailGroupFilter: OffersGroupFilter;
+  shrinkResponsiveDrawer: boolean;
 };

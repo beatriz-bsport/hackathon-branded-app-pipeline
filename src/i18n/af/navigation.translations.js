@@ -11,6 +11,10 @@ exports.default = {
       "Vous n'avez pas terminé la configuration de votre facturation, les paiements en ligne peuvent être désactivés. Cliquez ici pour terminer votre configuration.",
   },
   backofficeMenu: {
+    toggle: {
+      expand: 'Étendre',
+      shrink: 'Replier',
+    },
     instalmentPayment: 'Paiements en plusieurs fois',
     programs: 'Programmes',
     cashBookTooltip: 'Livret de caisse',
@@ -115,6 +119,7 @@ exports.default = {
     redirecting: 'Vous allez être redirigé vers votre page',
     clockIn: 'Pointeuse horaire',
     help: 'Aide',
+    cadences: 'Cadences',
   },
   multiSession: {
     title: ' Vous semblez utiliser plusieurs onglets simultanément',

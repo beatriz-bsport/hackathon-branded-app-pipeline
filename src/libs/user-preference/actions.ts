@@ -42,6 +42,9 @@ export const userPreferenceActions = {
   setWorkshopDetailGroupFilter: createAction(
     'USER_PREFERENCE/WORKSHOP_GROUP_DETAIL_FILTER',
   ),
+  setShrinkResponsiveDrawer: createAction(
+    'USER_PREFERANCE/RESPONSIVE_DRAWER_SHRINK',
+  ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -162,5 +165,11 @@ export function setWorkshopDetailGroupFilter(filter: OffersGroupFilter) {
     });
 
     dispatch(userPreferenceActions.setWorkshopDetailGroupFilter(filter));
+  };
+}
+
+export function setShrinkResponsiveDrawer(shrink: boolean) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setShrinkResponsiveDrawer(shrink));
   };
 }

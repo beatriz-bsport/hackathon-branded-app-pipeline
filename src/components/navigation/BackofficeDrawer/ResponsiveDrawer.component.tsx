@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
+import omit from 'lodash/omit';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
@@ -40,14 +41,14 @@ import TodayIcon from '@material-ui/icons/Today';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VpnKey from '@material-ui/icons/VpnKey';
-import { SvgIconComponent } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
 import { getCurrencyDisplay } from '../../../libs/theme/selectors';
 
 import LOGO_ASSET from '../../../public/images/banner_lowres.png';
-import { checkRequiredPermissions } from '../../../libs/role/utils';
+import { checkRequiredPermissions } from '#libs/role/utils';
 import VersionVisualizer from '../../VersionVisualizer.component';
 
 import {
@@ -55,11 +56,22 @@ import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
 } from '#libs/platform-billing/upsell-identifiers';
+
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import { Permission } from '#libs/role/types';
+import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 export const drawerWidth = 260;
+const usePrevious = (value: boolean) => {
+  const previousIconOnlyState = React.useRef<boolean>();
 
+  React.useEffect(() => {
+    previousIconOnlyState.current = value;
+  });
+
+  return previousIconOnlyState.current;
+};
 type Props = {
   logo?: string;
   location: Location;
@@ -72,14 +84,18 @@ type Props = {
   disconnect: () => void;
   onMenuItemClick: () => void;
   nbTutorialAlerting: number;
+
   userAcknowlegdePlatformTutorial?: boolean;
   tutorialDialogOpen?: boolean;
   updateUserAcknowlegdeTutorial?: () => void;
+  iconsOnly?: boolean;
+  setDrawerIconsOnly?: (isIconOnly: boolean) => void;
+  handleUserSetDrawerIconsOnly?: (isIconOnly: boolean) => void;
 };
 
 export type DrawerItem =
   | {
-      icon?: SvgIconComponent | React.FC<{ nbTutorialAlerting?: number }>;
+      icon?: React.ElementType;
       action?: () => void;
       text: string;
       subtext?: string | null;
@@ -88,33 +104,25 @@ export type DrawerItem =
       disabled?: boolean;
       dense?: boolean;
       id?: string;
-      nestedItems?: undefined;
-      type?: string | null;
+      actionOnMenuToggle?: undefined;
+      shrinkMenuOnIconOnly?: boolean;
     }
   | {
-      type: 'divider' | 'nested';
+      type: 'divider';
       className?: string;
-      icon?: undefined;
-      id?: undefined;
-      text?: undefined;
-      subtext?: undefined;
-      nestedItems?: undefined;
-      to?: undefined;
-      action?: undefined;
-      dense?: undefined;
+      actionOnMenuToggle?: undefined;
+      shrinkMenuOnIconOnly?: boolean;
     }
   | {
-      icon: SvgIconComponent;
+      icon: React.ElementType;
       text: string;
-      type: 'divider' | 'nested';
+      type: 'nested';
       subtext?: string | null;
       className?: string;
       defaultTo?: string;
       nestedItems: DrawerItem[];
-      to?: undefined;
-      action?: undefined;
-      dense?: boolean;
-      id?: string;
+      actionOnMenuToggle?: () => void;
+      shrinkMenuOnIconOnly?: boolean;
     };
 
 const ResponsiveDrawer: React.FC<Props> = ({
@@ -127,402 +135,446 @@ const ResponsiveDrawer: React.FC<Props> = ({
   onMenuItemClick,
   nbTutorialAlerting,
   userAcknowlegdePlatformTutorial,
-  updateUserAcknowlegdeTutorial,
   tutorialDialogOpen,
+  updateUserAcknowlegdeTutorial,
+  iconsOnly,
+  setDrawerIconsOnly,
+  handleUserSetDrawerIconsOnly,
 }) => {
   const { t } = useTranslation(['navigation']);
-  const classes = useStyles();
+  const classes = useStyles({ iconsOnly });
 
   const [toggledMenu, setToggledMenu] = useState<Record<number, boolean>>({});
 
-  const handleToggle = (i: number) => () => {
+  const handleToggle = (i: number, item: DrawerItem) => () => {
     const newToggledMenu = {
       [i]: !toggledMenu?.[i] ?? false,
     };
 
     setToggledMenu(newToggledMenu);
+    item && item.actionOnMenuToggle && item.actionOnMenuToggle();
   };
+  const handleToggleDrawer = () => {
+    handleUserSetDrawerIconsOnly && handleUserSetDrawerIconsOnly(!iconsOnly);
+  };
+  const prevIconOnly = usePrevious(iconsOnly);
+  const hasUpsellIdentifier = React.useCallback(
+    (identifier: number) => {
+      return (
+        Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+        featureList.map((ups) => ups.upsell_identifier).includes(identifier)
+      );
+    },
+    [featureList],
+  );
 
-  const hasUpsellIdentifier = (identifier: number) =>
-    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-    featureList.map((ups) => ups.upsell_identifier).includes(identifier);
-
-  const items: DrawerItem[] = [
-    {
-      to: '/search/results',
-      text: t('backofficeMenu.search'),
-      icon: Search,
-      className: classes.menuMobile,
-    },
-    { type: 'divider', className: classes.menuMobile },
-    {
-      to: '/dashboard',
-      text: t('backofficeMenu.dashboard'),
-      icon: TrendingUp,
-    },
-    { type: 'divider' },
-    {
-      to: '/calendar',
-      icon: DateRangeIcon,
-      text: t('backofficeMenu.calendar'),
-    },
-    {
-      to: '/private-service/calendar/',
-      icon: ScheduleIcon,
-      text: t('backofficeMenu.schedule'),
-    },
-    {
-      icon: BusinessCenterIcon,
-      text: t('backofficeMenu.myClub'),
-      type: 'nested',
-      nestedItems: [
-        { type: 'divider' },
-        {
-          to: '/activity',
-          icon: Star,
-          text: t('backofficeMenu.activity'),
-        },
-        {
-          to: '/workshop-activity/tabs/list',
-          icon: TodayIcon,
-          text: t('backofficeMenu.workshopActivities'),
-        },
-        {
-          to: '/private-service/service/',
-          icon: ScheduleIcon,
-          text: t('backofficeMenu.privateService.services'),
-        },
-        {
-          to: '/coach',
-          id: 'button_menu_teachers',
-          icon: FitnessCenter,
-          text: t('backofficeMenu.coaches'),
-        },
-        {
-          to: '/establishment/room',
-          icon: LocationOn,
-          text: t('backofficeMenu.establishment'),
-        },
-        ...(![634, 631, 632, 633, 630].includes(companyId) &&
-        !hasUpsellIdentifier(UPSELL_PERFORMANCE_TRACKING_IDENTIFIER)
-          ? []
-          : [
-              {
-                to: '/performance-tracking',
-                icon: OfflineBoltIcon,
-                text: t('backofficeMenu.programs'),
-              },
-            ]),
-      ],
-    },
-    {
-      icon: ShoppingCartIcon,
-      text: t('backofficeMenu.product'),
-      type: 'nested',
-      nestedItems: [
-        { type: 'divider' },
-        {
-          to: '/payment-pack',
-          icon: VpnKey,
-          text: t('backofficeMenu.pass'),
-        },
-        {
-          to: '/private-service/pass/',
-          icon: ScheduleIcon,
-          text: t('backofficeMenu.privateService.pass'),
-        },
-        {
-          to: '/shop',
-          icon: ShoppingCartIcon,
-          text: t('backofficeMenu.myShop'),
-        },
-        {
-          to: '/combo',
-          icon: GroupWorkIcon,
-          text: t('backofficeMenu.combo'),
-        },
-        {
-          to: '/giftcard/',
-          icon: RedeemIcon,
-          text: t('backofficeMenu.giftcard'),
-        },
-        {
-          to: '/coupon/',
-          icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
-          text: t('backofficeMenu.coupon'),
-        },
-        { type: 'divider' },
-        {
-          to: '/subscription/contract',
-          icon: Payment,
-          text: t('backofficeMenu.contract'),
-        },
-      ],
-    },
-    {
-      icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
-      text: t('backofficeMenu.payment'),
-      type: 'nested',
-      defaultTo: '/invoice',
-      nestedItems: [
-        { type: 'divider' },
-        {
-          to: '/invoice',
-          icon: ReceiptIcon,
-          text: t('backofficeMenu.invoice'),
-        },
-        {
-          to: '/subscription',
-          icon: Payment,
-          text: t('backofficeMenu.subscription'),
-        },
-        {
-          to: '/coach/performance',
-          icon: PersonIcon,
-          text: t('backofficeMenu.coachPerformance'),
-        },
-        {
-          to: '/order/',
-          icon: ShoppingCartIcon,
-          text: t('backofficeMenu.order'),
-        },
-        {
-          to: '/expense/',
-          icon: DescriptionIcon,
-          text: t('backofficeMenu.expenses'),
-        },
-        {
-          to: '/instalment-payment/',
-          icon: DoubleArrow,
-          text: t('backofficeMenu.instalmentPayment'),
-        },
-        ...(!hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) ||
-        !(
-          checkRequiredPermissions(
-            'navigationMenu.payments.clockIn.clockInForOther',
-            permissions,
-          ) ||
-          checkRequiredPermissions(
-            'navigationMenu.payments.clockIn.canAccessHistory',
-            permissions,
-          )
-        )
-          ? []
-          : [
-              {
-                to: '/clock-in/',
-                icon: TimerIcon,
-                text: t('backofficeMenu.clockIn'),
-              },
-            ]),
-      ],
-    },
-    {
-      icon: Email,
-      text: t('backofficeMenu.message'),
-      type: 'nested',
-      defaultTo: '/smart-list',
-      nestedItems: [
-        { type: 'divider' },
-        {
-          to: '/email-template',
-          icon: Email,
-          text: t('backofficeMenu.email_template'),
-        },
-        {
-          to: '/custom-form',
-          icon: AssignmentIcon,
-          text: t('backofficeMenu.custom_form'),
-        },
-        {
-          to: '/smart-list',
-          icon: People,
-          text: t('backofficeMenu.smart_list'),
-        },
-        {
-          to: '/marketing/notifications',
-          icon: NotificationsActiveIcon,
-          text: t('backofficeMenu.marketingNotification'),
-        },
-        {
-          to: '/marketing/tags',
-          icon: LabelIcon,
-          text: t('backofficeMenu.tags'),
-        },
-        ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-          ? []
-          : [
-              {
-                to: '/marketing/strategies',
-                icon: StorageIcon,
-                subtext: t('backofficeMenu.alpha'),
-                text: t('backofficeMenu.sequence'),
-              },
-            ]),
-      ],
-    },
-    {
-      icon: LaptopIcon,
-      text: t('backofficeMenu.digital'),
-      type: 'nested',
-      nestedItems: [
-        { type: 'divider' },
-        {
-          icon: VideoLibraryIcon,
-          text: t('backofficeMenu.video'),
-          disabled: true,
-          to: '/vod/video',
-          subtext: t('backofficeMenu.alpha'),
-        },
-        {
-          icon: PlaylistPlayIcon,
-          text: t('backofficeMenu.playlist'),
-          disabled: true,
-          to: '/vod/playlist',
-          subtext: t('backofficeMenu.alpha'),
-        },
-      ],
-    },
-    {
-      to: '/member',
-      icon: People,
-      text: t('backofficeMenu.member'),
-    },
-    {
-      to: '/reporting',
-      icon: DescriptionIcon,
-      text: t('backofficeMenu.reporting'),
-    },
-    { type: 'divider' },
-    {
-      icon: SettingsIcon,
-      text: t('backofficeMenu.settings.settings'),
-      type: 'nested',
-      nestedItems: [
-        { type: 'divider' },
-        {
-          to: '/settings/general',
-          dense: true,
-          text: t('backofficeMenu.settings.general'),
-        },
-        {
-          to: '/settings/marketplace-settings',
-          dense: true,
-          text: t('backofficeMenu.settings.marketplaceSettings'),
-        },
-        {
-          to: '/settings/widget/create',
-          dense: true,
-          text: t('backofficeMenu.settings.widget'),
-        },
-        {
-          to: '/settings/role',
-          dense: true,
-          text: t('backofficeMenu.settings.role'),
-        },
-        {
-          to: '/settings/personalization',
-          dense: true,
-          text: t('backofficeMenu.settings.personalization'),
-        },
-        ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP)
-          ? [
-              {
-                to: '/settings/mobile-personalization',
-                dense: true,
-                text: t('backofficeMenu.settings.mobilePersonalization'),
-              },
-            ]
-          : []),
-        {
-          to: '/settings/forms',
-          dense: true,
-          text: t('backofficeMenu.settings.forms'),
-        },
-        {
-          to: '/settings/broadcast',
-          dense: true,
-          text: t('backofficeMenu.settings.broadcast'),
-        },
-        {
-          to: '/settings/notification-rule',
-          dense: true,
-          text: t('backofficeMenu.settings.notificationRule'),
-        },
-        {
-          to: '/settings/payment-rules',
-          dense: true,
-          text: t('backofficeMenu.settings.paymentRules'),
-        },
-        {
-          to: '/settings/payment-methods',
-          dense: true,
-          text: t('backofficeMenu.settings.paymentMethod'),
-        },
-        {
-          to: '/settings/company',
-          dense: true,
-          text: t('backofficeMenu.settings.company'),
-        },
-        {
-          to: '/settings/invoice',
-          dense: true,
-          text: t('backofficeMenu.settings.invoice'),
-        },
-        {
-          to: '/settings/waiting-list',
-          dense: true,
-          text: t('backofficeMenu.settings.waitingList'),
-        },
-        {
-          to: '/settings/shop',
-          dense: true,
-          text: t('backofficeMenu.settings.shop'),
-        },
-        {
-          to: '/settings/webhook',
-          dense: true,
-          text: t('backofficeMenu.settings.webhook'),
-        },
-        {
-          to: '/settings/partnership',
-          dense: true,
-          text: t('backofficeMenu.settings.partnership'),
-        },
-        {
-          to: '/settings/quickbooks',
-          dense: true,
-          text: t('backofficeMenu.settings.quickbooks'),
-        },
-        {
-          to: '/settings/active-campaign',
-          dense: true,
-          text: t('backofficeMenu.settings.active_campaign'),
-        },
-        {
-          to: '/settings/platform-billing',
-          dense: true,
-          text: t('backofficeMenu.settings.platform_billing'),
-        },
-      ],
-    },
-    ...(checkRequiredPermissions('navigationMenu.tutorial', permissions) &&
-    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
-      ? [
+  const items: DrawerItem[] = React.useMemo(() => {
+    return [
+      {
+        to: '/search/results',
+        text: t('backofficeMenu.search'),
+        icon: Search,
+        className: classes.menuMobile,
+      },
+      { type: 'divider', className: classes.menuMobile },
+      {
+        to: '/dashboard',
+        text: t('backofficeMenu.dashboard'),
+        icon: TrendingUp,
+      },
+      { type: 'divider' },
+      {
+        to: '/calendar',
+        icon: DateRangeIcon,
+        text: t('backofficeMenu.calendar'),
+      },
+      {
+        to: '/private-service/calendar/',
+        icon: ScheduleIcon,
+        text: t('backofficeMenu.schedule'),
+      },
+      {
+        icon: BusinessCenterIcon,
+        text: t('backofficeMenu.myClub'),
+        type: 'nested',
+        nestedItems: [
+          { type: 'divider' },
           {
-            to: '/tutorial',
-            icon: TutorialIconWithAlertings,
-            text: t('backofficeMenu.tutorial'),
+            to: '/activity',
+            icon: Star,
+            text: t('backofficeMenu.activity'),
           },
-        ]
-      : []),
-    {
-      action: disconnect,
-      to: null,
-      icon: HighlightOff,
-      text: t('backofficeMenu.logoff'),
-    },
-  ];
+          {
+            to: '/workshop-activity/tabs/list',
+            icon: TodayIcon,
+            text: t('backofficeMenu.workshopActivities'),
+          },
+          {
+            to: '/private-service/service/',
+            icon: ScheduleIcon,
+            text: t('backofficeMenu.privateService.services'),
+          },
+          {
+            to: '/coach',
+            id: 'button_menu_teachers',
+            icon: FitnessCenter,
+            text: t('backofficeMenu.coaches'),
+          },
+          {
+            to: '/establishment/room',
+            icon: LocationOn,
+            text: t('backofficeMenu.establishment'),
+          },
+          ...(![634, 631, 632, 633, 630].includes(companyId) &&
+          !hasUpsellIdentifier(UPSELL_PERFORMANCE_TRACKING_IDENTIFIER)
+            ? []
+            : [
+                {
+                  to: '/performance-tracking',
+                  icon: OfflineBoltIcon,
+                  text: t('backofficeMenu.programs'),
+                },
+              ]),
+        ],
+      },
+      {
+        icon: ShoppingCartIcon,
+        text: t('backofficeMenu.product'),
+        type: 'nested',
+        nestedItems: [
+          { type: 'divider' },
+          {
+            to: '/payment-pack',
+            icon: VpnKey,
+            text: t('backofficeMenu.pass'),
+          },
+          {
+            to: '/private-service/pass/',
+            icon: ScheduleIcon,
+            text: t('backofficeMenu.privateService.pass'),
+          },
+          {
+            to: '/shop',
+            icon: ShoppingCartIcon,
+            text: t('backofficeMenu.myShop'),
+          },
+          {
+            to: '/combo',
+            icon: GroupWorkIcon,
+            text: t('backofficeMenu.combo'),
+          },
+          {
+            to: '/giftcard/',
+            icon: RedeemIcon,
+            text: t('backofficeMenu.giftcard'),
+          },
+          {
+            to: '/coupon/',
+            icon:
+              getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
+            text: t('backofficeMenu.coupon'),
+          },
+          { type: 'divider' },
+          {
+            to: '/subscription/contract',
+            icon: Payment,
+            text: t('backofficeMenu.contract'),
+          },
+        ],
+      },
+      {
+        icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
+        text: t('backofficeMenu.payment'),
+        type: 'nested',
+        defaultTo: '/invoice',
+        nestedItems: [
+          { type: 'divider' },
+          {
+            to: '/invoice',
+            icon: ReceiptIcon,
+            text: t('backofficeMenu.invoice'),
+          },
+          {
+            to: '/subscription',
+            icon: Payment,
+            text: t('backofficeMenu.subscription'),
+          },
+          {
+            to: '/coach/performance',
+            icon: PersonIcon,
+            text: t('backofficeMenu.coachPerformance'),
+          },
+          {
+            to: '/order/',
+            icon: ShoppingCartIcon,
+            text: t('backofficeMenu.order'),
+          },
+          {
+            to: '/expense/',
+            icon: DescriptionIcon,
+            text: t('backofficeMenu.expenses'),
+          },
+          {
+            to: '/instalment-payment/',
+            icon: DoubleArrow,
+            text: t('backofficeMenu.instalmentPayment'),
+          },
+          ...(!hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) ||
+          !(
+            checkRequiredPermissions(
+              'navigationMenu.payments.clockIn.clockInForOther',
+              permissions,
+            ) ||
+            checkRequiredPermissions(
+              'navigationMenu.payments.clockIn.canAccessHistory',
+              permissions,
+            )
+          )
+            ? []
+            : [
+                {
+                  to: '/clock-in/',
+                  icon: TimerIcon,
+                  text: t('backofficeMenu.clockIn'),
+                },
+              ]),
+        ],
+      },
+      {
+        icon: Email,
+        text: t('backofficeMenu.message'),
+        type: 'nested',
+        defaultTo: '/smart-list',
+        nestedItems: [
+          { type: 'divider' },
+          {
+            to: '/email-template',
+            icon: Email,
+            text: t('backofficeMenu.email_template'),
+          },
+          {
+            to: '/custom-form',
+            icon: AssignmentIcon,
+            text: t('backofficeMenu.custom_form'),
+          },
+          {
+            to: '/smart-list',
+            icon: People,
+            text: t('backofficeMenu.smart_list'),
+          },
+          {
+            to: '/marketing/notifications',
+            icon: NotificationsActiveIcon,
+            text: t('backofficeMenu.marketingNotification'),
+          },
+          {
+            to: '/marketing/tags',
+            icon: LabelIcon,
+            text: t('backofficeMenu.tags'),
+          },
+          ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+            ? []
+            : [
+                {
+                  to: '/marketing/strategies',
+                  icon: StorageIcon,
+                  subtext: t('backofficeMenu.alpha'),
+                  text: t('backofficeMenu.sequence'),
+                },
+              ]),
+        ],
+      },
+      {
+        icon: LaptopIcon,
+        text: t('backofficeMenu.digital'),
+        type: 'nested',
+        nestedItems: [
+          { type: 'divider' },
+          {
+            icon: VideoLibraryIcon,
+            text: t('backofficeMenu.video'),
+            disabled: true,
+            to: '/vod/video',
+            subtext: t('backofficeMenu.alpha'),
+          },
+          {
+            icon: PlaylistPlayIcon,
+            text: t('backofficeMenu.playlist'),
+            disabled: true,
+            to: '/vod/playlist',
+            subtext: t('backofficeMenu.alpha'),
+          },
+        ],
+      },
+      {
+        to: '/member',
+        icon: People,
+        text: t('backofficeMenu.member'),
+      },
+      {
+        to: '/reporting',
+        icon: DescriptionIcon,
+        text: t('backofficeMenu.reporting'),
+      },
+      { type: 'divider' },
+      {
+        icon: SettingsIcon,
+        text: t('backofficeMenu.settings.settings'),
+        type: 'nested',
+        shrinkMenuOnIconOnly: true,
+        actionOnMenuToggle: () => {
+          iconsOnly && setDrawerIconsOnly && setDrawerIconsOnly(false);
+        },
+        nestedItems: [
+          { type: 'divider' },
+          {
+            to: '/settings/general',
+            dense: true,
+            text: t('backofficeMenu.settings.general'),
+          },
+          {
+            to: '/settings/marketplace-settings',
+            dense: true,
+            text: t('backofficeMenu.settings.marketplaceSettings'),
+          },
+          {
+            to: '/settings/widget/create',
+            dense: true,
+            text: t('backofficeMenu.settings.widget'),
+          },
+          {
+            to: '/settings/role',
+            dense: true,
+            text: t('backofficeMenu.settings.role'),
+          },
+          {
+            to: '/settings/personalization',
+            dense: true,
+            text: t('backofficeMenu.settings.personalization'),
+          },
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP) &&
+          Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+            ? [
+                {
+                  to: '/settings/mobile-personalization',
+                  dense: true,
+                  text: t('backofficeMenu.settings.mobilePersonalization'),
+                },
+              ]
+            : []),
+          {
+            to: '/settings/forms',
+            dense: true,
+            text: t('backofficeMenu.settings.forms'),
+          },
+          {
+            to: '/settings/broadcast',
+            dense: true,
+            text: t('backofficeMenu.settings.broadcast'),
+          },
+          {
+            to: '/settings/notification-rule',
+            dense: true,
+            text: t('backofficeMenu.settings.notificationRule'),
+          },
+          {
+            to: '/settings/payment-rules',
+            dense: true,
+            text: t('backofficeMenu.settings.paymentRules'),
+          },
+          {
+            to: '/settings/payment-methods',
+            dense: true,
+            text: t('backofficeMenu.settings.paymentMethod'),
+          },
+          {
+            to: '/settings/company',
+            dense: true,
+            text: t('backofficeMenu.settings.company'),
+          },
+          {
+            to: '/settings/invoice',
+            dense: true,
+            text: t('backofficeMenu.settings.invoice'),
+          },
+          {
+            to: '/settings/waiting-list',
+            dense: true,
+            text: t('backofficeMenu.settings.waitingList'),
+          },
+          {
+            to: '/settings/shop',
+            dense: true,
+            text: t('backofficeMenu.settings.shop'),
+          },
+          {
+            to: '/settings/webhook',
+            dense: true,
+            text: t('backofficeMenu.settings.webhook'),
+          },
+          {
+            to: '/settings/partnership',
+            dense: true,
+            text: t('backofficeMenu.settings.partnership'),
+          },
+          {
+            to: '/settings/quickbooks',
+            dense: true,
+            text: t('backofficeMenu.settings.quickbooks'),
+          },
+          {
+            to: '/settings/active-campaign',
+            dense: true,
+            text: t('backofficeMenu.settings.active_campaign'),
+          },
+          {
+            to: '/settings/platform-billing',
+            dense: true,
+            text: t('backofficeMenu.settings.platform_billing'),
+          },
+        ],
+      },
+      ...(checkRequiredPermissions('navigationMenu.tutorial', permissions) &&
+      platformTutorialActivated()
+        ? [
+            {
+              to: '/tutorial',
+              icon: TutorialIconWithAlertings,
+              text: t('backofficeMenu.tutorial'),
+            },
+          ]
+        : []),
+      {
+        action: disconnect,
+        to: null,
+        icon: HighlightOff,
+        text: t('backofficeMenu.logoff'),
+      },
+    ];
+  }, [
+    classes,
+    companyId,
+    disconnect,
+    hasUpsellIdentifier,
+    iconsOnly,
+    permissions,
+    setDrawerIconsOnly,
+    t,
+  ]);
+
+  React.useEffect(() => {
+    if (prevIconOnly !== iconsOnly && iconsOnly) {
+      const newToggledMenu = items
+        .map((item, i) => [item, i])
+        .reduce((acc: Record<number, boolean>, info: [DrawerItem, number]) => {
+          if (info[0].shrinkMenuOnIconOnly) {
+            return { ...omit(acc, info[1]) };
+          }
+          return acc;
+        }, toggledMenu);
+      setToggledMenu(newToggledMenu);
+    }
+  }, [prevIconOnly, iconsOnly, toggledMenu, items]);
 
   return (
     <div className={classes.scrollable}>
@@ -531,15 +583,16 @@ const ResponsiveDrawer: React.FC<Props> = ({
           <Grid
             container
             style={{ paddingTop: 10 }}
-            justify="center"
             alignItems="center"
+            // Deprecration warning, logo might not be centered
+            justify="center"
           >
             <Hidden smDown>
               <img height={40} src={logo || LOGO_ASSET} alt="bsport logo" />
             </Hidden>
           </Grid>
         </div>
-        <List>
+        <List className={classes.mainList}>
           {items.map((item, i) => (
             <ResponsiveDrawerItem
               key={`responsive_drawer_item${i}`}
@@ -554,6 +607,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
               userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
               updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
               tutorialDialogOpen={tutorialDialogOpen}
+              iconsOnly={iconsOnly}
             />
           ))}
           <ListItem />
@@ -561,12 +615,33 @@ const ResponsiveDrawer: React.FC<Props> = ({
           <ListItem />
         </List>
       </div>
-      <VersionVisualizer />
+      <div className={classes.selfEnd}>
+        <IconButton
+          onClick={handleToggleDrawer}
+          disableRipple
+          className={classes.iconButton}
+        >
+          <ToolTip
+            title={
+              iconsOnly
+                ? t('backofficeMenu.toggle.expand')
+                : t('backofficeMenu.toggle.shrink')
+            }
+            placement="right-start"
+          >
+            <DoubleArrow
+              className={classNames({ [classes.rotate]: !iconsOnly })}
+            />
+          </ToolTip>
+        </IconButton>
+
+        <VersionVisualizer />
+      </div>
     </div>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { iconsOnly: boolean }>((theme: Theme) => ({
   toolbar: theme.mixins.toolbar,
   scrollable: {
     overflow: 'auto',
@@ -576,42 +651,37 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     minHeight: '100vh',
     justifyContent: 'space-between',
+    maxHeight: '100vh',
+    // Safari, Chrom, Opera : hide scrollbar
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    // Ie and Edge : hide scrollbar
+    '-ms-overflow-style': 'none',
+    // Firefox : hide scrollbar
+    scrollbarWidth: 'none',
   },
   logo: {
     alignItems: 'center',
     justify: 'center',
-  },
-  nestedList: {
-    backgroundColor: '#F8F8F8',
-    borderLeft: `4px solid ${theme.palette.primary.main}`,
-  },
-  nestedItem: {
-    width: '100%',
-  },
-  nestedIcon: {
-    marginLeft: theme.spacing(2),
+    alignSelf: 'center',
   },
   menuMobile: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
-  relativeDiv: {
-    position: 'relative',
-    backgroundColor: 'red',
-    display: 'inline-block',
+  selfEnd: {
+    alignSelf: 'center',
+    justifySelf: 'self-end',
   },
-  redBackGround: {
-    backgroundColor: 'red',
+  iconButton: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
   },
-  absoluteDiv: {
-    position: 'absolute',
-    top: '50%',
-    left: '100%',
-    transform: 'translate(-50%,-50%)',
-  },
-  alert: {
-    alignItems: 'center',
+  rotate: {
+    transform: 'rotate(180deg)',
   },
 }));
 

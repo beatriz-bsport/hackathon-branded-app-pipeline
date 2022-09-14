@@ -19,6 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import MarketingRuleFormPrivateBooking from '../../../marketing/components/marketing-rule-form/MarketingRuleFormPrivateBooking.component';
 import NotificationListInner from '../../../marketing/components/NotificationListInner.component';
+import { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   getEmails: () => void,
@@ -38,6 +39,9 @@ type Props = {
   setSelectedNotification: (any) => void,
   isFormOpen: boolean,
   setIsFormOpen: (boolean) => void,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
 
   closeForm: () => void,
   onSubmit: (data: any) => void,
@@ -121,6 +125,9 @@ const PrivateBookingNotification = (props: Props) => {
           onCancel={props.closeForm}
           initial={props.selectedNotification}
           onSubmit={props.onSubmit}
+          goToSmartlist={props.goToSmartlist}
+          getSmartLists={props.getSmartLists}
+          smartLists={props.smartLists}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

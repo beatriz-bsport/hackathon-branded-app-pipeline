@@ -12,6 +12,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
 
+import { getAllSmartList } from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceDetailPage from '../../libs/private-service/components/service/PrivateServiceDetailPage.component';
 
@@ -63,6 +65,7 @@ import {
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { SmartList } from '#libs/smart-list/types';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 
@@ -128,6 +131,9 @@ type Props = {
   emailDetailLoading: boolean,
   allCoaches: Array<AssociatedCoach>,
   allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
 };
 
 export class PrivateServiceList extends React.Component<Props> {
@@ -210,6 +216,9 @@ export class PrivateServiceList extends React.Component<Props> {
             emailDetails={this.props.email_templates_details}
             emailListLoading={this.props.emailListLoading}
             emailDetailLoading={this.props.emailDetailLoading}
+            goToSmartlist={this.props.goToSmartlist}
+            getSmartLists={this.props.getSmartLists}
+            smartLists={this.props.smartLists}
           />
         ) : null}
         {this.props.privateService && (
@@ -281,6 +290,7 @@ export default compose(
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      smartLists: getAllSmartList(state),
     }),
     {
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
@@ -307,6 +317,8 @@ export default compose(
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+      goToSmartlist: () => push('/smart-list/'),
+      getSmartLists: fetchAllSmartLists,
 
       goToPrivateServiceCalendar: (id) =>
         push(`/private-service/service/${id}/calendar`),

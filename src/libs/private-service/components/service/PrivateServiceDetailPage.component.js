@@ -7,6 +7,7 @@ import PrivateServiceCard from './PrivateServiceCard.component';
 import PrivateServiceConfigurationChecker from './PrivateServiceConfigurationHelper.component';
 import PrivateSlotEditableList from '../slot/PrivateSlotEditableList.component';
 import PrivateBookingNotification from '../booking/PrivateBookingNotification.component';
+import { SmartList } from '#libs/smart-list/types';
 
 import type { PrivateService } from '../../types';
 
@@ -32,6 +33,9 @@ type Props = {
   updateNotification: (id: number, data: any) => void,
   deleteNotification: (notificationId: number) => void,
   notifications: Object,
+  goToSmartlist: () => void,
+  getSmartLists: () => void,
+  smartLists: SmartList[],
 };
 
 export const PrivateServiceDetail = (props: Props) => {
@@ -55,6 +59,9 @@ export const PrivateServiceDetail = (props: Props) => {
           createNotification={props.createNotification}
           updateNotification={props.updateNotification}
           deleteNotification={props.deleteNotification}
+          goToSmartlist={props.goToSmartlist}
+          getSmartLists={props.getSmartLists}
+          smartLists={props.smartLists}
         />
       </Grid>
       <Grid item md={6} xs={12}>

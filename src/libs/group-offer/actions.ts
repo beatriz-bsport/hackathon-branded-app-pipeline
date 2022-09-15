@@ -319,7 +319,8 @@ export function fetchGroupsOfferBulk(
   options?: OptionCallback<OffersGroup[]>,
 ) {
   return async (dispatch: Dispatch) => {
-    if (!id__in || id__in.length === 0) {
+    const id_in_cleaned = id__in?.filter((i) => !!i);
+    if (!id_in_cleaned || id_in_cleaned.length === 0) {
       return;
     }
     dispatch(fetchGroupsOfferBulkActions.loading(true));
@@ -329,7 +330,7 @@ export function fetchGroupsOfferBulk(
       const response = await fetchGroupsOfferListAPI({
         page: 1,
         page_size: null,
-        id__in,
+        id__in: id_in_cleaned,
       });
 
       dispatch(fetchGroupsOfferBulkActions.loading(false));

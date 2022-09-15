@@ -229,7 +229,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     React.useState(false);
 
   const [drawerIconsOnly, setDrawerIconsOnly] = React.useState(
-    shrinkResponsiveDrawer,
+    displayLeftMenu && shrinkResponsiveDrawer,
   );
   const handleUserSetDrawerIconsOnly = (shrink: boolean) => {
     setDrawerIconsOnly(shrink);
@@ -275,7 +275,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     if (location.pathname.startsWith('/cadence/')) {
       setDrawerIconsOnly(true);
     }
-  }, [location, setDrawerIconsOnly]);
+    if (!displayLeftMenu || mobileOpen) {
+      setDrawerIconsOnly(false);
+    }
+  }, [location, setDrawerIconsOnly, displayLeftMenu, mobileOpen]);
 
   const handleDrawerToggle = () => {
     if (mobileOpen) {
@@ -775,8 +778,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     onMenuItemClick={hideMobileDrawer}
                     userAcknowlegdePlatformTutorial
                     iconsOnly={drawerIconsOnly}
-                    setDrawerIconsOnly={setDrawerIconsOnly}
-                    handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
                   />
                 </Drawer>
               </Hidden>

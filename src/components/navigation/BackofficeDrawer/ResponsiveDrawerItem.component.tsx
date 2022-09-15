@@ -98,7 +98,7 @@ export const DrawerItemComponent: React.FC<Props> = ({
           button
           onClick={handleToggle(i, item)}
           selected={isActive}
-          dense={isNested}
+          dense={item?.dense || isNested}
         >
           <ResponsiveDrawerListItemIcon
             item={item}

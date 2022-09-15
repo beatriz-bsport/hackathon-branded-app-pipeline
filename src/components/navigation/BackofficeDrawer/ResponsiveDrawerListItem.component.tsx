@@ -15,7 +15,7 @@ import { Typography } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 import type { DrawerItem } from './ResponsiveDrawer.component';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
-import ResponsiveDrawerListItemIcon from './DrawerListItemIcon.component';
+import DrawerListItemIcon from './DrawerListItemIcon.component';
 
 type DrawerListItemProps = {
   item: DrawerItem;
@@ -79,22 +79,24 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
         ref={item.icon === TutorialIconWithAlertings ? itemRef : null}
         aria-describedby={id}
       >
-        <ResponsiveDrawerListItemIcon
+        <DrawerListItemIcon
           item={item}
           iconsOnly={iconsOnly}
           isNested={isNested}
           nbTutorialAlerting={nbTutorialAlerting}
         />
 
-        <ListItemText
-          id={item.id}
-          primary={item.text}
-          primaryTypographyProps={{
-            style: { color: 'initial' },
-          }}
-          secondary={item.subtext}
-          secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
-        />
+        {!iconsOnly && (
+          <ListItemText
+            id={item.id}
+            primary={item.text}
+            primaryTypographyProps={{
+              style: { color: 'initial' },
+            }}
+            secondary={item.subtext}
+            secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
+          />
+        )}
       </ListItem>
       <Hidden smDown>
         {item.icon === TutorialIconWithAlertings &&

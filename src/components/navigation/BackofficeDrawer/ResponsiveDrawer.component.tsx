@@ -13,14 +13,10 @@ import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import Email from '@material-ui/icons/Email';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
-import Grid from '@material-ui/core/Grid';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
-import Hidden from '@material-ui/core/Hidden';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import LabelIcon from '@material-ui/icons/Label';
 import LaptopIcon from '@material-ui/icons/Laptop';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import LocationOn from '@material-ui/icons/LocationOn';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
@@ -41,7 +37,12 @@ import TodayIcon from '@material-ui/icons/Today';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VpnKey from '@material-ui/icons/VpnKey';
+
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
@@ -584,8 +585,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             container
             style={{ paddingTop: 10 }}
             alignItems="center"
-            // Deprecration warning, logo might not be centered
-            justify="center"
+            justifyContent="center"
           >
             <Hidden smDown>
               <img height={40} src={logo || LOGO_ASSET} alt="bsport logo" />
@@ -616,24 +616,26 @@ const ResponsiveDrawer: React.FC<Props> = ({
         </List>
       </div>
       <div className={classes.selfEnd}>
-        <IconButton
-          onClick={handleToggleDrawer}
-          disableRipple
-          className={classes.iconButton}
-        >
-          <ToolTip
-            title={
-              iconsOnly
-                ? t('backofficeMenu.toggle.expand')
-                : t('backofficeMenu.toggle.shrink')
-            }
-            placement="right-start"
+        {handleUserSetDrawerIconsOnly && handleToggle ? (
+          <IconButton
+            onClick={handleToggleDrawer}
+            disableRipple
+            className={classes.iconButton}
           >
-            <DoubleArrow
-              className={classNames({ [classes.rotate]: !iconsOnly })}
-            />
-          </ToolTip>
-        </IconButton>
+            <ToolTip
+              title={
+                iconsOnly
+                  ? t('backofficeMenu.toggle.expand')
+                  : t('backofficeMenu.toggle.shrink')
+              }
+              placement="right-start"
+            >
+              <DoubleArrow
+                className={classNames({ [classes.rotate]: !iconsOnly })}
+              />
+            </ToolTip>
+          </IconButton>
+        ) : null}
 
         <VersionVisualizer />
       </div>

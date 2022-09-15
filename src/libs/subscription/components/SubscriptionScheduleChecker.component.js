@@ -146,7 +146,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               pastInvoices={moment(
                 subscriptionData.first_billing_timestamp * 1000,
               ).isBefore(moment().startOf('day'))}
-              date={subscriptionData.first_billing_timestamp * 1000}
+              date={moment(subscriptionData.first_billing_timestamp * 1000)}
             />
           </Paper>
         </Grid>

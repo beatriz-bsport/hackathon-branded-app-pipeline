@@ -342,6 +342,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               handleChangeMethod={props.handleChangeMethod}
               paymentItem={p}
               key={p.id}
+              invoiceVariant
             />
           ))}
           {props.invoice.is_fully_paid

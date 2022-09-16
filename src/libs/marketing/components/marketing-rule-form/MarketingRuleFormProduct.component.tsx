@@ -845,25 +845,21 @@ export default compose<any, Props>(
                 private_pass_id: values.private_pass_id,
               }),
           disabled_if_in_contract: values.disabled_if_in_contract,
+          smartlist_include: values.smartlist_include,
+          smartlist_exclude: values.smartlist_exclude,
         },
       };
       switch (values.verboseNotifKind) {
         case 'daysLeft':
           data.event_rules.days_left = values.days_left;
-          data.event_rules.smartlist_include = values.smartlist_include;
-          data.event_rules.smartlist_exclude = values.smartlist_exclude;
           break;
         case 'daysPast':
           data.event_rules.days_left = values.days_left * -1;
-          data.event_rules.smartlist_include = values.smartlist_include;
-          data.event_rules.smartlist_exclude = values.smartlist_exclude;
           break;
         default:
           if (identifier === 'payment_pack') {
             data.event_rules.hours = values.hours;
             data.event_rules.kind = getEventRulesKind(values);
-            data.event_rules.smartlist_include = values.smartlist_include;
-            data.event_rules.smartlist_exclude = values.smartlist_exclude;
           }
           data.event_rules.credits_left = values.credits_left;
           break;

@@ -37,6 +37,7 @@ import EE_FLAG from './flags/EE.png';
 import MX_FLAG from './flags/MX.png';
 import CY_FLAG from './flags/CY.png';
 import SK_FLAG from './flags/SK.png';
+import LI_FLAG from './flags/LI.png';
 import AU_FLAG from './flags/AU.png';
 import HK_FLAG from './flags/HK.png';
 import PL_FLAG from './flags/PL.png';
@@ -376,6 +377,20 @@ export const LOCALE_LIST: Array<Locale> = [
     icon: SK_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
+    showLang: true,
+  },
+  {
+    locale: 'de_LI',
+    icon: LI_FLAG,
+    currencyCode: 'chf',
+    currencyDisplay: 'CHF',
+    showLang: true,
+  },
+  {
+    locale: 'en_LI',
+    icon: LI_FLAG,
+    currencyCode: 'chf',
+    currencyDisplay: 'CHF',
     showLang: true,
   },
 ];

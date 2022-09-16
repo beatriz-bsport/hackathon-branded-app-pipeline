@@ -200,6 +200,7 @@ exports.default = {
     RO: 'Roumanie',
     SI: 'Slovénie',
     MX: 'Mexique',
+    LI: 'Liechenstein',
   },
   language: {
     fr: 'français',

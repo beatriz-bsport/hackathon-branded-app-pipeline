@@ -78,7 +78,7 @@ export class MemberFormPage extends Component<Props> {
     this.props.setValues(values);
     if (
       this.props.initial?.email &&
-      this.props.initial?.email !== values.email
+      this.props.initial?.email !== values.email.toLowerCase()
     ) {
       const emailExistsData = await this.props.checkEmailExists(
         this.props.initial.email,

@@ -5578,7 +5578,7 @@
                     "pastInvoicesPayment": "Betaling van eerdere facturen",
                     "manualPayment": "Handmatige betaling",
                     "registeredInfo": "Alle toekomstige en eerdere facturen worden binnen 24 uur afgeschreven van de op het abonnement vermelde betaalwijze.",
-                    "manualInfo": "Eerdere facturen worden aangegeven als handmatig betaald en toekomstige facturen worden afgeschreven van de door het lid ingevoerde betalingsmethode.",
+                    manualInfo": "Eerdere facturen worden aangegeven als handmatig betaald en toekomstige facturen worden afgeschreven van de door het lid ingevoerde betalingsmethode.",
                     "registeredMethodPayment": "Opgeslagen betaalmethode belasten"
                 },
                 "cancel": "Annuleren",

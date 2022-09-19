@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -13,23 +13,28 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 
-import { createStyles, Theme } from '@material-ui/styles';
-import FuzeSearch from '../../components/FuzeSearch.component';
+import { createStyles } from '@material-ui/styles';
+import { Theme } from '@material-ui/core/styles';
+import { Divider, IconButton } from '@material-ui/core';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import memoize from 'memoize-one';
+import FuzeSearch from '#components/FuzeSearch.component';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesSummaries,
   getEmailTemplateByCategoryWithTemplates,
   getUnavailableEmailTemplatesSummaries,
-} from '../../libs/email-editor/selectors';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+} from '#libs/email-editor/selectors';
+import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import EmailListItem from '#libs/email-editor/components/EmailListItem.components';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 
 import {
   emailTemplatesSummaries,
@@ -43,17 +48,17 @@ import {
   deleteEmailTemplateCategory,
   editOrderEmailTemplate,
   updateEmailTemplateCategoryOrder,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 import {
   EmailTemplateCategory,
   EmailTemplateCategoryWithTemplates,
-} from '../../libs/email-editor/types';
+} from '#libs/email-editor/types';
 import { OptionCallback } from '../../state/types';
-import { CategoryList } from '../../components/ordering/CategoryList.component';
-import CategoryCreationEditDialog from '../../components/ordering/CategoryCreationEditDialog.component';
-import AddCategoryButton from '../../components/ordering/AddCategoryButton.component';
-import EmailTemplateSummary from '../../libs/email-editor/factories/EmailTemplateSummary';
-import { ArchivedSection } from '../../components/ordering/ArchivedSection.component';
+import { CategoryList } from '#components/ordering/CategoryList.component';
+import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
+import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
+import EmailTemplateSummary from '#libs/email-editor/factories/EmailTemplateSummary';
+import { ArchivedSection } from '#components/ordering/ArchivedSection.component';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -82,6 +87,7 @@ type OwnProps = {
   email_templates: Array<EmailTemplateSummary>;
   id: number;
   loading: boolean;
+  listLoading: boolean;
   selectTemplate: (id: number) => void;
   unavailableEmailTemplateSummaries: Array<EmailTemplateSummary>;
   restoreEmailTemplate: (id: number) => void;
@@ -106,6 +112,10 @@ type OwnProps = {
   ) => void;
   categoryLoading: boolean;
   fetchEmailTemplateBulk: (ids: Array<number>) => void;
+  expandCollapseLaunchingEmails: boolean;
+  setExpandCollapseLaunchingEmails: (
+    expandCollapseLaunchingEmails: boolean,
+  ) => void;
 };
 
 type Props = OwnProps &
@@ -188,7 +198,18 @@ export class MarketingEmail extends Component<Props, State> {
   };
 
   render() {
-    const { loading, t, classes } = this.props;
+    const { loading, t, classes, email_templates } = this.props;
+    const genericBsportTemplates = memoize(
+      (templates: Array<EmailTemplateSummary>) =>
+        templates?.filter((email) => email.is_default_bsport_template) || [],
+    )(email_templates);
+    const franchisorTemplates = memoize(
+      (templates: Array<EmailTemplateSummary>) =>
+        templates?.filter(
+          (email) => !email.company_id && !email.is_default_bsport_template,
+        ) || [],
+    )(email_templates);
+
     if (this.props.categoryLoading) {
       return <LinearProgress />;
     }
@@ -296,8 +317,62 @@ export class MarketingEmail extends Component<Props, State> {
                   />
                 </>
               )}
-              {this.props?.email_templates?.filter((email) => !email.company_id)
-                ?.length > 0 && (
+              {genericBsportTemplates.length > 0 && (
+                <div className={classes.listContainer}>
+                  <div className={classes.categoryHeader}>
+                    <Typography variant="h5">
+                      {t('bsportTemplateEmail')}
+                    </Typography>
+                    <IconButton
+                      onClick={() =>
+                        this.props.setExpandCollapseLaunchingEmails(
+                          !this.props.expandCollapseLaunchingEmails,
+                        )
+                      }
+                    >
+                      {this.props.expandCollapseLaunchingEmails ? (
+                        <ExpandLessIcon />
+                      ) : (
+                        <ExpandMoreIcon />
+                      )}
+                    </IconButton>
+                  </div>
+                  <Divider className={classes.divider} />
+                  <Collapse
+                    className={classes.collapse}
+                    in={this.props.expandCollapseLaunchingEmails}
+                  >
+                    <div className={classes.launchingEmailsList}>
+                      <Paper className={classes.list}>
+                        <List
+                          component="nav"
+                          disablePadding
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
+                        >
+                          {genericBsportTemplates.map(
+                            (email: EmailTemplateSummary) => (
+                              <EmailListItem
+                                key={email.id}
+                                email={email}
+                                selected={email.id === this.props.id}
+                                navigateTo={() => {
+                                  this.props.selectTemplate(email.id);
+                                }}
+                                onClick={this.selected}
+                                onDuplicate={this.onDuplicate}
+                              />
+                            ),
+                          )}
+                        </List>
+                      </Paper>
+                    </div>
+                  </Collapse>
+                </div>
+              )}
+              {franchisorTemplates.length > 0 && (
                 <>
                   <Typography className={classes.title} variant="h5">
                     {t('franchiseEmails')}
@@ -311,9 +386,8 @@ export class MarketingEmail extends Component<Props, State> {
                         flexDirection: 'column',
                       }}
                     >
-                      {this.props.email_templates
-                        .filter((email) => !email.company_id)
-                        .map((email) => (
+                      {franchisorTemplates.map(
+                        (email: EmailTemplateSummary) => (
                           <EmailListItem
                             key={email.id}
                             email={email}
@@ -322,7 +396,8 @@ export class MarketingEmail extends Component<Props, State> {
                               this.props.selectTemplate(email.id);
                             }}
                           />
-                        ))}
+                        ),
+                      )}
                     </List>
                   </Paper>
                 </>
@@ -360,7 +435,7 @@ export class MarketingEmail extends Component<Props, State> {
             }}
             onSubmit={(category) =>
               this.props.upsertEmailTemplateCategory(category, {
-                onSuccess: trackFormSuccess,
+                onSuccess: () => trackFormSuccess(),
               })
             }
             categorySelected={this.state.selectedCategory}
@@ -415,7 +490,26 @@ const styles = (theme: Theme) =>
       borderTop: '0px',
       boderBottom: '0px',
     },
+    listContainer: {
+      paddingRight: theme.spacing(2),
+    },
+    categoryHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingTop: theme.spacing(2),
+    },
     divider: {
+      marginBottom: theme.spacing(2),
+    },
+    launchingEmailsList: {
+      paddingTop: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+    collapse: {
+      width: '100%',
+      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
   });
@@ -425,6 +519,11 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   withTitle(({ t }) => t('listTitle')),
+  withState(
+    'expandCollapseLaunchingEmails',
+    'setExpandCollapseLaunchingEmails',
+    true,
+  ),
   connect(
     (state: RootState) => ({
       email_templates: getAllEmailTemplatesSummaries(state),

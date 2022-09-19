@@ -42,6 +42,7 @@ exports.default = {
   },
   companieEmails: 'Mes templates',
   franchiseEmails: 'Templates franchise',
+  bsportTemplateEmail: 'Emails de lancement',
   leaveAlert: 'Voulez-vous vraiment quitter cette page ?',
   autoSave: 'Sauvegarde automatique',
   seeAll: 'Voir tous',

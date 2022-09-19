@@ -9,6 +9,7 @@ export type EmailTemplateSummary = {
   category: number;
   ordering_in_category: number;
   available: boolean;
+  is_default_bsport_template: boolean;
 };
 
 export type EmailTemplateDetail = {

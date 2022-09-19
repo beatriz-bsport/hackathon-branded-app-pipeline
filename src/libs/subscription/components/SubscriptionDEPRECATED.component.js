@@ -15,7 +15,7 @@ import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
 import SubscriptionActions from './SubscriptionActions.component';
 import type { Subscription, PlannedInvoice } from '../types';
 
-import { COMPANY_EVENTS } from './event.utils';
+import { COMPANY_EVENTS } from '../event.utils';
 
 type Props = {
   subscription: Subscription,

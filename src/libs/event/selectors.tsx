@@ -1,6 +1,5 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
+import { EventState } from './types';
 
 const _BASE_EVENT_STATE = Immutable({
   page: 1,
@@ -9,7 +8,10 @@ const _BASE_EVENT_STATE = Immutable({
   items: [],
 });
 
-export const getEventState = (state: State, identifier: string) => {
+export const getEventState = (
+  state: Immutable.Immutable<EventState>,
+  identifier: string,
+) => {
   if (state.byIdentifier[identifier]) {
     return state.byIdentifier[identifier];
   }

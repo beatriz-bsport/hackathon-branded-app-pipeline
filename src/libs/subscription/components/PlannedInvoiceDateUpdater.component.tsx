@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -13,11 +12,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
 import MomentUtils from '@date-io/moment';
+import { OptionCallback } from '../../../state/types';
+import { PlannedInvoice } from '../types';
 
 type Props = {
-  plannedInvoice: PlannedInvoice,
-  onSubmit: ({ id: number, date: string }) => void,
-  onClose: () => void,
+  plannedInvoice: PlannedInvoice;
+  onSubmit: (
+    data: { date: string; planned_invoice: number },
+    options?: OptionCallback<any>,
+  ) => void;
+  onClose: () => void;
 };
 
 export const PlannedInvoiceDateUpdater = (props: Props) => {
@@ -54,7 +58,7 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
             }}
           />
         </MuiPickersUtilsProvider>
-        <Typography classes={classes.explain}>
+        <Typography className={classes.explain}>
           {t('plannedInvoice.dateUpdater.explain')}
         </Typography>
       </DialogContent>

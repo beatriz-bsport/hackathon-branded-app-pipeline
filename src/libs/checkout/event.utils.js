@@ -25,13 +25,13 @@ export const COMPANY_EVENTS = {
   },
   [BASKET_EVENTS.additem]: {
     icon: <ExposurePlus1Icon color="primary" />,
-    titleSuffix: (event) => ` ${event.data.item} - `,
+    titlePrefix: (event) => ` ${event.data.item} - `,
     getPrimaryText,
     i18nText: `checkout:events.${BASKET_EVENTS.additem}`,
   },
   [BASKET_EVENTS.removeitem]: {
     icon: <ExposureNeg1Icon color="error" />,
-    titleSuffix: (event) => ` ${event.data.item} - `,
+    titlePrefix: (event) => ` ${event.data.item} - `,
     getPrimaryText,
     i18nText: `checkout:events.${BASKET_EVENTS.removeitem}`,
   },

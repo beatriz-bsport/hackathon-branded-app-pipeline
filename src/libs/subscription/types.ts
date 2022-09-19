@@ -4,7 +4,7 @@ import type { PrivatePass } from '../private-service/types';
 import type { PaymentCombo } from '../payment-combo/types';
 
 export type PlannedInvoice = {
-  date: number;
+  date: string;
   status: number;
   price: number;
   voucher: number;
@@ -17,6 +17,7 @@ export type PlannedInvoice = {
   member: number;
   amount_due_cts: number;
   is_last_invoice_before_scheduled_stop: boolean;
+  reverted: boolean;
 };
 
 export type Subscription<
@@ -24,30 +25,32 @@ export type Subscription<
   PaymentPackType = number,
   PaymentComboType = number,
 > = {
-  id: number;
-  name: string;
-  member: number;
-  legal_contract: string;
-  contract: number;
-  description: string;
-  memberName: string;
-  nb_interval: number;
-  recurrent_price: number;
-  trial_nb: number;
-  recurrent_voucher: number;
+  auto_renewal: boolean;
   canceled_at: string;
-  has_ended: boolean;
-  interval: 'month' | 'week';
+  contract: number;
   date_created: string;
-  private_pass: PrivatePassType;
-  payment_pack: PaymentPackType;
-  payment_combo: PaymentComboType;
+  description: string;
+  has_ended: boolean;
+  id: number;
   is_v2: boolean;
-  planned_invoices: Array<PlannedInvoice>;
+  interval: 'month' | 'week' | 'day' | 'year';
+  legal_contract: string;
+  member: number;
+  memberName: string;
+  name: string;
+  nb_interval: number;
+  pauses: Array<SubscriptionPause>;
+  payment_combo: PaymentComboType;
   payment_engine: number;
   payment_method: number;
   payment_method_identifier: number;
-  pauses: Array<SubscriptionPause>;
+  payment_pack: PaymentPackType;
+  planned_invoices: Array<PlannedInvoice>;
+  private_pass: PrivatePassType;
+  recurrence_basis: number;
+  recurrent_price: number;
+  recurrent_voucher: number;
+  trial_nb: number;
 };
 
 export type SubscriptionData = {
@@ -63,11 +66,17 @@ export type SubscriptionData = {
 };
 
 export type SubscriptionPause = {
+  id: number;
   days: number;
   date_created: string;
+  date_ended: string;
+  from_date: string;
+  until_date: string;
   billing_plan: number;
-  name: string;
-  first_paused_planned_invoice: string;
+  name: string; // this is the pause reason
+  first_paused_planned_invoice: number; // id of the planned invoice
+  creator_staff_name?: string;
+  version: string;
 };
 
 export type Contract = {
@@ -109,6 +118,7 @@ export type ContractWithPaymentPack = {
   private_pass?: PrivatePass;
   payment_combo?: PaymentCombo;
 };
+
 export type ContractPause = {
   company: number;
   name: string;
@@ -127,6 +137,27 @@ export type ContractPauseDetails = ContractPause & {
   billing_plan_invalid_ids: number[];
   billing_plan_success: any[];
   billing_plan_success_ids: number[];
+};
+
+export type PauseRequestData = {
+  pause_id?: number;
+  from_date: string;
+  name: string;
+  days: number;
+  action_pack_kind?: number;
+};
+
+export type PauseBadRequestResults = {
+  from_date?: string;
+  days?: string;
+};
+
+export type PauseSubmitResults = {
+  resultIdentifier: number;
+  subscriptionName: string;
+  subscriberName: string;
+  dateStart: string;
+  dateEnd: string;
 };
 
 export type SubscriptionState = {

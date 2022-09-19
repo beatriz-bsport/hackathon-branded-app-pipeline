@@ -632,6 +632,8 @@ exports.default = {
       locked:
         'Impossible de mettre en pause pour le moment, un paiement est-il en attente ?',
       error: 'Impossible de mettre en pause cette souscription',
+      deleteFail: 'Impossible de supprimer une pause déjà commencée.',
+      deleteSuccess: 'La pause a bien été supprimée',
     },
     updatePrice: {
       success: 'Montant mis à jour',

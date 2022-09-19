@@ -7,16 +7,16 @@ import Button from '@material-ui/core/Button';
 import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 
 import EventBusyIcon from '@material-ui/icons/EventBusy';
+import { OptionCallback } from '../../../state/types';
 import RedButton from '../../../components/button/RedButton.component';
-
-import SubscriptionPauseFormDialog from './SubscriptionPauseFormDialog.component';
-
-import { Subscription } from '../types';
+import PauseFormDialog from './pause/PauseFormDialog.component';
+import { PauseRequestData, Subscription } from '../types';
 
 type Props = {
   subscription: Subscription;
-  requestPause?: () => void;
-  requestScheduledStop?: () => void;
+  requestPause: (data: PauseRequestData, options: OptionCallback<any>) => void;
+  requestScheduledStop?: (plannedInvoiceId: number) => void;
+  updateEventList: () => void;
 };
 
 export const SubscriptionActionsV2: FC<Props> = (props) => {
@@ -26,6 +26,7 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
   const scheduledStop = props.subscription.planned_invoices.some(
     (invoice) => invoice.is_last_invoice_before_scheduled_stop,
   );
+  const closePauseForm = () => setRequestPause(null);
   return (
     <div>
       <Typography variant="h5" component="h3">
@@ -41,7 +42,7 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
           disabled={
             !props.requestPause ||
             props.subscription.has_ended ||
-            props.subscription.canceled_at
+            !!props.subscription.canceled_at
           }
         >
           <AlarmAddIcon className={classes.leftIcon} />
@@ -49,12 +50,12 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
         </Button>
       </div>
       {!!requestPause && (
-        <SubscriptionPauseFormDialog
-          open
-          onCancel={() => setRequestPause(null)}
-          subscription={props.subscription}
-          plannedInvoiceList={props.subscription.planned_invoices}
+        <PauseFormDialog
           onSubmit={props.requestPause}
+          openForm={!!requestPause}
+          closeDialog={closePauseForm}
+          subscription={props.subscription}
+          updateEventList={props.updateEventList}
         />
       )}
       {!!props.requestScheduledStop && (
@@ -67,7 +68,7 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
               props.subscription.canceled_at ||
               scheduledStop
             }
-            onClick={() => props.requestScheduledStop()}
+            onClick={() => props.requestScheduledStop(null)}
           >
             <EventBusyIcon className={classes.leftIcon} />
             {t('action.planStop')}

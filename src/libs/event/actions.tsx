@@ -1,8 +1,7 @@
-// @flow
-
 import { createAction } from 'redux-actions';
-
+import { OptionCallback, Dispatch } from '../../state/types';
 import { fetchEventList as fetchEventListAPI } from './api';
+import { EventListParams } from './types';
 
 export const listEventActions = {
   error: createAction('EVENT/LIST/ERROR'),
@@ -12,9 +11,9 @@ export const listEventActions = {
 };
 
 export function fetchEventList(
-  identifier,
-  params: { page: number, page_size: number, billing_plan?: number },
-  options: OptionCallback,
+  identifier: string,
+  params: EventListParams,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listEventActions.isLoading({ loading: true, identifier }));

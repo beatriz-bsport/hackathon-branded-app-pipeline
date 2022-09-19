@@ -1,18 +1,20 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import { listEventActions } from './actions';
 import { getEventState } from './selectors';
+import { EventState } from './types';
 
-const initialState: SubscriptionState = Immutable({
+const initialState: Immutable.Immutable<EventState> = Immutable<EventState>({
   byIdentifier: {},
 });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<EventState>>(
   {
-    [listEventActions.isLoading]: (state, { payload }) => {
+    [listEventActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: any },
+    ) => {
       return state.setIn(
         ['byIdentifier', payload.identifier],
         getEventState(state, payload.identifier).set(
@@ -21,19 +23,28 @@ export default handleActions(
         ),
       );
     },
-    [listEventActions.setPage]: (state, { payload }) => {
+    [listEventActions.setPage.toString()]: (
+      state,
+      { payload }: { payload: any },
+    ) => {
       return state.setIn(
         ['byIdentifier', payload.identifier],
         getEventState(state, payload.identifier).set('page', payload.page),
       );
     },
-    [listEventActions.error]: (state, { payload }) => {
+    [listEventActions.error.toString()]: (
+      state,
+      { payload }: { payload: any },
+    ) => {
       return state.setIn(
         ['byIdentifier', payload.identifier],
         getEventState(state, payload.identifier).set('error', payload.error),
       );
     },
-    [listEventActions.success]: (state, { payload }) => {
+    [listEventActions.success.toString()]: (
+      state,
+      { payload }: { payload: any },
+    ) => {
       return state.setIn(
         ['byIdentifier', payload.identifier],
         getEventState(state, payload.identifier).set('items', payload.items),

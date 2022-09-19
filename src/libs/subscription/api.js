@@ -11,6 +11,8 @@ import {
   putAuth,
 } from '../../http';
 
+import { PauseRequestData } from './types';
+
 const fetchAll = async (params: any) => {
   return getAuth(
     `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,
@@ -101,6 +103,8 @@ export const updatePlannedInvoicePrice = async (
   data: {
     planned_invoice: number,
     price: string,
+    update_all: boolean,
+    update_recurrent_price: boolean,
   },
 ) => {
   return postAuth(
@@ -116,7 +120,10 @@ export const updateSubscriptionRenewal = async (id: number, data: any) => {
   );
 };
 
-export const freezeSubscription = async (id: number, data: any) => {
+export const freezeSubscription = async (
+  id: number,
+  data: PauseRequestData,
+) => {
   return postAuth(`${API_URI}/subscription/billing-plan/${id}/pause/`, data);
 };
 

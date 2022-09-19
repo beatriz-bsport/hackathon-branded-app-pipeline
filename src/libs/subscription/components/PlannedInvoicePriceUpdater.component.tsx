@@ -1,7 +1,6 @@
-// @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import compose from 'recompose/compose';
 import { makeStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -14,16 +13,18 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
 import { Theme } from '@material-ui/core';
-import { CheckboxField, Submit, PriceField } from '../../../components/forms';
-import { type Subscription } from '../types';
+import { OptionCallback } from '../../../state/types';
+import { CheckboxField, Submit, PriceField } from '#components/forms';
+import { type Subscription, PlannedInvoice } from '../types';
 
 type Props = {
   open: boolean;
   onCancel: () => void;
   subscription: Subscription;
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
   plannedInvoiceUpdateLoading: boolean;
 };
+
 export const PlannedInvoicePriceUpdater = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation('subscription');
@@ -101,10 +102,28 @@ export const PriceUpdaterSchema = Yup.object().shape({
   update_recurrent_price: Yup.boolean().nullable(),
 });
 
-export const PriceUpdateFormikHOC = withFormik({
-  mapPropsToValues: ({ planned_invoice }) => ({
-    price: planned_invoice.price,
-    planned_invoice: planned_invoice.id,
+interface FormikProps {
+  plannedInvoice: PlannedInvoice;
+  onSubmit: (
+    data: {
+      planned_invoice: number;
+      price: number;
+      update_all?: boolean;
+      update_recurrent_price?: boolean;
+    },
+    options: OptionCallback,
+  ) => void;
+}
+
+interface FormikValues {
+  planned_invoice: number;
+  price: number;
+}
+
+export const PriceUpdateFormikHOC = withFormik<FormikProps, FormikValues>({
+  mapPropsToValues: ({ plannedInvoice }) => ({
+    price: plannedInvoice.price,
+    planned_invoice: plannedInvoice.id,
   }),
   validationSchema: PriceUpdaterSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
@@ -116,4 +135,6 @@ export const PriceUpdateFormikHOC = withFormik({
   },
 });
 
-export default PriceUpdateFormikHOC(PlannedInvoicePriceUpdater);
+export default compose<any, Props & FormikProps>(PriceUpdateFormikHOC)(
+  PlannedInvoicePriceUpdater,
+);

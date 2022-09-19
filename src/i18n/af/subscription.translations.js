@@ -30,6 +30,7 @@ exports.default = {
       title: 'Derniers évènements',
     },
     [BILLING_PLAN_EVENTS.pause]: 'Pause',
+    [BILLING_PLAN_EVENTS.pause_deleted]: 'Pause annulée',
     [BILLING_PLAN_EVENTS.create]: 'Création',
     [BILLING_PLAN_EVENTS.stop]: 'Arrêt',
     [BILLING_PLAN_EVENTS.renew]: 'Renouvellement',
@@ -40,6 +41,7 @@ exports.default = {
     [BILLING_PLAN_EVENTS.update_payment_pack]: 'Carte de cours modifiée',
     [BILLING_PLAN_EVENTS.update_private_pass]: 'Carte de rendez-vous modifiée',
     [BILLING_PLAN_EVENTS.update_payment_combo]: 'Pack modifié',
+    [BILLING_PLAN_EVENTS.update]: 'Abonnement modifié',
   },
   cancel: 'annuler',
   save: 'valider',
@@ -150,11 +152,77 @@ exports.default = {
   pause: {
     pausedInterval: '{{start}} → {{ end }} : {{ days }} jours', // deprecated
     pausedAt: '{{ days }} jours - le {{ date }}',
-    createdAt: 'Créé le ',
-    label: 'Pause de {{days}} jours',
+    createdAt: 'Créée le ',
+    label: 'Pause du {{- fromDate}} au {{- untilDate}}',
     secondaryLabel: ' : {{ note }}',
     actions: {
       delete: 'Déprogrammer la pause',
+    },
+    menu: {
+      delete: 'Déprogrammer',
+      change: 'Changer les dates',
+    },
+    eventItems: {
+      pauseCreated:
+        'Du {{- dateStart}} au {{- dateEnd}} - Créée le {{- dateCreation}} par {{staffName}}',
+      pauseCreatedThenDeleted: 'Cette pause a été supprimée ou modifiée.',
+      pauseDeleted: "Raison de l'ancienne pause : {{pause_name}}",
+    },
+    dialogs: {
+      common: {
+        cancel: 'Annuler',
+        confirm: 'Confirmer',
+      },
+      delete: {
+        title: 'Déprogrammer la pause',
+        content: 'Êtes-vous sûr de vouloir déprogrammer cette pause ?',
+      },
+      success: {
+        title: "Mise en pause de l'abonnement",
+        content:
+          "L'abonnement {{subscriptionName}} de {{subscriberName}} a bien été mis en pause du {{- dateStart}} au {{- dateEnd}} inclus.",
+        continue: 'Continuer',
+      },
+      fail: {
+        title: 'Échec de mise en pause',
+        contentIncomingBill:
+          "L'abonnement {{subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une facture dans l'interval de pause va être facturée dans les 24h ou a un paiement en cours. Merci de changer la date de début de la pause.",
+        contentOverlapPause:
+          "L'abonnement {{subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une pause est déjà prévue du {{- dateStart}} au {{- dateEnd}}.",
+        contentInvalidTimedelta: 'La pause doit au moins durer une journée.',
+        contentCanNotCancelPause:
+          'La pause ayant déjà commencé ou étant déjà passée, elle ne peut pas être annulée.',
+        contentSubscriptionWillEndBeforePause:
+          'La subscription ne peut être mise en pause sur cette période car celle-ci aura pris fin avant.',
+        contentCanNotEditPauseStartWhenHasStarted:
+          'La date de début de la pause ne peut être changée dès lors que celle-ci a commencé.',
+        contentCanNotEditPauseEndBeforeToday:
+          "La nouvelle date de début de la pause ne peut être placée avant aujourd'hui.",
+        contentCanNotCreateAPauseInThePast:
+          'La pause ne peut commencer dans le passé.',
+        contentUnknownError:
+          'Une erreur imprévue est survenue. Veuillez nous excuser pour la gêne occasionnée.',
+        comeback: 'Retour',
+      },
+      form: {
+        titleCreation: 'Mise en pause',
+        titleEdition: 'Modifier la mise en pause',
+        causePlaceholder: 'Raison *',
+        duration: {
+          title: 'Durée de la pause',
+          start: 'Date de début (incluse)',
+          end: 'Date de fin (incluse)',
+          warning:
+            'La date de fin ne peut pas être inférieure à la date de début',
+        },
+        information:
+          'Les abonnements seront mis en pause du {{- dateStart}} au {{- dateEnd}} inclus. Leur prochaine facturation sera décalée de {{count}} jour, de même pour toutes les facturations futures.',
+        information_plural:
+          'Les abonnements seront mis en pause du {{- dateStart}} au {{- dateEnd}} inclus. Leur prochaine facturation sera décalée de {{count}} jours, de même pour toutes les facturations futures.',
+        information2:
+          "La date d'expiration de la carte sera repoussée du nombre de jours de la pause et la carte restera valide pendant celle-ci.",
+        confirm: 'Enregistrer',
+      },
     },
   },
   plannedInvoice: {

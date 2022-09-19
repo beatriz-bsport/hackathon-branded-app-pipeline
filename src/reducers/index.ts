@@ -93,6 +93,7 @@ import { CouponState } from '#libs/coupon/types';
 import { CustomFormState } from '#libs/custom-form/types';
 import { EmailTemplateState } from '#libs/email-editor/types';
 import { EstablishmentState } from '#libs/establishment/types';
+import { EventState } from '#libs/event/types';
 import { ExpenseState } from '#libs/expense/types';
 import { FranchiseState } from '#libs/franchise/types';
 import { GiftcardState } from '#libs/giftcard/types';
@@ -232,7 +233,7 @@ export type RootState = {
   dashboardSettings: any;
   emailTemplate: EmailTemplateState;
   establishment: EstablishmentState;
-  event: any;
+  event: EventState;
   expense: ExpenseState;
   franchise: FranchiseState;
   groupOffer: GroupOfferState;

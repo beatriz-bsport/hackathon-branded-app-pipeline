@@ -3,7 +3,7 @@
 import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 
-import { COMPANY_EVENTS } from './components/event.utils';
+import { COMPANY_EVENTS } from './event.utils';
 import api, {
   updatePlannedInvoicePrice as updatePlannedInvoicePriceAPI,
   updateSubscriptionRenewal as updateSubscriptionRenewalAPI,
@@ -31,6 +31,7 @@ import {
   snackbarError,
 } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
+import { PauseRequestData } from './types';
 
 import { fetchEventList } from '../event/actions';
 
@@ -473,7 +474,7 @@ export const freezeSubscriptionActions = {
 
 export function freezeSubscription(
   id: number,
-  data: any,
+  data: PauseRequestData,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -482,7 +483,6 @@ export function freezeSubscription(
     try {
       const response = await freezeSubscriptionAPI(id, data);
       dispatch(freezeSubscriptionActions.success(response.data));
-      dispatch(snackbarSuccess('subscription.freeze.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -491,8 +491,6 @@ export function freezeSubscription(
       dispatch(freezeSubscriptionActions.error(err));
       if (err && err.response && err.response.status === 423) {
         dispatch(snackbarWarning('subscription.freeze.locked'));
-      } else {
-        dispatch(snackbarError('subscription.freeze.error'));
       }
       if (options && options.onError) options.onError(err);
     }
@@ -714,12 +712,14 @@ export function cancelPause(
     try {
       const response = await cancelPauseAPI(billingPlanId, id);
       dispatch(cancelPauseActions.success(id));
+      dispatch(snackbarSuccess('subscription.freeze.deleteSuccess'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(cancelPauseActions.error(err));
+      dispatch(snackbarError('subscription.freeze.deleteFail'));
       if (options && options.onError) options.onError(err);
     }
     dispatch(cancelPauseActions.isLoading(false));
@@ -736,7 +736,10 @@ export const updatePlannedInvoiceDateActions = {
 
 export function updatePlannedInvoiceDate(
   id: number,
-  data: any,
+  data: {
+    date: string,
+    planned_invoice: number,
+  },
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

@@ -53,18 +53,26 @@ export type OwnProps = {
   type?: 'error' | 'info' | 'warning';
   variant?: 'contained' | 'outlined';
   variantIcon?: 'contained' | 'outlined';
+  alignItems?: 'center' | 'flex-start' | 'flex-end';
   withCollapse?: boolean;
+  className?: string;
 };
 
 export const InfoGenericBox = (props: OwnProps) => {
   const classes = useStyles();
-  const [openCollapse, setOpenCollapse] = useState(false);
+  const [openCollapse, setOpenCollapse] = useState(true);
   const onCollapseClick = () => {
     setOpenCollapse(!openCollapse);
   };
 
   return (
-    <ButtonBase onClick={onCollapseClick} disabled={!props.withCollapse}>
+    <ButtonBase
+      onClick={onCollapseClick}
+      disabled={!props.withCollapse}
+      className={props.className}
+      disableRipple
+      disableTouchRipple
+    >
       <div
         className={classNames(classes.boxContainer, {
           [classes.boxContainerError]:
@@ -79,6 +87,9 @@ export const InfoGenericBox = (props: OwnProps) => {
             props.type === 'info' && props.variant === 'outlined',
           [classes.outlinedBoxContainerWarning]:
             props.type === 'warning' && props.variant === 'outlined',
+          [classes.alignCenter]: props.alignItems === 'center',
+          [classes.alignStart]: props.alignItems === 'flex-start',
+          [classes.alignEnd]: props.alignItems === 'flex-end',
         })}
       >
         {IconFromType(props.type, props.variantIcon)}
@@ -104,20 +115,29 @@ export const InfoGenericBox = (props: OwnProps) => {
 InfoGenericBox.defaultProps = {
   variant: 'contained',
   variantIcon: 'outlined',
+  alignItems: 'center',
   type: 'info',
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  boxContainer: {
+  alignStart: {
     alignItems: 'flex-start',
+  },
+  alignEnd: {
+    alignItems: 'flex-end',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+  boxContainer: {
     borderRadius: theme.spacing(0.5),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
   },
   boxContainerError: {
     backgroundColor: red[BACKGROUND_COLOR],
@@ -125,13 +145,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   boxContainerInfo: {
     backgroundColor: blue[BACKGROUND_COLOR],
-    color: blue[TEXT_COLOR],
+    color: theme.palette.info.main,
   },
   boxContainerWarning: {
     backgroundColor: amber[BACKGROUND_COLOR],
     color: amber[TEXT_COLOR],
   },
   content: {
+    display: 'flex',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     textAlign: 'left',
@@ -164,7 +185,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderColor: blue[TEXT_COLOR],
     borderStyle: 'solid',
     borderWidth: '1px',
-    color: blue[TEXT_COLOR],
+    color: theme.palette.info.main,
   },
   outlinedBoxContainerWarning: {
     borderColor: amber[TEXT_COLOR],

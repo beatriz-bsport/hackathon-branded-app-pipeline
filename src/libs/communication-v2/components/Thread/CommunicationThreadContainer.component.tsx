@@ -112,6 +112,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
               content={consentWarning}
               variant="contained"
               variantIcon="outlined"
+              alignItems="flex-start"
               type="error"
               withCollapse
             />

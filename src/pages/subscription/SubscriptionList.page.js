@@ -19,7 +19,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
 import PlannedInvoiceList from '../../libs/subscription/components/PlannedInvoiceList.component';
-import { COMPANY_EVENTS } from '../../libs/subscription/components/event.utils';
+import { COMPANY_EVENTS } from '#libs/subscription/event.utils';
 
 import {
   getSubscriptionList,

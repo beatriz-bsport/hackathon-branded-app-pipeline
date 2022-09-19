@@ -1,0 +1,301 @@
+import React from 'react';
+// @ts-ignore
+import memoize from 'memoize-one';
+import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import moment from 'moment-timezone';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import AccessTime from '@material-ui/icons/AccessTime';
+import {
+  CircularProgress,
+  Theme,
+  WithStyles,
+  withStyles,
+} from '@material-ui/core';
+import { OptionCallback } from '../../../../state/types';
+import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+import PauseResultDialog from './PauseResultDialog.component';
+import PauseFormDateRange from './PauseFormDateRange.component';
+import InfoGenericBox from '#components/box/InfoGenericBox.component';
+import {
+  PauseSubmitResults,
+  PauseRequestData,
+  SubscriptionPause,
+  Subscription,
+} from '../../types';
+import { PAUSE_RESULT_SUCCESS } from '../../constants';
+
+const PAUSE_RESULT_FAIL_UNKNOWN_ERROR = 63200;
+
+type OwnProps = {
+  closeDialog: () => void;
+  onSubmit: (data: PauseRequestData, options: OptionCallback<any>) => void;
+  openForm: boolean;
+  subscription: Subscription;
+  pauseBeingEdited?: SubscriptionPause;
+  updateEventList: () => void;
+};
+
+type Props = OwnProps & WithStyles & WithTranslation;
+
+type State = {
+  fromDate: string;
+  loadingSubmitResponse: boolean;
+  openDialogResult: boolean;
+  pauseExplanation: string;
+  submitResults: PauseSubmitResults | undefined;
+  untilDate: string;
+};
+
+class PauseFormDialog extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      fromDate:
+        moment(props.pauseBeingEdited?.from_date).format() || moment().format(),
+      loadingSubmitResponse: false,
+      openDialogResult: false,
+      pauseExplanation: props.pauseBeingEdited?.name,
+      submitResults: null,
+      untilDate: props.pauseBeingEdited
+        ? moment(props.pauseBeingEdited?.until_date).format()
+        : moment().format(),
+    };
+  }
+
+  backToFormDialog = () => {
+    this.setState({ openDialogResult: false });
+  };
+
+  closeFormAndResultDialogs = () => {
+    this.setState({ openDialogResult: false });
+    this.props.closeDialog();
+  };
+
+  getFormButtons = memoize(
+    (
+      isReasonValid: boolean,
+      isDateRangeValid: boolean,
+      loadingSubmitResponse: boolean,
+    ) => {
+      return [
+        {
+          label: this.props.t('pause.dialogs.common.cancel'),
+          onClick: this.props.closeDialog,
+        },
+        {
+          label:
+            !loadingSubmitResponse &&
+            this.props.t('pause.dialogs.form.confirm'),
+          onClick: this.onSubmitClick,
+          variant: 'contained',
+          color: 'primary',
+          disabled:
+            !isDateRangeValid || !isReasonValid || loadingSubmitResponse,
+          startIcon: loadingSubmitResponse && (
+            <CircularProgress color="secondary" size={20} />
+          ),
+        },
+      ];
+    },
+  );
+
+  handleExplanationChange = (event: React.ChangeEvent) => {
+    const target = event.target as HTMLInputElement;
+    this.setState({ pauseExplanation: target.value });
+  };
+
+  handleFromDateChange = (nextDate: string) => {
+    this.setState({ fromDate: nextDate });
+  };
+
+  handleUntilDateChange = (nextDate: string) => {
+    this.setState({ untilDate: nextDate });
+  };
+
+  onSubmitSuccess = () => {
+    this.setState((prevState: State) => ({
+      submitResults: {
+        resultIdentifier: PAUSE_RESULT_SUCCESS,
+        subscriberName: this.props.subscription.memberName,
+        subscriptionName: this.props.subscription.name,
+        dateStart: moment(prevState.fromDate).format('L'),
+        dateEnd: moment(prevState.untilDate).format('L'),
+      },
+      openDialogResult: true,
+      loadingSubmitResponse: false,
+    }));
+    setTimeout(this.props.updateEventList, 6000);
+  };
+
+  onSubmitError = (error: any) => {
+    const params = {
+      resultIdentifier: PAUSE_RESULT_FAIL_UNKNOWN_ERROR,
+      dateStart: '',
+      dateEnd: '',
+    };
+    if (error && error.response && error.response.status === 499) {
+      params.resultIdentifier =
+        error.response.data?.error_code || PAUSE_RESULT_FAIL_UNKNOWN_ERROR;
+      if (error.response.data?.error_data) {
+        const { pause_overlapped_from_date, days } =
+          error.response.data.error_data;
+        params.dateStart = moment(pause_overlapped_from_date).format('L');
+        params.dateEnd = moment(pause_overlapped_from_date)
+          .add(days - 1, 'days')
+          .format('L');
+      }
+    }
+    this.setState({
+      submitResults: {
+        subscriberName: this.props.subscription.memberName,
+        subscriptionName: this.props.subscription.name,
+        ...params,
+      },
+      openDialogResult: true,
+      loadingSubmitResponse: false,
+    });
+  };
+
+  onSubmit = () => {
+    let data: PauseRequestData = {
+      from_date: this.state.fromDate,
+      days: moment(this.state.untilDate).diff(this.state.fromDate, 'days') + 1,
+      name: this.state.pauseExplanation,
+    };
+    if (this.props.pauseBeingEdited) {
+      data = {
+        ...data,
+        pause_id: this.props.pauseBeingEdited.id,
+      };
+    }
+    this.props.onSubmit(data, {
+      onSuccess: this.onSubmitSuccess,
+      onError: this.onSubmitError,
+    });
+  };
+
+  onSubmitClick = () => {
+    this.setState({ loadingSubmitResponse: true }, this.onSubmit);
+  };
+
+  render() {
+    const { classes, t, pauseBeingEdited } = this.props;
+    const deltaDays = Math.round(
+      moment(this.state.untilDate).diff(this.state.fromDate, 'days', true),
+    );
+    const isDateRangeValid = deltaDays >= 0;
+    const buttons = this.getFormButtons(
+      !!this.state.pauseExplanation,
+      isDateRangeValid,
+      this.state.loadingSubmitResponse,
+    );
+    const disableDateStartEdit =
+      !!pauseBeingEdited &&
+      Math.round(
+        moment(pauseBeingEdited?.from_date).diff(moment(), 'days', true),
+      ) < 0;
+    return (
+      <>
+        <CustomMuiDialog
+          open={this.props.openForm && !this.state.openDialogResult}
+          title={t(
+            `pause.dialogs.form.${
+              pauseBeingEdited ? 'titleEdition' : 'titleCreation'
+            }`,
+          )}
+          buttons={buttons}
+        >
+          <div className={classes.formContainer}>
+            <TextField
+              placeholder={t('pause.dialogs.form.causePlaceholder')}
+              value={this.state.pauseExplanation}
+              onChange={this.handleExplanationChange}
+              disabled={!!pauseBeingEdited}
+            />
+            <Divider variant="fullWidth" className={classes.divider} />
+            <div className={classes.durationContainer}>
+              <AccessTime fontSize="small" className={classes.durationIcon} />
+              <Typography variant="h6">
+                {t('pause.dialogs.form.duration.title')}
+              </Typography>
+            </div>
+            <PauseFormDateRange
+              dateStart={this.state.fromDate}
+              dateEnd={this.state.untilDate}
+              setDateStart={
+                disableDateStartEdit ? undefined : this.handleFromDateChange
+              }
+              setDateEnd={this.handleUntilDateChange}
+              isDateRangeValid={isDateRangeValid}
+            />
+            <div className={classes.informationContainer}>
+              <InfoGenericBox
+                variant="contained"
+                type="info"
+                content={t('pause.dialogs.form.information', {
+                  dateStart: moment(this.state.fromDate).format('L'),
+                  dateEnd: moment(this.state.untilDate).format('L'),
+                  count: deltaDays + 1,
+                })}
+                variantIcon="outlined"
+                alignItems="center"
+                className={classes.informationBox}
+              />
+              <InfoGenericBox
+                variant="contained"
+                type="info"
+                content={t('pause.dialogs.form.information2')}
+                variantIcon="outlined"
+                alignItems="center"
+                className={classes.informationBox}
+              />
+            </div>
+          </div>
+        </CustomMuiDialog>
+        {this.state.openDialogResult && (
+          <PauseResultDialog
+            openDialog={this.state.openDialogResult}
+            closeAllDialogs={this.closeFormAndResultDialogs}
+            backToPreviousDialog={this.backToFormDialog}
+            results={this.state.submitResults}
+          />
+        )}
+      </>
+    );
+  }
+}
+
+const styles: any = (theme: Theme) => ({
+  divider: {
+    marginTop: theme.spacing(2),
+  },
+  durationContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+  },
+  durationIcon: {
+    marginRight: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  },
+  formContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  informationBox: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  informationContainer: {
+    marginTop: theme.spacing(1),
+  },
+});
+
+export default compose<any, OwnProps>(
+  withTranslation('subscription'),
+  withStyles(styles),
+)(PauseFormDialog);

@@ -27,6 +27,7 @@ import {
   getBasket,
 } from '../../libs/checkout/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { EventListParams } from '#libs/event/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -57,7 +58,7 @@ const styles = (theme: Theme) =>
 type OwnProps = {
   id: number;
   selectedBasketId?: string;
-  fetchBasketEventList: (memberId: number) => void;
+  fetchBasketEventList: (params: EventListParams) => void;
   eventList: Array<any>;
   eventPage: number;
   eventLoading: boolean;

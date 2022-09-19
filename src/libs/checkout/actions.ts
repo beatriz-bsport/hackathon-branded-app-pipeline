@@ -25,7 +25,8 @@ import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
 import { CheckoutItemData, Basket } from './types';
 import { COMPANY_EVENTS } from './event.utils';
-import { fetchEventList } from '../event/actions';
+import { fetchEventList } from '#libs/event/actions';
+import { EventListParams } from '#libs/event/types';
 
 export const currentBasket = {
   error: createAction('CHECKOUT_BASKET/CURRENT/ERROR'),
@@ -305,7 +306,7 @@ export function fetchBasketGeneratedObjects(
 }
 
 export const fetchBasketEventList = (
-  params: any = {},
+  params: EventListParams = {},
   options: OptionCallback,
 ) =>
   fetchEventList(

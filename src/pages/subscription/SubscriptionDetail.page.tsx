@@ -68,7 +68,7 @@ import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
-import { Subscription } from '#libs/subscription/types';
+import { Subscription, PauseRequestData } from '#libs/subscription/types';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
@@ -136,14 +136,13 @@ export class SubscriptionDetail extends Component<Props> {
           requestUpdatePrice={this.props.updatePlannedInvoicePrice}
           plannedInvoiceUpdateLoading={this.props.plannedInvoiceUpdateLoading}
           cancelPause={this.props.cancelPause}
-          requestScheduledStop={(plannedInvoiceId) => {
+          requestScheduledStop={(plannedInvoiceId?: number) => {
             if (plannedInvoiceId) {
               this.props.flagPlannedInvoiceAsLast(plannedInvoiceId);
             } else {
               this.props.setScheduledStopDialogOpen(true);
             }
           }}
-          requestFreeze={() => this.props.setFreezeDialogOpen(true)}
           unflagPlannedInvoiceAsLast={this.props.unflagPlannedInvoiceAsLast}
         />
         {this.props.switchPackDialogOpen ? (
@@ -426,13 +425,13 @@ const mapWithHandlers1 = {
 
   freezeSubscription:
     ({ id, freezeSubscription, setFreezeDialogOpen }: BeforeHandlerProps) =>
-    (data: any, options: OptionCallback<Subscription>) => {
+    (data: PauseRequestData, options: OptionCallback<any>) => {
       const options_ = {
-        onSuccess: (...args) => {
+        onSuccess: (...args: any) => {
           if (options && options.onSuccess) options.onSuccess(...args);
           setFreezeDialogOpen(false);
         },
-        onError: (err) => {
+        onError: (err: any) => {
           if (options && options.onError) options.onError(err);
         },
       };
@@ -451,8 +450,8 @@ const mapWithHandlers2 = {
     ({ cancelPause, fetchSubscription, id }: BeforeHandlerProps) =>
     (pauseId: number, options: OptionCallback<Subscription>) => {
       cancelPause(id, pauseId, {
-        onSuccess: () => {
-          if (options && options.onSuccess) options.onSuccess();
+        onSuccess: (args?: Subscription) => {
+          if (options && options.onSuccess) options.onSuccess(args);
           fetchSubscription();
         },
         onError: () => {
@@ -462,7 +461,13 @@ const mapWithHandlers2 = {
     },
   updatePlannedInvoiceDate:
     ({ updatePlannedInvoiceDate, fetchSubscription, id }: BeforeHandlerProps) =>
-    (data: any, options: OptionCallback<Subscription>) => {
+    (
+      data: {
+        date: string;
+        planned_invoice: number;
+      },
+      options: OptionCallback<Subscription>,
+    ) => {
       updatePlannedInvoiceDate(id, data, {
         onSuccess: () => {
           if (options && options.onSuccess) options.onSuccess();
@@ -491,10 +496,18 @@ const mapWithHandlers2 = {
       id,
       fetchSubscription,
     }: BeforeHandlerProps) =>
-    (data: any, options: OptionCallback<Subscription>) => {
+    (
+      data: {
+        planned_invoice: number;
+        price: string;
+        update_all: boolean;
+        update_recurrent_price: boolean;
+      },
+      options: OptionCallback<Subscription>,
+    ) => {
       updatePlannedInvoicePrice(id, data, {
-        onSuccess: (...args) => {
-          options && options.onSuccess(...args);
+        onSuccess: (args: any) => {
+          options && options.onSuccess(args);
           fetchSubscription();
         },
         onError: options.onError,

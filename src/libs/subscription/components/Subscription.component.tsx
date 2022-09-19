@@ -7,22 +7,31 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-import EventPanel from '../../event/components/EventPanel.component';
+import EventPanel from '#libs/event/components/EventPanel.component';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import PlannedInvoiceListDetail from './PlannedInvoiceListDetail.component';
 import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
 import SubscriptionActionsV2 from './SubscriptionActionsV2.component';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod.component';
-import { Subscription } from '../types';
+import { Subscription, PauseRequestData } from '../types';
 
-import { COMPANY_EVENTS } from './event.utils';
+import { COMPANY_EVENTS } from '../event.utils';
 import { OptionCallback } from '../../../state/types';
+import { EventListParams } from '#libs/event/types';
 
 type Props = {
   subscription: Subscription;
   loading: boolean;
 
-  requestUpdatePrice: (PlannedInvoice) => void;
+  requestUpdatePrice: (
+    data: {
+      planned_invoice: number;
+      price: string;
+      update_all: boolean;
+      update_recurrent_price: boolean;
+    },
+    options?: OptionCallback<Subscription>,
+  ) => void;
   plannedInvoiceUpdateLoading?: boolean;
   updateSubscriptionRenewal: ({
     auto_renewal,
@@ -33,8 +42,7 @@ type Props = {
   requestPrivatePassSwitch: () => void;
   requestPaymentComboSwitch: () => void;
   requestPaymentMethodSwitch: () => void;
-  requestStop: () => void;
-  requestScheduledStop: () => void;
+  requestScheduledStop: (plannedInvoiceId?: number) => void;
 
   goToInvoice: (uuid: string) => void;
   goToSubscribe: (id: number) => void;
@@ -43,19 +51,18 @@ type Props = {
   eventPage: number;
   eventList: Array<any>;
   eventLoading: boolean;
-  fetchSubscriptionEventList: ({
-    page,
-    page_size,
-    billing_plan,
-  }: {
-    page: number;
-    page_size: number;
-    billing_plan: number;
-  }) => void;
+  fetchSubscriptionEventList: (params: EventListParams) => void;
   unflagPlannedInvoiceAsLast: (id: number) => void;
 
-  updateDate: (data: any, options: OptionCallback) => void;
-  cancelPause: (id: number, options: OptionCallback<Subscription>) => void;
+  updateDate: (
+    data: {
+      date: string;
+      planned_invoice: number;
+    },
+    options: OptionCallback,
+  ) => void;
+  cancelPause: (id: number, options?: OptionCallback<Subscription>) => void;
+  requestPause: (data: PauseRequestData, options: OptionCallback<any>) => void;
   paymentMethodLoading?: boolean;
 };
 
@@ -66,8 +73,17 @@ export function SubscriptionComponent(props: Props) {
     return null;
   }
   const pauseListV1 = props.subscription.pauses.filter(
-    (p) => !p.first_paused_planned_invoice,
+    (p) => !p.first_paused_planned_invoice && p.version === 'v1',
   );
+
+  const updateEventListOnEventSuccess = () => {
+    props.fetchSubscriptionEventList({
+      page: 1,
+      page_size: 10,
+      object_id: props.subscription.id,
+      event_types: Object.keys(COMPANY_EVENTS),
+    });
+  };
 
   return (
     <div>
@@ -85,13 +101,12 @@ export function SubscriptionComponent(props: Props) {
             requestUpdatePrice={props.requestUpdatePrice}
             plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
             cancelPause={props.cancelPause}
+            updatePause={props.requestPause}
             toogleAutoRenew={props.updateSubscriptionRenewal}
             updateDate={props.updateDate}
             onRequestScheduledStop={props.requestScheduledStop}
             unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
-            subscriptionHasEnded={
-              props.subscription.has_ended || props.subscription.canceled_at
-            }
+            updateEventList={updateEventListOnEventSuccess}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -119,13 +134,8 @@ export function SubscriptionComponent(props: Props) {
           <SubscriptionActionsV2
             subscription={props.subscription}
             requestPause={props.requestPause}
-            requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
-            requestPaymentPackSwitch={props.requestPaymentPackSwitch}
-            requestPrivatePassSwitch={props.requestPrivatePassSwitch}
-            requestPaymentComboSwitch={props.requestPaymentComboSwitch}
-            requestStop={props.requestStop}
             requestScheduledStop={props.requestScheduledStop}
-            unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
+            updateEventList={updateEventListOnEventSuccess}
           />
           <Paper>
             <EventPanel

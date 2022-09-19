@@ -1,6 +1,6 @@
-// @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { WithStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,40 +10,52 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
-import { withTranslation, TFunction } from 'react-i18next';
-
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { OptionCallback } from '../../../state/types';
+import {
+  EventListParams,
+  SubscriptionEvent,
+  SubscriptionEventSpec,
+} from '../types';
 import EventListItem from './EventListItem.component';
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
 
-type Props = {
-  t: TFunction,
-  fetchEventPage: (page: number, filters?: Array<string>) => void,
-  classes: Object,
-  eventSpec: EventSpec,
-  loading: boolean,
-  page: number,
-  onEventClick: (id: number) => void,
-  eventList: Array<Event>,
-  extraFetchParams: any,
+type OwnProps = {
+  fetchEventList: (params: EventListParams, options?: OptionCallback) => void;
+  eventSpec: SubscriptionEventSpec;
+  loading: boolean;
+  page: number;
+  onEventClick?: (id: number) => void;
+  eventList: Array<SubscriptionEvent>;
+  extraFetchParams: any;
 };
 
+type WithHandlerType = {
+  fetchEventPage: (page: number, eventTypeList?: Array<string>) => void;
+};
+
+type Props = OwnProps & WithTranslation & WithStyles & WithHandlerType;
+
 type State = {
-  actionFilterList: Array<string>,
-  openFilters: ?HTMLElement,
+  actionFilterList: Array<string>;
+  openFilters?: HTMLElement;
 };
 
 export class SubscriptionEventPanel extends React.Component<Props, State> {
-  state = {
-    actionFilterList: [],
-    openFilters: null,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      actionFilterList: [],
+      openFilters: null,
+    };
+  }
 
   componentDidUpdate(prevProps: Props) {
     if (
       prevProps.extraFetchParams?.object_id !==
       this.props.extraFetchParams?.object_id
     ) {
-      this.fetchEventPageFiltered(1, this.state.actionFilterList);
+      this.fetchEventPageFiltered(1);
     }
   }
 
@@ -124,7 +136,7 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
           items={this.props.eventList}
           page={this.props.page}
           onPageRequested={this.fetchEventPageFiltered}
-          renderItem={(event) => (
+          renderItem={(event: SubscriptionEvent) => (
             <EventListItem
               event={event}
               eventSpec={this.props.eventSpec}
@@ -138,7 +150,7 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles: any = (theme: Theme) => ({
   row: {
     display: 'flex',
     paddingLeft: theme.spacing(2),
@@ -159,13 +171,13 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['event']),
   withStyles(styles),
   withHandlers({
     fetchEventPage:
       ({ fetchEventList, eventSpec, extraFetchParams }) =>
-      (page, eventTypeList) =>
+      (page: number, eventTypeList?: Array<string>) =>
         fetchEventList({
           page,
           page_size: 10,

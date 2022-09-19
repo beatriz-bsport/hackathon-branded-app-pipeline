@@ -121,7 +121,7 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
               label: t('genericProduct.templateCard.buttons.update'),
             },
             {
-              onClick: onDeleteTemplate,
+              onClick: () => setOpenDeleteTemplateDialog(true),
               className: classes.button,
               label: t('genericProduct.templateCard.buttons.delete'),
               redButton: true,

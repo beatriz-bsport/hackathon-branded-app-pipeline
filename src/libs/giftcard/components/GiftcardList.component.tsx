@@ -25,10 +25,10 @@ export function GiftcardList(props: Props) {
             <GiftcardListItem
               divider={divider}
               giftcard={card}
-              onDuplicate={onDuplicate}
+              onDuplicate={card.is_shared_giftcard ? undefined : onDuplicate}
               onEdit={onEdit}
-              onRemove={onRemove}
-              onRestore={onRestore}
+              onRemove={card.is_shared_giftcard ? undefined : onRemove}
+              onRestore={card.is_shared_giftcard ? undefined : onRestore}
               onClick={onClick}
               key={`${i}-${card.name}`}
             />

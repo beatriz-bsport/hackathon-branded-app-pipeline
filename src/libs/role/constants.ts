@@ -122,6 +122,7 @@ export const FRANCHISE_URLS_PERMISSIONS: Record<
   '/f/settings/notification-rule': ['franchiseMenu.notificationRules'],
   '/f/payment-pack-template': ['franchiseMenu.products.paymentPacksTemplates'],
   '/f/private-pass-template': ['franchiseMenu.products.privatePassTemplates'],
+  '/f/giftcard-template': ['franchiseMenu.products.giftcardTemplates'],
   '/f/reporting': ['franchiseMenu.reporting'],
   '/f/settings/staff': ['franchiseMenu.staff'],
   '/f/settings/role': ['franchiseMenu.staff'],

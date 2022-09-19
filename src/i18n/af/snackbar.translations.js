@@ -28,6 +28,8 @@ const {
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH,
   CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR,
   PRIVATE_SLOT_ALREADY_BOOKED,
+  GIFTCARD_CAN_NOT_BE_BOUGHT_DISABLED,
+  GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY,
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 const {
   PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE,
@@ -50,6 +52,10 @@ const {
 
 const {
   INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
+  GIFTCARD_ACTIVATION_CODE_ERROR_CODE,
+  GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED,
+  GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED,
+  GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER,
 } = require('@bsport/common/lib/master-data/error-codes/giftcard');
 const {
   EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN,
@@ -120,6 +126,10 @@ exports.default = {
       'Votre carte de cours ne permet plus de réserver ce mois',
     [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR]:
       'Votre carte de cours ne permet plus de réserver cette année',
+    [GIFTCARD_CAN_NOT_BE_BOUGHT_DISABLED]:
+      "La carte cadeau n'est plus disponible à la vente.",
+    [GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
+      "La carte cadeau n'est plus disponible à la vente.",
   },
   offer: {
     restore: {
@@ -193,6 +203,15 @@ exports.default = {
       errors: {
         [INVOICE_PAYMENT_BY_GIFTCARD_ERROR]:
           'Impossible de régler cette facture avec cette carte cadeau',
+        [GIFTCARD_ACTIVATION_CODE_ERROR_CODE]:
+          "Le code d'activation de la carte n'est pas le bon.",
+        [GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED]:
+          'La carte cadeau a été désactivée.',
+        [GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED]:
+          'La carte cadeau a déjà été activée',
+        [GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER]:
+          'Impossible de reconnaître le membre qui souhaite activer la carte.',
+        generic: "Impossible d'activer la carte cadeau",
       },
     },
   },

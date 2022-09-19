@@ -19,6 +19,13 @@ import {
   deleteGiftcardBackgroundImageActions,
   restoreGiftcardActions,
   listBulkGiftcardActions,
+  listGiftcardTemplateActions,
+  createGiftcardTemplateActions,
+  updateGiftcardTemplateActions,
+  deleteGiftcardTemplateActions,
+  retrieveGiftcardTemplateActions,
+  createGiftcardTemplateInstanceActions,
+  deleteGiftcardTemplateInstanceActions,
 } from './actions';
 
 import type {
@@ -26,6 +33,7 @@ import type {
   Giftcard,
   ConsumerGiftcard,
   GiftcardBackgroundImage,
+  GiftcardTemplate,
 } from './types';
 
 const initialState: Immutable.Immutable<GiftcardState> =
@@ -64,6 +72,20 @@ const initialState: Immutable.Immutable<GiftcardState> =
       loading: false,
       error: null,
     },
+    giftcardTemplate: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      list: {
+        loading: false,
+        error: null,
+      },
+      instances: {
+        loading: false,
+        error: null,
+      },
+    },
   });
 
 export default handleActions(
@@ -99,15 +121,18 @@ export default handleActions(
       return state
         .setIn(
           ['giftcard', 'allIds'],
-          payload.map((g) => g.id),
+          payload.map((g: Giftcard) => g.id),
         )
         .merge(
           {
             giftcard: {
-              byId: payload.reduce((acc: { [id: number]: Giftcard }, g) => {
-                acc[g.id] = g;
-                return acc;
-              }, {}),
+              byId: payload.reduce(
+                (acc: { [id: number]: Giftcard }, g: Giftcard) => {
+                  acc[g.id] = g;
+                  return acc;
+                },
+                {},
+              ),
             },
           },
           { deep: true },
@@ -132,7 +157,7 @@ export default handleActions(
       return state
         .setIn(
           ['consumerGiftcard', 'allIds'],
-          payload.results.map((g) => g.id),
+          payload.results.map((g: ConsumerGiftcard) => g.id),
         )
         .setIn(['consumerGiftcard', 'page'], payload.page)
         .setIn(['consumerGiftcard', 'count'], payload.count)
@@ -140,7 +165,10 @@ export default handleActions(
           {
             consumerGiftcard: {
               byId: payload.results.reduce(
-                (acc: { [id: number]: ConsumerGiftcard }, g) => {
+                (
+                  acc: { [id: number]: ConsumerGiftcard },
+                  g: ConsumerGiftcard,
+                ) => {
                   acc[g.id] = g;
                   return acc;
                 },
@@ -170,13 +198,16 @@ export default handleActions(
       return state
         .setIn(
           ['giftcardBackgroundImage', 'allIds'],
-          payload.map((g) => g.id),
+          payload.map((g: GiftcardBackgroundImage) => g.id),
         )
         .merge(
           {
             giftcardBackgroundImage: {
               byId: payload.reduce(
-                (acc: { [id: number]: GiftcardBackgroundImage }, g) => {
+                (
+                  acc: { [id: number]: GiftcardBackgroundImage },
+                  g: GiftcardBackgroundImage,
+                ) => {
                   acc[g.id] = g;
                   return acc;
                 },
@@ -226,7 +257,7 @@ export default handleActions(
       return state
         .setIn(
           ['consumerGiftcard', 'asSender', 'allIds'],
-          payload.results.map((g) => g.id),
+          payload.results.map((g: ConsumerGiftcard) => g.id),
         )
         .setIn(['consumerGiftcard', 'asSender', 'page'], payload.page)
         .setIn(['consumerGiftcard', 'asSender', 'count'], payload.count)
@@ -234,7 +265,10 @@ export default handleActions(
           {
             consumerGiftcard: {
               byId: payload.results.reduce(
-                (acc: { [id: number]: ConsumerGiftcard }, g) => {
+                (
+                  acc: { [id: number]: ConsumerGiftcard },
+                  g: ConsumerGiftcard,
+                ) => {
                   acc[g.id] = g;
                   return acc;
                 },
@@ -304,6 +338,125 @@ export default handleActions(
         },
         { deep: true },
       );
+    },
+    [listGiftcardTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'list', 'loading'], payload);
+    },
+    [listGiftcardTemplateActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['giftcardTemplate', 'list', 'error'], payload);
+    },
+    [listGiftcardTemplateActions.success.toString()]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['giftcardTemplate', 'allIds'],
+          payload.map((gt: GiftcardTemplate) => gt.id),
+        )
+        .merge(
+          {
+            giftcardTemplate: {
+              byId: payload.reduce(
+                (
+                  acc: { [id: number]: GiftcardTemplate },
+                  gt: GiftcardTemplate,
+                ) => {
+                  acc[gt.id] = gt;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [createGiftcardTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'loading'], payload);
+    },
+    [createGiftcardTemplateActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['giftcardTemplate', 'error'], payload);
+    },
+    [createGiftcardTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['giftcardTemplate', 'allIds'],
+          [...state.giftcardTemplate.allIds, payload.id],
+        )
+        .setIn(['giftcardTemplate', 'byId', payload.id], payload);
+    },
+    [updateGiftcardTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'byId', payload.id], payload);
+    },
+    [deleteGiftcardTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'loading'], payload);
+    },
+    [deleteGiftcardTemplateActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['giftcardTemplate', 'error'], payload);
+    },
+    [deleteGiftcardTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['giftcardTemplate', 'allIds'],
+        state.giftcardTemplate.allIds.filter((id: number) => id !== payload),
+      );
+    },
+    [retrieveGiftcardTemplateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'loading'], payload);
+    },
+    [retrieveGiftcardTemplateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'error'], payload);
+    },
+    [retrieveGiftcardTemplateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'byId', payload.id], payload);
+    },
+    [createGiftcardTemplateInstanceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'instances', 'loading'], payload);
+    },
+    [createGiftcardTemplateInstanceActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'instances', 'error'], payload);
+    },
+    [deleteGiftcardTemplateInstanceActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'instances', 'loading'], payload);
+    },
+    [deleteGiftcardTemplateInstanceActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['giftcardTemplate', 'instances', 'error'], payload);
     },
   },
   initialState,

@@ -9,27 +9,25 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import GiftIcon from '@material-ui/icons/Redeem';
 import moment from 'moment-timezone';
-import Tooltip from '@material-ui/core/Tooltip';
 import EmailIcon from '@material-ui/icons/Email';
+import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
 
 import Typography from '@material-ui/core/Typography';
-import { Giftcard, ConsumerGiftcard } from '../types';
+import Tooltip from '#components/Tooltip.component';
+import { Giftcard, ConsumerGiftcard, GiftcardTemplate } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Member } from '../../member/types';
 
 type SenderProps = {
-  giftcard: Giftcard;
+  giftcard: Giftcard | GiftcardTemplate;
   consumerGiftcard: ConsumerGiftcard;
-  onClick: (
-    consumerGiftcardId: number,
-    giftcardId: number,
-    memberId: number,
-  ) => void;
+  onClick: (consumerGiftcardId: number, memberId: number) => void;
   selected?: boolean;
   memberSender?: Member;
   showMember?: boolean;
+  disableItemIfNoMember?: boolean;
 };
 
 const GiftcardSender = (props: SenderProps) => {
@@ -41,12 +39,14 @@ const GiftcardSender = (props: SenderProps) => {
       button={!!props.onClick}
       onClick={
         props.onClick &&
+        props.consumerGiftcard?.id &&
+        props.memberSender?.id &&
         (() =>
-          props.onClick(
-            props.consumerGiftcard?.id,
-            props.giftcard?.id,
-            props.memberSender?.id,
-          ))
+          props.onClick(props.consumerGiftcard?.id, props.memberSender?.id))
+      }
+      disabled={
+        props.disableItemIfNoMember &&
+        (!props.consumerGiftcard?.id || !props.memberSender?.id)
       }
     >
       {!!props.showMember && (
@@ -87,17 +87,15 @@ const GiftcardSender = (props: SenderProps) => {
 };
 
 type ReceiverProps = {
-  giftcard: Giftcard;
+  giftcard: Giftcard | GiftcardTemplate;
   consumerGiftcard: ConsumerGiftcard;
-  onClick: (
-    consumerGiftcardId: number,
-    giftcardId: number,
-    memberId: number,
-  ) => void;
+  onClick: (consumerGiftcardId: number, memberId: number) => void;
   selected?: boolean;
   memberReceiver?: Member;
   showMember?: boolean;
   onClickSendInvitation?: () => void;
+  sharedFromFranchisor?: boolean;
+  disableItemIfNoMember?: boolean;
 };
 
 const GiftcardReceiver = (props: ReceiverProps) => {
@@ -119,8 +117,8 @@ const GiftcardReceiver = (props: ReceiverProps) => {
         }
       >
         {`${(
-          props.consumerGiftcard.price_bought -
-          props.consumerGiftcard.consumed_amount_gifted
+          parseFloat(props.consumerGiftcard.price_bought) -
+          parseFloat(props.consumerGiftcard.consumed_amount_gifted)
         ).toFixed(2)}
         /${getCurrencyDisplayWithPrice(props.consumerGiftcard.price_bought)}`}
       </span>
@@ -151,15 +149,17 @@ const GiftcardReceiver = (props: ReceiverProps) => {
       selected={props.selected}
       onClick={
         props.onClick &&
+        props.consumerGiftcard?.id &&
+        props.memberReceiver?.id &&
         (() =>
-          props.onClick(
-            props.consumerGiftcard?.id,
-            props.giftcard?.id,
-            props.memberReceiver?.id,
-          ))
+          props.onClick(props.consumerGiftcard?.id, props.memberReceiver?.id))
+      }
+      disabled={
+        props.disableItemIfNoMember &&
+        (!props.consumerGiftcard?.id || !props.memberReceiver?.id)
       }
     >
-      {!!props.showMember && !!props.consumerGiftcard.est_member && (
+      {!!props.showMember && !!props.consumerGiftcard.dst_member && (
         <ListItemAvatar>
           <Avatar alt="member" src={props.memberReceiver?.photo} />
         </ListItemAvatar>
@@ -192,6 +192,13 @@ const GiftcardReceiver = (props: ReceiverProps) => {
         }
         secondary={status}
       />
+      {!!props.sharedFromFranchisor && (
+        <div className={classes.infoIcon}>
+          <Tooltip title={t('giftcardTemplate.sharedCard')}>
+            <InfoIcon color="action" />
+          </Tooltip>
+        </div>
+      )}
       {!!props.onClickSendInvitation && !props.consumerGiftcard?.reverted && (
         <Tooltip title={t('consumerGiftcard.sendTo')}>
           <IconButton color="primary" onClick={props.onClickSendInvitation}>
@@ -205,13 +212,31 @@ const GiftcardReceiver = (props: ReceiverProps) => {
 
 type ContainerProps = {
   leftComponent: (selected: boolean) => any;
-  rightComponent: () => any;
+  rightComponent: (selected_: boolean) => any;
   reverseArrow: boolean;
   selected: boolean;
+} & StyleProps;
+
+type StyleProps = {
+  reverted: boolean;
+  divider: boolean;
 };
 
+const useContainerStyles = makeStyles(() => ({
+  container: (props: StyleProps) => ({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+    backgroundColor: props?.reverted ? 'rgba(255, 0, 0, 0.1)' : 'transparent',
+    borderBottom: props?.divider ? '1px solid #DEDEDE' : '',
+  }),
+}));
+
 const Container = (props: ContainerProps) => {
-  const classes = useStyles(props);
+  const { reverted, divider } = props;
+  const classes = useContainerStyles({ reverted, divider });
   return (
     <div className={classes.container}>
       {props.leftComponent(props.selected)}
@@ -220,32 +245,27 @@ const Container = (props: ContainerProps) => {
       ) : (
         <ArrowForwardIcon style={{ color: 'gray' }} />
       )}
-      {props.rightComponent()}
+      {props.rightComponent(props.selected)}
     </div>
   );
 };
 
 type Props = {
-  giftcard: Giftcard;
+  giftcard: Giftcard | GiftcardTemplate;
   consumerGiftcard: ConsumerGiftcard;
   memberSender?: Member;
   memberReceiver?: Member;
   showAsRecipient?: boolean;
   showSender?: boolean;
   showReceiver?: boolean;
-  onClickSender: (
-    consumerGiftcardId: number,
-    giftcardId: number,
-    memberId: number,
-  ) => void;
-  onClickReceiver: (
-    consumerGiftcardId: number,
-    giftcardId: number,
-    memberId: number,
-  ) => void;
+  onClickSender?: (consumerGiftcardId: number, memberId: number) => void;
+  onClickReceiver?: (consumerGiftcardId: number, memberId: number) => void;
   onClickSendInvitation?: () => void;
   selected?: boolean;
   divider?: boolean;
+  disabled?: boolean;
+  sharedFromFranchisor?: boolean;
+  disableItemIfNoMember?: boolean;
 };
 
 const ConsumerGiftcardListItem = React.memo((props: Props) => {
@@ -262,6 +282,8 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
     onClickSendInvitation,
     selected,
     divider,
+    sharedFromFranchisor,
+    disableItemIfNoMember,
   } = props;
 
   if (!giftcard) return null;
@@ -271,12 +293,12 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
   const sender = (selected_: boolean) => (
     <GiftcardSender
       consumerGiftcard={consumerGiftcard}
-      memberReceiver={memberReceiver}
       selected={selected_}
       memberSender={memberSender}
       giftcard={giftcard}
       showMember={showSender}
       onClick={onClickSender}
+      disableItemIfNoMember={disableItemIfNoMember}
     />
   );
   const receiver = (selected_: boolean) => (
@@ -284,11 +306,12 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
       selected={selected_}
       consumerGiftcard={consumerGiftcard}
       memberReceiver={memberReceiver}
-      memberSender={memberSender}
       giftcard={giftcard}
       showMember={showReceiver}
       onClick={onClickReceiver}
       onClickSendInvitation={onClickSendInvitation}
+      sharedFromFranchisor={sharedFromFranchisor}
+      disableItemIfNoMember={disableItemIfNoMember}
     />
   );
 
@@ -305,15 +328,6 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
 });
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: (props) => ({
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
-    backgroundColor: props.reverted ? 'rgba(255, 0, 0, 0.1)' : 'transparent',
-    borderBottom: props.divider ? '1px solid #DEDEDE' : '',
-  }),
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -329,6 +343,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   primaryText: {
     color: theme.palette.primary.main,
+  },
+  infoIcon: {
+    margin: theme.spacing(1.5),
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 

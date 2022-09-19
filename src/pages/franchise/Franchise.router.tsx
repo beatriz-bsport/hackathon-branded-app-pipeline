@@ -66,6 +66,9 @@ const FranchisePrivatePassTemplateRouter = asyncComponent(
 const FranchiseCouponTemplateRouter = asyncComponent(
   () => import('./coupon-template/FranchiseCouponTemplate.router'),
 );
+const FranchiseGiftcardTemplateRouter = asyncComponent(
+  () => import('./giftcard-template/FranchiseGiftcardTemplate.router'),
+);
 const WidgetGeneratorPage = asyncComponent(
   () => import('../settings/WidgetGenerator.page'),
 );
@@ -144,6 +147,7 @@ const FranchiseRouter = (props: Props) => {
           disconnect={disconnect}
           push={pushRouter}
           franchisePermissions={franchisePermissions}
+          syncMembersAcrossCompanies={franchisor.sync_members_across_companies}
         >
           <Switch>
             <Route
@@ -182,6 +186,12 @@ const FranchiseRouter = (props: Props) => {
               path="/f/coupon-template"
               component={FranchiseCouponTemplateRouter}
             />
+            {franchisor.sync_members_across_companies && (
+              <Route
+                path="/f/giftcard-template"
+                component={FranchiseGiftcardTemplateRouter}
+              />
+            )}
             <Route
               path="/f/settings/notification-rule/:notificationId?"
               component={FranchiseNotificationRulesPage}

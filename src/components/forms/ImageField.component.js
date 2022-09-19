@@ -48,6 +48,7 @@ type Props = {
   id: number,
   children?: React.ReactChild,
   subHelper?: string,
+  disabled?: boolean,
 };
 type State = {
   previewUrl: string,
@@ -88,6 +89,7 @@ export class ImageField extends Component<Props, State> {
                   className={classes.input}
                   {...getInputProps()}
                   type="file"
+                  disabled={this.props.disabled}
                 />
                 <label
                   htmlFor={this.props.id || 'avatar-loader-button'}

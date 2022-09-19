@@ -1945,11 +1945,13 @@
         "fuzzyPlaceholder": "Rechercher une carte cadeau"
       },
       "template": {
-        "deleteDialogContent": "En désactivant une carte cadeau partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel elle a été achetée.",
-        "validity": "Valable {{count}} jour ",
-        "validity_plural": "Valable {{count}} jours ",
-        "validityDetail": "Valide {{count}} jour à partir de la date de facturation",
-        "validityDetail_plural": "Valide {{count}} jours à partir de la date de facturation",
+        "deleteTemplateContent": "En désactivant une carte cadeau partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel elle a été achetée.",
+        "deleteInstanceContent1": "En désactivant ce studio du partage de la carte cadeau, tous les membres possédant cette carte et l'ayant reçue d'un membre qui a acheté la carte dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios.",
+        "deleteInstanceContent2": "Enfin, les cartes ayant été achetées dans les autres studios ne seront plus utilisables dans le studio désactivé, quelle que soit la date d'achat.",
+        "validity": "Valable {{count}} jour",
+        "validity_plural": "Valable {{count}} jours",
+        "validityDetail": "Validité avant expiration : {{count}} jour",
+        "validityDetail_plural": "Validité avant expiration : {{count}} jours",
         "unlimited": "Illimitée",
         "withoutTax": "Hors taxe"
       }
@@ -7381,7 +7383,8 @@
       "6002": "La liste d'attente est pleine",
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "La carte cadeau n'est plus disponible à la vente."
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
@@ -7433,7 +7436,11 @@
       "applyGiftcard": {
         "success": "Paiement par carte cadeau validé",
         "error": "Impossible de payer le montant demandé avec cette carte cadeau",
-        "errors": { "45001": "Impossible de régler cette facture avec cette carte cadeau" }
+        "errors": {
+          "45001": "Impossible de régler cette facture avec cette carte cadeau",
+          "undefined": "Impossible de reconnaître le membre qui souhaite activer la carte.",
+          "generic": "Impossible d'activer la carte cadeau"
+        }
       }
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },

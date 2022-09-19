@@ -6,36 +6,43 @@ import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
+import uniq from 'lodash/uniq';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import GiftcardFormDrawer from '../../libs/giftcard/components/GiftcardFormDrawer.component';
-import GiftcardDeleteDialog from '../../libs/giftcard/components/GiftcardDeleteDialog.component';
-import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
+import GiftcardDeleteDialog from '#libs/giftcard/components/GiftcardDeleteDialog.component';
+import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { Giftcard, ConsumerGiftcard } from '../../libs/giftcard/types';
+import {
+  Giftcard,
+  ConsumerGiftcard,
+  GiftcardDataAPI,
+  WithSender,
+  WithReceiver,
+} from '#libs/giftcard/types';
 
-import GiftcardCardDetail from '../../libs/giftcard/components/GiftcardCardDetail.component';
+import GiftcardCardDetail from '#libs/giftcard/components/GiftcardCardDetail.component';
 import {
   retrieveGiftcard,
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
   createOrUpdateGiftcard as createOrUpdateGiftcardAction,
   deleteGiftcard as deleteGiftcardActions,
 } from '../../libs/giftcard/actions';
-import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGiftcardListItem.component';
+import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
 
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
-import PaginatedListBase from '../../components/PaginatedListBase.component';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+import PaginatedListBase from '#components/PaginatedListBase.component';
+import { snackbarSuccess } from '#libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
 import {
   withSender,
   withReceiver,
   getConsumerGiftcardList,
   getGiftcard,
-} from '../../libs/giftcard/selectors';
+} from '#libs/giftcard/selectors';
 
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
 import { RootState } from '../../reducers';
@@ -58,8 +65,30 @@ type OwnProps = {
   fetchConsumerGiftcardList: (params: any) => void;
 };
 
+type StateToProps = {
+  editIsOpen: boolean;
+  deleteIsOpen: boolean;
+};
+
+type StateHandlerToProps = {
+  setEditIsOpen: (value: boolean) => void;
+  setDeleteIsOpen: (value: boolean) => void;
+};
+
+type WithHandlersType = {
+  deleteGiftcard: (options?: OptionCallback) => void;
+  updateGiftcard: (
+    data: GiftcardDataAPI,
+    options?: OptionCallback<Giftcard>,
+  ) => void;
+  fetchConsumerGiftcardList: (page: number, page_size: number) => void;
+};
+
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
+  StateToProps &
+  StateHandlerToProps &
+  WithHandlersType &
   WithStyles &
   WithTranslation;
 
@@ -112,7 +141,7 @@ export class GiftcardDetailPage extends Component<Props> {
                   <Divider />
                 </div>
               )}
-              renderItem={(cgc: ConsumerGiftcard) => (
+              renderItem={(cgc: WithSender<WithReceiver<ConsumerGiftcard>>) => (
                 <ConsumerGiftcardListItem
                   key={cgc.id}
                   consumerGiftcard={cgc}
@@ -135,7 +164,11 @@ export class GiftcardDetailPage extends Component<Props> {
           onEdit={
             this.props.giftcard ? () => this.props.setEditIsOpen(true) : null
           }
-          onDelete={() => this.props.setDeleteIsOpen(true)}
+          onDelete={
+            !this.props.giftcard?.is_shared_giftcard
+              ? () => this.props.setDeleteIsOpen(true)
+              : null
+          }
         />
         <GiftcardFormDrawer
           open={!!this.props.editIsOpen}
@@ -146,7 +179,7 @@ export class GiftcardDetailPage extends Component<Props> {
         {!!this.props.deleteIsOpen && (
           <GiftcardDeleteDialog
             open
-            giftcard={this.props.giftcard}
+            onClose={() => this.props.setDeleteIsOpen(false)}
             onSubmit={this.props.deleteGiftcard}
           />
         )}
@@ -172,11 +205,8 @@ const connector = connect(
     snackbarSuccess,
     deleteGiftcard: deleteGiftcardActions,
     goToGiftcardList: () => push('/giftcard'),
-    goToMemberGiftcard: (
-      consumerGiftcardId: number,
-      giftcardId: number,
-      memberId: number,
-    ) => push(`/member/${memberId}/giftcard/${consumerGiftcardId}`),
+    goToMemberGiftcard: (consumerGiftcardId: number, memberId: number) =>
+      push(`/member/${memberId}/giftcard/${consumerGiftcardId}`),
     fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
   },
 );
@@ -191,7 +221,7 @@ export default compose(
   withHandlers({
     deleteGiftcard:
       ({ deleteGiftcard, goToGiftcardList, id }) =>
-      (options: OptionCallback<Giftcard>) => {
+      (options?: OptionCallback<Giftcard>) => {
         deleteGiftcard(id, {
           onSuccess: (g: Giftcard) => {
             goToGiftcardList();
@@ -203,7 +233,7 @@ export default compose(
       },
     updateGiftcard:
       ({ setEditIsOpen, createOrUpdateGiftcard, id }) =>
-      (data: Giftcard, options: OptionCallback<Giftcard>) => {
+      (data: Giftcard, options?: OptionCallback<Giftcard>) => {
         createOrUpdateGiftcard(id, data, {
           onSuccess: () => {
             setEditIsOpen(false);
@@ -219,10 +249,12 @@ export default compose(
           { page, page_size, giftcard: id },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
-              fetchMemberBulkById([
-                ...consumerGiftcardList.map((cg) => cg.src_member),
-                ...consumerGiftcardList.map((cg) => cg.dst_member),
-              ]);
+              fetchMemberBulkById(
+                uniq([
+                  ...consumerGiftcardList.map((cg) => cg.src_member),
+                  ...consumerGiftcardList.map((cg) => cg.dst_member),
+                ]),
+              );
             },
           },
         );

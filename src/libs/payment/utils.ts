@@ -5,6 +5,7 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
 } from '@bsport/common/lib/master-data/payment-group';
+import { TFunction } from 'i18next';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
   paymentGroupIdentifier: number,
@@ -65,4 +66,23 @@ export const getPaymentEngineAvailableList = (
     return [PAYMENT_ENGINE_STRIPE];
   }
   return theoricalEngineAvailable;
+};
+
+export const getPaymentMethodsConcatenatedString = (
+  paymentMethodIdentifierList: number[],
+  t: TFunction,
+) => {
+  const string_payment_methods = (paymentMethodIdentifierList || []).map(
+    (identifier: number) => t(`payment:paymentMethod.${identifier}`),
+  );
+  const nbMethods = string_payment_methods.length;
+  if (nbMethods === 0) {
+    return '';
+  }
+  return string_payment_methods
+    .slice(1)
+    .reduce(
+      (acc: string, element: string) => `${acc}, ${element}`,
+      string_payment_methods[0],
+    );
 };

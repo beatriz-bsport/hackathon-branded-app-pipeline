@@ -44,6 +44,7 @@ import {
   PowerSettingsNew,
   Widgets,
   Work,
+  Redeem,
 } from '@material-ui/icons';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -95,6 +96,7 @@ type OwnProps = {
   generateTempPassword: () => void;
   fetchTempPassword: () => void;
   franchisePermissions: FranchiseRolePermission;
+  syncMembersAcrossCompanies: boolean;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -111,6 +113,7 @@ export const FranchiseDrawer = (props: Props) => {
     fetchTempPassword,
     generateTempPassword,
     franchisePermissions,
+    syncMembersAcrossCompanies,
   } = props;
 
   const [open, setOpen] = useState<Record<number, boolean>>({});
@@ -387,9 +390,11 @@ export const FranchiseDrawer = (props: Props) => {
     );
   };
 
-  const items = getNavigationItems({ classes, disconnect }).map((item, i) =>
-    renderMenuItem(item, i, false),
-  );
+  const items = getNavigationItems({
+    classes,
+    disconnect,
+    syncMembersAcrossCompanies,
+  }).map((item, i) => renderMenuItem(item, i, false));
 
   const drawer = (
     <div className={classes.scrollable}>
@@ -499,9 +504,9 @@ export const FranchiseDrawer = (props: Props) => {
 const getNavigationItems = (props: {
   classes: Record<string, string>;
   disconnect: () => void;
+  syncMembersAcrossCompanies: boolean;
 }): NavigationItem[] => {
-  const { disconnect } = props;
-
+  const { disconnect, syncMembersAcrossCompanies } = props;
   return [
     {
       to: '/f/franchises',
@@ -518,24 +523,50 @@ const getNavigationItems = (props: {
       icon: BusinessCenterIcon,
       text: 'franchiseMenu.products',
       type: 'nested',
-      nestedItems: [
-        'divider',
-        {
-          to: '/f/payment-pack-template',
-          text: 'franchiseMenu.products.paymentPackTemplates',
-          icon: VpnKey,
-        },
-        {
-          to: '/f/private-pass-template',
-          text: 'franchiseMenu.products.privatePassTemplates',
-          icon: ScheduleIcon,
-        },
-        {
-          to: '/f/coupon-template',
-          text: 'franchiseMenu.products.couponTemplates',
-          icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
-        },
-      ],
+      nestedItems: syncMembersAcrossCompanies
+        ? [
+            'divider',
+            {
+              to: '/f/payment-pack-template',
+              text: 'franchiseMenu.products.paymentPackTemplates',
+              icon: VpnKey,
+            },
+            {
+              to: '/f/private-pass-template',
+              text: 'franchiseMenu.products.privatePassTemplates',
+              icon: ScheduleIcon,
+            },
+            {
+              to: '/f/giftcard-template',
+              text: 'franchiseMenu.products.giftcardTemplates',
+              icon: Redeem,
+            },
+            {
+              to: '/f/coupon-template',
+              text: 'franchiseMenu.products.couponTemplates',
+              icon:
+                getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
+            },
+          ]
+        : [
+            'divider',
+            {
+              to: '/f/payment-pack-template',
+              text: 'franchiseMenu.products.paymentPackTemplates',
+              icon: VpnKey,
+            },
+            {
+              to: '/f/private-pass-template',
+              text: 'franchiseMenu.products.privatePassTemplates',
+              icon: ScheduleIcon,
+            },
+            {
+              to: '/f/coupon-template',
+              text: 'franchiseMenu.products.couponTemplates',
+              icon:
+                getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
+            },
+          ],
     },
     {
       icon: Email,

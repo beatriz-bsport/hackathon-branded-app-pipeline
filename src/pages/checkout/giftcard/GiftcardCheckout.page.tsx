@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -14,22 +13,19 @@ import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import {
   getGiftcard,
   getGiftcardBackgroundImageList,
-} from '../../../libs/giftcard/selectors';
+} from '#libs/giftcard/selectors';
 import {
   retrieveGiftcard,
   fetchGiftcardBackgroundImageList,
-} from '../../../libs/giftcard/actions';
-import ConsumerGiftcardFormWithPreview from '../../../libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
-import themeSelectors from '../../../libs/theme/selectors';
+} from '#libs/giftcard/actions';
+import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import themeSelectors from '#libs/theme/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { fetchCompanyTheme } from '../../../libs/theme/actions';
-import {
-  addItemToBasket,
-  fetchCurrentBasket,
-} from '../../../libs/checkout/actions';
-import { Giftcard } from '../../../libs/giftcard/types';
+import { fetchCompanyTheme } from '#libs/theme/actions';
+import { addItemToBasket, fetchCurrentBasket } from '#libs/checkout/actions';
+import { Giftcard } from '#libs/giftcard/types';
 
-import { getCurrentBasket } from '../../../libs/checkout/selectors';
+import { getCurrentBasket } from '#libs/checkout/selectors';
 
 type OwnProps = {
   companyId: number;

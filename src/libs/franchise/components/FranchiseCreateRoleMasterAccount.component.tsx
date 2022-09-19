@@ -50,6 +50,7 @@ const defaultPermissions: FranchiseRolePermission = {
     products: {
       paymentPackTemplates: true,
       privatePassTemplates: true,
+      giftcardTemplates: true,
       couponTemplates: true,
     },
     emailTemplates: true,

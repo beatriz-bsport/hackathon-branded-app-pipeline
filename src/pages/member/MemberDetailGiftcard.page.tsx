@@ -11,7 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
-import themeSelectors from '../../libs/theme/selectors';
+import uniq from 'lodash/uniq';
+import themeSelectors from '#libs/theme/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -19,20 +20,20 @@ import {
   fetchConsumerGiftcardSentList as fetchConsumerGiftcardSentListAction,
   retrieveConsumerGiftcard,
   sendEmailInvitation,
-} from '../../libs/giftcard/actions';
+} from '#libs/giftcard/actions';
 import { OptionCallback } from '../../state/types';
 
-import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGiftcardListItem.component';
-import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../libs/invoice/actions';
+import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '#libs/invoice/actions';
 import {
   Giftcard,
   ConsumerGiftcard,
   WithGiftcard,
   WithSender,
   WithReceiver,
-} from '../../libs/giftcard/types';
-import ConsumerGiftcardDetail from '../../libs/giftcard/components/ConsumerGiftcardDetail.component';
-import PaginatedListBase from '../../components/PaginatedListBase.component';
+} from '#libs/giftcard/types';
+import ConsumerGiftcardDetail from '#libs/giftcard/components/ConsumerGiftcardDetail.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import {
   getConsumerGiftcardReceivedList,
@@ -41,12 +42,12 @@ import {
   withSender,
   withReceiver,
   getConsumerGiftcardSentList,
-} from '../../libs/giftcard/selectors';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
+} from '#libs/giftcard/selectors';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 
 import { RootState } from '../../reducers';
-import { Invoice } from '../../libs/invoice/types';
-import ConsumerGiftcardInvitationModal from '../../libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
+import { Invoice } from '#libs/invoice/types';
+import ConsumerGiftcardInvitationModal from '#libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -63,7 +64,6 @@ const styles = (theme: Theme) =>
 type OwnProps = {
   id: number;
   giftcard: Giftcard | null;
-  relatedInvoice: Invoice | null;
   consumerGiftcardLoading: boolean;
   consumerGiftcardList: Array<ConsumerGiftcard>;
   consumerGiftcardCount: number;
@@ -73,13 +73,15 @@ type OwnProps = {
 
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
+  HandlersProps &
+  StateHandlersProps &
   WithStyles &
   WithTranslation;
 
 const PAGE_SIZE = 15;
 
 type State = {
-  consumerGiftcardToInvite: ConsumerGiftcard;
+  consumerGiftcardToInvite: ConsumerGiftcard | null;
 };
 export class MemberDetailGiftcard extends Component<Props, State> {
   state = {
@@ -113,19 +115,20 @@ export class MemberDetailGiftcard extends Component<Props, State> {
     if (this.props.selectedConsumerGiftcardId) {
       this.props.retrieveConsumerGiftcard(
         this.props.selectedConsumerGiftcardId,
-      );
-      this.props.fetchInvoiceByInvoiceItem(
-        this.props.selectedConsumerGiftcardId,
+        {
+          onSuccess: (data: ConsumerGiftcard) => {
+            if (!data.consumer_giftcard_source) {
+              // No invoice for shared consumer gifcard (copy)
+              this.props.fetchInvoiceByInvoiceItem(
+                this.props.selectedConsumerGiftcardId,
+              );
+            } else {
+              this.props.setRelatedInvoice(null);
+            }
+          },
+        },
       );
     }
-  };
-
-  goToMemberGiftcard = (
-    consumerGiftcardId: number,
-    giftcardId: number,
-    memberId: number,
-  ) => {
-    this.props.goToMemberGiftcard(consumerGiftcardId, memberId);
   };
 
   sendInvitations = (data: any, options: OptionCallback) => {
@@ -192,13 +195,16 @@ export class MemberDetailGiftcard extends Component<Props, State> {
                   showReceiver
                   memberReceiver={cgc.dst_member}
                   memberSender={cgc.src_member}
-                  onClickSender={this.goToMemberGiftcard}
-                  onClickReceiver={cgc.dst_member && this.goToMemberGiftcard}
+                  onClickSender={this.props.goToMemberGiftcard}
+                  onClickReceiver={
+                    cgc.dst_member && this.props.goToMemberGiftcard
+                  }
                   onClickSendInvitation={
                     cgc.date_activated
                       ? null
                       : () => this.setState({ consumerGiftcardToInvite: cgc })
                   }
+                  sharedFromFranchisor={!!cgc.consumer_giftcard_source}
                 />
               )}
             />
@@ -207,7 +213,7 @@ export class MemberDetailGiftcard extends Component<Props, State> {
             <ConsumerGiftcardInvitationModal
               onSubmit={this.sendInvitations}
               consumerGiftcard={this.state.consumerGiftcardToInvite}
-              companyId={this.props.companyTheme.company}
+              companyId={this.state.consumerGiftcardToInvite.source_company_id}
               onClose={() => this.setState({ consumerGiftcardToInvite: null })}
               snackbarSuccess={this.props.snackbarSuccess}
             />
@@ -252,10 +258,11 @@ export class MemberDetailGiftcard extends Component<Props, State> {
                   showAsRecipient
                   showSender
                   divider
-                  onClickSender={this.goToMemberGiftcard}
-                  onClickReceiver={this.goToMemberGiftcard}
+                  onClickSender={this.props.goToMemberGiftcard}
+                  onClickReceiver={this.props.goToMemberGiftcard}
                   memberReceiver={cgc.dst_member}
                   memberSender={cgc.src_member}
+                  sharedFromFranchisor={!!cgc.consumer_giftcard_source}
                 />
               )}
             />
@@ -267,7 +274,6 @@ export class MemberDetailGiftcard extends Component<Props, State> {
               consumerGiftcard={this.props.selectedConsumerGiftcard}
               invoice={this.props.relatedInvoice}
               onInvoiceClick={this.props.goToInvoice}
-              giftcard={this.props.selectedConsumerGiftcard?.giftcard}
               goToGiftcard={this.props.goToGiftcard}
             />
           )}
@@ -308,7 +314,7 @@ const connector = connect(
   {
     fetchGiftcardBulk: fetchGiftcardBulkAction,
     snackbarSuccess,
-    goToMemberGiftcard: (consumerGiftcardId, memberId) =>
+    goToMemberGiftcard: (consumerGiftcardId: number, memberId: number) =>
       push(`/member/${memberId}/giftcard/${consumerGiftcardId}`),
     fetchConsumerGiftcardReceivedList: fetchConsumerGiftcardReceivedListAction,
     fetchConsumerGiftcardSentList: fetchConsumerGiftcardSentListAction,
@@ -320,6 +326,25 @@ const connector = connect(
     sendEmailInvitation,
   },
 );
+
+type HandlersProps = {
+  fetchConsumerGiftcardSentList: (
+    id: number,
+    page: number,
+    page_size: number,
+  ) => void;
+  fetchConsumerGiftcardReceivedList: (
+    id: number,
+    page: number,
+    page_size: number,
+  ) => void;
+  fetchInvoiceByInvoiceItem: (objectId: number) => void;
+};
+
+type StateHandlersProps = {
+  relatedInvoice: Invoice | null;
+  setRelatedInvoice: (invoice?: Invoice) => void;
+};
 
 export default compose(
   withStyles(styles),
@@ -342,12 +367,16 @@ export default compose(
           id,
           { page, page_size },
           {
-            onSuccess: (consumerGiftcardList) => {
-              fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulkById([
-                ...consumerGiftcardList.map((cg) => cg.src_member),
-                ...consumerGiftcardList.map((cg) => cg.dst_member),
-              ]);
+            onSuccess: (consumerGiftcardList: ConsumerGiftcard[]) => {
+              fetchGiftcardBulk(
+                consumerGiftcardList.map((cg: ConsumerGiftcard) => cg.giftcard),
+              );
+              fetchMemberBulkById(
+                uniq([
+                  ...consumerGiftcardList.map((cg) => cg.src_member),
+                  ...consumerGiftcardList.map((cg) => cg.dst_member),
+                ]),
+              );
             },
           },
         );
@@ -358,17 +387,19 @@ export default compose(
         fetchGiftcardBulk,
         fetchMemberBulkById,
       }) =>
-      (id, page: number, page_size: number) => {
+      (id: number, page: number, page_size: number) => {
         fetchConsumerGiftcardReceivedList(
           id,
           { page, page_size },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
-              fetchMemberBulkById([
-                ...consumerGiftcardList.map((cg) => cg.src_member),
-                ...consumerGiftcardList.map((cg) => cg.dst_member),
-              ]);
+              fetchMemberBulkById(
+                uniq([
+                  ...consumerGiftcardList.map((cg) => cg.src_member),
+                  ...consumerGiftcardList.map((cg) => cg.dst_member),
+                ]),
+              );
             },
           },
         );

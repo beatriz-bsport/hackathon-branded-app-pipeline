@@ -185,14 +185,16 @@ exports.default = {
       fuzzyPlaceholder: 'Rechercher une carte cadeau',
     },
     template: {
-      deleteDialogContent:
+      deleteTemplateContent:
         "En désactivant une carte cadeau partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel elle a été achetée.",
-      validity: 'Valable {{count}} jour ',
-      validity_plural: 'Valable {{count}} jours ',
-      validityDetail:
-        'Valide {{count}} jour à partir de la date de facturation',
-      validityDetail_plural:
-        'Valide {{count}} jours à partir de la date de facturation',
+      deleteInstanceContent1:
+        "En désactivant ce studio du partage de la carte cadeau, tous les membres possédant cette carte et l'ayant reçue d'un membre qui a acheté la carte dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios.",
+      deleteInstanceContent2:
+        "Enfin, les cartes ayant été achetées dans les autres studios ne seront plus utilisables dans le studio désactivé, quelle que soit la date d'achat.",
+      validity: 'Valable {{count}} jour',
+      validity_plural: 'Valable {{count}} jours',
+      validityDetail: 'Validité avant expiration : {{count}} jour',
+      validityDetail_plural: 'Validité avant expiration : {{count}} jours',
       unlimited: 'Illimitée',
       withoutTax: 'Hors taxe',
     },

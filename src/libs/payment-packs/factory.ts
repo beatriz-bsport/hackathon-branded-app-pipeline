@@ -1,6 +1,5 @@
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
-
 import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
 
 faker.locale = 'fr';

@@ -12,11 +12,11 @@ import { push } from 'connected-react-router';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import themeSelectors from '../../libs/theme/selectors';
-import ConsumerGiftcardListItem from '../../libs/giftcard/components/ConsumerGiftcardListItem.component';
-import PaginatedListBase from '../../components/PaginatedListBase.component';
+import themeSelectors from '#libs/theme/selectors';
+import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
 import { OptionCallback } from '../../state/types';
-import { WidgetUtils } from '../../libs/widget/WidgetUtils';
+import { WidgetUtils } from '#libs/widget/WidgetUtils';
 
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -24,24 +24,23 @@ import {
   fetchConsumerGiftcardSentList as fetchConsumerGiftcardSentListAction,
   retrieveConsumerGiftcard,
   sendEmailInvitation,
-} from '../../libs/giftcard/actions';
+} from '#libs/giftcard/actions';
 
-import ConsumerGiftcardInvitationModal from '../../libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
-import { ConsumerGiftcard } from '../../libs/giftcard/types';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
+import ConsumerGiftcardInvitationModal from '#libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
+import { ConsumerGiftcard, WithGiftcard } from '#libs/giftcard/types';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 
-import { snackbarSuccess } from '../../libs/snackbar/actions';
+import { snackbarSuccess } from '#libs/snackbar/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
   getConsumerGiftcardSentList,
-} from '../../libs/giftcard/selectors';
+} from '#libs/giftcard/selectors';
 
 import { RootState } from '../../reducers';
 
 const styles = (theme: Theme) =>
   createStyles({
-    container: {},
     emptyContainer: {
       padding: theme.spacing(2),
     },
@@ -69,6 +68,7 @@ type OwnProps = {};
 
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
+  HandlersProps &
   WithStyles &
   WithTranslation;
 
@@ -135,7 +135,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
                 <Divider />
               </div>
             )}
-            renderItem={(cgc) => (
+            renderItem={(cgc: WithGiftcard<ConsumerGiftcard>) => (
               <ConsumerGiftcardListItem
                 key={cgc.id}
                 onClickSendInvitation={
@@ -178,7 +178,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
                 <Divider />
               </div>
             )}
-            renderItem={(cgc) => (
+            renderItem={(cgc: WithGiftcard<ConsumerGiftcard>) => (
               <ConsumerGiftcardListItem
                 key={cgc.id}
                 consumerGiftcard={cgc}
@@ -194,7 +194,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
         <ConsumerGiftcardInvitationModal
           onSubmit={sendInvitations}
           consumerGiftcard={consumerGiftcardToInvite}
-          companyId={props.companyTheme.company}
+          companyId={consumerGiftcardToInvite.source_company_id}
           onClose={() => selectConsumerGiftcardToInvite(null)}
           snackbarSuccess={props.snackbarSuccess}
         />
@@ -234,17 +234,30 @@ const connector = connect(
   },
 );
 
+type HandlersProps = {
+  fetchConsumerGiftcardSentList: (
+    id: number,
+    page: number,
+    page_size: number,
+  ) => void;
+  fetchConsumerGiftcardReceivedList: (
+    id: number,
+    page: number,
+    page_size: number,
+  ) => void;
+};
+
 export default compose(
   withStyles(styles),
   withTranslation(['giftcard']),
   connector,
   withHandlers({
     fetchConsumerGiftcardSentList:
-      ({ fetchConsumerGiftcardSentList, fetchGiftcardBulk }) =>
+      ({ fetchConsumerGiftcardSentList, fetchGiftcardBulk, companyTheme }) =>
       (id: number, page: number, page_size: number) => {
         fetchConsumerGiftcardSentList(
           id,
-          { page, page_size },
+          { page, page_size, company: companyTheme.company },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));
@@ -253,11 +266,15 @@ export default compose(
         );
       },
     fetchConsumerGiftcardReceivedList:
-      ({ fetchConsumerGiftcardReceivedList, fetchGiftcardBulk }) =>
-      (id, page: number, page_size: number) => {
+      ({
+        fetchConsumerGiftcardReceivedList,
+        fetchGiftcardBulk,
+        companyTheme,
+      }) =>
+      (id: number, page: number, page_size: number) => {
         fetchConsumerGiftcardReceivedList(
           id,
-          { page, page_size },
+          { page, page_size, company: companyTheme.company },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));

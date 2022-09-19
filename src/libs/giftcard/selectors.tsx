@@ -1,7 +1,13 @@
 import { createSelector } from 'reselect';
+// @ts-ignore
 import memoize from 'memoize-one';
 import { RootState } from '../../reducers';
-import { Giftcard, ConsumerGiftcard, GiftcardBackgroundImage } from './types';
+import {
+  Giftcard,
+  ConsumerGiftcard,
+  GiftcardBackgroundImage,
+  GiftcardTemplate,
+} from './types';
 import { getMemberListData } from '../member/selectors';
 
 export const getGiftcardData = (state: RootState) =>
@@ -24,7 +30,7 @@ export const getConsumerGiftcard = (state: RootState, id: number) =>
 
 export const getConsumerGiftcardByActivationCode = (
   state: RootState,
-  activationCode: number,
+  activationCode: string,
 ) =>
   Object.values(state.giftcard.consumerGiftcard.byId).find(
     (cg) => cg.activation_code === activationCode,
@@ -132,7 +138,7 @@ export const getConsumerGiftcardSentList = createSelector(
   ) => ids.map((id) => data[id]),
 );
 
-export const withGiftcard = memoize((selector) =>
+export const withGiftcard = memoize((selector: any) =>
   createSelector(
     [selector, getGiftcardData],
     (consumerGiftcardList, giftcardData) => {
@@ -151,7 +157,7 @@ export const withGiftcard = memoize((selector) =>
   ),
 );
 
-export const withSender = memoize((selector) =>
+export const withSender = memoize((selector: any) =>
   createSelector(
     [selector, getMemberListData],
     (consumerGiftcardList, memberData) => {
@@ -170,7 +176,7 @@ export const withSender = memoize((selector) =>
   ),
 );
 
-export const withReceiver = memoize((selector) =>
+export const withReceiver = memoize((selector: any) =>
   createSelector(
     [selector, getMemberListData],
     (consumerGiftcardList, memberData) => {
@@ -214,3 +220,35 @@ export const onlyUsable = memoize(
       });
     }),
 );
+
+// ========= SHARED GIFTCARDS =========
+
+export const getGiftcardTemplateData = (state: RootState) =>
+  state.giftcard.giftcardTemplate.byId;
+
+export const getGiftcardTemplateListIds = (state: RootState) =>
+  state.giftcard.giftcardTemplate.allIds;
+
+export const getGiftcardTemplateListLoading = (state: RootState) =>
+  state.giftcard.giftcardTemplate.list.loading;
+
+export const getGiftcardTemplateFullList = createSelector(
+  [getGiftcardTemplateData, getGiftcardTemplateListIds],
+  (data: { [id: number]: GiftcardTemplate }, ids: Array<number>) =>
+    ids.map((id) => data[id]),
+);
+
+export const getGiftcardTemplateActiveList = createSelector(
+  [getGiftcardTemplateData, getGiftcardTemplateListIds],
+  (data: { [id: number]: GiftcardTemplate }, ids: Array<number>) =>
+    ids.map((id) => data[id]).filter((gt) => !gt.manager_only),
+);
+
+export const getGiftcardTemplateInactiveList = createSelector(
+  [getGiftcardTemplateData, getGiftcardTemplateListIds],
+  (data: { [id: number]: GiftcardTemplate }, ids: Array<number>) =>
+    ids.map((id) => data[id]).filter((gt) => gt.manager_only),
+);
+
+export const getGiftcardTemplateDetail = (state: RootState, id: number) =>
+  state.giftcard.giftcardTemplate.byId[id];

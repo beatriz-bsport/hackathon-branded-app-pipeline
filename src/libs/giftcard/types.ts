@@ -1,4 +1,5 @@
 import { Member } from '../member/types';
+import { ErrorAndLoading } from '#libs/types';
 
 export type Giftcard = {
   id: number;
@@ -13,6 +14,17 @@ export type Giftcard = {
   disabled: boolean;
   company: number;
   amount_gifted: string; // decimal price
+  is_shared_giftcard?: boolean;
+};
+
+export type GiftcardDataAPI = {
+  cover: string;
+  amount_gifted: number;
+  available_payment_method_identifiers: Array<number>;
+  description: string;
+  expiration_days: number | null;
+  name: string;
+  price: number;
 };
 
 export type GiftcardTemplate = {
@@ -66,6 +78,11 @@ export type ConsumerGiftcard<
   consumed_amount_gifted: string; // decimal price
   price_bought: string; // decimal price
   giftcard_recipients: Array<GiftcardRecipient>;
+  activation_code: string;
+  reverted?: boolean;
+  consumer_giftcard_source: number;
+  giftcard_company: number;
+  source_company_id: number;
 };
 
 export type GiftcardState = {
@@ -103,6 +120,12 @@ export type GiftcardState = {
     loading: boolean;
     error: Error | null;
   };
+  giftcardTemplate: {
+    byId: { [id: number]: GiftcardTemplate };
+    allIds: Array<number>;
+    list: ErrorAndLoading;
+    instances: ErrorAndLoading;
+  } & ErrorAndLoading;
 };
 
 export type WithGiftcard<T> = T & { giftcard: Giftcard | null };

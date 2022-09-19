@@ -1,0 +1,194 @@
+import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { compose, withStateHandlers, withHandlers } from 'recompose';
+import { push as pushAction } from 'connected-react-router';
+
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { buildUrlParams } from '../../../http';
+import { RootState } from '../../../reducers';
+import { OptionCallback } from '../../../state/types';
+import { WithHandlerType } from '../../../utils/types';
+
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import {
+  getGiftcardTemplateData,
+  getGiftcardTemplateListLoading,
+  getGiftcardTemplateActiveList,
+  getGiftcardTemplateInactiveList,
+  getGiftcardTemplateFullList,
+} from '#libs/giftcard/selectors';
+import {
+  getFranchiseCompanyById,
+  getFranchiseCompanies,
+} from '#libs/franchise/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
+import {
+  deleteGiftcardTemplate as deleteGiftcardTemplateAction,
+  fetchGiftcardTemplateList as fetchGiftcardTemplateListAction,
+  createOrUpdateGiftcardTemplate as createOrUpdateGiftcardTemplateAction,
+} from '#libs/giftcard/actions';
+import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.component';
+import FranchiseGenericProductDoubleList from '#libs/franchise/components/generic-product/template-list/FranchiseGenericProductDoubleList.component';
+import { GiftcardTemplate, GiftcardDataAPI } from '#libs/giftcard/types';
+import { FranchiseCompany } from '#libs/franchise/types';
+
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
+
+type HandlerType = {
+  createOrUpdateGiftcardTemplate: (
+    data: GiftcardDataAPI,
+    options?: OptionCallback<any>,
+  ) => void;
+  onUpdateTemplate: (templateId: number) => void;
+};
+
+type Props = ConnectedProps<typeof connector> &
+  WithTranslation &
+  StateHandlerType &
+  HandlerType;
+
+export class FranchiseGiftcardTemplateListPage extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchFranchise();
+    this.props.fetchGiftcardTemplateList();
+  }
+
+  getTemplatePrimaryText = (template: GiftcardTemplate) => template.name;
+
+  getTemplateSecondaryText = (template: GiftcardTemplate) => {
+    const price = getCurrencyDisplayWithPrice(template.price);
+    const validity = template.expiration_days
+      ? this.props.t('giftcardTemplate.template.validity', {
+          count: template.expiration_days,
+        })
+      : this.props.t('giftcardTemplate.template.unlimited');
+    return `${price} - ${validity}`;
+  };
+
+  getTemplateFranchiseCompanyList = (template: GiftcardTemplate) => {
+    return template.companies
+      .map((company_id) =>
+        this.props.allFranchiseCompaniesWithAllowed.find(
+          (c: FranchiseCompany) => c.id === company_id,
+        ),
+      )
+      .filter((c) => !!c);
+  };
+
+  getTemplateCover = (template: GiftcardTemplate) => template.cover;
+
+  render() {
+    const { t } = this.props;
+    return (
+      <>
+        <FranchiseGenericProductDoubleList
+          activeItemList={this.props.activeGiftcardTemplateList}
+          inactiveItemList={this.props.inactiveGiftcardTemplateList}
+          fuzzySearchItemList={this.props.allGiftcardTemplateList}
+          withFuzzySearch
+          fuzzySearchPlaceholder={t(
+            'giftcardTemplate.listPage.fuzzyPlaceholder',
+          )}
+          loading={this.props.loadingTemplateGiftcardList}
+          emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel')}
+          emptyButtonLabel={t('giftcardTemplate.listPage.addButton')}
+          goToItemDetailPage={this.props.goToTemplateGiftcardDetail}
+          deleteTemplateDialogContent={t(
+            'giftcardTemplate.template.deleteDialogContent',
+          )}
+          getItemCover={this.getTemplateCover}
+          getItemPrimaryText={this.getTemplatePrimaryText}
+          getItemSecondaryText={this.getTemplateSecondaryText}
+          getItemFranchiseCompanies={this.getTemplateFranchiseCompanyList}
+          onDeleteTemplate={this.props.deleteGiftcardTemplate}
+          onCreateTemplate={this.props.onCreateTemplate}
+          onUpdateTemplate={this.props.onUpdateTemplate}
+        />
+        <GiftcardFormDrawer
+          open={this.props.openForm}
+          onSubmit={this.props.createOrUpdateGiftcardTemplate}
+          onClose={this.props.closeCreateOrUpdateForm}
+          initial={this.props.templateToUpdate}
+        />
+      </>
+    );
+  }
+}
+
+const connector = connect(
+  (state: RootState) => ({
+    allGiftcardTemplatesById: getGiftcardTemplateData(state),
+    activeGiftcardTemplateList: getGiftcardTemplateActiveList(state),
+    inactiveGiftcardTemplateList: getGiftcardTemplateInactiveList(state),
+    allGiftcardTemplateList: getGiftcardTemplateFullList(state),
+    loadingTemplateGiftcardList: getGiftcardTemplateListLoading(state),
+    allFranchiseCompaniesById: getFranchiseCompanyById(state),
+    allFranchiseCompaniesWithAllowed: getFranchiseCompanies(state),
+  }),
+  {
+    fetchFranchise: fetchFranchiseAction,
+    goToTemplateGiftcardDetail: (id: number, params: any = {}) =>
+      pushAction(`/f/giftcard-template/${id}/${buildUrlParams(params)}`),
+    fetchGiftcardTemplateList: fetchGiftcardTemplateListAction,
+    createOrUpdateGiftcardTemplate: createOrUpdateGiftcardTemplateAction,
+    deleteGiftcardTemplate: deleteGiftcardTemplateAction,
+  },
+);
+
+const withStateHandlersInit: {
+  openForm: boolean;
+  templateToUpdate?: GiftcardTemplate;
+} = {
+  openForm: false,
+  templateToUpdate: null,
+};
+
+const withStateHandlersSetter = {
+  onCreateTemplate: () => () => ({
+    openForm: true,
+    // @ts-ignore
+    templateToUpdate: null,
+  }),
+  closeCreateOrUpdateForm: () => () => ({ openForm: false }),
+  setTemplateToUpdate: () => (gt: GiftcardTemplate) => ({
+    openForm: true,
+    templateToUpdate: gt,
+  }),
+};
+
+export default compose(
+  withTranslation(['giftcard']),
+  connector,
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  withHandlers({
+    onUpdateTemplate:
+      ({ allGiftcardTemplatesById, setTemplateToUpdate }) =>
+      (templateId: number) => {
+        setTemplateToUpdate(allGiftcardTemplatesById[templateId]);
+      },
+    createOrUpdateGiftcardTemplate:
+      ({
+        createOrUpdateGiftcardTemplate,
+        closeCreateOrUpdateForm,
+        goToTemplateGiftcardDetail,
+        templateToUpdate,
+      }) =>
+      (data: GiftcardDataAPI, options?: OptionCallback<any>) => {
+        createOrUpdateGiftcardTemplate(templateToUpdate?.id || null, data, {
+          onError: options && options.onError,
+          onSuccess: (template: GiftcardTemplate) => {
+            if (!template.companies.length) {
+              goToTemplateGiftcardDetail(template.id, {
+                openSelectCompaniesForm: true,
+              });
+            }
+            closeCreateOrUpdateForm();
+            if (options && options.onSuccess) {
+              options.onSuccess(template);
+            }
+          },
+        });
+      },
+  }),
+)(FranchiseGiftcardTemplateListPage);

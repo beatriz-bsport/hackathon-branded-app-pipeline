@@ -12,6 +12,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Giftcard, GiftcardBackgroundImage } from '../types';
 import EmailInputWithChipsField from '../../../components/input/email-input-with-chip/EmailInputWithChipsField.component';
 import CarouselInputField from '../../../components/input/carousel-input/CarouselInputField.component';
+import { parseQueryString } from '../../../http';
 
 type Props = {
   giftcard: Giftcard;
@@ -167,7 +168,7 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
   message_content: Yup.string().required(),
   name: Yup.string().required(),
   background_image: Yup.string().nullable(),
-  recipients: Yup.array().of(Yup.string()).required(),
+  recipients: Yup.array().of(Yup.string()),
   date_to_send: Yup.string(),
 });
 
@@ -210,16 +211,22 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
     // if (typeof cover !== 'string' && !!cover) {
     //   data.cover = cover;
     // }
-    onSubmit(values, {
-      onSuccess: () => {
-        if (onSuccess && typeof onSuccess === 'function') onSuccess();
-        setSubmitting(false);
+    // @ts-ignore
+    // eslint-disable-next-line
+    const force = !!parseQueryString(location.search || '')?.force;
+    onSubmit(
+      { ...values, force },
+      {
+        onSuccess: () => {
+          if (onSuccess && typeof onSuccess === 'function') onSuccess();
+          setSubmitting(false);
+        },
+        onError: () => {
+          if (onError && typeof onError === 'function') onError();
+          setSubmitting(false);
+        },
       },
-      onError: () => {
-        if (onError && typeof onError === 'function') onError();
-        setSubmitting(false);
-      },
-    });
+    );
   },
 });
 

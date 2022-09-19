@@ -7,7 +7,12 @@ import {
   deleteAuth,
   buildUrlParams,
 } from '../../http';
-import { Giftcard, ConsumerGiftcard, GiftcardBackgroundImage } from './types';
+import {
+  Giftcard,
+  ConsumerGiftcard,
+  GiftcardBackgroundImage,
+  GiftcardDataAPI,
+} from './types';
 
 export const fetchGiftcardList = (
   params: any,
@@ -108,4 +113,48 @@ export const fetchGiftcardBackgroundList = (
 
 export async function makeGiftcardCopy(id: number) {
   return postAuth(`${API_V1_URI}/giftcard/giftcard/${id}/copy/`);
+}
+
+// ========== SHARED GIFTCARDS ==========
+
+export async function fetchGiftcardTemplateList() {
+  return getAuth(`${API_V1_URI}/giftcard/giftcard-template/`);
+}
+
+export function retrieveGiftcardTemplate(id: number) {
+  return getAuth(`${API_V1_URI}/giftcard/giftcard-template/${id}/`);
+}
+
+export async function createOrUpdateGiftcardTemplate(
+  id: number | null,
+  data: GiftcardDataAPI,
+) {
+  if (!id) {
+    return postAuth(`${API_V1_URI}/giftcard/giftcard-template/`, data);
+  }
+  return patchAuth(`${API_V1_URI}/giftcard/giftcard-template/${id}/`, data);
+}
+
+export async function deleteGiftcardTemplate(id: number) {
+  return deleteAuth(`${API_V1_URI}/giftcard/giftcard-template/${id}/`);
+}
+
+export async function createGiftcardTemplateInstances(data: {
+  companies: Array<number>;
+  giftcard_template: number;
+}) {
+  return postAuth(
+    `${API_V1_URI}/giftcard/giftcard-template-instance/multi_create/`,
+    data,
+  );
+}
+
+export async function deleteGiftcardTemplateInstance(
+  giftcardTemplateId: number,
+  companyId: number,
+) {
+  return deleteAuth(
+    `${API_V1_URI}/giftcard/giftcard-template/${giftcardTemplateId}/delete_instance/`,
+    { company_id: companyId },
+  );
 }

@@ -1,7 +1,14 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
-// /import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
+import {
+  GIFTCARD_ACTIVATION_CODE_ERROR_CODE,
+  GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED,
+  GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED,
+  GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER,
+} from '@bsport/common/lib/master-data/error-codes/giftcard';
+import { snackbarError } from '#libs/snackbar/actions';
+import { monitorBackgroundTask } from '../background-task/actions';
 import { OptionCallback, Dispatch } from '../../state/types';
 import {
   fetchGiftcardList as fetchGiftcardListAPI,
@@ -18,8 +25,27 @@ import {
   createGiftcardBackgroundImage as createGiftcardBackgroundImageAPI,
   restoreGiftcard as restoreGiftcardAPI,
   makeGiftcardCopy as makeGiftcardCopyAPI,
+  fetchGiftcardTemplateList as fetchGiftcardTemplateListAPI,
+  retrieveGiftcardTemplate as retrieveGiftcardTemplateAPI,
+  createOrUpdateGiftcardTemplate as createOrUpdateGiftcardTemplateAPI,
+  deleteGiftcardTemplate as deleteGiftcardTemplateAPI,
+  createGiftcardTemplateInstances as createGiftcardTemplateInstancesAPI,
+  deleteGiftcardTemplateInstance as deleteGiftcardTemplateInstanceAPI,
 } from './api';
-import { ConsumerGiftcard, Giftcard, GiftcardBackgroundImage } from './types';
+import {
+  ConsumerGiftcard,
+  Giftcard,
+  GiftcardBackgroundImage,
+  GiftcardDataAPI,
+  GiftcardTemplate,
+} from './types';
+
+const GIFTCARD_ACTIVATION_ERRORS = [
+  GIFTCARD_ACTIVATION_CODE_ERROR_CODE,
+  GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED,
+  GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED,
+  GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER,
+];
 
 export const retrieveGiftcardActions = {
   error: createAction('GIFTCARD/RETRIEVE/ERROR'),
@@ -350,6 +376,19 @@ export function attributeToMember(
     } catch (error) {
       console.error(error);
       dispatch(attributeToMemberActions.error(error));
+      if (error.response && error.response.status === 499) {
+        dispatch(
+          snackbarError(
+            `invoice.applyGiftcard.errors.${
+              GIFTCARD_ACTIVATION_ERRORS.includes(
+                error.response.data?.error_code,
+              )
+                ? error.response.data?.error_code
+                : 'generic'
+            }`,
+          ),
+        );
+      }
     }
 
     dispatch(attributeToMemberActions.isLoading(false));
@@ -571,5 +610,185 @@ export function makeGiftcardCopy(id: number, options: OptionCallback) {
         options.onError(err);
       }
     }
+  };
+}
+
+// ========= SHAREDE GIFTCARDS =========
+
+export const listGiftcardTemplateActions = {
+  error: createAction('GIFTCARD_TEMPLATE/LIST/ERROR'),
+  isLoading: createAction('GIFTCARD_TEMPLATE/LIST/LOADING'),
+  success: createAction('GIFTCARD_TEMPLATE/LIST/SUCCESS'),
+};
+
+export function fetchGiftcardTemplateList(
+  options?: OptionCallback<GiftcardTemplate[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listGiftcardTemplateActions.isLoading(true));
+    dispatch(listGiftcardTemplateActions.error(null));
+    try {
+      const response = await fetchGiftcardTemplateListAPI();
+      dispatch(listGiftcardTemplateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(listGiftcardTemplateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listGiftcardTemplateActions.isLoading(false));
+  };
+}
+
+export const retrieveGiftcardTemplateActions = {
+  error: createAction('GIFTCARD_TEMPLATE/RETRIEVE/ERROR'),
+  isLoading: createAction('GIFTCARD_TEMPLATE/RETRIEVE/LOADING'),
+  success: createAction('GIFTCARD_TEMPLATE/RETRIEVE/SUCCESS'),
+};
+
+export function retrieveGiftcardTemplate(
+  id: number,
+  options?: OptionCallback<GiftcardTemplate>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveGiftcardTemplateActions.isLoading(true));
+    dispatch(retrieveGiftcardTemplateActions.error(null));
+    try {
+      const response = await retrieveGiftcardTemplateAPI(id);
+      dispatch(retrieveGiftcardTemplateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(retrieveGiftcardTemplateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(retrieveGiftcardTemplateActions.isLoading(false));
+  };
+}
+
+export const createGiftcardTemplateActions = {
+  error: createAction('GIFTCARD_TEMPLATE/CREATE/ERROR'),
+  isLoading: createAction('GIFTCARD_TEMPLATE/CREATE/LOADING'),
+  success: createAction('GIFTCARD_TEMPLATE/CREATE/SUCCESS'),
+};
+
+export const updateGiftcardTemplateActions = {
+  success: createAction('GIFTCARD_TEMPLATE/UPDATE/SUCCESS'),
+};
+
+export function createOrUpdateGiftcardTemplate(
+  id: number | null,
+  params: GiftcardDataAPI,
+  options?: OptionCallback<GiftcardTemplate>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createGiftcardTemplateActions.isLoading(true));
+    dispatch(createGiftcardTemplateActions.error(null));
+    try {
+      const response = await createOrUpdateGiftcardTemplateAPI(id, params);
+      if (!id) {
+        // Creation
+        dispatch(createGiftcardTemplateActions.success(response.data));
+      } else {
+        dispatch(updateGiftcardTemplateActions.success(response.data));
+      }
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(createGiftcardTemplateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(createGiftcardTemplateActions.isLoading(false));
+  };
+}
+
+export const deleteGiftcardTemplateActions = {
+  error: createAction('GIFTCARD_TEMPLATE/DELETE/ERROR'),
+  isLoading: createAction('GIFTCARD_TEMPLATE/DELETE/LOADING'),
+  success: createAction('GIFTCARD_TEMPLATE/DELETE/SUCCESS'),
+};
+
+export function deleteGiftcardTemplate(
+  id: number,
+  options?: OptionCallback<void>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteGiftcardTemplateActions.isLoading(true));
+    dispatch(deleteGiftcardTemplateActions.error(null));
+    try {
+      await deleteGiftcardTemplateAPI(id);
+      dispatch(deleteGiftcardTemplateActions.success(id));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteGiftcardTemplateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteGiftcardTemplateActions.isLoading(false));
+  };
+}
+
+export const createGiftcardTemplateInstanceActions = {
+  error: createAction('GIFTCARD_TEMPLATE_INSTANCE/CREATE/ERROR'),
+  isLoading: createAction('GIFTCARD_TEMPLATE_INSTANCE/CREATE/LOADING'),
+  success: createAction('GIFTCARD_TEMPLATE_INSTANCE/CREATE/SUCCESS'),
+};
+
+export function createGiftcardTemplateInstances(
+  params: { companies: Array<number>; giftcard_template: number },
+  options?: OptionCallback<void>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createGiftcardTemplateInstanceActions.isLoading(true));
+    dispatch(createGiftcardTemplateInstanceActions.error(null));
+    try {
+      const response = await createGiftcardTemplateInstancesAPI(params);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(createGiftcardTemplateInstanceActions.success());
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            if (options?.onSuccess) options.onSuccess();
+            dispatch(retrieveGiftcardTemplate(params.giftcard_template));
+          },
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+      dispatch(createGiftcardTemplateInstanceActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(createGiftcardTemplateInstanceActions.isLoading(false));
+  };
+}
+
+export const deleteGiftcardTemplateInstanceActions = {
+  error: createAction('GIFTCARD_TEMPLATE_INSTANCE/DELETE/ERROR'),
+  isLoading: createAction('GIFTCARD_TEMPLATE_INSTANCE/DELETE/LOADING'),
+  success: createAction('GIFTCARD_TEMPLATE_INSTANCE/DELETE/SUCCESS'),
+};
+
+export function deleteGiftcardTemplateInstance(
+  giftcardTemplateId: number,
+  companyId: number,
+  options?: OptionCallback<GiftcardTemplate>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteGiftcardTemplateInstanceActions.isLoading(true));
+    dispatch(deleteGiftcardTemplateInstanceActions.error(null));
+    try {
+      const response = await deleteGiftcardTemplateInstanceAPI(
+        giftcardTemplateId,
+        companyId,
+      );
+      dispatch(deleteGiftcardTemplateInstanceActions.success());
+      dispatch(retrieveGiftcardTemplate(giftcardTemplateId));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteGiftcardTemplateInstanceActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(deleteGiftcardTemplateInstanceActions.isLoading(false));
   };
 }

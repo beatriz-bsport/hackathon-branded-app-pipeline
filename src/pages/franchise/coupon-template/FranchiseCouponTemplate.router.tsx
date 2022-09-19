@@ -10,7 +10,7 @@ const FranchiseCouponTemplateDetailPage = asyncComponent(
   () => import('./FranchiseCouponTemplateDetail.page'),
 );
 
-const FranchisePaymentPackTemplateRouter = () => {
+const FranchiseCouponTemplateRouter = () => {
   return (
     <Switch>
       <Route
@@ -25,4 +25,4 @@ const FranchisePaymentPackTemplateRouter = () => {
   );
 };
 
-export default FranchisePaymentPackTemplateRouter;
+export default FranchiseCouponTemplateRouter;

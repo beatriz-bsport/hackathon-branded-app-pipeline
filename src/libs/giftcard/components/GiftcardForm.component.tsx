@@ -5,21 +5,24 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import Collapse from '@material-ui/core/Collapse';
-import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
+import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
 import {
   TextField,
   PriceField,
   IntegerField,
   CheckboxField,
   SwitchField,
-} from '../../../components/forms';
-import ImageField from '../../../components/forms/ImageField.component';
+} from '#components/forms';
+import ImageField from '#components/forms/ImageField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   values: any;
-  initial: any;
+  initial?: Giftcard | GiftcardTemplate;
+  disabledSharedGiftcardUpdate?: boolean;
 };
 
 const { trackFormAdd, trackFormSuccess } =
@@ -35,11 +38,13 @@ const GiftcardForm = (props: Props) => {
   }, []);
   return (
     <div className={classes.container}>
-      <ImageField name="cover" />
+      <ImageField name="cover" disabled={props.disabledSharedGiftcardUpdate} />
       <TextField
         label={t('form.giftcard.name.label')}
         className={classes.fullwidth}
         name="name"
+        disabled={props.disabledSharedGiftcardUpdate}
+        required
       />
       <TextField
         className={classes.fullwidth}
@@ -47,6 +52,8 @@ const GiftcardForm = (props: Props) => {
         multiline
         variant="outlined"
         label={t('form.giftcard.description.label')}
+        disabled={props.disabledSharedGiftcardUpdate}
+        required
       />
       <fieldset className={classes.parameterContainer}>
         <legend>{t('form.giftcard.section.parameters.title')}</legend>
@@ -54,26 +61,33 @@ const GiftcardForm = (props: Props) => {
           name="price"
           label={t('form.giftcard.price.label')}
           helperText={t('form.giftcard.price.helperText')}
+          disabled={props.disabledSharedGiftcardUpdate}
         />
         <Collapse in={!props.values.unlimited}>
           <IntegerField
             name="expiration_days"
             label={t('form.giftcard.expiration_days.label')}
             helperText={t('form.giftcard.expiration_days.helperText')}
+            disabled={props.disabledSharedGiftcardUpdate}
+            required
           />
         </Collapse>
         <CheckboxField
           name="unlimited"
           label={t('form.giftcard.unlimited.label')}
+          disabled={props.disabledSharedGiftcardUpdate}
         />
       </fieldset>
       <SwitchField
         name="manager_only"
         label={t('form.giftcard.manager_only.label')}
+        disabled={props.disabledSharedGiftcardUpdate}
       />
       <PaymentMethodSelectorField
         name="available_payment_method_identifiers"
-        disabled={props.values.manager_only}
+        disabled={
+          props.values.manager_only || props.disabledSharedGiftcardUpdate
+        }
         asFieldset
         label={t('form.giftcard.available_payment_method_identifiers.label')}
         helperText={t(
@@ -119,7 +133,15 @@ export const GiftcardSchema = Yup.object().shape({
   expiration_days: Yup.number().nullable().min(1),
 });
 
-export const GiftcardFormFieldHOC = withFormik<Props, any>({
+type WithFormikProps = {
+  onError?: () => void;
+  onSuccess?: () => void;
+  onSubmit: (data: GiftcardDataAPI, options: OptionCallback) => void;
+};
+
+type MergedProps = WithFormikProps & Props;
+
+export const GiftcardFormFieldHOC = withFormik<MergedProps, any>({
   // eslint-disable-next-line
   mapPropsToValues: ({ initial }) => {
     if (!initial) {
@@ -148,7 +170,7 @@ export const GiftcardFormFieldHOC = withFormik<Props, any>({
       props,
       setSubmitting,
     }: {
-      props: Props;
+      props: MergedProps;
       setSubmitting: (state: boolean) => void;
     },
   ) => {

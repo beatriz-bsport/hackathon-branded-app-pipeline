@@ -53,6 +53,7 @@ import MemberBaseFilter from './filters/MemberBaseFilter.component';
 import type { SmartList } from '#libs/smart-list/types';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -307,7 +308,9 @@ export class FiltersPanel extends Component<Props, State> {
                       >
                         <ListItemText
                           primary={t(`filters.${filter}.name`)}
-                          secondary={t(`filters.${filter}.explanation`)}
+                          secondary={t(`filters.${filter}.explanation`, {
+                            currencyDisplay: getCurrencyDisplay(),
+                          })}
                         />
                       </ListItem>
                     ))}

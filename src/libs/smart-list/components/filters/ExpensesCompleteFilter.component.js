@@ -17,6 +17,7 @@ import {
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import CalendarPicker from '../CalendarPicker.component';
 import Selector from '../MultiSelector.component';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   filter_data: any,
@@ -91,7 +92,9 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
               }
             />
           ) : null}
-          {t(`filters.${filter_data.filter_identifier}.second`)}
+          {t(`filters.${filter_data.filter_identifier}.second`, {
+            currencyDisplay: getCurrencyDisplay(),
+          })}
           <Selector
             helperText={t('multiSelector.buyables.helperText')}
             helperSelectedText={t('multiSelector.buyables.helperSelectedText')}

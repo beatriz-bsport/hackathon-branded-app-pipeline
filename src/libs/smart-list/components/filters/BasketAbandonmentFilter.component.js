@@ -17,6 +17,7 @@ import {
 import CalendarPicker from '../CalendarPicker.component';
 
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   filter_data: any,
@@ -91,7 +92,9 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
             }
           />
         ) : null}
-        {t(`filters.${filter_data.filter_identifier}.third`)}
+        {t(`filters.${filter_data.filter_identifier}.third`, {
+          currencyDisplay: getCurrencyDisplay(),
+        })}
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}

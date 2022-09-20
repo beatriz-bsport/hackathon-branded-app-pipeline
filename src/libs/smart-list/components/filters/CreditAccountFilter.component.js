@@ -14,6 +14,7 @@ import {
 } from '@bsport/common/lib/master-data/smart-list';
 
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   filter_data: any,
@@ -73,7 +74,9 @@ export class CreditAccountFilter extends Component<Props, state> {
             }
           />
         ) : null}
-        {t(`filters.${filter_data.filter_identifier}.third`)}
+        {t(`filters.${filter_data.filter_identifier}.third`, {
+          currencyDisplay: getCurrencyDisplay(),
+        })}
       </div>
     );
   }

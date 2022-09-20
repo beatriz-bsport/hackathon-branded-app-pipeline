@@ -401,7 +401,8 @@
                 }
             }
         },
-        "asGuest": "Invité"
+        "asGuest": "Invité",
+        "unlimited": "Illimité"
     },
     "category": {
         "sct": {
@@ -2041,7 +2042,7 @@
                 "13": "Giropay",
                 "14": "Acompte client (dette)",
                 "15": "Carte (manuel)",
-		"disputeWon": "Résolu"
+                "disputeWon": "Résolu"
             },
             "detach": {
                 "pm_deleted": "Moyen de paiement supprimé",
@@ -10265,7 +10266,8 @@
                 "noBookingOptions": "Aucune réservation sur liste d'attente",
                 "noFutureBookings": "Aucune réservation prévue",
                 "noPastBookings": "Aucune réservation passée",
-                "cancelOption": "Annuler"
+                "cancelOption": "Annuler",
+                "discardGroupImpossibleExplain": ""
             }
         },
         "navigation": {

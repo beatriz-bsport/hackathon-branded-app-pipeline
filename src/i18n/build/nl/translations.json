@@ -2491,7 +2491,7 @@
                 },
                 "groupOperandHelperText": {
                     "0": "Er moet ten minste één filter kunnen worden toegepast.",
-                    "1": "Alles filters moeten worden toegepast."
+                    "1": "Alle filters moeten worden toegepast."
                 },
                 "filterComparator": {
                     "0": {
@@ -4490,7 +4490,8 @@
         "allCompanies": "Alle studio's",
         "seeAll": "Toon alles",
         "franchiseEmails": "[Master-Account] E-mailsjablonen",
-        "companieEmails": "Sjablonen"
+        "companieEmails": "Sjablonen",
+        "bsportTemplateEmail": "Overstapbericht"
     },
     "member": {
         "pass_owner": "Geldige leskaart",
@@ -5519,7 +5520,9 @@
                 "iwanttostarton": "Gewenste startdatum van dit abonnement: ",
                 "subscribe": "Abonneren",
                 "create": "Een abonnement toevoegen",
-                "iAcceptGeneralCondition": " Ik ga akkoord met de voorwaarden."
+                "iAcceptGeneralCondition": " Ik ga akkoord met de voorwaarden.",
+                "title": "Verstreken datum",
+                "alertPastDateSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid."
             },
             "deleteForm": {
                 "actions": {
@@ -5562,7 +5565,25 @@
                 "month": "Maandelijks"
             },
             "billingFrequency": "Factureringsfrequentie",
-            "paymentCombo": "Bijbehorend pakket"
+            "paymentCombo": "Bijbehorend pakket",
+            "pastDate": {
+                "alertSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid.",
+                "title": "Verstreken datum",
+                "alertDifferentMonth": "Er is een datum in het verleden gekozen. Je lid heeft wellicht één of meerdere kaarten die al gefactureerd en verlopen zijn.",
+                "alertDifferentMonthConfirmAsk": "Dit lid wordt {{valuePastInvoicesPrice}} in rekening gebracht. Type \"{{valuePastInvoices}}\" om deze actie te bevestigen.",
+                "alertDifferentMonthInput": "Waarde van eerdere facturen",
+                "valuePastInvoicesInputError": "Error: deze waarden komen niet overeen.",
+                "futureInvoicesPayment": "Betaling van toekomstige facturen",
+                "payment": {
+                    "pastInvoicesPayment": "Betaling van eerdere facturen",
+                    "manualPayment": "Handmatige betaling",
+                    "registeredInfo": "Alle toekomstige en eerdere facturen worden binnen 24 uur afgeschreven van de op het abonnement vermelde betaalwijze.",
+                    "manualInfo": "Eerdere facturen worden aangegeven als handmatig betaald en toekomstige facturen worden afgeschreven van de door het lid ingevoerde betalingsmethode.",
+                    "registeredMethodPayment": "Opgeslagen betaalmethode belasten"
+                },
+                "cancel": "Annuleren",
+                "validate": "Bevestigen"
+            }
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
@@ -7899,7 +7920,8 @@
             "50": "EPS",
             "40": "iDEAL",
             "30": "Sofort",
-            "20": "Bancontact"
+            "20": "Bancontact",
+            "disputeWon": "Gewonnen"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
         "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
@@ -9591,7 +9613,7 @@
             },
             "helperText": {
                 "dateStart": "De gegevens worden in de tijd uitgezet op basis van de begindatum van de sessies.",
-                "dateCreated": "De gegevens zullen in de tijd worden weergegeven overeenkomstig de datum waarop de boekingen werden verricht.",
+                "dateCreated": "De gegevens worden in de tijd weergegeven volgens de datum waarop de boekingen zijn gedaan.",
                 "subscriptionPrice": {
                     "max": "Dit is het maximumbedrag voor alle ontvangen abonnementsbetalingen.",
                     "min": "Dit is het minumumbedrag voor alle ontvangen abonnementsbetalingen.",
@@ -11312,7 +11334,12 @@
             "clockIn": "Urenregistratie",
             "help": "Hulp",
             "tutorial": "Handleiding",
-            "tutorialInfo": "Onder \"Handleiding\" staat alle nuttige informatie voor beginners om aan de slag te gaan."
+            "tutorialInfo": "Onder \"Handleiding\" staat alle nuttige informatie voor beginners om aan de slag te gaan.",
+            "toggle": {
+                "expand": "Uitbreiden",
+                "shrink": "Inklappen"
+            },
+            "cadences": "Workflow"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",

@@ -5355,7 +5355,7 @@
             "signin": "Log in"
         },
         "or": " or ",
-        "contactUs": "Click here if you're interested in learning more about how BSPORT Solution helps your business with automating, streamlining, and simplifying all of your daily tasks.",
+        "contactUs": "Studio manager, are you interested in our solution?\nPlease contact us.",
         "signup": {
             "title": "Signup"
         },
@@ -6653,7 +6653,7 @@
             "40": "iDEAL",
             "30": "Sofort",
             "20": "Bancontact",
-	    "disputeWon": "Won"
+            "disputeWon": "Won"
         },
         "actions": {
             "addThisPaymentItem": "Add this payment method"
@@ -7507,7 +7507,9 @@
                 "iwanttostarton": "Preferred starting date of this subscription: ",
                 "subscribe": "Subscribe",
                 "create": "Add a subscription",
-                "iAcceptGeneralCondition": " I accept the terms."
+                "iAcceptGeneralCondition": " I accept the terms.",
+                "alertPastDateSameMonth": "Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.",
+                "title": "Past date"
             },
             "duration": "{{month}} bills",
             "list": {
@@ -7623,7 +7625,25 @@
                 "month": "monthly"
             },
             "billingFrequency": "Billing frequency",
-            "paymentCombo": "Associated pack"
+            "paymentCombo": "Associated pack",
+            "pastDate": {
+                "cancel": "Cancel",
+                "validate": "Confirm",
+                "payment": {
+                    "manualInfo": "Past invoices will be indicated as manually paid and future invoices will be debited to the payment method entered by the member.",
+                    "registeredInfo": "All future and past invoices will be debited within 24 hours to the payment method indicated on the subscription.",
+                    "manualPayment": "Manual payment",
+                    "pastInvoicesPayment": "Payment of past invoices",
+                    "registeredMethodPayment": "Debit to the registered payment method"
+                },
+                "futureInvoicesPayment": "Payment of future invoices",
+                "valuePastInvoicesInputError": "The value does not correspond. Please try again",
+                "alertDifferentMonthInput": "Value of past invoices",
+                "alertDifferentMonthConfirmAsk": "You are about to charge {{valuePastInvoicesPrice}} to your member. To confirm this action type {{valuePastInvoices}}",
+                "alertDifferentMonth": "Please note that you have chosen a date in a past month. Your member may have one or more passes billed that have already expired.",
+                "alertSameMonth": "Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.",
+                "title": "Past date"
+            }
         },
         "recap": {
             "willBecharged": " will be charged ",
@@ -12134,7 +12154,12 @@
             "clockIn": "Attendance",
             "help": "Support",
             "tutorialInfo": "You can find our Getting Started Guide in the Tutorial tab.",
-            "tutorial": "Tutorial"
+            "tutorial": "Tutorial",
+            "cadences": "Cadences",
+            "toggle": {
+                "expand": "Expand",
+                "shrink": "Collapse"
+            }
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",

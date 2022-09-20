@@ -2602,7 +2602,8 @@
             "50": "EPS",
             "40": "iDEAL",
             "30": "Sofort",
-            "20": "Bancontact"
+            "20": "Bancontact",
+            "disputeWon": "Resuelto"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -3505,7 +3506,9 @@
                 "iwanttostarton": "Deseo comenzar a facturar en: ",
                 "iAcceptCondition": "Acepto las condiciones anteriores",
                 "create": "Añadir un contrato",
-                "iAcceptGeneralCondition": " Acepto el aviso legal"
+                "iAcceptGeneralCondition": " Acepto el aviso legal",
+                "alertPastDateSameMonth": "Atención, has elegido una fecha pasada, si el cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
+                "title": "Fecha pasada"
             },
             "legal": "Notas legales",
             "description": "Descripción",
@@ -3559,7 +3562,25 @@
                 "week": "semanal"
             },
             "billingFrequency": "Frecuencia de facturación",
-            "paymentCombo": "Paquete asociado"
+            "paymentCombo": "Paquete asociado",
+            "pastDate": {
+                "cancel": "Cancelar",
+                "validate": "Confirmar",
+                "payment": {
+                    "manualInfo": "Las facturas pasadas se indicarán como pagadas manualmente y las futuras se cargarán al método de pago introducido por el miembro.",
+                    "registeredMethodPayment": "Cargar al método de pago registrado",
+                    "registeredInfo": "Todas las facturas futuras y pasadas se cargarán en un plazo de 24 horas en el método de pago indicado en la suscripción.",
+                    "manualPayment": "Pago manual",
+                    "pastInvoicesPayment": "Pago de facturas pasadas"
+                },
+                "futureInvoicesPayment": "Pago de facturas futuras",
+                "valuePastInvoicesInputError": "El valor no coincide. Por favor, inténtalo de nuevo",
+                "alertDifferentMonthInput": "Valor de las facturas pasadas",
+                "alertDifferentMonthConfirmAsk": "Estás a punto de cargar {{valuePastInvoicesPrice}} a tu miembro. Para confirmar esta acción escribe {{valuePastInvoices}}",
+                "alertDifferentMonth": "Ten en cuenta que has elegido una fecha en el último mes. Es posible que tu miembro tenga un o varios bonos facturados que ya han caducado.",
+                "alertSameMonth": "Atención, has elegido una fecha pasada, si el cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
+                "title": "Fecha pasada"
+            }
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -10309,7 +10330,12 @@
             "clockIn": "Reloj de fichaje",
             "help": "Ayuda",
             "tutorialInfo": "Puedes encontrar nuestra Guía de inicio en la pestaña de Tutorial.",
-            "tutorial": "Tutorial"
+            "tutorial": "Tutorial",
+            "toggle": {
+                "expand": "Extender",
+                "shrink": "Doblar"
+            },
+            "cadences": "Cadencias"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",

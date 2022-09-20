@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { Form, withFormik, FormikProps } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -26,6 +26,7 @@ type Props = {
   onCancel: () => void;
   isSubmitting: boolean;
   paymentComboList: Array<PaymentCombo>;
+  loading: boolean;
 } & FormikProps<Subscription>;
 
 export const SubscriptionPaymentComboSwitcherDialog = (props: Props) => {
@@ -33,6 +34,7 @@ export const SubscriptionPaymentComboSwitcherDialog = (props: Props) => {
   const { t } = useTranslation('subscription');
   return (
     <Dialog open={props.open}>
+      {props.loading && <LinearProgress />}
       <Form>
         <DialogTitle>
           {t('subscription.switchPaymentCombo.form.title')}
@@ -65,7 +67,7 @@ export const SubscriptionPaymentComboSwitcherDialog = (props: Props) => {
           </Button>
           <RedButton
             delayBeforeActivation={5}
-            disabled={props.isSubmitting}
+            disabled={props.isSubmitting || props.loading}
             onClick={() => props.handleSubmit()}
             variant="contained"
           >

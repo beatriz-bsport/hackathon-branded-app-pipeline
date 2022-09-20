@@ -1,9 +1,7 @@
-// @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
-
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,48 +10,56 @@ import Button from '@material-ui/core/Button';
 import { Form, withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import * as Yup from 'yup';
 import { Submit } from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
+import type { PaymentPack } from '#libs/payment-packs/types';
 
 type Props = {
-  t: TFunction,
-  open: boolean,
-  classes: Object,
-  onCancel: () => void,
-  isSubmitting: boolean,
-  paymentPackList: Array<PaymentPack>,
+  open: boolean;
+  onCancel: () => void;
+  isSubmitting: boolean;
+  paymentPackList: Array<PaymentPack>;
+  loading: boolean;
 };
 
-export const SubscriptionPaymentPackSwitcherDialog = (props: Props) => {
+export const SubscriptionPaymentPackSwitcherDialog: React.FC<Props> = ({
+  open,
+  onCancel,
+  isSubmitting,
+  paymentPackList,
+  loading,
+}) => {
+  const { t } = useTranslation('subscription');
+  const classes = useStyles();
   return (
-    <Dialog open={props.open}>
+    <Dialog open={open}>
+      {loading && <LinearProgress />}
       <Form>
-        <DialogTitle>
-          {props.t('subscription.switchPack.form.title')}
-        </DialogTitle>
+        <DialogTitle>{t('subscription.switchPack.form.title')}</DialogTitle>
         <DialogContent>
           <PaymentPackSelectorField
-            choices={props.paymentPackList}
+            choices={paymentPackList}
             name="payment_pack"
             fullWidth
           />
-          <Typography className={props.classes.explainText}>
-            {props.t('subscription.switchPack.form.explain')}
+          <Typography className={classes.explainText}>
+            {t('subscription.switchPack.form.explain')}
           </Typography>
-          <div className={props.classes.row}>
-            <WarningIcon className={props.classes.leftIcon} color="error" />
-            <Typography className={props.classes.explainText}>
-              {props.t('subscription.switchPack.form.warning')}
+          <div className={classes.row}>
+            <WarningIcon className={classes.leftIcon} color="error" />
+            <Typography className={classes.explainText}>
+              {t('subscription.switchPack.form.warning')}
             </Typography>
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onCancel}>
-            {props.t('subscription.switchPack.form.cancel')}
+          <Button onClick={onCancel}>
+            {t('subscription.switchPack.form.cancel')}
           </Button>
-          <Submit disabled={props.isSubmitting}>
-            {props.t('subscription.switchPack.form.submit')}
+          <Submit disabled={isSubmitting || loading}>
+            {t('subscription.switchPack.form.submit')}
           </Submit>
         </DialogActions>
       </Form>
@@ -61,7 +67,7 @@ export const SubscriptionPaymentPackSwitcherDialog = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   leftIcon: {
     marginRight: theme.spacing(2),
   },
@@ -79,7 +85,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
   },
-});
+}));
 
 export const PriceUpdaterSchema = Yup.object().shape({
   subscription: Yup.number().required(),
@@ -102,8 +108,6 @@ export const SubscriptionPackSwitcherFormikHoc = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['subscription']),
-  withStyles(styles),
-  SubscriptionPackSwitcherFormikHoc,
-)(SubscriptionPaymentPackSwitcherDialog);
+export default compose(SubscriptionPackSwitcherFormikHoc)(
+  SubscriptionPaymentPackSwitcherDialog,
+);

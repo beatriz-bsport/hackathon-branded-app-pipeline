@@ -7406,6 +7406,11 @@
       "switchPack": { "success": "Carte de cours modifiée", "error": "Impossible de modifier la carte de cours" },
       "switchPrivatePass": { "success": "Carte de rendez-vous modifiée", "error": "Impossible de modifier la carte de rendez-vous" },
       "switchPaymentCombo": { "success": "Pack modifié", "error": "Impossible de modifier le pack" },
+      "switchItemsErrors": {
+        "paymentPack": { "63003": "Impossible : Le changement de carte de cours partagée entre franchisés n'est pas autorisé" },
+        "privatePass": { "63003": "Impossible : Le changement de carte de rendez-vous partagée entre franchisés n'est pas autorisé" },
+        "paymentCombo": { "63003": "Impossible : Le changement de pack partagé entre franchisés n'est pas autorisé" }
+      },
       "freeze": {
         "success": "Souscription mise en pause",
         "locked": "Impossible de mettre en pause pour le moment, un paiement est-il en attente ?",

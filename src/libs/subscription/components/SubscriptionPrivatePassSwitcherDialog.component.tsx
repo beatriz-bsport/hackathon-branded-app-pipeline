@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { Form, withFormik, FormikProps } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -26,6 +26,7 @@ type Props = {
   onCancel: () => void;
   isSubmitting: boolean;
   privatePassList: Array<PrivatePass>;
+  loading: boolean;
 } & FormikProps<Subscription>;
 
 export const SubscriptionPrivatePassSwitcherDialog = (props: Props) => {
@@ -33,6 +34,7 @@ export const SubscriptionPrivatePassSwitcherDialog = (props: Props) => {
   const { t } = useTranslation('subscription');
   return (
     <Dialog open={props.open}>
+      {props.loading && <LinearProgress />}
       <Form>
         <DialogTitle>
           {t('subscription.switchPrivatePass.form.title')}
@@ -57,7 +59,7 @@ export const SubscriptionPrivatePassSwitcherDialog = (props: Props) => {
           <Button onClick={props.onCancel}>
             {t('subscription.switchPrivatePass.form.cancel')}
           </Button>
-          <Submit disabled={props.isSubmitting}>
+          <Submit disabled={props.isSubmitting || props.loading}>
             {t('subscription.switchPrivatePass.form.submit')}
           </Submit>
         </DialogActions>

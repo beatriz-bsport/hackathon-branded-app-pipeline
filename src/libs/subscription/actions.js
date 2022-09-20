@@ -522,7 +522,16 @@ export function switchSubscriptionPaymentPack(
     } catch (err) {
       console.error(err);
       dispatch(switchPaymentPackActions.error(err));
-      dispatch(snackbarError('subscription.switchPack.error'));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `subscription.switchItemsErrors.paymentPack.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('subscription.switchPack.error'));
+      }
+
       if (options && options.onError) options.onError(err);
     }
     dispatch(switchPaymentPackActions.isLoading(false));
@@ -553,7 +562,15 @@ export function switchSubscriptionPrivatePass(
     } catch (err) {
       console.error(err);
       dispatch(switchPrivatePassActions.error(err));
-      dispatch(snackbarError('subscription.switchPrivatePass.error'));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `subscription.switchItemsErrors.privatePass.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('subscription.switchPrivatePass.error'));
+      }
       if (options && options.onError) options.onError(err);
     }
     dispatch(switchPrivatePassActions.isLoading(false));
@@ -583,7 +600,15 @@ export function switchSubscriptionPaymentCombo(
     } catch (err) {
       console.error(err);
       dispatch(switchPaymentComboActions.error(err));
-      dispatch(snackbarError('subscription.switchPaymentCombo.error'));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `subscription.switchItemsErrors.paymentCombo.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('subscription.switchPaymentCombo.error'));
+      }
       if (options && options.onError) options.onError(err);
     }
     dispatch(switchPaymentComboActions.isLoading(false));

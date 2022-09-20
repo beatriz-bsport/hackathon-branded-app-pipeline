@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';

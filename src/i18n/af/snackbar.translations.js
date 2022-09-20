@@ -61,6 +61,10 @@ const {
   EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_BODY,
 } = require('@bsport/common/lib/master-data/smart-list');
 
+const {
+  BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE,
+} = require('@bsport/common/lib/master-data/error-codes/subscription');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -626,6 +630,20 @@ exports.default = {
     switchPaymentCombo: {
       success: 'Pack modifié',
       error: 'Impossible de modifier le pack',
+    },
+    switchItemsErrors: {
+      paymentPack: {
+        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
+          "Impossible : Le changement de carte de cours partagée entre franchisés n'est pas autorisé",
+      },
+      privatePass: {
+        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
+          "Impossible : Le changement de carte de rendez-vous partagée entre franchisés n'est pas autorisé",
+      },
+      paymentCombo: {
+        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
+          "Impossible : Le changement de pack partagé entre franchisés n'est pas autorisé",
+      },
     },
     freeze: {
       success: 'Souscription mise en pause',

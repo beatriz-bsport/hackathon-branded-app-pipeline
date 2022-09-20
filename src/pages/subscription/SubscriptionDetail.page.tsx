@@ -148,6 +148,7 @@ export class SubscriptionDetail extends Component<Props> {
         {this.props.switchPackDialogOpen ? (
           <SubscriptionPaymentPackSwitcherDialog
             open={!!this.props.switchPackDialogOpen}
+            loading={this.props.switchSubscriptionItemLoading}
             subscription={subscription}
             paymentPackList={this.props.availablePaymentPackList}
             onCancel={() => this.props.setSwitchPackDialogOpen(false)}
@@ -157,6 +158,7 @@ export class SubscriptionDetail extends Component<Props> {
         {this.props.switchPrivatePassDialogOpen ? (
           <SubscriptionPrivatePassSwitcherDialog
             open={!!this.props.switchPrivatePassDialogOpen}
+            loading={this.props.switchSubscriptionItemLoading}
             subscription={subscription}
             privatePassList={this.props.availablePrivatePassList}
             onCancel={() => this.props.setSwitchPrivatePassDialogOpen(false)}
@@ -166,6 +168,7 @@ export class SubscriptionDetail extends Component<Props> {
         {this.props.switchPaymentComboDialogOpen ? (
           <SubscriptionPaymentComboSwitcherDialog
             open={!!this.props.switchPaymentComboDialogOpen}
+            loading={this.props.switchSubscriptionItemLoading}
             subscription={subscription}
             paymentComboList={this.props.availablePaymentComboList}
             onCancel={() => this.props.setSwitchPaymentComboDialogOpen(false)}
@@ -235,6 +238,8 @@ const connector = connect(
     loading:
       state.subscription.detail.loading ||
       state.subscription.createOrUpdate.loading,
+    switchSubscriptionItemLoading:
+      state.subscription.switchSubscriptionItem.loading,
     availablePaymentPackList: getEnabledPaymentPackList(state),
     availablePrivatePassList: getPrivatePassAvailable(state),
     availablePaymentComboList: getPaymentComboList(state),

@@ -35,7 +35,7 @@ export const userAcknowlegdePlatformTutorial = createSelector(
   (tutorialCompletion, permissions, loading) => {
     if (
       !permissions ||
-      tutorialCompletion.has_seen_tutorial_section_timestamp === null ||
+      tutorialCompletion?.has_seen_tutorial_section_timestamp === null ||
       loading ||
       !platformTutorialActivated()
     ) {

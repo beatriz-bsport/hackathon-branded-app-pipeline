@@ -43,6 +43,7 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
@@ -592,6 +593,33 @@ const ResponsiveDrawer: React.FC<Props> = ({
             </Hidden>
           </Grid>
         </div>
+        {handleUserSetDrawerIconsOnly && handleToggle ? (
+          <>
+            <div className={classes.selfCentered}>
+              <IconButton
+                onClick={handleToggleDrawer}
+                disableRipple
+                className={classes.iconButton}
+              >
+                <ToolTip
+                  title={
+                    iconsOnly
+                      ? t('backofficeMenu.toggle.expand')
+                      : t('backofficeMenu.toggle.shrink')
+                  }
+                  placement="right-start"
+                >
+                  <DoubleArrow
+                    className={classNames(classes.easeRotation, {
+                      [classes.rotate]: !iconsOnly,
+                    })}
+                  />
+                </ToolTip>
+              </IconButton>
+            </div>
+            <Divider />
+          </>
+        ) : null}
         <List className={classes.mainList}>
           {items.map((item, i) => (
             <ResponsiveDrawerItem
@@ -615,30 +643,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
           <ListItem />
         </List>
       </div>
-      <div className={classes.selfEnd}>
-        {handleUserSetDrawerIconsOnly && handleToggle ? (
-          <IconButton
-            onClick={handleToggleDrawer}
-            disableRipple
-            className={classes.iconButton}
-          >
-            <ToolTip
-              title={
-                iconsOnly
-                  ? t('backofficeMenu.toggle.expand')
-                  : t('backofficeMenu.toggle.shrink')
-              }
-              placement="right-start"
-            >
-              <DoubleArrow
-                className={classNames({ [classes.rotate]: !iconsOnly })}
-              />
-            </ToolTip>
-          </IconButton>
-        ) : null}
-
-        <VersionVisualizer />
-      </div>
+      <VersionVisualizer />
     </div>
   );
 };
@@ -673,17 +678,24 @@ const useStyles = makeStyles<Theme, { iconsOnly: boolean }>((theme: Theme) => ({
       display: 'none',
     },
   },
-  selfEnd: {
-    alignSelf: 'center',
-    justifySelf: 'self-end',
+  selfCentered: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconButton: {
     '&:hover': {
       backgroundColor: 'transparent',
     },
   },
+  easeRotation: {
+    transition: 'transform .2s ease-in-out',
+  },
   rotate: {
-    transform: 'rotate(180deg)',
+    transform: 'rotate(-180deg)',
+  },
+  mainList: {
+    paddingTop: 0,
   },
 }));
 

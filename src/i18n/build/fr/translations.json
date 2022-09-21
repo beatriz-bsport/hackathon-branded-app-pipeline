@@ -3360,7 +3360,7 @@
                 "settings": "Paramètres",
                 "platform_billing": "Abonnement bsport",
                 "forms": "Formulaire membre",
-                "mobilePersonalization": "Personalisation app"
+                "mobilePersonalization": "Personnalisation app"
             },
             "marketingNotification": "Notifications",
             "tags": "Tags",
@@ -10995,7 +10995,7 @@
             "creationPageInfo": "Personnalisez des widgets et intégrez les sur votre site",
             "codeInfo": "Le code à intégrer dans votre site",
             "linkToConfig": "Lien vers cette configuration",
-            "dialogTitle": "Personalisation de Widget",
+            "dialogTitle": "Personnalisation de Widget",
             "widgetPreviewError": "Veuillez finir votre configuration",
             "dialogModeLabel": "Type de popup (login, paiement, réservation)",
             "dialogSizeLabel": "Dimension de la popup",

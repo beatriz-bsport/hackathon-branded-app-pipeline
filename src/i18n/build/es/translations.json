@@ -2050,7 +2050,7 @@
         },
         "detail": {
             "section": {
-                "title": "Estado de la pedida :",
+                "title": "Estado del pedido :",
                 "deliveryInfo": "Dirección de entrega",
                 "productDetail": "Productos",
                 "invoice": "Facturas",
@@ -4422,7 +4422,7 @@
         },
         "alert_kind": {
             "1": "Facturación",
-            "2": "Pedida",
+            "2": "Pedido",
             "4": "Cita a completar",
             "3": "Tarea",
             "5": "Informaciones legales",
@@ -4437,7 +4437,7 @@
             "pricePayed": "Importe pagado : {{price_payed}}."
         },
         "newOrder": {
-            "title": "Nueva pedida",
+            "title": "Nuevo pedido",
             "explain": "Pagada por <1>{{name}}</1> en la tienda.",
             "price": "Importe: {{ price }}."
         },
@@ -11381,7 +11381,7 @@
             "metaActivityFormSubtitle": "Creación de una actividad"
         },
         "order": {
-            "orderDetail": "Detalles pedida",
+            "orderDetail": "Detalles pedido",
             "orderList": "Pedidos"
         },
         "member": {

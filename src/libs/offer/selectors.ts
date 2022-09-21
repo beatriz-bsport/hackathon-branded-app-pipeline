@@ -395,7 +395,7 @@ export const getOffersListByMetaActivity = createCachedSelector(
   (offerState, offersData) => {
     return {
       ...offerState,
-      items: offerState.allIds.map((id) => offersData[id]),
+      items: (offerState.allIds || []).map((id) => offersData[id]),
     };
   },
 )((state: RootState, metaActivityId: number) => metaActivityId);

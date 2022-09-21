@@ -9,7 +9,7 @@ import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { getEstablishment } from '../../libs/establishment/selectors';
+import { getEstablishmentWithAssociatedId } from '../../libs/establishment/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
@@ -42,8 +42,14 @@ import {
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
 } from '../../libs/private-service/actions';
-import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
+import {
+  fetchEstablishmentBulk,
+  fetchAssociatedEstablishments,
+} from '../../libs/establishment/actions';
+
+import { getTheme } from '#libs/theme/selectors';
 import { CompanyTheme } from '../../libs/theme/types';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 
 type Props = {
   companyTheme: CompanyTheme,
@@ -85,6 +91,20 @@ type Props = {
     establishment: number,
     scheduleFilter: ScheduleFilter,
   ) => void,
+  fetchAssociatedEstablishments: (data: any) => void,
+  companyId: number,
+  establishment: EstablishmentWithAssociatedId,
+};
+
+type State = {
+  resourceAvailable: null | Array<{
+    datatype: 'associated_establishment',
+    data: Array<{
+      name: string,
+      photo: string,
+      resource_id: number,
+    }>,
+  }>,
 };
 
 const styles = (theme) => ({
@@ -92,7 +112,25 @@ const styles = (theme) => ({
   leftIcon: { marginRight: theme.spacing(1) },
 });
 
-export class CoachPrivateCalendar extends React.Component<Props> {
+export class CoachPrivateCalendar extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resourceAvailable: [
+        {
+          datatype: 'associated_establishment',
+          data: [
+            {
+              name: props.establishment?.name,
+              photo: props.establishment?.photo,
+              resource_id: props.establishment?.associated_establishment_id,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   fetchAvailabilitySlots = () => {
     this.props.resetAvailabilitySlots();
     this.props.fetchAvailabilitySlots({
@@ -107,9 +145,27 @@ export class CoachPrivateCalendar extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateBookings();
     this.props.fetchEstablishmentBulk([this.props.id]);
+    this.props.fetchAssociatedEstablishments({ company: this.props.companyId });
   }
 
   componentDidUpdate(prevProps: Props) {
+    if (prevProps.establishment?.id !== this.props.establishment?.id) {
+      this.setState({
+        resourceAvailable: [
+          {
+            datatype: 'associated_establishment',
+            data: [
+              {
+                name: this.props.establishment?.name,
+                photo: this.props.establishment?.photo,
+                resource_id:
+                  this.props.establishment?.associated_establishment_id,
+              },
+            ],
+          },
+        ],
+      });
+    }
     if (
       prevProps.periodFilter.start !== this.props.periodFilter.start ||
       prevProps.periodFilter.end !== this.props.periodFilter.end ||
@@ -173,6 +229,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
+
     return (
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
@@ -199,6 +256,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           companyTheme={this.props.companyTheme}
           scheduleFilter={this.props.scheduleFilter}
           setScheduleFilter={this.setScheduleFilter}
+          resourceAvailable={this.state.resourceAvailable}
+          hideResourceSelector
         />
       </div>
     );
@@ -216,8 +275,9 @@ export default compose(
   connect(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getEstablishmentAvailabilitySlots(state, id),
-      companyTheme: state.theme.theme,
-      establishment: getEstablishment(state, id),
+      companyTheme: getTheme(state),
+      companyId: getTheme(state)?.company,
+      establishment: getEstablishmentWithAssociatedId(state, id),
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
@@ -247,6 +307,7 @@ export default compose(
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchMemberBulkById: fetchMemberBulkByIdAction,
       setEstablishmentScheduleFilter: setEstablishmentScheduleFilterAction,
+      fetchAssociatedEstablishments,
     },
   ),
   withHandlers({

@@ -98,6 +98,8 @@ export class ResourceAllocationConfirmDialog extends React.Component<
             'coach',
             this.props.coach?.id || this.props.privateBooking.coach.id,
             this.props.dateStart || this.props.privateBooking.date_start,
+            this.props.establishment?.id ||
+              this.props.privateBooking.establishment.id,
           )
         : null;
       const promiseEstablishment = this.props.privateBooking.establishment

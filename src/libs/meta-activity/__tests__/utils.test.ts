@@ -1,6 +1,6 @@
 import { MarketPlaceFilter } from '#libs/marketplace/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '../utils';
-import { MetaActivityFilter } from './/types';
+import { MetaActivityFilter } from './types';
 
 const defaultFilter: MetaActivityFilter = {
   company: 1,

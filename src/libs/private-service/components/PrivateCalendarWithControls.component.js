@@ -99,6 +99,8 @@ type Props = {
   scheduleFilter: ScheduleFilter,
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
   coachesSelectedInRole?: Array<Coach>,
+  establishments?: Array<EstablishmentWithAssociatedId>,
+  hideResourceSelector?: boolean,
 };
 
 export const PrivateCalendarWithControls = (props: Props) => {
@@ -119,7 +121,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
             justifyContent: 'space-between',
           }}
         >
-          {!!props.resourceAvailable && (
+          {!props.hideResourceSelector && !!props.resourceAvailable && (
             <ResourceSelector
               collapse={props.collapsResourceSelector}
               resourceAvailable={props.resourceAvailable}
@@ -277,6 +279,8 @@ export const PrivateCalendarWithControls = (props: Props) => {
           scheduleTimerangeEnd={props.companyTheme.schedule_timerange_end}
           scheduleFilter={props.scheduleFilter}
           setScheduleFilter={props.setScheduleFilter}
+          establishments={props.establishments || []}
+          resourceAvailable={props.resourceAvailable}
         />
         <CalendarEventDetail
           popoverAnchor={props.popoverAnchor}

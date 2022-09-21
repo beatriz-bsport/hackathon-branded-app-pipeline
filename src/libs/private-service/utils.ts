@@ -1,8 +1,11 @@
 import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
+import memoize from 'memoize-one';
 
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
+import { sortByDate, formatAsDate } from '../../utils/datetime';
+
 import {
   PrivateConsumerPass,
   PrivatePass,
@@ -13,9 +16,18 @@ import {
   PrivateServiceWithSlots,
   CompatiblePrivateService,
   PrivatePassTemplate,
+  AvailabilitySlot,
+  Selection,
+  Interval,
+  AvailabilityDetail,
+  SlotsGroupedByResourceId,
+  IntervalsGroupedByResourceId,
+  IntervalsGroupedByRestriction,
+  ResourceType,
 } from './types';
-import { formatAsDate } from '../../utils/datetime';
 import { Member } from '#libs/member/types';
+
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -326,3 +338,243 @@ export const joinIntervalList = (intervalList: Array<Array<string>>) => {
   });
   return slots;
 };
+
+// *
+// * Merge intervals together when consecutive or overlapping
+// *
+const _consolidate = memoize(
+  (slots: Array<AvailabilitySlot>): Array<Interval> => {
+    const sortedSlots = sortByDate(slots, 'date_start');
+
+    if (!sortedSlots.length) return [];
+
+    let { date_start, date_end } = sortedSlots[0];
+    const intervals: Array<Interval> = [];
+    for (let i = 1; i < sortedSlots.length; i += 1) {
+      const { date_start: curr_date_start, date_end: curr_date_end } =
+        sortedSlots[i];
+      if (moment(curr_date_start).isSameOrBefore(moment(date_end))) {
+        date_end = moment.max(moment(date_end), moment(curr_date_end)).format();
+      } else {
+        intervals.push({ date_start, date_end });
+        date_start = curr_date_start;
+        date_end = curr_date_end;
+      }
+    }
+
+    intervals.push({ date_start, date_end });
+    return intervals;
+  },
+);
+
+// *
+// * Groups availability slots by resource, and for each resource groups by
+// * restriction_on_associated_establishments. When grouped by resource and restriction,
+// * a list of availability slots becomes mergeable
+// *
+const groupSlotsByResourceAndRestriction = memoize(
+  (slots: Array<AvailabilitySlot>): SlotsGroupedByResourceId => {
+    return slots
+      .filter((slot) => !slot.is_restriction)
+      .reduce((acc: SlotsGroupedByResourceId, currentSlot) => {
+        const resourceIdentifierKey = currentSlot.resource_identifier;
+        const resourceIdentifierValue = acc[resourceIdentifierKey] ?? {};
+
+        const restrictionOnEstablishmentsKey = JSON.stringify(
+          [...currentSlot.restriction_on_associated_establishments].sort(
+            (a, b) => a - b,
+          ),
+        );
+        const restrictionOnEstablishmentValues =
+          resourceIdentifierValue[restrictionOnEstablishmentsKey] ?? [];
+
+        return {
+          ...acc,
+          [currentSlot.resource_identifier]: {
+            ...resourceIdentifierValue,
+            [restrictionOnEstablishmentsKey]: [
+              ...restrictionOnEstablishmentValues,
+              currentSlot,
+            ],
+          },
+        };
+      }, {});
+  },
+);
+
+// *
+// * Performs the merge operation on the grouped availability slots
+// *
+export const groupSlotsAndMerge = memoize(
+  (slots: Array<AvailabilitySlot>): IntervalsGroupedByResourceId => {
+    const slotsGroupedByResource = groupSlotsByResourceAndRestriction(slots);
+
+    const mergedIntervalsGroupedByResource: IntervalsGroupedByResourceId = {};
+
+    for (const [
+      resourceIdentifier,
+      groupedSlotsByRestriction,
+    ] of Object.entries(slotsGroupedByResource)) {
+      const mergedIntervalsGroupedByRestriction: IntervalsGroupedByRestriction =
+        {};
+
+      for (const [restrictionString, currentSlots] of Object.entries(
+        groupedSlotsByRestriction,
+      )) {
+        const mergedIntervals = _consolidate(currentSlots);
+        mergedIntervalsGroupedByRestriction[restrictionString] =
+          mergedIntervals;
+      }
+
+      mergedIntervalsGroupedByResource[resourceIdentifier] =
+        mergedIntervalsGroupedByRestriction;
+    }
+
+    return mergedIntervalsGroupedByResource;
+  },
+);
+
+// *
+// * Computes the intersection between the selection and all intervals
+// *
+export const intersectSelectionWithMergedIntervals = (
+  selection: Selection,
+  groupedMergedIntervals: IntervalsGroupedByResourceId,
+) => {
+  const intersectionIntervalsGroupedByResourceId: IntervalsGroupedByResourceId =
+    {};
+
+  for (const [
+    resourceIdentifier,
+    groupedIntervalsByRestriction,
+  ] of Object.entries(groupedMergedIntervals)) {
+    const intersectionIntervalsGroupedByRestriction: IntervalsGroupedByRestriction =
+      {};
+    for (const [restrictionString, intervals] of Object.entries(
+      groupedIntervalsByRestriction,
+    )) {
+      const concurrentIntervals = intervals.filter(
+        (interval) =>
+          moment(interval.date_start).isSameOrBefore(
+            moment(selection.endStr),
+          ) &&
+          moment(interval.date_end).isSameOrAfter(moment(selection.startStr)),
+      );
+
+      if (concurrentIntervals.length) {
+        const intersectionIntervals = concurrentIntervals
+          .map((interval) => ({
+            date_start: moment
+              .max(moment(interval.date_start), moment(selection.startStr))
+              .format(),
+            date_end: moment
+              .min(moment(interval.date_end), moment(selection.endStr))
+              .format(),
+          }))
+          .filter((interval) =>
+            moment(interval.date_start).isBefore(moment(interval.date_end)),
+          );
+        if (intersectionIntervals.length) {
+          intersectionIntervalsGroupedByRestriction[restrictionString] =
+            intersectionIntervals;
+        }
+      }
+    }
+
+    if (Object.values(intersectionIntervalsGroupedByRestriction).length)
+      intersectionIntervalsGroupedByResourceId[resourceIdentifier] =
+        intersectionIntervalsGroupedByRestriction;
+  }
+
+  return intersectionIntervalsGroupedByResourceId;
+};
+
+// *
+// * Format data by injecting the resource's name and photo, and the
+// * establishment's name for the restrictions
+// *
+export const formatSlotDetailData = memoize(
+  (
+    groupedIntervals: IntervalsGroupedByResourceId,
+    establishments: Array<EstablishmentWithAssociatedId>,
+    resourceAvailable: Array<{
+      datatype: string;
+      data: Array<{
+        resource_id: number;
+        name: string;
+        photo: string | null;
+      }>;
+    }>,
+  ) => {
+    const detailByResourceType: Record<
+      ResourceType,
+      Array<AvailabilityDetail>
+    > = {
+      associated_coach: [],
+      associated_establishment: [],
+      private_service: [],
+    };
+
+    for (const [
+      resourceIdentifier,
+      groupedIntervalsByRestriction,
+    ] of Object.entries(groupedIntervals)) {
+      const [resourceType, resourceId] = resourceIdentifier.split(':') as [
+        resourceType: ResourceType,
+        resourceId: string,
+      ];
+      const matchingResource = resourceAvailable
+        .find((r) => r.datatype === resourceType)
+        .data.find((d) => d.resource_id.toString() === resourceId);
+
+      const { name, photo } = matchingResource;
+
+      let slots: Array<{
+        date_start: string;
+        date_end: string;
+        restriction_on_associated_establishments: string[];
+      }> = [];
+
+      for (const [restrictionString, intervals] of Object.entries(
+        groupedIntervalsByRestriction,
+      )) {
+        const restriction = JSON.parse(restrictionString);
+        const restriction_on_associated_establishments = restriction.map(
+          (id: number) =>
+            establishments.find((e) => e.associated_establishment_id === id)
+              ?.title,
+        );
+        const intervalsWithRestriction = intervals.map((i) => ({
+          ...i,
+          restriction_on_associated_establishments,
+        }));
+
+        slots = slots.concat(intervalsWithRestriction);
+      }
+
+      const sortedSlots = sortByDate(slots, 'date_start');
+      const resourceDetail = {
+        name,
+        photo,
+        slots: sortedSlots,
+        resourceType,
+        resourceId: parseInt(resourceId),
+      };
+
+      detailByResourceType[resourceType].push(resourceDetail);
+    }
+
+    const { associated_coach, associated_establishment, private_service } =
+      detailByResourceType;
+
+    const res = {};
+
+    // Only include resource types that are not empty in result
+    if (associated_coach.length) res.associated_coach = associated_coach;
+    if (associated_establishment.length)
+      res.associated_establishment = associated_establishment;
+    if (private_service.length) res.private_service = private_service;
+
+    return res;
+  },
+);

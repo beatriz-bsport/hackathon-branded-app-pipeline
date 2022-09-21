@@ -72,6 +72,7 @@ export const enableResourceAvailabilitySlot = (
     date_end: string;
     all_date_start: string[];
     company?: number;
+    restriction_on_associated_establishments?: Array<number>;
   },
 ) => {
   return postAuth(
@@ -87,6 +88,7 @@ export const enableAvailabilitySlotMultipleResource = (
     date_start: string;
     date_end: string;
     all_date_start: string[];
+    restriction_on_associated_establishments: number[];
   },
 ) => {
   return postAuth(
@@ -645,6 +647,7 @@ export async function resourceAllocationChecker(
   resource_type: string,
   resource_id: number,
   date: string,
+  restrict_on_establishment?: number | null,
 ) {
   return postAuth(
     `${API_V1_URI}/private_service/private_slot/${privateSlotId}/get_resource_allocation/`,
@@ -652,6 +655,7 @@ export async function resourceAllocationChecker(
       resource_id,
       resource_type,
       date,
+      ...(restrict_on_establishment ? { restrict_on_establishment } : {}),
     },
   );
 }

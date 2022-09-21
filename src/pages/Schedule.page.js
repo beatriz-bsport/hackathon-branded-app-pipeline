@@ -16,8 +16,14 @@ import {
 } from '../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
-import { getAllPageEstablishments } from '../libs/establishment/selectors';
-import { fetchEstablishments } from '../libs/establishment/actions';
+import {
+  getAllPageEstablishments,
+  getAllEstablishmentsWithAssociatedId,
+} from '../libs/establishment/selectors';
+import {
+  fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
+  fetchEstablishments as fetchEstablishmentsAction,
+} from '../libs/establishment/actions';
 import {
   getActiveCoaches,
   getCoachesSelectedInRole,
@@ -54,6 +60,7 @@ import {
   disableAvailabilitySlotMultipleResource,
   enableAvailabilitySlotMultipleResource,
 } from '../libs/private-service/actions';
+import { getTheme } from '#libs/theme/selectors';
 
 import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
@@ -62,6 +69,7 @@ import {
 import { CompanyTheme } from '../libs/theme/types';
 import { Coach } from '../libs/associated-coach/types';
 import { Offer } from '../libs/offer/types';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 import {
   PrivateBooking,
   AvailabilitySlot,
@@ -84,7 +92,7 @@ type Props = {
 
   fetchPrivateBookingList: () => void,
   fetchOfferList: () => void,
-  fetchEstablishments: () => void,
+  fetchAssociatedEstablishments: () => void,
   fetchAssociatedCoachesList: (params: any) => void,
   fetchCompanyUserRoles: () => void,
   resourcesByDatatype: Array<ResourceDataGroup>,
@@ -115,6 +123,7 @@ type Props = {
 
   scheduleFilter: ScheduleFilter,
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
+  establishments: Array<EstablishmentWithAssociatedId>,
 };
 
 const styles = (theme) => ({
@@ -130,7 +139,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateBookings();
     this.props.fetchResourceList();
-    this.props.fetchEstablishments();
+    this.props.fetchAssociatedEstablishments();
     this.props.fetchAssociatedCoachesList({ disabled: false });
     this.props.fetchRessourcesFilters();
     this.props.fetchCompanyUserRoles();
@@ -208,6 +217,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 
   submitAvailabilitySlotUpdate = (
     resourceData: { [resourceDatatype: string]: string }[],
+    restriction_on_associated_establishments: Array<number>,
   ) => {
     const {
       kind,
@@ -225,7 +235,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     if (kind === 'enable') {
       this.props.enableAvailabilitySlotMultipleResource(
         resourceData,
-        slotUpdateData,
+        { ...slotUpdateData, restriction_on_associated_establishments },
         options,
       );
     }
@@ -356,6 +366,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           scheduleFilter={this.props.scheduleFilter}
           setScheduleFilter={this.props.setScheduleFilter}
           coachesSelectedInRole={this.props.coachesSelectedInRole}
+          establishments={this.props.establishments}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
@@ -363,6 +374,8 @@ export class CoachPrivateCalendar extends React.Component<Props> {
             onSubmit={this.submitAvailabilitySlotUpdate}
             onClose={this.onCancelAvailabilityUpdate}
             open={!!this.state.updateAvailabilitySlotData}
+            establishments={this.props.establishments}
+            kind={this.state.updateAvailabilitySlotData.kind}
           />
         ) : null}
         {this.props.customEventData && (
@@ -396,7 +409,8 @@ export default compose(
   }),
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({
-      companyTheme: state.theme.theme,
+      companyTheme: getTheme(state),
+      companyId: getTheme(state)?.company,
       availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
         state,
         periodFilter,
@@ -442,6 +456,7 @@ export default compose(
       coachesSelectedInRole: getCoachesSelectedInRole(state),
       customEventList: getCustomEventList(state, periodFilter),
       resourceData: getResourceDataList(state),
+      establishments: getAllEstablishmentsWithAssociatedId(state),
       resourceDataLoading: state.privateService.resource.loading,
       ressourceFilers:
         state.dashboardSettings.managerRessourcesFilters.data.filter,
@@ -457,7 +472,8 @@ export default compose(
 
       fetchAvailabilitySlots,
       fetchCustomEventList: fetchCustomEventListAction,
-      fetchEstablishments,
+      fetchEstablishments: fetchEstablishmentsAction,
+      fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
       fetchAssociatedCoachesList,
       fetchCompanyUserRoles,
       fetchAllOffers: fetchAllOffersAction,
@@ -544,6 +560,24 @@ export default compose(
           date_start__lte: periodFilter.end,
           page_size: null,
         });
+      },
+    fetchAssociatedEstablishments:
+      ({ companyId, fetchAssociatedEstablishments, fetchEstablishments }) =>
+      () => {
+        fetchAssociatedEstablishments(
+          { company: companyId },
+          {
+            onSuccess: (associatedEstablishments) => {
+              const idList = associatedEstablishments.map((ae) => ae.id) || [];
+              if (idList.length > 0) {
+                fetchEstablishments({
+                  associated_establishment__in: idList,
+                  page_size: 300,
+                });
+              }
+            },
+          },
+        );
       },
   }),
   withHandlers({

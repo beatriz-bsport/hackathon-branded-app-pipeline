@@ -23,6 +23,20 @@ export type Establishment = {
   establishment_billing_group_id: number | null;
 };
 
+export type EstablishmentWithAssociatedId = {
+  id: number;
+  title: string;
+  cover: string;
+  location: Location;
+  specific_info: string;
+  easy_access: EasyAccess;
+  disabled: boolean;
+  associatedestablishment_set: number[];
+  tzname: string;
+  establishment_billing_group_id: number | null;
+  associated_establishment_id: number;
+};
+
 type Event_ = {
   date_start: string;
   duration_minutes: number;

@@ -319,12 +319,14 @@ export function enableResourceAvailabilitySlot(
     recurrence_until,
     all_date_start,
     company,
+    restriction_on_associated_establishments,
   }: {
     date_start: string;
     date_end: string;
     recurrence_until?: string;
     all_date_start: string[];
     company?: number;
+    restriction_on_associated_establishments: Array<number>;
   },
   options?: OptionCallback,
 ): ThunkAction {
@@ -338,12 +340,11 @@ export function enableResourceAvailabilitySlot(
         recurrence_until,
         all_date_start,
         company,
+        restriction_on_associated_establishments:
+          restriction_on_associated_establishments || [],
       });
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset(resourceData));
-      dispatch(
-        fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
-      );
       if (options && options.onSuccess) {
         options.onSuccess();
       }
@@ -369,11 +370,13 @@ export function enableAvailabilitySlotMultipleResource(
     date_end,
     recurrence_until,
     all_date_start,
+    restriction_on_associated_establishments,
   }: {
     date_start: string;
     date_end: string;
     recurrence_until?: string;
     all_date_start?: string[];
+    restriction_on_associated_establishments?: number[];
   },
   options?: OptionCallback,
 ): ThunkAction {
@@ -386,6 +389,7 @@ export function enableAvailabilitySlotMultipleResource(
         date_end,
         recurrence_until,
         all_date_start,
+        restriction_on_associated_establishments,
       });
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset());
@@ -431,9 +435,6 @@ export function disableResourceAvailabilitySlot(
       });
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset(resourceData));
-      dispatch(
-        fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
-      );
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
@@ -501,6 +502,7 @@ export const enableCoachAvailabilitySlot = (
     date_end: string;
     all_date_start?: string[];
     company?: number;
+    restriction_on_associated_establishments?: number[];
   },
   options: OptionCallback,
 ) => enableResourceAvailabilitySlot({ coach }, obj, options);

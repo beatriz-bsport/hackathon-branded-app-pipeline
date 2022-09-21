@@ -43,6 +43,9 @@ export type AvailabilitySlot = {
   coach: number;
   date_start: string;
   date_end: string;
+  resource_identifier: string;
+  is_restriction: boolean;
+  restriction_on_associated_establishments: Array<number>;
 };
 
 export type PrivateServiceGroup = {
@@ -262,6 +265,7 @@ export type PrivateResource = {
   color: string;
   private_service: number;
   datatype: string;
+  photo: string | null;
 };
 
 export type ResourceData = {
@@ -488,3 +492,46 @@ export interface PrivateServiceState {
     };
   };
 }
+
+export type Interval = {
+  date_start: string;
+  date_end: string;
+};
+
+export type Selection = {
+  startStr: string;
+  endStr: string;
+};
+
+export type SlotsGroupedByRestriction = Record<string, Array<AvailabilitySlot>>;
+
+export type SlotsGroupedByResourceId = Record<
+  string,
+  SlotsGroupedByRestriction
+>;
+
+export type IntervalsGroupedByRestriction = Record<string, Array<Interval>>;
+
+export type IntervalsGroupedByResourceId = Record<
+  string,
+  IntervalsGroupedByRestriction
+>;
+
+export type ResourceType =
+  | 'associated_coach'
+  | 'associated_establishment'
+  | 'private_service';
+
+export type AvailabilityDetail = {
+  resourceType: ResourceType;
+  resourceId: number;
+  name: string;
+  photo: string;
+  slots: Array<{
+    date_start: string;
+    date_end: string;
+    restriction_on_associated_establishments: string[];
+  }>;
+  isFirst?: boolean;
+  isLast?: boolean;
+};

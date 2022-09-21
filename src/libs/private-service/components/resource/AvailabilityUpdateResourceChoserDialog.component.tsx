@@ -1,21 +1,35 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
+import classNames from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import Divider from '@material-ui/core/Divider';
+import Collapse from '@material-ui/core/Collapse';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { ButtonBase, Checkbox, Theme, Typography } from '@material-ui/core';
+import SlotSpecificEstablishmentPicker from '#libs/private-service/components/availability/SlotSpecificEstablishmentPicker.component';
 import { MaterialStyleType } from '../../../../utils/types';
 import { PrivateResource } from '../../types';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 
 type OwnProps = {
   open: boolean;
   onClose: () => void;
   resourceAvailable: Array<{ data: PrivateResource[]; datatype: string }>;
-  onSubmit: (resourceData: { [resourceDatatype: string]: number }[]) => void;
+  onSubmit: (
+    resourceData: { [resourceDatatype: string]: number }[],
+    restriction_on_associated_establishments: Array<number>,
+  ) => void;
+  establishments: Array<EstablishmentWithAssociatedId>;
+  kind?: string;
 };
 
 type Props = OwnProps &
@@ -28,19 +42,40 @@ type State = {
     coach: PrivateResource[];
     private_service: PrivateResource[];
   };
+  advancedSectionOpen: boolean;
+  selectedEstablishments: Array<number>;
+  activeEstablishments: Array<EstablishmentWithAssociatedId>;
 };
 
 export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
   Props,
   State
 > {
-  state: State = {
-    selected: {
-      establishment: [],
-      coach: [],
-      private_service: [],
-    },
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      selected: {
+        establishment: [],
+        coach: [],
+        private_service: [],
+      },
+      advancedSectionOpen: false,
+      selectedEstablishments: [],
+      activeEstablishments: (props.establishments || []).filter(
+        (e) => !e.disabled,
+      ),
+    };
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!isEqual(prevProps.establishments, this.props.establishments)) {
+      this.setState({
+        activeEstablishments: (this.props.establishments || []).filter(
+          (e) => !e.disabled,
+        ),
+      });
+    }
+  }
 
   /**
    * This function return an object with only 3 keys: establishment, coach and private_service.
@@ -79,6 +114,14 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
       const arr = [...prevState.selected[resourceType]];
       const i = arr.findIndex((r) => r.resource_id === resource.resource_id);
       i === -1 ? arr.push(resource) : arr.splice(i, 1);
+
+      if (resourceType === 'coach' && !arr.length) {
+        this.setState({
+          selectedEstablishments: [],
+          advancedSectionOpen: false,
+        });
+      }
+
       this.setState({
         selected: {
           ...prevState.selected,
@@ -90,6 +133,14 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
 
   onSubmit = () => {
     const selectedResource: { [resourceDataType: string]: number }[] = [];
+    const restriction_on_associated_establishments =
+      this.state.selectedEstablishments.map(
+        (establishmentId) =>
+          this.state.activeEstablishments.find(
+            (establishment) => establishment.id === establishmentId,
+          ).associated_establishment_id,
+      );
+
     Object.keys(this.state.selected).forEach((key: keyof State['selected']) => {
       const obj = this.state.selected[key];
       obj.forEach((resource: PrivateResource) => {
@@ -99,7 +150,25 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
       });
     });
 
-    this.props.onSubmit(selectedResource);
+    this.props.onSubmit(
+      selectedResource,
+      restriction_on_associated_establishments,
+    );
+  };
+
+  toggleCollapse = () => {
+    this.setState((prevState) => {
+      if (prevState.advancedSectionOpen) {
+        return { advancedSectionOpen: false, selectedEstablishments: [] };
+      }
+      return { advancedSectionOpen: true };
+    });
+  };
+
+  onSpecificEstablishmentChange = (
+    newValues: Array<{ label: string; value: string | number }>,
+  ) => {
+    this.setState({ selectedEstablishments: newValues.map((e) => e.value) });
   };
 
   render() {
@@ -108,6 +177,8 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
     const resourceByGroup = this.groupByResourceType(
       this.props.resourceAvailable,
     );
+
+    const atLeastOneCoachSelected = this.state.selected.coach.length > 0;
 
     return (
       <Dialog open={this.props.open}>
@@ -160,6 +231,49 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
               </>
             );
           })}
+          {this.props.kind === 'enable' && (
+            <>
+              <Divider />
+              <ButtonBase
+                disabled={!atLeastOneCoachSelected}
+                className={classes.collapseSectionButton}
+                onClick={this.toggleCollapse}
+              >
+                <div
+                  className={classNames(classes.collapseSection, {
+                    [classes.opacity]: !atLeastOneCoachSelected,
+                  })}
+                >
+                  <div className={classes.collapseSectionLeft}>
+                    <SettingsIcon
+                      className={classNames(classes.iconLeft, classes.icon)}
+                    />
+                    <Typography variant="subtitle2">
+                      {t('availabilitySlot.specificAvailabilityForm.advanced')}
+                    </Typography>
+                  </div>
+                  <div className={classes.collapseSectionRight}>
+                    {this.state.advancedSectionOpen ? (
+                      <ExpandLessIcon className={classes.icon} />
+                    ) : (
+                      <ExpandMoreIcon className={classes.icon} />
+                    )}
+                  </div>
+                </div>
+              </ButtonBase>
+              <Collapse in={this.state.advancedSectionOpen}>
+                <div className={classes.fatMargin}>
+                  <SlotSpecificEstablishmentPicker
+                    establishments={this.state.activeEstablishments}
+                    selectedEstablishments={this.state.selectedEstablishments}
+                    onSelectedEstablishmentsChange={
+                      this.onSpecificEstablishmentChange
+                    }
+                  />
+                </div>
+              </Collapse>
+            </>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onClose}>
@@ -200,6 +314,32 @@ const styles = (theme: Theme) => ({
   },
   marginLeft: {
     marginLeft: theme.spacing(1),
+  },
+  collapseSectionButton: {
+    display: 'unset',
+  },
+  collapseSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  collapseSectionLeft: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
+  },
+  opacity: {
+    opacity: 0.5,
+  },
+  fatMargin: {
+    marginBottom: theme.spacing(20),
+  },
+  icon: {
+    color: 'rgba(0, 0, 0, 0.54)',
   },
 });
 

@@ -9,7 +9,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import uniq from 'lodash/uniq';
 import withTitle from '../../hocs/with-title.hoc';
-import { getCoach } from '../../libs/associated-coach/selectors';
+import {
+  getCoach,
+  associatedCoachSelector,
+} from '../../libs/associated-coach/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   getPrivateBookingListFiltered,
@@ -24,6 +27,7 @@ import {
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
+import SlotSpecificEstablishmentDialog from '#libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
 
 import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
 import {
@@ -41,16 +45,23 @@ import {
 } from '../../libs/private-service/actions';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
 import {
+  fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
+  fetchEstablishments as fetchEstablishmentsAction,
+} from '#libs/establishment/actions';
+import {
   fetchCoachBulk,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
 } from '../../libs/associated-coach/actions';
 import { setCoachScheduleFilter as setCoachScheduleFilterAction } from '../../libs/user-preference/actions';
 import { getCoachScheduleFilter } from '../../libs/user-preference/selectors';
 import { ScheduleFilter } from '../../libs/user-preference/types';
+import { getTheme } from '#libs/theme/selectors';
+import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
 
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { CompanyTheme } from '../../libs/theme/types';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 
 type Props = {
   companyTheme: CompanyTheme,
@@ -97,6 +108,8 @@ type Props = {
   coach?: Coach,
   createOrUpdateCustomEvent: (CustomEventData, OptionCallback) => void,
   closeCustomEventDialog: () => void,
+  fetchAssociatedEstablishments: () => void,
+  establishments: Array<EstablishmentWithAssociatedId>,
 
   scheduleFilter: ScheduleFilter,
   setCoachScheduleFilter: (
@@ -105,12 +118,73 @@ type Props = {
   ) => void,
 };
 
+type State = {
+  updateAvailabilitySlotData: null | [any, OptionCallback],
+  resourceAvailable: null | Array<{
+    datatype: 'associated_coach',
+    data: Array<{
+      name: string,
+      photo: string,
+      resource_id: number,
+    }>,
+  }>,
+};
+
 const styles = (theme) => ({
   container: {},
   leftIcon: { marginRight: theme.spacing(1) },
 });
 
-export class CoachPrivateCalendar extends React.Component<Props> {
+export class CoachPrivateCalendar extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      updateAvailabilitySlotData: null,
+      resourceAvailable: [
+        {
+          datatype: 'associated_coach',
+          data: [
+            {
+              name: props.coach?.name,
+              photo: props.coach?.photo,
+              resource_id: props.coach?.associated_coach_id,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  enableResourceAvailabilitySlot = (...data) => {
+    this.setState({ updateAvailabilitySlotData: data });
+  };
+
+  onCancelAvailabilityUpdate = () =>
+    this.setState({ updateAvailabilitySlotData: null });
+
+  submitAvailabilitySlotUpdate = (
+    restriction_on_associated_establishments: number[],
+  ) => {
+    const [slotUpdateData, slotUpdateOptions] =
+      this.state.updateAvailabilitySlotData;
+
+    const options = {
+      onSuccess: (...args) => {
+        this.fetchAvailabilitySlots();
+        if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
+          slotUpdateOptions.onSuccess(...args);
+        }
+      },
+    };
+
+    this.props.enableCoachAvailabilitySlot(
+      this.props.id,
+      { ...slotUpdateData, restriction_on_associated_establishments },
+      options,
+    );
+    this.onCancelAvailabilityUpdate();
+  };
+
   fetchAvailabilitySlots = () => {
     this.props.resetAvailabilitySlots();
     this.props.fetchAvailabilitySlots({
@@ -124,9 +198,26 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.props.resetPrivateBookings();
     this.props.fetchCoach(this.props.id);
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchAssociatedEstablishments();
   }
 
   componentDidUpdate(prevProps: Props) {
+    if (prevProps.coach?.id !== this.props.coach?.id) {
+      this.setState({
+        resourceAvailable: [
+          {
+            datatype: 'associated_coach',
+            data: [
+              {
+                name: this.props.coach?.name,
+                photo: this.props.coach?.photo,
+                resource_id: this.props.coach?.associated_coach_id,
+              },
+            ],
+          },
+        ],
+      });
+    }
     if (
       prevProps.periodFilter.start !== this.props.periodFilter.start ||
       prevProps.periodFilter.end !== this.props.periodFilter.end ||
@@ -145,24 +236,6 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.fetchAvailabilitySlots();
     this.props.fetchPrivateBookingList();
     this.props.fetchOfferList();
-  };
-
-  enableCoachAvailabilitySlot = (
-    data: { date_start: string, date_end: string },
-    options: {
-      onSuccess: () => void,
-      onError: () => void,
-    },
-  ) => {
-    this.props.enableCoachAvailabilitySlot(this.props.id, data, {
-      onSuccess: () => {
-        if (options && options.onSuccess) options.onSuccess();
-        this.fetchAvailabilitySlots();
-      },
-      onError: () => {
-        if (options && options.onError) options.onError();
-      },
-    });
   };
 
   disableCoachAvailabilitySlot = (
@@ -194,15 +267,17 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
+
     if (!this.props.coach) {
       return <LinearProgress />;
     }
+
     return (
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <PrivateCalendarWithControls
           disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
-          enableResourceAvailabilitySlot={this.enableCoachAvailabilitySlot}
+          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
           availabilitySlots={this.props.availabilitySlots}
           privateBookings={this.props.privateBookingList}
           timezone={this.props.companyTheme.timezone_name}
@@ -223,13 +298,24 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           companyTheme={this.props.companyTheme}
           scheduleFilter={this.props.scheduleFilter}
           setScheduleFilter={this.setScheduleFilter}
+          establishments={this.props.establishments}
+          resourceAvailable={this.state.resourceAvailable}
+          hideResourceSelector
         />
+
         {this.props.customEventData && (
           <CustomEvenFormDialog
             coaches={[this.props.coach]}
             onSubmit={this.props.createOrUpdateCustomEvent}
             onClose={this.props.closeCustomEventDialog}
             open
+          />
+        )}
+        {this.state.updateAvailabilitySlotData && (
+          <SlotSpecificEstablishmentDialog
+            establishments={this.props.establishments}
+            onCancel={this.onCancelAvailabilityUpdate}
+            onSubmit={this.submitAvailabilitySlotUpdate}
           />
         )}
       </div>
@@ -256,8 +342,10 @@ export default compose(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getCoachAvailabilitySlots(state, id),
       coach: getCoach(state, id),
+      associatedCoach: associatedCoachSelector.get(state),
       customEventList: getCustomEventList(state, periodFilter),
-      companyTheme: state.theme.theme,
+      companyTheme: getTheme(state),
+      companyId: getTheme(state)?.company,
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
@@ -274,6 +362,7 @@ export default compose(
       availabilitySlotUpdating:
         state.privateService.availabilitySlot.createOrUpdate.loading,
       scheduleFilter: getCoachScheduleFilter(state, id),
+      establishments: getAllEstablishmentsWithAssociatedId(state),
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
@@ -293,6 +382,8 @@ export default compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       setCoachScheduleFilter: setCoachScheduleFilterAction,
+      fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
+      fetchEstablishments: fetchEstablishmentsAction,
     },
   ),
   withHandlers({
@@ -379,6 +470,24 @@ export default compose(
           page_size: null,
           coach: id,
         });
+      },
+    fetchAssociatedEstablishments:
+      ({ companyId, fetchAssociatedEstablishments, fetchEstablishments }) =>
+      () => {
+        fetchAssociatedEstablishments(
+          { company: companyId },
+          {
+            onSuccess: (associatedEstablishments) => {
+              const idList = associatedEstablishments.map((ae) => ae.id) || [];
+              if (idList.length > 0) {
+                fetchEstablishments({
+                  associated_establishment__in: idList,
+                  page_size: 300,
+                });
+              }
+            },
+          },
+        );
       },
   }),
   withTitle(({ coach }) => {

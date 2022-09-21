@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { compose } from 'recompose';
+import chroma from 'chroma-js';
 import { withTranslation, TFunction } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
@@ -23,6 +24,7 @@ import memoize from 'memoize-one';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import InfoIcon from '@material-ui/icons/Info';
 
 // import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
@@ -34,12 +36,57 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import SlotDetailDialog from '#libs/private-service/components/availability/SlotDetailDialog.component';
+import {
+  groupSlotsAndMerge,
+  intersectSelectionWithMergedIntervals,
+  formatSlotDetailData,
+} from '../utils';
 
 import './main.scss';
 import './custom.scss';
 import i18n, { Moment } from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
+
+const EVENT_DEFAULT_COLOR = '#8fdf82';
+
+const renderEventContent = (eventInfo) => {
+  if (eventInfo.event._def.groupId === 'specific-availability') {
+    const { color } = eventInfo.event._def.extendedProps;
+    return <div className="withBorder" style={{ borderLeftColor: color }} />;
+  }
+  const {
+    private_booking,
+    private_booking_canceled,
+    private_booking_refunded,
+    isUnpaid,
+  } = eventInfo.event._def.extendedProps;
+  return (
+    <div className="fc-event-main-frame">
+      <div className="fc-event-time alignItems">
+        {private_booking && private_booking_canceled && (
+          <div
+            className={`InfoContainer ${
+              private_booking_refunded ? 'refunded' : 'notrefunded'
+            }`}
+          >
+            <i className="Info">&#8618;</i>
+          </div>
+        )}
+        {eventInfo.timeText}
+        {isUnpaid && (
+          <div className="UnpaidContainer">
+            <i className="UnPaid">&#9679;</i>
+          </div>
+        )}
+      </div>
+      <div className="fc-event-title-container">
+        <div className="fc-event-title fc-sticky">{eventInfo.event.title}</div>
+      </div>
+    </div>
+  );
+};
 
 const styles = (theme) => ({
   container: {},
@@ -59,13 +106,31 @@ const availabilitySlotAsEvent = (resourceDatatypeView) => (slot) => {
     resourceId = slot.coach;
   }
 
+  const isSpecificAvailabity =
+    !!slot.restriction_on_associated_establishments?.length > 0;
+
   return {
     start: slot.date_start,
     end: slot.date_end,
     display: 'background',
     resourceId,
-    classNames: slot.is_restriction ? ['isRestriction'] : [],
+    groupId: isSpecificAvailabity ? 'specific-availability' : '',
+    className: [
+      slot.is_restriction ? 'isRestriction' : '',
+      slot.restriction_on_associated_establishments?.length > 0
+        ? 'specificAvailability'
+        : '',
+    ],
     ...(slot.color ? { backgroundColor: slot.color } : {}),
+    ...(isSpecificAvailabity
+      ? {
+          backgroundColor: chroma(slot.color || '#8fdf82')
+            .alpha(0.3)
+            .hex(),
+        }
+      : {}),
+    // pass the slot's color inside extendedProps, to add border color when event renders
+    extendedProps: { color: slot.color || EVENT_DEFAULT_COLOR },
   };
 };
 
@@ -266,6 +331,22 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
             </React.Fragment>
           )}
+          {!!props.onRequestAvailabilityDetails && (
+            <React.Fragment>
+              <ListItem
+                button
+                onClick={props.onRequestAvailabilityDetails}
+                disabled={!props.onRequestAvailabilityDetails}
+              >
+                <ListItemIcon>
+                  <InfoIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={props.t('calendar.showAvailabilityDetails')}
+                />
+              </ListItem>
+            </React.Fragment>
+          )}
         </List>
       );
     },
@@ -296,6 +377,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
     enableWithRecurrence: false,
     date_start: null,
     date_end: null,
+    availabilityDetailData: null,
   };
 
   select = (eventSlotSelected: EventSlot) => {
@@ -377,7 +459,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         ),
       ];
 
-      const allDaySlot = events.reduce((acc, v) => acc || v.allDay, false);
+      const allDaySlot = !!events.reduce((acc, v) => acc || v.allDay, false);
 
       return {
         events,
@@ -416,6 +498,23 @@ export class PrivateCalendar extends React.Component<Props, State> {
       },
     );
     this.setState({ eventSlotSelected: null });
+  };
+
+  onRequestAvailabilityDetails = () => {
+    const { startStr, endStr } = this.state.eventSlotSelected;
+
+    const mergedIntervals = groupSlotsAndMerge(this.props.availabilitySlots);
+    const intersectionWithSelection = intersectSelectionWithMergedIntervals(
+      { startStr, endStr },
+      mergedIntervals,
+    );
+    const availabilityDetailData = formatSlotDetailData(
+      intersectionWithSelection,
+      this.props.establishments,
+      this.props.resourceAvailable,
+    );
+
+    this.setState({ availabilityDetailData, eventSlotSelected: null });
   };
 
   onEnableAvailability = () => {
@@ -513,30 +612,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
       }
     }
     return offerList;
-  };
-
-  handleEventRender = ({ event, el }) => {
-    if (
-      event._def.extendedProps.private_booking &&
-      event._def.extendedProps.private_booking_canceled
-    ) {
-      const cancellationInfo = event._def.extendedProps.private_booking_refunded
-        ? 'refunded'
-        : 'notrefunded';
-      const refundedChip = `<div class="InfoContainer ${cancellationInfo}"><i class="Info">&#8618;</i></div>`;
-      el.getElementsByClassName('fc-event-time')[0].insertAdjacentHTML(
-        'afterbegin',
-        refundedChip,
-      );
-    }
-    if (event._def.extendedProps.isUnpaid) {
-      const refundedChip =
-        '<div class="UnpaidContainer"><i class="UnPaid">&#9679;</i></div>';
-      el.getElementsByClassName('fc-event-time')[0].insertAdjacentHTML(
-        'beforeend',
-        refundedChip,
-      );
-    }
   };
 
   getSimilarDateDisplayAsFullCalendar = () => {
@@ -644,7 +719,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
           select={this.select}
           dateClick={this.dateClick}
           events={events}
-          eventDidMount={this.handleEventRender}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
           firstDay={Moment.localeData()._week.dow}
           slotDuration={`00:${
@@ -666,6 +740,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           allDaySlot={allDaySlot}
           eventClick={this.handleEventClick}
           datesSet={this.handleIntervalChange}
+          eventContent={renderEventContent}
         />
         {this.props.disableAvailabilitySlotDisplay ? null : (
           <Popover
@@ -722,13 +797,19 @@ export class PrivateCalendar extends React.Component<Props, State> {
                     }
                   : null
               }
+              onRequestAvailabilityDetails={() => {
+                this.onRequestAvailabilityDetails();
+                this.setState({ eventSlotSelected: null });
+              }}
             />
           </Popover>
         )}
         <RecurrentAvailabilityFormDialog
           fullScreen={this.props.fullScreen}
           open={
-            this.state.disableWithRecurrence || this.state.enableWithRecurrence
+            this.state.eventSlotSelected &&
+            (this.state.disableWithRecurrence ||
+              this.state.enableWithRecurrence)
           }
           mode={this.state.disableWithRecurrence ? 'disable' : 'enable'}
           eventSlot={this.state.eventSlotSelected}
@@ -741,6 +822,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
             })
           }
         />
+        {this.state.availabilityDetailData && (
+          <SlotDetailDialog
+            detailByResourceType={this.state.availabilityDetailData}
+            onLeave={() => this.setState({ availabilityDetailData: null })}
+          />
+        )}
       </div>
     );
   }

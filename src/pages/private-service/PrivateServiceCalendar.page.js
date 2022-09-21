@@ -44,12 +44,19 @@ import {
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
 } from '../../libs/private-service/actions';
+import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
+import {
+  fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
+  fetchEstablishments as fetchEstablishmentsAction,
+} from '#libs/establishment/actions';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import { CompanyTheme } from '../../libs/theme/types';
 import type { ScheduleFilter } from '../../libs/user-preference/types';
 import { setPrivateServiceScheduleFilter as setPrivateServiceScheduleFilterAction } from '../../libs/user-preference/actions';
 import { getPrivateServiceScheduleFilter } from '../../libs/user-preference/selectors';
+import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { getTheme } from '#libs/theme/selectors';
 
 type Props = {
   classes: Object,
@@ -107,6 +114,8 @@ type Props = {
     privateService: number,
     scheduleFilter: ScheduleFilter,
   ) => void,
+  establishments: Array<EstablishmentWithAssociatedId>,
+  fetchAssociatedEstablishments: () => void,
 };
 
 type State = {
@@ -157,6 +166,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    this.props.fetchAssociatedEstablishments();
     this.props.fetchPrivateServiceResourceData(this.props.id, {
       onSuccess: (resourceData) => {
         this.props.setResourceFiltersArray(
@@ -205,6 +215,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
   submitAvailabilitySlotUpdate = (
     resourceData: { [resourceDatatype: string]: string }[],
+    restriction_on_associated_establishments: number[],
   ) => {
     const {
       kind,
@@ -222,7 +233,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     if (kind === 'enable') {
       this.props.enableAvailabilitySlotMultipleResource(
         resourceData,
-        slotUpdateData,
+        { ...slotUpdateData, restriction_on_associated_establishments },
         options,
       );
     }
@@ -268,6 +279,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           companyTheme={this.props.companyTheme}
           scheduleFilter={this.props.scheduleFilter}
           setScheduleFilter={this.setScheduleFilter}
+          establishments={this.props.establishments}
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog
@@ -283,6 +295,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
             onSubmit={this.submitAvailabilitySlotUpdate}
             onClose={this.onCancelAvailabilityUpdate}
             open={!!this.state.updateAvailabilitySlotData}
+            establishments={this.props.establishments}
+            kind={this.state.updateAvailabilitySlotData.kind}
           />
         ) : null}
         {this.props.resourceToEdit ? (
@@ -344,6 +358,8 @@ export default compose(
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
+      companyId: getTheme(state)?.company,
+      establishments: getAllEstablishmentsWithAssociatedId(state),
       service: getPrivateServiceById(state, id),
       resourceData: getPrivateServiceResourceData(state, id),
       resourceDataLoading: state.privateService.resource.loading,
@@ -368,6 +384,8 @@ export default compose(
       fetchMemberBulkById: fetchMemberBulkByIdAction,
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
+      fetchEstablishments: fetchEstablishmentsAction,
+      fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
       onEditResourceConfiguration: updateServiceResourceConfiguration,
       setPrivateServiceScheduleFilter: setPrivateServiceScheduleFilterAction,
     },
@@ -415,6 +433,24 @@ export default compose(
             onSuccess: (bookings) => {
               if (bookings.length) {
                 fetchMemberBulkById(uniq(bookings.map((b) => b.member)));
+              }
+            },
+          },
+        );
+      },
+    fetchAssociatedEstablishments:
+      ({ companyId, fetchAssociatedEstablishments, fetchEstablishments }) =>
+      () => {
+        fetchAssociatedEstablishments(
+          { company: companyId },
+          {
+            onSuccess: (associatedEstablishments) => {
+              const idList = associatedEstablishments.map((ae) => ae.id) || [];
+              if (idList.length > 0) {
+                fetchEstablishments({
+                  associated_establishment__in: idList,
+                  page_size: 300,
+                });
               }
             },
           },

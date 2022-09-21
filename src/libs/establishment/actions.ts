@@ -37,6 +37,7 @@ import type {
   EstablishmentAddressInput,
   EstablishmentGroup,
   EstablishmentBillingGroup,
+  AssociatedEstablishment,
 } from './types';
 
 export const deleteActions = {
@@ -281,7 +282,10 @@ export const associatedEstablishmentListActions = {
   success: createAction('ASSOCIATED_ESTABLISHMENT/LIST/SUCCESS'),
 };
 
-export function fetchAssociatedEstablishments(params?: { company: number }) {
+export function fetchAssociatedEstablishments(
+  params?: { company: number },
+  options?: OptionCallback<AssociatedEstablishment[]>,
+) {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(associatedEstablishmentListActions.isLoading(true));
     dispatch(associatedEstablishmentListActions.error(null));
@@ -289,9 +293,11 @@ export function fetchAssociatedEstablishments(params?: { company: number }) {
     try {
       const response = await fetchAssociatedEstablishmentsAPI(params);
       dispatch(associatedEstablishmentListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(associatedEstablishmentListActions.error(error));
+      if (options && options.onError) options.onError();
     }
 
     dispatch(associatedEstablishmentListActions.isLoading(false));

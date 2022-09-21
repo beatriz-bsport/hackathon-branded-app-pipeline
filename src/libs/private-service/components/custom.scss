@@ -9,6 +9,24 @@
   margin-right: 0;
 }
 
+.specificAvailability {
+  opacity: unset !important;
+  padding-left: unset !important;
+  padding-top: unset !important;
+}
+
+.withBorder {
+  height: 100%;
+  width: 100%;
+  border-left-width: 7px;
+  border-left-style: solid;
+}
+
+.fc-event-time.alignItems {
+  align-items: center;
+}
+
+
 .cancelledEvent {
   border-color: rgba(200, 0, 0, 0.4) !important;
   border-style: dashed;
@@ -32,7 +50,6 @@
 i.Info {
   color: black;
   margin-right: 0.5rem;
-  font-size: medium;
 }
 .UnpaidContainer {
   position:absolute;

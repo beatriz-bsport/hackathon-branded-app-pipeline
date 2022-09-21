@@ -289,6 +289,7 @@ export class SlotSearcherParams extends React.Component<Props, State> {
                 resourceType="coach"
                 privateSlotId={this.state.privateSlotId}
                 privateSlotDuration={this.state.privateSlotDuration || 0}
+                restrictOnEstablishment={this.state.establishment_selected}
               />
             )}
           </div>

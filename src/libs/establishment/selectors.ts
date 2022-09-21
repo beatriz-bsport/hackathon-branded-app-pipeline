@@ -56,6 +56,24 @@ export const getDisabledEstablishmentList = createSelector(
 export const getEstablishment = (state: RootState, id: number): Establishment =>
   state.establishment.byId[id];
 
+export const getAllAssociatedEstablishment = (state: RootState) =>
+  state.establishment.associatedEstablishment.items;
+
+export const getEstablishmentWithAssociatedId = createSelector(
+  [getEstablishment, getAllAssociatedEstablishment],
+  (establishment, associatedEstablishments) => {
+    if (!establishment) return null;
+    return {
+      ...establishment,
+      associated_establishment_id: (
+        associatedEstablishments.find(
+          (ae) => ae.establishment === establishment?.id,
+        ) || {}
+      ).id,
+    };
+  },
+);
+
 export const getEstablishmentById = (state: RootState) => (id: number) =>
   state.establishment.byId[id];
 
@@ -63,9 +81,6 @@ export const retrieveEstablishmentGroup = (
   state: RootState,
   id: number,
 ): EstablishmentGroup => state.establishment.establishmentGroup.byId[id];
-
-export const getAllAssociatedEstablishment = (state: RootState) =>
-  state.establishment.associatedEstablishment.items;
 
 export const getAllEstablishmentsWithAssociatedId = createSelector(
   [getAllEstablishments, getAllAssociatedEstablishment],

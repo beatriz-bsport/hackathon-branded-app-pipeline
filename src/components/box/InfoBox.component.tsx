@@ -8,14 +8,14 @@ import chroma from 'chroma-js';
 
 export type OwnProps = {
   content: string;
-  className: string;
+  className?: string;
   variant?: 'contained' | 'outlined';
 };
 type Props = OwnProps;
 export const InfoBox: React.FC<Props> = ({ content, variant, className }) => {
   const classes = useStyles({ variant });
   return (
-    <div className={classNames(classes.blueBox, className)}>
+    <div className={classNames(classes.blueBox, { [className]: !!className })}>
       <InfoOutlined
         className={classNames(classes.iconLeft, classes.blueIcon)}
       />

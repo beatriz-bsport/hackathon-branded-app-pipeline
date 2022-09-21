@@ -16,11 +16,13 @@ type OwnProps = {
   updatedTime: string;
   privateSlotId: number;
   privateSlotDuration: number;
+  restrictOnEstablishment?: number;
   resourceAllocationChecker: (
     privateSlotId: number,
     resourceType: string,
     resourceId: number,
     updatedTime: string,
+    restrictOnEstablishment?: number | null,
   ) => Promise<AxiosResponse<string[][]>>;
 };
 
@@ -39,7 +41,10 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
     if (
       prevProps.resourceId !== this.props.resourceId ||
       prevProps.updatedTime !== this.props.updatedTime ||
-      prevProps.privateSlotDuration !== this.props.privateSlotDuration
+      prevProps.privateSlotDuration !== this.props.privateSlotDuration ||
+      (this.props.resourceType === 'coach' &&
+        prevProps.restrictOnEstablishment !==
+          this.props.restrictOnEstablishment)
     ) {
       if (!this.props.resourceId || !this.props.updatedTime) {
         this.setState({ errorAllocation: false });
@@ -57,6 +62,7 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
         this.props.resourceType,
         this.props.resourceId,
         this.props.updatedTime,
+        this.props.restrictOnEstablishment,
       );
       const allIntervals = joinIntervalList(response.data);
       this.setState({

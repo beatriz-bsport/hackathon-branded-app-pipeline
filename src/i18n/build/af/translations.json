@@ -4986,6 +4986,20 @@
           "cancel": "Annuler",
           "submit": "Enregistrer"
         }
+      },
+      "specificAvailabilityForm": {
+        "switchLabel": "Ajouter pour certains établissements seulement",
+        "info": "Par défaut votre professeur sera indiqué comme disponible dans l'ensemble de vos établissements. En activant cette option vous pourrez sélectionner dans quels établissements votre professeur sera disponible pour ce créneau horaire.",
+        "infoForCoach": "Par défaut vous serez disponible dans l'ensemble des établissements. En activant cette option vous pourrez sélectionner dans quels établissements vous serez disponible pour ce créneau horaire.",
+        "advanced": "Avancé"
+      },
+      "detail": {
+        "ok": "Ok",
+        "slotBoundaries": "De {{date_start}} à {{date_end}}",
+        "availableEverywhere": "Disponible dans toutes les salles",
+        "openHours": "Horaires",
+        "dialog": { "title": "Détails des disponibilités" },
+        "detailEmpty": "Pas de disponibilité sur le créneau sélectionné"
       }
     },
     "resource": {
@@ -5157,6 +5171,7 @@
       "createCustomEvent": "Créer un RDV perso",
       "selectCoachToModifyAvailability": "Sélectionnez un professeur",
       "addBooking": "Enregistrer un rendez-vous",
+      "showAvailabilityDetails": "Détails des disponibilités",
       "customEvent": { "dateStart": "Date de début", "dateEnd": "Date de fin" },
       "toogle": {
         "showOfferList": "Cours collectifs",
@@ -5429,6 +5444,13 @@
       "disabledTitle": "Cartes de RDV archivées"
     },
     "openCalendar": "Voir le calendrier",
+    "openSpecificAvailabilitiesCalendar": "Disponibilités spécifiques",
+    "specificAvailabilitiesCalendar": {
+      "goToRegularCalendar": "Retour à l'emploi du temps",
+      "infoBoxContent": "Vous êtes dans le mode disponibilités spécifiques à un établissement. Par défaut vos professeurs sont disponibles dans tous les établissements quand vous créez une disponibilité. Sur cette page définissez des disponibilités spécifiques à certains établissements pour rendre votre professeur disponible uniquement dans ces établissements. Il est nécessaire de créer une disponibilité générale sur l'emploi du temps de votre professeur pour créer une disponibilité spécifique.",
+      "filters": "Filtres",
+      "establishment": "Salle"
+    },
     "service": {
       "navigation": { "goToPrivatePass": "Cartes RDV" },
       "selector": {

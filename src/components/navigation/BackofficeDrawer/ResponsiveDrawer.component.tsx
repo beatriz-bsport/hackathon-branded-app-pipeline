@@ -454,8 +454,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.personalization'),
           },
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP) &&
-          Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP)
             ? [
                 {
                   to: '/settings/mobile-personalization',

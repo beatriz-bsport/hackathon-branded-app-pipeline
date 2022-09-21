@@ -71,6 +71,8 @@ export class ContractPayment extends React.Component<Props, State> {
   onSubmit = async (
     _, // forced to null and unused on this screen
     payment_method_id: string,
+    __,
+    ___,
     options: any,
     coupon_code: string | null,
   ) => {

@@ -47,6 +47,8 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
   onSubmit = async (
     token: string,
     payment_method_id: string,
+    __,
+    ___,
     options,
     coupon,
   ) => {

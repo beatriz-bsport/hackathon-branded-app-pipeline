@@ -41,7 +41,7 @@ export const StatsPanel = (props: Props) => {
         </div>
       </Typography>
       <Grid container>
-        {statistics.expensesSegments ? (
+        {/* statistics.expensesSegments ? (
           <Grid item xs={6}>
             <PieChart
               loading={statistics.expensesSegments.loading}
@@ -55,7 +55,7 @@ export const StatsPanel = (props: Props) => {
               height={250}
             />
           </Grid>
-        ) : null}
+	) : null */}
         {statistics.expensesSegments ? (
           <Grid item xs={6}>
             <PieChart

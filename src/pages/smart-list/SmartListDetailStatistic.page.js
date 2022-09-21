@@ -48,6 +48,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
         end: moment(this.props.dateRange.end).valueOf(),
       },
     });
+    /*
     this.props.fetchSmartListStats({
       smartlist: id,
       statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
@@ -56,6 +57,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
         end: moment(this.props.dateRange.end).valueOf(),
       },
     });
+    */
     this.props.fetchSmartListStats({
       smartlist: id,
       statistic_identifier: BOOKING_SEGMENTS_STATISTIC_IDENTIFIER,
@@ -69,7 +71,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
   };
 
   formatExpensesSegmentsStatistic = () => {
-    const expenses = this.props.statistics.expensesSegments.data;
+    // const expenses = this.props.statistics.expensesSegments.data;
     const bookings = this.props.statistics.bookingsSegments.data;
     const { t } = this.props;
 
@@ -83,6 +85,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
         })),
         loading: this.props.statistics.bookingsSegments.loading,
       },
+      /*
       expensesSegments: {
         data: expenses.map((expense, index) => ({
           name: t(`graphs.expensesSegments.label.${index}`),
@@ -90,6 +93,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
         })),
         loading: this.props.statistics.expensesSegments.loading,
       },
+      */
     };
   };
 
@@ -108,6 +112,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
                 end: moment(end).valueOf(),
               },
             });
+            /*
             this.props.fetchSmartListStats({
               smartlist: this.props.id,
               statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
@@ -115,7 +120,8 @@ export class SmartListDetailStatistic extends React.Component<Props> {
                 start: moment(start).valueOf(),
                 end: moment(end).valueOf(),
               },
-            });
+	    });
+	    */
           }}
           dateRange={this.props.dateRange}
         />
@@ -151,6 +157,7 @@ export default compose(
             BOOKING_SEGMENTS_STATISTIC_IDENTIFIER,
           ),
         },
+        /*
         expensesSegments: {
           data: getSmartListStatistic(state, id, EXPENSES_STATISTIC_IDENTIFIER),
           loading: getStatisticLoading(
@@ -158,7 +165,8 @@ export default compose(
             id,
             EXPENSES_STATISTIC_IDENTIFIER,
           ),
-        },
+	},
+	*/
         general: {
           data: getSmartListStatistic(state, id, GENERAL_STATISTIC_IDENTIFIER),
           loading: getStatisticLoading(state, id, GENERAL_STATISTIC_IDENTIFIER),

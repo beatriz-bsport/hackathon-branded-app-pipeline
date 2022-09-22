@@ -21,7 +21,7 @@ type RegisterMemberProps = {
   processing: boolean,
   setProcessing: (boolean) => void,
 
-  consumerPacksLoading: boolean,
+  consumerPaymentPacksLoading: boolean,
   consumerPaymentPacks: Array<ConsumerPaymentPack>,
   registerWithPass: (
     consumerPaymentPackId: number,
@@ -38,7 +38,7 @@ type RegisterMemberProps = {
 
 const RegisterMemberBase = (props: RegisterMemberProps) => (
   <Dialog open onClose={props.onClose}>
-    {props.consumerPacksLoading || props.processing ? (
+    {props.consumerPaymentPacksLoading || props.processing ? (
       <DialogContent>
         <CircularProgress />
       </DialogContent>
@@ -94,7 +94,7 @@ const RegisterMember = compose(
 type Props = {
   loading: boolean,
 
-  consumerPacksLoading: boolean,
+  consumerPaymentPacksLoading: boolean,
   consumerPaymentPacks: Array<ConsumerPaymentPack>,
   setSearchedMember: (member: ?Member) => void,
   registerWithPass: (
@@ -152,7 +152,7 @@ export const SearchAndRegister = (props: Props) => {
       <RegisterMember
         onClose={props.onClose}
         registerWithPass={props.registerWithPass}
-        consumerPacksLoading={props.consumerPacksLoading}
+        consumerPaymentPacksLoading={props.consumerPaymentPacksLoading}
         consumerPaymentPacks={props.consumerPaymentPacks}
         offer={props.offer}
         member={props.member}

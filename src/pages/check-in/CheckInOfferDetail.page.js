@@ -63,6 +63,7 @@ type Props = {
   fetchAllPaymentPacks: () => void,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
+  compatibleConsumerPacksLoading: boolean,
   fetchByOfferByMember: (offerId: number, memberId: number) => void,
 
   registerWithPass: (
@@ -186,6 +187,9 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             open
             offer={this.props.offer}
             consumerPaymentPacks={this.props.compatibleConsumerPacks}
+            consumerPaymentPacksLoading={
+              this.props.compatibleConsumerPacksLoading
+            }
             registerWithPass={this.props.registerWithPass}
             upsertMember={this.props.upsertMember}
             managerFormConfig={this.props.managerFormConfig?.poll_fields}
@@ -290,6 +294,8 @@ export default compose(
         state.offer.byDay.loading,
       compatibleConsumerPacks:
         withPaymentPackForConsumer(getByOfferByMember)(state),
+      compatibleConsumerPacksLoading:
+        state.consumerPaymentPack.byOfferByMember.loading,
       managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {

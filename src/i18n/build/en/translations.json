@@ -2799,7 +2799,23 @@
             },
             "private_service": "Appointment type",
             "establishment": "Establishment",
-            "coach": "Teacher"
+            "coach": "Teacher",
+            "detail": {
+                "detailEmpty": "No availability on the selected slot",
+                "dialog": {
+                    "title": "Availability details"
+                },
+                "openHours": "Schedules",
+                "availableEverywhere": "Available in all establishments",
+                "slotBoundaries": "From {{date_start}} to {{date_end}}",
+                "ok": "OK"
+            },
+            "specificAvailabilityForm": {
+                "advanced": "Advanced",
+                "infoForCoach": "By default you will be available in all the establishments. By activating this option you will be able to select in which establishments you will be available for this time slot.",
+                "info": "By default, your teacher will be indicated as available in all your establishments. By activating this option you will be able to select in which establishments your teacher will be available for this time slot.",
+                "switchLabel": "Add for certain establishments only"
+            }
         },
         "resource": {
             "form": {
@@ -3009,7 +3025,8 @@
             "customEvent": {
                 "dateEnd": "End date",
                 "dateStart": "Start date"
-            }
+            },
+            "showAvailabilityDetails": "Availability details"
         },
         "selector": {
             "privateService": "Select an appointment",
@@ -3766,7 +3783,14 @@
                     "title": "Delete"
                 }
             }
-        }
+        },
+        "specificAvailabilitiesCalendar": {
+            "establishment": "Establishment",
+            "filters": "Filters",
+            "infoBoxContent": "You are in the availability mode specific to an establishment. By default your teachers are available in all establishments when you create an availability. On this page you can define specific availabilities for certain establishments to make your teacher available only in these establishments. It is necessary to create a general availability on your teacher's schedule to create a specific availability.",
+            "goToRegularCalendar": "Back to the schedule"
+        },
+        "openSpecificAvailabilitiesCalendar": "Specific availabilities"
     },
     "relationship": {
         "member": {
@@ -6636,7 +6660,7 @@
         "paymentMethod": {
             "11": "Other",
             "10": "Automatic payment",
-            "9": "Pay on site",
+            "9": "Internal account (credit)",
             "8": "EventBrite",
             "7": "Bank transfer",
             "6": "AMEX",
@@ -9622,7 +9646,8 @@
         "allCompanies": "All studios",
         "seeAll": "See all",
         "franchiseEmails": "[Master Account] Email Templates",
-        "companieEmails": "Templates"
+        "companieEmails": "Templates",
+        "bsportTemplateEmail": "Lauching emails"
     },
     "member": {
         "date_joined": "Sign up date",

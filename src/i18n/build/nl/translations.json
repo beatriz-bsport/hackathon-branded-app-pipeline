@@ -5655,7 +5655,7 @@
                         "label": "Aantal dagen"
                     },
                     "explain": "Geef aan met hoeveel dagen de eerstvolgende en toekomstige betalingen wordt uitgesteld.",
-                    "explainInvoice": "Selecter vanaf welke factuur je dir abonnement wilt pauzeren:"
+                    "explainInvoice": "Selecteer vanaf welke factuur je dit abonnement wilt pauzeren:"
                 }
             },
             "actions": {

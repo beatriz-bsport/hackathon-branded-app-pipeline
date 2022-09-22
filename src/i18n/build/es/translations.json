@@ -6615,7 +6615,8 @@
             "customEvent": {
                 "dateEnd": "Fecha de finalización",
                 "dateStart": "Fecha de inicio"
-            }
+            },
+            "showAvailabilityDetails": "Detalles de disponibilidad"
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -6678,7 +6679,23 @@
             },
             "private_service": "Tipo de cita",
             "establishment": "Establecimiento",
-            "coach": "Profesor"
+            "coach": "Profesor",
+            "detail": {
+                "detailEmpty": "No hay disponibilidad en la franja horaria seleccionada",
+                "dialog": {
+                    "title": "Detalles de disponibilidad"
+                },
+                "openHours": "Horarios",
+                "availableEverywhere": "Disponible en todos los establecimientos",
+                "slotBoundaries": "De {{date_start}} a {{date_end}}",
+                "ok": "Ok"
+            },
+            "specificAvailabilityForm": {
+                "advanced": "Avanzado",
+                "infoForCoach": "Por defecto estarás disponible en todos los establecimientos. Al activar esta opción podrás seleccionar los establecimientos en los que estarás disponible para esta franja horaria.",
+                "info": "Por defecto, tu profesor será indicado como disponible en todos tus establecimientos. Al activar esta opción podrás seleccionar en qué establecimientos estará disponible tu profesor para esta franja horaria.",
+                "switchLabel": "Añadir sólo para algunos establecimientos"
+            }
         },
         "noPrivateService": "El miembro puede reservar una cita en la plaza que has elegido.",
         "noPrivatePass": "Las tarjetas de cita permiten a los miembros hacer una cita, define tus precios y términos aquí.",
@@ -6913,7 +6930,14 @@
                     "warningText": "¡Atención! Al borrar un bono universal también se borrarán sus bonos gemelos."
                 }
             }
-        }
+        },
+        "specificAvailabilitiesCalendar": {
+            "establishment": "Establecimiento",
+            "filters": "Filtros",
+            "infoBoxContent": "Te encuentras en el modo de disponibilidad específico del establecimiento. Por defecto, tus profesores están disponibles en todos los establecimientos cuando creas una disponibilidad. En esta página puede definir disponibilidades específicas para ciertos establecimientos para que tu profesor esté disponible sólo en estos establecimientos. Es necesario crear una disponibilidad general en el horario de tu profesor para crear una disponibilidad específica.",
+            "goToRegularCalendar": "Volver al horario"
+        },
+        "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas"
     },
     "reminder": {
         "task": {
@@ -10050,7 +10074,8 @@
         "allCompanies": "Todos los franquiciados",
         "seeAll": "Ver todo",
         "franchiseEmails": "Plantillas de franquicia",
-        "companieEmails": "Mis plantillas"
+        "companieEmails": "Mis plantillas",
+        "bsportTemplateEmail": "Correos electrónicos de lanzamiento"
     },
     "metaActivity": {
         "reviews": "Opinión de los clientes: ",

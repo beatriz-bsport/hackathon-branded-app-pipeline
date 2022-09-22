@@ -23,7 +23,6 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   paymentItem: PaymentItem,
-  invoiceVariant: boolean,
   handleChangeMethod: (uuid: string, paymentMethodId: number) => void,
 };
 
@@ -76,9 +75,7 @@ export const PaymentItem = (props: Props) => {
                   : null
               }
             >
-              {props.invoiceVariant
-                ? t(`invoice:paymentMethod.label.${paymentItem.payment_method}`)
-                : t(`paymentMethod.${paymentItem.payment_method}`)}
+              {t(`paymentMethod.${paymentItem.payment_method}`)}
             </Typography>
             {!paymentItem.is_processing &&
             // eslint-disable-next-line

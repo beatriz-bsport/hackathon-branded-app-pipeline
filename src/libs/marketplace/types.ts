@@ -2,6 +2,7 @@ import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
+import { WidgetCustomCSS } from '#libs/theme/types';
 import { ErrorAndLoading } from '#libs/types';
 
 /**
@@ -90,6 +91,7 @@ export type WidgetConfig = {
   config: MarketplaceComponentConfig;
   showFab: boolean;
   fullScreenPopup: boolean;
+  styles: WidgetCustomCSS;
 };
 
 export type MarketplaceSettings = {

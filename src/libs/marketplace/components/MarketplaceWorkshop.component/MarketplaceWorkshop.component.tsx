@@ -111,6 +111,8 @@ const MarketplaceWorkshop: React.FC<Props> = ({
         className={classnames('bs-workshop-page__workshops__lists', {
           'bs-workshop-page__workshops__lists--column':
             refContainer?.current?.clientWidth < 600,
+          'bs-workshop-page__workshops__lists--only-one':
+            filteredMetaActivities.length === 1,
           'bs-workshop-page__workshops__lists--medium':
             refContainer?.current?.clientWidth < 1200,
         })}

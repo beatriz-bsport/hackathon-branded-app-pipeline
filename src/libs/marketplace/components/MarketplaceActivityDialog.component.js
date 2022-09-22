@@ -20,7 +20,7 @@ type Props = {
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { classes, onClose, fullScreen, offerId } = props;
+  const { classes, onClose, offerId } = props;
   return (
     <Dialog
       key={offerId}
@@ -28,7 +28,6 @@ export function MarketplaceActivityDialog(props: Props) {
       scroll="paper"
       onClose={onClose}
       classes={{ paper: classes.dialog }}
-      fullScreen={fullScreen}
     >
       <DialogContent className={classes.dialogContent}>
         {props.open ? <MarketplaceActivity {...props} /> : null}

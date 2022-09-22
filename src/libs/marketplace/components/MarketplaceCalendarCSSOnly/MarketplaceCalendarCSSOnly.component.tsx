@@ -95,13 +95,13 @@ export const MarketplaceCalendar = (props: Props) => {
   const isCompact =
     (compactMode !== null && compactMode === true) ||
     (compactMode === null &&
-      (refContainer?.current?.clientWidth ?? 1200) < 600);
+      (refContainer?.current?.clientWidth ?? 1200) < 1250);
 
   // large calendar
   const isLarge =
     (compactMode != null && compactMode === false) ||
     (compactMode == null &&
-      !((refContainer?.current?.clientWidth ?? 1240) < 600));
+      !((refContainer?.current?.clientWidth ?? 1240) < 1250));
 
   const renderNoOffer = () => {
     return (
@@ -142,28 +142,32 @@ export const MarketplaceCalendar = (props: Props) => {
 
   return (
     <div className="bs-calendar" ref={refContainer}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <MarketplaceDatePicker
-          dateSelected={selectedDate}
-          companyId={props.companyId}
-          onSelect={onSelectDate}
-          offerFilters={filters}
-          fetchAllOffers={props.fetchAllOffers}
-          events={props.events}
+      {!forceDayDisplayOnly && (
+        <div className="bs-calendar__datePicker">
+          <MarketplaceDatePicker
+            dateSelected={selectedDate}
+            companyId={props.companyId}
+            onSelect={onSelectDate}
+            offerFilters={filters}
+            fetchAllOffers={props.fetchAllOffers}
+            events={props.events}
+          />
+        </div>
+      )}
+      {!forceDayDisplayOnly && (
+        <MarketplaceFilterComponent
+          coaches={coaches}
+          establishments={establishments}
+          hideCoach={props.hideCoach}
+          metaActivities={metaActivities}
+          filters={filters}
+          setFilters={setFilters}
+          variant="activity"
+          establishmentGroupList={props.establishmentGroupList}
+          showMultiLocalization={props.showMultiLocalization}
+          customLevels={props.activeCustomLevels}
         />
-      </div>
-      <MarketplaceFilterComponent
-        coaches={coaches}
-        establishments={establishments}
-        hideCoach={props.hideCoach}
-        metaActivities={metaActivities}
-        filters={filters}
-        setFilters={setFilters}
-        variant="activity"
-        establishmentGroupList={props.establishmentGroupList}
-        showMultiLocalization={props.showMultiLocalization}
-        customLevels={props.activeCustomLevels}
-      />
+      )}
       {loading && <LoadingIndicator />}
       {!loading && (
         <>

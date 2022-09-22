@@ -15,6 +15,11 @@
   grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
 }
 
+.bs-workshop-page__workshops__lists--only-one {
+  display: flex;
+  justify-content: center;
+}
+
 .bs-workshop-page__workshops__lists--medium {
   gap: var(--spacing-1);
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -34,7 +39,7 @@
   padding-top: var(--spacing-3);
   padding-bottom: var(--spacing-3);
   margin-top: var(--spacing-10);
-  margin-bottom: var(--spacing-14);
+  margin-bottom: 250px;
 }
 
 .bs-workshop-page__workshops__lists__load-more {

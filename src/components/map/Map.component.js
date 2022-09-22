@@ -16,7 +16,7 @@ const TILE_LAYER_URL =
 
 const MARKER_ASSET = require('./marker-icon-2x.png');
 
-const CENTER = [48.86, 2.33];
+const CENTER = [5.25, 2.33];
 
 type Props = {
   markers: ?Array<MarkerType>,
@@ -94,6 +94,7 @@ export default class MyMap extends Component<Props, State> {
           zoom={this.state.zoom}
           scrollWheelZoom={false}
           boxZoom={false}
+          id={`${mapContainerClassName || 'map-container'}`}
         >
           <TileLayer url={TILE_LAYER_URL} variant="light_all" />
           {markers.map((m) => this.renderMarker(m))}

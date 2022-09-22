@@ -1,4 +1,15 @@
 .bs-genderIcon {
-  width: var(--spacing-2);
-  height: var(--spacing-2);
+  width: 16px;
+  height: 16px;
+  color: var(--color-grey-main);
+}
+.bs-genderIconMobile {
+  width: 12px;
+  height: 12px;
+  color: var(--color-grey-main);
+}
+.bs-genderIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

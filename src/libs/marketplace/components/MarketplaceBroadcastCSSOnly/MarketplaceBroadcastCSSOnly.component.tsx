@@ -1,24 +1,50 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 import classNames from 'classnames';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
+import { useTheme } from '@material-ui/styles';
 
 import VideocamIcon from '@material-ui/icons/Videocam';
 import './MarketplaceBroadcastCSSOnly.css';
 
 export type Props = {
   className?: string;
+  activityDialog?: boolean;
+  cardVariant?: boolean;
 };
 
-const MarketplaceBroadcastCSSOnly: React.FC<Props> = ({ className }) => {
+const MarketplaceBroadcastCSSOnly: React.FC<Props> = ({
+  className,
+  activityDialog,
+  cardVariant,
+}) => {
   const { t } = useTranslation(['marketplace']);
+  const theme = useTheme();
 
   return (
-    <div className="bs-broadcast">
-      <div className={classNames('bs-broadcast__text', className)}>
-        {t('calendar.broadcast')}
+    <div
+      style={
+        {
+          '--broadcast-background-color': activityDialog
+            ? theme.palette.primary.main
+            : lighten(theme.palette.primary.light, 0.8),
+          '--broadcast-color': activityDialog
+            ? theme.palette.primary.contrastText
+            : theme.palette.primary.main,
+        } as CSSProperties
+      }
+    >
+      <div
+        className={classNames('bs-broadcast', {
+          'bs-broadcast--cardVariant': cardVariant,
+        })}
+      >
+        <div className={classNames('bs-broadcast__text', className)}>
+          {t('calendar.broadcast')}
+        </div>
+        <VideocamIcon className="bs-broadcast__videocam" />
       </div>
-      <VideocamIcon className="bs-broadcast__videocam" />
     </div>
   );
 };

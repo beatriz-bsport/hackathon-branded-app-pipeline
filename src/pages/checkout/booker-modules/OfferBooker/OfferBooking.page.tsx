@@ -1142,6 +1142,13 @@ const mapWithHandlers = {
           props.theme.company.toString(),
         )}/workshop`,
       );
+    } else if (props.queryParams.fromCalendarV2 === 'true') {
+      props.push(
+        `${urlToMarketplace(
+          props.theme.company_name,
+          props.theme.company.toString(),
+        )}/calendar-V2/${buildUrlParams(params)}`,
+      );
     } else {
       props.push(
         `${urlToMarketplace(
@@ -1154,7 +1161,7 @@ const mapWithHandlers = {
 };
 
 export default compose(
-  withQueryParams([['fromWorkshop'], 'queryParams']),
+  withQueryParams([['fromWorkshop', 'fromCalendarV2'], 'queryParams']),
   // @ts-ignore
   withTranslation(['booking']),
   routerParamsToProps({ id: 'id:number' }),

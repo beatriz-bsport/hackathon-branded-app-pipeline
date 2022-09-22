@@ -1,12 +1,19 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
+import React, {
+  useCallback,
+  useState,
+  useRef,
+  useEffect,
+  CSSProperties,
+} from 'react';
 import classNames from 'classnames';
-import { Checkbox, Icon } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import throttle from 'lodash/throttle';
 
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
@@ -19,12 +26,13 @@ export type Props = {
     | Option
     | {
         label: string;
-        icon?: string;
+        icon?: boolean;
         options: Option[];
       }
   )[];
   selectedOptions: number[];
   onSelect: (selected: number[]) => void;
+  levelVariant: boolean;
 };
 
 const MarketplaceFilterCSSOnly: React.FC<Props> = ({
@@ -32,6 +40,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   options,
   selectedOptions = [],
   onSelect,
+  levelVariant,
 }) => {
   const { t } = useTranslation(['common']);
   const [isOpen, setIsOpen] = useState(false);
@@ -157,38 +166,42 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
           >
             <ClickAwayListener onClickAway={handleCloseMenu} disableReactTree>
               <div className="bs-marketplace-filter__menu">
-                <div className="bs-marketplace-filter__menu__list">
+                <div
+                  className={classNames('bs-marketplace-filter__menu__list', {
+                    'bs-marketplace-filter__menu__list--level': levelVariant,
+                  })}
+                >
                   {options.map((opt) => {
                     if (opt?.options) {
                       const newOpt = opt as {
                         label: string;
-                        icon?: string;
+                        icon?: boolean;
                         options: Option[];
                       };
                       return (
                         <React.Fragment key={newOpt.label}>
                           <div className="bs-marketplace-filter__menu__list__item-group">
                             {newOpt.icon && (
-                              <Icon className="bs-marketplace-filter__menu__list__item-group__icon">
-                                {newOpt.icon}
-                              </Icon>
+                              <LocationOnIcon className="bs-marketplace-filter__menu__list__item-group__icon" />
                             )}
                             {opt.label}
                           </div>
-                          {newOpt.options.map((subOption) => (
-                            <div
-                              className="bs-marketplace-filter__menu__list__sub-item"
-                              key={subOption.value}
-                            >
-                              <Checkbox
-                                color="primary"
-                                checked={selected.includes(subOption.value)}
-                                onClick={handleSelect(subOption.value)}
-                                className="bs-marketplace-filter__menu__list__sub-item__checkbox"
-                              />
-                              {subOption.label}
-                            </div>
-                          ))}
+                          {newOpt.options.map((subOption) => {
+                            return (
+                              <div
+                                className="bs-marketplace-filter__menu__list__sub-item"
+                                key={subOption.value}
+                              >
+                                <Checkbox
+                                  color="primary"
+                                  checked={selected.includes(subOption.value)}
+                                  onClick={handleSelect(subOption.value)}
+                                  className="bs-marketplace-filter__menu__list__sub-item__checkbox"
+                                />
+                                {subOption.label}
+                              </div>
+                            );
+                          })}
                         </React.Fragment>
                       );
                     }
@@ -198,7 +211,16 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                       <div
                         className="bs-marketplace-filter__menu__list__item"
                         key={simpleOption.value}
+                        style={
+                          {
+                            '--levelChipColor':
+                              simpleOption?.levelColor ?? '#f00',
+                          } as CSSProperties
+                        }
                       >
+                        {levelVariant && (
+                          <div className="bs-marketplace-filter__menu__list__item__chip__level" />
+                        )}
                         <Checkbox
                           color="primary"
                           checked={selected.includes(simpleOption.value)}

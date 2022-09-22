@@ -1,10 +1,9 @@
 /*  */
 /* Marketplace time table */
 /*  */
-.bs-week {
+.bs-week-card {
   margin-top: var(--spacing-2);
   display: grid;
-  flex: 1 1 100%;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   column-gap: var(--spacing-2);
   row-gap: var(--spacing-2);
@@ -13,9 +12,14 @@
 }
 
 .bs-week-list {
+  margin-top: var(--spacing-2);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: var(--spacing-2);
+  row-gap: var(--spacing-2);
+
+  overflow: hidden;
   width: 100%;
-  /* display: flex; */
-  align-items: center;
 }
 
 .bs-week__header__date--is-abled {
@@ -37,29 +41,33 @@
 }
 
 .bs-week__header__date__weekDay {
-  font-weight: var(--fontFamily);
-  font-size: var(--fontSize);
-  font-weight: var(--fontWeightLight);
+  font-weight: var(--subtitle1-fontWeight);
+  font-size: var(--subtitle1-fontSize);
   text-transform: capitalize;
   color: var(--color-grey-main);
+  font-family: var(--fontFamily);
 }
 
-.bs-week__header__date__weekDay--is-selected {
+.bs-week__header__date__weekDay--is-selected,
+.bs-week__header__date__weekDay--is-today {
   color: var(--color-primary-main);
 }
 
 .bs-week__header__date__monthDay {
-  font-weight: var(--fontFamily);
+  color: var(--color-grey-dark);
   font-size: var(--h4-fontSize);
-  height: var(--spacing-5);
+  font-family: var(--h4-fontFamily);
   align-items: center;
-  font-weight: var(--fontWeightBold);
+  font-weight: var(--fontWeightMedium);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--spacing-6);
+  height: var(--spacing-6);
 }
 
 .bs-week__header__date__dots {
+  color: var(--color-secondary-main);
   display: flex;
   gap: var(--spacing-1) / 2;
 }
@@ -67,18 +75,21 @@
 .bs-week__header__date__monthDay--is-selected {
   background-color: var(--color-primary-main);
   border-radius: var(--spacing-4);
-  width: var(--spacing-5);
-  height: var(--spacing-5);
   color: var(--color-primary-contrastText);
 }
 
+.bs-week__header__date__monthDay--is-today {
+  background-color: none;
+  color: var(--color-primary-main);
+  border-radius: var(--spacing-4);
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+}
 .bs-week__listMode__content {
-  grid-column: 2 / 7;
+  grid-column: 1 / 8;
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-left: var(--spacing-4);
-  padding-right: var(--spacing-4);
   gap: var(--spacing-5);
   border-bottom: thin var(--color-grey-100);
 }
@@ -96,17 +107,22 @@
   align-items: center;
   align-self: flex-start;
   font-weight: var(--fontFamily);
-  font-size: var(--fontSize);
+  font-size: var(--body1-fontSize);
   text-transform: capitalize;
 }
 
 .bs-week__cardMode__period {
   display: flex;
   grid-column: 1 / -1;
+
+  height: 40px;
 }
 
 .bs-week__cardMode__period__button {
   margin-left: var(--spacing-1);
+  color: var(--color-grey-main);
+
+  border-radius: var(--border-radius-10);
 }
 
 .bs-week__cardMode__sessionsGroup {
@@ -126,8 +142,46 @@
 }
 
 .bs-week__cardMode__dayPart {
-  font-weight: var(--fontFamily);
-  font-size: var(--fontSize);
-  font-weight: var(--fontWeightLight);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--fontWeightMedium);
   text-transform: uppercase;
+  font-family: var(--fontFamily);
+}
+
+.bs-week__listMode__content__day__offers {
+  border-radius: var(--border-radius-3);
+  overflow: hidden;
+}
+
+@media (max-width: 570px), (max-device-width: 570px) {
+  .bs-week {
+    margin-top: 0px;
+  }
+  .bs-week__listMode__content {
+    grid-column: 1 / 8;
+  }
+  .bs-week__listMode__content__day__date {
+    margin-left: var(--spacing-1);
+  }
+}
+
+@media (max-width: 500px) {
+  .bs-week__header__date__monthDay {
+    font-size: var(--body2-fontSize);
+    font-family: var(--body2-fontFamily);
+    width: var(--spacing-4);
+    height: var(--spacing-4);
+  }
+  .bs-week__header__date__weekDay {
+    font-weight: var(--body1-fontWeight);
+    font-size: var(--body1-fontSize);
+  }
+}
+
+@media only screen and (min-width: 1050px) {
+  .bs-week-list {
+    width: auto;
+    margin-left: 15vw;
+    margin-right: 15vw;
+  }
 }

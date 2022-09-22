@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 
+import { withTheme } from '@material-ui/styles';
 import {
   Establishment,
   EstablishmentGroup,
@@ -11,9 +12,11 @@ import { Coach } from '../../../associated-coach/types';
 import { Level } from '#libs/level/types';
 import { MarketPlaceFilter } from '../../types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
-import { getLevelTrad } from '#libs/level/utils';
+import { getLevelColor, getLevelTrad } from '#libs/level/utils';
 
 import './MarketplaceFilterCSSOnly.css';
+import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
+import { Theme } from '#libs/theme/types';
 
 type Props = {
   coaches: Coach[];
@@ -27,6 +30,7 @@ type Props = {
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;
   customLevels: Level[];
+  theme: Theme;
 };
 
 const MarketplaceFilterCSSOnly: React.FC<Props> = ({
@@ -41,15 +45,25 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   showMultiLocalization,
   hideCoach,
   filters,
+  theme,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation([
+    'coach',
+    'metaActivity',
+    'establishment',
+    'offer',
+  ]);
+
   const levelsOptions = useMemo(
     () =>
-      customLevels.map((level) => ({
-        value: level.id,
-        label: getLevelTrad(level.id, level.name, t),
-      })),
-    [customLevels, t],
+      [
+        ...customLevels.map((level) => ({
+          value: level.id,
+          label: getLevelTrad(level.id, level.name, t),
+          levelColor: getLevelColor(level.id, level.color, theme),
+        })),
+      ].sort((a, b) => a.value - b.value),
+    [customLevels, t, theme],
   );
 
   const coachesOptions = useMemo(
@@ -59,6 +73,14 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         label: coach.name,
       })),
     [coaches],
+  );
+
+  const establishmentsOptions = useMemo(
+    () =>
+      getGroupedEstablishmentOptions([...establishments]).map((opt) => {
+        return { ...opt, icon: true };
+      }),
+    [establishments],
   );
 
   const metaActivitiesOption = useMemo(
@@ -77,20 +99,11 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     [metaActivities, variant],
   );
 
-  const establishmentsOption = useMemo(
-    () =>
-      establishments.map((est) => ({
-        label: est.title,
-        value: est.id,
-      })),
-    [establishments],
-  );
-
   const disabledEstablishmentOptions = useMemo(() => {
     const options: { label: string; value: number }[] = [];
     filters?.establishments?.forEach((id: number) => {
       if (!establishments.find((est: Establishment) => est.id === id)) {
-        const label = allEstablishments.find(
+        const label = (allEstablishments ?? []).find(
           (est: Establishment) => est.id === id,
         )?.title;
         options.push({ label, value: id });
@@ -128,47 +141,46 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   );
 
   return (
-    <div className="bs-marketplace-filters">
-      <div className="bs-marketplace-filters__list">
-        {showMultiLocalization &&
-          establishmentGroupList &&
-          establishmentGroupList.length !== 0 && (
-            <MarketplaceFilter
-              options={establishmentGroupOption}
-              onSelect={handleChange('establishment_group__in')}
-              text={t('establishment:localisation')}
-              selectedOptions={filters.establishment_group__in}
-            />
-          )}
-        {!hideCoach && (
+    <div className="bs-marketplace-filters__list">
+      <MarketplaceFilter
+        text={metaActivityTitle}
+        options={metaActivitiesOption}
+        selectedOptions={filters.activity__in}
+        onSelect={handleChange('activity__in')}
+      />
+      <MarketplaceFilter
+        text={t('offer:levels.select.placeholder')}
+        selectedOptions={filters.levels}
+        onSelect={handleChange('levels')}
+        options={levelsOptions}
+        levelVariant
+      />
+      {!hideCoach && (
+        <MarketplaceFilter
+          options={coachesOptions}
+          selectedOptions={filters.coaches}
+          onSelect={handleChange('coaches')}
+          text={t('coach:coach')}
+        />
+      )}
+      <MarketplaceFilter
+        text={t('establishment:room')}
+        options={establishmentsOptions.concat(disabledEstablishmentOptions)}
+        selectedOptions={filters.establishments}
+        onSelect={handleChange('establishments')}
+      />
+      {showMultiLocalization &&
+        establishmentGroupList &&
+        establishmentGroupList.length !== 0 && (
           <MarketplaceFilter
-            options={coachesOptions}
-            selectedOptions={filters.coaches}
-            onSelect={handleChange('coaches')}
-            text={t('coach:coach')}
+            options={establishmentGroupOption}
+            onSelect={handleChange('establishment_group__in')}
+            text={t('establishment:localisation')}
+            selectedOptions={filters.establishment_group__in}
           />
         )}
-        <MarketplaceFilter
-          text={t('offer:levels.select.placeholder')}
-          selectedOptions={filters.levels}
-          onSelect={handleChange('levels')}
-          options={levelsOptions}
-        />
-        <MarketplaceFilter
-          text={t('establishment:room')}
-          options={establishmentsOption.concat(disabledEstablishmentOptions)}
-          selectedOptions={filters.establishments}
-          onSelect={handleChange('establishments')}
-        />
-        <MarketplaceFilter
-          text={metaActivityTitle}
-          options={metaActivitiesOption}
-          selectedOptions={filters.activity__in}
-          onSelect={handleChange('activity__in')}
-        />
-      </div>
     </div>
   );
 };
 
-export default pure(MarketplaceFilterCSSOnly);
+export default pure(withTheme(MarketplaceFilterCSSOnly));

@@ -76,6 +76,14 @@ export function deleteCoach(id: number, options?: OptionCallback) {
   };
 }
 
+export const resetAction = createAction('COACH/RESET/SUCCESS');
+
+export function resetCoaches() {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
+    dispatch(resetAction(true));
+  };
+}
+
 export const restoreActions = {
   isLoading: createAction('COACH/RESTORE/IS_LOADING'),
 };
@@ -105,14 +113,17 @@ export const coachListAction = {
 };
 
 export function fetchAssociatedCoachesList(
-  params?: { [key: string]: boolean | string | number },
+  params?: { [key: string]: boolean | string | number | number[] },
   options?: OptionCallback<Array<Coach>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(coachListAction.isLoading(true));
     dispatch(coachListAction.error(null));
     try {
-      const response = await fetchAssociatedCoachesAPI({ ...params, page: 1 });
+      const response = await fetchAssociatedCoachesAPI({
+        ...params,
+        page: 1,
+      });
       dispatch(
         coachListAction.success({
           coachDict: createDictionnaryById(response.data),

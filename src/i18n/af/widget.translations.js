@@ -8,7 +8,7 @@ exports.default = {
     configTitle: 'Mon Widget',
     listDisplay: 'Vision semaine liste',
     calendarDisplay: 'Vision semaine card (calendrier)',
-    todayOnly: 'Afficher seulement les séances du jour',
+    todayOnly: 'Vision séances du jour',
     responsiveDisplay: 'Affichage responsive',
     cancel: 'Annuler',
     show: 'Visualiser',
@@ -52,6 +52,11 @@ exports.default = {
       coach: 'Le professeur',
       time: "L'horaire",
     },
+    configDialog: {
+      title: 'Paramètres widget',
+      submit: 'Confirmer',
+      cancel: 'Fermer',
+    },
     groupSessionByPeriod: 'Séparer matin, après midi et soir',
     cssEditor: {
       general: 'Espacement et arrondi',
@@ -72,7 +77,7 @@ exports.default = {
       roundingHelper: 'Les angles ont un arrondi en multiple {{base}}px',
       preview: 'Preview',
       selectAlert:
-        'La personnalisation du widget n’est disponible que sur les ateliers pour le moment',
+        'La personnalisation du widget n’est disponible que sur les ateliers et le calendrier pour le moment',
       submit: 'Enregistrer',
 
       dialog: {

@@ -40,7 +40,7 @@ export const offer = {
   coach_override: false,
   male: 5,
   female: 6,
-  otherGender: 3,
+  other: 3,
   meta_activity: metaActivity,
   coach: {
     firstname: 'Stessy',

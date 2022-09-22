@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
@@ -16,75 +15,70 @@ type Props = {
   offer: Offer_FULL;
   className?: string;
   isRegistered?: boolean;
-  onClickBook: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onClickBookOption: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
 };
 
 const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   offer,
   className,
   isRegistered,
-  onClickBook,
-  onClickBookOption,
 }) => {
   const { t } = useTranslation('translation');
 
-  const onClick = offer.is_full ? onClickBookOption : onClickBook;
   const isDisabled = useMemo(
     () => !offer.available || !isOfferInThePast(offer),
     [offer],
   );
 
   return (
-    <button
-      disabled={isDisabled}
-      onClick={onClick}
+    <div
       className={classnames(
-        'bs-book-button',
+        'bs-book-button-card',
         {
-          'bs-book-button--disabled': isDisabled,
-          'bs-book-button--booked': isRegistered,
+          'bs-book-button-card--disabled': isDisabled,
+          'bs-book-button-card--booked': isRegistered,
         },
         className,
       )}
-      type="button"
+      id={isDisabled ? 'book-button--disabled' : 'book-button'}
     >
-      <div className="bs-book-button__inner">
+      <div
+        className="bs-book-button-card__inner"
+        id={isDisabled ? 'book-button__inner--disabled' : 'book-button__inner'}
+      >
         {!isRegistered && (
           <>
             {!offer.available && (
-              <CancelIcon className="bs-book-button__inner__icon__not-available" />
+              <CancelIcon className="bs-book-button-card__inner__icon__not-available" />
             )}
             {offer.available && (
               <>
                 {!isOfferInThePast(offer) && (
-                  <AlarmOnIcon className="bs-book-button__inner__icon__past" />
-                )}
-
-                {isOfferInThePast(offer) && (
-                  <PersonAddIcon className="bs-book-button__inner__icon__book" />
+                  <AlarmOnIcon className="bs-book-button-card__inner__icon__past" />
                 )}
               </>
             )}
           </>
         )}
         {isRegistered && (
-          <DoneAllIcon className="bs-book-button__inner__icon__already-booked" />
+          <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
         )}
         <div
-          className={classnames('bs-book-button__inner__text', {
-            'bs-book-button__inner__text--not-available': isDisabled,
-            'bs-book-button__inner__text--disabled':
+          id={
+            isDisabled
+              ? 'book-button__inner__text--disabled'
+              : 'book-button__inner__text'
+          }
+          className={classnames('bs-book-button-card__inner__text', {
+            'bs-book-button-card__inner__text--not-available': isDisabled,
+            'bs-book-button-card__inner__text--disabled':
               offer.available && !isOfferInThePast(offer),
-            'bs-book-button__inner__text--booked': isRegistered,
+            'bs-book-button-card__inner__text--booked': isRegistered,
           })}
         >
           {getBookingButtonTraduction(offer, isRegistered, t)}
         </div>
       </div>
-    </button>
+    </div>
   );
 };
 

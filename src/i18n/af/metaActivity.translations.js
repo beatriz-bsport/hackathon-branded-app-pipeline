@@ -80,10 +80,14 @@ exports.default = {
     title: 'Paramètres',
     lastBookingBeforeMinutesHeader:
       'Avant le début du cours, dernière réservation possible',
-    lastBookingBeforeMinutes: "Jusqu'à {{m}}  avant le début de la séance",
+    lastBookingBeforeMinutes: "Jusqu'à {{m}} avant le début de la séance",
+    lastBookingBeforeMinutesFull:
+      "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance",
     lastDiscardBeforeMinutesHeader:
       'Avant le début du cours, dernière annulation possible',
     lastDiscardBeforeMinutes: "Jusqu'à {{m}} avant le début de la séance",
+    lastDiscardBeforeMinutesFull:
+      "Annulations possibles jusqu'à {{m}} avant le début de la séance",
     firstBookingMinutesUntilHeader:
       'Les élèves peuvent réserver les séances futures si elles débutent dans moins de',
     firstBookingMinutesUntil:

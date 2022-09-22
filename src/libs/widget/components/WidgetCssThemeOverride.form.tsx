@@ -50,7 +50,7 @@ const getDefault = (theme: CompanyTheme) => ({
   secondaryColor: theme.secondary_color,
   greyDark: '#2D3748',
   grey: '#687586',
-  greyLight: '#a0b4c8',
+  greyLight: '#f1f3f4',
 });
 
 export const WidgetCssThemeOverrideForm: React.FC<

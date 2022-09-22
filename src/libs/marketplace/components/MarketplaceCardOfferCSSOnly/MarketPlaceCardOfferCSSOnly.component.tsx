@@ -2,9 +2,9 @@ import React from 'react';
 import { pure } from 'recompose';
 import './MarketplaceCardOfferCSSOnly.css';
 import GroupIcon from '@material-ui/icons/Group';
-import { Avatar } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createTheme';
 import classNames from 'classnames';
+import { ArrowLeft } from '@material-ui/icons';
 import MaleIcon from '../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
 import MarketplaceBookButton from '../MarketplaceBookButtonCSSOnly';
@@ -13,6 +13,7 @@ import { Offer_FULL } from '#libs/offer/types';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
 import { getOfferHours } from '../../utils';
 import { Coach } from '#libs/associated-coach/types';
+import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
 
 type OwnProps = {
   offer: Offer_FULL;
@@ -39,9 +40,6 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const { offer, coach } = props;
   const metaActivity = offer.meta_activity;
 
-  const handleClick = () => {
-    props.onClickOffer(offer.id);
-  };
   const handleBook = () => {
     props.onClickBook(offer);
   };
@@ -49,6 +47,19 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const handleBookOption = () => {
     props.onClickBookOption(offer);
   };
+  const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (props?.isBookingDisabled) return;
+
+    if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
+      offer.is_full ? handleBookOption() : handleBook();
+    } else {
+      props.onClickOffer(offer.id);
+    }
+  };
+
+  const isBottomInOneLine =
+    (props.showOfferFilling || props.showOfferGender) &&
+    window.innerWidth < 1850;
 
   return (
     <button
@@ -60,6 +71,12 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
       onClick={handleClick}
       disabled={props.isBookingDisabled}
     >
+      {metaActivity.color && (
+        <ArrowLeft
+          className="arrow-down"
+          style={{ borderTopColor: metaActivity.color }}
+        />
+      )}
       <div className="bs-card-offer__content">
         <div className="bs-card-offer__content__top">
           <div
@@ -88,7 +105,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               className="bs-card-offer__content__status__level"
             />
             {metaActivity && metaActivity.is_broadcast ? (
-              <MarketplaceBroadcast />
+              <MarketplaceBroadcast cardVariant />
             ) : (
               ''
             )}
@@ -114,32 +131,44 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               >
                 {coach.name}
               </div>
-              <div>
-                <Avatar
-                  src={coach ? coach.photo : ''}
-                  className={classNames(
-                    'bs-card-offer__content__coach__avatar',
-                    {
-                      'bs-card-offer__content__coach__avatar--coach-highlighted':
-                        isVariantCoachHighlighted,
-                    },
-                  )}
+              {coach && coach.photo && (
+                <img
+                  alt=""
+                  src={coach.photo}
+                  className="bs-card-offer__content__coach__avatar"
                 />
-              </div>
+              )}
             </div>
           ) : (
             ''
           )}
         </div>
-        <div className="bs-card-offer__content__bottom">
-          <div className="bs-card-offer__content__bottom__left">
+      </div>
+      <div className="bs-card-offer__bottom">
+        <div
+          className={classNames('bs-card-offer__bottom__content', {
+            'bs-card-offer__bottom__content--full': isBottomInOneLine,
+          })}
+        >
+          <div
+            className={classNames('bs-card-offer__content__bottom__left', {
+              'bs-card-offer__content__bottom__left--full': isBottomInOneLine,
+            })}
+          >
             {props.showOfferGender ? (
               <div className="bs-card-offer__content__bottom__left__gender">
-                <MaleIcon />
-                <div>{offer.male}</div>
-                <FemaleIcon />
-                <div>{offer.female}</div>
-                {offer.otherGender ? <div>+{offer.otherGender}</div> : ''}
+                <div className="bs-card-offer__content__bottom__left__gender__sex">
+                  <MaleIcon />
+                  <div>{offer.male ?? 0}</div>
+                </div>
+                <div className="bs-card-offer__content__bottom__left__gender__sex">
+                  <FemaleIcon />
+                  <div>{offer.female ?? 0}</div>
+                </div>
+                <div className="bs-card-offer__content__bottom__left__gender__other">
+                  <div>+</div>
+                  <div>{offer.other ?? 0}</div>
+                </div>
               </div>
             ) : (
               ''
@@ -157,19 +186,20 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               ''
             )}
           </div>
-
-          <MarketplaceBookButton
-            offer={offer}
-            onClickBook={(ev) => {
-              ev.stopPropagation();
-              handleBook();
-            }}
-            onClickBookOption={(ev) => {
-              ev.stopPropagation();
-              handleBookOption();
-            }}
-            isRegistered={props.isRegistered}
-          />
+          <div className="bs-card-offer__content__bottom__buttonContainer">
+            <MarketplaceBookButton
+              offer={offer}
+              onClickBook={(ev) => {
+                ev.stopPropagation();
+                handleBook();
+              }}
+              onClickBookOption={(ev) => {
+                ev.stopPropagation();
+                handleBookOption();
+              }}
+              isRegistered={props.isRegistered}
+            />
+          </div>
         </div>
       </div>
     </button>

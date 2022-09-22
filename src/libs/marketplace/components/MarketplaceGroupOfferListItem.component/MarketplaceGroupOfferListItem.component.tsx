@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import uniqBy from 'lodash/uniqBy';
@@ -24,7 +24,11 @@ import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOn
 import { Level } from '#libs/level/types';
 import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
-import { isOfferBookableYet, isOfferInThePast } from '../../utils';
+import {
+  isOfferBookableYet,
+  isOfferInThePast,
+  getPositionOfOfferInTheList,
+} from '../../utils';
 
 import './MarketplaceGroupOfferListItem.css';
 
@@ -43,6 +47,7 @@ export type Props = {
   customLevel: Level;
   offers: Offer[];
   metaActivity: MetaActivity;
+  withoutBookButton: boolean;
 };
 
 const MarketplaceGroupOfferListItem: React.FC<Props> = ({
@@ -60,6 +65,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   offers,
   customLevel,
   metaActivity,
+  withoutBookButton,
 }) => {
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
@@ -89,6 +95,15 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   const availableOffers = offers.filter(
     (o) => isOfferInThePast(o) && o.available,
   );
+
+  const offersWithPosition = useMemo(() => {
+    const l: Array<{ offer: Offer; position: ('first' | 'last')[] }> = [];
+    availableOffers.forEach((offer, index) => {
+      const position = getPositionOfOfferInTheList(availableOffers, index);
+      l.push({ offer, position });
+    });
+    return l;
+  }, [availableOffers]);
 
   const handleBook = useCallback(
     () => (offer: Offer) => {
@@ -198,7 +213,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                   color="disabled"
                   className="bs-offer-list-group-item__left__icon"
                 />
-                {establishment?.location?.address}
+                {establishment?.title}
               </div>
             );
           })}
@@ -280,34 +295,38 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                 {t('marketplace.bookGroups')}
               </div>
               <div className="bs-offer-dialog__content__inner__book_list">
-                {offers
-                  .filter((o) => o.available && isOfferInThePast(o))
-                  .map((offer) => {
-                    return (
-                      <MarketplaceOfferListItem
-                        key={offer.id}
-                        offer={{
-                          ...offer,
-                          meta_activity: metaActivity,
-                        }}
-                        establishment={getEstablishment(offer.establishment)}
-                        coach={getCoach(offer.coach_override || offer.coach)}
-                        getLevel={getLevel}
-                        showOfferFilling={showOfferFilling}
-                        theme={theme}
-                        hideCoach={hideCoach}
-                        loading={false}
-                        onBookOption={handleBook()}
-                        onBook={handleBookOption()}
-                        withoutCTA={group.full_booking_only}
-                        isRegistered={
-                          bookedOffers?.length
-                            ? bookedOffers.includes(offer.id)
-                            : false
-                        }
-                      />
-                    );
-                  })}
+                {offersWithPosition.map((offerWithPosition) => {
+                  const { offer, position } = offerWithPosition;
+                  return (
+                    <MarketplaceOfferListItem
+                      key={offer.id}
+                      offer={{
+                        ...offer,
+                        meta_activity: metaActivity,
+                      }}
+                      establishment={getEstablishment(offer.establishment)}
+                      coach={getCoach(offer.coach_override || offer.coach)}
+                      getLevel={getLevel}
+                      showOfferFilling={showOfferFilling}
+                      theme={theme}
+                      hideCoach={hideCoach}
+                      loading={false}
+                      onBookOption={handleBook()}
+                      onBook={handleBookOption()}
+                      onClick={handleBook}
+                      withoutCTA={group.full_booking_only}
+                      isRegistered={
+                        bookedOffers?.length
+                          ? bookedOffers.includes(offer.id)
+                          : false
+                      }
+                      isWorkshop
+                      variant="time"
+                      position={position}
+                      withoutBookButton={withoutBookButton}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -22,10 +22,17 @@ import { getOfferHours } from '#libs/marketplace/utils';
 import MarketplaceBookButtonV2 from '../MarketplaceBookButtonCSSOnly';
 import { MetaActivity } from '#libs/meta-activity/types';
 import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
-import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
+import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
 import MarketplaceCalendarVariant from '../../types';
+import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
 
 import './MarketplaceOfferListItemCSSOnly.css';
+
+export const DISABLE_BOOKING_ELEMENTS_IDS = [
+  'book-button--disabled',
+  'book-button__inner--disabled',
+  'book-button__inner__text--disabled',
+];
 
 export type Props = {
   showOfferFilling: boolean;
@@ -46,6 +53,8 @@ export type Props = {
   isBookingDisabled: boolean;
   isWorkshop?: boolean;
   showDate?: boolean;
+  withoutBookButton?: boolean;
+  position: ('first' | 'last')[];
 };
 
 const MarketplaceOfferListItem: React.FC<Props> = ({
@@ -67,12 +76,15 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   isBookingDisabled,
   isWorkshop,
   showDate,
+  position = [],
+  withoutBookButton,
 }) => {
   const { t } = useTranslation('translation');
   const muiTheme = useTheme();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
 
   const isVariantTimeHighlighted = variant === 'time';
+  const isVariantCoachHighlighted = variant === 'coach';
 
   if (loading) {
     return (
@@ -85,8 +97,14 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
     );
   }
 
-  const handleClick = () => {
-    (onClick || onBook)(offer.id);
+  const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (isBookingDisabled) return;
+
+    if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
+      offer.is_full ? handleBookOption() : handleBook();
+    } else if (!isWorkshop) {
+      onClick(offer.id);
+    }
   };
 
   const handleBook = () => {
@@ -119,16 +137,19 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       onClick={handleClick}
       className={classNames('bs-offer-list-item', {
         'bs-offer-list-item--mobile': isMobile,
+        'bs-offer-list-item--first': position.includes('first'),
+        'bs-offer-list-item--last': position.includes('last'),
         'bs-offer-list-item--disabled': isBookingDisabled,
+        'bs-offer-list-item--isWorkshop': isWorkshop,
+        'bs-offer-list-item--isNotWorkshop': !isWorkshop,
       })}
       style={{
-        borderTop: 'none',
-        borderRight: 'none',
         borderLeftWidth: offer.meta_activity.color ? 5 : 1,
-        borderLeftStyle: 'solid',
         borderLeftColor: offer.meta_activity.color
           ? offer.meta_activity.color
-          : '#E0E5EC',
+          : getComputedStyle(document.documentElement).getPropertyValue(
+              '--color-grey-light',
+            ),
       }}
       disabled={isBookingDisabled}
     >
@@ -142,6 +163,8 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   {
                     'bs-offer-list-item__content__offer__left__title--time-highlighted':
                       isVariantTimeHighlighted,
+                    'bs-offer-list-item__content__offer__left__title--coach-highlighted':
+                      isVariantCoachHighlighted,
                   },
                 )}
               >
@@ -154,72 +177,140 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 {
                   'bs-offer-list-item__content__offer__left__time--time-highlighted':
                     isVariantTimeHighlighted,
+                  'bs-offer-list-item__content__offer__left__time--coach-highlighted':
+                    isVariantCoachHighlighted,
                 },
               )}
             >
               {(showDate ? `${date} ` : '') +
                 getOfferHours(offer, establishment, theme)}
             </div>
-            <div className="bs-offer-list-item__content__offer__left__bottom">
-              {establishment && (
-                <div className="bs-offer-list-item__content__offer__left__bottom__icons">
-                  <RoomIcon className="bs-offer-list-item__content__offer__left__bottom__icons__location" />
-                  <Avatar
-                    src={coach ? coach.photo || DEFAULT_AVATAR : ''}
-                    className="bs-offer-list-item__content__offer__left__bottom__icons__avatar"
-                  />
-                </div>
-              )}
-              {!hideCoach && coach && (
-                <div className="bs-offer-list-item__content__offer__left__bottom__names">
-                  <div className="bs-offer-list-item__content__offer__left__bottom__names__establishment">
-                    {establishment?.title}
+            {isMobile && (
+              <div
+                className={classNames(
+                  'bs-offer-list-item__content__offer__left__extra',
+                  {
+                    'bs-offer-list-item__content__offer__left__extra--not-displayed':
+                      !showOfferFilling && !showOfferGender,
+                  },
+                )}
+              >
+                {showOfferFilling && (
+                  <div className="bs-offer-list-item__content__offer__right__top__group">
+                    <GroupIcon className="bs-offer-list-item__content__offer__right__top__group__icon" />
+                    <div>{`${offer?.tot_slots}/${offer?.effectif}`} </div>
                   </div>
-                  <div>
-                    {coach.name +
-                      (offer.coach_override
-                        ? ` (${t('translation:marketplace.substitute')})`
-                        : '')}
+                )}
+                {showOfferGender && (
+                  <div className="bs-offer-list-item__content__offer__right__top__gender">
+                    <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
+                      <MaleIcon isMobile />
+                      <div>{offer.male || 0}</div>
+                    </div>
+                    <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
+                      <FemaleIcon isMobile />
+                      <div>{offer.female || 0}</div>
+                    </div>
+                    <div>+ {offer.other || 0}</div>
                   </div>
+                )}
+              </div>
+            )}
+            {establishment && (
+              <div
+                className={classNames(
+                  'bs-offer-list-item__content__offer__left__establishment',
+                  {
+                    'bs-offer-list-item__content__offer__left__establishment--time-highlighted':
+                      isVariantTimeHighlighted,
+                  },
+                )}
+              >
+                <RoomIcon className="bs-offer-list-item__content__offer__left__icon" />
+                <div
+                  className={classNames(
+                    'bs-offer-list-item__content__offer__left__establishment__name',
+                    {
+                      'bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted':
+                        isVariantCoachHighlighted,
+                    },
+                  )}
+                >
+                  {establishment?.title}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+            {!hideCoach && coach && (
+              <div
+                className={classNames(
+                  'bs-offer-list-item__content__offer__left__coach',
+                  {
+                    'bs-offer-list-item__content__offer__left__coach--time-highlighted':
+                      isVariantTimeHighlighted,
+                    'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                      isVariantCoachHighlighted,
+                  },
+                )}
+              >
+                <Avatar
+                  src={coach ? coach.photo : ''}
+                  className="bs-offer-list-item__content__offer__left__icon"
+                />
+                <div className="bs-offer-list-item__content__offer__left__coach__name">
+                  {coach.name +
+                    (offer.coach_override
+                      ? ` (${t('translation:marketplace.substitute')})`
+                      : '')}
+                </div>
+              </div>
+            )}
           </div>
           <div className="bs-offer-list-item__content__offer__right">
             <div className="bs-offer-list-item__content__offer__right__top">
-              {showOfferFilling && (
-                <div className="bs-offer-list-item__content__offer__right__top__group">
-                  <GroupIcon className="bs-offer-list-item__content__offer__right__top__group__icon" />
-                  <div>{`${offer?.tot_slots}/${offer?.effectif}`} </div>
-                </div>
-              )}
-              {showOfferGender && (
-                <div className="bs-offer-list-item__content__offer__right__top__gender">
-                  <MaleIcon />
-                  <div>{offer.male}</div>
-                  <FemaleIcon />
-                  <div>{offer.female}</div>
-                  <div>+{offer.otherGender}</div>
-                </div>
-              )}
-              {offer.custom_level ? (
-                <MarketPlaceLevel
-                  className="bs-offer-list-item__content__offer__right__top__level"
-                  customLevel={getLevel(offer.custom_level)}
+              <div className="bs-offer-list-item__content__offer__right__top__left">
+                {!isMobile && (
+                  <div className="bs-offer-list-item__content__offer__right__top__left">
+                    {showOfferFilling && (
+                      <div className="bs-offer-list-item__content__offer__right__top__group">
+                        <GroupIcon className="bs-offer-list-item__content__offer__right__top__group__icon" />
+                        <div>{`${offer?.tot_slots}/${offer?.effectif}`} </div>
+                      </div>
+                    )}
+                    {showOfferGender && (
+                      <div className="bs-offer-list-item__content__offer__right__top__gender">
+                        <MaleIcon />
+                        <div>{offer.male || 0}</div>
+                        <FemaleIcon />
+                        <div>{offer.female || 0}</div>
+                        <div>+ {offer.other || 0}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {offer.meta_activity && offer.meta_activity.is_broadcast && (
+                  <MarketplaceBroadcast />
+                )}
+                {offer.custom_level && (
+                  <MarketPlaceLevel
+                    className="bs-offer-list-item__content__offer__right__top__level"
+                    customLevel={getLevel(offer.custom_level)}
+                  />
+                )}
+              </div>
+              {!isWorkshop && (
+                <InfoIcon
+                  className={classNames({
+                    'bs-offer-list-item__content__offer__right__top__icon--not-disabled':
+                      !isBookingDisabled,
+                    'bs-offer-list-item__content__offer__right__top__icon--disabled':
+                      isBookingDisabled,
+                  })}
                 />
-              ) : (
-                ''
               )}
-              <InfoIcon
-                onClick={handleClick}
-                className="bs-offer-list-item__content__offer__right__top__icon"
-              />
             </div>
             <div>
-              {!withoutCTA && (
+              {!withoutCTA && !withoutBookButton && (
                 <MarketplaceBookButtonV2
-                  onClickBook={handleBook}
-                  onClickBookOption={handleBookOption}
                   offer={offer}
                   isRegistered={isRegistered}
                   className="bs-offer-list-item__content__offer__right__bottom"

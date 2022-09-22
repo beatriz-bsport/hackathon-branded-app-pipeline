@@ -1,4 +1,3 @@
-import Config from '../../config';
 import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_VOD,
@@ -14,6 +13,7 @@ import {
 } from '../exportable-components/constants';
 
 export const MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS = [
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
   EXPORTABLE_COMPONENT_TYPE_VOD,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
@@ -24,11 +24,6 @@ export const MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS = [
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
 ];
-
-if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production')
-  MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS.push(
-    EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
-  );
 
 export const MARKETPLACE_COMPONENTS = EXPORTABLE_COMPONENTS.filter((ec) =>
   MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS.includes(ec.identifier),
@@ -55,3 +50,11 @@ export const MARKETPLACE_PATH_TAB_WORKSHOP = 'workshop';
 export const MARKETPLACE_PATH_TAB_PRIVATE_SERVICE = 'private-service';
 export const MARKETPLACE_PATH_TAB_SHOP = 'shop';
 export const MARKETPLACE_PATH_TAB_GIFTCARD = 'giftcard';
+
+export const AVAILABLE_BOOKING_ELEMENTS_IDS = [
+  'book-button',
+  'book-button__icon',
+  'book-button__inner',
+  'book-button-card__inner',
+  'book-button__inner__text',
+];

@@ -3131,9 +3131,11 @@
       "conditions": "Conditions",
       "title": "Paramètres",
       "lastBookingBeforeMinutesHeader": "Avant le début du cours, dernière réservation possible",
-      "lastBookingBeforeMinutes": "Jusqu'à {{m}}  avant le début de la séance",
+      "lastBookingBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
+      "lastBookingBeforeMinutesFull": "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance",
       "lastDiscardBeforeMinutesHeader": "Avant le début du cours, dernière annulation possible",
       "lastDiscardBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
+      "lastDiscardBeforeMinutesFull": "Annulations possibles jusqu'à {{m}} avant le début de la séance",
       "firstBookingMinutesUntilHeader": "Les élèves peuvent réserver les séances futures si elles débutent dans moins de",
       "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
       "autoDiscardHeader": "La séance sera annulée si",
@@ -6634,7 +6636,7 @@
         "hidePaymentPack": "Ne pas afficher les cartes de cours",
         "hidePrivatePass": "Ne pas afficher les cartes de rendez-vous",
         "hidePaymentCombo": "Ne pas afficher les packs",
-        "todayOnly": "Afficher seulement les séances du jour",
+        "todayOnly": "Vision séances du jour",
         "titleCaption": "{{max}} caractères max ({{count}}/{{max}})"
       }
     },
@@ -9938,7 +9940,7 @@
       "configTitle": "Mon Widget",
       "listDisplay": "Vision semaine liste",
       "calendarDisplay": "Vision semaine card (calendrier)",
-      "todayOnly": "Afficher seulement les séances du jour",
+      "todayOnly": "Vision séances du jour",
       "responsiveDisplay": "Affichage responsive",
       "cancel": "Annuler",
       "show": "Visualiser",
@@ -9969,6 +9971,7 @@
       "browserLanguage": "Langue du navigateur",
       "variant": "Mettre en avant",
       "variantOption": { "activityName": "L'activité", "coach": "Le professeur", "time": "L'horaire" },
+      "configDialog": { "title": "Paramètres widget", "submit": "Confirmer", "cancel": "Fermer" },
       "groupSessionByPeriod": "Séparer matin, après midi et soir",
       "cssEditor": {
         "general": "Espacement et arrondi",
@@ -9988,7 +9991,7 @@
         "spacingHelper": "L’espacement se base sur les multiples de {{base}}px",
         "roundingHelper": "Les angles ont un arrondi en multiple {{base}}px",
         "preview": "Preview",
-        "selectAlert": "La personnalisation du widget n’est disponible que sur les ateliers pour le moment",
+        "selectAlert": "La personnalisation du widget n’est disponible que sur les ateliers et le calendrier pour le moment",
         "submit": "Enregistrer",
         "dialog": {
           "title": "Réinitialiser les paramètres",

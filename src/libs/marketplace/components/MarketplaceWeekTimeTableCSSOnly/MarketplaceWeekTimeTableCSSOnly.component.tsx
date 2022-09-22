@@ -159,10 +159,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             className="bs-week__cardMode__period__button"
           >
             {panelsStatus[i] ? <ExpandLess /> : <ExpandMore />}
+            <p className="bs-week__cardMode__dayPart">
+              {t(`dayParts.${DAY_PARTS[i]}`)}
+            </p>
           </IconButton>
-          <p className="bs-week__cardMode__dayPart">
-            {t(`dayParts.${DAY_PARTS[i]}`)}
-          </p>
         </div>
 
         <Collapse
@@ -246,7 +246,14 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         </div>
 
         <div className="bs-week__listMode__content__day__offers">
-          {day_offers.map((offer) => {
+          {day_offers.map((offer: Offer_FULL, index: number) => {
+            const position = [];
+            if (index === 0) {
+              position.push('first');
+            }
+            if (index === day_offers.length - 1) {
+              position.push('last');
+            }
             return (
               <MarketPlaceOfferListItemComponent
                 key={`list-item-${offer.id}`}
@@ -263,6 +270,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 hideCoach={this.props.hideCoach}
                 theme={this.props.theme}
                 isBookingDisabled={!offer.available || !isOfferInThePast(offer)}
+                variant={this.props.variant}
+                position={position}
               />
             );
           })}
@@ -272,7 +281,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderNextDaysOffersListVersion = (main_date: string) => {
-    const next_days = [main_date];
+    const next_days = [this.props.forceDayDisplayOnly ? moment() : main_date];
     let next_day = moment(main_date).add(1, 'days');
     while (
       moment(next_day).isSame(moment(main_date), 'week') &&
@@ -305,7 +314,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const main_date = moment(date).clone();
     const isCardModeDisplay = !(this.props.isCompact && !this.props.isLarge);
     const bs_week = classNames({
-      'bs-week': true,
+      'bs-week-card': isCardModeDisplay,
       'bs-week-list': !isCardModeDisplay,
     });
 
@@ -315,51 +324,62 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     return (
       <div className={bs_week}>
-        <>
-          {weekDays.map((_: any, i: number) => {
-            const currentDate = start_date.clone().add(i, 'days');
-            const isSelectedDate = currentDate.isSame(main_date, 'day');
-            return (
-              <button
-                type="button"
-                disabled={isCardModeDisplay}
-                onClick={() =>
-                  this.props.onSelectDate(currentDate.format('YYYY-MM-DD'))
-                }
-                className={classNames({
-                  'bs-week__header__date--is-disabled': isCardModeDisplay,
-                  'bs-week__header__date--is-abled': !isCardModeDisplay,
-                })}
-              >
-                <div
+        {!this.props.forceDayDisplayOnly && (
+          <>
+            {weekDays.map((_: any, i: number) => {
+              const currentDate = start_date.clone().add(i, 'days');
+              const isSelectedDate =
+                currentDate.isSame(main_date, 'day') && !isCardModeDisplay;
+              const isToday = currentDate.isSame(moment(), 'day');
+              return (
+                <button
+                  key={`weekDay-${i}`}
+                  type="button"
+                  disabled={isCardModeDisplay}
+                  onClick={() =>
+                    this.props.onSelectDate(currentDate.format('YYYY-MM-DD'))
+                  }
                   className={classNames({
-                    'bs-week__header__date__weekDay': true,
-                    'bs-week__header__date__weekDay--is-selected':
-                      isSelectedDate,
+                    'bs-week__header__date--is-disabled': isCardModeDisplay,
+                    'bs-week__header__date--is-abled': !isCardModeDisplay,
                   })}
                 >
-                  {`${currentDate.format('dddd')}`}
-                </div>
-                <div
-                  className={classNames({
-                    'bs-week__header__date__monthDay': true,
-                    'bs-week__header__date__monthDay--is-selected':
-                      isSelectedDate,
-                  })}
-                >
-                  {`${currentDate.format('DD')}`}
-                </div>
-                <div className="bs-week__header__date__dots">
-                  {this.getOffersByDay(currentDate.format('YYYY-MM-DD'))
-                    .slice(0, 3)
-                    .map(() => (
-                      <div> • </div>
-                    ))}
-                </div>
-              </button>
-            );
-          })}
-        </>
+                  <div
+                    className={classNames({
+                      'bs-week__header__date__weekDay': true,
+                      'bs-week__header__date__weekDay--is-today': isToday,
+                      'bs-week__header__date__weekDay--is-selected':
+                        isSelectedDate || (isToday && isCardModeDisplay),
+                    })}
+                  >
+                    {window.innerWidth < 500
+                      ? `${currentDate.format('dd')}`
+                      : `${currentDate.format('dddd')}`}
+                  </div>
+                  <div
+                    className={classNames('bs-week__header__date__monthDay', {
+                      'bs-week__header__date__monthDay--is-today':
+                        isToday && !isSelectedDate,
+                      'bs-week__header__date__monthDay--is-selected':
+                        isSelectedDate,
+                    })}
+                  >
+                    {`${currentDate.format('DD')}`}
+                  </div>
+                  {!isCardModeDisplay && (
+                    <div className="bs-week__header__date__dots">
+                      {this.getOffersByDay(currentDate.format('YYYY-MM-DD'))
+                        .slice(0, 3)
+                        .map((offer: Offer_FULL, j: number) => (
+                          <div key={`dots-${j}_${offer.id}`}> • </div>
+                        ))}
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </>
+        )}
         {!isCardModeDisplay || this.props.forceDayDisplayOnly
           ? this.renderNextDaysOffersListVersion(main_date.format('YYYY-MM-DD'))
           : this.renderOffersCardVersion(offers)}

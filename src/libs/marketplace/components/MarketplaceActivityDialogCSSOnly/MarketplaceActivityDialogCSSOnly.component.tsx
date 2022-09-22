@@ -15,22 +15,27 @@ type Props = {
   offer: Offer;
   classes: { [className: string]: string };
   onClose: () => void;
-  fullScreen: boolean;
   offerId: number;
   mapContainerClassName?: string;
+  fullScreen: boolean;
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { onClose, offerId } = props;
+  const { onClose, offerId, fullScreen } = props;
   return (
     <Dialog
       key={offerId}
       open={props.open}
       scroll="paper"
       onClose={onClose}
-      fullWidth
       maxWidth="md"
       disablePortal
+      PaperProps={{
+        style: {
+          margin: '10px',
+          borderRadius: fullScreen ? '0px' : '12px',
+        },
+      }}
     >
       <DialogContent id="bs-activity--dialog">
         {props.open ? <MarketplaceActivityV2 {...props} /> : null}

@@ -185,10 +185,10 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 onBook={onBook}
                 bookedOffers={bookedOffers}
                 isWorkshop
+                withoutBookButton
               />
             );
           }
-
           return (
             <MarketplaceOfferListItem
               key={offer.id}
@@ -206,11 +206,13 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               loading={offerDetailsloading}
               onBookOption={onBookOption}
               onBook={onBook}
+              onClick={onBook}
               isWorkshop
               showDate
               isRegistered={
                 bookedOffers?.length ? bookedOffers.includes(offer.id) : false
               }
+              variant="time"
             />
           );
         })}
@@ -238,7 +240,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
             ))}
       </div>
       <div className="bs-workshop-card__offer-list__offer__conditions">
-        {t('metaActivity:settings.lastDiscardBeforeMinutes', {
+        {t('metaActivity:settings.lastDiscardBeforeMinutesFull', {
           m: formatMinutes(metaActivity.last_discard_minutes, t),
         })}
       </div>

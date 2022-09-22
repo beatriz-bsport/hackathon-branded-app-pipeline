@@ -10,16 +10,17 @@ import { withRouter } from 'react-router';
 
 import classNames from 'classnames';
 import { isWidthDown } from '@material-ui/core';
+import {
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  resetEstablishments as resetEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
 
 import {
   snackbarSuccess as snackbarSuccessAction,
   snackbarError as snackbarErrorAction,
 } from '#libs/snackbar/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
-import {
-  fetchEstablishments as fetchEstablishmentsAction,
-  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
-} from '#libs/establishment/actions';
 import { fetchWorkshopList as fetchWorkshopListAction } from '#libs/meta-activity/actions';
 import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#libs/group-offer/actions';
 
@@ -30,11 +31,8 @@ import {
   withEstablishment as groupWithEstablishment,
   getEstablishmentById,
 } from '#libs/establishment/selectors';
-import { getCoachById, getCoaches } from '#libs/associated-coach/selectors';
-import {
-  getWorkshops,
-  getWorkshopsByAllIds,
-} from '#libs/meta-activity/selectors';
+import { getCoachById, getAllCoaches } from '#libs/associated-coach/selectors';
+import { getWorkshopsByAllIds } from '#libs/meta-activity/selectors';
 import {
   getBookedOffers,
   getOffersListByMetaActivity as getOffersListByMetaActivitySelector,
@@ -94,7 +92,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   workshopsLoading,
   coaches,
   offerDetailsloading,
-  establishments,
   allEstablishments,
   workshops,
   establishmentGroupList,
@@ -102,9 +99,8 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   getOffersListByMetaActivity,
   authenticated,
   bookedOffers,
-  fetchEstablishments,
+  fetchEstablishmentBulk,
   fetchWorkshopList,
-  fetchAssociatedCoachesList,
   fetchMarketplaceOfferByMetaActivityList,
   resetMarketplaceOfferByMetaActivityList,
   pushRouter,
@@ -120,8 +116,9 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   coachLoading,
   establishmentLoading,
   goToBook: bookWidget,
-  allWorkshops,
   fetchOfferRegisteredIds,
+  fetchAssociatedCoachesList,
+  resetEstablishments,
 }) => {
   const [displayedWorkshops, setDisplayedWorkshops] = useState(
     BATCH_SIZE_FOR_META_ACTIVITY,
@@ -172,6 +169,22 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         },
         {
           onSuccess: (offers) => {
+            fetchAssociatedCoachesList({
+              company: companyId,
+              id__in: [
+                ...offers.results.map((o: any) => o.coach),
+                ...offers.results.map((o: any) => o.coach_override),
+              ],
+            });
+
+            fetchLevelList({
+              company: companyId,
+              id__in: [...offers.results.map((o: any) => o.custom_level)],
+            });
+            fetchEstablishmentBulk([
+              ...offers.results.map((o: any) => o.establishment),
+              ...offers.results.map((o: any) => o.establishment_override),
+            ]);
             if (
               offers.results.map((o) => o.group).filter((o) => !!o).length > 0
             ) {
@@ -179,7 +192,21 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
                 offers.results.map((o) => o.group).filter((o) => !!o),
                 {
                   onSuccess: (groups) => {
-                    fetchOfferBulk(groups.flatMap((group) => group.offers));
+                    fetchOfferBulk(
+                      groups.flatMap((group) => group.offers),
+                      {
+                        onSuccess: (groupOffers) => {
+                          fetchLevelList({
+                            company: companyId,
+                            id__in: [
+                              ...groupOffers.results.map(
+                                (o: any) => o.custom_level,
+                              ),
+                            ],
+                          });
+                        },
+                      },
+                    );
                   },
                 },
               );
@@ -189,7 +216,11 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       );
     },
     [
+      companyId,
+      fetchAssociatedCoachesList,
+      fetchEstablishmentBulk,
       fetchGroupsOfferBulk,
+      fetchLevelList,
       fetchMarketplaceOfferByMetaActivityList,
       fetchOfferBulk,
       filters,
@@ -204,6 +235,8 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   useEffect(() => {
     resetMarketplaceOfferByMetaActivityList();
+    resetEstablishments();
+
     fetchWorkshopList(metaActivityFilter, {
       onSuccess: async (_workshops: MetaActivity[]) => {
         getCompatibleWorkshops(_workshops)
@@ -211,23 +244,11 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
           .map((m) => fetchOfferByMetaActivity(m.id));
       },
     });
-    fetchEstablishments({
-      company: companyId,
-      disabled: false,
-      page_size: null,
-    });
-    fetchAssociatedCoachesList({
-      company: companyId,
-      page_size: null,
-      disabled: false,
-    });
     // not including displayedWorkshops to not trigger unnecessary call
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     companyId,
     fetchAllEstablishmentGroup,
-    fetchAssociatedCoachesList,
-    fetchEstablishments,
     fetchMarketplaceOfferByMetaActivityList,
     fetchWorkshopList,
     resetMarketplaceOfferByMetaActivityList,
@@ -289,10 +310,9 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     >
       <MarketplaceFilters
         coaches={coaches}
-        establishments={establishments}
-        allEstablishments={allEstablishments}
+        establishments={allEstablishments}
         hideCoach={theme && theme.hideCoach}
-        metaActivities={[...allWorkshops]}
+        metaActivities={[...compatibleWorkshops]}
         filters={filters}
         setFilters={setFilters}
         customLevels={customLevels}
@@ -330,7 +350,6 @@ const connector = connect(
   (state: RootState) => ({
     workshopsLoading: state.metaActivity.loading,
     workshops: getWorkshopsByAllIds(state),
-    allWorkshops: getWorkshops(state),
     getCoach: getCoachById(state),
     getLevel: getLevelById(state),
     getEstablishment: getEstablishmentById(state),
@@ -342,7 +361,7 @@ const connector = connect(
       getOffersListByGroupSelector(state, id),
     ),
     offerDetailsloading: state.metaActivity.loading || state.coach.loading,
-    coaches: getCoaches(state),
+    coaches: getAllCoaches(state),
     establishments: getAvailableEstablishmentList(state),
     allEstablishments: getAllEstablishments(state),
     theme: themeSelectors.getTheme(state),
@@ -361,8 +380,6 @@ const connector = connect(
     resetMarketplaceOfferByMetaActivityList:
       resetMarketplaceOfferByMetaActivityListAction,
 
-    fetchEstablishments: fetchEstablishmentsAction,
-    fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
     fetchGroupsOfferBulk: fetchGroupsOfferBulkAction,
     fetchOfferBulk: fetchOfferBulkAction,
     snackbarSuccess: snackbarSuccessAction,
@@ -370,8 +387,10 @@ const connector = connect(
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchLevelList: fetchLevelListAction,
     fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
-
     pushRouter: push,
+    fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+    resetEstablishments: resetEstablishmentsAction,
+    fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
   },
 );
 

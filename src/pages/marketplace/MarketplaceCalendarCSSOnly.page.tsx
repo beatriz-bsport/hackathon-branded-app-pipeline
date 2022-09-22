@@ -27,6 +27,7 @@ import { isOfferInThePast } from '../../libs/marketplace/utils';
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
+  getAvailableEstablishmentList,
   withEstablishment as groupWithEstablishment,
 } from '#libs/establishment/selectors';
 
@@ -78,6 +79,7 @@ import GroupRulePopup from '#libs/marketplace/components/GroupRulePopup.dialog';
 import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
+import { buildUrlParams } from '../../http';
 
 type OwnProps = {
   companyId: number;
@@ -136,12 +138,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   fetchData = () => {
     const min_date = moment(this.props.otherParams.date)
-      .startOf('month')
       .startOf('week')
       .format(DATE_FORMAT);
 
     const max_date = moment(this.props.otherParams.date)
-      .endOf('month')
       .endOf('week')
       .format(DATE_FORMAT);
 
@@ -203,9 +203,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   componentDidMount() {
     this.fetchData();
-    this.props.fetchLevelList({
-      company: this.props.companyId,
-    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -474,6 +471,10 @@ const mapWithHandlers = {
           props.fetchGroupsOfferBulk(
             Array.from(new Set(offerList.map((o) => o.group))),
           );
+          props.fetchLevelList({
+            company: props.companyId,
+            id__in: [...offerList.map((o: any) => o.custom_level)],
+          });
         },
       });
       if (props.theme && props.theme.show_booked_gender_offer) {
@@ -486,7 +487,11 @@ const mapWithHandlers = {
       return;
     }
 
-    props.pushAction(`/customer/payment/offer/${id}?membership=${companyId}`);
+    props.pushAction(
+      `/customer/payment/offer/${id}?membership=${companyId}/${buildUrlParams({
+        fromCalendarV2: true,
+      })}`,
+    );
   },
 
   goToBookOption: (props: Props) => (id: number, companyId: number) => {
@@ -495,7 +500,11 @@ const mapWithHandlers = {
       return;
     }
 
-    props.pushAction(`/customer/payment/offer/${id}?membership=${companyId}`);
+    props.pushAction(
+      `/customer/payment/offer/${id}?membership=${companyId}/${buildUrlParams({
+        fromCalendarV2: true,
+      })}`,
+    );
   },
 };
 

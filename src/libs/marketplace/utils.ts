@@ -76,6 +76,7 @@ export class WidgetCodeStringGenerator {
     showFab: boolean;
     uuid?: string | null;
     fullScreenPopup: boolean;
+    styles: any;
   }) {
     const componentConfig = args.config[args.componentType];
 
@@ -114,6 +115,7 @@ export class WidgetCodeStringGenerator {
                 "widgetType": "${args.componentType}",${languageValue} 
                 "showFab": ${args.showFab},
                 "fullScreenPopup": ${args.fullScreenPopup},
+                "styles":${JSON.stringify(args.styles)},
                 "config": {
                     "${
                       args.componentType
@@ -219,4 +221,15 @@ export const getOfferHours = (
     return `${startHour} - ${endHour}`;
   }
   return '';
+};
+
+export const getPositionOfOfferInTheList = (offers: Offer[], index: number) => {
+  const position: ('first' | 'last')[] = [];
+  if (index === 0) {
+    position.push('first');
+  }
+  if (index === (offers?.length || 1) - 1) {
+    position.push('last');
+  }
+  return position;
 };

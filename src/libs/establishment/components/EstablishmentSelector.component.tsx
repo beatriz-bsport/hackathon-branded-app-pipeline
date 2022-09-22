@@ -79,7 +79,7 @@ const Group = ({ children, ...props }) => {
     </div>
   );
 };
-const getGroupedEstablishmentOptions = (
+export const getGroupedEstablishmentOptions = (
   establishments: Array<Establishment>,
 ) => {
   establishments.sort((e, e_) => {

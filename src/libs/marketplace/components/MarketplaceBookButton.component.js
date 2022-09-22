@@ -73,7 +73,7 @@ const MarketplaceBookButton = (props: Props) => {
           {!offer.available ? (
             <CancelIcon color={colors.orange} />
           ) : (
-            <PersonAddIcon />
+            <PersonAddIcon id="book-button__icon" />
           )}
         </Hidden>
         <Hidden xsDown>

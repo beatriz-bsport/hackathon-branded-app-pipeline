@@ -9,6 +9,7 @@ import {
   coachDetailAction,
   performance,
   upsert,
+  resetAction,
   setCoachPaymentRuleActions,
   setCoachWorkshopPaymentRuleActions,
   setCoachPrivatePaymentRuleActions,
@@ -87,6 +88,9 @@ export default handleActions(
     },
     [coachPaginatedListActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
+    },
+    [resetAction]: (state) => {
+      return state.setIn(['allIds'], []);
     },
 
     [coachDetailAction.success.toString()]: (state, { payload }) => {

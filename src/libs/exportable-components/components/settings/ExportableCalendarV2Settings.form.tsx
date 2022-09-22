@@ -143,7 +143,7 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
           </Select>
         </FormControl>
       )}
-      {config.compactMode !== false && (
+      {!config.todayOnly && config.compactMode !== false && (
         <FormControlLabel
           control={
             <Switch

@@ -3,6 +3,7 @@
 /*  */
 .bs-workshop-card {
   width: 100%;
+  max-width: 1000px;
   border-radius: var(--border-radius-5);
   box-shadow: var(--shadow-5);
   background-color: var(--color-background-paper);
@@ -71,5 +72,6 @@
 }
 
 .bs-workshop-card__offer-list__offer__load-more {
+  border-bottom: 2px solid var(--color-grey-light);
   color: var(--color-primary-main);
 }

@@ -31,7 +31,7 @@ import {
 import { snackbarInfo } from '../../libs/snackbar/actions';
 
 import WidgetCssThemeOverride from '../../libs/widget/components/WidgetCssThemeOverride.form';
-import { EXPORTABLE_COMPONENT_TYPE_WORKSHOP } from '../../libs/exportable-components/constants';
+import { EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 } from '../../libs/exportable-components/constants';
 
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { getActiveCustomLevels } from '#libs/level/selectors';
@@ -70,7 +70,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
     const state: State = {
       uuid: `-${uuidv4()}`,
-      componentType: EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
+      componentType: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
 
       config: {
         calendar: {},

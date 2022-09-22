@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Config from '../../../config';
 import { WidgetCustomCSS } from '#libs/theme/types';
 import WidgetApplyCustomTheme from './WidgetApplyCustomTheme.component';
+import WidgetPreview from './WidgetPreview.component';
+import { WidgetCodeStringGenerator } from '#libs/marketplace/utils';
 
 type Props = {
   company: number;
@@ -50,19 +52,21 @@ export const WidgetPreviewWithoutIFrame: React.FC<Props> = ({
         config: {
           [componentType]: config[componentType],
         },
+        styles,
       });
       setLoading(false);
     }
   }, [
+    uuid,
     company,
-    componentType,
-    dialogMode,
     franchise,
-    fullScreenPopup,
+    dialogMode,
+    componentType,
     language,
     showFab,
-    uuid,
+    fullScreenPopup,
     config,
+    styles,
   ]);
 
   useEffect(() => {
@@ -93,9 +97,25 @@ export const WidgetPreviewWithoutIFrame: React.FC<Props> = ({
       }
     };
   }, [onLoad]);
+  let codeStringPreview = '';
 
+  codeStringPreview = WidgetCodeStringGenerator.getString({
+    company,
+    franchise,
+    componentType,
+    config,
+    useIframe: false,
+    language,
+    dialogMode,
+    fullScreenPopup,
+    showFab,
+    uuid,
+    responsiveIframe: true,
+    styles,
+  });
   return (
     <>
+      <WidgetPreview codeStringPreview={codeStringPreview} />
       <div ref={setRef} id={`bsport-widget${uuid || ''}`} />
       {divRef?.children?.length === 0 && (
         <div className={classes.center}>

@@ -20,6 +20,14 @@ export const useMuiThemeToCssVars = () => {
     --body1-fontWeight: ${theme.typography.body1.fontWeight};
     --body1-letterSpacing: ${theme.typography.body1.letterSpacing};
     --body1-lineHeight: ${theme.typography.body1.lineHeight};
+    --subtitle1-fontSize: ${theme.typography.subtitle1.fontSize};
+    --subtitle1-fontWeight: ${theme.typography.subtitle1.fontWeight};
+    --subtitle1-letterSpacing: ${theme.typography.subtitle1.letterSpacing};
+    --subtitle1-lineHeight: ${theme.typography.subtitle1.lineHeight};
+    --subtitle2-fontSize: ${theme.typography.subtitle2.fontSize};
+    --subtitle2-fontWeight: ${theme.typography.subtitle2.fontWeight};
+    --subtitle2-letterSpacing: ${theme.typography.subtitle2.letterSpacing};
+    --subtitle2-lineHeight: ${theme.typography.subtitle2.lineHeight};
     --body2-fontSize: ${theme.typography.body2.fontSize};
     --body2-fontWeight: ${theme.typography.body2.fontWeight};
     --body2-letterSpacing: ${theme.typography.body2.letterSpacing};
@@ -107,7 +115,7 @@ export const useMuiThemeToCssVars = () => {
     --color-grey-A700: ${theme.palette.grey.A700};
     --color-grey-dark: #2D3748;
     --color-grey-main: #687586;
-    --color-grey-light: #a0b4c8;
+    --color-grey-light: #F1F3F4;
     --color-text-disabled: ${theme.palette.text.disabled};
     --color-text-hint: ${theme.palette.text.hint};
     --color-text-primary: ${theme.palette.text.primary};

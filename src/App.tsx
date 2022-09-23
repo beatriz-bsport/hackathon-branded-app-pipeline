@@ -173,6 +173,7 @@ class BsportWidget extends Component<Props> {
       dialogMode,
       franchiseId,
       franchisor,
+      styles,
     } = this.props;
     if (
       !this.props.theme ||
@@ -205,7 +206,9 @@ class BsportWidget extends Component<Props> {
                 : getTheme(this.props.theme)
             }
           >
-            <WidgetApplyCustomTheme styles={this.props.theme.widget_theme} />
+            <WidgetApplyCustomTheme
+              styles={styles || this.props.theme.widget_theme}
+            />
             <Widget
               companyId={companyId}
               franchiseId={franchiseId}

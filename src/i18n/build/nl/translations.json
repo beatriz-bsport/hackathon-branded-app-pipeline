@@ -5619,7 +5619,9 @@
             "billing_plan-update_payment_method": "Gewijzigde betaalmethoden",
             "billing_plan-update_payment_pack": "Gewijzigde kaarten",
             "billing_plan-update_payment_combo": "Gewijzigde pakketten",
-            "billing_plan-update_private_pass": "Gewijzigde afspraakkaarten"
+            "billing_plan-update_private_pass": "Gewijzigde afspraakkaarten",
+            "billing_plan-update": "Abonnement bewerken",
+            "billing_plan-pause_deleted": "Pauze stopzetten"
         },
         "save": "bevestigen",
         "table": {
@@ -5716,8 +5718,45 @@
                 "delete": "Pauze annuleren"
             },
             "secondaryLabel": " : {{ note }}",
-            "label": "{{days}} dag(en) gepauzeerd",
-            "createdAt": "Gepauzeerd op: "
+            "label": "Gepauzeerd van {{- fromDate}} tot en met{{- untilDate}}",
+            "createdAt": "Gepauzeerd op: ",
+            "dialogs": {
+                "form": {
+                    "confirm": "Opslaan",
+                    "duration": {
+                        "end": "Eind",
+                        "start": "Van",
+                        "title": "Duur"
+                    },
+                    "causePlaceholder": "Reden *",
+                    "titleEdition": "Pauze bewerken",
+                    "titleCreation": "[Formulier] Pauzeren"
+                },
+                "fail": {
+                    "comeback": "Terug",
+                    "contentInvalidTimedelta": "De minimumduur van een pauze is 1 dag."
+                },
+                "success": {
+                    "continue": "Verder",
+                    "content": "Dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" is van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd."
+                },
+                "delete": {
+                    "content": "Weet je zeker dat je de pauze van dit abonnement wilt stopzetten?",
+                    "title": "Pauze stopzetten"
+                },
+                "common": {
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren"
+                }
+            },
+            "eventItems": {
+                "pauseDeleted": "Reden: {{pause_name}}",
+                "pauseCreatedThenDeleted": "Deze pauze is stopgezet of bewerkt.",
+                "pauseCreated": "Dit abonnement is door {{staffName}} op {{- dateCreation}} gepauzeerd. De pauze is actief van {{- dateStart}} tot en met {{- dateEnd}}."
+            },
+            "menu": {
+                "delete": "Stopzetten"
+            }
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -6736,7 +6775,8 @@
             "customEvent": {
                 "dateEnd": "Einddatum",
                 "dateStart": "Startdatum"
-            }
+            },
+            "showAvailabilityDetails": "Beschikbaarheid"
         },
         "slotSearcher": {
             "selectPrivateSlot": "Sessie",
@@ -7268,7 +7308,20 @@
             },
             "private_service": "Afspraak",
             "establishment": "Vestiging",
-            "coach": "Instructeur"
+            "coach": "Instructeur",
+            "detail": {
+                "detailEmpty": "Er is geen beschikbaarheid voor het geselecteerde moment.",
+                "dialog": {
+                    "title": "Beschikbaarheid"
+                },
+                "openHours": "Roosters",
+                "availableEverywhere": "Beschikbaar in alle vestigingen",
+                "slotBoundaries": "Van {{date_start}} tot en met {{date_end}}",
+                "ok": "Oké"
+            },
+            "specificAvailabilityForm": {
+                "advanced": "Gevorderd"
+            }
         },
         "resource": {
             "form": {
@@ -7568,6 +7621,11 @@
                     "title": "Verwijderen"
                 }
             }
+        },
+        "specificAvailabilitiesCalendar": {
+            "establishment": "Vestiging",
+            "filters": "Filters",
+            "goToRegularCalendar": "Terug naar Rooster"
         }
     },
     "datetime": {
@@ -8284,7 +8342,9 @@
                 "success": "Abonnement gepauzeerd",
                 "alreadyPaused": "Kan een reeds onderbroken abonnement niet onderbreken",
                 "error": "Kan dit abonnement niet pauzeren",
-                "locked": "Kan momenteel niet worden gepauzeerd. Is er een betaling in behandeling?"
+                "locked": "Kan momenteel niet worden gepauzeerd. Is er een betaling in behandeling?",
+                "deleteSuccess": "Het pauzen is succesvol stopgezet",
+                "deleteFail": "Het is niet mogelijk om een reeds gepauzeerd abonnement te verwijderen"
             },
             "updatePrice": {
                 "success": "Bedrag gewijzigd",
@@ -11433,7 +11493,7 @@
                     "title": "Instellingen herstellen"
                 },
                 "submit": "Opslaan",
-                "selectAlert": "Het personaliseren van de widgets is momenteel alleen voor de workshops beschikbaar.",
+                "selectAlert": "Het personaliseren van de widgets is momenteel alleen voor de workshops en agenda beschikbaar.",
                 "preview": "Voorvertoning",
                 "spacingHelper": "Spacing is gebaseerd op veelvouden {{base}} pixels.",
                 "roundingHelper": "Rounding is gebaseerd op veelvouden {{base}} pixels.",
@@ -11451,6 +11511,11 @@
                 "colors": "Kleuren",
                 "typography": "Tekstopmaak",
                 "general": "Spacing & Rounding"
+            },
+            "configDialog": {
+                "cancel": "Sluiten",
+                "submit": "Bevestigen",
+                "title": "Instellingen"
             }
         },
         "customize": "Personalisering",

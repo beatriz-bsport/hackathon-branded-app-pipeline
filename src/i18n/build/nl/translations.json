@@ -11,8 +11,8 @@
                 "cancel": "Annuleren"
             },
             "emailHasBeenSent": "We hebben een e-mail naar \"{{email}}\" gestuurd om je wachtwoord te herstellen.",
-            "contactUs": "Contacteer ons via ",
-            "hasProblem": "Ervaar je problemen met het herstellen?"
+            "contactUs": "Stuur een e-mail naar: ",
+            "hasProblem": "Ervaar je problemen met het herstellen van je wachtwoord?"
         }
     },
     "category": {
@@ -1597,7 +1597,7 @@
         "dialogReceiverChoice": {
             "reservation": "Reserveringen",
             "waitingList": "Wachtlijst",
-            "title": "[Formulier] Ontvangers selecteren",
+            "title": "[Formulier] Ontvangers",
             "canceledReservation": "Annuleringen"
         },
         "recipients": "Ontvangers",
@@ -1746,12 +1746,12 @@
                 "title": "Ontvangers"
             },
             "channel": {
-                "placeholder": "Selecteer een kanaal",
-                "title": "Kanalen"
+                "placeholder": "Selecteer ten minste één type bericht",
+                "title": "Type"
             },
             "kind": {
-                "placeholder": "Selecteer een type",
-                "title": "Type"
+                "placeholder": "Selecteer ten minste één kanaal",
+                "title": "Kanalen"
             },
             "numberFilter": {
                 "oneFilter": "1 toegepaste filter",
@@ -1761,7 +1761,7 @@
                 "dateEnd": "Einddatum",
                 "dateStart": "Startdatum",
                 "period": "Periode",
-                "title": "Verzenddatum:"
+                "title": "Verzenddatum"
             },
             "filterAction": "Filteren",
             "applyFilter": "Toepassen"
@@ -2387,8 +2387,8 @@
         "no": "Nee",
         "yes": "Ja",
         "subheader": {
-            "total": "Totaal",
-            "average": "Gemiddelde"
+            "total": "Totalen",
+            "average": "Gemiddelden"
         },
         "categories": {
             "dayBookings": "Reserveringen per dag (groepsactiviteiten)",
@@ -2450,8 +2450,8 @@
             "excel_report": "Excel"
         },
         "header": {
-            "average": "Gemiddelde",
-            "sum": "Totaal",
+            "average": "Gemiddelden",
+            "sum": "Totalen",
             "selectDate": "Selecteer een datum",
             "from": "Van",
             "to": "tot en met",
@@ -4210,7 +4210,9 @@
             "seeRestrictions": "Toon",
             "restrictions": " Gepersonaliseerde beperking: {{ count }}",
             "restrictionsHeader": "Gepersonaliseerde beperkingen",
-            "autoDiscardHeader": "De sessie wordt geannuleerd als"
+            "autoDiscardHeader": "De sessie wordt geannuleerd als",
+            "lastDiscardBeforeMinutesFull": "Annuleren kan tot {{m}} voor het begin van de sessie.",
+            "lastBookingBeforeMinutesFull": "Reserveren kan tot {{m}} voor het begin van de sessie."
         },
         "metaActivity": "Activiteit",
         "search": "Zoek een groepsactiviteit",
@@ -5325,7 +5327,7 @@
             "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
             "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
             "metaActivityList": "Groepsactiviteiten",
-            "metaActivityEditFormSubtitle": "Een groepsactiviteit bewerken",
+            "metaActivityEditFormSubtitle": "Een groepsactiviteit toevoegen of bewerken.",
             "metaActivityFormSubtitle": "Een groepsactiviteit toevoegen"
         },
         "invoice": {
@@ -5726,19 +5728,33 @@
                     "duration": {
                         "end": "Eind",
                         "start": "Van",
-                        "title": "Duur"
+                        "title": "Duur",
+                        "warning": "De einddatum moet ná de startdatum zijn."
                     },
                     "causePlaceholder": "Reden *",
                     "titleEdition": "Pauze bewerken",
-                    "titleCreation": "[Formulier] Pauzeren"
+                    "titleCreation": "[Formulier] Pauzeren",
+                    "information2": "De verlenging van de vervaldatum staat gelijk aan het aantal dagen dat de pauzering duurt.",
+                    "information": "Deze abonnementen worden van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd. De eerstvolgende facturatie(s) worden met {{count}} dag(en) uitgesteld.",
+                    "information_plural": "Deze abonnementen worden van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd. De eerstvolgende facturatie(s) worden met {{count}} dag(en) uitgesteld."
                 },
                 "fail": {
                     "comeback": "Terug",
-                    "contentInvalidTimedelta": "De minimumduur van een pauze is 1 dag."
+                    "contentInvalidTimedelta": "De minimumduur van een pauze is 1 dag.",
+                    "contentUnknownError": "Er is een onverwachte fout opgetreden. Onze excuses voor het ongemak.",
+                    "contentCanNotCreateAPauseInThePast": "De pauzering kan niet in het verleden beginnen.",
+                    "contentCanNotEditPauseEndBeforeToday": "De nieuwe startdatum moet ná vandaag zijn.",
+                    "contentCanNotEditPauseStartWhenHasStarted": "De startdatum kan niet gewijzigd worden, indien deze datum al verstreken is.",
+                    "contentSubscriptionWillEndBeforePause": "Het is niet mogelijk om deze pauzering stop te zetten, omdat het al afgelopen zal zijn.",
+                    "contentCanNotCancelPause": "Het is niet mogelijk om reeds begonnen of stopgezette pauzeringen te annuleren.",
+                    "contentOverlapPause": "Er is reeds een pauze ({{- dateStart}} t/m {{- dateEnd}}) voor dit abonnement ({{subscriptionName}}) van {{subscriberName}} ingesteld.",
+                    "contentIncomingBill": "Dit abonnement ({{subscriptionName}}) van {{subscriberName}} kon niet gepauzeerd worden, omdat recent een betaling wordt verwerkt of binnen 24 uur van pauzering een betaling verwerkt zal worden. Gelieve de data van de pauze wijzigen.",
+                    "title": "Fout bij het pauzeren van dit abonnement"
                 },
                 "success": {
                     "continue": "Verder",
-                    "content": "Dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" is van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd."
+                    "content": "Dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" is van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd.",
+                    "title": "Dit abonnement is succesvol gepauzeerd"
                 },
                 "delete": {
                     "content": "Weet je zeker dat je de pauze van dit abonnement wilt stopzetten?",
@@ -5755,7 +5771,8 @@
                 "pauseCreated": "Dit abonnement is door {{staffName}} op {{- dateCreation}} gepauzeerd. De pauze is actief van {{- dateStart}} tot en met {{- dateEnd}}."
             },
             "menu": {
-                "delete": "Stopzetten"
+                "delete": "Stopzetten",
+                "change": "Data wijzigen"
             }
         },
         "plannedInvoice": {
@@ -6828,7 +6845,7 @@
                     "label": "Geavanceerd: boekingskeuze-interval"
                 },
                 "people_capacity_used": {
-                    "helperText": "Dit nummer wordt gebruikt om de capaciteit bij te werken.",
+                    "helperText": "Dit nummer wordt gebruikt om de capaciteit bij te houden.",
                     "label": "Aantal personen"
                 },
                 "cancel": "Annuleren",
@@ -7138,11 +7155,11 @@
                 "establishmentResourceType": {
                     "isHomeService": {
                         "label": "Thuis",
-                        "helperText": "Bij elke reservering wordt er naar een adres gevraagd"
+                        "helperText": "Bij elke reservering wordt er naar een adres gevraagd."
                     },
                     "isWithoutEstablishment": {
                         "label": "Zonder vooraf bepaalde locatie",
-                        "helperText": "Bijvoorbeeld voor livestreams, buitenlessen, etc."
+                        "helperText": "Handig voor buitenactiviteiten of livestreams."
                     },
                     "isWithEstablishment": {
                         "isEmpty": "Er is geen vestiging geconfigureerd.",
@@ -7181,7 +7198,7 @@
                 "is_without_coach": "Zonder instructeur",
                 "coach": {
                     "label": "Instructeur",
-                    "isEmpty": "Selecteer een of meerdere instructeurs!"
+                    "isEmpty": "Selecteer ten minste één instructeur."
                 },
                 "establishment": {
                     "label": "Vestiging"
@@ -7237,7 +7254,7 @@
                 "description": "Beschrijving",
                 "coaches": {
                     "title": "Instructeur",
-                    "is_empty": "Geen instructeur nodig"
+                    "is_empty": "Instructeurs zijn optioneel."
                 },
                 "last_discard_minutes": {
                     "explain": "Leden kunnen afspraken tot {{ days }} dag(en), {{ hours }} u. en {{ minutes }} min. voor het begin van de afspraak kosteloos annuleren."
@@ -7312,7 +7329,7 @@
             "detail": {
                 "detailEmpty": "Er is geen beschikbaarheid voor het geselecteerde moment.",
                 "dialog": {
-                    "title": "Beschikbaarheid"
+                    "title": "Beschikbaarheidsinfo"
                 },
                 "openHours": "Roosters",
                 "availableEverywhere": "Beschikbaar in alle vestigingen",
@@ -7320,7 +7337,10 @@
                 "ok": "Oké"
             },
             "specificAvailabilityForm": {
-                "advanced": "Gevorderd"
+                "advanced": "Gevorderd",
+                "info": "Standaard wordt de beschikbaarheid op alle vestigingen toegepast. Activeer deze optie om instructeurs de optie te geven om hun eigen beschikbaarheid per vestiging te beheren.",
+                "infoForCoach": "Standaard wordt je beschikbaarheid voor alle vestigingen toegevoegd. Activeer deze optie om zelf te selecteren op welke vestigingen je beschikbaar bent.",
+                "switchLabel": "Alleen voor geselecteerde vestigingen toevoegen"
             }
         },
         "resource": {
@@ -7625,8 +7645,10 @@
         "specificAvailabilitiesCalendar": {
             "establishment": "Vestiging",
             "filters": "Filters",
-            "goToRegularCalendar": "Terug naar Rooster"
-        }
+            "goToRegularCalendar": "Terug naar Rooster",
+            "infoBoxContent": "Je hebt nu de optie om je beschikbaarheid per vestiging beheren. Standaard wordt de beschikbaarheid van instructeurs op alle vestigingen toegepast. Op deze pagina kun je de specifieke beschikbaarheid per vestiging beheren. Het blijft een vereiste om een algemene beschikbaarheid per instructeur aan te maken, voordat een rooster per vestiging aangemaakt kan worden."
+        },
+        "openSpecificAvailabilitiesCalendar": "Beschikbaarheid"
     },
     "datetime": {
         "form": {
@@ -8377,6 +8399,17 @@
             "switchPrivatePass": {
                 "error": "Fout bij het wijzigen van de afspraakkaart",
                 "success": "Afspraakkaart gewijzigd"
+            },
+            "switchItemsErrors": {
+                "paymentCombo": {
+                    "63003": "Het is niet mogelijk om pakketten van een Master-Account te bewerken"
+                },
+                "privatePass": {
+                    "63003": "Het is niet mogelijk om afspraakkaarten van een Master-Account te bewerken"
+                },
+                "paymentPack": {
+                    "63003": "Het is niet mogelijk om leskaarten van een Master-Account te bewerken"
+                }
             }
         },
         "invoice": {
@@ -9632,11 +9665,11 @@
                 "timePeriod": "Periode",
                 "graphParams": "Gegevens",
                 "graphFamily": "Grafiek",
-                "dashboardGraphIdentifier": "Gegevens",
+                "dashboardGraphIdentifier": "Onderwerp",
                 "general": "Algemeen"
             },
             "title": {
-                "edit": "[Formulier] Grafiek bewerken",
+                "edit": "[Formulier] Grafiek",
                 "create": "[Formulier] Grafiek toevoegen"
             },
             "placeholders": {

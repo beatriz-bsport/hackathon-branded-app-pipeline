@@ -24,7 +24,7 @@ import {
 } from '../../types';
 import PaymentPackFormGeneral from './PaymentPackFormGeneral.component';
 import PaymentPackFormValidity from './PaymentPackFormValidity.component';
-import PaymentPackFormRestrictionsComponent from './PaymentPackFormRestrictions.component';
+import PaymentPackFormRestrictions from './PaymentPackFormRestrictions.component';
 import UniversalPassFormPrivateserviceCompatibility from '../../../universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
 import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
@@ -362,7 +362,7 @@ export const PaymentPackForm = (props: Props) => {
             </div>
             <Divider className={classes.divider} />
             <div className={classes.formContainer}>
-              <PaymentPackFormRestrictionsComponent
+              <PaymentPackFormRestrictions
                 categoryList={categoryList}
                 establishmentList={establishmentList}
                 metaActivityList={metaActivityList}

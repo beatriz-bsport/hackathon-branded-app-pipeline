@@ -27,20 +27,20 @@ import {
 import { getPaymentPackTemplate } from '../../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
-import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../../libs/member/actions';
-import PaymentPackTemplateCard from '../../../libs/payment-packs/components/PaymentPackTemplateCard.component';
-import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '../../../libs/consumer-payment-pack/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
+import PaymentPackTemplateCard from '#libs/payment-packs/components/PaymentPackTemplateCard.component';
+import { fetchConsumerPaymentPackList as fetchConsumerPaymentPackListAction } from '#libs/consumer-payment-pack/actions';
 import {
   getPaginatedConsumerPaymentPackList,
   withPaymentPack,
   withMember,
-} from '../../../libs/consumer-payment-pack/selectors';
+} from '#libs/consumer-payment-pack/selectors';
 
-import PaginatedConsumerPackList from '../../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
-import PaymentPackTemplateInstanceFormDialog from '../../../libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
-import PaymentPackTemplateInstanceDeleteDialog from '../../../libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
+import PaginatedConsumerPackList from '#libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import PaymentPackTemplateInstanceFormDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceFormDialog.component';
+import PaymentPackTemplateInstanceDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateInstanceDeleteDialog.component';
 import { navigateAsCompanyAdmin } from '../../../actions/auth.actions';
-import PaymentPackTemplateFormDialog from '#libs/payment-packs/components/PaymentPackTemplateFormDialog.component';
+import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
 import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
 import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
 
@@ -120,7 +120,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
           onSubmit={this.props.deletePaymentPackTemplateInstance}
         />
         {!!this.props.isEditDialogOpen && (
-          <PaymentPackTemplateFormDialog
+          <PaymentPackTemplateFormDrawer
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             initial={this.props.paymentPackTemplate}
             onClose={this.props.closeEditDialog}

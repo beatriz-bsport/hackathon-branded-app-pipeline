@@ -76,7 +76,6 @@ const FranchiseMemberList = (props: Props) => {
   const navigateToUser = (userId: number) => () => {
     push(`/f/members/${userId}/member`);
   };
-
   return (
     <div className={classes.root}>
       <FranchiseMembersTable

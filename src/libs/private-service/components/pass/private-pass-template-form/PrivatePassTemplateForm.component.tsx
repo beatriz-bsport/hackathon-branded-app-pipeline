@@ -1,4 +1,3 @@
-// @flow
 import React, { MouseEvent } from 'react';
 import { Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -28,9 +27,9 @@ import {
   SwitchField,
   PriceField,
   RadioGroupField,
-} from '../../../../components/forms';
-import { PrivatePassWithCompatibility } from '../../types';
-import { getValidityInfo } from '../../utils';
+} from '../../../../../components/forms';
+import { PrivatePassWithCompatibility } from '../../../types';
+import { getValidityInfo } from '../../../utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
@@ -243,9 +242,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-end',
     padding: theme.spacing(4),
   },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
+
   iconLeft: {
     marginRight: theme.spacing(2),
     color: '#868686',
@@ -268,13 +265,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   categoryBlock: {
     padding: theme.spacing(4),
-  },
-  paymentMeansHelpertext: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(3),
-  },
-  yellowIcon: {
-    color: '#FFA71D',
   },
   durationNbBlock: {
     marginTop: theme.spacing(3),
@@ -300,17 +290,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   firstBooking: {
     marginTop: theme.spacing(2),
-  },
-  reportProblemIcon: {
-    color: '#E35D4D',
-    fontSize: 32,
-    marginRight: theme.spacing(3),
-    marginLeft: theme.spacing(2),
-  },
-  emptyListItem: {
-    borderLeft: '5px solid',
-    borderLeftColor: '#E35D4D',
-    boxShadow: '0px 1px 3px 0.3px rgba(0, 0, 0, 0.25)',
   },
 }));
 

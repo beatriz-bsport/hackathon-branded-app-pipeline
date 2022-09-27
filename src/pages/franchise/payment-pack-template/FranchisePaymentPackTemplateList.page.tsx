@@ -18,22 +18,22 @@ import { buildUrlParams } from '../../../http';
 
 import { RootState } from '../../../reducers';
 
-import PaymentPackTemplateListItem from '../../../libs/payment-packs/components/PaymentPackTemplateListItem.component';
+import PaymentPackTemplateListItem from '#libs/payment-packs/components/PaymentPackTemplateListItem.component';
 import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
-import PaymentPackTemplateFormDialog from '../../../libs/payment-packs/components/PaymentPackTemplateFormDialog.component';
-import PaymentPackTemplateDeleteDialog from '../../../libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
-import { PaymentPackTemplateAPI } from '../../../libs/payment-packs/types';
+import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
+import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
+import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
 import { OptionCallback } from '../../../state/types';
 import {
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction,
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
   deletePaymentPackTemplate as deletePaymentPackTemplateAction,
-} from '../../../libs/payment-packs/actions';
+} from '#libs/payment-packs/actions';
 import {
   getPaymentPackTemplateListManagerOnly,
   getPaymentPackTemplateListAvailable,
   getPaymentPackTemplateData,
-} from '../../../libs/payment-packs/selectors';
+} from '#libs/payment-packs/selectors';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -182,7 +182,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
           )}
         </div>
         {!!this.props.createModalOpen && (
-          <PaymentPackTemplateFormDialog
+          <PaymentPackTemplateFormDrawer
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             onClose={this.props.closeCreateDialog}
             open={this.props.createModalOpen}
@@ -194,7 +194,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
           onClose={this.props.closeDeleteDialog}
         />
         {!!this.props.paymentPackTemplateForEdit && (
-          <PaymentPackTemplateFormDialog
+          <PaymentPackTemplateFormDrawer
             onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             initial={this.props.paymentPackTemplateForEdit}
             onClose={this.props.closeEditDialog}

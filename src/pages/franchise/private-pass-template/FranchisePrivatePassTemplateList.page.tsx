@@ -16,7 +16,7 @@ import { RootState } from '../../../reducers';
 
 import PrivatePassTemplateListItem from '../../../libs/private-service/components/pass/PrivatePassTemplateListItem.component';
 import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
-import PrivatePassTemplateFormDialog from '../../../libs/private-service/components/pass/PrivatePassTemplateFormDialog.component';
+import PrivatePassTemplateFormDrawer from '../../../libs/private-service/components/pass/private-pass-template-form/PrivatePassTemplateFormDrawer.component';
 import PrivatePassTemplateDeleteDialog from '../../../libs/private-service/components/pass/PrivatePassTemplateDeleteDialog.component';
 import { PrivatePassTemplateAPI } from '../../../libs/private-service/types';
 import { OptionCallback } from '../../../state/types';
@@ -120,7 +120,7 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
           )}
         </div>
         {!!this.props.createModalOpen && (
-          <PrivatePassTemplateFormDialog
+          <PrivatePassTemplateFormDrawer
             onSubmit={this.props.createOrUpdatePrivatePassTemplate}
             onCancel={this.props.closeCreateDialog}
             open={this.props.createModalOpen}
@@ -132,7 +132,7 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
           onClose={this.props.closeDeleteDialog}
         />
         {!!this.props.privatePassTemplateForEdit && (
-          <PrivatePassTemplateFormDialog
+          <PrivatePassTemplateFormDrawer
             onSubmit={this.props.createOrUpdatePrivatePassTemplate}
             initial={this.props.privatePassTemplateForEdit}
             onCancel={this.props.closeEditDialog}

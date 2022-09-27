@@ -123,6 +123,12 @@ export type PaymentPackTemplateAPI = {
   start_date_method: number;
   expiration_days_before_first_use: number;
   unlimited: boolean;
+  max_bookings_per_day: null | number;
+  max_bookings_per_week: null | number;
+  max_bookings_per_month: null | number;
+  max_purchase_per_member: null | number;
+  only_vod_access: boolean;
+  full_vod_access: boolean;
 };
 
 export type PaymentPackTemplate = PaymentPackTemplateAPI & {
@@ -251,6 +257,51 @@ export type PaymentPackFormValues<LPP = number> = {
   allow_guest_pass?: boolean;
 };
 
+// TODO: HARMONIZE PP and PPT FORM VALUES
+export type PaymentPackTemplateFormValues = {
+  id?: number;
+  name?: string | null;
+  price?: number;
+  tax?: number;
+  credit_number?: 'limited' | 'unlimited';
+  credits?: number;
+  theorical_margin_value?: number;
+  penalty_active?: boolean;
+  validity?: 'givenNumber' | 'slot';
+  lower_date?: string;
+  upper_date?: string;
+  validity_daterange?: {
+    lower?: string;
+    upper?: string;
+  };
+  duration_days?: number;
+  duration_months?: number;
+  duration_years?: number;
+  start_date_method?: 'billing' | 'booking' | 'attendance' | number;
+  expiration_days_before_first_use?: number;
+  penalty_nb_late_cancellations?: number;
+  penalty_nb_days?: number;
+  penalty_kind?: 'block' | 'account' | number;
+  penalty_days_blocked?: number;
+  penalty_account_value?: number;
+  max_bookings_per_day?: number;
+  max_bookings_per_week?: number;
+  max_bookings_per_month?: number;
+  max_purchase_per_member?: number;
+  new_member_only?: boolean;
+  manager_only?: boolean;
+  onsite_payment_available?: boolean;
+  categories?: Array<number>;
+  establishments?: Array<number>;
+  metaActivities?: Array<number>;
+  full_vod_access?: boolean;
+  only_vod_access?: boolean;
+  whitelist_tags?: Array<number>;
+  blacklist_tags?: Array<number>;
+  is_universal_pass: boolean;
+  linked_private_pass_compatibility: Array<CompatiblePrivateService>;
+  allow_guest_pass?: boolean;
+};
 export type MaxoutData = {
   exceedsBookingMaxout: boolean;
   maxoutInfo: null | {

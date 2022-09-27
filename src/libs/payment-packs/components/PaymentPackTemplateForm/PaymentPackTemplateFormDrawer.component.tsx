@@ -2,14 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Form } from 'formik';
-import { Submit } from '../../../components/forms';
-
+import { Submit } from '../../../../components/forms';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import PaymentPackTemplateForm, {
   PaymentPackTemplateFormikHOC,
 } from './PaymentPackTemplateForm.component';
@@ -21,19 +18,20 @@ type Props = {
   isSubmitting?: boolean;
 };
 
-const PaymentPackTemplateFormDialog = (props: Props) => {
+const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
   const { isSubmitting } = props;
 
   return (
-    <Dialog open={props.open}>
+    <GenericResponsiveDrawer
+      open={props.open}
+      onClose={props.onClose}
+      title={t('paymentPackTemplate.form.title')}
+    >
       <Form>
-        <DialogTitle>{t('paymentPackTemplate.form.title')}</DialogTitle>
-        <DialogContent>
-          <PaymentPackTemplateForm {...props} />
-        </DialogContent>
-        <DialogActions>
+        <PaymentPackTemplateForm {...props} />
+        <DialogActions className={classes.actions}>
           <Button onClick={props.onClose} disabled={isSubmitting}>
             {t('paymentPackTemplate.form.actions.close')}
           </Button>
@@ -49,12 +47,17 @@ const PaymentPackTemplateFormDialog = (props: Props) => {
           </Submit>
         </DialogActions>
       </Form>
-    </Dialog>
+    </GenericResponsiveDrawer>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  progress: { marginRight: theme.spacing(1) },
+  progress: {
+    marginRight: theme.spacing(1),
+  },
+  actions: {
+    paddingBottom: theme.spacing(2),
+  },
 }));
 
-export default PaymentPackTemplateFormikHOC(PaymentPackTemplateFormDialog);
+export default PaymentPackTemplateFormikHOC(PaymentPackTemplateFormDrawer);

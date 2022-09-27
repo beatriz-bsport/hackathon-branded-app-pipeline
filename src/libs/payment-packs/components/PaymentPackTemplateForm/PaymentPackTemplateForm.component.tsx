@@ -1,0 +1,216 @@
+import React from 'react';
+import pick from 'lodash/pick';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { withFormik } from 'formik';
+import Divider from '@material-ui/core/Divider';
+import moment from 'moment-timezone';
+import * as Yup from 'yup';
+import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
+
+import { DATE_FORMAT } from '../../../../utils/datetime';
+
+import PaymentPackTemplateFormRestrictions from './PaymentPackTemplateFormRestrictions.component';
+import PaymentPackTemplateFormValidity from './PaymentPackTemplateFormValidity.component';
+import PaymentPackTemplateFormGeneral from './PaymentPackTemplateFormGeneral.component';
+
+export const VALID_BY_DURATION = 'VALID_BY_DURATION';
+export const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';
+type Props = {};
+
+const PaymentPackTemplateForm = (props: Props) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.container}>
+      <PaymentPackTemplateFormGeneral />
+      <Divider className={classes.divider} />
+      <div className={classes.section}>
+        <PaymentPackTemplateFormValidity initial={props.initial} />
+      </div>
+      <Divider className={classes.divider} />
+      <div className={classes.section}>
+        <PaymentPackTemplateFormRestrictions initial={props.initial} />
+      </div>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    paddingBottom: theme.spacing(2),
+  },
+  section: {
+    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(4),
+  },
+  divider: {
+    backgroundColor: '#C6C6C6',
+    marginLeft: theme.spacing(-4),
+    marginRight: theme.spacing(-4),
+  },
+}));
+
+const PaymentPackTemplateSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  price: Yup.number()
+    .required('paymentPack:addPaymentPack.requiredField')
+    .min(0),
+  tax: Yup.number().required('paymentPack:addPaymentPack.requiredField').min(0),
+  credit_number: Yup.string().required(
+    'paymentPack:addPaymentPack.requiredField',
+  ),
+  credits: Yup.number().when('credit_number', {
+    is: 'limited',
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(0)
+      .nullable(),
+    otherwise: Yup.number().nullable(),
+  }),
+  theorical_margin_value: Yup.number().when('credit_number', {
+    is: 'unlimited',
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(0)
+      .nullable(),
+    otherwise: Yup.number(),
+  }),
+  timeType: Yup.string().required(),
+  expiration_days_before_first_use: Yup.number(),
+  start_date_method: Yup.string()
+    .required('paymentPack:form.paymentPack.error.start_date_method_type')
+    .typeError('paymentPack:form.paymentPack.error.start_date_method_type'),
+  duration_days: Yup.number().when('timeType', {
+    is: VALID_BY_DURATION,
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
+  }),
+  duration_months: Yup.number().when('timeType', {
+    is: VALID_BY_DURATION,
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
+  }),
+  duration_years: Yup.number().when('timeType', {
+    is: VALID_BY_DURATION,
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
+  }),
+  lower_date: Yup.date().when('timeType', {
+    is: VALID_BY_DATERANGE,
+    then: Yup.date().required(),
+    otherwise: Yup.date().nullable(),
+  }),
+  upper_date: Yup.date().when('timeType', {
+    is: VALID_BY_DATERANGE,
+    then: Yup.date().required(),
+    otherwise: Yup.date().nullable(),
+  }),
+  manager_only: Yup.boolean(),
+  max_bookings_per_day: Yup.number().min(0).nullable(),
+  max_bookings_per_week: Yup.number().min(0).nullable(),
+  max_bookings_per_month: Yup.number().min(0).nullable(),
+  max_purchase_per_member: Yup.number().min(0).nullable(),
+  new_member_only: Yup.boolean(),
+  full_vod_access: Yup.boolean(),
+  only_vod_access: Yup.boolean(),
+});
+
+export const PaymentPackTemplateFormikHOC = withFormik({
+  mapPropsToValues: ({ initial }) =>
+    Object.assign(
+      {
+        name: '',
+        price: 0,
+        tax: 0,
+        credit_number: 'limited',
+        unlimited: false,
+        credits: 1,
+        timeType: `${VALID_BY_DURATION}`,
+        duration_days: 0,
+        duration_months: 1,
+        duration_years: 0,
+        lower_date: moment(),
+        upper_date: moment().add('months', 1),
+        manager_only: false,
+        start_date_method: `${START_ON_PURCHASE}`,
+        expiration_days_before_first_use: 365,
+        theorical_margin_value: 0,
+        max_bookings_per_day: null,
+        max_bookings_per_week: null,
+        max_bookings_per_month: null,
+        max_purchase_per_member: null,
+        new_member_only: false,
+        full_vod_access: false,
+        only_vod_access: false,
+      },
+      (initial && {
+        ...initial,
+        credit_number: initial?.unlimited ? 'unlimited' : 'limited',
+        credits: initial?.credits || 0,
+        start_date_method: `${initial.start_date_method}`,
+        categories: initial.categories || [],
+        establishments: initial.establishments || [],
+        timeType: initial.validity_daterange
+          ? VALID_BY_DATERANGE
+          : VALID_BY_DURATION,
+        lower_date: initial.validity_daterange
+          ? moment(JSON.parse(initial.validity_daterange).lower)
+          : moment(),
+        upper_date: initial.validity_daterange
+          ? moment(JSON.parse(initial.validity_daterange).upper)
+          : moment().add('days', 365),
+      }) ||
+        {},
+    ),
+  validationSchema: PaymentPackTemplateSchema,
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    const keys = [
+      'name',
+      'price',
+      'tax',
+      'theorical_margin_value',
+      'unlimited',
+      'credits',
+      'id',
+      'manager_only',
+      'expiration_days_before_first_use',
+      'start_date_method',
+      'max_bookings_per_day',
+      'max_bookings_per_week',
+      'max_bookings_per_month',
+      'max_purchase_per_member',
+      'new_member_only',
+      'full_vod_access',
+      'only_vod_access',
+      'onsite_payment_available',
+      'validity_daterange',
+    ];
+    const data = pick(values, keys);
+    if (values.timeType === VALID_BY_DATERANGE) {
+      data.duration_days = null;
+      data.duration_months = null;
+      data.duration_years = null;
+      data.validity_daterange = {
+        lower: moment(values.lower_date).format(DATE_FORMAT),
+        upper: moment(values.upper_date).format(DATE_FORMAT),
+      };
+    } else {
+      data.duration_days = values.duration_days;
+      data.duration_months = values.duration_months;
+      data.duration_years = values.duration_years;
+      data.validity_daterange = null;
+    }
+    if (!values.full_vod_access) {
+      data.only_vod_access = false;
+    }
+    if (values.unlimited) {
+      data.credits = null;
+    }
+    onSubmit(data, {
+      onSuccess: () => setSubmitting(false),
+      onError: () => setSubmitting(false),
+    });
+  },
+});
+
+export default PaymentPackTemplateForm;

@@ -72,7 +72,9 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             name="max_bookings_per_day"
             label={t('addPaymentPack.maxUseDay')}
             helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={disabledUniversalPassFields}
+            disabled={
+              disabledUniversalPassFields || !!initial?.template_instance
+            }
           />
         </Grid>
         <Grid item xs={6}>
@@ -83,7 +85,9 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             name="max_bookings_per_week"
             label={t('addPaymentPack.maxUseWeek')}
             helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={disabledUniversalPassFields}
+            disabled={
+              disabledUniversalPassFields || !!initial?.template_instance
+            }
           />
         </Grid>
         <Grid item xs={6}>
@@ -94,7 +98,9 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             name="max_bookings_per_month"
             label={t('addPaymentPack.maxUseMonth')}
             helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={disabledUniversalPassFields}
+            disabled={
+              disabledUniversalPassFields || !!initial?.template_instance
+            }
           />
         </Grid>
         <Grid item xs={6}>
@@ -105,6 +111,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             name="max_purchase_per_member"
             label={t('addPaymentPack.maxUseMember')}
             helperText={t('addPaymentPack.maxUseHelper')}
+            disabled={!!initial?.template_instance}
           />
         </Grid>
         <Grid item xs={12}>
@@ -113,7 +120,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <SwitchField
                 name="new_member_only"
                 label={t('addPaymentPack.newClientOnly')}
-                disabled={values.manager_only}
+                disabled={values.manager_only || !!initial?.template_instance}
                 helperText={t('member:forms.newMemberOnlyHelperText', {
                   currency: getCurrencyDisplay(),
                 })}
@@ -129,7 +136,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <div className={classes.row}>
               <SwitchField
                 name="onsite_payment_available"
-                disabled={values.manager_only}
+                disabled={values.manager_only || !!initial?.template_instance}
               />
               <Typography>{t('addPaymentPack.inShopPayment')}</Typography>
             </div>
@@ -292,12 +299,15 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <CheckboxField
                 name="full_vod_access"
                 label={t('addPaymentPack.vodAccessCard')}
+                disabled={!!initial?.template_instance}
               />
               <Collapse in={values.full_vod_access}>
                 <CheckboxField
                   name="only_vod_access"
                   label={t('addPaymentPack.only_vod_access')}
-                  disabled={disabledUniversalPassFields}
+                  disabled={
+                    disabledUniversalPassFields || !!initial?.template_instance
+                  }
                 />
               </Collapse>
             </div>

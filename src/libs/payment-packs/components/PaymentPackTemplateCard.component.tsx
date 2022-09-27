@@ -7,6 +7,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import classnames from 'classnames';
 import { DateRange, Share, Star } from '@material-ui/icons';
 import { getCreditInfo, getValidityInfo } from '../utils';
@@ -25,6 +27,106 @@ type Props = {
   deletePaymentPackTemplate?: () => void;
 };
 
+const RestrictionsSection: React.FC<{
+  paymentPackTemplate: PaymentPackTemplate;
+}> = ({ paymentPackTemplate }) => {
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
+  if (!paymentPackTemplate) {
+    return null;
+  }
+  const {
+    max_bookings_per_day,
+    max_bookings_per_week,
+    max_bookings_per_month,
+    max_purchase_per_member,
+  } = paymentPackTemplate;
+  if (
+    max_bookings_per_day ||
+    max_bookings_per_week ||
+    max_bookings_per_month ||
+    max_purchase_per_member
+  ) {
+    return (
+      <>
+        <div className={classes.detailInfo}>
+          <div className={classes.detailCategory}>
+            <NotInterestedIcon className={classes.leftIcon} />
+            <Typography variant="h6">
+              {t('detailTitles.restrictions')}
+            </Typography>
+          </div>
+          <div className={classes.packInfo}>
+            <Typography variant="body1" color="textSecondary">
+              {max_bookings_per_day && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxBookingPerDay')}
+                  {max_bookings_per_day}
+                </p>
+              )}
+              {max_bookings_per_week && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxBookingPerWeek')}
+                  {max_bookings_per_week}
+                </p>
+              )}
+              {max_bookings_per_month && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxBookingPerMonth')}
+                  {max_bookings_per_month}
+                </p>
+              )}
+              {max_purchase_per_member && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxPurchasePerMember')}
+                  {max_purchase_per_member}
+                </p>
+              )}
+            </Typography>
+          </div>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
+
+const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = ({
+  paymentPackTemplate,
+}) => {
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
+  if (!paymentPackTemplate) {
+    return null;
+  }
+  const { only_vod_access, full_vod_access } = paymentPackTemplate;
+
+  if (only_vod_access || full_vod_access) {
+    return (
+      <>
+        <div className={classes.detailInfo}>
+          <div className={classes.detailCategory}>
+            <OndemandVideoIcon className={classes.leftIcon} />
+            <Typography variant="h6">{t('detailTitles.vod')}</Typography>
+          </div>
+          <Typography
+            variant="body1"
+            color="textSecondary"
+            className={classes.packInfo}
+          >
+            {full_vod_access && !only_vod_access && (
+              <p className={classes.detailContent}>{t('full_vod')}</p>
+            )}
+            {only_vod_access && (
+              <p className={classes.detailContent}>{t('only_vod_access')}</p>
+            )}
+          </Typography>
+        </div>
+      </>
+    );
+  }
+  return null;
+};
 const PaymentPackTemplateCard = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
@@ -77,18 +179,21 @@ const PaymentPackTemplateCard = (props: Props) => {
                   color="primary"
                   className={classes.price}
                 >
-                  {getCurrencyDisplayWithPrice(template.price)}
+                  {getCurrencyDisplayWithPrice(
+                    template.price,
+                    false,
+                    template.tax,
+                  )}
                 </Typography>
                 <Typography
                   variant="caption"
                   className={classes.priceWithoutTax}
                 >
                   {getCurrencyDisplayWithPrice(
-                    (
-                      template.price /
-                      ((100 + parseInt(template.tax, 10)) / 100)
-                    ).toFixed(2),
-                  )}{' '}
+                    template.price,
+                    true,
+                    template.tax,
+                  )}
                   {t('ht')}
                 </Typography>
               </div>
@@ -137,6 +242,10 @@ const PaymentPackTemplateCard = (props: Props) => {
               )}
             </div>
           </div>
+          <RestrictionsSection
+            paymentPackTemplate={props.paymentPackTemplate}
+          />
+          <VODSection paymentPackTemplate={props.paymentPackTemplate} />
           <div className={classes.restrictionBlock}>
             <div className={classes.detailInfo}>
               <div className={classes.detailCategory}>
@@ -187,6 +296,7 @@ const PaymentPackTemplateCard = (props: Props) => {
           </div>
         </div>
       </div>
+
       {buyPaymentPackTemplateInstance && (
         <Button
           onClick={() => buyPaymentPackTemplateInstance()}
@@ -304,6 +414,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   packInfo: {
     color: 'rgba(0, 0, 0, 0.6)',
     marginLeft: theme.spacing(5),
+  },
+  detailContent: {
+    marginTop: 0,
+    marginBottom: theme.spacing(1),
   },
 }));
 

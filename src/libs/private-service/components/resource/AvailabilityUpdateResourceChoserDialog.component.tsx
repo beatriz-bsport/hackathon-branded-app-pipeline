@@ -19,6 +19,7 @@ import SlotSpecificEstablishmentPicker from '#libs/private-service/components/av
 import { MaterialStyleType } from '../../../../utils/types';
 import { PrivateResource } from '../../types';
 import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
 
 type OwnProps = {
   open: boolean;
@@ -231,49 +232,52 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
               </>
             );
           })}
-          {this.props.kind === 'enable' && (
-            <>
-              <Divider />
-              <ButtonBase
-                disabled={!atLeastOneCoachSelected}
-                className={classes.collapseSectionButton}
-                onClick={this.toggleCollapse}
-              >
-                <div
-                  className={classNames(classes.collapseSection, {
-                    [classes.opacity]: !atLeastOneCoachSelected,
-                  })}
+          {!conditionToHideSpecificTeacherAvailabilities() &&
+            this.props.kind === 'enable' && (
+              <>
+                <Divider />
+                <ButtonBase
+                  disabled={!atLeastOneCoachSelected}
+                  className={classes.collapseSectionButton}
+                  onClick={this.toggleCollapse}
                 >
-                  <div className={classes.collapseSectionLeft}>
-                    <SettingsIcon
-                      className={classNames(classes.iconLeft, classes.icon)}
+                  <div
+                    className={classNames(classes.collapseSection, {
+                      [classes.opacity]: !atLeastOneCoachSelected,
+                    })}
+                  >
+                    <div className={classes.collapseSectionLeft}>
+                      <SettingsIcon
+                        className={classNames(classes.iconLeft, classes.icon)}
+                      />
+                      <Typography variant="subtitle2">
+                        {t(
+                          'availabilitySlot.specificAvailabilityForm.advanced',
+                        )}
+                      </Typography>
+                    </div>
+                    <div>
+                      {this.state.advancedSectionOpen ? (
+                        <ExpandLessIcon className={classes.icon} />
+                      ) : (
+                        <ExpandMoreIcon className={classes.icon} />
+                      )}
+                    </div>
+                  </div>
+                </ButtonBase>
+                <Collapse in={this.state.advancedSectionOpen}>
+                  <div className={classes.fatMargin}>
+                    <SlotSpecificEstablishmentPicker
+                      establishments={this.state.activeEstablishments}
+                      selectedEstablishments={this.state.selectedEstablishments}
+                      onSelectedEstablishmentsChange={
+                        this.onSpecificEstablishmentChange
+                      }
                     />
-                    <Typography variant="subtitle2">
-                      {t('availabilitySlot.specificAvailabilityForm.advanced')}
-                    </Typography>
                   </div>
-                  <div className={classes.collapseSectionRight}>
-                    {this.state.advancedSectionOpen ? (
-                      <ExpandLessIcon className={classes.icon} />
-                    ) : (
-                      <ExpandMoreIcon className={classes.icon} />
-                    )}
-                  </div>
-                </div>
-              </ButtonBase>
-              <Collapse in={this.state.advancedSectionOpen}>
-                <div className={classes.fatMargin}>
-                  <SlotSpecificEstablishmentPicker
-                    establishments={this.state.activeEstablishments}
-                    selectedEstablishments={this.state.selectedEstablishments}
-                    onSelectedEstablishmentsChange={
-                      this.onSpecificEstablishmentChange
-                    }
-                  />
-                </div>
-              </Collapse>
-            </>
-          )}
+                </Collapse>
+              </>
+            )}
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onClose}>

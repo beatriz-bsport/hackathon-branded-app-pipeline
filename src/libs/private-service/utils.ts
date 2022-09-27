@@ -2,8 +2,9 @@ import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
-
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
+import Config from '../../config';
+
 import { sortByDate, formatAsDate } from '../../utils/datetime';
 
 import {
@@ -578,3 +579,6 @@ export const formatSlotDetailData = memoize(
     return res;
   },
 );
+
+export const conditionToHideSpecificTeacherAvailabilities = () =>
+  ['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);

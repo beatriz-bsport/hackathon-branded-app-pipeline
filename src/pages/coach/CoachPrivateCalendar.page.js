@@ -6,8 +6,9 @@ import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 import uniq from 'lodash/uniq';
+import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
+
 import withTitle from '../../hocs/with-title.hoc';
 import {
   getCoach,
@@ -156,6 +157,25 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   }
 
   enableResourceAvailabilitySlot = (...data) => {
+    if (conditionToHideSpecificTeacherAvailabilities()) {
+      // Submit enable availability slot withouth displaying establishment selection dialog
+      const [slotUpdateData, slotUpdateOptions] = data;
+      this.props.enableCoachAvailabilitySlot(this.props.id, slotUpdateData, {
+        onSuccess: () => {
+          this.fetchAvailabilitySlots();
+          if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
+            slotUpdateOptions.onSuccess();
+          }
+        },
+        onError: () => {
+          if (slotUpdateOptions && slotUpdateOptions.onError) {
+            slotUpdateOptions.onError();
+          }
+        },
+      });
+      return;
+    }
+
     this.setState({ updateAvailabilitySlotData: data });
   };
 

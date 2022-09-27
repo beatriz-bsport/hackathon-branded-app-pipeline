@@ -10,6 +10,7 @@ import { TFunction } from 'i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core';
 import { WithStyles } from '@material-ui/styles';
+import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
 
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
@@ -109,6 +110,25 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   }
 
   enableResourceAvailabilitySlot = (...data: [any, OptionCallback]) => {
+    if (conditionToHideSpecificTeacherAvailabilities()) {
+      // Submit enable availability slot withouth displaying establishment selection dialog
+      const [slotUpdateData, slotUpdateOptions] = data;
+      this.enableCoachAvailabilitySlot(slotUpdateData, {
+        onSuccess: () => {
+          this.fetchAvailabilitySlots();
+          if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
+            slotUpdateOptions.onSuccess();
+          }
+        },
+        onError: () => {
+          if (slotUpdateOptions && slotUpdateOptions.onError) {
+            slotUpdateOptions.onError();
+          }
+        },
+      });
+      return;
+    }
+
     this.setState({ updateAvailabilitySlotData: data });
   };
 

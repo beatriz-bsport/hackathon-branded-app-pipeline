@@ -5057,10 +5057,10 @@
                 "waiver": "Liability Waiver",
                 "general_terms_and_conditions_accepted": "General Terms & Conditions",
                 "cgu": "General Terms of Use",
-                "accept_sms": "I'd like to receive relevant communication by SMS.",
-                "accept_email": "I'd like to receive relevant communication by email.",
-                "sms_notification": "I'd like to receive relevant communication by SMS.",
-                "email_notification": "I'd like to receive relevant communication by email.",
+                "accept_sms": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
+                "accept_email": "I agree to be notified by email for commercial purposes (promotions, special offers ...)",
+                "sms_notification": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
+                "email_notification": "I agree to be notified by email for commercial purposes (promotions, special offers ...)",
                 "emergency_contact": "Emergency contact",
                 "profile_picture": "Profile picture",
                 "zipcode": "Postal code",
@@ -6090,7 +6090,7 @@
                 "selectPrivateServiceTypeDetail": "My appointments",
                 "selectPrivateServiceTypeList": "All appointments",
                 "selectPrivateServiceType": "Type",
-                "todayOnly": "Exclusively display today's sessions",
+                "todayOnly": "Vision sessions of the day",
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide appointment passes",
                 "hidePaymentPack": "Hide passes",
@@ -7426,7 +7426,9 @@
             "billing_plan-update_payment_method": "Payment method updated",
             "billing_plan-update_payment_pack": "Modified passes",
             "billing_plan-update_payment_combo": "Modified packs",
-            "billing_plan-update_private_pass": "Modified appointment passes"
+            "billing_plan-update_private_pass": "Modified appointment passes",
+            "billing_plan-update": "Subscription modified",
+            "billing_plan-pause_deleted": "Pause cancelled"
         },
         "table": {
             "noContent": "There are no subscribers to display."
@@ -7794,8 +7796,60 @@
                 "delete": "Cancel pause"
             },
             "secondaryLabel": " : {{ note }}",
-            "label": "Paused for {{days}} day(s)",
-            "createdAt": "Paused at "
+            "label": "Pause from {{- fromDate}} to {{- untilDate}}",
+            "createdAt": "Paused at ",
+            "dialogs": {
+                "success": {
+                    "content": "The {{subscriptionName}} subscription of {{subscriberName}} has been paused from {{- dateStart}} to {{- dateEnd}} included.",
+                    "continue": "Continue",
+                    "title": "Pausing the subscription"
+                },
+                "form": {
+                    "confirm": "Save",
+                    "information2": "The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.",
+                    "information": "Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be postponed by {{count}} days, as well as all future billings.",
+                    "information_plural": "Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be delayed by {{count}} days, as well as all future billings.",
+                    "duration": {
+                        "warning": "The end date cannot be earlier than the start date",
+                        "end": "End date (included)",
+                        "start": "Start date (included)",
+                        "title": "Duration of the pause"
+                    },
+                    "causePlaceholder": "Reason *",
+                    "titleEdition": "Change the pause",
+                    "titleCreation": "Paused"
+                },
+                "fail": {
+                    "comeback": "Back",
+                    "contentUnknownError": "An unforeseen error has occurred. We apologise for any inconvenience caused.",
+                    "contentCanNotCreateAPauseInThePast": "The pause cannot start in the past.",
+                    "contentCanNotEditPauseEndBeforeToday": "The new start date for the break cannot be set before today.",
+                    "contentCanNotEditPauseStartWhenHasStarted": "The start date of the pause cannot be changed once it has begun.",
+                    "contentSubscriptionWillEndBeforePause": "The subscription cannot be paused during this period as it will have ended before.",
+                    "contentCanNotCancelPause": "As the pause has already started or has already passed, it cannot be cancelled.",
+                    "contentInvalidTimedelta": "The pause should last at least one day.",
+                    "contentOverlapPause": "The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- dateStart}} to {{- dateEnd}}.",
+                    "contentIncomingBill": "The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.",
+                    "title": "Pause Failed"
+                },
+                "delete": {
+                    "content": "Are you sure you want to deprogram this pause?",
+                    "title": "Cancel the pause"
+                },
+                "common": {
+                    "confirm": "Confirm",
+                    "cancel": "Cancel"
+                }
+            },
+            "eventItems": {
+                "pauseDeleted": "Reason for previous pause: {{pause_name}}",
+                "pauseCreatedThenDeleted": "This pause has been deleted or modified.",
+                "pauseCreated": "From {{- dateStart}} to {{- dateEnd}} - Created on {{- dateCreation}} by {{staffName}}"
+            },
+            "menu": {
+                "change": "Change the dates",
+                "delete": "Deactivate"
+            }
         },
         "messages": {
             "youSubscribed": {
@@ -9360,7 +9414,9 @@
             "restrictions": " Custom restriction: {{ count }}",
             "restrictionsHeader": "Custom restrictions",
             "autoDiscardHeader": "The session will be cancelled if",
-            "lastBookingBeforeMinutesHeader": "Last possibility of booking before the start of the session"
+            "lastBookingBeforeMinutesHeader": "Last possibility of booking before the start of the session",
+            "lastDiscardBeforeMinutesFull": "Cancellations possible until {{m}} before the start of the session",
+            "lastBookingBeforeMinutesFull": "Last bookings possible until {{m}} before the start of the session"
         },
         "modal": {
             "delete": {
@@ -11284,7 +11340,9 @@
                 "error": "Impossible to pause this subscription",
                 "alreadyPaused": "Impossible to pause a subscription already paused",
                 "success": "Subscription freezed",
-                "locked": "Impossible to pause for now, is a payment processing ?"
+                "locked": "Impossible to pause for now, is a payment processing ?",
+                "deleteSuccess": "The pause has been removed",
+                "deleteFail": "It is not possible to delete a pause that has already started."
             },
             "switchPack": {
                 "error": "Can't change the pass",
@@ -11317,6 +11375,17 @@
             "switchPrivatePass": {
                 "error": "Unable to modify the appointment pass",
                 "success": "Appointment pass has been modified"
+            },
+            "switchItemsErrors": {
+                "paymentCombo": {
+                    "63003": "Impossible: Changing the shared pack between franchisees is not allowed"
+                },
+                "privatePass": {
+                    "63003": "Impossible: Changing the shared appointment pass between franchisees is not allowed"
+                },
+                "paymentPack": {
+                    "63003": "Impossible: Changing a shared pass between franchisees is not allowed"
+                }
             }
         },
         "smartlist": {
@@ -12502,7 +12571,7 @@
                 "activityName": "Activity"
             },
             "variant": "Highlight",
-            "todayOnly": "Only display today's sessions",
+            "todayOnly": "Vision sessions of the day",
             "cssEditor": {
                 "typography": "Typography",
                 "general": "Spacing & Rounding",
@@ -12513,7 +12582,7 @@
                     "title": "Reset settings"
                 },
                 "submit": "Save",
-                "selectAlert": "Widget personalization is currently only available for the workshops display.",
+                "selectAlert": "The widget customisation is only available on the workshops and the calendar for the moment",
                 "preview": "Preview",
                 "spacingHelper": "Spacing is based on multiples of {{base}}px",
                 "roundingHelper": "Corners are rounded in multiples {{base}}px",
@@ -12529,6 +12598,11 @@
                 "spacing": "Spacing",
                 "backgroundColor": "Background color",
                 "colors": "Colors"
+            },
+            "configDialog": {
+                "cancel": "Close",
+                "submit": "Confirm",
+                "title": "Widget settings"
             }
         },
         "customize": "Personalization",

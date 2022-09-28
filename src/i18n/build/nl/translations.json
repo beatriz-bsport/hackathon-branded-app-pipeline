@@ -2446,7 +2446,7 @@
             "ready": "Je kunt \"{{ name }}\" nu downloaden.",
             "generate": "Aanmaken",
             "processing": "We zijn bezig met het aanmaken van je Excel-bestand. Je krijgt een melding zodra het klaar is.",
-            "continue": "Ga verder met browsen",
+            "continue": "Verder",
             "excel_report": "Excel"
         },
         "header": {
@@ -5714,7 +5714,7 @@
             }
         },
         "pause": {
-            "pausedInterval": "{{start}}  →  {{end}}: {{days}} dag(en)",
+            "pausedInterval": "{{start}}  →  {{end}} | {{days}} dag(en)",
             "pausedAt": "{{days}} dagen - {{date}}",
             "actions": {
                 "delete": "Pauze annuleren"
@@ -9705,8 +9705,8 @@
                 "total": "Accumuleer"
             },
             "helperText": {
-                "dateStart": "De gegevens worden in de tijd uitgezet op basis van de begindatum van de sessies.",
-                "dateCreated": "De gegevens worden in de tijd weergegeven volgens de datum waarop de boekingen zijn gedaan.",
+                "dateStart": "Gegevens worden weergegeven op basis van de begindatum van de sessies.",
+                "dateCreated": "Gegevens worden weergegeven op basis van de begindatum van de sessies en de datum van de reserveringen.",
                 "subscriptionPrice": {
                     "max": "Dit is het maximumbedrag voor alle ontvangen abonnementsbetalingen.",
                     "min": "Dit is het minumumbedrag voor alle ontvangen abonnementsbetalingen.",
@@ -12754,7 +12754,7 @@
     },
     "tutorial": {
         "lessonContent": {
-            "finish": "De sectie beëindigen",
+            "finish": "Sectie voltooien",
             "nextLesson": "Volgende",
             "previousLesson": "Terug"
         },
@@ -12766,12 +12766,12 @@
         "sectionFinishDialog": {
             "continueButton": "Verder",
             "infoText": "Je hebt alle lessen van deze sectie (\"{{name}}\") voltooid. Begin met de volgende sectie om meer te leren.",
-            "title": "Gefeliciteerd !"
+            "title": "Voltooid"
         },
         "shareDialog": {
-            "continueButton": "Ga verder",
+            "continueButton": "Verder",
             "infoTextLesson": "Deel de {{name}} les met uw personeelsleden die geen toegang hebben tot de handleidingen tab. Zij zullen alleen binnen deze les kunnen navigeren.",
-            "infoTextSection": "Deel alle lessen in de {{name}} sectie met uw personeelsleden die geen toegang hebben tot de handleidingen tab. Zij zullen alleen in deze sectie kunnen navigeren.",
+            "infoTextSection": "Deel alle lessen uit \"{{name}}\" met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze sectie.",
             "title": "Delen"
         },
         "welcomeDialog": {
@@ -12786,7 +12786,7 @@
             "backToList": "Terug"
         },
         "menuHeader": {
-            "infoText": "In dit tabblad lichten we alle basisfuncties toe en hoe je deze naar wens kunt configureren.",
+            "infoText": "In dit tabblad lichten we alle basisfuncties toe en hoe deze naar wens geconfigureerd kunnen worden.",
             "title": "Welkom bij onze handleiding."
         },
         "sectionList": {

@@ -30,11 +30,11 @@ const DeleteButton = withConfirm(
   ),
   'deleteUser',
   {
-    title: 'forms.user.delete.title',
-    cancel: 'forms.user.delete.cancel',
-    confirm: 'forms.user.delete.confirm',
+    title: 'role:forms.user.delete.title',
+    cancel: 'role:forms.user.delete.cancel',
+    confirm: 'role:forms.user.delete.confirm',
     Content: ({ t }: { t: TFunction }) => (
-      <p>{t('forms.user.delete.content')}</p>
+      <p>{t('role:forms.user.delete.content')}</p>
     ),
   },
 );

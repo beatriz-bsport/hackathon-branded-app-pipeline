@@ -159,6 +159,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
           page_size: 5,
           min_date: MIN_DATE,
           max_date: MAX_DATE,
+          company: companyId,
           with_unique_offer_by_group: true,
           ...filters,
           ...(theme && !theme.show_cancelled_offers_customer

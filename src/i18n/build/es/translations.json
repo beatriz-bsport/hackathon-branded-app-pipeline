@@ -2200,7 +2200,7 @@
                 "selectPrivateServiceTypeDetail": "Mi cita",
                 "selectPrivateServiceTypeList": "Todas las citas",
                 "selectPrivateServiceType": "Tipo",
-                "todayOnly": "Mostrar sólo las sesiones diarias",
+                "todayOnly": "Visión sesiones del día",
                 "hidePaymentCombo": "Ocultar packs",
                 "hidePrivatePass": "Pases ocultos para clases particulares",
                 "hidePaymentPack": "Pases ocultos para las clases colectivas",
@@ -3612,8 +3612,60 @@
                 "delete": "Cancelar la pausa"
             },
             "secondaryLabel": " : {{ note }}",
-            "label": "Pausado durante {{days}} días",
-            "createdAt": "Crear el "
+            "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
+            "createdAt": "Creada el ",
+            "dialogs": {
+                "form": {
+                    "confirm": "Salvar",
+                    "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
+                    "information": "Las suscripciones se pondrán en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido. Su próxima facturación se pospondrá en {{count}} días, al igual que todas las facturaciones futuras.",
+                    "information_plural": "Las suscripciones se pondrán en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido. Su próxima facturación se retrasará en {{count}} días, al igual que todas las facturaciones futuras.",
+                    "duration": {
+                        "warning": "La fecha de finalización no puede ser inferior a la fecha de inicio",
+                        "end": "Fecha de inicio (incluida)",
+                        "start": "Fecha de inicio (incluida)",
+                        "title": "Duración de la pausa"
+                    },
+                    "causePlaceholder": "Razón *",
+                    "titleEdition": "Modificar la pausa",
+                    "titleCreation": "Pausa"
+                },
+                "fail": {
+                    "comeback": "Volver",
+                    "contentUnknownError": "Se ha producido un error imprevisto. Nos disculpamos por las molestias causadas.",
+                    "contentCanNotCreateAPauseInThePast": "La pausa no puede comenzar en el pasado.",
+                    "contentCanNotEditPauseEndBeforeToday": "La nueva fecha de inicio de la pausa no puede ponerse antes de hoy.",
+                    "contentCanNotEditPauseStartWhenHasStarted": "La fecha de inicio de la pausa no puede modificarse una vez iniciada.",
+                    "contentSubscriptionWillEndBeforePause": "La suscripción no puede ser pausada durante este período, ya que habrá terminado antes.",
+                    "contentCanNotCancelPause": "Como la pausa ya ha comenzado o ha pasado, no se puede cancelar.",
+                    "contentInvalidTimedelta": "La pausa debe durar al menos un día.",
+                    "contentOverlapPause": "La suscripción {{subscriptionName}} de {{subscriberName}} no se ha podido pausar porque ya hay una pausa programada de {{- dateStart}} a {{- dateEnd}}.",
+                    "contentIncomingBill": "La suscripción {{subscriptionName}} de {{subscriberName}} no se ha podido pausar porque una factura en el intervalo de pausa se facturará en 24 horas o tiene un pago en curso. Por favor, cambie la fecha de inicio de la pausa.",
+                    "title": "Fallo de la pausa"
+                },
+                "success": {
+                    "continue": "Continuar",
+                    "content": "La suscripción {{subscriptionName}} de {{subscriberName}} se ha puesto en pausa desde {{- dateStart}} hasta {{- dateEnd}} incluido.",
+                    "title": "Pausa de la suscripción"
+                },
+                "delete": {
+                    "content": "¿Estás seguro de que quieres desprogramar este pausa?",
+                    "title": "Cancelar la pausa"
+                },
+                "common": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar"
+                }
+            },
+            "eventItems": {
+                "pauseDeleted": "Motivo de la antigua pausa: {{pause_name}}",
+                "pauseCreatedThenDeleted": "Esta pausa ha sido eliminada o modificada.",
+                "pauseCreated": "De {{- dateStart}} a {{- dateEnd}} - Creado en {{- dateCreation}} por {{staffName}}"
+            },
+            "menu": {
+                "change": "Cambiar las fechas",
+                "delete": "Desprogramar"
+            }
         },
         "subscription": {
             "actions": {
@@ -3716,7 +3768,9 @@
                 "title": "Últimos acontecimientos"
             },
             "billing_plan-update_private_pass": "Tarjeta de citas modificada",
-            "billing_plan-update_payment_combo": "Pack modificado"
+            "billing_plan-update_payment_combo": "Pack modificado",
+            "billing_plan-update": "Suscripción modificada",
+            "billing_plan-pause_deleted": "Pausa cancelada"
         },
         "copyLink": "Copiar el enlace a la página de pago",
         "listItem": {
@@ -8580,7 +8634,9 @@
                 "error": "No es posible pausar esta suscripción",
                 "alreadyPaused": "No es posible pausar una suscripción ya pausada",
                 "success": "Suscripción pausada",
-                "locked": "No se puede pausar por el momento, ¿hay un pago pendiente?"
+                "locked": "No se puede pausar por el momento, ¿hay un pago pendiente?",
+                "deleteSuccess": "Se ha eliminado la pausa",
+                "deleteFail": "No es posible eliminar una pausa ya iniciada."
             },
             "switchPack": {
                 "error": "No es posible modificar el bono",
@@ -8613,6 +8669,17 @@
             "switchPrivatePass": {
                 "success": "Tarjeta de citas modificada",
                 "error": "No se puede modificar la tarjeta de citas"
+            },
+            "switchItemsErrors": {
+                "paymentCombo": {
+                    "63003": "Imposible: no se permite cambiar el pack compartido entre franquiciados"
+                },
+                "privatePass": {
+                    "63003": "Imposible: No se permite cambiar la tarjeta de citas compartida entre franquiciados"
+                },
+                "paymentPack": {
+                    "63003": "Imposible: no se permite cambiar un bono compartido entre franquiciados"
+                }
             }
         },
         "smartlist": {
@@ -10093,7 +10160,9 @@
             "autoDiscardHeader": "La sesión se cancelará si",
             "firstBookingMinutesUntilHeader": "Los miembros pueden reservar futuras sesiones si comienzan en menos de",
             "lastDiscardBeforeMinutesHeader": "Antes del inicio del curso, última cancelación posible",
-            "lastBookingBeforeMinutesHeader": "Antes del inicio del curso, última reserva posible"
+            "lastBookingBeforeMinutesHeader": "Antes del inicio del curso, última reserva posible",
+            "lastDiscardBeforeMinutesFull": "Las cancelaciones son posibles hasta {{m}} antes del inicio de la sesión",
+            "lastBookingBeforeMinutesFull": "Últimas reservas posibles hasta {{m}} antes del inicio de la sesión"
         },
         "modal": {
             "delete": {
@@ -11488,7 +11557,7 @@
                     "title": "Restablecer la configuración"
                 },
                 "submit": "Salvar",
-                "selectAlert": "La personalización del widget sólo está disponible en los talleres por el momento",
+                "selectAlert": "La personalización del widget sólo está disponible en los talleres y el calendario por el momento",
                 "preview": "Preview",
                 "spacingHelper": "El espaciado se basa en múltiplos de {{base}}px",
                 "roundingHelper": "Las esquinas se redondean en múltiplos {{base}}px",
@@ -11507,7 +11576,12 @@
                 "activityName": "La actividad"
             },
             "variant": "Destacar",
-            "todayOnly": "Mostrar sólo las sesiones del día"
+            "todayOnly": "Visión sesiones del día",
+            "configDialog": {
+                "cancel": "Cerrar",
+                "submit": "Confirmar",
+                "title": "Configuración del widget"
+            }
         },
         "customize": "Personalización",
         "create": "General"

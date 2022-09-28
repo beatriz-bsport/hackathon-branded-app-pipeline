@@ -108,7 +108,7 @@ export function fetchEstablishments(params?: any, options?: OptionCallback) {
 
     try {
       const response = await fetchEstablishmentListAPI({
-        page_size: 100,
+        page_size: 200,
         ...(params || {}),
       });
       dispatch(

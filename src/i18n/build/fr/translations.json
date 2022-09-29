@@ -3255,7 +3255,9 @@
             "lastBookingBeforeMinutes": "Les membres peuvent annuler sans frais jusqu'à {{m}} avant le début de la séance",
             "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
             "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
-            "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance"
+            "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
+            "lastDiscardBeforeMinutesFull": "Annulations possibles jusqu'à {{m}} avant le début de la séance",
+            "lastBookingBeforeMinutesFull": "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance"
         },
         "packsAvailable": "Eligible aux pass :",
         "reviews": "Avis clients: ",
@@ -3557,7 +3559,8 @@
             "601": "Trop peu de réservations N heures avant le début de la séance",
             "701": "Pénalité carte de cours : carte bloquée (élève)",
             "702": "Pénalité carte de cours : acompte créé (élève)",
-            "987": "Tentative d'encaissement d'un paiement échelonné"
+            "987": "Tentative d'encaissement d'un paiement échelonné",
+            "602": "Trop peu de réservations N heures avant le début de la séance (élèves)"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",

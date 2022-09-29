@@ -12770,7 +12770,7 @@
         },
         "shareDialog": {
             "continueButton": "Verder",
-            "infoTextLesson": "Deel de {{name}} les met uw personeelsleden die geen toegang hebben tot de handleidingen tab. Zij zullen alleen binnen deze les kunnen navigeren.",
+            "infoTextLesson": "Deel deze les ({{name}}) met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze les.",
             "infoTextSection": "Deel alle lessen uit \"{{name}}\" met de medewerkers die bijvoorbeeld geen toegang tot de handleidingen hebben. Ontvangers hebben exclusief toegang tot deze sectie.",
             "title": "Delen"
         },

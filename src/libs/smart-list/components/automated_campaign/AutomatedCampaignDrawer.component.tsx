@@ -29,7 +29,8 @@ import Config from '../../../../config';
 import {
   MAX_LENGTH_PUSH_TITLE,
   MAX_LENGTH_PUSH_CONTENT,
-} from '#libs/communication/constant';
+  MAX_LENGTH_AUTOMATIC_SMS,
+} from '#libs/communication-v2/constants';
 import WriteNotification from '#libs/communication/components/WriteNotification.component';
 import WriteSMS from '#libs/communication/components/WriteSMS.component';
 import WriteEmail from '#libs/communication/components/WriteEmail.component';
@@ -344,6 +345,7 @@ export const AutomatedCommunicationDrawer: React.FC<
             smsContent={values.text}
             onChangeContent={handleTextChange}
             contentLengthError={!!errors?.text}
+            maxLengthContent={MAX_LENGTH_AUTOMATIC_SMS}
           />
         )}
         {values.communication_kind === COMMUNICATION_KIND_PUSH_NOTIFICATION && (
@@ -491,7 +493,7 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
         return item.length <= MAX_LENGTH_PUSH_CONTENT;
       }
       if (this.parent.communication_kind === COMMUNICATION_KIND_SMS) {
-        return item.length < 71;
+        return item.length <= MAX_LENGTH_AUTOMATIC_SMS;
       }
 
       return true;

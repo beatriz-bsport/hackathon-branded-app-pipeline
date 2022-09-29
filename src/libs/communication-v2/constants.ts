@@ -57,6 +57,7 @@ export const PAGINATION_SIZE_RECIPIENTS = 8;
 
 // MAX LENGTH OF WRITERS
 export const MAX_LENGTH_SMS = 160;
+export const MAX_LENGTH_AUTOMATIC_SMS = 70;
 export const MAX_LENGTH_PUSH_CONTENT = 200;
 export const MAX_LENGTH_PUSH_TITLE = 25;
 

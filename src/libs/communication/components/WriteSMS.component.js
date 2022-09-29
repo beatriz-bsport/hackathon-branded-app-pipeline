@@ -15,6 +15,7 @@ type Props = {
   countReceivers: number,
   hideSmsCount?: boolean,
   contentLengthError?: Boolean,
+  maxLengthContent?: number,
 };
 
 export function WriteSMS(props: Props) {
@@ -79,7 +80,11 @@ export function WriteSMS(props: Props) {
     },
   };
   /* eslint-enable */
-  const smsMaxLength = util.pickencoding(props.smsContent) === 'gsm' ? 160 : 70;
+  let smsMaxLength;
+  if (props.maxLengthContent) smsMaxLength = props.maxLengthContent;
+  else {
+    smsMaxLength = util.pickencoding(props.smsContent) === 'gsm' ? 160 : 70;
+  }
 
   return (
     <div className={props.classes.container}>

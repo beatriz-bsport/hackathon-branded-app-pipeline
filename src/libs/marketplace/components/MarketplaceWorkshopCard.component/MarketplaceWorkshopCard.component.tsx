@@ -27,6 +27,7 @@ export type Props = {
   };
   theme: CompanyTheme;
   showOfferFilling: boolean;
+  showOfferGender: boolean;
   loading: boolean;
   offerDetailsloading: boolean;
   bookedOffers: number[];
@@ -46,6 +47,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
   theme,
   loading,
   showOfferFilling,
+  showOfferGender,
   offerDetailsloading,
   hideCoach,
   offers,
@@ -152,6 +154,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 <MarketplaceGroupOfferListItem
                   customLevel={{}}
                   showOfferFilling={showOfferFilling}
+                  showOfferGender={showOfferGender}
                   theme={theme}
                   getEstablishment={getEstablishment}
                   getCoach={getCoach}
@@ -178,6 +181,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 getLevel={getLevel}
                 customLevel={getLevel(group.level)}
                 showOfferFilling={showOfferFilling}
+                showOfferGender={showOfferGender}
                 loading={offerDetailsloading || groupsLoading}
                 offers={offersGroup}
                 metaActivity={metaActivity}
@@ -200,6 +204,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               coach={getCoach(offer.coach_override || offer.coach)}
               customLevel={getLevel(offer.custom_level)}
               showOfferFilling={showOfferFilling}
+              showOfferGender={showOfferGender}
               getLevel={getLevel}
               theme={theme}
               hideCoach={hideCoach}

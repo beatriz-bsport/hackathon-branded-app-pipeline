@@ -1,12 +1,12 @@
 .bs-offer-list-item {
   display: flex;
   background-color: var(--color-background-paper);
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
   border-color: var(--color-grey-light);
   border-bottom: none;
   gap: var(--spacing-2);
-  border-top: 1px solid var(--color-grey-light);
+  border-top: 2px solid var(--color-grey-light);
   cursor: pointer;
   width: 100%;
   font-family: var(--fontFamily);
@@ -264,7 +264,7 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
 }
 
 .bs-offer-list-item__content__offer__right__bottom::before {
-  transition: 0.2s var(--color-grey-500);
+  transition: 0.2s;
   content: '';
   position: absolute;
   top: 0;

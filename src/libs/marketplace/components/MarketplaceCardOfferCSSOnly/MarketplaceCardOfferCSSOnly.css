@@ -187,7 +187,7 @@
 .bs-card-offer__bottom {
   padding-bottom: 10px;
   padding-top: 10px;
-  border-top: medium solid var(--color-grey-light);
+  border-top: 2px solid var(--color-grey-light);
 
   width: 100%;
   width: -moz-available; /* WebKit-based browsers will ignore this. */
@@ -276,8 +276,8 @@
 }
 
 svg.bs-card-offer__icon {
-  width: var(--spacing-2);
-  height: var(--spacing-2);
+  width: 16px;
+  height: 16px;
 }
 
 .bs-card-offer__content__bottom__button {

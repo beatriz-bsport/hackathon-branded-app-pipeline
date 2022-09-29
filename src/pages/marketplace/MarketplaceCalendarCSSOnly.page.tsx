@@ -12,6 +12,7 @@ import { TFunction } from 'i18next';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
+import { getWorkshops } from '#libs/meta-activity/selectors';
 import MarketplaceCalendarComponentV2 from '#libs/marketplace/components/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#libs/marketplace/components/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
 import { getCurrentBasket } from '#libs/checkout/selectors';
@@ -36,7 +37,7 @@ import {
   snackbarError as snackbarErrorActions,
 } from '#libs/snackbar/actions';
 
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { fetchLevelBulk as fetchLevelBulkAction } from '#libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
@@ -80,6 +81,7 @@ import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import { buildUrlParams } from '../../http';
+import uniq from 'lodash/uniq';
 
 type OwnProps = {
   companyId: number;
@@ -151,6 +153,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       this.props.filters.coaches || [],
       this.props.companyId,
     );
+
+    this.props.fetchLevelBulk({
+      company: this.props.companyId,
+      id__in: this.props.filters.levels || [],
+    });
 
     const optionalParams: any = {};
 
@@ -297,6 +304,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       establishmentGroupList,
       loading,
       metaActivities,
+      workshops,
       compactMode,
     } = this.props;
 
@@ -317,6 +325,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         uniqueEstIds.includes(e.id),
       );
     }
+
+    const withWorkshops = [...metaActivities, ...workshops];
 
     return (
       <>
@@ -355,7 +365,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           customLevels={customLevels}
           activeCustomLevels={activeCustomLevels}
           establishments={filteredEstablishments}
-          metaActivities={metaActivities}
+          metaActivities={
+            this.props.theme.show_workshops_customer
+              ? withWorkshops
+              : metaActivities
+          }
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
           toggleFiltersOpen={this.toggleFiltersOpen}
@@ -405,6 +419,7 @@ const mapStateToProps = (state: RootState) => ({
   coaches: getCoaches(state),
   establishments: getAllEstablishments(state),
   metaActivities: getPureMetaActivities(state),
+  workshops: getWorkshops(state),
   theme: themeSelectors.getTheme(state),
 
   currentBasket: getCurrentBasket(state),
@@ -434,7 +449,7 @@ const mapDispatchToProps = {
   addItemToBasket: addItemToBasketAction,
   fetchAllEstablishmentGroup,
   fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
-  fetchLevelList: fetchLevelListAction,
+  fetchLevelBulk: fetchLevelBulkAction,
 
   fetchGroupsOfferBulk: fetchGroupsOfferBulkAction,
 };
@@ -471,9 +486,9 @@ const mapWithHandlers = {
           props.fetchGroupsOfferBulk(
             Array.from(new Set(offerList.map((o) => o.group))),
           );
-          props.fetchLevelList({
+          props.fetchLevelBulk({
             company: props.companyId,
-            id__in: [...offerList.map((o: any) => o.custom_level)],
+            id__in: uniq([...offerList.map((o: any) => o.custom_level)]),
           });
         },
       });

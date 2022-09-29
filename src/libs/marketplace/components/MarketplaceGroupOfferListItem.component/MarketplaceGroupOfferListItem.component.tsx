@@ -55,6 +55,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   theme,
   loading,
   showOfferFilling,
+  showOfferGender,
   hideCoach,
   bookedOffers,
   getCoach,
@@ -308,6 +309,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       coach={getCoach(offer.coach_override || offer.coach)}
                       getLevel={getLevel}
                       showOfferFilling={showOfferFilling}
+                      showOfferGender={showOfferGender}
                       theme={theme}
                       hideCoach={hideCoach}
                       loading={false}

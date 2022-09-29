@@ -122,7 +122,7 @@ export default handleActions(
       );
     },
     [resetAction]: (state) => {
-      return state.setIn(['byId'], {}).setIn(['allIds'], []);
+      return state.setIn(['allIds'], []);
     },
     [deleteActions.success.toString()]: (state, { payload }) => {
       return state.without(['allIds', payload]).without(['byId', payload]);

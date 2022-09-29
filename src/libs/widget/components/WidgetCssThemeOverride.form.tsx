@@ -32,7 +32,10 @@ type OuterProps = {
   initial: WidgetCustomCSS;
   theme: CompanyTheme;
   // eslint-disable-next-line react/no-unused-prop-types
-  onSubmit: (values: WidgetCustomCSS) => void;
+  onSubmit: (
+    values: WidgetCustomCSS,
+    setSubmitting?: (bool: boolean) => void,
+  ) => void;
   onPreview: (values: WidgetCustomCSS) => void;
 };
 
@@ -388,8 +391,9 @@ export default compose<any, OuterProps>(
     },
     enableReinitialize: true,
     validationSchema: WidgetCssThemeOverrideSchema,
-    handleSubmit: (values, { props: { onSubmit } }) => {
-      onSubmit(values);
+    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      setSubmitting(true);
+      onSubmit(values, setSubmitting);
     },
   }),
 )(WidgetCssThemeOverrideForm);

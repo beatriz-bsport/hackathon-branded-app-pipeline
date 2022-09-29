@@ -83,7 +83,6 @@
   color: var(--color-primary-main);
   border-radius: var(--spacing-4);
   width: var(--spacing-5);
-  height: var(--spacing-5);
 }
 .bs-week__listMode__content {
   grid-column: 1 / 8;

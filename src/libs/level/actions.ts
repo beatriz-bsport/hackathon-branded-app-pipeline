@@ -1,6 +1,7 @@
 // @flow
 import { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
+import { ThunkDispatch } from 'redux-thunk';
 import { OptionCallback } from '../../state/types';
 
 import {
@@ -38,6 +39,42 @@ export const fetchLevelList = (
     dispatch(fetchLevelListActions.loading(false));
   };
 };
+
+export const fetchLevelBulkActions = {
+  error: createAction('LEVEL/FETCH_BULK/ERROR'),
+  loading: createAction('LEVEL/FETCH_BULK/LOADING'),
+  success: createAction('LEVEL/FETCH_BULK/SUCCESS'),
+  reset: createAction('LEVEL/RESET/SUCCESS'),
+};
+
+export const fetchLevelBulk = (
+  params: LevelFilterSet = {},
+  options?: OptionCallback<Level[]>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchLevelBulkActions.loading(true));
+    dispatch(fetchLevelBulkActions.error(null));
+
+    try {
+      const response = await fetchLevelListAPI(params);
+
+      dispatch(fetchLevelBulkActions.success(response.data));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      dispatch(fetchLevelBulkActions.error(error));
+      options?.onError(error);
+    }
+    dispatch(fetchLevelBulkActions.loading(false));
+  };
+};
+
+export const resetAction = fetchLevelBulkActions.reset;
+
+export function resetLevels() {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
+    dispatch(resetAction(true));
+  };
+}
 
 export const fetchLevelActions = {
   error: createAction('LEVEL/FETCH_DETAIL/ERROR'),

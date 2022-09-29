@@ -1,12 +1,15 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import uniq from 'lodash/uniq';
 import {
   fetchLevelListActions,
   fetchLevelActions,
   updateLevelActions,
   createLevelActions,
   deleteLevelActions,
+  resetAction,
+  fetchLevelBulkActions,
 } from './actions';
 import { Level, LevelState } from './types';
 
@@ -38,6 +41,25 @@ export default handleActions<Immutable.Immutable<LevelState>>(
           ['allIds'],
           payload.map((l: Level) => l.id),
         ),
+    [fetchLevelBulkActions.loading.toString()]: (state, { payload }) =>
+      state.set('loading', payload),
+    [fetchLevelBulkActions.error.toString()]: (state, { payload }) =>
+      state.set('error', payload),
+    [fetchLevelBulkActions.success.toString()]: (state, { payload }) =>
+      state
+        .merge(
+          {
+            byId: payload.reduce((acc: any, l: Level) => {
+              acc[l.id] = l;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['allIds'],
+          uniq([...state.allIds, ...payload.map((l: Level) => l.id)]),
+        ),
 
     [fetchLevelActions.loading.toString()]: (state, { payload }) =>
       state.set('loading', payload),
@@ -66,6 +88,10 @@ export default handleActions<Immutable.Immutable<LevelState>>(
         },
         { deep: true },
       ),
+
+    [resetAction.toString()]: (state) => {
+      return state.set('allIds', []);
+    },
 
     [createLevelActions.loading.toString()]: (state, { payload }) =>
       state.set('loading', payload),

@@ -27,7 +27,7 @@
 }
 
 .bs-book-button-card::before {
-  transition: 0.2s var(--color-primary-light);
+  transition: 0.2s;
   color: var(--color-primary-main);
 }
 

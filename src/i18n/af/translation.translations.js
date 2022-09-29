@@ -1044,7 +1044,7 @@ exports.default = {
     substituted: 'Absent',
     discover: 'Découvrir',
     bookGroups: 'Réservez un groupe de séance',
-    cancel: 'retour',
+    cancel: 'Fermer',
     book: 'Réserver',
     teacher: 'Professeur',
     backToCalendar: 'Précédent',

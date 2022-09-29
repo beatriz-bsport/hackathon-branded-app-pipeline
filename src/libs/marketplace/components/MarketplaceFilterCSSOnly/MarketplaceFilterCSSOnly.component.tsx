@@ -86,17 +86,12 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   const metaActivitiesOption = useMemo(
     () =>
       metaActivities
-        .filter((ma) => {
-          if (variant === 'activity') {
-            return ma.customer_enabled && !ma.is_workshop;
-          }
-          return ma.customer_enabled && ma.is_workshop;
-        })
+        .filter((ma) => ma.customer_enabled)
         .map((ma) => ({
           label: ma.name,
           value: ma.id,
         })),
-    [metaActivities, variant],
+    [metaActivities],
   );
 
   const disabledEstablishmentOptions = useMemo(() => {

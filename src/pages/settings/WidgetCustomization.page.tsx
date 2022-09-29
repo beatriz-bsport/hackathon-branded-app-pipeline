@@ -142,7 +142,10 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     });
   };
 
-  handleSubmit = (values: WidgetCustomCSS) => {
+  handleSubmit = (
+    values: WidgetCustomCSS,
+    setSubmitting?: (bool: boolean) => void,
+  ) => {
     this.props.updateCompanyTheme(
       this.props.theme.company,
       {
@@ -151,6 +154,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       {
         onSuccess: () => {
           this.props.fetchCompanyTheme(this.props.theme.company);
+          setSubmitting(false);
         },
       },
     );

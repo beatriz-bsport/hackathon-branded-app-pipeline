@@ -24,6 +24,7 @@ type Props = {
   metaActivityloading: boolean;
   offerDetailsloading: boolean;
   showOfferFilling: boolean;
+  showOfferGender: boolean;
   hasMoreToLoad: boolean;
   bookedOffers: number[];
   getOffersListByMetaActivity: (id: number) => any;
@@ -45,6 +46,7 @@ const MarketplaceWorkshop: React.FC<Props> = ({
   metaActivityloading,
   offerDetailsloading,
   showOfferFilling,
+  showOfferGender,
   hasMoreToLoad,
   bookedOffers,
   getOffersListByMetaActivity,
@@ -131,6 +133,7 @@ const MarketplaceWorkshop: React.FC<Props> = ({
                 getGroup={getGroup}
                 metaActivity={m}
                 showOfferFilling={showOfferFilling}
+                showOfferGender={showOfferGender}
                 loading={false}
                 hideCoach={hideCoach}
                 bookedOffers={bookedOffers}

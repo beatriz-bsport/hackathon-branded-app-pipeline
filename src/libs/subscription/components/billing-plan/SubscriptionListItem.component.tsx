@@ -2,6 +2,7 @@ import React from 'react';
 
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/styles';
+import { Theme, ListItem } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import TodayIcon from '@material-ui/icons/Today';
@@ -10,9 +11,9 @@ import moment from 'moment-timezone';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
-import { ListItem } from '@material-ui/core';
 import { getCurrencyDisplay } from '../../../theme/selectors';
-import { getStatus } from '../../utils';
+import { getStatus, isPaused } from '../../utils';
+import { BILLING_PLAN_STATUS_IS_PAUSED } from '../../constants';
 
 import SubscriptionPaymentMethod from '../SubscriptionPaymentMethod.component';
 import RedButton from '../../../../components/button/RedButton.component';
@@ -93,6 +94,12 @@ export const SubscriptionListItem = (props: Props) => {
   if (!subscription) {
     return null;
   }
+  const subscriptionStatus = getStatus(
+    isPaused(subscription.pauses)
+      ? BILLING_PLAN_STATUS_IS_PAUSED
+      : subscription.status,
+    t,
+  );
   if (variant === 'listItem') {
     return (
       <ListItem className={classes.paperContainer} divider>
@@ -129,7 +136,7 @@ export const SubscriptionListItem = (props: Props) => {
           {subscription.status && (
             <div className={classes.row}>
               <InfoIcon className={classes.leftIcon} />
-              <Typography>{getStatus(subscription.status, t)}</Typography>
+              <Typography>{subscriptionStatus}</Typography>
             </div>
           )}
         </div>
@@ -170,7 +177,7 @@ export const SubscriptionListItem = (props: Props) => {
         )}
         <div className={classes.row}>
           <InfoIcon className={classes.leftIcon} />
-          <Typography>{getStatus(subscription.status, t)}</Typography>
+          <Typography>{subscriptionStatus}</Typography>
         </div>
       </div>
       {props.paymentMethodList && (
@@ -184,7 +191,7 @@ export const SubscriptionListItem = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paperContainer: {
     display: 'flex',
     flexDirection: 'column',

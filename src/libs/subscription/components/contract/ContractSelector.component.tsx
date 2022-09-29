@@ -1,8 +1,7 @@
-// @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import type { Contract } from '../types';
+import type { Contract } from '../../types';
 
 type Props = {
   contracts: Array<Contract>;

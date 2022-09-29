@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 
@@ -21,7 +19,9 @@ import api, {
   restoreContract as restoreContractAPI,
   fetchContractPauseList as fetchContractPauseListAPI,
   fetchContractPause as fetchContractPauseAPI,
-  createContractPause as createContractPauseAPI,
+  createOrUpdateContractPause as createOrUpdateContractPauseAPI,
+  deleteContractPause as deleteContractPauseAPI,
+  updateOnlyContractPauseName as updateOnlyContractPauseNameAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -31,11 +31,20 @@ import {
   snackbarError,
 } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
-import { PauseRequestData, SubscriptionQueryParams } from './types';
+import {
+  PauseRequestData,
+  Subscription,
+  SubscriptionQueryParams,
+  ContractPauseRequestData,
+  ContractPauseDetails,
+} from './types';
 
 import { fetchEventList } from '../event/actions';
 
-export const fetchSubscriptionEventList = (params = {}, options) =>
+export const fetchSubscriptionEventList = (
+  params: { event_types?: any } = {},
+  options: OptionCallback,
+) =>
   fetchEventList(
     'subscription',
     {
@@ -120,7 +129,7 @@ export const subscriptionBulkActions = {
 
 export function fetchSubscriptionBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options: OptionCallback<Subscription[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(subscriptionBulkActions.isLoading(true));
@@ -283,7 +292,7 @@ export const contractDetailActions = {
   success: createAction('SUBSCRIPTION_CONTRACT/DETAIL/SUCCESS'),
 };
 
-export function fetchContractDetail(id: number, options: OptionCallback) {
+export function fetchContractDetail(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(contractDetailActions.isLoading(true));
     dispatch(contractDetailActions.error(null));
@@ -318,7 +327,7 @@ export function createOrUpdateContract(data: any, options: OptionCallback) {
   };
 }
 
-export function deleteContract(id: number, options: OptionCallback) {
+export function deleteContract(id: number, options: OptionCallback<number>) {
   return async (dispatch: Dispatch) => {
     dispatch(contractDeleteActions.error(null));
     dispatch(contractDeleteActions.isLoading(true));
@@ -339,7 +348,7 @@ export const contractRestoreActions = {
   isLoading: createAction('SUBSCRIPTION_CONTRACT/RESTORE/IS_LOADING'),
 };
 
-export function restoreContract(id: Number, options?: OptionCallback) {
+export function restoreContract(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(contractRestoreActions.isLoading(true));
     try {
@@ -485,7 +494,9 @@ export function freezeSubscription(
     dispatch(freezeSubscriptionActions.isLoading(true));
     try {
       const response = await freezeSubscriptionAPI(id, data);
-      dispatch(freezeSubscriptionActions.success(response.data));
+      if (response.data.subscription) {
+        dispatch(freezeSubscriptionActions.success(response.data.subscription));
+      }
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -739,11 +750,18 @@ export function cancelPause(
     dispatch(cancelPauseActions.isLoading(true));
     try {
       const response = await cancelPauseAPI(billingPlanId, id);
-      dispatch(cancelPauseActions.success(id));
-      dispatch(snackbarSuccess('subscription.freeze.deleteSuccess'));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            dispatch(cancelPauseActions.success(id));
+            if (options && options.onSuccess) {
+              options.onSuccess(response.data);
+              dispatch(snackbarSuccess('subscription.freeze.deleteSuccess'));
+            }
+          },
+        }),
+      );
     } catch (err) {
       console.error(err);
       dispatch(cancelPauseActions.error(err));
@@ -826,14 +844,22 @@ export const addContractPauseActions = {
   success: createAction('CONTRACT_PAUSE/CREATE/SUCCESS'),
 };
 
-export function createContractPause(data: any = {}, options: OptionCallback) {
+export function createOrUpdateContractPause(
+  data: ContractPauseRequestData,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(addContractPauseActions.isLoading(true));
     dispatch(addContractPauseActions.error(null));
 
     try {
-      const response = await createContractPauseAPI(data);
-      dispatch(addContractPauseActions.success(response.data));
+      const response = await createOrUpdateContractPauseAPI(data);
+      if (data.contract_pause_id) {
+        // The contract pause is already in allIds
+        dispatch(retrieveContractPauseActions.success(response.data));
+      } else {
+        dispatch(addContractPauseActions.success(response.data));
+      }
 
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       dispatch(
@@ -858,13 +884,84 @@ export function createContractPause(data: any = {}, options: OptionCallback) {
   };
 }
 
+export function updateOnlyContractPauseName(
+  data: {
+    contract_pause_id: number;
+    name: string;
+  },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveContractPauseActions.isLoading(true));
+    dispatch(retrieveContractPauseActions.error(null));
+    try {
+      const response = await updateOnlyContractPauseNameAPI(
+        data.contract_pause_id,
+        data.name,
+      );
+      dispatch(retrieveContractPauseActions.success(response.data));
+      dispatch(snackbarSuccess('contractPause.updateName.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(retrieveContractPauseActions.error(error));
+      dispatch(snackbarError('contractPause.updateName.error'));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(retrieveContractPauseActions.isLoading(false));
+  };
+}
+
+export const deleteContractPauseActions = {
+  error: createAction('CONTRACT_PAUSE/DELETE/ERROR'),
+  isLoading: createAction('CONTRACT_PAUSE/DELETE/IS_LOADING'),
+  success: createAction('CONTRACT_PAUSE/DELETE/SUCCESS'),
+};
+
+export function deleteContractPause(
+  contractPause: ContractPauseDetails,
+  options?: OptionCallback<any>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteContractPauseActions.isLoading(true));
+    dispatch(deleteContractPauseActions.error(null));
+
+    try {
+      const contractPauseId = contractPause.id;
+      const response = await deleteContractPauseAPI(contractPauseId);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            dispatch(deleteContractPauseActions.success(contractPauseId));
+            dispatch(fetchContractDetail(response.data.contract_id));
+          },
+        }),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(deleteContractPauseActions.error(error));
+      dispatch(snackbarError('contractPause.delete.error'));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(deleteContractPauseActions.isLoading(false));
+  };
+}
+
 export const retrieveContractPauseActions = {
   error: createAction('CONTRACT_PAUSE/RETRIEVE/ERROR'),
   isLoading: createAction('CONTRACT_PAUSE/RETRIEVE/IS_LOADING'),
   success: createAction('CONTRACT_PAUSE/RETRIEVE/SUCCESS'),
 };
 
-export function fetchContractPause(id: number, options: OptionCallback) {
+export function fetchContractPause(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveContractPauseActions.isLoading(true));
     dispatch(retrieveContractPauseActions.error(null));

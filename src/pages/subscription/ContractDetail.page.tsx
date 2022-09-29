@@ -15,7 +15,7 @@ import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-r
 import { OptionCallback } from '../../state/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
+import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 import ContractDeleteDialog from '#libs/subscription/components/SubscriptionContractDeleteModal.component';
 import SubscriptionContractFormDrawer from '#libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
@@ -38,7 +38,6 @@ import {
   updateMarketingNotification as updateMarketingNotificationAction,
   deleteMarketingNotification as deleteMarketingNotificationAction,
 } from '#libs/marketing/actions';
-import ContractPauseFormDialog from '#libs/subscription/components/ContractPauseFormDialog.component';
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
@@ -52,13 +51,15 @@ import {
 } from '#libs/subscription/selectors';
 import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
 import { withMember } from '#libs/order/selectors';
-import ContractDetail from '#libs/subscription/components/ContractDetail.component';
-import ContractPauseDetail from '#libs/subscription/components/ContractPauseListDetail.component';
+import ContractDetail from '#libs/subscription/components/contract/ContractDetail.component';
+import ContractPauseListItemDetail from '#libs/subscription/components/contract/ContractPauseListItemDetail.component';
 import { fetchTagList } from '#libs/notification-rule/actions';
 import {
   fetchContractDetail as fetchContractDetailAction,
   deleteContract,
-  createContractPause,
+  createOrUpdateContractPause,
+  updateOnlyContractPauseName,
+  deleteContractPause,
   createOrUpdateContract as createOrUpdateContractAction,
   fetchSubscriptionList as fetchSubscriptionListAction,
   fetchSubscriptionBulk,
@@ -77,6 +78,7 @@ import { getMergeTags } from '#libs/marketing/utils';
 import { getTagCategories } from '#libs/notification-rule/selectors';
 import MarketingRuleFormContract from '#libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
 import MarketingRuleListItemContract from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
+import ContractPauseFormDialog from '#libs/subscription/components/contract/ContractPauseFormDialog.component';
 
 type OwnProps = {
   contractId: number;
@@ -99,10 +101,12 @@ type OwnProps = {
   fetchSubscriptionsByContract: (
     page: number,
     page_size: number,
-    options?: OptionCallback,
+    options?: OptionCallback<Array<Subscription>>,
   ) => void;
   fetchMembersBySubscription: (subscriptions: Array<Subscription>) => void;
   fetchNotificationsAndTemplates: () => void;
+  contractPauseToUpdate: ContractPauseDetails;
+  setContractPauseToUpdate: (cp?: ContractPauseDetails) => void;
 };
 
 type Props = OwnProps &
@@ -110,13 +114,9 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
-type State = {
-  page: number;
-};
-
 const SUBSCRIPTION_PAGINATION_SIZE = 7;
 
-export class ContractDetailPage extends Component<Props, State> {
+export class ContractDetailPage extends Component<Props> {
   componentDidMount() {
     this.props.fetchContractDetail(this.props.contractId);
     this.props.refreshAllPaymentPack();
@@ -131,13 +131,18 @@ export class ContractDetailPage extends Component<Props, State> {
     );
   }
 
+  onCreateNewContractPause = () => {
+    this.props.setContractPauseToUpdate(null);
+    this.props.setContractPauseOpen(true);
+  };
+
   render() {
     if (this.props.loading || !this.props.contract) {
       return <LinearProgress />;
     }
     const { classes, t } = this.props;
     return (
-      <div>
+      <div className={classes.pageContainer}>
         <Grid container spacing={3} alignItems="stretch">
           <Grid item xs={12} md={6} className={classes.detailContainer}>
             <ContractDetail
@@ -201,18 +206,15 @@ export class ContractDetailPage extends Component<Props, State> {
             </Typography>
             <Paper>
               <PaginatedSubscriptionList
-                contract={this.props.contract}
                 items={this.props.subscriptions.items}
                 nbItems={this.props.subscriptions.count}
-                onClick={(sub: Subscription) => {
-                  this.props.goToSubscription(sub.id);
-                }}
+                onClick={this.props.goToSubscription}
                 loading={this.props.subscriptions.loading}
                 page={this.props.page}
                 itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
                 onPageRequested={(page: number, pageSize: number) =>
                   this.props.fetchSubscriptionsByContract(page, pageSize, {
-                    onSuccess: (subs) => {
+                    onSuccess: (subs: Array<Subscription>) => {
                       this.props.fetchMembersBySubscription(subs);
                     },
                   })
@@ -227,60 +229,61 @@ export class ContractDetailPage extends Component<Props, State> {
               <div className={classes.pauseContainer}>
                 {!!this.props.contractPauseList.length && (
                   <Typography variant="h5">
-                    {t('contractPause.title')}
+                    {t('pauseV2.contractPause.title')}
                   </Typography>
                 )}
                 {this.props.contractPauseList.map(
                   (cp: ContractPauseDetails) => (
                     <div key={cp.id} className={classes.pauseItemContainer}>
-                      <ContractPauseDetail
+                      <ContractPauseListItemDetail
                         fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
                         fetchMembersBySubscription={
                           this.props.fetchMembersBySubscription
                         }
                         goToSubscription={this.props.goToSubscription}
                         contractPause={cp}
+                        onDeletePause={() => this.props.deleteContractPause(cp)}
+                        onUpdatePause={() => {
+                          this.props.setContractPauseToUpdate(cp);
+                          this.props.setContractPauseOpen(true);
+                        }}
+                        onUpdatePauseName={this.props.updateContractPauseName}
                       />
                     </div>
                   ),
                 )}
-                <div className={classes.pauseButtonContainer}>
-                  <Button
-                    onClick={() => this.props.setContractPauseOpen(true)}
-                    variant="outlined"
-                    color="primary"
-                  >
-                    <PauseIcon className={classes.leftIcon} />
-                    {t('contractPause.actions.add')}
-                  </Button>
-                </div>
               </div>
             )}
             {this.props.contractPauseFormOpen && (
               <ContractPauseFormDialog
-                onClose={() => this.props.setContractPauseOpen(false)}
-                subscriptionData={this.props.subscriptionData}
+                openForm={this.props.contractPauseFormOpen}
+                closeForm={() => this.props.setContractPauseOpen(false)}
                 contractId={this.props.contractId}
                 fetchMembersBySubscription={
                   this.props.fetchMembersBySubscription
                 }
                 fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
-                onSubmit={(data) =>
-                  this.props.createContractPause(
-                    { ...data, contract: this.props.contractId },
-                    { onSuccess: () => this.props.setContractPauseOpen(false) },
-                  )
-                }
+                onSubmit={this.props.createOrUpdateContractPause}
+                subscriptionData={this.props.subscriptionData}
+                contractPauseBeingEdited={this.props.contractPauseToUpdate}
               />
             )}
           </Grid>
-          <BottomActionButtons
+          <BottomActionsButtonCustom
+            buttonsProperties={[
+              {
+                onClick: this.onCreateNewContractPause,
+                text: t('pauseV2.common.actions.pause'),
+                icon: <PauseIcon />,
+                color: 'secondary',
+              },
+            ]}
             onEdit={() => this.props.setContractToEdit(this.props.contract)}
             onDelete={() => this.props.setDeleteModalOpen(true)}
           />
           <ContractDeleteDialog
             contractToDeleteId={
-              this.props.deleteOpen ? this.props.contract.id : null
+              this.props.deleteModalOpen ? this.props.contract.id : null
             }
             onClose={() => this.props.setDeleteModalOpen(false)}
             deleteContract={(id: number) => {
@@ -342,15 +345,11 @@ const styles = (theme: Theme) => ({
     justifyContent: 'center',
     paddingTop: theme.spacing(1),
   },
-  pauseButtonContainer: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: theme.spacing(2),
-  },
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  pageContainer: {
+    paddingBottom: '10vh',
   },
 });
 
@@ -385,7 +384,9 @@ const connector = connect(
     fetchContractDetail: fetchContractDetailAction,
     fetchContractPauseList,
     deleteContract,
-    createContractPause,
+    createOrUpdateContractPause,
+    deleteContractPause,
+    updateContractPauseName: updateOnlyContractPauseName,
     refreshAllPaymentPack,
     fetchPrivatePassList,
     fetchTagList,
@@ -428,6 +429,7 @@ export default compose(
   withState('selectedNotification', 'setSelectedNotification', null),
   withState('contractPauseFormOpen', 'setContractPauseOpen', false),
   withState('contractPauseLoading', 'setContractPauseLoading', true),
+  withState('contractPauseToUpdate', 'setContractPauseToUpdate', null),
   connector,
   withHandlers({
     fetchSubscriptionsByContract:

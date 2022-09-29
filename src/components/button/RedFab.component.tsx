@@ -1,5 +1,4 @@
-// @flow
-import React, { Node } from 'react';
+import React, { ReactNode } from 'react';
 
 import Fab from '@material-ui/core/Fab';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -13,12 +12,16 @@ const redTheme = createTheme({
     },
   },
   typography: {
+    // @ts-ignore
     useNextVariants: true,
   },
 });
 
 type Props = {
-  children: Node,
+  children: ReactNode;
+  id: string;
+  className: string;
+  onClick: () => void;
 };
 
 export default (props: Props) => (

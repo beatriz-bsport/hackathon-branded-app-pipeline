@@ -3,20 +3,22 @@ import { useTranslation } from 'react-i18next';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
 
 type Props = {
+  deleteContent: string;
   onCancelClick: () => void;
   onConfirmClick: () => void;
+  open: boolean;
 };
 
 export const PauseDeleteDialog = (props: Props) => {
   const { t } = useTranslation('subscription');
   const buttons = [
     {
-      label: t('pause.dialogs.common.cancel'),
+      label: t('pauseV2.common.actions.cancel'),
       variant: 'text',
       onClick: props.onCancelClick,
     },
     {
-      label: t('pause.dialogs.common.confirm'),
+      label: t('pauseV2.common.actions.confirm'),
       variant: 'text',
       onClick: props.onConfirmClick,
       color: 'primary',
@@ -24,10 +26,10 @@ export const PauseDeleteDialog = (props: Props) => {
   ];
   return (
     <CustomMuiDialog
-      open
-      title={t('pause.dialogs.delete.title')}
+      open={props.open}
+      title={t('pauseV2.common.deleteDialog.title')}
       buttons={buttons}
-      content={t('pause.dialogs.delete.content')}
+      content={props.deleteContent}
     />
   );
 };

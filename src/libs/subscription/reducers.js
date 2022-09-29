@@ -24,6 +24,7 @@ import {
   listPlannedInvoiceActions,
   listContractPauseActions,
   addContractPauseActions,
+  deleteContractPauseActions,
   retrieveContractPauseActions,
   updatePlannedInvoiceActions,
 } from './actions';
@@ -163,6 +164,12 @@ export default handleActions(
     },
     [retrieveContractPauseActions.success]: (state, { payload }) => {
       return state.setIn(['contractPause', 'byId', payload.id], payload);
+    },
+    [deleteContractPauseActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['contractPause', 'allIds'],
+        [...state.contractPause.allIds].filter((id: number) => id !== payload),
+      );
     },
     [addContractPauseActions.success]: (state, { payload }) => {
       return state

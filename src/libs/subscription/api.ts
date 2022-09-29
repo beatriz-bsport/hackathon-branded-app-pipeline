@@ -9,7 +9,11 @@ import {
   putAuth,
 } from '../../http';
 
-import { PauseRequestData, SubscriptionQueryParams } from './types';
+import {
+  PauseRequestData,
+  ContractPauseRequestData,
+  SubscriptionQueryParams,
+} from './types';
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(
@@ -182,6 +186,8 @@ export const cancelPause = async (billingPlanId: number, id: number) => {
   );
 };
 
+// ---------- CONTRACT PAUSE ----------
+
 export const fetchContractPauseList = async (params: any = {}) => {
   return getAuth(
     `${API_URI}/subscription/contract_pause/${buildUrlParams(params)}`,
@@ -192,12 +198,41 @@ export const fetchContractPause = async (id: number) => {
   return getAuth(`${API_URI}/subscription/contract_pause/${id}/`);
 };
 
-export const fetchContractPauseInfo = async (data: any) => {
+export const fetchContractPauseInfo = async (data: {
+  contract_id: number;
+  from_date: string;
+  until_date: string;
+  contract_pause_id?: number;
+}) => {
   return postAuth(`${API_URI}/subscription/contract_pause/get_info/`, data);
 };
 
-export const createContractPause = async (data: any) => {
+export const createOrUpdateContractPause = async (
+  data: ContractPauseRequestData,
+) => {
+  if (data.contract_pause_id) {
+    return patchAuth(
+      `${API_URI}/subscription/contract_pause/${data.contract_pause_id}/`,
+      data,
+    );
+  }
   return postAuth(`${API_URI}/subscription/contract_pause/`, data);
+};
+
+export const updateOnlyContractPauseName = async (
+  contract_pause_id: number,
+  name: string,
+) => {
+  return postAuth(
+    `${API_URI}/subscription/contract_pause/${contract_pause_id}/update_only_name/`,
+    { name },
+  );
+};
+
+export const deleteContractPause = async (contract_pause_id: number) => {
+  return deleteAuth(
+    `${API_URI}/subscription/contract_pause/${contract_pause_id}/`,
+  );
 };
 
 export default {

@@ -8,6 +8,7 @@ import TimerOffIcon from '@material-ui/icons/TimerOff';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Tooltip from '@material-ui/core/Tooltip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
@@ -17,7 +18,8 @@ import { SubscriptionPause, Subscription } from '../../types';
 
 type OwnProps = {
   pause: SubscriptionPause;
-  isPast: boolean;
+  dateStartIsPast: boolean;
+  dateEndIsPast: boolean;
   deletePause: (
     pauseId: number,
     options?: OptionCallback<Subscription>,
@@ -34,6 +36,8 @@ const PauseDetailListItem = (props: Props) => {
   const { t } = useTranslation('subscription');
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openUpdateTooltip, setOpenUpdateTooltip] = useState(false);
+  const [openCancelTooltip, setOpenCancelTooltip] = useState(false);
 
   const onUpdatePause = () => {
     setMenuAnchor(null);
@@ -57,6 +61,22 @@ const PauseDetailListItem = (props: Props) => {
     setMenuAnchor(null);
   };
 
+  const handleHoverInUpdatePause = () => {
+    setOpenUpdateTooltip(!!props.pause.contract_pause || props.dateEndIsPast);
+  };
+
+  const handleHoverOutUpdatePause = () => {
+    setOpenUpdateTooltip(false);
+  };
+
+  const handleHoverInCancelPause = () => {
+    setOpenCancelTooltip(props.dateStartIsPast);
+  };
+
+  const handleHoverOutCancelPause = () => {
+    setOpenCancelTooltip(false);
+  };
+
   return (
     <React.Fragment>
       <div className={classes.listItem}>
@@ -64,19 +84,20 @@ const PauseDetailListItem = (props: Props) => {
         <div className={classes.smallLinkH} />
         <div className={classes.listItemBody}>
           <Typography>
-            {t('pause.label', {
+            {t('pauseV2.common.listItem.label', {
               fromDate: moment(props.pause.from_date).format('L'),
-              untilDate: moment(props.pause.from_date)
-                .add(props.pause.days - 1, 'days')
-                .format('L'),
+              untilDate: props.pause.until_date
+                ? moment(props.pause.until_date).format('L')
+                : moment(props.pause.from_date)
+                    .add(props.pause.days - 1, 'days')
+                    .format('L'),
             })}
           </Typography>
           <Typography variant="caption" color="textSecondary">
-            {t('pause.createdAt') +
-              moment(props.pause.date_created).format('L') +
-              t('pause.secondaryLabel', {
-                note: props.pause.name,
-              })}
+            {`${
+              t('pauseV2.common.listItem.createdAt') +
+              moment(props.pause.date_created).format('L')
+            } : ${props.pause.name}`}
           </Typography>
         </div>
         <div className={classes.expandedLink} />
@@ -92,24 +113,61 @@ const PauseDetailListItem = (props: Props) => {
         anchorEl={menuAnchor}
         open={!!menuAnchor}
       >
-        <MenuItem onClick={onDeletePause} disabled={props.isPast}>
-          <ListItemIcon>
-            <TimerOffIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">{t('pause.menu.delete')}</Typography>
-        </MenuItem>
-        <MenuItem onClick={onUpdatePause} disabled={props.isPast}>
-          <ListItemIcon>
-            <DateRangeIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">{t('pause.menu.change')}</Typography>
-        </MenuItem>
+        <Tooltip
+          open={openCancelTooltip}
+          title={t('pauseV2.common.menu.cancelForbidden')}
+          onPointerEnter={handleHoverInCancelPause}
+          onPointerLeave={handleHoverOutCancelPause}
+          onTouchStart={handleHoverInCancelPause}
+          onTouchEnd={handleHoverOutCancelPause}
+        >
+          <span>
+            <MenuItem onClick={onDeletePause} disabled={props.dateStartIsPast}>
+              <ListItemIcon>
+                <TimerOffIcon fontSize="small" />
+              </ListItemIcon>
+              <Typography variant="inherit">
+                {t('pauseV2.common.menu.delete')}
+              </Typography>
+            </MenuItem>
+          </span>
+        </Tooltip>
+        <Tooltip
+          open={openUpdateTooltip}
+          title={t(
+            `pauseV2.common.menu.${
+              props.dateEndIsPast
+                ? 'changeForbidden'
+                : 'changeContractForbidden'
+            }`,
+          )}
+          onPointerEnter={handleHoverInUpdatePause}
+          onPointerLeave={handleHoverOutUpdatePause}
+          onTouchStart={handleHoverInUpdatePause}
+          onTouchEnd={handleHoverOutUpdatePause}
+        >
+          <span>
+            <MenuItem
+              onClick={onUpdatePause}
+              disabled={props.dateEndIsPast || !!props.pause.contract_pause}
+            >
+              <ListItemIcon>
+                <DateRangeIcon fontSize="small" />
+              </ListItemIcon>
+              <Typography variant="inherit">
+                {t('pauseV2.common.menu.change')}
+              </Typography>
+            </MenuItem>
+          </span>
+        </Tooltip>
       </Menu>
       {!props.isLastPauseAfterEndItem && <div className={classes.endLine} />}
       {openDeleteDialog && (
         <PauseDeleteDialog
+          open={openDeleteDialog}
           onConfirmClick={onConfirmDeletePause}
           onCancelClick={onCancelDeletePause}
+          deleteContent={t('pauseV2.subscriptionPause.deleteDialogContent')}
         />
       )}
     </React.Fragment>

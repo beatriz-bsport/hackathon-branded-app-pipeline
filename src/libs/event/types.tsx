@@ -5,6 +5,11 @@ type SubscriptionEventPauseData = {
   nb_days?: number;
   pause?: number;
   pause_name?: string;
+  from_date?: string;
+  until_date?: string;
+  created_by_staff?: string;
+  deleted_by_staff?: string;
+  is_update?: boolean;
 };
 
 type SubscriptionEventUpdateData = {
@@ -59,9 +64,9 @@ export type SubscriptionEventSpec = Record<
   any,
   {
     getPrimaryText: (event?: SubscriptionEvent, t?: TFunction) => any;
+    getSecondaryText?: (event: SubscriptionEvent, t?: TFunction) => string;
     i18nText: string;
     icon: any;
-    secondarySuffix?: (event: SubscriptionEvent, t?: TFunction) => string;
     titlePrefix?: (event: SubscriptionEvent) => string;
   }
 >;

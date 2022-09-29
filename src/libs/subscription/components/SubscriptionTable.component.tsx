@@ -13,7 +13,8 @@ import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDate } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { Subscription, SubscriptionQueryParams } from '../types';
-import { getStatus } from '../utils';
+import { getStatus, isPaused } from '../utils';
+import { BILLING_PLAN_STATUS_IS_PAUSED } from '../constants';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -30,7 +31,10 @@ const renderRows = (subscriptions: Array<Subscription>, t: TFunction) => {
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
-    status: getStatus(sub.status, t),
+    status: getStatus(
+      isPaused(sub.pauses) ? BILLING_PLAN_STATUS_IS_PAUSED : sub.status,
+      t,
+    ),
     recurrent_price: `${getCurrencyDisplayWithPrice(
       parseFloat(sub.recurrent_price).toFixed(2),
     )}`,

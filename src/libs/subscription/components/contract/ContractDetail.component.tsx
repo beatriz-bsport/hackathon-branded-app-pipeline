@@ -1,7 +1,4 @@
-// @flow
-
 import React from 'react';
-
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -9,20 +6,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
-import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
-import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
-import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import TypographyMultiline from '#components/typo/TypographyMultiline.component';
+import TypographyWithShowMore from '#components/typo/TypographyWithShowMore.component';
+import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
+import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { ContractWithPaymentPack } from '../../types';
 
 type Props = {
-  contract: Contract,
-  goToPack: (id: number) => void,
-  goToPrivatePass: (id: number) => void,
-  company: { id: number, name: string },
-  snackbarSuccess: (string) => void,
-  goToCombo: (number) => void,
+  contract: ContractWithPaymentPack;
+  goToPack: (id: number) => void;
+  goToPrivatePass: (id: number) => void;
+  company: { id: number; name: string };
+  snackbarSuccess: (snackbarText: string) => void;
+  goToCombo: (paymentComboId: number) => void;
 };
 
 const ContractDetail = (props: Props) => {
@@ -38,7 +36,7 @@ const ContractDetail = (props: Props) => {
     payment_pack,
   } = props.contract;
   const classes = useStyles();
-  const { t } = useTranslation(['subscription']);
+  const { t } = useTranslation('subscription');
 
   return (
     <div>

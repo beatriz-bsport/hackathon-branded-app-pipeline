@@ -844,6 +844,13 @@ exports.default = {
       error:
         'Impossible de mettre en pause pour le moment, veuillez réessayer plus tard',
     },
+    delete: {
+      error: 'Impossible de supprimer la pause pour le moment.',
+    },
+    updateName: {
+      success: 'Le nom de la pause a bien été modifié',
+      error: "Le nom de la pause n'a pas pu être modifié",
+    },
   },
   signup: {
     emailAlreadyExists: 'Cet email est déjà utilisé',

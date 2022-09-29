@@ -17,7 +17,7 @@ import { MetaActivity } from '../../meta-activity/types';
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import PrivateServiceSelector from '../../private-service/components/service/PrivateServiceSelector.component';
-import ContractSelector from '#libs/subscription/components/ContractSelector.component';
+import ContractSelector from '#libs/subscription/components/contract/ContractSelector.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';

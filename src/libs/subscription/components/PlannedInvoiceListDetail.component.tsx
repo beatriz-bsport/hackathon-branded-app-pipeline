@@ -56,7 +56,7 @@ const Status: FC<{
     return (
       <Tooltip title={t('plannedInvoiceStatus.reverted')}>
         <span>
-          <UndoIcon color="secondary" className={classes.icon} />;
+          <UndoIcon color="secondary" className={classes.icon} />
         </span>
       </Tooltip>
     );
@@ -438,14 +438,25 @@ export function PlannedInvoiceListDetail(props: Props) {
           fullDisable = fullDisable || pl.is_last_invoice_before_scheduled_stop;
           return (
             <React.Fragment>
-              {relatedPauses.map((p: SubscriptionPause) => (
+              {relatedPauses.map((pause: SubscriptionPause) => (
                 <PauseDetailListItem
-                  isPast={moment(p.from_date).isBefore(moment())}
+                  dateStartIsPast={
+                    moment(pause.from_date).diff(
+                      moment().format('YYYY-MM-DD'),
+                      'days',
+                    ) < 0
+                  }
+                  dateEndIsPast={
+                    moment(pause.until_date).diff(
+                      moment().format('YYYY-MM-DD'),
+                      'days',
+                    ) < 0
+                  }
                   deletePause={props.cancelPause}
                   updateEventList={props.updateEventList}
-                  updatePause={() => setPauseToUpdate(p)}
-                  pause={p}
-                  key={p.id}
+                  updatePause={() => setPauseToUpdate(pause)}
+                  pause={pause}
+                  key={pause.id}
                 />
               ))}
               <div key={pl.id} className={classes.innerContainer}>
@@ -474,7 +485,18 @@ export function PlannedInvoiceListDetail(props: Props) {
       {pausesWithoutRelatedPlannedInvoicesBeforeEnd.length > 0 &&
         pausesWithoutRelatedPlannedInvoicesBeforeEnd.map((pause) => (
           <PauseDetailListItem
-            isPast={moment(pause.from_date).isBefore(moment())}
+            dateStartIsPast={
+              moment(pause.from_date).diff(
+                moment().format('YYYY-MM-DD'),
+                'days',
+              ) < 0
+            }
+            dateEndIsPast={
+              moment(pause.until_date).diff(
+                moment().format('YYYY-MM-DD'),
+                'days',
+              ) < 0
+            }
             deletePause={props.cancelPause}
             updateEventList={props.updateEventList}
             updatePause={() => setPauseToUpdate(pause)}
@@ -491,7 +513,18 @@ export function PlannedInvoiceListDetail(props: Props) {
           <div className={classes.endLine} />
           {pausesWithoutRelatedPlannedInvoicesAfterEnd.map((pause) => (
             <PauseDetailListItem
-              isPast={moment(pause.from_date).isBefore(moment())}
+              dateStartIsPast={
+                moment(pause.from_date).diff(
+                  moment().format('YYYY-MM-DD'),
+                  'days',
+                ) < 0
+              }
+              dateEndIsPast={
+                moment(pause.until_date).diff(
+                  moment().format('YYYY-MM-DD'),
+                  'days',
+                ) < 0
+              }
               deletePause={props.cancelPause}
               updateEventList={props.updateEventList}
               updatePause={() => setPauseToUpdate(pause)}

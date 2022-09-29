@@ -2,6 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import Fab from '@material-ui/core/Fab';
 import { Theme, makeStyles } from '@material-ui/core';
+import {
+  BottomActionButtonBaseList,
+  Props as ButtonBaseListProps,
+} from './BottomActionsButton.component';
 
 type OwnProps = {
   buttonsProperties: Array<{
@@ -9,7 +13,7 @@ type OwnProps = {
     text?: string;
     icon?: any;
     color?: 'primary' | 'secondary';
-    variant?: 'extended' | 'circular' | 'round';
+    fabVariant?: 'extended' | 'circular' | 'round';
     disabled?: boolean;
     keepTextUnderSelectedMinWidth?: boolean;
   }>;
@@ -21,14 +25,14 @@ type ButtonProperties = {
   text?: string;
   icon?: any;
   color?: 'primary' | 'secondary';
-  variant?: 'extended' | 'circular' | 'round';
+  fabVariant?: 'extended' | 'circular' | 'round';
   disabled?: boolean;
   keepTextUnderSelectedMinWidth?: boolean;
 };
 
-type Props = OwnProps;
+type Props = OwnProps & ButtonBaseListProps;
 
-export const GenericBottomActionsButton: React.FC<Props> = (props: Props) => {
+export const BottomActionsButtonCustom: React.FC<Props> = (props: Props) => {
   const minWidth = props.minWidth || 'xs';
   const classes = useStyles({ minWidth });
   return (
@@ -37,7 +41,7 @@ export const GenericBottomActionsButton: React.FC<Props> = (props: Props) => {
         (button: ButtonProperties, index: number) => (
           <Fab
             key={`bottom_action_${index}`}
-            variant={button.variant ?? 'extended'}
+            variant={button.fabVariant ?? 'extended'}
             color={button.color ?? 'primary'}
             className={classes.actionButton}
             onClick={button.onClick}
@@ -56,6 +60,7 @@ export const GenericBottomActionsButton: React.FC<Props> = (props: Props) => {
           </Fab>
         ),
       )}
+      <BottomActionButtonBaseList {...props} />
     </div>
   );
 };
@@ -86,4 +91,4 @@ const useStyles = makeStyles<
   },
 }));
 
-export default GenericBottomActionsButton;
+export default BottomActionsButtonCustom;

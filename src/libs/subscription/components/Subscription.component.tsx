@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import EventPanel from '#libs/event/components/EventPanel.component';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import PlannedInvoiceListDetail from './PlannedInvoiceListDetail.component';
-import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
+import PauseV1ListItem from './pause/PauseV1ListItem.component';
 import SubscriptionActionsV2 from './SubscriptionActionsV2.component';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod.component';
 import { Subscription, PauseRequestData } from '../types';
@@ -155,7 +155,7 @@ export function SubscriptionComponent(props: Props) {
           ) : null}
           <Paper className={classes.block}>
             {pauseListV1.map((p) => (
-              <SubscriptionPauseListItem pause={p} key={p.id} />
+              <PauseV1ListItem pause={p} key={p.id} />
             ))}
           </Paper>
         </Grid>

@@ -44,7 +44,7 @@ type OwnProps = {
   onBook?: () => void;
   onBookOne?: () => void;
   onBookMultiple?: () => void;
-  goToPack?: () => void;
+  goToPack?: boolean;
   onRestore?: () => void;
   draggable?: boolean;
   listeners?: DraggableSyntheticListeners;

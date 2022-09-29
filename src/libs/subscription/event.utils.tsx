@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment-timezone';
 
 import { BILLING_PLAN_EVENTS } from '@bsport/common/lib/master-data/events';
 
@@ -20,6 +21,66 @@ const getPrimaryText = (event: SubscriptionEvent, t: TFunction) =>
   `${t(`events.${event.event_type}`)}${` :  ${
     event.subscription ? event.subscription.name : ' - '
   }`}`;
+
+const getEventPauseSecondaryText = (
+  pauseEvent: SubscriptionEvent,
+  t: TFunction,
+) => {
+  const pauseId = pauseEvent.data.pause;
+  const pauseData = pauseEvent.subscription?.pauses?.find(
+    (_pause) => _pause.id === pauseId,
+  );
+  const pauseFromDate =
+    moment(pauseEvent.data.from_date).format('L') ||
+    moment(pauseData?.from_date).format('L');
+  const pauseUntilDate =
+    moment(pauseEvent.data.until_date).format('L') ||
+    moment(pauseData?.until_date).format('L');
+  const pauseCreatorStaffName =
+    pauseEvent.data.created_by_staff || pauseData?.creator_staff_name;
+  const dateCreation =
+    moment(pauseEvent.date * 1000).format('L') ||
+    moment(pauseData?.date_created).format('L');
+  const dateRangeText = t('subscription:pauseV2.common.listItem.fromToUntil', {
+    fromDate: pauseFromDate,
+    untilDate: pauseUntilDate,
+  });
+  const dateCreationAndStaffText = pauseCreatorStaffName
+    ? t('subscription:pauseV2.common.listItem.createdAtBy', {
+        dateCreation,
+        staffName: pauseCreatorStaffName,
+      })
+    : t('subscription:pauseV2.common.listItem.createdAt', {
+        dateCreation,
+      });
+  const isAnUpdatedPause = pauseEvent.data.is_update
+    ? ` (${t('subscription:pauseV2.common.listItem.isUpdated')})`
+    : '';
+  return `${dateRangeText} - ${dateCreationAndStaffText}${isAnUpdatedPause}`;
+};
+
+const getEventPauseDeletedSecondaryText = (
+  pauseDeleteEvent: SubscriptionEvent,
+  t: TFunction,
+) => {
+  const pauseFromDate = moment(pauseDeleteEvent.data.from_date).format('L');
+  const pauseUntilDate = moment(pauseDeleteEvent.data.until_date).format('L');
+  const pauseDeletorStaffName = pauseDeleteEvent.data.deleted_by_staff;
+  const dateDeletion = moment(pauseDeleteEvent.date * 1000).format('L');
+  const dateRangeText = t('subscription:pauseV2.common.listItem.fromToUntil', {
+    fromDate: pauseFromDate,
+    untilDate: pauseUntilDate,
+  });
+  const dateDeletionAndStaffText = pauseDeletorStaffName
+    ? t('subscription:pauseV2.common.listItem.deletedAtBy', {
+        dateDeletion,
+        staffName: pauseDeletorStaffName,
+      })
+    : t('subscription:pauseV2.common.listItem.deletedAt', {
+        dateDeletion,
+      });
+  return `${dateRangeText} - ${dateDeletionAndStaffText}`;
+};
 
 export const COMPANY_EVENTS = {
   [BILLING_PLAN_EVENTS.create]: {
@@ -56,16 +117,12 @@ export const COMPANY_EVENTS = {
   [BILLING_PLAN_EVENTS.pause]: {
     icon: <PauseIcon />,
     getPrimaryText,
+    getSecondaryText: getEventPauseSecondaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.pause}`,
   },
   [BILLING_PLAN_EVENTS.pause_deleted]: {
     icon: <BlockIcon />,
-    secondarySuffix: (event: SubscriptionEvent, t: TFunction) =>
-      event.data?.pause_name
-        ? ` - ${t('pause.eventItems.pauseDeleted', {
-            pause_name: event.data.pause_name,
-          })}`
-        : '',
+    getSecondaryText: getEventPauseDeletedSecondaryText,
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.pause_deleted}`,
   },

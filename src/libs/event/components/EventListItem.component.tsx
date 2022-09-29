@@ -24,29 +24,9 @@ export const SubscriptionEventListItem = (props: Props) => {
 
   const company_event = props.eventSpec[props.event.event_type];
   if (!company_event) return null;
-  const isPause = props.event.event_type === 'billing_plan-pause';
-  let secondaryContent = moment(props.event.date * 1000).format('LLLL');
+  const secondaryContent = moment(props.event.date * 1000).format('LLLL');
   const icon = company_event?.icon || <InfoIcon />;
-  if (isPause) {
-    const pauseId = props.event.data.pause;
-    const pauseData = props.event.subscription?.pauses?.find(
-      (_pause) => _pause.id === pauseId,
-    );
-    if (pauseData) {
-      secondaryContent = t('subscription:pause.eventItems.pauseCreated', {
-        dateStart: moment(pauseData.from_date).format('L'),
-        dateEnd: moment(pauseData.from_date)
-          .add(pauseData.days - 1, 'days')
-          .format('L'),
-        dateCreation: moment(pauseData.date_created).format('L'),
-        staffName: pauseData.creator_staff_name,
-      });
-    } else {
-      secondaryContent = t(
-        'subscription:pause.eventItems.pauseCreatedThenDeleted',
-      );
-    }
-  }
+
   return (
     <ListItem dense button={!!onClick} onClick={onClick}>
       <ListItemIcon>{icon}</ListItemIcon>
@@ -56,8 +36,7 @@ export const SubscriptionEventListItem = (props: Props) => {
           (company_event?.getPrimaryText || ((e) => e))(props.event, t)
         }
         secondary={
-          secondaryContent +
-          (company_event?.secondarySuffix || (() => ''))(props.event, t)
+          company_event?.getSecondaryText?.(props.event, t) || secondaryContent
         }
       />
     </ListItem>

@@ -33,6 +33,7 @@ export type Subscription<
   memberArchived?: string;
   first_billing_date?: string;
   description: string;
+  first_billing_date: string;
   has_ended: boolean;
   id: number;
   is_v2: boolean;
@@ -40,8 +41,11 @@ export type Subscription<
   legal_contract: string;
   member: number;
   memberName: string;
+  memberArchived: boolean;
   name: string;
+  name_without_member_name: string;
   nb_interval: number;
+  next_billing_date: string;
   pauses: Array<SubscriptionPause>;
   payment_combo: PaymentComboType;
   payment_engine: number;
@@ -53,6 +57,8 @@ export type Subscription<
   recurrence_basis: number;
   recurrent_price: number;
   recurrent_voucher: number;
+  status: number;
+  stripe_payment_method_id: string;
   trial_nb: number;
 };
 
@@ -80,6 +86,7 @@ export type SubscriptionPause = {
   first_paused_planned_invoice: number; // id of the planned invoice
   creator_staff_name?: string;
   version: string;
+  contract_pause?: number;
 };
 
 export type Contract = {
@@ -91,7 +98,7 @@ export type Contract = {
   name: string;
   description: string;
   contract: string;
-  manage_only: boolean;
+  manager_only: boolean;
   auto_renewal: boolean;
   flat_fee: number;
   recurrent_price: number;
@@ -108,7 +115,7 @@ export type ContractWithPaymentPack = {
   name: string;
   description: string;
   contract: string;
-  manage_only: boolean;
+  manager_only: boolean;
   auto_renewal: boolean;
   tax: string;
   flat_fee: number;
@@ -123,7 +130,7 @@ export type ContractWithPaymentPack = {
 };
 
 export type ContractPause = {
-  company: number;
+  company?: number;
   name: string;
   days: number;
   from_date?: string;
@@ -131,6 +138,8 @@ export type ContractPause = {
   contract?: number;
   id: number;
   date_created: string;
+  processing?: boolean;
+  creator_staff_name: string;
 };
 
 export type ContractPauseDetails = ContractPause & {
@@ -140,6 +149,16 @@ export type ContractPauseDetails = ContractPause & {
   billing_plan_invalid_ids: number[];
   billing_plan_success: any[];
   billing_plan_success_ids: number[];
+};
+
+export type ContractPauseRequestData = {
+  contract_pause_id?: number;
+  contract: number;
+  days: number;
+  from_date: string;
+  until_date: string;
+  name?: string;
+  action_pack_kind?: number;
 };
 
 export type PauseRequestData = {
@@ -157,10 +176,11 @@ export type PauseBadRequestResults = {
 
 export type PauseSubmitResults = {
   resultIdentifier: number;
-  subscriptionName: string;
-  subscriberName: string;
-  dateStart: string;
-  dateEnd: string;
+  subscriptionName?: string;
+  subscriberName?: string;
+  fromDate: string;
+  untilDate: string;
+  countSubscription?: number;
 };
 
 export type SubscriptionState = {
@@ -211,4 +231,5 @@ export type SubscriptionQueryParams = {
   page?: number;
   page_size?: number;
   member?: number;
+  id__in?: number[];
 };

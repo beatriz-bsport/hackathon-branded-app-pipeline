@@ -25,7 +25,7 @@ import {
   SubscriptionPause,
   Subscription,
 } from '../../types';
-import { PAUSE_RESULT_SUCCESS } from '../../constants';
+import { PAUSE_RESULT_SUCCESS, PAUSE_NAME_MAX_LENGTH } from '../../constants';
 
 const PAUSE_RESULT_FAIL_UNKNOWN_ERROR = 63200;
 
@@ -82,13 +82,13 @@ class PauseFormDialog extends React.Component<Props, State> {
     ) => {
       return [
         {
-          label: this.props.t('pause.dialogs.common.cancel'),
+          label: this.props.t('pauseV2.common.actions.cancel'),
           onClick: this.props.closeDialog,
         },
         {
           label:
             !loadingSubmitResponse &&
-            this.props.t('pause.dialogs.form.confirm'),
+            this.props.t('pauseV2.common.actions.save'),
           onClick: this.onSubmitClick,
           variant: 'contained',
           color: 'primary',
@@ -115,14 +115,18 @@ class PauseFormDialog extends React.Component<Props, State> {
     this.setState({ untilDate: nextDate });
   };
 
-  onSubmitSuccess = () => {
+  onSubmitSuccess = (data?: {
+    subscription: Subscription;
+    pause: { from_date?: string; until_date?: string };
+  }) => {
+    const { from_date, until_date } = data?.pause;
     this.setState((prevState: State) => ({
       submitResults: {
         resultIdentifier: PAUSE_RESULT_SUCCESS,
         subscriberName: this.props.subscription.memberName,
-        subscriptionName: this.props.subscription.name,
-        dateStart: moment(prevState.fromDate).format('L'),
-        dateEnd: moment(prevState.untilDate).format('L'),
+        subscriptionName: this.props.subscription.name_without_member_name,
+        fromDate: moment(from_date || prevState.fromDate).format('L'),
+        untilDate: moment(until_date || prevState.untilDate).format('L'),
       },
       openDialogResult: true,
       loadingSubmitResponse: false,
@@ -133,8 +137,8 @@ class PauseFormDialog extends React.Component<Props, State> {
   onSubmitError = (error: any) => {
     const params = {
       resultIdentifier: PAUSE_RESULT_FAIL_UNKNOWN_ERROR,
-      dateStart: '',
-      dateEnd: '',
+      fromDate: '',
+      untilDate: '',
     };
     if (error && error.response && error.response.status === 499) {
       params.resultIdentifier =
@@ -142,8 +146,8 @@ class PauseFormDialog extends React.Component<Props, State> {
       if (error.response.data?.error_data) {
         const { pause_overlapped_from_date, days } =
           error.response.data.error_data;
-        params.dateStart = moment(pause_overlapped_from_date).format('L');
-        params.dateEnd = moment(pause_overlapped_from_date)
+        params.fromDate = moment(pause_overlapped_from_date).format('L');
+        params.untilDate = moment(pause_overlapped_from_date)
           .add(days - 1, 'days')
           .format('L');
       }
@@ -151,7 +155,7 @@ class PauseFormDialog extends React.Component<Props, State> {
     this.setState({
       submitResults: {
         subscriberName: this.props.subscription.memberName,
-        subscriptionName: this.props.subscription.name,
+        subscriptionName: this.props.subscription.name_without_member_name,
         ...params,
       },
       openDialogResult: true,
@@ -162,7 +166,10 @@ class PauseFormDialog extends React.Component<Props, State> {
   onSubmit = () => {
     let data: PauseRequestData = {
       from_date: this.state.fromDate,
-      days: moment(this.state.untilDate).diff(this.state.fromDate, 'days') + 1,
+      days:
+        Math.round(
+          moment(this.state.untilDate).diff(this.state.fromDate, 'days', true),
+        ) + 1,
       name: this.state.pauseExplanation,
     };
     if (this.props.pauseBeingEdited) {
@@ -192,7 +199,7 @@ class PauseFormDialog extends React.Component<Props, State> {
       isDateRangeValid,
       this.state.loadingSubmitResponse,
     );
-    const disableDateStartEdit =
+    const disableEditOfFromDateValue =
       !!pauseBeingEdited &&
       Math.round(
         moment(pauseBeingEdited?.from_date).diff(moment(), 'days', true),
@@ -202,44 +209,51 @@ class PauseFormDialog extends React.Component<Props, State> {
         <CustomMuiDialog
           open={this.props.openForm && !this.state.openDialogResult}
           title={t(
-            `pause.dialogs.form.${
-              pauseBeingEdited ? 'titleEdition' : 'titleCreation'
+            `pauseV2.subscriptionPause.form.initStep.${
+              pauseBeingEdited ? 'titleUpdate' : 'titleCreation'
             }`,
           )}
           buttons={buttons}
         >
           <div className={classes.formContainer}>
             <TextField
-              placeholder={t('pause.dialogs.form.causePlaceholder')}
+              placeholder={t('pauseV2.common.form.reasonPlaceholder')}
               value={this.state.pauseExplanation}
               onChange={this.handleExplanationChange}
-              disabled={!!pauseBeingEdited}
+              fullWidth
+              multiline
+              inputProps={{ maxLength: PAUSE_NAME_MAX_LENGTH }}
             />
             <Divider variant="fullWidth" className={classes.divider} />
             <div className={classes.durationContainer}>
               <AccessTime fontSize="small" className={classes.durationIcon} />
               <Typography variant="h6">
-                {t('pause.dialogs.form.duration.title')}
+                {t('pauseV2.common.form.duration.title')}
               </Typography>
             </div>
             <PauseFormDateRange
-              dateStart={this.state.fromDate}
-              dateEnd={this.state.untilDate}
-              setDateStart={
-                disableDateStartEdit ? undefined : this.handleFromDateChange
+              fromDate={this.state.fromDate}
+              untilDate={this.state.untilDate}
+              setFromDate={
+                disableEditOfFromDateValue
+                  ? undefined
+                  : this.handleFromDateChange
               }
-              setDateEnd={this.handleUntilDateChange}
+              setUntilDate={this.handleUntilDateChange}
               isDateRangeValid={isDateRangeValid}
             />
             <div className={classes.informationContainer}>
               <InfoGenericBox
                 variant="contained"
                 type="info"
-                content={t('pause.dialogs.form.information', {
-                  dateStart: moment(this.state.fromDate).format('L'),
-                  dateEnd: moment(this.state.untilDate).format('L'),
-                  count: deltaDays + 1,
-                })}
+                content={t(
+                  'pauseV2.subscriptionPause.form.initStep.information1',
+                  {
+                    fromDate: moment(this.state.fromDate).format('L'),
+                    untilDate: moment(this.state.untilDate).format('L'),
+                    count: deltaDays + 1,
+                  },
+                )}
                 variantIcon="outlined"
                 alignItems="center"
                 className={classes.informationBox}
@@ -247,7 +261,9 @@ class PauseFormDialog extends React.Component<Props, State> {
               <InfoGenericBox
                 variant="contained"
                 type="info"
-                content={t('pause.dialogs.form.information2')}
+                content={t(
+                  'pauseV2.subscriptionPause.form.initStep.information2',
+                )}
                 variantIcon="outlined"
                 alignItems="center"
                 className={classes.informationBox}
@@ -271,6 +287,8 @@ class PauseFormDialog extends React.Component<Props, State> {
 const styles: any = (theme: Theme) => ({
   divider: {
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(-3),
+    marginRight: theme.spacing(-3),
   },
   durationContainer: {
     display: 'flex',

@@ -1,25 +1,26 @@
-// @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
 import SubscriptionRowItem from './SubscriptionRowItem.component';
+import { Subscription } from '../types';
 
 type Props = {
-  items: Array<Subscription>,
-  nbItems: number,
-  loading: boolean,
-  page: number,
-  itemPerPage: number,
-  onPageRequested: (id: number, page: number, pageSize: number) => void,
-  onClick: (sub: Subscription) => void,
+  items: Array<Subscription>;
+  nbItems: number;
+  loading?: boolean;
+  page: number;
+  itemPerPage: number;
+  onPageRequested: (page: number, pageSize?: number) => void;
+  onClick?: (subscriptionId: number) => void;
+  withoutSubscriptionStatus?: boolean;
 };
 
 export const PaginatedSubscriptionList = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['subscription']);
+  const { t } = useTranslation('subscription');
   return (
     <PaginatedListBase
       listProps={{ disablePadding: 'true', dense: 'true' }}
@@ -28,7 +29,7 @@ export const PaginatedSubscriptionList = (props: Props) => {
       loading={props.loading}
       page={props.page}
       itemPerPage={props.itemPerPage}
-      onPageRequested={(page, pageSize) =>
+      onPageRequested={(page: number, pageSize?: number) =>
         props.onPageRequested(page, pageSize)
       }
       renderEmpty={() => (
@@ -43,12 +44,13 @@ export const PaginatedSubscriptionList = (props: Props) => {
           <Divider />
         </div>
       )}
-      renderItem={(sub) =>
+      renderItem={(sub: Subscription) =>
         sub ? (
           <SubscriptionRowItem
             key={sub.id}
             subscription={sub}
-            onClick={props.onClick ? () => props.onClick(sub) : null}
+            onClick={props.onClick ? () => props.onClick(sub.id) : null}
+            withoutSubscriptionStatus={props.withoutSubscriptionStatus}
           />
         ) : null
       }

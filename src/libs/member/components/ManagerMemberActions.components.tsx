@@ -154,6 +154,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+    zIndex: 999,
   },
   bottomButton: {
     marginTop: theme.spacing(2),

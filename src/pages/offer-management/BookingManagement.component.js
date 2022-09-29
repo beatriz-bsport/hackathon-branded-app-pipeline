@@ -46,7 +46,7 @@ import CheckPermission from '../../libs/role/components/CheckPermission.componen
 import { Tag, TagGroup } from '../../libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
-import GenericBottomActionsButton from '../../components/button/GenericBottomActionsButton.component';
+import BottomActionsButtonCustom from '../../components/button/BottomActionsButtonCustom.component';
 import Config from '../../config';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
@@ -309,7 +309,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       </IconButton>
                       {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
                         Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
-                        <GenericBottomActionsButton
+                        <BottomActionsButtonCustom
                           buttonsProperties={[
                             {
                               onClick: (e) => {

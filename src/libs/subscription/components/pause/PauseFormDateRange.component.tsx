@@ -7,11 +7,11 @@ import { Typography } from '@material-ui/core';
 import DateInput from '#components/input/DateInput.component';
 
 type Props = {
-  dateStart: string;
-  dateEnd: string;
+  fromDate: string;
+  untilDate: string;
   isDateRangeValid: boolean;
-  setDateStart: (date: string) => void;
-  setDateEnd: (date: string) => void;
+  setFromDate: (date: string) => void;
+  setUntilDate: (date: string) => void;
 };
 
 export const PauseFormDateRange = (props: Props) => {
@@ -20,26 +20,32 @@ export const PauseFormDateRange = (props: Props) => {
   return (
     <div className={classes.container}>
       <DateInput
-        value={moment(props.dateStart)}
-        onChange={(value: Moment) =>
-          !!props.setDateStart && props.setDateStart(value.format())
-        }
-        label={t('pause.dialogs.form.duration.start')}
+        value={moment(props.fromDate)}
+        onChange={(value: Moment) => {
+          !!props.setFromDate && props.setFromDate(value.format());
+          if (value.isAfter(props.untilDate))
+            props.setUntilDate(value.format());
+        }}
+        label={t('pauseV2.common.form.duration.start')}
         className={classes.dateInput}
         minDate={moment()}
-        disabled={!props.setDateStart}
+        disabled={!props.setFromDate}
       />
       <DateInput
-        value={moment(props.dateEnd)}
-        onChange={(value: Moment) => props.setDateEnd(value.format())}
-        label={t('pause.dialogs.form.duration.end')}
+        value={moment(props.untilDate)}
+        onChange={(value: Moment) => {
+          props.setUntilDate(value.format());
+          if (value.isBefore(props.fromDate) && !!props.setFromDate)
+            props.setFromDate(value.format());
+        }}
+        label={t('pauseV2.common.form.duration.end')}
         className={classes.dateInput}
         minDate={moment()}
         error={!props.isDateRangeValid}
       />
       {!props.isDateRangeValid && (
         <Typography color="error" variant="caption">
-          {t('pause.dialogs.form.duration.warning')}
+          {t('pauseV2.common.form.duration.warning')}
         </Typography>
       )}
     </div>

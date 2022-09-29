@@ -7541,7 +7541,11 @@
     "dashboard": {
       "save": { "success": "Les modifications ont été enregistrées", "error": "Impossible d'enregistrer les modifications" }
     },
-    "contractPause": { "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" } },
+    "contractPause": {
+      "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" },
+      "delete": { "error": "Impossible de supprimer la pause pour le moment." },
+      "updateName": { "success": "Le nom de la pause a bien été modifié", "error": "Le nom de la pause n'a pas pu être modifié" }
+    },
     "signup": {
       "emailAlreadyExists": "Cet email est déjà utilisé",
       "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
@@ -7787,6 +7791,7 @@
       "hasStarted": "En cours",
       "hasNotStartedYet": "Pas encore commencé",
       "hasStopped": "Stoppé",
+      "isPaused": "En pause",
       "hasEnded": "Terminé"
     },
     "notificationToolTip": "Des notifications sont définies pour cet abonnement",
@@ -7887,57 +7892,6 @@
       }
     },
     "end": { "noRenew": "Fin de la souscription", "renew": "Renouvellement automatique" },
-    "pause": {
-      "pausedInterval": "{{start}} → {{ end }} : {{ days }} jours",
-      "pausedAt": "{{ days }} jours - le {{ date }}",
-      "createdAt": "Créée le ",
-      "label": "Pause du {{- fromDate}} au {{- untilDate}}",
-      "secondaryLabel": " : {{ note }}",
-      "actions": { "delete": "Déprogrammer la pause" },
-      "menu": { "delete": "Déprogrammer", "change": "Changer les dates" },
-      "eventItems": {
-        "pauseCreated": "Du {{- dateStart}} au {{- dateEnd}} - Créée le {{- dateCreation}} par {{staffName}}",
-        "pauseCreatedThenDeleted": "Cette pause a été supprimée ou modifiée.",
-        "pauseDeleted": "Raison de l'ancienne pause : {{pause_name}}"
-      },
-      "dialogs": {
-        "common": { "cancel": "Annuler", "confirm": "Confirmer" },
-        "delete": { "title": "Déprogrammer la pause", "content": "Êtes-vous sûr de vouloir déprogrammer cette pause ?" },
-        "success": {
-          "title": "Mise en pause de l'abonnement",
-          "content": "L'abonnement {{subscriptionName}} de {{subscriberName}} a bien été mis en pause du {{- dateStart}} au {{- dateEnd}} inclus.",
-          "continue": "Continuer"
-        },
-        "fail": {
-          "title": "Échec de mise en pause",
-          "contentIncomingBill": "L'abonnement {{subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une facture dans l'interval de pause va être facturée dans les 24h ou a un paiement en cours. Merci de changer la date de début de la pause.",
-          "contentOverlapPause": "L'abonnement {{subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une pause est déjà prévue du {{- dateStart}} au {{- dateEnd}}.",
-          "contentInvalidTimedelta": "La pause doit au moins durer une journée.",
-          "contentCanNotCancelPause": "La pause ayant déjà commencé ou étant déjà passée, elle ne peut pas être annulée.",
-          "contentSubscriptionWillEndBeforePause": "La subscription ne peut être mise en pause sur cette période car celle-ci aura pris fin avant.",
-          "contentCanNotEditPauseStartWhenHasStarted": "La date de début de la pause ne peut être changée dès lors que celle-ci a commencé.",
-          "contentCanNotEditPauseEndBeforeToday": "La nouvelle date de début de la pause ne peut être placée avant aujourd'hui.",
-          "contentCanNotCreateAPauseInThePast": "La pause ne peut commencer dans le passé.",
-          "contentUnknownError": "Une erreur imprévue est survenue. Veuillez nous excuser pour la gêne occasionnée.",
-          "comeback": "Retour"
-        },
-        "form": {
-          "titleCreation": "Mise en pause",
-          "titleEdition": "Modifier la mise en pause",
-          "causePlaceholder": "Raison *",
-          "duration": {
-            "title": "Durée de la pause",
-            "start": "Date de début (incluse)",
-            "end": "Date de fin (incluse)",
-            "warning": "La date de fin ne peut pas être inférieure à la date de début"
-          },
-          "information": "Les abonnements seront mis en pause du {{- dateStart}} au {{- dateEnd}} inclus. Leur prochaine facturation sera décalée de {{count}} jour, de même pour toutes les facturations futures.",
-          "information_plural": "Les abonnements seront mis en pause du {{- dateStart}} au {{- dateEnd}} inclus. Leur prochaine facturation sera décalée de {{count}} jours, de même pour toutes les facturations futures.",
-          "information2": "La date d'expiration de la carte sera repoussée du nombre de jours de la pause et la carte restera valide pendant celle-ci.",
-          "confirm": "Enregistrer"
-        }
-      }
-    },
     "plannedInvoice": {
       "list": { "titleNext": "Prochains prélèvements" },
       "dateUpdater": {
@@ -8233,43 +8187,110 @@
       "valid": "Valide"
     },
     "copyLink": "Copier le lien vers la page de paiement",
-    "contractPause": {
-      "title": "Pauses globales",
-      "createdAt": "Créé le {{at}}",
-      "fromUntil": "Uniquement si facturation prévue entre le {{from}} et le {{until}} inclus",
-      "section": {
-        "success": "{{count}} souscription mise en pause",
-        "success_plural": "{{count}} souscriptions mises en pause",
-        "error": "{{count}} souscription n'a pas pu être mise en pause automatiquement",
-        "error_plural": "{{count}} souscriptions n'ont pas pu être mises en pause automatiquement"
-      },
-      "actions": {
-        "cancel": "Annuler",
-        "submit": "Mettre en pause",
-        "add": "Mettre en pause",
-        "verify": "Vérifier",
-        "previous": "Précédent"
-      },
-      "form": {
-        "title": "Mise en pause globale",
-        "warning": "Attention, sur certaines souscriptions, la mise en pause n'est pas réversible",
-        "name": { "label": "Note", "placeholder": "Fermeture du studio toussaint" },
-        "days": {
-          "label": "Nombre de jours",
-          "helperText": "Nombre de jours pendant lequel les souscriptions seront en pause"
+    "pauseV2": {
+      "common": {
+        "actions": {
+          "cancel": "Annuler",
+          "confirm": "Confirmer",
+          "pause": "Mettre en pause",
+          "verify": "Vérifier",
+          "previous": "Précédent",
+          "goBack": "Retour",
+          "save": "Enregistrer",
+          "continue": "Continuer"
         },
-        "advanced": "Avancé",
-        "fromDate": { "label": "Facturées entre le " },
-        "untilDate": { "label": "et le " },
-        "validBillingPlan": "Les souscriptions suivantes seront mises en pause",
-        "explainImpossible": "Si un versement est en cours, ou prévu dans les 24h, la souscription ne peut pas être mise en pause automatiquement",
-        "invalidBillingPlan": "Les souscriptions suivantes ne pourront pas être mises en pause en automatique",
-        "dateFilter": { "label": "Mettre en pause uniquement les souscriptions dont la facture intervient entre deux dates" },
-        "paymentPackActions": {
-          "title": "Comportement des cartes",
-          "doNotChange": "Ne pas modifier la carte facturée",
-          "extendTillNextInvoice": "Étendre la durée de validité de la carte facturée jusqu'à la prochaine facture",
-          "disableTillNextInvoice": "Désactiver la carte facturée jusqu'à la prochaine facturation"
+        "form": {
+          "reasonPlaceholder": "Raison *",
+          "duration": {
+            "title": "Durée de la pause",
+            "start": "Date de début (incluse)",
+            "end": "Date de fin (incluse)",
+            "warning": "La date de fin ne peut pas être inférieure à la date de début"
+          }
+        },
+        "deleteDialog": { "title": "Déprogrammer la pause" },
+        "listItem": {
+          "fromToUntil": "Du {{- fromDate}} au {{- untilDate}}",
+          "createdAtBy": "Créée le {{- dateCreation}} par {{staffName}}",
+          "createdAt": "Créée le {{- dateCreation}}",
+          "deletedAtBy": "Déprogrammée le {{- dateDeletion}} par {{staffName}}",
+          "deletedAt": "Déprogrammée le {{- dateDeletion}}",
+          "pausedAt": "{{ days }} jours - Le {{- date}}",
+          "label": "Pause du {{- fromDate}} au {{- untilDate}}",
+          "isUpdated": "Pause éditée"
+        },
+        "menu": {
+          "delete": "Déprogrammer",
+          "change": "Changer les dates",
+          "changeName": "Changer la raison",
+          "changeContractForbidden": "Vous ne pouvez pas éditer une pause créée à l'échelle du contrat.",
+          "changeForbidden": "Vous ne pouvez pas éditer une pause déjà finie.",
+          "cancelForbidden": "Vous ne pouvez pas annuler une pause dont la date de début est déjà passée."
+        }
+      },
+      "contractPause": {
+        "title": "Pauses globales",
+        "form": {
+          "firstStep": {
+            "titleCreation": "Mise en pause globale",
+            "titleUpdate": "Modifier la mise en pause globale",
+            "information1": "Les abonnements seront mis en pause du {{- fromDate}} au {{- untilDate}} inclus. Leur prochaine facturation sera décalée de {{count}} jour, de même pour toutes les facturations et cartes futures.",
+            "information1_plural": "Les abonnements seront mis en pause du {{- fromDate}} au {{- untilDate}} inclus. Leur prochaine facturation sera décalée de {{count}} jours, de même pour toutes les facturations et cartes futures.",
+            "information2": "La date d'expiration de la carte sera repoussée du nombre de jour de la pause et la carte restera valide pendant celle-ci."
+          },
+          "secondStep": {
+            "title": "Vérification",
+            "sectionSuccess": "Souscriptions mises en pause",
+            "sectionFailure": "Échec de mise en pause ",
+            "noCompatibleSubscriptions": "Aucune souscription ne peut être mise en pause.",
+            "incompatibleSubscriptions": "Les souscriptions suivantes n'ont pas pu être mises en pause pour une des raisons suivantes : un paiement compris dans l'intervalle de pause est prévu dans les 24h, un paiement d'une facture future est en cours, la période choisie chevauche une autre pause déjà prévue, l'abonnement n'a pas encore commencé."
+          },
+          "thirdStep": {
+            "title": "Mise en pause globale de l'abonnement",
+            "successExplanation": "{{ count }} abonnement a bien été mis en pause du {{- fromDate}} au {{- untilDate}} inclus.",
+            "successExplanation_plural": "{{ count }} abonnements ont bien été mis en pause du {{- fromDate}} au {{- untilDate}} inclus."
+          }
+        },
+        "deleteDialogContent": "Êtes-vous sûr de vouloir déprogrammer cette pause pour l'ensemble des souscriptions ?",
+        "updateNameDialogTitle": "Modification de la raison de la pause",
+        "sections": {
+          "success": "{{count}} souscription mise en pause",
+          "success_plural": "{{count}} souscriptions mises en pause",
+          "error": "{{count}} souscription n'a pas pu être mise en pause automatiquement",
+          "error_plural": "{{count}} souscriptions n'ont pas pu être mises en pause automatiquement"
+        }
+      },
+      "subscriptionPause": {
+        "form": {
+          "initStep": {
+            "titleCreation": "Mise en pause",
+            "titleUpdate": "Modifier la mise en pause",
+            "information1": "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera décalée de {{count}} jour, de même pour toutes les facturations futures.",
+            "information1_plural": "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera sera décalée de {{count}} jours, de même pour toutes les facturations futures.",
+            "information2": "La date d'expiration de la carte sera repoussée du nombre de jours de la pause et la carte restera valide pendant celle-ci."
+          },
+          "successStep": {
+            "title": "Mise en pause de l'abonnement",
+            "content": "L'abonnement {{- subscriptionName}} de {{subscriberName}} a bien été mis en pause du {{- fromDate}} au {{- untilDate}} inclus."
+          },
+          "failureStep": {
+            "title": "Échec de mise en pause",
+            "contentIncomingBill": "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une facture dans l'interval de pause va être facturée dans les 24h, ou une facture future est en cours de paiment. Merci de changer la date de début de la pause.",
+            "contentOverlapPause": "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une pause est déjà prévue du {{- fromDate}} au {{- untilDate}}.",
+            "contentInvalidTimedelta": "La pause doit au moins durer une journée.",
+            "contentCanNotCancelPause": "La pause ayant déjà commencé ou étant déjà passée, elle ne peut pas être annulée.",
+            "contentSubscriptionWillEndBeforePause": "La subscription ne peut être mise en pause sur cette période car celle-ci aura pris fin avant ou son renouvellement n'a pas encore été exécuté à l'heure actuelle.",
+            "contentCanNotEditPauseStartWhenHasStarted": "La date de début de la pause ne peut être changée dès lors que celle-ci a commencé.",
+            "contentCanNotEditPauseEndBeforeToday": "La nouvelle date de début de la pause ne peut être placée avant aujourd'hui.",
+            "contentCanNotCreateAPauseInThePast": "La pause ne peut commencer dans le passé.",
+            "contentSubscriptionHasNotStarted": "La mise en pause n'a pas été effectuée car l'intervalle de dates de la pause se situe avant le début de la souscription.",
+            "contentUnknownError": "Une erreur imprévue est survenue. Veuillez nous excuser pour la gêne occasionnée."
+          }
+        },
+        "deleteDialogContent": "Êtes-vous sûr de vouloir déprogrammer cette pause ?",
+        "eventItems": {
+          "pauseCreatedThenDeleted": "Cette pause a été supprimée ou modifiée.",
+          "pauseDeleted": "Raison de l'ancienne pause : {{pause_name}}"
         }
       }
     }

@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import EventPanel from '../../event/components/EventPanel.component';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
-import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
+import SubscriptionPauseListItem from './pause/PauseV1ListItem.component';
 import SubscriptionActions from './SubscriptionActions.component';
 import type { Subscription, PlannedInvoice } from '../types';
 

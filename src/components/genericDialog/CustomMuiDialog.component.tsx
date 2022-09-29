@@ -87,7 +87,11 @@ export const CustomMuiDialog = (props: Props) => {
       onClose={onClose}
     >
       <div style={{ width: '100%' }}>
-        {!!title && <DialogTitle>{title}</DialogTitle>}
+        {!!title && (
+          <DialogTitle>
+            <Typography variant="h6">{title}</Typography>
+          </DialogTitle>
+        )}
         <DialogContent>
           {!!content && (
             <Typography variant="body1" align={contentAlign ?? 'left'}>

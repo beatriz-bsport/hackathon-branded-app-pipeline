@@ -20,7 +20,7 @@ import {
   withEstablishment,
 } from '../../libs/offer/selectors';
 
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import {
   fetchEstablishments,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -94,7 +94,9 @@ const styles = (theme) => ({
 
 const mapStateToProps = (state: RootState) => ({
   offersLoading: state.offer.byDay.loading,
-  establishments: withCoach(withEstablishment(getAllEstablishments))(state),
+  establishments: withCoach(withEstablishment(getAvailableEstablishmentList))(
+    state,
+  ),
   offerFilters: state.offer.managerFilter.filters,
   offers: withCustomLevel(
     withCoach(withEstablishment(getAvailableOffersFiltered)),

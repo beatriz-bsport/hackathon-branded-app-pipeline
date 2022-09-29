@@ -4,7 +4,8 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import { withTranslation, TFunction } from 'react-i18next';
+import { Theme } from '@material-ui/core';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -20,6 +21,11 @@ import SubscriptionTable from '../../libs/subscription/components/SubscriptionTa
 import EventPanel from '../../libs/event/components/EventPanel.component';
 import PlannedInvoiceList from '../../libs/subscription/components/PlannedInvoiceList.component';
 import { COMPANY_EVENTS } from '#libs/subscription/event.utils';
+import {
+  PlannedInvoice,
+  Subscription,
+  SubscriptionQueryParams,
+} from '../../libs/subscription/types';
 
 import {
   getSubscriptionList,
@@ -33,28 +39,36 @@ import {
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
   fetchPlannedInvoiceList as fetchPlannedInvoiceListAction,
 } from '../../libs/subscription/actions';
+import { MaterialStyleType } from '../../utils/types';
+import { SubscriptionEvent } from '#libs/event/types';
+import { RootState } from '../../reducers';
 
-type Props = {
-  goToSubscription: (id: number) => void,
-  fetchSubscriptionList: (page: number) => void,
-  subscriptionList: Array<Subscription>,
-  subscriptionLoading: boolean,
-  subscriptionCount: number,
+type OwnProps = {
+  goToSubscription: (id: number) => void;
+  fetchSubscriptionList: (params: SubscriptionQueryParams) => void;
+  subscriptionList: Array<Subscription>;
+  subscriptionLoading: boolean;
+  subscriptionCount: number;
 
-  eventLoading: boolean,
-  eventPage: number,
-  eventList: Array<EventSubscription>,
-  fetchSubscriptionEventList: ({ page: number, page_size: number }) => void,
+  eventLoading: boolean;
+  eventPage: number;
+  eventList: Array<SubscriptionEvent>;
+  fetchSubscriptionEventList: ({
+    page,
+    page_size,
+    member,
+  }: SubscriptionQueryParams) => void;
 
-  plannedInvoiceCount: number,
-  plannedInvoicePage: number,
-  plannedInvoiceLoading: boolean,
-  plannedInvoiceList: Array<PlannedInvoice>,
-  fetchPlannedInvoicePage: (page: number, page_size: number) => void,
-
-  t: TFunction,
-  classes: Object,
+  plannedInvoiceCount: number;
+  plannedInvoicePage: number;
+  plannedInvoiceLoading: boolean;
+  plannedInvoiceList: Array<PlannedInvoice>;
+  fetchPlannedInvoicePage: (page: number, page_size: number) => void;
 };
+
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
 
 const PLANNED_INVOICE_PAGE_SIZE = 10;
 
@@ -106,7 +120,7 @@ export class SubscriptionList extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     paddingBottom: '20vh',
   },
@@ -122,11 +136,9 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['subscription']),
   withStyles(styles),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('titles:subscription.subscriptions'),
-  ),
+  withTitle(({ t }) => t('titles:subscription.subscriptions')),
   connect(
-    (state) => ({
+    (state: RootState) => ({
       subscriptionList: getSubscriptionList(state),
       subscriptionCount: state.subscription.list.count,
       subscriptionLoading: state.subscription.list.loading,
@@ -142,16 +154,16 @@ export default compose(
       fetchSubscriptionList: fetchSubscriptionListAction,
       fetchSubscriptionBulk: fetchSubscriptionBulkAction,
       fetchSubscriptionEventList: fetchSubscriptionEventListAction,
-      goToSubscription: (id) => pushRouter(`/subscription/${id}`),
+      goToSubscription: (id: number) => pushRouter(`/subscription/${id}`),
       fetchPlannedInvoiceList: fetchPlannedInvoiceListAction,
     },
   ),
   withHandlers({
     fetchSubscriptionList:
       ({ fetchSubscriptionList }) =>
-      (page: number, params: any = {}) => {
+      (params: SubscriptionQueryParams) => {
         fetchSubscriptionList({
-          page,
+          page: 1,
           page_size: 10,
           ...params,
         });
@@ -160,7 +172,7 @@ export default compose(
   withHandlers({
     fetchPlannedInvoicePage:
       ({ fetchPlannedInvoiceList }) =>
-      (page, page_size) => {
+      (page: number, page_size: number) => {
         fetchPlannedInvoiceList(
           page,
           {
@@ -173,9 +185,9 @@ export default compose(
       },
     fetchSubscriptionEventList:
       ({ fetchSubscriptionEventList, fetchSubscriptionBulk }) =>
-      (params) => {
+      (params: SubscriptionQueryParams) => {
         fetchSubscriptionEventList(params, {
-          onSuccess: (eventList) =>
+          onSuccess: (eventList: Array<SubscriptionEvent>) =>
             fetchSubscriptionBulk(eventList.map((e) => e.data.billing_plan)),
         });
       },

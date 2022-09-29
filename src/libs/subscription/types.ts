@@ -29,6 +29,9 @@ export type Subscription<
   canceled_at: string;
   contract: number;
   date_created: string;
+  status?: number;
+  memberArchived?: string;
+  first_billing_date?: string;
   description: string;
   has_ended: boolean;
   id: number;
@@ -202,4 +205,10 @@ export type SubscriptionState = {
       allIds: Array<number>;
     };
   };
+};
+
+export type SubscriptionQueryParams = {
+  page?: number;
+  page_size?: number;
+  member?: number;
 };

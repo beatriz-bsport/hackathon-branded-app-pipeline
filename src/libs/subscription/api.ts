@@ -1,5 +1,3 @@
-// @flow
-
 import {
   API_URI,
   buildUrlParams,
@@ -11,9 +9,9 @@ import {
   putAuth,
 } from '../../http';
 
-import { PauseRequestData } from './types';
+import { PauseRequestData, SubscriptionQueryParams } from './types';
 
-const fetchAll = async (params: any) => {
+const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(
     `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,
   );
@@ -23,7 +21,7 @@ const fetchDetail = async (id: number) => {
   return getAuth(`${API_URI}/subscription/billing-plan/${id}/`);
 };
 
-const createFromPack = async (data: *) => {
+const createFromPack = async (data: any) => {
   return postAuth(
     `${API_URI}/subscription/billing-plan/create_from_pack/`,
     data,
@@ -88,8 +86,8 @@ export const postContractSubscriptionUnauthenticated = async (
 export const updatePlannedInvoiceDate = async (
   id: number,
   data: {
-    date: string,
-    planned_invoice: number,
+    date: string;
+    planned_invoice: number;
   },
 ) => {
   return postAuth(
@@ -101,10 +99,10 @@ export const updatePlannedInvoiceDate = async (
 export const updatePlannedInvoicePrice = async (
   id: number,
   data: {
-    planned_invoice: number,
-    price: string,
-    update_all: boolean,
-    update_recurrent_price: boolean,
+    planned_invoice: number;
+    price: string;
+    update_all: boolean;
+    update_recurrent_price: boolean;
   },
 ) => {
   return postAuth(
@@ -157,7 +155,7 @@ export const switchSubscriptionPaymentCombo = async (
 };
 export const switchSubscriptionPaymentMethod = async (
   id: number,
-  data: { payment_method_identifier: number, source: string },
+  data: { payment_method_identifier: number; source: string },
 ) => {
   return postAuth(
     `${API_URI}/subscription/billing-plan/${id}/switch_payment_provider/`,

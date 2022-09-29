@@ -1,19 +1,23 @@
-// @flow
 import React, { Component } from 'react';
 
 import MUIDataTable from 'mui-datatables';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation, TFunction } from 'react-i18next';
+import { TFunction } from 'i18next';
+
+import { withTranslation, WithTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
+import { compose } from 'recompose';
 import RedButton from '../../../components/button/RedButton.component';
 
 import { formatAsDate } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import type { Subscription } from '../types';
+import type { Subscription, SubscriptionQueryParams } from '../types';
 import { getStatus } from '../utils';
 
-const renderRows = (subscriptions, t) => {
+const ITEMS_PER_PAGE = 10;
+
+const renderRows = (subscriptions: Array<Subscription>, t: TFunction) => {
   return subscriptions.map((sub) => ({
     key: sub.id,
     member: renderMemberName(
@@ -45,8 +49,8 @@ const renderMemberName = (
     memberName,
     memberArchived,
   }: {
-    memberName: string,
-    memberArchived: string,
+    memberName: string;
+    memberArchived: string;
   },
   t: TFunction,
 ) => {
@@ -64,7 +68,7 @@ const renderMemberName = (
 const getColumnData = (
   t: TFunction,
   showOnlyCoreColumns: boolean,
-  addPayment,
+  addPayment: (id: number) => void,
 ) => {
   const coreColumns = [
     {
@@ -91,7 +95,7 @@ const getColumnData = (
       name: 'paymentMethodInfo',
       label: t('parameters.payment_method.label'),
       options: {
-        customBodyRender: (value) => {
+        customBodyRender: (value: any) => {
           if (value.id === 2) {
             return (
               <div
@@ -105,7 +109,9 @@ const getColumnData = (
                 {addPayment && !value.hasEnded ? (
                   <RedButton
                     variant="outlined"
-                    onClick={(ev) => {
+                    onClick={(
+                      ev: React.MouseEvent<HTMLLIElement, MouseEvent>,
+                    ) => {
                       ev.stopPropagation();
                       addPayment(value.subscriptionId);
                     }}
@@ -142,27 +148,26 @@ const getColumnData = (
   ];
 };
 
-type Props = {
-  showOnlyCore: ?boolean,
-  title?: string,
-  onPageChange: (page: number) => void,
-  goToSubscription: (id: number) => void,
-  subscriptionList: Array<Subscription>,
-  t: TFunction,
-  loading: boolean,
+type OwnProps = {
+  showOnlyCore?: boolean;
+  title?: string;
+  onPageChange: (params: SubscriptionQueryParams) => void;
+  goToSubscription: (id: number) => void;
+  subscriptionList: Array<Subscription>;
+  loading: boolean;
 
-  addPayment: (id: number) => void,
-  count: number,
+  addPayment?: (id: number) => void;
+  count: number;
 };
 
+type Props = OwnProps & WithTranslation;
+
 type State = {
-  tableState: {
-    page: number,
-  },
+  tableState: SubscriptionQueryParams;
 };
 
 export class SubscriptionTable extends Component<Props, State> {
-  onRowClick = (rowData: Array<*>, { rowIndex }: { rowIndex: number }) => {
+  onRowClick = (rowData: Array<any>, { rowIndex }: { rowIndex: number }) => {
     if (this.props.goToSubscription) {
       return this.props.goToSubscription(
         this.props.subscriptionList[rowIndex].id,
@@ -174,16 +179,17 @@ export class SubscriptionTable extends Component<Props, State> {
   state = {
     tableState: {
       page: 1,
+      page_size: ITEMS_PER_PAGE,
     },
   };
 
   componentDidMount() {
-    this.props.onPageChange(1);
+    this.props.onPageChange({ page: 1 });
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    if (prevState.tableState.page !== this.state.tableState.page) {
-      this.props.onPageChange(this.state.tableState.page);
+    if (prevState.tableState !== this.state.tableState) {
+      this.props.onPageChange(this.state.tableState);
     }
   }
 
@@ -196,29 +202,32 @@ export class SubscriptionTable extends Component<Props, State> {
     }
   };
 
+  handleRowsPerPageChange = (newRowsPerPage: number) => {
+    if (newRowsPerPage !== this.state.tableState.page_size) {
+      this.setState((prevState) => ({
+        ...prevState,
+        tableState: { ...prevState.tableState, page_size: newRowsPerPage },
+      }));
+    }
+  };
+
   render() {
     const options = {
       onRowClick: this.onRowClick,
       serverSide: true,
       filter: false,
       search: false,
-      sort: true,
+      sort: false,
       download: false,
       responsive: 'scroll',
       selectableRows: false,
       count: this.props.count,
       tableState: this.state.tableState,
-      onTableChange: (action, tableState) => {
-        const ordering = tableState.columns.reduce((acc, v) => {
-          if (v.sortDirection === 'asc') {
-            return v.name;
-          }
-          if (v.sortDirection === 'desc') {
-            return `-${v.name}`;
-          }
-          return acc;
-        }, '');
-        this.handlePageChange(tableState.page + 1, { ordering });
+      onChangeRowsPerPage: (rows: number) => {
+        this.handleRowsPerPageChange(rows);
+      },
+      onTableChange: (action, tableState: SubscriptionQueryParams) => {
+        this.handlePageChange(tableState.page + 1);
       },
       textLabels: {
         body: {
@@ -249,4 +258,6 @@ export class SubscriptionTable extends Component<Props, State> {
   }
 }
 
-export default withTranslation(['subscription'])(SubscriptionTable);
+export default compose<any, Props>(withTranslation(['subscription']))(
+  SubscriptionTable,
+);

@@ -568,20 +568,20 @@ export const InvoiceTable = (props: {
   onChangePage: (page: number) => void;
   onInvoiceExpand: (uuid: string) => void;
   containerComponent: any;
-  nestedDataLoading: boolean;
+  nestedDataLoading?: boolean;
   onClickInvoice: (uuid: string, invoice: Invoice) => void;
-  onBill: (uuid: string) => void;
+  onBill?: (uuid: string) => void;
   finalizeInvoice: (uuid: string, options: OptionCallback<Invoice>) => void;
   showOpenInvoiceNested?: boolean;
   asConsumer?: boolean;
   showType?: boolean;
   companyId?: number;
-  snackbarSuccess: (msg: string) => void;
-  quickbooksIntegrated: boolean;
-  sendInvoiceToQuickbooks: (uuid: string) => void;
-  quickbooksLoading: boolean;
-  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>;
-  applyGiftcardOnInvoice: (
+  snackbarSuccess?: (msg: string) => void;
+  quickbooksIntegrated?: boolean;
+  sendInvoiceToQuickbooks?: (uuid: string) => void;
+  quickbooksLoading?: boolean;
+  consumerGiftcardList?: Array<ConsumerGiftcard<Giftcard>>;
+  applyGiftcardOnInvoice?: (
     invoiceUuid: string,
     consumergiftCardId: number,
     amount: number,

@@ -27,7 +27,7 @@ type OwnProps = {
   page: number;
   onEventClick?: (id: number) => void;
   eventList: Array<SubscriptionEvent>;
-  extraFetchParams: any;
+  extraFetchParams?: any;
 };
 
 type WithHandlerType = {

@@ -31,7 +31,7 @@ import {
   snackbarError,
 } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
-import { PauseRequestData } from './types';
+import { PauseRequestData, SubscriptionQueryParams } from './types';
 
 import { fetchEventList } from '../event/actions';
 
@@ -87,7 +87,10 @@ export const listSubscriptionActions = {
   success: createAction('SUBSCRIPTION/LIST/SUCCESS'),
 };
 
-export function fetchSubscriptionList(params: any, options: OptionCallback) {
+export function fetchSubscriptionList(
+  params: SubscriptionQueryParams,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listSubscriptionActions.isLoading(true));
     dispatch(listSubscriptionActions.error(null));
@@ -150,8 +153,8 @@ export const byMemberSubscriptionActions = {
 
 export function fetchSubscriptionListByMember(
   member: number,
-  params: any = {},
-  options: OptionCallback,
+  params: SubscriptionQueryParams = {},
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byMemberSubscriptionActions.isLoading(true));
@@ -396,10 +399,10 @@ export const updatePlannedInvoiceActions = {
 export function updatePlannedInvoicePrice(
   id: number,
   data: {
-    planned_invoice: number,
-    price: string,
-    update_all: boolean,
-    update_recurrent_price: boolean,
+    planned_invoice: number;
+    price: string;
+    update_all: boolean;
+    update_recurrent_price: boolean;
   },
   options: OptionCallback,
 ) {
@@ -623,9 +626,9 @@ export const switchPaymentMethodActions = {
 export function switchSubscriptionPaymentMethod(
   id: number,
   data: {
-    payment_engine?: number,
-    payment_method_identifier: number,
-    source: string,
+    payment_engine?: number;
+    payment_method_identifier: number;
+    source: string;
   },
   options: OptionCallback,
 ) {
@@ -762,8 +765,8 @@ export const updatePlannedInvoiceDateActions = {
 export function updatePlannedInvoiceDate(
   id: number,
   data: {
-    date: string,
-    planned_invoice: number,
+    date: string;
+    planned_invoice: number;
   },
   options: OptionCallback,
 ) {

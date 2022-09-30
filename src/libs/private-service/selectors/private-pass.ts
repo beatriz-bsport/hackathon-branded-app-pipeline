@@ -13,10 +13,14 @@ import { _getPrivateServiceDict } from './private-service';
 import { getAllPrivateSlotsDict } from './private-slot';
 import { RootState } from '../../../reducers';
 
-import { getFranchiseCompanyById } from '../../franchise/selectors';
-import { Company } from '../../company/types';
+import {
+  getAllowedFranchisees,
+  getFranchiseCompanyById,
+  withAllowed,
+} from '../../franchise/selectors';
 
 import { getAllPaymentPacks } from '#libs/payment-packs/selectors';
+import { FranchiseCompany } from '#libs/franchise/types';
 
 export type PrivatePassSelector<LPP = number> = (
   state: RootState,
@@ -233,20 +237,23 @@ export const getPrivatePassTemplateList: (
   [
     getPrivatePassTemplateData,
     getPrivatePassTemplateIdList,
+    getAllowedFranchisees,
     getFranchiseCompanyById,
   ],
-  (data, ids, companyData) =>
+  (data, ids, allowed_franchisee_ids, companyById) =>
     ids
       .map((id: number) => data[id])
       .filter((ppt: PrivatePassTemplateAPI) => !ppt.disabled)
       .map((ppt: PrivatePassTemplateAPI) => ({
         ...ppt,
-        companies: ppt.private_pass_template_instances
-          .map(
+        companies: withAllowed(
+          ppt.private_pass_template_instances.map(
             (ppti: PrivatePassTemplateInstance) =>
-              !ppti.disabled && companyData[ppti.company],
-          )
-          .filter((c: Company) => !!c),
+              !ppti.disabled && ppti.company,
+          ),
+          allowed_franchisee_ids,
+          companyById,
+        ).filter((c: FranchiseCompany) => !!c),
       })),
 );
 
@@ -256,18 +263,24 @@ export const getPrivatePassTemplate: (
   state: RootState,
   id: number,
 ) => PrivatePassTemplate = createSelector(
-  [getPrivatePassTemplateData, getFranchiseCompanyById, _getId],
-  (data, companyData, id) => {
+  [
+    getPrivatePassTemplateData,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+    _getId,
+  ],
+  (data, allowed_franchisee_ids, companyById, id) => {
     const template = data[id];
     if (!template) return null;
     return {
       ...template,
-      companies: template.private_pass_template_instances
-        .map(
-          (ppti: PrivatePassTemplateInstance) =>
-            !ppti.disabled && companyData[ppti.company],
-        )
-        .filter((c: Company) => !!c),
+      companies: withAllowed(
+        template.private_pass_template_instances?.map(
+          (ppti: PrivatePassTemplateInstance) => !ppti.disabled && ppti.company,
+        ),
+        allowed_franchisee_ids,
+        companyById,
+      )?.filter((c: FranchiseCompany) => !!c),
     };
   },
 );

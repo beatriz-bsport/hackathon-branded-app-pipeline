@@ -23,7 +23,17 @@ export type UserRoleData = {
   coaches_in_role_ids: number[];
 };
 
-export type Permission = {
+export type FranchiseUserRoleData = {
+  id?: number;
+  email: string;
+  password: string;
+  franchise_role: number;
+  first_name: string;
+  last_name: string;
+  franchisees_in_role_ids: number[];
+};
+
+export type RolePermission = {
   offer: {
     delete: boolean;
     edit: boolean;
@@ -114,6 +124,23 @@ export type Permission = {
     tutorial: boolean;
   };
 };
+export type FranchiseRolePermission = {
+  franchiseMenu: {
+    franchises: boolean;
+    members: boolean;
+    products: {
+      paymentPackTemplates: boolean;
+      privatePassTemplates: boolean;
+      couponTemplates: boolean;
+    };
+    emailTemplates: boolean;
+    notificationRules: boolean;
+    reporting: boolean;
+    widgets: boolean;
+    staff: boolean;
+    settings: boolean;
+  };
+};
 
 export type Role = {
   id: number;
@@ -121,23 +148,55 @@ export type Role = {
   description: string;
   editable: boolean;
   company: number;
-  permissions: Permission;
+  permissions: RolePermission;
   has_booking_override_control: boolean;
+  is_franchisor?: boolean;
 };
 
-export type CoachOption = {
+export type FranchiseRole = {
+  identifier: number | null;
+  id: number;
+  name: string;
+  description: string;
+  editable: boolean;
+  franchise: number;
+  company_role: Role;
+  permissions: FranchiseRolePermission;
+  allowed_franchisees: Array<number>;
+};
+
+export type SelectFieldItem = {
   value: number;
   label: string;
 };
 
-export type UserRole<R = number> = {
+export type FranchiseRoleMasterAccountData = {
+  id?: number;
+  name: string;
+  description: string;
+  editable: boolean;
+  permissions: FranchiseRolePermission;
+};
+
+export type FranchiseRoleFranchiseeData = {
+  name: string;
+  description: string;
+  editable: boolean;
+  has_booking_override_control: boolean;
+  permissions: RolePermission;
+};
+
+export type UserRole<R = number, FR = number> = {
   id: number;
   email: string;
   first_name: string;
   last_name: string;
   is_restricted: boolean;
   role: R;
-  coaches_selected_in_role: number[];
+  franchise_role: FR;
+  franchise_role_identifier: number | null;
+  coaches_selected_in_role?: number[];
+  allowed_franchisees?: number[];
 };
 
 export type RoleState = ErrorAndLoading & {
@@ -153,6 +212,11 @@ export type RoleState = ErrorAndLoading & {
   };
   role: ErrorAndLoading & {
     byId: { [key: string]: Role };
+    allIds: number[];
+    createOrUpdate: ErrorAndLoading;
+  };
+  franchiseRole: ErrorAndLoading & {
+    byId: { [key: string]: FranchiseRole };
     allIds: number[];
     createOrUpdate: ErrorAndLoading;
   };
@@ -242,6 +306,20 @@ export type ProtectedUrls =
   | '/workshop-activity/tabs'
   | '/workshop-activity/tabs/groups'
   | '/workshop-activity/tabs/list';
+
+export type FranchiseProtectedUrls =
+  | '/f/franchises'
+  | '/f/members'
+  | '/f/coupon-template'
+  | '/f/email-template'
+  | '/f/settings/notification-rule'
+  | '/f/payment-pack-template'
+  | '/f/private-pass-template'
+  | '/f/reporting'
+  | '/f/settings/staff'
+  | '/f/settings/role'
+  | '/f/settings/widget'
+  | '/f/settings/theme';
 
 export type AllActionIdentifier =
   | typeof PRIVATE_BOOKING_CREATED_BY_STAFF

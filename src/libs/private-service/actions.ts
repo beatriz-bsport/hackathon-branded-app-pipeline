@@ -127,6 +127,7 @@ import {
   EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE,
   EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE,
 } from '#libs/role/constants';
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -2646,7 +2647,7 @@ export const listPrivatePassTemplateActions = {
 };
 
 export function fetchPrivatePassTemplateList(
-  params: any = {},
+  params?: FranchiseProductTemplateQueryParams,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

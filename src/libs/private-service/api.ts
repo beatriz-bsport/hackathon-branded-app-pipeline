@@ -1,3 +1,4 @@
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   getAuth,
   post,
@@ -704,7 +705,9 @@ export async function editCategoryOrder(data: any) {
   );
 }
 
-export async function fetchPrivatePassTemplateList(params: any = {}) {
+export async function fetchPrivatePassTemplateList(
+  params?: FranchiseProductTemplateQueryParams,
+) {
   return getAuth(
     `${API_V1_URI}/private_service/private-pass-template/${buildUrlParams(
       params,

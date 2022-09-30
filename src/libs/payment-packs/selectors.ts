@@ -1,5 +1,3 @@
-// @flow
-
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
@@ -15,12 +13,16 @@ import {
   PaymentPackTemplateAPI,
   PaymentPackTemplateInstance,
 } from './types';
-import { Company } from '../company/types';
 
 import { RootState } from '../../reducers';
 
-import { getFranchiseCompanyById } from '../franchise/selectors';
+import {
+  getAllowedFranchisees,
+  getFranchiseCompanyById,
+  withAllowed,
+} from '../franchise/selectors';
 import { getAvailablePrivatePasses } from '#libs/private-service/selectors/private-pass';
+import { FranchiseCompany } from '#libs/franchise/types';
 
 type PaymentPackSelector<LPP = number | null> = (
   state: RootState,
@@ -299,20 +301,23 @@ export const getPaymentPackTemplateList: (
   [
     getPaymentPackTemplateData,
     getPaymentPackTemplateIdList,
+    getAllowedFranchisees,
     getFranchiseCompanyById,
   ],
-  (data, ids, companyData) =>
+  (data, ids, allowed_franchisee_ids, companyById) =>
     ids
       .map((id: number) => data[id])
-      .filter((ppt) => !ppt.disabled)
+      .filter((ppt: PaymentPackTemplateAPI) => !ppt.disabled)
       .map((ppt: PaymentPackTemplateAPI) => ({
         ...ppt,
-        companies: ppt.payment_pack_template_instances
-          .map(
+        companies: withAllowed(
+          ppt.payment_pack_template_instances.map(
             (ppti: PaymentPackTemplateInstance) =>
-              !ppti.disabled && companyData[ppti.company],
-          )
-          .filter((c: Company) => !!c),
+              !ppti.disabled && ppti.company,
+          ),
+          allowed_franchisee_ids,
+          companyById,
+        )?.filter((c: FranchiseCompany) => !!c),
       })),
 );
 
@@ -322,18 +327,24 @@ export const getPaymentPackTemplate: (
   state: RootState,
   id: number,
 ) => PaymentPackTemplate = createSelector(
-  [getPaymentPackTemplateData, getFranchiseCompanyById, _getId],
-  (data, companyData, id) => {
+  [
+    getPaymentPackTemplateData,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+    _getId,
+  ],
+  (data, allowed_franchisee_ids, companyById, id) => {
     const template = data[id];
     if (!template) return null;
     return {
       ...template,
-      companies: template.payment_pack_template_instances
-        .map(
-          (ppti: PaymentPackTemplateInstance) =>
-            !ppti.disabled && companyData[ppti.company],
-        )
-        .filter((c: Company) => !!c),
+      companies: withAllowed(
+        template.payment_pack_template_instances?.map(
+          (ppti: PaymentPackTemplateInstance) => !ppti.disabled && ppti.company,
+        ),
+        allowed_franchisee_ids,
+        companyById,
+      )?.filter((c: FranchiseCompany) => !!c),
     };
   },
 );

@@ -44,6 +44,7 @@ import type {
   ThunkAction,
   OptionBackgroundCallback,
 } from '../../state/types';
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 export const scalePaymentPackCreditActions = {
   isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),
@@ -607,10 +608,7 @@ export const listPaymentPackTemplateActions = {
 };
 
 export function fetchPaymentPackTemplateList(
-  params?: {
-    franchisor?: number;
-    id__in?: Array<number>;
-  },
+  params?: FranchiseProductTemplateQueryParams,
   options?: OptionCallback<Array<PaymentPackTemplate>>,
 ) {
   return async (dispatch: Dispatch) => {

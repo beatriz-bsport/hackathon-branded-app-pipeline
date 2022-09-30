@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { Role, RoleState } from './types';
+import memoize from 'memoize-one';
+import { RoleState } from './types';
 import { RootState } from '../../reducers';
 import { OWNER_ROLE } from './role-types';
 
@@ -15,10 +16,24 @@ const _getUsersPaginatedAllIds = (state: RootState) =>
 const _getUsersPaginatedData = (state: RootState) =>
   _getUserssPaginatedState(state).byId;
 const getPermissionForRole = (roleState: RoleState, roleId: number) => {
-  if (roleState.role.byId[roleId]) {
-    return roleState.role.byId[roleId].permissions;
+  return roleState.role.byId?.[roleId]?.permissions;
+};
+const getFranchisePermissionForRole = (
+  roleState: RoleState,
+  franchiseRoleId: number,
+  franchiseRoleIdentifier: number | null,
+) => {
+  if (
+    franchiseRoleIdentifier !== null ||
+    franchiseRoleIdentifier !== undefined
+  ) {
+    const franchiseRoleList = Object.values(roleState.franchiseRole.byId);
+    const relevantRole = franchiseRoleList.find(
+      (role) => role.identifier === franchiseRoleIdentifier,
+    );
+    return relevantRole?.permissions;
   }
-  return undefined;
+  return roleState.franchiseRole.byId?.[franchiseRoleId]?.permissions;
 };
 
 export const getPermissions = createSelector(
@@ -31,14 +46,54 @@ export const getPermissions = createSelector(
   },
 );
 
-export const getAllRoles = (state: RootState) => {
-  const roles: Role[] = state.role.role.allIds.map((id) => {
-    return state.role.role.byId[id];
-  });
+export const getFranchisePermissions = createSelector(
+  [getAuthState, getRoleState],
+  (auth, roleState) => {
+    if (
+      auth &&
+      auth.franchise_role !== null &&
+      typeof auth.franchise_role !== 'undefined'
+    ) {
+      return getFranchisePermissionForRole(
+        roleState,
+        auth.franchise_role,
+        auth.franchise_role_identifier,
+      );
+    }
+    return getFranchisePermissionForRole(roleState, null, OWNER_ROLE);
+  },
+);
+export const hasRoleUpsertPermission = (state: RootState) =>
+  state.auth.role === OWNER_ROLE;
 
-  return roles;
-};
+export const hasFranchiseRoleUpsertPermission = (state: RootState) =>
+  state.auth.franchise_role === OWNER_ROLE;
 
+export const getAllRoles = (state: RootState) =>
+  state.role.role.allIds
+    .map((id) => state.role.role.byId[id])
+    .filter((role) => !role.is_franchisor);
+
+export const getAllFranchiseRoles = (state: RootState) =>
+  state.role.franchiseRole.allIds.map(
+    (id) => state.role.franchiseRole.byId[id],
+  );
+
+export const withFranchiseeRoles = memoize((selector) =>
+  createSelector([selector, _getRoleDict], (franchiseRoles, roleData) => {
+    if (!franchiseRoles) return null;
+    if (!Array.isArray(franchiseRoles)) {
+      return {
+        ...franchiseRoles,
+        company_role: roleData[franchiseRoles.company_role],
+      };
+    }
+    return franchiseRoles.map((fr) => ({
+      ...fr,
+      company_role: roleData[fr.company_role],
+    }));
+  }),
+);
 export const getUsers = (state: RootState) => getRoleState(state).users;
 
 export const getUsersWithRole = createSelector(
@@ -47,6 +102,19 @@ export const getUsersWithRole = createSelector(
     users.map((u) => ({
       ...u,
       permissions: getPermissionForRole(roleState, u.role),
+    })),
+);
+
+export const getFranchiseUsersWithRole = createSelector(
+  [getUsers, getRoleState],
+  (users, roleState) =>
+    users.map((u) => ({
+      ...u,
+      permissions: getFranchisePermissionForRole(
+        roleState,
+        u.franchise_role,
+        u.franchise_role_identifier,
+      ),
     })),
 );
 

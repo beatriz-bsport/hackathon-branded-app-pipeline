@@ -70,6 +70,7 @@ const FranchiseEmailList = (props: Props) => {
     fetchFranchise();
     emailTemplatesSummaries();
     fetchFranchisePageFilter();
+    // eslint-disable-next-line
   }, [emailTemplatesSummaries, fetchFranchise, fetchFranchisePageFilter]);
 
   useEffect(() => {

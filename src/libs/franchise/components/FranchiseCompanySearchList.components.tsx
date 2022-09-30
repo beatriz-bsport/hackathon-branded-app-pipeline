@@ -28,8 +28,10 @@ import CompanyGroupFormDialog from './CompanyGroupFormDialog.component';
 
 export type OwnProps = {
   companies: FranchiseCompany[];
+  companyGroupList: CompanyGroup[];
   selectedCompanyId?: number;
   asManager: boolean;
+  restrictedFranchisees: boolean;
   handleCompanySelected: (company: number, name: string) => () => void;
   createOrUpdateCompanyGroup: (
     data: any,
@@ -77,7 +79,7 @@ const FranchiseCompanySearchList = (props: Props) => {
           </ListItem>
         )}
       />
-      {!!props.asManager && (
+      {!!props.asManager && !props.restrictedFranchisees && (
         <Button
           variant="outlined"
           color="primary"
@@ -89,14 +91,16 @@ const FranchiseCompanySearchList = (props: Props) => {
         </Button>
       )}
       {(props.companyGroupList || [])
-        .filter((g) => (g.companies || []).length)
+        .filter((g) => (companies || []).some((c) => c.company_group === g.id))
         .map((g) => (
           <div className={classes.companiesContainer}>
             <div className={classes.rowLarge}>
               <Typography variant="h4">{g.name}</Typography>
-              <IconButton onClick={() => setGroupToEdit(g)} color="primary">
-                <EditIcon />
-              </IconButton>
+              {!props.restrictedFranchisees && (
+                <IconButton onClick={() => setGroupToEdit(g)} color="primary">
+                  <EditIcon />
+                </IconButton>
+              )}
             </div>
             <Divider className={classes.divider} />
             <Paper>

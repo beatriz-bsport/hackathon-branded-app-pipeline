@@ -3,8 +3,8 @@ import { CompanyWithTheme } from '../company/types';
 export type FranchiseState = {
   error: null | boolean;
   loading: {
-    payload: string;
-    loading: boolean;
+    payload: boolean;
+    type: string;
   };
   franchisor?: Franchise | FranchiseDetails;
   users: {
@@ -61,6 +61,11 @@ export type FranchiseUser = {
   };
 };
 
+export type FranchiseProductTemplateQueryParams = {
+  franchisor?: number;
+  id__in?: Array<number>;
+};
+
 export type FranchiseCompany = {
   id: number;
   cover: string;
@@ -69,6 +74,8 @@ export type FranchiseCompany = {
   primaryRGB: [number, number, number];
   secondaryRGB: [number, number, number];
   websiteURL: string;
+  isAllowed: boolean;
+  company_group: number;
 };
 
 export type FranchiseDetails = Franchise & {

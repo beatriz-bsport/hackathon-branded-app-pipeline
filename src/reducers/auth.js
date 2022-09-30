@@ -21,7 +21,10 @@ const initialState = Immutable({
   invalidFields: null,
   has_completed_account_configuration_on_boarding: false,
   role: null,
+  franchise_role: null,
+  franchise_role_identifier: null,
   coaches_selected_in_role: null,
+  allowed_franchisees: [],
   loadingImpersonation: false,
   lastPlatformSubscriptionWarningDate: null,
   lastStripeConfigurationWarningDate: null,
@@ -91,7 +94,10 @@ export default function authReducers(state = initialState, action = {}) {
         is_consumer,
         is_franchisor,
         role,
+        franchise_role,
+        franchise_role_identifier,
         coaches_selected_in_role,
+        allowed_franchisees,
         name,
         has_completed_account_configuration_on_boarding,
         context,
@@ -116,7 +122,10 @@ export default function authReducers(state = initialState, action = {}) {
         .set('error', false)
         .set('loading', false)
         .set('role', role)
+        .set('franchise_role', franchise_role)
         .set('coaches_selected_in_role', coaches_selected_in_role)
+        .set('allowed_franchisees', allowed_franchisees)
+        .set('franchise_role_identifier', franchise_role_identifier)
         .set(
           'has_completed_account_configuration_on_boarding',
           has_completed_account_configuration_on_boarding,
@@ -132,6 +141,8 @@ export default function authReducers(state = initialState, action = {}) {
         is_consumer,
         is_franchisor,
         role,
+        franchise_role,
+        franchise_role_identifier,
         name,
       } = action.payload;
 
@@ -142,6 +153,8 @@ export default function authReducers(state = initialState, action = {}) {
         is_consumer,
         is_franchisor,
         role,
+        franchise_role,
+        franchise_role_identifier,
         name,
       });
     }

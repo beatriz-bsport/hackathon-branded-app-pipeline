@@ -8,6 +8,7 @@ import {
   Select,
   TextField,
   Theme,
+  Typography,
   withStyles,
 } from '@material-ui/core';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
@@ -15,12 +16,17 @@ import IconButton from '@material-ui/core/IconButton';
 
 // @ts-ignore
 import withConfirm from '../../../hocs/with-confirm.hoc';
-import { Role, UserRole, CoachOption } from '../types';
+import { Role, UserRole, SelectFieldItem, FranchiseRole } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
-import { getRoleName, getCoachOptionsFromCoachIds } from '../utils';
-import COMMON_ROLES, { OWNER_ROLE, CHECKIN_APP_ROLE } from '../role-types';
+import { getRoleName, getOptionsFromIds } from '../utils';
+import COMMON_ROLES, {
+  OWNER_ROLE,
+  ADMIN_ROLE,
+  CHECKIN_APP_ROLE,
+} from '../role-types';
 import { Coach } from '#libs/associated-coach/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import { Company } from '#libs/company/types';
 
 const DeleteButton = withConfirm(
   (props: { deleteUser: () => void }) => (
@@ -40,13 +46,18 @@ const DeleteButton = withConfirm(
 );
 
 type OwnProps = {
-  handleRoleChange: (roleId: number) => void;
-  user: UserRole;
-  roles: Role[];
-  deleteUser: (id: number) => void;
   coachList: Array<Coach>;
   coachListLoading: boolean;
-  editUserSelectedCoaches: (coachIds: number[]) => void;
+  deleteUser: (id: number) => void;
+  editUserSelectedObjects?: (objectIds: number[]) => void;
+  franchiseRoles?: FranchiseRole[];
+  franchiseeList: Array<Company>;
+  franchiseeListLoading: boolean;
+  handleRoleChange: (roleId: number) => void;
+  hasOwnerPermission: boolean;
+  isFranchisor?: boolean;
+  roles?: Role[];
+  user: UserRole;
 };
 
 type Props = OwnProps &
@@ -54,22 +65,31 @@ type Props = OwnProps &
   WithTranslation;
 
 type State = {
-  selectedCoaches: CoachOption[];
+  selectedObjects?: SelectFieldItem[];
 };
 
-class UserWithRole extends React.Component<Props, State> {
+class UserWithRoleItem extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      selectedCoaches: null,
+      selectedObjects: null,
     };
   }
 
-  handleCoachesChange = () => {
-    const coachIds =
-      this.state.selectedCoaches?.map((coach: CoachOption) => coach.value) ??
-      [];
-    this.props.editUserSelectedCoaches(coachIds);
+  handleObjectChange = () => {
+    if (this.props.isFranchisor) {
+      const franchiseeIds =
+        this.state.selectedObjects?.map(
+          (franchise: SelectFieldItem) => franchise.value,
+        ) ?? [];
+      this.props.editUserSelectedObjects(franchiseeIds);
+    } else {
+      const coachIds =
+        this.state.selectedObjects?.map(
+          (coach: SelectFieldItem) => coach.value,
+        ) ?? [];
+      this.props.editUserSelectedObjects(coachIds);
+    }
   };
 
   render() {
@@ -77,21 +97,65 @@ class UserWithRole extends React.Component<Props, State> {
       classes,
       t,
       handleRoleChange,
+      hasOwnerPermission,
       user,
       roles,
+      franchiseRoles,
       deleteUser,
       coachList,
       coachListLoading,
+      franchiseeList,
+      franchiseeListLoading,
+      isFranchisor,
     } = this.props;
 
-    const selectedCoachesInitial =
-      this.props.user.coaches_selected_in_role && this.props.coachList
-        ? getCoachOptionsFromCoachIds(
+    const selectedObjectsInitial = (() => {
+      if (isFranchisor) {
+        return this.props.user?.allowed_franchisees && this.props.franchiseeList
+          ? getOptionsFromIds(
+              this.props.user?.allowed_franchisees || [],
+              this.props.franchiseeList || [],
+            )
+          : [];
+      }
+      return this.props.user.coaches_selected_in_role && this.props.coachList
+        ? getOptionsFromIds(
             this.props.user.coaches_selected_in_role || [],
             this.props.coachList || [],
           )
         : [];
+    })();
 
+    let objectListLoading: boolean;
+    let objectList: Array<Coach | Company>;
+    let roleId: number;
+    let roleIdentifier: number;
+
+    if (isFranchisor) {
+      objectListLoading = franchiseeListLoading;
+      objectList = franchiseeList;
+      roleId = user.franchise_role;
+      roleIdentifier = user.franchise_role_identifier;
+    } else {
+      objectListLoading = coachListLoading;
+      objectList = coachList;
+      roleId = user.role;
+      roleIdentifier = null;
+    }
+
+    const isRoleIn = (roleIds: number[]) => {
+      if (isFranchisor) {
+        return roleIdentifier === OWNER_ROLE;
+      }
+      return roleIds.includes(roleId);
+    };
+
+    const disableRoleMenuItem = (role: FranchiseRole | Role) => {
+      if (isFranchisor) {
+        return role.identifier === OWNER_ROLE;
+      }
+      return role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE;
+    };
     return (
       <div className={classes.roleFieldContainer}>
         <TextField className={classes.roleField} disabled value={user.email} />
@@ -103,53 +167,61 @@ class UserWithRole extends React.Component<Props, State> {
         <FormControl>
           <Select
             className={classes.roleField}
-            disabled={
-              user.role === OWNER_ROLE || user.role === CHECKIN_APP_ROLE
-            }
-            value={user.role || 0}
+            disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
+            value={roleId || 0}
             onChange={(ev: any) => {
               handleRoleChange(parseInt(ev.target.value, 10));
             }}
             name="role"
           >
-            {roles.map((role) => (
-              <MenuItem
-                disabled={
-                  role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE
-                }
-                key={role.id}
-                value={role.id}
-              >
-                {getRoleName(role, t)}
-              </MenuItem>
-            ))}
+            {(isFranchisor ? franchiseRoles : roles).map((role) => {
+              return (
+                <MenuItem
+                  disabled={disableRoleMenuItem(role)}
+                  key={role.id}
+                  value={role.id}
+                >
+                  {getRoleName(role, t)}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
-        {user.role !== OWNER_ROLE ? (
+        {!isRoleIn([OWNER_ROLE]) && hasOwnerPermission && (
           <DeleteButton t={t} deleteUser={deleteUser} />
-        ) : null}
-        {!Object.values(COMMON_ROLES).includes(user.role) && (
-          <div className={classes.selectorField}>
-            <MaterialUISelector
-              placeholder={t('forms.user.selectCoach')}
-              isLoading={coachListLoading}
-              name="coaches"
-              menuPlacement="bottom"
-              value={this.state.selectedCoaches ?? selectedCoachesInitial}
-              onChange={(values: CoachOption[]) => {
-                this.setState(
-                  { selectedCoaches: values },
-                  this.handleCoachesChange,
-                );
-              }}
-              options={[...coachList]?.map((coach: Coach) => ({
-                value: coach.id,
-                label: coach.name,
-              }))}
-              isMulti
-            />
-          </div>
         )}
+        {!(
+          isRoleIn(Object.values(COMMON_ROLES)) || roleIdentifier === ADMIN_ROLE
+        ) &&
+          hasOwnerPermission && (
+            <div className={classes.selectorField}>
+              <MaterialUISelector
+                placeholder={
+                  isFranchisor
+                    ? t('forms.user.selectFranchisees')
+                    : t('forms.user.selectCoach')
+                }
+                isLoading={objectListLoading}
+                name={isFranchisor ? 'franchisees' : 'coaches'}
+                menuPlacement="bottom"
+                value={this.state.selectedObjects ?? selectedObjectsInitial}
+                onChange={(values: SelectFieldItem[]) => {
+                  this.setState(
+                    { selectedObjects: values },
+                    this.handleObjectChange,
+                  );
+                }}
+                options={[...objectList]?.map((object: Coach | Company) => ({
+                  value: object.id,
+                  label: object.name,
+                }))}
+                isMulti
+              />
+              <Typography variant="caption" color="textSecondary">
+                {t('forms.user.ifEmptySelectAll')}
+              </Typography>
+            </div>
+          )}
       </div>
     );
   }
@@ -176,4 +248,4 @@ export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation('role'),
-)(UserWithRole);
+)(UserWithRoleItem);

@@ -7,16 +7,25 @@ import { useTranslation } from 'react-i18next';
 import PaginatedListBase from '../../../../components/PaginatedListBase.component';
 import { PrivateConsumerPass } from '../../types';
 import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
+import { Member } from '#libs/member/types';
+import { OptionCallback } from '../../../../state/types';
 
 type Props = {
-  onClick: ?(ConsumerPaymentPack) => void,
-  items: Array<PrivateConsumerPass>,
-  nbItems: number,
-  loading: boolean,
-  page: number,
-  itemPerPage: number,
-  onPageRequested: (id: number, page: number, pageSize: number) => void,
-  updatePrivateConsumerPassCredits: (...any) => void,
+  onClick?: (
+    PrivateConsumerPass: PrivateConsumerPass<Member<number, number>>,
+  ) => void;
+  allowedFranchisees?: Array<number>;
+  items: Array<PrivateConsumerPass>;
+  nbItems: number;
+  loading: boolean;
+  page: number;
+  itemPerPage: number;
+  onPageRequested: (page: number, pageSize: number) => void;
+  updatePrivateConsumerPassCredits?: (
+    id: number,
+    credits: -1 | 1,
+    options: OptionCallback,
+  ) => void;
 };
 
 export const PaginatedConsumerPrivatePass = (props: Props) => {
@@ -31,7 +40,7 @@ export const PaginatedConsumerPrivatePass = (props: Props) => {
         itemPerPage={props.itemPerPage}
         page={props.page}
         nbItems={props.nbItems}
-        onPageRequested={(page, pageSize) =>
+        onPageRequested={(page: number, pageSize: number) =>
           props.onPageRequested(page, pageSize)
         }
         renderEmpty={() => (
@@ -46,10 +55,14 @@ export const PaginatedConsumerPrivatePass = (props: Props) => {
             <Divider />
           </div>
         )}
-        renderItem={(pcp) => (
+        renderItem={(pcp: PrivateConsumerPass<Member<number, number>>) => (
           <PrivateConsumerPassBookerListItem
             divider
             key={pcp.id}
+            disabled={
+              props.allowedFranchisees?.length &&
+              !props.allowedFranchisees.includes(pcp.private_pass?.company)
+            }
             showMember
             private_consumer_pass={pcp}
             onUpdateCredit={props.updatePrivateConsumerPassCredits}

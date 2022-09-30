@@ -923,11 +923,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
               spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
             />
           )}
-          <Backdrop
-            className={classes.backdrop}
-            open={this.state.showLoader}
-            onClick={() => null}
-          >
+          <Backdrop className={classes.backdrop} open={this.state.showLoader}>
             <CircularProgress color="primary" />
           </Backdrop>
         </div>

@@ -28,6 +28,7 @@ EmptyState.args = {
   handleChangePage: () => {},
   goToCompany: () => {},
   goToUser: () => () => {},
+  hasMemberPermission: true,
 };
 
 const CustomTemplateState = (args: OwnProps) => (
@@ -49,6 +50,7 @@ CustomTemplate.args = {
   handleChangePage: () => {},
   goToCompany: () => {},
   goToUser: () => () => {},
+  hasMemberPermission: true,
 };
 
 export default {

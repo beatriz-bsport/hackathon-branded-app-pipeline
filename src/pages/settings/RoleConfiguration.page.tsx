@@ -8,9 +8,9 @@ import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { TFunction } from 'i18next';
 import { Backdrop, CircularProgress, Divider, Theme } from '@material-ui/core';
-import UserWithRoleList from '../../libs/role/components/UserWithRoleList.component';
+import UserWithRoleList from '#libs/role/components/UserWithRoleList.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import RoleList from '../../libs/role/components/RoleList.component';
+import RoleList from '#libs/role/components/RoleList.component';
 import {
   fetchCompanyUserRoles,
   updateUserRole,
@@ -19,8 +19,12 @@ import {
   createCompanyRole,
   updateCompanyRole,
   deleteCompanyRole,
-} from '../../libs/role/actions';
-import { getUsersWithRole, getAllRoles } from '../../libs/role/selectors';
+} from '#libs/role/actions';
+import {
+  getUsersWithRole,
+  getAllRoles,
+  hasRoleUpsertPermission,
+} from '#libs/role/selectors';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
 // @ts-ignore
@@ -44,7 +48,7 @@ export class RoleConfiguration extends React.Component<Props> {
       return <LinearProgress />;
     }
 
-    const { t, users, roles, classes } = this.props;
+    const { t, users, roles, classes, hasOwnerPermission } = this.props;
 
     return (
       <div className={classes.container}>
@@ -68,6 +72,7 @@ export class RoleConfiguration extends React.Component<Props> {
             createUserRole={this.props.createStaffUser}
             coachList={this.props.coachList}
             coachListLoading={this.props.coachListLoading}
+            hasOwnerPermission={hasOwnerPermission}
           />
         </Paper>
         <Typography variant="h5" className={classes.sectionTitle}>
@@ -77,17 +82,14 @@ export class RoleConfiguration extends React.Component<Props> {
         <Paper id="text_staff_roles" className={classes.rolePaper}>
           <RoleList
             roles={roles}
+            hasOwnerPermission={hasOwnerPermission}
             onCreateRole={(role) => this.props.createCompanyRole(role)}
             onEditRole={(role) => this.props.updateCompanyRole(role)}
             onDeleteRole={(role) => this.props.deleteCompanyRole(role)}
           />
         </Paper>
 
-        <Backdrop
-          className={classes.backdrop}
-          open={this.props.updateLoading}
-          onClick={() => null}
-        >
+        <Backdrop className={classes.backdrop} open={this.props.updateLoading}>
           <CircularProgress color="primary" />
         </Backdrop>
       </div>
@@ -132,6 +134,7 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
+  hasOwnerPermission: hasRoleUpsertPermission(state),
   loading: state.role.loading,
   users: getUsersWithRole(state),
   roles: getAllRoles(state),

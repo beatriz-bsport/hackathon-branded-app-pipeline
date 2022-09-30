@@ -213,7 +213,7 @@ type Props = {
   nbAlerting: number,
   nbTutorialAlerting: number,
   userAcknowlegdePlatformTutorial: boolean,
-  permissions: Permission,
+  permissions: RolePermission,
   platformSubscriptionPaymentStatus: PlatformSubscriptionPaymentStatus,
   fetchAccessLevel: (token: string) => void,
   disconnect: () => void,

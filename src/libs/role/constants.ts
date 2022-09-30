@@ -3,7 +3,7 @@ import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
 } from '#libs/platform-billing/upsell-identifiers';
-import { ProtectedUrls } from './types';
+import { FranchiseProtectedUrls, ProtectedUrls } from './types';
 
 export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   // give calendar and schedule priority for redirection
@@ -110,3 +110,21 @@ export const EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED = 4502;
 export const EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE = 4503;
 export const EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE = 4504;
 export const EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED = 4505;
+
+export const FRANCHISE_URLS_PERMISSIONS: Record<
+  FranchiseProtectedUrls,
+  string[]
+> = {
+  '/f/franchises': ['franchiseMenu.franchises'],
+  '/f/members': ['franchiseMenu.members'],
+  '/f/coupon-template': ['franchiseMenu.products.couponTemplates'],
+  '/f/email-template': ['franchiseMenu.marketing.emailTemplates'],
+  '/f/settings/notification-rule': ['franchiseMenu.notificationRules'],
+  '/f/payment-pack-template': ['franchiseMenu.products.paymentPacksTemplates'],
+  '/f/private-pass-template': ['franchiseMenu.products.privatePassTemplates'],
+  '/f/reporting': ['franchiseMenu.reporting'],
+  '/f/settings/staff': ['franchiseMenu.staff'],
+  '/f/settings/role': ['franchiseMenu.staff'],
+  '/f/settings/widget': ['franchiseMenu.widgets'],
+  '/f/settings/theme': ['franchiseMenu.settings'],
+};

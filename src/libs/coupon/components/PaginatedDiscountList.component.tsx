@@ -12,6 +12,7 @@ import { FranchiseCompany } from '#libs/franchise/types';
 
 type Props = {
   items: Array<Discount>;
+  allowedFranchisees?: Array<number>;
   nbItems: number;
   loading: boolean;
   page: number;
@@ -49,6 +50,10 @@ export const PaginatedDiscountList = (props: Props) => {
         renderItem={(discount: Discount) => (
           <DiscountListItem
             divider
+            disabled={
+              props.allowedFranchisees?.length &&
+              !props.allowedFranchisees.includes(discount.company)
+            }
             discount={discount}
             goToInvoice={(uuid: string) =>
               props.goToInvoice(discount.company, uuid)

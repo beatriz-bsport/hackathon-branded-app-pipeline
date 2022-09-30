@@ -8,23 +8,36 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 
-import UserWithRole from './UserWithRoleItem.component';
+import UserWithRoleItem from './UserWithRoleItem.component';
 import CreateStaffUser from './CreateStaffUser.component';
-import { UserRole, UserRoleData, Role } from '../types';
+import {
+  UserRole,
+  UserRoleData,
+  Role,
+  FranchiseRole,
+  FranchiseUserRoleData,
+} from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { Coach } from '#libs/associated-coach/types';
+import { Company } from '#libs/company/types';
+import FranchiseCreateStaffUser from '#libs/franchise/components/FranchiseCreateStaffUser.component';
 
 type OwnProps = {
-  users: Array<UserRole>;
-  roles: Role[];
+  coachList?: Array<Coach>;
+  coachListLoading?: boolean;
+  createUserRole: (data: UserRoleData | FranchiseUserRoleData) => void;
   deleteUserRole: (id: number) => void;
-  createUserRole: (data: UserRoleData) => void;
+  franchiseeList?: Array<Company>;
+  franchiseeListLoading?: boolean;
+  franchiseRoles?: FranchiseRole[];
+  hasOwnerPermission: boolean;
+  isFranchisor?: boolean;
+  roles?: Role[];
   updateUserRole: (
     userId: number,
-    params: { roleId?: number; coaches?: number[] },
+    params: { roleId?: number; coaches?: number[]; franchisees?: number[] },
   ) => void;
-  coachList: Array<Coach>;
-  coachListLoading: boolean;
+  users: Array<UserRole<number, FranchiseRole>>;
 };
 
 type WithStateType = {
@@ -41,32 +54,57 @@ export const UserWithRoleList = (props: Props) => (
   <List>
     {props.users.map((user) => (
       <div className={props.classes.roleListItem} key={user.id}>
-        <UserWithRole
-          user={user}
-          roles={props.roles}
+        <UserWithRoleItem
+          coachList={props.coachList}
+          coachListLoading={props.coachListLoading}
+          deleteUser={() => props.deleteUserRole(user.id)}
+          editUserSelectedObjects={(objectsIds: number[]) =>
+            props.updateUserRole(
+              user.id,
+              props.isFranchisor
+                ? { franchisees: objectsIds }
+                : { coaches: objectsIds },
+            )
+          }
+          franchiseRoles={props.franchiseRoles}
+          franchiseeList={props.franchiseeList}
+          franchiseeListLoading={props.franchiseeListLoading}
           handleRoleChange={(role) =>
             props.updateUserRole(user.id, { roleId: role })
           }
-          deleteUser={() => props.deleteUserRole(user.id)}
-          coachList={props.coachList}
-          coachListLoading={props.coachListLoading}
-          editUserSelectedCoaches={(coachesIds: number[]) =>
-            props.updateUserRole(user.id, { coaches: coachesIds })
-          }
+          hasOwnerPermission={props.hasOwnerPermission}
+          isFranchisor={props.isFranchisor}
+          roles={props.roles}
+          user={user}
         />
       </div>
     ))}
-    <CreateStaffUser
-      open={props.createOpen}
-      onSubmit={(data) => {
-        props.createUserRole(data);
-        props.setCreateOpen(false);
-      }}
-      onClose={() => props.setCreateOpen(false)}
-      roles={props.roles}
-      coachList={props.coachList}
-      coachListLoading={props.coachListLoading}
-    />
+    {props.isFranchisor ? (
+      <FranchiseCreateStaffUser
+        open={props.createOpen}
+        onSubmit={(data) => {
+          props.createUserRole(data);
+          props.setCreateOpen(false);
+        }}
+        onClose={() => props.setCreateOpen(false)}
+        franchiseRoles={props.franchiseRoles}
+        franchiseeList={props.franchiseeList}
+        franchiseeListLoading={props.franchiseeListLoading}
+      />
+    ) : (
+      <CreateStaffUser
+        open={props.createOpen}
+        onSubmit={(data) => {
+          props.createUserRole(data);
+          props.setCreateOpen(false);
+        }}
+        onClose={() => props.setCreateOpen(false)}
+        roles={props.roles}
+        coachList={props.coachList}
+        coachListLoading={props.coachListLoading}
+      />
+    )}
+
     <Button
       variant="outlined"
       color="primary"

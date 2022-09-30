@@ -40,9 +40,9 @@ const PaymentPackTemplateDeleteDialog = (props: Props) => {
           delayBeforeActivation={5}
           onClick={() =>
             props.onSubmit(
-              props.paymentPackTemplate.payment_pack_template_instances.find(
+              props.paymentPackTemplate.payment_pack_template_instances?.find(
                 (ppti) => ppti.company === props.companyId,
-              ).id,
+              )?.id,
               {
                 onSuccess: () => setProcessing(false),
                 onError: () => setProcessing(false),

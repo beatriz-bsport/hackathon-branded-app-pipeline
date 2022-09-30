@@ -1,3 +1,4 @@
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   API_URI,
   getAuth,
@@ -91,10 +92,9 @@ export async function fetchAllPaymentPackCategory({
   return getAuth(`${API_V1_URI}/payment-pack/payment-pack-category/`);
 }
 
-export async function fetchPaymentPackTemplateList(params?: {
-  franchisor?: number;
-  id__in?: Array<number>;
-}) {
+export async function fetchPaymentPackTemplateList(
+  params?: FranchiseProductTemplateQueryParams,
+) {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack-template/${buildUrlParams(
       params,

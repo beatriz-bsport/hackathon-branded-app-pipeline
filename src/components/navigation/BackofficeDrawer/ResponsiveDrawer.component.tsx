@@ -60,7 +60,7 @@ import {
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
-import { Permission } from '#libs/role/types';
+import { RolePermission } from '#libs/role/types';
 import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
@@ -82,7 +82,7 @@ type Props = {
     upsell_identifier: number;
     readable_identifier: string;
   }[];
-  permissions: Permission;
+  permissions: RolePermission;
   disconnect: () => void;
   onMenuItemClick: () => void;
   nbTutorialAlerting: number;

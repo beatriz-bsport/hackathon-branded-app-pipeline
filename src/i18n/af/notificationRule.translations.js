@@ -258,6 +258,8 @@ exports.default = {
       "Créer une configuration pour forcer l'utilisation de templates d’email à chacun de vos franchisés.",
     form: {
       title: 'Configuration',
+      restrictedAccess:
+        "Cette configuration est paramétrisée pour des franchisés auxquels vous n'avez pas accès. Certains champs ne sont pas modifiables",
       description:
         'Le template choisi sera utilisé pour l’email transactionnel “{{name}}“ pour l’ensemble des franchisés sélectionnés ici.',
       name: 'Nom',

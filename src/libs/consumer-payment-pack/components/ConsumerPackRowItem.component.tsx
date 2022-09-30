@@ -42,7 +42,7 @@ type Props = {
   noDivider?: boolean;
   disabled?: boolean;
 
-  consumerPack: WithIsSharedActive<ConsumerPaymentPack>;
+  consumerPack: WithIsSharedActive<ConsumerPaymentPack<PaymentPack>>;
   paymentPack?: PaymentPack;
   maxoutBooking?: MaxoutBooking;
   button?: Node;
@@ -468,7 +468,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose(
+export default compose<any, Props>(
   withTranslation(['paymentPack']),
   withStyles(styles),
 )(ConsumerPackRowItem);

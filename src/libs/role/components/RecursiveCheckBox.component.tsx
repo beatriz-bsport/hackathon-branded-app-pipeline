@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { useTranslation } from 'react-i18next';
 
-import { Permission } from '../types';
+import { RolePermission } from '../types';
 
 type DeepKeyBoolean = { [key: string]: boolean | DeepKeyBoolean };
 
@@ -22,8 +22,8 @@ const RecursiveDeepCheckBox: React.FC<{
   rightKey: string;
   keysAccumulator: string[];
   disabled: boolean;
-  permissions: Permission;
-  updatePermission: (permission: Immutable.Immutable<Permission>) => void;
+  permissions: RolePermission;
+  updatePermission: (permission: Immutable.Immutable<RolePermission>) => void;
 }> = ({
   checkBoxData,
   rightKey,

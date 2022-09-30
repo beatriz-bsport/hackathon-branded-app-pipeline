@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect } from 'react';
 import { TFunction } from 'i18next';
 import { push as pushAction } from 'connected-react-router';
@@ -19,8 +18,8 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 
 import {
-  getFranchiseCompanyById,
   getFranchiseUserById,
+  withAllowedFranchisees,
 } from '../../libs/franchise/selectors';
 import FranchiseMemberDetailsCard from '../../libs/franchise/components/FranchiseMemberDetailsCard.components';
 import FranchiseMemberMembership from '../../libs/franchise/components/FranchiseMemberMembership.components';
@@ -39,7 +38,6 @@ const FranchiseMemberDetails = (props: Props) => {
   const {
     userId,
     user,
-    companiesById,
     classes,
     fetchFranchiseUser,
     fetchFranchise,
@@ -75,13 +73,7 @@ const FranchiseMemberDetails = (props: Props) => {
           </div>
           <div className={classes.content}>
             <FranchiseMemberMembership
-              companies={user?.companies
-                .map((companyId) => {
-                  const company = companiesById[companyId];
-                  if (!company) return null;
-                  return company;
-                })
-                .filter((c) => c !== null)}
+              companies={user?.companies}
               goToCompanyDetails={goToCompanyDetails}
               goToFranchiseCompanyDetails={goToFranchiseCompanyDetails}
             />
@@ -121,8 +113,7 @@ const styles = (theme: Theme) =>
 
 const connector = connect(
   (state: RootState, props: { userId: number }) => ({
-    user: getFranchiseUserById(state, props.userId),
-    companiesById: getFranchiseCompanyById(state),
+    user: withAllowedFranchisees(getFranchiseUserById)(state, props.userId),
   }),
   {
     fetchFranchiseUser: fetchFranchiseUserAction,

@@ -1,0 +1,122 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Paper from '@material-ui/core/Paper';
+import { TFunction } from 'i18next';
+import { Backdrop, CircularProgress, Theme } from '@material-ui/core';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import RoleList from '#libs/role/components/RoleList.component';
+import {
+  fetchCompanyRoles,
+  fetchFranchiseRoles,
+  createFranchiseRole,
+  updateFranchiseRole,
+  deleteFranchiseRole,
+} from '#libs/role/actions';
+import {
+  getUsersWithRole,
+  getAllFranchiseRoles,
+  withFranchiseeRoles,
+  hasFranchiseRoleUpsertPermission,
+} from '#libs/role/selectors';
+// @ts-ignore
+import withTitle from '#hocs/with-title.hoc';
+import { RootState } from '../../../reducers';
+import { MaterialStyleType } from '../../../utils/types';
+import { FranchiseRole } from '#libs/role/types';
+
+type Props = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+
+export class RoleConfiguration extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchCompanyRoles();
+    this.props.fetchFranchiseRoles();
+  }
+
+  createFranchiseRole = (franchiseRole: FranchiseRole) => {
+    this.props.createFranchiseRole(franchiseRole, {
+      onSuccess: () => this.props.fetchCompanyRoles(),
+    });
+  };
+
+  updateFranchiseRole = (franchiseRole: FranchiseRole) => {
+    this.props.updateFranchiseRole(franchiseRole, {
+      onSuccess: () => this.props.fetchCompanyRoles(),
+    });
+  };
+
+  render() {
+    if (this.props.loading) {
+      return <LinearProgress />;
+    }
+
+    const { roles, classes } = this.props;
+
+    return (
+      <div className={classes.container}>
+        <Paper id="text_staff_roles" className={classes.rolePaper}>
+          <RoleList
+            roles={roles}
+            hasOwnerPermission={this.props.hasOwnerPermission}
+            onCreateRole={this.createFranchiseRole}
+            onEditRole={this.updateFranchiseRole}
+            onDeleteRole={this.props.deleteFranchiseRole}
+            isFranchisor
+            users={this.props.users}
+          />
+        </Paper>
+
+        <Backdrop className={classes.backdrop} open={this.props.updateLoading}>
+          <CircularProgress color="primary" />
+        </Backdrop>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) => ({
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
+  container: {
+    padding: theme.spacing(2),
+  },
+  rolePaper: {
+    marginTop: theme.spacing(1),
+  },
+  backdrop: {
+    zIndex: 999,
+  },
+});
+
+const mapStateToProps = (state: RootState) => ({
+  hasOwnerPermission: hasFranchiseRoleUpsertPermission(state),
+  loading: state.role.loading,
+  users: getUsersWithRole(state),
+  roles: withFranchiseeRoles(getAllFranchiseRoles)(state),
+  updateLoading: state.role.role.createOrUpdate.loading,
+});
+
+const mapDispatchToProps = {
+  fetchCompanyRoles,
+  fetchFranchiseRoles,
+  createFranchiseRole,
+  updateFranchiseRole,
+  deleteFranchiseRole,
+};
+
+export default compose(
+  // @ts-ignore
+  withStyles(styles),
+  withTranslation(['franchise']),
+  withTitle(({ t }: { t: TFunction }) => t('staff.rolePageTitle')),
+  connect(mapStateToProps, mapDispatchToProps),
+)(RoleConfiguration);

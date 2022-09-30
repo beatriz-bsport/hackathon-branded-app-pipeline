@@ -19,7 +19,10 @@ import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAction,
 } from '#libs/private-service/actions';
-import { getFranchiseCompanies } from '#libs/franchise/selectors';
+import {
+  getFranchiseCompanies,
+  getAllowedFranchisees,
+} from '#libs/franchise/selectors';
 import { getPrivatePassTemplate } from '#libs/private-service/selectors/private-pass';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
@@ -83,6 +86,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
             <Divider />
             <PaginatedConsumerPrivatePass
               items={this.props.consumerPass.items}
+              allowedFranchisees={this.props.allowedFranchisees}
               nbItems={this.props.consumerPass.count}
               onClick={(cpp: {
                 member: { id: number };
@@ -128,6 +132,7 @@ const connector = connect(
     state: RootState,
     { privatePassTemplateId }: { privatePassTemplateId: number },
   ) => ({
+    allowedFranchisees: getAllowedFranchisees(state),
     privatePassTemplate: getPrivatePassTemplate(state, privatePassTemplateId),
     consumerPass: {
       count: state.privateService.privateConsumerPass.count,

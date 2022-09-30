@@ -13,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import type { DrawerItem } from './ResponsiveDrawer.component';
 import { checkRequiredPermissionsForPath } from '../../../libs/role/utils';
-import { Permission } from '#libs/role/types';
+import { RolePermission } from '#libs/role/types';
 import DrawerListItem from './ResponsiveDrawerListItem.component';
 import ResponsiveDrawerListItemIcon from './DrawerListItemIcon.component';
 
@@ -45,7 +45,7 @@ type Props = {
   item: DrawerItem;
   i: number;
   isNested?: boolean;
-  permissions: Permission;
+  permissions: RolePermission;
   location: Location;
   handleToggle: (idx: number, item: DrawerItem) => void;
 

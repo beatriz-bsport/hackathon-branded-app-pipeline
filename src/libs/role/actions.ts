@@ -8,6 +8,14 @@ import {
   createCompanyRole as createCompanyRoleAPI,
   updateCompanyRole as updateCompanyRoleAPI,
   deleteCompanyRole as deleteCompanyRoleAPI,
+  fetchFranchiseUserRoles as fetchFranchiseUserRolesAPI,
+  createFranchiseUserRole as createFranchiseUserRoleAPI,
+  updateFranchiseUserRole as updateFranchiseUserRoleAPI,
+  deleteStaffFranchiseUser as deleteStaffFranchiseUserAPI,
+  fetchFranchiseRoles as fetchFranchiseRolesAPI,
+  createFranchiseRole as createFranchiseRoleAPI,
+  updateFranchiseRole as updateFranchiseRoleAPI,
+  deleteFranchiseRole as deleteFranchiseRoleAPI,
 } from './api';
 import {
   Dispatch,
@@ -15,7 +23,14 @@ import {
   OptionPaginatedCallback,
 } from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-import { Permission, Role, UserRoleData } from './types';
+import {
+  FranchiseRolePermission,
+  FranchiseRole,
+  FranchiseUserRoleData,
+  RolePermission,
+  Role,
+  UserRoleData,
+} from './types';
 
 export const userRoleList = {
   error: createAction('ROLE/USER/LIST/ERROR'),
@@ -36,7 +51,7 @@ export const userRoleUpdate = {
 
 export const userRoleDelete = {
   error: createAction('ROLE/USER/DELETE/ERROR'),
-  success: createAction('ROLE/USER/DELETE/ERROR'),
+  success: createAction('ROLE/USER/DELETE/SUCCESS'),
 };
 
 export function fetchCompanyUserRoles(options?: OptionCallback) {
@@ -48,14 +63,13 @@ export function fetchCompanyUserRoles(options?: OptionCallback) {
       const response = await fetchCompanyUserRolesAPI();
       const roles = response.data;
       dispatch(userRoleList.success(roles));
-      dispatch(userRoleList.isLoading(false));
       options?.onSuccess && options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(userRoleList.error(err));
-      dispatch(userRoleList.isLoading(false));
       options?.onError && options.onError();
     }
+    dispatch(userRoleList.isLoading(false));
   };
 }
 export function fetchCompanyUserRolesPaginated(
@@ -76,14 +90,13 @@ export function fetchCompanyUserRolesPaginated(
       });
       const data = response.data;
       dispatch(userRoleListPaginated.success(data));
-      dispatch(userRoleListPaginated.isLoading(false));
       options?.onSuccess && options.onSuccess(data);
     } catch (err) {
       console.error(err);
       dispatch(userRoleListPaginated.error(err));
-      dispatch(userRoleListPaginated.isLoading(false));
       options?.onError && options.onError();
     }
+    dispatch(userRoleListPaginated.isLoading(false));
   };
 }
 export function updateUserRole(
@@ -98,14 +111,13 @@ export function updateUserRole(
       const response = await updateUserRoleAPI(userId, params);
       const role = response.data;
       dispatch(userRoleUpdate.success(role));
-      dispatch(userRoleUpdate.isLoading(false));
       dispatch(snackbarSuccess('role.update.success'));
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
-      dispatch(userRoleUpdate.isLoading(false));
       dispatch(snackbarError('role.error.generic'));
     }
+    dispatch(userRoleUpdate.isLoading(false));
   };
 }
 
@@ -117,14 +129,13 @@ export function deleteStaffUser(userId: number) {
     try {
       await deleteStaffUserAPI(userId);
       dispatch(userRoleDelete.success(userId));
-      dispatch(userRoleUpdate.isLoading(false));
       dispatch(snackbarSuccess('role.update.success'));
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
-      dispatch(userRoleUpdate.isLoading(false));
       dispatch(snackbarError('role.error.generic'));
     }
+    dispatch(userRoleUpdate.isLoading(false));
   };
 }
 
@@ -137,18 +148,17 @@ export function createStaffUser(data: UserRoleData) {
       const response = await createUserRoleAPI(data);
       const role = response.data;
       dispatch(userRoleUpdate.success(role));
-      dispatch(userRoleUpdate.isLoading(false));
       dispatch(snackbarSuccess('role.update.success'));
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
-      dispatch(userRoleUpdate.isLoading(false));
       if (err && err.response && err.response.data && err.response.data.email) {
         dispatch(snackbarError('role.error.errorEmail'));
       } else {
         dispatch(snackbarError('role.error.generic'));
       }
     }
+    dispatch(userRoleUpdate.isLoading(false));
   };
 }
 
@@ -161,7 +171,7 @@ export const roleList = {
 export const roleUpdate = {
   error: createAction('ROLE/UPDATE/ERROR'),
   isLoading: createAction('ROLE/UPDATE/IS_LOADING'),
-  set: createAction('ROLE/UPDATE/SET'),
+  success: createAction('ROLE/UPDATE/SUCCESS'),
   delete: createAction('ROLE/UPDATE/DELETE'),
 };
 
@@ -184,7 +194,7 @@ export function fetchCompanyRoles() {
 export function createCompanyRole(data: {
   name: string;
   description: string;
-  permissions: Permission;
+  permissions: RolePermission;
   has_booking_override_control: boolean;
 }) {
   return async (dispatch: Dispatch) => {
@@ -192,7 +202,7 @@ export function createCompanyRole(data: {
     dispatch(roleUpdate.error(null));
     try {
       const response = await createCompanyRoleAPI(data);
-      dispatch(roleUpdate.set(response.data));
+      dispatch(roleUpdate.success(response.data));
     } catch (err) {
       console.error(err);
       dispatch(roleUpdate.error(err));
@@ -205,7 +215,7 @@ export function updateCompanyRole(data: {
   id: number;
   name: string;
   description: string;
-  permissions: Permission;
+  permissions: RolePermission;
   has_booking_override_control: boolean;
 }) {
   return async (dispatch: Dispatch) => {
@@ -213,7 +223,7 @@ export function updateCompanyRole(data: {
     dispatch(roleUpdate.error(null));
     try {
       const response = await updateCompanyRoleAPI(data.id, data);
-      dispatch(roleUpdate.set(response.data));
+      dispatch(roleUpdate.success(response.data));
     } catch (err) {
       console.error(err);
       dispatch(roleUpdate.error(err));
@@ -234,5 +244,237 @@ export function deleteCompanyRole(role: Role) {
       dispatch(roleUpdate.error(err));
     }
     dispatch(roleUpdate.isLoading(false));
+  };
+}
+
+export const franchiseUserRoleList = {
+  error: createAction('FRANCHISE_ROLE/USER/LIST/ERROR'),
+  isLoading: createAction('FRANCHISE_ROLE/USER/LIST/IS_LOADING'),
+  success: createAction('FRANCHISE_ROLE/USER/LIST/SUCCESS'),
+};
+export function fetchFranchiseUserRoles(options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseUserRoleList.isLoading(true));
+    dispatch(franchiseUserRoleList.error(null));
+
+    try {
+      const response = await fetchFranchiseUserRolesAPI();
+      const roles = response.data;
+      dispatch(franchiseUserRoleList.success(roles));
+      options?.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseUserRoleList.error(err));
+      options?.onError && options.onError();
+    }
+    dispatch(franchiseUserRoleList.isLoading(false));
+  };
+}
+
+export const franchiseUserRoleListPaginated = {
+  error: createAction('FRANCHISE_ROLE/USER/LIST_PAGINATED/ERROR'),
+  isLoading: createAction('FRANCHISE_ROLE/USER/LIST_PAGINATED/IS_LOADING'),
+  success: createAction('FRANCHISE_ROLE/USER/LIST_PAGINATED/SUCCESS'),
+};
+
+export function fetchFranchiseUserRolesPaginated(
+  params: {
+    page: number;
+    page_size: number;
+  },
+  options?: OptionPaginatedCallback<Role>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseUserRoleListPaginated.isLoading(true));
+    dispatch(franchiseUserRoleListPaginated.error(null));
+
+    try {
+      const response = await fetchFranchiseUserRolesAPI({
+        ...params,
+        paginated: true,
+      });
+      const data = response.data;
+      dispatch(franchiseUserRoleListPaginated.success(data));
+      options?.onSuccess && options.onSuccess(data);
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseUserRoleListPaginated.error(err));
+      options?.onError && options.onError();
+    }
+    dispatch(franchiseUserRoleListPaginated.isLoading(false));
+  };
+}
+export const franchiseUserRoleUpdate = {
+  error: createAction('FRANCHISE_ROLE/USER/UPDATE/ERROR'),
+  isLoading: createAction('FRANCHISE_ROLE/USER/UPDATE/IS_LOADING'),
+  success: createAction('FRANCHISE_ROLE/USER/UPDATE/SUCCESS'),
+};
+
+export function updateFranchiseUserRole(
+  userId: number,
+  params: { roleId?: number; franchisees?: number[] },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseUserRoleUpdate.isLoading(true));
+    dispatch(franchiseUserRoleUpdate.error(null));
+
+    try {
+      const response = await updateFranchiseUserRoleAPI(userId, params);
+      const role = response.data;
+      dispatch(franchiseUserRoleUpdate.success(role));
+      dispatch(snackbarSuccess('role.update.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseUserRoleUpdate.error(err));
+      dispatch(snackbarError('role.error.generic'));
+    }
+    dispatch(franchiseUserRoleUpdate.isLoading(false));
+  };
+}
+export const franchiseUserRoleDelete = {
+  error: createAction('FRANCHISE_ROLE/USER/DELETE/ERROR'),
+
+  success: createAction('FRANCHISE_ROLE/USER/DELETE/SUCCESS'),
+};
+
+export function deleteStaffFranchiseUser(userId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseUserRoleUpdate.isLoading(true));
+    dispatch(franchiseUserRoleUpdate.error(null));
+
+    try {
+      await deleteStaffFranchiseUserAPI(userId);
+      dispatch(franchiseUserRoleDelete.success(userId));
+      dispatch(snackbarSuccess('role.update.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseUserRoleUpdate.error(err));
+      dispatch(snackbarError('role.error.generic'));
+    }
+    dispatch(franchiseUserRoleUpdate.isLoading(false));
+  };
+}
+
+export function createStaffFranchiseUser(data: FranchiseUserRoleData) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseUserRoleUpdate.isLoading(true));
+    dispatch(franchiseUserRoleUpdate.error(null));
+
+    try {
+      const response = await createFranchiseUserRoleAPI(data);
+      const role = response.data;
+      dispatch(franchiseUserRoleUpdate.success(role));
+      dispatch(snackbarSuccess('role.update.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseUserRoleUpdate.error(err));
+      if (err && err.response && err.response.data && err.response.data.email) {
+        dispatch(snackbarError('role.error.errorEmail'));
+      } else {
+        dispatch(snackbarError('role.error.generic'));
+      }
+    }
+    dispatch(franchiseUserRoleUpdate.isLoading(false));
+  };
+}
+
+export const franchiseRoleList = {
+  error: createAction('FRANCHISE_ROLE/LIST/ERROR'),
+  isLoading: createAction('FRANCHISE_ROLE/LIST/IS_LOADING'),
+  success: createAction('FRANCHISE_ROLE/LIST/SUCCESS'),
+};
+
+export function fetchFranchiseRoles() {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseRoleList.isLoading(true));
+    dispatch(franchiseRoleList.error(null));
+    try {
+      const response = await fetchFranchiseRolesAPI();
+      const roles = response.data;
+      dispatch(franchiseRoleList.success(roles));
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseRoleList.error(err));
+    }
+    dispatch(franchiseRoleList.isLoading(false));
+  };
+}
+
+export const franchiseRoleUpdate = {
+  error: createAction('FRANCHISE_ROLE/UPDATE/ERROR'),
+  isLoading: createAction('FRANCHISE_ROLE/UPDATE/IS_LOADING'),
+  success: createAction('FRANCHISE_ROLE/UPDATE/SUCCESS'),
+  delete: createAction('FRANCHISE_ROLE/UPDATE/DELETE'),
+};
+
+export function createFranchiseRole(
+  data: {
+    name: string;
+    description: string;
+    permissions: FranchiseRolePermission;
+    allowed_franchisees: number[];
+    company_role: Role;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseRoleUpdate.isLoading(true));
+    dispatch(franchiseRoleUpdate.error(null));
+    try {
+      const response = await createFranchiseRoleAPI(data);
+      dispatch(franchiseRoleUpdate.success(response.data));
+      dispatch(snackbarSuccess('role.update.success'));
+      options?.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseRoleUpdate.error(err));
+      dispatch(snackbarError('role.error.generic'));
+      options?.onError && options.onError();
+    }
+    dispatch(franchiseRoleUpdate.isLoading(false));
+  };
+}
+
+export function updateFranchiseRole(
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    permissions: FranchiseRolePermission;
+    allowed_franchisees: number[];
+    company_role: Role;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseRoleUpdate.isLoading(true));
+    dispatch(franchiseRoleUpdate.error(null));
+    try {
+      const response = await updateFranchiseRoleAPI(data.id, data);
+      dispatch(franchiseRoleUpdate.success(response.data));
+      dispatch(snackbarSuccess('role.update.success'));
+      options?.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseRoleUpdate.error(err));
+      dispatch(snackbarError('role.error.generic'));
+      options?.onError && options.onError();
+    }
+    dispatch(franchiseRoleUpdate.isLoading(false));
+  };
+}
+
+export function deleteFranchiseRole(franchiseRole: FranchiseRole) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseRoleUpdate.isLoading(true));
+    dispatch(franchiseRoleUpdate.error(null));
+    try {
+      await deleteFranchiseRoleAPI(franchiseRole.id);
+      dispatch(franchiseRoleUpdate.delete(franchiseRole.id));
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseRoleUpdate.error(err));
+    }
+    dispatch(franchiseRoleUpdate.isLoading(false));
   };
 }

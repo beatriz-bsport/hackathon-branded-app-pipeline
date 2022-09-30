@@ -97,21 +97,24 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                 {t('franchise.addConfiguration')}
               </Button>
 
-              {rules.map((rule) => (
-                <FranchiseNotificationRuleCard
-                  key={rule.id}
-                  rule={rule}
-                  companies={getAvailableCompanies(
-                    companies.filter((c) => rule.companies.includes(c.id)),
-                  )}
-                  notificationId={notificationId}
-                  previewEmail={previewEmail}
-                  emailDesignList={emailDesignList}
-                  onDelete={handleDelete(rule.id)}
-                  onEdit={handleEdit(rule.id)}
-                  fetchPreview={fetchEmailDesignDetail}
-                />
-              ))}
+              {rules.map((rule) => {
+                return (
+                  <FranchiseNotificationRuleCard
+                    key={rule.id}
+                    rule={rule}
+                    // allowedCompanies
+                    companies={getAvailableCompanies(
+                      companies.filter((c) => rule.companies.includes(c.id)),
+                    )}
+                    notificationId={notificationId}
+                    previewEmail={previewEmail}
+                    emailDesignList={emailDesignList}
+                    onDelete={handleDelete(rule.id)}
+                    onEdit={handleEdit(rule.id)}
+                    fetchPreview={fetchEmailDesignDetail}
+                  />
+                );
+              })}
             </>
           )}
           {rules.length === 0 && (

@@ -19,7 +19,7 @@ import MaterialUISelector from '#components/Selector/MaterialUISelector.componen
 
 // @ts-ignore
 import PasswordInput from '../../../components/input/PasswordInput.component';
-import { Role, UserRoleData, CoachOption } from '../types';
+import { Role, UserRoleData, SelectFieldItem } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
@@ -49,7 +49,7 @@ type State = {
   role?: number | null;
   first_name: string;
   last_name: string;
-  coaches: CoachOption[];
+  coaches: SelectFieldItem[];
 };
 
 export class CreateStaffUser extends React.Component<Props, State> {
@@ -69,7 +69,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
     if (!email || !password || !role) return;
     const coaches_in_role_ids =
       !Object.values(COMMON_ROLES).includes(role) && coaches
-        ? coaches.map((coach: CoachOption) => coach.value)
+        ? coaches.map((coach: SelectFieldItem) => coach.value)
         : [];
     this.props.onSubmit({
       email,
@@ -102,7 +102,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
               value={this.state.first_name}
               className={classes.field}
               onChange={(ev) => this.setState({ first_name: ev.target.value })}
-              label={t('forms.user.create.firstName.label')}
+              label={t('forms.user.create.generalInfo.firstName.label')}
             />
             <TextField
               id="textfield_role_lastname"
@@ -110,7 +110,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
               value={this.state.last_name}
               className={classes.field}
               onChange={(ev) => this.setState({ last_name: ev.target.value })}
-              label={t('forms.user.create.lastName.label')}
+              label={t('forms.user.create.generalInfo.lastName.label')}
             />
             <TextField
               id="textfield_role_email"
@@ -120,7 +120,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
               value={this.state.email}
               className={classes.field}
               onChange={(ev) => this.setState({ email: ev.target.value })}
-              label={t('forms.user.create.email.label')}
+              label={t('forms.user.create.generalInfo.email.label')}
             />
             <div className={classes.field}>
               <PasswordInput
@@ -135,7 +135,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
             </div>
             <FormControl className={classes.field}>
               <InputLabel htmlFor="rol-help" shrink>
-                {t('forms.user.create.role.label')}
+                {t('forms.user.create.role.selectRole.topLabel')}
               </InputLabel>
               <Select
                 id="textfield_role_role"
@@ -169,7 +169,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
                     menuPlacement="top"
                     menuPosition="fixed"
                     value={this.state.coaches}
-                    onChange={(values: CoachOption[]) =>
+                    onChange={(values: SelectFieldItem[]) =>
                       this.setState({ coaches: values })
                     }
                     options={[...this.props.coachList].map((coach: Coach) => ({

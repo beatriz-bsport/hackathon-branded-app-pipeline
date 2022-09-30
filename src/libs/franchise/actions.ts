@@ -201,7 +201,7 @@ export const listCompanyGroupActions = {
 };
 
 export function fetchCompanyGroupList(
-  company: number,
+  company?: number,
   options?: OptionCallback<Array<CompanyGroup>>,
 ) {
   return async (dispatch: Dispatch) => {

@@ -15,6 +15,7 @@ export type OwnProps = {
   companies?: FranchiseCompany[];
   withAllCompaniesTag?: boolean;
   menuPortalTarget?: HTMLElement;
+  unclearable?: boolean;
   onChange: (companies: OptionTypeBase[]) => void;
 };
 
@@ -27,17 +28,25 @@ const FranchiseCompaniesSelector = (props: Props) => {
     companies,
     withAllCompaniesTag,
     menuPortalTarget,
+    unclearable,
     onChange,
     t,
   } = props;
+  const availableCompanies = React.useMemo(
+    () =>
+      [...companies]
+        .filter((company) => company.isAllowed)
+        .map((company) => ({
+          label: company.name,
+          value: `${company.id}`,
+        })),
+    [companies],
+  );
   return (
     <MaterialUISelector
-      options={[...companies].map((company) => ({
-        label: company.name,
-        value: `${company.id}`,
-      }))}
+      options={availableCompanies}
       isMulti
-      isClearable
+      isClearable={!unclearable}
       value={selectedCompanies}
       onChange={onChange}
       placeholder={t('editor.selectorPlaceholder')}
@@ -59,6 +68,7 @@ const FranchiseCompaniesSelector = (props: Props) => {
             );
           return null;
         }
+
         return (
           <CompanyChip
             company={companyDic[parseInt(chip.data?.value ?? '')]}

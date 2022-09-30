@@ -20,6 +20,7 @@ import {
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
 import { Coupon, CouponTemplate } from './types';
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 export const couponList = {
   error: createAction('COUPON/LIST/ERROR'),
@@ -237,10 +238,7 @@ export const listCouponTemplateActions = {
 };
 
 export function fetchCouponTemplateList(
-  params?: {
-    franchisor?: number;
-    id__in?: Array<number>;
-  },
+  params?: FranchiseProductTemplateQueryParams,
   options?: OptionCallback<Array<CouponTemplate>>,
 ) {
   return async (dispatch: Dispatch) => {

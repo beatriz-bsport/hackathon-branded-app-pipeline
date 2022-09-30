@@ -84,6 +84,7 @@ const ReportGeneration: React.FC<Props> = ({
   editReportFilterConfig,
   fetchReportFilterConfigList,
   deleteReportFilterConfig,
+  allowedFranchisees,
 }) => {
   if (!report || metadata.loading) {
     return <LinearProgress />;
@@ -113,6 +114,7 @@ const ReportGeneration: React.FC<Props> = ({
           fetchReportFilterConfigList={fetchReportFilterConfigList}
           deleteReportFilterConfig={deleteReportFilterConfig}
           isFranchisor={isFranchisor}
+          allowedFranchisees={allowedFranchisees}
         />
       )}
       <ReportTableHeaders

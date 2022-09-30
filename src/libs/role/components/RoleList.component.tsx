@@ -18,35 +18,48 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';
 
-import { Role, Permission } from '../types';
+import {
+  Role,
+  RolePermission,
+  FranchiseRole,
+  FranchiseRolePermission,
+  UserRole,
+} from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import RedButton from '../../../components/button/RedButton.component';
 import CreateRoleDialog from './CreateRoleDialog.component';
+import CreateFranchiseRoleDialog from '#libs/franchise/components/FranchiseCreateRoleDialog.component';
 import { getRoleDescription, getRoleName } from '../utils';
 
 type OwnProps = {
-  roles: Role[];
+  isFranchisor?: boolean;
+  hasOwnerPermission: boolean;
+  roles: Role[] | FranchiseRole[];
   onCreateRole: (data: {
     name: string;
     description: string;
-    permissions: Permission;
-    has_booking_override_control: boolean;
+    permissions: RolePermission | FranchiseRolePermission;
+    has_booking_override_control?: boolean;
   }) => void;
-  onEditRole: (role: Role) => void;
-  onDeleteRole: (role: Role) => void;
+  onEditRole: (role: Role | FranchiseRole) => void;
+  onDeleteRole: (role: Role | FranchiseRole) => void;
+  users?: UserRole[];
 };
 
 type WithStateType = {
   openCreateDialog: boolean;
   setOpenCreateDialog: (v: boolean) => void;
 
-  currentRole: null | Role;
-  setCurrentRole: (value: null | Role) => void;
+  currentRole: null | Role | FranchiseRole;
+  setCurrentRole: (value: null | Role | FranchiseRole) => void;
 
   openDeleteDialog: boolean;
   setOpenDeleteDialog: (value: boolean) => void;
+
+  openFailDeleteDialog: boolean;
+  setOpenFailDeleteDialog: (value: boolean) => void;
 };
 
 type Props = OwnProps &
@@ -55,15 +68,27 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export class RoleList extends React.PureComponent<Props> {
-  onSubmit = (role: Role) => {
+  onSubmit = (role: Role | FranchiseRole) => {
     this.props.setOpenCreateDialog(false);
     typeof role.id === 'number'
       ? this.props.onEditRole(role)
       : this.props.onCreateRole(role);
   };
 
+  onDelete = (role: Role | FranchiseRole) => {
+    this.props.setCurrentRole(role);
+    this.props.setOpenDeleteDialog(true);
+  };
+
+  onFailDelete = () => this.props.setOpenFailDeleteDialog(true);
+
+  userHaveRole = (role: Role | FranchiseRole) =>
+    this.props.isFranchisor
+      ? this.props.users?.some((user) => user.franchise_role === role.id)
+      : this.props.users?.some((user) => user.role === role.id);
+
   render() {
-    const { t, classes, roles } = this.props;
+    const { t, classes, roles, isFranchisor, hasOwnerPermission } = this.props;
 
     return (
       <List disablePadding>
@@ -78,23 +103,32 @@ export class RoleList extends React.PureComponent<Props> {
 
             <ListItemResponsiveAction
               actions={[
-                {
-                  icon: role.editable ? EditIcon : InfoIcon,
-                  label: t('serviceGroup.edit'),
-                  color: role.editable ? 'primary' : 'textSecondary',
-                  onClick: () => {
-                    this.props.setCurrentRole(role);
-                    this.props.setOpenCreateDialog(true);
-                  },
-                },
-                role.editable && {
-                  icon: DeleteIcon,
-                  label: t('serviceGroup.delete'),
-                  onClick: () => {
-                    this.props.setCurrentRole(role);
-                    this.props.setOpenDeleteDialog(true);
-                  },
-                },
+                ...(hasOwnerPermission
+                  ? [
+                      {
+                        icon: role.editable ? EditIcon : InfoIcon,
+                        label: t('serviceGroup.edit'),
+                        color: role.editable ? 'primary' : 'textSecondary',
+                        onClick: () => {
+                          this.props.setCurrentRole(role);
+                          this.props.setOpenCreateDialog(true);
+                        },
+                      },
+                    ]
+                  : []),
+                ...(role.editable && hasOwnerPermission
+                  ? [
+                      {
+                        icon: DeleteIcon,
+                        label: t('serviceGroup.delete'),
+                        onClick: () => {
+                          this.userHaveRole(role)
+                            ? this.onFailDelete()
+                            : this.onDelete(role);
+                        },
+                      },
+                    ]
+                  : []),
               ]}
             />
           </ListItem>
@@ -115,15 +149,27 @@ export class RoleList extends React.PureComponent<Props> {
           </Button>
         </div>
 
-        <CreateRoleDialog
-          open={this.props.openCreateDialog}
-          onClose={() => {
-            this.props.setOpenCreateDialog(false);
-            this.props.setCurrentRole(null);
-          }}
-          role={this.props.currentRole}
-          onSubmit={this.onSubmit}
-        />
+        {isFranchisor ? (
+          <CreateFranchiseRoleDialog
+            open={this.props.openCreateDialog}
+            onClose={() => {
+              this.props.setOpenCreateDialog(false);
+              this.props.setCurrentRole(null);
+            }}
+            franchisorRole={this.props.currentRole}
+            onSubmit={this.onSubmit}
+          />
+        ) : (
+          <CreateRoleDialog
+            open={this.props.openCreateDialog}
+            onClose={() => {
+              this.props.setOpenCreateDialog(false);
+              this.props.setCurrentRole(null);
+            }}
+            role={this.props.currentRole}
+            onSubmit={this.onSubmit}
+          />
+        )}
 
         <Dialog open={this.props.openDeleteDialog}>
           <DialogTitle>{t('forms.role.delete.title')}</DialogTitle>
@@ -144,6 +190,19 @@ export class RoleList extends React.PureComponent<Props> {
             >
               {t('forms.role.delete.confirm')}
             </RedButton>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={this.props.openFailDeleteDialog}>
+          <DialogTitle>{t('forms.role.failDelete.title')}</DialogTitle>
+          <DialogContent>{t('forms.role.failDelete.content')}</DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                this.props.setOpenFailDeleteDialog(false);
+              }}
+            >
+              {t('forms.role.failDelete.close')}
+            </Button>
           </DialogActions>
         </Dialog>
       </List>
@@ -172,5 +231,6 @@ export default compose<any, OwnProps>(
   withStyles(styles),
   withState('openCreateDialog', 'setOpenCreateDialog', false),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
+  withState('openFailDeleteDialog', 'setOpenFailDeleteDialog', false),
   withState('currentRole', 'setCurrentRole', null),
 )(RoleList);

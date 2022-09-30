@@ -22,7 +22,7 @@ type Props = {
     amount_received: number,
   },
   handleOpenOnSpotPaymentReport: () => void,
-  permissions: Permission,
+  permissions: RolePermission,
 };
 
 export const CashBookForm = (props: Props) => {

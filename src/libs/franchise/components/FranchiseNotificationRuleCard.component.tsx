@@ -1,5 +1,4 @@
-// @flow
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import {
@@ -89,6 +88,14 @@ const FranchiseNotificationRuleCard = (props: Props) => {
     setIsEditing(false);
   };
 
+  const restrictedAccess = useMemo(
+    () =>
+      companies
+        .filter((c) => rule.companies.includes(c.id))
+        .some((c) => !c.isAllowed),
+    [companies, rule],
+  );
+
   return (
     <div>
       <div className={classes.row}>
@@ -97,9 +104,11 @@ const FranchiseNotificationRuleCard = (props: Props) => {
           <IconButton color="primary" onClick={showEdit}>
             <EditIcon />
           </IconButton>
-          <IconButton color="default" onClick={showDelete}>
-            <DeleteIcon />
-          </IconButton>
+          {!restrictedAccess && (
+            <IconButton color="default" onClick={showDelete}>
+              <DeleteIcon />
+            </IconButton>
+          )}
         </div>
       </div>
       <Paper className={classes.card}>
@@ -160,6 +169,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
           open
           rule={rule}
           companies={companies}
+          restrictedAccess={restrictedAccess}
           emailTemplates={emailDesignList}
           onSubmit={handleEdit}
           onClose={() => setIsEditing(false)}

@@ -22,22 +22,22 @@ const CompanyChip = (props: Props) => {
     <MuiThemeProvider
       theme={getTheme({
         primary_color: chroma(
-          company.primaryRGB[0],
-          company.primaryRGB[1],
-          company.primaryRGB[2],
+          company?.primaryRGB?.[0],
+          company?.primaryRGB?.[1],
+          company?.primaryRGB?.[2],
         ).hex(),
         secondary_color: chroma(
-          company.primaryRGB[0],
-          company.primaryRGB[1],
-          company.primaryRGB[2],
+          company?.primaryRGB?.[0],
+          company?.primaryRGB?.[1],
+          company?.primaryRGB?.[2],
         ).hex(),
       })}
     >
       <Chip
         className={className}
-        color="primary"
+        color={!(company.isAllowed === false) ? 'primary' : 'default'}
         label={company.name}
-        onDelete={onDelete}
+        onDelete={company.isAllowed && onDelete}
         size={size || 'medium'}
       />
     </MuiThemeProvider>

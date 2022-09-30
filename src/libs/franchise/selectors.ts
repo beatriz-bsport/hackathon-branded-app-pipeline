@@ -1,7 +1,8 @@
-// @flow
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
+import { OWNER_ROLE } from '#libs/role/role-types';
 import { RootState } from '../../reducers';
-import { FranchiseState } from './types';
+import { FranchiseCompany, FranchiseState } from './types';
 
 const getState = (state: RootState): FranchiseState => state.franchise;
 
@@ -39,6 +40,40 @@ export const getFranchiseThemeLoading = (state: RootState) => {
   return null;
 };
 
+export const getAllowedFranchisees = (state: RootState) => {
+  if (state.auth.franchise_role === OWNER_ROLE) {
+    return [];
+  }
+  return state.auth.allowed_franchisees;
+};
+
+export const withAllowed = (
+  companies: number | number[],
+  allowed_franchisee_ids: number[],
+  companyById: Record<number, FranchiseCompany>,
+) => {
+  if (!companies) return null;
+  if (Array.isArray(companies)) {
+    return companies
+      .filter((id: number) => !!companyById?.[id])
+      .map((id: number) => ({
+        ...companyById?.[id],
+        isAllowed:
+          allowed_franchisee_ids?.length === 0 ||
+          allowed_franchisee_ids.includes(id),
+      }));
+  }
+
+  if (!companyById?.[companies]) return null;
+
+  return {
+    ...companyById?.[companies],
+    isAllowed:
+      !allowed_franchisee_ids?.length ||
+      allowed_franchisee_ids.includes(companies),
+  };
+};
+
 // Users
 
 export const getFranchiseUserPage = (state: RootState) => {
@@ -63,6 +98,33 @@ export const getFranchiseUsers = (state: RootState) => {
   return [];
 };
 
+export const withAllowedFranchisees = memoize((selector) =>
+  createSelector(
+    [selector, getAllowedFranchisees, getFranchiseCompanyById],
+    (objects, allowed_franchisee_ids, companyById) => {
+      if (!objects) return null;
+      if (!Array.isArray(objects)) {
+        return {
+          ...objects,
+          companies: withAllowed(
+            objects.companies || [],
+            allowed_franchisee_ids,
+            companyById,
+          ),
+        };
+      }
+      return objects.map((obj) => ({
+        ...obj,
+        companies: withAllowed(
+          obj.companies || [],
+          allowed_franchisee_ids,
+          companyById,
+        ),
+      }));
+    },
+  ),
+);
+
 export const getFranchiseUserById = (state: RootState, userId: number) => {
   return getState(state).users?.byId?.[userId];
 };
@@ -81,8 +143,11 @@ export const getFranchiseCompanyById = (state: RootState) => {
 
 export const getFranchiseCompanies = (state: RootState) => {
   if (getState(state).companies?.allIds) {
-    return getState(state).companies?.allIds.map(
-      (id) => getState(state)?.companies?.byId[id],
+    const companies = getState(state).companies?.allIds;
+    return withAllowed(
+      companies,
+      getAllowedFranchisees(state),
+      getFranchiseCompanyById(state),
     );
   }
   return null;

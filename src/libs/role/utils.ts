@@ -6,17 +6,31 @@ import mergeWith from 'lodash/mergeWith';
 import get from 'lodash/get';
 
 import { URLS_PERMISSIONS } from './constants';
-import { Permission, ProtectedUrls, Role, CoachOption } from './types';
+import {
+  RolePermission,
+  ProtectedUrls,
+  Role,
+  SelectFieldItem,
+  FranchiseRole,
+  FranchiseRolePermission,
+} from './types';
 import { Coach } from '#libs/associated-coach/types';
+import { Company } from '#libs/company/types';
 
-export const getRoleName = (role: Role, t: TFunction) => {
+export const getRoleName = (role: Role | FranchiseRole, t: TFunction) => {
   if (role?.editable) {
     return role.name;
+  }
+  if (role?.identifier !== undefined && role.identifier !== null) {
+    return t(`role:roleDescription.${role.identifier}.name`);
   }
   return t(`role:roleDescription.${role?.id}.name`);
 };
 
-export const getRoleDescription = (role: Role, t: TFunction) => {
+export const getRoleDescription = (
+  role: Role | FranchiseRole,
+  t: TFunction,
+) => {
   if (role.editable) {
     return role.description;
   }
@@ -26,7 +40,7 @@ export const getRoleDescription = (role: Role, t: TFunction) => {
 
 export const checkRequiredPermissions = (
   requiredPermissions: string,
-  permissions: Permission,
+  permissions: RolePermission | FranchiseRolePermission,
 ) => {
   const permissionsStrArray = requiredPermissions.split(',');
 
@@ -60,7 +74,7 @@ export const checkRequiredPermissions = (
 };
 
 export const checkRequiredPermissionsForPath = memoize(
-  (url: ProtectedUrls, permissions: Permission) => {
+  (url: ProtectedUrls, permissions: RolePermission) => {
     const urlWithoutTrailingSlash: ProtectedUrls =
       url?.replace(/\/$/, '') ?? '';
 
@@ -148,11 +162,11 @@ export const deepMerge = (
   });
 };
 
-export const getCoachOptionsFromCoachIds = memoize(
-  (ids: number[], coachList: Coach[]): CoachOption[] => {
-    return coachList
-      .filter((coach: Coach) => ids.includes(coach.id))
-      .map((coach: Coach) => ({
+export const getOptionsFromIds = memoize(
+  (ids: number[], objectList: (Coach | Company)[]): SelectFieldItem[] => {
+    return objectList
+      .filter((object: Coach | Company) => ids.includes(object.id))
+      .map((coach: Coach | Company) => ({
         value: coach.id,
         label: coach.name,
       }));

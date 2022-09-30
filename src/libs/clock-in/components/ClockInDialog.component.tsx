@@ -20,7 +20,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import { OptionCallback, OptionPaginatedCallback } from '../../../state/types';
 import { getTextColorFromRGB } from '../../../utils/color';
 
-import { Permission, Role } from '#libs/role/types';
+import { RolePermission, Role } from '#libs/role/types';
 import {
   ClockInQueryParams,
   LastClockIn,
@@ -43,7 +43,7 @@ type Props = {
   email: string;
   open: boolean;
   lastClockIn: LastClockIn;
-  permissions: Permission;
+  permissions: RolePermission;
   value: {
     loading: boolean;
     count: number;

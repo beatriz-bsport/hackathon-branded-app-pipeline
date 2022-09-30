@@ -23,6 +23,10 @@ import { DrawerContext } from '../../context';
 
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
 
+import FranchiseStaffRoleRouter from './staff/FranchiseStaffRole.router';
+import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#libs/role/actions';
+import { getFranchisePermissions } from '#libs/role/selectors';
+
 const FranchiseMemberDetails = asyncComponent(
   () => import('./FranchiseMemberDetails.page'),
 );
@@ -65,6 +69,7 @@ const FranchiseCouponTemplateRouter = asyncComponent(
 const WidgetGeneratorPage = asyncComponent(
   () => import('../settings/WidgetGenerator.page'),
 );
+
 const LoadingBackoffice = asyncComponent(
   () => import('../../components/navigation/LoadingBackoffice.component'),
 );
@@ -87,12 +92,15 @@ const FranchiseRouter = (props: Props) => {
     tempPasswordState,
     disconnect,
     fetchFranchise,
+    fetchFranchiseRoles,
     pushRouter,
+    franchisePermissions,
   } = props;
 
   useEffect(() => {
     fetchFranchise();
-  }, [fetchFranchise]);
+    fetchFranchiseRoles();
+  }, [fetchFranchise, fetchFranchiseRoles]);
 
   const [displayLeftMenu, setDisplayLeftMenu] = useState(true);
 
@@ -135,6 +143,7 @@ const FranchiseRouter = (props: Props) => {
           cover={franchisor.cover}
           disconnect={disconnect}
           push={pushRouter}
+          franchisePermissions={franchisePermissions}
         >
           <Switch>
             <Route
@@ -144,6 +153,12 @@ const FranchiseRouter = (props: Props) => {
             <Route path="/f/settings/theme" component={FranchiseTheme} />
             <Route path="/f/email-template" component={EmailTemplate} />
             <Route path="/f/settings/widget" component={WidgetGeneratorPage} />
+            <Route
+              exact
+              path="/f/staffrole/:tab"
+              component={FranchiseStaffRoleRouter}
+            />
+
             <Route exact path="/f/members" component={FranchiseMemberList} />
             <Route
               path="/f/members/:userId/member"
@@ -207,9 +222,11 @@ const connector = connect(
     franchisor: getFranchisor(state),
     tempPasswordState: getTempPasswordState(state),
     storedToken: state.auth.token,
+    franchisePermissions: getFranchisePermissions(state),
   }),
   {
     fetchFranchise: fetchFranchiseAction,
+    fetchFranchiseRoles: fetchFranchiseRolesAction,
     generateTempPassword: generateTempPasswordAction,
     fetchTempPassword: fetchTempPasswordAction,
     pushRouter: push,

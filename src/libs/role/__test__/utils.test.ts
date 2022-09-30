@@ -4,9 +4,9 @@ import {
   deepMerge,
   setAllValuesInObject,
 } from '../utils';
-import { Permission } from '../types';
+import { RolePermission } from '../types';
 
-const permissionA: Permission = {
+const permissionA: RolePermission = {
   appbarButtons: {
     ledger: true,
     notificationCenter: true,

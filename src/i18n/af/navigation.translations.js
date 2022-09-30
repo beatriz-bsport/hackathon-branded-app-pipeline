@@ -135,9 +135,18 @@ exports.default = {
   franchiseMenu: {
     franchises: 'Franchisés',
     members: 'Membres',
+    products: {
+      label: 'Produits',
+      paymentPackTemplates: 'Cartes de cours',
+      privatePassTemplates: 'Cartes de RDV',
+      couponTemplates: 'Promotions',
+    },
+    emailTemplates: 'Emails',
+    notificationRules: 'Emails Transactionnels',
     reporting: 'Rapports',
-    paymentPack: 'Cartes de cours',
-    widget: 'Widget',
+    widgets: 'Widget',
+    staff: 'Staff',
+    settings: 'Paramètres',
   },
   deprecatedNavigator: {
     navigatorError:

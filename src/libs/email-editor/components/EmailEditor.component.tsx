@@ -302,7 +302,10 @@ export class EmailEditorPanel extends Component<Props, State> {
                   selectedCompanies={this.state.selectedCompanies}
                   companyDic={this.companyDic}
                   companies={this.props.companies}
-                  withAllCompaniesTag
+                  withAllCompaniesTag={
+                    !this.props.companies.some((c) => !c.isAllowed)
+                  }
+                  unclearable={this.props.companies.every((c) => c.isAllowed)}
                 />
               </div>
               <div className={classes.helper}>

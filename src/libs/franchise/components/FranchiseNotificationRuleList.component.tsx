@@ -37,6 +37,7 @@ export const FranchiseNotificationRuleList = (props: Props) => {
 
       <Paper>
         <List className={classes.list}>
+          {/* filter on rule.company is allowed */}
           {eventListWithRule[key].map((rule) => (
             <ListItem
               key={rule.notification_event}

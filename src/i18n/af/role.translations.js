@@ -22,20 +22,33 @@ exports.default = {
       create: {
         buttonLabel: 'Ajouter un accès',
         title: 'Création de compte staff',
-        email: {
-          label: 'Email',
-        },
-        firstName: {
-          label: 'Prénom',
-        },
-        lastName: {
-          label: 'Nom',
+        generalInfo: {
+          title: 'Informations générales',
+          email: {
+            label: 'Email',
+          },
+          firstName: {
+            label: 'Prénom',
+          },
+          lastName: {
+            label: 'Nom',
+          },
         },
         role: {
-          label: 'Role',
+          title: 'Rôles',
+          selectRole: {
+            label: 'Sélectionner un rôle',
+            topLabel: 'Role',
+          },
+        },
+        franchisees: {
+          title: 'Accès franchisés',
+          warning:
+            "Sélectionnez à quels franchisés aura accès ce compte staff. Laissez vide pour donner accès à l'ensemble des franchisés.",
         },
         cancel: 'Annuler',
-        submit: 'Enregistrer',
+        submit: 'Valider',
+        register: 'Enregister',
       },
       delete: {
         title: 'Suppression compte staff',
@@ -44,6 +57,8 @@ exports.default = {
         confirm: 'Supprimer',
       },
       selectCoach: 'Selectionner les professeurs',
+      selectFranchisees: 'Sélectionner des franchisés',
+      ifEmptySelectAll: 'Laisser vide pout tout sélectionner',
     },
     role: {
       create: {
@@ -66,6 +81,26 @@ exports.default = {
         content: 'Êtes-vous sûr de vouloir supprimer ce rôle ?',
         cancel: 'Annuler',
         confirm: 'Supprimer',
+      },
+      failDelete: {
+        title: 'Suppression rôle impossible',
+        content:
+          'Un staff possède encore ce rôle, vous ne pouvez pas le supprimer.',
+        close: 'Fermer',
+      },
+      franchise: {
+        create: {
+          title: 'Création de rôle',
+          steps: {
+            masterAccount: 'Accès Master account',
+            franchisee: 'Accès franchisé',
+          },
+          buttons: {
+            next: 'Suivant',
+            previous: 'Précédent',
+            close: 'Fermer',
+          },
+        },
       },
     },
   },
@@ -300,6 +335,45 @@ exports.default = {
       },
       tutorial: {
         _label: 'Tutoriel',
+      },
+    },
+    franchiseMenu: {
+      _label: 'Menu de navigation',
+      franchises: {
+        _label: 'Franchisés',
+      },
+      members: {
+        _label: 'Membres',
+      },
+      products: {
+        _label: 'Produits',
+        paymentPackTemplates: {
+          _label: 'Carte de cours',
+        },
+        privatePassTemplates: {
+          _label: 'Carte de RDV',
+        },
+        couponTemplates: {
+          _label: 'Promotions',
+        },
+      },
+      emailTemplates: {
+        _label: 'Emails',
+      },
+      notificationRules: {
+        _label: 'Emails transactionnels ',
+      },
+      reporting: {
+        _label: 'Rapports',
+      },
+      widgets: {
+        _label: 'Widgets',
+      },
+      staff: {
+        _label: 'Staff',
+      },
+      settings: {
+        _label: 'Paramètres',
       },
     },
   },

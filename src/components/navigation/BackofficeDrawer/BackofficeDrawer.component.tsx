@@ -59,7 +59,7 @@ import { windowTitleToProps } from '../../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../../intercom';
 import { Alerting } from '#libs/alerting/types';
 import { TempPasswordState } from '#libs/login/types';
-import { Permission, Role } from '#libs/role/types';
+import { RolePermission, Role } from '#libs/role/types';
 import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
 import ClockInDialog from '#libs/clock-in/components/ClockInDialog.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
@@ -124,7 +124,7 @@ type Props = {
   onSubmit: () => void;
   onSpotPaymentReportId: number;
   fetchOnSpotPaymentReport: () => void;
-  permissions?: Permission;
+  permissions?: RolePermission;
   paymentMethodMissing: boolean;
   isFranchisorNavigation: boolean;
   navigateBackToFranchisor: () => void;

@@ -13,11 +13,11 @@ import {
   fetchFranchiseUsers as fetchFranchiseUsersAction,
 } from '../../libs/franchise/actions';
 import {
-  getFranchiseCompanyById,
   getFranchiseId,
   getFranchiseUserCount,
   getFranchiseUserPage,
   getFranchiseUsers,
+  withAllowedFranchisees,
 } from '../../libs/franchise/selectors';
 
 import FranchiseMembersTable from '../../libs/franchise/components/FranchiseMembersTable.components';
@@ -38,7 +38,6 @@ const FranchiseMemberList = (props: Props) => {
     defaultPage,
     users,
     usersCount,
-    companiesById,
     classes,
     fetchFranchiseUsers,
     fetchFranchise,
@@ -86,14 +85,7 @@ const FranchiseMemberList = (props: Props) => {
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         goToMember={navigateToUser}
-        users={users.map((user) => ({
-          id: user.id,
-          name: user.name,
-          companies: user.companies.map((companyId) => {
-            const company = companiesById?.[companyId];
-            return company;
-          }),
-        }))}
+        users={users}
       />
     </div>
   );
@@ -101,10 +93,9 @@ const FranchiseMemberList = (props: Props) => {
 
 const connector = connect(
   (state: RootState) => ({
-    users: getFranchiseUsers(state),
+    users: withAllowedFranchisees(getFranchiseUsers)(state),
     franchiseId: getFranchiseId(state),
     usersCount: getFranchiseUserCount(state),
-    companiesById: getFranchiseCompanyById(state),
     defaultPage: getFranchiseUserPage(state),
   }),
   {

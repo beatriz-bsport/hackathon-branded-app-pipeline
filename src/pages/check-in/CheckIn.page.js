@@ -13,7 +13,7 @@ import { Redirect } from 'react-router-dom';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { getPermissions } from '../../libs/role/selectors';
-import type { Permission } from '../../libs/role/types';
+import type { RolePermission } from '../../libs/role/types';
 
 import type { Theme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
@@ -41,7 +41,7 @@ type Props = {
 
   authError: ?boolean,
   errorLogin: () => void,
-  permission: Permission,
+  permission: RolePermission,
   setSignoutOpen: (boolean) => void,
   signoutOpen: boolean,
 

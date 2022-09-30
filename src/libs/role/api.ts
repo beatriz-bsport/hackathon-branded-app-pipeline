@@ -6,7 +6,14 @@ import {
   deleteAuth,
   buildUrlParams,
 } from '../../http';
-import { Role, UserRoleData } from './types';
+import {
+  FranchiseRolePermission,
+  FranchiseRole,
+  FranchiseUserRoleData,
+  RolePermission,
+  Role,
+  UserRoleData,
+} from './types';
 import { DeepPartial } from '../../utils/types';
 
 export const fetchCompanyUserRoles = async (params?: {
@@ -49,7 +56,7 @@ export const fetchCompanyRoles = async () => {
 export const createCompanyRole = async (data: {
   name: string;
   description: string;
-  permissions: string;
+  permissions: RolePermission;
   has_booking_override_control: boolean;
 }) => {
   return postAuth(`${API_V1_URI}/role/role/`, data);
@@ -64,4 +71,62 @@ export const updateCompanyRole = async (
 
 export const deleteCompanyRole = async (id: number) => {
   return deleteAuth(`${API_V1_URI}/role/role/${id}/`);
+};
+
+export const fetchFranchiseUserRoles = async (params?: {
+  paginated?: boolean;
+  page_size?: number;
+  page?: number;
+}) => {
+  if (!params) {
+    return getAuth(`${API_V1_URI}/role/franchise_user/`);
+  }
+  return getAuth(`${API_V1_URI}/role/franchise_user/${buildUrlParams(params)}`);
+};
+
+export const updateFranchiseUserRole = async (
+  userId: number,
+  params: { roleId?: number; franchisees?: number[] },
+) => {
+  if (params.roleId) {
+    return patchAuth(`${API_V1_URI}/role/franchise_user/${userId}/`, {
+      franchise_role: params.roleId,
+    });
+  }
+  return patchAuth(`${API_V1_URI}/role/franchise_user/${userId}/`, {
+    franchisees_in_role_ids: params.franchisees,
+  });
+};
+
+export const deleteStaffFranchiseUser = async (userId: number) => {
+  return deleteAuth(`${API_V1_URI}/role/franchise_user/${userId}/`);
+};
+
+export const createFranchiseUserRole = async (data: FranchiseUserRoleData) => {
+  return postAuth(`${API_V1_URI}/role/franchise_user/`, data);
+};
+
+export const fetchFranchiseRoles = async () => {
+  return getAuth(`${API_V1_URI}/role/franchise_role/`);
+};
+
+export const createFranchiseRole = async (data: {
+  name: string;
+  description: string;
+  permissions: FranchiseRolePermission;
+  company_role: Role;
+  allowed_franchisees: number[];
+}) => {
+  return postAuth(`${API_V1_URI}/role/franchise_role/`, data);
+};
+
+export const updateFranchiseRole = async (
+  id: number,
+  data: DeepPartial<FranchiseRole>,
+) => {
+  return patchAuth(`${API_V1_URI}/role/franchise_role/${id}/`, data);
+};
+
+export const deleteFranchiseRole = async (id: number) => {
+  return deleteAuth(`${API_V1_URI}/role/franchise_role/${id}/`);
 };

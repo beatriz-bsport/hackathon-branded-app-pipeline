@@ -15,6 +15,7 @@ import {
   getFranchiseCompanies,
   getFranchiseCompanyById,
   getCompanyGroupList,
+  getAllowedFranchisees,
 } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import {
@@ -161,6 +162,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
             companyGroupList={this.props.companyGroupList}
             handleCompanySelected={this.handleCompanySelected}
             createOrUpdateCompanyGroup={this.createOrUpdateCompanyGroup}
+            restrictedFranchisees={!!this.props.allowedFranchisees?.length}
           />
         </div>
         <div className={classes.right}>
@@ -202,6 +204,7 @@ const connector = connect(
     companiesById: getFranchiseCompanyById(state),
     companyGroupList: getCompanyGroupList(state),
     members: getAllMembers(state),
+    allowedFranchisees: getAllowedFranchisees(state),
     membersCount: getListCountMembers(state),
     associatedEstablishments: getAllAssociatedEstablishment(state),
     establishmentsByLocation: getAllAssociatedEstablishment(state)

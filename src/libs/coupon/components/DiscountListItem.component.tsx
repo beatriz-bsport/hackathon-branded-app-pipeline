@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -18,18 +17,19 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { FranchiseCompany } from '#libs/franchise/types';
 
 type Props = {
-  discount: Discount,
-  goToInvoice: (uuid: string) => void,
-  goToBillingPlan: (id: number) => void,
-  divider?: boolean,
-  company?: FranchiseCompany,
+  discount: Discount;
+  disabled?: boolean;
+  goToInvoice: (uuid: string) => void;
+  goToBillingPlan: (id: number) => void;
+  divider?: boolean;
+  company?: FranchiseCompany;
 };
 
 export const DiscountListItem = (props: Props) => {
   const { t } = useTranslation('member');
   const classes = useStyles();
   return (
-    <ListItem divider={!!props.divider}>
+    <ListItem divider={!!props.divider} disabled={!!props.disabled}>
       <ListItemText
         primary={
           <div className={classes.flex}>

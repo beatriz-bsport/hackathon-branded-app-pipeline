@@ -11,6 +11,9 @@ export type Discount = {
   reverted: boolean;
   source_invoice: string;
   company: number;
+  name: string;
+  memberArchived: string;
+  billing_plan: number;
 };
 
 export type Coupon = {

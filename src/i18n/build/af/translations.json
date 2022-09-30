@@ -1753,6 +1753,12 @@
       "membersEmptyState": "Aucun membre dans cette compagnie",
       "navigateToCompany": "Connexion au compte franchisé"
     },
+    "staff": {
+      "staffAccountPageTitle": "Staff",
+      "staffAccount": "Comptes staff",
+      "explainStaff": "Avec l'accès staff du master account, sélectionnez à quels franchisés ont accès vos staffs et quelles actions ils peuvent effectuer dans ceux-ci. L'accès staff ne permet pas de se connecter à l'application mobile.",
+      "rolePageTitle": "Rôles"
+    },
     "emails": {
       "emptyStateTitle": "Aperçu du mail",
       "emptyStateDescription": "Sélectionner un template",
@@ -3360,9 +3366,18 @@
     "franchiseMenu": {
       "franchises": "Franchisés",
       "members": "Membres",
+      "products": {
+        "label": "Produits",
+        "paymentPackTemplates": "Cartes de cours",
+        "privatePassTemplates": "Cartes de RDV",
+        "couponTemplates": "Promotions"
+      },
+      "emailTemplates": "Emails",
+      "notificationRules": "Emails Transactionnels",
       "reporting": "Rapports",
-      "paymentPack": "Cartes de cours",
-      "widget": "Widget"
+      "widgets": "Widget",
+      "staff": "Staff",
+      "settings": "Paramètres"
     },
     "deprecatedNavigator": {
       "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ",
@@ -3538,6 +3553,7 @@
       "emptyStateConfiguration": "Créer une configuration pour forcer l'utilisation de templates d’email à chacun de vos franchisés.",
       "form": {
         "title": "Configuration",
+        "restrictedAccess": "Cette configuration est paramétrisée pour des franchisés auxquels vous n'avez pas accès. Certains champs ne sont pas modifiables",
         "description": "Le template choisi sera utilisé pour l’email transactionnel “{{name}}“ pour l’ensemble des franchisés sélectionnés ici.",
         "name": "Nom",
         "pickTemplate": "Choisir un template",
@@ -6306,12 +6322,20 @@
         "create": {
           "buttonLabel": "Ajouter un accès",
           "title": "Création de compte staff",
-          "email": { "label": "Email" },
-          "firstName": { "label": "Prénom" },
-          "lastName": { "label": "Nom" },
-          "role": { "label": "Role" },
+          "generalInfo": {
+            "title": "Informations générales",
+            "email": { "label": "Email" },
+            "firstName": { "label": "Prénom" },
+            "lastName": { "label": "Nom" }
+          },
+          "role": { "title": "Rôles", "selectRole": { "label": "Sélectionner un rôle", "topLabel": "Role" } },
+          "franchisees": {
+            "title": "Accès franchisés",
+            "warning": "Sélectionnez à quels franchisés aura accès ce compte staff. Laissez vide pour donner accès à l'ensemble des franchisés."
+          },
           "cancel": "Annuler",
-          "submit": "Enregistrer"
+          "submit": "Valider",
+          "register": "Enregister"
         },
         "delete": {
           "title": "Suppression compte staff",
@@ -6319,7 +6343,9 @@
           "cancel": "Annuler",
           "confirm": "Supprimer"
         },
-        "selectCoach": "Selectionner les professeurs"
+        "selectCoach": "Selectionner les professeurs",
+        "selectFranchisees": "Sélectionner des franchisés",
+        "ifEmptySelectAll": "Laisser vide pout tout sélectionner"
       },
       "role": {
         "create": {
@@ -6340,6 +6366,18 @@
           "content": "Êtes-vous sûr de vouloir supprimer ce rôle ?",
           "cancel": "Annuler",
           "confirm": "Supprimer"
+        },
+        "failDelete": {
+          "title": "Suppression rôle impossible",
+          "content": "Un staff possède encore ce rôle, vous ne pouvez pas le supprimer.",
+          "close": "Fermer"
+        },
+        "franchise": {
+          "create": {
+            "title": "Création de rôle",
+            "steps": { "masterAccount": "Accès Master account", "franchisee": "Accès franchisé" },
+            "buttons": { "next": "Suivant", "previous": "Précédent", "close": "Fermer" }
+          }
         }
       }
     },
@@ -6442,6 +6480,23 @@
           "subscription": { "_label": "Abonnement bsport" }
         },
         "tutorial": { "_label": "Tutoriel" }
+      },
+      "franchiseMenu": {
+        "_label": "Menu de navigation",
+        "franchises": { "_label": "Franchisés" },
+        "members": { "_label": "Membres" },
+        "products": {
+          "_label": "Produits",
+          "paymentPackTemplates": { "_label": "Carte de cours" },
+          "privatePassTemplates": { "_label": "Carte de RDV" },
+          "couponTemplates": { "_label": "Promotions" }
+        },
+        "emailTemplates": { "_label": "Emails" },
+        "notificationRules": { "_label": "Emails transactionnels " },
+        "reporting": { "_label": "Rapports" },
+        "widgets": { "_label": "Widgets" },
+        "staff": { "_label": "Staff" },
+        "settings": { "_label": "Paramètres" }
       }
     },
     "roleDescription": {

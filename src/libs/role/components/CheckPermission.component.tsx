@@ -5,11 +5,11 @@ import { compose } from 'recompose';
 
 import { RootState } from '../../../reducers';
 import { getPermissions } from '../selectors';
-import { Permission } from '../types';
+import { RolePermission } from '../types';
 import { checkRequiredPermissions } from '../utils';
 
 type OwnProps = {
-  check?: (permissions: Permission) => boolean;
+  check?: (permissions: RolePermission) => boolean;
   /** e.g: "offer.create,member.retrieve */
   requiredPermissions?: string;
 };

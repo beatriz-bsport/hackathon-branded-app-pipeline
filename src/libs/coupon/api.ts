@@ -1,3 +1,4 @@
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   API_V1_URI,
   getAuth,
@@ -79,10 +80,9 @@ export const appliesToInvoice = async (
   });
 };
 
-export async function fetchCouponTemplateList(params?: {
-  franchisor?: number;
-  id__in?: Array<number>;
-}) {
+export async function fetchCouponTemplateList(
+  params?: FranchiseProductTemplateQueryParams,
+) {
   return getAuth(
     `${API_V1_URI}/coupon/coupon_template/${buildUrlParams(params)}`,
   );

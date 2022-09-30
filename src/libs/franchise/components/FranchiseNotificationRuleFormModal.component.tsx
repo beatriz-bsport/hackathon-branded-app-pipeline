@@ -32,6 +32,7 @@ import {
 } from '../../email-editor/types';
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import InfoBox from '#components/box/InfoBox.component';
 
 export type OwnProps = {
   rule?: FranchiseCompleteNotificationRule;
@@ -43,6 +44,7 @@ export type OwnProps = {
   onClose: () => void;
   previewEmail: EmailTemplateDetail;
   refreshEmailPreview: (id: number) => void;
+  restrictedAccess?: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -64,6 +66,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
     t,
     previewEmail,
     refreshEmailPreview,
+    restrictedAccess,
   } = props;
 
   const ref = useRef(null);
@@ -83,6 +86,12 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
       <Dialog open={open}>
         <DialogTitle>{t('franchise.form.title')}</DialogTitle>
         <DialogContent ref={ref} className={classes.content}>
+          {restrictedAccess && (
+            <InfoBox
+              content={t('franchise.form.restrictedAccess')}
+              className={classes.infoBox}
+            />
+          )}
           <Typography variant="body1" className={classes.description}>
             {t('franchise.form.description', {
               name: t(`eventType.${notification_event}`),
@@ -94,6 +103,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
             label={t('franchise.form.name')}
             fullWidth
             required
+            disabled={restrictedAccess}
           />
           <AlertError name="name" />
 
@@ -114,6 +124,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
                   ev && refreshEmailPreview(ev.value);
                 }}
                 helperText={t('franchise.form.mailSelection')}
+                disabled={restrictedAccess}
               />
               <AlertError name="email_design" />
             </div>
@@ -135,7 +146,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
             onChange={(newValue) => {
               setFieldValue(
                 'selectedCompanies',
-                newValue.map((val) => parseInt(val?.value, 10)),
+                newValue.map((val) => parseInt(val?.value, 10)), // don't touch selected unallowed companies {...selectedCompanies.filter((id)=> companies.some((c)=>c.id=id && !c.allowed)), ...newValue.blabla}
               );
             }}
             selectedCompanies={companies
@@ -146,13 +157,18 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
               }))}
             companyDic={companyDic}
             companies={companies}
+            unclearable={restrictedAccess}
             menuPortalTarget={document.querySelector('body')}
           />
           <AlertError name="selectedCompanies" />
           <Typography variant="h6" className={classes.subtitle}>
             {t('franchise.form.parameters')}
           </Typography>
-          <CheckboxField name="active" label={t('franchise.form.activate')} />
+          <CheckboxField
+            name="active"
+            label={t('franchise.form.activate')}
+            disabled={restrictedAccess}
+          />
           <Typography variant="caption" className={classes.grey}>
             {t(
               values.active
@@ -163,6 +179,7 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
           <CheckboxField
             name="receiveCarbonCopy"
             label={t('franchise.form.receiveCC')}
+            disabled={restrictedAccess}
           />
           {values.receiveCarbonCopy && (
             <Typography variant="caption" className={classes.grey}>
@@ -198,6 +215,9 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
 
 const styles = (theme: Theme) =>
   createStyles({
+    infoBox: {
+      marginBottom: theme.spacing(2),
+    },
     description: {
       marginBottom: theme.spacing(2),
     },

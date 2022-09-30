@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DelayedTextField from '../../components/DelayedTextField.component';
-import { Permission } from '../../libs/role/types';
+import { RolePermission } from '../../libs/role/types';
 
 type Props = {
   classes: Object,
@@ -24,7 +24,7 @@ type Props = {
   memberHistoryAnchor: ?HTMLElement,
   setMemberHistoryAnchor: (HTMLElement) => void,
   onClickRegister: (Member) => void,
-  permissions: Permission,
+  permissions: RolePermission,
 };
 
 export function SearchMember(props: Props) {

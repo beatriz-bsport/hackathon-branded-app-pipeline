@@ -20,7 +20,10 @@ import {
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
   deletePaymentPackTemplate as deletePaymentPackTemplateAction,
 } from '../../../libs/payment-packs/actions';
-import { getFranchiseCompanies } from '../../../libs/franchise/selectors';
+import {
+  getFranchiseCompanies,
+  getAllowedFranchisees,
+} from '../../../libs/franchise/selectors';
 import { getPaymentPackTemplate } from '../../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import withTitle from '../../../hocs/with-title.hoc';
@@ -85,6 +88,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
           <Paper>
             <PaginatedConsumerPackList
               items={this.props.consumerPaymentPack.items}
+              allowedFranchisees={this.props.allowedFranchisees}
               onClick={(cpp: any) => {
                 this.props.goToConsumerPaymentPackDetail(
                   cpp.payment_pack.company,
@@ -138,6 +142,7 @@ const connector = connect(
     state: RootState,
     { paymentPackTemplateId }: { paymentPackTemplateId: number },
   ) => ({
+    allowedFranchisees: getAllowedFranchisees(state),
     paymentPackTemplate: getPaymentPackTemplate(state, paymentPackTemplateId),
     consumerPaymentPack: {
       count: state.consumerPaymentPack.basePaginationState.count,

@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect, useState } from 'react';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -6,7 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { createStyles, Grid, Theme } from '@material-ui/core';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -15,31 +14,31 @@ import {
   updateSettings as updateSettingsAction,
   createOrUpdateNotificationRule as createOrUpdateNotificationRuleAction,
   deleteNotificationRule as deleteNotificationRuleAction,
-} from '../../libs/notification-rule/actions';
+} from '#libs/notification-rule/actions';
 import {
   getEventByGroup,
   getFranchiseNotificationRules,
-} from '../../libs/notification-rule/selectors';
+} from '#libs/notification-rule/selectors';
 
-import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '../../libs/marketing/actions';
-import { getCelebrationBirthday } from '../../libs/marketing/selectors';
+import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '#libs/marketing/actions';
+import { getCelebrationBirthday } from '#libs/marketing/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
+} from '#libs/email-editor/selectors';
 
 import {
   emailTemplateDetail as fetchEmailDesignDetailAction,
   emailTemplatesSummaries as fetchEmailDesignListAction,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
-import { getFranchiseCompanies } from '../../libs/franchise/selectors';
+import { getFranchiseCompanies } from '#libs/franchise/selectors';
 
-import FranchiseNotificationRuleList from '../../libs/franchise/components/FranchiseNotificationRuleList.component';
-import FranchiseNotificationRuleDetails from '../../libs/franchise/components/FranchiseNotificationRuleDetails.component';
-import { NotificationRule } from '../../libs/notification-rule/types';
+import FranchiseNotificationRuleList from '#libs/franchise/components/FranchiseNotificationRuleList.component';
+import FranchiseNotificationRuleDetails from '#libs/franchise/components/FranchiseNotificationRuleDetails.component';
+import { NotificationRule } from '#libs/notification-rule/types';
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,
@@ -80,11 +79,13 @@ export const FranchiseNotificationRule = (props: Props) => {
     fetchMarketingNotificationList({
       kind: BIRTHDAY_NOTIFICATION.kind,
     });
+    /* eslint-disable */
   }, [
     fetchEventTypeList,
     fetchEmailDesignList,
     fetchMarketingNotificationList,
   ]);
+  /* eslint-enable */
 
   useEffect(() => {
     fetchNotificationRuleList();

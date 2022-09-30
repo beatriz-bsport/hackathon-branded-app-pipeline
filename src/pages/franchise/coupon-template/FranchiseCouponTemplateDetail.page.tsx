@@ -28,7 +28,10 @@ import {
   createCouponTemplateInstance as createCouponTemplateInstanceAction,
   deleteCouponTemplateInstance as deleteCouponTemplateInstanceAction,
 } from '#libs/coupon/actions';
-import { getFranchiseCompanies } from '../../../libs/franchise/selectors';
+import {
+  getFranchiseCompanies,
+  getAllowedFranchisees,
+} from '../../../libs/franchise/selectors';
 import { getCouponTemplate } from '#libs/coupon/selectors';
 import type {
   CouponTemplateAPI,
@@ -78,6 +81,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
           <Grid item xs={12} md={6}>
             <PaginatedDiscountList
               items={this.props.discount.items}
+              allowedFranchisees={this.props.allowedFranchisees}
               nbItems={this.props.discount.count}
               loading={this.props.discount.loading}
               page={this.props.discount.page}
@@ -133,6 +137,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
 
 const connector = connect(
   (state: RootState, { couponTemplateId }: { couponTemplateId: number }) => ({
+    allowedFranchisees: getAllowedFranchisees(state),
     couponTemplate: getCouponTemplate(state, couponTemplateId),
     privatePassTemplateList: getPrivatePassTemplateList(state),
     paymentPackTemplateList: getPaymentPackTemplateList(state),

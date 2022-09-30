@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect, useState } from 'react';
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
@@ -44,6 +43,7 @@ import {
   VpnKey,
   PowerSettingsNew,
   Widgets,
+  Work,
 } from '@material-ui/icons';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -64,6 +64,8 @@ import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import type { TempPasswordState } from '../../libs/login/types';
 import { BannerContext, BannerContextValue } from '../../hocs/banner.hoc';
 import VersionVisualizer from '../VersionVisualizer.component';
+import { checkRequiredPermissions } from '#libs/role/utils';
+import { FranchiseRolePermission } from '#libs/role/types';
 
 // import SearchBar from '../SearchBar.component';
 
@@ -92,6 +94,7 @@ type OwnProps = {
   disconnect: () => void;
   generateTempPassword: () => void;
   fetchTempPassword: () => void;
+  franchisePermissions: FranchiseRolePermission;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -107,6 +110,7 @@ export const FranchiseDrawer = (props: Props) => {
     disconnect,
     fetchTempPassword,
     generateTempPassword,
+    franchisePermissions,
   } = props;
 
   const [open, setOpen] = useState<Record<number, boolean>>({});
@@ -156,7 +160,12 @@ export const FranchiseDrawer = (props: Props) => {
     if (item === 'divider') {
       return <Divider key={i} />;
     }
-
+    if (
+      item?.text &&
+      !checkRequiredPermissions(item?.text, franchisePermissions)
+    ) {
+      return <></>;
+    }
     const isActive = location?.pathname?.startsWith(item?.to);
     if (item?.type === 'nested') {
       return (
@@ -176,7 +185,7 @@ export const FranchiseDrawer = (props: Props) => {
               </ListItemIcon>
             )}
             <ListItemText
-              primary={t(item.text)}
+              primary={t(`${item.text}.label`)}
               secondary={t(item.subtext)}
               secondaryTypographyProps={{
                 style: { color: colors.primaryDark },
@@ -499,6 +508,7 @@ const getNavigationItems = (props: {
       text: 'franchiseMenu.franchises',
       icon: Store,
     },
+
     {
       to: '/f/members',
       text: 'franchiseMenu.members',
@@ -506,23 +516,23 @@ const getNavigationItems = (props: {
     },
     {
       icon: BusinessCenterIcon,
-      text: 'backofficeMenu.product',
+      text: 'franchiseMenu.products',
       type: 'nested',
       nestedItems: [
         'divider',
         {
           to: '/f/payment-pack-template',
-          text: 'franchiseMenu.paymentPack',
+          text: 'franchiseMenu.products.paymentPackTemplates',
           icon: VpnKey,
         },
         {
           to: '/f/private-pass-template',
-          text: 'backofficeMenu.privateService.pass',
+          text: 'franchiseMenu.products.privatePassTemplates',
           icon: ScheduleIcon,
         },
         {
           to: '/f/coupon-template',
-          text: 'backofficeMenu.coupon',
+          text: 'franchiseMenu.products.couponTemplates',
           icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
         },
       ],
@@ -530,11 +540,11 @@ const getNavigationItems = (props: {
     {
       icon: Email,
       to: '/f/email-template',
-      text: 'backofficeMenu.email_template',
+      text: 'franchiseMenu.emailTemplates',
     },
     {
       to: '/f/settings/notification-rule',
-      text: 'backofficeMenu.settings.notificationRule',
+      text: 'franchiseMenu.notificationRules',
       icon: StarIcon,
     },
     {
@@ -544,13 +554,18 @@ const getNavigationItems = (props: {
     },
     {
       to: '/f/settings/widget',
-      text: 'franchiseMenu.widget',
+      text: 'franchiseMenu.widgets',
       icon: Widgets,
+    },
+    {
+      to: '/f/staffrole/staff',
+      text: 'franchiseMenu.staff',
+      icon: Work,
     },
     'divider',
     {
       icon: Settings,
-      text: 'backofficeMenu.settings.settings',
+      text: 'franchiseMenu.settings',
       to: '/f/settings/theme',
     },
     {

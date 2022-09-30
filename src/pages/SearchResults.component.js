@@ -28,7 +28,7 @@ import {
   getSearchedMembersArchived,
 } from '../libs/member/selectors';
 import { getPermissions } from '../libs/role/selectors';
-import Permission from '../libs/role/types';
+import RolePermission from '../libs/role/types';
 
 import ResultList from '../components/search/ResultList.component';
 import SearchBar from '../components/SearchBar.component';
@@ -56,7 +56,7 @@ type Props = {
   membersArchived: { [key: number]: Member },
   archivedSearchLoading: boolean,
   searchText: string,
-  permissions: Permission,
+  permissions: RolePermission,
 };
 type State = {
   openArchivedSection: boolean,

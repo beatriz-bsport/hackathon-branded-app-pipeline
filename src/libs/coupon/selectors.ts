@@ -13,7 +13,11 @@ import { Company } from '../company/types';
 import { isCurrentlyActive } from './utils';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 import { RootState } from '../../reducers';
-import { getFranchiseCompanyById } from '../franchise/selectors';
+import {
+  getAllowedFranchisees,
+  getFranchiseCompanyById,
+  withAllowed,
+} from '../franchise/selectors';
 
 export const getAllCoupons = (state: RootState) => state.coupon.coupon.items;
 export const getAllDiscounts = (state: RootState) =>
@@ -79,17 +83,25 @@ const getCouponTemplateIdList = (state: RootState) =>
 export const getCouponTemplateList: (
   state: RootState,
 ) => Array<CouponTemplate> = createSelector(
-  [getCouponTemplateData, getCouponTemplateIdList, getFranchiseCompanyById],
-  (data, ids, companyData) =>
+  [
+    getCouponTemplateData,
+    getCouponTemplateIdList,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (data, ids, allowed_franchisee_ids, companyById) =>
     ids
       .map((id: number) => data[id])
-      .filter((ct) => !ct.disabled)
+      .filter((ct: CouponTemplateAPI) => !ct.disabled)
       .map((ct: CouponTemplateAPI) => ({
         ...ct,
-        companies: ct.coupon_template_instances
-          .filter((cti) => !cti.disabled)
-          .map((cti) => companyData[cti.company])
-          .filter((c: Company) => !!c),
+        companies: withAllowed(
+          ct.coupon_template_instances
+            .filter((cti: CouponTemplateInstance) => !cti.disabled)
+            ?.map((cti) => cti.company),
+          allowed_franchisee_ids,
+          companyById,
+        )?.filter((c: Company) => !!c),
       })),
 );
 
@@ -115,18 +127,24 @@ export const getCouponTemplate: (
   state: RootState,
   id: number,
 ) => CouponTemplate = createSelector(
-  [getCouponTemplateData, getFranchiseCompanyById, _getId],
-  (data, companyData, id) => {
+  [
+    getCouponTemplateData,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+    _getId,
+  ],
+  (data, allowed_franchisee_ids, companyById, id) => {
     const template = data[id];
     if (!template) return null;
     return {
       ...template,
-      companies: template.coupon_template_instances
-        .map(
-          (cti: CouponTemplateInstance) =>
-            !cti.disabled && companyData[cti.company],
-        )
-        .filter((c: Company) => !!c),
+      companies: withAllowed(
+        template.coupon_template_instances.map(
+          (cti: CouponTemplateInstance) => !cti.disabled && cti.company,
+        ),
+        allowed_franchisee_ids,
+        companyById,
+      ).filter((c: Company) => !!c),
     };
   },
 );

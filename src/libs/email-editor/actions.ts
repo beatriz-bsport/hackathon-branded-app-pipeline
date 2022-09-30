@@ -34,6 +34,7 @@ import {
   EmailTemplateCategoryWithTemplates,
   FranchisorSavedFilter,
 } from './types';
+import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),
@@ -45,13 +46,15 @@ export const setEmailEditorHasBeenLoaded = createAction(
   'EMAIL/HAS_BEEN_LOADED',
 );
 
-export function emailTemplatesSummaries(): ThunkAction {
+export function emailTemplatesSummaries(
+  params?: FranchiseProductTemplateQueryParams,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(emailTemplatesSummariesAction.loading(true));
     dispatch(emailTemplatesSummariesAction.error(null));
 
     try {
-      const response = await fetchEmailTemplatesSummariesAPI();
+      const response = await fetchEmailTemplatesSummariesAPI(params);
       dispatch(
         emailTemplatesSummariesAction.success({
           emailTemplatesDict: createDictionnaryById(response.data),

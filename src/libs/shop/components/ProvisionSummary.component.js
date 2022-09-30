@@ -11,6 +11,7 @@ import StoreIcon from '@material-ui/icons/Store';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import LanguageIcon from '@material-ui/icons/Language';
 import Typography from '@material-ui/core/Typography';
+import { CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { ShopItem } from '../types';
@@ -58,7 +59,10 @@ const ProvisionSummary = (props: Props) => (
         {props.t('shopitem.detail.onsite_payment_available')}
       </Typography>
       <Typography inline variant="h6" component="h3">
-        {props.shopitem.onsite_payment_available
+        {props.shopitem.available_payment_method_identifiers &&
+        props.shopitem.available_payment_method_identifiers.includes(
+          CREDIT_ACCOUNT.id,
+        )
           ? props.t('shopitem.detail.enabled')
           : props.t('shopitem.detail.disabled')}
       </Typography>

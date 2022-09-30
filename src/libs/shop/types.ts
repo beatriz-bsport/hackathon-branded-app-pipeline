@@ -28,8 +28,7 @@ export type ShopItem = {
   subshop: number;
   marketplace_enabled: boolean;
   is_deliverable: boolean;
-  onsite_payment_available: boolean;
-  disabled: boolean;
+  available_payment_method_identifiers: number[];
 };
 
 export type SubShop = {

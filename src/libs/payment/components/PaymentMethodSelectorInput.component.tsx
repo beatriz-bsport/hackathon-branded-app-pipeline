@@ -5,7 +5,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 import {
   CB,
@@ -13,12 +14,12 @@ import {
 } from '@bsport/common/lib/master-data/payment-methods';
 
 type Props = {
-  t: TFunction,
-  label?: string,
-  paymentMethodIds: Array<number>,
-  disabled?: boolean,
-  onChange: Array<number>,
-  helperText: string,
+  t: TFunction;
+  label?: string;
+  paymentMethodIds: Array<number>;
+  onChange: (available_payment_method_identifiers: Array<number>) => void;
+  disabled?: boolean;
+  helperText: string;
 };
 const PaymentMethodSelectorField = (props: Props) => {
   return (
@@ -31,7 +32,7 @@ const PaymentMethodSelectorField = (props: Props) => {
           { id: CB.id, optionLabel: props.t(`paymentMethod.${CB.text}`) },
           {
             id: CREDIT_ACCOUNT.id,
-            optionLabel: props.t(`paymentMethod.${CREDIT_ACCOUNT.text}`),
+            optionLabel: props.t('form.shop.item.onsite_payment_available'),
           },
         ].map((pm) => (
           <FormControlLabel

@@ -5720,7 +5720,7 @@
                 "delete": "Pauze annuleren"
             },
             "secondaryLabel": " : {{ note }}",
-            "label": "Gepauzeerd van {{- fromDate}} tot en met{{- untilDate}}",
+            "label": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}",
             "createdAt": "Gepauzeerd op: ",
             "dialogs": {
                 "form": {

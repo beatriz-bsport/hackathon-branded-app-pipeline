@@ -359,7 +359,8 @@
                 "pickTemplate": "Selecteer een sjabloon",
                 "name": "Naam",
                 "description": "Het gekozen sjabloon wordt voor \"{{name}}\" van alle geselecteerde studio's gebruikt.",
-                "title": "[Formulier] Melding"
+                "title": "[Formulier] Melding",
+                "restrictedAccess": "Deze configuratie is samengesteld door het Master-Account. Sommige velden kunnen daarom niet bewerkt worden."
             },
             "emptyStateConfiguration": "Voeg een melding toe om het gebruik van bepaalde sjablonen te forceren.",
             "addConfiguration": "Meldingen configureren",
@@ -573,7 +574,7 @@
             "playlist": "Afspeellijsten",
             "bookGroups": "Evenementen",
             "book": "Reserveer",
-            "cancel": "Annuleren",
+            "cancel": "Sluiten",
             "discover": "Ontdek",
             "from_to": "van {{-from}} tot {{-to}}",
             "offers": "{{ count }} sessie(s)"
@@ -1979,7 +1980,8 @@
             "CY": "Cyprus",
             "US": "Verenigde Staten van Amerika",
             "EE": "Estland",
-            "MX": "Mexico"
+            "MX": "Mexico",
+            "LI": "Liechtenstein"
         },
         "signupCompany": {
             "form": {
@@ -5889,7 +5891,8 @@
             "hasEnded": "Beëindigd",
             "hasStopped": "Gepauzeerd",
             "hasNotStartedYet": "Inactief",
-            "hasStarted": "Actief"
+            "hasStarted": "Actief",
+            "isPaused": "Gepauzeerd"
         },
         "scheduledStop": {
             "unscheduleStop": "Beëindigen terugdraaien",
@@ -6027,6 +6030,115 @@
         "contractNotification": {
             "creation": "Afsluiting",
             "firstBilling": "Eerste facturatie"
+        },
+        "pauseV2": {
+            "subscriptionPause": {
+                "form": {
+                    "failureStep": {
+                        "contentCanNotCancelPause": "Reeds begonnen pauzeringen kunnen niet worden geannuleerd.",
+                        "contentInvalidTimedelta": "De duur moet ten minste één dag zijn.",
+                        "contentOverlapPause": "Er is reeds een pauze ({{- dateStart}} t/m {{- dateEnd}}) voor dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" ingesteld.",
+                        "title": "Pauzering mislukt",
+                        "contentUnknownError": "Er is een onvoorziene fout opgetreden. Onze excuses voor het ongemak.",
+                        "contentSubscriptionHasNotStarted": "De pauze is niet voltooid omdat het datumbereik van de pauze vóór de start van het abonnement ligt.",
+                        "contentCanNotCreateAPauseInThePast": "De pauze kan niet in het verleden beginnen.",
+                        "contentCanNotEditPauseEndBeforeToday": "De nieuwe begindatum van de pauze kan niet eerder dan vandaag worden ingesteld.",
+                        "contentCanNotEditPauseStartWhenHasStarted": "De begindatum van de pauze kan niet worden gewijzigd wanneer deze eenmaal is begonnen.",
+                        "contentSubscriptionWillEndBeforePause": "Het abonnement kan in deze periode niet worden gepauzeerd omdat het eerder is afgelopen of de verlenging ervan op dat moment nog niet is uitgevoerd.",
+                        "contentIncomingBill": "Het {{- subscriptionName}} abonnement van {{subscriberName}} kon niet worden gepauzeerd omdat een factuur in het pauze-interval binnen 24 uur wordt gefactureerd of een betaling heeft lopen. Gelieve de begindatum van de pauze te wijzigen."
+                    },
+                    "successStep": {
+                        "content": "Dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" is van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd.",
+                        "title": "Abonnement pauzeren"
+                    },
+                    "initStep": {
+                        "titleUpdate": "Pauze wijzigen",
+                        "titleCreation": "Gepauzeerd",
+                        "information2": "De geldigheidsduur van de leskaart wordt verlengd met het aantal dagen van de pauze en de leskaart blijft geldig tijdens de pauze.",
+                        "information1": "Het abonnement wordt gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering na de pauze wordt verschoven met {{count}} dag, evenals alle toekomstige factureringen.",
+                        "information1_plural": "Het abonnement wordt gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering na de pauze wordt verschoven met {{count}} dagen, evenals alle toekomstige factureringen."
+                    }
+                },
+                "eventItems": {
+                    "pauseDeleted": "Reden voor vorige pauze: {{pause_name}}",
+                    "pauseCreatedThenDeleted": "Deze pauze is verwijderd of gewijzigd."
+                },
+                "deleteDialogContent": "Weet je zeker dat je deze pauze wilt stoppen?"
+            },
+            "contractPause": {
+                "sections": {
+                    "error": "{{count}} abonnement kon niet worden gepauzeerd",
+                    "error_plural": "{{count}} abonnementen konden niet worden gepauzeerd",
+                    "success": "{{count}} abonnement gepauzeerd",
+                    "success_plural": "{{count}} abonnementen gepauzeerd"
+                },
+                "updateNameDialogTitle": "Reden",
+                "deleteDialogContent": "Weet je zeker dat je de pauzering van al deze abonnementen wilt annuleren?",
+                "form": {
+                    "thirdStep": {
+                        "successExplanation": "{{ count }} abonnement(en) is/zijn van {{- fromDate}} tot en met {{- untilDate}} gepauzeerd.",
+                        "successExplanation_plural": "{{ count }} abonnement(en) is/zijn van {{- fromDate}} tot en met {{- untilDate}} gepauzeerd.",
+                        "title": "Algemene pauzering"
+                    },
+                    "secondStep": {
+                        "noCompatibleSubscriptions": "Er zijn geen abonnementen die gepauzeerd kunnen worden.",
+                        "sectionFailure": "Pauzering mislukt ",
+                        "sectionSuccess": "Gepauzeerde abonnementen",
+                        "title": "Bevestiging",
+                        "incompatibleSubscriptions": "De volgende abonnementen konden niet worden gepauzeerd om één van de volgende redenen: een betaling binnen het pauze-interval is gepland binnen 24 uur, een betaling voor een toekomstige factuur is in behandeling, de geselecteerde periode overlapt met een andere reeds geplande pauze, het abonnement is nog niet gestart."
+                    },
+                    "firstStep": {
+                        "titleUpdate": "Algemene pauzering wijzigen",
+                        "titleCreation": "Alle abonnementen pauzeren",
+                        "information2": "De geldigheidsduur van de leskaart wordt verlengd met het aantal dagen van de pauze en de leskaart blijft geldig tijdens de pauze.",
+                        "information1": "Abonnementen zullen worden gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering zal worden uitgesteld met {{count}} dag, evenals alle toekomstige facturen en leskaarten.",
+                        "information1_plural": "Abonnementen worden gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}. De volgende facturering zal worden uitgesteld met {{count}} dagen, evenals alle toekomstige facturen en leskaarten."
+                    }
+                },
+                "title": "Alle abonnementen pauzeren"
+            },
+            "common": {
+                "menu": {
+                    "cancelForbidden": "De begindatum van een reeds begonnen pauzering kan niet worden gepauzeerd.",
+                    "changeForbidden": "Een verlopen pauzering kan niet worden bewerkt.",
+                    "changeContractForbidden": "In bulk gepauzeerde abonnementen kunnen niet worden bewerkt.",
+                    "changeName": "Reden wijzigen",
+                    "change": "Data wijzigen",
+                    "delete": "Stopzetten"
+                },
+                "listItem": {
+                    "isUpdated": "Bewerkte pauzering",
+                    "label": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}",
+                    "pausedAt": "{{ days }} dag(en) - Op {{- date}}",
+                    "deletedAt": "Pauze is geannuleerd op {{- dateDeletion}}",
+                    "deletedAtBy": "Pauzering is geannuleerd op {{- dateDeletion}} door {{staffName}}",
+                    "createdAt": "Gepauzeerd op {{- dateCreation}}",
+                    "createdAtBy": "Gepauzeerd op {{- dateCreation}} door {{staffName}}",
+                    "fromToUntil": "Gepauzeerd van {{- fromDate}} tot en met {{- untilDate}}"
+                },
+                "deleteDialog": {
+                    "title": "Pauzering annuleren"
+                },
+                "form": {
+                    "duration": {
+                        "warning": "De einddatum moet ná de startdatum zijn.",
+                        "end": "Tot en met",
+                        "start": "Van",
+                        "title": "Duur"
+                    },
+                    "reasonPlaceholder": "Reden*"
+                },
+                "actions": {
+                    "continue": "Verder",
+                    "save": "Opslaan",
+                    "goBack": "Terug",
+                    "previous": "Terug",
+                    "verify": "Controleren",
+                    "pause": "Abonnement pauzeren",
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren"
+                }
+            }
         }
     },
     "coachPerformance": {
@@ -8811,6 +8923,13 @@
         "contractPause": {
             "create": {
                 "error": "Het abonnement kan momenteel niet worden gepauzeerd, probeer het later opnieuw"
+            },
+            "updateName": {
+                "error": "Het is niet mogelijk om de naam te wijzigen",
+                "success": "De naam is succesvol gewijzigd"
+            },
+            "delete": {
+                "error": "Fout bij het verwijderen van de pauzering."
             }
         },
         "bookerModule": {
@@ -11010,15 +11129,37 @@
                         "label": "E-mail"
                     },
                     "role": {
-                        "label": "Rol"
+                        "label": "Rol",
+                        "selectRole": {
+                            "topLabel": "Rol",
+                            "label": "Selecteer een rol"
+                        },
+                        "title": "Rollen"
                     },
                     "cancel": "Annuleren",
-                    "submit": "Opslaan",
+                    "submit": "Bevestigen",
                     "lastName": {
                         "label": "Achternaam"
                     },
                     "firstName": {
                         "label": "Voornaam"
+                    },
+                    "register": "Opslaan",
+                    "franchisees": {
+                        "warning": "Selecteer tot welke Sub-Accounts deze medewerker toegang heeft. Laat dit veld leeg om toegang tot alle studio's te geven.",
+                        "title": "Franchisenemers toegang"
+                    },
+                    "generalInfo": {
+                        "lastName": {
+                            "label": "Achternaam"
+                        },
+                        "firstName": {
+                            "label": "Voornaam"
+                        },
+                        "email": {
+                            "label": "E-mail"
+                        },
+                        "title": "Algemeen"
                     }
                 },
                 "delete": {
@@ -11027,7 +11168,9 @@
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
                 },
-                "selectCoach": "Selecteer de instructeurs"
+                "selectCoach": "Selecteer de instructeurs",
+                "ifEmptySelectAll": "Laat dit veld leeg om alles te selecteren.",
+                "selectFranchisees": "Selecteer studio's"
             },
             "role": {
                 "delete": {
@@ -11048,6 +11191,25 @@
                     "restrictedUrlExplain": "Gebruik deze optie om bepaalde URL's op de Whitelist te zetten zodat alleen gekoppelde medewerkers bepaalde onderdelen kan gebruiken.",
                     "authorizeManagerAction": "Managersbevoegdheden verlenen",
                     "authorizeManagerExplain": "Medewerkersaccounts met deze rol kunnen de volgende acties doen: (1) reserveringen forceren indien een vestiging onbeschikbaar is, (2) reserveringen forceren indien een instructeur onbeschikbaar is en (3) het maximum aantal leden per sessie overschrijden."
+                },
+                "franchise": {
+                    "create": {
+                        "buttons": {
+                            "close": "Sluiten",
+                            "previous": "Terug",
+                            "next": "Volgende"
+                        },
+                        "steps": {
+                            "franchisee": "Toegang tot Sub-Accounts",
+                            "masterAccount": "Toegang tot Master-Account"
+                        },
+                        "title": "[Formulier] Rol toevoegen"
+                    }
+                },
+                "failDelete": {
+                    "close": "Sluiten",
+                    "content": "Deze rol is aan nog ten minste één medewerker toegewezen en kan daarom niet worden verwijderd.",
+                    "title": "Deze rol kan niet verwijderd worden."
                 }
             }
         },
@@ -11318,6 +11480,45 @@
                     "_label": "Kasboek"
                 },
                 "_label": "AppBar-acties"
+            },
+            "franchiseMenu": {
+                "settings": {
+                    "_label": "Instellingen"
+                },
+                "staff": {
+                    "_label": "Medewerkers"
+                },
+                "widgets": {
+                    "_label": "Widgets"
+                },
+                "reporting": {
+                    "_label": "Rapportages"
+                },
+                "notificationRules": {
+                    "_label": "Transactionele meldingen "
+                },
+                "emailTemplates": {
+                    "_label": "E-mails"
+                },
+                "products": {
+                    "couponTemplates": {
+                        "_label": "Promoties"
+                    },
+                    "privatePassTemplates": {
+                        "_label": "Afspraakkaarten"
+                    },
+                    "paymentPackTemplates": {
+                        "_label": "Leskaarten"
+                    },
+                    "_label": "Producten"
+                },
+                "members": {
+                    "_label": "Leden"
+                },
+                "franchises": {
+                    "_label": "Studio's"
+                },
+                "_label": "Navigatiemenu"
             }
         },
         "overbookingForbidden": "Je medewerkersaccount kan niet het maximum aantal reserveringen overschrijden."
@@ -11450,7 +11651,18 @@
             "franchises": "Studio's",
             "reporting": "Rapportages",
             "paymentPack": "Leskaarten",
-            "widget": "Widgets"
+            "widget": "Widgets",
+            "settings": "Instellingen",
+            "staff": "Medewerkers",
+            "widgets": "Widgets",
+            "notificationRules": "Transactionele meldingen",
+            "emailTemplates": "E-mails",
+            "products": {
+                "couponTemplates": "Promoties",
+                "privatePassTemplates": "Afspraakkaarten",
+                "paymentPackTemplates": "Leskaarten",
+                "label": "Producten"
+            }
         },
         "multiSession": {
             "current": "Huidige sessie",
@@ -12113,6 +12325,11 @@
             "name": {
                 "label": "Naam"
             }
+        },
+        "staff": {
+            "roleTabTitle": "Rollen",
+            "staffAccountTabTitle": "Medewerkers",
+            "explainStaff": "Met de medewerkerstoegang van het masteraccount selecteert u welke franchisenemers toegang hebben tot uw personeel en welke acties zij daarin kunnen uitvoeren. Met de mederwerkerstoegang kan geen verbinding worden gemaakt met de mobiele applicatie."
         }
     },
     "giftcard": {

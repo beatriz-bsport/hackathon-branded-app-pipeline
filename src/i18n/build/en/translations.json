@@ -957,7 +957,7 @@
             "vod": "Video On Demand",
             "playlist": "Playlists",
             "book": "Book",
-            "cancel": "return",
+            "cancel": "Close",
             "bookGroups": "Events",
             "discover": "Discover",
             "from_to": "from {{-from}} to {{-to}}",
@@ -2233,7 +2233,8 @@
                 "pickTemplate": "Select a template",
                 "name": "Name",
                 "description": "The chosen template with be use for all the studios' \"{{name}}\" transactional emails .",
-                "title": "[Form] Configuration"
+                "title": "[Form] Configuration",
+                "restrictedAccess": "This configuration is set up for franchisees to which you do not have access. Some fields are not editable"
             },
             "emptyStateConfiguration": "Add a notification to force the use of specific email templates.",
             "addConfiguration": "Notifications configuration",
@@ -4483,7 +4484,12 @@
                         "label": "Email"
                     },
                     "role": {
-                        "label": "Role"
+                        "label": "Role",
+                        "selectRole": {
+                            "topLabel": "Role",
+                            "label": "Select a role"
+                        },
+                        "title": "Roles"
                     },
                     "cancel": "Cancel",
                     "submit": "Save",
@@ -4492,6 +4498,23 @@
                     },
                     "lastName": {
                         "label": "Last name"
+                    },
+                    "register": "Save",
+                    "franchisees": {
+                        "warning": "Select which franchisees will have access to this staff account. Leave empty to give access to all franchisees.",
+                        "title": "Franchisees access"
+                    },
+                    "generalInfo": {
+                        "lastName": {
+                            "label": "Name"
+                        },
+                        "firstName": {
+                            "label": "First name"
+                        },
+                        "email": {
+                            "label": "Email"
+                        },
+                        "title": "General information"
                     }
                 },
                 "delete": {
@@ -4505,7 +4528,9 @@
                     "error": "Impossible to modify access rights",
                     "errorEmail": "This email is already used for a teacher or member account"
                 },
-                "selectCoach": "Select teachers"
+                "selectCoach": "Select teachers",
+                "ifEmptySelectAll": "Leave empty to select all",
+                "selectFranchisees": "Select studios"
             },
             "role": {
                 "delete": {
@@ -4526,6 +4551,25 @@
                     "restrictedUrlExplain": "Use this option to Whitelist the URLs and access for people associated to this Role.",
                     "authorizeManagerExplain": "The staff with this role will be able to force actions like the manager : force the booking of a session in an unavailable establishment, force the booking with an unavailable teacher, exceed the maximum number of members registered to a session.",
                     "authorizeManagerAction": "Give staff the control of a manager"
+                },
+                "franchise": {
+                    "create": {
+                        "buttons": {
+                            "close": "Close",
+                            "previous": "Previous",
+                            "next": "Next"
+                        },
+                        "steps": {
+                            "franchisee": "Franchisee access",
+                            "masterAccount": "Master account access"
+                        },
+                        "title": "Role creation"
+                    }
+                },
+                "failDelete": {
+                    "close": "Close",
+                    "content": "A staff still has this role, you cannot delete it.",
+                    "title": "Role deletion not possible"
                 }
             }
         },
@@ -4797,6 +4841,45 @@
                     "_label": "Ledger"
                 },
                 "_label": "AppBar actions"
+            },
+            "franchiseMenu": {
+                "settings": {
+                    "_label": "Settings"
+                },
+                "staff": {
+                    "_label": "Staff"
+                },
+                "widgets": {
+                    "_label": "Widgets"
+                },
+                "reporting": {
+                    "_label": "Reports"
+                },
+                "notificationRules": {
+                    "_label": "Transactional notifications "
+                },
+                "emailTemplates": {
+                    "_label": "Emails"
+                },
+                "products": {
+                    "couponTemplates": {
+                        "_label": "Promotions"
+                    },
+                    "privatePassTemplates": {
+                        "_label": "Appointment pass"
+                    },
+                    "paymentPackTemplates": {
+                        "_label": "Pass"
+                    },
+                    "_label": "Products"
+                },
+                "members": {
+                    "_label": "Members"
+                },
+                "franchises": {
+                    "_label": "Franchisees"
+                },
+                "_label": "Navigation menu"
             }
         },
         "overbookingForbidden": "The rights you have been granted as a staff member do not allow you to exceed the maximum number of reservations."
@@ -5426,7 +5509,8 @@
             "EE": "Estonia",
             "AU": "Australia",
             "CY": "Cyprus",
-            "MX": "Mexico"
+            "MX": "Mexico",
+            "LI": "Liechtenstein"
         },
         "signupCompany": {
             "form": {
@@ -7883,7 +7967,8 @@
             "hasEnded": "Ended",
             "hasStopped": "Paused",
             "hasNotStartedYet": "Inactive",
-            "hasStarted": "Active"
+            "hasStarted": "Active",
+            "isPaused": "Paused"
         },
         "scheduledStop": {
             "label": "Terminated",
@@ -8021,6 +8106,115 @@
         "contractNotification": {
             "creation": "At the creation of the subscription",
             "firstBilling": "At the first invoice"
+        },
+        "pauseV2": {
+            "subscriptionPause": {
+                "eventItems": {
+                    "pauseDeleted": "Reason for previous pause: {{pause_name}}",
+                    "pauseCreatedThenDeleted": "This pause has been deleted or modified."
+                },
+                "deleteDialogContent": "Are you sure you want to deprogram this pause?",
+                "form": {
+                    "failureStep": {
+                        "contentUnknownError": "An unforeseen error has occurred. We apologise for any inconvenience caused.",
+                        "contentSubscriptionHasNotStarted": "The pause was not completed because the pause date range is before the start of the subscription.",
+                        "contentCanNotCreateAPauseInThePast": "The pause cannot start in the past.",
+                        "contentCanNotEditPauseEndBeforeToday": "The new start date for the break cannot be set before today.",
+                        "contentCanNotEditPauseStartWhenHasStarted": "The start date of the pause cannot be changed once it has begun.",
+                        "contentSubscriptionWillEndBeforePause": "The subscription cannot be paused over this period because it will have ended earlier or its renewal has not yet been executed at this time.",
+                        "contentCanNotCancelPause": "As the pause has already started or has already passed, it cannot be cancelled.",
+                        "contentInvalidTimedelta": "The pause should last at least one day.",
+                        "contentOverlapPause": "The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- fromDate}} to {{- untilDate}}.",
+                        "contentIncomingBill": "The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.",
+                        "title": "Pause Failed"
+                    },
+                    "successStep": {
+                        "content": "The {{- subscriptionName}} subscription of {{subscriberName}} has been paused from {{- fromDate}} to {{- untilDate}} included.",
+                        "title": "Pausing the subscription"
+                    },
+                    "initStep": {
+                        "information2": "The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.",
+                        "information1": "The subscription will be paused from {{- fromDate}} to {{- untilDate}} included. The next billing following the pause will be shifted by {{count}} day, as well as all future billings.",
+                        "information1_plural": "The subscription will be paused from {{- fromDate}} to {{- untilDate}} included. The next billing following the pause will be shifted by {{count}} days, as well as all future billings.",
+                        "titleUpdate": "Change the pause",
+                        "titleCreation": "Paused"
+                    }
+                }
+            },
+            "contractPause": {
+                "sections": {
+                    "error": "{{count}} subscription could not be paused automatically",
+                    "error_plural": "{{count}} subscriptions could not be paused automatically",
+                    "success": "{{count}} subscription pause",
+                    "success_plural": "{{count}} subscriptions pause"
+                },
+                "updateNameDialogTitle": "Change of reason for pause",
+                "deleteDialogContent": "Are you sure you want to cancel this pause for all subscriptions?",
+                "form": {
+                    "thirdStep": {
+                        "successExplanation": "{{ count }} subscription has been paused from {{- fromDate}} to {{- untilDate}} included.",
+                        "successExplanation_plural": "{{ count }} subscriptions have been paused from {{- fromDate}} to {{- untilDate}} included.",
+                        "title": "Global pause of the subscription"
+                    },
+                    "secondStep": {
+                        "incompatibleSubscriptions": "The following subscriptions could not be paused for one of the following reasons: a payment within the pause interval is due within 24 hours, a payment for a future invoice is in progress, the selected period overlaps with another already scheduled pause, the subscription has not yet started.",
+                        "noCompatibleSubscriptions": "No subscription can be paused.",
+                        "sectionFailure": "Pause Failed ",
+                        "sectionSuccess": "Subscription freezed",
+                        "title": "Verification"
+                    },
+                    "firstStep": {
+                        "information2": "The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.",
+                        "information1": "Subscriptions will be paused from {{- fromDate}} to {{- untilDate}} included. Their next billing will be delayed by {{count}} day, as well as all future billings and passes.",
+                        "information1_plural": "Subscriptions will be paused from {{- fromDate}} to {{- untilDate}} included. Their next billing will be delayed by {{count}} days, as well as all future billings and passes.",
+                        "titleUpdate": "Change the global pause",
+                        "titleCreation": "Pause all subscriptions"
+                    }
+                },
+                "title": "Pause all subscriptions"
+            },
+            "common": {
+                "menu": {
+                    "cancelForbidden": "You cannot cancel a pause whose start date has already passed.",
+                    "changeForbidden": "You cannot edit a pause that has already ended.",
+                    "changeContractForbidden": "You cannot edit a pause created at subscription level.",
+                    "changeName": "Change the reason",
+                    "change": "Change the dates",
+                    "delete": "Deactivate"
+                },
+                "listItem": {
+                    "isUpdated": "Edited pause",
+                    "label": "Pause from {{- fromDate}} to {{- untilDate}}",
+                    "pausedAt": "{{ days }} days - On {{- date}}",
+                    "deletedAt": "Cancelled on {{- dateDeletion}}",
+                    "deletedAtBy": "Cancelled on {{- dateDeletion}} by {{staffName}}",
+                    "createdAt": "Created on {{- dateCreation}}",
+                    "createdAtBy": "Created on {{- dateCreation}} by {{staffName}}",
+                    "fromToUntil": "Pause from {{- fromDate}} to {{- untilDate}}"
+                },
+                "deleteDialog": {
+                    "title": "Cancel the pause"
+                },
+                "form": {
+                    "duration": {
+                        "warning": "The end date cannot be earlier than the start date",
+                        "end": "End date (included)",
+                        "start": "Start date (included)",
+                        "title": "Duration of the pause"
+                    },
+                    "reasonPlaceholder": "Reason *"
+                },
+                "actions": {
+                    "continue": "Continue",
+                    "save": "Save",
+                    "goBack": "Back",
+                    "previous": "Previous",
+                    "verify": "Check",
+                    "pause": "Pause this subscription",
+                    "confirm": "Confirm",
+                    "cancel": "Cancel"
+                }
+            }
         }
     },
     "reporting": {
@@ -11894,6 +12088,13 @@
         "contractPause": {
             "create": {
                 "error": "Error while pausing this subscription - try again later"
+            },
+            "updateName": {
+                "error": "The name of the pause could not be changed",
+                "success": "The name of the pause has been changed"
+            },
+            "delete": {
+                "error": "Impossible to remove the pause at the moment."
             }
         },
         "bookerModule": {
@@ -12271,7 +12472,18 @@
             "franchises": "Studios",
             "reporting": "Reports",
             "paymentPack": "Passes",
-            "widget": "Widgets"
+            "widget": "Widgets",
+            "settings": "Settings",
+            "staff": "Staff",
+            "widgets": "Widget",
+            "notificationRules": "Transactional notifications",
+            "emailTemplates": "Emails",
+            "products": {
+                "couponTemplates": "Promotions",
+                "privatePassTemplates": "Appointment passes",
+                "paymentPackTemplates": "Passes",
+                "label": "Products"
+            }
         },
         "multiSession": {
             "previousSession": " You were connected as: {{name}}",
@@ -13109,6 +13321,11 @@
             "name": {
                 "label": "Name"
             }
+        },
+        "staff": {
+            "roleTabTitle": "Roles",
+            "explainStaff": "With the staff access of the master account, select which franchisees have access to your staffs and which actions they can perform in them. The staff access does not allow to connect to the mobile application.",
+            "staffAccountTabTitle": "Staff accounts"
         }
     },
     "giftcard": {

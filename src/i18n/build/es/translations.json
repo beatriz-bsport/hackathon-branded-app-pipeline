@@ -1023,7 +1023,7 @@
             "vod": "VOD",
             "playlist": "Playlist",
             "book": "Reservar",
-            "cancel": "volver",
+            "cancel": "Cerrar",
             "bookGroups": "Reserva un grupo de sesiones",
             "discover": "Descubrir",
             "from_to": "del {{-from}} hasta el {{-to}}",
@@ -1772,7 +1772,8 @@
             "CY": "Chipre",
             "US": "Estados Unidos",
             "EE": "Estonia",
-            "MX": "México"
+            "MX": "México",
+            "LI": "Liechtenstein"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -3786,7 +3787,8 @@
             "hasEnded": "Terminado",
             "hasStopped": "Detenido",
             "hasNotStartedYet": "Aún no ha empezado",
-            "hasStarted": "En proceso"
+            "hasStarted": "En proceso",
+            "isPaused": "En pausa"
         },
         "scheduledStop": {
             "unscheduleStop": "Desprogramar la parada",
@@ -3924,6 +3926,115 @@
         "contractNotification": {
             "creation": "Al crear la suscripción",
             "firstBilling": "A la primera factura"
+        },
+        "pauseV2": {
+            "subscriptionPause": {
+                "eventItems": {
+                    "pauseDeleted": "Motivo de la antigua pausa: {{pause_name}}",
+                    "pauseCreatedThenDeleted": "Esta pausa ha sido eliminada o modificada."
+                },
+                "deleteDialogContent": "¿Estás seguro de que quieres desprogramar este pausa?",
+                "form": {
+                    "failureStep": {
+                        "contentUnknownError": "Se ha producido un error imprevisto. Nos disculpamos por las molestias causadas.",
+                        "contentSubscriptionHasNotStarted": "La pausa no se ha realizado porque el intervalo de fechas de la pausa es anterior al inicio de la suscripción.",
+                        "contentCanNotCreateAPauseInThePast": "La pausa no puede comenzar en el pasado.",
+                        "contentCanNotEditPauseEndBeforeToday": "La nueva fecha de inicio de la pausa no puede ponerse antes de hoy.",
+                        "contentCanNotEditPauseStartWhenHasStarted": "La fecha de inicio de la pausa no puede modificarse una vez iniciada.",
+                        "contentSubscriptionWillEndBeforePause": "La cuota no se puede pausar durante este periodo porque habrá terminado antes o su renovación no se ha ejecutado todavía en este momento.",
+                        "contentCanNotCancelPause": "Como la pausa ya ha comenzado o ha pasado, no se puede cancelar.",
+                        "contentInvalidTimedelta": "La pausa debe durar al menos un día.",
+                        "contentOverlapPause": "La cuota {{- subscriptionName}} de {{subscriberName}} no se ha podido pausar porque ya hay una pausa programada de {{- fromDate}} a {{- untilDate}}.",
+                        "contentIncomingBill": "La cuota {{- subscriptionName}} de {{subscriberName}} no se ha podido pausar porque se va a cobrar una factura en el intervalo de pausa dentro de 24 horas, o se está pagando una factura futura. Por favor, cambia la fecha de inicio de la pausa.",
+                        "title": "Fallo de la pausa"
+                    },
+                    "successStep": {
+                        "content": "La cuota {{- subscriptionName}} de {{subscriberName}} se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido.",
+                        "title": "Pausa de la cuota"
+                    },
+                    "initStep": {
+                        "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
+                        "information1": "La cuota estará en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. La siguiente facturación que siga a la pausa se desplazará en {{count}} día, al igual que todas las facturaciones futuras.",
+                        "information1_plural": "La cuota estará en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. La siguiente facturación que siga a la pausa se desplazará en {{count}} días, al igual que todas las facturaciones futuras.",
+                        "titleUpdate": "Modificar la pausa",
+                        "titleCreation": "Pausa"
+                    }
+                }
+            },
+            "contractPause": {
+                "sections": {
+                    "error": "{{count}} cuota no ha podido ser pausada automáticamente",
+                    "error_plural": "{{count}} cuotas no han podido ser pausadas automáticamente",
+                    "success": "{{count}} cuota pausada",
+                    "success_plural": "{{count}} cuotas pausadas"
+                },
+                "updateNameDialogTitle": "Modificación del motivo de la pausa",
+                "deleteDialogContent": "¿Estás seguro de que quieres desprogramar esta pausa para todas las cuotas?",
+                "form": {
+                    "thirdStep": {
+                        "successExplanation": "{{ count }} cuota se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
+                        "successExplanation_plural": "{{ count }} cuotas se han puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
+                        "title": "Pausa global de la cuota"
+                    },
+                    "secondStep": {
+                        "incompatibleSubscriptions": "Las siguientes cuotas no han podido ser pausadas por una de las siguientes razones: un pago dentro del intervalo de pausa vence en 24 horas, un pago para una factura futura está en curso, el período seleccionado se superpone con otra pausa ya programada, la cuota no ha comenzado todavía.",
+                        "noCompatibleSubscriptions": "Ninguna cuota puede ser pausada.",
+                        "sectionFailure": "Fallo de la pausa ",
+                        "sectionSuccess": "Cuotas pausadas",
+                        "title": "Verificación"
+                    },
+                    "firstStep": {
+                        "information2": "La fecha de caducidad de la tarjeta se prolongará por el número de días de la pausa y la tarjeta seguirá siendo válida durante la misma.",
+                        "information1": "Las suscripciones estarán en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. Su próxima facturación se retrasará de {{count}} día, al igual que todas las facturas y tarjetas futuras.",
+                        "information1_plural": "Las suscripciones estarán en pausa desde {{- fromDate}} hasta {{- untilDate}} incluido. Su próxima facturación se retrasará de {{count}} días, al igual que todas las facturas y tarjetas futuras.",
+                        "titleUpdate": "Modificar la pausa global",
+                        "titleCreation": "Poner en pausa todas las cuotas"
+                    }
+                },
+                "title": "Pausar todas las cuotas"
+            },
+            "common": {
+                "menu": {
+                    "cancelForbidden": "No se puede cancelar una pausa cuya fecha de inicio ya ha pasado.",
+                    "changeForbidden": "No se puede editar una pausa que ya ha terminado.",
+                    "changeContractForbidden": "No se puede editar una pausa creada a nivel de contrato.",
+                    "changeName": "Cambia el motivo",
+                    "change": "Cambiar las fechas",
+                    "delete": "Desprogramar"
+                },
+                "listItem": {
+                    "isUpdated": "Pausa editada",
+                    "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
+                    "pausedAt": "{{ days }} días - El {{- date }}",
+                    "deletedAt": "Desprogramado el {{- dateDeletion}}",
+                    "deletedAtBy": "Desprogramado en {{- dateDeletion}} por {{staffName}}",
+                    "createdAt": "Creado el {{- dateCreation}}",
+                    "createdAtBy": "Creado el {{- dateCreation}} por {{staffName}}",
+                    "fromToUntil": "Pausa de {{- fromDate}} a {{- untilDate}}"
+                },
+                "deleteDialog": {
+                    "title": "Cancelar la pausa"
+                },
+                "form": {
+                    "duration": {
+                        "warning": "La fecha de finalización no puede ser inferior a la fecha de inicio",
+                        "end": "Fecha de finalización (incluida)",
+                        "start": "Fecha de inicio (incluida)",
+                        "title": "Duración de la pausa"
+                    },
+                    "reasonPlaceholder": "Razón *"
+                },
+                "actions": {
+                    "continue": "Continuar",
+                    "save": "Salvar",
+                    "goBack": "Volver",
+                    "previous": "Anterior",
+                    "verify": "Verificar",
+                    "pause": "Poner en pausa",
+                    "confirm": "Validar",
+                    "cancel": "Cancelar"
+                }
+            }
         }
     },
     "reporting": {
@@ -5619,7 +5730,8 @@
                 "pickTemplate": "Elija una plantilla",
                 "name": "Nombre",
                 "description": "La plantilla elegida se utilizará para el correo electrónico transaccional \"{{name}}\" para todos los franquiciados seleccionados aquí.",
-                "title": "Configuración"
+                "title": "Configuración",
+                "restrictedAccess": "Esta configuración se establece para los franquiciados a las que no tienes acceso. Algunos campos no son editables"
             },
             "emptyStateConfiguration": "Cree una configuración para forzar el uso de plantillas de correo electrónico para cada uno de sus franquiciados.",
             "addConfiguration": "Añadir una configuración",
@@ -7691,10 +7803,15 @@
                     "title": "Supresión cuenta staff"
                 },
                 "create": {
-                    "submit": "Guardar",
+                    "submit": "Validar",
                     "cancel": "Cancelar",
                     "role": {
-                        "label": "Papel"
+                        "label": "Papel",
+                        "selectRole": {
+                            "topLabel": "Papel",
+                            "label": "Selecciona un papel"
+                        },
+                        "title": "Papeles"
                     },
                     "email": {
                         "label": "Email"
@@ -7706,9 +7823,28 @@
                     },
                     "lastName": {
                         "label": "Apellido"
+                    },
+                    "register": "Guardar",
+                    "franchisees": {
+                        "warning": "Selecciona a qué franquicias tendrán acceso esta cuenta de personal. Dejar en blanco para dar acceso a todas las franquicias.",
+                        "title": "Acceso franquicias"
+                    },
+                    "generalInfo": {
+                        "lastName": {
+                            "label": "Nombre"
+                        },
+                        "firstName": {
+                            "label": "Nombre"
+                        },
+                        "email": {
+                            "label": "Email"
+                        },
+                        "title": "Informaciones generales"
                     }
                 },
-                "selectCoach": "Seleccionar a los profesores"
+                "selectCoach": "Seleccionar a los profesores",
+                "ifEmptySelectAll": "Dejar vacío para seleccionar todo",
+                "selectFranchisees": "Selección de franquicias"
             },
             "role": {
                 "delete": {
@@ -7729,6 +7865,25 @@
                     "restrictedUrlExplain": "Utilice esta configuración para definir una lista blanca de URLs para este rol. El personal asociado a este rol sólo podrá acceder a las URLs que se indican a continuación",
                     "authorizeManagerExplain": "El staff con este papel podrá forzar acciones como el manager: forzar la reserva de una sesión en un establecimiento no disponible, forzar la reserva con un profesor no disponible, superar el número máximo de miembros registrados a una sesión.",
                     "authorizeManagerAction": "Dar al staff el control de un manager"
+                },
+                "franchise": {
+                    "create": {
+                        "buttons": {
+                            "close": "Cerrar",
+                            "previous": "Anterior",
+                            "next": "Siguiente"
+                        },
+                        "steps": {
+                            "franchisee": "Acceso franquicias",
+                            "masterAccount": "Acceso a la cuenta principal"
+                        },
+                        "title": "Definir el nivel de acceso"
+                    }
+                },
+                "failDelete": {
+                    "close": "Cerrar",
+                    "content": "Un personal sigue teniendo este papel, no se puede eliminar.",
+                    "title": "No es posible eliminar el papel"
                 }
             }
         },
@@ -8002,6 +8157,45 @@
                     "_label": "Libro de caja"
                 },
                 "_label": "Barra de aplicación de acciones"
+            },
+            "franchiseMenu": {
+                "settings": {
+                    "_label": "Parámetros"
+                },
+                "staff": {
+                    "_label": "Staff"
+                },
+                "widgets": {
+                    "_label": "Widgets"
+                },
+                "reporting": {
+                    "_label": "Informes"
+                },
+                "notificationRules": {
+                    "_label": "Emails transaccionales "
+                },
+                "emailTemplates": {
+                    "_label": "Emails"
+                },
+                "products": {
+                    "couponTemplates": {
+                        "_label": "Promociones"
+                    },
+                    "privatePassTemplates": {
+                        "_label": "Tarjeta de cita"
+                    },
+                    "paymentPackTemplates": {
+                        "_label": "Bono"
+                    },
+                    "_label": "Productos"
+                },
+                "members": {
+                    "_label": "Miembros"
+                },
+                "franchises": {
+                    "_label": "Franquicias"
+                },
+                "_label": "Menú de navegación"
             }
         },
         "overbookingForbidden": "Los derechos que se te han concedido como staff no te permite superar el número máximo de reservas."
@@ -9073,6 +9267,13 @@
         "contractPause": {
             "create": {
                 "error": "No es posible hacer una pausa por el momento, por favor inténtelo más tarde"
+            },
+            "updateName": {
+                "error": "El nombre de la pausa no pudo ser cambiado",
+                "success": "Se ha cambiado el nombre de la pausa"
+            },
+            "delete": {
+                "error": "Por el momento no es posible eliminar la pausa."
             }
         },
         "bookerModule": {
@@ -10447,7 +10648,18 @@
             "franchises": "Franquicias",
             "reporting": "Informes",
             "paymentPack": "Fichas de cursos",
-            "widget": "Widget"
+            "widget": "Widget",
+            "settings": "Parámetros",
+            "staff": "Staff",
+            "widgets": "Widget",
+            "notificationRules": "Emails transaccionales",
+            "emailTemplates": "Emails",
+            "products": {
+                "couponTemplates": "Promociones",
+                "privatePassTemplates": "Tarjetas de cita",
+                "paymentPackTemplates": "Bonos",
+                "label": "Productos"
+            }
         },
         "multiSession": {
             "current": "Sesión actual",
@@ -12145,6 +12357,11 @@
             "name": {
                 "label": "Apellido"
             }
+        },
+        "staff": {
+            "explainStaff": "Con el acceso al personal de la cuenta principal, selecciona a qué franquicias tiene acceso tu personal y qué acciones puede realizar en ellas. El acceso del personal no permite conectarse a la aplicación móvil.",
+            "roleTabTitle": "Papeles",
+            "staffAccountTabTitle": "Cuentas Staff"
         }
     },
     "giftcard": {

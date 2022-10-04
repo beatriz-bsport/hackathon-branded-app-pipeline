@@ -58,6 +58,8 @@ exports.default = {
       },
       selectCoach: 'Selectionner les professeurs',
       selectFranchisees: 'Sélectionner des franchisés',
+      selectFranchiseesDisabled:
+        'This setting is only for custom role (not Admin or Owner)',
       ifEmptySelectAll: 'Laisser vide pout tout sélectionner',
     },
     role: {

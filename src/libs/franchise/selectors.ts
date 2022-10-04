@@ -59,7 +59,7 @@ export const withAllowed = (
       .map((id: number) => ({
         ...companyById?.[id],
         isAllowed:
-          allowed_franchisee_ids?.length === 0 ||
+          !allowed_franchisee_ids?.length ||
           allowed_franchisee_ids.includes(id),
       }));
   }

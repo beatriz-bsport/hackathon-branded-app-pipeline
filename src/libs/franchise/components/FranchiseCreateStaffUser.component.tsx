@@ -222,36 +222,39 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
               />
             </div>
 
-            {!this.state.selectedRoleIsAdmin && !!this.state.selectedRole && (
-              <>
-                <Divider className={classes.divider} />
-                <div className={classes.infoText}>
-                  <InfoIcon className={classes.icon} />
-                  <Typography variant="h6">
-                    {t('forms.user.create.franchisees.title')}
-                  </Typography>
-                </div>
-                <InfoBox
-                  content={t('forms.user.create.franchisees.warning')}
-                  className={classes.infoBox}
-                />
-                <div className={classNames(classes.field, classes.expandForm)}>
-                  <MaterialUISelector
-                    placeholder={t('forms.user.selectFranchisees')}
-                    isLoading={this.props.franchiseeListLoading}
-                    name="selectedFranchisees"
-                    menuPlacement="top"
-                    menuPosition="fixed"
-                    value={this.state.selectedFranchisees}
-                    onChange={(values: SelectFieldItem[]) =>
-                      this.setState({ selectedFranchisees: values })
-                    }
-                    options={availableFranchisees}
-                    isMulti
-                  />
-                </div>
-              </>
-            )}
+            <Divider className={classes.divider} />
+            <div className={classes.infoText}>
+              <InfoIcon className={classes.icon} />
+              <Typography variant="h6">
+                {t('forms.user.create.franchisees.title')}
+              </Typography>
+            </div>
+            <InfoBox
+              content={t('forms.user.create.franchisees.warning')}
+              className={classes.infoBox}
+            />
+            <div className={classNames(classes.field, classes.expandForm)}>
+              <MaterialUISelector
+                placeholder={
+                  !!this.state.selectedRoleIsAdmin || !this.state.selectedRole
+                    ? t('forms.user.selectFranchiseesDisabled')
+                    : t('forms.user.selectFranchisees')
+                }
+                isLoading={this.props.franchiseeListLoading}
+                name="selectedFranchisees"
+                menuPlacement="top"
+                menuPosition="fixed"
+                isDisabled={
+                  !!this.state.selectedRoleIsAdmin || !this.state.selectedRole
+                }
+                value={this.state.selectedFranchisees}
+                onChange={(values: SelectFieldItem[]) =>
+                  this.setState({ selectedFranchisees: values })
+                }
+                options={availableFranchisees}
+                isMulti
+              />
+            </div>
             <Divider className={classes.divider} />
             <div className={classes.buttonsContainer}>
               <Actions>

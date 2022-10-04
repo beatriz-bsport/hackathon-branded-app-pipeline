@@ -4530,7 +4530,8 @@
                 },
                 "selectCoach": "Select teachers",
                 "ifEmptySelectAll": "Leave empty to select all",
-                "selectFranchisees": "Select studios"
+                "selectFranchisees": "Select studios",
+                "selectFranchiseesDisabled": "This setting is only for custom role (not Admin or Owner)"
             },
             "role": {
                 "delete": {

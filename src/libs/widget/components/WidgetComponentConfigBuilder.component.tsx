@@ -179,6 +179,7 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
                 type="submit"
                 onClick={() => {
                   onConfigChange(config);
+                  handleClose();
                 }}
                 color="primary"
               >

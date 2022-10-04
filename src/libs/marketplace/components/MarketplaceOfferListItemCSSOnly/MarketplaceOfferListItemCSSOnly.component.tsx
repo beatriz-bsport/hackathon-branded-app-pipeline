@@ -144,7 +144,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         'bs-offer-list-item--isNotWorkshop': !isWorkshop,
       })}
       style={{
-        borderLeftWidth: offer.meta_activity.color ? 5 : 1,
+        borderLeftWidth: offer.meta_activity.color ? 5 : 2,
         borderLeftColor: offer.meta_activity.color
           ? offer.meta_activity.color
           : getComputedStyle(document.documentElement).getPropertyValue(

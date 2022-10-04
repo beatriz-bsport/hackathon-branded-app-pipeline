@@ -30,7 +30,7 @@ import {
   checkExportableComponentConfig,
   EXPORTABLE_COMPONENT_WITH_ADVANCED_SETTINGS,
 } from '../../../exportable-components/utils';
-import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '../../../exportable-components/constants';
+import { EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 } from '../../../exportable-components/constants';
 import ExportableComponentConfigurator from '../../../exportable-components/components/ExportableComponentConfigurator.component';
 import { Video } from '../../../video/types';
 import { MARKETPLACE_COMPONENT_TYPE_LIST } from '../../constants';
@@ -61,7 +61,7 @@ const TITLE_MAX_LENGTH = 64;
 
 const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
   const [componentType, setComponentType] = useState(
-    props.tab?.component_type || EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+    props.tab?.component_type || EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
   );
   const [title, setTitle] = useState(props.tab?.title);
   const [tabConfig, setTabConfig] = useState(props.tab?.config);

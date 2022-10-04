@@ -117,6 +117,6 @@ export default compose(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['franchise']),
-  withTitle(({ t }: { t: TFunction }) => t('staff.rolePageTitle')),
+  withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),
   connect(mapStateToProps, mapDispatchToProps),
 )(RoleConfiguration);

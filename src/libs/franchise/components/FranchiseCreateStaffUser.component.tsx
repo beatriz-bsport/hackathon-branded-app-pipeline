@@ -9,6 +9,7 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Divider, Typography } from '@material-ui/core';
+import classNames from 'classnames';
 import { Actions, Submit } from '#components/forms';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
@@ -234,7 +235,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
                   content={t('forms.user.create.franchisees.warning')}
                   className={classes.infoBox}
                 />
-                <div className={classes.field}>
+                <div className={classNames(classes.field, classes.expandForm)}>
                   <MaterialUISelector
                     placeholder={t('forms.user.selectFranchisees')}
                     isLoading={this.props.franchiseeListLoading}
@@ -304,6 +305,9 @@ const styles = (theme: Theme) =>
     },
     selectRole: {
       minWidth: 200,
+    },
+    expandForm: {
+      paddingBottom: theme.spacing(40),
     },
     divider: {
       backgroundColor: theme.palette.divider,

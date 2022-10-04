@@ -41,11 +41,10 @@ exports.default = {
     navigateToCompany: 'Connexion au compte franchisé',
   },
   staff: {
-    staffAccountPageTitle: 'Staff',
-    staffAccount: 'Comptes staff',
+    staffAccountTabTitle: 'Comptes staff',
     explainStaff:
       "Avec l'accès staff du master account, sélectionnez à quels franchisés ont accès vos staffs et quelles actions ils peuvent effectuer dans ceux-ci. L'accès staff ne permet pas de se connecter à l'application mobile.",
-    rolePageTitle: 'Rôles',
+    roleTabTitle: 'Rôles',
   },
   emails: {
     emptyStateTitle: 'Aperçu du mail',

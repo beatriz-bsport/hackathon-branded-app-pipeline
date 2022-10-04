@@ -63,7 +63,10 @@ const defaultPermissions: FranchiseRolePermission = {
 
 const FRANCHISE_ROLE_NAME_MAX_LENGTH = 50;
 
-export class CreateRoleDialog extends React.Component<Props, State> {
+export class CreateRoleMasterAccountDialog extends React.Component<
+  Props,
+  State
+> {
   constructor(props: Props) {
     super(props);
 
@@ -87,10 +90,12 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     if (props.role) {
       state.name = props.role.name;
       state.description = props.role.description;
-      state.permissions = deepMerge(
-        cloneDeep(props.role.permissions),
-        setAllValuesInObject(defaultPermissions, false),
-      ) as FranchiseRolePermission;
+      if (props.role.permissions) {
+        state.permissions = deepMerge(
+          cloneDeep(props.role.permissions),
+          setAllValuesInObject(defaultPermissions, false),
+        ) as FranchiseRolePermission;
+      }
     }
 
     return state;
@@ -227,4 +232,4 @@ const styles = (theme: Theme) =>
 export default compose<any, OwnProps>(
   withTranslation(['role']),
   withStyles(styles),
-)(CreateRoleDialog);
+)(CreateRoleMasterAccountDialog);

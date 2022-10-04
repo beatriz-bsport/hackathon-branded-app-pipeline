@@ -191,11 +191,14 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     if (props.role) {
       state.name = props.role.name;
       state.description = props.role.description;
-      state.permissions = deepMerge(
-        cloneDeep(props.role.permissions),
-        setAllValuesInObject(defaultPermissions, false),
-      ) as RolePermission;
-      state.hasBookingOverrideControl = props.role.has_booking_override_control;
+      if (props.role.permissions) {
+        state.permissions = deepMerge(
+          cloneDeep(props.role.permissions),
+          setAllValuesInObject(defaultPermissions, false),
+        ) as RolePermission;
+        state.hasBookingOverrideControl =
+          props.role.has_booking_override_control;
+      }
     }
 
     if (!state.permissions.restrictedPaths) {

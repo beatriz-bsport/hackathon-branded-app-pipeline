@@ -16,7 +16,7 @@ const CustomTemplate = (args: OwnProps) => (
 export const Drawer = CustomTemplate.bind({});
 
 Drawer.args = {
-  franchiseeList: FranchiseesFactory(3),
+  franchiseeList: FranchiseesFactory(10),
   franchiseeListLoading: false,
   franchiseRoles: FranchiseRolesFactory(4),
   onClose: () => alert('closing'),

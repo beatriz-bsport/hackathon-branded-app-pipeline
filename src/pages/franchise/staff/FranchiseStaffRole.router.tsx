@@ -41,8 +41,8 @@ const SettingsWidget: React.FC<Props> = ({
           value={tab}
           onChange={pushToFranchiseStaffRoleTab}
         >
-          <Tab label={t('staff.staffAccountPageTitle')} value="staff" />
-          <Tab label={t('staff.rolePageTitle')} value="role" />
+          <Tab label={t('staff.staffAccountTabTitle')} value="staff" />
+          <Tab label={t('staff.roleTabTitle')} value="role" />
         </Tabs>
       </AppBar>
       <div className={classes.content}>

@@ -24,7 +24,7 @@ const getFranchisePermissionForRole = (
   franchiseRoleIdentifier: number | null,
 ) => {
   if (
-    franchiseRoleIdentifier !== null ||
+    franchiseRoleIdentifier !== null &&
     franchiseRoleIdentifier !== undefined
   ) {
     const franchiseRoleList = Object.values(roleState.franchiseRole.byId);
@@ -67,7 +67,7 @@ export const hasRoleUpsertPermission = (state: RootState) =>
   state.auth.role === OWNER_ROLE;
 
 export const hasFranchiseRoleUpsertPermission = (state: RootState) =>
-  state.auth.franchise_role === OWNER_ROLE;
+  state.auth.franchise_role_identifier === OWNER_ROLE;
 
 export const getAllRoles = (state: RootState) =>
   state.role.role.allIds

@@ -1,17 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
-import moment, { Moment } from 'moment-timezone';
-import { pure } from 'recompose';
+import moment from 'moment-timezone';
 import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceDatePicker.css';
 
 const MarketplaceDatePickerDay: React.FC<{
-  day: Moment;
-  dateDisplayed: Moment;
+  date: string;
+  dateDisplayed: string;
   dateSelected: string;
-  onClick: () => void;
+  handleSelect: (dateString: string) => void;
   offersThisDay: Array<Offer_FULL>;
-}> = ({ day, dateSelected, dateDisplayed, onClick, offersThisDay }) => {
+}> = ({ date, dateSelected, dateDisplayed, handleSelect, offersThisDay }) => {
   const daySelected = moment(dateSelected).startOf('day');
   const numberOfDots = offersThisDay.slice(0, 3).length;
 
@@ -23,21 +22,21 @@ const MarketplaceDatePickerDay: React.FC<{
     >
       <button
         type="button"
-        onClick={onClick}
+        onClick={() => handleSelect(date)}
         className={classNames(
           'bs-marketplace-date-picker__menu__calendar__day',
           {
             'bs-marketplace-date-picker__menu__calendar__day--today': moment()
               .startOf('day')
-              .isSame(day),
+              .isSame(moment(date)),
             'bs-marketplace-date-picker__menu__calendar__day--selected':
-              daySelected.isSame(day),
+              daySelected.isSame(moment(date)),
             'bs-marketplace-date-picker__menu__calendar__day--disabled':
-              dateDisplayed.month() - day.month() !== 0,
+              moment(dateDisplayed).month() - moment(date).month() !== 0,
           },
         )}
       >
-        {day.format('D')}
+        {moment(date).format('D')}
       </button>
       <div className="bs-marketplace-date-picker__menu__calendar__day__dots">
         {[0, 1, 2].map((index) => (
@@ -60,4 +59,4 @@ const MarketplaceDatePickerDay: React.FC<{
   );
 };
 
-export default pure(MarketplaceDatePickerDay);
+export default React.memo(MarketplaceDatePickerDay);

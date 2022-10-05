@@ -274,15 +274,16 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                               const day = weekStartingDay
                                 .clone()
                                 .add(trashValueDay + dayNumber, 'day');
+                              const dayString = day.format('YYYY-MM-DD');
                               return (
                                 <MarketplaceDatePickerDay
-                                  day={day}
+                                  date={dayString}
                                   dateSelected={dateSelected}
-                                  dateDisplayed={dateDisplayed}
-                                  key={day.format('YYYY-MM-DD')}
-                                  onClick={handleSelect(
-                                    day.format('YYYY-MM-DD'),
+                                  dateDisplayed={dateDisplayed.format(
+                                    'YYYY-MM-DD',
                                   )}
+                                  key={dayString}
+                                  handleSelect={handleSelect}
                                   offersThisDay={events.filter(
                                     (event: Event) => {
                                       return moment(event.date_start).isSame(
@@ -307,4 +308,4 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   );
 };
 
-export default MarketplaceDatePicker;
+export default React.memo(MarketplaceDatePicker);

@@ -70,9 +70,9 @@ const GiftcardWidget = asyncComponent(
 const CalendarWidget = asyncComponent(
   () => import('./widgets/Calendar.widget'),
 );
-// const CalendarV2Widget = asyncComponent(
-//   () => import('./widgets/CalendarV2.widget'),
-// );
+const CalendarV2Widget = asyncComponent(
+  () => import('./widgets/CalendarV2.widget'),
+);
 const VODWidget = asyncComponent(() => import('./widgets/Vod.widget'));
 const PrivateServiceWidget = asyncComponent(
   () => import('./widgets/PrivateService.widget'),

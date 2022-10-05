@@ -223,7 +223,7 @@ export class MarketplaceActivity extends React.Component<Props> {
               {t('metaActivity:settings.conditions')}
             </Typography>
             <Typography variant="caption" component="h4">
-              {t('metaActivity:settings.lastDiscardBeforeMinutes', {
+              {t('metaActivity:settings.lastDiscardBeforeMinutesFull', {
                 m: formatMinutes(offer.meta_activity.last_discard_minutes, t),
               })}
             </Typography>

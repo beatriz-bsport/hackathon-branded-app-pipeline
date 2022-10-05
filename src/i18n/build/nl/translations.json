@@ -6037,7 +6037,7 @@
                     "failureStep": {
                         "contentCanNotCancelPause": "Reeds begonnen pauzeringen kunnen niet worden geannuleerd.",
                         "contentInvalidTimedelta": "De duur moet ten minste één dag zijn.",
-                        "contentOverlapPause": "Er is reeds een pauze ({{- dateStart}} t/m {{- dateEnd}}) voor dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" ingesteld.",
+                        "contentOverlapPause": "Er is reeds een pauze ({{- fromDate}} t/m {{- untilDate}}) voor dit abonnement ({{- subscriptionName}}) van \"{{subscriberName}}\" ingesteld.",
                         "title": "Pauzering mislukt",
                         "contentUnknownError": "Er is een onvoorziene fout opgetreden. Onze excuses voor het ongemak.",
                         "contentSubscriptionHasNotStarted": "De pauze is niet voltooid omdat het datumbereik van de pauze vóór de start van het abonnement ligt.",
@@ -6048,7 +6048,7 @@
                         "contentIncomingBill": "Het {{- subscriptionName}} abonnement van {{subscriberName}} kon niet worden gepauzeerd omdat een factuur in het pauze-interval binnen 24 uur wordt gefactureerd of een betaling heeft lopen. Gelieve de begindatum van de pauze te wijzigen."
                     },
                     "successStep": {
-                        "content": "Dit abonnement ({{subscriptionName}}) van \"{{subscriberName}}\" is van {{- dateStart}} tot en met {{- dateEnd}} gepauzeerd.",
+                        "content": "Dit abonnement ({{- subscriptionName}}) van \"{{subscriberName}}\" is van {{- fromDate}} tot en met {{- untilDate}} gepauzeerd.",
                         "title": "Abonnement pauzeren"
                     },
                     "initStep": {
@@ -11588,7 +11588,7 @@
                 "paymentMethod": "Betaalmethoden",
                 "forms": "Ledenformulieren",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "Gepersonaliseerde app"
+                "mobilePersonalization": "Personalisering app"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",

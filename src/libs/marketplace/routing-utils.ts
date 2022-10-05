@@ -1,5 +1,4 @@
 import moment from 'moment-timezone';
-import Config from '../../config';
 import { buildUrlParams } from '../../http';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
@@ -162,9 +161,7 @@ export const fromConfigToUrl = (
         });
       }
     }
-    if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
-      path = MARKETPLACE_PATH_TAB_CALENDAR_V2;
-    } else path = MARKETPLACE_PATH_TAB_CALENDAR;
+    path = MARKETPLACE_PATH_TAB_CALENDAR_V2;
   } else if (component_type === 'pass') {
     path = MARKETPLACE_PATH_TAB_PASS;
     Object.assign(query, tabConfig.config.pass);

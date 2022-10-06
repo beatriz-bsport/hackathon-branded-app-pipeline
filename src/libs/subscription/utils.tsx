@@ -7,7 +7,8 @@ const BILLING_PLAN_STATUS_HAS_STARTED = 2;
 const BILLING_PLAN_STATUS_HAS_STOPPED = 3;
 const BILLING_PLAN_STATUS_HAS_ENDED = 4;
 
-export function isPaused(pausesArray: Array<SubscriptionPause>) {
+export function isPaused(pausesArray?: Array<SubscriptionPause>) {
+  if (!pausesArray?.length) return false;
   return pausesArray.reduce(
     (acc, p) =>
       acc ||

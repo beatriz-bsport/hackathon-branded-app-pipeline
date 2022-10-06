@@ -23,6 +23,7 @@ export type Theme = {
   ios_app_url: string;
   gtmId?: string;
   facebookPixelId?: string;
+  extra_info: string;
   // Payment
   payment_method_available: number[];
   payment_method_available_basket: number[];

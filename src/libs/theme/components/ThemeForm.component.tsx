@@ -91,6 +91,7 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.general_terms_of_use ===
         this.props.theme.general_terms_of_use &&
       this.state.theme.facebookPixelId === this.props.theme.facebookPixelId &&
+      this.state.theme.extra_info === this.props.theme.extra_info &&
       this.state.theme.waiver === this.props.theme.waiver
     );
   };
@@ -113,6 +114,7 @@ export class ThemeForm extends Component<Props, State> {
       'android_app_url',
       'gtmId',
       'facebookPixelId',
+      'extra_info',
       'instagramURL',
       'general_terms_and_conditions',
       'general_terms_of_use',
@@ -295,6 +297,18 @@ export class ThemeForm extends Component<Props, State> {
             onChange={(ev) => this.handleChange('waiver')(ev.target.value)}
           />
         </div>
+        <div className={classes.textField}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            multiline
+            rows={5}
+            label={t('forms.extra_info.label')}
+            value={this.state.theme.extra_info}
+            onChange={(ev) => this.handleChange('extra_info')(ev.target.value)}
+          />
+        </div>
+
         <div className={classes.inputContainer}>
           <TextField
             className={classes.textfield}

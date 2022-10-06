@@ -170,6 +170,34 @@ exports.default = {
         option_expiration_date: "Date d'expiration place sur liste d'attente",
       },
     },
+    RecurrentRule: {
+      name: 'Règle récurrente',
+      tags: {
+        activity: 'Activité',
+        address: 'Adresse',
+        coach: 'Professeur',
+        date: 'Heure/Date séance',
+        establishment: 'Salle',
+        establishment_practical_info: 'Accès à la salle',
+        recurring_booking_fail_reason:
+          "Raison de l'échec de la réservation récurrente",
+      },
+    },
+    Company: {
+      name: 'Compagnie',
+      tags: {
+        company_logo: 'Logo de la compagnie',
+        company: 'Nom de la compagnie',
+        login_url: 'URL de connexion',
+        company_scheduleURL: 'URL du planning',
+        company_instagramURL: 'URL Instagram',
+        company_facebookURL: 'URL Facebook',
+        ios_app_URL: "URL de l'application iOS",
+        android_app_URL: "URL de l'application android",
+        company_info: 'Informations du studio',
+        company_websiteURL: 'URL du site web',
+      },
+    },
   },
   eventType: {
     [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance (élèves)',

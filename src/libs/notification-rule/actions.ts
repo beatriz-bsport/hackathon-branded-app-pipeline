@@ -69,10 +69,7 @@ export function fetchNotificationRuleList(
         ...r,
         email_template: Object.entries(tags).reduce(
           (acc, [tagName, tagValue]) => {
-            const replaced = acc.replace(
-              new RegExp(`{${tagName}}`, 'g'),
-              tagValue,
-            );
+            const replaced = acc.replace(tagName, tagValue);
             return replaced;
           },
           r.email_template || '',

@@ -230,6 +230,9 @@ exports.default = {
       placeholder: 'ID',
       label: 'Facebook Pixel Id',
     },
+    extra_info: {
+      label: 'Informations du studio',
+    },
     instagramURL: {
       label: 'URL Instagram',
       helperText: 'Votre page Instagram',

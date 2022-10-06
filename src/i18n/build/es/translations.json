@@ -3508,7 +3508,7 @@
                 "iAcceptCondition": "Acepto las condiciones anteriores",
                 "create": "Añadir un contrato",
                 "iAcceptGeneralCondition": " Acepto el aviso legal",
-                "alertPastDateSameMonth": "Atención, has elegido una fecha pasada, si el cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
+                "alertPastDateSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
                 "title": "Fecha pasada"
             },
             "legal": "Notas legales",
@@ -3579,7 +3579,7 @@
                 "alertDifferentMonthInput": "Valor de las facturas pasadas",
                 "alertDifferentMonthConfirmAsk": "Estás a punto de cargar {{valuePastInvoicesPrice}} a tu miembro. Para confirmar esta acción escribe {{valuePastInvoices}}",
                 "alertDifferentMonth": "Ten en cuenta que has elegido una fecha en el último mes. Es posible que tu miembro tenga un o varios bonos facturados que ya han caducado.",
-                "alertSameMonth": "Atención, has elegido una fecha pasada, si el cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
+                "alertSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
                 "title": "Fecha pasada"
             }
         },
@@ -3941,7 +3941,7 @@
                         "contentCanNotCreateAPauseInThePast": "La pausa no puede comenzar en el pasado.",
                         "contentCanNotEditPauseEndBeforeToday": "La nueva fecha de inicio de la pausa no puede ponerse antes de hoy.",
                         "contentCanNotEditPauseStartWhenHasStarted": "La fecha de inicio de la pausa no puede modificarse una vez iniciada.",
-                        "contentSubscriptionWillEndBeforePause": "La cuota no se puede pausar durante este periodo porque habrá terminado antes o su renovación no se ha ejecutado todavía en este momento.",
+                        "contentSubscriptionWillEndBeforePause": "La suscripción no se puede pausar durante este periodo porque habrá terminado antes o su renovación no se ha ejecutado todavía en este momento.",
                         "contentCanNotCancelPause": "Como la pausa ya ha comenzado o ha pasado, no se puede cancelar.",
                         "contentInvalidTimedelta": "La pausa debe durar al menos un día.",
                         "contentOverlapPause": "La cuota {{- subscriptionName}} de {{subscriberName}} no se ha podido pausar porque ya hay una pausa programada de {{- fromDate}} a {{- untilDate}}.",
@@ -3963,24 +3963,24 @@
             },
             "contractPause": {
                 "sections": {
-                    "error": "{{count}} cuota no ha podido ser pausada automáticamente",
-                    "error_plural": "{{count}} cuotas no han podido ser pausadas automáticamente",
-                    "success": "{{count}} cuota pausada",
-                    "success_plural": "{{count}} cuotas pausadas"
+                    "error": "{{count}} suscripción no ha podido ser pausada automáticamente",
+                    "error_plural": "{{count}} suscripciones no han podido ser pausadas automáticamente",
+                    "success": "{{count}} suscripción pausada",
+                    "success_plural": "{{count}} suscripciones pausadas"
                 },
                 "updateNameDialogTitle": "Modificación del motivo de la pausa",
-                "deleteDialogContent": "¿Estás seguro de que quieres desprogramar esta pausa para todas las cuotas?",
+                "deleteDialogContent": "¿Estás seguro de que quieres desprogramar esta pausa para todas las suscripciones?",
                 "form": {
                     "thirdStep": {
-                        "successExplanation": "{{ count }} cuota se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
-                        "successExplanation_plural": "{{ count }} cuotas se han puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
+                        "successExplanation": "{{ count }} suscripción se ha puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
+                        "successExplanation_plural": "{{ count }} suscripciones se han puesto en pausa desde {{- fromDate}} hasta {{- untilDate}}, ambos incluidos.",
                         "title": "Pausa global de la cuota"
                     },
                     "secondStep": {
-                        "incompatibleSubscriptions": "Las siguientes cuotas no han podido ser pausadas por una de las siguientes razones: un pago dentro del intervalo de pausa vence en 24 horas, un pago para una factura futura está en curso, el período seleccionado se superpone con otra pausa ya programada, la cuota no ha comenzado todavía.",
-                        "noCompatibleSubscriptions": "Ninguna cuota puede ser pausada.",
+                        "incompatibleSubscriptions": "Las siguientes suscripciones no han podido ser pausadas por una de las siguientes razones: un pago dentro del intervalo de pausa vence en 24 horas, un pago para una factura futura está en curso, el período seleccionado se superpone con otra pausa ya programada, la cuota no ha comenzado todavía.",
+                        "noCompatibleSubscriptions": "Ninguna suscripción puede ser pausada.",
                         "sectionFailure": "Fallo de la pausa ",
-                        "sectionSuccess": "Cuotas pausadas",
+                        "sectionSuccess": "Suscripciones pausadas",
                         "title": "Verificación"
                     },
                     "firstStep": {

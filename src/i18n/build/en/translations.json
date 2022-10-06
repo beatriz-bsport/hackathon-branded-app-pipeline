@@ -8146,8 +8146,8 @@
                 "sections": {
                     "error": "{{count}} subscription could not be paused automatically",
                     "error_plural": "{{count}} subscriptions could not be paused automatically",
-                    "success": "{{count}} subscription pause",
-                    "success_plural": "{{count}} subscriptions pause"
+                    "success": "{{count}} subscription paused",
+                    "success_plural": "{{count}} subscriptions paused"
                 },
                 "updateNameDialogTitle": "Change of reason for pause",
                 "deleteDialogContent": "Are you sure you want to cancel this pause for all subscriptions?",

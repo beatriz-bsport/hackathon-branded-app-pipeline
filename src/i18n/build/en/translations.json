@@ -2135,6 +2135,33 @@
                     "pass_price": "This is the selling price."
                 },
                 "name": "Appointment passes"
+            },
+            "Company": {
+                "tags": {
+                    "company_websiteURL": "Website URL",
+                    "company_info": "Studio information",
+                    "android_app_URL": "Android application URL",
+                    "ios_app_URL": "iOS application URL",
+                    "company_facebookURL": "Facebook URL",
+                    "company_instagramURL": "Instagram URL",
+                    "company_scheduleURL": "Schedule URL",
+                    "login_url": "Login URL",
+                    "company": "Company's name",
+                    "company_logo": "Company logo"
+                },
+                "name": "Company"
+            },
+            "RecurrentRule": {
+                "tags": {
+                    "recurring_booking_fail_reason": "Reason for recurrent booking failure",
+                    "establishment_practical_info": "Establishment access information",
+                    "establishment": "Establishment",
+                    "date": "Session's time and date",
+                    "coach": "Teacher",
+                    "address": "Address",
+                    "activity": "Activity"
+                },
+                "name": "Recurrent rule"
             }
         },
         "eventType": {
@@ -5091,6 +5118,9 @@
                     "dialogButtonCancel": "Cancel",
                     "dialogButtonConfirm": "Confirm"
                 }
+            },
+            "extra_info": {
+                "label": "Studio information"
             }
         },
         "general_terms_and_conditions": {

@@ -5679,6 +5679,33 @@
                     "activity": "Actividad"
                 },
                 "name": "Sesión"
+            },
+            "Company": {
+                "tags": {
+                    "company_websiteURL": "URL del sitio web",
+                    "company_info": "Información del estudio",
+                    "android_app_URL": "URL de la aplicación Android",
+                    "ios_app_URL": "URL de la aplicación iOS",
+                    "company_facebookURL": "URL Facebook",
+                    "company_instagramURL": "URL Instagram",
+                    "company_scheduleURL": "URL planificación",
+                    "login_url": "URL de acceso",
+                    "company": "Nombre de la compañía",
+                    "company_logo": "Logo de la compañía"
+                },
+                "name": "Compañía"
+            },
+            "RecurrentRule": {
+                "tags": {
+                    "recurring_booking_fail_reason": "Razón del fracaso de la reserva recurrente",
+                    "establishment_practical_info": "Acceso al establecimiento",
+                    "establishment": "Establecimiento",
+                    "date": "Hora/fecha de la sesión",
+                    "coach": "Profesor",
+                    "address": "Dirección",
+                    "activity": "Actividad"
+                },
+                "name": "Regla recurrente"
             }
         },
         "emailDesign": {
@@ -7687,6 +7714,9 @@
                     "week": "Semana"
                 },
                 "title": "Autorizar la reserva para un invitado"
+            },
+            "extra_info": {
+                "label": "Información del estudio"
             }
         },
         "pageTitles": {

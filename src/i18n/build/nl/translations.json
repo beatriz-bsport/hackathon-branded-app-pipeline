@@ -296,6 +296,31 @@
                     "activity": "Activiteit"
                 },
                 "name": "Sessie"
+            },
+            "Company": {
+                "tags": {
+                    "company_websiteURL": "(URL) Website",
+                    "company_info": "Bedrijfsgegevens",
+                    "android_app_URL": "(URL) Mobiele applicatie Android",
+                    "ios_app_URL": "(URL) Mobiele applicatie iOS",
+                    "company_facebookURL": "(URL) Facebook",
+                    "company_scheduleURL": "(URL) Rooster",
+                    "company_instagramURL": "(URL) Instagram",
+                    "login_url": "URL-verbinding",
+                    "company": "Bedrijfsnaam",
+                    "company_logo": "Bedrijfslogo"
+                },
+                "name": "Bedrijf"
+            },
+            "RecurrentRule": {
+                "tags": {
+                    "establishment_practical_info": "Toegangsinformatie",
+                    "establishment": "Vestiging",
+                    "date": "Tijd en datum",
+                    "coach": "Teacher",
+                    "address": "Adres",
+                    "activity": "Activiteit"
+                }
             }
         },
         "emailDesign": {

@@ -7874,7 +7874,8 @@
                 },
                 "selectCoach": "Seleccionar a los profesores",
                 "ifEmptySelectAll": "Dejar vacío para seleccionar todo",
-                "selectFranchisees": "Selección de franquicias"
+                "selectFranchisees": "Selección de franquicias",
+                "selectFranchiseesDisabled": "Esta configuración es sólo para el papel personalizado (no para el de Admin o Owner)"
             },
             "role": {
                 "delete": {

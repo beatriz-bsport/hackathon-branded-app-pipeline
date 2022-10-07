@@ -9574,7 +9574,7 @@
             "week": "This pass can be used {{count}} time per week",
             "week_plural": "This pass can be used {{count}} times per week",
             "day": "This pass can be used {{count}} time per day",
-            "day_plural": "This pass can be used {{count}} times per year"
+            "day_plural": "This pass can be used {{count}} times per day"
         }
     },
     "metaActivity": {

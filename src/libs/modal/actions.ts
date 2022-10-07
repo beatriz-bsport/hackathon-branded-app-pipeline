@@ -34,7 +34,7 @@ export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
 
   dispatch(
     openUserInteractionPortal({
-      url: `${PUBLIC_URL}/login?membership=${company}&context=widget`,
+      url: `${PUBLIC_URL}/login?membership=${company}&context=widget&next=/c/${company}`,
       dialogMode: DIALOG_MODE_IFRAME,
       isFabContext: true,
     }),

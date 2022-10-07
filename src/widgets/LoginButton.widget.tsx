@@ -45,7 +45,9 @@ class LoginButton extends Component<Props> {
     } else if (this.props.franchiseId) {
       this.openUrl(`login?franchisor=${this.props.franchiseId}`);
     } else {
-      this.openUrl(`login?membership=${this.props.companyId}`);
+      this.openUrl(
+        `login?membership=${this.props.companyId}&next=/c/${this.props.companyId}/`,
+      );
     }
   };
 

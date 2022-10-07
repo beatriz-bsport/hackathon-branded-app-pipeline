@@ -257,10 +257,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   className="bs-offer-list-item__content__offer__left__icon"
                 />
                 <div className="bs-offer-list-item__content__offer__left__coach__name">
-                  {coach.name +
-                    (offer.coach_override
-                      ? ` (${t('translation:marketplace.substitute')})`
-                      : '')}
+                  {coach.name &&
+                    coach.name +
+                      (offer.coach_override
+                        ? ` (${t('translation:marketplace.substitute')})`
+                        : '')}
                 </div>
               </div>
             )}
@@ -297,7 +298,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   />
                 )}
               </div>
-              {!isWorkshop && (
+              {!isWorkshop && !isMobile && (
                 <InfoIcon
                   className={classNames({
                     'bs-offer-list-item__content__offer__right__top__icon--not-disabled':

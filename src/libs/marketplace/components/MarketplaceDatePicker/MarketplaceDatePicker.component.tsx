@@ -19,6 +19,7 @@ import './MarketplaceDatePicker.css';
 import MarketplaceCommonFilter from '../../types';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
+import { DATE_FORMAT, formatAsTitle } from '../../../../utils/datetime';
 
 export type Props = {
   dateSelected: string;
@@ -145,7 +146,9 @@ const MarketplaceDatePicker: React.FC<Props> = ({
       )}`;
     }
 
-    return `${start.format('ddd DD/MM')} - ${end.format('ddd DD/MM')}`;
+    return `${formatAsTitle(start.format(DATE_FORMAT))} - ${formatAsTitle(
+      end.format(DATE_FORMAT),
+    )}`;
   }, [dateSelected, rangeSize]);
 
   const startOfMonth = useMemo(

@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 
+import { formatAsTime } from '../../utils/datetime';
 import Config from '../../config';
 import { Offer, Offer_FULL } from '#libs/offer/types';
 import { Establishment } from '#libs/establishment/types';
@@ -191,7 +192,7 @@ export const getOfferHours = (
 ) => {
   if (offer.date_start && establishment?.tzname) {
     const startMoment = moment(offer?.date_start).tz(establishment?.tzname);
-    const startHour = startMoment.format('HH:mm');
+    const startHour = formatAsTime(startMoment.format(), establishment?.tzname);
 
     const endMoment = moment(offer?.date_start)
       .add(moment.duration(offer?.duration_minute, 'minutes'))
@@ -200,7 +201,7 @@ export const getOfferHours = (
     if (!endMoment.isSame(startMoment, 'day')) {
       return startHour;
     }
-    const endHour = endMoment.format('HH:mm');
+    const endHour = formatAsTime(endMoment.format(), establishment?.tzname);
 
     return `${startHour} - ${endHour}`;
   }

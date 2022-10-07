@@ -6,11 +6,10 @@
   border-radius: var(--border-radius-1);
   background-color: var(--level-background-color);
   color: var(--level-color);
-  white-space: nowrap;
   align-items: center;
   font-family: var(--fontFamily);
   font-size: var(--body2-fontSize);
   font-weight: var(--fontWeightMedium);
-  height: 24px;
+  min-height: 24px;
   display: flex;
 }

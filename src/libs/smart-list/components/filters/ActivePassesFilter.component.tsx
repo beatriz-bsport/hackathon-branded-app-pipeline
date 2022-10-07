@@ -1,0 +1,271 @@
+import React, { Component } from 'react';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { createStyles, Theme, withStyles } from '@material-ui/core';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import {
+  DURATION_COMPARATORS_DICT_BETWEEN,
+  BETWEEN_COMPARATOR,
+} from '@bsport/common/lib/master-data/smart-list';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import Typography from '@material-ui/core/Typography';
+import DelayedNumericInput from '#components/DelayedNumericInput.component';
+
+import type { PaymentPack } from '../../../payment-packs/types';
+import Selector from '../MultiSelector.component';
+import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
+import { MaterialStyleType } from '../../../../utils/types';
+import { PrivatePassListItem } from '#libs/private-service/components/pass/PrivatePassListItem.component';
+import { PrivatePass } from '#libs/private-service/types';
+
+import ToolTip from '#components/Tooltip.component';
+
+type OwnProps = {
+  filter_data: any;
+  payment_packs: Array<PaymentPack>;
+  private_passes: Array<PrivatePass>;
+  onChange: (dict: any) => void;
+  isNew: boolean;
+  fetchItems: any;
+  fetchBulkItems: any;
+  renderSelectorWarning: (text: string, active: boolean) => void;
+
+  setNotNullableData: (data: Array<string>) => void;
+};
+
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+export class ActivePassesFilter extends Component<Props> {
+  componentDidMount() {
+    if (
+      this.props.filter_data?.payment_packs &&
+      this.props.filter_data?.payment_packs.length === 1
+    ) {
+      this.props.fetchBulkItems.payment_packs(
+        this.props.filter_data?.payment_packs,
+      );
+    }
+    if (
+      this.props.filter_data?.private_passes &&
+      this.props.filter_data?.private_passes.length === 1
+    ) {
+      this.props.fetchBulkItems.private_passes(
+        this.props.filter_data?.private_passes,
+      );
+    }
+    this.props.setNotNullableData([
+      'nb_active_passes_comparator',
+      'payment_packs',
+      'private_passes',
+    ]);
+    if (this.props.isNew) {
+      this.props.onChange({
+        payment_packs: null,
+        private_passes: null,
+        nb_active_passes_comparator: null,
+        nb_active_passes_value: 1,
+        nb_active_passes_value_second: 2,
+      });
+    }
+  }
+
+  render() {
+    const { filter_data, t, classes, onChange, payment_packs, private_passes } =
+      this.props;
+    const sortName = (
+      a: PaymentPack | PrivatePass,
+      b: PaymentPack | PrivatePass,
+    ) => (a?.name < b?.name ? -1 : 1);
+    const sortedPaymentPacks = [...(payment_packs || [])].sort(sortName);
+    const sortedFilterDataPaymentPacks = [
+      ...(filter_data?.payment_packs || []),
+    ].sort(sortName);
+    const sortedPrivatePasses = [...(private_passes || [])].sort(sortName);
+    const sortedFilterDataPrivatePasses = [
+      ...(filter_data?.private_passes || []),
+    ].sort(sortName);
+    return (
+      <div>
+        <div className={classes.wrapper}>
+          {t(`filters.${filter_data?.filter_identifier}.first`)}
+          <Select
+            className={classes.input}
+            required
+            value={filter_data?.nb_active_passes_comparator}
+            onChange={(ev) =>
+              onChange({ nb_active_passes_comparator: ev.target.value })
+            }
+          >
+            {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
+              <MenuItem key={item.key} value={item.value}>
+                {t(`filters.durations_comparators.${item.value}`)}
+              </MenuItem>
+            ))}
+          </Select>
+          <DelayedNumericInput
+            classes={classes}
+            value={filter_data?.nb_active_passes_value}
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(ev) =>
+              onChange({
+                nb_active_passes_value:
+                  ev.target.value === '' ? null : ev.target.value,
+              })
+            }
+          />{' '}
+          {filter_data?.nb_active_passes_comparator === BETWEEN_COMPARATOR
+            ? t(`filters.${filter_data?.filter_identifier}.between`)
+            : null}
+          {filter_data?.nb_active_passes_comparator === BETWEEN_COMPARATOR ? (
+            <DelayedNumericInput
+              classes={classes}
+              value={filter_data?.nb_active_passes_value_second}
+              InputProps={{ inputProps: { min: 0 } }}
+              onChange={(ev) =>
+                onChange({
+                  nb_active_passes_value_second:
+                    ev.target.value === '' ? null : ev.target.value,
+                })
+              }
+            />
+          ) : null}
+          {t(`filters.${filter_data?.filter_identifier}.second`)}
+          <Selector
+            helperText={t('multiSelector.activePasses.paymentPackHelperText')}
+            helperSelectedText={t(
+              'multiSelector.paymentPacks.helperSelectedText',
+            )}
+            textFieldPlaceholder={t(
+              'multiSelector.paymentPacks.textFieldPlaceholder',
+            )}
+            renderItem={(item: PaymentPack) => {
+              return <PaymentPackListItem pack={item} />;
+            }}
+            helperAllSelectedText={t(
+              'multiSelector.paymentPacks.helperAllSelectedText',
+            )}
+            fetchItems={this.props.fetchItems.payment_packs}
+            nameIdentifier="name"
+            selectAll={this.props.filter_data?.select_all_payment_packs}
+            items={sortedPaymentPacks}
+            selectedItems={sortedFilterDataPaymentPacks}
+            onChange={(items: PaymentPack[], selectAll: boolean) => {
+              if (
+                (sortedFilterDataPaymentPacks &&
+                  !(
+                    items.length === sortedFilterDataPaymentPacks.length &&
+                    [...(items || [])].sort(sortName).every((value, index) => {
+                      return value === sortedFilterDataPaymentPacks[index];
+                    })
+                  )) ||
+                (!sortedFilterDataPaymentPacks && items.length > 0)
+              ) {
+                onChange({
+                  payment_packs: items,
+                  select_all_payment_packs: selectAll,
+                });
+              }
+              // at least one of payment_packs or private_passes must not be empty, so we switch between [] and null to have valid/invalid data
+              if (!(sortedFilterDataPrivatePasses?.length > 0)) {
+                onChange({
+                  private_passes: items?.length > 0 ? [] : null,
+                });
+              }
+            }}
+          />
+          {t(`filters.${filter_data?.filter_identifier}.third`)}
+          <Selector
+            helperText={t('multiSelector.activePasses.privatePassHelperText')}
+            helperSelectedText={t(
+              'multiSelector.privatePass.helperSelectedText',
+            )}
+            textFieldPlaceholder={t(
+              'multiSelector.privatePass.textFieldPlaceholder',
+            )}
+            renderItem={(item: PrivatePass) => {
+              return <PrivatePassListItem pass={item} removePaper />;
+            }}
+            helperAllSelectedText={t(
+              'multiSelector.privatePass.helperAllSelectedText',
+            )}
+            fetchItems={this.props.fetchItems.private_passes}
+            nameIdentifier="name"
+            selectAll={this.props.filter_data?.select_all_private_passes}
+            items={sortedPrivatePasses}
+            selectedItems={sortedFilterDataPrivatePasses}
+            onChange={(items: PrivatePass[], selectAll: boolean) => {
+              if (
+                (sortedFilterDataPrivatePasses &&
+                  !(
+                    items.length === sortedFilterDataPrivatePasses.length &&
+                    [...(items || [])].sort(sortName).every((value, index) => {
+                      return value === sortedFilterDataPrivatePasses[index];
+                    })
+                  )) ||
+                (!sortedFilterDataPrivatePasses && items.length > 0)
+              ) {
+                onChange({
+                  private_passes: items,
+                  select_all_private_passes: selectAll,
+                });
+              }
+              // at least one of payment_packs or private_passes must not be empty, so we switch between [] and null to have valid/invalid data
+              if (!(sortedFilterDataPaymentPacks?.length > 0)) {
+                onChange({
+                  payment_packs: items?.length > 0 ? [] : null,
+                });
+              }
+            }}
+          />
+          {t(`filters.${filter_data?.filter_identifier}.fourth`)}
+          <ToolTip
+            title={
+              <Typography variant="subtitle2">
+                {t(`filters.${filter_data?.filter_identifier}.info`)}
+              </Typography>
+            }
+            aria-label="info"
+          >
+            <IconButton>
+              <InfoIcon />
+            </IconButton>
+          </ToolTip>
+          {this.props.renderSelectorWarning(
+            t('multiSelector.activePasses.warning'),
+            !(
+              sortedFilterDataPaymentPacks?.length > 0 ||
+              sortedFilterDataPrivatePasses?.length > 0
+            ),
+          )}
+        </div>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) =>
+  createStyles({
+    input: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    textInput: {
+      width: '50px',
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    wrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+    },
+  });
+
+export default compose(
+  withTranslation(['smartList']),
+  withStyles(styles),
+)(ActivePassesFilter);

@@ -31,6 +31,7 @@ import {
   PRIVATE_PASS_FILTER_IDENTIFIER,
   WAIVER_FILTER_IDENTIFIER,
   PAYMENT_METHOD_FILTER_IDENTIFIER,
+  ACTIVE_PASSES_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -47,6 +48,7 @@ import UserHasPasswordFilter from './filters/UserHasPasswordFilter.component';
 import ExpensesCompleteFilter from './filters/ExpensesCompleteFilter.component';
 import PrivatePassFilter from './filters/PrivatePassFilter.component';
 import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
+import ActivePassesFilter from './filters/ActivePassesFilter.component';
 import WaiverFilter from './filters/WaiverFilter.component';
 import PaymentMethodFilter from './filters/PaymentMethodFilter.component';
 
@@ -330,6 +332,20 @@ export class FilterCard extends Component<Props> {
             private_services={this.props.private_services}
             new={this.props.new}
             coaches={this.props.coaches}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+      case ACTIVE_PASSES_FILTER_IDENTIFIER:
+        return (
+          <ActivePassesFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            private_passes={this.props.private_passes}
+            isNew={this.props.new}
             fetchItems={this.props.fetchItems}
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}

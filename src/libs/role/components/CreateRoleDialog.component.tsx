@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import { Actions } from '#components/forms';
 
 import { RolePermission, Role } from '../types';
@@ -153,16 +154,6 @@ const HIDDEN_PARAMS = [
   'appbarActions',
   'navigationMenu.search',
 ];
-
-const ConditionalWrapper = ({
-  condition,
-  wrapper,
-  children,
-}: {
-  condition: boolean;
-  wrapper: (children: React.ReactElement) => React.ReactElement;
-  children: React.ReactElement;
-}) => (condition ? wrapper(children) : children);
 
 export class CreateRoleDialog extends React.Component<Props, State> {
   constructor(props: Props) {

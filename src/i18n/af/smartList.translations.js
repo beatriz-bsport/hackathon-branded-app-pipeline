@@ -23,6 +23,7 @@ const {
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   WAIVER_FILTER_IDENTIFIER,
   PAYMENT_METHOD_FILTER_IDENTIFIER,
+  ACTIVE_PASSES_FILTER_IDENTIFIER,
 } = SMARTLIST;
 
 const MEMBER_INFO = 1;
@@ -68,6 +69,11 @@ exports.default = {
       textFieldPlaceholder: 'Rechercher une carte RDV',
       helperAllSelectedText: 'toutes les cartes RDV',
       warning: 'Sélectionnez au moins une carte RDV',
+    },
+    activePasses: {
+      paymentPackHelperText: 'aucune carte de cours',
+      privatePassHelperText: 'aucune carte RDV',
+      warning: 'Sélectionnez au moins une carte de cours ou une carte RDV',
     },
     buyables: {
       helperText: 'sélectionner des catégories',
@@ -456,6 +462,16 @@ exports.default = {
       credits: { first: 'crédits:', second: 'et' },
       date_bought: { first: "date d'achat" },
       expiration: { first_will_expire: 'expire', first_has_expire: 'a expiré' },
+    },
+    [ACTIVE_PASSES_FILTER_IDENTIFIER]: {
+      explanation: 'Possède X cartes de cours ou cartes de RDV valides',
+      name: 'Cartes valides',
+      first: 'Possède',
+      between: 'et',
+      second: "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+      third: 'ou',
+      fourth: '(confondues)',
+      info: 'Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes',
     },
     [USER_HAS_PASSWORD_FILTER]: {
       explain: 'possède un mot de passe sur bsport',

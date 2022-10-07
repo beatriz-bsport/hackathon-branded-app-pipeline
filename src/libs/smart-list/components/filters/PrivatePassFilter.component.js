@@ -98,7 +98,7 @@ export class PrivatePassFilter extends Component<Props, state> {
               'multiSelector.privatePass.textFieldPlaceholder',
             )}
             renderItem={(item) => {
-              return <PrivatePassListItem pass={item} />;
+              return <PrivatePassListItem pass={item} removePaper />;
             }}
             helperAllSelectedText={t(
               'multiSelector.privatePass.helperAllSelectedText',

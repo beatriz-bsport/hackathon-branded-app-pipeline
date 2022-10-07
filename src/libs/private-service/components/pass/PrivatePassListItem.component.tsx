@@ -18,6 +18,7 @@ import Tooltip from '#components/Tooltip.component';
 import type { PrivatePass } from '../../types';
 import { getValidityInfo } from '../../utils';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
+import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 
 type Props = {
   pass: PrivatePass;
@@ -30,6 +31,7 @@ type Props = {
   listeners?: DraggableSyntheticListeners;
   attributes?: any;
   dense?: boolean;
+  removePaper?: boolean;
 };
 
 export const PrivatePassListItem = (props: Props) => {
@@ -44,7 +46,10 @@ export const PrivatePassListItem = (props: Props) => {
   const dateInfo = getValidityInfo(props.pass, t);
 
   return (
-    <Paper>
+    <ConditionalWrapper
+      condition={!props.removePaper}
+      wrapper={(children) => <Paper>{children}</Paper>}
+    >
       <ListItem
         dense={props.dense}
         divider={props.divider}
@@ -102,7 +107,7 @@ export const PrivatePassListItem = (props: Props) => {
           ]}
         />
       </ListItem>
-    </Paper>
+    </ConditionalWrapper>
   );
 };
 

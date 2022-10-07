@@ -6908,6 +6908,11 @@
         "helperAllSelectedText": "toutes les cartes RDV",
         "warning": "Sélectionnez au moins une carte RDV"
       },
+      "activePasses": {
+        "paymentPackHelperText": "aucune carte de cours",
+        "privatePassHelperText": "aucune carte RDV",
+        "warning": "Sélectionnez au moins une carte de cours ou une carte RDV"
+      },
       "buyables": {
         "helperText": "sélectionner des catégories",
         "helperSelectedText": "catégories sélectionnées",
@@ -7128,6 +7133,16 @@
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
+      },
+      "27": {
+        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
+        "name": "Cartes valides",
+        "first": "Possède",
+        "between": "et",
+        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+        "third": "ou",
+        "fourth": "(confondues)",
+        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
       },
       "400": {
         "explain": "possède un mot de passe sur bsport",

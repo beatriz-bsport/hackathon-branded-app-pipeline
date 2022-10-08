@@ -11333,6 +11333,16 @@
                 "title": "Método de pago guardado",
                 "explanation": "Filtrar por medio de pago guardado y fecha de caducidad",
                 "name": "medio de pago"
+            },
+            "27": {
+                "info": "También se tienen en cuenta los bonos y las tarjetas de cita bloqueadas",
+                "fourth": "(confundido)",
+                "third": "o",
+                "second": "bonos o tarjetas de cita válidas hoy. Entre",
+                "between": "y",
+                "first": "Tiene",
+                "name": "Tarjetas válidas",
+                "explanation": "Tiene X bonos o de tarjetas de cita válidas"
             }
         },
         "filterCategory": {
@@ -11472,6 +11482,11 @@
                 "intermediary": "intermedio",
                 "beginner": "debutante",
                 "all": "todos los niveles"
+            },
+            "activePasses": {
+                "warning": "Selecciona al menos un bono o una tarjeta de cita",
+                "privatePassHelperText": "No hay tarjeta de cita",
+                "paymentPackHelperText": "no hay bono"
             }
         },
         "description": "Descripción",

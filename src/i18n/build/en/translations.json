@@ -10934,6 +10934,11 @@
                 "warning": "Select at least one level",
                 "intermediary": "intermediate",
                 "all": "all levels"
+            },
+            "activePasses": {
+                "warning": "Select at least one pass or one appointment pass",
+                "privatePassHelperText": "There are no appointment passes to display.",
+                "paymentPackHelperText": "no pass"
             }
         },
         "selectToShowPreview": "Select an email to see a preview of it.",
@@ -11404,6 +11409,16 @@
                 "title": "Saved payment method",
                 "explanation": "Display an overview of members' saved payment methods and their expiration dates",
                 "name": "Payment method"
+            },
+            "27": {
+                "info": "Blocked passes and blocked appointment passes are also taken into account",
+                "fourth": "(combined)",
+                "third": "or",
+                "second": "valid passes or appointment passes today. Among",
+                "between": "and",
+                "first": "Has",
+                "name": "Valid passes",
+                "explanation": "Has X number of valid passes or appointment passes"
             }
         },
         "noSmartLists": "Smartlists are specific segments of your member data base. Add filters to directly send messages (emails, push notifications, SMSes) to these target audiences and gather detailed information about the opening rates, click rates, etc. for increasing customer retention and client value.",

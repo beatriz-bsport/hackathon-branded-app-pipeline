@@ -45,11 +45,11 @@ const initialState: Immutable.Immutable<FranchiseState> =
 export default handleActions<Immutable.Immutable<FranchiseState>>(
   {
     // FRANCHISE
-    [fetchFranchiseActions.isLoading.toString()]: (state, payload) => {
-      return state.set('loading', payload).set('error', null);
+    [fetchFranchiseActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
-    [fetchFranchiseActions.error.toString()]: (state, payload) => {
-      return state.set('error', payload).set('loading', false);
+    [fetchFranchiseActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
     },
     [fetchFranchiseActions.success.toString()]: (state, { payload }: any) => {
       const { franchisor } = payload;
@@ -81,10 +81,10 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
         );
     },
 
-    [fetchFranchiseThemeActions.isLoading.toString()]: (state, payload) => {
+    [fetchFranchiseThemeActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload).set('error', null);
     },
-    [fetchFranchiseThemeActions.error.toString()]: (state, payload) => {
+    [fetchFranchiseThemeActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseThemeActions.success.toString()]: (
@@ -120,10 +120,10 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
         );
     },
 
-    [themeUpdate.isLoading.toString()]: (state, payload) => {
+    [themeUpdate.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload).set('error', null);
     },
-    [themeUpdate.error.toString()]: (state, payload) => {
+    [themeUpdate.error.toString()]: (state, { payload }) => {
       return state.set('error', payload).set('loading', false);
     },
     [themeUpdate.success.toString()]: (state, { payload }: any) => {
@@ -134,10 +134,10 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
     },
 
     // USERS
-    [fetchFranchiseUsersActions.isLoading.toString()]: (state, payload) => {
-      return state.set('loading', payload).set('error', null);
+    [fetchFranchiseUsersActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['users', 'loading'], payload).set('error', null);
     },
-    [fetchFranchiseUsersActions.error.toString()]: (state, payload) => {
+    [fetchFranchiseUsersActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseUsersActions.success.toString()]: (
@@ -181,10 +181,10 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
           [payload.id, ...state.companyGroup.allIds],
         );
     },
-    [listCompanyGroupActions.isLoading.toString()]: (state, payload) => {
+    [listCompanyGroupActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['companyGroup', 'loading'], payload);
     },
-    [listCompanyGroupActions.error.toString()]: (state, payload) => {
+    [listCompanyGroupActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['companyGroup', 'error'], payload);
     },
     [listCompanyGroupActions.success.toString()]: (
@@ -211,14 +211,14 @@ export default handleActions<Immutable.Immutable<FranchiseState>>(
           { deep: true },
         );
     },
-    [themeUpdate.error.toString()]: (state, payload) => {
+    [themeUpdate.error.toString()]: (state, { payload }) => {
       return state.set('error', payload).set('loading', false);
     },
 
-    [fetchFranchiseUserActions.isLoading.toString()]: (state, payload) => {
+    [fetchFranchiseUserActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload).set('error', null);
     },
-    [fetchFranchiseUserActions.error.toString()]: (state, payload) => {
+    [fetchFranchiseUserActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload).set('loading', false);
     },
     [fetchFranchiseUserActions.success.toString()]: (

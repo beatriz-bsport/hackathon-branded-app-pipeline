@@ -12,6 +12,7 @@ import {
   WithStyles,
   withStyles,
   Button,
+  LinearProgress,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -19,7 +20,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
 import { FranchiseCompany } from '../types';
-import CompanyChip from '../../../components/franchise/CompanyChip.component';
+// import CompanyChip from '../../../components/franchise/CompanyChip.component';
+import FranchiseCompanyChipList from '../../../components/franchise/FranchiseCompanyChipList.component';
 
 export type OwnProps = {
   users: {
@@ -36,6 +38,7 @@ export type OwnProps = {
   ) => void;
   handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   goToMember: (userId: number) => () => void;
+  loading: boolean;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -51,6 +54,7 @@ const FranchiseMembersTable = (props: Props) => {
     handleChangeRowsPerPage,
     goToMember,
     t,
+    loading,
   } = props;
 
   const formatPagination = (values: {
@@ -69,6 +73,7 @@ const FranchiseMembersTable = (props: Props) => {
 
   return (
     <div className={classes.table}>
+      {!!loading && <LinearProgress />}
       <Table aria-labelledby="tableTitle">
         <TableHead>
           <TableRow>
@@ -90,13 +95,14 @@ const FranchiseMembersTable = (props: Props) => {
               >
                 <TableCell>{user?.name}</TableCell>
                 <TableCell>
-                  {user.companies.map((company) => (
+                  <FranchiseCompanyChipList companies={user.companies} />
+                  {/* user.companies.map((company) => (
                     <CompanyChip
                       key={`${user.id}-${company?.id}`}
                       className={classes.chip}
                       company={company}
                     />
-                  ))}
+                    )) */}
                 </TableCell>
                 <TableCell>
                   <Link to={`/f/members/${user.id}/member`}>

@@ -33,7 +33,7 @@ export const fetchFranchiseUsers = async (params: {
   page_size: number;
   exclude_archived: boolean;
 }): Promise<AxiosResponse<GenericPaginationResults<FranchiseUser>>> => {
-  return getAuth(`${API_V1_URI}/user${buildUrlParams(params)}`);
+  return getAuth(`${API_V1_URI}/user/${buildUrlParams(params)}`);
 };
 
 export const fetchFranchiseUser = async (

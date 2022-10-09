@@ -151,6 +151,7 @@ const connector = connect(
     privatePassTemplateListAvailable:
       getPrivatePassTemplateListAvailable(state),
     privatePassTemplateData: getPrivatePassTemplateData(state),
+    loading: state.privateService.privatePassTemplate.loading,
   }),
   {
     fetchPrivatePassTemplateList: fetchPrivatePassTemplateListAction,

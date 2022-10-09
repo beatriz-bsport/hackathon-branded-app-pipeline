@@ -42,6 +42,7 @@ const FranchiseMemberList = (props: Props) => {
     fetchFranchiseUsers,
     fetchFranchise,
     push,
+    loading,
   } = props;
 
   const [page, setPage] = useState(defaultPage ?? 1);
@@ -79,6 +80,7 @@ const FranchiseMemberList = (props: Props) => {
   return (
     <div className={classes.root}>
       <FranchiseMembersTable
+        loading={loading}
         usersCount={usersCount}
         rowsPerPage={rowsPerPage}
         page={page}
@@ -97,6 +99,7 @@ const connector = connect(
     franchiseId: getFranchiseId(state),
     usersCount: getFranchiseUserCount(state),
     defaultPage: getFranchiseUserPage(state),
+    loading: state.franchise.users.loading,
   }),
   {
     fetchFranchiseUsers: fetchFranchiseUsersAction,

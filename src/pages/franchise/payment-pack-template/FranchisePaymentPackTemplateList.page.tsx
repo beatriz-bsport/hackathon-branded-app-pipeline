@@ -6,7 +6,11 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import { push as pushAction } from 'connected-react-router';
 
+import Collapse from '@material-ui/core/Collapse';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
@@ -43,9 +47,17 @@ const styles = (theme: Theme) =>
     title: {
       marginTop: theme.spacing(3),
     },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
   });
 
 type OwnProps = {
+  openCreateDialog: () => void;
   closeCreateDialog: () => void;
   onCreateOpen: () => void;
   loading: boolean;
@@ -56,65 +68,116 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
-export class FranchisePaymentPackTemplateListPage extends Component<Props> {
+type State = { showDisabled: boolean; showAvailable: boolean };
+
+export class FranchisePaymentPackTemplateListPage extends Component<
+  Props,
+  State
+> {
+  state: State = { showDisabled: false, showAvailable: true };
+
   componentDidMount() {
     this.props.fetchPaymentPackTemplateList();
   }
+
+  onShowDisabled = () => {
+    this.setState((prevState: State) => ({
+      showDisabled: !prevState.showDisabled,
+    }));
+  };
+
+  onShowAvailable = () => {
+    this.setState((prevState: State) => ({
+      showAvailable: !prevState.showAvailable,
+    }));
+  };
 
   render() {
     const { t, classes } = this.props;
     return (
       <div>
         {this.props.loading && <LinearProgress />}
-        <IsEmptyList
-          text={t('paymentPackTemplate.isEmptyExplain')}
-          button={t('paymentPackTemplate.actions.create')}
-          onCreate={this.props.openCreateDialog}
-          onCreateLabel={t('paymentPackTemplate.actions.create')}
-          hideEmptyText={
-            this.props.loading ||
-            !!this.props.paymentPackTemplateListAvailable.length ||
-            !!this.props.paymentPackTemplateListManagerOnly.length
-          }
-        />
+        {!this.props.loading && (
+          <IsEmptyList
+            text={t('paymentPackTemplate.isEmptyExplain')}
+            button={t('paymentPackTemplate.actions.create')}
+            onCreate={this.props.openCreateDialog}
+            onCreateLabel={t('paymentPackTemplate.actions.create')}
+            hideEmptyText={
+              this.props.loading ||
+              !!this.props.paymentPackTemplateListAvailable.length ||
+              !!this.props.paymentPackTemplateListManagerOnly.length
+            }
+          />
+        )}
         <div className={classes.container}>
           {!!this.props.paymentPackTemplateListAvailable.length && (
             <>
-              <Typography variant="h4">
-                {t('paymentPackTemplate.section.titleAvailable')}
-              </Typography>
+              <div className={classes.row}>
+                <Typography variant="h4">
+                  {`${t('paymentPackTemplate.section.titleAvailable')} (${
+                    this.props.paymentPackTemplateListAvailable?.length || 0
+                  })`}
+                </Typography>
+                <IconButton onClick={this.onShowAvailable}>
+                  {this.state.showAvailable ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </IconButton>
+              </div>
               <Divider className={classes.divider} />
-              <Paper>
-                {this.props.paymentPackTemplateListAvailable.map((ppt) => (
-                  <PaymentPackTemplateListItem
-                    paymentPackTemplate={ppt}
-                    divider
-                    key={ppt.id}
-                    onClick={this.props.goToTemplateDetail}
-                    onEdit={this.props.openEditDialog}
-                    onDelete={this.props.openDeleteDialog}
-                  />
-                ))}
-              </Paper>
+              <Collapse in={this.state.showAvailable}>
+                <Paper>
+                  {this.props.paymentPackTemplateListAvailable.map((ppt) => (
+                    <PaymentPackTemplateListItem
+                      paymentPackTemplate={ppt}
+                      divider
+                      key={ppt.id}
+                      onClick={this.props.goToTemplateDetail}
+                      onEdit={this.props.openEditDialog}
+                      onDelete={this.props.openDeleteDialog}
+                    />
+                  ))}
+                </Paper>
+              </Collapse>
             </>
           )}
           {!!this.props.paymentPackTemplateListManagerOnly.length && (
             <>
-              <Typography className={classes.title} variant="h4">
-                {t('paymentPackTemplate.section.titleManagerOnly')}
-              </Typography>
+              <div className={classes.row}>
+                <Typography className={classes.title} variant="h4">
+                  {`${t('paymentPackTemplate.section.titleManagerOnly')} (${
+                    this.props.paymentPackTemplateListManagerOnly?.length || 0
+                  })`}
+                </Typography>
+                <IconButton onClick={this.onShowDisabled}>
+                  {this.state.showDisabled ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </IconButton>
+              </div>
               <Divider className={classes.divider} />
-              <Paper>
-                {this.props.paymentPackTemplateListManagerOnly.map((ppt) => (
-                  <PaymentPackTemplateListItem
-                    paymentPackTemplate={ppt}
-                    key={ppt.id}
-                    onEdit={this.props.openEditDialog}
-                    onClick={this.props.goToTemplateDetail}
-                    onDelete={this.props.openDeleteDialog}
-                  />
-                ))}
-              </Paper>
+              {this.state.showDisabled && (
+                <Collapse in={this.state.showDisabled}>
+                  <Paper>
+                    {this.props.paymentPackTemplateListManagerOnly.map(
+                      (ppt) => (
+                        <PaymentPackTemplateListItem
+                          paymentPackTemplate={ppt}
+                          key={ppt.id}
+                          onEdit={this.props.openEditDialog}
+                          onClick={this.props.goToTemplateDetail}
+                          onDelete={this.props.openDeleteDialog}
+                        />
+                      ),
+                    )}
+                  </Paper>
+                </Collapse>
+              )}
             </>
           )}
         </div>
@@ -150,6 +213,7 @@ const connector = connect(
     paymentPackTemplateListAvailable:
       getPaymentPackTemplateListAvailable(state),
     paymentPackTemplateData: getPaymentPackTemplateData(state),
+    loading: state.paymentPack.paymentPackTemplate.loading,
   }),
   {
     fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,

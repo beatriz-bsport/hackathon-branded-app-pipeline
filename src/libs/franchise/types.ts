@@ -12,6 +12,7 @@ export type FranchiseState = {
     count: number;
     allIds: number[];
     byId: Record<number, FranchiseUser>;
+    loading: boolean;
   };
   companies: {
     byId: Record<number, FranchiseCompany>;

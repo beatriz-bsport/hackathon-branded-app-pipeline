@@ -206,6 +206,12 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     if (values.unlimited) {
       data.credits = null;
     }
+
+    data.max_bookings_per_day = values.max_bookings_per_day || null;
+    data.max_bookings_per_month = values.max_bookings_per_month || null;
+    data.max_bookings_per_week = values.max_bookings_per_week || null;
+    data.max_purchase_per_member = values.max_purchase_per_member || null;
+
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),

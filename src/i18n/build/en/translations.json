@@ -5792,7 +5792,8 @@
                     "guestReachedLimit": "You have already reached the reservation limit for one guest for the current period. It is not possible to make any more.",
                     "guestSettings": "Inviting guests isn't available.",
                     "guestOffer": "The studio has disabled the booking for a guest feature for this session.",
-                    "guestPass": "The studio has disabled the booking for a guest feature for this pass."
+                    "guestPass": "The studio has disabled the booking for a guest feature for this pass.",
+                    "guestNotEnoughSpot": "There is not enough capacity for all your guests."
                 },
                 "error": "Error",
                 "recap": "Summary",

@@ -8498,7 +8498,8 @@
                     "guestGeneric": "Hubo un problema con la reserva de un invitado.",
                     "guestReachedLimit": "Ya ha alcanzado el límite de reservas para un invitado en el período actual. No es posible hacer más.",
                     "guestSettings": "El estudio ha desactivado la función de reserva de invitados.",
-                    "guestPass": "El estudio ha desactivado la función de reserva de invitados para esta tarjeta de curso."
+                    "guestPass": "El estudio ha desactivado la función de reserva de invitados para esta tarjeta de curso.",
+                    "guestNotEnoughSpot": "No hay suficiente capacidad para todos tus invitados."
                 }
             },
             "actions": {

@@ -319,8 +319,10 @@
                     "date": "Tijd en datum",
                     "coach": "Teacher",
                     "address": "Adres",
-                    "activity": "Activiteit"
-                }
+                    "activity": "Activiteit",
+                    "recurring_booking_fail_reason": "Reden voor terugkerende mislukte boekingen"
+                },
+                "name": "Terugkerende regel"
             }
         },
         "emailDesign": {
@@ -3665,6 +3667,11 @@
                 "select": "Selecteer een niveau",
                 "intermediary": "intermediair",
                 "all": "alle niveaus"
+            },
+            "activePasses": {
+                "warning": "Selecteer ten minste één leskaart of één afspraakkaart",
+                "paymentPackHelperText": "geen leskaart",
+                "privatePassHelperText": "Er zijn geen afspraakkaarten om te tonen."
             }
         },
         "modal": {
@@ -4021,7 +4028,10 @@
                 "second": "tussen de",
                 "third": "en de",
                 "fourth": "en bezit",
-                "fifth": "credits op"
+                "fifth": "credits op",
+                "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
+                "between": "en",
+                "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
             },
             "18": {
                 "name": "Inschrijfdatum",
@@ -10356,6 +10366,9 @@
                     "dialogButtonCancel": "Annuleren",
                     "dialogButtonConfirm": "Bevestigen"
                 }
+            },
+            "extra_info": {
+                "label": "Studio informatie"
             }
         },
         "pageTitles": {
@@ -10531,7 +10544,8 @@
                     "guestReachedLimit": "Je hebt het limiet voor het uitnodigen van gasten overschreden voor deze periode.",
                     "guestSettings": "Het uitnodigen van gasten is niet beschikbaar.",
                     "guestOffer": "Het uitnodigen van gasten is niet beschikbaar voor deze sessie.",
-                    "guestPass": "Het uitnodigen van gasten is niet beschikbaar voor deze kaart."
+                    "guestPass": "Het uitnodigen van gasten is niet beschikbaar voor deze kaart.",
+                    "guestNotEnoughSpot": "Er is niet genoeg capaciteit voor al uw gasten."
                 },
                 "explain": "Zo dadelijk ontvang je ook een bevestigingsmail."
             },
@@ -11195,7 +11209,8 @@
                 },
                 "selectCoach": "Selecteer de instructeurs",
                 "ifEmptySelectAll": "Laat dit veld leeg om alles te selecteren.",
-                "selectFranchisees": "Selecteer studio's"
+                "selectFranchisees": "Selecteer studio's",
+                "selectFranchiseesDisabled": "Deze instelling is alleen voor aangepaste rollen (niet Admin of Systeembeheerder)"
             },
             "role": {
                 "delete": {

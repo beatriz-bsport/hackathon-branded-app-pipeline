@@ -12,12 +12,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 
 import { httpParser } from '#libs/marketplace/utils';
+import { Franchise } from '#libs/franchise/types';
+import { Company } from '#libs/company/types';
+import { CompanyTheme } from '#libs/theme/types';
 
 type LogoProps = {
   isWidget?: boolean;
   logo?: string;
   websiteURL?: string;
   title?: string;
+  franchisor: Franchise | null;
+  onCompanySelected: (c: Company) => void;
+  currentTheme: CompanyTheme | null;
 };
 
 const AppBarLogo: React.FC<LogoProps> = ({
@@ -40,7 +46,9 @@ const AppBarLogo: React.FC<LogoProps> = ({
       <>
         <ButtonBase
           variant="outlined"
-          onClick={(ev) => setOpenMenu(ev.currentTarget)}
+          onClick={(ev: React.SyntheticEvent<HTMLButtonElement>) =>
+            setOpenMenu(ev.currentTarget)
+          }
           className={classnames([classes.marginLeft, classes.selector])}
         >
           <Hidden smDown>
@@ -74,24 +82,26 @@ const AppBarLogo: React.FC<LogoProps> = ({
           keepMounted
           open={!!menuOpen}
         >
-          {franchisor.companies.map((c) => (
-            <MenuItem
-              onClick={() => {
-                setOpenMenu(null);
-                onCompanySelected(c);
-              }}
-              key={c.id}
-            >
-              <img
-                height={24}
-                width={24}
-                className={classes.logo}
-                src={c.cover || franchisor.cover}
-                alt="bsport logo"
-              />
-              <ListItemText>{c.name}</ListItemText>
-            </MenuItem>
-          ))}
+          {franchisor.companies
+            .filter((c) => !!c && !c.hidden_from_marketplace)
+            .map((c) => (
+              <MenuItem
+                onClick={() => {
+                  setOpenMenu(null);
+                  onCompanySelected(c);
+                }}
+                key={c.id}
+              >
+                <img
+                  height={24}
+                  width={24}
+                  className={classes.logo}
+                  src={c.cover || franchisor.cover}
+                  alt="bsport logo"
+                />
+                <ListItemText>{c.name}</ListItemText>
+              </MenuItem>
+            ))}
         </Menu>
       </>
     );

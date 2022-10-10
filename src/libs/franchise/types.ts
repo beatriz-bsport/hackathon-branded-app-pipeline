@@ -1,4 +1,4 @@
-import { CompanyWithTheme } from '../company/types';
+import { CompanyWithTheme, Company } from '../company/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -29,7 +29,7 @@ export type FranchiseState = {
 export type Franchise = {
   id: number;
   name: string;
-  companies: number[];
+  companies: Company[];
   cover?: string;
   primaryRGB: [number, number, number];
   secondaryRGB: [number, number, number];

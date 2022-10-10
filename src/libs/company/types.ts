@@ -17,6 +17,10 @@ export type Company = {
   email: string;
   websiteURL: string;
   cover: string;
+  primaryRGB: string;
+  secondaryRGB: string;
+  company_group: number | null;
+  hidden_from_marketplace: boolean;
 };
 
 export type CompanyWithTheme = Company & {

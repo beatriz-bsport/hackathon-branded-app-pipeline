@@ -8,7 +8,7 @@ const MarketplaceDatePickerDay: React.FC<{
   date: string;
   dateDisplayed: string;
   dateSelected: string;
-  handleSelect: (dateString: string) => void;
+  handleSelect: (dateString: string) => () => void;
   offersThisDay: Array<Offer_FULL>;
 }> = ({ date, dateSelected, dateDisplayed, handleSelect, offersThisDay }) => {
   const daySelected = moment(dateSelected).startOf('day');
@@ -22,7 +22,7 @@ const MarketplaceDatePickerDay: React.FC<{
     >
       <button
         type="button"
-        onClick={() => handleSelect(date)}
+        onClick={handleSelect(date)}
         className={classNames(
           'bs-marketplace-date-picker__menu__calendar__day',
           {

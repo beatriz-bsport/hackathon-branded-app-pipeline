@@ -239,11 +239,11 @@
 }
 
 .bs-marketplace-date-picker__menu__calendar__day--disabled {
-  color: var(--color-grey-light);
+  color: var(--color-grey-main);
 }
 
 .bs-marketplace-date-picker__menu__calendar__day--disabled:hover::before {
-  background-color: var(--color-grey-light);
+  background-color: var(--color-grey-main);
 }
 
 .bs-marketplace-date-picker__menu__calendar__day--disabled:active::before {

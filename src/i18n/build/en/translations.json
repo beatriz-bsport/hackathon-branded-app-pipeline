@@ -11308,7 +11308,10 @@
                 "second": "between",
                 "third": "and",
                 "fourth": "and has",
-                "fifth": "credits on it"
+                "fifth": "credits on it",
+                "info": "Blocked passes and blocked appointment passes are also taken into account",
+                "between": "and",
+                "explanation": "Has X number of valid passes or appointment passes"
             },
             "all": "All",
             "isEmpty": "This Smartlist displays your entire member database, as no filters have been added as of now.",

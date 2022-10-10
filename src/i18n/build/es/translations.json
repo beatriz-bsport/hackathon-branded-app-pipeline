@@ -11343,6 +11343,16 @@
                 "first": "Tiene",
                 "name": "Tarjetas válidas",
                 "explanation": "Tiene X bonos o de tarjetas de cita válidas"
+            },
+            "undefined": {
+                "info": "También se tienen en cuenta los bonos y las tarjetas de cita bloqueadas",
+                "fourth": "(confundidas)",
+                "third": "o",
+                "second": "bonos o tarjetas de cita válidas hoy. Entre",
+                "between": "y",
+                "first": "Tiene",
+                "name": "Tarjetas válidas",
+                "explanation": "Tiene X bonos o tarjetas de cita válidas"
             }
         },
         "filterCategory": {

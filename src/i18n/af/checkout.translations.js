@@ -118,6 +118,8 @@ exports.default = {
           'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette session.',
         guestPass:
           'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours.',
+        guestNotEnoughSpot:
+          "Il n'y a pas assez de places pour tous vos invités.",
       },
     },
   },

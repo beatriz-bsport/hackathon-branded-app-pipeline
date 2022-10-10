@@ -434,7 +434,8 @@
           "guestReachedLimit": "Vous avez déjà atteint la limite de réservation pour un invité sur la période en cours. Il n'est plus possible d'en faire.",
           "guestSettings": "Le studio a désactivé la fonctionnalité de réservation pour un invité.",
           "guestOffer": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette session.",
-          "guestPass": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours."
+          "guestPass": "Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours.",
+          "guestNotEnoughSpot": "Il n'y a pas assez de places pour tous vos invités."
         }
       }
     },

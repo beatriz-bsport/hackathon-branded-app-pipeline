@@ -8,6 +8,7 @@ import {
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_SETTINGS,
   EXCEPTION_BOOKING_GUEST_OVERCOME_LIMIT,
   EXCEPTION_BOOKING_GUEST_REACHED_LIMIT,
+  EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT,
 } from './constants';
 
 export const getBasketTotalPriceExcludingTax = (
@@ -67,6 +68,8 @@ export const getBookingGuestErrorMessage = (
       return t('validation.sections.errorExplain.guestOffer');
     case EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_PASS:
       return t('validation.sections.errorExplain.guestPass');
+    case EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT:
+      return t('validation.sections.errorExplain.guestNotEnoughSpot');
     default:
       return t('validation.sections.errorExplain.generic');
   }

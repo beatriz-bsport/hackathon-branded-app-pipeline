@@ -153,7 +153,11 @@ export const CompanySignupForm = (props: Props) => {
         </Button>
         <Button
           type="submit"
-          disabled={props.passwordMismatch || !props.validatedCaptcha}
+          disabled={
+            props.passwordMismatch ||
+            !props.validatedCaptcha ||
+            !props.timezone_name
+          }
         >
           {t('signupCompany.form.next')}
         </Button>
@@ -228,12 +232,19 @@ export default compose(
         password2: ev.target.value,
       }),
       validateCaptcha: () => (validatedCaptcha) => ({ validatedCaptcha }),
-      setLocale: () => (ev) => ({
-        locale: ev.target.value,
-        timezone_name: moment.tz.zonesForCountry(
+      setLocale: () => (ev) => {
+        const timezoneList = moment.tz.zonesForCountry(
           ev.target.value.slice(3, 6),
-        )[0],
-      }),
+        );
+        let timezone_name = null;
+        if (timezoneList?.length === 1) {
+          timezone_name = timezoneList[0];
+        }
+        return {
+          locale: ev.target.value,
+          timezone_name,
+        };
+      },
     },
   ),
   withProps(({ password1, password2 }) => ({

@@ -14,7 +14,7 @@ import {
 import type { PaymentPackCategory } from './types';
 
 export async function fetchAllPaymentPacks() {
-  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/?page_size=10000`);
+  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/?page_size=70000`);
 }
 
 export const scalePaymentPackCredit = async (id: number, data: any) => {

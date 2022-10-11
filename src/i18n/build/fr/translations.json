@@ -1401,7 +1401,8 @@
         "leaveAlert": "Voulez-vous vraiment quitter cette page ?",
         "autoSave": "Sauvegarde automatique",
         "seeAll": "Voir tous",
-        "allCompanies": "Tous les franchisés"
+        "allCompanies": "Tous les franchisés",
+        "bsportTemplateEmail": "Templates Bsport"
     },
     "establishment": {
         "marketing": {

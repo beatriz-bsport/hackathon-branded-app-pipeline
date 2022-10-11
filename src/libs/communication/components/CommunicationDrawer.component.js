@@ -529,7 +529,9 @@ export class CommunicationDrawer extends Component<Props, State> {
                   getEmails={getEmails}
                   getEmailDetail={getEmailDetail}
                   emailListLoading={emailListLoading}
-                  emails={emails}
+                  emails={emails.filter(
+                    (email) => !email.is_default_bsport_template,
+                  )}
                   emailDetailLoading={emailDetailLoading}
                   emailDetails={emailDetails}
                   mailDefaultTitle={mailDefaultTitle}

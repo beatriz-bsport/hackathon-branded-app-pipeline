@@ -5,6 +5,8 @@ import { TFunction } from 'i18next';
 import { FranchiseCompany } from '../franchise/types';
 import { EmailTemplateSummary } from '../email-editor/types';
 import EmailListItem from '../email-editor/components/EmailListItem.components';
+import InfoBox from '#components/box/InfoBox.component';
+import { HEIGHT_ITEM } from './EmailVirtualizedList.components';
 
 type RowProps = {
   index: number;
@@ -13,6 +15,7 @@ type RowProps = {
   isGrouped: boolean;
   franchiseEmails: EmailTemplateSummary[];
   companiesEmails: EmailTemplateSummary[];
+  genericBsportTemplates: EmailTemplateSummary[];
   companiesEmailsByCompanyId: Array<EmailTemplateSummary[]>;
   companyDic: Record<number, FranchiseCompany>;
   t: TFunction;
@@ -43,6 +46,7 @@ export default function VirtualRowItem(props: RowProps) {
     isGrouped,
     franchiseEmails,
     companiesEmails,
+    genericBsportTemplates,
     companiesEmailsByCompanyId,
     companyDic,
     t,
@@ -58,9 +62,11 @@ export default function VirtualRowItem(props: RowProps) {
 
   const nbFranchiseEmails = franchiseEmails.length;
   const nbCompaniesEmails = companiesEmails.length;
+  const nbGenericBsportTemplates = genericBsportTemplates.length;
 
   const haveFranchiseEmails = nbFranchiseEmails > 0;
   const haveCompaniesEmails = nbCompaniesEmails > 0;
+  const haveGenericBsportTemplates = nbGenericBsportTemplates > 0;
 
   const style = useStyle();
 
@@ -116,7 +122,10 @@ export default function VirtualRowItem(props: RowProps) {
       );
     }
     if (isGrouped) {
-      if (index > startIndex) {
+      if (
+        index > startIndex &&
+        index <= startIndex + nbCompaniesEmails + categoriesIndex.length
+      ) {
         const categoryRankInList = getCategoryId(index, categoriesIndex);
         const categoryStartIndex = categoriesIndex[categoryRankInList];
         const categoryId = categoriesId[categoryRankInList];
@@ -170,8 +179,54 @@ export default function VirtualRowItem(props: RowProps) {
         );
       }
     }
-    return null;
   }
+  if (haveGenericBsportTemplates) {
+    const startIndex =
+      nbFranchiseEmails +
+      (haveFranchiseEmails ? 1 : 0) +
+      nbCompaniesEmails +
+      (haveCompaniesEmails ? 1 : 0) +
+      (isGrouped && companiesEmailsByCompanyId
+        ? Object.keys(companiesEmailsByCompanyId).length
+        : 0);
+
+    if (index === startIndex) {
+      return (
+        <Typography
+          key="title-genericBsportTemplates"
+          className={style.title}
+          style={{ height: heightTitle }}
+          variant="h5"
+        >
+          {t('emailTemplate:bsportTemplateEmails')}
+        </Typography>
+      );
+    }
+    if (index === startIndex + 1) {
+      return (
+        <div style={{ height: HEIGHT_ITEM, overflowY: 'auto' }}>
+          <InfoBox content={t('emailTemplate:infoBsportTemplateEmails')} />
+        </div>
+      );
+    }
+    if (
+      index > startIndex &&
+      index <= startIndex + nbGenericBsportTemplates + 1
+    ) {
+      const email = genericBsportTemplates[index - startIndex - 2];
+      return (
+        <EmailListItem
+          key={`generic-template-${email.id}`}
+          email={email}
+          selectedId={selectedId}
+          navigateTo={navigateTo}
+          onDuplicate={onDuplicate}
+          virtualized
+        />
+      );
+    }
+  }
+  return null;
 }
 
 const useStyle = makeStyles((theme: Theme) => ({

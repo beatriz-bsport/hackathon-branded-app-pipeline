@@ -65,6 +65,7 @@ import LinearProgress from '#components/navigation/BackofficeLinearProgress.comp
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import InfoBox from '#components/box/InfoBox.component';
 
 const { trackFormAdd, trackFormCancel, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -209,6 +210,8 @@ export class MarketingEmail extends Component<Props, State> {
           (email) => !email.company_id && !email.is_default_bsport_template,
         ) || [],
     )(email_templates);
+    const buttonEnabled = (email: EmailTemplateSummary) =>
+      email.company_id && !email.is_default_bsport_template;
 
     if (this.props.categoryLoading) {
       return <LinearProgress />;
@@ -267,13 +270,19 @@ export class MarketingEmail extends Component<Props, State> {
                           selected={email.id === this.props.id}
                           navigateTo={this.selected}
                           onEdit={
-                            email.company_id ? this.props.goToEdit : undefined
+                            buttonEnabled(email)
+                              ? this.props.goToEdit
+                              : undefined
                           }
                           onDuplicate={
-                            email.company_id ? this.onDuplicate : undefined
+                            email.company_id &&
+                            !email.is_default_bsport_template
+                              ? this.onDuplicate
+                              : undefined
                           }
                           onDelete={
-                            email.company_id
+                            email.company_id &&
+                            !email.is_default_bsport_template
                               ? this.props.emailTemplateDelete
                               : undefined
                           }
@@ -321,7 +330,7 @@ export class MarketingEmail extends Component<Props, State> {
                 <div className={classes.listContainer}>
                   <div className={classes.categoryHeader}>
                     <Typography variant="h5">
-                      {t('bsportTemplateEmail')}
+                      {t('bsportTemplateEmails')}
                     </Typography>
                     <IconButton
                       onClick={() =>
@@ -342,6 +351,7 @@ export class MarketingEmail extends Component<Props, State> {
                     className={classes.collapse}
                     in={this.props.expandCollapseLaunchingEmails}
                   >
+                    <InfoBox content={t('infoBsportTemplateEmails')} />
                     <div className={classes.launchingEmailsList}>
                       <Paper className={classes.list}>
                         <List

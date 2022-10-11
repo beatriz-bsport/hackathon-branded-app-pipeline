@@ -22,23 +22,24 @@ type Props = {
 const orderByTitle = (a: EmailTemplateSummary, b: EmailTemplateSummary) =>
   a.title.localeCompare(b.title);
 
-const HEIGHT_ITEM = 130;
+export const HEIGHT_ITEM = 130;
 const HEIGHT_TITLE = 100;
 const HEIGHT_CATEGORY_TITLE = 80;
 
 const getMaps = memoize(
   (
     nbFranchiseEmails: number,
-    haveCompaniesEmails: boolean,
+    nbCompaniesEmails: number,
     companiesById: Array<EmailTemplateSummary[]>,
     grouping: boolean,
+    nbGenericBsportTemplates: number,
   ) => {
     const mapTitles = []; // Index in the list of the titles of the sections
     const mapCategoryTitles = []; // Index in the list of the titles of the categories
     const mapCategoryId = [];
 
     if (nbFranchiseEmails > 0) mapTitles.push(0);
-    if (haveCompaniesEmails) mapTitles.push(nbFranchiseEmails + 1);
+    if (nbCompaniesEmails > 0) mapTitles.push(nbFranchiseEmails + 1);
 
     let startIndex = nbFranchiseEmails > 0 ? nbFranchiseEmails + 1 : 0;
     if (grouping && companiesById) {
@@ -50,6 +51,13 @@ const getMaps = memoize(
         }
       }
     }
+    if (nbGenericBsportTemplates > 0)
+      mapTitles.push(
+        nbFranchiseEmails +
+          nbCompaniesEmails +
+          (grouping ? Object.keys(companiesById).length : 0) +
+          2,
+      );
     return { mapTitles, mapCategoryTitles, mapCategoryId };
   },
 );
@@ -69,17 +77,24 @@ export default function EmailVirtualizedList(props: Props) {
   } = props;
 
   const franchiseEmails = [...(emails ?? [])]
-    .filter((email) => email.company_id === null)
+    .filter(
+      (email) => email.company_id === null && !email.is_default_bsport_template,
+    )
     .sort(orderByTitle);
   const companiesEmails = [...(emails ?? [])]
     .filter((email) => email.company_id !== null)
     .sort(orderByTitle);
+  const genericBsportTemplates = [...(emails ?? [])]
+    .filter((email) => email.is_default_bsport_template)
+    .sort(orderByTitle);
 
   const nbFranchiseEmails = franchiseEmails.length;
   const nbCompaniesEmails = companiesEmails.length;
+  const nbGenericBsportTemplates = genericBsportTemplates.length;
 
   const haveFranchiseEmails = nbFranchiseEmails > 0;
   const haveCompaniesEmails = nbCompaniesEmails > 0;
+  const haveGenericBsportTemplates = nbGenericBsportTemplates > 0;
 
   const itemCount: number =
     nbFranchiseEmails +
@@ -88,21 +103,25 @@ export default function EmailVirtualizedList(props: Props) {
     (haveCompaniesEmails ? 1 : 0) + // for titles before companies emails
     (isGrouped && companiesEmailsByCompanyId
       ? Object.keys(companiesEmailsByCompanyId).length
-      : 0); // for category titles
+      : 0) + // for category titles
+    nbGenericBsportTemplates +
+    (haveGenericBsportTemplates ? 2 : 0); // for titles before generic emails
 
   const { mapTitles, mapCategoryTitles, mapCategoryId } = useMemo(
     () =>
       getMaps(
         nbFranchiseEmails,
-        haveCompaniesEmails,
+        nbCompaniesEmails,
         companiesEmailsByCompanyId,
         isGrouped,
+        nbGenericBsportTemplates,
       ),
     [
       nbFranchiseEmails,
-      haveCompaniesEmails,
+      nbCompaniesEmails,
       companiesEmailsByCompanyId,
       isGrouped,
+      nbGenericBsportTemplates,
     ],
   );
 
@@ -134,6 +153,7 @@ export default function EmailVirtualizedList(props: Props) {
             isGrouped={isGrouped}
             franchiseEmails={franchiseEmails}
             companiesEmails={companiesEmails}
+            genericBsportTemplates={genericBsportTemplates}
             companiesEmailsByCompanyId={companiesEmailsByCompanyId}
             companyDic={companyDic}
             t={t}

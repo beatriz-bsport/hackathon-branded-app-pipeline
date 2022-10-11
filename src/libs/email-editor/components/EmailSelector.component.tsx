@@ -57,6 +57,7 @@ export const EmailSelector = (props: Props) => {
   } = props;
 
   const suggestions = [...emails]
+    .filter((email) => !email.is_default_bsport_template)
     .sort((pp, pp_) => {
       if (moment(pp.date_modified) > moment(pp_.date_modified)) return 1;
       return -1;

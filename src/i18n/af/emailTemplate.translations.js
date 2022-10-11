@@ -42,7 +42,9 @@ exports.default = {
   },
   companieEmails: 'Mes templates',
   franchiseEmails: 'Templates franchise',
-  bsportTemplateEmail: 'Emails de lancement',
+  bsportTemplateEmails: 'Templates Bsport',
+  infoBsportTemplateEmails:
+    "Si vous souhaitez envoyer des communications ou éditer les templates de cette section, il est nécessaire de créer une copie du template souhaité. Sélectionnez ensuite la copie de l'email lors de l'envoi d'une communication.",
   leaveAlert: 'Voulez-vous vraiment quitter cette page ?',
   autoSave: 'Sauvegarde automatique',
   seeAll: 'Voir tous',

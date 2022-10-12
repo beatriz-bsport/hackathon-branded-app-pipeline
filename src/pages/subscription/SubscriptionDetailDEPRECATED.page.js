@@ -18,7 +18,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  fetchPaymentPackList as fetchPaymentPackListAction,
 } from '../../libs/payment-packs/actions';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getEnabled as getEnabledPaymentPackList } from '../../libs/payment-packs/selectors';
@@ -306,7 +306,8 @@ export default compose(
       freezeSubscription: freezeSubscriptionAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       switchSubscriptionPaymentPack: switchSubscriptionPaymentPackAction,
-      fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+      fetchPaymentPackList: () =>
+        fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
       fetchPrivatePassList,
       switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
       flagPlannedInvoiceAsLast: flagPlannedInvoiceAsLastAction,
@@ -365,10 +366,10 @@ export default compose(
         });
       },
     openPackSwitcherDialog:
-      ({ setSiwtchPackDialogOpen, fetchAllPaymentPacks }) =>
+      ({ setSiwtchPackDialogOpen, fetchPaymentPackList }) =>
       () => {
         setSiwtchPackDialogOpen(true);
-        fetchAllPaymentPacks();
+        fetchPaymentPackList();
       },
     switchSubscriptionPaymentPack:
       ({

@@ -29,7 +29,7 @@ import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#libs/role/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
 import { refreshFilteredMembers as refreshFilteredMembersAction } from '#libs/member/actions';
-import { fetchAllPaymentPacks as fetchAllPaymentPacksAction } from '#libs/payment-packs/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '#libs/payment-packs/actions';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
@@ -86,7 +86,7 @@ const connector = connect(
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
     fetchEstablishments: fetchEstablishmentsAction,
     refreshFilteredMembers: refreshFilteredMembersAction,
-    fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+    fetchAllPaymentPacks: fetchPaymentPackListAction,
     fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
     fetchAllPrivateServices: fetchAllPrivateServicesAction,
     fetchAllPrivateSlots: fetchAllPrivateSlotsAction,
@@ -125,11 +125,14 @@ export default function withDatatypeDynamicData(
                 );
                 break;
               case 'payment_pack':
-                props.fetchAllPaymentPacks({
-                  onSuccess: () => {
-                    props.setDynamicDataHasBeenLoaded('payment_pack');
+                props.fetchAllPaymentPacks(
+                  { page_size: 70000, disabled: false },
+                  {
+                    onSuccess: () => {
+                      props.setDynamicDataHasBeenLoaded('payment_pack');
+                    },
                   },
-                });
+                );
                 break;
               case 'coach':
                 props.fetchAssociatedCoachesList(

@@ -573,8 +573,14 @@ export function deletePaymentPackCategory(
 export const listPaymentPackActions = {
   isLoading: createAction('PAYMENT_PACK/LIST_BASE/IS_LOADING'),
   error: createAction('PAYMENT_PACK/LIST_BASE/ERROR'),
-  success: createAction('PAYMENT_PACK/LIST_BASe/SUCCESS'),
+  success: createAction('PAYMENT_PACK/LIST_BASE/SUCCESS'),
+  reset: createAction('PAYMENT_PACK/LIST_BASE/RESET'),
 };
+
+export const resetDisabledPaymentPack = () =>
+  listPaymentPackActions.reset({
+    disabled: true,
+  });
 
 export function fetchPaymentPackList(
   params: any = {},

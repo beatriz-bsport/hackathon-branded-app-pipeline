@@ -43,7 +43,7 @@ import {
   fetchMetaActivityBulk,
 } from '#libs/meta-activity/actions';
 import {
-  fetchAllPaymentPacks,
+  fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk,
 } from '#libs/payment-packs/actions';
 import {
@@ -187,7 +187,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
       this.props.fetchActivitiesCompany(this.props.theme.company),
       this.props.fetchEstablishments(),
       this.props.fetchAllPrivateServices(),
-      this.props.fetchAllPaymentPacks(),
+      this.props.fetchPaymentPackList(),
       this.props.fetchTagList(),
       this.props.getSmartLists(),
       this.props.fetchPrivatePassList(),
@@ -565,7 +565,8 @@ const mapDispatchToProps = {
   fetchEstablishments,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   fetchPrivatePassList,
-  fetchAllPaymentPacks,
+  fetchPaymentPackList: () =>
+    fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
   fetchContractList,
   fetchMarketingNotificationCampaignSummary,
   fetchTagList,

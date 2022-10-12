@@ -37,7 +37,10 @@ import type { Coupon } from '#libs/coupon/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
-import { fetchAllPaymentPacks } from '#libs/payment-packs/actions';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  resetDisabledPaymentPack as resetDisabledPaymentPackAction,
+} from '#libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchAllShop } from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
@@ -79,7 +82,7 @@ export class CouponList extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.props.fetchCouponPage(1);
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
     this.props.fetchAllShop();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
@@ -140,6 +143,10 @@ export class CouponList extends React.PureComponent<Props, State> {
 
   onCloseFormDrawer = () =>
     this.setState({ couponFormState: { open: false, initial: null } });
+
+  componentWillUnmount() {
+    this.props.resetDisabledPaymentPack();
+  }
 
   render() {
     const { classes, t } = this.props;
@@ -211,12 +218,15 @@ export class CouponList extends React.PureComponent<Props, State> {
               activeCoupons={this.props.activeCoupons}
               goToCoupon={this.props.goToCoupon}
               onEdit={(couponSelected: Coupon) =>
-                this.setState({
-                  couponFormState: {
-                    open: true,
-                    initial: couponSelected,
+                this.setState(
+                  {
+                    couponFormState: {
+                      open: true,
+                      initial: couponSelected,
+                    },
                   },
-                })
+                  () => this.props.fetchPaymentPackList({ page_size: 70000 }),
+                )
               }
               setCouponToDelete={this.props.setCouponToDelete}
             />
@@ -300,13 +310,14 @@ const connector = connect(
     fetchCouponPage,
     deleteCouponAction: deleteCoupon,
     goToCoupon: (id: string) => push(`/coupon/${id}/`),
-    fetchAllPaymentPacks,
+    fetchPaymentPackList: fetchPaymentPackListAction,
     fetchAllShop,
     fetchPrivatePassList,
     fetchPaymentComboList,
     fetchTags,
     createCouponAction: createCoupon,
     updateCouponAction: updateCoupon,
+    resetDisabledPaymentPack: resetDisabledPaymentPackAction,
   },
 );
 

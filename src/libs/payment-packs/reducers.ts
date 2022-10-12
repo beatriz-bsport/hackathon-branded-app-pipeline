@@ -232,6 +232,28 @@ export const newPaymentPackReducer = handleActions(
           { deep: true },
         );
     },
+    [listPaymentPackActions.reset.toString()]: (state, { payload }) => {
+      // const propToCheck = Object.entries(payload);
+      const requestedKeys = Object.keys(payload);
+
+      const idToKeep = Object.values(state.byId).filter((pp) =>
+        Object.entries(pp).reduce(
+          (acc, [k, v]) =>
+            (!requestedKeys.includes(k) || v === payload[k]) && acc,
+          true,
+        ),
+      );
+
+      return state
+        .set(
+          'allIds',
+          idToKeep.map((pp) => pp.id),
+        )
+        .set(
+          'byId',
+          idToKeep.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+        );
+    },
     [listPaymentPackTemplateActions.isLoading.toString()]: (
       state,
       { payload },

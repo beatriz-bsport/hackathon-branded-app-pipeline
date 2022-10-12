@@ -14,7 +14,7 @@ import { Moment } from '../../i18n';
 import { formatAsDate } from '../../utils/datetime';
 import { createOrUpdateInvoice } from '../../libs/invoice/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
 
 import type { Member } from '../../libs/member/types';
@@ -64,7 +64,7 @@ type Props = {
   goToSubscription: (id: number) => void,
 
   fetchShopItems: () => void,
-  fetchAllPaymentPacks: () => void,
+  fetchPaymentPackList: (params: any) => void,
   fetchPrivatePassList: () => void,
   fetchGiftcardList: () => void,
   fetchPaymentComboList: () => void,
@@ -94,7 +94,7 @@ export class InvoiceCreation extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchMember(this.props.memberId);
     this.props.fetchShopItems();
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ disabled: false, page_size: 7000 });
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
@@ -213,7 +213,7 @@ export default compose(
     }),
     {
       fetchShopItems,
-      fetchAllPaymentPacks,
+      fetchPaymentPackList: fetchPaymentPackListAction,
       fetchPrivatePassList,
       fetchPaymentComboList,
       fetchGiftcardBackgroundImageList,

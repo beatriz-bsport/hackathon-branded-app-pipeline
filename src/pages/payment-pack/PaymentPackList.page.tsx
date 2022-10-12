@@ -29,6 +29,19 @@ import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
 import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  patch as patchPaymentPack,
+  fetchAllPaymentPackCategory,
+  upsertPaymenPackCategory,
+  deletePaymentPackCategory,
+  fetchPaymentPackBulk,
+  updatePaymentPackCategoryOrder,
+  updateOrder as updatePaymentPack,
+  createOrUpdate as createOrUpdatePaymentPackAction,
+  isPaymentPackUsedInCombo,
+  resetDisabledPaymentPack,
+} from '#libs/payment-packs/actions';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import {
   withSCT,
@@ -44,18 +57,6 @@ import {
   resetByPaymentPack as resetByPaymentPackAction,
   fetchByPaymentPack as fetchByPaymentPackAction,
 } from '../../libs/consumer-payment-pack/actions';
-import {
-  fetchAllPaymentPacks,
-  patch as patchPaymentPack,
-  fetchAllPaymentPackCategory,
-  upsertPaymenPackCategory,
-  deletePaymentPackCategory,
-  fetchPaymentPackBulk,
-  updatePaymentPackCategoryOrder,
-  updateOrder as updatePaymentPack,
-  createOrUpdate as createOrUpdatePaymentPackAction,
-  isPaymentPackUsedInCombo,
-} from '../../libs/payment-packs/actions';
 import type {
   PaymentPack,
   PaymentPackCategory,
@@ -141,17 +142,20 @@ type State = {
     ordering_in_category: number;
   }> | null;
   paymentPackToEdit: PaymentPack<PrivatePass>;
+  disabledLoading: boolean;
 };
 
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
 const CONSUMER_PACK_PAGINATION_SIZE = 10;
+
 export class PaymentPackList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       paymentPackToDelete: null,
       showDisabled: false,
+      disabledLoading: false,
       searchText: '',
       searchResult: [],
       selectedCategories: this.props.userPreferenceSelectedCategories,
@@ -186,6 +190,10 @@ export class PaymentPackList extends React.Component<Props, State> {
     }
   }
 
+  componentWillUnmount() {
+    this.props.resetDisabledPaymentPack();
+  }
+
   componentDidMount() {
     this.props.fetchPrivatePassList();
     this.props.fetchAllPrivateServices();
@@ -194,7 +202,7 @@ export class PaymentPackList extends React.Component<Props, State> {
       customer_enabled: true,
     });
     this.props.fetchMetaActivities();
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ disabled: false });
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchVideoFilterableParams({
       company: this.props.companyId,
@@ -335,7 +343,16 @@ export class PaymentPackList extends React.Component<Props, State> {
   );
 
   onShowDisabled = () => {
-    this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+    this.setState((prevState: State) => {
+      if (!prevState.showDisabled) {
+        this.props.fetchPaymentPackList(
+          { page_size: 70000 },
+          { onSuccess: () => this.setState({ disabledLoading: false }) },
+        );
+        return { showDisabled: !prevState.showDisabled, disabledLoading: true };
+      }
+      return { showDisabled: !prevState.showDisabled };
+    });
   };
 
   categoryOptions = memoize(() => [
@@ -527,33 +544,33 @@ export class PaymentPackList extends React.Component<Props, State> {
             deletePaymentPackCategory={this.props.deletePaymentPackCategory}
             updateCategory={this.props.updateCategoryOrder}
           />
-          {(this.props.disabledPacks || []).length ? (
-            <div className={classes.container}>
-              <div className={this.props.classes.buttonTitle}>
-                <Typography variant="h5" className={classes.titleContainer}>
-                  {`${t('disabledPacksTitle')} (${
-                    (this.props.disabledPacks || []).length
-                  })`}
-                </Typography>
+          <div className={classes.container}>
+            <div className={this.props.classes.buttonTitle}>
+              <Typography variant="h5" className={classes.titleContainer}>
+                {`${t('disabledPacksTitle')}`}
+              </Typography>
 
-                <IconButton onClick={this.onShowDisabled}>
-                  {this.state.showDisabled ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </IconButton>
-              </div>
-              <Divider className={classes.divider} />
-              <Collapse
-                className={classes.collapse}
-                in={this.state.showDisabled}
-                unmountOnExit
-              >
-                {this.renderPackList(this.props.disabledPacks)}
-              </Collapse>
+              <IconButton onClick={this.onShowDisabled}>
+                {this.state.showDisabled ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </IconButton>
             </div>
-          ) : null}
+            {this.state.disabledLoading ? (
+              <LinearProgress className={classes.divider} />
+            ) : (
+              <Divider className={classes.divider} />
+            )}
+            <Collapse
+              className={classes.collapse}
+              in={this.state.showDisabled}
+              unmountOnExit
+            >
+              {this.renderPackList(this.props.disabledPacks)}
+            </Collapse>
+          </div>
 
           <PaymentPackDeleteDialog
             open={!!this.state.paymentPackToDelete}
@@ -731,7 +748,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 const mapDispatchToProps = {
   fetchEstablishments,
-  fetchAllPaymentPacks,
+  fetchPaymentPackList: fetchPaymentPackListAction,
   fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchAllPaymentPackCategory,
@@ -758,6 +775,7 @@ const mapDispatchToProps = {
   fetchPrivatePassList,
 
   fetchAllPrivateServices,
+  resetDisabledPaymentPack,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -831,7 +849,7 @@ const mapWithHandlers = {
         ...options,
         onSuccess: (res) => {
           options.onSuccess(res);
-          props.fetchAllPaymentPacks(props.companyId);
+          props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
           if (res.linked_private_pass) {
             props.fetchPrivatePassList();
           }

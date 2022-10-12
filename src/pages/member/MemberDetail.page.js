@@ -47,10 +47,7 @@ import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import InvoiceInfoDialog from '../../libs/invoice/components/InvoiceInfoDialog.component';
-import {
-  fetchAllPaymentPacks,
-  fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-} from '../../libs/payment-packs/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchNumberVideoPurchase } from '../../libs/video/actions';
 import { checkInvoiceInfoActions } from '../../libs/invoice/actions';
 import { fetchContractList as fetchContractListAction } from '../../libs/subscription/actions';
@@ -129,7 +126,6 @@ type Props = {
   member: ?Member,
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
-  fetchAllPaymentPacks: () => void,
   openCommunicationDrawer: () => void,
   closeCommunicationDrawer: () => void,
   communicationDrawerOpen: boolean,
@@ -178,7 +174,6 @@ const companyCountry = getCompanyCountry();
 
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAllPaymentPacks();
     this.props.fetchStripeReaders();
     if (Number.isInteger(this.props.id)) {
       this.props.fetchPaymentMethodList();
@@ -554,7 +549,6 @@ export default compose(
       stripeReaders: getStripeReaders(state),
     }),
     {
-      fetchAllPaymentPacks,
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
       pushToTab: (id, tab) => pushRouter(`/member/${id}/${tab}`),
       fetchContractList: fetchContractListAction,

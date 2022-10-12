@@ -13,7 +13,10 @@ import {
 import { getEnabled as getPaymentPackAvailable } from '../../libs/payment-packs/selectors';
 import { getShopItemsBulk } from '../../libs/shop/selectors';
 import { fetchRelatedPrivatePassBulk } from '../../libs/payment-combo/actions';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import {
+  fetchPaymentPackList,
+  fetchPaymentPackBulk,
+} from '../../libs/payment-packs/actions';
 import { fetchAllShopItem } from '../../libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
@@ -21,13 +24,21 @@ type Props = any;
 
 export class PaymentComboFormContainer extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
     this.props.fetchAllShopItem(this.props.initial?.company || null);
     this.props.fetchPrivatePassList();
     const pass_ids = this.props.initial
       ? this.props.initial.private_passes.map((pass) => pass.id)
       : null;
-    this.props.fetchRelatedPrivatePassBulk(pass_ids);
+    const pack_ids = this.props.initial
+      ? this.props.initial.payment_packs.map((pass) => pass.id)
+      : null;
+    if (pass_ids?.length) {
+      this.props.fetchRelatedPrivatePassBulk(pass_ids);
+    }
+    if (pack_ids) {
+      this.props.fetchPaymentPackBulk(pack_ids);
+    }
   }
 
   render() {
@@ -50,8 +61,9 @@ export default compose(
         state.paymentPack.loading,
     }),
     {
-      fetchAllPaymentPacks,
+      fetchPaymentPackList,
       fetchPrivatePassList,
+      fetchPaymentPackBulk,
       fetchRelatedPrivatePassBulk,
       fetchAllShopItem,
     },

@@ -22,7 +22,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
-  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  fetchPaymentPackList as fetchPaymentPackListAction,
 } from '#libs/payment-packs/actions';
 
 import {
@@ -271,7 +271,7 @@ const connector = connect(
     switchSubscriptionPaymentPack: switchSubscriptionPaymentPackAction,
     switchSubscriptionPrivatePass: switchSubscriptionPrivatePassAction,
     switchSubscriptionPaymentCombo: switchSubscriptionPaymentComboAction,
-    fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+    fetchPaymentPackList: fetchPaymentPackListAction,
     fetchPrivatePassList: fetchPrivatePassListAction,
     fetchPrivatePassBulk: fetchPrivatePassBulkAction,
     fetchPaymentComboList: fetchPaymentComboListAction,
@@ -344,10 +344,10 @@ const mapWithHandlers1 = {
       });
     },
   openPackSwitcherDialog:
-    ({ setSwitchPackDialogOpen, fetchAllPaymentPacks }: BeforeHandlerProps) =>
+    ({ setSwitchPackDialogOpen, fetchPaymentPackList }: BeforeHandlerProps) =>
     () => {
       setSwitchPackDialogOpen(true);
-      fetchAllPaymentPacks();
+      fetchPaymentPackList({ disabled: false, page_size: 70000 });
     },
   openPrivatePassSwitcherDialog:
     ({

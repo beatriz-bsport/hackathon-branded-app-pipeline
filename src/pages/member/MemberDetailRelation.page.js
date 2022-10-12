@@ -20,7 +20,7 @@ import {
   fetchByMember as fetchConsumerPackByMemberAction,
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
 } from '../../libs/consumer-payment-pack/actions';
-import { fetchAllPaymentPacks as fetchAllPaymentPacksAction } from '../../libs/payment-packs/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
 import ConsumerPackLinkForm from '../../libs/relationship/components/ConsumerPackLinkForm.component';
 import ConsumerPassLinkingDeleteDialog from '../../libs/relationship/components/ConsumerPassLinkingDeleteDialog.component';
@@ -92,7 +92,7 @@ type Props = {
   consumerPackCurrentPage: number,
   consumerPackCount: number,
 
-  fetchAllPaymentPacks: () => void,
+  fetchPaymentPackList: () => void,
   fetchConsumerPacks: (
     memberId: number,
     page: number,
@@ -149,7 +149,7 @@ export class MemberDetailRelation extends React.Component<Props> {
     this.props.fetchMember(this.props.memberId);
     this.fetchRelationList();
 
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
     if (this.props.selectedRelationId) {
       this.props.fetchSharedConsumerPaymentPacks(this.props.selectedRelationId);
       this.props.fetchSharedPrivateConsumerPasses(
@@ -436,7 +436,7 @@ export default compose(
       fetchMemberRelations: fetchMemberRelationsAction,
       fetchFilteredMembers,
       linkConsumerPackToMemberRelation: linkConsumerPackToMemberRelationAction,
-      fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+      fetchPaymentPackList: fetchPaymentPackListAction,
       createOrUpdateRelation,
       unlinkConsumerPaymentPackLink: unlinkConsumerPaymentPackLinkAction,
       relinkConsumerPaymentPackLink: relinkConsumerPaymentPackLinkAction,

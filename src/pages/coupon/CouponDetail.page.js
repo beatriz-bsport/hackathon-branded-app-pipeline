@@ -27,7 +27,10 @@ import {
 import type { Coupon, Discount } from '../../libs/coupon/types';
 import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
-import { fetchAllPaymentPacks } from '#libs/payment-packs/actions';
+import {
+  fetchAllPaymentPacks,
+  resetDisabledPaymentPack as resetDisabledPaymentPackAction,
+} from '../../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchAllShop } from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
@@ -101,6 +104,10 @@ export class CouponCreate extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchCouponPage(1);
     this.props.fetchTags();
+  }
+
+  componentWillUnmount() {
+    this.props.resetDisabledPaymentPack();
   }
 
   openDeleteModal = () => this.props.setDeleteModalOpen(true);
@@ -238,6 +245,7 @@ const connector = connect(
     fetchPrivatePassList,
     fetchPaymentComboList,
     updateCouponAction: updateCoupon,
+    resetDisabledPaymentPack: resetDisabledPaymentPackAction,
   },
 );
 export default compose(

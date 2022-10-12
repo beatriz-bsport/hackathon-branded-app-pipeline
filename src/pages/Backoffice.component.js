@@ -39,7 +39,7 @@ import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 // FIXME clean that
 // // -------------------------
 import { fetchSCT } from '../libs/category/actions';
-import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import {
@@ -241,7 +241,7 @@ type Props = {
   openCreateMember: () => void,
 
   fetchSCT: (params: any) => void,
-  fetchAllPaymentPacks: () => void,
+  fetchPaymentPackList: (params: any) => void,
   fetchShop: () => void,
   fetchPaymentRules: () => void,
   fetchAllCoachPaymentRules: () => void,
@@ -407,7 +407,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.checkEmailValidation();
     this.props.fetchAllAlertings();
     this.props.fetchSCT({ as_company: true });
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
     this.props.fetchShop();
     this.props.fetchPaymentRules();
     this.props.fetchAllCoachPaymentRules();
@@ -865,7 +865,7 @@ export default compose(
       deleteAlert,
 
       fetchSCT,
-      fetchAllPaymentPacks,
+      fetchPaymentPackList: fetchPaymentPackListAction,
       fetchShop,
       fetchPaymentRules,
       fetchAllCoachPaymentRules,

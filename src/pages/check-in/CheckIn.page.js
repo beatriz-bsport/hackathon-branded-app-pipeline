@@ -25,7 +25,7 @@ import { login as loginAPI } from '../../libs/login/api';
 import { fetchSCT } from '../../libs/category/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 
 import CheckInAppBar from '../../libs/check-in/components/CheckInAppBar.component';
@@ -37,7 +37,7 @@ import withRudderStackHistoryTracker from '../../components/analytics/rudderstac
 type Props = {
   fetchEstablishments: () => void,
   fetchSCT: () => void,
-  fetchAllPaymentPacks: () => void,
+  fetchPaymentPackList: (params: any) => void,
 
   authError: ?boolean,
   errorLogin: () => void,
@@ -73,7 +73,7 @@ export class CheckInPage extends React.Component<Props, State> {
   refreshData = () => {
     this.props.fetchEstablishments();
     this.props.fetchSCT();
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList();
   };
 
   componentDidMount() {
@@ -174,7 +174,8 @@ export default compose(
       fetchSCT,
       fetchCompanyTheme,
       fetchEstablishments,
-      fetchAllPaymentPacks,
+      fetchPaymentPackList: () =>
+        fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
       errorLogin,
       push,
       fetchCompanyRoles,

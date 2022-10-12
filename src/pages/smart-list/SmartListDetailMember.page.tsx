@@ -62,7 +62,7 @@ import type {
 
 // PAYMENT PACK
 import {
-  fetchAllPaymentPacks,
+  fetchPaymentPackList as fetchPaymentPackListAction,
   fetchPaymentPackBulk,
 } from '#libs/payment-packs/actions';
 import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
@@ -317,7 +317,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         loading: this.props.coachLoading,
       },
       payment_packs: {
-        fetchAction: this.props.fetchAllPaymentPacks,
+        fetchAction: this.props.fetchPaymentPackList,
         loading: this.props.paymentPackLoading,
       },
       establishments: {
@@ -667,7 +667,8 @@ const connector = connect(
     fetchPrivateServiceBulk,
 
     // PAYMENT PACK
-    fetchAllPaymentPacks,
+    fetchPaymentPackList: () =>
+      fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
     fetchPaymentPackBulk,
 
     // PRIVATE PASS

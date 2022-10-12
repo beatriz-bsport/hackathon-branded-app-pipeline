@@ -31,7 +31,10 @@ import {
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  fetchPaymentPackBulk as fetchPaymentPackBulkAction,
+} from '../../libs/payment-packs/actions';
 import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
 
 import { fetchLevel as fetchLevelAction } from '#libs/level/actions';
@@ -60,7 +63,7 @@ type Props = {
   searchMembers: (text: string) => void,
 
   fetchOfferData: () => void,
-  fetchAllPaymentPacks: () => void,
+  fetchPaymentPackList: (params: any) => void,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatibleConsumerPacksLoading: boolean,
@@ -127,7 +130,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
       },
     });
     this.props.fetchOfferData();
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList();
     checkFaceIDAvailableAPI().then((r) =>
       this.setState({ faceIdAvailable: r.data }),
     );
@@ -306,7 +309,9 @@ export default compose(
       confirmBookingAttendance: confirmBookingAttendanceAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
 
-      fetchAllPaymentPacks,
+      fetchPaymentPackList: () =>
+        fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       upsertMember: upsertMemberAction,
 
       searchMembers,
@@ -333,13 +338,22 @@ export default compose(
         fetchFilteredMembers,
         fetchBookingsByOffer,
         retrieveConsumerPackBulk,
+        fetchPaymentPackBulk,
       }) =>
       () => {
         fetchBookingsByOffer(
           offerId,
           {
             onSuccess: (bs) => {
-              retrieveConsumerPackBulk(bs.map((b) => b.consumer_payment_pack));
+              retrieveConsumerPackBulk(
+                bs.map((b) => b.consumer_payment_pack),
+                {
+                  onSuccess: (cppList) =>
+                    fetchPaymentPackBulk(
+                      cppList.map((cpp) => cpp.payment_pack),
+                    ),
+                },
+              );
             },
           },
           null,

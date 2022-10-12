@@ -33,7 +33,7 @@ import { PrivatePass } from '../../libs/private-service/types';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import { PaymentCombo } from '../../libs/payment-combo/types';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
@@ -57,7 +57,7 @@ type Props = {
   privatePassList: PrivatePass[],
   fetchPaymentComboList: () => void,
   paymentComboList: PaymentCombo[],
-  fetchAllPaymentPacks: () => void,
+  fetchPaymentPackList: (params: any) => void,
   fetchEstablishments: () => void,
   establishments: Array<Establishment>,
   companyTheme: CompanyTheme,
@@ -77,7 +77,7 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentPackList({ page_size: 70000, disabled: false });
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
@@ -195,7 +195,7 @@ export default compose(
       onCancel: goBack,
       pushToSubscription: (id) => pushRouter(`/subscription/${id}`),
       fetchMember,
-      fetchAllPaymentPacks,
+      fetchPaymentPackList: fetchPaymentPackListAction,
       fetchPrivatePassList,
       fetchPaymentComboList,
       fetchEstablishments,

@@ -15,7 +15,7 @@ import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/paym
 import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
 import {
   fetchMarketplacePacks as fetchMarketplacePacksAction,
-  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  fetchPaymentPackList as fetchPaymentPackListAction,
 } from '#libs/payment-packs/actions';
 import { getEnabled as getPaymentPackAvailable } from '#libs/payment-packs/selectors';
 import { getSubShopsByCompany } from '#libs/shop/selectors';
@@ -68,7 +68,7 @@ const MobilePersonalization: React.FC<Props> = ({
   fetchMarketplaceContractList,
   fetchMarketplacePacks,
   fetchPaymentComboList,
-  fetchAllPaymentPacks,
+  fetchPaymentPackList,
   fetchVideoList,
   fetchGiftcardList,
 }) => {
@@ -86,7 +86,7 @@ const MobilePersonalization: React.FC<Props> = ({
       as_consumer: true,
       company: companyId,
     });
-    fetchAllPaymentPacks();
+    fetchPaymentPackList();
     fetchVideoList({
       company: companyId,
       is_marketplace: true,
@@ -100,7 +100,7 @@ const MobilePersonalization: React.FC<Props> = ({
     fetchMarketplaceContractList,
     fetchMarketplacePacks,
     fetchPaymentComboList,
-    fetchAllPaymentPacks,
+    fetchPaymentPackList,
     fetchVideoList,
     fetchGiftcardList,
   ]);
@@ -175,7 +175,7 @@ const connector = connect(
     fetchMarketplaceContractList: fetchMarketplaceContractListAction,
     fetchMarketplacePacks: fetchMarketplacePacksAction,
     fetchPaymentComboList: fetchPaymentComboListAction,
-    fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+    fetchPaymentPackList: fetchPaymentPackListAction,
     fetchVideoList: fetchVideoListAction,
     fetchGiftcardList: fetchGiftcardListAction,
   },

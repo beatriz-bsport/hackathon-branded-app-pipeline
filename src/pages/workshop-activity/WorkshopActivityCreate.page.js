@@ -19,7 +19,7 @@ import {
   createOffers as createOffersActions,
 } from '../../libs/offer/actions';
 import {
-  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  fetchPaymentPackList as fetchPaymentPackListAction,
   createOrUpdate as createOrUpdatePaymentPack,
 } from '../../libs/payment-packs/actions';
 import { mapFormData } from '../form.utils';
@@ -310,7 +310,8 @@ export default compose(
       upsertWorkshopActivity: upsert,
       goToPreviousPage: goBack,
       goToWorkshop: (id: number) => push(`/workshop-activity/${id}`),
-      fetchPaymentPacks: fetchAllPaymentPacksAction,
+      fetchPaymentPacks: () =>
+        fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
       createPass: createOrUpdatePaymentPack,
       fetchAllOffers: fetchAllOffersActions,
       fetchEstablishments,

@@ -30,7 +30,7 @@ type Props = {
   keyword: string,
   t: TFunction,
   receiversNotEditable: boolean,
-  uncheckedMembers: Array<number>,
+  checkedMembers: Array<number>,
   handleToggle: (id: number) => void,
   openMemberPage: () => void,
   loading: boolean,
@@ -66,13 +66,14 @@ export class ReceiversItem extends Component<Props> {
             <div className={classes.itemContainer}>
               <div className={classes.inline}>
                 <ListItemText
-                  primary={`${t('recipients')} (${
-                    membersCount - (this.props.uncheckedMembers?.length || 0)
-                  }/${membersCount})`}
+                  primary={`${t('recipients')} (${Object.keys(
+                    this.props.checkedMembers,
+                  ).length.toString()}/${membersCount})`}
                 />
-                {this.props.uncheckedMembers.length === membersCount ? (
+                {Object.keys(this.props.checkedMembers).length ===
+                membersCount ? null : (
                   <WarningIcon className={classes.iconMargin} color="error" />
-                ) : null}
+                )}
               </div>
               {this.state.displayReceiverList ? (
                 <ExpandLessIcon />
@@ -132,10 +133,9 @@ export class ReceiversItem extends Component<Props> {
                       }
                       onChange={this.props.handleToggle(member.id)}
                       checked={
-                        !member[this.props.keyword] ||
-                        this.props.receiversNotEditable
-                          ? false
-                          : !this.props.uncheckedMembers.includes(member.id)
+                        member[this.props.keyword]
+                          ? this.props.checkedMembers.indexOf(member.id) !== -1
+                          : false
                       }
                     />
                   </ListItemSecondaryAction>

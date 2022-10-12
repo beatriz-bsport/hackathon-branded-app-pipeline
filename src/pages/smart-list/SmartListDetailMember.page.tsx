@@ -258,11 +258,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     if (this.state.resetMembersFetchForCommunication) {
       this.props.fetchCommunicationsPaginatedMembers(
         {
-          smartlist: this.props.id,
+          ...this.props.member_filters,
           page,
           page_size,
         },
-        null,
         {
           onSuccess: () =>
             this.setState({
@@ -271,13 +270,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         },
       );
     } else {
-      this.props.fetchCommunicationsPaginatedMembers(
-        {
-          page,
-          page_size,
-        },
-        this.props.members.allIds,
-      );
+      this.props.fetchCommunicationsPaginatedMembers({
+        ...this.props.member_filters,
+        page,
+        page_size,
+      });
     }
   };
 
@@ -441,6 +438,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           emailDetailLoading={this.props.emailDetailLoading}
           onCancel={this.handleCancelAutomateCampaignForm}
           onSubmit={this.props.createOrUpdateAutomatedCampaign}
+          countTotal={this.props.countTotal}
+          countWithPhone={this.props.countWithPhone}
+          countWithEmail={this.props.countWithEmail}
         />
         <CommunicationDrawer
           open={this.props.openSendEmail}
@@ -456,27 +456,17 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             this.setState({ resetMembersFetchForCommunication: true });
           }}
           membersToDisplay={this.props.members.displayItems}
-          allIds={this.props.members.allIds}
-          allIdsWithEmail={this.props.members.allIds.filter(
-            (memberId) =>
-              !this.props.members.allIdsWithoutEmail.includes(memberId),
-          )}
-          allIdsWithPhone={this.props.members.allIds.filter(
-            (memberId) =>
-              !this.props.members.allIdsWithoutPhone.includes(memberId),
-          )}
           fetchPreviousPage={(page, page_size) =>
             this.fetchPaginatedMembers(
               page - 1
                 ? page - 1
-                : parseInt(this.props.members.allIds.length / page_size, 10) +
-                    1,
+                : parseInt(this.props.members.countTotal / page_size, 10) + 1,
               page_size,
             )
           }
           fetchNextPage={(page, page_size) =>
             this.fetchPaginatedMembers(
-              page > parseInt(this.props.members.allIds.length / page_size, 10)
+              page > parseInt(this.props.members.countTotal / page_size, 10)
                 ? 1
                 : page + 1,
               page_size,
@@ -497,6 +487,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
               smartlist_id: this.props.id,
             })
           }
+          countTotal={this.props.members.countTotal}
+          countWithPhone={this.props.members.countWithPhone}
+          countWithEmail={this.props.members.countWithEmail}
         />
         <SmartListEditDialog
           open={this.state.openEditDialog}
@@ -581,10 +574,12 @@ const connector = connect(
       displayItems: getPaginatedMembers(state),
       page: state.member.communication.page,
       allIds: state.member.communication.allIds,
-      allIdsWithoutPhone: state.member.communication.allIdsWithoutPhone,
-      allIdsWithoutEmail: state.member.communication.allIdsWithoutEmail,
+      countTotal: state.member.communication.countTotal,
+      countWithPhone: state.member.communication.countWithPhone,
+      countWithEmail: state.member.communication.countWithEmail,
       loading: state.member.communication.loading,
     },
+    member_filters: { smartlist: id },
     // TAGS
     tags: tagSelectors.getMemberTagsWithTagGroup(state),
 
@@ -692,7 +687,14 @@ const connector = connect(
 const mapWithHandlers = {
   sendCommunication:
     (props: OwnAndConnectedProps) => (data: SendDirectCommunicationType) =>
-      props.sendCommunication({ ...data, smartlist_id: props.id }),
+      props.sendCommunication({
+        ...{
+          ...data,
+          member_filters: props.member_filters,
+        },
+        smartlist_id: props.id,
+        ignore_ids: true,
+      }),
   createAutoTag:
     (props: OwnAndConnectedProps) =>
     async (data: { company: number; tag: number; kind: number }) => {

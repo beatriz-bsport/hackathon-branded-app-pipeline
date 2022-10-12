@@ -231,30 +231,26 @@ export function fetchFilteredMembers(params: any, options?: OptionCallback) {
   };
 }
 
-export const memberListPaginatedActions = {
-  isLoading: createAction('MEMBER/LIST_PAGINATED/LOADING'),
-  error: createAction('MEMBER/LIST_PAGINATED/ERROR'),
-  success: createAction('MEMBER/LIST_PAGINATED/SUCCESS'),
-  reset: createAction('MEMBER/LIST_PAGINATED/RESET'),
+export const memberListForCommunicationActions = {
+  isLoading: createAction('MEMBER/FOR_COMMUNICATION/LOADING'),
+  error: createAction('MEMBER/FOR_COMMUNICATION/ERROR'),
+  success: createAction('MEMBER/FOR_COMMUNICATION/SUCCESS'),
+  reset: createAction('MEMBER/FOR_COMMUNICATION/RESET'),
 };
 
 export function fetchCommunicationsPaginatedMembers(
   params: any,
-  id__in: number[],
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(memberListPaginatedActions.isLoading(true));
+    dispatch(memberListForCommunicationActions.isLoading(true));
     try {
       if (params?.reset) {
-        dispatch(memberListPaginatedActions.reset());
+        dispatch(memberListForCommunicationActions.reset());
       } else {
-        const response = await fetchCommunicationsPaginatedMembersAPI(
-          params,
-          id__in,
-        );
+        const response = await fetchCommunicationsPaginatedMembersAPI(params);
         dispatch(
-          memberListPaginatedActions.success({
+          memberListForCommunicationActions.success({
             ...response.data,
             page: params.page || 1,
           }),
@@ -264,9 +260,9 @@ export function fetchCommunicationsPaginatedMembers(
         }
       }
     } catch (error) {
-      dispatch(memberListPaginatedActions.error(error));
+      dispatch(memberListForCommunicationActions.error(error));
     }
-    dispatch(memberListPaginatedActions.isLoading(false));
+    dispatch(memberListForCommunicationActions.isLoading(false));
   };
 }
 

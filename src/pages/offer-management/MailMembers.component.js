@@ -14,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import CommunicationDrawer from '../../libs/communication/components/CommunicationDrawer.component';
+import DEPRECATEDCommunicationDrawer from '../../libs/communication/components/DEPRECATEDCommunicationDrawer.component';
 import type { Booking, BookingOption } from '../../libs/booking/types';
 
 type Props = {
@@ -252,7 +252,7 @@ export class MailDialog extends Component<Props, State> {
             </DialogActions>
           </DialogContent>
         </Dialog>
-        <CommunicationDrawer
+        <DEPRECATEDCommunicationDrawer
           getEmails={this.props.fetchEmailTemplatesSummaries}
           emails={this.props.emails}
           getEmailDetail={this.props.fetchEmailTemplateDetail}

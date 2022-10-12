@@ -17,7 +17,7 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 
-import ReceiversCollapseItem from './ReceiversCollapseItem.component';
+import DEPRECATEDReceiversCollapseItem from './DEPRECATEDReceiversCollapseItem.component';
 import SelectTemplate from './SelectTemplate.component';
 import WriteEmail from './WriteEmail.component';
 import WriteSMS from './WriteSMS.component';
@@ -56,6 +56,9 @@ type Props = {
 
   // members list
   membersToDisplay: Array<Member>,
+  allIds: Array<number>,
+  allIdsWithPhone: Array<number>,
+  allIdsWithEmail: Array<number>,
   fetchPreviousPage: (page: number, page_size: number) => void,
   fetchNextPage: (page: number, page_size: number) => void,
   initMembers: () => void,
@@ -63,19 +66,11 @@ type Props = {
   page_size: number,
   membersByPageLoading: boolean,
   membersAllLoading: boolean,
-
-  countWithPhone: number | null,
-  countWithEmail: number | null,
-  countTotal: number | null,
 };
 
 type State = {
   openRefreshDialog: boolean,
-  unCheckedMembers: {
-    phone: Array<number>,
-    email: Array<number>,
-    notification: Array<number>,
-  },
+  unCheckedMembers: Array<number>,
   mailTitle: string | null,
   mailContent: string,
   actionType: number,
@@ -92,7 +87,7 @@ export class CommunicationDrawer extends Component<Props, State> {
     super(props);
     this.state = {
       openRefreshDialog: false,
-      unCheckedMembers: { phone: [], email: [], notification: [] },
+      unCheckedMembers: [],
       mailTitle: props.mailDefaultTitle || null,
       mailContent: '',
       actionType: props.actionType ? props.actionType : SELECT_EMAIL,
@@ -111,7 +106,8 @@ export class CommunicationDrawer extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       this.props.initMembers &&
-      this.props.open === true &&
+      // eslint-disable-next-line
+      true ===this.props.open &&
       prevProps.open === false
     ) {
       this.props.initMembers(1, this.state.page_size);
@@ -125,40 +121,16 @@ export class CommunicationDrawer extends Component<Props, State> {
     }
   }
 
-  handleToggle = (_value: string) => () => {
-    const value = parseInt(_value, 10);
+  handleToggle = (value: string) => () => {
     this.setState((prevState) => {
-      if ([SELECT_EMAIL, WRITE_EMAIL].includes(prevState.actionType)) {
-        const newList = prevState.unCheckedMembers.email.includes(value)
-          ? prevState.unCheckedMembers.email.filter((i) => i !== value)
-          : [value, ...prevState.unCheckedMembers.email];
-        return {
-          ...prevState,
-          unCheckedMembers: { ...prevState.unCheckedMembers, email: newList },
-        };
+      const currentIndex = prevState.unCheckedMembers.indexOf(value);
+      const newChecked = prevState.unCheckedMembers;
+      if (currentIndex === -1) {
+        newChecked.push(value);
+      } else {
+        newChecked.splice(currentIndex, 1);
       }
-      if (SEND_SMS === prevState.actionType) {
-        const newList = prevState.unCheckedMembers.phone.includes(value)
-          ? prevState.unCheckedMembers.phone.filter((i) => i !== value)
-          : [value, ...prevState.unCheckedMembers.phone];
-        return {
-          ...prevState,
-          unCheckedMembers: { ...prevState.unCheckedMembers, phone: newList },
-        };
-      }
-      if (SEND_PUSH_NOTIFICATION === prevState.actionType) {
-        const newList = prevState.unCheckedMembers.notification.includes(value)
-          ? prevState.unCheckedMembers.notification.filter((i) => i !== value)
-          : [value, ...prevState.unCheckedMembers.notification];
-        return {
-          ...prevState,
-          unCheckedMembers: {
-            ...prevState.unCheckedMembers,
-            notification: newList,
-          },
-        };
-      }
-      return prevState;
+      return { ...prevState, unCheckedMembers: newChecked };
     });
   };
 
@@ -176,6 +148,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                   this.setState({
                     actionType: WRITE_EMAIL,
                     mailTitle: this.props.mailDefaultTitle || '',
+                    unCheckedMembers: [],
                   })
                 }
               />
@@ -198,6 +171,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                           (email) => email.id === prevState.selectedTemplate,
                         ).subject
                       : this.props.mailDefaultTitle || '',
+                    unCheckedMembers: [],
                   }))
                 }
               />
@@ -214,18 +188,19 @@ export class CommunicationDrawer extends Component<Props, State> {
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
                   disabled={
-                    (Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                      (this.props.countWithPhone -
-                        this.state.unCheckedMembers.phone?.length ||
-                        0)) ||
-                    !featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f) => f.readable_identifier === 'sms',
-                    )
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                    (!this.props.allIdsWithPhone.filter(
+                      (item) => !this.state.unCheckedMembers.includes(item),
+                    ).length ||
+                      !featureList.upsell ||
+                      !featureList.upsell.find(
+                        (f) => f.readable_identifier === 'sms',
+                      ))
                   }
                   onChange={() =>
                     this.setState({
                       actionType: SEND_SMS,
+                      unCheckedMembers: [],
                     })
                   }
                 />
@@ -252,6 +227,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                   onChange={() =>
                     this.setState({
                       actionType: SEND_PUSH_NOTIFICATION,
+                      unCheckedMembers: [],
                     })
                   }
                 />
@@ -310,7 +286,7 @@ export class CommunicationDrawer extends Component<Props, State> {
 
   onClose = () => {
     this.setState({
-      unCheckedMembers: { phone: [], email: [], notification: [] },
+      unCheckedMembers: [],
       mailTitle: this.props.mailDefaultTitle || null,
       mailContent: '',
       actionType: this.props.actionType ? this.props.actionType : SELECT_EMAIL,
@@ -335,27 +311,24 @@ export class CommunicationDrawer extends Component<Props, State> {
         return (
           this.state.mailContent === '' ||
           this.state.mailTitle === '' ||
-          !(
-            this.props.countWithEmail >
-            (this.state.unCheckedMembers.email?.length || 0)
-          )
+          this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ).length === 0
         );
       case SEND_SMS:
         return (
           this.state.smsContent === '' ||
-          !(
-            this.props.countWithPhone >
-            (this.state.unCheckedMembers.phone?.length || 0)
-          )
+          this.props.allIdsWithPhone.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ).length === 0
         );
       case SELECT_EMAIL:
         return (
           !this.state.selectedTemplate ||
           this.state.mailTitle === '' ||
-          !(
-            this.props.countWithEmail >
-            (this.state.unCheckedMembers.email?.length || 0)
-          )
+          this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ).length === 0
         );
       case SEND_PUSH_NOTIFICATION:
         if (
@@ -381,27 +354,35 @@ export class CommunicationDrawer extends Component<Props, State> {
     switch (this.state.actionType) {
       case WRITE_EMAIL:
         this.props.send({
-          member_blacklist: this.state.unCheckedMembers.email,
+          members: this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
           subject: this.state.mailTitle,
           body: this.state.mailContent,
         });
         break;
       case SEND_SMS:
         this.props.send({
-          member_blacklist: this.state.unCheckedMembers.phone,
+          members: this.props.allIdsWithPhone.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
           sms: this.state.smsContent,
         });
         break;
       case SELECT_EMAIL:
         this.props.send({
-          member_blacklist: this.state.unCheckedMembers.email,
+          members: this.props.allIdsWithEmail.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
           email_template: this.state.selectedTemplate,
           subject: this.state.mailTitle,
         });
         break;
       case SEND_PUSH_NOTIFICATION:
         this.props.send({
-          member_blacklist: this.state.unCheckedMembers.notification,
+          members: this.props.allIds.filter(
+            (item) => !this.state.unCheckedMembers.includes(item),
+          ),
           notification_title: this.state.notificationTitle,
           notification_content: this.state.notificationContent,
         });
@@ -413,15 +394,21 @@ export class CommunicationDrawer extends Component<Props, State> {
     this.props.onCancel();
   };
 
-  getUncheckedMember = () => {
+  getCheckedMember = () => {
     switch (this.state.actionType) {
       case SEND_SMS:
-        return this.state.unCheckedMembers.phone;
+        return this.props.allIdsWithPhone.filter(
+          (item) => !this.state.unCheckedMembers.includes(item),
+        );
       case WRITE_EMAIL:
       case SELECT_EMAIL:
-        return this.state.unCheckedMembers.email;
+        return this.props.allIdsWithEmail.filter(
+          (item) => !this.state.unCheckedMembers.includes(item),
+        );
       case SEND_PUSH_NOTIFICATION:
-        return this.state.unCheckedMembers.notification;
+        return this.props.allIds.filter(
+          (item) => !this.state.unCheckedMembers.includes(item),
+        );
       default:
         break;
     }
@@ -431,6 +418,8 @@ export class CommunicationDrawer extends Component<Props, State> {
   render() {
     const {
       open,
+      allIds,
+      allIdsWithPhone,
       emailDetailLoading,
       emailDetails,
       emailListLoading,
@@ -495,16 +484,16 @@ export class CommunicationDrawer extends Component<Props, State> {
               </GenericResponsiveDialog>
               {this.renderCommunicationTypeChoice()}
               {this.renderConsentWarning()}
-              <ReceiversCollapseItem
+              <DEPRECATEDReceiversCollapseItem
                 members={membersToDisplay}
-                membersCount={this.props.countTotal}
+                membersCount={allIds.length}
                 page_size={this.state.page_size}
                 page={page}
                 fetchPreviousPage={() =>
                   fetchPreviousPage(page, this.state.page_size)
                 }
                 fetchNextPage={() => fetchNextPage(page, this.state.page_size)}
-                uncheckedMembers={this.getUncheckedMember()}
+                checkedMembers={this.getCheckedMember()}
                 keyword={this.state.actionType === SEND_SMS ? 'phone' : 'email'}
                 receiversNotEditable={receiversNotEditable}
                 handleToggle={this.handleToggle}
@@ -549,8 +538,9 @@ export class CommunicationDrawer extends Component<Props, State> {
                 <WriteSMS
                   smsContent={this.state.smsContent}
                   countReceivers={
-                    this.props.countWithPhone -
-                      this.state.unCheckedMembers.phone?.length || 0
+                    allIdsWithPhone.filter(
+                      (item) => !this.state.unCheckedMembers.includes(item),
+                    ).length
                   }
                   onChangeContent={(text) =>
                     this.setState({ smsContent: text })

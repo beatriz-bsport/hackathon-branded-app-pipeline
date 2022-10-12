@@ -11,7 +11,7 @@ import {
   barcodeRetrieveAction,
   memberBulkActions,
   memberCountObject,
-  memberListPaginatedActions,
+  memberListForCommunicationActions,
   fetchMyUserProfileActions,
   membersListWithTagRepo,
   membersListWithoutTagRepo,
@@ -79,8 +79,9 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     loading: false,
     error: null,
     allPageIds: [],
-    allIdsWithoutPhone: [],
-    allIdsWithoutEmail: [],
+    countWithPhone: null,
+    countTotal: null,
+    countWithEmail: null,
     allIds: [],
     page: 1,
   },
@@ -170,26 +171,36 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     [memberListActions.isLoading.toString()]: (state, action) => {
       return state.set('loading', action.payload);
     },
-    [memberListPaginatedActions.isLoading.toString()]: (state, action) => {
+    [memberListForCommunicationActions.isLoading.toString()]: (
+      state,
+      action,
+    ) => {
       return state.setIn(['communication', 'loading'], action.payload);
     },
-    [memberListPaginatedActions.error.toString()]: (state, action) => {
+    [memberListForCommunicationActions.error.toString()]: (state, action) => {
       return state.setIn(['communication', 'error'], action.payload);
     },
-    [memberListPaginatedActions.success.toString()]: (state, action) => {
+    [memberListForCommunicationActions.success.toString()]: (state, action) => {
       return state
         .setIn(['communication', 'page'], action.payload.page)
         .setIn(['communication', 'allIds'], action.payload.allIds)
-
+        .setIn(
+          ['communication', 'countWithPhone'],
+          action.payload.count_with_phone,
+        )
         .setIn(
           ['communication', 'allIdsWithoutPhone'],
           action.payload.allIdsWithoutPhone,
+        )
+        .setIn(['communication', 'countTotal'], action.payload.count)
+        .setIn(
+          ['communication', 'countWithEmail'],
+          action.payload.count_with_email,
         )
         .setIn(
           ['communication', 'allIdsWithoutEmail'],
           action.payload.allIdsWithoutEmail,
         )
-
         .setIn(
           ['communication', 'allPageIds'],
           action.payload.results.map((member: Member) => member.id),
@@ -207,7 +218,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
           { deep: true },
         );
     },
-    [memberListPaginatedActions.reset.toString()]: (state) => {
+    [memberListForCommunicationActions.reset.toString()]: (state) => {
       return state
         .setIn(['communication', 'page'], 1)
         .setIn(['communication', 'allPageIds'], []);

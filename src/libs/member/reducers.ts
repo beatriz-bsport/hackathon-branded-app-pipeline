@@ -313,7 +313,7 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
           {
             search: {
               archived: {
-                data: action.payload.reduce(
+                data: action.payload?.reduce(
                   (acc: MemberState['byId'], m: Member) => {
                     acc[m.id] = m;
                     return acc;

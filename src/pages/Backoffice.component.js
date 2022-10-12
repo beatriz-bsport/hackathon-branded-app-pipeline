@@ -385,6 +385,8 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
   );
 });
 
+const ALERTING_REFRESH_INTERVAL = 120000;
+
 export class Backoffice extends Component<Props, State> {
   refreshInterval: ?Interval;
 
@@ -393,9 +395,16 @@ export class Backoffice extends Component<Props, State> {
     need_regularizing_invoice_modal: false,
   };
 
+  countAlerting: number = 0;
+
   componentWillMount() {
     document.title = 'Backoffice - bsport';
-    this.refreshInterval = setInterval(this.props.fetchAllAlertings, 120000);
+    this.refreshInterval = setInterval(() => {
+      if (ALERTING_REFRESH_INTERVAL * this.countAlerting > 60 * 1000 * 60 * 2)
+        // 2h
+        return;
+      this.props.fetchAllAlertings();
+    }, ALERTING_REFRESH_INTERVAL);
     this.props.fetchAccessLevel(getAuthToken());
   }
 

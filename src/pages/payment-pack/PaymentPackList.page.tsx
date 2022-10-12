@@ -389,10 +389,6 @@ export class PaymentPackList extends React.Component<Props, State> {
           arr.findIndex((sct) => sct.id === value.id) === index,
       );
 
-    if (loading) {
-      return <LinearProgress />;
-    }
-
     if (
       (this.props.enabledPacks || []).length +
         (this.props.disabledPacks || []).length ===
@@ -438,7 +434,9 @@ export class PaymentPackList extends React.Component<Props, State> {
 
     return (
       <>
-        {this.props.upsertCategoryLoading && <LinearProgress />}
+        {(this.props.upsertCategoryLoading || this.props.loading) && (
+          <LinearProgress />
+        )}
         <div className={classes.container}>
           <div className={classes.buttonRow}>
             {this.props.enabledPacks?.length && (

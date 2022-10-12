@@ -10375,7 +10375,9 @@
         "seeAll": "Ver todo",
         "franchiseEmails": "Plantillas de franquicia",
         "companieEmails": "Mis plantillas",
-        "bsportTemplateEmail": "Correos electrónicos de lanzamiento"
+        "bsportTemplateEmail": "Correos electrónicos de lanzamiento",
+        "infoBsportTemplateEmails": "Si desea enviar comunicaciones o editar las plantillas de esta sección, es necesario crear una copia de la plantilla deseada. A continuación, selecciona la copia del correo electrónico al enviar una comunicación.",
+        "bsportTemplateEmails": "Templates Bsport"
     },
     "metaActivity": {
         "reviews": "Opinión de los clientes: ",

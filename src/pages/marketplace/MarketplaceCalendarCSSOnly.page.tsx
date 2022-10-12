@@ -506,7 +506,8 @@ const mapWithHandlers = {
     }
 
     props.pushAction(
-      `/customer/payment/offer/${id}?membership=${companyId}/${buildUrlParams({
+      `/customer/payment/offer/${id}?${buildUrlParams({
+        membership: companyId,
         fromCalendarV2: true,
       })}`,
     );
@@ -519,8 +520,9 @@ const mapWithHandlers = {
     }
 
     props.pushAction(
-      `/customer/payment/offer/${id}?membership=${companyId}/${buildUrlParams({
+      `/customer/payment/offer/${id}?${buildUrlParams({
         fromCalendarV2: true,
+        membership: companyId,
       })}`,
     );
   },

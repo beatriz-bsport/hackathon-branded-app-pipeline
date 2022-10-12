@@ -7135,6 +7135,16 @@
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
       },
+      "27": {
+        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
+        "name": "Cartes valides",
+        "first": "Possède",
+        "between": "et",
+        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+        "third": "ou",
+        "fourth": "(confondues)",
+        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
+      },
       "400": {
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
@@ -7209,17 +7219,7 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
-      "undefined": {
-        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
-        "name": "Cartes valides",
-        "first": "Possède",
-        "between": "et",
-        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
-        "third": "ou",
-        "fourth": "(confondues)",
-        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
-      }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
     },
     "tag_rules": {
       "type_of_rule": "Type de règle",

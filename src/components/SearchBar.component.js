@@ -143,20 +143,13 @@ function mapDisPatchToProps(dispatch) {
   return {
     searchForText(text: string, replace: boolean, changeLocation: boolean) {
       dispatch(
-        searchActions.searchText(
-          text,
-          replace,
-          changeLocation,
-          {
-            hide_archived: true,
-          },
-          {
-            onSuccess: () => {
-              dispatch(searchArchivedMembers(text, { only_archived: true }));
-            },
-          },
-        ),
+        searchActions.searchText(text, replace, changeLocation, {
+          hide_archived: true,
+        }),
       );
+    },
+    searchForTextInArchive(text: string) {
+      dispatch(searchArchivedMembers(text, { only_archived: true }));
     },
     clearSearch(changeLocation: boolean) {
       dispatch(searchActions.clearSearch(changeLocation));

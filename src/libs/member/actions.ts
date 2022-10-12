@@ -413,6 +413,7 @@ export function search(
         const response = await searchApi(text, params);
         const members = response.data;
         dispatch(successSearch(members));
+        dispatch(searchArchivedMembers.success(members.archive));
         if (options && options.onSuccess) {
           options.onSuccess(response);
         }

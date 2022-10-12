@@ -1,7 +1,5 @@
-// @flow
-
 import Fuse from 'fuse.js';
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'recompose';
 
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -26,41 +24,44 @@ import {
   getSearchedMembers,
   withTags,
   getSearchedMembersArchived,
-} from '../libs/member/selectors';
+} from '#libs/member/selectors';
 import { getPermissions } from '../libs/role/selectors';
 import RolePermission from '../libs/role/types';
 
-import ResultList from '../components/search/ResultList.component';
-import SearchBar from '../components/SearchBar.component';
+import ResultList from '#components/search/ResultList.component';
+import SearchBar from '#components/SearchBar.component';
 
 import { search as searchActions } from '../actions';
+import { MemberMinimal, Member } from '#libs/member/types';
 
-import withTitle from '../hocs/with-title.hoc';
-import { showVaccinationStatus } from '../libs/custom-form/selectors';
-import type { Member } from '../libs/member/types';
+import withTitle from '#hocs/with-title.hoc';
+import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import { parseQueryString } from '../http';
-import MemberMinimalListItem from '../libs/member/components/MemberMinimalListItem.component';
+import MemberMinimalListItem from '#libs/member/components/MemberMinimalListItem.component';
+import { searchArchived as searchArchivedMembers } from '#libs/member/actions';
 
 type Props = {
-  members: *[],
-  classes: any,
-  member: any,
-  selected: number,
-  pushToMember: (memberId: number) => void,
+  members: MemberMinimal[];
+  classes: any;
+  member: any;
+  selected: number;
+  pushToMember: (memberId: number) => void;
   // membersLoading: boolean, unused
-  selectEntity: () => void,
-  t: TFunction,
-  loading: boolean,
-  openCreateMember: () => void,
-  showVaccinationStatus: boolean,
-  membersArchived: { [key: number]: Member },
-  archivedSearchLoading: boolean,
-  searchText: string,
-  permissions: RolePermission,
+  selectEntity: () => void;
+  t: TFunction;
+  loading: boolean;
+  openCreateMember: () => void;
+  showVaccinationStatus: boolean;
+  membersArchived: { [key: number]: Member };
+  archivedSearchLoading: boolean;
+  searchText: string;
+  permissions: RolePermission;
+  searchForTextInArchive: (tex: string) => void;
 };
+
 type State = {
-  openArchivedSection: boolean,
-  memberArchivedCloseMatch: Member,
+  openArchivedSection: boolean;
+  memberArchivedCloseMatch: Member;
 };
 
 const styles = (theme) => ({
@@ -133,7 +134,7 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(2),
   },
 });
-export class SearchResults extends Component<Props, State> {
+export class SearchResults extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -168,6 +169,9 @@ export class SearchResults extends Component<Props, State> {
       prevProps.membersArchived !== this.props.membersArchived
     ) {
       this.handleUpdateMemberCloseMatch(this.props.searchText);
+      if (prevProps.searchText !== this.props.searchText) {
+        this.setState({ openArchivedSection: false });
+      }
     }
   }
 
@@ -178,6 +182,17 @@ export class SearchResults extends Component<Props, State> {
     if (fuzeSearch?.length !== 0 && fuzeSearch[0].score < 0.00001) {
       this.setState({ memberArchivedCloseMatch: fuzeSearch[0].item });
     }
+  };
+
+  toggleArchiveResult = () => {
+    this.setState((prevState) => {
+      if (!prevState.openArchivedSection) {
+        this.props.searchForTextInArchive(this.props.searchText);
+      }
+      return {
+        openArchivedSection: !prevState.openArchivedSection,
+      };
+    });
   };
 
   render() {
@@ -239,15 +254,7 @@ export class SearchResults extends Component<Props, State> {
               />
             </Paper>
             <Paper className={classes.contentInner}>
-              <ListItem
-                button
-                divider
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    openArchivedSection: !prevState.openArchivedSection,
-                  }))
-                }
-              >
+              <ListItem button divider onClick={this.toggleArchiveResult}>
                 <ListItemText primary={t('member.archived')} />
                 <ListItemIcon>
                   {this.state.openArchivedSection ? (
@@ -332,6 +339,8 @@ export default compose(
     pushToMember: (memberId: number) => push(`/member/${memberId}/`),
     selectEntity: searchActions.selectEntity,
     openCreateMember: () => push('/member/add'),
+    searchForTextInArchive: (text: string) =>
+      searchArchivedMembers(text, { only_archived: true }),
   }),
   connect((state, { location }) => ({
     searchText: getSearchText(state, location),

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 
 import TutorialLessonDetail from './TutorialLessonDetail.page';
 import TutorialMenu from './TutorialMenu.page';
-import Config from '../../config';
 
 export default () =>
-  Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
+  platformTutorialActivated() && (
     <Switch>
       <Route
         path="/tutorial/:sectionId/:lessonId"

@@ -1,3 +1,4 @@
+import Immutable from 'seamless-immutable';
 import { ErrorAndLoading } from '../../state/types';
 
 export type LanguageDict = {
@@ -62,7 +63,7 @@ export type TutorialState = {
     all_tutorial_lessons: {
       [section_id: number | string]: Array<number | string>;
     };
-    tutorial_completion: TutorialCompletion;
+    tutorial_completion: Immutable.Immutable<TutorialCompletion>;
   };
 };
 

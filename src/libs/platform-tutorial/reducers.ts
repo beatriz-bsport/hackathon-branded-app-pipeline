@@ -13,7 +13,19 @@ import {
   updateTutorialLessonUserCompletionStatusAction,
 } from './actions';
 
-import type { TutorialLesson, TutorialSection, TutorialState } from './types';
+import type {
+  TutorialCompletion,
+  TutorialLesson,
+  TutorialSection,
+  TutorialState,
+} from './types';
+
+const EMPTY_TUTORIAL_COMPLETION: Immutable.Immutable<TutorialCompletion> =
+  Immutable<TutorialCompletion>({
+    has_seen_tutorial_section_timestamp: 0,
+    completed_by_section_id: {},
+    viewed_by_section_id: {},
+  });
 
 const initialState: Immutable.Immutable<TutorialState> =
   Immutable<TutorialState>({
@@ -34,11 +46,7 @@ const initialState: Immutable.Immutable<TutorialState> =
       error: null,
       statistics: {},
       all_tutorial_lessons: {},
-      tutorial_completion: {
-        has_seen_tutorial_section_timestamp: null,
-        completed_by_section_id: {},
-        viewed_by_section_id: {},
-      },
+      tutorial_completion: EMPTY_TUTORIAL_COMPLETION,
     },
   });
 
@@ -148,16 +156,22 @@ export default handleActions<Immutable.Immutable<TutorialState>, any>(
       state,
       { payload },
     ) => {
+      const tutorial_completion = payload.tutorial_completion;
       return state
         .setIn(
           ['tutorial_user_status', 'tutorial_completion'],
-          payload.tutorial_completion,
+          tutorial_completion && Object.keys(tutorial_completion).length !== 0
+            ? tutorial_completion
+            : EMPTY_TUTORIAL_COMPLETION,
         )
         .setIn(
           ['tutorial_user_status', 'all_tutorial_lessons'],
-          payload.all_tutorial_lessons,
+          payload.all_tutorial_lessons ?? {},
         )
-        .setIn(['tutorial_user_status', 'statistics'], payload.statistics);
+        .setIn(
+          ['tutorial_user_status', 'statistics'],
+          payload.statistics ?? {},
+        );
     },
 
     [detailTutorialCompletionActions.isLoading.toString()]: (
@@ -177,16 +191,22 @@ export default handleActions<Immutable.Immutable<TutorialState>, any>(
       state,
       { payload },
     ) => {
+      const tutorial_completion = payload.tutorial_completion;
       return state
         .setIn(
           ['tutorial_user_status', 'tutorial_completion'],
-          payload.tutorial_completion,
+          tutorial_completion && Object.keys(tutorial_completion).length !== 0
+            ? tutorial_completion
+            : EMPTY_TUTORIAL_COMPLETION,
         )
         .setIn(
           ['tutorial_user_status', 'all_tutorial_lessons'],
-          payload.all_tutorial_lessons,
+          payload.all_tutorial_lessons ?? {},
         )
-        .setIn(['tutorial_user_status', 'statistics'], payload.statistics);
+        .setIn(
+          ['tutorial_user_status', 'statistics'],
+          payload.statistics ?? {},
+        );
     },
 
     [updateTutorialLessonUserCompletionStatusAction.isLoading.toString()]: (

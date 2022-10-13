@@ -47,8 +47,8 @@ export const userAcknowlegdePlatformTutorial = createSelector(
     );
 
     return (
-      checkTutorialPermission &&
-      tutorialCompletion.has_seen_tutorial_section_timestamp !== 0
+      !checkTutorialPermission ||
+      tutorialCompletion?.has_seen_tutorial_section_timestamp !== 0
     );
   },
 );

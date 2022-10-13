@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -8,12 +7,17 @@ import Divider from '@material-ui/core/Divider';
 
 import getUpsellPackageComponent from './UpsellPackage.component';
 
+import { UpsellPackage as UpsellPackageType } from '#libs/company/types';
+
+import { PlatformSubscription } from '../type';
+
 import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
 
 const UpsellPackageList = (props: {
-  upsellPackageList: Array<UpsellPackage>,
-  onKnowMore: (number) => void,
-  onRequestUpsell: (number) => void,
+  upsellPackageList: Array<UpsellPackageType>;
+  onKnowMore: (id: number) => void;
+  onRequestUpsell?: (id: number) => void;
+  defaultCurrencyDisplay: string;
 }) => {
   const classes = useStyles();
   return (
@@ -35,6 +39,7 @@ const UpsellPackageList = (props: {
                 onKnowMore={props.onKnowMore}
                 onRequestUpsell={props.onRequestUpsell}
                 upsellPackage={up}
+                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
               />
             </Grid>
           );
@@ -44,16 +49,17 @@ const UpsellPackageList = (props: {
 };
 
 type Props = {
-  onKnowMore: (id: number) => void,
-  onRequestUpsell: (id: number) => void,
-  platformSubscription: PlatformSubscription,
+  onKnowMore: (id: number) => void;
+  onRequestUpsell: (id: number) => void;
+  platformSubscription: PlatformSubscription;
 };
 
 export const CompanyPlatformBillinGroupDetail = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
   if (!props.platformSubscription) return null;
-  const { platformBillingGroup } = props.platformSubscription;
+  const { platformBillingGroup, default_currency_display } =
+    props.platformSubscription;
   if (!platformBillingGroup) return null;
   const myUpsellPackageList = platformBillingGroup.upsell_packages.filter(
     (up) => !!up.subscribed,
@@ -72,6 +78,7 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
           <UpsellPackageList
             onKnowMore={props.onKnowMore}
             upsellPackageList={myUpsellPackageList}
+            defaultCurrencyDisplay={default_currency_display}
           />
         </React.Fragment>
       )}
@@ -87,6 +94,7 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
             upsellPackageList={otherUpsellPackageList.filter(
               (ups) => !ups.hidden,
             )}
+            defaultCurrencyDisplay={default_currency_display}
           />
         </React.Fragment>
       )}
@@ -106,6 +114,9 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
           props.platformSubscription &&
           props.platformSubscription.current_platform_billing_plan &&
           props.platformSubscription.current_platform_billing_plan.id
+        }
+        defaultCurrencyDisplay={
+          props.platformSubscription?.default_currency_display
         }
       />
     </div>

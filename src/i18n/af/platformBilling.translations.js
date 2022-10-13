@@ -20,8 +20,8 @@ exports.default = {
     },
   },
   upsellPackage: {
-    billOnce: '{{price_cts, price }}',
-    billRecurrent: '{{price_cts, price }} / mois',
+    billOnce: '{{ price_cts }}',
+    billRecurrent: '{{ price_cts }} / mois',
     knowMore: 'En savoir +',
     myAddonTitle: 'Mes Add-ons',
     otherAddonTitle: 'Add-ons disponibles',
@@ -29,7 +29,7 @@ exports.default = {
       explainBilling: '  +1 {{currencyDisplay }} /client actif',
     },
     sms: {
-      explainBilling: '{{ price_cts, price }} / SMS',
+      explainBilling: '{{ price_cts }} / SMS',
     },
   },
   platformBillingGroup: {
@@ -47,7 +47,7 @@ exports.default = {
     },
   },
   platformBillingStage: {
-    monthlyPrice: '{{ price, price }} / mois',
+    monthlyPrice: '{{ price }} / mois',
     maxBooking: "Jusqu'à {{ max_booking_per_month }} réservations / mois",
   },
   featureRequest: {

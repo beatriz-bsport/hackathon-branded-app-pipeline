@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -11,11 +10,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '../../../components/Tooltip.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getCustomCurrencyDisplayWithPrice } from '../../theme/utils';
+import {
+  PlatformBillingGroup,
+  PlatformBillingPlan,
+  PlatformBillingStage,
+} from '#libs/platform-billing/type';
 
 const PlatformBillingStageCard = (props: {
-  platformBillingStage: PlatformBillingStage,
-  couponCts: number,
+  platformBillingStage: PlatformBillingStage;
+  couponCts: number;
+  defaultCurrencyDisplay: string;
 }) => {
   const { price_cts, max_booking_per_month } = props.platformBillingStage;
   const { t } = useTranslation(['platformBilling']);
@@ -30,14 +35,18 @@ const PlatformBillingStageCard = (props: {
           variant="h6"
         >
           {t('platformBillingStage.monthlyPrice', {
-            price: getCurrencyDisplayWithPrice(price_cts / 100),
+            price: getCustomCurrencyDisplayWithPrice(
+              price_cts / 100,
+              props.defaultCurrencyDisplay,
+            ),
           })}
         </Typography>
       )}
-      <Typography className={classes.stageHeaderPrice} noWrap variant="h6">
+      <Typography noWrap variant="h6">
         {t('platformBillingStage.monthlyPrice', {
-          price: getCurrencyDisplayWithPrice(
+          price: getCustomCurrencyDisplayWithPrice(
             (price_cts - props.couponCts) / 100,
+            props.defaultCurrencyDisplay,
           ),
         })}
       </Typography>
@@ -53,9 +62,10 @@ const PlatformBillingStageCard = (props: {
 };
 
 const PlatformBillingPlanCard = (props: {
-  platformBillingPlan: PlatformBillingPlan,
-  currentPlatformBillingStageId: number,
-  couponCts: number,
+  platformBillingPlan: PlatformBillingPlan;
+  currentPlatformBillingStageId: number;
+  couponCts: number;
+  defaultCurrencyDisplay: string;
 }) => {
   const { platformBillingPlan } = props;
   const { t } = useTranslation(['platformBilling']);
@@ -112,13 +122,14 @@ const PlatformBillingPlanCard = (props: {
       )}
       <div className={classes.billingStageContainer}>
         {platformBillingPlan.platform_billing_stages
-          .filter((ps) => !!ps)
-          .map((ps) => (
-            <div key={ps.id} className={classes.billingStageCardContainer}>
+          .filter((ps: PlatformBillingStage) => !!ps)
+          .map((ps: PlatformBillingStage) => (
+            <div key={ps.id}>
               <PlatformBillingStageCard
                 isSelected={props.currentPlatformBillingStageId === ps.id}
                 platformBillingStage={ps}
                 couponCts={props.couponCts}
+                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
               />
             </div>
           ))}
@@ -128,17 +139,18 @@ const PlatformBillingPlanCard = (props: {
 };
 
 const PlatformBillingPlanGroup = (props: {
-  platformBillingGroup: PlatformBillingPlanGroup,
-  currentPlatformBillingPlanId: number,
-  currentPlatformBillingStageId: number,
-  couponCts: number,
+  platformBillingGroup: PlatformBillingGroup;
+  currentPlatformBillingPlanId: number;
+  currentPlatformBillingStageId: number;
+  couponCts: number;
+  defaultCurrencyDisplay: string;
 }) => {
   const classes = useStyles();
   return (
     <div className={classes.planContainer}>
       {props.platformBillingGroup.platform_billing_plans
-        .filter((plan) => !!plan)
-        .map((plan) => (
+        .filter((plan: PlatformBillingPlan) => !!plan)
+        .map((plan: PlatformBillingPlan) => (
           <div className={classes.planCard}>
             <PlatformBillingPlanCard
               isSelected={plan.id === props.currentPlatformBillingPlanId}
@@ -147,6 +159,7 @@ const PlatformBillingPlanGroup = (props: {
               }
               platformBillingPlan={plan}
               couponCts={props.couponCts}
+              defaultCurrencyDisplay={props.defaultCurrencyDisplay}
             />
           </div>
         ))}

@@ -26,6 +26,7 @@ type Props = {
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
   payNowInvoice: (payment_backend_id: string) => void,
+  defaultCurrencyDisplay: string,
 };
 
 export const CompanyPlatformBillingDetail = (props: Props) => {
@@ -52,6 +53,7 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
                 key={pi.id}
                 hasPaymentMethod={!!props.paymentMethodList?.length}
                 payNowInvoice={props.payNowInvoice}
+                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
               />
             ))}
           </Paper>

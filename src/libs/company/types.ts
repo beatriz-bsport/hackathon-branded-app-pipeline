@@ -71,6 +71,62 @@ type StripeAccountStatus = {
 
 type UpsellSumup = { upsell_identifier: number; readable_identifier: number };
 
+export type UpsellPackage = {
+  id: number;
+  name: string;
+  description: string;
+  is_recurrent: boolean;
+  upsell_identifier: number;
+  readable_identifier: string;
+  price_cts: number;
+  subscribed: boolean;
+  hidden: boolean;
+  tax: string;
+};
+
+export type PlatformBillingGroup = {
+  id: number;
+  country: string;
+  currency: string;
+  is_active: boolean;
+  is_default_for_country: boolean;
+  is_default_for_currency: boolean;
+  tax: string;
+  upsell_packages: UpsellPackage[];
+  platform_billing_plans: PlatformBillingPlan[];
+};
+export type PlatformBillingStage = {
+  id: number;
+  platform_billing_plan: number;
+  max_booking_per_month: number;
+  next_platform_billing_stage: number;
+  price_cts: number;
+};
+export type PlatformBillingPlan = {
+  id: number;
+  description: string;
+  description_html: string;
+  platform_billing_plan_group: number;
+  platform_billing_stages: PlatformBillingStage[];
+  max_coach: number;
+  max_establishment: number;
+  name: string;
+  next_platform_billing_plan: number;
+};
+
+export type PlatformSubscription = {
+  id: number;
+  company: number;
+  date_start: string;
+  platformBillingGroup: PlatformBillingGroup;
+  current_platform_billing_stage: PlatformBillingStage;
+  current_platform_billing_plan: PlatformBillingPlan;
+  minimal_platform_billing_stage: number;
+  maximum_platform_billing_stage: number;
+  coupon_cts: number;
+  default_currency_display: string;
+};
+
 export type CompanyState = {
   stripeAccountStatus: ErrorAndLoading & { data: StripeAccountStatus };
   setupLoading: boolean;

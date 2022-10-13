@@ -4925,13 +4925,13 @@
       "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une carte" }
     },
     "upsellPackage": {
-      "billOnce": "{{price_cts, price }}",
-      "billRecurrent": "{{price_cts, price }} / mois",
+      "billOnce": "{{ price_cts }}",
+      "billRecurrent": "{{ price_cts }} / mois",
       "knowMore": "En savoir +",
       "myAddonTitle": "Mes Add-ons",
       "otherAddonTitle": "Add-ons disponibles",
       "vod": { "explainBilling": "  +1 {{currencyDisplay }} /client actif" },
-      "sms": { "explainBilling": "{{ price_cts, price }} / SMS" }
+      "sms": { "explainBilling": "{{ price_cts }} / SMS" }
     },
     "platformBillingGroup": { "myGroup": "Mon forfait", "soonAvailable": "Bientôt disponible !" },
     "platformBillingPlan": {
@@ -4944,10 +4944,7 @@
         "help": "Un établissement est décompté à partir de 8 séances mensuelles"
       }
     },
-    "platformBillingStage": {
-      "monthlyPrice": "{{ price, price }} / mois",
-      "maxBooking": "Jusqu'à {{ max_booking_per_month }} réservations / mois"
-    },
+    "platformBillingStage": { "monthlyPrice": "{{ price }} / mois", "maxBooking": "Jusqu'à {{ max_booking_per_month }} réservations / mois" },
     "featureRequest": {
       "title": "Add-on",
       "content": "Nous avons bien noté votre intérêt, merci pour votre intérêt ! Votre chargé de compte bsport vous recontactera très vite avec plus d'informations.",

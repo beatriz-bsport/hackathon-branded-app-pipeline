@@ -45,3 +45,27 @@ export const getTaxPrice = (price: any, tax: any) => {
 
   return res?.toFixed(2);
 };
+
+export const getCustomCurrencyDisplayWithPrice = (
+  price: any,
+  currencyDisplay: string,
+  isExcludingTax?: boolean,
+  tax?: any,
+) => {
+  if (isNil(price)) {
+    return '';
+  }
+  const priceTakingAccountOfTax = getPrice(price, isExcludingTax, tax);
+
+  switch (currencyDisplay) {
+    case '€':
+    case 'kr.':
+    case 'chf':
+    case 'sek':
+    case 'nok':
+    case 'dkk':
+      return `${priceTakingAccountOfTax}${'\u00A0'}${currencyDisplay}`;
+    default:
+      return `${currencyDisplay}${priceTakingAccountOfTax}`;
+  }
+};

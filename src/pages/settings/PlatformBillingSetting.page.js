@@ -125,6 +125,9 @@ export class PlatformBillingSettings extends React.Component<Props> {
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           onCollectPaymentMethodSuccess={this.finalizePaymentMethodChange}
           fetchMorePlatformInvoiceList={this.props.fetchPlatformInvoiceList}
+          defaultCurrencyDisplay={
+            this.props.platformSubscription?.default_currency_display
+          }
         />
         <CompanyPlatformBillinGroupDetail
           platformSubscription={this.props.platformSubscription}

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,13 +14,16 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Tooltip from '@material-ui/core/Tooltip';
 import ErrorIcon from '@material-ui/icons/Error';
 
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getCustomCurrencyDisplayWithPrice } from '../../theme/utils';
+import { OptionCallback } from '../../../state/types';
+import { PlatformInvoice } from '../type';
 
 type Props = {
-  platformInvoice: PlatformInvoice,
-  divider?: boolean,
-  payNowInvoice: (payment_backend_id: string) => void,
-  hasPaymentMethod: boolean,
+  platformInvoice: PlatformInvoice;
+  divider?: boolean;
+  payNowInvoice: (payment_backend_id: string, options?: OptionCallback) => void;
+  hasPaymentMethod: boolean;
+  defaultCurrencyDisplay: String;
 };
 
 const StatusIcon = ({ status }: any) => {
@@ -50,7 +52,7 @@ export const PlatformInvoiceListItem = (props: Props) => {
   const { t } = useTranslation(['platformBilling']);
   const classes = useStyles();
 
-  const { platformInvoice } = props;
+  const { platformInvoice, defaultCurrencyDisplay } = props;
   const { pdf_url, month, year, status, total_price_cts } = platformInvoice;
 
   const [paymentProcessing, setPaymentProcessing] = React.useState(false);
@@ -58,7 +60,10 @@ export const PlatformInvoiceListItem = (props: Props) => {
   const secondaryText = (
     <div className={classes.row}>
       <Typography variant="caption" color="textSecondary">
-        {`${getCurrencyDisplayWithPrice(total_price_cts / 100)}`}
+        {getCustomCurrencyDisplayWithPrice(
+          total_price_cts / 100,
+          defaultCurrencyDisplay,
+        )}
       </Typography>
       <Typography
         variant="caption"

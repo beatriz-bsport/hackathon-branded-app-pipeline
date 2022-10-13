@@ -93,6 +93,7 @@ import {
 } from '#libs/email-editor/selectors';
 import { snackbar } from '../../actions/snackbar.actions';
 import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
@@ -331,6 +332,7 @@ export default compose(
       fetchAssociatedCoachesList,
 
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     },
   ),
   withHandlers({
@@ -429,6 +431,7 @@ export default compose(
         fetchFilteredMembers,
         retrieveConsumerPackBulk,
         id,
+        fetchPaymentPackBulk,
       }) =>
       (ordering_field) => {
         refreshBookingsByOffer(
@@ -437,6 +440,12 @@ export default compose(
             onSuccess: (bookings) => {
               retrieveConsumerPackBulk(
                 bookings.map((b) => b.consumer_payment_pack),
+                {
+                  onSuccess: (cppList) =>
+                    fetchPaymentPackBulk(
+                      cppList.map((cpp) => cpp.payment_pack),
+                    ),
+                },
               );
             },
           },
@@ -488,6 +497,7 @@ export default compose(
         fetchOfferStatus,
         fetchConsumerGiftcardList,
         fetchGroupOffer,
+        fetchPaymentPackBulk,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -510,6 +520,13 @@ export default compose(
             onSuccess: (bookings) => {
               retrieveConsumerPackBulk(
                 bookings.map((b) => b.consumer_payment_pack),
+                {
+                  onSuccess: (cppList) => {
+                    fetchPaymentPackBulk(
+                      cppList.map((cpp) => cpp.payment_pack),
+                    );
+                  },
+                },
               );
             },
           },

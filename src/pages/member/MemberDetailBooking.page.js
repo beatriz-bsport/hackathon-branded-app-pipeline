@@ -85,6 +85,7 @@ import { withGroup, getGroupListCount } from '#libs/group-offer/selectors';
 
 import { Member } from '#libs/member/types';
 import { PaymentPack } from '#libs/payment-packs/types';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '#libs/booking/components/BookingDetail.component';
@@ -797,6 +798,7 @@ export default compose(
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       retrieveBooking,
       fetchOffer: fetchOfferByIdAction,
       fetchCompanyUserRoles: fetchCompanyUserRolesAction,
@@ -926,6 +928,7 @@ export default compose(
         filters,
         retrieveConsumerPackBulk,
         setBookerInAvanceDialog,
+        fetchPaymentPackBulk,
         id,
       }) =>
       () => {
@@ -934,6 +937,10 @@ export default compose(
           onSuccess: (bookings) =>
             retrieveConsumerPackBulk(
               bookings.map((b) => b.consumer_payment_pack),
+              {
+                onSuccess: (cppList) =>
+                  fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack)),
+              },
             ),
         });
         setBookerInAvanceDialog(false);

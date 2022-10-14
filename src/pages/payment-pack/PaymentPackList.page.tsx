@@ -202,7 +202,7 @@ export class PaymentPackList extends React.Component<Props, State> {
       customer_enabled: true,
     });
     this.props.fetchMetaActivities();
-    this.props.fetchPaymentPackList({ disabled: false });
+    this.props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchVideoFilterableParams({
       company: this.props.companyId,

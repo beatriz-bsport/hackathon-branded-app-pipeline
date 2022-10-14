@@ -1553,8 +1553,8 @@
                     "error": "Error while saving note"
                 },
                 "rgpd": {
-                    "sms": "I'd like to receive relevant communication by SMS.",
-                    "email": "I'd like to receive relevant communication by email."
+                    "sms": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
+                    "email": "I agree to be notified by email for commercial purposes (promotions, special offers ...)"
                 },
                 "barcodeHelper": "(Optional) Use this barcode for your access cards.",
                 "barcode": "Barcode",

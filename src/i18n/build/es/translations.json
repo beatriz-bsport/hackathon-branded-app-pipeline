@@ -11862,13 +11862,13 @@
             "vod": {
                 "explainBilling": "  +1 {{currencyDisplay }}  /cliente activo"
             },
-            "billRecurrent": "{{price_cts, price }}  / mes",
-            "billOnce": "{{price_cts, price }}",
+            "billRecurrent": "{{ price_cts }} / mes",
+            "billOnce": "{{ price_cts }}",
             "otherAddonTitle": "Complementos disponibles",
             "myAddonTitle": "Mis complementos",
             "knowMore": "Más información",
             "sms": {
-                "explainBilling": "{{ price_cts, price }} / SMS"
+                "explainBilling": "{{ price_cts }}"
             }
         },
         "featureRequest": {
@@ -11878,7 +11878,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",
-            "monthlyPrice": "{{ price, price }} / mes"
+            "monthlyPrice": "{{ price }} / mes"
         },
         "platformBillingPlan": {
             "max_establishment": {

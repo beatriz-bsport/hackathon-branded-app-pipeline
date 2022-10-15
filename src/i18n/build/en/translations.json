@@ -3073,19 +3073,19 @@
             },
             "groupIdentifier": {
                 "evening": {
-                    "interval": "After 18:00",
+                    "interval": "After 6 PM",
                     "label": "Evening"
                 },
                 "afternoon": {
-                    "interval": "15:00 - 18:00",
+                    "interval": "3 PM - 6 PM",
                     "label": "Afternoon"
                 },
                 "noon": {
-                    "interval": "12:00 - 14:00",
+                    "interval": "12 PM - 2 PM",
                     "label": "Noon"
                 },
                 "morning": {
-                    "interval": "Before 12:00",
+                    "interval": "Before 12 PM",
                     "label": "Morning"
                 }
             },
@@ -4843,7 +4843,7 @@
                 },
                 "_label": "Navigation menu",
                 "tutorial": {
-                    "_label": "Tutorial"
+                    "_label": "Tutorials"
                 }
             },
             "offer": {
@@ -8851,7 +8851,7 @@
                 "title": "New lesson"
             },
             "newSection": {
-                "content": "The {{name}} section has been added, get trained now.",
+                "content": "The {{name}} tutorial has been added, get trained now.",
                 "title": "New section"
             }
         }
@@ -12501,7 +12501,7 @@
             "clockIn": "Attendance",
             "help": "Support",
             "tutorialInfo": "You can find our Getting Started Guide in the Tutorial tab.",
-            "tutorial": "Tutorial",
+            "tutorial": "Tutorials",
             "cadences": "Cadences",
             "toggle": {
                 "expand": "Expand",
@@ -12749,20 +12749,20 @@
             "bill": "Complete payment"
         },
         "upsellPackage": {
-            "billOnce": "{{price_cts, price }}",
+            "billOnce": "{{ price_cts }}",
             "vod": {
                 "explainBilling": "  +{{currencyDisplay }}1 / active client"
             },
-            "billRecurrent": "{{price_cts, price }} / month",
+            "billRecurrent": "{{ price_cts }} / month",
             "otherAddonTitle": "Available Add-Ons",
             "myAddonTitle": "My Add-Ons",
             "knowMore": "More information",
             "sms": {
-                "explainBilling": "{{price_cts, price }} / SMS"
+                "explainBilling": "{{ price_cts }} / SMS"
             }
         },
         "platformBillingStage": {
-            "monthlyPrice": "{{price, price }} / month",
+            "monthlyPrice": "{{ price }} / month",
             "maxBooking": "Up to {{ max_booking_per_month }} reservations / month"
         },
         "featureRequest": {
@@ -13247,7 +13247,7 @@
             "spot": "Place {{count}}",
             "title": "Select a spot",
             "legend": "Legend",
-            "book": "Book the spot {{prefix}}{{indexType}}"
+            "book": "Book: {{prefix}}{{indexType}}"
         },
         "toolbar": {
             "loadExistingBlueprint": "Load an existing plan",
@@ -13264,8 +13264,8 @@
             "taken": "Book",
             "free": "Available",
             "imageUploadButton": "Load an image",
-            "takenImageLabel": "Reserved location",
-            "freeImageLabel": "Available location",
+            "takenImageLabel": "Booked spots",
+            "freeImageLabel": "Available spots",
             "helper": "You can customize the shape of the locations by importing your own images. For this we need 2 different icons. One to indicate that the location is available, another when it is reserved. Make sure they are the same size and please do not include a number on your icons.",
             "title": "Customize your locations"
         },
@@ -13290,9 +13290,9 @@
             "missImageSelected": "You have not loaded the image for the selected spot",
             "selectedPersonalized": "{{name}} selected",
             "selected": "Selected spot",
-            "freePersonalized": "{{name}} available",
-            "takenPersonalized": "{{name}} reserved",
-            "taken": "Reserved spot",
+            "freePersonalized": "Available: {{name}}",
+            "takenPersonalized": "Booked: {{name}}",
+            "taken": "Booked spots",
             "free": "Available spot",
             "personalizedExplain": "You can customize the shape of the slots by importing your own images. For this we need 3 different icons. One to indicate that the spot is available, another when it is reserved. Make sure they are the same size and please do not include any numbers on your icons.",
             "preview": "Previsualization",
@@ -14046,7 +14046,7 @@
             "title": "Welcome to Bsport!"
         },
         "lessonHeader": {
-            "warning": "This feature is an add-on. You don't have this feature, please contact your account manager.",
+            "warning": "Please contact your Account Manager to learn more and activate this additional service.",
             "addOn": "Add-on",
             "backToList": "Back to the list"
         },
@@ -14068,7 +14068,7 @@
             "start": "Start"
         },
         "menu": {
-            "helpButton": "Find help"
+            "helpButton": "FAQ"
         }
     }
 }

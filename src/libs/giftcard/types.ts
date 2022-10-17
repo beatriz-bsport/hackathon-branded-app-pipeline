@@ -50,6 +50,7 @@ export type ConsumerGiftcard<
   planned_date_send: string;
   invitation_sent: boolean;
   consumed_amount_gifted: string; // decimal price
+  price_bought: string; // decimal price
   giftcard_recipients: Array<GiftcardRecipient>;
 };
 

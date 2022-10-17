@@ -73,7 +73,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
     const cgc = props.consumerGiftcardList[0];
     const availableAmout = parseFloat(
       (
-        parseFloat(cgc.giftcard?.price) - parseFloat(cgc.consumed_amount_gifted)
+        parseFloat(cgc.price_bought) - parseFloat(cgc.consumed_amount_gifted)
       ).toFixed(2),
     );
     return availableAmout;
@@ -165,7 +165,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
               setFieldValue('giftcard_selected', cgc.id);
               const availableAmout = parseFloat(
                 (
-                  parseFloat(cgc.giftcard?.price) -
+                  parseFloat(cgc.price_bought) -
                   parseFloat(cgc.consumed_amount_gifted)
                 ).toFixed(2),
               );

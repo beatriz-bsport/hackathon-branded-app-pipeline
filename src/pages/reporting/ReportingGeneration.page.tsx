@@ -83,7 +83,7 @@ export class ReportingGeneration extends Component<Props, State> {
       report_id_in: [this.props.id],
       page_size: null,
     });
-    if (this.props.report.date_start) {
+    if (!this.props.isFranchisor && this.props.report.date_start) {
       this.handleGenerate({
         dateStart: this.props.report.date_start,
         dateEnd: this.props.report.date_end,
@@ -94,7 +94,11 @@ export class ReportingGeneration extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (!!this.props.report.date_start && !prevProps.report.date_start) {
+    if (
+      !this.props.isFranchisor &&
+      !!this.props.report.date_start &&
+      !prevProps.report.date_start
+    ) {
       this.handleGenerate({
         dateStart: this.props.report.date_start,
         dateEnd: this.props.report.date_end,

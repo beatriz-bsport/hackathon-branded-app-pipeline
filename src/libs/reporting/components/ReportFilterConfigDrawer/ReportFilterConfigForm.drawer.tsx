@@ -44,7 +44,7 @@ import {
   GROUP_AND_OPERAND,
 } from '#libs/datatype-filtering/constants';
 import {
-  checkColumnAlreadyExist,
+  checkIdentifierAlreadyExist,
   generateNewGroup,
   generateNewFilterItem,
 } from '#libs/datatype-filtering/utils';
@@ -72,6 +72,7 @@ export type OuterProps = {
     id: number;
     values: Omit<ReportFilterConfig, 'id'>;
   }) => void;
+  isFranchisor: boolean;
 };
 
 const ReportFilterConfigFormDrawerSchema = Yup.object().shape({
@@ -92,6 +93,7 @@ const ReportFilterConfigFormDrawer: React.FC<
   onClose,
   resetForm,
   handleGetDynamicDataForReport,
+  isFranchisor,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -118,17 +120,24 @@ const ReportFilterConfigFormDrawer: React.FC<
       uniqBy(
         columns.filter((d) => {
           if (!d.is_filterable) return false;
+          // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN
+          if (
+            isFranchisor &&
+            DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
+            d.datatype !== 'company'
+          )
+            return false;
           // by Id filter sould be uniq across the filter as a product decision
           if (
             DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
-            checkColumnAlreadyExist(d.datatype, values.config.groups)
+            checkIdentifierAlreadyExist(d.identifier, values.config.groups)
           )
             return false;
           return true;
         }),
         (column) => [column.datatype, column.identifier],
       ),
-    [columns, values.config.groups],
+    [columns, values.config.groups, isFranchisor],
   );
 
   const reportColumns = useMemo(() => {
@@ -421,7 +430,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default compose<any, OuterProps>(
   withFormik<OuterProps, Values>({
-    mapPropsToValues: ({ initial, columns }) => {
+    mapPropsToValues: ({ initial, columns, isFranchisor }) => {
       if (initial) {
         return {
           name: initial.name,
@@ -429,7 +438,15 @@ export default compose<any, OuterProps>(
         };
       }
 
-      const column = columns.filter((c) => c.is_filterable)?.[0];
+      const column = columns
+        .filter((c) => c.is_filterable)
+        // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN
+        .filter(
+          (c) =>
+            !isFranchisor ||
+            !DATATYPE_FILTERABLE_BY_ID_IN.includes(c.datatype) ||
+            c.datatype === 'company',
+        )?.[0];
 
       return {
         name: '',

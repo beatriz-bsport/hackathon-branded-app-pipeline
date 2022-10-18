@@ -113,6 +113,7 @@ exports.default = {
     universal_passes: 'Cartes Universelles',
     private_cpasses_expired: 'Crédits RDV expirés',
     expired_pass: 'Crédits carte de cours expirés',
+    franchise_shared_pass: 'Utilisations cartes partagées',
   },
   header: {
     sum: 'Somme',
@@ -371,6 +372,10 @@ exports.default = {
     views_unique: 'Vues uniques',
     voucher: 'Réduction',
     was_refunded: 'Remboursé',
+    src_company: "Studio d'achat",
+    dst_company: "Studio d'utilisation",
+    total_mixed_from_src: 'Nombre de séances réservées',
+    shared_pass_ratio: "Pourcentage d'utilisation",
   },
   filter: {
     title: 'Vue filtrée',
@@ -538,6 +543,7 @@ exports.default = {
     payout_status: 'Status du virement',
     payout: 'Virement',
     staff: 'Staff',
+    company: 'Studio',
   },
   presetValuesByDatatype: {
     source_device: {
@@ -601,5 +607,15 @@ exports.default = {
       True: 'Impayé',
       False: 'Payé',
     },
+  },
+  franchiseWarning: {
+    part1:
+      'Dû au grand nombre de données, la génération du rapport risque de prendre plusieurs minutes.',
+    part2:
+      "Vous pouvez dès à présent exporter le rapport et le traiter sur excel ensuite. Les dates indiquées ainsi que la vue filtrée appliquée seront prises en compte dans l'export.",
+  },
+  helperText: {
+    franchise_shared_pass:
+      "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
   },
 };

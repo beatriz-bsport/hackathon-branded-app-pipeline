@@ -49,6 +49,7 @@ export type Props = {
   onSelect: (reportFilterConfigsId: number | null) => void;
   handleGetDynamicDataForReport: (type: DynamicFilterDataType) => any[];
   fetchReportFilterConfigList: () => void;
+  isFranchisor: boolean;
 };
 
 const ReportFilterConfigSelector: React.FC<Props> = ({
@@ -62,6 +63,7 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
   onDeleteReportFilterConfigs,
   onSelect,
   handleGetDynamicDataForReport,
+  isFranchisor,
 }) => {
   const { t } = useTranslation(['reporting']);
   const classes = useStyles();
@@ -292,6 +294,7 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
           onClose={handleCloseModal}
           handleGetDynamicDataForReport={handleGetDynamicDataForReport}
           onSubmit={handleModalSubmit}
+          isFranchisor={isFranchisor}
         />
       )}
       {deleteFilterId && (

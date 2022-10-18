@@ -45,10 +45,12 @@ import { fetchCoupons as fetchCouponsAction } from '#libs/coupon/actions';
 import { fetchVideoList as fetchVideoListAction } from '#libs/video/actions';
 import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
 import { fetchAllSubShop as fetchAllSubShopAction } from '#libs/shop/actions/subshop';
+import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
 import {
   setDynamicDataHasBeenLoaded as setDynamicDataHasBeenLoadedAction,
   resetDynamicDataHasBeenLoaded as resetDynamicDataHasBeenLoadedAction,
 } from '#libs/datatype-filtering/actions';
+import { getFranchiseCompanies } from '../franchise/selectors';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
 
@@ -77,6 +79,7 @@ const connector = connect(
     contracts: getAvailableContractList(state),
     subshops: getSubShopsByCompany(state, getTheme(state).company),
     staffs: getUsersWithRole(state),
+    franchiseCompanies: getFranchiseCompanies(state),
   }),
   {
     // Actions for dynamic data
@@ -97,6 +100,7 @@ const connector = connect(
     fetchContractList: fetchContractListAction,
     fetchAllSubShop: fetchAllSubShopAction,
     fetchCompanyUserRoles: fetchCompanyUserRolesAction,
+    fetchFranchise: fetchFranchiseAction,
   },
 );
 
@@ -249,6 +253,13 @@ export default function withDatatypeDynamicData(
                   },
                 });
                 break;
+              case 'company':
+                props.fetchFranchise({
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('company');
+                  },
+                });
+                break;
               default:
             }
           }
@@ -340,6 +351,13 @@ export default function withDatatypeDynamicData(
                 value: staff.id,
                 label: `${staff.first_name} ${staff.last_name}`,
               }));
+            case 'company':
+              return (
+                props.franchiseCompanies?.map((c) => ({
+                  label: c.name,
+                  value: c.id,
+                })) ?? []
+              );
             default:
               return [];
           }

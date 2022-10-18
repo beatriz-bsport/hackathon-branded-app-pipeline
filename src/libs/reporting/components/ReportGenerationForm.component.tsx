@@ -1,5 +1,5 @@
 // @flow
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment-timezone';
 
 import { compose } from 'recompose';
@@ -40,7 +40,6 @@ type Props = {
   disableContinue: boolean;
   columnsMetadata: ReportMetadataValue[];
   values: any;
-  isFranchisor?: boolean;
   handleExcelExportation: () => void;
   setShowDialog: (boolean: boolean) => void;
   setDisableContinue: (boolean: boolean) => void;
@@ -59,6 +58,7 @@ type Props = {
   deleteReportFilterConfig: (reporFilterConfigId: number) => void;
 
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
+  isFranchisor: boolean;
 };
 
 type DownloadButtonProps = {
@@ -104,22 +104,37 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const [isExporting, setIsExporting] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: null | number = null;
+    if (isExporting) {
+      timeoutId = window.setTimeout(() => setIsExporting(false), 5000);
+    }
+    return () => window.clearTimeout(timeoutId);
+  }, [isExporting]);
 
   return (
     <Button
       variant="contained"
       color="secondary"
-      onClick={() =>
+      onClick={() => {
         handleExcelExportation({
           dateStart: moment(values.dateStart).unix(),
           dateEnd: moment(values.dateEnd).unix(),
           reportFilterConfigId: values.reportFilterConfigId,
-        })
-      }
-      disabled={isSubmitting_}
+        });
+        setIsExporting(true);
+        setTimeout(() => setIsExporting(false), 5000);
+      }}
+      disabled={isSubmitting_ || isExporting}
     >
       {t('common.export')}
-      <CloudDownloadIcon className={classes.rightIcon} />
+      {isExporting ? (
+        <CircularProgress size={30} className={classes.rightIcon} />
+      ) : (
+        <CloudDownloadIcon className={classes.rightIcon} />
+      )}
     </Button>
   );
 };
@@ -132,7 +147,6 @@ const ReportGenerationForm: React.FC<Props> = ({
   showDialog,
   columnsMetadata,
   setFieldValue,
-  isFranchisor = false,
   setShowDialog,
   handleExcelExportation,
   setDisableContinue,
@@ -142,6 +156,7 @@ const ReportGenerationForm: React.FC<Props> = ({
   editReportFilterConfig,
   fetchReportFilterConfigList,
   deleteReportFilterConfig,
+  isFranchisor,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -261,22 +276,21 @@ const ReportGenerationForm: React.FC<Props> = ({
             </Actions>
           </Grid>
         </Grid>
-        {!isFranchisor && (
-          <div className={classes.reportFilterConfig}>
-            <ReportFilterConfigSelector
-              reportFilterConfigs={reportFilterConfigs}
-              selectedFilter={values.reportFilterConfigId}
-              error={null}
-              columnsMetadata={columnsMetadata}
-              fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
-              editReportFilterConfig={editReportFilterConfig}
-              onCreateReportFilterConfigs={handleCreateFilter}
-              onDeleteReportFilterConfigs={deleteReportFilterConfig}
-              onSelect={handleSelectFilter}
-              handleGetDynamicDataForReport={handleGetDynamicDataForReport}
-            />
-          </div>
-        )}
+        <div className={classes.reportFilterConfig}>
+          <ReportFilterConfigSelector
+            reportFilterConfigs={reportFilterConfigs}
+            selectedFilter={values.reportFilterConfigId}
+            error={null}
+            columnsMetadata={columnsMetadata}
+            fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
+            editReportFilterConfig={editReportFilterConfig}
+            onCreateReportFilterConfigs={handleCreateFilter}
+            onDeleteReportFilterConfigs={deleteReportFilterConfig}
+            onSelect={handleSelectFilter}
+            handleGetDynamicDataForReport={handleGetDynamicDataForReport}
+            isFranchisor={isFranchisor}
+          />
+        </div>
       </Form>
     </React.Fragment>
   );

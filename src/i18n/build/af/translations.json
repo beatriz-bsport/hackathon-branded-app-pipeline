@@ -5899,7 +5899,8 @@
       "expense": "Dépenses",
       "universal_passes": "Cartes Universelles",
       "private_cpasses_expired": "Crédits RDV expirés",
-      "expired_pass": "Crédits carte de cours expirés"
+      "expired_pass": "Crédits carte de cours expirés",
+      "franchise_shared_pass": "Utilisations cartes partagées"
     },
     "header": {
       "sum": "Somme",
@@ -6157,7 +6158,11 @@
       "views_total": "Vues",
       "views_unique": "Vues uniques",
       "voucher": "Réduction",
-      "was_refunded": "Remboursé"
+      "was_refunded": "Remboursé",
+      "src_company": "Studio d'achat",
+      "dst_company": "Studio d'utilisation",
+      "total_mixed_from_src": "Nombre de séances réservées",
+      "shared_pass_ratio": "Pourcentage d'utilisation"
     },
     "filter": {
       "title": "Vue filtrée",
@@ -6299,7 +6304,8 @@
       "booking_status_code": "Statut de la réservation",
       "payout_status": "Status du virement",
       "payout": "Virement",
-      "staff": "Staff"
+      "staff": "Staff",
+      "company": "Studio"
     },
     "presetValuesByDatatype": {
       "source_device": { "0": "Application", "1": "Web", "2": "Backoffice bsport", "3": "Autre", "4": "Migration de données" },
@@ -6333,6 +6339,13 @@
       "activity_kind": { "True": "Atelier", "False": "Activité" },
       "gender": { "X": "Autres", "M": "Hommes", "F": "Femmes" },
       "is_unpaid": { "True": "Impayé", "False": "Payé" }
+    },
+    "franchiseWarning": {
+      "part1": "Dû au grand nombre de données, la génération du rapport risque de prendre plusieurs minutes.",
+      "part2": "Vous pouvez dès à présent exporter le rapport et le traiter sur excel ensuite. Les dates indiquées ainsi que la vue filtrée appliquée seront prises en compte dans l'export."
+    },
+    "helperText": {
+      "franchise_shared_pass": "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous."
     }
   },
   "role": {
@@ -7133,16 +7146,6 @@
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
       },
-      "27": {
-        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
-        "name": "Cartes valides",
-        "first": "Possède",
-        "between": "et",
-        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
-        "third": "ou",
-        "fourth": "(confondues)",
-        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
-      },
       "400": {
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
@@ -7217,7 +7220,17 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
+      "undefined": {
+        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
+        "name": "Cartes valides",
+        "first": "Possède",
+        "between": "et",
+        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+        "third": "ou",
+        "fourth": "(confondues)",
+        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
+      }
     },
     "tag_rules": {
       "type_of_rule": "Type de règle",

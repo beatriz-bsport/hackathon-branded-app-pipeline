@@ -315,3 +315,10 @@ export const checkColumnAlreadyExist = memoize(
   (datatype: string, groups: DatatypeFilterConfigGroup[]) =>
     groups.some((fg) => fg.filters_data.some((fd) => fd.datatype === datatype)),
 );
+
+export const checkIdentifierAlreadyExist = memoize(
+  (identifier: string, groups: DatatypeFilterConfigGroup[]) =>
+    groups.some((fg) =>
+      fg.filters_data.some((fd) => fd.identifier === identifier),
+    ),
+);

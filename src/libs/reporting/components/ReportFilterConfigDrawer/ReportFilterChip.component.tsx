@@ -14,6 +14,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import HomeIcon from '@material-ui/icons/Home';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import Star from '@material-ui/icons/Star';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
@@ -78,6 +79,8 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
         return <Star />;
       case 'booking_status_code':
         return <AccountBalanceWalletIcon />;
+      case 'company':
+        return <HomeIcon />;
       default:
         return null;
     }

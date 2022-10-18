@@ -21,6 +21,7 @@ export type DataSourceMedadataDataType =
   | 'boolean'
   | 'coach'
   | 'contract'
+  | 'company'
   | 'coupon'
   | 'cts'
   | 'date'

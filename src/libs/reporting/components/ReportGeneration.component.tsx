@@ -2,7 +2,10 @@ import React from 'react';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles, Theme } from '@material-ui/core';
 
+import Alert from '@material-ui/lab/Alert';
+import { useTranslation } from 'react-i18next';
 import ReportGenerationForm from './ReportGenerationForm.component';
 import ReportTable from './ReportTable.component';
 import ReportTableHeaders from './ReportTableHeaders.component';
@@ -56,6 +59,17 @@ type Props = {
   deleteReportFilterConfig: (reporFilterId: number) => void;
 };
 
+const CATEGORIES_NEEDING_HELPER_TEXT = ['franchise_shared_pass'];
+
+const useStyles = makeStyles((theme: Theme) => ({
+  alertIcon: {
+    alignItems: 'center',
+  },
+  alert: {
+    marginBottom: theme.spacing(2),
+  },
+}));
+
 const ReportGeneration: React.FC<Props> = ({
   report,
   result,
@@ -86,6 +100,9 @@ const ReportGeneration: React.FC<Props> = ({
   deleteReportFilterConfig,
   allowedFranchisees,
 }) => {
+  const { t } = useTranslation('reporting');
+  const classes = useStyles();
+
   if (!report || metadata.loading) {
     return <LinearProgress />;
   }
@@ -95,6 +112,25 @@ const ReportGeneration: React.FC<Props> = ({
 
   return (
     <div>
+      {isFranchisor && (
+        <Alert
+          severity="warning"
+          classes={{ root: classes.alertIcon }}
+          className={classes.alert}
+        >
+          {t('franchiseWarning.part1')} <br />
+          {t('franchiseWarning.part2')}
+        </Alert>
+      )}
+      {CATEGORIES_NEEDING_HELPER_TEXT.includes(report?.category) && (
+        <Alert
+          severity="info"
+          classes={{ root: classes.alertIcon }}
+          className={classes.alert}
+        >
+          {t(`helperText.${report.category}`)}
+        </Alert>
+      )}
       {report.date_start && (
         <ReportGenerationForm
           reportConfiguration={report}

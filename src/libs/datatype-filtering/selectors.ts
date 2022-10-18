@@ -18,8 +18,7 @@ export const getDynamicDataLoading = memoize((state: RootState) => ({
   video: state.video.loading,
   contract: state.subscription.contract.loading,
   subshop: state.shop.loading,
-  // TODO when we migrate the filtering feature to franchise
-  company: false,
+  company: state.franchise.loading,
 }));
 
 export const getDynamicDataHasBeenLoaded = (state: RootState) =>

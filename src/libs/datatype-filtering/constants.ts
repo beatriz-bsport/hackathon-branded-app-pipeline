@@ -56,6 +56,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'billing_group',
   'booking_status_code',
   'coach',
+  'company',
   'contract',
   'coupon',
   'dow',

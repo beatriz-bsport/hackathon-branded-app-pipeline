@@ -2408,7 +2408,11 @@
             "member_default_billing_establishment": "Factuuradres",
             "payment_legal_identifier": "Referentie wettelijke factuur",
             "selectAll": "Alles selecteren",
-            "billing_date_start_annotated": "Eerste factuurdatum"
+            "billing_date_start_annotated": "Eerste factuurdatum",
+            "shared_pass_ratio": "Gebruikspercentage",
+            "total_mixed_from_src": "Aantal geboekte sessies",
+            "dst_company": "Gebruiksstudio",
+            "src_company": "Aankoopstudio"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2458,7 +2462,8 @@
             "expense": "Uitgaven",
             "universal_passes": "Universele kaarten",
             "private_cpasses_expired": "Verlopen kredieten (afspraakkaarten)",
-            "expired_pass": "Verlopen kredieten (leskaarten)"
+            "expired_pass": "Verlopen kredieten (leskaarten)",
+            "franchise_shared_pass": "Gedeeld pasgebruik"
         },
         "globalCategories": {
             "subheader": {
@@ -2599,7 +2604,8 @@
             "payment_method": "Betaalmethode",
             "video": "Video",
             "private_service": "Afspraak",
-            "staff": "Medewerkers"
+            "staff": "Medewerkers",
+            "company": "Studio"
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -2663,6 +2669,13 @@
                 "False": "Betaald",
                 "True": "Onbetaald"
             }
+        },
+        "helperText": {
+            "franchise_shared_pass": "Met dit rapport kunt u de boekingen met gedeelde kaarten analyseren. Wanneer een gedeelde kaart in een studio is gekocht, toont het rapport het aantal boekingen dat met deze kaart in een andere studio is gemaakt. Het aantal geboekte sessies omvat boekingen voor activiteiten, workshops en afspraken."
+        },
+        "franchiseWarning": {
+            "part2": "U kunt het rapport nu exporteren en daarna in Excel verwerken. Bij de export wordt rekening gehouden met de aangegeven data en de toegepaste gefilterde weergave.",
+            "part1": "Door de grote hoeveelheid data kan het genereren van het rapport enkele minuten duren."
         }
     },
     "alerting": {

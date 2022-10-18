@@ -8495,7 +8495,11 @@
             "selectAll": "Select all",
             "payment_legal_identifier": "Legal invoice identifier",
             "member_default_billing_establishment": "Billing address",
-            "archived": "Archived"
+            "archived": "Archived",
+            "shared_pass_ratio": "Percentage of use",
+            "total_mixed_from_src": "Number of sessions booked",
+            "dst_company": "Usage studio",
+            "src_company": "Purchasing studio"
         },
         "yes": "Yes",
         "no": "No",
@@ -8594,7 +8598,8 @@
             "expense": "Expenses",
             "expired_pass": "Expired credits (passes)",
             "private_cpasses_expired": "Expired credits (appointment passes)",
-            "universal_passes": "Universal passes"
+            "universal_passes": "Universal passes",
+            "franchise_shared_pass": "Shared pass uses"
         },
         "globalCategories": {
             "subheader": {
@@ -8735,7 +8740,8 @@
             "booking_status_code": "Booking status",
             "payout_status": "Status transfer",
             "payout": "Transfer",
-            "staff": "Staff"
+            "staff": "Staff",
+            "company": "Studio"
         },
         "presetValuesByIdentifier": {
             "gender": {
@@ -8799,6 +8805,13 @@
                 "1": "Web",
                 "0": "App"
             }
+        },
+        "helperText": {
+            "franchise_shared_pass": "This report allows you to analyse the bookings made with shared passes. When a shared pass is purchased in one studio, the report shows the number of bookings made with this pass in another studio. The number of sessions booked includes bookings for activities, workshops and appointments."
+        },
+        "franchiseWarning": {
+            "part2": "You can now export the report and process it in Excel afterwards. The dates indicated and the filtered view applied will be taken into account in the export.",
+            "part1": "Due to the large amount of data, the report may take several minutes to generate."
         }
     },
     "alerting": {

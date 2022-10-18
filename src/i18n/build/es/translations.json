@@ -4275,7 +4275,11 @@
             "payment_legal_identifier": "Identificador legal de la factura",
             "member_default_billing_establishment": "Dirección de facturación",
             "archived": "Archivado",
-            "billing_date_start_annotated": "Fecha de la primera facturación"
+            "billing_date_start_annotated": "Fecha de la primera facturación",
+            "shared_pass_ratio": "Porcentaje de uso",
+            "total_mixed_from_src": "Número de sesiones reservadas",
+            "dst_company": "Estudio de uso",
+            "src_company": "Estudio de compra"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4373,7 +4377,8 @@
             "expense": "Gasto",
             "private_cpasses_expired": "Créditos caducados (tarjetas de cita)",
             "expired_pass": "Créditos caducados (bonos)",
-            "universal_passes": "Bonos Universales"
+            "universal_passes": "Bonos Universales",
+            "franchise_shared_pass": "Usos de tarjetas compartidas"
         },
         "globalCategories": {
             "subheader": {
@@ -4445,7 +4450,8 @@
             "subshop": "Categoría",
             "private_slot": "Tipo de cita",
             "private_pass": "Tarjetas de citas",
-            "staff": "Personal"
+            "staff": "Personal",
+            "company": "Estudio"
         },
         "filter": {
             "form": {
@@ -4578,6 +4584,13 @@
                 "1": "Web",
                 "0": "Aplicación"
             }
+        },
+        "helperText": {
+            "franchise_shared_pass": "Este informe permite analizar las reservas realizadas con tarjetas compartidas. Cuando se compra una tarjeta compartida en un estudio, el informe muestra el número de reservas realizadas con esta tarjeta en otro estudio. El número de sesiones reservadas incluye las reservas de actividades, talleres y citas."
+        },
+        "franchiseWarning": {
+            "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
+            "part1": "Debido a la gran cantidad de datos, el informe puede tardar varios minutos en generarse."
         }
     },
     "alerting": {

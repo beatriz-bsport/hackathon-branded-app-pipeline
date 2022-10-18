@@ -7407,7 +7407,7 @@
                 }
             },
             "invoice": {
-                "sendToQuickbooks": "The invoice has been transferred to QuickBooks",
+                "sendToQuickbooks": "Transfer invoice to QuickBooks",
                 "onQuickbooks": "Transferred"
             }
         },

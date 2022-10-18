@@ -4135,6 +4135,16 @@
                 "title": "Opgeslagen betaalmethoden",
                 "explanation": "Toon een overzicht van alle leden en de vervaldata van hun opgeslagen betaalmethoden",
                 "name": "Betaalmethode"
+            },
+            "27": {
+                "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
+                "fourth": "(gecombineerd)",
+                "third": "of",
+                "second": "geldige leskaarten of afspraakkaarten vandaag. Onder",
+                "between": "en",
+                "first": "Heeft",
+                "name": "Geldige leskaarten",
+                "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
             }
         },
         "mails": "E-mails",
@@ -4530,7 +4540,9 @@
         "seeAll": "Toon alles",
         "franchiseEmails": "[Master-Account] E-mailsjablonen",
         "companieEmails": "Sjablonen",
-        "bsportTemplateEmail": "Overstapbericht"
+        "bsportTemplateEmail": "Overstapbericht",
+        "infoBsportTemplateEmails": "Als u meldingen wilt verzenden of de sjablonen in deze sectie wilt bewerken, is het noodzakelijk een kopie van de gewenste sjabloon te maken. Selecteer vervolgens de kopie van de e-mail wanneer u een melding verzendt.",
+        "bsportTemplateEmails": "Bsport Sjablonen"
     },
     "member": {
         "pass_owner": "Geldige leskaart",
@@ -11824,7 +11836,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Tot {{max_booking_per_month}} reserveringen / maand",
-            "monthlyPrice": "{{ price, price }} / maand"
+            "monthlyPrice": "{{ price }} / maand"
         },
         "platformBillingGroup": {
             "soonAvailable": "Binnenkort beschikbaar!",
@@ -11837,10 +11849,10 @@
             "otherAddonTitle": "Beschikbare aanvullende diensten",
             "myAddonTitle": "Mijn aanvullende diensten",
             "knowMore": "Meer informatie",
-            "billRecurrent": "{{price_cts, price }} / maand",
-            "billOnce": "{{price_cts, price }}",
+            "billRecurrent": "{{ price_cts }} / maand",
+            "billOnce": "{{ price_cts }}",
             "sms": {
-                "explainBilling": "{{ price_cts, price }} / sms"
+                "explainBilling": "{{ price_cts, price }} / SMS"
             }
         },
         "paymentMethod": {

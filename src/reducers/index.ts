@@ -298,6 +298,7 @@ export default (history: any) => (state: any, action: any) => {
       {
         router: state.router,
         auth: state.auth,
+        theme: state.theme,
       },
       action,
     );

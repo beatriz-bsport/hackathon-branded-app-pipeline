@@ -7,21 +7,22 @@ import { ThemeState } from './types';
 
 const storage = window.localStorage;
 
-const initialState: Immutable.Immutable<ThemeState> = Immutable<ThemeState>({
-  // @ts-ignore
-  theme: {
-    primary_color: colors.primary,
-    secondary_color: colors.secondary,
-    cover: null,
-  },
+export const initialState: Immutable.Immutable<ThemeState> =
+  Immutable<ThemeState>({
+    // @ts-ignore
+    theme: {
+      primary_color: colors.primary,
+      secondary_color: colors.secondary,
+      cover: null,
+    },
 
-  createOrUpdate: {
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
     loading: false,
     error: null,
-  },
-  loading: false,
-  error: null,
-});
+  });
 
 export default handleActions<Immutable.Immutable<ThemeState>>(
   {

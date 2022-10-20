@@ -77,11 +77,12 @@ export class MemberFormPage extends Component<Props> {
   onSubmit = async (values: Member, options: OptionCallback) => {
     this.props.setValues(values);
     if (
-      this.props.initial?.email &&
+      this.props.initial?.id &&
+      values.email &&
       this.props.initial?.email !== values.email.toLowerCase()
     ) {
       const emailExistsData = await this.props.checkEmailExists(
-        this.props.initial.email,
+        this.props.initial?.email || null,
         values.email,
       );
       if (options && options.onSuccess) options.onSuccess();

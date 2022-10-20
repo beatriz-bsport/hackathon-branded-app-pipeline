@@ -234,7 +234,7 @@ exports.default = {
           "A titre informatif nous allons lui envoyer un email pour l'informer ce changement.",
       },
       linkMember: {
-        warning: 'Attention, vous chercher à lier ces deux membres :',
+        warning: 'Attention, vous cherchez à lier ces deux membres :',
         unchangedEmail:
           'En attendant {{ old_email }} conservera son ancien email et les membres ne seront pas liés.',
         notIncompany:
@@ -242,7 +242,7 @@ exports.default = {
       },
       mergeMember: {
         warning:
-          'Attention, vous chercher à fusionner ces deux membres de votre studio :',
+          'Attention, vous cherchez à fusionner ces deux membres de votre studio :',
         unchangedEmail:
           'En cliquant sur confirmer le membre {{ new_email }} récupérera les factures, réservations, solde et achats de {{ old_email }}. Le membre {{ old_email }} sera effacé. Un email sera envoyé aux deux adresses pour prévenir les membres.',
       },

@@ -56,16 +56,19 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
     [],
   );
 
-  const getAvailableCompanies = (defaultAvailable?: FranchiseCompany[]) => {
-    const availableCompanies = [
-      ...companies.filter((c) => !usedCompanies.includes(c.id)),
-    ];
-    if (defaultAvailable) {
-      return [...defaultAvailable, ...availableCompanies];
-    }
+  const getAvailableCompanies = React.useCallback(
+    (defaultAvailable?: FranchiseCompany[]) => {
+      const availableCompanies = [
+        ...companies.filter((c) => !usedCompanies.includes(c.id)),
+      ];
+      if (defaultAvailable) {
+        return [...defaultAvailable, ...availableCompanies];
+      }
 
-    return availableCompanies;
-  };
+      return availableCompanies;
+    },
+    [companies, usedCompanies],
+  );
 
   return (
     <>
@@ -92,7 +95,10 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                 variant="contained"
                 color="primary"
                 onClick={() => setCreate(true)}
-                disabled={getAvailableCompanies().length === 0}
+                disabled={
+                  getAvailableCompanies().filter((c) => c.isAllowed).length ===
+                  0
+                }
               >
                 {t('franchise.addConfiguration')}
               </Button>
@@ -102,7 +108,6 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                   <FranchiseNotificationRuleCard
                     key={rule.id}
                     rule={rule}
-                    // allowedCompanies
                     companies={getAvailableCompanies(
                       companies.filter((c) => rule.companies.includes(c.id)),
                     )}

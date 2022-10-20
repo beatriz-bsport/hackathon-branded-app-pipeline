@@ -11,6 +11,7 @@ import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import memoize from 'memoize-one';
 
 import Checkbox from '../../../components/input/Checkbox.component';
 import {
@@ -252,6 +253,10 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.setState({ autoSave: ev.target.checked });
   };
 
+  allCompaniesAllowed = memoize((companies: FranchiseCompany[]) =>
+    companies.every((c: FranchiseCompany) => c.isAllowed),
+  );
+
   render() {
     const { t, classes } = this.props;
     const mergeTags = this.getMergeTags();
@@ -302,10 +307,10 @@ export class EmailEditorPanel extends Component<Props, State> {
                   selectedCompanies={this.state.selectedCompanies}
                   companyDic={this.companyDic}
                   companies={this.props.companies}
-                  withAllCompaniesTag={
-                    !this.props.companies.some((c) => !c.isAllowed)
-                  }
-                  unclearable={this.props.companies.every((c) => c.isAllowed)}
+                  withAllCompaniesTag={this.allCompaniesAllowed(
+                    this.props.companies,
+                  )}
+                  unclearable={!this.allCompaniesAllowed(this.props.companies)}
                 />
               </div>
               <div className={classes.helper}>

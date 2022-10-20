@@ -2,7 +2,12 @@ import faker from 'faker';
 
 faker.locale = 'fr';
 
-type FranchiseRole = { id: number; name: string; editable: boolean };
+type FranchiseRole = {
+  id: number;
+  name: string;
+  editable: boolean;
+  identifier: number | null;
+};
 type Franchisee = { id: number; name: string };
 
 const FRANCHISE_ADMIN_ROLE = 4;
@@ -12,6 +17,7 @@ export function FranchiseRoleFactory(id: number): FranchiseRole {
     id,
     name: id === FRANCHISE_ADMIN_ROLE ? 'ADMIN' : `Custom Role ${id}`,
     editable: id !== FRANCHISE_ADMIN_ROLE,
+    identifier: id === FRANCHISE_ADMIN_ROLE ? FRANCHISE_ADMIN_ROLE : null,
   };
 }
 

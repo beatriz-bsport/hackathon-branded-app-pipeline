@@ -158,6 +158,7 @@ export function emailTemplateComplete(id: number): ThunkAction {
               id: response.data.id,
               category: response.data.category,
               ordering_in_category: response.data.ordering_in_category,
+              available_for_companies: response.data.available_for_companies,
             },
           },
           detail: {

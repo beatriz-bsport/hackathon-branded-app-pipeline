@@ -11,7 +11,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import FranchiseCompanySearchList from '../../libs/franchise/components/FranchiseCompanySearchList.components';
 import FranchiseCompanyDetails from '../../libs/franchise/components/FranchiseCompanyDetails.components';
 import {
-  getFranchiseCompanies,
+  getAllowedFranchiseCompanies,
   getFranchiseCompanyById,
   getCompanyGroupList,
   getAllowedFranchisees,
@@ -199,7 +199,7 @@ const styles = (theme: Theme) =>
 
 const connector = connect(
   (state: RootState) => ({
-    companies: getFranchiseCompanies(state),
+    companies: getAllowedFranchiseCompanies(state),
     companiesById: getFranchiseCompanyById(state),
     companyGroupList: getCompanyGroupList(state),
     members: getAllMembers(state),

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { OWNER_ROLE } from '#libs/role/role-types';
+import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
 import { RootState } from '../../reducers';
 import { FranchiseCompany, FranchiseState } from './types';
 
@@ -41,7 +41,7 @@ export const getFranchiseThemeLoading = (state: RootState) => {
 };
 
 export const getAllowedFranchisees = (state: RootState) => {
-  if (state.auth.franchise_role === OWNER_ROLE) {
+  if ([OWNER_ROLE, ADMIN_ROLE].includes(state.auth.franchise_role_identifier)) {
     return [];
   }
   return state.auth.allowed_franchisees;
@@ -150,8 +150,11 @@ export const getFranchiseCompanies = (state: RootState) => {
       getFranchiseCompanyById(state),
     );
   }
-  return null;
+  return [];
 };
+
+export const getAllowedFranchiseCompanies = (state: RootState) =>
+  getFranchiseCompanies(state).filter((c: FranchiseCompany) => c.isAllowed);
 
 export const _getCompanyGroupById = (state: RootState) =>
   getState(state).companyGroup.byId;

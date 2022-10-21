@@ -12158,7 +12158,7 @@
         "consumerPass": {
             "success": "Your purchase has been successfully saved !"
         },
-        "copied": "Copy to the clipboard",
+        "copied": "Copied to the clipboard",
         "contractPause": {
             "create": {
                 "error": "Error while pausing this subscription - try again later"

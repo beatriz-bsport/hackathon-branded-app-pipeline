@@ -653,6 +653,10 @@ exports.default = {
       deleteFail: 'Impossible de supprimer une pause déjà commencée.',
       deleteSuccess: 'La pause a bien été supprimée',
     },
+    register: {
+      success: 'Abonnement enregistré avec succès',
+      error: "Impossible d'enregistrer l'abonnement",
+    },
     updatePrice: {
       success: 'Montant mis à jour',
       error: 'Impossible de modifier ce montant',

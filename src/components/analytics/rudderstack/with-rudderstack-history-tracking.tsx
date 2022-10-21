@@ -31,7 +31,7 @@ export function withRudderStackHistoryTracker<P> (
       };
     }
 
-    componentDidUnmount() {
+    componentWillUnmount() {
       this.state.unlisten();
     }
 

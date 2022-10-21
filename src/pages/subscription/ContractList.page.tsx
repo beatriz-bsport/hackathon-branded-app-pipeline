@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { v4 as uuid4 } from 'uuid';
 import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -70,7 +71,12 @@ import {
   deleteContract,
   restoreContract,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
+  registerContractBackground as registerContractBackgroundAction,
 } from '../../libs/subscription/actions';
+import {
+  displayBackgroundDialog as displayBackgroundDialogAction,
+  deletebackgroundDialog as deletebackgroundDialogAction,
+} from '#libs/background-dialog/actions';
 import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
@@ -82,6 +88,12 @@ import type { Contract } from '../../libs/subscription/types';
 
 import { Coach } from '../../libs/associated-coach/types';
 import { Member } from '../../libs/member/types';
+
+import {
+  DISPLAY_INFORMATION,
+  DISPLAY_SUCCESS,
+  ACTION_MODE_REDIRECT,
+} from '#libs/background-dialog/types';
 
 const stripeRegion = getStripeRegion();
 const companyCountry = getCompanyCountry();
@@ -340,7 +352,7 @@ export class SubscriptionList extends React.Component<Props, State> {
             searchLoading={this.props.searchMemberLoading}
             onChangeMember={this.props.setMemberToBill}
             member={this.props.memberToBill}
-            onSuccess={this.props.onRegisteredBillingPlan}
+            registerContractBackground={this.props.registerContractBackground}
             onClose={this.props.closeContractRegister}
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
@@ -471,6 +483,9 @@ const mapDispatchToProps = {
   fetchStripeReaders,
   fetchMarketingNotificationList,
   fetchEstablishments,
+  registerContractBackground: registerContractBackgroundAction,
+  displayBackgroundDialog: displayBackgroundDialogAction,
+  deletebackgroundDialog: deletebackgroundDialogAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -531,6 +546,54 @@ const mapWithHandlers = {
       setContractRegisterOpen(false);
       setMemberToBill(null);
     },
+  registerContractBackground:
+    ({
+      registerContractBackground,
+      displayBackgroundDialog,
+      deletebackgroundDialog,
+      setContractRegisterOpen,
+      t,
+    }) =>
+    (id: number, data: any, options: OptionCallback) => {
+      const uuid = uuid4();
+      displayBackgroundDialog(
+        uuid,
+        t('subscription:register.dialog.info'),
+        '',
+        undefined,
+        ACTION_MODE_REDIRECT,
+        DISPLAY_INFORMATION,
+      );
+      registerContractBackground(id, data, {
+        onError: (err) => {
+          deletebackgroundDialog(uuid);
+          if (options?.onError) options?.onError(err);
+        },
+        onSuccess: () => {
+          setContractRegisterOpen(false);
+        },
+        onBackgroundError: () => {
+          deletebackgroundDialog(uuid);
+        },
+        onBackgroundSuccess: (responseData) => {
+          deletebackgroundDialog(uuid);
+          displayBackgroundDialog(
+            uuid4(),
+            t('subscription:register.dialog.success', {
+              name: responseData?.billing_plan?.name || '',
+            }),
+            '',
+            responseData?.billing_plan?.id
+              ? `/subscription/${responseData.billing_plan.id}`
+              : undefined,
+            ACTION_MODE_REDIRECT,
+            DISPLAY_SUCCESS,
+          );
+          if (options?.onSuccess) options.onSuccess(responseData);
+        },
+      });
+    },
+  /*
   onRegisteredBillingPlan:
     ({
       setMemberToBill,
@@ -542,7 +605,8 @@ const mapWithHandlers = {
       setContractRegisterOpen(false);
       setMemberToBill(null);
       pushRouter(`/subscription/${billingPlan.id}`);
-    },
+      },
+   */
   requestSetupIntentSecret:
     ({ memberToBill }: typeof withStateHandlersInit) =>
     () =>

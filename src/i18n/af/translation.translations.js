@@ -80,6 +80,7 @@ exports.default = {
   },
   common: {
     pickALanguage: 'Langue',
+    see: 'Voir',
     vaccination_status: 'Status pass sanitaire COVID-19',
     vaccinationDone: 'Pass sanitaire valide',
     vaccinationNotDone: 'Pas de pass sanitaire valide',

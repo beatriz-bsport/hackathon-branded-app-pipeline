@@ -10,6 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
+import { v4 as uuid4 } from 'uuid';
 import { compose, withHandlers, withState } from 'recompose';
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
@@ -50,7 +51,14 @@ import InvoiceInfoDialog from '../../libs/invoice/components/InvoiceInfoDialog.c
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchNumberVideoPurchase } from '../../libs/video/actions';
 import { checkInvoiceInfoActions } from '../../libs/invoice/actions';
-import { fetchContractList as fetchContractListAction } from '../../libs/subscription/actions';
+import {
+  fetchContractList as fetchContractListAction,
+  registerContractBackground as registerContractBackgroundAction,
+} from '../../libs/subscription/actions';
+import {
+  displayBackgroundDialog as displayBackgroundDialogAction,
+  deletebackgroundDialog as deletebackgroundDialogAction,
+} from '../../libs/background-dialog/actions';
 
 import type { Contract } from '../../libs/subscription/types';
 import type { Member } from '../../libs/member/types';
@@ -72,6 +80,12 @@ import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
+
+import {
+  ACTION_MODE_REDIRECT,
+  DISPLAY_SUCCESS,
+  DISPLAY_INFORMATION,
+} from '#libs/background-dialog/types';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
 import Config from '../../config';
@@ -167,6 +181,11 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
+  registerContractBackground: (
+    id: string,
+    data: any,
+    options: OptionCallback,
+  ) => void,
 };
 
 const stripeRegion = getStripeRegion();
@@ -463,6 +482,7 @@ export class MemberDetail extends React.Component<Props> {
           establishments={this.props.establishmentList}
           enableMultiLocalization={this.props.theme.enable_multi_localization}
           stripeReaders={this.props.stripeReaders || []}
+          registerContractBackground={this.props.registerContractBackground}
         />
         <MemberArchiveDialog
           open={this.props.openArchiveDialog}
@@ -525,7 +545,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation(['member']),
+  withTranslation(['member', 'subscription']),
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
     (state, { id }) => ({
@@ -569,6 +589,9 @@ export default compose(
       fetchMember,
       fetchProgram: fetchProgramAction,
       fetchStripeReaders,
+      registerContractBackground: registerContractBackgroundAction,
+      displayBackgroundDialog: displayBackgroundDialogAction,
+      deletebackgroundDialog: deletebackgroundDialogAction,
     },
   ),
   withHandlers({
@@ -625,6 +648,50 @@ export default compose(
       ({ fetchManagerFilters }) =>
       () => {
         fetchManagerFilters();
+      },
+    registerContractBackground:
+      ({
+        registerContractBackground,
+        displayBackgroundDialog,
+        deletebackgroundDialog,
+        closeContractDialog,
+        t,
+      }) =>
+      (id: number, data: any, options: OptionCallback) => {
+        const uuid = uuid4();
+        registerContractBackground(id, data, {
+          onError: options?.onError,
+          onSuccess: () => {
+            closeContractDialog(false);
+            displayBackgroundDialog(
+              uuid,
+              t('subscription:register.dialog.info'),
+              '',
+              undefined,
+              ACTION_MODE_REDIRECT,
+              DISPLAY_INFORMATION,
+            );
+          },
+          onBackgroundError: () => {
+            deletebackgroundDialog(uuid);
+          },
+          onBackgroundSuccess: (responseData) => {
+            deletebackgroundDialog(uuid);
+            displayBackgroundDialog(
+              uuid4(),
+              t('subscription:register.dialog.success', {
+                name: responseData?.billing_plan?.name || '',
+              }),
+              '',
+              responseData?.billing_plan?.id
+                ? `/subscription/${responseData.billing_plan.id}`
+                : undefined,
+              ACTION_MODE_REDIRECT,
+              DISPLAY_SUCCESS,
+            );
+            if (options?.onSuccess) options.onSuccess(responseData);
+          },
+        });
       },
   }),
   withTitle(({ member }) => (member ? member.name : '')),

@@ -80,11 +80,27 @@ export const postContractSubscription = async (id: number, data: any = {}) => {
   });
 };
 
-export const postContractSubscriptionUnauthenticated = async (
+export const registerContractBackground = async (
+  id: number,
+  data: any = {},
+) => {
+  return postAuth(
+    `${API_URI}/subscription/contract/${id}/register_background/`,
+    {
+      ...data,
+      is_v2: true,
+    },
+  );
+};
+
+export const registerContractSubscriptionUnauthenticated = async (
   id: number,
   data: any,
 ) => {
-  return post(`${API_URI}/subscription/contract/${id}/register/`, data);
+  return post(
+    `${API_URI}/subscription/contract/${id}/register_background/`,
+    data,
+  );
 };
 
 export const updatePlannedInvoiceDate = async (

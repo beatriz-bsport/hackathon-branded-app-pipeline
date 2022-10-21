@@ -11,12 +11,12 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import themeSelectors from '../../../libs/theme/selectors';
-import { postContractSubscription as postContractSubscriptionAPI } from '../../../libs/subscription/api';
 
 import SubscriptionContractCard from '../../../libs/subscription/components/SubscriptionContractCard.component';
 import SubscriptionPayment from '../../../libs/subscription/components/SubscriptionPayment.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
+import { registerContractBackground } from '../../../libs/subscription/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
@@ -31,6 +31,11 @@ type Props = {
   fetchPaymentMethodList: (params: any) => void,
   companyTheme: CompanyTheme,
   isExcludingTax?: boolean,
+  registerContractBackground: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -57,19 +62,35 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
       const first_billing_timestamp = moment(
         this.state.firstBillingTimestamp,
       ).unix();
-      await postContractSubscriptionAPI(this.props.contract.id, {
-        stripe_source: token,
-        first_billing_timestamp,
-        payment_method_id,
-        coupon,
-      });
-      try {
-        Analytics.contractPaymentSuccess(this.props.contract);
-      } catch (err) {
-        console.error(err);
-      }
+      this.props.registerContractBackground(
+        this.props.contract.id,
+        {
+          stripe_source: token,
+          first_billing_timestamp,
+          payment_method_id,
+          coupon,
+        },
+        {
+          onBackgroundError: () => {
+            this.setState({ processing: false });
+            this.props.onSubmit(this.props.contract.id, false);
+          },
+          onError: () => {
+            this.setState({ processing: false });
+            this.props.onSubmit(this.props.contract.id, false);
+          },
+          onBackgroundSuccess: () => {
+            this.setState({ processing: false });
+            this.props.onSubmit(this.props.contract.id, true);
+            try {
+              Analytics.contractPaymentSuccess(this.props.contract);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        },
+      );
 
-      this.props.onSubmit(this.props.contract.id, true);
       // this.setState({ firstBillingTimestamp });
     } catch (err) {
       this.props.onSubmit(this.props.contract.id, false);
@@ -138,6 +159,7 @@ export default compose(
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,
+      registerContractBackground,
     },
   ),
 )(SubscriptionContractBooking);

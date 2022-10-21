@@ -39,9 +39,9 @@ export function fetchBackgroundTask(uuid: string) {
   return async (dispatch: Dispatch) => {
     dispatch(backgroundTaskDetail.isLoading(true));
     dispatch(backgroundTaskDetail.error(null));
-
+    let response = null;
     try {
-      const response = await fetchBackgroundTaskAPI(uuid);
+      response = await fetchBackgroundTaskAPI(uuid);
       dispatch(backgroundTaskDetail.success(response.data));
     } catch (err) {
       console.error(err);
@@ -49,6 +49,7 @@ export function fetchBackgroundTask(uuid: string) {
       fetchFailedCounter += 1;
     }
     dispatch(backgroundTaskDetail.isLoading(false));
+    return response;
   };
 }
 
@@ -78,7 +79,10 @@ const checkFetchSetTimeoutRecursive = async (
     dispatch(backgroundSnackbarError(uuid, 'background.cannotFetch'));
     return;
   }
-  await fetchBackgroundTask(uuid)(dispatch);
+  await fetchBackgroundTask(uuid, options)(dispatch);
+
+  const data = getState().backgroundTask.byUuid[uuid] || {};
+
   if (
     uuid in getState().backgroundTask.byUuid &&
     getState().backgroundTask.byUuid[uuid].status !==
@@ -90,7 +94,7 @@ const checkFetchSetTimeoutRecursive = async (
       BACKGROUND_TASK_STATUS_CODE_SUCCESS
     ) {
       dispatch(backgroundSnackbarSuccess(uuid, 'background.success'));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(data);
     } else if (
       getState().backgroundTask.byUuid[uuid].status ===
       BACKGROUND_TASK_STATUS_CODE_FAILED

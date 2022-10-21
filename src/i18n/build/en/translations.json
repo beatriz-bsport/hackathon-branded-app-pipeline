@@ -1816,6 +1816,7 @@
             "restore": "Restore",
             "share": "Share",
             "pickALanguage": "Language",
+	    "see": "See",
             "emergencyContact": "Emergency contact",
             "disconnect": "Log out",
             "vaccinationDontWantToCommunicate": "Prefer not to answer",
@@ -7995,6 +7996,13 @@
         },
         "noAssociatedSubscription": "There are no saved subscriptions to display.",
         "associatedSubscriptions": "Subscribed members",
+    	"register": {
+    	  "dialog": {
+    	    "success": "Your subscription {{- name }} has been registered successfully.",
+    	    "error": "Impossible to register the subscription, please retry later.",
+    	    "info": "Your subscription is being registered, we will inform you when it is ready."
+    	  }
+    	},
         "status": {
             "hasEnded": "Ended",
             "hasStopped": "Paused",
@@ -11574,6 +11582,7 @@
             "success": "Webhook subscribed"
         },
         "subscription": {
+	      "register": { "success": "Subscription registered successfully", "error": "Impossible to register the subscription" },
             "youSubscribed": {
                 "success": "You have successfully subscribed",
                 "error": "Error while subscribing"

@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions';
 import { Dispatch } from '../../state/types';
 
+import { ACTION_MODE_DOWNLOAD, DISPLAY_INFORMATION } from './types';
+
 export const backgroundDialogDisplay = createAction(
   'BACKGROUND_DIALOG/DISPLAY',
 );
@@ -13,9 +15,20 @@ export function displayBackgroundDialog(
   message: string,
   title: string,
   link: string,
+  actionMode: string = ACTION_MODE_DOWNLOAD,
+  displayMode: string = DISPLAY_INFORMATION,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(backgroundDialogDisplay({ uuid, title, message, link }));
+    dispatch(
+      backgroundDialogDisplay({
+        uuid,
+        title,
+        message,
+        link,
+        actionMode,
+        displayMode,
+      }),
+    );
   };
 }
 
@@ -24,8 +37,3 @@ export function deletebackgroundDialog(backgroundDialogId: number) {
     dispatch(backgroundDialogDestroy(backgroundDialogId));
   };
 }
-export const backgroundDialogSuccess = displayBackgroundDialog('success');
-
-export const backgroundDialog = {
-  success: backgroundDialogSuccess,
-};

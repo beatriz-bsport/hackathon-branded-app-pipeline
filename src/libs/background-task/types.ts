@@ -1,7 +1,8 @@
 export type BackgroundTask = {
   uuid: string;
   status: number;
-  readable_identifier: string;
+  task_name: string;
+  return_value: any;
 };
 
 export type BackgroundTaskState = {

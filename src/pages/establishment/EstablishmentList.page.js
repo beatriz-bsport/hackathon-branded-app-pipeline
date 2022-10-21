@@ -51,7 +51,7 @@ type Props = {
   establishments: Array<Establishment>,
   establishmentsArchived: Array<Establishment>,
 
-  fetchEstablishments: ({ page_size?: number }) => void,
+  fetchEstablishments: (data: { page_size?: number }) => void,
   startUpdateEstablishment: (data: any) => void,
   goToEstablishment: (id: number) => void,
   establishmentToDelete: ?number,

@@ -20,59 +20,62 @@ import { Moment } from '../../../i18n';
 import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 
-import { postContractSubscription as postContractSubscriptionAPI } from '../api';
-
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
-import type { Establishment } from '../../establishment/types';
-import type { StripeReader } from '#libs/terminal/types';
+import { Establishment } from '../../establishment/types';
+import { StripeReader } from '#libs/terminal/types';
+import { Contract } from '../types';
+import { Member } from '../../member/types';
+import { PaymentMethod } from '../../payment/types';
 
 type Props = {
-  t: TFunction,
-  classes: Object,
+  t: TFunction;
+  classes: Object;
 
-  member: ?Member,
-  searchLoading: boolean,
-  searchedMembers: Array<Member>,
-  searchMembers: (txt: string) => void,
-  onChangeMember: (Member) => void,
+  member: Member | null;
+  searchLoading: boolean;
+  searchedMembers: Array<Member>;
+  searchMembers: (txt: string) => void;
+  onChangeMember: (Member) => void;
 
-  open: boolean,
-  date: string,
-  setDate: (string) => void,
-  processing: boolean,
+  open: boolean;
+  date: string;
+  setDate: (string) => void;
+  processing: boolean;
 
-  contractList: ?Array<Contract>,
-  contract: ?Contract,
-  contractLoading: boolean,
-  onChangeContract: (Contract) => void,
-  goToCustomSubscriptionForm: () => void,
-  enabledPaymentMethods: Array<number>,
+  contractList?: Array<Contract>;
+  contract?: Contract;
+  contractLoading: boolean;
+  onChangeContract: (Contract) => void;
+  goToCustomSubscriptionForm: () => void;
+  enabledPaymentMethods: Array<number>;
 
-  onSubmit: (token: string) => void,
-  onClose: () => void,
+  onSubmit: (token: string) => void;
+  onClose: () => void;
 
-  requestSetupIntentSecret: () => void,
-  savedPaymentMethodList: Array<PaymentMethod>,
-  refreshSavedPaymentMethodList: () => void,
-  waiver: string,
-  generalTermsAndConditions: string,
-  establishments: Array<Establishment>,
-  enableMultiLocalization: boolean,
-  stripeReaders: StripeReader[],
+  requestSetupIntentSecret: () => void;
+  savedPaymentMethodList: Array<PaymentMethod>;
+  refreshSavedPaymentMethodList: () => void;
+  waiver: string;
+  generalTermsAndConditions: string;
+  establishments: Array<Establishment>;
+  enableMultiLocalization: boolean;
+  stripeReaders: StripeReader[];
 
-  onlinePaymentEnabled: boolean,
+  onlinePaymentEnabled: boolean;
 };
 
-const ContractPickerDialog = (props: {
-  t: TFunction,
-  classes: Object,
-  open: boolean,
-  contractList: ?Array<Contract>,
-  contractLoading: boolean,
-  onChangeContract: (Contract) => void,
-  onClose: () => void,
-  goToCustomSubscriptionForm: () => void,
-}) => (
+type PickerProps = {
+  t: TFunction;
+  classes: Object;
+  open: boolean;
+  contractList?: Array<Contract>;
+  contractLoading: boolean;
+  onChangeContract: (Contract) => void;
+  onClose: () => void;
+  goToCustomSubscriptionForm: () => void;
+};
+
+const ContractPickerDialog = (props: PickerProps) => (
   <GenericResponsiveDialog open={props.open} maxWidth="sm">
     <DialogTitle>{props.t('contract.registerManager.title')}</DialogTitle>
     <DialogContent>
@@ -312,7 +315,14 @@ export default compose(
   withState('processing', 'setProcessing', false),
   withHandlers({
     onSubmit:
-      ({ date, setProcessing, member, contract, onSuccess }) =>
+      ({
+        date,
+        setProcessing,
+        member,
+        contract,
+        onSuccess,
+        registerContractBackground,
+      }) =>
       async (
         token: string,
         paymentMethodId?: string,
@@ -326,27 +336,24 @@ export default compose(
         const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
 
         setProcessing(true);
-        let response = null;
-        try {
-          response = await postContractSubscriptionAPI(contract.id, {
-            stripe_source: token,
-            member: member.id,
-            payment_method_id: paymentMethodId,
-            is_payment_method_for_past_invoices_saved:
-              isPaymentMethodForPastInvoicesSaved,
-            payment_method_past_invoices_id: paymentMethodPastInvoicesId,
-            coupon,
-            first_billing_timestamp,
-            note,
-            billing_establishment_id,
-          });
-        } catch (err) {
-          console.error(err);
-        }
-        setProcessing(false);
-        if (response && response.data) {
-          onSuccess(response.data);
-        }
+        const data = {
+          stripe_source: token,
+          member: member.id,
+          payment_method_id: paymentMethodId,
+          is_payment_method_for_past_invoices_saved:
+            isPaymentMethodForPastInvoicesSaved,
+          payment_method_past_invoices_id: paymentMethodPastInvoicesId,
+          coupon,
+          first_billing_timestamp,
+          note,
+          billing_establishment_id,
+        };
+        registerContractBackground(contract.id, data, {
+          onSuccess: () => {
+            setProcessing(false);
+            onSuccess && onSuccess();
+          },
+        });
       },
   }),
 )(SubscriptionContractRegistrationManagerDialog);

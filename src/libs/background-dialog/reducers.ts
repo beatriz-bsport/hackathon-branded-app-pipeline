@@ -17,6 +17,8 @@ export default handleActions(
         title: payload.title,
         message: payload.message,
         link: payload.link,
+        displayMode: payload.displayMode,
+        actionMode: payload.actionMode,
       });
       return state.merge({ messages });
     },

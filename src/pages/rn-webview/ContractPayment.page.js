@@ -11,13 +11,15 @@ import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '.
 import asyncComponent from '../../AsyncComponent';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
-import { fetchContractDetail } from '../../libs/subscription/actions';
+import {
+  fetchContractDetail,
+  registerContractBackground,
+} from '../../libs/subscription/actions';
 import { getContract } from '../../libs/subscription/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
 import Analytics from '../../components/analytics/Analytics.component';
 
 const SubscriptionPayment = asyncComponent(() =>
@@ -38,6 +40,12 @@ type Props = {
   fetchContractDetail: (number) => void,
   companyTheme?: CompanyTheme,
   fetchCompanyTheme: (companyId: number) => void,
+  registerContractBackground: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+    auth: boolean,
+  ) => void,
 };
 
 type State = {
@@ -77,28 +85,34 @@ export class ContractPayment extends React.Component<Props, State> {
     coupon_code: string | null,
   ) => {
     this.setState({ processing: true });
-    try {
-      const first_billing_timestamp = moment(
-        this.props.date,
-        'YYYY-MM-DD',
-      ).unix();
-      await postContractSubscriptionUnauthenticatedAPI(this.props.contractId, {
+    const first_billing_timestamp = moment(
+      this.props.date,
+      'YYYY-MM-DD',
+    ).unix();
+    this.props.registerContractBackground(
+      this.props.contractId,
+      {
         first_billing_timestamp,
         member: this.props.memberId,
         payment_method_id,
         is_v2: true,
         coupon: coupon_code,
-      });
-      this.props.onSuccess();
-    } catch (err) {
-      console.error(err);
-    }
-    try {
-      Analytics.contractPaymentSuccess(this.props.contract);
-    } catch (err) {
-      console.error(err);
-    }
-    this.setState({ processing: false });
+      },
+      {
+        onBackgroundSuccess: () => {
+          this.props.onSuccess();
+          try {
+            Analytics.contractPaymentSuccess(this.props.contract);
+          } catch (err) {
+            console.error(err);
+          }
+          this.setState({ processing: false });
+        },
+        onError: () => this.setState({ processing: false }),
+        onBackgroundError: () => this.setState({ processing: false }),
+      },
+      true,
+    );
   };
 
   render() {
@@ -170,6 +184,7 @@ export default compose(
       fetchContractDetail,
       fetchPaymentMethodList,
       fetchCompanyTheme,
+      registerContractBackground,
     },
   ),
   withHandlers({

@@ -18,6 +18,13 @@ const {
 exports.default = {
   search: 'Rechercher un contrat',
   seeMore: 'Voir plus',
+  register: {
+    dialog: {
+      success: 'Votre abonnement {{- name }} a bien été enregistré.',
+      error: "Impossible d'enregistrer l'abonnement.",
+      info: "Votre abonnement est en cours d'enregistrement, nous vous préviendrons lorsqu'il sera prêt.",
+    },
+  },
   status: {
     hasStarted: 'En cours',
     hasNotStartedYet: 'Pas encore commencé',

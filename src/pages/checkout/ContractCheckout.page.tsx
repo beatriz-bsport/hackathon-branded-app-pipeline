@@ -46,8 +46,8 @@ import {
 import {
   fetchMarketplaceContractList,
   fetchContractDetail,
+  registerContractBackground,
 } from '../../libs/subscription/actions';
-import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 import SubscriptionContractDetail from '../../libs/subscription/components/SubscriptionContractDetail.component';
 import MarketplaceSubscriptionContractList from '../../libs/subscription/components/MarketplaceSubscriptionContractList.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
@@ -190,24 +190,33 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     this.setState({ processing: true });
     try {
       const first_billing_timestamp = moment(this.props.date).unix();
-      await postContractSubscriptionAPI(this.props.contractId, {
-        payment_method_id,
-        first_billing_timestamp,
-        coupon,
-        ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
-      });
-      this.goToValidationPage(true);
-
-      try {
-        const contract =
-          this.props.contractList.find(
-            (c: ContractWithPaymentPack) =>
-              c.id === parseInt(this.props.contractId),
-          ) || this.props.contract;
-        Analytics.contractPaymentSuccess(contract);
-      } catch (err) {
-        console.error(err);
-      }
+      this.props.registerContractBackground(
+        this.props.contractId,
+        {
+          payment_method_id,
+          first_billing_timestamp,
+          coupon,
+          ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
+        },
+        {
+          onError: () => this.setState({ processing: false }),
+          onBackgroundError: () => this.setState({ processing: false }),
+          onBackgroundSuccess: () => {
+            this.goToValidationPage(true);
+            this.setState({ processing: false });
+            try {
+              const contract =
+                this.props.contractList.find(
+                  (c: ContractWithPaymentPack) =>
+                    c.id === parseInt(this.props.contractId),
+                ) || this.props.contract;
+              Analytics.contractPaymentSuccess(contract);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        },
+      );
     } catch (err) {
       console.error(err);
       this.goToValidationPage(false);
@@ -216,7 +225,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     if (options && options.onSuccess) {
       options.onSuccess();
     }
-    this.setState({ processing: false });
   };
 
   goToValidationPage = (success: boolean) => {
@@ -407,6 +415,7 @@ const mapDispatchToProps = {
   detachPaymentMethodAction: detachPaymentMethod,
   snackbarErrorMsg: snackbarWarning,
   snackbarSuccessMsg: snackbarSuccess,
+  registerContractBackground,
   goToUserSpace: (companyId: number, companyName: string) => {
     if (!WidgetUtils.isWidget()) {
       return replaceAction(`/c/${companyId}/subscription/`);

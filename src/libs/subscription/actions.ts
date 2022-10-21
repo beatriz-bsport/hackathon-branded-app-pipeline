@@ -22,6 +22,8 @@ import api, {
   createOrUpdateContractPause as createOrUpdateContractPauseAPI,
   deleteContractPause as deleteContractPauseAPI,
   updateOnlyContractPauseName as updateOnlyContractPauseNameAPI,
+  registerContractBackground as registerContractBackgroundAPI,
+  registerContractSubscriptionUnauthenticated as registerContractBackgroundUnauthenticatedAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -980,5 +982,56 @@ export function fetchContractPause(id: number, options?: OptionCallback) {
     }
 
     dispatch(retrieveContractPauseActions.isLoading(false));
+  };
+}
+
+export const registerContractBackgroundActions = {
+  error: createAction('CONTRACT/REGISTER_BACKGROUND/ERROR'),
+  isLoading: createAction('CONTRACT/REGISTER_BACKGROUND/IS_LOADING'),
+  success: createAction('CONTRACT/REGISTER_BACKGROUND/SUCCESS'),
+};
+
+export function registerContractBackground(
+  id: number,
+  data: any,
+  options?: OptionCallback,
+  noAuth: boolean = false,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(registerContractBackgroundActions.isLoading(true));
+    dispatch(registerContractBackgroundActions.error(null));
+
+    try {
+      const apiCall = noAuth
+        ? registerContractBackgroundUnauthenticatedAPI
+        : registerContractBackgroundAPI;
+      const response = await apiCall(id, data);
+
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            if (options?.onBackgroundError) options.onBackgroundError(err);
+          },
+          onSuccess: (responseData) => {
+            dispatch(registerContractBackgroundActions.success(response.data));
+            if (options && options.onBackgroundSuccess) {
+              options.onBackgroundSuccess(responseData?.return_value);
+            }
+          },
+        }),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(registerContractBackgroundActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(registerContractBackgroundActions.isLoading(false));
   };
 }

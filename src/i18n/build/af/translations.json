@@ -7551,6 +7551,7 @@
         "deleteFail": "Impossible de supprimer une pause déjà commencée.",
         "deleteSuccess": "La pause a bien été supprimée"
       },
+      "register": { "success": "Abonnement enregistré avec succès", "error": "Impossible d'enregistrer l'abonnement" },
       "updatePrice": { "success": "Montant mis à jour", "error": "Impossible de modifier ce montant" },
       "youSubscribed": { "error": "Erreur lors de l'abonnement", "success": "Vous êtes désormais abonné" },
       "contract": { "restore": { "success": "Contrat restauré avec succès", "error": "Impossible de restaurer le contrat" } },
@@ -7896,6 +7897,13 @@
   "subscription": {
     "search": "Rechercher un contrat",
     "seeMore": "Voir plus",
+    "register": {
+      "dialog": {
+        "success": "Votre abonnement {{- name }} a bien été enregistré.",
+        "error": "Impossible d'enregistrer l'abonnement.",
+        "info": "Votre abonnement est en cours d'enregistrement, nous vous préviendrons lorsqu'il sera prêt."
+      }
+    },
     "status": {
       "hasStarted": "En cours",
       "hasNotStartedYet": "Pas encore commencé",
@@ -8927,6 +8935,7 @@
     "members": { "form": { "title": "Nouveau membre" } },
     "common": {
       "pickALanguage": "Langue",
+      "see": "Voir",
       "vaccination_status": "Status pass sanitaire COVID-19",
       "vaccinationDone": "Pass sanitaire valide",
       "vaccinationNotDone": "Pas de pass sanitaire valide",

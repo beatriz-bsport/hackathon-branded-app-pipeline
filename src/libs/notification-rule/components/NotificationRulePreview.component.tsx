@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useMemo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { IconButton, Theme, makeStyles, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -7,9 +7,13 @@ import InfoIcon from '@material-ui/icons/Info';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 
 import { NotificationRule, NotificationRuleEventType } from '../types';
-import { EmailTemplateDetail } from '#libs/email-editor/types';
+import {
+  EmailTemplateDetail,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import NotificationPushPreview from '#components/notification-push/NotificationPushPreview.component';
 import { CompanyTheme } from '#libs/theme/types';
+import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
 
 type Props = {
   previewEmail?: {
@@ -21,6 +25,7 @@ type Props = {
   displayMode?: 'notification' | 'email';
   showEmailPreviewHTML?: (html: string) => void;
   showEmailPreview?: (id: number) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const NotificationRulePreview = (props: Props) => {
@@ -30,6 +35,7 @@ const NotificationRulePreview = (props: Props) => {
     previewEmail,
     theme,
     displayMode,
+    resolvedGenericTags,
     showEmailPreviewHTML,
     showEmailPreview,
   } = props;
@@ -44,6 +50,21 @@ const NotificationRulePreview = (props: Props) => {
       showEmailPreview(rule?.email_design);
     }
   };
+
+  const emailPreview = useMemo(
+    () =>
+      replaceGenericTagsInTemplate(
+        resolvedGenericTags,
+        previewEmail?.[event?.rule?.email_design]?.html ||
+          event?.rule?.email_template,
+      ),
+    [
+      event?.rule?.email_design,
+      event?.rule?.email_template,
+      resolvedGenericTags,
+      previewEmail,
+    ],
+  );
 
   return (
     <div className={className}>
@@ -61,10 +82,7 @@ const NotificationRulePreview = (props: Props) => {
         <Paper className={classes.preview}>
           <iframe
             title="notification-rule-preview-iframe"
-            srcDoc={
-              previewEmail?.[event?.rule?.email_design]?.html ||
-              event?.rule?.email_template
-            }
+            srcDoc={emailPreview}
             className={classes.html}
             scrolling="no"
             frameBorder="0"
@@ -90,6 +108,7 @@ const NotificationRulePreview = (props: Props) => {
                 }}
                 theme={theme}
                 className={classes.fullAvailableSize}
+                resolvedGenericTags={resolvedGenericTags}
               />
             )}
           {(!event.rule ||

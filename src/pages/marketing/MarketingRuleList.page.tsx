@@ -59,8 +59,14 @@ import {
 } from '#libs/email-editor/selectors';
 import { fetchMarketingNotificationCampaignSummary } from '#libs/communication/actions';
 import { getAll as getAllPaymentPacks } from '#libs/payment-packs/selectors';
-import { fetchTagList } from '#libs/notification-rule/actions';
-import { getTagCategories } from '#libs/notification-rule/selectors';
+import {
+  fetchTagList,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+} from '#libs/notification-rule/actions';
+import {
+  getTagCategories,
+  getResolvedGenericTags,
+} from '#libs/notification-rule/selectors';
 
 import { MaterialStyleType } from '../../utils/types';
 
@@ -71,7 +77,10 @@ import MarketingRuleListPrivateBooking from '#libs/marketing/components/Marketin
 
 import { MarketingNotification } from '#libs/marketing/types';
 import MarketingRuleDetail from '#libs/marketing/components/MarketingRuleDetail.component';
-import { EmailTemplateSummary } from '#libs/email-editor/types';
+import {
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import MarketingRuleFormGeneric from '#libs/marketing/components/MarketingRuleFormGeneric.component';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
@@ -98,6 +107,11 @@ type Props = ReturnType<typeof mapStateToProps> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation & {
     notificationId?: number;
+
+    fetchTagList: () => void;
+    fetchResolvedGenericTags: () => void;
+    tagCategories: { [tag_name: string]: string[] };
+    resolvedGenericTags: ResolvedGenericTags;
   };
 
 type State = {
@@ -120,6 +134,8 @@ export class MarketingRuleListPage extends Component<Props, State> {
 
   componentDidMount() {
     this.fetchData();
+
+    this.props.fetchResolvedGenericTags();
 
     if (this.props.notificationId) {
       this.props.fetchMarketingNotificationCampaignSummary(
@@ -430,6 +446,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
             contractById={this.props.contractById}
             notificationsStatById={this.props.notificationsStatById}
             theme={this.props.theme}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </div>
 
@@ -459,6 +476,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
           privatePasses={this.props.privatePasses}
           createFormOpenType={this.state.createFormOpen}
           closeForm={this.closeForm}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <FabWithItems
           label={this.props.t(
@@ -543,6 +561,7 @@ const mapStateToProps = (state: RootState) => ({
   theme: getTheme(state),
   tagCategories: getTagCategories(state),
   privatePasses: getPrivatePasses(state),
+  resolvedGenericTags: getResolvedGenericTags(state),
 });
 
 const mapDispatchToProps = {
@@ -572,6 +591,7 @@ const mapDispatchToProps = {
   fetchTagList,
   fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   push,
+  fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
 };
 
 export default compose(

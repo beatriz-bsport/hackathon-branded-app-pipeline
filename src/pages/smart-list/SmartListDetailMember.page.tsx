@@ -21,6 +21,8 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 // SMARTLIST
 
 import {
@@ -142,6 +144,7 @@ import AutomatedCampaignDrawer from '#libs/smart-list/components/automated_campa
 import AutomatedCampaignPanel from '#libs/smart-list/components/automated_campaign/AutomatedCampaignPanel.component';
 import MemberTable from '#libs/member/MemberTable.component';
 import CommunicationDrawer from '../../libs/communication/components/CommunicationDrawer.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type OwnProps = {
   id: number;
@@ -158,6 +161,7 @@ type OwnProps = {
   setOpenAutomatedCampaignDrawer: (open: boolean) => void;
   selectAutomatedCampaignId: number | null;
   setSelectAutomatedCampaignId: (id: number | null) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 } & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
@@ -190,6 +194,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       exclude_disabled: true,
     });
     this.handleFetchLevel();
+    this.props.fetchResolvedGenericTags();
   }
 
   handleFetchLevel = () => {
@@ -441,6 +446,8 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           countTotal={this.props.countTotal}
           countWithPhone={this.props.countWithPhone}
           countWithEmail={this.props.countWithEmail}
+          genericTags={this.props.genericTags}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <CommunicationDrawer
           open={this.props.openSendEmail}
@@ -490,6 +497,8 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           countTotal={this.props.members.countTotal}
           countWithPhone={this.props.members.countWithPhone}
           countWithEmail={this.props.members.countWithEmail}
+          genericTags={this.props.genericTags}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <SmartListEditDialog
           open={this.state.openEditDialog}
@@ -611,6 +620,7 @@ const connector = connect(
     email_templates_details: getEmailTemplatesDetail(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
+    resolvedGenericTags: getResolvedGenericTags(state),
 
     // LEVEL
     customLevels: getAllCustomLevels(state),
@@ -657,6 +667,7 @@ const connector = connect(
     // EMAIL
     fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
     fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
 
     // ACTIVITIES
     fetchMetaActivityBulk,

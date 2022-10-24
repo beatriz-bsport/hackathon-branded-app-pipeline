@@ -38,6 +38,7 @@ type Props = {
   onChangeTemplate: (id: number) => void,
   selectedMail: number,
   title: string,
+  resolvedGenericTags: ResolvedGenericTags,
 };
 
 export class SelectTemplate extends Component<Props> {
@@ -173,6 +174,7 @@ export class SelectTemplate extends Component<Props> {
                   html={
                     this.props.emailDetails?.[this.props.selectedMail]?.html
                   }
+                  resolvedGenericTags={this.props.resolvedGenericTags}
                 />
               ) : (
                 this.renderLoadingOrEmpty(

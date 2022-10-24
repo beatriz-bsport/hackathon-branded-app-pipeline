@@ -26,6 +26,7 @@ import NotificationListInner from '../NotificationListInner.component';
 import { PrivatePass } from '#libs/private-service/types';
 
 import { getMergeTags } from '../../utils';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   getEmails: () => void;
@@ -53,13 +54,14 @@ type Props = {
   isFormOpen: boolean;
   setIsFormOpen: (open: boolean) => void;
   tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const PrivatePasssNotification = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation('privateService');
 
-  const { notifications, emails, smartLists } = props;
+  const { notifications, emails, smartLists, resolvedGenericTags } = props;
   if (notifications.loading) {
     return (
       <div className={classes.loading}>
@@ -147,6 +149,7 @@ const PrivatePasssNotification = (props: Props) => {
           onSubmit={props.onSubmit}
           identifier="private_pass"
           tags={mergeTags}
+          resolvedGenericTags={resolvedGenericTags}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

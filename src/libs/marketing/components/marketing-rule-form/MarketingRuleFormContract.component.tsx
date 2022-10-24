@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Form, FormikProps, withFormik } from 'formik';
 import { compose } from 'recompose';
 
@@ -49,8 +49,12 @@ import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/Gener
 import { MarketingNotification } from '../../types';
 import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
 import type { FeatureList } from '#libs/company/types';
-import { EmailTemplateDetail } from '#libs/email-editor/types';
+import {
+  EmailTemplateDetail,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
+import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -170,6 +174,7 @@ type Props = {
   smartLists: Array<any>;
   getSmartLists: () => void;
   goToSmartlist: () => void;
+  resolvedGenericTags: ResolvedGenericTags;
 } & FormikProps<InitialFormikValues>;
 
 const MarketingRuleFormContract = (props: Props) => {
@@ -190,6 +195,7 @@ const MarketingRuleFormContract = (props: Props) => {
     smartLists,
     getSmartLists,
     goToSmartlist,
+    resolvedGenericTags,
   } = props;
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
@@ -224,6 +230,15 @@ const MarketingRuleFormContract = (props: Props) => {
     smartlist_exclude,
     smartlist_include,
   } = values;
+
+  const emailPreview = useMemo(
+    () =>
+      replaceGenericTagsInTemplate(
+        resolvedGenericTags,
+        emailDetails[emailDesign]?.html,
+      ),
+    [emailDesign, emailDetails, resolvedGenericTags],
+  );
 
   return (
     <GenericResponsiveDrawer
@@ -806,9 +821,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: emailDetails
-                              ? emailDetails[emailDesign].html
-                              : null,
+                            __html: emailPreview || null,
                           }}
                         />
                       </div>

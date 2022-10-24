@@ -12,6 +12,7 @@ import {
 } from '#libs/communication-v2/types';
 import { Member } from '#libs/member/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -29,6 +30,7 @@ type OwnProps = {
   loadingRecipientList: boolean;
   paginationSize: number;
   recipientList: Recipient<Member>[];
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
@@ -126,6 +128,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
           showEmailTemplate={this.showEmailTemplate}
           oneToOneThreadMember={contextMember}
           currentPage={this.props.currentPage}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         {this.state.openEmailView && (
           <HTMLPreviewDialog
@@ -133,6 +136,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
             onClose={this.closeEmailView}
             html={this.state.selectedMailBody}
             title={this.state.selectedMailTitle}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         )}
         {this.state.openInformationModal && (

@@ -5,6 +5,7 @@ import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
 import CommunicationThreadMessageBubble from './SingleMessage/CommunicationThreadMessageBubble.component';
 import { ThreadCommunication } from '#libs/communication-v2/types';
 import { Member } from '#libs/member/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   threadCommunicationList: Array<ThreadCommunication>;
@@ -14,6 +15,7 @@ type Props = {
   showCommunicationInformation: (communication?: ThreadCommunication) => void;
   showEmailTemplate: (title?: string, html?: string) => void;
   currentPage: number;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const OFFSET = 5;
@@ -76,6 +78,7 @@ const CommunicationThreadScrollableView = (props: Props) => {
             }
             onShowEmailTemplate={props.showEmailTemplate}
             oneToOneThreadMember={props.oneToOneThreadMember}
+            resolvedGenericTags={props.resolvedGenericTags}
           />
         ))
       )}

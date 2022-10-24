@@ -103,8 +103,14 @@ import {
   fetchAllSmartLists,
 } from '#libs/smart-list/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
-import { getTagCategories } from '#libs/notification-rule/selectors';
-import { fetchTagList } from '#libs/notification-rule/actions';
+import {
+  getTagCategories,
+  getResolvedGenericTags,
+} from '#libs/notification-rule/selectors';
+import {
+  fetchTagList,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+} from '#libs/notification-rule/actions';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { setGenericFilterValue } from '#libs/payment-packs/utils';
@@ -154,6 +160,7 @@ export class PrivatePassDetails extends Component<Props> {
       page: 1,
       page_size: MASS_EXTENSION_PAGINATION_SIZE,
     });
+    this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
   }
 
@@ -290,6 +297,7 @@ export class PrivatePassDetails extends Component<Props> {
             is_expired
             goToSmartlist={this.props.goToSmartlist}
             tags={this.props.tagCategories}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </Grid>
         <BottomActionsButton
@@ -525,6 +533,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   smartLists: getAllSmartList(state),
   smartListLoading: state.smartList.loading,
   tagCategories: getTagCategories(state),
+  resolvedGenericTags: getResolvedGenericTags(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,
 });
 
@@ -574,6 +583,7 @@ const mapDispatchToProps = {
   isPrivatePassUsedInCombo,
   redirectToLinkedPaymentPack: (linkedPaymentPackId: number) =>
     replace(`/payment-pack/${linkedPaymentPackId}`),
+  fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
 };
 
 const mapWithHandlers = {

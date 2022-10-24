@@ -10,9 +10,11 @@ import {
   deleteNotificationRule as deleteNotificationRuleAPI,
   fetchSettingsList as fetchSettingsListAPI,
   updateSettings as updateSettingsAPI,
+  fetchNotificationGenericTagsList,
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 export const notificationRuleListActions = {
   error: createAction('NOTIFICATION_RULE/LIST/ERROR'),
@@ -64,19 +66,8 @@ export function fetchNotificationRuleList(
         params,
       );
 
-      const { rules, tags } = response_generic_rules.data;
-      const genericRulesList = rules.map((r: any) => ({
-        ...r,
-        email_template: Object.entries(tags).reduce(
-          (acc, [tagName, tagValue]) => {
-            const replaced = acc.replace(tagName, tagValue);
-            return replaced;
-          },
-          r.email_template || '',
-        ),
-      }));
-
-      const data = [...response_custom.data, ...genericRulesList];
+      const { rules } = response_generic_rules.data;
+      const data = [...response_custom.data, ...rules];
       dispatch(notificationRuleListActions.success(data));
       dispatch(notificationRuleListActions.error(null));
       if (options && options.onSuccess) {
@@ -91,6 +82,38 @@ export function fetchNotificationRuleList(
     }
 
     dispatch(notificationRuleListActions.isLoading(false));
+  };
+}
+
+export const genericTagsActions = {
+  error: createAction('NOTIFICATION_RULE/GENERIC_TAGS/ERROR'),
+  isLoading: createAction('NOTIFICATION_RULE/GENERIC_TAGS/IS_LOADING'),
+  success: createAction('NOTIFICATION_RULE/GENERIC_TAGS/SUCCESS'),
+};
+
+export function fetchResolvedGenericTags(
+  options?: OptionCallback<any /* TODO Types */>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(genericTagsActions.isLoading(true));
+    dispatch(genericTagsActions.error(null));
+    try {
+      const response = await fetchNotificationGenericTagsList();
+      const data: ResolvedGenericTags = response.data;
+      dispatch(genericTagsActions.success(data));
+      dispatch(genericTagsActions.error(null));
+      if (options && options.onSuccess) {
+        options.onSuccess(data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(genericTagsActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(genericTagsActions.isLoading(false));
   };
 }
 

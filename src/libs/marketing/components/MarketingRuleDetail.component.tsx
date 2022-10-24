@@ -21,6 +21,7 @@ import { TFunction } from 'i18next';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
+  ResolvedGenericTags,
 } from '../../email-editor/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
@@ -56,6 +57,7 @@ type OwnProps = {
   contractById: { [key: string]: Contract };
   notificationsStatById: { [key: string]: MarketingNotificationMailStat };
   theme: CompanyTheme;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type Props = OwnProps &
@@ -366,7 +368,8 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
     const { classes, t } = this.props;
     return (
       <React.Fragment>
-        {/* INCOMING COMMUNICATION CHAT
+        {/* TODO: COMMUNICATION CHAT : ADD THE RESOLVED GENERIC TAGS */}
+        {/* INCOMING COMMUNICATION CHAT,
           {!!this.props.selectedNotification && (
           <CommunicationDrawer
             openDrawer={this.state.openCommunicationDrawer}
@@ -475,7 +478,11 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
                     {t('marketing:notifications.mailTitle')}
                   </Typography>
                   <Divider className={classes.divider} />
-                  <HTMLPreview html={this.props.emailDetails.html} scrolling />
+                  <HTMLPreview
+                    html={this.props.emailDetails.html}
+                    scrolling
+                    resolvedGenericTags={this.props.resolvedGenericTags}
+                  />
                 </>
               )}
               <FeatureListProvider>
@@ -500,6 +507,7 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
                           <NotificationPushPreview
                             notification={this.props.selectedNotification}
                             theme={this.props.theme}
+                            resolvedGenericTags={this.props.resolvedGenericTags}
                           />
                         </>
                       )}

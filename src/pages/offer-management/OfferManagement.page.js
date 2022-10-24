@@ -55,6 +55,8 @@ import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
 } from '#libs/spot-scheduling/actions';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 
 import {
   getSpotTypesOfCompany,
@@ -208,6 +210,7 @@ export default compose(
       email_templates_list: getAllEmailTemplatesSummaries(state),
 
       email_templates_details: getEmailTemplatesDetail(state),
+      resolvedGenericTags: getResolvedGenericTags(state),
 
       establishmentList: getAvailableEstablishmentList(state),
       // invoice
@@ -248,6 +251,7 @@ export default compose(
 
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: emailTemplateDetail,
+      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
 
       fetchEstablishmentList: fetchEstablishments,
 
@@ -498,6 +502,7 @@ export default compose(
         fetchConsumerGiftcardList,
         fetchGroupOffer,
         fetchPaymentPackBulk,
+        fetchResolvedGenericTags,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -556,6 +561,7 @@ export default compose(
             },
           },
         );
+        fetchResolvedGenericTags();
       },
     switchWaitingListFreeze:
       ({ toggleWaitingListFreeze, fetchOffer, fetchBookingOptionByOffer }) =>

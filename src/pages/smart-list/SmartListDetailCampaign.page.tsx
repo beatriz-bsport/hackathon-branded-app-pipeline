@@ -31,6 +31,8 @@ import { fetchSmartListAutomatedCampaign } from '#libs/smart-list/actions';
 
 import { RootState } from '../../reducers';
 import CampaignList from '../../libs/communication/components/CampaignList.component';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 
 type OwnProps = {
   id: number;
@@ -52,6 +54,7 @@ export class SmartListCampaign extends React.Component<Props> {
     this.props.fetchCampaignSmartlist(1);
     this.props.fetchCampaignSmartlistAutomated(1);
     this.props.fetchSmartListAutomatedCampaign({ page_size: 100 });
+    this.props.fetchResolvedGenericTags();
   }
 
   render() {
@@ -101,6 +104,7 @@ export class SmartListCampaign extends React.Component<Props> {
                     )
                 : null
             }
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </Collapse>
         <ButtonBase
@@ -134,6 +138,7 @@ export class SmartListCampaign extends React.Component<Props> {
                     )
                 : null
             }
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </Collapse>
       </div>
@@ -150,12 +155,14 @@ const connector = connect(
     campaignState: state.communication.campaign.bySmartlist,
     automatedCampaignState: state.communication.automatedCampaign.bySmartlist,
     loading: state.communication.campaign.bySmartlist.loading,
+    resolvedGenericTags: getResolvedGenericTags(state),
   }),
   {
     fetchCampaignSmartlist,
     fetchCampaignSmartlistAutomated,
     fetchSmartListAutomatedCampaign,
     push,
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   },
 );
 

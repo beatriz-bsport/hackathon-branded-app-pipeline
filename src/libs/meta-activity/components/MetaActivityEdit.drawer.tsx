@@ -6,6 +6,7 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../../state/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type OwnProps = {
   open: boolean;
@@ -15,6 +16,7 @@ type OwnProps = {
   onCancel: () => void;
   tags: Array<Tag<TagGroup>>;
   onSubmit: (values: any, options: OptionCallback) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 type Props = OwnProps & WithTranslation;
 export const MetaActivityEditDrawer = (props: Props) => {
@@ -50,6 +52,7 @@ export const MetaActivityEditDrawer = (props: Props) => {
         onCancel={props.onCancel}
         is_broadcast_enabled
         tags={props.tags}
+        resolvedGenericTags={props.resolvedGenericTags}
       />
     </GenericResponsiveDrawer>
   );

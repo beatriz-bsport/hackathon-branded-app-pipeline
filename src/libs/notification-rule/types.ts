@@ -1,3 +1,4 @@
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { ErrorAndLoading } from '../types';
 
 export type NotificationRule = {
@@ -32,6 +33,7 @@ export type NotificationRuleState = {
   tag: ErrorAndLoading & {
     data: { [tag_name: string]: Array<string> };
   };
+  resolvedGenericTags: ErrorAndLoading & { data: ResolvedGenericTags | {} };
   rule: ErrorAndLoading & {
     byId: { [key: string]: NotificationRule };
     allIds: Array<number>;

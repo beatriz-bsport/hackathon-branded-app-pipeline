@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import { makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '#libs/theme/types';
+import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type OwnProps = {
   notification?: {
@@ -12,14 +14,24 @@ type OwnProps = {
   };
   theme: CompanyTheme;
   className?: string;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type Props = OwnProps;
 
 const NotificationPushPreview = (props: Props) => {
-  const { notification, theme, className } = props;
+  const { notification, theme, className, resolvedGenericTags } = props;
 
   const classes = useStyles();
+
+  const push_notification_content: string = useMemo(
+    () =>
+      replaceGenericTagsInTemplate(
+        resolvedGenericTags,
+        notification.push_notification_content,
+      ),
+    [resolvedGenericTags, notification.push_notification_content],
+  );
 
   return (
     <>
@@ -45,9 +57,7 @@ const NotificationPushPreview = (props: Props) => {
                     <div className={classes.notificationTitle}>
                       {notification.push_notification_title}
                     </div>
-                    <Typography>
-                      {notification.push_notification_content}
-                    </Typography>
+                    <Typography>{push_notification_content}</Typography>
                   </Paper>
                 </div>
               )}

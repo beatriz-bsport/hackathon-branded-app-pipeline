@@ -18,6 +18,7 @@ import { Member } from '#libs/member/types';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
+  ResolvedGenericTags,
 } from '#libs/email-editor/types';
 
 import { getAvailableTagsFromContext } from '#libs/communication-v2/utils';
@@ -69,6 +70,7 @@ type OwnProps = {
   sendCommunication: (data: any, options?: OptionCallback<void>) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
   updateThreadList: (kind: number) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
@@ -389,6 +391,7 @@ export class CommunicationSendMessageContainer extends React.Component<
         onRemoveTemplate={onRemoveTemplate}
         onSeeTemplate={onSeeTemplate}
         refreshTemplateData={this.props.getEmailDetail}
+        resolvedGenericTags={this.props.resolvedGenericTags}
       >
         {this.renderBottomIcons()}
       </CommunicationWriteEmail>
@@ -491,6 +494,7 @@ export class CommunicationSendMessageContainer extends React.Component<
         selectedTitle={this.state.mailTitle}
         setTemplate={setTemplate}
         setTitle={setTitle}
+        resolvedGenericTags={this.props.resolvedGenericTags}
       />
     );
   };
@@ -552,6 +556,7 @@ export class CommunicationSendMessageContainer extends React.Component<
               onClose={this.onCloseHTMLPreviewDialog}
               html={html}
               title={this.state.mailTitle}
+              resolvedGenericTags={this.props.resolvedGenericTags}
             />
           )}
       </Paper>

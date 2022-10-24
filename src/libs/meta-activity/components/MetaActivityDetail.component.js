@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
+import { getMergeTags } from '#libs/marketing/utils';
 
 import Calendar from '../../../components/offer/Calendar.component';
 import TimeTable from '../../../components/offer/TimeTable.component';
@@ -47,6 +48,8 @@ type Props = {
   goToSmartlist: () => void,
   getSmartLists: () => void,
   smartLists: SmartList[],
+  tags: { [tag_name: string]: string[] },
+  resolvedGenericTags: resolvedGenericTags,
 };
 
 const getEvents = memoize((events) => {
@@ -85,6 +88,8 @@ export const MetaActivityDetail = (props: Props) => {
           goToSmartlist={props.goToSmartlist}
           getSmartLists={props.getSmartLists}
           smartLists={props.smartLists}
+          resolvedGenericTags={props.resolvedGenericTags}
+          tags={getMergeTags(props.tags, t)}
         />
       </Grid>
       <Grid item sm={12} md={6} className={classes.panel}>

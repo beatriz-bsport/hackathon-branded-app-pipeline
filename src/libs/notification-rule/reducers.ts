@@ -6,6 +6,7 @@ import {
   notificatonRuleCreateOrUpdateActions,
   eventTypeListActions,
   tagAvailableListActions,
+  genericTagsActions,
   notificationRuleSettingsListActions,
   notificationRuleSettingUpdateActions,
 } from './actions';
@@ -25,6 +26,11 @@ const initialState: Immutable.Immutable<NotificationRuleState> =
       },
     },
     tag: {
+      loading: false,
+      error: null,
+      data: {},
+    },
+    resolvedGenericTags: {
       loading: false,
       error: null,
       data: {},
@@ -55,6 +61,15 @@ export default handleActions<Immutable.Immutable<NotificationRuleState>, any>(
     },
     [tagAvailableListActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['tag', 'data'], payload);
+    },
+    [genericTagsActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['resolvedGenericTags', 'loading'], payload);
+    },
+    [genericTagsActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['resolvedGenericTags', 'error'], payload);
+    },
+    [genericTagsActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['resolvedGenericTags', 'data'], payload);
     },
     [notificationRuleListActions.success.toString()]: (state, { payload }) => {
       return state

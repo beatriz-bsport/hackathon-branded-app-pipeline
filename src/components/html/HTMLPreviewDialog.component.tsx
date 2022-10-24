@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import HTMLPreview from './HTMLPreview.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 export type OwnProps = {
   html?: any;
@@ -14,6 +15,7 @@ export type OwnProps = {
   open: boolean;
   title?: string;
   buttonText?: string;
+  resolvedGenericTags?: ResolvedGenericTags;
 };
 
 const HTMLPreviewDialog = (props: OwnProps) => {
@@ -29,6 +31,7 @@ const HTMLPreviewDialog = (props: OwnProps) => {
             loading={props.loading}
             scrolling
             inDialog
+            resolvedGenericTags={props.resolvedGenericTags}
           />
         </DialogContent>
         <DialogActions>

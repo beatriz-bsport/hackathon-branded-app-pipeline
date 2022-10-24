@@ -42,6 +42,7 @@ import { Submit } from '#components/forms';
 import NumericInput from '#components/input/NumericInput.component';
 import type { FeatureList } from '#libs/company/types';
 import type { OptionCallback } from '../../../../state/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;
@@ -63,6 +64,7 @@ type Props = {
   open: boolean;
   mailDefaultTitle?: string;
   alreadyConfiguredCommunicationKind: number[];
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type FormikValues = FormikProps<AutomatedCampaign & { email_kind: number }>;
@@ -126,6 +128,7 @@ export const AutomatedCommunicationDrawer: React.FC<
   isSubmitting,
   isValid,
   alreadyConfiguredCommunicationKind,
+  resolvedGenericTags,
 }) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
@@ -328,6 +331,7 @@ export const AutomatedCommunicationDrawer: React.FC<
               emailDetailLoading={emailDetailLoading}
               emailDetails={emailDetails}
               mailDefaultTitle={mailDefaultTitle}
+              resolvedGenericTags={resolvedGenericTags}
             />
           )}
         {values.communication_kind === COMMUNICATION_KIND_EMAIL &&

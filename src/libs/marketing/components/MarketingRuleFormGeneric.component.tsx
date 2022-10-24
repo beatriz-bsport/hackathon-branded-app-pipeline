@@ -7,6 +7,7 @@ import { OptionCallback } from '../../../state/types';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
+  ResolvedGenericTags,
 } from '../../email-editor/types';
 import { MarketingNotification } from '../types';
 
@@ -65,6 +66,7 @@ type OwnProps = {
   paymentPacks: PaymentPack[];
   contracts: Contract[];
   tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
   privatePasses: PrivatePass[];
   withoutBirthday: boolean;
   establishmentGroups: Array<EstablishmentGroup>;
@@ -279,6 +281,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       );
     }
@@ -301,6 +304,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       );
     }
@@ -325,6 +329,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           onSubmitIntent={this.onSubmitIntent}
           onSubmit={this.onSubmit}
           tags={this.getMergeTags()}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       );
     }
@@ -349,6 +354,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       );
     }
@@ -371,6 +377,7 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
           smartListLoading={this.props.smartListLoading}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       );
     }

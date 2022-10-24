@@ -16,6 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DEPRECATEDCommunicationDrawer from '../../libs/communication/components/DEPRECATEDCommunicationDrawer.component';
 import type { Booking, BookingOption } from '../../libs/booking/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   fullScreen: boolean,
@@ -31,6 +32,7 @@ type Props = {
   emails: Array<any>,
   emailDetailLoading: boolean,
   emailDetails: Array<any>,
+  resolvedGenericTags: ResolvedGenericTags,
 
   t: TFunction,
   classes: Object,
@@ -312,6 +314,7 @@ export class MailDialog extends Component<Props, State> {
           }
           membersByPageLoading={this.props.members.loading}
           send={this.props.sendCommunication}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       </div>
     );

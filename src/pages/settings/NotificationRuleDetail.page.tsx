@@ -15,6 +15,7 @@ import {
   fetchSettingsList as fetchSettingsListAction,
   updateSettings as updateSettingsAction,
   fetchTagList as fetchTagListAction,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
 } from '#libs/notification-rule/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
@@ -29,6 +30,7 @@ import {
 
 import {
   getEventByGroup,
+  getResolvedGenericTags,
   getTagCategories,
 } from '#libs/notification-rule/selectors';
 import {
@@ -48,6 +50,7 @@ import NotificationRulePreviewHeader from '#libs/notification-rule/components/No
 import NotificationRuleListItem from '#libs/notification-rule/components/NotificationRuleListItem.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,
@@ -58,6 +61,8 @@ type Props = ConnectedProps<typeof connector> &
   WithTranslation & {
     eventName: string;
     pageHeight: number;
+    fetchResolvedGenericTags: () => void;
+    resolvedGenericTags: ResolvedGenericTags;
   };
 
 const NotificationRuleDetail = (props: Props) => {
@@ -70,6 +75,7 @@ const NotificationRuleDetail = (props: Props) => {
     theme,
     tags,
     pageHeight,
+    resolvedGenericTags,
     fetchEventTypeList,
     fetchNotificationRuleList,
     fetchEmailDesignList,
@@ -81,6 +87,7 @@ const NotificationRuleDetail = (props: Props) => {
     updateSettings,
     fetchMarketingNotificationList,
     fetchTagList,
+    fetchResolvedGenericTags,
     push,
     t,
     eventName,
@@ -95,6 +102,7 @@ const NotificationRuleDetail = (props: Props) => {
       kind: BIRTHDAY_NOTIFICATION.kind,
     });
     fetchTagList();
+    fetchResolvedGenericTags();
   }, [
     fetchEventTypeList,
     fetchNotificationRuleList,
@@ -102,6 +110,7 @@ const NotificationRuleDetail = (props: Props) => {
     fetchSettingsList,
     fetchMarketingNotificationList,
     fetchTagList,
+    fetchResolvedGenericTags,
   ]);
 
   useEffect(() => {
@@ -274,6 +283,7 @@ const NotificationRuleDetail = (props: Props) => {
               <NotificationRulePreview
                 event={event}
                 previewEmail={previewEmail}
+                resolvedGenericTags={resolvedGenericTags}
                 displayMode={displayNotification ? 'notification' : 'email'}
                 showEmailPreview={handleShowEmailPreview}
                 showEmailPreviewHTML={setPreviewEmailHtml}
@@ -290,6 +300,7 @@ const NotificationRuleDetail = (props: Props) => {
           previewEmail[previewEmailId].html)) && (
         <HTMLPreviewDialog
           open
+          resolvedGenericTags={resolvedGenericTags}
           html={previewEmailHtml || previewEmail[previewEmailId]?.html}
           onClose={handleCloseEmailPreview}
           buttonText={t('emailDesign.closePreview')}
@@ -366,6 +377,7 @@ const connector = connect(
     settingsData: state.notificationRule.settings.data,
     birthdayNotification: getCelebrationBirthday(state),
     tags: getTagCategories(state),
+    resolvedGenericTags: getResolvedGenericTags(state),
     company: state.theme.theme.company,
     theme: state.theme.theme,
   }),
@@ -384,6 +396,7 @@ const connector = connect(
       createOrUpdateMarketingNotificationAction,
     deleteMarketingNotification: deleteMarketingNotificationAction,
     fetchTagList: fetchTagListAction,
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     push: pushRouter,
   },
 );

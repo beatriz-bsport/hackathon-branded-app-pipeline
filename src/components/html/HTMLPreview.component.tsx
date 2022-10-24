@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import {
   CircularProgress,
@@ -12,6 +12,8 @@ import {
 import { WithTranslation, withTranslation } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import classNames from 'classnames';
+import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 export type OwnProps = {
   title?: string;
@@ -19,6 +21,7 @@ export type OwnProps = {
   loading?: boolean;
   scrolling?: boolean;
   inDialog?: boolean;
+  resolvedGenericTags?: ResolvedGenericTags;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -28,6 +31,12 @@ const HTMLPreview = (props: Props) => {
   const sanitizedHTML = html?.replace(
     /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
     '',
+  );
+
+  const contentPreview = useMemo(
+    () =>
+      replaceGenericTagsInTemplate(props.resolvedGenericTags, sanitizedHTML),
+    [props.resolvedGenericTags, sanitizedHTML],
   );
 
   return (
@@ -62,7 +71,7 @@ const HTMLPreview = (props: Props) => {
         >
           <iframe
             title="generic-email-preview-iframe"
-            srcDoc={sanitizedHTML}
+            srcDoc={contentPreview}
             className={classes.iframe}
             frameBorder="0"
             scrolling={props.scrolling ? 'yes' : 'no'}

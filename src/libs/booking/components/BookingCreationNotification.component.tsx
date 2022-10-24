@@ -23,6 +23,7 @@ import { SmartList } from '#libs/smart-list/types';
 import MarketingRuleFormBooking from '../../marketing/components/marketing-rule-form/MarketingRuleFormBooking.component';
 
 import NotificationListInner from '../../marketing/components/NotificationListInner.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   getEmails: () => void;
@@ -49,6 +50,8 @@ type Props = {
   goToSmartlist: () => void;
   getSmartLists: () => void;
   smartLists: SmartList[];
+  tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const BookingCreationNotification = (props: Props) => {
@@ -137,6 +140,8 @@ const BookingCreationNotification = (props: Props) => {
           onSubmit={props.onSubmit}
           goToSmartlist={props.goToSmartlist}
           getSmartLists={props.getSmartLists}
+          resolvedGenericTags={props.resolvedGenericTags}
+          tags={props.tags}
           smartLists={props.smartLists}
         />
       )}

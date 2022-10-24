@@ -39,6 +39,14 @@ import {
   deleteMarketingNotification as deleteMarketingNotificationAction,
 } from '#libs/marketing/actions';
 import {
+  getResolvedGenericTags,
+  getTagCategories,
+} from '#libs/notification-rule/selectors';
+import {
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+  fetchTagList,
+} from '#libs/notification-rule/actions';
+import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
@@ -53,7 +61,6 @@ import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selecto
 import { withMember } from '#libs/order/selectors';
 import ContractDetail from '#libs/subscription/components/contract/ContractDetail.component';
 import ContractPauseListItemDetail from '#libs/subscription/components/contract/ContractPauseListItemDetail.component';
-import { fetchTagList } from '#libs/notification-rule/actions';
 import {
   fetchContractDetail as fetchContractDetailAction,
   deleteContract,
@@ -75,10 +82,10 @@ import {
 } from '#libs/subscription/types';
 import { RootState } from '../../reducers';
 import { getMergeTags } from '#libs/marketing/utils';
-import { getTagCategories } from '#libs/notification-rule/selectors';
 import MarketingRuleFormContract from '#libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
 import MarketingRuleListItemContract from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
 import ContractPauseFormDialog from '#libs/subscription/components/contract/ContractPauseFormDialog.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type OwnProps = {
   contractId: number;
@@ -107,6 +114,8 @@ type OwnProps = {
   fetchNotificationsAndTemplates: () => void;
   contractPauseToUpdate: ContractPauseDetails;
   setContractPauseToUpdate: (cp?: ContractPauseDetails) => void;
+  fetchResolvedGenericTags: () => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type Props = OwnProps &
@@ -123,6 +132,7 @@ export class ContractDetailPage extends Component<Props> {
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
     this.props.fetchTagList();
+    this.props.fetchResolvedGenericTags();
     this.props.fetchNotificationsAndTemplates();
     this.props.fetchSubscriptionsByContract(1, SUBSCRIPTION_PAGINATION_SIZE);
     this.props.fetchContractPauseList(
@@ -192,6 +202,7 @@ export class ContractDetailPage extends Component<Props> {
                 emailDetailLoading={this.props.emailDetailLoading}
                 initial={this.props.selectedNotification}
                 tags={getMergeTags(this.props.tagCategories, t)}
+                resolvedGenericTags={this.props.resolvedGenericTags}
                 onSubmit={this.props.submitNotificationForm}
                 goToSmartlist={this.props.goToSmartlist}
                 getSmartLists={this.props.getSmartLists}
@@ -379,6 +390,7 @@ const connector = connect(
     },
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.loading,
+    resolvedGenericTags: getResolvedGenericTags(state),
   }),
   {
     fetchContractDetail: fetchContractDetailAction,
@@ -411,6 +423,7 @@ const connector = connect(
     createNotification: createMarketingNotificationAction,
     goToSmartlist: () => push('/smart-list/'),
     getSmartLists: fetchAllSmartLists,
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   },
 );
 

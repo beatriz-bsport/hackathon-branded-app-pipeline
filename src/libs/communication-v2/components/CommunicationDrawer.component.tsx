@@ -155,6 +155,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       selectedMemberListToSendCommunication,
       selectedMemberListToSendCommunicationLoading,
       sendCommunication,
+      resolvedGenericTags,
     } = this.props;
 
     // --- for thread component ---
@@ -196,6 +197,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           paginationSize={PAGINATION_SIZE_RECIPIENTS}
           recipientList={informationRecipientList}
           threadCommunicationList={threadCommunicationList}
+          resolvedGenericTags={resolvedGenericTags}
         />
         {contextIdentifier !== CONTEXT_NOTIFICATION && (
           <>
@@ -268,6 +270,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 sendCommunication={sendCommunication}
                 setCommunicationKind={this.setCommunicationKindBeingWritten}
                 updateThreadList={this.fetchLastThreadCommunication}
+                resolvedGenericTags={resolvedGenericTags}
               />
             </Collapse>
           </>

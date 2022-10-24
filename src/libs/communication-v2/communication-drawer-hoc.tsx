@@ -44,6 +44,7 @@ import {
 import { getPaginatedMembers } from '#libs/member/selectors';
 import { Member } from '#libs/member/types';
 import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
   DrawerProps;
@@ -62,6 +63,7 @@ export type WithCommunicationDataProps = CommunicationConnectedProps & {
   sendCommunication: (data: MessageParams, option: OptionCallback) => void;
   fetchAvailableRecipientMemberIdLists: () => void;
   fetchSelectedMemberListToSendCommunication: (member_id__in: number[]) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const connector = connect(

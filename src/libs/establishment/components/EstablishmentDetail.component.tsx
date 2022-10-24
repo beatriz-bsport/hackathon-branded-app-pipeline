@@ -22,6 +22,8 @@ import { RoomBlueprint } from '../../spot-scheduling/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { centerMarker } from '../../../components/map/utils';
 import { SmartList } from '#libs/smart-list/types';
+import { getMergeTags } from '#libs/marketing/utils';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const CENTER = [48.86, 2.33];
 const DEFAULT_SPORT = 7;
@@ -56,6 +58,8 @@ type OwnProps = {
   goToSmartlist: () => void;
   getSmartLists: () => void;
   smartLists: SmartList[];
+  tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type Props = OwnProps &
@@ -212,6 +216,8 @@ export class EstablishmentDetail extends Component<Props, State> {
                 goToSmartlist={this.props.goToSmartlist}
                 getSmartLists={this.props.getSmartLists}
                 smartLists={this.props.smartLists}
+                tags={getMergeTags(this.props.tags, t)}
+                resolvedGenericTags={this.props.resolvedGenericTags}
               />
             </Grid>
             <Grid item sm={12} md={6} className={classes.calendarBlock}>

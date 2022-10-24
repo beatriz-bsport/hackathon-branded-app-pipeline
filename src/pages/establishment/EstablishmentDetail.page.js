@@ -69,6 +69,14 @@ import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
 import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 import { SmartList } from '#libs/smart-list/types';
+import {
+  fetchTagList as fetchTagListAction,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+} from '../../libs/notification-rule/actions';
+import {
+  getTagCategories,
+  getResolvedGenericTags,
+} from '../../libs/notification-rule/selectors';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -127,6 +135,11 @@ type Props = {
   smartListLoading: Boolean,
   fetchSpotForBlueprint: () => void,
   spotTypes: SpotType[],
+
+  fetchTagList: () => void,
+  fetchResolvedGenericTags: () => void,
+  tagCategories: { [tag_name: string]: string[] },
+  resolvedGenericTags: ResolvedGenericTags,
 };
 
 type State = {
@@ -141,6 +154,8 @@ export class EstablishmentDetails extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchEstablishmentBulk([this.props.id]);
     this.props.fetchNotificationsAndTemplates();
+    this.props.fetchTagList();
+    this.props.fetchResolvedGenericTags();
     this.props.fetchRoomBlueprints({ establishment: this.props.id });
     this.props.fetchAssetForBlueprint({ establishment: this.props.id });
     this.props.fetchEstablishmentEvents(this.props.id, {
@@ -185,6 +200,8 @@ export class EstablishmentDetails extends React.Component<Props, State> {
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
           smartListLoading={this.props.smartListLoading}
+          tags={this.props.tagCategories}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
@@ -263,6 +280,8 @@ export default compose(
       smartLists: getAllSmartList(state),
       smartListLoading: state.smartList.loading,
       spotTypes: getSpotTypesOfCompany(state),
+      resolvedGenericTags: getResolvedGenericTags(state),
+      tagCategories: getTagCategories(state),
     }),
     {
       fetchEstablishmentBulk,
@@ -289,6 +308,8 @@ export default compose(
       pushRouter: push,
       goToSmartlist: () => push('/smart-list/'),
       getSmartLists: fetchAllSmartLists,
+      fetchTagList: fetchTagListAction,
+      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({

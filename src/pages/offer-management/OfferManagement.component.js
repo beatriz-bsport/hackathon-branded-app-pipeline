@@ -56,6 +56,7 @@ import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
 import Config from '../../config';
 import { DEFAULT_SPOT_TYPE } from '../../libs/spot-scheduling/utils';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -235,6 +236,7 @@ type Props = {
   fetchAssociatedCoachesList: (params: any) => void,
   fetchSpotForBlueprint: (company: number) => void,
   spotTypes: SpotType[],
+  resolvedGenericTags: ResolvedGenericTags,
 };
 
 type State = {
@@ -723,6 +725,7 @@ export class OfferManagement extends Component<Props, State> {
             members={members}
             mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
             sendCommunication={this.props.sendCommunication}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         )}
         {!!this.props.offer.room_blueprint && (
@@ -754,6 +757,7 @@ export class OfferManagement extends Component<Props, State> {
                 bookings,
                 bookingOptionsPending,
               )}
+              resolvedGenericTags={this.props.resolvedGenericTags}
             />
           )}
         <GenericDialog />

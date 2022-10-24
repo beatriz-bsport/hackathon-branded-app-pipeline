@@ -11,6 +11,9 @@ const getRuleListIds = (state: RootState) => state.notificationRule.rule.allIds;
 export const getTagCategories = (state: RootState) =>
   state.notificationRule.tag.data;
 
+export const getResolvedGenericTags = (state: RootState) =>
+  state.notificationRule.resolvedGenericTags?.data ?? {};
+
 const getRuleList = createSelector([getRuleData, getRuleListIds], (data, ids) =>
   ids.map((id) => data[id]),
 );

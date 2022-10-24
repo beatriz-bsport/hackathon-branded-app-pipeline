@@ -18,6 +18,14 @@ import { deleteMetaActivity, upsert } from '#libs/meta-activity/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
+  fetchTagList as fetchTagListAction,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+} from '../../libs/notification-rule/actions';
+import {
+  getTagCategories,
+  getResolvedGenericTags,
+} from '../../libs/notification-rule/selectors';
+import {
   getMetaActivity,
   withCustomRestrictionsTags,
 } from '#libs/meta-activity/selectors';
@@ -105,6 +113,10 @@ type Props = {
   goToSmartlist: () => void,
   getSmartLists: () => void,
   smartLists: SmartList[],
+  fetchTagList: () => void,
+  fetchResolvedGenericTags: () => void,
+  tagCategories: { [tag_name: string]: string[] },
+  resolvedGenericTags: ResolvedGenericTags,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -136,6 +148,8 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
       this.props.fetchMetaActivityOffers(this.props.id);
       this.props.fetchNotificationsAndTemplates();
       this.props.fetchOffersByDay(moment());
+      this.props.fetchResolvedGenericTags();
+      this.props.fetchTagList();
     }
   }
 
@@ -202,6 +216,8 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
+          tags={this.props.tagCategories}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <BottomActionButtons
           onEdit={this.onEdit}
@@ -275,6 +291,8 @@ export default compose(
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       smartLists: getAllSmartList(state),
       smartListLoading: state.smartList.loading,
+      tagCategories: getTagCategories(state),
+      resolvedGenericTags: getResolvedGenericTags(state),
     }),
     {
       fetchOffersByDay: fetchOffersByDayActions,
@@ -295,6 +313,8 @@ export default compose(
       upsertMetaActivity: upsert,
       goToSmartlist: () => routerPush('/smart-list/'),
       getSmartLists: fetchAllSmartLists,
+      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+      fetchTagList: fetchTagListAction,
     },
   ),
   withProps(

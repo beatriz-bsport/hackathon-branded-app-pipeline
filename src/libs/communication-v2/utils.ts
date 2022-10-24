@@ -322,6 +322,18 @@ export const getAvailableTagsFromContext = memoize(
       case CONTEXT_OFFER:
         return {
           User: ['firstname', 'lastname'],
+          Company: [
+            'android_app_URL',
+            'ios_app_URL',
+            'company_logo',
+            'company',
+            'login_url',
+            'company_scheduleURL',
+            'company_facebookURL',
+            'company_instagramURL',
+            'company_websiteURL',
+            'company_info',
+          ],
         };
       default:
         return {
@@ -386,6 +398,18 @@ export const getAvailableTagsFromContext = memoize(
             'address',
             'option_payment_url',
             'option_expiration_date',
+          ],
+          Company: [
+            'android_app_URL',
+            'ios_app_URL',
+            'company_logo',
+            'company',
+            'login_url',
+            'company_scheduleURL',
+            'company_facebookURL',
+            'company_instagramURL',
+            'company_websiteURL',
+            'company_info',
           ],
         };
     }

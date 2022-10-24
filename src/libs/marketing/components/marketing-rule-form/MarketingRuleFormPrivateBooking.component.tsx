@@ -38,6 +38,7 @@ import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
 import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { SmartList } from '#libs/smart-list/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
@@ -64,6 +65,7 @@ type Props = {
   getSmartLists: () => void;
   goToSmartlist: () => void;
   tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const getNotificationKind = (kind: number) => {
@@ -122,6 +124,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
     setFieldValue,
     errors,
     tags,
+    resolvedGenericTags,
     smartLists,
     getSmartLists,
     goToSmartlist,
@@ -489,6 +492,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
                       {email_design && !!emailDetails[email_design] ? (
                         <HTMLPreview
                           html={emailDetails?.[email_design]?.html}
+                          resolvedGenericTags={resolvedGenericTags}
                           scrolling
                         />
                       ) : (

@@ -50,6 +50,7 @@ import {
 } from '#libs/payment-packs/utils';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 interface InitialFormikValues {
   send_email: boolean;
@@ -131,6 +132,7 @@ type Props = {
   errors: any;
   isSubmitting: boolean;
   tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
 } & FormikProps<InitialFormikValues>;
 
 const getNotificationKind = (notif: any) => {
@@ -199,6 +201,7 @@ const ProductNotificationForm = (props: Props) => {
     errors,
     isSubmitting,
     tags,
+    resolvedGenericTags,
   } = props;
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
@@ -526,6 +529,7 @@ const ProductNotificationForm = (props: Props) => {
                 {email_design && !!emailDetails[email_design] ? (
                   <HTMLPreview
                     html={emailDetails?.[email_design]?.html}
+                    resolvedGenericTags={resolvedGenericTags}
                     scrolling
                   />
                 ) : (

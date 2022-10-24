@@ -20,6 +20,9 @@ export const fetchNotificationRuleList = async (params: any = {}) => {
 export const fetchNotificationRuleGenericList = async () => {
   return getAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/generic/`);
 };
+export const fetchNotificationGenericTagsList = async () => {
+  return getAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/generic_tags/`);
+};
 
 export const createOrUpdateNotificationRule = (data: any) => {
   if (data.id && (data.company || data?.companies?.length > 0)) {

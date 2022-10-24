@@ -35,6 +35,7 @@ import HTMLPreview from '#components/html/HTMLPreview.component';
 import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import { SmartList } from '#libs/smart-list/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   getEmails: () => void;
@@ -54,6 +55,7 @@ type Props = {
   smartLists: Array<SmartList>;
   getSmartLists: () => void;
   goToSmartlist: () => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const renderEmptyOrLoading = (
@@ -101,6 +103,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
     errors,
     isSubmitting,
     tags,
+    resolvedGenericTags,
     smartLists,
     getSmartLists,
     goToSmartlist,
@@ -130,6 +133,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
       value: sm.id,
     }),
   );
+
   return (
     <GenericResponsiveDrawer
       open
@@ -301,6 +305,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
                   <HTMLPreview
                     html={emailDetails?.[email_design]?.html}
                     scrolling
+                    resolvedGenericTags={resolvedGenericTags}
                   />
                 ) : (
                   renderEmptyOrLoading(emailDetailLoading, emails, t, classes)

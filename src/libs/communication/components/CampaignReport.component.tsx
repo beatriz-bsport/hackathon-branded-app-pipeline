@@ -17,6 +17,7 @@ import clx from 'classnames';
 import RecipientTable from './RecipientTable.component';
 import type { Campaign, Report, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   statBanner: {
@@ -205,6 +206,7 @@ type Props = {
   recipientState: Object;
   goBack: () => void;
   goToMember: (id: number) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 export const CampaignReport = (props: Props) => {
   const [showMail, setShowMail] = React.useState<string | null>(null);
@@ -246,6 +248,7 @@ export const CampaignReport = (props: Props) => {
       <HTMLPreviewDialog
         open={!!showMail}
         html={showMail}
+        resolvedGenericTags={props.resolvedGenericTags}
         onClose={() => setShowMail(null)}
       />
     </div>

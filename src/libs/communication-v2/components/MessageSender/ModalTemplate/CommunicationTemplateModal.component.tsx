@@ -23,7 +23,10 @@ import {
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
-import { EmailTemplateDetail } from '#libs/email-editor/types';
+import {
+  EmailTemplateDetail,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 
 type OwnProps = {
   closeDialog: () => void;
@@ -39,6 +42,7 @@ type OwnProps = {
   selectedTitle: string;
   setTemplate: (id: number) => void;
   setTitle: (title: string) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
@@ -252,7 +256,11 @@ export class CommunicationTemplateModal extends Component<Props, State> {
               {this.state.selectedTemplate &&
               !this.props.emailDetailListLoading &&
               !!html ? (
-                <HTMLPreview html={html} scrolling />
+                <HTMLPreview
+                  html={html}
+                  scrolling
+                  resolvedGenericTags={this.props.resolvedGenericTags}
+                />
               ) : (
                 this.renderLoadingOrEmpty(
                   this.props.emailDetailListLoading && !!html,

@@ -67,6 +67,7 @@ type Props = {
   countWithPhone: number | null,
   countWithEmail: number | null,
   countTotal: number | null,
+  resolvedGenericTags: ResolvedGenericTags,
 };
 
 type State = {
@@ -449,6 +450,7 @@ export class CommunicationDrawer extends Component<Props, State> {
       fetchNextPage,
       fetchPreviousPage,
       t,
+      resolvedGenericTags,
     } = this.props;
 
     return (
@@ -535,6 +537,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                   emailDetailLoading={emailDetailLoading}
                   emailDetails={emailDetails}
                   mailDefaultTitle={mailDefaultTitle}
+                  resolvedGenericTags={resolvedGenericTags}
                 />
               )}
               {this.state.actionType === WRITE_EMAIL && !hideWrittenMail && (

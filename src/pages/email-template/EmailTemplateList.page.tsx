@@ -49,9 +49,12 @@ import {
   editOrderEmailTemplate,
   updateEmailTemplateCategoryOrder,
 } from '#libs/email-editor/actions';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import {
   EmailTemplateCategory,
   EmailTemplateCategoryWithTemplates,
+  ResolvedGenericTags,
 } from '#libs/email-editor/types';
 import { OptionCallback } from '../../state/types';
 import { CategoryList } from '#components/ordering/CategoryList.component';
@@ -117,6 +120,8 @@ type OwnProps = {
   setExpandCollapseLaunchingEmails: (
     expandCollapseLaunchingEmails: boolean,
   ) => void;
+  resolvedGenericTags: ResolvedGenericTags;
+  fetchResolvedGenericTags: () => void;
 };
 
 type Props = OwnProps &
@@ -144,6 +149,7 @@ export class MarketingEmail extends Component<Props, State> {
     if (this.props.id) {
       this.props.emailTemplateDetail(this.props.id);
     }
+    this.props.fetchResolvedGenericTags();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>) {
@@ -426,6 +432,7 @@ export class MarketingEmail extends Component<Props, State> {
               html={this.props.email_templates_details?.[this.props.id]?.html}
               loading={this.props.loading}
               scrolling
+              resolvedGenericTags={this.props.resolvedGenericTags}
             />
           </Grid>
         </Grid>
@@ -549,6 +556,7 @@ export default compose(
       categoryLoading: state.emailTemplate.emailTemplateCategory.loading,
       unavailableEmailTemplateSummaries:
         getUnavailableEmailTemplatesSummaries(state),
+      resolvedGenericTags: getResolvedGenericTags(state),
     }),
     {
       emailTemplatesSummaries,
@@ -567,6 +575,7 @@ export default compose(
       deleteEmailTemplateCategory,
       editOrderEmailTemplate,
       updateEmailTemplateCategoryOrder,
+      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     },
   ),
 )(MarketingEmail);

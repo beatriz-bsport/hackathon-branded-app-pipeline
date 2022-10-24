@@ -18,6 +18,8 @@ import {
 } from '../../libs/communication/selectors';
 import CampaignReport from '../../libs/communication/components/CampaignReport.component';
 
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import type {
   Campaign,
   CampaignReport as CampaignReportType,
@@ -27,6 +29,8 @@ import type {
 type Props = {
   fetchCampaign: () => void,
   fetchCampaignReport: () => void,
+  fetchResolvedGenericTags: () => void,
+  resolvedGenericTags: ResolvedGenericTags,
   fetchRecipientList: (page: number, params: any) => void,
   campaign: ?Campaign,
   goBack: () => void,
@@ -41,6 +45,7 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchCampaign();
     this.props.fetchCampaignReport();
+    this.props.fetchResolvedGenericTags();
   }
 
   render() {
@@ -57,6 +62,7 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
         report={this.props.campaignReport}
         reportLoading={this.props.reportLoading}
         goToMember={this.props.goToMember}
+        resolvedGenericTags={this.props.resolvedGenericTags}
       />
     );
   }
@@ -71,6 +77,7 @@ export default compose(
       campaign: getCampaign(state, campaignId),
       campaignReport: getCampaignReport(state),
       reportLoading: state.communication.campaign.report.loading,
+      resolvedGenericTags: getResolvedGenericTags(state),
     }),
     (dispatch, { campaignId }) => ({
       goBack: () => dispatch(goBack()),
@@ -79,6 +86,8 @@ export default compose(
       fetchCampaignReport: () => dispatch(fetchCampaignReport(campaignId)),
       fetchRecipientList: (page, params) =>
         dispatch(fetchRecipientByCampaign(campaignId, page, params)),
+      fetchResolvedGenericTags: () =>
+        dispatch(fetchResolvedGenericTagsAction()),
     }),
   ),
 )(SmartListDetailCampaignReport);

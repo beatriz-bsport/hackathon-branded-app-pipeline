@@ -58,6 +58,14 @@ import { SCT } from '#libs/category/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { SmartList } from '#libs/smart-list/types';
+import {
+  fetchTagList as fetchTagListAction,
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+} from '../../libs/notification-rule/actions';
+import {
+  getTagCategories,
+  getResolvedGenericTags,
+} from '../../libs/notification-rule/selectors';
 
 type Props = {
   id: number,
@@ -100,6 +108,10 @@ type Props = {
   goToSmartlist: () => void,
   getSmartLists: () => void,
   smartLists: SmartList[],
+  fetchTagList: () => void,
+  fetchResolvedGenericTags: () => void,
+  tagCategories: { [tag_name: string]: string[] },
+  resolvedGenericTags: ResolvedGenericTags,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -137,6 +149,8 @@ export class WorkshopActivity extends Component<Props, State> {
         meta_activity: this.props.id,
       });
       this.props.fetchOffersByDay(moment());
+      this.props.fetchResolvedGenericTags();
+      this.props.fetchTagList();
     }
   }
 
@@ -197,6 +211,8 @@ export class WorkshopActivity extends Component<Props, State> {
           goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
           smartLists={this.props.smartLists}
+          tags={this.props.tagCategories}
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <BottomActionButtons
           onEdit={this.onEdit}
@@ -277,6 +293,8 @@ export default compose(
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       smartLists: getAllSmartList(state),
       smartListLoading: state.smartList.loading,
+      tagCategories: getTagCategories(state),
+      resolvedGenericTags: getResolvedGenericTags(state),
     }),
     {
       fetchOffersByDay: fetchOffersByDayAction,
@@ -295,6 +313,8 @@ export default compose(
       upsertMetaActivity: upsert,
       goToSmartlist: () => routerPush('/smart-list/'),
       getSmartLists: fetchAllSmartLists,
+      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+      fetchTagList: fetchTagListAction,
     },
   ),
   withProps(

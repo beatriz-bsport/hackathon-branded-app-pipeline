@@ -23,6 +23,7 @@ import MarketingRuleFormProduct from '../marketing-rule-form/MarketingRuleFormPr
 import NotificationListInner from '#libs/marketing/components/NotificationListInner.component';
 import { getMergeTags } from '../../utils';
 import { PaymentPack } from '../../../payment-packs/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   getEmails: () => void;
@@ -51,6 +52,7 @@ type Props = {
   isFormOpen: boolean;
   setIsFormOpen: (v: boolean) => void;
   tags: { [tag_name: string]: string[] };
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const PaymentPackNotification = (props: Props) => {
@@ -147,6 +149,7 @@ const PaymentPackNotification = (props: Props) => {
           onSubmit={props.onSubmit}
           identifier="payment_pack"
           tags={mergeTags}
+          resolvedGenericTags={props.resolvedGenericTags}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

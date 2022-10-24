@@ -58,6 +58,14 @@ import {
 } from '#libs/email-editor/selectors';
 
 import {
+  getResolvedGenericTags,
+  getTagCategories,
+} from '#libs/notification-rule/selectors';
+import {
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+  fetchTagList,
+} from '#libs/notification-rule/actions';
+import {
   patch as patchPaymentPack,
   fetchOne as fetchPaymentPackAction,
   scalePaymentPackCredit,
@@ -114,8 +122,6 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '#libs/meta-activity/selectors';
-import { getTagCategories } from '#libs/notification-rule/selectors';
-import { fetchTagList } from '#libs/notification-rule/actions';
 import { fetchVideoFilterableParams } from '#libs/video/actions';
 import { VideoStatusEnum } from '#libs/video/types';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
@@ -215,6 +221,7 @@ export class PaymentPackDetail extends Component<Props, State> {
 
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchTagList();
+    this.props.fetchResolvedGenericTags();
     this.props.fetchVideoFilterableParams({
       company: this.props.companyId,
       status: VideoStatusEnum.processed,
@@ -374,6 +381,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             is_expired
             goToSmartlist={this.props.goToSmartlist}
             tags={this.props.tagCategories}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -628,6 +636,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     archivationWarning: state.paymentPack.archivationWarning,
     privateServices: getPrivateServices(state),
     compatibleServicePass: getCompatibleServicePass(state),
+    resolvedGenericTags: getResolvedGenericTags(state),
   };
 };
 
@@ -695,6 +704,7 @@ const mapDispatchToProps = {
   deleteCompatibleServicePass,
   createCompatibleServicePass,
   updateCompatibleServicePass,
+  fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
 };
 
 const mapWithHandlers = {

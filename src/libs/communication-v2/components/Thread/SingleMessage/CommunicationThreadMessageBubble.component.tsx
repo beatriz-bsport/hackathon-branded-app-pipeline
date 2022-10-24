@@ -21,6 +21,7 @@ import CommunicationThreadNumberRecipients from './CommunicationThreadNumberReci
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import { interpolateHTMLWithTags } from '#components/html/utils';
 import { Member } from '#libs/member/types';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
   (theme) => ({
@@ -115,6 +116,7 @@ type OwnProps = {
   oneToOneThreadMember: Member;
   onShowInformationClick: () => void;
   onShowEmailTemplate: (title: string, html: string) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 export type Props = OwnProps;
@@ -127,6 +129,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
     photos,
     onShowInformationClick,
     onShowEmailTemplate,
+    resolvedGenericTags,
   } = props;
 
   const reverse = !!communication.is_answer;
@@ -146,7 +149,10 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
     return html;
   }, [communication]);
   const communicationContent = useMemo(() => {
-    let content = sanitizedHtml ?? communication.text;
+    let content = interpolateHTMLWithTags(
+      sanitizedHtml ?? communication.text,
+      resolvedGenericTags,
+    );
     if (oneToOneThreadMember) {
       content = interpolateHTMLWithTags(content, {
         '{firstname}': oneToOneThreadMember.firstname,
@@ -154,9 +160,17 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
       });
     }
     return content;
-  }, [oneToOneThreadMember, sanitizedHtml, communication]);
+  }, [
+    sanitizedHtml,
+    communication.text,
+    oneToOneThreadMember,
+    resolvedGenericTags,
+  ]);
   const communicationTitle = useMemo(() => {
-    let content = communication.data.subject ?? communication.title;
+    let content = interpolateHTMLWithTags(
+      communication.data.subject ?? communication.title,
+      resolvedGenericTags,
+    );
     if (oneToOneThreadMember) {
       content = interpolateHTMLWithTags(content, {
         '{firstname}': oneToOneThreadMember.firstname,
@@ -164,7 +178,12 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
       });
     }
     return content;
-  }, [oneToOneThreadMember, communication]);
+  }, [
+    communication.data.subject,
+    communication.title,
+    oneToOneThreadMember,
+    resolvedGenericTags,
+  ]);
   return (
     <div className={classes.container}>
       <div className={classes.messageInfoContainer}>
@@ -195,7 +214,10 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
           communication.text.slice(0, 14).toUpperCase() === '<!DOCTYPE HTML' ? (
             <>
               <div className={classes.htmlPreview}>
-                <HTMLPreview html={communicationContent} />
+                <HTMLPreview
+                  html={communicationContent}
+                  resolvedGenericTags={resolvedGenericTags}
+                />
               </div>
               <ButtonBase
                 className={classes.showEmail}

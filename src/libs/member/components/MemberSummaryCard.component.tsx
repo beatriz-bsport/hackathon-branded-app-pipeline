@@ -48,7 +48,10 @@ import EmergencyContactItemComponent from '../../communication/components/Emerge
 import VaccinationStatus from './VaccinationStatus.component';
 import { EstablishmentGroup } from '../../establishment/types';
 import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
-import { EmailTemplateDetail } from '#libs/email-editor/types';
+import {
+  EmailTemplateDetail,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import { ALLOWED_COUNTRIES_FOR_STATES } from '../constants';
 
 const SELECT_EMAIL = 1;
@@ -75,6 +78,7 @@ type OwnProps = {
 
   showVaccinationStatus: boolean;
   favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -223,6 +227,7 @@ export class MemberSummaryCard extends Component<Props> {
             actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
             showEmailConsentWarning={!member.accept_email}
             showSmsConsentWarning={!member.accept_sms}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         )}
       </List>

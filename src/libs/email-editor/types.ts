@@ -81,3 +81,18 @@ export type EmailTemplateCategory = {
 export type EmailTemplateCategoryWithTemplates = EmailTemplateCategory & {
   items: Array<EmailTemplate>;
 };
+
+export type ResolvedGenericTags =
+  | {}
+  | {
+      '{android_app_URL}': string;
+      '{ios_app_URL}': string;
+      '{company_logo}': string;
+      '{company}': string;
+      '{login_url}': string;
+      '{company_scheduleURL}': string;
+      '{company_facebookURL}': string;
+      '{company_instagramURL}': string;
+      '{company_websiteURL}': string;
+      '{company_info}': string;
+    };

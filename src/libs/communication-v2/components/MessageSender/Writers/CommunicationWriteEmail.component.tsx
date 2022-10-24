@@ -12,7 +12,10 @@ import {
 
 import TextFieldWithChildren from '#components/input/TextFieldWithChildren.component';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
-import { EmailTemplateDetail } from '#libs/email-editor/types';
+import {
+  EmailTemplateDetail,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 
 import {
@@ -35,6 +38,7 @@ type Props = {
   onSeeTemplate: () => void;
   onRemoveTemplate: () => void;
   refreshTemplateData: (templateId: number) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const CommunicationWriteEmail = (props: Props) => {
@@ -52,6 +56,7 @@ const CommunicationWriteEmail = (props: Props) => {
     onRemoveTemplate,
     onSeeTemplate,
     refreshTemplateData,
+    resolvedGenericTags,
   } = props;
   const [showRefreshDialog, setShowRefreshDialog] = useState(false);
   const onTitleFocus = () => onFocus(TEXTFIELD_MAIL_TITLE);
@@ -83,6 +88,7 @@ const CommunicationWriteEmail = (props: Props) => {
           onEditTemplate={onEditTemplate}
           onRemoveTemplate={onRemoveTemplate}
           onSeeTemplate={onSeeTemplate}
+          resolvedGenericTags={resolvedGenericTags}
         >
           {props.children}
         </EmailPreview>
@@ -128,6 +134,7 @@ const EmailPreview = (props: PreviewProps) => {
     onSeeTemplate,
     onEditTemplate,
     onRemoveTemplate,
+    resolvedGenericTags,
   } = props;
   return (
     <div className={classes.mailPreviewContainer}>
@@ -147,6 +154,7 @@ const EmailPreview = (props: PreviewProps) => {
           {!loadingTemplateDetails ? (
             <HTMLPreview
               html={emailTemplateDetails[emailTemplateSelected]?.html}
+              resolvedGenericTags={resolvedGenericTags}
             />
           ) : (
             <CircularProgress />

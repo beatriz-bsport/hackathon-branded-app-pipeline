@@ -35,6 +35,7 @@ import {
   retrieveMemberPendingEmail,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '../../libs/member/actions';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import {
   getSearchedMembers,
   getMemberDetail,
@@ -86,6 +87,7 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
 
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
@@ -174,6 +176,7 @@ export class MemberDetailPage extends Component<Props> {
       onSuccess: () => this.props.retrieveMemberPendingEmail(this.props.id),
     });
     this.props.fetchTags();
+    this.props.fetchResolvedGenericTags();
     this.props.fetchTaskListByMember();
     this.props.fetchInvoiceListUnpaid();
     this.props.fetchEstablishments();
@@ -308,6 +311,7 @@ export class MemberDetailPage extends Component<Props> {
             emailDetailLoading={this.props.emailDetailLoading}
             sendCommunication={this.props.sendCommunication}
             showVaccinationStatus={this.props.showVaccinationStatus}
+            resolvedGenericTags={this.props.resolvedGenericTags}
           />
           <MemberBillingProblemCard
             invoiceLoading={this.props.invoiceLoading}
@@ -514,6 +518,7 @@ const connector = connect(
       withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
     )(state),
     stripeReaders: getStripeReaders(state),
+    resolvedGenericTags: getResolvedGenericTags(state),
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -573,6 +578,7 @@ const connector = connect(
     fetchGiftcardBulk: fetchGiftcardBulkAction,
     applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
     fetchMemberBulkById: fetchMemberBulkByIdAction,
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   },
 );
 

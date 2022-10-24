@@ -40,6 +40,7 @@ import NotificationContentInput from '#libs/communication/components/Notificatio
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
 import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -67,6 +68,7 @@ type Props = {
   smartLists: Array<any>;
   getSmartLists: () => void;
   goToSmartlist: () => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const getNotificationKind = (kind: number) => {
@@ -127,6 +129,7 @@ const MarketingRuleFormBooking = (props: Props) => {
     setFieldValue,
     errors,
     tags,
+    resolvedGenericTags,
     smartLists,
     getSmartLists,
     goToSmartlist,
@@ -544,6 +547,7 @@ const MarketingRuleFormBooking = (props: Props) => {
                       <HTMLPreview
                         html={emailDetails?.[email_design]?.html}
                         scrolling
+                        resolvedGenericTags={resolvedGenericTags}
                       />
                     ) : (
                       renderEmptyOrLoading(

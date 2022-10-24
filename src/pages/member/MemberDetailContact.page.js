@@ -11,6 +11,8 @@ import {
 } from '../../libs/communication/actions';
 import CampaignList from '../../libs/communication/components/CampaignList.component';
 import { getCampaignAndRecipientByMember } from '../../libs/communication/selectors';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 // import PaymentMethodManager from '../../libs/payment/component/PaymentMethodManager.component';
 
 import type { Campaign, Recipient } from '../../libs/communication/types';
@@ -20,10 +22,14 @@ type Props = {
   nextPage: number,
   fetchCampaignList: (page: number) => void,
   campaignRecipientList: Array<[Campaign, Recipient]>,
+  fetchResolvedGenericTags: () => void,
+  tagCategories: { [tag_name: string]: string[] },
+  resolvedGenericTags: ResolvedGenericTags,
 } & WithTranslation;
 export class MemberDetailContact extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchCampaignList(1);
+    this.props.fetchResolvedGenericTags();
   }
 
   render() {
@@ -40,6 +46,7 @@ export class MemberDetailContact extends React.Component<Props> {
               ? () => this.props.fetchCampaignList(this.props.nextPage)
               : null
           }
+          resolvedGenericTags={this.props.resolvedGenericTags}
         />
       </React.Fragment>
     );
@@ -53,6 +60,7 @@ export default compose(
     (state, { id }) => ({
       campaignRecipientList: getCampaignAndRecipientByMember(state, id),
       nextPage: state.communication.campaign.byMember.next_page,
+      resolvedGenericTags: getResolvedGenericTags(state),
       loading:
         state.communication.campaign.byMember.loading ||
         state.communication.recipient.bulk.loading,
@@ -60,6 +68,7 @@ export default compose(
     {
       fetchRecipientBulk: fetchRecipientBulkAction,
       fetchCampaignByMember: fetchCampaignByMemberAction,
+      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     },
   ),
   withHandlers({

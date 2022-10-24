@@ -9,12 +9,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import CampaignListItem from './CampaignListItem.component';
 import type { Campaign, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
   loading: boolean;
   campaignList: [Campaign, Recipient][];
   fetchMore: () => void;
   onClickReport: (campaign_uuid: string) => void;
+  resolvedGenericTags: ResolvedGenericTags;
 };
 
 export const CampaignList: React.FC<Props> = ({
@@ -22,6 +24,7 @@ export const CampaignList: React.FC<Props> = ({
   campaignList,
   fetchMore,
   onClickReport,
+  resolvedGenericTags,
 }) => {
   const { t } = useTranslation(['communication']);
   const classes = useStyles();
@@ -58,6 +61,7 @@ export const CampaignList: React.FC<Props> = ({
         open={!!showEmail}
         html={showEmail}
         onClose={() => setShowEmail(null)}
+        resolvedGenericTags={resolvedGenericTags}
       />
     </div>
   );

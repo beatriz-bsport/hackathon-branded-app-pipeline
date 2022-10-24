@@ -239,7 +239,7 @@ export const newPaymentPackReducer = handleActions(
       const idToKeep = Object.values(state.byId).filter((pp) =>
         Object.entries(pp).reduce(
           (acc, [k, v]) =>
-            (!requestedKeys.includes(k) || v === payload[k]) && acc,
+            (!requestedKeys.includes(k) || v !== payload[k]) && acc,
           true,
         ),
       );

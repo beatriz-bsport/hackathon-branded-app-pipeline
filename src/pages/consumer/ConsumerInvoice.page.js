@@ -56,6 +56,7 @@ type Props = {
   detachPaymentMethodLoading: boolean,
   detachPaymentMethod: (pm_id: string, options?: OptionCallback) => void,
   fetchMembership: (memberId: number, options?: OptionCallback) => void,
+  companyId: number,
 };
 
 export class ConsumerInvoice extends React.Component<Props> {
@@ -98,6 +99,7 @@ export class ConsumerInvoice extends React.Component<Props> {
               onlinePaymentEnabled={
                 this.props.companyTheme.online_payment_enabled
               }
+              companyId={this.props.companyId}
             />
           )}
 
@@ -132,6 +134,7 @@ export default compose(
       count: state.invoice.list.count,
       loading: state.invoice.list.loading,
       companyTheme: themeSelectors.getTheme(state),
+      companyId: themeSelectors.getTheme(state).company,
       page: state.invoice.list.page,
       nestedDataLoading:
         state.invoice.invoiceItem.loading || state.invoice.payment.loading,

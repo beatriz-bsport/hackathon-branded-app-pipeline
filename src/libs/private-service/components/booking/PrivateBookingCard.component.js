@@ -390,6 +390,7 @@ export const PrivateBookingCard = (props: Props) => {
           defaultUserName={props.invoiceToBill.member.name}
           defaultUserEmail={props.invoiceToBill.member.email}
           onlinePaymentEnabled={props.onlinePaymentEnabled}
+          companyId={props.companyId}
         />
       )}
     </>

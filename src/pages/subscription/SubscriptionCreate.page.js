@@ -63,6 +63,7 @@ type Props = {
   companyTheme: CompanyTheme,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
+  companyId: number,
   onlinePaymentEnabled: boolean,
 };
 type State = {
@@ -136,6 +137,7 @@ export class SubscriptionCreate extends Component<Props, State> {
               this.props.companyTheme.enable_multi_localization
             }
             stripeReaders={this.props.stripeReaders || []}
+            companyId={this.props.companyId}
             onlinePaymentEnabled={this.props.onlinePaymentEnabled}
           />
         ) : (
@@ -187,6 +189,7 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       establishments: getAvailableEstablishmentList(state),
       companyTheme: themeSelectors.getTheme(state),
+      companyId: themeSelectors.getTheme(state).company,
       stripeReaders: getStripeReaders(state),
       onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
     }),

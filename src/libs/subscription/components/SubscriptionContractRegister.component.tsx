@@ -60,6 +60,7 @@ type Props = {
   establishments: Array<Establishment>;
   enableMultiLocalization: boolean;
   stripeReaders: StripeReader[];
+  companyId?: number;
 
   onlinePaymentEnabled: boolean;
 };
@@ -278,6 +279,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           establishments={props.establishments}
           stripeReaders={props.stripeReaders}
           pastInvoices={pickedDateInThePast}
+          companyId={props.companyId}
         />
       </DialogContent>
     </GenericResponsiveDialog>

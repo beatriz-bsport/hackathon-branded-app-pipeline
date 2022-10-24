@@ -378,6 +378,7 @@ export const MemberBillingProblemCard = (props: Props) => {
           creditAccountBalance={props.creditAccountBalance}
           applyBalanceLoading={props.applyBalanceLoading}
           stripeReaders={props.stripeReaders}
+          companyId={props.companyId}
         />
       )}
     </Paper>

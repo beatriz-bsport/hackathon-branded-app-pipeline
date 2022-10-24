@@ -43,6 +43,7 @@ type Props = {
   stripeReaders: StripeReader[];
   requestSetupIntentSecret: () => Promise<any>;
   onlinePaymentEnabled?: boolean;
+  companyId: number;
 };
 
 const STEP_CONFIG_RECURRENCE = 0;
@@ -173,6 +174,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             onCancelTerminal={onCancelSecondStep}
             stripeReaders={props.stripeReaders}
             setProcessing={setProcessing}
+            companyId={props.companyId}
           />
         </DialogContent>
         {paymentConfig.payment_method !== PAYMENT_STRIPE_TERMINAL_FAKE && (

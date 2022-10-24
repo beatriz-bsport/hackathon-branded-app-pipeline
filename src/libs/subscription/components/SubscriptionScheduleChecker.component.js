@@ -44,6 +44,7 @@ type Props = {
   enableMultiLocalization: boolean,
   companyTheme: CompanyTheme,
   stripeReaders: StripeReader[],
+  companyId?: number,
 };
 
 type State = {
@@ -147,6 +148,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                 subscriptionData.first_billing_timestamp * 1000,
               ).isBefore(moment().startOf('day'))}
               date={moment(subscriptionData.first_billing_timestamp * 1000)}
+              companyId={this.props.companyId}
             />
           </Paper>
         </Grid>

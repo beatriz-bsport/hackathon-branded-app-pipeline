@@ -38,6 +38,7 @@ type OwnProps = {
   onSuccess: () => void;
   isSetupIntent: boolean;
   setProcessing?: (value: boolean) => void;
+  companyId: number;
 };
 
 type Props = OwnProps;
@@ -110,6 +111,7 @@ export const PaymentStripeTerminalWrapper = (props: Props) => {
           stripeReaders={props.stripeReaders}
           isSetupIntent={props.isSetupIntent}
           setProcessing={props.setProcessing}
+          companyId={props.companyId}
         />
       )}
     </>

@@ -181,6 +181,7 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
+  companyId: number,
   registerContractBackground: (
     id: string,
     data: any,
@@ -482,6 +483,7 @@ export class MemberDetail extends React.Component<Props> {
           establishments={this.props.establishmentList}
           enableMultiLocalization={this.props.theme.enable_multi_localization}
           stripeReaders={this.props.stripeReaders || []}
+          companyId={this.props.companyId}
           registerContractBackground={this.props.registerContractBackground}
         />
         <MemberArchiveDialog
@@ -551,6 +553,7 @@ export default compose(
     (state, { id }) => ({
       programList: getProgramList(state),
       theme: state.theme.theme,
+      companyId: state.theme.theme.company,
       member: getMember(state, id),
       infosOfMember: state.member.count.data,
       contractLoading: state.subscription.contract.loading,

@@ -98,6 +98,7 @@ type Props = {
   memberId?: number,
   isExcludingTax?: boolean,
   stripeReaders: StripeReader[],
+  companyId?: number,
 
   pastInvoices: boolean,
   onlinePaymentEnabled?: boolean,
@@ -510,6 +511,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                       this.setState({ processingTerminal: value })
                     }
                     isSetupIntent
+                    companyId={this.props.companyId}
                   />
                 </div>
               )}

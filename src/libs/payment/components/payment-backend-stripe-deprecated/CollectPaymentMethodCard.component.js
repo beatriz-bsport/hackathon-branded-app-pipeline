@@ -48,6 +48,7 @@ type Props = {
   stripeReaders: StripeReader[],
   addViaTerminal?: boolean,
   labelClose?: string,
+  companyId: number,
 };
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
@@ -166,6 +167,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   clientSecret={this.state.clientSecret}
                   onCancel={this.props.onClose}
                   onSuccess={this.props.onSuccess}
+                  companyId={this.props.companyId}
                   isSetupIntent
                   onlySavePaymentMethod
                 />

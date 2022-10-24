@@ -18,6 +18,7 @@ type Props = {
   stripeReaders?: StripeReader[];
   addViaTerminal?: boolean;
   labelClose?: string;
+  companyId: number;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -41,6 +42,7 @@ export const CollectPaymentMethod = (props: Props) => {
         stripeReaders={props.stripeReaders}
         addViaTerminal={!!props.addViaTerminal}
         labelClose={props.labelClose}
+        companyId={props.companyId}
       />
     );
   }

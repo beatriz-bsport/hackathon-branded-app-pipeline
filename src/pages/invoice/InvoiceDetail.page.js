@@ -553,6 +553,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 fetchPaymentMethodList={this.fetchPaymentMethodList}
                 onSubmit={this.schedulePayment}
                 stripeReaders={this.props.stripeReaders}
+                companyId={this.props.companyId}
               />
             )}
 
@@ -597,6 +598,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 defaultUserEmail={this.props.invoice.member.email}
                 stripeReaders={this.props.stripeReaders}
                 onlyInternal={!this.props.companyTheme.online_payment_enabled}
+                companyId={this.props.companyId}
               />
             )}
             {this.props.openPlannedPaymentMethodDialog && (

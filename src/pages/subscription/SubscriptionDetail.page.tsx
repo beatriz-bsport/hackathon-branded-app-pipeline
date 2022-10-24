@@ -197,6 +197,7 @@ export class SubscriptionDetail extends Component<Props> {
             ]}
             member={this.props.memberById[this.props.subscription.member]}
             stripeReaders={this.props.stripeReaders || []}
+            companyId={this.props.companyId}
           />
         ) : null}
         {this.props.scheduledStopDialogOpen ? (
@@ -234,6 +235,7 @@ export class SubscriptionDetail extends Component<Props> {
 const connector = connect(
   (state: RootState, { id }: { id: number }) => ({
     subscription: getSubscriptionById(state, id),
+    companyId: state.theme.theme.company,
     memberLoading: state.member.loading,
     loading:
       state.subscription.detail.loading ||

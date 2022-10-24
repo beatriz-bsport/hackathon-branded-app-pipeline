@@ -408,6 +408,7 @@ export class MemberDetailPage extends Component<Props> {
                 this.props.member ? this.props.member.email : ''
               }
               stripeReaders={this.props.stripeReaders || []}
+              companyId={this.props.companyTheme.company}
               addViaTerminal={
                 stripeRegion === 'NorthAmerica' &&
                 TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)

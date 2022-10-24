@@ -374,6 +374,7 @@ export class SubscriptionList extends React.Component<Props, State> {
               this.props.theme.general_terms_and_conditions
             }
             stripeReaders={this.props.stripeReaders || []}
+            companyId={this.props.companyId}
             establishments={this.props.establishmentList}
             enableMultiLocalization={this.props.theme.enable_multi_localization}
           />
@@ -447,6 +448,7 @@ type Props = MaterialStyleType<ReturnType<typeof styles>> &
 
 const mapStateToProps = (state: RootState) => ({
   theme: themeSelectors.getTheme(state),
+  companyId: themeSelectors.getTheme(state).company,
   contractListManagerOnly: withContractNotification(
     withPaymentPack(getAvailableContractListManager),
   )(state),

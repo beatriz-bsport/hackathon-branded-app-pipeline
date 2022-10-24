@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Terminal,
   ISdkManagedPaymentIntent,
@@ -122,10 +122,10 @@ export type Props = {
   setProcessing?: (value: boolean) => void;
   isSetupIntent?: boolean;
   onlySavePaymentMethod?: boolean;
+  companyId: number;
 };
 
 const companyCountry = getCompanyCountry();
-const stripeTerminalMinAmountCts = getStripeTerminalMinAmountCts();
 
 export const PaymentStripeTerminal = (props: Props) => {
   const { setProcessing } = props;
@@ -148,6 +148,11 @@ export const PaymentStripeTerminal = (props: Props) => {
   const [retryHandler, setRetryHandler] = useState(null);
   const [cancelCollectHandler, setCancelCollectHandler] = useState(null);
   const [errorWhenCancelling, setErrorWhenCancelling] = useState(false);
+
+  const stripeTerminalMinAmountCts = useMemo(
+    () => getStripeTerminalMinAmountCts(props.companyId),
+    [props.companyId],
+  );
 
   const displayMinAmountMsg =
     props.paymentGroupPriceCts &&

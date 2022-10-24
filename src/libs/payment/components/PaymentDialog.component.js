@@ -60,6 +60,7 @@ type Props = {
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
   stripeReaders: StripeReader[],
+  companyId: number,
 };
 
 type State = {
@@ -310,6 +311,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       setProcessing={(value: boolean) =>
                         this.setState({ processingPayment: value })
                       }
+                      companyId={this.props.companyId}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===

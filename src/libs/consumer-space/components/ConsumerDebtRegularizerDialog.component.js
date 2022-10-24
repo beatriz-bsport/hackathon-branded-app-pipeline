@@ -42,6 +42,7 @@ type Props = {
   detachPaymentMethod: (pm_id: string, options: any) => void,
   fetchMembership: () => void,
   onlinePaymentEnabled?: boolean,
+  companyId: number,
 };
 
 type State = {
@@ -223,6 +224,7 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
                   snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                   defaultUserName={this.props.member?.name || ''}
                   defaultUserEmail={this.props.member?.email || ''}
+                  companyId={this.props.companyId}
                 />
               ) : (
                 <CircularProgress />

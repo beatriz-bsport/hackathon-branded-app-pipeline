@@ -459,6 +459,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                   onCancel={props.onClose}
                   onSuccess={onSuccessStripeTerminal}
                   setProcessing={setProcessing}
+                  companyId={props.companyId}
                   isSetupIntent
                 />
               </div>

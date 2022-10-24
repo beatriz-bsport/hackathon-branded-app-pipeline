@@ -168,6 +168,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
             availablePaymentMethodList={this.props.availablePaymentMethodList}
             defaultUserName={this.props.invoiceToBill.member.name}
             defaultUserEmail={this.props.invoiceToBill.member.email}
+            companyId={this.props.companyId}
           />
         )}
       </Paper>

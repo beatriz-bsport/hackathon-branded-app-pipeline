@@ -20,7 +20,7 @@ type OwnProps = {
 };
 type Props = OwnProps;
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 25;
 
 export const AllPerformancePagination = (props: Props) => {
   const classes = useStyles();

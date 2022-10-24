@@ -52,7 +52,7 @@ import CoachPerformanceTable from '#libs/coach-payment-rules/components/performa
 import CoachPerformanceAdvancedFilters from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceAvancedFilters.component';
 import type { Coach } from '#libs/associated-coach/types';
 
-const PAGINATION_PAGE_LENGTH = 50;
+const PAGINATION_PAGE_LENGTH = 25;
 const styles = (theme: Theme) =>
   createStyles({
     bar: {

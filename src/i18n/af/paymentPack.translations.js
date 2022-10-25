@@ -478,6 +478,19 @@ exports.default = {
     error: 'Impossible de supprimer',
   },
   addPaymentPack: {
+    penalityModeFranchisor: {
+      label: "Application de l'acompte",
+      prorata: {
+        label: 'Au prorata, par franchisé, des annulations hors-délai',
+        explain:
+          "L'acompte de {{ price }} sera appliqué au prorata des annulations hors-délai enregistrées chez chacun de vos franchisés. Un total de {{ price }} sera facturé sur votre franchise.",
+      },
+      buyer: {
+        label: 'Au franchisé qui a facturé la carte',
+        explain:
+          "L'acompte de {{ price }} sera appliqué uniquement chez le franchisé dans lequel la carte a été initialement facturé.",
+      },
+    },
     requiredField: 'Ce champ est requis',
     minusZero: 'ce champ ne peut ếtre égal à 0',
     paymentPack: 'Carte de cours',

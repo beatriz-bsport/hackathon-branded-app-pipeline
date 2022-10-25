@@ -39,9 +39,10 @@ import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.com
 import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
 
 import type { PaymentPack, PaymentPackCategory } from '../types';
-
-const PENALTY_KIND_BLOCK_CPP = 0;
-const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+} from '../constants';
 
 type OwnProps = {
   onlyPublic?: boolean;

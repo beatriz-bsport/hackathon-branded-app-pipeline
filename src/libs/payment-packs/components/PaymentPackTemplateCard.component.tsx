@@ -17,6 +17,11 @@ import { PaymentPackTemplate } from '../types';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import RedButtonComponent from '#components/button/RedButton.component';
 
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+} from '#libs/payment-packs/constants';
+
 type Props = {
   paymentPackTemplate: PaymentPackTemplate;
   buyPaymentPackTemplateInstance?: () => void;
@@ -40,6 +45,12 @@ const RestrictionsSection: React.FC<{
     max_bookings_per_week,
     max_bookings_per_month,
     max_purchase_per_member,
+    penalty_active,
+    penalty_kind,
+    penalty_nb_late_cancellations,
+    penalty_days_blocked,
+    penalty_account_value,
+    penalty_nb_days,
   } = paymentPackTemplate;
   if (
     max_bookings_per_day ||
@@ -81,6 +92,30 @@ const RestrictionsSection: React.FC<{
                   {t('cardDetails.maxPurchasePerMember')}
                   {max_purchase_per_member}
                 </p>
+              )}
+              {!!penalty_active && (
+                <>
+                  {penalty_kind === PENALTY_KIND_BLOCK_CPP && (
+                    <p className={classes.detailContent}>
+                      {t('penalty.block', {
+                        nb_cancellations: penalty_nb_late_cancellations,
+                        nb_days: penalty_nb_days,
+                        days_blocked: penalty_days_blocked,
+                      })}
+                    </p>
+                  )}
+                  {penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
+                    <p className={classes.detailContent}>
+                      {t('penalty.account', {
+                        nb_cancellations: penalty_nb_late_cancellations,
+                        nb_days: penalty_nb_days,
+                        account_value: getCurrencyDisplayWithPrice(
+                          penalty_account_value,
+                        ),
+                      })}
+                    </p>
+                  )}
+                </>
               )}
             </Typography>
           </div>

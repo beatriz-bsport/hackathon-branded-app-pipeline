@@ -9,19 +9,29 @@ import { FormControlLabel, FormLabel, Grid, Radio } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import WarningIcon from '@material-ui/icons/Warning';
+import Alert from '@material-ui/lab/Alert';
+import Collapse from '@material-ui/core/Collapse';
 
 import { FormikProps, useFormikContext } from 'formik';
+import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import {
   TextFieldEnhancedLabelWithError,
   PriceField,
   TextField,
-} from '../../../../components/forms';
+} from '#components/forms';
 
 import {
   PaymentPackTemplate,
   PaymentPackTemplateFormValues,
 } from '../../types';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import {
+  getCurrencyDisplay,
+  getCurrencyDisplayWithPrice,
+} from '#libs/theme/selectors';
+import {
+  PENALTY_MODE_FRANCHISOR_PRORATA,
+  PENALTY_MODE_FRANCHISOR_BUYER,
+} from '../../constants';
 
 type Props = {
   initial?: PaymentPackTemplate;
@@ -46,6 +56,26 @@ export const PaymentPackFormGeneral = (props: Props) => {
     }
     setFieldValue('credit_number', value);
   };
+  const PENALITY_TYPE_CHOICE = [
+    {
+      label: t('addPaymentPack.penalityBlock'),
+      value: 'block',
+    },
+    {
+      label: t('addPaymentPack.penalityAccount'),
+      value: 'account',
+    },
+  ];
+  const PENALTY_MODE_FRANCHISOR_CHOICE = [
+    {
+      label: t('addPaymentPack.penalityModeFranchisor.prorata.label'),
+      value: PENALTY_MODE_FRANCHISOR_PRORATA,
+    },
+    {
+      label: t('addPaymentPack.penalityModeFranchisor.buyer.label'),
+      value: PENALTY_MODE_FRANCHISOR_BUYER,
+    },
+  ];
   return (
     <>
       <Grid item xs={12}>
@@ -149,6 +179,166 @@ export const PaymentPackFormGeneral = (props: Props) => {
           <Grid item xs={0} md={6} />
         </>
       )}
+      <Grid item xs={12}>
+        <div className={classes.row}>
+          <CheckboxField
+            name="penalty_active"
+            label={t('addPaymentPack.penality')}
+            disabled={values.credit_number === 'limited'}
+          />
+          {values.credit_number === 'limited' ? (
+            <>
+              <WarningIcon color="primary" />
+              <Typography variant="body2">
+                {t('addPaymentPack.penalityRule')}
+              </Typography>
+            </>
+          ) : null}
+        </div>
+      </Grid>
+      <Collapse in={values.penalty_active}>
+        <Grid container spacing={4} className={classes.gridContainer}>
+          <>
+            <Grid item xs={3}>
+              <TextFieldEnhancedLabelWithError
+                id="textfield_penalityNumberCancel"
+                fullWidth
+                name="penalty_nb_late_cancellations"
+                type="number"
+                required
+                label={t('addPaymentPack.penalityNumberCancel')}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextFieldEnhancedLabelWithError
+                id="penalty_nb_days"
+                fullWidth
+                name="penalty_nb_days"
+                type="number"
+                required
+                label={t('addPaymentPack.penalityNumberDay')}
+              />
+            </Grid>
+            {values.penalty_nb_late_cancellations && values.penalty_nb_days ? (
+              <Grid item xs={12}>
+                <Typography>
+                  {t('addPaymentPack.penalityInfo', {
+                    penalityNumberCancel: values.penalty_nb_late_cancellations,
+                    penalityNumberDay: values.penalty_nb_days,
+                  })}
+                </Typography>
+              </Grid>
+            ) : null}
+            <Grid item xs={12}>
+              <RadioGroup
+                name="penalty_kind"
+                onChange={(_, value) => {
+                  setFieldValue('penalty_kind', value);
+                }}
+              >
+                <FormLabel>{t('addPaymentPack.penalityType')}</FormLabel>
+                {PENALITY_TYPE_CHOICE.map(({ value, label: l }) => (
+                  <div key={value}>
+                    <FormControlLabel
+                      key={value}
+                      value={value}
+                      control={
+                        <Radio
+                          checked={`${values.penalty_kind}` === `${value}`}
+                        />
+                      }
+                      label={l}
+                    />
+                  </div>
+                ))}
+              </RadioGroup>
+            </Grid>
+            {values.penalty_kind === 'block' ? (
+              <Grid item xs={6}>
+                <TextFieldEnhancedLabelWithError
+                  id="textfield_block"
+                  fullWidth
+                  name="penalty_days_blocked"
+                  type="number"
+                  required
+                  label={t('addPaymentPack.penalityBlockDay')}
+                  helperText={t('addPaymentPack.penalityBlockDayHelper', {
+                    penalityBlockDay: values.penalty_days_blocked,
+                  })}
+                />
+              </Grid>
+            ) : (
+              <>
+                <Grid item xs={6}>
+                  <PriceField
+                    id="textfield_penalityAccount"
+                    fullWidth
+                    name="penalty_account_value"
+                    required
+                    label={t('addPaymentPack.penalityAccountPrice')}
+                    helperText={t('addPaymentPack.penalityAccountHelper', {
+                      penalityBlockAccount: values.penalty_account_value,
+                    })}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <RadioGroup
+                    name="penalty_mode_franchisor"
+                    onChange={(_, value) => {
+                      setFieldValue(
+                        'penalty_mode_franchisor',
+                        parseInt(value, 10),
+                      );
+                    }}
+                  >
+                    <FormLabel>
+                      {t('addPaymentPack.penalityModeFranchisor.label')}
+                    </FormLabel>
+                    {PENALTY_MODE_FRANCHISOR_CHOICE.map(
+                      ({ value, label: l }) => (
+                        <div key={value}>
+                          <FormControlLabel
+                            key={value}
+                            value={value}
+                            control={
+                              <Radio
+                                checked={
+                                  `${values.penalty_mode_franchisor}` ===
+                                  `${value}`
+                                }
+                              />
+                            }
+                            label={l}
+                          />
+                        </div>
+                      ),
+                    )}
+                  </RadioGroup>
+                  <Alert
+                    severity="info"
+                    classes={{ root: classes.alertIcon }}
+                    className={classes.alert}
+                  >
+                    {t(
+                      `addPaymentPack.penalityModeFranchisor.${
+                        values.penalty_mode_franchisor ===
+                        PENALTY_MODE_FRANCHISOR_BUYER
+                          ? 'buyer'
+                          : 'prorata'
+                      }.explain`,
+                      {
+                        price: getCurrencyDisplayWithPrice(
+                          values.penalty_account_value,
+                        ),
+                      },
+                    )}
+                  </Alert>
+                </Grid>
+              </>
+            )}
+          </>
+        </Grid>
+      </Collapse>
     </>
   );
 };
@@ -185,6 +375,12 @@ const useStyles = makeStyles<Theme>((theme) => ({
     alignItems: 'center',
     position: 'relative',
     top: theme.spacing(3),
+  },
+  alertIcon: {
+    alignItems: 'center',
+  },
+  alert: {
+    marginBottom: theme.spacing(2),
   },
 }));
 

@@ -284,6 +284,7 @@ export type PaymentPackTemplateFormValues = {
   penalty_kind?: 'block' | 'account' | number;
   penalty_days_blocked?: number;
   penalty_account_value?: number;
+  penalty_mode_franchisor: number;
   max_bookings_per_day?: number;
   max_bookings_per_week?: number;
   max_bookings_per_month?: number;

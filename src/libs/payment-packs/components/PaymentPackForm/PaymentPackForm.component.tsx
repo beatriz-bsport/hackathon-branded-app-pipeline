@@ -41,8 +41,10 @@ import type {
 } from '#libs/private-service/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
-const PENALTY_KIND_BLOCK_CPP = 0;
-const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+} from '../../constants';
 
 const validityDict = {
   [START_ON_PURCHASE]: 'billing',

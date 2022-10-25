@@ -12,9 +12,20 @@ import { DATE_FORMAT } from '../../../../utils/datetime';
 import PaymentPackTemplateFormRestrictions from './PaymentPackTemplateFormRestrictions.component';
 import PaymentPackTemplateFormValidity from './PaymentPackTemplateFormValidity.component';
 import PaymentPackTemplateFormGeneral from './PaymentPackTemplateFormGeneral.component';
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+  PENALTY_MODE_FRANCHISOR_PRORATA,
+} from '../../constants';
 
 export const VALID_BY_DURATION = 'VALID_BY_DURATION';
 export const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';
+
+const penaltyKindDict = {
+  [PENALTY_KIND_BLOCK_CPP]: 'block',
+  [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
+};
+
 type Props = {};
 
 const PaymentPackTemplateForm = (props: Props) => {
@@ -113,6 +124,46 @@ const PaymentPackTemplateSchema = Yup.object().shape({
   new_member_only: Yup.boolean(),
   full_vod_access: Yup.boolean(),
   only_vod_access: Yup.boolean(),
+  penalty_active: Yup.boolean(),
+  penalty_mode_franchisor: Yup.number(),
+  penalty_nb_late_cancellations: Yup.number().when('penality', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+
+  penalty_nb_days: Yup.number().when('penality', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+  penalty_kind: Yup.string(),
+  penalty_days_blocked: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (this.parent.penality && this.parent.penalty_kind === 'block') {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  penalty_account_value: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (this.parent.penality && this.parent.penalty_kind === 'account') {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -142,6 +193,13 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         new_member_only: false,
         full_vod_access: false,
         only_vod_access: false,
+        penalty_active: false,
+        penalty_mode_franchisor: PENALTY_MODE_FRANCHISOR_PRORATA,
+        penalty_nb_late_cancellations: 3,
+        penalty_nb_days: 7,
+        penalty_kind: 'block',
+        penalty_days_blocked: 7,
+        penalty_account_value: 10,
       },
       (initial && {
         ...initial,
@@ -150,6 +208,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         start_date_method: `${initial.start_date_method}`,
         categories: initial.categories || [],
         establishments: initial.establishments || [],
+        penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
         timeType: initial.validity_daterange
           ? VALID_BY_DATERANGE
           : VALID_BY_DURATION,
@@ -184,6 +243,13 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       'only_vod_access',
       'onsite_payment_available',
       'validity_daterange',
+      'penalty_active',
+      'penalty_mode_franchisor',
+      'penalty_nb_late_cancellations',
+      'penalty_nb_days',
+      'penalty_kind',
+      'penalty_days_blocked',
+      'penalty_account_value',
     ];
     const data = pick(values, keys);
     if (values.timeType === VALID_BY_DATERANGE) {
@@ -205,6 +271,17 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     }
     if (values.unlimited) {
       data.credits = null;
+    }
+    switch (values.penalty_kind) {
+      case 'block':
+        data.penalty_kind = PENALTY_KIND_BLOCK_CPP;
+        break;
+      default:
+        data.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
+        break;
+    }
+    if (values.credit_number === 'limited') {
+      data.penalty_active = false;
     }
 
     data.max_bookings_per_day = values.max_bookings_per_day || null;

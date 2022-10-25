@@ -11,6 +11,7 @@
       "7": "Tutoriels"
     },
     "showMore": "Voir davantage",
+    "readAll": "Marquer tout comme lu",
     "unevenInvoice": {
       "title": "Facture non-équilibrée",
       "explainUneven": "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
@@ -45,8 +46,8 @@
       }
     },
     "newTutorialSectionOrLesson": {
-      "newSection": { "title": "Nouvelle section", "content": "La section {{name}} a été ajoutée, formez vous dès maintenant." },
-      "newLesson": { "title": "Nouveau Cours", "content": "Un nouveau cours a été ajouté à la section {{name}}" }
+      "newSection": { "title": "Nouvelle Section", "content": "La section {{- name}} a été ajoutée, formez-vous dès maintenant." },
+      "newLesson": { "title": "Nouveau Cours {{- name}}", "content": "Ajouté à la section {{- name}}" }
     }
   },
   "authentication": {

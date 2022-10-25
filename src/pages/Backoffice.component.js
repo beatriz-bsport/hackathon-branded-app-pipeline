@@ -58,10 +58,11 @@ import {
   getUsersPaginatedWithRole,
 } from '../libs/role/selectors';
 import { parseRestrictedPath } from '../libs/role/utils';
-import { userAcknowlegdePlatformTutorial } from '../libs/platform-tutorial/selectors';
+import { userAcknowlegdePlatformTutorial } from '#libs/platform-tutorial/selectors';
 import {
   fetchUserTutorialCompletion,
   updateUserAcknowlegdeTutorial,
+  updateTutorialLessonViewedStatus,
 } from '../libs/platform-tutorial/actions';
 import { getTempPasswordState } from '../libs/login/selectors';
 import {
@@ -70,9 +71,10 @@ import {
   checkEmailValidation as checkEmailValidationAction,
 } from '../libs/login/actions';
 import {
-  delete_ as deleteAlert,
   fetchMoreAlertingKind,
   fetchAll as fetchAllAlertings,
+  fetch as fetchAlerting,
+  deleteAlert,
 } from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
 import Config from '../config';
@@ -119,6 +121,8 @@ import type { PlatformSubscriptionPaymentStatus } from '../libs/platform-billing
 import { BLOCK_BACKOFFICE, WARN } from '../libs/platform-billing/constant';
 import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
+import { DeleteAlert } from '#libs/alerting/types';
+import type { OptionCallback } from '../state/types';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -217,7 +221,7 @@ type Props = {
   platformSubscriptionPaymentStatus: PlatformSubscriptionPaymentStatus,
   fetchAccessLevel: (token: string) => void,
   disconnect: () => void,
-  deleteAlert: (id: number) => void,
+  deleteAlert: DeleteAlert,
   loadingImpersonation: boolean,
   classes: Object,
   username: string,
@@ -226,6 +230,7 @@ type Props = {
   getFeatureList: () => void,
   fetchCashBook: () => void,
   fetchAllAlertings: () => void,
+  fetchAlerting: (alertKind: number, pageSize: number) => void,
   theme: any,
   themeLoading: boolean,
   featureListLoading: boolean,
@@ -315,6 +320,10 @@ type Props = {
   lastStripeConfigurationWarningDate: string,
   fetchUserTutorialCompletion: () => void,
   updateUserAcknowlegdeTutorial: () => void,
+  updateTutorialLessonViewedStatus: (
+    params?: TutorialLessonUserStatusQueryParams,
+    options?: OptionCallback<TutorialCompletion>,
+  ) => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -553,6 +562,11 @@ export class Backoffice extends Component<Props, State> {
     this.setState({ need_configuring_stripe_account_dialog: false });
   };
 
+  deleteAlert = (alert_kind: number, id: number) =>
+    this.props.deleteAlert(alert_kind, id, {
+      onSuccess: () => this.props.fetchAlerting(alert_kind, 1),
+    });
+
   render() {
     const { classes } = this.props;
     if (this.props.loadingImpersonation) {
@@ -629,7 +643,7 @@ export class Backoffice extends Component<Props, State> {
                 updateUserAcknowlegdeTutorial={
                   this.props.updateUserAcknowlegdeTutorial
                 }
-                deleteAlert={this.props.deleteAlert}
+                deleteAlert={this.deleteAlert}
                 disconnect={this.props.disconnect}
                 displayLeftMenu={this.state.displayLeftMenu}
                 fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
@@ -870,8 +884,9 @@ export default compose(
         push(`/login/signout${companyId ? `?membership=${companyId}` : ''}`),
 
       fetchAllAlertings,
-      fetchMoreAlertingKind,
+      fetchAlerting,
       deleteAlert,
+      fetchMoreAlertingKind,
 
       fetchSCT,
       fetchPaymentPackList: fetchPaymentPackListAction,
@@ -910,6 +925,7 @@ export default compose(
         stampLastStripeAccountConfigurationWarningDateAction,
       fetchUserTutorialCompletion,
       updateUserAcknowlegdeTutorial,
+      updateTutorialLessonViewedStatus,
     },
   ),
   withHandlers({

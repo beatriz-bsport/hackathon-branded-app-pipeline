@@ -142,7 +142,7 @@ const setLanguage = (lng: string) => {
 
 const getLanguage = () => {
   if (window.localStorage) {
-    return window.localStorage.getItem('i18nextLng');
+    return window.localStorage.getItem('i18nextLng').slice(0, 2);
   }
   return 'en';
 };

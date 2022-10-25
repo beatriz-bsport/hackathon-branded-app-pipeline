@@ -23,6 +23,7 @@ exports.default = {
     [NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind]: 'Tutoriels',
   },
   showMore: 'Voir davantage',
+  readAll: 'Marquer tout comme lu',
   unevenInvoice: {
     title: 'Facture non-équilibrée',
     explainUneven: "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
@@ -66,12 +67,13 @@ exports.default = {
   },
   newTutorialSectionOrLesson: {
     newSection: {
-      title: 'Nouvelle section',
-      content: 'La section {{name}} a été ajoutée, formez vous dès maintenant.',
+      title: 'Nouvelle Section',
+      content:
+        'La section {{- name}} a été ajoutée, formez-vous dès maintenant.',
     },
     newLesson: {
-      title: 'Nouveau Cours',
-      content: 'Un nouveau cours a été ajouté à la section {{name}}',
+      title: 'Nouveau Cours {{- name}}',
+      content: 'Ajouté à la section {{- name}}',
     },
   },
 };

@@ -13,11 +13,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import AlertListGroup from './AlertListGroup.component';
-import type { Alerting } from '../types';
+import type { Alerting, DeleteAlert } from '../types';
 
 type Props = {
   alertings: Array<Alerting>,
   pushRouter: (path: string) => void,
+  deleteAlert: DeleteAlert,
   onClose?: () => void,
   totalCount: number,
   showMore: (alert_kind: number) => void,
@@ -57,6 +58,7 @@ export function AlertList(props: Props) {
           .map((alert_group) => (
             <AlertListGroup
               pushRouter={props.pushRouter}
+              deleteAlert={props.deleteAlert}
               alert_group={alert_group}
               key={alert_group.alert_kind}
               onShowMore={() => props.showMore(alert_group.alert_kind)}

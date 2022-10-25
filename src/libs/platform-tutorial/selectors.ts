@@ -36,6 +36,7 @@ export const userAcknowlegdePlatformTutorial = createSelector(
     if (
       !permissions ||
       tutorialCompletion?.has_seen_tutorial_section_timestamp === null ||
+      tutorialCompletion?.has_seen_tutorial_section_timestamp === 0 ||
       loading ||
       !platformTutorialActivated()
     ) {

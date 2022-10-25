@@ -14,15 +14,16 @@ import { push } from 'connected-react-router';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { useDispatch } from 'react-redux';
 
-import type { AlertGroup } from '../types';
+import type { AlertGroup, DeleteAlert } from '../types';
 import AlertList from './AlertList.component';
 
 type Props = {
   setDialogOpen: (Object) => void,
+
   dialogOpen: ?Object,
   nbAlerting: number,
   alertings: Array<AlertGroup>,
-  deleteAlert: (id: number) => void,
+  deleteAlert: DeleteAlert,
   showMore: (alert_kind: number) => void,
 };
 

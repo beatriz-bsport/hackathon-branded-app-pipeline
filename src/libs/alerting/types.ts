@@ -1,4 +1,5 @@
 import type { LanguageDict } from '#libs/platform-tutorial/types';
+import { Member } from '#libs/member/types';
 
 export type AlertGroup = {
   results: Array<Alerting>;
@@ -6,7 +7,7 @@ export type AlertGroup = {
   error?: Error;
   next?: number;
   count: number;
-  alert_kind: number;
+  alert_kind: string;
 };
 
 export type Alerting = {
@@ -15,6 +16,22 @@ export type Alerting = {
   id: number;
   alert_kind: number;
   data: any;
+};
+
+export type PrivateBookingAlerting = Alerting & {
+  data: {
+    user_name: string;
+    date_start: string;
+    name: string;
+  };
+};
+
+export type CompanyOnboardingAlerting = Alerting & {
+  data: {
+    type: 'verification' | 'creation' | 'payout';
+    date: string;
+    name: string;
+  };
 };
 
 export type UnevenInvoiceAlerting = Alerting & {
@@ -37,10 +54,21 @@ export type NewOrderAlerting = Alerting & {
   };
 };
 
+export type TaskAlerting = Alerting & {
+  data: {
+    name: string;
+    description: string;
+    date_due: string;
+    member: Member;
+  };
+};
+
 export type NewTutorialSectionOrLessonAlerting = Alerting & {
   data: {
-    names: LanguageDict;
+    section_names: LanguageDict;
+    lesson_names: LanguageDict;
     section_id: number;
+    lesson_id: number;
     new_section: boolean;
   };
 };
@@ -51,3 +79,5 @@ export type AlertingState = {
   loading: boolean;
   error?: Error;
 };
+
+export type DeleteAlert = (kind: number, id: number) => void;

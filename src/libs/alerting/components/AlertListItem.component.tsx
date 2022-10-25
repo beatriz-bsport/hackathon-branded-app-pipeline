@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -25,12 +23,18 @@ import type {
   Alerting,
   UnevenInvoiceAlerting,
   NewTutorialSectionOrLessonAlerting,
+  PrivateBookingAlerting,
+  CompanyOnboardingAlerting,
+  NewOrderAlerting,
+  TaskAlerting,
+  DeleteAlert,
 } from '../types';
 import i18n from '../../../i18n';
 
 type Props = {
-  alerting: Alerting,
-  pushRouter: (path: string) => void,
+  alerting: Alerting;
+  pushRouter: (path: string) => void;
+  deleteAlert: DeleteAlert;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -46,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UnevenAlertListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: UnevenInvoiceAlerting,
+  pushRouter: (path: string) => void;
+  alerting: UnevenInvoiceAlerting;
 }) => {
   const { alerting } = props;
   const { t } = useTranslation(['alerting']);
@@ -85,8 +89,8 @@ const UnevenAlertListItem = (props: {
 };
 
 const PrivateBookingIncompleteListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: PrivateBookingAlerting,
+  pushRouter: (path: string) => void;
+  alerting: PrivateBookingAlerting;
 }) => {
   const { alerting } = props;
   const { t } = useTranslation(['alerting']);
@@ -126,8 +130,8 @@ const PrivateBookingIncompleteListItem = (props: {
 };
 
 const CompanyOnboardingAlertListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: CompanyOnboardingAlerting,
+  pushRouter: (path: string) => void;
+  alerting: CompanyOnboardingAlerting;
 }) => {
   const { alerting } = props;
   const { t } = useTranslation(['alerting']);
@@ -197,8 +201,8 @@ const CompanyOnboardingAlertListItem = (props: {
 };
 
 const NewOrderAlertListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: NewOrderAlerting,
+  pushRouter: (path: string) => void;
+  alerting: NewOrderAlerting;
 }) => {
   const { alerting } = props;
   const classes = useStyles();
@@ -230,8 +234,8 @@ const NewOrderAlertListItem = (props: {
 };
 
 const TaskAlertListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: TaskAlerting,
+  pushRouter: (path: string) => void;
+  alerting: TaskAlerting;
 }) => {
   const { alerting } = props;
   const classes = useStyles();
@@ -267,8 +271,8 @@ const TaskAlertListItem = (props: {
 };
 
 const UnpaidPrivateBookingIncompleteListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: PrivateBookingAlerting,
+  pushRouter: (path: string) => void;
+  alerting: PrivateBookingAlerting;
 }) => {
   const { alerting } = props;
   const { t } = useTranslation(['alerting']);
@@ -312,13 +316,15 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
 };
 
 const NewTutorialSectionOrLessonListItem = (props: {
-  pushRouter: (string) => void,
-  alerting: NewTutorialSectionOrLessonAlerting,
+  pushRouter: (path: string) => void;
+  alerting: NewTutorialSectionOrLessonAlerting;
+  deleteAlert: DeleteAlert;
 }) => {
-  const { alerting } = props;
+  const { alerting, deleteAlert, pushRouter } = props;
   const { t } = useTranslation(['alerting']);
   const classes = useStyles();
-  const { names, section_id, new_section } = alerting.data;
+  const { section_names, lesson_names, section_id, lesson_id, new_section } =
+    alerting.data;
   const notificationType = new_section ? 'newSection' : 'newLesson';
   const lang: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' = [
     'en-GB',
@@ -327,10 +333,16 @@ const NewTutorialSectionOrLessonListItem = (props: {
     ? 'en'
     : i18n?.language;
 
-  const title = t(`newTutorialSectionOrLesson.${notificationType}.title`);
-  const content = t(`newTutorialSectionOrLesson.${notificationType}.content`, {
-    name: names[lang],
+  const title = t(`newTutorialSectionOrLesson.${notificationType}.title`, {
+    name: lesson_names[lang],
   });
+  const content = t(`newTutorialSectionOrLesson.${notificationType}.content`, {
+    name: section_names[lang],
+  });
+  const onClick = React.useCallback(() => {
+    deleteAlert(NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind, lesson_id);
+    pushRouter(`/tutorial/${section_id}/${lesson_id}`);
+  }, [deleteAlert, pushRouter, section_id, lesson_id]);
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -338,9 +350,7 @@ const NewTutorialSectionOrLessonListItem = (props: {
           <Typography variant="subtitle1" component="h3">
             {title}
           </Typography>
-          <IconButton
-            onClick={() => props.pushRouter(`/tutorial/${section_id}`)}
-          >
+          <IconButton onClick={onClick}>
             <ArrowForwardIcon color="secondary" />
           </IconButton>
         </div>
@@ -350,7 +360,7 @@ const NewTutorialSectionOrLessonListItem = (props: {
   );
 };
 export default function AlertList(props: Props) {
-  const { alerting, pushRouter } = props;
+  const { alerting, pushRouter, deleteAlert } = props;
   switch (alerting.alert_kind) {
     case UNEVEN_INVOICE_ALERT.alert_kind:
       return (
@@ -388,6 +398,7 @@ export default function AlertList(props: Props) {
         <NewTutorialSectionOrLessonListItem
           alerting={alerting}
           pushRouter={pushRouter}
+          deleteAlert={deleteAlert}
         />
       );
     default:

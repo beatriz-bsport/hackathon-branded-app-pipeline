@@ -57,7 +57,7 @@ import SearchBar from '../../SearchBar.component';
 import AlertButtonMenu from '#libs/alerting/components/AlertButtonMenu.component';
 import { windowTitleToProps } from '../../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../../intercom';
-import { Alerting } from '#libs/alerting/types';
+import { Alerting, DeleteAlert } from '#libs/alerting/types';
 import { TempPasswordState } from '#libs/login/types';
 import { RolePermission, Role } from '#libs/role/types';
 import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
@@ -108,7 +108,7 @@ type Props = {
   disconnect: () => void;
   logo?: string;
   hidden: boolean;
-  deleteAlert: (id: number) => void;
+  deleteAlert: DeleteAlert;
   fetchMoreAlertingKind: (alert_kind: number) => void;
   title: string;
   tempPasswordState: TempPasswordState;

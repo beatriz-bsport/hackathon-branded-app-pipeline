@@ -12,8 +12,9 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
 
-import { Dispatch, ThunkAction } from '../../state/types';
+import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { RootState } from '../../reducers';
+import { updateTutorialLessonUserCompletionStatusAction } from '#libs/platform-tutorial/actions';
 
 const ALERT_KINDS = [
   UNEVEN_INVOICE_ALERT,
@@ -103,5 +104,34 @@ export function performAction(id: number, action_name: string): ThunkAction {
 
     dispatch(performActionAction.error(null));
     dispatch(performActionAction.isLoading({ id, isLoading: false }));
+  };
+}
+
+const ACTIONS_DICT = {
+  [NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind]:
+    updateTutorialLessonUserCompletionStatusAction,
+};
+
+export function deleteAlert(
+  alert_kind: number,
+  id: number,
+  options?: OptionCallback<number>,
+): ThunkAction {
+  const customActions = ACTIONS_DICT[alert_kind];
+  return async (dispatch: Dispatch) => {
+    dispatch(customActions.error(null));
+    dispatch(customActions.isLoading(true));
+
+    try {
+      const response = await api.deleteAlert(alert_kind, id);
+
+      dispatch(customActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(customActions.error(error));
+      options?.onError && options.onError(error);
+    }
+
+    dispatch(customActions.isLoading(false));
   };
 }

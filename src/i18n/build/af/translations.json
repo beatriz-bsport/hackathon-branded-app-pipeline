@@ -2039,7 +2039,7 @@
           "warning": "Attention: nous ne garderons aucune trace de cette opération. À utiliser uniquement pour des ajustements exceptionnels."
         },
         "explainDecaissement": "Un décaissement de {{ amount }} {{ currencyDisplay }} sera enregistré.",
-        "explainTopup": "Une augmentation de {{ amount }} € sera enregistré au solde du membre.",
+        "explainTopup": "Une augmentation de {{ amount }} {{ currencyDisplay }} sera enregistré au solde du membre.",
         "debt": "Décaissement",
         "topup": "Encaissement",
         "actions": { "submit": "Suivant", "cancel": "Annuler" }
@@ -4436,7 +4436,7 @@
       "expirationDate": "Expiration si aucune réservation initiale",
       "expirationDateHelper": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendu invalide",
       "marginalContribution": "Apport marginal théorique TTC",
-      "marginalContributionHelperText": "Utilisé pour calculer la rémunération des professeurs. 10€ signifie qu’une réservation faite avec cette carte est rémunérée 10€. Si vide ou 0€ l’apport d’une carte sera PRIX/NB_RESERVATION",
+      "marginalContributionHelperText": "Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION",
       "penalityNumberCancel": "Nombre d’annulations",
       "penalityNumberDay": "Nombre de jours",
       "penalityInfo": "Une pénalité sera appliquée si il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours",
@@ -4446,7 +4446,7 @@
       "penalityBlockDay": "Période de blocage de la carte (en jours)",
       "penalityAccountPrice": "Montant de l’acompte",
       "penalityBlockDayHelper": "La carte du membre concerné sera bloquée pendant {{penalityBlockDay}} jours",
-      "penalityAccountHelper": "Un acompte de {{penalityBlockAccount}}€ sera appliqué pour ce membre",
+      "penalityAccountHelper": "Un acompte de {{penalityBlockAccount}}{{ currencyDisplay }} sera appliqué pour ce membre",
       "restriction": "Restrictions",
       "maxUseDay": "Utilisations maximum par jour",
       "maxUseHelper": "Laisser vide pour ne pas imposer de limite",
@@ -9229,7 +9229,7 @@
         "objectTypeLabel": "Objet à créditer",
         "activityHelper": "Choisissez l'activité puis la séance",
         "titleUnevenInvoice": "Facture non-équilibrée",
-        "explainUnevenInvoice": "Le total s'élève à {{totalInvoiceItems}}€ quand le total des paiements est à {{ totalPayments }}€. Le compte interne du membre sera crédité/débité pour équilibrer."
+        "explainUnevenInvoice": "Le total s'élève à {{totalInvoiceItems}}{{ currencyDisplay }} quand le total des paiements est à {{ totalPayments }}{{ currencyDisplay }}. Le compte interne du membre sera crédité/débité pour équilibrer."
       },
       "payment": {
         "status": "Status",

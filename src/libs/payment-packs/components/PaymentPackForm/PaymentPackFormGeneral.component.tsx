@@ -33,6 +33,7 @@ import {
 } from '../../types';
 import { provincialTaxHelperText } from '#libs/theme/utils';
 import type { PrivatePass } from '#libs/private-service/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = {
   paymentPackCategories: Array<PaymentPackCategory>;
@@ -261,7 +262,9 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 label={t('addPaymentPack.marginalContribution')}
                 required
                 fullWidth
-                helperText={t('addPaymentPack.marginalContributionHelperText')}
+                helperText={t('addPaymentPack.marginalContributionHelperText', {
+                  currencyDisplay: getCurrencyDisplay(),
+                })}
               />
             </Grid>
             <Grid item xs={0} md={6} />
@@ -375,6 +378,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                     label={t('addPaymentPack.penalityAccountPrice')}
                     helperText={t('addPaymentPack.penalityAccountHelper', {
                       penalityBlockAccount: values.penalty_account_value,
+                      currencyDisplay: getCurrencyDisplay(),
                     })}
                   />
                 </Grid>

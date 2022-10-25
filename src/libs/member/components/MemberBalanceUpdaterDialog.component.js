@@ -140,6 +140,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
                     })
                   : t('balance.updaterDialog.explainTopup', {
                       amount: balanceUpdateValue,
+                      currencyDisplay: getCurrencyDisplay(),
                     })}
               </Typography>
             </div>

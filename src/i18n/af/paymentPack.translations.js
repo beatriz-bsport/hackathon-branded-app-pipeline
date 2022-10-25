@@ -534,7 +534,7 @@ exports.default = {
       "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendu invalide",
     marginalContribution: 'Apport marginal théorique TTC',
     marginalContributionHelperText:
-      'Utilisé pour calculer la rémunération des professeurs. 10€ signifie qu’une réservation faite avec cette carte est rémunérée 10€. Si vide ou 0€ l’apport d’une carte sera PRIX/NB_RESERVATION',
+      'Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION',
     penalityNumberCancel: 'Nombre d’annulations',
     penalityNumberDay: 'Nombre de jours',
     penalityInfo:
@@ -547,7 +547,7 @@ exports.default = {
     penalityBlockDayHelper:
       'La carte du membre concerné sera bloquée pendant {{penalityBlockDay}} jours',
     penalityAccountHelper:
-      'Un acompte de {{penalityBlockAccount}}€ sera appliqué pour ce membre',
+      'Un acompte de {{penalityBlockAccount}}{{ currencyDisplay }} sera appliqué pour ce membre',
     restriction: 'Restrictions',
     maxUseDay: 'Utilisations maximum par jour',
     maxUseHelper: 'Laisser vide pour ne pas imposer de limite',

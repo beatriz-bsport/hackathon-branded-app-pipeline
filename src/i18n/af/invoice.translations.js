@@ -259,7 +259,7 @@ exports.default = {
       explainDecaissement:
         'Un décaissement de {{ amount }} {{ currencyDisplay }} sera enregistré.',
       explainTopup:
-        'Une augmentation de {{ amount }} € sera enregistré au solde du membre.',
+        'Une augmentation de {{ amount }} {{ currencyDisplay }} sera enregistré au solde du membre.',
       debt: 'Décaissement',
       topup: 'Encaissement',
       actions: {

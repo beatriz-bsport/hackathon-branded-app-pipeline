@@ -21,6 +21,7 @@ import {
   PaymentPackTemplate,
   PaymentPackTemplateFormValues,
 } from '../../types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = {
   initial?: PaymentPackTemplate;
@@ -140,7 +141,9 @@ export const PaymentPackFormGeneral = (props: Props) => {
               label={t('addPaymentPack.marginalContribution')}
               required
               fullWidth
-              helperText={t('addPaymentPack.marginalContributionHelperText')}
+              helperText={t('addPaymentPack.marginalContributionHelperText', {
+                currencyDisplay: getCurrencyDisplay(),
+              })}
             />
           </Grid>
           <Grid item xs={0} md={6} />

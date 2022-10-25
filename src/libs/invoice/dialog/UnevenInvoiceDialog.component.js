@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import type { OptionCallback } from '../../../state/types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   open: boolean,
@@ -45,6 +46,7 @@ export function UnevenInvoiceDialog(props: Props) {
           {t('form.invoice.explainUnevenInvoice', {
             totalInvoiceItems: totalItem || 0,
             totalPayments: totalPayment || 0,
+            currencyDisplay: getCurrencyDisplay(),
           })}
         </DialogContentText>
       </DialogContent>

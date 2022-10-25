@@ -214,7 +214,7 @@ exports.default = {
     },
     error: 'Impossible de sauvegarder le professeur',
     error_email_exists:
-      'Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur',
+      'Un membre existe déjà avec cet email. Pour les relier, utiliser la modale précédente.',
     create: {
       success: 'Professeur créé avec succès',
     },

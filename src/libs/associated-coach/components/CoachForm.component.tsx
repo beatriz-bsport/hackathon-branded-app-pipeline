@@ -244,7 +244,7 @@ export const CoachFormHOC = withFormik({
           moment(values.birthday).format('DD/MM/YYYY')) ||
         '',
       phone: values.phone || undefined,
-      email: values.email || '',
+      email: values.email?.toLowerCase() || '',
     };
     onSubmit(data, {
       onSuccess: () => {

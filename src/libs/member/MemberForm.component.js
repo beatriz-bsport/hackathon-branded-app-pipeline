@@ -172,7 +172,7 @@ const checkIfMemberExists = (
   const prevEmail = currentFormikState.values.email;
   const nextEmail = nextFormikState.values.email;
   if (prevEmail !== nextEmail) {
-    checkUserExists({ email: nextEmail });
+    checkUserExists({ email: nextEmail?.toLowerCase() || '' });
   }
 };
 
@@ -651,7 +651,7 @@ export default compose(
         return {
           checkUserExists: debounce(({ email, phonenumber }) => {
             const q = email
-              ? `email=${encodeURIComponent(email)}`
+              ? `email=${encodeURIComponent(email.toLowerCase())}`
               : `phonenumber=${encodeURIComponent(phonenumber)}`;
             getAuth(`${API_URI}/saas/members/members/exists/?${q}`).catch(
               (error) => {
@@ -678,7 +678,7 @@ export default compose(
     linkMember: () => {
       const { email, phonenumber } = emailExists;
       postAuth(`${API_URI}/saas/members/members/link/`, {
-        email,
+        email: email?.toLowerCase() || '',
         phonenumber,
       })
         .then(() => {
@@ -749,7 +749,7 @@ export default compose(
       const data = {
         ...values,
         avatar: typeof avatar !== 'string' ? avatar : undefined,
-        email: values.email || '',
+        email: values.email?.toLowerCase() || '',
         emergency_contact: values.emergency_contact || undefined,
         gender: values.gender || 'X',
         birthday:

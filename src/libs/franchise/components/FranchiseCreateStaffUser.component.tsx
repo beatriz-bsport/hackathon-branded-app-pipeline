@@ -98,7 +98,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
         ? selectedFranchisees.map((franchisee) => franchisee.value)
         : [];
     this.props.onSubmit({
-      email,
+      email: email?.toLowerCase() || '',
       password,
       franchise_role: selectedRole.value,
       last_name,

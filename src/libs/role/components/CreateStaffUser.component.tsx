@@ -72,7 +72,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
         ? coaches.map((coach: SelectFieldItem) => coach.value)
         : [];
     this.props.onSubmit({
-      email,
+      email: email?.toLowerCase() || '',
       password,
       role,
       last_name,

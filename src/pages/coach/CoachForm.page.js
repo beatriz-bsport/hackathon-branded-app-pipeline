@@ -85,7 +85,7 @@ export class CoachFormPage extends React.Component<Props> {
           <CoachEmailCheckDialog
             onCancel={this.props.onCancel}
             submit={(email) => {
-              this.props.linkCoachViaEmail(email, {
+              this.props.linkCoachViaEmail(email?.toLowerCase() || '', {
                 onSuccess: () => {
                   this.props.push('/coach');
                   this.props.setIsEmailChecking(false);

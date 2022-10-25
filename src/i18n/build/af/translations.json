@@ -7146,16 +7146,6 @@
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
       },
-      "27": {
-        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
-        "name": "Cartes valides",
-        "first": "Possède",
-        "between": "et",
-        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
-        "third": "ou",
-        "fourth": "(confondues)",
-        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
-      },
       "400": {
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
@@ -7230,7 +7220,17 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
+      "undefined": {
+        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
+        "name": "Cartes valides",
+        "first": "Possède",
+        "between": "et",
+        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+        "third": "ou",
+        "fourth": "(confondues)",
+        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
+      }
     },
     "tag_rules": {
       "type_of_rule": "Type de règle",
@@ -7346,7 +7346,7 @@
       "editAccessToCoachSpace": { "error": "Erreur lors de la modification des droits d'accès à l'espace professeur" },
       "linkByEmail": { "success": "Professeur lié avec succès" },
       "error": "Impossible de sauvegarder le professeur",
-      "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
+      "error_email_exists": "Un membre existe déjà avec cet email. Pour les relier, utiliser la modale précédente.",
       "create": { "success": "Professeur créé avec succès" },
       "update": { "success": "Professeur modifié avec succès" },
       "delete": { "success": "Professeur supprimé", "error": "Impossible de supprimer le professeur" },

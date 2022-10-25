@@ -168,7 +168,8 @@
             "offerEdition": "Modificar una sesión",
             "filter": "Filtrar",
             "selectAnActivity": "Seleccionar una actividad",
-            "offerCreation": "Crear una sesión"
+            "offerCreation": "Crear una sesión",
+            "see": "Ver"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -4034,6 +4035,13 @@
                     "confirm": "Validar",
                     "cancel": "Cancelar"
                 }
+            }
+        },
+        "register": {
+            "dialog": {
+                "info": "Tu suscripción se está registrando, te avisaremos cuando esté lista.",
+                "error": "No se ha podido registrar la suscripción",
+                "success": "Tu suscripción {{- name }} ha sido registrada."
             }
         }
     },
@@ -8919,6 +8927,10 @@
                 "paymentPack": {
                     "63003": "Imposible: no se permite cambiar un bono compartido entre franquiciados"
                 }
+            },
+            "register": {
+                "error": "No se ha podido registrar la suscripción",
+                "success": "Suscripción registrada con éxito"
             }
         },
         "smartlist": {

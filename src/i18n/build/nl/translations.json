@@ -1448,7 +1448,8 @@
             "offerEdition": "Sessies bewerken",
             "offerCreation": "Sessies toevoegen",
             "selectAnActivity": "Selecteer een activiteit",
-            "filter": "Filter"
+            "filter": "Filter",
+            "see": "Zie"
         },
         "members": {
             "form": {
@@ -6199,6 +6200,13 @@
                     "cancel": "Annuleren"
                 }
             }
+        },
+        "register": {
+            "dialog": {
+                "info": "Uw abonnement wordt geregistreerd, wij zullen u informeren wanneer het klaar is.",
+                "error": "Onmogelijk om het abonnement te registreren, probeer het later opnieuw.",
+                "success": "Uw abonnement {{- name }} is succesvol geregistreerd."
+            }
         }
     },
     "coachPerformance": {
@@ -8582,6 +8590,10 @@
                 "paymentPack": {
                     "63003": "Het is niet mogelijk om leskaarten van een Master-Account te bewerken"
                 }
+            },
+            "register": {
+                "error": "Onmogelijk om het abonnement te registreren",
+                "success": "Abonnement succesvol geregistreerd"
             }
         },
         "invoice": {

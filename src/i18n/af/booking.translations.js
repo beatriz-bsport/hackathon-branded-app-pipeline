@@ -265,7 +265,9 @@ exports.default = {
       chooseTime: {
         first: 'Envoyer un mail',
         second_before: 'heure(s) avant la séance',
+        second_before_days: 'jour(s) avant la séance',
         second_after: 'heure(s) après la séance',
+        second_after_days: 'heure(s) après la séance',
       },
       chooseStatus: {
         title: 'Choisissez le type de réservation que vous voulez notifier',

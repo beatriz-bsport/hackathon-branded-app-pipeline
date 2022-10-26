@@ -975,6 +975,7 @@ exports.default = {
   privateBookingNotification: {
     form: {
       title: 'Ajouter une notification',
+      subtitle: 'Carte de rendez-vous',
       intro:
         "Vous pouvez prévenir vos clients avant ou après certains RDV, en fonction de différents critères comme le nombre de réservations ou d'annulations.",
       chooseKind: {

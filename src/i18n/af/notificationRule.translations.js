@@ -58,6 +58,15 @@ exports.default = {
     event: 'Événement',
     emailDesign: 'Mail à envoyer',
   },
+  type: {
+    sendNotification: 'Envoyer la notification',
+    bookingConcerned: 'la séance concernée par la notification',
+    days: 'Jours',
+    hours: 'Heures',
+  },
+  triggeringEvent: {
+    title: 'Événement déclencheur',
+  },
   ruleGroup: {
     member: 'Création de compte élève',
     offer: 'Séance',
@@ -111,7 +120,7 @@ exports.default = {
       },
     },
     Booking: {
-      name: 'Réservation',
+      name: 'Activité',
       tags: {
         activity: 'Activité',
         coach: 'Professeur',
@@ -123,6 +132,15 @@ exports.default = {
         spot: 'Place',
         canceled_grouped_session: 'Groupe de réservation annulé',
       },
+      subtitles: {
+        meta_activity: 'Activité',
+        establishment: 'Salle',
+        establishment_group: 'Localisation',
+        workshop: 'Atelier',
+      },
+    },
+    Birthday: {
+      name: 'Anniversaire',
     },
     PrivateConsumerPass: {
       name: 'Carte rendez-vous',

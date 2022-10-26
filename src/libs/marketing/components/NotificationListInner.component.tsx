@@ -25,10 +25,19 @@ const getLabelForRules = (
       NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION,
     ].includes(notification.kind)
   ) {
-    const key =
-      notification.event_rules.hours < 0 ? 'second_before' : 'second_after';
+    let key = 'second_before';
+    if (notification.event_rules.hours > 0) {
+      key = 'second_after';
+    } else if (notification.event_rules.days < 0) {
+      key = 'second_before_days';
+    } else if (notification.event_rules.days > 0) {
+      key = 'second_after_days';
+    }
     const trad = t(`booking:notification.form.chooseTime.${key}`);
-    return `${Math.abs(notification.event_rules.hours)} ${trad}`;
+    return `${
+      Math.abs(notification.event_rules.hours) ||
+      Math.abs(notification.event_rules.days)
+    } ${trad}`;
   }
 
   if (
@@ -122,7 +131,7 @@ const getLabelForRules = (
   }
 
   if (notification.kind === 0) {
-    return t('notificationRule.marketingNotification.birthday');
+    return t('notificationRule:marketingNotification.birthday');
   }
   return '';
 };

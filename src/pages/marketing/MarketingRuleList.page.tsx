@@ -406,7 +406,7 @@ export class MarketingRuleListPage extends Component<Props, State> {
               emailSummariesById={this.props.emailSummariesById}
               onClickNotification={this.onClickNotification}
               onUpdateNotification={this.props.updateMarketingNotification}
-              smartLists={[]}
+              smartLists={this.props.smartLists}
             />
             {this.props.notifications?.birthday?.length === 0 && (
               <Typography>

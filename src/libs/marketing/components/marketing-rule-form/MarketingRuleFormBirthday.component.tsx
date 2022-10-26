@@ -1,41 +1,19 @@
-// @flow
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
-import classNames from 'classnames';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-import { makeStyles } from '@material-ui/core/styles';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import Collapse from '@material-ui/core/Collapse';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import WarningIcon from '@material-ui/icons/Warning';
-import InfoIcon from '@material-ui/icons/Info';
-
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { useTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 import { compose } from 'recompose';
-
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import Tooltip from '#components/Tooltip.component';
-import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
-import { Actions, Submit, CheckboxField, TextField } from '#components/forms';
-import NotificationContentInput from '#libs/communication/components/NotificationContentInput.component';
-import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
-import HTMLPreview from '#components/html/HTMLPreview.component';
-import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
-import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
+import { Actions, Submit } from '#components/forms';
 import { SmartList } from '#libs/smart-list/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import MarketingRuleSmartlistField from '../MarketingRuleSmartlistField.component';
+import MarketingRuleSendingMethodField from '../MarketingRuleSendingMethodField.component';
 
 type Props = {
   getEmails: () => void;
@@ -56,35 +34,6 @@ type Props = {
   getSmartLists: () => void;
   goToSmartlist: () => void;
   resolvedGenericTags: ResolvedGenericTags;
-};
-
-const renderEmptyOrLoading = (
-  loading: boolean,
-  emails: Array<any>,
-  t: TFunction,
-  classes: any,
-) => {
-  if (loading) {
-    return <CircularProgress />;
-  }
-  if (!emails.length) {
-    return (
-      <div className={classes.previewEmpty}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography color="textSecondary">
-          {t('notification.form.noMailAvailable')}
-        </Typography>
-      </div>
-    );
-  }
-  return (
-    <div className={classes.previewEmpty}>
-      <InfoIcon fontSize="large" color="disabled" />
-      <Typography color="textSecondary">
-        {t('notification.form.selectToShowPreview')}
-      </Typography>
-    </div>
-  );
 };
 
 const MarketingRuleFormBirthday = (props: Props) => {
@@ -108,9 +57,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
     getSmartLists,
     goToSmartlist,
   } = props;
-  const { t } = useTranslation(['paymentPack']);
-  const classes = useStyles();
-  const [displayMailPreview, setDisplayMailPreview] = useState(false);
+  const { t } = useTranslation(['paymentPack', 'notificationRule']);
   const {
     send_email,
     send_notification_push,
@@ -127,223 +74,37 @@ const MarketingRuleFormBirthday = (props: Props) => {
     getSmartLists();
   }, [initial, getEmailDetail, getEmails, getSmartLists]);
 
-  const smartListSelectOptions: Array<OptionTypeBase> = smartLists?.map(
-    (sm) => ({
-      label: sm.name,
-      value: sm.id,
-    }),
-  );
-
   return (
     <GenericResponsiveDrawer
       open
       onClose={onCancel}
       title={t('notificationForm')}
+      subtitle={t('notificationRule:tag.Birthday.name')}
     >
       <Form>
-        <FeatureListProvider>
-          {(featureList) => {
-            const hasUpsell =
-              featureList.upsell &&
-              featureList.upsell.find(
-                (f) => f.readable_identifier === 'push_notification',
-              );
+        <MarketingRuleSmartlistField
+          goToSmartList={goToSmartlist}
+          smartLists={smartLists}
+          smartlist_include={smartlist_include}
+          smartlist_exclude={smartlist_exclude}
+        />
+        <MarketingRuleSendingMethodField
+          send_email={send_email}
+          send_notification_push={send_notification_push}
+          notificationTitle={notificationTitle}
+          notificationContent={notificationContent}
+          errors={errors}
+          emailListLoading={emailListLoading}
+          emails={emails}
+          email_design={email_design}
+          getEmailDetail={getEmailDetail}
+          emailDetailLoading={emailDetailLoading}
+          emailDetails={emailDetails}
+          setFieldValue={setFieldValue}
+          tags={tags}
+          resolvedGenericTags={resolvedGenericTags}
+        />
 
-            return (
-              <div className={classes.fieldContainer}>
-                <Typography variant="subtitle2">
-                  {t('booking:notification.form.sendingMethod')}
-                </Typography>
-                <CheckboxField
-                  name="send_email"
-                  label={t('booking:notification.form.mail')}
-                  checked={send_email}
-                />
-                <Tooltip
-                  title={t('booking:notification.form.needPushUpsell')}
-                  hide={hasUpsell}
-                  placement="bottom-start"
-                >
-                  <div className={classes.flex}>
-                    <CheckboxField
-                      name="send_notification_push"
-                      label={t('booking:notification.form.push')}
-                      checked={send_notification_push}
-                      disabled={!hasUpsell}
-                    />
-                  </div>
-                </Tooltip>
-                {send_notification_push && (
-                  <Typography variant="caption" color="textSecondary">
-                    {t('booking:notification.form.pushHelper')}
-                  </Typography>
-                )}
-              </div>
-            );
-          }}
-        </FeatureListProvider>
-        <>
-          <Typography variant="subtitle2" className={classes.spacingTop}>
-            {t('booking:notification.form.advanced')}
-          </Typography>
-          <div className={classes.smartListSelector}>
-            <Typography variant="caption">
-              {t('notification.form.smartListHelper')}
-            </Typography>
-            <MaterialUiMultiSelectorField
-              name="smartlist_exclude"
-              options={
-                smartListSelectOptions ? [...smartListSelectOptions] : []
-              }
-              placeholder={t('notification.form.smartListSelection')}
-              isMulti
-              isClearable
-              value={smartListSelectOptions?.filter((opt) =>
-                smartlist_exclude?.includes(opt?.value),
-              )}
-            />
-          </div>
-          <div className={classes.smartListSelector}>
-            <Typography variant="caption">
-              {t('notification.form.smartListHelperInclude')}
-            </Typography>
-            <MaterialUiMultiSelectorField
-              name="smartlist_include"
-              options={
-                smartListSelectOptions ? [...smartListSelectOptions] : []
-              }
-              placeholder={t('notification.form.smartListSelection')}
-              isMulti
-              isClearable
-              value={smartListSelectOptions?.filter((opt) =>
-                smartlist_include?.includes(opt?.value),
-              )}
-            />
-          </div>
-          {!smartlist_include.length && !smartlist_exclude.length && (
-            <div className={classes.warningContainerSmartLists}>
-              <WarningIcon className={classes.warningIcon} />
-              <Typography variant="body2" className={classes.warningContent}>
-                {t('notification.form.warning')}
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={goToSmartlist}
-                className={classes.createSmartList}
-              >
-                {t('notification.form.createSmartList')}
-              </Button>
-            </div>
-          )}
-        </>
-        <Typography
-          variant="subtitle1"
-          className={classNames(
-            [classes.spacingTop],
-            [classes.spacingBottom],
-            [classes.spacingLeft],
-          )}
-        >
-          {t('booking:notification.form.settingTitle')}
-        </Typography>
-        {send_email && (
-          <div
-            className={classes.fieldContainer}
-            id="select_notification_template"
-          >
-            <Typography variant="subtitle2">
-              {t('notification.form.mailSettings')}
-            </Typography>
-            <Typography
-              variant="caption"
-              className={errors.email_design ? classes.errorText : null}
-            >
-              {t('notification.form.mailTitle')}
-            </Typography>
-            {emailListLoading ? (
-              <LinearProgress className={classes.selectorContainer} />
-            ) : (
-              <div name="email_design" className={classes.selectorContainer}>
-                <EmailSelector
-                  name="email_design"
-                  emails={emails}
-                  value={email_design}
-                  onChange={(ev) => {
-                    setFieldValue('email_design', ev ? ev.value : null);
-                    if (ev) getEmailDetail(ev.value);
-                  }}
-                  helperText={t('notification.form.mailSelection')}
-                />
-              </div>
-            )}
-            <div className={classes.buttonContainer}>
-              <Button
-                onClick={() =>
-                  setDisplayMailPreview((prevDisplay) => !prevDisplay)
-                }
-              >
-                {displayMailPreview ? (
-                  <div className={classes.inlineContainer}>
-                    <VisibilityOffIcon className={classes.visibilityIcon} />
-                    <Typography variant="caption">
-                      {t('notification.form.hideMail')}
-                    </Typography>
-                  </div>
-                ) : (
-                  <div className={classes.inlineContainer}>
-                    <VisibilityIcon className={classes.visibilityIcon} />
-                    <Typography variant="caption">
-                      {t('notification.form.showMail')}
-                    </Typography>
-                  </div>
-                )}
-              </Button>
-            </div>
-            <Collapse in={displayMailPreview}>
-              <div className={classes.mailPreview}>
-                {email_design && !!emailDetails[email_design] ? (
-                  <HTMLPreview
-                    html={emailDetails?.[email_design]?.html}
-                    scrolling
-                    resolvedGenericTags={resolvedGenericTags}
-                  />
-                ) : (
-                  renderEmptyOrLoading(emailDetailLoading, emails, t, classes)
-                )}
-              </div>
-            </Collapse>
-          </div>
-        )}
-        {send_notification_push && (
-          <div className={classes.fieldContainer}>
-            <Typography
-              variant="subtitle2"
-              className={classNames([classes.spacingTop], {
-                [classes.errorText]:
-                  errors.notificationTitle || errors.notificationContent,
-              })}
-            >
-              {t('notification.form.pushTitle')}
-            </Typography>
-            <TextField
-              label={t('communication:mail.titleNotification')}
-              name="notificationTitle"
-              fullWidth
-              inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
-              className={classes.notificationInput}
-            />
-            <Typography variant="caption" className={classes.grey}>
-              {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
-            </Typography>
-            <NotificationContentInput
-              label={t('communication:mail.contentNotification')}
-              name="notificationContent"
-              className={classes.notificationInput}
-              value={notificationContent}
-              tags={tags}
-            />
-          </div>
-        )}
         <Actions>
           <Button
             onClick={() => {
@@ -371,98 +132,6 @@ const MarketingRuleFormBirthday = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  warningContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-  bottomButtons: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  fieldContainer: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  textInput: {
-    width: '70px',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  inlineContainer: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  mailPreview: {
-    border: '1px solid grey',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    minHeight: '30vh',
-    minWidth: '40vh',
-  },
-  selectorContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(1),
-  },
-  previewEmpty: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingTop: theme.spacing(6),
-  },
-  visibilityIcon: {
-    marginRight: theme.spacing(1),
-  },
-  errorText: {
-    color: 'red',
-  },
-  spacingTop: {
-    marginTop: theme.spacing(4),
-  },
-  spacingBottom: {
-    marginBottom: theme.spacing(2),
-  },
-  notificationInput: {
-    marginTop: theme.spacing(2),
-  },
-  flex: {
-    display: 'flex',
-  },
-  smartListSelector: {
-    marginTop: theme.spacing(2),
-  },
-  warningContainerSmartLists: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    justifyContent: 'space-between',
-  },
-  warningContent: {
-    marginRight: theme.spacing(1),
-    marginLeft: theme.spacing(2),
-    color: theme.palette.warning.main,
-  },
-  warningIcon: {
-    color: theme.palette.warning.main,
-  },
-  createSmartList: {
-    borderColor: theme.palette.warning.main,
-    color: theme.palette.warning.main,
-  },
-}));
-
 const BirthdayNotificationSchema = Yup.object().shape({
   atLeastOneChannel: Yup.boolean().when(
     ['send_notification_push', 'send_email'],
@@ -485,8 +154,7 @@ const BirthdayNotificationSchema = Yup.object().shape({
   smartlist_include: Yup.array().of(Yup.number()),
   smartlist_exclude: Yup.array().of(Yup.number()),
 });
-
-export default compose(
+export default compose<any, Props>(
   withFormik({
     validateOnMount: true,
     mapPropsToValues: ({ initial }) => {

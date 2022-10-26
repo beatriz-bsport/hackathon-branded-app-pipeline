@@ -234,7 +234,9 @@
         "chooseTime": {
           "first": "Envoyer un mail",
           "second_before": "heure(s) avant la séance",
-          "second_after": "heure(s) après la séance"
+          "second_before_days": "jour(s) avant la séance",
+          "second_after": "heure(s) après la séance",
+          "second_after_days": "heure(s) après la séance"
         },
         "chooseStatus": {
           "title": "Choisissez le type de réservation que vous voulez notifier",
@@ -3396,6 +3398,13 @@
       "event": "Événement",
       "emailDesign": "Mail à envoyer"
     },
+    "type": {
+      "sendNotification": "Envoyer la notification",
+      "bookingConcerned": "la séance concernée par la notification",
+      "days": "Jours",
+      "hours": "Heures"
+    },
+    "triggeringEvent": { "title": "Événement déclencheur" },
     "ruleGroup": {
       "member": "Création de compte élève",
       "offer": "Séance",
@@ -3443,7 +3452,7 @@
         }
       },
       "Booking": {
-        "name": "Réservation",
+        "name": "Activité",
         "tags": {
           "activity": "Activité",
           "coach": "Professeur",
@@ -3454,8 +3463,15 @@
           "ics_calendar_link": "Lien ics calendrier",
           "spot": "Place",
           "canceled_grouped_session": "Groupe de réservation annulé"
+        },
+        "subtitles": {
+          "meta_activity": "Activité",
+          "establishment": "Salle",
+          "establishment_group": "Localisation",
+          "workshop": "Atelier"
         }
       },
+      "Birthday": { "name": "Anniversaire" },
       "PrivateConsumerPass": {
         "name": "Carte rendez-vous",
         "tags": {
@@ -5625,6 +5641,7 @@
     "privateBookingNotification": {
       "form": {
         "title": "Ajouter une notification",
+        "subtitle": "Carte de rendez-vous",
         "intro": "Vous pouvez prévenir vos clients avant ou après certains RDV, en fonction de différents critères comme le nombre de réservations ou d'annulations.",
         "chooseKind": {
           "title": "Choisissez le type de réservation que vous voulez notifier",
@@ -7147,6 +7164,16 @@
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
       },
+      "27": {
+        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
+        "name": "Cartes valides",
+        "first": "Possède",
+        "between": "et",
+        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+        "third": "ou",
+        "fourth": "(confondues)",
+        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
+      },
       "400": {
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
@@ -7221,17 +7248,7 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
-      "undefined": {
-        "explanation": "Possède X cartes de cours ou cartes de RDV valides",
-        "name": "Cartes valides",
-        "first": "Possède",
-        "between": "et",
-        "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
-        "third": "ou",
-        "fourth": "(confondues)",
-        "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
-      }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
     },
     "tag_rules": {
       "type_of_rule": "Type de règle",
@@ -8040,7 +8057,6 @@
       },
       "notificationType": {
         "title": "Type de notification",
-        "sendNotification": "Envoyer la notification",
         "day": "Jour",
         "day_plural": "Jours",
         "hour": "Heure",

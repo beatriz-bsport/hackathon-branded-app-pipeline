@@ -20,3 +20,24 @@ export const getMergeTags = memoize(
     return null;
   },
 );
+
+export const getSendingTimeNotification = (
+  timeComparator: 'before' | 'after',
+  periodScale: 'days' | 'hours',
+  relativeTimeValue: number,
+) => {
+  let daysSubmit = 0;
+  let hoursSubmit = 0;
+  if (periodScale === 'days') {
+    daysSubmit = relativeTimeValue;
+  } else {
+    hoursSubmit = relativeTimeValue;
+  }
+
+  if (timeComparator === 'before') {
+    daysSubmit *= -1;
+    hoursSubmit *= -1;
+  }
+
+  return [daysSubmit, hoursSubmit];
+};

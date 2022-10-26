@@ -199,7 +199,6 @@ exports.default = {
     },
     notificationType: {
       title: 'Type de notification',
-      sendNotification: 'Envoyer la notification',
       day: 'Jour',
       day_plural: 'Jours',
       hour: 'Heure',

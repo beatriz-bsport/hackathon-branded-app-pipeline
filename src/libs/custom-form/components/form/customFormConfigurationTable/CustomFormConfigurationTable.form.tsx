@@ -516,6 +516,7 @@ const styles = (theme: Theme) => ({
     width: '60%',
   },
   mandatory: {
+    paddingRight: theme.spacing(2),
     width: '10%',
   },
   actions: {
@@ -523,6 +524,8 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     paddingRight: theme.spacing(3),
+    paddingLeft: theme.spacing(2),
+    marginLeft: theme.spacing(1),
   },
   alignRight: {
     marginRight: theme.spacing(6),

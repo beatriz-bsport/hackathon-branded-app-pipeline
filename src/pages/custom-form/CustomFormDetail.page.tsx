@@ -135,7 +135,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
       <>
         <div className={classes.container}>
           <Grid container direction="row" spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid item md={12} lg={7} xl={6}>
               {this.props.customForm?.is_member_form ||
               this.props.customForm?.is_signup ? null : (
                 <>
@@ -196,7 +196,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                 companyTheme={this.props.companyTheme}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item md={12} lg={5} xl={6}>
               {this.props.customForm?.is_member_form ||
               this.props.customForm?.is_signup ? null : (
                 <div className={classes.displayRulePanel}>

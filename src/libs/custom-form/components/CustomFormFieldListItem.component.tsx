@@ -254,7 +254,7 @@ const useStyles = makeStyles((theme) => ({
   mandatory: {
     width: '10%',
     paddingLeft: theme.spacing(6),
-    marginRight: 0,
+    marginRight: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   editable: {

@@ -100,16 +100,16 @@ const FranchiseNotificationRuleCard = (props: Props) => {
     <div>
       <div className={classes.row}>
         <Typography variant="h6">{rule.title}</Typography>
-        <div>
-          <IconButton color="primary" onClick={showEdit}>
-            <EditIcon />
-          </IconButton>
-          {!restrictedAccess && (
+        {!restrictedAccess && (
+          <div>
+            <IconButton color="primary" onClick={showEdit}>
+              <EditIcon />
+            </IconButton>
             <IconButton color="default" onClick={showDelete}>
               <DeleteIcon />
             </IconButton>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <Paper className={classes.card}>
         <Grid container direction="row" spacing={3}>

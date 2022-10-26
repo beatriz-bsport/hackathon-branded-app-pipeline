@@ -91,6 +91,15 @@ const FranchiseEmailEditor = (props: Props) => {
     });
   };
 
+  const emailToEdit = React.useMemo(
+    () => ({
+      ...emailTemplatesSummaries[id],
+      ...emailTemplatesDetails[id],
+    }),
+    // eslint-disable-next-line
+    [emailTemplatesSummaries[id], emailTemplatesDetails[id]],
+  );
+
   if (loading || !emailTemplatesDetails) {
     return <LinearProgress />;
   }
@@ -104,14 +113,11 @@ const FranchiseEmailEditor = (props: Props) => {
           autoSaveEmail={onAutoSave}
           hideLeftMenuAction={context.hideLeftMenuAction}
           showLeftMenuAction={context.showLeftMenuAction}
-          emailToEdit={{
-            ...emailTemplatesSummaries[id],
-            ...emailTemplatesDetails[id],
-          }}
+          emailToEdit={emailToEdit}
           tags={tagCategories}
           goToList={goToList}
           displayEmptyError={snackbarError}
-          companies={companies}
+          companies={emailToEdit.company_id ? [] : companies}
         />
       )}
     </DrawerContext.Consumer>

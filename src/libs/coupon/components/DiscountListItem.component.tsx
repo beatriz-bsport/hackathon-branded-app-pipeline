@@ -61,6 +61,7 @@ export const DiscountListItem = (props: Props) => {
       />
       <ListItemSecondaryAction>
         <IconButton
+          disabled={!!props.disabled}
           onClick={() => {
             if (props.discount.invoice) {
               return props.goToInvoice(props.discount.invoice);

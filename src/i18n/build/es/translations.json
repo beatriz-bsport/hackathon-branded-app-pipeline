@@ -400,7 +400,7 @@
                 "objectTypeLabel": "Artículo a acreditar",
                 "activityHelper": "Elige la actividad y luego la sesión",
                 "titleUnevenInvoice": "Factura no equilibrada",
-                "explainUnevenInvoice": "El total es {{totalInvoiceItems}} € cuando los pagos totales son {{totalPayments}} €. La cuenta interna del miembro se acreditará / cargará al saldo."
+                "explainUnevenInvoice": "El total es {{totalInvoiceItems}} {{ currencyDisplay }} cuando los pagos totales son {{totalPayments}} {{ currencyDisplay }}. La cuenta interna del miembro se acreditará / cargará al saldo."
             },
             "payment": {
                 "status": "Estado",
@@ -3033,7 +3033,7 @@
                 },
                 "topup": "Añadir dinero",
                 "debt": "Quitar dinero",
-                "explainTopup": "Se registrará un aumento de {{ amount }} € en el saldo del miembro.",
+                "explainTopup": "Se registrará un aumento de {{ amount }} {{ currencyDisplay }} en el saldo del miembro.",
                 "title": "Ajuste del saldo",
                 "explainDecaissement": "Se registrará un desembolso de {{ amount }}  {{ currencyDisplay }}",
                 "balanceValueLabel": "Cantidad",
@@ -4655,14 +4655,15 @@
         },
         "newTutorialSectionOrLesson": {
             "newLesson": {
-                "content": "Se ha añadido una nueva clase a la sección {{name}}",
-                "title": "Nueva clase"
+                "content": "Añadido a la sección {{- name}}",
+                "title": "Nueva clase {{- name}}"
             },
             "newSection": {
-                "content": "La sección {{name}} ha sido añadida, así que fórmate ahora.",
-                "title": "Nueva sección"
+                "content": "La sección {{- name}} ha sido añadida, así que fórmate ahora.",
+                "title": "Nueva Sección"
             }
-        }
+        },
+        "readAll": "Marcar todo como leído"
     },
     "offer": {
         "disabled": "Cancelada",
@@ -9219,7 +9220,7 @@
             "create": {
                 "success": "Profesor creado exitosamente"
             },
-            "error_email_exists": "Si este email de profesor existe en nuestro sistema, utiliza el formulario para crear un Profesor",
+            "error_email_exists": "Ya existe un miembro con este correo electrónico. Para enlazarlos, utiliza el modo anterior.",
             "error": "No es possible guardar el profesor",
             "linkByEmail": {
                 "success": "Profesor añadido exitosamente"
@@ -10152,7 +10153,7 @@
             "maxUseHelper": "Dejar vacío para no imponer un límite",
             "maxUseDay": "Usos máximos por día",
             "restriction": "Restricciones",
-            "penalityAccountHelper": "Un depósito de {{cuenta de bloqueo de la calidad}} se aplicara para este miembro",
+            "penalityAccountHelper": "Un depósito de {{penalityBlockAccount}}{{ currencyDisplay }} se aplicara para este miembro",
             "penalityBlockDayHelper": "La tarjeta del socio se bloqueará durante {{penalityBlockDay}} días",
             "penalityAccountPrice": "Importe de la fianza",
             "penalityBlockDay": "Periodo de bloqueo de la tarjeta (en días)",
@@ -10162,7 +10163,7 @@
             "penalityInfo": "Se aplicará una penalización {{penalityNumberCancel}} cancelaciones fuera de plazo de en un periodo de {{penalityNumberDay}} días",
             "penalityNumberDay": "Número de días",
             "penalityNumberCancel": "Número de cancelaciones",
-            "marginalContributionHelperText": "Se utiliza para calcular la remuneración de los profesores. 10€ significa que una reserva hecha con esta tarjeta se paga 10€. Si está vacía o es 0€ la contribución de una tarjeta será PRICE/NB_RESERVATION",
+            "marginalContributionHelperText": "Se utiliza para calcular la remuneración de los profesores. 10{{ currencyDisplay }} significa que una reserva hecha con esta tarjeta se paga 10{{ currencyDisplay }}. Si está vacía o es 0{{ currencyDisplay }} la contribución de una tarjeta será PRICE/NB_RESERVATION",
             "marginalContribution": "Contribución marginal teórica, incluido el IVA",
             "expirationDateHelper": "Si la tarjeta del curso no se utiliza por primera vez dentro de este número de días, queda invalidada",
             "expirationDate": "Caducidad si no hay reserva inicial",

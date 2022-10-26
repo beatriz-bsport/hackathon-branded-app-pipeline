@@ -1476,7 +1476,7 @@
                 "status": "Status"
             },
             "invoice": {
-                "explainUnevenInvoice": "The total amount is €{{totalInvoiceItems}}, the due price is €{{ totalPayments }}. The client's internal account will be credited/debited accordingly.",
+                "explainUnevenInvoice": "The total amount is {{ currencyDisplay }}{{totalInvoiceItems}}, the due price is {{ currencyDisplay }}{{ totalPayments }}. The client's internal account will be credited/debited accordingly.",
                 "titleUnevenInvoice": "Unpaid invoice",
                 "activityHelper": "Firstly choose the activity and secondly the session.",
                 "objectTypeLabel": "Object to bill",
@@ -1816,7 +1816,7 @@
             "restore": "Restore",
             "share": "Share",
             "pickALanguage": "Language",
-	    "see": "See",
+            "see": "See",
             "emergencyContact": "Emergency contact",
             "disconnect": "Log out",
             "vaccinationDontWantToCommunicate": "Prefer not to answer",
@@ -7224,7 +7224,7 @@
                     "submit": "Next"
                 },
                 "debt": "Deduct",
-                "explainTopup": "The member's account balance will be increased by: €{{ amount }}.",
+                "explainTopup": "The member's account balance will be increased by: {{ currencyDisplay }}{{ amount }}.",
                 "explainDecaissement": "The member's balance will be decreased by: {{ currencyDisplay }}{{ amount }}.",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
@@ -7996,13 +7996,13 @@
         },
         "noAssociatedSubscription": "There are no saved subscriptions to display.",
         "associatedSubscriptions": "Subscribed members",
-    	"register": {
-    	  "dialog": {
-    	    "success": "Your subscription {{- name }} has been registered successfully.",
-    	    "error": "Impossible to register the subscription, please retry later.",
-    	    "info": "Your subscription is being registered, we will inform you when it is ready."
-    	  }
-    	},
+        "register": {
+            "dialog": {
+                "success": "Your subscription {{- name }} has been registered successfully.",
+                "error": "Impossible to register the subscription, please retry later.",
+                "info": "Your subscription is being registered, we will inform you when it is ready."
+            }
+        },
         "status": {
             "hasEnded": "Ended",
             "hasStopped": "Paused",
@@ -8868,14 +8868,15 @@
         },
         "newTutorialSectionOrLesson": {
             "newLesson": {
-                "content": "A new lesson has been added to the {{name}} section",
-                "title": "New lesson"
+                "content": "Added to the {{- name}} section",
+                "title": "New lesson {{- name}}"
             },
             "newSection": {
-                "content": "The {{name}} tutorial has been added, get trained now.",
-                "title": "New section"
+                "content": "The {{- name}} tutorial has been added, get trained now.",
+                "title": "New Section"
             }
-        }
+        },
+        "readAll": "Mark all as read"
     },
     "paymentPack": {
         "consumerPaymentPack": {
@@ -9517,7 +9518,7 @@
             "maxUseHelper": "Leave blank to not set a limit",
             "maxUseDay": "Maximum usage per day",
             "restriction": "Restrictions",
-            "penalityAccountHelper": "Members' account balance will be charged €{{penalityBlockAccount}}.",
+            "penalityAccountHelper": "Members' account balance will be charged {{ currencyDisplay }}{{penalityBlockAccount}}.",
             "penalityBlockDayHelper": "Members' passes will be blocked for {{penalityBlockDay}} day(s).",
             "penalityAccountPrice": "Amount to charge",
             "penalityBlockDay": "Blocking period (in days)",
@@ -9527,7 +9528,7 @@
             "penalityInfo": "A penalty will be applied if {{penalityNumberCancel}} late cancellation(s) are registered within {{penalityNumberDay}} day(s).",
             "penalityNumberDay": "Number of days",
             "penalityNumberCancel": "Number of cancellations",
-            "marginalContributionHelperText": "This is used to calculate the payroll of the teachers. Example: €10 for 1 booking means that the teacher will be paid €10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.",
+            "marginalContributionHelperText": "This is used to calculate the payroll of the teachers. Example: {{ currencyDisplay }}10 for 1 booking means that the teacher will be paid {{ currencyDisplay }}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.",
             "marginalContribution": "Theoretical marginal value incl. VAT",
             "expirationDateHelper": "If the pass hasn't been used during this set number of days, it'll automatically expire.",
             "expirationDate": "Amount of days in which the pass expires if no booking is made",
@@ -11595,7 +11596,10 @@
             "success": "Webhook subscribed"
         },
         "subscription": {
-	      "register": { "success": "Subscription registered successfully", "error": "Impossible to register the subscription" },
+            "register": {
+                "success": "Subscription registered successfully",
+                "error": "Impossible to register the subscription"
+            },
             "youSubscribed": {
                 "success": "You have successfully subscribed",
                 "error": "Error while subscribing"
@@ -11942,7 +11946,7 @@
             "create": {
                 "success": "Teacher successfully created"
             },
-            "error_email_exists": "A teacher with this email already exists, use the teacher creation form",
+            "error_email_exists": "A member already exists with this email. To link them, use the previous modal.",
             "error": "Unable to save teacher",
             "linkByEmail": {
                 "success": "Teacher successfully linked"

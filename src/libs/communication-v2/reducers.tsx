@@ -2,7 +2,6 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import {
   sendCommunicationAction,
-  selectedRecipientAction,
   recipientAction,
   communicationSentAction,
   availableRecipientAction,
@@ -34,11 +33,6 @@ const initialState: Immutable.Immutable<CommunicationState> =
     send: {
       loading: false,
       error: null,
-      selectedMemberList: {
-        allMembers: [],
-        loading: false,
-        error: null,
-      },
     },
     memberIdLists: {
       loading: false,
@@ -116,24 +110,6 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
           ['memberIdLists', 'allIdsWithoutPhone'],
           payload.allIdsWithoutPhone,
         );
-    },
-    [selectedRecipientAction.isLoading.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.setIn(['send', 'selectedMemberList', 'loading'], payload);
-    },
-    [selectedRecipientAction.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['send', 'selectedMemberList', 'error'], payload);
-    },
-    [selectedRecipientAction.success.toString()]: (state, { payload }: any) => {
-      return state.setIn(
-        ['send', 'selectedMemberList', 'allMembers'],
-        payload.results,
-      );
-    },
-    [selectedRecipientAction.reset.toString()]: (state) => {
-      return state.setIn(['send', 'selectedMemberList', 'allMembers'], []);
     },
     [communicationSentAction.isLoading.toString()]: (
       state,

@@ -55,14 +55,19 @@ type MemberCountData = {
 };
 
 export type MemberMinimal<Tag = number, CA = number> = {
+  accept_email: boolean;
+  archived: boolean;
+  consumer: number;
+  credit_account_balance: CA;
+  date_joined: string;
+  email: string;
   id: number;
   name: string;
-  credit_account_balance: CA;
-  email: string;
-  consumer: number;
-  date_joined: string;
   phone: string;
+  photo: string;
   tags: Array<Tag>;
+  total_unpaid_amount: string;
+  vaccination_status?: boolean;
 };
 
 export type Member<Tag = number, CA = number> = {

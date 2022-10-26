@@ -12,11 +12,7 @@ export type CommunicationState = {
     byId: { [id: number]: Communication };
     thread: GenericListReducerI;
   };
-  send: ErrorAndLoading & {
-    selectedMemberList: {
-      allMembers: Array<Member>;
-    } & ErrorAndLoading;
-  };
+  send: ErrorAndLoading;
   memberIdLists: {
     allIds: number[];
     allIdsWithoutPhone: number[];

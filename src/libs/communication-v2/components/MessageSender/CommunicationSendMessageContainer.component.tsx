@@ -14,7 +14,7 @@ import CommunicationWriteSMS from './Writers/CommunicationWriteSMS.component';
 import BottomBarIcons from './CommunicationSendMessageBottomBarIcons.component';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 
-import { Member } from '#libs/member/types';
+import { Member, MemberMinimal } from '#libs/member/types';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -38,11 +38,13 @@ import {
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
+  MAX_DISPLAY,
 } from '#libs/communication-v2/constants';
 import {
   MessageData,
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
+import { fetchMemberList as fetchMemberListAPI } from '#libs/member/api';
 
 type OwnProps = {
   availableMemberToSendCommunicationIdList: number[];
@@ -57,7 +59,6 @@ type OwnProps = {
   fetchAvailableRecipientMemberIdLists: () => void;
   fetchEmailSummaryList: () => void;
   fetchPaginatedMemberList: (params: any, memberIds: number[]) => void;
-  fetchSelectedMemberListToSendCommunication: (ids: number[]) => void;
   fullScreen: boolean;
   getEmailDetail: (templateId: number) => void;
   loadingMemberList: boolean;
@@ -65,8 +66,6 @@ type OwnProps = {
   loadingTemplateDetailList: boolean;
   memberList: Member[];
   pageSize: number;
-  selectedMemberListToSendCommunication: Member[];
-  selectedMemberListToSendCommunicationLoading: boolean;
   sendCommunication: (data: any, options?: OptionCallback<void>) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
   updateThreadList: (kind: number) => void;
@@ -88,6 +87,8 @@ type State = {
   openTemplateSelector: boolean;
   openTemplateVisualizer: boolean;
   selectedMembers: number[];
+  selectedMemberDetailList: MemberMinimal[];
+  selectedMemberDetailListLoading: boolean;
   smsContent: string;
   uncheckedMembers: number[];
   validity: number;
@@ -118,6 +119,8 @@ export class CommunicationSendMessageContainer extends React.Component<
         props.allMemberCategoryList?.categories?.map(
           (category) => category.categoryIdentifier,
         ) || [],
+      selectedMemberDetailList: [],
+      selectedMemberDetailListLoading: false,
     };
   }
 
@@ -191,9 +194,26 @@ export class CommunicationSendMessageContainer extends React.Component<
 
   getSelectedMembersDetails = () => {
     this.checkValidity();
-    this.props.fetchSelectedMemberListToSendCommunication(
-      this.state.selectedMembers,
-    );
+    const params = {
+      id__in: this.state.selectedMembers.slice(
+        0,
+        Math.min(this.state.selectedMembers.length, MAX_DISPLAY),
+      ),
+      page: 1,
+      page_size: MAX_DISPLAY,
+    };
+    if (params.id__in.length === 0) {
+      this.setState({ selectedMemberDetailList: [] });
+    } else {
+      this.setState({ selectedMemberDetailListLoading: true }, () =>
+        fetchMemberListAPI(params).then((response) => {
+          this.setState({
+            selectedMemberDetailListLoading: false,
+            selectedMemberDetailList: response.data.results || [],
+          });
+        }),
+      );
+    }
   };
 
   handleCheckMemberCategoryFilter = (nextList: number[]) => {
@@ -261,6 +281,8 @@ export class CommunicationSendMessageContainer extends React.Component<
         validity: null,
         availableMemberIds: this.props.availableMemberToSendCommunicationIdList,
         checkedMemberCategoryFilter: [],
+        selectedMemberDetailList: [],
+        selectedMemberDetailListLoading: false,
       });
       this.props.updateThreadList(this.props.communicationKind);
     };
@@ -460,10 +482,8 @@ export class CommunicationSendMessageContainer extends React.Component<
         fullScreen={this.props.fullScreen}
         handleSelectTemplate={onSelectTemplate}
         handleSelectRecipients={onSelectRecipients}
-        memberList={this.props.selectedMemberListToSendCommunication}
-        memberListLoading={
-          this.props.selectedMemberListToSendCommunicationLoading
-        }
+        memberList={this.state.selectedMemberDetailList}
+        memberListLoading={this.state.selectedMemberDetailListLoading}
         onBaliseItemClick={this.onBaliseItemClick}
         sendMessage={this.sendMessage}
         setActionType={setActionType}

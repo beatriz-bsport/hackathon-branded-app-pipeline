@@ -11,14 +11,12 @@ import {
   fetchCommunicationSentList as fetchCommunicationSentListAction,
   fetchAvailableRecipientMemberLists as fetchAvailableRecipientMemberListsAction,
   sendCommunication,
-  fetchSelectedMemberListToSendCommunication as fetchSelectedMemberListToSendCommunicationAction,
 } from './actions';
 import {
   getRecipientWithMemberPaginatedList,
   getThreadCommunicationList,
   getThreadCommunicationListHasNextPage,
   getThreadCommunicationListLoading,
-  getSelectedMemberDetailList,
 } from './selectors';
 import {
   getFormatedContext,
@@ -62,7 +60,6 @@ export type WithCommunicationDataProps = CommunicationConnectedProps & {
   ) => void;
   sendCommunication: (data: MessageParams, option: OptionCallback) => void;
   fetchAvailableRecipientMemberIdLists: () => void;
-  fetchSelectedMemberListToSendCommunication: (member_id__in: number[]) => void;
   resolvedGenericTags: ResolvedGenericTags;
 };
 
@@ -100,9 +97,6 @@ const connector = connect(
       : state.communicationV2.memberIdLists.allIdsWithoutPhone,
     recipientsModalMemberList: getPaginatedMembers(state),
     loadingRecipientsModalMemberList: state.member.communication.loading,
-    selectedMemberListToSendCommunication: getSelectedMemberDetailList(state),
-    selectedMemberListToSendCommunicationLoading:
-      state.communicationV2.send.selectedMemberList.loading,
   }),
   {
     fetchCommunicationSentList: fetchCommunicationSentListAction,
@@ -114,8 +108,6 @@ const connector = connect(
     fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchAvailableRecipientMemberLists:
       fetchAvailableRecipientMemberListsAction,
-    fetchSelectedMemberMiniBulkToSendCommunication:
-      fetchSelectedMemberListToSendCommunicationAction,
   },
 );
 
@@ -186,17 +178,6 @@ export default function withCommunicationData(
               objectId: props.contextObjectId,
             }),
           );
-        },
-      fetchSelectedMemberListToSendCommunication:
-        (props: CommunicationConnectedProps) => (member_id__in: number[]) => {
-          return props.fetchSelectedMemberMiniBulkToSendCommunication({
-            id__in: member_id__in.slice(
-              0,
-              Math.min(member_id__in.length, MAX_DISPLAY),
-            ),
-            page: 1,
-            page_size: MAX_DISPLAY,
-          });
         },
       sendCommunication:
         (props: CommunicationConnectedProps) =>

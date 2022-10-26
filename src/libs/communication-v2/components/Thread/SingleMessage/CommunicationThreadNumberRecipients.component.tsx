@@ -5,13 +5,13 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { CircularProgress } from '@material-ui/core';
-import { Member } from '#libs/member/types';
+import { MemberMinimal } from '#libs/member/types';
 import { MAX_DISPLAY } from '#libs/communication-v2/constants';
 
 const MAX_DISPLAY_COMPACT = 2;
 
 export type Props = {
-  members?: Array<Member>;
+  members?: Array<MemberMinimal>;
   photos?: Array<string>;
   numberRecipients?: number;
   compactText?: boolean;
@@ -36,7 +36,7 @@ const CommunicationThreadNumberRecipients = (props: Props) => {
   return (
     <div className={classes.container}>
       {loading ? (
-        <CircularProgress className={classes.img} />
+        <CircularProgress size={20} />
       ) : (
         <AvatarGroup className={classes.container} spacing="small">
           {slicedImageLinks.map((_imgLink, idx) => {

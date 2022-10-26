@@ -146,14 +146,11 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       emailTemplateDetailList,
       emailTemplateSummaryList,
       fetchPaginatedMemberList,
-      fetchSelectedMemberListToSendCommunication,
       fetchEmailDetail,
       loadingRecipientsModalMemberList,
       loadingEmailTemplateDetailList,
       loadingEmailTemplateSummaryList,
       recipientsModalMemberList,
-      selectedMemberListToSendCommunication,
-      selectedMemberListToSendCommunicationLoading,
       sendCommunication,
       resolvedGenericTags,
     } = this.props;
@@ -251,9 +248,6 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 }
                 fetchEmailSummaryList={this.props.fetchEmailSummaryList}
                 fetchPaginatedMemberList={fetchPaginatedMemberList}
-                fetchSelectedMemberListToSendCommunication={
-                  fetchSelectedMemberListToSendCommunication
-                }
                 fullScreen={fullScreen}
                 getEmailDetail={fetchEmailDetail}
                 loadingMemberList={loadingRecipientsModalMemberList}
@@ -261,12 +255,6 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 loadingTemplateDetailList={loadingEmailTemplateDetailList}
                 memberList={recipientsModalMemberList}
                 pageSize={PAGINATION_SIZE_RECIPIENTS}
-                selectedMemberListToSendCommunication={
-                  selectedMemberListToSendCommunication
-                }
-                selectedMemberListToSendCommunicationLoading={
-                  selectedMemberListToSendCommunicationLoading
-                }
                 sendCommunication={sendCommunication}
                 setCommunicationKind={this.setCommunicationKindBeingWritten}
                 updateThreadList={this.fetchLastThreadCommunication}

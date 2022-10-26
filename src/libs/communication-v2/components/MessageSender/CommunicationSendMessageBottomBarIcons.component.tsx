@@ -33,7 +33,7 @@ import Config from '../../../../config';
 import NestedList from '#components/NestedMenu.component';
 import CommunicationThreadNumberRecipients from '../Thread/SingleMessage/CommunicationThreadNumberRecipients.component';
 
-import { Member } from '#libs/member/types';
+import { Member, MemberMinimal } from '#libs/member/types';
 
 import { getValidityTooltipMessage } from '#libs/communication-v2/utils';
 import {
@@ -51,7 +51,7 @@ type Props = {
   fullScreen: boolean;
   handleSelectTemplate: () => void;
   handleSelectRecipients: () => void;
-  memberList: Member[];
+  memberList: MemberMinimal[];
   memberListLoading: boolean;
   onBaliseItemClick: (item: string) => void;
   sendMessage: (data: any) => void;

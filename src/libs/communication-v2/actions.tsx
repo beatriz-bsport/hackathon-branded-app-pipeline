@@ -8,7 +8,6 @@ import {
   fetchAvailableRecipientMemberLists as fetchAvailableRecipientMemberListsAPI,
   sendCommunication as sendCommunicationAPI,
 } from './api';
-import { fetchMemberList as fetchMemberListAPI } from '#libs/member/api';
 import {
   FetchCommunicationParams,
   MessageParams,
@@ -33,7 +32,6 @@ export function sendCommunication(
     try {
       await sendCommunicationAPI(data);
       dispatch(snackbarSuccess('communicationv2.success'));
-      dispatch(selectedRecipientAction.reset());
       if (options && options.onSuccess) {
         options.onSuccess();
       }
@@ -66,31 +64,6 @@ export function fetchAvailableRecipientMemberLists(
       dispatch(availableRecipientAction.error(error));
     }
     dispatch(availableRecipientAction.isLoading(false));
-  };
-}
-
-export const selectedRecipientAction = {
-  error: createAction('SELECTED_RECIPIENT/LIST/ERROR'),
-  isLoading: createAction('SELECTED_RECIPIENT/LIST/IS_LOADING'),
-  success: createAction('SELECTED_RECIPIENT/LIST/SUCCESS'),
-  reset: createAction('SELECTED_RECIPIENT/LIST/RESET'),
-};
-
-export function fetchSelectedMemberListToSendCommunication(params: {
-  id__in: number[];
-  page: number;
-  page_size: number;
-}): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(selectedRecipientAction.isLoading(true));
-    dispatch(selectedRecipientAction.error(null));
-    try {
-      const response = await fetchMemberListAPI(params);
-      dispatch(selectedRecipientAction.success(response.data));
-    } catch (error) {
-      dispatch(selectedRecipientAction.error(error));
-    }
-    dispatch(selectedRecipientAction.isLoading(false));
   };
 }
 

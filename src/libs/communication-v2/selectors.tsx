@@ -71,7 +71,3 @@ export const getThreadCommunicationListHasNextPage = (state: RootState) =>
 
 export const getThreadCommunicationListLoading = (state: RootState) =>
   !!state.communicationV2.sent.thread.loading;
-
-// ---------- SELECTED MEMBERS FOR COMMUNICATION ----------
-export const getSelectedMemberDetailList = (state: RootState) =>
-  state.communicationV2.send.selectedMemberList.allMembers;

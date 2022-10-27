@@ -2259,7 +2259,17 @@
             "explainEnable": "Transfiera todas sus facturas directamente a QuickBooks. Las facturas se transferirán cada 24 horas.",
             "submit": "Guardar",
             "enable": "Activar la integración de Quickbooks",
-            "title": "QuickBooks"
+            "title": "QuickBooks",
+            "tax": {
+                "goToSettingsPage": "Abrir la página de configuración de QuickBooks",
+                "alertNonTaxInformation": "Ninguna información fiscal se sincroniza con tu plataforma Quickbooks. Por favor, haga clic en actualizar para sincronizarlos",
+                "alertUnconfigured": "No has configurado un impuesto por defecto para aplicar a los productos incluidos en tus facturas. Esta información es obligatoria para poder referenciar el impuesto correspondiente al transferir las facturas a tu plataforma Quickbooks.",
+                "refresh": "Actualizar mis datos de Quickbooks",
+                "usedAsTaxCode": "Utilizado como impuesto de referencia",
+                "taxCodeHeaderDescription": "Descripción",
+                "taxCodeHeaderName": "Nombre",
+                "taxInfoTitle": "Información de impuestos de QuickBooks"
+            }
         },
         "mobilePersonalization": {
             "externalShopRedirection": {
@@ -3206,7 +3216,8 @@
                     "931003": "Claves de autenticación caducadas",
                     "931002": "Claves de autenticación caducadas",
                     "931001": "Error al autenticar en Quickbooks",
-                    "931000": "Error al autenticar en Quickbooks"
+                    "931000": "Error al autenticar en Quickbooks",
+                    "933103": "Tu plataforma QuickBooks soporta múltiples monedas, por favor especifica qué impuesto utilizar."
                 }
             },
             "invoice": {
@@ -8261,7 +8272,10 @@
                     "paymentPackTemplates": {
                         "_label": "Bono"
                     },
-                    "_label": "Productos"
+                    "_label": "Productos",
+                    "giftcardTemplates": {
+                        "_label": "Tarjeta de regalo"
+                    }
                 },
                 "members": {
                     "_label": "Miembros"
@@ -8749,7 +8763,21 @@
         "next": "Siguiente",
         "previous": "Anterior",
         "letsGo": "¡Vamos!",
-        "finish": "Finalizar"
+        "finish": "Finalizar",
+        "saveRecord": "Salvar",
+        "delete": "Borrar",
+        "card": {
+            "categoryNames": {
+                "restrictions": "Restricciones",
+                "credits": "Número de créditos",
+                "vod": "VOD",
+                "accessibility": "Accesibilidad",
+                "compatibility": "Compatibilidad",
+                "paymentMethods": "Medios de pago disponibles",
+                "validity": "Validez"
+            },
+            "copyLink": "Copiar el enlace"
+        }
     },
     "snackbar": {
         "invoice": {
@@ -8789,7 +8817,8 @@
                     "931003": "Claves de autenticación caducadas",
                     "931002": "Claves de autenticación caducadas",
                     "931001": "Error al autenticar en Quickbooks",
-                    "931000": "Error al autenticar en Quickbooks"
+                    "931000": "Error al autenticar en Quickbooks",
+                    "933103": "Tu plataforma QuickBooks soporta múltiples monedas, por favor especifica qué impuesto utilizar."
                 },
                 "error": "Se ha producido un error al transferir su factura a Quickbooks",
                 "success": "Su factura ha sido transferida a Quickbooks"
@@ -10739,7 +10768,8 @@
                 "couponTemplates": "Promociones",
                 "privatePassTemplates": "Tarjetas de cita",
                 "paymentPackTemplates": "Bonos",
-                "label": "Productos"
+                "label": "Productos",
+                "giftcardTemplates": "Tarjetas de regalo"
             }
         },
         "multiSession": {
@@ -12468,6 +12498,48 @@
             "explainStaff": "Con el acceso al personal de la cuenta principal, selecciona a qué franquicias tiene acceso tu personal y qué acciones puede realizar en ellas. El acceso del personal no permite conectarse a la aplicación móvil.",
             "roleTabTitle": "Papeles",
             "staffAccountTabTitle": "Cuentas Staff"
+        },
+        "genericProduct": {
+            "list": {
+                "visibility": "Invisible para los clientes",
+                "shortMenu": {
+                    "restore": "Restaurar",
+                    "edit": "Modificar",
+                    "delete": "Borrar",
+                    "goTo": "Detalle"
+                },
+                "fuzzySearch": "Buscar una tarjeta",
+                "titleInactive": "No disponible para la venta",
+                "titleActive": "Disponible para la venta"
+            },
+            "templateCard": {
+                "shareTemplate": {
+                    "closeDialog": "Cerrar",
+                    "seeAll": "Ver todo",
+                    "addCompany": "Añadir un estudio",
+                    "emptyCompanyList": "Ningún estudio está configurado para aceptar esta tarjeta",
+                    "categoryName": "Compartido con los estudios"
+                },
+                "buttons": {
+                    "delete": "Borrar",
+                    "update": "Modificar"
+                }
+            },
+            "dialogs": {
+                "deleteTemplateInstance": {
+                    "buttonValidate": "Desactivar el uso compartido",
+                    "title": "Deja de compartir"
+                },
+                "selectCompanies": {
+                    "allCompaniesShared": "Ya has compartido esta tarjeta con todos los estudios franquiciados a los que tienes acceso.",
+                    "content2": "Los miembros que reciban esta tarjeta podrán utilizarla en todos los estudios compatibles.",
+                    "content1": "Los siguientes estudios tendrán automáticamente esta tarjeta a la venta. No podrán cambiar el precio ni el número de créditos.",
+                    "title": "Configurar mis estudios"
+                },
+                "deleteTemplate": {
+                    "title": "Desactivación"
+                }
+            }
         }
     },
     "giftcard": {
@@ -12516,7 +12588,8 @@
                     "submit": "Validar",
                     "cancel": "Cerrar"
                 }
-            }
+            },
+            "canNotUpdateBecauseShared": "Esta tarjeta de regalo es una tarjeta compartida por el franquiciador. Ha sido definida por el franquiciador y no puede ser modificada."
         },
         "giftcard": {
             "delete": {
@@ -12632,7 +12705,25 @@
             "title": "Archivar la tarjeta regalo"
         },
         "search": "Buscar una tarjeta regalo",
-        "widget": "Elige las tarjetas regalo"
+        "widget": "Elige las tarjetas regalo",
+        "giftcardTemplate": {
+            "template": {
+                "withoutTax": "Sin IVA",
+                "unlimited": "Ilimitado",
+                "validityDetail": "Válido {{count}} día desde la fecha de la factura",
+                "validityDetail_plural": "Válido {{count}} días desde la fecha de la factura",
+                "validity": "Válido {{count}} día ",
+                "validity_plural": "Válido {{count}} días ",
+                "deleteDialogContent": "Al desactivar una tarjeta de regalo compartida, los miembros que la tengan sólo podrán utilizarla en el estudio donde la compraron."
+            },
+            "listPage": {
+                "fuzzyPlaceholder": "Buscar una tarjeta de regalo",
+                "addButton": "Crear una tarjeta de regalo compartida",
+                "emptyLabel": "No se han registrado tarjetas de regalo compartidas"
+            },
+            "sharedCard": "Compartido por otro franquiciado",
+            "giftcard": "Tarjeta de regalo"
+        }
     },
     "performanceTracking": {
         "requiredField": "este campo es obligatorio",

@@ -2733,14 +2733,15 @@
         },
         "newTutorialSectionOrLesson": {
             "newLesson": {
-                "title": "Nieuwe les",
-                "content": "Er is een nieuwe les toegevoegd aan deze sectie (\"{{name}}\")."
+                "title": "Nieuwe les {{- name}}",
+                "content": "Toegevoegd aan de {{- name}} sectie"
             },
             "newSection": {
-                "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar.",
-                "title": "Nieuwe sectie"
+                "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar,",
+                "title": "Nieuwe Sectie"
             }
-        }
+        },
+        "readAll": "Markeer alles als gelezen"
     },
     "paymentPack": {
         "actions": {
@@ -5056,7 +5057,9 @@
                 "chooseTime": {
                     "second_after": "uur na het einde van de sessie.",
                     "second_before": "uur/uren voor het begin van de sessie.",
-                    "first": "Verstuur deze melding"
+                    "first": "Verstuur deze melding",
+                    "second_after_days": "uur(en) na afloop van de sessie",
+                    "second_before_days": "dag(en) voor het begin van de sessie"
                 },
                 "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
                 "sendBeforeMail": "Stuur deze melding voor het begin van de sessie",
@@ -10020,7 +10023,21 @@
         "next": "Volgende",
         "previous": "Terug",
         "finish": "Afgelopen",
-        "letsGo": "Back Office"
+        "letsGo": "Back Office",
+        "saveRecord": "Opslaan",
+        "delete": "Verwijderen",
+        "card": {
+            "categoryNames": {
+                "restrictions": "Beperkingen",
+                "credits": "Aantal kredieten",
+                "vod": "Video On Demand",
+                "accessibility": "Toegankelijkheid",
+                "compatibility": "Compatibiliteit",
+                "paymentMethods": "Beschikbare betaalmethoden",
+                "validity": "Geldigheid"
+            },
+            "copyLink": "Kopieer de link"
+        }
     },
     "workshop": {
         "modal": {
@@ -12407,6 +12424,46 @@
             "roleTabTitle": "Rollen",
             "staffAccountTabTitle": "Medewerkers",
             "explainStaff": "Met de medewerkerstoegang van het masteraccount selecteert u welke franchisenemers toegang hebben tot uw personeel en welke acties zij daarin kunnen uitvoeren. Met de mederwerkerstoegang kan geen verbinding worden gemaakt met de mobiele applicatie."
+        },
+        "genericProduct": {
+            "list": {
+                "shortMenu": {
+                    "edit": "Bewerken",
+                    "delete": "Verwijderen",
+                    "goTo": "Detail"
+                },
+                "fuzzySearch": "Zoek een kaart",
+                "titleInactive": "Niet beschikbaar voor verkoop",
+                "titleActive": "Beschikbaar voor verkoop"
+            },
+            "templateCard": {
+                "shareTemplate": {
+                    "closeDialog": "Sluiten",
+                    "seeAll": "Zie alle",
+                    "addCompany": "Voeg een studio toe",
+                    "emptyCompanyList": "Er zijn geen studio's geconfigureerd met deze kaart",
+                    "categoryName": "Gedeeld met de volgende studio's"
+                },
+                "buttons": {
+                    "delete": "Verwijder",
+                    "update": "Wijzig"
+                }
+            },
+            "dialogs": {
+                "deleteTemplateInstance": {
+                    "buttonValidate": "Delen uitschakelen",
+                    "title": "Stop met delen"
+                },
+                "selectCompanies": {
+                    "allCompaniesShared": "Je hebt deze kaart al gedeeld met alle franchise-studio's waartoe je toegang hebt.",
+                    "content2": "Leden die deze kaart ontvangen kunnen deze gebruiken in alle compatibele studio's.",
+                    "content1": "De volgende studio's zullen deze kaart automatisch aanbieden, maar kunnen de prijs of het aantal kredieten niet wijzigen.",
+                    "title": "Mijn studio's configureren"
+                },
+                "deleteTemplate": {
+                    "title": "Deactivatie"
+                }
+            }
         }
     },
     "giftcard": {

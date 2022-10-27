@@ -25,6 +25,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndConditions.component';
 import { getBasketTotalPriceExcludingTax } from '../utils';
 import BasketTaxInfo from './BasketTaxInfo.component';
+import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -116,6 +117,22 @@ export class BasketFinalizer extends React.Component<Props, State> {
                   this.props.setProcessing(false);
                   return;
                 }
+                const { data } = await verifyPriceBasketAPI(
+                  this.props.basket.id,
+                );
+                if (
+                  (!!this.props.basket.total_price_cts ||
+                    this.props.basket.total_price_cts === 0) &&
+                  this.props.basket.total_price_cts !== data
+                ) {
+                  this.props.setProcessing(false);
+                  // eslint-disable-next-line
+                  window.alert(
+                    this.props.t('myBasket.error.inconsistentBasket'),
+                  );
+                  window.location.reload();
+                  return;
+                }
                 this.props.validateUnpaid({
                   onSuccess: () => {
                     this.props.setProcessing(false);
@@ -185,6 +202,22 @@ export class BasketFinalizer extends React.Component<Props, State> {
                       await this.props.checkItemsBasket(this.props.basket.id);
                     if (!basketItemsChecked) {
                       this.props.setProcessing(false);
+                      return;
+                    }
+                    const { data } = await verifyPriceBasketAPI(
+                      this.props.basket.id,
+                    );
+                    if (
+                      (!!this.props.basket.total_price_cts ||
+                        this.props.basket.total_price_cts === 0) &&
+                      this.props.basket.total_price_cts !== data
+                    ) {
+                      this.props.setProcessing(false);
+                      // eslint-disable-next-line
+                      window.alert(
+                        this.props.t('myBasket.error.inconsistentBasket'),
+                      );
+                      window.location.reload();
                       return;
                     }
                     this.props.validateUnpaid({

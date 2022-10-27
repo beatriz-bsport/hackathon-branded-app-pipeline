@@ -59,6 +59,8 @@ exports.default = {
     error: {
       invalidBasket:
         "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré",
+      inconsistentBasket:
+        "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\nVous n'avez pas été débité.",
     },
     totalQuantity: 'Contient {{ qty }} éléments',
     actions: {

@@ -17,7 +17,10 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
-import { checkItemsBasket as checkItemsBasketAPI } from '#libs/payment/api';
+import {
+  checkItemsBasket as checkItemsBasketAPI,
+  verifyPriceBasket as verifyPriceBasketAPI,
+} from '#libs/payment/api';
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
@@ -149,15 +152,28 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       if (!basketIsValid) {
         this.setState({ selfProcessing: false });
       }
-      validateUnpaidAPI(this.props.basketId)
-        .then(() => {
-          this.onSuccess();
-          this.setState({ selfProcessing: false });
-        })
-        .catch((err) => {
-          console.error(err);
-          this.setState({ selfProcessing: false });
-        });
+
+      const { data } = await verifyPriceBasketAPI(this.props.basket.id);
+      if (
+        (!!this.props.basket.total_price_cts ||
+          parseFloat(this.props.basket.total_price_cts) === 0) &&
+        parseFloat(this.props.basket.total_price_cts) !== data
+      ) {
+        this.setState({ selfProcessing: false });
+        // eslint-disable-next-line
+        window.alert(this.props.t('myBasket.error.inconsistentBasket'));
+        window.location.reload();
+      } else {
+        validateUnpaidAPI(this.props.basketId)
+          .then(() => {
+            this.onSuccess();
+            this.setState({ selfProcessing: false });
+          })
+          .catch((err) => {
+            console.error(err);
+            this.setState({ selfProcessing: false });
+          });
+      }
     });
   };
 

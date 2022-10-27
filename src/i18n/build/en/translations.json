@@ -2067,7 +2067,7 @@
                 }
             },
             "Booking": {
-                "name": "Bookings",
+                "name": "Activity",
                 "tags": {
                     "activity": "Activity",
                     "coach": "Teacher",
@@ -2078,6 +2078,12 @@
                     "ics_calendar_link": "ICS Calendar Link",
                     "spot": "Place",
                     "canceled_grouped_session": "Cancelled reservation group"
+                },
+                "subtitles": {
+                    "workshop": "Workshop",
+                    "establishment_group": "Location",
+                    "establishment": "Establishment",
+                    "meta_activity": "Activity"
                 }
             },
             "ConsumerPaymentPack": {
@@ -2163,6 +2169,9 @@
                     "activity": "Activity"
                 },
                 "name": "Recurrent rule"
+            },
+            "Birthday": {
+                "name": "Birthday"
             }
         },
         "eventType": {
@@ -2290,7 +2299,16 @@
         "configureNotif": "Configure",
         "countNotification": "Number of activated push notifications: {{nbr}}",
         "countEmail": "Number of activated transactional emails: {{nbr}}",
-        "countElements": "{{nbr}} element(s)"
+        "countElements": "{{nbr}} element(s)",
+        "triggeringEvent": {
+            "title": "Triggering event"
+        },
+        "type": {
+            "hours": "Hours",
+            "days": "Days",
+            "bookingConcerned": "the session concerned by the notification",
+            "sendNotification": "Send the notification"
+        }
     },
     "consumerSpace": {
         "navigation": {
@@ -3719,7 +3737,8 @@
                     "notRefunded": "When the appointment has been cancelled too late",
                     "refunded": "When the appointment has been cancelled on time",
                     "valid": "Valid appointments"
-                }
+                },
+                "subtitle": "Appointment pass"
             }
         },
         "marketplace": {
@@ -10462,7 +10481,9 @@
                 "chooseTime": {
                     "second_after": "hour(s) after the end of the session.",
                     "second_before": "hour(s) before the start of the session.",
-                    "first": "Send this notification"
+                    "first": "Send this notification",
+                    "second_after_days": "hour(s) after the end of the session",
+                    "second_before_days": "day(s) before the start of the session"
                 },
                 "sendAfterMail": "Send this notification after the session has ended",
                 "sendBeforeMail": "Send this notification before the start of the session",

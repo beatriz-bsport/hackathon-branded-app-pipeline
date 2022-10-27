@@ -5296,7 +5296,9 @@
                 "chooseTime": {
                     "second_after": "hora(s) después de la sesión",
                     "second_before": "hora(s) antes de la sesión",
-                    "first": "Enviar un email"
+                    "first": "Enviar un email",
+                    "second_after_days": "hora(s) después de la sesión",
+                    "second_before_days": "día(s) antes de la sesión"
                 },
                 "sendAfterMail": "Enviar el email al miembro después de la sesión afectada por la notificación",
                 "sendBeforeMail": "Enviar el email al miembro antes de la sesión afectada por la notificación",
@@ -5626,7 +5628,7 @@
                 "name": "Lista de espera"
             },
             "Booking": {
-                "name": "Reserva",
+                "name": "Actividad",
                 "tags": {
                     "ics_calendar_link": "Enlace ics calendario",
                     "address": "Dirección",
@@ -5637,6 +5639,12 @@
                     "activity": "Actividad",
                     "spot": "Lugar",
                     "canceled_grouped_session": "Grupo de reserva anulado"
+                },
+                "subtitles": {
+                    "workshop": "Taller",
+                    "establishment_group": "Ubicación",
+                    "establishment": "Establecimiento",
+                    "meta_activity": "Actividad"
                 }
             },
             "ConsumerPaymentPack": {
@@ -5728,6 +5736,9 @@
                     "activity": "Actividad"
                 },
                 "name": "Regla recurrente"
+            },
+            "Birthday": {
+                "name": "Cumpleaños"
             }
         },
         "emailDesign": {
@@ -5807,7 +5818,16 @@
         "configureNotif": "Configurar",
         "countNotification": "{{nbr}} notificaciones push habilitadas",
         "countEmail": "{{nbr}} emails transaccionales activados",
-        "countElements": "{{nbr}} elementos"
+        "countElements": "{{nbr}} elementos",
+        "triggeringEvent": {
+            "title": "Evento desencadenante"
+        },
+        "type": {
+            "hours": "Horas",
+            "days": "Días",
+            "bookingConcerned": "la sesión afectada por la notificación",
+            "sendNotification": "Enviar la notificación"
+        }
     },
     "partnership": {
         "requestDialog": {
@@ -7052,7 +7072,8 @@
                     "notRefunded": "Si la cita se ha cancelado con retraso",
                     "refunded": "Si la cita se ha cancelado a tiempo",
                     "valid": "Si la cita es válida"
-                }
+                },
+                "subtitle": "Tarjeta de cita"
             }
         },
         "marketplace": {

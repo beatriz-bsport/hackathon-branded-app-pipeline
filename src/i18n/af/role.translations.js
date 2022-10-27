@@ -358,6 +358,9 @@ exports.default = {
         couponTemplates: {
           _label: 'Promotions',
         },
+        giftcardTemplates: {
+          _label: 'Carte cadeau',
+        },
       },
       emailTemplates: {
         _label: 'Emails',

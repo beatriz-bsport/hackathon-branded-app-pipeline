@@ -9,9 +9,13 @@ import GenericFormDialog from './GenericFormDialog';
 import GenericMuiDialog from './GenericMuiDIalog';
 import GenericResponsiveDialog from './GenericMuiDIalog';
 import CustomMuiDialog from './CustomMuiDialog.component';
+import GenericDeleteDialog, {
+  Props as DeleteDialogProps,
+} from './GenericDeleteDialog.component';
 // --------------------------------------------------
 import Typography from '@material-ui/core/Typography';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
+import Alert from '@material-ui/lab/Alert';
 // @ts-ignore
 import faker from 'faker';
 faker.locale = 'fr';
@@ -93,10 +97,11 @@ CustomableMuiDialog.args = {
   contentAlign: 'center',
   buttons: [
     {
-      label: 'Hello',
+      label: 'With alert timer',
       color: 'primary',
       variant: 'outlined',
       onClick: () => {},
+      delayBeforeActivation: 3,
     },
     {
       commonLabel: 'cancel',
@@ -111,6 +116,21 @@ CustomableMuiDialog.args = {
       onClick: () => {},
     },
   ],
+};
+
+const GenericDeleteDialogTemplate = (args: DeleteDialogProps) => (
+  <GenericDeleteDialog {...args}>
+    <Typography>{faker.hacker.phrase()}</Typography>
+    <Alert severity="info">Hello I am a children</Alert>
+  </GenericDeleteDialog>
+);
+export const DeleteDialog = GenericDeleteDialogTemplate.bind({});
+DeleteDialog.args = {
+  open: true,
+  title: 'Basic delete dialog',
+  cancelLabel: 'Cancel !',
+  validateLabel: 'Boom',
+  content: 'I am the content of the delete dialog',
 };
 
 export default {

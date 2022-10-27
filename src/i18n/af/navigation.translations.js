@@ -139,6 +139,7 @@ exports.default = {
       label: 'Produits',
       paymentPackTemplates: 'Cartes de cours',
       privatePassTemplates: 'Cartes de RDV',
+      giftcardTemplates: 'Cartes cadeaux',
       couponTemplates: 'Promotions',
     },
     emailTemplates: 'Emails',

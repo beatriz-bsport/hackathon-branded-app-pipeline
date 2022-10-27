@@ -24,6 +24,18 @@ exports.default = {
     unselectAll: 'Tout désélectionner',
     validate: 'Valider',
   },
+  card: {
+    copyLink: 'Copier le lien',
+    categoryNames: {
+      validity: 'Validité',
+      paymentMethods: 'Moyens de paiement disponibles',
+      compatibility: 'Compatibilité',
+      accessibility: 'Accessibilité',
+      vod: 'VOD',
+      credits: 'Nombre de crédits',
+      restrictions: 'Restrictions',
+    },
+  },
   showMore: 'Afficher plus ({{count}})',
   showLess: 'Afficher moins',
   weekly: 'Hebdomadaire',
@@ -43,4 +55,6 @@ exports.default = {
   previous: 'Précédent',
   letsGo: "C'est parti !",
   finish: 'Terminer',
+  delete: 'Supprimer',
+  saveRecord: 'Enregistrer',
 };

@@ -1,3 +1,8 @@
+// @ts-ignore
+import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
+import { FranchiseCompany } from './types';
+
 export const getHexaColorFromNumbers = (
   color: [number, number, number],
 ): string => {
@@ -52,3 +57,16 @@ export const addressToReadableAddress = (address?: {
   }
   return newString;
 };
+
+export const sortCompanyListByIsAllowedAndName = memoize(
+  (companyList: FranchiseCompany[]) => {
+    return Immutable(
+      [...companyList].sort((fc, _fc) => {
+        if (fc.isAllowed === _fc.isAllowed) {
+          return fc.name.localeCompare(_fc.name);
+        }
+        return _fc.isAllowed === false ? -1 : 1;
+      }),
+    );
+  },
+);

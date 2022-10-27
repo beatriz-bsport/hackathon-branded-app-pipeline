@@ -66,4 +66,50 @@ exports.default = {
     connect: 'Me connecter',
     signUp: "M'inscrire",
   },
+  genericProduct: {
+    dialogs: {
+      deleteTemplate: {
+        title: 'Désactivation',
+      },
+      selectCompanies: {
+        title: 'Configurer mes studios',
+        content1:
+          'Les studios suivants auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix.',
+        content2:
+          "Les membres qui recevront cette carte pourront l'utiliser dans l'ensemble des studios compatibles.",
+        allCompaniesShared:
+          'Vous avez déjà partagé cette carte avec tous les studios franchisés auxquels vous avez accès.',
+      },
+      deleteTemplateInstance: {
+        title: 'Stopper le partage',
+        buttonValidate: 'Désactiver le partage',
+      },
+    },
+    templateCard: {
+      buttons: {
+        update: 'Modifier',
+        delete: 'Supprimer',
+      },
+      shareTemplate: {
+        categoryName: 'Partagée avec les studios',
+        emptyCompanyList:
+          "Aucun studio n'est configuré pour accepter cette carte",
+        addCompany: 'Ajouter un studio',
+        seeAll: 'Voir tous',
+        closeDialog: 'Fermer',
+      },
+    },
+    list: {
+      titleActive: 'Disponible à la vente',
+      titleInactive: 'Indisponible à la vente',
+      fuzzySearch: 'Rechercher une carte',
+      shortMenu: {
+        goTo: 'Detail',
+        delete: 'Supprimer',
+        edit: 'Modifier',
+        restore: 'Restaurer',
+      },
+      visibility: 'Invisible pour les clients',
+    },
+  },
 };

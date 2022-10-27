@@ -15,6 +15,20 @@ export type Giftcard = {
   amount_gifted: string; // decimal price
 };
 
+export type GiftcardTemplate = {
+  id: number;
+  franchisor: number;
+  name: string;
+  description: string;
+  expiration_days: number | null;
+  price: string; // sent as decimal from backend, thus as a string: "4.54" to avoid round error
+  available_payment_method_identifiers: Array<number>; // check bsport-commons payment-methods.ts
+  manager_only: boolean;
+  amount_gifted: string; // decimal price
+  companies: Array<number>;
+  cover: string;
+};
+
 export type GiftcardRecipient = {
   date_created: string;
   email_sent_to: string;

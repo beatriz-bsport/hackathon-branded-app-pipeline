@@ -161,6 +161,8 @@ exports.default = {
         label: 'Invisible pour les clients',
       },
     },
+    canNotUpdateBecauseShared:
+      "Cette carte cadeau est une carte partagée par le compte franchiseur. Elle a été définie par le compte franchiseur et n'est pas modifiable.",
   },
   backgroundImage: {
     dialog: {
@@ -174,4 +176,25 @@ exports.default = {
   },
   search: 'Rechercher une carte cadeau',
   widget: 'Choisir des cartes cadeaux',
+  giftcardTemplate: {
+    giftcard: 'Carte cadeau',
+    sharedCard: 'Partagée depuis un autre franchisé',
+    listPage: {
+      emptyLabel: 'Aucune carte cadeau partagée enregistrée',
+      addButton: 'Créer une carte cadeau partagée',
+      fuzzyPlaceholder: 'Rechercher une carte cadeau',
+    },
+    template: {
+      deleteDialogContent:
+        "En désactivant une carte cadeau partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel elle a été achetée.",
+      validity: 'Valable {{count}} jour ',
+      validity_plural: 'Valable {{count}} jours ',
+      validityDetail:
+        'Valide {{count}} jour à partir de la date de facturation',
+      validityDetail_plural:
+        'Valide {{count}} jours à partir de la date de facturation',
+      unlimited: 'Illimitée',
+      withoutTax: 'Hors taxe',
+    },
+  },
 };

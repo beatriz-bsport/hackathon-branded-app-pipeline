@@ -1,10 +1,13 @@
 import moment from 'moment-timezone';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
+import { WithFranchiseCompanies } from '#libs/franchise/types';
 import {
   ConsumerGiftcard,
   Giftcard,
   GiftcardRecipient,
   GiftcardBackgroundImage,
+  GiftcardTemplate,
 } from './types';
 
 function random_int(max: number): number {
@@ -135,6 +138,8 @@ export function consumer_giftcard_factory(
       invitation_sent: false,
       active: true,
       name: `${random_choice(NAMES)} #${id}`,
+      price_bought: random_choice(PRICES),
+      activation_code: 'http://mycodeactivation.fr',
     };
   });
 }
@@ -146,4 +151,29 @@ export function giftcard_background_image_factory(
     id,
     image: random_choice(COVERS),
   }));
+}
+
+export function GiftcardTemplateListFactory(
+  num_el: number,
+  manager_only?: boolean,
+): Array<WithFranchiseCompanies<GiftcardTemplate>> {
+  const GIFTCARD_IDS: Array<number> = [...Array(num_el).keys()];
+  return GIFTCARD_IDS.map((id) => {
+    const item: WithFranchiseCompanies<GiftcardTemplate> = {
+      id: id + 1,
+      franchisor: 1,
+      cover: random_choice(COVERS),
+      name: `${random_choice(NAMES)} #${id}`,
+      description: random_choice(DESCRIPTIONS),
+      expiration_days: random_int(100),
+      price: random_choice(PRICES),
+      available_payment_method_identifiers: [CB.id],
+      manager_only,
+      disabled: false,
+      amount_gifted: random_int(100).toString(),
+      // @ts-ignore
+      companies: FranchiseCompanyListFactory(Math.floor(Math.random() * 20)),
+    };
+    return item;
+  });
 }

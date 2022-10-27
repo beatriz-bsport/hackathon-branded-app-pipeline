@@ -10,16 +10,27 @@ import {
   Typography,
 } from '@material-ui/core';
 import GenericResponsiveDialog from './GenericResponsiveDialog';
+import RedButton from '#components/button/RedButton.component';
 
 type ButtonCustom = {
   label?: string;
   onClick: () => void;
   variant?: 'text' | 'contained' | 'outlined';
   color?: 'primary' | 'secondary' | 'default' | 'inherit';
-  commonLabel?: 'cancel' | 'confirm' | 'next' | 'previous' | 'close' | 'finish';
+  commonLabel?:
+    | 'cancel'
+    | 'confirm'
+    | 'next'
+    | 'previous'
+    | 'close'
+    | 'finish'
+    | 'saveRecord'
+    | 'delete';
   disabled?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  className?: string;
+  delayBeforeActivation?: number;
 };
 
 const COMMON_LABELS = [
@@ -29,6 +40,8 @@ const COMMON_LABELS = [
   'previous',
   'close',
   'finish',
+  'saveRecord',
+  'delete',
 ];
 
 const getButtonLabel = (label: string, commonLabel: string, t: TFunction) => {
@@ -44,6 +57,7 @@ type OwnProps = {
   title: string;
   content?: string;
   contentAlign?: 'center' | 'justify' | 'left' | 'right';
+  contentColor?: 'textPrimary' | 'textSecondary';
   maxWidth?: Breakpoint;
   fullScreenBreakpoint?: Breakpoint;
   onClose?: () => void;
@@ -59,10 +73,14 @@ type OwnProps = {
       | 'previous'
       | 'close'
       | 'finish'
+      | 'saveRecord'
+      | 'delete'
       | string;
     disabled?: boolean;
     startIcon?: React.ReactNode;
     endIcon?: React.ReactNode;
+    className?: string;
+    delayBeforeActivation?: number;
   }>;
 };
 type Props = OwnProps;
@@ -73,6 +91,7 @@ export const CustomMuiDialog = (props: Props) => {
     title,
     content,
     contentAlign,
+    contentColor,
     buttons,
     maxWidth,
     fullScreenBreakpoint,
@@ -94,7 +113,11 @@ export const CustomMuiDialog = (props: Props) => {
         )}
         <DialogContent>
           {!!content && (
-            <Typography variant="body1" align={contentAlign ?? 'left'}>
+            <Typography
+              variant="body1"
+              align={contentAlign ?? 'left'}
+              color={contentColor ?? 'textPrimary'}
+            >
               {content}
             </Typography>
           )}
@@ -102,21 +125,39 @@ export const CustomMuiDialog = (props: Props) => {
         </DialogContent>
         {!!buttons && (
           <DialogActions>
-            {buttons.map((bt: ButtonCustom) => (
-              <Button
-                onClick={bt.onClick}
-                variant={bt.variant || 'text'}
-                color={bt.color || 'default'}
-                disabled={bt.disabled}
-                startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
-                endIcon={!!bt.endIcon && !!bt.label && bt.endIcon}
-              >
-                {!bt.label && !!bt.startIcon && bt.startIcon}
-                {(!!bt.label || !!bt.commonLabel) &&
-                  getButtonLabel(bt.label, bt.commonLabel, t)}
-                {!bt.label && !!bt.endIcon && bt.endIcon}
-              </Button>
-            ))}
+            {buttons.map((bt: ButtonCustom) =>
+              bt.delayBeforeActivation ? (
+                <RedButton
+                  onClick={bt.onClick}
+                  variant={bt.variant || 'text'}
+                  disabled={bt.disabled}
+                  startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
+                  endIcon={!!bt.endIcon && !!bt.label && bt.endIcon}
+                  className={bt.className}
+                  delayBeforeActivation={bt.delayBeforeActivation}
+                >
+                  {!bt.label && !!bt.startIcon && bt.startIcon}
+                  {(!!bt.label || !!bt.commonLabel) &&
+                    getButtonLabel(bt.label, bt.commonLabel, t)}
+                  {!bt.label && !!bt.endIcon && bt.endIcon}
+                </RedButton>
+              ) : (
+                <Button
+                  onClick={bt.onClick}
+                  variant={bt.variant || 'text'}
+                  color={bt.color || 'default'}
+                  disabled={bt.disabled}
+                  startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
+                  endIcon={!!bt.endIcon && !!bt.label && bt.endIcon}
+                  className={bt.className}
+                >
+                  {!bt.label && !!bt.startIcon && bt.startIcon}
+                  {(!!bt.label || !!bt.commonLabel) &&
+                    getButtonLabel(bt.label, bt.commonLabel, t)}
+                  {!bt.label && !!bt.endIcon && bt.endIcon}
+                </Button>
+              ),
+            )}
           </DialogActions>
         )}
       </div>

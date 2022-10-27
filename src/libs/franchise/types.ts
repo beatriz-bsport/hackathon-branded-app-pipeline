@@ -1,4 +1,8 @@
-import { CompanyWithTheme, Company } from '../company/types';
+import { CompanyWithTheme, Company } from '#libs/company/types';
+import { PaymentPackTemplate } from '#libs/payment-packs/types';
+import { PrivatePassTemplate } from '#libs/private-service/types';
+import { CouponTemplate } from '#libs/coupon/types';
+import { GiftcardTemplate } from '#libs/giftcard/types';
 
 export type FranchiseState = {
   error: null | boolean;
@@ -83,6 +87,16 @@ export type FranchiseDetails = Franchise & {
   companies: Array<CompanyWithTheme>;
   primary_color: string;
   secondary_color: string;
+};
+
+export type GenericProductTemplate =
+  | PaymentPackTemplate
+  | PrivatePassTemplate
+  | CouponTemplate
+  | GiftcardTemplate;
+
+export type WithFranchiseCompanies<T> = T & {
+  companies: Array<FranchiseCompany>;
 };
 
 export type FranchiseTheme = Franchise | FranchiseDetails | FranchiseCompany;

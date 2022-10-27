@@ -20,7 +20,7 @@ const FranchiseCompanyChipList = (props: Props) => {
   return (
     <>
       {props.companies.length > 0 && (
-        <>
+        <div className={classes.responsiveChipContainer}>
           {props.companies
             .slice(0, nbChips)
             .map(
@@ -40,11 +40,14 @@ const FranchiseCompanyChipList = (props: Props) => {
               <Chip
                 variant="outlined"
                 color="primary"
-                label={`${t('seeAll')} (${props.companies?.length || 0})`}
+                label={`${t('seeAll')} (${
+                  props.companies?.length - nbChips || 0
+                })`}
+                className={classes.chip}
               />
             </FranchiseCompaniesListingTooltip>
           )}
-        </>
+        </div>
       )}
     </>
   );
@@ -52,8 +55,15 @@ const FranchiseCompanyChipList = (props: Props) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   chip: {
-    marginLeft: theme.spacing(0.5),
-    marginRight: theme.spacing(0.5),
+    margin: theme.spacing(0.5),
+    display: 'flex',
+    flexWrap: 'wrap',
+    minWidth: 0, // trick to ellipsis chip
+  },
+  responsiveChipContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    minWidth: 0, // trick to ellipsis chip
   },
 }));
 

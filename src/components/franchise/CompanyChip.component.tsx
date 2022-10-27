@@ -39,6 +39,7 @@ const CompanyChip = (props: Props) => {
         label={company.name}
         onDelete={company.isAllowed && onDelete}
         size={size || 'medium'}
+        disabled={company.isAllowed === false}
       />
     </MuiThemeProvider>
   );

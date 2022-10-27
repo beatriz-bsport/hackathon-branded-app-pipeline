@@ -32,7 +32,7 @@ export const IsEmptyList = (props: Props) => {
               ) : (
                 <InfoOutlined className={classes.leftIcon} fontSize="large" />
               )}
-              <Typography variant="caption">{props.text}</Typography>
+              <Typography variant="body1">{props.text}</Typography>
             </div>
             <div className={classes.buttonTool}>
               {props.button && (
@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   emptyTool: {
+    alignItems: 'center',
     marginTop: theme.spacing(3),
     padding: theme.spacing(2),
     fontSize: 'large',

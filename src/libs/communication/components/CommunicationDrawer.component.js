@@ -215,14 +215,12 @@ export class CommunicationDrawer extends Component<Props, State> {
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
                   disabled={
-                    (Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                      (this.props.countWithPhone -
-                        this.state.unCheckedMembers.phone?.length ||
-                        0)) ||
-                    !featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f) => f.readable_identifier === 'sms',
-                    )
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                    (!this.props.countWithPhone ||
+                      !featureList.upsell ||
+                      !featureList.upsell.find(
+                        (f) => f.readable_identifier === 'sms',
+                      ))
                   }
                   onChange={() =>
                     this.setState({

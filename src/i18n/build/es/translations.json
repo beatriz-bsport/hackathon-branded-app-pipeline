@@ -8494,7 +8494,8 @@
                 "closeBasket": "Seguir comprando"
             },
             "error": {
-                "invalidBasket": "Tu cesta contenía artículos que ya no están disponibles para la venta. No se ha registrado ningún pago"
+                "invalidBasket": "Tu cesta contenía artículos que ya no están disponibles para la venta. No se ha registrado ningún pago",
+                "inconsistentBasket": "Tu cesta ha sido modificada, por favor actualiza tu página antes de validar tu pago.\nNo ha sido acusado."
             },
             "featured": "Nosotros te recomendamos",
             "isEmpty": "Su cesta está vacía",

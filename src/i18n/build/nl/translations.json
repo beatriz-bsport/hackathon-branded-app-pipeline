@@ -264,7 +264,13 @@
                     "spot": "Plaats",
                     "canceled_grouped_session": "Geannuleerde reserveringsgroep"
                 },
-                "name": "Reservering"
+                "name": "Activiteit",
+                "subtitles": {
+                    "workshop": "Workshop",
+                    "establishment_group": "Locatie",
+                    "establishment": "Vestiging",
+                    "meta_activity": "Activiteit"
+                }
             },
             "User": {
                 "tags": {
@@ -323,6 +329,9 @@
                     "recurring_booking_fail_reason": "Reden voor terugkerende mislukte boekingen"
                 },
                 "name": "Terugkerende regel"
+            },
+            "Birthday": {
+                "name": "Verjaardag"
             }
         },
         "emailDesign": {
@@ -414,7 +423,16 @@
         "configureNotif": "Configureren",
         "countNotification": "Aantal geactiveerde push-notificaties: {{nbr}}",
         "countEmail": "Aantal geactiveerde berichten: {{nbr}}",
-        "countElements": "{{nbr}} element(en)"
+        "countElements": "{{nbr}} element(en)",
+        "triggeringEvent": {
+            "title": "Activerende gebeurtenis"
+        },
+        "type": {
+            "hours": "Uren",
+            "days": "Dagen",
+            "bookingConcerned": "de sessie waarop de melding betrekking heeft",
+            "sendNotification": "De melding verzenden"
+        }
     },
     "membership": {
         "selector": {
@@ -3375,7 +3393,7 @@
             "maxUseHelper": "Laat dit veld leeg om geen limiet in te stellen.",
             "maxUseDay": "Maximaal gebruik per dag",
             "restriction": "Beperkingen",
-            "penalityAccountHelper": "Leden worden €{{penalityBlockAccount}} in rekening gebracht.",
+            "penalityAccountHelper": "{{penalityBlockAccount}}{{ currencyDisplay }} wordt ten laste gebracht van het rekeningsaldo van dit lid.",
             "penalityBlockDayHelper": "Leden hun kaarten worden {{penalityBlockDay}} dag(en) geblokkeerd.",
             "penalityAccountPrice": "Boetebedrag",
             "penalityBlockDay": "Blokkeerperiode (in dagen)",
@@ -6717,7 +6735,17 @@
             "explainEnable": "Upload al je facturen direct naar QuickBooks. Iedere 24 uur zullen de gegevens worden bijgewerkt.",
             "submit": "Opslaan",
             "enable": "Activeer de integratie met QuickBooks",
-            "title": "QuickBooks"
+            "title": "QuickBooks",
+            "tax": {
+                "goToSettingsPage": "Open de QuickBooks configuratiepagina",
+                "alertNonTaxInformation": "Er wordt geen belastinginformatie gesynchroniseerd met uw Quickbooks-platform. Klik op vernieuwen om ze te synchroniseren",
+                "alertUnconfigured": "U hebt geen standaardbelasting ingesteld voor de producten op uw facturen. Deze informatie is verplicht om de juiste belasting te vermelden bij de overdracht van facturen naar uw Quickbooks-platform.",
+                "refresh": "Mijn Quickbooks gegevens verversen",
+                "usedAsTaxCode": "Gebruikt als referentiebelasting",
+                "taxCodeHeaderDescription": "Beschrijving",
+                "taxCodeHeaderName": "Naam",
+                "taxInfoTitle": "QuickBooks Belastinginformatie"
+            }
         },
         "mobilePersonalization": {
             "popup": {
@@ -7681,7 +7709,8 @@
                     "notRefunded": "Te late annuleringen",
                     "refunded": "Kosteloze annuleringen",
                     "valid": "Geldige reserveringen"
-                }
+                },
+                "subtitle": "Afsprakenkaart"
             },
             "tooltip": "Er zijn actieve meldingen voor dit type afspraak.",
             "listItemPrimary": {
@@ -8412,7 +8441,7 @@
             "linkByEmail": {
                 "success": "Instructeur succesvol gekoppeld"
             },
-            "error_email_exists": "Er bestaat al een instructeur met dit e-mailadres. Gebruik het formulier om een andere instructeur toe te voegen",
+            "error_email_exists": "Er bestaat al een lid met dit e-mailadres. Om deze te koppelen, gebruik het vorige modaal.",
             "create": {
                 "success": "Instructeur succesvol aangemaakt"
             },
@@ -8636,7 +8665,8 @@
                     "931003": "De verificatie is verlopen",
                     "931002": "De verificatie is verlopen",
                     "931001": "Fout bij de verificatie met QuickBooks",
-                    "931000": "Fout bij het verifiëren met QuickBooks"
+                    "931000": "Fout bij het verifiëren met QuickBooks",
+                    "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken."
                 },
                 "error": "Fout bij het overzetten van je facturen naar QuickBooks",
                 "success": "Je facturen zijn naar QuickBooks overgezet"
@@ -10562,7 +10592,8 @@
             "isEmpty": "Je winkelmandje is nog leeg.",
             "featured": "Aanbevelingen",
             "error": {
-                "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd."
+                "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd.",
+                "inconsistentBasket": "Uw winkelmandje is gewijzigd, vernieuw uw pagina voordat u uw betaling bevestigt. \nU bent niet in rekening gebracht."
             },
             "actions": {
                 "closeBasket": "Doorgaan",
@@ -11111,7 +11142,8 @@
                     "931003": "De authenticatie is verlopen",
                     "931002": "De authenticatie is verlopen",
                     "931001": "Error bij de authenticatie aan QuickBooks",
-                    "931000": "Error bij de authenticatie aan QuickBooks"
+                    "931000": "Error bij de authenticatie aan QuickBooks",
+                    "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken."
                 }
             },
             "invoice": {
@@ -11604,7 +11636,10 @@
                     "paymentPackTemplates": {
                         "_label": "Leskaarten"
                     },
-                    "_label": "Producten"
+                    "_label": "Producten",
+                    "giftcardTemplates": {
+                        "_label": "Cadeaubon"
+                    }
                 },
                 "members": {
                     "_label": "Leden"
@@ -11755,7 +11790,8 @@
                 "couponTemplates": "Promoties",
                 "privatePassTemplates": "Afspraakkaarten",
                 "paymentPackTemplates": "Leskaarten",
-                "label": "Producten"
+                "label": "Producten",
+                "giftcardTemplates": "Cadeaubonnen"
             }
         },
         "multiSession": {
@@ -12430,11 +12466,13 @@
                 "shortMenu": {
                     "edit": "Bewerken",
                     "delete": "Verwijderen",
-                    "goTo": "Detail"
+                    "goTo": "Detail",
+                    "restore": "Herstellen"
                 },
                 "fuzzySearch": "Zoek een kaart",
                 "titleInactive": "Niet beschikbaar voor verkoop",
-                "titleActive": "Beschikbaar voor verkoop"
+                "titleActive": "Beschikbaar voor verkoop",
+                "visibility": "Niet beschikbaar voor verkoop"
             },
             "templateCard": {
                 "shareTemplate": {
@@ -12527,7 +12565,8 @@
                     "submit": "Bevestig",
                     "cancel": "Sluit"
                 }
-            }
+            },
+            "canNotUpdateBecauseShared": "Deze cadeaukaart is een gedeelde kaart van de franchisegever. Hij is vastgesteld door de franchisegever en kan niet worden gewijzigd."
         },
         "giftcard": {
             "delete": {
@@ -12628,7 +12667,25 @@
             "title": "Archiveer de cadeaubon"
         },
         "search": "Zoek een cadeaubon",
-        "widget": "Kies een cadeaubon"
+        "widget": "Kies een cadeaubon",
+        "giftcardTemplate": {
+            "template": {
+                "withoutTax": "Exclusief BTW",
+                "unlimited": "Onbeperkt",
+                "validityDetail": "Geldig voor {{count}} dag na factuurdatum",
+                "validityDetail_plural": "Geldig voor {{count}} dagen na factuurdatum",
+                "validity": "Geldig voor {{count}} dag ",
+                "validity_plural": "Geldig voor {{count}} dagen ",
+                "deleteDialogContent": "Door een gedeelde cadeaukaart te deactiveren, kunnen leden deze alleen gebruiken in de studio waar hij is gekocht."
+            },
+            "listPage": {
+                "fuzzyPlaceholder": "Zoek een cadeaubon",
+                "emptyLabel": "Geen gedeelde cadeaubon geregistreerd",
+                "addButton": "Maak een gedeelde cadeaubon"
+            },
+            "giftcard": "Cadeaubon",
+            "sharedCard": "Gedeeld door een andere franchisenemer"
+        }
     },
     "performanceTracking": {
         "memberProgram": {

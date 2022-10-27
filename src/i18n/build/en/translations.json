@@ -5799,7 +5799,8 @@
             "isEmpty": "Your basket is empty.",
             "featured": "Featured",
             "error": {
-                "invalidBasket": "Your basket contained items which are no longer available. No payment has been processed."
+                "invalidBasket": "Your basket contained items which are no longer available. No payment has been processed.",
+                "inconsistentBasket": "Your basket has been modified, please refresh your page before validating your payment.\nYou have not been charged."
             },
             "actions": {
                 "closeBasket": "Continue shopping",

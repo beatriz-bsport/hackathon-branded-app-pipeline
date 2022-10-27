@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import chroma from 'chroma-js';
 import { compose } from 'recompose';
@@ -7,6 +6,7 @@ import { colors } from '@bsport/common/lib/colors';
 import Select, { components } from 'react-select';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import type { Establishment } from '../types';
 
@@ -79,6 +79,7 @@ const Group = ({ children, ...props }) => {
     </div>
   );
 };
+
 export const getGroupedEstablishmentOptions = (
   establishments: Array<Establishment>,
 ) => {
@@ -124,11 +125,24 @@ const getEstablishmentList = (establishments: Array<Establishment>) => {
   });
 };
 
+const controlStyle = (controlError: boolean, colorError: string) => {
+  return controlError
+    ? {
+        control: (styles) => ({
+          ...styles,
+          backgroundColor: 'white',
+          borderColor: colorError,
+        }),
+      }
+    : {
+        control: (styles) => ({
+          ...styles,
+          backgroundColor: 'white',
+        }),
+      };
+};
+
 const establishmentStyles = {
-  control: (styles) => ({
-    ...styles,
-    backgroundColor: 'white',
-  }),
   menuPortal: (base) => {
     return {
       ...base,
@@ -197,7 +211,7 @@ const establishmentStyles = {
   }),
 };
 
-type OwnProps = {
+export type OwnProps = {
   establishments?: Array<Establishment>;
   selectOption: (Suggestion: {
     label: string;
@@ -209,12 +223,14 @@ type OwnProps = {
   disabled?: boolean;
   noMulti: boolean;
   closeMenuOnSelect: boolean;
-  isClearable: boolean;
-  nullCurrentValue: boolean;
+  isClearable?: boolean;
+  nullCurrentValue?: boolean;
   isLoading?: boolean;
   isOptionDisabled?: boolean;
   targetParentElement?: boolean;
   placeholder?: string;
+  isRequired?: boolean;
+  requiredValueIsMissing?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -234,6 +250,8 @@ export function EstablishmentSelector(props: Props) {
     isOptionDisabled,
     targetParentElement,
     placeholder,
+    isRequired,
+    requiredValueIsMissing,
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
@@ -241,30 +259,45 @@ export function EstablishmentSelector(props: Props) {
           selectedEstablishments.includes(est.value),
         )
       : null;
-
+  const theme = useTheme();
   return (
-    <Select
-      closeMenuOnSelect={!!closeMenuOnSelect}
-      isMulti={!noMulti}
-      placeholder={placeholder || t('room')}
-      options={getGroupedEstablishmentOptions([...establishments])}
-      styles={establishmentStyles}
-      onChange={selectOption}
-      isDisabled={disabled}
-      isClearable={isClearable}
-      menuPortalTarget={!targetParentElement && document.querySelector('body')}
-      value={roomsSelected}
-      components={{ GroupHeading, Group, Menu }}
-      selectedEstablishments={selectedEstablishments}
-      isOptionDisabled={
-        isOptionDisabled
-          ? (option: { value: number; label: string }) =>
-              (selectedEstablishments || []).includes(option.value)
-          : null
-      }
-      selectMultipleOptions={selectMultipleOptions}
-      isLoading={isLoading}
-    />
+    <>
+      <Select
+        closeMenuOnSelect={!!closeMenuOnSelect}
+        isMulti={!noMulti}
+        placeholder={placeholder || t(isRequired ? 'roomRequired' : 'room')}
+        options={getGroupedEstablishmentOptions([...establishments])}
+        styles={{
+          ...establishmentStyles,
+          ...controlStyle(
+            isRequired && requiredValueIsMissing,
+            theme.palette.error.main,
+          ),
+        }}
+        onChange={selectOption}
+        isDisabled={disabled}
+        isClearable={!!isClearable}
+        menuPortalTarget={
+          !targetParentElement && document.querySelector('body')
+        }
+        value={roomsSelected}
+        components={{ GroupHeading, Group, Menu }}
+        selectedEstablishments={selectedEstablishments}
+        isOptionDisabled={
+          isOptionDisabled
+            ? (option: { value: number; label: string }) =>
+                (selectedEstablishments || []).includes(option.value)
+            : null
+        }
+        selectMultipleOptions={selectMultipleOptions}
+        isLoading={isLoading}
+      />
+      {isRequired && requiredValueIsMissing && (
+        <Typography variant="caption" color="error">
+          {t('roomRequiredIsMissing')}
+        </Typography>
+      )}
+    </>
   );
 }
 

@@ -34,6 +34,7 @@ type Props = {
   uneditableInvoiceItems: Array<InvoiceItem>,
   establishments: Array<Establishment>,
   establishmentLoading: boolean,
+  enableMultiLocalization: boolean,
   memberDetails: { [id: number]: Member },
 };
 
@@ -42,6 +43,7 @@ type State = {
   invoiceItemList: Array<InvoiceItem>,
   processing: boolean,
   billingEstablishmentId: number | null,
+  requiredEstablishmentIsMissing: boolean,
 };
 
 export class QuickInvoice extends Component<Props, State> {
@@ -52,6 +54,7 @@ export class QuickInvoice extends Component<Props, State> {
       invoiceItemList: [],
       processing: false,
       billingEstablishmentId: null,
+      requiredEstablishmentIsMissing: false,
     };
   }
 
@@ -70,6 +73,14 @@ export class QuickInvoice extends Component<Props, State> {
       member: quickInvoice.memberId,
       billing_establishment_id: this.state.billingEstablishmentId,
     };
+    if (
+      this.props.enableMultiLocalization &&
+      !this.state.billingEstablishmentId &&
+      this.props.establishments?.length
+    ) {
+      this.setState({ requiredEstablishmentIsMissing: true });
+      return;
+    }
     if (this.props.editMode) {
       this.props.updateInvoice(invoiceData);
     } else {
@@ -191,31 +202,38 @@ export class QuickInvoice extends Component<Props, State> {
                 </Grid>
               </Grid>
             </Grid>
-            <div className={classes.establishmentSection}>
-              <Typography variant="h6" className={classes.sectionTitle}>
-                {this.props.t(
-                  'invoice:section.invoiceItemList.billing_establishment',
-                )}
-              </Typography>
-              <Divider className={classes.divider} />
-              <EstablishmentSelector
-                establishments={this.props.establishments}
-                isClearable
-                isLoading={this.props.establishmentLoading}
-                isOptionDisabled
-                selectOption={async (item: {
-                  value: number,
-                  label: string,
-                }) => {
-                  this.setState({
-                    billingEstablishmentId: item ? item.value : null,
-                  });
-                }}
-                selectedEstablishments={[this.state.billingEstablishmentId]}
-                noMulti
-                closeMenuOnSelect
-              />
-            </div>
+            {this.props.enableMultiLocalization && (
+              <div className={classes.establishmentSection}>
+                <Typography variant="h6" className={classes.sectionTitle}>
+                  {this.props.t(
+                    'invoice:section.invoiceItemList.billing_establishment',
+                  )}
+                </Typography>
+                <Divider className={classes.divider} />
+                <EstablishmentSelector
+                  establishments={this.props.establishments}
+                  isLoading={this.props.establishmentLoading}
+                  isOptionDisabled
+                  selectOption={async (item: {
+                    value: number,
+                    label: string,
+                  }) => {
+                    this.setState({
+                      billingEstablishmentId: item ? item.value : null,
+                      requiredEstablishmentIsMissing: !item,
+                    });
+                  }}
+                  selectedEstablishments={[this.state.billingEstablishmentId]}
+                  noMulti
+                  closeMenuOnSelect
+                  isRequired
+                  requiredValueIsMissing={
+                    this.props.enableMultiLocalization &&
+                    this.state.requiredEstablishmentIsMissing
+                  }
+                />
+              </div>
+            )}
             <div className={classes.actionRow}>
               {this.state.processing ? (
                 <CircularProgress />

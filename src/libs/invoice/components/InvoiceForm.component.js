@@ -198,7 +198,7 @@ export class InvoiceForm extends React.Component<Props, State> {
               ...asEditable(false, this.props.invoiceItemList),
               ...asEditable(true, this.state.invoiceItemList),
             ]}
-            amountInvoiceitem={invoiceItemAmount}
+            amountInvoiceItem={invoiceItemAmount}
             removePaymentItem={this.removePaymentItem}
             paymentItemList={[
               ...asEditable(false, this.props.paymentItemList),
@@ -228,7 +228,7 @@ export class InvoiceForm extends React.Component<Props, State> {
               this.state.invoiceItemList.length ||
               this.state.paymentItemList.length
             }
-            amountInvoiceitem={invoiceItemAmount}
+            amountInvoiceItem={invoiceItemAmount}
             amountPaymentItem={paymentAmount}
             isEquilibrated={paymentAmount === invoiceItemAmount}
             member={this.props.member}

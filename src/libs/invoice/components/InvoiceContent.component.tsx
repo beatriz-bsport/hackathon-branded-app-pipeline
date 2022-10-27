@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -19,47 +18,49 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItem } from '@material-ui/core';
-import Tooltip from '../../../components/Tooltip.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import Tooltip from '#components/Tooltip.component';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
-import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
+import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
-import type { Establishment } from '../../establishment/types';
+import type { Establishment } from '#libs/establishment/types';
+import { OptionCallback } from '../../../state/types';
+import { Invoice } from '../types';
 
 type Props = {
-  paymentItemList: Array<PaymentItem>,
-  invoiceItemList: Array<InvoiceItem>,
-  removeInvoiceItem: (id: number) => void,
-  removePaymentItem: (id: number) => void,
-  amountInvoiceitem: number,
-  amountPaymentItem: number,
-  returnPayment: (uuid: string) => void,
-  finalizeInvoice: () => void,
-  updatePaymentMethod: (uuid: string, paymentMethodId: number) => void,
-  isReturningPayment: boolean,
-  goToSubscription: (id: number) => void,
+  paymentItemList: Array<PaymentItem>;
+  removeInvoiceItem: (id: number) => void;
+  removePaymentItem: (id: number) => void;
+  amountInvoiceItem: number;
+  amountPaymentItem: number;
+  returnPayment: (uuid: string) => void;
+  finalizeInvoice: () => void;
+  updatePaymentMethod: (uuid: string, paymentMethodId: number) => void;
+  isReturningPayment: boolean;
+  goToSubscription: (id: number) => void;
 
-  invoice: ?Invoice,
-  invoiceItemLoading: boolean,
-  invoiceItemList: Array<InvoiceItem>,
-  editCustomFooter: (options: OptionCallback) => void,
+  invoice?: Invoice;
+  invoiceItemLoading: boolean;
+  invoiceItemList: Array<InvoiceItem>;
+  editCustomFooter: (options: OptionCallback) => void;
   couponList?: Array<{
-    coupon_code: string,
-    coupon_voucher: number,
-    compatible_items: Array<number>,
-  }>,
-  deleteCoupon?: (couponIndex: number) => void,
-  applyCoupon?: (couponCode: String, options: OptionCallback) => void,
-  disableCoupon: boolean,
-  couponLoading: boolean,
-  withEstablishment: boolean,
-  establishmentLoading: boolean,
-  establishments: Array<Establishment>,
-  setBillingEstablishment: (establishmentId: number | null) => void,
-  billing_establishment_id: number,
-  enableMultiLocalization: boolean,
+    coupon_code: string;
+    coupon_voucher: number;
+    compatible_items: Array<number>;
+  }>;
+  deleteCoupon?: (couponIndex: number) => void;
+  applyCoupon?: (couponCode: String, options: OptionCallback) => void;
+  disableCoupon: boolean;
+  couponLoading: boolean;
+  withEstablishment: boolean;
+  establishmentLoading: boolean;
+  establishments: Array<Establishment>;
+  setBillingEstablishment: (establishmentId: number | null) => void;
+  billing_establishment_id: number;
+  enableMultiLocalization: boolean;
+  requiredEstablishmentIsMissing?: boolean;
 };
 export const InvoiceContent = (props: Props) => {
   const classes = useStyles(props);
@@ -76,10 +77,9 @@ export const InvoiceContent = (props: Props) => {
     props.invoice ? props.invoice.custom_footer : '',
   ]);
   const [loading, setLoading] = React.useState(false);
-
   const is_reverse = props.invoice && props.invoice.source_invoice;
   return (
-    <div className={classes.container}>
+    <div>
       <Paper className={classes.paperContainer}>
         <div className={classes.section}>
           <Typography variant="h6" className={classes.sectionTitle}>
@@ -117,7 +117,7 @@ export const InvoiceContent = (props: Props) => {
               </Typography>
               <Typography variant="h5">
                 {getCurrencyDisplayWithPrice(
-                  parseFloat(props.amountInvoiceitem).toFixed(2),
+                  parseFloat(props.amountInvoiceItem).toFixed(2),
                 )}
               </Typography>
             </div>
@@ -157,7 +157,7 @@ export const InvoiceContent = (props: Props) => {
                 </Typography>
                 <Typography
                   color={
-                    props.amountPaymentItem < props.amountInvoiceitem
+                    props.amountPaymentItem < props.amountInvoiceItem
                       ? 'error'
                       : ''
                   }
@@ -263,12 +263,11 @@ export const InvoiceContent = (props: Props) => {
             <div className={classes.sectionEstablishmentBilling}>
               <EstablishmentSelector
                 establishments={props.establishments}
-                isClearable
                 isLoading={props.establishmentLoading || loading}
                 isOptionDisabled
                 selectOption={async (item: {
-                  value: number,
-                  label: string,
+                  value: number;
+                  label: string;
                 }) => {
                   props.setBillingEstablishment(item ? item.value : null);
                   setLoading(true);
@@ -282,6 +281,8 @@ export const InvoiceContent = (props: Props) => {
                 selectedEstablishments={[props.billing_establishment_id]}
                 noMulti
                 closeMenuOnSelect
+                isRequired
+                requiredValueIsMissing={props.requiredEstablishmentIsMissing}
               />
             </div>
           </>
@@ -339,7 +340,7 @@ export const InvoiceContent = (props: Props) => {
                 variant="outlined"
               >
                 {t('actions.goToSubscription')}
-                <ArrowForwardIcon className={classes.rightIcon} />
+                <ArrowForwardIcon />
               </Button>
             )}
           </div>
@@ -400,13 +401,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   sumUpInnerInvoiceItem: {
-    borderRight: (props) =>
+    borderRight: (props: Props) =>
       `2px solid ${
-        props.amountPaymentItem !== props.amountInvoiceitem ? 'red' : 'black'
+        props.amountPaymentItem !== props.amountInvoiceItem ? 'red' : 'black'
       }`,
-    borderBottom: (props) =>
+    borderBottom: (props: Props) =>
       `2px solid ${
-        props.amountPaymentItem !== props.amountInvoiceitem ? 'red' : 'black'
+        props.amountPaymentItem !== props.amountInvoiceItem ? 'red' : 'black'
       }`,
     borderRadius: theme.spacing(0.5),
     '&>*': {

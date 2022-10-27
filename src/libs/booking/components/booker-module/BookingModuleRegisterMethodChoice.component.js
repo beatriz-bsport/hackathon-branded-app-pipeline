@@ -65,6 +65,8 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [selectedPack, setSelectedPack] = useState<PaymentPack | null>(null);
   const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
   const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+  const [requiredEstablishmentIsMissing, setRequiredEstablishmentIsMissing] =
+    useState(false);
   const handlePackSelect = (pack: PaymentPack) => {
     setSelectedPack(pack);
     if (!pack) {
@@ -298,7 +300,6 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
 
               <EstablishmentSelector
                 establishments={props.establishments}
-                isClearable
                 isLoading={props.establishmentLoading}
                 isOptionDisabled
                 selectOption={async (item: {
@@ -306,10 +307,13 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   label: string,
                 }) => {
                   setBillingEstablishmentId(item ? item.value : null);
+                  setRequiredEstablishmentIsMissing(!item);
                 }}
                 selectedEstablishments={[billingEstablishmentId]}
                 noMulti
                 closeMenuOnSelect
+                isRequired
+                requiredValueIsMissing={requiredEstablishmentIsMissing}
               />
             </div>
           )}
@@ -327,6 +331,14 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           <Button
             color="primary"
             onClick={() => {
+              if (
+                props.enableMultiLocalization &&
+                !billingEstablishmentId &&
+                props.establishments?.length
+              ) {
+                setRequiredEstablishmentIsMissing(true);
+                return;
+              }
               props.registerToOffer(
                 { paymentPack: selectedPack },
                 voucher,

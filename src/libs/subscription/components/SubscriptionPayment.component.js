@@ -102,6 +102,7 @@ type Props = {
 
   pastInvoices: boolean,
   onlinePaymentEnabled?: boolean,
+  forceEstablishmentSelection?: boolean,
 };
 
 type State = {
@@ -113,6 +114,7 @@ type State = {
   billing_establishment_id: number | null,
   selectedSavedPaymentMethodId: number | null,
   processingTerminal: boolean,
+  requiredEstablishmentIsMissing: boolean,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
@@ -132,6 +134,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       amountValuePastInvoices: 0,
       errorValuePastInvoices: false,
       theoricalAmountValuePastInvoices: null,
+      requiredEstablishmentIsMissing: false,
     };
   }
 
@@ -212,6 +215,15 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       pastMonth
     ) {
       this.setState({ errorValuePastInvoices: true });
+      return;
+    }
+    if (
+      this.props.forceEstablishmentSelection &&
+      this.props.enableMultiLocalization &&
+      !this.state.billing_establishment_id &&
+      this.props.establishments?.length
+    ) {
+      this.setState({ requiredEstablishmentIsMissing: true });
       return;
     }
     this.setState({ lastConfirmDifferentMonth: false });
@@ -569,18 +581,23 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               <Divider className={classes.divider} />
               <EstablishmentSelector
                 establishments={this.props.establishments}
-                isClearable
+                isClearable={!this.props.forceEstablishmentSelection}
                 isLoading={this.props.establishmentLoading}
                 isOptionDisabled
                 selectOption={(item: { value: number, label: string }) => {
                   this.setState({
                     billing_establishment_id: item ? item.value : null,
+                    requiredEstablishmentIsMissing: !item,
                   });
                 }}
                 selectedEstablishments={[this.state.billing_establishment_id]}
                 noMulti
                 closeMenuOnSelect
                 targetParentElement
+                isRequired={this.props.forceEstablishmentSelection}
+                requiredValueIsMissing={
+                  this.state.requiredEstablishmentIsMissing
+                }
               />
             </div>
           )}

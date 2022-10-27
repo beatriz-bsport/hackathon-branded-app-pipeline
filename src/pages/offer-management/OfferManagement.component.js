@@ -625,6 +625,9 @@ export class OfferManagement extends Component<Props, State> {
               this.props.payment_method_available_manager
             }
             establishments={this.props.establishmentList}
+            enableMultiLocalization={
+              this.props.company_theme.enable_multi_localization
+            }
             snackbarSuccess={this.props.snackbarSuccess}
             companyId={this.props.companyId}
             memberDetails={this.props.memberDetails}

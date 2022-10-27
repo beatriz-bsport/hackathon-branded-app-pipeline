@@ -42,6 +42,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   onlinePaymentEnabled: boolean,
+  enableMultiLocalization: boolean,
 };
 
 type State = {
@@ -108,6 +109,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
               createInvoice={createInvoice}
               establishments={this.props.establishments}
               memberDetails={this.props.memberDetails}
+              enableMultiLocalization={this.props.enableMultiLocalization}
             />
           ))
         ) : (

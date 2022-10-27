@@ -1,8 +1,8 @@
-import { Payment } from './payment/types';
+import { PaymentItem } from './payment/types';
 import { InvoiceItem } from './invoice-item/types';
 
 export type Invoice<M = number> = {
-  payments: Array<Payment>;
+  payments: Array<PaymentItem>;
   invoice_items: Array<InvoiceItem>;
   voucher: number;
   member: M;
@@ -22,6 +22,11 @@ export type Invoice<M = number> = {
   invoice_type: number;
   reverse_invoices: Array<Invoice>;
   is_v2: boolean;
+  is_draft?: boolean;
+  plannedinvoice: number;
+  billing_plan: number;
+  source_invoice: number;
+  custom_footer: number;
 };
 
 export type PlannedPaymentEvent = {
@@ -46,4 +51,11 @@ export type PaymentGroup = {
   price_cts: number;
   currency: string;
   status: number;
+};
+
+export type BuyableItem = {
+  buyable_item_id: number;
+  buyable_item_identifier: number;
+  voucher: number;
+  price: number;
 };

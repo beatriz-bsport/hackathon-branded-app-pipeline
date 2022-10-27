@@ -141,6 +141,8 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                 this.props.refreshSavedPaymentMethodList
               }
               enableMultiLocalization={this.props.enableMultiLocalization}
+              forceEstablishment
+              withEstablishment
               establishments={this.props.establishments}
               stripeReaders={this.props.stripeReaders}
               subscriptionData={this.props.subscriptionData}

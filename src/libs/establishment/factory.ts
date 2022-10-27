@@ -98,7 +98,7 @@ function location_factory(num_el: number): Array<Location> {
   const addresses = [...Array(num_el)].map(
     (_, i) => LOCATION_ADDRESSES[i % LOCATION_ADDRESSES.length],
   );
-  return [...Array(num_el)].map((i) => ({
+  return [...Array(num_el)].map((_, i) => ({
     address: addresses[i],
     latitude: random_choice(LOCATION_LATITUDES),
     longitude: random_choice(LOCATION_LONGITUDES),

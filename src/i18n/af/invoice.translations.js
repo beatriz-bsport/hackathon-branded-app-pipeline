@@ -454,7 +454,7 @@ exports.default = {
       titleReverse: 'Retour achat',
       isEmpty: 'Aucun achat',
       total: 'Total achat',
-      billing_establishment: 'Établissement de facturation (facultatif)',
+      billing_establishment: 'Établissement de facturation',
     },
     paymentList: {
       title: 'Moyens de paiement',

@@ -25,6 +25,9 @@ exports.default = {
   localisation: 'Localisation',
   favouriteLocation: 'Localisation préférée',
   room: 'Salle',
+  roomRequired: 'Salle *',
+  roomRequiredIsMissing:
+    "Vous n'avez pas sélectionné d'établissement de facturation.",
   capacity: {
     label: 'Capacité de la salle',
     placeholder: null,

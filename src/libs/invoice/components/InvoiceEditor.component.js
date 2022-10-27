@@ -27,7 +27,7 @@ type Props = {
   goToSubscription: (id: number) => void,
   finalizeInvoice: (uuid: string) => void,
   invoiceHasChanged: boolean,
-  amountInvoiceitem: number,
+  amountInvoiceItem: number,
   amountPaymentItem: number,
   isEquilibrated: boolean,
 
@@ -132,7 +132,7 @@ export const InvoiceEditor = (props: Props) => {
                 onSubmit={props.onAddPaymentItem}
                 amountDue={
                   Math.max(
-                    props.amountInvoiceitem - props.amountPaymentItem,
+                    props.amountInvoiceItem - props.amountPaymentItem,
                     0,
                   ) || 0
                 }

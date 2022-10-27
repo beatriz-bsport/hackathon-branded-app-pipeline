@@ -1,69 +1,71 @@
-// @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles, WithStyles, Theme } from '@material-ui/core';
 import { compose } from 'recompose';
 import Grid from '@material-ui/core/Grid';
-
 import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_CREDIT,
   BUYABLE_ITEM_GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items';
 import Modal from '@material-ui/core/Modal';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 import { OptionCallback } from '../../../state/types';
-import { appliesToInvoice } from '../../coupon/api';
-import { Establishment } from '../../establishment/types';
-import ConsumerGiftcardFormWithPreview from '../../giftcard/components/ConsumerGiftcardFormWithPreview.component';
-import { GiftcardBackgroundImage } from '../../giftcard/types';
+import { appliesToInvoice } from '#libs/coupon/api';
+import { Establishment } from '#libs/establishment/types';
+import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import { GiftcardBackgroundImage } from '#libs/giftcard/types';
+import { Member } from '#libs/member/types';
+import { InvoiceItem } from '../invoice-item/types';
+import { BuyableItem } from '../types';
 
-type Props = {
-  classes: Object,
+type OwnProps = {
+  invoiceItemList: Array<InvoiceItem>;
 
-  invoiceItemList: Array<InvoiceItem>,
-
-  member: Member,
-  finalizeInvoice: (uuid: string) => void,
+  member: Member;
+  finalizeInvoice: (uuid: string) => void;
   onSubmit: (
     data: {
-      buyable_items: Array<BuyableItem>,
+      buyable_items: Array<BuyableItem>;
     },
-    options: OptionCallback,
-  ) => void,
-  availableBuyableItems: { [identifier: number]: Array<any> },
-  finalizeInvoiceAlertOpen: boolean,
-  closeFinalizeInvoiceDialog: () => void,
-  initialItems?: { withPrivatePass?: string, withCredit?: string },
-  t: TFunction,
-  establishments: Array<Establishment>,
-  establishmentLoading: boolean,
-  enableMultiLocalization: boolean,
-  imageCarouselChangeable: boolean,
-  giftcardBackgroundImageList: Array<GiftcardBackgroundImage>,
+    options?: OptionCallback,
+  ) => void;
+  availableBuyableItems: { [identifier: number]: Array<any> };
+  finalizeInvoiceAlertOpen: boolean;
+  closeFinalizeInvoiceDialog: () => void;
+  initialItems?: { withPrivatePass?: string; withCredit?: string };
+  t: TFunction;
+  establishments: Array<Establishment>;
+  establishmentLoading: boolean;
+  enableMultiLocalization: boolean;
+  imageCarouselChangeable: boolean;
+  giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
 };
+
+type Props = OwnProps & WithStyles & WithTranslation;
 
 type State = {
-  invoiceItemList: Array<InvoiceItem>,
+  invoiceItemList: Array<InvoiceItem>;
   coupon_list: Array<{
-    coupon_code: string,
-    coupon_voucher: number,
-    compatible_items: Array<number>,
-  }>,
-  couponLoading: boolean,
-  billing_establishment_id: number | null,
-  giftcardToConfigureList: Array<number>,
-  giftcardConfigList: Array<any>,
-  giftcardBackgroundImageList: Array<string>,
+    coupon_code: string;
+    coupon_voucher: number;
+    compatible_items: Array<number>;
+  }>;
+  couponLoading: boolean;
+  billing_establishment_id: number | null;
+  giftcardToConfigureList: Array<number>;
+  giftcardConfigList: Array<any>;
+  requiredEstablishmentIsMissing: boolean;
 };
 
-const asEditable = (editable, items) => {
+const asEditable = (editable: boolean, items: Array<any>) => {
   if (items) {
-    return items.map((i) => ({ ...i, editable }));
+    return items.map((i: any) => ({ ...i, editable }));
   }
   return [];
 };
@@ -76,6 +78,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     billing_establishment_id: null,
     giftcardToConfigureList: [],
     giftcardConfigList: [],
+    requiredEstablishmentIsMissing: false,
   };
 
   componentDidMount() {
@@ -159,7 +162,10 @@ export class InvoiceForm extends React.Component<Props, State> {
     );
   };
 
-  applyCoupon = async (couponCode: string, options: any) => {
+  applyCoupon = async (
+    couponCode: string,
+    options?: OptionCallback & { onNotFound: () => void },
+  ) => {
     try {
       const { data } = await appliesToInvoice(
         couponCode,
@@ -214,7 +220,7 @@ export class InvoiceForm extends React.Component<Props, State> {
   };
 
   finalizeInvoiceItems = () => {
-    this.setState((prevState) => {
+    this.setState((prevState: State) => {
       const giftcardToConfigureList = prevState.invoiceItemList
         .filter((ii) => ii.buyable_item_identifier === BUYABLE_ITEM_GIFTCARD)
         .map((b) => b.buyable_item_id);
@@ -225,13 +231,23 @@ export class InvoiceForm extends React.Component<Props, State> {
     });
   };
 
-  onSubmit = (giftcard_config_list) => {
-    this.props.onSubmit({
-      buyable_items: this.state.invoiceItemList,
-      coupon_codes: this.state.coupon_list.map((coupon) => coupon.coupon_code),
-      billing_establishment_id: this.state.billing_establishment_id,
-      giftcard_config_list,
-    });
+  onSubmit = (giftcard_config_list: Array<any>) => {
+    if (
+      this.props.enableMultiLocalization &&
+      !this.state.billing_establishment_id &&
+      this.props.establishments?.length
+    ) {
+      this.setState({ requiredEstablishmentIsMissing: true });
+    } else {
+      this.props.onSubmit({
+        buyable_items: this.state.invoiceItemList,
+        coupon_codes: this.state.coupon_list.map(
+          (coupon) => coupon.coupon_code,
+        ),
+        billing_establishment_id: this.state.billing_establishment_id,
+        giftcard_config_list,
+      });
+    }
   };
 
   storeGiftcardConfig = (giftcardConfig) => {
@@ -263,7 +279,7 @@ export class InvoiceForm extends React.Component<Props, State> {
             onAddBuyableItem={this.addBuyableItem}
             invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
             invoiceHasChanged={this.state.invoiceItemList.length}
-            amountInvoiceitem={invoiceItemAmount}
+            amountInvoiceItem={invoiceItemAmount}
             isEquilibrated
             member={this.props.member}
           />
@@ -278,7 +294,7 @@ export class InvoiceForm extends React.Component<Props, State> {
               ...asEditable(false, this.props.invoiceItemList),
               ...asEditable(true, this.state.invoiceItemList),
             ]}
-            amountInvoiceitem={invoiceItemAmount}
+            amountInvoiceItem={invoiceItemAmount}
             applyCoupon={this.applyCoupon}
             couponList={this.state.coupon_list}
             deleteCoupon={this.deleteCoupon}
@@ -289,9 +305,15 @@ export class InvoiceForm extends React.Component<Props, State> {
             establishmentLoading={this.props.establishmentLoading}
             billing_establishment_id={this.state.billing_establishment_id}
             setBillingEstablishment={(billing_establishment_id) =>
-              this.setState({ billing_establishment_id })
+              this.setState({
+                billing_establishment_id,
+                requiredEstablishmentIsMissing: !billing_establishment_id,
+              })
             }
             enableMultiLocalization={this.props.enableMultiLocalization}
+            requiredEstablishmentIsMissing={
+              this.state.requiredEstablishmentIsMissing
+            }
           />
           <div className={classes.buttonContainer}>
             <Button
@@ -353,7 +375,7 @@ export class InvoiceForm extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     maxWidth: '100vw',
     [theme.breakpoints.down('xs')]: {

@@ -485,7 +485,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   invoiceItemList={this.props.invoice.invoice_items.filter(
                     (ii) => !!ii,
                   )}
-                  amountInvoiceitem={this.props.invoice.amount_due_cts / 100}
+                  amountInvoiceItem={this.props.invoice.amount_due_cts / 100}
                   finalizeInvoice={this.props.finalizeInvoice}
                   goToSubscription={this.props.goToSubscription}
                 />

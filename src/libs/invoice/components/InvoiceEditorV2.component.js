@@ -23,7 +23,7 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
 
   goToSubscription: (id: number) => void,
-  amountInvoiceitem: number,
+  amountInvoiceItem: number,
   amountPaymentItem: number,
   invoice: ?Invoice,
   member: Member,
@@ -119,7 +119,7 @@ export const InvoiceEditor = (props: Props) => {
                 onSubmit={props.onAddPaymentItem}
                 amountDue={
                   Math.max(
-                    props.amountInvoiceitem - props.amountPaymentItem,
+                    props.amountInvoiceItem - props.amountPaymentItem,
                     0,
                   ) || 0
                 }

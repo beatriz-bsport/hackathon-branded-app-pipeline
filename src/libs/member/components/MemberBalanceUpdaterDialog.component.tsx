@@ -1,8 +1,6 @@
-// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -15,27 +13,28 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Divider from '@material-ui/core/Divider';
-import PriceInput from '../../../components/input/PriceInput.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
-import type { Establishment } from '../../establishment/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import PriceInput from '#components/input/PriceInput.component';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
+import type { Establishment } from '#libs/establishment/types';
 
 type Props = {
-  onSubmit: (any) => void,
-  open: ?boolean,
-  onClose: () => void,
-  initialValue: ?string,
-  asManager: boolean,
-  establishments: Array<Establishment>,
-  establishmentLoading: boolean,
-  setBillingEstablishmentId: (establiemtnId: number) => void,
-  billingEstablishmentId: Number,
-  enableMultiLocalization: boolean,
+  onSubmit: (amount: number, withoutPaymentNote: boolean) => void;
+  open?: boolean;
+  onClose: () => void;
+  initialValue?: string;
+  asManager: boolean;
+  establishments: Array<Establishment>;
+  establishmentLoading: boolean;
+  setBillingEstablishmentId: (establishmentId: number) => void;
+  billingEstablishmentId: number;
+  enableMultiLocalization: boolean;
 };
 
 export const MemberBalanceUpdaterDialog = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation('invoice');
 
   const [balanceUpdateType, selectBalanceUpdateType] = React.useState(
     parseFloat(props.initialValue) < 0 ? 'topup' : 'decaissement',
@@ -44,13 +43,24 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
     Math.abs(parseFloat(props.initialValue)),
   );
   const [withoutPaymentNote, setWithoutPaymentNote] = React.useState(false);
+  const [missingValue, setMissingValue] = React.useState(false);
 
   return (
-    <Dialog open={props.open}>
+    <GenericResponsiveDialog
+      open={props.open}
+      onClose={props.onClose}
+      maxWidth="xs"
+    >
       <form
         onSubmit={(ev) => {
           ev.preventDefault();
-          if (balanceUpdateType === 'decaissement') {
+          if (
+            props.enableMultiLocalization &&
+            !props.billingEstablishmentId &&
+            props.establishments?.length
+          ) {
+            setMissingValue(true);
+          } else if (balanceUpdateType === 'decaissement') {
             props.onSubmit(-parseFloat(balanceUpdateValue), withoutPaymentNote);
           } else {
             props.onSubmit(parseFloat(balanceUpdateValue), withoutPaymentNote);
@@ -59,7 +69,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
       >
         <DialogTitle>{t('balance.updaterDialog.title')}</DialogTitle>
         <div className={classes.innerDialog}>
-          <FormControl>
+          <FormControl fullWidth>
             <InputLabel id="payment-method-select-label">
               {t('balance.updaterDialog.typeLabel')}
             </InputLabel>
@@ -70,10 +80,10 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
               onChange={(ev) => selectBalanceUpdateType(ev.target.value)}
               className={classes.field}
             >
-              <MenuItem fullWidth value="decaissement">
+              <MenuItem value="decaissement">
                 {t('balance.updaterDialog.debt')}
               </MenuItem>
-              <MenuItem fullWidth value="topup">
+              <MenuItem value="topup">
                 {t('balance.updaterDialog.topup')}
               </MenuItem>
             </Select>
@@ -108,23 +118,24 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
             {!withoutPaymentNote &&
               props.asManager &&
               props.enableMultiLocalization && (
-                <div className={classes.sectionEstablishmentBilling}>
-                  <Typography variant="h6" className={classes.sectionTitle}>
+                <div>
+                  <Typography variant="h6">
                     {t('section.invoiceItemList.billing_establishment')}
                   </Typography>
                   <Divider className={classes.divider} />
-
                   <EstablishmentSelector
                     establishments={props.establishments}
-                    isClearable
                     isLoading={props.establishmentLoading}
                     isOptionDisabled
-                    selectOption={(item: { value: number, label: string }) => {
+                    selectOption={(item: { value: number; label: string }) => {
                       props.setBillingEstablishmentId(item ? item.value : null);
+                      setMissingValue(!item);
                     }}
                     selectedEstablishments={[props.billingEstablishmentId]}
                     noMulti
                     closeMenuOnSelect
+                    isRequired
+                    requiredValueIsMissing={missingValue}
                   />
                 </div>
               )}
@@ -155,7 +166,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
           </Button>
         </DialogActions>
       </form>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
 };
 
@@ -163,6 +174,7 @@ const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+    width: '100%',
   },
   checkboxRow: {
     marginTop: theme.spacing(1),
@@ -172,6 +184,9 @@ const useStyles = makeStyles((theme) => ({
   },
   innerDialog: {
     padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   iconLeft: {
     marginRight: theme.spacing(1),

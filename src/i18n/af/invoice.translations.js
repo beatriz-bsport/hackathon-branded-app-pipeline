@@ -548,6 +548,8 @@ exports.default = {
         933100: 'Impossible de créer le client associé au membre de la facture',
         933101: 'Impossible de créer le client associé au membre de la facture',
         933102: 'Erreur lors de la création de la facture sur Quickbooks',
+        933103:
+          'Votre plateforme QuickBooks supporte plusieures devises, veuillez préciser la taxe à utiliser.',
         934000:
           'La facture ne possède pas les informations minimales pour être créée sur Quickbooks',
         934001: 'Impossible de créer une facture sans items associés',

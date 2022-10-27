@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 
+import classNames from 'classnames';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -9,6 +10,11 @@ import { compose, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import Tooltip from '../../components/Tooltip.component';
 import {
   getInvoiceList,
   withInvoiceItem,
@@ -29,6 +35,10 @@ import withTitle from '../../hocs/with-title.hoc';
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import themeSelectors from '../../libs/theme/selectors';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
+import { getQuickbooksApp } from '#libs/quickbooks/selectors';
+import { retrieveQuickbooksApp as retrieveQuickbooksAppAction } from '#libs/quickbooks/actions';
+import type { OptionCallback } from '../../state/types';
+import type { QuickbooksApp } from '#libs/quickbooks/types';
 
 type Props = {
   push: (path: string) => void,
@@ -45,9 +55,22 @@ type Props = {
   companyTheme: CompanyTheme,
   quickbooksLoading: boolean,
   sendInvoiceToQuickbooks: (uuid: string) => void,
+  retrieveQuickbooksApp: (companyId: number, options?: OptionCallback) => void,
+  quickbooksApp: QuickbooksApp,
+  quickbooksAppLoading: boolean,
+  t: TFunction,
 };
+type State = {
+  proposeRefreshQBA: boolean,
+};
+export class InvoiceList extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      proposeRefreshQBA: false,
+    };
+  }
 
-export class InvoiceList extends Component<Props> {
   pushToInvoiceDetail = (uuid: string) => {
     this.props.push(`/invoice/${uuid}`);
   };
@@ -57,23 +80,86 @@ export class InvoiceList extends Component<Props> {
     this.props.fetchInvoiceItemList({ invoice__uuid: uuid, page_size: 100 });
   };
 
-  onChangePage = (page) => {
+  onChangePage = (page: number) => {
     this.props.fetchInvoiceList({ page_size: 50, page });
   };
 
   componentDidMount() {
     this.onChangePage(1);
+    this.props.retrieveQuickbooksApp(this.props.companyTheme.company);
   }
 
+  onRedirectToQuickBooksSettings = () => {
+    const win = window.open('/settings/quickbooks');
+    win.focus();
+    this.setState({ proposeRefreshQBA: true });
+  };
+
+  refreshQuickbooksApp = () => {
+    this.props.retrieveQuickbooksApp(this.props.companyTheme.company, {
+      onSuccess: () => this.setState({ proposeRefreshQBA: false }),
+      onError: () => this.setState({ proposeRefreshQBA: false }),
+    });
+  };
+
   render() {
+    const { t } = this.props;
     if (!this.props.invoiceList) {
       return <LinearProgress />;
     }
     const quickbooksIntegrated =
       this.props.companyTheme.is_quickbook_integration_allowed &&
       this.props.companyTheme.is_quickbook_integration_enabled;
+
+    const quickbooksUnCompletedSetup =
+      quickbooksIntegrated &&
+      this.props.quickbooksApp &&
+      this.props.quickbooksApp.multi_currency_support &&
+      !this.props.quickbooksApp.metadata?.tax_code?.value;
+
     return (
       <div className={this.props.classes.container}>
+        {quickbooksUnCompletedSetup && (
+          <div className={this.props.classes.paddingBottom}>
+            <Alert
+              variant="outlined"
+              severity="warning"
+              className={this.props.classes.alert}
+              action={
+                this.state.proposeRefreshQBA ? (
+                  <Tooltip title={t('settings:quickbooks.tax.refresh')}>
+                    <IconButton
+                      onClick={this.refreshQuickbooksApp}
+                      disabled={this.props.quickbooksAppLoading}
+                    >
+                      <RefreshIcon
+                        color={
+                          this.props.quickbooksAppLoading
+                            ? 'disabled'
+                            : 'primary'
+                        }
+                        className={classNames({
+                          [this.props.classes.rotateIcon]:
+                            this.props.quickbooksAppLoading,
+                        })}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip
+                    title={t('settings:quickbooks.tax.goToSettingsPage')}
+                  >
+                    <IconButton onClick={this.onRedirectToQuickBooksSettings}>
+                      <OpenInNewIcon color="primary" />
+                    </IconButton>
+                  </Tooltip>
+                )
+              }
+            >
+              {t('settings:quickbooks.tax.alertUnconfigured')}
+            </Alert>
+          </div>
+        )}
         <InvoiceTable
           loading={this.props.loading}
           nestedDataLoading={this.props.nestedDataLoading}
@@ -97,9 +183,29 @@ export class InvoiceList extends Component<Props> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     maxWidth: '100vw',
+  },
+  alert: {
+    alignItems: 'center',
+  },
+  paddingBottom: {
+    paddingBottom: theme.spacing(2),
+  },
+  '@keyframes RotationEffect': {
+    '0%': {
+      transform: 'rotate(0deg)',
+    },
+    '50%': {
+      transform: 'rotate(180)',
+    },
+    '100%': {
+      transform: 'rotate(360deg)',
+    },
+  },
+  rotateIcon: {
+    animation: '$RotationEffect 0.75s infinite',
   },
 });
 
@@ -116,6 +222,8 @@ export default compose(
       nestedDataLoading:
         state.invoice.invoiceItem.loading || state.invoice.payment.loading,
       companyTheme: themeSelectors.getTheme(state),
+      quickbooksApp: getQuickbooksApp(state),
+      quickbooksAppLoading: state.quickbooks.loading,
     }),
     {
       push: routerPush,
@@ -125,6 +233,7 @@ export default compose(
       fetchPaymentList,
       sendInvoiceToQuickbooksAction: sendInvoiceToQuickbooks,
       fetchSpecificInvoiceAction: fetchSpecificInvoice,
+      retrieveQuickbooksApp: retrieveQuickbooksAppAction,
     },
   ),
   withHandlers({

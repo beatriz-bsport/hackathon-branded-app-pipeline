@@ -186,6 +186,18 @@ exports.default = {
       title: 'QuickBooks Connection',
       text: 'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
     },
+    tax: {
+      taxInfoTitle: 'Informations de taxes QuickBooks',
+      taxCodeHeaderName: 'Nom',
+      taxCodeHeaderDescription: 'Description',
+      usedAsTaxCode: 'Utilisée en tant que taxe de référence',
+      refresh: 'Rafraichir mes données Quickbooks',
+      alertUnconfigured:
+        "Vous n'avez pas configuré de taxe par default à appliquer aux produits inclus dans vos factures. Cette information est obligatoire afin de référencer la taxe adaptée lors du transfert de factures sur votre platforme Quickbooks.",
+      alertNonTaxInformation:
+        "Aucune information de taxe n'est synchronisée avec votre plateforme Quickbooks. Veuillez cliquer sur rafraîchir si après afin de les synchroniser",
+      goToSettingsPage: 'Ouvrir la page de configuration QuickBooks',
+    },
   },
   mobilePersonalization: {
     title: "Personnalisation de l'app",

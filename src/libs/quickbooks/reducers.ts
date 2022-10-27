@@ -5,6 +5,9 @@ import {
   quickbooksAppUpdateActions,
   revokeQuickbooksAppActions,
   requestQuickBooksAccessTokenActions,
+  fetchTaxAgenciesActions,
+  fetchTaxCodesActions,
+  setTaxCodeActions,
 } from './actions';
 
 import type { QuickbooksState } from './types';
@@ -21,6 +24,20 @@ const initialState: Immutable.Immutable<QuickbooksState> =
     requestTooken: {
       loading: false,
       error: null,
+    },
+    taxAgencies: {
+      byId: {},
+      loading: false,
+      error: null,
+    },
+    taxCodes: {
+      byId: {},
+      loading: false,
+      error: null,
+      upsert: {
+        loading: false,
+        error: null,
+      },
     },
   });
 
@@ -58,6 +75,32 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(['requestToken', 'loading'], payload);
+    },
+
+    [fetchTaxAgenciesActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['taxAgencies', 'byId'], payload);
+    },
+    [fetchTaxAgenciesActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['taxAgencies', 'error'], payload);
+    },
+    [fetchTaxAgenciesActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['taxAgencies', 'loading'], payload);
+    },
+    [fetchTaxCodesActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['taxCodes', 'byId'], payload);
+    },
+    [fetchTaxCodesActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['taxCodes', 'error'], payload);
+    },
+    [fetchTaxCodesActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['taxCodes', 'loading'], payload);
+    },
+
+    [setTaxCodeActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['taxCodes', 'upsert', 'error'], payload);
+    },
+    [setTaxCodeActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['taxCodes', 'upsert', 'loading'], payload);
     },
   },
   initialState,

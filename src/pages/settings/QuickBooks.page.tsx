@@ -15,21 +15,27 @@ import { RootState } from '../../reducers/index';
 import Config from '../../config';
 import { buildUrlParams, parseQueryString } from '../../http';
 
-import {
-  updateCompanyTheme,
-  fetchCompanyTheme,
-} from '../../libs/theme/actions';
+import { updateCompanyTheme, fetchCompanyTheme } from '#libs/theme/actions';
 import {
   retrieveQuickbooksApp as retrieveQuickbooksAppAction,
   updateQuickbooksApp as updateQuickbooksAppAction,
   revokeQuickbooksApp as revokeQuickbooksAppAction,
   requestQuickBooksAccessToken as requestQuickBooksAccessTokenAction,
-} from '../../libs/quickbooks/actions';
-import themeSelectors from '../../libs/theme/selectors';
-import { getQuickbooksApp } from '../../libs/quickbooks/selectors';
-import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
+  fetchQuickbooksTaxAgencies as fetchQuickbooksTaxAgenciesAction,
+  fetchQuickbooksTaxCodes as fetchQuickbooksTaxCodesAction,
+  setQuickBooksTaxCodes as setQuickBooksTaxCodesAction,
+} from '#libs/quickbooks/actions';
+import themeSelectors from '#libs/theme/selectors';
+import {
+  getQuickbooksApp,
+  getTaxAgenciesList,
+  getTaxCodesList,
+} from '#libs/quickbooks/selectors';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
-import QuickBooksConfigrationForm from '../../libs/quickbooks/components/QuickBooksConfigurationForm.component';
+import QuickBooksConfigrationForm from '#libs/quickbooks/components/QuickBooksConfigurationForm.component';
+
+import QuickBooksTaxSection from '#libs/quickbooks/components/QuickBookTaxSection.component';
 import { OptionCallback } from '../../state/types';
 
 type StateHandlerInit = {};
@@ -59,6 +65,7 @@ export class QuickBooks extends React.Component<Props, State> {
     if (this.props.quickbooksCode) {
       this.requestQuickboksConnect();
     }
+    this.fetchTaxData();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -70,7 +77,23 @@ export class QuickBooks extends React.Component<Props, State> {
     ) {
       this.requestQuickboksConnect();
     }
+    if (
+      (!prevProps.theme?.company && this.props.theme?.company) ||
+      (prevProps.theme?.company &&
+        this.props.theme?.company &&
+        prevProps.theme.company !== this.props.theme.company) ||
+      (prevProps.quickbooksApp?.multi_currency_support !==
+        this.props.quickbooksApp?.multi_currency_support &&
+        this.props.quickbooksApp?.multi_currency_support)
+    ) {
+      this.fetchTaxData();
+    }
   }
+
+  fetchTaxData = (refresh: boolean = false) => {
+    this.props.fetchQuickbooksTaxAgencies({ refresh });
+    this.props.fetchQuickbooksTaxCodes({ refresh });
+  };
 
   requestQuickboksConnect = () => {
     this.props.requestQuickBooksAccessToken({
@@ -136,11 +159,27 @@ export class QuickBooks extends React.Component<Props, State> {
     this.props.submitTheme(this.props.theme.company, new_theme);
   };
 
+  submitTaxCodeSelection = (data: {
+    tax_code: { name: string; value: string };
+  }) => {
+    this.props.setQuickBooksTaxCodes(data, {
+      onSuccess: () => {
+        this.props.retrieveQuickbooksApp(this.props.theme.company);
+        this.fetchTaxData();
+      },
+    });
+  };
+
+  handleRefreshQuickBooksTaxData = () => {
+    this.fetchTaxData(true);
+  };
+
   render() {
     const { classes } = this.props;
     if (this.props.loading) {
       <BackofficeLinearProgress />;
     }
+
     return (
       <div className={classes.container}>
         <QuickBooksConfigrationForm
@@ -152,6 +191,16 @@ export class QuickBooks extends React.Component<Props, State> {
           onSubmitTheme={this.onSubmitTheme}
           loading={this.props.loading}
         />
+        <div className={classes.paddingTop}>
+          <QuickBooksTaxSection
+            loading={this.props.taxDataLoading}
+            upsertLoading={this.props.taxUpsertLoading}
+            quickbooksApp={this.props.quickbooksApp}
+            taxCodesList={this.props.taxCodesList}
+            submitTaxCodeSelection={this.submitTaxCodeSelection}
+            handleRefreshQuickBooksTaxData={this.handleRefreshQuickBooksTaxData}
+          />
+        </div>
       </div>
     );
   }
@@ -159,6 +208,9 @@ export class QuickBooks extends React.Component<Props, State> {
 const styles = (theme: Theme) => ({
   container: {
     padding: theme.spacing(2),
+  },
+  paddingTop: {
+    paddingTop: theme.spacing(2),
   },
 });
 const mapStateToProps = (state: RootState) => ({
@@ -170,6 +222,11 @@ const mapStateToProps = (state: RootState) => ({
   processing:
     state.theme.createOrUpdate.loading && state.quickbooks.update.loading,
   quickbooksApp: getQuickbooksApp(state),
+  taxAgenciesList: getTaxAgenciesList(state),
+  taxCodesList: getTaxCodesList(state),
+  taxDataLoading:
+    state.quickbooks.taxAgencies.loading || state.quickbooks.taxCodes.loading,
+  taxUpsertLoading: state.quickbooks.taxCodes.upsert.loading,
 });
 const mapDispatchToProps = {
   fetchCompanyTheme,
@@ -181,6 +238,9 @@ const mapDispatchToProps = {
   updateQuickbooksApp: updateQuickbooksAppAction,
   revokeQuickbooksAppAction,
   requestQuickBooksAccessTokenAction,
+  fetchQuickbooksTaxAgenciesAction,
+  fetchQuickbooksTaxCodesAction,
+  setQuickBooksTaxCodesAction,
 };
 const mapWithHandlers = {
   removeUrlCode: (props: OwnAndConnectedProps) => () => {
@@ -201,6 +261,44 @@ const mapWithHandlers = {
         },
         options,
       );
+    },
+  fetchQuickbooksTaxAgencies:
+    (props: OwnAndConnectedProps) =>
+    (
+      params: { refresh: boolean } = { refresh: false },
+      options?: OptionCallback,
+    ) => {
+      if (props.theme?.company && props.quickbooksApp.multi_currency_support) {
+        props.fetchQuickbooksTaxAgenciesAction(
+          props.theme.company,
+          params,
+          options,
+        );
+      }
+    },
+  fetchQuickbooksTaxCodes:
+    (props: OwnAndConnectedProps) =>
+    (
+      params: { refresh: boolean } = { refresh: false },
+      options?: OptionCallback,
+    ) => {
+      if (props.theme?.company && props.quickbooksApp.multi_currency_support) {
+        props.fetchQuickbooksTaxCodesAction(
+          props.theme.company,
+          params,
+          options,
+        );
+      }
+    },
+  setQuickBooksTaxCodes:
+    (props: OwnAndConnectedProps) =>
+    (
+      data: { tax_code: { name: string; value: string } },
+      options?: OptionCallback,
+    ) => {
+      if (props.theme?.company && props.quickbooksApp.multi_currency_support) {
+        props.setQuickBooksTaxCodesAction(props.theme.company, data, options);
+      }
     },
 };
 const withStateHandlersInit: StateHandlerInit = {};

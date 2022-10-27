@@ -40,3 +40,33 @@ export const revokeQuickbooksApp = (companyId: number) => {
     `${API_V1_URI}/quickbooks_app/company_quickbooks_app/${companyId}/revoke_access_token/`,
   );
 };
+
+export const fetchQuickbooksTaxAgencies = (
+  company_id: number,
+  data: { refresh: boolean } = { refresh: false },
+) => {
+  return postAuth(
+    `${API_V1_URI}/quickbooks_app/company_quickbooks_app/${company_id}/get_tax_agencies/`,
+    data,
+  );
+};
+
+export const fetchQuickbooksTaxCodes = (
+  company_id: number,
+  data: { refresh: boolean } = { refresh: false },
+) => {
+  return postAuth(
+    `${API_V1_URI}/quickbooks_app/company_quickbooks_app/${company_id}/get_tax_codes/`,
+    data,
+  );
+};
+
+export const setQuickBooksTaxCodes = (
+  company_id: number,
+  data: { tax_code: { name: string; value: string } },
+) => {
+  return postAuth(
+    `${API_V1_URI}/quickbooks_app/company_quickbooks_app/${company_id}/set_tax_code/`,
+    data,
+  );
+};

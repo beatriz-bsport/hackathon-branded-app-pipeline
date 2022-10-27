@@ -5296,7 +5296,15 @@
         "next": "Next",
         "previous": "Previous",
         "letsGo": "Let's go!",
-        "finish": "Finish"
+        "finish": "Finish",
+        "card": {
+            "categoryNames": {
+                "compatibility": "Compatibility",
+                "paymentMethods": "Available payment methods",
+                "validity": "Validity"
+            },
+            "copyLink": "Copy the link"
+        }
     },
     "workshop": {
         "search": "Search a workshop",

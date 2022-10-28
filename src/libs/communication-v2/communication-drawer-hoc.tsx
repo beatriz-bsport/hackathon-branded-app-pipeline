@@ -18,10 +18,7 @@ import {
   getThreadCommunicationListHasNextPage,
   getThreadCommunicationListLoading,
 } from './selectors';
-import {
-  getFormatedContext,
-  getFormatedFiltersToFetchCommunicationSent,
-} from './utils';
+import { getFormatedFiltersToFetchCommunicationSent } from './utils';
 import { Communication, MessageParams, DrawerProps } from './types';
 
 // TEMPLATES
@@ -132,12 +129,9 @@ export default function withCommunicationData(
               dateStart,
               dateEnd,
             ),
-            context: JSON.stringify(
-              getFormatedContext({
-                identifier: props.contextIdentifier,
-                objectId: props.contextObjectId,
-              }),
-            ),
+            context_identifier: props.contextIdentifier,
+            context_object_id: props.contextObjectId,
+            from_chat: true,
           };
 
           const onSuccess = (responseData: Communication[]) => {
@@ -172,22 +166,18 @@ export default function withCommunicationData(
         },
       fetchAvailableRecipientMemberIdLists:
         (props: CommunicationConnectedProps) => () => {
-          return props.fetchAvailableRecipientMemberLists(
-            getFormatedContext({
-              identifier: props.contextIdentifier,
-              objectId: props.contextObjectId,
-            }),
-          );
+          return props.fetchAvailableRecipientMemberLists({
+            context_identifier: props.contextIdentifier,
+            context_object_id: props.contextObjectId,
+          });
         },
       sendCommunication:
         (props: CommunicationConnectedProps) =>
         (data: MessageParams, option: OptionCallback) => {
           const dataWithContext = {
             ...data,
-            context: getFormatedContext({
-              identifier: props.contextIdentifier,
-              objectId: props.contextObjectId,
-            }),
+            context_identifier: props.contextIdentifier,
+            context_object_id: props.contextObjectId,
           };
           return props.sendCommunicationAction(dataWithContext, option);
         },

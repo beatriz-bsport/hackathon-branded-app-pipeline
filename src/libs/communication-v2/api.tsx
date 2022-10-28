@@ -1,5 +1,9 @@
 import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
-import { MessageParams, FetchCommunicationParams } from './types';
+import {
+  MessageParams,
+  FetchCommunicationParams,
+  FormatedContext,
+} from './types';
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuth(
@@ -29,12 +33,12 @@ export const fetchCommunicationRecipientList = async (params: {
   );
 };
 
-export const fetchAvailableRecipientMemberLists = async (context: string) => {
+export const fetchAvailableRecipientMemberLists = async (
+  context: FormatedContext,
+) => {
   return getAuth(
     `${API_V1_URI}/member/available_members_lists_for_communication/${buildUrlParams(
-      {
-        context,
-      },
+      context,
     )}`,
   );
 };

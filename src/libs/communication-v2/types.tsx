@@ -68,7 +68,7 @@ export type Communication = {
   sms_text: string; // and maybe this too ...
   title: string;
   kind: number;
-  metadata: FormatedContext;
+  metadata: CommunicationMetadata;
   recipient_member_id_list: number[];
   is_answer?: boolean;
 };
@@ -79,12 +79,19 @@ export type ThreadCommunication = {
   photos: string[];
 };
 
-export type FormatedContext = {
+export type CommunicationMetadata = {
   offer_id?: number;
   smartlist_id?: number;
   member_id?: number;
-  notification_id?: number;
+  notification_rule?: number;
+  notification_event?: number;
   automated_campaign_id?: number;
+  marketing_notification_id?: number;
+};
+
+export type FormatedContext = {
+  context_identifier: number;
+  context_object_id: number;
 };
 
 export type SelectFieldItem = {
@@ -92,9 +99,7 @@ export type SelectFieldItem = {
   label: string;
 };
 
-export type MessageParams = MessageData & {
-  context: FormatedContext;
-};
+export type MessageParams = MessageData & FormatedContext;
 
 export type MessageData = {
   subject?: string; // mail title
@@ -125,8 +130,8 @@ export type FetchCommunicationParams = {
   filter_send_parameter: number;
   filter_date_start?: number;
   filter_date_end?: number;
-  context: string;
-};
+  filter_chat: boolean;
+} & FormatedContext;
 
 export type DrawerProps = {
   onDrawerClose: () => void;

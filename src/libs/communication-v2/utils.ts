@@ -41,7 +41,7 @@ import {
 import {
   SelectFieldItem,
   FilterParams,
-  FormatedContext,
+  CommunicationMetadata,
   FilteringMemberIdsByGenericCategories,
 } from './types';
 import { Booking, BookingOption } from '#libs/booking/types';
@@ -482,27 +482,8 @@ export const getMemberIdListsFromMemberList = memoize(
 
 // #region CONNECTORS
 
-// HOC
-export const getFormatedContext = (context: {
-  identifier: number;
-  objectId: number;
-}) => {
-  switch (context.identifier) {
-    case CONTEXT_OFFER:
-      return { offer_id: context.objectId };
-    case CONTEXT_MEMBER:
-      return { member_id: context.objectId };
-    case CONTEXT_SMARTLIST:
-      return { smartlist_id: context.objectId };
-    case CONTEXT_NOTIFICATION:
-      return { marketing_notification_id: context.objectId };
-    default:
-      return {};
-  }
-};
-
 // SELECTORS
-export const getChannelFromMetadata = (metadata: FormatedContext) => {
+export const getChannelFromMetadata = (metadata: CommunicationMetadata) => {
   if (Object.keys(metadata).length > 0) {
     const key = Object.keys(metadata)[0];
     switch (key) {

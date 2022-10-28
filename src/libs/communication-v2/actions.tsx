@@ -56,9 +56,7 @@ export function fetchAvailableRecipientMemberLists(
     dispatch(availableRecipientAction.isLoading(true));
     dispatch(availableRecipientAction.error(null));
     try {
-      const response = await fetchAvailableRecipientMemberListsAPI(
-        JSON.stringify(context),
-      );
+      const response = await fetchAvailableRecipientMemberListsAPI(context);
       dispatch(availableRecipientAction.success(response.data));
     } catch (error) {
       dispatch(availableRecipientAction.error(error));

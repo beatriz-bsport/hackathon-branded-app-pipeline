@@ -158,8 +158,12 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       ? newAvailableComparator[0]
       : filterItem.comparator;
 
-    const sub_datatype =
-      newColumn.datatype === 'datetime' ? DATE_SUBDATA_TYPE : null;
+    const sub_datatype = () => {
+      if (newColumn.datatype === 'date') {
+        return DATE_SUBDATA_TYPE;
+      }
+      return newColumn.datatype === 'datetime' ? DATE_SUBDATA_TYPE : null;
+    };
 
     setFieldValue(`${prefix}.comparator`, newComparator, false);
     setFieldValue(
@@ -176,7 +180,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       `${prefix}.time_period`,
       getDefaultValueForTimePeriod({
         comparator: newComparator,
-        sub_datatype,
+        sub_datatype: sub_datatype(),
         datatype: newColumn.datatype,
         currentTimePeriod: filterItem.time_period,
       }),
@@ -184,7 +188,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
     );
 
     setFieldValue(`${prefix}.datatype`, newColumn.datatype, false);
-    setFieldValue(`${prefix}.sub_datatype`, sub_datatype, false);
+    setFieldValue(`${prefix}.sub_datatype`, sub_datatype(), false);
     // Timeout to execute after the js loop and check the data at this time as setFieldValue is not synchronous
     setTimeout(() => {
       setFieldValue(`${prefix}.identifier`, newColumn.value, true);

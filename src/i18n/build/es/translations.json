@@ -2892,7 +2892,7 @@
                 "isEmpty": "Ninguna compra",
                 "title": "Compras",
                 "titleReverse": "Devolución de la compra",
-                "billing_establishment": "Establecimiento de facturación"
+                "billing_establishment": "Establecimiento de facturación*"
             }
         },
         "invoiceItem": {

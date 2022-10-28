@@ -2018,7 +2018,9 @@
         },
         "marketing": {
             "notification": "Notificaciones"
-        }
+        },
+        "roomRequiredIsMissing": "No ha seleccionado un establecimiento de facturación.",
+        "roomRequired": "Sala *"
     },
     "order": {
         "products": {
@@ -2890,7 +2892,7 @@
                 "isEmpty": "Ninguna compra",
                 "title": "Compras",
                 "titleReverse": "Devolución de la compra",
-                "billing_establishment": "Establecimiento de facturación (opcional)"
+                "billing_establishment": "Establecimiento de facturación"
             }
         },
         "invoiceItem": {
@@ -8832,7 +8834,9 @@
                 "error": "No se puede pagar el importe solicitado con esta tarjeta de regalo",
                 "success": "Pago con tarjeta de regalo validado",
                 "errors": {
-                    "45001": "Imposible pagar esta factura con esta tarjeta de regalo"
+                    "45001": "Imposible pagar esta factura con esta tarjeta de regalo",
+                    "generic": "No es posible activar la tarjeta regalo",
+                    "undefined": "Imposible reconocer al socio que quiere activar la tarjeta regalo."
                 }
             }
         },
@@ -12713,9 +12717,12 @@
                 "unlimited": "Ilimitado",
                 "validityDetail": "Válido {{count}} día desde la fecha de la factura",
                 "validityDetail_plural": "Válido {{count}} días desde la fecha de la factura",
-                "validity": "Válido {{count}} día ",
-                "validity_plural": "Válido {{count}} días ",
-                "deleteDialogContent": "Al desactivar una tarjeta de regalo compartida, los miembros que la tengan sólo podrán utilizarla en el estudio donde la compraron."
+                "validity": "Válido {{count}} día",
+                "validity_plural": "Válido {{count}} días",
+                "deleteDialogContent": "Al desactivar una tarjeta de regalo compartida, los miembros que la tengan sólo podrán utilizarla en el estudio donde la compraron.",
+                "deleteInstanceContent2": "Por último, las tarjetas regalo que se hayan comprado en otros estudios ya no podrán utilizarse en el estudio desactivado, independientemente de cuándo se hayan comprado.",
+                "deleteInstanceContent1": "Al desactivar este estudio de compartir la tarjeta de regalo, todos los miembros que tengan esta tarjeta y la hayan recibido de un miembro que la haya comprado en este estudio podrán seguir utilizándola. Sin embargo, no podrán utilizarla en otros estudios.",
+                "deleteTemplateContent": "By deactivating a shared gift card, members with that card will only be able to use it in the studio where it was purchased."
             },
             "listPage": {
                 "fuzzyPlaceholder": "Buscar una tarjeta de regalo",

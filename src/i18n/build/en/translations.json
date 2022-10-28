@@ -6052,7 +6052,9 @@
         },
         "marketing": {
             "notification": "Notifications"
-        }
+        },
+        "roomRequiredIsMissing": "You have not selected a billing establishment.",
+        "roomRequired": "Room *"
     },
     "order": {
         "products": {
@@ -7178,7 +7180,7 @@
                 "isEmpty": "Please start by adding products to this invoice.",
                 "title": "Purchases",
                 "titleReverse": "Purchase breakdown",
-                "billing_establishment": "(Optional) Billing establishment"
+                "billing_establishment": "Billing establishment*"
             }
         },
         "invoiceItem": {
@@ -12058,7 +12060,9 @@
             "applyGiftcard": {
                 "errors": {
                     "12103": "Error when validating this payment by gift card",
-                    "45001": "Error when validating this payment by gift card"
+                    "45001": "Error when validating this payment by gift card",
+                    "generic": "Unable to activate the gift card",
+                    "undefined": "Impossible to recognize the member who wants to activate the gift card."
                 },
                 "error": "Error when validating this payment by gift card",
                 "success": "The gift card payment has been validated"
@@ -13668,11 +13672,14 @@
             "template": {
                 "withoutTax": "Excl. VAT / Sales Tax",
                 "unlimited": "Unlimited",
-                "validityDetail": "Valid {{count}} day from invoice date",
-                "validityDetail_plural": "Valid {{count}} days from invoice date",
-                "validity": "Valid {{count}} day ",
-                "validity_plural": "Valid {{count}} days ",
-                "deleteDialogContent": "By deactivating a shared gift card, members with that pass will only be able to use it in the studio where it was purchased."
+                "validityDetail": "Validity before expiration : {{count}} day",
+                "validityDetail_plural": "Validity before expiration : {{count}} days",
+                "validity": "Valid {{count}} day",
+                "validity_plural": "Valid {{count}} days",
+                "deleteDialogContent": "By deactivating a shared gift card, members with that pass will only be able to use it in the studio where it was purchased.",
+                "deleteInstanceContent2": "Finally, gift cards that were purchased in other studios will no longer be usable in the deactivated studio, regardless of when they were purchased.",
+                "deleteInstanceContent1": "By deactivating this studio from sharing the gift card, all members who have this card and have received it from a member who purchased the card in this studio will still be able to use it. However, they will not be able to use it in other studios.",
+                "deleteTemplateContent": "By deactivating a shared gift card, members with that card will only be able to use it in the studio where it was purchased."
             },
             "listPage": {
                 "fuzzyPlaceholder": "Search a gift card",

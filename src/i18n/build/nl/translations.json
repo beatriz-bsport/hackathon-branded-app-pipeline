@@ -3446,7 +3446,18 @@
             "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal kredieten wordt gewijzigd.",
             "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
             "franchise": "Deze kaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
-            "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt"
+            "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
+            "penalityModeFranchisor": {
+                "buyer": {
+                    "explain": "Het saldo van de ledenaccount wordt alleen belast met {{ price }} bij de franchisenemer waar de pas is gekocht.",
+                    "label": "Op de franchisenemer die de pas heeft gefactureerd"
+                },
+                "prorata": {
+                    "explain": "Het saldo van de ledenaccount zal worden belast met {{ price }} in verhouding tot de te late annuleringen die in elke franchisenemer zijn geregistreerd. Een totaalbedrag van {{ price }} zal door de franchise in rekening worden gebracht.",
+                    "label": "In verhouding tot de late opzeggingen in elke franchisenemer"
+                },
+                "label": "Het saldo van de ledenaccount wordt in rekening gebracht"
+            }
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -3637,7 +3648,9 @@
         },
         "marketing": {
             "notification": "Meldingen"
-        }
+        },
+        "roomRequiredIsMissing": "U heeft geen factureringsinstelling geselecteerd.",
+        "roomRequired": "Zaal *"
     },
     "smartList": {
         "multiSelector": {
@@ -8674,7 +8687,9 @@
             "applyGiftcard": {
                 "errors": {
                     "12103": "Fout bij het bevestigen van deze betaling met de cadeaubon",
-                    "45001": "Fout bij het bevestigen van deze betaling met de cadeaubon"
+                    "45001": "Fout bij het bevestigen van deze betaling met de cadeaubon",
+                    "generic": "Niet mogelijk om de cadeaubon te activeren",
+                    "undefined": "Onmogelijk om het lid te herkennen dat de cadeaubon wil activeren."
                 },
                 "error": "Fout bij het bevestigen van deze betaling met de cadeaubon",
                 "success": "De betaling met de cadeaubon is bevestigd"
@@ -10818,7 +10833,7 @@
                 "isEmpty": "Er zijn nog geen producten aan deze factuur toevoegen.",
                 "title": "Aankopen",
                 "titleReverse": "Aankoopdetails",
-                "billing_establishment": "(Optioneel) Selecteer de vestiging waar de facturatie plaatsvindt"
+                "billing_establishment": "Facturatievestiging*"
             }
         },
         "invoiceItem": {
@@ -10960,7 +10975,7 @@
             "updaterDialog": {
                 "topup": "Incasso",
                 "debt": "Debet",
-                "explainTopup": "Het saldo de interne rekening (Wallet) van dit lid wordt met €{{ amount }} verhoogd.",
+                "explainTopup": "Het saldo van de interne rekening (Wallet) van dit lid wordt met €{{ amount }} verhoogd.",
                 "explainDecaissement": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
                 "title": "Saldo wijzigen",
                 "actions": {
@@ -12674,9 +12689,12 @@
                 "unlimited": "Onbeperkt",
                 "validityDetail": "Geldig voor {{count}} dag na factuurdatum",
                 "validityDetail_plural": "Geldig voor {{count}} dagen na factuurdatum",
-                "validity": "Geldig voor {{count}} dag ",
-                "validity_plural": "Geldig voor {{count}} dagen ",
-                "deleteDialogContent": "Door een gedeelde cadeaukaart te deactiveren, kunnen leden deze alleen gebruiken in de studio waar hij is gekocht."
+                "validity": "Geldig voor {{count}} dag",
+                "validity_plural": "Geldig voor {{count}} dagen",
+                "deleteDialogContent": "Door een gedeelde cadeaukaart te deactiveren, kunnen leden deze alleen gebruiken in de studio waar hij is gekocht.",
+                "deleteInstanceContent2": "Tot slot zullen cadeaubonnen die in andere studio's zijn gekocht niet langer bruikbaar zijn in de gedeactiveerde studio, ongeacht wanneer ze zijn gekocht.",
+                "deleteInstanceContent1": "Door deze studio te deactiveren van het delen van de cadeaukaart, zullen alle leden die deze kaart hebben, en ontvangen hebben van een lid dat de kaart in deze studio heeft gekocht, deze nog steeds kunnen gebruiken. Zij zullen hem echter niet in andere studio's kunnen gebruiken.",
+                "deleteTemplateContent": "Door een gedeelde cadeaubon te deactiveren kunnen leden deze alleen gebruiken in de studio waar deze is gekocht."
             },
             "listPage": {
                 "fuzzyPlaceholder": "Zoek een cadeaubon",

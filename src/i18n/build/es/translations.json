@@ -10262,7 +10262,18 @@
             "creditWarning": "Si cambia el número de créditos, todas las tarjetas existentes se verán afectadas.",
             "migration": "Este mapa del curso es el resultado de una migración, algunos campos no son editables para respetar el historial. Las actividades/categorías compatibles siguen siendo editables.",
             "franchise": "Esta tarjeta es una tarjeta compartida por la cuenta del franquiciador. Algunos elementos han sido definidos por la cuenta del franquiciador y no son modificables",
-            "allowGuest": "Compatible con la reserva de invitados"
+            "allowGuest": "Compatible con la reserva de invitados",
+            "penalityModeFranchisor": {
+                "buyer": {
+                    "explain": "El saldo de la cuenta del socio se cargará con {{ price }} sólo en el franquiciado en la que se ha comprado el pase.",
+                    "label": "En el franquiciado que facturó el pase"
+                },
+                "label": "Se cargará el saldo en la cuenta del miembro",
+                "prorata": {
+                    "label": "En proporción a las cancelaciones tardías en cada franquiciado.",
+                    "explain": "El saldo de la cuenta de socio se cargará con {{ price }} en proporción a las cancelaciones tardías registradas en cada franquiciado. Se cargará un importe total de {{ price }} a nivel de franquicia."
+                }
+            }
         },
         "paymentPackTemplate": {
             "actions": {

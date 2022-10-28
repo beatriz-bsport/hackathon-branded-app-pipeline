@@ -9622,7 +9622,18 @@
             "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
             "migration": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
             "franchise": "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
-            "allowGuest": "Compatible with the booking for a guest feature"
+            "allowGuest": "Compatible with the booking for a guest feature",
+            "penalityModeFranchisor": {
+                "buyer": {
+                    "explain": "The member account balance will be charged with {{ price }} only on the franchisee in which the pass has been purchased.",
+                    "label": "On the franchisee who invoiced the pass"
+                },
+                "prorata": {
+                    "explain": "The member account balance will be charged with {{ price }} in proportion to the late cancelations registered in each franchisee. A total amount of {{ price }} will be charged on the franchise level.",
+                    "label": "In proportion to late cancelations in each franchisee"
+                },
+                "label": "Member account balance will be charged"
+            }
         },
         "universalPass": {
             "restore": {

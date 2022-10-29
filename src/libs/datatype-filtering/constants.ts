@@ -12,6 +12,7 @@ export const DATA_SOURCE_FILTERABLE_DATATYPE = [
   'billing_establishment',
   'billing_group',
   'booking_status_code',
+  'dispute_status',
   'boolean',
   'coach',
   'contract',
@@ -55,6 +56,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'billing_establishment',
   'billing_group',
   'booking_status_code',
+  'dispute_status',
   'coach',
   'company',
   'contract',
@@ -83,6 +85,7 @@ export const DATATYPE_PRESET_INTEGER_VALUE = [
   'payment_method',
   'payout_status',
   'booking_status_code',
+  'dispute_status',
   'source_device',
   'payment_engine',
 ];

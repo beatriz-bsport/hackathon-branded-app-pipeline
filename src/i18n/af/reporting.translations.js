@@ -74,6 +74,7 @@ exports.default = {
     },
   },
   categories: {
+    dispute: 'Litige de paiement',
     on_spot_payments: 'Paiements sur place',
     members: 'Membres',
     offers: 'Séances',
@@ -136,6 +137,7 @@ exports.default = {
     save: 'Sauvegarder',
   },
   columns: {
+    dispute_status: 'Status',
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
     activitiesest: 'Activités par salle',
@@ -544,6 +546,7 @@ exports.default = {
     payout: 'Virement',
     staff: 'Staff',
     company: 'Studio',
+    disputeStatus: 'Status',
   },
   presetValuesByDatatype: {
     source_device: {

@@ -305,6 +305,9 @@ export function getConverter(
       }
       return { value: t('payment_method.none') };
     }
+    if (datatype === 'dispute_status') {
+      return { value: t(`payment:disputeStatus.${value}`) };
+    }
     return { value };
   };
 }

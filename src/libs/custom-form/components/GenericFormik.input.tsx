@@ -215,6 +215,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
             placeholder={props.placeholder}
             onChange={(optionList) => {
               const valueList = optionList.map((option) => option.value);
+              console.log(optionList);
               helpers.setValue(valueList);
               helpers.setTouched(true, false);
             }}

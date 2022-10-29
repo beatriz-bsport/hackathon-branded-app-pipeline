@@ -22,6 +22,12 @@ import {
   BOOKING_SOURCE_OTHER,
   BOOKING_SOURCE_MIGRATION,
 } from '@bsport/common/lib/master-data/booking_source';
+import {
+  DISPUTE_STATUS_WON,
+  DISPUTE_STATUS_LOST,
+  DISPUTE_STATUS_PENDING,
+} from '@bsport/common/lib/master-data/dispute-status';
+
 import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
 import { Field, FieldAttributes, useFormikContext } from 'formik';
 import {
@@ -347,6 +353,21 @@ const DatatypeFilterConfigValueList: React.FC<{
           label: t(`payment:payout.status.${value}`),
           value,
         }));
+      case 'dispute_status':
+        return [
+          {
+            value: DISPUTE_STATUS_PENDING,
+            label: t(`payment:disputeStatus.${DISPUTE_STATUS_PENDING}`),
+          },
+          {
+            value: DISPUTE_STATUS_LOST,
+            label: t(`payment:disputeStatus.${DISPUTE_STATUS_LOST}`),
+          },
+          {
+            value: DISPUTE_STATUS_WON,
+            label: t(`payment:disputeStatus.${DISPUTE_STATUS_WON}`),
+          },
+        ];
       case 'booking_status_code':
         return [
           {
@@ -541,7 +562,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       defaultNumberShown={1}
       className={classes.flexOne}
       inScrollBar
-      forceError={error && isTouched}
+      forceError={false && error && isTouched}
       isDisabled={isPreview}
     />
   );

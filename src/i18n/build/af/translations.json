@@ -3937,6 +3937,7 @@
     "actions": { "save": "Enregistrer", "requestPartnership": "Activer l'intégration" }
   },
   "payment": {
+    "disputeStatus": { "1": "Litige en cours de traitement", "2": "Litige résolu", "3": "Litige perdu" },
     "interval": {
       "month": "mois",
       "month_plural": "mois",
@@ -5959,6 +5960,7 @@
       "subheader": { "total": "Total", "average": "Moyenne" }
     },
     "categories": {
+      "dispute": "Litige de paiement",
       "on_spot_payments": "Paiements sur place",
       "members": "Membres",
       "offers": "Séances",
@@ -6021,6 +6023,7 @@
       "save": "Sauvegarder"
     },
     "columns": {
+      "dispute_status": "Status",
       "accept_email": "Accepte les emails",
       "accept_sms": "Accepte les SMS",
       "activitiesest": "Activités par salle",
@@ -6403,7 +6406,8 @@
       "payout_status": "Status du virement",
       "payout": "Virement",
       "staff": "Staff",
-      "company": "Studio"
+      "company": "Studio",
+      "disputeStatus": "Status"
     },
     "presetValuesByDatatype": {
       "source_device": { "0": "Application", "1": "Web", "2": "Backoffice bsport", "3": "Autre", "4": "Migration de données" },
@@ -7394,8 +7398,9 @@
       "6002": "La liste d'attente est pleine",
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
-      "generic": "Impossible de réserver",
-      "undefined": "La carte cadeau n'est plus disponible à la vente."
+      "45004": "La carte cadeau n'est plus disponible à la vente.",
+      "45005": "La carte cadeau n'est plus disponible à la vente.",
+      "generic": "Impossible de réserver"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
@@ -7448,8 +7453,11 @@
         "success": "Paiement par carte cadeau validé",
         "error": "Impossible de payer le montant demandé avec cette carte cadeau",
         "errors": {
+          "45000": "Le code d'activation de la carte n'est pas le bon.",
           "45001": "Impossible de régler cette facture avec cette carte cadeau",
-          "undefined": "Impossible de reconnaître le membre qui souhaite activer la carte.",
+          "45003": "La carte cadeau a été désactivée.",
+          "45006": "La carte cadeau a déjà été activée",
+          "45007": "Impossible de reconnaître le membre qui souhaite activer la carte.",
           "generic": "Impossible d'activer la carte cadeau"
         }
       }

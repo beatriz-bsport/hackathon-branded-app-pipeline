@@ -26,8 +26,18 @@ const {
   PAYOUT_STATUS_SUCCESS,
   PAYOUT_STATUS_TRANSIT,
 } = require('@bsport/common/lib/master-data/payout-status');
+const {
+  DISPUTE_STATUS_WON,
+  DISPUTE_STATUS_LOST,
+  DISPUTE_STATUS_PENDING,
+} = require('@bsport/common/lib/master-data/dispute-status');
 
 exports.default = {
+  disputeStatus: {
+    [DISPUTE_STATUS_WON]: 'Litige résolu',
+    [DISPUTE_STATUS_LOST]: 'Litige perdu',
+    [DISPUTE_STATUS_PENDING]: 'Litige en cours de traitement',
+  },
   interval: {
     month: 'mois',
     month_plural: 'mois',

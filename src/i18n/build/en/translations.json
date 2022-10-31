@@ -6988,6 +6988,11 @@
                 "recap": "Summary"
             },
             "title": "Purchase a subscription"
+        },
+        "disputeStatus": {
+            "3": "Dispute lost",
+            "2": "Dispute won",
+            "1": "Dispute processing"
         }
     },
     "invoice": {
@@ -8549,7 +8554,8 @@
             "shared_pass_ratio": "Percentage of use",
             "total_mixed_from_src": "Number of sessions booked",
             "dst_company": "Usage studio",
-            "src_company": "Purchasing studio"
+            "src_company": "Purchasing studio",
+            "dispute_status": "Status"
         },
         "yes": "Yes",
         "no": "No",
@@ -8649,7 +8655,8 @@
             "expired_pass": "Expired credits (passes)",
             "private_cpasses_expired": "Expired credits (appointment passes)",
             "universal_passes": "Universal passes",
-            "franchise_shared_pass": "Shared pass uses"
+            "franchise_shared_pass": "Shared pass uses",
+            "dispute": "Dispute"
         },
         "globalCategories": {
             "subheader": {
@@ -8791,7 +8798,8 @@
             "payout_status": "Status transfer",
             "payout": "Transfer",
             "staff": "Staff",
-            "company": "Studio"
+            "company": "Studio",
+            "disputeStatus": "Status"
         },
         "presetValuesByIdentifier": {
             "gender": {
@@ -12073,7 +12081,11 @@
                     "12103": "Error when validating this payment by gift card",
                     "45001": "Error when validating this payment by gift card",
                     "generic": "Unable to activate the gift card",
-                    "undefined": "Impossible to recognize the member who wants to activate the gift card."
+                    "undefined": "Impossible to recognize the member who wants to activate the gift card.",
+                    "45007": "Impossible to find the member who wants to activate the giftcard.",
+                    "45006": "The giftcard has already been activated",
+                    "45003": "The giftcard was disabled.",
+                    "45000": "The activation code is wrong."
                 },
                 "error": "Error when validating this payment by gift card",
                 "success": "The gift card payment has been validated"
@@ -12321,7 +12333,9 @@
             "2017": "You've reached the maximum number of bookings for this year",
             "2016": "You've reached the maximum number of bookings for this month",
             "2015": "You've reached the maximum number of bookings for this week",
-            "2014": "You've reached the maximum number of bookings for this day"
+            "2014": "You've reached the maximum number of bookings for this day",
+            "45005": "The giftcard is not available for purchase anymore.",
+            "45004": "The giftcard is not not available for purchase anymore."
         },
         "customForm": {
             "update": {

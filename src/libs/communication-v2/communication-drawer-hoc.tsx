@@ -30,6 +30,8 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '#libs/email-editor/selectors';
+import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
+import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 
 // MEMBER
 import {
@@ -39,7 +41,6 @@ import {
 import { getPaginatedMembers } from '#libs/member/selectors';
 import { Member } from '#libs/member/types';
 import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
   DrawerProps;
@@ -57,7 +58,6 @@ export type WithCommunicationDataProps = CommunicationConnectedProps & {
   ) => void;
   sendCommunication: (data: MessageParams, option: OptionCallback) => void;
   fetchAvailableRecipientMemberIdLists: () => void;
-  resolvedGenericTags: ResolvedGenericTags;
 };
 
 const connector = connect(
@@ -94,6 +94,7 @@ const connector = connect(
       : state.communicationV2.memberIdLists.allIdsWithoutPhone,
     recipientsModalMemberList: getPaginatedMembers(state),
     loadingRecipientsModalMemberList: state.member.communication.loading,
+    resolvedGenericTags: getResolvedGenericTags(state),
   }),
   {
     fetchCommunicationSentList: fetchCommunicationSentListAction,
@@ -105,6 +106,7 @@ const connector = connect(
     fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchAvailableRecipientMemberLists:
       fetchAvailableRecipientMemberListsAction,
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   },
 );
 

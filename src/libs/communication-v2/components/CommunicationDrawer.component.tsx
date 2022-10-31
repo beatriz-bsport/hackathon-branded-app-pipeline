@@ -63,6 +63,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
   componentDidMount(): void {
     this.props.fetchAvailableRecipientMemberIdLists();
     this.fetchThreadCommunicationList();
+    this.props.fetchResolvedGenericTags();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {

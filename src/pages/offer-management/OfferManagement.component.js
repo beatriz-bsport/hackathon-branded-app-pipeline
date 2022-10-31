@@ -765,7 +765,6 @@ export class OfferManagement extends Component<Props, State> {
                 bookings,
                 bookingOptionsPending,
               )}
-              resolvedGenericTags={this.props.resolvedGenericTags}
             />
           )}
         <GenericDialog />

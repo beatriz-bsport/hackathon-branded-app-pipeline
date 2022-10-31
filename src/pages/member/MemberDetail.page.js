@@ -42,9 +42,6 @@ import type { StripeReader } from '#libs/terminal/types';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 import asyncComponent from '../../AsyncComponent';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -169,8 +166,6 @@ type Props = {
   customFormFilledList: Array<CustomFormFilled>,
   fetchMemberCustomFormFilled: (memberId: number) => void,
   fetchEstablishments: () => void,
-  fetchResolvedGenericTags: () => void,
-  resolvedGenericTags: ResolvedGenericTags,
   establishmentList: Array<Establishment>,
   fetchMember: (id: number) => void,
   setOpenArchiveDialog: (b: boolean) => void,
@@ -207,7 +202,6 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchMemberCustomFormFilled(this.props.id);
       this.props.fetchEstablishments();
       this.props.fetchMember(this.props.id);
-      this.props.fetchResolvedGenericTags();
 
       this.props.fetchProgram({
         is_disabled: false,
@@ -509,7 +503,6 @@ export class MemberDetail extends React.Component<Props> {
             contextIdentifier={CONTEXT_MEMBER}
             contextObjectId={this.props.member?.id ?? this.props.id}
             contextMember={this.props.member}
-            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         )}
       </div>
@@ -576,7 +569,6 @@ export default compose(
       memberArchiveLoading: state.member.archive.loading,
       memberToArchive: getMemberDetail(state, id),
       stripeReaders: getStripeReaders(state),
-      resolvedGenericTags: getResolvedGenericTags(state),
     }),
     {
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
@@ -602,7 +594,6 @@ export default compose(
       registerContractBackground: registerContractBackgroundAction,
       displayBackgroundDialog: displayBackgroundDialogAction,
       deletebackgroundDialog: deletebackgroundDialogAction,
-      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     },
   ),
   withHandlers({

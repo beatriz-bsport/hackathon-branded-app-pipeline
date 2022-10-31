@@ -9,7 +9,7 @@ import {
 
 type OwnProps = {
   buttonsProperties: Array<{
-    onClick: () => void;
+    onClick: (e: React.MouseEvent) => void;
     text?: string;
     icon?: any;
     color?: 'primary' | 'secondary';
@@ -21,7 +21,7 @@ type OwnProps = {
 };
 
 type ButtonProperties = {
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   text?: string;
   icon?: any;
   color?: 'primary' | 'secondary';

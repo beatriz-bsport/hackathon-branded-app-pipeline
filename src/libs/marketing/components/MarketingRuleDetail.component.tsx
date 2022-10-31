@@ -37,9 +37,8 @@ import NotificationPushPreview from '#components/notification-push/NotificationP
 import { PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME } from '#libs/private-service/utils';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import { Contract } from '#libs/subscription/types';
-// INCOMING COMMUNICATION CHAT
-// import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-// import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
+import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -64,19 +63,17 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-// INCOMING COMMUNICATION CHAT
-// type State = {
-//   openCommunicationDrawer: boolean;
-// };
+type State = {
+  openCommunicationDrawer: boolean;
+};
 
-class MarketingRuleDetail extends React.PureComponent<Props> {
-  // INCOMING COMMUNICATION CHAT
-  // constructor(props: Props) {
-  //   super(props);
-  //   this.state = {
-  //     openCommunicationDrawer: false,
-  //   };
-  // }
+class MarketingRuleDetail extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      openCommunicationDrawer: false,
+    };
+  }
 
   get statData() {
     const { notificationsStatById, selectedNotification } = this.props;
@@ -355,22 +352,19 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
     );
   };
 
-  // INCOMING COMMUNICATION CHAT
-  // onOpenCommunicationDrawerClick = () => {
-  //   this.setState({ openCommunicationDrawer: true });
-  // };
+  onOpenCommunicationDrawerClick = () => {
+    this.setState({ openCommunicationDrawer: true });
+  };
 
-  // onCloseCommunicationDrawerClick = () => {
-  //   this.setState({ openCommunicationDrawer: false });
-  // };
+  onCloseCommunicationDrawerClick = () => {
+    this.setState({ openCommunicationDrawer: false });
+  };
 
   render() {
     const { classes, t } = this.props;
     return (
       <React.Fragment>
-        {/* TODO: COMMUNICATION CHAT : ADD THE RESOLVED GENERIC TAGS */}
-        {/* INCOMING COMMUNICATION CHAT,
-          {!!this.props.selectedNotification && (
+        {!!this.props.selectedNotification && (
           <CommunicationDrawer
             openDrawer={this.state.openCommunicationDrawer}
             onDrawerClose={this.onCloseCommunicationDrawerClick}
@@ -378,7 +372,7 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
             contextObjectId={this.props.selectedNotification?.id}
             contextTitle={this.getPrimaryText(this.props.selectedNotification)}
           />
-        )} */}
+        )}
         <div className={classes.container}>
           {this.props.selectedNotification &&
           this.statData &&
@@ -463,17 +457,15 @@ class MarketingRuleDetail extends React.PureComponent<Props> {
                       </Typography>
                     </div>
                   </Paper>
-
-                  {/* INCOMING COMMUNICATION CHAT
                   <Button
                     onClick={this.onOpenCommunicationDrawerClick}
                     variant="contained"
                     color="primary"
                     size="medium"
+                    disabled={!this.props.selectedNotification}
                   >
                     {t('communication:generic.history')}
-                  </Button> */}
-
+                  </Button>
                   <Typography variant="h5" className={classes.emailSummary}>
                     {t('marketing:notifications.mailTitle')}
                   </Typography>

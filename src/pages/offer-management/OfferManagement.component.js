@@ -54,7 +54,6 @@ import { OptionCallback } from '../../state/types';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
-import Config from '../../config';
 import { DEFAULT_SPOT_TYPE } from '../../libs/spot-scheduling/utils';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
@@ -750,23 +749,20 @@ export class OfferManagement extends Component<Props, State> {
             onCancelRegisterMember={() => this.props.setMemberToRegister(null)}
           />
         )}
-        {!!this.props.offer &&
-          this.props.communicationDrawerIsOpen &&
-          (Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
-            <CommunicationDrawer
-              openDrawer={this.props.communicationDrawerIsOpen}
-              onDrawerClose={this.props.closeCommunicationDrawer}
-              contextIdentifier={CONTEXT_OFFER}
-              contextObjectId={this.props.offer.id ?? this.props.offerId}
-              contextTitle={this.props.offer?.name}
-              allMemberCategoryList={getOfferCategories(
-                this.props.t,
-                bookings,
-                bookingOptionsPending,
-              )}
-            />
-          )}
+        {!!this.props.offer && (
+          <CommunicationDrawer
+            openDrawer={this.props.communicationDrawerIsOpen}
+            onDrawerClose={this.props.closeCommunicationDrawer}
+            contextIdentifier={CONTEXT_OFFER}
+            contextObjectId={this.props.offer.id ?? this.props.offerId}
+            contextTitle={this.props.offer?.name}
+            allMemberCategoryList={getOfferCategories(
+              this.props.t,
+              bookings,
+              bookingOptionsPending,
+            )}
+          />
+        )}
         <GenericDialog />
       </Grid>
     );

@@ -17,6 +17,7 @@ import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import SendIcon from '@material-ui/icons/Send';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
@@ -143,8 +144,13 @@ import SmartListEditDialog from '#libs/smart-list/components/SmartListFormDialog
 import AutomatedCampaignDrawer from '#libs/smart-list/components/automated_campaign/AutomatedCampaignDrawer.component';
 import AutomatedCampaignPanel from '#libs/smart-list/components/automated_campaign/AutomatedCampaignPanel.component';
 import MemberTable from '#libs/member/MemberTable.component';
-import CommunicationDrawer from '../../libs/communication/components/CommunicationDrawer.component';
+import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+
+// COMMUNICATION CHAT
+import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
+import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
 type OwnProps = {
   id: number;
@@ -162,6 +168,8 @@ type OwnProps = {
   selectAutomatedCampaignId: number | null;
   setSelectAutomatedCampaignId: (id: number | null) => void;
   resolvedGenericTags: ResolvedGenericTags;
+  openCommunicationChatDrawer: boolean;
+  setOpenCommunicationChatDrawer: (open: boolean) => void;
 } & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
@@ -452,7 +460,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           genericTags={this.props.genericTags}
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
-        <CommunicationDrawer
+        <CommunicationDrawerDEPRECATED
           open={this.props.openSendEmail}
           onClose={() => this.props.setOpenSendEmail(false)}
           getEmails={this.props.fetchEmailTemplatesSummaries}
@@ -502,6 +510,29 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           countWithEmail={this.props.members.countWithEmail}
           genericTags={this.props.genericTags}
           resolvedGenericTags={this.props.resolvedGenericTags}
+        />
+        <CommunicationDrawer
+          openDrawer={this.props.openCommunicationChatDrawer}
+          onDrawerClose={() => this.props.setOpenCommunicationChatDrawer(false)}
+          contextIdentifier={CONTEXT_SMARTLIST}
+          contextObjectId={this.props.smartlist?.id ?? this.props.id}
+          contextTitle={this.props.smartlist?.name}
+        />
+        <BottomActionsButtonCustom
+          buttonsProperties={[
+            {
+              onClick: (e) => {
+                e.stopPropagation();
+                this.props.setOpenCommunicationChatDrawer(true);
+              },
+              color: 'primary',
+              disabled: this.props.loading,
+              icon: <SendIcon />,
+              text: this.props.t('communication:generic.communication'),
+              keepTextUnderSelectedMinWidth: true,
+            },
+          ]}
+          minWidth="xs"
         />
         <SmartListEditDialog
           open={this.state.openEditDialog}
@@ -809,6 +840,11 @@ export default compose(
   withState(
     'openAutomatedCampaignDrawer',
     'setOpenAutomatedCampaignDrawer',
+    false,
+  ),
+  withState(
+    'openCommunicationChatDrawer',
+    'setOpenCommunicationChatDrawer',
     false,
   ),
   withState('selectAutomatedCampaignId', 'setSelectAutomatedCampaignId', null),

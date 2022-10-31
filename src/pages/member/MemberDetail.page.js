@@ -87,7 +87,6 @@ import {
 } from '#libs/background-dialog/types';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
-import Config from '../../config';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -495,16 +494,13 @@ export class MemberDetail extends React.Component<Props> {
           }}
           onConfirm={this.archiveMember}
         />
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
-          <CommunicationDrawer
-            openDrawer={this.props.communicationDrawerOpen}
-            onDrawerClose={this.props.closeCommunicationDrawer}
-            contextIdentifier={CONTEXT_MEMBER}
-            contextObjectId={this.props.member?.id ?? this.props.id}
-            contextMember={this.props.member}
-          />
-        )}
+        <CommunicationDrawer
+          openDrawer={this.props.communicationDrawerOpen}
+          onDrawerClose={this.props.closeCommunicationDrawer}
+          contextIdentifier={CONTEXT_MEMBER}
+          contextObjectId={this.props.member?.id ?? this.props.id}
+          contextMember={this.props.member}
+        />
       </div>
     );
   }

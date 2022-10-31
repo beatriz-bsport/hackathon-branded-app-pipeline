@@ -8,6 +8,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import { ChevronRight } from '@material-ui/icons';
+import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import MenuList from '@material-ui/core/MenuList';
+import Paper from '@material-ui/core/Paper';
 
 type NestedListProps = {
   dataRecord: Record<string, Array<string>>;
@@ -18,7 +22,7 @@ type NestedListProps = {
 };
 
 const NestedMenu = (props: NestedListProps) => {
-  const { anchorElMenu, handleCloseMenu, forTagsSelector } = props;
+  const { anchorElMenu, forTagsSelector } = props;
   const [toggledMenu, setToggledMenu] = useState<Record<string, Element>>({});
   const dataRecord = props.dataRecord ?? {};
   const numberLists = Object.keys(dataRecord).length;
@@ -26,11 +30,14 @@ const NestedMenu = (props: NestedListProps) => {
     const newToggledMenu = {
       [i]: toggledMenu?.[i] ? null : event.currentTarget,
     };
-
     setToggledMenu(newToggledMenu);
   };
   const handleClose = () => {
     setToggledMenu({});
+  };
+  const handleCloseMenu = () => {
+    handleClose();
+    props.handleCloseMenu();
   };
   const onItemClick = (itemValue: any) => {
     props.onItemClick(itemValue);
@@ -97,12 +104,13 @@ const NestedItem = (props: NestedItemProps) => {
     forTagsSelector,
     categoryName,
   } = props;
-  const { t } = useTranslation(['notificationRule']);
+  const { t } = useTranslation('notificationRule');
   return (
     <div className={classes.listItemContainer}>
       <ListItem
         key={categoryName}
-        onClick={handleToggle}
+        // onClick={handleToggle} --> On Mobile, the onPointerEnter seems to trigger it too (on browser)
+        onPointerEnter={handleToggle}
         className={classes.listItem}
         button
         disabled={listData.length === 0}
@@ -113,34 +121,37 @@ const NestedItem = (props: NestedItemProps) => {
         </ListItemIcon>
       </ListItem>
       {withDivider && <Divider variant="fullWidth" />}
-      <Menu
-        id={`menu-${categoryName}`}
-        anchorEl={target}
+      <Popper
         open={Boolean(target)}
-        getContentAnchorEl={null}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        keepMounted
-        onClose={handleClose}
+        anchorEl={target}
+        role={undefined}
+        placement="right-start"
+        transition
+        disablePortal={false}
         className={classes.menuContainer}
-        variant="menu"
-        MenuListProps={{
-          disablePadding: true,
-        }}
+        onPointerLeave={handleClose}
       >
-        {listData.map((itemName) => (
-          <MenuItem
-            onClick={() => {
-              onItemClick(itemName);
-              handleClose();
-            }}
-          >
-            {forTagsSelector
-              ? t(`tag.${categoryName}.tags.${itemName}`)
-              : itemName}
-          </MenuItem>
-        ))}
-      </Menu>
+        {({ TransitionProps }) => (
+          <Grow {...TransitionProps} style={{ transformOrigin: 'left top' }}>
+            <Paper>
+              <MenuList id={`menu-${categoryName}`} variant="menu">
+                {listData.map((itemName) => (
+                  <MenuItem
+                    onClick={() => {
+                      onItemClick(itemName);
+                      handleClose();
+                    }}
+                  >
+                    {forTagsSelector
+                      ? t(`tag.${categoryName}.tags.${itemName}`)
+                      : itemName}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </div>
   );
 };
@@ -159,7 +170,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
   menuContainer: {
-    transform: `translate(${theme.spacing(0.5)}px)`,
+    marginLeft: theme.spacing(0.5),
+    zIndex: 1500,
   },
 }));
 

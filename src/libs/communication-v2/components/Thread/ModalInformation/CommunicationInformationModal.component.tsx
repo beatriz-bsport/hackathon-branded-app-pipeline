@@ -23,6 +23,7 @@ import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.compone
 import {
   Recipient,
   ThreadCommunication,
+  Communication,
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
 import CommunicationInformationModalFilter from './CommunicationInformationModalFilter.component';
@@ -34,8 +35,9 @@ type OwnProps = {
   contextMember?: Member;
   contextTitle?: string;
   fetchRecipientPaginatedList: (
-    communicationId: number,
-    memberIdList: number[],
+    communication: Communication,
+    page: number,
+    memberSelectedCategories: number[],
   ) => void;
   fullScreen?: boolean;
   handleCloseDialog: () => void;
@@ -43,12 +45,12 @@ type OwnProps = {
   open?: boolean;
   paginationSize: number;
   recipientList: Recipient<Member>[];
+  recipientListCount: number;
   selectedCommunication: ThreadCommunication;
 };
 
 type State = {
-  allMemberIdListFromCommunicationSent: number[]; // initial list
-  filteredMemberIdListFromCommunicationSent: number[]; // possible filtered list
+  checkedCategoryFilters: number[];
   currentPage: number;
 };
 
@@ -61,12 +63,10 @@ export class CommunicationInformationModal extends React.Component<
   constructor(props: Props) {
     super(props);
     this.state = {
-      allMemberIdListFromCommunicationSent:
-        this.props.selectedCommunication.communication
-          ?.recipient_member_id_list || [],
-      filteredMemberIdListFromCommunicationSent:
-        this.props.selectedCommunication.communication
-          ?.recipient_member_id_list || [],
+      checkedCategoryFilters:
+        props.allMemberCategoryList?.categories.map(
+          (cat) => cat.categoryIdentifier,
+        ) || [],
       currentPage: 1,
     };
   }
@@ -76,28 +76,10 @@ export class CommunicationInformationModal extends React.Component<
   }
 
   fetchRecipientPaginatedList = () => {
-    let memberIdPaginatedList: number[];
-    if (this.props.contextMember) {
-      memberIdPaginatedList = [this.props.contextMember.id];
-    } else if (!this.state.filteredMemberIdListFromCommunicationSent?.length) {
-      memberIdPaginatedList = [];
-    } else {
-      const idx = [
-        (this.state.currentPage - 1) * this.props.paginationSize,
-        Math.min(
-          this.state.currentPage * this.props.paginationSize,
-          this.state.filteredMemberIdListFromCommunicationSent.length,
-        ),
-      ];
-      memberIdPaginatedList =
-        this.state.filteredMemberIdListFromCommunicationSent.slice(
-          idx[0],
-          idx[1],
-        );
-    }
     this.props.fetchRecipientPaginatedList(
-      this.props.selectedCommunication?.communication.id,
-      memberIdPaginatedList,
+      this.props.selectedCommunication?.communication,
+      this.state.currentPage,
+      this.state.checkedCategoryFilters,
     );
   };
 
@@ -110,17 +92,20 @@ export class CommunicationInformationModal extends React.Component<
 
   onClose = () => {
     this.setState(
-      { currentPage: 1, filteredMemberIdListFromCommunicationSent: [] },
+      {
+        checkedCategoryFilters:
+          this.props.allMemberCategoryList?.categories.map(
+            (cat) => cat.categoryIdentifier,
+          ) || [],
+        currentPage: 1,
+      },
       this.props.handleCloseDialog,
     );
   };
 
-  updateIdList = (newIdList: number[]) => {
+  setCheckedCategoryFilters = (nextCheckedList: number[]) => {
     this.setState(
-      {
-        currentPage: 1,
-        filteredMemberIdListFromCommunicationSent: newIdList,
-      },
+      { checkedCategoryFilters: nextCheckedList },
       this.fetchRecipientPaginatedList,
     );
   };
@@ -131,13 +116,13 @@ export class CommunicationInformationModal extends React.Component<
       open,
       loadingRecipientList,
       recipientList,
+      recipientListCount,
       paginationSize,
       selectedCommunication,
       t,
       classes,
     } = this.props;
-    const recipientsCount =
-      this.state.filteredMemberIdListFromCommunicationSent?.length ?? 0;
+    const recipientsCount = recipientListCount || 0;
     const { kind, date_created } = selectedCommunication.communication;
     const pageCount = this.props.contextMember
       ? 1
@@ -171,8 +156,8 @@ export class CommunicationInformationModal extends React.Component<
           {!!this.props.allMemberCategoryList && (
             <CommunicationInformationModalFilter
               genericMemberCategories={this.props.allMemberCategoryList}
-              allMemberIdList={this.state.allMemberIdListFromCommunicationSent}
-              setMemberIdList={this.updateIdList}
+              checkedFilters={this.state.checkedCategoryFilters}
+              setCheckedFilters={this.setCheckedCategoryFilters}
             />
           )}
           <Table aria-label="simple table" size="small" padding="normal">
@@ -214,9 +199,7 @@ export class CommunicationInformationModal extends React.Component<
             </TableHead>
             {!loadingRecipientList && (
               <TableBody>
-                {recipientList.length === 0 ||
-                !this.state.filteredMemberIdListFromCommunicationSent
-                  ?.length ? (
+                {recipientList.length === 0 ? (
                   <div className={classes.emptyTableBody} />
                 ) : (
                   recipientList.map((recipient: Recipient<Member>) => (

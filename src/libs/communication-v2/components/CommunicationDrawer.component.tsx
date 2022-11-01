@@ -146,6 +146,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       // --- Thread ---
       fetchPageInformationRecipientList,
       informationRecipientList,
+      informationRecipientListCount,
       loadingInformationRecipientList,
       loadingThreadCommunicationList,
       threadCommunicationList,
@@ -199,6 +200,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           loadingRecipientList={loadingInformationRecipientList}
           paginationSize={PAGINATION_SIZE_RECIPIENTS}
           recipientList={informationRecipientList}
+          recipientListCount={informationRecipientListCount}
           threadCommunicationList={threadCommunicationList}
           resolvedGenericTags={resolvedGenericTags}
         />

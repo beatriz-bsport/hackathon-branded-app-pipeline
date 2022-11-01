@@ -4,7 +4,6 @@ import {
   sendCommunicationAction,
   recipientAction,
   communicationSentAction,
-  availableRecipientAction,
 } from './actions';
 
 import type { CommunicationState, Recipient, Communication } from './types';
@@ -13,11 +12,10 @@ const initialState: Immutable.Immutable<CommunicationState> =
   Immutable<CommunicationState>({
     recipient: {
       byId: {},
-      byCommunicationSent: {
-        allIds: [],
-        loading: false,
-        error: null,
-      },
+      allPageIds: [],
+      count: 0,
+      loading: false,
+      error: null,
     },
     sent: {
       byId: {},
@@ -48,16 +46,10 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       return state.setIn(['send', 'error'], payload);
     },
     [recipientAction.isLoading.toString()]: (state, { payload }: any) => {
-      return state.setIn(
-        ['recipient', 'byCommunicationSent', 'loading'],
-        payload,
-      );
+      return state.setIn(['recipient', 'loading'], payload);
     },
     [recipientAction.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(
-        ['recipient', 'byCommunicationSent', 'error'],
-        payload,
-      );
+      return state.setIn(['recipient', 'error'], payload);
     },
     [recipientAction.success.toString()]: (state, { payload }: any) => {
       return state
@@ -76,9 +68,10 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
           { deep: true },
         )
         .setIn(
-          ['recipient', 'byCommunicationSent', 'allIds'],
+          ['recipient', 'allPageIds'],
           payload.results.map((recipient: Recipient<number>) => recipient.id),
-        );
+        )
+        .setIn(['recipient', 'count'], payload.count);
     },
     [communicationSentAction.isLoading.toString()]: (
       state,

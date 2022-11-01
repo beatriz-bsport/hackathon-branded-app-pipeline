@@ -12,7 +12,7 @@ const getRecipients = (state: RootState) =>
   state.communicationV2.recipient.byId;
 
 const getRecipientIdPaginatedList = (state: RootState) =>
-  state.communicationV2.recipient.byCommunicationSent.allIds;
+  state.communicationV2.recipient.allPageIds;
 
 export const getRecipientWithMemberPaginatedList = createSelector(
   [getRecipients, getRecipientIdPaginatedList, getMemberListData],

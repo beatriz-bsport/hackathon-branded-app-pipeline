@@ -42,6 +42,7 @@ import {
   SelectFieldItem,
   FilterParams,
   CommunicationMetadata,
+  Communication,
   FilteringMemberIdsByGenericCategories,
 } from './types';
 import { Booking, BookingOption } from '#libs/booking/types';
@@ -578,5 +579,25 @@ export const getFormatedQueryParamsFromContext = memoize(
     }
   },
 );
+
+/**
+ * When communications have been sent from an offer,
+ * it is possible to filter on the Information Modal by the 3 kinds of members :
+ * Bookings, Waiting List anf Cancel bookings (1 kind = 1 category).
+ */
+export const getFormatedQueryParamsToFetchRecipientPaginatedList = (
+  communication: Communication,
+  memberSelectedCategories: number[],
+) => {
+  const offer_id = communication?.metadata?.offer_id;
+  if (offer_id) {
+    return getFormatedQueryParamsFromContext(
+      CONTEXT_OFFER,
+      offer_id,
+      memberSelectedCategories,
+    );
+  }
+  return {};
+};
 
 // #endregion

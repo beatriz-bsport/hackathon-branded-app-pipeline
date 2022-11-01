@@ -7,6 +7,7 @@ import CommunicationThreadScrollableView from './CommunicationThreadScrollableVi
 import InfoGenericBox from '#components/box/InfoGenericBox.component';
 import {
   ThreadCommunication,
+  Communication,
   Recipient,
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
@@ -21,8 +22,9 @@ type OwnProps = {
   currentPage: number;
   threadCommunicationList: Array<ThreadCommunication>;
   fetchRecipientPaginatedList: (
-    communicationId: number,
-    memberIdPaginatedList: number[],
+    communication: Communication,
+    page: number,
+    memberSelectedCategories: number[],
   ) => void;
   fetchMoreThreadCommunications: () => void;
   fullScreen: boolean;
@@ -30,6 +32,7 @@ type OwnProps = {
   loadingRecipientList: boolean;
   paginationSize: number;
   recipientList: Recipient<Member>[];
+  recipientListCount: number;
   resolvedGenericTags: ResolvedGenericTags;
 };
 
@@ -96,6 +99,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
       loadingRecipientList,
       paginationSize,
       recipientList,
+      recipientListCount,
     } = this.props;
     let modalContextTitle = '';
     let modalContextInformation = '';
@@ -152,6 +156,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
             open={this.state.openInformationModal}
             paginationSize={paginationSize}
             recipientList={recipientList}
+            recipientListCount={recipientListCount}
             selectedCommunication={this.state.selectedCommunication}
           />
         )}

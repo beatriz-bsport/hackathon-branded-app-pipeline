@@ -11,6 +11,7 @@ import {
   FetchCommunicationParams,
   MessageParams,
   Communication,
+  Recipient,
 } from './types';
 
 // --------- SEND COMMUNICATION ---------
@@ -81,24 +82,23 @@ export const recipientAction = {
   success: createAction('COMMUNICATION_RECIPIENT/LIST/SUCCESS'),
 };
 
-export function fetchCommunicationRecipientList(params: {
-  page_size: number;
-  page: number;
-  communication_sent: number;
-  member_id__in: number[];
-}): ThunkAction {
+export function fetchCommunicationRecipientList(
+  params: {
+    page_size: number;
+    page: number;
+    communication_sent: number;
+    member_id__in?: number[];
+    offer_with_selected_categories?: string;
+  },
+  options: OptionCallback<Array<Recipient>>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(recipientAction.isLoading(true));
     dispatch(recipientAction.error(null));
     try {
-      let data;
-      if (!params.member_id__in.length) {
-        data = [];
-      } else {
-        const response = await fetchCommunicationRecipientListAPI(params);
-        data = response.data;
-      }
-      dispatch(recipientAction.success(data));
+      const response = await fetchCommunicationRecipientListAPI(params);
+      dispatch(recipientAction.success(response.data));
+      if (options?.onSuccess) options.onSuccess(response.data?.results);
     } catch (error) {
       dispatch(recipientAction.error(error));
     }

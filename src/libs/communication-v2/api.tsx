@@ -21,7 +21,8 @@ export const fetchCommunicationRecipientList = async (params: {
   page_size: number;
   page: number;
   communication_sent: number;
-  member_id__in: number[];
+  member_id__in?: number[];
+  offer_with_selected_categories?: string;
 }) => {
   return getAuth(
     `${API_V1_URI}/communication/communication_recipient/${buildUrlParams(

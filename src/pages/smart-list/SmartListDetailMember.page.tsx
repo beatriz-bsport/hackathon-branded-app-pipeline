@@ -517,6 +517,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           contextIdentifier={CONTEXT_SMARTLIST}
           contextObjectId={this.props.smartlist?.id ?? this.props.id}
           contextTitle={this.props.smartlist?.name}
+          propToListenToReloadRecipients={
+            this.state.resetMembersFetchForCommunication
+          }
         />
         <BottomActionsButtonCustom
           buttonsProperties={[

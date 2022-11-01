@@ -116,17 +116,19 @@ export class CommunicationRecipientsModal extends React.Component<
   }
 
   getMemberToggleState = (memberId: number) => {
+    return this.getUncheckedMembersOfCurrentKind().indexOf(memberId) === -1;
+  };
+
+  getUncheckedMembersOfCurrentKind = () => {
     switch (this.props.kind) {
       case WRITE_EMAIL:
-        return this.state.uncheckedMembers.email.indexOf(memberId) === -1;
+        return this.state.uncheckedMembers.email;
       case WRITE_SMS:
-        return this.state.uncheckedMembers.phone.indexOf(memberId) === -1;
+        return this.state.uncheckedMembers.phone;
       case WRITE_PUSH_NOTIFICATION:
-        return (
-          this.state.uncheckedMembers.notification.indexOf(memberId) === -1
-        );
+        return this.state.uncheckedMembers.notification;
       default:
-        return false;
+        return [];
     }
   };
 
@@ -140,7 +142,8 @@ export class CommunicationRecipientsModal extends React.Component<
         this.props.countAvailableRecipientsTotal -
           this.props.countAvailableRecipientsWithEmail >
           0);
-    const hasUnselectedRecipients = this.state.uncheckedMembers?.length > 0;
+    const hasUnselectedRecipients =
+      this.getUncheckedMembersOfCurrentKind().length > 0;
     if (hasMissingPhonesOrEmails && hasUnselectedRecipients) {
       return this.props.t('dialogRecipients.warnings.full');
     }

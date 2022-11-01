@@ -20,8 +20,9 @@ import {
 import {
   getFormatedFiltersToFetchCommunicationSent,
   getFormatedQueryParamsFromContext,
+  getFormatedQueryParamsToFetchRecipientPaginatedList,
 } from './utils';
-import { Communication, MessageData, DrawerProps } from './types';
+import { Communication, MessageData, DrawerProps, Recipient } from './types';
 
 // TEMPLATES
 import {
@@ -46,7 +47,10 @@ import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
   DrawerProps;
 
-export type WithCommunicationDataProps = CommunicationConnectedProps & {
+export type WithCommunicationDataProps = CommunicationConnectedProps &
+  WithHandlers;
+
+type WithHandlers = {
   fetchPageThreadCommunicationList: (
     page: number,
     filters: number[],
@@ -54,8 +58,9 @@ export type WithCommunicationDataProps = CommunicationConnectedProps & {
     dateEnd: number,
   ) => void;
   fetchPageInformationRecipientList: (
-    communicationId: number,
-    memberIdList: number[],
+    communication: Communication,
+    page: number,
+    memberSelectedCategories: number[],
   ) => void;
   sendCommunication: (
     data: MessageData,
@@ -77,8 +82,8 @@ const connector = connect(
       getThreadCommunicationListHasNextPage(state),
     // RECIPIENTS
     informationRecipientList: getRecipientWithMemberPaginatedList(state),
-    loadingInformationRecipientList:
-      state.communicationV2.recipient.byCommunicationSent.loading,
+    informationRecipientListCount: state.communicationV2.recipient.count,
+    loadingInformationRecipientList: state.communicationV2.recipient.loading,
     // TEMPLATES
     emailTemplateDetailList: getEmailTemplatesDetail(state),
     loadingEmailTemplateDetailList: state.emailTemplate.detail.loading,
@@ -151,16 +156,31 @@ export default function withCommunicationData(
           });
         },
       fetchPageInformationRecipientList:
-        ({ fetchCommunicationRecipientList, fetchMemberBulkById }) =>
-        (communicationId: number, memberIdList: number[]) => {
+        ({
+          fetchCommunicationRecipientList,
+          fetchMemberBulkById,
+          contextMember,
+        }) =>
+        (
+          communication: Communication,
+          page: number,
+          memberSelectedCategories?: number[],
+        ) => {
           const params = {
+            ...(contextMember
+              ? { member_id__in: [contextMember.id] }
+              : getFormatedQueryParamsToFetchRecipientPaginatedList(
+                  communication,
+                  memberSelectedCategories,
+                )),
             page_size: PAGINATION_SIZE_RECIPIENTS,
-            page: 1,
-            communication_sent: communicationId,
-            member_id__in: memberIdList,
+            page,
+            communication_sent: communication.id,
           };
-          fetchCommunicationRecipientList(params);
-          fetchMemberBulkById(memberIdList);
+          const onSuccess = (data: Array<Recipient>) => {
+            fetchMemberBulkById(data.map((recipient) => recipient.member));
+          };
+          fetchCommunicationRecipientList(params, { onSuccess });
         },
       fetchPaginatedAvailableRecipientMemberList:
         (props: CommunicationConnectedProps) =>

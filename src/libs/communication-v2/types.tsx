@@ -4,10 +4,9 @@ import { Member, MemberFilter } from '#libs/member/types';
 export type CommunicationState = {
   recipient: {
     byId: { [id: number]: Recipient<number> };
-    byCommunicationSent: {
-      allIds: number[];
-    } & ErrorAndLoading;
-  };
+    allPageIds: number[];
+    count: number;
+  } & ErrorAndLoading;
   sent: {
     byId: { [id: number]: Communication };
     thread: GenericListReducerI;

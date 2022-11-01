@@ -34,13 +34,6 @@ const initialState: Immutable.Immutable<CommunicationState> =
       loading: false,
       error: null,
     },
-    memberIdLists: {
-      loading: false,
-      error: null,
-      allIds: [],
-      allIdsWithoutEmail: [],
-      allIdsWithoutPhone: [],
-    },
   });
 
 export default handleActions<Immutable.Immutable<CommunicationState>>(
@@ -85,30 +78,6 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         .setIn(
           ['recipient', 'byCommunicationSent', 'allIds'],
           payload.results.map((recipient: Recipient<number>) => recipient.id),
-        );
-    },
-    [availableRecipientAction.isLoading.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state.setIn(['memberIdLists', 'loading'], payload);
-    },
-    [availableRecipientAction.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['memberIdLists', 'error'], payload);
-    },
-    [availableRecipientAction.success.toString()]: (
-      state,
-      { payload }: any,
-    ) => {
-      return state
-        .setIn(['memberIdLists', 'allIds'], payload.allIds)
-        .setIn(
-          ['memberIdLists', 'allIdsWithoutEmail'],
-          payload.allIdsWithoutEmail,
-        )
-        .setIn(
-          ['memberIdLists', 'allIdsWithoutPhone'],
-          payload.allIdsWithoutPhone,
         );
     },
     [communicationSentAction.isLoading.toString()]: (

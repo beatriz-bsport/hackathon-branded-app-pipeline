@@ -12,7 +12,11 @@ import {
   buildUrlParams,
 } from '../../http';
 import { GenericPaginationResults } from '../types';
-import { MemberMinimal, MemberUploadedFile } from './types';
+import {
+  MemberMinimal,
+  MemberUploadedFile,
+  FetchRecipientsParams,
+} from './types';
 
 const PAGE_SIZE = 300;
 
@@ -124,7 +128,7 @@ export async function regularizeDebt(memberId: number, data: any) {
 }
 
 export async function fetchCommunicationsPaginatedMembers(
-  params: any,
+  params: FetchRecipientsParams,
   id__in = [] as any[],
 ) {
   const urlParams = buildUrlParams(params);

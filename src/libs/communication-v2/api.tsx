@@ -1,9 +1,6 @@
 import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
-import {
-  MessageParams,
-  FetchCommunicationParams,
-  FormatedContext,
-} from './types';
+import { MessageParams, FetchCommunicationParams } from './types';
+import { FetchRecipientsParams } from '#libs/member/types';
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuth(
@@ -33,12 +30,16 @@ export const fetchCommunicationRecipientList = async (params: {
   );
 };
 
-export const fetchAvailableRecipientMemberLists = async (
-  context: FormatedContext,
+export const fetchFirstSelectedRecipientsForChatAllKinds = async (
+  params: {
+    blacklist_email: number[];
+    blacklist_phone: number[];
+    blacklist_notification: number[];
+  } & FetchRecipientsParams,
 ) => {
   return getAuth(
-    `${API_V1_URI}/member/available_members_lists_for_communication/${buildUrlParams(
-      context,
+    `${API_V1_URI}/member/selected_members_for_communication_chat_all_kinds/${buildUrlParams(
+      params,
     )}`,
   );
 };

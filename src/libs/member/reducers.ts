@@ -36,6 +36,12 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
   loading: false,
   error: null,
   allIds: [], // all the members
+  listCount: 0,
+  quickFetched: [],
+  byOffer: {
+    loading: false,
+    items: [],
+  },
   detailData: {},
   listData: {},
   barcode: {
@@ -79,6 +85,8 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     loading: false,
     error: null,
     allPageIds: [],
+    allIdsWithoutEmail: [],
+    allIdsWithoutPhone: [],
     countWithPhone: null,
     countTotal: null,
     countWithEmail: null,

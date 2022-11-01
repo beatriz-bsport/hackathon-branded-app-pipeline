@@ -1,5 +1,5 @@
 import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
-import { Member } from '#libs/member/types';
+import { Member, MemberFilter } from '#libs/member/types';
 
 export type CommunicationState = {
   recipient: {
@@ -13,11 +13,6 @@ export type CommunicationState = {
     thread: GenericListReducerI;
   };
   send: ErrorAndLoading;
-  memberIdLists: {
-    allIds: number[];
-    allIdsWithoutPhone: number[];
-    allIdsWithoutEmail: number[];
-  } & ErrorAndLoading;
 };
 
 export type Recipient<MemberType = number> = {
@@ -99,7 +94,8 @@ export type SelectFieldItem = {
   label: string;
 };
 
-export type MessageParams = MessageData & FormatedContext;
+export type MessageParams = MessageData &
+  FormatedContext & { member_filters: MemberFilter };
 
 export type MessageData = {
   subject?: string; // mail title
@@ -108,7 +104,7 @@ export type MessageData = {
   sms?: string; // sms content
   notification_title?: string;
   notification_content?: string;
-  members: number[]; // recipients
+  member_blacklist?: number[]; // recipients to blacklist
 };
 
 export type FilterParams = {
@@ -142,6 +138,7 @@ export type DrawerProps = {
   contextObjectId?: number; // for hoc
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   communicationKindToWrite?: number;
+  propToListenToReloadRecipients?: any; // if this prop changes, refetch data on recipients
 };
 
 export type FilteringMemberIdsByGenericCategories = {

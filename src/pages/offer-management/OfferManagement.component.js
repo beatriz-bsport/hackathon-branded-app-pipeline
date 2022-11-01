@@ -761,6 +761,7 @@ export class OfferManagement extends Component<Props, State> {
               bookings,
               bookingOptionsPending,
             )}
+            propToListenToReloadRecipients={[bookings, bookingOptionsPending]}
           />
         )}
         <GenericDialog />

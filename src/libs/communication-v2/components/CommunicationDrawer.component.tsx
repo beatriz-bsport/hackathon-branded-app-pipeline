@@ -12,6 +12,7 @@ import {
 import { KeyboardArrowDown, Send } from '@material-ui/icons';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
+import isEqual from 'lodash/isEqual';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
@@ -61,7 +62,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
-    this.props.fetchAvailableRecipientMemberIdLists();
+    this.props.fetchPaginatedAvailableRecipientMemberList(1);
     this.fetchThreadCommunicationList();
     this.props.fetchResolvedGenericTags();
   }
@@ -69,7 +70,15 @@ export class CommunicationDrawer extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Readonly<Props>): void {
     if (prevProps.contextObjectId !== this.props.contextObjectId) {
       this.fetchThreadCommunicationList();
-      this.props.fetchAvailableRecipientMemberIdLists();
+      this.props.fetchPaginatedAvailableRecipientMemberList(1);
+    }
+    if (
+      !isEqual(
+        prevProps.propToListenToReloadRecipients,
+        this.props.propToListenToReloadRecipients,
+      )
+    ) {
+      this.props.fetchPaginatedAvailableRecipientMemberList(1);
     }
   }
 
@@ -141,12 +150,8 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       loadingThreadCommunicationList,
       threadCommunicationList,
       // --- SendMessage ---
-      availableMemberToSendCommunicationIdList,
-      availableMemberWithoutEmailToSendCommunicationIdList,
-      availableMemberWithoutPhoneToSendCommunicationIdList,
       emailTemplateDetailList,
       emailTemplateSummaryList,
-      fetchPaginatedMemberList,
       fetchEmailDetail,
       loadingRecipientsModalMemberList,
       loadingEmailTemplateDetailList,
@@ -228,33 +233,33 @@ export class CommunicationDrawer extends React.Component<Props, State> {
             <Collapse in={this.state.showMessageWritter} timeout={500}>
               <CommunicationSendMessageContainer
                 allMemberCategoryList={this.props.allMemberCategoryList}
-                availableMemberToSendCommunicationIdList={
-                  availableMemberToSendCommunicationIdList
-                }
-                availableMemberWithoutEmailToSendCommunicationIdList={
-                  availableMemberWithoutEmailToSendCommunicationIdList
-                }
-                availableMemberWithoutPhoneToSendCommunicationIdList={
-                  availableMemberWithoutPhoneToSendCommunicationIdList
-                }
                 communicationKind={this.state.communicationKindBeingWritten}
                 contextIdentifier={contextIdentifier}
+                contextObjectId={this.props.contextObjectId}
+                countAvailableRecipientsTotal={
+                  this.props.countAvailableRecipientsTotal
+                }
+                countAvailableRecipientsWithEmail={
+                  this.props.countAvailableRecipientsWithEmail
+                }
+                countAvailableRecipientsWithPhone={
+                  this.props.countAvailableRecipientsWithPhone
+                }
                 directMember={
                   contextIdentifier === CONTEXT_MEMBER && contextMember
                 }
                 emailTemplateDetailList={emailTemplateDetailList}
                 emailTemplateSummaryList={emailTemplateSummaryList}
-                fetchAvailableRecipientMemberIdLists={
-                  this.props.fetchAvailableRecipientMemberIdLists
-                }
                 fetchEmailSummaryList={this.props.fetchEmailSummaryList}
-                fetchPaginatedMemberList={fetchPaginatedMemberList}
+                fetchPaginatedAvailableRecipientMemberList={
+                  this.props.fetchPaginatedAvailableRecipientMemberList
+                }
                 fullScreen={fullScreen}
                 getEmailDetail={fetchEmailDetail}
-                loadingMemberList={loadingRecipientsModalMemberList}
+                loadingPaginatedMemberList={loadingRecipientsModalMemberList}
                 loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
                 loadingTemplateDetailList={loadingEmailTemplateDetailList}
-                memberList={recipientsModalMemberList}
+                paginatedMemberList={recipientsModalMemberList}
                 pageSize={PAGINATION_SIZE_RECIPIENTS}
                 sendCommunication={sendCommunication}
                 setCommunicationKind={this.setCommunicationKindBeingWritten}

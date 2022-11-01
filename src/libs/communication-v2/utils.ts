@@ -546,4 +546,37 @@ export const getFormatedFiltersToFetchCommunicationSent = memoize(
   },
 );
 
+// HOC
+/*
+To use the Member Viewset, we use already existings filter : offer, smartlist
+So we need to format differently our query params for the related endpoints
+*/
+export const getFormatedQueryParamsFromContext = memoize(
+  (
+    contextIdentifier: number,
+    contextObjectId: number,
+    memberSelectedCategories: number[],
+  ) => {
+    const categoryListing = memberSelectedCategories?.length
+      ? memberSelectedCategories
+          .slice(1)
+          .reduce((acc: string, next: number) => {
+            return `${acc},${next}`;
+          }, `${memberSelectedCategories[0]}`)
+      : '';
+    switch (contextIdentifier) {
+      case CONTEXT_MEMBER:
+        return { id__in: [contextObjectId] };
+      case CONTEXT_OFFER:
+        return {
+          offer_with_selected_categories: `${contextObjectId}::${categoryListing}`,
+        };
+      case CONTEXT_SMARTLIST:
+        return { smartlist: contextObjectId };
+      default:
+        return {};
+    }
+  },
+);
+
 // #endregion

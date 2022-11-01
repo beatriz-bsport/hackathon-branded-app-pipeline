@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
 
+import isEqual from 'lodash/isEqual';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
@@ -23,10 +24,10 @@ import ReportProblem from '@material-ui/icons/ReportProblemOutlined';
 import Edit from '@material-ui/icons/Edit';
 
 import {
-  COMMUNICATION_KIND_EMAIL,
-  COMMUNICATION_KIND_PUSH_NOTIFICATION,
-  COMMUNICATION_KIND_SMS,
-} from '@bsport/common/lib/master-data/communication-kind';
+  WRITE_EMAIL,
+  WRITE_SMS,
+  WRITE_PUSH_NOTIFICATION,
+} from '#libs/communication-v2/constants';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import { FilteringMemberIdsByGenericCategories } from '#libs/communication-v2/types';
 import CommunicationRecipientModalFilter from './CommunicationRecipientsModalFilter.component';
@@ -35,23 +36,32 @@ import { Member } from '#libs/member/types';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
-  availableMemberIdList: number[];
-  availableMemberWithoutEmailIdList?: number[];
-  availableMemberWithoutPhoneIdList?: number[];
   checkedMemberCategoriesFilters: number[];
-  fetchAvailableRecipientMemberIdLists: () => void;
-  fetchPaginatedMemberList: (params: any, member_id_in: number[]) => void;
+  countAvailableRecipientsTotal: number;
+  countAvailableRecipientsWithEmail: number;
+  countAvailableRecipientsWithPhone: number;
+  fetchPaginatedAvailableRecipientMemberList: (page: number) => void;
   fullScreen?: boolean;
   handleCloseDialog: () => void;
   kind: number;
-  loadingMemberList: boolean;
-  memberList: Member[];
+  loadingPaginatedMemberList: boolean;
   open?: boolean;
   pageSize: number;
-  setAvailableMemberIdList: (idsList: number[], callback: () => void) => void;
-  setCheckedMemberCategoriesFilters: (nextList: number[]) => void;
-  setUncheckedMembers: (listIdsUnchecked: number[]) => void;
-  uncheckedMembers: number[];
+  paginatedMemberList: Member[];
+  setCheckedMemberCategoriesFilters: (
+    nextList: number[],
+    refreshCountRecipients: () => void,
+  ) => void;
+  setUncheckedMembers: (listIdsUnchecked: {
+    email: number[];
+    phone: number[];
+    notification: number[];
+  }) => void;
+  uncheckedMembers: {
+    email: number[];
+    phone: number[];
+    notification: number[];
+  };
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
@@ -61,7 +71,11 @@ type State = {
   displayWarningFull: boolean;
   anchorEl: any;
   openRefreshDialog: boolean;
-  uncheckedMembers: number[];
+  uncheckedMembers: {
+    email: number[];
+    phone: number[];
+    notification: number[];
+  };
 };
 
 export class CommunicationRecipientsModal extends React.Component<
@@ -75,42 +89,57 @@ export class CommunicationRecipientsModal extends React.Component<
       displayWarningFull: false,
       anchorEl: null,
       openRefreshDialog: false,
-      uncheckedMembers: props.uncheckedMembers ?? [],
+      uncheckedMembers: props.uncheckedMembers ?? {
+        email: [],
+        phone: [],
+        notification: [],
+      },
     };
   }
 
   componentDidMount(): void {
-    if (this.props.availableMemberIdList) {
+    if (this.props.countAvailableRecipientsTotal) {
       this.handleChangePage(null, 1);
     }
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
     if (
-      !prevProps.availableMemberIdList?.length &&
-      !!this.props.availableMemberIdList?.length
+      !prevProps.countAvailableRecipientsTotal &&
+      !!this.props.countAvailableRecipientsTotal
     ) {
       this.handleChangePage(null, 1);
     }
+    if (!isEqual(prevProps.uncheckedMembers, this.props.uncheckedMembers)) {
+      this.setState({ uncheckedMembers: this.props.uncheckedMembers });
+    }
   }
 
-  getAvailableMemberWithoutKindIdList = () => {
+  getMemberToggleState = (memberId: number) => {
     switch (this.props.kind) {
-      case COMMUNICATION_KIND_EMAIL:
-        return this.props.availableMemberWithoutEmailIdList ?? [];
-      case COMMUNICATION_KIND_SMS:
-        return this.props.availableMemberWithoutPhoneIdList ?? [];
+      case WRITE_EMAIL:
+        return this.state.uncheckedMembers.email.indexOf(memberId) === -1;
+      case WRITE_SMS:
+        return this.state.uncheckedMembers.phone.indexOf(memberId) === -1;
+      case WRITE_PUSH_NOTIFICATION:
+        return (
+          this.state.uncheckedMembers.notification.indexOf(memberId) === -1
+        );
       default:
-        return [];
+        return false;
     }
   };
 
   getWarningMessage = () => {
     const hasMissingPhonesOrEmails =
-      (this.props.kind === COMMUNICATION_KIND_SMS &&
-        this.props.availableMemberWithoutPhoneIdList?.length > 0) ||
-      (this.props.kind === COMMUNICATION_KIND_EMAIL &&
-        this.props.availableMemberWithoutEmailIdList?.length > 0);
+      (this.props.kind === WRITE_SMS &&
+        this.props.countAvailableRecipientsTotal -
+          this.props.countAvailableRecipientsWithPhone >
+          0) ||
+      (this.props.kind === WRITE_EMAIL &&
+        this.props.countAvailableRecipientsTotal -
+          this.props.countAvailableRecipientsWithEmail >
+          0);
     const hasUnselectedRecipients = this.state.uncheckedMembers?.length > 0;
     if (hasMissingPhonesOrEmails && hasUnselectedRecipients) {
       return this.props.t('dialogRecipients.warnings.full');
@@ -128,48 +157,72 @@ export class CommunicationRecipientsModal extends React.Component<
     event: React.ChangeEvent<unknown> | null,
     page: number = 1,
   ) => {
-    const idx = [
-      (page - 1) * this.props.pageSize,
-      Math.min(
-        page * this.props.pageSize,
-        this.props.availableMemberIdList.length,
-      ),
-    ];
-    const memberList =
-      this.props.availableMemberIdList?.slice(idx[0], idx[1]) || [];
-    const fetchPaginatedMemberOnCallback = () =>
-      this.props.fetchPaginatedMemberList(
-        {
-          page: 1,
-          pageSize: this.props.pageSize,
-          reset: memberList.length === 0,
-        },
-        memberList,
-      );
-    this.setState({ page }, fetchPaginatedMemberOnCallback);
+    this.setState({ page }, () => {
+      this.props.fetchPaginatedAvailableRecipientMemberList(page);
+    });
   };
 
   handleChangePageAsCallback = () => {
     this.handleChangePage(null, 1);
   };
 
-  handleFilterChange = (availableMemberIdList: number[]) => {
-    this.props.setAvailableMemberIdList(
-      availableMemberIdList,
+  handleFilterChangeMemberCategories = (nextCheckedFilters: number[]) => {
+    this.props.setCheckedMemberCategoriesFilters(
+      nextCheckedFilters,
       this.handleChangePageAsCallback,
     );
   };
 
+  handleToggleOfSelectedKind = (
+    previousUncheckedList: number[],
+    memberId: number,
+  ) => {
+    const currentIndex = previousUncheckedList.indexOf(memberId);
+    const newUncheckedList = [...previousUncheckedList];
+    if (currentIndex === -1) {
+      newUncheckedList.push(memberId);
+    } else {
+      newUncheckedList.splice(currentIndex, 1);
+    }
+    return newUncheckedList;
+  };
+
   handleToggle = (memberId: number) => () => {
     this.setState((prevState) => {
-      const currentIndex = prevState.uncheckedMembers.indexOf(memberId);
-      const newChecked = [...prevState.uncheckedMembers];
-      if (currentIndex === -1) {
-        newChecked.push(memberId);
-      } else {
-        newChecked.splice(currentIndex, 1);
+      let nextState;
+      switch (this.props.kind) {
+        case WRITE_EMAIL:
+          nextState = {
+            ...prevState.uncheckedMembers,
+            email: this.handleToggleOfSelectedKind(
+              prevState.uncheckedMembers.email,
+              memberId,
+            ),
+          };
+          break;
+        case WRITE_SMS:
+          nextState = {
+            ...prevState.uncheckedMembers,
+            phone: this.handleToggleOfSelectedKind(
+              prevState.uncheckedMembers.phone,
+              memberId,
+            ),
+          };
+          break;
+        case WRITE_PUSH_NOTIFICATION:
+          nextState = {
+            ...prevState.uncheckedMembers,
+            notification: this.handleToggleOfSelectedKind(
+              prevState.uncheckedMembers.notification,
+              memberId,
+            ),
+          };
+          break;
+        default:
+          nextState = { ...prevState.uncheckedMembers };
+          break;
       }
-      return { ...prevState, uncheckedMembers: newChecked };
+      return { ...prevState, uncheckedMembers: nextState };
     });
   };
 
@@ -197,9 +250,10 @@ export class CommunicationRecipientsModal extends React.Component<
     this.setState({ openRefreshDialog: true });
   };
 
-  renderHeader = (displayWarning: boolean) => {
-    const { classes, availableMemberIdList, t } = this.props;
-    const idsCount = availableMemberIdList ? availableMemberIdList.length : 0;
+  renderHeader = () => {
+    const { classes, t } = this.props;
+    const idsCount = this.props.countAvailableRecipientsTotal || 0;
+    const warningContent = this.renderTopWarning();
     return (
       <>
         <TableRow>
@@ -214,12 +268,12 @@ export class CommunicationRecipientsModal extends React.Component<
                   count: idsCount,
                 })}
               </Typography>
-              <Hidden smUp>{displayWarning && this.renderTopWarning()}</Hidden>
+              <Hidden smUp>{!!warningContent && warningContent}</Hidden>
             </div>
           </TableCell>
           <Hidden xsDown>
             <TableCell className={classes.cellWithWarningIcon} />
-            <TableCell>{displayWarning && this.renderTopWarning()}</TableCell>
+            <TableCell>{!!warningContent && warningContent}</TableCell>
           </Hidden>
           <TableCell align="center" />
         </TableRow>
@@ -238,6 +292,11 @@ export class CommunicationRecipientsModal extends React.Component<
     const hoverOut = () => {
       this.setState({ displayWarningFull: false, anchorEl: false });
     };
+    const warningMessage = this.getWarningMessage();
+    if (warningMessage === '') {
+      // No warning to display
+      return null;
+    }
     return (
       <>
         <div
@@ -260,7 +319,7 @@ export class CommunicationRecipientsModal extends React.Component<
             className={classes.popperContainer}
           >
             <Typography variant="caption" className={classes.popperWarningText}>
-              {this.getWarningMessage()}
+              {warningMessage}
             </Typography>
           </Popper>
         </Hidden>
@@ -268,18 +327,24 @@ export class CommunicationRecipientsModal extends React.Component<
     );
   };
 
-  renderRow = (member: Member, availableMemberWithoutKindIdList: number[]) => {
+  renderRow = (member: Member) => {
     const { t, classes } = this.props;
+    let memberPhoneOrEmailContent: string = '';
+    let missingPhoneOrEmailContent: string = '';
+    switch (this.props.kind) {
+      case WRITE_EMAIL:
+        missingPhoneOrEmailContent = t('dialogRecipients.noMail');
+        memberPhoneOrEmailContent = member?.email;
+        break;
+      case WRITE_SMS:
+        missingPhoneOrEmailContent = t('dialogRecipients.noPhone');
+        memberPhoneOrEmailContent = member?.phone || member?.phone_number;
+        break;
+      default:
+        break;
+    }
     const memberWithoutPhoneOrEmail =
-      availableMemberWithoutKindIdList?.includes(member.id);
-    const missingPhoneOrEmailContent =
-      this.props.kind === COMMUNICATION_KIND_SMS
-        ? t('dialogRecipients.noPhone')
-        : t('dialogRecipients.noMail');
-    const memberPhoneOrEmailContent =
-      this.props.kind === COMMUNICATION_KIND_SMS
-        ? member?.phone || member?.phone_number
-        : member?.email;
+      this.props.kind !== WRITE_PUSH_NOTIFICATION && !memberPhoneOrEmailContent;
     const onEditClick = (event: React.MouseEvent) => {
       this.openMemberPage(event, member.id);
     };
@@ -298,7 +363,7 @@ export class CommunicationRecipientsModal extends React.Component<
             />
             <div className={classes.cellRowRecipient}>
               <Typography variant="body1">{member.name}</Typography>
-              {this.props.kind !== COMMUNICATION_KIND_PUSH_NOTIFICATION && (
+              {this.props.kind !== WRITE_PUSH_NOTIFICATION && (
                 <Hidden smUp>
                   {memberWithoutPhoneOrEmail ? (
                     <div className={classes.flexRowContainer}>
@@ -331,7 +396,7 @@ export class CommunicationRecipientsModal extends React.Component<
               <ReportProblem className={classes.warningIcon} />
             ) : null}
           </TableCell>
-          {this.props.kind !== COMMUNICATION_KIND_PUSH_NOTIFICATION ? (
+          {this.props.kind !== WRITE_PUSH_NOTIFICATION ? (
             <TableCell align="left" className={classes.cellWithoutBorder}>
               {memberWithoutPhoneOrEmail ? (
                 <Typography variant="body2" className={classes.warningRedColor}>
@@ -354,7 +419,7 @@ export class CommunicationRecipientsModal extends React.Component<
             </IconButton>
           ) : (
             <Checkbox
-              checked={this.state.uncheckedMembers.indexOf(member.id) === -1}
+              checked={this.getMemberToggleState(member.id)}
               onChange={this.handleToggle(member.id)}
             />
           )}
@@ -366,7 +431,6 @@ export class CommunicationRecipientsModal extends React.Component<
   renderRefreshDialog = () => {
     const { t } = this.props;
     const onRefreshMemberData = () => {
-      this.props.fetchAvailableRecipientMemberIdLists();
       this.handleChangePage(null, this.state.page);
       this.setState({ openRefreshDialog: false });
     };
@@ -385,18 +449,16 @@ export class CommunicationRecipientsModal extends React.Component<
 
   render() {
     const {
-      availableMemberIdList,
       fullScreen,
-      loadingMemberList,
-      memberList,
+      loadingPaginatedMemberList,
+      paginatedMemberList,
       open,
-      pageSize,
       t,
       classes,
     } = this.props;
-    const pageCount = Math.ceil(availableMemberIdList?.length / pageSize);
-    const availableMemberWithoutKindIdList =
-      this.getAvailableMemberWithoutKindIdList();
+    const pageCount = Math.ceil(
+      this.props.countAvailableRecipientsTotal / this.props.pageSize,
+    );
     return (
       <CommunicationWrapperDialog
         open={open}
@@ -412,9 +474,8 @@ export class CommunicationRecipientsModal extends React.Component<
           {!!this.props.allMemberCategoryList && (
             <CommunicationRecipientModalFilter
               genericMemberCategories={this.props.allMemberCategoryList}
-              setAllIdList={this.handleFilterChange}
               checkedFilters={this.props.checkedMemberCategoriesFilters}
-              setCheckedFilters={this.props.setCheckedMemberCategoriesFilters}
+              setCheckedFilters={this.handleFilterChangeMemberCategories}
             />
           )}
           <Table
@@ -423,26 +484,21 @@ export class CommunicationRecipientsModal extends React.Component<
             size="small"
             padding="normal"
           >
-            <TableHead>
-              {this.renderHeader(
-                availableMemberWithoutKindIdList?.length > 0 ||
-                  this.state.uncheckedMembers?.length > 0,
-              )}
-            </TableHead>
-            {!loadingMemberList && (
+            <TableHead>{this.renderHeader()}</TableHead>
+            {!loadingPaginatedMemberList && (
               <TableBody>
-                {memberList.map((member: Member) => (
+                {paginatedMemberList.map((member: Member) => (
                   <React.Fragment key={member.id}>
-                    {this.renderRow(member, availableMemberWithoutKindIdList)}
+                    {this.renderRow(member)}
                   </React.Fragment>
                 ))}
-                {memberList?.length === 0 && (
+                {paginatedMemberList?.length === 0 && (
                   <div className={classes.emptyTableBody} />
                 )}
               </TableBody>
             )}
           </Table>
-          {loadingMemberList && (
+          {loadingPaginatedMemberList && (
             <div className={classes.loadingContainer}>
               <CircularProgress />
             </div>

@@ -9,7 +9,6 @@ import type { RootState } from '../../reducers';
 import {
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAction,
   fetchCommunicationSentList as fetchCommunicationSentListAction,
-  fetchAvailableRecipientMemberLists as fetchAvailableRecipientMemberListsAction,
   sendCommunication,
 } from './actions';
 import {
@@ -18,8 +17,11 @@ import {
   getThreadCommunicationListHasNextPage,
   getThreadCommunicationListLoading,
 } from './selectors';
-import { getFormatedFiltersToFetchCommunicationSent } from './utils';
-import { Communication, MessageParams, DrawerProps } from './types';
+import {
+  getFormatedFiltersToFetchCommunicationSent,
+  getFormatedQueryParamsFromContext,
+} from './utils';
+import { Communication, MessageData, DrawerProps } from './types';
 
 // TEMPLATES
 import {
@@ -39,7 +41,6 @@ import {
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '#libs/member/actions';
 import { getPaginatedMembers } from '#libs/member/selectors';
-import { Member } from '#libs/member/types';
 import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
 
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
@@ -56,12 +57,19 @@ export type WithCommunicationDataProps = CommunicationConnectedProps & {
     communicationId: number,
     memberIdList: number[],
   ) => void;
-  sendCommunication: (data: MessageParams, option: OptionCallback) => void;
-  fetchAvailableRecipientMemberIdLists: () => void;
+  sendCommunication: (
+    data: MessageData,
+    memberSelectedCategories: number[],
+    option: OptionCallback,
+  ) => void;
+  fetchPaginatedAvailableRecipientMemberList: (
+    page: number,
+    memberSelectedCategories?: number[],
+  ) => void;
 };
 
 const connector = connect(
-  (state: RootState, { contextMember }: { contextMember: Member }) => ({
+  (state: RootState) => ({
     // TRHEADS
     threadCommunicationList: getThreadCommunicationList(state),
     loadingThreadCommunicationList: getThreadCommunicationListLoading(state),
@@ -77,21 +85,11 @@ const connector = connect(
     emailTemplateSummaryList: getAllEmailTemplatesSummaries(state),
     loadingEmailTemplateSummaryList: state.emailTemplate.loading,
     // MEMBERS
-    availableMemberToSendCommunicationIdList: contextMember
-      ? [contextMember.id]
-      : [...state.communicationV2.memberIdLists.allIds].sort(
-          (id, _id) => id - _id,
-        ),
-    availableMemberWithoutEmailToSendCommunicationIdList: contextMember
-      ? [!contextMember.email && contextMember.id].filter(
-          (value: any) => !!value,
-        ) // because [false and id] give [false], when [true and id] give [id]
-      : state.communicationV2.memberIdLists.allIdsWithoutEmail,
-    availableMemberWithoutPhoneToSendCommunicationIdList: contextMember
-      ? [!contextMember.phone_number && contextMember.id].filter(
-          (value: any) => !!value,
-        )
-      : state.communicationV2.memberIdLists.allIdsWithoutPhone,
+    countAvailableRecipientsTotal: state.member.communication.countTotal,
+    countAvailableRecipientsWithEmail:
+      state.member.communication.countWithEmail,
+    countAvailableRecipientsWithPhone:
+      state.member.communication.countWithPhone,
     recipientsModalMemberList: getPaginatedMembers(state),
     loadingRecipientsModalMemberList: state.member.communication.loading,
     resolvedGenericTags: getResolvedGenericTags(state),
@@ -104,8 +102,6 @@ const connector = connect(
     fetchPaginatedMemberList: fetchCommunicationsPaginatedMembers,
     sendCommunicationAction: sendCommunication,
     fetchMemberBulkById: fetchMemberBulkByIdAction,
-    fetchAvailableRecipientMemberLists:
-      fetchAvailableRecipientMemberListsAction,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
   },
 );
@@ -166,20 +162,42 @@ export default function withCommunicationData(
           fetchCommunicationRecipientList(params);
           fetchMemberBulkById(memberIdList);
         },
-      fetchAvailableRecipientMemberIdLists:
-        (props: CommunicationConnectedProps) => () => {
-          return props.fetchAvailableRecipientMemberLists({
-            context_identifier: props.contextIdentifier,
-            context_object_id: props.contextObjectId,
+      fetchPaginatedAvailableRecipientMemberList:
+        (props: CommunicationConnectedProps) =>
+        (page: number, memberSelectedCategories?: number[]) => {
+          return props.fetchPaginatedMemberList({
+            ...getFormatedQueryParamsFromContext(
+              props.contextIdentifier,
+              props.contextObjectId,
+              memberSelectedCategories || [],
+            ),
+            page_size: PAGINATION_SIZE_RECIPIENTS,
+            page,
+            ignore_ids: true,
+            reset: props.countAvailableRecipientsTotal === 0,
           });
         },
       sendCommunication:
         (props: CommunicationConnectedProps) =>
-        (data: MessageParams, option: OptionCallback) => {
+        (
+          data: MessageData,
+          memberSelectedCategories: number[],
+          option: OptionCallback,
+        ) => {
           const dataWithContext = {
             ...data,
+            ...(props.contextMember
+              ? { members: [props.contextMember.id] }
+              : {}),
             context_identifier: props.contextIdentifier,
             context_object_id: props.contextObjectId,
+            member_filters: {
+              ...getFormatedQueryParamsFromContext(
+                props.contextIdentifier,
+                props.contextObjectId,
+                memberSelectedCategories,
+              ),
+            },
           };
           return props.sendCommunicationAction(dataWithContext, option);
         },

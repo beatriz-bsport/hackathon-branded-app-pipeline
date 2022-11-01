@@ -1,5 +1,4 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
@@ -21,7 +20,10 @@ import {
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
 
-import { getAvailableTagsFromContext } from '#libs/communication-v2/utils';
+import {
+  getAvailableTagsFromContext,
+  getFormatedQueryParamsFromContext,
+} from '#libs/communication-v2/utils';
 import {
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_PUSH_TITLE,
@@ -38,35 +40,41 @@ import {
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
-  MAX_DISPLAY,
 } from '#libs/communication-v2/constants';
 import {
   MessageData,
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
-import { fetchMemberList as fetchMemberListAPI } from '#libs/member/api';
+import { fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI } from '#libs/communication-v2/api';
 
 type OwnProps = {
-  availableMemberToSendCommunicationIdList: number[];
-  availableMemberWithoutEmailToSendCommunicationIdList: number[];
-  availableMemberWithoutPhoneToSendCommunicationIdList: number[];
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   communicationKind: number;
   contextIdentifier: number;
+  contextObjectId?: number;
+  countAvailableRecipientsTotal: number;
+  countAvailableRecipientsWithEmail: number;
+  countAvailableRecipientsWithPhone: number;
   directMember?: Member;
   emailTemplateDetailList: Record<number, EmailTemplateDetail>;
   emailTemplateSummaryList: Array<EmailTemplateSummary>;
-  fetchAvailableRecipientMemberIdLists: () => void;
   fetchEmailSummaryList: () => void;
-  fetchPaginatedMemberList: (params: any, memberIds: number[]) => void;
+  fetchPaginatedAvailableRecipientMemberList: (
+    page: number,
+    memberSelectedCategories?: number[],
+  ) => void;
   fullScreen: boolean;
   getEmailDetail: (templateId: number) => void;
-  loadingMemberList: boolean;
+  loadingPaginatedMemberList: boolean;
   loadingTemplateSummaryList: boolean;
   loadingTemplateDetailList: boolean;
-  memberList: Member[];
+  paginatedMemberList: Member[];
   pageSize: number;
-  sendCommunication: (data: any, options?: OptionCallback<void>) => void;
+  sendCommunication: (
+    data: MessageData,
+    memberSelectedCategories: number[],
+    options?: OptionCallback<void>,
+  ) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
   updateThreadList: (kind: number) => void;
   resolvedGenericTags: ResolvedGenericTags;
@@ -75,7 +83,6 @@ type OwnProps = {
 export type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
-  availableMemberIds: number[];
   checkedMemberCategoryFilter: number[];
   focusTextField: number;
   mailTitle: string;
@@ -86,11 +93,18 @@ type State = {
   openRecipientSelector: boolean;
   openTemplateSelector: boolean;
   openTemplateVisualizer: boolean;
-  selectedMembers: number[];
-  selectedMemberDetailList: MemberMinimal[];
+  selectedMemberDetailListAllKinds: {
+    email: MemberMinimal[];
+    phone: MemberMinimal[];
+    notification: MemberMinimal[];
+  };
   selectedMemberDetailListLoading: boolean;
   smsContent: string;
-  uncheckedMembers: number[];
+  uncheckedMembers: {
+    email: number[];
+    phone: number[];
+    notification: number[];
+  };
   validity: number;
 };
 
@@ -101,8 +115,11 @@ export class CommunicationSendMessageContainer extends React.Component<
   constructor(props: Props) {
     super(props);
     this.state = {
-      uncheckedMembers: [],
-      selectedMembers: [],
+      uncheckedMembers: {
+        email: [],
+        phone: [],
+        notification: [],
+      },
       mailTemplateSelected: null,
       mailTitle: '',
       mailContent: '',
@@ -114,31 +131,26 @@ export class CommunicationSendMessageContainer extends React.Component<
       openTemplateVisualizer: false,
       openRecipientSelector: false,
       validity: null,
-      availableMemberIds: props.availableMemberToSendCommunicationIdList,
       checkedMemberCategoryFilter:
         props.allMemberCategoryList?.categories?.map(
           (category) => category.categoryIdentifier,
         ) || [],
-      selectedMemberDetailList: [],
+      selectedMemberDetailListAllKinds: {
+        email: [],
+        phone: [],
+        notification: [],
+      },
       selectedMemberDetailListLoading: false,
     };
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
-    if (
-      !isEqual(
-        this.props.availableMemberToSendCommunicationIdList,
-        prevProps.availableMemberToSendCommunicationIdList,
-      )
-    ) {
-      this.setState({
-        availableMemberIds: this.props.availableMemberToSendCommunicationIdList,
-      });
-    }
+  componentDidMount() {
+    this.getSelectedMembersDetailsAllKinds();
   }
 
   checkValidity = () => {
-    if (!this.props.directMember && this.state.selectedMembers.length === 0) {
+    const countSelectedRecipients = this.getSelectedRecipientsCount();
+    if (!this.props.directMember && countSelectedRecipients === 0) {
       this.setState({ validity: CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS });
     } else if (
       !!this.props.directMember &&
@@ -192,32 +204,84 @@ export class CommunicationSendMessageContainer extends React.Component<
     }
   };
 
-  getSelectedMembersDetails = () => {
-    this.checkValidity();
-    const params = {
-      id__in: this.state.selectedMembers.slice(
-        0,
-        Math.min(this.state.selectedMembers.length, MAX_DISPLAY),
-      ),
-      page: 1,
-      page_size: MAX_DISPLAY,
-    };
-    if (params.id__in.length === 0) {
-      this.setState({ selectedMemberDetailList: [] });
-    } else {
-      this.setState({ selectedMemberDetailListLoading: true }, () =>
-        fetchMemberListAPI(params).then((response) => {
-          this.setState({
-            selectedMemberDetailListLoading: false,
-            selectedMemberDetailList: response.data.results || [],
-          });
-        }),
-      );
+  fetchPaginatedAvailableRecipientMemberList = (page: number) => {
+    this.props.fetchPaginatedAvailableRecipientMemberList(
+      page,
+      this.state.checkedMemberCategoryFilter || [],
+    );
+  };
+
+  getRecipientBlacklist = (): Array<number> => {
+    switch (this.props.communicationKind) {
+      case WRITE_EMAIL:
+        return this.state.uncheckedMembers.email;
+      case WRITE_SMS:
+        return this.state.uncheckedMembers.phone;
+      case WRITE_PUSH_NOTIFICATION:
+        return this.state.uncheckedMembers.notification;
+      default:
+        return [];
     }
   };
 
-  handleCheckMemberCategoryFilter = (nextList: number[]) => {
-    this.setState({ checkedMemberCategoryFilter: nextList });
+  getSelectedMembersDetailsAllKinds = () => {
+    this.checkValidity();
+    const params = {
+      ...getFormatedQueryParamsFromContext(
+        this.props.contextIdentifier,
+        this.props.contextObjectId,
+        this.state.checkedMemberCategoryFilter,
+      ),
+      blacklist_email: this.state.uncheckedMembers.email,
+      blacklist_phone: this.state.uncheckedMembers.phone,
+      blacklist_notification: this.state.uncheckedMembers.notification,
+    };
+    this.setState({ selectedMemberDetailListLoading: true }, () =>
+      fetchFirstSelectedRecipientsForChatAllKindsAPI(params).then(
+        (response) => {
+          this.setState({
+            selectedMemberDetailListLoading: false,
+            selectedMemberDetailListAllKinds: {
+              email: response.data.email || [],
+              phone: response.data.phone || [],
+              notification: response.data.notification || [],
+            },
+          });
+        },
+      ),
+    );
+  };
+
+  getSelectedRecipientsCount = () => {
+    switch (this.props.communicationKind) {
+      case WRITE_EMAIL:
+        return (
+          this.props.countAvailableRecipientsWithEmail -
+          this.state.uncheckedMembers.email.length
+        );
+      case WRITE_SMS:
+        return (
+          this.props.countAvailableRecipientsWithPhone -
+          this.state.uncheckedMembers.phone.length
+        );
+      case WRITE_PUSH_NOTIFICATION:
+        return (
+          this.props.countAvailableRecipientsTotal -
+          this.state.uncheckedMembers.notification.length
+        );
+      default:
+        return 0;
+    }
+  };
+
+  handleCheckMemberCategoryFilter = (
+    nextList: number[],
+    refreshCountRecipients: () => void,
+  ) => {
+    this.setState(
+      { checkedMemberCategoryFilter: nextList },
+      refreshCountRecipients,
+    );
   };
 
   onBaliseItemClick = (selectedItem: string) => {
@@ -265,118 +329,81 @@ export class CommunicationSendMessageContainer extends React.Component<
 
   sendMessageWithFlushEditAndRefreshCallback = (data: MessageData) => {
     const onSuccess = () => {
-      this.setState({
-        uncheckedMembers: [],
-        selectedMembers: [],
-        mailTemplateSelected: null,
-        mailTitle: '',
-        mailContent: '',
-        smsContent: '',
-        notificationTitle: '',
-        notificationContent: '',
-        focusTextField: null,
-        openTemplateSelector: false,
-        openRecipientSelector: false,
-        openTemplateVisualizer: false,
-        validity: null,
-        availableMemberIds: this.props.availableMemberToSendCommunicationIdList,
-        checkedMemberCategoryFilter: [],
-        selectedMemberDetailList: [],
-        selectedMemberDetailListLoading: false,
-      });
+      this.setState(
+        {
+          uncheckedMembers: {
+            email: [],
+            phone: [],
+            notification: [],
+          },
+          mailTemplateSelected: null,
+          mailTitle: '',
+          mailContent: '',
+          smsContent: '',
+          notificationTitle: '',
+          notificationContent: '',
+          focusTextField: null,
+          openTemplateSelector: false,
+          openRecipientSelector: false,
+          openTemplateVisualizer: false,
+          validity: null,
+          checkedMemberCategoryFilter: [],
+        },
+        this.getSelectedMembersDetailsAllKinds,
+      );
       this.props.updateThreadList(this.props.communicationKind);
     };
-    this.props.sendCommunication(data, { onSuccess });
+    this.props.sendCommunication(data, this.state.checkedMemberCategoryFilter, {
+      onSuccess,
+    });
   };
 
   sendMessage = () => {
-    const members = this.props.directMember
-      ? [this.props.directMember.id]
-      : this.state.selectedMembers;
+    let content;
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:
         if (this.state.mailTemplateSelected) {
-          this.sendMessageWithFlushEditAndRefreshCallback({
+          content = {
             subject: this.state.mailTitle,
-            members,
             email_template: this.state.mailTemplateSelected,
-          });
+          };
         } else {
-          this.sendMessageWithFlushEditAndRefreshCallback({
+          content = {
             subject: this.state.mailTitle,
-            members,
             body: this.state.mailContent,
-          });
+          };
         }
         break;
       case WRITE_SMS:
-        this.sendMessageWithFlushEditAndRefreshCallback({
-          members,
+        content = {
           sms: this.state.smsContent,
-        });
+        };
         break;
       case WRITE_PUSH_NOTIFICATION:
-        this.sendMessageWithFlushEditAndRefreshCallback({
-          members,
+        content = {
           notification_title: this.state.notificationTitle,
           notification_content: this.state.notificationContent,
-        });
+        };
         break;
       default:
+        content = {};
         break;
     }
+    this.sendMessageWithFlushEditAndRefreshCallback({
+      ...content,
+      member_blacklist: this.getRecipientBlacklist(),
+    });
   };
 
-  setAllIds = (idsList: number[], callback: () => void) =>
-    this.setState({ availableMemberIds: idsList }, callback);
-
-  setUncheckedMembers = (uncheckedIds: number[]) => {
-    this.setState({ uncheckedMembers: uncheckedIds });
-
-    if (!this.state.availableMemberIds) {
-      this.setState({
-        selectedMembers: [],
-      });
-    } else {
-      let selectedMembersIds: number[];
-      switch (this.props.communicationKind) {
-        case WRITE_SMS:
-          // First, get members with phone number, then return those checked
-          selectedMembersIds = this.state.availableMemberIds
-            .filter(
-              (memberId) =>
-                !this.props.availableMemberWithoutPhoneToSendCommunicationIdList?.includes(
-                  memberId,
-                ),
-            )
-            .filter((memberId) => !uncheckedIds.includes(memberId));
-          break;
-        case WRITE_EMAIL:
-          selectedMembersIds = this.state.availableMemberIds
-            .filter(
-              (memberId) =>
-                !this.props.availableMemberWithoutEmailToSendCommunicationIdList?.includes(
-                  memberId,
-                ),
-            )
-            .filter((memberId) => !uncheckedIds.includes(memberId));
-          break;
-        case WRITE_PUSH_NOTIFICATION:
-          selectedMembersIds = this.state.availableMemberIds.filter(
-            (memberId) => !uncheckedIds.includes(memberId),
-          );
-          break;
-        default:
-          selectedMembersIds = [];
-          break;
-      }
-      this.setState(
-        {
-          selectedMembers: selectedMembersIds,
-        },
-        this.getSelectedMembersDetails,
-      );
-    }
+  setUncheckedMembers = (uncheckedIds: {
+    email: number[];
+    phone: number[];
+    notification: number[];
+  }) => {
+    this.setState(
+      { uncheckedMembers: uncheckedIds },
+      this.getSelectedMembersDetailsAllKinds,
+    );
   };
 
   renderWriteEmail = () => {
@@ -474,17 +501,34 @@ export class CommunicationSendMessageContainer extends React.Component<
       this.props.setCommunicationKind(kind, this.checkValidity);
     };
     const tags = getAvailableTagsFromContext(this.props.contextIdentifier);
+    let selectedMemberDetailList: MemberMinimal[] = [];
+    switch (this.props.communicationKind) {
+      case WRITE_EMAIL:
+        selectedMemberDetailList =
+          this.state.selectedMemberDetailListAllKinds.email;
+        break;
+      case WRITE_SMS:
+        selectedMemberDetailList =
+          this.state.selectedMemberDetailListAllKinds.phone;
+        break;
+      case WRITE_PUSH_NOTIFICATION:
+        selectedMemberDetailList =
+          this.state.selectedMemberDetailListAllKinds.notification;
+        break;
+      default:
+        break;
+    }
     return (
       <BottomBarIcons
         actionType={this.props.communicationKind}
-        allSelectedMembers={this.state.selectedMembers}
         directMember={this.props.directMember}
         fullScreen={this.props.fullScreen}
         handleSelectTemplate={onSelectTemplate}
         handleSelectRecipients={onSelectRecipients}
-        memberList={this.state.selectedMemberDetailList}
+        memberList={selectedMemberDetailList}
         memberListLoading={this.state.selectedMemberDetailListLoading}
         onBaliseItemClick={this.onBaliseItemClick}
+        selectedRecipientsCount={this.getSelectedRecipientsCount()}
         sendMessage={this.sendMessage}
         setActionType={setActionType}
         tags={tags}
@@ -524,27 +568,25 @@ export class CommunicationSendMessageContainer extends React.Component<
       this.setState({ openRecipientSelector: false });
     return (
       <CommunicationRecipientsModal
-        availableMemberIdList={this.state.availableMemberIds}
-        availableMemberWithoutEmailIdList={this.props.availableMemberWithoutEmailToSendCommunicationIdList.filter(
-          (id: number) => this.state.availableMemberIds.includes(id),
-        )}
-        availableMemberWithoutPhoneIdList={this.props.availableMemberWithoutPhoneToSendCommunicationIdList.filter(
-          (id: number) => this.state.availableMemberIds.includes(id),
-        )}
         allMemberCategoryList={this.props.allMemberCategoryList}
         checkedMemberCategoriesFilters={this.state.checkedMemberCategoryFilter}
-        fetchAvailableRecipientMemberIdLists={
-          this.props.fetchAvailableRecipientMemberIdLists
+        countAvailableRecipientsTotal={this.props.countAvailableRecipientsTotal}
+        countAvailableRecipientsWithEmail={
+          this.props.countAvailableRecipientsWithEmail
         }
-        fetchPaginatedMemberList={this.props.fetchPaginatedMemberList}
+        countAvailableRecipientsWithPhone={
+          this.props.countAvailableRecipientsWithPhone
+        }
+        fetchPaginatedAvailableRecipientMemberList={
+          this.fetchPaginatedAvailableRecipientMemberList
+        }
         fullScreen={this.props.fullScreen}
         handleCloseDialog={handleCloseDialog}
         kind={this.props.communicationKind}
-        loadingMemberList={this.props.loadingMemberList}
-        memberList={this.props.memberList}
+        loadingPaginatedMemberList={this.props.loadingPaginatedMemberList}
+        paginatedMemberList={this.props.paginatedMemberList}
         open={this.state.openRecipientSelector}
         pageSize={this.props.pageSize}
-        setAvailableMemberIdList={this.setAllIds}
         setCheckedMemberCategoriesFilters={this.handleCheckMemberCategoryFilter}
         setUncheckedMembers={this.setUncheckedMembers}
         uncheckedMembers={this.state.uncheckedMembers}

@@ -5,13 +5,11 @@ import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
   fetchCommunicationSentList as fetchCommunicationSentListAPI,
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAPI,
-  fetchAvailableRecipientMemberLists as fetchAvailableRecipientMemberListsAPI,
   sendCommunication as sendCommunicationAPI,
 } from './api';
 import {
   FetchCommunicationParams,
   MessageParams,
-  FormatedContext,
   Communication,
 } from './types';
 
@@ -40,28 +38,6 @@ export function sendCommunication(
       dispatch(snackbarError('communicationv2.error'));
     }
     dispatch(sendCommunicationAction.isLoading(false));
-  };
-}
-
-export const availableRecipientAction = {
-  error: createAction('AVAILABLE_RECIPIENT/LIST/ERROR'),
-  isLoading: createAction('AVAILABLE_RECIPIENT/LIST/IS_LOADING'),
-  success: createAction('AVAILABLE_RECIPIENT/LIST/SUCCESS'),
-};
-
-export function fetchAvailableRecipientMemberLists(
-  context: FormatedContext,
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(availableRecipientAction.isLoading(true));
-    dispatch(availableRecipientAction.error(null));
-    try {
-      const response = await fetchAvailableRecipientMemberListsAPI(context);
-      dispatch(availableRecipientAction.success(response.data));
-    } catch (error) {
-      dispatch(availableRecipientAction.error(error));
-    }
-    dispatch(availableRecipientAction.isLoading(false));
   };
 }
 

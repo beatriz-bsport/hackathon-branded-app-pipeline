@@ -46,7 +46,6 @@ import {
 
 type Props = {
   actionType: number;
-  allSelectedMembers: number[];
   directMember: Member;
   fullScreen: boolean;
   handleSelectTemplate: () => void;
@@ -54,6 +53,7 @@ type Props = {
   memberList: MemberMinimal[];
   memberListLoading: boolean;
   onBaliseItemClick: (item: string) => void;
+  selectedRecipientsCount: number;
   sendMessage: (data: any) => void;
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
@@ -63,7 +63,6 @@ type Props = {
 const BottomBarIcons = (props: Props) => {
   const {
     actionType,
-    allSelectedMembers,
     directMember,
     fullScreen,
     handleSelectTemplate,
@@ -71,6 +70,7 @@ const BottomBarIcons = (props: Props) => {
     memberList,
     memberListLoading,
     onBaliseItemClick,
+    selectedRecipientsCount,
     sendMessage,
     setActionType,
     tags,
@@ -227,7 +227,7 @@ const BottomBarIcons = (props: Props) => {
             )}
             onClick={handleSelectRecipients}
           >
-            {allSelectedMembers?.length > 0 ? (
+            {selectedRecipientsCount ? (
               <CommunicationThreadNumberRecipients
                 members={
                   memberList?.slice(
@@ -235,7 +235,7 @@ const BottomBarIcons = (props: Props) => {
                     Math.min(MAX_DISPLAY, memberList.length),
                   ) ?? []
                 }
-                numberRecipients={allSelectedMembers.length}
+                numberRecipients={selectedRecipientsCount}
                 compactText
                 compactAvatars={fullScreen}
                 loading={memberListLoading}

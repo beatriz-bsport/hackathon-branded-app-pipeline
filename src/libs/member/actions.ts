@@ -43,6 +43,7 @@ import type {
   MemberUploadedFile,
   ChangeEmailRequestMinimal,
   ChangeEmailRequest,
+  FetchRecipientsParams,
 } from './types';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
@@ -239,7 +240,7 @@ export const memberListForCommunicationActions = {
 };
 
 export function fetchCommunicationsPaginatedMembers(
-  params: any,
+  params: FetchRecipientsParams,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

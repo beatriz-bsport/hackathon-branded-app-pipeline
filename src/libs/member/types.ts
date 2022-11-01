@@ -146,6 +146,9 @@ export type MemberState = ErrorAndLoading &
       allIdsWithoutEmail: Array<number>;
       allIds: Array<number>;
       page: number;
+      countTotal: number;
+      countWithPhone: number;
+      countWithEmail: number;
     };
     userProfile: ErrorAndLoading & {
       profile: UserProfile | null;
@@ -191,4 +194,19 @@ export type ChangeEmailRequest<M = number> = {
 export type ChangeEmailRequestMinimal = {
   old_email: string;
   new_email: string;
+};
+
+export type FetchRecipientsParams = {
+  page?: number;
+  page_size?: number;
+  ignore_ids?: boolean;
+  reset?: boolean;
+} & MemberFilter;
+
+export type MemberFilter = {
+  smartlist?: number;
+  offer?: number;
+  offer_with_selected_categories?: string;
+  id__in?: number[];
+  company?: number;
 };

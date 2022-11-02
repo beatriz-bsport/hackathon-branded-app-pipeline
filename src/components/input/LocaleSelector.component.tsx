@@ -145,7 +145,7 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: '€',
   },
   {
-    locale: 'pt_PT',
+    locale: 'en_PT',
     icon: PT_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',

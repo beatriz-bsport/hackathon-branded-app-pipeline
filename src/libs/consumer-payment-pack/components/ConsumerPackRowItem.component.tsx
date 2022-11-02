@@ -58,6 +58,7 @@ type Props = {
   onBookOne: (id: number) => void;
   onBookMultiple: (id: number) => void;
   offer?: Offer;
+  updating: boolean;
 } & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
@@ -111,6 +112,7 @@ export class ConsumerPackRowItem extends Component<Props> {
       onBookMultiple,
       isNonCompatible,
       loading,
+      updating,
       t,
     } = this.props;
     if (isNonCompatible) {
@@ -251,11 +253,12 @@ export class ConsumerPackRowItem extends Component<Props> {
     return (
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <IconButton
-          aria-label="change-credits"
+          aria-label="change-credits-add"
           disabled={
-            available_credits
+            updating ||
+            (available_credits
               ? available_credits >= credits
-              : available_pass_credits >= credits
+              : available_pass_credits >= credits)
           }
           color="primary"
           onClick={(ev) => {
@@ -264,15 +267,17 @@ export class ConsumerPackRowItem extends Component<Props> {
             incrementCredit(consumerPack.id);
           }}
         >
-          <ExposurePlus1Icon />
+          {updating ? <CircularProgress size={24} /> : <ExposurePlus1Icon />}
         </IconButton>
+
         <IconButton
-          aria-label="change-credits"
+          aria-label="change-credits-sub"
           color="secondary"
           disabled={
-            available_credits
+            updating ||
+            (available_credits
               ? available_credits === 0
-              : available_pass_credits === 0
+              : available_pass_credits === 0)
           }
           onClick={(ev) => {
             ev.preventDefault();
@@ -280,7 +285,7 @@ export class ConsumerPackRowItem extends Component<Props> {
             decrementCredit(consumerPack.id);
           }}
         >
-          <ExposureNeg1Icon />
+          {updating ? <CircularProgress size={24} /> : <ExposureNeg1Icon />}
         </IconButton>
         {consumerPack.disabled && this.props.unblock && (
           <Button
@@ -370,6 +375,7 @@ export class ConsumerPackRowItem extends Component<Props> {
       this.props;
     const { consumer } = consumerPack;
     const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;
+
     return (
       <div>
         <ListItem

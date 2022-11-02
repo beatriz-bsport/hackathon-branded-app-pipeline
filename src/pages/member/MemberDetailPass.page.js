@@ -175,6 +175,7 @@ type Props = {
   ) => void,
   passExtenxionDeleteLoading: boolean,
   passExtensionCreationLoading: boolean,
+  consumerPaymentPacksLoadingById: { [key: string]: boolean },
 };
 
 type State = {
@@ -363,6 +364,9 @@ export class MemberDetailPass extends Component<Props, State> {
                   onClick={() =>
                     this.props.onSelectConsumerPass(this.props.id, cpp.id)
                   }
+                  updating={
+                    this.props.consumerPaymentPacksLoadingById[cpp.id] ?? false
+                  }
                 />
               )}
             />
@@ -545,6 +549,7 @@ export default compose(
         count: state.consumerPaymentPack.penalty.count,
         loading: state.consumerPaymentPack.penalty.loading,
       },
+      consumerPaymentPacksLoadingById: state.consumerPaymentPack.updatingById,
       passExtensions: getConsumerPaymentPackExtensions(state),
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
       passExtensionCreationLoading:

@@ -41,7 +41,7 @@ const initialState = Immutable<ConsumerPaymentPackState>({
   },
   loading: false,
   error: null,
-  updatingConsumerPacks: [],
+  updatingById: {},
   partialRefund: {
     loading: false,
     error: null,
@@ -336,15 +336,9 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
     },
     [updateConsumerPack.isLoading.toString()]: (state, { payload }) => {
       if (!payload.loading) {
-        return state.setIn(
-          ['updatingConsumerPacks'],
-          state.updatingConsumerPacks.filter((id) => id !== payload.id),
-        );
+        return state.setIn(['updatingById', payload.id], false);
       }
-      return state.setIn(
-        ['updatingConsumerPacks'],
-        [...state.updatingConsumerPacks, payload.id],
-      );
+      return state.setIn(['updatingById', payload.id], true);
     },
     [retrieveBulk.success.toString()]: (state, { payload }) => {
       return state.merge(

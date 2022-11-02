@@ -70,7 +70,7 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
   byOfferByMember: ErrorAndLoading & { items: number[] };
   nonCompatibleByOfferByMember: ErrorAndLoading & { items: number[] };
   compatible: ErrorAndLoading & { allIds: number[] };
-  updatingConsumerPacks: [];
+  updatingById: { [key: string]: boolean };
   partialRefund: ErrorAndLoading & { items: number[] };
   extension: ErrorAndLoading & {
     items: [];

@@ -19,7 +19,7 @@ type OwnProps = {
   onClick?: (
     ConsumerPaymentPack: WithIsSharedActive<ConsumerPaymentPack<PaymentPack>>,
   ) => void;
-  consumerPacksUpdating: Array<number>;
+  consumerPacksUpdatingById: { [key: string]: boolean };
   decrementCredit: (id: number) => void;
   incrementCredit: (id: number) => void;
   items: Array<WithIsSharedActive<ConsumerPaymentPack>>;
@@ -69,10 +69,7 @@ export const PaginatedConsumerPackList = (props: Props) => (
         decrementCredit={props.decrementCredit}
         incrementCredit={props.incrementCredit}
         onClick={props.onClick ? () => props.onClick(cpp) : null}
-        loading={
-          (props.consumerPacksUpdating || []).filter((id) => id === cpp.id)
-            .length > 0
-        }
+        updating={props.consumerPacksUpdatingById[cpp?.id] ?? false}
       />
     )}
   />

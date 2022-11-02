@@ -405,7 +405,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               nbItems={this.props.consumerPacks.count}
               loading={this.props.consumerPacks.loading}
               page={this.props.consumerPacks.page}
-              consumerPacksUpdating={this.props.consumerPacks.updating}
+              consumerPacksUpdatingById={this.props.consumerPacks.updatingById}
               itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
               onPageRequested={(page: number, pageSize: number) =>
                 this.props.fetchConsumerPacksList(page, pageSize)
@@ -476,7 +476,9 @@ export class PaymentPackDetail extends Component<Props, State> {
                 incrementCredit={this.props.incrementCredit}
                 decrementCredit={this.props.decrementCredit}
                 items={this.props.consumerPacks.items}
-                consumerPacksUpdating={this.props.consumerPacks.updating}
+                consumerPacksUpdatingById={
+                  this.props.consumerPacks.updatingById
+                }
                 nbItems={this.props.consumerPacks.count}
                 onClick={(cpp: any) => {
                   this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
@@ -607,7 +609,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       count: state.consumerPaymentPack.byPaymentPack.count,
       loading: state.consumerPaymentPack.byPaymentPack.loading,
       page: state.consumerPaymentPack.byPaymentPack.page,
-      updating: state.consumerPaymentPack.updatingConsumerPacks,
+      updatingById: state.consumerPaymentPack.updatingById,
     },
     email_templates_list: getAllEmailTemplatesSummaries(state),
     email_templates_details: getEmailTemplatesDetail(state),

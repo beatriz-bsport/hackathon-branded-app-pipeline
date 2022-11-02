@@ -594,7 +594,9 @@ export class PaymentPackList extends React.Component<Props, State> {
                   loading={this.props.consumerPacks.loading}
                   page={this.props.consumerPacks.page}
                   itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
-                  consumerPacksUpdating={this.props.consumerPacks.updating}
+                  consumerPacksUpdatingById={
+                    this.props.consumerPacks.updatingById
+                  }
                   onPageRequested={(page: number, pageSize: number) =>
                     this.props.fetchConsumerPacks(
                       this.state.paymentPackToDelete.id,
@@ -734,7 +736,7 @@ const mapStateToProps = (state: RootState) => ({
     count: state.consumerPaymentPack.byPaymentPack.count,
     loading: state.consumerPaymentPack.byPaymentPack.loading,
     page: state.consumerPaymentPack.byPaymentPack.page,
-    updating: state.consumerPaymentPack.updatingConsumerPacks,
+    updatingById: state.consumerPaymentPack.updatingById,
   },
   userPreferenceSortOption: state.userPreference.paymentPackSort,
   userPreferenceSelectedCategories:

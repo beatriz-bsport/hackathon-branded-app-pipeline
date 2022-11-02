@@ -29,7 +29,7 @@ export async function create(data: any) {
 }
 
 export async function fetchOne(id: number) {
-  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/${id}`);
+  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/${id}/`);
 }
 
 export async function edit(data: any) {

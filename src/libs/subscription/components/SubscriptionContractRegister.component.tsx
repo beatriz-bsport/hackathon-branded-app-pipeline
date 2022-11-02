@@ -275,6 +275,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           withNote
           withCoupon
           withEstablishment
+          forceEstablishmentSelection
           enableMultiLocalization={props.enableMultiLocalization}
           establishments={props.establishments}
           stripeReaders={props.stripeReaders}

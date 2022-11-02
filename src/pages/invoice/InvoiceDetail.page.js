@@ -114,6 +114,7 @@ import type { PlannedPaymentEvent } from '../../libs/invoice/types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 import type { StripeReader } from '#libs/terminal/types';
+import { withDefaultBillingEstablishment } from '#libs/member/selectors';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 const stripeRegion = getStripeRegion();
@@ -475,6 +476,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 enableMultiLocalization={
                   this.props.companyTheme.enable_multi_localization
                 }
+                memberDefaultBillingEstablishment={
+                  this.props.member?.default_billing_establishment
+                }
               />
               {this.props.invoice.invoice_type !==
                 INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER && (
@@ -749,7 +753,9 @@ export default compose(
       invoice: withAuthor(
         withInvoiceItem(withMember(withEstablishment(getInvoice))),
       )(state, uuid),
-      member: getInvoiceMemberFullDetail(getInvoice)(state, uuid),
+      member: withDefaultBillingEstablishment(
+        getInvoiceMemberFullDetail(getInvoice),
+      )(state, uuid),
       memberLoading: state.member.loading,
       paymentList: getPaymentListInInvoice(state, uuid),
       paymentLoading: state.invoice.payment.loading,

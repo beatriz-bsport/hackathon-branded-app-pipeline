@@ -1,5 +1,6 @@
 import { PaymentItem } from './payment/types';
 import { InvoiceItem } from './invoice-item/types';
+import { UserRoleData } from '#libs/role/types';
 
 export type Invoice<M = number> = {
   payments: Array<PaymentItem>;
@@ -20,13 +21,15 @@ export type Invoice<M = number> = {
   quickbooks_status: number;
   is_quick_invoice: boolean;
   invoice_type: number;
-  reverse_invoices: Array<Invoice>;
+  reverse_invoices: Array<string>;
   is_v2: boolean;
   is_draft?: boolean;
   plannedinvoice: number;
   billing_plan: number;
-  source_invoice: number;
+  source_invoice: string;
   custom_footer: number;
+  invoice_legal_identifier: string;
+  establishment: number;
 };
 
 export type PlannedPaymentEvent = {
@@ -58,4 +61,8 @@ export type BuyableItem = {
   buyable_item_identifier: number;
   voucher: number;
   price: number;
+};
+
+export type WithAuthor<T> = T & {
+  author: UserRoleData;
 };

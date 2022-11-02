@@ -101,6 +101,7 @@ export type Member<Tag = number, CA = number> = {
   emergency_contact: string;
   archived: boolean;
   pending_email: string | null;
+  default_billing_establishment: number | null;
 };
 
 export type MemberState = ErrorAndLoading &

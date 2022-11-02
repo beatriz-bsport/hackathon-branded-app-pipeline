@@ -5,7 +5,10 @@ import { RootState } from '../../reducers';
 import { getMembership } from '../membership/selectors';
 import { Member } from './types';
 import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
-import { getAllAssociatedEstablishmentGroupDict } from '../establishment/selectors';
+import {
+  getAllAssociatedEstablishmentGroupDict,
+  getAllEstablishmentsDict,
+} from '../establishment/selectors';
 import {
   getMemberProgramByMemberDict,
   getMemberProgramDict,
@@ -161,6 +164,22 @@ export const withEstablishmentGroup = memoize(
           ),
       }),
     ),
+);
+
+export const withDefaultBillingEstablishment = memoize((selector) =>
+  createSelector(
+    [selector, getAllEstablishmentsDict],
+    (member, establishments) => {
+      if (!member) return undefined;
+      if (typeof member === 'number' || !member?.default_billing_establishment)
+        return member;
+      return {
+        ...member,
+        default_billing_establishment:
+          establishments[member.default_billing_establishment],
+      };
+    },
+  ),
 );
 
 export const getMemberHistory = createSelector(

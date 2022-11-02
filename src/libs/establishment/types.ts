@@ -151,3 +151,5 @@ export type EstablishmentBillingGroupAPI = {
   company_id: number;
   establishments: Array<number>;
 };
+
+export type WithEstablishment<T> = T & { establishment: Establishment };

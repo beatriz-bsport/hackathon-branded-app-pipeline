@@ -1,10 +1,9 @@
-// @flow
-
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
-import { useTranslation, TFunction } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import TodayIcon from '@material-ui/icons/Today';
 import DevicesIcon from '@material-ui/icons/Devices';
 import PersonIcon from '@material-ui/icons/Person';
@@ -14,6 +13,7 @@ import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
@@ -21,21 +21,26 @@ import {
   INVOICE_TYPE_MIGRATION,
 } from '@bsport/common/lib/master-data/invoice-type';
 
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
-import type { Invoice } from '../types';
-import type { Establishment } from '../../establishment/types';
+import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
+import type { Invoice, WithAuthor } from '../types';
+import type {
+  Establishment,
+  WithEstablishment,
+} from '#libs/establishment/types';
 import { getStaffName } from '#libs/booking/utils';
+import { OptionCallback } from '../../../state/types';
+import { Member } from '#libs/member/types';
 
 type Props = {
-  invoice: ?Invoice,
-  onClickInvoice: (uuid: string) => void,
-  establishments: Array<Establishment>,
+  invoice?: WithAuthor<WithEstablishment<Invoice<Member>>>;
+  onClickInvoice: (uuid: string) => void;
+  establishments: Array<Establishment>;
   editBillingEstablishment: (
-    uuid: string,
     estabishmentID: number,
-    options: OptionCallback,
-  ) => void,
-  enableMultiLocalization: boolean,
+    options?: OptionCallback,
+  ) => void;
+  enableMultiLocalization: boolean;
+  memberDefaultBillingEstablishment?: Establishment;
 };
 
 const InvoiceTypeInfo = ({
@@ -43,9 +48,9 @@ const InvoiceTypeInfo = ({
   classes,
   t,
 }: {
-  invoice_type: number,
-  classes: any,
-  t: TFunction,
+  invoice_type: number;
+  classes: any;
+  t: TFunction;
 }) => {
   if (
     ![INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER, INVOICE_TYPE_MIGRATION].includes(
@@ -65,10 +70,28 @@ const InvoiceTypeInfo = ({
 };
 
 export const InvoiceHeader = (props: Props) => {
-  const { invoice } = props;
+  const { invoice, memberDefaultBillingEstablishment } = props;
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
   const [editEstablishment, setEditEstablishment] = React.useState(false);
+  const { locationInSelector, locationName } = React.useMemo(() => {
+    let selectedEstablishment;
+    if (invoice && invoice.establishment)
+      selectedEstablishment = invoice.establishment;
+    else if (memberDefaultBillingEstablishment)
+      selectedEstablishment = memberDefaultBillingEstablishment;
+    else selectedEstablishment = undefined;
+    const _locationInSelector = selectedEstablishment?.id
+      ? [selectedEstablishment.id]
+      : [];
+    const _locationName =
+      selectedEstablishment?.location?.address ||
+      t('invoice.header.noEstablishment');
+    return {
+      locationInSelector: _locationInSelector,
+      locationName: _locationName,
+    };
+  }, [invoice, memberDefaultBillingEstablishment, t]);
   if (!invoice) {
     return null;
   }
@@ -117,34 +140,37 @@ export const InvoiceHeader = (props: Props) => {
         {props.enableMultiLocalization ? (
           <>
             {editEstablishment ? (
-              <div className={classes.selectorRow}>
-                <EstablishmentSelector
-                  establishments={props.establishments}
-                  noMulti
-                  closeMenuOnSelect
-                  nullCurrentValue
-                  selectOption={async (item: {
-                    value: number,
-                    label: string,
-                  }) => {
-                    props.editBillingEstablishment(item?.value);
-                    setEditEstablishment(false);
-                  }}
-                  disabled={!editEstablishment}
-                  isClearable
-                  selectedEstablishments={[
-                    invoice && invoice.establishment?.location.address,
-                  ]}
-                  isOptionDisabled
-                />
+              <div className={classes.row}>
+                <div className={classes.selectorRow}>
+                  <EstablishmentSelector
+                    establishments={props.establishments}
+                    noMulti
+                    closeMenuOnSelect
+                    nullCurrentValue
+                    selectOption={async (item: {
+                      value: number;
+                      label: string;
+                    }) => {
+                      props.editBillingEstablishment(item?.value);
+                      setEditEstablishment(false);
+                    }}
+                    disabled={!editEstablishment}
+                    isClearable
+                    selectedEstablishments={locationInSelector}
+                    isOptionDisabled
+                  />
+                </div>
+                <IconButton
+                  onClick={() => setEditEstablishment(!editEstablishment)}
+                  className={classes.iconButton}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
               </div>
             ) : (
               <div className={classes.row}>
                 <LocationIcon fontSize="small" className={classes.leftIcon} />
-                <Typography color="textSecondary">
-                  {(invoice && invoice.establishment?.location.address) ||
-                    t('invoice.header.noEstablishment')}
-                </Typography>
+                <Typography color="textSecondary">{locationName}</Typography>
                 <IconButton
                   onClick={() => setEditEstablishment(!editEstablishment)}
                   className={classes.iconButton}
@@ -171,14 +197,14 @@ export const InvoiceHeader = (props: Props) => {
         )}
         {!!invoice.reverse_invoices &&
           !!invoice.reverse_invoices.length &&
-          invoice.reverse_invoices.map((inv) => (
+          invoice.reverse_invoices.map((invUUID: string) => (
             <ButtonBase
-              onClick={() => props.onClickInvoice(inv)}
+              onClick={() => props.onClickInvoice(invUUID)}
               className={classes.row}
             >
               <DoubleArrowIcon fontSize="small" className={classes.leftIcon} />
               <Typography color="error">
-                {`${t('invoice.header.reverseInvoice')} ${inv.slice(0, 8)}`}
+                {`${t('invoice.header.reverseInvoice')} ${invUUID.slice(0, 8)}`}
               </Typography>
             </ButtonBase>
           ))}
@@ -192,7 +218,7 @@ export const InvoiceHeader = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   header: {
     marginBottom: theme.spacing(2),
   },
@@ -212,6 +238,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selectorRow: {
     maxWidth: '50%',
+    flex: 1,
   },
   leftIcon: {
     marginRight: theme.spacing(1),

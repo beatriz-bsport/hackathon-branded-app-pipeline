@@ -2431,7 +2431,8 @@
             "shared_pass_ratio": "Gebruikspercentage",
             "total_mixed_from_src": "Aantal geboekte sessies",
             "dst_company": "Gebruiksstudio",
-            "src_company": "Aankoopstudio"
+            "src_company": "Aankoopstudio",
+            "dispute_status": "Status"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2482,7 +2483,8 @@
             "universal_passes": "Universele kaarten",
             "private_cpasses_expired": "Verlopen kredieten (afspraakkaarten)",
             "expired_pass": "Verlopen kredieten (leskaarten)",
-            "franchise_shared_pass": "Gedeeld pasgebruik"
+            "franchise_shared_pass": "Gedeeld pasgebruik",
+            "dispute": "Geschil"
         },
         "globalCategories": {
             "subheader": {
@@ -2624,7 +2626,8 @@
             "video": "Video",
             "private_service": "Afspraak",
             "staff": "Medewerkers",
-            "company": "Studio"
+            "company": "Studio",
+            "disputeStatus": "Status"
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -8442,6 +8445,11 @@
                 "text_content_funnel": "Je aankoop is succesvol verwerkt. Klik op \"Bevestigen\" om de reservering af te ronden. Ga naar \"Mijn profiel\" > \"Kaarten\" om de aankoop in te zien en te gebruiken."
             },
             "title": "Een abonnement aanschaffen"
+        },
+        "disputeStatus": {
+            "3": "Geschil verloren",
+            "2": "Geschil gewonnen",
+            "1": "Behandeling van geschillen"
         }
     },
     "snackbar": {
@@ -8689,7 +8697,11 @@
                     "12103": "Fout bij het bevestigen van deze betaling met de cadeaubon",
                     "45001": "Fout bij het bevestigen van deze betaling met de cadeaubon",
                     "generic": "Niet mogelijk om de cadeaubon te activeren",
-                    "undefined": "Onmogelijk om het lid te herkennen dat de cadeaubon wil activeren."
+                    "undefined": "Onmogelijk om het lid te herkennen dat de cadeaubon wil activeren.",
+                    "45007": "Onmogelijk om het lid te vinden die de cadeaubon wil activeren.",
+                    "45006": "De cadeaubon is al geactiveerd",
+                    "45003": "De cadeaubon is gedeactiveerd.",
+                    "45000": "De activatiecode is fout."
                 },
                 "error": "Fout bij het bevestigen van deze betaling met de cadeaubon",
                 "success": "De betaling met de cadeaubon is bevestigd"
@@ -9127,7 +9139,9 @@
             "2015": "Je hebt het maximale aantal reserveringen met deze kaart voor deze week bereikt",
             "2017": "Je hebt het maximale aantal reserveringen met deze kaart voor dit jaar bereikt",
             "2016": "Je hebt het maximale aantal reserveringen met deze kaart voor deze maand bereikt",
-            "2014": "Je hebt het maximale aantal reserveringen met deze kaart voor deze dag bereikt"
+            "2014": "Je hebt het maximale aantal reserveringen met deze kaart voor deze dag bereikt",
+            "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
+            "45004": "De cadeaubon is niet meer beschikbaar voor verkoop."
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",

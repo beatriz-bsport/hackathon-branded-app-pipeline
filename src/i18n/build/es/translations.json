@@ -2759,6 +2759,11 @@
                 "title": "Enhorabuena! Tu pago se ha realizado con éxito"
             },
             "title": "Comprar una suscripción"
+        },
+        "disputeStatus": {
+            "3": "Litigio perdido",
+            "2": "Litigio resuelto",
+            "1": "Litigio en curso"
         }
     },
     "invoice": {
@@ -4300,7 +4305,8 @@
             "shared_pass_ratio": "Porcentaje de uso",
             "total_mixed_from_src": "Número de sesiones reservadas",
             "dst_company": "Estudio de uso",
-            "src_company": "Estudio de compra"
+            "src_company": "Estudio de compra",
+            "dispute_status": "Estado"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4399,7 +4405,8 @@
             "private_cpasses_expired": "Créditos caducados (tarjetas de cita)",
             "expired_pass": "Créditos caducados (bonos)",
             "universal_passes": "Bonos Universales",
-            "franchise_shared_pass": "Usos de tarjetas compartidas"
+            "franchise_shared_pass": "Usos de tarjetas compartidas",
+            "dispute": "Litigio sobre el pago"
         },
         "globalCategories": {
             "subheader": {
@@ -4472,7 +4479,8 @@
             "private_slot": "Tipo de cita",
             "private_pass": "Tarjetas de citas",
             "staff": "Personal",
-            "company": "Estudio"
+            "company": "Estudio",
+            "disputeStatus": "Estado"
         },
         "filter": {
             "form": {
@@ -8836,7 +8844,11 @@
                 "errors": {
                     "45001": "Imposible pagar esta factura con esta tarjeta de regalo",
                     "generic": "No es posible activar la tarjeta regalo",
-                    "undefined": "Imposible reconocer al socio que quiere activar la tarjeta regalo."
+                    "undefined": "Imposible reconocer al socio que quiere activar la tarjeta regalo.",
+                    "45007": "No se puede reconocer al socio que desea activar la tarjeta.",
+                    "45006": "La tarjeta regalo ya ha sido activada",
+                    "45003": "La tarjeta regalo ha sido desactivada.",
+                    "45000": "El código de activación de la tarjeta no es correcto."
                 }
             }
         },
@@ -9447,7 +9459,9 @@
             "2015": "Su tarjeta de curso ya no le permite reservar esta semana",
             "2014": "Su tarjeta de curso ya no le permite reservar para ese día",
             "2016": "Su tarjeta de curso ya no le permite reservar este mes",
-            "2017": "Su tarjeta de curso ya no le permite reservar este año"
+            "2017": "Su tarjeta de curso ya no le permite reservar este año",
+            "45005": "La tarjeta regalo ya no está a la venta.",
+            "45004": "La tarjeta regalo ya no está a la venta."
         },
         "paymentRuleGroups": {
             "update": {

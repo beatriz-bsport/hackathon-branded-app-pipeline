@@ -17,6 +17,8 @@ import {
   COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
   COMMUNICATION_SEND_PARAMETER_AUTO,
   COMMUNICATION_SEND_PARAMETER_MANUAL,
+  COMMUNICATION_SRC_OR_DST_SENT,
+  COMMUNICATION_SRC_OR_DST_RECEIVED,
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import {
@@ -28,6 +30,7 @@ import {
   FILTER_KINDS,
   FILTER_RECIPIENTS,
   FILTER_SEND_PARAMETERS,
+  FILTER_SRC_OR_DST,
   CONTEXT_MEMBER,
   CONTEXT_OFFER,
   CONTEXT_SMARTLIST,
@@ -36,6 +39,7 @@ import {
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
+  FILTER_IDENTIFIER_SRC_OR_DST,
 } from './constants';
 
 import {
@@ -133,6 +137,19 @@ export const getFieldChoicesByIdentifier = memoize(
             ),
           },
         ];
+      case FILTER_IDENTIFIER_SRC_OR_DST:
+        return [
+          {
+            value: COMMUNICATION_SRC_OR_DST_SENT,
+            label: t(`filter.choicesLabels.${COMMUNICATION_SRC_OR_DST_SENT}`),
+          },
+          {
+            value: COMMUNICATION_SRC_OR_DST_RECEIVED,
+            label: t(
+              `filter.choicesLabels.${COMMUNICATION_SRC_OR_DST_RECEIVED}`,
+            ),
+          },
+        ];
       default:
         return undefined;
     }
@@ -170,6 +187,7 @@ export const getFiltersToEnable = memoize((contextIdentifier: number) => {
   const sharedFilters = {
     hasKindFilter: true,
     hasDatesFilter: true,
+    hasSrcOrDstFilter: true,
   };
   switch (contextIdentifier) {
     case CONTEXT_OFFER:
@@ -531,6 +549,10 @@ export const getFormatedFiltersToFetchCommunicationSent = memoize(
       FILTER_SEND_PARAMETERS.includes(id),
     );
 
+    const filter_src_or_dst = filters.find((id: number) =>
+      FILTER_SRC_OR_DST.includes(id),
+    );
+
     const filterParams: FilterParams = {};
     // @ts-ignore
     if (channel) filterParams.filter_channel = channel;
@@ -540,6 +562,7 @@ export const getFormatedFiltersToFetchCommunicationSent = memoize(
     if (filter_recipient) filterParams.filter_recipient = filter_recipient;
     if (filter_send_parameter)
       filterParams.filter_send_parameter = filter_send_parameter;
+    if (filter_src_or_dst) filterParams.filter_src_or_dst = filter_src_or_dst;
     if (dateStart) filterParams.filter_date_start = dateStart;
     if (dateEnd) filterParams.filter_date_end = dateEnd;
 

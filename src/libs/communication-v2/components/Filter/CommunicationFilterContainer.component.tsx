@@ -42,6 +42,7 @@ type FilterState = {
   recipientFilterValues: Array<SelectFieldItem>;
   channelFilterValues: Array<SelectFieldItem>;
   sendParameterFilterValues: Array<SelectFieldItem>;
+  srcOrDstFilterValues: Array<SelectFieldItem>;
   showFilterModal: boolean;
   allPreviousFilters: { filters: number[]; dateStart: number; dateEnd: number };
 };
@@ -58,6 +59,7 @@ export class CommunicationFilterContainer extends React.Component<
       recipientFilterValues: [],
       channelFilterValues: [],
       sendParameterFilterValues: [],
+      srcOrDstFilterValues: [],
       showFilterModal: false,
       allPreviousFilters: { filters: [], dateStart: null, dateEnd: null },
     };
@@ -76,6 +78,7 @@ export class CommunicationFilterContainer extends React.Component<
       hasChannelFilter,
       hasRecipientFilter,
       hasSendParameterFilter,
+      hasSrcOrDstFilter,
     } = getFiltersToEnable(this.props.contextIdentifier);
     if (hasKindFilter && this.state.kindFilterValues.length > 0) {
       this.state.kindFilterValues.forEach((item: SelectFieldItem) =>
@@ -97,6 +100,12 @@ export class CommunicationFilterContainer extends React.Component<
       this.state.sendParameterFilterValues.length > 0
     ) {
       this.state.sendParameterFilterValues.forEach((item: SelectFieldItem) =>
+        filtersNumbers.push(item.value),
+      );
+    }
+
+    if (hasSrcOrDstFilter && this.state.srcOrDstFilterValues.length > 0) {
+      this.state.srcOrDstFilterValues.forEach((item: SelectFieldItem) =>
         filtersNumbers.push(item.value),
       );
     }
@@ -123,6 +132,7 @@ export class CommunicationFilterContainer extends React.Component<
         recipientFilterValues: [],
         channelFilterValues: [],
         sendParameterFilterValues: [],
+        srcOrDstFilterValues: [],
         dateStart: null,
         dateEnd: null,
       },
@@ -184,6 +194,17 @@ export class CommunicationFilterContainer extends React.Component<
     );
   };
 
+  popSrcOrDstFilterValue = (index: number) => {
+    const newFilterValues = [...this.state.srcOrDstFilterValues];
+    newFilterValues.splice(index, 1);
+    this.setState(
+      () => ({
+        srcOrDstFilterValues: newFilterValues,
+      }),
+      this.handleFiltersSubmit,
+    );
+  };
+
   renderFilterValuesContainer = (periodHasChanged: boolean) => {
     const { classes, t } = this.props;
     const countFilter =
@@ -191,6 +212,7 @@ export class CommunicationFilterContainer extends React.Component<
       this.state.channelFilterValues.length +
       this.state.recipientFilterValues.length +
       this.state.sendParameterFilterValues.length +
+      this.state.srcOrDstFilterValues.length +
       (periodHasChanged ? 1 : 0);
     return (
       <div className={classes.filterValuesContainer}>
@@ -229,6 +251,13 @@ export class CommunicationFilterContainer extends React.Component<
               filterValues={this.state.sendParameterFilterValues}
               popFilterValue={this.popSendParameterFilterValue}
               title={t(`filter.sendParameter.title`)}
+            />
+          )}
+          {this.state.srcOrDstFilterValues.length > 0 && (
+            <CommunicationFilterValuesGenericSummary
+              filterValues={this.state.srcOrDstFilterValues}
+              popFilterValue={this.popSrcOrDstFilterValue}
+              title={t(`filter.srcOrDst.title`)}
             />
           )}
         </Hidden>
@@ -285,7 +314,8 @@ export class CommunicationFilterContainer extends React.Component<
       this.state.kindFilterValues.length > 0 ||
       this.state.recipientFilterValues.length > 0 ||
       this.state.channelFilterValues.length > 0 ||
-      this.state.sendParameterFilterValues.length > 0;
+      this.state.sendParameterFilterValues.length > 0 ||
+      this.state.srcOrDstFilterValues.length > 0;
 
     const {
       hasKindFilter,
@@ -293,12 +323,14 @@ export class CommunicationFilterContainer extends React.Component<
       hasDatesFilter,
       hasRecipientFilter,
       hasSendParameterFilter,
+      hasSrcOrDstFilter,
     } = getFiltersToEnable(contextIdentifier);
     const {
       kindFilterOptionsOverride,
       recipientFilterOptionsOverride,
       channelFilterOptionsOverride,
       sendParameterFilterOptionsOverride,
+      srcOrDstFilterOptionsOverride,
     } = getFilterOptionsOverride(contextIdentifier, this.props.t);
 
     const updateKindFilterValues = (newValues: SelectFieldItem[]) =>
@@ -309,6 +341,8 @@ export class CommunicationFilterContainer extends React.Component<
       this.setState({ recipientFilterValues: newValues });
     const updateSendParameterFilterValues = (newValues: SelectFieldItem[]) =>
       this.setState({ sendParameterFilterValues: newValues });
+    const updateSrcOrDstFilterValues = (newValues: SelectFieldItem[]) =>
+      this.setState({ srcOrDstFilterValues: newValues });
     const updateDateStartValue = (newDate: MomentType) =>
       this.setState({ dateStart: newDate });
     const updateDateEndValue = (newDate: MomentType) =>
@@ -351,6 +385,10 @@ export class CommunicationFilterContainer extends React.Component<
             sendParameterFilterOptionsOverride={
               sendParameterFilterOptionsOverride
             }
+            hasSrcOrDstFilter={hasSrcOrDstFilter}
+            srcOrDstFilterValues={this.state.srcOrDstFilterValues}
+            srcOrDstFilterSetter={updateSrcOrDstFilterValues}
+            srcOrDstFilterOptionsOverride={srcOrDstFilterOptionsOverride}
             hasDatesFilter={hasDatesFilter}
             dateStartValue={this.state.dateStart}
             dateStartSetter={updateDateStartValue}

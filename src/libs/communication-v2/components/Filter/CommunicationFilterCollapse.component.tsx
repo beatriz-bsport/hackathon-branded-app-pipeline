@@ -12,6 +12,7 @@ import {
   FILTER_IDENTIFIER_CHANNEL,
   FILTER_IDENTIFIER_RECIPIENT,
   FILTER_IDENTIFIER_SEND_PARAMETER,
+  FILTER_IDENTIFIER_SRC_OR_DST,
 } from '#libs/communication-v2/constants';
 import { getFieldChoicesByIdentifier } from '#libs/communication-v2/utils';
 import { SelectFieldItem } from '#libs/communication-v2/types';
@@ -21,6 +22,7 @@ export type FilterModalProps = {
   hasRecipientFilter?: boolean;
   hasChannelFilter?: boolean;
   hasSendParameterFilter?: boolean;
+  hasSrcOrDstFilter?: boolean;
   hasDatesFilter?: boolean;
   kindFilterValues?: SelectFieldItem[];
   kindFilterSetter?: (args: SelectFieldItem[]) => void;
@@ -34,6 +36,9 @@ export type FilterModalProps = {
   sendParameterFilterValues?: SelectFieldItem[];
   sendParameterFilterSetter?: (args: SelectFieldItem[]) => void;
   sendParameterFilterOptionsOverride?: SelectFieldItem[];
+  srcOrDstFilterValues?: SelectFieldItem[];
+  srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
+  srcOrDstFilterOptionsOverride?: SelectFieldItem[];
   dateStartValue?: MomentType;
   dateStartSetter?: (newDate: MomentType) => void;
   dateEndValue?: MomentType;
@@ -54,7 +59,8 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
     .concat(props.kindFilterValues?.map((field) => field.value))
     .concat(props.recipientFilterValues?.map((field) => field.value))
     .concat(props.channelFilterValues?.map((field) => field.value))
-    .concat(props.sendParameterFilterValues?.map((field) => field.value));
+    .concat(props.sendParameterFilterValues?.map((field) => field.value))
+    .concat(props.srcOrDstFilterValues?.map((field) => field.value));
   const enableSubmitButton =
     (props.dateStartValue?.unix() || null) !==
       props.allPreviousFilter.dateStart ||
@@ -116,6 +122,19 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             fieldChoices={
               props.sendParameterFilterOptionsOverride ??
               getFieldChoicesByIdentifier(FILTER_IDENTIFIER_SEND_PARAMETER, t)
+            }
+            noMulti
+          />
+        )}
+        {props.hasSrcOrDstFilter && (
+          <CommunicationFilterGenericField
+            fieldName={t(`filter.srcOrDst.title`)}
+            fieldPlaceholder={t(`filter.srcOrDst.placeholder`)}
+            fieldValues={props.srcOrDstFilterValues}
+            fieldValuesSetter={props.srcOrDstFilterSetter}
+            fieldChoices={
+              props.srcOrDstFilterOptionsOverride ??
+              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_SRC_OR_DST, t)
             }
             noMulti
           />

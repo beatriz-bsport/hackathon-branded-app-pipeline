@@ -57,6 +57,7 @@ export function CommunicationFactory(
   campaign_id?: string,
   communicationKind?: number,
   memberList?: Member[],
+  isAnswer?: boolean,
 ): Communication {
   const kind = communicationKind < 3 ? communicationKind : randomKind();
   const campaign = campaign_id ?? 'foolooloo';
@@ -92,7 +93,7 @@ export function CommunicationFactory(
     recipient_member_id_list:
       memberList?.map((member) => member.id) ||
       randomArray(total_recipients, 5000),
-    is_answer: Math.random() < 0.5,
+    is_answer: isAnswer !== undefined ? isAnswer : Math.random() < 0.5,
   };
 }
 

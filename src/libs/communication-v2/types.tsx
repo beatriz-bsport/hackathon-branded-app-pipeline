@@ -71,6 +71,7 @@ export type ThreadCommunication = {
   channel: number; // channel identifier
   communication: Communication;
   photos: string[];
+  answerSourceMember: Member;
 };
 
 export type CommunicationMetadata = {
@@ -113,20 +114,17 @@ export type FilterParams = {
   ];
   filter_recipient?: number[];
   filter_send_parameter?: number;
+  filter_src_or_dst?: number;
   filter_date_start?: number;
   filter_date_end?: number;
 };
 
 export type FetchCommunicationParams = {
   page: number;
-  filter_kind?: number[];
-  filter_channel?: string[];
-  filter_recipient?: number[];
-  filter_send_parameter: number;
-  filter_date_start?: number;
-  filter_date_end?: number;
+  page_size: number;
   filter_chat: boolean;
-} & FormatedContext;
+} & FormatedContext &
+  FilterParams;
 
 export type DrawerProps = {
   onDrawerClose: () => void;

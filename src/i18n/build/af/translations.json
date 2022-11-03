@@ -840,7 +840,8 @@
       },
       "numberOfRecipients": "Envoyé à 1 destinataire",
       "numberOfRecipients_plural": "Envoyé à {{count}} destinataires",
-      "numberOfRecipientsCompact": "{{count}} dest."
+      "numberOfRecipientsCompact": "{{count}} dest.",
+      "isAnswerWarning": "Attention ! Ce message n'est visible que pour le manager."
     },
     "sms": {
       "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
@@ -855,6 +856,7 @@
       "channel": { "title": "Canaux", "placeholder": "Sélectionnez un type de canal" },
       "recipient": { "title": "Destinataires", "placeholder": "Sélectionnez un type de destinataire" },
       "sendParameter": { "title": "Paramètre d'envoi", "placeholder": "Sélectionnez un paramètre d'envoi" },
+      "srcOrDst": { "title": "Messages", "placeholder": "Sélectionnez un type de message" },
       "choicesLabels": {
         "0": "Email",
         "1": "SMS",
@@ -868,7 +870,9 @@
         "31": "Réservations annulées",
         "32": "Liste d'attente",
         "50": "Automatique",
-        "51": "Manuel"
+        "51": "Manuel",
+        "70": "Envoyés",
+        "71": "Reçus"
       }
     },
     "dialogInformation": {

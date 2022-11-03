@@ -23,12 +23,15 @@ const CustomTemplate = (args: Props) => (
 );
 
 const photos = MembersFactory(4).map((member: Member) => member.photo);
+const singleMember = MembersFactory(1)[0];
 
 const communicationEmail: Communication = CommunicationFactory(
   1,
   10,
   'alpha',
   COMMUNICATION_KIND_EMAIL,
+  undefined,
+  false,
 );
 
 const communicationSMS: Communication = CommunicationFactory(
@@ -36,6 +39,8 @@ const communicationSMS: Communication = CommunicationFactory(
   20,
   'beta',
   COMMUNICATION_KIND_SMS,
+  undefined,
+  false,
 );
 
 const communicationPush: Communication = CommunicationFactory(
@@ -43,38 +48,113 @@ const communicationPush: Communication = CommunicationFactory(
   30,
   'charlie',
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
+  undefined,
+  false,
+);
+
+const answerEmail: Communication = CommunicationFactory(
+  4,
+  1,
+  '1',
+  COMMUNICATION_KIND_EMAIL,
+  [singleMember],
+  true,
+);
+
+const answerSMS: Communication = CommunicationFactory(
+  5,
+  1,
+  '2',
+  COMMUNICATION_KIND_SMS,
+  [singleMember],
+  true,
 );
 
 const options = {
-  photos: photos,
-  isSingleRecipientThread: false,
   onShowInformationClick: () => {},
   onShowEmailTemplate: (title: string, html: string) => {},
-  reverse: Math.random() < 0.3,
 };
 
 export const Email = CustomTemplate.bind({});
 
 Email.args = {
   ...options,
-  channel: COMMUNICATION_CHANNEL_SESSION,
-  communication: communicationEmail,
+  threadCommunication: {
+    photos,
+    channel: COMMUNICATION_CHANNEL_SESSION,
+    communication: communicationEmail,
+  },
+};
+
+export const EmailOnSingleMemberThread = CustomTemplate.bind({});
+
+EmailOnSingleMemberThread.args = {
+  ...options,
+  oneToOneThreadMember: singleMember,
+  threadCommunication: {
+    photos,
+    channel: COMMUNICATION_CHANNEL_SESSION,
+    communication: communicationEmail,
+  },
 };
 
 export const Sms = CustomTemplate.bind({});
 
 Sms.args = {
   ...options,
-  channel: COMMUNICATION_CHANNEL_SMARTLIST,
-  communication: communicationSMS,
+  threadCommunication: {
+    photos,
+    channel: COMMUNICATION_CHANNEL_SMARTLIST,
+    communication: communicationSMS,
+  },
+};
+
+export const SmsOnSingleMemberThread = CustomTemplate.bind({});
+
+SmsOnSingleMemberThread.args = {
+  ...options,
+  oneToOneThreadMember: singleMember,
+  threadCommunication: {
+    photos,
+    channel: COMMUNICATION_CHANNEL_SMARTLIST,
+    communication: communicationSMS,
+  },
 };
 
 export const PushNotif = CustomTemplate.bind({});
 
 PushNotif.args = {
   ...options,
-  channel: COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
-  communication: communicationPush,
+  threadCommunication: {
+    photos,
+    channel: COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
+    communication: communicationPush,
+  },
+};
+
+export const EmailAnswer = CustomTemplate.bind({});
+
+EmailAnswer.args = {
+  ...options,
+  threadCommunication: {
+    channel: COMMUNICATION_CHANNEL_SMARTLIST,
+    communication: answerEmail,
+    photos: photos,
+    answerSourceMember: singleMember,
+  },
+};
+
+export const SmsAnswer = CustomTemplate.bind({});
+
+SmsAnswer.args = {
+  ...options,
+  threadCommunication: {
+    channel: COMMUNICATION_CHANNEL_SMARTLIST,
+    communication: answerSMS,
+    photos: photos,
+    answerSourceMember: singleMember,
+  },
+  oneToOneThreadMember: singleMember,
 };
 
 export default {

@@ -57,10 +57,13 @@ export const getThreadCommunicationList = createSelector(
           (member_id: number) => members[member_id],
         );
         const channel = getChannelFromMetadata(sent.metadata);
+        const answerSourceMember =
+          sent?.is_answer && firstMembers?.length ? firstMembers[0] : undefined;
         return {
           communication: sent,
           photos: firstMembers.map((member: Member) => member?.photo),
           channel,
+          answerSourceMember,
         };
       })
       .filter((thread) => !!thread),

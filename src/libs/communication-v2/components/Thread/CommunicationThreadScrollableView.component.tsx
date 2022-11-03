@@ -70,9 +70,7 @@ const CommunicationThreadScrollableView = (props: Props) => {
         sortedThreadList.map((threadCommunication: ThreadCommunication) => (
           <CommunicationThreadMessageBubble
             key={threadCommunication.communication.uuid}
-            channel={threadCommunication.channel}
-            communication={threadCommunication.communication}
-            photos={threadCommunication.photos}
+            threadCommunication={threadCommunication}
             onShowInformationClick={() =>
               props.showCommunicationInformation(threadCommunication)
             }

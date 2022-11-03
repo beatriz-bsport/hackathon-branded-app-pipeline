@@ -32,6 +32,8 @@ const {
   COMMUNICATION_RECIPIENT_WAITING_LIST,
   COMMUNICATION_SEND_PARAMETER_AUTO,
   COMMUNICATION_SEND_PARAMETER_MANUAL,
+  COMMUNICATION_SRC_OR_DST_SENT,
+  COMMUNICATION_SRC_OR_DST_RECEIVED,
 } = COMMUNICATION_FILTERS;
 
 exports.default = {
@@ -202,6 +204,8 @@ exports.default = {
     numberOfRecipients: 'Envoyé à 1 destinataire',
     numberOfRecipients_plural: 'Envoyé à {{count}} destinataires',
     numberOfRecipientsCompact: '{{count}} dest.',
+    isAnswerWarning:
+      "Attention ! Ce message n'est visible que pour le manager.",
   },
   sms: {
     warningConsent1:
@@ -238,6 +242,10 @@ exports.default = {
       title: "Paramètre d'envoi",
       placeholder: "Sélectionnez un paramètre d'envoi",
     },
+    srcOrDst: {
+      title: 'Messages',
+      placeholder: 'Sélectionnez un type de message',
+    },
     choicesLabels: {
       [COMMUNICATION_KIND_EMAIL]: 'Email',
       [COMMUNICATION_KIND_SMS]: 'SMS',
@@ -252,6 +260,8 @@ exports.default = {
       [COMMUNICATION_CHANNEL_NOTIFICATION_RULE]: 'Emails transactionnels',
       [COMMUNICATION_SEND_PARAMETER_AUTO]: 'Automatique',
       [COMMUNICATION_SEND_PARAMETER_MANUAL]: 'Manuel',
+      [COMMUNICATION_SRC_OR_DST_SENT]: 'Envoyés',
+      [COMMUNICATION_SRC_OR_DST_RECEIVED]: 'Reçus',
     },
   },
   dialogInformation: {

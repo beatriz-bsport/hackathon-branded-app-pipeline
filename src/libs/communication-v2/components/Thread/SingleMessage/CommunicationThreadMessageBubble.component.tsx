@@ -14,8 +14,9 @@ import {
 } from '@bsport/common/lib/master-data/communication-kind';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Avatar from '@material-ui/core/Avatar';
 import { getTextColorFromRGB } from '../../../../../utils/color';
-import { Communication } from '#libs/communication-v2/types';
+import { ThreadCommunication } from '#libs/communication-v2/types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
 import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
@@ -66,7 +67,10 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
     },
     flexEnd: (props) => ({
       display: 'flex',
-      justifyContent: props.reverse ? 'flex-start' : 'flex-end',
+      justifyContent: props.reverse ? 'space-between' : 'flex-end',
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column',
+      },
     }),
     channelContainer: (props) => {
       const backgroundColorChroma = chroma(theme.palette.primary.main).alpha(
@@ -104,33 +108,49 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
     leftIcon: {
       marginRight: theme.spacing(0.5),
     },
+    answerAvatar: {
+      width: theme.spacing(3.5),
+      height: theme.spacing(3.5),
+      marginLeft: theme.spacing(1),
+    },
+    answerContainer: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'row-reverse',
+    },
+    answerWarning: {
+      borderRadius: theme.spacing(0.5),
+      color: theme.palette.warning.dark,
+      textAlign: 'center',
+      backgroundColor: chroma(theme.palette.warning.light).alpha(0.05).hex(),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
   }),
 );
 
 const sanitizeRegex = /<script[\s\S]*?>[\s\S]*?<\/script>/gi;
 
 type OwnProps = {
-  channel: number;
-  photos: Array<string>;
-  communication: Communication;
   oneToOneThreadMember: Member;
   onShowInformationClick: () => void;
   onShowEmailTemplate: (title: string, html: string) => void;
   resolvedGenericTags: ResolvedGenericTags;
+  threadCommunication: ThreadCommunication;
 };
 
 export type Props = OwnProps;
 
 export const CommunicationThreadMessageBubble = (props: Props) => {
   const {
-    communication,
-    channel,
     oneToOneThreadMember,
-    photos,
     onShowInformationClick,
     onShowEmailTemplate,
     resolvedGenericTags,
+    threadCommunication,
   } = props;
+  const { communication, channel, photos, answerSourceMember } =
+    threadCommunication;
 
   const reverse = !!communication.is_answer;
   const withChannel = !!oneToOneThreadMember;
@@ -199,9 +219,11 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
             <Typography variant="h5">
               {t(`campaign.kind.${communication.kind}`)}
             </Typography>
-            <IconButton size="small" onClick={onShowInformationClick}>
-              <InfoOutlined />
-            </IconButton>
+            {!reverse && (
+              <IconButton size="small" onClick={onShowInformationClick}>
+                <InfoOutlined />
+              </IconButton>
+            )}
           </div>
           {[
             COMMUNICATION_KIND_EMAIL,
@@ -237,17 +259,32 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
               {communicationContent}
             </TypographyMultiline>
           )}
-          {!oneToOneThreadMember && (
+          {!oneToOneThreadMember && !reverse && (
             <CommunicationThreadNumberRecipients
               photos={photos}
               numberRecipients={communication.total_recipients}
             />
+          )}
+          {reverse && !!answerSourceMember && (
+            <div className={classes.answerContainer}>
+              <Avatar
+                src={photos?.length ? photos[0] : ''}
+                alt=""
+                className={classes.answerAvatar}
+              />
+              <Typography>{answerSourceMember.name}</Typography>
+            </div>
           )}
         </div>
         <div className={classes.flexEnd}>
           <Typography variant="subtitle1">
             {moment(communication.date_created).format('L - LT')}
           </Typography>
+          {reverse && !oneToOneThreadMember && (
+            <Typography className={classes.answerWarning} variant="subtitle1">
+              {t('recipient.isAnswerWarning')}
+            </Typography>
+          )}
         </div>
       </div>
     </div>

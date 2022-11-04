@@ -137,7 +137,7 @@ exports.default = {
     save: 'Sauvegarder',
   },
   columns: {
-    dispute_status: 'Status',
+    dispute_status: 'Status litige',
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
     activitiesest: 'Activités par salle',
@@ -546,7 +546,7 @@ exports.default = {
     payout: 'Virement',
     staff: 'Staff',
     company: 'Studio',
-    disputeStatus: 'Status',
+    disputeStatus: 'Status litige',
   },
   presetValuesByDatatype: {
     source_device: {

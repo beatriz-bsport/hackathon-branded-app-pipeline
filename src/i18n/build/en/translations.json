@@ -8801,7 +8801,7 @@
             "payout": "Transfer",
             "staff": "Staff",
             "company": "Studio",
-            "disputeStatus": "Status"
+            "disputeStatus": "Dispute status"
         },
         "presetValuesByIdentifier": {
             "gender": {

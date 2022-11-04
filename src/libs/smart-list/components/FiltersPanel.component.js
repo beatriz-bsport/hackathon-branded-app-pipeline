@@ -138,6 +138,7 @@ type State = {
   displayFilters: boolean,
   displayAddFilter: boolean,
   displayCategoryFilters: any,
+  isSmartListExporting: boolean,
 };
 export class FiltersPanel extends Component<Props, State> {
   state = {
@@ -145,6 +146,7 @@ export class FiltersPanel extends Component<Props, State> {
     displayFilters: true,
     displayAddFilter: false,
     displayCategoryFilters: null,
+    isSmartListExporting: false,
   };
 
   handleFilterChange = (filter) => {
@@ -181,6 +183,23 @@ export class FiltersPanel extends Component<Props, State> {
         trackFormSuccess(filterId);
       },
     });
+  };
+
+  exportSmartList = async () => {
+    this.setState({ isSmartListExporting: true });
+    const response = await this.props.exportMemberTable();
+    const blob = new Blob([response.data], { type: 'xlsx' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('type', 'hidden');
+    link.href = url;
+    link.download = `${this.props.smartList.name}_${moment().format(
+      'YYYY-MM-DD',
+    )}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    this.setState({ isSmartListExporting: false });
   };
 
   render() {
@@ -228,25 +247,21 @@ export class FiltersPanel extends Component<Props, State> {
               {t('filters.add_filter')}
             </Button>
             <Button
-              onClick={async () => {
-                const response = await this.props.exportMemberTable();
-                const blob = new Blob([response.data], { type: 'xlsx' });
-                const url = window.URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.setAttribute('type', 'hidden');
-                link.href = url;
-                link.download = `${this.props.smartList.name}_${moment().format(
-                  'YYYY-MM-DD',
-                )}.csv`;
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-              }}
+              onClick={this.exportSmartList}
+              disabled={this.state.isSmartListExporting}
               color="secondary"
               variant="contained"
               className={classes.actionButton}
             >
-              <CloudDownloadIcon className={this.props.classes.leftIcon} />
+              {this.state.isSmartListExporting ? (
+                <CircularProgress
+                  className={this.props.classes.leftIcon}
+                  size={25}
+                  color="secondary"
+                />
+              ) : (
+                <CloudDownloadIcon className={this.props.classes.leftIcon} />
+              )}
               {t('exportList')}
             </Button>
           </div>

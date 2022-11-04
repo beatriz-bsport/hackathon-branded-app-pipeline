@@ -116,6 +116,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   };
 
   const date = (() => {
+    if (offer?.meta_activity?.is_broadcast)
+      return moment(offer?.date_start).format('L');
+
     if (offer.date_start && establishment) {
       return moment(offer?.date_start)
         .tz(establishment?.tzname ?? 'Europe/Paris')

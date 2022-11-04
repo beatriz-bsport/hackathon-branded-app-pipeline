@@ -112,7 +112,10 @@ export function fetchPaymentComboBulk(
   };
 }
 
-export function deletePaymentCombo(id: number): ThunkAction {
+export function deletePaymentCombo(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboDeleteActions.isLoading(true));
     dispatch(paymentComboDeleteActions.error(null));
@@ -121,9 +124,11 @@ export function deletePaymentCombo(id: number): ThunkAction {
       await deletePaymentComboAPI(id);
       dispatch(paymentComboDeleteActions.success(id));
       dispatch(paymentComboDeleteActions.error(null));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
       dispatch(paymentComboDeleteActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(paymentComboDeleteActions.isLoading(false));
   };

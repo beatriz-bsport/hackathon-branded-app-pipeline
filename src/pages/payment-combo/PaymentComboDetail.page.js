@@ -209,7 +209,7 @@ export default compose(
       onPrivatePassClick: () => push('/private-service/pass'),
       onPaymentPackClick: (id) => push(`/payment-pack/${id}`),
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
-      goToPaymentComboList: () => push('/payment-combo/'),
+      goToPaymentComboList: () => push('/combo/'),
     },
   ),
   withHandlers({

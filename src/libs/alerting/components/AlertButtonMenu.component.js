@@ -62,15 +62,15 @@ export default function AlertButtonMenu(props: Props) {
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Paper square className={classes.menuContainer}>
-              <ClickAwayListener
-                onClickAway={(e) => {
-                  if (e.currentTarget === dialogOpen) {
-                    return;
-                  }
-                  setDialogOpen(null);
-                }}
-              >
+            <ClickAwayListener
+              onClickAway={(e) => {
+                if (e.currentTarget === dialogOpen) {
+                  return;
+                }
+                setDialogOpen(null);
+              }}
+            >
+              <Paper square className={classes.menuContainer}>
                 <AlertList
                   alertings={alertings}
                   totalCount={nbAlerting}
@@ -82,8 +82,8 @@ export default function AlertButtonMenu(props: Props) {
                     pushRouter(path);
                   }}
                 />
-              </ClickAwayListener>
-            </Paper>
+              </Paper>
+            </ClickAwayListener>
           </Fade>
         )}
       </Popper>

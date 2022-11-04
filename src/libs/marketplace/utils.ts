@@ -191,28 +191,35 @@ export const getOfferHours = (
   theme: Theme,
 ) => {
   if (offer.date_start && establishment?.tzname) {
-    const startMoment = moment(offer?.date_start).tz(establishment?.tzname);
-    const startHour = formatAsTime(startMoment.format(), establishment?.tzname);
+    const tz = offer.meta_activity?.is_broadcast
+      ? moment.tz.guess()
+      : establishment.tzname;
+
+    const startMoment = moment(offer?.date_start).tz(tz);
+    const startHour = formatAsTime(startMoment.format(), tz);
 
     const endMoment = moment(offer?.date_start)
       .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(establishment?.tzname);
+      .tz(tz);
 
     if (!endMoment.isSame(startMoment, 'day')) {
       return startHour;
     }
-    const endHour = formatAsTime(endMoment.format(), establishment?.tzname);
+    const endHour = formatAsTime(endMoment.format(), tz);
 
     return `${startHour} - ${endHour}`;
   }
 
   if (offer.date_start) {
-    const startMoment = moment(offer?.date_start).tz(theme.timezone_name);
+    const tz = offer.meta_activity?.is_broadcast
+      ? moment.tz.guess()
+      : theme.timezone_name;
+    const startMoment = moment(offer?.date_start).tz(tz);
     const startHour = startMoment.format('HH:mm');
 
     const endMoment = moment(offer?.date_start)
       .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(theme.timezone_name);
+      .tz(tz);
     const endHour = endMoment.format('HH:mm');
 
     if (!endMoment.isSame(startMoment, 'day')) {

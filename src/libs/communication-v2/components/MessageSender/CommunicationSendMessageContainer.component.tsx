@@ -76,7 +76,6 @@ type OwnProps = {
     options?: OptionCallback<void>,
   ) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
-  updateThreadList: (kind: number) => void;
   resolvedGenericTags: ResolvedGenericTags;
 };
 
@@ -351,7 +350,6 @@ export class CommunicationSendMessageContainer extends React.Component<
         },
         this.getSelectedMembersDetailsAllKinds,
       );
-      this.props.updateThreadList(this.props.communicationKind);
     };
     this.props.sendCommunication(data, this.state.checkedMemberCategoryFilter, {
       onSuccess,

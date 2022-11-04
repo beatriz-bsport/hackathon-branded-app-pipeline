@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next';
 // @ts-ignore
 import memoize from 'memoize-one';
+import moment from 'moment-timezone';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
@@ -246,6 +247,77 @@ export const getConsentWarning = memoize(
     }
   },
 );
+
+export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
+  memoize(
+    (
+      communication: Communication,
+      filters: {
+        numberFilters: number[];
+        dateStartFilter: number;
+        dateEndFilter: number;
+      },
+    ) => {
+      const { numberFilters, dateStartFilter, dateEndFilter } = filters;
+      // Filter by kind
+      const formatedFilters = getFormatedFiltersToFetchCommunicationSent(
+        numberFilters,
+        dateStartFilter,
+        dateEndFilter,
+      );
+      if (
+        !!formatedFilters.filter_kind &&
+        !formatedFilters.filter_kind.includes(communication.kind)
+      )
+        return true;
+      // Filter by channel
+      const channel =
+        FILTER_CHANNELS[getChannelFromMetadata(communication.metadata)];
+      if (
+        !!formatedFilters.filter_channel &&
+        !formatedFilters.filter_channel.includes(channel)
+      )
+        return true;
+      // Filter by smartlist : we can only send manual messages => only need to filter out if Automatic campaign is selected
+      if (
+        !!formatedFilters.filter_send_parameter &&
+        formatedFilters.filter_send_parameter ===
+          COMMUNICATION_SEND_PARAMETER_AUTO
+      )
+        return true;
+      // Filter out if Received messages is selected
+      if (
+        !!formatedFilters.filter_src_or_dst &&
+        formatedFilters.filter_src_or_dst === COMMUNICATION_SRC_OR_DST_RECEIVED
+      )
+        return true;
+      // Filter by dates
+      const today = moment().format();
+      if (dateStartFilter) {
+        const dateStart = moment(dateStartFilter).format();
+        const diffDaysStart = Math.round(
+          moment(today).diff(dateStart, 'days', true),
+        );
+        console.log(
+          'get today : ',
+          today,
+          'date start :',
+          dateStart,
+          'diff days :',
+          diffDaysStart,
+        );
+        if (diffDaysStart < 0) return true;
+      }
+      if (dateEndFilter) {
+        const dateEnd = moment(dateStartFilter).format();
+        const diffDaysEnd = Math.round(
+          moment(today).diff(dateEnd, 'days', true),
+        );
+        if (diffDaysEnd > 0) return true;
+      }
+      return false;
+    },
+  );
 
 // #endregion
 

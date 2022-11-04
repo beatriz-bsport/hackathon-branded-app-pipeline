@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import chroma from 'chroma-js';
 import moment from 'moment-timezone';
-
+import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
-import InfoOutlined from '@material-ui/icons/InfoOutlined';
+import { Info, Error, Warning, InfoOutlined } from '@material-ui/icons/';
 
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
-import { blueGrey } from '@material-ui/core/colors';
 import { useTranslation } from 'react-i18next';
 import {
   COMMUNICATION_KIND_EMAIL,
@@ -23,6 +22,11 @@ import HTMLPreview from '#components/html/HTMLPreview.component';
 import { interpolateHTMLWithTags } from '#components/html/utils';
 import { Member } from '#libs/member/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import {
+  COMMUNICATION_SENT_SENDING_FAIL,
+  COMMUNICATION_SENT_SENDING_PROCESSING,
+  COMMUNICATION_SENT_SENDING_SUCCESS,
+} from '#libs/communication-v2/constants';
 
 const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
   (theme) => ({
@@ -35,6 +39,7 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
       marginTop: props.withChannel ? theme.spacing(2) : theme.spacing(1),
       display: 'flex',
       justifyContent: props.reverse ? 'flex-start' : 'flex-end',
+      marginLeft: props.reverse ? theme.spacing(5) : 0,
       [theme.breakpoints.down('sm')]: {
         paddingLeft: theme.spacing(1.5),
         paddingRight: theme.spacing(1.5),
@@ -49,7 +54,9 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
       zIndex: 2,
     },
     messageBubble: (props) => ({
-      background: props.reverse ? blueGrey[50] : theme.palette.grey[100],
+      background: props.reverse
+        ? chroma(theme.palette.primary.main).alpha(0.15).hex()
+        : theme.palette.grey[100],
       borderTopLeftRadius: theme.spacing(2),
       borderTopRightRadius: theme.spacing(2),
       borderBottomRightRadius: props.reverse
@@ -59,6 +66,7 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
         ? theme.spacing(0.5)
         : theme.spacing(2),
       padding: theme.spacing(1.5),
+      position: 'relative',
     }),
     row: {
       display: 'flex',
@@ -109,22 +117,48 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
       marginRight: theme.spacing(0.5),
     },
     answerAvatar: {
-      width: theme.spacing(3.5),
-      height: theme.spacing(3.5),
-      marginLeft: theme.spacing(1),
+      position: 'absolute',
+      bottom: 0,
+      left: -theme.spacing(5),
+      width: theme.spacing(4),
+      height: theme.spacing(4),
     },
-    answerContainer: {
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'row-reverse',
+    answerNameContainer: {
+      position: 'absolute',
+      top: -theme.spacing(3),
+      left: 0,
     },
     answerWarning: {
-      borderRadius: theme.spacing(0.5),
       color: theme.palette.warning.dark,
-      textAlign: 'center',
-      backgroundColor: chroma(theme.palette.warning.light).alpha(0.05).hex(),
+      marginLeft: theme.spacing(2),
+      display: 'flex',
+      alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        marginLeft: 0,
+        fontSize: theme.spacing(1.5),
+      },
+    },
+    statusFail: {
+      color: theme.palette.error.dark,
+      backgroundColor: chroma(theme.palette.error.light).alpha(0.1).hex(),
+    },
+    statusProcessing: {
+      color: theme.palette.info.dark,
+      backgroundColor: chroma(theme.palette.info.light).alpha(0.1).hex(),
+    },
+    statusContainer: {
+      borderRadius: theme.spacing(0.5),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
+      textAlign: 'center',
+      width: 'fit-content',
+      alignItems: 'center',
+      display: 'flex',
+      paddingTop: theme.spacing(0.5),
+      paddingBottom: theme.spacing(0.5),
+    },
+    statusIcon: {
+      marginRight: theme.spacing(1),
     },
   }),
 );
@@ -214,16 +248,24 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
             </Typography>
           </div>
         )}
+        {reverse && !!answerSourceMember && (
+          <div className={classes.answerNameContainer}>
+            <Typography variant="body1" color="textSecondary">
+              {answerSourceMember.name}
+            </Typography>
+          </div>
+        )}
         <div className={classes.messageBubble}>
           <div className={classes.row}>
             <Typography variant="h5">
               {t(`campaign.kind.${communication.kind}`)}
             </Typography>
-            {!reverse && (
-              <IconButton size="small" onClick={onShowInformationClick}>
-                <InfoOutlined />
-              </IconButton>
-            )}
+            {!reverse &&
+              communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
+                <IconButton size="small" onClick={onShowInformationClick}>
+                  <InfoOutlined />
+                </IconButton>
+              )}
           </div>
           {[
             COMMUNICATION_KIND_EMAIL,
@@ -233,7 +275,9 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
           )}
 
           {communication.kind === COMMUNICATION_KIND_EMAIL &&
-          communication.text.slice(0, 14).toUpperCase() === '<!DOCTYPE HTML' ? (
+          (communication.data?.body || communication.text)
+            .slice(0, 14)
+            .toUpperCase() === '<!DOCTYPE HTML' ? (
             <>
               <div className={classes.htmlPreview}>
                 <HTMLPreview
@@ -259,21 +303,46 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
               {communicationContent}
             </TypographyMultiline>
           )}
-          {!oneToOneThreadMember && !reverse && (
-            <CommunicationThreadNumberRecipients
-              photos={photos}
-              numberRecipients={communication.total_recipients}
-            />
-          )}
-          {reverse && !!answerSourceMember && (
-            <div className={classes.answerContainer}>
-              <Avatar
-                src={photos?.length ? photos[0] : ''}
-                alt=""
-                className={classes.answerAvatar}
+          {!oneToOneThreadMember &&
+            !reverse &&
+            communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
+              <CommunicationThreadNumberRecipients
+                photos={photos}
+                numberRecipients={communication.total_recipients}
               />
-              <Typography>{answerSourceMember.name}</Typography>
-            </div>
+            )}
+          {!reverse &&
+            communication.status === COMMUNICATION_SENT_SENDING_FAIL && (
+              <Typography
+                className={classNames(
+                  classes.statusContainer,
+                  classes.statusFail,
+                )}
+                variant="body2"
+              >
+                <Error fontSize="small" className={classes.statusIcon} />
+                {t('sentStatus.fail')}
+              </Typography>
+            )}
+          {!reverse &&
+            communication.status === COMMUNICATION_SENT_SENDING_PROCESSING && (
+              <Typography
+                className={classNames(
+                  classes.statusContainer,
+                  classes.statusProcessing,
+                )}
+                variant="body2"
+              >
+                <Info fontSize="small" className={classes.statusIcon} />
+                {t('sentStatus.processing')}
+              </Typography>
+            )}
+          {reverse && !!answerSourceMember && (
+            <Avatar
+              src={answerSourceMember?.photo || ''}
+              alt=""
+              className={classes.answerAvatar}
+            />
           )}
         </div>
         <div className={classes.flexEnd}>
@@ -282,6 +351,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
           </Typography>
           {reverse && !oneToOneThreadMember && (
             <Typography className={classes.answerWarning} variant="subtitle1">
+              <Warning fontSize="small" className={classes.statusIcon} />
               {t('recipient.isAnswerWarning')}
             </Typography>
           )}

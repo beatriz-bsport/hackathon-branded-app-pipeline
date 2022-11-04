@@ -1,7 +1,11 @@
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
 // @ts-ignore
 import faker from 'faker';
-import { FILTER_CHANNELS, FILTER_KINDS } from '../constants';
+import {
+  COMMUNICATION_SENT_SENDING_SUCCESS,
+  FILTER_CHANNELS,
+  FILTER_KINDS,
+} from '../constants';
 import { Communication, ThreadCommunication } from '../types';
 import { RecipientCompactListFactory } from './RecipientWithMember';
 import { Member } from '#libs/member/types';
@@ -58,6 +62,7 @@ export function CommunicationFactory(
   communicationKind?: number,
   memberList?: Member[],
   isAnswer?: boolean,
+  status?: number,
 ): Communication {
   const kind = communicationKind < 3 ? communicationKind : randomKind();
   const campaign = campaign_id ?? 'foolooloo';
@@ -85,15 +90,16 @@ export function CommunicationFactory(
     date_created: faker.date.past().toString(),
     total_read: randomInt(3),
     total_click: randomInt(3),
-    text: 'useless text',
+    text: fakerTextContent(),
     sms_text: 'useless sms_text',
-    title: 'useless title',
+    title: faker.hacker.phrase(),
     kind,
     metadata: randomMetadata(),
     recipient_member_id_list:
       memberList?.map((member) => member.id) ||
       randomArray(total_recipients, 5000),
     is_answer: isAnswer !== undefined ? isAnswer : Math.random() < 0.5,
+    status: status ?? COMMUNICATION_SENT_SENDING_SUCCESS,
   };
 }
 

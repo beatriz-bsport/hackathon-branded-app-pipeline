@@ -16,6 +16,7 @@ type Props = {
   showEmailTemplate: (title?: string, html?: string) => void;
   currentPage: number;
   resolvedGenericTags: ResolvedGenericTags;
+  scrollToBottom: boolean;
 };
 
 const OFFSET = 5;
@@ -25,30 +26,52 @@ const CommunicationThreadScrollableView = (props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, currentElement, scrollRef] = useIsVisibleOnScreen<HTMLDivElement>(
     OFFSET,
-    100,
+    400,
     props.fetchOnEndScroll,
   );
   const [previousScrollHeight, setPreviousScrollHeight] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [scrollToBottomListener, setScrollToBottomListener] = useState(false);
+  const [previousNumberCommunication, setPreviousNumberCommunication] =
+    useState((props.threadCommunicationList || []).length);
   if (
-    scrollRef?.current &&
+    (props.currentPage !== currentPage ||
+      (props.currentPage === 1 &&
+        props.scrollToBottom === scrollToBottomListener)) &&
+    !!scrollRef?.current &&
+    (props.threadCommunicationList || []).length &&
     previousScrollHeight !== scrollRef.current.scrollHeight
   ) {
-    // a change in height happened => set the height so that we keep seing the same messages
-    const scrollTop =
-      scrollRef.current.scrollHeight - previousScrollHeight + OFFSET;
-    scrollRef.current.scrollTop = scrollTop;
-    setPreviousScrollHeight(scrollRef.current.scrollHeight);
-  }
-
-  const [currentPage, setCurrentPage] = useState(0);
-  if (props.currentPage !== currentPage && !!scrollRef?.current) {
     setCurrentPage(props.currentPage);
     if (props.currentPage === 1) {
-      // scroll to bottom
+      // When refreshing thread (on filter), go to bottom
       scrollRef.current.scrollTop =
         scrollRef.current.scrollHeight -
         scrollRef.current.getBoundingClientRect().height;
+    } else {
+      // When fetching more communication (added on top -> try to keep same position in the scroll view)
+      const scrollTop =
+        scrollRef.current.scrollHeight - previousScrollHeight + OFFSET;
+      scrollRef.current.scrollTop = scrollTop;
     }
+    setPreviousScrollHeight(scrollRef.current.scrollHeight);
+  }
+  // When a new communication has been sent and is displayed at the bottom -> go to bottom
+  if (
+    props.scrollToBottom !== scrollToBottomListener &&
+    !!scrollRef?.current &&
+    previousNumberCommunication !==
+      (props.threadCommunicationList || []).length &&
+    previousScrollHeight !== scrollRef.current.scrollHeight
+  ) {
+    setScrollToBottomListener(!scrollToBottomListener);
+    setPreviousNumberCommunication(
+      (props.threadCommunicationList || []).length,
+    );
+    setPreviousScrollHeight(scrollRef.current.scrollHeight);
+    scrollRef.current.scrollTop =
+      scrollRef.current.scrollHeight -
+      scrollRef.current.getBoundingClientRect().height;
   }
   const sortedThreadList = props.threadCommunicationList ?? [];
 

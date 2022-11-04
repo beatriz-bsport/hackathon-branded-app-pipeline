@@ -22,9 +22,13 @@ import withCommunicationData, {
   WithCommunicationDataProps,
 } from '../communication-drawer-hoc';
 
-import { getConsentWarning } from '../utils';
+import {
+  getConsentWarning,
+  needToFilterOutReceivedCommunicationSentWithActiveFilters,
+} from '../utils';
 
-import { DrawerProps } from '../types';
+import { DrawerProps, Communication, MessageData } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 import {
   CONTEXT_NOTIFICATION,
@@ -45,6 +49,8 @@ type State = {
   filterDateEnd: number;
   showMessageWritter: boolean;
   communicationKindBeingWritten: number;
+  displayThreadSnacbar: boolean;
+  scrollThreadToBottom: boolean;
 };
 
 export class CommunicationDrawer extends React.Component<Props, State> {
@@ -58,6 +64,8 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       showMessageWritter: false,
       communicationKindBeingWritten:
         props.communicationKindToWrite ?? WRITE_EMAIL,
+      displayThreadSnacbar: false,
+      scrollThreadToBottom: false,
     };
   }
 
@@ -91,10 +99,6 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     );
   };
 
-  fetchLastThreadCommunication = () => {
-    this.setState({ threadPage: 1 }, this.fetchThreadCommunicationList);
-  };
-
   fetchMoreThreadCommunications = () => {
     if (this.props.threadCommunicationListHasNextPage) {
       this.setState(
@@ -122,6 +126,10 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     );
   };
 
+  onCloseThreadSnackbar = () => {
+    this.setState({ displayThreadSnacbar: false });
+  };
+
   onShowMessageWriter = () => {
     this.setState((prevState: State) => ({
       showMessageWritter: !prevState.showMessageWritter,
@@ -130,6 +138,38 @@ export class CommunicationDrawer extends React.Component<Props, State> {
 
   setCommunicationKindBeingWritten = (kind: number, callback?: () => void) => {
     this.setState({ communicationKindBeingWritten: kind }, callback);
+  };
+
+  sendCommunication = (
+    data: MessageData,
+    memberSelectedCategories: number[],
+    options: OptionCallback<void>,
+  ) => {
+    const storeInCallback = (communicationResponse: Communication) => {
+      const filters = {
+        numberFilters: this.state.filters,
+        dateStartFilter: this.state.filterDateStart,
+        dateEndFilter: this.state.filterDateEnd,
+      };
+      const filterOutNewCommunication =
+        needToFilterOutReceivedCommunicationSentWithActiveFilters(
+          communicationResponse,
+          filters,
+        );
+      if (filterOutNewCommunication) {
+        this.setState({ displayThreadSnacbar: true });
+      } else {
+        // By changing the following value, we force the thread to scroll to bottom
+        this.setState((prevState: State) => ({
+          scrollThreadToBottom: !prevState.scrollThreadToBottom,
+        }));
+      }
+      return filterOutNewCommunication;
+    };
+    this.props.sendCommunication(data, memberSelectedCategories, {
+      ...options,
+      storeInCallback,
+    });
   };
 
   render() {
@@ -158,7 +198,6 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       loadingEmailTemplateDetailList,
       loadingEmailTemplateSummaryList,
       recipientsModalMemberList,
-      sendCommunication,
       resolvedGenericTags,
     } = this.props;
 
@@ -198,11 +237,14 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           contextMember={contextMember}
           loadingThreadDataList={loadingThreadCommunicationList}
           loadingRecipientList={loadingInformationRecipientList}
+          onCloseSnackbar={this.onCloseThreadSnackbar}
+          openSnackbar={this.state.displayThreadSnacbar}
           paginationSize={PAGINATION_SIZE_RECIPIENTS}
           recipientList={informationRecipientList}
           recipientListCount={informationRecipientListCount}
           threadCommunicationList={threadCommunicationList}
           resolvedGenericTags={resolvedGenericTags}
+          scrollToBottom={this.state.scrollThreadToBottom}
         />
         {contextIdentifier !== CONTEXT_NOTIFICATION && (
           <>
@@ -263,9 +305,8 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 loadingTemplateDetailList={loadingEmailTemplateDetailList}
                 paginatedMemberList={recipientsModalMemberList}
                 pageSize={PAGINATION_SIZE_RECIPIENTS}
-                sendCommunication={sendCommunication}
+                sendCommunication={this.sendCommunication}
                 setCommunicationKind={this.setCommunicationKindBeingWritten}
-                updateThreadList={this.fetchLastThreadCommunication}
                 resolvedGenericTags={resolvedGenericTags}
               />
             </Collapse>

@@ -17,6 +17,10 @@ import {
   COMMUNICATION_CHANNEL_SESSION,
   COMMUNICATION_CHANNEL_SMARTLIST,
 } from '@bsport/common/lib/master-data/communication-filters';
+import {
+  COMMUNICATION_SENT_SENDING_PROCESSING,
+  COMMUNICATION_SENT_SENDING_FAIL,
+} from '#libs/communication-v2/constants';
 
 const CustomTemplate = (args: Props) => (
   <CommunicationThreadMessageBubble {...args} />
@@ -68,6 +72,26 @@ const answerSMS: Communication = CommunicationFactory(
   COMMUNICATION_KIND_SMS,
   [singleMember],
   true,
+);
+
+const communicationSendingProcessing: Communication = CommunicationFactory(
+  3,
+  30,
+  'charlie',
+  COMMUNICATION_KIND_PUSH_NOTIFICATION,
+  undefined,
+  false,
+  COMMUNICATION_SENT_SENDING_PROCESSING,
+);
+
+const communicationSendingFail: Communication = CommunicationFactory(
+  3,
+  30,
+  'charlie',
+  COMMUNICATION_KIND_PUSH_NOTIFICATION,
+  undefined,
+  false,
+  COMMUNICATION_SENT_SENDING_FAIL,
 );
 
 const options = {
@@ -132,9 +156,9 @@ PushNotif.args = {
   },
 };
 
-export const EmailAnswer = CustomTemplate.bind({});
+export const EmailAnswerOnSmartlistChat = CustomTemplate.bind({});
 
-EmailAnswer.args = {
+EmailAnswerOnSmartlistChat.args = {
   ...options,
   threadCommunication: {
     channel: COMMUNICATION_CHANNEL_SMARTLIST,
@@ -155,6 +179,29 @@ SmsAnswer.args = {
     answerSourceMember: singleMember,
   },
   oneToOneThreadMember: singleMember,
+};
+
+export const CommunicationSendingProcessing = CustomTemplate.bind({});
+
+CommunicationSendingProcessing.args = {
+  ...options,
+  threadCommunication: {
+    channel: COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
+    communication: communicationSendingProcessing,
+    photos: photos,
+  },
+  oneToOneThreadMember: singleMember,
+};
+
+export const CommunicationSendingFail = CustomTemplate.bind({});
+
+CommunicationSendingFail.args = {
+  ...options,
+  threadCommunication: {
+    channel: COMMUNICATION_CHANNEL_SESSION,
+    communication: communicationSendingFail,
+    photos: photos,
+  },
 };
 
 export default {

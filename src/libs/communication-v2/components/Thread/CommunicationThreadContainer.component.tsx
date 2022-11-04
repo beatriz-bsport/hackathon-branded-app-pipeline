@@ -2,6 +2,9 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide, { SlideProps } from '@material-ui/core/Slide';
+import Alert from '@material-ui/lab/Alert';
 import CommunicationInformationModal from './ModalInformation/CommunicationInformationModal.component';
 import CommunicationThreadScrollableView from './CommunicationThreadScrollableView.component';
 import InfoGenericBox from '#components/box/InfoGenericBox.component';
@@ -14,6 +17,10 @@ import {
 import { Member } from '#libs/member/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+
+function SlideTransition(props: SlideProps) {
+  return <Slide {...props} direction="left" />;
+}
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -30,10 +37,13 @@ type OwnProps = {
   fullScreen: boolean;
   loadingThreadDataList: boolean;
   loadingRecipientList: boolean;
+  onCloseSnackbar: () => void;
+  openSnackbar: boolean;
   paginationSize: number;
   recipientList: Recipient<Member>[];
   recipientListCount: number;
   resolvedGenericTags: ResolvedGenericTags;
+  scrollToBottom: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
@@ -124,6 +134,17 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
             />
           </div>
         )}
+        <Snackbar
+          open={this.props.openSnackbar}
+          onClose={this.props.onCloseSnackbar}
+          autoHideDuration={5000}
+          TransitionComponent={SlideTransition}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          key={`snackbar-${Math.floor(Math.random() * 10000)}`}
+          className={classes.snackbar}
+        >
+          <Alert severity="info">{t('filterOutCommunicationSent')}</Alert>
+        </Snackbar>
         <CommunicationThreadScrollableView
           threadCommunicationList={threadCommunicationList}
           fetchOnEndScroll={fetchMoreThreadCommunications}
@@ -133,6 +154,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
           oneToOneThreadMember={contextMember}
           currentPage={this.props.currentPage}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          scrollToBottom={this.props.scrollToBottom}
         />
         {this.state.openEmailView && (
           <HTMLPreviewDialog
@@ -178,12 +200,20 @@ const styles: any = (theme: Theme) => ({
       marginBottom: theme.spacing(1),
     },
   },
+  snackbar: {
+    position: 'absolute',
+    top: 0,
+    padding: theme.spacing(1),
+    background: `radial-gradient(#fffa, #fff0)`,
+    width: 'fit-content',
+  },
   threadContainer: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
+    position: 'relative', // trick to have snackbar positioned relatively to the thread
   },
 });
 

@@ -19,22 +19,30 @@ import {
 export const sendCommunicationAction = {
   error: createAction('COMMUNICATION/SEND/ERROR'),
   isLoading: createAction('COMMUNICATION/SEND/IS_LOADING'),
+  success: createAction('COMMUNICATION/SEND/SUCCESS'),
 };
 
 export function sendCommunication(
   data: MessageParams,
-  options: OptionCallback,
+  options: OptionCallback<void> & {
+    storeInCallback: (communication: Communication) => boolean;
+  },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(sendCommunicationAction.isLoading(true));
     dispatch(sendCommunicationAction.error(null));
     try {
-      await sendCommunicationAPI(data);
+      const response = await sendCommunicationAPI(data);
       dispatch(snackbarSuccess('communicationv2.success'));
-      if (options && options.onSuccess) {
-        options.onSuccess();
+      if (options.onSuccess) options.onSuccess();
+      if (options.storeInCallback) {
+        const filterOutCommunication = options.storeInCallback(response.data);
+        if (!filterOutCommunication) {
+          dispatch(sendCommunicationAction.success(response.data));
+        }
       }
     } catch (error) {
+      if (options.onError) options.onError();
       dispatch(sendCommunicationAction.error(error));
       dispatch(snackbarError('communicationv2.error'));
     }

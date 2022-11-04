@@ -45,6 +45,21 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
     [sendCommunicationAction.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['send', 'error'], payload);
     },
+    [sendCommunicationAction.success.toString()]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            sent: {
+              byId: { [payload.id]: payload },
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['sent', 'thread', 'allIds'],
+          [...state.sent.thread.allIds, payload.id],
+        );
+    },
     [recipientAction.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['recipient', 'loading'], payload);
     },

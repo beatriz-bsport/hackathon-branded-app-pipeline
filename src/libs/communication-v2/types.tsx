@@ -65,6 +65,7 @@ export type Communication = {
   metadata: CommunicationMetadata;
   recipient_member_id_list: number[];
   is_answer?: boolean;
+  status: number;
 };
 
 export type ThreadCommunication = {
@@ -110,7 +111,11 @@ export type MessageData = {
 export type FilterParams = {
   filter_kind?: number[];
   filter_channel?: [
-    'offer_id' | 'marketing_notification_id' | 'smartlist_id' | 'member_id',
+    | 'offer_id'
+    | 'marketing_notification_id'
+    | 'smartlist_id'
+    | 'member_id'
+    | 'notification_rule',
   ];
   filter_recipient?: number[];
   filter_send_parameter?: number;

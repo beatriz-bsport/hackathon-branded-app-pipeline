@@ -204,8 +204,7 @@ exports.default = {
     numberOfRecipients: 'Envoyé à 1 destinataire',
     numberOfRecipients_plural: 'Envoyé à {{count}} destinataires',
     numberOfRecipientsCompact: '{{count}} dest.',
-    isAnswerWarning:
-      "Attention ! Ce message n'est visible que pour le manager.",
+    isAnswerWarning: 'Attention ! Vous seul pouvez voir ce message',
   },
   sms: {
     warningConsent1:
@@ -324,6 +323,12 @@ exports.default = {
       'Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir.',
     writeCommunication: 'Envoyer un message',
   },
+  sentStatus: {
+    processing: "La communication est en cours d'envoi",
+    fail: "Une erreur est survenue lors de l'envoi",
+  },
+  filterOutCommunicationSent:
+    "La communication que vous venez d'envoyer est cachée par les filtres actifs.",
   generic: {
     communication: 'Communication',
     history: 'Historique',

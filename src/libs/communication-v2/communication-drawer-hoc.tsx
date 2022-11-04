@@ -65,7 +65,9 @@ type WithHandlers = {
   sendCommunication: (
     data: MessageData,
     memberSelectedCategories: number[],
-    option: OptionCallback,
+    option: OptionCallback<void> & {
+      storeInCallback: (communication: Communication) => boolean;
+    },
   ) => void;
   fetchPaginatedAvailableRecipientMemberList: (
     page: number,
@@ -202,7 +204,9 @@ export default function withCommunicationData(
         (
           data: MessageData,
           memberSelectedCategories: number[],
-          option: OptionCallback,
+          options: OptionCallback<void> & {
+            storeInCallback: (communication: Communication) => boolean;
+          },
         ) => {
           const dataWithContext = {
             ...data,
@@ -219,7 +223,7 @@ export default function withCommunicationData(
               ),
             },
           };
-          return props.sendCommunicationAction(dataWithContext, option);
+          return props.sendCommunicationAction(dataWithContext, options);
         },
     }),
   )(WrappedComponent);

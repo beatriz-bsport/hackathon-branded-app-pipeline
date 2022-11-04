@@ -1277,7 +1277,8 @@
         "graph_bookings": "Réservations",
         "graph_private_bookings": "RDV",
         "graph_payments": "Paiements",
-        "graph_subscriptions": "Souscriptions"
+        "graph_subscriptions": "Souscriptions",
+        "graph_dispute": "Litiges"
       },
       "accumulate": { "total": "Accumuler" },
       "helperText": {
@@ -1335,7 +1336,8 @@
       "payout_date_created": "Date du virement",
       "payout_identifier": "Virement",
       "payout_status": "Status du virement",
-      "is_unpaid": "Impayé"
+      "is_unpaid": "Impayé",
+      "dispute_status": "Status de litige"
     },
     "graphDefaultTitles": {
       "paymentTemporal": "Encaissements",

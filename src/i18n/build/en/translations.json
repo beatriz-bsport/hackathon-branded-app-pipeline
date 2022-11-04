@@ -4370,6 +4370,7 @@
             "margin_value": "Marginal value incl. VAT / Sales Tax",
             "activity": "Activity",
             "payment_pack": "Pass",
+            "dispute_status": "Dispute status",
             "private_pass": "Appointment pass",
             "payout_date_created": "Transfer: date",
             "payout_identifier": "Transfer",
@@ -4399,7 +4400,8 @@
                 "graph_payments": "Payments",
                 "graph_private_bookings": "Appointments",
                 "graph_bookings": "Bookings",
-                "graph_members": "New members"
+                "graph_members": "New members",
+                "graph_dispute": "Disputes"
             },
             "aggregation": {
                 "max": "Maximum",

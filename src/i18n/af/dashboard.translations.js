@@ -23,6 +23,7 @@ const BOOKING_GRAPH_IDENTIFIER = 'graph_bookings';
 const PRIVATE_BOOKING_GRAPH_IDENTIFIER = 'graph_private_bookings';
 const PAYMENT_GRAPH_IDENTIFIER = 'graph_payments';
 const SUBSCRIPTION_GRAPH_IDENTIFIER = 'graph_subscriptions';
+const DISPUTE_GRAPH_IDENTIFIER = 'graph_dispute';
 
 exports.default = {
   save: 'Sauvegarder',
@@ -223,6 +224,7 @@ exports.default = {
       [PRIVATE_BOOKING_GRAPH_IDENTIFIER]: 'RDV',
       [PAYMENT_GRAPH_IDENTIFIER]: 'Paiements',
       [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Souscriptions',
+      [DISPUTE_GRAPH_IDENTIFIER]: 'Litiges',
     },
     accumulate: {
       total: 'Accumuler',
@@ -286,6 +288,7 @@ exports.default = {
     payout_identifier: 'Virement',
     payout_status: 'Status du virement',
     is_unpaid: 'Impayé',
+    dispute_status: 'Status de litige',
   },
   graphDefaultTitles: {
     paymentTemporal: 'Encaissements',

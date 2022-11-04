@@ -151,6 +151,33 @@ export class PaymentPackCard extends Component<Props, State> {
     );
   };
 
+  renderTitleAndPrice = () => {
+    const { pack, t, onlyPublic, classes } = this.props;
+
+    return (
+      <React.Fragment>
+        <Typography variant="h3" color="primary" className={classes.price}>
+          {getCurrencyDisplayWithPrice(
+            pack.price,
+            this.props.isExcludingTax,
+            pack.tax,
+          )}
+        </Typography>
+        {onlyPublic ? null : (
+          <Typography variant="caption" color="textSecondary">
+            {getCurrencyDisplayWithPrice(pack.price, true, pack.tax)}
+            {t('ht')}
+          </Typography>
+        )}
+        {!onlyPublic && (
+          <div className={classes.buttonBlock}>
+            {this.renderEditDeleteButtons()}
+          </div>
+        )}
+      </React.Fragment>
+    );
+  };
+
   renderCardHeader = () => {
     const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
       this.props;
@@ -163,7 +190,7 @@ export class PaymentPackCard extends Component<Props, State> {
         justify="space-between"
         alignItems="flex-start"
       >
-        <Grid item xs={8}>
+        <Grid item sm={7}>
           <div className={classes.header}>
             <div>
               <Typography variant="h4">{name}</Typography>
@@ -173,6 +200,15 @@ export class PaymentPackCard extends Component<Props, State> {
                 </Typography>
               )}
             </div>
+
+            <Hidden smUp>
+              <Grid item>
+                <div className={classes.marginTop}>
+                  {this.renderTitleAndPrice()}
+                </div>
+              </Grid>
+            </Hidden>
+
             <div>
               {!onlyPublic && (
                 <div className={classes.copyButton}>
@@ -201,28 +237,13 @@ export class PaymentPackCard extends Component<Props, State> {
           </div>
         </Grid>
 
-        <Grid item xs={4}>
-          <div className={classes.columnLeft}>
-            <Typography variant="h3" color="primary" className={classes.price}>
-              {getCurrencyDisplayWithPrice(
-                pack.price,
-                this.props.isExcludingTax,
-                pack.tax,
-              )}
-            </Typography>
-            {onlyPublic ? null : (
-              <Typography variant="caption" color="textSecondary">
-                {getCurrencyDisplayWithPrice(pack.price, true, pack.tax)}
-                {t('ht')}
-              </Typography>
-            )}
-            {!onlyPublic && (
-              <div className={classes.buttonBlock}>
-                {this.renderEditDeleteButtons()}
-              </div>
-            )}
-          </div>
-        </Grid>
+        <Hidden xsDown>
+          <Grid item sm={5}>
+            <div className={classes.columnLeft}>
+              {this.renderTitleAndPrice()}
+            </div>
+          </Grid>
+        </Hidden>
       </Grid>
     );
   };

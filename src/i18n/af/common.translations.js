@@ -57,4 +57,12 @@ exports.default = {
   finish: 'Terminer',
   delete: 'Supprimer',
   saveRecord: 'Enregistrer',
+  duration: {
+    day: '{{ count }} journée',
+    day_plural: '{{ count }} jours',
+    hour: '{{ count }} heure',
+    hour_plural: '{{ count }} heures',
+    minute: '{{ count }} minute',
+    minute_plural: '{{ count }} minutes',
+  },
 };

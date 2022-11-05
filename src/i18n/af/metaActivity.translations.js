@@ -15,6 +15,12 @@ exports.default = {
     goToPaymentPack: 'Cartes de cours',
   },
   forms: {
+    warning: {
+      highLastBookingBeforeWarning:
+        'Attention, {{ durationFormatted }} avant le début du cours, plus aucune réservation ne sera possible !',
+      lowFirsBookingUntilWarning:
+        "Attention, il faut attendre d'être {{ durationFormatted }} avant le début du cours avant de pouvoir faire la toute première réservation !",
+    },
     create: {
       compatible_packs: {
         seeMore: 'Voir plus',

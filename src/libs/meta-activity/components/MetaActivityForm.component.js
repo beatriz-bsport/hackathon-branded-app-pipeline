@@ -9,6 +9,7 @@ import TuneIcon from '@material-ui/icons/Tune';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import Alert from '@material-ui/lab/Alert';
 import InfoIcon from '@material-ui/icons/Info';
 import CancelIcon from '@material-ui/icons/Cancel';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -32,6 +33,7 @@ import MetaActivityCustomRestrictionsForm from './MetaActivityCustomRestrictions
 import { Tag, TagGroup } from '#libs/tag/types';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { formatDurationFromMinute } from '../../../utils/duration';
 
 type Props = {
   SCTs: *[],
@@ -52,6 +54,8 @@ export function MetaActivityForm(props: Props) {
     auto_discard_hours_before_start,
     auto_discard_min_bookings_nb,
     auto_discard_active,
+    last_booking_minutes,
+    first_booking_minutes_until,
   } = props.values;
   const {
     trackFormSubmitIntent,
@@ -173,6 +177,19 @@ export function MetaActivityForm(props: Props) {
                 fullWidth
                 required
               />
+              {!!(last_booking_minutes && last_booking_minutes > 60 * 2) && (
+                <Alert severity="warning">
+                  {t(
+                    'metaActivity:forms.warning.highLastBookingBeforeWarning',
+                    {
+                      durationFormatted: formatDurationFromMinute(
+                        last_booking_minutes,
+                        t,
+                      ),
+                    },
+                  )}
+                </Alert>
+              )}
             </div>
           </div>
           <div className={classes.restrictionSubSection}>
@@ -213,6 +230,19 @@ export function MetaActivityForm(props: Props) {
                 fullWidth
                 required
               />
+              {!!(
+                first_booking_minutes_until &&
+                first_booking_minutes_until < 60 * 24
+              ) && (
+                <Alert severity="warning">
+                  {t('metaActivity:forms.warning.lowFirsBookingUntilWarning', {
+                    durationFormatted: formatDurationFromMinute(
+                      first_booking_minutes_until,
+                      t,
+                    ),
+                  })}
+                </Alert>
+              )}
             </div>
           </div>
         </div>

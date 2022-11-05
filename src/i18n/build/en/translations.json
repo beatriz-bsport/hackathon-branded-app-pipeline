@@ -5269,6 +5269,14 @@
             "delete": "Clear",
             "noColor": "No color"
         },
+	"duration": {
+		"day": "{{ count }} day",
+		"day_plural": "{{ count }} days",
+		"hour": "{{ count }} hour",
+		"hour_plural": "{{ count }} hours",
+		"minute": "{{ count }} minute",
+		"minute_plural": "{{ count }} minutes"
+	},
         "form": {
             "duration": {
                 "day": "Duration in days:",
@@ -9676,6 +9684,12 @@
         "metaActivity": "Activity",
         "search": "Search a group activity",
         "forms": {
+		"warning": {
+			"highLastBookingBeforeWarning":
+				"Be careful, {{ durationFormatted }} before your class starts, no booking will be possible anymore !",
+			"lowFirsBookingUntilWarning":
+				"Be careful, members will have to wait {{ durationFormatted }} before the class starts to be able to make their very first booking !"
+		},
             "create": {
                 "compatible_packs": {
                     "seeMore": "See more",

@@ -8,6 +8,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import Typography from '@material-ui/core/Typography';
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
 import { provincialTaxHelperText } from '../../theme/utils';
 import {
@@ -102,6 +103,12 @@ export const PaymentComboForm: React.FC<Props> = ({
           !valuesFormik.payment_pack_ids.includes(pp.linked_payment_pack),
       )
     : [];
+
+  const isEmpty =
+    !valuesFormik.payment_pack_ids.length &&
+    !valuesFormik.shop_item_ids.length &&
+    !valuesFormik.private_pass_ids.length;
+
   return (
     <div>
       <TextField name="name" label={t('form.name.label')} required fullWidth />
@@ -127,27 +134,21 @@ export const PaymentComboForm: React.FC<Props> = ({
       <fieldset className={classes.fieldset}>
         <legend>{t('form.content')}</legend>
         <FieldArray name="payment_pack_ids">
-          {({
-            push,
-            remove,
-            form: {
-              values: { payment_pack_ids },
-            },
-          }) => (
+          {(f) => (
             <div>
               <PaymentPackSelector
                 paymentPacks={selectablePaymentPacks}
                 nullCurrentValue
                 helperText={t('form.selectorPlaceholder.paymentPack')}
                 onChange={(id: number) => {
-                  if (id) push(id);
+                  if (id) f.push(id);
                 }}
               />
-              {payment_pack_ids.map((id: number, i: number) => (
+              {f.form.values.payment_pack_ids.map((id: number, i: number) => (
                 <PaymentPackListItem
                   key={`${id}-${i}`}
                   pack={paymentPackList.find((pp) => pp.id === id)}
-                  onDelete={() => remove(i)}
+                  onDelete={() => f.remove(i)}
                 />
               ))}
             </div>
@@ -222,6 +223,11 @@ export const PaymentComboForm: React.FC<Props> = ({
             </div>
           )}
         </FieldArray>
+        {isEmpty && (
+          <Typography color="error" variant="body2">
+            {t('form.error.atLeastOneThing')}
+          </Typography>
+        )}
       </fieldset>
       <PriceField
         name="price"
@@ -296,6 +302,8 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   available_payment_method_identifiers: Yup.array()
     .of(Yup.number().integer())
     .min(1),
+  shop_item_ids: Yup.array().of(Yup.number()),
+  private_pass_ids: Yup.array().of(Yup.number()),
 });
 
 export const PaymentComboFormHoc = withFormik({

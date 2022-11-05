@@ -20,6 +20,9 @@ exports.default = {
   },
   form: {
     title: 'Formulaire pack',
+    error: {
+      atLeastOneThing: 'Vous devez ajouter au moins un élément dans votre pack',
+    },
     maxPurchasePerMember: {
       label: 'Achat maximum par membre',
       helperText: 'Laisser vide pour ne pas imposer de limite',

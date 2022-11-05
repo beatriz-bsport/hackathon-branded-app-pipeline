@@ -2491,6 +2491,7 @@
             "name": {
                 "label": "Name"
             },
+            "error": { "atLeastOneThing": "You need to add at least one item into your pack" },
             "description": {
                 "label": "Description"
             },

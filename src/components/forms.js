@@ -156,6 +156,45 @@ export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
     );
   },
 );
+
+export const IntegerFieldEnhancedHelperTextError = withStyles(textFieldStyles)(
+  (props: Props) => {
+    const { classes, shrink } = props;
+    const { t } = useTranslation();
+    const [field, meta] = useField(props);
+
+    return (
+      <Field {...props}>
+        {() => {
+          return (
+            <>
+              <MuiTextField
+                className={classes.field}
+                shrink={shrink}
+                {...field}
+                {...omit(props, ['field', 'classes'])}
+                onBlur={field.onBlur}
+                error={!!(meta.touched && meta.error)}
+                InputProps={{ inputProps: { min: props.min ?? 0 } }}
+                type="number"
+                helperText={
+                  meta.touched && meta.error ? (
+                    <Typography variant="caption" color="error">
+                      {`${t(meta.error)}`}
+                    </Typography>
+                  ) : (
+                    props.helperText
+                  )
+                }
+              />
+            </>
+          );
+        }}
+      </Field>
+    );
+  },
+);
+
 export const DelayTextField = withStyles(textFieldStyles)((props: Props) => {
   const { classes } = props;
   return (

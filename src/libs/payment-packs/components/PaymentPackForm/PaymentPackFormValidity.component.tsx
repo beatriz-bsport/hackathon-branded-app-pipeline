@@ -12,6 +12,7 @@ import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   DateField,
+  IntegerFieldEnhancedHelperTextError,
 } from '../../../../components/forms';
 import { getValidityString } from '../../utils';
 import type { PrivatePass } from '#libs/private-service/types';
@@ -108,7 +109,7 @@ export const PaymentPackFormValidity = (props: Props) => {
           <>
             <Grid item xs={12}>
               <div className={classes.row}>
-                <TextFieldEnhancedLabelWithError
+                <IntegerFieldEnhancedHelperTextError
                   disabled={initial && !initial?.editable}
                   id="dayValidity"
                   fullWidth
@@ -117,10 +118,9 @@ export const PaymentPackFormValidity = (props: Props) => {
                   label={t('addPaymentPack.dayValidity')}
                   helperText=" "
                 />
-
                 <Add />
 
-                <TextFieldEnhancedLabelWithError
+                <IntegerFieldEnhancedHelperTextError
                   disabled={initial && !initial?.editable}
                   id="monthValidity"
                   fullWidth
@@ -132,7 +132,7 @@ export const PaymentPackFormValidity = (props: Props) => {
 
                 <Add />
 
-                <TextFieldEnhancedLabelWithError
+                <IntegerFieldEnhancedHelperTextError
                   disabled={initial && !initial?.editable}
                   id="yearValidity"
                   fullWidth

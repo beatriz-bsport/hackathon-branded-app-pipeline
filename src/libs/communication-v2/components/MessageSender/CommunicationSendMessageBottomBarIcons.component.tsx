@@ -115,7 +115,8 @@ const BottomBarIcons = (props: Props) => {
           )}
         </FeatureListProvider>
         <FeatureListProvider>
-          {(featureList: any) => (
+          {() => (
+            // (featureList: any) => (
             <Tooltip
               placement="top"
               title={t('sendMessage.icons.notification')}
@@ -127,11 +128,11 @@ const BottomBarIcons = (props: Props) => {
                 }
                 className={classes.iconButton}
                 disabled={
-                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                  (!featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f: any) => f.readable_identifier === 'push_notification',
-                    ))
+                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+                  // && (!featureList.upsell ||
+                  //   !featureList.upsell.find(
+                  //     (f: any) => f.readable_identifier === 'push_notification',
+                  //   ))
                 }
               >
                 {actionType === WRITE_PUSH_NOTIFICATION ? (

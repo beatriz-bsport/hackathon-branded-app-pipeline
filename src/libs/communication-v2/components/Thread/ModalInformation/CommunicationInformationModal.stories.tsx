@@ -49,6 +49,46 @@ InformationModal.args = {
   ),
 };
 
+export const InformationModalWithEmptyList = CustomTemplate.bind({});
+
+InformationModalWithEmptyList.args = {
+  allMemberCategoryList: {
+    categories: [
+      {
+        categoryIdentifier: 1,
+        categoryLabel: 'Ceci est un premier filtre',
+        categoryMemberIdList: [],
+      },
+      {
+        categoryIdentifier: 2,
+        categoryLabel: 'Ceci est un second filtre',
+        categoryMemberIdList: [],
+      },
+      {
+        categoryIdentifier: 3,
+        categoryLabel: 'Ceci est un troisième filtre',
+        categoryMemberIdList: [],
+      },
+    ],
+    filterPlaceholder: 'Placeholder de mon filtre',
+  },
+  contextInformation: 'Yoga au lit - Lundi 25 Décembre',
+  contextTitle: 'Séance',
+  fetchRecipientPaginatedList: () => {},
+  fullScreen: false,
+  handleCloseDialog: () => {},
+  loadingRecipientList: false,
+  open: true,
+  paginationSize: PAGINATION_SIZE_RECIPIENTS,
+  recipientList: [],
+  selectedCommunication: ThreadCommunicationFactory(
+    1,
+    recipientsWithMember.map(
+      (recipient: Recipient<Member>) => recipient.member,
+    ),
+  ),
+};
+
 export default {
   title: 'Library/Communication-V2/Modals',
   component: CommunicationInformationModal,

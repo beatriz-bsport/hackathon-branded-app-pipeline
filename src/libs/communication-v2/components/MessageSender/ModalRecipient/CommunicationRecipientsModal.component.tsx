@@ -143,7 +143,7 @@ export class CommunicationRecipientsModal extends React.Component<
           this.props.countAvailableRecipientsWithEmail >
           0);
     const hasUnselectedRecipients =
-      this.getUncheckedMembersOfCurrentKind().length > 0;
+      this.getUncheckedMembersOfCurrentKind()?.length > 0;
     if (hasMissingPhonesOrEmails && hasUnselectedRecipients) {
       return this.props.t('dialogRecipients.warnings.full');
     }

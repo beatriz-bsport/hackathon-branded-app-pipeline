@@ -125,14 +125,14 @@ const NestedItem = (props: NestedItemProps) => {
         open={Boolean(target)}
         anchorEl={target}
         role={undefined}
-        placement="right-start"
+        placement="right-end"
         transition
         disablePortal={false}
         className={classes.menuContainer}
         onPointerLeave={handleClose}
       >
         {({ TransitionProps }) => (
-          <Grow {...TransitionProps} style={{ transformOrigin: 'left top' }}>
+          <Grow {...TransitionProps} style={{ transformOrigin: 'left bottom' }}>
             <Paper>
               <MenuList id={`menu-${categoryName}`} variant="menu">
                 {listData.map((itemName) => (

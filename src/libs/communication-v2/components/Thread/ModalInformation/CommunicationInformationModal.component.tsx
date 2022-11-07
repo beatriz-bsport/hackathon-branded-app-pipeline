@@ -282,7 +282,7 @@ const styles: any = (theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   emptyTableBody: {
-    height: theme.spacing(4),
+    height: theme.spacing(8.5), // to see the whole selector ...
   },
   paginationContainer: {
     marginTop: theme.spacing(2),

@@ -5,17 +5,28 @@ import CommunicationRecipientsModal, {
 import MembersFactory from '#libs/member/factories/Member';
 import { getMemberIdListsFromMemberList } from '#libs/communication-v2/utils';
 import { PAGINATION_SIZE_RECIPIENTS } from '#libs/communication-v2/constants';
-console.log('initiation');
-const CustomTemplate = (args: Props) => (
-  <CommunicationRecipientsModal {...args} />
-);
+
+const CustomTemplate = (args: Props) => {
+  const [unchecked, setUnchecked] = React.useState({
+    email: [],
+    phone: [],
+    notification: [],
+  });
+  return (
+    <CommunicationRecipientsModal
+      {...args}
+      uncheckedMembers={unchecked}
+      setUncheckedMembers={setUnchecked}
+    />
+  );
+};
 
 const memberList = MembersFactory(12, true);
 const [allMemberIds, allMemberIdsWithoutEmail, allMemberIdsWithoutPhone] =
   getMemberIdListsFromMemberList(memberList);
 
 export const RecipientsModal = CustomTemplate.bind({});
-console.log(allMemberIds, allMemberIdsWithoutEmail, allMemberIdsWithoutPhone);
+
 RecipientsModal.args = {
   allMemberCategoryList: {
     categories: [
@@ -32,22 +43,21 @@ RecipientsModal.args = {
     ],
     filterPlaceholder: 'Placeholder de mon filtre',
   },
-  availableMemberIdList: allMemberIds,
-  availableMemberWithoutEmailIdList: allMemberIdsWithoutEmail,
-  availableMemberWithoutPhoneIdList: allMemberIdsWithoutPhone,
   checkedMemberCategoriesFilters: [1],
-  fetchPaginatedMemberList: () => {},
+  countAvailableRecipientsTotal: allMemberIds.length,
+  countAvailableRecipientsWithEmail:
+    allMemberIds.length - allMemberIdsWithoutEmail.length,
+  countAvailableRecipientsWithPhone:
+    allMemberIds.length - allMemberIdsWithoutPhone.length,
+  fetchPaginatedAvailableRecipientMemberList: () => {},
   fullScreen: false,
   handleCloseDialog: () => {},
   kind: 0,
-  loadingMemberList: false,
-  memberList: memberList,
+  loadingPaginatedMemberList: false,
   open: true,
   pageSize: PAGINATION_SIZE_RECIPIENTS,
-  setAvailableMemberIdList: () => {},
+  paginatedMemberList: memberList,
   setCheckedMemberCategoriesFilters: () => {},
-  setUncheckedMembers: () => {},
-  uncheckedMembers: [],
 };
 
 export default {

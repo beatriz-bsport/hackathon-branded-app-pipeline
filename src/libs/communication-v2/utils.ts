@@ -298,14 +298,6 @@ export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
         const diffDaysStart = Math.round(
           moment(today).diff(dateStart, 'days', true),
         );
-        console.log(
-          'get today : ',
-          today,
-          'date start :',
-          dateStart,
-          'diff days :',
-          diffDaysStart,
-        );
         if (diffDaysStart < 0) return true;
       }
       if (dateEndFilter) {

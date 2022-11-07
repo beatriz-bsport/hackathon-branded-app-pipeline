@@ -32,16 +32,15 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
   (theme) => ({
     container: (props) => ({
       width: '100%',
-      paddingLeft: theme.spacing(4),
+      paddingLeft: props.reverse ? theme.spacing(9) : 4,
       paddingRight: theme.spacing(4),
       paddingTop: props.withChannel ? theme.spacing(3) : theme.spacing(1),
       paddingBottom: theme.spacing(1),
       marginTop: props.withChannel ? theme.spacing(2) : theme.spacing(1),
       display: 'flex',
       justifyContent: props.reverse ? 'flex-start' : 'flex-end',
-      marginLeft: props.reverse ? theme.spacing(5) : 0,
       [theme.breakpoints.down('sm')]: {
-        paddingLeft: theme.spacing(1.5),
+        paddingLeft: props.reverse ? theme.spacing(6.5) : theme.spacing(1.5),
         paddingRight: theme.spacing(1.5),
       },
     }),
@@ -135,7 +134,6 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
       alignItems: 'center',
       [theme.breakpoints.down('xs')]: {
         marginLeft: 0,
-        fontSize: theme.spacing(1.5),
       },
     },
     statusFail: {
@@ -350,7 +348,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
             {moment(communication.date_created).format('L - LT')}
           </Typography>
           {reverse && !oneToOneThreadMember && (
-            <Typography className={classes.answerWarning} variant="subtitle1">
+            <Typography className={classes.answerWarning} variant="caption">
               <Warning fontSize="small" className={classes.statusIcon} />
               {t('recipient.isAnswerWarning')}
             </Typography>

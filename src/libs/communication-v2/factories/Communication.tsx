@@ -98,7 +98,7 @@ export function CommunicationFactory(
     recipient_member_id_list:
       memberList?.map((member) => member.id) ||
       randomArray(total_recipients, 5000),
-    is_answer: isAnswer !== undefined ? isAnswer : Math.random() < 0.5,
+    is_answer: isAnswer !== undefined ? isAnswer : Math.random() < 0.3,
     status: status ?? COMMUNICATION_SENT_SENDING_SUCCESS,
   };
 }
@@ -113,10 +113,13 @@ export function ThreadCommunicationFactory(
   const photos = memberList
     .slice(0, Math.min(4, memberList.length))
     .map((member: Member) => member.photo);
+  const answerSourceMember =
+    communication.is_answer && memberList?.length ? memberList[0] : undefined;
   return {
     channel: randomChannel(),
     communication,
     photos,
+    answerSourceMember,
   };
 }
 

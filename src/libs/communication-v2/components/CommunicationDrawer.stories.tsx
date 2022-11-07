@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CommunicationDrawer, { Props } from './CommunicationDrawer.component';
+import { CommunicationDrawerWithStyles as CommunicationDrawer } from './CommunicationDrawer.component';
 import MembersFactory, { MemberFactory } from '#libs/member/factories/Member';
 import ThreadCommunicationListFactory from '../factories/Communication';
 import { RecipientWithMemberFromThreadCommunicationFactory } from '../factories/RecipientWithMember';
@@ -7,7 +7,7 @@ import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories
 
 import { getMemberIdListsFromMemberList } from '../utils';
 
-import { ThreadCommunication } from '../types';
+import { ThreadCommunication, DrawerProps, Communication } from '../types';
 import { Member } from '#libs/member/types';
 
 import {
@@ -15,7 +15,6 @@ import {
   CONTEXT_OFFER,
   CONTEXT_SMARTLIST,
   CONTEXT_MEMBER,
-  WRITE_SMS,
   PAGINATION_SIZE_RECIPIENTS,
   FILTER_IDENTIFIER_CHANNEL,
   FILTER_IDENTIFIER_RECIPIENT,
@@ -94,144 +93,167 @@ const getFilteredThreadCommunicationList = (
   return communicationsFiltered;
 };
 
+// DATABASES FOR STORYBOOK
 const [emailTemplateDetailList, emailTemplateSummaryList] =
   EmailTemplateDetailSummaryListsFactory(6);
-
-// DATABASE FOR STORYBOOK
-const allMemberList = MembersFactory(50, true); // REPRESENTS THE MEMBERS IN THE BACK
-const nbCommunications = 60;
-const allThreadCommunications = ThreadCommunicationListFactory(
-  nbCommunications,
-  allMemberList,
+const DATABASE_RECIPIENTS_MODAL_MEMBER_LIST = MembersFactory(50, true); // REPRESENTS THE MEMBERS IN THE BACK
+const DATABASE_THREAD_COMMUNICATION_LIST = ThreadCommunicationListFactory(
+  60,
+  DATABASE_RECIPIENTS_MODAL_MEMBER_LIST,
 );
-const [allMemberIds, allMemberIdsWithoutEmail, allMemberIdsWithoutPhone] =
-  getMemberIdListsFromMemberList(allMemberList);
-
-const options = {
-  // DrawerProps
-  onDrawerClose: () => {},
-  openDrawer: true,
-  // SendMessageProps
-  communicatioonKindToWrite: WRITE_SMS,
-  emailTemplateDetailList: emailTemplateDetailList,
-  emailTemplateSummaryList: emailTemplateSummaryList,
-  fetchEmailDetail: (templateId: number) => {},
-  loadingThreadCommunicationList: true,
-  loadingInformationRecipientList: false,
-  loadingRecipientsModalMemberList: false,
-  loadingTemplateDetailList: false,
-  loadingTempalteSummaryList: false,
-  sendCommunication: (data: any) => {},
-};
-
-const WrapperWithState = (args: Props) => {
-  let threadCommunicationList = allThreadCommunications;
-  let allMembersIds = allMemberIds;
-  let allMembersIdsWithoutEmail = allMemberIdsWithoutEmail;
-  let allMembersIdsWithoutPhone = allMemberIdsWithoutPhone;
-  if (args.contextMember) {
-    [allMembersIds, allMembersIdsWithoutEmail, allMembersIdsWithoutPhone] =
-      getMemberIdListsFromMemberList([args.contextMember]);
-    threadCommunicationList = ThreadCommunicationListFactory(10, [
-      args.contextMember,
-    ]);
-  }
-  const allRecipientsWithMembersByCommunicationId = threadCommunicationList.map(
-    (communication: ThreadCommunication) =>
-      getAllRecipientsWithMember(communication, allMemberList),
+const DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT =
+  DATABASE_THREAD_COMMUNICATION_LIST.map((communication: ThreadCommunication) =>
+    getAllRecipientsWithMember(
+      communication,
+      DATABASE_RECIPIENTS_MODAL_MEMBER_LIST,
+    ),
   );
-  // TO SIMULATE THREAD DATA
-  const THREAD_NB_DATA_LOADED = 4;
-  const initialThreadData = threadCommunicationList.slice(
+
+const WrapperWithState = (args: DrawerProps) => {
+  // ---------- THREADS PROPS ----------
+  const THREAD_DATA_PAGINATION_SIZE = 5;
+  const initialThreadData = DATABASE_THREAD_COMMUNICATION_LIST.slice(
     0,
-    THREAD_NB_DATA_LOADED,
+    THREAD_DATA_PAGINATION_SIZE,
   );
-  const [threadDataList, setThreadDataList] = useState(initialThreadData);
-  const [hasNextPage, setHasNextPage] = useState(
-    threadCommunicationList.length > initialThreadData.length,
+  const [threadCommunicationList, setThreadCommunicationList] =
+    useState(initialThreadData);
+  const loadingThreadCommunicationList = false;
+  const [
+    threadCommunicationListHasNextPage,
+    setThreadCommunicationListHasNextPage,
+  ] = useState(
+    DATABASE_THREAD_COMMUNICATION_LIST.length > initialThreadData.length,
   );
-  const fetchThreadDataList = (
+  const fetchPageThreadCommunicationList = (
     page: number,
     filters: number[],
     dateStart: number,
     dateEnd: number,
   ) => {
     const allCommunicationFiltered = getFilteredThreadCommunicationList(
-      threadCommunicationList,
+      DATABASE_THREAD_COMMUNICATION_LIST,
       filters,
     );
     const indexEnd = Math.min(
-      page * THREAD_NB_DATA_LOADED,
+      page * THREAD_DATA_PAGINATION_SIZE,
       allCommunicationFiltered.length,
     );
-    setThreadDataList(allCommunicationFiltered.slice(0, indexEnd));
-    setHasNextPage(threadCommunicationList.length > indexEnd);
+    setThreadCommunicationList(allCommunicationFiltered.slice(0, indexEnd));
+    setThreadCommunicationListHasNextPage(
+      DATABASE_THREAD_COMMUNICATION_LIST.length > indexEnd,
+    );
+  };
+  const threadProps = {
+    threadCommunicationList,
+    threadCommunicationListHasNextPage,
+    loadingThreadCommunicationList,
+    fetchPageThreadCommunicationList,
   };
 
-  // TO SIMULATE FETCH MEMBERS FOR INFORMATION MODAL
-  const [modalInformationList, setModalInformationList] = useState([]);
-  const fetchPageForInformationModal = (
-    communicationId: number,
+  // ---------- RECIPIENTS PROPS ----------
+  const [informationRecipientList, setInformationRecipientList] = useState([]);
+  const [informationRecipientListCount, setInformationrecipientListCount] =
+    useState(0);
+  const loadingInformationRecipientList = false;
+  const fetchPageInformationRecipientList = (
+    communication: Communication,
     page: number,
-    filters: [],
+    memberSelectedCategories: [],
   ) => {
-    const recipients = allRecipientsWithMembersByCommunicationId.find(
-      (element) => element.key === communicationId,
-    ).value;
+    const recipients =
+      DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT.find(
+        (element) => element.key === communication.id,
+      ).value;
     const range = [
       (page - 1) * PAGINATION_SIZE_RECIPIENTS,
       Math.min(page * PAGINATION_SIZE_RECIPIENTS, recipients.length),
     ];
     const nextList = recipients.slice(range[0], range[1]);
-    setModalInformationList(nextList);
+    setInformationRecipientList(nextList);
+    setInformationrecipientListCount(recipients.length);
+  };
+  const recipientsProps = {
+    informationRecipientList,
+    informationRecipientListCount,
+    loadingInformationRecipientList,
+    fetchPageInformationRecipientList,
   };
 
-  // TO SIMULATE FETCH MEMBERS FOR RECIPIENTS MODAL
-  const [modalRecipientsList, setModalRecipientsList] = useState(
-    allMemberList.slice(0, PAGINATION_SIZE_RECIPIENTS),
+  // ---------- TEMPLATES PROPS ----------
+  const templatesProps = {
+    emailTemplateDetailList: emailTemplateDetailList,
+    emailTemplateSummaryList: emailTemplateSummaryList,
+    loadingEmailTemplateDetailList: false,
+    loadingEmailTemplateSummaryList: false,
+  };
+
+  // ---------- MEMBERS PROPS ----------
+  const memberDatabase = args.contextMember
+    ? [args.contextMember]
+    : DATABASE_RECIPIENTS_MODAL_MEMBER_LIST;
+  const initialRecipientsMemberList = memberDatabase.slice(
+    0,
+    Math.min(memberDatabase.length, PAGINATION_SIZE_RECIPIENTS),
   );
-  const fetchPageForRecipientsModal = (page: number, filters: number[]) => {
-    const range = [
-      (page - 1) * PAGINATION_SIZE_RECIPIENTS,
-      Math.min(page * PAGINATION_SIZE_RECIPIENTS, allMemberList.length),
-    ];
-    const nextList = allMemberList.slice(range[0], range[1]);
-    setModalRecipientsList(nextList);
+  const [recipientsModalMemberList, setRecipientsModalMemberList] = useState(
+    initialRecipientsMemberList,
+  );
+  const [allMemberIds, allMemberIdsWithoutEmail, allMemberIdsWithoutPhone] =
+    getMemberIdListsFromMemberList(memberDatabase);
+  const countAvailableRecipientsTotal = allMemberIds.length;
+  const countAvailableRecipientsWithEmail =
+    allMemberIds.length - allMemberIdsWithoutEmail.length;
+  const countAvailableRecipientsWithPhone =
+    allMemberIds.length - allMemberIdsWithoutPhone.length;
+  const fetchPaginatedAvailableRecipientMemberList = (
+    page: number,
+    memberSelectedCategories?: number[],
+  ) => {
+    const indexEnd = Math.min(
+      page * PAGINATION_SIZE_RECIPIENTS,
+      memberDatabase.length,
+    );
+    setRecipientsModalMemberList(
+      memberDatabase.slice((page - 1) * PAGINATION_SIZE_RECIPIENTS, indexEnd),
+    );
   };
-  const [selectedMemberList, setSelectedMemberList] = useState([]);
-  const fetchSelectedMembersDetails = (memberIdList: number[]) => {
-    setSelectedMemberList([
-      ...allMemberList.filter((member: Member) =>
-        memberIdList.includes(member.id),
-      ),
-    ]);
+  const membersProps = {
+    countAvailableRecipientsTotal,
+    countAvailableRecipientsWithEmail,
+    countAvailableRecipientsWithPhone,
+    recipientsModalMemberList,
+    loadingRecipiensModalMemberList: false,
+    fetchPaginatedAvailableRecipientMemberList,
+    resolvedGenericTags: [],
+    fetchResolvedGenericTags: () => {},
   };
 
-  const props = {
+  // ---------- HOC PROPS ----------
+  const composeProps = {
+    ...threadProps,
+    ...recipientsProps,
+    ...templatesProps,
+    ...membersProps,
     ...args,
-    allMembersIds: allMembersIds,
-    allMembersIdsWithoutEmail: allMembersIdsWithoutEmail,
-    allMembersIdsWithoutPhone: allMembersIdsWithoutPhone,
-    threadCommunicationList: threadDataList,
-    fetchPageThreadCommunicationList: fetchThreadDataList,
-    fetchPageInformationRecipientList: fetchPageForInformationModal,
-    fetchPageRecipientsModalMemberList: fetchPageForRecipientsModal,
-    fetchSelectedMembersDetails: fetchSelectedMembersDetails,
-    threadCommunicationListHasNextPage: hasNextPage,
-    recipientsModalMemberList: modalRecipientsList,
-    informationRecipientList: modalInformationList,
-    selectedMemberList: selectedMemberList,
+    sendCommunication: () => {},
   };
-
-  return <CommunicationDrawer {...props} />;
+  console.log(composeProps);
+  return <CommunicationDrawer {...composeProps} />;
 };
 
-const CustomTemplate = (args: Props) => <WrapperWithState {...args} />;
+const drawerProps = {
+  onDrawerClose: () => {},
+  openDrawer: true,
+  communicationKindToWrite: Math.floor(Math.random() * 4),
+};
+
+const CustomTemplate = (args: DrawerProps) => <WrapperWithState {...args} />;
 
 export const MemberContext = CustomTemplate.bind({});
 
 MemberContext.args = {
-  ...options,
+  ...drawerProps,
   contextIdentifier: CONTEXT_MEMBER,
   contextMember: MemberFactory({ number_tags: 10 }, true),
 };
@@ -239,7 +261,7 @@ MemberContext.args = {
 export const NotificationContext = CustomTemplate.bind({});
 
 NotificationContext.args = {
-  ...options,
+  ...drawerProps,
   contextIdentifier: CONTEXT_NOTIFICATION,
   contextTitle:
     "Le nom de l'object de ma push notif - essayons un text genre super long, .. ",
@@ -248,15 +270,27 @@ NotificationContext.args = {
 export const SessionContext = CustomTemplate.bind({});
 
 SessionContext.args = {
-  ...options,
+  ...drawerProps,
   contextIdentifier: CONTEXT_OFFER,
   contextTitle: 'Le nom de ma séance',
+  allMemberCategoryList: [
+    {
+      categoryMemberIdList: [],
+      categoryLabel: 'Première catégorie',
+      categoryIdentifier: 1,
+    },
+    {
+      categoryMemberIdList: [],
+      categoryLabel: 'Seconde catégorie',
+      categoryIdentifier: 2,
+    },
+  ],
 };
 
 export const SmartlistContext = CustomTemplate.bind({});
 
 SmartlistContext.args = {
-  ...options,
+  ...drawerProps,
   contextIdentifier: CONTEXT_SMARTLIST,
   contextTitle: 'Le nom de ma smartlist',
 };

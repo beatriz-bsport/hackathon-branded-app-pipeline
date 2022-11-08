@@ -252,41 +252,47 @@ export class ConsumerPackRowItem extends Component<Props> {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <IconButton
-          aria-label="change-credits-add"
-          disabled={
-            updating ||
-            (available_credits
-              ? available_credits >= credits
-              : available_pass_credits >= credits)
-          }
-          color="primary"
-          onClick={(ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            incrementCredit(consumerPack.id);
-          }}
-        >
-          {updating ? <CircularProgress size={24} /> : <ExposurePlus1Icon />}
-        </IconButton>
+        {updating ? (
+          <CircularProgress size={24} />
+        ) : (
+          <>
+            <IconButton
+              aria-label="change-credits-add"
+              disabled={
+                updating ||
+                (available_credits
+                  ? available_credits >= credits
+                  : available_pass_credits >= credits)
+              }
+              color="primary"
+              onClick={(ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                incrementCredit(consumerPack.id);
+              }}
+            >
+              <ExposurePlus1Icon />
+            </IconButton>
 
-        <IconButton
-          aria-label="change-credits-sub"
-          color="secondary"
-          disabled={
-            updating ||
-            (available_credits
-              ? available_credits === 0
-              : available_pass_credits === 0)
-          }
-          onClick={(ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            decrementCredit(consumerPack.id);
-          }}
-        >
-          {updating ? <CircularProgress size={24} /> : <ExposureNeg1Icon />}
-        </IconButton>
+            <IconButton
+              aria-label="change-credits-sub"
+              color="secondary"
+              disabled={
+                updating ||
+                (available_credits
+                  ? available_credits === 0
+                  : available_pass_credits === 0)
+              }
+              onClick={(ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                decrementCredit(consumerPack.id);
+              }}
+            >
+              <ExposureNeg1Icon />
+            </IconButton>
+          </>
+        )}
         {consumerPack.disabled && this.props.unblock && (
           <Button
             onClick={(ev) => {

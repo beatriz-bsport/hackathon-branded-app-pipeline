@@ -12,10 +12,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   fetchSubscriptionListByMember,
@@ -107,6 +114,19 @@ export class ConsumerSubscription extends React.Component<Props> {
   };
 
   render() {
+    const enabledPaymentMethods = [
+      ...(this.props.theme.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      )
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]
+        : []),
+      ...(this.props.theme.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+      )
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+        : []),
+    ];
+
     return (
       <div className={this.props.classes.table}>
         {this.props.subscriptionLoading && <BackofficeLinearProgress />}
@@ -161,6 +181,7 @@ export class ConsumerSubscription extends React.Component<Props> {
               this.props.theme.payment_method_available_subscription
             }
             member={this.props.member}
+            enabledPaymentMethods={enabledPaymentMethods}
           />
         ) : null}
       </div>

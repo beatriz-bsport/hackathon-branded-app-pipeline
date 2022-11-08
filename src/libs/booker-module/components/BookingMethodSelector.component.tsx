@@ -58,6 +58,7 @@ type OwnProps = {
   isExcludingTax?: boolean;
   theme: CompanyTheme;
   offerTagStatus: boolean;
+  onOpenSubscriptionModal: (contract: ContractWithPaymentPack) => void;
 };
 
 enum CollapsePackEnum {

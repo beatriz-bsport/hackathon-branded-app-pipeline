@@ -7,6 +7,14 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { withTranslation, TFunction } from 'react-i18next';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
@@ -100,6 +108,18 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
   };
 
   render() {
+    const enabledPaymentMethods = [
+      ...(this.props.companyTheme.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+      )
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]
+        : []),
+      ...(this.props.companyTheme.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+      )
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+        : []),
+    ];
     if (!this.state.firstBillingTimestamp) {
       return (
         <Dialog fullScreen={this.props.fullScreen} open={!!this.props.contract}>
@@ -142,6 +162,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
             enabledPaymentGroupMethodIdentifier={
               this.props.companyTheme.payment_method_available_subscription
             }
+            enabledPaymentMethods={enabledPaymentMethods}
           />
         </DialogContent>
       </Dialog>

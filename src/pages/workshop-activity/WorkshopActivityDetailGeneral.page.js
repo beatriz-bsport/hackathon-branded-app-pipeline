@@ -11,7 +11,10 @@ import { withTranslation } from 'react-i18next';
 import WorkshopDeleteDialog from '#libs/meta-activity/components/WorkshopDeleteDialog.component';
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
 
-import { getWorkshops } from '#libs/meta-activity/selectors';
+import {
+  getWorkshops,
+  withCustomRestrictionsTags,
+} from '#libs/meta-activity/selectors';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import {
@@ -278,7 +281,9 @@ export default compose(
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       workshopActivities: getWorkshops(state),
-      workshopActivity: getWorkshops(state).find((ma) => ma.id === id),
+      workshopActivity: withCustomRestrictionsTags(getWorkshops)(state).find(
+        (ma) => ma.id === id,
+      ),
       events: getEventsByMetaActivity(state),
       offers: withEstablishment(withCoach(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,

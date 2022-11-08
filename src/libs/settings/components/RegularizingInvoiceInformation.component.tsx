@@ -6,33 +6,43 @@ import { Button, IconButton, Typography } from '@material-ui/core';
 import TimeoutButton from '#components/button/TimeoutButton.component';
 import InfoBox from '#components/box/InfoBox.component';
 import IntercomIcon from '#components/icons/IntercomIcon.component';
+import {
+  FAILED_PAYMENT,
+  DISPUTED_PAYMENT,
+} from '#libs/platform-billing/constant';
 
 type OwnProps = {
   goNext: () => void;
   cancel: () => void;
   contactSupport: () => void;
+  paymentStatusContext: typeof FAILED_PAYMENT | typeof DISPUTED_PAYMENT;
 };
 type Props = OwnProps;
 export const RegularizingInvoiceInformation: React.FC<Props> = ({
   goNext,
   contactSupport,
   cancel,
+  paymentStatusContext,
 }) => {
   const { t } = useTranslation(['login', 'common']);
   const classes = useStyles();
+  const additionalContext =
+    paymentStatusContext === DISPUTED_PAYMENT ? 'dispute' : 'fail';
   return (
     <>
       <Typography variant="h5" className={classes.title}>
-        {t('regularizeInvoice.needPaymentMethod')}
+        {t(`regularizeInvoice.needPaymentMethod.${additionalContext}`)}
       </Typography>
       <Typography className={classes.content}>
-        {t('regularizeInvoice.needPaymentMethodContent')}
+        {t(`regularizeInvoice.needPaymentMethodContent.${additionalContext}`)}
       </Typography>
-      <InfoBox
-        className={classes.infoBox}
-        variant="outlined"
-        content={t('login:accountConfiguration.needToConfigureStripeInfo')}
-      />
+      {paymentStatusContext === FAILED_PAYMENT && (
+        <InfoBox
+          className={classes.infoBox}
+          variant="outlined"
+          content={t('login:accountConfiguration.needToConfigureStripeInfo')}
+        />
+      )}
 
       <div className={classes.actions}>
         <div className={classes.actionsStart}>
@@ -55,7 +65,7 @@ export const RegularizingInvoiceInformation: React.FC<Props> = ({
             </TimeoutButton>
           )}
           <Button onClick={goNext} color="primary" variant="contained">
-            {t('regularizeInvoice.actionRegularize')}
+            {t(`regularizeInvoice.actionRegularize.${additionalContext}`)}
           </Button>
         </div>
       </div>

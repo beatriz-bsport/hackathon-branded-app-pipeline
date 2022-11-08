@@ -14,7 +14,7 @@ type OwnProps = {
   dateAccountIsBlocked?: string;
 };
 type Props = OwnProps;
-export const RegularizingInvoiceInformation: React.FC<Props> = ({
+export const NeedStripeAccountConfiguration: React.FC<Props> = ({
   goNext,
   cancel,
   contactSupport,
@@ -98,4 +98,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
     gap: theme.spacing(1),
   },
 }));
-export default RegularizingInvoiceInformation;
+export default NeedStripeAccountConfiguration;

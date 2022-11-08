@@ -1,12 +1,22 @@
 import { UpsellPackage } from '#libs/company/types';
-import { BLOCK_BACKOFFICE, DO_NOTHING, WARN } from './constant';
+import {
+  BLOCK_BACKOFFICE,
+  DO_NOTHING,
+  WARN,
+  DISPUTED_PAYMENT,
+  FAILED_PAYMENT,
+} from './constant';
 
 export type PlatformSubscriptionPaymentStatus = {
   failed: Array<{
     payment_backend_id: number;
     date: string;
   }>;
+  disputed: Array<{
+    date: string;
+  }>;
   action: typeof DO_NOTHING | typeof WARN | typeof BLOCK_BACKOFFICE;
+  blocking: typeof FAILED_PAYMENT | typeof DISPUTED_PAYMENT;
 };
 
 export type PlatformInvoice = {

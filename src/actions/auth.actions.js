@@ -314,6 +314,27 @@ export function stampLastPlatformSubscriptionWarningDateAction(
     }
   };
 }
+
+export const stampLastPlatformSubscriptionDisputeWarningDateSuccess =
+  createAction('STAMP_PLATFORM_SUBSCRIPTION_LAST_DISPUTE_WARNING_DATE_SUCCESS');
+
+export function stampLastPlatformSubscriptionDisputeWarningDateAction(
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        stampLastPlatformSubscriptionDisputeWarningDateSuccess(
+          moment().format(),
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      if (options && options.onError) options.onError();
+    }
+  };
+}
+
 export const stampLastStripeAccountConfigurationWarningDateSuccess =
   createAction('STAMP_STRIPE_CONFIGURATION_LAST_WARNING_DATE_SUCCESS');
 

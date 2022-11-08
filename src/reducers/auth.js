@@ -4,6 +4,7 @@ import { setAuthToken } from '../http';
 import actionTypes from '../actions/auth.types';
 import {
   stampLastPlatformSubscriptionWarningDateSuccess,
+  stampLastPlatformSubscriptionDisputeWarningDateSuccess,
   stampLastStripeAccountConfigurationWarningDateSuccess,
 } from '../actions/auth.actions';
 
@@ -30,6 +31,7 @@ const initialState = Immutable({
   allowed_franchisees: [],
   loadingImpersonation: false,
   lastPlatformSubscriptionWarningDate: null,
+  lastPlatformSubscriptionDisputeWarningDate: null,
   lastStripeConfigurationWarningDate: null,
 
   emailExists: {
@@ -128,6 +130,7 @@ export default function authReducers(state = initialState, action = {}) {
       if (!context?.accessLevel) {
         res = state
           .set('lastStripeConfigurationWarningDate', null)
+          .set('lastPlatformSubscriptionDisputeWarningDate', null)
           .set('lastPlatformSubscriptionWarningDate', null);
       }
       return res
@@ -199,6 +202,12 @@ export default function authReducers(state = initialState, action = {}) {
     case stampLastPlatformSubscriptionWarningDateSuccess.toString():
       return state.setIn(
         ['lastPlatformSubscriptionWarningDate'],
+        action.payload,
+      );
+
+    case stampLastPlatformSubscriptionDisputeWarningDateSuccess.toString():
+      return state.setIn(
+        ['lastPlatformSubscriptionDisputeWarningDate'],
         action.payload,
       );
 

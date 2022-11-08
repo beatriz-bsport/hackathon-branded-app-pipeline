@@ -62,10 +62,19 @@ exports.default = {
     actionRegularize: 'Configurer mon compte Stripe',
   },
   regularizeInvoice: {
-    needPaymentMethod: 'Échec de paiement',
-    needPaymentMethodContent:
-      'Vous avez une ou plusieurs factures en échec de paiement. Veuillez régulariser votre facture pour continuer à bénéficier des services de Bsport.',
-    actionRegularize: 'Régulariser ma facture',
+    needPaymentMethod: {
+      fail: 'Échec de paiement',
+      dispute: 'Facture en litige',
+    },
+    needPaymentMethodContent: {
+      fail: 'Vous avez une ou plusieurs factures en échec de paiement. Veuillez régulariser votre facture pour continuer à bénéficier des services de bsport.',
+      dispute:
+        'Vous avez une ou plusieurs factures contestées. Merci de vous rapprocher au plus vite de votre banque pour régler le litige et continuer à bénéficier des services de bsport. Si nécessaire, merci de contacter support@bsport.io.',
+    },
+    actionRegularize: {
+      fail: 'Régulariser ma facture',
+      dispute: 'Voir ma facture',
+    },
     contactSuport: 'Contacter le support',
   },
   emailValidation: {

@@ -88,6 +88,7 @@ import {
   fetchAccessLevel,
   navigateBackToFranchise as navigateBackToFranchiseAction,
   stampLastPlatformSubscriptionWarningDateAction,
+  stampLastPlatformSubscriptionDisputeWarningDateAction,
   stampLastStripeAccountConfigurationWarningDateAction,
 } from '../actions/auth.actions';
 
@@ -127,7 +128,12 @@ import {
 import RegularizingInvoiceInformation from '../libs/settings/components/RegularizingInvoiceInformation.component';
 import StripeAccountConfiguration from '../libs/settings/components/NeedStripeAccountConfiguration.component';
 import type { PlatformSubscriptionPaymentStatus } from '../libs/platform-billing/type';
-import { BLOCK_BACKOFFICE, WARN } from '../libs/platform-billing/constant';
+import {
+  BLOCK_BACKOFFICE,
+  WARN,
+  FAILED_PAYMENT,
+  DISPUTED_PAYMENT,
+} from '../libs/platform-billing/constant';
 import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
 import type { OptionCallback } from '../state/types';
@@ -322,7 +328,11 @@ type Props = {
   retrieveStripeCompany: () => void,
   stripeCompany: StripeCompany,
   lastPlatformSubscriptionWarningDate: string,
+  lastPlatformSubscriptionDisputeWarningDate: string,
   stampLastPlatformSubscriptionWarningDate: () => void,
+  stampLastPlatformSubscriptionDisputeWarningDate: (
+    options?: OptionCallback,
+  ) => void,
   retrievePlatformSubscriptionPaymentStatus: () => void,
   stampLastStripeAccountConfigurationWarningDate: () => void,
   retrieveStripeAccountStatus: () => void,
@@ -335,6 +345,8 @@ type Props = {
     options?: OptionCallback<TutorialCompletion>,
   ) => void,
 };
+
+const DELAY_BETWEEN_ALERTS = 10 * 60000;
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
   if (props.blockBackofficeToPayPlatformBilling) {
@@ -411,7 +423,8 @@ export class Backoffice extends Component<Props, State> {
 
   state = {
     displayLeftMenu: true,
-    need_regularizing_invoice_modal: false,
+    need_regularizing_failed_invoice_modal: false,
+    need_regularizing_disputed_invoice_modal: false,
   };
 
   countAlerting: number = 0;
@@ -471,33 +484,85 @@ export class Backoffice extends Component<Props, State> {
     }
   }
 
+  openFailedPaymentWarningDialog = () => {
+    this.setState(
+      {
+        need_regularizing_failed_invoice_modal: true,
+      },
+      () => {
+        this.props.stampLastPlatformSubscriptionWarningDate();
+        this.checkPaymentDisputed();
+      },
+    );
+  };
+
+  openDisputedPaymentWarningDialog = () => {
+    this.setState(
+      {
+        need_regularizing_disputed_invoice_modal: true,
+      },
+      () => {
+        this.props.stampLastPlatformSubscriptionDisputeWarningDate();
+        this.checkStripeAccountConfiguration();
+      },
+    );
+  };
+
+  checkContextToOpenDisputedPaymentWarningDialog = () => {
+    if (this.state.need_regularizing_failed_invoice_modal) {
+      setTimeout(this.openDisputedPaymentWarningDialog, DELAY_BETWEEN_ALERTS);
+    } else {
+      this.openDisputedPaymentWarningDialog();
+    }
+  };
+
+  checkPaymentFailed = () => {
+    if (
+      (!this.props.lastPlatformSubscriptionWarningDate ||
+        !moment(this.props.lastPlatformSubscriptionWarningDate).isSame(
+          moment(),
+          'day',
+        )) &&
+      !!this.props.platformSubscriptionPaymentStatus.failed?.length &&
+      this.props.stripeAccountStatus?.action !== BLOCK_BACKOFFICE
+    ) {
+      this.openFailedPaymentWarningDialog();
+    } else {
+      this.checkPaymentDisputed();
+    }
+  };
+
+  checkPaymentDisputed = () => {
+    if (
+      (!this.props.lastPlatformSubscriptionDisputeWarningDate ||
+        !moment(this.props.lastPlatformSubscriptionDisputeWarningDate).isSame(
+          moment(),
+          'day',
+        )) &&
+      !!this.props.platformSubscriptionPaymentStatus.disputed?.length &&
+      this.props.stripeAccountStatus?.action !== BLOCK_BACKOFFICE
+    ) {
+      this.checkContextToOpenDisputedPaymentWarningDialog();
+    } else {
+      this.checkStripeAccountConfiguration();
+    }
+  };
+
   checkPlatformSubscriptionPaymentStatusAndStripeConfiguration = () => {
     switch (this.props.platformSubscriptionPaymentStatus?.action) {
       case BLOCK_BACKOFFICE:
-        this.setState({ need_regularizing_invoice_modal: true });
+        this.setState({
+          need_regularizing_failed_invoice_modal:
+            this.props.platformSubscriptionPaymentStatus?.blocking ===
+            FAILED_PAYMENT,
+          need_regularizing_disputed_invoice_modal:
+            this.props.platformSubscriptionPaymentStatus?.blocking ===
+            DISPUTED_PAYMENT,
+        });
         return;
 
       case WARN:
-        if (
-          (!this.props.lastPlatformSubscriptionWarningDate ||
-            !moment(this.props.lastPlatformSubscriptionWarningDate).isSame(
-              moment(),
-              'day',
-            )) &&
-          this.props.stripeAccountStatus?.action !== BLOCK_BACKOFFICE
-        ) {
-          this.setState(
-            {
-              need_regularizing_invoice_modal: true,
-            },
-            () => {
-              this.props.stampLastPlatformSubscriptionWarningDate();
-              this.checkStripeAccountConfiguration();
-            },
-          );
-          return;
-        }
-        this.checkStripeAccountConfiguration();
+        this.checkPaymentFailed();
         return;
 
       default:
@@ -529,13 +594,16 @@ export class Backoffice extends Component<Props, State> {
   };
 
   openStripeConfigurationModal = () => {
-    if (this.state.need_regularizing_invoice_modal) {
+    if (
+      this.state.need_regularizing_failed_invoice_modal ||
+      this.state.need_regularizing_disputed_invoice_modal
+    ) {
       setTimeout(() => {
         this.setState(
           { need_configuring_stripe_account_dialog: true },
           this.props.stampLastStripeAccountConfigurationWarningDate,
         );
-      }, 10 * 60000);
+      }, DELAY_BETWEEN_ALERTS);
     } else {
       this.setState(
         { need_configuring_stripe_account_dialog: true },
@@ -564,7 +632,10 @@ export class Backoffice extends Component<Props, State> {
 
   redirectToPlatformBilling = () => {
     this.props.pushRouter('/settings/platform-billing');
-    this.setState({ need_regularizing_invoice_modal: false });
+    this.setState({
+      need_regularizing_failed_invoice_modal: false,
+      need_regularizing_disputed_invoice_modal: false,
+    });
   };
 
   redirectToCompanySettings = () => {
@@ -576,6 +647,24 @@ export class Backoffice extends Component<Props, State> {
     this.props.deleteAlert(alert_kind, id, {
       onSuccess: () => this.props.fetchAlerting(alert_kind, 1),
     });
+
+  closePaymentWarningDialog = (
+    paymentStatusContext: typeof DISPUTED_PAYMENT | typeof FAILED_PAYMENT,
+  ) => {
+    return this.props.platformSubscriptionPaymentStatus?.action === WARN
+      ? () => {
+          if (paymentStatusContext === DISPUTED_PAYMENT) {
+            this.setState({
+              need_regularizing_disputed_invoice_modal: false,
+            });
+          } else {
+            this.setState({
+              need_regularizing_failed_invoice_modal: false,
+            });
+          }
+        }
+      : undefined;
+  };
 
   render() {
     const { classes } = this.props;
@@ -760,21 +849,28 @@ export class Backoffice extends Component<Props, State> {
           </DrawerContext.Provider>
         </PermissionContext.Provider>
         {this.props.platformSubscriptionPaymentStatus && (
-          <GenericResponsiveDialog
-            open={this.state.need_regularizing_invoice_modal}
-          >
-            <RegularizingInvoiceInformation
-              goNext={this.redirectToPlatformBilling}
-              contactSupport={this.redirectToPlatformBilling}
-              cancel={
-                this.props.platformSubscriptionPaymentStatus?.action === WARN
-                  ? () => {
-                      this.setState({ need_regularizing_invoice_modal: false });
-                    }
-                  : undefined
-              }
-            />
-          </GenericResponsiveDialog>
+          <div>
+            <GenericResponsiveDialog
+              open={this.state.need_regularizing_failed_invoice_modal}
+            >
+              <RegularizingInvoiceInformation
+                goNext={this.redirectToPlatformBilling}
+                contactSupport={this.redirectToPlatformBilling}
+                cancel={this.closePaymentWarningDialog(FAILED_PAYMENT)}
+                paymentStatusContext={FAILED_PAYMENT}
+              />
+            </GenericResponsiveDialog>
+            <GenericResponsiveDialog
+              open={this.state.need_regularizing_disputed_invoice_modal}
+            >
+              <RegularizingInvoiceInformation
+                goNext={this.redirectToPlatformBilling}
+                contactSupport={this.redirectToPlatformBilling}
+                cancel={this.closePaymentWarningDialog(DISPUTED_PAYMENT)}
+                paymentStatusContext={DISPUTED_PAYMENT}
+              />
+            </GenericResponsiveDialog>
+          </div>
         )}
         {this.props.stripeAccountStatus && (
           <GenericResponsiveDialog
@@ -882,6 +978,8 @@ export default compose(
       lastClockin: getLastClockin(state),
       lastPlatformSubscriptionWarningDate:
         state.auth.lastPlatformSubscriptionWarningDate,
+      lastPlatformSubscriptionDisputeWarningDate:
+        state.auth.lastPlatformSubscriptionDisputeWarningDate,
       lastStripeConfigurationWarningDate:
         state.auth.lastStripeConfigurationWarningDate,
       isPluginActivated: state.plugin.isPluginActivated,
@@ -943,6 +1041,8 @@ export default compose(
 
       stampLastPlatformSubscriptionWarningDate:
         stampLastPlatformSubscriptionWarningDateAction,
+      stampLastPlatformSubscriptionDisputeWarningDate:
+        stampLastPlatformSubscriptionDisputeWarningDateAction,
       stampLastStripeAccountConfigurationWarningDate:
         stampLastStripeAccountConfigurationWarningDateAction,
       fetchUserTutorialCompletion,

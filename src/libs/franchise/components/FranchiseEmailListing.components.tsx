@@ -5,18 +5,17 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
 
-import FuzzySearch from '../../../components/search/FuzzySearch.component';
-import { EmailTemplateSummary } from '../../email-editor/types';
-import { FranchiseCompany } from '../types';
-import EmailListItem from '../../email-editor/components/EmailListItem.components';
-import EmailVirtualizedList from '../../email-virtualized-editor';
+import FuzzySearch from '#components/search/FuzzySearch.component';
+import { EmailTemplateSummary } from '#libs/email-editor/types';
+import { FranchiseCompany } from '#libs/franchise/types';
+import EmailListItem from '#libs/email-editor/components/EmailListItem.components';
+import EmailVirtualizedList from '#libs/email-virtualized-editor';
+import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 
 export type OwnProps = {
-  franchiseEmails: EmailTemplateSummary[];
-  companiesEmails: EmailTemplateSummary[];
   emails: EmailTemplateSummary[];
   selectedId?: number;
-  companyDic: Record<number, FranchiseCompany>;
+  companies: FranchiseCompany[];
   isGrouped: boolean;
   navigateTo: (emailId: number) => void;
   onEdit: (emailId: number) => void;
@@ -34,7 +33,7 @@ const orderByTitle = (a: EmailTemplateSummary, b: EmailTemplateSummary) =>
 const FranchiseEmailListing = (props: Props) => {
   const {
     selectedId,
-    companyDic,
+    companies,
     isGrouped,
     navigateTo,
     onEdit,
@@ -54,6 +53,16 @@ const FranchiseEmailListing = (props: Props) => {
     .sort(orderByTitle);
 
   const classes = useStyles();
+
+  const companyDic = useMemo(
+    () =>
+      companies?.reduce<Record<number, FranchiseCompany>>((dic, company) => {
+        // eslint-disable-next-line no-param-reassign
+        dic[company.id] = company;
+        return dic;
+      }, {}),
+    [companies],
+  );
 
   const companiesEmailsByCompanyId = useMemo(
     () =>
@@ -92,8 +101,10 @@ const FranchiseEmailListing = (props: Props) => {
                 onDuplicate={onDuplicate}
                 onDelete={onDelete}
                 search={search}
-                companies={email?.available_for_companies.map(
-                  (comp) => companyDic?.[comp],
+                companies={sortCompanyListByIsAllowedAndName(
+                  email?.available_for_companies.map(
+                    (comp) => companyDic?.[comp],
+                  ),
                 )}
                 allCompanies={
                   email?.available_for_companies.length ===
@@ -164,8 +175,10 @@ const FranchiseEmailListing = (props: Props) => {
                     onEdit={onEdit}
                     onDuplicate={onDuplicate}
                     onDelete={onDelete}
-                    companies={email?.available_for_companies.map(
-                      (comp) => companyDic?.[comp],
+                    companies={sortCompanyListByIsAllowedAndName(
+                      email?.available_for_companies.map(
+                        (comp) => companyDic?.[comp],
+                      ),
                     )}
                     allCompanies={
                       email?.available_for_companies.length ===

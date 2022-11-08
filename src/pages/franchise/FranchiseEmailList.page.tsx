@@ -12,10 +12,10 @@ import {
 import { push as pushAction } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import { RootState } from '../../reducers';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   emailTemplateDelete as emailTemplateDeleteAction,
   emailTemplateDetail as emailTemplateDetailAction,
@@ -23,21 +23,23 @@ import {
   emailTemplatesSummaries as emailTemplatesSummariesAction,
   fetchFranchisePageFilter as fetchFranchisePageFilterAction,
   updateFranchisePageFilter as updateFranchisePageFilterAction,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
   getFranchisorSavedFilter,
-} from '../../libs/email-editor/selectors';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import FranchiseEmailListing from '../../libs/franchise/components/FranchiseEmailListing.components';
+} from '#libs/email-editor/selectors';
+import BottomActionButtons from '#components/button/BottomActionsButton.component';
+import FranchiseEmailListing from '#libs/franchise/components/FranchiseEmailListing.components';
 import HTMLPreview from '#components/html/HTMLPreview.component';
-import { getFranchiseCompanyById } from '../../libs/franchise/selectors';
-import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
-import withTitle from '../../hocs/with-title.hoc';
+import { getFranchiseCompanies } from '#libs/franchise/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
+import withTitle from '#hocs/with-title.hoc';
+import { FranchiseCompany } from '#libs/franchise/types';
 
 type OwnProps = {
   id: number;
+  companies: FranchiseCompany[];
 };
 
 type Props = OwnProps &
@@ -50,7 +52,7 @@ const FranchiseEmailList = (props: Props) => {
     emails,
     emailDetail,
     id,
-    companiesById,
+    companies,
     savedFilter,
     emailListLoading,
     emailDetailLoading,
@@ -135,7 +137,7 @@ const FranchiseEmailList = (props: Props) => {
       <Grid container direction="row" spacing={3} style={{ height: '100%' }}>
         <Grid item xs={12} md={6} className={classes.grid}>
           <FranchiseEmailListing
-            companyDic={companiesById}
+            companies={companies}
             isGrouped={savedFilter?.includes('franchised') ?? false}
             selectedId={id}
             navigateTo={navigateTo}
@@ -200,7 +202,7 @@ const connector = connect(
   (state: RootState) => ({
     emailDetail: getEmailTemplatesDetail(state),
     emails: getAllEmailTemplatesSummaries(state),
-    companiesById: getFranchiseCompanyById(state),
+    companies: getFranchiseCompanies(state),
     savedFilter: getFranchisorSavedFilter(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,

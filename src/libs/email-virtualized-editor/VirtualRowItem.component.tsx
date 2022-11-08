@@ -7,6 +7,7 @@ import { EmailTemplateSummary } from '../email-editor/types';
 import EmailListItem from '../email-editor/components/EmailListItem.components';
 import InfoBox from '#components/box/InfoBox.component';
 import { HEIGHT_ITEM } from './EmailVirtualizedList.components';
+import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 
 type RowProps = {
   index: number;
@@ -94,8 +95,8 @@ export default function VirtualRowItem(props: RowProps) {
           onEdit={onEdit}
           onDuplicate={onDuplicate}
           onDelete={onDelete}
-          companies={email?.available_for_companies.map(
-            (comp) => companyDic?.[comp],
+          companies={sortCompanyListByIsAllowedAndName(
+            email?.available_for_companies.map((comp) => companyDic?.[comp]),
           )}
           allCompanies={
             email?.available_for_companies.length ===

@@ -88,6 +88,13 @@ const FranchiseNotificationRuleCard = (props: Props) => {
     setIsEditing(false);
   };
 
+  const allowedEdit = useMemo(
+    () =>
+      companies
+        .filter((c) => rule.companies.includes(c.id))
+        .some((c) => c.isAllowed),
+    [companies, rule],
+  );
   const restrictedAccess = useMemo(
     () =>
       companies
@@ -100,16 +107,18 @@ const FranchiseNotificationRuleCard = (props: Props) => {
     <div>
       <div className={classes.row}>
         <Typography variant="h6">{rule.title}</Typography>
-        {!restrictedAccess && (
-          <div>
+        <div>
+          {allowedEdit && (
             <IconButton color="primary" onClick={showEdit}>
               <EditIcon />
             </IconButton>
+          )}
+          {!restrictedAccess && (
             <IconButton color="default" onClick={showDelete}>
               <DeleteIcon />
             </IconButton>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <Paper className={classes.card}>
         <Grid container direction="row" spacing={3}>

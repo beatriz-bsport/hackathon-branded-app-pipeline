@@ -3,6 +3,7 @@ import memoize from 'memoize-one';
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
 import { RootState } from '../../reducers';
 import { FranchiseCompany, FranchiseState } from './types';
+import { sortCompanyListByIsAllowedAndName } from '#libs/franchise/utils';
 
 const getState = (state: RootState): FranchiseState => state.franchise;
 
@@ -54,14 +55,16 @@ export const withAllowed = (
 ) => {
   if (!companies) return null;
   if (Array.isArray(companies)) {
-    return companies
-      .filter((id: number) => !!companyById?.[id])
-      .map((id: number) => ({
-        ...companyById?.[id],
-        isAllowed:
-          allowed_franchisee_ids?.length === 0 ||
-          allowed_franchisee_ids.includes(id),
-      }));
+    return sortCompanyListByIsAllowedAndName(
+      companies
+        .filter((id: number) => !!companyById?.[id])
+        .map((id: number) => ({
+          ...companyById?.[id],
+          isAllowed:
+            allowed_franchisee_ids?.length === 0 ||
+            allowed_franchisee_ids.includes(id),
+        })),
+    );
   }
 
   if (!companyById?.[companies]) return null;

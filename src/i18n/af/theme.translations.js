@@ -146,6 +146,17 @@ exports.default = {
       showGenderOffer:
         "Afficher le nombre d'hommes et de femmes qui réservent une offre",
       offerBalance: "Mise en place d'un contrôle de l'équilibre FEMME/HOMME",
+      signup: {
+        title: 'Inscription',
+        label: "Confirmation de l'email à l'inscription",
+        helperText:
+          "Lors de l'inscription, vos membres recevront un email pour confirmer leur adresse email, leur compte ne sera pas activé tant que cet email n'aura pas été confirmé",
+        urlRedirection: 'URL de redirection',
+        urlError: 'Veuillez rentrer un url valide',
+        urlHelperText:
+          'Le membre sera redirigé vers ce lien après avoir confirmé son email. Si non renseigné, il sera redirigé vers son profil sur la marketplace.',
+      },
+
       checkBalance: {
         checkbox:
           'Limiter le déséquilibre FEMME/HOMME des réservations (danse...)',

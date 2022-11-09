@@ -271,6 +271,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       page,
       page_size,
       exclude_archived: true,
+      email_confirmed: true,
     });
   };
 
@@ -280,6 +281,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       page,
       page_size,
       exclude_archived: true,
+      email_confirmed: true,
     });
   };
 

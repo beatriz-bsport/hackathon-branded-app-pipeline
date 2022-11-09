@@ -223,7 +223,12 @@ const connector = connect(
     fetchCompanyGroupList,
     fetchFilteredMembers: (params: {
       [key: string]: number | boolean | string;
-    }) => fetchFilteredMembersAction({ ...params, exclude_archived: true }),
+    }) =>
+      fetchFilteredMembersAction({
+        ...params,
+        exclude_archived: true,
+        email_confirmed: true,
+      }),
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     navigateAsCompanyAdmin: navigateAsCompanyAdminAction,

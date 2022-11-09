@@ -21,6 +21,7 @@ export async function fetchMemberList(params: {
   page_size?: number;
   tags_excluded?: Array<number>;
   tags_included?: Array<number>;
+  email_confirmed?: boolean;
   barcode?: string;
   offer?: string;
   withNotes?: boolean;

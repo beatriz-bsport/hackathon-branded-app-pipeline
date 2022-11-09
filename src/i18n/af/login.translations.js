@@ -79,6 +79,35 @@ exports.default = {
     goToLogin: 'Retour',
     disconnect: 'Changer de compte',
   },
+  emailConfirmation: {
+    title: 'Votre inscription a bien été enregistrée',
+    textExplain:
+      "Un email de confirmation vient de vous être envoyé afin de confirmer l'adresse mail indiquée. Pour finaliser votre inscription, cliquez sur le lien pour activer votre compte.",
+    backToLogin: 'Retour',
+    notReceived: "Vous n'avez rien reçu ?",
+    clickHere: 'Cliquez ici',
+    helperToSendOnceAgain: "pour envoyer de nouveau l'email de confirmation",
+    dialog: {
+      title: "Renvoyer l'email de confirmation",
+      canBeResent:
+        "Avant d'envoyer de nouveau l'email de confirmation merci de vérifier vos spams et de recharger votre boîte mail. Si vous n'avez rien reçu cliquez sur le bouton envoyer.",
+      cannotBeResent:
+        "Un email est déjà en cours d'envoi, si vous n'avez toujours rien reçu dans {{timeLeftBeforeNewSent}} minutes merci de rééssayer. N'oubliez pas de vérifier vos spams.",
+      send: 'Envoyer',
+      cancel: 'Annuler',
+      sentAgain: 'Email renvoyé !',
+      sentAgainExplain:
+        "L'email de confirmation vient d'être renvoyé sur votre adresse email.",
+      continue: 'Continuer',
+      close: 'Fermer',
+    },
+  },
+  welcome: {
+    title: 'Bienvenue chez {{companyName}} !',
+    begin: 'Commencer',
+    textExplain:
+      'Félicitations, votre inscription a bien été finalisée. Vous pouvez dès maintenant commencer à profiter de votre compte et réserver vos premières séances.',
+  },
   forms: {
     password: {
       label: 'Mot de passe',

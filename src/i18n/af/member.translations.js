@@ -161,11 +161,19 @@ exports.default = {
       "Un utilisateur avec l'adresse email {{email}} existe déjà.",
     existsWithPhone:
       'Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà.',
+    existsWithEmailButNotConfirmed:
+      "Un utilisateur avec l'adresse email {{email}} existe déjà, mais son email est en attente de confirmation. En enregistrant ce utilisateur, son email sera automatiquement vérifié.",
+    existsWithPhoneButNotConfirmed:
+      'Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà, mais son email ({{email}}) est en attente de confirmation. En enregistrant cet utilisateur, son email sera automatiquement vérifié.',
   },
   member: {
     existsWithEmail: "Un membre avec l'adresse email {{email}} existe déjà.",
     existsWithPhone:
       'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà.',
+    existsWithEmailButNotConfirmed:
+      "Un membre avec l'adresse email {{email}} existe déjà, mais son email est en attente de confirmation. En enregistrant ce membre, son email sera automatiquement vérifié.",
+    existsWithPhoneButNotConfirmed:
+      'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà, mais son email ({{email}}) est en attente de confirmation. En enregistrant ce membre, son email sera automatiquement vérifié.',
   },
   exists: {
     goTo: 'Voir le membre',

@@ -109,9 +109,10 @@ export function fetchFranchiseUsers(props: {
   page: number;
   page_size: number;
   exclude_archived: boolean;
+  email_confirmed?: boolean;
   options?: OptionCallback;
 }) {
-  const { page, page_size, exclude_archived, options } = props;
+  const { page, page_size, exclude_archived, email_confirmed, options } = props;
   return async (dispatch: Dispatch) => {
     dispatch(fetchFranchiseUsersActions.isLoading(true));
     dispatch(fetchFranchiseUsersActions.error(null));
@@ -121,6 +122,7 @@ export function fetchFranchiseUsers(props: {
         page,
         page_size,
         exclude_archived,
+        email_confirmed,
       });
 
       dispatch(fetchFranchiseUsersActions.success(response.data));

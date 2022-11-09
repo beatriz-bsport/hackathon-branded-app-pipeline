@@ -39,8 +39,9 @@ export const checkMyEmailValidation = () => {
 export const accessLevel = async (token: string) => {
   return getAuth(`${API_URI}/saas/access_level`, token);
 };
-export const signup = async (formData: any) => {
-  return post(`${API_URI}/auth/signup`, formData);
+
+export const getLastMembership = async () => {
+  return getAuth(`${API_V1_URI}/authentication/last_membership/`);
 };
 
 export const resetPassword = async (
@@ -54,6 +55,20 @@ export const resetPassword = async (
       ...(franchisorId ? { franchisor: franchisorId } : {}),
     })}`,
   );
+};
+
+export const sendEmailForConfirmation = async (companyId: number) => {
+  return postAuth(`${API_V1_URI}/authentication/send_email_confirmation/`, {
+    company_id: companyId,
+  });
+};
+
+export const confirmEmail = (uuid: string, token: string, company?: number) => {
+  return postAuth(`${API_V1_URI}/authentication/confirm_email/`, {
+    uuid,
+    token,
+    company,
+  });
 };
 
 export const login = async (email: string, password: string) => {

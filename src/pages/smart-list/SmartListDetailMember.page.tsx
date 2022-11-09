@@ -421,7 +421,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
                   page: number;
                   page_size: number;
                 }) =>
-                  fetchSmartListMembersAPI(this.props.id, { page, page_size })
+                  fetchSmartListMembersAPI(this.props.id, {
+                    page,
+                    page_size,
+                  })
                 }
                 goToMember={this.props.goToMember}
                 hideAddButton

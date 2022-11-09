@@ -10,17 +10,18 @@ import {
   getRelationToken as getRelationTokenAPI,
   impersonateAdmin as impersonateAdminAPI,
   checkEmailExists as checkEmailExistsAPI,
-  signup as signupAPI,
   accessLevel as accessLevelAPI,
   login as loginAPI,
   resetPassword as resetPasswordAPI,
+  sendEmailForConfirmation as sendEmailForConfirmationAPI,
+  confirmEmail as confirmEmailAPI,
+  getLastMembership as getLastMembershipAPI,
 } from '../libs/login/api';
 import types from './auth.types';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../libs/widget/types';
 import { snackbarError } from './snackbar.actions';
-import { USER_EMAIL_EXISTS } from '../api/constants';
 import { getAuthToken } from '../http';
 import { rudderStackIdentify } from '#components/analytics/rudderstack/utils';
 
@@ -92,6 +93,7 @@ export function fetchAccessLevel(
         name,
         username,
         has_completed_account_configuration_on_boarding,
+        email_confirmed,
       } = response.data;
       if (!is_manager && !is_franchisor && is_consumer) {
         dispatch(errorLogin());
@@ -112,10 +114,20 @@ export function fetchAccessLevel(
             allowed_franchisees,
             name,
             has_completed_account_configuration_on_boarding,
+            email_confirmed,
           },
           { accessLevel: true },
         ),
       );
+      if (options?.company && !email_confirmed) {
+        const confirmationResponseOverride = await confirmEmailAPI(
+          null,
+          null,
+          options.company,
+        );
+        dispatch(emailConfirmed(confirmationResponseOverride.data));
+        dispatch(push(`/c/membership-validator/${options.company}/`));
+      }
       try {
         Sentry.configureScope((scope) => {
           scope.setUser({ email: username });
@@ -338,6 +350,7 @@ export function setLogin(
     allowed_franchisees,
     name,
     has_completed_account_configuration_on_boarding,
+    email_confirmed,
   }: {
     username: string,
     token: string,
@@ -352,6 +365,7 @@ export function setLogin(
     allowed_franchisees: number[],
     name: string,
     has_completed_account_configuration_on_boarding: boolean,
+    email_confirmed: boolean,
   },
   context?: { accessLevel?: boolean },
 ) {
@@ -371,6 +385,7 @@ export function setLogin(
     is_franchisor,
     has_completed_account_configuration_on_boarding,
     context,
+    email_confirmed,
   };
 }
 
@@ -384,6 +399,14 @@ function errorResetLogin(payload) {
 
 function resetPasswordSent(payload) {
   return { type: types.RESET_PASSWORD_SENT, payload };
+}
+
+function emailConfirmationSent(payload) {
+  return { type: types.EMAIL_CONFIRMATION_SENT, payload };
+}
+
+function emailConfirmed(payload) {
+  return { type: types.EMAIL_CONFIRMED, payload };
 }
 
 export function resetPassword(
@@ -404,6 +427,39 @@ export function resetPassword(
       if (options && options.onError) options.onError();
     }
     dispatch(isLoadingResetLogin(false));
+  };
+}
+
+export function sendEmailForConfirmation(
+  companyId: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await sendEmailForConfirmationAPI(companyId);
+      dispatch(emailConfirmationSent(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      if (options && options.onError) options.onError();
+    }
+  };
+}
+
+export function requestConfirmationEmail(
+  uuid: string,
+  token: string,
+  company: number,
+  options: any,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await confirmEmailAPI(uuid, token);
+      dispatch(emailConfirmed(response.data));
+      dispatch(push(`/welcome/${company}/`));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      if (options && options.onError) options.onError();
+    }
   };
 }
 
@@ -433,73 +489,14 @@ export function disconnect(callback: ?() => void) {
   };
 }
 
-export function signup(
-  data: any,
-  options: ?{ goNext: ?ThunkAction, onDone: ?() => void },
-) {
+export function goToLastCompanySignup() {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await signupAPI(data);
-      if (response && response.status === 201) {
-        return dispatch(requestLogin(data.email, data.password, options));
-      }
-      if (
-        response &&
-        response.status === 200 &&
-        response.data &&
-        response.data.error_code === USER_EMAIL_EXISTS
-      ) {
-        dispatch(snackbarError('signup.emailAlreadyExists'));
-      }
+      const response = await getLastMembershipAPI();
+      dispatch(push(`/login/signup?membership=${response.data.membership}`));
     } catch (err) {
-      dispatch(snackbarError('signup.failedCreation'));
+      console.error(err);
     }
-    return dispatch(errorLogin());
-  };
-}
-
-export function signupV2(
-  formaData: any,
-  options: ?{
-    next?: (values: {
-      is_manager: Boolean,
-      is_consumer: Boolean,
-      is_franchisor: Boolean,
-    }) => ThunkAction,
-    onDone: ?() => void,
-    onError?: () => void,
-  },
-) {
-  return async (dispatch: Dispatch) => {
-    try {
-      const response = await signupAPI(formaData);
-      if (response && response.status === 201) {
-        return dispatch(
-          requestLogin(
-            formaData.get('email'),
-            formaData.get('password'),
-            options,
-          ),
-        );
-      }
-      if (
-        response &&
-        response.status === 200 &&
-        response.data &&
-        response.data.error_code === USER_EMAIL_EXISTS
-      ) {
-        dispatch(snackbarError('signup.emailAlreadyExists'));
-        if (options && options.onError) {
-          options.onError();
-        }
-      }
-    } catch (err) {
-      dispatch(snackbarError('signup.failedCreation'));
-      if (options && options.onError) {
-        options.onError();
-      }
-    }
-    return dispatch(errorLogin());
   };
 }
 

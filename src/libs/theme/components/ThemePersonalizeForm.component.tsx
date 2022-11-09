@@ -24,6 +24,7 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
+import classNames from 'classnames';
 import Config from '../../../config';
 
 import { OptionCallback } from '../../../state/types';
@@ -32,6 +33,7 @@ import {
   IntegerField,
   RadioGroupField,
   TimeField,
+  TextField,
   SwitchField,
 } from '#components/forms';
 
@@ -60,11 +62,15 @@ interface FormikValues {
   schedule_timerange_begin: string;
   schedule_timerange_end: string;
   hide_sessions_with_tags_when_not_eligible: boolean;
+  requires_email_confirmation_when_signing_up: boolean;
+  confirm_email_url_redirection: boolean;
 }
 type Props = {
   theme: CompanyTheme;
   onSubmit: (id: number, data: FormData, options: OptionCallback) => void;
 };
+
+const regexHTTP = /https?:\/\//;
 
 const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   isSubmitting,
@@ -444,6 +450,47 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               </Typography>
             </div>
           )}
+          <div className={classes.section}>
+            <Typography className={classes.namesHeader}>
+              {t('forms.themePersonalization.signup.title')}
+            </Typography>
+            <div className={classes.fieldWithHelperText}>
+              <SwitchField
+                name="requires_email_confirmation_when_signing_up"
+                label={t('forms.themePersonalization.signup.label')}
+              />
+              <Typography variant="caption" color="textSecondary">
+                {t('forms.themePersonalization.signup.helperText')}
+              </Typography>
+            </div>
+            {values.requires_email_confirmation_when_signing_up && (
+              <div className={classes.textFieldWithHelperText}>
+                <TextField
+                  name="confirm_email_url_redirection"
+                  variant="outlined"
+                  size="small"
+                  className={classes.textField}
+                  placeholder={t(
+                    'forms.themePersonalization.signup.urlRedirection',
+                  )}
+                />
+                {errors?.confirm_email_url_redirection && (
+                  <Typography
+                    className={classNames(classes.error, classes.helperText)}
+                  >
+                    {t('forms.themePersonalization.signup.urlError')}
+                  </Typography>
+                )}
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  className={classes.helperText}
+                >
+                  {t('forms.themePersonalization.signup.urlHelperText')}
+                </Typography>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <Button
@@ -529,6 +576,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
   },
+  fieldWithHelperText: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+  textFieldWithHelperText: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  textField: {
+    width: '400px',
+    paddingBottom: theme.spacing(1),
+  },
+  helperText: {
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 const ThemePersonalizeFormSchema = Yup.object().shape({
@@ -568,6 +631,15 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
         getMinutes(schedule_timerange_begin) <
         getMinutes(schedule_timerange_end)
       );
+    },
+  ),
+  requires_email_confirmation_when_signing_up: Yup.boolean().required(),
+  confirm_email_url_redirection: Yup.string().test(
+    'is-url-format',
+    'forms.themePersonalization.signup.urlError',
+    (val) => {
+      if (!val || regexHTTP.test(val)) return true;
+      return false;
     },
   ),
 });
@@ -625,6 +697,9 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
             : defaultScheduleEnd,
         hide_sessions_with_tags_when_not_eligible:
           theme.hide_sessions_with_tags_when_not_eligible,
+        requires_email_confirmation_when_signing_up:
+          theme.requires_email_confirmation_when_signing_up,
+        confirm_email_url_redirection: theme.confirm_email_url_redirection,
       };
     }
     return {
@@ -655,6 +730,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       hide_sessions_with_tags_when_not_eligible: true,
       schedule_timerange_begin: defaulScheduletBegin,
       schedule_timerange_end: defaultScheduleEnd,
+      requires_email_confirmation_when_signing_up: false,
+      confirm_email_url_redirection: '',
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -685,6 +762,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'schedule_timerange_end',
       'hide_unnecessary_compatible_purchase_method',
       'hide_sessions_with_tags_when_not_eligible',
+      'requires_email_confirmation_when_signing_up',
+      'confirm_email_url_redirection',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

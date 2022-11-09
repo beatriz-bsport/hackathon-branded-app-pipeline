@@ -2,10 +2,12 @@
 import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter, Route, Switch } from 'react-router-dom';
 
 import { parseQueryString } from '../../http';
+import asyncComponent from '../../AsyncComponent';
 
+const WelcomePage = asyncComponent(() => import('../login/Welcome.page'));
 type Props = {
   authenticated: boolean,
   location: Object,
@@ -38,7 +40,12 @@ export const ConsumerSpacePreSelector = (props: Props) => {
   //   return <Redirect to={`/c/franchisee-selector/${props.franchiseId}`} />;
   // }
 
-  return <Redirect to="/c/membership-selector/" />;
+  return (
+    <Switch>
+      <Route path="/welcome/:membership" component={WelcomePage} />
+      <Redirect to="/c/membership-selector/" />;
+    </Switch>
+  );
 };
 
 export default compose(

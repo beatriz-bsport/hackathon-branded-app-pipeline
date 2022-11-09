@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -50,6 +50,9 @@ const WidgetRouter = asyncComponent(() =>
 );
 
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
+const ConfirmEmailRouter = asyncComponent(() =>
+  import('./pages/login/ConfirmEmail.router.tsx'),
+);
 const ConsumerUnsubscribe = asyncComponent(() =>
   import('./pages/consumer/ConsumerUnsubscriber.page'),
 );
@@ -82,6 +85,9 @@ type Props = {
   location: any,
   checkBsportPluginActivated: () => void,
   isPluginActivated: boolean,
+
+  emailConfirmed: boolean,
+  authenticated: boolean,
 };
 
 export class Root extends Component<Props> {
@@ -122,7 +128,13 @@ export class Root extends Component<Props> {
   }
 
   render() {
-    const { classes, rehydrated, initializating } = this.props;
+    const {
+      classes,
+      rehydrated,
+      initializating,
+      emailConfirmed,
+      authenticated,
+    } = this.props;
 
     if (!rehydrated || initializating) {
       return <LinearProgress />;
@@ -140,36 +152,46 @@ export class Root extends Component<Props> {
           />
         )}
 
-        <Switch>
-          <Route
-            path="/external/:companyId/"
-            component={CompanyExternalRouter}
-          />
-          <Route path="/sentry" component={SentryTestError} />
-          <Route path="/login" component={LoginRouter} />
-          <Route
-            path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
-            component={ConsumerUnsubscribe}
-          />
-          <Route
-            path="/(|customer/)payment"
-            component={DeprecatedCheckoutPagesRouter}
-          />
-          <Route path="/checkout/:companyId" component={CheckoutRouter} />
-          <Route path="/customer" component={ConsumerRouter} />
-          <Route path="/m/" component={MarketPlaceRouter} />
+        {emailConfirmed || !authenticated ? (
+          <Switch>
+            <Route
+              path="/external/:companyId/"
+              component={CompanyExternalRouter}
+            />
+            <Route path="/sentry" component={SentryTestError} />
+            <Route path="/login" component={LoginRouter} />
+            <Route
+              path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
+              component={ConsumerUnsubscribe}
+            />
+            <Route
+              path="/(|customer/)payment"
+              component={DeprecatedCheckoutPagesRouter}
+            />
+            <Route path="/checkout/:companyId" component={CheckoutRouter} />
+            <Route path="/customer" component={ConsumerRouter} />
+            <Route path="/m/" component={MarketPlaceRouter} />
 
-          <Route path="/check-in" component={CheckIn} />
-          <Route path="/rn-webview" component={RNWebView} />
-          <Route path="/c/:companyId" component={ConsumerRouter} />
-          <Route path="/co/:companyId" component={CoachBackoffice} />
-          <Route path="/c/" component={ConsumerRouter} />
-          <Route
-            path="/widget/:companyName/:companyId"
-            component={WidgetRouter}
-          />
-          <Route path="/" component={UserspaceSwitcher} />
-        </Switch>
+            <Route path="/check-in" component={CheckIn} />
+            <Route path="/rn-webview" component={RNWebView} />
+            <Route path="/c/:companyId" component={ConsumerRouter} />
+            <Route path="/co/:companyId" component={CoachBackoffice} />
+            <Route path="/c/" component={ConsumerRouter} />
+            <Route
+              path="/widget/:companyName/:companyId"
+              component={WidgetRouter}
+            />
+            <Route path="/" component={UserspaceSwitcher} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route
+              path="/login/email_confirmation/"
+              component={ConfirmEmailRouter}
+            />
+            <Redirect to="/login/email_confirmation/" />
+          </Switch>
+        )}
       </div>
     );
   }
@@ -181,6 +203,8 @@ function mapStateToProps(state) {
     initializating: state.auth.initializating,
     networkAvailable: state.network.isAvailable,
     isPluginActivated: state.plugin.isPluginActivated,
+    emailConfirmed: state.auth.email_confirmed,
+    authenticated: state.auth.authenticated,
   };
 }
 

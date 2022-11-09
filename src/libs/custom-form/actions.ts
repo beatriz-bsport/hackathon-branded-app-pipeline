@@ -348,7 +348,10 @@ export const submitCustomFormActions = {
 export function submitCustomForm(
   form_filled: CustomFormFieldAnswer,
   companyId: number,
-  options?: OptionCallback,
+  options?: {
+    onSuccess: (data: { email_confirmed: boolean; user_id: number }) => void;
+    onError: () => void;
+  },
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(submitCustomFormActions.isLoading(true));

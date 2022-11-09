@@ -20,6 +20,7 @@ const initialState = Immutable({
   initializating: false,
   invalidFields: null,
   has_completed_account_configuration_on_boarding: false,
+  email_confirmed: false,
   role: null,
   franchise_role: null,
   franchise_role_identifier: null,
@@ -38,6 +39,11 @@ const initialState = Immutable({
     loading: false,
     error: null,
     last_password_reset_request: null,
+  },
+  emailConfirmation: {
+    loading: false,
+    error: null,
+    last_time_sent_email_confirmation: null,
   },
   doubleConnexion: {
     previous: {
@@ -85,6 +91,13 @@ export default function authReducers(state = initialState, action = {}) {
         ['resetPassword', 'last_password_reset_request'],
         action.payload.last_password_reset_request,
       );
+    case actionTypes.EMAIL_CONFIRMATION_SENT:
+      return state.setIn(
+        ['emailConfirmation', 'last_time_sent_email_confirmation'],
+        action.payload.last_time_sent_email_confirmation,
+      );
+    case actionTypes.EMAIL_CONFIRMED:
+      return state.set('email_confirmed', action.payload.email_confirmed);
     case actionTypes.LOGIN_SUCCESSFUL: {
       const {
         username,
@@ -100,6 +113,7 @@ export default function authReducers(state = initialState, action = {}) {
         allowed_franchisees,
         name,
         has_completed_account_configuration_on_boarding,
+        email_confirmed,
         context,
       } = action;
 
@@ -129,7 +143,8 @@ export default function authReducers(state = initialState, action = {}) {
         .set(
           'has_completed_account_configuration_on_boarding',
           has_completed_account_configuration_on_boarding,
-        );
+        )
+        .set('email_confirmed', email_confirmed);
     }
 
     case actionTypes.CHECK_ACCESS_LEVEL: {

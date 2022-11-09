@@ -70,10 +70,18 @@ export const getMemberTable = async (id: number) => {
 
 export const fetchSmartListMembers = async (
   id: number,
-  { page, page_size },
+  {
+    page,
+    page_size,
+    email_confirmed,
+  }: { page: number; page_size: number; email_confirmed?: boolean },
 ) => {
   return getAuth(
-    `${SMART_LIST_URI}${id}/members/${buildUrlParams({ page, page_size })}`,
+    `${SMART_LIST_URI}${id}/members/${buildUrlParams({
+      page,
+      page_size,
+      email_confirmed,
+    })}`,
   );
 };
 

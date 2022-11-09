@@ -148,6 +148,7 @@ const MemberExistsBanner = (props: {
       memberId={memberId}
       phonenumber={phonenumber}
       existingMemberId={exists.member_pk}
+      emailConfirmed={exists.email_confirmed}
       goToMember={goToMember}
     />
   );
@@ -607,6 +608,7 @@ export function MemberForm(props: Props) {
                       isSubmitting ||
                       (props.emailExists &&
                         props.emailExists?.exists?.member_pk &&
+                        props.emailExists?.exists?.email_confirmed &&
                         !props.emailExistsError &&
                         !props.memberId)
                     }

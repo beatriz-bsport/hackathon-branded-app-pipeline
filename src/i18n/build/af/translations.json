@@ -2411,6 +2411,30 @@
       "goToLogin": "Retour",
       "disconnect": "Changer de compte"
     },
+    "emailConfirmation": {
+      "title": "Votre inscription a bien été enregistrée",
+      "textExplain": "Un email de confirmation vient de vous être envoyé afin de confirmer l'adresse mail indiquée. Pour finaliser votre inscription, cliquez sur le lien pour activer votre compte.",
+      "backToLogin": "Retour",
+      "notReceived": "Vous n'avez rien reçu ?",
+      "clickHere": "Cliquez ici",
+      "helperToSendOnceAgain": "pour envoyer de nouveau l'email de confirmation",
+      "dialog": {
+        "title": "Renvoyer l'email de confirmation",
+        "canBeResent": "Avant d'envoyer de nouveau l'email de confirmation merci de vérifier vos spams et de recharger votre boîte mail. Si vous n'avez rien reçu cliquez sur le bouton envoyer.",
+        "cannotBeResent": "Un email est déjà en cours d'envoi, si vous n'avez toujours rien reçu dans {{timeLeftBeforeNewSent}} minutes merci de rééssayer. N'oubliez pas de vérifier vos spams.",
+        "send": "Envoyer",
+        "cancel": "Annuler",
+        "sentAgain": "Email renvoyé !",
+        "sentAgainExplain": "L'email de confirmation vient d'être renvoyé sur votre adresse email.",
+        "continue": "Continuer",
+        "close": "Fermer"
+      }
+    },
+    "welcome": {
+      "title": "Bienvenue chez {{companyName}} !",
+      "begin": "Commencer",
+      "textExplain": "Félicitations, votre inscription a bien été finalisée. Vous pouvez dès maintenant commencer à profiter de votre compte et réserver vos premières séances."
+    },
     "forms": { "password": { "label": "Mot de passe" } },
     "or": " ou ",
     "actions": {
@@ -2982,11 +3006,15 @@
     },
     "user": {
       "existsWithEmail": "Un utilisateur avec l'adresse email {{email}} existe déjà.",
-      "existsWithPhone": "Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà."
+      "existsWithPhone": "Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà.",
+      "existsWithEmailButNotConfirmed": "Un utilisateur avec l'adresse email {{email}} existe déjà, mais son email est en attente de confirmation. En enregistrant ce utilisateur, son email sera automatiquement vérifié.",
+      "existsWithPhoneButNotConfirmed": "Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà, mais son email ({{email}}) est en attente de confirmation. En enregistrant cet utilisateur, son email sera automatiquement vérifié."
     },
     "member": {
       "existsWithEmail": "Un membre avec l'adresse email {{email}} existe déjà.",
-      "existsWithPhone": "Un membre avec le numéro de téléphone {{phonenumber}} existe déjà."
+      "existsWithPhone": "Un membre avec le numéro de téléphone {{phonenumber}} existe déjà.",
+      "existsWithEmailButNotConfirmed": "Un membre avec l'adresse email {{email}} existe déjà, mais son email est en attente de confirmation. En enregistrant ce membre, son email sera automatiquement vérifié.",
+      "existsWithPhoneButNotConfirmed": "Un membre avec le numéro de téléphone {{phonenumber}} existe déjà, mais son email ({{email}}) est en attente de confirmation. En enregistrant ce membre, son email sera automatiquement vérifié."
     },
     "exists": { "goTo": "Voir le membre", "linkUser": "Lier l'utilisateur", "merge": "Fusionner" },
     "linkDialog": {
@@ -8790,6 +8818,14 @@
         },
         "showGenderOffer": "Afficher le nombre d'hommes et de femmes qui réservent une offre",
         "offerBalance": "Mise en place d'un contrôle de l'équilibre FEMME/HOMME",
+        "signup": {
+          "title": "Inscription",
+          "label": "Confirmation de l'email à l'inscription",
+          "helperText": "Lors de l'inscription, vos membres recevront un email pour confirmer leur adresse email, leur compte ne sera pas activé tant que cet email n'aura pas été confirmé",
+          "urlRedirection": "URL de redirection",
+          "urlError": "Veuillez rentrer un url valide",
+          "urlHelperText": "Le membre sera redirigé vers ce lien après avoir confirmé son email. Si non renseigné, il sera redirigé vers son profil sur la marketplace."
+        },
         "checkBalance": {
           "checkbox": "Limiter le déséquilibre FEMME/HOMME des réservations (danse...)",
           "numberCheck": {

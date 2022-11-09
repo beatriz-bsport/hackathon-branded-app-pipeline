@@ -135,12 +135,14 @@ type OwnProps = {
     tags_included,
     tags_excluded,
     exclude_archived,
+    email_confirmed,
   }: {
     page: number;
     page_size: number;
     tags_included?: Array<Tag['id']>;
     tags_excluded?: Array<Tag['id']>;
     exclude_archived?: boolean;
+    email_confirmed?: boolean;
   }) => Promise<AxiosResponse<any>>;
   goToMember: (id: number) => void;
   addMember?: () => void;
@@ -185,6 +187,7 @@ export class MemberTable extends Component<Props, State> {
           tags_included: this.props.tagsIncluded,
           tags_excluded: this.props.tagsExcluded,
           exclude_archived: true,
+          email_confirmed: true,
         })
         .then((response) => {
           this.setState((prevState) => ({

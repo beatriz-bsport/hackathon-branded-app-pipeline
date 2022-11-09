@@ -76,6 +76,8 @@ export type Theme = {
   widget_theme: WidgetCustomCSS;
   franchisor: number | null;
   online_payment_enabled: boolean;
+  confirm_email_url_redirection: string;
+  requires_email_confirmation_when_signing_up: boolean;
 };
 
 export type ThemeState = {

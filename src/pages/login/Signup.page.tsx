@@ -17,7 +17,7 @@ import {
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 import themeSelectors from '#libs/theme/selectors';
-import { parseQueryString } from '../../http';
+import { buildUrlParams, parseQueryString } from '../../http';
 import { requestLogin } from '../../actions/auth.actions';
 
 import { fetchCompanyTheme } from '#libs/theme/actions';
@@ -91,11 +91,19 @@ export class SignupPage extends Component<Props> {
       formdata,
       this.props?.membership || null,
       {
-        onSuccess: () => {
+        onSuccess: (data: { email_confirmed: boolean; user_id: number }) => {
           this.props.doEmailLogin(this.props.loginInformations);
-          if (this.props.membership && this.props.theme?.id)
-            Analytics.signupSuccess(this.props.loginInformations);
-          if (options && options.onSuccess) options.onSuccess();
+          if (!data.email_confirmed) {
+            this.props.pushRouter(
+              `/login/email_confirmation/${buildUrlParams({
+                membership: this.props.membership,
+              })}`,
+            );
+          } else {
+            if (this.props.membership && this.props.theme?.id)
+              Analytics.signupSuccess(this.props.loginInformations);
+            if (options && options.onSuccess) options.onSuccess();
+          }
         },
         onError: () => {
           if (options?.onError) options.onError();

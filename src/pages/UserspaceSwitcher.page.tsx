@@ -101,6 +101,7 @@ const connector = connect(
     storedToken: state.auth.token,
     has_completed_account_configuration_on_boarding:
       state.auth.has_completed_account_configuration_on_boarding,
+    email_confirmed: state.auth.email_confirmed,
   }),
   {
     disconnect: disconnectAction,

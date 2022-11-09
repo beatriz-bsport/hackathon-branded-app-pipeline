@@ -53,7 +53,8 @@ import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';
 import {
-  signupV2,
+  // DEPRECATED
+  // signupV2,
   navigateToRelationAccount as navigateToRelationAccountAction,
   navigateBackToMasterRelation as navigateBackToMasterRelationAction,
 } from '../../actions/auth.actions';
@@ -160,7 +161,8 @@ type Props = {
   classes: Object,
 
   disconnect: () => void,
-  signup: (formdata: any, callback: () => void) => void,
+  //  DEPRECATED
+  // signup: (formdata: any, callback: () => void) => void,
   fetchCompanyTheme: () => void,
   theme: any,
   settings: MarketplaceSettings,
@@ -403,14 +405,15 @@ export class MarketPlace extends Component<Props, State> {
   toggleCurrentBasketOpen = (currentBasketOpen: boolean) =>
     this.setState({ currentBasketOpen });
 
-  signup = (formdata: any, options) => {
-    if (this.props.companyId) {
-      formdata.append('membership', this.props.companyId);
-      this.props.signup(formdata, options);
-    } else {
-      this.props.signup(formdata, options);
-    }
-  };
+  // DEPRECATED
+  // signup = (formdata: any, options) => {
+  //   if (this.props.companyId) {
+  //     formdata.append('membership', this.props.companyId);
+  //     this.props.signup(formdata, options);
+  //   } else {
+  //     this.props.signup(formdata, options);
+  //   }
+  // };
 
   toggleSignUp = (value: boolean) => {
     if (value) {
@@ -744,7 +747,10 @@ export default compose(
       fetchProfile,
       goToUserSpace: (id) => pushRouter(`/c/${id}/`),
       goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
-      signupAction: signupV2,
+
+      // DEPRECATED
+      // signupAction: signupV2,
+
       doEmailLogin: ({ email, password }, callback) =>
         authActions.requestLogin(email, password, { onDone: callback }),
       disconnect: authActions.disconnect,

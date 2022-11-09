@@ -57,6 +57,7 @@ const FranchiseMemberList = (props: Props) => {
       page,
       page_size: rowsPerPage,
       exclude_archived: true,
+      email_confirmed: true,
     });
   }, [fetchFranchiseUsers, page, rowsPerPage]);
 

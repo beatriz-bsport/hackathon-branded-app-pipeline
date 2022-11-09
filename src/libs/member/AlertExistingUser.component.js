@@ -21,6 +21,7 @@ type Props = {
 
   email?: string,
   phonenumber?: string,
+  emailConfirmed: boolean,
 };
 
 export function AlertExistingUser(props: Props) {
@@ -33,34 +34,41 @@ export function AlertExistingUser(props: Props) {
     email,
     phonenumber,
     goToMerge,
+    emailConfirmed,
   } = props;
   const userKey = existingMemberId ? 'member' : 'user';
-  const textKey = email
+  let textKey = email
     ? `${userKey}.existsWithEmail`
     : `${userKey}.existsWithPhone`;
-  const button = existingMemberId ? (
-    <div>
-      <Button
-        onClick={() => goToMember(existingMemberId)}
-        variant="outlined"
-        classes={{ outlined: classes.buttonOutlined }}
-      >
-        {t('exists.goTo')}
-      </Button>
-      {memberId && existingMemberId && goToMerge ? (
+  if (existingMemberId && !emailConfirmed) {
+    textKey = textKey.concat('ButNotConfirmed');
+  }
+  const button =
+    existingMemberId && emailConfirmed ? (
+      <div>
         <Button
-          onClick={() => goToMerge(memberId, existingMemberId)}
+          onClick={() => goToMember(existingMemberId)}
           variant="outlined"
           classes={{ outlined: classes.buttonOutlined }}
-          className={classes.mergButton}
         >
-          {t('exists.merge')}
+          {t('exists.goTo')}
         </Button>
-      ) : null}
-    </div>
-  ) : (
-    <>{linkMember ? <LinkMemberDialog onConfirm={linkMember} t={t} /> : null}</>
-  );
+        {memberId && existingMemberId && goToMerge ? (
+          <Button
+            onClick={() => goToMerge(memberId, existingMemberId)}
+            variant="outlined"
+            classes={{ outlined: classes.buttonOutlined }}
+            className={classes.mergButton}
+          >
+            {t('exists.merge')}
+          </Button>
+        ) : null}
+      </div>
+    ) : (
+      <>
+        {linkMember ? <LinkMemberDialog onConfirm={linkMember} t={t} /> : null}
+      </>
+    );
 
   return (
     <div className={classes.info}>

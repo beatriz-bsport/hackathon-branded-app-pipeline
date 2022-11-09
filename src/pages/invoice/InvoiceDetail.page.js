@@ -933,20 +933,22 @@ export default compose(
       ({
         detachPaymentMethodAction,
         fetchPaymentMethodList,
-        companyId,
         invoice,
+        member,
       }) =>
       (pm_id: number, options: OptionCallback) => {
-        detachPaymentMethodAction(
-          { company: companyId, payment_method_id: pm_id },
-          {
-            onSuccess: () => {
-              fetchPaymentMethodList({ member: invoice.member.id });
-              if (options && options.onSuccess) options.onSuccess();
+        if (member?.id) {
+          detachPaymentMethodAction(
+            { member: member.id, payment_method_id: pm_id },
+            {
+              onSuccess: () => {
+                fetchPaymentMethodList({ member: invoice.member.id });
+                if (options && options.onSuccess) options.onSuccess();
+              },
+              onError: options && options.onError,
             },
-            onError: options && options.onError,
-          },
-        );
+          );
+        }
       },
   }),
   withTitle(

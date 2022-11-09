@@ -27,6 +27,7 @@ import {
   fetchBasket as fetchBasketAction,
   attachPaymentToBasketId as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
+  assignInstalmentPayment as assignInstalmentPaymentAction,
 } from '#libs/checkout/actions';
 import { fetchPaymentMethodList } from '#libs/payment/actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
@@ -46,8 +47,11 @@ import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
 import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
 
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
+import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
+import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
 const PaymentStripe = asyncComponent(
   () =>
@@ -63,6 +67,14 @@ type Props = {
   submitPaymentIntent: (data: any, option: OptionCallback) => void;
   savedPaymentMethodList: Array<PaymentMethod>;
   fetchPaymentMethodList: (params: any) => void;
+  fetchInstalmentPaymentByBasket: (basketId: number) => void;
+  instalmentPaymentConfigurationList: Array<InstalmentPayment>;
+  assignInstalmentPayment: (
+    basket: string,
+    instalment_payment_id: number,
+    options: OptionCallback<Basket>,
+  ) => void;
+  refreshBasket: (options: OptionCallback) => void;
   useInternalAccount: (amount: number, options: OptionCallback) => void;
   onRemoveInternalAccountPrepaidLine: (options?: OptionCallback) => void;
   creditAccountBalance: number | null;
@@ -95,6 +107,8 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           onSuccess: (theme) => this.setState({ theme }),
         });
 
+        this.props.fetchInstalmentPaymentByBasket(this.props.basketId);
+
         if (!basket.is_finalized) {
           this.getSecret();
           this.props.fetchMembershipByBasket({
@@ -121,6 +135,24 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         console.error(err);
         this.setState({ clientSecretLoading: false });
       });
+  };
+
+  onSelectInstalmentPayment = (
+    instalment_payment_id: number,
+    options: OptionCallback,
+  ) => {
+    if (this.props.basket?.id) {
+      this.props.assignInstalmentPayment(
+        this.props.basket.id,
+        instalment_payment_id,
+        {
+          onSuccess: () => {
+            this.props.refreshBasket(options);
+          },
+          onError: options && options.onError,
+        },
+      );
+    }
   };
 
   onSuccess = () => {
@@ -292,6 +324,12 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             creditAccountBalance={this.props.creditAccountBalance}
             validateUnpaid={this.validateUnpaid}
             checkItemsBasket={this.props.checkItemsBasket}
+            instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+              (ipc) => ipc.basketId === this.props.basket?.id,
+            )}
+            instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
+            onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+            fromApp
           />
         )}
 
@@ -315,6 +353,7 @@ const styles = (theme: Theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   loadingContainer: {
     display: 'flex',
@@ -356,11 +395,14 @@ const connector = connect(
     loading:
       state.checkout.basket.current.loading || state.checkout.basket.loading,
     processing: state.checkout.basket.current.updating,
+    instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
   }),
   {
     fetchBasket: fetchBasketAction,
     attachPayment: attachPaymentAction,
     fetchPaymentMethodList,
+    fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
+    assignInstalmentPayment: assignInstalmentPaymentAction,
     fetchCompanyTheme,
     createOrRefreshInternalAccountPrepaidLine:
       createOrRefreshInternalAccountPrepaidLineAction,
@@ -391,6 +433,14 @@ export default compose(
       }),
   })),
   withHandlers({
+    refreshBasket:
+      ({ fetchBasket, basketId }) =>
+      (options: OptionCallback) =>
+        fetchBasket(basketId, {
+          onSuccess: options && options.onSuccess,
+        }),
+  }),
+  withHandlers({
     checkItemsBasket:
       ({ snackbarErrorMsg, refreshBasket }) =>
       async (basketId: string) => {
@@ -413,12 +463,21 @@ export default compose(
         return true;
       },
     useInternalAccount:
-      ({ createOrRefreshInternalAccountPrepaidLine, fetchBasket, basket }) =>
+      ({
+        createOrRefreshInternalAccountPrepaidLine,
+        fetchInstalmentPaymentByBasket,
+        fetchBasket,
+        basket,
+      }) =>
       (amount: number, options: OptionCallback) => {
         createOrRefreshInternalAccountPrepaidLine(basket.id, amount, {
           onSuccess: () => {
             if (options && options.onSuccess) options.onSuccess();
-            fetchBasket(basket.id);
+            fetchBasket(basket.id, {
+              onSuccess: () => {
+                fetchInstalmentPaymentByBasket(basket.id);
+              },
+            });
           },
           onError: () => {
             if (options && options.onError) options.onError();
@@ -426,12 +485,21 @@ export default compose(
         });
       },
     onRemoveInternalAccountPrepaidLine:
-      ({ createOrRefreshInternalAccountPrepaidLine, fetchBasket, basket }) =>
+      ({
+        createOrRefreshInternalAccountPrepaidLine,
+        fetchInstalmentPaymentByBasket,
+        fetchBasket,
+        basket,
+      }) =>
       (options: OptionCallback) => {
         createOrRefreshInternalAccountPrepaidLine(basket.id, 0, {
           onSuccess: () => {
             if (options && options.onSuccess) options.onSuccess();
-            fetchBasket(basket.id);
+            fetchBasket(basket.id, {
+              onSuccess: () => {
+                fetchInstalmentPaymentByBasket(basket.id);
+              },
+            });
           },
           onError: () => {
             if (options && options.onError) options.onError();

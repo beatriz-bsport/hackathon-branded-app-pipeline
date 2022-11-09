@@ -30,6 +30,7 @@ export type Basket<C = string, PPL = number> = {
   available_payment_methods: number[];
   total_price_prepaid_lines: number;
   prepaid_lines: Array<PPL>;
+  instalment_payment: null | number;
 };
 
 export type CheckoutState = {

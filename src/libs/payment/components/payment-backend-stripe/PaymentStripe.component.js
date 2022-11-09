@@ -82,6 +82,8 @@ type Props = {
   instalmentPaymentSelectedId: number,
   onSelectInstalmentPayment: (id: number, options: OptionCallback) => void,
   checkItemsBasket: (basketId: string) => boolean,
+
+  fromApp: boolean,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -156,6 +158,7 @@ export const PaymentStripe = (props: Props) => {
         basketPriceCts={
           props.basketTotalPriceCts - (props.basketTotalPricePrepaidLines || 0)
         }
+        fromApp={props.fromApp}
       />
       <div className={classes.innerContainer}>
         <Elements stripe={stripePromise}>

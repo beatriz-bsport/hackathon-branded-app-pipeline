@@ -6,6 +6,7 @@ import { PrivatePass } from '#libs/private-service/types';
 
 export type InstalmentPayment = {
   id?: number;
+  basketId?: string;
   company?: number;
   name: string;
   recurrency: 1 | 2 | 3 | 4;

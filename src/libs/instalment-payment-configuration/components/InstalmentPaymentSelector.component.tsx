@@ -4,11 +4,18 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfigurationOption.component';
 import { InstalmentPayment } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   instalmentPaymentConfigurationList: null | Array<InstalmentPayment>;
   basketPriceCts: number;
-  onSelectInstalmentPayment: (id: number) => void;
+  onSelectInstalmentPayment: (
+    id: number | null,
+    options: OptionCallback,
+  ) => void;
+  fromApp: boolean;
+
+  instalmentPaymentConfigurationSelectedId: number;
 };
 
 const InstalmentPaymentSelector = (props: Props) => {
@@ -43,6 +50,7 @@ const InstalmentPaymentSelector = (props: Props) => {
               onError: () => setProcessing(false),
             });
           }}
+          withPaddingLeft={props.fromApp}
         />
       )}
       {(props.instalmentPaymentConfigurationList || []).map((ipc) => (
@@ -59,6 +67,7 @@ const InstalmentPaymentSelector = (props: Props) => {
               onError: () => setProcessing(false),
             });
           }}
+          withPaddingLeft={props.fromApp}
         />
       ))}
     </div>

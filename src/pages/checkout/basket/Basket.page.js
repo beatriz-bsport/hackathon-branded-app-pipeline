@@ -627,6 +627,7 @@ export default compose(
       ({
         createOrRefreshInternalAccountPrepaidLine,
         fetchCurrentBasket,
+        fetchInstalmentPaymentByBasket,
         companyId,
         basket,
       }) =>
@@ -634,7 +635,9 @@ export default compose(
         createOrRefreshInternalAccountPrepaidLine(basket.id, 0, {
           onSuccess: () => {
             if (options && options.onSuccess) options.onSuccess();
-            fetchCurrentBasket(companyId);
+            fetchCurrentBasket(companyId, {
+              onSuccess: () => fetchInstalmentPaymentByBasket(basket.id),
+            });
           },
           onError: () => {
             if (options && options.onError) options.onError();

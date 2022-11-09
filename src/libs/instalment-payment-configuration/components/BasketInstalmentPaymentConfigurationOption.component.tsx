@@ -5,6 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Radio, Typography, Collapse } from '@material-ui/core';
 import moment from 'moment-timezone';
 import chroma from 'chroma-js';
+import classNames from 'classnames';
 import { InstalmentPayment } from '../types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 import { DAILY, MONTHLY, WEEKLY } from '../constants';
@@ -15,6 +16,8 @@ type OwnProps = {
   instalmentPayment: InstalmentPayment;
   basketPrice: number;
   disabled: boolean;
+  withPaddingLeft: boolean;
+  onSelect: (id?: number) => void;
 };
 type ShortandMoment = 'y' | 'd' | 'w' | 'M';
 type Props = OwnProps;
@@ -92,7 +95,11 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
         />
       </div>
       <Collapse in={checked}>
-        <div className={classes.column}>
+        <div
+          className={classNames(classes.column, {
+            [classes.paddingLeftMobile]: !!props?.withPaddingLeft,
+          })}
+        >
           {instalmentDateList.map((date, index) => (
             <div className={classes.row}>
               <Typography variant="caption">{date}</Typography>
@@ -118,10 +125,10 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
     </div>
   );
 };
-const useStyles = makeStyles<Theme, { checked: boolean }>((theme) => ({
+const useStyles = makeStyles<Theme, { checked: boolean }>((theme: Theme) => ({
   container: (props: { checked: boolean }) => ({
     backgroundColor: props.checked
-      ? chroma(theme.palette.primary.main).alpha(0.05)
+      ? chroma(theme.palette.primary.main).alpha(0.05).hex()
       : 'unset',
     border: '1px solid #D4D4D4',
     borderRadius: '4px',
@@ -134,6 +141,9 @@ const useStyles = makeStyles<Theme, { checked: boolean }>((theme) => ({
     flexDirection: 'column',
     gap: theme.spacing(1),
     paddingLeft: theme.spacing(6),
+  },
+  paddingLeftMobile: {
+    paddingLeft: theme.spacing(2),
   },
   row: {
     display: 'flex',

@@ -8008,6 +8008,7 @@
       "invalid_number": "Le numéro de votre carte est invalide.",
       "expired_card": "Votre carte a expirée.",
       "card_declined": "Carte refusée",
+      "setup_intent_authentication_failure": "Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.",
       "payment_intent_authentication_failure": "Le paiement a été refusé par votre banque.",
       "payment_intent_payment_attempt_failed": "Le paiement a été refusé par votre banque.",
       "processing_error": "Une erreur a eue lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",

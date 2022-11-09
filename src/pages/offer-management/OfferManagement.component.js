@@ -57,6 +57,7 @@ import { getOfferCategories } from '#libs/communication-v2/utils';
 import Config from '../../config';
 import { DEFAULT_SPOT_TYPE } from '../../libs/spot-scheduling/utils';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -237,6 +238,8 @@ type Props = {
   fetchSpotForBlueprint: (company: number) => void,
   spotTypes: SpotType[],
   resolvedGenericTags: ResolvedGenericTags,
+  fetchStripeReaders: () => void,
+  stripeReaders: StripeReader[],
 };
 
 type State = {
@@ -270,6 +273,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchSpotForBlueprint({
       company: this.props.company_theme.company,
     });
+    this.props.fetchStripeReaders();
   }
 
   fetchOfferAndData = () => {
@@ -636,6 +640,7 @@ export class OfferManagement extends Component<Props, State> {
             onlinePaymentEnabled={
               this.props.company_theme.online_payment_enabled
             }
+            stripeReaders={this.props.stripeReaders}
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}

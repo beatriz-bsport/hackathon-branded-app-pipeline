@@ -44,6 +44,8 @@ exports.default = {
     invalid_number: 'Le numéro de votre carte est invalide.',
     expired_card: 'Votre carte a expirée.',
     card_declined: 'Carte refusée',
+    setup_intent_authentication_failure:
+      'Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.',
     // Payment errors
     payment_intent_authentication_failure:
       'Le paiement a été refusé par votre banque.',

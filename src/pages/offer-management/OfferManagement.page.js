@@ -29,6 +29,7 @@ import {
   withSpecificCoach,
   withEstablishment,
 } from '#libs/offer/selectors';
+import { getStripeReaders } from '#libs/terminal/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { sendCommunication } from '#libs/communication/actions';
@@ -55,6 +56,7 @@ import {
   fetchAssetForBlueprint as fetchAssetForBlueprintAction,
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
 } from '#libs/spot-scheduling/actions';
+import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 
@@ -244,6 +246,7 @@ export default compose(
       similarBookingList: withEstablishment(
         withCustomLevel(getSimilarBookingList),
       )(state),
+      stripeReaders: getStripeReaders(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -259,6 +262,7 @@ export default compose(
       registerToWaitingListAction: registerToWaitingListAction_,
       discardOption: discardBookingOptionAction,
       fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
+      fetchStripeReaders,
 
       // buyable stuff
       fetchShopItems,

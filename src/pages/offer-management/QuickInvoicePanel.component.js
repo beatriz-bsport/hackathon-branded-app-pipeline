@@ -16,6 +16,7 @@ import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../state/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
   classes: Object,
@@ -43,6 +44,7 @@ type Props = {
   ) => void,
   onlinePaymentEnabled: boolean,
   enableMultiLocalization: boolean,
+  stripeReaders: StripeReader[],
 };
 
 type State = {
@@ -171,6 +173,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
             defaultUserName={this.props.invoiceToBill.member.name}
             defaultUserEmail={this.props.invoiceToBill.member.email}
             companyId={this.props.companyId}
+            stripeReaders={this.props.stripeReaders}
           />
         )}
       </Paper>

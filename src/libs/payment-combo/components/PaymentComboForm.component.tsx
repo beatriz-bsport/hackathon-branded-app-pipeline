@@ -293,7 +293,7 @@ const useStyles = makeStyles((theme) => ({
 export const PaymentComboFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
-  max_purchase_per_member: Yup.number().nullable(),
+  max_purchase_per_member: Yup.number().min(0).nullable(),
   price: Yup.number().min(0),
   use_payment_combo_tax_on_items: Yup.boolean(),
   tax: Yup.number().min(0).max(100).default(0),
@@ -320,7 +320,7 @@ export const PaymentComboFormHoc = withFormik({
     return {
       name: '',
       description: '',
-      max_purchase_per_member: 0,
+      max_purchase_per_member: null,
       price: 10,
       use_payment_combo_tax_on_items: false,
       tax: 0,
@@ -337,8 +337,13 @@ export const PaymentComboFormHoc = withFormik({
     valuesFormik,
     { props: { onSubmit, initial }, setSubmitting },
   ) => {
+    const valuesFormikBase = {
+      ...valuesFormik,
+      max_purchase_per_member: valuesFormik.max_purchase_per_member || '0',
+    };
+
     onSubmit(
-      omit(valuesFormik, ['payment_packs', 'private_passes', 'shop_items']),
+      omit(valuesFormikBase, ['payment_packs', 'private_passes', 'shop_items']),
       {
         onSuccess: () => {
           setSubmitting(false);

@@ -55,6 +55,8 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
         onSubmit={(ev) => {
           ev.preventDefault();
           if (
+            !withoutPaymentNote &&
+            props.asManager &&
             props.enableMultiLocalization &&
             !props.billingEstablishmentId &&
             props.establishments?.length

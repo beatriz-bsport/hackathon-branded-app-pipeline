@@ -1,5 +1,6 @@
 import React from 'react';
 
+import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -9,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import moment from 'moment-timezone';
 import {
   PAYOUT_STATUS_PENDING,
@@ -42,20 +44,48 @@ const PayoutListItem = (props: Props) => {
               'LL',
             )} - ${getCurrencyDisplayWithPrice(
               (payout.amount_cts / 100).toFixed(2),
-            )}`}
+            )}${
+              payout.amount_cts_from_previous_included_payouts > 0
+                ? ` (${t('payout.payoutAmountFromIncludedPayouts', {
+                    price: getCurrencyDisplayWithPrice(
+                      (
+                        payout.amount_cts_from_previous_included_payouts / 100
+                      ).toFixed(2),
+                    ),
+                  })})`
+                : ''
+            }`}
           </Typography>
-          <Typography variant="caption" color="textSecondary">
-            {t('payout.paymentNb', {
-              nb: (payout.payments || []).length,
-            })}
-          </Typography>
+          {payout.is_included_in_payout ? (
+            <div className={classes.row}>
+              <InfoOutlinedIcon fontSize="small" className={classes.iconLeft} />
+              <Typography variant="caption" className={classes.info}>
+                {t('payout.payoutIsIncludedInOther', {
+                  date: moment(
+                    payout.is_included_in_payout.date_created,
+                  ).format('LL'),
+                  readable_identifier:
+                    payout.is_included_in_payout.readable_identifier,
+                })}
+              </Typography>
+            </div>
+          ) : (
+            <Typography variant="caption" color="textSecondary">
+              {t('payout.paymentNb', {
+                nb: (payout.payments || []).length,
+              })}
+            </Typography>
+          )}
           <Typography variant="body2">{payout.readable_identifier}</Typography>
         </div>
         <div className={classes.rightPart}>
           <Typography className={classes.status}>
             {t(`payout.status.${payout.status}`)}
           </Typography>
-          <IconButton onClick={() => props.tooglePayoutOpen(payout.id)}>
+          <IconButton
+            disabled={!!payout.is_included_in_payout}
+            onClick={() => props.tooglePayoutOpen(payout.id)}
+          >
             {props.isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </div>
@@ -118,6 +148,9 @@ const useStyles = makeStyles((theme) => ({
   iconRight: {
     marginLeft: theme.spacing(1),
   },
+  info: { color: chroma(theme.palette.info.dark).darken(1.5).hex() },
+  row: { display: 'flex', alignItems: 'center' },
+  iconLeft: { marginRight: theme.spacing(0.5) },
   status: ({ payout }: { payout: Payout }) => {
     let color = 'black';
     switch (payout.status) {

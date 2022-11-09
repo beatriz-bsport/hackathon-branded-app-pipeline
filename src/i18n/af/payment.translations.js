@@ -261,6 +261,10 @@ exports.default = {
     isEmpty: 'Aucun encaissement.',
     isEmptyWarning:
       'NB: certains encaissements avant le 15 Mars 2021 peuvent ne pas être listés ci-dessous.',
+    payoutIsIncludedInOther:
+      "Ce virement a été inclus dans celui du {{date}} portant l'identifiant {{readable_identifier}}",
+    payoutAmountFromIncludedPayouts:
+      'dont {{price}} provenant de payouts précédents',
   },
   subscriptionPaymentDialog: {
     title: 'Acheter un abonnement',

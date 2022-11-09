@@ -20,6 +20,12 @@ export type Payout = {
   company: number;
   id: number;
   readable_identifier: string;
+  amount_cts_from_previous_included_payouts: number;
+  is_included_in_payout?: {
+    id: number;
+    date_created: string;
+    readable_identifier: string;
+  };
 };
 
 export type PaymentInstalmentData = {

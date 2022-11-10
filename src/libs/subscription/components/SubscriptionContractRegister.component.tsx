@@ -120,7 +120,7 @@ const ContractPickerDialog = (props: PickerProps) => (
   </GenericResponsiveDialog>
 );
 
-export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
+export const SubscriptionContractRegister = (props: Props) => {
   const [alertPickedDateInThePast, setAlertPickedDateInThePast] =
     useState(false);
   const [pickedDateInThePast, setPickedDateInThePast] = useState(false);
@@ -359,4 +359,4 @@ export default compose(
         });
       },
   }),
-)(SubscriptionContractRegistrationManagerDialog);
+)(SubscriptionContractRegister);

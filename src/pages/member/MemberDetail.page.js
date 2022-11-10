@@ -674,6 +674,7 @@ export default compose(
           onError: options?.onError,
           onSuccess: () => {
             closeContractDialog(false);
+            if (options?.onSuccess) options.onSuccess();
             displayBackgroundDialog(
               uuid,
               t('subscription:register.dialog.info'),

@@ -3,8 +3,8 @@ import { TFunction } from 'i18next';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
-export function formatAsDate(date: string) {
-  const momentDate = moment(date);
+export function formatAsDate(date: string, tzname?: string) {
+  const momentDate = tzname ? moment(date).tz(tzname) : moment(date);
   return momentDate.format('L');
 }
 

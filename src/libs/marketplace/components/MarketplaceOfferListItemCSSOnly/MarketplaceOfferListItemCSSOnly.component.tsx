@@ -9,8 +9,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
 import moment from 'moment-timezone';
-import MaleIcon from '../../../../components/icons/MaleIcon.component';
-import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
+import { formatAsDate } from '../../../../utils/datetime';
+import MaleIcon from '#components/icons/MaleIcon.component';
+import FemaleIcon from '#components/icons/FemaleIcon.component';
 
 import { Offer } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -19,11 +20,11 @@ import { Establishment } from '#libs/establishment/types';
 
 import { getOfferHours } from '#libs/marketplace/utils';
 
-import MarketplaceBookButtonV2 from '../MarketplaceBookButtonCSSOnly';
+import MarketplaceBookButtonV2 from '#libs/marketplace/components/MarketplaceBookButtonCSSOnly';
 import { MetaActivity } from '#libs/meta-activity/types';
 import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
-import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
-import MarketplaceCalendarVariant from '../../types';
+import MarketplaceBroadcast from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
+import MarketplaceCalendarVariant from '#libs/marketplace/types';
 import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
 
 import './MarketplaceOfferListItemCSSOnly.css';
@@ -116,21 +117,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   };
 
   const date = (() => {
-    if (offer?.meta_activity?.is_broadcast) {
-      return moment(offer?.date_start).local().format('LT');
-    }
+    const timezoneName = offer?.meta_activity?.is_broadcast
+      ? moment.tz.guess()
+      : establishment?.tzname || theme.timezone_name || 'Europe/Paris';
 
-    if (offer.date_start && establishment) {
-      return moment(offer?.date_start)
-        .tz(establishment?.tzname ?? 'Europe/Paris')
-        .format('L');
-    }
-
-    if (offer.date_start) {
-      return moment(offer?.date_start)
-        .tz(theme.timezone_name ?? 'Europe/Paris')
-        .format('L');
-    }
+    if (offer?.date_start) return formatAsDate(offer?.date_start, timezoneName);
 
     return '';
   })();

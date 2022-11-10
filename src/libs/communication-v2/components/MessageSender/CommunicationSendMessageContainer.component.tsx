@@ -236,8 +236,8 @@ export class CommunicationSendMessageContainer extends React.Component<
       blacklist_notification: this.state.uncheckedMembers.notification,
     };
     this.setState({ selectedMemberDetailListLoading: true }, () =>
-      fetchFirstSelectedRecipientsForChatAllKindsAPI(params).then(
-        (response) => {
+      fetchFirstSelectedRecipientsForChatAllKindsAPI(params)
+        .then((response) => {
           this.setState({
             selectedMemberDetailListLoading: false,
             selectedMemberDetailListAllKinds: {
@@ -246,8 +246,13 @@ export class CommunicationSendMessageContainer extends React.Component<
               notification: response.data.notification || [],
             },
           });
-        },
-      ),
+        })
+        .catch((error) => {
+          this.setState({
+            selectedMemberDetailListLoading: false,
+          });
+          console.error(error);
+        }),
     );
   };
 
@@ -282,6 +287,9 @@ export class CommunicationSendMessageContainer extends React.Component<
       refreshCountRecipients,
     );
   };
+
+  handleCloseRecipientModal = () =>
+    this.setState({ openRecipientSelector: false });
 
   onBaliseItemClick = (selectedItem: string) => {
     const tagLength = selectedItem?.length + 2; // 2 for the brackets
@@ -384,8 +392,10 @@ export class CommunicationSendMessageContainer extends React.Component<
         };
         break;
       default:
-        content = {};
-        break;
+        console.error(
+          'this.props.communicationKind matches no one of expected kinds.',
+        );
+        return;
     }
     this.sendMessageWithFlushEditAndRefreshCallback({
       ...content,
@@ -562,8 +572,6 @@ export class CommunicationSendMessageContainer extends React.Component<
   };
 
   renderRecipientSelector = () => {
-    const handleCloseDialog = () =>
-      this.setState({ openRecipientSelector: false });
     return (
       <CommunicationRecipientsModal
         allMemberCategoryList={this.props.allMemberCategoryList}
@@ -579,7 +587,7 @@ export class CommunicationSendMessageContainer extends React.Component<
           this.fetchPaginatedAvailableRecipientMemberList
         }
         fullScreen={this.props.fullScreen}
-        handleCloseDialog={handleCloseDialog}
+        handleCloseDialog={this.handleCloseRecipientModal}
         kind={this.props.communicationKind}
         loadingPaginatedMemberList={this.props.loadingPaginatedMemberList}
         paginatedMemberList={this.props.paginatedMemberList}

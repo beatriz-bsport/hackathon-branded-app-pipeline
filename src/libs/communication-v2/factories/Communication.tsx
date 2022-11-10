@@ -3,8 +3,8 @@ import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communi
 import faker from 'faker';
 import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
-  FILTER_CHANNELS,
-  FILTER_KINDS,
+  COMMUNICATION_FILTER_CHANNELS,
+  COMMUNICATION_FILTER_KINDS,
 } from '../constants';
 import { Communication, ThreadCommunication } from '../types';
 import { RecipientCompactListFactory } from './RecipientWithMember';
@@ -39,12 +39,14 @@ function randomMetadata() {
 }
 
 function randomChannel(): number {
-  const channels = Object.keys(FILTER_CHANNELS);
+  const channels = Object.keys(COMMUNICATION_FILTER_CHANNELS);
   return parseInt(channels[randomInt(channels.length)]);
 }
 
 function randomKind(): number {
-  return FILTER_KINDS[randomInt(FILTER_KINDS.length)];
+  return COMMUNICATION_FILTER_KINDS[
+    randomInt(COMMUNICATION_FILTER_KINDS.length)
+  ];
 }
 
 function fakerTextContent() {

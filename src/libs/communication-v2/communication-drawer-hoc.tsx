@@ -136,7 +136,6 @@ export default function withCommunicationData(
             ),
             context_identifier: props.contextIdentifier,
             context_object_id: props.contextObjectId,
-            from_chat: true,
           };
 
           const onSuccess = (responseData: Communication[]) => {
@@ -210,9 +209,6 @@ export default function withCommunicationData(
         ) => {
           const dataWithContext = {
             ...data,
-            ...(props.contextMember
-              ? { members: [props.contextMember.id] }
-              : {}),
             context_identifier: props.contextIdentifier,
             context_object_id: props.contextObjectId,
             member_filters: {

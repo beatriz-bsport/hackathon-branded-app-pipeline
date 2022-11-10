@@ -9,6 +9,9 @@ import {
   WithStyles,
   WithMobileDialog,
 } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide, { SlideProps } from '@material-ui/core/Slide';
+import Alert from '@material-ui/lab/Alert';
 import { KeyboardArrowDown, Send } from '@material-ui/icons';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
@@ -49,8 +52,8 @@ type State = {
   filterDateEnd: number;
   showMessageWritter: boolean;
   communicationKindBeingWritten: number;
-  displayThreadSnacbar: boolean;
-  scrollThreadToBottom: boolean;
+  displayThreadSnackbar: boolean;
+  scrollThreadToBottomFlag: boolean;
 };
 
 export class CommunicationDrawer extends React.Component<Props, State> {
@@ -64,8 +67,8 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       showMessageWritter: false,
       communicationKindBeingWritten:
         props.communicationKindToWrite ?? WRITE_EMAIL,
-      displayThreadSnacbar: false,
-      scrollThreadToBottom: false,
+      displayThreadSnackbar: false,
+      scrollThreadToBottomFlag: false,
     };
   }
 
@@ -127,7 +130,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
   };
 
   onCloseThreadSnackbar = () => {
-    this.setState({ displayThreadSnacbar: false });
+    this.setState({ displayThreadSnackbar: false });
   };
 
   onShowMessageWriter = () => {
@@ -157,11 +160,11 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           filters,
         );
       if (filterOutNewCommunication) {
-        this.setState({ displayThreadSnacbar: true });
+        this.setState({ displayThreadSnackbar: true });
       } else {
         // By changing the following value, we force the thread to scroll to bottom
         this.setState((prevState: State) => ({
-          scrollThreadToBottom: !prevState.scrollThreadToBottom,
+          scrollThreadToBottomFlag: !prevState.scrollThreadToBottomFlag,
         }));
       }
       return filterOutNewCommunication;
@@ -171,6 +174,10 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       storeInCallback,
     });
   };
+
+  SlideTransition = (props: SlideProps) => (
+    <Slide {...props} direction="left" />
+  );
 
   render() {
     const {
@@ -227,25 +234,45 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           contextIdentifier={contextIdentifier}
           handleFilters={this.handleFilterChange}
         />
-        <CommunicationThreadContainer
-          allMemberCategoryList={this.props.allMemberCategoryList}
-          consentWarning={consentWarning}
-          currentPage={this.state.threadPage}
-          fetchRecipientPaginatedList={fetchPageInformationRecipientList}
-          fetchMoreThreadCommunications={this.fetchMoreThreadCommunications}
-          fullScreen={fullScreen}
-          contextMember={contextMember}
-          loadingThreadDataList={loadingThreadCommunicationList}
-          loadingRecipientList={loadingInformationRecipientList}
-          onCloseSnackbar={this.onCloseThreadSnackbar}
-          openSnackbar={this.state.displayThreadSnacbar}
-          paginationSize={PAGINATION_SIZE_RECIPIENTS}
-          recipientList={informationRecipientList}
-          recipientListCount={informationRecipientListCount}
-          threadCommunicationList={threadCommunicationList}
-          resolvedGenericTags={resolvedGenericTags}
-          scrollToBottom={this.state.scrollThreadToBottom}
-        />
+        <div className={classes.threadContainer}>
+          <Snackbar
+            open={this.state.displayThreadSnackbar}
+            onClose={this.onCloseThreadSnackbar}
+            autoHideDuration={5000}
+            TransitionComponent={this.SlideTransition}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            // key={`snackbar-${Math.floor(Math.random() * 10000)}`}
+            className={classes.snackbar}
+          >
+            <Alert severity="info">
+              {t('thread.filterOutCommunicationSent')}
+            </Alert>
+          </Snackbar>
+          <CommunicationThreadContainer
+            allMemberCategoryList={this.props.allMemberCategoryList}
+            consentWarning={consentWarning}
+            currentPage={this.state.threadPage}
+            fetchRecipientPaginatedList={fetchPageInformationRecipientList}
+            fetchMoreThreadCommunications={this.fetchMoreThreadCommunications}
+            fullScreen={fullScreen}
+            contextMember={contextMember}
+            loadingThreadDataList={loadingThreadCommunicationList}
+            loadingRecipientList={loadingInformationRecipientList}
+            onCloseSnackbar={this.onCloseThreadSnackbar}
+            openSnackbar={this.state.displayThreadSnackbar}
+            paginationSize={PAGINATION_SIZE_RECIPIENTS}
+            recipientList={informationRecipientList}
+            recipientListCount={informationRecipientListCount}
+            threadCommunicationList={threadCommunicationList}
+            resolvedGenericTags={resolvedGenericTags}
+            scrollToBottomFlag={this.state.scrollThreadToBottomFlag}
+            hasActiveFilters={
+              !!this.state.filterDateEnd ||
+              !!this.state.filterDateStart ||
+              !!this.state.filters.length
+            }
+          />
+        </div>
         {contextIdentifier !== CONTEXT_NOTIFICATION && (
           <>
             {this.state.showMessageWritter ? (
@@ -356,6 +383,17 @@ const styles: any = (theme: Theme) => ({
     borderRadius: theme.spacing(1.5),
     color: theme.palette.background.default,
     backgroundColor: theme.palette.secondary.main,
+  },
+  snackbar: {
+    position: 'absolute',
+    top: theme.spacing(1),
+    boxShadow: '1px 2px 15px lightblue',
+    width: 'fit-content',
+  },
+  threadContainer: {
+    position: 'relative',
+    display: 'flex',
+    flex: 1,
   },
 });
 

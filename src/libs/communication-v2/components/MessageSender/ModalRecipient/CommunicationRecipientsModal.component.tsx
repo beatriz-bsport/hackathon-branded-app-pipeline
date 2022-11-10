@@ -22,12 +22,12 @@ import { amber, red } from '@material-ui/core/colors';
 
 import ReportProblem from '@material-ui/icons/ReportProblemOutlined';
 import Edit from '@material-ui/icons/Edit';
-
 import {
-  WRITE_EMAIL,
-  WRITE_SMS,
-  WRITE_PUSH_NOTIFICATION,
-} from '#libs/communication-v2/constants';
+  COMMUNICATION_KIND_EMAIL,
+  COMMUNICATION_KIND_PUSH_NOTIFICATION,
+  COMMUNICATION_KIND_SMS,
+} from '@bsport/common/lib/master-data/communication-kind';
+
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import { FilteringMemberIdsByGenericCategories } from '#libs/communication-v2/types';
 import CommunicationRecipientModalFilter from './CommunicationRecipientsModalFilter.component';
@@ -121,11 +121,11 @@ export class CommunicationRecipientsModal extends React.Component<
 
   getUncheckedMembersOfCurrentKind = () => {
     switch (this.props.kind) {
-      case WRITE_EMAIL:
+      case COMMUNICATION_KIND_EMAIL:
         return this.state.uncheckedMembers.email;
-      case WRITE_SMS:
+      case COMMUNICATION_KIND_SMS:
         return this.state.uncheckedMembers.phone;
-      case WRITE_PUSH_NOTIFICATION:
+      case COMMUNICATION_KIND_PUSH_NOTIFICATION:
         return this.state.uncheckedMembers.notification;
       default:
         return [];
@@ -134,11 +134,11 @@ export class CommunicationRecipientsModal extends React.Component<
 
   getWarningMessage = () => {
     const hasMissingPhonesOrEmails =
-      (this.props.kind === WRITE_SMS &&
+      (this.props.kind === COMMUNICATION_KIND_SMS &&
         this.props.countAvailableRecipientsTotal -
           this.props.countAvailableRecipientsWithPhone >
           0) ||
-      (this.props.kind === WRITE_EMAIL &&
+      (this.props.kind === COMMUNICATION_KIND_EMAIL &&
         this.props.countAvailableRecipientsTotal -
           this.props.countAvailableRecipientsWithEmail >
           0);
@@ -194,7 +194,7 @@ export class CommunicationRecipientsModal extends React.Component<
     this.setState((prevState) => {
       let nextState;
       switch (this.props.kind) {
-        case WRITE_EMAIL:
+        case COMMUNICATION_KIND_EMAIL:
           nextState = {
             ...prevState.uncheckedMembers,
             email: this.handleToggleOfSelectedKind(
@@ -203,7 +203,7 @@ export class CommunicationRecipientsModal extends React.Component<
             ),
           };
           break;
-        case WRITE_SMS:
+        case COMMUNICATION_KIND_SMS:
           nextState = {
             ...prevState.uncheckedMembers,
             phone: this.handleToggleOfSelectedKind(
@@ -212,7 +212,7 @@ export class CommunicationRecipientsModal extends React.Component<
             ),
           };
           break;
-        case WRITE_PUSH_NOTIFICATION:
+        case COMMUNICATION_KIND_PUSH_NOTIFICATION:
           nextState = {
             ...prevState.uncheckedMembers,
             notification: this.handleToggleOfSelectedKind(
@@ -335,11 +335,11 @@ export class CommunicationRecipientsModal extends React.Component<
     let memberPhoneOrEmailContent: string = '';
     let missingPhoneOrEmailContent: string = '';
     switch (this.props.kind) {
-      case WRITE_EMAIL:
+      case COMMUNICATION_KIND_EMAIL:
         missingPhoneOrEmailContent = t('dialogRecipients.noMail');
         memberPhoneOrEmailContent = member?.email;
         break;
-      case WRITE_SMS:
+      case COMMUNICATION_KIND_SMS:
         missingPhoneOrEmailContent = t('dialogRecipients.noPhone');
         memberPhoneOrEmailContent = member?.phone || member?.phone_number;
         break;
@@ -347,7 +347,8 @@ export class CommunicationRecipientsModal extends React.Component<
         break;
     }
     const memberWithoutPhoneOrEmail =
-      this.props.kind !== WRITE_PUSH_NOTIFICATION && !memberPhoneOrEmailContent;
+      this.props.kind !== COMMUNICATION_KIND_PUSH_NOTIFICATION &&
+      !memberPhoneOrEmailContent;
     const onEditClick = (event: React.MouseEvent) => {
       this.openMemberPage(event, member.id);
     };
@@ -366,7 +367,7 @@ export class CommunicationRecipientsModal extends React.Component<
             />
             <div className={classes.cellRowRecipient}>
               <Typography variant="body1">{member.name}</Typography>
-              {this.props.kind !== WRITE_PUSH_NOTIFICATION && (
+              {this.props.kind !== COMMUNICATION_KIND_PUSH_NOTIFICATION && (
                 <Hidden smUp>
                   {memberWithoutPhoneOrEmail ? (
                     <div className={classes.flexRowContainer}>
@@ -399,7 +400,7 @@ export class CommunicationRecipientsModal extends React.Component<
               <ReportProblem className={classes.warningIcon} />
             ) : null}
           </TableCell>
-          {this.props.kind !== WRITE_PUSH_NOTIFICATION ? (
+          {this.props.kind !== COMMUNICATION_KIND_PUSH_NOTIFICATION ? (
             <TableCell align="left" className={classes.cellWithoutBorder}>
               {memberWithoutPhoneOrEmail ? (
                 <Typography variant="body2" className={classes.warningRedColor}>

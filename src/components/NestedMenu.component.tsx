@@ -124,7 +124,6 @@ const NestedItem = (props: NestedItemProps) => {
       <Popper
         open={Boolean(target)}
         anchorEl={target}
-        role={undefined}
         placement="right-end"
         transition
         disablePortal={false}

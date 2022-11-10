@@ -152,6 +152,8 @@ import CommunicationDrawer from '#libs/communication-v2/components/Communication
 import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
+import Config from '../../config';
+
 type OwnProps = {
   id: number;
   memberTitle: string;
@@ -511,32 +513,43 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           genericTags={this.props.genericTags}
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
-        <CommunicationDrawer
-          openDrawer={this.props.openCommunicationChatDrawer}
-          onDrawerClose={() => this.props.setOpenCommunicationChatDrawer(false)}
-          contextIdentifier={CONTEXT_SMARTLIST}
-          contextObjectId={this.props.smartlist?.id ?? this.props.id}
-          contextTitle={this.props.smartlist?.name}
-          propToListenToReloadRecipients={
-            this.state.resetMembersFetchForCommunication
-          }
-        />
-        <BottomActionsButtonCustom
-          buttonsProperties={[
-            {
-              onClick: (e) => {
-                e.stopPropagation();
-                this.props.setOpenCommunicationChatDrawer(true);
-              },
-              color: 'primary',
-              disabled: this.props.loading,
-              icon: <SendIcon />,
-              text: this.props.t('communication:generic.communication'),
-              keepTextUnderSelectedMinWidth: true,
-            },
-          ]}
-          minWidth="xs"
-        />
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+          this.props.companyId === 498) && (
+          <>
+            {!!this.props.openCommunicationChatDrawer && (
+              <CommunicationDrawer
+                openDrawer={this.props.openCommunicationChatDrawer}
+                onDrawerClose={() =>
+                  this.props.setOpenCommunicationChatDrawer(false)
+                }
+                contextIdentifier={CONTEXT_SMARTLIST}
+                contextObjectId={this.props.smartlist?.id ?? this.props.id}
+                contextTitle={this.props.smartlist?.name}
+                propToListenToReloadRecipients={
+                  this.state.resetMembersFetchForCommunication
+                }
+              />
+            )}
+            <BottomActionsButtonCustom
+              buttonsProperties={[
+                {
+                  onClick: (e) => {
+                    e.stopPropagation();
+                    this.props.setOpenCommunicationChatDrawer(true);
+                  },
+                  color: 'primary',
+                  disabled: this.props.loading,
+                  icon: <SendIcon />,
+                  text: this.props.t('communication:generic.communication'),
+                  keepTextUnderSelectedMinWidth: true,
+                },
+              ]}
+              minWidth="xs"
+            />
+          </>
+        )}
         <SmartListEditDialog
           open={this.state.openEditDialog}
           smartlist={this.state.openEditDialog ? this.props.smartlist : null}

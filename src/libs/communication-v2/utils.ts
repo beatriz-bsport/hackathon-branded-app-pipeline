@@ -23,15 +23,15 @@ import {
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import {
-  FILTER_IDENTIFIER_CHANNEL,
-  FILTER_IDENTIFIER_KIND,
-  FILTER_IDENTIFIER_RECIPIENT,
-  FILTER_IDENTIFIER_SEND_PARAMETER,
-  FILTER_CHANNELS,
-  FILTER_KINDS,
-  FILTER_RECIPIENTS,
-  FILTER_SEND_PARAMETERS,
-  FILTER_SRC_OR_DST,
+  COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
+  COMMUNICATION_FILTER_IDENTIFIER_KIND,
+  COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
+  COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
+  COMMUNICATION_FILTER_CHANNELS,
+  COMMUNICATION_FILTER_KINDS,
+  COMMUNICATION_FILTER_RECIPIENTS,
+  COMMUNICATION_FILTER_SEND_PARAMETERS,
+  COMMUNICATION_FILTER_SRC_OR_DST,
   CONTEXT_MEMBER,
   CONTEXT_OFFER,
   CONTEXT_SMARTLIST,
@@ -40,12 +40,12 @@ import {
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
-  FILTER_IDENTIFIER_SRC_OR_DST,
+  COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
 } from './constants';
 
 import {
   SelectFieldItem,
-  FilterParams,
+  CommunicationFilterParams,
   CommunicationMetadata,
   Communication,
   FilteringMemberIdsByGenericCategories,
@@ -58,7 +58,7 @@ import { Member } from '#libs/member/types';
 export const getFieldChoicesByIdentifier = memoize(
   (identifier: number, t: TFunction) => {
     switch (identifier) {
-      case FILTER_IDENTIFIER_KIND:
+      case COMMUNICATION_FILTER_IDENTIFIER_KIND:
         return [
           {
             value: COMMUNICATION_KIND_EMAIL,
@@ -73,7 +73,7 @@ export const getFieldChoicesByIdentifier = memoize(
             label: t(`campaign.kind.${COMMUNICATION_KIND_PUSH_NOTIFICATION}`),
           },
         ];
-      case FILTER_IDENTIFIER_CHANNEL:
+      case COMMUNICATION_FILTER_IDENTIFIER_CHANNEL:
         return [
           {
             value: COMMUNICATION_CHANNEL_SESSION,
@@ -102,7 +102,7 @@ export const getFieldChoicesByIdentifier = memoize(
             ),
           },
         ];
-      case FILTER_IDENTIFIER_RECIPIENT:
+      case COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT:
         return [
           {
             value: COMMUNICATION_RECIPIENT_BOOKINGS,
@@ -123,7 +123,7 @@ export const getFieldChoicesByIdentifier = memoize(
             ),
           },
         ];
-      case FILTER_IDENTIFIER_SEND_PARAMETER:
+      case COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER:
         return [
           {
             value: COMMUNICATION_SEND_PARAMETER_AUTO,
@@ -138,7 +138,7 @@ export const getFieldChoicesByIdentifier = memoize(
             ),
           },
         ];
-      case FILTER_IDENTIFIER_SRC_OR_DST:
+      case COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST:
         return [
           {
             value: COMMUNICATION_SRC_OR_DST_SENT,
@@ -248,6 +248,13 @@ export const getConsentWarning = memoize(
   },
 );
 
+/**
+ * When we send a communication from the communication chat, we would like to see it appears directly in the thread.
+ * However, there could be some active filters. To know if the communication that has just been sent (and which is sent back from the backend),
+ * We need to check for each current active filter if the communication has to be filtered out.
+ *
+ * return true if the communication should not be displayed (filtered out)
+ */
 export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
   memoize(
     (
@@ -272,7 +279,9 @@ export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
         return true;
       // Filter by channel
       const channel =
-        FILTER_CHANNELS[getChannelFromMetadata(communication.metadata)];
+        COMMUNICATION_FILTER_CHANNELS[
+          getChannelFromMetadata(communication.metadata)
+        ];
       if (
         !!formatedFilters.filter_channel &&
         !formatedFilters.filter_channel.includes(channel)
@@ -590,34 +599,58 @@ export const getChannelFromMetadata = (metadata: CommunicationMetadata) => {
   }
 };
 
+export const getSmartlistChannelFromMetadata = (
+  metadata: CommunicationMetadata,
+) => {
+  if (Object.keys(metadata).length > 0) {
+    const key = Object.keys(metadata)[0];
+    switch (key) {
+      case 'smartlist_id':
+        return COMMUNICATION_SEND_PARAMETER_MANUAL;
+      case 'automated_campaign_id':
+        return COMMUNICATION_SEND_PARAMETER_AUTO;
+      default:
+        return undefined;
+    }
+  } else {
+    return undefined;
+  }
+};
+
 // ACTIONS
 export const getFormatedFiltersToFetchCommunicationSent = memoize(
-  (filters: number[], dateStart: number, dateEnd: number): FilterParams => {
-    const channelIds: string[] = Object.keys(FILTER_CHANNELS);
+  (
+    filters: number[],
+    dateStart: number,
+    dateEnd: number,
+  ): CommunicationFilterParams => {
+    const channelIds: string[] = Object.keys(COMMUNICATION_FILTER_CHANNELS);
     const channelList = filters
       .filter((id: number) => channelIds.includes(id.toString()))
       // @ts-ignore
-      .map((id: number) => FILTER_CHANNELS[id]);
+      .map((id: number) => COMMUNICATION_FILTER_CHANNELS[id]);
     const channel = channelList?.length > 0 ? channelList : undefined;
 
-    const kindList = filters.filter((id: number) => FILTER_KINDS.includes(id));
+    const kindList = filters.filter((id: number) =>
+      COMMUNICATION_FILTER_KINDS.includes(id),
+    );
     const filter_kind = kindList?.length > 0 ? kindList : undefined;
 
     const recipientList = filters.filter((id: number) =>
-      FILTER_RECIPIENTS.includes(id),
+      COMMUNICATION_FILTER_RECIPIENTS.includes(id),
     );
     const filter_recipient =
       recipientList?.length > 0 ? recipientList : undefined;
 
     const filter_send_parameter = filters.find((id: number) =>
-      FILTER_SEND_PARAMETERS.includes(id),
+      COMMUNICATION_FILTER_SEND_PARAMETERS.includes(id),
     );
 
     const filter_src_or_dst = filters.find((id: number) =>
-      FILTER_SRC_OR_DST.includes(id),
+      COMMUNICATION_FILTER_SRC_OR_DST.includes(id),
     );
 
-    const filterParams: FilterParams = {};
+    const filterParams: CommunicationFilterParams = {};
     // @ts-ignore
     if (channel) filterParams.filter_channel = channel;
     // @ts-ignore
@@ -645,19 +678,14 @@ export const getFormatedQueryParamsFromContext = memoize(
     contextObjectId: number,
     memberSelectedCategories: number[],
   ) => {
-    const categoryListing = memberSelectedCategories?.length
-      ? memberSelectedCategories
-          .slice(1)
-          .reduce((acc: string, next: number) => {
-            return `${acc},${next}`;
-          }, `${memberSelectedCategories[0]}`)
-      : '';
     switch (contextIdentifier) {
       case CONTEXT_MEMBER:
-        return { id__in: [contextObjectId] };
+        return { id__in: contextObjectId?.toString() || '' };
       case CONTEXT_OFFER:
         return {
-          offer_with_selected_categories: `${contextObjectId}::${categoryListing}`,
+          offer_with_selected_categories: `${contextObjectId}::${formatNumberListIntoString(
+            memberSelectedCategories,
+          )}`,
         };
       case CONTEXT_SMARTLIST:
         return { smartlist: contextObjectId };
@@ -666,6 +694,14 @@ export const getFormatedQueryParamsFromContext = memoize(
     }
   },
 );
+
+const formatNumberListIntoString = (number_list: number[]) => {
+  return number_list?.length
+    ? number_list.slice(1).reduce((acc: string, next: number) => {
+        return `${acc},${next}`;
+      }, `${number_list[0]}`)
+    : '';
+};
 
 /**
  * When communications have been sent from an offer,

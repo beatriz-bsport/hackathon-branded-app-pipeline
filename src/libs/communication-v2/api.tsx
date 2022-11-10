@@ -17,6 +17,12 @@ export const fetchCommunicationSentList = async (
   );
 };
 
+export const fetchCommunicationSent = async (campaign_id: string) => {
+  return getAuth(
+    `${API_V1_URI}/communication/communication_sent/${campaign_id}`,
+  );
+};
+
 export const fetchCommunicationRecipientList = async (params: {
   page_size: number;
   page: number;

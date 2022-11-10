@@ -4,6 +4,7 @@ import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import {
   fetchCommunicationSentList as fetchCommunicationSentListAPI,
+  fetchCommunicationSent as fetchCommunicationSentAPI,
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAPI,
   sendCommunication as sendCommunicationAPI,
 } from './api';
@@ -13,6 +14,7 @@ import {
   Communication,
   Recipient,
 } from './types';
+import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 
 // --------- SEND COMMUNICATION ---------
 
@@ -39,6 +41,14 @@ export function sendCommunication(
         const filterOutCommunication = options.storeInCallback(response.data);
         if (!filterOutCommunication) {
           dispatch(sendCommunicationAction.success(response.data));
+          const timeout = 5;
+          setTimeout(
+            () =>
+              dispatch(
+                fetchCommunicationSent(response.data.campaign_id, timeout),
+              ),
+            timeout * 1000,
+          );
         }
       }
     } catch (error) {
@@ -79,6 +89,41 @@ export function fetchCommunicationSentList(
       dispatch(communicationSentAction.error(error));
     }
     dispatch(communicationSentAction.isLoading(false));
+  };
+}
+
+export const retrieveCommunicationSentAction = {
+  error: createAction('COMMUNICATION_SENT/RETRIEVE/ERROR'),
+  isLoading: createAction('COMMUNICATION_SENT/RETRIEVE/IS_LOADING'),
+  success: createAction('COMMUNICATION_SENT/RETRIEVE/SUCCESS'),
+};
+
+export function fetchCommunicationSent(
+  campaign_id: string,
+  initialTimeout: number, // seconds
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveCommunicationSentAction.isLoading(true));
+    dispatch(retrieveCommunicationSentAction.error(null));
+    try {
+      const response = await fetchCommunicationSentAPI(campaign_id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(retrieveCommunicationSentAction.success(payload));
+      if (response.data.status === COMMUNICATION_SENT_SENDING_PROCESSING) {
+        const newTimeout = initialTimeout + 5;
+        if (newTimeout <= 120)
+          setTimeout(
+            () =>
+              dispatch(
+                fetchCommunicationSent(response.data.campaign_id, newTimeout),
+              ),
+            newTimeout * 1000,
+          ); // refresh until a limit time
+      }
+    } catch (error) {
+      dispatch(retrieveCommunicationSentAction.error(error));
+    }
+    dispatch(retrieveCommunicationSentAction.isLoading(false));
   };
 }
 

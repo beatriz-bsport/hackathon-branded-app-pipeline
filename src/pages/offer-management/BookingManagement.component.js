@@ -47,6 +47,7 @@ import { Tag, TagGroup } from '../../libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 import BottomActionsButtonCustom from '../../components/button/BottomActionsButtonCustom.component';
+import Config from '../../config';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -124,6 +125,7 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   programDataLoading: boolean,
   refresh: () => void,
+  companyId: number,
 };
 
 type State = {
@@ -306,23 +308,27 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       >
                         <MailIcon />
                       </IconButton>
-                      <BottomActionsButtonCustom
-                        buttonsProperties={[
-                          {
-                            onClick: (e) => {
-                              e.stopPropagation();
-                              this.props.openCommunicationDrawer();
+                      {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+                        Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+                        this.props.companyId === 498) && (
+                        <BottomActionsButtonCustom
+                          buttonsProperties={[
+                            {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                this.props.openCommunicationDrawer();
+                              },
+                              color: 'primary',
+                              disabled:
+                                this.props.bookingLoading || this.props.loading,
+                              icon: <SendIcon />,
+                              text: t('communication:generic.communication'),
+                              keepTextUnderSelectedMinWidth: true,
                             },
-                            color: 'primary',
-                            disabled:
-                              this.props.bookingLoading || this.props.loading,
-                            icon: <SendIcon />,
-                            text: t('communication:generic.communication'),
-                            keepTextUnderSelectedMinWidth: true,
-                          },
-                        ]}
-                        minWidth="xs"
-                      />
+                          ]}
+                          minWidth="xs"
+                        />
+                      )}
                     </CheckPermission>
                     <PermissionContext.Consumer>
                       {(permissions) => (

@@ -4,6 +4,7 @@ import {
   sendCommunicationAction,
   recipientAction,
   communicationSentAction,
+  retrieveCommunicationSentAction,
 } from './actions';
 
 import type { CommunicationState, Recipient, Communication } from './types';
@@ -131,6 +132,12 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       return state
         .setIn(['sent', 'thread', 'allIds'], [])
         .setIn(['sent', 'thread', 'next_page'], null);
+    },
+    [retrieveCommunicationSentAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge({ sent: { byId: payload } }, { deep: true });
     },
   },
   initialState,

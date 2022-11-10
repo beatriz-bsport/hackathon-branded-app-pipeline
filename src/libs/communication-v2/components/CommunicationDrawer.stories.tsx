@@ -16,14 +16,14 @@ import {
   CONTEXT_SMARTLIST,
   CONTEXT_MEMBER,
   PAGINATION_SIZE_RECIPIENTS,
-  FILTER_IDENTIFIER_CHANNEL,
-  FILTER_IDENTIFIER_RECIPIENT,
-  FILTER_IDENTIFIER_SEND_PARAMETER,
-  FILTER_IDENTIFIER_KIND,
-  FILTER_CHANNELS,
-  FILTER_KINDS,
-  FILTER_RECIPIENTS,
-  FILTER_SEND_PARAMETERS,
+  COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
+  COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
+  COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
+  COMMUNICATION_FILTER_IDENTIFIER_KIND,
+  COMMUNICATION_FILTER_CHANNELS,
+  COMMUNICATION_FILTER_KINDS,
+  COMMUNICATION_FILTER_RECIPIENTS,
+  COMMUNICATION_FILTER_SEND_PARAMETERS,
 } from '../constants';
 
 // UTILS JUST FOR STORYBOOK
@@ -40,25 +40,27 @@ const getAllRecipientsWithMember = (
 const getFiltersByCategory = (filters: number[]) => {
   const filtersByCategory = [
     {
-      key: FILTER_IDENTIFIER_CHANNEL,
+      key: COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
       value: filters.filter((id: number) =>
-        Object.keys(FILTER_CHANNELS).includes(id.toString()),
+        Object.keys(COMMUNICATION_FILTER_CHANNELS).includes(id.toString()),
       ),
     },
     {
-      key: FILTER_IDENTIFIER_KIND,
-      value: filters.filter((id: number) => FILTER_KINDS.includes(id)),
-    },
-    {
-      key: FILTER_IDENTIFIER_RECIPIENT,
+      key: COMMUNICATION_FILTER_IDENTIFIER_KIND,
       value: filters.filter((id: number) =>
-        Object.keys(FILTER_RECIPIENTS).includes(id.toString()),
+        COMMUNICATION_FILTER_KINDS.includes(id),
       ),
     },
     {
-      key: FILTER_IDENTIFIER_SEND_PARAMETER,
+      key: COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
       value: filters.filter((id: number) =>
-        FILTER_SEND_PARAMETERS.includes(id),
+        Object.keys(COMMUNICATION_FILTER_RECIPIENTS).includes(id.toString()),
+      ),
+    },
+    {
+      key: COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
+      value: filters.filter((id: number) =>
+        COMMUNICATION_FILTER_SEND_PARAMETERS.includes(id),
       ),
     },
   ];
@@ -75,12 +77,12 @@ const getFilteredThreadCommunicationList = (
   filtersByCategory.forEach((category: any) => {
     if (category.value?.length > 0) {
       switch (category.key) {
-        case FILTER_IDENTIFIER_KIND:
+        case COMMUNICATION_FILTER_IDENTIFIER_KIND:
           communicationsFiltered = communicationsFiltered.filter((currentCom) =>
             category.value.includes(currentCom.communication.kind),
           );
           break;
-        case FILTER_IDENTIFIER_CHANNEL:
+        case COMMUNICATION_FILTER_IDENTIFIER_CHANNEL:
           communicationsFiltered = communicationsFiltered.filter((currentCom) =>
             category.value.includes(currentCom.channel),
           );

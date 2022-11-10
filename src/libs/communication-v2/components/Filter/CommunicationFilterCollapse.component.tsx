@@ -8,11 +8,11 @@ import isEqual from 'lodash/isEqual';
 import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
 import CommunicationFilterDateField from './CommunicationFilterDateField.component';
 import {
-  FILTER_IDENTIFIER_KIND,
-  FILTER_IDENTIFIER_CHANNEL,
-  FILTER_IDENTIFIER_RECIPIENT,
-  FILTER_IDENTIFIER_SEND_PARAMETER,
-  FILTER_IDENTIFIER_SRC_OR_DST,
+  COMMUNICATION_FILTER_IDENTIFIER_KIND,
+  COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
+  COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
+  COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
+  COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
 } from '#libs/communication-v2/constants';
 import { getFieldChoicesByIdentifier } from '#libs/communication-v2/utils';
 import { SelectFieldItem } from '#libs/communication-v2/types';
@@ -77,7 +77,10 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             fieldValuesSetter={props.kindFilterSetter}
             fieldChoices={
               props.kindFilterOptionsOverride ??
-              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_KIND, t)
+              getFieldChoicesByIdentifier(
+                COMMUNICATION_FILTER_IDENTIFIER_KIND,
+                t,
+              )
             }
           />
         )}
@@ -97,7 +100,10 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             fieldValuesSetter={props.recipientFilterSetter}
             fieldChoices={
               props.recipientFilterOptionsOverride ??
-              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_RECIPIENT, t)
+              getFieldChoicesByIdentifier(
+                COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
+                t,
+              )
             }
           />
         )}
@@ -109,7 +115,10 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             fieldValuesSetter={props.channelFilterSetter}
             fieldChoices={
               props.channelFilterOptionsOverride ??
-              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_CHANNEL, t)
+              getFieldChoicesByIdentifier(
+                COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
+                t,
+              )
             }
           />
         )}
@@ -121,7 +130,10 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             fieldValuesSetter={props.sendParameterFilterSetter}
             fieldChoices={
               props.sendParameterFilterOptionsOverride ??
-              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_SEND_PARAMETER, t)
+              getFieldChoicesByIdentifier(
+                COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
+                t,
+              )
             }
             noMulti
           />
@@ -134,7 +146,10 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             fieldValuesSetter={props.srcOrDstFilterSetter}
             fieldChoices={
               props.srcOrDstFilterOptionsOverride ??
-              getFieldChoicesByIdentifier(FILTER_IDENTIFIER_SRC_OR_DST, t)
+              getFieldChoicesByIdentifier(
+                COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
+                t,
+              )
             }
             noMulti
           />

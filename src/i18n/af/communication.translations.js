@@ -327,8 +327,16 @@ exports.default = {
     processing: "La communication est en cours d'envoi",
     fail: "Une erreur est survenue lors de l'envoi",
   },
-  filterOutCommunicationSent:
-    "La communication que vous venez d'envoyer est cachée par les filtres actifs.",
+  thread: {
+    filterOutCommunicationSent:
+      "La communication que vous venez d'envoyer est cachée par les filtres actifs.",
+    emptyThread: {
+      becauseOfFilters:
+        'Aucun résultat correspondant aux filtres sélectionnés.',
+      becauseNeverUsed:
+        "Vous n'avez pas encore envoyé de communications sur ce canal.",
+    },
+  },
   generic: {
     communication: 'Communication',
     history: 'Historique',

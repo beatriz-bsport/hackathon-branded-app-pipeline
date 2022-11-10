@@ -86,6 +86,8 @@ import {
   DISPLAY_INFORMATION,
 } from '#libs/background-dialog/types';
 
+import Config from '../../config';
+
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
 
 const MemberDetailInfo = asyncComponent(() =>
@@ -432,6 +434,7 @@ export class MemberDetail extends React.Component<Props> {
           member={this.props.member}
           unArchiveMember={this.unArchiveMember}
           openCommunicationDrawer={this.props.openCommunicationDrawer}
+          companyId={this.props.companyId}
         />
         {!!this.props.invoiceInfo && (
           <InvoiceInfoDialog
@@ -494,13 +497,19 @@ export class MemberDetail extends React.Component<Props> {
           }}
           onConfirm={this.archiveMember}
         />
-        <CommunicationDrawer
-          openDrawer={this.props.communicationDrawerOpen}
-          onDrawerClose={this.props.closeCommunicationDrawer}
-          contextIdentifier={CONTEXT_MEMBER}
-          contextObjectId={this.props.member?.id ?? this.props.id}
-          contextMember={this.props.member}
-        />
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+          this.props.companyId === 498) &&
+          !!this.props.communicationDrawerOpen && (
+            <CommunicationDrawer
+              openDrawer={this.props.communicationDrawerOpen}
+              onDrawerClose={this.props.closeCommunicationDrawer}
+              contextIdentifier={CONTEXT_MEMBER}
+              contextObjectId={this.props.member?.id ?? this.props.id}
+              contextMember={this.props.member}
+            />
+          )}
       </div>
     );
   }

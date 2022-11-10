@@ -39,6 +39,7 @@ import HTMLPreview from '#components/html/HTMLPreview.component';
 import { Contract } from '#libs/subscription/types';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
+import Config from '../../../config';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -364,15 +365,21 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     const { classes, t } = this.props;
     return (
       <React.Fragment>
-        {!!this.props.selectedNotification && (
-          <CommunicationDrawer
-            openDrawer={this.state.openCommunicationDrawer}
-            onDrawerClose={this.onCloseCommunicationDrawerClick}
-            contextIdentifier={CONTEXT_NOTIFICATION}
-            contextObjectId={this.props.selectedNotification?.id}
-            contextTitle={this.getPrimaryText(this.props.selectedNotification)}
-          />
-        )}
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+          this.props.theme?.company === 498) &&
+          !!this.props.selectedNotification && (
+            <CommunicationDrawer
+              openDrawer={this.state.openCommunicationDrawer}
+              onDrawerClose={this.onCloseCommunicationDrawerClick}
+              contextIdentifier={CONTEXT_NOTIFICATION}
+              contextObjectId={this.props.selectedNotification?.id}
+              contextTitle={this.getPrimaryText(
+                this.props.selectedNotification,
+              )}
+            />
+          )}
         <div className={classes.container}>
           {this.props.selectedNotification &&
           this.statData &&
@@ -457,15 +464,19 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                       </Typography>
                     </div>
                   </Paper>
-                  <Button
-                    onClick={this.onOpenCommunicationDrawerClick}
-                    variant="contained"
-                    color="primary"
-                    size="medium"
-                    disabled={!this.props.selectedNotification}
-                  >
-                    {t('communication:generic.history')}
-                  </Button>
+                  {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+                    this.props.theme?.company === 498) && (
+                    <Button
+                      onClick={this.onOpenCommunicationDrawerClick}
+                      variant="contained"
+                      color="primary"
+                      size="medium"
+                      disabled={!this.props.selectedNotification}
+                    >
+                      {t('communication:generic.history')}
+                    </Button>
+                  )}
                   <Typography variant="h5" className={classes.emailSummary}>
                     {t('marketing:notifications.mailTitle')}
                   </Typography>

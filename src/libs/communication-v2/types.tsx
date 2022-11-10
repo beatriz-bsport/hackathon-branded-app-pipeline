@@ -85,7 +85,7 @@ export type CommunicationMetadata = {
   marketing_notification_id?: number;
 };
 
-export type FormatedContext = {
+export type CommunicationContext = {
   context_identifier: number;
   context_object_id: number;
 };
@@ -96,7 +96,7 @@ export type SelectFieldItem = {
 };
 
 export type MessageParams = MessageData &
-  FormatedContext & { member_filters: MemberFilter };
+  CommunicationContext & { member_filters: MemberFilter };
 
 export type MessageData = {
   subject?: string; // mail title
@@ -108,7 +108,7 @@ export type MessageData = {
   member_blacklist?: number[]; // recipients to blacklist
 };
 
-export type FilterParams = {
+export type CommunicationFilterParams = {
   filter_kind?: number[];
   filter_channel?: [
     | 'offer_id'
@@ -128,8 +128,8 @@ export type FetchCommunicationParams = {
   page: number;
   page_size: number;
   filter_chat: boolean;
-} & FormatedContext &
-  FilterParams;
+} & CommunicationContext &
+  CommunicationFilterParams;
 
 export type DrawerProps = {
   onDrawerClose: () => void;

@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
-import { Info, Error, Warning, InfoOutlined } from '@material-ui/icons/';
+import { Info, Error, InfoOutlined } from '@material-ui/icons/';
 
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
+import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters';
 import { getTextColorFromRGB } from '../../../../../utils/color';
 import { ThreadCommunication } from '#libs/communication-v2/types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
@@ -27,6 +28,7 @@ import {
   COMMUNICATION_SENT_SENDING_PROCESSING,
   COMMUNICATION_SENT_SENDING_SUCCESS,
 } from '#libs/communication-v2/constants';
+import { getSmartlistChannelFromMetadata } from '#libs/communication-v2/utils';
 
 const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
   (theme) => ({
@@ -67,6 +69,17 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
       padding: theme.spacing(1.5),
       position: 'relative',
     }),
+    messageBubbleContainer: (props) => ({
+      backgroundColor: theme.palette.background.paper,
+      borderTopLeftRadius: theme.spacing(2),
+      borderTopRightRadius: theme.spacing(2),
+      borderBottomRightRadius: props.reverse
+        ? theme.spacing(2)
+        : theme.spacing(0.5),
+      borderBottomLeftRadius: props.reverse
+        ? theme.spacing(0.5)
+        : theme.spacing(2),
+    }),
     row: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -74,9 +87,11 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
     },
     flexEnd: (props) => ({
       display: 'flex',
-      justifyContent: props.reverse ? 'space-between' : 'flex-end',
+      justifyContent: 'space-between',
+      flexDirection: props.reverse ? 'row' : 'row-reverse',
       [theme.breakpoints.down('xs')]: {
-        flexDirection: 'column',
+        flexDirection: 'column-reverse',
+        alignItems: props.reverse ? 'flex-start' : 'flex-end',
       },
     }),
     channelContainer: (props) => {
@@ -138,17 +153,15 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
     },
     statusFail: {
       color: theme.palette.error.dark,
-      backgroundColor: chroma(theme.palette.error.light).alpha(0.1).hex(),
     },
     statusProcessing: {
       color: theme.palette.info.dark,
-      backgroundColor: chroma(theme.palette.info.light).alpha(0.1).hex(),
     },
     statusContainer: {
       borderRadius: theme.spacing(0.5),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      textAlign: 'center',
+      textAlign: 'right',
       width: 'fit-content',
       alignItems: 'center',
       display: 'flex',
@@ -157,6 +170,9 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
     },
     statusIcon: {
       marginRight: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
     },
   }),
 );
@@ -185,10 +201,20 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
     threadCommunication;
 
   const reverse = !!communication.is_answer;
-  const withChannel = !!oneToOneThreadMember;
-  const classes = useStyles({ reverse, withChannel });
+  const withChannel =
+    !!oneToOneThreadMember || channel === COMMUNICATION_CHANNEL_SMARTLIST;
 
+  const classes = useStyles({ reverse, withChannel });
   const { t } = useTranslation('communication');
+
+  const finalChannel = useMemo(() => {
+    const smartlistChannel = getSmartlistChannelFromMetadata(
+      communication.metadata,
+    );
+    return !oneToOneThreadMember && smartlistChannel
+      ? smartlistChannel
+      : channel;
+  }, [channel, communication, oneToOneThreadMember]);
 
   const sanitizedHtml = useMemo(() => {
     let html;
@@ -239,76 +265,98 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.messageInfoContainer}>
-        {!!channel && !!oneToOneThreadMember && (
+        {!!finalChannel && withChannel && (
           <div className={classes.channelContainer}>
             <Typography variant="body1" className={classes.channelText}>
-              {t(`filter.choicesLabels.${channel}`)}
+              {t(`filter.choicesLabels.${finalChannel}`)}
             </Typography>
           </div>
         )}
-        {reverse && !!answerSourceMember && (
+        {reverse && !!answerSourceMember && !oneToOneThreadMember && (
           <div className={classes.answerNameContainer}>
             <Typography variant="body1" color="textSecondary">
               {answerSourceMember.name}
             </Typography>
           </div>
         )}
-        <div className={classes.messageBubble}>
-          <div className={classes.row}>
-            <Typography variant="h5">
-              {t(`campaign.kind.${communication.kind}`)}
-            </Typography>
-            {!reverse &&
-              communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
-                <IconButton size="small" onClick={onShowInformationClick}>
-                  <InfoOutlined />
-                </IconButton>
-              )}
-          </div>
-          {[
-            COMMUNICATION_KIND_EMAIL,
-            COMMUNICATION_KIND_PUSH_NOTIFICATION,
-          ].includes(communication.kind) && (
-            <Typography variant="h6">{communicationTitle}</Typography>
-          )}
+        <div className={classes.messageBubbleContainer}>
+          <div className={classes.messageBubble}>
+            <div className={classes.row}>
+              <Typography variant="h6">
+                {t(`campaign.kind.${communication.kind}`)}
+              </Typography>
+              {!reverse &&
+                communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
+                  <IconButton size="small" onClick={onShowInformationClick}>
+                    <InfoOutlined />
+                  </IconButton>
+                )}
+            </div>
+            {[
+              COMMUNICATION_KIND_EMAIL,
+              COMMUNICATION_KIND_PUSH_NOTIFICATION,
+            ].includes(communication.kind) && (
+              <Typography variant="h5">{communicationTitle}</Typography>
+            )}
 
-          {communication.kind === COMMUNICATION_KIND_EMAIL &&
-          (communication.data?.body || communication.text)
-            .slice(0, 14)
-            .toUpperCase() === '<!DOCTYPE HTML' ? (
-            <>
-              <div className={classes.htmlPreview}>
-                <HTMLPreview
-                  html={communicationContent}
-                  resolvedGenericTags={resolvedGenericTags}
+            {communication.kind === COMMUNICATION_KIND_EMAIL &&
+            (communication.data?.body || communication.text)
+              .toUpperCase()
+              .startsWith('<!DOCTYPE HTML') ? (
+              <>
+                <div className={classes.htmlPreview}>
+                  <HTMLPreview
+                    html={communicationContent}
+                    resolvedGenericTags={resolvedGenericTags}
+                  />
+                </div>
+                <ButtonBase
+                  className={classes.showEmail}
+                  onClick={() =>
+                    onShowEmailTemplate(
+                      communicationTitle,
+                      communicationContent,
+                    )
+                  }
+                >
+                  <VisibilityIcon className={classes.leftIcon} />
+                  <Typography variant="button">
+                    {t('recipient.showEmail')}
+                  </Typography>
+                </ButtonBase>
+              </>
+            ) : (
+              // @ts-ignore
+              <TypographyMultiline variant="body1">
+                {communicationContent}
+              </TypographyMultiline>
+            )}
+            {!oneToOneThreadMember &&
+              !reverse &&
+              communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
+                <CommunicationThreadNumberRecipients
+                  photos={photos}
+                  numberRecipients={communication.total_recipients}
                 />
-              </div>
-              <ButtonBase
-                className={classes.showEmail}
-                onClick={() =>
-                  onShowEmailTemplate(communicationTitle, communicationContent)
-                }
-              >
-                <VisibilityIcon className={classes.leftIcon} />
-                <Typography variant="button">
-                  {t('recipient.showEmail')}
-                </Typography>
-              </ButtonBase>
-            </>
-          ) : (
-            // @ts-ignore
-            <TypographyMultiline variant="body1">
-              {communicationContent}
-            </TypographyMultiline>
-          )}
-          {!oneToOneThreadMember &&
-            !reverse &&
-            communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
-              <CommunicationThreadNumberRecipients
-                photos={photos}
-                numberRecipients={communication.total_recipients}
+              )}
+            {reverse && !!answerSourceMember && (
+              <Avatar
+                src={answerSourceMember?.photo || ''}
+                alt=""
+                className={classes.answerAvatar}
               />
             )}
+          </div>
+        </div>
+        <div className={classes.flexEnd}>
+          <Typography variant="subtitle1">
+            {moment(communication.date_created).format('L - LT')}
+          </Typography>
+          {reverse && !oneToOneThreadMember && (
+            <Typography className={classes.answerWarning} variant="caption">
+              {t('recipient.isAnswerWarning')}
+            </Typography>
+          )}
           {!reverse &&
             communication.status === COMMUNICATION_SENT_SENDING_FAIL && (
               <Typography
@@ -335,24 +383,6 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
                 {t('sentStatus.processing')}
               </Typography>
             )}
-          {reverse && !!answerSourceMember && (
-            <Avatar
-              src={answerSourceMember?.photo || ''}
-              alt=""
-              className={classes.answerAvatar}
-            />
-          )}
-        </div>
-        <div className={classes.flexEnd}>
-          <Typography variant="subtitle1">
-            {moment(communication.date_created).format('L - LT')}
-          </Typography>
-          {reverse && !oneToOneThreadMember && (
-            <Typography className={classes.answerWarning} variant="caption">
-              <Warning fontSize="small" className={classes.statusIcon} />
-              {t('recipient.isAnswerWarning')}
-            </Typography>
-          )}
         </div>
       </div>
     </div>

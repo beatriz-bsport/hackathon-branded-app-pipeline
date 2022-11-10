@@ -57,6 +57,7 @@ import { getOfferCategories } from '#libs/communication-v2/utils';
 import { DEFAULT_SPOT_TYPE } from '../../libs/spot-scheduling/utils';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
+import Config from '../../config';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -596,6 +597,7 @@ export class OfferManagement extends Component<Props, State> {
             fetchBookingsByConsumerPack={this.props.fetchBookingsByConsumerPack}
             fetchVideoPurchase={this.props.fetchVideoPurchase}
             quickCreatedInvoices={this.props.quickCreatedInvoices}
+            companyId={this.props.companyId}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -749,21 +751,25 @@ export class OfferManagement extends Component<Props, State> {
             onCancelRegisterMember={() => this.props.setMemberToRegister(null)}
           />
         )}
-        {!!this.props.offer && (
-          <CommunicationDrawer
-            openDrawer={this.props.communicationDrawerIsOpen}
-            onDrawerClose={this.props.closeCommunicationDrawer}
-            contextIdentifier={CONTEXT_OFFER}
-            contextObjectId={this.props.offer.id ?? this.props.offerId}
-            contextTitle={this.props.offer?.name}
-            allMemberCategoryList={getOfferCategories(
-              this.props.t,
-              bookings,
-              bookingOptionsPending,
-            )}
-            propToListenToReloadRecipients={[bookings, bookingOptionsPending]}
-          />
-        )}
+        {!!this.props.offer &&
+          !!this.props.communicationDrawerIsOpen &&
+          (Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+            this.props.companyId === 498) && (
+            <CommunicationDrawer
+              openDrawer={this.props.communicationDrawerIsOpen}
+              onDrawerClose={this.props.closeCommunicationDrawer}
+              contextIdentifier={CONTEXT_OFFER}
+              contextObjectId={this.props.offer.id ?? this.props.offerId}
+              contextTitle={this.props.offer?.name}
+              allMemberCategoryList={getOfferCategories(
+                this.props.t,
+                bookings,
+                bookingOptionsPending,
+              )}
+            />
+          )}
         <GenericDialog />
       </Grid>
     );

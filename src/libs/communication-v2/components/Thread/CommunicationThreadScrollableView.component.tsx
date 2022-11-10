@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
 import CommunicationThreadMessageBubble from './SingleMessage/CommunicationThreadMessageBubble.component';
 import { ThreadCommunication } from '#libs/communication-v2/types';
@@ -16,12 +18,14 @@ type Props = {
   showEmailTemplate: (title?: string, html?: string) => void;
   currentPage: number;
   resolvedGenericTags: ResolvedGenericTags;
-  scrollToBottom: boolean;
+  scrollToBottomFlag: boolean;
+  hasActiveFilters: boolean;
 };
 
 const OFFSET = 5;
 
 const CommunicationThreadScrollableView = (props: Props) => {
+  const { t } = useTranslation('communication');
   const classes = useStyles();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, currentElement, scrollRef] = useIsVisibleOnScreen<HTMLDivElement>(
@@ -34,13 +38,22 @@ const CommunicationThreadScrollableView = (props: Props) => {
   const [scrollToBottomListener, setScrollToBottomListener] = useState(false);
   const [previousNumberCommunication, setPreviousNumberCommunication] =
     useState((props.threadCommunicationList || []).length);
-  if (
-    (props.currentPage !== currentPage ||
-      (props.currentPage === 1 &&
-        props.scrollToBottom === scrollToBottomListener)) &&
+
+  const pageHasChanged = props.currentPage !== currentPage;
+  const needToScrollToBottom =
+    props.scrollToBottomFlag !== scrollToBottomListener;
+  const listIsEmpty = !(props.threadCommunicationList || []).length;
+  const listCountHasChanged =
+    previousNumberCommunication !==
+    (props.threadCommunicationList || []).length;
+  const scrollHeightHasChanged =
     !!scrollRef?.current &&
-    (props.threadCommunicationList || []).length &&
-    previousScrollHeight !== scrollRef.current.scrollHeight
+    previousScrollHeight !== scrollRef.current.scrollHeight; // means that the content has changed
+
+  if (
+    (pageHasChanged || (props.currentPage === 1 && !needToScrollToBottom)) &&
+    !listIsEmpty &&
+    scrollHeightHasChanged
   ) {
     setCurrentPage(props.currentPage);
     if (props.currentPage === 1) {
@@ -57,13 +70,7 @@ const CommunicationThreadScrollableView = (props: Props) => {
     setPreviousScrollHeight(scrollRef.current.scrollHeight);
   }
   // When a new communication has been sent and is displayed at the bottom -> go to bottom
-  if (
-    props.scrollToBottom !== scrollToBottomListener &&
-    !!scrollRef?.current &&
-    previousNumberCommunication !==
-      (props.threadCommunicationList || []).length &&
-    previousScrollHeight !== scrollRef.current.scrollHeight
-  ) {
+  if (needToScrollToBottom && listCountHasChanged && scrollHeightHasChanged) {
     setScrollToBottomListener(!scrollToBottomListener);
     setPreviousNumberCommunication(
       (props.threadCommunicationList || []).length,
@@ -103,6 +110,19 @@ const CommunicationThreadScrollableView = (props: Props) => {
           />
         ))
       )}
+      {!props.loadingThreadDataList && sortedThreadList.length === 0 && (
+        <Typography
+          color="secondary"
+          variant="subtitle1"
+          className={classes.emptyLabel}
+        >
+          {t(
+            `thread.emptyThread.${
+              props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
+            }`,
+          )}
+        </Typography>
+      )}
     </div>
   );
 };
@@ -139,6 +159,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('sm')]: {
       paddingRight: theme.spacing(1.5),
     },
+  },
+  emptyLabel: {
+    display: 'flex',
+    flex: 1,
+    width: '100%',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 

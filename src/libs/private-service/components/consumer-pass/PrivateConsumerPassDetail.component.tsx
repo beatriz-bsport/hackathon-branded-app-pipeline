@@ -1,73 +1,70 @@
-// @flow
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { useTranslation } from 'react-i18next';
+import { makeStyles, Theme } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation, TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PaginatedListStateful from '../../../../components/PaginatedListStateful.component';
+import PaginatedListStateful from '#components/PaginatedListStateful.component';
 import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';
 import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
 import PrivateConsumerPassExtensionListItem from './PrivateConsumerPassExtensionListItem.component';
-import InvoiceListItem from '../../../invoice/InvoiceListItem.component';
+import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
+import { OptionCallback } from '../../../../state/types';
+import {
+  PrivateBooking,
+  PrivateConsumerPass,
+  PrivateConsumerPassExtension,
+} from '#libs/private-service/types';
+import { Invoice } from '#libs/invoice/types';
 
 type Props = {
-  private_booking_list: Array<PrivateBooking>,
-  setPrivateBookingToDelete: (privateBooking: ?PrivateBooking) => void,
-  privateBookingToDelete: ?PrivateBooking,
-  privateBookingsLoading: boolean,
-  fetchPrivateConsumerPass: (id: number) => void,
-  goToPrivateBooking: (privateBookingId: number) => void,
-  private_consumer_pass: ?PrivateConsumerPass,
-  onCreateExtension: (data: any) => void,
-  extensions: Array<PrivateConsumerPassExtension>,
+  private_booking_list: Array<PrivateBooking>;
+  privateBookingsLoading: boolean;
+  fetchPrivateConsumerPass: (id: number) => void;
+  goToPrivateBooking: (privateBookingId: number) => void;
+  private_consumer_pass?: PrivateConsumerPass;
+  onCreateExtension: () => void;
+  extensions: Array<PrivateConsumerPassExtension>;
   disablePrivateBooking: (
     id: number,
     data: any,
-    options: {
-      onSuccess?: (PrivateBooking) => void,
-      onError?: (Error) => void,
-    },
-  ) => void,
+    options: OptionCallback<PrivateBooking>,
+  ) => void;
   deletePrivateBooking: (
     id: number,
     data: any,
-    options: {
-      onSuccess?: (PrivateBooking) => void,
-      onError?: (Error) => void,
-    },
-  ) => void,
-  t: TFunction,
-  classes: Object,
-  invoice: ?Invoice,
-  onInvoiceClick?: (uuid: string) => void,
-
-  extensionsLoading: boolean,
-  deleteExtension: (number) => void,
-  privateConsumerPassExtensionDeleteLoading: boolean,
-  forceRegularizeUnpaid?: (options: OptionCallback) => void,
+    options: OptionCallback<PrivateBooking>,
+  ) => void;
+  invoice?: Invoice;
+  onInvoiceClick?: (uuid: string) => void;
+  extensionsLoading: boolean;
+  deleteExtension: (extensionId: number) => void;
+  privateConsumerPassExtensionDeleteLoading: boolean;
+  forceRegularizeUnpaid?: (options: OptionCallback) => void;
 };
+
 export const PrivateConsumerPassDetail = (props: Props) => {
   const [regularizeProcessing, setRegularizeProcessing] = React.useState(false);
+  const [privateBookingToDelete, setPrivateBookingToDelete] =
+    React.useState<PrivateBooking | null>(null);
+  const { t } = useTranslation('privateService');
+  const classes = useStyles();
   return (
     <div>
       {props.invoice ? (
-        <div className={props.classes.section}>
+        <div className={classes.section}>
           <Typography
             variant="h5"
             component="h2"
-            className={props.classes.sectionTitle}
+            className={classes.sectionTitle}
           >
-            {props.t('consumerPass.detail.invoice')}
+            {t('consumerPass.detail.invoice')}
           </Typography>
-          <Paper className={props.classes.paper}>
+          <Paper>
             <InvoiceListItem
               onClick={() => props.onInvoiceClick(props.invoice.uuid)}
               invoice={props.invoice}
@@ -77,15 +74,15 @@ export const PrivateConsumerPassDetail = (props: Props) => {
       ) : null}
       {!!props.extensionsLoading && <LinearProgress />}
       {props.extensions && props.extensions.length ? (
-        <div className={props.classes.section}>
+        <div className={classes.section}>
           <Typography
             variant="h5"
             component="h2"
-            className={props.classes.sectionTitle}
+            className={classes.sectionTitle}
           >
-            {props.t('consumerPass.detail.extensionsTitle')}
+            {t('consumerPass.detail.extensionsTitle')}
           </Typography>
-          <Paper className={props.classes.paper}>
+          <Paper>
             {!!props.privateConsumerPassExtensionDeleteLoading && (
               <LinearProgress />
             )}
@@ -109,25 +106,24 @@ export const PrivateConsumerPassDetail = (props: Props) => {
       ) : null}
       {props.onCreateExtension &&
         !!props.private_consumer_pass &&
-        !props.private_consumer_pass?.private_pass?.template_instance &&
-        !props.private_consumer_pass.src_private_consumer_pass?.length && (
-          <div className={props.classes.addButtonContainer}>
+        !props.private_consumer_pass?.private_pass?.template_instance && (
+          <div className={classes.addButtonContainer}>
             <Button
               variant="outlined"
               color="primary"
               onClick={props.onCreateExtension}
             >
-              {props.t('consumerPass.actions.addExtension')}
+              {t('consumerPass.actions.addExtension')}
             </Button>
           </div>
         )}
-      <div className={props.classes.section}>
+      <div className={classes.section}>
         <Typography
           variant="h5"
           component="h2"
-          className={props.classes.sectionTitle}
+          className={classes.sectionTitle}
         >
-          {props.t('consumerPass.detail.booking')}
+          {t('consumerPass.detail.booking')}
         </Typography>
         <Paper>
           <PaginatedListStateful
@@ -135,11 +131,11 @@ export const PrivateConsumerPassDetail = (props: Props) => {
             loading={props.privateBookingsLoading}
             listProps={{ disablePadding: true }}
             items={props.private_booking_list}
-            renderItem={(b) => (
+            renderItem={(b: PrivateBooking) => (
               <PrivateBookingListItem
                 key={b.id}
                 private_booking={b}
-                onDelete={() => props.setPrivateBookingToDelete(b)}
+                onDelete={() => setPrivateBookingToDelete(b)}
                 onClick={() => props.goToPrivateBooking(b.id)}
               />
             )}
@@ -147,7 +143,7 @@ export const PrivateConsumerPassDetail = (props: Props) => {
         </Paper>
         {!!props.forceRegularizeUnpaid && (
           <Button
-            className={props.classes.paddingTop}
+            className={classes.paddingTop}
             disabled={regularizeProcessing}
             onClick={() => {
               setRegularizeProcessing(true);
@@ -162,42 +158,42 @@ export const PrivateConsumerPassDetail = (props: Props) => {
             {regularizeProcessing && (
               <CircularProgress size={16} color="inherit" />
             )}
-            {props.t('privatePass.actions.forceRegularizeUnpaid')}
+            {t('privatePass.actions.forceRegularizeUnpaid')}
           </Button>
         )}
-        {!!props.privateBookingToDelete && (
+        {!!privateBookingToDelete && (
           <PrivateBookingDisableDialog
-            open={!!props.privateBookingToDelete}
-            private_booking={props.privateBookingToDelete}
-            onClose={() => props.setPrivateBookingToDelete(null)}
+            open={!!privateBookingToDelete}
+            private_booking={privateBookingToDelete}
+            onClose={() => setPrivateBookingToDelete(null)}
             onSubmit={(force_refund) => {
               if (
-                props.privateBookingToDelete.booking_status_code ===
+                privateBookingToDelete.booking_status_code ===
                 BOOKING_STATUS_OK.id
               ) {
                 props.disablePrivateBooking(
-                  props.privateBookingToDelete.id,
+                  privateBookingToDelete.id,
                   { force_refund },
                   {
                     onSuccess: () => {
                       props.fetchPrivateConsumerPass(
-                        props.privateBookingToDelete.private_consumer_pass,
+                        privateBookingToDelete.private_consumer_pass,
                       );
-                      props.setPrivateBookingToDelete(null);
+                      setPrivateBookingToDelete(null);
                     },
                   },
                 );
                 return;
               }
               props.deletePrivateBooking(
-                props.privateBookingToDelete.id,
+                privateBookingToDelete.id,
                 { force_refund },
                 {
                   onSuccess: () => {
                     props.fetchPrivateConsumerPass(
-                      props.privateBookingToDelete.private_consumer_pass,
+                      privateBookingToDelete.private_consumer_pass,
                     );
-                    props.setPrivateBookingToDelete(null);
+                    setPrivateBookingToDelete(null);
                   },
                 },
               );
@@ -209,7 +205,7 @@ export const PrivateConsumerPassDetail = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   section: {
     marginBottom: theme.spacing(2),
   },
@@ -228,10 +224,6 @@ const styles = (theme) => ({
   paddingTop: {
     marginTop: theme.spacing(1),
   },
-});
+}));
 
-export default compose(
-  withTranslation(['privateService']),
-  withStyles(styles),
-  withState('privateBookingToDelete', 'setPrivateBookingToDelete', null),
-)(PrivateConsumerPassDetail);
+export default PrivateConsumerPassDetail;

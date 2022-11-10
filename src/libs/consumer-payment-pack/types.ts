@@ -28,6 +28,7 @@ export type ConsumerPaymentPack<PP = number> = {
   penalty_disabled_from: string | null;
   penalty_disabled_until: string | null;
   consumer_payment_pack_source: number;
+  linked_private_consumer_pass: number | null;
 };
 
 export type MaxoutBookingData = {
@@ -56,6 +57,14 @@ export type PaymentPackMassExtension = {
   note: string;
   nb_days: number;
   date_created: string;
+};
+
+export type ConsumerPaymentPackCreditRefund = {
+  id: number;
+  note: string;
+  date_created: string;
+  invoice: string;
+  price: string;
 };
 
 export type ConsumerPaymentPackState = ErrorAndLoading & {

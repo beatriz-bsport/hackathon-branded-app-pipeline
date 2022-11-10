@@ -306,6 +306,13 @@ export type CompatiblePrivateServiceWithIncludedSlots = {
   included_slots: Array<PrivateSlot>;
 };
 
+export type PrivateConsumerPassExtension = {
+  id: number;
+  note: string;
+  private_consumer_pass: number;
+  date_created: string;
+  nd_days: number;
+};
 export type PrivateConsumerPassMassExtension = {
   id: number;
   private_pass: number;
@@ -413,7 +420,7 @@ export interface PrivateServiceState {
         allIds: string[];
       };
     extension: ErrorAndLoading & {
-      items: any[];
+      items: PrivateConsumerPassExtension[];
       create: ErrorAndLoading;
       delete: ErrorAndLoading;
       updatingConsumerPass: [];

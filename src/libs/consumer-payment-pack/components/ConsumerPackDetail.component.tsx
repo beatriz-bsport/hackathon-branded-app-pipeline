@@ -1,10 +1,9 @@
-// @flow
 import React from 'react';
 import moment from 'moment-timezone';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { makeStyles, Theme } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
@@ -13,83 +12,76 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
-
-import { compose } from 'recompose';
-import InvoiceListItem from '../../invoice/InvoiceListItem.component';
-import BookingItemForManagerV2 from '../../booking/components/BookingItemForManagerV2.component';
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
+import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 import type {
+  ConsumerPaymentPack,
   ConsumerPaymentPackExtension,
   ConsumerPaymentPackPenalty,
+  ConsumerPaymentPackCreditRefund,
 } from '../types';
-import type {
-  PaymentPack,
-  ConsumerPaymentPack,
-} from '../../payment-packs/types';
-import type { Booking } from '../../booking/types';
-import type { Invoice } from '../../invoice/types';
-import type { Member } from '../../member/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { Booking } from '#libs/booking/types';
+import type { Invoice } from '#libs/invoice/types';
+import type { Member } from '#libs/member/types';
 import { formatAsDatetime } from '../../../utils/datetime';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 
 type Props = {
-  bookings: Array<Booking>,
-  paymentPack: PaymentPack,
-  bookingLoading: boolean,
-  onBookingClick: (b: Booking) => void,
-  handleRevert: (id: number) => void,
-  discardBookingAttendance: (id: number) => void,
-  confirmBookingAttendance: (id: number) => void,
-  invoice: Invoice,
-  member: Member,
-
-  extensions: Array<ConsumerPaymentPackExtension>,
-  onCreateExtension: ({ note: string, nbDays: number }) => void,
-  deleteExtension: (id: number) => void,
-  extensionsLoading: boolean,
-  passExtenxionDeleteLoading: boolean,
-  currentBookingPage: number,
-  bookingCount: number,
-  bookings: Array<Booking>,
-  onBookingRequested: (page: number, page_size: number) => void,
-  classes: Object,
-  consumerPack: ?ConsumerPaymentPack,
+  bookings: Array<Booking>;
+  paymentPack: PaymentPack;
+  bookingLoading: boolean;
+  onBookingClick: (b: Booking) => void;
+  handleRevert: (id: number) => void;
+  discardBookingAttendance: (id: number) => void;
+  confirmBookingAttendance: (id: number) => void;
+  invoice: Invoice;
+  member: Member;
+  extensions: Array<ConsumerPaymentPackExtension>;
+  onCreateExtension?: () => void;
+  deleteExtension: (id: number) => void;
+  extensionsLoading: boolean;
+  passExtenxionDeleteLoading: boolean;
+  currentBookingPage: number;
+  bookingCount: number;
+  onBookingRequested: (page: number, page_size: number) => void;
+  consumerPack?: ConsumerPaymentPack<PaymentPack>;
   penalties: {
-    items: Array<ConsumerPaymentPackPenalty>,
-    count: number,
-    page: number,
-    loading: boolean,
-  },
-  penaltyPageSize: number,
-  onPageRequested: (page: number, paseSize: number) => void,
-
-  onInvoiceClick: (uuid: string) => void,
-  t: TFunction,
-  classes: Object,
-
-  consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackCreditRefund>,
-  requestRefund: (ConsumerPaymentPack, showCredit: boolean) => void,
-
-  timezone: ?string,
-
-  showVaccinationStatus: boolean,
+    items: Array<ConsumerPaymentPackPenalty>;
+    count: number;
+    page: number;
+    loading: boolean;
+  };
+  penaltyPageSize: number;
+  onPageRequested: (page: number, paseSize: number) => void;
+  onInvoiceClick: (uuid: string) => void;
+  consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackCreditRefund>;
+  requestRefund: (
+    cpp: ConsumerPaymentPack<PaymentPack>,
+    showCredit: boolean,
+  ) => void;
+  timezone?: string;
+  showVaccinationStatus: boolean;
 };
 
-export function ConsumerPaymentPackDetail(props: Props) {
+export const ConsumerPaymentPackDetail = (props: Props) => {
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
   return (
     <div>
       {props.invoice ? (
         <React.Fragment>
           <Typography variant="h5" component="h2">
-            {props.t('details.invoiceTitle')}
+            {t('details.invoiceTitle')}
           </Typography>
-          <Paper className={props.classes.paper}>
+          <Paper className={classes.paper}>
             <InvoiceListItem
               onClick={() => props.onInvoiceClick(props.invoice.uuid)}
               invoice={props.invoice}
@@ -99,9 +91,9 @@ export function ConsumerPaymentPackDetail(props: Props) {
             props.consumerPaymentPackCreditRefundList.length > 0 && (
               <div>
                 <Typography variant="h5" component="h2">
-                  {props.t('details.refundTitle')}
+                  {t('details.refundTitle')}
                 </Typography>
-                <Paper className={props.classes.paper}>
+                <Paper className={classes.paper}>
                   {props.consumerPaymentPackCreditRefundList.map((cr) => (
                     <ConsumerPaymentPackCreditRefundListItem
                       creditRefund={cr}
@@ -115,7 +107,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
               </div>
             )}
           {!props.consumerPack.linked_private_consumer_pass && (
-            <div className={props.classes.rightButton}>
+            <div className={classes.rightButton}>
               <Button
                 variant="contained"
                 color="primary"
@@ -126,7 +118,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
                 }
                 onClick={() => props.requestRefund(props.consumerPack, false)}
               >
-                {props.t('consumerPaymentPack.details.actions.applyVoucher')}
+                {t('consumerPaymentPack.details.actions.applyVoucher')}
               </Button>
               <Button
                 variant="contained"
@@ -138,16 +130,16 @@ export function ConsumerPaymentPackDetail(props: Props) {
                 }
                 onClick={() => props.requestRefund(props.consumerPack, true)}
               >
-                {props.t('consumerPaymentPack.details.actions.refund')}
+                {t('consumerPaymentPack.details.actions.refund')}
               </Button>
             </div>
           )}
         </React.Fragment>
       ) : null}
       <Typography variant="h5" component="h2">
-        {props.t('details.bookingsTitle')}
+        {t('details.bookingsTitle')}
       </Typography>
-      <Paper className={props.classes.paper}>
+      <Paper className={classes.paper}>
         <PaginatedListBase
           itemPerPage={5}
           loading={props.bookingLoading || !props.member}
@@ -156,7 +148,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
           page={props.currentBookingPage}
           nbItems={props.bookingCount}
           onPageRequested={props.onBookingRequested}
-          renderItem={(b) => (
+          renderItem={(b: Booking) => (
             <BookingItemForManagerV2
               onClick={() => props.onBookingClick(b)}
               showRevertBookingButton
@@ -180,10 +172,8 @@ export function ConsumerPaymentPackDetail(props: Props) {
       </Paper>
       {props.penalties.items && props.penalties.items.length > 0 && (
         <>
-          <Typography variant="h5">
-            {props.t('details.penaltyTitle')}
-          </Typography>
-          <Paper className={props.classes.paper}>
+          <Typography variant="h5">{t('details.penaltyTitle')}</Typography>
+          <Paper className={classes.paper}>
             <PaginatedListBase
               itemPerPage={props.penaltyPageSize}
               loading={props.penalties.loading}
@@ -203,12 +193,12 @@ export function ConsumerPaymentPackDetail(props: Props) {
                     secondary={
                       <>
                         {penalty.penalty_kind === PENALTY_KIND_BLOCK_CPP &&
-                          props.t('details.penaltyBlock', {
+                          t('details.penaltyBlock', {
                             nb_days: penalty.days_blocked,
                           })}
                         {penalty.penalty_kind ===
                           PENALTY_KIND_NEGATIVE_ACCOUNT &&
-                          props.t('details.penaltyAccount', {
+                          t('details.penaltyAccount', {
                             account_value: penalty.account_value,
                             currencyDisplay: getCurrencyDisplay(),
                           })}
@@ -225,9 +215,9 @@ export function ConsumerPaymentPackDetail(props: Props) {
       props.consumerPack.track_modified_credit.length ? (
         <div>
           <Typography variant="h5" component="h2">
-            {props.t('details.trackModifiedCreditTitle')}
+            {t('details.trackModifiedCreditTitle')}
           </Typography>
-          <Paper className={props.classes.paper}>
+          <Paper className={classes.paper}>
             {props.consumerPack.track_modified_credit.map((modifiedCredit) => (
               <ListItem dense divider>
                 <ListItemIcon>
@@ -254,9 +244,9 @@ export function ConsumerPaymentPackDetail(props: Props) {
       !props.extensionsLoading ? (
         <React.Fragment>
           <Typography variant="h5" component="h2">
-            {props.t('details.extensionsTitle')}
+            {t('details.extensionsTitle')}
           </Typography>
-          <Paper className={props.classes.paper}>
+          <Paper className={classes.paper}>
             {!!props.passExtenxionDeleteLoading && <LinearProgress />}
             <List disablePadding>
               {props.extensions.map((ex) => (
@@ -276,24 +266,22 @@ export function ConsumerPaymentPackDetail(props: Props) {
           </Paper>
         </React.Fragment>
       ) : null}
-      {props.onCreateExtension &&
-      !!props.consumerPack &&
-      !props.consumerPack.dst_consumer_payment_pack ? (
-        <div className={props.classes.addButtonContainer}>
+      {props.onCreateExtension && !!props.consumerPack && (
+        <div className={classes.addButtonContainer}>
           <Button
             variant="outlined"
             color="primary"
             onClick={props.onCreateExtension}
           >
-            {props.t('consumerPaymentPack.addExtension')}
+            {t('consumerPaymentPack.addExtension')}
           </Button>
         </div>
-      ) : null}
+      )}
     </div>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
@@ -316,9 +304,6 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(1),
     },
   },
-});
+}));
 
-export default compose(
-  withTranslation(['paymentPack']),
-  withStyles(styles),
-)(ConsumerPaymentPackDetail);
+export default ConsumerPaymentPackDetail;

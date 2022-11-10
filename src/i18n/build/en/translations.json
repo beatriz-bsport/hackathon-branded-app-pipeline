@@ -4501,7 +4501,8 @@
             "payment_intent_authentication_failure": "Your bank refused the payment.",
             "payment_intent_payment_attempt_failed": "Your bank refused the payment.",
             "processing_error": "An occurred while processing your payment. Try again later.",
-            "unknown": "A network error occurred. Try again later."
+            "unknown": "A network error occurred. Try again later.",
+            "setup_intent_authentication_failure": "This pass cannot be saved. Please try another payment method."
         },
         "decline_code": {
             "none": " ",
@@ -5041,7 +5042,15 @@
                 "attendanceTitle": "Attendance",
                 "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product",
                 "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags",
-                "hideMemberForCoach": "Hide customer contact information in the teacher calendar"
+                "hideMemberForCoach": "Hide customer contact information in the teacher calendar",
+                "signup": {
+                    "urlHelperText": "The member will be redirected to this link after confirming their email. If not, they will be redirected to their profile on the marketplace.",
+                    "urlError": "Please enter a valid url",
+                    "urlRedirection": "Redirection URL",
+                    "helperText": "Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed",
+                    "label": "Confirmation email at registration",
+                    "title": "Registration"
+                }
             },
             "cover": {
                 "label": "Logo",
@@ -5701,6 +5710,30 @@
             "info": "Please configure your Stripe account to continue benefitting from BSPORT's services.",
             "infoDateBlocked": "Please configure your Stripe account before {{ dateAccountIsBLockedFormattedLL }} to continue benefitting from BSPORT's services.",
             "stripeAccount": "Stripe account"
+        },
+        "emailConfirmation": {
+            "textExplain": "A confirmation email has just been sent to confirm your email address. To finalize your registration, click on the link to activate your account.",
+            "dialog": {
+                "sentAgainExplain": "The confirmation email has just been resent to your email address.",
+                "sentAgain": "Email resent!",
+                "cannotBeResent": "An email is already being sent, if you still haven't received anything in {{timeLeftBeforeNewSent}} minutes please try again. Don't forget to check your spam.",
+                "canBeResent": "Before sending the confirmation email again, please check your spam and reload your mailbox. If you have not received anything, please click on the send button.",
+                "title": "Resend the confirmation email",
+                "close": "Close",
+                "continue": "Continue",
+                "cancel": "Cancel",
+                "send": "Send"
+            },
+            "helperToSendOnceAgain": "to resend the confirmation email",
+            "notReceived": "Have you not received anything?",
+            "title": "Your registration has been registered",
+            "clickHere": "Click here",
+            "backToLogin": "Back"
+        },
+        "welcome": {
+            "textExplain": "Congratulations, your registration has been completed. You can now start enjoying your account and book your first sessions.",
+            "begin": "Start",
+            "title": "Welcome to {{companyName}} !"
         }
     },
     "waitingList": {
@@ -6926,7 +6959,9 @@
                 "1": "Being processed",
                 "0": "Pending"
             },
-            "title": "My payouts"
+            "title": "My payouts",
+            "payoutAmountFromIncludedPayouts": "of which {{price}} is from previous payouts",
+            "payoutIsIncludedInOther": "This transfer was included in the transfer of {{date}} with the identifier {{readable_identifier}}"
         },
         "instalment": {
             "form": {
@@ -8566,7 +8601,7 @@
             "total_mixed_from_src": "Number of sessions booked",
             "dst_company": "Usage studio",
             "src_company": "Purchasing studio",
-            "dispute_status": "Status"
+            "dispute_status": "Dispute status"
         },
         "yes": "Yes",
         "no": "No",
@@ -10163,11 +10198,15 @@
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
-            "existsWithPhone": "A user with the phone number {{phonenumber}} already exists."
+            "existsWithPhone": "A user with the phone number {{phonenumber}} already exists.",
+            "existsWithPhoneButNotConfirmed": "A user with the phone number {{phonenumber}} already exists, but his email ({{email}}) is awaiting confirmation. By registering this user, his email will be automatically verified.",
+            "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but his email is waiting for confirmation. By registering this user, his email will be automatically verified."
         },
         "member": {
             "existsWithEmail": "A member with the email address {{email}} already exists.",
-            "existsWithPhone": "A member with phone number {{phonenumber}} already exists."
+            "existsWithPhone": "A member with phone number {{phonenumber}} already exists.",
+            "existsWithPhoneButNotConfirmed": "A user with the phone number {{phonenumber}} already exists, but his email ({{email}}) is awaiting confirmation. By registering this user, his email will be automatically verified.",
+            "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but his email is waiting for confirmation. By registering this user, his email will be automatically verified."
         },
         "exists": {
             "goTo": "See member",

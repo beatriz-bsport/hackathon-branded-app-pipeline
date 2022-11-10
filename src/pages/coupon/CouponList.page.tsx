@@ -251,20 +251,23 @@ export class CouponList extends React.PureComponent<Props, State> {
           onClose={this.props.closeDeleteModal}
           onSubmit={this.props.deleteCoupon}
         />
-        <div className={classes.addButtonContainer}>
-          <Fab
-            color="primary"
-            variant="extended"
-            onClick={() =>
-              this.setState({
-                couponFormState: { open: true, initial: null },
-              })
-            }
-          >
-            <AddIcon />
-            {t('createCoupon')}
-          </Fab>
-        </div>
+        {(!!this.props.inactiveCoupons?.length ||
+          !!this.props.activeCoupons?.length) && (
+          <div className={classes.addButtonContainer}>
+            <Fab
+              color="primary"
+              variant="extended"
+              onClick={() =>
+                this.setState({
+                  couponFormState: { open: true, initial: null },
+                })
+              }
+            >
+              <AddIcon />
+              {t('createCoupon')}
+            </Fab>
+          </div>
+        )}
       </div>
     );
   }

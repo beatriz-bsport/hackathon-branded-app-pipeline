@@ -137,6 +137,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
                     : Math.max(parseInt(ev.target.value, 10), 1),
               });
             }}
+            isPositive
           />
           {filter_data.value === '1' || filter_data.value === 1
             ? this.props.t(

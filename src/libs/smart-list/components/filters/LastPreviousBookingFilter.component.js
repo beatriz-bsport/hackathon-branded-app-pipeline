@@ -37,6 +37,7 @@ export class LastPreviousBookingFilter extends Component<Props, state> {
           onChange={(ev) =>
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
+          isPositive
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
       </div>

@@ -45,7 +45,7 @@ import BasketAbandonmentFilter from './filters/BasketAbandonmentFilter.component
 import BookingsFilter from './filters/BookingsFilter.component';
 import FirstBookingFilter from './filters/FirstBookingFilter.component';
 import UserHasPasswordFilter from './filters/UserHasPasswordFilter.component';
-import ExpensesCompleteFilter from './filters/ExpensesCompleteFilter.component';
+import ExpensesPerCategoryFilter from './filters/ExpensesPerCategoryFilter.component';
 import PrivatePassFilter from './filters/PrivatePassFilter.component';
 import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
 import ActivePassesFilter from './filters/ActivePassesFilter.component';
@@ -388,7 +388,7 @@ export class FilterCard extends Component<Props> {
         );
       case EXPENSES_COMPLETE_FILTER_IDENTIFIER:
         return (
-          <ExpensesCompleteFilter
+          <ExpensesPerCategoryFilter
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}

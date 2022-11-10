@@ -59,6 +59,7 @@ export class CreditAccountFilter extends Component<Props, state> {
           onChange={(ev) =>
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
+          isPositive
         />
         {filter_data.comparator === BETWEEN_COMPARATOR
           ? t(`filters.${filter_data.filter_identifier}.between`)
@@ -72,6 +73,7 @@ export class CreditAccountFilter extends Component<Props, state> {
                 value_second: ev.target.value === '' ? null : ev.target.value,
               })
             }
+            isPositive
           />
         ) : null}
         {t(`filters.${filter_data.filter_identifier}.third`, {

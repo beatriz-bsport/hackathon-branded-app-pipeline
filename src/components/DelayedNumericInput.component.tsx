@@ -5,10 +5,12 @@ import NumericInput from './input/NumericInput.component';
 
 const DELAY = 350;
 
-type Props = {
+export type Props = {
   value: string | null | number;
   onChange: (data: any) => void;
   InputProps: any;
+  isPositive?: boolean;
+  onBlur?: (e: React.SyntheticEvent<HTMLInputElement>) => void;
 };
 
 type State = {
@@ -41,6 +43,18 @@ export default class DelayedNumericInput extends Component<Props, State> {
     setTimeout(this.sendChange(e), DELAY + 10);
   };
 
+  handleBlur: () => void = () => {
+    if (
+      this.props.isPositive &&
+      (this.state.value === null || this.state.value === '')
+    ) {
+      this.setState({
+        value: 0,
+      });
+    }
+    return undefined;
+  };
+
   sendChange = (e: React.ChangeEvent<HTMLInputElement>) => () => {
     const { writingSince } = this.state;
     if (
@@ -55,7 +69,8 @@ export default class DelayedNumericInput extends Component<Props, State> {
     return (
       <NumericInput
         {...this.props}
-        onChange={(event) => this.handleChange(event)}
+        onChange={this.handleChange}
+        onBlur={this.handleBlur}
         value={this.state.value}
       />
     );

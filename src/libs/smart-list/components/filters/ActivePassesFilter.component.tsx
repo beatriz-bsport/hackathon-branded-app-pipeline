@@ -116,6 +116,7 @@ export class ActivePassesFilter extends Component<Props> {
                   ev.target.value === '' ? null : ev.target.value,
               })
             }
+            isPositive
           />{' '}
           {filter_data?.nb_active_passes_comparator === BETWEEN_COMPARATOR
             ? t(`filters.${filter_data?.filter_identifier}.between`)
@@ -131,6 +132,7 @@ export class ActivePassesFilter extends Component<Props> {
                     ev.target.value === '' ? null : ev.target.value,
                 })
               }
+              isPositive
             />
           ) : null}
           {t(`filters.${filter_data?.filter_identifier}.second`)}

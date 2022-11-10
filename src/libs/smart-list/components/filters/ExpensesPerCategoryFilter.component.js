@@ -4,20 +4,20 @@ import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import moment from 'moment-timezone';
+import Typography from '@material-ui/core/Typography';
 
-import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import MomentUtils from '@date-io/moment';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
-import { DURATION_COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
-import { Moment } from '../../../../i18n';
-import Selector from '../../../../components/Selector.component';
+import {
+  DURATION_COMPARATORS_DICT_BETWEEN,
+  BETWEEN_COMPARATOR,
+} from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
+import CalendarPicker from '../CalendarPicker.component';
+import Selector from '../MultiSelector.component';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   filter_data: any,
@@ -26,42 +26,25 @@ type Props = {
   onChange: (any) => void,
   buyable_identifiers: any,
   new: boolean,
-  setNotNullableData: (Array<string>) => void,
+  setNotNullableData: (data: Array<string>) => void,
 };
-
-function renderOption(props: OptionProps) {
-  const { data, innerRef, innerProps, isSelected, isFocused } = props;
-  return (
-    <div ref={innerRef} {...innerProps}>
-      <ListItem
-        selected={isSelected}
-        isFocused={isFocused}
-        primary={data}
-        noDivider
-        button
-      >
-        <ListItemText primary={data.label} />
-      </ListItem>
-    </div>
-  );
-}
 
 export class ExpensesPerCategoryFilter extends Component<Props, state> {
   componentDidMount() {
-    this.props.setNotNullableData([
-      'comparator',
-      'value',
-      'date_end',
-      'date_start',
-    ]);
+    this.props.setNotNullableData(['comparator', 'value']);
 
     if (this.props.new) {
       this.props.onChange({
         buyable_identifiers: [],
-        comparator: null,
-        value: null,
-        date_start: null,
-        date_end: null,
+        comparator: 2,
+        value: 20,
+        value_second: 40,
+        date: moment().format('YYYY-MM-DD'),
+        date_second: moment().format('YYYY-MM-DD'),
+        duration: 0,
+        duration_second: 0,
+        date_filter_type: 2,
+        date_filter_active: false,
       });
     }
   }
@@ -70,107 +53,128 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
     const { filter_data, t, classes, onChange, buyable_identifiers } =
       this.props;
     return (
-      <div className={classes.wrapper}>
-        {t(`filters.${filter_data.filter_identifier}.first`)}
-        <Select
-          className={classes.input}
-          required
-          value={filter_data.comparator}
-          onChange={(ev) => onChange({ comparator: ev.target.value })}
-        >
-          {DURATION_COMPARATORS_DICT.map((item) => (
-            <MenuItem key={item.key} value={item.value}>
-              {t(`filters.classic_comparators.${item.value}`)}
-            </MenuItem>
-          ))}
-        </Select>
-        <DelayedNumericInput
-          value={filter_data.value}
-          classes={classes}
-          onChange={(ev) =>
-            onChange({ value: ev.target.value === '' ? null : ev.target.value })
-          }
-        />
-        {t(`filters.${filter_data.filter_identifier}.second`)}
-        <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={Moment}
-          locale={Moment.locale()}
-        >
-          <div className={classes.datePicker}>
-            <InlineDatePicker
-              className={classes.input}
-              keyboard
-              ampm={false}
-              value={filter_data.date_start}
+      <div>
+        <div className={classes.wrapper}>
+          {t(`filters.${filter_data.filter_identifier}.first`)}
+          <Select
+            className={classes.input}
+            required
+            value={filter_data.comparator}
+            onChange={(ev) => onChange({ comparator: ev.target.value })}
+          >
+            {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
+              <MenuItem key={item.key} value={item.value}>
+                {t(`filters.durations_comparators.${item.value}`)}
+              </MenuItem>
+            ))}
+          </Select>
+          <DelayedNumericInput
+            value={filter_data.value}
+            classes={classes}
+            InputProps={{ inputProps: { min: 0 } }}
+            onChange={(ev) =>
+              onChange({
+                value: ev.target.value === '' ? null : ev.target.value,
+              })
+            }
+            isPositive
+          />
+          {filter_data.comparator === BETWEEN_COMPARATOR
+            ? t(`filters.${filter_data.filter_identifier}.between`)
+            : null}
+          {filter_data.comparator === BETWEEN_COMPARATOR ? (
+            <DelayedNumericInput
+              classes={classes}
+              value={filter_data.value_second}
               onChange={(ev) =>
-                onChange({ date_start: ev.format('YYYY-MM-DD') })
+                onChange({
+                  value_second: ev.target.value === '' ? null : ev.target.value,
+                })
               }
-              onError={console.error}
-              format="YYYY/MM/DD"
+              isPositive
             />
-          </div>
-          {t(`filters.${filter_data.filter_identifier}.third`)}
-          <div className={classes.datePicker}>
-            <InlineDatePicker
-              className={classes.input}
-              minDate={filter_data.date_start}
-              keyboard
-              ampm={false}
-              value={filter_data.date_end}
-              onChange={(ev) => onChange({ date_end: ev.format('YYYY-MM-DD') })}
-              onError={console.error}
-              format="YYYY/MM/DD"
-            />
-          </div>
-        </MuiPickersUtilsProvider>
-        <div className={classes.textMargin}>
-          {t(`filters.${filter_data.filter_identifier}.fourth`)}
-        </div>
-        <div className={classes.selector}>
+          ) : null}
+          {t(`filters.${filter_data.filter_identifier}.second`, {
+            currencyDisplay: getCurrencyDisplay(),
+          })}
           <Selector
-            defaultValue={buyable_identifiers[1]}
-            selected={filter_data.buyable_identifiers}
-            nullCurrentValue={null}
-            placeholder={t(`filters.${filter_data.filter_identifier}.selector`)}
-            suggestions={buyable_identifiers}
-            components={{ Option: renderOption }}
-            onChange={(ev) => {
-              onChange({ buyable_identifiers: ev.map((pp) => pp.value) });
+            helperText={t('multiSelector.buyables.helperText')}
+            helperSelectedText={t('multiSelector.buyables.helperSelectedText')}
+            helperAllSelectedText={t(
+              'multiSelector.buyables.helperAllSelectedText',
+            )}
+            textFieldPlaceholder={t(
+              'multiSelector.buyables.textFieldPlaceholder',
+            )}
+            renderItem={(item) => {
+              return <Typography> {item.label}</Typography>;
             }}
-            isMulti
+            selectAll={
+              filter_data.buyable_identifiers &&
+              buyable_identifiers.length ===
+                filter_data.buyable_identifiers.length
+            }
+            nameIdentifier="label"
+            items={buyable_identifiers}
+            selectedItems={filter_data.buyable_identifiers}
+            onChange={(items, selectAll) => {
+              if (selectAll) {
+                onChange({
+                  buyable_identifiers: buyable_identifiers.map(
+                    (item) => item.id,
+                  ),
+                });
+              } else if (
+                filter_data.buyable_identifiers &&
+                !(
+                  items.length === filter_data.buyable_identifiers.length &&
+                  [...items].sort().every((value, index) => {
+                    return (
+                      value ===
+                      [...filter_data.buyable_identifiers].sort()[index]
+                    );
+                  })
+                )
+              ) {
+                onChange({
+                  buyable_identifiers: items,
+                });
+              } else if (!filter_data.buyable_identifiers && items.length > 0) {
+                onChange({
+                  buyable_identifiers: items,
+                });
+              }
+            }}
           />
         </div>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={
-                filter_data.buyable_identifiers &&
-                buyable_identifiers.length > 0
-                  ? buyable_identifiers.length ===
-                    filter_data.buyable_identifiers.length
-                  : false
-              }
-              onChange={() => {
-                if (
-                  filter_data.buyable_identifiers &&
-                  buyable_identifiers.length ===
-                    filter_data.buyable_identifiers.length
-                ) {
-                  onChange({ buyable_identifiers: [] });
-                } else {
-                  onChange({
-                    buyable_identifiers: buyable_identifiers.map(
-                      (item) => item.value,
-                    ),
-                  });
-                }
-              }}
-              value="checkedG"
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={filter_data.date_filter_active}
+            onChange={() =>
+              onChange({
+                date_filter_active: !filter_data.date_filter_active,
+              })
+            }
+            value="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />{' '}
+          <div
+            className={
+              filter_data.date_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.date.first`,
+            )}
+            <CalendarPicker
+              filter_data={filter_data}
+              onChange={onChange}
+              blockValidateOnClickAway
             />
-          }
-          label="All"
-        />
+          </div>
+        </div>
       </div>
     );
   }
@@ -181,14 +185,24 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
+
+  datePicker: {
+    width: '160px',
+  },
   textInput: {
     width: '50px',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-  datePicker: {
-    width: '160px',
+  disabled: {
+    display: 'flex',
+    alignItems: 'center',
+    pointerEvents: 'none',
+    background: '#f1f1f1',
+    borderRadius: '7px',
+    paddingLeft: theme.spacing(1),
   },
+  inlineContainer: { display: 'flex', alignItems: 'center' },
   wrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -199,6 +213,8 @@ const styles = (theme) => ({
   },
   selector: {
     minWidth: '275px',
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
 });
 

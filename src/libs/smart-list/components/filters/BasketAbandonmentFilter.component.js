@@ -76,6 +76,7 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
               basket_value: ev.target.value === '' ? null : ev.target.value,
             })
           }
+          isPositive
         />
         {filter_data.comparator === BETWEEN_COMPARATOR
           ? t(`filters.${filter_data.filter_identifier}.between`)
@@ -90,6 +91,7 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
                   ev.target.value === '' ? null : ev.target.value,
               })
             }
+            isPositive
           />
         ) : null}
         {t(`filters.${filter_data.filter_identifier}.third`, {

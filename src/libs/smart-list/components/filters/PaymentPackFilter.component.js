@@ -277,6 +277,7 @@ export class PaymentPackFilter extends Component<Props, state> {
                   credit_value: ev.target.value === '' ? null : ev.target.value,
                 })
               }
+              isPositive
             />
             {filter_data.credit_comparator === BETWEEN_COMPARATOR
               ? this.props.t(
@@ -294,6 +295,7 @@ export class PaymentPackFilter extends Component<Props, state> {
                       ev.target.value === '' ? null : ev.target.value,
                   })
                 }
+                isPositive
               />
             ) : null}
           </div>

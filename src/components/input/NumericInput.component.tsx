@@ -21,7 +21,8 @@ type Props = {
   helperText: string | null;
   classes: any;
   variant?: string;
-  onBlur: null | (() => void);
+  isPositive?: boolean;
+  onBlur: null | ((e: React.SyntheticEvent<HTMLInputElement>) => void);
 };
 
 export function NumericInput(props: Props) {
@@ -36,7 +37,19 @@ export function NumericInput(props: Props) {
     InputProps,
     helperText,
     variant,
+    isPositive,
+    onBlur,
   } = props;
+
+  const handleOnChange = onChange
+    ? (ev: React.ChangeEvent<HTMLElement>) => {
+        if (isPositive) {
+          return ev.target.value >= 0 ? onChange(ev) : undefined;
+        }
+        return onChange(ev);
+      }
+    : onChange;
+
   return (
     <TextField
       variant={variant}
@@ -45,14 +58,14 @@ export function NumericInput(props: Props) {
       disabled={disabled}
       value={value}
       label={label}
-      onChange={onChange}
+      onChange={handleOnChange}
       error={error}
       InputProps={InputProps}
       type="number"
       helperText={helperText}
       fullWidth={props.fullWidth}
       margin={props.margin}
-      onBlur={props.onBlur}
+      onBlur={onBlur}
     />
   );
 }

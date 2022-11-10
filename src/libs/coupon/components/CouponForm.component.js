@@ -853,6 +853,7 @@ export class CouponForm extends React.Component<Props, State> {
             disabled={
               !!initial?.coupon_template_instance ||
               this.props.processing ||
+              this.state.minimum_amount < 0 ||
               this.state.tag_selection_error
             }
             onClick={(ev) => {

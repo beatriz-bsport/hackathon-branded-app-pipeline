@@ -144,6 +144,7 @@ export class PrivateBookingsFilter extends Component<Props, state> {
                 value: ev.target.value === '' ? null : ev.target.value,
               })
             }
+            isPositive
           />{' '}
           {filter_data.comparator === BETWEEN_COMPARATOR
             ? t(`filters.${filter_data.filter_identifier}.between`)
@@ -157,6 +158,7 @@ export class PrivateBookingsFilter extends Component<Props, state> {
                   value_second: ev.target.value === '' ? null : ev.target.value,
                 })
               }
+              isPositive
             />
           ) : null}
           {this.props.t(`filters.${filter_data.filter_identifier}.second`)}

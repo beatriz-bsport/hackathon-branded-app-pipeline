@@ -34,7 +34,7 @@ export const EmailConfirmationPage = (props: Props) => {
   const goBackToSignup = () => {
     if (props.companyId) {
       props.goToCompanySignup(props.companyId);
-    } else {
+    } else if (props.isAuthenticated) {
       props.goToLastCompanySignup();
     }
 
@@ -91,6 +91,7 @@ export default compose(
         state.auth.emailConfirmation.last_time_sent_email_confirmation,
       email: state.auth.username,
       companyId: state.theme.theme.company,
+      isAuthenticated: state.auth.authenticated,
     }),
     {
       goToCompanySignup: (companyId: number) =>

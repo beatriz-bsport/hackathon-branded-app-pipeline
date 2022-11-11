@@ -9,6 +9,7 @@ import {
   requestValidateEmail as requestValidateEmailAPI,
   checkEmailValidation as checkEmailValidationAPI,
   checkMyEmailValidation as checkMyEmailValidationAPI,
+  getEmailValidationStatus as getEmailValidationStatusAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
@@ -72,16 +73,17 @@ export function requestValidationEmail(email: string, options: any) {
 
 export const validateEmailActions = {
   error: createAction('LOGIN/VALIDATE_EMAIL/ERROR'),
-  success: createAction('LOGIN/VALIDATE_EMAIL/SUCCESS'),
   isLoading: createAction('LOGIN/VALIDATE_EMAIL/IS_LOADING'),
+  refresh: createAction('LOGIN/VALIDATE_EMAIL/REFRESH'),
 };
 
-export function validateEmail(data: any, options: any) {
+export function refreshValidationEmailStatus(options: any) {
   return async (dispatch: Dispatch) => {
     dispatch(validateEmailActions.error(null));
     dispatch(validateEmailActions.isLoading(true));
     try {
-      const response = await validateEmailAPI(data);
+      const response = await getEmailValidationStatusAPI();
+      dispatch(validateEmailActions.refresh(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       dispatch(validateEmailActions.error(err));
@@ -91,6 +93,24 @@ export function validateEmail(data: any, options: any) {
   };
 }
 
+export function validateEmail(data: any, options: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(validateEmailActions.error(null));
+    dispatch(validateEmailActions.isLoading(true));
+    try {
+      const response = await validateEmailAPI(data);
+      dispatch(validateEmailActions.refresh(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      dispatch(validateEmailActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(validateEmailActions.isLoading(false));
+  };
+}
+
+// -- deprecated, sued for company email validation
+//
 export const checkEmailValidationActions = {
   error: createAction('LOGIN/CHECK_EMAIL_VALIDATION/ERROR'),
   success: createAction('LOGIN/CHECK_EMAIL_VALIDATION/SUCCESS'),

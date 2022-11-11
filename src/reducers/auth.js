@@ -7,6 +7,8 @@ import {
   stampLastStripeAccountConfigurationWarningDateSuccess,
 } from '../actions/auth.actions';
 
+import { validateEmailActions } from '#libs/login/actions';
+
 const initialState = Immutable({
   username: '',
   token: '',
@@ -20,7 +22,7 @@ const initialState = Immutable({
   initializating: false,
   invalidFields: null,
   has_completed_account_configuration_on_boarding: false,
-  email_confirmed: false,
+  email_confirmed: null,
   role: null,
   franchise_role: null,
   franchise_role_identifier: null,
@@ -98,6 +100,10 @@ export default function authReducers(state = initialState, action = {}) {
       );
     case actionTypes.EMAIL_CONFIRMED:
       return state.set('email_confirmed', action.payload.email_confirmed);
+
+    case validateEmailActions.refresh.toString():
+      return state.set('email_confirmed', action.payload.email_confirmed);
+
     case actionTypes.LOGIN_SUCCESSFUL: {
       const {
         username,

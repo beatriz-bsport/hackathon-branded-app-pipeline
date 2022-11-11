@@ -21,6 +21,8 @@ import WidgetUtils from './libs/widget/WidgetUtils';
 import { checkBsportPluginActivated } from './libs/plugin/actions';
 import withQueryParams from './hocs/with-query-params.hoc';
 
+import { isPendingEmailConfirmation } from '#libs/login/selectors';
+
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
 );
@@ -86,12 +88,12 @@ type Props = {
   checkBsportPluginActivated: () => void,
   isPluginActivated: boolean,
 
-  emailConfirmed: boolean,
+  pendingEmailConfirmation: boolean,
   authenticated: boolean,
 };
 
 export class Root extends Component<Props> {
-  componentWillMount(): * {
+  componentWillMount() {
     const query = parseQueryString(window.location.href);
 
     /**
@@ -132,7 +134,7 @@ export class Root extends Component<Props> {
       classes,
       rehydrated,
       initializating,
-      emailConfirmed,
+      pendingEmailConfirmation,
       authenticated,
     } = this.props;
 
@@ -152,7 +154,7 @@ export class Root extends Component<Props> {
           />
         )}
 
-        {emailConfirmed || !authenticated ? (
+        {!pendingEmailConfirmation || !authenticated ? (
           <Switch>
             <Route
               path="/external/:companyId/"
@@ -203,7 +205,7 @@ function mapStateToProps(state) {
     initializating: state.auth.initializating,
     networkAvailable: state.network.isAvailable,
     isPluginActivated: state.plugin.isPluginActivated,
-    emailConfirmed: state.auth.email_confirmed,
+    pendingEmailConfirmation: isPendingEmailConfirmation(state),
     authenticated: state.auth.authenticated,
   };
 }

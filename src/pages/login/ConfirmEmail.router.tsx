@@ -14,6 +14,7 @@ import { fetchCompanyTheme } from '#libs/theme/actions';
 import LoginBackgroundComponent from '#libs/login/components/LoginBackground.component';
 import LanguageButton from '../../components/button/LanguageButton.component';
 import { Theme } from '#libs/theme/types';
+import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
 
 const ConfirmingEmailPage = asyncComponent(
   () => import('./ConfirmingEmail.page'),
@@ -27,15 +28,22 @@ type Props = {
 };
 
 export const ConfirmEmailRouter = (props: Props) => {
+  const { refreshValidationEmailStatus, theme } = props;
+
   let src: string = 'https://cdn.bsport.io/bsport_logo_txt.png';
   let alt: string = 'bsport-logo';
-  if (props.theme) {
-    src = props.theme.cover;
-    alt = `${props.theme.company_name} - logo`;
+
+  if (theme) {
+    src = theme.cover;
+    alt = `${theme.company_name} - logo`;
   }
+
   const classes = useStyles();
+
+  React.useEffect(refreshValidationEmailStatus, [refreshValidationEmailStatus]);
+
   return (
-    <MuiThemeProvider theme={getTheme(props.theme)}>
+    <MuiThemeProvider theme={getTheme(theme)}>
       <Hidden xsDown>
         <LoginBackgroundComponent company />
         <Fade in>
@@ -48,7 +56,7 @@ export const ConfirmEmailRouter = (props: Props) => {
       </Hidden>
       <Switch>
         <Route
-          path="/login/email_confirmation/:uuid/:token"
+          path="/login/email_confirmation/:uuid/"
           component={ConfirmingEmailPage}
         />
         <Route
@@ -92,6 +100,7 @@ export default compose(
     }),
     {
       fetchCompanyTheme,
+      refreshValidationEmailStatus: refreshValidationEmailStatusAction,
     },
   ),
 )(ConfirmEmailRouter);

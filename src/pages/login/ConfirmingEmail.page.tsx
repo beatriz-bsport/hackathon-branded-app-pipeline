@@ -21,12 +21,10 @@ type Props = {
   fetchCompanyTheme: (companyId: number) => void;
   requestConfirmationEmail: (
     uuid: string,
-    token: string,
     company: number,
     options: any,
   ) => void;
   uuid: string;
-  token: string;
   companyId: number;
   fetchAccessLevel: (token: string) => void;
   width: Breakpoint;
@@ -38,7 +36,6 @@ export const ConfirmingEmailPage = (props: Props) => {
     fetchCompanyTheme,
     requestConfirmationEmail,
     uuid,
-    token,
     fetchAccessLevel,
     width,
   } = props;
@@ -46,15 +43,14 @@ export const ConfirmingEmailPage = (props: Props) => {
     fetchCompanyTheme(companyId);
   }, [companyId, fetchCompanyTheme]);
   useEffect(() => {
-    requestConfirmationEmail(uuid, token, companyId, {
-      onSuccess: () => fetchAccessLevel(token),
+    requestConfirmationEmail(uuid, companyId, {
+      onSuccess: ({ token }) => fetchAccessLevel(token),
     });
   }, [
     companyId,
     fetchAccessLevel,
     fetchCompanyTheme,
     requestConfirmationEmail,
-    token,
     uuid,
   ]);
 
@@ -89,14 +85,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default compose(
-  routerParamsToProps({ uuid: 'uuid', token: 'token' }),
+  routerParamsToProps({ uuid: 'uuid' }),
   withQueryParams([['membership'], 'queryParams']),
 
   withWidth(),
-  withProps(({ queryParams, uuid, token }) => ({
+  withProps(({ queryParams, uuid }) => ({
     companyId: parseInt(queryParams?.membership),
     uuid,
-    token,
   })),
   connect(
     (state) => ({

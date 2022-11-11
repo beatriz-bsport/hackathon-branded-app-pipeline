@@ -15,7 +15,7 @@ import {
   resetPassword as resetPasswordAPI,
   sendEmailForConfirmation as sendEmailForConfirmationAPI,
   confirmEmail as confirmEmailAPI,
-  getLastMembership as getLastMembershipAPI,
+  getEmailValidationStatus,
 } from '../libs/login/api';
 import types from './auth.types';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
@@ -114,14 +114,13 @@ export function fetchAccessLevel(
             allowed_franchisees,
             name,
             has_completed_account_configuration_on_boarding,
-            email_confirmed,
+            email_confirmed: email_confirmed !== false,
           },
           { accessLevel: true },
         ),
       );
-      if (options?.company && !email_confirmed) {
+      if (options?.company && email_confirmed === false) {
         const confirmationResponseOverride = await confirmEmailAPI(
-          null,
           null,
           options.company,
         );
@@ -447,13 +446,12 @@ export function sendEmailForConfirmation(
 
 export function requestConfirmationEmail(
   uuid: string,
-  token: string,
   company: number,
   options: any,
 ) {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await confirmEmailAPI(uuid, token);
+      const response = await confirmEmailAPI(uuid);
       dispatch(emailConfirmed(response.data));
       dispatch(push(`/welcome/${company}/`));
       if (options && options.onSuccess) options.onSuccess();
@@ -492,7 +490,7 @@ export function disconnect(callback: ?() => void) {
 export function goToLastCompanySignup() {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await getLastMembershipAPI();
+      const response = await getEmailValidationStatus();
       dispatch(push(`/login/signup?membership=${response.data.membership}`));
     } catch (err) {
       console.error(err);

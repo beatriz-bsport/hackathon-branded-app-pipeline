@@ -40,8 +40,8 @@ export const accessLevel = async (token: string) => {
   return getAuth(`${API_URI}/saas/access_level`, token);
 };
 
-export const getLastMembership = async () => {
-  return getAuth(`${API_V1_URI}/authentication/last_membership/`);
+export const getEmailValidationStatus = async () => {
+  return postAuth(`${API_V1_URI}/authentication/email_validator/me/`);
 };
 
 export const resetPassword = async (
@@ -58,15 +58,14 @@ export const resetPassword = async (
 };
 
 export const sendEmailForConfirmation = async (companyId: number) => {
-  return postAuth(`${API_V1_URI}/authentication/send_email_confirmation/`, {
+  return postAuth(`${API_V1_URI}/authentication/email_validator/send_email/`, {
     company_id: companyId,
   });
 };
 
-export const confirmEmail = (uuid: string, token: string, company?: number) => {
-  return postAuth(`${API_V1_URI}/authentication/confirm_email/`, {
+export const confirmEmail = (uuid: string, company?: number) => {
+  return post(`${API_V1_URI}/authentication/email_validator/validate/`, {
     uuid,
-    token,
     company,
   });
 };

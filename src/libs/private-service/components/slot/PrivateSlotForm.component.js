@@ -24,6 +24,9 @@ type Props = {
 
 type State = PrivateSlotData;
 
+const MIN_DURATION_MINUTES = 10;
+const MAX_DURATION_MINUTES = 60 * 24;
+
 export class PrivateSlotForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -46,6 +49,29 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     }
   }
 
+  get isDurationError() {
+    return (
+      this.state.duration_minutes > MAX_DURATION_MINUTES ||
+      !this.state.duration_minutes ||
+      this.state.duration_minutes < MIN_DURATION_MINUTES
+    );
+  }
+
+  isBookingIntervalError = (currentState) =>
+    parseInt(currentState.booking_interval_minutes) < MIN_DURATION_MINUTES ||
+    currentState.booking_interval_minutes === '';
+
+  handleBlur = () => {
+    this.setState((prevState) =>
+      this.isBookingIntervalError(prevState)
+        ? {
+            ...prevState,
+            booking_interval_minutes: MIN_DURATION_MINUTES,
+          }
+        : prevState,
+    );
+  };
+
   onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
     ev.preventDefault();
     this.props.onSubmit({
@@ -59,17 +85,14 @@ export class PrivateSlotForm extends React.Component<Props, State> {
   };
 
   onFormFieldChange = (value: *) => {
-    const updatedValue = value <= 1440 ? value : 1440;
+    const updatedValue =
+      value <= MAX_DURATION_MINUTES ? value : MAX_DURATION_MINUTES;
     this.setState({ duration_minutes: updatedValue });
   };
 
   render() {
     const { t, classes, onCancel } = this.props;
 
-    const durationError =
-      this.state.duration_minutes > 1440 ||
-      !this.state.duration_minutes ||
-      this.state.duration_minutes < 10;
     return (
       <form onSubmit={this.onSubmit} className={classes.container}>
         <div className={classes.field}>
@@ -107,7 +130,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             <DurationInput
               required
               value={this.state.duration_minutes}
-              disallowedNullDuration={durationError}
+              disallowedNullDuration={this.isDurationError}
               durationError={t('slot.form.durationError')}
               onChange={(e) => {
                 this.onFormFieldChange(e || 0);
@@ -119,22 +142,33 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         <div className={classes.field}>
           <NumericInput
             fullWidth
-            InputProps={{ min: 10, step: 15, max: 60 * 24 }}
+            InputProps={{ step: 15, max: MAX_DURATION_MINUTES }}
             label={t('slot.form.booking_interval_minutes.label')}
             helperText={t('slot.form.booking_interval_minutes.helperText')}
             value={this.state.booking_interval_minutes}
             onChange={(ev) => {
-              if (parseInt(ev.target.value, 10) < 10) {
-                this.setState({ booking_interval_minutes: '10' });
+              if (parseInt(ev.target.value) < MIN_DURATION_MINUTES) {
+                this.setState({
+                  booking_interval_minutes: ev.target.value,
+                });
               } else {
                 this.setState({ booking_interval_minutes: ev.target.value });
               }
             }}
+            error={this.isBookingIntervalError(this.state)}
+            onBlur={this.handleBlur}
+            isPositive
           />
         </div>
         <div className={classes.buttonContainer}>
           <Button onClick={onCancel}>{t('slot.form.cancel')}</Button>
-          <Button type="submit" color="primary" disabled={durationError}>
+          <Button
+            type="submit"
+            color="primary"
+            disabled={
+              this.isDurationError || this.isBookingIntervalError(this.state)
+            }
+          >
             {t('slot.form.submit')}
           </Button>
         </div>

@@ -4502,7 +4502,7 @@
             "payment_intent_payment_attempt_failed": "Your bank refused the payment.",
             "processing_error": "An occurred while processing your payment. Try again later.",
             "unknown": "A network error occurred. Try again later.",
-            "setup_intent_authentication_failure": "This pass cannot be saved. Please try another payment method."
+            "setup_intent_authentication_failure": "This card cannot be saved. Please try another payment method."
         },
         "decline_code": {
             "none": " ",
@@ -5726,7 +5726,7 @@
             },
             "helperToSendOnceAgain": "to resend the confirmation email",
             "notReceived": "Have you not received anything?",
-            "title": "Your registration has been registered",
+            "title": "You have been registered",
             "clickHere": "Click here",
             "backToLogin": "Back"
         },
@@ -10199,14 +10199,14 @@
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
             "existsWithPhone": "A user with the phone number {{phonenumber}} already exists.",
-            "existsWithPhoneButNotConfirmed": "A user with the phone number {{phonenumber}} already exists, but his email ({{email}}) is awaiting confirmation. By registering this user, his email will be automatically verified.",
-            "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but his email is waiting for confirmation. By registering this user, his email will be automatically verified."
+            "existsWithPhoneButNotConfirmed": "A user with phone number {{phonenumber}} already exists, but the email address ({{email}}) still needs to be confirmed. By registering this user, the email address will be automatically verified.",
+            "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but still needs to be confirmed. By registering this user, the email address will be automatically verified."
         },
         "member": {
-            "existsWithEmail": "A member with the email address {{email}} already exists.",
+            "existsWithEmail": "A member with email address {{email}} already exists.",
             "existsWithPhone": "A member with phone number {{phonenumber}} already exists.",
-            "existsWithPhoneButNotConfirmed": "A user with the phone number {{phonenumber}} already exists, but his email ({{email}}) is awaiting confirmation. By registering this user, his email will be automatically verified.",
-            "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but his email is waiting for confirmation. By registering this user, his email will be automatically verified."
+            "existsWithPhoneButNotConfirmed": "A user with phone number {{phonenumber}} already exists, but the email address ({{email}}) still needs to be confirmed. By registering this user, the email address will be automatically verified.",
+            "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but still needs to be confirmed. By registering this user, the email address will be automatically verified."
         },
         "exists": {
             "goTo": "See member",

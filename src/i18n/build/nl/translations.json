@@ -2139,6 +2139,30 @@
             "info": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie om gebruik te kunnen blijven maken van de diensten van BSPORT.",
             "infoDateBlocked": "Het is een vereiste dat het Stripe-account dat aan dit platform gekoppeld is zo snel mogelijk geconfigureerd wordt. Voltooi deze configuratie vóór {{ dateAccountIsBLockedFormattedLL }} om gebruik te kunnen blijven maken van de diensten van BSPORT.",
             "stripeAccount": "Stripe-account"
+        },
+        "welcome": {
+            "textExplain": "Gefeliciteerd, uw registratie is voltooid. U kunt nu gaan genieten van uw account en uw eerste sessies boeken.",
+            "begin": "Start",
+            "title": "Welkom bij {{companyName}}!"
+        },
+        "emailConfirmation": {
+            "dialog": {
+                "close": "Sluiten",
+                "continue": "Doorgaan",
+                "sentAgainExplain": "De bevestigingsmail is zojuist opnieuw verzonden naar uw e-mailadres.",
+                "sentAgain": "E-mail opnieuw verzonden!",
+                "cancel": "Annuleren",
+                "send": "Verzenden",
+                "canBeResent": "Controleer uw spam en laad uw mailbox opnieuw voordat u de bevestigingsmail opnieuw verstuurt. Heeft u niets ontvangen, klik dan op de verzendknop.",
+                "cannotBeResent": "Er is al een e-mail verzonden, als u nog steeds niets heeft ontvangen in {{timeLeftBeforeNewSent}} minuten, probeer het opnieuw. Vergeet niet uw spam te controleren.",
+                "title": "De bevestigingsmail opnieuw versturen"
+            },
+            "helperToSendOnceAgain": "om de bevestigingsmail opnieuw te versturen",
+            "clickHere": "Klik hier",
+            "notReceived": "Heeft u niets ontvangen?",
+            "backToLogin": "Terug",
+            "textExplain": "Er is zojuist een bevestigingsmail verzonden om uw e-mailadres te bevestigen. Om uw registratie te voltooien klikt u op de link om uw account te activeren.",
+            "title": "Uw registratie is geregistreerd"
         }
     },
     "reporting": {
@@ -2432,7 +2456,7 @@
             "total_mixed_from_src": "Aantal geboekte sessies",
             "dst_company": "Gebruiksstudio",
             "src_company": "Aankoopstudio",
-            "dispute_status": "Status"
+            "dispute_status": "Status van het geschil"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2627,7 +2651,7 @@
             "private_service": "Afspraak",
             "staff": "Medewerkers",
             "company": "Studio",
-            "disputeStatus": "Status"
+            "disputeStatus": "Status van het geschil"
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -4683,11 +4707,15 @@
         },
         "user": {
             "existsWithEmail": "Er bestaat al een gebruiker met dit e-mailadres ({{email}}).",
-            "existsWithPhone": "Er bestaat al een gebruiker met dit telefoonnummer {{phonenumber}}."
+            "existsWithPhone": "Er bestaat al een gebruiker met dit telefoonnummer {{phonenumber}}.",
+            "existsWithPhoneButNotConfirmed": "Een gebruiker met telefoonnummer {{phonenumber}} bestaat al, maar het e-mailadres ({{email}}) moet nog bevestigd worden. Door deze gebruiker te registreren, wordt het e-mailadres automatisch geverifieerd.",
+            "existsWithEmailButNotConfirmed": "Een gebruiker met het e-mailadres {{email}} bestaat al, maar moet nog bevestigd worden. Door deze gebruiker te registreren wordt het e-mailadres automatisch geverifieerd."
         },
         "member": {
             "existsWithEmail": "Er bestaat al een lid met dit e-mailadres ({{email}}).",
-            "existsWithPhone": "Er bestaat al een lid met dit telefoonnummer ({{phonenumber}})."
+            "existsWithPhone": "Er bestaat al een lid met dit telefoonnummer ({{phonenumber}}).",
+            "existsWithPhoneButNotConfirmed": "Een gebruiker met telefoonnummer {{phonenumber}} bestaat al, maar het e-mailadres ({{email}}) moet nog bevestigd worden. Door deze gebruiker te registreren, wordt het e-mailadres automatisch geverifieerd.",
+            "existsWithEmailButNotConfirmed": "Een gebruiker met het e-mailadres {{email}} bestaat al, maar moet nog bevestigd worden. Door deze gebruiker te registreren wordt het e-mailadres automatisch geverifieerd."
         },
         "exists": {
             "goTo": "Toon lid",
@@ -8372,7 +8400,9 @@
                 "1": "Wordt verwerkt",
                 "0": "Gepauzeerd"
             },
-            "title": "Mijn uitbetalingen"
+            "title": "Mijn uitbetalingen",
+            "payoutAmountFromIncludedPayouts": "waarvan {{price}} van eerdere uitbetalingen",
+            "payoutIsIncludedInOther": "Deze overschrijving werd opgenomen in de overschrijving van {{date}} met de identificatie {{readable_identifier}}"
         },
         "interval": {
             "week": "week",
@@ -9730,7 +9760,8 @@
             "payment_intent_payment_attempt_failed": "De betaling is door uw bank geweigerd.",
             "unknown": "Netwerkfout, probeer het over enkele ogenblikken opnieuw",
             "card_declined": "Kaart geweigerd",
-            "none": " "
+            "none": " ",
+            "setup_intent_authentication_failure": "Deze kaart kan niet worden opgeslagen. Probeer een andere betaalmethode."
         },
         "decline_code": {
             "card_not_supported": "Uw kaart wordt niet herkend.",
@@ -9952,7 +9983,8 @@
                 "graph_bookings": "Reserveringen",
                 "graph_private_bookings": "Afspraken",
                 "graph_payments": "Betalingen",
-                "graph_subscriptions": "Abonnementen"
+                "graph_subscriptions": "Abonnementen",
+                "graph_dispute": "Geschillen"
             },
             "accumulate": {
                 "total": "Accumuleer"
@@ -10021,7 +10053,8 @@
             "payout_identifier": "Bankoverschrijving",
             "payout_date_created": "Overschrijfdatum",
             "private_pass": "Afspraakkaart",
-            "payment_pack": "Leskaart"
+            "payment_pack": "Leskaart",
+            "dispute_status": "Status geschil"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -10387,7 +10420,15 @@
                 "attendanceTitle": "Aanwezigheid",
                 "hideBuyablePassIfSuperfluous": "Verberg kaarten, abonnementen en pakketten indien het lid al een compatibel product bezit",
                 "hideSessionWithTagsNotEligible": "Verberg sessies waarvoor leden niet de juiste tags bezitten",
-                "hideMemberForCoach": "Verberg de contactgegevens van leden op accounts van instructeurs"
+                "hideMemberForCoach": "Verberg de contactgegevens van leden op accounts van instructeurs",
+                "signup": {
+                    "urlHelperText": "Het lid wordt doorverwezen naar deze link na bevestiging van het e-mailadres. Zo niet, dan worden ze doorgestuurd naar hun profiel op de marketplace.",
+                    "urlError": "Voer een geldige url in",
+                    "urlRedirection": "Omleidings-URL",
+                    "helperText": "Bij de registratie ontvangen uw leden een e-mail om hun e-mailadres te bevestigen, het account wordt pas geactiveerd nadat het e-mailadres is bevestigd.",
+                    "label": "Bevestigingsmail bij registratie",
+                    "title": "Registratie"
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

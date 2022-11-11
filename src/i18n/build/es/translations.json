@@ -1372,7 +1372,8 @@
             "payout_identifier": "Transferencia",
             "payout_date_created": "Fecha de transferencia",
             "private_pass": "Tarjeta de cita",
-            "payment_pack": "Bono"
+            "payment_pack": "Bono",
+            "dispute_status": "Estado de litigio"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -1397,7 +1398,8 @@
                 "graph_payments": "Pagos",
                 "graph_private_bookings": "Cita",
                 "graph_bookings": "Reservas",
-                "graph_members": "Nuevos miembros"
+                "graph_members": "Nuevos miembros",
+                "graph_dispute": "Litigios"
             },
             "aggregation": {
                 "max": "Máximo",
@@ -1498,7 +1500,8 @@
             "unknown": "Error de red, intenta nuevamente en unos instantes",
             "processing_error": "Se produjo un error durante el registro de tu pago. Por favor intenta nuevamente en unos momentos.",
             "payment_intent_payment_attempt_failed": "El pago ha sido rechazado por tu banco.",
-            "none": " "
+            "none": " ",
+            "setup_intent_authentication_failure": "No se puede guardar esta tarjeta. Por favor, intenta otro método de pago."
         },
         "decline_code": {
             "withdrawal_count_limit_exceeded": "Demasiado débito en esta tarjeta, rechazada.",
@@ -1851,6 +1854,30 @@
                 "address": "Dirección",
                 "owner_address": "Dirección del propietario"
             }
+        },
+        "welcome": {
+            "textExplain": "Felicidades, tu registro ha sido completado. Ya puedes empezar a disfrutar de tu cuenta y reservar tus primeras sesiones.",
+            "begin": "Empezar",
+            "title": "¡Bienvenido a {{companyName}}!"
+        },
+        "emailConfirmation": {
+            "dialog": {
+                "close": "Cerrar",
+                "continue": "Continuar",
+                "sentAgainExplain": "El correo electrónico de confirmación acaba de ser enviado a tu dirección de correo electrónico.",
+                "sentAgain": "¡Correo electrónico enviado!",
+                "cancel": "Cancelar",
+                "send": "Enviar",
+                "cannotBeResent": "Ya se está enviando un correo electrónico, si todavía no has recibido nada en {{timeLeftBeforeNewSent}} minutos por favor inténtalo de nuevo. No te olvides de revisar tu spam.",
+                "canBeResent": "Antes de volver a enviar el correo electrónico de confirmación, por favor, consulta tu correo no deseado y recarga tu buzón. Si no has recibido nada, haz clic en el botón de envío.",
+                "title": "Reenviar el correo electrónico de confirmación"
+            },
+            "helperToSendOnceAgain": "para reenviar el correo electrónico de confirmación",
+            "clickHere": "Haga clic aquí",
+            "notReceived": "¿No has recibido nada?",
+            "backToLogin": "Volver",
+            "textExplain": "Se le acaba de enviar un correo electrónico de confirmación de la dirección de correo electrónico indicada. Para finalizar tu registro, haz clic en el enlace para activar tu cuenta.",
+            "title": "Tu registro se ha realizado con éxito"
         }
     },
     "establishment": {
@@ -2686,7 +2713,9 @@
                 "1": "Se está procesando",
                 "0": "Pendiente"
             },
-            "title": "Mis pagos"
+            "title": "Mis pagos",
+            "payoutAmountFromIncludedPayouts": "de los cuales {{price}} de los pagos anteriores",
+            "payoutIsIncludedInOther": "Esta transferencia fue incluida en la transferencia de {{date}} con el identificador {{readable_identifier}}"
         },
         "instalment": {
             "form": {
@@ -4306,7 +4335,7 @@
             "total_mixed_from_src": "Número de sesiones reservadas",
             "dst_company": "Estudio de uso",
             "src_company": "Estudio de compra",
-            "dispute_status": "Estado"
+            "dispute_status": "Estado del litigio"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4480,7 +4509,7 @@
             "private_pass": "Tarjetas de citas",
             "staff": "Personal",
             "company": "Estudio",
-            "disputeStatus": "Estado"
+            "disputeStatus": "Estado del litigio"
         },
         "filter": {
             "form": {
@@ -4914,11 +4943,15 @@
         },
         "user": {
             "existsWithEmail": "Un cliente con este correo electronico {{email}} existe.",
-            "existsWithPhone": "Un cliente con este telefono {{phonenumber}} existe."
+            "existsWithPhone": "Un cliente con este telefono {{phonenumber}} existe.",
+            "existsWithPhoneButNotConfirmed": "Ya existe un miembro con el número de teléfono {{phonenumber}}, pero su correo electrónico ({{email}}) está pendiente de confirmación. Al registrar a este usuario, su correo electrónico se verificará automáticamente.",
+            "existsWithEmailButNotConfirmed": "Ya existe un miembro con la dirección de correo electrónico {{email}}, pero su correo electrónico está pendiente de confirmación. Al registrar a este usuario, su correo electrónico se verificará automáticamente."
         },
         "member": {
             "existsWithEmail": "Un cliente con este correo electronico {{email}} existe.",
-            "existsWithPhone": "Un cliente con este telefono {{phonenumber}} existe."
+            "existsWithPhone": "Un cliente con este telefono {{phonenumber}} existe.",
+            "existsWithPhoneButNotConfirmed": "Ya existe un usuario con el número de teléfono {{phonenumber}}, pero su correo electrónico ({{email}}) está pendiente de confirmación. Al registrar a este usuario, su correo electrónico se verificará automáticamente.",
+            "existsWithEmailButNotConfirmed": "Ya existe un miembro con la dirección de correo electrónico {{email}}, pero su correo electrónico está pendiente de confirmación. Al registrar a este usuario, su correo electrónico se verificará automáticamente."
         },
         "exists": {
             "goTo": "Ir al cliente",
@@ -7686,7 +7719,15 @@
                 "attendanceTitle": "Presencia",
                 "errorURL": "Por favor, introduzca una URL válida antes de guardar el formulario",
                 "hideSessionWithTagsNotEligible": "No mostrar las sesiones a las que el socio no tiene acceso con tags",
-                "hideMemberForCoach": "Ocultar la información de contacto del cliente en el calendario del profesor"
+                "hideMemberForCoach": "Ocultar la información de contacto del cliente en el calendario del profesor",
+                "signup": {
+                    "urlHelperText": "El afiliado será redirigido a este enlace tras confirmar su correo electrónico. Si no es así, serán redirigidos a su perfil en la marketplace.",
+                    "urlError": "Por favor, introduzca una url válida",
+                    "urlRedirection": "URL de redirección",
+                    "helperText": "Al registrarse, tus miembros recibirán un correo electrónico para confirmar su dirección de correo electrónico, su cuenta no se activará hasta que este correo haya sido confirmado",
+                    "label": "Confirmación del correo electrónico en el registro",
+                    "title": "Registro"
+                }
             },
             "submit": "Guardar",
             "instagramURL": {

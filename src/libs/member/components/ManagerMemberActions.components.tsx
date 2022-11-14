@@ -93,6 +93,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.bottomButtonContainer}>
       {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+        Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
         Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
         props.companyId === 498) && (
         <Fab

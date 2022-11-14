@@ -40,7 +40,9 @@ export const ConfirmEmailRouter = (props: Props) => {
 
   const classes = useStyles();
 
-  React.useEffect(refreshValidationEmailStatus, [refreshValidationEmailStatus]);
+  React.useEffect(() => {
+    refreshValidationEmailStatus();
+  }, [refreshValidationEmailStatus]);
 
   return (
     <MuiThemeProvider theme={getTheme(theme)}>

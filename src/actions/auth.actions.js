@@ -471,7 +471,7 @@ export function initiatedLogin(username: string) {
   return { type: types.LOGIN_INITIATED, username };
 }
 
-export function disconnect(callback: ?() => void) {
+export function disconnect(callback) {
   return async (dispatch: Dispatch) => {
     try {
       Sentry.configureScope((scope) => {
@@ -491,7 +491,7 @@ export function goToLastCompanySignup() {
   return async (dispatch: Dispatch) => {
     try {
       const response = await getEmailValidationStatus();
-      dispatch(push(`/login/signup?membership=${response.data.membership}`));
+      dispatch(push(`/login/?membership=${response.data.membership}`));
     } catch (err) {
       console.error(err);
     }

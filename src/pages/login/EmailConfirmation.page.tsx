@@ -26,22 +26,30 @@ type Props = {
   lastTimeSentEmailConfirmation: string;
   companyId: number;
   goToCompanySignup: (companyId: number) => void;
+  isAuthenticated: boolean;
 
   width: Breakpoint;
 };
 
 export const EmailConfirmationPage = (props: Props) => {
-  const goBackToSignup = () => {
-    if (props.companyId) {
-      props.goToCompanySignup(props.companyId);
-    } else if (props.isAuthenticated) {
-      props.goToLastCompanySignup();
-    }
+  const {
+    width,
+    companyId,
+    goToLastCompanySignup,
+    isAuthenticated,
+    goToCompanySignup,
+    disconnect,
+  } = props;
 
-    props.disconnect();
+  const goBackToSignup = () => {
+    if (companyId) {
+      goToCompanySignup(companyId);
+    } else if (isAuthenticated) {
+      goToLastCompanySignup();
+    }
+    disconnect();
   };
 
-  const { width } = props;
   const classes = useStyles();
   const isMobile = isWidthDown('sm', width);
   return (
@@ -95,7 +103,7 @@ export default compose(
     }),
     {
       goToCompanySignup: (companyId: number) =>
-        push(`/login/signup?membership=${companyId}`),
+        push(`/login/?membership=${companyId}`),
       goBack: goBackRouter,
       sendEmailForConfirmation: sendEmailForConfirmationAction,
       disconnect: disconnectAction,

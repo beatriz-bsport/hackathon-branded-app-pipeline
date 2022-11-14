@@ -466,6 +466,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                   </Paper>
                   {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
                     Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
                     this.props.theme?.company === 498) && (
                     <Button
                       onClick={this.onOpenCommunicationDrawerClick}

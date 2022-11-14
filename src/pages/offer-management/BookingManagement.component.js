@@ -310,6 +310,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       </IconButton>
                       {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
                         Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+                        Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
                         this.props.companyId === 498) && (
                         <BottomActionsButtonCustom
                           buttonsProperties={[

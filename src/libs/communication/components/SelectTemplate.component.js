@@ -74,6 +74,13 @@ export class SelectTemplate extends Component<Props> {
     );
   };
 
+  handleOnChange = (ev) => {
+    if (ev && ev.value) {
+      this.props.onChangeTemplate(ev.value);
+      this.props.getEmailDetail(ev.value);
+    }
+  };
+
   render() {
     const { t, classes } = this.props;
     return (
@@ -97,10 +104,7 @@ export class SelectTemplate extends Component<Props> {
               <EmailSelector
                 emails={this.props.emails}
                 value={this.props.selectedMail}
-                onChange={(ev) => {
-                  this.props.onChangeTemplate(ev.value);
-                  this.props.getEmailDetail(ev.value);
-                }}
+                onChange={this.handleOnChange}
                 helperText={t('mail.mailSelection')}
               />
               <Fab

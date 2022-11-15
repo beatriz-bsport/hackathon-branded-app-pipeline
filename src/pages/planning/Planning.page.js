@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 import omit from 'lodash/omit';
-
+import isEqual from 'lodash/isEqual';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -462,7 +462,7 @@ export class Planning extends PureComponent<Props, State> {
     ) {
       this.fetchData();
     }
-    if (prevProps.offerFilters !== this.props.offerFilters) {
+    if (!isEqual(prevProps.offerFilters, this.props.offerFilters)) {
       this.fetchData();
       this.props.fetchBookingStatsOfTheWeek();
     }

@@ -25,7 +25,7 @@ export type PaymentPackFiltersOpener = {
   credit_left?: boolean;
 };
 
-export type PaymentPack<LPP = number | null> = {
+export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   id: number;
   name: string;
   price: number;
@@ -59,7 +59,7 @@ export type PaymentPack<LPP = number | null> = {
 
   editable: boolean;
   establishments: Array<number>;
-  categories: Array<number>;
+  categories: PPCategories;
   barcode: string;
   onsite_payment_available: boolean;
   full_vod_access: boolean;

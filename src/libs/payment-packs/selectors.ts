@@ -98,20 +98,22 @@ export const getOne = (state: RootState, id: number) =>
 
 export const withSCT = memoize((selector: PaymentPackSelector) =>
   createSelector([selector, getSCTs], (paymentPacks, SCTs) => {
-    if (Array.isArray(paymentPacks)) {
-      return paymentPacks.map((pp) => ({
+    if (paymentPacks && Array.isArray(paymentPacks)) {
+      const validPaymentPacks = paymentPacks.filter((pp) => !!pp);
+
+      return validPaymentPacks.map((pp) => ({
         ...pp,
-        categories: SCTs.filter((sct) =>
-          (pp.categories.map((c) => c?.id || c) || []).includes(sct.id),
+        categories: pp.categories?.map((c: number) =>
+          SCTs.find((sct) => sct.id === c),
         ),
       }));
     }
     if (paymentPacks) {
       return {
         ...paymentPacks,
-        categories: SCTs.filter((sct) =>
-          (paymentPacks.categories || []).includes(sct.id),
-        ),
+        categories: (
+          paymentPacks as Immutable.Immutable<PaymentPack>
+        ).categories?.map((c: number) => SCTs.find((sct) => sct.id === c)),
       };
     }
     return paymentPacks;

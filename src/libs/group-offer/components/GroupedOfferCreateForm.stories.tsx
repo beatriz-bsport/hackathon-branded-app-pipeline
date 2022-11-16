@@ -112,6 +112,7 @@ fullFlow.args = {
   tagList: [],
   theme: THEME,
   onClose: () => {},
+  resetPreview: () => {},
 };
 
 export const editFlow = Template.bind({});
@@ -129,4 +130,5 @@ editFlow.args = {
   tagList: [],
   theme: THEME,
   onClose: () => {},
+  resetPreview: () => {},
 };

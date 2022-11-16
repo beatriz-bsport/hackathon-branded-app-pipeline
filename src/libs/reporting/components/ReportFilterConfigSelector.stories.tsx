@@ -19,6 +19,7 @@ Default.args = {
   onEditReportFilterConfigs: () => {},
   onDeleteReportFilterConfigs: () => {},
   onSelect: () => {},
+  columnsMetadata: []
 };
 
 export default {

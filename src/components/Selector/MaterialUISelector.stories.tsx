@@ -6,7 +6,7 @@ import { AccessAlarm } from '@material-ui/icons';
 const CustomTemplate = (args: OwnProps<{ label: string; value: string }>) => {
   const [value, setValue] = useState(args.value);
   return (
-    <MaterialUISelector {...args} value={value} onChange={setValue(newValue)} />
+    <MaterialUISelector {...args} value={value} onChange={(e)=>{setValue(e)}} />
   );
 };
 
@@ -88,7 +88,7 @@ export const SingleSelectSelected = CustomTemplate.bind({});
 
 SingleSelectSelected.args = {
   ...defaultOption,
-  value: options[1],
+  value: options[1], 
 };
 
 export const SingleSelectClearable = CustomTemplate.bind({});

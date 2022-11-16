@@ -1,11 +1,14 @@
 import React from 'react';
 
-import CanvasSpot from './CanvasSpot.component';
+import CanvasSpot,{CanvasSpotProps} from './CanvasSpot.component';
 
-const CustomTemplate = (args) => {
+
+const CustomTemplate = (args:CanvasSpotProps) => {
+  return(
   <svg width="1000" height="1000">
     <CanvasSpot {...args} />
-  </svg>;
+  </svg>
+  );
 };
 
 export const Circular = CustomTemplate.bind({});

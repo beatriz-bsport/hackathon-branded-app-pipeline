@@ -40,8 +40,9 @@ export const TutorialLessonHeaderSomeCompleted = CustomTemplate.bind({});
 
 TutorialLessonHeaderSomeCompleted.args = {
   section: {
-    name: 'Section test',
+    translated_name: 'Section test',
     lessons: [lesson1, lesson2, lesson3, lesson4],
+    upsell_identifiers: [],
   },
   selectedLesson: lesson2,
   goToLesson: (id: number) => {

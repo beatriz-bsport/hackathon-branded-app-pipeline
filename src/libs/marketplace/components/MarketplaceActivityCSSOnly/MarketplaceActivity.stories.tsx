@@ -5,7 +5,7 @@ import bsportTheme from '../../../../../.storybook/bsport-theme';
 import { useTheme } from '@material-ui/core';
 import { any } from 'prop-types';
 
-export const metaActivity = {
+const metaActivity = {
   id: 36497,
   name: 'Atelier Shakti Dance : Special Nouvelle lune',
   cover_main: 'https://d2r95z4j5cc9cx.cloudfront.net/activity/14_QmGP0Da.jpg',
@@ -34,7 +34,7 @@ export const metaActivity = {
   category: null,
 };
 
-export const offer = {
+const offer = {
   id: 364927,
   company: 89,
   activity: 125631,
@@ -152,7 +152,7 @@ export const offer = {
   manager_only: false,
 };
 
-export const Template = (args: Props) => {
+const Template = (args: Props) => {
   const styles = useMuiThemeToCssVars();
   const theme = useTheme();
   return (
@@ -165,7 +165,7 @@ export const Template = (args: Props) => {
 export const ListState = Template.bind({});
 
 ListState.args = {
-  offer,
+  offer:offer,
   customLevel: {
     id: 12,
     name: 'Hardcore',
@@ -176,6 +176,8 @@ ListState.args = {
 
   // onClose: () => {},
 };
+
+
 
 export default {
   title: 'Components/Marketplace/MarketplaceActivityV2',

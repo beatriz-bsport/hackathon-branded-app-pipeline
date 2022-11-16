@@ -400,6 +400,7 @@ TemplateOffer.args = {
   offer: offer,
   onCancel: () => {},
   offerStatusById: {},
+  spotTypes:[],
   // fullScreen: true,
 };
 

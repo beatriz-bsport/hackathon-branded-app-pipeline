@@ -4,45 +4,48 @@ import MartketPlaceCardOfferV2 from './MarketPlaceCardOfferCSSOnly.component';
 import bsportTheme from '../../../../../.storybook/bsport-theme';
 import { useTheme } from '@material-ui/core';
 
-export const offer = {
-  meta_activity: {
-    id: 36497,
-    name: 'Atelier Shakti Dance : Special Nouvelle lune',
-    cover_main: 'https://d2r95z4j5cc9cx.cloudfront.net/activity/14_QmGP0Da.jpg',
-    rating: '-1.00',
-    SCT: 119,
-    parent_category: 9,
-    images: [],
-    establishments: [{ id: 154 }],
-    next_slot: '2022-04-30T14:30:00+02:00',
-    company: 89,
-    activities: [125631],
-    description:
-      "Atelier Shakti Dance : Special Nouvelle lune\r\n\r\n Le 30 avril aura lieu la nouvelle lune sous le signe du Taureau. \r\n\r\nLa nouvelle lune est un moment de commencement, propice aux nouveaux départs, aux nouveaux projets. Pour célébrer ce cycle et envoyer nos intentions,  Stessy vous propose un atelier rituel & shakti dance. \r\n\r\n\r\nLa shakti dance® est la pratique consciente de la danse combinée avec la sagesse ancestrale du yoga. Elle a été créée et développée par Sara Avtar, danseuse depuis son enfance et professeur de Kundalini Yoga depuis plus de 20 ans.\r\n\r\nÉtirements de yoga, méditation en mouvement, mantras, danse… Cette discipline réveille l’énergie Shakti (énergie vitale) qui vibre en chacun de nous, facilite le lâcher prise et encourage le mouvement libre et intuitif du corps. (Il n'est pas nécessaire de savoir danser )",
-    last_booking_minutes: 0,
-    last_discard_minutes: 2880,
-    first_booking_minutes_until: 259200,
-    is_workshop: true,
-    is_broadcast: false,
-    customer_enabled: true,
-    color: '#ff2100',
-    on_booking_notification: [],
-    auto_discard_active: false,
-    auto_discard_hours_before_start: 6,
-    auto_discard_min_bookings_nb: 1,
-    ordering_in_category: 516,
-    category: null,
-  },
+const metaActivity = {
+  id: 36497,
+  name: 'Atelier Shakti Dance : Special Nouvelle lune',
+  cover_main: 'https://d2r95z4j5cc9cx.cloudfront.net/activity/14_QmGP0Da.jpg',
+  rating: '-1.00',
+  SCT: 119,
+  parent_category: 9,
+  images: [],
+  establishments: [{ id: 154 }],
+  next_slot: '2022-04-30T14:30:00+02:00',
+  company: 89,
+  activities: [125631],
+  description:
+    "Atelier Shakti Dance : Special Nouvelle lune\r\n\r\n Le 30 avril aura lieu la nouvelle lune sous le signe du Taureau. \r\n\r\nLa nouvelle lune est un moment de commencement, propice aux nouveaux départs, aux nouveaux projets. Pour célébrer ce cycle et envoyer nos intentions,  Stessy vous propose un atelier rituel & shakti dance. \r\n\r\n\r\nLa shakti dance® est la pratique consciente de la danse combinée avec la sagesse ancestrale du yoga. Elle a été créée et développée par Sara Avtar, danseuse depuis son enfance et professeur de Kundalini Yoga depuis plus de 20 ans.\r\n\r\nÉtirements de yoga, méditation en mouvement, mantras, danse… Cette discipline réveille l’énergie Shakti (énergie vitale) qui vibre en chacun de nous, facilite le lâcher prise et encourage le mouvement libre et intuitif du corps. (Il n'est pas nécessaire de savoir danser )",
+  last_booking_minutes: 0,
+  last_discard_minutes: 2880,
+  first_booking_minutes_until: 259200,
+  is_workshop: true,
+  is_broadcast: false,
+  customer_enabled: true,
+  color: '#ff2100',
+  on_booking_notification: [],
+  auto_discard_active: false,
+  auto_discard_hours_before_start: 6,
+  auto_discard_min_bookings_nb: 1,
+  ordering_in_category: 516,
+  category: null,
+}
+
+const offer = {
   id: 364927,
   company: 89,
   activity: 125631,
   level_id: 1,
   level: 'Intermediate',
+  custom_level: 1,
   available: true,
   coach_override: false,
   male: 5,
   female: 6,
   other: 3,
+  meta_activity: metaActivity,
   coach: {
     firstname: 'Stessy',
     lastname: 'Leduc',
@@ -124,7 +127,7 @@ export const offer = {
   manager_only: false,
 };
 
-export const Template = (args: Props) => {
+const Template = (args: Props) => {
   const styles = useMuiThemeToCssVars();
   const theme = useTheme();
   return (
@@ -139,11 +142,13 @@ export const ListState = Template.bind({});
 ListState.args = {
   bookingStatus: 'isBooked',
   theme: bsportTheme,
-  offer,
+  offer:offer,
   onClickBook: () => {},
   showOfferGender: true,
   showOfferFilling: true,
   variant: 'coach',
+  coach:offer.coach,
+  getLevel: () => {}
 };
 
 export default {

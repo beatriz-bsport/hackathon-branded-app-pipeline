@@ -2,7 +2,7 @@ import React from 'react';
 import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';
 import MarketPlaceOfferListItem from './MarketplaceOfferListItemCSSOnly.component';
 
-export const metaActivity = {
+const metaActivity = {
   id: 36497,
   name: 'Atelier Shakti Dance : Special Nouvelle lune',
   cover_main: 'https://d2r95z4j5cc9cx.cloudfront.net/activity/14_QmGP0Da.jpg',
@@ -31,7 +31,7 @@ export const metaActivity = {
   category: null,
 };
 
-export const offer = {
+const offer = {
   id: 364927,
   company: 89,
   activity: 125631,
@@ -123,7 +123,7 @@ export const offer = {
   manager_only: false,
 };
 
-export const Template = (args: Props) => {
+const Template = (args: Props) => {
   const styles = useMuiThemeToCssVars();
   return (
     <div style={{ ...styles, margin: 48 }}>

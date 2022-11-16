@@ -33,6 +33,7 @@ const defaultArgs: OwnProps = {
     },
     {},
   ),
+  emails:emails,
   franchiseEmails: [
     {
       ...emails[0],

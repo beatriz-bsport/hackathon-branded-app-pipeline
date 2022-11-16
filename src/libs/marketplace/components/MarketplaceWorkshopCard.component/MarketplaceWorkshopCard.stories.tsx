@@ -4,6 +4,7 @@ import MarketPlaceWorkshopCard, {
 } from './MarketplaceWorkshopCard.component';
 import { coachFactory } from '#libs/associated-coach/factories';
 import { defaultThemeParams } from '../../../../theme';
+import { Coach } from '#libs/associated-coach/types';
 
 const metaActivity = {
   id: 36497,
@@ -316,14 +317,9 @@ ListState.args = {
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   theme: defaultThemeParams,
-  getCoach: coachFactory,
+  getCoach: () => offer.coach,
   getEstablishment: () => offer.establishment,
-  getLevel: (id: number) => {
-    id: id;
-    company: 0;
-    name: 'company name for demo';
-    color: '#ff0000';
-  },
+  getLevel: () => offer.level,
 };
 
 export const LoadingState = CustomTemplate.bind({});
@@ -337,6 +333,14 @@ LoadingState.args = {
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
+  getEstablishment: () => offer.establishment,
+  getCoach: coachFactory,
+  getLevel: (id: number) => {
+    id: id;
+    company: 0;
+    name: 'company name for demo';
+    color: '#ff0000';
+  },
 };
 
 export const WithOfferFillingState = CustomTemplate.bind({});
@@ -350,6 +354,14 @@ WithOfferFillingState.args = {
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
+  getEstablishment: () => offer.establishment,
+  getCoach: coachFactory,
+  getLevel: (id: number) => {
+    id: id;
+    company: 0;
+    name: 'company name for demo';
+    color: '#ff0000';
+  },
 };
 
 export const WithDetailsOfferFillingState = CustomTemplate.bind({});
@@ -363,6 +375,14 @@ WithDetailsOfferFillingState.args = {
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
+  getEstablishment: () => offer.establishment,
+  getCoach: coachFactory(),
+  getLevel: (id: number) => {
+    id: id;
+    company: 0;
+    name: 'company name for demo';
+    color: '#ff0000';
+  },
 };
 
 export default {

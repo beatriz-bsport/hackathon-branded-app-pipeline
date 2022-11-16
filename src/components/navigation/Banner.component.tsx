@@ -1,21 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import TodayIcon from '@material-ui/icons/Today';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Slide from '@material-ui/core/Slide';
 
 import { useTranslation } from 'react-i18next';
-import getCalendlyLinkFromCountry from '../../i18n/utils/calendly-link-language';
 
 type Props = {
   networkAvailable: boolean;
-  environment?: string;
-  isPluginActivated: boolean;
 };
 
 export const Banner = (props: Props) => {
-  const { environment, networkAvailable, isPluginActivated } = props;
+  const { networkAvailable } = props;
   const { t } = useTranslation(['titles']);
   const classes = useStyles();
 
@@ -31,21 +26,6 @@ export const Banner = (props: Props) => {
           </ButtonBase>
         </Slide>
       </div>
-      {environment === 'staging' && !isPluginActivated && (
-        <div className={classes.infoBanner}>
-          <div className={classes.visible}>
-            <a
-              href={getCalendlyLinkFromCountry()}
-              style={{ textDecoration: 'none' }}
-            >
-              <Fab variant="extended" color="primary">
-                <TodayIcon className={classes.leftIcon} />
-                {t('banner.isStaging')}
-              </Fab>
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

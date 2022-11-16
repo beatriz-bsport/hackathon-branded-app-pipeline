@@ -871,8 +871,7 @@
         "32": "Liste d'attente",
         "50": "Automatique",
         "51": "Manuel",
-        "70": "Envoyés",
-        "71": "Reçus"
+        "undefined": "Reçus"
       }
     },
     "dialogInformation": {

@@ -4,7 +4,8 @@ import MarketPlaceWorkshopCard, {
 } from './MarketplaceWorkshopCard.component';
 import { coachFactory } from '#libs/associated-coach/factories';
 import { defaultThemeParams } from '../../../../theme';
-import { Coach } from '#libs/associated-coach/types';
+
+import './MarketplaceWorkshopCard.css'
 
 const metaActivity = {
   id: 36497,
@@ -312,7 +313,7 @@ ListState.args = {
   loading: false,
   showOfferFilling: false,
   offerDetailsloading: false,
-  offers,
+  offers:offers,
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
@@ -329,18 +330,13 @@ LoadingState.args = {
   loading: true,
   showOfferFilling: false,
   offerDetailsloading: false,
-  offers,
+  offers:[],
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   getEstablishment: () => offer.establishment,
-  getCoach: coachFactory,
-  getLevel: (id: number) => {
-    id: id;
-    company: 0;
-    name: 'company name for demo';
-    color: '#ff0000';
-  },
+  getCoach: ()=>coachFactory(),
+  getLevel: () => {},
 };
 
 export const WithOfferFillingState = CustomTemplate.bind({});
@@ -350,18 +346,13 @@ WithOfferFillingState.args = {
   loading: false,
   showOfferFilling: true,
   offerDetailsloading: false,
-  offers,
+  offers:offers,
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   getEstablishment: () => offer.establishment,
-  getCoach: coachFactory,
-  getLevel: (id: number) => {
-    id: id;
-    company: 0;
-    name: 'company name for demo';
-    color: '#ff0000';
-  },
+  getCoach: ()=>coachFactory(),
+  getLevel: () => {},
 };
 
 export const WithDetailsOfferFillingState = CustomTemplate.bind({});
@@ -371,18 +362,13 @@ WithDetailsOfferFillingState.args = {
   loading: false,
   showOfferFilling: true,
   offerDetailsloading: true,
-  offers,
+  offers:offers,
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   getEstablishment: () => offer.establishment,
-  getCoach: coachFactory(),
-  getLevel: (id: number) => {
-    id: id;
-    company: 0;
-    name: 'company name for demo';
-    color: '#ff0000';
-  },
+  getCoach: ()=>coachFactory(),
+  getLevel: () => {},
 };
 
 export default {

@@ -28,7 +28,13 @@ if (Config.NODE_ENV === 'production') {
             // @ts-ignore
             error.message.match(/find variable: jQuery/i) || // this happened for a client inside his GTM
             // @ts-ignore
-            error.message.match(/Loading CSS chunk /i))) ||
+            error.message.match(/Loading CSS chunk /i) ||
+            /**
+             * Ignore errors reported from CookieFirst (3rd party script)
+             * https://sentry.io/organizations/bsport-cg/issues/3183750570/
+             */
+            // @ts-ignore
+            error.message.match(/\[CF\] failed to load config files/i))) ||
         // @ts-ignore
         error.message.match(/Object Not Found Matching Id/i)
       ) {

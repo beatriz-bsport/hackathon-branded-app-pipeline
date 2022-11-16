@@ -2,23 +2,30 @@ import React from 'react';
 import FranchiseEmailListing, {
   OwnProps,
 } from './FranchiseEmailListing.components';
-import FranchiseCompanyFactoryBot from '../factories/FranchiseCompanyFactory';
-import EmailTemplateSummaryFactoryBot from '../../email-editor/factories/EmailTemplateSummary';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
+import   { companyEmailListFactory } from '../../email-editor/factories/EmailTemplateSummary';
 
 import { FranchiseCompany } from '../types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 
-const CustomTemplate = (args: OwnProps) => <FranchiseEmailListing {...args} />;
+const CustomTemplate = (args: OwnProps) => {
+  const [isGrouped, setIsGrouped] = React.useState(false)
+  const saveFilter = (grouped: boolean)=> setIsGrouped(grouped)
+  return (
+    <FranchiseEmailListing {...args} saveFilter={saveFilter} isGrouped={isGrouped} />
+  );
+};
 
 export const CompleteStateGroupBy = CustomTemplate.bind({});
 
-const companies: FranchiseCompany[] = FranchiseCompanyFactoryBot.FranchiseCompany.create(
-  5,
-);
+const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5)
 
-const emails: EmailTemplateSummary[] = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(
-  5,
-);
+const emails :EmailTemplateSummary[] = companies.reduce((acc:EmailTemplateSummary[] , cpy: FranchiseCompany) => { 
+  console.log(acc, cpy)
+  const emailForCompany = companyEmailListFactory(cpy.id, 5)
+  console.log(emailForCompany, cpy)
+  return [...acc, ...emailForCompany]
+}, [])
 
 const defaultArgs: OwnProps = {
   navigateTo: () => () => {},
@@ -26,27 +33,11 @@ const defaultArgs: OwnProps = {
   onDuplicate: () => () => {},
   onDelete: () => () => {},
   saveFilter: () => {},
-  companyDic: companies.reduce<Record<number, FranchiseCompany>>(
-    (acc, company) => {
-      acc[company.id] = company;
-      return acc;
-    },
-    {},
-  ),
+  companies:companies,
   emails:emails,
-  franchiseEmails: [
-    {
-      ...emails[0],
-      id: 1,
-    },
-    ...emails,
-  ],
-  companiesEmails: emails.map((email) => ({
-    ...email,
-    company_id: companies[0].id,
-  })),
   selectedId: 1,
   isGrouped: false,
+  useVirtualizedList: true,
 };
 
 CompleteStateGroupBy.args = {

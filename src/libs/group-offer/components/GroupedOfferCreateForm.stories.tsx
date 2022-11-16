@@ -56,7 +56,7 @@ const THEME = {
   show_cancelled_offers_manager: true,
   show_workshops_customer: false,
   max_future_booking: 0,
-  cover: 'http://testserver:8000/media/theme/Midtown_logo.jpg',
+  cover: 'https://d2r95z4j5cc9cx.cloudfront.net/activity/14_QmGP0Da.jpg',
   mobile_cover: null,
   company: 349,
   company_name: 'MIDTOWN CHAMPS-ÉLYSÉES',

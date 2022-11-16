@@ -15,10 +15,10 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import themeSelectors from '../../libs/theme/selectors';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { fetchMember } from '../../libs/member/actions';
 import { RootState } from '../../reducers';
+import { getTheme } from '#libs/theme/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
 import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
@@ -38,7 +38,7 @@ type RouterProps = {
   company: number;
 };
 
-type State = { paymentMethodType: string };
+type State = { paymentMethodType: string; isThemeLoading: boolean };
 
 type Props = RouterProps &
   OwnProps &
@@ -50,13 +50,17 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      paymentMethodType:
-        this.props.theme.currency === 'eur' ? 'sepa_debit' : 'card',
+      isThemeLoading: true,
+      paymentMethodType: 'card',
     };
   }
 
   componentDidMount() {
-    this.props.fetchCompanyTheme(this.props.company);
+    this.props.fetchCompanyTheme(this.props.company, {
+      onSuccess: () => {
+        this.setState({ isThemeLoading: false });
+      },
+    });
 
     this.props.fetchMember(this.props.memberId);
   }
@@ -82,7 +86,8 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
     if (!memberId || !company) {
       return <div>Error -1</div>;
     }
-    if (!this.props.theme || !this.props.member?.id) {
+
+    if (this.state.isThemeLoading || !this.props.member?.id) {
       return (
         <div className={this.props.classes.container}>
           <div className={this.props.classes.loadingContainer}>
@@ -116,8 +121,8 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
 const connector = connect(
   (state: RootState, props: RouterProps) => ({
     member: getMember(state, props.memberId),
+    theme: getTheme(state),
     auth: state.auth,
-    theme: themeSelectors.getTheme(state),
   }),
   {
     fetchMember,

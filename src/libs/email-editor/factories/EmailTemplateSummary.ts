@@ -33,7 +33,6 @@ export const companyEmailListFactory = (
     category: null,
     is_default_bsport_template: false,
   }));
-  console.log(jaja);
   return jaja;
 };
 export default FactoryBot;

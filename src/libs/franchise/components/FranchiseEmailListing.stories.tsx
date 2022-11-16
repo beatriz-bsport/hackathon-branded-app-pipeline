@@ -21,9 +21,7 @@ export const CompleteStateGroupBy = CustomTemplate.bind({});
 const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5)
 
 const emails :EmailTemplateSummary[] = companies.reduce((acc:EmailTemplateSummary[] , cpy: FranchiseCompany) => { 
-  console.log(acc, cpy)
   const emailForCompany = companyEmailListFactory(cpy.id, 5)
-  console.log(emailForCompany, cpy)
   return [...acc, ...emailForCompany]
 }, [])
 

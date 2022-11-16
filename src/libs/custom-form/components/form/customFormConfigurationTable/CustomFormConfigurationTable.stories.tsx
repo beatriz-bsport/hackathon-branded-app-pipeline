@@ -7,6 +7,10 @@ import {
 } from '../../../utils';
 import type { TagGroupAPI, Tag } from '../../../../tag/types'
 import type { CustomForm } from '../../../types'
+import FactoryBot from "#libs/theme/factories"
+
+const companyTheme = FactoryBot.companyTheme.createOne()
+
 
 interface argTypes {
   initial: CustomForm;
@@ -50,6 +54,8 @@ const fieldOptionsBuilder = () => {
 
 
 CompleteInitialState.args = {
+  companyTheme:companyTheme,
+  setNumberOfQuestionsHasChanged: () => {},
   tag_groups: [
     {
       id: 1,

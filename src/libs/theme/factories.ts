@@ -7,6 +7,7 @@ FactoryBot.define('companyTheme', {
   id: FactoryBot.sequence(),
   company_name: () => faker.random.word(),
   stripe_pk_key: () => faker.random.word(),
+  locale: 'fr_FR',
 });
 
 FactoryBot.define('ProvincialTax', {

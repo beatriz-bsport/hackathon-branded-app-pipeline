@@ -27,6 +27,14 @@ export const actionsData = {
 
 export const Template = (args) => <SCTSelector {...args} />;
 
+export const TemplateWithSelected = (args) => {
+  const [value, setValue] = React.useState(scts[0].id)
+  const onChange = (selectedValue) => {
+    setValue(selectedValue.data.SCS.id)
+  }
+  return (<SCTSelector {...args} value={value} onChange={onChange}/>)
+  };
+
 export const scts = factory_scts(8)
 
 # Category
@@ -62,7 +70,7 @@ A category is already selected
       placeholder: 'category',
       onChange: actionsData.onChange,
     }}>
-    {Template.bind({})}
+    {TemplateWithSelected.bind({})}
   </Story>
 </Canvas>
 

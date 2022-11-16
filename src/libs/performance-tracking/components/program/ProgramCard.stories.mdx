@@ -11,13 +11,19 @@ const randomProgramDefault=PerformanceTrackingFactoryBot.Program.createOne({is_d
 
 export const Template = (args) => <ProgramCard {...args} />;
 
+const defaultArgs = {
+    onEdit: () => {},
+    onDelete : () => {},
+}
+
 #  Program Card
 
 <Canvas>
     <Story 
     name='ProgramCard'
     args={{
-        program:randomProgram
+        ...defaultArgs,
+        program:randomProgram,
     }}>
         {Template.bind({})}
     </Story>
@@ -32,7 +38,8 @@ export const Template = (args) => <ProgramCard {...args} />;
     <Story 
     name='ProgramCardDefault'
     args={{
-        program:randomProgramDefault
+        ...defaultArgs,
+        program:randomProgramDefault,
     }}>
         {Template.bind({})}
     </Story>

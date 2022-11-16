@@ -9,7 +9,10 @@ const randomInstalmentPayment=InstalmentPaymentFactory.InstalmentPayment.createO
     argTypes ={{
     }}/>
 
-export const Template = (args) => <BasketInstalmentPaymentConfigurationOption {...args} />;
+export const Template = (args) => {
+  const [checked, setChecked] = React.useState(false)
+  const onSelect = () => setChecked(true)
+  return (<BasketInstalmentPaymentConfigurationOption {...args} checked={checked} onSelect={onSelect}/>)};
 
 #  Basket Option
 
@@ -18,9 +21,7 @@ export const Template = (args) => <BasketInstalmentPaymentConfigurationOption {.
     name='BasketInstalmentPaymentConfigurationOption'
     args={{
       instalmentPayment:randomInstalmentPayment,
-      checked:false,
       basketPrice:100,
-      onSelect:console.log,
     }}>
         {Template.bind({})}
     </Story>

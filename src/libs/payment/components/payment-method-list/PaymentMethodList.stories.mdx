@@ -13,7 +13,19 @@ export const actionsData = {
     onSelect: action('onSelect'),
 };
 
-export const Template = (args) => <PaymentMethodList {...args} />;
+export const Template = (args) => {
+    const [selectedSavedPaymentMethodId, setselectedSavedPaymentMethodId] = React.useState(PaymentMethod[1][1].id)
+    const onSelect = (pmId) => setselectedSavedPaymentMethodId(pmId)
+    return(<PaymentMethodList {...args} selectedSavedPaymentMethodId={selectedSavedPaymentMethodId} onSelect={onSelect}/>)};
+
+export const NothingSelectedTemplate = (args) => {
+    const [selectedSavedPaymentMethodId, setselectedSavedPaymentMethodId] = React.useState("")
+    const onSelect = (pmId) => setselectedSavedPaymentMethodId(pmId)
+    return(<PaymentMethodList {...args} selectedSavedPaymentMethodId={selectedSavedPaymentMethodId} onSelect={onSelect}/>)};
+
+export const DisplayListTemplate = (args) => <PaymentMethodList {...args} />;
+
+
 
 export const PaymentMethod = payment_method_list_by_type(5);
 export const PaymentMethodListItems = payment_method_list_factory(3, 3);
@@ -28,13 +40,12 @@ export const PaymentMethodListItems = payment_method_list_factory(3, 3);
         savedPaymentMethodList: PaymentMethod[1],
         paymentMethodType: PaymentMethod[0],
         onSelect: actionsData.onSelect,
-        selectedSavedPaymentMethodId: PaymentMethod[1][0].id,
         disabled: false,
         showEmpty: false,
         companyId: 201,
         memberId: 15210,
     }}>
-    {Template.bind({})}
+    {NothingSelectedTemplate.bind({})}
     </Story>
 </Canvas>
 
@@ -47,7 +58,6 @@ export const PaymentMethodListItems = payment_method_list_factory(3, 3);
         savedPaymentMethodList: PaymentMethod[1],
         paymentMethodType: PaymentMethod[0],
         onSelect: actionsData.onSelect,
-        selectedSavedPaymentMethodId: PaymentMethod[1][1].id,
         disabled: false,
         showEmpty: false,
         companyId: 201,
@@ -70,6 +80,6 @@ export const PaymentMethodListItems = payment_method_list_factory(3, 3);
         memberId: 15210,
         onSelect: null,
     }}>
-    {Template.bind({})}
+    {DisplayListTemplate.bind({})}
     </Story>
 </Canvas>

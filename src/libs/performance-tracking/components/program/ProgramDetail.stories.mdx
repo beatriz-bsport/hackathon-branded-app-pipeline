@@ -16,7 +16,9 @@ export const Template = (args) => <ProgramDetail {...args} />;
     <Story 
     name='ProgramDetail'
     args={{
-        program:randomProgram
+        program:randomProgram,
+        onEdit: () => {},
+        onDelete : () => {}
     }}>
         {Template.bind({})}
     </Story>

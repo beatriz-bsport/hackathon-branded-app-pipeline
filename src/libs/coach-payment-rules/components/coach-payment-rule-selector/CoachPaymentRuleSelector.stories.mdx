@@ -60,7 +60,16 @@ import CoachPaymentRuleSelector from "./CoachPaymentRuleSelector.component"
         },
     }}/>
 
-export const Template = (args) => < CoachPaymentRuleSelector {...args} />;
+export const Template = (args) => {
+    const [selected, setSelected] = React.useState(0)
+    const onChange = (selectedValue) => setSelected(selectedValue)
+    return (< CoachPaymentRuleSelector {...args} selected={selected} onChange={onChange}/>)};
+
+export const AfterSelectionTemplate = (args) => {
+    const [selected, setSelected] = React.useState(2)
+    const onChange = (selectedValue) => setSelected(selectedValue)
+    return (< CoachPaymentRuleSelector {...args} selected={selected} onChange={onChange}/>)};
+
 
 # Coach Payment Rule Selector
 
@@ -92,7 +101,7 @@ export const Template = (args) => < CoachPaymentRuleSelector {...args} />;
         disabled:false,
         selected:2,
     }}>       
-        {Template.bind({})}
+        {AfterSelectionTemplate.bind({})}
     </Story>
 </Canvas>
 

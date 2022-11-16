@@ -31,7 +31,8 @@ export const Template = (args) => <InstalmentPaymentConfigurationDetail {...args
     <Story 
     name='InstalmentPaymentConfigurationDetailloading'
     args={{
-      instalmentPayment:undefined,
+      instalmentPayment:randomInstalmentPayment,
+      instalmentPaymentId: randomInstalmentPayment.id,
       loading:true,
     }}>
         {Template.bind({})}

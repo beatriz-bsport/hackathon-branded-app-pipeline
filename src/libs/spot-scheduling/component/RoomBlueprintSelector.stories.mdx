@@ -51,7 +51,9 @@ import RoomBlueprintSelector from "./RoomBlueprintSelector.component"
     }}/>
 
 export const Template = (args) => <RoomBlueprintSelector {...args} />;
-
+const defaultArgs = {
+    onChange: () => {}
+}
 #  Room Blue print  Selector
 
 ## Before Selection
@@ -60,6 +62,7 @@ export const Template = (args) => <RoomBlueprintSelector {...args} />;
     <Story 
         name="RoomBlueprintSelector"
         args={{
+            ...defaultArgs,
             roomBlueprints:[
                 {
                     id:1,
@@ -87,7 +90,7 @@ export const Template = (args) => <RoomBlueprintSelector {...args} />;
             ],
             value:null,
             placeholder:"Select a roomBlueprint",
-            id:"roomBlueprint"
+            id:"roomBlueprint",
     }}>
         {Template.bind({})}
     </Story>
@@ -99,6 +102,7 @@ export const Template = (args) => <RoomBlueprintSelector {...args} />;
     <Story 
     name="RoomBlueprintSelector2"
     args={{
+        ...defaultArgs,
         roomBlueprints:[
             {
                 id:1,
@@ -114,7 +118,7 @@ export const Template = (args) => <RoomBlueprintSelector {...args} />;
                 name:"Room #2",
             },
         placeholder:"Select a roomBlueprint",
-        id:1
+        id:1,
     }}>
         {Template.bind({})}
     </Story>

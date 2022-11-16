@@ -2,7 +2,14 @@ import React from 'react';
 
 import LevelSelector, { Props } from './LevelSelector.component';
 
-const CustomTemplate = (args: Props) => <LevelSelector {...args} />;
+const CustomTemplate = (args: Props) => {
+  const [selectedLevel, setSelectedLevel] = React.useState(null)
+  const onSelect = (id:number) => setSelectedLevel(id)
+  return(<LevelSelector 
+    {...args}
+    selectedLevel={selectedLevel}
+    onSelect={onSelect} />)}
+
 
 export const Default = CustomTemplate.bind({});
 
@@ -31,11 +38,9 @@ const defaultLevel = [
 
 Default.args = {
   customLevels: defaultLevel,
-  selectedLevel: null,
   onCreateLevel: () => {},
   onEditLevel: () => {},
   onDeleteLevel: () => {},
-  onSelect: () => {},
 };
 
 export const DefaultSelected = CustomTemplate.bind({});

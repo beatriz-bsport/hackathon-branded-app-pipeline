@@ -35,7 +35,15 @@ export const actionsData = {
     onChange: action('onChange')
 };
 
-export const Template = (args) => <PrivatePassSelector {...args} />;
+export const Template = (args) => {
+    const [value, setValue] = React.useState(null)    
+    const onChange = (e) => setValue(e)
+    return (<PrivatePassSelector {...args} value={value} onChange={onChange}/>)};
+
+export const WithSelectedTemplate = (args) => {
+    const [value, setValue] = React.useState(privatePassList[0].id)    
+    const onChange = (e) => setValue(e)
+    return (<PrivatePassSelector {...args} value={value} onChange={onChange}/>)};
 
 export const privatePassList = private_services_passes_factory(10);
 
@@ -73,6 +81,6 @@ export const privatePassList = private_services_passes_factory(10);
         value: privatePassList[0].id,
         nullCurrentValue: null,
     }}>
-    {Template.bind({})}
+    {WithSelectedTemplate.bind({})}
     </Story>
 </Canvas>

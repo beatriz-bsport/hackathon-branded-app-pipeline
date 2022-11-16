@@ -16,7 +16,8 @@ export const Template = (args) => <MemberProgramDetail {...args} />;
     <Story 
     name='MemberProgramDetail'
     args={{
-        memberProgram:randomProgram
+        memberProgram:randomProgram,
+        changeMemberMetricValue: () => {}
     }}>
         {Template.bind({})}
     </Story>

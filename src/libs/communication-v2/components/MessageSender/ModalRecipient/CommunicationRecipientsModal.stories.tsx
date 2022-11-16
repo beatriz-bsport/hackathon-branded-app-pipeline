@@ -12,11 +12,15 @@ const CustomTemplate = (args: Props) => {
     phone: [],
     notification: [],
   });
+  const [checkedFilters, setCheckedFilters] = React.useState([1])
+
   return (
     <CommunicationRecipientsModal
       {...args}
       uncheckedMembers={unchecked}
       setUncheckedMembers={setUnchecked}
+      checkedMemberCategoriesFilters={checkedFilters}
+      setCheckedMemberCategoriesFilters={setCheckedFilters}
     />
   );
 };
@@ -43,7 +47,6 @@ RecipientsModal.args = {
     ],
     filterPlaceholder: 'Placeholder de mon filtre',
   },
-  checkedMemberCategoriesFilters: [1],
   countAvailableRecipientsTotal: allMemberIds.length,
   countAvailableRecipientsWithEmail:
     allMemberIds.length - allMemberIdsWithoutEmail.length,
@@ -57,7 +60,6 @@ RecipientsModal.args = {
   open: true,
   pageSize: PAGINATION_SIZE_RECIPIENTS,
   paginatedMemberList: memberList,
-  setCheckedMemberCategoriesFilters: () => {},
 };
 
 export default {

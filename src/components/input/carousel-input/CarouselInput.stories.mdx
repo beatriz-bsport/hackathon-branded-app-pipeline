@@ -14,7 +14,17 @@ export const actionsData = {
     onClick: action('onClick')
 };
 
-export const Template = (args) => <CarouselInput {...args} />;
+export const Template = (args) => {
+    const [images,setImages] = React.useState(args.imagesArr)
+    const [selectedImage,setSelectedImage] = React.useState(null)
+    const [uniqueImageIndex,setUniqueImageIndex] = React.useState(0)
+    const handleClick = (index) => setSelectedImage(index)
+    const onRemoveImage = (_index) => setImages(images.filter((image,index)=> index !== _index))
+    return <CarouselInput {...args} 
+        imagesArr = {images} 
+        selectedImage={selectedImage} 
+        handleClick={handleClick} 
+        onRemoveImage={onRemoveImage}/>};
 
 export const images =[
   'https://assets.staging.bsport.io/activity/boxethai.jpg',
@@ -34,7 +44,6 @@ export const images =[
     args={{
         imagesArr: images,
         selectedImage: null,
-        onClick: actionsData.onClick,
     }}>
     {Template.bind({})}
     </Story>
@@ -47,8 +56,6 @@ export const images =[
     name="select-image-manager-view"
     args={{
         imagesArr: images,
-        selectedImage: null,
-        onClick: actionsData.onClick,
         isManager: true,
     }}>
     {Template.bind({})}
@@ -63,7 +70,6 @@ export const images =[
     args={{
         imagesArr: images,
         selectedImage: 2,
-        onClick: actionsData.onClick,
     }}>
     {Template.bind({})}
     </Story>
@@ -75,9 +81,7 @@ export const images =[
     <Story
     name="select-one-image"
     args={{
-        imagesArr: [images[5]],
-        selectedImage: null,
-        onClick: actionsData.onClick,
+        imagesArr: [images[1]],
     }}>
     {Template.bind({})}
     </Story>

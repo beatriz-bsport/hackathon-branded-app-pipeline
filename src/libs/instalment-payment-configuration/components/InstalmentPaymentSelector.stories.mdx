@@ -21,7 +21,7 @@ export const Template = (args) => <InstalmentPaymentSelector {...args} />;
       instalmentPaymentConfigurationList:randomInstalmentPayment,
       instalmentPaymentSelectedId:randomInstalmentPayment[0].id,
       basketPrice:100,
-      onSelect:console.log,
+      onSelectInstalmentPayment: () => {}, 
     }}>
         {Template.bind({})}
     </Story>

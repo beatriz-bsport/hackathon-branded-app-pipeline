@@ -37,6 +37,11 @@ export const actionsData = {
 
 export const Template = (args) => <MetaActivitySelector {...args} />;
 
+export const SingleSelectedTemplate = (args) => {
+  const [selectedMetaActivities, setSelectedMetaActivities] = React.useState([1])
+  const onChange = (metaActivity) => setSelectedMetaActivities([metaActivity.value])
+  return (<MetaActivitySelector {...args} selectedMetaActivities={selectedMetaActivities} onChange={onChange}/>)};
+
 export const activities = meta_activity_factory(8)
 
 # metaActivities
@@ -72,7 +77,7 @@ When the page is opened, the concerned activity is already selected, only one se
       onChange: actionsData.onChange,
       disabled: false,
     }}>
-    {Template.bind({})}
+    {SingleSelectedTemplate.bind({})}
   </Story>
 </Canvas>
 

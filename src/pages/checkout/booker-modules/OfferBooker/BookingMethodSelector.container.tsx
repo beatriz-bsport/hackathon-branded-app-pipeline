@@ -1,5 +1,6 @@
 import React from 'react';
 import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { Box, Theme, withStyles } from '@material-ui/core';
@@ -390,11 +391,17 @@ const mapHandlers = {
   requestSetupIntentSecret: () => (companyId: number) =>
     requestSetupIntentSecretAPI(null, companyId),
   getAvailableConsumerPack: (props: OwnAndConnectedProps) => () => {
+    const selectedOffers = props.selectedOffers.map((data) => data.offer);
+
     return getAvailableConsumerPack(
       props.offersConstraint,
       props.consumerPaymentPackList,
       props.cppMaxoutBookings,
-      props.selectedOffers.map((data) => data.offer),
+      // For group using full_booking_only, maxout are computed only considering the first offer
+      // and not all group's offers
+      props.offer?.group?.full_booking_only
+        ? uniqBy(selectedOffers, 'group')
+        : selectedOffers,
       props.offer,
       props.offer.timezone_name,
     );

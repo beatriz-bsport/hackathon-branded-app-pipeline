@@ -2902,8 +2902,9 @@
       },
       "cancel": "Annuler",
       "confirm": "Continuer",
-      "warningFullBooking": "Vous êtes en train de réserver un groupe de séance. Vous serez inscrits à l'ensemble des {{count}} séances de ce groupe.",
-      "warningPartialBooking": "Vous êtes en train de réserver un groupe de séance. Vous n'êtes cependant pas obliger de participer à toutes les séances de ce groupe. Vous pourrez sélectionner les séances que vous souhaitez."
+      "warningFullBooking": "Vous êtes en train de réserver un groupe de séances. Vous serez inscrit à l'ensemble des {{count}} séances de ce groupe.",
+      "warningPartialBooking": "Vous êtes en train de réserver un groupe de séances. Vous n'êtes cependant pas obligé de participer à toutes les séances de ce groupe. Vous pourrez sélectionner les séances que vous souhaitez.",
+      "warningBookingRedirectToFirstOffer": "Vous avez été redirigé sur l'écran de reservation d'un groupe de séances {{name}}, les séances devant être réservées ensemble seront listées sur votre écran de réservation."
     },
     "calendar": {
       "registered": "Déjà inscrit(e)",
@@ -3310,7 +3311,7 @@
           "subtitleRecurrence": "Récurrence",
           "name": "Nom",
           "fullBookingOnly": "Inscription à toutes les séances du groupe",
-          "fullBookingOnlyCaption": "Par défaut vos membres seront inscrit automatiquement à l'ensemble des séances du groupe si ils s'inscrivent à l'une des séances de celui-ci. Si vous désactivez ce paramètre, il sera proposé au membre de s'inscrire à toutes les séances du groupe mais il pourra choisir auxquelles il s'inscrit.",
+          "fullBookingOnlyCaption": "Par défaut vos membres seront inscrits automatiquement à l'ensemble des séances du groupe s'ils s'inscrivent à l'une des séances de celui-ci. En désactivant ce paramètre, vos membres auront la liberté de s'inscrire à tout ou partie des séances du groupe.",
           "allowBookingAfterStart": "Autoriser l'inscription en cours de route",
           "allowBookingAfterStartCaption": "Par défaut si un groupe de séance a déjà commencé vos membres ne pourront plus s'y inscrire. En activant cette fonctionnalité vos membres pourront tout de même s'inscrire aux séances restantes.",
           "marketPlaceAvailable": "Disponible à la réservation (web+app)",
@@ -9761,6 +9762,7 @@
       "signUpTitle": "Inscription",
       "noAvailableCredit": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
       "noWaitingList": "Les listes d'attentes ne sont pas disponibles pour les groupes de séances",
+      "noPartnershipIntegration": "Les réservations marketplace ne sont pas disponibles pour les groupes de séances",
       "warningCreditChange": "NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits",
       "editGroup": "Modifier ce champs directement sur le groupe de séance.",
       "address": {
@@ -9915,7 +9917,7 @@
         "coachLabel": "Professeur",
         "establishmentLabel": "Salle",
         "substituteEstablishmentLabel": "Salle (lieu temporaire)",
-        "editingGroup": "Attention cette séance fait parti du groupe de séance {{ name }}",
+        "editingGroup": "Attention cette séance fait partie du groupe de séance {{ name }}",
         "warningPackonEdit": "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
         "deleteTitle": "Supprimer la séance",
         "cancelTitle": "Annuler la séance",
@@ -10420,7 +10422,8 @@
         "notAvailable": "Annulée",
         "isPast": "Passée",
         "notBookableYet": "Bientôt",
-        "alreadyRegistered": "Réservée"
+        "alreadyRegistered": "Réservée",
+        "full": "Complet"
       },
       "sessionThisDay": "Séance ce jour :",
       "calendar": "Calendrier",

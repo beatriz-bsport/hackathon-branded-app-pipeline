@@ -2,6 +2,7 @@ import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';
 import { Coach } from '../associated-coach/types';
+import { OffersGroup } from '#libs/group-offer/types';
 
 export type OfferFilter = {
   establishments?: number[];
@@ -123,7 +124,14 @@ export type Offer<
   other?: number;
 };
 
-export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;
+export type Offer_FULL = Offer<
+  Coach,
+  Establishment,
+  MetaActivity,
+  number,
+  number,
+  OffersGroup
+>;
 
 type OfferDancing = {
   id: number;
@@ -133,6 +141,7 @@ type OfferDancing = {
 };
 
 export type OfferStatus = {
+  id: number;
   offer_status: number;
   bookable_status: number;
   waiting_list_status: number;
@@ -211,7 +220,8 @@ export type OfferState = ErrorAndLoading & {
     ErrorAndLoading & {
       allIds: number[];
     }
-  >;
+  > &
+    ErrorAndLoading;
   bookingGuest: {
     bookingGuestNumberLeft: number;
   };

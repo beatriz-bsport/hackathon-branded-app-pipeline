@@ -119,7 +119,7 @@ export class OfferCard extends Component<Props, State> {
 
   getStatsBody = () => {
     const { classes, t, bookings } = this.props;
-    const { nb_bookings, nb_option, waiting_list_max_size, effectif } =
+    const { nb_bookings, nb_option, waiting_list_max_size, effectif, group } =
       this.props.offer;
 
     const nbBookings =
@@ -170,23 +170,25 @@ export class OfferCard extends Component<Props, State> {
             {t('offer:booking.fillRate')}
           </Typography>
         </div>
-        <div className={classes.stat}>
-          <Typography
-            variant="h3"
-            color={nbOptions ? 'error' : 'secondary'}
-            align="center"
-          >
-            {nbOptions}
-            {`/${waiting_list_max_size}`}
-          </Typography>
-          <Typography
-            variant="caption"
-            align="center"
-            className={classes.statName}
-          >
-            {t('offer:booking.waiting')}
-          </Typography>
-        </div>
+        {!group && (
+          <div className={classes.stat}>
+            <Typography
+              variant="h3"
+              color={nbOptions ? 'error' : 'secondary'}
+              align="center"
+            >
+              {nbOptions}
+              {`/${waiting_list_max_size}`}
+            </Typography>
+            <Typography
+              variant="caption"
+              align="center"
+              className={classes.statName}
+            >
+              {t('offer:booking.waiting')}
+            </Typography>
+          </div>
+        )}
       </div>
     );
   };

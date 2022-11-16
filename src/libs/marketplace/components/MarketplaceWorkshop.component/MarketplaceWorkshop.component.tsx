@@ -8,7 +8,8 @@ import { Button, CircularProgress } from '@material-ui/core';
 
 import { CompanyTheme } from '#libs/theme/types';
 import MarketPlaceWorkshopCard from '../MarketplaceWorkshopCard.component';
-import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { OffersGroup } from '#libs/group-offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Offer } from '#libs/offer/types';

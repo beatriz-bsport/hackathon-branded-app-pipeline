@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
+import memoize from 'lodash/memoize';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { RouteChildrenProps, withRouter } from 'react-router';
@@ -22,7 +23,7 @@ import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
 import { getPureMetaActivities } from '#libs/meta-activity/selectors';
-import { withGroup } from '#libs/group-offer/selectors';
+import { withGroup,   getOffersListByGroup as getOffersListByGroupSelector } from '#libs/group-offer/selectors';
 import { isOfferInThePast } from '../../libs/marketplace/utils';
 
 import {
@@ -51,6 +52,7 @@ import {
   fetchBookedGender as fetchBookedGenderAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
   fetchAllOffers as fetchAllOffersAction,
+  fetchOffersInGroup as fetchOffersInGroupAction,
 } from '#libs/offer/actions';
 import {
   getMarketplaceOfferList,
@@ -235,10 +237,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   goToBook = (offer: Offer_FULL) => {
     this.closeOfferDialog();
-    if (offer.group) {
+    if (offer.group?.full_booking_only) {
       this.setState({
         displayGroupPopup: { ...offer, redirect: 'book' },
-      });
+      },
+        () => this.props.fetchOffersInGroupAction(offer.group.id))
       return;
     }
     Analytics.calendarSessionShow(offer);
@@ -393,9 +396,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         {this.state.displayGroupPopup && (
           <GroupRulePopup
             open
-            group={this.state.displayGroupPopup.group}
+            loading={this.props.offerGroupLoading}
+            selectedOffer={this.state.displayGroupPopup}
             onClose={this.handleCloseGroupPopup}
             onSubmit={this.handleContinueGroupPopup}
+            getOffersListByGroup={this.props.getOffersListByGroup}
           />
         )}
       </>
@@ -435,6 +440,10 @@ const mapStateToProps = (state: RootState) => ({
   activeCustomLevels: getActiveCustomLevels(state),
   getLevel: getLevelById(state),
   customLevels: getAllCustomLevels(state),
+  getOffersListByGroup: memoize((id) =>
+    getOffersListByGroupSelector(state, id),
+  ),
+  offerGroupLoading: state.offer.groups.loading,
 });
 
 const mapDispatchToProps = {
@@ -455,6 +464,7 @@ const mapDispatchToProps = {
   fetchLevelBulk: fetchLevelBulkAction,
 
   fetchGroupsOfferBulk: fetchGroupsOfferBulkAction,
+  fetchOffersInGroupAction,
 };
 
 const mapWithHandlers = {

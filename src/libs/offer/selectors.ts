@@ -19,6 +19,7 @@ import { Offer } from './types';
 import { PaymentPack } from '../payment-packs/types';
 import { getUserPreferencesCalendarFilter } from '../user-preference/selectors';
 import { marketplaceByMetaActivityEmptyState } from './reducers';
+import { getGroupOffersStatusById } from '#libs/group-offer/selectors';
 
 const getState = (state: RootState) => state.offer;
 
@@ -415,8 +416,8 @@ const getBookableStatusData = (state: RootState) =>
 export const withBookableStatus = memoize(
   (selector: (state: RootState) => any) =>
     createSelector(
-      [selector, getBookableStatusData],
-      (offers, bookableStatusData) => {
+      [selector, getBookableStatusData, getGroupOffersStatusById],
+      (offers, bookableStatusData, groupBookableStatusData) => {
         if (!offers) return null;
         if (!Array.isArray(offers)) {
           return {
@@ -424,9 +425,12 @@ export const withBookableStatus = memoize(
             bookableStatus: bookableStatusData[offers.id],
           };
         }
+
         return offers.map((o) => ({
           ...o,
-          bookableStatus: bookableStatusData[o.id],
+          bookableStatus:
+            groupBookableStatusData[o.group]?.[o.id] ??
+            bookableStatusData?.[o.id],
         }));
       },
     ),

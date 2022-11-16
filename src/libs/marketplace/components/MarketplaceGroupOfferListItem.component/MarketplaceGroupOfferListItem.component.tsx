@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import uniqBy from 'lodash/uniqBy';
 import classNames from 'classnames';
-
+import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {
   Avatar,
   CardMedia,
@@ -19,17 +19,17 @@ import { Coach } from '#libs/associated-coach/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { Establishment } from '#libs/establishment/types';
 
-import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { OffersGroup } from '#libs/group-offer/types';
 import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
 import { Level } from '#libs/level/types';
 import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
-  isOfferBookableYet,
+  getBookingButtonTraduction,
   isOfferInThePast,
   getPositionOfOfferInTheList,
 } from '../../utils';
-
 import './MarketplaceGroupOfferListItem.css';
 
 export type Props = {
@@ -70,9 +70,56 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
+  const [offersToDisplay, setOffersToDisplay] = React.useState([]);
 
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+
+  const anchorDate = React.useMemo(() => {
+    if (!group) {
+      return moment().format();
+    }
+    const { allow_booking_after_start, first_offer_date, full_booking_only } =
+      group;
+    if (!full_booking_only) {
+      return moment().format();
+    }
+
+    if (!allow_booking_after_start) {
+      return first_offer_date;
+    }
+    return moment().format();
+  }, [group]);
+
+  React.useEffect(() => {
+    // useEffect used to set the offers to display based on the group configuration (and thus, the anchorDate)
+    // 1 - !full_booking_only : then all offers in the future must de displayed (anchorDate is now)
+    // 2 - allow_booking_after_start : then we also display all offers in future (anchorDate in now)
+    // 3 - !allow_booking_after_start :
+    //    a - If anchorDate is before group.first_offer_date then we display nothing.
+    //    b - Otherwise we display the future offers.
+    if (!group?.full_booking_only) {
+      setOffersToDisplay(
+        offers.filter((_offer) =>
+          moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+        ),
+      );
+    } else if (offers && group) {
+      if (group.allow_booking_after_start) {
+        setOffersToDisplay(
+          offers.filter((_offer) =>
+            moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+          ),
+        );
+      } else if (moment(group.first_offer_date).isBefore(moment(anchorDate))) {
+        setOffersToDisplay([]);
+      } else {
+        setOffersToDisplay(offers.filter((o) => isOfferInThePast(o)));
+      }
+    } else {
+      setOffersToDisplay([]);
+    }
+  }, [offers, group, anchorDate]);
 
   const getDate = useCallback(
     (offer: Offer, establishment: Establishment) => {
@@ -93,18 +140,14 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     [theme],
   );
 
-  const availableOffers = offers.filter(
-    (o) => isOfferInThePast(o) && o.available,
-  );
-
   const offersWithPosition = useMemo(() => {
     const l: Array<{ offer: Offer; position: ('first' | 'last')[] }> = [];
-    availableOffers.forEach((offer, index) => {
-      const position = getPositionOfOfferInTheList(availableOffers, index);
+    offersToDisplay.forEach((offer, index) => {
+      const position = getPositionOfOfferInTheList(offersToDisplay, index);
       l.push({ offer, position });
     });
     return l;
-  }, [availableOffers]);
+  }, [offersToDisplay]);
 
   const handleBook = useCallback(
     () => (offer: Offer) => {
@@ -128,25 +171,34 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     [group, onBookOption, setOpenModal],
   );
 
-  const checkDisabled = useCallback(() => {
-    if (
-      group.full_booking_only &&
-      !group.allow_booking_after_start &&
-      offers.some((o) => !isOfferInThePast(o) || o.full)
-    ) {
+  const isRegisteredInOnOfferInGroup = React.useMemo(() => {
+    if (!group?.full_booking_only) {
+      return false;
+    }
+    if (offersToDisplay.some((o) => bookedOffers?.includes(o?.id))) {
       return true;
     }
+    return !offersToDisplay.some((o) => !o?.full);
+  }, [group, offersToDisplay, bookedOffers]);
 
-    if (
-      group.allow_booking_after_start &&
-      offers.filter((o) => !isOfferInThePast(o)).some((o) => o.full)
-    ) {
-      return true;
+  const groupIsFull = React.useMemo(() => {
+    if (!group?.full_booking_only) {
+      return false;
     }
 
-    return !offers.some((o) => isOfferInThePast(o) && !o.full);
-  }, [group, offers]);
+    return offersToDisplay.some((o) => o?.full);
+  }, [group, offersToDisplay]);
 
+  const disableBookGroupButton = () => {
+    if (!group?.full_booking_only) {
+      // Without full_booking_only
+      return false;
+    }
+    if (!group?.allow_booking_after_start) {
+      return groupIsFull || moment(anchorDate).isSameOrBefore(moment());
+    }
+    return groupIsFull;
+  };
   if (loading) {
     return (
       <Skeleton
@@ -158,9 +210,13 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     );
   }
 
-  const firstBookableOffer = offers.find((o) => isOfferInThePast(o) && !o.full);
+  const firstBookableOffer = offersToDisplay?.find((o) => !o?.full);
+  const firstOfferToBeBooked =
+    group?.full_booking_only && offersToDisplay?.length !== 0
+      ? offersToDisplay[0]
+      : null;
 
-  if (availableOffers.length === 0) return null;
+  if (offersToDisplay?.length === 0) return null;
 
   return (
     <>
@@ -181,20 +237,20 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
           </div>
           <div className="bs-offer-list-group-item__left__offers">
             <span className="bs-offer-list-group-item__left__offers__emphasis">
-              {t('marketplace.offers', { count: availableOffers.length })}
+              {t('marketplace.offers', { count: offersToDisplay.length })}
             </span>{' '}
             {t('marketplace.from_to', {
-              from: availableOffers?.[0]
+              from: offersToDisplay[0]
                 ? getDate(
-                    availableOffers?.[0],
-                    getEstablishment(availableOffers[0].establishment),
+                    offersToDisplay[0],
+                    getEstablishment(offersToDisplay[0].establishment),
                   )
                 : '',
-              to: availableOffers?.[availableOffers.length - 1]
+              to: offersToDisplay[offersToDisplay.length - 1]
                 ? getDate(
-                    availableOffers?.[availableOffers.length - 1],
+                    offersToDisplay[offersToDisplay.length - 1],
                     getEstablishment(
-                      availableOffers[availableOffers.length - 1]
+                      offersToDisplay[offersToDisplay.length - 1]
                         ?.establishment,
                     ),
                   )
@@ -249,15 +305,55 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               className="bs-offer-list-group-item__right__row__level"
             />
           </div>
-          <button
-            className="bs-offer-list-group-item__right__row__button"
-            onClick={() => {
-              setOpenModal(true);
-            }}
-            type="button"
-          >
-            {t('marketplace.book')}
-          </button>
+          {group?.full_booking_only && (
+            <>
+              {firstOfferToBeBooked && (
+                <button
+                  type="button"
+                  className={classNames(
+                    'bs-offer-list-group-item__right__row__button',
+                    {
+                      'bs-offer-list-group-item__right__row__button--disabled':
+                        disableBookGroupButton(),
+                      'bs-offer-list-group-item__right__row__button--booked':
+                        isRegisteredInOnOfferInGroup,
+                      'bs-offer-list-group-item__right__row__button--booked:hover::before':
+                        isRegisteredInOnOfferInGroup,
+                    },
+                  )}
+                  onClick={() =>
+                    !disableBookGroupButton() && setOpenModal(true)
+                  }
+                >
+                  {isRegisteredInOnOfferInGroup && (
+                    <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
+                  )}
+                  {getBookingButtonTraduction(
+                    {
+                      ...firstOfferToBeBooked,
+
+                      is_full: groupIsFull,
+                      group,
+                      meta_activity: metaActivity,
+                    },
+                    isRegisteredInOnOfferInGroup,
+                    t,
+                  )}
+                </button>
+              )}
+            </>
+          )}
+          {!group?.full_booking_only && (
+            <button
+              className="bs-offer-list-group-item__right__row__button"
+              onClick={() => {
+                setOpenModal(true);
+              }}
+              type="button"
+            >
+              {t('marketplace.book')}
+            </button>
+          )}
         </div>
       </div>
       {openModal && (
@@ -289,7 +385,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                   group.full_booking_only
                     ? 'marketplace:workshop.warningFullBooking'
                     : 'marketplace:workshop.warningPartialBooking',
-                  { count: group.offers?.length ?? 0 },
+                  { count: offersToDisplay.length },
                 )}
               </div>
               <div className="bs-offer-dialog__content__inner__book_title">
@@ -304,6 +400,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                       offer={{
                         ...offer,
                         meta_activity: metaActivity,
+                        group,
                       }}
                       establishment={getEstablishment(offer.establishment)}
                       coach={getCoach(offer.coach_override || offer.coach)}
@@ -345,25 +442,20 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             <button
               className={classNames('bs-offer-dialog__content__buttons__book', {
                 'bs-offer-dialog__content__buttons__book--disabled':
-                  checkDisabled(),
+                  disableBookGroupButton(),
               })}
               type="button"
               onClick={() => {
-                if (checkDisabled()) return;
+                if (disableBookGroupButton()) return;
                 if (firstBookableOffer?.available) {
                   handleBook()(firstBookableOffer);
                 }
-                if (firstBookableOffer.full) {
+                if (firstBookableOffer?.full) {
                   handleBookOption()(firstBookableOffer);
                 }
               }}
             >
-              {isOfferBookableYet({
-                ...firstBookableOffer,
-                meta_activity: metaActivity,
-              })
-                ? t('marketplace.book')
-                : t('marketplace.bookButton.notBookableYet')}
+              {t('marketplace.book')}
             </button>
           </div>
         </Dialog>

@@ -493,7 +493,7 @@ export const offerBulkActions = {
 
 export function fetchOfferBulk(
   ids: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback<Offer[]>,
   useCache?: boolean,
   ignoreManagerOnly?: boolean,
 ) {
@@ -530,7 +530,21 @@ export function fetchOfferBulk(
     dispatch(offerBulkActions.isLoading(false));
   };
 }
+export const setStoredOffersInGroupsDataActions = {
+  execute: createAction<{ groupId: number; offersIds: number[] }>(
+    'OFFER/SET_STORED_DATA_IN_GROUP/EXECUTE',
+  ),
+};
 
+export const setStoredOffersInGroups = (
+  groupId: number,
+  offersIds: number[],
+) => {
+  return async (dispatch: Dispatch) =>
+    dispatch(
+      setStoredOffersInGroupsDataActions.execute({ groupId, offersIds }),
+    );
+};
 export const offerStatusActions = {
   isLoading: createAction('OFFER/STATUS/IS_LOADING'),
   error: createAction('OFFER/STATUS/ERROR'),

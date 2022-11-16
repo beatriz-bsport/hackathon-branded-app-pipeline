@@ -68,3 +68,15 @@ export const getGroupByIdCurried = (state: RootState) => (id: number) => {
 export const retrieveGroupOffer = (state: RootState) => {
   return state.groupOffer.byId?.[state.groupOffer.retrieve.id];
 };
+
+export const getGroupOffersStatusById = (state: RootState) =>
+  state.groupOffer.offersStatus.byId;
+
+export const getGroupOffersStatus = (state: RootState, id: number) =>
+  getGroupOffersStatusById(state)[id] || {};
+
+const getOffersIdsToBeBookedByGroupId = (state: RootState) =>
+  state.groupOffer.offersIdsToBeBooked.byGroupId;
+
+export const getGroupOffersIdsToBeBooked = (state: RootState, id: number) =>
+  getOffersIdsToBeBookedByGroupId(state)[id];

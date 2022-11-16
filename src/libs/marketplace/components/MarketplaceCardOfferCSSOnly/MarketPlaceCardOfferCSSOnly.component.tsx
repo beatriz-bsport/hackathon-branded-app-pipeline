@@ -189,14 +189,6 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
           <div className="bs-card-offer__content__bottom__buttonContainer">
             <MarketplaceBookButton
               offer={offer}
-              onClickBook={(ev) => {
-                ev.stopPropagation();
-                handleBook();
-              }}
-              onClickBookOption={(ev) => {
-                ev.stopPropagation();
-                handleBookOption();
-              }}
               isRegistered={props.isRegistered}
             />
           </div>

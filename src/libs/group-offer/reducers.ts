@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
 
 import {
@@ -10,8 +11,12 @@ import {
   deleteGroupOfferActions,
   fetchExistingGroupOfferActions,
   fetchGroupsOfferBulkActions,
+  getGroupOfferFirstOfferIdToBeBookedActions,
+  listGroupOfferOffersIdsToBeBookedActions,
+  getGroupOfferBookableStatusActions,
 } from './actions';
 import { GroupOfferState } from './types';
+import { OfferStatus } from '#libs/offer/types';
 
 const initialState: Immutable.Immutable<GroupOfferState> =
   Immutable<GroupOfferState>({
@@ -47,6 +52,17 @@ const initialState: Immutable.Immutable<GroupOfferState> =
       loading: false,
       error: null,
       exist: false,
+    },
+    offersStatus: {
+      byId: {},
+      error: null,
+      loading: false,
+    },
+    offersIdsToBeBooked: {
+      loading: false,
+      error: null,
+      allIds: [],
+      byGroupId: {},
     },
   });
 
@@ -217,6 +233,56 @@ export default handleActions<Immutable.Immutable<GroupOfferState>, any>(
       { payload },
     ) => {
       return state.setIn(['existing', 'exist'], !!payload);
+    },
+    [getGroupOfferFirstOfferIdToBeBookedActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('loading', payload);
+    },
+    [listGroupOfferOffersIdsToBeBookedActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['offersIdsToBeBooked', 'loading'], payload);
+    },
+    [listGroupOfferOffersIdsToBeBookedActions.success.toString()]: (
+      state,
+      { payload }: { payload: { groupId: number; offersIds: number[] } },
+    ) => {
+      return state
+        .setIn(
+          ['offersIdsToBeBooked', 'byGroupId', payload.groupId],
+          payload.offersIds,
+        )
+        .setIn(
+          ['offersIdsToBeBooked', 'allIds'],
+          uniq([...state.offersIdsToBeBooked.allIds, ...payload.offersIds]),
+        );
+    },
+    [listGroupOfferOffersIdsToBeBookedActions.reset.toString()]: (state) => {
+      return state
+        .setIn(['offersIdsToBeBooked', 'loading'], false)
+        .setIn(['offersIdsToBeBooked', 'allIds'], [])
+        .setIn(['offersIdsToBeBooked', 'byGroupId'], {});
+    },
+    [getGroupOfferBookableStatusActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('loading', payload);
+    },
+    [getGroupOfferBookableStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: { id: number; data: OfferStatus[] } },
+    ) => {
+      return state.setIn(
+        ['offersStatus', 'byId', payload.id],
+        payload.data.reduce<{ [id: number]: OfferStatus }>((acc, cV) => {
+          acc[cV.id] = cV;
+          return acc;
+        }, {}),
+      );
     },
   },
   initialState,

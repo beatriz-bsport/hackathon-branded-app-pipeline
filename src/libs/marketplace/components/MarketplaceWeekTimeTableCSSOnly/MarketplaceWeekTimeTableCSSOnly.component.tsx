@@ -20,7 +20,10 @@ import MarketPlaceOfferListItemComponent from '../MarketplaceOfferListItemCSSOnl
 import { Offer_FULL } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
 import { Theme } from '#libs/theme/types';
-import { isOfferInThePast } from '../../utils';
+import {
+  isOfferInThePast,
+  firstOfferInGroupLocksBookingBecauseInPast,
+} from '../../utils';
 
 const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;
@@ -209,7 +212,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     getLevel={this.props.getLevel}
                     isRegistered={this.props.bookedOffers?.includes(o?.id)}
                     theme={this.props.theme}
-                    isBookingDisabled={!o.available || !isOfferInThePast(o)}
+                    isBookingDisabled={
+                      !o.available ||
+                      !isOfferInThePast(o) ||
+                      firstOfferInGroupLocksBookingBecauseInPast(o)
+                    }
                     variant={this.props.variant}
                   />
                 </div>

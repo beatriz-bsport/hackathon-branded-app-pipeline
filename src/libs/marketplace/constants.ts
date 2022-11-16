@@ -57,4 +57,5 @@ export const AVAILABLE_BOOKING_ELEMENTS_IDS = [
   'book-button__inner',
   'book-button-card__inner',
   'book-button__inner__text',
+  'book-button-offer-list-item',
 ];

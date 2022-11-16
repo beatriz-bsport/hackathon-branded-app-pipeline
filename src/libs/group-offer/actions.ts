@@ -14,9 +14,12 @@ import {
   editGroupOffer as editGroupOfferAPI,
   fetchSimilarGroupOffers as fetchSimilarGroupOffersAPI,
   deleteGroupOffer as deleteGroupOfferAPI,
+  getGroupOfferFirstOfferIdToBeBooked as getGroupOfferFirstOfferIdToBeBookedAPI,
+  listGroupOfferOffersIdsToBeBooked as listGroupOfferOffersIdsToBeBookedAPI,
+  getGroupOfferBookableStatus as getGroupOfferBookableStatusAPI,
 } from './api';
 import { OffersGroupFilter, GroupPreviewData, OffersGroup } from './types';
-import { Offer } from '#libs/offer/types';
+import { Offer, OfferStatus } from '#libs/offer/types';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
 
 export const fetchGroupsOfferListActions = {
@@ -343,5 +346,123 @@ export function fetchGroupsOfferBulk(
       if (options && options.onError) options.onError();
     }
     dispatch(fetchGroupsOfferBulkActions.loading(false));
+  };
+}
+
+export const getGroupOfferFirstOfferIdToBeBookedActions = {
+  error: createAction<Error | null>(
+    'GROUP_OFFER/FIRST_OFFER_TO_BE_BOOKED/ERROR',
+  ),
+  loading: createAction<boolean>(
+    'GROUP_OFFER/FIRST_OFFER_TO_BE_BOOKED/IS_LOADING',
+  ),
+  success: createAction<number | null>(
+    'GROUP_OFFER/FIRST_OFFER_TO_BE_BOOKED/SUCCESS',
+  ),
+};
+
+export function getGroupOfferFirstOfferIdToBeBooked(
+  id: number,
+  options?: OptionCallback<number | null>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getGroupOfferFirstOfferIdToBeBookedActions.loading(true));
+    dispatch(getGroupOfferFirstOfferIdToBeBookedActions.error(null));
+
+    try {
+      const response = await getGroupOfferFirstOfferIdToBeBookedAPI(id);
+
+      dispatch(getGroupOfferFirstOfferIdToBeBookedActions.loading(false));
+      dispatch(getGroupOfferFirstOfferIdToBeBookedActions.error(null));
+
+      dispatch(
+        getGroupOfferFirstOfferIdToBeBookedActions.success(response.data),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(getGroupOfferFirstOfferIdToBeBookedActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(getGroupOfferFirstOfferIdToBeBookedActions.loading(false));
+  };
+}
+
+export const listGroupOfferOffersIdsToBeBookedActions = {
+  error: createAction<Error | null>(
+    'GROUP_OFFER/LIST_OFFER_TO_BE_BOOKED/ERROR',
+  ),
+  loading: createAction<boolean>(
+    'GROUP_OFFER/LIST_OFFER_TO_BE_BOOKED/IS_LOADING',
+  ),
+  success: createAction<{ groupId: number; offersIds: number[] }>(
+    'GROUP_OFFER/LIST_OFFER_TO_BE_BOOKED/SUCCESS',
+  ),
+  reset: createAction('GROUP_OFFER/LIST_OFFER_TO_BE_BOOKED/RESET'),
+};
+export function resetOffersToBeBookedByGroup(callback?: () => void) {
+  return async (dispatch: Dispatch) => {
+    await dispatch(listGroupOfferOffersIdsToBeBookedActions.reset());
+    callback && callback();
+  };
+}
+export function listGroupOfferOffersIdsToBeBooked(
+  id: number,
+  options?: OptionCallback<number[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listGroupOfferOffersIdsToBeBookedActions.loading(true));
+    dispatch(listGroupOfferOffersIdsToBeBookedActions.error(null));
+
+    try {
+      const response = await listGroupOfferOffersIdsToBeBookedAPI(id);
+
+      dispatch(
+        listGroupOfferOffersIdsToBeBookedActions.success({
+          groupId: id,
+          offersIds: response.data,
+        }),
+      );
+      dispatch(listGroupOfferOffersIdsToBeBookedActions.error(null));
+      dispatch(listGroupOfferOffersIdsToBeBookedActions.loading(false));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(listGroupOfferOffersIdsToBeBookedActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listGroupOfferOffersIdsToBeBookedActions.loading(false));
+  };
+}
+
+export const getGroupOfferBookableStatusActions = {
+  error: createAction<Error | null>('GROUP_OFFER/BOOKABLE_STATUS/ERROR'),
+  loading: createAction<boolean>('GROUP_OFFER/BOOKABLE_STATUS/IS_LOADING'),
+  success: createAction<{ id: number; data: OfferStatus[] }>(
+    'GROUP_OFFER/BOOKABLE_STATUS/SUCCESS',
+  ),
+};
+
+export function getGroupOfferBookableStatus(
+  id: number,
+  options?: OptionCallback<OfferStatus[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getGroupOfferBookableStatusActions.loading(true));
+    dispatch(getGroupOfferBookableStatusActions.error(null));
+
+    try {
+      const response = await getGroupOfferBookableStatusAPI(id);
+
+      dispatch(getGroupOfferBookableStatusActions.loading(false));
+      dispatch(getGroupOfferBookableStatusActions.error(null));
+
+      dispatch(
+        getGroupOfferBookableStatusActions.success({ id, data: response.data }),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(getGroupOfferBookableStatusActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(getGroupOfferBookableStatusActions.loading(false));
   };
 }

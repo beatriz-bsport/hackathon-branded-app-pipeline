@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
+import pickBy from 'lodash/pickBy';
 
 import {
   offers,
@@ -32,6 +33,7 @@ import {
   bookingGuestNumberActions,
   listOffersWithPendingReplacementRequestActions,
   listOffersWithRefusedReplacementRequestActions,
+  setStoredOffersInGroupsDataActions,
 } from './actions';
 import { OfferState } from './types';
 
@@ -624,6 +626,18 @@ export default handleActions<Immutable.Immutable<OfferState>>(
           return acc;
         }, {}),
       ),
+    [setStoredOffersInGroupsDataActions.execute.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const { groupId, offersIds } = payload;
+      return state.setIn(
+        ['groups', groupId, 'allIds'],
+        Object.keys(
+          pickBy(state.byId, (offer) => offersIds.includes(offer.id)),
+        ),
+      );
+    },
   },
   initialState,
 );

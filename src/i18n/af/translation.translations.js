@@ -254,6 +254,8 @@ exports.default = {
       "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
     noWaitingList:
       "Les listes d'attentes ne sont pas disponibles pour les groupes de séances",
+    noPartnershipIntegration:
+      'Les réservations marketplace ne sont pas disponibles pour les groupes de séances',
     warningCreditChange:
       'NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits',
     editGroup: 'Modifier ce champs directement sur le groupe de séance.',
@@ -469,7 +471,7 @@ exports.default = {
       establishmentLabel: 'Salle',
       substituteEstablishmentLabel: 'Salle (lieu temporaire)',
       editingGroup:
-        'Attention cette séance fait parti du groupe de séance {{ name }}',
+        'Attention cette séance fait partie du groupe de séance {{ name }}',
       warningPackonEdit:
         "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
       deleteTitle: 'Supprimer la séance',
@@ -1068,6 +1070,7 @@ exports.default = {
       isPast: 'Passée',
       notBookableYet: 'Bientôt',
       alreadyRegistered: 'Réservée',
+      full: 'Complet',
     },
     sessionThisDay: 'Séance ce jour :',
     calendar: 'Calendrier',

@@ -7,7 +7,11 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
-import { isOfferInThePast, getBookingButtonTraduction } from '../../utils';
+import {
+  isOfferInThePast,
+  getBookingButtonTraduction,
+  firstOfferInGroupLocksBookingBecauseInPast,
+} from '../../utils';
 import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnly.css';
 
@@ -24,10 +28,15 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('translation');
 
-  const isDisabled = useMemo(
-    () => !offer.available || !isOfferInThePast(offer),
+  const offerIsInThePast = useMemo(() => !isOfferInThePast(offer), [offer]);
+
+  const firstOfferInGroupIsInThePast = useMemo(
+    () => firstOfferInGroupLocksBookingBecauseInPast(offer),
     [offer],
   );
+
+  const isDisabled =
+    !offer.available || offerIsInThePast || firstOfferInGroupIsInThePast;
 
   return (
     <div
@@ -52,7 +61,7 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
             )}
             {offer.available && (
               <>
-                {!isOfferInThePast(offer) && (
+                {(offerIsInThePast || firstOfferInGroupIsInThePast) && (
                   <AlarmOnIcon className="bs-book-button-card__inner__icon__past" />
                 )}
               </>
@@ -71,7 +80,8 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
           className={classnames('bs-book-button-card__inner__text', {
             'bs-book-button-card__inner__text--not-available': isDisabled,
             'bs-book-button-card__inner__text--disabled':
-              offer.available && !isOfferInThePast(offer),
+              offer.available &&
+              (offerIsInThePast || firstOfferInGroupIsInThePast),
             'bs-book-button-card__inner__text--booked': isRegistered,
           })}
         >

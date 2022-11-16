@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
-import { isOfferInThePast, getBookingButtonTraduction } from '../../utils';
+import {
+  isOfferInThePast,
+  getBookingButtonTraduction,
+  firstOfferInGroupLocksBookingBecauseInPast,
+} from '../../utils';
 import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnlyForDialog.css';
 
@@ -27,10 +31,12 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
 
   const onClick = offer.is_full ? onClickBookOption : onClickBook;
   const isDisabled = useMemo(
-    () => !offer.available || !isOfferInThePast(offer),
+    () =>
+      !offer.available ||
+      !isOfferInThePast(offer) ||
+      firstOfferInGroupLocksBookingBecauseInPast(offer),
     [offer],
   );
-
   return (
     <button
       disabled={isDisabled}

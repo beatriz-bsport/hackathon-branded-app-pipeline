@@ -7,7 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import { formatMinutes } from '../../../../utils/datetime';
-import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import type { OffersGroup } from '#libs/group-offer/types';
 import UnfoldableText from '#components/typo/UnfoldableText.component';
 import { CompanyTheme } from '#libs/theme/types';
 import { Offer } from '#libs/offer/types';
@@ -167,6 +168,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                   metaActivity={metaActivity}
                   bookedOffers={[]}
                   isWorkshop
+                  withoutBookButton
                 />
               );
 

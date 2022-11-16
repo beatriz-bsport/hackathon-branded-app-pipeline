@@ -124,7 +124,7 @@ exports.default = {
         name: 'Nom',
         fullBookingOnly: 'Inscription à toutes les séances du groupe',
         fullBookingOnlyCaption:
-          "Par défaut vos membres seront inscrit automatiquement à l'ensemble des séances du groupe si ils s'inscrivent à l'une des séances de celui-ci. Si vous désactivez ce paramètre, il sera proposé au membre de s'inscrire à toutes les séances du groupe mais il pourra choisir auxquelles il s'inscrit.",
+          "Par défaut vos membres seront inscrits automatiquement à l'ensemble des séances du groupe s'ils s'inscrivent à l'une des séances de celui-ci. En désactivant ce paramètre, vos membres auront la liberté de s'inscrire à tout ou partie des séances du groupe.",
         allowBookingAfterStart: "Autoriser l'inscription en cours de route",
         allowBookingAfterStartCaption:
           "Par défaut si un groupe de séance a déjà commencé vos membres ne pourront plus s'y inscrire. En activant cette fonctionnalité vos membres pourront tout de même s'inscrire aux séances restantes.",

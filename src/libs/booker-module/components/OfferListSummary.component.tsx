@@ -136,7 +136,8 @@ class OfferListSummary extends React.PureComponent<Props> {
       <div className={classes.container}>
         <div className={classes.topRow}>
           <Typography variant="h5" color="textPrimary">
-            {this.props.relatedMemberList.length
+            {!!this.props.relatedMemberList.length &&
+            !this.props.offer?.group?.full_booking_only
               ? t('booking:offer.bookingsTitleFor', {
                   count: this.props.selectedOffers.length + 1,
                 })
@@ -144,27 +145,28 @@ class OfferListSummary extends React.PureComponent<Props> {
                   count: this.props.selectedOffers.length + 1,
                 })}
           </Typography>
-          {!!this.props.relatedMemberList.length && (
-            <FormControl variant="outlined" className={classes.formControl}>
-              <Select
-                labelId="member-select-filled-label"
-                id="member-select-filled"
-                value={this.props.member ? this.props.member.id : '-1'}
-                onChange={(ev: SyntheticEvent) => {
-                  this.props.onSelectMember(parseInt(ev.target.value, 10));
-                }}
-              >
-                <MenuItem value="-1">
-                  <em>{t('booking:offer.bookingForMe')}</em>
-                </MenuItem>
-                {this.props.relatedMemberList.map((m) => (
-                  <MenuItem key={m.id} value={m.id}>
-                    {m.name}
+          {!!this.props.relatedMemberList.length &&
+            !this.props.offer?.group?.full_booking_only && (
+              <FormControl variant="outlined" className={classes.formControl}>
+                <Select
+                  labelId="member-select-filled-label"
+                  id="member-select-filled"
+                  value={this.props.member ? this.props.member.id : '-1'}
+                  onChange={(ev: SyntheticEvent) => {
+                    this.props.onSelectMember(parseInt(ev.target.value, 10));
+                  }}
+                >
+                  <MenuItem value="-1">
+                    <em>{t('booking:offer.bookingForMe')}</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
+                  {this.props.relatedMemberList.map((m) => (
+                    <MenuItem key={m.id} value={m.id}>
+                      {m.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
         </div>
         <DividerLinearGradient />
 

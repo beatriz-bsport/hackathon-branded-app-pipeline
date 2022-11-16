@@ -108,6 +108,9 @@
 }
 
 .bs-offer-list-group-item__right__row__button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
   cursor: pointer;
   border-radius: var(--border-radius-2);
   padding-left: var(--spacing-1);
@@ -161,6 +164,25 @@
 .bs-offer-dialog__content__buttons__book:hover {
   background-color: var(--color-primary-light);
 }
+
+.bs-offer-list-group-item__right__row__button--disabled {
+  cursor: inherit;
+  color: var(--color-text-secondary);
+}
+
+.bs-offer-list-group-item__right__row__button--booked {
+  cursor: pointer;
+  color: var(--color-success-main);
+}
+
+.bs-offer-list-group-item__right__row__button--booked:hover::before {
+  background-color: var(--color-success-light);
+}
+
+.bs-offer-list-group-item__right__row__button--disabled::before {
+  display: none;
+}
+
 /*  */
 /* Modal for Group offer*/
 /*  */
@@ -298,3 +320,4 @@
 .bs-offer-dialog__content__inner {
   padding: var(--spacing-3);
 }
+

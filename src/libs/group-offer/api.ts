@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-import { Offer } from '@bsport/common/lib/master-data/available-payment.type';
 import { GenericPaginationResults } from '#libs/types';
 import {
   API_V1_URI,
@@ -9,6 +8,7 @@ import {
   getAuth,
   buildUrlParams,
 } from '../../http';
+import { Offer, OfferStatus } from '#libs/offer/types';
 import { OffersGroupFilter, GroupPreviewData, OffersGroup } from './types';
 
 export const fetchGroupsOfferList = async (
@@ -77,3 +77,18 @@ export const generateGroupOffersPreview = async (
     >
   >
 > => postAuth(`${API_V1_URI}/offer_group/generate_preview/`, data);
+
+export const getGroupOfferBookableStatus = async (
+  id: number,
+): Promise<AxiosResponse<OfferStatus[]>> =>
+  getAuth(`${API_V1_URI}/offer_group/${id}/bookable_status/`);
+
+export const getGroupOfferFirstOfferIdToBeBooked = async (
+  id: number,
+): Promise<AxiosResponse<number | null>> =>
+  getAuth(`${API_V1_URI}/offer_group/${id}/get_first_offer_id_to_be_booked/`);
+
+export const listGroupOfferOffersIdsToBeBooked = async (
+  id: number,
+): Promise<AxiosResponse<number[]>> =>
+  getAuth(`${API_V1_URI}/offer_group/${id}/list_offers_ids_to_be_booked/`);

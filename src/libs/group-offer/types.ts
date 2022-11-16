@@ -1,4 +1,4 @@
-import { Offer } from '@bsport/common/lib/master-data/available-payment.type';
+import { Offer, OfferStatus } from '#libs/offer/types';
 import { ErrorAndLoading } from '../types';
 
 export type GroupOfferState = ErrorAndLoading & {
@@ -23,6 +23,17 @@ export type GroupOfferState = ErrorAndLoading & {
   existing: ErrorAndLoading & {
     exist: boolean;
   };
+  offersStatus: {
+    byId: {
+      [id: number]: {
+        [id: number]: OfferStatus;
+      };
+    };
+  } & ErrorAndLoading;
+  offersIdsToBeBooked: {
+    allIds: number[];
+    byGroupId: { [key: number]: number[] };
+  } & ErrorAndLoading;
 };
 
 export type RecurrenceRuleGroupOffer = {
@@ -46,6 +57,7 @@ export type OffersGroup<T = number> = {
   recurrence_rule: RecurrenceRuleGroupOffer;
   manager_only: boolean;
   recurrence_index: number;
+  first_offer_date: string;
 };
 
 export type OffersGroupFilter = {

@@ -68,8 +68,6 @@ import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
 import FormToggle from '#components/forms/FormToggle.component';
 import { ZoomApp } from '#libs/zoom-app/types';
 
-import { Config } from '../../../config';
-
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   initial: OffersGroup<Offer>;
@@ -208,6 +206,12 @@ export const GroupedOfferFormSettings: React.FC<
       resetForm();
     }
   }, [open, resetForm]);
+
+  useEffect(() => {
+    if (!values.full_booking_only) {
+      setFieldValue('allow_booking_after_start', false);
+    }
+  }, [values.full_booking_only, setFieldValue]);
 
   const handleCloseOffersModal = () => {
     setOpenOffersModal(false);
@@ -388,31 +392,25 @@ export const GroupedOfferFormSettings: React.FC<
               {t('groupedOption.modal.form.subtitleSettings')}
             </Typography>
           </div>
-          {/* Will be MEP when apps are ready */}
-          {['local', 'dev'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) ? (
+
+          <CheckboxField
+            name="full_booking_only"
+            label={t('groupedOption.modal.form.fullBookingOnly')}
+          />
+          <Typography color="textSecondary" variant="caption">
+            {t('groupedOption.modal.form.fullBookingOnlyCaption')}
+          </Typography>
+          {values.full_booking_only && (
             <>
               <CheckboxField
-                name="full_booking_only"
-                label={t('groupedOption.modal.form.fullBookingOnly')}
+                name="allow_booking_after_start"
+                label={t('groupedOption.modal.form.allowBookingAfterStart')}
               />
               <Typography color="textSecondary" variant="caption">
-                {t('groupedOption.modal.form.fullBookingOnlyCaption')}
+                {t('groupedOption.modal.form.allowBookingAfterStartCaption')}
               </Typography>
-              {values.full_booking_only && (
-                <>
-                  <CheckboxField
-                    name="allow_booking_after_start"
-                    label={t('groupedOption.modal.form.allowBookingAfterStart')}
-                  />
-                  <Typography color="textSecondary" variant="caption">
-                    {t(
-                      'groupedOption.modal.form.allowBookingAfterStartCaption',
-                    )}
-                  </Typography>
-                </>
-              )}
             </>
-          ) : null}
+          )}
 
           <ManagerOnlyToogle
             manager_only={values.manager_only}
@@ -910,7 +908,7 @@ export default compose<any, OuterProps>(
       return {
         name: '',
         level: 1,
-        full_booking_only: false,
+        full_booking_only: true,
         allow_booking_after_start: false,
         manager_only: false,
         withRecurrence: false,

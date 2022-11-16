@@ -644,7 +644,13 @@ export class OfferEditForm extends Component<Props, State> {
                         event.target.value,
                       )
                     }
+                    disabled={!!this.props.offer?.group}
                   />
+                  {this.props.offer?.group && (
+                    <Typography variant="caption" color="textSecondary">
+                      {this.props.t('form.noPartnershipIntegration')}
+                    </Typography>
+                  )}
                 </div>
               )}
               <div className={this.props.classes.field}>
@@ -935,7 +941,9 @@ export class OfferEditForm extends Component<Props, State> {
               {!!this.props.showPartnership && (
                 <div className={this.props.classes.field}>
                   <PartnershipToogle
-                    disabled={this.state.manager_only}
+                    disabled={
+                      this.state.manager_only || !!this.props.offer?.group
+                    }
                     available_on_partnership={
                       this.state.available_on_partnership
                     }

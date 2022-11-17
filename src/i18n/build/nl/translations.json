@@ -1751,7 +1751,8 @@
             "showNotification": "Toon melding",
             "numberOfRecipientsCompact": "Ontvangers: {{count}}",
             "numberOfRecipients": "Verstuur naar ontvanger (1)",
-            "numberOfRecipients_plural": "Verstuur naar ontvangers ({{count}})"
+            "numberOfRecipients_plural": "Verstuur naar ontvangers ({{count}})",
+            "isAnswerWarning": "Let op! Alleen u kunt dit bericht zien"
         },
         "send": {
             "success": "E-mail wordt verzonden...",
@@ -1782,7 +1783,9 @@
                 "30": "Reserveringen",
                 "14": "Transactionele meldingen",
                 "13": "Melding",
-                "12": "Smartlist"
+                "12": "Smartlist",
+                "71": "Ontvangen",
+                "70": "Verzonden"
             },
             "sendParameter": {
                 "placeholder": "Selecteer een instelling",
@@ -1811,7 +1814,11 @@
                 "title": "Verzenddatum"
             },
             "filterAction": "Filteren",
-            "applyFilter": "Toepassen"
+            "applyFilter": "Toepassen",
+            "srcOrDst": {
+                "placeholder": "Selecteer een berichttype",
+                "title": "Berichten"
+            }
         },
         "dialogInformation": {
             "status": {
@@ -1871,6 +1878,17 @@
         "generic": {
             "history": "Historie",
             "communication": "Communicatie"
+        },
+        "thread": {
+            "emptyThread": {
+                "becauseNeverUsed": "Je hebt nog geen communicatie verzonden op dit kanaal.",
+                "becauseOfFilters": "Geen resultaten die overeenkomen met de geselecteerde filters."
+            },
+            "filterOutCommunicationSent": "De communicatie die je net hebt verzonden wordt verborgen door de actieve filters."
+        },
+        "sentStatus": {
+            "fail": "Er is een fout opgetreden tijdens het verzenden",
+            "processing": "De communicatie wordt verzonden"
         }
     },
     "paymentCombo": {
@@ -4301,7 +4319,7 @@
             "tab": {
                 "general": "Algemeen",
                 "pack": "Compatibele leskaarten",
-                "group": "Evenementen"
+                "group": "Groepsessies"
             }
         },
         "name": "Naam",
@@ -4406,7 +4424,7 @@
                 },
                 "duplicate": "Een evenement dupliceren",
                 "subtitleMetaActivitySelect": "Configuratie",
-                "title": "Evenementen",
+                "title": "Groepsessies",
                 "subtitlePreview": "Voorvertoning"
             },
             "offerDescription": "{{ count }} sessie(s) van {{- firstSession }} tot en met {{- lastSession }}",
@@ -10171,7 +10189,7 @@
             "backToGroup": "Terug",
             "emptySelect": "Selecteer een workshop of evenement om meer informatie weer te geven."
         },
-        "tabGroups": "Evenementen",
+        "tabGroups": "Groepsessies",
         "tabList": "Workshops"
     },
     "tag": {

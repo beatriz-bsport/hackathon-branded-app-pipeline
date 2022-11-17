@@ -2491,7 +2491,6 @@
             "name": {
                 "label": "Name"
             },
-            "error": { "atLeastOneThing": "You need to add at least one item into your pack" },
             "description": {
                 "label": "Description"
             },
@@ -2695,7 +2694,8 @@
             "showNotification": "Show notification",
             "numberOfRecipientsCompact": "Recipients: {{count}}",
             "numberOfRecipients": "Send to recipient (1)",
-            "numberOfRecipients_plural": "Send to recipients ({{count}})"
+            "numberOfRecipients_plural": "Send to recipients ({{count}})",
+            "isAnswerWarning": "Caution! Only you can see this message"
         },
         "send": {
             "error": "Error while sending",
@@ -2726,7 +2726,9 @@
                 "30": "Bookings",
                 "14": "Transactional notifications",
                 "13": "Notification",
-                "12": "Smartlist"
+                "12": "Smartlist",
+                "71": "Received",
+                "70": "Sent"
             },
             "sendParameter": {
                 "placeholder": "Select a setting",
@@ -2755,7 +2757,11 @@
                 "title": "Sent on:"
             },
             "filterAction": "Filter",
-            "applyFilter": "Apply"
+            "applyFilter": "Apply",
+            "srcOrDst": {
+                "placeholder": "Select a message type",
+                "title": "Messages"
+            }
         },
         "dialogInformation": {
             "status": {
@@ -2815,6 +2821,17 @@
         "generic": {
             "history": "History",
             "communication": "Communication"
+        },
+        "thread": {
+            "emptyThread": {
+                "becauseNeverUsed": "You have not yet sent any communications on this channel.",
+                "becauseOfFilters": "No results matching the selected filters."
+            },
+            "filterOutCommunicationSent": "The communication you just sent is hidden by the active filters."
+        },
+        "sentStatus": {
+            "fail": "An error occurred while sending",
+            "processing": "The communication is being sent"
         }
     },
     "privateService": {
@@ -5278,14 +5295,6 @@
             "delete": "Clear",
             "noColor": "No color"
         },
-	"duration": {
-		"day": "{{ count }} day",
-		"day_plural": "{{ count }} days",
-		"hour": "{{ count }} hour",
-		"hour_plural": "{{ count }} hours",
-		"minute": "{{ count }} minute",
-		"minute_plural": "{{ count }} minutes"
-	},
         "form": {
             "duration": {
                 "day": "Duration in days:",
@@ -5368,7 +5377,7 @@
         },
         "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
         "disabledWorkshops": "Archived workshops",
-        "tabGroups": "Events",
+        "tabGroups": "Grouped sessions",
         "tabList": "Workshops",
         "group": {
             "emptyState": "With session groups your students can book all the sessions included in the group at once. For example, use the session groups to create introductory workshops with several sessions. ",
@@ -9719,12 +9728,6 @@
         "metaActivity": "Activity",
         "search": "Search a group activity",
         "forms": {
-		"warning": {
-			"highLastBookingBeforeWarning":
-				"Be careful, {{ durationFormatted }} before your class starts, no booking will be possible anymore !",
-			"lowFirsBookingUntilWarning":
-				"Be careful, members will have to wait {{ durationFormatted }} before the class starts to be able to make their very first booking !"
-		},
             "create": {
                 "compatible_packs": {
                     "seeMore": "See more",
@@ -9762,7 +9765,7 @@
             "tab": {
                 "general": "General",
                 "pack": "Compatible passes",
-                "group": "Events"
+                "group": "Grouped sessions"
             }
         },
         "name": "Name",
@@ -9851,12 +9854,12 @@
                     "subtitleOffers": "Sessions",
                     "subtitle": "General",
                     "allowGuest": "Compatible with the booking for a guest feature",
-                    "allowGuestUnavailable": "This feature isn't availble for events."
+                    "allowGuestUnavailable": "This feature isn't available for grouped sessions."
                 },
                 "duplicate": "Duplicate a group",
                 "subtitlePreview": "Preview of the recurrence",
                 "subtitleMetaActivitySelect": "Configuration",
-                "title": "Events"
+                "title": "Grouped sessions"
             },
             "offerDescription": "{{ count }} session(s) from {{- firstSession }} until {{- lastSession }}",
             "helperText": {

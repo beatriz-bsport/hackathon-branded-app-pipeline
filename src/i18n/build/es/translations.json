@@ -7294,7 +7294,8 @@
             "showNotification": "Ver la notificación",
             "numberOfRecipientsCompact": "{{count}} destinatorios.",
             "numberOfRecipients": "Enviado a 1 destinatario",
-            "numberOfRecipients_plural": "Enviado a {{count}} destinatarios"
+            "numberOfRecipients_plural": "Enviado a {{count}} destinatarios",
+            "isAnswerWarning": "¡Atención! Sólo tú puedes ver este mensaje"
         },
         "campaign": {
             "report": {
@@ -7460,7 +7461,9 @@
                 "30": "Reservas",
                 "14": "Emails transaccionales",
                 "13": "Notificación",
-                "12": "Smartlist"
+                "12": "Smartlist",
+                "71": "Recibidos",
+                "70": "Enviados"
             },
             "sendParameter": {
                 "placeholder": "Seleccione un parámetro de envío",
@@ -7477,6 +7480,10 @@
             "kind": {
                 "placeholder": "Seleccione un tipo de envío",
                 "title": "Tipo de envío"
+            },
+            "srcOrDst": {
+                "placeholder": "Selecciona un tipo de mensaje",
+                "title": "Mensajes"
             }
         },
         "dialogRecipients": {
@@ -7537,6 +7544,17 @@
         "generic": {
             "history": "Historia",
             "communication": "Comunicación"
+        },
+        "thread": {
+            "emptyThread": {
+                "becauseNeverUsed": "Todavía no has enviado ninguna comunicación por este canal.",
+                "becauseOfFilters": "No hay resultados que coincidan con los filtros seleccionados."
+            },
+            "filterOutCommunicationSent": "La comunicación que acabas de enviar queda oculta por los filtros activos."
+        },
+        "sentStatus": {
+            "fail": "Se produjo un error al enviar",
+            "processing": "La comunicación se está enviando"
         }
     },
     "paymentCombo": {

@@ -5710,9 +5710,18 @@
         },
         "regularizeInvoice": {
             "contactSuport": "Contact Support Team",
-            "actionRegularize": "Settle invoice",
-            "needPaymentMethodContent": "You've got 1 or more outstanding invoices. Please review your payment method and invoices to continue benefitting from BSPORT's services.",
-            "needPaymentMethod": "Payment failed"
+            "actionRegularize": {
+                "dispute": "See my invoice",
+                "fail": "Regularise invoice"
+            },
+            "needPaymentMethodContent": {
+                "dispute": "You have one or more disputed invoices. Please contact your bank as soon as possible to regulate the dispute and continue to benefit from the services of bsport. If needed, please contact support@bsport.io.",
+                "fail": "You have one or more outstanding invoices. Please regularise your invoice to continue benefiting from Bsport's services."
+            },
+            "needPaymentMethod": {
+                "dispute": "Disputed invoice",
+                "fail": "Payment failed"
+            }
         },
         "needStripe": {
             "actionRegularize": "Configure my Stripe account",

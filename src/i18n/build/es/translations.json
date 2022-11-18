@@ -1804,9 +1804,18 @@
         },
         "regularizeInvoice": {
             "contactSuport": "Contactar el soporte",
-            "actionRegularize": "Regularizar mi factura",
-            "needPaymentMethodContent": "Tienes una o más facturas impagadas. Por favor, regulariza su factura para seguir beneficiándote de los servicios de Bsport.",
-            "needPaymentMethod": "Fallo de pago"
+            "actionRegularize": {
+                "dispute": "Ver mi factura",
+                "fail": "Regularizar mi factura"
+            },
+            "needPaymentMethodContent": {
+                "dispute": "Tienes una o más facturas en litigio. Por favor, contacta con tu banco lo antes posible para resolver el litigio y seguir beneficiándote de los servicios de Bsport. Si es necesario, contacta con support@bsport.io.",
+                "fail": "Tienes una o más facturas impagadas. Por favor, regulariza tu factura para seguir beneficiándote de los servicios de Bsport."
+            },
+            "needPaymentMethod": {
+                "dispute": "Factura en litigio",
+                "fail": "Fallo de pago"
+            }
         },
         "needStripe": {
             "actionRegularize": "Configurar mi cuenta Stripe",

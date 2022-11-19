@@ -2148,9 +2148,18 @@
         },
         "regularizeInvoice": {
             "contactSuport": "Contacteer Klantenservice",
-            "actionRegularize": "Factuur betalen",
-            "needPaymentMethodContent": "Er zijn 1 of meerdere betalingachterstanden. Controleer de betaalmethode en de facturen om gebruik te kunnen blijven maken van de diensten van BSPORT.",
-            "needPaymentMethod": "Betaling mislukt"
+            "actionRegularize": {
+                "dispute": "Bekijk mijn factuur",
+                "fail": "Factuur vereffenen"
+            },
+            "needPaymentMethodContent": {
+                "dispute": "U hebt een of meer betwiste facturen. Neem zo snel mogelijk contact op met uw bank om het geschil te regelen en van de diensten van bsport te blijven genieten. Neem indien nodig contact op met support@bsport.io.",
+                "fail": "U heeft één of meer openstaande facturen. Gelieve uw factuur te vereffenen om van de diensten van Bsport te kunnen blijven genieten."
+            },
+            "needPaymentMethod": {
+                "dispute": "Betwiste factuur",
+                "fail": "Betaling mislukt"
+            }
         },
         "needStripe": {
             "actionRegularize": "Mijn Stripe-account configureren",

@@ -26,6 +26,7 @@ export type Payout = {
     date_created: string;
     readable_identifier: string;
   };
+  automatic: boolean;
 };
 
 export type PaymentInstalmentData = {

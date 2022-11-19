@@ -18,29 +18,29 @@ import {
   fetchUpsellPackageSubscribedList,
   requestUpsellPackage as requestUpsellPackageAction,
   checkPlatformSubscriptionSetup as checkSubscriptionSetupAction,
-} from '../../libs/platform-billing/actions';
+} from '#libs/platform-billing/actions';
 import {
   getPlatformInvoiceList,
   getPlatformSubscription,
-} from '../../libs/platform-billing/selectors';
+} from '#libs/platform-billing/selectors';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   fetchPayoutList as fetchPayoutListAction,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
-} from '../../libs/payment/actions';
+} from '#libs/payment/actions';
 import {
   getSavedPaymentMethodList,
   getPayoutList,
-} from '../../libs/payment/selectors';
-import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+} from '#libs/payment/selectors';
+import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
-import CompanyPlatformBillingPaymentDetail from '../../libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
-import CompanyPlatformBillinGroupDetail from '../../libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
-import FeatureRequestDialog from '../../libs/platform-billing/components/FeatureRequestDialog.component';
-import PayoutList from '../../libs/payment/components/PayoutList.component';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
+import CompanyPlatformBillingPaymentDetail from '#libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
+import CompanyPlatformBillinGroupDetail from '#libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
+import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
+import PayoutList from '#libs/payment/components/PayoutList.component';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 
 type Props = {
   loading: boolean,

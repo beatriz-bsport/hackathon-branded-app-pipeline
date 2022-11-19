@@ -56,7 +56,7 @@ const PayoutListItem = (props: Props) => {
                 : ''
             }`}
           </Typography>
-          {payout.is_included_in_payout ? (
+          {!!payout.is_included_in_payout && (
             <div className={classes.row}>
               <InfoOutlinedIcon fontSize="small" className={classes.iconLeft} />
               <Typography variant="caption" className={classes.info}>
@@ -69,7 +69,16 @@ const PayoutListItem = (props: Props) => {
                 })}
               </Typography>
             </div>
-          ) : (
+          )}
+          {payout.automatic === false && (
+            <div className={classes.row}>
+              <InfoOutlinedIcon fontSize="small" className={classes.iconLeft} />
+              <Typography variant="caption" className={classes.info}>
+                {t('payout.payoutIsManual')}
+              </Typography>
+            </div>
+          )}
+          {!payout.is_included_in_payout && !(payout.automatic === false) && (
             <Typography variant="caption" color="textSecondary">
               {t('payout.paymentNb', {
                 nb: (payout.payments || []).length,
@@ -93,7 +102,7 @@ const PayoutListItem = (props: Props) => {
       <Collapse in={props.isOpen}>
         <div className={classes.paymentContainer}>
           {(payout.payments || []).map((p) => (
-            <div className={classes.paymentRow}>
+            <div key={p.id} className={classes.paymentRow}>
               <div style={{ width: '100%' }}>
                 <PaymentListItemV2 paymentItem={p} />
               </div>

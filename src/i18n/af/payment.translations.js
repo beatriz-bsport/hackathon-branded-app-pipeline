@@ -265,6 +265,8 @@ exports.default = {
       "Ce virement a été inclus dans celui du {{date}} portant l'identifiant {{readable_identifier}}",
     payoutAmountFromIncludedPayouts:
       'dont {{price}} provenant de payouts précédents',
+    payoutIsManual:
+      "Ce virement a été enclenché manuellement par les équipes de bsport pour accélérer la réception de vos fonds. Dans ce cas le détail des paiements n'est pas disponible. Veuillez vous rapprocher de nos équipes si vous souhaitez plus d'informations.",
   },
   subscriptionPaymentDialog: {
     title: 'Acheter un abonnement',

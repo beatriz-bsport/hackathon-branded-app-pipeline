@@ -23,6 +23,9 @@ const getTimezoneListExtended = (
   if (country === 'US') {
     return [...timezoneList, moment.tz.zone('America/Jamaica')];
   }
+  if (country === 'NL') {
+    return [...timezoneList, moment.tz.zone('America/Curacao')];
+  }
   return timezoneList;
 };
 

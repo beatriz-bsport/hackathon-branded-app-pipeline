@@ -261,8 +261,9 @@ class OfferListSummary extends React.PureComponent<Props> {
                     <AdditionalGuestForm
                       onAddAdditionalGuest={this.props.onAddAdditionalGuest}
                       disabled={
-                        this.props.additionalGuestList?.length + 1 >=
-                        this.props.maxGuestNumberFromAllPacks
+                        !!this.props.additionalGuestList?.length &&
+                        this.props.additionalGuestList.length + 1 >=
+                          this.props.maxGuestNumberFromAllPacks
                       }
                     />
                   )}

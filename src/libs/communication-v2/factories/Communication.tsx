@@ -34,7 +34,7 @@ function randomMetadata() {
   ];
   const metadata = {};
   // @ts-ignore
-  metadata[keys[randomInt(4)]] = randomInt(2000);
+  metadata[keys[randomInt(5)]] = randomInt(2000);
   return metadata;
 }
 

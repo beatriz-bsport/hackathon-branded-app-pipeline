@@ -602,19 +602,16 @@ export const getChannelFromMetadata = (metadata: CommunicationMetadata) => {
 export const getSmartlistChannelFromMetadata = (
   metadata: CommunicationMetadata,
 ) => {
-  if (Object.keys(metadata).length > 0) {
-    const key = Object.keys(metadata)[0];
-    switch (key) {
-      case 'smartlist_id':
-        return COMMUNICATION_SEND_PARAMETER_MANUAL;
-      case 'automated_campaign_id':
-        return COMMUNICATION_SEND_PARAMETER_AUTO;
-      default:
-        return undefined;
-    }
-  } else {
-    return undefined;
+  if (!metadata) return undefined;
+  const metadataKeys = Object.keys(metadata) || [];
+  if (metadataKeys.length > 0) {
+    // Need to check first automated_campaign_id because in that case, medata contains also a smartlist_id key
+    if (metadataKeys.includes('automated_campaign_id'))
+      return COMMUNICATION_SEND_PARAMETER_AUTO;
+    if (metadataKeys.includes('smartlist_id'))
+      return COMMUNICATION_SEND_PARAMETER_MANUAL;
   }
+  return undefined;
 };
 
 // ACTIONS

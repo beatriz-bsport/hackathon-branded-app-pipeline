@@ -4,7 +4,7 @@ import faker from 'faker';
 faker.locale = 'fr';
 
 // @ts-ignore
-FactoryBot.define('Member', {
+FactoryBot.define('MemberMinimal', {
   id: FactoryBot.sequence(),
   name: () => `${faker.name.firstName()} ${faker.name.lastName()}`,
   email: () => faker.internet.email().toLowerCase(),

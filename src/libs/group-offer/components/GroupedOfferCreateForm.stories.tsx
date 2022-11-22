@@ -1,7 +1,7 @@
+import React from 'react';
 import { coachFactory } from '#libs/associated-coach/factories';
 import { establishment_factory } from '#libs/establishment/factory';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
 import metaActivityFactory from '../factories';
 
 import GroupedOfferForm from './GroupedOfferCreateForm.drawer';
@@ -16,6 +16,7 @@ const Template: ComponentStory<typeof GroupedOfferForm> = (args) => (
   <GroupedOfferForm {...args} />
 );
 
+// Create Clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1278
 const THEME = {
   id: 85516,
   has_partnership: false,

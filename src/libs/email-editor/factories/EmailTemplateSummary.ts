@@ -21,7 +21,7 @@ export const companyEmailListFactory = (
 ): EmailTemplateSummary[] => {
   const EMAIL_IDS: Array<number> = [...Array(batch_size).keys()];
 
-  const jaja = EMAIL_IDS.map((_id: number) => ({
+  return EMAIL_IDS.map((_id: number) => ({
     id: _id,
     date_created: faker.date.past().toString(),
     date_modified: faker.date.past().toString(),
@@ -33,6 +33,5 @@ export const companyEmailListFactory = (
     category: null,
     is_default_bsport_template: false,
   }));
-  return jaja;
 };
 export default FactoryBot;

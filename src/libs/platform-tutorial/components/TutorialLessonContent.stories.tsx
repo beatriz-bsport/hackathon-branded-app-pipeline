@@ -15,9 +15,12 @@ const options = {
   goToLesson: (id: number) => {
     alert(`Go to lesson of id : ${id}`);
   },
-  goToFinish: () => {
+  completeAndGoToLesson: () => {
     alert('End section!');
   },
+  completeAndGoToMenu : () => {
+    alert('Go to menu!');
+  }
 };
 const goToPreviousLesson = (id: number) => {
   if (id !== null) {

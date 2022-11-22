@@ -78,6 +78,7 @@ export type Theme = {
   online_payment_enabled: boolean;
   confirm_email_url_redirection: string;
   requires_email_confirmation_when_signing_up: boolean;
+  hide_intercom: boolean;
 };
 
 export type ThemeState = {

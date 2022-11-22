@@ -16,6 +16,7 @@ import { KeyboardArrowDown, Send } from '@material-ui/icons';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import isEqual from 'lodash/isEqual';
+import classNames from 'classnames';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
@@ -206,6 +207,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       loadingEmailTemplateSummaryList,
       recipientsModalMemberList,
       resolvedGenericTags,
+      theme,
     } = this.props;
 
     // --- for thread component ---
@@ -274,7 +276,12 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           />
         </div>
         {contextIdentifier !== CONTEXT_NOTIFICATION && (
-          <>
+          <div
+            className={classNames(classes.sendMessageContainer, {
+              [classes.sendMessageContainerWithIntercom]:
+                !!theme && !theme.hide_intercom,
+            })}
+          >
             {this.state.showMessageWritter ? (
               <ButtonBase
                 onClick={this.onShowMessageWriter}
@@ -337,7 +344,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 resolvedGenericTags={resolvedGenericTags}
               />
             </Collapse>
-          </>
+          </div>
         )}
       </GenericResponsiveDrawer>
     );
@@ -383,6 +390,16 @@ const styles: any = (theme: Theme) => ({
     borderRadius: theme.spacing(1.5),
     color: theme.palette.background.default,
     backgroundColor: theme.palette.secondary.main,
+  },
+  sendMessageContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  sendMessageContainerWithIntercom: {
+    [theme.breakpoints.down('md')]: {
+      // generic responsive drawer full screen
+      paddingBottom: theme.spacing(11),
+    },
   },
   snackbar: {
     position: 'absolute',

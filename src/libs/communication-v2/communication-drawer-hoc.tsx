@@ -44,6 +44,9 @@ import {
 import { getPaginatedMembers } from '#libs/member/selectors';
 import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
 
+// THEME
+import themeSelectors from '#libs/theme/selectors';
+
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
   DrawerProps;
 
@@ -100,6 +103,8 @@ const connector = connect(
     recipientsModalMemberList: getPaginatedMembers(state),
     loadingRecipientsModalMemberList: state.member.communication.loading,
     resolvedGenericTags: getResolvedGenericTags(state),
+    // THEME
+    theme: themeSelectors.getTheme(state),
   }),
   {
     fetchCommunicationSentList: fetchCommunicationSentListAction,

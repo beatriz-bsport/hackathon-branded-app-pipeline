@@ -1,6 +1,6 @@
 import React from 'react';
 import FranchiseCompanySearchList, { OwnProps } from './FranchiseCompanySearchList.components';
-import FactoryBot from '../factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
 
 const CustomTemplate = (args: OwnProps) => (
     <FranchiseCompanySearchList {...args} />
@@ -9,7 +9,7 @@ const CustomTemplate = (args: OwnProps) => (
 export const CompleteDefaultState = CustomTemplate.bind({});
 
 // @ts-ignore
-const companies = FactoryBot.FranchiseCompany.create(5);
+const companies = FranchiseCompanyListFactory(5)
 
 CompleteDefaultState.args = {
     companies,

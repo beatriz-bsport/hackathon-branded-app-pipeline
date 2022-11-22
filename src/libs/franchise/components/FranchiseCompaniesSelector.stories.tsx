@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FranchiseCompaniesSelector, {
   OwnProps,
 } from './FranchiseCompaniesSelector.component';
-import FranchiseCompanyFactoryBot from '../factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
 
 import { FranchiseCompany } from '../../franchise/types';
 
@@ -21,9 +21,8 @@ const CustomTemplate = (args: OwnProps) => {
   );
 };
 
-const companiesFactory: FranchiseCompany[] = FranchiseCompanyFactoryBot.FranchiseCompany.create(
-  5,
-);
+const companiesFactory: FranchiseCompany[] = FranchiseCompanyListFactory(5)
+
 const companies = companiesFactory.map((company, index) => ({
   ...company,
   id: index,
@@ -38,7 +37,7 @@ const companyDic = companies.reduce<Record<number, FranchiseCompany>>(
 const defaultArgs: OwnProps = {
   selectedCompanies: [],
   companyDic,
-  companies,
+  companies:companies,
   withAllCompaniesTag: false,
   onChange: () => {},
 };

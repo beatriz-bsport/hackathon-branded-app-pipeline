@@ -2,7 +2,7 @@ import React from 'react';
 import FranchiseNotificationRuleCard, {
   OwnProps,
 } from './FranchiseNotificationRuleCard.component';
-import FactoryBotCompany from '../factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
 import EmailTemplateSummaryFactoryBot from '../../email-editor/factories/EmailTemplateSummary';
 import EmailTemplateDetailFactoryBot from '../../email-editor/factories/EmailTemplateDetail';
 import FranchiseCompleteNotificationRuleFactoryBot from '../../notification-rule/factories/FranchiseCompleteNotificationRule';
@@ -18,9 +18,7 @@ const CustomTemplate = (args: OwnProps) => (
   <FranchiseNotificationRuleCard {...args} />
 );
 
-const companies: FranchiseCompany[] = FactoryBotCompany.FranchiseCompany.create(
-  5,
-);
+const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5);
 
 const emails: EmailTemplateSummary[] = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(
   5,

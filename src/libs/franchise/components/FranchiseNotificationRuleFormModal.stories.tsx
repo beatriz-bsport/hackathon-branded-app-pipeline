@@ -2,7 +2,7 @@ import React from 'react';
 import FranchiseNotificationRuleFormModal, {
   OwnProps,
 } from './FranchiseNotificationRuleFormModal.component';
-import FactoryBotCompany from '../factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
 import EmailTemplateSummaryFactoryBot from '../../email-editor/factories/EmailTemplateSummary';
 import FranchiseCompleteNotificationRuleFactoryBot from '../../notification-rule/factories/FranchiseCompleteNotificationRule';
 import EmailTemplateDetailFactoryBot from '../../email-editor/factories/EmailTemplateDetail';
@@ -18,9 +18,8 @@ const CustomTemplate = (args: OwnProps) => (
   <FranchiseNotificationRuleFormModal {...args} />
 );
 
-const companies: FranchiseCompany[] = FactoryBotCompany.FranchiseCompany.create(
-  5,
-);
+const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5);
+
 
 const emails: EmailTemplateSummary[] = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(
   5,

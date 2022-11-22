@@ -1,7 +1,7 @@
 import React from 'react';
 import FranchiseMembersTable, { OwnProps }from './FranchiseMembersTable.components';
-import FactoryBotCompany from '../factories/FranchiseCompanyFactory';
-import FactoryBotUser from '../factories/FranchiseUserFactory';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
+import { FranchiseUserFactory } from '../factories/FranchiseUserFactory';
 
 const CustomTemplate = (args: OwnProps) => (
     <FranchiseMembersTable {...args} />
@@ -10,11 +10,11 @@ const CustomTemplate = (args: OwnProps) => (
 export const CompleteDefaultState = CustomTemplate.bind({});
 
 // @ts-ignore
-const users = FactoryBotUser.FranchiseUser.create(3);
+const users = FranchiseUserFactory(3);
 const userWithCompanies = users.map((user) => ({
   ...user,
   // @ts-ignore
-  companies: FactoryBotCompany.FranchiseCompany.create(4),
+  companies: FranchiseCompanyListFactory(5),
 }))
 
 CompleteDefaultState.args = {

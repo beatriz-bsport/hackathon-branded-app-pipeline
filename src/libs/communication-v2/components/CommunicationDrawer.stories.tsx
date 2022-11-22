@@ -148,7 +148,7 @@ const WrapperWithState = (args: DrawerProps) => {
     );
   };
   const threadProps = {
-    threadCommunicationList,
+    threadCommunicationList: threadCommunicationList.reverse(),
     threadCommunicationListHasNextPage,
     loadingThreadCommunicationList,
     fetchPageThreadCommunicationList,
@@ -243,7 +243,6 @@ const WrapperWithState = (args: DrawerProps) => {
     ...args,
     sendCommunication: () => {},
   };
-  console.log(composeProps);
   return <CommunicationDrawer {...composeProps} />;
 };
 

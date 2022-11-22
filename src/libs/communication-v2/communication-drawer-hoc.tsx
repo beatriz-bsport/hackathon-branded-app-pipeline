@@ -200,7 +200,6 @@ export default function withCommunicationData(
             page_size: PAGINATION_SIZE_RECIPIENTS,
             page,
             ignore_ids: true,
-            reset: props.countAvailableRecipientsTotal === 0,
           });
         },
       sendCommunication:

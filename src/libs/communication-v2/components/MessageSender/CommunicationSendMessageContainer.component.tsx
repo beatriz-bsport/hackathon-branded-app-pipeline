@@ -354,7 +354,10 @@ export class CommunicationSendMessageContainer extends React.Component<
           openRecipientSelector: false,
           openTemplateVisualizer: false,
           validity: null,
-          checkedMemberCategoryFilter: [],
+          checkedMemberCategoryFilter:
+            this.props.allMemberCategoryList?.categories?.map(
+              (category) => category.categoryIdentifier,
+            ) || [],
         },
         this.getSelectedMembersDetailsAllKinds,
       );

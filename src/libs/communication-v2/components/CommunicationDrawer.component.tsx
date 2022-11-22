@@ -74,15 +74,27 @@ export class CommunicationDrawer extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
-    this.props.fetchPaginatedAvailableRecipientMemberList(1);
+    this.props.fetchPaginatedAvailableRecipientMemberList(
+      1,
+      this.props.allMemberCategoryList?.categories?.map(
+        (category) => category.categoryIdentifier,
+      ) || [],
+    );
     this.fetchThreadCommunicationList();
     this.props.fetchResolvedGenericTags();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
+    const categoryIdentifierList =
+      this.props.allMemberCategoryList?.categories?.map(
+        (category) => category.categoryIdentifier,
+      ) || [];
     if (prevProps.contextObjectId !== this.props.contextObjectId) {
       this.fetchThreadCommunicationList();
-      this.props.fetchPaginatedAvailableRecipientMemberList(1);
+      this.props.fetchPaginatedAvailableRecipientMemberList(
+        1,
+        categoryIdentifierList,
+      );
     }
     if (
       !isEqual(
@@ -90,7 +102,10 @@ export class CommunicationDrawer extends React.Component<Props, State> {
         this.props.propToListenToReloadRecipients,
       )
     ) {
-      this.props.fetchPaginatedAvailableRecipientMemberList(1);
+      this.props.fetchPaginatedAvailableRecipientMemberList(
+        1,
+        categoryIdentifierList,
+      );
     }
   }
 

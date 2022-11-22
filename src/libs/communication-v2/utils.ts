@@ -407,106 +407,34 @@ export const getValidityTooltipMessage = memoize(
 // To send message, we only have user tags available
 // The others are not tackled (unlike in email designs)
 export const getAvailableTagsFromContext = memoize(
-  (contextIdentifier: number) => {
-    switch (contextIdentifier) {
-      case CONTEXT_MEMBER:
-      case CONTEXT_SMARTLIST:
-      case CONTEXT_OFFER:
-        return {
-          User: ['firstname', 'lastname'],
-          Company: [
-            'android_app_URL',
-            'ios_app_URL',
-            'company_logo',
-            'company',
-            'login_url',
-            'company_scheduleURL',
-            'company_facebookURL',
-            'company_instagramURL',
-            'company_websiteURL',
-            'company_info',
-          ],
-        };
-      default:
-        return {
-          Offer: [
-            'activity',
-            'coach',
-            'date',
-            'establishment',
-            'establishment_practical_info',
-            'address',
-          ],
-          BillingPlan: [
-            'subscription_name',
-            'subscription_recurrent_price',
-            'subscription_nb_months',
-            'subscription_flat_fee',
-            'subscription_payment_method',
-            'subscription_nb_days_pause',
-            'subscription_next_invoice_date',
-          ],
-          User: ['firstname', 'lastname', 'unsubscribe_link'],
-          Booking: [
-            'activity',
-            'coach',
-            'date',
-            'establishment',
-            'establishment_practical_info',
-            'address',
-            'ics_calendar_link',
-            'spot',
-            'canceled_grouped_session',
-          ],
-          PrivateConsumerPass: [
-            'pass_price',
-            'pass_name',
-            'pass_starting_date',
-            'pass_expiration',
-            'pass_credit_left',
-          ],
-          PrivateBooking: [
-            'activity',
-            'coach',
-            'date',
-            'address',
-            'establishment',
-            'establishment_practical_info',
-            'ics_calendar_link',
-          ],
-          ConsumerPaymentPack: [
-            'pass_price',
-            'pass_name',
-            'pass_starting_date',
-            'pass_expiration',
-            'pass_credit_left',
-          ],
-          BookingOption: [
-            'activity',
-            'coach',
-            'date',
-            'establishment',
-            'establishment_practical_info',
-            'address',
-            'option_payment_url',
-            'option_expiration_date',
-          ],
-          Company: [
-            'android_app_URL',
-            'ios_app_URL',
-            'company_logo',
-            'company',
-            'login_url',
-            'company_scheduleURL',
-            'company_facebookURL',
-            'company_instagramURL',
-            'company_websiteURL',
-            'company_info',
-          ],
-        };
+  (contextIdentifier: number, tags: { [tag_name: string]: string[] }) => {
+    const categories = getAvailableTagsCategoriesByContext(contextIdentifier);
+    const filteringCategories = categories.length > 0;
+    if (tags) {
+      return Object.entries(tags).reduce((acc, [tagCategory, tagList]) => {
+        if (!filteringCategories || categories.includes(tagCategory))
+          return {
+            ...acc,
+            [tagCategory]: tagList,
+          };
+        return acc;
+      }, {});
     }
+    return {};
   },
 );
+
+const getAvailableTagsCategoriesByContext = (contextIdentifier: number) => {
+  // Keep that function in case one day we would like to apply different kinds depending on the context
+  switch (contextIdentifier) {
+    case CONTEXT_MEMBER:
+    case CONTEXT_SMARTLIST:
+    case CONTEXT_OFFER:
+      return ['User', 'Company'];
+    default:
+      return [];
+  }
+};
 
 // #endregion
 // #region DWELL WITH MEMBER LISTS

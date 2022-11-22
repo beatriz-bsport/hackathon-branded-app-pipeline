@@ -9,6 +9,7 @@ import { getMemberIdListsFromMemberList } from '../utils';
 
 import { ThreadCommunication, DrawerProps, Communication } from '../types';
 import { Member } from '#libs/member/types';
+import { tagCategories } from '#libs/tag/factory';
 
 import {
   CONTEXT_NOTIFICATION,
@@ -229,6 +230,8 @@ const WrapperWithState = (args: DrawerProps) => {
     fetchPaginatedAvailableRecipientMemberList,
     resolvedGenericTags: [],
     fetchResolvedGenericTags: () => {},
+    tagCategories: tagCategories,
+    fetchTagList: () => {},
   };
 
   // ---------- HOC PROPS ----------

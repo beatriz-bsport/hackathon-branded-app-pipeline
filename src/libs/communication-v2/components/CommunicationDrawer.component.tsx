@@ -82,6 +82,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     );
     this.fetchThreadCommunicationList();
     this.props.fetchResolvedGenericTags();
+    this.props.fetchTagList();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
@@ -223,6 +224,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       recipientsModalMemberList,
       resolvedGenericTags,
       theme,
+      tagCategories,
     } = this.props;
 
     // --- for thread component ---
@@ -356,6 +358,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 sendCommunication={this.sendCommunication}
                 setCommunicationKind={this.setCommunicationKindBeingWritten}
                 resolvedGenericTags={resolvedGenericTags}
+                tagCategories={tagCategories}
               />
             </Collapse>
           </div>

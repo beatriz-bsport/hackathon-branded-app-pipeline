@@ -33,8 +33,14 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '#libs/email-editor/selectors';
-import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import {
+  getResolvedGenericTags,
+  getTagCategories,
+} from '#libs/notification-rule/selectors';
+import {
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+  fetchTagList as fetchTagListAction,
+} from '#libs/notification-rule/actions';
 
 // MEMBER
 import {
@@ -102,7 +108,9 @@ const connector = connect(
       state.member.communication.countWithPhone,
     recipientsModalMemberList: getPaginatedMembers(state),
     loadingRecipientsModalMemberList: state.member.communication.loading,
+    // TAGS
     resolvedGenericTags: getResolvedGenericTags(state),
+    tagCategories: getTagCategories(state),
     // THEME
     theme: themeSelectors.getTheme(state),
   }),
@@ -115,6 +123,7 @@ const connector = connect(
     sendCommunicationAction: sendCommunication,
     fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+    fetchTagList: fetchTagListAction,
   },
 );
 

@@ -77,6 +77,7 @@ type OwnProps = {
   ) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
   resolvedGenericTags: ResolvedGenericTags;
+  tagCategories: { [tag_name: string]: string[] };
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
@@ -511,7 +512,10 @@ export class CommunicationSendMessageContainer extends React.Component<
     const setActionType = (kind: number) => {
       this.props.setCommunicationKind(kind, this.checkValidity);
     };
-    const tags = getAvailableTagsFromContext(this.props.contextIdentifier);
+    const tags = getAvailableTagsFromContext(
+      this.props.contextIdentifier,
+      this.props.tagCategories,
+    );
     let selectedMemberDetailList: MemberMinimal[] = [];
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:

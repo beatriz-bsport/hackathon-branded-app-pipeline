@@ -303,14 +303,14 @@ export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
       // Filter by dates
       const today = moment().format();
       if (dateStartFilter) {
-        const dateStart = moment(dateStartFilter).format();
+        const dateStart = moment.unix(dateStartFilter).format();
         const diffDaysStart = Math.round(
           moment(today).diff(dateStart, 'days', true),
         );
         if (diffDaysStart < 0) return true;
       }
       if (dateEndFilter) {
-        const dateEnd = moment(dateStartFilter).format();
+        const dateEnd = moment.unix(dateEndFilter).format();
         const diffDaysEnd = Math.round(
           moment(today).diff(dateEnd, 'days', true),
         );

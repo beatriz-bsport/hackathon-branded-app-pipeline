@@ -3552,8 +3552,8 @@
         "tags": {
           "activity": "Activité",
           "coach": "Professeur",
-          "date": "Heure/Date séance",
-          "establishment": "Lieu",
+          "date": "Heure/Date",
+          "establishment": "Salle",
           "establishment_practical_info": "Accès à la salle",
           "address": "Adresse"
         }
@@ -3583,8 +3583,8 @@
         "tags": {
           "activity": "Activité",
           "coach": "Professeur",
-          "date": "Heure/Date séance",
-          "establishment": "Lieu",
+          "date": "Heure/Date",
+          "establishment": "Salle",
           "establishment_practical_info": "Accès à la salle",
           "address": "Adresse",
           "ics_calendar_link": "Lien ics calendrier",
@@ -3602,10 +3602,10 @@
       "PrivateConsumerPass": {
         "name": "Carte rendez-vous",
         "tags": {
-          "pass_price": "Prix carte RDV",
-          "pass_name": "Nom carte RDV",
-          "pass_starting_date": "Date de début carte RDV",
-          "pass_expiration": "Date de fin RDV",
+          "pass_price": "Prix carte",
+          "pass_name": "Nom carte",
+          "pass_starting_date": "Date de début carte",
+          "pass_expiration": "Date de fin carte",
           "pass_credit_left": "Nombre de crédits restants"
         }
       },
@@ -3613,21 +3613,21 @@
         "name": "Rendez-vous",
         "tags": {
           "activity": "Activité",
-          "coach": "Professeur (optionnel)",
+          "coach": "Professeur",
           "date": "Heure/Date",
           "address": "Adresse",
           "establishment": "Salle",
-          "establishment_practical_info": "Information d'accès à la salle (optionnel)",
+          "establishment_practical_info": "Accès à la salle",
           "ics_calendar_link": "Lien ics calendrier"
         }
       },
       "ConsumerPaymentPack": {
         "name": "Carte de cours",
         "tags": {
-          "pass_price": "Prix carte de cours",
-          "pass_name": "Nom carte de cours",
-          "pass_starting_date": "Date de début carte de cours",
-          "pass_expiration": "Date de fin carte de cours",
+          "pass_price": "Prix carte",
+          "pass_name": "Nom carte",
+          "pass_starting_date": "Date de début carte",
+          "pass_expiration": "Date de fin carte",
           "pass_credit_left": "Nombre de crédits restants"
         }
       },
@@ -3636,8 +3636,8 @@
         "tags": {
           "activity": "Activité",
           "coach": "Professeur",
-          "date": "Heure/Date séance",
-          "establishment": "Lieu",
+          "date": "Heure/Date",
+          "establishment": "Salle",
           "establishment_practical_info": "Accès à la salle",
           "address": "Adresse",
           "option_payment_url": "Lien de réservation",
@@ -3650,7 +3650,7 @@
           "activity": "Activité",
           "address": "Adresse",
           "coach": "Professeur",
-          "date": "Heure/Date séance",
+          "date": "Heure/Date",
           "establishment": "Salle",
           "establishment_practical_info": "Accès à la salle",
           "recurring_booking_fail_reason": "Raison de l'échec de la réservation récurrente"

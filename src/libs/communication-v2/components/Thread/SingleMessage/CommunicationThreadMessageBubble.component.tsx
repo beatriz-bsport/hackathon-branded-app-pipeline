@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import { Info, Error, InfoOutlined } from '@material-ui/icons/';
 
-import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
+import { ButtonBase, makeStyles, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import {
   COMMUNICATION_KIND_EMAIL,
@@ -56,8 +56,8 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
     },
     messageBubble: (props) => ({
       background: props.reverse
-        ? chroma(theme.palette.primary.main).alpha(0.15).hex()
-        : theme.palette.grey[100],
+        ? theme.palette.grey[100]
+        : theme.palette.primary.main,
       borderTopLeftRadius: theme.spacing(2),
       borderTopRightRadius: theme.spacing(2),
       borderBottomRightRadius: props.reverse
@@ -66,6 +66,11 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
       borderBottomLeftRadius: props.reverse
         ? theme.spacing(0.5)
         : theme.spacing(2),
+      color: getTextColorFromRGB(
+        props.reverse
+          ? chroma(theme.palette.grey[100]).rgb()
+          : chroma(theme.palette.primary.main).rgb(),
+      ),
       padding: theme.spacing(1.5),
       position: 'relative',
     }),
@@ -174,6 +179,13 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
         display: 'none',
       },
     },
+    infoIcon: (props) => ({
+      color: getTextColorFromRGB(
+        props.reverse
+          ? chroma(theme.palette.grey[100]).rgb()
+          : chroma(theme.palette.primary.main).rgb(),
+      ),
+    }),
   }),
 );
 
@@ -282,13 +294,13 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
         <div className={classes.messageBubbleContainer}>
           <div className={classes.messageBubble}>
             <div className={classes.row}>
-              <Typography variant="h6">
+              <Typography variant="body2">
                 {t(`campaign.kind.${communication.kind}`)}
               </Typography>
               {!reverse &&
                 communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
                   <IconButton size="small" onClick={onShowInformationClick}>
-                    <InfoOutlined />
+                    <InfoOutlined className={classes.infoIcon} />
                   </IconButton>
                 )}
             </div>
@@ -296,7 +308,9 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
               COMMUNICATION_KIND_EMAIL,
               COMMUNICATION_KIND_PUSH_NOTIFICATION,
             ].includes(communication.kind) && (
-              <Typography variant="h5">{communicationTitle}</Typography>
+              <Typography variant="subtitle1">
+                <Box fontWeight={500}>{communicationTitle}</Box>
+              </Typography>
             )}
 
             {communication.kind === COMMUNICATION_KIND_EMAIL &&

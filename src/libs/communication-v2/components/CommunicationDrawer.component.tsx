@@ -243,10 +243,9 @@ export class CommunicationDrawer extends React.Component<Props, State> {
             autoHideDuration={5000}
             TransitionComponent={this.SlideTransition}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            // key={`snackbar-${Math.floor(Math.random() * 10000)}`}
             className={classes.snackbar}
           >
-            <Alert severity="info">
+            <Alert severity="info" className={classes.snackbarContent}>
               {t('thread.filterOutCommunicationSent')}
             </Alert>
           </Snackbar>
@@ -404,8 +403,10 @@ const styles: any = (theme: Theme) => ({
   snackbar: {
     position: 'absolute',
     top: theme.spacing(1),
-    boxShadow: '1px 2px 15px lightblue',
     width: 'fit-content',
+  },
+  snackbarContent: {
+    boxShadow: '1px 2px 15px lightblue',
   },
   threadContainer: {
     position: 'relative',

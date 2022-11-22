@@ -191,7 +191,6 @@ const styles: any = (theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    position: 'relative', // trick to have snackbar positioned relatively to the thread
   },
 });
 

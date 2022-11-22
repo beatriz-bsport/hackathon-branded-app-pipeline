@@ -111,11 +111,7 @@ const CommunicationThreadScrollableView = (props: Props) => {
         ))
       )}
       {!props.loadingThreadDataList && sortedThreadList.length === 0 && (
-        <Typography
-          color="secondary"
-          variant="subtitle1"
-          className={classes.emptyLabel}
-        >
+        <Typography variant="subtitle1" className={classes.emptyLabel}>
           {t(
             `thread.emptyThread.${
               props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
@@ -169,6 +165,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    color: theme.palette.text.secondary,
   },
 }));
 

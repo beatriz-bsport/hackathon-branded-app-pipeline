@@ -331,10 +331,9 @@ exports.default = {
     filterOutCommunicationSent:
       "La communication que vous venez d'envoyer est cachée par les filtres actifs.",
     emptyThread: {
-      becauseOfFilters:
-        'Aucun résultat correspondant aux filtres sélectionnés.',
+      becauseOfFilters: 'Aucun résultat correspondant aux filtres.',
       becauseNeverUsed:
-        "Vous n'avez pas encore envoyé de communications sur ce canal.",
+        "Vous n'avez pas encore envoyé de communication sur ce canal.",
     },
   },
   generic: {

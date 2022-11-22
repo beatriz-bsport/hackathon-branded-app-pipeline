@@ -2,49 +2,51 @@ import React from 'react';
 import { TutorialLessonFactory, TutorialSectionFactory } from '../factories';
 
 import TutorialLessonHeader, { Props } from './TutorialLessonHeader.component';
-import { TutorialCompletion } from '../types';
 
-//const CustomTemplate = (args: Props) => <TutorialLessonHeader {...args} />;
-const section_completed = TutorialSectionFactory(1, 1, 5, true);
-const section_no_completed = TutorialSectionFactory(1, 1, 4, false);
-const lesson1 = TutorialLessonFactory(1, 1, 1, true);
-const lesson2 = TutorialLessonFactory(2, 2, 1, false);
-const lesson3 = TutorialLessonFactory(3, 3, 1, true);
-const lesson4 = TutorialLessonFactory(4, 4, 1, false);
+const CustomTemplate = (args: Props) => <TutorialLessonHeader {...args} />;
 
-const CustomTemplate = (args: Props) => {
-  const [selectedLesson, setSelectedLesson] = React.useState(section_completed.lessons[1])
-  const goToLesson = (sectionId: number | string, lessonId: number | string) => {
-    setSelectedLesson(section_completed.lessons[lessonId]) 
-  }
-  return(<TutorialLessonHeader {...args} selectedLesson={selectedLesson} goToLesson={goToLesson}/>)}
+const section_completed = TutorialSectionFactory(1, 1, 20, true);
+const lesson_completed = section_completed.lessons[1];
 
 export const TutorialLessonHeaderAllCompleted = CustomTemplate.bind({});
 
 TutorialLessonHeaderAllCompleted.args = {
   section: section_completed,
-  selectedLesson: section_completed.lessons[1],
-  goToLesson: () => {}
+  selectedLesson: lesson_completed,
+  goToLesson: (id: number) => {
+    alert(`Go to lesson of id : ${id}`);
+  },
 };
+
+const section_no_completed = TutorialSectionFactory(1, 1, 4, false);
+const lesson_no_completed = section_completed.lessons[1];
 
 export const TutorialLessonHeaderNoCompleted = CustomTemplate.bind({});
 
 TutorialLessonHeaderNoCompleted.args = {
   section: section_no_completed,
-  selectedLesson: section_completed.lessons[1],
-  goToLesson: () => {},
+  selectedLesson: lesson_no_completed,
+  goToLesson: (id: number) => {
+    alert(`Go to lesson of id : ${id}`);
+  },
 };
+
+const lesson1 = TutorialLessonFactory(1, 1, 1, true);
+const lesson2 = TutorialLessonFactory(2, 2, 1, false);
+const lesson3 = TutorialLessonFactory(3, 3, 1, true);
+const lesson4 = TutorialLessonFactory(4, 4, 1, false);
 
 export const TutorialLessonHeaderSomeCompleted = CustomTemplate.bind({});
 
 TutorialLessonHeaderSomeCompleted.args = {
   section: {
-    translated_name: 'Section test',
+    name: 'Section test',
     lessons: [lesson1, lesson2, lesson3, lesson4],
-    upsell_identifiers: [],
   },
   selectedLesson: lesson2,
-  goToLesson: () => {},
+  goToLesson: (id: number) => {
+    alert(`Go to lesson of id : ${id}`);
+  },
 };
 
 export const TutorialLessonHeaderNoSection = CustomTemplate.bind({});
@@ -52,7 +54,9 @@ export const TutorialLessonHeaderNoSection = CustomTemplate.bind({});
 TutorialLessonHeaderNoSection.args = {
   section: false,
   selectedLesson: lesson2,
-  goToLesson: () => {},
+  goToLesson: (id: number) => {
+    alert(`Go to lesson of id : ${id}`);
+  },
 };
 
 export default {

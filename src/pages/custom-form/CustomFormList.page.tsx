@@ -192,6 +192,9 @@ export class CustomFormListPage extends React.Component<Props, State> {
                                     this.props.goToEdit(payload.id),
                                 })
                               }
+                              divider
+                              stopPropagation
+                              showQuestionCount
                             />
                           ))}
                       </List>

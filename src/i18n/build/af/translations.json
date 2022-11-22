@@ -7100,6 +7100,7 @@
         "privatePassHelperText": "aucune carte RDV",
         "warning": "Sélectionnez au moins une carte de cours ou une carte RDV"
       },
+      "userMarketingNotifications": { "warning": "Activez au moins une des deux options" },
       "buyables": {
         "helperText": "sélectionner des catégories",
         "helperSelectedText": "catégories sélectionnées",
@@ -7141,6 +7142,13 @@
         "advanced": "avancé",
         "select": "sélectionner un niveau",
         "warning": "Sélectionnez au moins un niveau"
+      },
+      "customForms": {
+        "helperText": "sélectionner des formulaires",
+        "helperSelectedText": "formulaires sélectionnés",
+        "textFieldPlaceholder": "Rechercher un formulaire",
+        "helperAllSelectedText": "tous les formulaires",
+        "warning": "Sélectionnez au moins un formulaire"
       }
     },
     "noSmartLists": "Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.",
@@ -7330,6 +7338,91 @@
         "third": "ou",
         "fourth": "(confondues)",
         "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
+      },
+      "101": {
+        "name": "Âge",
+        "first": "Possède un âge",
+        "between": "et",
+        "to": "à",
+        "second": "ans (inclus)",
+        "explanation": "Est âgé de moins/plus/exactement..."
+      },
+      "102": {
+        "name": "Formulaires",
+        "hasCompleted": "A complété",
+        "hasNotCompleted": "N'a pas complété",
+        "atLeastOne": "au moins un formulaire",
+        "all": "tous les formulaires",
+        "hasCompletedNone": "N'a complété",
+        "none": "aucun formulaire",
+        "second": "parmi",
+        "third": "à un pourcentage",
+        "to": "à",
+        "between": "et",
+        "explanation": "A complété X formulaires à A% à la date B ",
+        "date": { "first": "complété pour la dernière fois" }
+      },
+      "103": {
+        "name": "Notifications",
+        "allNeeded": "Toutes les conditions activées doivent être remplies",
+        "oneNeeded": "Au moins une des conditions activées doit être remplie",
+        "true": "Accepte",
+        "false": "N'accepte pas",
+        "sms": "de recevoir des notifications par SMS",
+        "email": "de recevoir des notifications par email",
+        "explanation": "Accepte les notifications par SMS/Email"
+      },
+      "104": {
+        "name": "Notes",
+        "first": "Possède au moins une note",
+        "medicalOrNot": "médicale ou non",
+        "medical": "médicale",
+        "nonMedical": "non médicale",
+        "info": "Les notes dites médicales correspondent à celles figurant dans la section \"Informations Essentielles\" sur la fiche membre",
+        "date": { "first": "qui a été créée" },
+        "explanation": "Possède au moins une note médicale (ou non)"
+      },
+      "105": {
+        "name": "Relations",
+        "date": { "first": "la relation a été établie" },
+        "to": "à",
+        "between": "et",
+        "first": "Possède un nombre",
+        "second": "de relations qui respectent les filtres sélectionnés:",
+        "third": "le membre a partagé avec la relation un nombre",
+        "fourth": "la relation à réservé un nombre",
+        "consumerPaymentPacks": "de cartes de cours",
+        "consumerPrivatePasses": "de cartes de RDV",
+        "bookings": "de cours collectifs et rendez-vous grâce à un pass partagé par le membre",
+        "valid": "valides",
+        "validOrNot": "valides ou non",
+        "info": {
+          "consumerPaymentPacks": "\"valide\" signifie que la carte peut être utilisée maintenant pour réserver un cours collectif",
+          "consumerPrivatePasses": "\"valide\" signifie que la carte peut être utilisée maintenant pour réserver un rendez-vous"
+        },
+        "receiveCopyOfEmail": {
+          "first": "les emails envoyés à la relation",
+          "true": "sont aussi envoyés",
+          "false": "ne sont pas envoyés",
+          "second": "en copie au membre"
+        },
+        "acceptSms": { "first": "la relation", "true": "accepte", "false": "n'accepte pas", "second": "les SMS" },
+        "acceptEmail": { "first": "la relation", "true": "accepte", "false": "n'accepte pas", "second": "les emails" },
+        "explanation": "Possède X relations et Y cartes de cours ou cartes de RDV ou réservations partagées"
+      },
+      "106": {
+        "name": "Téléphone",
+        "true": "A renseigné",
+        "false": "N'a pas renseigné",
+        "first": "un numéro de téléphone",
+        "explanation": "A renseigné un numéro de téléphone"
+      },
+      "107": {
+        "name": "Conditions d'utilisation",
+        "true": "A accepté",
+        "false": "N'a pas accepté",
+        "first": "vos conditions générales d'utilisation",
+        "explanation": "A accepté les conditions générales d'utilisation"
       },
       "400": {
         "explain": "possède un mot de passe sur bsport",

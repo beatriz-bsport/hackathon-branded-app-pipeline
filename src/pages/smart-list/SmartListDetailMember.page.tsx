@@ -133,6 +133,12 @@ import { getCoaches } from '#libs/associated-coach/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { getAllCustomLevels } from '#libs/level/selectors';
 
+// CUSTOM FORMS
+import {
+  fetchAllCustomForm,
+  fetchCustomFormBulk,
+} from '#libs/custom-form/actions';
+
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   showInformativeDialog,
@@ -146,6 +152,7 @@ import AutomatedCampaignPanel from '#libs/smart-list/components/automated_campai
 import MemberTable from '#libs/member/MemberTable.component';
 import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { getAllCustomForm } from '#libs/custom-form/selectors';
 
 // COMMUNICATION CHAT
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
@@ -347,6 +354,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         fetchAction: this.props.fetchAllPrivateServices,
         loading: this.props.privateServiceLoading,
       },
+      custom_forms: {
+        fetchAction: () =>
+          this.props.fetchAllCustomForm(this.props.smartlist.company),
+        loading: this.props.customFormLoading,
+      },
     };
 
     const fetchBulkItems = {
@@ -356,6 +368,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       establishments: this.props.fetchEstablishmentBulk,
       private_passes: this.props.fetchPrivatePassBulk,
       private_services: this.props.fetchPrivateServiceBulk,
+      custom_forms: this.props.fetchCustomFormBulk,
     };
     return (
       <div>
@@ -374,6 +387,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           establishments={this.props.establishments}
           tags={this.props.tags}
           customLevels={this.props.customLevels}
+          customForms={this.props.customForms}
           loading={this.props.loading}
           fetchItems={fetchItems}
           fetchBulkItems={fetchBulkItems}
@@ -476,7 +490,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             this.setState({ resetMembersFetchForCommunication: true });
           }}
           membersToDisplay={this.props.members.displayItems}
-          fetchPreviousPage={(page, page_size) =>
+          fetchPreviousPage={(page: number, page_size: number) =>
             this.fetchPaginatedMembers(
               page - 1
                 ? page - 1
@@ -484,7 +498,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
               page_size,
             )
           }
-          fetchNextPage={(page, page_size) =>
+          fetchNextPage={(page: number, page_size: number) =>
             this.fetchPaginatedMembers(
               page > parseInt(this.props.members.countTotal / page_size, 10)
                 ? 1
@@ -492,7 +506,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
               page_size,
             )
           }
-          initMembers={(page, page_size) =>
+          initMembers={(page: number, page_size: number) =>
             this.fetchPaginatedMembers(page, page_size)
           }
           page={this.props.members.page}
@@ -675,6 +689,10 @@ const connector = connect(
     // LEVEL
     customLevels: getAllCustomLevels(state),
 
+    // CUSTOM FORMS
+    customForms: getAllCustomForm(state),
+    customFormLoading: state.customForm.loading,
+
     // OTHERS
     companyId: state.theme.theme.company,
   }),
@@ -743,6 +761,10 @@ const connector = connect(
     // COACHES
     fetchCoachBulk,
     fetchCoaches,
+
+    // CUSTOM FORM
+    fetchAllCustomForm,
+    fetchCustomFormBulk,
   },
 );
 

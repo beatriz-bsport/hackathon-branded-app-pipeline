@@ -1,8 +1,7 @@
-// @flow
-
 import React, { Component } from 'react';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { createStyles, Theme } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
@@ -43,6 +42,13 @@ import {
   WAIVER_FILTER_IDENTIFIER,
   PAYMENT_METHOD_FILTER_IDENTIFIER,
   ACTIVE_PASSES_FILTER_IDENTIFIER,
+  AGE_FILTER_IDENTIFIER,
+  CUSTOM_FORMS_FILTER_IDENTIFIER,
+  USER_MARKETING_NOTIFICATIONS_FILTER,
+  NOTES_FILTER_IDENTIFIER,
+  RELATIONS_FILTER_IDENTIFIER,
+  USER_HAS_PHONE_FILTER_IDENTIFIER,
+  TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 import Config from '../../../config';
 
@@ -55,6 +61,9 @@ import type { SmartList } from '#libs/smart-list/types';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { getCurrencyDisplay } from '../../theme/selectors';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { Level } from '#libs/level/types';
+import { CustomForm } from '#libs/custom-form/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -73,6 +82,13 @@ const filtersList = {
     TAG_FILTER_IDENTIFIER,
     USER_HAS_PASSWORD_FILTER,
     WAIVER_FILTER_IDENTIFIER,
+    AGE_FILTER_IDENTIFIER,
+    CUSTOM_FORMS_FILTER_IDENTIFIER,
+    USER_MARKETING_NOTIFICATIONS_FILTER,
+    NOTES_FILTER_IDENTIFIER,
+    RELATIONS_FILTER_IDENTIFIER,
+    USER_HAS_PHONE_FILTER_IDENTIFIER,
+    TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
   ],
   [BOOKING]: [
     FIRST_BOOKING_FILTER_IDENTIFIER,
@@ -96,60 +112,62 @@ const filtersList = {
 const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING, BUY];
 
 type Props = {
-  classes: any,
-  loading: boolean,
-  smartList: any,
-  t: TFunction,
-  filters: Array<Filter>,
-  payment_packs: Array<PaymentPack>,
-  establishments: Array<Establishment>,
-  meta_activities: Array<any>,
-  private_passes: Array<PrivatePass>,
-  private_services: Array<PrivateService>,
-  tags: Array<any>,
+  classes: any;
+  loading: boolean;
+  smartList: any;
+  filters: Array<any>;
+  payment_packs: Array<PaymentPack>;
+  establishments: Array<Establishment>;
+  meta_activities: Array<any>;
+  private_passes: Array<PrivatePass>;
+  private_services: Array<PrivateService>;
+  tags: Array<any>;
   updateFilter: (
     filterNameId: number,
     filterId: number,
     data: any,
     options?: OptionCallback,
-  ) => void,
+  ) => void;
   deleteFilter: (
     filterNameId: number,
     filterId: number,
     smartListId: number,
     options: OptionCallback & { callback: (id: number) => void },
-  ) => void,
+  ) => void;
   createFilter: (
     filter_identifier: number,
     filterData: any,
     options?: OptionCallback,
-  ) => void,
-  onRequestEmail: () => void,
-  exportMemberTable: () => void,
-  fetchItems: any,
-  fetchBulkItems: any,
-  coaches: Array<any>,
-  smartListUpdate: (id: number, smartlist: SmartList) => void,
-  customLevels: Level[],
-};
+  ) => void;
+  onRequestEmail: () => void;
+  exportMemberTable: () => void;
+  fetchItems: any;
+  fetchBulkItems: any;
+  coaches: Array<any>;
+  smartListUpdate: (id: number, smartlist: SmartList) => void;
+  customLevels: Level[];
+  customForms: CustomForm[];
+} & WithTranslation;
 
 type State = {
-  new_filter: any,
-  displayFilters: boolean,
-  displayAddFilter: boolean,
-  displayCategoryFilters: any,
-  isSmartListExporting: boolean,
+  new_filter: any;
+  displayFilters: boolean;
+  displayAddFilter: boolean;
+  displayCategoryFilters: any;
+  isSmartListExporting: boolean;
+  anchorEl: HTMLElement;
 };
 export class FiltersPanel extends Component<Props, State> {
-  state = {
+  state: State = {
     new_filter: null,
     displayFilters: true,
     displayAddFilter: false,
     displayCategoryFilters: null,
     isSmartListExporting: false,
+    anchorEl: null,
   };
 
-  handleFilterChange = (filter) => {
+  handleFilterChange = (filter: any) => {
     this.setState({
       new_filter: {
         filter_identifier: filter,
@@ -164,7 +182,7 @@ export class FiltersPanel extends Component<Props, State> {
     this.setState({ new_filter: null });
   };
 
-  createFilter = (filterNameId, data) => {
+  createFilter = (filterNameId: number, data: any) => {
     trackFormAdd();
 
     this.setState({ new_filter: null, displayFilters: true });
@@ -275,7 +293,7 @@ export class FiltersPanel extends Component<Props, State> {
               }))
             }
           >
-            {filtersCategory.map((key) => (
+            {filtersCategory.map((key: number) => (
               <div key={key}>
                 <ListItem
                   className={this.props.classes.menu}
@@ -292,7 +310,6 @@ export class FiltersPanel extends Component<Props, State> {
                   }}
                   button
                   key={key}
-                  value={key}
                 >
                   <ListItemText
                     primary={`${t(`filterCategory.${key}`)} (${
@@ -315,12 +332,11 @@ export class FiltersPanel extends Component<Props, State> {
                     disablePadding
                     className={this.props.classes.nestedList}
                   >
-                    {filtersList[key].map((filter) => (
+                    {filtersList[key].map((filter: any) => (
                       <ListItem
                         className={this.props.classes.menu}
                         onClick={() => this.handleFilterChange(filter)}
                         key={filter}
-                        value={filter}
                         button
                       >
                         <ListItemText
@@ -350,7 +366,7 @@ export class FiltersPanel extends Component<Props, State> {
               <Typography
                 variant="h6"
                 style={{ marginRight: '10px' }}
-                color={this.state.displayFilters ? 'default' : 'textSecondary'}
+                color={this.state.displayFilters ? 'initial' : 'textSecondary'}
               >
                 {`${t('filters.active_filters')}`}
               </Typography>
@@ -359,7 +375,7 @@ export class FiltersPanel extends Component<Props, State> {
           ) : (
             <Typography
               variant="h6"
-              color={this.state.displayFilters ? 'default' : 'textSecondary'}
+              color={this.state.displayFilters ? 'initial' : 'textSecondary'}
             >
               {`${t('filters.active_filters')} (${filters.length})`}
             </Typography>
@@ -394,6 +410,7 @@ export class FiltersPanel extends Component<Props, State> {
                   fetchItems={this.props.fetchItems}
                   fetchBulkItems={this.props.fetchBulkItems}
                   customLevels={this.props.customLevels}
+                  customForms={this.props.customForms}
                 />
               ))}
               {this.state.new_filter ? (
@@ -412,6 +429,7 @@ export class FiltersPanel extends Component<Props, State> {
                   fetchItems={this.props.fetchItems}
                   fetchBulkItems={this.props.fetchBulkItems}
                   customLevels={this.props.customLevels}
+                  customForms={this.props.customForms}
                 />
               ) : null}
             </List>
@@ -433,7 +451,7 @@ export class FiltersPanel extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = createStyles((theme: Theme) => ({
   menu: {
     width: '300px',
   },
@@ -486,7 +504,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     paddingTop: theme.spacing(2),
   },
-});
+}));
 
 export default compose(
   withStyles(styles),

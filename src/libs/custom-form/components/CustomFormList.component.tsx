@@ -74,6 +74,9 @@ export const CustomFormList = (props: Props) => {
             onClickDuplicate={props.onClickDuplicate}
             onRestore={props.onRestore}
             withDisplayRule={withDisplayRule}
+            divider
+            stopPropagation
+            showQuestionCount
           />
         ))}
     </List>

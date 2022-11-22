@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -32,6 +30,13 @@ import {
   WAIVER_FILTER_IDENTIFIER,
   PAYMENT_METHOD_FILTER_IDENTIFIER,
   ACTIVE_PASSES_FILTER_IDENTIFIER,
+  AGE_FILTER_IDENTIFIER,
+  CUSTOM_FORMS_FILTER_IDENTIFIER,
+  USER_MARKETING_NOTIFICATIONS_FILTER,
+  NOTES_FILTER_IDENTIFIER,
+  RELATIONS_FILTER_IDENTIFIER,
+  USER_HAS_PHONE_FILTER_IDENTIFIER,
+  TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -51,6 +56,13 @@ import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
 import ActivePassesFilter from './filters/ActivePassesFilter.component';
 import WaiverFilter from './filters/WaiverFilter.component';
 import PaymentMethodFilter from './filters/PaymentMethodFilter.component';
+import AgeFilter from './filters/AgeFilter.component';
+import CustomFormsFilter from './filters/CustomFormsFilter.component';
+import UserMarketingNotificationsFilter from './filters/UserMarketingNotificationsFilter.component';
+import NotesFilter from './filters/NotesFilter.component';
+import RelationsFilter from './filters/RelationsFilter.component';
+import UserHasPhoneFilter from './filters/UserHasPhoneFilter.component';
+import TermsAndConditionsFilter from './filters/TermsAndConditionsFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
@@ -80,6 +92,7 @@ type Props = {
 
   fetchBulkItems: any,
   customLevels: Level[],
+  customForms: CustomForm[],
 
   new: boolean,
   t: TFunction,
@@ -97,6 +110,7 @@ export class FilterCard extends Component<Props> {
     this.state = {
       filter_data: props.filter,
       not_nullable_data: [],
+      not_all_falsy_data: [], // each item is a list of filter's fields that can't be all falsy at once
     };
   }
 
@@ -117,7 +131,10 @@ export class FilterCard extends Component<Props> {
       !this.props.new &&
       this.state.not_nullable_data
         .map((item) => dataDict[item])
-        .every((item) => item !== null)
+        .every((item) => item !== null) &&
+      this.state.not_all_falsy_data.every((itemList) =>
+        itemList.map((item) => dataDict[item]).some((item) => !!item),
+      )
     ) {
       this.props.onClickEdit(
         this.props.filter.filter_identifier,
@@ -136,6 +153,10 @@ export class FilterCard extends Component<Props> {
 
   setNotNullableData = (data) => {
     this.setState({ not_nullable_data: data });
+  };
+
+  setNotAllFalsyData = (data: Array<Array<string>>) => {
+    this.setState({ not_all_falsy_data: data });
   };
 
   renderSelectorWarning = (text, active, items) => {
@@ -427,6 +448,95 @@ export class FilterCard extends Component<Props> {
             ]}
           />
         );
+      case AGE_FILTER_IDENTIFIER:
+        return (
+          <AgeFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: AGE_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+          />
+        );
+      case CUSTOM_FORMS_FILTER_IDENTIFIER:
+        return (
+          <CustomFormsFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: CUSTOM_FORMS_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            custom_forms={this.props.customForms}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+
+      case USER_MARKETING_NOTIFICATIONS_FILTER:
+        return (
+          <UserMarketingNotificationsFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: USER_MARKETING_NOTIFICATIONS_FILTER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+            setNotAllFalsyData={this.setNotAllFalsyData}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+      case NOTES_FILTER_IDENTIFIER:
+        return (
+          <NotesFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: NOTES_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+          />
+        );
+      case RELATIONS_FILTER_IDENTIFIER:
+        return (
+          <RelationsFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: RELATIONS_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+          />
+        );
+      case USER_HAS_PHONE_FILTER_IDENTIFIER:
+        return (
+          <UserHasPhoneFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: USER_HAS_PHONE_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+          />
+        );
+      case TERMS_AND_CONDITIONS_FILTER_IDENTIFIER:
+        return (
+          <TermsAndConditionsFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            isNew={this.props.new}
+          />
+        );
+
       default:
         return null;
     }
@@ -459,9 +569,16 @@ export class FilterCard extends Component<Props> {
                   );
                 }}
                 color="secondary"
-                disabled={this.state.not_nullable_data
-                  .map((item) => this.state.filter_data[item] || null)
-                  .includes(null)}
+                disabled={
+                  this.state.not_nullable_data
+                    .map((item) => this.state.filter_data[item] ?? null)
+                    .includes(null) ||
+                  this.state.not_all_falsy_data.some((itemList) =>
+                    itemList
+                      .map((item) => this.state.filter_data[item])
+                      .every((item) => !item),
+                  )
+                }
               >
                 <SaveIcon className={this.props.classes.leftIcon} />
                 {t('filters.add')}

@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-import Grid from '@material-ui/core/Grid';
+import Grid, { GridSize } from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Typography from '@material-ui/core/Typography';
@@ -32,6 +32,10 @@ type Props = {
   onClickDuplicate?: (id: number) => void;
   onRestore?: (id: number) => void;
   withDisplayRule?: boolean;
+  divider?: boolean;
+  stopPropagation?: boolean;
+  gridItemXs?: GridSize;
+  showQuestionCount?: boolean;
 };
 
 type DialogProps = {
@@ -77,7 +81,13 @@ const DeleteDialog = (props: DialogProps) => {
 };
 
 export const CustomFormListItem = (props: Props) => {
-  const { withDisplayRule } = props;
+  const {
+    withDisplayRule,
+    divider,
+    stopPropagation,
+    gridItemXs,
+    showQuestionCount,
+  } = props;
   const classes = useStyles();
   const { t } = useTranslation(['marketing']);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -93,39 +103,42 @@ export const CustomFormListItem = (props: Props) => {
   return (
     <>
       <ListItem
-        divider
+        divider={divider}
         button={!!props.onClick}
         selected={props.selected}
         onClick={(e) => {
-          e.stopPropagation();
+          stopPropagation && e.stopPropagation();
           props.onClick && props.onClick(props.customform.id);
         }}
         className={classes.listitem}
       >
         <Grid container>
-          <Grid item xs={3} className={classes.nameItem}>
+          <Grid item xs={gridItemXs ?? 3} className={classes.nameItem}>
             <div>
               <Typography component="span">{customFormName()}</Typography>
             </div>
           </Grid>
-          <Grid
-            item
-            xs={withDisplayRule ? 3 : 6}
-            className={classes.questionItem}
-          >
-            <Typography component="span">
-              {
-                props.customform?.custom_form_field.filter(
-                  (field) =>
-                    !field.disabled &&
-                    ![
-                      CUSTOM_FORM_FIELD_TITLE_OPTION,
-                      CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
-                    ].includes(field.kind),
-                ).length
-              }
-            </Typography>
-          </Grid>
+          {showQuestionCount && (
+            <Grid
+              item
+              xs={withDisplayRule ? 3 : 6}
+              className={classes.questionItem}
+            >
+              <Typography component="span">
+                {
+                  props.customform?.custom_form_field.filter(
+                    (field) =>
+                      !field.disabled &&
+                      ![
+                        CUSTOM_FORM_FIELD_TITLE_OPTION,
+                        CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
+                      ].includes(field.kind),
+                  ).length
+                }
+              </Typography>
+            </Grid>
+          )}
+
           {props.withDisplayRule && (
             <Grid item xs={3} className={classes.displayRuleItem}>
               {props.customform.display_rules.map((rule) => (

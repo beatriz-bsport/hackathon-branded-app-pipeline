@@ -61,7 +61,7 @@ export const fetchCustomFormBulkActions = {
 };
 export function fetchCustomFormBulk(params: { id__in: Array<number> }) {
   return async (dispatch: Dispatch) => {
-    if (params.id__in.length === 0) {
+    if (params.id__in?.length === 0) {
       return;
     }
     dispatch(fetchCustomFormBulkActions.isLoading(true));

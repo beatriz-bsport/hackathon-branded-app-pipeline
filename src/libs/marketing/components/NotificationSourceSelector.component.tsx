@@ -219,7 +219,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
             {identifier === 'private_service' && (
               <PrivateServiceSelector
-                privateServices={this.props.privateServices}
+                privateServices={this.props.privateServices.filter(
+                  (ps: PrivateService) => !!ps.available,
+                )}
                 privateServiceId={this.state.selectedPrivateService}
                 onChange={(value) => this.onChange('private_service', value)}
               />

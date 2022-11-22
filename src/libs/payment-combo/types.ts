@@ -1,3 +1,5 @@
+import { PrivatePass } from '#libs/private-service/types';
+import { ErrorAndLoading } from '#libs/types';
 import { PaymentPack } from '../payment-packs/types';
 
 export type PaymentComboItem = {
@@ -46,17 +48,26 @@ export type PaymentComboPayload = {
 };
 
 export type PaymentComboState = {
-  loading: boolean;
-  error?: Error;
   allIds: Array<number>;
   byId: { [id: number]: PaymentCombo };
   createOrUpdate: {
     error?: Error;
     loading: boolean;
-  };
-};
+  } & ErrorAndLoading;
+  purchase: {
+    items: Array<PaymentComboPurchase>;
+    count: number;
+  } & ErrorAndLoading;
+  forBooking: {
+    allIds: Array<number>;
+  } & ErrorAndLoading;
+  relatedPrivatePass: {
+    allIds: number[];
+    byId: { [id: number]: PrivatePass };
+  } & ErrorAndLoading;
+} & ErrorAndLoading;
 
-export type PaymentComboPurchase = {
+export type PaymentComboPurchase<PC = number> = {
   id: number;
   consumer_payment_packs: number[];
   date: string;
@@ -74,9 +85,28 @@ export type PaymentComboPurchase = {
     tags: number[];
     vaccination_status: boolean;
   };
-  payment_combo: PaymentCombo;
+  payment_combo: PC;
   price: string;
   private_consumer_passes: number[];
   provision_updates: number[];
   tax: string;
+};
+
+export type FetchPaymentComboListParams = {
+  manager_only?: boolean;
+  available?: boolean;
+  company?: number;
+  offer?: number;
+  as_consumer?: boolean;
+  video?: number;
+  id__in?: number[];
+};
+
+export type FetchPaymentComboPurchaseListParams = {
+  page: number;
+  payment_combo?: number;
+};
+
+export type FetchPrivatePassListParams = {
+  id__in: number[];
 };

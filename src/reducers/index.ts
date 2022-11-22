@@ -129,6 +129,7 @@ import actionTypes from '../actions/auth.types';
 import { LevelState } from '#libs/level/types';
 import { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 import { TutorialState } from '#libs/platform-tutorial/types';
+import { PaymentComboState } from '#libs/payment-combo/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -253,7 +254,7 @@ export type RootState = {
   order: any;
   partnership: PartnershipState;
   paymentBackend: any;
-  paymentCombo: any;
+  paymentCombo: PaymentComboState;
   paymentPack: any;
   paymentRules: any;
   performanceTracking: PerformanceTrackingState;

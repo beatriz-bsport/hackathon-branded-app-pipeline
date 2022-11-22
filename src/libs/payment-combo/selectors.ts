@@ -1,56 +1,54 @@
-// @flow
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
 import { getPaymentPackById } from '../payment-packs/selectors';
-import type { State } from '../../state/types';
-import type { PaymentCombo } from './types';
+
 import { RootState } from '../../reducers';
 
-const _getPaymenComboIdList: (State) => Array<number> = (state) =>
-  state.paymentCombo.allIds;
+const _getPaymenComboIdList = (state: RootState) => state.paymentCombo.allIds;
 
-export const getPaymenComboDataDict: (State) => {
-  [id: number]: PaymentCombo,
-} = (state) => state.paymentCombo.byId;
+export const getPaymenComboDataDict = (state: RootState) =>
+  state.paymentCombo.byId;
 
-export const getPaymentCombo: (State, number) => ?PaymentCombo = (state, id) =>
+export const getPaymentCombo = (state: RootState, id: number) =>
   state.paymentCombo.byId[id];
 
-export const getPaymentComboList: (State) => Array<PaymentCombo> =
-  createSelector([_getPaymenComboIdList, getPaymenComboDataDict], (ids, data) =>
+export const getPaymentComboList = createSelector(
+  [_getPaymenComboIdList, getPaymenComboDataDict],
+  (ids, data) =>
     ids
       .map((id) => data[id])
       .filter((pc) => !!pc)
       .filter((pc) => pc.available),
-  );
+);
 
-export const getPaymentComboListAvailableOnline: (State) => Array<PaymentCombo> =
-  createSelector(getPaymentComboList, (pcList) =>
-    pcList.filter((pc) => !pc.manager_only),
-  );
+export const getPaymentComboListAvailableOnline = createSelector(
+  getPaymentComboList,
+  (pcList) => pcList.filter((pc) => !pc.manager_only),
+);
 
-export const getPaymentComboListUnavailableOnline: (State) => Array<PaymentCombo> =
-  createSelector(getPaymentComboList, (pcList) =>
-    pcList.filter((pc) => pc.manager_only),
-  );
+export const getPaymentComboListUnavailableOnline = createSelector(
+  getPaymentComboList,
+  (pcList) => pcList.filter((pc) => pc.manager_only),
+);
 
-const _getPaymentComboPurchaseList = (state: State) =>
+const _getPaymentComboPurchaseList = (state: RootState) =>
   state.paymentCombo.purchase.items;
 
 const getPaymentComboPurchaseList = createSelector(
   [_getPaymentComboPurchaseList, getPaymenComboDataDict],
-  (purchases, combos) =>
-    purchases.map((p) => ({
+  (purchases, combos) => {
+    return purchases.map((p) => ({
       ...p,
       payment_combo: combos[p.payment_combo],
-    })),
+    }));
+  },
 );
 
-export const getPaymentComboPurchaseListByCombo: (
-  State,
-  number,
-) => Array<PaymentCombo> = (state, paymentComboId) =>
+export const getPaymentComboPurchaseListByCombo = (
+  state: RootState,
+  paymentComboId: number,
+) =>
   getPaymentComboPurchaseList(state).filter(
     (purchase) =>
       purchase.payment_combo && purchase.payment_combo.id === paymentComboId,
@@ -64,7 +62,7 @@ export const getPaymentComboForBooking = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
-export const withPaymentPack = memoize((selector: (State: RootState) => any) =>
+export const withPaymentPack = memoize((selector: (state: RootState) => any) =>
   createSelector(
     [selector, getPaymentPackById],
     (comboList, paymentPackData) => {

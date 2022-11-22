@@ -1,4 +1,3 @@
-// @flow
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -9,43 +8,33 @@ import {
   retrievePaymentCombo as retrievePaymentComboAPI,
   deletePaymentCombo as deletePaymentComboAPI,
 } from './api';
+
 import { fetchPrivatePassList as fetchPrivatePassListAPI } from '../private-service/api';
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import type { PaymentComboPayload, PaymentCombo } from './types';
 
-export const paymentComboListActions = {
-  error: createAction('PAYMENT_COMBO/LIST/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO/LIST/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO/LIST/SUCCESS'),
-};
-
-export const paymentComboBulkActions = {
-  error: createAction('PAYMENT_COMBO/BULK/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO/BULK/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO/BULK/SUCCESS'),
-};
-
-export const paymentComboCreateOrUpdateActions = {
-  error: createAction('PAYMENT_COMBO/CREATE_OR_UPDATE/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO/CREATE_OR_UPDATE/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO/CREATE_OR_UPDATE/SUCCESS'),
-};
-
-export const paymentComboDeleteActions = {
-  error: createAction('PAYMENT_COMBO/DELETE/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO/DELETE/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO/DELETE/SUCCESS'),
-};
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  OptionPaginatedCallback,
+  PaginatedResponse,
+} from '../../state/types';
+import type {
+  PaymentComboPayload,
+  PaymentCombo,
+  FetchPaymentComboListParams,
+  FetchPaymentComboPurchaseListParams,
+  PaymentComboPurchase,
+} from './types';
+import { PrivatePass } from '#libs/private-service/types';
 
 export const paymentComboRetrieveActions = {
-  error: createAction('PAYMENT_COMBO/RETRIEVE/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO/RETRIEVE/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO/RETRIEVE/SUCCESS'),
+  error: createAction<Error | null>('PAYMENT_COMBO/RETRIEVE/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO/RETRIEVE/IS_LOADING'),
+  success: createAction<PaymentCombo>('PAYMENT_COMBO/RETRIEVE/SUCCESS'),
 };
-
 export function fetchPaymentCombo(
   id: number,
-  options: OptionCallback,
+  options?: OptionCallback<PaymentCombo>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboRetrieveActions.isLoading(true));
@@ -66,9 +55,14 @@ export function fetchPaymentCombo(
   };
 }
 
+export const paymentComboListActions = {
+  error: createAction<Error | null>('PAYMENT_COMBO/LIST/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO/LIST/IS_LOADING'),
+  success: createAction<PaymentCombo[]>('PAYMENT_COMBO/LIST/SUCCESS'),
+};
 export function fetchPaymentComboList(
-  params: any,
-  options?: OptionCallback<Array<PaymentCombo>>,
+  params?: FetchPaymentComboListParams,
+  options?: OptionCallback<PaymentCombo[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboListActions.isLoading(true));
@@ -89,9 +83,14 @@ export function fetchPaymentComboList(
   };
 }
 
+export const paymentComboBulkActions = {
+  error: createAction<Error | null>('PAYMENT_COMBO/BULK/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO/BULK/IS_LOADING'),
+  success: createAction<PaymentCombo[]>('PAYMENT_COMBO/BULK/SUCCESS'),
+};
 export function fetchPaymentComboBulk(
-  params: any,
-  options?: OptionCallback<Array<PaymentCombo>>,
+  params: FetchPaymentComboListParams,
+  options?: OptionCallback<PaymentCombo[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboBulkActions.isLoading(true));
@@ -112,6 +111,11 @@ export function fetchPaymentComboBulk(
   };
 }
 
+export const paymentComboDeleteActions = {
+  error: createAction<Error | null>('PAYMENT_COMBO/DELETE/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO/DELETE/IS_LOADING'),
+  success: createAction<number>('PAYMENT_COMBO/DELETE/SUCCESS'),
+};
 export function deletePaymentCombo(
   id: number,
   options?: OptionCallback,
@@ -134,9 +138,14 @@ export function deletePaymentCombo(
   };
 }
 
+export const paymentComboCreateOrUpdateActions = {
+  error: createAction<Error | null>('PAYMENT_COMBO/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction<PaymentCombo>('PAYMENT_COMBO/CREATE_OR_UPDATE/SUCCESS'),
+};
 export function createOrUpdatePaymentCombo(
   data: PaymentComboPayload,
-  options?: { onSuccess?: () => void, onError?: () => void },
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboCreateOrUpdateActions.isLoading(true));
@@ -158,14 +167,15 @@ export function createOrUpdatePaymentCombo(
 }
 
 export const paymentComboPurchaseListActions = {
-  error: createAction('PAYMENT_COMBO_PURCHASE/LIST/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO_PURCHASE/LIST/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO_PURCHASE/LIST/SUCCESS'),
+  error: createAction<Error | null>('PAYMENT_COMBO_PURCHASE/LIST/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO_PURCHASE/LIST/IS_LOADING'),
+  success: createAction<PaginatedResponse<PaymentComboPurchase[]>>(
+    'PAYMENT_COMBO_PURCHASE/LIST/SUCCESS',
+  ),
 };
-
 export function fetchPaymentComboPurchaseList(
-  params: any,
-  options?: { onSuccess?: () => void, onError?: () => void },
+  params: FetchPaymentComboPurchaseListParams,
+  options?: OptionPaginatedCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboPurchaseListActions.isLoading(true));
@@ -187,18 +197,20 @@ export function fetchPaymentComboPurchaseList(
 }
 
 export const paymentComboForBookingActions = {
-  error: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/ERROR'),
-  isLoading: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/IS_LOADING'),
-  success: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/SUCCESS'),
+  error: createAction<Error | null>('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/ERROR'),
+  isLoading: createAction<boolean>(
+    'PAYMENT_COMBO_PURCHASE/FOR_BOOKING/IS_LOADING',
+  ),
+  success: createAction<PaymentCombo[]>(
+    'PAYMENT_COMBO_PURCHASE/FOR_BOOKING/SUCCESS',
+  ),
   reset: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/RESET'),
 };
-
 export const resetPaymentComboForBooking = paymentComboForBookingActions.reset;
-
 export function fetchPaymentComboForBooking(
   company: number,
   offer: number,
-  options: OptionCallback,
+  options: OptionCallback<PaymentCombo[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboForBookingActions.isLoading(true));
@@ -225,12 +237,11 @@ export function fetchPaymentComboForBooking(
 }
 
 export const relatedPrivatePassBulkActions = {
-  error: createAction('RELATED_PRIVATE_PASS/BULK/ERROR'),
-  isLoading: createAction('RELATED_PRIVATE_PASS/BULK/ISLOADING'),
-  success: createAction('RELATED_PRIVATE_PASS/BULK/SUCCESS'),
+  error: createAction<Error | null>('RELATED_PRIVATE_PASS/BULK/ERROR'),
+  isLoading: createAction<boolean>('RELATED_PRIVATE_PASS/BULK/ISLOADING'),
+  success: createAction<PrivatePass[]>('RELATED_PRIVATE_PASS/BULK/SUCCESS'),
 };
-
-export function fetchRelatedPrivatePassBulk(ids: Array<number>) {
+export function fetchRelatedPrivatePassBulk(ids: number[]) {
   return async (dispatch: Dispatch) => {
     dispatch(relatedPrivatePassBulkActions.isLoading(true));
     dispatch(relatedPrivatePassBulkActions.error(null));

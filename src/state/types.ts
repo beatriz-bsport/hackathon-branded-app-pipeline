@@ -75,6 +75,8 @@ export type PaginatedResponse<T = void> = {
   links: { next: number | null; previous: number | null };
   next_page: number | null;
   results: Array<T>;
+  page?: number;
+  count?: number;
 };
 export type ErrorAndLoading = {
   loading: boolean;

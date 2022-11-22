@@ -1,5 +1,7 @@
 import { TFunction } from 'i18next';
+// @ts-ignore
 import memoize from 'memoize-one';
+import { PrivateService } from '#libs/private-service/types';
 
 export const getMergeTags = memoize(
   (tags: { [tag_name: string]: string[] }, t: TFunction) => {
@@ -41,3 +43,8 @@ export const getSendingTimeNotification = (
 
   return [daysSubmit, hoursSubmit];
 };
+
+export const getAvailablePrivateServices = memoize(
+  (privateServiceList: PrivateService[]) =>
+    (privateServiceList || []).filter((ps: PrivateService) => !!ps.available),
+);

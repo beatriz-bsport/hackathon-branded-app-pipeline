@@ -25,6 +25,7 @@ import { PrivatePass, PrivateService } from '../../private-service/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { MaterialStyleType } from '../../../utils/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+import { getAvailablePrivateServices } from '../utils';
 
 type Identifier =
   | 'meta_activity'
@@ -168,6 +169,9 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
   render() {
     const { classes, t, identifier, establishmentGroups } = this.props;
+    const availablePrivateServices = getAvailablePrivateServices(
+      this.props.privateServices,
+    );
 
     return (
       <Dialog open onClose={this.props.onClose}>
@@ -219,9 +223,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
             {identifier === 'private_service' && (
               <PrivateServiceSelector
-                privateServices={this.props.privateServices.filter(
-                  (ps: PrivateService) => !!ps.available,
-                )}
+                privateServices={availablePrivateServices}
                 privateServiceId={this.state.selectedPrivateService}
                 onChange={(value) => this.onChange('private_service', value)}
               />

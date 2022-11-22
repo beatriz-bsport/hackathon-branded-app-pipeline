@@ -186,6 +186,9 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
           : chroma(theme.palette.primary.main).rgb(),
       ),
     }),
+    showInfo: {
+      borderRadius: theme.spacing(0.5),
+    },
   }),
 );
 
@@ -348,10 +351,15 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
             {!oneToOneThreadMember &&
               !reverse &&
               communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
-                <CommunicationThreadNumberRecipients
-                  photos={photos}
-                  numberRecipients={communication.total_recipients}
-                />
+                <ButtonBase
+                  onClick={onShowInformationClick}
+                  className={classes.showInfo}
+                >
+                  <CommunicationThreadNumberRecipients
+                    photos={photos}
+                    numberRecipients={communication.total_recipients}
+                  />
+                </ButtonBase>
               )}
             {reverse && !!answerSourceMember && (
               <Avatar

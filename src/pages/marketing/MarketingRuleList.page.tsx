@@ -93,7 +93,7 @@ import {
   getAvailableEstablishmentList,
   withEstablishment,
 } from '#libs/establishment/selectors';
-import { _getPrivateServices } from '#libs/private-service/selectors/private-service';
+import { _getAvailablePrivateServices } from '#libs/private-service/selectors/private-service';
 import NotificationsList from '#libs/marketing/components/MarketingRuleNotificationList.component';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -554,7 +554,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentGroups: withEstablishment(getAssociatedEstablishmentGroup)(
     state,
   ) as Array<EstablishmentGroup>,
-  privateServices: _getPrivateServices(state),
+  privateServices: _getAvailablePrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),
   contracts: getActiveContractList(state),
   comm: state.communication,

@@ -29,6 +29,12 @@ export const _getPrivateServices = createSelector(
   (list, data) => list.map((id) => data[id]),
 );
 
+export const _getAvailablePrivateServices: (
+  state: RootState,
+) => Array<PrivateService> = createSelector(
+  [_getPrivateServicesListId, _getPrivateServicesById],
+  (list, data) => list.map((id) => data[id]).filter((ps) => !!ps.available),
+);
 export const _getPrivateServicesMarketplaceListId = (state: RootState) =>
   state.privateService.privateService.marketplaceIds;
 

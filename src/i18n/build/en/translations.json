@@ -2527,6 +2527,9 @@
             "usePaymentComboTaxOnItems": {
                 "label": "Apply a general VAT / Sales Tax rate on this pack",
                 "helperText": "By default, a unique VAT / Sales Tax rate will be applied per product. Activate this option to apply a general VAT / Sales Tax rate."
+            },
+            "error": {
+                "atLeastOneThing": "You must add at least one item to your pack"
             }
         },
         "detail": {
@@ -5342,7 +5345,15 @@
             "copyLink": "Copy the link"
         },
         "saveRecord": "Save",
-        "delete": "Delete"
+        "delete": "Delete",
+        "duration": {
+            "minute": "{{ count }} minute",
+            "minute_plural": "{{ count }} minutes",
+            "hour": "{{ count }} hour",
+            "hour_plural": "{{ count }} hours",
+            "day": "{{ count }} day",
+            "day_plural": "{{ count }} days"
+        }
     },
     "workshop": {
         "search": "Search a workshop",
@@ -9766,6 +9777,10 @@
                     "canDelete": "Are you sure that you want to delete this activity? The sessions and past bookings won't be modified. This action can't be undone."
                 },
                 "title": "Delete an activity"
+            },
+            "warning": {
+                "highLastBookingBeforeWarning": "Please note that {{ durationFormatted }} before the start of the session, no more reservations will be possible!",
+                "lowFirsBookingUntilWarning": "Please note that you must wait until {{ durationFormatted }} before the start of the session in order to make the very first booking!"
             }
         },
         "detail": {

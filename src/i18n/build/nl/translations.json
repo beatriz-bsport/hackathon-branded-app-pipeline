@@ -1946,6 +1946,9 @@
             "usePaymentComboTaxOnItems": {
                 "helperText": "Standaard wordt een individueel btw-tarief gehanteerd per product. Activeer deze optie om een algemeen btw-tarief te hanteren.",
                 "label": "Een algemeen btw-tarief op dit pakket toepassen"
+            },
+            "error": {
+                "atLeastOneThing": "U moet ten minste één item aan uw pakket toevoegen"
             }
         },
         "list": {
@@ -4317,6 +4320,10 @@
                     "offer_form": "(Optioneel) Sessies toevoegen",
                     "workshop_form": "Workshop toevoegen"
                 }
+            },
+            "warning": {
+                "lowFirsBookingUntilWarning": "Let op: u moet wachten tot {{ durationFormatted }} voor het begin van de sessie om de allereerste boeking te maken!",
+                "highLastBookingBeforeWarning": "Houd er rekening mee dat {{ durationFormatted }} voor het begin van de sessie geen reserveringen meer mogelijk zijn!"
             }
         },
         "detail": {
@@ -10156,6 +10163,14 @@
                 "validity": "Geldigheid"
             },
             "copyLink": "Kopieer de link"
+        },
+        "duration": {
+            "minute": "{{ count }} minuut",
+            "minute_plural": "{{ count }} minuten",
+            "hour": "{{ count }} uur",
+            "hour_plural": "{{ count }} uren",
+            "day": "{{ count }} dag",
+            "day_plural": "{{ count }} dagen"
         }
     },
     "workshop": {

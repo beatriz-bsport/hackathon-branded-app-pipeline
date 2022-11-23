@@ -7615,6 +7615,9 @@
             "usePaymentComboTaxOnItems": {
                 "helperText": "Por defecto, el impuesto que se aplica a cada objeto es el indicado en el mismo. Al seleccionar esta opción, podrá aplicar un impuesto general al paquete.",
                 "label": "Aplicar un IVA general a todo el paquete"
+            },
+            "error": {
+                "atLeastOneThing": "Debes añadir al menos un artículo a tu pack"
             }
         },
         "list": {
@@ -8856,6 +8859,14 @@
                 "validity": "Validez"
             },
             "copyLink": "Copiar el enlace"
+        },
+        "duration": {
+            "minute": "{{ count }} minuto",
+            "minute_plural": "{{ count }} minutos",
+            "hour": "{{ count }} hora",
+            "hour_plural": "{{ count }} horas",
+            "day": "{{ count }} día",
+            "day_plural": "{{ count }} días"
         }
     },
     "snackbar": {
@@ -10625,6 +10636,10 @@
                     "createPass": "Crear un bono",
                     "seeMore": "Ver más"
                 }
+            },
+            "warning": {
+                "lowFirsBookingUntilWarning": "Tenga en cuenta que tiene que esperar hasta {{ durationFormatted }} antes del inicio de la sesión para hacer la primera reserva.",
+                "highLastBookingBeforeWarning": "¡Atención, {{ durationFormatted }} antes del inicio de la sesión, no se podrán hacer más reservas!"
             }
         },
         "navigation": {

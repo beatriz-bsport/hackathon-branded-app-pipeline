@@ -6,7 +6,7 @@ import { coachFactory } from '#libs/associated-coach/factories';
 import { defaultThemeParams } from '../../../../theme';
 
 import './MarketplaceWorkshopCard.css'
-// Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1277
+// TODO Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1277
 const metaActivity = {
   id: 36497,
   name: 'Atelier Shakti Dance : Special Nouvelle lune',
@@ -36,7 +36,7 @@ const metaActivity = {
   category: null,
 };
 
-// Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
+// TODO Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
 const offer = {
   id: 364927,
   company: 89,
@@ -125,7 +125,7 @@ const offer = {
   manager_only: false,
 };
 
-// Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
+// TODO Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
 const offers = {
   items: [
     {
@@ -332,7 +332,7 @@ LoadingState.args = {
   loading: true,
   showOfferFilling: false,
   offerDetailsloading: false,
-  offers:[],
+  offers: [],
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},

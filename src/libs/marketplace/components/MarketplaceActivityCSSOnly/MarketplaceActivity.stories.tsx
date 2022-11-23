@@ -5,7 +5,7 @@ import bsportTheme from '../../../../../.storybook/bsport-theme';
 import { useTheme } from '@material-ui/core';
 import { any } from 'prop-types';
 
-// Create Clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1277
+// TODO Create Clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1277
 const metaActivity = {
   id: 36497,
   name: 'Atelier Shakti Dance : Special Nouvelle lune',
@@ -35,7 +35,7 @@ const metaActivity = {
   category: null,
 };
 
-// Create Clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
+// TODO Create Clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
 const offer = {
   id: 364927,
   company: 89,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CanvasSpot,{CanvasSpotProps} from './CanvasSpot.component';
+import CanvasSpot, {CanvasSpotProps} from './CanvasSpot.component';
 
 
 const CustomTemplate = (args:CanvasSpotProps) => {

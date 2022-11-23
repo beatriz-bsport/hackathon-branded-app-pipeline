@@ -256,9 +256,9 @@ export function fetchCommunicationsPaginatedMembers(
             page: params.page || 1,
           }),
         );
-        if (options && options.onSuccess) {
-          options.onSuccess();
-        }
+      }
+      if (options && options.onSuccess) {
+        options.onSuccess();
       }
     } catch (error) {
       dispatch(memberListForCommunicationActions.error(error));

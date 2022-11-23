@@ -229,7 +229,10 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     [memberListForCommunicationActions.reset.toString()]: (state) => {
       return state
         .setIn(['communication', 'page'], 1)
-        .setIn(['communication', 'allPageIds'], []);
+        .setIn(['communication', 'allPageIds'], [])
+        .setIn(['communication', 'countTotal'], 0)
+        .setIn(['communication', 'countWithEmail'], 0)
+        .setIn(['communication', 'countWithPhone'], 0);
     },
     [memberCountObject.success.toString()]: (state, action) => {
       return state.setIn(['count', 'data'], action.payload);

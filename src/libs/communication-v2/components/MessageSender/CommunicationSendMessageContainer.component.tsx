@@ -76,6 +76,7 @@ type OwnProps = {
     options?: OptionCallback<void>,
   ) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
+  resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
   resolvedGenericTags: ResolvedGenericTags;
   tagCategories: { [tag_name: string]: string[] };
 };
@@ -131,10 +132,7 @@ export class CommunicationSendMessageContainer extends React.Component<
       openTemplateVisualizer: false,
       openRecipientSelector: false,
       validity: null,
-      checkedMemberCategoryFilter:
-        props.allMemberCategoryList?.categories?.map(
-          (category) => category.categoryIdentifier,
-        ) || [],
+      checkedMemberCategoryFilter: [],
       selectedMemberDetailListAllKinds: {
         email: [],
         phone: [],
@@ -335,36 +333,43 @@ export class CommunicationSendMessageContainer extends React.Component<
   onCloseHTMLPreviewDialog = () =>
     this.setState({ openTemplateVisualizer: false });
 
-  sendMessageWithFlushEditAndRefreshCallback = (data: MessageData) => {
-    const onSuccess = () => {
-      this.setState(
-        {
-          uncheckedMembers: {
-            email: [],
-            phone: [],
-            notification: [],
-          },
-          mailTemplateSelected: null,
-          mailTitle: '',
-          mailContent: '',
-          smsContent: '',
-          notificationTitle: '',
-          notificationContent: '',
-          focusTextField: null,
-          openTemplateSelector: false,
-          openRecipientSelector: false,
-          openTemplateVisualizer: false,
-          validity: null,
-          checkedMemberCategoryFilter:
-            this.props.allMemberCategoryList?.categories?.map(
-              (category) => category.categoryIdentifier,
-            ) || [],
+  flushEditAndRefreshCallback = () => {
+    this.setState(
+      {
+        uncheckedMembers: {
+          email: [],
+          phone: [],
+          notification: [],
         },
-        this.getSelectedMembersDetailsAllKinds,
-      );
-    };
+        mailTemplateSelected: null,
+        mailTitle: '',
+        mailContent: '',
+        smsContent: '',
+        notificationTitle: '',
+        notificationContent: '',
+        focusTextField: null,
+        openTemplateSelector: false,
+        openRecipientSelector: false,
+        openTemplateVisualizer: false,
+        validity: null,
+        checkedMemberCategoryFilter: [],
+      },
+      this.getSelectedMembersDetailsAllKinds,
+    );
+  };
+
+  flushEditAndRefreshCallbackWithReset = () => {
+    // We reset to an initial state with no selected category and no selected members
+    this.props.resetPaginatedAvailableRecipientMemberList({
+      onSuccess: this.flushEditAndRefreshCallback,
+    });
+  };
+
+  sendMessageWithFlushEditAndRefreshCallback = (data: MessageData) => {
     this.props.sendCommunication(data, this.state.checkedMemberCategoryFilter, {
-      onSuccess,
+      onSuccess: this.props.allMemberCategoryList
+        ? this.flushEditAndRefreshCallbackWithReset
+        : this.flushEditAndRefreshCallback,
     });
   };
 

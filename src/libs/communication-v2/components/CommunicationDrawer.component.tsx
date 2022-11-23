@@ -74,28 +74,16 @@ export class CommunicationDrawer extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
-    this.props.fetchPaginatedAvailableRecipientMemberList(
-      1,
-      this.props.allMemberCategoryList?.categories?.map(
-        (category) => category.categoryIdentifier,
-      ) || [],
-    );
+    this.props.fetchPaginatedAvailableRecipientMemberList(1);
     this.fetchThreadCommunicationList();
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
-    const categoryIdentifierList =
-      this.props.allMemberCategoryList?.categories?.map(
-        (category) => category.categoryIdentifier,
-      ) || [];
     if (prevProps.contextObjectId !== this.props.contextObjectId) {
       this.fetchThreadCommunicationList();
-      this.props.fetchPaginatedAvailableRecipientMemberList(
-        1,
-        categoryIdentifierList,
-      );
+      this.props.fetchPaginatedAvailableRecipientMemberList(1);
     }
     if (
       !isEqual(
@@ -103,10 +91,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
         this.props.propToListenToReloadRecipients,
       )
     ) {
-      this.props.fetchPaginatedAvailableRecipientMemberList(
-        1,
-        categoryIdentifierList,
-      );
+      this.props.fetchPaginatedAvailableRecipientMemberList(1);
     }
   }
 
@@ -357,6 +342,9 @@ export class CommunicationDrawer extends React.Component<Props, State> {
                 pageSize={PAGINATION_SIZE_RECIPIENTS}
                 sendCommunication={this.sendCommunication}
                 setCommunicationKind={this.setCommunicationKindBeingWritten}
+                resetPaginatedAvailableRecipientMemberList={
+                  this.props.resetPaginatedAvailableRecipientMemberList
+                }
                 resolvedGenericTags={resolvedGenericTags}
                 tagCategories={tagCategories}
               />

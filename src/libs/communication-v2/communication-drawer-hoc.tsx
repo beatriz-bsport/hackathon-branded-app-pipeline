@@ -50,7 +50,6 @@ import {
 import { getPaginatedMembers } from '#libs/member/selectors';
 import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
 
-// THEME
 import themeSelectors from '#libs/theme/selectors';
 
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
@@ -82,6 +81,7 @@ type WithHandlers = {
     page: number,
     memberSelectedCategories?: number[],
   ) => void;
+  resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
 };
 
 const connector = connect(
@@ -111,7 +111,6 @@ const connector = connect(
     // TAGS
     resolvedGenericTags: getResolvedGenericTags(state),
     tagCategories: getTagCategories(state),
-    // THEME
     theme: themeSelectors.getTheme(state),
   }),
   {
@@ -210,6 +209,15 @@ export default function withCommunicationData(
             page,
             ignore_ids: true,
           });
+        },
+      resetPaginatedAvailableRecipientMemberList:
+        (props: CommunicationConnectedProps) => (options: OptionCallback) => {
+          props.fetchPaginatedMemberList(
+            {
+              reset: true,
+            },
+            options,
+          );
         },
       sendCommunication:
         (props: CommunicationConnectedProps) =>

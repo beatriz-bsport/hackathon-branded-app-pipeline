@@ -166,7 +166,9 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
                     nbItems={this.props.consumerPacks.count}
                     loading={this.props.consumerPacks.loading}
                     page={this.props.consumerPacks.page}
-                    consumerPacksUpdating={this.props.consumerPacks.updating}
+                    consumerPacksUpdatingById={
+                      this.props.consumerPacks.updatingById
+                    }
                     itemPerPage={CONSUMER_PACKS_PAGE_SIZE}
                     onPageRequested={(page: number, pageSize: number) =>
                       this.props.fetchConsumerPacks(
@@ -256,6 +258,7 @@ export default compose(
           state.consumerPaymentPack.byPaymentPack.loading ||
           state.paymentPack.loading,
         page: state.consumerPaymentPack.byPaymentPack.page,
+        updatingById: state.consumerPaymentPack.updatingById,
       },
     }),
     {

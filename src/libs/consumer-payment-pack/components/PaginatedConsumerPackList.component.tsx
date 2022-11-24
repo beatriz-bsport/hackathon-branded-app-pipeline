@@ -69,7 +69,7 @@ export const PaginatedConsumerPackList = (props: Props) => (
         decrementCredit={props.decrementCredit}
         incrementCredit={props.incrementCredit}
         onClick={props.onClick ? () => props.onClick(cpp) : null}
-        updating={props.consumerPacksUpdatingById[cpp?.id] ?? false}
+        updating={(props.consumerPacksUpdatingById || {})[cpp?.id] ?? false}
       />
     )}
   />

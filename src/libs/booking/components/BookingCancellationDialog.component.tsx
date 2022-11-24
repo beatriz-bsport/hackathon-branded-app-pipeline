@@ -208,7 +208,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
               });
             }}
           >
-            {t('common.delete')}
+            {t('common.confirm')}
           </RedButton>
         )}
       </DialogActions>

@@ -30,15 +30,15 @@ import {
 } from '#libs/communication-v2/constants';
 import { getSmartlistChannelFromMetadata } from '#libs/communication-v2/utils';
 
-const useStyles = makeStyles<Theme, { reverse: boolean; withChannel: boolean }>(
+const useStyles = makeStyles<Theme, { reverse: boolean; withTopGap: boolean }>(
   (theme) => ({
     container: (props) => ({
       width: '100%',
       paddingLeft: props.reverse ? theme.spacing(9) : 4,
       paddingRight: theme.spacing(4),
-      paddingTop: props.withChannel ? theme.spacing(3) : theme.spacing(1),
+      paddingTop: props.withTopGap ? theme.spacing(3) : theme.spacing(1),
       paddingBottom: theme.spacing(1),
-      marginTop: props.withChannel ? theme.spacing(2) : theme.spacing(1),
+      marginTop: props.withTopGap ? theme.spacing(2) : theme.spacing(1),
       display: 'flex',
       justifyContent: props.reverse ? 'flex-start' : 'flex-end',
       [theme.breakpoints.down('sm')]: {
@@ -219,8 +219,12 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
   const withChannel =
     (!!oneToOneThreadMember || channel === COMMUNICATION_CHANNEL_SMARTLIST) &&
     !reverse;
+  const withAnswerPaddingTop = reverse && !oneToOneThreadMember;
 
-  const classes = useStyles({ reverse, withChannel });
+  const classes = useStyles({
+    reverse,
+    withTopGap: withChannel || withAnswerPaddingTop,
+  });
   const { t } = useTranslation('communication');
 
   const finalChannel = useMemo(() => {

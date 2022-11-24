@@ -22,18 +22,22 @@ type Props = {
 
   dialogOpen: ?Object,
   nbAlerting: number,
+  countAlertingCommunication: number,
   alertings: Array<AlertGroup>,
   deleteAlert: DeleteAlert,
   showMore: (alert_kind: number) => void,
+  overrideIcon: any,
 };
 
 export default function AlertButtonMenu(props: Props) {
-  const { setDialogOpen, dialogOpen, nbAlerting, alertings } = props;
+  const { setDialogOpen, dialogOpen, nbAlerting, alertings, overrideIcon } =
+    props;
   const dispatch = useDispatch();
   const pushRouter = (path) => {
     dispatch(push(path));
   };
   const classes = useStyles();
+  const Icon = overrideIcon || NotificationIcon;
   return (
     <div>
       <IconButton
@@ -42,13 +46,13 @@ export default function AlertButtonMenu(props: Props) {
         }}
       >
         <Badge badgeContent={nbAlerting || null} color="error">
-          <NotificationIcon />
+          <Icon />
         </Badge>
       </IconButton>
       <Popper
         anchorEl={dialogOpen}
         open={!!dialogOpen}
-        id={dialogOpen ? 'simple-popper' : null}
+        id={dialogOpen ? `simple-popper${overrideIcon}` : null}
         style={{ color: 'red', zIndex: 10000 }}
         modifiers={{
           placement: 'bottom',

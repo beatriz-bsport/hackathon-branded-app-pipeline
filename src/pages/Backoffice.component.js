@@ -12,6 +12,10 @@ import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
 import moment from 'moment-timezone';
+import {
+  UNREAD_COMMUNICATION,
+  // @ts-ignore
+} from '@bsport/common/lib/master-data/alerting_kind';
 import i18n from '../i18n/index';
 import {
   retrieveStripeAccountStatusAction,
@@ -88,6 +92,11 @@ import {
 } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
+import type {
+  Alerting,
+  UnreadCommunicationAlerting,
+  DeleteAlert,
+} from '#libs/alerting/types';
 import {
   fetchCompanyRoles,
   fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction,
@@ -121,7 +130,6 @@ import type { PlatformSubscriptionPaymentStatus } from '../libs/platform-billing
 import { BLOCK_BACKOFFICE, WARN } from '../libs/platform-billing/constant';
 import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
-import { DeleteAlert } from '#libs/alerting/types';
 import type { OptionCallback } from '../state/types';
 
 const CompanyDetailPage = asyncComponent(() =>
@@ -214,7 +222,9 @@ const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
 
 type Props = {
   alertings: Array<Alerting>,
+  messageAlertings: Array<UnreadCommunicationAlerting>,
   nbAlerting: number,
+  countAlertingCommunication: number,
   nbTutorialAlerting: number,
   userAcknowlegdePlatformTutorial: boolean,
   permissions: RolePermission,
@@ -635,7 +645,11 @@ export class Backoffice extends Component<Props, State> {
                 theme={this.props.theme}
                 onSubmit={this.props.updateCashBook}
                 alertings={this.props.alertings}
+                messageAlertings={this.props.messageAlertings}
                 nbAlerting={this.props.nbAlerting}
+                countAlertingCommunication={
+                  this.props.countAlertingCommunication
+                }
                 nbTutorialAlerting={this.props.nbTutorialAlerting}
                 userAcknowlegdePlatformTutorial={
                   this.props.userAcknowlegdePlatformTutorial
@@ -833,7 +847,15 @@ export default compose(
   connect(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),
+      messageAlertings: alertingSelectors.getOneKind(
+        state,
+        UNREAD_COMMUNICATION.alert_kind,
+      ),
       nbAlerting: alertingSelectors.countAlerting(state),
+      countAlertingCommunication: alertingSelectors.countAlertingForKind(
+        state,
+        UNREAD_COMMUNICATION.alert_kind,
+      ),
       nbTutorialAlerting: alertingSelectors.countTutorialAlerting(state),
       userAcknowlegdePlatformTutorial: userAcknowlegdePlatformTutorial(state),
       username: state.auth.username,

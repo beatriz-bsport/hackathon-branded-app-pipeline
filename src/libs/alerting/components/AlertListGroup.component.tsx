@@ -21,7 +21,10 @@ import {
   WithTranslation,
 } from 'react-i18next';
 import { compose, withState } from 'recompose';
-import { NEW_TUTORIAL_SECTION_OR_LESSON } from '@bsport/common/lib/master-data/alerting_kind';
+import {
+  NEW_TUTORIAL_SECTION_OR_LESSON,
+  UNREAD_COMMUNICATION,
+} from '@bsport/common/lib/master-data/alerting_kind';
 import RedIconButton from '../../../components/button/RedIconButton.component';
 
 import type { AlertGroup, DeleteAlert } from '../types';
@@ -48,6 +51,7 @@ type RealAllButtonProps = {
 
 const READ_ALL_ALLOWED_ALERT_KINDS = [
   NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind,
+  UNREAD_COMMUNICATION.alert_kind,
 ];
 
 const ReadAllButton = (props: RealAllButtonProps) => {
@@ -78,8 +82,10 @@ const ReadAllButton = (props: RealAllButtonProps) => {
 const useReadAllStyles = makeStyles((theme: Theme) => ({
   container: {
     marginLeft: theme.spacing(2),
-    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 
@@ -133,10 +139,6 @@ export const AlertListGroup = (props: Props) => {
             deleteAlert={props.deleteAlert}
           />
         ))}
-        <ReadAllButton
-          alert_group={props.alert_group}
-          deleteAlert={props.deleteAlert}
-        />
         {props.alert_group.loading ? <LinearProgress /> : null}
         {props.alert_group.next ? (
           <div
@@ -146,6 +148,10 @@ export const AlertListGroup = (props: Props) => {
             <Button onClick={props.onShowMore}>{props.t('showMore')}</Button>
           </div>
         ) : null}
+        <ReadAllButton
+          alert_group={props.alert_group}
+          deleteAlert={props.deleteAlert}
+        />
       </Collapse>
     </List>
   );
@@ -161,6 +167,8 @@ const styles = (theme: Theme) =>
       margin: 0,
     },
     showMoreContainer: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

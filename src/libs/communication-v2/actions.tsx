@@ -7,6 +7,7 @@ import {
   fetchCommunicationSent as fetchCommunicationSentAPI,
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAPI,
   sendCommunication as sendCommunicationAPI,
+  flagCommunicationRecipientAsRead as flagCommunicationRecipientAsReadAPI,
 } from './api';
 import {
   FetchCommunicationParams,
@@ -156,5 +157,29 @@ export function fetchCommunicationRecipientList(
       dispatch(recipientAction.error(error));
     }
     dispatch(recipientAction.isLoading(false));
+  };
+}
+
+export const flagAsReadActions = {
+  error: createAction('COMMUNICATION_RECIPIENT/FLAG_AS_READ/ERROR'),
+  success: createAction('COMMUNICATION_RECIPIENT/FLAG_AS_READ/SUCCESS'),
+  isLoading: createAction('COMMUNICATION_RECIPIENT/FLAG_AS_READ/IS_LOADING'),
+};
+
+export function flagCommunicationRecipientAsRead(
+  id: number,
+  options: OptionCallback<Recipient>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(flagAsReadActions.isLoading(true));
+    dispatch(flagAsReadActions.error(null));
+    try {
+      const response = await flagCommunicationRecipientAsReadAPI(id);
+      dispatch(flagAsReadActions.success(response.data));
+      if (options?.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(flagAsReadActions.error(error));
+    }
+    dispatch(flagAsReadActions.isLoading(false));
   };
 }

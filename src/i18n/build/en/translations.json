@@ -8941,7 +8941,8 @@
             "4": "Appointment to complete",
             "5": "Legal information",
             "6": "Unpaid appointments",
-            "7": "Tutorials"
+            "7": "Tutorials",
+            "9": "Inbox"
         },
         "showMore": "Show more",
         "unevenInvoice": {

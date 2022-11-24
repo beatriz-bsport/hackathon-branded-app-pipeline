@@ -5,6 +5,7 @@ import {
   NEW_ORDER_ALERT,
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
+  UNREAD_COMMUNICATION,
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
@@ -15,11 +16,13 @@ import api from './api';
 import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { RootState } from '../../reducers';
 import { updateTutorialLessonUserCompletionStatusAction } from '#libs/platform-tutorial/actions';
+import { flagAsReadActions as updateUnreadCommunicationAsReadAction } from '#libs/communication-v2/actions';
 
 const ALERT_KINDS = [
   UNEVEN_INVOICE_ALERT,
   NEW_ORDER_ALERT,
   REMINDER_NOTE_ALERT_KIND,
+  UNREAD_COMMUNICATION,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
@@ -62,9 +65,8 @@ export function delete_(id: number): ThunkAction {
 }
 
 export function fetchAll(): ThunkAction {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) =>
     ALERT_KINDS.map((al) => dispatch(fetch(al, 1)));
-  };
 }
 
 export function fetchMoreAlertingKind(kind: number) {
@@ -110,6 +112,7 @@ export function performAction(id: number, action_name: string): ThunkAction {
 const ACTIONS_DICT = {
   [NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind]:
     updateTutorialLessonUserCompletionStatusAction,
+  [UNREAD_COMMUNICATION.alert_kind]: updateUnreadCommunicationAsReadAction,
 };
 
 export function deleteAlert(

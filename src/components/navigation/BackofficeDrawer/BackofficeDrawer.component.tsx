@@ -19,10 +19,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import ListItemText from '@material-ui/core/ListItemText';
+import Grow from '@material-ui/core/Grow';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TimerIcon from '@material-ui/icons/Timer';
+import MessageIcon from '@material-ui/icons/Message';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -102,9 +104,11 @@ type Props = {
   theme: CompanyTheme;
   nbAlerting: number;
   nbTutorialAlerting: number;
+  countAlertingCommunication: number;
   userAcknowlegdePlatformTutorial: boolean;
   updateUserAcknowlegdeTutorial: () => void;
   alertings: Array<Alerting>;
+  messageAlertings: Array<Alerting>;
   disconnect: () => void;
   logo?: string;
   hidden: boolean;
@@ -170,7 +174,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   children,
   theme,
   nbAlerting,
+  countAlertingCommunication,
   alertings,
+  messageAlertings,
   disconnect,
   logo,
   hidden,
@@ -224,7 +230,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   const [tempPasswordDialogOpen, setTempPasswordDialogOpen] =
     React.useState(false);
   const [clockInDialogOpen, setClockInDialogOpen] = React.useState(false);
+
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [messageDialogOpen, setMessageDialogOpen] = React.useState(false);
+
   const [openWelcometutorialDialog, setOpenWelcometutorialDialog] =
     React.useState(false);
 
@@ -287,6 +296,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   };
   const handleDrawerToggleButton = () => setMobileOpen(!mobileOpen);
   const handleNotificationButton = (value: boolean) => setDialogOpen(value);
+  const handleMessageNotificationButton = (value: boolean) =>
+    setMessageDialogOpen(value);
+
   const openTempPasswordDialog = () => {
     fetchTempPassword();
     setTempPasswordDialogOpen(true);
@@ -584,6 +596,22 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     wrap="nowrap"
                   >
                     <Hidden xsDown>
+                      {permissions?.appbarButtons?.notificationCenter &&
+                        !!countAlertingCommunication && (
+                          <Grow in>
+                            <Grid item>
+                              <AlertButtonMenu
+                                alertings={messageAlertings}
+                                overrideIcon={MessageIcon}
+                                nbAlerting={countAlertingCommunication}
+                                deleteAlert={deleteAlert}
+                                showMore={fetchMoreAlertingKind}
+                                dialogOpen={messageDialogOpen}
+                                setDialogOpen={handleMessageNotificationButton}
+                              />
+                            </Grid>
+                          </Grow>
+                        )}
                       {hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
                         (permissions?.navigationMenu?.payments?.clockIn
                           ?.selfClockIn ||

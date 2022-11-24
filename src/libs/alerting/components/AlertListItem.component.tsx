@@ -3,6 +3,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {
@@ -13,6 +14,7 @@ import {
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
+  UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
@@ -44,8 +46,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+  },
   withTopMargin: {
     marginTop: theme.spacing(1),
+  },
+  marginRight: {
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -270,6 +281,53 @@ const TaskAlertListItem = (props: {
   );
 };
 
+const UnreadCommunicationListItem = (props: {
+  pushRouter: (path: string) => void;
+  deleteAlert: (alert_kind: number, id: number) => void;
+  alerting: TaskAlerting;
+}) => {
+  const { alerting } = props;
+  const classes = useStyles();
+  const { name, content, id, photo, member } = alerting.data;
+
+  return (
+    <ListItem divider>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <div className={classes.row}>
+            <Avatar className={classes.marginRight} src={photo} />
+            <div>
+              <Typography variant="subtitle1" component="h3">
+                {name}
+              </Typography>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                component="h4"
+              >
+                {moment(alerting.data.date_created).format('lll')}
+              </Typography>
+            </div>
+          </div>
+          <div className={classes.titleContainer}>
+            <IconButton
+              onClick={() => {
+                props.deleteAlert(UNREAD_COMMUNICATION.alert_kind, id);
+                props.pushRouter(`/member/${member}/`);
+              }}
+            >
+              <ArrowForwardIcon color="secondary" />
+            </IconButton>
+          </div>
+        </div>
+        <Typography variant="caption" component="p">
+          {content}
+        </Typography>
+      </div>
+    </ListItem>
+  );
+};
+
 const UnpaidPrivateBookingIncompleteListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: PrivateBookingAlerting;
@@ -336,13 +394,16 @@ const NewTutorialSectionOrLessonListItem = (props: {
   const title = t(`newTutorialSectionOrLesson.${notificationType}.title`, {
     name: lesson_names[lang],
   });
+
   const content = t(`newTutorialSectionOrLesson.${notificationType}.content`, {
     name: section_names[lang],
   });
+
   const onClick = React.useCallback(() => {
     deleteAlert(NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind, lesson_id);
     pushRouter(`/tutorial/${section_id}/${lesson_id}`);
   }, [deleteAlert, pushRouter, section_id, lesson_id]);
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -396,6 +457,14 @@ export default function AlertList(props: Props) {
     case NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind:
       return (
         <NewTutorialSectionOrLessonListItem
+          alerting={alerting}
+          pushRouter={pushRouter}
+          deleteAlert={deleteAlert}
+        />
+      );
+    case UNREAD_COMMUNICATION.alert_kind:
+      return (
+        <UnreadCommunicationListItem
           alerting={alerting}
           pushRouter={pushRouter}
           deleteAlert={deleteAlert}

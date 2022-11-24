@@ -50,3 +50,9 @@ export const fetchFirstSelectedRecipientsForChatAllKinds = async (
     )}`,
   );
 };
+
+export const flagCommunicationRecipientAsRead = async (id: number) => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_recipient/${id}/flag_as_read/`,
+  );
+};

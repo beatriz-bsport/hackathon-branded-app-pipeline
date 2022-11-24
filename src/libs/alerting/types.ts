@@ -63,6 +63,17 @@ export type TaskAlerting = Alerting & {
   };
 };
 
+export type UnreadCommunicationAlerting = Alerting & {
+  data: {
+    name: string;
+    content: string;
+    date_created: string;
+    id: number;
+    photo: string;
+    member: number;
+  };
+};
+
 export type NewTutorialSectionOrLessonAlerting = Alerting & {
   data: {
     section_names: LanguageDict;

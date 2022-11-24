@@ -259,6 +259,7 @@ const mapHandlers = {
     props.fetchMoreVideo({
       status: VideoStatusEnum.processed,
       company: props.companyId,
+      is_marketplace: true,
       ...params,
     });
   },

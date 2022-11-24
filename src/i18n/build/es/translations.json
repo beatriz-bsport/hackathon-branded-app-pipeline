@@ -5683,8 +5683,8 @@
                     "option_payment_url": "Enlace de reserva",
                     "address": "Dirección",
                     "establishment_practical_info": "Acceso a la sala",
-                    "establishment": "Lugar",
-                    "date": "Hora/Fecha sesión",
+                    "establishment": "Establecimiento",
+                    "date": "Hora/Fecha",
                     "coach": "Profesor",
                     "activity": "Actividad"
                 },
@@ -5696,8 +5696,8 @@
                     "ics_calendar_link": "Enlace ics calendario",
                     "address": "Dirección",
                     "establishment_practical_info": "Acceso a la sala",
-                    "establishment": "Lugar",
-                    "date": "Hora/fecha de la sesión",
+                    "establishment": "Establecimiento",
+                    "date": "Hora/fecha",
                     "coach": "Profesor",
                     "activity": "Actividad",
                     "spot": "Lugar",
@@ -5722,11 +5722,11 @@
             },
             "PrivateBooking": {
                 "tags": {
-                    "establishment_practical_info": "Información sobre el acceso a las instalaciones (opcional)",
+                    "establishment_practical_info": "Acceso al establecimiento",
                     "establishment": "Establecimiento",
                     "address": "Dirección",
                     "date": "Hora/Fecha",
-                    "coach": "Profesor (opcional)",
+                    "coach": "Profesor",
                     "activity": "Actividad",
                     "ics_calendar_link": "Enlace al calendario de las TIC"
                 },
@@ -5735,10 +5735,10 @@
             "PrivateConsumerPass": {
                 "tags": {
                     "pass_credit_left": "Cantidad de créditos restantes",
-                    "pass_expiration": "Fecha final cita",
-                    "pass_starting_date": "Fecha de inicio tarjeta cita",
-                    "pass_name": "Nombre tarjeta cita",
-                    "pass_price": "Precio tarjeta cita"
+                    "pass_expiration": "Fecha final bono",
+                    "pass_starting_date": "Fecha de inicio bono",
+                    "pass_name": "Nombre bono",
+                    "pass_price": "Precio bono"
                 },
                 "name": "Tarjeta cita"
             },
@@ -5766,8 +5766,8 @@
                 "tags": {
                     "address": "Dirección",
                     "establishment_practical_info": "Acceso a la sala",
-                    "establishment": "Lugar",
-                    "date": "Hora/fecha sesión",
+                    "establishment": "Establecimiento",
+                    "date": "Hora/fecha",
                     "coach": "Profesor",
                     "activity": "Actividad"
                 },
@@ -5793,7 +5793,7 @@
                     "recurring_booking_fail_reason": "Razón del fracaso de la reserva recurrente",
                     "establishment_practical_info": "Acceso al establecimiento",
                     "establishment": "Establecimiento",
-                    "date": "Hora/fecha de la sesión",
+                    "date": "Hora/fecha",
                     "coach": "Profesor",
                     "address": "Dirección",
                     "activity": "Actividad"
@@ -11546,6 +11546,107 @@
                 "first": "Tiene",
                 "name": "Tarjetas válidas",
                 "explanation": "Tiene X bonos o tarjetas de cita válidas"
+            },
+            "107": {
+                "explanation": "Aceptó las condiciones generales de uso",
+                "first": "tus condiciones generales de uso",
+                "false": "No aceptó",
+                "true": "Aceptó",
+                "name": "condiciones de uso"
+            },
+            "106": {
+                "explanation": "Informó un número de teléfono",
+                "first": "un número de teléfono",
+                "false": "No informó",
+                "true": "Informó",
+                "name": "Teléfono"
+            },
+            "105": {
+                "explanation": "Tiene X relaciones y Y bonos o tarjetas de cita o reservas compartidas",
+                "acceptEmail": {
+                    "second": "correos electrónicos",
+                    "false": "no acepta",
+                    "true": "acepta",
+                    "first": "la relación"
+                },
+                "acceptSms": {
+                    "second": "SMS",
+                    "false": "no acepta",
+                    "true": "acepta",
+                    "first": "la relación"
+                },
+                "receiveCopyOfEmail": {
+                    "second": "copiado al miembro",
+                    "false": "no se envían",
+                    "true": "también se envían",
+                    "first": "correos electrónicos enviados a la relación"
+                },
+                "info": {
+                    "consumerPrivatePasses": "\"válida\" significa que la tarjeta puede utilizarse ahora para reservar una cita",
+                    "consumerPaymentPacks": "\"válido\" significa que el bono puede utilizarse ahora para reservar un clase en grupo"
+                },
+                "validOrNot": "válidas o no",
+                "valid": "válidas",
+                "bookings": "clases en grupo y citas gracias a una tarjeta compartida por el miembro",
+                "consumerPrivatePasses": "de tarjetas de cita",
+                "consumerPaymentPacks": "de bonos",
+                "fourth": "la relación ha reservado un número",
+                "third": "el miembro ha compartido con la relación un número",
+                "second": "de relaciones que respetan los filtros seleccionados:",
+                "first": "Tiene un número",
+                "between": "y",
+                "to": "a",
+                "date": {
+                    "first": "la relación se ha establecido"
+                },
+                "name": "Relaciones"
+            },
+            "104": {
+                "explanation": "Tiene al menos una nota médica (o no)",
+                "date": {
+                    "first": "que se creó"
+                },
+                "info": "Las llamadas notas médicas corresponden a las de la sección \"Información médica\" de la ficha del miembro",
+                "nonMedical": "no médico",
+                "medical": "médico",
+                "medicalOrNot": "médico o no",
+                "first": "Tiene al menos una nota",
+                "name": "Notas"
+            },
+            "103": {
+                "explanation": "Acepta notificaciones por SMS/correo electrónico",
+                "email": "recibir notificaciones por correo electrónico",
+                "sms": "recibir notificaciones por SMS",
+                "false": "No acepta",
+                "true": "Acepta",
+                "oneNeeded": "Debe llenar al menos una de las condiciones activadas",
+                "allNeeded": "Deben llenar todas las condiciones activadas",
+                "name": "Notificaciones"
+            },
+            "102": {
+                "date": {
+                    "first": "completado por la última vez"
+                },
+                "explanation": "Completó X formularios en A% en la fecha B ",
+                "between": "y",
+                "to": "a",
+                "third": "en un porcentaje",
+                "second": "entre",
+                "hasCompletedNone": "No completó",
+                "none": "ningún formulario",
+                "all": "todos los formularios",
+                "atLeastOne": "al menos un formulario",
+                "hasNotCompleted": "No completó",
+                "hasCompleted": "Completó",
+                "name": "Formularios"
+            },
+            "101": {
+                "explanation": "Es menos/más/exactamente...",
+                "second": "años (incluidos)",
+                "to": "a",
+                "between": "y",
+                "first": "Tiene una edad",
+                "name": "Edad"
             }
         },
         "filterCategory": {
@@ -11690,6 +11791,16 @@
                 "warning": "Selecciona al menos un bono o una tarjeta de cita",
                 "privatePassHelperText": "No hay tarjeta de cita",
                 "paymentPackHelperText": "no hay bono"
+            },
+            "customForms": {
+                "warning": "Selecciona al menos un formulario",
+                "helperAllSelectedText": "todos los formularios",
+                "textFieldPlaceholder": "Buscar un formulario",
+                "helperSelectedText": "formularios seleccionados",
+                "helperText": "seleccionar formularios"
+            },
+            "userMarketingNotifications": {
+                "warning": "Activa al menos una de las dos opciones"
             }
         },
         "description": "Descripción",

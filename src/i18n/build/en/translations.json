@@ -2052,7 +2052,7 @@
                 "tags": {
                     "activity": "Group activities",
                     "coach": "Teacher",
-                    "date": "Session's time and date",
+                    "date": "Time and date",
                     "establishment": "Establishments",
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address"
@@ -2071,7 +2071,7 @@
                 "tags": {
                     "activity": "Activity",
                     "coach": "Teacher",
-                    "date": "Session's time and date",
+                    "date": "Time and date",
                     "establishment": "Establishment",
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address",
@@ -2113,7 +2113,7 @@
                 "tags": {
                     "activity": "Activity",
                     "coach": "Teacher",
-                    "date": "Session's time and date",
+                    "date": "Time and date",
                     "establishment": "Establishment",
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address",
@@ -2123,10 +2123,10 @@
             },
             "PrivateBooking": {
                 "tags": {
-                    "establishment_practical_info": "(Optional) Establishment access information",
+                    "establishment_practical_info": "Establishment access information",
                     "address": "Address",
                     "date": "Time and date",
-                    "coach": "(Optional) Teacher",
+                    "coach": "Teacher",
                     "activity": "Activity",
                     "establishment": "Establishment",
                     "ics_calendar_link": "ICS Calendar Link"
@@ -2136,9 +2136,9 @@
             "PrivateConsumerPass": {
                 "tags": {
                     "pass_credit_left": "Remaining credits",
-                    "pass_expiration": "Expiration date of the appointment pass",
-                    "pass_starting_date": "Start date of the appointment pass",
-                    "pass_name": "Name of the appointment pass",
+                    "pass_expiration": "Expiration date of the pass",
+                    "pass_starting_date": "Start date of the pass",
+                    "pass_name": "Name of the pass",
                     "pass_price": "This is the selling price."
                 },
                 "name": "Appointment passes"
@@ -2163,7 +2163,7 @@
                     "recurring_booking_fail_reason": "Reason for recurrent booking failure",
                     "establishment_practical_info": "Establishment access information",
                     "establishment": "Establishment",
-                    "date": "Session's time and date",
+                    "date": "Time and date",
                     "coach": "Teacher",
                     "address": "Address",
                     "activity": "Activity"
@@ -11121,6 +11121,16 @@
                 "warning": "Select at least one pass or one appointment pass",
                 "privatePassHelperText": "There are no appointment passes to display.",
                 "paymentPackHelperText": "no pass"
+            },
+            "customForms": {
+                "warning": "Select at least one form",
+                "helperAllSelectedText": "all forms",
+                "textFieldPlaceholder": "Search for a form",
+                "helperSelectedText": "selected forms",
+                "helperText": "select forms"
+            },
+            "userMarketingNotifications": {
+                "warning": "Activate at least one of the two options"
             }
         },
         "selectToShowPreview": "Select an email to see a preview of it.",
@@ -11604,6 +11614,107 @@
                 "first": "Has",
                 "name": "Valid passes",
                 "explanation": "Has X number of valid passes or appointment passes"
+            },
+            "102": {
+                "hasCompletedNone": "Hasn't completed",
+                "date": {
+                    "first": "completed for the last time"
+                },
+                "explanation": "Has completed X forms at A% on B date ",
+                "between": "and",
+                "to": "to",
+                "third": "at a percentage",
+                "all": "all forms",
+                "atLeastOne": "at least one form",
+                "second": "among",
+                "none": "no form",
+                "hasNotCompleted": "Has not completed",
+                "hasCompleted": "Has completed",
+                "name": "Forms"
+            },
+            "107": {
+                "explanation": "Has accepted the general conditions of use",
+                "first": "your conditions of use",
+                "false": "Did not accept",
+                "true": "Accepted",
+                "name": "Conditions of use"
+            },
+            "106": {
+                "explanation": "Provided a phone number",
+                "first": "a phone number",
+                "true": "Filled in",
+                "false": "Didn't fill in",
+                "name": "Phone"
+            },
+            "105": {
+                "explanation": "Has X relationships and Y passes or appointment passes or shared bookings",
+                "acceptEmail": {
+                    "second": "emails",
+                    "false": "doesn't accept",
+                    "true": "accept",
+                    "first": "the relationship"
+                },
+                "acceptSms": {
+                    "second": "SMS",
+                    "false": "doesn't accept",
+                    "true": "accept",
+                    "first": "the relationship"
+                },
+                "receiveCopyOfEmail": {
+                    "second": "with a copy to the member",
+                    "false": "are not sent",
+                    "true": "are also sent",
+                    "first": "emails sent to the relationship"
+                },
+                "info": {
+                    "consumerPrivatePasses": "\"valid\" means that the pass can be used now to book an appointment",
+                    "consumerPaymentPacks": "\"valid\" means that the pass can be used now to book a group activity"
+                },
+                "validOrNot": "valid or not",
+                "valid": "valid",
+                "bookings": "of group activities and appointments thanks to a pass shared by the member",
+                "consumerPrivatePasses": "of appointment passes",
+                "consumerPaymentPacks": "of passes",
+                "fourth": "the relationship has booked a number",
+                "third": "the member has shared with the relationship a number",
+                "second": "of relations that respect the selected filters:",
+                "first": "Has a number",
+                "between": "and",
+                "to": "to",
+                "date": {
+                    "first": "the relationship has been established"
+                },
+                "name": "Relationship"
+            },
+            "104": {
+                "explanation": "Has at least one medical note (or not)",
+                "date": {
+                    "first": "which was created"
+                },
+                "info": "The so-called medical notes correspond to those listed in the \"Alerts\" section on the member's form",
+                "nonMedical": "non-medical",
+                "medical": "medical",
+                "medicalOrNot": "medical or not",
+                "first": "Has at least one note",
+                "name": "Notes"
+            },
+            "103": {
+                "explanation": "to receive notifications by SMS/Email",
+                "email": "to receive notifications by email",
+                "sms": "to receive notifications by SMS",
+                "false": "Doesn't accept",
+                "true": "Accept",
+                "oneNeeded": "At least one of the activated conditions must be filled",
+                "allNeeded": "All activated conditions must be filled",
+                "name": "Notifications"
+            },
+            "101": {
+                "explanation": "Is less/more/exactly...",
+                "second": "years (included)",
+                "to": "to",
+                "between": "and",
+                "first": "Has an age",
+                "name": "Age"
             }
         },
         "noSmartLists": "Smartlists are specific segments of your member data base. Add filters to directly send messages (emails, push notifications, SMSes) to these target audiences and gather detailed information about the opening rates, click rates, etc. for increasing customer retention and client value.",

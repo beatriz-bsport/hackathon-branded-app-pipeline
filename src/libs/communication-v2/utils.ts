@@ -409,10 +409,10 @@ export const getValidityTooltipMessage = memoize(
 export const getAvailableTagsFromContext = memoize(
   (contextIdentifier: number, tags: { [tag_name: string]: string[] }) => {
     const categories = getAvailableTagsCategoriesByContext(contextIdentifier);
-    const filteringCategories = categories.length > 0;
+    const selectAllTagsCategories = categories.length === 0;
     if (tags) {
       return Object.entries(tags).reduce((acc, [tagCategory, tagList]) => {
-        if (!filteringCategories || categories.includes(tagCategory))
+        if (selectAllTagsCategories || categories.includes(tagCategory))
           return {
             ...acc,
             [tagCategory]: tagList,

@@ -217,7 +217,8 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
 
   const reverse = !!communication.is_answer;
   const withChannel =
-    !!oneToOneThreadMember || channel === COMMUNICATION_CHANNEL_SMARTLIST;
+    (!!oneToOneThreadMember || channel === COMMUNICATION_CHANNEL_SMARTLIST) &&
+    !reverse;
 
   const classes = useStyles({ reverse, withChannel });
   const { t } = useTranslation('communication');

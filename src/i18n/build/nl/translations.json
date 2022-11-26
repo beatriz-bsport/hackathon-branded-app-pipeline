@@ -225,17 +225,17 @@
                     "pass_credit_left": "Resterend krediet",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
-                    "pass_name": "Sub-tag toevoegen",
+                    "pass_name": "Naam van de leskaart",
                     "pass_price": "Prijs van de leskaart"
                 },
                 "name": "Leskaarten"
             },
             "PrivateBooking": {
                 "tags": {
-                    "establishment_practical_info": "(Optioneel) Toegangsinformatie",
+                    "establishment_practical_info": "Toegangsinformatie",
                     "address": "Adres",
                     "date": "Tijd en datum",
-                    "coach": "(Optioneel) Instructeur",
+                    "coach": "Instructeur",
                     "activity": "Activiteit",
                     "establishment": "Vestiging",
                     "ics_calendar_link": "Kalender ICS-link"
@@ -245,9 +245,9 @@
             "PrivateConsumerPass": {
                 "tags": {
                     "pass_credit_left": "Resterend krediet",
-                    "pass_expiration": "Vervaldatum van de afspraakkaart",
-                    "pass_starting_date": "Startdatum van de afspraakkaart",
-                    "pass_name": "Naam van de afspraakkaart",
+                    "pass_expiration": "Vervaldatum van de leskaart",
+                    "pass_starting_date": "Startdatum van de leskaart",
+                    "pass_name": "Naam van de leskaart",
                     "pass_price": "Dit is de verkoopprijs."
                 },
                 "name": "Afspraakkaarten"
@@ -1882,7 +1882,7 @@
         "thread": {
             "emptyThread": {
                 "becauseNeverUsed": "Je hebt nog geen communicatie verzonden op dit kanaal.",
-                "becauseOfFilters": "Geen resultaten die overeenkomen met de geselecteerde filters."
+                "becauseOfFilters": "Geen resultaten die overeenkomen met de filters."
             },
             "filterOutCommunicationSent": "De communicatie die je net hebt verzonden wordt verborgen door de actieve filters."
         },
@@ -3775,6 +3775,16 @@
                 "warning": "Selecteer ten minste één leskaart of één afspraakkaart",
                 "paymentPackHelperText": "geen leskaart",
                 "privatePassHelperText": "Er zijn geen afspraakkaarten om te tonen."
+            },
+            "customForms": {
+                "warning": "Selecteer ten minste één formulier",
+                "helperAllSelectedText": "alle formulieren",
+                "textFieldPlaceholder": "Een formulier zoeken",
+                "helperSelectedText": "selecteer de formulieren",
+                "helperText": "selecteer de formulieren"
+            },
+            "userMarketingNotifications": {
+                "warning": "Activeer ten minste één van de twee opties"
             }
         },
         "modal": {
@@ -4248,6 +4258,107 @@
                 "first": "Heeft",
                 "name": "Geldige leskaarten",
                 "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
+            },
+            "107": {
+                "explanation": "De algemene gebruiksvoorwaarden heeft geaccepteerd",
+                "first": "uw gebruiksvoorwaarden",
+                "false": "Heeft niet geaccepteerd",
+                "true": "Geaccepteerd",
+                "name": "Gebruiksvoorwaarden"
+            },
+            "106": {
+                "explanation": "Een telefoonnummer opgegeven",
+                "first": "een telefoonnummer",
+                "false": "Niet ingevuld",
+                "true": "Ingevuld",
+                "name": "Telefoon"
+            },
+            "105": {
+                "explanation": "Heeft X relaties en Y leskaarten of afspraakkaarten van gedeelde boekingen",
+                "acceptEmail": {
+                    "false": "accepteert geen",
+                    "second": "emails",
+                    "true": "accepteer",
+                    "first": "de relatie"
+                },
+                "acceptSms": {
+                    "second": "SMS",
+                    "false": "accepteert niet",
+                    "true": "accepteer",
+                    "first": "de relatie"
+                },
+                "receiveCopyOfEmail": {
+                    "second": "met een kopie aan het lid",
+                    "false": "worden niet verzonden",
+                    "true": "worden ook verzonden",
+                    "first": "e-mails die naar de relatie zijn gestuurd"
+                },
+                "info": {
+                    "consumerPrivatePasses": "\"geldig\" betekent dat de afspraakkaart nu kan worden gebruikt om een afspraak te maken",
+                    "consumerPaymentPacks": "\"geldig\" betekent dat de leskaart nu kan worden gebruikt om een groepsactiviteit te boeken"
+                },
+                "validOrNot": "geldig of niet",
+                "valid": "geldig",
+                "bookings": "van groepsactiviteiten en afspraken dankzij een door het lid gedeelde pas",
+                "consumerPrivatePasses": "afspraakkaarten",
+                "consumerPaymentPacks": "leskaarten",
+                "fourth": "de relatie heeft een aantal ... geboekt",
+                "third": "het lid heeft met de relatie een aantal",
+                "second": "van relaties die de geselecteerde filters respecteren:",
+                "first": "Heeft een nummer",
+                "between": "en",
+                "to": "naar",
+                "date": {
+                    "first": "de relatie is tot stand gebracht"
+                },
+                "name": "Relatie"
+            },
+            "104": {
+                "explanation": "Heeft ten minste één medische notitie (of niet)",
+                "date": {
+                    "first": "die werd aangemaakt"
+                },
+                "info": "De zogenoemde medische notities komen overeen met de sectie \"waarschuwingen\" op het formulier van het lid",
+                "nonMedical": "niet-medisch",
+                "medical": "medisch",
+                "medicalOrNot": "medisch of niet",
+                "first": "Heeft ten minste één notitie",
+                "name": "Notities"
+            },
+            "103": {
+                "explanation": "om meldingen per SMS/E-mail te ontvangen",
+                "email": "om meldingen per e-mail te ontvangen",
+                "sms": "om meldingen per SMS te ontvangen",
+                "false": "Accepteert niet",
+                "true": "Accepteer",
+                "oneNeeded": "Ten minste één van de geactiveerde voorwaarden moet ingevuld zijn",
+                "allNeeded": "Alle geactiveerde voorwaarden moeten ingevuld zijn",
+                "name": "Notificaties"
+            },
+            "102": {
+                "date": {
+                    "first": "voor het laatst voltooid"
+                },
+                "explanation": "Heeft X formulieren ingevuld bij A% op datum B ",
+                "between": "en",
+                "to": "naar",
+                "third": "met een percentage",
+                "second": "onder",
+                "none": "geen formulier",
+                "hasCompletedNone": "Heeft niet voltooid",
+                "all": "alle formulieren",
+                "atLeastOne": "ten minste één formulier",
+                "hasNotCompleted": "Heeft niet voltooid",
+                "hasCompleted": "Heeft voltooid",
+                "name": "Formulieren"
+            },
+            "101": {
+                "explanation": "Is minder/meer/precies...",
+                "second": "jaren (inclusief)",
+                "to": "naar",
+                "between": "en",
+                "first": "Heeft een leeftijd",
+                "name": "Leeftijd"
             }
         },
         "mails": "E-mails",
@@ -4860,7 +4971,7 @@
                     "informativeHelperText": "Er wordt ook een melding van deze wijzigingen verstuurd."
                 },
                 "mergeMember": {
-                    "warning": "Attentie! Je bent deze twee leden van je studio aan het samenvoegen:",
+                    "warning": "Attentie! Je probeert deze leden van je studio samen te voegen:",
                     "unchangedEmail": "Bevestig om alle facturen, reserveringen, saldo en aankopen van het vorige e-mailadres (\"{{ old_email }}\") over te zetten naar het nieuwe e-mailadres (\"{{ new_email }}\"). Het vorige e-mailadres (\"{{ old_email }}\") wordt verwijderd en beide e-mailadressen ontvangen een bevestigingsmail van deze handeling."
                 },
                 "linkMember": {

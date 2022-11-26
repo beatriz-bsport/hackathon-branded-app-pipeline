@@ -2827,8 +2827,8 @@
         },
         "thread": {
             "emptyThread": {
-                "becauseNeverUsed": "You have not yet sent any communications on this channel.",
-                "becauseOfFilters": "No results matching the selected filters."
+                "becauseNeverUsed": "You have not yet sent any communication on this channel.",
+                "becauseOfFilters": "No results matching the filters."
             },
             "filterOutCommunicationSent": "The communication you just sent is hidden by the active filters."
         },
@@ -5060,7 +5060,7 @@
                 "errorURL": "Please enter a valid URL before saving the form",
                 "bookingTitle": "Bookings",
                 "attendanceTitle": "Attendance",
-                "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs if the member already owns a compatible product",
+                "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs in the booking funnel if the member already owns a compatible product",
                 "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags",
                 "hideMemberForCoach": "Hide customer contact information in the teacher calendar",
                 "signup": {
@@ -11640,7 +11640,7 @@
                 "name": "Conditions of use"
             },
             "106": {
-                "explanation": "Provided a phone number",
+                "explanation": "Has provided a phone number",
                 "first": "a phone number",
                 "true": "Filled in",
                 "false": "Didn't fill in",
@@ -11699,7 +11699,7 @@
                 "name": "Notes"
             },
             "103": {
-                "explanation": "to receive notifications by SMS/Email",
+                "explanation": "accept notifications by SMS/Email",
                 "email": "to receive notifications by email",
                 "sms": "to receive notifications by SMS",
                 "false": "Doesn't accept",

@@ -7557,7 +7557,7 @@
         "thread": {
             "emptyThread": {
                 "becauseNeverUsed": "Todavía no has enviado ninguna comunicación por este canal.",
-                "becauseOfFilters": "No hay resultados que coincidan con los filtros seleccionados."
+                "becauseOfFilters": "No hay resultados que coincidan con los filtros."
             },
             "filterOutCommunicationSent": "La comunicación que acabas de enviar queda oculta por los filtros activos."
         },

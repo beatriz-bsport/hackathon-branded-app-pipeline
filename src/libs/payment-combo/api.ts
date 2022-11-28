@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-
 import { PaginatedResponse } from '../../state/types';
+
 import {
   API_V1_URI,
   putAuth,
@@ -10,13 +10,10 @@ import {
   buildUrlParams,
 } from '../../http';
 
-import type { PrivatePass } from '#libs/private-service/types';
-
 import type {
   PaymentComboPayload,
   FetchPaymentComboListParams,
   FetchPaymentComboPurchaseListParams,
-  FetchPrivatePassListParams,
   PaymentCombo,
   PaymentComboPurchase,
 } from './types';
@@ -54,13 +51,4 @@ export const createOrUpdatePaymentCombo = async (
     return putAuth(`${PAYMENT_COMBO_ENDOINT}${data.id}/`, data);
   }
   return postAuth(PAYMENT_COMBO_ENDOINT, data);
-};
-
-// TODO : Clean duplicated api call :https://gitlab.com/bsport/bsport-saas/-/issues/1283
-export const fetchPrivatePassList = (
-  params?: FetchPrivatePassListParams,
-): Promise<AxiosResponse<Array<PrivatePass>>> => {
-  return getAuth(
-    `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
-  );
 };

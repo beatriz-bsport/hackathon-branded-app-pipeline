@@ -106,7 +106,3 @@ export type FetchPaymentComboPurchaseListParams = {
   page: number;
   payment_combo?: number;
 };
-
-export type FetchPrivatePassListParams = {
-  id__in: number[];
-};

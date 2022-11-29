@@ -189,11 +189,7 @@ export function fetchCouponDiscounts(
         ? { ...response.data, page }
         : { ...response.data };
 
-      const finalPayload = Array.isArray(response.data)
-        ? optionalPageResponse
-        : response.data.results;
-
-      dispatch(discountList.success(finalPayload));
+      dispatch(discountList.success(optionalPageResponse));
       dispatch(discountList.error(null));
     } catch (error) {
       dispatch(discountList.error(error));
@@ -218,11 +214,7 @@ export function fetchDiscountList(
         ? { ...response.data, page }
         : { ...response.data };
 
-      const finalPayload = Array.isArray(response.data)
-        ? optionalPageResponse
-        : response.data.results;
-
-      dispatch(discountList.success(finalPayload));
+      dispatch(discountList.success(optionalPageResponse));
       dispatch(discountList.error(null));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {

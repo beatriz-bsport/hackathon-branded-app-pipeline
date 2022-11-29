@@ -39,29 +39,29 @@ import {
 import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
-import TagSelector from '../../tag/components/TagSelector.selector';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { Moment } from '../../../i18n';
 
-import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
-import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
-import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
-import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import PaymentPackSelector from '#libs/payment-packs/components/PaymentPackSelector.component';
+import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
+import ShopItemSelector from '#libs/shop/components/ShopItemSelector.component';
+import PrivatePassSelector from '#libs/private-service/components/pass/PrivatePassSelector.component';
+import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboSelector from '#libs/payment-combo/components/PaymentComboSelector.component';
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 
-import NumericInput from '../../../components/input/NumericInput.component';
-import PriceInput from '../../../components/input/PriceInput.component';
-import PercentInput from '../../../components/input/PercentInput.component';
-import Checkbox from '../../../components/input/Checkbox.component';
+import NumericInput from '#components/input/NumericInput.component';
+import PriceInput from '#components/input/PriceInput.component';
+import PercentInput from '#components/input/PercentInput.component';
+import Checkbox from '#components/input/Checkbox.component';
 import type { Coupon } from '../types';
 
-import { PaymentPack } from '../../payment-packs/types';
-import { ShopItem } from '../../shop/types';
-import { PrivatePass } from '../../private-service/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { ShopItem } from '#libs/shop/types';
+import { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
-import type { Tag, TagGroupAPI } from '../../tag/types';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type { OptionCallback } from '../../../state/types';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
@@ -118,7 +118,7 @@ export class CouponForm extends React.Component<Props, State> {
         with_expiration_date: !!props.initial.expiration_date,
         expiration_date: props.initial.expiration_date
           ? moment(props.initial.expiration_date, 'YYYY-MM-DD')
-          : null,
+          : moment().add(1, 'month'),
         whitelist_tags:
           props.initial?.whitelist_tags?.map((_tag: Tag) => _tag?.id) ?? [],
         blacklist_tags:
@@ -130,7 +130,7 @@ export class CouponForm extends React.Component<Props, State> {
         percent_off: 0,
         amount_off: 0,
         code: null,
-        is_active: true,
+        is_active: false,
         only_on_first_checkout: false,
         usage_total: 1000,
         usage_per_member: 1,
@@ -140,7 +140,7 @@ export class CouponForm extends React.Component<Props, State> {
         only_on_objects: [],
         voucher_type: VOUCHER_TYPE_PERCENT,
         with_expiration_date: false,
-        expiration_date: moment(),
+        expiration_date: moment().add(1, 'month'),
         subscription_mode: COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
         whitelist_tags: [],
         blacklist_tags: [],
@@ -194,6 +194,13 @@ export class CouponForm extends React.Component<Props, State> {
       onSuccess: (id) => {
         trackFormSuccess(id);
       },
+    });
+  };
+
+  handleIsActiveChange = (ev: React.ChangeEvent<HTMLElement>) => {
+    this.setState({
+      is_active: ev.target.checked,
+      with_expiration_date: false,
     });
   };
 
@@ -346,7 +353,9 @@ export class CouponForm extends React.Component<Props, State> {
       <div className={classes.field}>
         <Checkbox
           checked={this.state.with_expiration_date}
-          disabled={!!initial?.coupon_template_instance || this.state.is_active}
+          disabled={
+            !!initial?.coupon_template_instance || !this.state.is_active
+          }
           label={t('form.with_expiration_date.label')}
           onChange={(ev) =>
             this.handleChange('with_expiration_date', false)(ev.target.checked)
@@ -761,9 +770,7 @@ export class CouponForm extends React.Component<Props, State> {
           checked={this.state.is_active}
           label={t('form.is_active.label')}
           helperText={t('form.is_active.helperText')}
-          onChange={(ev) =>
-            this.handleChange('is_active', false)(ev.target.checked)
-          }
+          onChange={this.handleIsActiveChange}
         />
         <div className={classes.field}>{this.renderExpirationDate()}</div>
         <Typography variant="h6" className={classes.sectionTitle}>

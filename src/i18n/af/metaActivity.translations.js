@@ -145,6 +145,8 @@ exports.default = {
         recurrence: 'Récurrence',
         daily: 'Tous les jours',
         groupName: 'Nom',
+        uncreatedGroupsTitle: 'Groupes non créés',
+        creationError: 'Création impossible',
         next: 'Suivant',
         required: 'Au minimun un groupe est nécessaire',
         copyRecurrence: 'Dupliquer aussi les récurrences futures du groupe',
@@ -167,6 +169,11 @@ exports.default = {
         allowGuestUnavailable:
           "Cette fonctionnalité n'est pas disponible sur les séances groupées.",
       },
+    },
+    errors: {
+      offers_length: `Vous n'avez créé qu'une seule séance. Pour pouvoir créer un groupe de séances, 
+      ajoutez au moins deux séances. Si vous souhaitez créer une séance unique, vous pouvez le faire directement depuis
+      l'atelier en question ou l'onglet calendrier.`,
     },
     intervalLabel: {
       month: 'Tous les mois',
@@ -203,6 +210,12 @@ exports.default = {
     },
     offerDescription:
       '{{ count }} séances du {{- firstSession }} au {{- lastSession }}',
+    warning: {
+      uncreatedGroups: `Attention, certains groupes ne seront pas créés.
+        Vous pouvez les trouver dans la section "Groupes non créés" en bas de cette liste`,
+      groupsWithOutOfTheRangeOffers: `Les groupes de séances ci-dessous ne seront pas créés car
+        ils comportent des séances qui ont lieu dans plus de 3 ans`,
+    },
   },
   cancelledOffers: '{{count}} annulations',
 };

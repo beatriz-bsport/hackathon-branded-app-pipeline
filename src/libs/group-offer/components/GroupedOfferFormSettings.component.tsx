@@ -163,7 +163,13 @@ const GroupedOfferFormSettingsSchema = Yup.object().shape({
         blacklist_tags: Yup.array().of(Yup.number()),
       }),
     )
-    .min(1, 'error'),
+    .test(
+      'There are at least two offers',
+      'metaActivity:groupedOption.errors.offers_length',
+      function testNumberOfOffersGreaterThanTwo(item) {
+        return item.length > 1;
+      },
+    ),
   whitelist_tags: Yup.array().of(Yup.number()),
   blacklist_tags: Yup.array().of(Yup.number()),
 });
@@ -174,7 +180,6 @@ export const GroupedOfferFormSettings: React.FC<
   values,
   isSubmitting,
   open,
-  isValid,
   coaches,
   coachPaymentRulesByKind,
   establishments,
@@ -359,6 +364,7 @@ export const GroupedOfferFormSettings: React.FC<
                   />
                 )}
               </FieldArray>
+              <AlertError name="offers" />
               <div className={classes.buttonAdd}>
                 <Button
                   color="primary"
@@ -533,7 +539,7 @@ export const GroupedOfferFormSettings: React.FC<
             {t('translation:common.cancel')}
           </Button>
           <Submit
-            disabled={isSubmitting || !isValid || !values.offers.some((o) => o)}
+            disabled={isSubmitting || !values.offers.some((o) => o)}
             color="primary"
           >
             {isSubmitting ? (

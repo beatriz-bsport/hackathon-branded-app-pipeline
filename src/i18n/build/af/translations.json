@@ -3320,6 +3320,8 @@
           "recurrence": "Récurrence",
           "daily": "Tous les jours",
           "groupName": "Nom",
+          "uncreatedGroupsTitle": "Groupes non créés",
+          "creationError": "Création impossible",
           "next": "Suivant",
           "required": "Au minimun un groupe est nécessaire",
           "copyRecurrence": "Dupliquer aussi les récurrences futures du groupe",
@@ -3339,6 +3341,9 @@
           "allowGuest": "Compatible avec la réservation pour un invité",
           "allowGuestUnavailable": "Cette fonctionnalité n'est pas disponible sur les séances groupées."
         }
+      },
+      "errors": {
+        "offers_length": "Vous n'avez créé qu'une seule séance. Pour pouvoir créer un groupe de séances, \n      ajoutez au moins deux séances. Si vous souhaitez créer une séance unique, vous pouvez le faire directement depuis\n      l'atelier en question ou l'onglet calendrier."
       },
       "intervalLabel": {
         "month": "Tous les mois",
@@ -3371,7 +3376,11 @@
         "year": "Ce groupe commence {{-day}}, de {{-mont}} tous les ans",
         "year_plural": "Ce groupe commence {{-day}}, de {{-month}} tous les {{ count }} ans"
       },
-      "offerDescription": "{{ count }} séances du {{- firstSession }} au {{- lastSession }}"
+      "offerDescription": "{{ count }} séances du {{- firstSession }} au {{- lastSession }}",
+      "warning": {
+        "uncreatedGroups": "Attention, certains groupes ne seront pas créés.\n        Vous pouvez les trouver dans la section \"Groupes non créés\" en bas de cette liste",
+        "groupsWithOutOfTheRangeOffers": "Les groupes de séances ci-dessous ne seront pas créés car\n        ils comportent des séances qui ont lieu dans plus de 3 ans"
+      }
     },
     "cancelledOffers": "{{count}} annulations"
   },
@@ -9917,6 +9926,7 @@
       "firstSessionAt": "à",
       "lastSession": "Dernière séance le",
       "duration_minute": "Durée",
+      "datePicker": { "rangeError": "Impossible de créer des séances ayant lieu dans plus de 3 ans" },
       "priceCategory": "Facturation",
       "credits": "Nombre de crédit de carte de cours nécessaire pour réserver",
       "price": "Prix",

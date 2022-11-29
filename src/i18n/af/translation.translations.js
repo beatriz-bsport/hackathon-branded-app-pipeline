@@ -542,6 +542,10 @@ exports.default = {
     firstSessionAt: 'à',
     lastSession: 'Dernière séance le',
     duration_minute: 'Durée',
+    datePicker: {
+      rangeError:
+        'Impossible de créer des séances ayant lieu dans plus de 3 ans',
+    },
     priceCategory: 'Facturation',
     credits: 'Nombre de crédit de carte de cours nécessaire pour réserver',
     price: 'Prix',

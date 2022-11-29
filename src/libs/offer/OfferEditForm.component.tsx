@@ -268,6 +268,10 @@ export class OfferEditForm extends Component<Props, State> {
     }
   }
 
+  dateIsTooFarInFuture = (inputDate: string | moment.Moment): boolean => {
+    return moment(inputDate).diff(moment(), 'years', true) > 3;
+  };
+
   handleChangeSelection = (index: number) => {
     this.setState((prevState) => {
       const similarOffersWithSelectedStatus = [
@@ -473,7 +477,8 @@ export class OfferEditForm extends Component<Props, State> {
                   getModifiedFields(this.initialOfferState, this.state)
                     .length || this.hasChangedDatetime()
                 ) ||
-                this.roomBluePrintError()
+                this.roomBluePrintError() ||
+                this.dateIsTooFarInFuture(this.state.date)
               }
               onClick={this.onConfirmGatherInfoStep}
             >
@@ -686,6 +691,9 @@ export class OfferEditForm extends Component<Props, State> {
                       hour: moment(date_interval_start).format('HH:mm'),
                     })
                   }
+                  hasDateTooFarError={this.dateIsTooFarInFuture(
+                    this.state.date,
+                  )}
                 />
               </div>
               <div className={this.props.classes.field}>

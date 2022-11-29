@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Moment } from '../../i18n';
 
 type Props = {
@@ -23,6 +23,7 @@ type Props = {
   maxDate?: string,
   label?: string,
   separateInputs?: boolean,
+  hasDateTooFarError?: boolean,
 };
 
 const rebuildDatetime = (date, hour, minute, timezone) => {
@@ -36,6 +37,7 @@ const rebuildDatetime = (date, hour, minute, timezone) => {
 export function DateTimeForm(props: Props) {
   const classes = useStyles();
 
+  const { t } = useTranslation('translation');
   return (
     <div className={classes.container}>
       <MuiPickersUtilsProvider
@@ -64,6 +66,9 @@ export function DateTimeForm(props: Props) {
                 ),
               )
             }
+            {...(props.hasDateTooFarError
+              ? { error: true, helperText: t('form.datePicker.rangeError') }
+              : {})}
             label={props.label}
             minDate={props.minDate}
             maxDate={props.maxDate}
@@ -110,4 +115,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withTranslation()(DateTimeForm);
+export default DateTimeForm;

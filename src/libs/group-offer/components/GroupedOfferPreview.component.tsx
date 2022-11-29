@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { Alert } from '@material-ui/lab';
 import Calendar from '#components/offer/Calendar.component';
 import DelayedTextField from '#components/DelayedTextField.component';
 import { Submit } from '#components/forms';
@@ -74,7 +75,7 @@ export const GroupedOfferPreviewForm: React.FC<
   resetForm,
 }) => {
   const { t } = useTranslation('metaActivity');
-  const classes = useStyles();
+  const classes = useStyles(metaActivity);
 
   useEffect(() => {
     return () => {
@@ -110,6 +111,55 @@ export const GroupedOfferPreviewForm: React.FC<
         events: {},
       },
     [values],
+  );
+
+  const outOfTheScopeGroupedOffers = useMemo(() => {
+    return groups.filter((group) => {
+      return group.offers.some((offer) => {
+        const momentOfferDateStart = moment.unix(offer.date_start);
+        return momentOfferDateStart.diff(moment(), 'years', true) > 3;
+      });
+    });
+  }, [groups]);
+
+  const outOfTheScopeGroupedOffersListItems = outOfTheScopeGroupedOffers.map(
+    (group) => {
+      const firstOfferDate = moment
+        .unix(group.offers[0].date_start)
+        .format('YYYY-MM-DD');
+      const lastOfferDate = moment
+        .unix(group.offers[group.offers.length - 1].date_start)
+        .format('YYYY-MM-DD');
+      return (
+        <ListItem key={firstOfferDate} disabled className={classes.listItemBox}>
+          <ListItemText
+            primary={
+              <div className={classes.listItem}>
+                <div className={classes.listItemInner}>
+                  <DelayedTextField
+                    value={group.name}
+                    shrink
+                    label={t('groupedOption.modal.form.groupName')}
+                    disabled
+                    className={classes.textField}
+                  />
+                </div>
+              </div>
+            }
+            secondary={t('groupedOption.offerDescription', {
+              count: group.offers.length,
+              firstSession: moment(firstOfferDate).format('L'),
+              lastSession: moment(lastOfferDate).format('L'),
+            })}
+          />
+          <div className={classes.recurrence}>
+            <Typography color="error">
+              {t('groupedOption.modal.form.creationError')}
+            </Typography>
+          </div>
+        </ListItem>
+      );
+    },
   );
 
   const [dateSelected, setDateSelected] = useState(
@@ -205,6 +255,13 @@ export const GroupedOfferPreviewForm: React.FC<
         />
       </div>
       <Form className={classes.form}>
+        {outOfTheScopeGroupedOffers.length > 0 && (
+          <div className={classes.warningContainer}>
+            <Alert className={classes.warning} severity="warning">
+              {t('groupedOption.warning.uncreatedGroups')}
+            </Alert>
+          </div>
+        )}
         <List className={classes.list}>
           <FieldArray name="formikGroups">
             {({
@@ -233,16 +290,7 @@ export const GroupedOfferPreviewForm: React.FC<
                     onClick={() => {
                       setDateSelected(firstOfferDate);
                     }}
-                    style={{
-                      borderLeftWidth: 5,
-                      borderLeftStyle: 'solid',
-                      borderLeftColor: metaActivity.color,
-                      borderTopLeftRadius: 4,
-                      borderBottomLeftRadius: 4,
-                      position: 'relative',
-                      boxShadow:
-                        '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
-                    }}
+                    className={classes.listItemBox}
                   >
                     <ListItemText
                       primary={
@@ -306,6 +354,23 @@ export const GroupedOfferPreviewForm: React.FC<
             {t('groupedOption.modal.form.required')}
           </Typography>
         )}
+        {outOfTheScopeGroupedOffers.length > 0 && (
+          <>
+            <div className={classes.subtitle}>
+              <Typography variant="h6">
+                {t('groupedOption.modal.form.uncreatedGroupsTitle')}
+              </Typography>
+            </div>
+            <div className={classes.warningContainer}>
+              <Alert className={classes.warning} severity="warning">
+                {t('groupedOption.warning.groupsWithOutOfTheRangeOffers')}
+              </Alert>
+            </div>
+            <List className={classes.list}>
+              {outOfTheScopeGroupedOffersListItems}
+            </List>
+          </>
+        )}
         <Divider className={classes.divider} />
         <div className={classes.buttonContainer}>
           <Button onClick={handlePreviousStep}>
@@ -342,6 +407,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     bottom: theme.spacing(1),
     right: theme.spacing(2),
   },
+
   field: {
     marginBottom: theme.spacing(1),
   },
@@ -383,13 +449,45 @@ const useStyles = makeStyles((theme: Theme) => ({
   listItemInner: {
     width: '50%',
   },
+  subtitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
+  },
+  warningContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: theme.spacing(2),
+  },
+  warning: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  listItemBox: {
+    borderLeftWidth: 5,
+    borderLeftStyle: 'solid',
+    borderTopLeftRadius: 4,
+    borderBottomLeftRadius: 4,
+    position: 'relative',
+    boxShadow:
+      '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+    color: (metaActivity) => metaActivity.color,
+  },
 }));
 
 export default compose<any, OuterProps>(
   withFormik<OuterProps, Values>({
     mapPropsToValues: ({ groups }) => {
+      const filteredGroups = [...groups].filter((group) => {
+        return group.offers.every((offer) => {
+          const momentOfferDateStart = moment.unix(offer.date_start);
+          return momentOfferDateStart.diff(moment(), 'years', true) < 3;
+        });
+      });
       return {
-        formikGroups: [...groups],
+        formikGroups: filteredGroups,
       };
     },
     validationSchema: GroupedOfferPreviewSchema,

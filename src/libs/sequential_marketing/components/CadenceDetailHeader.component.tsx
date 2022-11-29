@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import EditIcon from '@material-ui/icons/Edit';
 import BuildIcon from '@material-ui/icons/Build';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import IconButton from '@material-ui/core/IconButton';
 import PauseIcon from '@material-ui/icons/Pause';
@@ -19,6 +18,7 @@ import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/fo
 import CadenceActivateDialog from '#libs/sequential_marketing/components/CadenceActivateDialog.component';
 import CadenceConnectedTriggersCard from '#libs/sequential_marketing/components/CadenceConnectedTriggersCard.component';
 import ToolTip from '#components/Tooltip.component';
+import StopBuildIcon from '#components/icons/StopBuildIcon.component';
 
 import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
@@ -131,7 +131,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
           <ToolTip
             title={
               cadenceEditMode
-                ? t('cadence.visualizationModeLabel')
+                ? t('cadence.exitEditModeLabel')
                 : t('cadence.editModeLabel')
             }
           >
@@ -143,8 +143,8 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
             >
               {cadenceEditMode ? (
                 <>
-                  <VisibilityIcon className={classes.leftIcon} />
-                  {t('cadence.visualizationMode')}
+                  <StopBuildIcon className={classes.leftIcon} />
+                  {t('cadence.exitEditMode')}
                 </>
               ) : (
                 <>

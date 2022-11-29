@@ -121,25 +121,29 @@ export const Flow: React.FC<Props> = ({
   React.useEffect(() => {
     if (
       !cadenceWinAndLoseConfiguration.cadenceLoseConfigured ||
-      !cadenceWinAndLoseConfiguration.cadenceWinConfigured ||
-      cadence.active
+      !cadenceWinAndLoseConfiguration.cadenceWinConfigured
     ) {
       setDisabledMode(true);
     } else {
       setDisabledMode(false);
     }
-  }, [cadenceWinAndLoseConfiguration, cadence]);
+  }, [cadenceWinAndLoseConfiguration]);
 
   return (
     <ReactFlowProvider>
       <div
-        className={classNames({ [classes.disabledOverLay]: disabledMode })}
+        className={classNames({
+          [classes.blurDisabledOverLay]: disabledMode,
+          [classes.clearDisabledOverLay]: cadence.active || !cadenceEditMode,
+        })}
       />
       <CadenceGraphViewPort
         displayDisabledTriggers={displayDisabledTriggers}
         switchDisplayDisabledNodes={() =>
           setDisplayDisabledTriggers(!displayDisabledTriggers)
         }
+        active={cadence.active}
+        editMode={cadenceEditMode}
       />
       <ReactFlow
         nodes={nodes}
@@ -152,10 +156,6 @@ export const Flow: React.FC<Props> = ({
         onNodeDragStop={onNodeDragStop}
         fitViewOptions={{ maxZoom: 1, minZoom: 0 }}
         maxZoom={2}
-        nodeExtent={[
-          [0, 0],
-          [10000, 10000],
-        ]}
         nodesDraggable={cadenceEditMode}
         nodesConnectable={cadenceEditMode}
         fitView

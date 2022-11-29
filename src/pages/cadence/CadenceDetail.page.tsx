@@ -65,6 +65,7 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
 
 export const drawerWidth = 400;
+export const headerHeight = 110;
 
 type OwnProps = {
   cadenceId: number;
@@ -641,7 +642,7 @@ const styles = (theme: Theme) =>
       width: `calc(100% - ${drawerWidth}px)`,
     },
     header: {
-      height: '110px',
+      height: `${headerHeight}px`,
     },
     scrollable: {
       display: 'flex',
@@ -686,7 +687,7 @@ const styles = (theme: Theme) =>
       overflowX: 'hidden',
       overflowY: 'hidden',
       maxHeight: '100%',
-      height: '800px',
+      height: `calc(100vh - ${headerHeight}px)`,
     },
   });
 export default compose(

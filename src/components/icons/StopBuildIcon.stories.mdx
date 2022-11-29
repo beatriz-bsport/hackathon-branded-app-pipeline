@@ -1,0 +1,16 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import StopBuildIcon from './StopBuildIcon.component';
+
+<Meta title="Components/Commons/StopBuildIcon" component={StopBuildIcon} />
+
+export const Template = (args) => <StopBuildIcon {...args} />;
+
+# StopBuildIcon
+
+<Canvas>
+  <Story name="StopBuildIcon" args={{}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="StopBuildIcon" />

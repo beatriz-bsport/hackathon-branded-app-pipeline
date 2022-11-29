@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classNames from 'classnames';
-
+import green from '@material-ui/core/colors/green';
 import { FormikErrors } from 'formik';
 
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import LabelIcon from '@material-ui/icons/Label';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
 import CancelIcon from '@material-ui/icons/Cancel';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
 import IconButton from '@material-ui/core/IconButton';
 
 import SelectTemplate from '#libs/communication/components/SelectTemplate.component';
@@ -28,7 +31,6 @@ import WriteSMS from '#libs/communication/components/WriteSMS.component';
 import WriteNotification from '#libs/communication/components/WriteNotification.component';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-
 import {
   CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
   CADENCE_MARKETING_ACTION_SMS,
@@ -164,15 +166,29 @@ const MarketingActionsForm: React.FC<Props> = ({
               key={`reset_marketing_action_button${item}`}
               className={classes.cardContainer}
             >
-              {marketing_actions && marketing_actions[item]?.configured && (
+              {marketing_actions &&
+                marketing_actions[item]?.configured &&
+                selectedMarketingActions !== item && (
+                  <div
+                    className={classNames(
+                      classes.topRightIconButton,
+                      classes.configuredIconContainer,
+                    )}
+                  >
+                    <DoneAllIcon
+                      fontSize="small"
+                      className={classes.configuredIcon}
+                    />
+                  </div>
+                )}
+              {selectedMarketingActions === item && (
                 <IconButton
                   className={classes.topRightIconButton}
-                  onClick={() => handleResetMarketingAction(item)}
+                  onClick={() => handleMarketingActionChange(null)}
                 >
-                  <CancelIcon fontSize="small" color="secondary" />
+                  <CancelIcon fontSize="small" color="error" />
                 </IconButton>
               )}
-
               <ButtonBase
                 disabled={disabled}
                 onClick={() => handleMarketingActionChange(item)}
@@ -188,11 +204,18 @@ const MarketingActionsForm: React.FC<Props> = ({
                   key={`marketing_action_card${item}`}
                 >
                   <div className={classes.cardInner}>
-                    <CustomMuiIcon
-                      MuiIcon={MarketingActionIconEnum[item]}
-                      variant={disabled ? 'disabled' : 'primary'}
-                      MuiIconProps={{ fontSize: 'large' }}
-                    />
+                    <div
+                      className={classNames({
+                        [classes.shakeAnimation]:
+                          selectedMarketingActions === item,
+                      })}
+                    >
+                      <CustomMuiIcon
+                        MuiIcon={MarketingActionIconEnum[item]}
+                        variant={disabled ? 'disabled' : 'primary'}
+                        MuiIconProps={{ fontSize: 'large' }}
+                      />
+                    </div>
                     <Typography
                       className={classes.stepLabel}
                       variant="subtitle2"
@@ -206,6 +229,27 @@ const MarketingActionsForm: React.FC<Props> = ({
           );
         })}
       </div>
+      {!!selectedMarketingActions && (
+        <div className={classes.actionButtons}>
+          <Button
+            onClick={() => {
+              handleMarketingActionChange(null);
+              handleResetMarketingAction(selectedMarketingActions);
+            }}
+          >
+            <DeleteIcon className={classes.textIcon} />
+            {t('cadence.form.marketing_action.form.reset')}
+          </Button>
+          <Button
+            onClick={() =>
+              handleMarketingActionChange(selectedMarketingActions)
+            }
+          >
+            <DoneAllIcon className={classes.textIcon} />
+            {t('cadence.form.marketing_action.form.submit')}
+          </Button>
+        </div>
+      )}
       {selectedMarketingActions === CADENCE_MARKETING_ACTION_WRITTEN_EMAIL && (
         <WriteEmail
           mailContent={
@@ -352,5 +396,42 @@ const useStyles = makeStyles((theme: Theme) => ({
   tagSelector: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(10),
+  },
+  shakeAnimation: {
+    animation: '$shake 0.75s infinite',
+  },
+  configuredIconContainer: {
+    backgroundColor: green[600],
+    borderRadius: '100%',
+    height: '20px',
+    width: '20px',
+  },
+  configuredIcon: {
+    padding: theme.spacing(0.3),
+    color: 'white',
+  },
+  actionButtons: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  textIcon: {
+    marginRight: theme.spacing(1),
+  },
+
+  '@keyframes shake': {
+    '0%': { transform: 'rotate(0)' },
+    '15% ': { transform: 'rotate(8deg)' },
+    '30%': { transform: 'rotate(-8deg)' },
+    '45%': { transform: 'rotate(6deg)' },
+    '60%': { transform: 'rotate(-6deg)' },
+    '75%': { transform: 'rotate(4deg)' },
+    '85%': { transform: 'rotate(-4deg)' },
+    '92%': { transform: 'rotate(2deg)' },
+    '100%': { transform: 'rotate(0)' },
   },
 }));

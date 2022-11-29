@@ -260,8 +260,8 @@ export const useNodeElementsRecorder = ({
         id: NODE_FAKER_IDENTIFIER,
         type: CustomNodesEnum.ConnectedTriggerNodeElementFlowVersionNode,
         position: {
-          x: storedStepNodeFakerSource?.canvas?.positions.x,
-          y: storedStepNodeFakerSource?.canvas?.positions.y + 200,
+          x: storedStepNodeFakerSource?.canvas?.positions?.x,
+          y: storedStepNodeFakerSource?.canvas?.positions?.y + 200,
         },
         draggable: false,
         data: {

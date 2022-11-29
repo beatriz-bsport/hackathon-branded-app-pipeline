@@ -371,8 +371,8 @@ exports.default = {
     shutOff: 'Mettre en pause',
     editMode: 'Éditer',
     editModeLabel: 'Passer en mode édition',
-    visualizationMode: 'Observer',
-    visualizationModeLabel: "Quitter le mode d'édition",
+    exitEditMode: 'Terminer',
+    exitEditModeLabel: "Quitter le mode d'édition",
     cadenceParameters: 'Paramètres de la cadence',
     triggerElement: 'Élément déclencheur',
     marketingElement: 'Actions marketing',
@@ -387,8 +387,10 @@ exports.default = {
       addACadence: 'Ajouter une cadence',
       title: 'Créer une cadence',
       updateTitle: 'Modification du nom de la cadence',
-      cadenceStep: 'Étape de la cadence',
+      cadenceStep: 'Étape',
       cadenceStepNameLabel: "Nom de l'étape",
+      cadenceStepHelper:
+        'Définissez ici le nom de l’étape, c’est ici que vous pourrez voir où en sont les membres dans la cadence.',
       cadenceNameLabel: 'Nom de la cadence',
       modify_name_label: 'Modifier le nom',
       entry_step: 'Entrée',
@@ -465,6 +467,10 @@ exports.default = {
         4: 'Tag',
         5: 'Template Email',
         select_tag: 'Sélectionner un tag',
+        form: {
+          submit: 'Valider',
+          reset: 'Supprimer',
+        },
       },
     },
     howTo: {
@@ -547,7 +553,13 @@ exports.default = {
         addElement: 'Ajouter un déclencheur',
         edgeLabelForNodeCreation: 'En cours de création',
         cancelOnGoingCreation: 'Annuler la création',
-        deleteStep: "Supprimer l'éapte",
+        deleteStep: "Supprimer l'étape",
+      },
+      alert: {
+        cadenceIsActive:
+          'Votre cadence est en cours merci de mettre votre cadence en pause pour pouvoir la modifier.',
+        switchToEditMode:
+          'Vous êtes en mode vue, cliquez sur ÉDITER pour pouvoir éditer la cadence.',
       },
     },
   },

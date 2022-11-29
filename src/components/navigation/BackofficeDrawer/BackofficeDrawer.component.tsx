@@ -240,6 +240,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   const [drawerIconsOnly, setDrawerIconsOnly] = React.useState(
     displayLeftMenu && shrinkResponsiveDrawer,
   );
+  const [hideAppBar, setHideAppBar] = React.useState(false);
   const handleUserSetDrawerIconsOnly = (shrink: boolean) => {
     setDrawerIconsOnly(shrink);
     setShrinkResponsiveDrawer(shrink);
@@ -283,6 +284,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   React.useEffect(() => {
     if (location.pathname.startsWith('/cadence/')) {
       setDrawerIconsOnly(true);
+      setHideAppBar(true);
+    } else {
+      setHideAppBar(false);
     }
     if (!displayLeftMenu || mobileOpen) {
       setDrawerIconsOnly(false);
@@ -529,7 +533,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   };
   const renderAppBar = (forced_hide: boolean, displayMenuIcon: boolean) => {
     const isClockIn = lastClockIn?.onGoing;
-
+    if (hideAppBar) {
+      return null;
+    }
     return (
       <BannerContext.Consumer>
         {({ banner }: BannerContextValue) => (

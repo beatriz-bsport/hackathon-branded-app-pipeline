@@ -1,13 +1,12 @@
 import React from 'react';
-
+import chroma from 'chroma-js';
 import classNames from 'classnames';
-
 import { useTranslation } from 'react-i18next';
-import type { Theme } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
-import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
+import GroupIcon from '@material-ui/icons/Group';
 
 import ToolTip from '#components/Tooltip.component';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
@@ -33,6 +32,8 @@ export const ConnectedTriggerNodeElement: React.FC<
 > = ({ connectedTrigger, onClick }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
+
+  const hasFilterSmartList = !!connectedTrigger?.filtering_config?.smartlist_pk;
   return (
     <>
       <ToolTip title={t('cadence.triggers.trigger')}>
@@ -41,27 +42,26 @@ export const ConnectedTriggerNodeElement: React.FC<
             className={classes.card}
             id={`card_element${connectedTrigger?.id}`}
           >
-            <div className={classes.flexIconAndText}>
-              <div className={classes.losange}>
-                <div className={classes.centerAbsolute}>
-                  <OfflineBoltIcon
-                    className={classNames(
-                      classes.blueIcon,
-                      classes.customPulse,
-                    )}
-                  />
+            <div className={classes.losange}>
+              <div className={classes.centerAbsolute}>
+                <div className={classNames(classes.customPulse)}>
+                  <div className={classes.icon}>
+                    <CustomMuiIcon
+                      MuiIcon={TriggerIcon({
+                        connected_trigger_config: connectedTrigger,
+                      })}
+                      defaultBackGround
+                      MuiIconProps={{ color: 'primary', fontSize: 'small' }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className={classes.triggerIcon}>
-              <CustomMuiIcon
-                MuiIcon={TriggerIcon({
-                  connected_trigger_config: connectedTrigger,
-                })}
-                defaultBackGround
-                MuiIconProps={{ color: 'primary', fontSize: 'small' }}
-              />
-            </div>
+            {hasFilterSmartList && (
+              <div className={classes.groupIconContainer}>
+                <GroupIcon fontSize="small" className={classes.groupIcon} />
+              </div>
+            )}
           </div>
         </ButtonBase>
       </ToolTip>
@@ -77,14 +77,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
   },
   customPulse: {
-    borderRadius: '50%',
+    borderRadius: '100%',
     animationName: `$customPulse`,
     animationDuration: '2s',
     animationIterationCount: 'infinite',
-    boxShadow: '0 0 0 0 rgba(18, 22, 107, 1)',
+    boxShadow: `0 0 0 0 ${theme.palette.primary.main}`,
   },
-  blueIcon: {
-    color: 'rgba(18, 22, 107, 1)',
+  icon: {
+    display: 'flex',
+    justyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   },
   losange: {
     backgroundColor: '#12166B1A',
@@ -93,19 +96,29 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '40px',
     position: 'relative',
     borderRadius: theme.spacing(0.5),
-  },
-  flexIconAndText: {
-    display: 'flex',
-    gap: theme.spacing(2),
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    border: `solid ${theme.palette.primary.main}`,
+    borderWidth: '2px',
   },
   centerAbsolute: {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%,-50%) rotate(-45deg)',
+  },
+  groupIconContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, 100%)',
+    color: 'white',
+    backgroundColor: theme.palette.primary.main,
+    height: '20px',
+    width: '20px',
+    borderRadius: '100%',
+    zIndex: 100,
+  },
+  groupIcon: {
+    padding: theme.spacing(0.5),
   },
   triggerIcon: {
     position: 'absolute',
@@ -117,15 +130,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   '@keyframes customPulse': {
     '0%': {
       transform: 'scale(0.95)',
-      boxShadow: '0 0 0 0 rgba(18, 22, 107, 1)',
+      boxShadow: `0 0 0 0 ${theme.palette.primary.main}`,
     },
     '70%': {
       transform: 'scale(1)',
-      boxShadow: '0 0 0 8px rgba(18, 22, 107, 0)',
+      boxShadow: `0 0 0 8px ${chroma(theme.palette.primary.main).alpha(0)}`,
     },
     '100%': {
       transform: 'scale(0.95)',
-      boxShadow: '0 0 0 0 rgba(18, 22, 107, 0)',
+      boxShadow: `0 0 0 0 ${chroma(theme.palette.primary.main).alpha(0)}`,
     },
   },
 }));

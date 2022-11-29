@@ -11,7 +11,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-
+import Alert from '@material-ui/lab/Alert';
 import { Submit, TextField } from '#components/forms';
 
 import type { CadenceStep } from '#libs/sequential_marketing/types';
@@ -46,19 +46,25 @@ export const CadenceStepForm: React.FC = () => {
       </Typography>
       <Divider />
       <div className={classes.paddingTop3}>
-        <Form>
-          <TextField
-            name="name"
-            label={t('cadence.form.cadenceStepNameLabel')}
-            fullWidth
-            required
-          />
-          <div className={classes.actions}>
-            <Submit disabled={isSubmitting || !isValid} color="primary">
-              {isSubmitting ? <CircularProgress /> : t('cadence.form.edit')}
-            </Submit>
-          </div>
-        </Form>
+        <Alert severity="info" className={classes.alert}>
+          {t('cadence.form.cadenceStepHelper')}
+        </Alert>
+        <div className={classes.form}>
+          <Form>
+            <TextField
+              name="name"
+              label={t('cadence.form.cadenceStepNameLabel')}
+              fullWidth
+              required
+              variant="outlined"
+            />
+            <div className={classes.actions}>
+              <Submit disabled={isSubmitting || !isValid} color="primary">
+                {isSubmitting ? <CircularProgress /> : t('cadence.form.edit')}
+              </Submit>
+            </div>
+          </Form>
+        </div>
       </div>
     </div>
   );
@@ -108,6 +114,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  alert: {
+    alignItems: 'center',
+  },
+  form: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 

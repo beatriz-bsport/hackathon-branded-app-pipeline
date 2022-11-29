@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -13,9 +11,9 @@ import {
   retrieveCouponTemplateActions,
 } from './actions';
 
-import type { CouponState } from './types';
+import type { CouponState, CouponTemplate } from './types';
 
-const initialState: CouponState = Immutable({
+const initialState: Immutable.Immutable<CouponState> = Immutable<CouponState>({
   discount: {
     items: [],
     page: null,
@@ -47,36 +45,36 @@ const initialState: CouponState = Immutable({
 
 export default handleActions(
   {
-    [discountList.isLoading]: (state, { payload }) => {
+    [discountList.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['discount', 'loading'], payload);
     },
-    [discountList.success]: (state, { payload }) => {
+    [discountList.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['discount', 'items'], payload.results)
         .setIn(['discount', 'page'], payload.page)
         .setIn(['discount', 'count'], payload.count)
         .setIn(['discount', 'loading'], false);
     },
-    [discountList.error]: (state, { payload }) => {
+    [discountList.error.toString()]: (state, { payload }) => {
       return state.setIn(['discount', 'error'], payload);
     },
 
-    [couponList.isLoading]: (state, { payload }) => {
+    [couponList.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['coupon', 'loading'], payload);
     },
-    [couponList.success]: (state, { payload }) => {
+    [couponList.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['coupon', 'items'], payload.items)
         .setIn(['coupon', 'currentPage'], payload.page);
     },
-    [couponList.error]: (state, { payload }) => {
+    [couponList.error.toString()]: (state, { payload }) => {
       return state.setIn(['coupon', 'error'], payload);
     },
 
-    [couponCreateOrUpdate.isLoading]: (state, { payload }) => {
+    [couponCreateOrUpdate.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['coupon', 'createOrUpdate', 'loading'], payload);
     },
-    [couponCreateOrUpdate.error]: (state, { payload }) => {
+    [couponCreateOrUpdate.error.toString()]: (state, { payload }) => {
       return state.setIn(['coupon', 'createOrUpdate', 'error'], payload);
     },
     [listCouponTemplateActions.isLoading.toString()]: (state, { payload }) => {
@@ -89,7 +87,7 @@ export default handleActions(
       return state
         .setIn(
           ['couponTemplate', 'allIds'],
-          payload.map((c) => c.id),
+          payload.map((c: CouponTemplate) => c.id),
         )
         .merge(
           {

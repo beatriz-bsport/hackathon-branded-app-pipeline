@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import {
   fetchCouponPage as fetchCouponPageAPI,
   fetchCouponDiscounts as fetchCouponDiscountsAPI,
@@ -19,29 +19,35 @@ import {
 } from './api';
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
-import { Coupon, CouponTemplate } from './types';
+import {
+  Coupon,
+  CouponTemplate,
+  CouponTemplateInstance,
+  Discount,
+  FetchCouponsParams,
+  FetchDiscountParams,
+  ResetDiscountList,
+} from '#libs/coupon/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 export const couponList = {
-  error: createAction('COUPON/LIST/ERROR'),
-  isLoading: createAction('COUPON/LIST/IS_LOADING'),
-  success: createAction('COUPON/LIST/SUCCESS'),
-  delete: createAction('COUPON/LIST/DELETE'),
+  error: createAction<Error | null>('COUPON/LIST/ERROR'),
+  isLoading: createAction<boolean>('COUPON/LIST/IS_LOADING'),
+  success: createAction<{ items: Coupon[] }>('COUPON/LIST/SUCCESS'),
+  delete: createAction<string>('COUPON/LIST/DELETE'),
 };
 
-export function fetchCouponPage(page: number, options?: any): ThunkAction {
+export function fetchCouponPage(
+  page: number,
+  options?: OptionCallback<Coupon[]>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(couponList.isLoading(true));
     dispatch(couponList.error(null));
 
     try {
       const response = await fetchCouponPageAPI(page);
-      dispatch(
-        couponList.success({
-          items: response.data,
-          // page: response.data.next_page,
-        }),
-      );
+      dispatch(couponList.success({ items: response.data }));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -54,7 +60,10 @@ export function fetchCouponPage(page: number, options?: any): ThunkAction {
   };
 }
 
-export function fetchCoupons(data: any, options?: OptionCallback) {
+export function fetchCoupons(
+  data: FetchCouponsParams,
+  options?: OptionCallback<Coupon[]>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(couponList.isLoading(true));
     dispatch(couponList.error(null));
@@ -103,13 +112,13 @@ export function deleteCoupon(
 }
 
 export const couponCreateOrUpdate = {
-  error: createAction('COUPON/CREATE_OR_UPDATE/ERROR'),
-  isLoading: createAction('COUPON/CREATE_OR_UPDATE/IS_LOADING'),
-  success: createAction('COUPON/CREATE_OR_UPDATE/SUCCESS'),
+  error: createAction<Error | null>('COUPON/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction<boolean>('COUPON/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction<Coupon>('COUPON/CREATE_OR_UPDATE/SUCCESS'),
 };
 
 export function createCoupon(
-  data: any,
+  data: Coupon,
   options?: OptionCallback<Coupon>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -134,7 +143,7 @@ export function createCoupon(
 
 export function updateCoupon(
   id: string | number,
-  data: any,
+  data: Coupon,
   options?: OptionCallback<Coupon>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -158,25 +167,33 @@ export function updateCoupon(
 }
 
 export const discountList = {
-  error: createAction('DISCOUNT/LIST/ERROR'),
-  isLoading: createAction('DISCOUNT/LIST/IS_LOADING'),
-  success: createAction('DISCOUNT/LIST/SUCCESS'),
+  error: createAction<Error | null>('DISCOUNT/LIST/ERROR'),
+  isLoading: createAction<boolean>('DISCOUNT/LIST/IS_LOADING'),
+  success: createAction<Discount[] | ResetDiscountList>(
+    'DISCOUNT/LIST/SUCCESS',
+  ),
 };
 
 export function fetchCouponDiscounts(
   couponId: number,
-  params: any,
+  params: FetchDiscountParams,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(discountList.isLoading(true));
     dispatch(discountList.error(null));
 
     try {
+      const { page } = params;
       const response = await fetchCouponDiscountsAPI(couponId, params);
-      if (params.page) {
-        response.data.page = params.page;
-      }
-      dispatch(discountList.success(response.data));
+      const optionalPageResponse = page
+        ? { ...response.data, page }
+        : { ...response.data };
+
+      const finalPayload = Array.isArray(response.data)
+        ? optionalPageResponse
+        : response.data.results;
+
+      dispatch(discountList.success(finalPayload));
       dispatch(discountList.error(null));
     } catch (error) {
       dispatch(discountList.error(error));
@@ -187,19 +204,25 @@ export function fetchCouponDiscounts(
 }
 
 export function fetchDiscountList(
-  params: any,
-  options: OptionCallback,
+  params: FetchDiscountParams,
+  options: OptionCallback<Discount[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(discountList.isLoading(true));
     dispatch(discountList.error(null));
 
     try {
+      const { page } = params;
       const response = await fetchDiscountListAPI(params);
-      if (params.page) {
-        response.data.page = params.page;
-      }
-      dispatch(discountList.success(response.data));
+      const optionalPageResponse = page
+        ? { ...response.data, page }
+        : { ...response.data };
+
+      const finalPayload = Array.isArray(response.data)
+        ? optionalPageResponse
+        : response.data.results;
+
+      dispatch(discountList.success(finalPayload));
       dispatch(discountList.error(null));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -211,7 +234,7 @@ export function fetchDiscountList(
   };
 }
 
-export function untagCoupon(coupondId: number, tagId: number) {
+export function untagCoupon(coupondId: number, tagId: number): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(couponCreateOrUpdate.isLoading(true));
     dispatch(couponCreateOrUpdate.error(null));
@@ -225,35 +248,34 @@ export function untagCoupon(coupondId: number, tagId: number) {
   };
 }
 
-export function resetDiscounts() {
+export function resetDiscounts(): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(discountList.success({ results: [], count: 0, page: 1 }));
   };
 }
 
 export const listCouponTemplateActions = {
-  isLoading: createAction('COUPON_TEMPLATE/LIST/IS_LOADING'),
-  error: createAction('COUPON_TEMPLATE/LIST/ERROR'),
-  success: createAction('COUPON_TEMPLATE/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('COUPON_TEMPLATE/LIST/IS_LOADING'),
+  error: createAction<Error | null>('COUPON_TEMPLATE/LIST/ERROR'),
+  success: createAction<CouponTemplate[]>('COUPON_TEMPLATE/LIST/SUCCESS'),
 };
 
 export function fetchCouponTemplateList(
   params?: FranchiseProductTemplateQueryParams,
-  options?: OptionCallback<Array<CouponTemplate>>,
+  options?: OptionCallback<CouponTemplate[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listCouponTemplateActions.error(null));
     dispatch(listCouponTemplateActions.isLoading(true));
     try {
       const response = await fetchCouponTemplateListAPI(params);
-      dispatch(
-        listCouponTemplateActions.success(
-          response.data.results || response.data,
-        ),
-      );
+      const finalPayload: CouponTemplate[] = Array.isArray(response.data)
+        ? response.data
+        : response.data.results;
+      dispatch(listCouponTemplateActions.success(finalPayload));
 
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results || response.data);
+        options.onSuccess(finalPayload);
       }
     } catch (err) {
       console.error(err);
@@ -265,15 +287,19 @@ export function fetchCouponTemplateList(
 }
 
 export const createOrUpdateCouponTemplateActions = {
-  isLoading: createAction('COUPON_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING'),
-  error: createAction('COUPON_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
-  success: createAction('COUPON_TEMPLATE/CREATE_OR_UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'COUPON_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING',
+  ),
+  error: createAction<Error | null>('COUPON_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
+  success: createAction<CouponTemplate>(
+    'COUPON_TEMPLATE/CREATE_OR_UPDATE/SUCCESS',
+  ),
 };
 
 export function createOrUpdateCouponTemplate(
-  data: any = {},
-  options?: OptionCallback,
-) {
+  data: CouponTemplate,
+  options?: OptionCallback<CouponTemplate>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(createOrUpdateCouponTemplateActions.error(null));
     dispatch(createOrUpdateCouponTemplateActions.isLoading(true));
@@ -296,12 +322,15 @@ export function createOrUpdateCouponTemplate(
 }
 
 export const deleteCouponTemplateActions = {
-  isLoading: createAction('COUPON_TEMPLATE/DELETE/IS_LOADING'),
-  error: createAction('COUPON_TEMPLATE/DELETE/ERROR'),
-  success: createAction('COUPON_TEMPLATE/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('COUPON_TEMPLATE/DELETE/IS_LOADING'),
+  error: createAction<Error | null>('COUPON_TEMPLATE/DELETE/ERROR'),
+  success: createAction<number>('COUPON_TEMPLATE/DELETE/SUCCESS'),
 };
 
-export function deleteCouponTemplate(id: number, options?: OptionCallback) {
+export function deleteCouponTemplate(
+  id: number,
+  options?: OptionCallback<null>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteCouponTemplateActions.error(null));
     dispatch(deleteCouponTemplateActions.isLoading(true));
@@ -324,15 +353,19 @@ export function deleteCouponTemplate(id: number, options?: OptionCallback) {
 }
 
 export const createCouponTemplateInstanceActions = {
-  isLoading: createAction('COUPON_TEMPLATE_INSTANCE/CREATE/IS_LOADING'),
-  error: createAction('COUPON_TEMPLATE_INSTANCE/CREATE/ERROR'),
-  success: createAction('COUPON_TEMPLATE_INSTANCE/CREATE/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'COUPON_TEMPLATE_INSTANCE/CREATE/IS_LOADING',
+  ),
+  error: createAction<Error | null>('COUPON_TEMPLATE_INSTANCE/CREATE/ERROR'),
+  success: createAction<CouponTemplateInstance>(
+    'COUPON_TEMPLATE_INSTANCE/CREATE/SUCCESS',
+  ),
 };
 
 export function createCouponTemplateInstance(
-  data: any,
-  options?: OptionCallback,
-) {
+  data: CouponTemplate,
+  options?: OptionCallback<CouponTemplateInstance>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(createCouponTemplateInstanceActions.error(null));
     dispatch(createCouponTemplateInstanceActions.isLoading(true));
@@ -354,15 +387,17 @@ export function createCouponTemplateInstance(
 }
 
 export const deleteCouponTemplateInstanceActions = {
-  isLoading: createAction('COUPON_TEMPLATE_INSTANCE/DELETE/IS_LOADING'),
-  error: createAction('COUPON_TEMPLATE_INSTANCE/DELETE/ERROR'),
-  success: createAction('COUPON_TEMPLATE_INSTANCE/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'COUPON_TEMPLATE_INSTANCE/DELETE/IS_LOADING',
+  ),
+  error: createAction<Error | null>('COUPON_TEMPLATE_INSTANCE/DELETE/ERROR'),
+  success: createAction<null>('COUPON_TEMPLATE_INSTANCE/DELETE/SUCCESS'),
 };
 
 export function deleteCouponTemplateInstance(
   id: number,
-  options?: OptionCallback,
-) {
+  options?: OptionCallback<null>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteCouponTemplateInstanceActions.error(null));
     dispatch(deleteCouponTemplateInstanceActions.isLoading(true));
@@ -383,15 +418,15 @@ export function deleteCouponTemplateInstance(
 }
 
 export const retrieveCouponTemplateActions = {
-  isLoading: createAction('COUNPON_TEMPLATE/RETRIEVE/IS_LOADING'),
-  error: createAction('COUNPON_TEMPLATE/RETRIEVE/ERROR'),
-  success: createAction('COUNPON_TEMPLATE/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('COUNPON_TEMPLATE/RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('COUNPON_TEMPLATE/RETRIEVE/ERROR'),
+  success: createAction<CouponTemplate>('COUNPON_TEMPLATE/RETRIEVE/SUCCESS'),
 };
 
 export function retrieveCouponTemplate(
   id: number,
   options?: OptionCallback<CouponTemplate>,
-) {
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveCouponTemplateActions.error(null));
     dispatch(retrieveCouponTemplateActions.isLoading(true));

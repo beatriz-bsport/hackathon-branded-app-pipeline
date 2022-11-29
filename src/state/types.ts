@@ -1,5 +1,5 @@
 import { AuthAction } from './auth/types';
-import { PaymentRulesState } from '../libs/payment-rules/types';
+import { PaymentRulesState } from '#libs/payment-rules/types';
 import { StatsState } from './stats/types';
 import { CoachState } from '../libs/associated-coach/types';
 import { SubscriptionState } from '../libs/subscription/types';
@@ -18,7 +18,7 @@ import { CouponState } from '../libs/coupon/types';
 import { LoginState } from '../libs/login/types';
 import { PrivateServiceState } from '../libs/private-service/types';
 import { PaymentComboState } from '../libs/payment-combo/types';
-import { ReminderState } from '../libs/reminder/types';
+import { ReminderState } from '#libs/reminder/types';
 import { MembershipState } from '../libs/membership/types';
 import { CompanyState } from '../libs/company/types';
 import { NotificationRuleState } from '../libs/notification-rule/types';
@@ -75,8 +75,8 @@ export type PaginatedResponse<T = void> = {
   links: { next: number | null; previous: number | null };
   next_page: number | null;
   results: Array<T>;
-  page?: number;
-  count?: number;
+  count: number;
+  page: number;
 };
 export type ErrorAndLoading = {
   loading: boolean;

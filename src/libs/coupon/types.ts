@@ -1,5 +1,6 @@
 import { ErrorAndLoading } from '../types';
 import { Company } from '../company/types';
+import { Invoice } from '#libs/invoice/types';
 
 export type Discount = {
   id: string;
@@ -17,7 +18,7 @@ export type Discount = {
 };
 
 export type Coupon = {
-  id: number;
+  id?: number;
   available: boolean;
   company: number;
   code: string;
@@ -38,6 +39,8 @@ export type Coupon = {
   name: string;
   whitelist_tags: number[];
   blacklist_tags: number[];
+  subscription_mode: number;
+  coupon_template_instance: CouponTemplateInstance;
 };
 
 export type CouponState = {
@@ -96,4 +99,34 @@ export type CouponTemplateAPI = {
 
 export type CouponTemplate = CouponTemplateAPI & {
   companies: Array<Company>;
+};
+
+export type FetchCouponsParams = {
+  id__in?: number[];
+  whitelist_tags__in?: number[];
+  blacklist_tags__in?: number[];
+  tags__in?: number[];
+  page_size?: number;
+};
+
+export type InvoiceParams = {
+  invoice_items: Invoice[];
+  invoice_amount: number;
+};
+
+export type ApplyToContractAPI = {
+  can_be_applied: boolean;
+  voucher: number;
+};
+
+export type FetchDiscountParams = {
+  page?: number;
+  page_size?: number;
+  coupon_template?: number;
+};
+
+export type ResetDiscountList = {
+  results: Discount[];
+  count: number;
+  page: number;
 };

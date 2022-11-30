@@ -19,11 +19,13 @@ export type OfferFilterData = {
   activity__in?: number[];
   establishment_group__in?: number[];
   page?: number;
-  page_size: number;
+  page_size?: number;
   whitelist_tags_id__in?: number[];
   blacklist_tags_id__in?: number[];
   with_group?: boolean;
   group_id__in?: number[];
+  id__in?: number[];
+  ignore_manager_only?: boolean;
 };
 
 //

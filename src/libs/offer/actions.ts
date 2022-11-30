@@ -484,6 +484,7 @@ export function fetchOfferBulk(
   ids: Array<number>,
   options?: OptionCallback,
   useCache?: boolean,
+  ignoreManagerOnly?: boolean,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     let ids_uniq = uniq((ids || []).filter((id) => !!id));
@@ -498,9 +499,13 @@ export function fetchOfferBulk(
     dispatch(offerBulkActions.isLoading(true));
 
     try {
-      const response = await fetchOffersListAPI({
-        id__in: ids_uniq,
-      });
+      const filterParams: {
+        id__in: Array<number>;
+        ignore_manager_only?: boolean;
+      } = { id__in: ids_uniq };
+      if (ignoreManagerOnly)
+        filterParams.ignore_manager_only = !!ignoreManagerOnly;
+      const response = await fetchOffersListAPI(filterParams);
       dispatch(offerBulkActions.success(response.data.results));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);

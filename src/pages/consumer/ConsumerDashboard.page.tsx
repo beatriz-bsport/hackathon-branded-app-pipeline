@@ -612,6 +612,8 @@ const mapWithHandlers = {
                   ]);
                 },
               },
+              false,
+              true, // ignoreManagerOnly
             );
           },
         },

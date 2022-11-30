@@ -34,9 +34,9 @@ export async function fetchOffersByDay(params: any) {
 
 export async function fetchOffersList(
   params: {
-    company: number;
-    min_date: string;
-    max_date: string;
+    company?: number;
+    min_date?: string;
+    max_date?: string;
     available?: boolean;
     is_workshop?: boolean;
     only_future?: boolean;

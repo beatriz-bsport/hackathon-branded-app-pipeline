@@ -5326,7 +5326,7 @@
             "form": {
                 "title": "[Formulier] Periodieke reservering",
                 "delayWeek": {
-                    "helperText": "Geef aan hoeveel weken dit lid zal worden ingeschreven",
+                    "helperText": "Geef aan hoeveel weken dit lid zal worden ingeschreven (8 weken maximaal)",
                     "label": "Aantal weken"
                 },
                 "metaActivity": {

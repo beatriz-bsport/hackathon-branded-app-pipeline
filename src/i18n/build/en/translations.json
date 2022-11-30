@@ -10670,7 +10670,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "Indicate how many weeks in advance the member will be enrolled",
+                    "helperText": "Indicate how many weeks in advance the member will be enrolled (8 weeks maximum)",
                     "label": "Number of weeks"
                 },
                 "metaActivity": {
@@ -11616,13 +11616,13 @@
                 "explanation": "Has X number of valid passes or appointment passes"
             },
             "102": {
-                "hasCompletedNone": "Hasn't completed",
+                "hasCompletedNone": "Has completed",
                 "date": {
                     "first": "completed for the last time"
                 },
                 "explanation": "Has completed X forms at A% on B date ",
                 "between": "and",
-                "to": "to",
+                "to": " ",
                 "third": "at a percentage",
                 "all": "all forms",
                 "atLeastOne": "at least one form",
@@ -11636,7 +11636,7 @@
                 "explanation": "Has accepted the general conditions of use",
                 "first": "your conditions of use",
                 "false": "Did not accept",
-                "true": "Accepted",
+                "true": "Has accepted",
                 "name": "Conditions of use"
             },
             "106": {
@@ -11647,17 +11647,17 @@
                 "name": "Phone"
             },
             "105": {
-                "explanation": "Has X relationships and Y passes or appointment passes or shared bookings",
+                "explanation": "Has X relationships and Y shared passes or appointment passes or bookings",
                 "acceptEmail": {
                     "second": "emails",
                     "false": "doesn't accept",
-                    "true": "accept",
+                    "true": "accepts",
                     "first": "the relationship"
                 },
                 "acceptSms": {
                     "second": "SMS",
                     "false": "doesn't accept",
-                    "true": "accept",
+                    "true": "accepts",
                     "first": "the relationship"
                 },
                 "receiveCopyOfEmail": {
@@ -11680,7 +11680,7 @@
                 "second": "of relations that respect the selected filters:",
                 "first": "Has a number",
                 "between": "and",
-                "to": "to",
+                "to": " ",
                 "date": {
                     "first": "the relationship has been established"
                 },
@@ -11703,7 +11703,7 @@
                 "email": "to receive notifications by email",
                 "sms": "to receive notifications by SMS",
                 "false": "Doesn't accept",
-                "true": "Accept",
+                "true": "Accepts",
                 "oneNeeded": "At least one of the activated conditions must be filled",
                 "allNeeded": "All activated conditions must be filled",
                 "name": "Notifications"
@@ -11711,9 +11711,9 @@
             "101": {
                 "explanation": "Is less/more/exactly...",
                 "second": "years (included)",
-                "to": "to",
+                "to": " ",
                 "between": "and",
-                "first": "Has an age",
+                "first": "Is",
                 "name": "Age"
             }
         },

@@ -5425,7 +5425,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "Indique con cuántas semanas de antelación se registrará el miembro",
+                    "helperText": "Indique con cuántas semanas de antelación se registrará el miembro (8 semanas máximo)",
                     "label": "Número de semanas"
                 },
                 "metaActivity": {

@@ -125,7 +125,7 @@
                 },
                 "delayWeek": {
                     "label": "Nombre de semaines",
-                    "helperText": "Indique combien de semaine en avance le membre sera inscrit"
+                    "helperText": "Indique combien de semaine en avance le membre sera inscrit (8 semaines max)"
                 }
             },
             "actions": {

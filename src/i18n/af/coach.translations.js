@@ -15,6 +15,8 @@ exports.default = {
       general: 'Profil',
       calendar: 'Calendrier',
     },
+    noPaymentRule:
+      "Attention, aucune règle de rémunération n'a été définie pour ce professeur.",
   },
   noCoach: "Il n'y a aucun professeur enregistré pour l'instant",
   coach: 'Professeur',

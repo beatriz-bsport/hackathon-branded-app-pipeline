@@ -22,21 +22,22 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
-import { getCurrencyDisplay } from '../../../theme/selectors';
+import { Alert } from '@material-ui/lab';
+import memoize from 'memoize-one';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
-} from '../../../coach-payment-rules/types';
+} from '#libs/coach-payment-rules/types';
 import type { MaterialStyleType } from '../../../../utils/types';
 import type { Coach } from '../../types';
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '../../../coach-payment-rules/utils';
-import PrivateSlotSelectorStyled from '../../../coach-payment-rules/components/PrivateSlotSelectorStyled.component';
-import { PrivateServiceWithSlots } from '../../../private-service/types';
-import CoachPaymentRuleSelectorStyled from '../../../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
-
+} from '#libs/coach-payment-rules/utils';
+import PrivateSlotSelectorStyled from '#libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
+import { PrivateServiceWithSlots } from '#libs/private-service/types';
+import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import type { OptionCallback } from '../../../state/types';
 
 type OwnProps = {
@@ -123,28 +124,8 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
     }
   }
 
-  render() {
-    const {
-      classes,
-      t,
-      coach,
-      coachPaymentRulesByKind,
-      coachPaymentRuleGroups,
-      setCoachPaymentRule,
-      setCoachWorkshopPaymentRule,
-      setCoachPrivatePaymentRule,
-      setCoachPaymentRuleGroup,
-      privateServices,
-    } = this.props;
-
-    const specificPrivateSlots = coach.coach_payment_rule_group_id
-      ? coachPaymentRuleGroups.find(
-          (group: CoachPaymentRuleGroup) =>
-            group.id === coach.coach_payment_rule_group_id,
-        ).private_slots_coach_payment_rules
-      : this.state.private_slots_coach_payment_rules;
-
-    const selectedPaymentRules = () => {
+  getSelectedPaymentRules = memoize(
+    (coach: Coach, coachPaymentRuleGroups: CoachPaymentRuleGroup[]) => {
       if (coach.coach_payment_rule_group_id) {
         const group = coachPaymentRuleGroups.find(
           (g: CoachPaymentRuleGroup) =>
@@ -167,7 +148,30 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
         workshop_coach_payment_rule: coach.workshop_coach_payment_rule_id,
         private_service_coach_payment_rule: coach.private_coach_payment_rule_id,
       };
-    };
+    },
+  );
+
+  render() {
+    const {
+      classes,
+      t,
+      coach,
+      coachPaymentRulesByKind,
+      coachPaymentRuleGroups,
+      setCoachPaymentRule,
+      setCoachWorkshopPaymentRule,
+      setCoachPrivatePaymentRule,
+      setCoachPaymentRuleGroup,
+      privateServices,
+    } = this.props;
+
+    const specificPrivateSlots = coach.coach_payment_rule_group_id
+      ? coachPaymentRuleGroups.find(
+          (group: CoachPaymentRuleGroup) =>
+            group.id === coach.coach_payment_rule_group_id,
+        ).private_slots_coach_payment_rules
+      : this.state.private_slots_coach_payment_rules;
+
     const updateState = (identifier: string, value: number, index: number) => {
       if (identifier === 'delete') {
         const { private_slots_coach_payment_rules } = this.state;
@@ -216,6 +220,20 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
       });
       this.setState({ private_slots_errors: false });
     };
+
+    const {
+      session_coach_payment_rule,
+      workshop_coach_payment_rule,
+      private_service_coach_payment_rule,
+    } = this.getSelectedPaymentRules(coach, coachPaymentRuleGroups);
+
+    const coachHasPaymentRule = !!(
+      session_coach_payment_rule ||
+      workshop_coach_payment_rule ||
+      private_service_coach_payment_rule ||
+      coach.private_slots_coach_payment_rules?.length
+    );
+
     return (
       <>
         <div className={classes.flexRow}>
@@ -234,6 +252,13 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             {t('showPerformance')}
           </Button>
         </div>
+
+        {!coachHasPaymentRule && (
+          <Alert severity="warning" className={classes.alert}>
+            {t('coach:detail.noPaymentRule')}
+          </Alert>
+        )}
+
         <Grid item xs={8}>
           <Grid
             container
@@ -315,9 +340,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
                 }
-                selectedRules={[
-                  selectedPaymentRules().session_coach_payment_rule,
-                ]}
+                selectedRules={[session_coach_payment_rule]}
                 placeholder={t('paymentRules:label')}
                 disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
@@ -349,9 +372,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
                 }
-                selectedRules={[
-                  selectedPaymentRules().workshop_coach_payment_rule,
-                ]}
+                selectedRules={[workshop_coach_payment_rule]}
                 placeholder={t('paymentRules:label')}
                 disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
@@ -385,9 +406,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
                 }
-                selectedRules={[
-                  selectedPaymentRules().private_service_coach_payment_rule,
-                ]}
+                selectedRules={[private_service_coach_payment_rule]}
                 placeholder={t('paymentRules:label')}
                 disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
@@ -580,6 +599,10 @@ const styles = (theme) => ({
   },
   blockIcon: {
     paddingLeft: theme.spacing(1),
+  },
+  alert: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 });
 

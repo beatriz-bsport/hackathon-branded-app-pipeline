@@ -253,7 +253,14 @@ export async function get(
     const response = await axios({
       url: uri,
       method: 'get',
-      headers,
+      headers: {
+        'Accept-Language': i18n.language || 'en',
+        'X-Transaction-ID': setTransactionId(),
+        'X-Timezone-Name': getTimezoneName(),
+        'X-Session-ID': setSessionId(),
+        'X-React-Referrer': window.location.href,
+        ...(headers || {}),
+      },
       cancelToken,
     });
     return response;

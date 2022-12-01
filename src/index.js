@@ -4,6 +4,7 @@ import './i18n';
 
 import Root from './Root';
 import '../vendor/cleanslate.css';
+import { logWidgetConfigUsage } from './utils/log';
 
 export default class BsportWidget {
   static el_list_id = [];
@@ -20,6 +21,8 @@ export default class BsportWidget {
       }
       ReactDOM.render(component, el);
       BsportWidget.el_list_id.push(parentElementId);
+
+      logWidgetConfigUsage(parentElementId, initialParams);
     }
     if (document.readyState === 'complete') {
       doRender();

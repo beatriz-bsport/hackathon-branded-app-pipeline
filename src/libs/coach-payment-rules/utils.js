@@ -113,10 +113,6 @@ export const computePerformanceSynthese = (CoachesWithPerformances) => {
   return syntheseaccu;
 };
 
-export const DISSOCIATED_COACH_PAYMENT_RULE = -9999;
-export const DISSOCIATED_COACH_PAYMENT_RULE_GROUP = -8000;
-export const ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP = -8001;
-
 export const openPdfDocument = (response) => {
   const filename = response.data.split('/').at(-1);
   axios

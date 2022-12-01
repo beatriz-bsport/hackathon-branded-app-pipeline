@@ -13,7 +13,7 @@ import {
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '#libs/coach-payment-rules/utils';
+} from '#libs/coach-payment-rules/constants';
 
 import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import { Coach } from '#libs/associated-coach/types';

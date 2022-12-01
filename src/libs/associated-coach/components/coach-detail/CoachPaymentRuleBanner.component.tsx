@@ -30,11 +30,11 @@ import type {
   CoachPaymentRuleGroup,
 } from '#libs/coach-payment-rules/types';
 import type { MaterialStyleType } from '../../../../utils/types';
-import type { Coach } from '../../types';
+import type { Coach } from '#libs/associated-coach/types';
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '#libs/coach-payment-rules/utils';
+} from '#libs/coach-payment-rules/constants';
 import PrivateSlotSelectorStyled from '#libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
 import { PrivateServiceWithSlots } from '#libs/private-service/types';
 import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';

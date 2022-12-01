@@ -15,11 +15,11 @@ import {
 import {
   DISSOCIATED_COACH_PAYMENT_RULE,
   DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
-} from '#libs/coach-payment-rules/utils';
+} from '#libs/coach-payment-rules/constants';
 
 import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
-import CoachPerformanceSummaryHeader from './CoachPerformanceSummaryHeader.component';
-import CoachPerformanceTabs from './CoachPerformanceTabs.component';
+import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
+import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 
 import {
   Coach,

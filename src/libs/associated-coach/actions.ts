@@ -5,7 +5,7 @@ import uniq from 'lodash/uniq';
 import { Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import {
   updateCoach as updateCoachAPI,
   addCoach as addCoachAPI,
@@ -19,14 +19,14 @@ import {
   updateCoachPrivateSlotsPaymentRules as updateCoachPrivateSlotsPaymentRulesAPI,
   editAccessToCoachSpaceAPI,
   retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAPI,
-} from './api';
-import { getFreshCoachIds } from './selectors';
+} from '#libs/associated-coach/api';
+import { getFreshCoachIds } from '#libs/associated-coach/selectors';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
-import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '../coach-payment-rules/utils';
-import { Coach } from './types';
+import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#libs/coach-payment-rules/constants';
+import { Coach } from '#libs/associated-coach/types';
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),

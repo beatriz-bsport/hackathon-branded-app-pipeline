@@ -5,7 +5,20 @@ import {
 import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from 'bsport-saas/src/libs/widget/constants';
 import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-export const migrateOldProps = (props: any) => {
+export type WidgetConfig = {
+  widgetId: string,
+  dialogMode?: boolean,
+  widgetType: string,
+  showFab?: boolean,
+  fullScreenPopup?: boolean,
+  config: any,
+} & (
+  | { companyId: number }
+  | { franchiseId: number }
+  | { franchiseId: number, companyId: number }
+);
+
+export const migrateOldProps = (props: WidgetConfig) => {
   const _props = { ...props };
 
   /**

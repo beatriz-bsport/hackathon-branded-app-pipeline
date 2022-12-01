@@ -1,15 +1,13 @@
 import { getEnv } from './env';
-import { migrateOldProps } from './sanitize-widget-props';
+import { migrateOldProps, WidgetConfig } from './widget-props';
 
-export const logWidgetConfigUsage = (widgetId: string, data: any) => {
-  console.log(data);
+export const logWidgetConfigUsage = (widgetId: string, data: WidgetConfig) => {
   const sanitizedData = {
     widgetId,
     ...migrateOldProps(data),
-    companyId: data.companyId || -1,
-    franchiseId: data.franchiseId || -1,
+    companyId: data?.companyId || -1,
+    franchiseId: data?.franchiseId || -1,
   };
-  console.log(sanitizedData);
   fetch(
     `${
       getEnv().REACT_APP_BASE_URI

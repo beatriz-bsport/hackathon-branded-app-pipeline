@@ -9,20 +9,20 @@ import {
 
 import initStore from './store';
 import App from './App';
-import { migrateOldProps } from './utils/sanitize-widget-props';
+import { migrateOldProps, WidgetConfig } from './utils/widget-props';
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'widget-',
 });
 
-export default class extends React.Component {
+export default class extends React.Component<Props> {
   store: any;
 
   history: any;
 
   childProps: any;
 
-  constructor(props: any) {
+  constructor(props: WidgetConfig) {
     super(props);
 
     this.store = initStore();

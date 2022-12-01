@@ -5,11 +5,15 @@ import './i18n';
 import Root from './Root';
 import '../vendor/cleanslate.css';
 import { logWidgetConfigUsage } from './utils/log';
+import { WidgetConfig } from './utils/widget-props';
 
 export default class BsportWidget {
   static el_list_id = [];
 
-  static mount({ parentElement, ...initialParams } = {}) {
+  static mount({
+    parentElement,
+    ...initialParams
+  }: { parentElement: HTMLElement } & WidgetConfig = {}) {
     const component = <Root initialParams={initialParams} />;
     function doRender() {
       const el = document.createElement('div');

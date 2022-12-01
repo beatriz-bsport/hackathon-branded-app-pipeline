@@ -153,6 +153,9 @@ export const withMember = memoize((selector: (State: RootState) => any) =>
   }),
 );
 
+export const getIncompatibilitiesReasons = (state: RootState) =>
+  state.consumerPaymentPack.incompatibilitiesByOfferByConsumerPack.byId;
+
 const _getConsumerPaymentPackCompatibleListIds = (state: RootState) =>
   state.consumerPaymentPack.compatible.allIds;
 

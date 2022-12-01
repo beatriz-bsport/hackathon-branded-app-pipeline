@@ -12,6 +12,7 @@ import {
   updateConsumerPack,
   byOfferByMember,
   nonCompatibleByOfferByMember,
+  incompatibilitiesReasonsByOfferByConsumerPack,
   forBookingActions,
   partialRefundActions,
   listConsumerPaymentPackCompatibleActions,
@@ -33,6 +34,11 @@ const initialState = Immutable<ConsumerPaymentPackState>({
     loading: false,
     error: null,
     items: [],
+  },
+  incompatibilitiesByOfferByConsumerPack: {
+    byId: {},
+    error: null,
+    loading: false,
   },
   compatible: {
     allIds: [],
@@ -149,7 +155,46 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
         [payload, ...state.extension.items],
       );
     },
+    [incompatibilitiesReasonsByOfferByConsumerPack.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          incompatibilitiesByOfferByConsumerPack: {
+            byId: payload,
+          },
+        },
+        { deep: true },
+      );
+    },
+    [incompatibilitiesReasonsByOfferByConsumerPack.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['incompatibilitiesByOfferByConsumerPack', 'loading'],
+        payload,
+      );
+    },
+    [incompatibilitiesReasonsByOfferByConsumerPack.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['incompatibilitiesByOfferByConsumerPack', 'error'],
+        payload,
+      );
+    },
 
+    [incompatibilitiesReasonsByOfferByConsumerPack.reset.toString()]: (
+      state,
+    ) => {
+      return state.setIn(
+        ['incompatibilitiesByOfferByConsumerPack', 'byId'],
+        {},
+      );
+    },
     [extensionDeleteActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['extension', 'delete', 'loading'], payload);
     },

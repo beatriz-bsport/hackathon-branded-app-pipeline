@@ -36,6 +36,17 @@ export async function fetchNonCompatibleByOfferByMember(
   );
 }
 
+export async function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
+  id: number,
+  offer: number,
+) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/incompatibility_error_code_list/${buildUrlParams(
+      { offer },
+    )}`,
+  );
+}
+
 export async function fetchConsumerPackList(params: any = {}) {
   return getAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams({

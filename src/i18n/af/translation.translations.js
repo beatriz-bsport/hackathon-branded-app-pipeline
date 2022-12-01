@@ -195,8 +195,7 @@ exports.default = {
     offersPendingDelete: 'Séances qui seront supprimées :',
     noPackAvailableForOfferPurchase:
       'Aucune carte de cours compatible avec cette séance !',
-    noncompatibleConsumerPaymentPacksAre:
-      'Possède les cartes suivantes, non-compatible avec cette séance :',
+    noncompatibleConsumerPaymentPacksAre: 'Pass possédé(s) non compatible(s)',
     noConsumerPackAvailableForPurchase:
       'Aucune carte de cours compatible possédée par ce membre !',
     noEmptyDuration: 'La durée doit être strictement positive',

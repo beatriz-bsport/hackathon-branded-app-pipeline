@@ -122,6 +122,15 @@ type Props = {
   fetchCompatiblePacks: (offerId: number) => void,
   userRole: Role,
   fetchCompanyUserRoles: () => void,
+
+  fetchIncompatibilitiesReasonsByOfferByConsumerPack: (
+    cpp_id: number,
+    offer_id: number,
+    options: OptionCallback,
+  ) => void,
+  resetIncompatibilitiesReasonsByOfferByConsumerPack: () => void,
+  incompatibilitiesReasons: { [cpp_id: number]: number[] },
+  goToPaymentPack: (pp_id: number) => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -166,6 +175,8 @@ export class BookerModuleManager extends PureComponent<Props> {
     this.props.fetchAllEstablishmentBillingGroup();
 
     this.props.fetchCompatiblePacks(this.props.offerId);
+
+    this.props.resetIncompatibilitiesReasonsByOfferByConsumerPack();
 
     if (this.props.offer.group) {
       // this.props.fetchOffersInGroup(
@@ -471,6 +482,12 @@ export class BookerModuleManager extends PureComponent<Props> {
                   isNotAllowedToOverbook={
                     !this.props.userRole?.has_booking_override_control
                   }
+                  fetchIncompatibilitiesReasonsByOfferByConsumerPack={
+                    this.props
+                      .fetchIncompatibilitiesReasonsByOfferByConsumerPack
+                  }
+                  incompatibilitiesReasons={this.props.incompatibilitiesReasons}
+                  goToPaymentPack={this.props.goToPaymentPack}
                 />
               )}
               {this.props.step === OFFER_CHOICE && (
@@ -643,4 +660,11 @@ export default compose(
       },
     }),
   ),
+  withHandlers({
+    goToPaymentPack:
+      ({ pushRouter }) =>
+      (consumerPackId) => {
+        pushRouter(`/payment-pack/${consumerPackId}`);
+      },
+  }),
 )(BookerModuleManager);

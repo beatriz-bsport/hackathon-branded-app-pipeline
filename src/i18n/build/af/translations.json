@@ -4593,7 +4593,7 @@
       "attendance": "À la première présence",
       "beginningDate": "Date de début",
       "expirationDate": "Expiration si aucune réservation initiale",
-      "expirationDateHelper": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendu invalide",
+      "expirationDateHelper": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendue invalide",
       "marginalContribution": "Apport marginal théorique TTC",
       "marginalContributionHelperText": "Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION",
       "penalityNumberCancel": "Nombre d’annulations",
@@ -4818,6 +4818,18 @@
       "week_plural": "Carte limitée à {{count}} utilisations maximum par semaine",
       "month": "Carte limitée à {{count}} utilisation maximum par mois",
       "month_plural": "Carte limitée à {{count}} utilisations maximum par mois"
+    },
+    "incompatibilities": {
+      "2008": "Activité non compatible",
+      "2009": "Catégorie non compatible",
+      "2010": "Etablissement non compatible",
+      "2018": "Nombre de crédits insuffisant",
+      "2019": "La carte est bloquée",
+      "2020": "Les dates sont incompatibles",
+      "2021": "La carte commence à la première réservation, le ",
+      "2022": "La carte commence à la première présence, le ",
+      "2023": "La carte est expirée",
+      "paymentPack": "Carte configurée comme incompatible avec l'activité en question :"
     }
   },
   "paymentRules": {
@@ -9331,7 +9343,7 @@
       "offersPendingChange": "Séances qui seront modifiées :",
       "offersPendingDelete": "Séances qui seront supprimées :",
       "noPackAvailableForOfferPurchase": "Aucune carte de cours compatible avec cette séance !",
-      "noncompatibleConsumerPaymentPacksAre": "Possède les cartes suivantes, non-compatible avec cette séance :",
+      "noncompatibleConsumerPaymentPacksAre": "Pass possédé(s) non compatible(s)",
       "noConsumerPackAvailableForPurchase": "Aucune carte de cours compatible possédée par ce membre !",
       "noEmptyDuration": "La durée doit être strictement positive",
       "backToCalendar": "Calendrier",

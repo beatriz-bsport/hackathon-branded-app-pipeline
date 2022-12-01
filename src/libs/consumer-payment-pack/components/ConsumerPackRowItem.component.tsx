@@ -13,12 +13,17 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import InfoIcon from '@material-ui/icons/Info';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 
 import moment from 'moment-timezone';
 
 import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
+import { OptionCallback } from '../../../state/types';
 import { MaterialStyleType } from '../../../utils/types';
 import Tooltip from '#components/Tooltip.component';
 
@@ -34,6 +39,8 @@ import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.co
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import { Offer } from '#libs/offer/types';
 import { WithIsSharedActive } from '#libs/relationship/types';
+import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
+import { getSpecificIncompatibilitiesReasons } from '../utils';
 
 type Props = {
   loading: boolean;
@@ -59,10 +66,33 @@ type Props = {
   onBookMultiple: (id: number) => void;
   offer?: Offer;
   updating: boolean;
+  goToPaymentPack: () => void;
+
+  fetchIncompatibilitiesReasonsByOfferByConsumerPack: (
+    cpp_id: number,
+    offer_id: number,
+    options: OptionCallback,
+  ) => void;
+  incompatibilitiesReasons: {
+    [offerAndCpp: [offer_id: number, cpp_id: string]]: number[];
+  };
+  width: Breakpoint;
 } & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-export class ConsumerPackRowItem extends Component<Props> {
+type State = {
+  consumerPackHasBeenHovered: boolean;
+  showIncompatibilities: boolean;
+  incompatibilitiesAreLoading: boolean;
+};
+
+export class ConsumerPackRowItem extends Component<Props, State> {
+  state = {
+    consumerPackHasBeenHovered: false,
+    showIncompatibilities: false,
+    incompatibilitiesAreLoading: true,
+  };
+
   checkMaxoutBeforeBook = async (callback: () => void) => {
     const { t } = this.props;
     const maxoutStatus = this.getCppMaxoutStatus(
@@ -101,6 +131,32 @@ export class ConsumerPackRowItem extends Component<Props> {
     }
   };
 
+  handleInfoIncompatibilitesHovering = () => {
+    this.setState((prevState: State) => {
+      if (prevState.consumerPackHasBeenHovered)
+        return {
+          showIncompatibilities: true,
+        };
+      this.props.fetchIncompatibilitiesReasonsByOfferByConsumerPack(
+        this.props.consumerPack.id,
+        this.props.offer.id,
+        {
+          onSuccess: () =>
+            this.setState({ incompatibilitiesAreLoading: false }),
+          onError: () => this.setState({ incompatibilitiesAreLoading: false }),
+        },
+      );
+      return {
+        showIncompatibilities: true,
+        consumerPackHasBeenHovered: true,
+      };
+    });
+  };
+
+  handleInfoIncompatibilitesLeaving = () => {
+    this.setState({ showIncompatibilities: false });
+  };
+
   renderButton = () => {
     const {
       paymentPack,
@@ -110,21 +166,60 @@ export class ConsumerPackRowItem extends Component<Props> {
       onBook,
       onBookOne,
       onBookMultiple,
+      goToPaymentPack,
       isNonCompatible,
       loading,
       updating,
+      width,
       t,
     } = this.props;
+
+    const isMobile = isWidthDown('sm', width);
+    const closeMobileIncompatibilities = isMobile
+      ? this.handleInfoIncompatibilitesLeaving
+      : null;
+
+    const incompatibilitiesReasons = getSpecificIncompatibilitiesReasons(
+      this.props.incompatibilitiesReasons,
+      this.props.offer?.id,
+      consumerPack?.id,
+    );
+
     if (isNonCompatible) {
       return (
-        <RedButton
-          variant="outlined"
-          disabled
-          color="primary"
-          id={`btn-payment-pack-${consumerPack.id}`}
-        >
-          {t('isNonCompatible')}
-        </RedButton>
+        <div>
+          <div className={this.props.classes.buttonsContainer}>
+            {isMobile ? (
+              <IconButton onClick={this.handleInfoIncompatibilitesHovering}>
+                <InfoIcon />
+              </IconButton>
+            ) : (
+              <InfoIcon
+                onMouseEnter={this.handleInfoIncompatibilitesHovering}
+                onMouseLeave={this.handleInfoIncompatibilitesLeaving}
+              />
+            )}
+
+            <IconButton onClick={goToPaymentPack} color="secondary">
+              <ArrowForwardIcon />
+            </IconButton>
+          </div>
+          {this.state.showIncompatibilities &&
+            (this.state.incompatibilitiesAreLoading ||
+            !incompatibilitiesReasons ? (
+              <div className={this.props.classes.container}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <div className={this.props.classes.tooltipContainer}>
+                <ConsumerPaymentPackIncompatibilitiesReasons
+                  reasons={incompatibilitiesReasons}
+                  closeMobileIncompatibilities={closeMobileIncompatibilities}
+                  extraStartingDate={consumerPack.starting_date}
+                />
+              </div>
+            ))}
+        </div>
       );
     }
     if (onBook) {
@@ -478,9 +573,41 @@ const styles = (theme: Theme) =>
         marginLeft: theme.spacing(1),
       },
     },
+    container: {
+      width: '150px',
+      height: '150px',
+      position: 'absolute',
+      backgroundColor: 'white',
+      right: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      boxShadow: theme.shadows[1],
+      zIndex: 1500,
+    },
+    buttonsContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    tooltipContainer: {
+      position: 'absolute',
+      right: 0,
+      zIndex: 1500,
+      padding: theme.spacing(2),
+      borderRadius: theme.spacing(1),
+      maxWidth: '340px',
+      height: 'auto',
+      backgroundColor: 'white',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      boxShadow: theme.shadows[1],
+    },
   });
 
 export default compose<any, Props>(
   withTranslation(['paymentPack']),
   withStyles(styles),
+  withWidth(),
 )(ConsumerPackRowItem);

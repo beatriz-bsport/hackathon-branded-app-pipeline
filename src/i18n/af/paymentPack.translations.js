@@ -1,6 +1,17 @@
 const PAYMENT_PACK_NOTIFICATION_DAY_LEFT = 0;
 const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
 const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
+const {
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE,
+  CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_ENOUGH_CREDIT,
+  CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_DISABLED,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_HAS_EXPIRED,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATES_NOT_COMPATIBLE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_BOOKING,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE,
+} = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 exports.default = {
   paymentPackTemplateInstance: {
@@ -544,7 +555,7 @@ exports.default = {
     beginningDate: 'Date de début',
     expirationDate: 'Expiration si aucune réservation initiale',
     expirationDateHelper:
-      "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendu invalide",
+      "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendue invalide",
     marginalContribution: 'Apport marginal théorique TTC',
     marginalContributionHelperText:
       'Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION',
@@ -798,5 +809,25 @@ exports.default = {
     week_plural: 'Carte limitée à {{count}} utilisations maximum par semaine',
     month: 'Carte limitée à {{count}} utilisation maximum par mois',
     month_plural: 'Carte limitée à {{count}} utilisations maximum par mois',
+  },
+  incompatibilities: {
+    paymentPack:
+      "Carte configurée comme incompatible avec l'activité en question :",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE]:
+      'Activité non compatible',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE]:
+      'Catégorie non compatible',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE]:
+      'Etablissement non compatible',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_ENOUGH_CREDIT]:
+      'Nombre de crédits insuffisant',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_DISABLED]: 'La carte est bloquée',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATES_NOT_COMPATIBLE]:
+      'Les dates sont incompatibles',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_HAS_EXPIRED]: 'La carte est expirée',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_BOOKING]:
+      'La carte commence à la première réservation, le ',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE]:
+      'La carte commence à la première présence, le ',
   },
 };

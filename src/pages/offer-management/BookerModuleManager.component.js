@@ -2,6 +2,7 @@ import { compose, withHandlers } from 'recompose';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import {
   getSimilars as getSimilarsOffers,
   getOffersListByGroup as getOffersListByGroupSelector,
@@ -20,12 +21,15 @@ import {
   fetchByOfferByMember,
   fetchConsumerPaymentPackMaxoutBooking,
   fetchNonCompatibleByOfferByMember,
+  fetchIncompatibilitiesReasonsByOfferByConsumerPack as fetchIncompatibilitiesReasonsByOfferByConsumerPackAction,
+  resetIncompatibilitiesReasonsByOfferByConsumerPack as resetIncompatibilitiesReasonsByOfferByConsumerPackAction,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import {
   getByOfferByMember,
   getNonCompatibleByOfferByMember,
   withPaymentPack,
+  getIncompatibilitiesReasons,
 } from '../../libs/consumer-payment-pack/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
@@ -79,6 +83,7 @@ export default compose(
       compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
       compatiblePacksLoading: state.offer.compatiblePacks.loading,
       userRole: getUserRole(state),
+      incompatibilitiesReasons: getIncompatibilitiesReasons(state),
     }),
     {
       fetchPaymentPackBulk,
@@ -102,6 +107,11 @@ export default compose(
       fetcOffersBulk: fetchOfferBulkAction,
       fetchCompatiblePacks: fetchCompatiblePacksAction,
       fetchCompanyUserRoles,
+      fetchIncompatibilitiesReasonsByOfferByConsumerPack:
+        fetchIncompatibilitiesReasonsByOfferByConsumerPackAction,
+      resetIncompatibilitiesReasonsByOfferByConsumerPack:
+        resetIncompatibilitiesReasonsByOfferByConsumerPackAction,
+      pushRouter: push,
     },
   ),
 

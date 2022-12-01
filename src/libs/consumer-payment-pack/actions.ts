@@ -6,6 +6,7 @@ import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import {
   fetchByOfferByMember as fetchByOfferByMemberAPI,
   fetchNonCompatibleByOfferByMember as fetchNonCompatibleByOfferByMemberAPI,
+  fetchIncompatibilitiesReasonsByOfferByConsumerPack as fetchIncompatibilitiesReasonsByOfferByConsumerPackAPI,
   fetchConsumerPackList as fetchConsumerPaymentPackListAPI,
   fetchExtensions as fetchExtensionListAPI,
   createExtension as createExtensionAPI,
@@ -68,6 +69,21 @@ export const nonCompatibleByOfferByMember = {
   ),
 };
 
+export const incompatibilitiesReasonsByOfferByConsumerPack = {
+  isLoading: createAction(
+    'CONSUMER_PACK/INCOMPATIBILITIES_BY_OFFER_BY_CONSUMER_PACK/IS_LOADING',
+  ),
+  error: createAction(
+    'CONSUMER_PACK/INCOMPATIBILITIES_BY_OFFER_BY_CONSUMER_PACK/ERROR',
+  ),
+  success: createAction(
+    'CONSUMER_PACK/INCOMPATIBILITIES_BY_OFFER_BY_CONSUMER_PACK/SUCCESS',
+  ),
+  reset: createAction(
+    'CONSUMER_PACK/INCOMPATIBILITIES_BY_OFFER_BY_CONSUMER_PACK/RESET',
+  ),
+};
+
 export function fetchNonCompatibleByOfferByMember(
   offer: number,
   member: number,
@@ -92,6 +108,41 @@ export function fetchNonCompatibleByOfferByMember(
       }
     }
     dispatch(nonCompatibleByOfferByMember.isLoading(false));
+  };
+}
+
+export function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
+  cpp: number,
+  offer: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(nonCompatibleByOfferByMember.isLoading(true));
+    try {
+      const response =
+        await fetchIncompatibilitiesReasonsByOfferByConsumerPackAPI(cpp, offer);
+      dispatch(
+        incompatibilitiesReasonsByOfferByConsumerPack.success(
+          response.data.incompatibilities_to_offer,
+        ),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(nonCompatibleByOfferByMember.error(error));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(nonCompatibleByOfferByMember.isLoading(false));
+  };
+}
+
+export function resetIncompatibilitiesReasonsByOfferByConsumerPack() {
+  return async (dispatch: Dispatch) => {
+    dispatch(incompatibilitiesReasonsByOfferByConsumerPack.reset());
   };
 }
 

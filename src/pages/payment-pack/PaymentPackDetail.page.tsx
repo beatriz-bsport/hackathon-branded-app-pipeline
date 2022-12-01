@@ -9,8 +9,6 @@ import { Theme } from '@material-ui/core';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { TFunction } from 'i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -31,7 +29,7 @@ import PaymentPackDeleteDialog from '#libs/payment-packs/components/PaymentPackD
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import ConsumerPaymentPackFilters from '#libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 
 import {
   updateCredit as updateCreditAction,
@@ -143,6 +141,7 @@ import {
 import type { PrivateSlot } from '#libs/private-service/types';
 import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
 import { setGenericFilterValue } from '#libs/payment-packs/utils';
+import BottomActionButtons from '#components/button/BottomActionsButton.component';
 
 type OwnProps = {
   id: number;
@@ -441,21 +440,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                 />
               </React.Fragment>
             )}
-            {!!this.props.pack && !this.props.pack.template_instance && (
-              <div className={classes.buttonContainerCenter}>
-                {this.props.loadingMassExtension ? (
-                  <CircularProgress />
-                ) : (
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => this.props.setOpenMassExtensionDialog(true)}
-                  >
-                    {this.props.t('paymentPack:massExtension.title')}
-                  </Button>
-                )}
-              </div>
-            )}
           </div>
         </Grid>
 
@@ -547,6 +531,15 @@ export class PaymentPackDetail extends Component<Props, State> {
             this.props.theme?.allow_guest_activatable
           }
         />
+
+        {!!this.props.pack &&
+          !this.props.pack.template_instance &&
+          !this.props.loadingMassExtension && (
+            <BottomActionButtons
+              onCreate={() => this.props.setOpenMassExtensionDialog(true)}
+              onCreateLabel={this.props.t('paymentPack:massExtension.title')}
+            />
+          )}
       </Grid>
     );
   }

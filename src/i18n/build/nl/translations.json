@@ -670,7 +670,7 @@
                 "CASH": "Contant",
                 "HOLIDAY_CHECK": "Vakantiecheques",
                 "CHECK": "Cheque",
-                "CB_MANUAL": "Betaalkaart (handmatig)",
+                "CB_MANUAL": "Betaalkaart (handmatig - pinapparaat)",
                 "CB": "Betaalkaart"
             },
             "creditAccountBalance": "Saldo interne rekening (Wallet): ",
@@ -1489,7 +1489,7 @@
             "CASH": "Contant",
             "HOLIDAY_CHECK": "Vakantiecheques",
             "CHECK": "Cheque",
-            "CB_MANUAL": "Betaalkaart (handmatig)",
+            "CB_MANUAL": "Betaalkaart (handmatig - pinapparaat)",
             "CB": "Online betalingen"
         },
         "pageTitle": {
@@ -2200,7 +2200,7 @@
             "bank_transfer": "Bankoverschrijving",
             "subscription_cb": "Geplande abonnementsbetalingen",
             "stripe": "Betaalkaart",
-            "manual_credit_card": "Betaalkaart (handmatig)",
+            "manual_credit_card": "Betaalkaart (handmatig - pinapparaat)",
             "holiday_check": "Vakantiecheques",
             "amex": "AMEX",
             "event_brite": "EventBrite",
@@ -2324,7 +2324,7 @@
             "payment_method_stripe": "Betaalkaart (online)",
             "payment_method_cash": "Contant",
             "payment_method_check": "Cheque",
-            "payment_method_manual_credit_card": "Betaalkaart (handmatig)",
+            "payment_method_manual_credit_card": "Betaalkaart (handmatig - pinapparaat)",
             "payment_method_holiday_check": "Vakantiecheques",
             "payment_method_amex": "AMEX",
             "payment_method_bank_transfer": "Bankoverschrijving",
@@ -2702,7 +2702,7 @@
                 "1": "Contant",
                 "2": "Cheque",
                 "3": "Pass",
-                "4": "Kaart (handmatig)",
+                "4": "Betaalkaart (handmatig - pinapparaat)",
                 "5": "Vakantie cheque",
                 "6": "AMEX",
                 "7": "Transfer",
@@ -2766,7 +2766,8 @@
             "4": "Openstaande afspraken",
             "5": "Juridische kennisgeving",
             "6": "Onbetaalde afspraken",
-            "7": "Handleiding"
+            "7": "Handleiding",
+            "9": "Inbox"
         },
         "showMore": "Zie meer",
         "unevenInvoice": {
@@ -8387,7 +8388,7 @@
             "10": "Automatische betaling",
             "0": "Betaalkaart",
             "1": "Contant geld",
-            "4": "Betaalkaart (handmatig)",
+            "4": "Betaalkaart (handmatig - pinapparaat)",
             "5": "Vakantiecheques",
             "6": "AMEX",
             "7": "Bankoverschrijving",
@@ -8434,7 +8435,7 @@
             "8": "Eventbrite",
             "50": "EPS",
             "0": "Betaalkaart",
-            "4": "Betaalkaart (handmatig)",
+            "4": "Betaalkaart (handmatig - pinapparaat)",
             "20": "Bancontact",
             "40": "iDEAL",
             "60": "Giropay",
@@ -8547,7 +8548,8 @@
             },
             "title": "Mijn uitbetalingen",
             "payoutAmountFromIncludedPayouts": "waarvan {{price}} van eerdere uitbetalingen",
-            "payoutIsIncludedInOther": "Deze overschrijving werd opgenomen in de overschrijving van {{date}} met de identificatie {{readable_identifier}}"
+            "payoutIsIncludedInOther": "Deze overschrijving werd opgenomen in de overschrijving van {{date}} met de identificatie {{readable_identifier}}",
+            "payoutIsManual": "Deze uitbetalingsoverdracht is handmatig geactiveerd door het bsport team om de overdracht van uw tegoeden te versnellen. In dit geval zijn de details van de gekoppelde betalingen niet beschikbaar. Neem contact op met ons team voor meer informatie."
         },
         "interval": {
             "week": "week",
@@ -10981,7 +10983,7 @@
                 },
                 "paymentDialog": {
                     "connectAndPay": "Naar pinapparaat versturen",
-                    "radio": "Pinappraat",
+                    "radio": "Pinapparaat",
                     "amountToPay": "Uitstaand bedrag",
                     "minAmountInfo": "Het minimumbedrag om dit pinapparaat te gebruiken is {{amountString}}.",
                     "connectionSuccess": {
@@ -11259,7 +11261,7 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Betaalkaart (handmatig)",
+                "15": "Betaalkaart (handmatig - pinapparaat)",
                 "8": "Diverse",
                 "13": "Giropay",
                 "12": "EPS",

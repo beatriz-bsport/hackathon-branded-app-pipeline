@@ -2724,7 +2724,8 @@
             },
             "title": "Mis pagos",
             "payoutAmountFromIncludedPayouts": "de los cuales {{price}} de los pagos anteriores",
-            "payoutIsIncludedInOther": "Esta transferencia fue incluida en la transferencia de {{date}} con el identificador {{readable_identifier}}"
+            "payoutIsIncludedInOther": "Esta transferencia fue incluida en la transferencia de {{date}} con el identificador {{readable_identifier}}",
+            "payoutIsManual": "Esta transferencia fue iniciada manualmente por el equipo de bsport para acelerar la recepción de tus fondos. En este caso, los detalles de los pagos no están disponibles. Póngate en contacto con nuestro equipo si necesitas más información."
         },
         "instalment": {
             "form": {
@@ -4672,7 +4673,8 @@
             "3": "Tarea",
             "5": "Informaciones legales",
             "6": "Citas no pagadas",
-            "7": "Tutoriales"
+            "7": "Tutoriales",
+            "9": "Messages received"
         },
         "showMore": "Ver más",
         "unevenInvoice": {

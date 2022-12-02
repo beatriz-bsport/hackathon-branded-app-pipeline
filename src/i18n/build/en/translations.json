@@ -1705,7 +1705,7 @@
             "previousOffer": "Previous session",
             "backToCalendar": "Calendar",
             "noConsumerPackAvailableForPurchase": "This member doesn't own any compatible pass for this booking.",
-            "noncompatibleConsumerPaymentPacksAre": "You own the following passes which are incompatible with his session:",
+            "noncompatibleConsumerPaymentPacksAre": "Pass(es) owned but incompatible",
             "noPackAvailableForOfferPurchase": "There is no compatible pass with this session!",
             "offersPendingDelete": "Sessions that will be deleted:",
             "offersPendingChange": "Sessions that will be modified:",
@@ -6991,8 +6991,7 @@
             "title": "My payouts",
             "payoutAmountFromIncludedPayouts": "of which {{price}} is from previous payouts",
             "payoutIsIncludedInOther": "This transfer was included in the transfer of {{date}} with the identifier {{readable_identifier}}",
-            "payoutIsManual":
-      "This Payout transfer has been triggered manually by the bsport team to accelerate the transfer of your funds. In this case the detail of the linked payments is not available. Please get in touch with our team for more information."
+            "payoutIsManual": "This Payout transfer has been triggered manually by the bsport team to accelerate the transfer of your funds. In this case the detail of the linked payments is not available. Please get in touch with our team for more information."
         },
         "instalment": {
             "form": {
@@ -9745,6 +9744,18 @@
             "week_plural": "This pass can be used {{count}} times per week",
             "day": "This pass can be used {{count}} time per day",
             "day_plural": "This pass can be used {{count}} times per day"
+        },
+        "incompatibilities": {
+            "paymentPack": "Pass set as incompatible with this activity:",
+            "2023": "The pass has expired",
+            "2022": "The pass starts at the first attendance, on ",
+            "2021": "The pass starts at the first booking, on ",
+            "2020": "The dates are incompatible",
+            "2019": "The pass is blocked",
+            "2018": "Insufficient credits",
+            "2010": "Incompatible establishment",
+            "2009": "Incompatible category",
+            "2008": "Incompatible activity"
         }
     },
     "metaActivity": {

@@ -203,7 +203,7 @@
             "myOpenedInvoices": "Factura rápida",
             "manageOffer": "Gestionar mis reservas",
             "bill": "Facturar",
-            "noncompatibleConsumerPaymentPacksAre": "Posee los siguientes bonos, no compatibles con esta sesión:",
+            "noncompatibleConsumerPaymentPacksAre": "Bono(s) poseído(s) no compatible(s)",
             "broadcast_link": "Enlace de videoconferencia",
             "createBookingOption": "Lista de espera",
             "noEmptyDuration": "La duración debe ser estrictamente positiva",
@@ -10454,7 +10454,19 @@
             "month_plural": "Tarjeta limitada a {{count}} usos máximos por mes"
         },
         "previous": "Anterior",
-        "next": "Siguiente"
+        "next": "Siguiente",
+        "incompatibilities": {
+            "paymentPack": "Tarjeta configurada como incompatible con esta actividad:",
+            "2023": "El bono ha expirado",
+            "2022": "El bono comienza con la primera presencia, el ",
+            "2021": "El bono comienza con la primera reserva, el ",
+            "2020": "Las fechas son incompatibles",
+            "2019": "El bono está bloqueado",
+            "2018": "Número de créditos insuficiente",
+            "2010": "Establecimiento no compatible",
+            "2009": "Categoría no compatible",
+            "2008": "Actividad no compatible"
+        }
     },
     "selfCheckIn": {
         "offerList": {

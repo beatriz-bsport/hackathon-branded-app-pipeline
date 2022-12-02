@@ -1187,7 +1187,7 @@
             "previousOffer": "Vorige sessie",
             "backToCalendar": "Agenda",
             "noConsumerPackAvailableForPurchase": "Dit lid bezit nog geen compatibele kaarten!",
-            "noncompatibleConsumerPaymentPacksAre": "Je bezit de volgende kaarten die niet compatibel met de sessie zijn:",
+            "noncompatibleConsumerPaymentPacksAre": "Leskaart(en) in bezit maar niet compatibel",
             "noPackAvailableForOfferPurchase": "Er is nog geen enkele compatibele leskaart voor deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
             "offersPendingChange": "Te wijzigen sessies:",
@@ -3542,6 +3542,18 @@
             "week_plural": "Deze kaart kan {{count}} keer per week gebruikt worden",
             "day": "Deze kaart kan {{count}} keer per jaar gebruikt worden",
             "day_plural": "Deze kaart kan {{count}} keer per jaar gebruikt worden"
+        },
+        "incompatibilities": {
+            "paymentPack": "Leskaart is ingesteld als niet compatibel met deze activiteit:",
+            "2023": "De leskaart is verlopen",
+            "2022": "De leskaart begint bij de eerste aanwezigheid, op ",
+            "2021": "De leskaart start bij de eerste boeking, op ",
+            "2020": "De data zijn niet compatibel",
+            "2019": "De leskaart is geblokkeerd",
+            "2018": "Onvoldoende kredieten",
+            "2010": "Incompatibele vestiging",
+            "2009": "Incompatibele categorie",
+            "2008": "Incompatibele activiteit"
         }
     },
     "establishment": {

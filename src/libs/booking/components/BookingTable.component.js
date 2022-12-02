@@ -1,5 +1,4 @@
 // @flow
-
 import React, { PureComponent } from 'react';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,14 +7,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import type { Booking } from '../types';
-// eslint-disable-next-line
-import type { PaymentPack } from '../../../libs/payment-packs/types';
+import type { Booking } from '#libs/booking/types';
 
-import BookingItemForManagerV2 from './BookingItemForManagerV2.component';
-import { Member } from '../../member/types';
-import { Tag, TagGroup } from '../../tag/types';
-import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
+import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
+import { Member } from '#libs/member/types';
+import { Tag, TagGroup } from '#libs/tag/types';
+import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 
 type Props = {
   classes: Object,
@@ -39,12 +36,9 @@ type Props = {
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
   showVaccinationStatus: boolean,
-  updateMemberMetricValue: (data: any, options?: any) => void,
-  createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
-  fetchPerformanceTrackingData: (member: number) => void,
-  programDataLoading: boolean,
   refresh: () => void,
+  onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -66,6 +60,7 @@ export class BookingTable extends PureComponent<Props> {
       bookings,
       members,
       onClickChangeSpot,
+      onProgramDetailsClick,
     } = this.props;
 
     if (loading || !bookings) {
@@ -117,14 +112,9 @@ export class BookingTable extends PureComponent<Props> {
             spotSchedulingEnabled={this.props.spotSchedulingEnabled}
             onClickChangeSpot={onClickChangeSpot}
             showVaccinationStatus={this.props.showVaccinationStatus}
-            updateMemberMetricValue={this.props.updateMemberMetricValue}
-            createMemberProgram={this.props.createMemberProgram}
             programList={this.props.programList}
-            programDataLoading={this.props.programDataLoading}
             membersWithStatusOk={membersWithStatusOk}
-            fetchPerformanceTrackingData={
-              this.props.fetchPerformanceTrackingData
-            }
+            onProgramDetailsClick={onProgramDetailsClick}
           />
         ))}
       </List>

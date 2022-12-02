@@ -16,6 +16,9 @@ export const getMemberProgramAllIds = (state: RootState) =>
 export const getMemberProgramDict = (state: RootState) =>
   state.performanceTracking.memberProgram.byId;
 
+export const getMemberProgramIdsByMemberId = (state: RootState) =>
+  state.performanceTracking.memberProgram.byMemberId;
+
 export const getProgram = (state: RootState, id: number) =>
   getProgramDict(state)[id];
 
@@ -125,7 +128,49 @@ export const getMemberProgram = createSelector(
   },
 );
 
-export const getMemberProgramList = createSelector(
+export const getMemberProgramIdsList = createSelector(
+  [
+    getMemberProgramIdsByMemberId,
+    getMetricDict,
+    getMemberProgramDict,
+    getProgramDict,
+    (_: RootState, memberId: number) => memberId,
+  ],
+
+  (
+    memberProgramIdsByMemberId,
+    metricDict,
+    memberProgramDict,
+    programDict,
+    memberId,
+  ) => {
+    if (!memberProgramIdsByMemberId[memberId]) {
+      return [];
+    }
+
+    return memberProgramIdsByMemberId[memberId]
+      .map((id) => memberProgramDict[id])
+      .filter((memberProgram) => !!memberProgram && !memberProgram.is_disabled)
+      .map((memberProgram) => ({
+        ...memberProgram,
+        program: programDict[memberProgram?.program],
+        metric_record: {
+          ...memberProgram?.metric_record,
+          general: {
+            ...memberProgram?.metric_record?.general,
+            metrics: memberProgram?.metric_record?.general?.metric_ids
+              ?.filter((id) => metricDict[id])
+              .map((id) => ({
+                ...(memberProgram?.metric_record?.general?.metrics[id] || {}),
+                metric: metricDict[id],
+              })),
+          },
+        },
+      }));
+  },
+);
+
+export const getAllMemberProgramList = createSelector(
   [getMemberProgramAllIds, getMetricDict, getMemberProgramDict],
   (memberProgramList, metricDict, memberProgramDict) => {
     return memberProgramList
@@ -139,7 +184,7 @@ export const getMemberProgramList = createSelector(
             ...memberProgram?.metric_record?.general,
             metrics: memberProgram?.metric_record?.general?.metric_ids
               ?.filter((id) => metricDict[id])
-              .map((id) => memberProgram?.metric_record?.general?.metrics[id]),
+              .map((id) => metricDict[id]),
           },
         },
       }));
@@ -147,7 +192,7 @@ export const getMemberProgramList = createSelector(
 );
 
 export const getMemberProgramListIdsIn = createSelector(
-  [getMemberProgramList, (_: RootState, ids: Array<number>) => ids],
+  [getAllMemberProgramList, (_: RootState, ids: Array<number>) => ids],
   (memberProgramList, ids) => {
     return memberProgramList?.filter((mp) => ids?.includes(mp.id));
   },

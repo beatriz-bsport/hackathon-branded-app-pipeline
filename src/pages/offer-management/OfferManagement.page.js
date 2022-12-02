@@ -33,7 +33,7 @@ import { getStripeReaders } from '#libs/terminal/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { sendCommunication } from '#libs/communication/actions';
-import { fetchCompanyUserRoles } from '../../libs/role/actions';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '#libs/shop/actions/shopitem';
 import themeSelectors from '#libs/theme/selectors';
 import {
@@ -143,9 +143,12 @@ import {
   updateMemberMetricValue as updateMemberMetricValueAction,
   createMemberProgram as createMemberProgramAction,
 } from '#libs/performance-tracking/actions';
-import { showVaccinationStatus } from '../../libs/custom-form/selectors';
-import { fetchVideoPurchase } from '../../libs/video/actions';
-import { getProgramList } from '#libs/performance-tracking/selector';
+import { showVaccinationStatus } from '#libs/custom-form/selectors';
+import { fetchVideoPurchase } from '#libs/video/actions';
+import {
+  getProgramList,
+  getMemberProgramIdsList,
+} from '#libs/performance-tracking/selector';
 import {
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -234,6 +237,8 @@ export default compose(
       companyId: state.theme.theme.company,
       showVaccinationStatus: showVaccinationStatus(state),
       programList: getProgramList(state),
+      memberProgramIdsList: (memberId) =>
+        getMemberProgramIdsList(state, memberId),
       programDataLoading:
         state.performanceTracking.memberProgram.loading ||
         state.performanceTracking.metricList.loading ||

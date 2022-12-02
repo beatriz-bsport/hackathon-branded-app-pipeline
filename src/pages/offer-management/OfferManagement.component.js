@@ -13,51 +13,50 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
-import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
+import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
 import BookerModuleManager from './BookerModuleManager.component';
 import MailMembers from './MailMembers.component';
 
-import MemberForm from '../../libs/member/MemberForm.component';
-import { getLatest as getLatestMember } from '../../libs/member/api';
-import DiscardBookingOptionDialog from '../../libs/waiting-list/components/DiscardBookingOptionDialog.component';
+import MemberForm from '#libs/member/MemberForm.component';
+import { getLatest as getLatestMember } from '#libs/member/api';
+import DiscardBookingOptionDialog from '#libs/waiting-list/components/DiscardBookingOptionDialog.component';
 
 import BookingManagement from './BookingManagement.component';
 import OfferNavigationHeader from './OfferNavigationHeader.component';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
-import RecurrenceRuleBookingFormDialog from '../../libs/booking/components/RecurrenceRuleBookingFormDialog.component';
+import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 
 import type {
   PaymentPack,
   ConsumerPaymentPack,
-} from '../../libs/payment-packs/types';
-import type { Booking, BookingOption } from '../../libs/booking/types';
-import type { Member } from '../../libs/member/types';
-import type { Invoice } from '../../libs/invoice/types';
-import { Offer, OfferStatus } from '../../libs/offer/types';
-import {
-  AssetForBlueprint,
-  RoomBlueprint,
-} from '../../libs/spot-scheduling/types';
+} from '#libs/payment-packs/types';
+import type { Booking, BookingOption } from '#libs/booking/types';
+import type { Member } from '#libs/member/types';
+import type { Invoice } from '#libs/invoice/types';
+import { Offer, OfferStatus } from '#libs/offer/types';
+import { AssetForBlueprint, RoomBlueprint } from '#libs/spot-scheduling/types';
 import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
-} from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
-import DiscardBookingOptionDialogV2 from '../../libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
-import { MemberMap } from '../../libs/member/utils';
-import { Tag, TagGroup } from '../../libs/tag/types';
-import GenericDialog from '../../components/genericDialog/GenericDialog';
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
+} from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
+import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
+import { MemberMap } from '#libs/member/utils';
+import { Tag, TagGroup } from '#libs/tag/types';
+import GenericDialog from '#components/genericDialog/GenericDialog';
+import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
 import { OptionCallback } from '../../state/types';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
-import { DEFAULT_SPOT_TYPE } from '../../libs/spot-scheduling/utils';
+import { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
 import Config from '../../config';
+import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -217,9 +216,9 @@ type Props = {
   updateMemberMetricValue: (data: any, options: OptionCallback) => void,
   createMemberProgram: (data: any, options?: any) => void,
   fetchPerformanceTrackingData: (member: number) => void,
-  programList: Array<PerformanceTrackingProgram>,
+  programList: PerformanceTrackingProgram[],
   programDataLoading: boolean,
-  consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
+  consumerGiftcardList: ConsumerGiftcard<Giftcard>[],
   applyGiftcardOnInvoice: (
     invoiceUuid: string,
     consumergiftCardId: number,
@@ -240,16 +239,24 @@ type Props = {
   resolvedGenericTags: ResolvedGenericTags,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
+  memberProgramIdsList: (memberId: number) => MemberProgram[],
 };
 
 type State = {
-  quickInvoices: Array<QuickInvoice>, // put here non-saved invoice
+  quickInvoices: QuickInvoice[], // put here non-saved invoice
+  unpaidInvoiceList: Invoice[],
+  isMemberProgramDetailDialogOpen: boolean,
+  memberIdFocused: null | number,
+  indexMemberFocused: null | number,
 };
 
 export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
     unpaidInvoiceList: [],
+    isMemberProgramDetailDialogOpen: false,
+    memberIdFocused: null,
+    indexMemberFocused: null,
   };
 
   componentWillMount() {
@@ -455,6 +462,46 @@ export class OfferManagement extends Component<Props, State> {
 
   closeBookerModule = () => this.props.setMemberToRegister(null);
 
+  getMembersWithStatusOk = () =>
+    this.props.bookings
+      .filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id)
+      .map((b) => this.props.members.find((m) => m.id === b.member));
+
+  handleCreateMemberProgram = (id) =>
+    this.props.createMemberProgram({
+      program: id,
+      member: this.state.memberIdFocused,
+    });
+
+  changeMemberCallback = () =>
+    this.props.fetchPerformanceTrackingData(
+      this.getMembersWithStatusOk()?.[this.state.indexMemberFocused]?.id,
+    );
+
+  handleChangeMember = (i: number) =>
+    this.setState(
+      (prevState) => ({
+        indexMemberFocused: this.getMembersWithStatusOk()?.length
+          ? Math.abs(
+              (prevState.indexMemberFocused + i) %
+                this.getMembersWithStatusOk().length,
+            )
+          : prevState.indexMemberFocused,
+      }),
+      this.changeMemberCallback,
+    );
+
+  onProgramDetailsClick = (member) => {
+    this.props.fetchPerformanceTrackingData(member.id);
+    this.setState({
+      memberIdFocused: member.id,
+      isMemberProgramDetailDialogOpen: true,
+      indexMemberFocused: this.getMembersWithStatusOk()?.findIndex(
+        (m) => m?.id === member.id,
+      ),
+    });
+  };
+
   render() {
     const {
       offer,
@@ -487,6 +534,27 @@ export class OfferManagement extends Component<Props, State> {
     }
     return (
       <Grid container direction="row" spacing={2}>
+        <MemberProgramDetailDialog
+          open={this.state.isMemberProgramDetailDialogOpen}
+          memberProgramList={this.props.memberProgramIdsList(
+            this.state.memberIdFocused,
+          )}
+          booking={this.props.bookings?.find(
+            (b) => b?.member === this.state.memberIdFocused,
+          )}
+          members={this.props.members}
+          programList={this.props.programList}
+          updateMemberMetricValue={this.props.updateMemberMetricValue}
+          createMemberProgram={this.handleCreateMemberProgram}
+          changeMember={this.handleChangeMember}
+          closeDialog={() =>
+            this.setState({
+              isMemberProgramDetailDialogOpen: false,
+            })
+          }
+          loading={this.props.programDataLoading}
+        />
+
         {!!this.props.offer && this.props.bookerInAvanceDialog && (
           <RecurrenceRuleBookingFormDialog
             offerSet
@@ -550,7 +618,6 @@ export class OfferManagement extends Component<Props, State> {
             }
             programDataLoading={this.props.programDataLoading}
             programList={this.props.programList}
-            updateMemberMetricValue={this.props.updateMemberMetricValue}
             registerToWaitingList={this.props.registerToWaitingList}
             addToQuickInvoicePanel={this.addToQuickInvoicePanel}
             loading={this.props.offerLoading}
@@ -600,6 +667,7 @@ export class OfferManagement extends Component<Props, State> {
             fetchVideoPurchase={this.props.fetchVideoPurchase}
             quickCreatedInvoices={this.props.quickCreatedInvoices}
             companyId={this.props.companyId}
+            onProgramDetailsClick={this.onProgramDetailsClick}
           />
         </Grid>
         <Grid item xs={12} lg={6}>

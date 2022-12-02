@@ -28,25 +28,25 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
-import ResultList from '../../components/search/ResultList.component';
+import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 
 import SearchMember from './SearchMember.component';
 import WaitingListControlHeader from './WaitingListControlHeader.component';
 
-import BookingTable from '../../libs/booking/components/BookingTable.component';
-import RecurrenceRuleBookingListItem from '../../libs/booking/components/RecurrenceRuleBookingListItem.component';
-import BookingOptionForManager from '../../libs/waiting-list/components/BookingOptionForManager.component';
+import BookingTable from '#libs/booking/components/BookingTable.component';
+import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
+import BookingOptionForManager from '#libs/waiting-list/components/BookingOptionForManager.component';
 
-import type { Booking, BookingOption } from '../../libs/booking/types';
-import type { Member } from '../../libs/member/types';
-import type { Invoice } from '../../libs/invoice/types';
+import type { Booking, BookingOption } from '#libs/booking/types';
+import type { Member } from '#libs/member/types';
+import type { Invoice } from '#libs/invoice/types';
 import { PermissionContext } from '../../context';
-import CheckPermission from '../../libs/role/components/CheckPermission.component';
-import { Tag, TagGroup } from '../../libs/tag/types';
+import CheckPermission from '#libs/role/components/CheckPermission.component';
+import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
-import BottomActionsButtonCustom from '../../components/button/BottomActionsButtonCustom.component';
+import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 import Config from '../../config';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
@@ -119,13 +119,10 @@ type Props = {
     params: any,
     options?: OptionCallback,
   },
-  updateMemberMetricValue: (data: any, options?: any) => void,
-  createMemberProgram: (data: any, options?: any) => void,
-  fetchPerformanceTrackingData: (member: number) => void,
   programList: Array<PerformanceTrackingProgram>,
-  programDataLoading: boolean,
   refresh: () => void,
   companyId: number,
+  onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
 };
 
 type State = {
@@ -272,7 +269,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { offer, classes, t } = this.props;
+    const { offer, classes, t, onProgramDetailsClick } = this.props;
+
     return (
       <div className={classes.container}>
         {!!offer && (
@@ -451,15 +449,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 {(permissions) => (
                   <>
                     <BookingTable
-                      createMemberProgram={this.props.createMemberProgram}
-                      fetchPerformanceTrackingData={
-                        this.props.fetchPerformanceTrackingData
-                      }
                       programList={this.props.programList}
-                      programDataLoading={this.props.programDataLoading}
-                      updateMemberMetricValue={
-                        this.props.updateMemberMetricValue
-                      }
                       redirectToMember={permissions?.member?.retrieve}
                       newTab
                       members={this.props.members}
@@ -479,6 +469,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       onClickChangeSpot={this.props.onClickChangeSpot}
                       showVaccinationStatus={this.props.showVaccinationStatus}
                       refresh={this.props.refresh}
+                      onProgramDetailsClick={onProgramDetailsClick}
                     />
                   </>
                 )}

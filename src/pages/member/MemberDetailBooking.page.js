@@ -17,6 +17,7 @@ import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import uniq from 'lodash/uniq';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,
@@ -25,9 +26,17 @@ import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
 import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 
-import PaginatedListBase from '../../components/PaginatedListBase.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+
+import {
+  fetchMemberProgram as fetchMemberProgramAction,
+  fetchProgram as fetchProgramAction,
+  fetchMetric as fetchMetricAction,
+  updateMemberMetricValue as updateMemberMetricValueAction,
+  createMemberProgram as createMemberProgramAction,
+} from '#libs/performance-tracking/actions';
 
 import {
   cancelBooking as cancelBookingAction,
@@ -85,7 +94,7 @@ import { withGroup, getGroupListCount } from '#libs/group-offer/selectors';
 
 import { Member } from '#libs/member/types';
 import { PaymentPack } from '#libs/payment-packs/types';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '#libs/booking/components/BookingDetail.component';
@@ -93,7 +102,7 @@ import RecurrenceRuleBookingFormDialog from '#libs/booking/components/Recurrence
 import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.component';
 import BookingFilters from '#libs/booking/components/BookingFilters.component';
 import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
-import TemporalBarChart from '../../components/graph/TemporalBarChart.component';
+import TemporalBarChart from '#components/graph/TemporalBarChart.component';
 
 import {
   getMemberBookingListWithConsumerPack,
@@ -101,18 +110,18 @@ import {
   getRecurrenceRuleBookingList,
   getSimilarBookingList,
   withStaffModificationHistory,
-} from '../../libs/booking/selectors';
-import { getMember } from '../../libs/member/selectors';
+} from '#libs/booking/selectors';
+import { getMember } from '#libs/member/selectors';
 import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
-} from '../../libs/payment-packs/selectors';
-import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
-import themeSelectors from '../../libs/theme/selectors';
-import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../libs/statistics/actions';
-import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '../../libs/role/actions';
-import { getStatisticTemporal } from '../../libs/statistics/selectors';
-import ChartRange from '../../libs/dashboard/components/ChartRange.component';
-import { Theme } from '../../libs/theme/types';
+} from '#libs/payment-packs/selectors';
+import { getConsumerPack } from '#libs/consumer-payment-pack/selectors';
+import themeSelectors from '#libs/theme/selectors';
+import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '#libs/statistics/actions';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#libs/role/actions';
+import { getStatisticTemporal } from '#libs/statistics/selectors';
+import ChartRange from '#libs/dashboard/components/ChartRange.component';
+import { Theme } from '#libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
@@ -128,6 +137,11 @@ import PaginatedBookingOptionList from '#libs/waiting-list/components/PaginatedB
 import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type { Coach } from '#libs/associated-coach/types';
+import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import {
+  getProgramList,
+  getMemberProgramIdsList,
+} from '#libs/performance-tracking/selector';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -232,10 +246,20 @@ type Props = {
     company: number,
   }) => void,
   spotTypes: SpotType[],
+  programList: PerformanceTrackingProgram[],
+  programDataLoading: boolean,
+  fetchPerformanceTrackingData: (member: number) => void,
+  memberProgramIdsList: (member: number) => MemberProgram[],
+  updateMemberMetricValue: () => void,
+  createMemberProgram: (data: {
+    program: number,
+    member: number,
+  }) => void,
 };
 
 type State = {
   bookingToRevert: ?Booking,
+  isMemberProgramDetailDialogOpen: boolean,
 };
 
 const BOOKING_PAGE_SIZE = 7;
@@ -244,6 +268,7 @@ const RECURRENT_BOOKING_PAGE_SIZE = 5;
 export class MemberDetailBooking extends Component<Props, State> {
   state = {
     bookingToRevert: null,
+    isMemberProgramDetailDialogOpen: false,
   };
 
   componentDidMount() {
@@ -507,6 +532,32 @@ export class MemberDetailBooking extends Component<Props, State> {
                 coaches={this.props.coaches}
               />
               <Divider />
+
+              <MemberProgramDetailDialog
+                loading={this.props.programDataLoading}
+                open={this.state.isMemberProgramDetailDialogOpen}
+                closeDialog={() =>
+                  this.setState({
+                    isMemberProgramDetailDialogOpen: false,
+                  })
+                }
+                memberProgramList={this.props.memberProgramIdsList(
+                  this.props.id,
+                )}
+                booking={this.props.bookings?.find(
+                  (b) => b?.member === this.props.id,
+                )}
+                members={[this.props.member]}
+                updateMemberMetricValue={this.props.updateMemberMetricValue}
+                createMemberProgram={(id) =>
+                  this.props.createMemberProgram({
+                    program: id,
+                    member: this.props.id,
+                  })
+                }
+                programList={this.props.programList}
+              />
+
               <PaginatedListBase
                 itemPerPage={BOOKING_PAGE_SIZE}
                 loading={this.props.bookingsLoading}
@@ -520,6 +571,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 }
                 renderItem={(b: Booking) => (
                   <BookingItemForManagerV2
+                    programList={this.props.programList}
                     onClick={() => this.selectBooking(b)}
                     showRevertBookingButton
                     button
@@ -554,6 +606,12 @@ export class MemberDetailBooking extends Component<Props, State> {
                     }
                     spotSchedulingEnabled={typeof b.spot_id === 'number'}
                     onClickChangeSpot={this.onClickChangeSpot}
+                    onProgramDetailsClick={() => {
+                      this.props.fetchPerformanceTrackingData(this.props.id);
+                      this.setState({
+                        isMemberProgramDetailDialogOpen: true,
+                      });
+                    }}
                   />
                 )}
               />
@@ -781,6 +839,11 @@ export default compose(
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
 
+      programDataLoading:
+        state.performanceTracking.memberProgram.loading ||
+        state.performanceTracking.metricList.loading ||
+        state.performanceTracking.program.loading,
+
       roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
       assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
       offerStatusById: state.offer.offerStatus.byId,
@@ -794,6 +857,9 @@ export default compose(
         withCustomLevel(getSimilarBookingList),
       )(state),
       spotTypes: getSpotTypesOfCompany(state),
+      memberProgramIdsList: (memberId) =>
+        getMemberProgramIdsList(state, memberId),
+      programList: getProgramList(state),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -836,6 +902,12 @@ export default compose(
       fetchOfferStatus: fetchOfferStatusAction,
       fetchBookingOptionForMember,
       discardOption: discardBookingOptionAction,
+
+      fetchMemberProgram: fetchMemberProgramAction,
+      fetchProgram: fetchProgramAction,
+      fetchMetric: fetchMetricAction,
+      updateMemberMetricValue: updateMemberMetricValueAction,
+      createMemberProgram: createMemberProgramAction,
 
       fetchGroupsOfferList: fetchGroupsOfferListAction,
       fetchAssociatedCoachesList,
@@ -1018,4 +1090,55 @@ export default compose(
         });
       },
   }),
+  withHandlers({
+    createMemberProgram:
+      ({ programList, createMemberProgram, fetchMetric }) =>
+      (data: { program: number, member: number }) => {
+        createMemberProgram(data, {
+          onSuccess: (memberProgram) => {
+            const program = programList?.find(
+              (p) => p.id === memberProgram?.program,
+            );
+            const uniq_ids = program?.metric_list?.filter(
+              (metric_id) => !!metric_id,
+            );
+            if (uniq_ids && uniq_ids.length) {
+              fetchMetric({ id__in: program?.metric_list });
+            }
+          },
+        });
+      },
+    fetchPerformanceTrackingData:
+      ({ fetchMemberProgram, fetchProgram, fetchMetric }) =>
+      (member) => {
+        fetchMemberProgram(
+          {
+            member,
+          },
+          {
+            onSuccess: (data) => {
+              const programsToFetch = uniq(
+                data.results.map((memberProgram) => memberProgram?.program),
+              );
+              fetchProgram(
+                { is_disabled: false, id__in: programsToFetch },
+                {
+                  onSuccess: (programData) => {
+                    const metricToFetch = programData.reduce(
+                      (acc, program) => acc.concat(program?.metric_list),
+                      [],
+                    );
+
+                    if (metricToFetch?.length) {
+                      fetchMetric({ id__in: metricToFetch });
+                    }
+                  },
+                },
+              );
+            },
+          },
+        );
+      },
+  }),
+  withTranslation('performanceTracking'),
 )(MemberDetailBooking);

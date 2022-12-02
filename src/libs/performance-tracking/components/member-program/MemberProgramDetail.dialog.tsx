@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Theme } from '@material-ui/core/styles';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import {
   Button,
   CircularProgress,
-  Dialog,
   IconButton,
   Typography,
-  useMediaQuery,
 } from '@material-ui/core';
 import { Info, KeyboardArrowRight } from '@material-ui/icons';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
 import { OptionCallback } from '../../../../state/types';
 import {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingProgram,
 } from '#libs/performance-tracking/types';
-import MemberProgramDetail from './MemberProgramDetail.component';
-import ProgramSelectorDialog from '../program/ProgramSelectorDialog.component';
+import MemberProgramDetail from '#libs/performance-tracking/components/member-program/MemberProgramDetail.component';
+import ProgramSelectorDialog from '#libs/performance-tracking/components/program/ProgramSelectorDialog.component';
+import { Booking } from '#libs/booking/types';
+import { Member } from '#libs/member/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type OwnProps = {
   open: boolean;
-  memberName: string;
-  memberProgramList: Array<PerformanceTrackingMemberProgram>;
-  programList: Array<PerformanceTrackingProgram>;
+  members?: Member[];
+  memberProgramList: PerformanceTrackingMemberProgram[];
+  programList: PerformanceTrackingProgram[];
+  booking?: Booking;
+  memberName?: string;
   updateMemberMetricValue: (
     data: { memberProgram: number; metric: number; value: number },
     options?: any,
@@ -38,35 +40,49 @@ type OwnProps = {
     option?: OptionCallback,
   ) => void;
 };
-type Props = OwnProps & WithTranslation;
+type Props = OwnProps;
 const NEXT_MEMBER = 1;
 const PREVIOUS_MEMBER = -1;
 export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
   const {
-    memberName,
     memberProgramList,
     open,
     programList,
     loading,
-    t,
+    booking,
+    members,
+    memberName,
     closeDialog,
     updateMemberMetricValue,
     changeMember,
     createMemberProgram,
   } = props;
 
+  const { t } = useTranslation('performanceTracking');
   const classes = useStyles();
   const [isDialogChooseProgramOpen, setIsDialogChooseProgramOpen] =
     useState(false);
-  const theme: Theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const firstIndicator = useMemo(() => {
+    return booking?.first_in_company ? '★' : '';
+  }, [booking]);
+
+  const memberNameWithIndicator = useMemo(() => {
+    if (memberName) return memberName;
+    if (members && booking) {
+      return `${
+        members?.find((m) => m.id === booking?.member)?.name
+      }\u00A0${firstIndicator}`;
+    }
+    return '';
+  }, [booking, members, memberName, firstIndicator]);
+
   return (
-    <Dialog
+    <GenericResponsiveDialog
       maxWidth="lg"
       open={open}
-      fullScreen={fullScreen}
-      scroll="body"
-      onClose={() => closeDialog()}
+      fullScreenBreakpoint="sm"
+      onClose={closeDialog}
     >
       <div className={classes.container}>
         {loading ? (
@@ -80,7 +96,7 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
                 </IconButton>
               )}
               <Typography className={classes.memberName} variant="h6">
-                {memberName}
+                {memberNameWithIndicator}
               </Typography>
               {changeMember && (
                 <IconButton onClick={() => changeMember(NEXT_MEMBER)}>
@@ -130,18 +146,14 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
               createMemberProgram={createMemberProgram}
             />
             <div className={classes.action}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => closeDialog()}
-              >
+              <Button variant="contained" color="primary" onClick={closeDialog}>
                 {t('form.close')}
               </Button>
             </div>
           </>
         )}
       </div>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
 };
 const useStyles = makeStyles<Theme>((theme) => ({
@@ -179,6 +191,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
     width: '100%',
   },
 }));
-export default compose(withTranslation('performanceTracking'))(
-  MemberProgramDetailDialog,
-);
+export default MemberProgramDetailDialog;

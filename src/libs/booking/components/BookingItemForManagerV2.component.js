@@ -1,5 +1,4 @@
 // @flow
-
 import React, { Component } from 'react';
 
 import { compose } from 'recompose';
@@ -39,22 +38,18 @@ import { EventSeat, OfflineBolt } from '@material-ui/icons';
 import { BookingStatusCodeText } from '../utils';
 import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
 
-import Tooltip from '../../../components/Tooltip.component';
-import RedButton from '../../../components/button/RedButton.component';
+import Tooltip from '#components/Tooltip.component';
+import RedButton from '#components/button/RedButton.component';
 
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 
-// eslint-disable-next-line
-import type { PaymentPack } from '../../../libs/payment-packs/types';
-// eslint-disable-next-line
-import type { Member } from '../../../libs/member/types';
-import { Booking } from '../types';
-import VaccinationBadge from '../../member/components/VaccinationBadge.component';
+import type { Member } from '#libs/member/types';
+import { Booking } from '#libs/booking/types';
+import VaccinationBadge from '#libs/member/components/VaccinationBadge.component';
 
-import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
-import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
+import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 
 import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
 
@@ -63,7 +58,6 @@ type Props = {
   classes: Object,
   heading: ?string,
   booking: Booking,
-  bookings: Array<Booking>,
   member: Member,
 
   disabled?: boolean,
@@ -86,12 +80,8 @@ type Props = {
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
   showVaccinationStatus: boolean,
-  updateMemberMetricValue: (data: any, options?: any) => void,
-  createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
-  programDataLoading: boolean,
-  membersWithStatusOk: Array<Member>,
-  fetchPerformanceTrackingData: (member: number) => void,
+  onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -167,10 +157,6 @@ type State = {
 export class BookingItemForManager extends Component<Props, State> {
   state = {
     menuAnchor: null,
-    isMemberProgramDetailDialogOpen: false,
-    indexMemberFocused: this.props.membersWithStatusOk?.findIndex(
-      (member) => member?.id === this.props.member?.id,
-    ),
   };
 
   getStatusStyleProps = (status: ?boolean) => {
@@ -193,7 +179,6 @@ export class BookingItemForManager extends Component<Props, State> {
       return [[t('loading'), 'secondary']];
     }
     const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
-    // const { credit_consumed } = booking;
     if (payment_pack.unlimited) {
       return [
         [`${payment_pack.name}`, 'secondary'],
@@ -218,12 +203,17 @@ export class BookingItemForManager extends Component<Props, State> {
     ];
   };
 
+  closeAndAction = (nextAction?: () => void) => (e: SyntheticEvent<any>) => {
+    e.stopPropagation();
+    if (nextAction) nextAction();
+    this.setState({ menuAnchor: null });
+  };
+
+  handleProgramDetailClick = this.closeAndAction(() => {
+    this.props.onProgramDetailsClick(this.props.member, this.props.booking);
+  });
+
   renderCompactMenu = () => {
-    const closeAndAction = (actionCallback) => (e: SyntheticEvent<any>) => {
-      e.stopPropagation();
-      actionCallback();
-      this.setState({ menuAnchor: null });
-    };
     const {
       onQuickInvoiceClick,
       showQuickInvoiceButton,
@@ -239,6 +229,7 @@ export class BookingItemForManager extends Component<Props, State> {
     const switchAttendance = booking.attendance
       ? discardBookingAttendance
       : confirmBookingAttendance;
+    const { closeAndAction } = this;
 
     return (
       <ListItemSecondaryAction>
@@ -255,7 +246,7 @@ export class BookingItemForManager extends Component<Props, State> {
           id="simple-menu"
           anchorEl={this.state.menuAnchor}
           open={Boolean(this.state.menuAnchor)}
-          onClose={closeAndAction(() => {})}
+          onClose={closeAndAction()}
         >
           {showQuickInvoiceButton && onQuickInvoiceClick ? (
             <MenuItem
@@ -308,9 +299,7 @@ export class BookingItemForManager extends Component<Props, State> {
           )}
           {!!programList?.length && (
             <MenuItem
-              onClick={closeAndAction(() => {
-                this.setState({ isMemberProgramDetailDialogOpen: true });
-              })}
+              onClick={this.handleProgramDetailClick}
               className={classes.menuItem}
             >
               <OfflineBolt className={classes.icon} />
@@ -334,12 +323,7 @@ export class BookingItemForManager extends Component<Props, State> {
       classes,
       programList,
     } = this.props;
-
-    const closeAndAction = (actionCallback) => (e: SyntheticEvent<any>) => {
-      e.stopPropagation();
-      actionCallback();
-      this.setState({ menuAnchor: null });
-    };
+    const { closeAndAction } = this;
 
     return (
       <div>
@@ -419,7 +403,7 @@ export class BookingItemForManager extends Component<Props, State> {
                     id="simple-menu"
                     anchorEl={this.state.menuAnchor}
                     open={Boolean(this.state.menuAnchor)}
-                    onClose={closeAndAction(() => {})}
+                    onClose={closeAndAction()}
                   >
                     {this.props.spotSchedulingEnabled &&
                       this.props.onClickChangeSpot && (
@@ -439,14 +423,7 @@ export class BookingItemForManager extends Component<Props, State> {
                       )}
                     {!!programList?.length && (
                       <MenuItem
-                        onClick={closeAndAction(() => {
-                          this.props.fetchPerformanceTrackingData(
-                            booking.member,
-                          );
-                          this.setState({
-                            isMemberProgramDetailDialogOpen: true,
-                          });
-                        })}
+                        onClick={this.handleProgramDetailClick}
                         className={classes.menuItem}
                       >
                         <OfflineBolt className={classes.icon} />
@@ -596,19 +573,9 @@ export class BookingItemForManager extends Component<Props, State> {
   };
 
   render() {
-    const {
-      t,
-      booking,
-      redirectToMember,
-      disabled,
-      redirectToOffer,
-      membersWithStatusOk,
-      member,
-    } = this.props;
+    const { t, booking, redirectToMember, disabled, redirectToOffer } =
+      this.props;
 
-    const { indexMemberFocused } = this.state;
-    const memberFocused = membersWithStatusOk?.[indexMemberFocused];
-    // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText();
 
     let classes = '';
@@ -713,51 +680,6 @@ export class BookingItemForManager extends Component<Props, State> {
             <Grid item>{this.renderButtons()}</Grid>
           </Grid>
         </ListItem>
-
-        <MemberProgramDetailDialog
-          loading={this.props.programDataLoading}
-          open={this.state.isMemberProgramDetailDialogOpen}
-          closeDialog={() =>
-            this.setState(
-              {
-                isMemberProgramDetailDialogOpen: false,
-              },
-              () =>
-                this.setState({
-                  indexMemberFocused: membersWithStatusOk?.findIndex(
-                    (m) => m.id === member.id,
-                  ),
-                }),
-            )
-          }
-          memberName={`${memberFocused?.name} ${this.getIsFirstIndicator(
-            this.props.bookings?.find((b) => b?.member === memberFocused?.id),
-          )}`}
-          memberProgramList={memberFocused?.memberProgramList}
-          changeMember={(i: number) =>
-            this.setState(
-              (prevState) => ({
-                ...prevState,
-                indexMemberFocused: Math.abs(
-                  (prevState.indexMemberFocused + i) %
-                    membersWithStatusOk?.length,
-                ),
-              }),
-              () =>
-                this.props.fetchPerformanceTrackingData(
-                  membersWithStatusOk?.[this.state.indexMemberFocused]?.id,
-                ),
-            )
-          }
-          updateMemberMetricValue={this.props.updateMemberMetricValue}
-          createMemberProgram={(id) =>
-            this.props.createMemberProgram({
-              program: id,
-              member: memberFocused.id,
-            })
-          }
-          programList={this.props.programList}
-        />
       </div>,
     );
   }

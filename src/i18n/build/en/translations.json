@@ -7645,7 +7645,8 @@
                 "general": "Profile"
             },
             "coachSpaceInfo": "Teachers will be able to see their payroll per session, view their schedule, and manage their availabilities in this area.",
-            "coachSpace": "Teacher View"
+            "coachSpace": "Teacher View",
+            "noPaymentRule": "Warning: no payroll has been set for this teacher."
         },
         "noCoach": "No teachers is registered yet",
         "noCoachs": "This module allows you to add, manage, edit, and delete instructors.",

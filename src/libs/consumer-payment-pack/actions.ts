@@ -117,7 +117,7 @@ export function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(nonCompatibleByOfferByMember.isLoading(true));
+    dispatch(incompatibilitiesReasonsByOfferByConsumerPack.isLoading(true));
     try {
       const response =
         await fetchIncompatibilitiesReasonsByOfferByConsumerPackAPI(cpp, offer);
@@ -131,12 +131,12 @@ export function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
       }
     } catch (error) {
       console.error(error);
-      dispatch(nonCompatibleByOfferByMember.error(error));
+      dispatch(incompatibilitiesReasonsByOfferByConsumerPack.error(error));
       if (options && options.onError) {
         options.onError();
       }
     }
-    dispatch(nonCompatibleByOfferByMember.isLoading(false));
+    dispatch(incompatibilitiesReasonsByOfferByConsumerPack.isLoading(false));
   };
 }
 

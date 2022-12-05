@@ -90,13 +90,17 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
       paymentPackTagsAndMemberTagsCompatibilty(pack, memberTags),
     );
   };
-  const handleGoToPaymentPack = (paymentPackId) => () =>
+  const handleGoToPaymentPack = (paymentPackId) => () => {
+    if (!paymentPackId) {
+      return;
+    }
     props.goToPaymentPack(paymentPackId);
+  };
   const handleRegisterToOffer = (consumerPaymentPack) => () =>
     props.registerToOffer({ consumerPaymentPack });
   return (
     <div className={classes.container}>
-      {props.consumerPacks.length > 0 && (
+      {props.consumerPacks?.length > 0 ? (
         <div>
           <Typography variant="h6" component="h4">
             {t('offerManagement.forms.register.passOwnedByMember')}
@@ -125,8 +129,15 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
             ))}
           </List>
         </div>
+      ) : (
+        <div className={classes.alertRow}>
+          <WarningIcon color="error" />
+          <Typography variant="caption">
+            {t('offer.noConsumerPackAvailableForPurchase')}
+          </Typography>
+        </div>
       )}
-      {props.consumerPacksNonCompatible.length > 0 && (
+      {props.consumerPacksNonCompatible?.length > 0 && (
         <div>
           <ButtonBase
             onClick={() =>
@@ -152,7 +163,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   isNonCompatible
                   paymentPack={cp.payment_pack}
                   consumerPack={cp}
-                  goToPaymentPack={handleGoToPaymentPack(cp.payment_pack.id)}
+                  goToPaymentPack={handleGoToPaymentPack(cp.payment_pack?.id)}
                   fetchIncompatibilitiesReasonsByOfferByConsumerPack={
                     props.fetchIncompatibilitiesReasonsByOfferByConsumerPack
                   }

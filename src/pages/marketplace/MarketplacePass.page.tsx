@@ -20,49 +20,49 @@ import themeSelector from '#libs/theme/selectors';
 
 // marketplace
 // -----------------------------
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
-import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
-import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+import MarketplacePassList from '#libs/marketplace/components/MarketplacePassList.component';
+import MarketplacePrivatePassList from '#libs/marketplace/components/MarketplacePrivatePassList.component';
+import MarketplacePaymentComboList from '#libs/marketplace/components/MarketplacePaymentComboList.component';
 
-import withQueryParams from '../../hocs/with-query-params.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withQueryParams from '#hocs/with-query-params.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   getMarketplacePaymentPacks,
   excludeUnaccessiblePacks,
   groupByCategory,
   withMetaActivities,
   withEstablishments,
-} from '../../libs/payment-packs/selectors';
+} from '#libs/payment-packs/selectors';
 // checkout
 // -----------------------------
-import { addItemToBasket } from '../../libs/checkout/actions';
-import { getCurrentBasket } from '../../libs/checkout/selectors';
+import { addItemToBasket } from '#libs/checkout/actions';
+import { getCurrentBasket } from '#libs/checkout/selectors';
 
 // private-service
 // -----------------------------
 import {
   fetchPrivatePassAsConsumerList,
   fetchAllPrivatePassCategory,
-} from '../../libs/private-service/actions';
-import { getPrivatePassAsConsumer } from '../../libs/private-service/selectors/private-pass';
+} from '#libs/private-service/actions';
+import { getPrivatePassAsConsumer } from '#libs/private-service/selectors/private-pass';
 
 // payment-combo
 // -----------------------------
-import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
+import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
 import {
   fetchMarketplacePacks,
   fetchAllPaymentPackCategory,
-} from '../../libs/payment-packs/actions';
-import withTitle from '../../hocs/with-title.hoc';
+} from '#libs/payment-packs/actions';
+import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
-import { fetchMemberTagList } from '../../libs/tag/actions';
-import { getMemberTagsIdsList } from '../../libs/tag/selectors';
-import type { Tag } from '../../libs/tag/types';
-import { getPrivatePassByCategoryWithPasses } from '../../libs/private-service/selectors/private-pass-category';
+import { fetchMemberTagList } from '#libs/tag/actions';
+import { getMemberTagsIdsList } from '#libs/tag/selectors';
+import type { Tag } from '#libs/tag/types';
+import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
 
 type OwnProps = {
   params?: {
@@ -186,7 +186,7 @@ export class MarketPlacePassPage extends Component<Props> {
 
     return (
       <Grid container direction="row" justify="space-evenly">
-        {this.props.paymentComboList.length && !hidePaymentCombo ? (
+        {!!this.props.paymentComboList.length && !hidePaymentCombo ? (
           <Grid item xs={12}>
             <MarketplacePaymentComboList
               paymentComboList={this.props.paymentComboList}
@@ -206,7 +206,7 @@ export class MarketPlacePassPage extends Component<Props> {
           </Grid>
         )}
 
-        {!hidePrivatePass ? (
+        {!hidePrivatePass && (
           <Grid item xs={11} md={5}>
             <MarketplacePrivatePassList
               privatePassByCategory={this.props.privatePassByCategory}
@@ -215,7 +215,7 @@ export class MarketPlacePassPage extends Component<Props> {
               isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
             />
           </Grid>
-        ) : null}
+        )}
       </Grid>
     );
   }

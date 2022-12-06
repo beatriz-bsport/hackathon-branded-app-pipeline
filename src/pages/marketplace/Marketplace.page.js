@@ -79,9 +79,9 @@ import type { OptionCallback } from '../../state/types';
 import type { CustomFormFilled } from '#libs/custom-form/types';
 import type { RootState } from '../../reducers';
 import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
-import { getMyControlableMemberList } from '../../libs/relationship/selectors';
-import { fetchMyControlableMemberList } from '../../libs/relationship/actions';
-import { getFranchisor } from '../../libs/franchise/selectors';
+import { getMyControlableMemberList } from '#libs/relationship/selectors';
+import { fetchMyControlableMemberList } from '#libs/relationship/actions';
+import { getFranchisor } from '#libs/franchise/selectors';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
   MARKETPLACE_PATH_TAB_CALENDAR_V2,
@@ -246,6 +246,11 @@ export class MarketPlace extends Component<Props, State> {
         (tab) => tab.component_type === componentType,
       );
 
+      if (componentType === 'pass') {
+        const tabConfig = this.props.settings.config[index];
+        const newPath = fromConfigToUrl(tabConfig, { tabSelected: index });
+        return this.props.replace(newPath);
+      }
       if (index > -1) {
         paramsJson.tabSelected = index;
       }
@@ -255,6 +260,7 @@ export class MarketPlace extends Component<Props, State> {
       const newUrl = `${pathname}?${query}`;
       this.props.replace(newUrl);
     }
+    return null;
   };
 
   componentDidMount() {

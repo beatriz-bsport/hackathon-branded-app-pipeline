@@ -3375,7 +3375,8 @@
                 "general": "Perfil"
             },
             "coachSpaceInfo": "En este espacio, su profesor podrá acceder a su resumen de pagos por sesión, así como ver su horario. También pueden añadir su disponibilidad.",
-            "coachSpace": "Área de profesores"
+            "coachSpace": "Área de profesores",
+            "noPaymentRule": "Tenga en cuenta que no se han definido reglas de remuneración para este profesor."
         },
         "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí.",
         "inactiveCoaches": "Profesores archivados",

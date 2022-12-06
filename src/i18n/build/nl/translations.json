@@ -9555,7 +9555,8 @@
                 "general": "Profiel"
             },
             "coachSpaceInfo": "In deze ruimte kunnen instructeurs hun payroll per sessie bekijken, hun rooster inzien en hun beschikbaarheid beheren.",
-            "coachSpace": "Instructeursweergave"
+            "coachSpace": "Instructeursweergave",
+            "noPaymentRule": "Voor deze leraar zijn geen bezoldigingsregels vastgesteld."
         },
         "overrider": "Plaatsvervanger",
         "overrideSelectorTitle": "Instructeur",

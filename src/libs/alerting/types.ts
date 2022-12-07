@@ -83,6 +83,14 @@ export type NewTutorialSectionOrLessonAlerting = Alerting & {
     new_section: boolean;
   };
 };
+
+export type LateReplacementRequestAlerting = Alerting & {
+  data: {
+    user_name: string;
+    date_start: string;
+    name: string;
+  };
+};
 // TODO TYPES
 export type AlertingState = {
   items_by_kind: any; // TODO CHECK THIS

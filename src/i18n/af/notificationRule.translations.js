@@ -38,6 +38,12 @@ const {
   NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH,
   NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER,
   NOTIFICATION_PAYMENT_INSTALMENT_PREPARED,
+  NOTIFICATION_REPLACEMENT_REQUEST_TEACHER_FOUND,
+  NOTIFICATION_REPLACEMENT_REQUEST_CLOSED,
+  NOTIFICATION_REPLACEMENT_REQUEST_HAS_ANSWERED_BUT_OTHER_TEACHER_FOUND,
+  NOTIFICATION_REPLACEMENT_REQUEST_CREATE_ON_TIME,
+  NOTIFICATION_REPLACEMENT_REQUEST_CREATE_LATE,
+  NOTIFICATION_REPLACEMENT_REQUEST_CLOSING_DATE_POSTPONED,
 } = NOTIFICATION_EVENTS;
 
 // should import that from common
@@ -78,6 +84,7 @@ exports.default = {
     marketing: 'Marketing',
     payment_pack: 'Cartes de cours',
     recurrent_private_booking: 'Rendez-vous récurrent',
+    replacement_request: 'Remplacement',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -215,6 +222,13 @@ exports.default = {
         company_websiteURL: 'URL du site web',
       },
     },
+    ReplacementRequest: {
+      name: 'Remplacement',
+      tags: {
+        closing_date: 'Date de clôture',
+        sub_teacher: 'Professeur remplaçant',
+      },
+    },
   },
   eventType: {
     [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance (élèves)',
@@ -294,6 +308,18 @@ exports.default = {
       'Annulation séance (professeurs)',
     [NOTIFICATION_OFFER_IN_BOOKING_MODIFIED_TO_TEACHER]:
       'Séance modifiée (professeurs)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_TEACHER_FOUND]:
+      'Remplaçant trouvé (professeur)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_CLOSED]:
+      'Demande de remplacement annulée (remplaçant)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_HAS_ANSWERED_BUT_OTHER_TEACHER_FOUND]:
+      'Un autre remplaçant a été trouvé (remplaçant)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_CREATE_ON_TIME]:
+      'Nouvelle demande de remplacement (remplaçant)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_CREATE_LATE]:
+      'Nouvelle demande en retard (remplaçant)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_CLOSING_DATE_POSTPONED]:
+      'Date de clôture repoussée (remplaçant)',
   },
   franchise: {
     emptySelect:

@@ -36,6 +36,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import SlotDetailDialog from '#libs/private-service/components/availability/SlotDetailDialog.component';
 import {
   groupSlotsAndMerge,
@@ -61,6 +62,7 @@ const renderEventContent = (eventInfo) => {
     private_booking_canceled,
     private_booking_refunded,
     isUnpaid,
+    hasPendingReplacementRequest,
   } = eventInfo.event._def.extendedProps;
   return (
     <div className="fc-event-main-frame">
@@ -78,6 +80,11 @@ const renderEventContent = (eventInfo) => {
         {isUnpaid && (
           <div className="UnpaidContainer">
             <i className="UnPaid">&#9679;</i>
+          </div>
+        )}
+        {hasPendingReplacementRequest && (
+          <div className="PendingReplacementRequest">
+            <ReplacementRequestPendingChip height={15} width={17} />
           </div>
         )}
       </div>
@@ -153,38 +160,42 @@ const customEventAsEvent = (resourceDatatypeView) => (customEvent) => {
   };
 };
 
-const offerAsEvent = (resourceDatatypeView) => (offer) => {
-  let resourceId = null;
-  if (resourceDatatypeView === 'establishment') {
-    resourceId = offer.establishment;
-  }
-  if (resourceDatatypeView === 'coach') {
-    if (offer.coach_override) {
-      resourceId = offer.coach_override;
-    } else {
-      resourceId = offer.coach;
+const offerAsEvent =
+  (resourceDatatypeView, getHasPendingReplacementRequest) => (offer) => {
+    let resourceId = null;
+    if (resourceDatatypeView === 'establishment') {
+      resourceId = offer.establishment;
     }
-  }
+    if (resourceDatatypeView === 'coach') {
+      if (offer.coach_override) {
+        resourceId = offer.coach_override;
+      } else {
+        resourceId = offer.coach;
+      }
+    }
 
-  return {
-    start: offer.date_start,
-    allDay: offer.duration_minute > 60 * 10,
-    end: moment(offer.date_start)
-      .add(offer.duration_minute, 'minutes')
-      .format(),
-    title: offer.meta_activity ? offer.meta_activity.name : '',
-    editable: false,
-    extendedProps: {
-      offer: offer.id,
-    },
-    resourceId,
-    textColor: 'black',
-    classNames: [!offer.available ? 'cancelledEvent' : '', 'fc-event-bsport'],
-    ...(offer.meta_activity && offer.meta_activity.color
-      ? { borderColor: offer.meta_activity.color }
-      : {}),
+    return {
+      start: offer.date_start,
+      allDay: offer.duration_minute > 60 * 10,
+      end: moment(offer.date_start)
+        .add(offer.duration_minute, 'minutes')
+        .format(),
+      title: offer.meta_activity ? offer.meta_activity.name : '',
+      editable: false,
+      extendedProps: {
+        offer: offer.id,
+        hasPendingReplacementRequest: getHasPendingReplacementRequest
+          ? getHasPendingReplacementRequest(offer.id)
+          : false,
+      },
+      resourceId,
+      textColor: 'black',
+      classNames: [!offer.available ? 'cancelledEvent' : '', 'fc-event-bsport'],
+      ...(offer.meta_activity && offer.meta_activity.color
+        ? { borderColor: offer.meta_activity.color }
+        : {}),
+    };
   };
-};
 
 const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
   let resourceId = null;
@@ -452,7 +463,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
     ) => {
       const events = [
         ...availabilitySlots.map(availabilitySlotAsEvent(resourceDatatypeView)),
-        ...(offerList || []).map(offerAsEvent(resourceDatatypeView)),
+        ...(offerList || []).map(
+          offerAsEvent(
+            resourceDatatypeView,
+            this.props.getHasPendingReplacementRequest,
+          ),
+        ),
         ...privateBookings.map(privateBookingAsEvent(resourceDatatypeView)),
         ...(customEventList || []).map(
           customEventAsEvent(resourceDatatypeView),

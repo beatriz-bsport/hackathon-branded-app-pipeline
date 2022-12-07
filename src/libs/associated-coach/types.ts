@@ -30,6 +30,13 @@ export type Coach = {
   }>;
   has_access_to_coach_space: boolean;
   activities?: Array<ActivitySimplified>;
+  meta_activities_taught: number[];
+  workshops_taught: number[];
+  categories_taught: number[];
+  is_teaching_all_activities: boolean;
+  is_teaching_all_workshops: boolean;
+  is_teaching_all_categories: boolean;
+  discipline_group: number;
 };
 
 export type CoachPerformance = {
@@ -69,4 +76,25 @@ export type CoachState = {
     loading: boolean;
     error?: Error;
   };
+  lateReplacementRequestStatus: ErrorAndLoading & {
+    data: CoachLateReplacementRequestStatus;
+  };
+};
+
+export type CoachReplacementPreferencesData = {
+  meta_activities_taught: number[];
+  workshops_taught: number[];
+  categories_taught: number[];
+  is_teaching_all_activities: boolean;
+  is_teaching_all_workshops: boolean;
+  is_teaching_all_categories: boolean;
+};
+
+export type CoachLateReplacementRequestStatus = {
+  days_before_offer_replacement_request_is_late: number;
+  is_late_replacement_request_limited: boolean;
+  max_late_requests_per_limitation_period?: number;
+  nb_late_requests_in_current_limitation_period?: number;
+  current_limitation_period_start?: string;
+  current_limitation_period_end?: string;
 };

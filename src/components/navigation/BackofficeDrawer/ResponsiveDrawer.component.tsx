@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import Cached from '@material-ui/icons/Cached';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
@@ -57,6 +58,7 @@ import {
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
+  UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
@@ -161,7 +163,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
   };
   const prevIconOnly = usePrevious(iconsOnly);
   const hasUpsellIdentifier = React.useCallback(
-    (identifier: number) => {
+    (identifier: number, forceOnAllEnvs: boolean = false) => {
+      if (forceOnAllEnvs)
+        return featureList
+          .map((ups) => ups.upsell_identifier)
+          .includes(identifier);
       return (
         Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
         featureList.map((ups) => ups.upsell_identifier).includes(identifier)
@@ -237,6 +243,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   text: t('backofficeMenu.programs'),
                 },
               ]),
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_SUBTEACHER_TOOL, true)
+            ? [
+                {
+                  to: '/replacement/management',
+                  icon: Cached,
+                  text: t('backofficeMenu.replacement'),
+                },
+              ]
+            : []),
         ],
       },
       {
@@ -461,6 +476,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
                 },
               ]
             : []),
+          {
+            to: '/settings/coach-userspace',
+            dense: true,
+            text: t('backofficeMenu.settings.coachUserspace'),
+          },
           {
             to: '/settings/forms',
             dense: true,

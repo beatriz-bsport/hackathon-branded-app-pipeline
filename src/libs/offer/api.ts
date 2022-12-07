@@ -211,6 +211,24 @@ export async function fetchBookingGuestNumber(offer_id: number) {
   return getAuth(`${API_V1_URI}/offer/${offer_id}/booking_for_guest/`);
 }
 
+export const listOffersWithPendingReplacementRequestIds = (data: {
+  offer_id_list: number[];
+}) => {
+  return postAuth(
+    `${API_V1_URI}/offer/with_pending_replacement_request/`,
+    data,
+  );
+};
+
+export const listOffersWithRefusedReplacementRequestIds = (data: {
+  offer_id_list: number[];
+}) => {
+  return postAuth(
+    `${API_V1_URI}/offer/with_refused_replacement_request/`,
+    data,
+  );
+};
+
 export default {
   fetchAllEvents,
   fetchCompatiblePacks,

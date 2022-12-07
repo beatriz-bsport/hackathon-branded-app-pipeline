@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment-timezone';
 
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,11 +15,11 @@ import {
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
+  REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type {
@@ -30,6 +31,7 @@ import type {
   NewOrderAlerting,
   TaskAlerting,
   DeleteAlert,
+  LateReplacementRequestAlerting,
 } from '../types';
 import i18n from '../../../i18n';
 
@@ -420,6 +422,41 @@ const NewTutorialSectionOrLessonListItem = (props: {
     </ListItem>
   );
 };
+
+const LateReplacementRequestListItem = (props: {
+  pushRouter: (path: string) => void;
+  alerting: LateReplacementRequestAlerting;
+}) => {
+  const { alerting } = props;
+  const classes = useStyles();
+  const { activity_name, date_start, coach } = alerting.data;
+  const { t } = useTranslation(['alerting']);
+  return (
+    <ListItem divider style={{ paddingTop: 0 }}>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <Typography variant="subtitle1" component="h3">
+            {coach}
+          </Typography>
+          <div className={classes.titleContainer}>
+            <IconButton
+              onClick={() => props.pushRouter('/replacement/management')}
+            >
+              <ArrowForwardIcon color="secondary" />
+            </IconButton>
+          </div>
+        </div>
+        <Typography variant="caption" component="p">
+          {t('lateReplacementRequest.content', {
+            activity_name,
+            date_start: moment(date_start).format('L LT'),
+          })}
+        </Typography>
+      </div>
+    </ListItem>
+  );
+};
+
 export default function AlertList(props: Props) {
   const { alerting, pushRouter, deleteAlert } = props;
   switch (alerting.alert_kind) {
@@ -460,6 +497,13 @@ export default function AlertList(props: Props) {
           alerting={alerting}
           pushRouter={pushRouter}
           deleteAlert={deleteAlert}
+        />
+      );
+    case REPLACEMEMENT_REQUEST_LATE_ALERT_KIND.alert_kind:
+      return (
+        <LateReplacementRequestListItem
+          alerting={alerting}
+          pushRouter={pushRouter}
         />
       );
     case UNREAD_COMMUNICATION.alert_kind:

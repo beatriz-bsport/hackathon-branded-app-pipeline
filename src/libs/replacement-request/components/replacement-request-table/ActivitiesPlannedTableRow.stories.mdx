@@ -1,0 +1,70 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ActivitiesPlannedTableRow from './ActivitiesPlannedTableRow.component';
+import { offerFactory } from '../../../offer/factory';
+import { establishmentGroup_factory } from '../../../establishment/factory';
+import { coachFactory } from '../../../associated-coach/factories';
+
+<Meta
+  title="Library/Replacement/ActivitiesPlannedTableRow"
+  component={ActivitiesPlannedTableRow}
+  argTypes={{
+    offer: {
+      description: 'The request of replacement',
+      table: {
+        type: {
+          summary: 'ReplacementRequest',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    theme: {
+      description: 'Theme of the company',
+      table: {
+        type: {
+          summary: 'CompanyTheme',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    establishmentGroups: {
+      description: 'Every establishment groups',
+      table: {
+        type: {
+          summary: 'EstablishmentGroup[]',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    handleCheckboxAction: { action: 'clicked' },
+  }}
+/>
+
+export const Template = (args) => <ActivitiesPlannedTableRow {...args} />;
+const theme = { enable_multi_localization: false };
+
+This `ActivitiesPlannedTableRow` is a table row to see replacements coachside
+
+# Activities Planned Table Row In Calendar Page
+
+Here, `ActivitiesPlannedTableRow` of the Calendar Page
+
+<Canvas>
+  <Story
+    name="Activities Planned Table Row Calendar Page"
+    args={{
+      offer: offerFactory(),
+      theme: theme,
+      establishmentGroups: [],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Activities Planned Table Row" />

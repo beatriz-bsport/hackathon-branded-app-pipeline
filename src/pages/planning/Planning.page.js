@@ -359,6 +359,7 @@ type Props = {
   coachesSelectedInRole: Coach[],
   zoomAppDetail: ZoomApp,
   fetchZoomApp: (companyId: number) => void,
+  getHasPendingReplacementRequest: (offerId: number) => boolean,
 };
 
 type State = {
@@ -1132,6 +1133,9 @@ export class Planning extends PureComponent<Props, State> {
                     (timetableLoading && (offers || []).length === 0)
                   }
                   selected={selectedOffer ? selectedOffer.id : null}
+                  getHasPendingReplacementRequest={
+                    this.props.getHasPendingReplacementRequest
+                  }
                   onModifyTags={this.onModifyTags}
                   showTags
                   className={classes.offerList}

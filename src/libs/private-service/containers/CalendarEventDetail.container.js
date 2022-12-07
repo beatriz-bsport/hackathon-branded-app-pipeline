@@ -91,6 +91,7 @@ import {
   getSimilars as getSimilarsOffers,
   withEstablishment,
   withTags,
+  getOfferHasPendingReplacementRequest,
 } from '../../offer/selectors';
 import { withAssociatedCoach, getCustomEvent } from '../selectors/custom-event';
 
@@ -257,6 +258,7 @@ type Props = {
   updateLevel: (id: number, data: Level, options: OptionCallback) => void,
   createLevel: (data: Level, options?: OptionCallback<Level>) => void,
   deleteLevel: (id: number, options?: OptionCallback) => void,
+  getHasPendingReplacementRequest: (offerId: number) => boolean,
 };
 
 type State = {
@@ -454,7 +456,13 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     if (offer) {
       return (
         <div>
-          <OfferMinimalSummary offer={offer} isCoach={this.props.isCoach} />
+          <OfferMinimalSummary
+            offer={offer}
+            isCoach={this.props.isCoach}
+            getHasPendingReplacementRequest={
+              this.props.getHasPendingReplacementRequest
+            }
+          />
           {offer.available ? (
             <div className={classes.buttonRow}>
               <CheckPermission requiredPermissions="offer.edit">
@@ -885,6 +893,8 @@ export default compose(
           withMetaActivity(withCoach(withEstablishment(getOfferById))),
         ),
       )(state, offerId),
+      getHasPendingReplacementRequest:
+        getOfferHasPendingReplacementRequest(state),
       customEvent: withAssociatedCoach(getCustomEvent)(state, customEventId),
       showVaccinationStatus: showVaccinationStatus(state),
       unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),

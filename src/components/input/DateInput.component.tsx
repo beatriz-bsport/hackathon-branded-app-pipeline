@@ -15,9 +15,11 @@ type Props = {
   error?: boolean;
   required?: boolean;
   minDate?: Object;
+  maxDate?: Object;
   onChange: (value: Moment) => void;
   className: string;
   clearable?: boolean;
+  format?: string;
 };
 
 const useStyle = makeStyles(() => ({
@@ -35,6 +37,8 @@ export const DateInput: React.FC<Props> = ({
   disabled,
   className,
   minDate,
+  maxDate,
+  format,
   clearable = false,
 }) => {
   const classes = useStyle();
@@ -46,12 +50,13 @@ export const DateInput: React.FC<Props> = ({
       locale={Moment.locale()}
     >
       <DatePicker
-        format="L"
+        format={format || 'L'}
         value={value}
         required={required}
         disabled={disabled}
         onChange={onChange}
         minDate={minDate}
+        maxDate={maxDate}
         label={label}
         error={error}
         className={`${className || ''} ${classes.container}`}

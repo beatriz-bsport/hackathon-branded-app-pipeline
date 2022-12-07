@@ -14,7 +14,10 @@ import {
   getPrivateBookingListFiltered,
   withRelatedFields,
 } from '../libs/private-service/selectors/private-booking';
-import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
+} from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
 import {
   getAllPageEstablishments,
@@ -29,7 +32,11 @@ import {
   getCoachesSelectedInRole,
 } from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
-import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
+import {
+  getOfferAsEventList,
+  withMetaActivity,
+  getOfferHasPendingReplacementRequest,
+} from '../libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import { setScheduleFilter as setScheduleFilterAction } from '../libs/user-preference/actions';
@@ -124,6 +131,7 @@ type Props = {
   scheduleFilter: ScheduleFilter,
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
   establishments: Array<EstablishmentWithAssociatedId>,
+  getHasPendingReplacementRequest: (offerId: number) => boolean,
 };
 
 const styles = (theme) => ({
@@ -307,7 +315,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     const { classes } = this.props;
 
     let coachList: Coach[];
-    let offerList: Offer[];
+    let offerList: Array<Offer & { hasPendingReplacementRequest?: boolean }>;
     let availabilitySlotList: AvailabilitySlot[];
     let privateBookingList: PrivateBooking[];
     let resourceAvailable: ResourceData[];
@@ -367,6 +375,9 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           setScheduleFilter={this.props.setScheduleFilter}
           coachesSelectedInRole={this.props.coachesSelectedInRole}
           establishments={this.props.establishments}
+          getHasPendingReplacementRequest={
+            this.props.getHasPendingReplacementRequest
+          }
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
@@ -452,6 +463,8 @@ export default compose(
         }
         return true;
       }),
+      getHasPendingReplacementRequest:
+        getOfferHasPendingReplacementRequest(state),
       availableCoaches: getActiveCoaches(state),
       coachesSelectedInRole: getCoachesSelectedInRole(state),
       customEventList: getCustomEventList(state, periodFilter),
@@ -491,6 +504,8 @@ export default compose(
       disableAvailabilitySlotMultipleResource,
       enableAvailabilitySlotMultipleResource,
       setScheduleFilter: setScheduleFilterAction,
+      listOffersWithPendingReplacementRequestIds:
+        listOffersWithPendingReplacementRequestIdsAction,
     },
   ),
   withHandlers({
@@ -513,7 +528,12 @@ export default compose(
         );
       },
     fetchOfferList:
-      ({ fetchAllOffers, fetchMetaActivityBulk, periodFilter }) =>
+      ({
+        fetchAllOffers,
+        fetchMetaActivityBulk,
+        periodFilter,
+        listOffersWithPendingReplacementRequestIds,
+      }) =>
       () => {
         fetchAllOffers(
           {
@@ -521,8 +541,13 @@ export default compose(
             max_date: periodFilter.end,
           },
           {
-            onSuccess: (offers) =>
-              fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
+            onSuccess: (offers) => {
+              fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+              listOffersWithPendingReplacementRequestIds(
+                offers.map((o) => o.id),
+                true,
+              );
+            },
           },
         );
       },

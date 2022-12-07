@@ -7,6 +7,10 @@ import {
 import type { OfferFilter } from '#libs/offer/types';
 import { PrivateBookingFilter, ScheduleFilter } from './types';
 import { OffersGroupFilter } from '#libs/meta-activity/types';
+import {
+  ReplacementRequestFilter,
+  ReplacementRequestOfferHistoryFilter,
+} from '#libs/replacement-request/types';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),
@@ -44,6 +48,12 @@ export const userPreferenceActions = {
   ),
   setShrinkResponsiveDrawer: createAction(
     'USER_PREFERANCE/RESPONSIVE_DRAWER_SHRINK',
+  ),
+  setReplacementRequestManagerFilter: createAction(
+    'USER_PREFERENCE/REPLACEMENT_REQUEST_MANAGER_FILTER',
+  ),
+  setReplacementRequestOfferHistoryFilter: createAction(
+    'USER_PREFERENCE/REPLACEMENT_REQUEST_OFFER_HISTORY_FILTER',
   ),
 };
 
@@ -171,5 +181,23 @@ export function setWorkshopDetailGroupFilter(filter: OffersGroupFilter) {
 export function setShrinkResponsiveDrawer(shrink: boolean) {
   return async (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.setShrinkResponsiveDrawer(shrink));
+  };
+}
+
+export function setReplacementRequestManagerFilter(
+  filter: ReplacementRequestFilter,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.setReplacementRequestManagerFilter(filter));
+  };
+}
+
+export function setReplacementRequestOfferHistoryFilter(
+  filter: ReplacementRequestOfferHistoryFilter,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.setReplacementRequestOfferHistoryFilter(filter),
+    );
   };
 }

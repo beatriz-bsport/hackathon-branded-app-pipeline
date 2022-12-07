@@ -19,6 +19,7 @@ exports.default = {
     webhook: 'Webhook',
     partnership: 'Partenariat',
     active_campaign: 'ActiveCampaign',
+    coachUserspace: 'Espace professeur',
   },
   webhook: {
     cancel: 'annuler',

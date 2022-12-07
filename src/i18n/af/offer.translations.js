@@ -25,6 +25,7 @@ exports.default = {
   },
   extraordinaryEstablishment: '(lieu temporaire)',
   substitute: 'Remplaçant',
+  pendingReplacementRequest: 'Une demande de remplacement est ouverte',
   calendar: {
     modifyOffer: 'Modifier',
     deleteOffer: 'Annuler',

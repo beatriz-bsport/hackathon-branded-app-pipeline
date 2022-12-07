@@ -37,6 +37,7 @@ import {
   PowerSettingsNew,
   AccessTime,
   Payment,
+  Autorenew,
 } from '@material-ui/icons';
 
 import { colors } from '@bsport/common/lib/colors';
@@ -413,19 +414,42 @@ export const CoachDrawer = (props: Props) => {
 };
 
 const getNavigationItems = (props: Props): NavigationItem[] => {
-  const { disconnect, companyId } = props;
+  const {
+    disconnect,
+    companyId,
+    has_coach_access_to_calendar,
+    has_coach_access_to_compensation,
+    has_coach_access_to_replacement_request,
+  } = props;
 
   return [
-    {
-      to: `/co/${companyId}/calendar/`,
-      text: 'backofficeMenu.schedule',
-      icon: AccessTime,
-    },
-    {
-      to: `/co/${companyId}/payroll/`,
-      text: 'backofficeMenu.coachPayroll',
-      icon: Payment,
-    },
+    ...(has_coach_access_to_calendar
+      ? [
+          {
+            to: `/co/${companyId}/calendar/`,
+            text: 'backofficeMenu.schedule',
+            icon: AccessTime,
+          },
+        ]
+      : []),
+    ...(has_coach_access_to_compensation
+      ? [
+          {
+            to: `/co/${companyId}/payroll/`,
+            text: 'backofficeMenu.coachPayroll',
+            icon: Payment,
+          },
+        ]
+      : []),
+    ...(has_coach_access_to_replacement_request
+      ? [
+          {
+            to: `/co/${companyId}/replacement/`,
+            text: 'backofficeMenu.replacement',
+            icon: Autorenew,
+          },
+        ]
+      : []),
     {
       action: disconnect,
       to: null,

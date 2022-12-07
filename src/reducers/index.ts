@@ -55,6 +55,7 @@ import privateService from '#libs/private-service/reducers';
 import QuickbooksAppReducer from '#libs/quickbooks/reducers';
 import relationship from '#libs/relationship/reducers';
 import reminder from '#libs/reminder/reducers';
+import replacementRequestReducer from '#libs/replacement-request/reducers';
 import reportingReducer from '#libs/reporting/reducers';
 import roleReducers from '#libs/role/reducers';
 import searchReducer from './search.reducers';
@@ -129,6 +130,7 @@ import actionTypes from '../actions/auth.types';
 import { LevelState } from '#libs/level/types';
 import { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 import { TutorialState } from '#libs/platform-tutorial/types';
+import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
 
 const rootReducer = (history: any) =>
@@ -208,6 +210,7 @@ const rootReducer = (history: any) =>
     terminal: terminalReducers,
     datatypeFiltering: datatypeFilteringReducers,
     tutorial: tutorialReducers,
+    replacementRequest: replacementRequestReducer,
   });
 
 export type RootState = {
@@ -266,6 +269,7 @@ export type RootState = {
   quickbooks: QuickbooksState;
   relationship: any;
   reminder: any;
+  replacementRequest: ReplacementRequestState;
   reports: ReportingState;
   role: RoleState;
   search: any;

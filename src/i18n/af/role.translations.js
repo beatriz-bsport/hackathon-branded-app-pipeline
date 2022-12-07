@@ -178,6 +178,9 @@ exports.default = {
         programs: {
           _label: 'Programmes',
         },
+        replacement: {
+          _label: 'Remplacement',
+        },
       },
       products: {
         _label: 'Produits',
@@ -291,6 +294,9 @@ exports.default = {
         },
         mobilePersonalization: {
           _label: 'Personnalisation app',
+        },
+        coachUserspace: {
+          _label: 'Espace professeur',
         },
         memberForms: {
           _label: 'Formulaire membre',

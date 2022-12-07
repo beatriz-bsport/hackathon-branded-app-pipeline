@@ -121,8 +121,8 @@ type Props = {
   companyId: number,
 };
 const MetaActivityMap = {
-  cover_main: 'cover_main',
   alt_cover_main: 'alt_cover_main',
+  cover_main: 'cover_main',
   description: 'description',
   name: 'name',
   last_booking_minutes: 'last_booking_minutes',
@@ -135,6 +135,7 @@ const MetaActivityMap = {
   auto_discard_active: 'auto_discard_active',
   auto_discard_hours_before_start: 'auto_discard_hours_before_start',
   auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
+  category: 'category',
 };
 
 const StepperForm = withTranslation(['metaActivity'])(

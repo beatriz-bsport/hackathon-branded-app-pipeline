@@ -9,9 +9,10 @@ import {
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
-  // @ts-ignore
+  REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
 } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 
 import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { RootState } from '../../reducers';
@@ -27,6 +28,7 @@ const ALERT_KINDS = [
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
+  REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
 ].map((ak) => ak.alert_kind);
 
 export const listActions = {
@@ -76,7 +78,16 @@ export function fetchMoreAlertingKind(kind: number) {
 }
 
 export function fetch(alert_kind: number, page: number): ThunkAction {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState) => {
+    const state = getState();
+    if (
+      alert_kind === REPLACEMEMENT_REQUEST_LATE_ALERT_KIND.alert_kind &&
+      !state.company.feature.data.upsell.find(
+        (u) => u.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+      )
+    )
+      return;
+
     dispatch(listActions.isLoading({ isLoading: true, alert_kind }));
     dispatch(listActions.error(null));
 

@@ -34,18 +34,37 @@ import {
   fetchAssociatedCoach,
   updateCoachPrivateSlotsPaymentRule,
   editAccessToCoachSpace as editAccessToCoachSpaceAction,
+  assignDisciplineGroup,
+  updateAssociatedCoachReplacementPreferences,
 } from '../../libs/associated-coach/actions';
+import { fetchDisciplineGroupList as fetchDisciplineGroupListAction } from '../../libs/replacement-request/actions';
+import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '../../libs/meta-activity/actions';
+import { fetchSCT as fetchSCTAction } from '../../libs/category/actions';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import type { CoachDetailed } from '../../api/types';
+import type { CoachReplacementPreferencesData } from '../../libs/associated-coach/types';
 import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
 import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
+import {
+  getEnabledWorkshops,
+  getEnabledMetaActivities,
+} from '#libs/meta-activity/selectors';
+import { getSCTs } from '#libs/category/selectors';
+import { getAllDisciplineGroups } from '#libs/replacement-request/selectors';
 import { PrivateServiceWithSlots } from '../../libs/private-service/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { SCT } from '#libs/category/types';
+import {
+  DisciplineGroup,
+  AssignCoachDisciplineGroupParams,
+} from '#libs/replacement-request/types';
 
 import type { OptionCallback } from '../../state/types';
 
 type Props = {
+  companyId: number,
   coachId: number,
   coach: CoachDetailed,
   coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
@@ -75,6 +94,17 @@ type Props = {
   loadPaymentRuleGroups: () => void,
   id: number,
   fetchAssociatedCoach: (number) => void,
+  fetchDisciplineGroupList: () => void,
+  fetchActivitiesCompany: (
+    id: number,
+    params?: any,
+    options?: OptionCallback,
+  ) => void,
+  assignDisciplineGroup: (
+    params: AssignCoachDisciplineGroupParams,
+    options?: OptionCallback,
+  ) => void,
+  fetchSCT: () => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
   deleteCoach: (id: number, options: ?OptionCallback) => void,
@@ -90,7 +120,15 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   privateServices: Array<PrivateServiceWithSlots>,
+  disciplineGroupList: DisciplineGroup[],
+  activityList: MetaActivity[],
+  workshopList: MetaActivity[],
+  SCTList: SCT[],
   editAccessToCoachSpace: (hasAccessToCoachSpace: boolean) => void,
+  updateAssociatedCoachReplacementPreferences: (
+    id: number,
+    data: CoachReplacementPreferencesData,
+  ) => void,
 };
 
 export class Coach extends React.Component<Props> {
@@ -98,6 +136,9 @@ export class Coach extends React.Component<Props> {
     this.props.loadPaymentRules();
     this.props.loadPaymentRuleGroups();
     this.props.fetchAssociatedCoach(this.props.coachId);
+    this.props.fetchActivitiesCompany(this.props.companyId);
+    this.props.fetchDisciplineGroupList();
+    this.props.fetchSCT();
   }
 
   render() {
@@ -123,6 +164,14 @@ export class Coach extends React.Component<Props> {
             this.props.updateCoachPrivateSlotsPaymentRule
           }
           privateServices={this.props.privateServices}
+          activityList={this.props.activityList}
+          workshopList={this.props.workshopList}
+          categoryList={this.props.SCTList}
+          disciplineGroupList={this.props.disciplineGroupList}
+          assignDisciplineGroup={this.props.assignDisciplineGroup}
+          updateAssociatedCoachReplacementPreferences={
+            this.props.updateAssociatedCoachReplacementPreferences
+          }
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateCoach(coach)}
@@ -162,6 +211,7 @@ export default compose(
   withState('openWidgetDialog', 'setOpenWidgetDialog', false),
   connect(
     (state, { coachId }) => ({
+      companyId: state.theme.theme.company,
       loading: state.coach.loading,
       isCoach: state.auth.is_coach,
       isManager: state.auth.is_manager,
@@ -171,6 +221,10 @@ export default compose(
       coach: getCoach(state, coachId),
       privateSlots: state.privateService.privateSlot.byId,
       privateServices: getAvailablePrivateServices(state),
+      SCTList: getSCTs(state),
+      activityList: getEnabledMetaActivities(state),
+      workshopList: getEnabledWorkshops(state),
+      disciplineGroupList: getAllDisciplineGroups(state),
     }),
     {
       deleteCoach,
@@ -179,6 +233,8 @@ export default compose(
       loadPaymentRules: fetchAllCoachPaymentRules,
       loadPaymentRuleGroups: fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoach,
+      fetchActivitiesCompany: fetchActivitiesCompanyAction,
+      fetchSCT: fetchSCTAction,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
       setCoachPrivatePaymentRule,
@@ -189,6 +245,9 @@ export default compose(
         routerPush(`/coach/${coach.associated_coach_id}/performance`),
       goToList: () => routerPush('/coach'),
       editAccessToCoachSpace: editAccessToCoachSpaceAction,
+      fetchDisciplineGroupList: fetchDisciplineGroupListAction,
+      assignDisciplineGroup,
+      updateAssociatedCoachReplacementPreferences,
     },
   ),
   withTitle(({ coach }) => {

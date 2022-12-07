@@ -154,6 +154,10 @@ const PerformanceTracking = asyncComponent(() =>
   import('./performance-tracking/PerformanceTracking.router'),
 );
 
+const Replacement = asyncComponent(() =>
+  import('./replacement/Replacement.router'),
+);
+
 const Dashboard = asyncComponent(() => import('./Dashboard.page'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
@@ -394,6 +398,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/smart-list" component={SmartList} />
       <Route path="/custom-form" component={CustomForm} />
       <Route path="/performance-tracking" component={PerformanceTracking} />
+      <Route path="/replacement/:tab" component={Replacement} />
       <Route path="/instalment-payment" component={InstalmentPayment} />
       <Route path="/marketing" component={MarketingRouter} />
       <Route path="/email-template" component={EmailTemplate} />

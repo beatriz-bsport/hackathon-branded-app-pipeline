@@ -17,6 +17,7 @@ import WaitingListConfigurationPage from './WaitingListConfigurationPage.page';
 import BroadcastConfiguration from './BroadcastConfiguration.page';
 import ShopConfigurationPage from './ShopConfigurationPage.page';
 import ThemeConfigurationPage from './ThemeConfiguration.page';
+import CoachPlaceSettingsPage from './CoachPlaceSettings.page';
 import SettingsPersonalizePage from './SettingsPersonalizePage.page';
 import WebhookConfigurationPage from './WebhookConfigurationPage.page';
 import NotificationRulePage from './NotificationRule.page';
@@ -129,6 +130,11 @@ export const Settings = () => {
         exact
         path="/settings/platform-billing"
         component={PlatformBillingSettingPage}
+      />
+      <Route
+        exact
+        path="/settings/coach-userspace"
+        component={CoachPlaceSettingsPage}
       />
       <Route
         path="/settings"

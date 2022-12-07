@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import moment from 'moment-timezone';
 import { handleActions } from 'redux-actions';
 import { userPreferenceActions } from './actions';
 import { UserPreference } from './types';
@@ -28,6 +29,16 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
   workshopGroupFilter: {},
   workshopDetailGroupFilter: {},
   shrinkResponsiveDrawer: false,
+  replacementRequestManagerFilter: {
+    timePeriod: 'next_month',
+    min_date: moment().format('YYYY-MM-DD'),
+    max_date: moment().add(1, 'month').format('YYYY-MM-DD'),
+  },
+  replacementRequestOfferHistoryFilter: {
+    timePeriod: 'last_month',
+    min_date: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+    max_date: moment().format('YYYY-MM-DD'),
+  },
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -141,6 +152,16 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
     ) => {
       return state.setIn(['shrinkResponsiveDrawer'], payload);
     },
+    [userPreferenceActions.setReplacementRequestManagerFilter.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['replacementRequestManagerFilter'], payload);
+    },
+    [userPreferenceActions.setReplacementRequestOfferHistoryFilter.toString()]:
+      (state, { payload }) => {
+        return state.setIn(['replacementRequestOfferHistoryFilter'], payload);
+      },
   },
   initialState,
 );

@@ -7,6 +7,7 @@ const {
   COMPANY_ONBOARDING_ALERT,
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
+  REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
 } = require('@bsport/common/lib/master-data/alerting_kind');
 
 exports.default = {
@@ -23,6 +24,7 @@ exports.default = {
     [COMPANY_ONBOARDING_ALERT.alert_kind]: 'Informations légales',
     [UNPAID_PRIVATE_BOOKING_ALERT.alert_kind]: 'Rendez-vous impayés',
     [NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind]: 'Tutoriels',
+    [REPLACEMEMENT_REQUEST_LATE_ALERT_KIND.alert_kind]: 'Remplacements Tardifs',
   },
   showMore: 'Voir davantage',
   readAll: 'Marquer tout comme lu',
@@ -77,5 +79,10 @@ exports.default = {
       title: 'Nouveau Cours {{- name}}',
       content: 'Ajouté à la section {{- name}}',
     },
+  },
+  lateReplacementRequest: {
+    title: 'Remplacement tardif',
+    content:
+      'a demandé un remplacement pour la séance suivante : {{activity_name}} - {{-date_start}}',
   },
 };

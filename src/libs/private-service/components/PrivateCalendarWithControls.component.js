@@ -101,6 +101,7 @@ type Props = {
   coachesSelectedInRole?: Array<Coach>,
   establishments?: Array<EstablishmentWithAssociatedId>,
   hideResourceSelector?: boolean,
+  getHasPendingReplacementRequest: (offerId: number) => boolean,
 };
 
 export const PrivateCalendarWithControls = (props: Props) => {
@@ -281,6 +282,9 @@ export const PrivateCalendarWithControls = (props: Props) => {
           setScheduleFilter={props.setScheduleFilter}
           establishments={props.establishments || []}
           resourceAvailable={props.resourceAvailable}
+          getHasPendingReplacementRequest={
+            props.getHasPendingReplacementRequest
+          }
         />
         <CalendarEventDetail
           popoverAnchor={props.popoverAnchor}

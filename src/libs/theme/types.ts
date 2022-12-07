@@ -76,6 +76,10 @@ export type Theme = {
   widget_theme: WidgetCustomCSS;
   franchisor: number | null;
   online_payment_enabled: boolean;
+  is_coach_access_enabled_by_default: boolean;
+  has_coach_access_to_calendar: boolean;
+  has_coach_access_to_compensation: boolean;
+  has_coach_access_to_replacement_request: boolean;
   confirm_email_url_redirection: string;
   requires_email_confirmation_when_signing_up: boolean;
   hide_intercom: boolean;

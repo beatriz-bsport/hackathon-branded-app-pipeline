@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { pure } from 'recompose';
 import classNames from 'classnames';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -25,10 +25,18 @@ import {
 import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
+import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import type { Offer } from '../../api/types';
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
 
 const styles = (theme) => ({
+  relativeContainer: { position: 'relative' },
+  replacementChip: {
+    position: 'absolute',
+    right: 0,
+    top: '50%',
+    transform: 'translateY(-50%)',
+  },
   offerTitleText: {
     display: 'flex',
     flexDirection: 'row',
@@ -72,6 +80,7 @@ type Props = {
   isCoach: boolean,
   showTags: boolean,
   fixedHeight?: number,
+  getHasPendingReplacementRequest?: (offerId: number) => boolean,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -129,9 +138,14 @@ export function OfferMinimalSummary(props: Props) {
     isCoach,
     showTags,
     fixedHeight,
+    getHasPendingReplacementRequest,
   } = props;
 
-  const [tagManagementDialog, setTagManagementDialog] = React.useState(false);
+  const [tagManagementDialog, setTagManagementDialog] = useState(false);
+
+  const hasPendingReplacementRequest = getHasPendingReplacementRequest
+    ? getHasPendingReplacementRequest(offer.id)
+    : false;
 
   if (!offer || loading) {
     return <EmptyListItem key="" divider dense />;
@@ -175,6 +189,7 @@ export function OfferMinimalSummary(props: Props) {
   if (coach_override) {
     actualCoachName = coach_override.name;
   }
+
   const textClasses = fixedHeight
     ? {
         primary: classes.noWrap,
@@ -316,7 +331,7 @@ export function OfferMinimalSummary(props: Props) {
               classes={textClasses}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={3} className={classes.relativeContainer}>
             <ListItemText
               primary={
                 showCoachName
@@ -326,6 +341,13 @@ export function OfferMinimalSummary(props: Props) {
               secondary={actualCoachName}
               classes={textClasses}
             />
+            {hasPendingReplacementRequest && (
+              <Tooltip title={t('offer:pendingReplacementRequest')}>
+                <div item className={classes.replacementChip}>
+                  <ReplacementRequestPendingChip height={22} width={25} />
+                </div>
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       </ListItem>

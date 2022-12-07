@@ -30,6 +30,8 @@ import {
   hardDeleteOfferActions,
   fetchOffersInGroupAction,
   bookingGuestNumberActions,
+  listOffersWithPendingReplacementRequestActions,
+  listOffersWithRefusedReplacementRequestActions,
 } from './actions';
 import { OfferState } from './types';
 
@@ -152,6 +154,16 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   groups: {},
   bookingGuest: {
     bookingGuestNumberLeft: 0,
+  },
+  hasPendingReplacementRequest: {
+    loading: false,
+    error: null,
+    byOfferId: {},
+  },
+  hasRefusedReplacementRequest: {
+    loading: false,
+    error: null,
+    byOfferId: {},
   },
 });
 
@@ -568,6 +580,46 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     [bookingGuestNumberActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['bookingGuest', 'bookingGuestNumberLeft'], payload);
     },
+    [listOffersWithPendingReplacementRequestActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['hasPendingReplacementRequest', 'loading'], payload),
+    [listOffersWithPendingReplacementRequestActions.error.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['hasPendingReplacementRequest', 'error'], payload),
+    [listOffersWithPendingReplacementRequestActions.success.toString()]: (
+      state,
+      { payload },
+    ) =>
+      // Override this key on each fetch
+      state.setIn(
+        ['hasPendingReplacementRequest', 'byOfferId'],
+        payload.reduce((acc, offerId) => {
+          acc[offerId] = true;
+          return acc;
+        }, {}),
+      ),
+    [listOffersWithRefusedReplacementRequestActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['hasRefusedReplacementRequest', 'loading'], payload),
+    [listOffersWithRefusedReplacementRequestActions.error.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['hasRefusedReplacementRequest', 'error'], payload),
+    [listOffersWithRefusedReplacementRequestActions.success.toString()]: (
+      state,
+      { payload },
+    ) =>
+      // Override this key on each fetch
+      state.setIn(
+        ['hasRefusedReplacementRequest', 'byOfferId'],
+        payload.reduce((acc, offerId) => {
+          acc[offerId] = true;
+          return acc;
+        }, {}),
+      ),
   },
   initialState,
 );

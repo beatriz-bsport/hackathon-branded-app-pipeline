@@ -9,7 +9,10 @@ import Planning from './Planning.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
 
-import { fetchOffersByDay as fetchOffersByDayAction } from '../../libs/offer/actions';
+import {
+  fetchOffersByDay as fetchOffersByDayAction,
+  listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
+} from '../../libs/offer/actions';
 import {
   getManagerOffersFiltered,
   withMetaActivity,
@@ -17,6 +20,7 @@ import {
   withEstablishment,
   withGender,
   withTags,
+  getOfferHasPendingReplacementRequest,
 } from '../../libs/offer/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#libs/group-offer/actions';
@@ -87,6 +91,8 @@ const PlanningWithDateAndOffer = compose(
           ),
         ),
       )(state),
+      getHasPendingReplacementRequest:
+        getOfferHasPendingReplacementRequest(state),
     }),
 
     {
@@ -97,6 +103,8 @@ const PlanningWithDateAndOffer = compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchGroupsOfferList: fetchGroupsOfferListAction,
+      listOffersWithPendingReplacementRequestIds:
+        listOffersWithPendingReplacementRequestIdsAction,
     },
   ),
   withHandlers({
@@ -111,6 +119,7 @@ const PlanningWithDateAndOffer = compose(
         fetchOffersByDayActionDisptach,
         fetchMetaActivityBulk,
         fetchGroupsOfferList,
+        listOffersWithPendingReplacementRequestIds,
       }) =>
       (params) => {
         fetchOffersByDayActionDisptach(params, {
@@ -124,6 +133,10 @@ const PlanningWithDateAndOffer = compose(
               ...offers.map((o) => o.establishment),
               ...offers.map((o) => o.establishment_override),
             ]);
+            listOffersWithPendingReplacementRequestIds(
+              offers.map((o) => o.id),
+              true,
+            );
             const groups = Array.from(new Set(offers?.map((o) => o.group)));
             fetchGroupsOfferList({
               id__in: groups,

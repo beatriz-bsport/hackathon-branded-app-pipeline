@@ -21,6 +21,7 @@ type Props = {
   t: TFunction,
   showTags: ?boolean,
   virtualized?: boolean,
+  getHasPendingReplacementRequest: (offerId: number) => boolean,
 };
 
 export class TimeTable extends React.PureComponent<Props> {
@@ -39,6 +40,9 @@ export class TimeTable extends React.PureComponent<Props> {
       }}
       showTags={this.props.showTags}
       fixedHeight={72}
+      getHasPendingReplacementRequest={
+        this.props.getHasPendingReplacementRequest
+      }
     />
   );
 

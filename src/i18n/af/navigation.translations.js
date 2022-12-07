@@ -61,6 +61,7 @@ exports.default = {
     giftcard: 'Cartes cadeaux',
     coachPerformance: 'Professeurs',
     coachPayroll: 'Rémunération',
+    replacement: 'Remplacement',
     beta: 'beta',
     consumer: {
       pass: 'Cartes de cours',
@@ -104,6 +105,7 @@ exports.default = {
       settings: 'Paramètres',
       platform_billing: 'Abonnement bsport',
       forms: 'Formulaire membre',
+      coachUserspace: 'Espace professeur',
       mobilePersonalization: 'Personalisation app',
     },
     tutorial: 'Tutoriel',

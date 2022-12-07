@@ -2,11 +2,10 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import { CircularProgress } from '@material-ui/core';
 import { MemberMinimal } from '#libs/member/types';
 import { MAX_DISPLAY } from '#libs/communication-v2/constants';
+import CustomAvatarGroup from '#components/CustomAvatarGroup.component';
 
 const MAX_DISPLAY_COMPACT = 2;
 
@@ -38,21 +37,7 @@ const CommunicationThreadNumberRecipients = (props: Props) => {
       {loading ? (
         <CircularProgress size={20} />
       ) : (
-        <AvatarGroup className={classes.container} spacing="small">
-          {slicedImageLinks.map((_imgLink, idx) => {
-            const imgLink =
-              _imgLink ??
-              'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png';
-            return (
-              <Avatar
-                src={imgLink}
-                alt={imgLink}
-                key={`${idx}-${imgLink}`}
-                className={classes.img}
-              />
-            );
-          })}
-        </AvatarGroup>
+        <CustomAvatarGroup imgLinks={slicedImageLinks} />
       )}
       {numberRecipients && numberRecipients > 0 && (
         <Typography variant="body2" className={classes.text}>

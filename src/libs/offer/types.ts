@@ -38,17 +38,19 @@ export type OfferFilterData = {
 //   coach: Profile,
 // };
 
-export type OfferMinimal = {
+export type OfferMinimal<C = number, E = number, M = number, L = number> = {
   date_start: string;
   duration_minute: number;
   available: boolean;
-  establishment: number;
-  coach: number;
+  establishment: E;
+  coach: C;
+  coach_override: C;
   activity: number;
-  meta_activity: number;
+  meta_activity: M;
   id: number;
   price: number;
   timezone_name: string;
+  level: L;
 };
 
 export type OfferDetail = {
@@ -75,6 +77,7 @@ export type Offer<
   A = number,
   T = number,
   G = number,
+  L = number,
 > = {
   company: number;
   activity: A;
@@ -90,7 +93,7 @@ export type Offer<
   date_end: string;
   date_start: string;
   effectif: number;
-  level: string;
+  level: L;
   level_id: number;
   meta_activity_id: number;
   name: string;
@@ -207,4 +210,10 @@ export type OfferState = ErrorAndLoading & {
   bookingGuest: {
     bookingGuestNumberLeft: number;
   };
+  hasPendingReplacementRequest: {
+    byOfferId: Record<number, boolean>;
+  } & ErrorAndLoading;
+  hasRefusedReplacementRequest: {
+    byOfferId: Record<number, boolean>;
+  } & ErrorAndLoading;
 };

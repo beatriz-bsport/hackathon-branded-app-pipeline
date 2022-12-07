@@ -9,6 +9,7 @@
       "5": "Informations légales",
       "6": "Rendez-vous impayés",
       "7": "Tutoriels",
+      "8": "Remplacements Tardifs",
       "9": "Messages reçus"
     },
     "showMore": "Voir davantage",
@@ -49,6 +50,10 @@
     "newTutorialSectionOrLesson": {
       "newSection": { "title": "Nouvelle Section", "content": "La section {{- name}} a été ajoutée, formez-vous dès maintenant." },
       "newLesson": { "title": "Nouveau Cours {{- name}}", "content": "Ajouté à la section {{- name}}" }
+    },
+    "lateReplacementRequest": {
+      "title": "Remplacement tardif",
+      "content": "a demandé un remplacement pour la séance suivante : {{activity_name}} - {{-date_start}}"
     }
   },
   "authentication": {
@@ -3423,6 +3428,7 @@
       "giftcard": "Cartes cadeaux",
       "coachPerformance": "Professeurs",
       "coachPayroll": "Rémunération",
+      "replacement": "Remplacement",
       "beta": "beta",
       "consumer": {
         "pass": "Cartes de cours",
@@ -3466,6 +3472,7 @@
         "settings": "Paramètres",
         "platform_billing": "Abonnement bsport",
         "forms": "Formulaire membre",
+        "coachUserspace": "Espace professeur",
         "mobilePersonalization": "Personalisation app"
       },
       "tutorial": "Tutoriel",
@@ -3543,7 +3550,8 @@
       "invoice": "Facturation",
       "marketing": "Marketing",
       "payment_pack": "Cartes de cours",
-      "recurrent_private_booking": "Rendez-vous récurrent"
+      "recurrent_private_booking": "Rendez-vous récurrent",
+      "replacement_request": "Remplacement"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer", "birthdayPlaceholder": "Choisir un mail" },
     "marketingNotification": { "birthday": "Courriel d'anniversaire" },
@@ -3671,6 +3679,10 @@
           "company_info": "Informations du studio",
           "company_websiteURL": "URL du site web"
         }
+      },
+      "ReplacementRequest": {
+        "name": "Remplacement",
+        "tags": { "closing_date": "Date de clôture", "sub_teacher": "Professeur remplaçant" }
       }
     },
     "eventType": {
@@ -3718,6 +3730,12 @@
       "701": "Pénalité carte de cours : carte bloquée (élèves)",
       "702": "Pénalité carte de cours : acompte créé (élèves)",
       "801": "Groupe de rendez vous annulé",
+      "901": "Remplaçant trouvé (professeur)",
+      "902": "Demande de remplacement annulée (remplaçant)",
+      "903": "Un autre remplaçant a été trouvé (remplaçant)",
+      "904": "Nouvelle demande de remplacement (remplaçant)",
+      "905": "Nouvelle demande en retard (remplaçant)",
+      "906": "Date de clôture repoussée (remplaçant)",
       "987": "Tentative d'encaissement d'un paiement échelonné"
     },
     "franchise": {
@@ -3803,6 +3821,7 @@
     "booking": { "confirmed": "Confirmé(s)", "fillRate": "Taux de remplissage", "waiting": "Liste d'attente" },
     "extraordinaryEstablishment": "(lieu temporaire)",
     "substitute": "Remplaçant",
+    "pendingReplacementRequest": "Une demande de remplacement est ouverte",
     "calendar": { "modifyOffer": "Modifier", "deleteOffer": "Annuler", "filter": "Filtrer" },
     "manageOffer": "Gérer mes réservations",
     "restoreOffer": "Restaurer la séance",
@@ -6024,6 +6043,194 @@
       }
     }
   },
+  "replacement": {
+    "calendar": {
+      "title": "Mon calendrier",
+      "description": "Retrouvez ici l'ensemble de vos cours collectifs.",
+      "helperTextLimited": "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demandes tardives restantes jusqu'au {{-dateEnd}}. Toutes les demandes de remplacement faites à moins de {{count}} jour de la séance seront considérées comme tardives.",
+      "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demandes tardives restantes jusqu'au {{-dateEnd}}. Toutes les demandes de remplacement faites à moins de {{count}} jours de la séance seront considérées comme tardives.",
+      "helperTextNotLimited": "Toutes les demandes de remplacement faites à moins de {{count}} jour de la séance seront considérées comme tardives.",
+      "helperTextNotLimited_plural": "Toutes les demandes de remplacement faites à moins de {{count}} jours de la séance seront considérées comme tardives."
+    },
+    "requests": {
+      "title": "Mes demandes",
+      "description": "Retrouvez ici toutes vos demandes de remplacement.",
+      "cancel": "Annuler"
+    },
+    "confirmations": {
+      "title": "Confirmations",
+      "description": "Vous avez été ajouté comme professeur remplaçant sur les cours suivants."
+    },
+    "marketplace": {
+      "title": "Marketplace",
+      "description": "Les cours suivants ont besoin d'un professeur remplaçant. Êtes-vous disponible ?",
+      "filters": "Filtres",
+      "until": "Jusqu'au {{-date}}"
+    },
+    "unavailableReplacement": {
+      "alreadyPassed": "Ce cours est passé",
+      "replacing": "Vous êtes remplaçant sur ce cours",
+      "alreadyAskedFor": "Une demande est déjà en cours",
+      "tooEarly": "Les remplacements ne sont pas encore disponibles",
+      "noLateRequestsLeft": "Vous ne pouvez plus créer de nouvelles demandes de remplacement tardives",
+      "refusedByManager": "Votre demande de remplacement a été refusée"
+    },
+    "header": {
+      "date": "Date et heure",
+      "name": "Nom de la classe",
+      "level": "Niveau",
+      "location": "Lieu",
+      "establishment_group": "Localisation",
+      "action": "Action",
+      "reason": "Raison",
+      "status": "Statut",
+      "teacher": "Professeur",
+      "teacher_override": "Professeur remplaçant",
+      "closing_date": "Date de clôture",
+      "availability": "Disponible",
+      "request": "Demande",
+      "registrations": "Inscriptions",
+      "class": "Classe"
+    },
+    "requestTableTitles": { "pending": "En cours", "replacementFound": "Remplaçant trouvé", "deniedRequests": "Demande refusée" },
+    "managerTableTitles": { "pendingRequests": "Demandes en cours", "replacementHistory": "Historique des remplacements" },
+    "coachAnswer": { "yes": "Oui", "ratherNo": "Ne préfère pas", "no": "Non" },
+    "noListItem": { "replacementRequest": "Aucun élément", "calendar": "Aucun cours programmé sur ces dates" },
+    "replacementStatus": {
+      "description": {
+        "description": "Les statuts permettent de savoir où en est votre demande.",
+        "pendingForApproval": "attente d'une action de la part du manager.",
+        "approvedButNoReplacementPropositions": "en attente d'inscriptions.",
+        "approvedWithReplacementPropositions": "inscriptions en cours."
+      },
+      "pendingForApproval": "Attente de validation",
+      "deniedByManager": "Refusée",
+      "approvedButNoReplacementPropositions": "Ouverte",
+      "approvedWithReplacementPropositions": "En cours",
+      "teacherFound": "Remplacée"
+    },
+    "askForReplacement": {
+      "title": "Demander un remplacement",
+      "label": "Raison de l'absence",
+      "cancel": "Annuler",
+      "submit": "Soumettre",
+      "requestSent": "Demande envoyée",
+      "requestSent_plural": "Demandes envoyées",
+      "requestSentDescription": "Votre demande de remplacement a bien été prise en compte. Rendez-vous dans l'onglet \"Mes demandes\" pour suivre son évolution.",
+      "requestSentDescription_plural": "Vos demandes de remplacement ont bien été prises en compte. Rendez-vous dans l'onglet \"Mes demandes\" pour suivre leur évolution.",
+      "close": "Fermer",
+      "lateRequestTypo": "Attention, votre demande de remplacement est tardive. Vous disposez de {{daysBeforeOffer}} jours avant le début du cours pour effectuer votre demande dans les temps.",
+      "lateRequestTypo_plural": "Attention, certaines de vos demandes de remplacement sont tardives. Vous disposez de {{daysBeforeOffer}} jours avant le début du cours pour effectuer votre demande dans les temps.",
+      "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demande tardive restante jusqu'au {{-dateEnd}}.",
+      "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demandes tardives restantes jusqu'au {{-dateEnd}}.",
+      "lateRequestInfo": "La demande sera bien enregistré, assurez-vous cependant de contacter directement votre studio pour les prévenir au plus vite.",
+      "lateRequestInfo_plural": "Les demandes seront bien enregistrées, assurez-vous cependant de contacter directement votre studio pour les prévenir au plus vite."
+    },
+    "askForClosingDateExtension": {
+      "title": "Date de clôture",
+      "description": "Les inscriptions sont closes pour cette demande depuis le {{closing_date}}. S'il n'y a pas assez de réponses à cette demande, vous pouvez encore décaler la date de clôture.",
+      "closing_date": "Date de clôture",
+      "new_closing_date": "La nouvelle date de clôture sera le {{closing_date}} à {{time}}",
+      "cancel": "Annuler",
+      "submit": "Valider",
+      "requestSent": "Demande envoyée",
+      "requestSentDescription": "L'extension a bien été ajoutée à la demande de remplacement.",
+      "close": "Fermer"
+    },
+    "delete": {
+      "title": "Annuler la demande",
+      "description": "Êtes-vous sûr de vouloir annuler cette demande ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    },
+    "lateStatus": { "isLate": "En retard", "isNotLate": "Dans les temps" },
+    "registrationsStatus": { "areClosed": "Fermées", "areNotClosed": "Ouvertes" },
+    "coachAnswers": {
+      "header": { "teacher": "Professeur", "answer": "Réponse", "action": "Action" },
+      "closing_date": "Date de clôture",
+      "reason": "Raison de la demande",
+      "attribute": "Attribuer",
+      "close": "Fermer",
+      "noAnswers": "Aucune réponse pour le moment",
+      "confirmation": {
+        "title": "Attribuer un professeur",
+        "description": "Êtes-vous sûr de vouloir inscrire {{coach_override}} comme professeur remplaçant sur le cours de {{coach}} ?",
+        "cancel": "Annuler",
+        "confirm": "Confirmer"
+      },
+      "success": {
+        "requestSent": "Professeur attribué",
+        "description": "Le professeur a bien été remplacé. {{coach}} assurera le cours du {{-date}} à {{time}}",
+        "close": "Fermer"
+      },
+      "refuse": {
+        "description": "Êtes-vous sûr de vouloir refuser cette demande ?",
+        "cancel": "Fermer",
+        "confirm": "Confirmer"
+      }
+    },
+    "selects": { "lateStatus": "Statut de la demande", "closedStatus": "Statut des inscriptions", "category": "Catégorie" },
+    "disciplineGroup": {
+      "add": "Ajouter un groupe",
+      "title": "Groupes de disciplines",
+      "activities": "Activités ({{number}})",
+      "workshops": "Ateliers ({{number}})",
+      "categories": "Catégories ({{number}})",
+      "coaches": "{{count}} Professeur",
+      "coaches_plural": "{{count}} Professeurs",
+      "delete": {
+        "title": "Supprimer",
+        "description": "Êtes-vous sûr de vouloir supprimer le groupe de disciplines {{name}} ?",
+        "cancel": "Annuler",
+        "confirm": "Confirmer"
+      },
+      "all": "Tout",
+      "form": {
+        "name": "Nom",
+        "nameHelperText": "Nom du groupe de discipline",
+        "required": "Ce champ est requis",
+        "groupTypes": "Type de cours / catégories",
+        "activities": "Activités",
+        "pickActivity": "Choisir une activité",
+        "allActivities": "Enseigne toutes les activités",
+        "workshops": "Ateliers",
+        "pickWorkshop": "Choisir un atelier",
+        "allWorkshops": "Enseigne tous les ateliers",
+        "categories": "Catégories",
+        "pickCategory": "Choisir une catégorie",
+        "allCategories": "Enseigne toutes les catégories",
+        "coaches": "Professeurs associés",
+        "close": "Annuler",
+        "submit": "Enregistrer",
+        "coachRequired": "Veuillez sélectionner au moins un professeur"
+      }
+    },
+    "compatibleCoaches": {
+      "title": "Professeurs disponibles par discipline",
+      "compatibleCoaches": "{{count}} professeur compatible",
+      "compatibleCoaches_plural": "{{count}} professeurs compatibles",
+      "nextSlot": "Prochaine séance le {{date}} - {{hour}}",
+      "activities": "Activités",
+      "workshops": "Ateliers",
+      "categories": "Catégories"
+    },
+    "coachEdit": {
+      "title": "Remplacement",
+      "description": "Indiquez quels cours sont enseignés par votre professeur. Si une demande de remplacement est effectuée dans l'un de ces cours, ce professeur sera notifié par mail. Si rien n'est sélectionné, ce professeur ne sera pas notifié.",
+      "disciplineGroup": "Groupe de disciplines",
+      "customRules": "Personnaliser les règles",
+      "activities": "Activités",
+      "pickActivity": "Choisir une activité",
+      "allActivities": "Enseigne toutes les activités",
+      "workshops": "Ateliers",
+      "pickWorkshop": "Choisir un atelier",
+      "allWorkshops": "Enseigne tous les ateliers",
+      "categories": "Catégories",
+      "pickCategory": "Choisir une catégorie",
+      "allCategories": "Enseigne toutes les catégories"
+    },
+    "tooltip": { "seeAnswers": "Voir la liste des remplaçants" }
+  },
   "reporting": {
     "search": "Rechercher un rapport",
     "subheader": { "total": "Total", "average": "Moyenne" },
@@ -6080,7 +6287,7 @@
     "header": {
       "sum": "Somme",
       "average": "En moyenne",
-      "selectRange": "Sélectionner un plage de dates",
+      "selectRange": "Sélectionner une plage de dates",
       "selectDate": "Sélectionner une date",
       "from": "Du",
       "to": "au",
@@ -6091,8 +6298,12 @@
         "today": "Aujourd'hui",
         "week": "Dernière semaine",
         "month": "Mois dernier",
-        "trimester": "Trois dernier mois",
-        "year": "Dernière année"
+        "trimester": "Trois derniers mois",
+        "year": "Dernière année",
+        "next_week": "Semaine à venir",
+        "next_month": "Mois à venir",
+        "next_trimester": "Trois prochains mois à venir",
+        "next_year": "Année à venir"
       },
       "from_to": "Du {{-from}} au {{-to}}",
       "save": "Sauvegarder"
@@ -6629,7 +6840,8 @@
           "appointments": { "_label": "Rendez vous" },
           "teachers": { "_label": "Professeurs" },
           "establishments": { "_label": "Etablissements" },
-          "programs": { "_label": "Programmes" }
+          "programs": { "_label": "Programmes" },
+          "replacement": { "_label": "Remplacement" }
         },
         "products": {
           "_label": "Produits",
@@ -6680,6 +6892,7 @@
           "staffs": { "_label": "Staff" },
           "personalization": { "_label": "Personnalisation" },
           "mobilePersonalization": { "_label": "Personnalisation app" },
+          "coachUserspace": { "_label": "Espace professeur" },
           "memberForms": { "_label": "Formulaire membre" },
           "liveStreaming": { "_label": "Visioconférence" },
           "transactionnalEmail": { "_label": "Emails transactionnels" },
@@ -6793,7 +7006,8 @@
       "personalization": "Personnalisation",
       "webhook": "Webhook",
       "partnership": "Partenariat",
-      "active_campaign": "ActiveCampaign"
+      "active_campaign": "ActiveCampaign",
+      "coachUserspace": "Espace professeur"
     },
     "webhook": {
       "cancel": "annuler",
@@ -8018,6 +8232,41 @@
           "deleteReader": { "success": "Terminal de paiement supprimé", "error": "Impossible de supprimer ce terminal de paiement" }
         }
       }
+    },
+    "replacement": {
+      "disciplineGroup": {
+        "create": {
+          "success": "Groupe de disciplines créé",
+          "error": "Une erreur est survenue lors de la création du groupe de disciplines"
+        },
+        "update": {
+          "success": "Groupe de disciplines modifié",
+          "error": "Une erreur est survenue lors de la modification du groupe de disciplines"
+        },
+        "delete": { "success": "Groupe de disciplines supprimé", "error": "Impossible de supprimer ce groupe de disciplines" }
+      },
+      "assignDisciplineGroup": { "success": "Le groupe de disciplines du professeur a été mis à jour" },
+      "updateCoachReplacementPreferences": { "success": "Règles sauvegardées", "error": "Impossible de sauvegarder les règles" },
+      "cancelReplacementRequest": {
+        "success": "La demande de remplacement a été supprimée.",
+        "error": "Une erreur est survenue lors de la suppression de la demande."
+      },
+      "errors": {
+        "50000": "Cette séance est déjà passée",
+        "50007": "Impossible de créer ces demandes de remplacement: vous n'avez pas assez de demandes en retard restantes.",
+        "50008": "La date de clotûre ne peut pas être déplacée après la date de la séance.",
+        "50009": "Vous en pouvez pas refuser cette demande car un professeur a déjà été attribué.",
+        "50010": "Vous en pouvez pas annuler cette demande car un professeur a déjà été attribué.",
+        "50011": "Un professeur a déjà été attribué pour cette demande.",
+        "50012": "Ce professeur a répondu qu'il ne souhaitait pas être remplaçant sur cette séance.",
+        "50013": "Vous ne pouvez plus répondre à cette demande de remplacement.",
+        "50015": "Vous ne pouvez pas répondre à votre propre demande de remplacement",
+        "50020": "Cette demande de remplacement a été refusée: impossible de la supprimer",
+        "80002": "La valeur 'Nombre de jours demande en retard' doit être supérieure à la valeur 'Nombre de jours clôture des inscriptions.",
+        "80003": "Paramètres manquants pour les limites de demandes en retard.",
+        "500001": "Une demande de remplacement existe déjà",
+        "500004": "Vous êtes déjà remplaçant sur cette séance"
+      }
     }
   },
   "spotScheduling": {
@@ -8961,6 +9210,49 @@
             "explain": "Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes."
           }
         },
+        "coachUserspace": {
+          "description": "Personnaliser l'espace professeur sur le web. Attention, les paramètres ici n'affectent pas l'espace professeur de l'application.",
+          "access": "Accès",
+          "enable": "Activer l'espace professeur par défaut",
+          "enableDescription": "En activant cette fonctionnalité, tous vos nouveaux professeurs auront l'accès activé par défaut",
+          "restrictions": "Restrictions",
+          "restrictionsDescription": "Indiquez à quels onglets vos professeurs auront accès",
+          "enableSchedule": "Emploi du temps",
+          "enableRemuneration": "Rémunération",
+          "enableReplacement": "Remplacement",
+          "replacementSettings": "Paramètres remplacements",
+          "daysBeforeRequestIsLate": {
+            "placeholder": "Nombre de jours",
+            "helperText": "Demande en retard",
+            "description": "Les demandes de remplacement faites moins de {{count}} jour avant le début du cours seront indiquées comme en retard.",
+            "description_plural": "Les demandes de remplacement faites moins de {{count}} jours avant le début du cours seront indiquées comme en retard."
+          },
+          "daysBeforeReplacementClosing": {
+            "placeholder": "Nombre de jours",
+            "helperText": "Fermeture demandes de remplacements",
+            "description": "Les demandes de remplacements faites à partir de {{count}} jour avant le début du cours seront indiquées comme en retard.",
+            "description_plural": "Les demandes de remplacements faites à partir de {{count}} jours avant le début du cours seront indiquées comme en retard.",
+            "every": "Tou(te)s les",
+            "interval": "Intervalle"
+          },
+          "daysBeforeReplacementClosingAcceptance": {
+            "placeholder": "Nombre de jours",
+            "helperText": "Clôture des inscriptions au remplacement",
+            "description": "Vos professeurs ne pourront plus accepter d'être remplaçants sur un cours {{count}} jour avant le début du cours.",
+            "description_plural": "Vos professeurs ne pourront plus accepter d'être remplaçants sur un cours {{count}} jours avant le début du cours."
+          },
+          "isLateReplacementRequestLimited": "Limite de demandes en retard",
+          "maxNbRequestPerPeriod": {
+            "helperText": "Nombre maximum de demandes en retard",
+            "recap": {
+              "1": "Toutes les {{nbPeriods}} semaines vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+              "2": "Tous les {{nbPeriods}} mois vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+              "3": "Tous les {{nbPeriods}} ans vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période."
+            }
+          },
+          "requestLimitationPeriods": { "week": "Semaines", "month": "Mois", "year": "Ans", "placeholder": "Sélectionner une période" },
+          "errors": { "restrictionToggles": "Veuillez sélectionner au moins une option" }
+        },
         "errorURL": "Veuillez saisir une URL valide avant de sauvegarder le formulaire",
         "hideSessionWithTagsNotEligible": "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags"
       },
@@ -9172,9 +9464,10 @@
     "planning": "Planning",
     "shop": "Mon magasin",
     "offerManagement": "Réservations",
+    "replacement": "Remplacement",
     "offerFormPage": "Création de séance",
     "searchResults": "Recherche",
-    "coachUserSpace": { "performance": "Rémunération" }
+    "coachUserSpace": { "performance": "Rémunération", "replacement": "Remplacement" }
   },
   "translation": {
     "activityCreated": "Activité ajoutée",

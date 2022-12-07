@@ -62,6 +62,7 @@ export type RolePermission = {
       teachers: boolean;
       establishments: boolean;
       programs: boolean;
+      replacement: boolean;
     };
     products: {
       paymentPack: boolean;
@@ -106,6 +107,7 @@ export type RolePermission = {
       staffs: boolean;
       personalization: boolean;
       memberForms: boolean;
+      coachUserspace: boolean;
       liveStreaming: boolean;
       transactionnalEmail: boolean;
       teacherPayrollRules: boolean;
@@ -270,6 +272,9 @@ export type ProtectedUrls =
   | '/private-service/pass'
   | '/private-service/service'
   | '/reporting'
+  | '/replacement'
+  | '/replacement/management'
+  | '/replacement/discipline-group'
   | '/schedule'
   | '/search'
   | '/search/results'

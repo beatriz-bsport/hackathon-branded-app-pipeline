@@ -37,8 +37,11 @@ import {
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
   fetchBookingGuestNumber as fetchBookingGuestNumberAPI,
+  listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAPI,
+  listOffersWithRefusedReplacementRequestIds as listOffersWithRefusedReplacementRequestIdsAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { RootState } from '../../reducers';
@@ -195,7 +198,7 @@ export function fetchAllOffersPaginated(
       const response = await fetchAllEventsAPI(params);
       dispatch(offersPaginated.success(response.data));
       if (options && options.onSuccess) {
-        options.onSuccess(response.data);
+        options.onSuccess(response.data.results);
       }
     } catch (err) {
       dispatch(offersPaginated.error(err));
@@ -1260,3 +1263,78 @@ export function fetchBookingGuestNumber(
     dispatch(bookingGuestNumberActions.isLoading(false));
   };
 }
+
+export const listOffersWithPendingReplacementRequestActions = {
+  success: createAction('OFFER/WITH_PENDING_REPLACEMENT/LIST/SUCCESS'),
+  loading: createAction('OFFER/WITH_PENDING_REPLACEMENT/LIST/LOADING'),
+  error: createAction('OFFER/WITH_PENDING_REPLACEMENT/LIST/ERROR'),
+};
+
+export const listOffersWithPendingReplacementRequestIds = (
+  offerIdList: number[],
+  shouldCheckUpsell: boolean,
+  options?: OptionCallback,
+): ThunkAction => {
+  return async (dispatch: Dispatch, getState) => {
+    // If action is dispatched from one of the backoffice page (shouldCheckUpsell === true)
+    // then we check that subteacher upsell is active before making the api call.
+
+    // If shouldCheckUpsell is false, then make the api call (case coach backoffice)
+    if (
+      shouldCheckUpsell &&
+      !getState().company.feature.data.upsell.find(
+        (u) => u.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+      )
+    )
+      return;
+
+    dispatch(listOffersWithPendingReplacementRequestActions.error(null));
+    dispatch(listOffersWithPendingReplacementRequestActions.loading(true));
+
+    try {
+      const response = await listOffersWithPendingReplacementRequestIdsAPI({
+        offer_id_list: offerIdList,
+      });
+      dispatch(
+        listOffersWithPendingReplacementRequestActions.success(response.data),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(listOffersWithPendingReplacementRequestActions.error(error));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(listOffersWithPendingReplacementRequestActions.loading(false));
+  };
+};
+
+export const listOffersWithRefusedReplacementRequestActions = {
+  success: createAction('OFFER/WITH_REFUSED_REPLACEMENT/LIST/SUCCESS'),
+  loading: createAction('OFFER/WITH_REFUSED_REPLACEMENT/LIST/LOADING'),
+  error: createAction('OFFER/WITH_REFUSED_REPLACEMENT/LIST/ERROR'),
+};
+
+export const listOffersWithRefusedReplacementRequestIds = (
+  offerIdList: number[],
+  options?: OptionCallback,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(listOffersWithRefusedReplacementRequestActions.error(null));
+    dispatch(listOffersWithRefusedReplacementRequestActions.loading(true));
+
+    try {
+      const response = await listOffersWithRefusedReplacementRequestIdsAPI({
+        offer_id_list: offerIdList,
+      });
+      dispatch(
+        listOffersWithRefusedReplacementRequestActions.success(response.data),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(listOffersWithRefusedReplacementRequestActions.error(error));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(listOffersWithRefusedReplacementRequestActions.loading(false));
+  };
+};

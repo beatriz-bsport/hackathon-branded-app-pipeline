@@ -1,0 +1,183 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ActivitiesToReplaceTable from './ActivitiesToReplaceTable.component';
+import { replacementRequestsFactory } from '../../factories';
+import { offersFactory } from '../../../offer/factory';
+import { establishmentGroup_factory } from '../../../establishment/factory';
+import { coachFactory } from '../../../associated-coach/factories';
+
+<Meta
+  title="Library/Replacement/ActivitiesToReplaceTable"
+  component={ActivitiesToReplaceTable}
+  argTypes={{
+    offers: {
+      description: 'The list of offers that can be replaced',
+      table: {
+        type: {
+          summary: 'Offers[]',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    replacementRequestList: {
+      description: 'The list of requests of replacement',
+      table: {
+        type: {
+          summary: 'ReplacementRequest[]',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    theme: {
+      description: 'Theme of the company',
+      table: {
+        type: {
+          summary: 'CompanyTheme',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    establishmentGroups: {
+      description: 'Every establishment groups',
+      table: {
+        type: {
+          summary: 'EstablishmentGroup[]',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    replacementDisplay: {
+      description: 'The kind of display we must apply',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '0',
+        },
+      },
+    },
+    handleCheckboxAction: { action: 'clicked' },
+    handleDeleteAction: { action: 'clicked' },
+    coach: {
+      description: 'The connected coach',
+      table: {
+        type: {
+          summary: 'Coach',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <ActivitiesToReplaceTable {...args} />;
+const theme = { enable_multi_localization: false };
+const replacementRequest = replacementRequestsFactory(4, 2);
+
+This `ActivitiesToReplaceTable` is a table row to see replacements coachside
+
+# Activities To Replace Table In Calendar Page
+
+Here, `ActivitiesToReplaceTable` of the Calendar Page
+
+<Canvas>
+  <Story
+    name="Activities To Replace Table Calendar Page"
+    args={{
+      offers: offersFactory(4),
+      theme: theme,
+      establishmentGroups: [],
+      replacementDisplay: 0,
+      replacementRequestList: replacementRequestsFactory(4, 0),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Activities To Replace Table In Calendar Page
+
+Here, `ActivitiesToReplaceTable` of the Calendar Page
+
+<Canvas>
+  <Story
+    name="Activities To Replace Table Request Page Pending"
+    args={{
+      replacementRequestList: replacementRequestsFactory(4, 0),
+      theme: theme,
+      establishmentGroups: [],
+      replacementDisplay: 1,
+      offers: offersFactory(4),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Activities To Replace Table In Request Page
+
+Here, `ActivitiesToReplaceTable` of the Request Page
+
+<Canvas>
+  <Story
+    name="Activities To Replace Table Request Page Approved"
+    args={{
+      replacementRequestList: replacementRequestsFactory(4, 2),
+      theme: theme,
+      establishmentGroups: [],
+      replacementDisplay: 1,
+      offers: offersFactory(4),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Activities To Replace Table In Confirmation Page
+
+Here, `ActivitiesToReplaceTable` of the Confirmation Page
+
+<Canvas>
+  <Story
+    name="Activities To Replace Table Confirmation Page"
+    args={{
+      replacementRequestList: replacementRequestsFactory(4, 3),
+      theme: theme,
+      establishmentGroups: [],
+      replacementDisplay: 2,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Activities To Replace Table In Marketplace Page
+
+Here, `ActivitiesToReplaceTable` of the Marketplace Page
+
+<Canvas>
+  <Story
+    name="Activities To Replace Table Marketplace Page"
+    args={{
+      replacementRequestList: replacementRequest,
+      theme: theme,
+      establishmentGroups: [],
+      replacementDisplay: 3,
+      coach: replacementRequest[0].coach,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Activities To Replace Table" />

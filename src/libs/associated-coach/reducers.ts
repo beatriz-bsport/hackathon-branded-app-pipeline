@@ -19,9 +19,11 @@ import {
   updateCoachPrivateSlotsPaymentRulsActions,
   editAccessToCoachSpaceActions,
   retrieveMyAssociatedCoachProfileActions,
+  assignDisciplineGroupActions,
+  retrieveLateReplacementRequestStatus,
 } from './actions';
 
-const initialState: CoachState = Immutable<CoachState>({
+const initialState: Immutable.Immutable<CoachState> = Immutable<CoachState>({
   loading: false,
   error: '',
   byId: {},
@@ -42,6 +44,11 @@ const initialState: CoachState = Immutable<CoachState>({
     error: null,
     loading: false,
     me: null,
+  },
+  lateReplacementRequestStatus: {
+    loading: false,
+    error: null,
+    data: null,
   },
 });
 
@@ -212,6 +219,27 @@ export default handleActions(
         .setIn(['myAssociatedCoachProfile', 'me'], payload)
         .setIn(['byId', payload.id], payload);
     },
+    [assignDisciplineGroupActions.error.toString()]: (state, { payload }) =>
+      state.setIn(['error'], payload),
+    [assignDisciplineGroupActions.loading.toString()]: (state, { payload }) =>
+      state.setIn(['loading'], payload),
+    [assignDisciplineGroupActions.success.toString()]: (state, { payload }) =>
+      state.setIn(
+        ['byId', payload.associated_coach.id],
+        payload.associated_coach,
+      ),
+    [retrieveLateReplacementRequestStatus.loading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['lateReplacementRequestStatus', 'loading'], payload),
+    [retrieveLateReplacementRequestStatus.error.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['lateReplacementRequestStatus', 'error'], payload),
+    [retrieveLateReplacementRequestStatus.success.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['lateReplacementRequestStatus', 'data'], payload),
   },
   initialState,
 ) as () => CoachState;

@@ -84,6 +84,7 @@ const defaultPermissions: RolePermission = {
       teachers: true,
       establishments: true,
       programs: true,
+      replacement: true,
     },
     products: {
       paymentPack: true,
@@ -128,6 +129,7 @@ const defaultPermissions: RolePermission = {
       staffs: true,
       personalization: true,
       memberForms: true,
+      coachUserspace: true,
       liveStreaming: true,
       transactionnalEmail: true,
       teacherPayrollRules: true,

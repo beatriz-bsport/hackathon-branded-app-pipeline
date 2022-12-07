@@ -71,6 +71,23 @@ const {
   BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE,
 } = require('@bsport/common/lib/master-data/error-codes/subscription');
 
+const {
+  CANNOT_REQUEST_REPLACEMENT_OFFER_NOT_AVAILABLE,
+  CANNOT_REQUEST_REPLACEMENT_ALREADY_REQUESTED,
+  CANNOT_REQUEST_REPLACEMENT_COACH_OVERRIDE,
+  REPLACEMENT_REQUEST_COACH_HAS_REACHED_MAX_NB_LATE_REQUEST,
+  REPLACEMENT_REQUEST_CANNOT_POSTPONE_CLOSING_DATE_AFTER_OFFER_DATE_START,
+  REPLACEMENT_REQUEST_CANNOT_BE_REFUSED_IF_TEACHER_ALREADY_FOUND,
+  REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_TEACHER_ALREADY_FOUND,
+  REPLACEMENT_REQUEST_CANNOT_ATTRIBUTE_TEACHER_IF_TEACHER_ALREADY_FOUND,
+  REPLACEMENT_REQUEST_CANNOT_ATTRIBUTE_TEACHER_IF_ANSWERED_NO,
+  REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_MANAGER_REFUSED,
+  REPLACEMENT_REQUEST_COACH_ANSWER_CANT_BE_CREATED_IF_REQUEST_IS_CLOSED,
+  REPLACEMENT_REQUEST_COACH_ANSWER_COACH_CANT_ANSWER_ON_HIS_OWN_REPLACEMENT_REQUEST,
+  REPLACEMENT_REQUEST_DATES_EXCEPTION,
+  REPLACEMENT_REQUEST_LIMITATION_EXCEPTION,
+} = require('@bsport/common/lib/master-data/error-codes/replacement');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -1013,6 +1030,65 @@ exports.default = {
           error: 'Impossible de supprimer ce terminal de paiement',
         },
       },
+    },
+  },
+  replacement: {
+    disciplineGroup: {
+      create: {
+        success: 'Groupe de disciplines créé',
+        error:
+          'Une erreur est survenue lors de la création du groupe de disciplines',
+      },
+      update: {
+        success: 'Groupe de disciplines modifié',
+        error:
+          'Une erreur est survenue lors de la modification du groupe de disciplines',
+      },
+      delete: {
+        success: 'Groupe de disciplines supprimé',
+        error: 'Impossible de supprimer ce groupe de disciplines',
+      },
+    },
+    assignDisciplineGroup: {
+      success: 'Le groupe de disciplines du professeur a été mis à jour',
+    },
+    updateCoachReplacementPreferences: {
+      success: 'Règles sauvegardées',
+      error: 'Impossible de sauvegarder les règles',
+    },
+    cancelReplacementRequest: {
+      success: 'La demande de remplacement a été supprimée.',
+      error: 'Une erreur est survenue lors de la suppression de la demande.',
+    },
+    errors: {
+      [REPLACEMENT_REQUEST_COACH_HAS_REACHED_MAX_NB_LATE_REQUEST]:
+        "Impossible de créer ces demandes de remplacement: vous n'avez pas assez de demandes en retard restantes.",
+      [REPLACEMENT_REQUEST_CANNOT_POSTPONE_CLOSING_DATE_AFTER_OFFER_DATE_START]:
+        'La date de clotûre ne peut pas être déplacée après la date de la séance.',
+      [REPLACEMENT_REQUEST_CANNOT_BE_REFUSED_IF_TEACHER_ALREADY_FOUND]:
+        'Vous en pouvez pas refuser cette demande car un professeur a déjà été attribué.',
+      [REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_TEACHER_ALREADY_FOUND]:
+        'Vous en pouvez pas annuler cette demande car un professeur a déjà été attribué.',
+      [REPLACEMENT_REQUEST_CANNOT_ATTRIBUTE_TEACHER_IF_TEACHER_ALREADY_FOUND]:
+        'Un professeur a déjà été attribué pour cette demande.',
+      [REPLACEMENT_REQUEST_CANNOT_ATTRIBUTE_TEACHER_IF_ANSWERED_NO]:
+        "Ce professeur a répondu qu'il ne souhaitait pas être remplaçant sur cette séance.",
+      [REPLACEMENT_REQUEST_COACH_ANSWER_CANT_BE_CREATED_IF_REQUEST_IS_CLOSED]:
+        'Vous ne pouvez plus répondre à cette demande de remplacement.',
+      [REPLACEMENT_REQUEST_COACH_ANSWER_COACH_CANT_ANSWER_ON_HIS_OWN_REPLACEMENT_REQUEST]:
+        'Vous ne pouvez pas répondre à votre propre demande de remplacement',
+      [REPLACEMENT_REQUEST_DATES_EXCEPTION]:
+        "La valeur 'Nombre de jours demande en retard' doit être supérieure à la valeur 'Nombre de jours clôture des inscriptions.",
+      [REPLACEMENT_REQUEST_LIMITATION_EXCEPTION]:
+        'Paramètres manquants pour les limites de demandes en retard.',
+      [CANNOT_REQUEST_REPLACEMENT_OFFER_NOT_AVAILABLE]:
+        'Cette séance est déjà passée',
+      [CANNOT_REQUEST_REPLACEMENT_ALREADY_REQUESTED]:
+        'Une demande de remplacement existe déjà',
+      [CANNOT_REQUEST_REPLACEMENT_COACH_OVERRIDE]:
+        'Vous êtes déjà remplaçant sur cette séance',
+      [REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_MANAGER_REFUSED]:
+        'Cette demande de remplacement a été refusée: impossible de la supprimer',
     },
   },
 };

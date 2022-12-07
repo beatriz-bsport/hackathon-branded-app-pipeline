@@ -22,9 +22,16 @@ import {
   getPrivateBookingListFiltered,
   withRelatedFields,
 } from '#libs/private-service/selectors/private-booking';
-import { fetchAllOffers as fetchAllOffersAction } from '#libs/offer/actions';
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
+} from '#libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
-import { getOfferAsEventList, withMetaActivity } from '#libs/offer/selectors';
+import {
+  getOfferAsEventList,
+  withMetaActivity,
+  getOfferHasPendingReplacementRequest,
+} from '#libs/offer/selectors';
 import { setScheduleFilter as setScheduleFilterAction } from '#libs/user-preference/actions';
 import { getScheduleFilter } from '#libs/user-preference/selectors';
 import { ScheduleFilter } from '#libs/user-preference/types';
@@ -277,6 +284,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
             setScheduleFilter={this.props.setScheduleFilter}
             establishments={this.props.establishments}
             resourceAvailable={this.state.resourceAvailable}
+            getHasPendingReplacementRequest={
+              this.props.getHasPendingReplacementRequest
+            }
             hideResourceSelector
           />
         </div>
@@ -310,6 +320,8 @@ const connector = connect(
       periodFilter,
     ),
     offerList: withMetaActivity(getOfferAsEventList)(state, null, periodFilter),
+    getHasPendingReplacementRequest:
+      getOfferHasPendingReplacementRequest(state),
     loading:
       state.privateService.availabilitySlot.loading ||
       state.privateService.privateBooking.loading,
@@ -334,6 +346,8 @@ const connector = connect(
     setScheduleFilter: setScheduleFilterAction,
     fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
     fetchEstablishments: fetchEstablishmentsAction,
+    listOffersWithPendingReplacementRequestIds:
+      listOffersWithPendingReplacementRequestIdsAction,
   },
 );
 
@@ -344,6 +358,7 @@ const mapWithHandlers = {
       fetchMetaActivityBulk,
       periodFilter,
       coach,
+      listOffersWithPendingReplacementRequestIds,
     }: ConnectedProps<typeof connector> & withStateType) =>
     () => {
       fetchAllOffers(
@@ -353,8 +368,13 @@ const mapWithHandlers = {
           max_date: periodFilter.end,
         },
         {
-          onSuccess: (offers) =>
-            fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
+          onSuccess: (offers) => {
+            fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+            listOffersWithPendingReplacementRequestIds(
+              offers.map((o) => o.id),
+              false,
+            );
+          },
         },
       );
     },

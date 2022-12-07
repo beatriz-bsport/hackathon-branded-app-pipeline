@@ -1,3 +1,9 @@
+const {
+  LATE_REQUEST_LIMITATION_PERIOD_TYPE_WEEK,
+  LATE_REQUEST_LIMITATION_PERIOD_TYPE_MONTH,
+  LATE_REQUEST_LIMITATION_PERIOD_TYPE_YEAR,
+} = require('@bsport/common/lib/master-data/replacement');
+
 exports.default = {
   pageTitles: {
     broadcast: 'Visioconférence',
@@ -172,6 +178,68 @@ exports.default = {
             'Limiter le déséquilibre FEMME/HOMME à {{ gender_max_shift_for_booking }} personnes',
           explain:
             'Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes.',
+        },
+      },
+      coachUserspace: {
+        description:
+          "Personnaliser l'espace professeur sur le web. Attention, les paramètres ici n'affectent pas l'espace professeur de l'application.",
+        access: 'Accès',
+        enable: "Activer l'espace professeur par défaut",
+        enableDescription:
+          "En activant cette fonctionnalité, tous vos nouveaux professeurs auront l'accès activé par défaut",
+        restrictions: 'Restrictions',
+        restrictionsDescription:
+          'Indiquez à quels onglets vos professeurs auront accès',
+        enableSchedule: 'Emploi du temps',
+        enableRemuneration: 'Rémunération',
+        enableReplacement: 'Remplacement',
+        replacementSettings: 'Paramètres remplacements',
+        daysBeforeRequestIsLate: {
+          placeholder: 'Nombre de jours',
+          helperText: 'Demande en retard',
+          description:
+            'Les demandes de remplacement faites moins de {{count}} jour avant le début du cours seront indiquées comme en retard.',
+          description_plural:
+            'Les demandes de remplacement faites moins de {{count}} jours avant le début du cours seront indiquées comme en retard.',
+        },
+        daysBeforeReplacementClosing: {
+          placeholder: 'Nombre de jours',
+          helperText: 'Fermeture demandes de remplacements',
+          description:
+            'Les demandes de remplacements faites à partir de {{count}} jour avant le début du cours seront indiquées comme en retard.',
+          description_plural:
+            'Les demandes de remplacements faites à partir de {{count}} jours avant le début du cours seront indiquées comme en retard.',
+          every: 'Tou(te)s les',
+          interval: 'Intervalle',
+        },
+        daysBeforeReplacementClosingAcceptance: {
+          placeholder: 'Nombre de jours',
+          helperText: 'Clôture des inscriptions au remplacement',
+          description:
+            "Vos professeurs ne pourront plus accepter d'être remplaçants sur un cours {{count}} jour avant le début du cours.",
+          description_plural:
+            "Vos professeurs ne pourront plus accepter d'être remplaçants sur un cours {{count}} jours avant le début du cours.",
+        },
+        isLateReplacementRequestLimited: 'Limite de demandes en retard',
+        maxNbRequestPerPeriod: {
+          helperText: 'Nombre maximum de demandes en retard',
+          recap: {
+            [LATE_REQUEST_LIMITATION_PERIOD_TYPE_WEEK]:
+              "Toutes les {{nbPeriods}} semaines vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+            [LATE_REQUEST_LIMITATION_PERIOD_TYPE_MONTH]:
+              "Tous les {{nbPeriods}} mois vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+            [LATE_REQUEST_LIMITATION_PERIOD_TYPE_YEAR]:
+              "Tous les {{nbPeriods}} ans vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+          },
+        },
+        requestLimitationPeriods: {
+          week: 'Semaines',
+          month: 'Mois',
+          year: 'Ans',
+          placeholder: 'Sélectionner une période',
+        },
+        errors: {
+          restrictionToggles: 'Veuillez sélectionner au moins une option',
         },
       },
       errorURL:

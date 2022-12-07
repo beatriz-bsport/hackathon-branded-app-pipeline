@@ -5,8 +5,10 @@ import {
   postAuth,
   putAuth,
   deleteAuth,
+  patchAuth,
   buildUrlParams,
 } from '../../http';
+import { CoachReplacementPreferencesData } from './types';
 
 // TO UPDATE TO V1 API
 // -----------------------
@@ -77,6 +79,14 @@ export async function updateCoachPrivateSlotsPaymentRules(
     data,
   );
 }
+
+export async function updateAssociatedCoachReplacementPreferences(
+  id: number,
+  data: CoachReplacementPreferencesData,
+) {
+  return patchAuth(`${API_V1_URI}/associated_coach/${id}/`, data);
+}
+
 export async function editAccessToCoachSpaceAPI(params: {
   id: number;
   has_access_to_coach_space: boolean;
@@ -89,6 +99,17 @@ export async function retrieveMyAssociatedCoachProfile(params: {
 }) {
   return getAuth(`${API_V1_URI}/associated_coach/me/${buildUrlParams(params)}`);
 }
+
+export const getAssociatedCoachLateReplacementRequestStatus = (
+  coachId: number,
+  params: { company: number },
+) => {
+  return getAuth(
+    `${API_V1_URI}/associated_coach/${coachId}/late_replacement_request_status/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
 
 export default {
   fetchAssociated: fetchAssociatedCoaches,

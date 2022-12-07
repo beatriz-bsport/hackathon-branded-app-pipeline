@@ -2,19 +2,27 @@ import React from 'react';
 
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/createTheme';
 
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
 import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
+import AssociatedCoachDisciplineGroupConfiguration from './coach-detail/AssociatedCoachDisciplineGroupConfiguration.component';
 
 import type {
   CoachPaymentRule,
   CoachPaymentRuleGroup,
 } from '../../coach-payment-rules/types';
 import type { PrivateServiceWithSlots } from '../../private-service/types';
-import type { Coach } from '../types';
+import type { Coach, CoachReplacementPreferencesData } from '../types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { SCT } from '#libs/category/types';
+import {
+  DisciplineGroup,
+  AssignAssociatedCoachDisciplineGroupParams,
+} from '#libs/replacement-request/types';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
 
 import type { OptionCallback } from '../../../state/types';
 
@@ -51,7 +59,19 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   privateServices: Array<PrivateServiceWithSlots>;
+  activityList: MetaActivity[];
+  workshopList: MetaActivity[];
+  categoryList: SCT[];
+  disciplineGroupList: DisciplineGroup[];
   editAccessToCoachSpace: (arg: boolean) => void;
+  assignDisciplineGroup: (
+    params: AssignAssociatedCoachDisciplineGroupParams,
+    options?: OptionCallback,
+  ) => void;
+  updateAssociatedCoachReplacementPreferences: (
+    id: number,
+    data: CoachReplacementPreferencesData,
+  ) => void;
 };
 
 export const CoachDetail: React.FC<Props> = ({
@@ -66,7 +86,13 @@ export const CoachDetail: React.FC<Props> = ({
   goToCoachPerformance,
   updateCoachPrivateSlotsPaymentRule,
   privateServices,
+  activityList,
+  workshopList,
+  categoryList,
+  disciplineGroupList,
   editAccessToCoachSpace,
+  assignDisciplineGroup,
+  updateAssociatedCoachReplacementPreferences,
 }) => {
   const classes = useStyles();
 
@@ -109,16 +135,45 @@ export const CoachDetail: React.FC<Props> = ({
           <Description coach={coach} startUpdateCoach={startUpdateCoach} />
         </div>
       </div>
+      <FeatureListProvider>
+        {(featureList) => (
+          <>
+            {!!featureList.upsell?.find(
+              (f) => f.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+            ) && (
+              <div className={classes.row}>
+                <Paper className={classes.paperReplacement}>
+                  <AssociatedCoachDisciplineGroupConfiguration
+                    coach={coach}
+                    activityList={activityList}
+                    workshopList={workshopList}
+                    categoryList={categoryList}
+                    disciplineGroupList={disciplineGroupList}
+                    assignDisciplineGroup={assignDisciplineGroup}
+                    updateAssociatedCoachReplacementPreferences={
+                      updateAssociatedCoachReplacementPreferences
+                    }
+                  />
+                </Paper>
+              </div>
+            )}
+          </>
+        )}
+      </FeatureListProvider>
     </div>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   row: { display: 'flex', gap: theme.spacing(2) },
   fullWidth: { width: '100%' },
   paperContainer: {
     padding: theme.spacing(2),
     flex: '5',
+  },
+  paperReplacement: {
+    padding: theme.spacing(2),
+    width: '62.5%',
   },
   right: {
     flex: '3',

@@ -72,4 +72,6 @@ export enum SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM {
   INSTALMENT_PAYMENT = 'instalment_payment',
 
   CATEGORY_EMAIL = 'category_email',
+
+  DISCIPLINE_GROUP = 'discipline_group',
 }

@@ -24,6 +24,8 @@ export const getCoaches = createSelector(getAllCoachesDict, (coach) =>
 export const getCoachesList = (state: RootState): Array<Coach> =>
   state.coach.allIds;
 
+export const getCoachLoading = (state: RootState) => state.coach.loading;
+
 export const getAllCoaches = createSelector(
   [getAllCoachesId, getAllCoachesDict],
   (ids, data) => ids.map((id) => data[id]),
@@ -130,3 +132,6 @@ export const getInactiveCoachesSelectedInRole = createSelector(
   (allCoaches, selectedCoaches) =>
     allCoaches.filter((c) => selectedCoaches?.includes(c.id)),
 );
+
+export const getCoachLateReplacementRequestStatus = (state: RootState) =>
+  state.coach.lateReplacementRequestStatus.data;

@@ -19,11 +19,15 @@ import {
   getPrivateBookingListFiltered,
   withRelatedFields,
 } from '../../libs/private-service/selectors/private-booking';
-import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
+} from '../../libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import {
   getOfferAsEventList,
   withMetaActivity,
+  getOfferHasPendingReplacementRequest,
 } from '../../libs/offer/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -117,6 +121,7 @@ type Props = {
     coach: Coach,
     scheduleFilter: ScheduleFilter,
   ) => void,
+  getHasPendingReplacementRequest: (offerId: number) => boolean,
 };
 
 type State = {
@@ -320,6 +325,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           setScheduleFilter={this.setScheduleFilter}
           establishments={this.props.establishments}
           resourceAvailable={this.state.resourceAvailable}
+          getHasPendingReplacementRequest={
+            this.props.getHasPendingReplacementRequest
+          }
           hideResourceSelector
         />
 
@@ -376,6 +384,8 @@ export default compose(
         null,
         periodFilter,
       ),
+      getHasPendingReplacementRequest:
+        getOfferHasPendingReplacementRequest(state),
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,
@@ -404,6 +414,8 @@ export default compose(
       setCoachScheduleFilter: setCoachScheduleFilterAction,
       fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
       fetchEstablishments: fetchEstablishmentsAction,
+      listOffersWithPendingReplacementRequestIds:
+        listOffersWithPendingReplacementRequestIdsAction,
     },
   ),
   withHandlers({
@@ -426,7 +438,13 @@ export default compose(
         );
       },
     fetchOfferList:
-      ({ fetchAllOffers, fetchMetaActivityBulk, periodFilter, id }) =>
+      ({
+        fetchAllOffers,
+        fetchMetaActivityBulk,
+        periodFilter,
+        id,
+        listOffersWithPendingReplacementRequestIds,
+      }) =>
       () => {
         fetchAllOffers(
           {
@@ -435,8 +453,13 @@ export default compose(
             max_date: periodFilter.end,
           },
           {
-            onSuccess: (offers) =>
-              fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
+            onSuccess: (offers) => {
+              fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+              listOffersWithPendingReplacementRequestIds(
+                offers.map((o) => o.id),
+                true,
+              );
+            },
           },
         );
       },

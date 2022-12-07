@@ -7,6 +7,10 @@ import { OffersGroupFilter } from '#libs/meta-activity/types';
 import { ResourceData } from '#libs/private-service/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
+import {
+  ReplacementRequestFilter,
+  ReplacementRequestOfferHistoryFilter,
+} from '#libs/replacement-request/types';
 
 export type ScheduleFilter = {
   showOfferList: boolean;
@@ -47,4 +51,6 @@ export type UserPreference = {
   workshopGroupFilter: OffersGroupFilter;
   workshopDetailGroupFilter: OffersGroupFilter;
   shrinkResponsiveDrawer: boolean;
+  replacementRequestManagerFilter: ReplacementRequestFilter;
+  replacementRequestOfferHistoryFilter: ReplacementRequestOfferHistoryFilter;
 };

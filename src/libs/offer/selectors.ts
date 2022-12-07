@@ -355,7 +355,7 @@ export const getOfferWithRelated = (state: RootState, id: number) => {
   )(state);
 };
 
-const _getOfferEventList = (state) => state.offer.calendar;
+const _getOfferEventList = (state: RootState) => state.offer.calendar;
 const periodFilterExtractor = (state, params, periodFilter) => periodFilter;
 
 export const getOfferAsEventList = createSelector(
@@ -437,3 +437,13 @@ export const withBookableStatus = memoize(
 export const getBookingGuestNumberLeft = (state: RootState) => {
   return state.offer.bookingGuest?.bookingGuestNumberLeft;
 };
+
+export const getOfferHasPendingReplacementRequest =
+  (state: RootState) =>
+  (offerId: number): boolean =>
+    state.offer?.hasPendingReplacementRequest?.byOfferId[offerId] ?? false;
+
+export const getOfferHasRefusedReplacementRequest =
+  (state: RootState) =>
+  (offerId: number): boolean =>
+    state.offer?.hasRefusedReplacementRequest?.byOfferId[offerId] ?? false;

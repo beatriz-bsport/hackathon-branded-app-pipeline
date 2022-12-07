@@ -2,7 +2,6 @@ import React from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import Select, { GroupTypeBase, OptionsType, Styles } from 'react-select';
-
 import { colors } from '@bsport/common/lib/colors';
 
 import type { Coach } from '../../types';

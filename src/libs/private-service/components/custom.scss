@@ -58,6 +58,13 @@ i.Info {
   transition: all 0.2s ease-in-out;
 }
 
+.PendingReplacementRequest {
+  position:absolute;
+  right: 0px;
+  top: 0px;
+  transition: all 0.2s ease-in-out;
+}
+
 i.UnPaid {
   color: red;
   margin-right: 0.5rem;

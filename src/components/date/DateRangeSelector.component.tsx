@@ -15,9 +15,72 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { DateFilterRangeEnum } from '#libs/reporting/types';
+import { DateFilterRangeEnum } from '#libs/datatype-filtering/types';
 
 import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
+
+const RAPID_SELECTIONS = [
+  {
+    timePeriod: 'week',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().subtract(1, 'week').startOf('day').unix(),
+      dateEnd: moment().endOf('day').unix(),
+    }),
+  },
+  {
+    timePeriod: 'month',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().subtract(1, 'months').startOf('day').unix(),
+      dateEnd: moment().endOf('day').unix(),
+    }),
+  },
+  {
+    timePeriod: 'trimester',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().subtract(3, 'months').startOf('day').unix(),
+      dateEnd: moment().endOf('day').unix(),
+    }),
+  },
+  {
+    timePeriod: 'year',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().subtract(1, 'year').startOf('day').unix(),
+      dateEnd: moment().endOf('day').unix(),
+    }),
+  },
+  {
+    timePeriod: 'next_week',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().startOf('day').unix(),
+      dateEnd: moment().add(1, 'week').endOf('day').unix(),
+    }),
+    futureOnly: true,
+  },
+  {
+    timePeriod: 'next_month',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().startOf('day').unix(),
+      dateEnd: moment().add(1, 'month').endOf('day').unix(),
+    }),
+    futureOnly: true,
+  },
+  {
+    timePeriod: 'next_trimester',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().startOf('day').unix(),
+      dateEnd: moment().add(3, 'month').endOf('day').unix(),
+    }),
+    futureOnly: true,
+  },
+  {
+    timePeriod: 'next_year',
+    getStartEndTimestamps: () => ({
+      dateStart: moment().startOf('day').unix(),
+      dateEnd: moment().add(1, 'year').endOf('day').unix(),
+    }),
+    futureOnly: true,
+  },
+];
 
 const getStartEndDates: (
   timePeriod: DateFilterRangeEnum,
@@ -28,44 +91,29 @@ const getStartEndDates: (
   date_start,
   date_end,
 ) => {
-  switch (timePeriod) {
-    case 'week':
-      return {
-        dateStart: moment().subtract(1, 'week').startOf('day'),
-        dateEnd: moment().endOf('day'),
-        timePeriod,
-      };
-    case 'month':
-      return {
-        dateStart: moment().subtract(1, 'month').startOf('day'),
-        dateEnd: moment().endOf('day'),
-        timePeriod,
-      };
-    case 'trimester':
-      return {
-        dateStart: moment().subtract(3, 'month').startOf('day'),
-        dateEnd: moment().endOf('day'),
-        timePeriod,
-      };
-    case 'year':
-      return {
-        dateStart: moment().subtract(1, 'year').startOf('day'),
-        dateEnd: moment().endOf('day'),
-        timePeriod,
-      };
-    default:
-      return {
-        dateStart: moment.unix(date_start),
-        dateEnd: moment.unix(date_end),
-        timePeriod,
-      };
+  const matchingRapidSelection = RAPID_SELECTIONS.find(
+    (selection) => selection.timePeriod === timePeriod,
+  );
+  if (matchingRapidSelection) {
+    const timestamps = matchingRapidSelection.getStartEndTimestamps();
+    return {
+      dateStart: moment.unix(timestamps.dateStart),
+      dateEnd: moment.unix(timestamps.dateEnd),
+      timePeriod,
+    };
   }
+  return {
+    dateStart: moment.unix(date_start),
+    dateEnd: moment.unix(date_end),
+    timePeriod,
+  };
 };
 
 export type Props = {
   date_start: number;
   date_end: number;
   isDisabled?: boolean;
+  futureOnly?: boolean;
   timePeriod: DateFilterRangeEnum;
   onSubmit: (values: Values) => void;
 };
@@ -101,10 +149,12 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   date_end,
   timePeriod,
   isDisabled = false,
+  futureOnly = false,
   setFieldValue,
   handleSubmit,
 }) => {
   const classes = useStyles();
+
   const { t } = useTranslation(['reporting']);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -129,19 +179,17 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
   const handleSelection =
     (selection: {
       timePeriod: DateFilterRangeEnum;
-      getEndingTimeStamp: () => number;
+      getStartEndTimestamps: () => { dateStart: number; dateEnd: number };
     }) =>
     () => {
       setFieldValue('timePeriod', selection.timePeriod, false);
-      setFieldValue('dateEnd', moment().startOf('day'), false);
+      const { dateStart, dateEnd } = selection.getStartEndTimestamps();
+      // Not sure about this one: startOf('day') or endOf('day') ?
+      setFieldValue('dateEnd', moment.unix(dateEnd), false);
       // setTimeout to push the action at the end of the js loop and have the dateEnd selected
       setTimeout(() => {
         // Only check after all variable are set
-        setFieldValue(
-          'dateStart',
-          moment.unix(selection.getEndingTimeStamp()),
-          true,
-        );
+        setFieldValue('dateStart', moment.unix(dateStart), true);
       }, 0);
     };
 
@@ -233,7 +281,9 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
               <Typography color="textSecondary">
                 {t('header.rapidChoice')}
               </Typography>
-              {RAPID_SELECTIONS.map((selection) => (
+              {RAPID_SELECTIONS.filter((selection) =>
+                futureOnly ? !!selection.futureOnly : !selection.futureOnly,
+              ).map((selection) => (
                 <ButtonBase
                   onClick={handleSelection(selection)}
                   className={classes.button}
@@ -244,9 +294,11 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   </Typography>
                   <Typography variant="caption" color="textSecondary">
                     {t('header.from_to', {
-                      to: moment().format('L'),
+                      to: moment
+                        .unix(selection.getStartEndTimestamps().dateEnd)
+                        .format('L'),
                       from: moment
-                        .unix(selection.getEndingTimeStamp())
+                        .unix(selection.getStartEndTimestamps().dateStart)
                         .format('L'),
                     })}
                   </Typography>
@@ -268,29 +320,6 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
     </Form>
   );
 };
-
-const RAPID_SELECTIONS = [
-  {
-    timePeriod: 'week',
-    getEndingTimeStamp: () =>
-      moment().subtract(1, 'week').startOf('day').unix(),
-  },
-  {
-    timePeriod: 'month',
-    getEndingTimeStamp: () =>
-      moment().subtract(1, 'month').startOf('day').unix(),
-  },
-  {
-    timePeriod: 'trimester',
-    getEndingTimeStamp: () =>
-      moment().subtract(3, 'month').startOf('day').unix(),
-  },
-  {
-    timePeriod: 'year',
-    getEndingTimeStamp: () =>
-      moment().subtract(1, 'year').startOf('day').unix(),
-  },
-];
 
 const useStyles = makeStyles((theme: Theme) => ({
   menu: {

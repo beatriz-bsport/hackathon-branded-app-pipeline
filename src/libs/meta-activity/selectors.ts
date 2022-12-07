@@ -21,6 +21,9 @@ export const getMetaActivitiesDict = createSelector(
   (data) => pickBy(data),
 );
 
+export const getMetaActivityLoading = (state: RootState) =>
+  state.metaActivity.loading;
+
 const getMetaActivityWorkshopIds = (state: RootState) =>
   state.metaActivity.workshop.allIds;
 

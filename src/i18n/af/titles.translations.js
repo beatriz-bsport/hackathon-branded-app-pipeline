@@ -92,11 +92,13 @@ exports.default = {
 
   shop: 'Mon magasin',
   offerManagement: 'Réservations',
+  replacement: 'Remplacement',
 
   offerFormPage: 'Création de séance',
 
   searchResults: 'Recherche',
   coachUserSpace: {
     performance: 'Rémunération',
+    replacement: 'Remplacement',
   },
 };

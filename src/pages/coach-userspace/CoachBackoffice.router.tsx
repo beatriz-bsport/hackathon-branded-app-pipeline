@@ -1,5 +1,4 @@
-// @flow
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { compose, withHandlers } from 'recompose';
@@ -35,6 +34,10 @@ const CoachProfileCalendar = asyncComponent(
 const CoachProfilePerformance = asyncComponent(
   () => import('./CoachProfilePerformance.page'),
 );
+const CoachReplacementRouter = asyncComponent(
+  () => import('./CoachReplacement'),
+);
+
 const CoachBackoffice = (props: Props) => {
   const {
     isAuthenticated,
@@ -47,6 +50,7 @@ const CoachBackoffice = (props: Props) => {
     disconnect,
     pushRouter,
     fetchCompanyTheme,
+    themeLoading,
   } = props;
 
   useEffect(() => {
@@ -57,15 +61,31 @@ const CoachBackoffice = (props: Props) => {
     fetchCompanyTheme(companyId);
   }, [fetchCompanyTheme, companyId]);
 
+  // eslint-disable-next-line consistent-return
+  const firstAvailableNavigableItem = useMemo(() => {
+    if (theme.has_coach_access_to_calendar) return `/co/${companyId}/calendar/`;
+    if (theme.has_coach_access_to_compensation)
+      return `/co/${companyId}/payroll/`;
+    if (theme.has_coach_access_to_replacement_request)
+      return `/co/${companyId}/replacement/calendar/`;
+  }, [theme, companyId]);
+
   const [displayLeftMenu, setDisplayLeftMenu] = useState(true);
 
   if (!isAuthenticated || !isCoach) {
     return <Redirect to="/login" />;
   }
 
-  if (coachProfileLoading || !meAsAssociatedCoach) {
+  if (coachProfileLoading || !meAsAssociatedCoach || themeLoading) {
     return <LoadingBackoffice />;
   }
+
+  const {
+    has_coach_access_to_calendar,
+    has_coach_access_to_compensation,
+    has_coach_access_to_replacement_request,
+  } = theme;
+
   return (
     <DrawerContext.Provider
       value={{
@@ -85,6 +105,11 @@ const CoachBackoffice = (props: Props) => {
         companyId={companyId}
         meAsAssociatedCoach={meAsAssociatedCoach}
         coachProfileLoading={props.coachProfileLoading}
+        has_coach_access_to_calendar={has_coach_access_to_calendar}
+        has_coach_access_to_compensation={has_coach_access_to_compensation}
+        has_coach_access_to_replacement_request={
+          has_coach_access_to_replacement_request
+        }
       >
         <Switch>
           <Route
@@ -95,7 +120,15 @@ const CoachBackoffice = (props: Props) => {
             path="/co/:companyId/payroll/"
             component={CoachProfilePerformance}
           />
-          <Redirect to={`/co/${companyId}/calendar/`} />
+          <Route
+            path="/co/:companyId/replacement/:tab/"
+            component={CoachReplacementRouter}
+          />
+          <Route
+            path="/co/:companyId/replacement/"
+            component={CoachReplacementRouter}
+          />
+          <Redirect to={firstAvailableNavigableItem} />
         </Switch>
       </CoachDrawer>
     </DrawerContext.Provider>
@@ -109,6 +142,7 @@ const connector = connect(
     isCoach: state.auth.is_coach,
     username: state.auth.username,
     theme: getTheme(state),
+    themeLoading: state.theme.loading,
     meAsAssociatedCoach: getMyAssociatedCoachProfile(state),
     coachProfileLoading: state.coach.myAssociatedCoachProfile.loading,
   }),

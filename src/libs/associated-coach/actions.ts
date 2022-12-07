@@ -2,7 +2,6 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
 import uniq from 'lodash/uniq';
-import { Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
@@ -19,14 +18,22 @@ import {
   updateCoachPrivateSlotsPaymentRules as updateCoachPrivateSlotsPaymentRulesAPI,
   editAccessToCoachSpaceAPI,
   retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAPI,
+  updateAssociatedCoachReplacementPreferences as updateAssociatedCoachReplacementPreferencesAPI,
+  getAssociatedCoachLateReplacementRequestStatus as getAssociatedCoachLateReplacementRequestStatusAPI,
 } from '#libs/associated-coach/api';
+import { assignDisciplineGroup as assignDisciplineGroupAPI } from '#libs/replacement-request/api';
 import { getFreshCoachIds } from '#libs/associated-coach/selectors';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback, Dispatch } from '../../state/types';
 import { RootState } from '../../reducers';
 import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#libs/coach-payment-rules/constants';
-import { Coach } from '#libs/associated-coach/types';
+import {
+  Coach,
+  CoachReplacementPreferencesData,
+  CoachLateReplacementRequestStatus,
+} from './types';
+import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
@@ -65,7 +72,6 @@ export function deleteCoach(id: number, options?: OptionCallback) {
     try {
       await deleteCoachAPI(id);
       dispatch(snackbarSuccess('coach.delete.success'));
-      // @ts-ignore TODO CHECK THIS
       dispatch(fetchAssociatedCoach(id));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -642,5 +648,97 @@ export const retrieveMyAssociatedCoachProfile = (
       options?.onError && options.onError(error);
     }
     dispatch(retrieveMyAssociatedCoachProfileActions.isLoading(false));
+  };
+};
+
+export const assignDisciplineGroupActions = {
+  error: createAction('ASSOCIATED_COACH/DISCIPLINE_GROUP/ASSIGN/ERROR'),
+  loading: createAction('ASSOCIATED_COACH/DISCIPLINE_GROUP/ASSIGN/LOADING'),
+  success: createAction('ASSOCIATED_COACH/DISCIPLINE_GROUP/ASSIGN/SUCCESS'),
+};
+
+export const assignDisciplineGroup = (
+  params: AssignAssociatedCoachDisciplineGroupParams,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(assignDisciplineGroupActions.loading(true));
+    dispatch(assignDisciplineGroupActions.error(null));
+
+    try {
+      const response = await assignDisciplineGroupAPI(params);
+
+      dispatch(assignDisciplineGroupActions.success(response.data));
+      dispatch(snackbarSuccess('replacement.assignDisciplineGroup.success'));
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(assignDisciplineGroupActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(assignDisciplineGroupActions.loading(false));
+  };
+};
+
+export const updateAssociatedCoachReplacementPreferences = (
+  id: number,
+  data: CoachReplacementPreferencesData,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
+    try {
+      const response = await updateAssociatedCoachReplacementPreferencesAPI(
+        id,
+        data,
+      );
+      dispatch(upsert.success(response.data));
+      dispatch(
+        snackbarSuccess(
+          'replacement.updateCoachReplacementPreferences.success',
+        ),
+      );
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(upsert.error(error));
+      dispatch(
+        snackbarError('replacement.updateCoachReplacementPreferences.error'),
+      );
+      options?.onError?.();
+    }
+    dispatch(upsert.isLoading(false));
+  };
+};
+
+export const retrieveLateReplacementRequestStatus = {
+  success: createAction(
+    'ASSOCIATED_COACH/LATE_REQUEST_STATUS/RETRIEVE/SUCCESS',
+  ),
+  loading: createAction(
+    'ASSOCIATED_COACH/LATE_REQUEST_STATUS/RETRIEVE/LOADING',
+  ),
+  error: createAction('ASSOCIATED_COACH/LATE_REQUEST_STATUS/RETRIEVE/ERROR'),
+};
+
+export const retrieveAssociatedCoachLateReplacementRequestStatus = (
+  coachId: number,
+  params: { company: number },
+  options?: OptionCallback<CoachLateReplacementRequestStatus>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveLateReplacementRequestStatus.loading(true));
+    dispatch(retrieveLateReplacementRequestStatus.error(null));
+    try {
+      const response = await getAssociatedCoachLateReplacementRequestStatusAPI(
+        coachId,
+        params,
+      );
+      dispatch(retrieveLateReplacementRequestStatus.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(retrieveLateReplacementRequestStatus.error(error));
+      options?.onError?.();
+    }
+    dispatch(retrieveLateReplacementRequestStatus.loading(false));
   };
 };

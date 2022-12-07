@@ -21,6 +21,7 @@ export type Props = {
   variant?: Variant;
   align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
   onRemove?: (() => void) | null;
+  smallFont?: boolean;
 };
 
 export const LevelComponent: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const LevelComponent: React.FC<Props> = ({
   isChip = false,
   showVoid = false,
   onRemove = null,
+  smallFont = false,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles(customLevel?.id, customLevel?.color)();
@@ -39,6 +41,7 @@ export const LevelComponent: React.FC<Props> = ({
   if (!customLevel || (customLevel.id === 5 && !showVoid)) return null;
 
   return (
+    // TODO: Typo should be wrapped in a container, to center vertically
     <Typography
       align={align}
       variant={variant}
@@ -49,6 +52,7 @@ export const LevelComponent: React.FC<Props> = ({
           [classes.noStyle]: noStyle,
           [classes.chip]: isChip,
           [classes.removableChip]: isChip && onRemove,
+          [classes.smallFont]: smallFont,
         },
         className,
       )}
@@ -92,6 +96,9 @@ const useStyles = (id: number, color: string) =>
       icon: {
         color: getTextColorFromRGB(chroma(levelColor ?? '#fff').rgb()),
         height: theme.spacing(2),
+      },
+      smallFont: {
+        [theme.breakpoints.down('xs')]: { fontSize: '12px', height: 20 },
       },
     };
   });

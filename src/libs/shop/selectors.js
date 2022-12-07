@@ -4,7 +4,6 @@ import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
-const _getProvisions = (state: State) => state.shop.provisions;
 
 export const _getAllShopItemsId = (state: State) =>
   state.shop.shopItem.asManager.allIds;
@@ -67,9 +66,6 @@ export const getShopItemFeaturedList = createSelector(
   (data, ids) => ids.map((id) => data[id]),
 );
 
-const getProvisionByShopitem = (state: State, id: number) =>
-  _getProvisions(state).filter((p) => p.shop_item === id);
-
 export const getFreshShopIds = createSelector(_getAllShopItems, (es) =>
   es.map((e) => e.id),
 );
@@ -89,6 +85,5 @@ export default {
   getSubShopsByCompany,
   getSubShops,
   getShopitem,
-  getProvisionByShopitem,
   getShopItemsAvailable,
 };

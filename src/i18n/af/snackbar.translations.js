@@ -30,6 +30,7 @@ const {
   PRIVATE_SLOT_ALREADY_BOOKED,
   GIFTCARD_CAN_NOT_BE_BOUGHT_DISABLED,
   GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY,
+  SHOP_ITEM_CAN_NOT_BE_BOUGHT_NOT_ENOUGH_STOCK,
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 const {
   PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE,
@@ -147,6 +148,7 @@ exports.default = {
       "La carte cadeau n'est plus disponible à la vente.",
     [GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
       "La carte cadeau n'est plus disponible à la vente.",
+    [SHOP_ITEM_CAN_NOT_BE_BOUGHT_NOT_ENOUGH_STOCK]: 'Stock insuffisant',
   },
   offer: {
     restore: {

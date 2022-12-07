@@ -54,7 +54,7 @@ type State = {
   paymentGroupPriceCts: ?number,
 };
 
-export class QuickInvoicePanel extends React.Component<Props, State> {
+export class QuickInvoicePanel extends React.PureComponent<Props, State> {
   state = {
     clientSecretLoading: false,
     clientSecret: null,
@@ -99,15 +99,15 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
         </Typography>
         <Divider />
         {quickInvoices.length ? (
-          quickInvoices.map((qi) => (
+          quickInvoices.map((qi, idx) => (
             <QuickInvoice
               memberCreditAccountBalance={qi.creditAccount || 0.0}
               member={qi.member}
               quickInvoiceTitle={qi.memberName}
-              key={qi.memberId}
+              key={`${qi.memberId}:${idx}`}
               quickInvoice={qi}
               availableBuyableItems={this.props.availableBuyableItems}
-              onClose={() => closeQuickInvoice(qi.memberId, qi)}
+              onClose={closeQuickInvoice}
               createInvoice={createInvoice}
               establishments={this.props.establishments}
               memberDetails={this.props.memberDetails}

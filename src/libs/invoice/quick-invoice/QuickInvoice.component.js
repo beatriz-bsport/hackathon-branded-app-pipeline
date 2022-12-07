@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -46,7 +46,7 @@ type State = {
   requiredEstablishmentIsMissing: boolean,
 };
 
-export class QuickInvoice extends Component<Props, State> {
+export class QuickInvoice extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -154,7 +154,10 @@ export class QuickInvoice extends Component<Props, State> {
           </Grid>
           {onClose ? (
             <Grid item>
-              <IconButton onClick={onClose} color="secondary">
+              <IconButton
+                onClick={() => onClose(quickInvoice.memberId, quickInvoice)}
+                color="secondary"
+              >
                 <CancelIcon />
               </IconButton>
             </Grid>

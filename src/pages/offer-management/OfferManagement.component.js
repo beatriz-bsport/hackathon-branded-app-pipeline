@@ -453,6 +453,8 @@ export class OfferManagement extends Component<Props, State> {
     this.props.setBookerInAvanceDialog(true);
   };
 
+  closeBookerModule = () => this.props.setMemberToRegister(null);
+
   render() {
     const {
       offer,
@@ -654,8 +656,8 @@ export class OfferManagement extends Component<Props, State> {
             offer={this.props.offer}
             member={this.props.memberToRegister}
             memberDetails={this.props.memberDetails}
-            onCancel={() => this.props.setMemberToRegister(null)}
-            onClose={() => this.props.setMemberToRegister(null)}
+            onCancel={this.closeBookerModule}
+            onClose={this.closeBookerModule}
             registerToOffer={this.props.registerToOffer}
             openRecurrenceRuleForm={this.openRecurrenceRuleForm}
           />

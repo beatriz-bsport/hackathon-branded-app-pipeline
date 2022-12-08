@@ -3887,7 +3887,19 @@
       "cancelSimilarOffers": "Voulez-vous annuler les séances similaires ?",
       "cancelSimilarOffersGroup": "Annuler la séance dans les autres récurrences du groupe ?",
       "selectCancel": "Sélectionnez les séances qui seront annulées",
-      "noSimilarOffer": "Aucune séance similaire trouvée. Seule cette séance sera affectée."
+      "noSimilarOffer": "Aucune séance similaire trouvée. Seule cette séance sera affectée.",
+      "editSubteacher": {
+        "title": "Changement professeur remplaçant",
+        "propagateToSimilarOffers": {
+          "checkboxLabel": "Appliquer les changements sur le professeur remplaçant aux séances sélectionnées",
+          "checkboxInfo": "En cochant cette case les changements appliqués au professeur remplaçant de cette séance seront appliqués à toutes les séances similaires. Sinon ils ne seront appliqués qu’à cette séance.",
+          "warning": "Les séances similaires suivantes possèdent déjà un autre professeur remplaçant. Que souhaitez vous faire ?",
+          "mode": {
+            "offersWithSameCoachOverrideOnly": "Conserver le remplaçant actuel sur ces séances",
+            "all": "Propager les changements liés au professeur remplaçant sur ces séances"
+          }
+        }
+      }
     },
     "warningOfferFull": "Le nombre maximum de réservations a déjà été atteint",
     "maximumNumber": "Nombre maximum de réservations",

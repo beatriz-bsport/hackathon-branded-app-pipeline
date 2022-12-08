@@ -89,6 +89,17 @@ export function fetchSimilarOffers(
   };
 }
 
+export function fetchSimilarOffersWithReset(
+  offerId: number,
+  params: any = {},
+  options?: OptionCallback<Offer[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(similarOffers.reset());
+    dispatch(fetchSimilarOffers(offerId, params, options));
+  };
+}
+
 export const offers = {
   isLoading: createAction('OFFERS/LIST/IS_LOADING'),
   error: createAction('OFFERS/LIST/ERROR'),

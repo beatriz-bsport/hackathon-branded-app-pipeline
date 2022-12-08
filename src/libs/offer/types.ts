@@ -26,6 +26,8 @@ export type OfferFilterData = {
   group_id__in?: number[];
   id__in?: number[];
   ignore_manager_only?: boolean;
+  similars__coach_override__isnull?: boolean;
+  similars__coach_override__ne?: number;
 };
 
 //
@@ -166,6 +168,7 @@ export type OfferState = ErrorAndLoading & {
   retrieve: ErrorAndLoading & { data: Offer | null };
   bulk: ErrorAndLoading;
   similarOffers: ErrorAndLoading & {
+    count: number;
     items: Offer[];
     lastFetched: Date | null;
     next_page: number;

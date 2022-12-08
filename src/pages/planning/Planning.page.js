@@ -44,6 +44,8 @@ import {
   getNumberOfMassDisabledOffer,
   getMassDisabledOfferInGroup,
   getSimilars as getSimilarsOffers,
+  getSimilarsPage as getSimilarsOffersPage,
+  getSimilarsCount as getSimilarsOffersCount,
 } from '#libs/offer/selectors';
 import OfferCard from '#components/offer/OfferCard.component';
 import TimeTable from '#components/offer/TimeTable.component';
@@ -71,6 +73,7 @@ import {
   fetchAllOffers as fetchAllOffersAction,
   deleteOffer as deleteOfferAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
+  fetchSimilarOffersWithReset as fetchSimilarOffersWithResetAction,
   disableMassOffers,
   retrieveNumberOfMassDisabledOfferAction,
   retrieveNumberOfMassDisabledOfferInGroup as retrieveNumberOfMassDisabledOfferInGroupAction,
@@ -258,6 +261,7 @@ type Props = {
   fetchAllEstablishmentGroup: (companyId: number) => void,
 
   fetchSimilarOffers: (offerId: number) => void,
+  fetchSimilarOffersWithReset: (offerId: number) => void,
 
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
@@ -360,6 +364,8 @@ type Props = {
   zoomAppDetail: ZoomApp,
   fetchZoomApp: (companyId: number) => void,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
+  similarOffersPage: number,
+  similarOffersCount: number,
 };
 
 type State = {
@@ -642,8 +648,11 @@ export class Planning extends PureComponent<Props, State> {
       establishments,
       establishmentsLoading,
       fetchSimilarOffers,
+      fetchSimilarOffersWithReset,
       similarOfferLoading,
       similarOffers,
+      similarOffersPage,
+      similarOffersCount,
       roomBlueprints,
       allRoomBlueprints,
       allTagsWithTagGroup,
@@ -675,7 +684,10 @@ export class Planning extends PureComponent<Props, State> {
             onCancel={this.onCancelModal}
             processing={this.props.editOfferProcessing}
             fetchSimilarOffers={fetchSimilarOffers}
+            fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
             similarOffers={similarOffers}
+            similarOffersPage={similarOffersPage}
+            similarOffersCount={similarOffersCount}
             similarOfferLoading={similarOfferLoading}
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             showPartnership={this.props.showPartnership}
@@ -1308,6 +1320,8 @@ export default compose(
         state.establishment.loading,
 
       similarOffers: getSimilarsOffers(state),
+      similarOffersPage: getSimilarsOffersPage(state),
+      similarOffersCount: getSimilarsOffersCount(state),
       offerFilters: state.userPreference.calendarFilter,
       offerByDayLoading: state.offer.byDay.loading,
 
@@ -1352,6 +1366,7 @@ export default compose(
       fetchAllOffers: fetchAllOffersAction,
       deleteOffer: deleteOfferAction,
       fetchSimilarOffers: fetchSimilarOffersAction,
+      fetchSimilarOffersWithReset: fetchSimilarOffersWithResetAction,
       setCalendarFilter: setCalendarFilterAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,

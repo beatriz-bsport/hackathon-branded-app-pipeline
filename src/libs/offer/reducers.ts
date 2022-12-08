@@ -81,6 +81,7 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
 
   // for forms
   similarOffers: {
+    count: 0,
     items: [],
     loading: false,
     error: null,
@@ -236,6 +237,7 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     [similarOffers.reset.toString()]: (state) => {
       return state
         .setIn(['similarOffers', 'items'], [])
+        .setIn(['similarOffers', 'count'], 0)
         .setIn(['similarOffers', 'next_page'], 1);
     },
     [similarOffers.successPaginated.toString()]: (state, { payload }) => {
@@ -245,7 +247,9 @@ export default handleActions<Immutable.Immutable<OfferState>>(
           [...state.similarOffers.items, ...payload.results],
         )
         .setIn(['similarOffers', 'next_page'], payload.next_page)
-        .setIn(['similarOffers', 'lastFetched'], new Date());
+        .setIn(['similarOffers', 'lastFetched'], new Date())
+        .setIn(['similarOffers', 'count'], payload.count)
+        .setIn(['similarOffers', 'page'], payload.page);
     },
     [compatiblePacks.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['compatiblePacks', 'loading'], payload);

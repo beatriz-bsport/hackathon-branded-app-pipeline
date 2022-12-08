@@ -63,6 +63,12 @@ export const getOfferFromList = (state: RootState, ids: Array<number>) =>
 export const getSimilars = (state: RootState) =>
   state.offer.similarOffers.items;
 
+export const getSimilarsPage = (state: RootState) =>
+  state.offer.similarOffers.page;
+
+export const getSimilarsCount = (state: RootState) =>
+  state.offer.similarOffers.count;
+
 export const withMetaActivity = memoize((selector: (state: RootState) => any) =>
   createSelector(
     [selector, getMetaActivityAbstractDict, getWorkshopActivitiesDict],

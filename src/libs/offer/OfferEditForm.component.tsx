@@ -31,23 +31,23 @@ import DurationInput from '#components/input/DurationInput.component';
 import NumericInput from '#components/input/NumericInput.component';
 import DateTimeInput from '#components/input/DateTimeInput.component';
 
-import RecursionToogle from './form/RecursionToogle.component';
-import EstablishmentSubForm from './form/EstablishmentSubForm.component';
-import CoachSubForm from './form/CoachSubForm.component';
-import NotificationToogle from './form/NotificationToogle.component';
-import PartnershipToogle from './form/PartnershipToogle.component';
-import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
+import RecursionToogle from '#libs/offer/form/RecursionToogle.component';
+import EstablishmentSubForm from '#libs/offer/form/EstablishmentSubForm.component';
+import CoachSubForm from '#libs/offer/form/CoachSubForm.component';
+import NotificationToogle from '#libs/offer/form/NotificationToogle.component';
+import PartnershipToogle from '#libs/offer/form/PartnershipToogle.component';
+import ManagerOnlyToogle from '#libs/offer/form/ManagerOnlyToogle.component';
 
-import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
-import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
-import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
-import SpotSchedulingHelper from '../spot-scheduling/utils';
+import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import RoomBlueprintSelector from '#libs/spot-scheduling/component/RoomBlueprintSelector.component';
+import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 
 import { Coach, Establishment, Offer } from '../../api/types';
-import { RoomBlueprint } from '../spot-scheduling/types';
-import { CoachPaymentRule } from '../coach-payment-rules/types';
+import { RoomBlueprint } from '#libs/spot-scheduling/types';
+import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { Level } from '#libs/level/types';
@@ -55,6 +55,14 @@ import { OptionCallback } from '../../state/types';
 import LevelSelector from '#libs/level/components/LevelSelector.component';
 import FormToggle from '#components/forms/FormToggle.component';
 import { ZoomApp } from '#libs/zoom-app/types';
+import {
+  OFFER_EDIT_FORM_FIELDS,
+  OFFER_EDIT_FORM_STEPS,
+  PropagateCoachOverrideToSimilarOffers,
+  SIMILAR_OFFERS_PAGE_SIZE,
+} from '#libs/offer/constants';
+import { OfferFilterData } from '#libs/offer/types';
+import OfferEditSubteacherChangeSettings from '#libs/offer/components/OfferEditSubteacherChangeSettings.component';
 
 type OwnProps = {
   processing: boolean;
@@ -63,13 +71,16 @@ type OwnProps = {
 
   offer: Offer;
   similarOffers: Array<Offer>;
+  similarOffersPage: number;
+  similarOffersCount: number;
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   roomBlueprints: RoomBlueprint[];
   allRoomBlueprints: RoomBlueprint[];
   allowGuestMaster?: boolean;
   onCancel: () => void;
-  fetchSimilarOffers: (id: number) => void;
+  fetchSimilarOffers: (id: number, params?: OfferFilterData) => void;
+  fetchSimilarOffersWithReset: (id: number, params?: OfferFilterData) => void;
   onConfirm: ({ offerId, data }: { offerId: number; data: FormData }) => void;
   metaActivities: Array<MetaActivity>;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
@@ -96,10 +107,10 @@ type State = {
   date: moment.Moment;
   duration_minute?: number;
 
-  coach_override?: Coach;
+  coach_override?: number;
   establishment_override?: Establishment;
   isSimilarOfferListExpanded: boolean;
-  similarOffersWithSelectedStatus: Array<Object>;
+  selectedSimilarOffers: number[];
   coach_payment_rule: number | null;
   manager_only: boolean;
   openAdvancedOptions: boolean;
@@ -107,6 +118,8 @@ type State = {
   blacklist_tags: Array<number>;
   level: number;
   allow_guest_offer?: boolean;
+  should_modify_all_dates: boolean;
+  subTeacherEditPropagationMode: PropagateCoachOverrideToSimilarOffers;
 };
 
 export type FormData = Object;
@@ -115,35 +128,12 @@ function pad(n: number) {
   return n < 10 ? `0${n}` : n;
 }
 
-const STEPS = {
-  GATHER_INFO: 0,
-  SHOW_WARNING: 1,
-};
-
-const FIELDS = [
-  'broadcast_link',
-  'establishment',
-  'establishment_override',
-  'coach',
-  'coach_override',
-  'duration_minute',
-  'effectif',
-  'partner_max_booking_count',
-  'credit_price_override',
-  'waiting_list_max_size',
-  'level',
-  'meta_activity',
-  'coach_payment_rule',
-  'whitelist_tags',
-  'blacklist_tags',
-];
-
 type OfferData = {
   [key: string]: any;
 };
 const getModifiedFields = (oldData: OfferData, newData: OfferData) => {
   const modifiedFields = [];
-  for (const field of FIELDS) {
+  for (const field of OFFER_EDIT_FORM_FIELDS) {
     if (oldData[field] !== newData[field]) {
       modifiedFields.push(field);
     }
@@ -155,7 +145,7 @@ const appendModifiedData = (
   newData: OfferData,
   data: OfferData,
 ) => {
-  for (const field of FIELDS) {
+  for (const field of OFFER_EDIT_FORM_FIELDS) {
     if (oldData[field] !== newData[field]) {
       // eslint-disable-next-line
       data[field] = newData[field];
@@ -172,7 +162,7 @@ export class OfferEditForm extends Component<Props, State> {
     super(props);
     this.state = {
       isSimilarOfferListExpanded: true,
-      step: STEPS.GATHER_INFO,
+      step: OFFER_EDIT_FORM_STEPS.GATHER_INFO,
       modifyRecursively: false,
       notifyConsumers: false,
       broadcast_link: props.offer.broadcast_link || '',
@@ -198,17 +188,15 @@ export class OfferEditForm extends Component<Props, State> {
       level: props.offer?.customLevel?.id,
       meta_activity:
         props.offer.meta_activity && this.props.offer.meta_activity.id,
-      similarOffersWithSelectedStatus: (this.props.similarOffers || [])
-        .filter((so) => so.available)
-        .map((so) => ({
-          ...so,
-          selected: true,
-        })),
+      should_modify_all_dates: false,
+      selectedSimilarOffers: [],
 
       whitelist_tags: props.offer.whitelist_tags?.map((tag) => tag.id) || [],
       blacklist_tags: props.offer.blacklist_tags?.map((tag) => tag.id) || [],
       openAdvancedOptions: false,
       allow_guest_offer: !!props.offer.allow_guest_offer,
+      subTeacherEditPropagationMode:
+        PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY,
     };
     this.initialOfferState = {
       date_start: Moment(props.offer.date_start),
@@ -256,15 +244,13 @@ export class OfferEditForm extends Component<Props, State> {
     }
     if (
       (prevProps.similarOffers || []).length !==
-      (this.props.similarOffers || []).length
+        (this.props.similarOffers || []).length &&
+      this.state.step === OFFER_EDIT_FORM_STEPS.GATHER_INFO
     ) {
       this.setState({
-        similarOffersWithSelectedStatus: (this.props.similarOffers || [])
-          .filter((so) => so.available)
-          .map((so) => ({
-            ...so,
-            selected: true,
-          })),
+        selectedSimilarOffers: this.props.similarOffers.map(
+          (offer) => offer.id,
+        ),
       });
     }
   }
@@ -273,36 +259,34 @@ export class OfferEditForm extends Component<Props, State> {
     return moment(inputDate).diff(moment(), 'years', true) > 3;
   };
 
-  handleChangeSelection = (index: number) => {
-    this.setState((prevState) => {
-      const similarOffersWithSelectedStatus = [
-        ...prevState.similarOffersWithSelectedStatus,
-      ];
-      similarOffersWithSelectedStatus[index] = {
-        ...similarOffersWithSelectedStatus[index],
-        selected: !prevState.similarOffersWithSelectedStatus[index].selected,
-      };
-      return { similarOffersWithSelectedStatus };
-    });
+  handleChangeSelection = (offerId: number) => {
+    const getNewState = (prevState: State) => {
+      const isOfferInArr = prevState.selectedSimilarOffers.includes(offerId);
+      if (isOfferInArr) {
+        return prevState.selectedSimilarOffers.filter(
+          (offer: number) => offer !== offerId,
+        );
+      }
+      return [...prevState.selectedSimilarOffers, offerId];
+    };
+    this.setState((prevState) => ({
+      selectedSimilarOffers: getNewState(prevState),
+    }));
   };
 
   selectAll = () => {
-    this.setState((prevState) => ({
-      similarOffersWithSelectedStatus:
-        prevState.similarOffersWithSelectedStatus.map((so) => ({
-          ...so,
-          selected: true,
-        })),
-    }));
+    this.setState({
+      selectedSimilarOffers: this.props.similarOffers.map(
+        (offer: Offer) => offer.id,
+      ),
+    });
   };
 
   unselectAll = () => {
     this.setState((prevState) => ({
-      similarOffersWithSelectedStatus:
-        prevState.similarOffersWithSelectedStatus.map((so, index) => ({
-          ...so,
-          selected: index === 0,
-        })),
+      selectedSimilarOffers: prevState.selectedSimilarOffers.filter(
+        (offer: number) => offer === this.props.offer.id,
+      ),
     }));
   };
 
@@ -328,8 +312,6 @@ export class OfferEditForm extends Component<Props, State> {
     }));
   };
 
-  shouldModifyAllDates = () => this.state.modifyRecursively;
-
   hasChangedDatetime = () => {
     const { date, hour } = this.state;
     const initialDateStart = this.initialOfferState.date_start;
@@ -344,23 +326,27 @@ export class OfferEditForm extends Component<Props, State> {
 
   onConfirm = () => {
     const { offer } = this.props;
-    const { notifyConsumers, date, hour } = this.state;
+    const {
+      notifyConsumers,
+      date,
+      hour,
+      subTeacherEditPropagationMode,
+      selectedSimilarOffers,
+      modifyRecursively,
+    } = this.state;
+
     const data = {
       notifyConsumers,
       available_on_partnership: this.state.available_on_partnership,
       manager_only: this.state.manager_only,
       modifyAllDates:
-        this.shouldModifyAllDates() &&
-        !this.state.similarOffersWithSelectedStatus.filter((so) => !so.selected)
-          .length &&
-        !!this.state.similarOffersWithSelectedStatus.length,
-      custom_selection: !!this.state.similarOffersWithSelectedStatus.filter(
-        (so) => !so.selected,
-      ).length,
-      custom_selection_ids: this.state.similarOffersWithSelectedStatus
-        .filter((so) => so.selected)
-        .map((so) => so.id),
+        this.state.modifyRecursively && this.state.should_modify_all_dates,
+      custom_selection: this.state.modifyRecursively,
+      custom_selection_ids: selectedSimilarOffers,
       allow_guest_offer: this.state.allow_guest_offer,
+      propagate_coach_override_value: modifyRecursively
+        ? subTeacherEditPropagationMode
+        : PropagateCoachOverrideToSimilarOffers.NO_PROPAGATION,
     };
     if (this.hasChangedDatetime()) {
       data.date_start = Moment(
@@ -384,6 +370,21 @@ export class OfferEditForm extends Component<Props, State> {
 
   renderButton = () => {
     const { t, similarOfferLoading, onCancel, processing } = this.props;
+    const { step } = this.state;
+
+    const handleCancelOrPreviousStep = () => {
+      return step === OFFER_EDIT_FORM_STEPS.SHOW_WARNING
+        ? this.setState({ step: OFFER_EDIT_FORM_STEPS.GATHER_INFO }, () =>
+            this.props.fetchSimilarOffers?.(this.props.offer.id),
+          )
+        : onCancel;
+    };
+
+    const cancelOrPreviousLabel =
+      step === OFFER_EDIT_FORM_STEPS.SHOW_WARNING
+        ? t('common.previous')
+        : t('common.cancel');
+
     if (processing) {
       return (
         <Grid
@@ -405,8 +406,10 @@ export class OfferEditForm extends Component<Props, State> {
         direction="row"
         spacing={2}
       >
-        <Grid item onClick={onCancel}>
-          <Button onClick={onCancel}>{t('common.cancel')}</Button>
+        <Grid item>
+          <Button onClick={() => handleCancelOrPreviousStep()}>
+            {cancelOrPreviousLabel}
+          </Button>
         </Grid>
         <Grid item>
           <Button
@@ -416,7 +419,7 @@ export class OfferEditForm extends Component<Props, State> {
             disabled={
               this.state.coach === null ||
               this.state.establishment === null ||
-              (similarOfferLoading && this.shouldModifyAllDates()) ||
+              (similarOfferLoading && this.state.modifyRecursively) ||
               !(
                 getModifiedFields(this.initialOfferState, this.state).length ||
                 this.hasChangedDatetime()
@@ -431,15 +434,31 @@ export class OfferEditForm extends Component<Props, State> {
     );
   };
 
-  onConfirmGatherInfoStep = () => {
-    if (this.shouldModifyAllDates()) {
-      this.setState({ step: STEPS.SHOW_WARNING });
-    } else {
-      this.onConfirm();
+  handleFetchPaginatedSimilarOffers = (page_number: number) => {
+    const initialCoachOverrideId = this.props.offer.coach_override?.id;
+    const fetchSimilarOffersParams: OfferFilterData = {
+      page: page_number,
+      page_size: SIMILAR_OFFERS_PAGE_SIZE,
+    };
+
+    if (this.state.modifyRecursively) {
+      fetchSimilarOffersParams.id__in = this.state.selectedSimilarOffers;
     }
+    if (!initialCoachOverrideId) {
+      fetchSimilarOffersParams.similars__coach_override__isnull = false;
+    } else {
+      fetchSimilarOffersParams.similars__coach_override__ne =
+        initialCoachOverrideId;
+    }
+
+    this.props.fetchSimilarOffersWithReset(
+      this.props.offer.id,
+      fetchSimilarOffersParams,
+    );
   };
 
-  hasChangedCoach = () => this.state.coach !== this.initialOfferState.coach;
+  hasChangedCoachOverride = () =>
+    this.state.coach_override !== this.initialOfferState.coach_override;
 
   hasChangedLevel = () => this.state.level !== this.initialOfferState.level;
 
@@ -449,6 +468,27 @@ export class OfferEditForm extends Component<Props, State> {
 
   hasChangedEstablishment = () =>
     this.state.establishment !== this.initialOfferState.establishment;
+
+  onConfirmStep = () => {
+    const { step, selectedSimilarOffers, modifyRecursively } = this.state;
+    if (
+      step === OFFER_EDIT_FORM_STEPS.GATHER_INFO &&
+      selectedSimilarOffers.length > 1 &&
+      modifyRecursively &&
+      this.hasChangedCoachOverride()
+    ) {
+      this.setState(
+        {
+          step: OFFER_EDIT_FORM_STEPS.SHOW_WARNING,
+          should_modify_all_dates:
+            this.props.similarOffers.length === selectedSimilarOffers.length,
+        },
+        () => this.handleFetchPaginatedSimilarOffers(1),
+      );
+    } else {
+      this.onConfirm();
+    }
+  };
 
   renderNextStepButton = () => {
     const { processing, t, onCancel, similarOfferLoading } = this.props;
@@ -473,7 +513,7 @@ export class OfferEditForm extends Component<Props, State> {
               disabled={
                 this.state.coach === null ||
                 this.state.establishment === null ||
-                (similarOfferLoading && this.shouldModifyAllDates()) ||
+                (similarOfferLoading && this.state.modifyRecursively) ||
                 !(
                   getModifiedFields(this.initialOfferState, this.state)
                     .length || this.hasChangedDatetime()
@@ -482,7 +522,7 @@ export class OfferEditForm extends Component<Props, State> {
                 (this.props.isOfferInGroup &&
                   this.dateIsTooFarInFuture(this.state.date))
               }
-              onClick={this.onConfirmGatherInfoStep}
+              onClick={this.onConfirmStep}
             >
               {t('common.continue')}
             </Button>
@@ -519,10 +559,12 @@ export class OfferEditForm extends Component<Props, State> {
     return false;
   };
 
-  renderWarning = () => (
+  renderChangeWarning = () => (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Typography>{this.props.t('form.offer.warningPackonEdit')}</Typography>
+        <Alert severity="info" className={this.props.classes.alignCenter}>
+          {this.props.t('form.offer.warningPackonEdit')}
+        </Alert>
       </Grid>
     </Grid>
   );
@@ -539,6 +581,9 @@ export class OfferEditForm extends Component<Props, State> {
         return roomBlueprint.establishment === this.state.establishment;
       },
     );
+
+    const handleChangeRecursion = (ev: React.ChangeEvent<HTMLInputElement>) =>
+      this.setState({ modifyRecursively: ev.target.checked });
 
     return (
       <div className={this.props.classes.container}>
@@ -907,7 +952,7 @@ export class OfferEditForm extends Component<Props, State> {
                   disabled={this.props.offer.group}
                 />
               </div>
-              {(this.state?.similarOffersWithSelectedStatus?.length > 1 ||
+              {(this.state.selectedSimilarOffers?.length ||
                 this.props.similarOfferLoading) && (
                 <div className={this.props.classes.field}>
                   <RecursionToogle
@@ -919,7 +964,7 @@ export class OfferEditForm extends Component<Props, State> {
                         : 'offer:liveOfferEdit.editSimilarOffers',
                     )}
                     listTitle={this.props.t('offer:liveOfferEdit.selectEdit')}
-                    shouldModifyAllDates={this.shouldModifyAllDates()}
+                    modifyRecursively={this.state.modifyRecursively}
                     dateTimeDiff={Moment(
                       `${pad(this.state.date.date())}/${pad(
                         this.state.date.month() + 1,
@@ -928,15 +973,12 @@ export class OfferEditForm extends Component<Props, State> {
                       )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
                       'DD/MM/YYYY hh:mm',
                     ).diff(this.initialOfferState.date_start)}
-                    onChangeRecursion={() =>
-                      this.setState((prevState) => ({
-                        modifyRecursively: !prevState.modifyRecursively,
-                      }))
-                    }
+                    onChangeRecursion={handleChangeRecursion}
                     handleChange={this.handleChangeSelection}
-                    similarOffersWithSelectedStatus={
-                      this.state.similarOffersWithSelectedStatus
-                    }
+                    selectedSimilarOffers={this.state.selectedSimilarOffers}
+                    similarOffers={this.props.similarOffers?.filter(
+                      (so) => so.available,
+                    )}
                     selectAll={this.selectAll}
                     unselectAll={this.unselectAll}
                   />
@@ -1085,26 +1127,69 @@ export class OfferEditForm extends Component<Props, State> {
     );
   };
 
-  renderConfirmChange = () => (
-    <Grid container direction="column" spacing={4}>
-      <Grid item>
-        <Typography variant="h6" className={this.props.classes.subtitle}>
-          {this.props.t('calendar.modifyOffer')}
-        </Typography>
+  renderConfirmChange = () => {
+    const {
+      classes,
+      similarOffers,
+      coaches,
+      similarOfferLoading,
+      similarOffersCount,
+      similarOffersPage,
+    } = this.props;
+    const { subTeacherEditPropagationMode, selectedSimilarOffers } = this.state;
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const isChecked = !!e.target.checked;
+      const togglePropagationValue = isChecked
+        ? PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY
+        : PropagateCoachOverrideToSimilarOffers.NO_PROPAGATION;
+
+      this.setState({
+        subTeacherEditPropagationMode: togglePropagationValue,
+      });
+    };
+
+    const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+      this.setState({
+        subTeacherEditPropagationMode: parseInt(e.target.value),
+      });
+
+    const handlePageChange = (
+      ev: React.ChangeEvent<HTMLButtonElement>,
+      page_number: number,
+    ) => this.handleFetchPaginatedSimilarOffers(page_number);
+
+    return (
+      <Grid container direction="column" spacing={4}>
+        <Grid item>{this.renderChangeWarning()}</Grid>
+        <Grid item>
+          <OfferEditSubteacherChangeSettings
+            classes={classes}
+            similarOffers={similarOffers}
+            selectedSimilarOffers={selectedSimilarOffers}
+            coaches={coaches}
+            similarOfferLoading={similarOfferLoading}
+            similarOffersCount={similarOffersCount}
+            similarOffersPage={similarOffersPage}
+            subTeacherEditPropagationMode={subTeacherEditPropagationMode}
+            onCheckboxChange={handleCheckboxChange}
+            onRadioChange={handleRadioChange}
+            onPageChange={handlePageChange}
+          />
+        </Grid>
+        <Grid item>{this.renderButton()}</Grid>
       </Grid>
-      <Grid item>{this.renderWarning()}</Grid>
-      <Grid item>{this.renderButton()}</Grid>
-    </Grid>
-  );
+    );
+  };
 
   render() {
     if (!this.props.offer) return null;
     switch (this.state.step) {
-      case STEPS.GATHER_INFO:
+      case OFFER_EDIT_FORM_STEPS.GATHER_INFO:
       default:
         return this.renderChangeForm();
 
-      case STEPS.SHOW_WARNING:
+      case OFFER_EDIT_FORM_STEPS.SHOW_WARNING:
         return this.renderConfirmChange();
     }
   }
@@ -1191,6 +1276,29 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       gap: theme.spacing(2),
       marginTop: theme.spacing(2),
+    },
+    sessionItem: {
+      borderLeft: `3px solid ${theme.palette.primary.main}`,
+      borderBottom: `1px solid ${theme.palette.grey[200]}`,
+    },
+    paginationIndicator: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+    sessionsList: {
+      border: `1px solid ${theme.palette.grey[200]}`,
+      borderRadius: 4,
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+    },
+    alignCenter: {
+      alignItems: 'center',
+    },
+    propagateInfo: {
+      alignItems: 'center',
+      marginTop: theme.spacing(1),
     },
   });
 

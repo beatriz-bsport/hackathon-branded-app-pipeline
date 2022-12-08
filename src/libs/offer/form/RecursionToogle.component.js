@@ -15,7 +15,7 @@ import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
-import OfferListItem from '../components/OfferListItemV2.component';
+import OfferListItem from '#libs/offer/components/OfferListItemV2.component';
 
 type Props = {
   t: TFunction,
@@ -27,9 +27,8 @@ type Props = {
   message: string,
   listTitle: string,
 
-  shouldModifyAllDates: boolean,
   handleChange: (index: number) => void,
-  similarOffersWithSelectedStatus: Array<Object>,
+  selectedSimilarOffers: Array<Object>,
   similarOffers: Array<Offer>,
   selectAll: () => void,
   unselectAll: () => void,
@@ -37,7 +36,7 @@ type Props = {
   onChangeRecursion: ({ modifyRecursively: boolean }) => void,
   dateTimeDiff: number,
   classes: Object,
-  similarOffers: ?Array<Offer>,
+  modifyRecursively: boolean,
 };
 
 type State = {
@@ -56,7 +55,8 @@ export class RecursionToogle extends Component<Props, State> {
   };
 
   renderSimilarOffers = () => {
-    const { loading, similarOffersWithSelectedStatus, classes, t } = this.props;
+    const { loading, similarOffers, selectedSimilarOffers, classes, t } =
+      this.props;
     const { isSimilarOfferListExpanded } = this.state;
     return (
       <div>
@@ -103,7 +103,7 @@ export class RecursionToogle extends Component<Props, State> {
                 </ButtonBase>
               </React.Fragment>
             )}
-            {!(similarOffersWithSelectedStatus || []).length ? (
+            {!similarOffers?.length ? (
               <div className={classes.noSimilarOfferMessage}>
                 <Typography variant="body">
                   {t('offer:liveOfferEdit.noSimilarOffer')}
@@ -111,12 +111,9 @@ export class RecursionToogle extends Component<Props, State> {
               </div>
             ) : (
               <List component="nav">
-                {(
-                  similarOffersWithSelectedStatus ||
-                  this.props.similarOffers ||
-                  []
-                ).map((so, index) => (
+                {(similarOffers || []).map((so, index) => (
                   <OfferListItem
+                    key={so.id}
                     similarOffer={
                       !!this.props.selectAll && !!this.props.unselectAll
                     }
@@ -133,9 +130,9 @@ export class RecursionToogle extends Component<Props, State> {
                     handleChange={
                       index === 0
                         ? () => {}
-                        : () => this.props.handleChange(index)
+                        : () => this.props.handleChange(so.id)
                     }
-                    checked={so.selected}
+                    checked={selectedSimilarOffers?.includes(so.id)}
                   />
                 ))}
               </List>
@@ -146,21 +143,21 @@ export class RecursionToogle extends Component<Props, State> {
     );
   };
 
-  renderSwitchButton = () => (
-    <Switch
-      color={this.props.color || 'primary'}
-      checked={this.props.shouldModifyAllDates}
-      disabled={this.props.disabled}
-      onChange={(event) => {
-        this.props.onChangeRecursion({
-          modifyRecursively: event.target.checked,
-        });
-      }}
-    />
-  );
+  renderSwitchButton = () => {
+    const { color, disabled, modifyRecursively, onChangeRecursion } =
+      this.props;
+    return (
+      <Switch
+        color={color || 'primary'}
+        checked={modifyRecursively}
+        disabled={disabled}
+        onChange={onChangeRecursion}
+      />
+    );
+  };
 
   render() {
-    const { shouldModifyAllDates } = this.props;
+    const { modifyRecursively, message } = this.props;
     return (
       <div>
         <Grid
@@ -172,10 +169,10 @@ export class RecursionToogle extends Component<Props, State> {
         >
           <Grid item>{this.renderSwitchButton()}</Grid>
           <Grid item>
-            <Typography>{this.props.message}</Typography>
+            <Typography>{message}</Typography>
           </Grid>
         </Grid>
-        {shouldModifyAllDates ? this.renderSimilarOffers() : null}
+        {modifyRecursively && this.renderSimilarOffers()}
       </div>
     );
   }

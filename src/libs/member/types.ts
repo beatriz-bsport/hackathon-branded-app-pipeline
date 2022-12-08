@@ -107,6 +107,7 @@ export type Member<Tag = number, CA = number> = {
   archived: boolean;
   pending_email: string | null;
   default_billing_establishment: number | null;
+  unsubscribe_link: string;
 };
 
 export type MemberState = ErrorAndLoading &

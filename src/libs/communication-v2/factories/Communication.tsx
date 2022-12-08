@@ -78,7 +78,7 @@ export function CommunicationFactory(
     subject: faker.hacker.phrase(),
     body: fakerTextContent(),
     recipient_list: RecipientCompactListFactory(total_recipients, memberList),
-    tags_group: [0],
+    tags_groups: [{ '{firstname}': 'Yoda' }],
   };
   if (kind === COMMUNICATION_KIND_EMAIL && Math.random() < 0.3) {
     data.body = fakerHTML();

@@ -20,7 +20,10 @@ import { ThreadCommunication } from '#libs/communication-v2/types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
 import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
-import { interpolateHTMLWithTags } from '#components/html/utils';
+import {
+  interpolateHTMLWithTags,
+  findMemberAssociatedTagsInTagsGroups,
+} from '#components/html/utils';
 import { Member } from '#libs/member/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import {
@@ -246,42 +249,44 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
     }
     return html;
   }, [communication]);
+
+  const tagsToInterpolate = useMemo(() => {
+    let tagsForMember = {};
+    if (oneToOneThreadMember) {
+      if (communication.data && communication.data.tags_groups) {
+        tagsForMember = findMemberAssociatedTagsInTagsGroups(
+          oneToOneThreadMember.firstname,
+          oneToOneThreadMember.lastname,
+          communication.data.tags_groups,
+        );
+      } else {
+        tagsForMember = {
+          '{firstname}': oneToOneThreadMember.firstname,
+          '{lastname}': oneToOneThreadMember.lastname,
+          '{unsubscribe_link}': oneToOneThreadMember.unsubscribe_link,
+        };
+      }
+    }
+    return {
+      ...resolvedGenericTags,
+      ...tagsForMember,
+    };
+  }, [resolvedGenericTags, communication, oneToOneThreadMember]);
+
   const communicationContent = useMemo(() => {
-    let content = interpolateHTMLWithTags(
+    return interpolateHTMLWithTags(
       sanitizedHtml ?? communication.text,
-      resolvedGenericTags,
+      tagsToInterpolate,
     );
-    if (oneToOneThreadMember) {
-      content = interpolateHTMLWithTags(content, {
-        '{firstname}': oneToOneThreadMember.firstname,
-        '{lastname}': oneToOneThreadMember.lastname,
-      });
-    }
-    return content;
-  }, [
-    sanitizedHtml,
-    communication.text,
-    oneToOneThreadMember,
-    resolvedGenericTags,
-  ]);
+  }, [sanitizedHtml, communication.text, tagsToInterpolate]);
+
   const communicationTitle = useMemo(() => {
-    let content = interpolateHTMLWithTags(
+    return interpolateHTMLWithTags(
       communication.data.subject ?? communication.title,
-      resolvedGenericTags,
+      tagsToInterpolate,
     );
-    if (oneToOneThreadMember) {
-      content = interpolateHTMLWithTags(content, {
-        '{firstname}': oneToOneThreadMember.firstname,
-        '{lastname}': oneToOneThreadMember.lastname,
-      });
-    }
-    return content;
-  }, [
-    communication.data.subject,
-    communication.title,
-    oneToOneThreadMember,
-    resolvedGenericTags,
-  ]);
+  }, [communication.data.subject, communication.title, tagsToInterpolate]);
+
   return (
     <div className={classes.container}>
       <div className={classes.messageInfoContainer}>

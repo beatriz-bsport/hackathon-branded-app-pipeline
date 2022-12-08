@@ -52,7 +52,7 @@ export type Communication = {
     body: string;
     uuid: string;
     recipient_list: Array<RecipientCompact>;
-    tags_group: Array<any>;
+    tags_groups: Array<Record<string, string>>;
   };
   total_recipients: number;
   date_created: string;

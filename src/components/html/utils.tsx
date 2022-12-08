@@ -14,3 +14,28 @@ export const interpolateHTMLWithTags = (
 
   return newString;
 };
+
+export const findMemberAssociatedTagsInTagsGroups = (
+  memberFirstname: string,
+  memberLastname: string,
+  tagsGroups: Array<Record<string, string>>,
+) => {
+  // We use firstname and lastname of the member to find in the tags groups its own tags
+  const filteringTags = [
+    { key: '{firstname}', value: memberFirstname },
+    { key: '{lastname}', value: memberLastname },
+  ];
+  return tagsGroups.find((tags) => hasKeysSetTo(tags, filteringTags));
+};
+
+const hasKeysSetTo = (
+  obj: Object,
+  filteringItems: Array<{ key: string; value: string }>,
+) => {
+  return filteringItems.every(
+    (item) =>
+      Object.prototype.hasOwnProperty.call(obj, item.key) &&
+      // @ts-ignore
+      obj[item.key] === item.value,
+  );
+};

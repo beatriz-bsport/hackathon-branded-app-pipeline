@@ -18,6 +18,11 @@ exports.default = {
       createSepa: 'Ajouter un IBAN',
       createCard: 'Ajouter une carte',
     },
+    info: {
+      content:
+        'Votre abonnement Bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via Bsport seront crédités, cliquez',
+      link: 'ici',
+    },
   },
   upsellPackage: {
     billOnce: '{{ price_cts }}',

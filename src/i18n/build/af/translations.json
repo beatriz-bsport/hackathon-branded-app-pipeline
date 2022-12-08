@@ -5114,7 +5114,11 @@
     },
     "paymentMethod": {
       "sectionTitle": "Moyen de paiement",
-      "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une carte" }
+      "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une carte" },
+      "info": {
+        "content": "Votre abonnement Bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via Bsport seront crédités, cliquez",
+        "link": "ici"
+      }
     },
     "upsellPackage": {
       "billOnce": "{{ price_cts }}",
@@ -7250,6 +7254,17 @@
           "preview": "Prévisualiser",
           "previewPopup": { "title": "Apercu", "see": "Voir" }
         }
+      }
+    },
+    "company": {
+      "bankAccountSuccess": {
+        "title": "Modifications coordonnées bancaires",
+        "content": "Vos informations bancaires ont bien été mises à jour. Pour être crédité et débité sur un seul et même compte, vous pouvez également mettre à jour le moyen de paiement utilisé pour débiter votre abonnement Bsport.",
+        "note": "Cliquez sur \"Configurer\" pour être redirigé."
+      },
+      "bankAccountInfo": {
+        "content": "Ce compte correspond au compte sur lequel seront crédités les paiements en ligne via Bsport. Pour configurer le moyen de paiement sur lequel votre abonnement Bsport sera débité, cliquez",
+        "link": "ici"
       }
     }
   },

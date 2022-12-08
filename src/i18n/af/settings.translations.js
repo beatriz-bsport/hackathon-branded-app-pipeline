@@ -299,4 +299,17 @@ exports.default = {
       },
     },
   },
+  company: {
+    bankAccountSuccess: {
+      title: 'Modifications coordonnées bancaires',
+      content:
+        'Vos informations bancaires ont bien été mises à jour. Pour être crédité et débité sur un seul et même compte, vous pouvez également mettre à jour le moyen de paiement utilisé pour débiter votre abonnement Bsport.',
+      note: 'Cliquez sur "Configurer" pour être redirigé.',
+    },
+    bankAccountInfo: {
+      content:
+        'Ce compte correspond au compte sur lequel seront crédités les paiements en ligne via Bsport. Pour configurer le moyen de paiement sur lequel votre abonnement Bsport sera débité, cliquez',
+      link: 'ici',
+    },
+  },
 };

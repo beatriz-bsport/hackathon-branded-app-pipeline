@@ -8,8 +8,8 @@ import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
 import { OptionCallback } from '../../../state/types';
-import { getStripePkKey } from '../../theme/selectors';
-import { LOCALE_LIST } from '../../../components/input/LocaleSelector.component';
+import { getStripePkKey } from '#libs/theme/selectors';
+import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
 import { CompanySetup } from '../types';
 import BankAccountFormRegistry from './BankAccountFormRegistry';
 
@@ -82,7 +82,15 @@ const BankAccountFormComposed = compose(
   withState('loading', 'setLoading', false),
   withHandlers({
     onSubmit:
-      ({ onSubmit, country, currency, stripe, setError, setLoading }) =>
+      ({
+        onSubmit,
+        country,
+        currency,
+        stripe,
+        setError,
+        setLoading,
+        onSuccess,
+      }) =>
       (
         account_holder_name: string,
         account_number: string,
@@ -106,6 +114,7 @@ const BankAccountFormComposed = compose(
             onSubmit(token.id, {
               onSuccess: () => {
                 setLoading(false);
+                if (onSuccess) onSuccess();
               },
               onError: () => {
                 setLoading(false);

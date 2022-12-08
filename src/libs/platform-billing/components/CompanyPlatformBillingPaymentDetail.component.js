@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Divider } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { Link } from 'react-router-dom';
 import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
 import PaymentMethodList from '../../payment/components/payment-method-list/PaymentMethodList.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
@@ -64,6 +66,14 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
           {t('paymentMethod.sectionTitle')}
         </Typography>
         <Divider className={classes.divider} />
+
+        <Alert severity="info" className={classes.divider}>
+          {`${t('paymentMethod.info.content')} `}
+          <Link to="/settings/company" className={classes.link}>
+            {t('paymentMethod.info.link')}
+          </Link>
+          .
+        </Alert>
 
         {!!props.paymentMethodList?.length && (
           <PaymentMethodList
@@ -141,6 +151,13 @@ const useStyles = makeStyles((theme) => ({
   leftColumn: {
     paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+  },
+  link: {
+    textDecoration: 'underline',
+    color: 'inherit',
+    '&:hover': {
+      color: 'inherit',
+    },
   },
 }));
 

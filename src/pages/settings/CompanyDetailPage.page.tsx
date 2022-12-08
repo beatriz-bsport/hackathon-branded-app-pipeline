@@ -11,10 +11,10 @@ import { push } from 'connected-react-router';
 import {
   attachExternalAccount as attachExternalAccountAction,
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
-} from '../../libs/company/actions';
-import { CompanySetup } from '../../libs/company/types';
-import CompanyDetail from '../../components/companies/CompanyDetail.component';
-import withTitle from '../../hocs/with-title.hoc';
+} from '#libs/company/actions';
+import { CompanySetup } from '#libs/company/types';
+import CompanyDetail from '#components/companies/CompanyDetail.component';
+import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 
 import type { OptionCallback } from '../../state/types';
@@ -43,6 +43,7 @@ export class CompanyDetailPage extends Component<Props> {
             updateCompanyDetail={this.props.updateCompanyDetail}
             company={companySetup}
             currency={companySetup.currency}
+            onSuccessDialogConfirmed={this.props.redirectToPlatformBilling}
           />
         ) : (
           <CircularProgress />
@@ -65,6 +66,7 @@ const connector = connect(
   {
     retrieveMyCompanySetup: retrieveMyCompanySetupAction,
     updateCompanyDetail: () => push('/settings/company_onboarding'),
+    redirectToPlatformBilling: () => push('/settings/platform-billing'),
     attachExternalAccount: attachExternalAccountAction,
   },
 );

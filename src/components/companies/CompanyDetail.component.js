@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,7 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import BankAccountFormDialog from '../../libs/payment/components/BankAccountFormDialog.component';
+import { Link } from 'react-router-dom';
+import { Alert } from '@material-ui/lab';
+import BankAccountFormDialog from '#libs/payment/components/BankAccountFormDialog.component';
+import BankAccountSuccessDialog from '#libs/payment/components/BankAccountSuccess.dialog';
 
 import AddressDetail from '../AddressDetail.component';
 
@@ -32,11 +35,27 @@ type Props = {
   updateCompanyDetail: () => void,
   setAddExternalAccountOpen: (boolean) => void,
   addExternalAccountOpen: boolean,
+  setExternalAccountSuccessOpen: (boolean) => void,
+  externalAccountSuccessOpen: boolean,
   attachExternalAccount: (data: any, options: OptionCallback) => void,
+  onSuccessDialogConfirmed: () => void,
 };
 
 export const CompanyDetail = (props: Props) => {
-  const { company, t, classes } = props;
+  const {
+    company,
+    t,
+    classes,
+    setAddExternalAccountOpen,
+    setExternalAccountSuccessOpen,
+    onSuccessDialogConfirmed,
+  } = props;
+
+  const bankAccountFormSuccess = useCallback(() => {
+    setAddExternalAccountOpen(false);
+    setExternalAccountSuccessOpen(true);
+  }, [setAddExternalAccountOpen, setExternalAccountSuccessOpen]);
+
   return (
     <div className="company-detail">
       <Typography variant="h4" className={classes.pageTitle}>
@@ -75,10 +94,17 @@ export const CompanyDetail = (props: Props) => {
               {company.bank_account_holder}
               <br />
             </p>
+            <Alert severity="info" className={classes.title}>
+              {`${t('settings:company.bankAccountInfo.content')} `}
+              <Link to="/settings/platform-billing" className={classes.link}>
+                {t('settings:company.bankAccountInfo.link')}
+              </Link>
+              .
+            </Alert>
             <Button
               variant="contained"
               color="primary"
-              onClick={() => props.setAddExternalAccountOpen(true)}
+              onClick={() => setAddExternalAccountOpen(true)}
             >
               {t('common.edit')}
             </Button>
@@ -88,13 +114,16 @@ export const CompanyDetail = (props: Props) => {
       <BankAccountFormDialog
         country={company.country}
         currency={company.currency}
-        onSubmit={(data, options) => {
-          props.setAddExternalAccountOpen(false);
-          props.attachExternalAccount(data, options);
-        }}
+        onSubmit={(data, options) => props.attachExternalAccount(data, options)}
         open={props.addExternalAccountOpen}
-        onClose={() => props.setAddExternalAccountOpen(false)}
+        onClose={() => setAddExternalAccountOpen(false)}
         company={company}
+        onSuccess={bankAccountFormSuccess}
+      />
+      <BankAccountSuccessDialog
+        open={props.externalAccountSuccessOpen}
+        onCancel={() => setExternalAccountSuccessOpen(false)}
+        onConfirm={onSuccessDialogConfirmed}
       />
     </div>
   );
@@ -110,10 +139,21 @@ const styles = (theme) => ({
   title: {
     marginBottom: theme.spacing(2),
   },
+  link: {
+    textDecoration: 'underline',
+    color: 'inherit',
+    '&:hover': {
+      color: 'inherit',
+    },
+  },
 });
-
 export default compose(
   withStyles(styles),
   withTranslation(),
   withState('addExternalAccountOpen', 'setAddExternalAccountOpen', false),
+  withState(
+    'externalAccountSuccessOpen',
+    'setExternalAccountSuccessOpen',
+    false,
+  ),
 )(CompanyDetail);

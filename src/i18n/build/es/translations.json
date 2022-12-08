@@ -4675,7 +4675,8 @@
             "5": "Informaciones legales",
             "6": "Citas no pagadas",
             "7": "Tutoriales",
-            "9": "Messages received"
+            "9": "Messages received",
+            "8": "Sustituciones tardías"
         },
         "showMore": "Ver más",
         "unevenInvoice": {
@@ -4725,7 +4726,11 @@
                 "title": "Nueva Sección"
             }
         },
-        "readAll": "Marcar todo como leído"
+        "readAll": "Marcar todo como leído",
+        "lateReplacementRequest": {
+            "content": "ha solicitado la sustitución de la siguiente sesión: {{activity_name}} - {{-date_start}}",
+            "title": "Sustitución tardía"
+        }
     },
     "offer": {
         "disabled": "Cancelada",
@@ -4855,7 +4860,8 @@
                 "title": "Cambiar el nivel"
             }
         },
-        "recurrenceIndex": "Grupo n°{{ index }} de la recurrencia"
+        "recurrenceIndex": "Grupo n°{{ index }} de la recurrencia",
+        "pendingReplacementRequest": "Está abierta una solicitud de sustitución"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -5630,7 +5636,8 @@
             "marketing": "Marketing",
             "invoice": "Facturación",
             "payment_pack": "Bonos",
-            "recurrent_private_booking": "Cita periódica"
+            "recurrent_private_booking": "Cita periódica",
+            "replacement_request": "Sustitución"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -5677,7 +5684,13 @@
             "103": "Sesión modificada (profesor)",
             "102": "Cancelación sesión (profesor)",
             "101": "Recordatoria curso en línea en 15 minutos (profesor)",
-            "602": "Muy pocas reservas N horas antes del comienzo de la sesión (estudiantes)"
+            "602": "Muy pocas reservas N horas antes del comienzo de la sesión (estudiantes)",
+            "906": "Fecha de cierre ampliada (sustituto)",
+            "905": "Nueva solicitud tardía (sustituto)",
+            "904": "Nueva solicitud de sustitución (sustituto)",
+            "903": "Se ha encontrado otro sustituto (sustituto)",
+            "902": "Solicitud de sustitución anulada (sustituto)",
+            "901": "Sustituto encontrado (profesor)"
         },
         "tag": {
             "BookingOption": {
@@ -5805,6 +5818,13 @@
             },
             "Birthday": {
                 "name": "Cumpleaños"
+            },
+            "ReplacementRequest": {
+                "tags": {
+                    "sub_teacher": "Profesor sustituto",
+                    "closing_date": "Fecha de cierre"
+                },
+                "name": "Sustitución"
             }
         },
         "emailDesign": {
@@ -10820,7 +10840,8 @@
                 "paymentMethod": "Medios de pago",
                 "forms": "Formularios miembros",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "Personalización de la app"
+                "mobilePersonalization": "Personalización de la app",
+                "coachUserspace": "Área de profesores"
             },
             "pass": "Bono",
             "goBack": "Volver",
@@ -10868,7 +10889,8 @@
                 "expand": "Extender",
                 "shrink": "Doblar"
             },
-            "cadences": "Cadencias"
+            "cadences": "Cadencias",
+            "replacement": "Sustitución"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -13492,6 +13514,77 @@
         },
         "menu": {
             "helpButton": "Encontrar ayuda"
+        }
+    },
+    "replacement": {
+        "replacementStatus": {
+            "description": {
+                "description": "Los estatutos te permiten ver el estado de tu solicitud."
+            }
+        },
+        "noListItem": {
+            "calendar": "No hay sesiones programadas en estas fechas",
+            "replacementRequest": "Ningún elemento"
+        },
+        "coachAnswer": {
+            "no": "No",
+            "ratherNo": "No prefiera",
+            "yes": "Sí"
+        },
+        "managerTableTitles": {
+            "replacementHistory": "Historial de sustituciones",
+            "pendingRequests": "Solicitudes en curso"
+        },
+        "requestTableTitles": {
+            "deniedRequests": "Solicitud rechazada",
+            "replacementFound": "Sustituto encontrado",
+            "pending": "En proceso"
+        },
+        "header": {
+            "class": "Sesión",
+            "registrations": "Inscripciones",
+            "request": "Solicitud",
+            "availability": "Disponible",
+            "closing_date": "Fecha de cierre",
+            "teacher_override": "Profesor sustituto",
+            "teacher": "Profesor",
+            "status": "Estado",
+            "reason": "Razón",
+            "action": "Acción",
+            "establishment_group": "Establecimiento",
+            "location": "Ubicación",
+            "level": "Nivel",
+            "name": "Nombre de la sesión",
+            "date": "Fecha y hora"
+        },
+        "unavailableReplacement": {
+            "refusedByManager": "Tu solicitud de sustitución ha sido denegada",
+            "noLateRequestsLeft": "Ya no puedes crear nuevas solicitudes de sustitución tardías",
+            "tooEarly": "Aún no hay sustituciones disponibles",
+            "alreadyAskedFor": "Una solicitud ya está en marcha",
+            "replacing": "Eres un sustituto en esta sesión",
+            "alreadyPassed": "Esta sesión ha terminado"
+        },
+        "marketplace": {
+            "until": "Hasta {{-date}}",
+            "filters": "Filtros",
+            "description": "Las siguientes sesiones necesitan un profesor sustituto. ¿Estás disponible?",
+            "title": "Marketplace"
+        },
+        "confirmations": {
+            "description": "Has sido añadido como profesor sustituto en las siguientes sesiones.",
+            "title": "Confirmaciones"
+        },
+        "requests": {
+            "cancel": "Cancelar",
+            "description": "Encuentra aquí todas tus solicitudes de sustitución.",
+            "title": "Mis solicitudes"
+        },
+        "calendar": {
+            "description": "Encuentra aquí todas tus clases en grupos.",
+            "helperTextNotLimited": "Todas las solicitudes de sustitución realizadas {{count}} día anterior a la sesión se considerarán tardías.",
+            "helperTextNotLimited_plural": "Todas las solicitudes de sustitución realizadas en los {{count}} días anteriores a la sesión se considerarán tardías.",
+            "title": "Mi calendario"
         }
     }
 }

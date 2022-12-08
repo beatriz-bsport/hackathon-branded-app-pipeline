@@ -2767,7 +2767,8 @@
             "5": "Juridische kennisgeving",
             "6": "Onbetaalde afspraken",
             "7": "Handleiding",
-            "9": "Inbox"
+            "9": "Inbox",
+            "8": "Late plaatsvervangingen"
         },
         "showMore": "Zie meer",
         "unevenInvoice": {
@@ -2817,7 +2818,10 @@
                 "title": "Nieuwe Sectie"
             }
         },
-        "readAll": "Markeer alles als gelezen"
+        "readAll": "Markeer alles als gelezen",
+        "lateReplacementRequest": {
+            "title": "Late plaatsvervanging"
+        }
     },
     "paymentPack": {
         "actions": {

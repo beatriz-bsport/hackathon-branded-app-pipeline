@@ -2039,7 +2039,8 @@
             "marketing": "Marketing",
             "invoice": "Billing",
             "payment_pack": "Passes",
-            "recurrent_private_booking": "Recurring appointments"
+            "recurrent_private_booking": "Recurring appointments",
+            "replacement_request": "Substitution"
         },
         "emailDesign": {
             "placeholder": "Standard BSPORT template",
@@ -2172,6 +2173,13 @@
             },
             "Birthday": {
                 "name": "Birthday"
+            },
+            "ReplacementRequest": {
+                "tags": {
+                    "sub_teacher": "Substitute teacher",
+                    "closing_date": "Closing date"
+                },
+                "name": "Substitution"
             }
         },
         "eventType": {
@@ -2219,7 +2227,13 @@
             "103": "Modified session (for teachers)",
             "102": "Cancelled session (for teachers)",
             "101": "Reminder that the livestream starts in 15 minutes (for teachers)",
-            "602": "When underoccupied sessions get automatically cancelled (members)"
+            "602": "When underoccupied sessions get automatically cancelled (members)",
+            "906": "Postponed closing date (substitute)",
+            "905": "New late request (substitute)",
+            "904": "New substitution request (substitute)",
+            "903": "Another substitute has been found (substitute)",
+            "902": "Substitution request canceled (substitute)",
+            "901": "Substitute found (teacher)"
         },
         "messages": {
             "createOrUpdate": {
@@ -4756,6 +4770,9 @@
                     },
                     "mobilePersonalization": {
                         "_label": "Branded app"
+                    },
+                    "coachUserspace": {
+                        "_label": "Teacher View"
                     }
                 },
                 "reporting": {
@@ -4870,6 +4887,9 @@
                     },
                     "programs": {
                         "_label": "Programs"
+                    },
+                    "replacement": {
+                        "_label": "Substitution"
                     }
                 },
                 "schedule": {
@@ -5070,6 +5090,56 @@
                     "helperText": "Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed",
                     "label": "Confirmation email at registration",
                     "title": "Registration"
+                },
+                "coachUserspace": {
+                    "errors": {
+                        "restrictionToggles": "Please select at least one option"
+                    },
+                    "requestLimitationPeriods": {
+                        "placeholder": "Select a period",
+                        "year": "Years",
+                        "month": "Months",
+                        "week": "Weeks"
+                    },
+                    "maxNbRequestPerPeriod": {
+                        "recap": {
+                            "3": "Every {{nbPeriods}} year your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.",
+                            "2": "Every {{nbPeriods}} month your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.",
+                            "1": "Every {{nbPeriods}} week your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period."
+                        },
+                        "helperText": "Maximum number of late requests"
+                    },
+                    "isLateReplacementRequestLimited": "Limit of late requests",
+                    "daysBeforeReplacementClosingAcceptance": {
+                        "description": "Your teachers will no longer be able to accept substitutions on a session {{count}} day before the course begins.",
+                        "description_plural": "Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins.",
+                        "helperText": "Closing of registrations at substitution",
+                        "placeholder": "Number of days"
+                    },
+                    "daysBeforeReplacementClosing": {
+                        "interval": "Interval",
+                        "every": "All the",
+                        "description": "Substitution requests made {{count}} day or more before the start of the session will be indicated as late.",
+                        "description_plural": "Substitution requests made {{count}} days or more before the start of the session will be indicated as late.",
+                        "helperText": "Closing requests for substitutions",
+                        "placeholder": "Number of days"
+                    },
+                    "daysBeforeRequestIsLate": {
+                        "description": "Substitution requests made less than {{count}} day before the beginning of the session will be indicated as late.",
+                        "description_plural": "Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late.",
+                        "helperText": "Late request",
+                        "placeholder": "Number of days"
+                    },
+                    "replacementSettings": "Substitution settings",
+                    "enableReplacement": "Substitution",
+                    "enableRemuneration": "Payroll",
+                    "enableSchedule": "Schedule",
+                    "restrictionsDescription": "Indicate which tabs your teachers will have access to",
+                    "restrictions": "Restrictions",
+                    "enableDescription": "By enabling this feature, all your new teachers will have the access enabled by default",
+                    "enable": "Enable the teacher view by default",
+                    "access": "Access",
+                    "description": "Customize the teacher view on the web. Please note that the settings here do not affect the teacher's view of the application."
                 }
             },
             "cover": {
@@ -6217,7 +6287,8 @@
             "personalization": "Personalization",
             "webhook": "Webhook",
             "partnership": "Partnership",
-            "active_campaign": "ActiveCampaign"
+            "active_campaign": "ActiveCampaign",
+            "coachUserspace": "Teacher View"
         },
         "webhook": {
             "messages": {
@@ -8756,7 +8827,7 @@
         "header": {
             "average": "Average",
             "sum": "Total",
-            "selectRange": "Select a data range",
+            "selectRange": "Select a date range",
             "selectDate": "Select a date",
             "from": "From",
             "to": "To",
@@ -8768,7 +8839,11 @@
                 "week": "Last week",
                 "month": "Last month",
                 "trimester": "Last 3 months",
-                "year": "Last year"
+                "year": "Last year",
+                "next_year": "Upcoming year",
+                "next_trimester": "Upcoming three months",
+                "next_month": "Upcoming month",
+                "next_week": "Upcoming week"
             },
             "from_to": "From {{-from}} to {{-to}}",
             "save": "Save"
@@ -8962,7 +9037,8 @@
             "5": "Legal information",
             "6": "Unpaid appointments",
             "7": "Tutorials",
-            "9": "Inbox"
+            "9": "Inbox",
+            "8": "Late substitutions"
         },
         "showMore": "Show more",
         "unevenInvoice": {
@@ -9012,7 +9088,11 @@
                 "title": "New Section"
             }
         },
-        "readAll": "Mark all as read"
+        "readAll": "Mark all as read",
+        "lateReplacementRequest": {
+            "content": "requested a substitution for the following session: {{activity_name}} - {{-date_start}}",
+            "title": "Late substitution"
+        }
     },
     "paymentPack": {
         "consumerPaymentPack": {
@@ -10066,7 +10146,8 @@
             "delete": "Delete",
             "edit": "Edit"
         },
-        "recurrenceIndex": "Recurrence: {{ index }}"
+        "recurrenceIndex": "Recurrence: {{ index }}",
+        "pendingReplacementRequest": "A request for substitution is open"
     },
     "emailTemplate": {
         "modal": {
@@ -11031,8 +11112,10 @@
             "expenseList": "Expenses"
         },
         "coachUserSpace": {
-            "performance": "Payroll"
-        }
+            "performance": "Payroll",
+            "replacement": "Substitution"
+        },
+        "replacement": "Substitution"
     },
     "event": {
         "list": {
@@ -12544,7 +12627,8 @@
             "2015": "You've reached the maximum number of bookings for this week",
             "2014": "You've reached the maximum number of bookings for this day",
             "45005": "The giftcard is not available for purchase anymore.",
-            "45004": "The giftcard is not not available for purchase anymore."
+            "45004": "The giftcard is not not available for purchase anymore.",
+            "10001": "Insufficient stock"
         },
         "customForm": {
             "update": {
@@ -12709,6 +12793,49 @@
         "communicationv2": {
             "error": "Problem when sending the communication",
             "success": "Communication being sent"
+        },
+        "replacement": {
+            "errors": {
+                "500004": "You are already a substitute on this session",
+                "500001": "A request for substitution already exists",
+                "80003": "Missing settings for overdue request limits.",
+                "80002": "The value 'Number of days request late' must be greater than the value 'Number of days registration closed'.",
+                "50020": "This substitution request has been denied: impossible to delete it",
+                "50015": "You cannot answer your own substitution request",
+                "50013": "You can no longer answer this substitution request.",
+                "50012": "This teacher replied that he did not wish to be a substitute for this session.",
+                "50011": "A teacher has already been assigned to this request.",
+                "50010": "You cannot cancel this request because a teacher has already been assigned.",
+                "50009": "You cannot deny this request because a teacher has already been assigned.",
+                "50008": "The closing date cannot be postponed after the session date.",
+                "50007": "Impossible to create these substitution requests: you don't have enough overdue requests left.",
+                "50000": "This session has already passed"
+            },
+            "cancelReplacementRequest": {
+                "error": "An error occurred while deleting the request.",
+                "success": "The substitution request has been deleted."
+            },
+            "updateCoachReplacementPreferences": {
+                "error": "Impossible to save rules",
+                "success": "Rules saved"
+            },
+            "assignDisciplineGroup": {
+                "success": "The teacher's discipline group has been updated"
+            },
+            "disciplineGroup": {
+                "delete": {
+                    "error": "Impossible to delete this discipline group",
+                    "success": "Discipline group deleted"
+                },
+                "create": {
+                    "success": "Discipline groups created",
+                    "error": "An error occurred while creating the discipline group"
+                },
+                "update": {
+                    "success": "Discipline group modified",
+                    "error": "An error occurred while editing the discipline group"
+                }
+            }
         }
     },
     "navigation": {
@@ -12738,7 +12865,8 @@
                 "paymentMethod": "Payment methods",
                 "forms": "Member forms",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "Branded app"
+                "mobilePersonalization": "Branded app",
+                "coachUserspace": "Teacher view"
             },
             "pass": "Passes",
             "goBack": "Back",
@@ -12821,7 +12949,8 @@
             "toggle": {
                 "expand": "Expand",
                 "shrink": "Collapse"
-            }
+            },
+            "replacement": "Substitution"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -14449,6 +14578,224 @@
         },
         "menu": {
             "helpButton": "FAQ"
+        }
+    },
+    "replacement": {
+        "header": {
+            "establishment_group": "Establishment",
+            "location": "Location",
+            "class": "Session",
+            "registrations": "Registrations",
+            "request": "Request",
+            "availability": "Available",
+            "closing_date": "Closing date",
+            "teacher_override": "Substitute teacher",
+            "teacher": "Teacher",
+            "status": "Status",
+            "reason": "Reason",
+            "action": "Action",
+            "level": "Level",
+            "name": "Name of the session",
+            "date": "Date and time"
+        },
+        "askForReplacement": {
+            "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late request until {{-dateEnd}}.",
+            "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}.",
+            "lateRequestInfo": "The request will be registered, but be sure to contact your studio directly to notify them as soon as possible.",
+            "lateRequestInfo_plural": "The requests will be registered, but be sure to contact your studio directly to notify them as soon as possible.",
+            "lateRequestTypo": "Please note, your request for a replacement is late. You have {{daysBeforeOffer}} days before the start of the session to make your request in time.",
+            "lateRequestTypo_plural": "Please note that some of your replacement requests are late. You have {{daysBeforeOffer}} days before the start of the session to make your request in time.",
+            "close": "Close",
+            "requestSentDescription": "Your replacement request has been taken into account. Go to the \"My requests\" tab to follow its evolution.",
+            "requestSentDescription_plural": "Your replacement requests have been taken into account. Go to the \"My requests\" tab to follow their evolution.",
+            "requestSent": "Request sent",
+            "requestSent_plural": "Requests sent",
+            "submit": "Submit",
+            "cancel": "Cancel",
+            "label": "Reason for absence",
+            "title": "Request a substitution"
+        },
+        "calendar": {
+            "helperTextLimited": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} day of the session will be considered late.",
+            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} days of the session will be considered late.",
+            "helperTextNotLimited": "All requests for substitutions made within {{count}} day of the session will be considered late.",
+            "helperTextNotLimited_plural": "All requests for substitutions made within {{count}} days of the session will be considered late.",
+            "description": "Find here all your group activities.",
+            "title": "My schedule"
+        },
+        "tooltip": {
+            "seeAnswers": "See the list of substitutes"
+        },
+        "coachEdit": {
+            "allCategories": "Teaches all categories",
+            "pickCategory": "Choose a category",
+            "categories": "Categories",
+            "allWorkshops": "Teaches all workshops",
+            "pickWorkshop": "Choose a workshop",
+            "workshops": "Workshops",
+            "allActivities": "Teaches all activities",
+            "pickActivity": "Choose an activity",
+            "activities": "Activities",
+            "customRules": "Customize the rules",
+            "disciplineGroup": "Discipline groups",
+            "description": "Indicate which sessions are taught by your teacher. If a substitution request is made in one of these session, that teacher will be notified by email. If nothing is selected, this teacher will not be notified.",
+            "title": "Substitution"
+        },
+        "compatibleCoaches": {
+            "categories": "Categories",
+            "workshops": "Workshops",
+            "activities": "Activities",
+            "nextSlot": "Next session on {{date}} - {{hour}}",
+            "compatibleCoaches": "{{count}} compatible teacher",
+            "compatibleCoaches_plural": "{{count}} compatible teachers",
+            "title": "Available teachers by discipline"
+        },
+        "disciplineGroup": {
+            "form": {
+                "coachRequired": "Please select at least one teacher",
+                "submit": "Save",
+                "close": "Cancel",
+                "coaches": "Associated teachers",
+                "allCategories": "Teaches all categories",
+                "pickCategory": "Choose a category",
+                "categories": "Categories",
+                "allWorkshops": "Teaches all workshops",
+                "pickWorkshop": "Choose a workshop",
+                "workshops": "Workshops",
+                "allActivities": "Teaches all activities",
+                "pickActivity": "Choose an activity",
+                "activities": "Activities",
+                "groupTypes": "Type of sessions / categories",
+                "required": "This field is required",
+                "nameHelperText": "Name of the discipline group",
+                "name": "Name"
+            },
+            "all": "All",
+            "delete": {
+                "confirm": "Confirm",
+                "cancel": "Cancel",
+                "description": "Are you sure you want to delete the {{name}} discipline group?",
+                "title": "Delete"
+            },
+            "coaches": "{{count}} Teacher",
+            "coaches_plural": "{{count}} Teachers",
+            "categories": "Categories ({{number}})",
+            "workshops": "Workshops ({{number}})",
+            "activities": "Activities ({{number}})",
+            "title": "Discipline groups",
+            "add": "Add a group"
+        },
+        "selects": {
+            "category": "Category",
+            "closedStatus": "Status of registrations",
+            "lateStatus": "Status of the request"
+        },
+        "coachAnswers": {
+            "refuse": {
+                "confirm": "Confirm",
+                "cancel": "Close",
+                "description": "Are you sure you want to deny this request?"
+            },
+            "success": {
+                "close": "Close",
+                "description": "The teacher has been replaced. {{coach}} will be taking the session from {{-date}} to {{time}}",
+                "requestSent": "Teacher assigned"
+            },
+            "confirmation": {
+                "confirm": "Confirm",
+                "cancel": "Cancel",
+                "description": "Are you sure you want to register {{coach_override}} as a substitute teacher on {{coach}}'s session?",
+                "title": "Assign a teacher"
+            },
+            "noAnswers": "No answer at the moment",
+            "close": "Close",
+            "attribute": "Assign",
+            "reason": "Reason for the request",
+            "closing_date": "Closing date",
+            "header": {
+                "action": "Action",
+                "answer": "Answer",
+                "teacher": "Teacher"
+            }
+        },
+        "registrationsStatus": {
+            "areNotClosed": "Open",
+            "areClosed": "Closed"
+        },
+        "lateStatus": {
+            "isNotLate": "In time",
+            "isLate": "Late"
+        },
+        "delete": {
+            "confirm": "Confirm",
+            "cancel": "Cancel",
+            "description": "Are you sure you want to cancel this request?",
+            "title": "Cancel the request"
+        },
+        "askForClosingDateExtension": {
+            "close": "Close",
+            "requestSentDescription": "The extension was added to the substitution request.",
+            "requestSent": "Request sent",
+            "submit": "Confirm",
+            "cancel": "Cancel",
+            "new_closing_date": "The new closing date will be {{closing_date}} at {{time}}",
+            "closing_date": "Closing date",
+            "description": "Registration for this application closed on {{closing_date}}. If there are not enough replies to this request, you can still postpone the closing date.",
+            "title": "Closing date"
+        },
+        "replacementStatus": {
+            "teacherFound": "Replaced",
+            "approvedWithReplacementPropositions": "Pending",
+            "approvedButNoReplacementPropositions": "Open",
+            "deniedByManager": "Refused",
+            "pendingForApproval": "Waiting for approval",
+            "description": {
+                "approvedWithReplacementPropositions": "pending registration.",
+                "approvedButNoReplacementPropositions": "waiting for registrations.",
+                "pendingForApproval": "waiting for the manager to take action.",
+                "description": "The statutes allow you to know the status of your request."
+            }
+        },
+        "noListItem": {
+            "calendar": "No sessions are scheduled on these dates",
+            "replacementRequest": "No element"
+        },
+        "coachAnswer": {
+            "no": "No",
+            "ratherNo": "Do not prefer",
+            "yes": "Yes"
+        },
+        "managerTableTitles": {
+            "replacementHistory": "Substitution history",
+            "pendingRequests": "Pending requests"
+        },
+        "requestTableTitles": {
+            "deniedRequests": "Request denied",
+            "replacementFound": "Substitute found",
+            "pending": "Pending"
+        },
+        "unavailableReplacement": {
+            "refusedByManager": "Your substitution request has been denied",
+            "noLateRequestsLeft": "You can no longer create new late substitution requests",
+            "tooEarly": "Substitutions are not yet available",
+            "alreadyAskedFor": "A request is already in progress",
+            "replacing": "You are a substitute on this session",
+            "alreadyPassed": "This session has passed"
+        },
+        "marketplace": {
+            "until": "Until {{-date}}",
+            "filters": "Filters",
+            "description": "The following sessions need a substitute teacher. Are you available?",
+            "title": "Marketplace"
+        },
+        "confirmations": {
+            "description": "You have been added as a substitute teacher for the following sessions.",
+            "title": "Confirmations"
+        },
+        "requests": {
+            "cancel": "Cancel",
+            "description": "Find all your substitution requests here.",
+            "title": "My requests"
         }
     }
 }

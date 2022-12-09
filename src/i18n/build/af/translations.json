@@ -7795,10 +7795,10 @@
       "6002": "La liste d'attente est pleine",
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
-      "10001": "Stock insuffisant",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "Stock insuffisant"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
@@ -8268,20 +8268,13 @@
         "error": "Une erreur est survenue lors de la suppression de la demande."
       },
       "errors": {
-        "50000": "Cette séance est déjà passée",
         "50007": "Impossible de créer ces demandes de remplacement: vous n'avez pas assez de demandes en retard restantes.",
         "50008": "La date de clotûre ne peut pas être déplacée après la date de la séance.",
         "50009": "Vous en pouvez pas refuser cette demande car un professeur a déjà été attribué.",
         "50010": "Vous en pouvez pas annuler cette demande car un professeur a déjà été attribué.",
         "50011": "Un professeur a déjà été attribué pour cette demande.",
         "50012": "Ce professeur a répondu qu'il ne souhaitait pas être remplaçant sur cette séance.",
-        "50013": "Vous ne pouvez plus répondre à cette demande de remplacement.",
-        "50015": "Vous ne pouvez pas répondre à votre propre demande de remplacement",
-        "50020": "Cette demande de remplacement a été refusée: impossible de la supprimer",
-        "80002": "La valeur 'Nombre de jours demande en retard' doit être supérieure à la valeur 'Nombre de jours clôture des inscriptions.",
-        "80003": "Paramètres manquants pour les limites de demandes en retard.",
-        "500001": "Une demande de remplacement existe déjà",
-        "500004": "Vous êtes déjà remplaçant sur cette séance"
+        "undefined": "Cette demande de remplacement a été refusée: impossible de la supprimer"
       }
     }
   },

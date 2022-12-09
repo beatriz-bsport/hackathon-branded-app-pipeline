@@ -21,30 +21,30 @@ import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import { fetchPrivateBookings } from '../../libs/private-service/actions';
 
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
-import { withCoach, withMetaActivity } from '#libs/offer/selectors';
-import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
-import { withCustomLevel } from '#libs/level/selectors';
-import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
+import { withCoach, withMetaActivity } from '../../libs/offer/selectors';
+import { fetchLevelList as fetchLevelListAction } from '../../libs/level/actions';
+import { withCustomLevel } from '../../libs/level/selectors';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import {
   resetGroupOffer as resetGroupOfferAction,
   fetchGroupOffer as fetchGroupOfferAction,
-} from '#libs/group-offer/actions';
-import { retrieveGroupOffer } from '#libs/group-offer/selectors';
+} from '../../libs/group-offer/actions';
+import { retrieveGroupOffer } from '../../libs/group-offer/selectors';
 import {
   getSimilarBookingList,
   getConsumerBookingListWithConsumerPack,
   withOfferFull as withOffer,
-} from '#libs/booking/selectors';
+} from '../../libs/booking/selectors';
 import ConsumerBookingPage from '../../libs/consumer-space/components/ConsumerBookingPage.component';
 
-import type { Membership } from '../../libs/membership/types';
-import type { Booking } from '../../libs/booking/types';
-import type { PrivateBooking } from '../../libs/private-service/types';
+import type { Membership } from '../membership/types';
+import type { Booking } from '../booking/types';
+import type { PrivateBooking } from '../private-service/types';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import { RootState } from '../../reducers';
-import { MarketplaceTabConfig } from '../../libs/marketplace/types';
+import type { MarketplaceTabConfig } from '../../libs/marketplace/types';
 import {
   fromConfigToUrl,
   getMarketplaceRoute,
@@ -192,9 +192,12 @@ export default compose(
         }),
     goToCalendar:
       (props: Props) => (companyName: string, companyId: string) => {
-        const index = props.marketplaceSettings.config.findIndex(
-          (tab) => tab.component_type === 'calendar',
-        );
+        const index =
+          props.marketplaceSettings && props.marketplaceSettings.config
+            ? props.marketplaceSettings.config.findIndex(
+                (tab) => tab.component_type === 'calendar',
+              )
+            : -1;
         if (index > -1) {
           const tabConfig: MarketplaceTabConfig =
             props.marketplaceSettings.config[index];
@@ -202,7 +205,7 @@ export default compose(
 
           props.push(getMarketplaceRoute(companyName, props.companyId, path));
         } else {
-          push(urlToMarketplace(companyName, companyId));
+          props.push(urlToMarketplace(companyName, companyId));
         }
       },
   }),

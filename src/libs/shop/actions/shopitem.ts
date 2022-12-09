@@ -1,33 +1,38 @@
-// @flow
-
-import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
 
+import { AxiosResponse } from 'axios';
+import uniq from 'lodash/uniq';
 import {
   fetchAll,
   fetchOld,
   fetchShopItem as fetchShopItemAPI,
-  createItem,
   deleteItem as deleteItemAPI,
-  updateItem,
   duplicateItem,
   isShopItemUsedInCombo as isShopItemUsedInComboAPI,
+  updateItem,
+  createItem,
 } from '../api';
 
-import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
-import type { Dispatch, OptionCallback } from '../../../state/types';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+  State,
+} from '../../../state/types';
+import { IsShopUsedInComboAPI, ShopItem } from '../types';
 import { getFreshShopIds } from '../selectors';
 
 export const shopItemAsConsumerActions = {
-  isLoading: createAction('SHOPITEM/AS_CONSUMER/LOADING'),
-  error: createAction('SHOPITEM/AS_CONSUMER/ERROR'),
-  success: createAction('SHOPITEM/AS_CONSUMER/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/AS_CONSUMER/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/AS_CONSUMER/ERROR'),
+  success: createAction<ShopItem[]>('SHOPITEM/AS_CONSUMER/SUCCESS'),
 };
 
 export function fetchShopItemAsConsumer(
-  company: ?number,
-  options: OptionCallback,
-) {
+  company: number,
+  options: OptionCallback<ShopItem[]>,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemAsConsumerActions.isLoading(true));
     dispatch(shopItemAsConsumerActions.error(null));
@@ -53,15 +58,17 @@ export function fetchShopItemAsConsumer(
 }
 
 export const shopItemFeaturedActions = {
-  isLoading: createAction('SHOPITEM/FEATURED/LOADING'),
-  error: createAction('SHOPITEM/FEATURED/ERROR'),
-  success: createAction('SHOPITEM/FEATURED/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/FEATURED/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/FEATURED/ERROR'),
+  success: createAction<ShopItem[]>('SHOPITEM/FEATURED/SUCCESS'),
 };
 
 export function fetchShopItemFeatured(
-  company: ?number,
-  options: OptionCallback,
-) {
+  company: number,
+  options: OptionCallback<ShopItem[]>,
+  page?: number,
+  page_size?: number,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemFeaturedActions.isLoading(true));
     dispatch(shopItemFeaturedActions.error(null));
@@ -72,6 +79,8 @@ export function fetchShopItemFeatured(
         disabled: false,
         company,
         as_consumer: true,
+        page,
+        page_size,
       });
       dispatch(shopItemFeaturedActions.success(response.data));
       if (options && options.onSuccess) {
@@ -88,15 +97,15 @@ export function fetchShopItemFeatured(
 }
 
 export const shopItemAsManagerActions = {
-  isLoading: createAction('SHOPITEM/AS_MANAGER/LOADING'),
-  error: createAction('SHOPITEM/AS_MANAGER/ERROR'),
-  success: createAction('SHOPITEM/AS_MANAGER/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/AS_MANAGER/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/AS_MANAGER/ERROR'),
+  success: createAction<ShopItem[]>('SHOPITEM/AS_MANAGER/SUCCESS'),
 };
 
 export function fetchShopItemAsManager(
-  company: ?number,
-  options: OptionCallback,
-) {
+  company: number,
+  options: OptionCallback<ShopItem[]>,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemAsManagerActions.isLoading(true));
     dispatch(shopItemAsManagerActions.error(null));
@@ -120,16 +129,16 @@ export function fetchShopItemAsManager(
 }
 
 export const shopItemBulkActions = {
-  isLoading: createAction('SHOPITEM/BULK/LOADING'),
-  error: createAction('SHOPITEM/BULK/ERROR'),
-  success: createAction('SHOPITEM/BULK/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/BULK/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/BULK/ERROR'),
+  success: createAction<PaginatedResponse<ShopItem>>('SHOPITEM/BULK/SUCCESS'),
 };
 
-export function fetchBulk(companyId?: number, ids: Array) {
+export function fetchBulk(companyId: number | undefined, ids: number[]) {
   return async (dispatch: Dispatch, getState: () => State) => {
     const freshShopList = getFreshShopIds(getState());
-    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshShopList.includes(id),
+    const ids_uniq = uniq(ids.filter((id: number) => !!id)).filter(
+      (id: number) => !freshShopList.includes(id),
     );
     if (ids_uniq.length === 0) {
       return;
@@ -149,7 +158,9 @@ export function fetchBulk(companyId?: number, ids: Array) {
   };
 }
 
-export function fetchAllShopItem(companyId?: number) {
+export function fetchAllShopItem(
+  companyId?: number,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemBulkActions.isLoading(true));
     dispatch(shopItemBulkActions.error(null));
@@ -168,12 +179,15 @@ export function fetchAllShopItem(companyId?: number) {
 }
 
 export const shopItemRetrieveActions = {
-  isLoading: createAction('SHOPITEM/RETRIEVE/LOADING'),
-  error: createAction('SHOPITEM/RETRIEVE/ERROR'),
-  success: createAction('SHOPITEM/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/RETRIEVE/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/RETRIEVE/ERROR'),
+  success: createAction<ShopItem>('SHOPITEM/RETRIEVE/SUCCESS'),
 };
 
-export function fetchShopItem(id: number, options: OptionCallback) {
+export function fetchShopItem(
+  id: number,
+  options: OptionCallback<ShopItem>,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemRetrieveActions.isLoading(true));
     dispatch(shopItemRetrieveActions.error(null));
@@ -192,21 +206,24 @@ export function fetchShopItem(id: number, options: OptionCallback) {
 }
 
 export const shopItemCreateOrUpdateActions = {
-  isLoading: createAction('SHOPITEM/CREATE_OR_UPDATE/LOADING'),
-  error: createAction('SHOPITEM/CREATE_OR_UPDATE/ERROR'),
-  success: createAction('SHOPITEM/CREATE_OR_UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/CREATE_OR_UPDATE/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/CREATE_OR_UPDATE/ERROR'),
+  success: createAction<ShopItem>('SHOPITEM/CREATE_OR_UPDATE/SUCCESS'),
 };
 
 export function createOrUpdateShopItem(
-  shopItemData: any,
-  id: ?number,
-  options: OptionCallback,
-) {
+  shopItemData: ShopItem,
+  id: number,
+  options: OptionCallback<ShopItem>,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemCreateOrUpdateActions.isLoading(true));
     dispatch(shopItemCreateOrUpdateActions.error(null));
 
-    const createOrUpdate = id ? updateItem : createItem;
+    const createOrUpdate: (
+      shopItemData: ShopItem,
+      id: number,
+    ) => Promise<AxiosResponse<ShopItem>> = id ? updateItem : createItem;
     try {
       const response = await createOrUpdate(shopItemData, id);
 
@@ -228,16 +245,16 @@ export function createOrUpdateShopItem(
 }
 
 export const shopItemDuplicateActions = {
-  isLoading: createAction('SHOPITEM/DUPLICATE/LOADING'),
-  error: createAction('SHOPITEM/DUPLICATE/ERROR'),
-  success: createAction('SHOPITEM/DUPLICATE/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/DUPLICATE/LOADING'),
+  error: createAction<Error | null>('SHOPITEM/DUPLICATE/ERROR'),
+  success: createAction<ShopItem>('SHOPITEM/DUPLICATE/SUCCESS'),
 };
 
 export function duplicateShopItem(
   id: number,
   suffix: string,
-  options: OptionCallback,
-) {
+  options: OptionCallback<ShopItem>,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemDuplicateActions.isLoading(true));
     dispatch(shopItemDuplicateActions.error(null));
@@ -264,12 +281,15 @@ export function duplicateShopItem(
 }
 
 export const shopItemDeleteActions = {
-  isLoading: createAction('SHOPITEM/DELETE/LOADING'),
-  error: createAction('SHOPITEM/DELETE/ERROR'),
-  success: createAction('SHOPITEM/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/DELETE/LOADING'),
+  error: createAction<Error | AxiosResponse<null>>('SHOPITEM/DELETE/ERROR'),
+  success: createAction<number>('SHOPITEM/DELETE/SUCCESS'),
 };
 
-export function deleteItem(id: number, callback: ?() => void) {
+export function deleteItem(
+  id: number,
+  callback: () => void,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemDeleteActions.isLoading(true));
     dispatch(shopItemDeleteActions.error(null));
@@ -301,12 +321,15 @@ export function deleteItem(id: number, callback: ?() => void) {
 }
 
 export const isShopItemUsedInComboActions = {
-  isLoading: createAction('SHOPITEM/COMBO_USE/IS_LOADING'),
-  error: createAction('SHOPITEM/COMBO_USE/ERROR'),
-  success: createAction('SHOPITEM/COMBO_USE/SUCCESS'),
+  isLoading: createAction<boolean>('SHOPITEM/COMBO_USE/IS_LOADING'),
+  error: createAction<Error | null>('SHOPITEM/COMBO_USE/ERROR'),
+  success: createAction<IsShopUsedInComboAPI>('SHOPITEM/COMBO_USE/SUCCESS'),
 };
 
-export function isShopItemUsedInCombo(id: number, options?: OptionCallback) {
+export function isShopItemUsedInCombo(
+  id: number,
+  options?: OptionCallback<IsShopUsedInComboAPI>,
+): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(isShopItemUsedInComboActions.error(null));
     dispatch(isShopItemUsedInComboActions.isLoading(true));

@@ -1,5 +1,3 @@
-// @flow
-
 import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 
@@ -47,7 +45,7 @@ const getSubShops = createSelector(
 export const getSubShopsByCompany = (
   state: State,
   companyId: number,
-  as_consumer: ?boolean,
+  as_consumer?: boolean,
 ) => getSubShops(state, as_consumer).filter((sub) => sub.company === companyId);
 
 const getShopitem = (state: State, id: number) => {

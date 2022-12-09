@@ -1,24 +1,34 @@
-// @flow
 import { createAction } from 'redux-actions';
 
-import * as api from '../api';
+import { AxiosResponse } from 'axios';
+import * as api from '#libs/shop/api';
 
-import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
-import type { Dispatch } from '../../../state/types';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../../state/types';
+import { SubShop, SubShopAPI } from '../types';
 
 export const subshopListActions = {
-  isLoading: createAction('SUBSHOP/LIST/LOADING'),
-  error: createAction('SUBSHOP/LIST/ERROR'),
-  success: createAction('SUBSHOP/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('SUBSHOP/LIST/LOADING'),
+  error: createAction<Error | null>('SUBSHOP/LIST/ERROR'),
+  success: createAction<PaginatedResponse<SubShop>>('SUBSHOP/LIST/SUCCESS'),
 };
 
-export function fetchAllSubShop(companyId: ?number, option?: OptionCallback) {
+export function fetchAllSubShop(
+  companyId?: number,
+  option?: OptionCallback<AxiosResponse<PaginatedResponse<SubShop>>>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(subshopListActions.error(null));
     dispatch(subshopListActions.isLoading(true));
 
     try {
-      const response = await api.fetchAllSubShop({ companyId });
+      const response = await api.fetchAllSubShop({
+        companyId,
+      });
       dispatch(subshopListActions.success(response.data));
       option?.onSuccess(response);
     } catch (e) {
@@ -30,17 +40,17 @@ export function fetchAllSubShop(companyId: ?number, option?: OptionCallback) {
 }
 
 export const subShopCreateOrUpdateActions = {
-  isLoading: createAction('SUBSHOP/CREATE_OR_UPDATE/LOADING'),
-  error: createAction('SUBSHOP/CREATE_OR_UPDATE/ERROR'),
-  success: createAction('SUBSHOP/CREATE_OR_UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('SUBSHOP/CREATE_OR_UPDATE/LOADING'),
+  error: createAction<Error | null>('SUBSHOP/CREATE_OR_UPDATE/ERROR'),
+  success: createAction<SubShopAPI>('SUBSHOP/CREATE_OR_UPDATE/SUCCESS'),
 };
 
 export function createOrUpdateSubShop({
   name,
   id,
 }: {
-  name: string,
-  id: ?number,
+  name: string;
+  id?: number;
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(subShopCreateOrUpdateActions.isLoading(true));
@@ -62,9 +72,9 @@ export function createOrUpdateSubShop({
 }
 
 export const subshopDeleteActions = {
-  isLoading: createAction('SUBSHOP/DELETE/LOADING'),
-  error: createAction('SUBSHOP/DELETE/ERROR'),
-  success: createAction('SUBSHOP/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('SUBSHOP/DELETE/LOADING'),
+  error: createAction<Error | null>('SUBSHOP/DELETE/ERROR'),
+  success: createAction<number>('SUBSHOP/DELETE/SUCCESS'),
 };
 
 export function deleteSubShop(id: number) {

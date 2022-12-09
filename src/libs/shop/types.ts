@@ -1,11 +1,17 @@
-// @flow
-//
 export type Provision = {
   product_name: string;
   qty: number;
   date: string;
   id: number;
   shop_item: number;
+  manual_adjustement: boolean;
+};
+
+export type SubShop = {
+  id: number;
+  name: string;
+  company: number;
+  shopitems: Array<ShopItem>;
 };
 
 export type SubShopAPI = {
@@ -13,6 +19,13 @@ export type SubShopAPI = {
   name: string;
   company: number;
   shopitems: Array<number>;
+};
+
+export type AxiosSubShopAPI = { data: SubShopAPI };
+
+export type IsShopUsedInComboAPI = {
+  id: number;
+  is_used_in_payment_combo: boolean;
 };
 
 export type ShopItem = {
@@ -29,13 +42,6 @@ export type ShopItem = {
   marketplace_enabled: boolean;
   is_deliverable: boolean;
   available_payment_method_identifiers: number[];
-};
-
-export type SubShop = {
-  id: number;
-  name: string;
-  company: number;
-  shopitems: Array<ShopItem>;
 };
 
 export type ShopState = {
@@ -75,3 +81,17 @@ export type ShopState = {
     page: number;
   };
 };
+
+export type ShopAPIFilter = {
+  marketplace_enabled?: true;
+  disabled?: false;
+  company?: number;
+  as_consumer?: true;
+  featured?: boolean;
+  page?: number;
+  page_size?: number;
+};
+
+export type ShopItemCreate = Omit<ShopItem, 'id'>;
+
+export type ProvisionCreate = Omit<Provision, 'id'>;

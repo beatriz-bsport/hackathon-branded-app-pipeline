@@ -204,7 +204,13 @@
             "103": "Gewijzigde sessies (instructeurs)",
             "102": "Geannuleerde sessies (instructeurs)",
             "101": "Herinnering 15 minuten voor de online les (instructeurs)",
-            "602": "Automatische annulering van onderbezette sessies (leden)"
+            "602": "Automatische annulering van onderbezette sessies (leden)",
+            "906": "Uitgestelde sluitingsdatum (vervanger)",
+            "905": "Nieuw laattijdig verzoek (vervanger)",
+            "904": "Nieuw verzoek om vervanging (vervanger)",
+            "903": "Er is een andere vervanger gevonden (vervanger)",
+            "902": "Verzoek om vervanging geannuleerd (vervanger)",
+            "901": "Vervanging gevonden (instructeur)"
         },
         "tag": {
             "BookingOption": {
@@ -332,6 +338,13 @@
             },
             "Birthday": {
                 "name": "Verjaardag"
+            },
+            "ReplacementRequest": {
+                "tags": {
+                    "sub_teacher": "Plaatsvervangende leraar",
+                    "closing_date": "Sluitingsdatum"
+                },
+                "name": "Vervanging"
             }
         },
         "emailDesign": {
@@ -349,7 +362,8 @@
             "marketing": "Marketing",
             "invoice": "Facturatie",
             "payment_pack": "Kaarten",
-            "recurrent_private_booking": "Periodieke afspraken"
+            "recurrent_private_booking": "Periodieke afspraken",
+            "replacement_request": "Vervanging"
         },
         "pageTitle": "Transactionele berichten",
         "caption": {
@@ -2572,7 +2586,11 @@
                 "week": "Vorige week",
                 "month": "Vorige maand",
                 "year": "Afgelopen jaar",
-                "trimester": "Afgelopen 3 maanden"
+                "trimester": "Afgelopen 3 maanden",
+                "next_year": "Komend jaar",
+                "next_trimester": "Komende drie maanden",
+                "next_week": "Komende week",
+                "next_month": "Komende maand"
             },
             "from_to": "Van {{-from}} tot {{-to}}",
             "save": "Opslaan",
@@ -2820,7 +2838,8 @@
         },
         "readAll": "Markeer alles als gelezen",
         "lateReplacementRequest": {
-            "title": "Late plaatsvervanging"
+            "title": "Late plaatsvervanging",
+            "content": "verzocht om een vervanging voor de volgende sessie: {{activity_name}} - {{date_start}}"
         }
     },
     "paymentPack": {
@@ -4727,7 +4746,8 @@
                 "title": "Niveau wijzigen"
             }
         },
-        "recurrenceIndex": "Herhaling: {{ index }}"
+        "recurrenceIndex": "Herhaling: {{ index }}",
+        "pendingReplacementRequest": "Een verzoek om vervanging staat open"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -5691,8 +5711,10 @@
             "expenseList": "Uitgaven"
         },
         "coachUserSpace": {
-            "performance": "Payroll"
-        }
+            "performance": "Payroll",
+            "replacement": "Vervanging"
+        },
+        "replacement": "Vervanging"
     },
     "event": {
         "list": {
@@ -6789,7 +6811,8 @@
             "role": "Medewerkers",
             "personalization": "Personalisering",
             "active_campaign": "ActiveCampaign",
-            "partnership": "Vennootschap"
+            "partnership": "Vennootschap",
+            "coachUserspace": "Instructeursomgeving"
         },
         "webhook": {
             "cancel": "annuleren",
@@ -7042,6 +7065,17 @@
                 "subtitle": "Externe links"
             },
             "title": "Gepersonaliseerde app"
+        },
+        "company": {
+            "bankAccountSuccess": {
+                "title": "Wijziging van bankgegevens",
+                "content": "Uw bankgegevens zijn goed bijgewerkt. Om op één enkele rekening te worden bijgeschreven en afgeschreven, kunt u ook de betalingsmethode bijwerken waarmee uw Bsport-abonnement wordt afgeschreven.",
+                "note": "Klik op \"Configureren\" om te worden omgeleid."
+            },
+            "bankAccountInfo": {
+                "link": "Hier",
+                "content": "Deze rekening komt overeen met de rekening waarop de online betalingen via Bsport zullen worden gestort. Om het betaalmiddel te configureren waarop uw Bsport-abonnement zal worden afgeschreven, klikt u op"
+            }
         }
     },
     "privateService": {
@@ -9334,7 +9368,8 @@
             "2016": "Je hebt het maximale aantal reserveringen met deze kaart voor deze maand bereikt",
             "2014": "Je hebt het maximale aantal reserveringen met deze kaart voor deze dag bereikt",
             "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
-            "45004": "De cadeaubon is niet meer beschikbaar voor verkoop."
+            "45004": "De cadeaubon is niet meer beschikbaar voor verkoop.",
+            "10001": "Onvoldoende voorraad"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -9504,6 +9539,49 @@
         "communicationv2": {
             "error": "Fout bij het versturen van dit bericht",
             "success": "Communicatie wordt verzonden"
+        },
+        "replacement": {
+            "errors": {
+                "500004": "Je bent al vervanger voor deze sessie",
+                "500001": "Er bestaat al een verzoek om vervanging",
+                "80003": "Ontbrekende instellingen voor achterstallige aanvragen.",
+                "80002": "De waarde \"Aantal dagen verzoek te laat\" moet groter zijn dan de waarde \"Aantal dagen inschrijving gesloten\".",
+                "50020": "Dit vervangingsverzoek is afgewezen: niet mogelijk om te verwijderen",
+                "50015": "U kunt uw eigen vervangingsverzoek niet beantwoorden",
+                "50013": "U kunt dit vervangingsverzoek niet meer beantwoorden.",
+                "50012": "Deze instructeur antwoordde dat hij geen vervanger wilde zijn voor deze zitting.",
+                "50011": "Er is al een instructeur toegewezen aan dit verzoek.",
+                "50010": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
+                "50009": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
+                "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
+                "50007": "Niet mogelijk om deze vervangingsverzoeken aan te maken: je hebt niet genoeg achterstallige verzoeken over.",
+                "50000": "Deze sessie is al afgelopen"
+            },
+            "cancelReplacementRequest": {
+                "error": "Er is een fout opgetreden bij het verwijderen van het verzoek.",
+                "success": "Het verzoek om vervanging is verwijderd."
+            },
+            "updateCoachReplacementPreferences": {
+                "error": "Niet mogelijk om de regels op te slaan",
+                "success": "Regels opgeslagen"
+            },
+            "assignDisciplineGroup": {
+                "success": "De disciplinegroep van de instructeur is bijgewerkt"
+            },
+            "disciplineGroup": {
+                "delete": {
+                    "error": "Niet mogelijk om deze disciplinegroep te verwijderen",
+                    "success": "Disciplinegroep verwijderd"
+                },
+                "update": {
+                    "error": "Er is een fout opgetreden bij het bewerken van de disciplinegroep",
+                    "success": "Disciplinegroep gewijzigd"
+                },
+                "create": {
+                    "error": "Er is een fout opgetreden bij het aanmaken van de disciplinegroep",
+                    "success": "Aangemaakte disciplinegroepen"
+                }
+            }
         }
     },
     "coach": {
@@ -10600,6 +10678,56 @@
                     "helperText": "Bij de registratie ontvangen uw leden een e-mail om hun e-mailadres te bevestigen, het account wordt pas geactiveerd nadat het e-mailadres is bevestigd.",
                     "label": "Bevestigingsmail bij registratie",
                     "title": "Registratie"
+                },
+                "coachUserspace": {
+                    "errors": {
+                        "restrictionToggles": "Selecteer ten minste één optie"
+                    },
+                    "requestLimitationPeriods": {
+                        "placeholder": "Selecteer een periode",
+                        "year": "Jaren",
+                        "month": "Maanden",
+                        "week": "Weken"
+                    },
+                    "maxNbRequestPerPeriod": {
+                        "recap": {
+                            "3": "Elk {{nbPeriods}} jaar kunnen je leraren maximaal {{nbRequests}} te laat aanvragen doen. Zodra dit aantal is overschreden, kunnen ze geen aanvragen meer indienen tot het einde van de periode.",
+                            "2": "Elke {{nbPeriods}} maand kunnen je leraren maximaal {{nbRequests}} te laat aanvragen doen. Zodra dit aantal is overschreden, kunnen ze geen aanvragen meer indienen tot het einde van de periode.",
+                            "1": "Elke {{nbPeriods}} week kunnen je leraren maximaal {{nbRequests}} late verzoeken indienen. Zodra dit aantal is overschreden, kunnen ze geen aanvragen meer indienen tot het einde van de periode."
+                        },
+                        "helperText": "Maximum aantal late aanvragen"
+                    },
+                    "isLateReplacementRequestLimited": "Limiet voor late aanvragen",
+                    "daysBeforeReplacementClosingAcceptance": {
+                        "description": "Je instructeurs kunnen geen vervangingen meer accepteren op een sessie {{telling}} dag voor aanvang van de cursus.",
+                        "description_plural": "Je instructeurs kunnen geen vervangingen meer accepteren op een sessie {{telling}} dagen voor aanvang van de cursus.",
+                        "helperText": "Sluiting van inschrijvingen bij vervanging",
+                        "placeholder": "Aantal dagen"
+                    },
+                    "daysBeforeReplacementClosing": {
+                        "interval": "Interval",
+                        "every": "Alle",
+                        "description": "Vervangingsverzoeken die {{count}} dag of meer voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
+                        "description_plural": "Vervangingsverzoeken die {{count}} dagen of meer voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
+                        "helperText": "Sluiten van verzoeken om vervanging",
+                        "placeholder": "Aantal dagen"
+                    },
+                    "daysBeforeRequestIsLate": {
+                        "description": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
+                        "description_plural": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
+                        "helperText": "Laattijdig verzoek",
+                        "placeholder": "Aantal dagen"
+                    },
+                    "replacementSettings": "Instellingen voor vervanging",
+                    "enableReplacement": "Vervanging",
+                    "enableRemuneration": "Payroll",
+                    "enableSchedule": "Rooster",
+                    "restrictionsDescription": "Geef aan tot welke tabbladen uw instructeurs toegang hebben",
+                    "restrictions": "Beperkingen",
+                    "enableDescription": "Als u deze functie inschakelt, hebben al uw nieuwe instructeurs standaard toegang",
+                    "enable": "De instructeursweergave standaard inschakelen",
+                    "access": "Toegang",
+                    "description": "Pas de weergave van de instructeur op het web aan. Let op: de instellingen hier hebben geen invloed op de weergave van de app voor de instructeur."
                 }
             },
             "gtmId": {
@@ -11676,6 +11804,9 @@
                     },
                     "mobilePersonalization": {
                         "_label": "Gepersonaliseerde app"
+                    },
+                    "coachUserspace": {
+                        "_label": "Instructeursomgeving"
                     }
                 },
                 "reporting": {
@@ -11790,6 +11921,9 @@
                     },
                     "programs": {
                         "_label": "Programma's"
+                    },
+                    "replacement": {
+                        "_label": "Vervanging"
                     }
                 },
                 "schedule": {
@@ -11959,7 +12093,8 @@
                 "paymentMethod": "Betaalmethoden",
                 "forms": "Ledenformulieren",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "Gepersonaliseerde app"
+                "mobilePersonalization": "Gepersonaliseerde app",
+                "coachUserspace": "Instructeursomgeving"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",
@@ -12004,7 +12139,8 @@
                 "expand": "Uitbreiden",
                 "shrink": "Inklappen"
             },
-            "cadences": "Workflow"
+            "cadences": "Workflow",
+            "replacement": "Vervanging"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -12180,7 +12316,11 @@
                 "createCard": "Betaalkaart toevoegen",
                 "createSepa": "IBAN toevoegen"
             },
-            "sectionTitle": "Mijn betaalmethoden"
+            "sectionTitle": "Mijn betaalmethoden",
+            "info": {
+                "content": "Uw Bsport abonnement wordt afgeschreven van de hieronder aangegeven betaalmethode. Om de rekening te configureren waarop de online betalingen via Bsport worden afgeschreven, klikt u op",
+                "link": "Hier"
+            }
         },
         "platformInvoice": {
             "noInvoice": "Momenteel zijn er nog geen facturen beschikbaar om weer te geven.",
@@ -13457,6 +13597,224 @@
         },
         "menu": {
             "helpButton": "Artikelen"
+        }
+    },
+    "replacement": {
+        "tooltip": {
+            "seeAnswers": "Zie de lijst van vervangers"
+        },
+        "coachEdit": {
+            "allCategories": "Geeft les in alle categorieën",
+            "pickCategory": "Kies een categorie",
+            "categories": "Categorieën",
+            "allWorkshops": "Geeft les in alle workshops",
+            "pickWorkshop": "Kies een workshop",
+            "workshops": "Workshops",
+            "allActivities": "Geeft les in alle activiteiten",
+            "pickActivity": "Kies een activiteit",
+            "activities": "Activiteiten",
+            "customRules": "De regels aanpassen",
+            "disciplineGroup": "Discipline groepen",
+            "description": "Geef aan welke sessies door jouw instructeurs worden gegeven. Als een vervangingsverzoek wordt gedaan in een van deze sessies, wordt die instructeur per e-mail op de hoogte gebracht. Als er niets is geselecteerd, wordt deze instructeur niet op de hoogte gebracht.",
+            "title": "Vervanging"
+        },
+        "compatibleCoaches": {
+            "categories": "Categorieën",
+            "workshops": "Workshops",
+            "activities": "Activiteiten",
+            "nextSlot": "Eerst volgende sessie op {{date}} - {{hour}}",
+            "compatibleCoaches": "{{count}} compatibele instructeur",
+            "compatibleCoaches_plural": "{{count}} compatibele instructeurs",
+            "title": "Beschikbare instructeurs per discipline"
+        },
+        "disciplineGroup": {
+            "form": {
+                "coachRequired": "Selecteer ten minste één instructeur",
+                "submit": "Opslaan",
+                "close": "Annuleren",
+                "coaches": "Geassocieerde instructeurs",
+                "allCategories": "Geeft les in alle categorieën",
+                "pickCategory": "Kies een categorie",
+                "categories": "Categorieën",
+                "allWorkshops": "Geeft les in alle workshops",
+                "pickWorkshop": "Kies een workshop",
+                "workshops": "Workshops",
+                "allActivities": "Geeft les in alle activiteiten",
+                "pickActivity": "Een activiteit kiezen",
+                "activities": "Activiteiten",
+                "groupTypes": "Soort sessies / categorieën",
+                "required": "Dit veld is verplicht",
+                "nameHelperText": "Naam van de disciplinegroep",
+                "name": "Naam"
+            },
+            "all": "Alle",
+            "delete": {
+                "confirm": "Bevestigen",
+                "cancel": "Annuleren",
+                "description": "Weet je zeker dat je de {{name}} discipline groep wilt verwijderen?",
+                "title": "Verwijderen"
+            },
+            "coaches": "{{count}} Instructeur",
+            "coaches_plural": "{{count}} Instructeurs",
+            "categories": "Categorieën ({{number}})",
+            "workshops": "Workshops ({{number}})",
+            "activities": "Activiteiten ({{number}})",
+            "title": "Discipline groepen",
+            "add": "Een groep toevoegen"
+        },
+        "selects": {
+            "category": "Categorie",
+            "closedStatus": "Status van de registraties",
+            "lateStatus": "Status van het verzoek"
+        },
+        "coachAnswers": {
+            "refuse": {
+                "confirm": "Bevestigen",
+                "cancel": "Sluiten",
+                "description": "Weet u zeker dat u dit verzoek wilt afwijzen?"
+            },
+            "success": {
+                "close": "Sluiten",
+                "description": "De instructeur is vervangen. {{coach}} zal de sessie van {{-date}} tot {{time}}",
+                "requestSent": "Instructeur toegewezen"
+            },
+            "confirmation": {
+                "confirm": "Bevestigen",
+                "cancel": "Annuleren",
+                "description": "Weet je zeker dat je {{coach_override}} wilt registreren als vervangende instructeur voor de sessie van {{coach}}?",
+                "title": "Een instructeur toewijzen"
+            },
+            "noAnswers": "Geen antwoord op dit moment",
+            "close": "Sluiten",
+            "attribute": "Toewijzen",
+            "reason": "Reden van het verzoek",
+            "closing_date": "Sluitingsdatum",
+            "header": {
+                "action": "Actie",
+                "answer": "Antwoord",
+                "teacher": "Instructeur"
+            }
+        },
+        "registrationsStatus": {
+            "areNotClosed": "Open",
+            "areClosed": "Gesloten"
+        },
+        "lateStatus": {
+            "isNotLate": "Op tijd",
+            "isLate": "Laat"
+        },
+        "delete": {
+            "confirm": "Bevestigen",
+            "cancel": "Annuleren",
+            "description": "Weet u zeker dat u dit verzoek wilt annuleren?",
+            "title": "Het verzoek annuleren"
+        },
+        "askForClosingDateExtension": {
+            "close": "Sluiten",
+            "requestSentDescription": "De verlenging is toegevoegd aan het verzoek om vervanging.",
+            "requestSent": "Verzoek verzonden",
+            "submit": "Bevestigen",
+            "cancel": "Annuleren",
+            "new_closing_date": "De nieuwe sluitingsdatum is {{closing_date}} om {{time}}",
+            "closing_date": "Sluitingsdatum",
+            "description": "De inschrijving voor deze aanvraag is gesloten op {{closing_date}}. Als er niet genoeg reacties zijn op dit verzoek, kunt u de sluitingsdatum nog verschuiven.",
+            "title": "Sluitingsdatum"
+        },
+        "askForReplacement": {
+            "lateRequestInfo": "Het verzoek zal worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
+            "lateRequestInfo_plural": "De verzoeken zullen worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
+            "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterend laat verzoek tot {{-dateEnd}}.",
+            "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende late verzoeken tot {{-dateEnd}}.",
+            "lateRequestTypo": "Let op, je verzoek voor een vervanging is laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
+            "lateRequestTypo_plural": "Let op, sommige van uw vervangingsaanvragen zijn laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
+            "close": "Sluiten",
+            "requestSentDescription": "Uw vervangingsverzoek is in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
+            "requestSentDescription_plural": "Uw vervangingsverzoeken zijn in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
+            "requestSent": "Verzoek verzonden",
+            "requestSent_plural": "Verzoeken verzonden",
+            "submit": "Indienen",
+            "cancel": "Annuleren",
+            "label": "Reden van afwezigheid",
+            "title": "Verzoek om vervanging"
+        },
+        "replacementStatus": {
+            "teacherFound": "Vervangen",
+            "approvedWithReplacementPropositions": "In behandeling",
+            "approvedButNoReplacementPropositions": "Open",
+            "deniedByManager": "Geweigerd",
+            "pendingForApproval": "Wachtend op goedkeuring",
+            "description": {
+                "approvedWithReplacementPropositions": "registratie in behandeling.",
+                "approvedButNoReplacementPropositions": "wachtend op registraties.",
+                "pendingForApproval": "wachtend op de manager om actie te ondernemen.",
+                "description": "Met de statistieken kunt u de status van uw verzoek inzien."
+            }
+        },
+        "noListItem": {
+            "calendar": "Er zijn geen sessies gepland op deze data",
+            "replacementRequest": "Geen element"
+        },
+        "coachAnswer": {
+            "no": "Nee",
+            "ratherNo": "Geen voorkeur",
+            "yes": "Ja"
+        },
+        "managerTableTitles": {
+            "replacementHistory": "Vervangingsgeschiedenis",
+            "pendingRequests": "Lopende verzoeken"
+        },
+        "requestTableTitles": {
+            "deniedRequests": "Verzoek afgewezen",
+            "replacementFound": "Vervanging gevonden",
+            "pending": "In behandeling"
+        },
+        "header": {
+            "class": "Sessie",
+            "registrations": "Registraties",
+            "request": "Verzoek",
+            "availability": "Beschikbaar",
+            "closing_date": "Sluitingsdatum",
+            "teacher_override": "Plaatsvervangend instructeur",
+            "teacher": "Instructeur",
+            "status": "Status",
+            "reason": "Reden",
+            "action": "Actie",
+            "establishment_group": "Vestiging",
+            "location": "Locatie",
+            "level": "Niveau",
+            "name": "Naam van de sessie",
+            "date": "Datum en tijd"
+        },
+        "unavailableReplacement": {
+            "refusedByManager": "Uw verzoek om vervanging is afgewezen",
+            "noLateRequestsLeft": "U kunt niet langer nieuwe late vervangingsverzoeken aanmaken",
+            "tooEarly": "Er zijn nog geen vervangingen beschikbaar",
+            "alreadyAskedFor": "Er loopt al een verzoek",
+            "replacing": "U bent de vervanger voor deze sessie",
+            "alreadyPassed": "Deze sessie is afgelopen"
+        },
+        "marketplace": {
+            "until": "Tot {{-date}}",
+            "filters": "Filters",
+            "description": "De volgende sessies hebben een vervangende leraar nodig. Bent u beschikbaar?",
+            "title": "Marketplace"
+        },
+        "confirmations": {
+            "description": "U bent toegevoegd als vervangende leraar voor de volgende sessies.",
+            "title": "Bevestigingen"
+        },
+        "requests": {
+            "cancel": "Annuleren",
+            "description": "Vind hier al uw vervangingsverzoeken.",
+            "title": "Mijn verzoeken"
+        },
+        "calendar": {
+            "helperTextNotLimited": "Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
+            "helperTextNotLimited_plural": "Alle aanvragen voor vervangingen die binnen {{count}} dagen van de zitting worden gedaan, worden als te laat beschouwd.",
+            "helperTextLimited": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
+            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
+            "description": "Vind hier al uw groepsactiviteiten.",
+            "title": "Mijn rooster"
         }
     }
 }

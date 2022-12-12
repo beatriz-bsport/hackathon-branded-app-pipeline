@@ -95,6 +95,7 @@ export const PrivateConsumerPassDetail = (props: Props) => {
                   onDelete={
                     props.private_consumer_pass &&
                     !props.private_consumer_pass.dst_private_consumer_pass
+                      .length
                       ? () => props.deleteExtension(ex.id)
                       : null
                   }

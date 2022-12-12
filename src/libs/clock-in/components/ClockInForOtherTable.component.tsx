@@ -213,7 +213,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
           firstname: first_name,
           lastname: last_name,
           email,
-          role: role.name,
+          role: role?.name,
           lastClockIn: attendance?.date_start
             ? `${moment.unix(attendance?.date_start).format('L')} - ${moment
                 .unix(attendance?.date_start)

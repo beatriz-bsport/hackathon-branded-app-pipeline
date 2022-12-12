@@ -84,6 +84,8 @@ export default compose(
       compatiblePacksLoading: state.offer.compatiblePacks.loading,
       userRole: getUserRole(state),
       incompatibilitiesReasons: getIncompatibilitiesReasons(state),
+      nonCompatibleByOfferByMemberLoading:
+        state.consumerPaymentPack.nonCompatibleByOfferByMember.loading,
     }),
     {
       fetchPaymentPackBulk,

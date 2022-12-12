@@ -196,6 +196,8 @@ exports.default = {
     noPackAvailableForOfferPurchase:
       'Aucune carte de cours compatible avec cette séance !',
     noncompatibleConsumerPaymentPacksAre: 'Pass possédé(s) non compatible(s)',
+    noInConsumerPackAvailableForPurchase:
+      'Aucune carte de cours incompatible possédée par ce membre !',
     noConsumerPackAvailableForPurchase:
       'Aucune carte de cours compatible possédée par ce membre !',
     noEmptyDuration: 'La durée doit être strictement positive',
@@ -1094,6 +1096,7 @@ exports.default = {
     forms: {
       register: {
         registerToOffer: 'Inscription à la séance',
+        loadingData: 'Chargement des données de réservation',
         passOwnedByMember: 'Pass possédé(s) par le membre',
         doNotConsumeCredit:
           "Ne pas décompter de crédits aux membres pour l'inscription",

@@ -1,9 +1,11 @@
 // @flow
 import React, { useState } from 'react';
+
+import classNames from 'classnames';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import WarningIcon from '@material-ui/icons/Warning';
 import List from '@material-ui/core/List';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -14,7 +16,12 @@ import Button from '@material-ui/core/Button';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
-import { ButtonBase, DialogContentText } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Box from '@material-ui/core/Box';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import Alert from '@material-ui/lab/Alert';
+
 import PriceInput from '../../../../components/input/PriceInput.component';
 import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
@@ -36,6 +43,7 @@ type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
   consumerPacksNonCompatible: Array<WithIsSharedActive<ConsumerPaymentPack>>,
   compatiblePacks: Array<PaymentPack>,
+  consumerPacksOrMaxoutLoading: boolean,
   registerToOffer: (
     offer: {
       consumerPaymentPack?: WithIsSharedActive<ConsumerPaymentPack>,
@@ -65,21 +73,45 @@ type Props = {
   ) => void,
   incompatibilitiesReasons: { [cpp_id: number]: number[] },
   goToPaymentPack: (pp_id: number) => void,
+  handleFetchNoncompatibleConsumerPackByOfferByMember: () => void,
+  nonCompatibleByOfferByMemberLoading: boolean,
+  containerHasFetchedNonCompatiblePasses: Boolean,
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const {
+    handleFetchNoncompatibleConsumerPackByOfferByMember,
+    nonCompatibleByOfferByMemberLoading,
+    containerHasFetchedNonCompatiblePasses,
+  } = props;
+
   const [voucher, setVoucher] = useState(0);
+
   const [openConfirmation, setOpenConfirmation] = useState(false);
+
   const [voucherDialogOpen, setVoucherDialogOpen] = useState(false);
-  const [openNonCompatiblePaymentPack, setOpenNonCompatiblePaymentPack] =
-    useState(!props.consumerPacks.length);
+
+  const [openNonCompatibleConsumerPass, setOpenNonCompatibleConsumerPass] =
+    useState(false);
+
+  const [
+    openBuyableCompatiblePassesCollapse,
+    setOpenBuyableCompatiblePassesCollapse,
+  ] = React.useState(false);
+  const [hasFetchedNonCompatiblePasses, setHasFetchedNonCompatiblePasses] =
+    React.useState(false);
+
   const [selectedPack, setSelectedPack] = useState<PaymentPack | null>(null);
+
   const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
+
   const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+
   const [requiredEstablishmentIsMissing, setRequiredEstablishmentIsMissing] =
     useState(false);
+
   const handlePackSelect = (pack: PaymentPack) => {
     setSelectedPack(pack);
     if (!pack) {
@@ -98,122 +130,240 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   };
   const handleRegisterToOffer = (consumerPaymentPack) => () =>
     props.registerToOffer({ consumerPaymentPack });
+
+  const handleSwitchCollapse = React.useCallback(() => {
+    if (!hasFetchedNonCompatiblePasses && !openNonCompatibleConsumerPass) {
+      handleFetchNoncompatibleConsumerPackByOfferByMember();
+      setHasFetchedNonCompatiblePasses(true);
+    }
+    setOpenNonCompatibleConsumerPass(!openNonCompatibleConsumerPass);
+  }, [
+    hasFetchedNonCompatiblePasses,
+    openNonCompatibleConsumerPass,
+    handleFetchNoncompatibleConsumerPackByOfferByMember,
+    setOpenNonCompatibleConsumerPass,
+  ]);
+
+  const hasNoCompatiblePasses =
+    !props.consumerPacksOrMaxoutLoading && props.consumerPacks.length === 0;
+
+  const hasNoInCompatiblePasses =
+    (hasFetchedNonCompatiblePasses || containerHasFetchedNonCompatiblePasses) &&
+    props.consumerPacksNonCompatible?.length === 0;
+
+  React.useEffect(() => {
+    if (!openBuyableCompatiblePassesCollapse && hasNoCompatiblePasses) {
+      setOpenBuyableCompatiblePassesCollapse(true);
+    }
+  }, [
+    props.consumerPacksOrMaxoutLoading,
+    props.consumerPacks,
+    openBuyableCompatiblePassesCollapse,
+    hasNoCompatiblePasses,
+  ]);
+
+  React.useEffect(() => {
+    if (!openNonCompatibleConsumerPass && nonCompatibleByOfferByMemberLoading) {
+      setOpenNonCompatibleConsumerPass(true);
+    }
+  }, [
+    openNonCompatibleConsumerPass,
+    nonCompatibleByOfferByMemberLoading,
+    setOpenNonCompatibleConsumerPass,
+  ]);
   return (
     <div className={classes.container}>
-      {props.consumerPacks?.length > 0 ? (
-        <div>
-          <Typography variant="h6" component="h4">
-            {t('offerManagement.forms.register.passOwnedByMember')}
-          </Typography>
-          <List>
-            {props.consumerPacks.map((cp) => (
-              <ConsumerPackRowItem
-                key={cp.id}
-                hideConsumer
-                {...{
-                  onBook: props.disableMultiBooking
-                    ? handleRegisterToOffer(cp)
-                    : undefined,
-                }}
-                onBookOne={handleRegisterToOffer(cp)}
-                onBookMultiple={
-                  props.disableMultiBooking
-                    ? undefined
-                    : () => props.onBookMultiple({ consumerPaymentPack: cp })
-                }
-                consumerPack={cp}
-                paymentPack={cp.payment_pack}
-                maxoutBooking={props.cppMaxoutBookingsByCpp[cp.id]}
-                offer={props.offer}
-              />
-            ))}
-          </List>
-        </div>
-      ) : (
-        <div className={classes.alertRow}>
-          <WarningIcon color="error" />
-          <Typography variant="caption">
-            {t('offer.noConsumerPackAvailableForPurchase')}
-          </Typography>
-        </div>
-      )}
-      {props.consumerPacksNonCompatible?.length > 0 && (
-        <div>
-          <ButtonBase
-            onClick={() =>
-              setOpenNonCompatiblePaymentPack(!openNonCompatiblePaymentPack)
-            }
-            className={classes.nonCompatibleCollapsable}
-          >
-            <Typography variant="h6" styles={{ textAlign: 'start' }}>
-              {t('offer.noncompatibleConsumerPaymentPacksAre')}
-            </Typography>
-            {openNonCompatiblePaymentPack ? (
-              <ExpandLessIcon />
-            ) : (
-              <ExpandMoreIcon />
-            )}
-          </ButtonBase>
-          <Collapse in={openNonCompatiblePaymentPack}>
-            <div>
-              {props.consumerPacksNonCompatible.map((cp) => (
-                <ConsumerPackRowItem
-                  key={cp.id}
-                  hideConsumer
-                  isNonCompatible
-                  paymentPack={cp.payment_pack}
-                  consumerPack={cp}
-                  goToPaymentPack={handleGoToPaymentPack(cp.payment_pack?.id)}
-                  fetchIncompatibilitiesReasonsByOfferByConsumerPack={
-                    props.fetchIncompatibilitiesReasonsByOfferByConsumerPack
-                  }
-                  incompatibilitiesReasons={props.incompatibilitiesReasons}
-                  offer={props.offer}
-                />
-              ))}
-            </div>
-          </Collapse>
-        </div>
-      )}
       <Typography variant="h6" component="h4">
-        {t('offerManagement.forms.register.passCompatibleNotOwnedByMember')}
+        {t('offerManagement.forms.register.passOwnedByMember')}
       </Typography>
-      {!props.compatiblePacks.length ? (
-        <div className={classes.alertRow}>
-          <WarningIcon color="error" />
-          <Typography variant="caption">
-            {t('offer.noPackAvailableForOfferPurchase')}
-          </Typography>
-        </div>
+      {props.consumerPacksOrMaxoutLoading ? (
+        <>
+          <div>
+            <Skeleton animation="wave" width="40%" variant="text" height={30} />
+            <Box mt={2} />
+            <Skeleton
+              animation="wave"
+              width="100%"
+              variant="rect"
+              height={50}
+            />
+          </div>
+          <div>
+            <Skeleton animation="wave" width="40%" variant="text" height={30} />
+            <Box mt={2} />
+            <Skeleton
+              animation="wave"
+              width="100%"
+              variant="rect"
+              height={50}
+            />
+          </div>
+        </>
       ) : (
-        <List>
-          {props.compatiblePacks
-            .filter((pack) => !pack.disabled)
-            .map((pack) => (
-              <PaymentPackListItem
-                showDuration
-                hidePacksNumber
-                onBookOne={() => {
-                  handlePackSelect(pack);
-                  if (props.offer.is_full) {
-                    setOpenConfirmation(true);
-                  } else {
-                    setVoucherDialogOpen(true);
-                  }
-                }}
-                onBookMultiple={
-                  props.disableMultiBooking
-                    ? undefined
-                    : () => props.onBookMultiple({ paymentPack: pack })
-                }
-                divider
-                key={pack.id}
-                pack={pack}
-              />
-            ))}
-        </List>
+        <>
+          {props.consumerPacks.length > 0 ? (
+            <>
+              <List>
+                {props.consumerPacks.map((cp) => (
+                  <ConsumerPackRowItem
+                    key={cp.id}
+                    hideConsumer
+                    {...{
+                      onBook: props.disableMultiBooking
+                        ? handleRegisterToOffer(cp)
+                        : undefined,
+                    }}
+                    onBookOne={handleRegisterToOffer(cp)}
+                    onBookMultiple={
+                      props.disableMultiBooking
+                        ? undefined
+                        : () =>
+                            props.onBookMultiple({ consumerPaymentPack: cp })
+                    }
+                    consumerPack={cp}
+                    paymentPack={cp.payment_pack}
+                    maxoutBooking={props.cppMaxoutBookingsByCpp[cp.id]}
+                    offer={props.offer}
+                  />
+                ))}
+              </List>
+            </>
+          ) : (
+            <Alert severity="warning" className={classes.alert}>
+              {t('offer.noConsumerPackAvailableForPurchase')}
+            </Alert>
+          )}
+        </>
       )}
 
+      <div>
+        <ButtonBase
+          onClick={handleSwitchCollapse}
+          className={classes.nonCompatibleCollapsable}
+          disabled={nonCompatibleByOfferByMemberLoading}
+        >
+          <Typography
+            variant="h6"
+            styles={{ textAlign: 'start' }}
+            color={
+              nonCompatibleByOfferByMemberLoading || hasNoInCompatiblePasses
+                ? 'textSecondary'
+                : 'textPrimary'
+            }
+          >
+            {t('offer.noncompatibleConsumerPaymentPacksAre')}
+          </Typography>
+          {openNonCompatibleConsumerPass ? (
+            <ExpandLessIcon />
+          ) : (
+            <ExpandMoreIcon />
+          )}
+        </ButtonBase>
+        <Collapse in={openNonCompatibleConsumerPass}>
+          <div>
+            {nonCompatibleByOfferByMemberLoading ? (
+              <>
+                <Skeleton
+                  animation="wave"
+                  width="40%"
+                  variant="text"
+                  height={30}
+                />
+                <Box mt={2} />
+                <Skeleton
+                  animation="wave"
+                  width="100%"
+                  variant="rect"
+                  height={50}
+                />
+              </>
+            ) : (
+              <>
+                {hasNoInCompatiblePasses && (
+                  <div className={classes.paddingTop2}>
+                    <Alert severity="info" className={classes.alert}>
+                      {t('offer.noInConsumerPackAvailableForPurchase')}
+                    </Alert>
+                  </div>
+                )}
+                {!hasNoInCompatiblePasses &&
+                  props.consumerPacksNonCompatible.map((cp) => (
+                    <ConsumerPackRowItem
+                      key={cp.id}
+                      hideConsumer
+                      isNonCompatible
+                      paymentPack={cp.payment_pack}
+                      consumerPack={cp}
+                      goToPaymentPack={handleGoToPaymentPack(
+                        cp.payment_pack?.id,
+                      )}
+                      fetchIncompatibilitiesReasonsByOfferByConsumerPack={
+                        props.fetchIncompatibilitiesReasonsByOfferByConsumerPack
+                      }
+                      incompatibilitiesReasons={props.incompatibilitiesReasons}
+                      offer={props.offer}
+                    />
+                  ))}
+              </>
+            )}
+          </div>
+        </Collapse>
+      </div>
+      <ButtonBase
+        onClick={() =>
+          setOpenBuyableCompatiblePassesCollapse(
+            !openBuyableCompatiblePassesCollapse,
+          )
+        }
+        className={classes.nonCompatibleCollapsable}
+        disabled={hasNoCompatiblePasses}
+      >
+        <Typography variant="h6" styles={{ textAlign: 'start' }} component="h4">
+          {t('offerManagement.forms.register.passCompatibleNotOwnedByMember')}
+        </Typography>
+        {openBuyableCompatiblePassesCollapse ? (
+          <ExpandLessIcon />
+        ) : (
+          <ExpandMoreIcon />
+        )}
+      </ButtonBase>
+      <Collapse in={openBuyableCompatiblePassesCollapse}>
+        {!props.compatiblePacks.length ? (
+          <Alert
+            severity="warning"
+            className={classNames(classes.alert, classes.paddingTop2)}
+          >
+            {t('offer.noPackAvailableForOfferPurchase')}
+          </Alert>
+        ) : (
+          <List>
+            {props.compatiblePacks
+              .filter((pack) => !pack.disabled)
+              .map((pack) => (
+                <PaymentPackListItem
+                  showDuration
+                  hidePacksNumber
+                  onBookOne={() => {
+                    handlePackSelect(pack);
+                    if (props.offer.is_full) {
+                      setOpenConfirmation(true);
+                    } else {
+                      setVoucherDialogOpen(true);
+                    }
+                  }}
+                  onBookMultiple={
+                    props.disableMultiBooking
+                      ? undefined
+                      : () => props.onBookMultiple({ paymentPack: pack })
+                  }
+                  divider
+                  key={pack.id}
+                  pack={pack}
+                />
+              ))}
+          </List>
+        )}
+      </Collapse>
       <ModalConfirm
         open={warnManagerOnInvoice}
         options={{
@@ -402,16 +552,6 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  alertRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    '&>*': {
-      marginRight: theme.spacing(1),
-    },
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(1),
-  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -442,6 +582,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     paddingBottom: theme.spacing(1),
     borderBottom: '1px solid rgba(224, 224, 224, 1)',
+  },
+  paddingTop2: {
+    paddingTop: theme.spacing(2),
+  },
+  alert: {
+    alignItems: 'center',
   },
 }));
 

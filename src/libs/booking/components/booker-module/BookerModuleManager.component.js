@@ -1,46 +1,50 @@
 // @flow
 import React, { PureComponent } from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
+import flatten from 'lodash/flatten';
+
+import { compose, withState, withHandlers, withProps } from 'recompose';
+
+import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import { withTranslation, TFunction } from 'react-i18next';
-import { compose, withState, withHandlers, withProps } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import Dialog from '@material-ui/core/Dialog';
-import { Alert } from '@material-ui/lab';
-// import RadioGroup from '@material-ui/core/RadioGroup';
-// import Radio from '@material-ui/core/Radio';
-// import Collapse from '@material-ui/core/Collapse';
-// import ButtonBase from '@material-ui/core/ButtonBase';
-// import List from '@material-ui/core/List';
+import Alert from '@material-ui/lab/Alert';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import flatten from 'lodash/flatten';
-import Avatar from '../../../../components/Avatar.component';
-import Tooltip from '../../../../components/Tooltip.component';
-import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
-import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+import Avatar from '#components/Avatar.component';
+import Tooltip from '#components/Tooltip.component';
+import PaymentPackListItem from '#libs/payment-packs/components/PaymentPackListItem.component';
+import ConsumerPackRowItem from '#libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
 import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
 import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
+import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
+
 import {
   ConsumerPaymentPack,
   MaxoutBooking,
-} from '../../../consumer-payment-pack/types';
-import { WithIsSharedActive } from '../../../relationship/types';
+} from '#libs/consumer-payment-pack/types';
 
+import type { WithIsSharedActive } from '../../../relationship/types';
 import type { Establishment } from '../../../establishment/types';
 import type { Theme as CompanyTheme } from '../../../theme/types';
+import type { Role } from '../../../role/types';
 import type { OptionCallback } from '../../../../state/types';
-import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
-import { Role } from '#libs/role/types';
-// import OfferListItem from '#libs/offer/components/OfferListItemV2.component';
+import type { Offer } from '../../../offer/types';
+import type { PaymentPack } from '../../../payment-packs/types';
+import type { Member } from '../../../member/types';
+import type { Level, LevelFilterSet } from '../../../level/types';
 
 type Props = {
   loading: boolean,
@@ -63,7 +67,11 @@ type Props = {
     paymentPack?: PaymentPack,
     consumerPaymentPack?: ConsumerPaymentPack,
   },
-  fetchByOfferByMemberAction: () => void,
+  fetchByOfferByMemberAction: (
+    offerId: number,
+    MemberId: number,
+    options: OptionCallback,
+  ) => void,
   fetchPaymentPackBulk: (pps: Array<number>) => void,
   fetchNoncompatibleConsumerPackByOfferByMember: (
     offerId: number,
@@ -87,7 +95,6 @@ type Props = {
 
   backToRegistererChoice: () => void,
   t: TFunction,
-  fullScreen: boolean,
   onClose: () => void,
   classes: Object,
   openRecurrenceRuleForm: () => void,
@@ -113,12 +120,6 @@ type Props = {
   companyId: number,
 
   fetchGroup: (id: number, option: OptionCallback) => void,
-  // similarOfferGroup: Offer[],
-  // isBookingSimilarGroup: boolean,
-  // setIsBookingSimilarGroup: (value: boolean) => void,
-  // selectedSimilarGroupOfferIds: number[],
-  // setSelectedSimilarGroupOfferIds: (value: number[]) => void,
-  // fetchOffersInGroup: (id: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   userRole: Role,
   fetchCompanyUserRoles: () => void,
@@ -131,6 +132,9 @@ type Props = {
   resetIncompatibilitiesReasonsByOfferByConsumerPack: () => void,
   incompatibilitiesReasons: { [cpp_id: number]: number[] },
   goToPaymentPack: (pp_id: number) => void,
+  hasFetchedNonCompatiblePasses: boolean,
+  setHasFetchedNonCompatiblePasses: (hasFetch: boolean) => void,
+  nonCompatibleByOfferByMemberLoading: boolean,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -143,10 +147,13 @@ export class BookerModuleManager extends PureComponent<Props> {
       this.props.offerId,
       this.props.member.id,
       {
-        onSuccess: (cppList) => {
+        onSuccess: (consumerPaymentPacks) => {
+          if (consumerPaymentPacks.length === 0) {
+            this.handleFetchNoncompatibleConsumerPackByOfferByMember();
+          }
           this.props.fetchConsumerPaymentPackLinks(
             flatten(
-              cppList.map((cpp) =>
+              consumerPaymentPacks.map((cpp) =>
                 cpp.src_consumer_payment_pack.map((id) => id),
               ),
             ),
@@ -154,23 +161,7 @@ export class BookerModuleManager extends PureComponent<Props> {
         },
       },
     );
-    this.props.fetchNoncompatibleConsumerPackByOfferByMember(
-      this.props.offerId,
-      this.props.member.id,
-      {
-        onSuccess: (cppList) => {
-          const cpp_ids = cppList.map((cpp) => cpp.payment_pack);
-          this.props.fetchPaymentPackBulk(cpp_ids);
-          this.props.fetchConsumerPaymentPackLinks(
-            flatten(
-              cppList.map((cpp) =>
-                cpp.src_consumer_payment_pack.map((id) => id),
-              ),
-            ),
-          );
-        },
-      },
-    );
+
     this.props.fetchEstablishments();
     this.props.fetchAllEstablishmentBillingGroup();
 
@@ -179,16 +170,6 @@ export class BookerModuleManager extends PureComponent<Props> {
     this.props.resetIncompatibilitiesReasonsByOfferByConsumerPack();
 
     if (this.props.offer.group) {
-      // this.props.fetchOffersInGroup(
-      //   this.props.offer.group?.id ?? this.props.offer.group,
-      //   {
-      //     onSuccess: (offers) => {
-      //       this.props.setIsBookingSimilarGroup('true');
-      //       this.props.setSelectedSimilarGroupOfferIds(offers.map((o) => o.id));
-      //     },
-      //   },
-      // );
-
       this.props.fetchGroup(
         this.props.offer.group?.id ?? this.props.offer.group,
       );
@@ -215,6 +196,29 @@ export class BookerModuleManager extends PureComponent<Props> {
     });
   };
 
+  handleFetchNoncompatibleConsumerPackByOfferByMember = () => {
+    if (!this.props.hasFetchedNonCompatiblePasses) {
+      this.props.fetchNoncompatibleConsumerPackByOfferByMember(
+        this.props.offerId,
+        this.props.member.id,
+        {
+          onSuccess: (cppList) => {
+            this.props.setHasFetchedNonCompatiblePasses(true);
+            const cpp_ids = cppList.map((cpp) => cpp.payment_pack);
+            this.props.fetchPaymentPackBulk(cpp_ids);
+            this.props.fetchConsumerPaymentPackLinks(
+              flatten(
+                cppList.map((cpp) =>
+                  cpp.src_consumer_payment_pack.map((id) => id),
+                ),
+              ),
+            );
+          },
+        },
+      );
+    }
+  };
+
   render() {
     const {
       t,
@@ -224,23 +228,31 @@ export class BookerModuleManager extends PureComponent<Props> {
       member,
       maxoutLoading,
     } = this.props;
-    if (
-      !member ||
-      !member.id ||
-      loading ||
-      consumerPacksLoading ||
-      maxoutLoading
-    ) {
+    if (!member || !member.id || loading) {
       return (
-        <Dialog
-          fullScreen={this.props.fullScreen}
+        <GenericResponsiveDialog
           onClose={this.props.onClose}
           open
+          fullScreenBreakpoint="md"
         >
+          <LinearProgress />
           <DialogContent>
-            <CircularProgress />
+            {!!this.props.member.photo && (
+              <Avatar size="large" user={{ photo: this.props.member.photo }} />
+            )}
+            <Typography variant="h4" align="center">
+              {this.props.member?.name ?? ''}
+            </Typography>
+            <Typography variant="h6" align="center">
+              {t('offerManagement.forms.register.registerToOffer')}
+            </Typography>
+            <div className={this.props.classes.centeredLoadingContainer}>
+              <Typography variant="h5" color="textSecondary">
+                {t('offerManagement.forms.register.loadingData')}
+              </Typography>
+            </div>
           </DialogContent>
-        </Dialog>
+        </GenericResponsiveDialog>
       );
     }
 
@@ -248,11 +260,13 @@ export class BookerModuleManager extends PureComponent<Props> {
 
     return (
       <>
-        <Dialog
-          fullScreen={this.props.fullScreen}
+        <GenericResponsiveDrawer
           onClose={this.props.onClose}
           open
+          fullScreenBreakpoint="md"
+          title={t('offerManagement.forms.register.registerToOffer')}
         >
+          {(consumerPacksLoading || maxoutLoading) && <LinearProgress />}
           <DialogContent>
             <div className={this.props.classes.container}>
               {!!this.props.member.photo && (
@@ -264,9 +278,6 @@ export class BookerModuleManager extends PureComponent<Props> {
               <Typography variant="h4" align="center">
                 {this.props.member.name}
               </Typography>
-              <Typography variant="h6" align="center">
-                {t('offerManagement.forms.register.registerToOffer')}
-              </Typography>
               {hasGroup && (
                 <>
                   <Alert severity="error" variant="outlined">
@@ -274,104 +285,6 @@ export class BookerModuleManager extends PureComponent<Props> {
                       name: this.props.offer.group?.name,
                     })}
                   </Alert>
-                  {/* <RadioGroup
-                    value={this.props.isBookingSimilarGroup}
-                    onChange={(_, value) => {
-                      this.props.setIsBookingSimilarGroup(value);
-                    }}
-                  >
-                    <FormControlLabel
-                      value="true"
-                      control={<Radio />}
-                      label={t(
-                        'offerManagement.forms.register.bookMoreInGroup',
-                      )}
-                    />
-                    <Collapse in={this.props.isBookingSimilarGroup === 'true'}>
-                      <ButtonBase
-                        onClick={() =>
-                          this.props.setSelectedSimilarGroupOfferIds(
-                            this.props.similarOfferGroup
-                              .filter((o) => o.id !== this.props.offer.id)
-                              .map((o) => o.id),
-                          )
-                        }
-                        className={this.props.classes.selectOption}
-                      >
-                        <Typography variant="caption">
-                          {t('offer:liveOfferEdit.selectAll')}
-                        </Typography>
-                      </ButtonBase>
-                      <ButtonBase
-                        onClick={() =>
-                          this.props.setSelectedSimilarGroupOfferIds([])
-                        }
-                        className={this.props.classes.selectOption}
-                      >
-                        <Typography variant="caption">
-                          {t('offer:liveOfferEdit.unselectAll')}
-                        </Typography>
-                      </ButtonBase>
-                      {!(this.props.similarOfferGroup || []).length ? (
-                        <div
-                          className={this.props.classes.noSimilarOfferMessage}
-                        >
-                          <Typography variant="body">
-                            {t('offer:liveOfferEdit.noSimilarOffer')}
-                          </Typography>
-                        </div>
-                      ) : (
-                        <List component="nav">
-                          <OfferListItem
-                            similarOffer
-                            offer={this.props.offer}
-                            handleChange={() => {}}
-                            disabled
-                            checked
-                          />
-                          {this.props.similarOfferGroup.map((so) => (
-                            <OfferListItem
-                              key={so.id}
-                              similarOffer
-                              offer={so}
-                              handleChange={() => {
-                                const indexOf =
-                                  this.props.selectedSimilarGroupOfferIds.indexOf(
-                                    so.id,
-                                  );
-                                if (indexOf === -1) {
-                                  this.props.setSelectedSimilarGroupOfferIds([
-                                    ...this.props.selectedSimilarGroupOfferIds,
-                                    so.id,
-                                  ]);
-                                  return;
-                                }
-                                this.props.setSelectedSimilarGroupOfferIds([
-                                  ...this.props.selectedSimilarGroupOfferIds.splice(
-                                    0,
-                                    indexOf,
-                                  ),
-                                  ...this.props.selectedSimilarGroupOfferIds.splice(
-                                    indexOf + 1,
-                                  ),
-                                ]);
-                              }}
-                              checked={this.props.selectedSimilarGroupOfferIds.includes(
-                                so.id,
-                              )}
-                            />
-                          ))}
-                        </List>
-                      )}
-                    </Collapse>
-                    <FormControlLabel
-                      value="false"
-                      control={<Radio />}
-                      label={t(
-                        'offerManagement.forms.register.bookSingleInGroup',
-                      )}
-                    />
-                  </RadioGroup> */}
                 </>
               )}
               <Divider />
@@ -454,6 +367,9 @@ export class BookerModuleManager extends PureComponent<Props> {
                     this.props.consumerPacksNonCompatible
                   }
                   consumerPacks={this.props.consumerPacks}
+                  consumerPacksOrMaxoutLoading={
+                    consumerPacksLoading || maxoutLoading
+                  }
                   onBookMultiple={this.props.setRegistererObject}
                   registerToOffer={(
                     registererObject,
@@ -482,6 +398,15 @@ export class BookerModuleManager extends PureComponent<Props> {
                   isNotAllowedToOverbook={
                     !this.props.userRole?.has_booking_override_control
                   }
+                  containerHasFetchedNonCompatiblePasses={
+                    this.props.hasFetchedNonCompatiblePasses
+                  }
+                  handleFetchNoncompatibleConsumerPackByOfferByMember={
+                    this.handleFetchNoncompatibleConsumerPackByOfferByMember
+                  }
+                  nonCompatibleByOfferByMemberLoading={
+                    this.props.nonCompatibleByOfferByMemberLoading
+                  }
                   fetchIncompatibilitiesReasonsByOfferByConsumerPack={
                     this.props
                       .fetchIncompatibilitiesReasonsByOfferByConsumerPack
@@ -508,7 +433,7 @@ export class BookerModuleManager extends PureComponent<Props> {
               </Button>
             </div>
           </DialogContent>
-        </Dialog>
+        </GenericResponsiveDrawer>
         <BookerModuleWarningTagDialog
           open={this.props.tagWarningDialogOpen}
           onConfirm={() => this.props.setTagWarningDialogOpen(false)}
@@ -559,6 +484,13 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
+  centeredLoadingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
 });
 
 export default compose(
@@ -571,12 +503,11 @@ export default compose(
   withState('keep_credits', 'setKeepCredits', false),
   withState('memberDetail', 'setMemberDetail', {}),
   withState('tagWarningDialogOpen', 'setTagWarningDialogOpen', false),
-  // withState('isBookingSimilarGroup', 'setIsBookingSimilarGroup', 'false'),
-  // withState(
-  //   'selectedSimilarGroupOfferIds',
-  //   'setSelectedSimilarGroupOfferIds',
-  //   [],
-  // ),
+  withState(
+    'hasFetchedNonCompatiblePasses',
+    'setHasFetchedNonCompatiblePasses',
+    false,
+  ),
   withHandlers({
     backToRegistererChoice:
       ({ setRegistererObject, setStep }) =>
@@ -626,11 +557,18 @@ export default compose(
       fetchPaymentPackBulk,
       fetchConsumerPaymentPackMaxoutBooking,
     }) => ({
-      fetchByOfferByMemberAction: (offer, member) => {
+      fetchByOfferByMemberAction: (
+        offer,
+        member,
+        options: OptionCallback<ConsumerPaymentPack[]>,
+      ) => {
         fetchByOfferByMemberAction(offer, member, {
-          onSuccess: (cppList) => {
-            const pp_ids = cppList.map((cpp) => cpp.payment_pack);
-            const cpp_ids = cppList.map((cpp) => cpp.id);
+          onSuccess: (customerPaymentPacks) => {
+            if (options && options.onSuccess) {
+              options.onSuccess(customerPaymentPacks);
+            }
+            const pp_ids = customerPaymentPacks.map((cpp) => cpp.payment_pack);
+            const cpp_ids = customerPaymentPacks.map((cpp) => cpp.id);
             fetchPaymentPackBulk(pp_ids);
             fetchConsumerPaymentPackMaxoutBooking(cpp_ids);
           },

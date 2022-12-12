@@ -13519,8 +13519,16 @@
     "replacement": {
         "replacementStatus": {
             "description": {
-                "description": "Los estatutos te permiten ver el estado de tu solicitud."
-            }
+                "description": "Los estatutos te permiten ver el estado de tu solicitud.",
+                "approvedWithReplacementPropositions": "registros en progreso.",
+                "approvedButNoReplacementPropositions": "esperando registros.",
+                "pendingForApproval": "esperando una acción del director."
+            },
+            "teacherFound": "Sustituida",
+            "approvedWithReplacementPropositions": "En proceso",
+            "approvedButNoReplacementPropositions": "Abierta",
+            "deniedByManager": "Rechazada",
+            "pendingForApproval": "Esperando validación"
         },
         "noListItem": {
             "calendar": "No hay sesiones programadas en estas fechas",
@@ -13585,6 +13593,92 @@
             "helperTextNotLimited": "Todas las solicitudes de sustitución realizadas {{count}} día anterior a la sesión se considerarán tardías.",
             "helperTextNotLimited_plural": "Todas las solicitudes de sustitución realizadas en los {{count}} días anteriores a la sesión se considerarán tardías.",
             "title": "Mi calendario"
+        },
+        "disciplineGroup": {
+            "delete": {
+                "description": "¿Estás seguro de que quieres eliminar el grupo de disciplina {{nombre}}?",
+                "title": "Borrar"
+            },
+            "coaches": "{{count}} Profesor",
+            "coaches_plural": "{{count}} Profesores",
+            "categories": "Categorías ({{number}})",
+            "workshops": "Talleres ({{number}})",
+            "activities": "Actividades ({{number}})",
+            "title": "Grupos de disciplina",
+            "add": "Añadir un grupo"
+        },
+        "selects": {
+            "category": "Categoría",
+            "closedStatus": "Estado del registro",
+            "lateStatus": "Estado de la solicitud"
+        },
+        "coachAnswers": {
+            "refuse": {
+                "confirm": "Confirmar",
+                "cancel": "Cerrar",
+                "description": "¿Estás seguro de que quieres rechazar esta solicitud?"
+            },
+            "success": {
+                "close": "Cerrar",
+                "description": "El profesor ha sido sustituido. {{coach}} dará la clase el {{-date}} a las {{time}}",
+                "requestSent": "Profesor asignado"
+            },
+            "confirmation": {
+                "confirm": "Confirmar",
+                "cancel": "Cancelar",
+                "description": "¿Estás seguro de que quieres inscribir a {{coach_override}} como profesor sustituto en la clase de {{coach}}?",
+                "title": "Asignar un profesor"
+            },
+            "noAnswers": "Aún no hay respuesta",
+            "close": "Cerrar",
+            "attribute": "Asignar",
+            "reason": "Motivo de la solicitud",
+            "closing_date": "Fecha de cierre",
+            "header": {
+                "action": "Acción",
+                "answer": "Respuesta",
+                "teacher": "Profesor"
+            }
+        },
+        "registrationsStatus": {
+            "areNotClosed": "Abiertas",
+            "areClosed": "Cerradas"
+        },
+        "lateStatus": {
+            "isNotLate": "A tiempo",
+            "isLate": "Tarde"
+        },
+        "delete": {
+            "confirm": "Confirmar",
+            "cancel": "Cancelar",
+            "description": "¿Estás seguro de que quieres cancelar esta solicitud?",
+            "title": "Cancelar la solicitud"
+        },
+        "askForClosingDateExtension": {
+            "close": "Cerrar",
+            "requestSentDescription": "La extensión se ha añadido a la aplicación de sustitución.",
+            "requestSent": "Solicitud enviada",
+            "submit": "Validar",
+            "cancel": "Cancelar",
+            "new_closing_date": "La nueva fecha de cierre será el {{closing_date}} a las {{time}}",
+            "closing_date": "Fecha de cierre",
+            "description": "La inscripción para esta solicitud se cerró el {{closing_date}}. Si no hay suficientes respuestas a esta solicitud, aún puedes cambiar la fecha de cierre.",
+            "title": "Fecha de cierre"
+        },
+        "askForReplacement": {
+            "lateRequestInfo": "La solicitud se registrará, pero asegúrate de ponerte en contacto directamente con tu estudio para avisarles lo antes posible.",
+            "lateRequestInfo_plural": "Las solicitudes se registrarán, pero asegúrate de ponerte en contacto directamente con tu estudio para avisarles lo antes posible.",
+            "lateRequestTypo": "Ten en cuenta que tu solicitud de sustitución llega tarde. Tienes {{daysBeforeOffer}} días antes del inicio de la clase para hacer tu solicitud a tiempo.",
+            "lateRequestTypo_plural": "Ten en cuenta que algunas de tus solicitudes de sustitución llegan tarde. Tienes {{daysBeforeOffer}} días antes del inicio de la clase para hacer tu solicitud a tiempo.",
+            "close": "Cerrar",
+            "requestSentDescription": "Tu solicitud de sustitución ha sido considerada. Ve a la pestaña \"Mis solicitudes\" para seguir su evolución.",
+            "requestSentDescription_plural": "Tus solicitudes de sustitución ha sido considerada. Ve a la pestaña \"Mis solicitudes\" para seguir sus evolución.",
+            "requestSent": "Solicitud enviada",
+            "requestSent_plural": "Solicitudes enviadas",
+            "submit": "Enviar",
+            "cancel": "Cancelar",
+            "label": "Motivo de la ausencia",
+            "title": "Solicitar una sustitución"
         }
     }
 }

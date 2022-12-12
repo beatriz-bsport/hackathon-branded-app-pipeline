@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { compose } from 'recompose';
+
 import Select, { components } from 'react-select';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
@@ -67,6 +68,7 @@ const tagGroupStyles = {
     backgroundColor: 'white',
     paddingTop: '4px',
     paddingBottom: '4px',
+    zIndex: 1,
   }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (
@@ -112,18 +114,28 @@ const tagGroupStyles = {
     },
   }),
 };
+
 const MultiValueContainer = ({ ...props }) => (
+  /* eslint-disable */
   <components.MultiValueContainer {...props}>
-    {props?.data.tag && (
-      <TagChip
-        tag={props?.data.tag}
-        onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
-        size="small"
-      />
-    )}
+    <div
+      onMouseDown={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
+      /* eslint-enable */
+    >
+      {props?.data.tag && (
+        <TagChip
+          tag={props?.data.tag}
+          onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
+          size="small"
+          deleteOnClick
+        />
+      )}
+    </div>
   </components.MultiValueContainer>
 );
-
+const MultiValue = ({ ...props }) => {
+  return <components.MultiValue {...props} />;
+};
 const SingleValue = ({ ...props }) => {
   return (
     <components.SingleValue {...props}>
@@ -138,9 +150,7 @@ const SingleValue = ({ ...props }) => {
   );
 };
 
-const DropdownIndicator = (
-  props: ReturnType<typeof components.DropdownIndicator>,
-) => {
+const DropdownIndicator = ({ ...props }) => {
   return (
     <components.DropdownIndicator {...props}>
       {props.selectProps.isDisabled ? (
@@ -186,11 +196,13 @@ const getTagGroupedByTagGroup = (tag_list: Array<Tag>) => {
 };
 
 type OwnProps = {
-  onChange: (options: {
-    label: string;
-    value: number;
-    tag: Tag<TagGroup>;
-  }) => void;
+  onChange: (
+    options: Array<{
+      label: string;
+      value: number;
+      tag: Tag<TagGroup>;
+    }>,
+  ) => void;
   onDeleteTag: (optionId: number) => void;
   isDisabled: boolean;
   placeholder?: string;
@@ -201,9 +213,10 @@ type OwnProps = {
   allTagsWithTagGroup: Array<Tag>;
   inScrollBar: boolean;
   menuPlacement: 'auto' | 'top';
+  noSpaceBelow?: boolean;
 };
 
-type Props = WithTranslation & OwnProps;
+export type Props = WithTranslation & OwnProps;
 export function TagSelector(props: Props) {
   const { t } = props;
   const {
@@ -236,12 +249,13 @@ export function TagSelector(props: Props) {
           )}
           onChange={onChange}
           value={tagsOptionsSelected}
-          menuPortalTarget={document.querySelector(`#selector_${uuid.current}`)}
+          menuPortalTarget={document.getElementById(`selector_${uuid.current}`)}
           isDisabled={isDisabled}
           components={{
             SingleValue,
             DropdownIndicator,
             MultiValueContainer,
+            MultiValue,
           }}
           placeholder={placeholder || t('select')}
           isMulti={!noMulti}

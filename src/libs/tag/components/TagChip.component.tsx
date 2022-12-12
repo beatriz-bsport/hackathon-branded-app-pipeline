@@ -23,8 +23,8 @@ const newTheme = (color: string) =>
   });
 
 export const TagChip = (props: Props) => {
-  const { tag, onDelete, onClick, variant, size } = props;
-  const classes = useStyle();
+  const { tag, onDelete, onClick, variant, size, deleteOnClick } = props;
+  const classes = useStyle({ deleteOnClick });
   const companyTheme = useTheme();
   const theme = tag?.color ? newTheme(tag?.color) : companyTheme;
 
@@ -32,13 +32,14 @@ export const TagChip = (props: Props) => {
     <MuiThemeProvider theme={theme}>
       <Chip
         classes={{
+          root: classes.root,
           avatar: classes.avatar,
         }}
         label={`${tag?.group?.name} : ${tag?.name}`}
         size={size || 'medium'}
         color="primary"
         onDelete={onDelete}
-        onClick={onClick}
+        onClick={deleteOnClick ? onDelete : onClick}
         avatar={
           tag?.icon ? (
             <Avatar>
@@ -48,12 +49,13 @@ export const TagChip = (props: Props) => {
         }
         variant={variant || 'default'}
         className={classes.chip}
+        clickable
       />
     </MuiThemeProvider>
   );
 };
 
-const useStyle = makeStyles((theme: Theme) => ({
+const useStyle = makeStyles<Theme, { deleteOnClick: boolean }>((theme) => ({
   icon: {
     width: theme.spacing(2),
     height: theme.spacing(2),
@@ -72,6 +74,7 @@ type OwnProps = {
   variant?: 'default' | 'outlined';
   onClick?: () => void;
   size?: 'small' | 'medium';
+  deleteOnClick?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;

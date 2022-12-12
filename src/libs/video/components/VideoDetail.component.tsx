@@ -207,7 +207,7 @@ export class VideoDetail extends Component<Props, State> {
                 }
                 decrementCredit={() =>
                   this.props.decrementCredit(
-                    this.state.selectedVideoPurchase.consumer_payment_pack.id,
+                    selectedVideoPurchase.consumer_payment_pack.id,
                   )
                 }
               />

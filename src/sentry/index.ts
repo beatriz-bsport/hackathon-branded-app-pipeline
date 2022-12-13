@@ -2,10 +2,10 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { Replay } from '@sentry/replay';
 
-import Config from './config';
-import RELEASE_SHA from './release-sha';
-import { setSessionId } from './sentry/session';
-import history from './history';
+import Config from '../config';
+import RELEASE_SHA from '../release-sha';
+import { setSessionId } from './session';
+import history from '../history';
 
 const exceptionMessageRegexpToIgnore = [
   /Loading chunk /i,

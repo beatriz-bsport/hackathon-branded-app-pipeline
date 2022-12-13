@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
+import { Replay } from '@sentry/replay';
 
 import Config from './config';
 import RELEASE_SHA from './release-sha';
@@ -26,7 +27,11 @@ Sentry.init({
     new Integrations.BrowserTracing({
       routingInstrumentation: Sentry.reactRouterV5Instrumentation(history),
     }),
+    new Replay(),
   ],
+  replaysSessionSampleRate:
+    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? 0.1 : 1.0,
+  replaysOnErrorSampleRate: 1.0,
   tracesSampleRate: 0.01,
   beforeSend(event, hint) {
     const error = hint.originalException;

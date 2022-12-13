@@ -189,16 +189,20 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
     if (selectedOffers.includes(offer.id)) {
       setSelectedOffers(selectedOffers.filter((id) => id !== offer.id));
 
-      if (isLateRequest)
-        setInteractiveNbLateRequestsLeft(interactiveNbLateRequestsLeft + 1);
-      setNbLateRequestsToBeCreated(nbLateRequestsToBeCreated - 1);
+      if (isLateRequest) {
+        lateReplacementRequestStatus?.is_late_replacement_request_limited &&
+          setInteractiveNbLateRequestsLeft(interactiveNbLateRequestsLeft + 1);
+        setNbLateRequestsToBeCreated(nbLateRequestsToBeCreated - 1);
+      }
     } else {
       const _selectedOffers = [...selectedOffers];
       _selectedOffers.push(offer.id);
       setSelectedOffers(_selectedOffers);
-      if (isLateRequest)
-        setInteractiveNbLateRequestsLeft(interactiveNbLateRequestsLeft - 1);
-      setNbLateRequestsToBeCreated(nbLateRequestsToBeCreated + 1);
+      if (isLateRequest) {
+        lateReplacementRequestStatus?.is_late_replacement_request_limited &&
+          setInteractiveNbLateRequestsLeft(interactiveNbLateRequestsLeft - 1);
+        setNbLateRequestsToBeCreated(nbLateRequestsToBeCreated + 1);
+      }
     }
   };
 

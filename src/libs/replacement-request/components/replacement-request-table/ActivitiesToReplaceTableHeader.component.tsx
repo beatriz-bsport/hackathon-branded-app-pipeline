@@ -177,8 +177,10 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
   return (
     <TableHead>
       <TableRow>
-        {replacementDisplay ===
-        ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS ? (
+        {[
+          ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS,
+          ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE,
+        ].includes(replacementDisplay) ? (
           <TableCell>
             <Typography align="left" className={classes.weight500}>
               {t('header.class')}

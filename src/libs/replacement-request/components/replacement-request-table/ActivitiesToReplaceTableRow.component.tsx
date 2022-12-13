@@ -326,8 +326,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
   return (
     <>
       <TableRow key={replacementRequest.id}>
-        {replacementDisplay ===
-        ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS ? (
+        {[
+          ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS,
+          ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE,
+        ].includes(replacementDisplay) ? (
           <TableCell className={classes.tableCell}>
             <Typography variant="subtitle1" className={classes.weight500}>
               {replacementRequest.offer?.meta_activity?.name}

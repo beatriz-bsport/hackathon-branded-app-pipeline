@@ -23,9 +23,13 @@ exports.default = {
       },
       [WAITING_LIST_DYNAMIC_ORDERED]: {
         label: 'Chacun son tour',
-        settingsDelay: "Délai pour s'inscrire",
+        settingsDelay: 'Délai entre les relances',
         explain:
           "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour",
+        overallExplainSimple:
+          'Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ dumb_delay_minutes }} minutes pour s’inscrire avant de laisser sa place à l’élève suivant.',
+        overallExplainSmart:
+          "Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ smart_delay_percentage }}% du temps restant avant le début de la séance pour s’inscrire. Par exemple, s'il reste {{ example_hours_before }}h avant la séance, il dispose de {{ example_computed_delay_one }} minutes pour s’inscrire puis de {{ example_computed_delay_two }} minutes après la première relance, et ainsi de suite, avant de laisser sa place à l’élève suivant.",
       },
     },
     autokick_delay: {
@@ -47,8 +51,6 @@ exports.default = {
     },
     dumb_delay_minutes: {
       label: 'Gestion simple',
-      helper:
-        "Si une place se libère, l'élève dispose de N minutes pour s'inscrire, avant que le prochain ne prenne sa place.",
     },
     smart_delay_percentage: {
       label: 'Gestion intelligente',

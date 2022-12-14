@@ -1,7 +1,11 @@
 // @flow
-
 import React, { Component } from 'react';
 
+import { compose } from 'recompose';
+
+import { withTranslation, TFunction } from 'react-i18next';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -13,10 +17,7 @@ import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import withStyles from '@material-ui/core/styles/withStyles';
-
-import { withTranslation, TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import Alert from '@material-ui/lab/Alert';
 import {
   WAITING_LIST_AUTO_CANCELLATION_DUMB,
   WAITING_LIST_AUTO_CANCELLATION_SMART,
@@ -25,9 +26,9 @@ import {
   WAITING_LIST_DYNAMIC_UNORDERED,
   WAITING_LIST_DYNAMIC_ORDERED,
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
-import type { WaitingListConfiguration } from '../types';
-
 import NumericInput from '../../../components/input/NumericInput.component';
+
+import type { WaitingListConfiguration } from '../types';
 
 type Props = {
   t: TFunction,
@@ -84,35 +85,6 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     this.props.onSubmit({ ...this.state.configuration });
   };
 
-  computeExample = () => {
-    const nbMinutesBeforeOffer = 180;
-    if (
-      this.state.configuration.auto_cancellation_type ===
-      WAITING_LIST_AUTO_CANCELLATION_DUMB.id
-    ) {
-      return {
-        nbMinutesBeforeOffer,
-        nbMinutesBeforeBookingOptionExpire:
-          this.state.configuration.dumb_delay_minutes || 180,
-      };
-    }
-    if (
-      this.state.configuration.auto_cancellation_type ===
-      WAITING_LIST_AUTO_CANCELLATION_SMART.id
-    ) {
-      return {
-        nbMinutesBeforeOffer,
-        nbMinutesBeforeBookingOptionExpire: parseInt(
-          (this.state.configuration.smart_delay_percentage *
-            nbMinutesBeforeOffer) /
-            100 || 0,
-          10,
-        ),
-      };
-    }
-    return {};
-  };
-
   renderUnorderedForm = () => {
     return (
       <div className={this.props.classes.row}>
@@ -126,10 +98,44 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     );
   };
 
+  generateAlertInfoContent = () => {
+    const { t } = this.props;
+    if (
+      this.state.configuration.auto_cancellation_type ===
+      WAITING_LIST_AUTO_CANCELLATION_DUMB.id
+    ) {
+      return t(
+        `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSimple`,
+        {
+          autokick_delay: this.state.configuration.autokick_delay,
+          dumb_delay_minutes: this.state.configuration.dumb_delay_minutes,
+        },
+      );
+    }
+    const exampleHoursBefore = 3;
+    const exampleComputedDelayOne = (
+      exampleHoursBefore *
+      60 *
+      (this.state.configuration.smart_delay_percentage / 100)
+    ).toFixed(0);
+    const exampleComputedDelayTwo = (
+      (exampleHoursBefore * 60 - exampleComputedDelayOne) *
+      (this.state.configuration.smart_delay_percentage / 100)
+    ).toFixed(0);
+    return t(
+      `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSmart`,
+      {
+        autokick_delay: this.state.configuration.autokick_delay,
+        smart_delay_percentage: this.state.configuration.smart_delay_percentage,
+        example_hours_before: 3,
+        example_computed_delay_one: exampleComputedDelayOne,
+        example_computed_delay_two: exampleComputedDelayTwo,
+      },
+    );
+  };
+
   renderOrderedForm = () => {
     const { classes, t } = this.props;
-    const { nbMinutesBeforeOffer, nbMinutesBeforeBookingOptionExpire } =
-      this.computeExample();
     return (
       <div>
         <div className={classes.row}>
@@ -195,6 +201,9 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           <legend>
             {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.settingsDelay`)}
           </legend>
+          <Alert severity="info" variant="outlined" className={classes.alert}>
+            {this.generateAlertInfoContent()}
+          </Alert>
           <div className={classes.field}>
             <FormControlLabel
               control={
@@ -216,7 +225,6 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               label={t('form.dumb_delay_minutes.label')}
             />
             <NumericInput
-              helperText={t('form.dumb_delay_minutes.helper')}
               InputProps={{
                 inputProps: { min: 15, step: 1, max: 32000 },
                 endAdornment: (
@@ -256,7 +264,6 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               label={t('form.smart_delay_percentage.label')}
             />
             <NumericInput
-              helperText={t('form.smart_delay_percentage.helper')}
               fullWidth={false}
               value={this.state.configuration.smart_delay_percentage}
               InputProps={{
@@ -273,12 +280,6 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 )
               }
             />
-            <Typography className={classes.explainWaitingListConf}>
-              {t('explainWaitingListConf', {
-                nbMinutesBeforeOffer,
-                nbMinutesBeforeBookingOptionExpire,
-              })}
-            </Typography>
           </div>
         </fieldset>
       </div>
@@ -378,6 +379,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    width: '70%',
   },
   formControl: {
     paddingBottom: theme.spacing(2),
@@ -417,6 +419,10 @@ const styles = (theme) => ({
     borderRadius: theme.spacing(2),
     border: '1px solid #F3F3F3',
     padding: theme.spacing(2),
+    width: '100%',
+  },
+  alert: {
+    alignItems: 'center',
   },
 });
 

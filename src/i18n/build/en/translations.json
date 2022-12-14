@@ -898,7 +898,8 @@
                     "doNotConsumeCredit": "Don't charge any credits for this booking",
                     "bookSingleInGroup": "Exclusively book this session",
                     "bookMoreInGroup": "Book other events",
-                    "groupWarning": "This session is associated to an event ({{ name }})."
+                    "groupWarning": "This session is associated to an event ({{ name }}).",
+                    "loadingData": "Loading booking data"
                 }
             }
         },
@@ -1721,7 +1722,8 @@
                 "title": "Restore session"
             },
             "unpaidInvoices": "Unpaid invoices",
-            "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings"
+            "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
+            "noInConsumerPackAvailableForPurchase": "This member doesn't own any compatible pass for this booking."
         },
         "pagination": {
             "outOf": " out of ",
@@ -5118,7 +5120,7 @@
                     },
                     "daysBeforeReplacementClosing": {
                         "interval": "Interval",
-                        "every": "All the",
+                        "every": "Every",
                         "description": "Substitution requests made {{count}} day or more before the start of the session will be indicated as late.",
                         "description_plural": "Substitution requests made {{count}} days or more before the start of the session will be indicated as late.",
                         "helperText": "Closing requests for substitutions",
@@ -6547,6 +6549,17 @@
                 "name": "Pop-up name",
                 "updated": "Update",
                 "add": "Add pop-up"
+            }
+        },
+        "company": {
+            "bankAccountInfo": {
+                "link": "here",
+                "content": "This account corresponds to the account on which the online payments via Bsport will be credited. To configure the payment method on which your Bsport subscription will be charged, click"
+            },
+            "bankAccountSuccess": {
+                "note": "Click on \"Configure\" to be redirected.",
+                "content": "Your banking information was well updated. To be credited and charged on a single account, you can also update the payment method used to charge your Bsport subscription.",
+                "title": "Change of bank details"
             }
         }
     },
@@ -13178,7 +13191,11 @@
                 "createCard": "Add a card",
                 "createSepa": "Add IBAN"
             },
-            "sectionTitle": "Payment method"
+            "sectionTitle": "Payment method",
+            "info": {
+                "link": "here",
+                "content": "Your Bsport subscription will be charged to the payment method indicated below. To configure the account on which the online payments via Bsport will be credited, click"
+            }
         },
         "platformInvoice": {
             "noInvoice": "There are no invoices to display.",
@@ -14582,8 +14599,8 @@
     },
     "replacement": {
         "header": {
-            "establishment_group": "Establishment",
-            "location": "Location",
+            "establishment_group": "Location",
+            "location": "Establishment",
             "class": "Session",
             "registrations": "Registrations",
             "request": "Request",
@@ -14616,10 +14633,10 @@
             "title": "Request a substitution"
         },
         "calendar": {
-            "helperTextLimited": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} day of the session will be considered late.",
-            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} days of the session will be considered late.",
-            "helperTextNotLimited": "All requests for substitutions made within {{count}} day of the session will be considered late.",
-            "helperTextNotLimited_plural": "All requests for substitutions made within {{count}} days of the session will be considered late.",
+            "helperTextLimited": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} day before the start of the session will be considered late.",
+            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} days before the start of the session will be considered late.",
+            "helperTextNotLimited": "All requests for substitutions made within {{count}} day before the start of the session will be considered late.",
+            "helperTextNotLimited_plural": "All requests for substitutions made within {{count}} days before the start of the session will be considered late.",
             "description": "Find here all your group activities.",
             "title": "My schedule"
         },

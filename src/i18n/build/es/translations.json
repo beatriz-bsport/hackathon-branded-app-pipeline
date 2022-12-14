@@ -212,7 +212,8 @@
                 "title": "Restablecer la sesión"
             },
             "unpaidInvoices": "Facturas sin pagar",
-            "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)"
+            "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)",
+            "noInConsumerPackAvailableForPurchase": "Este miembro no tiene ninguno bonos incompatible."
         },
         "shop": {
             "supplier_price": "Precio proveedor",
@@ -1089,7 +1090,8 @@
                     "doNotConsumeCredit": "No deducir créditos a los miembros para registrarse",
                     "bookSingleInGroup": "Inscribir sólo en esta sesión",
                     "bookMoreInGroup": "Inscribir en otras sesiones de grupo",
-                    "groupWarning": "Esta sesión forma parte del grupo de sesiones {{ name }}"
+                    "groupWarning": "Esta sesión forma parte del grupo de sesiones {{ name }}",
+                    "loadingData": "Carga de los datos de reserva"
                 }
             }
         },
@@ -2146,7 +2148,8 @@
             "role": "Staff",
             "notificationRule": "Emails transaccionales",
             "broadcast": "Videoconferencia",
-            "general": "General"
+            "general": "General",
+            "coachUserspace": "Área de profesores"
         },
         "active_campaign": {
             "link": {
@@ -2398,6 +2401,17 @@
                 "image": "Imagen"
             },
             "title": "Personalización de la app"
+        },
+        "company": {
+            "bankAccountInfo": {
+                "link": "aquí",
+                "content": "Esta cuenta corresponde a la cuenta en la que se acreditarán los pagos en línea a través de Bsport. Para configurar el medio de pago en el que se cargará su suscripción Bsport, haga clic"
+            },
+            "bankAccountSuccess": {
+                "note": "Haga clic en \"Configurar\" para ser redirigido.",
+                "content": "Tus datos bancarios fueron bien actualizados. Para que se le acredite y cargue en una sola cuenta, también puede actualizar el método de pago utilizado para cargar su abono Bsport.",
+                "title": "Modificación de datos bancarios"
+            }
         }
     },
     "datetime": {
@@ -4476,7 +4490,11 @@
                 "trimester": "Últimos tres meses",
                 "month": "El mes pasado",
                 "week": "Semana pasada",
-                "today": "Hoy"
+                "today": "Hoy",
+                "next_year": "Próximo año",
+                "next_week": "Próxima semana",
+                "next_month": "Próximo mes",
+                "next_trimester": "Próximos tres meses"
             },
             "rapidChoice": "Elección rápida",
             "end": "Final",
@@ -7780,6 +7798,56 @@
                     "helperText": "Al registrarse, tus miembros recibirán un correo electrónico para confirmar su dirección de correo electrónico, su cuenta no se activará hasta que este correo haya sido confirmado",
                     "label": "Confirmación del correo electrónico en el registro",
                     "title": "Registro"
+                },
+                "coachUserspace": {
+                    "requestLimitationPeriods": {
+                        "placeholder": "Selecciona un periodo",
+                        "year": "Años",
+                        "month": "Mes",
+                        "week": "Semanas"
+                    },
+                    "errors": {
+                        "restrictionToggles": "Selecciona al menos una opción"
+                    },
+                    "maxNbRequestPerPeriod": {
+                        "recap": {
+                            "3": "Cada {{nbPeriods}} años tus profesores pueden hacer un máximo de {{nbRequests}} solicitudes fuera de plazo. Una vez superado este número, no podrán realizar más solicitudes tardías hasta el final del periodo.",
+                            "2": "Cada {{nbPeriods}} meses tus profesores pueden hacer un máximo de {{nbRequests}} solicitudes fuera de plazo. Una vez superado este número, no podrán realizar más solicitudes tardías hasta el final del periodo.",
+                            "1": "Cada {{nbPeriods}} semanas tus profesores pueden hacer un máximo de {{nbRequests}} solicitudes fuera de plazo. Una vez superado este número, no podrán realizar más solicitudes tardías hasta el final del periodo."
+                        },
+                        "helperText": "Número máximo de solicitudes tardías"
+                    },
+                    "isLateReplacementRequestLimited": "Límite de solicitudes tardías",
+                    "daysBeforeReplacementClosingAcceptance": {
+                        "description": "Tus profesores ya no podrán aceptar ser sustitutos en una clase {{count}} día antes de que comience el curso.",
+                        "description_plural": "Tus profesores ya no podrán aceptar ser sustitutos en una clase {{count}} días antes de que comience el curso.",
+                        "helperText": "Fecha límite para las inscripciones de sustitución",
+                        "placeholder": "Número de días"
+                    },
+                    "daysBeforeReplacementClosing": {
+                        "interval": "Intervalo",
+                        "every": "Toda(s) las",
+                        "description": "Las solicitudes de sustitución realizadas a partir del {{count}} día anterior al inicio de la clase se considerarán retrasadas.",
+                        "description_plural": "Las solicitudes de sustitución efectuadas {{count}} días o más antes del inicio de la clase serán calificadas como tardías.",
+                        "helperText": "Cierre de las solicitudes de sustitución",
+                        "placeholder": "Número de días"
+                    },
+                    "daysBeforeRequestIsLate": {
+                        "description": "Las solicitudes de sustitución realizadas con menos de {{count}} día de antelación al inicio de la clase serán calificadas como tardías.",
+                        "description_plural": "Las solicitudes de sustitución realizadas con menos de {{count}} días de antelación al inicio del curso serán calificadas como tardías.",
+                        "helperText": "Solicitud tardía",
+                        "placeholder": "Número de días"
+                    },
+                    "replacementSettings": "Parámetros de sustitución",
+                    "enableReplacement": "Sustitución",
+                    "enableRemuneration": "Remuneración",
+                    "enableSchedule": "Horario",
+                    "restrictionsDescription": "Indica a qué pestañas tendrán acceso tus profesores",
+                    "restrictions": "Restricciones",
+                    "enableDescription": "Al activar esta función, todos tus nuevos profesores tendrán el acceso activado por defecto",
+                    "enable": "Activar el área de profesores por defecto",
+                    "access": "Acceso",
+                    "description": "Personalizar el área de profesores en la web. Ten en cuenta que los ajustes realizados aquí no afectan al área de profesores de la aplicación."
                 }
             },
             "submit": "Guardar",
@@ -8170,6 +8238,9 @@
                     },
                     "subscription": {
                         "_label": "Suscripción a bsport"
+                    },
+                    "coachUserspace": {
+                        "_label": "Área de profesores"
                     }
                 },
                 "reporting": {
@@ -8284,6 +8355,9 @@
                     },
                     "programs": {
                         "_label": "Programas"
+                    },
+                    "replacement": {
+                        "_label": "Sustitución"
                     }
                 },
                 "schedule": {
@@ -9563,7 +9637,8 @@
             "2016": "Su tarjeta de curso ya no le permite reservar este mes",
             "2017": "Su tarjeta de curso ya no le permite reservar este año",
             "45005": "La tarjeta regalo ya no está a la venta.",
-            "45004": "La tarjeta regalo ya no está a la venta."
+            "45004": "La tarjeta regalo ya no está a la venta.",
+            "10001": "Stock insuficiente"
         },
         "paymentRuleGroups": {
             "update": {
@@ -9750,6 +9825,49 @@
         "communicationv2": {
             "error": "Problema al enviar la comunicación",
             "success": "Comunicación que se está enviando"
+        },
+        "replacement": {
+            "errors": {
+                "500004": "Ya eres sustituto en esta sesión",
+                "500001": "Ya existe una solicitud de sustitución",
+                "80003": "Faltan parámetros para los límites de solicitud tardía.",
+                "80002": "El valor \"Número de días de retraso de la solicitud\" debe ser mayor que el valor \"Número de días de cierre de la inscripción\".",
+                "50020": "Esta solicitud de sustitución ha sido rechazada: imposible de suprimir",
+                "50015": "No puedes satisfacer tu propia solicitud de sustitución",
+                "50013": "Ya no puedes responder a esta solicitud de sustitución.",
+                "50000": "Esta sesión ya ha pasado",
+                "50012": "Este profesor respondió que no deseaba ser sustituto en esta sesión.",
+                "50011": "Ya se ha asignado un profesor para esta solicitud.",
+                "50010": "No puedes cancelar esta solicitud porque ya se ha asignado un profesor.",
+                "50009": "No puedes rechazar esta solicitud porque ya se haya asignado un profesor.",
+                "50008": "La fecha de cierre no puede moverse después de la fecha de la sesión.",
+                "50007": "Imposible crear estas solicitudes de sustitución: no te quedan suficientes solicitudes atrasadas."
+            },
+            "cancelReplacementRequest": {
+                "error": "Se ha producido un error al eliminar la solicitud.",
+                "success": "Se ha suprimido la solicitud de sustitución."
+            },
+            "updateCoachReplacementPreferences": {
+                "error": "Imposible guardar las reglas",
+                "success": "Reglas guardadas"
+            },
+            "assignDisciplineGroup": {
+                "success": "Se ha actualizado el grupo de disciplinas del profesor"
+            },
+            "disciplineGroup": {
+                "delete": {
+                    "error": "No se puede suprimir este grupo de disciplina",
+                    "success": "Grupo de disciplinas suprimido"
+                },
+                "update": {
+                    "error": "Se ha producido un error al editar el grupo de disciplinas",
+                    "success": "Grupo de disciplinas modificado"
+                },
+                "create": {
+                    "error": "Se ha producido un error al crear el grupo de disciplina",
+                    "success": "Grupo de disciplinas creado"
+                }
+            }
         }
     },
     "paymentPack": {
@@ -12105,8 +12223,10 @@
             "expenseList": "Mis gastos"
         },
         "coachUserSpace": {
-            "performance": "Remuneración"
-        }
+            "performance": "Remuneración",
+            "replacement": "Sustitución"
+        },
+        "replacement": "Sustitución"
     },
     "widget": {
         "widget": {
@@ -12237,7 +12357,11 @@
                 "createCard": "Añade una tarjeta",
                 "createSepa": "Añade un IBAN"
             },
-            "sectionTitle": "Método de pago"
+            "sectionTitle": "Método de pago",
+            "info": {
+                "link": "aquí",
+                "content": "Tu suscripción Bsport se cargará a la forma de pago indicada a abajo. Para configurar la cuenta en la que se acreditarán los pagos en línea a través de Bsport, haga clic"
+            }
         },
         "platformInvoice": {
             "noInvoice": "No hay facturas",
@@ -13559,8 +13683,8 @@
             "status": "Estado",
             "reason": "Razón",
             "action": "Acción",
-            "establishment_group": "Establecimiento",
-            "location": "Ubicación",
+            "establishment_group": "Ubicación",
+            "location": "Establecimiento",
             "level": "Nivel",
             "name": "Nombre de la sesión",
             "date": "Fecha y hora"
@@ -13592,12 +13716,16 @@
             "description": "Encuentra aquí todas tus clases en grupos.",
             "helperTextNotLimited": "Todas las solicitudes de sustitución realizadas {{count}} día anterior a la sesión se considerarán tardías.",
             "helperTextNotLimited_plural": "Todas las solicitudes de sustitución realizadas en los {{count}} días anteriores a la sesión se considerarán tardías.",
-            "title": "Mi calendario"
+            "title": "Mi calendario",
+            "helperTextLimited": "<strong>{{requestsLeft}}</strong> de <strong>{{requestsMax}}</strong> solicitudes tardías restantes hasta {{-dateEnd}}. Todas las solicitudes de sustitución realizadas dentro de {{count}} día de la sesión se considerarán tardías.",
+            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> de <strong>{{requestsMax}}</strong> solicitudes tardías restantes hasta {{-dateEnd}}. Todas las solicitudes de sustitución realizadas dentro de los {{count}} días siguientes a la sesión se considerarán fuera de plazo."
         },
         "disciplineGroup": {
             "delete": {
                 "description": "¿Estás seguro de que quieres eliminar el grupo de disciplina {{nombre}}?",
-                "title": "Borrar"
+                "title": "Borrar",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar"
             },
             "coaches": "{{count}} Profesor",
             "coaches_plural": "{{count}} Profesores",
@@ -13605,7 +13733,27 @@
             "workshops": "Talleres ({{number}})",
             "activities": "Actividades ({{number}})",
             "title": "Grupos de disciplina",
-            "add": "Añadir un grupo"
+            "add": "Añadir un grupo",
+            "form": {
+                "coachRequired": "Selecciona al menos un profesor",
+                "submit": "Salvar",
+                "close": "Cancelar",
+                "coaches": "Profesores asociados",
+                "allCategories": "Enseña todas las categorías",
+                "pickCategory": "Eligir una categoría",
+                "categories": "Categorías",
+                "allWorkshops": "Enseña todos los talleres",
+                "pickWorkshop": "Eligir un taller",
+                "workshops": "Talleres",
+                "allActivities": "Enseña todas las actividades",
+                "pickActivity": "Eligir una actividad",
+                "activities": "Actividades",
+                "groupTypes": "Tipo de clases / categorías",
+                "required": "Este campo es obligatorio",
+                "nameHelperText": "Nombre del grupo de disciplina",
+                "name": "Nombre"
+            },
+            "all": "Todo"
         },
         "selects": {
             "category": "Categoría",
@@ -13678,7 +13826,36 @@
             "submit": "Enviar",
             "cancel": "Cancelar",
             "label": "Motivo de la ausencia",
-            "title": "Solicitar una sustitución"
+            "title": "Solicitar una sustitución",
+            "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> de <strong>{{requestsMax}}</strong> solicitud tardía restante hasta {{-dateEnd}}.",
+            "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> de <strong>{{requestsMax}}</strong> solicitudes tardías restantes hasta {{-dateEnd}}."
+        },
+        "tooltip": {
+            "seeAnswers": "Ver la lista de sustitutos"
+        },
+        "coachEdit": {
+            "allCategories": "Enseña todas las categorías",
+            "pickCategory": "Eligir una categoría",
+            "categories": "Categorías",
+            "allWorkshops": "Enseña todos los talleres",
+            "pickWorkshop": "Eligir un taller",
+            "workshops": "Talleres",
+            "allActivities": "Enseña todas las actividades",
+            "pickActivity": "Eligir una actividad",
+            "activities": "Actividades",
+            "customRules": "Personalizar las reglas",
+            "disciplineGroup": "Grupo de disciplina",
+            "description": "Indica qué clases enseña tu profesor. Si se solicita una sustitución en una de esas clases, se notificará a ese profesor por correo electrónico. Si no se selecciona nada, este profesor no será notificado.",
+            "title": "Sustitución"
+        },
+        "compatibleCoaches": {
+            "categories": "Categorías",
+            "workshops": "Talleres",
+            "activities": "Actividades",
+            "nextSlot": "Próxima sesión el {{date}} - {{hour}}",
+            "compatibleCoaches": "{{count}} profesor compatible",
+            "compatibleCoaches_plural": "{{count}} profesores compatibles",
+            "title": "Profesores disponibles por disciplina"
         }
     }
 }

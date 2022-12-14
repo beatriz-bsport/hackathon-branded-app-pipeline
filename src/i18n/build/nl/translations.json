@@ -573,7 +573,8 @@
                     "doNotConsumeCredit": "Geen kredieten voor deze reserveringen aftrekken",
                     "bookMoreInGroup": "Andere evenementen reserveren",
                     "groupWarning": "Deze sessie is onderdeel van het evenement \"{{ name }}\".",
-                    "bookSingleInGroup": "Alleen voor deze sessie inschrijven"
+                    "bookSingleInGroup": "Alleen voor deze sessie inschrijven",
+                    "loadingData": "Reserveringsgegevens laden"
                 }
             }
         },
@@ -1217,7 +1218,8 @@
                 "title": "Herstellen"
             },
             "unpaidInvoices": "Openstaande facturen",
-            "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen"
+            "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
+            "noInConsumerPackAvailableForPurchase": "Geen onverenigbare cursuskaarten in het bezit van dit lid!"
         },
         "time": {
             "month": {
@@ -13779,8 +13781,8 @@
             "status": "Status",
             "reason": "Reden",
             "action": "Actie",
-            "establishment_group": "Vestiging",
-            "location": "Locatie",
+            "establishment_group": "Locatie",
+            "location": "Vestiging",
             "level": "Niveau",
             "name": "Naam van de sessie",
             "date": "Datum en tijd"

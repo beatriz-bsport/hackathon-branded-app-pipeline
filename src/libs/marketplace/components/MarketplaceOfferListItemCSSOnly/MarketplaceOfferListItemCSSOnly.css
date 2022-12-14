@@ -311,10 +311,17 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
 }
 
 @media only screen and (max-width: 500px) {
+  .bs-offer-list-item__content__offer {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  .bs-offer-list-item__content__offer__right {
+    flex-direction: row;
+  }
   .bs-offer-list-item__content__offer__right__top__left {
     gap: var(--spacing-1);
+    justify-content: flex-start;
   }
-
   .bs-offer-list-item__content {
     margin-left: var(--spacing-1);
     margin-bottom: var(--spacing-1);
@@ -356,8 +363,5 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
     font-size: var(--h6-fontSize);
     color: var(--color-grey-dark);
     line-height: var(--h6-lineHeight);
-  }
-  .bs-offer-list-item__content__offer__right__top__left {
-    gap: var(--spacing-1);
   }
 }

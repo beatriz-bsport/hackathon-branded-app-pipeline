@@ -175,12 +175,13 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
     const SCTIds = uniq(
       metaActivityList?.map((metaActivity) => metaActivity.SCT) || [],
     );
-    return SCTIds.map((SCTId) => SCTList.find((sct) => sct.id === SCTId)).map(
-      (sct) => ({
-        label: sct.name,
-        value: sct.id,
-      }),
-    );
+    return SCTIds.map(
+      (SCTId) =>
+        SCTList.find((sct) => sct.id === SCTId) ?? { name: '', id: SCTId },
+    ).map((sct) => ({
+      label: sct.name,
+      value: sct.id,
+    }));
   }, [metaActivityList, SCTList]);
 
   const hasRequestedLateOptions = useMemo(

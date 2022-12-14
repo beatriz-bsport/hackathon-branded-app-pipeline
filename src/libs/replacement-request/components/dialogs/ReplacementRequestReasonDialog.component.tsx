@@ -121,7 +121,7 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
           fullWidth
         />
 
-        {atLeastOneLateRequest && (
+        {lateReplacementRequestStatus && atLeastOneLateRequest && (
           <div className={classes.lateRequestHelpContainer}>
             <Typography>
               {t('askForReplacement.lateRequestTypo', {

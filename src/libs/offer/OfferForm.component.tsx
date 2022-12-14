@@ -732,10 +732,9 @@ export class OfferForm extends Component<Props, State> {
     );
   };
 
-  isDateTooFarError = (inputDate: string): boolean => {
+  dateTooFarError = (inputDate: Moment): boolean => {
     return (
-      this.props.isOfferInGroup &&
-      this.dateIsTooFarInFuture(moment(inputDate).format())
+      this.props.isOfferInGroup && this.dateIsTooFarInFuture(inputDate.format())
     );
   };
 
@@ -837,7 +836,7 @@ export class OfferForm extends Component<Props, State> {
                             date_interval_start: moment(date_interval_start),
                           })
                         }
-                        hasDateTooFarError={this.isDateTooFarError(
+                        hasDateTooFarError={this.dateTooFarError(
                           this.state.date_interval_start,
                         )}
                       />
@@ -861,7 +860,7 @@ export class OfferForm extends Component<Props, State> {
                         disabled={this.state.recurrence === NOT_RECURRENT}
                         error={
                           this.endDateIsInvalid() ||
-                          this.isDateTooFarError(this.state.date_interval_end)
+                          this.dateTooFarError(this.state.date_interval_end)
                         }
                         value={this.state.date_interval_end}
                         minDate={this.state.date_interval_start}
@@ -885,9 +884,7 @@ export class OfferForm extends Component<Props, State> {
                           }
                           return [];
                         }}
-                        {...(this.isDateTooFarError(
-                          this.state.date_interval_end,
-                        )
+                        {...(this.dateTooFarError(this.state.date_interval_end)
                           ? { helperText: t('form.datePicker.rangeError') }
                           : {})}
                       />

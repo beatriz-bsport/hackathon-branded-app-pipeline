@@ -82,6 +82,7 @@ type OwnProps = {
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
   zoomAppDetail: ZoomApp;
+  isOfferInGroup?: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -478,7 +479,8 @@ export class OfferEditForm extends Component<Props, State> {
                     .length || this.hasChangedDatetime()
                 ) ||
                 this.roomBluePrintError() ||
-                this.dateIsTooFarInFuture(this.state.date)
+                (this.props.isOfferInGroup &&
+                  this.dateIsTooFarInFuture(this.state.date))
               }
               onClick={this.onConfirmGatherInfoStep}
             >
@@ -685,15 +687,16 @@ export class OfferEditForm extends Component<Props, State> {
                   value={moment(this.state.date)
                     .set('hour', this.state.hour.split(':')[0])
                     .set('minute', this.state.hour.split(':')[1])}
-                  onChange={(date_interval_start) =>
+                  onChange={(date_interval_start) => {
                     this.setState({
                       date: moment(date_interval_start),
                       hour: moment(date_interval_start).format('HH:mm'),
-                    })
+                    });
+                  }}
+                  hasDateTooFarError={
+                    this.props.isOfferInGroup &&
+                    this.dateIsTooFarInFuture(this.state.date)
                   }
-                  hasDateTooFarError={this.dateIsTooFarInFuture(
-                    this.state.date,
-                  )}
                 />
               </div>
               <div className={this.props.classes.field}>

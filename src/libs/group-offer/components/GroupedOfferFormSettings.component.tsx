@@ -30,6 +30,7 @@ import {
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { Alert } from '@material-ui/lab';
 import {
   TextField,
   Submit,
@@ -163,13 +164,7 @@ const GroupedOfferFormSettingsSchema = Yup.object().shape({
         blacklist_tags: Yup.array().of(Yup.number()),
       }),
     )
-    .test(
-      'There are at least two offers',
-      'metaActivity:groupedOption.errors.offers_length',
-      function testNumberOfOffersGreaterThanTwo(item) {
-        return item.length > 1;
-      },
-    ),
+    .min(2),
   whitelist_tags: Yup.array().of(Yup.number()),
   blacklist_tags: Yup.array().of(Yup.number()),
 });
@@ -178,6 +173,8 @@ export const GroupedOfferFormSettings: React.FC<
   OuterProps & FormikProps<Values>
 > = ({
   values,
+  errors,
+  touched,
   isSubmitting,
   open,
   coaches,
@@ -364,7 +361,11 @@ export const GroupedOfferFormSettings: React.FC<
                   />
                 )}
               </FieldArray>
-              <AlertError name="offers" />
+              {errors.offers && touched.offers && (
+                <Alert className={classes.alertError} severity="error">
+                  {t('groupedOption.errors.offers_length')}
+                </Alert>
+              )}
               <div className={classes.buttonAdd}>
                 <Button
                   color="primary"
@@ -678,6 +679,7 @@ const OfferDialogs: React.FC<{
             onConfirm={handleEditOffer}
             onCancel={handleResetEdit}
             zoomAppDetail={zoomAppDetail}
+            isOfferInGroup
           />
         </div>
       </GenericResponsiveDrawer>
@@ -871,6 +873,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   icon: {
     fill: '#747474',
+  },
+  alertError: {
+    alignItems: 'center',
   },
 }));
 

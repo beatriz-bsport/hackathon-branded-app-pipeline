@@ -74,6 +74,10 @@
   margin-right: var(--spacing-1);
 }
 
+ul li {
+  list-style: none;
+}
+
 @media (max-height: 750px) {
   .bs-calendar--no-offer--yes-next {
     margin-top: var(--spacing-1);

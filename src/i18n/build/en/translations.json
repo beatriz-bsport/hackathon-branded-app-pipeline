@@ -1112,7 +1112,8 @@
             "firstBookingMinutesUntil": "Limit future bookings of members that take place in ",
             "altCoverMain": "Description of the image for the visually impaired",
             "autoDiscard": "Automatic cancellation",
-            "generalInfo": "General"
+            "generalInfo": "General",
+            "firstMinutesBookingUntilWarning": "A value of zero means that no limitations are set. Reservations will always be open for sessions of this activity."
         },
         "calendar": {
             "pleaseSelectOffer": "Click on a session for more information or double-click on a session to manage the bookings.",
@@ -5875,8 +5876,10 @@
                 },
                 "0": {
                     "explain": "Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.",
-                    "settingsDelay": "Settings",
-                    "label": "One by one"
+                    "settingsDelay": "Time between recalls",
+                    "label": "One by one",
+                    "overallExplainSmart": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }}hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.",
+                    "overallExplainSimple": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced {{ dumb_delay_minutes }} minutes apart to book before giving their spot to the next student."
                 }
             },
             "last_delay_before_auto_consume": {

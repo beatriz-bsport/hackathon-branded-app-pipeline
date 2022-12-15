@@ -1358,7 +1358,8 @@
             "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over ",
             "altCoverMain": "Afbeeldingsbeschrijving",
             "autoDiscard": "Automatische annulering",
-            "generalInfo": "Algemeen"
+            "generalInfo": "Algemeen",
+            "firstMinutesBookingUntilWarning": "Een waarde van nul betekent dat er geen beperkingen zijn ingesteld. Voor sessies van deze activiteit staan altijd reserveringen open."
         },
         "calendar": {
             "pleaseSelectOffer": "Selecteer een sessie voor meer informatie of dubbelklik op een sessie om de reserveringen te beheren.",
@@ -11580,8 +11581,10 @@
                 },
                 "0": {
                     "explain": "Ieder lid dat zich op de wachtlijst krijgt een plaats. De eerstvolgende op de wachtlijst wordt geïnformeerd zodra er een plaats vrijkomt.",
-                    "settingsDelay": "Instellingen",
-                    "label": "Eén voor één"
+                    "settingsDelay": "Tijd tussen terugroepacties",
+                    "label": "Eén voor één",
+                    "overallExplainSmart": "Als er een plaats vrijkomt, krijgt de leerling {{ autokick_delay }} herinneringen met een interval van {{ smart_delay_percentage }}% van de resterende tijd voordat de sessie begint om zich in te schrijven. Bijvoorbeeld, als er nog {{ example_hours_before }} uur over is voor de sessie, heeft de leerling {{ example_computed_delay_one }} minuten om zich te registreren, en vervolgens {{ example_computed_delay_two }} minuten na de eerste poging, enzovoort, voordat de volgende leerling zich mag registreren.",
+                    "overallExplainSimple": "Als er een plek vrijkomt, heeft de leerling {{ autokick_delay }} herinneringen met een tussenruimte van {{ dumb_delay_minutes }} minuten om te reserveren voordat hij zijn plek aan de volgende leerling geeft."
                 }
             },
             "last_delay_before_auto_consume": {

@@ -856,7 +856,8 @@
             "is_broadcast": "Curso streaming en vivo",
             "altCoverMain": "Descripción de la imagen para los discapacitados visuales",
             "autoDiscard": "Cancelación automática",
-            "generalInfo": "Informaciones generales"
+            "generalInfo": "Informaciones generales",
+            "firstMinutesBookingUntilWarning": "Un valor de cero significa que no se establece ninguna limitación. Las reservas estarán siempre abiertas para las sesiones de esta actividad."
         },
         "workshopActivity": {
             "addWorkshopActivity": "Añadir un taller",
@@ -8829,8 +8830,10 @@
                 },
                 "0": {
                     "explain": "Cuando un miembro se registra, se otorga un lugar en la lista de espera. Cuando hay un lugar disponible, el primer miembro de la lista puede registrarse, los demás esperan su turno",
-                    "settingsDelay": "Fecha límite para registrarse",
-                    "label": "Cada uno su turno"
+                    "settingsDelay": "Tiempo entre recordatorios",
+                    "label": "Cada uno su turno",
+                    "overallExplainSmart": "Si queda una plaza libre, el alumno dispone de {{ autokick_delay }} recordatorios en intervalos de {{ smart_delay_percentage }}% del tiempo que falta para que comience la sesión para registrarse. Por ejemplo, si quedan {{ example_hours_before }} horas antes de la sesión, el estudiante tiene {{ example_computed_delay_one }} minutos para registrarse y luego {{ example_computed_delay_two }} minutos después del primer reintento, y así sucesivamente, antes de que el siguiente estudiante pueda registrarse.",
+                    "overallExplainSimple": "Si queda una plaza libre, el participante dispone de {{ autokick_delay }} recordatorios en intervalos de {{ dumb_delay_minutes }} minutos para registrarse antes de ceder su plaza al siguiente participante."
                 }
             },
             "last_delay_before_auto_consume": {

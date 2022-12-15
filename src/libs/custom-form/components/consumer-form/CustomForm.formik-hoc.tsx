@@ -195,7 +195,7 @@ export const ConsumerFormFieldsHOC = withFormik({
   },
   enableReinitialize: true,
   validationSchema: ValidationSchema,
-  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     const {
       /* eslint-disable */
       date_created,
@@ -231,18 +231,31 @@ export const ConsumerFormFieldsHOC = withFormik({
           CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
         ].includes(_field.kind),
       )
-      .map(
+      .forEach(
         (field: CustomFormFieldAnswer) =>
           field.answer && formData.append(`file:${field.id}`, field.answer),
       );
-    values.custom_form_field
-      .filter((_field: CustomFormFieldAnswer) =>
-        [CUSTOM_FORM_FIELD_SIGN_UP_PHOTO].includes(_field.signup_question_kind),
+    const initialPhotos = initial.custom_form_field
+      .filter(
+        (_field: CustomFormFieldAnswer) =>
+          _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
       )
-      .map(
-        (field: CustomFormFieldAnswer) =>
-          field.answer && formData.append(`file:${field.id}`, field.answer),
-      );
+      .map((field: CustomFormFieldAnswer) => field.answer);
+
+    // We add the photo file only if it is a new one (binary files are already handled)
+    // However, the customform saving could break due to the filename (that could have more than 100 characters, with the storage path)
+    // And it is a pain to handle that in the back (due to serializer check) => way more easier to pop it in the front
+    values.custom_form_field
+      .filter(
+        (_field: CustomFormFieldAnswer) =>
+          _field.signup_question_kind === CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
+      )
+      .forEach((field: CustomFormFieldAnswer) => {
+        if (field.answer && !initialPhotos.includes(field.answer)) {
+          formData.append(`file:${field.id}`, field.answer);
+        }
+      });
+
     onSubmit(formData, {
       onSuccess: () => {
         setSubmitting(false);

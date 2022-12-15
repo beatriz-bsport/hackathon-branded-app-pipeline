@@ -895,6 +895,8 @@ exports.default = {
       'Avant le début du cours, dernière annulation possible',
     firstBookingMinutesUntil:
       'Les élèves peuvent réserver les séances futures si elles débutent dans moins de ',
+    firstMinutesBookingUntilWarning:
+      "Une valeur de zéro signifie qu'aucune limitation n'est définie. Les réservations seront toujours ouvertes pour les séances de cette activité.",
     addOffers: 'Ajouter des séances',
     addActivity: 'Ajouter une activité',
     name: 'Titre',

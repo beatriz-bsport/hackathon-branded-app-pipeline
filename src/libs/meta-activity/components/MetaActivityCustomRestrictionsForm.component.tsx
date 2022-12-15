@@ -22,6 +22,7 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
+import { Alert } from '@material-ui/lab';
 import { MaterialStyleType } from '../../../utils/types';
 
 import { DurationField } from '../../../components/forms';
@@ -65,6 +66,11 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const isFirstBookingMinutesUntilZero = (index: number) => {
+    return !values?.custom_restriction_rule[index]?.first_booking_minutes_until;
+  };
+
   return (
     <div className={classes.container}>
       <ButtonBase
@@ -253,6 +259,14 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                           required
                         />
                       </div>
+                      {isFirstBookingMinutesUntilZero(i) && (
+                        <Alert
+                          severity="warning"
+                          className={classes.alignCenter}
+                        >
+                          {t('activity.firstMinutesBookingUntilWarning')}
+                        </Alert>
+                      )}
                     </>
                   </div>
                 </div>
@@ -330,6 +344,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   tagSelector: {
     paddingBottom: theme.spacing(2),
     paddingRight: theme.spacing(1),
+  },
+  alignCenter: {
+    alignItems: 'center',
   },
 }));
 export default MetaActivityCustomRestrictionsForms;

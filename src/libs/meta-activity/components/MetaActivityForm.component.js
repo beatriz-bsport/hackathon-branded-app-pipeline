@@ -178,7 +178,7 @@ export function MetaActivityForm(props: Props) {
                 required
               />
               {!!(last_booking_minutes && last_booking_minutes > 60 * 2) && (
-                <Alert severity="warning">
+                <Alert severity="warning" className={classes.alignCenter}>
                   {t(
                     'metaActivity:forms.warning.highLastBookingBeforeWarning',
                     {
@@ -234,13 +234,18 @@ export function MetaActivityForm(props: Props) {
                 first_booking_minutes_until &&
                 first_booking_minutes_until < 60 * 24
               ) && (
-                <Alert severity="warning">
+                <Alert severity="warning" className={classes.alignCenter}>
                   {t('metaActivity:forms.warning.lowFirsBookingUntilWarning', {
                     durationFormatted: formatDurationFromMinute(
                       first_booking_minutes_until,
                       t,
                     ),
                   })}
+                </Alert>
+              )}
+              {!first_booking_minutes_until && (
+                <Alert severity="warning" className={classes.alignCenter}>
+                  {t('activity.firstMinutesBookingUntilWarning')}
                 </Alert>
               )}
             </div>
@@ -395,6 +400,9 @@ const styles = (theme) => ({
   },
   subtitle1bold: {
     fontWeight: 500,
+  },
+  alignCenter: {
+    alignItems: 'center',
   },
 });
 

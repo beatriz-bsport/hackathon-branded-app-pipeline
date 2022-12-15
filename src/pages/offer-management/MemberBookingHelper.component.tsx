@@ -1,6 +1,6 @@
-// @flow
 import React from 'react';
 
+import makeStyles from '@material-ui/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -8,40 +8,43 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { Member } from '#libs/member/types';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 type Props = {
-  t: TFunction,
-  classes: Object,
+  member: Member;
+  selected: boolean;
+  hasBooked?: boolean;
+  isFull?: boolean;
+  anonimize?: boolean;
 
-  member: Member,
-  selected: boolean,
-  hasBooked: ?boolean,
-  isFull: ?boolean,
-  anonimize?: boolean,
-
-  showMember: ?() => void,
-  onClickListItem: ?() => void,
-  onClickOption: () => void,
-  onClickBill: () => void,
-  onClickRegister: () => void,
+  showMember?: () => void;
+  onClickListItem?: () => void;
+  onClickOption: () => void;
+  onClickBill: () => void;
+  onClickRegister: () => void;
 };
 
 function MemberBookingHelper(props: Props) {
   let email = '';
+
+  const classes = useStyles();
+  const { t } = useTranslation();
+
   if (!props.anonimize) {
     email += props.member.email
       ? props.member.email
-      : props.t('communication:mail.missing');
+      : t('communication:mail.missing');
   }
+
   return (
     <ListItem
+      key={props.member?.id}
       button={!!props.onClickListItem}
       selected={props.selected}
       divider
@@ -60,8 +63,8 @@ function MemberBookingHelper(props: Props) {
               )}
             </IconButton>
             <Button color="primary" onClick={props.onClickRegister}>
-              <AddIcon className={props.classes.rightIcon} />
-              {props.t('offer.reCreateBooking')}
+              <AddIcon className={classes.rightIcon} />
+              {t('offer.reCreateBooking')}
             </Button>
           </React.Fragment>
         ) : (
@@ -71,16 +74,16 @@ function MemberBookingHelper(props: Props) {
               color="primary"
               onClick={props.onClickOption}
             >
-              <HourglassEmptyIcon className={props.classes.rightIcon} />
-              <Hidden xsDown>{props.t('offer.createBookingOption')}</Hidden>
+              <HourglassEmptyIcon className={classes.rightIcon} />
+              <Hidden xsDown>{t('offer.createBookingOption')}</Hidden>
             </Button>
             <Button
               color="primary"
               variant="outlined"
               onClick={props.onClickRegister}
             >
-              <AddIcon className={props.classes.rightIcon} />
-              {props.t('offer.createBooking')}
+              <AddIcon className={classes.rightIcon} />
+              {t('offer.createBooking')}
             </Button>
           </React.Fragment>
         )}
@@ -98,10 +101,10 @@ function MemberBookingHelper(props: Props) {
   );
 }
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   rightIcon: {
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-export default withStyles(styles)(withTranslation()(MemberBookingHelper));
+export default React.memo(MemberBookingHelper);

@@ -193,6 +193,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     position: 'relative',
   },

@@ -44,6 +44,7 @@ const {
   NOTIFICATION_REPLACEMENT_REQUEST_CREATE_ON_TIME,
   NOTIFICATION_REPLACEMENT_REQUEST_CREATE_LATE,
   NOTIFICATION_REPLACEMENT_REQUEST_CLOSING_DATE_POSTPONED,
+  NOTIFICATION_REPLACEMENT_REQUEST_ANWSER_HAS_BEEN_ACCEPTED,
 } = NOTIFICATION_EVENTS;
 
 // should import that from common
@@ -320,6 +321,8 @@ exports.default = {
       'Nouvelle demande en retard (remplaçant)',
     [NOTIFICATION_REPLACEMENT_REQUEST_CLOSING_DATE_POSTPONED]:
       'Date de clôture repoussée (remplaçant)',
+    [NOTIFICATION_REPLACEMENT_REQUEST_ANWSER_HAS_BEEN_ACCEPTED]:
+      'Remplaçant trouvé (remplaçant)',
   },
   franchise: {
     emptySelect:

@@ -178,15 +178,16 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
 
   const handleChange = useCallback(
     (field: string, value: number | number[] | boolean) => {
-      setValues({ ...values, [field]: value });
+      const newValues = { ...values, [field]: value };
+      setValues(newValues);
       if (field !== 'disciplineGroup') {
         updateAssociatedCoachReplacementPreferences(coach.id, {
-          meta_activities_taught: values.activities,
-          workshops_taught: values.workshops,
-          categories_taught: values.categories,
-          is_teaching_all_activities: values.allActivities,
-          is_teaching_all_workshops: values.allWorkshops,
-          is_teaching_all_categories: values.allCategories,
+          meta_activities_taught: newValues.activities,
+          workshops_taught: newValues.workshops,
+          categories_taught: newValues.categories,
+          is_teaching_all_activities: newValues.allActivities,
+          is_teaching_all_workshops: newValues.allWorkshops,
+          is_teaching_all_categories: newValues.allCategories,
         });
       }
     },

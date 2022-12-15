@@ -71,7 +71,9 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
     if (memberName) return memberName;
     if (members && booking) {
       return `${
-        members?.find((m) => m.id === booking?.member)?.name
+        members
+          ?.filter((m) => !!m && m.id)
+          .find((m) => m.id === booking?.member)?.name
       }\u00A0${firstIndicator}`;
     }
     return '';

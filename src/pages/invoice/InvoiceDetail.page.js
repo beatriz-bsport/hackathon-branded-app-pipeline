@@ -22,7 +22,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
 } from '@bsport/common/lib/master-data/planned-payment-event';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 import {
   getInvoice,
   withMember,
@@ -32,16 +32,16 @@ import {
   getPlannedPaymentEventList,
   withEstablishment,
   getInvoiceMemberFullDetail,
-} from '../../libs/invoice/selectors';
+} from '#libs/invoice/selectors';
 import {
   getPaymentGroupRequiringActionList,
   getSavedPaymentMethodList,
-} from '../../libs/payment/selectors';
+} from '#libs/payment/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import {
   fetchMember,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
-} from '../../libs/member/actions';
+} from '#libs/member/actions';
 import {
   fetchSpecificInvoice as fetchInvoiceAction,
   fetchInvoiceItemList,
@@ -59,62 +59,63 @@ import {
   changePaymentMethodAndRegisterPlannedPaymentEvent,
   schedulePayment,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '../../libs/invoice/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+} from '#libs/invoice/actions';
+import { fetchEstablishments } from '#libs/establishment/actions';
 import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAllEstablishments } from '#libs/establishment/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
 import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
-} from '../../libs/payment/actions';
+} from '#libs/payment/actions';
 
-import { fetchCompanyUserRoles } from '../../libs/role/actions';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
 import {
   snackbarSuccess,
   snackbarWarning,
   snackbarError,
-} from '../../libs/snackbar/actions';
-import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
-import InvoiceContent from '../../libs/invoice/components/InvoiceContent.component';
-import InvoicePaymentPanel from '../../libs/invoice/components/InvoicePaymentPanel.component';
-import InvoiceReverterDialog from '../../libs/invoice/components/InvoiceReverterDialog.component';
+} from '#libs/snackbar/actions';
+import InvoiceHeader from '#libs/invoice/components/InvoiceHeader.component';
+import InvoiceContent from '#libs/invoice/components/InvoiceContent.component';
+import InvoicePaymentPanel from '#libs/invoice/components/InvoicePaymentPanel.component';
+import InvoiceReverterDialog from '#libs/invoice/components/InvoiceReverterDialog.component';
 import PlannedPaymentEventMethodSwitcherDialog from '#libs/invoice/dialog/PlannedPaymentEventMethodSwitcherDialog.component';
-import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 
-import PaymentDialog from '../../libs/payment/components/PaymentDialog.component';
-import InstalmentPaymentDialog from '../../libs/payment/components/InstalmentPaymentForm.dialog';
-import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
-import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
+import InstalmentPaymentDialog from '#libs/payment/components/InstalmentPaymentForm.dialog';
+import CreditMemberBadge from '#libs/member/components/CreditMemberBadge.component';
+import CheckPermission from '#libs/role/components/CheckPermission.component';
 import type { Establishment } from '../../libs/establishment/types';
 import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
-} from '../../libs/theme/selectors';
+} from '#libs/theme/selectors';
 import type { Theme as CompanyThemeType } from '../../libs/theme/types';
-import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import { withMemberBannerHOC } from '#hocs/banner.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
-} from '../../libs/giftcard/actions';
+} from '#libs/giftcard/actions';
 import {
   getConsumerGiftcardReceivedList,
   withGiftcard,
   withSender,
   withReceiver,
   onlyUsable,
-} from '../../libs/giftcard/selectors';
-import type { Payment, PaymentMethod } from '#libs/payment/types';
+} from '#libs/giftcard/selectors';
+import type { Payment, PaymentMethod } from '../../libs/payment/types';
 import type { OptionCallback } from '../../state/types';
-import type { ConsumerGiftcard, Giftcard } from '../../libs/giftcard/types';
+import type { ConsumerGiftcard, Giftcard } from '#../../ibs/giftcard/types';
 import type { PlannedPaymentEvent } from '../../libs/invoice/types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
-import type { StripeReader } from '#libs/terminal/types';
+import type { StripeReader } from '../../libs/terminal/types';
 import { withDefaultBillingEstablishment } from '#libs/member/selectors';
+import { getInvoiceIdentifier } from '#libs/invoice/utils';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 const stripeRegion = getStripeRegion();
@@ -951,11 +952,10 @@ export default compose(
         }
       },
   }),
-  withTitle(
-    ({ t, uuid, invoice }) =>
-      `${t('titles:invoice.invoiceEdit')} - ${
-        uuid ? uuid.slice(0, 8).toUpperCase() : ''
-      } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
-  ),
+  withTitle(({ t, invoice }) => {
+    return `${t('titles:invoice.invoiceEdit')} - ${getInvoiceIdentifier(
+      invoice,
+    )} - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`;
+  }),
   withMemberBannerHOC(({ invoice }) => invoice.member),
 )(InvoiceDetail);

@@ -9844,7 +9844,8 @@
                 "50010": "No puedes cancelar esta solicitud porque ya se ha asignado un profesor.",
                 "50009": "No puedes rechazar esta solicitud porque ya se haya asignado un profesor.",
                 "50008": "La fecha de cierre no puede moverse después de la fecha de la sesión.",
-                "50007": "Imposible crear estas solicitudes de sustitución: no te quedan suficientes solicitudes atrasadas."
+                "50007": "Imposible crear estas solicitudes de sustitución: no te quedan suficientes solicitudes atrasadas.",
+                "undefined": "Esta solicitud de sustitución ha sido denegada: imposible de suprimir"
             },
             "cancelReplacementRequest": {
                 "error": "Se ha producido un error al eliminar la solicitud.",

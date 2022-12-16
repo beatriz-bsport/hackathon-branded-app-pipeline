@@ -18,6 +18,7 @@ export type PlannedInvoice = {
   amount_due_cts: number;
   is_last_invoice_before_scheduled_stop: boolean;
   reverted: boolean;
+  invoice_legal_identifier: string;
 };
 
 export type Subscription<

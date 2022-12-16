@@ -24,6 +24,7 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
 } from '@bsport/common/lib/master-data/payment-group';
+import type { Payment } from '../../payment/types';
 
 type Props = {
   open: ?boolean,

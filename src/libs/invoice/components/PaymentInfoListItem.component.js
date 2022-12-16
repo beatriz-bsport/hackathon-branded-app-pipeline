@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import type { Payment } from '../../payment/types';
 
 type Props = {
   payment: Payment,

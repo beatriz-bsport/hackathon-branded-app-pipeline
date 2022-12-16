@@ -38,6 +38,7 @@ import InvoiceItemList from './invoice-item/InvoiceItemList.component';
 import InvoiceItemSelector from './invoice-item/InvoiceItemSelector.component';
 import CreditMemberBadge from '../member/components/CreditMemberBadge.component';
 import type { PrivatePass } from '../private-service/types';
+import type { Payment } from '../payment/types';
 
 import RedButton from '../../components/button/RedButton.component';
 

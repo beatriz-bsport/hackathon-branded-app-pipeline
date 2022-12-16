@@ -30,8 +30,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { sortByDate } from '../../../utils/datetime';
-import Tooltip from '../../../components/Tooltip.component';
+import { formatAsDate, sortByDate } from '../../../utils/datetime';
+import Tooltip from '#components/Tooltip.component';
 import PlannedInvoicePriceUpdater from './PlannedInvoicePriceUpdater.component';
 import PlannedInvoiceDateUpdater from './PlannedInvoiceDateUpdater.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -45,6 +45,7 @@ import {
 import { OptionCallback } from '../../../state/types';
 import PauseDetailListItem from './pause/PauseDetailListItem.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
+import { getInvoiceIdentifier } from '#libs/invoice/utils';
 
 const Status: FC<{
   disabled?: boolean;
@@ -285,41 +286,43 @@ const PlannedInvoiceItem = (props: {
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestScheduledStop: (plannedInvoiceId?: number) => void;
 }) => {
+  const { plannedInvoice } = props;
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
   const [menuAnchor, setMenuAnchor] = React.useState(null);
+
+  const invoiceLabel = t('subscription.invoice.label', {
+    price: getCurrencyDisplayWithPrice(plannedInvoice.amount_due_cts / 100),
+    uuid: getInvoiceIdentifier(plannedInvoice),
+  });
 
   return (
     <React.Fragment>
       <div className={classes.listItem}>
         <Status
           disabled={props.disableActions}
-          plannedInvoice={props.plannedInvoice}
+          plannedInvoice={plannedInvoice}
         />
         <div className={classes.smallLinkH} />
         <ButtonBase
           disableRipple={props.disableActions}
           onClick={() => {
             if (!props.disableActions) {
-              props.onClickInvoice(props.plannedInvoice.uuid);
+              props.onClickInvoice(plannedInvoice.uuid);
             }
           }}
           className={classes.listItemBody}
         >
-          {props.plannedInvoice && props.plannedInvoice.uuid ? (
+          {plannedInvoice &&
+          (plannedInvoice.uuid || plannedInvoice.invoice_legal_identifier) ? (
             <React.Fragment>
               <Typography
                 color={props.disableActions ? 'textSecondary' : undefined}
               >
-                {t('subscription.invoice.label', {
-                  price: getCurrencyDisplayWithPrice(
-                    props.plannedInvoice.amount_due_cts / 100,
-                  ),
-                  uuid: (props.plannedInvoice.uuid || '').slice(0, 8),
-                })}
+                {invoiceLabel}
               </Typography>
               <Typography variant="caption" color="textSecondary">
-                {moment(props.plannedInvoice.date).format('L')}
+                {formatAsDate(plannedInvoice.date)}
               </Typography>
             </React.Fragment>
           ) : (

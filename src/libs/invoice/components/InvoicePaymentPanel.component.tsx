@@ -29,7 +29,8 @@ import RedButton from '../../../components/button/RedButton.component';
 import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 
-import { PlannedPaymentEvent, Payment, Invoice } from '../types';
+import { PlannedPaymentEvent, Invoice } from '../types';
+import { Payment } from '#libs/payment/types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 

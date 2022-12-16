@@ -43,3 +43,23 @@ export type StripeSetupIntentResponse = {
     payment_method_id: string;
   };
 };
+
+export type Payment = {
+  uuid: string;
+  price: number;
+  id: number;
+  payment_received: boolean;
+  payment_method: number;
+  payment_note: string;
+  invoice: number;
+  stripe_charge_id: string;
+  date: string;
+  reverted: boolean;
+  is_method_editable: boolean;
+  is_returnable: boolean;
+  transaction_fee: number;
+  payment_engine: number;
+  is_v2: boolean;
+  is_processing: boolean;
+  returned_amount: number;
+};

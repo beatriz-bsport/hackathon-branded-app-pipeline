@@ -181,7 +181,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
   }));
 
   const handleGeneratePreview = useCallback(
-    ({ values }) => {
+    ({ values, options }) => {
       resetPreview();
       let frequence = GROUPED_OFFERS_RECURSIVE_WEEKLY_FREQUENCY;
       if (values.recurrence_frequence === 'week')
@@ -224,13 +224,14 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
         onSuccess: () => {
           handleNextStep();
         },
+        ...(options && options?.onError && { onError: options.onError }),
       });
     },
     [generatePreview, handleNextStep, resetPreview, selectedMetaActivity],
   );
 
   const handleCreateGroup = useCallback(
-    ({ values }) => {
+    ({ values, options }) => {
       // for each groups add the group details
       const group_data_with_offers = values.reduce(
         (acc, formikGroup, index) => {
@@ -267,6 +268,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
           onSuccess: () => {
             handleNextStep();
           },
+          ...(options && options?.onError && { onError: options.onError }),
         },
       );
     },

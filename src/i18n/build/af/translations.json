@@ -7799,6 +7799,7 @@
       "10001": "Stock insuffisant",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
+      "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
       "generic": "Impossible de réserver"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },

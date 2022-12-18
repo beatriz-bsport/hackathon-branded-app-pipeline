@@ -845,8 +845,13 @@ export function offerUserRegistration(
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
-    } catch (e) {
-      options && options.onError && options.onError(e);
+    } catch (err) {
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(`canNotBuyErrorCode.${err.response.data.error_code}`),
+        );
+      }
+      options && options.onError && options.onError(err);
     }
     dispatch(offerUserRegistrationAction.isLoading(false));
   };

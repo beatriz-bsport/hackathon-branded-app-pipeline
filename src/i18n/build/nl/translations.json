@@ -9558,7 +9558,8 @@
                 "50009": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
                 "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
                 "50007": "Niet mogelijk om deze vervangingsverzoeken aan te maken: je hebt niet genoeg achterstallige verzoeken over.",
-                "50000": "Deze sessie is al afgelopen"
+                "50000": "Deze sessie is al afgelopen",
+                "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen"
             },
             "cancelReplacementRequest": {
                 "error": "Er is een fout opgetreden bij het verwijderen van het verzoek.",

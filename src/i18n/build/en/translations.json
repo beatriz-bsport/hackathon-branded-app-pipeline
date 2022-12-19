@@ -1724,7 +1724,7 @@
             },
             "unpaidInvoices": "Unpaid invoices",
             "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
-            "noInConsumerPackAvailableForPurchase": "This member doesn't own any compatible pass for this booking."
+            "noInConsumerPackAvailableForPurchase": "This member doesn't own any incompatible pass for this booking."
         },
         "pagination": {
             "outOf": " out of ",
@@ -2623,16 +2623,16 @@
         "campaign": {
             "recipientCount": "Recipients: {{ total_recipients }}",
             "sentAt": "Sent on: {{ date_created }}",
-            "readCount": "Open rate",
-            "clickCount": "Click rate",
+            "readCount": "Opened",
+            "clickCount": "Clicks",
             "showReport": "Reports",
             "list": {
                 "showMore": "Show more",
                 "isEmpty": "There are no previously sent messages to display."
             },
             "report": {
-                "totalRead": "Open rate",
-                "totalClick": "Click rate",
+                "totalRead": "Opened",
+                "totalClick": "Clicks",
                 "deliveryRate": "Your message has been sent successfully.",
                 "lastOpen": "Last opened on:",
                 "dateCreated": "Sent on:",
@@ -2690,8 +2690,8 @@
             "manualTitle": "Manual submissions"
         },
         "recipient": {
-            "readCount": "Open rate",
-            "clicksCount": "Click rate",
+            "readCount": "Opened",
+            "clicksCount": "Clicks",
             "showEmail": "Show email",
             "status": {
                 "0": "Pending",
@@ -2704,9 +2704,9 @@
             "table": {
                 "columns": {
                     "email": "Email",
-                    "readCount": "Open rate",
+                    "readCount": "Opened",
                     "lastRead": "Last opened on",
-                    "clicked": "Click rate",
+                    "clicked": "Clicks",
                     "status": "Status"
                 }
             },
@@ -13398,7 +13398,7 @@
             },
             "createNotification": "[Form] Notification",
             "stats": {
-                "total_mail_opened": "Click rate",
+                "total_mail_opened": "Number of opened emails",
                 "opened_rate": "Open rate",
                 "total_mail_send": "Sent emails"
             },
@@ -13562,7 +13562,7 @@
                 "table": {
                     "column": {
                         "member": "Member",
-                        "display_count": "Open rate",
+                        "display_count": "Opened",
                         "last_display_date": "Last opened on",
                         "completed": "Completed"
                     },

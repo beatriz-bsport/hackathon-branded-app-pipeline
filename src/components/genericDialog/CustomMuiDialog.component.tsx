@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   Typography,
+  Divider,
 } from '@material-ui/core';
 import GenericResponsiveDialog from './GenericResponsiveDialog';
 import RedButton from '#components/button/RedButton.component';
@@ -25,7 +26,8 @@ type ButtonCustom = {
     | 'close'
     | 'finish'
     | 'saveRecord'
-    | 'delete';
+    | 'delete'
+    | 'download';
   disabled?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
@@ -41,6 +43,7 @@ const COMMON_LABELS = [
   'close',
   'finish',
   'saveRecord',
+  'download',
   'delete',
 ];
 
@@ -54,10 +57,11 @@ const getButtonLabel = (label: string, commonLabel: string, t: TFunction) => {
 type OwnProps = {
   children?: any;
   open: boolean;
-  title: string;
+  title?: string;
   content?: string;
   contentAlign?: 'center' | 'justify' | 'left' | 'right';
   contentColor?: 'textPrimary' | 'textSecondary';
+  withButtonsDivider?: boolean;
   maxWidth?: Breakpoint;
   fullScreenBreakpoint?: Breakpoint;
   onClose?: () => void;
@@ -75,6 +79,7 @@ type OwnProps = {
       | 'finish'
       | 'saveRecord'
       | 'delete'
+      | 'download'
       | string;
     disabled?: boolean;
     startIcon?: React.ReactNode;
@@ -95,6 +100,7 @@ export const CustomMuiDialog = (props: Props) => {
     buttons,
     maxWidth,
     fullScreenBreakpoint,
+    withButtonsDivider,
     onClose,
   } = props;
   const { t } = useTranslation('common');
@@ -123,6 +129,7 @@ export const CustomMuiDialog = (props: Props) => {
           )}
           {!!props.children && props.children}
         </DialogContent>
+        {!!buttons && withButtonsDivider && <Divider variant="fullWidth" />}
         {!!buttons && (
           <DialogActions>
             {buttons.map((bt: ButtonCustom) =>

@@ -7,24 +7,29 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import TodayIcon from '@material-ui/icons/Today';
 import CalendarIcon from '@material-ui/icons/CalendarToday';
+import CheckIcon from '@material-ui/icons/Check';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
-import { getCurrencyDisplay } from '../../../theme/selectors';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { getStatus, isPaused } from '../../utils';
 import { BILLING_PLAN_STATUS_IS_PAUSED } from '../../constants';
 
 import SubscriptionPaymentMethod from '../SubscriptionPaymentMethod.component';
-import RedButton from '../../../../components/button/RedButton.component';
+import RedButton from '#components/button/RedButton.component';
 import { Subscription } from '../../types';
-import { PaymentMethod } from '../../../payment/types';
+import { PaymentMethod } from '#libs/payment/types';
+import { OptionCallback } from '../../../../state/types';
+import ContractTermsDialog from '../contract/ContractTermsDialog.component';
 
 type Props = {
   subscription: Subscription;
   changePaymentMethod?: (id: number) => void;
   paymentMethodList?: Array<PaymentMethod>;
   variant?: 'card' | 'listItem';
+  downloadContractTerms: (options: OptionCallback) => void;
 };
 
 type PaymentMethodInfoProps = {
@@ -89,7 +94,11 @@ const PaymentMethodInfo = ({
 
 export const SubscriptionListItem = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['subscription']);
+  const { t } = useTranslation('subscription');
+  const [openContractTermsDialog, setOpenContractTermsDialog] =
+    React.useState(false);
+  const onOpenContractTermsDialog = () => setOpenContractTermsDialog(true);
+  const onCloseContractTermsDialog = () => setOpenContractTermsDialog(false);
   const { subscription, variant } = props;
   if (!subscription) {
     return null;
@@ -179,6 +188,28 @@ export const SubscriptionListItem = (props: Props) => {
           <InfoIcon className={classes.leftIcon} />
           <Typography>{subscriptionStatus}</Typography>
         </div>
+        {subscription.contract_terms_date_accepted && (
+          <div className={classes.row}>
+            <CheckIcon className={classes.leftIcon} />
+            <Typography className={classes.contractTerms}>
+              {t('parameters.contractTermsAccepted.start')}
+              <ButtonBase
+                onClick={onOpenContractTermsDialog}
+                className={classes.contractTermsButton}
+                disableRipple
+              >
+                <Typography color="primary">
+                  {t('parameters.contractTermsAccepted.middle')}
+                </Typography>
+              </ButtonBase>
+              {t('parameters.contractTermsAccepted.end', {
+                dateAccepted: moment(
+                  subscription.contract_terms_date_accepted,
+                ).format('LL'),
+              })}
+            </Typography>
+          </div>
+        )}
       </div>
       {props.paymentMethodList && (
         <PaymentMethodInfo
@@ -187,6 +218,13 @@ export const SubscriptionListItem = (props: Props) => {
           paymentMethodList={props.paymentMethodList}
         />
       )}
+      <ContractTermsDialog
+        closeContractTermsDialog={onCloseContractTermsDialog}
+        contractTerms={subscription.legal_contract}
+        contractTermsLink={subscription.contract_terms_link}
+        open={openContractTermsDialog}
+        downloadContractTerms={props.downloadContractTerms}
+      />
     </div>
   );
 };
@@ -215,6 +253,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(0.5),
     marginBottom: theme.spacing(0.5),
+  },
+  contractTerms: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  contractTermsButton: {
+    marginLeft: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
   },
 }));
 

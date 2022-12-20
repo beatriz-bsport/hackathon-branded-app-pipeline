@@ -27,6 +27,7 @@ import BackofficeLinearProgress from '../../components/navigation/BackofficeLine
 import {
   fetchSubscriptionListByMember,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
+  downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
 } from '../../libs/subscription/actions';
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
@@ -44,6 +45,7 @@ import { fetchMember } from '../../libs/member/actions';
 import { getMember } from '../../libs/member/selectors';
 import { Member } from '../../libs/member/types';
 import { CompanyTheme } from '#libs/theme/types';
+import { OptionCallback } from '../../state/types';
 
 type Props = {
   subscriptionList: Array<Subscription>,
@@ -69,6 +71,10 @@ type Props = {
   fetchMember: () => void,
   member: Member,
   theme: CompanyTheme,
+  downloadContractTerms: (
+    billingPlanId: number,
+    options: OptionCallback,
+  ) => void,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
@@ -143,6 +149,9 @@ export class ConsumerSubscription extends React.Component<Props> {
             subscription={sub}
             changePaymentMethod={this.props.setSwitchPaymentMethodDialogOpen}
             paymentMethodList={this.props.savedPaymentMethodList}
+            downloadContractTerms={(options: OptionCallback) =>
+              this.props.downloadContractTerms(sub.id, options)
+            }
           />
         ))}
         <Dialog open={!!this.props.subscriptionSelected}>
@@ -229,6 +238,8 @@ export default compose(
         push(`${urlToMarketplace(name, id)}/subscription`),
       switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
       fetchMember,
+      downloadPDFContractTermsForBillingPlan:
+        downloadPDFContractTermsForBillingPlanAction,
     },
   ),
   withState(
@@ -266,6 +277,11 @@ export default compose(
             onError: options ? options.onError : null,
           },
         );
+      },
+    downloadContractTerms:
+      ({ downloadPDFContractTermsForBillingPlan }) =>
+      (billingPlanId: number, options: OptionCallback) => {
+        downloadPDFContractTermsForBillingPlan(billingPlanId, options);
       },
   }),
 )(ConsumerSubscription);

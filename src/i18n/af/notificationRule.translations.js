@@ -117,6 +117,7 @@ exports.default = {
         subscription_payment_method: 'Méthode de paiement',
         subscription_nb_days_pause: 'Mise en Pause : nb de jours',
         subscription_next_invoice_date: 'Date de la prochaine facturation',
+        subscription_contract_terms_link: 'Lien des mentions légales',
       },
     },
     User: {

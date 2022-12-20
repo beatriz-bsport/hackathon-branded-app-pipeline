@@ -57,6 +57,7 @@ exports.default = {
   finish: 'Terminer',
   delete: 'Supprimer',
   saveRecord: 'Enregistrer',
+  download: 'Télécharger',
   duration: {
     day: '{{ count }} journée',
     day_plural: '{{ count }} jours',

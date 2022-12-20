@@ -304,6 +304,10 @@ exports.default = {
       create: 'Ajouter un contrat',
       iAcceptCondition: "J'accepte les conditions ci-dessus",
       iAcceptGeneralCondition: " J'accepte les mentions légales",
+      iAcceptContractTerms: {
+        iAccept: "J'accepte les",
+        contractTerms: 'mentions légales',
+      },
       iwanttostarton: 'Je souhaite débuter la facturation le : ',
       subscribe: "M'abonner",
       title: 'Date passée',
@@ -516,6 +520,11 @@ exports.default = {
     payment_pack: 'Carte de cours',
     private_pass: 'Carte RDV',
     payment_combo: 'Pack',
+    contractTermsAccepted: {
+      start: 'Les',
+      middle: 'mentions légales',
+      end: 'ont été acceptées le {{- dateAccepted}}.',
+    },
   },
   schedule: {
     provisionalTitle: 'Echéancier prévisionnel',

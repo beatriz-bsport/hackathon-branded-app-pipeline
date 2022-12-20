@@ -716,6 +716,7 @@
     "finish": "Terminer",
     "delete": "Supprimer",
     "saveRecord": "Enregistrer",
+    "download": "Télécharger",
     "duration": {
       "day": "{{ count }} journée",
       "day_plural": "{{ count }} jours",
@@ -3585,7 +3586,8 @@
           "subscription_flat_fee": "Frais de dossier",
           "subscription_payment_method": "Méthode de paiement",
           "subscription_nb_days_pause": "Mise en Pause : nb de jours",
-          "subscription_next_invoice_date": "Date de la prochaine facturation"
+          "subscription_next_invoice_date": "Date de la prochaine facturation",
+          "subscription_contract_terms_link": "Lien des mentions légales"
         }
       },
       "User": {
@@ -8722,6 +8724,7 @@
         "create": "Ajouter un contrat",
         "iAcceptCondition": "J'accepte les conditions ci-dessus",
         "iAcceptGeneralCondition": " J'accepte les mentions légales",
+        "iAcceptContractTerms": { "iAccept": "J'accepte les", "contractTerms": "mentions légales" },
         "iwanttostarton": "Je souhaite débuter la facturation le : ",
         "subscribe": "M'abonner",
         "title": "Date passée",
@@ -8880,7 +8883,8 @@
       "firstBilling": "Premier encaissement",
       "payment_pack": "Carte de cours",
       "private_pass": "Carte RDV",
-      "payment_combo": "Pack"
+      "payment_combo": "Pack",
+      "contractTermsAccepted": { "start": "Les", "middle": "mentions légales", "end": "ont été acceptées le {{- dateAccepted}}." }
     },
     "schedule": { "provisionalTitle": "Echéancier prévisionnel", "paymentMethodTitle": "Méthode de débit" },
     "paymentMethod": {

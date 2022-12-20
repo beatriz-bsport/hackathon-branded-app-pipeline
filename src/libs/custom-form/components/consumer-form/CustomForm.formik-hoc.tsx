@@ -124,7 +124,7 @@ const ValidationSchema = Yup.object().shape({
         .when('signup_question_kind', {
           is: CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
           then: Yup.string().matches(
-            /^([A-z0-9-_]|\.)+@[A-z0-9-_]+(\.[A-z]+)+$/,
+            /^([A-z0-9-_]|\.)+@[A-z0-9-_.]+(\.[A-z]+)+$/,
             'marketing:customForm.submit.errors.invalidEmail',
           ),
         }),

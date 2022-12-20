@@ -27,50 +27,51 @@ import {
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
-import themeSelectors, { getStripePkKey } from '../../libs/theme/selectors';
+import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
 import asyncComponent from '../../AsyncComponent';
 
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchMarketplacePacks,
-} from '../../libs/payment-packs/actions';
+} from '#libs/payment-packs/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivatePassAsConsumerList,
-} from '../../libs/private-service/actions';
+} from '#libs/private-service/actions';
 import {
   getMarketplaceContractList as getContractList,
   getContract,
   withPaymentPack,
-} from '../../libs/subscription/selectors';
+} from '#libs/subscription/selectors';
 import {
   fetchMarketplaceContractList,
   fetchContractDetail,
   registerContractBackground,
-} from '../../libs/subscription/actions';
-import SubscriptionContractDetail from '../../libs/subscription/components/SubscriptionContractDetail.component';
-import MarketplaceSubscriptionContractList from '../../libs/subscription/components/MarketplaceSubscriptionContractList.component';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+  downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAction,
+} from '#libs/subscription/actions';
+import SubscriptionContractDetail from '#libs/subscription/components/SubscriptionContractDetail.component';
+import MarketplaceSubscriptionContractList from '#libs/subscription/components/MarketplaceSubscriptionContractList.component';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
-} from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import Analytics from '../../components/analytics/Analytics.component';
-import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
-import WidgetUtils from '../../libs/widget/WidgetUtils';
-import type { ContractWithPaymentPack } from '../../libs/subscription/types';
-import type { Theme as CompanyTheme } from '../../libs/theme/types';
-import type { PaymentMethod } from '../../libs/payment/types';
+} from '#libs/payment/actions';
+import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import Analytics from '#components/analytics/Analytics.component';
+import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import type { ContractWithPaymentPack } from '#libs/subscription/types';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
+import type { PaymentMethod } from '#libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
-import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
+import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+import ContractTermsDialog from '#libs/subscription/components/contract/ContractTermsDialog.component';
 
 const SubscriptionPayment = asyncComponent(
-  () =>
-    import('../../libs/subscription/components/SubscriptionPayment.component'),
+  () => import('#libs/subscription/components/SubscriptionPayment.component'),
 );
 
 type ownProps = {
@@ -115,6 +116,7 @@ type ownProps = {
     success: boolean;
   }) => void;
   showPaymentStatusDialog: { open: boolean; error: boolean; success: boolean };
+  downloadContractTerms: (options: OptionCallback) => void;
 };
 
 type ConnectedProps = ownProps &
@@ -127,6 +129,7 @@ type Props = ConnectedProps &
 type State = {
   processing: boolean;
   stripePromise: Promise | null;
+  openContractTermsDialog: boolean;
 };
 
 export class MarketplaceSubscriptionPayment extends React.Component<
@@ -136,6 +139,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   state: State = {
     processing: false,
     stripePromise: null,
+    openContractTermsDialog: false,
   };
 
   componentWillMount() {
@@ -196,6 +200,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           payment_method_id,
           first_billing_timestamp,
           coupon,
+          consumer_accept_contract_terms: true,
           ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
         },
         {
@@ -233,6 +238,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     );
   };
 
+  handleOpenContractTermsDialog = () =>
+    this.setState({ openContractTermsDialog: true });
+
+  handleCloseContractTermsDialog = () =>
+    this.setState({ openContractTermsDialog: false });
+
   render() {
     const { classes } = this.props;
     if (
@@ -256,6 +267,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
         : []),
     ];
+
+    const contract =
+      this.props.contractList.find(
+        (c: ContractWithPaymentPack) =>
+          c.id === parseInt(this.props.contractId),
+      ) || this.props.contract;
 
     return (
       <ConsumerAppBar>
@@ -297,12 +314,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                       isExcludingTax={
                         this.props.companyTheme.is_tax_excluded_in_marketplace
                       }
-                      contract={
-                        this.props.contractList.find(
-                          (c: ContractWithPaymentPack) =>
-                            c.id === parseInt(this.props.contractId),
-                        ) || this.props.contract
-                      }
+                      contract={contract}
                     />
                   )}
               </Grid>
@@ -326,12 +338,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                           this.props.savedPaymentMethodList
                         }
                         withCoupon
-                        contract={
-                          this.props.contractList.find(
-                            (c: ContractWithPaymentPack) =>
-                              c.id === parseInt(this.props.contractId),
-                          ) || this.props.contract
-                        }
+                        contract={contract}
                         refreshSavedPaymentMethodList={
                           this.props.fetchPaymentMethodList
                         }
@@ -357,6 +364,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                         }}
                         date={this.props.date}
                         setDate={this.props.setDate}
+                        onOpenContractTermsDialog={
+                          this.handleOpenContractTermsDialog
+                        }
                       />
                     </Elements>
                   )}
@@ -365,6 +375,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
             </Grid>
           </div>
         </div>
+        <ContractTermsDialog
+          closeContractTermsDialog={this.handleCloseContractTermsDialog}
+          contractTerms={contract?.contract}
+          downloadContractTerms={this.props.downloadContractTerms}
+          open={this.state.openContractTermsDialog}
+        />
       </ConsumerAppBar>
     );
   }
@@ -436,6 +452,8 @@ const mapDispatchToProps = {
   fetchPaymentComboList,
   fetchPaymentPacks: fetchMarketplacePacks,
   fetchPrivatePassAsConsumerList,
+  downloadPDFContractTermsForContract:
+    downloadPDFContractTermsForContractAction,
 };
 
 export default compose<any, ownProps>(
@@ -499,5 +517,9 @@ export default compose<any, ownProps>(
           },
         );
       },
+    downloadContractTerms:
+      ({ downloadPDFContractTermsForContract, contractId }: ConnectedProps) =>
+      (options: OptionCallback) =>
+        downloadPDFContractTermsForContract(parseInt(contractId), options),
   }),
 )(MarketplaceSubscriptionPayment);

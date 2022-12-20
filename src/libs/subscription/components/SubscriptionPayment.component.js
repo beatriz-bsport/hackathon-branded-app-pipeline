@@ -6,6 +6,7 @@ import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
@@ -103,6 +104,7 @@ type Props = {
   pastInvoices: boolean,
   onlinePaymentEnabled?: boolean,
   forceEstablishmentSelection?: boolean,
+  onOpenContractTermsDialog?: () => void,
 };
 
 type State = {
@@ -350,17 +352,26 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             <Typography variant="h4" className={classes.title}>
               {t('contract.actions.subscribe')}
             </Typography>
-            <FormControl>
-              <FormControlLabel
-                label={t('contract.actions.iAcceptGeneralCondition')}
-                control={
-                  <Checkbox
-                    checked={acceptContract}
-                    onChange={(ev) => setAcceptContract(ev.target.checked)}
-                  />
-                }
+            <div className={classes.acceptContractTermsContainer}>
+              <Checkbox
+                checked={acceptContract}
+                onChange={(ev) => setAcceptContract(ev.target.checked)}
               />
-            </FormControl>
+              <Typography>
+                {t('contract.actions.iAcceptContractTerms.iAccept')}
+                <ButtonBase
+                  onClick={this.props.onOpenContractTermsDialog}
+                  className={classes.contractTermsButton}
+                  disableRipple
+                >
+                  <Typography color="primary">
+                    {`${t(
+                      'contract.actions.iAcceptContractTerms.contractTerms',
+                    )}.`}
+                  </Typography>
+                </ButtonBase>
+              </Typography>
+            </div>
             <div className={classes.buttonDateBlock}>
               <Typography className={classes.buttonLeftText}>
                 {t('contract.actions.iwanttostarton')}
@@ -838,6 +849,13 @@ const styles = (theme) => ({
     gap: theme.spacing(2),
   },
   confirmValue: { maxWidth: '150px' },
+  acceptContractTermsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  contractTermsButton: {
+    marginLeft: theme.spacing(0.5),
+  },
 });
 
 export default compose(

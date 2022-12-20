@@ -143,18 +143,20 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
           </Select>
         </FormControl>
       )}
-      {!config.todayOnly && config.compactMode !== false && (
-        <FormControlLabel
-          control={
-            <Switch
-              checked={config?.groupSessionByPeriod ?? true}
-              onChange={setGroupSessionBy}
-              color="primary"
-            />
-          }
-          label={t('widget:widget.groupSessionByPeriod')}
-        />
-      )}
+      {!config.todayOnly &&
+        (compactMode === CALENDAR_DISPLAY ||
+          compactMode === RESPONSIVE_DISPLAY) && (
+          <FormControlLabel
+            control={
+              <Switch
+                checked={config?.groupSessionByPeriod ?? true}
+                onChange={setGroupSessionBy}
+                color="primary"
+              />
+            }
+            label={t('widget:widget.groupSessionByPeriod')}
+          />
+        )}
 
       <FormControl className={classes.compactModeContainer}>
         <InputLabel>{t('widget:widget.variant')}</InputLabel>

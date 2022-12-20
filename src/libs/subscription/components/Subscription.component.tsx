@@ -64,11 +64,12 @@ type Props = {
   cancelPause: (id: number, options?: OptionCallback<Subscription>) => void;
   requestPause: (data: PauseRequestData, options: OptionCallback<any>) => void;
   paymentMethodLoading?: boolean;
+  downloadContractTerms: (options: OptionCallback) => void;
 };
 
 export function SubscriptionComponent(props: Props) {
   const classes = useStyles();
-  const { t } = useTranslation(['subscription']);
+  const { t } = useTranslation('subscription');
   if (!props.subscription) {
     return null;
   }
@@ -122,6 +123,7 @@ export function SubscriptionComponent(props: Props) {
               requestPaymentComboSwitch={props.requestPaymentComboSwitch}
               requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
               unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
+              downloadContractTerms={props.downloadContractTerms}
             />
           </div>
           <SubscriptionPaymentMethod

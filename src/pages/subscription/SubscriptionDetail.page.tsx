@@ -50,6 +50,7 @@ import {
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
   flagPlannedInvoiceAsLast as flagPlannedInvoiceAsLastAction,
   unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAction,
+  downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction,
 } from '#libs/subscription/actions';
 import { fetchMember as fetchMemberAction } from '#libs/member/actions';
 import {
@@ -144,6 +145,7 @@ export class SubscriptionDetail extends Component<Props> {
             }
           }}
           unflagPlannedInvoiceAsLast={this.props.unflagPlannedInvoiceAsLast}
+          downloadContractTerms={this.props.downloadContractTerms}
         />
         {this.props.switchPackDialogOpen ? (
           <SubscriptionPaymentPackSwitcherDialog
@@ -282,6 +284,8 @@ const connector = connect(
     flagPlannedInvoiceAsLast: flagPlannedInvoiceAsLastAction,
     unflagPlannedInvoiceAsLast: unflagPlannedInvoiceAsLastAction,
     fetchStripeReaders,
+    downloadPDFContractTermsForBillingPlan:
+      downloadPDFContractTermsForBillingPlanAction,
   },
 );
 
@@ -519,6 +523,11 @@ const mapWithHandlers2 = {
         },
         onError: options.onError,
       });
+    },
+  downloadContractTerms:
+    ({ downloadPDFContractTermsForBillingPlan, id }: BeforeHandlerProps) =>
+    (options: OptionCallback) => {
+      downloadPDFContractTermsForBillingPlan(id, options);
     },
 };
 

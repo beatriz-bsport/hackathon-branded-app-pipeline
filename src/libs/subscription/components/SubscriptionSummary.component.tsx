@@ -1,29 +1,32 @@
-// @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation, TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import { makeStyles, Theme } from '@material-ui/core/';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { isPaused } from '../utils';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-
-import type { Subscription } from '../types';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import ContractTermsDialog from './contract/ContractTermsDialog.component';
+import { Subscription, SubscriptionPause } from '../types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PrivatePass } from '#libs/private-service/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
-  subscription: Subscription,
-  t: TFunction,
-  classes: Object,
-  updateRenewal: ({ auto_renewal: boolean }) => void,
-  requestPaymentPackSwitch: () => void,
-  requestPrivatePassSwitch: () => void,
-  requestPaymentComboSwitch: () => void,
-  loading: boolean,
-  unflagPlannedInvoiceAsLast: (id: number) => void,
+  subscription: Subscription<PrivatePass, PaymentPack, PaymentCombo>;
+  updateRenewal: (params: { auto_renewal: boolean }) => void;
+  requestPaymentPackSwitch: () => void;
+  requestPrivatePassSwitch: () => void;
+  requestPaymentComboSwitch: () => void;
+  loading: boolean;
+  unflagPlannedInvoiceAsLast: (id: number) => void;
+  downloadContractTerms: (options: OptionCallback) => void;
 };
 
 const renderStatus = (
@@ -58,46 +61,48 @@ const renderStatus = (
   );
 };
 
-export function SubscriptionSummary(props: Props) {
-  const { subscription, t, classes } = props;
+export const SubscriptionSummary = (props: Props) => {
+  const { subscription } = props;
+  const { t } = useTranslation('subscription');
+  const classes = useStyles();
   const lastInvoice = subscription.planned_invoices.find(
     (invoice) => invoice.is_last_invoice_before_scheduled_stop,
   );
+  const [openContractTermsDialog, setOpenContractTermsDialog] =
+    React.useState(false);
+  const onOpenContractTermsDialog = () => setOpenContractTermsDialog(true);
+  const onCloseContractTermsDialog = () => setOpenContractTermsDialog(false);
   if (!subscription) {
     return null;
   }
   return (
     <div className={classes.container}>
-      <fieldset className={classes.parameters}>
+      <fieldset>
         <legend>{t('parameters.parameters')}</legend>
         <div className={classes.field}>
-          <Typography variant="body2" inline>
-            {t('parameters.nbInterval')}
-          </Typography>
-          <Typography inline>{subscription.nb_interval}</Typography>
+          <Typography variant="body2">{t('parameters.nbInterval')}</Typography>
+          <Typography>{subscription.nb_interval}</Typography>
         </div>
         <div className={classes.field}>
-          <Typography variant="body2" inline>
+          <Typography variant="body2">
             {t('parameters.recurrent_price')}
           </Typography>
-          <Typography inline>
+          <Typography>
             {getCurrencyDisplayWithPrice(subscription.recurrent_price)}
           </Typography>
         </div>
         <div className={classes.field}>
-          <Typography variant="body2" inline>
-            {t('parameters.flat_fee')}
-          </Typography>
-          <Typography inline>
+          <Typography variant="body2">{t('parameters.flat_fee')}</Typography>
+          <Typography>
             {getCurrencyDisplayWithPrice(subscription.flat_fee)}
           </Typography>
         </div>
-        {!props.subscription.is_v2 && (
+        {!subscription.is_v2 && (
           <div className={classes.field}>
-            <Typography variant="body2" inline>
+            <Typography variant="body2">
               {t('parameters.payment_method.label')}
             </Typography>
-            <Typography inline>
+            <Typography>
               {t(
                 `invoice:paymentMethod.label.${subscription.payment_method_identifier}`,
               )}
@@ -105,11 +110,9 @@ export function SubscriptionSummary(props: Props) {
           </div>
         )}
         <div className={classes.fieldNotPadded}>
-          <Typography variant="body2" inline>
-            {props.t('parameters.autoRenew')}
-          </Typography>
+          <Typography variant="body2">{t('parameters.autoRenew')}</Typography>
           <Checkbox
-            checked={props.subscription.auto_renewal}
+            checked={subscription.auto_renewal}
             disabled={props.loading || !subscription.editable}
             onChange={(ev) =>
               props.updateRenewal({
@@ -120,7 +123,7 @@ export function SubscriptionSummary(props: Props) {
         </div>
         {!!subscription.payment_pack && (
           <div className={classes.fieldNotPadded}>
-            <Typography variant="body2" inline>
+            <Typography variant="body2">
               {t('parameters.payment_pack')}
             </Typography>
             <div className={classes.rowRight}>
@@ -131,7 +134,7 @@ export function SubscriptionSummary(props: Props) {
               >
                 <EditIcon />
               </IconButton>
-              <Typography variant="body2" inline>
+              <Typography variant="body2">
                 {subscription.payment_pack
                   ? subscription.payment_pack.name
                   : ' - '}
@@ -141,7 +144,7 @@ export function SubscriptionSummary(props: Props) {
         )}
         {!!subscription.private_pass && (
           <div className={classes.fieldNotPadded}>
-            <Typography variant="body2" inline>
+            <Typography variant="body2">
               {t('parameters.private_pass')}
             </Typography>
             <div className={classes.rowRight}>
@@ -152,7 +155,7 @@ export function SubscriptionSummary(props: Props) {
               >
                 <EditIcon />
               </IconButton>
-              <Typography variant="body2" inline>
+              <Typography variant="body2">
                 {subscription.private_pass
                   ? subscription.private_pass.name
                   : ' - '}
@@ -162,7 +165,7 @@ export function SubscriptionSummary(props: Props) {
         )}
         {!!subscription.payment_combo && (
           <div className={classes.fieldNotPadded}>
-            <Typography variant="body2" inline>
+            <Typography variant="body2">
               {t('parameters.payment_combo')}
             </Typography>
             <div className={classes.rowRight}>
@@ -173,7 +176,7 @@ export function SubscriptionSummary(props: Props) {
               >
                 <EditIcon />
               </IconButton>
-              <Typography variant="body2" inline>
+              <Typography variant="body2">
                 {subscription.payment_combo
                   ? subscription.payment_combo.name
                   : ' - '}
@@ -183,9 +186,7 @@ export function SubscriptionSummary(props: Props) {
         )}
 
         <div className={classes.field}>
-          <Typography variant="body2" inline>
-            {props.t('parameters.status')}
-          </Typography>
+          <Typography variant="body2">{t('parameters.status')}</Typography>
           {renderStatus(
             t,
             subscription.canceled_at,
@@ -194,11 +195,30 @@ export function SubscriptionSummary(props: Props) {
           )}
         </div>
         <div className={classes.field}>
-          <Typography variant="body2" inline>
-            {props.t('parameters.note')}
-          </Typography>
+          <Typography variant="body2">{t('parameters.note')}</Typography>
           {subscription.note}
         </div>
+        {subscription.contract_terms_date_accepted && (
+          <div className={classes.field}>
+            <Typography variant="body2" className={classes.contractTerms}>
+              {t('parameters.contractTermsAccepted.start')}
+              <ButtonBase
+                onClick={onOpenContractTermsDialog}
+                className={classes.contractTermsButton}
+                disableRipple
+              >
+                <Typography variant="body2" color="primary">
+                  {t('parameters.contractTermsAccepted.middle')}
+                </Typography>
+              </ButtonBase>
+              {t('parameters.contractTermsAccepted.end', {
+                dateAccepted: moment(
+                  subscription.contract_terms_date_accepted,
+                ).format('LL'),
+              })}
+            </Typography>
+          </div>
+        )}
         {lastInvoice && !(subscription.has_ended || subscription.canceled_at) && (
           <div className={classes.field}>
             <Typography className={classes.scheduledStop} variant="body2">
@@ -217,11 +237,18 @@ export function SubscriptionSummary(props: Props) {
           </div>
         )}
       </fieldset>
+      <ContractTermsDialog
+        closeContractTermsDialog={onCloseContractTermsDialog}
+        contractTerms={subscription.legal_contract}
+        contractTermsLink={subscription.contract_terms_link}
+        downloadContractTerms={props.downloadContractTerms}
+        open={openContractTermsDialog}
+      />
     </div>
   );
-}
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     padding: theme.spacing(1),
   },
@@ -238,38 +265,23 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
   },
-  parameters: {},
-  statusContainer: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(1),
-    border: '1px solid #DDDDDD',
-    backgroundColor: '#F8F8F8',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderRadius: 6,
-  },
   rowRight: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  bottomButtonsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    paddingTop: theme.spacing(2),
-    right: 0,
-  },
   scheduledStop: {
     marginRight: theme.spacing(4),
   },
-});
+  contractTerms: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  contractTermsButton: {
+    marginLeft: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
+  },
+}));
 
-export default compose(
-  withStyles(styles),
-  withTranslation(['subscription']),
-)(SubscriptionSummary);
+export default SubscriptionSummary;

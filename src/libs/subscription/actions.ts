@@ -25,6 +25,7 @@ import api, {
   registerContractBackground as registerContractBackgroundAPI,
   registerContractSubscriptionUnauthenticated as registerContractBackgroundUnauthenticatedAPI,
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAPI,
+  downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -1064,3 +1065,24 @@ export function downloadPDFContractTermsForContract(
   };
 }
 
+export function downloadPDFContractTermsForBillingPlan(
+  billingPanId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(downloadPDFContractTermsActions.isLoading(true));
+    dispatch(downloadPDFContractTermsActions.error(null));
+    try {
+      const response = await downloadPDFContractTermsForBillingPlanAPI(
+        billingPanId,
+      );
+      dispatch(downloadPDFContractTermsActions.success(response.data));
+      downloadDocument(response.data.filepath);
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(downloadPDFContractTermsActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(downloadPDFContractTermsActions.isLoading(false));
+  };
+}

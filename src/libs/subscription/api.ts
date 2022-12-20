@@ -260,6 +260,14 @@ export const downloadPDFContractTermsForContract = async (
   );
 };
 
+export const downloadPDFContractTermsForBillingPlan = async (
+  billingPlanId: number,
+): Promise<AxiosResponse<{ filepath: string }>> => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${billingPlanId}/download_contract_terms/`,
+  );
+};
+
 export default {
   fetchSubscriptionList: fetchAll,
   fetchDetail,

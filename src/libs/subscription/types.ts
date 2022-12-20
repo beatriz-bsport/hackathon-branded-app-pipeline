@@ -29,12 +29,13 @@ export type Subscription<
   auto_renewal: boolean;
   canceled_at: string;
   contract: number;
+  contract_terms_date_accepted: string;
+  contract_terms_link: string | null;
   date_created: string;
-  status?: number;
-  memberArchived?: string;
-  first_billing_date?: string;
   description: string;
+  editable: boolean;
   first_billing_date: string;
+  flat_fee: string;
   has_ended: boolean;
   id: number;
   is_v2: boolean;
@@ -47,6 +48,7 @@ export type Subscription<
   name_without_member_name: string;
   nb_interval: number;
   next_billing_date: string;
+  note: string;
   pauses: Array<SubscriptionPause>;
   payment_combo: PaymentComboType;
   payment_engine: number;

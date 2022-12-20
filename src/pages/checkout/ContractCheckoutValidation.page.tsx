@@ -23,15 +23,15 @@ import ConsumerAppBar from './ConsumerAppBar.container';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { getContract } from '#libs/subscription/selectors';
 import { fetchContractDetail } from '#libs/subscription/actions';
-import SubscriptionListItem from '#libs/subscription/components/billing-plan/SubscriptionListItem.component';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import TimeoutButton from '#components/button/TimeoutButton.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
+import ContractValidationCard from '#libs/subscription/components/contract/ContractValidationCard.component';
 
 type RouterProps = {
   success: boolean;
   companyId: number;
-  contractId: number;
+  contractId: string;
   next?: string;
 };
 
@@ -43,7 +43,7 @@ type Props = RouterProps &
 
 export class ContractCheckoutValidation extends Component<Props> {
   componentDidMount() {
-    this.props.fetchContractDetail(this.props.contractId);
+    this.props.fetchContractDetail(parseInt(this.props.contractId));
   }
 
   generateTextContent = () => {
@@ -126,10 +126,7 @@ export class ContractCheckoutValidation extends Component<Props> {
                         {t('subscriptionPaymentDialog.success.contract')}
                       </Typography>
                     </div>
-                    <SubscriptionListItem
-                      subscription={this.props.contract}
-                      variant="listItem"
-                    />
+                    <ContractValidationCard contract={this.props.contract} />
                   </div>
                 </div>
               </>

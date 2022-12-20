@@ -24,6 +24,7 @@ import api, {
   updateOnlyContractPauseName as updateOnlyContractPauseNameAPI,
   registerContractBackground as registerContractBackgroundAPI,
   registerContractSubscriptionUnauthenticated as registerContractBackgroundUnauthenticatedAPI,
+  downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -42,6 +43,7 @@ import {
 } from './types';
 
 import { fetchEventList } from '../event/actions';
+import { downloadDocument } from '../../utils/downloader';
 
 export const fetchSubscriptionEventList = (
   params: { event_types?: any } = {},
@@ -1035,3 +1037,30 @@ export function registerContractBackground(
     dispatch(registerContractBackgroundActions.isLoading(false));
   };
 }
+
+export const downloadPDFContractTermsActions = {
+  isLoading: createAction('CONTRACT_TERMS/PDF/IS_LOADING'),
+  error: createAction('CONTRACT_TERMS/PDF/ERROR'),
+  success: createAction('CONTRACT_TERMS/PDF/SUCCESS'),
+};
+
+export function downloadPDFContractTermsForContract(
+  contractId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(downloadPDFContractTermsActions.isLoading(true));
+    dispatch(downloadPDFContractTermsActions.error(null));
+    try {
+      const response = await downloadPDFContractTermsForContractAPI(contractId);
+      dispatch(downloadPDFContractTermsActions.success(response.data));
+      downloadDocument(response.data.filepath);
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(downloadPDFContractTermsActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(downloadPDFContractTermsActions.isLoading(false));
+  };
+}
+

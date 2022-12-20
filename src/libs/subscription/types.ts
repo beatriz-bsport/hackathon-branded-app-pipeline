@@ -108,6 +108,7 @@ export type Contract = {
   interval: 'month' | 'week';
   recurrence_basis: number;
   tax: string;
+  contract_terms_link: string | null;
 };
 
 export type ContractWithPaymentPack = {

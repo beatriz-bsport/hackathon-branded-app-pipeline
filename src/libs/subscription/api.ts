@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import {
   API_URI,
   buildUrlParams,
@@ -248,6 +249,14 @@ export const updateOnlyContractPauseName = async (
 export const deleteContractPause = async (contract_pause_id: number) => {
   return deleteAuth(
     `${API_URI}/subscription/contract_pause/${contract_pause_id}/`,
+  );
+};
+
+export const downloadPDFContractTermsForContract = async (
+  contractId: number,
+): Promise<AxiosResponse<{ filepath: string }>> => {
+  return getAuth(
+    `${API_URI}/subscription/contract/${contractId}/download_contract_terms/`,
   );
 };
 

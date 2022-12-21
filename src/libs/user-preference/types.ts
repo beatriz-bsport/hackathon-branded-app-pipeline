@@ -53,4 +53,5 @@ export type UserPreference = {
   shrinkResponsiveDrawer: boolean;
   replacementRequestManagerFilter: ReplacementRequestFilter;
   replacementRequestOfferHistoryFilter: ReplacementRequestOfferHistoryFilter;
+  hideCoachNotAssociatedToPrivateServiceWarning: boolean;
 };

@@ -55,6 +55,9 @@ export const userPreferenceActions = {
   setReplacementRequestOfferHistoryFilter: createAction(
     'USER_PREFERENCE/REPLACEMENT_REQUEST_OFFER_HISTORY_FILTER',
   ),
+  setHideCoachNotAssociatedToPrivateServiceWarning: createAction<boolean>(
+    'USER_PREFERANCE/HIDE_ASSOCIATED_COACH_WITHOUTH_PRIVATE_SERVICE_DIALOG',
+  ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -198,6 +201,18 @@ export function setReplacementRequestOfferHistoryFilter(
   return async (dispatch: Dispatch) => {
     dispatch(
       userPreferenceActions.setReplacementRequestOfferHistoryFilter(filter),
+    );
+  };
+}
+
+export function setHideCoachNotAssociatedToPrivateServiceWarning(
+  hide: boolean,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.setHideCoachNotAssociatedToPrivateServiceWarning(
+        hide,
+      ),
     );
   };
 }

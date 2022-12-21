@@ -51,6 +51,8 @@ import {
   withResourceColor,
   getResourceDataList,
 } from '../libs/private-service/selectors/availability-slot';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+
 import AvailabilityUpdateResourceChoserDialog from '../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
@@ -81,6 +83,7 @@ import {
   PrivateBooking,
   AvailabilitySlot,
   ResourceData,
+  PrivateService as PrivateServiceType,
 } from '../libs/private-service/types';
 
 type Props = {
@@ -132,6 +135,7 @@ type Props = {
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,
   establishments: Array<EstablishmentWithAssociatedId>,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
+  privateServices: PrivateServiceType[],
 };
 
 const styles = (theme) => ({
@@ -344,6 +348,10 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       privateBookingList = this.props.privateBookingList;
       resourceAvailable = this.props.resourceData;
     }
+    const coachesIdsRelatedToPrivateServices = this.props.privateServices
+      .map(({ coaches }) => coaches.map((coach) => coach?.associated_coach_id))
+      .flat();
+
     return (
       <div className={classes.container}>
         <PrivateCalendarWithControls
@@ -387,6 +395,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
             open={!!this.state.updateAvailabilitySlotData}
             establishments={this.props.establishments}
             kind={this.state.updateAvailabilitySlotData.kind}
+            coachesRelatedToPrivateServices={coachesIdsRelatedToPrivateServices}
           />
         ) : null}
         {this.props.customEventData && (
@@ -470,6 +479,7 @@ export default compose(
       customEventList: getCustomEventList(state, periodFilter),
       resourceData: getResourceDataList(state),
       establishments: getAllEstablishmentsWithAssociatedId(state),
+      privateServices: getPrivateServices(state),
       resourceDataLoading: state.privateService.resource.loading,
       ressourceFilers:
         state.dashboardSettings.managerRessourcesFilters.data.filter,

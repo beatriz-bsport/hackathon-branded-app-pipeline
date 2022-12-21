@@ -118,7 +118,15 @@ exports.default = {
         label: 'Modifier pour :',
         cancel: 'Annuler',
         submit: 'Enregistrer',
+        warning: "Ce(tte) professeur(e) n'est associé(e) à aucun rendez-vous",
       },
+    },
+    notAssociatedDialog: {
+      title: 'Aucun RDV associé',
+      info: `La disponibilité a bien été enregistrée. En revanche, ce professeur n'est associé à aucun RDV.
+        Pour pouvoir enregister un nouveau RDV avec ce professeur; associez le au RDV souhaité depuis l'onglet RDV.`,
+      checkbox: 'Ne plus me le rappeler',
+      close: 'Fermer',
     },
     specificAvailabilityForm: {
       switchLabel: 'Ajouter pour certains établissements seulement',

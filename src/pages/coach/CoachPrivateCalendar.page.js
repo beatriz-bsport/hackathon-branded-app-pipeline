@@ -33,6 +33,7 @@ import {
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
 import SlotSpecificEstablishmentDialog from '#libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
+import SlotCoachNotAssociatedDialog from '#libs/private-service/components/availability/SlotCoachNotAssociatedDialog.component';
 
 import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
 import {
@@ -57,7 +58,10 @@ import {
   fetchCoachBulk,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
 } from '../../libs/associated-coach/actions';
-import { setCoachScheduleFilter as setCoachScheduleFilterAction } from '../../libs/user-preference/actions';
+import {
+  setCoachScheduleFilter as setCoachScheduleFilterAction,
+  setHideCoachNotAssociatedToPrivateServiceWarning as setHideCoachNotAssociatedToPrivateServiceWarningAction,
+} from '../../libs/user-preference/actions';
 import { getCoachScheduleFilter } from '../../libs/user-preference/selectors';
 import { ScheduleFilter } from '../../libs/user-preference/types';
 import { getTheme } from '#libs/theme/selectors';
@@ -67,6 +71,8 @@ import { getCustomEventList } from '../../libs/private-service/selectors/custom-
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { CompanyTheme } from '../../libs/theme/types';
 import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
+import { PrivateService as PrivateServiceType } from '../../libs/private-service/types';
 
 type Props = {
   companyTheme: CompanyTheme,
@@ -122,10 +128,14 @@ type Props = {
     scheduleFilter: ScheduleFilter,
   ) => void,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
+  hideCoachNotAssociatedToPrivateServiceWarning: boolean,
+  setHideCoachNotAssociatedToPrivateServiceWarning: (hide: boolean) => void,
+  privateServices: PrivateServiceType[],
 };
 
 type State = {
   updateAvailabilitySlotData: null | [any, OptionCallback],
+  showCoachNotAssociatedToPrivateServiceWarning: boolean,
   resourceAvailable: null | Array<{
     datatype: 'associated_coach',
     data: Array<{
@@ -142,7 +152,7 @@ const styles = (theme) => ({
 });
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       updateAvailabilitySlotData: null,
@@ -158,6 +168,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           ],
         },
       ],
+      showCoachNotAssociatedToPrivateServiceWarning: false,
     };
   }
 
@@ -199,6 +210,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
           slotUpdateOptions.onSuccess(...args);
         }
+        this.setState({ showCoachNotAssociatedToPrivateServiceWarning: true });
       },
     };
 
@@ -290,13 +302,33 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     }
   };
 
+  onCloseSlotNotAssociatedDialog = (hide: boolean) => {
+    this.setState({ showCoachNotAssociatedToPrivateServiceWarning: false });
+    this.props.setHideCoachNotAssociatedToPrivateServiceWarning(hide);
+  };
+
+  coachNotRelatedToPrivateService = () => {
+    if (
+      !this.props.coach ||
+      !this.props.privateServices ||
+      this.props.privateServices.length === 0
+    )
+      return false;
+
+    const coachesIdsRelatedToPrivateServices = this.props.privateServices
+      .map(({ coaches }) => coaches.map((coach) => coach?.associated_coach_id))
+      .flat();
+    return !coachesIdsRelatedToPrivateServices.includes(
+      this.props.coach.associated_coach_id,
+    );
+  };
+
   render() {
     const { classes } = this.props;
 
     if (!this.props.coach) {
       return <LinearProgress />;
     }
-
     return (
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
@@ -346,6 +378,13 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
             onSubmit={this.submitAvailabilitySlotUpdate}
           />
         )}
+        {this.state.showCoachNotAssociatedToPrivateServiceWarning &&
+          !this.props.hideCoachNotAssociatedToPrivateServiceWarning &&
+          this.coachNotRelatedToPrivateService() && (
+            <SlotCoachNotAssociatedDialog
+              onClose={this.onCloseSlotNotAssociatedDialog}
+            />
+          )}
       </div>
     );
   }
@@ -393,6 +432,9 @@ export default compose(
         state.privateService.availabilitySlot.createOrUpdate.loading,
       scheduleFilter: getCoachScheduleFilter(state, id),
       establishments: getAllEstablishmentsWithAssociatedId(state),
+      privateServices: getPrivateServices(state),
+      hideCoachNotAssociatedToPrivateServiceWarning:
+        state.userPreference.hideCoachNotAssociatedToPrivateServiceWarning,
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
@@ -416,6 +458,8 @@ export default compose(
       fetchEstablishments: fetchEstablishmentsAction,
       listOffersWithPendingReplacementRequestIds:
         listOffersWithPendingReplacementRequestIdsAction,
+      setHideCoachNotAssociatedToPrivateServiceWarning:
+        setHideCoachNotAssociatedToPrivateServiceWarningAction,
     },
   ),
   withHandlers({

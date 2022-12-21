@@ -39,6 +39,7 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
     min_date: moment().subtract(1, 'month').format('YYYY-MM-DD'),
     max_date: moment().format('YYYY-MM-DD'),
   },
+  hideCoachNotAssociatedToPrivateServiceWarning: false,
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -161,6 +162,14 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
     [userPreferenceActions.setReplacementRequestOfferHistoryFilter.toString()]:
       (state, { payload }) => {
         return state.setIn(['replacementRequestOfferHistoryFilter'], payload);
+      },
+
+    [userPreferenceActions.setHideCoachNotAssociatedToPrivateServiceWarning.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.set(
+          'hideCoachNotAssociatedToPrivateServiceWarning',
+          payload,
+        );
       },
   },
   initialState,

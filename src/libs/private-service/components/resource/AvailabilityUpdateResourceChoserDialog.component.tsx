@@ -14,12 +14,14 @@ import Collapse from '@material-ui/core/Collapse';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import WarningIcon from '@material-ui/icons/Warning';
 import { ButtonBase, Checkbox, Theme, Typography } from '@material-ui/core';
 import SlotSpecificEstablishmentPicker from '#libs/private-service/components/availability/SlotSpecificEstablishmentPicker.component';
 import { MaterialStyleType } from '../../../../utils/types';
 import { PrivateResource } from '../../types';
 import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
 import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
+import ToolTip from '#components/Tooltip.component';
 
 type OwnProps = {
   open: boolean;
@@ -31,6 +33,7 @@ type OwnProps = {
   ) => void;
   establishments: Array<EstablishmentWithAssociatedId>;
   kind?: string;
+  coachesRelatedToPrivateServices: number[];
 };
 
 type Props = OwnProps &
@@ -172,6 +175,15 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
     this.setState({ selectedEstablishments: newValues.map((e) => e.value) });
   };
 
+  isWarning = (resourceByType: PrivateResource) => {
+    return (
+      resourceByType.datatype === 'associated_coach' &&
+      !this.props.coachesRelatedToPrivateServices.includes(
+        resourceByType.resource_id,
+      )
+    );
+  };
+
   render() {
     const { t, classes } = this.props;
 
@@ -227,6 +239,17 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
                         backgroundColor: resourceByType.color || 'DCF3D8',
                       }}
                     />
+                    {this.isWarning(resourceByType) && (
+                      <div className={classes.warningIcon}>
+                        <ToolTip
+                          title={t(
+                            'availabilitySlot.form.resourceSelector.warning',
+                          )}
+                        >
+                          <WarningIcon />
+                        </ToolTip>
+                      </div>
+                    )}
                   </ButtonBase>
                 ))}
               </>
@@ -344,6 +367,10 @@ const styles = (theme: Theme) => ({
   },
   icon: {
     color: 'rgba(0, 0, 0, 0.54)',
+  },
+  warningIcon: {
+    marginLeft: 'auto',
+    color: theme.palette.warning.main,
   },
 });
 

@@ -66,7 +66,7 @@ exports.default = {
       title: 'Adresse email du professeur',
       emailLabel: 'Email',
       explain:
-        "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement. Si vous ne connaissez pas l'email de votre professeur, laissez ce champ vide.",
+        'Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement.',
       emailPlaceHolder: 'professeur@bsport.io',
     },
     error_email_exists:
@@ -78,6 +78,10 @@ exports.default = {
     update: {
       title: 'Edition des informations',
       success: 'Professeur modifié avec succès',
+      errors: {
+        emailAlreadyInUse:
+          "L'email entré existe déjà dans la base de données. Vous pouvez associer cet email à un professeur uniquement en créant un nouveau professeur.",
+      },
     },
     delete: {
       content: {

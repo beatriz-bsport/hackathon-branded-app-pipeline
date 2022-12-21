@@ -11,6 +11,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  Typography,
+} from '@material-ui/core';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -22,6 +28,7 @@ import {
 import { getCoach } from '../../libs/associated-coach/selectors';
 import CoachForm from '../../libs/associated-coach/components/CoachForm.component';
 import CoachEmailCheckDialog from '../../libs/associated-coach/components/CoachEmailCheckDialog.component';
+import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
 
 import { mapFormData, unmap } from '../form.utils';
 
@@ -32,12 +39,16 @@ type Props = {
   initial: any,
   onSubmit: () => void,
   onCancel: () => void,
+  t: TFunction,
+  classes: {
+    container: string,
+  },
 
   coachId: ?number,
   initialEmail: ?string,
   setInitialEmail: (email: string) => void,
 
-  push: (path: string) => void,
+  goToCoachList: () => void,
   fetchAssociatedCoachesList: () => void,
   linkCoachViaEmail: (
     email: string,
@@ -45,7 +56,9 @@ type Props = {
   ) => void,
   setIsEmailChecking: (boolean) => void,
   isEmailChecking: boolean,
-  classes: Object,
+  setIsEmailChecking: (boolean) => void,
+  isUserAlreadyRegisteredDialogOpen: boolean,
+  setIsUserAlreadyRegisteredDialogOpen: (boolean) => void,
 };
 
 const CoachMap = {
@@ -68,8 +81,19 @@ export class CoachFormPage extends React.Component<Props> {
     this.props.fetchAssociatedCoachesList();
   }
 
+  handleUserAlreadyRegisteredDialogClose = () =>
+    this.props.setIsUserAlreadyRegisteredDialogOpen(false);
+
   render() {
-    const { initial, isEmailChecking, onSubmit, onCancel } = this.props;
+    const {
+      initial,
+      isEmailChecking,
+      isUserAlreadyRegisteredDialogOpen,
+      onCancel,
+      goToCoachList,
+      t,
+    } = this.props;
+
     if (this.props.coachId && !initial) {
       return <LinearProgress />;
     }
@@ -87,7 +111,7 @@ export class CoachFormPage extends React.Component<Props> {
             submit={(email) => {
               this.props.linkCoachViaEmail(email?.toLowerCase() || '', {
                 onSuccess: () => {
-                  this.props.push('/coach');
+                  goToCoachList();
                   this.props.setIsEmailChecking(false);
                 },
                 onError: () => {
@@ -98,8 +122,39 @@ export class CoachFormPage extends React.Component<Props> {
             }}
           />
         </Dialog>
+
+        <GenericResponsiveDialog
+          open={isUserAlreadyRegisteredDialogOpen}
+          onClose={this.handleUserAlreadyRegisteredDialogClose}
+        >
+          <DialogContent>
+            <Typography variant="body1">
+              {t('coach:forms.update.errors.emailAlreadyInUse')}
+            </Typography>
+            <DialogActions>
+              <Button
+                type="submit"
+                color="primary"
+                onClick={() =>
+                  this.props.setIsUserAlreadyRegisteredDialogOpen(false)
+                }
+              >
+                {t('navigation:backofficeMenu.goBack')}
+              </Button>
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                onClick={goToCoachList}
+              >
+                {t('common.ok')}
+              </Button>
+            </DialogActions>
+          </DialogContent>
+        </GenericResponsiveDialog>
+
         <CoachForm
-          onSubmit={onSubmit}
+          onSubmit={this.props.onSubmit}
           onCancel={onCancel}
           initial={initialData}
           defaultEmail={this.props.initialEmail}
@@ -123,6 +178,11 @@ export default compose(
   mapRouterParamsToProps({ id: 'coachId:number' }),
   withState('isEmailChecking', 'setIsEmailChecking', true),
   withState('initialEmail', 'setInitialEmail', null),
+  withState(
+    'isUserAlreadyRegisteredDialogOpen',
+    'setIsUserAlreadyRegisteredDialogOpen',
+    false,
+  ),
   connect(
     (state, { coachId }) => ({
       pending: state.coach.upsert.loading,
@@ -138,29 +198,39 @@ export default compose(
       goToCoachList: () => push('/coach'),
     },
   ),
-  withProps(({ upsertCoach, initial, goToCoachList }) => ({
-    onSubmit: (values, options) => {
-      if (!values.birthday) {
-        // eslint-disable-next-line
-        delete values.birthday;
-      }
-      const formData = mapFormData(values, CoachMap);
+  withProps(
+    ({
+      upsertCoach,
+      initial,
+      goToCoachList,
+      setIsUserAlreadyRegisteredDialogOpen,
+      setIsEmailChecking,
+    }) => ({
+      onSubmit: (values, options) => {
+        if (!values.birthday) {
+          // eslint-disable-next-line
+          delete values.birthday;
+        }
+        const formData = mapFormData(values, CoachMap);
 
-      if (initial) {
-        formData.append('id', initial.id);
-      }
+        if (initial) {
+          formData.append('id', initial.id);
+        }
 
-      upsertCoach(formData, {
-        onSuccess: () => {
-          if (options && options.onSuccess) options.onSuccess();
-          goToCoachList();
-        },
-        onError: () => {
-          if (options && options.onError) options.onError();
-        },
-      });
-    },
-  })),
+        upsertCoach(formData, {
+          onSuccess: () => {
+            if (options && options.onSuccess) options.onSuccess();
+            goToCoachList();
+          },
+          onError: options?.onError,
+          customErrorAction: () => {
+            setIsUserAlreadyRegisteredDialogOpen(true);
+            setIsEmailChecking(false);
+          },
+        });
+      },
+    }),
+  ),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachFormPage')),
 )(CoachFormPage);

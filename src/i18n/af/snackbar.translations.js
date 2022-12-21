@@ -94,6 +94,11 @@ const {
   REPLACEMENT_REQUEST_LIMITATION_EXCEPTION,
 } = require('@bsport/common/lib/master-data/error-codes/replacement');
 
+const {
+  COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
+  COACH_EMAIL_ADDRESS_EXISTS,
+} = require('@bsport/common/lib/master-data/error-codes/associated-coach');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -260,8 +265,12 @@ exports.default = {
       success: 'Professeur lié avec succès',
     },
     error: 'Impossible de sauvegarder le professeur',
-    error_email_exists:
-      'Un membre existe déjà avec cet email. Pour les relier, utiliser la modale précédente.',
+    errors: {
+      [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]:
+        "L'email indiqué est déjà lié à un compte staff.",
+      [COACH_EMAIL_ADDRESS_EXISTS]:
+        'Un membre existe déjà avec cet email. Pour les relier, utiliser la popup précédente.',
+    },
     create: {
       success: 'Professeur créé avec succès',
     },

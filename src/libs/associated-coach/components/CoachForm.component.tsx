@@ -50,6 +50,17 @@ type Props = {
 
 type InitialValues = {
   initial?: CoachDetailed;
+  avatar: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  gender: string;
+  color: string;
+  birthday: string;
+  description: string;
+  facebook_url: string;
+  instagram_url: string;
 };
 
 export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
@@ -57,6 +68,7 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
   onCancel,
   initial,
   country,
+  errors,
 }) => {
   const classes = useStyles();
 
@@ -106,6 +118,8 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
                   : {}
               }
               fullWidth
+              error={!!errors.email}
+              helperText={!!errors.email && t('form.emailError')}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -202,23 +216,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const CoachSchema = Yup.object().shape({
-  avatar: Yup.string().nullable(false),
-  firstname: Yup.string().nullable(false).required(),
-  lastname: Yup.string().nullable(false).required(),
-  email: Yup.string().nullable(true),
-  phone: Yup.string().nullable(true),
-  gender: Yup.string().nullable(false).required(),
-  color: Yup.string().nullable(false),
-  birthday: Yup.string().nullable(true),
-  description: Yup.string().nullable(false),
-  facebook_url: Yup.string().nullable(false),
-  instagram_url: Yup.string().nullable(false),
-});
+const CoachSchema = (props: Props) =>
+  Yup.object().shape({
+    avatar: Yup.string().nullable(false),
+    firstname: Yup.string().nullable(false).required(),
+    lastname: Yup.string().nullable(false).required(),
+    email:
+      props.initial?.email || !props.initial
+        ? Yup.string().nullable(false).required().email()
+        : Yup.string().nullable(true).email(),
+    phone: Yup.string().nullable(true),
+    gender: Yup.string().nullable(false).required(),
+    color: Yup.string().nullable(false),
+    birthday: Yup.string().nullable(true),
+    description: Yup.string().nullable(false),
+    facebook_url: Yup.string().nullable(false),
+    instagram_url: Yup.string().nullable(false),
+  });
 
 export const CoachFormHOC = withFormik({
   enableReinitialize: true,
-  mapPropsToValues: ({ initial, defaultEmail }) =>
+  mapPropsToValues: ({ initial, defaultEmail }: Props) =>
     initial || {
       avatar: '',
       firstname: '',
@@ -234,17 +252,14 @@ export const CoachFormHOC = withFormik({
     },
   validationSchema: CoachSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-    const { avatar } = values;
+    const { avatar, birthday, phone, email } = values;
     const data = {
       ...values,
       avatar: typeof avatar !== 'string' ? avatar : undefined,
       birthday:
-        (values &&
-          values.birthday &&
-          moment(values.birthday).format('DD/MM/YYYY')) ||
-        '',
-      phone: values.phone || undefined,
-      email: values.email?.toLowerCase() || '',
+        (values && birthday && moment(birthday).format('DD/MM/YYYY')) || '',
+      phone: phone || undefined,
+      email: (email && email.toLowerCase()) ?? '',
     };
     onSubmit(data, {
       onSuccess: () => {

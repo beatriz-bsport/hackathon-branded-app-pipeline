@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 
 import uniq from 'lodash/uniq';
 import { ThunkDispatch } from 'redux-thunk';
+import { COACH_EMAIL_ADDRESS_EXISTS } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import {
@@ -25,7 +26,11 @@ import { assignDisciplineGroup as assignDisciplineGroupAPI } from '#libs/replace
 import { getFreshCoachIds } from '#libs/associated-coach/selectors';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { OptionCallback, Dispatch } from '../../state/types';
+import {
+  OptionCallback,
+  Dispatch,
+  CustomErrorActionCallback,
+} from '../../state/types';
 import { RootState } from '../../reducers';
 import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#libs/coach-payment-rules/constants';
 import {
@@ -43,7 +48,10 @@ export const associated = {
 
 export function linkByEmail(
   email: string,
-  options: { onSuccess: () => void; onError: () => void },
+  options: {
+    onSuccess: () => void;
+    onError: (error?: Error) => void;
+  },
 ) {
   return async (dispatch: Dispatch) => {
     try {
@@ -52,11 +60,11 @@ export function linkByEmail(
         dispatch(snackbarSuccess('coach.linkByEmail.success'));
         options.onSuccess();
       } else {
-        options.onError();
+        options.onError(response);
       }
     } catch (err) {
       console.error(err);
-      options.onError();
+      options.onError(err);
     }
   };
 }
@@ -218,7 +226,10 @@ export const upsert = {
   success: createAction('COACH/UPSERT/SUCCESS'),
 };
 
-export function createOrUpdateCoach(coachData: any, options: OptionCallback) {
+export function createOrUpdateCoach(
+  coachData: any,
+  options: OptionCallback & CustomErrorActionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));
     dispatch(upsert.error(null));
@@ -236,17 +247,25 @@ export function createOrUpdateCoach(coachData: any, options: OptionCallback) {
       dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        (error.response.data.email || []).length &&
-        error.response.data.email[0] ===
-          'user with this email address already exists.'
-      ) {
-        dispatch(snackbarError('coach.error_email_exists'));
-      } else {
-        dispatch(snackbarError('coach.error'));
-      }
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        const error_code = error.response?.data?.error_code;
+        const isEditing = coachData.has('id');
+
+        if (
+          (isEditing || !isEditing) &&
+          error_code === COACH_EMAIL_ADDRESS_EXISTS
+        ) {
+          dispatch(snackbarError('coach.error'));
+        } else dispatch(snackbarError(`coach.errors.${error_code}`));
+
+        if (
+          options &&
+          options.customErrorAction &&
+          error_code === COACH_EMAIL_ADDRESS_EXISTS
+        ) {
+          options.customErrorAction();
+        }
+      } else dispatch(snackbarError('coach.error'));
 
       dispatch(upsert.error(error));
       if (options && options.onError) {

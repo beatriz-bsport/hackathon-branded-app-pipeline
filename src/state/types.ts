@@ -88,6 +88,10 @@ export type OptionCallback<T = void> = {
   onError?: (error?: Error) => void;
 };
 
+export type CustomErrorActionCallback = {
+  customErrorAction: () => void;
+};
+
 export type OptionBackgroundCallback = {
   onSuccess?: () => void;
   onError?: (error?: Error) => void;

@@ -269,6 +269,7 @@ exports.default = {
     warningAddEmail: 'Cet email a déjà été ajouté.',
     emailHelper:
       'Pour ajouter plusieurs emails, tapez une virgule ou un espace après chaque email.',
+    emailError: "Le format d'email indiqué est invalide.",
     login: {
       changePasswordTitle: 'Modification du mot de passe',
       password: 'Mot de passe',

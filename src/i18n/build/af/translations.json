@@ -570,12 +570,18 @@
         "submit": "Valider",
         "title": "Adresse email du professeur",
         "emailLabel": "Email",
-        "explain": "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement. Si vous ne connaissez pas l'email de votre professeur, laissez ce champ vide.",
+        "explain": "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement.",
         "emailPlaceHolder": "professeur@bsport.io"
       },
       "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
       "create": { "title": "Nouveau professeur", "success": "Professeur créé avec succès" },
-      "update": { "title": "Edition des informations", "success": "Professeur modifié avec succès" },
+      "update": {
+        "title": "Edition des informations",
+        "success": "Professeur modifié avec succès",
+        "errors": {
+          "emailAlreadyInUse": "L'email entré existe déjà dans la base de données. Vous pouvez associer cet email à un professeur uniquement en créant un nouveau professeur."
+        }
+      },
       "delete": {
         "content": {
           "canDelete": "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
@@ -7911,7 +7917,10 @@
       "editAccessToCoachSpace": { "error": "Erreur lors de la modification des droits d'accès à l'espace professeur" },
       "linkByEmail": { "success": "Professeur lié avec succès" },
       "error": "Impossible de sauvegarder le professeur",
-      "error_email_exists": "Un membre existe déjà avec cet email. Pour les relier, utiliser la modale précédente.",
+      "errors": {
+        "60002": "L'email indiqué est déjà lié à un compte staff.",
+        "60003": "Un membre existe déjà avec cet email. Pour les relier, utiliser la popup précédente."
+      },
       "create": { "success": "Professeur créé avec succès" },
       "update": { "success": "Professeur modifié avec succès" },
       "delete": { "success": "Professeur supprimé", "error": "Impossible de supprimer le professeur" },
@@ -9765,6 +9774,7 @@
       },
       "warningAddEmail": "Cet email a déjà été ajouté.",
       "emailHelper": "Pour ajouter plusieurs emails, tapez une virgule ou un espace après chaque email.",
+      "emailError": "Le format d'email indiqué est invalide.",
       "login": {
         "changePasswordTitle": "Modification du mot de passe",
         "password": "Mot de passe",

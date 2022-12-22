@@ -2911,7 +2911,8 @@
                 "checkbox": "Don't remind me again",
                 "info": "The availability has been saved. However, this teacher is not associated with any appointment.\nIn order to link a new appointment with this teacher, associate him/her with the desired appointment from the Appointments tab.",
                 "title": "No associated appointments"
-            }
+            },
+            "notAssociatedWarning": "Attention, this teacher is not associated with any appointment. To link a new appointment with this teacher, associate him/her with the desired appointment from the Appointments tab."
         },
         "resource": {
             "form": {

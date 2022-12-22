@@ -7046,7 +7046,8 @@
                 "checkbox": "No me lo vuelvas a recordar",
                 "info": "Se ha guardado la disponibilidad. Sin embargo, este profesor no está asociado a ninguna cita.\nPara vincular una nueva cita con este profesor, asócielo a la cita deseada desde la pestaña Citas.",
                 "title": "No hay citas asociadas"
-            }
+            },
+            "notAssociatedWarning": "Tenga en cuenta que este profesor no está asociado a ningún nombramiento. Para registrar una nueva cita con este profesor, asócielo a la cita deseada desde la pestaña Citas."
         },
         "noPrivateService": "El miembro puede reservar una cita en la plaza que has elegido.",
         "noPrivatePass": "Las tarjetas de cita permiten a los miembros hacer una cita, define tus precios y términos aquí.",

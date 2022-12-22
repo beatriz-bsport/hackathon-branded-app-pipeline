@@ -7815,7 +7815,8 @@
                 "checkbox": "Herinner me er niet meer aan",
                 "info": "De beschikbaarheid is vastgelegd. Deze leraar is echter niet verbonden aan een benoeming. \nOm een nieuwe afspraak met deze docent vast te leggen, koppelt u hem/haar aan de gewenste afspraak in het tabblad Afspraken.",
                 "title": "Geen bijbehorende afspraken"
-            }
+            },
+            "notAssociatedWarning": "Deze leraar is niet verbonden aan een benoeming. Om een nieuwe afspraak met deze docent vast te leggen, koppelt u hem/haar aan de gewenste afspraak in het tabblad Afspraken."
         },
         "resource": {
             "form": {

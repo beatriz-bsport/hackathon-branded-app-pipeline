@@ -20,6 +20,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
+import { Alert } from '@material-ui/lab';
 import PrivateCalendar from './PrivateCalendar.component';
 import ResourceSelector from './resource/ResourceSelector.component';
 import ResourceDatatypeFilter from './resource/ResourceDatatypeFilter.component';
@@ -102,6 +103,7 @@ type Props = {
   establishments?: Array<EstablishmentWithAssociatedId>,
   hideResourceSelector?: boolean,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
+  coachNotRelatedToPrivateService: boolean,
 };
 
 export const PrivateCalendarWithControls = (props: Props) => {
@@ -228,6 +230,11 @@ export const PrivateCalendarWithControls = (props: Props) => {
           </Collapse>
         </div>
       </Paper>
+      {props.coachNotRelatedToPrivateService && (
+        <Alert className={props.classes.alert} severity="warning">
+          {props.t('availabilitySlot.notAssociatedWarning')}
+        </Alert>
+      )}
       {!!props.goToCalendar && (
         <Button
           variant="contained"
@@ -364,6 +371,14 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingRight: theme.spacing(3),
+  },
+  alert: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+    gap: theme.spacing(1.5),
+    marginBottom: theme.spacing(2),
   },
 });
 

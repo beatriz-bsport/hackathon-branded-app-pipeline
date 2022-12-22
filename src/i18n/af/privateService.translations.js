@@ -124,10 +124,11 @@ exports.default = {
     notAssociatedDialog: {
       title: 'Aucun RDV associé',
       info: `La disponibilité a bien été enregistrée. En revanche, ce professeur n'est associé à aucun RDV.
-        Pour pouvoir enregister un nouveau RDV avec ce professeur; associez le au RDV souhaité depuis l'onglet RDV.`,
+        Pour pouvoir enregister un nouveau RDV avec ce professeur, associez le au RDV souhaité depuis l'onglet RDV.`,
       checkbox: 'Ne plus me le rappeler',
       close: 'Fermer',
     },
+    notAssociatedWarning: `Attention, ce professeur n'est associé à aucun RDV. Pour pouvoir enregistrer un nouveau RDV avec ce professeur, associez le au RDV souhaité depuis l'onglet RDV.`,
     specificAvailabilityForm: {
       switchLabel: 'Ajouter pour certains établissements seulement',
       info: "Par défaut votre professeur sera indiqué comme disponible dans l'ensemble de vos établissements. En activant cette option vous pourrez sélectionner dans quels établissements votre professeur sera disponible pour ce créneau horaire.",

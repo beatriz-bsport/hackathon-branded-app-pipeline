@@ -182,6 +182,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
             slotUpdateOptions.onSuccess();
           }
+          this.setState({
+            showCoachNotAssociatedToPrivateServiceWarning: true,
+          });
         },
         onError: () => {
           if (slotUpdateOptions && slotUpdateOptions.onError) {
@@ -307,7 +310,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     this.props.setHideCoachNotAssociatedToPrivateServiceWarning(hide);
   };
 
-  coachNotRelatedToPrivateService = () => {
+  isCoachUnrelatedToPrivateService = () => {
     if (
       !this.props.coach ||
       !this.props.privateServices ||
@@ -360,6 +363,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
+          coachNotRelatedToPrivateService={this.isCoachUnrelatedToPrivateService()}
           hideResourceSelector
         />
 

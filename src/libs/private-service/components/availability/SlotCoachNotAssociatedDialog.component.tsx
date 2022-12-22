@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import Divider from '@material-ui/core/Divider';
 
 import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel, makeStyles } from '@material-ui/core';
@@ -15,9 +14,10 @@ export type Props = {
   onClose: (arg: boolean) => void;
 };
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme) => ({
   alert: {
     alignItems: 'center',
+    marginBottom: theme.spacing(1),
   },
 }));
 
@@ -32,11 +32,10 @@ export const SlotCoachNotAssociatedDialog: React.FC<Props> = ({ onClose }) => {
   };
 
   return (
-    <GenericResponsiveDialog open>
+    <GenericResponsiveDialog open maxWidth="sm">
       <DialogTitle>
         {t('availabilitySlot.notAssociatedDialog.title')}
       </DialogTitle>
-      <Divider />
       <DialogContent>
         <Alert className={classes.alert} severity="info">
           {t('availabilitySlot.notAssociatedDialog.info')}

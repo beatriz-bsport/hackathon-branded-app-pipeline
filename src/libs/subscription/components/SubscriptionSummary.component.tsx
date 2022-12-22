@@ -1,9 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles, Theme } from '@material-ui/core/';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -17,6 +16,7 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { OptionCallback } from '../../../state/types';
+import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
 
 type Props = {
   subscription: Subscription<PrivatePass, PaymentPack, PaymentCombo>;
@@ -75,6 +75,9 @@ export const SubscriptionSummary = (props: Props) => {
   if (!subscription) {
     return null;
   }
+  const contractTermsDateAccepted =
+    subscription.contract_terms_date_accepted &&
+    moment(subscription.contract_terms_date_accepted).format('LL');
   return (
     <div className={classes.container}>
       <fieldset>
@@ -198,24 +201,25 @@ export const SubscriptionSummary = (props: Props) => {
           <Typography variant="body2">{t('parameters.note')}</Typography>
           {subscription.note}
         </div>
-        {subscription.contract_terms_date_accepted && (
+        {contractTermsDateAccepted && (
           <div className={classes.field}>
             <Typography variant="body2" className={classes.contractTerms}>
-              {t('parameters.contractTermsAccepted.start')}
-              <ButtonBase
-                onClick={onOpenContractTermsDialog}
-                className={classes.contractTermsButton}
-                disableRipple
-              >
-                <Typography variant="body2" color="primary">
-                  {t('parameters.contractTermsAccepted.middle')}
-                </Typography>
-              </ButtonBase>
-              {t('parameters.contractTermsAccepted.end', {
-                dateAccepted: moment(
-                  subscription.contract_terms_date_accepted,
-                ).format('LL'),
-              })}
+              <Trans
+                t={t}
+                i18nKey="parameters.contractTermsAccepted"
+                values={{ dateAccepted: contractTermsDateAccepted }}
+                components={[
+                  <ButtonBaseWithTypography
+                    onClick={onOpenContractTermsDialog}
+                    disableRipple
+                    typographyVariant="body2"
+                    typographyColor="primary"
+                    className={classes.contractTermsButton}
+                  >
+                    .
+                  </ButtonBaseWithTypography>,
+                ]}
+              />
             </Typography>
           </div>
         )}

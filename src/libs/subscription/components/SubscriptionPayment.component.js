@@ -6,7 +6,6 @@ import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
@@ -15,7 +14,7 @@ import moment from 'moment-timezone';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, TFunction, Trans } from 'react-i18next';
 import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import Select from '@material-ui/core/Select';
 import {
@@ -52,6 +51,7 @@ import type { SubscriptionData } from '../types';
 import type { StripeReader } from '#libs/terminal/types';
 import NumericInput from '#components/input/NumericInput.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
 
 const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
 const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';
@@ -357,19 +357,21 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 checked={acceptContract}
                 onChange={(ev) => setAcceptContract(ev.target.checked)}
               />
-              <Typography>
-                {t('contract.actions.iAcceptContractTerms.iAccept')}
-                <ButtonBase
-                  onClick={this.props.onOpenContractTermsDialog}
-                  className={classes.contractTermsButton}
-                  disableRipple
-                >
-                  <Typography color="primary">
-                    {`${t(
-                      'contract.actions.iAcceptContractTerms.contractTerms',
-                    )}.`}
-                  </Typography>
-                </ButtonBase>
+              <Typography className={classes.contractTerms}>
+                <Trans
+                  t={t}
+                  i18nKey="contract.actions.iAcceptContractTerms"
+                  components={[
+                    <ButtonBaseWithTypography
+                      onClick={this.props.onOpenContractTermsDialog}
+                      disableRipple
+                      typographyColor="primary"
+                      className={classes.contractTermsButton}
+                    >
+                      .
+                    </ButtonBaseWithTypography>,
+                  ]}
+                />
               </Typography>
             </div>
             <div className={classes.buttonDateBlock}>
@@ -850,6 +852,10 @@ const styles = (theme) => ({
   },
   confirmValue: { maxWidth: '150px' },
   acceptContractTermsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  contractTerms: {
     display: 'flex',
     alignItems: 'center',
   },

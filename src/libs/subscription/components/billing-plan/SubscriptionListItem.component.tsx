@@ -4,11 +4,10 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/styles';
 import { Theme, ListItem } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import TodayIcon from '@material-ui/icons/Today';
 import CalendarIcon from '@material-ui/icons/CalendarToday';
 import CheckIcon from '@material-ui/icons/Check';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -23,6 +22,7 @@ import { Subscription } from '../../types';
 import { PaymentMethod } from '#libs/payment/types';
 import { OptionCallback } from '../../../../state/types';
 import ContractTermsDialog from '../contract/ContractTermsDialog.component';
+import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
 
 type Props = {
   subscription: Subscription;
@@ -192,21 +192,25 @@ export const SubscriptionListItem = (props: Props) => {
           <div className={classes.row}>
             <CheckIcon className={classes.leftIcon} />
             <Typography className={classes.contractTerms}>
-              {t('parameters.contractTermsAccepted.start')}
-              <ButtonBase
-                onClick={onOpenContractTermsDialog}
-                className={classes.contractTermsButton}
-                disableRipple
-              >
-                <Typography color="primary">
-                  {t('parameters.contractTermsAccepted.middle')}
-                </Typography>
-              </ButtonBase>
-              {t('parameters.contractTermsAccepted.end', {
-                dateAccepted: moment(
-                  subscription.contract_terms_date_accepted,
-                ).format('LL'),
-              })}
+              <Trans
+                t={t}
+                i18nKey="parameters.contractTermsAccepted"
+                values={{
+                  dateAccepted: moment(
+                    subscription.contract_terms_date_accepted,
+                  ).format('LL'),
+                }}
+                components={[
+                  <ButtonBaseWithTypography
+                    onClick={onOpenContractTermsDialog}
+                    disableRipple
+                    typographyColor="primary"
+                    className={classes.contractTermsButton}
+                  >
+                    .
+                  </ButtonBaseWithTypography>,
+                ]}
+              />
             </Typography>
           </div>
         )}

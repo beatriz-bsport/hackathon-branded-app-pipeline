@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Terminal,
   ISdkManagedPaymentIntent,
@@ -16,7 +16,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import classnames from 'classnames';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import StripeTerminalConnectingLoading from './StripeTerminalConnectingLoading.component';
 import StripeTerminalConnectingError from './StripeTerminalConnectingError.component';
 import StripeTerminalConnectingSuccess from './StripeTerminalConnectingSuccess.component';
@@ -24,7 +23,6 @@ import StripeTerminalPaymentSuccess from './StripeTerminalPaymentSuccess.compone
 import StripeTerminalUnexpectedDisconnect from './StripeTerminalUnexpectedDisconnect.component';
 import StripeTerminalPaymentError from './StripeTerminalPaymentError.component';
 import PriceInput from '../../../components/input/PriceInput.component';
-import { getStripeTerminalMinAmountCts } from '../utils';
 import {
   capturePaymentIntent as capturePaymentIntentAPI,
   fetchConnectionToken as fetchConnectionTokenAPI,
@@ -149,15 +147,6 @@ export const PaymentStripeTerminal = (props: Props) => {
   const [retryHandler, setRetryHandler] = useState(null);
   const [cancelCollectHandler, setCancelCollectHandler] = useState(null);
   const [errorWhenCancelling, setErrorWhenCancelling] = useState(false);
-
-  const stripeTerminalMinAmountCts = useMemo(
-    () => getStripeTerminalMinAmountCts(props.companyId),
-    [props.companyId],
-  );
-
-  const displayMinAmountMsg =
-    props.paymentGroupPriceCts &&
-    props.paymentGroupPriceCts < stripeTerminalMinAmountCts;
 
   useEffect(() => {
     const instanciateTerminal = async () => {
@@ -592,76 +581,54 @@ export const PaymentStripeTerminal = (props: Props) => {
               )}
             </div>
           )}
-          {displayMinAmountMsg ? (
-            <div className={classes.centerContainer}>
-              <span className={classes.infoContainer}>
-                <InfoOutlinedIcon className={classes.blueLeftIcon} />
-                <Typography
-                  variant="body1"
-                  component="span"
-                  className={classes.darkBlue}
-                >
-                  {t(
-                    'configuration.stripeTerminal.paymentDialog.minAmountInfo',
-                    {
-                      amountString: getCurrencyDisplayWithPrice(
-                        (stripeTerminalMinAmountCts / 100).toFixed(2),
-                      ),
-                    },
-                  )}
-                </Typography>
-              </span>
+
+          <>
+            <Typography variant="h6">
+              {t('configuration.stripeTerminal.paymentDialog.radio')}
+            </Typography>
+            <div>
+              {props.stripeReaders.map((reader) => (
+                <>
+                  <ButtonBase
+                    className={classnames(classes.readerItem, {
+                      [classes.selectedReader]:
+                        selectedReader && selectedReader.id === reader.id,
+                    })}
+                    key={reader.id}
+                    onClick={() => setSelectedReader(reader)}
+                  >
+                    <Typography classes={{ root: classes.readerLabel }}>
+                      {reader.label}
+                    </Typography>
+                    <Typography>{reader.serial_number}</Typography>
+                  </ButtonBase>
+                </>
+              ))}
             </div>
-          ) : (
-            <>
-              <Typography variant="h6">
-                {t('configuration.stripeTerminal.paymentDialog.radio')}
-              </Typography>
-              <div>
-                {props.stripeReaders.map((reader) => (
-                  <>
-                    <ButtonBase
-                      className={classnames(classes.readerItem, {
-                        [classes.selectedReader]:
-                          selectedReader && selectedReader.id === reader.id,
-                      })}
-                      key={reader.id}
-                      onClick={() => setSelectedReader(reader)}
-                    >
-                      <Typography classes={{ root: classes.readerLabel }}>
-                        {reader.label}
-                      </Typography>
-                      <Typography>{reader.serial_number}</Typography>
-                    </ButtonBase>
-                  </>
-                ))}
-              </div>
-              {/* Save card for later when paying only available in US
+            {/* Save card for later when paying only available in US
               https://stripe.com/docs/terminal/features/saving-cards/save-after-payment */}
-              {(!!props.isSetupIntent ||
-                (!props.isSetupIntent && companyCountry === 'US')) && (
-                <div className={classes.row}>
-                  <Checkbox
-                    checked={saveForLater}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setSaveForLater(e.target.checked)
-                    }
-                    disabled={!!props.isSetupIntent}
-                  />
-                  <Typography>
-                    {t('paymentPanel.actions.saveForLater')}
-                  </Typography>
-                </div>
-              )}
-            </>
-          )}
+            {(!!props.isSetupIntent ||
+              (!props.isSetupIntent && companyCountry === 'US')) && (
+              <div className={classes.row}>
+                <Checkbox
+                  checked={saveForLater}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setSaveForLater(e.target.checked)
+                  }
+                  disabled={!!props.isSetupIntent}
+                />
+                <Typography>
+                  {t('paymentPanel.actions.saveForLater')}
+                </Typography>
+              </div>
+            )}
+          </>
+
           <div className={classes.actionRow}>
             <Button
               color="primary"
               variant="contained"
-              disabled={
-                !props.clientSecret || !selectedReader || displayMinAmountMsg
-              }
+              disabled={!props.clientSecret || !selectedReader}
               onClick={onConnectHandler}
             >
               {t('configuration.stripeTerminal.paymentDialog.connectAndPay')}

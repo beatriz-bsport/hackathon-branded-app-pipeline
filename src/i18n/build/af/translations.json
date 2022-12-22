@@ -8724,7 +8724,7 @@
         "create": "Ajouter un contrat",
         "iAcceptCondition": "J'accepte les conditions ci-dessus",
         "iAcceptGeneralCondition": " J'accepte les mentions légales",
-        "iAcceptContractTerms": { "iAccept": "J'accepte les", "contractTerms": "mentions légales" },
+        "iAcceptContractTerms": "J'accepte les <0>mentions légales</0>.",
         "iwanttostarton": "Je souhaite débuter la facturation le : ",
         "subscribe": "M'abonner",
         "title": "Date passée",
@@ -8884,7 +8884,7 @@
       "payment_pack": "Carte de cours",
       "private_pass": "Carte RDV",
       "payment_combo": "Pack",
-      "contractTermsAccepted": { "start": "Les", "middle": "mentions légales", "end": "ont été acceptées le {{- dateAccepted}}." }
+      "contractTermsAccepted": "Les <0>mentions légales</0> ont été acceptées le {{- dateAccepted}}."
     },
     "schedule": { "provisionalTitle": "Echéancier prévisionnel", "paymentMethodTitle": "Méthode de débit" },
     "paymentMethod": {

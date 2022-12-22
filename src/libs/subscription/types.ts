@@ -229,6 +229,7 @@ export type SubscriptionState = {
       allIds: Array<number>;
     };
   };
+  contractTermsDownload: ErrorAndLoading;
 };
 
 export type SubscriptionQueryParams = {

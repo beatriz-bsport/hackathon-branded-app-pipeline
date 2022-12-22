@@ -27,6 +27,7 @@ import {
   deleteContractPauseActions,
   retrieveContractPauseActions,
   updatePlannedInvoiceActions,
+  downloadPDFContractTermsActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
@@ -117,6 +118,11 @@ const initialState: SubscriptionState = Immutable({
       error: null,
       allIds: [],
     },
+  },
+
+  contractTermsDownload: {
+    loading: false,
+    error: null,
   },
 });
 
@@ -434,6 +440,12 @@ export default handleActions(
     },
     [stopActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [downloadPDFContractTermsActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['contractTermsDownload', 'loading'], payload);
+    },
+    [downloadPDFContractTermsActions.error]: (state, { payload }) => {
+      return state.setIn(['contractTermsDownload', 'error'], payload);
     },
   },
   initialState,

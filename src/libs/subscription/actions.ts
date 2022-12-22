@@ -1042,7 +1042,6 @@ export function registerContractBackground(
 export const downloadPDFContractTermsActions = {
   isLoading: createAction('CONTRACT_TERMS/PDF/IS_LOADING'),
   error: createAction('CONTRACT_TERMS/PDF/ERROR'),
-  success: createAction('CONTRACT_TERMS/PDF/SUCCESS'),
 };
 
 export function downloadPDFContractTermsForContract(
@@ -1054,7 +1053,6 @@ export function downloadPDFContractTermsForContract(
     dispatch(downloadPDFContractTermsActions.error(null));
     try {
       const response = await downloadPDFContractTermsForContractAPI(contractId);
-      dispatch(downloadPDFContractTermsActions.success(response.data));
       downloadDocument(response.data.filepath);
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -1076,7 +1074,6 @@ export function downloadPDFContractTermsForBillingPlan(
       const response = await downloadPDFContractTermsForBillingPlanAPI(
         billingPanId,
       );
-      dispatch(downloadPDFContractTermsActions.success(response.data));
       downloadDocument(response.data.filepath);
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {

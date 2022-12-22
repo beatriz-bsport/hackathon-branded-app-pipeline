@@ -24,15 +24,15 @@ const ContractTermsDialog = (props: Props) => {
   };
   // If we don't have already a link to the pdf file, or if we want to force retrieve the last version
   // for contract checkout, props.contractTermsLink should be undefined and a fetch will be done to the back
-  const onDownloadClick = props.contractTermsLink
-    ? () => {
-        downloadDocument(props.contractTermsLink);
-        props.closeContractTermsDialog();
-      }
-    : () => {
-        setIsProcessing(true);
-        props.downloadContractTerms({ onSuccess, onError });
-      };
+  const onDownloadClick = () => {
+    if (props.contractTermsLink) {
+      downloadDocument(props.contractTermsLink);
+      props.closeContractTermsDialog();
+    } else {
+      setIsProcessing(true);
+      props.downloadContractTerms({ onSuccess, onError });
+    }
+  };
   return (
     <CustomMuiDialog
       open={props.open}

@@ -30,7 +30,7 @@ export type Subscription<
   canceled_at: string;
   contract: number;
   contract_terms_date_accepted: string;
-  contract_terms_link: string | null;
+  contract_terms_pdf_link: string | null;
   date_created: string;
   description: string;
   editable: boolean;
@@ -110,7 +110,7 @@ export type Contract = {
   interval: 'month' | 'week';
   recurrence_basis: number;
   tax: string;
-  contract_terms_link: string | null;
+  contract_terms_pdf_link: string | null;
 };
 
 export type ContractWithPaymentPack = {

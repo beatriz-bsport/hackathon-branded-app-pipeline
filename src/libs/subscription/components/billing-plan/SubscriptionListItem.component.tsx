@@ -225,7 +225,7 @@ export const SubscriptionListItem = (props: Props) => {
       <ContractTermsDialog
         closeContractTermsDialog={onCloseContractTermsDialog}
         contractTerms={subscription.legal_contract}
-        contractTermsLink={subscription.contract_terms_link}
+        contractTermsLink={subscription.contract_terms_pdf_link}
         open={openContractTermsDialog}
         downloadContractTerms={props.downloadContractTerms}
       />

@@ -210,7 +210,8 @@
             "904": "Nieuw verzoek om vervanging (vervanger)",
             "903": "Er is een andere vervanger gevonden (vervanger)",
             "902": "Verzoek om vervanging geannuleerd (vervanger)",
-            "901": "Vervanging gevonden (instructeur)"
+            "901": "Vervanging gevonden (instructeur)",
+            "907": "Vervanging gevonden (substituut)"
         },
         "tag": {
             "BookingOption": {
@@ -1167,7 +1168,10 @@
             "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
             "tenMinutes": "10 min",
             "editGroup": "Wijzig dit veld binnen het evenement.",
-            "noWaitingList": "Wachtlijsten zijn niet beschikbaar voor evenementen."
+            "noWaitingList": "Wachtlijsten zijn niet beschikbaar voor evenementen.",
+            "datePicker": {
+                "rangeError": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden"
+            }
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -4586,7 +4590,9 @@
                     "subtitleOffers": "Sessies",
                     "subtitle": "Algemeen",
                     "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
-                    "allowGuestUnavailable": "Deze functie is niet beschikbaar voor groepsactiviteiten."
+                    "allowGuestUnavailable": "Deze functie is niet beschikbaar voor groepsactiviteiten.",
+                    "creationError": "Onmogelijk te maken",
+                    "uncreatedGroupsTitle": "Niet aangemaakte groepen"
                 },
                 "duplicate": "Een evenement dupliceren",
                 "subtitleMetaActivitySelect": "Configuratie",
@@ -4614,6 +4620,13 @@
                 "week_plural": "Elke {{ count }} weken",
                 "month": "Elke maand",
                 "month_plural": "Elke {{ count }} maanden"
+            },
+            "warning": {
+                "groupsWithOutOfTheRangeOffers": "De volgende groepen sessies zullen niet worden aangemaakt omdat zij sessies omvatten die meer dan 3 jaar verwijderd zijn",
+                "uncreatedGroups": "Sommige groepen worden niet aangemaakt.\nU vindt ze in de sectie \"Niet aangemaakte groepen\" onderaan deze lijst"
+            },
+            "errors": {
+                "offers_length": "Je hebt maar één sessie aangemaakt. Om een groep sessies te maken, voegt u minstens twee sessies toe. Als u een enkele sessie wilt aanmaken, kunt u dat rechtstreeks doen vanuit de betreffende workshop of vanuit het tabblad agenda."
             }
         },
         "cancelledOffers": "{{count}} annuleringen",
@@ -7774,7 +7787,8 @@
                     "title": "Wijzig tijdslot",
                     "label": "Bewerken voor:",
                     "cancel": "Annuleren",
-                    "submit": "Opslaan"
+                    "submit": "Opslaan",
+                    "warning": "Deze leraar is niet geassocieerd met een benoeming"
                 }
             },
             "private_service": "Afspraak",
@@ -7795,6 +7809,12 @@
                 "info": "Standaard wordt de beschikbaarheid op alle vestigingen toegepast. Activeer deze optie om instructeurs de optie te geven om hun eigen beschikbaarheid per vestiging te beheren.",
                 "infoForCoach": "Standaard wordt je beschikbaarheid voor alle vestigingen toegevoegd. Activeer deze optie om zelf te selecteren op welke vestigingen je beschikbaar bent.",
                 "switchLabel": "Alleen voor geselecteerde vestigingen toevoegen"
+            },
+            "notAssociatedDialog": {
+                "close": "Sluit",
+                "checkbox": "Herinner me er niet meer aan",
+                "info": "De beschikbaarheid is vastgelegd. Deze leraar is echter niet verbonden aan een benoeming. \nOm een nieuwe afspraak met deze docent vast te leggen, koppelt u hem/haar aan de gewenste afspraak in het tabblad Afspraken.",
+                "title": "Geen bijbehorende afspraken"
             }
         },
         "resource": {

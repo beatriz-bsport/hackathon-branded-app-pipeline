@@ -583,7 +583,10 @@
             "partner_max_booking_count": "Número máximo de reservas de mercado (sólo OneFit)",
             "tenMinutes": "10 minutos",
             "editGroup": "Modificar este campo directamente en el grupo de sesiones.",
-            "noWaitingList": "Las listas de espera no están disponibles para los grupos de sesiones"
+            "noWaitingList": "Las listas de espera no están disponibles para los grupos de sesiones",
+            "datePicker": {
+                "rangeError": "Imposible crear sesiones que tengan lugar en más de 3 años"
+            }
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -5709,7 +5712,8 @@
             "904": "Nueva solicitud de sustitución (sustituto)",
             "903": "Se ha encontrado otro sustituto (sustituto)",
             "902": "Solicitud de sustitución anulada (sustituto)",
-            "901": "Sustituto encontrado (profesor)"
+            "901": "Sustituto encontrado (profesor)",
+            "907": "Sustituto encontrado (sustituto)"
         },
         "tag": {
             "BookingOption": {
@@ -7014,7 +7018,8 @@
                     "submit": "Guardar",
                     "cancel": "Cancelar",
                     "label": "Modificar para :",
-                    "title": "Cambiar franja horaria"
+                    "title": "Cambiar franja horaria",
+                    "warning": "Este profesor no está asociado a ninguna cita"
                 }
             },
             "private_service": "Tipo de cita",
@@ -7035,6 +7040,12 @@
                 "infoForCoach": "Por defecto estarás disponible en todos los establecimientos. Al activar esta opción podrás seleccionar los establecimientos en los que estarás disponible para esta franja horaria.",
                 "info": "Por defecto, tu profesor será indicado como disponible en todos tus establecimientos. Al activar esta opción podrás seleccionar en qué establecimientos estará disponible tu profesor para esta franja horaria.",
                 "switchLabel": "Añadir sólo para algunos establecimientos"
+            },
+            "notAssociatedDialog": {
+                "close": "Cerrar",
+                "checkbox": "No me lo vuelvas a recordar",
+                "info": "Se ha guardado la disponibilidad. Sin embargo, este profesor no está asociado a ninguna cita.\nPara vincular una nueva cita con este profesor, asócielo a la cita deseada desde la pestaña Citas.",
+                "title": "No hay citas asociadas"
             }
         },
         "noPrivateService": "El miembro puede reservar una cita en la plaza que has elegido.",
@@ -10855,7 +10866,9 @@
                     "recurrence": "Recurrencia",
                     "recurrenceNumberPrefix": "Repetir todos los",
                     "preview": "Previsualizar",
-                    "recurrenceUntilHelper2": "No se crearán grupos cuya última sesión sea posterior a esta fecha."
+                    "recurrenceUntilHelper2": "No se crearán grupos cuya última sesión sea posterior a esta fecha.",
+                    "creationError": "Imposible crear",
+                    "uncreatedGroupsTitle": "Grupos no creados"
                 },
                 "duplicate": "Duplicar un grupo",
                 "subtitlePreview": "Pre-visualización de la recurrencia",
@@ -10893,6 +10906,13 @@
                 "week_plural": "Cada {{ count }} semanas",
                 "month": "Cada mes",
                 "month_plural": "Cada {{ count }} meses"
+            },
+            "warning": {
+                "groupsWithOutOfTheRangeOffers": "Los grupos de sesiones que figuran a continuación no se crearán porque incluyen sesiones para las que faltan más de 3 años",
+                "uncreatedGroups": "Ten en cuenta que algunos grupos no se crearán. \nPuede encontrarlos en la sección \"Grupos no creados\" al final de esta lista"
+            },
+            "errors": {
+                "offers_length": "Sólo ha creado una sesión. Para crear un grupo de sesiones, añada al menos dos sesiones. Si desea crear una sola sesión, puede hacerlo directamente desde el taller en cuestión o desde la pestaña del calendario."
             }
         },
         "workshopSelect": "Buscar un taller",

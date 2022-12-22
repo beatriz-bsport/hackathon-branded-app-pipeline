@@ -1672,7 +1672,10 @@
             "partner_max_booking_count": "(OneFit Exclusive) Maximum number of MarketPlace bookings",
             "tenMinutes": "10 min",
             "editGroup": "Edit this field directly within the event.",
-            "noWaitingList": "Waitlists aren't available for events."
+            "noWaitingList": "Waitlists aren't available for events.",
+            "datePicker": {
+                "rangeError": "Impossible to create sessions taking place in more than 3 years"
+            }
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -2236,7 +2239,8 @@
             "904": "New substitution request (substitute)",
             "903": "Another substitute has been found (substitute)",
             "902": "Substitution request canceled (substitute)",
-            "901": "Substitute found (teacher)"
+            "901": "Substitute found (teacher)",
+            "907": "Substitute found (substitute)"
         },
         "messages": {
             "createOrUpdate": {
@@ -2879,7 +2883,8 @@
                     "title": "Edit slot",
                     "label": "Edit:",
                     "cancel": "Cancel",
-                    "submit": "Save"
+                    "submit": "Save",
+                    "warning": "This teacher is associated to no appointment"
                 }
             },
             "private_service": "Appointment type",
@@ -2900,6 +2905,12 @@
                 "infoForCoach": "By default you will be available in all the establishments. By activating this option you will be able to select in which establishments you will be available for this time slot.",
                 "info": "By default, your teacher will be indicated as available in all your establishments. By activating this option you will be able to select in which establishments your teacher will be available for this time slot.",
                 "switchLabel": "Add for certain establishments only"
+            },
+            "notAssociatedDialog": {
+                "close": "Close",
+                "checkbox": "Don't remind me again",
+                "info": "The availability has been saved. However, this teacher is not associated with any appointment.\nIn order to link a new appointment with this teacher, associate him/her with the desired appointment from the Appointments tab.",
+                "title": "No associated appointments"
             }
         },
         "resource": {
@@ -9989,7 +10000,9 @@
                     "subtitleOffers": "Sessions",
                     "subtitle": "General",
                     "allowGuest": "Compatible with the booking for a guest feature",
-                    "allowGuestUnavailable": "This feature isn't available for grouped sessions."
+                    "allowGuestUnavailable": "This feature isn't available for grouped sessions.",
+                    "creationError": "Impossible to create",
+                    "uncreatedGroupsTitle": "Groups not created"
                 },
                 "duplicate": "Duplicate a group",
                 "subtitlePreview": "Preview of the recurrence",
@@ -10027,6 +10040,13 @@
                 "week_plural": "Every {{ count }} week",
                 "month": "Every month",
                 "month_plural": "Every {{ count }} month"
+            },
+            "warning": {
+                "groupsWithOutOfTheRangeOffers": "The session groups below will not be created because they include sessions that are more than 3 years away",
+                "uncreatedGroups": "Please note that some groups will not be created. \nYou can find them in the section \"Groups not created\" at the bottom of this list"
+            },
+            "errors": {
+                "offers_length": "You have created only one session. In order to create a group of sessions, add at least two sessions. If you want to create a single session, you can do it directly from the workshop in question or the calendar tab."
             }
         },
         "cancelledOffers": "{{count}} cancellations",

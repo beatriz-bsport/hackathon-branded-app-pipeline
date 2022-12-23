@@ -47,6 +47,7 @@ import {
   privatePassBulkActions,
   listPrivateConsumerPassCompatibleActions,
   forceRegularizeUnpaidActions,
+  privateServiceNonCompatiblePassActions,
   listRecurrenceRulePrivateBookingActions,
   createOrUpdateRecurrenceRulePrivateBookingActions,
   deleteRecurrenceRulePrivateBookingActions,
@@ -64,6 +65,7 @@ import {
   isPrivatePassUsedInComboActions,
   privateSlotCheckUnpaidBookingEligibilityActions,
   searchFirstAvailableSlotsActions,
+  incompatibilitiesReasonsBySlotByConsumerPassActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -107,6 +109,11 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
         error: null,
         allIds: [],
       },
+      noncompatible: {
+        loading: false,
+        error: null,
+        allIds: [],
+      },
       byPrivatePass: {
         error: null,
         loading: false,
@@ -145,6 +152,11 @@ const initialState: Seamless.Immutable<PrivateServiceState> =
         count: 0,
         page: 1,
         next_page: 1,
+      },
+      incompatibilitiesBySlotByConsumerPass: {
+        byId: {},
+        error: null,
+        loading: false,
       },
     },
     resource: {
@@ -1363,6 +1375,97 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           },
           { deep: true },
         );
+    },
+    [privateServiceNonCompatiblePassActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'noncompatible', 'loading'],
+        payload,
+      );
+    },
+    [privateServiceNonCompatiblePassActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'noncompatible', 'error'],
+        payload,
+      );
+    },
+    [privateServiceNonCompatiblePassActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['privateConsumerPass', 'noncompatible', 'allIds'],
+          payload.map((pp: any) => pp.id),
+        )
+        .merge(
+          {
+            privateConsumerPass: {
+              byId: payload.reduce((acc: any, ps: any) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [incompatibilitiesReasonsBySlotByConsumerPassActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          privateConsumerPass: {
+            incompatibilitiesBySlotByConsumerPass: {
+              byId: payload,
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [incompatibilitiesReasonsBySlotByConsumerPassActions.isLoading.toString()]:
+      (state, { payload }) => {
+        return state.setIn(
+          [
+            'privateConsumerPass',
+            'incompatibilitiesBySlotByConsumerPass',
+            'loading',
+          ],
+          payload,
+        );
+      },
+    [incompatibilitiesReasonsBySlotByConsumerPassActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        [
+          'privateConsumerPass',
+          'incompatibilitiesBySlotByConsumerPass',
+          'error',
+        ],
+        payload,
+      );
+    },
+
+    [incompatibilitiesReasonsBySlotByConsumerPassActions.reset.toString()]: (
+      state,
+    ) => {
+      return state.setIn(
+        [
+          'privateConsumerPass',
+          'incompatibilitiesBySlotByConsumerPass',
+          'byId',
+        ],
+        {},
+      );
     },
     [privateConsumerPassListActions.isLoading.toString()]: (
       state,

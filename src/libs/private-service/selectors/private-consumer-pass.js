@@ -105,10 +105,25 @@ export const getConsumerPrivatePassByPrivatePassWithMember = createSelector(
 const _getPrivateConsumerPassCompatibleListIds = (state) =>
   state.privateService.privateConsumerPass.compatible.allIds;
 
+const _getPrivateConsumerPassNonCompatibleListIds = (state) =>
+  state.privateService.privateConsumerPass.noncompatible.allIds;
+
+export const getConsumerPassIncompatibilitiesReasons = (state: RootState) =>
+  state.privateService.privateConsumerPass.incompatibilitiesBySlotByConsumerPass
+    .byId;
+
 export const getPrivateConsumerPassCompatibleList = createSelector(
   [_getPrivateConsumerPassCompatibleListIds, _getPrivateConsumerPassDict],
   (ids, data) => ids.map((id) => data[id]).filter((cpp) => !!cpp),
 );
+
+export const getPrivateConsumerPassNonCompatibleList = createSelector(
+  [_getPrivateConsumerPassNonCompatibleListIds, _getPrivateConsumerPassDict],
+  (ids, data) => ids.map((id) => data[id]).filter((cpp) => !!cpp),
+);
+
+export const getPrivateConsumerPassNonCompatibleIsLoading = (state) =>
+  state.privateService.privateConsumerPass.noncompatible.loading;
 
 const _getIdsByMember = (state) =>
   state.privateService.privateConsumerPass.byMember.allIds;

@@ -12,12 +12,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import Divider from '@material-ui/core/Divider';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import InfoIcon from '@material-ui/icons/Info';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import { OptionCallback } from '../../../../state/types';
 import RedButton from '../../../../components/button/RedButton.component';
 import type { PrivateConsumerPass } from '../../types';
-import { getPassDate } from '../../utils';
+import { getPassDate, getSpecificIncompatibilitiesReasons } from '../../utils';
 import { Member } from '#libs/member/types';
+import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
 
 type Props = {
   private_consumer_pass: PrivateConsumerPass<Member>;
@@ -34,6 +39,17 @@ type Props = {
   disabled?: boolean;
   button?: Node;
   showUniversalWarning?: boolean;
+
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass: (
+    pcp_id: number,
+    slot_id: number,
+    options: OptionCallback,
+  ) => void;
+  incompatibilitiesReasons: { [cpp_id: number]: number[] };
+  goToPrivatePass: () => void;
+  isNonCompatible: boolean;
+  privateSlotId: number;
+  width: Breakpoint;
 };
 
 export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
@@ -53,6 +69,33 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
     private_consumer_pass && private_consumer_pass.linked_consumer_payment_pack;
   const [processing, setProcessing] = useState(false);
   const [creditProcessing, setCreditProcessing] = useState(false);
+
+  const [consumerPassHasBeenHovered, setConsumerPassHasBeenHovered] =
+    useState(false);
+  const [showIncompatibilities, setShowIncompatibilities] = useState(false);
+  const [incompatibilitiesAreLoading, setIncompatibilitiesAreLoading] =
+    useState(true);
+
+  const handleInfoIncompatibilitesHovering = () => {
+    if (consumerPassHasBeenHovered) {
+      setShowIncompatibilities(true);
+      return;
+    }
+    props.fetchIncompatibilitiesReasonsBySlotByConsumerPass(
+      private_consumer_pass.id,
+      props?.privateSlotId,
+      {
+        onSuccess: () => setIncompatibilitiesAreLoading(false),
+        onError: () => setIncompatibilitiesAreLoading(false),
+      },
+    );
+    setShowIncompatibilities(true);
+    setConsumerPassHasBeenHovered(true);
+  };
+
+  const handleInfoIncompatibilitesLeaving = () => {
+    setShowIncompatibilities(false);
+  };
 
   const { t } = useTranslation('privateService');
   const classes = useStyles();
@@ -74,6 +117,54 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
   const renderButton = () => {
     if (processing) {
       return <CircularProgress />;
+    }
+
+    const isMobile = isWidthDown('sm', props.width);
+    const closeMobileIncompatibilities = isMobile
+      ? handleInfoIncompatibilitesLeaving
+      : null;
+
+    if (props.isNonCompatible) {
+      const incompatibilitiesReasons = getSpecificIncompatibilitiesReasons(
+        props.incompatibilitiesReasons,
+        props?.privateSlotId,
+        private_consumer_pass?.id,
+      );
+
+      return (
+        <div>
+          <div className={classes.buttonsContainer}>
+            {isMobile ? (
+              <IconButton onClick={handleInfoIncompatibilitesHovering}>
+                <InfoIcon />
+              </IconButton>
+            ) : (
+              <InfoIcon
+                onMouseEnter={handleInfoIncompatibilitesHovering}
+                onMouseLeave={handleInfoIncompatibilitesLeaving}
+              />
+            )}
+
+            <IconButton onClick={props.goToPrivatePass} color="secondary">
+              <ArrowForwardIcon />
+            </IconButton>
+          </div>
+          {showIncompatibilities &&
+            (incompatibilitiesAreLoading ? (
+              <div className={classes.container}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <div className={classes.tooltipContainer}>
+                <ConsumerPrivatePassIncompatibilitiesReasons
+                  reasons={incompatibilitiesReasons ?? []}
+                  closeMobileIncompatibilities={closeMobileIncompatibilities}
+                  extraStartingDate={private_consumer_pass.date_bought}
+                />
+              </div>
+            ))}
+        </div>
+      );
     }
     if (props.onBook) {
       return (
@@ -148,7 +239,9 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
         button={!!props.onClick}
         onClick={props.onClick}
         className={
-          private_consumer_pass.reverted || private_consumer_pass.disabled
+          private_consumer_pass.reverted ||
+          private_consumer_pass.disabled ||
+          props.isNonCompatible
             ? classes.disabled
             : null
         }
@@ -220,13 +313,41 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   disabled: {
-    backgroundColor: '#FFDDDD',
-    '&:hover': {
-      backgroundColor: '#FFC1C1',
-    },
+    backgroundColor: '#FFF0EF',
+  },
+  container: {
+    width: '150px',
+    height: '150px',
+    position: 'absolute',
+    backgroundColor: 'white',
+    right: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: theme.shadows[1],
+    zIndex: 1500,
+  },
+  buttonsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tooltipContainer: {
+    position: 'absolute',
+    right: 0,
+    zIndex: 1500,
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+    maxWidth: '340px',
+    height: 'auto',
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    boxShadow: theme.shadows[1],
   },
 }));
 
-export default PrivateConsumerPassBookerListItem;
+export default withWidth()(PrivateConsumerPassBookerListItem);

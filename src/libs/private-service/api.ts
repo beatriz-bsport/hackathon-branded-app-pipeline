@@ -373,6 +373,29 @@ export const fetchCompatiblePrivateConsumerPass = (
   );
 };
 
+export const fetchNonCompatiblePrivateConsumerPass = (
+  private_slot: number,
+  params: any,
+) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/noncompatible_with_slot/${buildUrlParams(
+      { ...params, private_slot },
+    )}`,
+  );
+};
+
+export async function fetchIncompatibilitiesReasonsBySlotByConsumerPass(
+  id: number,
+  private_slot: number,
+  date: string,
+) {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/${id}/incompatibility_error_code_list/${buildUrlParams(
+      { private_slot, date },
+    )}`,
+  );
+}
+
 export const fetchPrivateConsumerPassList = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams({

@@ -5359,10 +5359,21 @@
         "coachSelector": { "label": "Professeur" },
         "pleaseSelectCoachAndSlot": "Sélectionnez tout d'abord le professeur et la séance",
         "cancel": "Annuler",
-        "compatiblePrivatePass": "Facturer une carte RDV",
-        "compatiblePrivateConsumerPass": "Cartes RDV possédées :",
+        "compatiblePrivatePass": "Facturer une carte de RDV",
+        "compatiblePrivateConsumerPass": "Cartes de RDV possédées :",
+        "nonCompatiblePrivateConsumerPass": "Cartes de RDV possédées non compatibles :",
+        "noUncompatiblePassToDisplay": "Aucune carte de RDV non compatible",
+        "incompatibilities": {
+          "11107": "RDV non compatible",
+          "11108": "Nombre de crédits insuffisant",
+          "11109": "La carte commence à la première réservation, le ",
+          "11110": "La carte est expirée",
+          "11111": "Les dates sont incompatibles",
+          "privateService": "Carte configurée comme incompatible avec le RDV en question :",
+          "close": "Fermer"
+        },
         "emptyPrivateConsumerPass": "Aucune carte compatible possédée",
-        "emptyPrivatePass": "Aucune carte RDV compatible",
+        "emptyPrivatePass": "Aucune carte de RDV compatible",
         "privateConsumerPassNeedRefresh": "Rafraîchir la liste"
       },
       "delete": {
@@ -8127,7 +8138,11 @@
         "error": "Impossible de restaurer le rendez-vous, il n'y a pas assez de crédits sur cette carte de rendez-vous."
       }
     },
-    "privateConsumerPass": { "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" } },
+    "privateConsumerPass": {
+      "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" },
+      "nonCompatible": { "error": "Une erreur est survenue lors du chargement des passes non compatibles" },
+      "incompatibilitiesReasons": { "error": "Une erreur est survenue lors du chargement des raisons d'incompatibilités du pass" }
+    },
     "consumerPass": { "success": "Votre achat a bien été enregistré !" },
     "bookerModule": {
       "pass": {

@@ -57,6 +57,8 @@ import {
   isPrivatePassUsedInCombo as isPrivatePassUsedInComboAPI,
   // private-consumer-pass
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAPI,
+  fetchNonCompatiblePrivateConsumerPass as fetchNonCompatiblePrivateConsumerPassAPI,
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass as fetchIncompatibilitiesReasonsBySlotByConsumerPassAPI,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAPI,
   retrievePrivateConsumerPass as retrievePrivateConsumerPassAPI,
   updatePrivateConsumerPassCredits as updatePrivateConsumerPassCreditsAPI,
@@ -1748,6 +1750,95 @@ export function fetchCompatiblePrivateConsumerPass(
       if (options && options.onError) options.onError();
     }
     dispatch(privateConsumerPassListActions.isLoading(false));
+  };
+}
+
+export const privateServiceNonCompatiblePassActions = {
+  error: createAction('PRIVATE_PASS/LIST_NON_COMPATIBLE/ACTION/ERROR'),
+  isLoading: createAction('PRIVATE_PASS/LIST_NON_COMPATIBLE/ACTION/LOADING'),
+  create: createAction('PRIVATE_PASS/LIST_NON_COMPATIBLE/ACTION/CREATE'),
+  delete: createAction('PRIVATE_PASS/LIST_NON_COMPATIBLE/ACTION/DELETE'),
+  success: createAction('PRIVATE_PASS/LIST_NON_COMPATIBLE/ACTION/SUCCESS'),
+  update: createAction('PRIVATE_PASS/LIST_NON_COMPATIBLE/ACTION/UPDATE'),
+};
+
+export function fetchNonCompatiblePrivateConsumerPass(
+  privateSlotId: number,
+  params: any,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceNonCompatiblePassActions.isLoading(true));
+    dispatch(privateServiceNonCompatiblePassActions.error(null));
+    try {
+      const response = await fetchNonCompatiblePrivateConsumerPassAPI(
+        privateSlotId,
+        params,
+      );
+      dispatch(privateServiceNonCompatiblePassActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateServiceNonCompatiblePassActions.error(null));
+      dispatch(snackbarError('privateConsumerPass.nonCompatible.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateServiceNonCompatiblePassActions.isLoading(false));
+  };
+}
+
+export const incompatibilitiesReasonsBySlotByConsumerPassActions = {
+  isLoading: createAction(
+    'PRIVATE_CONSUMER_PASS/INCOMPATIBILITIES_BY_SLOT_BY_CONSUMER_PASS/IS_LOADING',
+  ),
+  error: createAction(
+    'PRIVATE_CONSUMER_PASS/INCOMPATIBILITIES_BY_SLOT_BY_CONSUMER_PASS/ERROR',
+  ),
+  success: createAction(
+    'PRIVATE_CONSUMER_PASS/INCOMPATIBILITIES_BY_SLOT_BY_CONSUMER_PASS/SUCCESS',
+  ),
+  reset: createAction(
+    'PRIVATE_CONSUMER_PASS/INCOMPATIBILITIES_BY_SLOT_BY_CONSUMER_PASS/RESET',
+  ),
+};
+
+export function fetchIncompatibilitiesReasonsBySlotByConsumerPass(
+  pcp_id: number,
+  slot_id: number,
+  date: string,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response =
+        await fetchIncompatibilitiesReasonsBySlotByConsumerPassAPI(
+          pcp_id,
+          slot_id,
+          date,
+        );
+      dispatch(
+        incompatibilitiesReasonsBySlotByConsumerPassActions.success(
+          response.data.incompatibilities_with_slot,
+        ),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(
+        snackbarError('privateConsumerPass.incompatibilitiesReasons.error'),
+      );
+      console.error(error);
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+  };
+}
+
+export function resetIncompatibilitiesReasonsBySlotByConsumerPass() {
+  return async (dispatch: Dispatch) => {
+    dispatch(incompatibilitiesReasonsBySlotByConsumerPassActions.reset());
   };
 }
 

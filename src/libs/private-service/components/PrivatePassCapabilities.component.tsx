@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
@@ -9,6 +9,12 @@ import List from '@material-ui/core/List';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Box from '@material-ui/core/Box';
+import Skeleton from '@material-ui/lab/Skeleton';
 import PrivatePassBookerListItem from './booking-module/PrivatePassBookerListItem.component';
 import PrivateConsumerPassBookerListItem from './booking-module/PrivateConsumerPassBookerListItem.component';
 import type {
@@ -29,11 +35,22 @@ type OwnProps = {
   fetchPass: () => void;
   compatiblePrivatePass: Array<PrivatePass>;
   compatiblePrivateConsumerPass: Array<PrivateConsumerPass>;
+  nonCompatiblePrivateConsumerPass: Array<PrivateConsumerPass>;
   recurrenceRule?: boolean;
   createRecurrentRule?: (options?: OptionCallback) => void;
   registerUnPaidPrivateBooking: (options?: OptionCallback) => void;
   compatibleWithUnpaidBooking: boolean;
   privateSlotCredit?: number | null;
+  privateSlot: number;
+  fetchNonCompatiblePrivateConsumerPass: () => void;
+  nonCompatiblePrivateConsumerPassIsLoading: boolean;
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass: (
+    private_consumer_pass_id: number,
+    offer_id: number,
+    options: OptionCallback,
+  ) => void;
+  incompatibilitiesReasons: { [consumer_private_pass_id: number]: number[] };
+  goToPrivatePass: (private_consumer_pass_id: number) => void;
 };
 
 type Props = OwnProps &
@@ -44,6 +61,32 @@ export const PrivatePassCapabilities = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation('privateService');
   const [needRefresh, setNeedRefresh] = React.useState<boolean>(false);
+  const [
+    openNonCompatiblePrivateConsumerPass,
+    setOpenNonCompatiblePrivateConsumerPass,
+  ] = useState(false);
+  const [
+    nonCompatiblePrivateConsumerPassHaveBeenFetched,
+    setNonCompatiblePrivateConsumerPassHaveBeenFetched,
+  ] = useState(false);
+
+  const handleSwitchCollapse = useCallback(() => {
+    if (!nonCompatiblePrivateConsumerPassHaveBeenFetched) {
+      props.fetchNonCompatiblePrivateConsumerPass();
+      setNonCompatiblePrivateConsumerPassHaveBeenFetched(true);
+    }
+    setOpenNonCompatiblePrivateConsumerPass(
+      !openNonCompatiblePrivateConsumerPass,
+    );
+  }, [
+    nonCompatiblePrivateConsumerPassHaveBeenFetched,
+    openNonCompatiblePrivateConsumerPass,
+    props,
+  ]);
+
+  const handleGoToPrivatePass = (privatePassId: number) => () =>
+    props.goToPrivatePass(privatePassId);
+
   return (
     <div>
       <Typography variant="h5" className={classes.sectionTitle}>
@@ -100,11 +143,93 @@ export const PrivatePassCapabilities = (props: Props) => {
           </Paper>
         </List>
       )}
-      {props.compatiblePrivateConsumerPass.length === 0 && !needRefresh ? (
-        <Typography color="textSecondary">
-          {t('privateBooking.managerAdd.emptyPrivateConsumerPass')}
-        </Typography>
-      ) : null}
+      <div className={classes.nonCompatibleSection}>
+        <ButtonBase
+          onClick={() => handleSwitchCollapse()}
+          className={classes.nonCompatibleCollapsable}
+        >
+          <Typography variant="h5" className={classes.textAlign}>
+            {t('privateBooking.managerAdd.nonCompatiblePrivateConsumerPass')}
+          </Typography>
+          {openNonCompatiblePrivateConsumerPass ? (
+            <ExpandLessIcon />
+          ) : (
+            <ExpandMoreIcon />
+          )}
+        </ButtonBase>
+        <Collapse in={openNonCompatiblePrivateConsumerPass}>
+          <div>
+            {props.nonCompatiblePrivateConsumerPassIsLoading ? (
+              <>
+                <div>
+                  <Skeleton
+                    animation="wave"
+                    width="40%"
+                    variant="text"
+                    height={30}
+                  />
+                  <Box mt={2} />
+                  <Skeleton
+                    animation="wave"
+                    width="100%"
+                    variant="rect"
+                    height={50}
+                  />
+                </div>
+                <div>
+                  <Skeleton
+                    animation="wave"
+                    width="40%"
+                    variant="text"
+                    height={30}
+                  />
+                  <Box mt={2} />
+                  <Skeleton
+                    animation="wave"
+                    width="100%"
+                    variant="rect"
+                    height={50}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                {props.nonCompatiblePrivateConsumerPass?.length > 0 ? (
+                  <div className={classes.disabled}>
+                    {props.nonCompatiblePrivateConsumerPass.map((pcp) => (
+                      <PrivateConsumerPassBookerListItem
+                        private_consumer_pass={pcp}
+                        onBook={(options: OptionCallback) =>
+                          props.recurrenceRule
+                            ? props.createRecurrentRule(options)
+                            : props.registerPrivateBooking(pcp.id, options)
+                        }
+                        key={pcp.id}
+                        divider
+                        isNonCompatible
+                        goToPrivatePass={handleGoToPrivatePass(
+                          pcp.private_pass?.id,
+                        )}
+                        fetchIncompatibilitiesReasonsBySlotByConsumerPass={
+                          props.fetchIncompatibilitiesReasonsBySlotByConsumerPass
+                        }
+                        incompatibilitiesReasons={
+                          props.incompatibilitiesReasons
+                        }
+                        privateSlotId={props.privateSlot}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <Typography color="textSecondary">
+                    {t('privateBooking.managerAdd.noUncompatiblePassToDisplay')}
+                  </Typography>
+                )}
+              </>
+            )}
+          </div>
+        </Collapse>
+      </div>
       <Typography variant="h5" className={classes.sectionTitle}>
         {t('privateBooking.managerAdd.compatiblePrivatePass')}
       </Typography>
@@ -152,6 +277,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  disabled: {
+    backgroundColor: '#FFDDDD',
+  },
+  nonCompatibleCollapsable: {
+    width: '100%',
+    justifyContent: 'space-between',
+    display: 'flex',
+    paddingBottom: theme.spacing(1),
+    borderBottom: '1px solid rgba(224, 224, 224, 1)',
+  },
+  nonCompatibleSection: {
+    paddingTop: theme.spacing(2),
+  },
+  textAlign: { textAlign: 'start' },
 }));
 
 export default compose<any, OwnProps>()(PrivatePassCapabilities);

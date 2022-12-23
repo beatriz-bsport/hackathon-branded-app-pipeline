@@ -581,3 +581,12 @@ export const formatSlotDetailData = memoize(
 
 export const conditionToHideSpecificTeacherAvailabilities = () => false;
 // ['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);
+
+export const getSpecificIncompatibilitiesReasons = (
+  // keys of allIncompatibilities look like '[private_slot_id: number, cpp_id: string]'
+  allIncompatibilities: {
+    [privateSlotAndCpp: string]: number[];
+  },
+  privateSlotId: number,
+  cppId: number,
+) => (allIncompatibilities || {})[`[${privateSlotId}, ${cppId}]`] ?? [];

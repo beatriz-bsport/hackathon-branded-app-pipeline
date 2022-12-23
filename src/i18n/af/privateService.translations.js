@@ -1,3 +1,11 @@
+const {
+  PRIVATE_PASS_CAN_NOT_BOOK_SERVICE_NOT_COMPATIBLE,
+  PRIVATE_PASS_CAN_NOT_BOOK_ENOUGH_CREDIT,
+  PRIVATE_PASS_CAN_NOT_BOOK_LATER_FIRST_BOOKING,
+  PRIVATE_PASS_CAN_NOT_BOOK_HAS_EXPIRED,
+  PRIVATE_PASS_CAN_NOT_BOOK_DATES_NOT_COMPATIBLE,
+} = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
+
 exports.default = {
   seeAll: 'Tout voir',
   privatePassTemplateInstance: {
@@ -283,10 +291,27 @@ exports.default = {
       pleaseSelectCoachAndSlot:
         "Sélectionnez tout d'abord le professeur et la séance",
       cancel: 'Annuler',
-      compatiblePrivatePass: 'Facturer une carte RDV',
-      compatiblePrivateConsumerPass: 'Cartes RDV possédées :',
+      compatiblePrivatePass: 'Facturer une carte de RDV',
+      compatiblePrivateConsumerPass: 'Cartes de RDV possédées :',
+      nonCompatiblePrivateConsumerPass:
+        'Cartes de RDV possédées non compatibles :',
+      noUncompatiblePassToDisplay: 'Aucune carte de RDV non compatible',
+      incompatibilities: {
+        privateService:
+          'Carte configurée comme incompatible avec le RDV en question :',
+        [PRIVATE_PASS_CAN_NOT_BOOK_SERVICE_NOT_COMPATIBLE]:
+          'RDV non compatible',
+        [PRIVATE_PASS_CAN_NOT_BOOK_ENOUGH_CREDIT]:
+          'Nombre de crédits insuffisant',
+        [PRIVATE_PASS_CAN_NOT_BOOK_LATER_FIRST_BOOKING]:
+          'La carte commence à la première réservation, le ',
+        [PRIVATE_PASS_CAN_NOT_BOOK_HAS_EXPIRED]: 'La carte est expirée',
+        [PRIVATE_PASS_CAN_NOT_BOOK_DATES_NOT_COMPATIBLE]:
+          'Les dates sont incompatibles',
+        close: 'Fermer',
+      },
       emptyPrivateConsumerPass: 'Aucune carte compatible possédée',
-      emptyPrivatePass: 'Aucune carte RDV compatible',
+      emptyPrivatePass: 'Aucune carte de RDV compatible',
       privateConsumerPassNeedRefresh: 'Rafraîchir la liste',
     },
     delete: {

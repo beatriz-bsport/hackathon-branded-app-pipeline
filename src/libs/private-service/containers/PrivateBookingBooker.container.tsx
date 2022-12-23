@@ -12,12 +12,16 @@ import FormGroup from '@material-ui/core/FormGroup';
 import { Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
+import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { getPrivatePassAvailable } from '../selectors/private-pass';
 import {
   getPrivateConsumerPassList,
   getUnPaidBookingAvailabilityForPrivateslot,
+  getConsumerPassIncompatibilitiesReasons,
+  getPrivateConsumerPassNonCompatibleList,
+  getPrivateConsumerPassNonCompatibleIsLoading,
 } from '../selectors/private-consumer-pass';
 import { getCoachesSelectedInRole } from '#libs/associated-coach/selectors';
 import { MemberMap } from '../../member/utils';
@@ -27,9 +31,12 @@ import {
   fetchAllPrivateSlots,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAction,
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAction,
+  fetchNonCompatiblePrivateConsumerPass as fetchNonCompatiblePrivateConsumerPassAction,
   registerPrivateBooking as registerPrivateBookingAction,
   createOrUpdateRecurrenceRulePrivateBooking,
   checkPrivateSlotUnpaidBookingEligibility,
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass as fetchIncompatibilitiesReasonsBySlotByConsumerPassAction,
+  resetIncompatibilitiesReasonsBySlotByConsumerPass as resetIncompatibilitiesReasonsBySlotByConsumerPassAction,
 } from '../actions';
 import { getAvailablePrivateServices } from '../selectors/private-service';
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
@@ -113,6 +120,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         );
       },
     });
+    this.props.resetIncompatibilitiesReasonsBySlotByConsumerPass();
     this.props.fetchAllPrivateSlots();
   }
 
@@ -144,6 +152,25 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
       this.state.private_booking_data.private_slot,
       this.state.member.id,
       this.state.date_start,
+    );
+
+  fetchNonCompatiblePrivateConsumerPass = (options?: OptionCallback) =>
+    this.props.fetchNonCompatiblePrivateConsumerPass(
+      this.state.private_booking_data.private_slot,
+      { member: this.state.member.id, date: this.state.date_start },
+      options,
+    );
+
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass = (
+    private_consumer_pass_id: number,
+    privateSlotId: number,
+    options: OptionCallback,
+  ) =>
+    this.props.fetchIncompatibilitiesReasonsBySlotByConsumerPass(
+      private_consumer_pass_id,
+      privateSlotId,
+      this.state.date_start,
+      options,
     );
 
   handleConfigurationChange = (private_booking_data: {
@@ -182,11 +209,14 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     );
   };
 
-  registerPrivateBooking = (pcpId: number | null, options: OptionCallback) => {
+  registerPrivateBooking = (
+    private_consumer_pass_id: number | null,
+    options: OptionCallback,
+  ) => {
     this.props.registerPrivateBooking(
       {
         ...this.state.private_booking_data,
-        private_consumer_pass: pcpId,
+        private_consumer_pass: private_consumer_pass_id,
         date_start: this.state.date_start,
         notify_member: this.props.notify_member,
       },
@@ -432,12 +462,27 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
                   compatiblePrivateConsumerPass={
                     this.props.compatiblePrivateConsumerPass
                   }
+                  nonCompatiblePrivateConsumerPass={
+                    this.props.nonCompatiblePrivateConsumerPass
+                  }
+                  nonCompatiblePrivateConsumerPassIsLoading={
+                    this.props.nonCompatiblePrivateConsumerPassIsLoading
+                  }
+                  goToPrivatePass={this.props.goToPrivatePass}
                   compatibleWithUnpaidBooking={
                     this.props.compatibleWithUnpaidBooking
                   }
                   privateSlotCredit={
                     this.state.private_booking_data.privateSlotCredit
                   }
+                  fetchNonCompatiblePrivateConsumerPass={
+                    this.fetchNonCompatiblePrivateConsumerPass
+                  }
+                  privateSlot={this.state.private_booking_data.private_slot}
+                  fetchIncompatibilitiesReasonsBySlotByConsumerPass={
+                    this.fetchIncompatibilitiesReasonsBySlotByConsumerPass
+                  }
+                  incompatibilitiesReasons={this.props.incompatibilitiesReasons}
                 />
               </fieldset>
             )}
@@ -480,6 +525,10 @@ const mapStateToProps = (
     state.privateService.privateConsumerPass.loading,
   compatiblePrivatePass: getPrivatePassAvailable(state),
   compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
+  nonCompatiblePrivateConsumerPass:
+    getPrivateConsumerPassNonCompatibleList(state),
+  nonCompatiblePrivateConsumerPassIsLoading:
+    getPrivateConsumerPassNonCompatibleIsLoading(state),
   timezone: state.theme.theme.timezone_name,
   processing: state.privateService.privateBooking.createOrUpdate.loading,
   country: state.theme.theme.locale.split('_')[1],
@@ -489,6 +538,7 @@ const mapStateToProps = (
     state,
     requestedPrivateSlot,
   ),
+  incompatibilitiesReasons: getConsumerPassIncompatibilitiesReasons(state),
 });
 
 const mapDispatchToProps = {
@@ -501,6 +551,13 @@ const mapDispatchToProps = {
 
   fetchCompatiblePrivatePass: fetchCompatiblePrivatePassAction,
   fetchCompatiblePrivateConsumerPass: fetchCompatiblePrivateConsumerPassAction,
+  fetchNonCompatiblePrivateConsumerPass:
+    fetchNonCompatiblePrivateConsumerPassAction,
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass:
+    fetchIncompatibilitiesReasonsBySlotByConsumerPassAction,
+  resetIncompatibilitiesReasonsBySlotByConsumerPass:
+    resetIncompatibilitiesReasonsBySlotByConsumerPassAction,
+  pushRouter: push,
   registerPrivateBooking: registerPrivateBookingAction,
   createRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
   searchMembers: (text: string) => searchMembers(text, { hide_archived: true }),
@@ -596,6 +653,12 @@ const mapWithHandlers = {
             });
         },
       });
+    },
+
+  goToPrivatePass:
+    ({ pushRouter }: { pushRouter: (url: string) => void }) =>
+    (privatePassId: number) => {
+      pushRouter(`/private-service/pass/${privatePassId}`);
     },
 };
 

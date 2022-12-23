@@ -779,6 +779,14 @@ exports.default = {
       success: 'Crédits mis à jour',
       error: "Impossible d'enregistrer le crédit",
     },
+    nonCompatible: {
+      error:
+        'Une erreur est survenue lors du chargement des passes non compatibles',
+    },
+    incompatibilitiesReasons: {
+      error:
+        "Une erreur est survenue lors du chargement des raisons d'incompatibilités du pass",
+    },
   },
   consumerPass: {
     success: 'Votre achat a bien été enregistré !',

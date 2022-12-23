@@ -1,5 +1,6 @@
 import React from 'react';
 import DownloadIcon from '@material-ui/icons/GetApp';
+import { makeStyles, Theme } from '@material-ui/core';
 import { downloadDocument } from '../../../../utils/downloader';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
 import { OptionCallback } from '../../../../state/types';
@@ -33,6 +34,7 @@ const ContractTermsDialog = (props: Props) => {
       props.downloadContractTerms({ onSuccess, onError });
     }
   };
+  const classes = useStyles();
   return (
     <CustomMuiDialog
       open={props.open}
@@ -53,9 +55,19 @@ const ContractTermsDialog = (props: Props) => {
       ]}
       withButtonsDivider
     >
-      <TypographyMultiline>{props.contractTerms}</TypographyMultiline>
+      <div className={classes.container}>
+        <TypographyMultiline>{props.contractTerms}</TypographyMultiline>
+      </div>
     </CustomMuiDialog>
   );
 };
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    [theme.breakpoints.up('md')]: {
+      maxHeight: 500,
+    },
+  },
+}));
 
 export default ContractTermsDialog;

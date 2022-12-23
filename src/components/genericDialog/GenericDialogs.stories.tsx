@@ -14,6 +14,7 @@ import GenericDeleteDialog, {
 } from './GenericDeleteDialog.component';
 // --------------------------------------------------
 import Typography from '@material-ui/core/Typography';
+import TypographyMultiline from '#components/typo/TypographyMultiline.component';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import Alert from '@material-ui/lab/Alert';
 // @ts-ignore
@@ -86,7 +87,11 @@ ResponsiveDialog.args = {
 
 const CustomMuiDialogTemplate = (args: any) => (
   <CustomMuiDialog {...args}>
-    <Typography>{faker.hacker.phrase()}</Typography>
+    <TypographyMultiline>
+      {Array(25)
+        .fill(0)
+        .reduce((accu, next) => accu + `\n${faker.hacker.phrase()}`, '')}
+    </TypographyMultiline>
   </CustomMuiDialog>
 );
 export const CustomableMuiDialog = CustomMuiDialogTemplate.bind({});

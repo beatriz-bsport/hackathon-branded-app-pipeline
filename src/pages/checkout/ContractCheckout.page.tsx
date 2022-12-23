@@ -200,7 +200,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           payment_method_id,
           first_billing_timestamp,
           coupon,
-          consumer_accept_contract_terms: true,
           ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
         },
         {

@@ -9,6 +9,7 @@ import {
   DialogTitle,
   Typography,
   Divider,
+  makeStyles,
 } from '@material-ui/core';
 import GenericResponsiveDialog from './GenericResponsiveDialog';
 import RedButton from '#components/button/RedButton.component';
@@ -104,6 +105,7 @@ export const CustomMuiDialog = (props: Props) => {
     onClose,
   } = props;
   const { t } = useTranslation('common');
+  const classes = useStyles();
   return (
     <GenericResponsiveDialog
       maxWidth={maxWidth}
@@ -111,7 +113,7 @@ export const CustomMuiDialog = (props: Props) => {
       fullScreenBreakpoint={fullScreenBreakpoint}
       onClose={onClose}
     >
-      <div style={{ width: '100%' }}>
+      <div className={classes.dialog}>
         {!!title && (
           <DialogTitle>
             <Typography variant="h6">{title}</Typography>
@@ -175,5 +177,14 @@ export const CustomMuiDialog = (props: Props) => {
 CustomMuiDialog.defaultProps = {
   maxWidth: 'sm',
 };
+
+const useStyles = makeStyles(() => ({
+  dialog: {
+    width: '100%',
+    maxHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
 
 export default CustomMuiDialog;

@@ -6173,7 +6173,7 @@
             },
             "form": {
                 "confirm": "Confirmer",
-                "autorization": "Autoriser {{name_1}} à accèder au compte de {{name_2}}",
+                "autorization": "Autoriser {{name_1}} à accéder au compte de {{name_2}}",
                 "accountInfo": "L’accès au compte permet au membre d’accéder au compte de sa relation depuis son propre compte.",
                 "access": "Accès au compte",
                 "email": "Copie d’email",

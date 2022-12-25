@@ -589,23 +589,29 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
   };
 
-  handleIntervalChange = ({ view }) => {
+  handleIntervalChange = ({ view, startStr, endStr }) => {
     if (view.type !== this.props.scheduleFilter.timeGrid) {
       this.props.setScheduleFilter({
         ...this.props.scheduleFilter,
         timeGrid: view.type,
       });
     }
-    const date_start = moment(view.currentStart).format('YYYY-MM-DD');
-    const date_end = moment(view.currentEnd).format('YYYY-MM-DD');
+
+    const date_start = moment
+      .tz(startStr, this.props.timezone)
+      .format('YYYY-MM-DD');
+
+    const date_end = moment
+      .tz(endStr, this.props.timezone)
+      .format('YYYY-MM-DD');
 
     if (
       this.state.date_start !== date_start &&
       this.state.date_end !== date_end
     ) {
       this.setState({
-        date_start: moment(view.currentStart).format('YYYY-MM-DD'),
-        date_end: moment(view.currentEnd).format('YYYY-MM-DD'),
+        date_start,
+        date_end,
       });
     }
   };

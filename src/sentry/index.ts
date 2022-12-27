@@ -17,6 +17,11 @@ const exceptionMessageRegexpToIgnore = [
   /find variable: _AutofillCallbackHandler/, // FACEBOOK BROWSER
   /find variable: jQuery/,
   /jQuery is not defined/,
+  /**
+   * Ignore errors reported from CookieFirst (3rd party script)
+   * https://sentry.io/organizations/bsport-cg/issues/3183750570/
+   */
+  /\[CF\] failed to load config files/i,
 ];
 
 Sentry.init({

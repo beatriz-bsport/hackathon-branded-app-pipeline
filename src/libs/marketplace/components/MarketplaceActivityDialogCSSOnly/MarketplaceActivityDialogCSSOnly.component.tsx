@@ -22,6 +22,13 @@ type Props = {
 
 export function MarketplaceActivityDialog(props: Props) {
   const { onClose, offerId, fullScreen } = props;
+  const paperProps = {
+    style: {
+      margin: '10px',
+      borderRadius: fullScreen ? '0px' : '12px',
+      maxHeight: '80vh',
+    },
+  };
   return (
     <Dialog
       key={offerId}
@@ -30,12 +37,7 @@ export function MarketplaceActivityDialog(props: Props) {
       onClose={onClose}
       maxWidth="md"
       disablePortal
-      PaperProps={{
-        style: {
-          margin: '10px',
-          borderRadius: fullScreen ? '0px' : '12px',
-        },
-      }}
+      PaperProps={paperProps}
     >
       <DialogContent id="bs-activity--dialog">
         {props.open ? <MarketplaceActivityV2 {...props} /> : null}

@@ -33,7 +33,7 @@ type OwnProps = {
   ) => void;
   establishments: Array<EstablishmentWithAssociatedId>;
   kind?: string;
-  coachesRelatedToPrivateServices: number[];
+  coachesRelatedToPrivateServices?: number[];
 };
 
 type Props = OwnProps &
@@ -51,7 +51,7 @@ type State = {
   activeEstablishments: Array<EstablishmentWithAssociatedId>;
 };
 
-export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
+export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
   Props,
   State
 > {
@@ -176,6 +176,9 @@ export class AvailabilityUpdatResourceChoserDialog extends React.PureComponent<
   };
 
   isWarning = (resourceByType: PrivateResource) => {
+    if (!this.props.coachesRelatedToPrivateServices) {
+      return false;
+    }
     return (
       resourceByType.datatype === 'associated_coach' &&
       !this.props.coachesRelatedToPrivateServices.includes(
@@ -378,4 +381,4 @@ export default compose(
   withTranslation(['privateService']),
   // @ts-ignore
   withStyles(styles),
-)(AvailabilityUpdatResourceChoserDialog);
+)(AvailabilityUpdateResourceChoserDialog);

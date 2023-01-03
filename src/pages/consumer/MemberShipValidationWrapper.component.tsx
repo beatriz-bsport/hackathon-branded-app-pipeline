@@ -107,7 +107,11 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
         company: this.props.companyId,
       });
     }
-    if (this.props.authenticated && !prevProps.authenticated) {
+    if (
+      this.props.authenticated &&
+      !prevProps.authenticated &&
+      this.props.companyId
+    ) {
       this.props.requestMembershipValidation({
         company: this.props.companyId,
       });

@@ -199,7 +199,7 @@ export const requestMemberShipValidationActions = {
 };
 
 export function requestMembershipValidation(
-  data: { company?: number },
+  data: { company: number },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

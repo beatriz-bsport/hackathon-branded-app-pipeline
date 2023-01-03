@@ -1,4 +1,5 @@
 import TagManager from 'react-gtm-module';
+import { getCoachOrSubstitute } from '../../libs/offer/utils';
 
 export default class GoogleAnalytics {
   static methods = [];
@@ -231,12 +232,8 @@ GoogleAnalytics.addMethod(
     data: {
       name: offer.meta_activity.name,
       date: offer.date_start,
-      coach: offer.coach_override
-        ? offer.coach_override.name
-        : offer.coach.name,
-      establishment: offer.establishment_override
-        ? offer.establishment_override.title
-        : offer.establishment.name,
+      coach: getCoachOrSubstitute(offer)?.name,
+      establishment: offer.establishment.name,
       activity: offer.meta_activity.id,
     },
   }),

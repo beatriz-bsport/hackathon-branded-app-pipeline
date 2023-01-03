@@ -89,9 +89,7 @@ class CheckInConfirm extends Component<Props> {
             {t('confirmPage.classLocation')}
           </Typography>
           <Typography variant="h6" align="center">
-            {offer
-              ? (offer.establishment_override || offer.etablissement).title
-              : ''}
+            {offer?.etablissement?.title ?? '-'}
           </Typography>
         </div>
       </React.Fragment>

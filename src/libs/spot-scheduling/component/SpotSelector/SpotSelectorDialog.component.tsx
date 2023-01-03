@@ -16,6 +16,7 @@ import { DialogContent, Dialog, Grid } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
+import { getCoachOrSubstitute } from '../../../offer/utils';
 import SpotSelector from './SpotSelector.component';
 import { Offer } from '../../../offer/types';
 import { MaterialStyleType } from '../../../../utils/types';
@@ -220,7 +221,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             selectedSpot={this.props.selectedIndex}
             fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
             spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
-            coach={this.props.offer?.coach}
+            coach={getCoachOrSubstitute(this.props.offer)}
             isMobile={isMobile}
           />
           <div

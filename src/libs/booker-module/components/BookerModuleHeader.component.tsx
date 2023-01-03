@@ -9,6 +9,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import { MaterialStyleType } from '../../../utils/types';
 
+import { getCoachOrSubstitute } from '../../offer/utils';
 import { Offer_FULL } from '../../offer/types';
 
 type OwnProps = {
@@ -62,9 +63,7 @@ class ActivitySummary extends React.PureComponent<Props> {
               <div className={classes.row}>
                 <PersonIcon className={classes.leftIcon} />
                 <Typography variant="caption">
-                  {offer.coach_override && offer.coach_override.user
-                    ? offer.coach_override.user.name
-                    : offer.coach.name}
+                  {getCoachOrSubstitute(offer)?.name}
                 </Typography>
               </div>
             )}

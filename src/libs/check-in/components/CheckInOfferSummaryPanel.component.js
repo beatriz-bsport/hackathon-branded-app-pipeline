@@ -68,9 +68,7 @@ class CheckInOfferSummaryPanel extends Component<Props> {
         <div className={classes.item} />
         <div className={classes.item}>
           <Typography variant="body2" align="center">
-            {offer
-              ? (offer.establishment_override || offer.etablissement).title
-              : ''}
+            {offer?.etablissement?.title ?? '-'}
           </Typography>
           <div className={classes.row}>
             <PlaceIcon className={classes.leftIcon} />

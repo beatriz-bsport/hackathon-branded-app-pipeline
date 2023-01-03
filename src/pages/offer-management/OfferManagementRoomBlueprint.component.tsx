@@ -8,6 +8,7 @@ import { Theme } from '@material-ui/core/styles';
 import CanvasPreview from '#libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
 import { AssetForBlueprint, RoomBlueprint } from '#libs/spot-scheduling/types';
 import { Offer, OfferStatus } from '#libs/offer/types';
+import { getCoachOrSubstitute } from '../../libs/offer/utils';
 import { MaterialStyleType } from '../../utils/types';
 
 interface OwnProps {
@@ -46,7 +47,7 @@ class OfferManagementRoomBlueprint extends React.PureComponent<Props> {
           takenSpot={takenSpot}
           fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
           spotTypes={this.props?.spotTypes}
-          coach={this.props.offer?.coach}
+          coach={getCoachOrSubstitute(this.props.offer)}
         />
       </Paper>
     );

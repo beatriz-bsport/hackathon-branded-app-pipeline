@@ -102,10 +102,6 @@ export const withEstablishment = memoize(
         if (!Array.isArray(offers)) {
           return {
             ...offers,
-            establishment_override: offers.establishment_override
-              ? establishmentData[offers.establishment_override] ||
-                offers.establishment_override
-              : null,
             establishment: establishmentData[offers.establishment],
           };
         }
@@ -114,10 +110,6 @@ export const withEstablishment = memoize(
           .filter((o) => !!o)
           .map((o) => ({
             ...o,
-            establishment_override: o.establishment_override
-              ? establishmentData[o.establishment_override] ||
-                o.establishment_override
-              : null,
             establishment:
               establishmentData[o.establishment] || o.establishment,
           }));

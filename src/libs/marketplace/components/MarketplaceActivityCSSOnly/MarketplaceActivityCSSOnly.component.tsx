@@ -55,7 +55,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const [mobileMapModalOpen, setMobileMapModalOpen] = useState(false);
 
-  const establishment = offer.establishment_override || offer.establishment;
+  const establishment = offer.establishment;
   const { location } = offer.establishment || { location: null };
 
   const center = location ? [location.latitude, location.longitude] : null;

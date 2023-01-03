@@ -21,7 +21,7 @@ import Level from '#libs/level/components/Level.component';
 import { formatAsTime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Tooltip from '../../../components/Tooltip.component';
-import { isOfferInThePast } from '../utils';
+import { getCoachOrSubstitute, isOfferInThePast } from '../utils';
 
 type Props = {
   offer: Offer,
@@ -40,28 +40,10 @@ export const OfferListItemConsumer = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['marketplace']);
   const isInThePast = isOfferInThePast(offer);
+  const coachName = getCoachOrSubstitute(offer)?.name ?? ' - ';
+  const metaActivityName = offer?.meta_activity?.name ?? ' - ';
+  const establishmentName = offer?.establishment?.title ?? ' - ';
 
-  /* eslint-disable */
-
-  const coachName =
-    offer.coach_override && offer.coach_override.name
-      ? offer.coach_override.name
-      : offer.coach && offer.coach && offer.coach.name
-      ? offer.coach.name
-      : ' - ';
-
-  const metaActivityName =
-    offer.meta_activity && offer.meta_activity
-      ? offer.meta_activity.name
-      : ' - ';
-
-  const establishmentName =
-    offer.establishment_override && offer.establishment_override.title
-      ? offer.establishment_override.title
-      : offer.establishment && offer.establishment.title
-      ? offer.establishment.title
-      : ' - ';
-  /* eslint-enable */
   return (
     <ListItem
       button={isInThePast}

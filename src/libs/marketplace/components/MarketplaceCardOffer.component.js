@@ -13,6 +13,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Level from '#libs/level/components/Level.component';
 import { formatAsTime } from '../../../utils/datetime';
 import { isOfferInThePast } from '../utils';
+import { getCoachOrSubstitute } from '../../offer/utils';
 
 import Tooltip from '../../../components/Tooltip.component';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
@@ -42,28 +43,9 @@ export const MarketplaceCardOffer = (props: Props) => {
   const onClick =
     onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null; // this open the offer modal
 
-  // const onClickCard = offer.is_full ? onClickBookOption : onClickBook;
-
-  /* eslint-disable */
-
-  const coachName =
-    offer.coach_override && offer.coach_override.name
-      ? offer.coach_override.name
-      : offer.coach && offer.coach && offer.coach.name
-      ? offer.coach.name
-      : ' - ';
-
-  const metaActivityName = offer.meta_activity
-    ? offer.meta_activity.name || ' - '
-    : ' - ';
-
-  const establishmentName =
-    offer.establishment_override && offer.establishment_override.title
-      ? offer.establishment_override.title
-      : offer.establishment && offer.establishment.title
-      ? offer.establishment.title
-      : ' - ';
-  /* eslint-enable */
+  const coachName = getCoachOrSubstitute(offer)?.name ?? ' - ';
+  const metaActivityName = offer?.meta_activity?.name ?? ' - ';
+  const establishmentName = offer?.establishment?.title ?? ' - ';
 
   const offerEndDate = moment(offer.date_start).add(
     offer.duration_minute,

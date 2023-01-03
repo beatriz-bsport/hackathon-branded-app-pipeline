@@ -3,7 +3,6 @@ import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
 import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
-import Config from '../../config';
 
 import { sortByDate, formatAsDate } from '../../utils/datetime';
 
@@ -580,5 +579,5 @@ export const formatSlotDetailData = memoize(
   },
 );
 
-export const conditionToHideSpecificTeacherAvailabilities = () =>
-  ['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);
+export const conditionToHideSpecificTeacherAvailabilities = () => false;
+// ['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);

@@ -660,6 +660,21 @@ export async function resourceAllocationChecker(
     },
   );
 }
+
+export async function findAvailableEstablishment(
+  privateSlotId: number,
+  data: {
+    date_start: string;
+    associated_establishment?: number;
+    associated_coach?: number;
+  },
+) {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_slot/find_available_establishment/`,
+    { private_slot: privateSlotId, ...data },
+  );
+}
+
 export async function fetchAllPrivatePassCategory({
   companyId,
 }: {

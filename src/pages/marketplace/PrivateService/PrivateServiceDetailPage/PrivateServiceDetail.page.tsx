@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 // @ts-ignore
-import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
+import {
+  RESOURCE_ATTRIBUTION_CONSUMER,
+  RESOURCE_ATTRIBUTION_AUTO,
+} from '@bsport/common/lib/master-data/resource-attribution-methods';
 import moment from 'moment-timezone';
 import { push as pushAction } from 'connected-react-router';
 
@@ -14,6 +17,7 @@ import {
   searchAvailableSlots as searchAvailableSlotsAction,
   searchFirstAvailableSlots as searchFirstAvailableSlotsAction,
 } from '../../../../libs/private-service/actions';
+import { findAvailableEstablishment as findAvailableEstablishmentAPI } from '../../../../libs/private-service/api';
 import {
   getPrivateService,
   withAssociatedCoach,
@@ -288,8 +292,24 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
   }, []);
 
   const handleSessionSelect = useCallback(
-    (date: string, establishment: number, associated_coach: number) => {
+    async (date: string, establishment: number, associated_coach: number) => {
       const data = { date, establishment, associated_coach };
+
+      if (
+        RESOURCE_ATTRIBUTION_AUTO === privateService.establishment_attribution
+      ) {
+        const establishment_found = await findAvailableEstablishmentAPI(
+          selectedSlot.id,
+          {
+            coach: associated_coach,
+            date_start: date,
+          },
+        );
+
+        if (establishment_found?.data?.establishment) {
+          data.establishment = establishment_found.id;
+        }
+      }
 
       if (onSessionSelect) {
         // override by the widget

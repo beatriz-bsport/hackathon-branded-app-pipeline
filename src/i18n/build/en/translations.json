@@ -3020,7 +3020,18 @@
                 "compatiblePrivateConsumerPass": "Available appointment passes",
                 "emptyPrivateConsumerPass": "This member doesn't own any appointment pass.",
                 "emptyPrivatePass": "There are no compatible appointment passes to display.",
-                "privateConsumerPassNeedRefresh": "Refresh"
+                "privateConsumerPassNeedRefresh": "Refresh",
+                "incompatibilities": {
+                    "close": "Close",
+                    "privateService": "Pass configured as incompatible with the appointment in question:",
+                    "11111": "The dates are incompatible",
+                    "11110": "The pass is expired",
+                    "11109": "The pass starts with the first booking, the ",
+                    "11108": "Insufficient number of credits",
+                    "11107": "Non compatible appointment"
+                },
+                "noUncompatiblePassToDisplay": "No appointment pass not compatible",
+                "nonCompatiblePrivateConsumerPass": "Not compatible owned appointment passes"
             },
             "delete": {
                 "title": "Cancel booking",
@@ -10142,7 +10153,19 @@
             "selectEdit": "Select the sessions that will be modified",
             "cancelSimilarOffersGroup": "Cancel other sessions associated to this event",
             "deleteSimilarOffersGroups": "Do you want to delete future recurrences of the group",
-            "editSimilarOffersGroup": "Also edit this event's future sessions"
+            "editSimilarOffersGroup": "Also edit this event's future sessions",
+            "editSubteacher": {
+                "propagateToSimilarOffers": {
+                    "mode": {
+                        "all": "Spread the changes related to the substitute teacher over these sessions",
+                        "offersWithSameCoachOverrideOnly": "Keep the current substitute on these sessions"
+                    },
+                    "warning": "The following similar sessions already have another substitute teacher. What would you like to do?",
+                    "checkboxInfo": "By checking this box, the changes applied to the substitute teacher of this session will be applied to all similar sessions. Otherwise they will only be applied to this session.",
+                    "checkboxLabel": "Apply the changes on the substitute teacher to the selected sessions"
+                },
+                "title": "Change of substitute teacher"
+            }
         },
         "menu": {
             "download": "Export",
@@ -12428,6 +12451,12 @@
             "creditUpdate": {
                 "error": "Impossible to save the account",
                 "success": "Changes saved"
+            },
+            "incompatibilitiesReasons": {
+                "error": "An error occurred while loading the pass incompatibility reasons"
+            },
+            "nonCompatible": {
+                "error": "An error occurred while loading non-compatible passes"
             }
         },
         "video": {

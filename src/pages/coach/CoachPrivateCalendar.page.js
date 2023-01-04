@@ -384,7 +384,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         )}
         {this.state.showCoachNotAssociatedToPrivateServiceWarning &&
           !this.props.hideCoachNotAssociatedToPrivateServiceWarning &&
-          this.coachNotRelatedToPrivateService() && (
+          this.isCoachUnrelatedToPrivateService() && (
             <SlotCoachNotAssociatedDialog
               onClose={this.onCloseSlotNotAssociatedDialog}
             />

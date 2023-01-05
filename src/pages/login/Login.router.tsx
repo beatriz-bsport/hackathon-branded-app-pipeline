@@ -81,10 +81,11 @@ export class LoginRouter extends React.Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
       this.props.fetchCompanyTheme(this.props.membership);
-    } else if (this.props.franchisor) {
-      this.props.fetchFranchiseTheme(parseInt(this.props.franchisor, 10));
     } else {
       this.props.fetchCompanyCustomSignUp({});
+    }
+    if (this.props.franchisor) {
+      this.props.fetchFranchiseTheme(parseInt(this.props.franchisor, 10));
     }
   }
 

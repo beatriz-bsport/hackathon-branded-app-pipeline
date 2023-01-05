@@ -8133,7 +8133,7 @@
                 "price": "New amount",
                 "title": "Payment modification",
                 "updateAll": "Update all futures debits up until the automatic renewal",
-                "updateRecurrentPrice": "Apply these changes to all bookings including those after the automatic renewal"
+                "updateRecurrentPrice": "Apply changes to all the payments after the automatic renewal"
             },
             "list": {
                 "titleNext": "Upcoming withdrawals"

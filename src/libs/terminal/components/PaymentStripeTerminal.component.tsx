@@ -235,6 +235,7 @@ export const PaymentStripeTerminal = (props: Props) => {
 
     // const config = { simulated: true };
     // terminal.setSimulatorConfiguration({
+    //   // https://stripe.com/docs/terminal/references/testing#simulated-test-cards
     //   testCardNumber: '4000000000009995',
     // });
 
@@ -266,6 +267,10 @@ export const PaymentStripeTerminal = (props: Props) => {
     ) {
       setError({ code: 'reader_not_found' });
       setStep('connectionError');
+      setRetryHandler(() => () => {
+        setError(null);
+        setStep('paymentSettings');
+      });
       return false;
     }
     const connectResult = await terminal.connectReader(
@@ -346,18 +351,30 @@ export const PaymentStripeTerminal = (props: Props) => {
     const resultProcess = await terminal.processPayment(paymentIntent);
 
     if (!('error' in resultProcess)) {
-      try {
-        await capturePaymentIntentAPI({
-          payment_intent_id: resultProcess.paymentIntent.id,
-        });
-        setStep('paymentSuccess');
-        props.onSuccess();
-        return;
-      } catch (err) {
-        console.error(err);
-        Sentry.captureException(err);
-        throw err;
+      // Determine if interac payment: the data is deeply nested inside 'resultProcess'
+      // returned by the terminal SDK
+      const isInteracPresent =
+        resultProcess.paymentIntent.charges.data.length > 0
+          ? resultProcess.paymentIntent.charges.data[0].payment_method_details
+              .type === 'interac_present'
+          : false;
+
+      // Only capture the PaymentIntent when not interac payment
+      if (!isInteracPresent) {
+        try {
+          await capturePaymentIntentAPI({
+            payment_intent_id: resultProcess.paymentIntent.id,
+          });
+        } catch (err) {
+          console.error(err);
+          Sentry.captureException(err);
+          throw err;
+        }
       }
+
+      setStep('paymentSuccess');
+      props.onSuccess();
+      return;
     }
 
     props.setProcessing && props.setProcessing(false);

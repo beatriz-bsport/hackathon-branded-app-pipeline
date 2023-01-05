@@ -3031,7 +3031,7 @@
                     "11107": "Non compatible appointment"
                 },
                 "noUncompatiblePassToDisplay": "No appointment pass not compatible",
-                "nonCompatiblePrivateConsumerPass": "Not compatible owned appointment passes"
+                "nonCompatiblePrivateConsumerPass": "Not compatible owned appointment passes:"
             },
             "delete": {
                 "title": "Cancel booking",

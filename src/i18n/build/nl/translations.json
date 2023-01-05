@@ -4729,7 +4729,19 @@
             "selectEdit": "Selecteer de te wijzigen sessies",
             "deleteSimilarOffersGroups": "Evenement annuleren",
             "cancelSimilarOffersGroup": "Overige sessies van dit evenement annuleren",
-            "editSimilarOffersGroup": "Wijzig ook de toekomstige sessies van dit evenement"
+            "editSimilarOffersGroup": "Wijzig ook de toekomstige sessies van dit evenement",
+            "editSubteacher": {
+                "propagateToSimilarOffers": {
+                    "mode": {
+                        "all": "Verspreid de veranderingen met betrekking tot de vervangende leraar over deze sessies",
+                        "offersWithSameCoachOverrideOnly": "Houd de huidige vervanger op deze sessies"
+                    },
+                    "warning": "De volgende vergelijkbare sessies hebben al een andere vervangende leraar. Wat zou u willen doen?",
+                    "checkboxInfo": "Als u dit vakje aanvinkt, worden de wijzigingen die voor de vervangende instructeur van deze sessie zijn toegepast, toegepast op alle vergelijkbare sessies. Anders worden ze alleen op deze sessie toegepast.",
+                    "checkboxLabel": "De wijzigingen van de vervangende instructeur toepassen op geselecteerde sessies"
+                },
+                "title": "Verandering van vervangende instructeur"
+            }
         },
         "close": "Sluiten",
         "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er reserveringen in staan.",
@@ -7120,10 +7132,21 @@
                 },
                 "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie.",
                 "cancel": "Annuleren",
-                "compatiblePrivatePass": "Factureer",
+                "compatiblePrivatePass": "Een afspraakkaart factureren",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
                 "emptyPrivatePass": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
-                "privateConsumerPassNeedRefresh": "Verversen"
+                "privateConsumerPassNeedRefresh": "Verversen",
+                "incompatibilities": {
+                    "close": "Sluiten",
+                    "11109": "De kaart begint met de eerste boeking, de ",
+                    "11110": "De kaart is verlopen",
+                    "privateService": "Afspraakkaart geconfigureerd als niet compatibel met de betrokken afspraak:",
+                    "11111": "De data zijn niet compatibel",
+                    "11108": "Onvoldoende aantal kredieten",
+                    "11107": "Niet compatibele afspraak"
+                },
+                "noUncompatiblePassToDisplay": "Geen afspraakkaart niet compatibel",
+                "nonCompatiblePrivateConsumerPass": "Niet compatibel met de volgende eigen afsprakenkaarten:"
             },
             "delete": {
                 "consumer": {
@@ -9161,6 +9184,12 @@
             "creditUpdate": {
                 "success": "Wijzigingen opgeslagen",
                 "error": "Krediet kon niet worden opgeslagen"
+            },
+            "incompatibilitiesReasons": {
+                "error": "Er is een fout opgetreden tijdens het laden van de kaart incompatibiliteitsredenen"
+            },
+            "nonCompatible": {
+                "error": "Er is een fout opgetreden bij het laden van niet-compatibele kaarten"
             }
         },
         "playlist": {

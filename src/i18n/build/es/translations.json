@@ -4841,7 +4841,19 @@
             "selectEdit": "Seleccione las sesiones que serán modificadas",
             "cancelSimilarOffersGroup": "¿Cancelar la sesión en las otras recurrencias del grupo?",
             "deleteSimilarOffersGroups": "Desea eliminar las futuras recurrencias del grupo",
-            "editSimilarOffersGroup": "¿Cambiar la sesión en futuras recurrencias del grupo?"
+            "editSimilarOffersGroup": "¿Cambiar la sesión en futuras recurrencias del grupo?",
+            "editSubteacher": {
+                "propagateToSimilarOffers": {
+                    "mode": {
+                        "all": "Extender los cambios relativos al profesor sustituto entre estas sesiones.",
+                        "offersWithSameCoachOverrideOnly": "Mantener al sustituto actual en estas sesiones"
+                    },
+                    "warning": "Las siguientes sesiones similares ya tienen otro profesor sustituto. ¿Qué le gustaría hacer?",
+                    "checkboxInfo": "Marcando esta casilla, los cambios aplicados al profesor sustituto de esta sesión se aplicarán a todas las sesiones similares. En caso contrario, sólo se aplicarán a esta sesión.",
+                    "checkboxLabel": "Aplicar los cambios en el profesor sustituto a las sesiones seleccionadas"
+                },
+                "title": "Cambio de profesor sustituto"
+            }
         },
         "menu": {
             "download": "Resumen",
@@ -6580,7 +6592,18 @@
                 "compatiblePrivateConsumerPass": "Tarjetas de cita de propiedad :",
                 "compatiblePrivatePass": "Facturar una tarjeta de cita",
                 "cancel": "Cancelar",
-                "pleaseSelectCoachAndSlot": "Primero selecciona el profesor y la sesión"
+                "pleaseSelectCoachAndSlot": "Primero selecciona el profesor y la sesión",
+                "incompatibilities": {
+                    "11109": "El pase comienza con la primera reserva, el ",
+                    "close": "Cerrar",
+                    "privateService": "Tarjeta configurada como incompatible con la cita en cuestión:",
+                    "11111": "Las fechas son incompatibles",
+                    "11110": "La tarjeta  ha expirado",
+                    "11108": "Número insuficiente de créditos",
+                    "11107": "Cita no compatible"
+                },
+                "noUncompatiblePassToDisplay": "Sin tarjeta de cita no compatible",
+                "nonCompatiblePrivateConsumerPass": "Tarjetas de cita en propiedad no compatibles:"
             },
             "delete": {
                 "confirm": "Confirmar",
@@ -9081,6 +9104,12 @@
             "creditUpdate": {
                 "error": "No es posible guardar el crédito",
                 "success": "Créditos actualizados"
+            },
+            "incompatibilitiesReasons": {
+                "error": "Se ha producido un error al cargar el pase motivos de incompatibilidad"
+            },
+            "nonCompatible": {
+                "error": "Se ha producido un error al cargar las tarjetas no compatibles"
             }
         },
         "privateBooking": {
@@ -11161,7 +11190,7 @@
                 "create": "Añadir"
             },
             "search": {
-                "isEmpty": "Ninguna video :(",
+                "isEmpty": "Ningún video :(",
                 "cancel": "Cancelar",
                 "placeholder": "Buscar"
             },
@@ -11245,7 +11274,7 @@
             "deleteVideo": "Suprimir",
             "description": "Descripción",
             "name": "Nombre",
-            "noVideo": "Ninguna video en esta playlist",
+            "noVideo": "Ningún video en esta playlist",
             "playlist": "Playlist"
         },
         "details": {

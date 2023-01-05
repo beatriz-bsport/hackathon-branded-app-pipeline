@@ -590,3 +590,16 @@ export const getSpecificIncompatibilitiesReasons = (
   privateSlotId: number,
   cppId: number,
 ) => (allIncompatibilities || {})[`[${privateSlotId}, ${cppId}]`] ?? [];
+
+export const getMarketplaceSearchItemIndicator = (
+  privatePass: PrivatePass,
+  t: TFunction,
+) => {
+  return privatePass?.credits > 1
+    ? t('paymentPack:specifications.nbCredits_plural', {
+        credits: privatePass.credits,
+      })
+    : t('paymentPack:specifications.nbCredits', {
+        credits: privatePass.credits,
+      });
+};

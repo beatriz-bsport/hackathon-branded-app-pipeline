@@ -287,5 +287,21 @@ export const setGenericFilterValue = (
   setFilters(newFilters);
 };
 
+export const getMarketplaceSearchItemIndicator = (
+  paymentPack: PaymentPack,
+  t: TFunction,
+) => {
+  if (paymentPack?.unlimited) {
+    return t('paymentPack:specifications.unlimitedCredits');
+  }
+  return paymentPack?.credits > 1
+    ? t('paymentPack:specifications.nbCredits_plural', {
+        credits: paymentPack.credits,
+      })
+    : t('paymentPack:specifications.nbCredits', {
+        credits: paymentPack.credits,
+      });
+};
+
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING = 0;
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START = 1;

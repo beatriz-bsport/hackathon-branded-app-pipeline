@@ -1,9 +1,9 @@
 import {
-  PrivateServiceWithSlots,
   PrivateSlot,
   PrivateServiceGroup,
   PrivatePass,
-} from './types';
+  PrivateService,
+} from '#libs/private-service/types';
 
 function random_int(max: number): number {
   return Math.floor(Math.random() * max);
@@ -58,39 +58,39 @@ const covers_main: Array<string> = [
   'https://assets.staging.bsport.io/activity/Boxe_Francaise.jpg',
 ];
 
-export function private_services_factory(
-  num_el: number,
-): Array<PrivateServiceWithSlots> {
+export function private_services_factory(num_el: number): Array<any> {
   const private_services_ids: Array<number> = [...Array(num_el).keys()];
+  const private_service_res: Partial<PrivateService>[] =
+    private_services_ids.map((id) => {
+      return {
+        id: id + 1,
+        name: `${random_choice(private_services_names)} #${id + 1}`,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
+        establishments: [],
+        coach_capacity_used: 1,
+        available: random_choice([true, false]),
+        use_full_establishment_capacity: random_choice([true, false]),
+        coaches: [],
+        color: random_choice([colors]),
+        company: 1,
+        slots: slots_factory(random_int(5), id + 1),
+        establishment_attribution: 0,
+        is_home_service: random_choice([true, false]),
+        coach_attribution: 3,
+        manager_only: random_choice([true, false]),
+        has_own_availability_slots: random_choice([true, false]),
+        last_discard_minutes: 50,
+        last_booking_minutes: 10,
+        cover_main: random_choice(covers_main),
+        private_service_group: 5,
+        slots_duration_minute: [60, 90, 120],
+        availability_padding_start_minutes: 10,
+        availability_padding_end_minutes: 10,
+      };
+    });
 
-  return private_services_ids.map((id) => {
-    return {
-      id: id + 1,
-      name: `${random_choice(private_services_names)} #${id + 1}`,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
-      establishments: [],
-      coach_capacity_used: 1,
-      available: random_choice([true, false]),
-      use_full_establishment_capacity: random_choice([true, false]),
-      coaches: [],
-      color: random_choice([colors]),
-      company: 1,
-      slots: slots_factory(random_int(5), id + 1),
-      establishment_attribution: 0,
-      is_home_service: random_choice([true, false]),
-      coach_attribution: 3,
-      manager_only: random_choice([true, false]),
-      has_own_availability_slots: random_choice([true, false]),
-      last_discard_minutes: 50,
-      last_booking_minutes: 10,
-      cover_main: random_choice(covers_main),
-      private_service_group: 5,
-      slots_duration_minute: [60, 90, 120],
-      availability_padding_start_minutes: 10,
-      availability_padding_end_minutes: 10,
-    };
-  });
+  return private_service_res;
 }
 
 const groups_names: Array<string> = [
@@ -124,7 +124,7 @@ const passes_names: Array<string> = [
 
 export function private_services_passes_factory(
   num_el: number,
-): Array<PrivatePass> {
+): Partial<PrivatePass>[] {
   const passes_ids: Array<number> = [...Array(num_el).keys()];
 
   return passes_ids.map((id) => {

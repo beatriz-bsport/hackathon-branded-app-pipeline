@@ -2,8 +2,8 @@ import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
 import moment from 'moment-timezone';
 
-import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
 import { DATE_FORMAT } from '../../utils/datetime';
+import { PaymentPack } from '#libs/payment-packs/types';
 
 faker.locale = 'fr';
 
@@ -42,25 +42,29 @@ FactoryBot.define('PaymentPackWithDateRange', {
   start_date_method: Math.floor(Math.random() * 4),
 });
 
-const PaymentPackTemplateFactory = (id: number, manager_only?: boolean) => {
-  return {
+export const PaymentPackStorybookFactory = (
+  id?: number,
+  manager_only?: boolean,
+) => {
+  const paymentPack: Partial<PaymentPack> = {
     id: id || Math.floor(Math.random() * 1000),
     name: faker.hacker.phrase(),
-    price: Math.floor(Math.random() * 100).toString(),
+    price: Math.floor(Math.random() * 100),
     credits: Math.floor(Math.random() * 30),
     unlimited: Math.random() < 0.5,
-    companies: FranchiseCompanyListFactory(Math.floor(Math.random() * 10)),
     manager_only,
+    metaActivities: [],
   };
+  return paymentPack;
 };
 
-export const PaymentPackTemplateListFactory = (
+export const PaymentPackStorybookListFactory = (
   nb: number,
   manager_only?: boolean,
 ) => {
-  const PPids = [...Array(nb).keys()];
-  return PPids.map((id) => {
-    return PaymentPackTemplateFactory(id + 1, !!manager_only);
+  const paymentPackIds = [...Array(nb).keys()];
+  return paymentPackIds.map((id) => {
+    return PaymentPackStorybookFactory(id + 1, !!manager_only);
   });
 };
 

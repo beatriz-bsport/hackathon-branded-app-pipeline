@@ -3,10 +3,9 @@ import { TFunction } from 'i18next';
 
 import { formatAsTime } from '../../utils/datetime';
 import Config from '../../config';
-
-import type { Offer, Offer_FULL } from '#libs/offer/types';
-import type { Establishment } from '#libs/establishment/types';
-import type { Theme } from '#libs/theme/types';
+import { Offer, Offer_FULL } from '#libs/offer/types';
+import { Establishment } from '#libs/establishment/types';
+import { Theme } from '#libs/theme/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;

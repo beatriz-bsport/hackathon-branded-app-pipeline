@@ -1,0 +1,7 @@
+.bs-search-list {
+    padding: 0;
+    margin: var(--spacing-2) var(--spacing-1) var(--spacing-2) 0;
+    max-height: calc(var(--spacing-8) * 3);
+    overflow-y: scroll;
+    flex: 1;
+}

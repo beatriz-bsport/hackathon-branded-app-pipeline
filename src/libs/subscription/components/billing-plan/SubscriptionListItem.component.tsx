@@ -261,6 +261,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   contractTerms: {
     display: 'flex',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexWrap: 'wrap',
+    },
   },
   contractTermsButton: {
     marginLeft: theme.spacing(0.5),

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -25,18 +24,27 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
 } from '@bsport/common/lib/master-data/payment-group';
 import { INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/payment';
-import { InvoiceAllowedReverseMethods } from '../types';
+import { OptionCallback } from '../../../state/types';
+import {
+  InvoiceAllowedReverseMethods,
+  Invoice,
+  InvoiceReverseMethod,
+} from '#libs/invoice/types';
 
-import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '../api';
+import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '#libs/invoice/api';
 
-import type { Payment } from '../../payment/types';
+import type { Payment } from '#libs/payment/types';
 
 type Props = {
-  open?: boolean,
-  onClose: () => void,
-  onSubmit: (any) => void,
-  payments: Array<Payment>,
-  invoice: Invoice,
+  open?: boolean;
+  onClose: () => void;
+  onSubmit: (
+    reverse_type: InvoiceReverseMethod,
+    payment_method_to_reverse: number,
+    options?: OptionCallback,
+  ) => void;
+  payments: Array<Payment>;
+  invoice: Invoice;
 };
 
 export const InvoiceReverterDialog = (props: Props) => {
@@ -45,9 +53,8 @@ export const InvoiceReverterDialog = (props: Props) => {
 
   const [processing, setProcessing] = React.useState(false);
 
-  const [reverseMethod, handleChangeReverseMethod] = React.useState(
-    REVERSE_ON_NEW_PAYMENT_METHOD,
-  );
+  const [reverseMethod, handleChangeReverseMethod] =
+    React.useState<InvoiceReverseMethod>(REVERSE_ON_NEW_PAYMENT_METHOD);
 
   const [paymentMethodSelected, selectPaymentMethod] = React.useState(
     PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
@@ -69,7 +76,7 @@ export const InvoiceReverterDialog = (props: Props) => {
             REVERSE_ON_PAYMENT_METHOD,
             REVERSE_ON_DEBT,
             REVERSE_ON_NEW_PAYMENT_METHOD,
-          ].every((method) => {
+          ].every((method: InvoiceReverseMethod) => {
             if (response.data[method]?.allowed) {
               handleChangeReverseMethod(method);
               // returning false stops the loop
@@ -97,7 +104,11 @@ export const InvoiceReverterDialog = (props: Props) => {
 
   const actionButtons = (
     <DialogActions>
-      <Button disabled={processing} onClick={props.onClose}>
+      <Button
+        disabled={processing}
+        onClick={props.onClose}
+        className={classes.textSecondary}
+      >
         {t('revert.dialog.actions.cancel')}
       </Button>
       {processing ? (
@@ -172,11 +183,7 @@ export const InvoiceReverterDialog = (props: Props) => {
               }}
               value={REVERSE_ON_PAYMENT_METHOD}
             />
-            <Typography
-              className={classNames({
-                [classes.disabledText]: !reverseOnPaymentMethodAllowed,
-              })}
-            >
+            <Typography>
               {t(`revert.content.label.${REVERSE_ON_PAYMENT_METHOD}`)}
             </Typography>
           </div>
@@ -226,13 +233,13 @@ export const InvoiceReverterDialog = (props: Props) => {
               id="payment-method-select"
               value={`${paymentMethodSelected}`}
               style={{ minWidth: 200, marginTop: 16 }}
-              onChange={(ev) =>
+              onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
                 selectPaymentMethod(parseInt(ev.target.value, 10))
               }
             >
               {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
                 (pm) => (
-                  <MenuItem fullWidth value={pm}>
+                  <MenuItem value={pm} key={pm}>
                     {t(`paymentMethod.label.${pm}`)}
                   </MenuItem>
                 ),
@@ -273,6 +280,9 @@ const useStyles = makeStyles((theme) => ({
   warning: {
     alignItems: 'center',
     marginBottom: theme.spacing(1),
+  },
+  textSecondary: {
+    color: theme.palette.text.secondary,
   },
 }));
 

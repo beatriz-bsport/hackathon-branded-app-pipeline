@@ -72,12 +72,14 @@ export type WithAuthor<T> = T & {
   author: UserRoleData;
 };
 
-type InvoiceReverseMethods =
+export type InvoiceReverseMethod =
   | typeof REVERSE_ON_PAYMENT_METHOD
   | typeof REVERSE_ON_DEBT
   | typeof REVERSE_ON_NEW_PAYMENT_METHOD;
 
-export type InvoiceAllowedReverseMethods = Record<
-  InvoiceReverseMethods,
-  { allowed: boolean; error_code: number | null }
->;
+export type InvoiceAllowedReverseMethods = {
+  [K in InvoiceReverseMethod]?: {
+    allowed: boolean;
+    error_code: number | null;
+  };
+};

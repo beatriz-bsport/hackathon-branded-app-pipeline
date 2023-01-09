@@ -307,7 +307,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
         );
 
         if (establishment_found?.data?.establishment) {
-          data.establishment = establishment_found.id;
+          data.establishment = establishment_found.data.establishment;
         }
       }
 

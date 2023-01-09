@@ -8,6 +8,7 @@ import SadSmileyIcon from './SadSmileyIcon.component';
 import StripeIcon from './StripeIcon.component';
 import SuccessIcon from './SuccessIcon.component';
 import ValidationIcon from './ValidationIcon.component';
+import CardRefusedIcon from './CardRefusedIcon.component';
 
 const CalendarTemplate = () => <CalendarIcon />;
 export const Calendar = CalendarTemplate.bind({});
@@ -40,6 +41,9 @@ export const Validation = ValidationTemplate.bind({});
 Validation.args = {
   color: 'red',
 };
+
+const CardRefusedTemplate = () => <CardRefusedIcon />;
+export const CardRefused = CardRefusedTemplate.bind({});
 
 export default {
   title: 'Components/Icons',

@@ -413,6 +413,11 @@ exports.default = {
           },
         },
         paymentFailed: {
+          interac: {
+            title: 'Moyen de paiement incompatible',
+            content:
+              "Les cartes Interac ne peuvent pas être utilisées pour des paiements récurrents, ni être sauvegardées. Merci d'utiliser un autre moyen de paiement.",
+          },
           title: {
             paymentIntent: 'Echec de paiement',
             setupIntent: "Echec de l'opération",

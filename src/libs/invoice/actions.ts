@@ -171,6 +171,13 @@ export function revertInvoice(
       }
     } catch (err) {
       dispatch(retrieveInvoiceActions.error(err));
+      if (err.response?.status === 499 && err.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `invoice.revert.errors.${err.response.data.error_code}`,
+          ),
+        );
+      }
       if (options && options.onError) {
         options.onError(err);
       }

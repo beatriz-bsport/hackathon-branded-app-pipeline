@@ -95,6 +95,11 @@ const {
 } = require('@bsport/common/lib/master-data/error-codes/replacement');
 
 const {
+  INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
+  INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
+} = require('@bsport/common/lib/master-data/error-codes/payment');
+
+const {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,
 } = require('@bsport/common/lib/master-data/error-codes/associated-coach');
@@ -222,6 +227,14 @@ exports.default = {
         934004: "Impossible d'envoyer une facture impayée sur QuickBooks",
         934005: 'Votre facture ne peux pas être envoyée sur QuickBooks',
         934006: 'Cette facture est déjà enregistrée sur QuickBooks',
+      },
+    },
+    revert: {
+      errors: {
+        [INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE]:
+          "Impossible d'annuler une facture avec des paiements Interac.",
+        [INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER]:
+          "Impossible de rembourser en avoir une facture d'ajustement de solde.",
       },
     },
     applyBalance: {

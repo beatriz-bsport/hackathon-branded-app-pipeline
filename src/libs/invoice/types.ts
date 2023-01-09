@@ -1,3 +1,8 @@
+import {
+  REVERSE_ON_PAYMENT_METHOD,
+  REVERSE_ON_DEBT,
+  REVERSE_ON_NEW_PAYMENT_METHOD,
+} from '@bsport/common/lib/master-data/payment-group';
 import { PaymentItem } from './payment/types';
 import { InvoiceItem } from './invoice-item/types';
 import { UserRoleData } from '#libs/role/types';
@@ -66,3 +71,13 @@ export type BuyableItem = {
 export type WithAuthor<T> = T & {
   author: UserRoleData;
 };
+
+type InvoiceReverseMethods =
+  | typeof REVERSE_ON_PAYMENT_METHOD
+  | typeof REVERSE_ON_DEBT
+  | typeof REVERSE_ON_NEW_PAYMENT_METHOD;
+
+export type InvoiceAllowedReverseMethods = Record<
+  InvoiceReverseMethods,
+  { allowed: boolean; error_code: number | null }
+>;

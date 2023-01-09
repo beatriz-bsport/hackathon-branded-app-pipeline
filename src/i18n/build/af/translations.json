@@ -2327,11 +2327,14 @@
     },
     "revert": {
       "dialog": { "actions": { "cancel": "Fermer", "confirm": "Confirmer" }, "title": "Annulation facture" },
+      "warning": {
+        "interac": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac."
+      },
       "content": {
         "label": { "0": "Remboursement direct", "1": "Remboursement en avoir (solde)", "2": "Remboursement manuel" },
         "explainEmptyPayment": "Êtes vous sûr de vouloir annuler cette facture ?",
         "explain": {
-          "0": "Les paiements carte / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
+          "0": "Les paiements carte / SEPA / etc... seront reversés directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
           "1": "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
           "2": "Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces."
         }
@@ -7892,6 +7895,12 @@
           "934005": "Votre facture ne peux pas être envoyée sur QuickBooks",
           "934006": "Cette facture est déjà enregistrée sur QuickBooks",
           "title": "Erreur lors de l'envoi de votre facture"
+        }
+      },
+      "revert": {
+        "errors": {
+          "14100": "Impossible d'annuler une facture avec des paiements Interac.",
+          "14101": "Impossible de rembourser en avoir une facture d'ajustement de solde."
         }
       },
       "applyBalance": {

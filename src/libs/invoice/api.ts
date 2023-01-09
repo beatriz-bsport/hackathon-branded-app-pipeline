@@ -1,4 +1,4 @@
-// @flow
+import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
   getAuth,
@@ -8,7 +8,7 @@ import {
   buildUrlParams,
 } from '../../http';
 
-import type { Invoice } from './types';
+import type { Invoice, InvoiceAllowedReverseMethods } from './types';
 
 export async function fetchAll({
   page,
@@ -216,6 +216,14 @@ export const applyGiftcardOnInvoice = async (
       amount,
       consumer_giftcard_id,
     },
+  );
+};
+
+export const fetchInvoiceAllowedReverseTypes = (
+  invoiceUuid: string,
+): Promise<AxiosResponse<InvoiceAllowedReverseMethods>> => {
+  return getAuth(
+    `${API_V1_URI}/payment/invoices/${invoiceUuid}/allowed_reverse_methods/`,
   );
 };
 

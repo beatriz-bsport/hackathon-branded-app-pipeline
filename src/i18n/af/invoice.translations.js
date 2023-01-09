@@ -507,6 +507,10 @@ exports.default = {
       },
       title: 'Annulation facture',
     },
+    warning: {
+      interac:
+        'Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac.',
+    },
     content: {
       label: {
         [REVERSE_ON_PAYMENT_METHOD]: 'Remboursement direct',
@@ -516,7 +520,7 @@ exports.default = {
       explainEmptyPayment: 'Êtes vous sûr de vouloir annuler cette facture ?',
       explain: {
         [REVERSE_ON_PAYMENT_METHOD]:
-          'Les paiements carte / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',
+          'Les paiements carte / SEPA / etc... seront reversés directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',
         [REVERSE_ON_DEBT]:
           "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
         [REVERSE_ON_NEW_PAYMENT_METHOD]:

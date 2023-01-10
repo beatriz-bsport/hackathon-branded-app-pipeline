@@ -14,7 +14,7 @@ exports.default = {
     payment_intent_authentication_failure:
       'Le paiement a été refusé par votre banque.',
     processing_error:
-      "Une erreur a eue lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
+      "Une erreur a eu lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
     // Reason
     insufficient_funds: 'Votre carte ne dispose pas des fonds suffisants.',
     unknown: 'Erreur réseau, veuillez réessayer dans quelques instants',
@@ -52,7 +52,7 @@ exports.default = {
     payment_intent_payment_attempt_failed:
       'Le paiement a été refusé par votre banque.',
     processing_error:
-      "Une erreur a eue lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
+      "Une erreur a eu lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
     // Reason
     unknown: 'Erreur réseau, veuillez réessayer dans quelques instants',
   },
@@ -64,6 +64,7 @@ exports.default = {
     insufficient_funds: 'Votre carte ne dispose pas des fonds suffisants.',
     restricted_card: 'Votre carte a été refusée par votre banque',
     stolen_card: 'Votre carte a été marquée comme volée par votre banque',
+    lost_card: 'Votre carte a été déclarée comme perdue par votre banque',
     transaction_not_allowed: 'Votre carte a été refusée par votre banque',
     generic_decline: "La banque n'a pas accepté le paiement",
     do_not_honor:
@@ -75,5 +76,7 @@ exports.default = {
     online_or_offline_pin_required: 'Code pin requis',
     pin_try_exceeded:
       'Nombre de tentatives max atteint. Essayez un autre moyen de payement',
+    call_issuer:
+      'Votre carte a été refusée pour une raison inconnue. Veuillez contacter votre banque',
   },
 };

@@ -8474,7 +8474,7 @@
       "expired_card": "Votre carte a expirée.",
       "incorrect_cvc": "Le code de sécurite de votre carte est incorrect.",
       "payment_intent_authentication_failure": "Le paiement a été refusé par votre banque.",
-      "processing_error": "Une erreur a eue lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
+      "processing_error": "Une erreur a eu lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
       "insufficient_funds": "Votre carte ne dispose pas des fonds suffisants.",
       "unknown": "Erreur réseau, veuillez réessayer dans quelques instants",
       "no_established_connection": "Aucun terminal de paiement connecté",
@@ -8500,7 +8500,7 @@
       "setup_intent_authentication_failure": "Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.",
       "payment_intent_authentication_failure": "Le paiement a été refusé par votre banque.",
       "payment_intent_payment_attempt_failed": "Le paiement a été refusé par votre banque.",
-      "processing_error": "Une erreur a eue lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
+      "processing_error": "Une erreur a eu lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
       "unknown": "Erreur réseau, veuillez réessayer dans quelques instants"
     },
     "decline_code": {
@@ -8511,6 +8511,7 @@
       "insufficient_funds": "Votre carte ne dispose pas des fonds suffisants.",
       "restricted_card": "Votre carte a été refusée par votre banque",
       "stolen_card": "Votre carte a été marquée comme volée par votre banque",
+      "lost_card": "Votre carte a été déclarée comme perdue par votre banque",
       "transaction_not_allowed": "Votre carte a été refusée par votre banque",
       "generic_decline": "La banque n'a pas accepté le paiement",
       "do_not_honor": "Votre banque a refusé le paiement, veuillez contacter votre conseiller bancaire pour l'autoriser",
@@ -8519,7 +8520,8 @@
       "invalid_pin": "Code pin incorrect",
       "offline_pin_required": "Code pin requis",
       "online_or_offline_pin_required": "Code pin requis",
-      "pin_try_exceeded": "Nombre de tentatives max atteint. Essayez un autre moyen de payement"
+      "pin_try_exceeded": "Nombre de tentatives max atteint. Essayez un autre moyen de payement",
+      "call_issuer": "Votre carte a été refusée pour une raison inconnue. Veuillez contacter votre banque"
     }
   },
   "subscription": {

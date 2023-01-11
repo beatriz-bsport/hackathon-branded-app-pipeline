@@ -44,6 +44,7 @@ import {
   fetchSimilarOffers as fetchSimilarOffersAction,
   disableOffer as disableOfferAction,
   hardDeleteOffers as hardDeleteOffersAction,
+  fetchSimilarOffersWithReset as fetchSimilarOffersWithResetAction,
 } from '#libs/offer/actions';
 import { snackbarSuccess as snackbarSuccessAction } from '#libs/snackbar/actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
@@ -158,6 +159,7 @@ export const workshopActivityGroupConnector = connect(
     deleteGroupOffer: deleteGroupOfferAction,
     fetchExistingGroupOffer: fetchExistingGroupOfferAction,
     resetPreview: resetGeneratePreviewAction,
+    fetchSimilarOffersWithReset: fetchSimilarOffersWithResetAction,
 
     // Offers Modal
     fetchSimilarOffers: fetchSimilarOffersAction,

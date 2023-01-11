@@ -21,6 +21,12 @@ import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
 import uniq from 'lodash/uniq';
+import {
+  retrieveOfferAsManager as retrieveOfferAsManagerAction,
+  fetchSimilarOffers as fetchSimilarOffersAction,
+  fetchSimilarOffersWithReset as fetchSimilarOffersWithResetAction,
+  editOffers as editOffersActions,
+} from '#libs/offer/actions';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import {
   getAvailableRoomBlueprints,
@@ -76,11 +82,6 @@ import { Coach } from '#libs/associated-coach/types';
 import { getAllEstablishments } from '../../establishment/selectors';
 
 import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
-import {
-  retrieveOfferAsManager as retrieveOfferAsManagerAction,
-  fetchSimilarOffers as fetchSimilarOffersAction,
-  editOffers as editOffersActions,
-} from '../../offer/actions';
 
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
@@ -168,6 +169,11 @@ type Props = {
   fetchRoomBlueprints: () => void,
 
   fetchSimilarOffers: (offerId: number) => void,
+  fetchSimilarOffersWithReset: (
+    offerId: number,
+    params?: any,
+    options?: OptionCallback<Offer[]>,
+  ) => void,
   similarOfferLoading: boolean,
   similarOffers: Array<Offer>,
 
@@ -674,6 +680,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                   this.props.theme.allow_guest_activatable &&
                   this.props.theme.allow_guest
                 }
+                fetchSimilarOffersWithReset={
+                  this.props.fetchSimilarOffersWithReset
+                }
               />
             )}
           </GenericResponsiveDrawer>
@@ -931,6 +940,7 @@ export default compose(
       // Invoices Stuff
       goToInvoice: (uuid: number) => push(`/invoice/${uuid}/`),
       fetchMember,
+      fetchSimilarOffersWithReset: fetchSimilarOffersWithResetAction,
       fetchInvoiceList: fetchInvoiceListAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
       snackbarSuccess,

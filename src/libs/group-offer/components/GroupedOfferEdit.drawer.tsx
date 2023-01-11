@@ -53,6 +53,11 @@ export type Props = {
   handlePreviousStep: () => void;
   onClose?: () => void;
   zoomAppDetail: ZoomApp;
+  fetchSimilarOffersWithReset: (
+    offerId: number,
+    params?: any,
+    options?: OptionCallback<Offer[]>,
+  ) => void;
 };
 
 export const GroupedOfferEditDrawer: React.FC<Props> = ({
@@ -74,6 +79,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
   deleteLevel,
   onClose,
   zoomAppDetail,
+  fetchSimilarOffersWithReset,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -130,6 +136,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
           deleteLevel={deleteLevel}
           editingLiveOffer
           zoomAppDetail={zoomAppDetail}
+          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
         />
       </div>
     </GenericResponsiveDrawer>

@@ -262,7 +262,11 @@ type Props = {
   fetchAllEstablishmentGroup: (companyId: number) => void,
 
   fetchSimilarOffers: (offerId: number) => void,
-  fetchSimilarOffersWithReset: (offerId: number) => void,
+  fetchSimilarOffersWithReset: (
+    offerId: number,
+    params?: any,
+    options?: OptionCallback<Offer[]>,
+  ) => void,
 
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,

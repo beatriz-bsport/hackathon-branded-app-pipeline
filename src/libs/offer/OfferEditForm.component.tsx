@@ -80,7 +80,11 @@ type OwnProps = {
   allowGuestMaster?: boolean;
   onCancel: () => void;
   fetchSimilarOffers: (id: number, params?: OfferFilterData) => void;
-  fetchSimilarOffersWithReset: (id: number, params?: OfferFilterData) => void;
+  fetchSimilarOffersWithReset: (
+    offerId: number,
+    params?: any,
+    options?: OptionCallback<Offer[]>,
+  ) => void;
   onConfirm: ({ offerId, data }: { offerId: number; data: FormData }) => void;
   metaActivities: Array<MetaActivity>;
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };

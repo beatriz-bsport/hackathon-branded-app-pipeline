@@ -91,6 +91,11 @@ type OuterProps = {
   deleteLevel: (id: number, options?: OptionCallback) => void;
   handlePreviousStep: () => void;
   zoomAppDetail: ZoomApp;
+  fetchSimilarOffersWithReset: (
+    offerId: number,
+    params?: any,
+    options?: OptionCallback<Offer[]>,
+  ) => void;
 };
 
 type Values = {
@@ -193,6 +198,7 @@ export const GroupedOfferFormSettings: React.FC<
   handlePreviousStep,
   resetForm,
   zoomAppDetail,
+  fetchSimilarOffersWithReset,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -569,6 +575,7 @@ export const GroupedOfferFormSettings: React.FC<
         handleEditOffer={handleEditOffer}
         handleAddOffer={handleAddOffer}
         zoomAppDetail={zoomAppDetail}
+        fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
       />
     </>
   );
@@ -596,6 +603,11 @@ const OfferDialogs: React.FC<{
   }) => void;
   handleAddOffer: () => void;
   zoomAppDetail: ZoomApp;
+  fetchSimilarOffersWithReset: (
+    offerId: number,
+    params?: any,
+    options?: OptionCallback<Offer[]>,
+  ) => void;
 }> = ({
   theme,
   coaches,
@@ -612,6 +624,7 @@ const OfferDialogs: React.FC<{
   handleEditOffer,
   handleAddOffer,
   zoomAppDetail,
+  fetchSimilarOffersWithReset,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -669,6 +682,7 @@ const OfferDialogs: React.FC<{
             loading={false}
             processing={false}
             fetchSimilarOffers={null}
+            fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
             similarOffers={[]}
             similarOfferLoading={false}
             coachPaymentRulesByKind={coachPaymentRulesByKind}

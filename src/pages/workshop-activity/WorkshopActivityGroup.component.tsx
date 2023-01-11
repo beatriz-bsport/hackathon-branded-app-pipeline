@@ -128,6 +128,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   resetPreview,
   push,
   fetchZoomApp,
+  fetchSimilarOffersWithReset,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -618,6 +619,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           createGroupOffers={handleCreateGroup}
           onClose={handleCloseCreateModal}
           zoomAppDetail={zoomAppDetail}
+          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
         />
         <GroupedOfferEditDrawer
           open={!!editingGroup}
@@ -640,6 +642,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           deleteLevel={deleteLevel}
           onClose={handleCloseEditGroupModal}
           zoomAppDetail={zoomAppDetail}
+          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
         />
         {deletingGroup && (
           <GroupedOfferDeleteDialog
@@ -692,6 +695,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               onCancel={handleCloseEditModal}
               processing={editOfferProcessing}
               fetchSimilarOffers={fetchSimilarOffers}
+              fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
               similarOffers={similarOffers}
               similarOfferLoading={similarOfferLoading}
               coachPaymentRulesByKind={coachPaymentRulesByKind}

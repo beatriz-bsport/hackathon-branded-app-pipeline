@@ -586,7 +586,8 @@
             "noWaitingList": "Las listas de espera no están disponibles para los grupos de sesiones",
             "datePicker": {
                 "rangeError": "Imposible crear sesiones que tengan lugar en más de 3 años"
-            }
+            },
+            "emailError": "El formato de correo electrónico especificado no es válido."
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -3347,7 +3348,7 @@
                 "submit": "Validar",
                 "title": "Dirección de correo electrónico del profesor",
                 "emailLabel": "Dirección de correo electrónico",
-                "explain": "Si este dirección de correo electrónico del profesor existe en nuestro sistema, vamos a añadirle automaticamente. Si no conoce su dirección de correo electrónico dejelo vacio.",
+                "explain": "Si este correo electrónico ya existe en nuestro sistema, crearemos la cuenta de profesor automáticamente.",
                 "emailPlaceHolder": "profesor@bsport.io"
             },
             "error": "No es possible guardar el profesor",
@@ -3358,7 +3359,10 @@
             },
             "update": {
                 "title": "Editar las informaciones",
-                "success": "Profesor modificado con éxito"
+                "success": "Profesor modificado con éxito",
+                "errors": {
+                    "emailAlreadyInUse": "El correo electrónico introducido ya existe en la base de datos. Sólo puede asociar este email a un profesor creando un nuevo profesor."
+                }
             },
             "delete": {
                 "confirm": "Suprimir",
@@ -9522,6 +9526,10 @@
             },
             "editAccessToCoachSpace": {
                 "error": "Error al modificar los derechos de acceso al área de profesores"
+            },
+            "errors": {
+                "60003": "Ya existe un miembro con este correo electrónico. Para vincularlos, utilice la ventana emergente anterior.",
+                "60002": "El correo electrónico indicado ya está vinculado a una cuenta de personal."
             }
         },
         "link": {

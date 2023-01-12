@@ -1675,7 +1675,8 @@
             "noWaitingList": "Waitlists aren't available for events.",
             "datePicker": {
                 "rangeError": "Impossible to create sessions taking place in more than 3 years"
-            }
+            },
+            "emailError": "The specified email format is invalid."
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -7724,7 +7725,7 @@
                 "title": "Teacher's email address",
                 "success": "Teacher successfully linked",
                 "emailLabel": "Email",
-                "explain": "If this email already exists in our database, we'll automatically create the teacher's account. If you don't know the teacher's email, keep this field empty.",
+                "explain": "If this email already exists in our database, we'll automatically create the teacher's account.",
                 "emailPlaceHolder": "teacher@bsport.io"
             },
             "create": {
@@ -7733,7 +7734,10 @@
             },
             "update": {
                 "success": "Teacher details updated",
-                "title": "Update teacher"
+                "title": "Update teacher",
+                "errors": {
+                    "emailAlreadyInUse": "The email entered already exists in the database. You can only associate this email with a teacher by creating a new teacher."
+                }
             },
             "delete": {
                 "success": "Teacher deleted",
@@ -12384,6 +12388,10 @@
             },
             "editAccessToCoachSpace": {
                 "error": "Error when editing Teacher View's access and rights"
+            },
+            "errors": {
+                "60003": "A member already exists with this email. To link them, use the previous popup.",
+                "60002": "The email indicated is already linked to a staff account."
             }
         },
         "link": {

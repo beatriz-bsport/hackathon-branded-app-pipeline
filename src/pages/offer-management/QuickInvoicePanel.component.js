@@ -62,10 +62,11 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     paymentGroupPriceCts: null,
   };
 
-  requestClientSecret = (paymentEngine) => {
+  requestClientSecret = (paymentEngine: number, params?: any) => {
     this.setState({ clientSecretLoading: true });
     requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_INVOICE, {
       invoice: this.props.invoiceToBill.uuid,
+      ...(params || {}),
     })
       .then((r) => {
         this.setState({

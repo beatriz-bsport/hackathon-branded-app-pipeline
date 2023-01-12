@@ -10,7 +10,7 @@ exports.default = {
   showMore: 'Show more',
   unevenInvoice: {
     title: 'Uneven invoice',
-    explainUneven: 'Invoice n°<1>{{uuid, uuid}}</1> is not even.',
+    explainUneven: 'Invoice n°<1>{{ invoice_identifier }}</1> is not even.',
     priceDue: 'Amount due: {{ price_due, price }}.',
     pricePayed: 'Amoount paid: {{price_payed, price}}.',
   },

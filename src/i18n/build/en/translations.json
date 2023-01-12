@@ -9082,7 +9082,7 @@
         "showMore": "Show more",
         "unevenInvoice": {
             "title": "Unpaid invoices",
-            "explainUneven": "Invoice \"<1>{{uuid, uuid}}</1>\" has not been finalised yet.",
+            "explainUneven": "Invoice <1>{{ invoice_identifier }}</1> has not been finalised yet.",
             "priceDue": "Amount due: {{ price_due }}.",
             "pricePayed": "Amount paid: {{price_payed }}."
         },

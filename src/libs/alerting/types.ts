@@ -37,6 +37,7 @@ export type CompanyOnboardingAlerting = Alerting & {
 export type UnevenInvoiceAlerting = Alerting & {
   data: {
     uuid: string;
+    legal_identifier: string;
     price_payed: string;
     price_due: string;
     date_invoice: string;

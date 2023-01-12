@@ -69,7 +69,7 @@ const UnevenAlertListItem = (props: {
   const { alerting } = props;
   const { t } = useTranslation(['alerting']);
   const classes = useStyles();
-  const { uuid, price_payed, price_due } = alerting.data;
+  const { uuid, legal_identifier, price_payed, price_due } = alerting.data;
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -77,15 +77,18 @@ const UnevenAlertListItem = (props: {
           <Typography variant="subtitle1" component="h3">
             {t('unevenInvoice.title')}
           </Typography>
-          <IconButton
-            onClick={() => props.pushRouter(`/invoice/${alerting.data.uuid}`)}
-          >
+          <IconButton onClick={() => props.pushRouter(`/invoice/${uuid}`)}>
             <ArrowForwardIcon color="secondary" />
           </IconButton>
         </div>
+
         <Typography variant="caption" component="p">
-          <Trans t={t} i18nKey="unevenInvoice.explainUneven" uuid={uuid}>
-            The invoice <strong>{{ uuid }}</strong> is uneven
+          <Trans t={t} i18nKey="unevenInvoice.explainUneven">
+            The invoice{' '}
+            <strong>
+              {{ invoice_identifier: legal_identifier ?? uuid.slice(0, 8) }}
+            </strong>{' '}
+            is uneven
           </Trans>
           <br />
           {t('unevenInvoice.pricePayed', {

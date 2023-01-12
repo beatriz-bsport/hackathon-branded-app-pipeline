@@ -5767,7 +5767,7 @@
     "alerting": {
         "unevenInvoice": {
             "pricePayed": "Incassato: {{price_payed }}.",
-            "explainUneven": "La fattura <1> n ° {{uuid, uuid}} </1> non è in pareggio.",
+            "explainUneven": "La fattura <1>{{ invoice_identifier }}</1> non è in pareggio.",
             "title": "Fattura irregolare",
             "priceDue": "Somma dovuta: {{price_due }}."
         },

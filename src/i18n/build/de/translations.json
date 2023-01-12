@@ -3246,7 +3246,7 @@
             "explain": "Der Termin von <1>{{name}}</1> hat keinen vorgesehenen Lehrer."
         },
         "unevenInvoice": {
-            "explainUneven": "Diese Rechnung <1>n°{{uuid, uuid}}</1> ist unausgeglichen.",
+            "explainUneven": "Diese Rechnung <1>{{ invoice_identifier }}</1> ist unausgeglichen.",
             "title": "Unausgeglichene Rechnung",
             "pricePayed": "Eingenommener Betrag : {{price_payed }}.",
             "priceDue": "Geschuldeter Betrag : {{ price_due }}."

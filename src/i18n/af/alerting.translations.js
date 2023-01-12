@@ -30,7 +30,8 @@ exports.default = {
   readAll: 'Marquer tout comme lu',
   unevenInvoice: {
     title: 'Facture non-équilibrée',
-    explainUneven: "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
+    explainUneven:
+      "La facture <1>{{ invoice_identifier }}</1> n'est pas équilibrée.",
     priceDue: 'Somme dûe : {{ price_due }}.',
     pricePayed: 'Somme encaissée : {{ price_payed }}.',
   },

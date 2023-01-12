@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
@@ -16,6 +15,7 @@ import {
   UNREAD_COMMUNICATION,
   // @ts-ignore
 } from '@bsport/common/lib/master-data/alerting_kind';
+import Intercom from '#components/intercom/Intercom.component';
 import i18n from '../i18n/index';
 import {
   retrieveStripeAccountStatusAction,
@@ -802,31 +802,26 @@ export class Backoffice extends Component<Props, State> {
                 clockOut={this.props.clockOut}
                 getLastClockin={this.props.getLastClockin}
               >
-                {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
-                  !this.props.isPluginActivated &&
-                  !this.props.theme.hide_intercom && (
-                    <Intercom
-                      appID="q6foivp2"
-                      email={this.props.username}
-                      company={
-                        this.props.theme && this.props.theme.company_name
-                          ? {
-                              name: this.props.theme.company_name,
-                              id: this.props.theme.company,
-                            }
-                          : {}
-                      }
-                      {...(this.props.name ? { name: this.props.name } : {})}
-                      user_id={this.props.username}
-                      environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                      release={RELEASE}
-                      role={this.props.permissions.name}
-                      action_color={this.props.theme.primary_color}
-                      custom_launcher_selector="#intercomIcon"
-                      language_override={isoLanguage}
-                    />
-                  )}
+                <Intercom
+                  email={this.props.username}
+                  environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                  isBsportChromePluginActivated={this.props.isPluginActivated}
+                  theme={this.props.theme}
+                  company={
+                    this.props.theme && this.props.theme.company_name
+                      ? {
+                          name: this.props.theme.company_name,
+                          id: this.props.theme.company,
+                        }
+                      : {}
+                  }
+                  {...(this.props.name ? { name: this.props.name } : {})}
+                  user_id={this.props.username}
+                  release={RELEASE}
+                  role={this.props.permissions.name}
+                  action_color={this.props.theme.primary_color}
+                  language_override={isoLanguage}
+                />
 
                 <Analytics username={this.props.username} isInternal />
                 <main

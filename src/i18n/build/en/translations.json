@@ -2112,7 +2112,8 @@
                     "subscription_flat_fee": "Joining fee",
                     "subscription_payment_method": "Payment method",
                     "subscription_nb_days_pause": "Paused for X number of days",
-                    "subscription_next_invoice_date": "Next billing date"
+                    "subscription_next_invoice_date": "Next billing date",
+                    "subscription_contract_terms_link": "Link for terms"
                 }
             },
             "BookingOption": {
@@ -5449,7 +5450,8 @@
             "hour_plural": "{{ count }} hours",
             "day": "{{ count }} day",
             "day_plural": "{{ count }} days"
-        }
+        },
+        "download": "Download"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -7894,7 +7896,8 @@
                 "create": "Add a subscription",
                 "iAcceptGeneralCondition": " I accept the terms.",
                 "alertPastDateSameMonth": "Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.",
-                "title": "Past date"
+                "title": "Past date",
+                "iAcceptContractTerms": "I accept the <0>terms</0>."
             },
             "duration": "{{month}} bills",
             "list": {
@@ -8106,7 +8109,8 @@
                 "1": "Card"
             },
             "paymentCombo": "Pack",
-            "payment_combo": "Pack"
+            "payment_combo": "Pack",
+            "contractTermsAccepted": "<0>Terms</0> have been accepted on the {{- dateAccepted}}."
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -12694,7 +12698,8 @@
             "2014": "You've reached the maximum number of bookings for this day",
             "45005": "The giftcard is not available for purchase anymore.",
             "45004": "The giftcard is not not available for purchase anymore.",
-            "10001": "Insufficient stock"
+            "10001": "Insufficient stock",
+            "85000": "A booking is already in progress, please wait a few moments"
         },
         "customForm": {
             "update": {

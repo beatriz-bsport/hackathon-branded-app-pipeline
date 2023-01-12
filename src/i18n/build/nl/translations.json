@@ -295,7 +295,8 @@
                     "subscription_nb_months": "Aantal maanden",
                     "subscription_recurrent_price": "Maandelijks bedrag",
                     "subscription_name": "Naam van het abonnement",
-                    "subscription_next_invoice_date": "Eerstvolgende factuurdatum"
+                    "subscription_next_invoice_date": "Eerstvolgende factuurdatum",
+                    "subscription_contract_terms_link": "Link voor voorwaarden"
                 },
                 "name": "Abonnementen"
             },
@@ -5864,7 +5865,8 @@
                 "create": "Een abonnement toevoegen",
                 "iAcceptGeneralCondition": " Ik ga akkoord met de voorwaarden.",
                 "title": "Verstreken datum",
-                "alertPastDateSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid."
+                "alertPastDateSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid.",
+                "iAcceptContractTerms": "Ik accepteer de <0>voorwaarden</0>."
             },
             "deleteForm": {
                 "actions": {
@@ -6184,7 +6186,8 @@
                 "1": "Betaalkaart"
             },
             "paymentCombo": "Pakket",
-            "payment_combo": "Pakket"
+            "payment_combo": "Pakket",
+            "contractTermsAccepted": "<0>Voorwaarden</0> zijn geaccepteerd op {{- dateAccepted}}."
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -9422,7 +9425,8 @@
             "2014": "Je hebt het maximale aantal reserveringen met deze kaart voor deze dag bereikt",
             "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
             "45004": "De cadeaubon is niet meer beschikbaar voor verkoop.",
-            "10001": "Onvoldoende voorraad"
+            "10001": "Onvoldoende voorraad",
+            "85000": "Er is al een boeking in behandeling, even geduld a.u.b"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -10433,7 +10437,8 @@
             "hour_plural": "{{ count }} uren",
             "day": "{{ count }} dag",
             "day_plural": "{{ count }} dagen"
-        }
+        },
+        "download": "Download"
     },
     "workshop": {
         "modal": {

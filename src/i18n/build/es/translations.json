@@ -3487,7 +3487,8 @@
                 "1": "Tarjeta de pago"
             },
             "paymentCombo": "Pack",
-            "payment_combo": "Pack"
+            "payment_combo": "Pack",
+            "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- fechaAceptada}}."
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -3586,7 +3587,8 @@
                 "create": "Añadir un contrato",
                 "iAcceptGeneralCondition": " Acepto el aviso legal",
                 "alertPastDateSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
-                "title": "Fecha pasada"
+                "title": "Fecha pasada",
+                "iAcceptContractTerms": "Acepto los <0>términos legales</0>."
             },
             "legal": "Notas legales",
             "description": "Descripción",
@@ -5809,7 +5811,8 @@
                     "subscription_nb_months": "Número de meses",
                     "subscription_recurrent_price": "Cantidad mensual retirada",
                     "subscription_name": "Nombre de la suscripción",
-                    "subscription_next_invoice_date": "Próxima fecha de facturación"
+                    "subscription_next_invoice_date": "Próxima fecha de facturación",
+                    "subscription_contract_terms_link": "Enlace al aviso legal"
                 },
                 "name": "Suscripción"
             },
@@ -9002,7 +9005,8 @@
             "hour_plural": "{{ count }} horas",
             "day": "{{ count }} día",
             "day_plural": "{{ count }} días"
-        }
+        },
+        "download": "Descargar"
     },
     "snackbar": {
         "invoice": {
@@ -9682,7 +9686,8 @@
             "2017": "Su tarjeta de curso ya no le permite reservar este año",
             "45005": "La tarjeta regalo ya no está a la venta.",
             "45004": "La tarjeta regalo ya no está a la venta.",
-            "10001": "Stock insuficiente"
+            "10001": "Stock insuficiente",
+            "85000": "Ya hay una reserva en curso, espere unos instantes"
         },
         "paymentRuleGroups": {
             "update": {

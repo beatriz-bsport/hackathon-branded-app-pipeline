@@ -12,7 +12,8 @@ const exceptionMessageRegexpToIgnore = [
   /Loading CSS chunk /i,
   /Object Not Found Matching Id/i,
   /Object Not Found Matching Id/i,
-  /Cannot read properties of null \(reading 'document'\)/, // INTERCOPM
+  /Cannot read properties of null \(reading 'document'\)/, // INTERCOM
+  /null is not an object \(evaluating 'parent.document'\)/, // INTERCOM (SAME) BUT MORE RECENT
   /timeout of 0ms exceeded/, // RANDOM INTERNET DISCONNECT
   /find variable: _AutofillCallbackHandler/, // FACEBOOK BROWSER
   /find variable: jQuery/,

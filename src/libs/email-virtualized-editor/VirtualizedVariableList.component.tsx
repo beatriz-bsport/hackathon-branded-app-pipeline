@@ -26,7 +26,7 @@ const VirtualizedVariableList: React.FC<VirtualProps> = ({
   renderRow,
 }) => (
   <div
-    style={{ flex: 1, minHeight: minItemsDisplaid * itemSize, height: '100%' }}
+    style={{ flex: 1, minHeight: minItemsDisplaid * itemSize, height: '100vh' }}
   >
     <AutoSizer>
       {(dimensions: { height: number; width: number }) => (

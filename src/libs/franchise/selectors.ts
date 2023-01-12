@@ -48,34 +48,36 @@ export const getAllowedFranchisees = (state: RootState) => {
   return state.auth.allowed_franchisees;
 };
 
-export const withAllowed = (
-  companies: number | number[],
-  allowed_franchisee_ids: number[],
-  companyById: Record<number, FranchiseCompany>,
-) => {
-  if (!companies) return null;
-  if (Array.isArray(companies)) {
-    return sortCompanyListByIsAllowedAndName(
-      companies
-        .filter((id: number) => !!companyById?.[id])
-        .map((id: number) => ({
-          ...companyById?.[id],
-          isAllowed:
-            allowed_franchisee_ids?.length === 0 ||
-            allowed_franchisee_ids.includes(id),
-        })),
-    );
-  }
+export const withAllowed = memoize(
+  (
+    companies: number | number[],
+    allowed_franchisee_ids: number[],
+    companyById: Record<number, FranchiseCompany>,
+  ) => {
+    if (!companies) return null;
+    if (Array.isArray(companies)) {
+      return sortCompanyListByIsAllowedAndName(
+        companies
+          .filter((id: number) => !!companyById?.[id])
+          .map((id: number) => ({
+            ...companyById?.[id],
+            isAllowed:
+              allowed_franchisee_ids?.length === 0 ||
+              allowed_franchisee_ids.includes(id),
+          })),
+      );
+    }
 
-  if (!companyById?.[companies]) return null;
+    if (!companyById?.[companies]) return null;
 
-  return {
-    ...companyById?.[companies],
-    isAllowed:
-      !allowed_franchisee_ids?.length ||
-      allowed_franchisee_ids.includes(companies),
-  };
-};
+    return {
+      ...companyById?.[companies],
+      isAllowed:
+        !allowed_franchisee_ids?.length ||
+        allowed_franchisee_ids.includes(companies),
+    };
+  },
+);
 
 // Users
 

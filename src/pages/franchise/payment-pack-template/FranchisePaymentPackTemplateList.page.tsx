@@ -18,7 +18,7 @@ import { buildUrlParams } from '../../../http';
 
 import { RootState } from '../../../reducers';
 
-import PaymentPackTemplateListItem from '#libs/payment-packs/components/PaymentPackTemplateListItem.component';
+import VirtualizedPaymentPackTemplateList from '#libs/payment-packs/components/VirtualizedPaymentPackTemplateList.component';
 import IsEmptyList from '../../../components/navigation/IsEmptyList.component';
 import PaymentPackTemplateFormDrawer from '#libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
 import PaymentPackTemplateDeleteDialog from '#libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
@@ -129,17 +129,16 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               </div>
               <Divider className={classes.divider} />
               <Collapse in={this.state.showAvailable}>
-                <Paper>
-                  {this.props.paymentPackTemplateListAvailable.map((ppt) => (
-                    <PaymentPackTemplateListItem
-                      paymentPackTemplate={ppt}
-                      divider
-                      key={ppt.id}
-                      onClick={this.props.goToTemplateDetail}
-                      onEdit={this.props.openEditDialog}
-                      onDelete={this.props.openDeleteDialog}
-                    />
-                  ))}
+                <Paper style={{ height: '80vh' }}>
+                  <VirtualizedPaymentPackTemplateList
+                    paymentPackTemplateList={
+                      this.props.paymentPackTemplateListAvailable
+                    }
+                    divider
+                    onClick={this.props.goToTemplateDetail}
+                    onEdit={this.props.openEditDialog}
+                    onDelete={this.props.openDeleteDialog}
+                  />
                 </Paper>
               </Collapse>
             </>
@@ -163,18 +162,15 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               <Divider className={classes.divider} />
               {this.state.showDisabled && (
                 <Collapse in={this.state.showDisabled}>
-                  <Paper>
-                    {this.props.paymentPackTemplateListManagerOnly.map(
-                      (ppt) => (
-                        <PaymentPackTemplateListItem
-                          paymentPackTemplate={ppt}
-                          key={ppt.id}
-                          onEdit={this.props.openEditDialog}
-                          onClick={this.props.goToTemplateDetail}
-                          onDelete={this.props.openDeleteDialog}
-                        />
-                      ),
-                    )}
+                  <Paper style={{ height: '100vh' }}>
+                    <VirtualizedPaymentPackTemplateList
+                      paymentPackTemplateList={
+                        this.props.paymentPackTemplateListManagerOnly
+                      }
+                      onClick={this.props.goToTemplateDetail}
+                      onEdit={this.props.openEditDialog}
+                      onDelete={this.props.openDeleteDialog}
+                    />
                   </Paper>
                 </Collapse>
               )}

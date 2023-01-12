@@ -57,6 +57,9 @@ type Props = WithTranslation &
   OwnProps;
 
 const styles = (theme: Theme) => ({
+  container: {
+    height: 100,
+  },
   bookButton: {
     marginRight: theme.spacing(1),
   },
@@ -75,6 +78,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
 
     return (
       <ListItem
+        className={this.props.classes.container}
         button={!!this.props.onClick}
         onClick={this.props.onClick}
         divider={this.props.divider}

@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 import { filterUnaccessiblePaymentPack } from '@bsport/common/lib/master-data/payment-pack';
 
-import { getSCTs } from '../category/selectors';
+import { getSCTs, getEditableSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
@@ -97,7 +97,7 @@ export const getOne = (state: RootState, id: number) =>
   state.paymentPack.byId[id];
 
 export const withSCT = memoize((selector: PaymentPackSelector) =>
-  createSelector([selector, getSCTs], (paymentPacks, SCTs) => {
+  createSelector([selector, getEditableSCTs], (paymentPacks, SCTs) => {
     if (paymentPacks && Array.isArray(paymentPacks)) {
       const validPaymentPacks = paymentPacks.filter((pp) => !!pp);
 

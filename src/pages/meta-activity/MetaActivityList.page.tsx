@@ -75,6 +75,7 @@ import {
   createOffers as createOffersActions,
 } from '../../libs/offer/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { getEditableSCTs } from '../../libs/category/selectors';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
   resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
@@ -191,7 +192,6 @@ type OwnProps = {
   allTagsWithTagGroup: any;
   paymentPackCategories: any;
   createPaymentPack: (data: any, options: any) => void;
-  categoryList: any;
   showPartnership: boolean;
   metaActivityCategories: Array<MetaActivityCategoryWithActivities>;
 
@@ -360,7 +360,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         allTagsWithTagGroup={this.props.allTagsWithTagGroup}
         paymentPackCategories={this.props.paymentPackCategories}
         metaActivities={this.props.metaActivities}
-        categoryList={this.props.categoryList}
+        categoryList={this.props.SCTs}
         showPartnership={this.props.showPartnership}
         metaActivityCategories={this.props.metaActivityCategories}
         activeCustomLevels={this.props.activeCustomLevels}
@@ -654,7 +654,7 @@ export default compose(
         'id',
       ),
       selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       enabledMetaActivities: withBookingNotification(
         getPageEnabledPureMetaActivities,
       )(state),
@@ -689,7 +689,6 @@ export default compose(
       allEstablishmentList: getAllEstablishments(state),
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       paymentPackCategories: getAllPaymentPackCategory(state),
-      categoryList: state.category.SCTs,
       showPartnership: state.theme.theme.has_partnership,
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),

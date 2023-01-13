@@ -39,6 +39,7 @@ import {
   fetchOne as fetchPaymentPack,
   fetchAllPaymentPackCategory,
 } from '../../libs/payment-packs/actions';
+import { getEditableSCTs } from '../../libs/category/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
@@ -172,7 +173,7 @@ export default compose(
       const paymentPackInitial = getPaymentPackById(state)[paymentPackId];
       return {
         initial: paymentPackId ? paymentPackInitial : null,
-        categories: state.category.SCTs,
+        categories: getEditableSCTs(state),
         theme: themeSelectors.getTheme(state),
         metaActivities: uniqBy(
           [

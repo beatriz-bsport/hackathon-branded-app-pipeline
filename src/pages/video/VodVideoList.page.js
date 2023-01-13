@@ -47,6 +47,7 @@ import {
   deleteLevel as deleteLevelAction,
 } from '#libs/level/actions';
 import { getActiveCustomLevels } from '#libs/level/selectors';
+import { getEditableSCTs } from '../../libs/category/selectors';
 
 import VideoCardGrid from '../../libs/video/components/VideoCardGrid.component';
 import VideoCardList from '../../libs/video/components/VideoCardList.component';
@@ -393,7 +394,7 @@ export default compose(
       videoList: withCoach(withCategory(getVideoList))(state),
       videoToUpload: getVideo(state, videoToUploadId),
       loading: state.video.loading,
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       coaches: getAllCoaches(state),
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
       videoFilterableParams: state.video.filterableParams.items,

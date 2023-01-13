@@ -23,6 +23,7 @@ import { getWorkshop } from '../../libs/meta-activity/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
+import { getEditableSCTs } from '../../libs/category/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Tag, TagGroup } from '#libs/tag/types';
@@ -110,7 +111,7 @@ export default compose(
     (state, { id }) => ({
       initial: getWorkshop(state, id),
       companyTheme: themeSelectors.getTheme(state),
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       loading: state.metaActivity.loading,
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),

@@ -64,6 +64,7 @@ import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
 import type { PaymentPackCategory } from '../../libs/payment-packs/types';
 import { getAllTagsWithTagGroup } from '../../libs/tag/selectors';
 import type { Tag, TagGroup } from '../../libs/tag/types';
+import { getEditableSCTs } from '../../libs/category/selectors';
 
 type StepType = {
   id: number,
@@ -285,7 +286,7 @@ export default compose(
       offerHadError: state.offer.create.error,
       associatedCoaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       companyTheme: themeSelectors.getTheme(state),
       loading: state.metaActivity.loading,
       metaActivityNames: [

@@ -42,6 +42,7 @@ export type SCT = {
   id: number;
   name: string;
   SCS: SCS;
+  language: string;
 };
 export type ActivitySimplified = {
   id: number;

@@ -61,6 +61,7 @@ import { SCT } from '#libs/category/types';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { SmartList } from '#libs/smart-list/types';
+import { getEditableSCTs } from '../../libs/category/selectors';
 import {
   fetchTagList as fetchTagListAction,
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
@@ -278,7 +279,7 @@ export default compose(
   connect(
     (state, { id }) => ({
       id,
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       loading: state.metaActivity.loading,
       workshopActivities: getWorkshops(state),
       workshopActivity: withCustomRestrictionsTags(getWorkshops)(state).find(

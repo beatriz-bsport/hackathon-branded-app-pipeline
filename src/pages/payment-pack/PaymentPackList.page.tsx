@@ -95,6 +95,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import { getCompatibilityPassWithService as getCompatibleServicePass } from '#libs/private-service/selectors/private-pass';
 import type { PrivatePass, PrivateSlot } from '#libs/private-service/types';
+import { getEditableSCTs } from '#libs/category/selectors';
 
 import {
   fetchPrivatePassList,
@@ -724,7 +725,7 @@ const mapStateToProps = (state: RootState) => ({
     ],
     'id',
   ),
-  categoryList: state.category.SCTs,
+  categoryList: getEditableSCTs(state),
   paymentPackByCategory: groupByCategory(
     withPaymentPackNotification(
       withLinkedPrivatePass(withSCT(getEnabledPaymentPacks)),

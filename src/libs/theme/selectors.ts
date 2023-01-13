@@ -46,6 +46,7 @@ export const getCompanyCountry = () => {
   }
   return key;
 };
+
 /**
  * @returns the price of the product, possibly excluded from tax, with its currency.
  * @param  {any} price mandatory - the including tax price of the product

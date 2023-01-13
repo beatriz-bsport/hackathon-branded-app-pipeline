@@ -24,6 +24,7 @@ import BottomActionsButton from '../../components/button/BottomActionsButton.com
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import { getEditableSCTs } from '../../libs/category/selectors';
 
 import type { MetaActivity } from '../../api/types';
 
@@ -518,7 +519,7 @@ export default compose(
       offerHadError: state.offer.create.error,
       associatedCoaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       companyTheme: themeSelectors.getTheme(state),
       metaActivityNames: [
         ...getEnabledMetaActivities(state),

@@ -83,6 +83,7 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { fetchOne as fetchPaymentPackAction } from '#libs/payment-packs/actions';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import { getAllEstablishments } from '#libs/establishment/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import {
   getActivitiesByIdList,
   getEnabledMetaActivities,
@@ -687,7 +688,7 @@ const mapStateToProps = (state: RootState) => ({
   compatibleServicePass: getCompatibleServicePass(state),
   compatibleServicePassLoading: getCompatibleServicePassLoading(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,
-  categoryList: state.category.SCTs,
+  categoryList: getEditableSCTs(state),
   establishmentList: getAllEstablishments(state),
   metaActivities: uniqBy(
     [

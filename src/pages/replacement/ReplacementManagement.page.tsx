@@ -42,7 +42,7 @@ import {
 } from '#libs/offer/selectors';
 import { withCustomLevel } from '#libs/level/selectors';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import { getSCTs } from '#libs/category/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
@@ -687,7 +687,7 @@ const connector = connect(
       withCompleteOffer(getAllPendingReplacementRequests),
     )(state),
     loading: state.replacementRequest.loading,
-    SCTList: getSCTs(state),
+    SCTList: getEditableSCTs(state),
     coachList: getActiveCoaches(state),
     metaActivityList: getEnabledMetaActivities(state),
     establishmentList: getAvailableEstablishmentList(state),

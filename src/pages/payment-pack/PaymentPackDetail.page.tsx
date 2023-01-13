@@ -59,6 +59,7 @@ import {
   getResolvedGenericTags,
   getTagCategories,
 } from '#libs/notification-rule/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList,
@@ -624,7 +625,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     ),
     theme: themeSelectors.getTheme(state),
 
-    categoryList: state.category.SCTs,
+    categoryList: getEditableSCTs(state),
     tagCategories: getTagCategories(state),
     videoCategories: state.video.filterableParams.items.SCTs,
     companyId: state.theme.theme.company,

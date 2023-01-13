@@ -18,7 +18,7 @@ import {
 import { withCustomLevel } from '#libs/level/selectors';
 import { getAllCoaches } from '#libs/associated-coach/selectors';
 import { getMetaActivities, getWorkshops } from '#libs/meta-activity/selectors';
-import { getSCTs } from '#libs/category/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -208,7 +208,7 @@ export const getAllDisciplineGroupsWithFullData: (
     getAllCoaches,
     getMetaActivities,
     getWorkshops,
-    getSCTs,
+    getEditableSCTs,
   ],
   (disciplineGroups, coaches, metaActivities, workshops, SCTs) => {
     if (!disciplineGroups) return [];

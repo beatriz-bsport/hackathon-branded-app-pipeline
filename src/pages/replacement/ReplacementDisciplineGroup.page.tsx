@@ -36,7 +36,7 @@ import {
   getActiveCoaches,
   getCoachLoading,
 } from '#libs/associated-coach/selectors';
-import { getSCTs } from '#libs/category/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import {
   getDisciplineGroupLoading,
   getAllDisciplineGroupsWithFullData,
@@ -267,7 +267,7 @@ const connector = connect(
     theme: themeSelectors.getTheme(state),
     companyId: state.theme.theme.company,
     coachList: getActiveCoaches(state),
-    SCTList: getSCTs(state),
+    SCTList: getEditableSCTs(state),
     activityList: getEnabledMetaActivities(state),
     workshopList: getEnabledWorkshops(state),
     disciplineGroupList: getAllDisciplineGroupsWithFullData(state),

@@ -50,7 +50,7 @@ import {
   getEnabledWorkshops,
   getEnabledMetaActivities,
 } from '#libs/meta-activity/selectors';
-import { getSCTs } from '#libs/category/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import { getAllDisciplineGroups } from '#libs/replacement-request/selectors';
 import { PrivateServiceWithSlots } from '../../libs/private-service/types';
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -218,7 +218,7 @@ export default compose(
       coach: getCoach(state, coachId),
       privateSlots: state.privateService.privateSlot.byId,
       privateServices: getAvailablePrivateServices(state),
-      SCTList: getSCTs(state),
+      SCTList: getEditableSCTs(state),
       activityList: getEnabledMetaActivities(state),
       workshopList: getEnabledWorkshops(state),
       disciplineGroupList: getAllDisciplineGroups(state),

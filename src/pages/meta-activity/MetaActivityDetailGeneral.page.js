@@ -54,6 +54,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '#libs/email-editor/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 
 import {
   fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
@@ -275,7 +276,7 @@ export default compose(
   connect(
     (state, { id }) => ({
       loading: state.metaActivity.loading,
-      SCTs: state.category.SCTs,
+      SCTs: getEditableSCTs(state),
       metaActivity: withCustomRestrictionsTags(getMetaActivity)(state, id),
       events: getEventsByMetaActivity(state),
       offers: withEstablishment(withCoach(getOffersByDay))(state),

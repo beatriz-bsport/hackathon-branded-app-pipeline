@@ -8,6 +8,7 @@ export type SCT = {
   name: string;
   id: number;
   SCS: SCS;
+  language: string;
 };
 
 export type EasyAccess = {

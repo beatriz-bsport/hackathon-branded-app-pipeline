@@ -39,7 +39,6 @@ import {
 } from '../../libs/associated-coach/actions';
 import { fetchDisciplineGroupList as fetchDisciplineGroupListAction } from '../../libs/replacement-request/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '../../libs/meta-activity/actions';
-import { fetchSCT as fetchSCTAction } from '../../libs/category/actions';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
@@ -104,7 +103,6 @@ type Props = {
     params: AssignCoachDisciplineGroupParams,
     options?: OptionCallback,
   ) => void,
-  fetchSCT: () => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
   deleteCoach: (id: number, options: ?OptionCallback) => void,
@@ -138,7 +136,6 @@ export class Coach extends React.Component<Props> {
     this.props.fetchAssociatedCoach(this.props.coachId);
     this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchDisciplineGroupList();
-    this.props.fetchSCT();
   }
 
   render() {
@@ -234,7 +231,6 @@ export default compose(
       loadPaymentRuleGroups: fetchAllCoachPaymentRuleGroups,
       fetchAssociatedCoach,
       fetchActivitiesCompany: fetchActivitiesCompanyAction,
-      fetchSCT: fetchSCTAction,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
       setCoachPrivatePaymentRule,

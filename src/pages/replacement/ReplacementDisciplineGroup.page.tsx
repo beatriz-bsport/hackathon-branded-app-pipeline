@@ -27,7 +27,6 @@ import {
 } from '#libs/replacement-request/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
-import { fetchSCT as fetchSCTAction } from '#libs/category/actions';
 import {
   getEnabledWorkshops,
   getEnabledMetaActivities,
@@ -55,7 +54,6 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
     updateDisciplineGroup,
     fetchAssociatedCoachesList,
     fetchActivitiesCompany,
-    fetchSCT,
     companyId,
   } = props;
 
@@ -72,13 +70,11 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
       disabled: false,
     });
     fetchActivitiesCompany(companyId);
-    fetchSCT();
     fetchDisciplineGroupList();
   }, [
     fetchDisciplineGroupList,
     fetchAssociatedCoachesList,
     fetchActivitiesCompany,
-    fetchSCT,
     companyId,
   ]);
 
@@ -283,7 +279,6 @@ const connector = connect(
     fetchCompanyTheme: fetchCompanyThemeAction,
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
     fetchActivitiesCompany: fetchActivitiesCompanyAction,
-    fetchSCT: fetchSCTAction,
     createDisciplineGroup: createDisciplineGroupAction,
     fetchDisciplineGroupList: fetchDisciplineGroupListAction,
     deleteDisciplineGroup: deleteDisciplineGroupAction,

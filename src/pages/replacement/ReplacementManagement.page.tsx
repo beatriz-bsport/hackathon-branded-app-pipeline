@@ -58,7 +58,6 @@ import {
   fetchAllOffersPaginated as fetchAllOffersPaginatedAction,
   fetchOfferBulk as fetchOfferBulkAction,
 } from '#libs/offer/actions';
-import { fetchSCT as fetchSCTAction } from '#libs/category/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#libs/associated-coach/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
@@ -721,7 +720,6 @@ const connector = connect(
     fetchLevelList: fetchLevelListAction,
     fetchAllReplacementRequests: fetchAllReplacementRequestsAction,
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
-    fetchSCT: fetchSCTAction,
     setReplacementRequestManagerFilter:
       setReplacementRequestManagerFilterAction,
     setReplacementRequestOfferHistoryFilter:
@@ -793,7 +791,6 @@ const handlers = {
           company: connectProps.companyId,
           disabled: false,
         }),
-        connectProps.fetchSCT(),
       ],
     ]).then(() => {
       // Sanitize filter stored in user preference

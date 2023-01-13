@@ -7,6 +7,7 @@ import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
   fetchBookingList as fetchBookingListAPI,
+  fetchOfferGroupRelatedBookings as fetchOfferGroupRelatedBookingsAPI,
   retrieveBooking as retrieveBookingAPI,
   confirmAttendance as confirmAttendanceAPI,
   discardAttendance as discardAttendanceAPI,
@@ -568,23 +569,14 @@ export const fetchSimilarFuturBookingInGroupActions = {
 };
 
 export function fetchSimilarFuturBookingInGroup(
-  groupId: number,
-  memberId: number,
+  bookingId: number,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchSimilarFuturBookingInGroupActions.isLoading(true));
     dispatch(fetchSimilarFuturBookingInGroupActions.error(null));
     try {
-      const response = await fetchBookingListAPI({
-        group_id__in: [groupId],
-        member: memberId,
-        page: 1,
-        page_size: null,
-        future_booking: true,
-        booking_status_code: BOOKING_STATUS_OK.id,
-        min_date: moment().format('YYYY-MM-DD'),
-      });
+      const response = await fetchOfferGroupRelatedBookingsAPI(bookingId);
 
       dispatch(fetchSimilarFuturBookingInGroupActions.success(response.data));
 

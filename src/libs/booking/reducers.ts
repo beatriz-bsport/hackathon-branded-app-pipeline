@@ -377,11 +377,11 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
       return state
         .setIn(
           ['similar', 'allIds'],
-          payload.results.map((b) => b.id),
+          payload.map((b) => b.id),
         )
         .merge(
           {
-            byId: payload.results.reduce((acc: any, ps: any) => {
+            byId: payload.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),

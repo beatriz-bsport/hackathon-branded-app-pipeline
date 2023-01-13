@@ -69,7 +69,10 @@ type Props = {
   showVaccinationStatus: boolean,
 
   similarBookings: Booking[],
-  fetchSimilarFuturBookingInGroup: (groupId: number, member: id) => void,
+  fetchSimilarFuturBookingInGroup: (
+    bookingId: number,
+    options: OptionCallback,
+  ) => void,
   fetchOfferBulk: (ids: number) => void,
   fetchCoachBulk: (ids: number) => void,
   companyId: number,
@@ -80,6 +83,7 @@ type Props = {
   fetchGroupOffer: (id: number) => void,
   fetchMetaActivityBulk: (ids: number[]) => void,
   group: OffersGroup,
+  similarBookingsLoading: boolean,
 };
 
 export class ConsumerBooking extends React.Component<Props> {
@@ -111,6 +115,7 @@ export class ConsumerBooking extends React.Component<Props> {
         timezone={this.props.timezone}
         showVaccinationStatus={this.props.showVaccinationStatus}
         similarBookings={this.props.similarBookings}
+        similarBookingsLoading={this.props.similarBookingsLoading}
         fetchSimilarFuturBookingInGroup={
           this.props.fetchSimilarFuturBookingInGroup
         }
@@ -145,6 +150,7 @@ export default compose(
       similarBookings: withCustomLevel(
         withMetaActivity(withCoach(withOffer(getSimilarBookingList))),
       )(state),
+      similarBookingsLoading: state.booking.similar.loading,
     }),
     {
       fetchBookingsAsConsumer: fetchBookingsAsConsumerAction,

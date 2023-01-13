@@ -240,24 +240,16 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     if (booking.offer.group) {
       this.props.resetGroupOffer();
       this.props.fetchGroupOffer(booking.offer.group);
-      this.props.fetchSimilarFuturBookingInGroup(
-        booking.offer.group,
-        this.props.membership.id,
-        {
-          onSuccess: (data) => {
-            this.props.fetchOfferBulk(
-              Array.from(new Set(data.results?.map((b) => b.offer))),
-            );
-            this.props.fetchCoachBulk(
-              Array.from(new Set(data.results?.map((b) => b.coach))),
-            );
-          },
+      this.props.fetchSimilarFuturBookingInGroup(booking.id, {
+        onSuccess: (data) => {
+          this.props.fetchOfferBulk(
+            Array.from(new Set(data.results?.map((b) => b.offer))),
+          );
+          this.props.fetchCoachBulk(
+            Array.from(new Set(data.results?.map((b) => b.coach))),
+          );
         },
-      );
-      this.props.fetchSimilarFuturBookingInGroup(
-        booking.offer.group,
-        this.props.membership.id,
-      );
+      });
     }
     this.props.setBookingToCancel(booking);
   };
@@ -357,7 +349,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         <BookingCancellationDialog
           open={this.props.bookingToCancel}
           booking={this.props.bookingToCancel}
-          similarBookings={this.props.similarBooking}
+          similarBookings={this.props.similarBookings}
+          similarBookingsLoading={this.props.similarBookingsLoading}
           onCancel={() => this.props.setBookingToCancel(null)}
           onSubmit={(options: OptionCallback) =>
             this.onDiscardBooking(this.props.bookingToCancel.id, options)
@@ -456,9 +449,10 @@ const mapStateToProps = (state: RootState, props) => ({
     props.membership?.company,
   ),
   applyBalanceLoading: state.invoice.applyBalance.loading,
-  similarBooking: withCustomLevel(withCoach(withOffer(getSimilarBookingList)))(
+  similarBookings: withCustomLevel(withCoach(withOffer(getSimilarBookingList)))(
     state,
   ),
+  similarBookingsLoading: state.booking.similar.loading,
   memberTags: getMemberTagsIdsList(state),
   group: retrieveGroupOffer(state),
   spotTypes: getSpotTypesOfCompany(state),

@@ -49,7 +49,10 @@ type Props = {
   timezone: string,
   showVaccinationStatus: boolean,
 
-  fetchSimilarFuturBookingInGroup: (groupId: number, memberId: number) => void,
+  fetchSimilarFuturBookingInGroup: (
+    bookingId: number,
+    options: OptionCallback,
+  ) => void,
   similarBookings: Booking[],
   fetchOfferBulk: (ids: number) => void,
   fetchCoachBulk: (ids: number) => void,
@@ -65,20 +68,12 @@ export const ConsumerBookingPage = (props: Props) => {
       props.resetGroupOffer();
       props.fetchMetaActivityBulk([booking.meta_activity]);
       props.fetchGroupOffer(booking.offer.group);
-      props.fetchSimilarFuturBookingInGroup(
-        booking.offer.group,
-        props.membership.id,
-        {
-          onSuccess: (data) => {
-            props.fetchOfferBulk(
-              Array.from(new Set(data.results?.map((b) => b.offer))),
-            );
-            props.fetchCoachBulk(
-              Array.from(new Set(data.results?.map((b) => b.coach))),
-            );
-          },
+      props.fetchSimilarFuturBookingInGroup(booking.id, {
+        onSuccess: (data) => {
+          props.fetchOfferBulk(Array.from(new Set(data?.map((b) => b.offer))));
+          props.fetchCoachBulk(Array.from(new Set(data?.map((b) => b.coach))));
         },
-      );
+      });
     }
 
     props.setBookingToCancel(booking);

@@ -16,7 +16,11 @@ export const fetchFilteredBookingOptions = async (params: any) => {
 export const fetchBookingList = async (params: any) => {
   return getAuth(`${API_V1_URI}/booking/${buildUrlParams(params)}`);
 };
-
+export const fetchOfferGroupRelatedBookings = async (bookingId: number) => {
+  return getAuth(
+    `${API_V1_URI}/booking/${bookingId}/get_offer_group_related_bookings/`,
+  );
+};
 export const retrieveBooking = async (id: number) => {
   return getAuth(`${API_V1_URI}/booking/${id}/`);
 };

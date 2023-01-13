@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
 
@@ -28,6 +29,7 @@ type Props = {
   onClose?: () => void;
   open: boolean;
   similarBookings: Booking[];
+  similarBookingsLoading: boolean;
   group: OffersGroup;
   memberTags: Array<any>;
 };
@@ -56,6 +58,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
   onClose,
   open,
   similarBookings,
+  similarBookingsLoading,
   group,
   memberTags,
 }) => {
@@ -85,9 +88,9 @@ export const BookingCancellationDialog: React.FC<Props> = ({
       .add(last_discard_minutes, 'minutes')
       .isBefore(moment(booking.offer.date_start));
   };
-
   return (
     <GenericResponsiveDialog open={!!open} onClose={onClose}>
+      {booking?.offer?.group && similarBookingsLoading && <LinearProgress />}
       <DialogTitle>
         {booking && booking.offer && booking.offer.timezone_name
           ? t('consumer.booking.intro', {
@@ -172,6 +175,14 @@ export const BookingCancellationDialog: React.FC<Props> = ({
                     </Alert>
                     {similarBookings?.map((b) => (
                       <div className={classes.item} key={b.id}>
+                        <OfferListItemV2
+                          offer={{
+                            ...b.offer,
+                            coach: b.coach,
+                            customLevel: b.customLevel,
+                          }}
+                          divider={false}
+                        />
                         {t(
                           b.is_discardable
                             ? 'consumer.booking.willBeRefund'
@@ -199,7 +210,9 @@ export const BookingCancellationDialog: React.FC<Props> = ({
           <CircularProgress />
         ) : (
           <RedButton
-            disabled={processing}
+            disabled={
+              processing || (booking?.offer?.group && similarBookingsLoading)
+            }
             onClick={() => {
               setProcessing(true);
               onSubmit({

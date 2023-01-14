@@ -3361,7 +3361,7 @@
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
             "noManagerOnly": "Beschikbare kaarten",
-            "managerOnly": "Onbeschikbare kaarten",
+            "managerOnly": "Niet beschikbaar voor verkoop",
             "filterManagerOnly": "Alle beschikbaarheid",
             "filterCategory": "Alle categorieën",
             "titleSort": "Sorteren",
@@ -3397,7 +3397,7 @@
                 "title": "[Formulier] Gedeelde leskaart"
             },
             "section": {
-                "titleManagerOnly": "Onbeschikbare leskaarten",
+                "titleManagerOnly": "Niet beschikbaar voor verkoop",
                 "titleAvailable": "Beschikbare leskaarten"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
@@ -3464,7 +3464,7 @@
         },
         "validityTo": " tot ",
         "addPaymentPack": {
-            "notForSell": "Onbeschikbaar voor leden",
+            "notForSell": "Niet beschikbaar voor verkoop",
             "limited": "Beperkt",
             "sumNotZero": "Het aantal dagen kan niet 0 zijn",
             "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
@@ -8103,7 +8103,7 @@
                 "title": "[Formulier] Gedeelde afspraakkaart"
             },
             "section": {
-                "titleManagerOnly": "Onbeschikbare afspraakkaarten",
+                "titleManagerOnly": "Niet beschikbaar voor verkoop",
                 "titleAvailable": "Beschikbare afspraakkaarten"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio aanschaffen en gebruiken.",

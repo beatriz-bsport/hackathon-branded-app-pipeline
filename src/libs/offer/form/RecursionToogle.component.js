@@ -28,7 +28,7 @@ type Props = {
   listTitle: string,
 
   handleChange: (index: number) => void,
-  selectedSimilarOffers: Array<Object>,
+  selectedSimilarOfferIds: Array<Object>,
   similarOffers: Array<Offer>,
   selectAll: () => void,
   unselectAll: () => void,
@@ -37,12 +37,14 @@ type Props = {
   dateTimeDiff: number,
   classes: Object,
   modifyRecursively: boolean,
+
+  indexBasedSelection?: boolean,
 };
 
 type State = {
   isSimilarOfferListExpanded: boolean,
 };
-
+// TODO : FIX ME : https://gitlab.com/bsport/bsport-saas/-/issues/1347
 export class RecursionToogle extends Component<Props, State> {
   state = {
     isSimilarOfferListExpanded: true,
@@ -55,8 +57,14 @@ export class RecursionToogle extends Component<Props, State> {
   };
 
   renderSimilarOffers = () => {
-    const { loading, similarOffers, selectedSimilarOffers, classes, t } =
-      this.props;
+    const {
+      loading,
+      similarOffers,
+      selectedSimilarOfferIds,
+      classes,
+      t,
+      indexBasedSelection,
+    } = this.props;
     const { isSimilarOfferListExpanded } = this.state;
     return (
       <div>
@@ -130,9 +138,12 @@ export class RecursionToogle extends Component<Props, State> {
                     handleChange={
                       index === 0
                         ? () => {}
-                        : () => this.props.handleChange(so.id)
+                        : () =>
+                            this.props.handleChange(
+                              indexBasedSelection ? index : so.id,
+                            )
                     }
-                    checked={selectedSimilarOffers?.includes(so.id)}
+                    checked={selectedSimilarOfferIds?.includes(so.id)}
                   />
                 ))}
               </List>
@@ -146,6 +157,7 @@ export class RecursionToogle extends Component<Props, State> {
   renderSwitchButton = () => {
     const { color, disabled, modifyRecursively, onChangeRecursion } =
       this.props;
+
     return (
       <Switch
         color={color || 'primary'}

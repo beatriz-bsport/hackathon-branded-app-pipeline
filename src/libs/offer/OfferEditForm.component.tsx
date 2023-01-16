@@ -110,7 +110,7 @@ type State = {
   coach_override?: number;
   establishment_override?: Establishment;
   isSimilarOfferListExpanded: boolean;
-  selectedSimilarOffers: number[];
+  selectedSimilarOfferIds: number[];
   coach_payment_rule: number | null;
   manager_only: boolean;
   openAdvancedOptions: boolean;
@@ -189,7 +189,7 @@ export class OfferEditForm extends Component<Props, State> {
       meta_activity:
         props.offer.meta_activity && this.props.offer.meta_activity.id,
       should_modify_all_dates: false,
-      selectedSimilarOffers: [],
+      selectedSimilarOfferIds: [],
 
       whitelist_tags: props.offer.whitelist_tags?.map((tag) => tag.id) || [],
       blacklist_tags: props.offer.blacklist_tags?.map((tag) => tag.id) || [],
@@ -248,7 +248,7 @@ export class OfferEditForm extends Component<Props, State> {
       this.state.step === OFFER_EDIT_FORM_STEPS.GATHER_INFO
     ) {
       this.setState({
-        selectedSimilarOffers: this.props.similarOffers.map(
+        selectedSimilarOfferIds: this.props.similarOffers.map(
           (offer) => offer.id,
         ),
       });
@@ -261,22 +261,22 @@ export class OfferEditForm extends Component<Props, State> {
 
   handleChangeSelection = (offerId: number) => {
     const getNewState = (prevState: State) => {
-      const isOfferInArr = prevState.selectedSimilarOffers.includes(offerId);
+      const isOfferInArr = prevState.selectedSimilarOfferIds.includes(offerId);
       if (isOfferInArr) {
-        return prevState.selectedSimilarOffers.filter(
+        return prevState.selectedSimilarOfferIds.filter(
           (offer: number) => offer !== offerId,
         );
       }
-      return [...prevState.selectedSimilarOffers, offerId];
+      return [...prevState.selectedSimilarOfferIds, offerId];
     };
     this.setState((prevState) => ({
-      selectedSimilarOffers: getNewState(prevState),
+      selectedSimilarOfferIds: getNewState(prevState),
     }));
   };
 
   selectAll = () => {
     this.setState({
-      selectedSimilarOffers: this.props.similarOffers.map(
+      selectedSimilarOfferIds: this.props.similarOffers.map(
         (offer: Offer) => offer.id,
       ),
     });
@@ -284,7 +284,7 @@ export class OfferEditForm extends Component<Props, State> {
 
   unselectAll = () => {
     this.setState((prevState) => ({
-      selectedSimilarOffers: prevState.selectedSimilarOffers.filter(
+      selectedSimilarOfferIds: prevState.selectedSimilarOfferIds.filter(
         (offer: number) => offer === this.props.offer.id,
       ),
     }));
@@ -331,7 +331,7 @@ export class OfferEditForm extends Component<Props, State> {
       date,
       hour,
       subTeacherEditPropagationMode,
-      selectedSimilarOffers,
+      selectedSimilarOfferIds,
       modifyRecursively,
     } = this.state;
 
@@ -342,7 +342,7 @@ export class OfferEditForm extends Component<Props, State> {
       modifyAllDates:
         this.state.modifyRecursively && this.state.should_modify_all_dates,
       custom_selection: this.state.modifyRecursively,
-      custom_selection_ids: selectedSimilarOffers,
+      custom_selection_ids: selectedSimilarOfferIds,
       allow_guest_offer: this.state.allow_guest_offer,
       propagate_coach_override_value: modifyRecursively
         ? subTeacherEditPropagationMode
@@ -442,7 +442,7 @@ export class OfferEditForm extends Component<Props, State> {
     };
 
     if (this.state.modifyRecursively) {
-      fetchSimilarOffersParams.id__in = this.state.selectedSimilarOffers;
+      fetchSimilarOffersParams.id__in = this.state.selectedSimilarOfferIds;
     }
     if (!initialCoachOverrideId) {
       fetchSimilarOffersParams.similars__coach_override__isnull = false;
@@ -470,10 +470,10 @@ export class OfferEditForm extends Component<Props, State> {
     this.state.establishment !== this.initialOfferState.establishment;
 
   onConfirmStep = () => {
-    const { step, selectedSimilarOffers, modifyRecursively } = this.state;
+    const { step, selectedSimilarOfferIds, modifyRecursively } = this.state;
     if (
       step === OFFER_EDIT_FORM_STEPS.GATHER_INFO &&
-      selectedSimilarOffers.length > 1 &&
+      selectedSimilarOfferIds.length > 1 &&
       modifyRecursively &&
       this.hasChangedCoachOverride()
     ) {
@@ -481,7 +481,7 @@ export class OfferEditForm extends Component<Props, State> {
         {
           step: OFFER_EDIT_FORM_STEPS.SHOW_WARNING,
           should_modify_all_dates:
-            this.props.similarOffers.length === selectedSimilarOffers.length,
+            this.props.similarOffers.length === selectedSimilarOfferIds.length,
         },
         () => this.handleFetchPaginatedSimilarOffers(1),
       );
@@ -952,7 +952,7 @@ export class OfferEditForm extends Component<Props, State> {
                   disabled={this.props.offer.group}
                 />
               </div>
-              {(this.state.selectedSimilarOffers?.length ||
+              {(this.state.selectedSimilarOfferIds?.length ||
                 this.props.similarOfferLoading) && (
                 <div className={this.props.classes.field}>
                   <RecursionToogle
@@ -975,7 +975,7 @@ export class OfferEditForm extends Component<Props, State> {
                     ).diff(this.initialOfferState.date_start)}
                     onChangeRecursion={handleChangeRecursion}
                     handleChange={this.handleChangeSelection}
-                    selectedSimilarOffers={this.state.selectedSimilarOffers}
+                    selectedSimilarOfferIds={this.state.selectedSimilarOfferIds}
                     similarOffers={this.props.similarOffers?.filter(
                       (so) => so.available,
                     )}
@@ -1136,7 +1136,8 @@ export class OfferEditForm extends Component<Props, State> {
       similarOffersCount,
       similarOffersPage,
     } = this.props;
-    const { subTeacherEditPropagationMode, selectedSimilarOffers } = this.state;
+    const { subTeacherEditPropagationMode, selectedSimilarOfferIds } =
+      this.state;
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const isChecked = !!e.target.checked;
@@ -1166,7 +1167,7 @@ export class OfferEditForm extends Component<Props, State> {
           <OfferEditSubteacherChangeSettings
             classes={classes}
             similarOffers={similarOffers}
-            selectedSimilarOffers={selectedSimilarOffers}
+            selectedSimilarOfferIds={selectedSimilarOfferIds}
             coaches={coaches}
             similarOfferLoading={similarOfferLoading}
             similarOffersCount={similarOffersCount}

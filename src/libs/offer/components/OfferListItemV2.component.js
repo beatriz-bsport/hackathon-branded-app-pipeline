@@ -42,7 +42,11 @@ export const OfferListItem = (props: Props) => {
       onClick={props.onClick ? () => props.onClick(offer.id) : null}
     >
       {props.similarOffer ? (
-        <Checkbox checked={props.checked} onChange={props.handleChange} />
+        <Checkbox
+          checked={props.checked}
+          onChange={props.handleChange}
+          disabled={props.disabled}
+        />
       ) : null}
       <ListItemAvatar>
         <CoachAvatar

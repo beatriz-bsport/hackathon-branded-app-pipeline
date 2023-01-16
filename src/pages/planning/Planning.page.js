@@ -147,6 +147,7 @@ import zoomAppSelectors from '#libs/zoom-app/selectors';
 import { ZoomApp } from '#libs/zoom-app/types';
 import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
+import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
 
 const styles = (theme) => ({
   container: {
@@ -784,49 +785,53 @@ export class Planning extends PureComponent<Props, State> {
 
   renderDeleteModal = () => {
     const { deleteModalOpened } = this.state;
-    const { selectedOffer, deletingOffer } = this.props;
+    const { selectedOffer, deletingOffer, similarOfferLoading, similarOffers } =
+      this.props;
 
     if (selectedOffer) {
       return (
-        <Dialog onClose={this.onCancelModal} open={deleteModalOpened}>
-          <DialogContent>
-            <DeleteOfferForm
-              offer={selectedOffer}
-              offerWasCancelled={!selectedOffer.available}
-              onCancelOffer={({
+        <GenericResponsiveDialog
+          onClose={this.onCancelModal}
+          open={deleteModalOpened}
+          maxWidth="sm"
+          padding
+        >
+          <DeleteOfferForm
+            offer={selectedOffer}
+            offerWasCancelled={!selectedOffer.available}
+            onCancelOffer={({
+              cashback,
+              notify,
+              deleteAll,
+              custom_selection,
+              custom_selection_ids,
+              force,
+            }) =>
+              this.onCancelOffer({
+                offerId: selectedOffer.id,
                 cashback,
                 notify,
                 deleteAll,
                 custom_selection,
                 custom_selection_ids,
                 force,
-              }) =>
-                this.onCancelOffer({
-                  offerId: selectedOffer.id,
-                  cashback,
-                  notify,
-                  deleteAll,
-                  custom_selection,
-                  custom_selection_ids,
-                  force,
-                })
-              }
-              onHardDelete={(data) =>
-                this.onHardDeleteOffer(selectedOffer.id, data)
-              }
-              fetchSimilarOffers={() => {
-                this.props.fetchEstablishments();
-                this.props.fetchAssociatedCoachesList();
-                this.props.fetchSimilarOffers(selectedOffer.id);
-              }}
-              onCancel={this.onCancelModal}
-              processing={deletingOffer}
-              setOpenDeleteDialog={this.props.setOpenDeleteDialog}
-              similarOffers={this.props.similarOffers}
-              similarOfferLoading={this.props.similarOfferLoading}
-            />
-          </DialogContent>
-        </Dialog>
+              })
+            }
+            onHardDelete={(data) =>
+              this.onHardDeleteOffer(selectedOffer.id, data)
+            }
+            fetchSimilarOffers={() => {
+              this.props.fetchEstablishments();
+              this.props.fetchAssociatedCoachesList();
+              this.props.fetchSimilarOffers(selectedOffer.id);
+            }}
+            onCancel={this.onCancelModal}
+            processing={deletingOffer}
+            setOpenDeleteDialog={this.props.setOpenDeleteDialog}
+            similarOffers={similarOffers}
+            similarOfferLoading={similarOfferLoading}
+          />
+        </GenericResponsiveDialog>
       );
     }
     return null;
@@ -838,7 +843,7 @@ export class Planning extends PureComponent<Props, State> {
 
     if (selectedOffer) {
       return (
-        <Dialog open={restoreModalOpen}>
+        <GenericResponsiveDialog maxWidth="sm" open={restoreModalOpen}>
           <DialogTitle>
             <Typography variant="h6">
               {t('offer.restoreModal.title')}
@@ -863,7 +868,7 @@ export class Planning extends PureComponent<Props, State> {
               {t('common.confirm')}
             </Button>
           </DialogActions>
-        </Dialog>
+        </GenericResponsiveDialog>
       );
     }
     return null;

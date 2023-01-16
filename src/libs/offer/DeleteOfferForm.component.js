@@ -18,7 +18,7 @@ import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import { Alert } from '@material-ui/lab';
 
-import RecursiveToogle from './form/RecursionToogle.component';
+import RecursionToogle from './form/RecursionToogle.component';
 import RedButton from '../../components/button/RedButton.component';
 
 type Props = {
@@ -43,6 +43,7 @@ type State = {
   similarOffersWithSelectedStatus: Array<Object>,
 };
 
+// TODO : FIX ME : https://gitlab.com/bsport/bsport-saas/-/issues/1347
 export class DeleteOfferForm extends Component<Props, State> {
   state = {
     notify: true,
@@ -57,15 +58,22 @@ export class DeleteOfferForm extends Component<Props, State> {
     ),
   };
 
+  componentWillMount() {
+    this.props.fetchSimilarOffers();
+  }
+
   componentDidUpdate(prevProps: Props) {
     if (
       (prevProps.similarOffers || []).length !==
       (this.props.similarOffers || []).length
     ) {
       this.setState({
-        similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
-          (so) => ({ ...so, selected: true }),
-        ),
+        similarOffersWithSelectedStatus: (this.props.similarOffers || [])
+          .filter(
+            (similarOffer) =>
+              similarOffer.available === this.props.offer.available,
+          )
+          .map((so) => ({ ...so, selected: true })),
       });
     }
   }
@@ -75,6 +83,7 @@ export class DeleteOfferForm extends Component<Props, State> {
       const similarOffersWithSelectedStatus = [
         ...prevState.similarOffersWithSelectedStatus,
       ];
+
       similarOffersWithSelectedStatus[index] = {
         ...similarOffersWithSelectedStatus[index],
         selected: !prevState.similarOffersWithSelectedStatus[index].selected,
@@ -102,10 +111,6 @@ export class DeleteOfferForm extends Component<Props, State> {
         })),
     }));
   };
-
-  componentWillMount() {
-    this.props.fetchSimilarOffers();
-  }
 
   onCreditBackSwitch = (event: Object) => {
     this.setState({ cashback: event.target.checked });
@@ -163,38 +168,46 @@ export class DeleteOfferForm extends Component<Props, State> {
   };
 
   renderInside = () => {
-    const { t, classes, offerWasCancelled } = this.props;
+    const { t, classes, offerWasCancelled, similarOfferLoading } = this.props;
+    const { similarOffersWithSelectedStatus } = this.state;
+
+    const selectedSimilarOfferIds = similarOffersWithSelectedStatus
+      ? similarOffersWithSelectedStatus
+          .filter((offer) => offer.selected)
+          .map((_offer) => _offer.id)
+      : [];
+
+    const handleChangeRecursion = (ev: React.ChangeEvent<HTMLInputElement>) =>
+      this.setState({ deleteAll: ev.target.checked });
+
     if (offerWasCancelled) {
       return (
         <div>
           <Typography>{t('form.offer.delete.explainHardDelete')}</Typography>
-          {(this.props.similarOfferLoading ||
-            this.state.similarOffersWithSelectedStatus?.filter(
-              (so) => !so.available,
-            )?.length > 1) && (
-            <RecursiveToogle
-              color="secondary"
-              disabled={this.props.processing}
-              shouldModifyAllDates={this.state.deleteAll}
-              message={this.props.t(
-                this.props.offer?.group
-                  ? 'offer:liveOfferEdit.deleteSimilarOffersGroups'
-                  : 'offer:liveOfferEdit.deleteSimilarOffers',
-              )}
-              listTitle={this.props.t('offer:liveOfferEdit.selectDelete')}
-              loading={this.props.similarOfferLoading}
-              // similarOffers={this.props.similarOffers}
-              onChangeRecursion={({ modifyRecursively }) =>
-                this.setState({ deleteAll: modifyRecursively })
-              }
-              similarOffersWithSelectedStatus={this.state.similarOffersWithSelectedStatus.filter(
-                (so) => !so.available,
-              )}
-              selectAll={this.selectAll}
-              unselectAll={this.unselectAll}
-              handleChange={this.handleChangeSelection}
-            />
-          )}
+
+          {similarOffersWithSelectedStatus &&
+            similarOffersWithSelectedStatus.length > 1 && (
+              <RecursionToogle
+                indexBasedSelection
+                color="secondary"
+                disabled={this.props.processing}
+                shouldModifyAllDates={this.state.deleteAll}
+                message={this.props.t(
+                  this.props.offer?.group
+                    ? 'offer:liveOfferEdit.deleteSimilarOffersGroups'
+                    : 'offer:liveOfferEdit.deleteSimilarOffers',
+                )}
+                listTitle={this.props.t('offer:liveOfferEdit.selectDelete')}
+                loading={similarOfferLoading}
+                onChangeRecursion={handleChangeRecursion}
+                modifyRecursively={this.state.deleteAll}
+                similarOffers={similarOffersWithSelectedStatus}
+                selectedSimilarOfferIds={selectedSimilarOfferIds}
+                selectAll={this.selectAll}
+                unselectAll={this.unselectAll}
+                handleChange={this.handleChangeSelection}
+              />
+            )}
           <div className={classes.rowRight}>
             <IconButton
               onClick={() =>
@@ -269,32 +282,29 @@ export class DeleteOfferForm extends Component<Props, State> {
             {t('form.offer.delete.explainNotify')}
           </Typography>
         </div>
-        {(this.props.similarOfferLoading ||
-          this.state.similarOffersWithSelectedStatus?.filter(
-            (so) => so.available,
-          )?.length > 1) && (
-          <RecursiveToogle
-            color="secondary"
-            disabled={this.props.processing}
-            shouldModifyAllDates={deleteAll}
-            message={this.props.t(
-              this.props.offer.group
-                ? 'offer:liveOfferEdit.cancelSimilarOffersGroup'
-                : 'offer:liveOfferEdit.cancelSimilarOffers',
-            )}
-            listTitle={this.props.t('offer:liveOfferEdit.selectCancel')}
-            loading={this.props.similarOfferLoading}
-            onChangeRecursion={({ modifyRecursively }) =>
-              this.setState({ deleteAll: modifyRecursively })
-            }
-            similarOffersWithSelectedStatus={this.state.similarOffersWithSelectedStatus.filter(
-              (so) => so.available,
-            )}
-            selectAll={this.selectAll}
-            unselectAll={this.unselectAll}
-            handleChange={this.handleChangeSelection}
-          />
-        )}
+        {similarOffersWithSelectedStatus &&
+          similarOffersWithSelectedStatus.length > 1 && (
+            <RecursionToogle
+              indexBasedSelection
+              color="secondary"
+              disabled={this.props.processing}
+              shouldModifyAllDates={deleteAll}
+              message={this.props.t(
+                this.props.offer.group
+                  ? 'offer:liveOfferEdit.cancelSimilarOffersGroup'
+                  : 'offer:liveOfferEdit.cancelSimilarOffers',
+              )}
+              listTitle={this.props.t('offer:liveOfferEdit.selectCancel')}
+              loading={similarOfferLoading}
+              onChangeRecursion={handleChangeRecursion}
+              modifyRecursively={this.state.deleteAll}
+              similarOffers={similarOffersWithSelectedStatus}
+              selectedSimilarOfferIds={selectedSimilarOfferIds}
+              selectAll={this.selectAll}
+              unselectAll={this.unselectAll}
+              handleChange={this.handleChangeSelection}
+            />
+          )}
       </div>
     );
   };

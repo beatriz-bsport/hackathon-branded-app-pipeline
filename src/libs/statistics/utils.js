@@ -16,6 +16,12 @@ export const dateFormatter = (domain) => {
   return (d) => moment(d).format('LT');
 };
 
+const hasArabicText = (str: string) => {
+  const matchArabicUnicodeRegex = /[\u0600-\u06FF\u0750-\u077F]/;
+  const arabicTextRegex = new RegExp(matchArabicUnicodeRegex);
+  return arabicTextRegex.test(str);
+};
+
 // add spaces and if float, makes sure that displayd with 2 decimal digits
 export const numberFormatter = (isCurrencyFormat) => (x) => {
   const parts = parseFloat(x, 10).toString().split('.');
@@ -25,7 +31,7 @@ export const numberFormatter = (isCurrencyFormat) => (x) => {
     parts[1] = parts[1].slice(0, 2);
   }
   const currencyDisplay = getCurrencyDisplay();
-  if (currencyDisplay === '€')
+  if (currencyDisplay === '€' || hasArabicText(currencyDisplay))
     return `${parts.join('.')}${isCurrencyFormat ? getCurrencyDisplay() : ''}`;
 
   return `${isCurrencyFormat ? getCurrencyDisplay() : ''}${parts.join('.')}`;

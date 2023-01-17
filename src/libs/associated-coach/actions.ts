@@ -59,12 +59,14 @@ export function linkByEmail(
       if (response.status === 201) {
         dispatch(snackbarSuccess('coach.linkByEmail.success'));
         options.onSuccess();
-      } else {
-        options.onError(response);
       }
     } catch (err) {
       console.error(err);
       options.onError(err);
+      const errorCode = err.response?.data?.error_code;
+      if (err.response?.status === 499 && errorCode) {
+        dispatch(snackbarError(`coach.errors.${errorCode}`));
+      }
     }
   };
 }

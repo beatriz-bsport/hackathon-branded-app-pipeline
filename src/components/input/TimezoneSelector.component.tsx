@@ -22,7 +22,11 @@ const getTimezoneListExtended = (
     ];
   }
   if (country === 'US') {
-    return [...timezoneList, moment.tz.zone('America/Jamaica')];
+    return [
+      ...timezoneList,
+      moment.tz.zone('America/Jamaica'),
+      moment.tz.zone('Asia/Manila'),
+    ];
   }
   if (country === 'NL') {
     return [...timezoneList, moment.tz.zone('America/Curacao')];

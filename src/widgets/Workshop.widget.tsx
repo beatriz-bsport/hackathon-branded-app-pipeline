@@ -13,7 +13,6 @@ import '../../vendor/map.css';
 import { getEnv } from '../utils/env';
 import {
   bridgeRequestRegisteredOfferIdList,
-  bridgeRequestAuthenticationStatus,
 } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
 
@@ -24,6 +23,7 @@ type OwnProps = {
   config: MarketplaceWorkshopData,
   store: any,
   theme: Theme,
+  username: string,
   onWindowOpen: (url: string) => void,
 };
 
@@ -103,10 +103,10 @@ const styles = (theme: MuiTheme) => ({
 const mapStateToProps = (state: RootState) => ({
   authenticated: state.bridge.authentication.authenticated,
   bookedOffers: state.bridge.registeredOffers.ids_list,
+  username: state.bridge.authentication.username,
 });
 
 const mapDispatchToProps = {
-  bridgeRequestAuthenticationStatus,
   bridgeRequestRegisteredOfferIdList,
 };
 

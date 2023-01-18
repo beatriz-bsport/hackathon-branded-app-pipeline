@@ -182,7 +182,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
             WidgetUtils.paymentSuccess();
           }
 
-          this.props.goToConsumerHome();
+          this.props.goToConsumerHome(this.props.company);
           this.setState({ processing: false });
         },
         onError: () => {
@@ -428,7 +428,7 @@ export default compose(
       removeItemFromBasket,
       fetchCurrentBasket,
       goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
-      goToConsumerHome: () => replace('/customer'),
+      goToConsumerHome: (companyId: number) => replace(`/c/${companyId}`),
       checkPrivateSlotUnpaidBookingEligibility,
     },
   ),

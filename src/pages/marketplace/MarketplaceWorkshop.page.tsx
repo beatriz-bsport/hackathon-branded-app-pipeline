@@ -83,6 +83,7 @@ const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 
 type OwnProps = {
   companyId: number;
+  username: string;
   goToBook?: (offerId: number, companyId: number) => void;
 };
 
@@ -109,6 +110,9 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   customLevels,
   getOffersListByMetaActivity,
   authenticated,
+  // username is necessary in order to retrieve user
+  // specific information without relying on auth tokens
+  username,
   bookedOffers,
   fetchEstablishments,
   fetchWorkshopList,
@@ -169,6 +173,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
           page_size: 5,
           min_date: MIN_DATE,
           max_date: MAX_DATE,
+          ...(username ? { username: encodeURI(username) } : {}),
           company: companyId,
           with_unique_offer_by_group: true,
           ...filters,
@@ -203,6 +208,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       fetchOfferBulk,
       filters,
       theme,
+      username,
     ],
   );
 
@@ -258,6 +264,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     fetchAssociatedCoachesList,
     filters,
     theme,
+    username,
   ]);
 
   const goToBook = React.useCallback(

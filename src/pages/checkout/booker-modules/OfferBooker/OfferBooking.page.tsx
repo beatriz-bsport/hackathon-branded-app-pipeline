@@ -54,6 +54,7 @@ import {
   getGroupOffersIdsToBeBooked,
   withGroup,
   getGroupOffersStatus,
+  getOffersListByGroup as getOffersListByGroupSelector,
 } from '#libs/group-offer/selectors';
 import {
   fetchOfferStatusList,
@@ -193,6 +194,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
                 this.props.fetchOfferStatusList(group.offers, {
                   page_size: group.offers.length,
                 });
+                this.props.fetchOffersInGroup(o.group, {
+                  onSuccess: (offers) => {
+                    this.props.fetchOffersRelatedObjects(offers);
+                  },
+                });
               } else {
                 this.props.listGroupOfferOffersIdsToBeBooked(o.group, {
                   onSuccess: (ids) => {
@@ -270,11 +276,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.props.similarOfferGroups)
     ) {
       const group = this.props.offer.group;
+      const fullBookingOnly = group.full_booking_only;
       const offersInGroup = this.props.similarOfferGroups?.filter(
         (o) => o.id !== this.props.id,
       );
       let offers = [];
-      if (group.full_booking_only) {
+      if (fullBookingOnly) {
         offers = offersInGroup.filter((o) =>
           this.props.groupOffersIdsTobeBooked?.includes(o.id),
         );
@@ -283,7 +290,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       }
 
       if (
-        group.full_booking_only &&
+        fullBookingOnly &&
         offers.some((offer) => {
           return (
             offer.bookableStatus?.bookable_status !==
@@ -297,7 +304,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
         });
       }
       let offersToAdd = [];
-      if (group.full_booking_only) {
+      if (fullBookingOnly) {
         offersToAdd = offers;
       } else {
         offersToAdd = offers.filter(
@@ -316,7 +323,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
             ...offersToAdd.map((offer) => ({
               offer,
               extra_data: {
-                protected: group.full_booking_only,
+                protected: fullBookingOnly,
               },
             })),
           ],
@@ -804,6 +811,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     }));
 
     const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
+    // console.log(this.props.similarOfferGroups);
     return (
       <ConsumerAppBarContainer>
         <div className={classes.pageContainer}>
@@ -1098,11 +1106,14 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
   const offer: Offer_FULL = withMetaActivity(
     withGroup(withCoach(withEstablishment(getOfferById))),
   )(state, props.id);
-
+  const fullBookingOnly = offer?.group?.full_booking_only;
+  const similarOffersSelector = fullBookingOnly
+    ? getOffersListByGroup
+    : getOffersListByGroupSelector;
   return {
     offer,
     offerLoading: state.offer.retrieve.loading,
-    offerStatusById: offer?.group?.full_booking_only
+    offerStatusById: fullBookingOnly
       ? getGroupOffersStatus(state, offer.group.id)
       : state.offer.offerStatus.byId,
     offerStatusLoading:
@@ -1119,7 +1130,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
     similarOfferGroups: withMetaActivity(
       withBookableStatus(
-        withCoach(withEstablishment(getOffersListByGroup)),
+        withCoach(withEstablishment(similarOffersSelector)),
       ) as Offer_FULL[],
     )(state, offer?.group?.id ?? offer?.group),
     similarOfferGroupsLoading:

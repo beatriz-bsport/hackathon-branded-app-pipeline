@@ -923,7 +923,8 @@
                 "notAvailable": "Cancelled",
                 "bookOption": "Waitlist",
                 "notBookableYet": "Available soon",
-                "alreadyRegistered": "Booked"
+                "alreadyRegistered": "Booked",
+                "full": "Full"
             },
             "passListTitle": "Passes",
             "privatePassListTitle": "Appointment passes",
@@ -1466,7 +1467,7 @@
                     },
                     "header": "Advanced"
                 },
-                "editingGroup": "This session is associated to the event \"{{ name }}\".",
+                "editingGroup": "Attention this session is part of the session group {{ name }}",
                 "explainAllowGuest": "Allow the booking for a guest feature"
             },
             "payment": {
@@ -1676,7 +1677,8 @@
             "datePicker": {
                 "rangeError": "Impossible to create sessions taking place in more than 3 years"
             },
-            "emailError": "The specified email format is invalid."
+            "emailError": "The specified email format is invalid.",
+            "noPartnershipIntegration": "Marketplace reservations are not available for group sessions"
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -10011,8 +10013,8 @@
                     "marketPlaceAvailable": "Available for booking (web+app)",
                     "allowBookingAfterStartCaption": "By default, it's not possible for members to enrol for events that have already started. Activate this option to allow enrolments for the remaining sessions.",
                     "allowBookingAfterStart": "Allow enrolment on the way",
-                    "fullBookingOnlyCaption": "By default, your members will be automatically enrolled for all sessions associated to this event. Deactivate this option to provide your members the opportunity to separately select for which sessions they'd like to enrol for.",
-                    "fullBookingOnly": "Exclusively accept bookings for all sessions associated to this event",
+                    "fullBookingOnlyCaption": "By default, your members will be automatically enrolled for all sessions in this group when booking one of the sessions in the group. Deactivate this option to allow your members to select separately for which sessions they'd like to enroll for.",
+                    "fullBookingOnly": "Book all the sessions in the group at once",
                     "name": "Name",
                     "subtitleRecurrence": "Recurrence",
                     "subtitleSettings": "Settings",
@@ -11009,11 +11011,12 @@
                 "loadMore": "More sessions",
                 "bookTitle": "Overview"
             },
-            "warningPartialBooking": "Please select which sessions you'd like to attend.",
-            "warningFullBooking": "Complete this booking to enrol for {{count}} session(s).",
+            "warningPartialBooking": "You are booking a group of sessions. However, you are not required to attend all the sessions in that group. You will be able to select the sessions you wish to attend.",
+            "warningFullBooking": "Complete this booking to enroll for {{count}} session(s).",
             "confirm": "Continue",
             "cancel": "Cancel",
-            "loadMore": "See more"
+            "loadMore": "See more",
+            "warningBookingRedirectToFirstOffer": "You have been redirected to the {{name}} session group booking screen, the sessions to be booked together will be listed on your booking screen."
         },
         "calendar": {
             "registered": "Reservation confirmed",

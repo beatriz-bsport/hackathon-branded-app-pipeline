@@ -455,7 +455,7 @@
                     "header": "Avanzado"
                 },
                 "explainAllowGuest": "Autorizar la reserva para un invitado",
-                "editingGroup": "Cuidado esta sesión forma parte del grupo de sesiones {{ name }}"
+                "editingGroup": "Cuidado, esta sesión forma parte del grupo de sesiones {{ name }}"
             },
             "paymentPack": {
                 "newMemberOnly": "Uniquement pour les nouveaux clients",
@@ -587,7 +587,8 @@
             "datePicker": {
                 "rangeError": "Imposible crear sesiones que tengan lugar en más de 3 años"
             },
-            "emailError": "El formato de correo electrónico especificado no es válido."
+            "emailError": "El formato de correo electrónico especificado no es válido.",
+            "noPartnershipIntegration": "Las reservas del Marketplace no están disponibles para las sesiones de grupo"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -987,7 +988,8 @@
                 "notAvailable": "Cancelada",
                 "isPast": "Pasada",
                 "notBookableYet": "Muy pronto",
-                "alreadyRegistered": "Reservada"
+                "alreadyRegistered": "Reservada",
+                "full": "Completo"
             },
             "sessionThisDay": "Clases de este día :",
             "calendar": "Calendario",
@@ -5647,7 +5649,8 @@
             "warningFullBooking": "Estás reservando un grupo de sesiones. Estarás inscrito en las {{count}} sesiones de este grupo.",
             "confirm": "Continuar",
             "cancel": "Cancelar",
-            "loadMore": "Ver más"
+            "loadMore": "Ver más",
+            "warningBookingRedirectToFirstOffer": "Ha sido redirigido a la pantalla de reserva de grupo de sesiones {{name}}, las sesiones que se van a reservar juntas aparecerán en su pantalla de reserva."
         },
         "warning": {
             "backToBackoffice": "Interfaz manager",
@@ -10877,7 +10880,7 @@
                     "marketPlaceAvailable": "Disponible para reservar (web+app)",
                     "allowBookingAfterStartCaption": "Por defecto, si un grupo de sesiones ya se ha iniciado, tus miembros no podrán inscribirse a él. Al activar esta función, tus miembros podrán seguir inscribiéndose en las sesiones restantes.",
                     "allowBookingAfterStart": "Permitir la inscripción en el camino",
-                    "fullBookingOnlyCaption": "Por defecto, tus miembros se inscribirán automáticamente en todas las sesiones del grupo si se inscriben en una de las sesiones del grupo. Si desactivas esta opción, se ofrecerá al miembro la posibilidad de inscribirse en todas las sesiones del grupo, pero podrá elegir a cuáles inscribirse.",
+                    "fullBookingOnlyCaption": "Por defecto, los miembros se inscribirán automáticamente en todas las sesiones de este grupo cuando reserven una de las sesiones del grupo. Desactiva esta opción para que los usuarios puedan seleccionar por separado las sesiones a las que desean inscribirse.",
                     "fullBookingOnly": "Inscripción en todas las sesiones de grupo",
                     "name": "Nombre",
                     "subtitleRecurrence": "Recurrencia",

@@ -622,7 +622,8 @@
                 "bookOption": "Wachtlijst",
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort beschikbaar",
-                "alreadyRegistered": "Gereserveerd"
+                "alreadyRegistered": "Gereserveerd",
+                "full": "Vol"
             },
             "passListTitle": "Leskaarten",
             "privatePassListTitle": "Afspraakkaarten",
@@ -1173,7 +1174,8 @@
             "datePicker": {
                 "rangeError": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden"
             },
-            "emailError": "Het opgegeven e-mail formaat is ongeldig."
+            "emailError": "Het opgegeven e-mail formaat is ongeldig.",
+            "noPartnershipIntegration": "Marktet place reserveringen zijn niet beschikbaar voor groepssessies"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -5571,11 +5573,12 @@
                 "loadMore": "Meer sessies",
                 "bookTitle": "Overzicht"
             },
-            "warningPartialBooking": "Selecteer welke sessies van dit evenement je wenst bij te wonen.",
+            "warningPartialBooking": "U boekt nu meerdere sessies. U bent echter niet verplicht alle sessies bij te wonen, u kunt de sessies selecteren die u wilt bijwonen.",
             "warningFullBooking": "Door deze reservering te voltooien sta je ingeschreven bij {{count}} sessie(s).",
             "confirm": "Bevestigen",
             "cancel": "Annuleren",
-            "loadMore": "Toon meer"
+            "loadMore": "Toon meer",
+            "warningBookingRedirectToFirstOffer": "U bent doorverwezen naar het {{name}} sessiegroep boekingsscherm, de samen te boeken sessies staan vermeld op uw boekingsscherm."
         },
         "paymentCombo": {
             "addToCart": "Aanschaffen"

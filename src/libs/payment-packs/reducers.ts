@@ -59,6 +59,7 @@ const initialState: PaymentPackState = Immutable({
   paymentPackTemplate: {
     byId: {},
     allIds: [],
+    allIdsManagerOnly: [],
     loading: false,
     error: null,
     upsert: {
@@ -270,6 +271,24 @@ export const newPaymentPackReducer = handleActions(
       return state
         .setIn(
           ['paymentPackTemplate', 'allIds'],
+          payload.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            paymentPackTemplate: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [listPaymentPackTemplateActions.successManagerOnly.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['paymentPackTemplate', 'allIdsManagerOnly'],
           payload.map((pp) => pp.id),
         )
         .merge(

@@ -611,6 +611,9 @@ export const listPaymentPackTemplateActions = {
   isLoading: createAction('PAYMENT_PACK_TEMPLATE/LIST/IS_LOADING'),
   error: createAction('PAYMENT_PACK_TEMPLATE/LIST/ERROR'),
   success: createAction('PAYMENT_PACK_TEMPLATE/LIST/SUCCESS'),
+  successManagerOnly: createAction(
+    'PAYMENT_PACK_TEMPLATE/LIST/SUCCESS_MANAGER_ONLY',
+  ),
 };
 
 export function fetchPaymentPackTemplateList(
@@ -624,6 +627,34 @@ export function fetchPaymentPackTemplateList(
       const response = await fetchPaymentPackTemplateListAPI(params);
       dispatch(
         listPaymentPackTemplateActions.success(
+          response.data.results || response.data,
+        ),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results || response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentPackTemplateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export function fetchPaymentPackTemplateListManagerOnly(
+  options?: OptionCallback<Array<PaymentPackTemplate>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPaymentPackTemplateActions.error(null));
+    dispatch(listPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await fetchPaymentPackTemplateListAPI({
+        manager_only: true,
+      });
+      dispatch(
+        listPaymentPackTemplateActions.successManagerOnly(
           response.data.results || response.data,
         ),
       );

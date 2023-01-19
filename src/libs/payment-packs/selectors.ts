@@ -297,12 +297,41 @@ export const getPaymentPackTemplateData = (state: RootState) =>
 const getPaymentPackTemplateIdList = (state: RootState) =>
   state.paymentPack.paymentPackTemplate.allIds;
 
+const getPaymentPackTemplateIdManagerOnlyList = (state: RootState) =>
+  state.paymentPack.paymentPackTemplate.allIdsManagerOnly || [];
+
 export const getPaymentPackTemplateList: (
   state: RootState,
 ) => Array<PaymentPackTemplate> = createSelector(
   [
     getPaymentPackTemplateData,
     getPaymentPackTemplateIdList,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (data, ids, allowed_franchisee_ids, companyById) =>
+    ids
+      .map((id: number) => data[id])
+      .filter((ppt: PaymentPackTemplateAPI) => !ppt.disabled)
+      .map((ppt: PaymentPackTemplateAPI) => ({
+        ...ppt,
+        companies: withAllowed(
+          ppt.payment_pack_template_instances.map(
+            (ppti: PaymentPackTemplateInstance) =>
+              !ppti.disabled && ppti.company,
+          ),
+          allowed_franchisee_ids,
+          companyById,
+        )?.filter((c: FranchiseCompany) => !!c),
+      })),
+);
+
+export const getPaymentPackTemplateManagerOnlyList: (
+  state: RootState,
+) => Array<PaymentPackTemplate> = createSelector(
+  [
+    getPaymentPackTemplateData,
+    getPaymentPackTemplateIdManagerOnlyList,
     getAllowedFranchisees,
     getFranchiseCompanyById,
   ],
@@ -352,7 +381,7 @@ export const getPaymentPackTemplate: (
 );
 
 export const getPaymentPackTemplateListManagerOnly = createSelector(
-  getPaymentPackTemplateList,
+  getPaymentPackTemplateManagerOnlyList,
   (list) => list.filter((p) => !!p.manager_only),
 );
 

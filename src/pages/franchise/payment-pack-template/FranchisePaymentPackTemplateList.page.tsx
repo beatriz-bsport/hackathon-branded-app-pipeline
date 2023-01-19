@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose, withStateHandlers, withHandlers } from 'recompose';
+import { compose, withStateHandlers, withHandlers, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import { push as pushAction } from 'connected-react-router';
 
@@ -13,7 +14,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
+import BackofficeLinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { buildUrlParams } from '../../../http';
 
 import { RootState } from '../../../reducers';
@@ -26,8 +27,10 @@ import { PaymentPackTemplateAPI } from '#libs/payment-packs/types';
 import { OptionCallback } from '../../../state/types';
 import {
   fetchPaymentPackTemplateList as fetchPaymentPackTemplateListAction,
+  fetchPaymentPackTemplateListManagerOnly as fetchPaymentPackTemplateListManagerOnlyAction,
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
   deletePaymentPackTemplate as deletePaymentPackTemplateAction,
+  resetPaymentPackTemplateData as resetPaymentPackTemplateDataAction,
 } from '#libs/payment-packs/actions';
 import {
   getPaymentPackTemplateListManagerOnly,
@@ -68,21 +71,28 @@ type Props = OwnProps &
   WithStyles &
   WithTranslation;
 
-type State = { showDisabled: boolean; showAvailable: boolean };
+type State = { showManagerOnly: boolean; showAvailable: boolean };
 
 export class FranchisePaymentPackTemplateListPage extends Component<
   Props,
   State
 > {
-  state: State = { showDisabled: false, showAvailable: true };
+  state: State = { showManagerOnly: false, showAvailable: true };
 
   componentDidMount() {
-    this.props.fetchPaymentPackTemplateList();
+    this.props.fetchPaymentPackTemplateAvailable();
   }
 
-  onShowDisabled = () => {
+  componentWillUnmount() {
+    this.props.resetPaymentPackTemplateData();
+  }
+
+  onShowManagerOnly = () => {
+    if (!this.state.showManagerOnly) {
+      this.props.fetchPaymentPackTemplateListManagerOnly();
+    }
     this.setState((prevState: State) => ({
-      showDisabled: !prevState.showDisabled,
+      showManagerOnly: !prevState.showManagerOnly,
     }));
   };
 
@@ -96,7 +106,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
     const { t, classes } = this.props;
     return (
       <div>
-        {this.props.loading && <LinearProgress />}
+        {this.props.loading && <BackofficeLinearProgress />}
         {!this.props.loading && (
           <IsEmptyList
             text={t('paymentPackTemplate.isEmptyExplain')}
@@ -143,38 +153,38 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               </Collapse>
             </>
           )}
-          {!!this.props.paymentPackTemplateListManagerOnly.length && (
-            <>
-              <div className={classes.row}>
-                <Typography className={classes.title} variant="h4">
-                  {`${t('paymentPackTemplate.section.titleManagerOnly')} (${
-                    this.props.paymentPackTemplateListManagerOnly?.length || 0
-                  })`}
-                </Typography>
-                <IconButton onClick={this.onShowDisabled}>
-                  {this.state.showDisabled ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </IconButton>
-              </div>
-              <Divider className={classes.divider} />
-              {this.state.showDisabled && (
-                <Collapse in={this.state.showDisabled}>
-                  <Paper style={{ height: '100vh' }}>
-                    <VirtualizedPaymentPackTemplateList
-                      paymentPackTemplateList={
-                        this.props.paymentPackTemplateListManagerOnly
-                      }
-                      onClick={this.props.goToTemplateDetail}
-                      onEdit={this.props.openEditDialog}
-                      onDelete={this.props.openDeleteDialog}
-                    />
-                  </Paper>
-                </Collapse>
+          <div className={classes.row}>
+            <Typography className={classes.title} variant="h4">
+              {t('paymentPackTemplate.section.titleManagerOnly')}
+            </Typography>
+            <IconButton onClick={this.onShowManagerOnly}>
+              {this.state.showManagerOnly ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
               )}
-            </>
+            </IconButton>
+          </div>
+          {this.props.paymentPackManagerOnlyLoading ? (
+            <div className={classes.divider}>
+              <LinearProgress />
+            </div>
+          ) : (
+            <Divider className={classes.divider} />
+          )}
+          {this.state.showManagerOnly && (
+            <Collapse in={this.state.showManagerOnly}>
+              <Paper style={{ height: '100vh' }}>
+                <VirtualizedPaymentPackTemplateList
+                  paymentPackTemplateList={
+                    this.props.paymentPackTemplateListManagerOnly
+                  }
+                  onClick={this.props.goToTemplateDetail}
+                  onEdit={this.props.openEditDialog}
+                  onDelete={this.props.openDeleteDialog}
+                />
+              </Paper>
+            </Collapse>
           )}
         </div>
         {!!this.props.createModalOpen && (
@@ -213,10 +223,13 @@ const connector = connect(
   }),
   {
     fetchPaymentPackTemplateList: fetchPaymentPackTemplateListAction,
+    fetchPaymentPackTemplateListManagerOnly:
+      fetchPaymentPackTemplateListManagerOnlyAction,
     goToTemplateDetail: (id: number, params: any = {}) =>
       pushAction(`/f/payment-pack-template/${id}/${buildUrlParams(params)}`),
     createOrUpdatePaymentPackTemplate: createOrUpdatePaymentPackTemplateAction,
     deletePaymentPackTemplate: deletePaymentPackTemplateAction,
+    resetPaymentPackTemplateData: resetPaymentPackTemplateDataAction,
   },
 );
 
@@ -224,6 +237,11 @@ export default compose(
   withStyles(styles),
   withTranslation(['paymentPack']),
   connector,
+  withState(
+    'paymentPackManagerOnlyLoading',
+    'setPaymentPackManagerOnlyLoading',
+    false,
+  ),
   withStateHandlers(
     {
       createModalOpen: false,
@@ -244,6 +262,23 @@ export default compose(
     },
   ),
   withHandlers({
+    fetchPaymentPackTemplateListManagerOnly:
+      ({
+        fetchPaymentPackTemplateListManagerOnly,
+        setPaymentPackManagerOnlyLoading,
+      }) =>
+      () => {
+        setPaymentPackManagerOnlyLoading(true);
+        fetchPaymentPackTemplateListManagerOnly({
+          onSuccess: () => setPaymentPackManagerOnlyLoading(false),
+          onError: () => setPaymentPackManagerOnlyLoading(false),
+        });
+      },
+    fetchPaymentPackTemplateAvailable:
+      ({ fetchPaymentPackTemplateList }) =>
+      () => {
+        fetchPaymentPackTemplateList({ manager_only: false });
+      },
     deletePaymentPackTemplate:
       ({
         deletePaymentPackTemplate,

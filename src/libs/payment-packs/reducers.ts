@@ -264,6 +264,12 @@ export const newPaymentPackReducer = handleActions(
     [listPaymentPackTemplateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['paymentPackTemplate', 'error'], payload);
     },
+    [listPaymentPackTemplateActions.reset.toString()]: (state) => {
+      return state
+        .setIn(['paymentPackTemplate', 'allIds'], [])
+        .setIn(['paymentPackTemplate', 'allIdsManagerOnly'], [])
+        .setIn(['paymentPackTemplate', 'byId'], {});
+    },
     [listPaymentPackTemplateActions.success.toString()]: (
       state,
       { payload },

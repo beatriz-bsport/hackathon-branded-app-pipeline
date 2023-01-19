@@ -614,7 +614,11 @@ export const listPaymentPackTemplateActions = {
   successManagerOnly: createAction(
     'PAYMENT_PACK_TEMPLATE/LIST/SUCCESS_MANAGER_ONLY',
   ),
+  reset: createAction('PAYMENT_PACK_TEMPLATE/LIST/RESET'),
 };
+
+export const resetPaymentPackTemplateData =
+  listPaymentPackTemplateActions.reset;
 
 export function fetchPaymentPackTemplateList(
   params?: FranchiseProductTemplateQueryParams,

@@ -20,5 +20,4 @@ export type EasyAccess = {
 export type CategoryState = {
   SCTs: SCT[];
   SCSs: number[];
-  easyAccesses: EasyAccess[];
 };

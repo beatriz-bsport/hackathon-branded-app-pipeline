@@ -9,19 +9,15 @@ export const actions = {
 export function fetchSCT(params: any = {}) {
   return async (dispatch: Dispatch) => {
     try {
-      const [categories, easyAccessesResponse] = await Promise.all([
-        api.fetchSCT(params),
-        api.fetchEasyAccesses(),
-      ]);
+      const categories = await api.fetchSCT(params);
       const SCTs = categories.data;
-      const easyAccesses = easyAccessesResponse.data;
-      dispatch(fetchedCategories(SCTs, easyAccesses));
+      dispatch(fetchedCategories(SCTs));
     } catch (err) {
       console.error(err);
     }
   };
 }
 
-function fetchedCategories(SCTs: Array<SCT>, easyAccesses: Array<SCT>) {
-  return { SCTs, easyAccesses, type: actions.HAS_FETCHED_SCTS };
+function fetchedCategories(SCTs: Array<SCT>) {
+  return { SCTs, type: actions.HAS_FETCHED_SCTS };
 }

@@ -5178,7 +5178,7 @@
             },
             "primary_color": {
                 "label": "Primary color",
-                "helperText": "Choose a theme color (avoid a monochrome set up)."
+                "helperText": "Choose a theme color (avoid a monochrome setup)."
             },
             "secondary_color": {
                 "label": "Secondary color",

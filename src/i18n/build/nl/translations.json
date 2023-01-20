@@ -3492,7 +3492,7 @@
             "penalityType": "Type sanctie",
             "penalityAccount": "De interne rekening (Wallet) van het lid in rekening brengen",
             "penalityBlock": "Tijdelijk de kaart blokkeren",
-            "penalityInfo": "De kaart wordt {{penalityNumberDay}} dag(en) geblokkeerd indien een lid {{penalityNumberCancel}} keer te laat annuleert.",
+            "penalityInfo": "Er wordt een sanctie toegepast wanneer een lid {{penalityNumberCancel}} keer te laat binnen {{{penalityNumberDay}}  dagen annuleert.",
             "penalityNumberDay": "Aantal dagen",
             "penalityNumberCancel": "Aantal annuleringen",
             "marginalContributionHelperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: €10 betekent dat bij 1 reservering, de instructeur €10 ontvangt. Indien dit veld leeg of €0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",

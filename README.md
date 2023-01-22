@@ -1,28 +1,57 @@
+bsport-saas is the core of our frontend. It is both our manager interface (so-called backoffice) the pages where the customers book, explore the calendar, pay (called marketplace), and the user/coach userspace (profile page).
+
+It is completed by bsport-mobile which is the repo of our mobile app, and bsport-widget which basically import a lot of stuff from bsport-saas (the marketplace part) and bundle this code to make a reusable widget that can be implemented on our clients websites.
+
 # INSTALLATION
+
+First install the dependencies :
+
+```sh
+yarn # shortcut to yarn install
+```
+
+You can now run the frontend cf next section
 
 ## Running with a local backend server
 
-Follow instructions https://gitlab.com/bsport/bsport-django
+To bootstrap the local backend, follow instructions in the README of https://gitlab.com/bsport/bsport-django
+
+When you are ready you can start with : 
 
 ```sh
-cp ./envs/dev ./env.js
+yarn start 
 ```
 
-This will prepare the db and create test accounts
-
-## Running with the distant (staging) backend server
+## Running with the staging backend
 
 ```sh
-cp ./envs/local ./env.js
+yarn startStaging
+```
+
+Under the hood what it does is basically :
+
+```sh
+yarn start
+cp envs/staging public/env.js
 ```
 
 # GENERATE TRANSLATIONS
+
+When developping with frontend you will often create new string that must be translated with react-i18next (the `t(...)` function)
+
+Add your key (argument of `t`) in the right i18n/af/ file (file ~ t namespace, see the doc of react-i18next for more info of what is a namespace).
+
+You now want to update the translation of other language (dont worry you dont have to translate it) with :
 
 ```sh
 yarn updateTranslation
 ```
 
-# LOGIN
+It will add uncommited changes to some "built" files
+
+# Use the backoffice
+
+## LOGIN
 
 You can use the following user
 
@@ -31,68 +60,66 @@ username: contact@classdiggers.com
 password: demo
 ```
 
-# RUN
+Dont forget you can pick any user and change his password locally with the `shell` container.
 
-Now you can run
+# Developing with bsport-saas
 
-```sh
-yarn       // install all deps
-yarn start // start the dev server
-```
+## Tooling
 
-# CREATE NEW ALLIAS
+You probably want to have two chrome/firefox extensions installed :
 
-To create a new allias you need to add them at multiple places
+- redux devtool : adds a new panel to introspect the redux store and actions
+- react devtool : adds a new panel to introspect react component instead of hjust raw HTML in the console, there you can notably see the props of a component
 
-### .babelrc
+## Code Structure
 
-```
-  "alias": {
-    ...
-    "#newAlias": "PATH TO NEW ALIAS FROM THE BABELRC FILE",
-  }
-```
+There basically 3 main folders
 
-### .eslintrc
+### pages/
 
-```
-  "alias": {
-    ...
-    "#newAlias": "PATH TO NEW ALIAS FROM THE ESLINTRC FILE",
-  }
-```
+You will find here all the routing and the page
 
-### .tsconfig.json
+A page is something at the "root" level that is correlated to a specific URL, a router is basically a "switch" component which, based on the URL, will chose to display one page or another one.
 
-```
-  "paths": {
-    ...
-    "#newAlias/*": ["PATH TO NEW ALIAS FROM THE TSCONFIG FILE"/*],
-  }
-```
+The pages are the only component allowed to dispatch redux actions, and allowed to connect to the redux store to get there some data. ** This is important, dont forget!**
 
-### config/webpack.config.dev.js and config/webpack.config.js
+Each folder here is, more or less, a root url. There are a few "master-router-page" :
 
-```
-  "paths": {
-    ...
-    '#components': path.resolve(__dirname, ["PATH TO NEW ALIAS FROM THE WEBPACK FILE"/),
-  }
-```
+- `coach-userspace/` : the interface for the teachers
+- `checkout/` all the payment/booking page (final customer, the members)
+- `rn-webview/` some special pages to handle the payment of the bsport-mobile app
+- `franchise/` all the pages of the franchise interface
+- `marketplace/` the only page, except login, accessible without (and with) being logged-in, they are the public pages of the company (the studios, our clients). There you can buy stuff and book sessions.
+- `login/` where you default to, if logged-off (except on marketplace)
+- `consumer/` where the final-user (member) have their interface (history of booking, invoices...)
+- `check-in/` a special interface for tablet check-in (see product doc). Some studio have a tablet at the entrydoor where user can check-in or register, this is the code.
 
-the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
+All other folders have router/page imported by the main interface : the Backoffice (`pages/Backoffice.component.js`)
 
-> :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build
 
-### Tests
+### components/
+
+The "dumbest components", that does not mean there are the simplest ones code-wise, but that they have no business logic (e.g: a booking is "business-logic" but a button or a table has not). You can think of them as our UI-library.
+
+### libs/
+
+These folders follow globally the same structure :
+
+- `components/` : a folder with the base components, as "dumb" as possible. E.g : an item displayed in a list
+- `actions.ts` the redux actions
+- `reducers.ts` the redux reducer, stuff that handle the action result and possibly mutate the redux store
+- `selectors.ts` the redux getter function that extract (maybe transform) the data from the redux store
+- `api.ts` the api call function that interacts directly with the backend. **In general you will use them in actions.ts and not bare-handed!**
+
+## Tests
 
 The tests are if not the most important tool for continous integration and continous developoment it give the security that the software is behaving properly at any time and new development doesn't create regression or unwanted behavior. That's why the test are run by the ci on each merge request and new one should be added in all merge request
 
 > “More than the act of testing, the act of designing tests is one of the best bug preventers known. The thinking that must be done to create a useful test can discover and eliminate bugs before they are coded – indeed, test-design thinking can discover and eliminate bugs at every stage in the creation of software, from conception to specification, to design, coding and the rest.” – Boris Beizer
 
-#### There is 4 existing type of test:
+### There is 4 existing type of test:
 
-#### - Unit testing:
+### - Unit testing:
 
 **definition**: type of software testing where individual units or components of a software are tested. To put it shortly we are testing if the functions are behaving consistently in sucess and fail cases for a suite of params
 
@@ -137,13 +164,13 @@ describe('Utils: MySecondFunction', () => {
 });
 ```
 
-#### - Rendering test:
+### - Rendering test:
 
 **definition**: type of software testing where we compare the visual output of the software view
 
 We are not currently using it but a draft to implement it with storybook is present in the file `initStore.test.ts` and need some tweaking to function properly
 
-#### - Integration testing
+### - Integration testing
 
 **definition**: type of software testing where individual software modules are combined and tested as a group. Integration testing is conducted to evaluate the compliance of a system or component with specified functional requirements. To put it shortly when we are testing that the interaction from semi-complex component are interacting well between them
 
@@ -232,11 +259,12 @@ describe('FuzeSearch: <FuzeSearch />', () => {
 
 Currently we are not implementing end to end testing for the moment
 
-# Tracking Event
+
+## Tracking Event
 
 All the forms and the pages are tracked. When a new form is implemented it is necessary to add the event trackers. To track events we are using rudderstack, see the documentation for the <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/">JS SDK</a>.
 
-## Events to track for a Form
+### Events to track for a Form
 
 The 4 events that are tracked when dealing with forms are :
 
@@ -245,7 +273,7 @@ The 4 events that are tracked when dealing with forms are :
 - **submitIntent** when a user click on the 'save' button (but it's useless if the 'save' button is block when the the user fill not correclty, for exemple if the user forgot to fill a field and the button save is blocked) => save button
 - **submitSuccess** when a user successfully submit a form => after the event **onSuccess**
 
-## Implementation
+### Implementation
 
 To track these events, 4 functions have been created in the files _.../src/components/analytics/utils_. The generic shape of these functions are :
 
@@ -271,7 +299,7 @@ const {
 );
 ```
 
-## Example
+### Example
 
 See the exemple for the integration of the tracking functions :
 
@@ -315,3 +343,50 @@ export const ExampleForm = (props: Props) => {
   )
 }
 ```
+
+## CREATE NEW ALIAS
+
+Aliases are a cool way to simplify the imports e.g `#libs/` instead of `../../libs/`
+
+To create a new alias you need to add them at multiple places
+
+### .babelrc
+
+```
+  "alias": {
+    ...
+    "#newAlias": "PATH TO NEW ALIAS FROM THE BABELRC FILE",
+  }
+```
+
+### .eslintrc
+
+```
+  "alias": {
+    ...
+    "#newAlias": "PATH TO NEW ALIAS FROM THE ESLINTRC FILE",
+  }
+```
+
+### .tsconfig.json
+
+```
+  "paths": {
+    ...
+    "#newAlias/*": ["PATH TO NEW ALIAS FROM THE TSCONFIG FILE"/*],
+  }
+```
+
+### config/webpack.config.dev.js and config/webpack.config.js
+
+```
+  "paths": {
+    ...
+    '#components': path.resolve(__dirname, ["PATH TO NEW ALIAS FROM THE WEBPACK FILE"/),
+  }
+```
+
+the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
+
+> :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build
+

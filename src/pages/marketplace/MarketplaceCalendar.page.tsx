@@ -72,7 +72,6 @@ import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { Offer, OfferFilterData } from '#libs/offer/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import GroupRulePopup from '#libs/marketplace/components/GroupRulePopup.dialog';
 
 type OwnProps = {
   companyId: number;
@@ -119,14 +118,12 @@ type FinalProps = Props &
 type State = {
   offerId: number | null;
   offer: Object | null;
-  displayGroupPopup: (Offer & { redirect: string }) | null;
 };
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
   state: State = {
     offerId: null,
     offer: null,
-    displayGroupPopup: null,
   };
 
   fetchData = () => {
@@ -234,23 +231,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   goToBook = (offer: Offer) => {
-    if (offer.group) {
-      this.setState({
-        displayGroupPopup: { ...offer, redirect: 'book' },
-      });
-      return;
-    }
     Analytics.calendarSessionShow(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 
   goToBookOption = (offer: Offer) => {
-    if (offer.group) {
-      this.setState({
-        displayGroupPopup: { ...offer, redirect: 'option' },
-      });
-      return;
-    }
     Analytics.calendarSessionShow(offer);
     this.props.goToBookOption(offer.id, this.props.companyId);
   };
@@ -272,23 +257,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   goToFirstAvailableSession = () => {
     if (this.props.nextAvailableOffer.date_start) {
       this.handleDateChange(this.props.nextAvailableOffer.date_start);
-    }
-  };
-
-  handleCloseGroupPopup = () => {
-    this.setState({
-      displayGroupPopup: null,
-    });
-  };
-
-  handleContinueGroupPopup = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { redirect, group, ...offer } = this.state.displayGroupPopup;
-    if (redirect === 'book') {
-      this.goToBook(offer);
-    }
-    if (redirect === 'option') {
-      this.goToBookOption(offer);
     }
   };
 
@@ -371,14 +339,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           goToFirstAvailableSession={this.goToFirstAvailableSession}
           locale={(this.props.theme?.locale || '').slice(0, 2)}
         />
-        {this.state.displayGroupPopup && (
-          <GroupRulePopup
-            open
-            group={this.state.displayGroupPopup.group}
-            onClose={this.handleCloseGroupPopup}
-            onSubmit={this.handleContinueGroupPopup}
-          />
-        )}
       </div>
     );
   }

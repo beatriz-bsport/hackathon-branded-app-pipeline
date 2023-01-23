@@ -127,6 +127,7 @@ export class OfferCard extends Component<Props, State> {
       bookings?.filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id)
         ?.length ||
       0;
+    const occupancyRate = parseInt((nbBookings / effectif) * 100, 10) || 0;
     const nbOptions = nb_option || 0;
     return (
       <div className={classes.statContainer}>
@@ -160,7 +161,7 @@ export class OfferCard extends Component<Props, State> {
         </div>
         <div className={classNames(classes.rightBorder, classes.stat)}>
           <Typography variant="h3" color="secondary" align="center">
-            {parseInt((nbBookings / effectif) * 100, 10)} %
+            {occupancyRate} %
           </Typography>
           <Typography
             align="center"

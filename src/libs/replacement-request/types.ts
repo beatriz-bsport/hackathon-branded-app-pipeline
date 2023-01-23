@@ -71,6 +71,7 @@ export type ReplacementRequestFilter = {
   has_requested_late?: boolean;
   closing_date_exceeded?: boolean;
   offer_is_in_the_past?: boolean;
+  offer_available?: boolean;
   page_size?: number;
 };
 

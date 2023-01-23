@@ -368,6 +368,7 @@ const handlers = {
           ],
           closing_date_exceeded: false,
           me: false,
+          offer_available: true,
           page_size: PAGE_SIZE,
           page,
         },

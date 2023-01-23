@@ -215,6 +215,7 @@ const handlers = {
     (page: number) => {
       fetchAllOffersPaginated({
         only_future: true,
+        available: true,
         coach_override: coach.id,
         company: companyId,
         page_size: PAGE_SIZE,

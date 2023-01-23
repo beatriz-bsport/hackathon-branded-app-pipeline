@@ -68,6 +68,17 @@ export const ReplacementRequestStatusPopover: React.FC<Props> = ({
           )}
         </Typography>
       </div>
+      <div className={classes.description}>
+        <ReplacementRequestStatusChip
+          floatChip
+          replacementRequestStatus={
+            ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_DISPLAYED_AS_CANCELLED_BECAUSE_OFFER_IS_CANCELLED
+          }
+        />
+        <Typography className={classes.statusDescription}>
+          {t('replacementStatus.description.offerCancelled')}
+        </Typography>
+      </div>
     </Popover>
   );
 };

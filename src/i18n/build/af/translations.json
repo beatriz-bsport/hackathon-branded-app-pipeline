@@ -6162,13 +6162,15 @@
         "description": "Les statuts permettent de savoir où en est votre demande.",
         "pendingForApproval": "attente d'une action de la part du manager.",
         "approvedButNoReplacementPropositions": "en attente d'inscriptions.",
-        "approvedWithReplacementPropositions": "inscriptions en cours."
+        "approvedWithReplacementPropositions": "inscriptions en cours.",
+        "offerCancelled": "cours annulé."
       },
       "pendingForApproval": "Attente de validation",
       "deniedByManager": "Refusée",
       "approvedButNoReplacementPropositions": "Ouverte",
       "approvedWithReplacementPropositions": "En cours",
-      "teacherFound": "Remplacée"
+      "teacherFound": "Remplacée",
+      "offerCancelled": "Annulée"
     },
     "askForReplacement": {
       "title": "Demander un remplacement",

@@ -75,7 +75,7 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
     fetchActivitiesCompany,
     fetchAllEstablishmentGroup,
     fetchEstablishments,
-    fetchMyOffers,
+    fetchMyAvailableOffers,
     companyId,
     offerCount,
     offerPage,
@@ -141,11 +141,11 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
   );
 
   const handleCloseAfterSuccess = useCallback(() => {
-    fetchMyOffers(offerPage, periodFilter);
+    fetchMyAvailableOffers(offerPage, periodFilter);
     setDialogOpen(false);
     setSelectedOffers([]);
     setNbLateRequestsToBeCreated(0);
-  }, [fetchMyOffers, offerPage, periodFilter, setDialogOpen]);
+  }, [fetchMyAvailableOffers, offerPage, periodFilter, setDialogOpen]);
 
   const totalPages = useMemo(
     () => Math.ceil(offerCount / PAGE_SIZE),
@@ -225,13 +225,13 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
   ]);
 
   useEffect(
-    () => fetchMyOffers(1, periodFilter),
-    [fetchMyOffers, periodFilter],
+    () => fetchMyAvailableOffers(1, periodFilter),
+    [fetchMyAvailableOffers, periodFilter],
   );
 
   const onChangePage = useCallback(
-    (page: number) => fetchMyOffers(page, periodFilter),
-    [fetchMyOffers, periodFilter],
+    (page: number) => fetchMyAvailableOffers(page, periodFilter),
+    [fetchMyAvailableOffers, periodFilter],
   );
 
   return (
@@ -462,7 +462,7 @@ const connector = connect(
 );
 
 const handlers = {
-  fetchMyOffers:
+  fetchMyAvailableOffers:
     ({
       fetchAllOffersPaginated,
       companyId,
@@ -476,6 +476,7 @@ const handlers = {
           company: companyId,
           coach: coach?.id,
           ...params,
+          available: true,
           page_size: 10,
           page,
         },

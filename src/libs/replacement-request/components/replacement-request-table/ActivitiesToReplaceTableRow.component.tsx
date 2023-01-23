@@ -191,10 +191,21 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           )}
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_PENDING && (
-            <ReplacementRequestStatusChip
-              replacementRequestStatus={replacementRequest.status}
-              isMobile={isMobile}
-            />
+            <>
+              {replacementRequest?.offer?.available ? (
+                <ReplacementRequestStatusChip
+                  replacementRequestStatus={replacementRequest.status}
+                  isMobile={isMobile}
+                />
+              ) : (
+                <ReplacementRequestStatusChip
+                  replacementRequestStatus={
+                    ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_DISPLAYED_AS_CANCELLED_BECAUSE_OFFER_IS_CANCELLED
+                  }
+                  isMobile={isMobile}
+                />
+              )}
+            </>
           )}
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
@@ -405,9 +416,17 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_WITH_REPLACEMENT_PROPOSITIONS) && (
               <React.Fragment>
                 <TableCell className={classes.tableCell}>
-                  <ReplacementRequestStatusChip
-                    replacementRequestStatus={replacementRequest.status}
-                  />
+                  {replacementRequest?.offer?.available ? (
+                    <ReplacementRequestStatusChip
+                      replacementRequestStatus={replacementRequest.status}
+                    />
+                  ) : (
+                    <ReplacementRequestStatusChip
+                      replacementRequestStatus={
+                        ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_DISPLAYED_AS_CANCELLED_BECAUSE_OFFER_IS_CANCELLED
+                      }
+                    />
+                  )}
                 </TableCell>
                 <TableCell className={classes.tableCell}>
                   <Hidden xsDown>

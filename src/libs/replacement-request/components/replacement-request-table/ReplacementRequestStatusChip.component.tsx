@@ -6,8 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import HourglassEmpty from '@material-ui/icons/HourglassEmpty';
+import CancelIcon from '@material-ui/icons/Cancel';
 import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';
+import red from '@material-ui/core/colors/red';
 
 import {
   ReplacementRequestStatus,
@@ -44,6 +46,9 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
           [classes.successChip]:
             replacementRequestStatus ===
             ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_WITH_REPLACEMENT_PROPOSITIONS,
+          [classes.errorChip]:
+            replacementRequestStatus ===
+            ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_DISPLAYED_AS_CANCELLED_BECAUSE_OFFER_IS_CANCELLED,
         })}
       >
         {replacementRequestStatus ===
@@ -60,6 +65,14 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
             fontSize={isMobile ? 'small' : 'medium'}
           />
         )}
+        {replacementRequestStatus ===
+          ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_DISPLAYED_AS_CANCELLED_BECAUSE_OFFER_IS_CANCELLED && (
+          <CancelIcon
+            className={classes.error}
+            fontSize={isMobile ? 'small' : 'medium'}
+          />
+        )}
+
         <Typography className={classnames({ [classes.smallFont]: isMobile })}>
           {t(
             `replacementStatus.${REPLACEMENT_REQUEST_STATUS_LABELS[replacementRequestStatus]}`,
@@ -73,6 +86,10 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
 const useStyles = makeStyles((theme) => ({
   success: {
     color: theme.palette.success.main,
+    marginRight: theme.spacing(0.5),
+  },
+  error: {
+    color: theme.palette.error.main,
     marginRight: theme.spacing(0.5),
   },
   pending: {
@@ -98,6 +115,10 @@ const useStyles = makeStyles((theme) => ({
   pendingChip: {
     backgroundColor: blue[50],
     color: theme.palette.info.dark,
+  },
+  errorChip: {
+    backgroundColor: red[50],
+    color: theme.palette.error.main,
   },
   floatChip: {
     float: 'left',

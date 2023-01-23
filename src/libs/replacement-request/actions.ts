@@ -25,6 +25,9 @@ import {
   // Has Unseen requests
   hasUnseenConfirmedRequests as hasUnseenConfirmedRequestsAPI,
 
+  // Has pending requests on cancelled offers
+  hasRequestsLinkedToCancelledOffers as hasRequestsLinkedToCancelledOffersAPI,
+
   // Configuration
   fetchReplacementRequestConfiguration as fetchReplacementRequestConfigurationAPI,
   updateReplacementRequestConfiguration as updateReplacementRequestConfigurationAPI,
@@ -292,11 +295,42 @@ export const fetchHasUnseenConfirmedRequests = (
   };
 };
 
+export const fetchHasRequestsLinkedToCancelledOffersActions = {
+  loading: createAction(
+    'REPLACEMENT_REQUEST/LINKED_TO_CANCELLED_OFFERS/EXISTS/LOADING',
+  ),
+  success: createAction(
+    'REPLACEMENT_REQUEST/LINKED_TO_CANCELLED_OFFERS/EXISTS/SUCCESS',
+  ),
+  error: createAction(
+    'REPLACEMENT_REQUEST/LINKED_TO_CANCELLED_OFFERS/EXISTS/ERROR',
+  ),
+};
+
+export const hasRequestsLinkedToCancelledOffers = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchHasRequestsLinkedToCancelledOffersActions.loading(true));
+    dispatch(fetchHasRequestsLinkedToCancelledOffersActions.error(null));
+    try {
+      const response = await hasRequestsLinkedToCancelledOffersAPI();
+      dispatch(
+        fetchHasRequestsLinkedToCancelledOffersActions.success(response.data),
+      );
+      dispatch(fetchHasRequestsLinkedToCancelledOffersActions.loading(false));
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchHasRequestsLinkedToCancelledOffersActions.error(error));
+    }
+    dispatch(fetchHasRequestsLinkedToCancelledOffersActions.loading(false));
+  };
+};
+
 export const markConfirmedRequestsAsSeen = () => {
   return async (dispatch: Dispatch) => {
     dispatch(fetchHasUnseenConfirmedRequestsActions.success(false));
   };
 };
+
 export const fetchAllReplacementRequestCoachAnswersActions = {
   error: createAction('REPLACEMENT_REQUEST/COACH_ANSWER/FETCH_LIST/ERROR'),
   loading: createAction('REPLACEMENT_REQUEST/COACH_ANSWER/FETCH_LIST/LOADING'),

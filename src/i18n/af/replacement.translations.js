@@ -174,6 +174,7 @@ exports.default = {
     lateStatus: 'Statut de la demande',
     closedStatus: 'Statut des inscriptions',
     category: 'Catégorie',
+    offerCancelled: 'Séances annulées',
   },
   disciplineGroup: {
     add: 'Ajouter un groupe',
@@ -238,5 +239,21 @@ exports.default = {
   },
   tooltip: {
     seeAnswers: 'Voir la liste des remplaçants',
+    offerCancelled: 'Cette séance est annulée',
+  },
+  requestsLinkedToCancelledOffers: {
+    offerHasActiveRequest: {
+      title: 'Une demande de remplacement active est liée à cette séance',
+      helper:
+        "Voulez vous être redirigé sur la page des demandes de remplacements afin d'annuler les demandes obsolètes ?",
+    },
+    buttonLabel: 'Ouvrir',
+    title:
+      'Des demandes de remplacement actives sont liées à des séances annulées.',
+    description:
+      'Afin de voir ces séances, veuillez activer le filtre <strong>{{switchLabel}}</strong> ci-dessus',
+    filterHelper:
+      "Si cette alerte persiste et qu'aucune séance n'apparait en mode <strong>{{switchLabel}}</strong>, nous conseillons de désactiver les filtres et d'élargir la plage de dates.",
+    cancelledOffersModeTitle: 'Mode séances annulées',
   },
 };

@@ -123,6 +123,9 @@ export type ReplacementRequestState = ErrorAndLoading & {
   configuration: {
     configuration: ReplacementRequestConfiguration;
   } & ErrorAndLoading;
+  hasRequestsLinkedToCancelledOffers: {
+    exists: boolean;
+  } & ErrorAndLoading;
 };
 
 export type CompatibleCoachesByCategory = {

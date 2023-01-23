@@ -8,6 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckBox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -16,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
-import { Alert } from '@material-ui/lab';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 import RecursionToogle from './form/RecursionToogle.component';
 import RedButton from '../../components/button/RedButton.component';
@@ -34,6 +36,9 @@ type Props = {
   classes: Object,
   setOpenDeleteDialog: () => void,
   offer: Offer,
+  hasPendingReplacementRequest?: boolean,
+  setOpenReplacementRequestOnCancel?: (open: boolean) => void,
+  openReplacementRequestPageOnCancel?: boolean,
 };
 
 type State = {
@@ -168,7 +173,15 @@ export class DeleteOfferForm extends Component<Props, State> {
   };
 
   renderInside = () => {
-    const { t, classes, offerWasCancelled, similarOfferLoading } = this.props;
+    const {
+      t,
+      classes,
+      offerWasCancelled,
+      similarOfferLoading,
+      hasPendingReplacementRequest,
+      setOpenReplacementRequestOnCancel,
+      openReplacementRequestPageOnCancel,
+    } = this.props;
     const { similarOffersWithSelectedStatus } = this.state;
 
     const selectedSimilarOfferIds = similarOffersWithSelectedStatus
@@ -260,6 +273,29 @@ export class DeleteOfferForm extends Component<Props, State> {
         <Typography className={classes.explainText}>
           {t('form.offer.delete.explainModalities')}
         </Typography>
+        {hasPendingReplacementRequest && !!setOpenReplacementRequestOnCancel && (
+          <Alert severity="warning">
+            <AlertTitle>
+              {t(
+                'replacement:requestsLinkedToCancelledOffers.offerHasActiveRequest.title',
+              )}
+            </AlertTitle>
+
+            <FormControlLabel
+              control={
+                <CheckBox
+                  checked={openReplacementRequestPageOnCancel}
+                  onChange={(_, checked) =>
+                    setOpenReplacementRequestOnCancel(checked)
+                  }
+                />
+              }
+              label={t(
+                'replacement:requestsLinkedToCancelledOffers.offerHasActiveRequest.helper',
+              )}
+            />
+          </Alert>
+        )}
         <Hidden xsUp>
           <div className={classes.row}>
             <Switch

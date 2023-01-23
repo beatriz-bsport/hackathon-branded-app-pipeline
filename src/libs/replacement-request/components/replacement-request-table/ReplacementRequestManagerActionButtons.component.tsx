@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import CloseIcon from '@material-ui/icons/Close';
+import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import { alpha } from '@material-ui/core';
 
 import { ReplacementRequest } from '#libs/replacement-request/types';
@@ -70,6 +71,21 @@ export const ReplacementRequestManagerActionButtons: React.FC<Props> = ({
 
   return (
     <div className={classes.buttonAlign}>
+      {!replacementRequest?.offer?.available && (
+        <Tooltip title={t('tooltip.offerCancelled')}>
+          <div
+            className={classnames(
+              classes.warningIcon,
+              classes.managerActionButton,
+              classes.paddings,
+            )}
+          >
+            <ReportProblemOutlinedIcon
+              fontSize={isMobile ? 'small' : 'medium'}
+            />
+          </div>
+        </Tooltip>
+      )}
       <Tooltip title={t('tooltip.seeAnswers')}>
         <IconButton
           size="small"
@@ -113,6 +129,13 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: alpha(theme.palette.warning.main, 0.1),
     },
+  },
+  paddings: {
+    padding: theme.spacing(0.5),
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+    borderColor: theme.palette.warning.main,
   },
   errorButton: {
     color: theme.palette.error.main,

@@ -4,7 +4,7 @@ import { compose, withHandlers } from 'recompose';
 import chroma from 'chroma-js';
 import uniq from 'lodash/uniq';
 import { connect, ConnectedProps } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import Select, { GroupTypeBase, Styles } from 'react-select';
 import classNames from 'classnames';
 
@@ -19,6 +19,11 @@ import Collapse from '@material-ui/core/Collapse';
 import Pagination from '@material-ui/lab/Pagination';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import { REPLACEMEMENT_REQUEST_LATE_ALERT_KIND } from '@bsport/common/lib/master-data/alerting_kind';
 
 import ReplacementRequestFilters from '#libs/replacement-request/components/ReplacementRequestFilters.component';
@@ -71,6 +76,7 @@ import {
   refuseReplacementRequest as refuseReplacementRequestAction,
   fetchAllReplacementRequestCoachAnswers as fetchAllReplacementRequestCoachAnswersAction,
   approveReplacementRequestCoachAnswer as approveReplacementRequestCoachAnswerAction,
+  hasRequestsLinkedToCancelledOffers as fetchHasRequestsLinkedToCancelledOffersAction,
 } from '#libs/replacement-request/actions';
 import { ReplacementRequest } from '#libs/replacement-request/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -121,6 +127,9 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
     updateReplacementRequestLastSeen,
     companyTheme,
     updatingReplacementRequestLoading,
+    fetchHasRequestsLinkedToCancelledOffers,
+    hasRequestsLinkedToCancelledOffers,
+    hasRequestsLinkedToCancelledOffersLoading,
   } = props;
 
   const [extensionDialogOpen, setExtensionDialogOpen] = useState(false);
@@ -158,8 +167,13 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
 
   // Refetch replacement requests page 1 everytime filters get updated
   useEffect(() => {
+    fetchHasRequestsLinkedToCancelledOffers();
     fetchReplacementRequests(1);
-  }, [fetchReplacementRequests, replacementRequestManagerFilter]);
+  }, [
+    fetchReplacementRequests,
+    fetchHasRequestsLinkedToCancelledOffers,
+    replacementRequestManagerFilter,
+  ]);
 
   useEffect(() => {
     // fetch on toggle collapse and on filter change
@@ -309,94 +323,173 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         setReplacementRequestManagerFilter={setReplacementRequestManagerFilter}
         enableMultiLocalization={companyTheme.enable_multi_localization}
       />
+
       <Paper className={classes.paperContainer} elevation={0}>
         <Typography variant="h5" component="h2" className={classes.buttonTitle}>
           {t('managerTableTitles.pendingRequests')}
         </Typography>
-        <div className={classes.filtersContainerPendingRequests}>
+        <div className={classes.flexRow}>
           <div
             className={classNames(
-              classes.filtersPendingRequests,
-              classes.filters,
+              classes.innerFlexContainer,
+              classes.flexStart,
+              classes.flexColumnOnSmallscreen,
+              classes.flex4,
+              classes.disableMarginBottomOnSmallScreen,
             )}
           >
-            <Select
-              closeMenuOnSelect
-              isMulti={false}
-              isClearable
-              placeholder={t('selects.lateStatus')}
-              options={hasRequestedLateOptions}
-              value={hasRequestedLateOptions.find(
-                (opt) =>
-                  opt.value ===
-                  replacementRequestManagerFilter.has_requested_late,
+            <div
+              className={classNames(
+                classes.filtersPendingRequests,
+                classes.filters,
               )}
-              onChange={(ev) => {
-                setFilter(ev, FILTER_LATE);
-              }}
-              styles={selectStyles}
-            />
+            >
+              <Select
+                closeMenuOnSelect
+                isMulti={false}
+                isClearable
+                placeholder={t('selects.lateStatus')}
+                options={hasRequestedLateOptions}
+                value={hasRequestedLateOptions.find(
+                  (opt) =>
+                    opt.value ===
+                    replacementRequestManagerFilter.has_requested_late,
+                )}
+                onChange={(ev) => {
+                  setFilter(ev, FILTER_LATE);
+                }}
+                styles={selectStyles}
+              />
+            </div>
+            <div
+              className={classNames(
+                classes.filtersPendingRequests,
+                classes.filters,
+              )}
+            >
+              <Select
+                closeMenuOnSelect
+                isMulti={false}
+                isClearable
+                placeholder={t('selects.closedStatus')}
+                options={isRequestClosedOptions}
+                value={isRequestClosedOptions.find(
+                  (opt) =>
+                    opt.value ===
+                    replacementRequestManagerFilter.closing_date_exceeded,
+                )}
+                onChange={(ev) => {
+                  setFilter(ev, FILTER_CLOSED);
+                }}
+                styles={selectStyles}
+              />
+            </div>
+            <div
+              className={classNames(
+                classes.filtersPendingRequests,
+                classes.filters,
+              )}
+            >
+              <DateRangeSelector
+                futureOnly
+                date_start={
+                  replacementRequestManagerFilter.offer__date_start__gte
+                    ? moment(
+                        replacementRequestManagerFilter.offer__date_start__gte,
+                      ).unix()
+                    : null
+                }
+                date_end={
+                  replacementRequestManagerFilter.offer__date_start__lte
+                    ? moment(
+                        replacementRequestManagerFilter.offer__date_start__lte,
+                      ).unix()
+                    : null
+                }
+                timePeriod={
+                  replacementRequestManagerFilter.timePeriod || 'custom'
+                }
+                onSubmit={(_values) => {
+                  setReplacementRequestManagerFilter({
+                    ...replacementRequestManagerFilter,
+                    offer__date_start__gte:
+                      _values.dateStart.format('YYYY-MM-DD'),
+                    offer__date_start__lte:
+                      _values.dateEnd.format('YYYY-MM-DD'),
+                    timePeriod: _values.timePeriod,
+                  });
+                }}
+              />
+            </div>
           </div>
           <div
             className={classNames(
-              classes.filtersPendingRequests,
-              classes.filters,
+              classes.innerFlexContainer,
+              classes.flexEnd,
+              classes.flex1,
+              classes.disableMarginTopOnSmallScreen,
             )}
           >
-            <Select
-              closeMenuOnSelect
-              isMulti={false}
-              isClearable
-              placeholder={t('selects.closedStatus')}
-              options={isRequestClosedOptions}
-              value={isRequestClosedOptions.find(
-                (opt) =>
-                  opt.value ===
-                  replacementRequestManagerFilter.closing_date_exceeded,
-              )}
-              onChange={(ev) => {
-                setFilter(ev, FILTER_CLOSED);
-              }}
-              styles={selectStyles}
-            />
-          </div>
-          <div
-            className={classNames(
-              classes.filtersPendingRequests,
-              classes.filters,
+            {!hasRequestsLinkedToCancelledOffersLoading && (
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={!replacementRequestManagerFilter.offer_available}
+                      onChange={(_, checked) =>
+                        setReplacementRequestManagerFilter({
+                          ...replacementRequestManagerFilter,
+                          offer_available: !checked,
+                        })
+                      }
+                    />
+                  }
+                  label={t('selects.offerCancelled')}
+                />
+              </FormGroup>
             )}
-          >
-            <DateRangeSelector
-              futureOnly
-              date_start={
-                replacementRequestManagerFilter.offer__date_start__gte
-                  ? moment(
-                      replacementRequestManagerFilter.offer__date_start__gte,
-                    ).unix()
-                  : null
-              }
-              date_end={
-                replacementRequestManagerFilter.offer__date_start__lte
-                  ? moment(
-                      replacementRequestManagerFilter.offer__date_start__lte,
-                    ).unix()
-                  : null
-              }
-              timePeriod={
-                replacementRequestManagerFilter.timePeriod || 'custom'
-              }
-              onSubmit={(_values) => {
-                setReplacementRequestManagerFilter({
-                  ...replacementRequestManagerFilter,
-                  offer__date_start__gte:
-                    _values.dateStart.format('YYYY-MM-DD'),
-                  offer__date_start__lte: _values.dateEnd.format('YYYY-MM-DD'),
-                  timePeriod: _values.timePeriod,
-                });
-              }}
-            />
           </div>
         </div>
+        {hasRequestsLinkedToCancelledOffers &&
+          !!replacementRequestManagerFilter.offer_available &&
+          !hasRequestsLinkedToCancelledOffersLoading && (
+            <Alert severity="warning">
+              <AlertTitle>
+                {t('requestsLinkedToCancelledOffers.title')}
+              </AlertTitle>
+              <div className={classes.alertContent}>
+                <div className={classes.alertContentItem}>
+                  <Trans
+                    t={t}
+                    i18nKey="requestsLinkedToCancelledOffers.description"
+                    values={{
+                      switchLabel: t('selects.offerCancelled'),
+                    }}
+                  />
+                </div>
+              </div>
+            </Alert>
+          )}
+        {hasRequestsLinkedToCancelledOffers &&
+          !replacementRequestManagerFilter.offer_available &&
+          !hasRequestsLinkedToCancelledOffersLoading && (
+            <Alert severity="info">
+              <AlertTitle>
+                {t('requestsLinkedToCancelledOffers.cancelledOffersModeTitle')}
+              </AlertTitle>
+              <div className={classes.alertContent}>
+                <div className={classes.alertContentItem}>
+                  <Trans
+                    t={t}
+                    i18nKey="requestsLinkedToCancelledOffers.filterHelper"
+                    values={{
+                      switchLabel: t('selects.offerCancelled'),
+                    }}
+                  />
+                </div>
+              </div>
+            </Alert>
+          )}
         <TableContainer>
           <ActivitiesToReplaceTable
             enableMultiLocalization={companyTheme.enable_multi_localization}
@@ -565,17 +658,50 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: theme.spacing(2),
     },
   },
-  filtersContainerPendingRequests: {
+  flexRow: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+  innerFlexContainer: {
+    display: 'flex',
     alignItems: 'center',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
+    },
+  },
+  flexColumnOnSmallscreen: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+  },
+  flexStart: {
+    justifyContent: 'flex-start',
+  },
+  flexEnd: {
+    justifyContent: 'flex-end',
+  },
+  flex4: {
+    flexGrow: 4,
+  },
+  flex1: {
+    flexGrow: 1,
+  },
+  disableMarginBottomOnSmallScreen: {
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 0,
+    },
+  },
+  disableMarginTopOnSmallScreen: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0,
     },
   },
   filterTitle: {
@@ -606,6 +732,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       flex: 'unset',
       width: '70%',
+    },
+  },
+  alertContent: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  alertContentItem: {
+    '&::before': {
+      content: '"\u2022"',
+      paddingRight: theme.spacing(1),
     },
   },
 }));
@@ -711,6 +848,10 @@ const connector = connect(
     replacementRequestPage: state.replacementRequest.page,
     replacementRequestOfferHistoryCount: state.offer.paginatedCalendar.count,
     replacementRequestOfferHistoryPage: state.offer.paginatedCalendar.page,
+    hasRequestsLinkedToCancelledOffers:
+      state.replacementRequest.hasRequestsLinkedToCancelledOffers.exists,
+    hasRequestsLinkedToCancelledOffersLoading:
+      state.replacementRequest.hasRequestsLinkedToCancelledOffers.loading,
   }),
   {
     fetchAllOffersPaginated: fetchAllOffersPaginatedAction,
@@ -733,6 +874,8 @@ const connector = connect(
     approveReplacementRequestCoachAnswer:
       approveReplacementRequestCoachAnswerAction,
     fetchSpecificAlertKind: fetchSpecificAlertKindAction,
+    fetchHasRequestsLinkedToCancelledOffers:
+      fetchHasRequestsLinkedToCancelledOffersAction,
   },
 );
 

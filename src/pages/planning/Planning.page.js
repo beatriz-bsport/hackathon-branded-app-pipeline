@@ -95,7 +95,10 @@ import {
   getAllCustomLevels,
 } from '#libs/level/selectors';
 import { fetchReportOfferManagement as fetchReportOfferManagementActions } from '#libs/reporting/actions';
-import { setCalendarFilter as setCalendarFilterAction } from '#libs/user-preference/actions';
+import {
+  setCalendarFilter as setCalendarFilterAction,
+  setReplacementRequestManagerFilter as setReplacementRequestManagerFilterAction,
+} from '#libs/user-preference/actions';
 
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
 import { getAllMembers, withTags } from '#libs/member/selectors';
@@ -148,6 +151,7 @@ import { ZoomApp } from '#libs/zoom-app/types';
 import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
+import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
 
 const styles = (theme) => ({
   container: {
@@ -371,6 +375,11 @@ type Props = {
   getHasPendingReplacementRequest: (offerId: number) => boolean,
   similarOffersPage: number,
   similarOffersCount: number,
+  goToReplacementRequestManagementPage: () => void,
+  setReplacementRequestManagerFilter: (
+    filters: ReplacementRequestFilter,
+  ) => void,
+  replacementRequestManagerFilter: ReplacementRequestFilter,
 };
 
 type State = {
@@ -378,6 +387,7 @@ type State = {
   deleteModalOpened: boolean,
   createOfferModalOpened: boolean,
   restoreModalOpen: boolean,
+  openReplacementRequestPage: boolean,
 };
 
 const FILTER_COACH = 0;
@@ -393,6 +403,7 @@ export class Planning extends PureComponent<Props, State> {
       deleteModalOpened: false,
       createOfferModalOpened: false,
       restoreModalOpen: false,
+      openReplacementRequestPage: false,
     };
   }
 
@@ -595,6 +606,9 @@ export class Planning extends PureComponent<Props, State> {
     this.props.disableOffer(data, {
       onSuccess: () => {
         this.setState({ deleteModalOpened: false });
+        if (this.state.openReplacementRequestPage) {
+          this.goToReplacementRequestManagementPage();
+        }
       },
       onBackgroundSuccess: () => {
         this.loadDayData();
@@ -787,12 +801,28 @@ export class Planning extends PureComponent<Props, State> {
     );
   };
 
+  goToReplacementRequestManagementPage = async () => {
+    await this.props.setReplacementRequestManagerFilter({
+      ...this.props.replacementRequestManagerFilter,
+      offer_available: false,
+    });
+    this.props.goToReplacementRequestManagementPage();
+  };
+
   renderDeleteModal = () => {
     const { deleteModalOpened } = this.state;
-    const { selectedOffer, deletingOffer, similarOfferLoading, similarOffers } =
-      this.props;
+    const {
+      selectedOffer,
+      deletingOffer,
+      similarOfferLoading,
+      similarOffers,
+      getHasPendingReplacementRequest,
+    } = this.props;
 
     if (selectedOffer) {
+      const hasPendingReplacementRequest = getHasPendingReplacementRequest
+        ? getHasPendingReplacementRequest(selectedOffer?.id)
+        : false;
       return (
         <GenericResponsiveDialog
           onClose={this.onCancelModal}
@@ -834,6 +864,13 @@ export class Planning extends PureComponent<Props, State> {
             setOpenDeleteDialog={this.props.setOpenDeleteDialog}
             similarOffers={similarOffers}
             similarOfferLoading={similarOfferLoading}
+            hasPendingReplacementRequest={hasPendingReplacementRequest}
+            setOpenReplacementRequestOnCancel={(open: boolean) =>
+              this.setState({ openReplacementRequestPage: open })
+            }
+            openReplacementRequestPageOnCancel={
+              this.state.openReplacementRequestPage
+            }
           />
         </GenericResponsiveDialog>
       );
@@ -1365,6 +1402,8 @@ export default compose(
       isDownloadingReport: state.reports.offerManagement.loading,
       deletingOffer: state.offer.delete.loading || state.offer.disable.loa,
       zoomAppDetail: zoomAppSelectors.getZoomApp(state),
+      replacementRequestManagerFilter:
+        state.userPreference.replacementRequestManagerFilter,
     }),
     {
       goBack: goBackRouter,
@@ -1405,6 +1444,8 @@ export default compose(
       deleteLevel: deleteLevelAction,
       fetchReportOfferManagement: fetchReportOfferManagementActions,
       fetchZoomApp: fetchZoomAppAction,
+      setReplacementRequestManagerFilter:
+        setReplacementRequestManagerFilterAction,
     },
   ),
   withHandlers({
@@ -1486,6 +1527,9 @@ export default compose(
           kind: 'count',
         });
       },
+    goToReplacementRequestManagementPage: () => () => {
+      window.open('/replacement/management');
+    },
   }),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('massDisablerStartDate', 'setMassDisablerStartDate', null),

@@ -33,11 +33,13 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
     timePeriod: 'next_month',
     min_date: moment().format('YYYY-MM-DD'),
     max_date: moment().add(1, 'month').format('YYYY-MM-DD'),
+    offer_available: true,
   },
   replacementRequestOfferHistoryFilter: {
     timePeriod: 'last_month',
     min_date: moment().subtract(1, 'month').format('YYYY-MM-DD'),
     max_date: moment().format('YYYY-MM-DD'),
+    offer_available: true,
   },
   hideCoachNotAssociatedToPrivateServiceWarning: false,
 });

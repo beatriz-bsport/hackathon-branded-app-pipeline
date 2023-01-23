@@ -12,6 +12,7 @@ import {
   updateDisciplineGroupActions,
   updateReplacementRequestActions,
   fetchHasUnseenConfirmedRequestsActions,
+  fetchHasRequestsLinkedToCancelledOffersActions,
   fetchReplacementRequestConfigurationActions,
   updateReplacementRequestConfigurationActions,
 } from './actions';
@@ -65,6 +66,11 @@ const initialState: Immutable.Immutable<ReplacementRequestState> =
     },
     configuration: {
       configuration: {},
+      loading: false,
+      error: null,
+    },
+    hasRequestsLinkedToCancelledOffers: {
+      exists: false,
       loading: false,
       error: null,
     },
@@ -174,6 +180,19 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
       state,
       { payload },
     ) => state.setIn(['teacherFoundRequests', 'hasUnseen'], payload),
+    [fetchHasRequestsLinkedToCancelledOffersActions.loading.toString()]: (
+      state,
+      { payload },
+    ) =>
+      state.setIn(['hasRequestsLinkedToCancelledOffers', 'loading'], payload),
+    [fetchHasRequestsLinkedToCancelledOffersActions.error.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['hasRequestsLinkedToCancelledOffers', 'error'], payload),
+    [fetchHasRequestsLinkedToCancelledOffersActions.success.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['hasRequestsLinkedToCancelledOffers', 'exists'], payload),
     [fetchAllReplacementRequestCoachAnswersActions.loading.toString()]: (
       state,
       { payload },

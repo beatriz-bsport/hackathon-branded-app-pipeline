@@ -126,7 +126,11 @@ export async function hasUnseenConfirmedRequests(params: { company?: number }) {
     )}`,
   );
 }
-
+export async function hasRequestsLinkedToCancelledOffers() {
+  return getAuth(
+    `${API_V1_URI}/replacement_request/has_requests_linked_to_cancelled_offers/`,
+  );
+}
 export async function fetchReplacementRequestConfiguration() {
   return getAuth(`${API_V1_URI}/replacement_request/configuration/me/`);
 }

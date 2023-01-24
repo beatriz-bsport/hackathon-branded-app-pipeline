@@ -629,6 +629,7 @@ export class OfferEditForm extends Component<Props, State> {
                 <NumericInput
                   required
                   fullWidth
+                  InputProps={{ inputProps: { min: 0 } }}
                   label={this.props.t('offer.effectif')}
                   value={this.state.effectif}
                   onChange={(event) =>
@@ -641,6 +642,7 @@ export class OfferEditForm extends Component<Props, State> {
                   <NumericInput
                     required
                     fullWidth
+                    InputProps={{ inputProps: { min: 0 } }}
                     label={this.props.t('offer.partner_max_booking_count')}
                     value={this.state.partner_max_booking_count}
                     onChange={(event) =>
@@ -661,6 +663,7 @@ export class OfferEditForm extends Component<Props, State> {
                 <NumericInput
                   required
                   fullWidth
+                  InputProps={{ inputProps: { min: 0 } }}
                   value={this.state.waiting_list_max_size}
                   label={this.props.t('offer.sizeOfWaitingList')}
                   onChange={(event) =>
@@ -680,6 +683,7 @@ export class OfferEditForm extends Component<Props, State> {
                 <NumericInput
                   required
                   fullWidth
+                  InputProps={{ inputProps: { min: 0 } }}
                   label={this.props.t('form.credit_price')}
                   value={this.state.credit_price_override}
                   error={hasErrorCredit}

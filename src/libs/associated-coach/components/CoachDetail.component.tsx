@@ -97,8 +97,8 @@ export const CoachDetail: React.FC<Props> = ({
   const classes = useStyles();
 
   return (
-    <div className={classes.column}>
-      <div className={classes.row}>
+    <div className={classes.grid}>
+      <div className={classes.presentation}>
         <Paper className={classes.paperContainer}>
           <CoachSummaryBanner
             coach={coach}
@@ -107,14 +107,14 @@ export const CoachDetail: React.FC<Props> = ({
             setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
           />
         </Paper>
-        <div className={classes.right}>
-          <CoachSpaceConfiguration
-            editAccessToCoachSpace={editAccessToCoachSpace}
-            hasAccessToCoachSpace={coach?.has_access_to_coach_space}
-          />
-        </div>
       </div>
-      <div className={classes.row}>
+      <div className={classes.activation}>
+        <CoachSpaceConfiguration
+          editAccessToCoachSpace={editAccessToCoachSpace}
+          hasAccessToCoachSpace={coach?.has_access_to_coach_space}
+        />
+      </div>
+      <div className={classes.payroll}>
         <Paper className={classes.paperContainer}>
           <CoachPaymentRuleBanner
             coach={coach}
@@ -131,17 +131,18 @@ export const CoachDetail: React.FC<Props> = ({
             privateServices={privateServices}
           />
         </Paper>
-        <div className={classes.right}>
-          <Description coach={coach} startUpdateCoach={startUpdateCoach} />
-        </div>
       </div>
-      <FeatureListProvider>
-        {(featureList) => (
-          <>
-            {!!featureList.upsell?.find(
-              (f) => f.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
-            ) && (
-              <div className={classes.row}>
+      <div className={classes.description}>
+        <Description coach={coach} startUpdateCoach={startUpdateCoach} />
+      </div>
+      <div className={classes.remplacement}>
+        <FeatureListProvider>
+          {(featureList) => (
+            <>
+              {!!featureList.upsell?.find(
+                (f) =>
+                  f.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+              ) && (
                 <Paper className={classes.paperReplacement}>
                   <AssociatedCoachDisciplineGroupConfiguration
                     coach={coach}
@@ -155,17 +156,40 @@ export const CoachDetail: React.FC<Props> = ({
                     }
                   />
                 </Paper>
-              </div>
-            )}
-          </>
-        )}
-      </FeatureListProvider>
+              )}
+            </>
+          )}
+        </FeatureListProvider>
+      </div>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  row: { display: 'flex', gap: theme.spacing(2) },
+  grid: {
+    gridGap: theme.spacing(2),
+    display: 'grid',
+  },
+  presentation: {
+    [theme.breakpoints.down('md')]: { order: 1 },
+    [theme.breakpoints.up('md')]: { gridRow: 1, gridColumn: 1 },
+  },
+  description: {
+    [theme.breakpoints.down('md')]: { order: 2 },
+    [theme.breakpoints.up('md')]: { gridRow: 2, gridColumn: 2 },
+  },
+  activation: {
+    [theme.breakpoints.down('md')]: { order: 3 },
+    [theme.breakpoints.up('md')]: { gridRow: 1, gridColumn: 2 },
+  },
+  payroll: {
+    [theme.breakpoints.down('md')]: { order: 4 },
+    [theme.breakpoints.up('md')]: { gridRow: 2, gridColumn: 1 },
+  },
+  remplacement: {
+    [theme.breakpoints.down('md')]: { order: 5 },
+    [theme.breakpoints.up('md')]: { gridRow: 3, gridColumn: 1 },
+  },
   fullWidth: { width: '100%' },
   paperContainer: {
     padding: theme.spacing(2),
@@ -173,10 +197,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paperReplacement: {
     padding: theme.spacing(2),
-    width: '62.5%',
-  },
-  right: {
-    flex: '3',
   },
   leftButton: {
     paddingTop: theme.spacing(1),
@@ -184,7 +204,6 @@ const useStyles = makeStyles((theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
-  column: { display: 'flex', flexDirection: 'column', gap: theme.spacing(2) },
 }));
 
 export default CoachDetail;

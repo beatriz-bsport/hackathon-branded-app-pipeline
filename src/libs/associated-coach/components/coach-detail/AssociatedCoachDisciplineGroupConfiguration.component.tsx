@@ -205,12 +205,12 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           {t('coachEdit.description')}
         </Typography>
       </Grid>
-      <Grid item xs={10}>
+      <Grid item xs={12}>
         <Grid container direction="row" spacing={2} className={classes.row}>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <Typography>{t('coachEdit.disciplineGroup')}</Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <Select
               closeMenuOnSelect
               isClearable
@@ -246,11 +246,18 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           {t('coachEdit.customRules')}
         </Button>
       </Grid>
-      <Grid item container xs={12} direction="row" alignItems="center">
-        <Grid item xs={2}>
+      <Grid
+        item
+        container
+        xs={12}
+        direction="row"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid item xs={12} md={2} className={classes.label}>
           <Typography variant="body1">{t('coachEdit.activities')}</Typography>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <MaterialUISelector
             isDisabled={values.allActivities || !!values.disciplineGroup}
             options={metaActivitySelectorOptions}
@@ -282,11 +289,18 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           label={t('coachEdit.allActivities')}
         />
       </Grid>
-      <Grid item container xs={12} direction="row" alignItems="center">
-        <Grid item xs={2}>
+      <Grid
+        item
+        container
+        xs={12}
+        direction="row"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid item xs={12} md={2} className={classes.label}>
           <Typography variant="body1">{t('coachEdit.workshops')}</Typography>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <MaterialUISelector
             isDisabled={values.allWorkshops || !!values.disciplineGroup}
             options={workshopSelectorOptions}
@@ -318,11 +332,18 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           label={t('coachEdit.allWorkshops')}
         />
       </Grid>
-      <Grid item container xs={12} direction="row" alignItems="center">
-        <Grid item xs={2}>
+      <Grid
+        item
+        container
+        xs={12}
+        direction="row"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid item xs={12} md={2} className={classes.label}>
           <Typography variant="body1">{t('coachEdit.categories')}</Typography>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <MaterialUISelector
             isDisabled={values.allCategories || !!values.disciplineGroup}
             options={categorySelectorOptions}
@@ -394,6 +415,9 @@ const useStyles = makeStyles((theme) => ({
   infoIcon: {
     color: theme.palette.info.main,
     marginRight: theme.spacing(1),
+  },
+  label: {
+    [theme.breakpoints.up('md')]: { marginRight: theme.spacing(2) },
   },
 }));
 

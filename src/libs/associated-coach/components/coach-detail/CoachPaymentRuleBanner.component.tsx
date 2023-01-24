@@ -259,19 +259,19 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
           </Alert>
         )}
 
-        <Grid item xs={8}>
+        <Grid item xs={12} className={classes.payrollGroup}>
           <Grid
             container
             direction="row"
             spacing={2}
             style={{ alignItems: 'center' }}
           >
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <Typography>
                 {t('paymentRules:coach_payment_rule_groups.dialogTitle')}
               </Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={8}>
               <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={coachPaymentRuleGroups}
                 selectedRules={[coach.coach_payment_rule_group_id]}
@@ -313,11 +313,11 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
           </Grid>
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="row"
-            spacing={2}
+            spacing={1}
             style={{ alignItems: 'center' }}
           >
             <Grid item xs={12}>
@@ -330,12 +330,12 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 ) : null}
               </div>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4} className={classes.label}>
               <Typography>
                 {t('paymentRules:coach_payment_rule_groups.fields.activity')}
               </Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={8} className={classes.selector}>
               <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
@@ -355,19 +355,19 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="row"
-            spacing={2}
+            spacing={1}
             style={{ alignItems: 'center' }}
           >
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4} className={classes.label}>
               <Typography>
                 {t('paymentRules:coach_payment_rule_groups.fields.workshop')}
               </Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={8} className={classes.selector}>
               <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
@@ -387,21 +387,21 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="row"
-            spacing={2}
+            spacing={1}
             style={{ alignItems: 'center' }}
           >
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4} className={classes.label}>
               <Typography>
                 {t(
                   'paymentRules:coach_payment_rule_groups.fields.private_service',
                 )}
               </Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={8} className={classes.selector}>
               <CoachPaymentRuleSelectorStyled
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
@@ -604,6 +604,13 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  label: {
+    [theme.breakpoints.up('md')]: { marginRight: theme.spacing(2) },
+  },
+  selector: {
+    [theme.breakpoints.down('md')]: { marginBottom: theme.spacing(1) },
+  },
+  payrollGroup: { marginTop: theme.spacing(2) },
 });
 
 export default compose<any, OwnProps>(

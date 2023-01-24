@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: white;
+  gap: 10px;
+}
+
+.item {
+  flex-grow: 1;
+  height: 50px;
+  width: 50px;
+  background-color: #121212;
+  border-radius: 5px;
+  color: 'white';
+  display: flex;
+  justify-content: center;
+}
+
+.item p {
+  color: white;
+}

@@ -9,6 +9,7 @@
       "alias": {
         "#libs": "./src/libs",
         "#components": "./src/components",
+        "#csscomponents":"./src/components/css-only",
         "#hocs": "./src/hocs",
       }
     }]

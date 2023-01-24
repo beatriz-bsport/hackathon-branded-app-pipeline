@@ -300,6 +300,7 @@ export type ProtectedUrls =
   | '/settings/webhook'
   | '/settings/widget/create'
   | '/settings/widget/customize'
+  | '/settings/coach-userspace'
   | '/shop'
   | '/smart-list'
   | '/spot-scheduling'

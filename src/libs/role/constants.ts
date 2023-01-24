@@ -81,6 +81,7 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/settings/webhook': ['navigationMenu.settings.webHook'],
   '/settings/widget/create': ['navigationMenu.settings.widgets'],
   '/settings/widget/customize': ['navigationMenu.settings.widgets'],
+  '/settings/coach-userspace': ['navigationMenu.settings.coachUserspace'],
   '/shop': ['navigationMenu.products.shop'],
   '/smart-list': ['navigationMenu.marketing.smartlists'],
   '/spot-scheduling': ['navigationMenu.myClub.establishments'],

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { push } from 'connected-react-router';
 import InfoIcon from '@material-ui/icons/Info';
+import BlockIcon from '@material-ui/icons/Block';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CheckIcon from '@material-ui/icons/Check';
@@ -27,6 +28,7 @@ import {
   DISPLAY_SUCCESS,
   DISPLAY_INFORMATION,
   ACTION_MODE_REDIRECT,
+  DISPLAY_ACCESS_DENIED,
 } from '../types';
 
 type Props = {
@@ -49,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   infoText: {},
+  red: {
+    color: theme.palette.error.main,
+  },
 }));
 
 export function BackgroundDialogComponent(props: Props) {
@@ -72,6 +77,11 @@ export function BackgroundDialogComponent(props: Props) {
           {!!dialog.title && (
             <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
           )}
+          {dialog.displayMode === DISPLAY_ACCESS_DENIED && (
+            <DialogTitle id="alert-dialog-title">
+              {t('snackbar:accessDenied.general.title')}
+            </DialogTitle>
+          )}
           <DialogContent>
             {dialog.displayMode === DISPLAY_TEXT && (
               <DialogContentText id="alert-dialog-description">
@@ -87,6 +97,18 @@ export function BackgroundDialogComponent(props: Props) {
                   id="alert-dialog-description"
                 >
                   {dialog.message}
+                </Typography>
+              </div>
+            )}
+            {dialog.displayMode === DISPLAY_ACCESS_DENIED && (
+              <div className={classes.contentWithIcon}>
+                <BlockIcon className={classNames(classes.icon, classes.red)} />
+                <Typography
+                  align="center"
+                  className={classes.infoText}
+                  id="alert-dialog-description"
+                >
+                  {t('snackbar:accessDenied.general.message')}
                 </Typography>
               </div>
             )}

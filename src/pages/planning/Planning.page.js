@@ -153,6 +153,8 @@ import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
 import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
 
+import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
+
 const styles = (theme) => ({
   container: {
     flex: 1,
@@ -1133,6 +1135,7 @@ export class Planning extends PureComponent<Props, State> {
       selectedOffer,
     } = this.props;
     const events_ = this.getDayOffers(events);
+
     return (
       <div className={classes.container}>
         {this.searchBar()}
@@ -1446,6 +1449,7 @@ export default compose(
       fetchZoomApp: fetchZoomAppAction,
       setReplacementRequestManagerFilter:
         setReplacementRequestManagerFilterAction,
+      redirectIfAllowed: redirectIfAllowedAction,
     },
   ),
   withHandlers({
@@ -1527,9 +1531,16 @@ export default compose(
           kind: 'count',
         });
       },
-    goToReplacementRequestManagementPage: () => () => {
-      window.open('/replacement/management');
-    },
+    goToReplacementRequestManagementPage:
+      ({ redirectIfAllowed }) =>
+      () => {
+        redirectIfAllowed('/replacement/management', {
+          newWindow: true,
+          deniedAccessDialog: {
+            display: true,
+          },
+        });
+      },
   }),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('massDisablerStartDate', 'setMassDisablerStartDate', null),

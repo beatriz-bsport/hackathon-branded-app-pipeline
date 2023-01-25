@@ -172,3 +172,49 @@ export const getOptionsFromIds = memoize(
       }));
   },
 );
+
+// TODO : https://gitlab.com/bsport/bsport-saas/-/issues/1383
+export const matchUrlToRelevantPermissionKey = (url: string) => {
+  if (url) {
+    const cleanedUrl = parseRestrictedPath(url);
+    switch (cleanedUrl) {
+      case '/replacement/management': {
+        return ['navigationMenu', 'myClub', 'replacement'];
+      }
+      default:
+        return [];
+    }
+  }
+  return [];
+};
+
+export const getNestedKeyInObject = (object: Object, keys: string[]) => {
+  if (checkNestedKeyInObject(object, keys)) {
+    return keys.reduce(
+      (currentNestedObject, key) =>
+        currentNestedObject &&
+        currentNestedObject[key] !== null &&
+        currentNestedObject[key] !== undefined
+          ? currentNestedObject[key]
+          : null,
+      object,
+    );
+  }
+  return undefined;
+};
+export const checkNestedKeyInObject = (
+  object: Object,
+  keys: string[],
+): boolean => {
+  if (!object) {
+    return false;
+  }
+  const [currentKey, ...restKey] = keys;
+
+  if (
+    restKey.length === 0 &&
+    Object.prototype.hasOwnProperty.call(object, currentKey)
+  )
+    return true;
+  return checkNestedKeyInObject(object[currentKey], restKey);
+};

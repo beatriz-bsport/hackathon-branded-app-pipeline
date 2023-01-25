@@ -1,4 +1,7 @@
 import { createAction } from 'redux-actions';
+import * as Sentry from '@sentry/react';
+import { push } from 'connected-react-router';
+import { v4 as uuid4 } from 'uuid';
 import {
   fetchCompanyUserRoles as fetchCompanyUserRolesAPI,
   createUserRole as createUserRoleAPI,
@@ -30,7 +33,17 @@ import {
   RolePermission,
   Role,
   UserRoleData,
+  RedirectionParameters,
 } from './types';
+
+import { getPermissions } from './selectors';
+import { matchUrlToRelevantPermissionKey, getNestedKeyInObject } from './utils';
+import { RootState } from '../../reducers';
+import { displayBackgroundDialog } from '#libs/background-dialog/actions';
+import {
+  DISPLAY_ACCESS_DENIED,
+  ACTION_MODE_REDIRECT,
+} from '#libs/background-dialog/types';
 
 export const userRoleList = {
   error: createAction('ROLE/USER/LIST/ERROR'),
@@ -476,5 +489,59 @@ export function deleteFranchiseRole(franchiseRole: FranchiseRole) {
       dispatch(franchiseRoleUpdate.error(err));
     }
     dispatch(franchiseRoleUpdate.isLoading(false));
+  };
+}
+
+export function redirectIfAllowed(
+  url: string,
+  redirectionParameters: RedirectionParameters,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    if (!url) {
+      return;
+    }
+
+    try {
+      const permissionKey = matchUrlToRelevantPermissionKey(url);
+      const userPermissions = getPermissions(getState());
+
+      const hasAccess = getNestedKeyInObject(userPermissions, permissionKey);
+      if (hasAccess === undefined) {
+        const error = new Error(
+          `Fail to parse permission key : ${permissionKey}`,
+        );
+        const sentryObjectError = {
+          error_message: `Fail to parse permission key : ${permissionKey}`,
+          userPermissions,
+        };
+        Sentry.captureException(sentryObjectError);
+        throw error;
+      }
+      if (!hasAccess) {
+        if (redirectionParameters?.deniedAccessDialog?.display) {
+          const uuid = uuid4();
+          dispatch(
+            displayBackgroundDialog(
+              uuid,
+              '',
+              '',
+              '',
+              ACTION_MODE_REDIRECT,
+              DISPLAY_ACCESS_DENIED,
+            ),
+          );
+          return;
+        }
+        return;
+      }
+
+      const windowAction = redirectionParameters?.newWindow
+        ? window.open
+        : (_url: string) => dispatch(push(_url));
+
+      windowAction(url);
+    } catch (error) {
+      console.error(error);
+    }
   };
 }

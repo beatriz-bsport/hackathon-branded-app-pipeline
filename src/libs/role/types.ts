@@ -362,3 +362,10 @@ export type StaffModificationHistory<
   old_coach: number;
   new_coach: number;
 };
+
+export type RedirectionParameters = {
+  newWindow?: boolean;
+  deniedAccessDialog?: {
+    display: boolean;
+  };
+};

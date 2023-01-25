@@ -8372,7 +8372,8 @@
         "500001": "Une demande de remplacement existe déjà",
         "500004": "Vous êtes déjà remplaçant sur cette séance"
       }
-    }
+    },
+    "accessDenied": { "general": { "title": "Accès refusé", "message": "Vous ne pouvez pas accéder à l'espace demandé" } }
   },
   "spotScheduling": {
     "toolsMenu": {

@@ -1130,4 +1130,10 @@ exports.default = {
         'Cette demande de remplacement a été refusée: impossible de la supprimer',
     },
   },
+  accessDenied: {
+    general: {
+      title: 'Accès refusé',
+      message: "Vous ne pouvez pas accéder à l'espace demandé",
+    },
+  },
 };

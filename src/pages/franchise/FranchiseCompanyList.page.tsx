@@ -44,6 +44,7 @@ type OwnProps = {
 
 type State = {
   page: number;
+  isRedirectLoading: boolean;
 };
 
 type Props = OwnProps &
@@ -57,6 +58,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
 
     this.state = {
       page: 1,
+      isRedirectLoading: false,
     };
   }
 
@@ -120,7 +122,11 @@ export class FranchiseCompanyList extends Component<Props, State> {
   };
 
   goToCompany = (companyId: number) => () => {
-    this.props.navigateAsCompanyAdmin(companyId, '');
+    this.setState({ isRedirectLoading: true });
+    this.props.navigateAsCompanyAdmin(companyId, '', {
+      onSuccess: () => this.setState({ isRedirectLoading: false }),
+      onError: () => this.setState({ isRedirectLoading: false }),
+    });
   };
 
   goToUser = (companyId: number) => (memberId: number) => () => {
@@ -162,6 +168,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
             handleCompanySelected={this.handleCompanySelected}
             createOrUpdateCompanyGroup={this.createOrUpdateCompanyGroup}
             restrictedFranchisees={!!this.props.allowedFranchisees?.length}
+            isRedirectLoading={this.state.isRedirectLoading}
           />
         </div>
         <div className={classes.right}>
@@ -174,6 +181,7 @@ export class FranchiseCompanyList extends Component<Props, State> {
             page={this.state.page}
             handleChangePage={this.handleChangePage}
             goToCompany={this.goToCompany(companyId)}
+            isRedirectLoading={this.state.isRedirectLoading}
             goToUser={this.goToUser(companyId)}
           />
         </div>

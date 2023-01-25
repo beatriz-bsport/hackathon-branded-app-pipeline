@@ -9,8 +9,16 @@ import type { Company } from '../../company/types';
 export const CompanyListItem = (props: {
   company: Company;
   onClick?: () => void;
+  selected?: boolean;
+  isRedirectLoading?: boolean;
 }) => (
-  <ListItem divider button={!!props.onClick} onClick={props.onClick}>
+  <ListItem
+    divider
+    button={!!props.onClick}
+    onClick={props.onClick}
+    selected={props.selected}
+    disabled={props.isRedirectLoading}
+  >
     <ListItemAvatar>
       <Avatar alt={props.company.name} src={props.company.cover} />
     </ListItemAvatar>

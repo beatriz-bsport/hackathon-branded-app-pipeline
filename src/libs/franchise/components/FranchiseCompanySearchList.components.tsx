@@ -36,6 +36,7 @@ export type OwnProps = {
     data: any,
     options: OptionCallback<CompanyGroup>,
   ) => void;
+  isRedirectLoading?: boolean;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -110,6 +111,8 @@ const FranchiseCompanySearchList = (props: Props) => {
                     company={c}
                     key={c.id}
                     onClick={handleCompanySelected(c.id, c.name)}
+                    selected={c.id === selectedCompanyId}
+                    isRedirectLoading={props.isRedirectLoading}
                   />
                 ))}
             </Paper>
@@ -124,6 +127,8 @@ const FranchiseCompanySearchList = (props: Props) => {
                 company={company}
                 key={company.id}
                 onClick={handleCompanySelected(company.id, company.name)}
+                selected={company.id === selectedCompanyId}
+                isRedirectLoading={props.isRedirectLoading}
               />
             ))}
         </Paper>

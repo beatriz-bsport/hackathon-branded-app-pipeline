@@ -15,6 +15,7 @@ import {
   Avatar,
   ListItem,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 import Room from '@material-ui/icons/Room';
 import InfoIcon from '@material-ui/icons/Info';
@@ -33,6 +34,7 @@ export type OwnProps = {
   handleChangePage: (newPage: number) => void;
   goToCompany: () => void;
   goToUser: (memberId: number) => () => void;
+  isRedirectLoading?: boolean;
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -50,6 +52,7 @@ const FranchiseCompanyDetails = (props: Props) => {
     goToCompany,
     goToUser,
     t,
+    isRedirectLoading,
   } = props;
 
   return (
@@ -75,7 +78,15 @@ const FranchiseCompanyDetails = (props: Props) => {
             variant="contained"
             color="primary"
             onClick={goToCompany}
+            disabled={isRedirectLoading}
           >
+            {isRedirectLoading && (
+              <CircularProgress
+                style={{ marginRight: 8 }}
+                size={24}
+                color="inherit"
+              />
+            )}
             {t('companies.navigateToCompany')}
           </Button>
           <div className={classes.subtitle}>

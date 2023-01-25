@@ -160,7 +160,7 @@ exports.default = {
       invalidMandate: {
         title: 'Mandat de prélèvement expiré ou invalide!',
         explainSituation:
-          "Le mandat associé à cette méthode de paiement a expiré. Cela peut être dû à de multiples raisons, un nombre de paiement en échec trop élevés, une décision unilatéral de la banque, etc... La méthode de paiement n'est désormais plus utilisable il va vous falloir en enregistrer une nouvelle",
+          "Le mandat associé à cette méthode de paiement a expiré. Cela peut être dû à de multiples raisons, un nombre de paiement en échec trop élevés, une décision unilatérale de la banque, etc... La méthode de paiement n'est désormais plus utilisable il va vous falloir en enregistrer une nouvelle",
         cancel: 'Annuler',
         confirm: 'Suivant',
       },

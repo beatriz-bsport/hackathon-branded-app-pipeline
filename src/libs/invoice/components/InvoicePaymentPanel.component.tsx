@@ -369,6 +369,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 {props.plannedPaymentEventList.map((p) => (
                   <PlannedPaymentEventListItem
                     plannedPaymentEvent={p}
+                    requestSetupIntentSecret={props.requestSetupIntentSecret}
                     invoice={props.invoice}
                     key={p.id}
                     actions={props.plannedPaymentEventActions}

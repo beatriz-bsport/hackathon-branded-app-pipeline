@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
@@ -7,10 +6,20 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { AxiosResponse } from 'axios';
+
 import RevalidateSEPAMandate from './RevalidateSEPAMandate.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
-type ReplaceInvalidateMandateProps = {};
+type ReplaceInvalidateMandateProps = {
+  requestSetupIntentSecret: (
+    paymentMethodId: string,
+  ) => Promise<AxiosResponse<any>>;
+  onSuccess?: () => void;
+  paymentMethodIdToRevalidate: string;
+  onCancel: () => void;
+  open: boolean;
+};
 
 const useDialogStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -40,7 +49,7 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
   const { t } = useTranslation(['invoice']);
   const classes = useDialogStyles();
 
-  const [currentStep, setCurrentStep] = React.useState(STEP.INIT);
+  const [currentStep, setCurrentStep] = React.useState<number>(STEP.INIT);
 
   if (!props.open) return null;
 

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -316,7 +315,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme; Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',

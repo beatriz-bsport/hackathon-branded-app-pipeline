@@ -16,11 +16,6 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group';
-import {
-  PLANNED_PAYMENT_EVENT_STATUS_PENDING,
-  PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
-  PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
-} from '@bsport/common/lib/master-data/planned-payment-event';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
 import withTitle from '#hocs/with-title.hoc';
 import {
@@ -116,6 +111,8 @@ import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constant
 import type { StripeReader } from '../../libs/terminal/types';
 import { withDefaultBillingEstablishment } from '#libs/member/selectors';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';
+
+import RevalidateSEPAMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateSEPAMandateDialog.component';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 const stripeRegion = getStripeRegion();
@@ -231,6 +228,8 @@ type State = {
   clientSecretLoading: boolean,
   coupon_list: Array<{ coupon_code: string, coupon_voucher: number }>,
   paymentGroupPriceCts: number,
+  paymentMethodIdToRevalidate: string,
+  onPaymentMethodRefreshed: () => void,
 };
 
 export class InvoiceDetail extends React.Component<Props, State> {
@@ -268,7 +267,6 @@ export class InvoiceDetail extends React.Component<Props, State> {
     });
     this.props.fetchPlannedPaymentEventList({
       invoice: this.props.uuid,
-      status__in: `${PLANNED_PAYMENT_EVENT_STATUS_PENDING},${PLANNED_PAYMENT_EVENT_STATUS_CANCELED},${PLANNED_PAYMENT_EVENT_STATUS_REGISTERED}`,
     });
   };
 
@@ -400,8 +398,13 @@ export class InvoiceDetail extends React.Component<Props, State> {
     }
   };
 
-  requestSetupIntentSecret = () => {
-    return requestSetupIntentSecretAPI(this.props.invoice.member.id);
+  requestSetupIntentSecret = (paymentMethodIdToRevalidate?: string) => {
+    return requestSetupIntentSecretAPI(
+      this.props.invoice.member.id,
+      undefined,
+      false,
+      paymentMethodIdToRevalidate,
+    );
   };
 
   onValidatePaymentGroup = (pg: PaymentGroup) => {
@@ -463,6 +466,46 @@ export class InvoiceDetail extends React.Component<Props, State> {
       },
     );
 
+  revalidateMandateAndRegisterNow = (
+    plannedPaymentEvent: PlannedPaymentEvent,
+  ) => {
+    this.setState({
+      paymentMethodIdToRevalidate:
+        plannedPaymentEvent._payment_backend_payment_method_id,
+      // we store the callback for what todo when paymentmethod revalidated
+      //  so basically we resubmit the plannedpaymentevent immediately
+      onPaymentMethodRefreshed: () =>
+        this.props.changePaymentMethodAndRegisterPlannedPaymentEvent(
+          plannedPaymentEvent.id,
+          plannedPaymentEvent.payment_method_identifier,
+          plannedPaymentEvent._payment_backend_payment_method_id,
+          false,
+          true,
+          {},
+          {
+            onSuccess: () => {
+              this.props.setRegisterNow(false);
+              this.props.setOpenPlannedPaymentMethodDialog(false);
+              this.props.setPlannedPaymentDialogProcessing(false);
+              this.fetchInvoiceData();
+              this.setState({
+                paymentMethodIdToRevalidate: '',
+              });
+            },
+            onError: () => {
+              this.props.setPlannedPaymentDialogProcessing(false);
+            },
+          },
+        ),
+    });
+  };
+
+  closeRevalidateSEPAMandate = () => {
+    this.setState({
+      paymentMethodIdToRevalidate: '',
+    });
+  };
+
   render() {
     return (
       <>
@@ -522,11 +565,23 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   onEnable: this.enablePlannedPaymentEvent,
                   onRegisterNow: this.registerNowPlannedPaymentEvent,
                   onChangeMethod: this.changeMethodPlannedPaymentEvent,
+                  recoverableErrorActions: {
+                    mandate_invalid: this.revalidateMandateAndRegisterNow,
+                  },
                 }}
                 companyId={this.props.companyId}
                 snackbarSuccess={this.props.snackbarSuccess}
                 consumerGiftcardList={this.props.consumerGiftcardList}
                 applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+              />
+              <RevalidateSEPAMandateDialog
+                open={!!this.state.paymentMethodIdToRevalidate}
+                requestSetupIntentSecret={this.requestSetupIntentSecret}
+                paymentMethodIdToRevalidate={
+                  this.state.paymentMethodIdToRevalidate
+                }
+                onSuccess={this.state.onPaymentMethodRefreshed}
+                onCancel={this.closeRevalidateSEPAMandate}
               />
             </Grid>
             {!!this.props.isOpenInstalmentPaymentDialog && (
@@ -561,7 +616,6 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 companyId={this.props.companyId}
               />
             )}
-
             {!!this.props.openPaymentDialog && (
               <PaymentDialog
                 memberId={this.props.invoice.member.id}

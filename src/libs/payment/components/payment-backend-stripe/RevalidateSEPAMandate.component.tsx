@@ -11,9 +11,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, WithStyles, Theme } from '@material-ui/core/styles';
+import { AxiosResponse } from 'axios';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeErrorCode from './StripeErrorCode.component';
 
@@ -23,16 +24,17 @@ const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   fullScreen: boolean;
-  t: TFunction;
   onClose: () => void;
   onSuccess: (stripeSetupIntentCallResult: any) => void;
-  requestSetupIntentSecret: () => void;
+  requestSetupIntentSecret: (
+    paymentMethodId: string,
+  ) => Promise<AxiosResponse<any>>;
   stripe: Stripe;
-  classes: Object;
   variant?: 'div' | 'modal';
   content?: string;
   labelClose?: string;
-};
+} & WithStyles<typeof styles> &
+  WithTranslation;
 
 type State = {
   error: Error | null;
@@ -258,7 +260,7 @@ export class RevalidateSEPAMandate extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   actions: {
     marginTop: theme.spacing(2),
     display: 'flex',

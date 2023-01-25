@@ -35,6 +35,7 @@ export const requestSetupIntentSecret = async (
   member?: number,
   company?: number,
   as_company: boolean = false,
+  payment_method?: string = '',
 ) => {
   return postAuth(
     `${API_V1_URI}/payment/payment_method/register_setup_intent/`,
@@ -42,6 +43,7 @@ export const requestSetupIntentSecret = async (
       member,
       company,
       as_company,
+      payment_method,
     },
   );
 };

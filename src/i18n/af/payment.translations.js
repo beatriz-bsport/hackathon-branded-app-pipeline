@@ -176,6 +176,15 @@ exports.default = {
         selectPaymentMethod: 'Sélectionner votre moyen de paiement',
         displayPaymentMethod: 'Afficher mes méthodes de paiement',
       },
+      mandateRevalidated: {
+        collect: 'Accepter',
+        content: 'Le mandat de prélèvement sera revalidé avec la banque.',
+        success:
+          'Le mandat a bien été renouvelé, les prochains prélèvements seront effectués avec succès.',
+        error:
+          'Impossible de renouveler le mandat de prélèvement, veuillez contacter votre banque.',
+        retry: 'Réessayer',
+      },
     },
   },
   generalTermsAndConditions: {

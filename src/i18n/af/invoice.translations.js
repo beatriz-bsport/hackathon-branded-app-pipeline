@@ -150,11 +150,21 @@ exports.default = {
       enable: 'Reprogrammer',
       edit: 'Modifier',
       changeMethod: 'Modifier la méthode de paiement',
+      solveInvalidPaymentAttempt: 'Régulariser',
     },
     nextRetryDate: 'Le paiement sera retenté le {{ d }}',
     lockedToday:
       "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
     registerNowInitialData: 'Paiement initialement prévu le {{-date}}',
+    dialog: {
+      invalidMandate: {
+        title: 'Mandat de prélèvement expiré ou invalide!',
+        explainSituation:
+          "Le mandat associé à cette méthode de paiement a expiré. Cela peut être dû à de multiples raisons, un nombre de paiement en échec trop élevés, une décision unilatéral de la banque, etc... La méthode de paiement n'est désormais plus utilisable il va vous falloir en enregistrer une nouvelle",
+        cancel: 'Annuler',
+        confirm: 'Suivant',
+      },
+    },
   },
   paymentPanel: {
     amountRemaining: 'Reste à payer: {{ amount }}',

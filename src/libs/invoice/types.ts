@@ -47,6 +47,8 @@ export type PlannedPaymentEvent = {
   payment_method_identifier: number;
   _payment_backend_method_id: string;
   status: number;
+  error_recoverable_manually: boolean;
+  recoverable_error_type: string;
 };
 
 export type PaymentGroup = {

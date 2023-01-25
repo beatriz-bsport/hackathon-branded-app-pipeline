@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
@@ -17,13 +17,17 @@ import Backdrop from '@material-ui/core/Backdrop';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import ErrorIcon from '@material-ui/icons/Error';
+import CancelIcon from '@material-ui/icons/Cancel';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+  PLANNED_PAYMENT_EVENT_STATUS_ERROR,
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/planned-payment-event';
+import RedButton from '#components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PlannedPaymentEvent, Invoice } from '../types';
 
@@ -86,6 +90,9 @@ export const PlannedPaymentEventListItem = (props: Props) => {
   let { onDisable, onEnable, onRegisterNow, onEdit, onChangeMethod } = {};
 
   let StatusIcon = HourglassEmptyIcon;
+  let statusColor;
+  let secondaryAction = null;
+
   if (plannedPaymentEvent.nb_retries > 0) {
     StatusIcon = RefreshIcon;
   }
@@ -102,7 +109,17 @@ export const PlannedPaymentEventListItem = (props: Props) => {
         parseInt(props.invoice.amount_due_cts) && props.actions?.onEnable;
     onChangeMethod = null;
 
-    StatusIcon = RefreshIcon;
+    StatusIcon = CancelIcon;
+  }
+  if (plannedPaymentEvent.status === PLANNED_PAYMENT_EVENT_STATUS_ERROR) {
+    StatusIcon = ErrorIcon;
+    statusColor = 'error';
+    onDisable = null;
+    onRegisterNow = null;
+    onEnable = null;
+    secondaryAction = (props.actions?.recoverableErrorActions || {})[
+      plannedPaymentEvent.recoverable_error_type || 'none'
+    ];
   }
 
   if (plannedPaymentEvent.status === PLANNED_PAYMENT_EVENT_STATUS_PENDING) {
@@ -118,12 +135,14 @@ export const PlannedPaymentEventListItem = (props: Props) => {
         <CircularProgress />
       </Backdrop>
       <div className={classes.row}>
-        <StatusIcon className={classes.leftIcon} />
+        <StatusIcon color={statusColor} className={classes.leftIcon} />
         <div className={classes.leftColumn}>
           <Typography
             style={
-              plannedPaymentEvent.status ===
-              PLANNED_PAYMENT_EVENT_STATUS_CANCELED
+              [
+                PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+                PLANNED_PAYMENT_EVENT_STATUS_ERROR,
+              ].includes(plannedPaymentEvent.status)
                 ? { 'text-decoration': 'line-through' }
                 : null
             }
@@ -143,8 +162,10 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 color="textSecondary"
                 variant="caption"
                 style={
-                  plannedPaymentEvent.status ===
-                  PLANNED_PAYMENT_EVENT_STATUS_CANCELED
+                  [
+                    PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+                    PLANNED_PAYMENT_EVENT_STATUS_ERROR,
+                  ].includes(plannedPaymentEvent.status)
                     ? { 'text-decoration': 'line-through' }
                     : null
                 }
@@ -163,8 +184,10 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 color="textSecondary"
                 variant="caption"
                 style={
-                  plannedPaymentEvent.status ===
-                  PLANNED_PAYMENT_EVENT_STATUS_CANCELED
+                  [
+                    PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+                    PLANNED_PAYMENT_EVENT_STATUS_ERROR,
+                  ].includes(plannedPaymentEvent.status)
                     ? { 'text-decoration': 'line-through' }
                     : null
                 }
@@ -179,6 +202,14 @@ export const PlannedPaymentEventListItem = (props: Props) => {
           )}
         </div>
       </div>
+      {!!secondaryAction && (
+        <RedButton
+          variant="outlined"
+          onClick={() => secondaryAction(plannedPaymentEvent)}
+        >
+          {t('plannedPaymentEvent.actions.solveInvalidPaymentAttempt')}
+        </RedButton>
+      )}
       {(!!onEdit ||
         !!onDisable ||
         !!onEnable ||
@@ -285,18 +316,19 @@ export const PlannedPaymentEventListItem = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme; Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    width: '100%',
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   leftColumn: {
     display: 'flex',

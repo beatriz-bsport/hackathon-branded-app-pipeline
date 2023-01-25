@@ -2671,7 +2671,7 @@
                 "emergency_contact": "Contact d'urgence",
                 "accept_email": "Accepte email",
                 "accept_sms": "Accepte sms",
-                "vaccination_status": "Status pass sanitaire COVID-19",
+                "vaccination_status": "Statut pass sanitaire COVID-19",
                 "title": "Titre",
                 "email": "Adresse email",
                 "phone": "Téléphone",
@@ -9682,7 +9682,7 @@
             "notifications": "Notifications"
         },
         "settings": "Paramètres",
-        "planning": "Planning",
+        "planning": "Calendrier",
         "shop": "Mon magasin",
         "offerManagement": "Réservations",
         "offerFormPage": "Création de séance",
@@ -10116,7 +10116,7 @@
                 "coachLabel": "Professeur",
                 "establishmentLabel": "Salle",
                 "substituteEstablishmentLabel": "Salle (lieu temporaire)",
-                "warningPackonEdit": "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
+                "warningPackonEdit": "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatibles avec les éventuels changements de lieu / professeur.",
                 "deleteTitle": "Supprimer la séance",
                 "cancelTitle": "Annuler la séance",
                 "changeDate": "Modifier l'horaire / date",
@@ -10649,7 +10649,7 @@
         },
         "appbar": {
             "title": {
-                "planning": "Planning",
+                "planning": "Calendrier",
                 "allCoachPerformance": "Récapitulatif professeur",
                 "mergeMember": "Fusion membre",
                 "dashboard": "Tableau de bord",
@@ -10730,7 +10730,10 @@
         "quickInvoiceVoucher": "Choisissez la réduction à appliquer lors de la facturation du pass suivant",
         "quickInvoiceNoVoucher": "Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction",
         "show_cancelled_offers": "Afficher les séances annulées",
-        "metaActivityNotificationToolTip": "Des notifications sont définies pour les réservations concernant cet élément"
+        "metaActivityNotificationToolTip": "Des notifications sont définies pour les réservations concernant cet élément",
+        "restrictions": {
+            "add": "Ajouter des règles différentes ({{ count }}/{{ max }})"
+        }
     },
     "video": {
         "playlist": {

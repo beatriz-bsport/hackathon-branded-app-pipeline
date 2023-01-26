@@ -253,6 +253,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           onClose={() => setOpenWidgetDialog(false)}
           componentType={config[currentTab].component_type}
           config={config[currentTab].config}
+          configIndex={currentTab}
         />
       )}
     </div>

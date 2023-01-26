@@ -24,6 +24,7 @@ export const fromConfigToUrl = (
   tabConfig: {
     component_type: string;
     config: any;
+    configIndex: number;
   },
   queryParams: any = {},
 ) => {
@@ -32,6 +33,9 @@ export const fromConfigToUrl = (
   const component_type = tabConfig?.component_type || '';
   let path = '';
 
+  if (tabConfig.configIndex !== undefined) {
+    Object.assign(query, { index: tabConfig.configIndex });
+  }
   if (component_type === 'privateService' && tabConfig.config.privateService) {
     const privateServiceConf = tabConfig.config.privateService;
 

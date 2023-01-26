@@ -15,6 +15,7 @@ import { Theme as CompanyTheme } from '../../theme/types';
 
 type OwnProps = {
   config: any;
+  configIndex?: number;
   componentType: string;
   theme: CompanyTheme;
   copyToClipboard: (str: string) => void;
@@ -33,6 +34,7 @@ export class WidgetMarketplaceConfigBuilder extends React.Component<Props> {
     const urlParams = fromConfigToUrl({
       component_type: this.props.componentType,
       config: this.props.config,
+      configIndex: this.props.configIndex,
     });
 
     if (!urlParams || urlParams === '/') {

@@ -10,6 +10,7 @@ type Ownprops = {
   onClose: () => void;
   componentType: string;
   config: any;
+  configIndex?: number;
 };
 
 type Props = Ownprops & WithTranslation;
@@ -29,6 +30,7 @@ class WidgetGeneratorDialog extends React.PureComponent<Props> {
             defaultValue={{
               componentType: this.props.componentType,
               config: this.props.config,
+              configIndex: this.props.configIndex,
             }}
             hideTypeSelector
             hidePreview

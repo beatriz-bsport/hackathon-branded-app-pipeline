@@ -242,17 +242,27 @@ export class MarketPlace extends Component<Props, State> {
         componentType = 'playlist';
       }
 
-      const index = this.props.settings.config.findIndex(
+      const hasMultipleComponentTypeConfig =
+        settings.config.filter((e) => e.component_type === componentType)
+          .length > 1;
+
+      let configIndex = settings.config.findIndex(
         (tab) => tab.component_type === componentType,
       );
 
+      if (hasMultipleComponentTypeConfig) {
+        configIndex = paramsJson.index;
+      }
+
       if (componentType === 'pass') {
-        const tabConfig = this.props.settings.config[index];
-        const newPath = fromConfigToUrl(tabConfig, { tabSelected: index });
+        const tabConfig = settings.config[configIndex];
+        const newPath = fromConfigToUrl(tabConfig, {
+          tabSelected: configIndex,
+        });
         return this.props.replace(newPath);
       }
-      if (index > -1) {
-        paramsJson.tabSelected = index;
+      if (configIndex > -1) {
+        paramsJson.tabSelected = configIndex;
       }
       uri.query(paramsJson);
       const pathname = uri.pathname();

@@ -73,6 +73,7 @@ type OwnProps = {
   defaultValue?: {
     componentType: string;
     config: MarketplaceComponentConfig;
+    configIndex?: number;
   };
   hideTypeSelector?: boolean;
   hidePreview?: boolean;
@@ -321,6 +322,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             componentType={this.state.componentType}
             copyToClipboard={this.copyToClipboard}
             config={this.state.config}
+            configIndex={this.props.defaultValue?.configIndex}
             error={error}
           />
           <WidgetCodePreview

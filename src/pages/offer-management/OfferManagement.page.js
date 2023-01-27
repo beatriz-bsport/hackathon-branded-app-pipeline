@@ -473,12 +473,14 @@ export default compose(
     addBooking:
       ({ refresh, registerBooking, fetchOfferStatus, fetchOffer }) =>
       (consumerPaymentPackId, data, ordering_field) => {
+        const refreshOfferAndBookings = () => {
+          fetchOffer(data.offer);
+          fetchOfferStatus(data.offer);
+          refresh(ordering_field);
+        };
         registerBooking(consumerPaymentPackId, data, {
-          onSuccess: () => {
-            fetchOffer(data.offer);
-            fetchOfferStatus(data.offer);
-            refresh(ordering_field);
-          },
+          onSuccess: refreshOfferAndBookings,
+          onError: refreshOfferAndBookings,
         });
       },
     deleteBooking:
@@ -622,6 +624,11 @@ export default compose(
               invoice__uuid: invoice.uuid,
               page_size: 10,
             });
+            refresh();
+          },
+          onError: () => {
+            fetchOffer(id);
+            fetchOfferStatus(id);
             refresh();
           },
         });

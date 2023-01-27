@@ -14,6 +14,9 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Skeleton from '@material-ui/lab/Skeleton';
+import List from '@material-ui/core/List';
+
 import type { Theme } from '@material-ui/core/styles';
 
 import type { Coach } from '../types';
@@ -31,6 +34,10 @@ type Props = {
   selected?: boolean;
 };
 
+type PropsSkeleton = {
+  numberItems: number;
+};
+
 const openPhone = (event: React.MouseEvent, phoneNumber: string) => {
   event.stopPropagation();
   window.location.href = 'tel:'.concat(phoneNumber);
@@ -39,6 +46,45 @@ const openPhone = (event: React.MouseEvent, phoneNumber: string) => {
 const openEmail = (event: React.MouseEvent, email: string) => {
   event.stopPropagation();
   window.location.href = 'mailto:'.concat(email);
+};
+export const CoachListSkeleton: React.FC<PropsSkeleton> = ({ numberItems }) => {
+  const classes = useStyles();
+  return (
+    <List dense disablePadding>
+      {Array.from(Array(numberItems).keys()).map(() => (
+        <ListItem>
+          <Skeleton
+            animation="wave"
+            variant="circle"
+            className={classes.avatar}
+          />
+          <ListItemText
+            id="button_teacher"
+            primary={
+              <Typography component="span" variant="subtitle1">
+                <Skeleton className={classes.nameSkeleton} />
+              </Typography>
+            }
+            secondary={
+              <Typography component="span" variant="subtitle1">
+                <Skeleton className={classes.chipSkeleton} />
+              </Typography>
+            }
+          />
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            className={classes.leftActionButtonSkeleton}
+          />
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            className={classes.rightActionButtonSkeleton}
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
 };
 
 export const CoachListItem: React.FC<Props> = ({
@@ -136,6 +182,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: theme.spacing(7),
     marginRight: theme.spacing(2),
   },
+  leftActionButtonSkeleton: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'row',
+    marginRight: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+  },
+  rightActionButtonSkeleton: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: { display: 'none' },
+  },
+  nameSkeleton: { width: theme.spacing(15) },
+  chipSkeleton: { width: theme.spacing(8) },
   chip: {
     marginRight: theme.spacing(1),
   },

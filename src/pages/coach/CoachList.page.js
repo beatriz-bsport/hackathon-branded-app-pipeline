@@ -15,7 +15,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
-
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
@@ -35,7 +34,9 @@ import {
 import withTitle from '../../hocs/with-title.hoc';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
-import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
+import CoachListItem, {
+  CoachListSkeleton,
+} from '../../libs/associated-coach/components/CoachListItem.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 
@@ -129,6 +130,11 @@ export class CoachList extends React.Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
+        {this.props.loading && coachesList.length === 0 && (
+          <Paper className={this.props.classes.searchPaperHiden}>
+            <CoachListSkeleton numberItems={8} />
+          </Paper>
+        )}
         {coachesList.length > 0 && (
           <div className={this.props.classes.search}>
             <FuzeSearch

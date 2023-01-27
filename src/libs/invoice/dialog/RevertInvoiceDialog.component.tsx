@@ -1,33 +1,28 @@
-// @flow
 import React from 'react';
 
-import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import RedButton from '../../../components/button/RedButton.component';
+import RedButton from '#components/button/RedButton.component';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
-  open: boolean,
-  onSubmit: () => void,
-  onClose: () => void,
-  hasSubscription: boolean,
-  t: TFunction,
+  open: boolean;
+  onSubmit: () => void;
+  onClose: () => void;
+  hasSubscription: boolean;
 };
 
-export function FinalizeInvoiceDialog(props: Props) {
-  const { hasSubscription, open, onSubmit, onClose, t } = props;
+const RevertInvoiceDialog = (props: Props) => {
+  const { hasSubscription, open, onSubmit, onClose } = props;
+  const { t } = useTranslation();
+
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
+    <GenericResponsiveDialog open={open} onClose={onClose}>
       <DialogTitle id="alert-dialog-title">{t('invoice.revert')}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -51,8 +46,8 @@ export function FinalizeInvoiceDialog(props: Props) {
           <RedButton onClick={onSubmit}>{t('common.confirm')}</RedButton>
         ) : null}
       </DialogActions>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
-}
+};
 
-export default withTranslation()(FinalizeInvoiceDialog);
+export default RevertInvoiceDialog;

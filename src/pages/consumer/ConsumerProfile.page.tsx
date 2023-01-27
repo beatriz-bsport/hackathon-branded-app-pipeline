@@ -133,7 +133,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
 
   render() {
     const { classes } = this.props;
-    if (!this.props.membership) {
+    if (!this.props.membership || this.props.companyThemeLoading) {
       return (
         <Grid container className={classes.flexGrid} spacing={2}>
           <Grid item xs={12} md={6}>
@@ -218,6 +218,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
 }
 const connector = connect(
   (state: RootState, { membership }: { membership: Membership }) => ({
+    companyThemeLoading: state.theme.loading,
     memberLoading: state.member.loading,
     member: getMemberDetail(state, membership && membership.id),
     theme: themeSelectors.getTheme(state),

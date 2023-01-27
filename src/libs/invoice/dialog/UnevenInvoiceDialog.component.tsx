@@ -1,74 +1,69 @@
-// @flow
-import React from 'react';
+import React, { useState } from 'react';
 
-import { compose, withState } from 'recompose';
-import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import type { OptionCallback } from '../../../state/types';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
-  open: boolean,
-  onSubmit: (options: OptionCallback) => void,
-  onClose: () => void,
-  totalItem: ?number,
-  totalPayment: ?number,
-  isSubmitting: boolean,
-  setIsSubmitting: (boolean) => void,
+  open: boolean;
+  onSubmit: (options: OptionCallback) => void;
+  onClose: () => void;
+  totalItem?: string;
+  totalPayment?: string;
 };
 
-export function UnevenInvoiceDialog(props: Props) {
+const UnevenInvoiceDialog = (props: Props) => {
   const { t } = useTranslation();
-  const { open, onSubmit, onClose } = props;
-  let { totalItem, totalPayment } = props;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { open, onSubmit, onClose, totalItem, totalPayment } = props;
   const classes = useStyles();
-  if (props.totalItem) totalItem = parseFloat(totalItem).toFixed(2);
-  if (props.totalPayment) totalPayment = parseFloat(totalPayment).toFixed(2);
+
+  // creation of the variable formattedTotalItem to avoid directly changing the prop totalItem
+  const formattedTotalItem = props.totalItem
+    ? parseFloat(totalItem).toFixed(2)
+    : '0.00';
+  // idem for totalPayment
+  const formattedTotalPayment = props.totalPayment
+    ? parseFloat(totalPayment).toFixed(2)
+    : '0.00';
+
   return (
-    <Dialog
-      open={open || props.isSubmitting}
-      onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
+    <GenericResponsiveDialog open={open || isSubmitting} onClose={onClose}>
       <DialogTitle id="alert-dialog-title">
         {t('form.invoice.titleUnevenInvoice')}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           {t('form.invoice.explainUnevenInvoice', {
-            totalInvoiceItems: totalItem || 0,
-            totalPayments: totalPayment || 0,
+            totalInvoiceItems: formattedTotalItem,
+            totalPayments: formattedTotalPayment,
             currencyDisplay: getCurrencyDisplay(),
           })}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={onClose}
-          color="secondary"
-          disabled={props.isSubmitting}
-        >
+        <Button onClick={onClose} color="secondary" disabled={isSubmitting}>
           {t('common.cancel')}
         </Button>
-        {props.isSubmitting ? (
+        {isSubmitting ? (
           <div className={classes.circularProgress}>
             <CircularProgress />
           </div>
         ) : (
           <Button
             onClick={() => {
-              props.setIsSubmitting(true);
+              setIsSubmitting(true);
               onSubmit({
-                onSuccess: () => props.setIsSubmitting(false),
-                onError: () => props.setIsSubmitting(false),
+                onSuccess: () => setIsSubmitting(false),
+                onError: () => setIsSubmitting(false),
               });
             }}
             color="primary"
@@ -78,17 +73,15 @@ export function UnevenInvoiceDialog(props: Props) {
           </Button>
         )}
       </DialogActions>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
-}
+};
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   circularProgress: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
 }));
 
-export default compose(withState('isSubmitting', 'setIsSubmitting', false))(
-  UnevenInvoiceDialog,
-);
+export default UnevenInvoiceDialog;

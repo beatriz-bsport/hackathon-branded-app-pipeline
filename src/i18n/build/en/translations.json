@@ -11601,9 +11601,9 @@
                         "second": "days"
                     },
                     "7": {
-                        "first": "In a future period",
+                        "first": "In more than",
                         "second": "days",
-                        "third": "and"
+                        "third": "days and less than"
                     },
                     "8": {
                         "first": "There is less than",
@@ -11618,9 +11618,9 @@
                         "second": "days ago"
                     },
                     "11": {
-                        "first": "In a past period",
+                        "first": "There is more than",
                         "second": "days",
-                        "third": "and"
+                        "third": "days and less than"
                     },
                     "selector": {
                         "11": "There is more than X days and less than Y days",

@@ -1,40 +1,38 @@
-// @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+
 import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Form, withFormik } from 'formik';
 import moment from 'moment-timezone';
 import { Typography } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import { PriceField, Submit } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { CashBook } from '../types';
+import { RolePermission } from '#libs/role/types';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
-  t: TFunction,
-  isSubmitting: boolean,
-  classes: Object,
-  setOpenCash: () => void,
-  initial: ?{
-    today_start_amount: number,
-    today_end_amount: number,
-    amount_received: number,
-  },
-  handleOpenOnSpotPaymentReport: () => void,
-  permissions: RolePermission,
+  isSubmitting: boolean;
+  setOpenCash: (open_cash: boolean) => void;
+  initial: CashBook;
+  handleOpenOnSpotPaymentReport: () => void;
+  permissions: RolePermission;
 };
 
 export const CashBookForm = (props: Props) => {
   const {
-    t,
-    classes,
     isSubmitting,
     setOpenCash,
     initial,
     handleOpenOnSpotPaymentReport,
     permissions,
   } = props;
+  const classes = useStyles();
+  const { t } = useTranslation('navigation');
   return (
     <Form className={classes.container}>
       <div className={classes.field}>
@@ -104,7 +102,7 @@ export const CashBookForm = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -127,13 +125,31 @@ const styles = (theme) => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-});
+}));
 
 export const CashBookSchema = Yup.object().shape({
   todayStartAmount: Yup.number().required(),
 });
+interface FormikProps {
+  initial: CashBook;
+  onSubmit: (
+    data: {
+      todayStartAmount: number;
+      todayEndAmount: number;
+      amount: number;
+      dateUpdated: string;
+    },
+    options: OptionCallback,
+  ) => void;
+  setOpenCash: (open_cash: boolean) => void;
+}
+interface FormikValues {
+  todayStartAmount: number;
+  todayEndAmount: number;
+  amount: number;
+}
 
-export const CashBookFormikHOC = withFormik({
+export const CashBookFormikHOC = withFormik<FormikProps, FormikValues>({
   mapPropsToValues: ({ initial }) => {
     return {
       todayStartAmount: initial.today_start_amount,
@@ -157,8 +173,6 @@ export const CashBookFormikHOC = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['navigation']),
-  withStyles(styles),
-  CashBookFormikHOC,
-)(CashBookForm);
+export default compose<Props, Props & FormikProps>(CashBookFormikHOC)(
+  CashBookForm,
+);

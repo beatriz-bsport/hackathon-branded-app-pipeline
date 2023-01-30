@@ -1,11 +1,12 @@
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import { SubscriptionPause } from './types';
-import { BILLING_PLAN_STATUS_IS_PAUSED } from './constants';
-
-const BILLING_PLAN_STATUS_HAS_STARTED = 2;
-const BILLING_PLAN_STATUS_HAS_STOPPED = 3;
-const BILLING_PLAN_STATUS_HAS_ENDED = 4;
+import {
+  BILLING_PLAN_STATUS_HAS_STARTED,
+  BILLING_PLAN_STATUS_HAS_STOPPED,
+  BILLING_PLAN_STATUS_IS_PAUSED,
+  BILLING_PLAN_STATUS_HAS_ENDED,
+} from './constants';
 
 export function isPaused(pausesArray?: Array<SubscriptionPause>) {
   if (!pausesArray?.length) return false;

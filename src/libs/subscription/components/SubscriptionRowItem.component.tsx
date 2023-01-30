@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { isPaused } from '../utils';
 import { formatAsDate } from '../../../utils/datetime';
 import { Subscription } from '../types';
+import { BILLING_PLAN_STATUS_HAS_ENDED } from '../constants';
 
 const SubscriptionStatus = (props: { subscription: Subscription }) => {
   const classes = useStyles();
@@ -26,7 +27,10 @@ const SubscriptionStatus = (props: { subscription: Subscription }) => {
       </div>
     );
   }
-  if (subscription.has_ended) {
+  if (
+    subscription.has_ended ||
+    subscription.status === BILLING_PLAN_STATUS_HAS_ENDED
+  ) {
     return (
       <div className={classes.subscriptionStatus}>
         <Typography variant="caption">{t('listItem.expired')}</Typography>

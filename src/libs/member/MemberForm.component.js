@@ -493,7 +493,7 @@ export function MemberForm(props: Props) {
                   />
                 </div>
               </Grid>
-              <Grid item xs={6} md={mdSize}>
+              <Grid item xs={12} md={mdSize}>
                 <div className={classes.gridColumn}>
                   <Grid container direction="column">
                     <TextField
@@ -508,7 +508,6 @@ export function MemberForm(props: Props) {
                     style={{ marginTop: 12, marginBottom: 12 }}
                     item
                     xs={12}
-                    md={mdSize}
                   >
                     <VaccinationStatusField
                       name="vaccination_status"

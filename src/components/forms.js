@@ -836,52 +836,50 @@ export const VaccinationStatusField = withStyles(styles)(
     const { t, label, fullWidth, classes, required } = props;
     return (
       <Field {...props}>
-        {({ field, meta: { touched, error } }) => {
-          return (
-            <MuiFormControl
-              fullWidth={fullWidth}
-              required={required}
-              error={!!(touched && error)}
+        {({ field, meta: { touched, error } }) => (
+          <MuiFormControl
+            fullWidth={fullWidth}
+            required={required}
+            error={!!(touched && error)}
+          >
+            <InputLabel shrink htmlFor="vaccination-helper">
+              {label}
+            </InputLabel>
+            <Select
+              {...field}
+              {...omit(props, [
+                't',
+                'tReady',
+                'defaultNS',
+                'i18n',
+                'i18nOptions',
+                'reportNS',
+              ])}
+              value={
+                typeof field.value !== 'string'
+                  ? JSON.stringify(field.value)
+                  : field.value
+              }
             >
-              <InputLabel shrink htmlFor="vaccination-helper">
-                {label}
-              </InputLabel>
-              <Select
-                {...field}
-                {...omit(props, [
-                  't',
-                  'tReady',
-                  'defaultNS',
-                  'i18n',
-                  'i18nOptions',
-                  'reportNS',
-                ])}
-                value={
-                  typeof field.value !== 'string'
-                    ? JSON.stringify(field.value)
-                    : field.value
-                }
-              >
-                <MenuItem key="true" value="true">
-                  {t('common.vaccinationDone')}
-                </MenuItem>
-                <MenuItem key="false" value="false">
-                  {t('common.vaccinationNotDone')}
-                </MenuItem>
-                <MenuItem key="null" value="null">
-                  {t('common.vaccinationDontWantToCommunicate')}
-                </MenuItem>
-              </Select>
-              <ErrorMessage {...props}>
-                {(message) => (
-                  <Typography variant="body2" className={classes.alertError}>
-                    {t(message)}
-                  </Typography>
-                )}
-              </ErrorMessage>
-            </MuiFormControl>
-          );
-        }}
+              <MenuItem key="true" value="true">
+                {t('common.vaccinationDone')}
+              </MenuItem>
+              <MenuItem key="false" value="false">
+                {t('common.vaccinationNotDone')}
+              </MenuItem>
+              <MenuItem key="null" value="null">
+                {t('common.vaccinationDontWantToCommunicate')}
+              </MenuItem>
+            </Select>
+            <ErrorMessage {...props}>
+              {(message) => (
+                <Typography variant="body2" className={classes.alertError}>
+                  {t(message)}
+                </Typography>
+              )}
+            </ErrorMessage>
+          </MuiFormControl>
+        )}
       </Field>
     );
   }),

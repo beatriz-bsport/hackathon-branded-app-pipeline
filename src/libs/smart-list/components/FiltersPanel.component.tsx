@@ -64,6 +64,7 @@ import { getCurrencyDisplay } from '../../theme/selectors';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Level } from '#libs/level/types';
 import { CustomForm } from '#libs/custom-form/types';
+import { createUrl } from '../../../utils/createUrlHandlers';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -207,7 +208,7 @@ export class FiltersPanel extends Component<Props, State> {
     this.setState({ isSmartListExporting: true });
     const response = await this.props.exportMemberTable();
     const blob = new Blob([response.data], { type: 'xlsx' });
-    const url = window.URL.createObjectURL(blob);
+    const url = createUrl(blob);
     const link = document.createElement('a');
     link.setAttribute('type', 'hidden');
     link.href = url;

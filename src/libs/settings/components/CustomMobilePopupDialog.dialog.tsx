@@ -20,6 +20,7 @@ import ImageField from '#components/forms/ImageField.component';
 
 import { OptionCallback } from '../../../state/types';
 import { CustomMobilePopup } from '../types';
+import { createUrl } from '../../../utils/createUrlHandlers';
 
 interface FormikValues {
   name: string;
@@ -232,7 +233,7 @@ const getUrl = (value: string | Object) => {
   }
 
   if (typeof value === 'object') {
-    return (window.URL ? window.URL : window.webkitURL).createObjectURL(value);
+    return createUrl(value);
   }
 
   return null;

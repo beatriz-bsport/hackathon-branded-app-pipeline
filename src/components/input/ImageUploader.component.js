@@ -10,6 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
 import { styles as baseStyles } from './uploader.styles';
+import { createUrl } from '../../utils/createUrlHandlers';
 
 type Props = {
   classes: any,
@@ -48,7 +49,7 @@ export class ImageUploader extends React.Component<Props, State> {
       const file = acceptedFiles[0];
       this.setState({
         // eslint-disable-next-line
-        previewURL: (window.URL ? URL : webkitURL).createObjectURL(file),
+        previewURL: createUrl(file),
       });
 
       if (this.props.onChange) {

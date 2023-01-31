@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import { createUrl } from '../../utils/createUrlHandlers';
+
 const styles = (theme) => ({
   input: {
     display: 'none',
@@ -67,10 +69,8 @@ export class ImageField extends Component<Props, State> {
           <Dropzone
             onDrop={(acceptedFiles) => {
               try {
-                if (acceptedFiles?.length > 0) {
-                  const _previewUrl = (
-                    window.URL ? window.URL : window.webkitURL
-                  ).createObjectURL(acceptedFiles[0]);
+                if (acceptedFiles?.length) {
+                  const _previewUrl = createUrl(acceptedFiles[0]);
 
                   this.setState({
                     previewUrl: _previewUrl,

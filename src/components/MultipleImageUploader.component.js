@@ -11,6 +11,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
+import { createUrl } from '../utils/createUrlHandlers';
+
 type ImageFile = {
   id: ?number,
   image: ?DOMString,
@@ -61,9 +63,7 @@ export class ImageUploader extends React.Component<Props, State> {
 
     const newFiles = acceptedFiles.map((file, i) => ({
       id: -sum(files.map((x) => Math.abs(x.id))) - i - 1,
-      previewUrl: (window.URL ? window.URL : window.webkitURL).createObjectURL(
-        file,
-      ),
+      previewUrl: createUrl(file),
       file,
     }));
     const allFiles = newFiles.concat(files);

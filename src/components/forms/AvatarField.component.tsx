@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Field } from 'formik';
 import { WithStyles, withStyles } from '@material-ui/core';
 import Avatar from '../Avatar.component';
+import { createUrl } from '../../utils/createUrlHandlers';
 
 const styles = () => ({
   input: {
@@ -41,12 +42,12 @@ export class AvatarField extends Component<Props, State> {
               {...this.inputProps}
               onChange={(e) => {
                 const { files } = e.target;
-                this.setState({
-                  previewUrl: (window.URL || window.webkitURL).createObjectURL(
-                    files[0],
-                  ),
-                });
-                setFieldValue(field.name, files[0]);
+                if (files.length) {
+                  this.setState({
+                    previewUrl: createUrl(files[0]),
+                  });
+                  setFieldValue(field.name, files[0]);
+                }
               }}
               type="file"
             />

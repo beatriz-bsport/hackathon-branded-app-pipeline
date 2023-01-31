@@ -26,6 +26,7 @@ import FranchiseCompaniesSelector from '../../franchise/components/FranchiseComp
 import CategorySelector from '#components/ordering/CategorySelector.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { createUrl } from '../../../utils/createUrlHandlers';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -193,9 +194,7 @@ export class EmailEditorPanel extends Component<Props, State> {
   };
 
   handleExportClick = () => {
-    const url = window.URL.createObjectURL(
-      new Blob([this.props.emailToEdit?.html]),
-    );
+    const url = createUrl(new Blob([this.props.emailToEdit?.html]));
     const tempEl = document.createElement('a');
     tempEl.href = url;
     tempEl.download = `${this.state.title}.html`;

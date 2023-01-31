@@ -12,6 +12,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '../Avatar.component';
 
+import { createUrl } from '../../utils/createUrlHandlers';
+
 type Props = {
   t: TFunction,
   classes: any,
@@ -43,12 +45,15 @@ export class AvatarFieldWithButton extends Component<Props, State> {
               {...this.inputProps}
               onChange={(e) => {
                 const { files } = e.target;
-                this.setState({
-                  previewUrl: (window.URL || window.webkitURL).createObjectURL(
-                    files[0],
-                  ),
-                });
-                setFieldValue(field.name, files[0]);
+                // if a file is selected, files = {0: File, length: 1}
+                // else {length: 0}
+                if (files?.length) {
+                  // check the existence of a file
+                  const previewURL = createUrl(files[0]);
+
+                  if (previewURL) this.setState({ previewUrl: previewURL });
+                  setFieldValue(field.name, files[0]);
+                }
               }}
               type="file"
               required={required}

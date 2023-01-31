@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import Avatar from '../Avatar.component';
+import { createUrl } from '../../utils/createUrlHandlers';
 
 const styles = () => ({
   input: {
@@ -48,9 +49,7 @@ export class AvatarUploader extends Component<Props, State> {
     if (files.length) {
       this.setState({
         photo: files[0],
-        previewUrl: (window.URL ? URL : window.webkitURL).createObjectURL(
-          files[0],
-        ),
+        previewUrl: createUrl(files[0]),
       });
 
       if (this.props.onChange) {

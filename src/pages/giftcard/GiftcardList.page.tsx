@@ -142,6 +142,7 @@ export class GiftcardListPage extends Component<Props, State> {
     const { classes, t } = this.props;
     return (
       <div className={classes.container}>
+        {this.props.loading && <BackofficeLinearProgressComponent />}
         {this.props.giftcardListActive?.length ? (
           <>
             <FuzeSearch
@@ -185,7 +186,6 @@ export class GiftcardListPage extends Component<Props, State> {
             </Paper>
           </>
         ) : null}
-        {this.props.loading && <BackofficeLinearProgressComponent />}
         <div className={classes.buttonRow}>
           <Button
             variant="outlined"

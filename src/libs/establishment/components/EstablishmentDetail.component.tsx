@@ -83,30 +83,6 @@ export class EstablishmentDetail extends Component<Props, State> {
     this.props.fetchOffersByDay(momentDay);
   };
 
-  getCover = (establishment: Establishment) => {
-    const { classes } = this.props;
-    const { cover } = establishment;
-    const sport = SPORTS.filter((s) => DEFAULT_SPORT === s.id)[0];
-
-    if (!cover) {
-      return (
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          className={classes.imgStyle}
-        >
-          <Grid item>
-            <img src={sport.icon} alt="sport" />
-          </Grid>
-        </Grid>
-      );
-    }
-    return (
-      <img className={classes.imgStyle} src={cover} alt="establishment-cover" />
-    );
-  };
-
   goToOffer = (o: Offer) => this.props.goToOffer(o.id);
 
   renderCalendar = (establishment: Establishment) => {
@@ -142,16 +118,24 @@ export class EstablishmentDetail extends Component<Props, State> {
     const { classes, t, establishment } = this.props;
     const markers = [establishment];
     const center = markers && markers.length ? centerMarker(markers) : CENTER;
+    const sport = SPORTS.find((s) => s.id === DEFAULT_SPORT);
     return (
       <div>
         <Grid container direction="row">
-          <Grid item xs={12} md={6} className={classes.imgBackground}>
-            <Grid container direction="column">
-              <Grid item xs={12} md={12}>
-                {this.getCover(establishment)}
-              </Grid>
-            </Grid>
+          <Grid item xs={12} md={6}>
+            <div className={classes.imgBackground}>
+              {!establishment?.cover ? (
+                <img src={sport?.icon} alt="sport" />
+              ) : (
+                <img
+                  className={classes.imgStyle}
+                  src={establishment.cover}
+                  alt="establishment-cover"
+                />
+              )}
+            </div>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <Map markers={markers} markerClicked={() => {}} center={center} />
           </Grid>
@@ -235,7 +219,10 @@ const styles = (theme) => ({
     margin: theme.spacing(2),
   },
   imgBackground: {
-    backgroundColor: '#f5f5f5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
   },
   imgStyle: {
     backgroundColor: 'rgba(50,50,50,.5)',

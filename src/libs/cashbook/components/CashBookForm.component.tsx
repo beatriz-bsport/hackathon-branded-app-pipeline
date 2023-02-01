@@ -11,13 +11,13 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 import { PriceField, Submit } from '../../../components/forms';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { CashBook } from '../types';
+import { CashBook, CashBookUpdate, Transaction } from '../types';
 import { RolePermission } from '#libs/role/types';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {
   isSubmitting: boolean;
-  setOpenCash: (open_cash: boolean) => void;
+  setOpenCash: (oepnCash: boolean) => void;
   initial: CashBook;
   handleOpenOnSpotPaymentReport: () => void;
   permissions: RolePermission;
@@ -130,26 +130,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const CashBookSchema = Yup.object().shape({
   todayStartAmount: Yup.number().required(),
 });
-interface FormikProps {
-  initial: CashBook;
-  onSubmit: (
-    data: {
-      todayStartAmount: number;
-      todayEndAmount: number;
-      amount: number;
-      dateUpdated: string;
-    },
-    options: OptionCallback,
-  ) => void;
-  setOpenCash: (open_cash: boolean) => void;
-}
-interface FormikValues {
-  todayStartAmount: number;
-  todayEndAmount: number;
-  amount: number;
-}
 
-export const CashBookFormikHOC = withFormik<FormikProps, FormikValues>({
+type FormProps = Props & {
+  onSubmit: (data: CashBookUpdate, options: OptionCallback) => void;
+};
+
+export const CashBookFormikHOC = withFormik<FormProps, Transaction>({
   mapPropsToValues: ({ initial }) => {
     return {
       todayStartAmount: initial.today_start_amount,
@@ -173,6 +159,6 @@ export const CashBookFormikHOC = withFormik<FormikProps, FormikValues>({
   },
 });
 
-export default compose<Props, Props & FormikProps>(CashBookFormikHOC)(
+export default compose<Props, Props & FormProps>(CashBookFormikHOC)(
   CashBookForm,
 );

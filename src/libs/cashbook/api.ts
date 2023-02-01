@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { API_V1_URI, getAuth, patchAuth } from '../../http';
-import { CashBook } from './types';
+import { CashBook, CashBookUpdate } from './types';
 
 const fetchCashBook: (
   companyId: number,
@@ -8,12 +8,9 @@ const fetchCashBook: (
   return getAuth(`${API_V1_URI}/cashbook/cashbook/${companyId}/`);
 };
 
-const updateCashBook: (data: {
-  amount: number;
-  dateUpdated: string;
-  todayEndAmount: number;
-  todayStartAmount: number;
-}) => Promise<AxiosResponse<CashBook>> = async (data) => {
+const updateCashBook: (
+  data: CashBookUpdate,
+) => Promise<AxiosResponse<CashBook>> = async (data) => {
   return patchAuth(`${API_V1_URI}/cashbook/cashbook/edit/`, data);
 };
 

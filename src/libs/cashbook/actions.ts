@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import api from './api';
-import { Dispatch } from '../../state/types';
+import { Dispatch, OptionCallback } from '../../state/types';
 import { CashBook } from './types';
 
 export const cashBookDetail = {
@@ -39,7 +39,7 @@ export function updateCashBook(
     todayEndAmount: number;
     todayStartAmount: number;
   },
-  options: { onError: () => void; onSuccess: () => void },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(cashBookUpdate.isLoading(true));

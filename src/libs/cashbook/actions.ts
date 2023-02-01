@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import api from './api';
 import { Dispatch, OptionCallback } from '../../state/types';
-import { CashBook } from './types';
+import { CashBook, CashBookUpdate } from './types';
 
 export const cashBookDetail = {
   error: createAction<Error | null>('CASHBOOK/DETAIL/ERROR'),
@@ -32,15 +32,7 @@ export function fetchCashBook(companyId: number) {
   };
 }
 
-export function updateCashBook(
-  data: {
-    amount: number;
-    dateUpdated: string;
-    todayEndAmount: number;
-    todayStartAmount: number;
-  },
-  options?: OptionCallback,
-) {
+export function updateCashBook(data: CashBookUpdate, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(cashBookUpdate.isLoading(true));
     dispatch(cashBookUpdate.error(null));

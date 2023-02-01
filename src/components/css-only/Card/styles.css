@@ -1,0 +1,34 @@
+.bs-generic-card{
+    border: 2px solid #F1F3F4;
+    border-radius: var(--border-radius-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.size-m {
+    width: 389px
+}
+
+.size-s {
+    width: 190px
+}
+
+.size-l {
+    width: 580px
+}
+
+.size-ml {
+    width: 490px;
+}
+
+.size-xl {
+    width: 750px
+}
+
+@media only screen and (max-width: 570px) {
+    .bs-generic-card {
+        width: 100%;
+    }
+}

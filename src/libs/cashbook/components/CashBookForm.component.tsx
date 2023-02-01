@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { Form, withFormik } from 'formik';
+import { Form, withFormik, FormikProps } from 'formik';
 import moment from 'moment-timezone';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -16,14 +16,13 @@ import { RolePermission } from '#libs/role/types';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {
-  isSubmitting: boolean;
   setOpenCash: (oepnCash: boolean) => void;
   initial: CashBook;
   handleOpenOnSpotPaymentReport: () => void;
   permissions: RolePermission;
 };
 
-export const CashBookForm = (props: Props) => {
+export const CashBookForm = (props: Props & FormikProps<Transaction>) => {
   const {
     isSubmitting,
     setOpenCash,

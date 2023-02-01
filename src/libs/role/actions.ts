@@ -115,6 +115,7 @@ export function fetchCompanyUserRolesPaginated(
 export function updateUserRole(
   userId: number,
   params: { roleId?: number; coaches?: number[] },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(userRoleUpdate.isLoading(true));
@@ -125,10 +126,12 @@ export function updateUserRole(
       const role = response.data;
       dispatch(userRoleUpdate.success(role));
       dispatch(snackbarSuccess('role.update.success'));
+      options?.onSuccess && options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
       dispatch(snackbarError('role.error.generic'));
+      options?.onError && options.onError();
     }
     dispatch(userRoleUpdate.isLoading(false));
   };

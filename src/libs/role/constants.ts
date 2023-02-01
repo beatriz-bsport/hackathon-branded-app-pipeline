@@ -1,4 +1,12 @@
 import {
+  ADMIN_ROLE,
+  CHECKIN_APP_ROLE,
+  OWNER_ROLE,
+  REPORT_ROLE,
+  RESTRICTED_STAFF_ROLE,
+  STAFF_ROLE,
+} from '#libs/role/role-types.js';
+import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
@@ -133,3 +141,12 @@ export const FRANCHISE_URLS_PERMISSIONS: Record<
   '/f/settings/widget': ['franchiseMenu.widgets'],
   '/f/settings/theme': ['franchiseMenu.settings'],
 };
+
+export const DEFAULT_ROLES: number[] = [
+  OWNER_ROLE,
+  STAFF_ROLE,
+  RESTRICTED_STAFF_ROLE,
+  CHECKIN_APP_ROLE,
+  ADMIN_ROLE,
+  REPORT_ROLE,
+];

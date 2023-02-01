@@ -32,12 +32,12 @@ import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 
-type Props = ReturnType<typeof mapStateToProps> &
+type ConnectedProps = WithTranslation &
   typeof mapDispatchToProps &
-  WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  ReturnType<typeof mapStateToProps>;
 
-export class RoleConfiguration extends React.Component<Props> {
+export class RoleConfiguration extends React.Component<ConnectedProps> {
   componentDidMount() {
     this.props.fetchCompanyUserRoles();
     this.props.fetchAssociatedCoachesList();
@@ -57,6 +57,8 @@ export class RoleConfiguration extends React.Component<Props> {
         </Typography>
         <Divider className={classes.divider} />
         <Paper className={classes.usersRolePaper}>
+          {this.props.createOrUpdateLoading && <LinearProgress />}
+
           <div className={classes.row}>
             <InfoOutlinedIcon fontSize="large" className={classes.leftIcon} />
             <div>
@@ -136,6 +138,7 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState) => ({
   hasOwnerPermission: hasRoleUpsertPermission(state),
   loading: state.role.loading,
+  createOrUpdateLoading: state.role.createOrUpdate.loading,
   users: getUsersWithRole(state),
   roles: getAllRoles(state),
   updateLoading: state.role.role.createOrUpdate.loading,

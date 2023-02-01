@@ -21,12 +21,13 @@ import { MaterialStyleType } from '../../../utils/types';
 import { getRoleName, getOptionsFromIds } from '../utils';
 import COMMON_ROLES, {
   OWNER_ROLE,
-  ADMIN_ROLE,
   CHECKIN_APP_ROLE,
+  ADMIN_ROLE,
 } from '../role-types';
 import { Coach } from '#libs/associated-coach/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { Company } from '#libs/company/types';
+import { DEFAULT_ROLES } from '#libs/role/constants';
 
 const DeleteButton = withConfirm(
   (props: { deleteUser: () => void }) => (
@@ -156,6 +157,15 @@ class UserWithRoleItem extends React.Component<Props, State> {
       }
       return role.id === OWNER_ROLE || role.id === CHECKIN_APP_ROLE;
     };
+
+    const handleOnRoleChange = (ev: React.ChangeEvent<HTMLSelectElement>) => {
+      const newRole = parseInt(ev.target.value, 10);
+      handleRoleChange(newRole);
+      if (DEFAULT_ROLES.includes(newRole)) {
+        this.setState({ selectedObjects: [] });
+      }
+    };
+
     return (
       <div className={classes.roleFieldContainer}>
         <TextField className={classes.roleField} disabled value={user.email} />
@@ -169,9 +179,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
             className={classes.roleField}
             disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
             value={roleId || 0}
-            onChange={(ev: any) => {
-              handleRoleChange(parseInt(ev.target.value, 10));
-            }}
+            onChange={handleOnRoleChange}
             name="role"
           >
             {(isFranchisor ? franchiseRoles : roles).map((role) => {

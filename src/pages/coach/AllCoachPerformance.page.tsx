@@ -239,6 +239,8 @@ export class AllCoachPerformancePage extends Component<Props, State> {
             }
             exportExcelPerformance={this.props.exportExcelPerformance}
             updateStateDate={this.changeDate}
+            startTimestamp={this.state.startTimestamp}
+            endTimestamp={this.state.endTimestamp}
           />
         </AppBar>
 

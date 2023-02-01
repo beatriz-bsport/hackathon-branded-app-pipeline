@@ -62,6 +62,8 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   updateStateDate: (start: number, end: number) => void;
+  startTimestamp?: number;
+  endTimestamp?: number;
 } & FormikProps<InitialValues>;
 
 export function CoachPerformanceForm(props: Props) {
@@ -86,8 +88,8 @@ export function CoachPerformanceForm(props: Props) {
       title: t('coachPerformance:export.completed.title'),
     };
     const params = {
-      start_timestamp: props.values.dateStart.unix(),
-      end_timestamp: moment(props.values.dateStart).endOf('month').unix(),
+      start_timestamp: props.startTimestamp,
+      end_timestamp: props.endTimestamp,
     };
 
     props.exportExcelPerformance(params, {

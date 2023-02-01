@@ -1,0 +1,24 @@
+.bs-price__container{
+    font-size: var(--h3-fontSize);
+    font-weight: var(--h3-fontWeight);
+    letter-spacing: var(--h3-letterSpacing);
+    line-height: var(--h3-lineHeight);
+    display: flex;
+    align-items: center;
+}
+
+.bs-price__price{
+    margin-right: var(--spacing-2);
+}
+
+.primary{
+    color: var(--color-primary-main);
+}
+
+.default {
+    color: var(--color-grey-dark);
+}
+
+.secondary {
+    color: var(--color-secondary-main);
+}

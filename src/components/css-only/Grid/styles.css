@@ -1,0 +1,12 @@
+.bs-generic-card__content__grid {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: var(--spacing-1);
+}
+
+@media only screen and (max-width: 570px) {
+    .bs-generic-card {
+        min-height: 130px;
+    }
+}

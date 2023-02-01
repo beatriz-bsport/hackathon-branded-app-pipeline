@@ -9,7 +9,7 @@ export type CashBookState = {
 };
 
 /**
- * A Transaction stores the cash informations of a CashBook
+ * A Transaction is an atomic record of a movement of money
  */
 export type Transaction = {
   amount: number;
@@ -18,7 +18,7 @@ export type Transaction = {
 };
 
 /**
- * A CashBookUpdate is the type used when a cashBook is updated
+ * A CashBookUpdate records a transaction happening at a given time
  */
 export type CashBookUpdate = Transaction & {
   dateUpdated: string;

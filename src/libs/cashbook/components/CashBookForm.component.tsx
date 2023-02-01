@@ -21,14 +21,13 @@ type Props = {
   permissions: RolePermission;
 };
 
-export const CashBookForm = (props: Props & FormikProps<Transaction>) => {
-  const {
-    isSubmitting,
-    setOpenCash,
-    initial,
-    handleOpenOnSpotPaymentReport,
-    permissions,
-  } = props;
+export const CashBookForm: React.FC<Props & FormikProps<Transaction>> = ({
+  isSubmitting,
+  setOpenCash,
+  initial,
+  handleOpenOnSpotPaymentReport,
+  permissions,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('navigation');
   return (

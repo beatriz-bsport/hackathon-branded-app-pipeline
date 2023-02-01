@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Form, withFormik, FormikProps } from 'formik';
@@ -158,6 +157,4 @@ export const CashBookFormikHOC = withFormik<FormProps, Transaction>({
   },
 });
 
-export default compose<Props, Props & FormProps>(CashBookFormikHOC)(
-  CashBookForm,
-);
+export default CashBookFormikHOC(CashBookForm);

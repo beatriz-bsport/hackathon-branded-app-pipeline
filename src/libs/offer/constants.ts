@@ -28,3 +28,9 @@ export const OFFER_EDIT_FORM_FIELDS = [
   'whitelist_tags',
   'blacklist_tags',
 ];
+
+export const enum ValidationRollCallState {
+  NOT_VALIDATED,
+  MODIFIED,
+  VALIDATED,
+}

@@ -162,4 +162,14 @@ exports.default = {
     delete: 'Supprimer',
     edit: 'Modifier',
   },
+  rollCall: {
+    validationRollCall: "Valider l'appel",
+    validationRollCall_plural: 'Valider tous les appels',
+    noValidationRollCall: "L'appel n'a pas été validé",
+    modifiedRollCall: "L'appel a été modifié, vous devez de nouveau le valider",
+    validatedRollCall: 'Validé le {{- date }} à {{ time }}',
+    lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
+    remainingRollCall: '{{ number }} appels nécessitent une validation',
+    noRemainingRollCall: 'Tous les appels ont été validés',
+  },
 };

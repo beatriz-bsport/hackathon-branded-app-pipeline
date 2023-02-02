@@ -10,6 +10,7 @@ const permissionA: RolePermission = {
   appbarButtons: {
     ledger: true,
     notificationCenter: true,
+    communicationAlerts: true,
   },
   navigation: false,
   checkin: false,
@@ -181,6 +182,7 @@ describe('TEST setAllValuesInObject', () => {
       appbarButtons: {
         ledger: false,
         notificationCenter: false,
+        communicationAlerts: false,
       },
       navigation: false,
       checkin: false,
@@ -355,6 +357,7 @@ describe('TEST deepMerge', () => {
       appbarButtons: {
         ledger: true,
         notificationCenter: true,
+        communicationAlerts: true,
       },
       navigation: false,
       checkin: false,

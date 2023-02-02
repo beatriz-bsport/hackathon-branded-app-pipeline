@@ -6893,7 +6893,8 @@
       "appbarButtons": {
         "_label": "Actions appbar",
         "ledger": { "_label": "Livret de caisse" },
-        "notificationCenter": { "_label": "Centre de notification" }
+        "notificationCenter": { "_label": "Centre de notification" },
+        "communicationAlerts": { "_label": "Notification de messages" }
       },
       "search": { "_label": "Recherche membre" },
       "offer": {

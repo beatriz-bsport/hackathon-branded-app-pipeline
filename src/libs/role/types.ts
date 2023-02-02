@@ -49,6 +49,7 @@ export type RolePermission = {
   appbarButtons: {
     ledger: boolean;
     notificationCenter: boolean;
+    communicationAlerts: boolean;
   };
   restrictedPaths: string[];
   navigationMenu: {

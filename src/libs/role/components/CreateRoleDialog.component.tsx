@@ -59,6 +59,7 @@ const defaultPermissions: RolePermission = {
   appbarButtons: {
     ledger: true,
     notificationCenter: true,
+    communicationAlerts: true,
   },
   navigation: true,
   checkin: false,

@@ -595,23 +595,24 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     direction="row"
                     wrap="nowrap"
                   >
+                    {permissions?.appbarButtons?.communicationAlerts &&
+                      !!countAlertingCommunication && (
+                        <Grow in>
+                          <Grid item>
+                            <AlertButtonMenu
+                              alertings={messageAlertings}
+                              overrideIcon={MessageIcon}
+                              nbAlerting={countAlertingCommunication}
+                              deleteAlert={deleteAlert}
+                              showMore={fetchMoreAlertingKind}
+                              dialogOpen={messageDialogOpen}
+                              setDialogOpen={handleMessageNotificationButton}
+                              withCommunicationAlerts
+                            />
+                          </Grid>
+                        </Grow>
+                      )}
                     <Hidden xsDown>
-                      {permissions?.appbarButtons?.notificationCenter &&
-                        !!countAlertingCommunication && (
-                          <Grow in>
-                            <Grid item>
-                              <AlertButtonMenu
-                                alertings={messageAlertings}
-                                overrideIcon={MessageIcon}
-                                nbAlerting={countAlertingCommunication}
-                                deleteAlert={deleteAlert}
-                                showMore={fetchMoreAlertingKind}
-                                dialogOpen={messageDialogOpen}
-                                setDialogOpen={handleMessageNotificationButton}
-                              />
-                            </Grid>
-                          </Grow>
-                        )}
                       {hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
                         (permissions?.navigationMenu?.payments?.clockIn
                           ?.selfClockIn ||

@@ -19,7 +19,6 @@ import AlertList from './AlertList.component';
 
 type Props = {
   setDialogOpen: (Object) => void,
-
   dialogOpen: ?Object,
   nbAlerting: number,
   countAlertingCommunication: number,
@@ -27,6 +26,7 @@ type Props = {
   deleteAlert: DeleteAlert,
   showMore: (alert_kind: number) => void,
   overrideIcon: any,
+  withCommunicationAlerts?: boolean,
 };
 
 export default function AlertButtonMenu(props: Props) {
@@ -85,6 +85,7 @@ export default function AlertButtonMenu(props: Props) {
                     setDialogOpen(null);
                     pushRouter(path);
                   }}
+                  withCommunicationAlerts={!!props.withCommunicationAlerts}
                 />
               </Paper>
             </ClickAwayListener>

@@ -35,14 +35,16 @@ type OwnProps = {
   alert_group: AlertGroup;
   pushRouter: (path: string) => void;
   deleteAlert: DeleteAlert;
-  isExpanded: boolean;
-  setExpanded: (isExpanded: boolean) => void;
   onShowMore: () => void;
 };
 
-type Props = OwnProps &
-  WithTranslation &
+type ComposeProps = {
+  isExpanded: boolean;
+  setExpanded: (isExpanded: boolean) => void;
+} & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
+
+type Props = OwnProps & ComposeProps;
 
 type RealAllButtonProps = {
   alert_group: AlertGroup;

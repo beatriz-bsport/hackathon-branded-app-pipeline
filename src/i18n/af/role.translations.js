@@ -115,6 +115,9 @@ exports.default = {
       notificationCenter: {
         _label: 'Centre de notification',
       },
+      communicationAlerts: {
+        _label: 'Notification de messages',
+      },
     },
 
     search: {

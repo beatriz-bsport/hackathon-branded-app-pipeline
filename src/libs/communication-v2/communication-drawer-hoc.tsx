@@ -48,7 +48,11 @@ import {
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '#libs/member/actions';
 import { getPaginatedMembers } from '#libs/member/selectors';
-import { MAX_DISPLAY, PAGINATION_SIZE_RECIPIENTS } from './constants';
+import {
+  MAX_DISPLAY,
+  PAGINATION_SIZE_RECIPIENTS,
+  REFRESH_THREAD_PAGINATION_SIZE,
+} from './constants';
 
 import themeSelectors from '#libs/theme/selectors';
 
@@ -64,6 +68,7 @@ type WithHandlers = {
     filters: number[],
     dateStart: number,
     dateEnd: number,
+    isRefreshingThread?: boolean,
   ) => void;
   fetchPageInformationRecipientList: (
     communication: Communication,
@@ -139,6 +144,7 @@ export default function withCommunicationData(
           filters: number[],
           dateStart: number,
           dateEnd: number,
+          isRefreshingThread?: boolean,
         ) => {
           const params = {
             page,
@@ -150,6 +156,9 @@ export default function withCommunicationData(
             context_identifier: props.contextIdentifier,
             context_object_id: props.contextObjectId,
           };
+          if (isRefreshingThread) {
+            params.page_size = REFRESH_THREAD_PAGINATION_SIZE;
+          }
 
           const onSuccess = (responseData: Communication[]) => {
             const memberIds = uniq(
@@ -165,9 +174,13 @@ export default function withCommunicationData(
             );
             props.fetchMemberBulkById(memberIds);
           };
-          return props.fetchCommunicationSentList(params, {
-            onSuccess,
-          });
+          return props.fetchCommunicationSentList(
+            params,
+            !!isRefreshingThread,
+            {
+              onSuccess,
+            },
+          );
         },
       fetchPageInformationRecipientList:
         ({

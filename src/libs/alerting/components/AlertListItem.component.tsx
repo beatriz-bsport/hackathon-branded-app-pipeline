@@ -34,6 +34,7 @@ import type {
   LateReplacementRequestAlerting,
 } from '../types';
 import i18n from '../../../i18n';
+import { buildUrlParams } from '../../../http';
 
 type Props = {
   alerting: Alerting;
@@ -318,7 +319,11 @@ const UnreadCommunicationListItem = (props: {
             <IconButton
               onClick={() => {
                 props.deleteAlert(UNREAD_COMMUNICATION.alert_kind, id);
-                props.pushRouter(`/member/${member}/`);
+                props.pushRouter(
+                  `/member/${member}/info/${buildUrlParams({
+                    openChat: true,
+                  })}`,
+                );
               }}
             >
               <ArrowForwardIcon color="secondary" />

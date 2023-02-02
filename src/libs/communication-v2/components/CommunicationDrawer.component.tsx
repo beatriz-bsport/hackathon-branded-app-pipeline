@@ -39,6 +39,7 @@ import {
   CONTEXT_MEMBER,
   PAGINATION_SIZE_RECIPIENTS,
   WRITE_EMAIL,
+  REFRESH_THREAD_TIMEOUT,
 } from '../constants';
 
 export type Props = WithCommunicationDataProps &
@@ -55,6 +56,7 @@ type State = {
   communicationKindBeingWritten: number;
   displayThreadSnackbar: boolean;
   scrollThreadToBottomFlag: boolean;
+  timeoutId: number;
 };
 
 export class CommunicationDrawer extends React.Component<Props, State> {
@@ -70,12 +72,13 @@ export class CommunicationDrawer extends React.Component<Props, State> {
         props.communicationKindToWrite ?? WRITE_EMAIL,
       displayThreadSnackbar: false,
       scrollThreadToBottomFlag: false,
+      timeoutId: null,
     };
   }
 
   componentDidMount(): void {
     this.props.fetchPaginatedAvailableRecipientMemberList(1);
-    this.fetchThreadCommunicationList();
+    this.fetchThreadCommunicationListAndScheduleRefresh();
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
   }
@@ -92,6 +95,13 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       )
     ) {
       this.props.fetchPaginatedAvailableRecipientMemberList(1);
+    }
+  }
+
+  componentWillUnmount(): void {
+    if (this.state.timeoutId) {
+      // unschedule refresh
+      clearTimeout(this.state.timeoutId);
     }
   }
 
@@ -115,19 +125,51 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     }
   };
 
+  fetchThreadCommunicationListAndScheduleRefresh = () => {
+    this.fetchThreadCommunicationList();
+    this.scheduleRefreshThreadCommunicationList();
+  };
+
+  refreshThreadCommunicationList = () => {
+    // This will fetch the last three communications (to speed up things)
+    // With respect to the active filters
+    this.props.fetchPageThreadCommunicationList(
+      1,
+      this.state.filters,
+      this.state.filterDateStart,
+      this.state.filterDateEnd,
+      true,
+    );
+    this.scheduleRefreshThreadCommunicationList(true);
+  };
+
+  scheduleRefreshThreadCommunicationList = (forceRefresh?: boolean) => {
+    if (!this.state.timeoutId || forceRefresh) {
+      // schedule refresh of the thread
+      const timeoutId = setTimeout(
+        this.refreshThreadCommunicationList,
+        REFRESH_THREAD_TIMEOUT * 1000,
+      );
+      this.setState({ timeoutId });
+    }
+  };
+
   handleFilterChange = (
     filters: number[],
     dateStart: number,
     dateEnd: number,
   ) => {
+    // the function will reset the Thread so we cancel the current automatic refresh
+    clearTimeout(this.state.timeoutId);
     this.setState(
       {
         threadPage: 1,
         filters,
         filterDateStart: dateStart,
         filterDateEnd: dateEnd,
+        timeoutId: null,
       },
-      this.fetchThreadCommunicationList,
+      this.fetchThreadCommunicationListAndScheduleRefresh, // and we schedule a new refresh
     );
   };
 

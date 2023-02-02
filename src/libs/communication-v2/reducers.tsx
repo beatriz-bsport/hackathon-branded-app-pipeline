@@ -128,6 +128,34 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         .setIn(['sent', 'thread', 'page'], payload.page)
         .setIn(['sent', 'thread', 'next_page'], payload.next_page);
     },
+    [communicationSentAction.refresh.toString()]: (state, { payload }: any) => {
+      const lastCommunicationSorted = payload.results
+        .map((communication: Communication) => communication.id)
+        .slice()
+        .reverse();
+      const previousCommunicationSorted = state.sent.thread.allIds.filter(
+        (id: number) => !lastCommunicationSorted.includes(id),
+      );
+      return state
+        .merge(
+          {
+            sent: {
+              byId: payload.results.reduce(
+                (acc: Communication[], communication: Communication) => {
+                  acc[communication.id] = communication;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['sent', 'thread', 'allIds'],
+          [...previousCommunicationSorted, ...lastCommunicationSorted],
+        );
+    },
     [communicationSentAction.reset.toString()]: (state) => {
       return state
         .setIn(['sent', 'thread', 'allIds'], [])

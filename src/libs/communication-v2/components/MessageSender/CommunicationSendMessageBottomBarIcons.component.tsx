@@ -34,6 +34,7 @@ import NestedList from '#components/NestedMenu.component';
 import CommunicationThreadNumberRecipients from '../Thread/SingleMessage/CommunicationThreadNumberRecipients.component';
 
 import { Member, MemberMinimal } from '#libs/member/types';
+import { FeatureList } from '#libs/company/types';
 
 import { getValidityTooltipMessage } from '#libs/communication-v2/utils';
 import {
@@ -43,6 +44,10 @@ import {
   CAN_SEND_MESSAGE,
   MAX_DISPLAY,
 } from '#libs/communication-v2/constants';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_SMS,
+} from '#libs/platform-billing/upsell-identifiers';
 
 type Props = {
   actionType: number;
@@ -95,7 +100,7 @@ const BottomBarIcons = (props: Props) => {
           </IconButton>
         </Tooltip>
         <FeatureListProvider>
-          {(featureList: any) => (
+          {(featureList: FeatureList) => (
             <Tooltip placement="top" title={t('sendMessage.icons.sms')}>
               <IconButton
                 onClick={() => setActionType(WRITE_SMS)}
@@ -103,10 +108,9 @@ const BottomBarIcons = (props: Props) => {
                 className={classes.iconButton}
                 disabled={
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                  (!featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f: any) => f.readable_identifier === 'sms',
-                    ))
+                  !featureList.upsell?.find(
+                    (f) => f.upsell_identifier === UPSELL_IDENTIFIER_SMS,
+                  )
                 }
               >
                 {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
@@ -115,8 +119,7 @@ const BottomBarIcons = (props: Props) => {
           )}
         </FeatureListProvider>
         <FeatureListProvider>
-          {() => (
-            // (featureList: any) => (
+          {(featureList: FeatureList) => (
             <Tooltip
               placement="top"
               title={t('sendMessage.icons.notification')}
@@ -128,11 +131,12 @@ const BottomBarIcons = (props: Props) => {
                 }
                 className={classes.iconButton}
                 disabled={
-                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-                  // && (!featureList.upsell ||
-                  //   !featureList.upsell.find(
-                  //     (f: any) => f.readable_identifier === 'push_notification',
-                  //   ))
+                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                  !featureList.upsell?.find(
+                    (f) =>
+                      f.upsell_identifier ===
+                      UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+                  )
                 }
               >
                 {actionType === WRITE_PUSH_NOTIFICATION ? (

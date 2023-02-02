@@ -3,18 +3,26 @@ import chroma from 'chroma-js';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
-import { Info, Error, InfoOutlined } from '@material-ui/icons/';
-
+import {
+  Info,
+  Error,
+  InfoOutlined,
+  MailOutlined as MailOutlinedIcon,
+  NotificationsNone as NotificationOutlinedIcon,
+  SmsOutlined as SmsOutlinedIcon,
+} from '@material-ui/icons/';
 import { ButtonBase, makeStyles, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
+  COMMUNICATION_KIND_SMS,
 } from '@bsport/common/lib/master-data/communication-kind';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
 import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters';
+import Tooltip from '#components/Tooltip.component';
 import { getTextColorFromRGB } from '../../../../../utils/color';
 import { ThreadCommunication } from '#libs/communication-v2/types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
@@ -88,10 +96,19 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withTopGap: boolean }>(
         ? theme.spacing(0.5)
         : theme.spacing(2),
     }),
+    messageBubbleHeader: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'nowrap',
+      justifyContent: 'flex-start',
+    },
+    communicationTitle: {
+      flexWrap: 'wrap',
+    },
     row: {
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     flexEnd: (props) => ({
       display: 'flex',
@@ -192,6 +209,9 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withTopGap: boolean }>(
     showInfo: {
       borderRadius: theme.spacing(0.5),
     },
+    iconButton: {
+      padding: 0,
+    },
   }),
 );
 
@@ -206,6 +226,19 @@ type OwnProps = {
 };
 
 export type Props = OwnProps;
+
+const CommunicationKindIcon = (props: { kind: number }) => {
+  switch (props.kind) {
+    case COMMUNICATION_KIND_EMAIL:
+      return <MailOutlinedIcon />;
+    case COMMUNICATION_KIND_SMS:
+      return <SmsOutlinedIcon />;
+    case COMMUNICATION_KIND_PUSH_NOTIFICATION:
+      return <NotificationOutlinedIcon />;
+    default:
+      return null;
+  }
+};
 
 export const CommunicationThreadMessageBubble = (props: Props) => {
   const {
@@ -307,24 +340,38 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
         <div className={classes.messageBubbleContainer}>
           <div className={classes.messageBubble}>
             <div className={classes.row}>
-              <Typography variant="body2">
-                {t(`campaign.kind.${communication.kind}`)}
-              </Typography>
+              <div className={classes.messageBubbleHeader}>
+                <Tooltip
+                  placement="left-start"
+                  title={t(`campaign.kind.${communication.kind}`)}
+                >
+                  <span className={classes.leftIcon}>
+                    <CommunicationKindIcon kind={communication.kind} />
+                  </span>
+                </Tooltip>
+                {[
+                  COMMUNICATION_KIND_EMAIL,
+                  COMMUNICATION_KIND_PUSH_NOTIFICATION,
+                ].includes(communication.kind) && (
+                  <Typography
+                    variant="subtitle1"
+                    className={classes.communicationTitle}
+                  >
+                    <Box fontWeight={500}>{communicationTitle}</Box>
+                  </Typography>
+                )}
+              </div>
               {!reverse &&
                 communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
-                  <IconButton size="small" onClick={onShowInformationClick}>
+                  <IconButton
+                    size="small"
+                    onClick={onShowInformationClick}
+                    className={classes.iconButton}
+                  >
                     <InfoOutlined className={classes.infoIcon} />
                   </IconButton>
                 )}
             </div>
-            {[
-              COMMUNICATION_KIND_EMAIL,
-              COMMUNICATION_KIND_PUSH_NOTIFICATION,
-            ].includes(communication.kind) && (
-              <Typography variant="subtitle1">
-                <Box fontWeight={500}>{communicationTitle}</Box>
-              </Typography>
-            )}
 
             {communication.kind === COMMUNICATION_KIND_EMAIL &&
             (communication.data?.body || communication.text)

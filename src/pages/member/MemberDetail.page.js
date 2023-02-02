@@ -87,6 +87,7 @@ import {
 } from '#libs/background-dialog/types';
 
 import Config from '../../config';
+import withQueryParams from '#hocs/with-query-params.hoc';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
 
@@ -187,6 +188,7 @@ type Props = {
     data: any,
     options: OptionCallback,
   ) => void,
+  queryParams: { openChat?: boolean },
 };
 
 const stripeRegion = getStripeRegion();
@@ -207,6 +209,20 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchProgram({
         is_disabled: false,
       });
+    }
+    if (this.props.queryParams?.openChat) {
+      this.props.openCommunicationDrawer();
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      this.props.id &&
+      this.props.id !== prevProps.id &&
+      !!this.props.queryParams?.openChat
+    ) {
+      // We navigate to a distinct member using Communication Notification --> we should open the chat
+      this.props.openCommunicationDrawer();
     }
   }
 
@@ -702,6 +718,7 @@ export default compose(
         });
       },
   }),
+  withQueryParams([['openChat'], 'queryParams']),
   withTitle(({ member }) => (member ? member.name : '')),
   withMemberBannerHOC(({ member }) => member),
 )(MemberDetail);

@@ -27,6 +27,10 @@ export const CONTEXT_MEMBER = 204;
 // AVATAR GROUP DISPLAY
 export const MAX_DISPLAY = 4;
 
+// REFRESH THREAD
+export const REFRESH_THREAD_TIMEOUT = 30; // seconds
+export const REFRESH_THREAD_PAGINATION_SIZE = 5;
+
 // --------- TO SEND MESSAGE ---------
 
 // ACTION TYPE

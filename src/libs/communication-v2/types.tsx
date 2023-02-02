@@ -127,7 +127,6 @@ export type CommunicationFilterParams = {
 export type FetchCommunicationParams = {
   page: number;
   page_size: number;
-  filter_chat: boolean;
 } & CommunicationContext &
   CommunicationFilterParams;
 

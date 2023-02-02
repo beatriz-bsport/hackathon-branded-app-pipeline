@@ -68,21 +68,27 @@ export const communicationSentAction = {
   isLoading: createAction('COMMUNICATION_SENT/LIST/IS_LOADING'),
   success: createAction('COMMUNICATION_SENT/LIST/SUCCESS'),
   reset: createAction('COMMUNICATION_SENT/LIST/RESET'),
+  refresh: createAction('COMMUNICATION_SENT/LIST/REFRESH'),
 };
 
 export function fetchCommunicationSentList(
   params: FetchCommunicationParams,
+  isRefreshingThread: boolean,
   options?: OptionCallback<Communication[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    if (params.page === 1) {
+    if (params.page === 1 && !isRefreshingThread) {
       dispatch(communicationSentAction.reset());
     }
     dispatch(communicationSentAction.isLoading(true));
     dispatch(communicationSentAction.error(null));
     try {
       const response = await fetchCommunicationSentListAPI(params);
-      dispatch(communicationSentAction.success(response.data));
+      if (isRefreshingThread) {
+        dispatch(communicationSentAction.refresh(response.data));
+      } else {
+        dispatch(communicationSentAction.success(response.data));
+      }
       if (options && options.onSuccess) {
         options.onSuccess(response.data?.results);
       }

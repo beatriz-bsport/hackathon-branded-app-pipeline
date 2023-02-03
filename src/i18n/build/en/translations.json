@@ -1110,7 +1110,7 @@
                     "success": "Activity saved"
                 }
             },
-            "firstBookingMinutesUntil": "Limit future bookings of members that take place in ",
+            "firstBookingMinutesUntil": "Future sessions can be booked if they start in less than ",
             "altCoverMain": "Description of the image for the visually impaired",
             "autoDiscard": "Automatic cancellation",
             "generalInfo": "General",

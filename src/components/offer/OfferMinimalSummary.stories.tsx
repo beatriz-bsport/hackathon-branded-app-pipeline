@@ -8,7 +8,8 @@ export const CompleteDefaultState = CustomTemplate.bind({});
 
 CompleteDefaultState.args = {
     offer:offerFactory(),
-    getHasPendingReplacementRequest:() => true
+    getHasPendingReplacementRequest:() => true,
+    showRollCall:true
 };
 
 export default {

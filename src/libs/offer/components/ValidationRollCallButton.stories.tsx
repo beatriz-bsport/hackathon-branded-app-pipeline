@@ -6,39 +6,39 @@ const GenericValidationRollCallButtonTemplate = (args: Props) => <ValidationRoll
 export const NoNeedValidationRollCallButton = GenericValidationRollCallButtonTemplate.bind({});
 
 NoNeedValidationRollCallButton.args = {
-    nbRemainingRollCall:0
+    nbRollCallsLeftToValidate:0
 };
 
 export const NeedValidationRollCallButton = GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationRollCallButton.args = {
-    nbRemainingRollCall:1
+    nbRollCallsLeftToValidate:1
 };
 
 export const NeedValidationsRollCallButton = GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationsRollCallButton.args = {
-    nbRemainingRollCall:2
+    nbRollCallsLeftToValidate:2
 };
 
 export const NoNeedValidationRollCallButtonOutlined = GenericValidationRollCallButtonTemplate.bind({});
 
 NoNeedValidationRollCallButtonOutlined.args = {
-    nbRemainingRollCall:0,
+    nbRollCallsLeftToValidate:0,
     outlined:true
 };
 
 export const NeedValidationRollCallButtonOutlined = GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationRollCallButtonOutlined.args = {
-    nbRemainingRollCall:1,
+    nbRollCallsLeftToValidate:1,
     outlined:true
 };
 
 export const NeedValidationsRollCallButtonOutlined = GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationsRollCallButtonOutlined.args = {
-    nbRemainingRollCall:2,
+    nbRollCallsLeftToValidate:2,
     outlined:true
 };
 

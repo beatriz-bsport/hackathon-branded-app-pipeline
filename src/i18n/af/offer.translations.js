@@ -164,30 +164,37 @@ exports.default = {
   },
   rollCall: {
     warningText: {
-      notValidatedRollCall: "L'appel n'a pas été validé",
+      notValidatedRollCall: 'L’appel n’a pas été validé',
       modifiedRollCall:
-        "L'appel a été modifié, vous devez de nouveau le valider",
-      validatedDatedRollCall: 'Validé le {{- date }} à {{ time }}',
-      remainingRollCall: '{{ number }} appels nécessitent une validation',
-      noRemainingRollCall: 'Tous les appels ont été validés',
+        'L’appel a été modifié, vous devez de nouveau le valider',
+      validatedDate: 'Validé le {{- date }} à {{ time }}',
+      rollCallsLeftToValidate: '{{ number }} appel nécessite une validation',
+      rollCallsLeftToValidate_plural:
+        '{{ number }} appels nécessitent une validation',
+      noRollCallLeft: 'Tous les appels ont été validés',
       lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
     },
     button: {
-      validationRollCall: "Valider l'appel",
+      validationRollCall: 'Valider l’appel',
       validationRollCall_plural: 'Valider tous les appels',
     },
     dialog: {
-      validationRollCall: "Valider l'appel",
+      validationRollCall: 'Valider l’appel',
       confirmationRollCall:
-        'Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
+        'Attention, les membres marqués comme absents et titulaires d’une carte illimité sujette aux pénalités seront pénalisés. Etes-vous sûr de vouloir confirmer l’appel ?',
       confirmationRollCall_plural:
-        'Vous aller valider l’appel pour l’ensemble des séances du jour. Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
+        'Vous aller valider l’appel pour l’ensemble des séances du jour. Attention, les membres marqués comme absents et titulaires d’une carte illimité sujette aux pénalités seront pénalisés. Etes-vous sûr de vouloir confirmer l’appel ?',
       validatedRollCall: 'Appel validé',
-      savedRollCall: "L'appel a bien été enregistré.",
+      savedRollCall: 'L’appel a bien été enregistré.',
     },
     chip: {
       validatedRollCall: 'Appel validé le {{- date }} {{ time }}',
       notValidatedRollCall: 'Appel non validé',
+    },
+    drawer: {
+      rollCall: 'Appel',
+      info: 'Valider l’appel permet de déclencher le décompte pour les pénalités des absences (no-show).',
+      listMembers: 'Liste des membres inscrits',
     },
   },
 };

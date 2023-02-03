@@ -41,7 +41,7 @@ const styles = (theme) => ({
     right: 0,
     top: '50%',
     transform: 'translateY(-50%)',
-    marginRight: theme.spacing(3),
+    marginRight: theme.spacing(2),
   },
   offerTitleText: {
     display: 'flex',
@@ -89,6 +89,7 @@ type Props = {
   isCoach: boolean,
   showTags: boolean,
   fixedHeight?: number,
+  showRollCall?: boolean,
   getHasPendingReplacementRequest?: (offerId: number) => boolean,
 };
 
@@ -361,7 +362,7 @@ export function OfferMinimalSummary(props: Props) {
                 </div>
               </Tooltip>
             )}
-            <RollCallChip isValidated />
+            {props.showRollCall && <RollCallChip isValidated={false} />}
           </div>
         </Grid>
       </ListItem>

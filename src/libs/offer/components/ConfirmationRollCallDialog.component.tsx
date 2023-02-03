@@ -11,23 +11,21 @@ import ValidationIcon from '#components/icons/ValidationIcon.component';
 
 export type Props = {
   open: boolean;
-  initialValidatedRollCall: boolean;
-  nbRemainingRollCall: number;
+  nbRollCallsLeftToValidate: number;
   isLoading: boolean;
   onCancel: () => void;
   onConfirm: (options?: OptionCallback) => void;
 };
-export const ConfirmationRollCallDialog = (props: Props) => {
+
+export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
   const { t } = useTranslation(['offer', 'common']);
   const classes = useStyles();
   const theme = useTheme();
-  const [validatedRollCall, setValidatedRollCall] = useState(
-    props.initialValidatedRollCall,
-  );
+  const [confirmedRollCall, setConfirmedRollCall] = useState(false);
   const onClickHandler = () =>
-    props.onConfirm({ onSuccess: () => setValidatedRollCall(true) });
+    props.onConfirm({ onSuccess: () => setConfirmedRollCall(true) });
 
-  if (validatedRollCall) {
+  if (confirmedRollCall) {
     return (
       <GenericResponsiveDialog maxWidth="sm" open={props.open}>
         <div className={classes.validationIcon}>
@@ -58,7 +56,7 @@ export const ConfirmationRollCallDialog = (props: Props) => {
       <DialogContent>
         <Typography variant="body1">
           {t('rollCall.dialog.confirmationRollCall', {
-            count: props.nbRemainingRollCall,
+            count: props.nbRollCallsLeftToValidate,
           })}
         </Typography>
       </DialogContent>

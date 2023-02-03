@@ -36,7 +36,6 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
 
 const useStyles = makeStyles((theme) => ({
   chipStatus: {
-    whiteSpace: 'nowrap',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

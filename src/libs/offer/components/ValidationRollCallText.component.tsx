@@ -3,31 +3,32 @@ import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import moment from 'moment-timezone';
-import { ValidationRollCallState } from '../constants';
+import { RollCallState } from '../constants';
 import Tooltip from '#components/Tooltip.component';
 
 export type Props = {
-  validationRollCallState: ValidationRollCallState;
-  nbRemainingRollCall?: number;
-  severalRollCall: boolean;
+  validationRollCallState: RollCallState;
+  nbRollCallsLeftToValidate?: number;
+  isSeveralRollCallsPage?: boolean;
   lastValidatedRollCallDate?: string;
 };
 
-export const ValidationRollCallText = (props: Props) => {
+export const ValidationRollCallText: React.FC<Props> = (props) => {
   const { t } = useTranslation('offer');
   const classes = useStyles();
   switch (props.validationRollCallState) {
-    case ValidationRollCallState.NOT_VALIDATED:
+    case RollCallState.NOT_VALIDATED:
       return (
         <Alert severity="warning" className={classes.alert}>
-          {props.severalRollCall
-            ? t('rollCall.warningText.remainingRollCall', {
-                number: props.nbRemainingRollCall,
+          {props.isSeveralRollCallsPage && props.nbRollCallsLeftToValidate
+            ? t('rollCall.warningText.rollCallsLeftToValidate', {
+                number: props.nbRollCallsLeftToValidate,
+                count: props.nbRollCallsLeftToValidate,
               })
             : t('rollCall.warningText.notValidatedRollCall')}
         </Alert>
       );
-    case ValidationRollCallState.MODIFIED:
+    case RollCallState.MODIFIED:
       return (
         <Tooltip
           title={t('rollCall.warningText.lastValidatedRollCall', {
@@ -40,12 +41,12 @@ export const ValidationRollCallText = (props: Props) => {
           </Alert>
         </Tooltip>
       );
-    case ValidationRollCallState.VALIDATED:
+    case RollCallState.VALIDATED:
       return (
-        <Typography>
-          {props.severalRollCall
-            ? t('rollCall.warningText.noRemainingRollCall')
-            : t('rollCall.warningText.validatedDatedRollCall', {
+        <Typography className={classes.validatedText}>
+          {props.isSeveralRollCallsPage
+            ? t('rollCall.warningText.noRollCallLeft')
+            : t('rollCall.warningText.validatedDate', {
                 date: moment(props.lastValidatedRollCallDate).format('L'),
                 time: moment(props.lastValidatedRollCallDate).format('LT'),
               })}
@@ -56,14 +57,15 @@ export const ValidationRollCallText = (props: Props) => {
   }
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   alert: {
     alignItems: 'center',
   },
+  validatedText: { color: theme.palette.text.secondary },
 }));
 
 ValidationRollCallText.defaultProps = {
-  severalRollCall: false,
+  isSeveralRollCallsPage: false,
 };
 
 export default ValidationRollCallText;

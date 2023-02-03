@@ -8,20 +8,18 @@ export const GenericConfirmationRollCallDialog = GenericConfirmationRollCallDial
 
 GenericConfirmationRollCallDialog.args = {
     open:true,
-    nbRemainingRollCall:1,
-    initialValidatedRollCall:false,
+    nbRollCallsLeftToValidate:1,
     onConfirm:(options?:OptionCallback)=>{console.log("hello");
     options?.onSuccess?.();    
     },
     isLoading:false
 }
 
-export const GenericSeveralConfirmationRollCallDialog = GenericConfirmationRollCallDialogTemplate.bind({});
+export const GenericListConfirmationRollCallsDialog = GenericConfirmationRollCallDialogTemplate.bind({});
 
-GenericSeveralConfirmationRollCallDialog.args = {
+GenericListConfirmationRollCallsDialog.args = {
     open:true,
-    nbRemainingRollCall:2,
-    initialValidatedRollCall:false,
+    nbRollCallsLeftToValidate:2,
     onConfirm:(options?:OptionCallback)=>{console.log("hello");
     options?.onSuccess?.();    
     },
@@ -32,23 +30,13 @@ export const LoadingConfirmationRollCallDialog = GenericConfirmationRollCallDial
 
 LoadingConfirmationRollCallDialog.args = {
     open:true,
-    nbRemainingRollCall:1,
-    initialValidatedRollCall:false,
+    nbRollCallsLeftToValidate:1,
     onConfirm:(options?:OptionCallback)=>{console.log("hello");
     options?.onSuccess?.();
     },
     isLoading:true
 }
 
-export const ValidatedConfirmationRollCallDialog = GenericConfirmationRollCallDialogTemplate.bind({});
-
-ValidatedConfirmationRollCallDialog.args = {
-    open:true,
-    nbRemainingRollCall:1,
-    initialValidatedRollCall:true,
-    onConfirm:()=>{console.log("hello");},
-    isLoading:false
-}
 export default {
     title:'Offer/Components/RollCall/Dialog', 
     component:ConfirmationRollCallDialog,

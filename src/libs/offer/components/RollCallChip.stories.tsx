@@ -15,7 +15,6 @@ ValidatedRollCallChip.args = {
     isValidated:true
 };
 
-
 export default {
     title:'Offer/Components/RollCall/Chip', 
     component:RollCallChip,

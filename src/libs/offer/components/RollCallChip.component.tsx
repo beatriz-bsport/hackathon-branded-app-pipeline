@@ -4,6 +4,7 @@ import { PlaylistAddCheck } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import chroma from 'chroma-js';
 import moment from 'moment-timezone';
+import classNames from 'classnames';
 import Tooltip from '#components/Tooltip.component';
 
 export type Props = {
@@ -11,7 +12,7 @@ export type Props = {
   lastValidatedRollCallDate?: string;
 };
 
-export const RollCallChip = (props: Props) => {
+export const RollCallChip: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('offer');
   return (
@@ -26,11 +27,12 @@ export const RollCallChip = (props: Props) => {
       }
     >
       <div
-        className={
+        className={classNames(
+          classes.chipStatus,
           props.isValidated
             ? classes.validatedChipStatus
-            : classes.notValidatedChipStatus
-        }
+            : classes.notValidatedChipStatus,
+        )}
       >
         <PlaylistAddCheck />
       </div>
@@ -39,29 +41,21 @@ export const RollCallChip = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  validatedChipStatus: {
+  chipStatus: {
     height: 22,
     width: 30,
-    whiteSpace: 'nowrap',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     padding: `${theme.spacing(0.25)}px ${theme.spacing(0.75)}px`,
     borderRadius: theme.spacing(0.5),
+  },
+  validatedChipStatus: {
     color: theme.palette.success.main,
     backgroundColor: chroma(theme.palette.success.main).alpha(0.1).hex(),
   },
   notValidatedChipStatus: {
-    height: 22,
-    width: 30,
-    whiteSpace: 'nowrap',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: `${theme.spacing(0.25)}px ${theme.spacing(0.75)}px`,
-    borderRadius: theme.spacing(0.5),
     color: theme.palette.error.main,
     backgroundColor: chroma(theme.palette.error.main).alpha(0.1).hex(),
   },

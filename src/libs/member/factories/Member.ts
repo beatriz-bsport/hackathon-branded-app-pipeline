@@ -78,6 +78,7 @@ export function MemberFactory(
     number_tags = 0,
   }: MemberProps,
   withoutPhoneOrEmail?: boolean,
+  id?: number,
 ): Member {
   const wichGender = random_int(2);
   const firstname = firstnames[random_int(lastnames.length - 1)];
@@ -86,8 +87,9 @@ export function MemberFactory(
   let phone_number = `00645545${random_int(9)}`;
   if (withoutPhoneOrEmail && Math.random() < 0.3) email = '';
   if (withoutPhoneOrEmail && Math.random() < 0.3) phone_number = '';
+  const memberId = id || random_int(1000);
   return {
-    id: random_int(1000),
+    id: memberId,
     name: `${firstname} ${lastname}`,
     consumer: random_int(1000),
     firstname,
@@ -126,7 +128,8 @@ export function MemberFactory(
 export default function MembersFactory(
   length: number,
   withoutPhoneOrEmail?: boolean,
+  idList?: number[],
 ): Array<Member> {
   const res = new Array(length).fill(0);
-  return res.map(() => MemberFactory({}, withoutPhoneOrEmail));
+  return res.map((_, i) => MemberFactory({}, withoutPhoneOrEmail, idList?.[i]));
 }

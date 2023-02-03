@@ -1,41 +1,41 @@
 import React from 'react'
-import { ValidationRollCallState } from "../constants";
+import { RollCallState } from "../constants";
 import { ValidationRollCallText, Props } from "./ValidationRollCallText.component";
 const GenericValidationRollCallTextTemplate = (args: Props) => <ValidationRollCallText {...args} />;
 
 export const NotValidatedRollCallText = GenericValidationRollCallTextTemplate.bind({});
 
 NotValidatedRollCallText.args = {
-    validationRollCallState:ValidationRollCallState.NOT_VALIDATED,
+    validationRollCallState:RollCallState.NOT_VALIDATED,
 };
 
 export const ModifiedRollCallText = GenericValidationRollCallTextTemplate.bind({});
 
 ModifiedRollCallText.args = {
-    validationRollCallState:ValidationRollCallState.MODIFIED,
+    validationRollCallState:RollCallState.MODIFIED,
     lastValidatedRollCallDate: "12/01/2001"
 };
 
 export const ValidatedRollCallText = GenericValidationRollCallTextTemplate.bind({});
 
 ValidatedRollCallText.args = {
-    validationRollCallState:ValidationRollCallState.VALIDATED,
+    validationRollCallState:RollCallState.VALIDATED,
     lastValidatedRollCallDate: "12/01/2001"
 };
 
-export const NotValidatedSeveralRollCallText = GenericValidationRollCallTextTemplate.bind({});
+export const NotValidatedListRollCallsText = GenericValidationRollCallTextTemplate.bind({});
 
-NotValidatedSeveralRollCallText.args = {
-    validationRollCallState:ValidationRollCallState.NOT_VALIDATED,
-    severalRollCall:true,
-    nbRemainingRollCall:2
+NotValidatedListRollCallsText.args = {
+    validationRollCallState:RollCallState.NOT_VALIDATED,
+    listRollCalls:true,
+    nbRollCallsLeftToValidate:2
 };
 
-export const ValidatedSeveralRollCallText = GenericValidationRollCallTextTemplate.bind({});
+export const ValidatedListRollCallsText = GenericValidationRollCallTextTemplate.bind({});
 
-ValidatedSeveralRollCallText.args = {
-    validationRollCallState:ValidationRollCallState.VALIDATED,
-    severalRollCall:true
+ValidatedListRollCallsText.args = {
+    validationRollCallState:RollCallState.VALIDATED,
+    isSeveralRollCallsPage:true
 };
 
 export default {

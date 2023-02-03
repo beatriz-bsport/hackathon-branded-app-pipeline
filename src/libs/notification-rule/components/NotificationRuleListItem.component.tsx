@@ -13,8 +13,11 @@ import EmailSelector from '../../email-editor/components/EmailSelector.component
 import Tooltip from '../../../components/Tooltip.component';
 import { NotificationRule } from '../types';
 import { EmailTemplateSummary } from '#libs/email-editor/types';
-import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import NotificationForm from './NotificationForm.component';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   emailDesignList: EmailTemplateSummary[];
@@ -185,12 +188,11 @@ export const NotificationRuleListItem = (props: Props) => {
 
   return (
     <FeatureListProvider>
-      {(featureList) => {
-        const hasNotificationUpsell =
-          featureList.upsell &&
-          featureList.upsell.find(
-            (f) => f.readable_identifier === 'push_notification',
-          );
+      {(featureList: FeatureList) => {
+        const hasNotificationUpsell = hasUpsell(
+          featureList,
+          UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+        );
 
         return (
           <Paper className={classNames(classes.container, className)}>

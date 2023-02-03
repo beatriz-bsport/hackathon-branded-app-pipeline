@@ -14,6 +14,9 @@ import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { SmartList } from '../../smart-list/types';
 
 import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#libs/payment-packs/utils';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 const getLabelForRules = (
   notification: MarketingNotification,
@@ -151,13 +154,10 @@ const NotificationListInner = (props: Props) => {
   return (
     <>
       <FeatureListProvider>
-        {(featureList) => (
+        {(featureList: FeatureList) => (
           <div className={classes.contentContainer}>
             <Typography>{getLabelForRules(notification, t)}</Typography>
-            {featureList.upsell &&
-              featureList.upsell.find(
-                (f) => f.readable_identifier === 'push_notification',
-              ) &&
+            {hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) &&
               notification.push_notification_title !== '' && (
                 <div className={classes.row}>
                   <NotificationsNoneIcon

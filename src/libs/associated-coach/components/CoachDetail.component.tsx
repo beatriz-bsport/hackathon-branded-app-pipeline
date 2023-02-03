@@ -23,6 +23,8 @@ import {
 } from '#libs/replacement-request/types';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 
 import type { OptionCallback } from '../../../state/types';
 
@@ -137,12 +139,9 @@ export const CoachDetail: React.FC<Props> = ({
       </div>
       <div className={classes.remplacement}>
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <>
-              {!!featureList.upsell?.find(
-                (f) =>
-                  f.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
-              ) && (
+              {hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL) && (
                 <Paper className={classes.paperReplacement}>
                   <AssociatedCoachDisciplineGroupConfiguration
                     coach={coach}

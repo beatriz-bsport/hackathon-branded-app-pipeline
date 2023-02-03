@@ -40,6 +40,9 @@ import { Contract } from '#libs/subscription/types';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_NOTIFICATION } from '#libs/communication-v2/constants';
 import Config from '../../../config';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -490,12 +493,12 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                 </>
               )}
               <FeatureListProvider>
-                {(featureList) => (
+                {(featureList: FeatureList) => (
                   <>
-                    {featureList.upsell &&
-                      featureList.upsell.find(
-                        (f) => f.readable_identifier === 'push_notification',
-                      ) &&
+                    {hasUpsell(
+                      featureList,
+                      UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+                    ) &&
                       this.props.selectedNotification
                         .push_notification_title !== '' && (
                         <>

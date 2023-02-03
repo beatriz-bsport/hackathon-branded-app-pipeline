@@ -16,6 +16,8 @@ import { getCurrencyCode } from '../../theme/selectors';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import type { FeatureList } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type OwnProps = {
   onChange: (param: string) => void;
@@ -99,10 +101,7 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
               labelPlacement="bottom"
               disabled={
                 props.disabled ||
-                !featureList.upsell ||
-                !featureList.upsell.find(
-                  (f) => f.readable_identifier === 'stripe_terminal',
-                )
+                !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
               }
               className={classes.paymentMethodRadio}
             />

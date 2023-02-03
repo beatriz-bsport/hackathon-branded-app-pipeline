@@ -27,6 +27,8 @@ import {
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
 import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   getEmailDetail: (id: number) => void;
@@ -94,15 +96,14 @@ const MarketingRuleSendingMethodField = (props: Props) => {
           />
           <FeatureListProvider>
             {(featureList: FeatureList) => {
-              const hasUpsell =
-                featureList.upsell &&
-                featureList.upsell.find(
-                  (f) => f.readable_identifier === 'push_notification',
-                );
+              const hasPushNotificationUpsell = hasUpsell(
+                featureList,
+                UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+              );
               return (
                 <Tooltip
                   title={t('booking:notification.form.needPushUpsell')}
-                  hide={hasUpsell}
+                  hide={hasPushNotificationUpsell}
                   placement="bottom-start"
                 >
                   <div className={classes.flex}>
@@ -112,7 +113,7 @@ const MarketingRuleSendingMethodField = (props: Props) => {
                         'notificationForm.sendingMethod.notificationPush',
                       )}
                       checked={send_notification_push}
-                      disabled={!hasUpsell}
+                      disabled={!hasPushNotificationUpsell}
                     />
                   </div>
                 </Tooltip>

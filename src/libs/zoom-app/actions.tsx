@@ -10,6 +10,8 @@ import type {
   OptionCallback,
   State,
 } from '../../state/types';
+import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 export const zoomAppDetailAction = {
   success: createAction('ZOOM_APP/DETAIL/SUCCESS'),
@@ -31,9 +33,7 @@ export function fetchZoomApp(companyId: number) {
     dispatch(zoomAppDetailAction.loading(true));
     try {
       const featureList = getState().company.feature.data;
-      const hasZoom = !!featureList?.upsell?.find(
-        (f: any) => f.readable_identifier === 'zoom',
-      );
+      const hasZoom = hasUpsell(featureList, UPSELL_IDENTIFIER_ZOOM_APP);
       if (!hasZoom) {
         dispatch(
           zoomAppDetailAction.success({

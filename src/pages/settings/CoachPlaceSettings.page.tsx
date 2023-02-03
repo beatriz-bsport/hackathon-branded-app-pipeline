@@ -18,6 +18,7 @@ import {
 import { getReplacementRequestConfiguration } from '#libs/replacement-request/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type OwnProps = {
   theme: CompanyTheme;
@@ -42,11 +43,7 @@ export const CoachPlaceSettings: React.FC<Props> = ({
 
   useEffect(() => {
     fetchCompanyTheme();
-    if (
-      featureList.upsell.find(
-        (u) => u.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
-      )
-    ) {
+    if (hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL)) {
       fetchReplacementConfiguration();
     }
   }, [fetchCompanyTheme, fetchReplacementConfiguration, featureList]);
@@ -61,9 +58,7 @@ export const CoachPlaceSettings: React.FC<Props> = ({
         setDisplayConfiguration={setDisplayConfiguration}
       />
 
-      {featureList.upsell?.find(
-        (f) => f.upsell_identifier === UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
-      ) &&
+      {hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL) &&
         displayConfigurationForm &&
         configuration && (
           <ReplacementRequestConfigurationForm

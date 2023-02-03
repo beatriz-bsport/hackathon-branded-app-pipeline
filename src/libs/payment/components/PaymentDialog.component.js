@@ -28,6 +28,9 @@ import { Establishment } from '../../establishment/types';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../api';
 import type { StripeReader } from '#libs/terminal/types';
+import { FeatureList } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   clientSecret: string,
@@ -197,7 +200,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                         ),
                       )}
                       <FeatureListProvider>
-                        {(featureList) => (
+                        {(featureList: FeatureList) => (
                           <FormControlLabel
                             value={`${PAYMENT_STRIPE_TERMINAL_FAKE}`}
                             control={<Radio color="primary" />}
@@ -209,10 +212,9 @@ export class PaymentDialog extends React.Component<Props, State> {
                               !stripeReaders ||
                               stripeReaders.length === 0 ||
                               this.state.processingPayment ||
-                              !featureList.upsell ||
-                              !featureList.upsell.find(
-                                (f) =>
-                                  f.readable_identifier === 'stripe_terminal',
+                              !hasUpsell(
+                                featureList,
+                                UPSELL_IDENTIFIER_STRIPE_TERMINAL,
                               )
                             }
                             labelPlacement="bottom"

@@ -53,6 +53,9 @@ import {
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
 import { ALLOWED_COUNTRIES_FOR_STATES } from '../constants';
+import { UPSELL_IDENTIFIER_SMS } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -156,7 +159,7 @@ export class MemberSummaryCard extends Component<Props> {
     return (
       <List dense>
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <PhoneItem
               phoneNumber={
                 member.consumer.phonenumber &&
@@ -165,12 +168,7 @@ export class MemberSummaryCard extends Component<Props> {
               accept_contact={member.accept_sms}
               notificationIcon
               openSmsDialog={() => {
-                if (
-                  !featureList.upsell ||
-                  !featureList.upsell.find(
-                    (f) => f.readable_identifier === 'sms',
-                  )
-                ) {
+                if (!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) {
                   window.location = `sms:${member.consumer.phonenumber.phone_number}`;
                 } else {
                   this.setState({ displayMailDialog: true, sendSms: true });

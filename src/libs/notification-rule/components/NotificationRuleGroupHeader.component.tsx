@@ -14,6 +14,9 @@ import {
   NotificationRuleSettings,
 } from '#libs/notification-rule/types';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   eventGroupName: string;
@@ -80,21 +83,21 @@ const NotificationRuleGroupHeader = (props: Props) => {
             </Button>
           )}
           <FeatureListProvider>
-            {(featureList) => (
+            {(featureList: FeatureList) => (
               <>
-                {featureList.upsell &&
-                  featureList.upsell.find(
-                    (f) => f.readable_identifier === 'push_notification',
-                  ) && (
-                    <Chip
-                      label={t('countNotification', {
-                        nbr: eventsList.filter(
-                          (event) => event?.rule?.is_notification_push_active,
-                        ).length,
-                      })}
-                      className={classes.rightChip}
-                    />
-                  )}
+                {hasUpsell(
+                  featureList,
+                  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+                ) && (
+                  <Chip
+                    label={t('countNotification', {
+                      nbr: eventsList.filter(
+                        (event) => event?.rule?.is_notification_push_active,
+                      ).length,
+                    })}
+                    className={classes.rightChip}
+                  />
+                )}
               </>
             )}
           </FeatureListProvider>

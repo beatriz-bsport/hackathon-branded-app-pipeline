@@ -6,6 +6,9 @@ import { Divider, Theme, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   value: 'notification' | 'email';
@@ -26,26 +29,23 @@ const NotificationRulePreviewHeader = (props: Props) => {
           {t('preview.title')}
         </Typography>
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <>
-              {featureList.upsell &&
-                featureList.upsell.find(
-                  (f) => f.readable_identifier === 'push_notification',
-                ) && (
-                  <ToggleButtonGroup
-                    className={classes.toggle}
-                    value={value}
-                    onChange={onChange}
-                    exclusive
-                  >
-                    <ToggleButton value="email" aria-label="bold">
-                      {t('preview.email')}
-                    </ToggleButton>
-                    <ToggleButton value="notification" aria-label="italic">
-                      {t('preview.notification')}
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                )}
+              {hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) && (
+                <ToggleButtonGroup
+                  className={classes.toggle}
+                  value={value}
+                  onChange={onChange}
+                  exclusive
+                >
+                  <ToggleButton value="email" aria-label="bold">
+                    {t('preview.email')}
+                  </ToggleButton>
+                  <ToggleButton value="notification" aria-label="italic">
+                    {t('preview.notification')}
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              )}
             </>
           )}
         </FeatureListProvider>

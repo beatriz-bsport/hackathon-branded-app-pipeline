@@ -48,6 +48,7 @@ import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
 } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   actionType: number;
@@ -108,9 +109,7 @@ const BottomBarIcons = (props: Props) => {
                 className={classes.iconButton}
                 disabled={
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                  !featureList.upsell?.find(
-                    (f) => f.upsell_identifier === UPSELL_IDENTIFIER_SMS,
-                  )
+                  !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)
                 }
               >
                 {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
@@ -132,11 +131,7 @@ const BottomBarIcons = (props: Props) => {
                 className={classes.iconButton}
                 disabled={
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                  !featureList.upsell?.find(
-                    (f) =>
-                      f.upsell_identifier ===
-                      UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
-                  )
+                  !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
                 }
               >
                 {actionType === WRITE_PUSH_NOTIFICATION ? (

@@ -63,6 +63,9 @@ import {
 } from '#libs/offer/constants';
 import { OfferFilterData } from '#libs/offer/types';
 import OfferEditSubteacherChangeSettings from '#libs/offer/components/OfferEditSubteacherChangeSettings.component';
+import { FeatureList } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type OwnProps = {
   processing: boolean;
@@ -879,11 +882,11 @@ export class OfferEditForm extends Component<Props, State> {
         </div>
 
         <FeatureListProvider>
-          {(featureList) => {
-            const hasZoomApp =
-              featureList?.upsell?.find(
-                (f) => f.readable_identifier === 'zoom',
-              ) ?? false;
+          {(featureList: FeatureList) => {
+            const hasZoomApp = hasUpsell(
+              featureList,
+              UPSELL_IDENTIFIER_ZOOM_APP,
+            );
             if (
               this.props.offer &&
               this.props.offer.meta_activity &&

@@ -20,6 +20,9 @@ import RedButton from '../../../components/button/RedButton.component';
 
 import type { Theme } from '../../theme/types';
 import type { ZoomApp } from '../../zoom-app/types';
+import { FeatureList } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   theme: Theme,
@@ -103,12 +106,8 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
     return (
       <div>
         <FeatureListProvider>
-          {(featureList) => {
-            const hasZoom =
-              featureList.upsell &&
-              !!featureList.upsell.find(
-                (f) => f.readable_identifier === 'zoom',
-              );
+          {(featureList: FeatureList) => {
+            const hasZoom = hasUpsell(featureList, UPSELL_IDENTIFIER_ZOOM_APP);
             // Even if zoom app does not exist, default values for this.props.zoomApp (see zoom-app/reducers.tsx)
             const { is_configured, is_disabled } = this.props.zoomApp;
             return (

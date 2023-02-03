@@ -43,6 +43,11 @@ import NumericInput from '#components/input/NumericInput.component';
 import type { FeatureList } from '#libs/company/types';
 import type { OptionCallback } from '../../../../state/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_SMS,
+} from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;
@@ -262,10 +267,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                     }
                     disabled={
                       (Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                        (!featureList.upsell ||
-                          !featureList.upsell.find(
-                            (f) => f.readable_identifier === 'sms',
-                          ))) ||
+                        !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) ||
                       (alreadyConfiguredCommunicationKind || []).includes(
                         COMMUNICATION_KIND_SMS,
                       ) ||
@@ -291,11 +293,10 @@ export const AutomatedCommunicationDrawer: React.FC<
                     }
                     disabled={
                       (Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                        (!featureList.upsell ||
-                          !featureList.upsell.find(
-                            (f) =>
-                              f.readable_identifier === 'push_notification',
-                          ))) ||
+                        !hasUpsell(
+                          featureList,
+                          UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+                        )) ||
                       (alreadyConfiguredCommunicationKind || []).includes(
                         COMMUNICATION_KIND_PUSH_NOTIFICATION,
                       ) ||

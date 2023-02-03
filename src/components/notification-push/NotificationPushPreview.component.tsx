@@ -6,6 +6,9 @@ import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.h
 import { CompanyTheme } from '#libs/theme/types';
 import { replaceGenericTagsInTemplate } from '#libs/email-editor/utils';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type OwnProps = {
   notification?: {
@@ -36,12 +39,9 @@ const NotificationPushPreview = (props: Props) => {
   return (
     <>
       <FeatureListProvider>
-        {(featureList) => (
+        {(featureList: FeatureList) => (
           <>
-            {featureList.upsell &&
-              featureList.upsell.find(
-                (f) => f.readable_identifier === 'push_notification',
-              ) &&
+            {hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) &&
               notification.push_notification_title !== '' &&
               notification.push_notification_content !== '' && (
                 <div className={classNames(classes.greyBack, className)}>

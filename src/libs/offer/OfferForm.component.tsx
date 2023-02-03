@@ -60,6 +60,9 @@ import { Level, LevelFilterSet } from '#libs/level/types';
 import { OptionCallback } from '../../state/types';
 import FormToggle from '#components/forms/FormToggle.component';
 import { ZoomApp } from '#libs/zoom-app/types';
+import { FeatureList } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -657,13 +660,10 @@ export class OfferForm extends Component<Props, State> {
           />
         )}
         <FeatureListProvider>
-          {(featureList: any) => {
-            const hasZoomApp = !!(
-              featureList &&
-              featureList.upsell &&
-              featureList.upsell.find(
-                (f: any) => f.readable_identifier === 'zoom',
-              )
+          {(featureList: FeatureList) => {
+            const hasZoomApp = hasUpsell(
+              featureList,
+              UPSELL_IDENTIFIER_ZOOM_APP,
             );
             if (
               this.props.metaActivity &&

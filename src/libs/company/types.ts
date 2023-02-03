@@ -28,13 +28,13 @@ export type CompanyWithTheme = Company & {
   secondaryRGB: [number, number, number];
 };
 
+export type UpsellSumup = {
+  upsell_identifier: number;
+  readable_identifier: string;
+};
+
 export type FeatureList = {
-  upsell: [
-    {
-      upsell_identifier: number;
-      readable_identifier: string;
-    },
-  ];
+  upsell: Array<UpsellSumup>;
 };
 
 export type CompanySetup = {
@@ -68,8 +68,6 @@ type StripeAccountStatus = {
   reason: string;
   date_account_blocked: string;
 };
-
-type UpsellSumup = { upsell_identifier: number; readable_identifier: number };
 
 export type UpsellPackage = {
   id: number;

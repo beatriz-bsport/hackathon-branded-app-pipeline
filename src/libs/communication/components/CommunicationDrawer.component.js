@@ -27,6 +27,12 @@ import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constant';
 import type { MemberMailData } from '../types';
 import Config from '../../../config';
 import type { Member } from '#libs/member/types';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_SMS,
+} from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
@@ -208,7 +214,7 @@ export class CommunicationDrawer extends Component<Props, State> {
           />
         )}
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <FormControlLabel
               classes={{ label: classes.center }}
               control={
@@ -217,10 +223,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                   disabled={
                     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
                     (!this.props.countWithPhone ||
-                      !featureList.upsell ||
-                      !featureList.upsell.find(
-                        (f) => f.readable_identifier === 'sms',
-                      ))
+                      !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS))
                   }
                   onChange={() =>
                     this.setState({
@@ -235,7 +238,7 @@ export class CommunicationDrawer extends Component<Props, State> {
           )}
         </FeatureListProvider>
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <FormControlLabel
               classes={{ label: classes.center }}
               control={
@@ -243,10 +246,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                   checked={this.state.actionType === SEND_PUSH_NOTIFICATION}
                   disabled={
                     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                    (!featureList.upsell ||
-                      !featureList.upsell.find(
-                        (f) => f.readable_identifier === 'push_notification',
-                      ))
+                    !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
                   }
                   onChange={() =>
                     this.setState({

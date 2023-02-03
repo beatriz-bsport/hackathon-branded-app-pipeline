@@ -17,6 +17,7 @@ import { OptionCallback } from '../../../state/types';
 import type { CompanyTheme } from '../types';
 import { SwitchField } from '#components/forms';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 interface FormikValues {
   is_coach_access_enabled_by_default: boolean;
@@ -116,11 +117,7 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
                     'forms.themePersonalization.coachUserspace.enableReplacement',
                   )}
                   disabled={
-                    !featureList.upsell?.find(
-                      (f) =>
-                        f.upsell_identifier ===
-                        UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
-                    )
+                    !hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL)
                   }
                 />
                 {errors.has_coach_access_to_replacement_request && (

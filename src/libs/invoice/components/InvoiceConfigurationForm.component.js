@@ -31,6 +31,8 @@ import InfoTypography from '#components/typo/InfoTypography.components';
 import type { FeatureList } from '#libs/company/types';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import type { StripeReader } from '#libs/terminal/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 type Props = {
   classes: any,
@@ -473,10 +475,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                   variant="outlined"
                   color="primary"
                   disabled={
-                    !featureList.upsell ||
-                    !featureList.upsell.find(
-                      (f) => f.readable_identifier === 'stripe_terminal',
-                    )
+                    !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
                   }
                   onClick={() =>
                     this.setState({ openConnectReaderDialog: true })

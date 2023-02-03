@@ -28,6 +28,7 @@ import { FeatureList } from '#libs/company/types';
 import MuiIcon from '#components/MuiIcon.component';
 import { isLessonCompleted, isLessonViewed } from '../utils';
 import ToolTipWhite from '#components/Tooltip.component';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 export type Props = {
   sections: Array<TutorialSection>;
@@ -92,14 +93,12 @@ const SectionStatusChips: React.FC<{
       )}
       <FeatureListProvider>
         {(featureList: FeatureList) => {
-          const hasUpsell = !section?.upsell_identifiers.every(
-            (id) =>
-              featureList.upsell &&
-              featureList.upsell.find((f) => f.upsell_identifier === id),
+          const hasEverySectionUpsells = !section?.upsell_identifiers.every(
+            (id) => hasUpsell(featureList, id),
           );
           return (
             <>
-              {hasUpsell && (
+              {hasEverySectionUpsells && (
                 <ToolTipWhite title={t('sectionList.missingUpsell')}>
                   <div className={classes.chipAddOn}>
                     {t('sectionList.addOn')}

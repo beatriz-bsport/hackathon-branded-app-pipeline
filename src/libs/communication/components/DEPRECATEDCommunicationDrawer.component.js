@@ -27,6 +27,12 @@ import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constant';
 import type { MemberMailData } from '../types';
 import Config from '../../../config';
 import type { Member } from '#libs/member/types';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_SMS,
+} from '#libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
@@ -104,12 +110,7 @@ export class CommunicationDrawer extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      this.props.initMembers &&
-      // eslint-disable-next-line
-      true ===this.props.open &&
-      prevProps.open === false
-    ) {
+    if (this.props.initMembers && this.props.open && !prevProps.open) {
       this.props.initMembers(1, this.state.page_size);
     }
     if (prevProps.mailDefaultTitle !== this.props.mailDefaultTitle) {
@@ -181,7 +182,7 @@ export class CommunicationDrawer extends Component<Props, State> {
           />
         )}
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <FormControlLabel
               classes={{ label: classes.center }}
               control={
@@ -192,10 +193,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                     (!this.props.allIdsWithPhone.filter(
                       (item) => !this.state.unCheckedMembers.includes(item),
                     ).length ||
-                      !featureList.upsell ||
-                      !featureList.upsell.find(
-                        (f) => f.readable_identifier === 'sms',
-                      ))
+                      !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS))
                   }
                   onChange={() =>
                     this.setState({
@@ -211,7 +209,7 @@ export class CommunicationDrawer extends Component<Props, State> {
           )}
         </FeatureListProvider>
         <FeatureListProvider>
-          {(featureList) => (
+          {(featureList: FeatureList) => (
             <FormControlLabel
               classes={{ label: classes.center }}
               control={
@@ -219,10 +217,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                   checked={this.state.actionType === SEND_PUSH_NOTIFICATION}
                   disabled={
                     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                    (!featureList.upsell ||
-                      !featureList.upsell.find(
-                        (f) => f.readable_identifier === 'push_notification',
-                      ))
+                    !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
                   }
                   onChange={() =>
                     this.setState({

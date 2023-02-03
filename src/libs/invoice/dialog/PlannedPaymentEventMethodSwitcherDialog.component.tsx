@@ -35,6 +35,8 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import type { FeatureList } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 import type { PlannedPaymentEvent } from '../types';
 import type { PaymentMethod } from '#libs/payment/types';
@@ -121,10 +123,7 @@ const PaymentMethodSwitcher = (props: {
             labelPlacement="bottom"
             disabled={
               props.disabled ||
-              !featureList.upsell ||
-              !featureList.upsell.find(
-                (f) => f.readable_identifier === 'stripe_terminal',
-              )
+              !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
             }
             className={props.classes.paymentMethodRadio}
           />

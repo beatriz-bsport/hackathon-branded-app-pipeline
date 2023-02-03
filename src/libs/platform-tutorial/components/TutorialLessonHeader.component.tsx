@@ -19,6 +19,7 @@ import MuiIcon from '#components/MuiIcon.component';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { isLessonCompleted } from '../utils';
 import { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 export type Props = {
   selectedLesson: TutorialLesson;
@@ -89,14 +90,12 @@ const TutorialLessonHeader: React.FC<Props> = (props: Props) => {
         </Typography>
         <FeatureListProvider>
           {(featureList: FeatureList) => {
-            const hasUpsell = !section?.upsell_identifiers.every(
-              (id) =>
-                featureList.upsell &&
-                featureList.upsell.find((f) => f.upsell_identifier === id),
+            const hasEverySectionUpsells = !section?.upsell_identifiers.every(
+              (id) => hasUpsell(featureList, id),
             );
             return (
               <>
-                {hasUpsell && (
+                {hasEverySectionUpsells && (
                   <div className={classes.chipAddOn}>
                     {t('lessonHeader.addOn')}
                   </div>
@@ -158,14 +157,12 @@ const TutorialLessonHeader: React.FC<Props> = (props: Props) => {
       </div>
       <FeatureListProvider>
         {(featureList: FeatureList) => {
-          const hasUpsell = !section?.upsell_identifiers.every(
-            (id) =>
-              featureList.upsell &&
-              featureList.upsell.find((f) => f.upsell_identifier === id),
+          const hasEverySectionUpsells = !section?.upsell_identifiers.every(
+            (id) => hasUpsell(featureList, id),
           );
           return (
             <>
-              {hasUpsell && (
+              {hasEverySectionUpsells && (
                 <div className={classes.warningContainer}>
                   <div className={classes.infoIcon}>
                     <InfoOutlinedIcon color="inherit" />

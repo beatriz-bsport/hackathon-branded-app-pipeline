@@ -1,0 +1,22 @@
+import React from 'react';
+import OfferMinimalSummary, { Props } from './OfferMinimalSummary.component';
+import { offerFactory } from '#libs/offer/factory';
+
+const CustomTemplate = (args: Props) => <OfferMinimalSummary {...args} />;
+
+export const CompleteDefaultState = CustomTemplate.bind({});
+
+CompleteDefaultState.args = {
+    offer:offerFactory(),
+    getHasPendingReplacementRequest:() => true
+};
+
+export default {
+    title:'Pages/Offer/OfferMinimalSummary', 
+    component:OfferMinimalSummary,
+    parameters: {
+        docs: {
+            page: null
+        }
+    }
+};

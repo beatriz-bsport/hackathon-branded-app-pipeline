@@ -28,14 +28,20 @@ import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPa
 import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import type { Offer } from '../../api/types';
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
+import RollCallChip from '../../libs/offer/components/RollCallChip.component';
 
 const styles = (theme) => ({
   relativeContainer: { position: 'relative' },
-  replacementChip: {
+  chipContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    height: '100%',
     position: 'absolute',
     right: 0,
     top: '50%',
     transform: 'translateY(-50%)',
+    marginRight: theme.spacing(3),
   },
   offerTitleText: {
     display: 'flex',
@@ -346,14 +352,17 @@ export function OfferMinimalSummary(props: Props) {
               secondary={actualCoachName}
               classes={textClasses}
             />
+          </Grid>
+          <div item className={classes.chipContainer}>
             {hasPendingReplacementRequest && (
               <Tooltip title={t('offer:pendingReplacementRequest')}>
-                <div item className={classes.replacementChip}>
-                  <ReplacementRequestPendingChip height={22} width={25} />
+                <div>
+                  <ReplacementRequestPendingChip height={22} width={30} />
                 </div>
               </Tooltip>
             )}
-          </Grid>
+            <RollCallChip isValidated />
+          </div>
         </Grid>
       </ListItem>
     </>

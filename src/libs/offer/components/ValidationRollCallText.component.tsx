@@ -21,22 +21,22 @@ export const ValidationRollCallText = (props: Props) => {
       return (
         <Alert severity="warning" className={classes.alert}>
           {props.severalRollCall
-            ? t('rollCall.remainingRollCall', {
+            ? t('rollCall.warningText.remainingRollCall', {
                 number: props.nbRemainingRollCall,
               })
-            : t('rollCall.noValidationRollCall')}
+            : t('rollCall.warningText.notValidatedRollCall')}
         </Alert>
       );
     case ValidationRollCallState.MODIFIED:
       return (
         <Tooltip
-          title={t('rollCall.lastValidatedRollCall', {
+          title={t('rollCall.warningText.lastValidatedRollCall', {
             date: moment(props.lastValidatedRollCallDate).format('L'),
             time: moment(props.lastValidatedRollCallDate).format('LT'),
           })}
         >
           <Alert severity="warning" className={classes.alert}>
-            {t('rollCall.modifiedRollCall')}
+            {t('rollCall.warningText.modifiedRollCall')}
           </Alert>
         </Tooltip>
       );
@@ -44,8 +44,8 @@ export const ValidationRollCallText = (props: Props) => {
       return (
         <Typography>
           {props.severalRollCall
-            ? t('rollCall.noRemainingRollCall')
-            : t('rollCall.validatedDatedRollCall', {
+            ? t('rollCall.warningText.noRemainingRollCall')
+            : t('rollCall.warningText.validatedDatedRollCall', {
                 date: moment(props.lastValidatedRollCallDate).format('L'),
                 time: moment(props.lastValidatedRollCallDate).format('LT'),
               })}

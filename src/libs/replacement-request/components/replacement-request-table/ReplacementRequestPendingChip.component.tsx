@@ -19,28 +19,22 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
   const theme = useTheme();
 
   return (
-    <div className={classes.chipContainer}>
-      <div
-        className={classes.chipStatus}
-        style={width ? { width: `${width}px` } : {}}
-      >
-        <HourglassEmpty
-          style={
-            height
-              ? { height: `calc(${height}px - ${theme.spacing(0.5)}px)` }
-              : {}
-          }
-        />
-      </div>
+    <div
+      className={classes.chipStatus}
+      style={width ? { width: `${width}px` } : {}}
+    >
+      <HourglassEmpty
+        style={
+          height
+            ? { height: `calc(${height}px - ${theme.spacing(0.5)}px)` }
+            : {}
+        }
+      />
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  chipContainer: {
-    display: 'table',
-    margin: 'auto',
-  },
   chipStatus: {
     whiteSpace: 'nowrap',
     display: 'flex',

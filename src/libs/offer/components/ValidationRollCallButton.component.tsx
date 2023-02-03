@@ -16,7 +16,7 @@ export const ValidationRollCallButton = (props: Props) => {
       disabled={props.nbRemainingRollCall === 0}
     >
       <PlaylistAddCheck className={classes.iconLeft} />
-      {t('rollCall.validationRollCall', {
+      {t('rollCall.button.validationRollCall', {
         count: props.nbRemainingRollCall,
       })}
     </Button>

@@ -163,19 +163,31 @@ exports.default = {
     edit: 'Modifier',
   },
   rollCall: {
-    validationRollCall: "Valider l'appel",
-    validationRollCall_plural: 'Valider tous les appels',
-    noValidationRollCall: "L'appel n'a pas été validé",
-    modifiedRollCall: "L'appel a été modifié, vous devez de nouveau le valider",
-    validatedDatedRollCall: 'Validé le {{- date }} à {{ time }}',
-    lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
-    remainingRollCall: '{{ number }} appels nécessitent une validation',
-    noRemainingRollCall: 'Tous les appels ont été validés',
-    confirmationRollCall:
-      'Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
-    confirmationRollCall_plural:
-      'Vous aller valider l’appel pour l’ensemble des séances du jour. Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
-    validatedRollCall: 'Appel validé',
-    savedRollCall: "L'appel a bien été enregistré.",
+    warningText: {
+      notValidatedRollCall: "L'appel n'a pas été validé",
+      modifiedRollCall:
+        "L'appel a été modifié, vous devez de nouveau le valider",
+      validatedDatedRollCall: 'Validé le {{- date }} à {{ time }}',
+      remainingRollCall: '{{ number }} appels nécessitent une validation',
+      noRemainingRollCall: 'Tous les appels ont été validés',
+      lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
+    },
+    button: {
+      validationRollCall: "Valider l'appel",
+      validationRollCall_plural: 'Valider tous les appels',
+    },
+    dialog: {
+      validationRollCall: "Valider l'appel",
+      confirmationRollCall:
+        'Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
+      confirmationRollCall_plural:
+        'Vous aller valider l’appel pour l’ensemble des séances du jour. Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
+      validatedRollCall: 'Appel validé',
+      savedRollCall: "L'appel a bien été enregistré.",
+    },
+    chip: {
+      validatedRollCall: 'Appel validé le {{- date }} {{ time }}',
+      notValidatedRollCall: 'Appel non validé',
+    },
   },
 };

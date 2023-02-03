@@ -37,10 +37,10 @@ export const ConfirmationRollCallDialog = (props: Props) => {
           />
         </div>
         <Typography variant="h6" className={classes.title}>
-          {t('rollCall.validatedRollCall')}
+          {t('rollCall.dialog.validatedRollCall')}
         </Typography>
         <Typography variant="body1" className={classes.subtitle}>
-          {t('rollCall.savedRollCall')}
+          {t('rollCall.dialog.savedRollCall')}
         </Typography>
         <div className={classes.alignMiddle}>
           <Button onClick={props.onCancel}>{t('close')}</Button>
@@ -52,12 +52,12 @@ export const ConfirmationRollCallDialog = (props: Props) => {
     <GenericResponsiveDialog maxWidth="sm" open={props.open}>
       <DialogTitle>
         <Typography variant="h6" className={classes.bold}>
-          {t('rollCall.validationRollCall')}
+          {t('rollCall.dialog.validationRollCall')}
         </Typography>
       </DialogTitle>
       <DialogContent>
         <Typography variant="body1">
-          {t('rollCall.confirmationRollCall', {
+          {t('rollCall.dialog.confirmationRollCall', {
             count: props.nbRemainingRollCall,
           })}
         </Typography>

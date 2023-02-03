@@ -45,7 +45,7 @@ export const ValidationRollCallText = (props: Props) => {
         <Typography>
           {props.severalRollCall
             ? t('rollCall.noRemainingRollCall')
-            : t('rollCall.validatedRollCall', {
+            : t('rollCall.validatedDatedRollCall', {
                 date: moment(props.lastValidatedRollCallDate).format('L'),
                 time: moment(props.lastValidatedRollCallDate).format('LT'),
               })}

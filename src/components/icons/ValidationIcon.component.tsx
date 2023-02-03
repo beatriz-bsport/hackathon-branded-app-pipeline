@@ -5,6 +5,7 @@ import { useTheme } from '@material-ui/styles';
 
 type Props = {
   color?: string;
+  fillOpacity?: string;
 };
 
 export const ValidationIcon: React.FC<Props> = (props) => {
@@ -38,7 +39,7 @@ export const ValidationIcon: React.FC<Props> = (props) => {
             cy="55"
             r="55"
             fill={props.color ? props.color : theme.palette.primary.main}
-            fillOpacity="0.3"
+            fillOpacity={props.fillOpacity}
           />
         </svg>
       </div>
@@ -54,4 +55,7 @@ const useStyles = makeStyles<Theme>(() => ({
   container: { display: 'flex' },
   validationIcon: { position: 'relative' },
 }));
+ValidationIcon.defaultProps = {
+  fillOpacity: '0.3',
+};
 export default ValidationIcon;

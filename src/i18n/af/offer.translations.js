@@ -167,9 +167,15 @@ exports.default = {
     validationRollCall_plural: 'Valider tous les appels',
     noValidationRollCall: "L'appel n'a pas été validé",
     modifiedRollCall: "L'appel a été modifié, vous devez de nouveau le valider",
-    validatedRollCall: 'Validé le {{- date }} à {{ time }}',
+    validatedDatedRollCall: 'Validé le {{- date }} à {{ time }}',
     lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
     remainingRollCall: '{{ number }} appels nécessitent une validation',
     noRemainingRollCall: 'Tous les appels ont été validés',
+    confirmationRollCall:
+      'Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
+    confirmationRollCall_plural:
+      'Vous aller valider l’appel pour l’ensemble des séances du jour. Attention, si des membres ont une carte illimitée alors ils seront indiqués comme absent. Des pénalités seront appliquées pour ces membres. Etes-vous sûr de vouloir confirmer l’appel ?',
+    validatedRollCall: 'Appel validé',
+    savedRollCall: "L'appel a bien été enregistré.",
   },
 };

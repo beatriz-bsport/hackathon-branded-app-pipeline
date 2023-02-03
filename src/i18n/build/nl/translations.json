@@ -229,7 +229,7 @@
             },
             "ConsumerPaymentPack": {
                 "tags": {
-                    "pass_credit_left": "Resterend krediet",
+                    "pass_credit_left": "Resterende credit",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -251,7 +251,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_credit_left": "Resterend krediet",
+                    "pass_credit_left": "Resterende credit",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -572,7 +572,7 @@
                     "passCompatibleNotOwnedByMember": "Factureer",
                     "passOwnedByMember": "Beschikbare kaarten",
                     "registerToOffer": "Reservering",
-                    "doNotConsumeCredit": "Geen kredieten voor deze reserveringen aftrekken",
+                    "doNotConsumeCredit": "Geen credits voor deze reserveringen aftrekken",
                     "bookMoreInGroup": "Andere evenementen reserveren",
                     "groupWarning": "Deze sessie is onderdeel van het evenement \"{{ name }}\".",
                     "bookSingleInGroup": "Alleen voor deze sessie inschrijven",
@@ -710,22 +710,22 @@
             "amount": "Bedrag",
             "type": "Type",
             "pay": "Afrekenen",
-            "payWithNCredits2": "krediet(en)",
+            "payWithNCredits2": "credits)",
             "payWithNCredits1": "Reserveren (",
             "availablePaymentPacks": " compatibele leskaarten",
             "yourBasket": "Jouw aankoop",
             "noBookingsLeftOnPack": "Deze leskaart kan deze week niet meer worden gebruikt.",
-            "noCreditLeft": "Er zijn niet genoeg geldige kredieten beschikbaar",
+            "noCreditLeft": "Er zijn niet genoeg geldige credits beschikbaar",
             "bookWithUnlimitedPack": "Reserveer",
             "actions": "Acties",
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
-            "topUp": "Krediet(en)",
+            "topUp": "Credits(s)",
             "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd",
             "products": "artikelen",
             "paymentCombo": "Pakketten",
             "return": "Terugbetaling",
             "privatePass": "Afspraakkaarten",
-            "credit": "Kredieten",
+            "credit": "Credits",
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
             "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
@@ -737,7 +737,7 @@
             "invoiceReverted": "Geannuleerde factuur",
             "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
             "revertExplainPacks": "De leskaart en alle gekoppelde reserveringen worden geannuleerd.",
-            "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
+            "revertExplainCredits": "Het debet/credit op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Kaartbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
             "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
             "explainDateChoser": "Selecteer de factuurdatum:",
@@ -810,9 +810,9 @@
                 "cancelBooking": "Reservering annuleren",
                 "myPrivateBooking": "Afspraken",
                 "intro": "Reservering van {{date}}",
-                "discardGroupImpossibleExplain": "De kredieten worden niet teruggestort, omdat deze reservering te laat geannuleerd wordt.",
-                "discardGroupPossibleExplain": "De kredieten worden teruggestort en kunnen opnieuw worden gebruikt.",
-                "willNotBeRefund": "Uitstaande kredieten",
+                "discardGroupImpossibleExplain": "De credits worden niet teruggestort, omdat deze reservering te laat geannuleerd wordt.",
+                "discardGroupPossibleExplain": "De credits worden teruggestort en kunnen opnieuw worden gebruikt.",
+                "willNotBeRefund": "Uitstaande credits",
                 "willBeRefund": "De sessie van {{-day}} wordt terugbetaald",
                 "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd.",
                 "discardGroup3": "Contacteer de studio, indien je wenst om slechts één sessie te annuleren.",
@@ -874,7 +874,7 @@
             "default_duration_minutes": "Duur van de sessie",
             "default_last_discard_minutes": "Kosteloos annuleren kan tot",
             "default_last_booking_minutes": "Reserveren is mogelijk tot",
-            "default_credits": "Prijs (in kredieten)",
+            "default_credits": "Prijs (in credits)",
             "default_price": "Prijs",
             "SCT": "Categorie",
             "name": "Naam",
@@ -898,7 +898,7 @@
             "effectif": "Beschikbare plaatsen",
             "caracteristics": "Kenmerken",
             "price": "Prijs",
-            "credits": "Prijs (in kredieten)",
+            "credits": "Prijs (in credits)",
             "priceCategory": "Facturatie",
             "duration_minute": "Duur",
             "lastSession": "Einddatum",
@@ -911,7 +911,7 @@
             "recurrence": "Frequentie",
             "offerWillBeGenerated": "sessies worden toegevoegd.",
             "offersWillBeGenerated": "sessies worden toegevoegd.",
-            "credit_price": "Aantal vereiste kredieten voor een reservering",
+            "credit_price": "Aantal vereiste credits voor een reservering",
             "generateOffers": "Sessies toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
@@ -925,10 +925,10 @@
                 "delete": {
                     "explainModalities": "Let op: deze wijziging is definitief. De sessie zal niet langer zichtbaar voor je leden zijn.",
                     "explainNotify": "Een melding naar alle ingeschreven leden sturen",
-                    "explainCreditBack": "Kredieten van de gebruikte kaart terugstorten",
+                    "explainCreditBack": "credits van de gebruikte kaart terugstorten",
                     "explainHardDelete": "Weet je zeker dat je deze sessie(s) wilt verwijderen? Let op: deze actie is definitief en de verwijderde sessies worden onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen",
-                    "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Terugbetaalde kredieten worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
+                    "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Terugbetaalde credits worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
                     "force": "Alle geselecteerde sessies inclusief de bijbehorende reserveringen verwijderen",
                     "advanced": "Geavanceerd"
                 },
@@ -1151,7 +1151,7 @@
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijven",
-            "warningCreditChange": "Oude reserveringen worden niet meegenomen indien het aantal kredieten wordt gewijzigd.",
+            "warningCreditChange": "Oude reserveringen worden niet meegenomen indien het aantal credits wordt gewijzigd.",
             "noAvailableCredit": "Weet je zeker dat je geen prijs wilt invoeren?",
             "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar BSPORT-account in te loggen",
             "daily": "Dagelijks",
@@ -1313,14 +1313,14 @@
             "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is betaald en kan niet worden geannuleerd. Je kunt wel aangeven dat deze persoon \"Afwezig\" is.",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren.",
-                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden terug op de gebruikte kaart gestort.",
+                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte credits worden terug op de gebruikte kaart gestort.",
                 "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
             "revertBookingTitle": "Annulering",
-            "wasRefunded": "Teruggestorte kredieten",
+            "wasRefunded": "Teruggestorte credits",
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
             "notifyRevert": "Een annuleringsmail sturen",
-            "refundRevert": "Gebruikte kredieten terugbetalen",
+            "refundRevert": "Gebruikte credits terugbetalen",
             "cancellingBookingInGroup": "Meerdere sessies annuleren",
             "cancellingOtherBookingInGroup": "Deze sessie is gekoppeld aan het evenement \"{{ name }}\". Andere reserveringen van dit lid voor dit evenement worden niet gewijzigd."
         },
@@ -1343,7 +1343,7 @@
         "activity": {
             "reviews": "Ledenbeoordeling: ",
             "packsAvailable": "Compatibele kaarten:",
-            "orNcredits2": " kredieten)",
+            "orNcredits2": " (credits)",
             "orNcredits1": "(of ",
             "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
             "offersThisDay": "Sessie(s) van vandaag:",
@@ -1432,12 +1432,12 @@
             "cancel": "Annuleren",
             "or": "of",
             "create": "Aanmaken",
-            "credits": "Krediet(en)",
+            "credits": "credit(s)",
             "sports": "Categorieën",
             "priceIncludingTax": "Prijs (incl. btw)",
             "price": "Prijs",
             "NA": "Niet gespecificeerd",
-            "credit_s": "Krediet(en)",
+            "credit_s": "credits(s)",
             "continue": "Verder",
             "amount": "Bedrag",
             "paymentPack": "Leskaarten",
@@ -2251,7 +2251,7 @@
             "payment_pack": "Leskaart",
             "top_up": "Saldo van het lid wijzigen",
             "payment_combo": "Pakket",
-            "refund": "Terugbetaalde kredieten",
+            "refund": "Terugbetaalde credits",
             "booking": "Reservering",
             "coupon": "Pomotie",
             "giftcard": "Cadeaubon"
@@ -2271,7 +2271,7 @@
         },
         "columns": {
             "nb_bookings": "Aantal reserveringen",
-            "remaining_credits": "Overige kredieten",
+            "remaining_credits": "Overige credits",
             "nb_attendance": "Aanwezigen",
             "date_joined": "Inschrijfdatum",
             "payment_date_date": "Betaaldatum",
@@ -2338,8 +2338,8 @@
             "membership_ID": "Lidmaatschapsnummer",
             "amortized_price": "Resterende schulden",
             "end_date": "Vervaldatum",
-            "credits": "Totaal in kredieten",
-            "available_credits": "Overige kredieten",
+            "credits": "Totaal in credits",
+            "available_credits": "Overige credits",
             "payment_method_readable_identifier": "Betaalmethode",
             "address": "Adres",
             "tax": "Btw",
@@ -2386,14 +2386,14 @@
             "bsport_fee": "Transactiekosten",
             "nb_bookings_same_pass": "Aantal reserveringen met dezelfde kaart",
             "author": "Auteur",
-            "credit_consumed": "Aantal gebruikte kredieten",
+            "credit_consumed": "Aantal gebruikte credits",
             "effectif_rate": "Bezettingsgraad",
             "cancel_rate": "Annuleringspercentage",
             "rate_non_attendance": "Afwezigheidspercentage",
             "rate_attendance": "Aanwezigheidspercentage",
             "availability": "Geldigheid",
-            "min_credit": "Kredieten (min.)",
-            "max_credit": "Kredieten (max.)",
+            "min_credit": "credits (min.)",
+            "max_credit": "credits (max.)",
             "canceled_bookings": "Aantal annuleringen",
             "c": "Instructeur",
             "private_slot": "Sessie",
@@ -2417,7 +2417,7 @@
             "video_status": "Status",
             "sct_name": "Categorie",
             "duration_second": "Duur (in seconden)",
-            "credit_price": "Prijs (in kredieten)",
+            "credit_price": "Prijs (in credits)",
             "purchases": "Aankopen",
             "views_unique": "Unieke kijkers",
             "views_total": "Aantal keer bekeken",
@@ -2436,7 +2436,7 @@
             "accept_email": "Accepteert marketingmeldingen (e-mails)",
             "accept_sms": "Accepteert marketingmeldingen (sms'jes)",
             "payout_identifier": "Bankoverschrijving",
-            "credit_amount": "Aantal kredieten",
+            "credit_amount": "Aantal credits",
             "initial_price": "Koopprijs",
             "last_view": "Laatst bekeken op",
             "video_title": "Titel van de video",
@@ -2469,9 +2469,9 @@
             "src_lastname": "Achternaam koper",
             "src_firstname": "Voornaam koper",
             "reverted": "Geannuleerd",
-            "sum_available_amount_non_expired": "Overige kredieten",
-            "sum_available_amount_expired": "Gebruikte en verlopen kredieten",
-            "sum_consumed_amount": "Gebruikte kredieten",
+            "sum_available_amount_non_expired": "Overige credits",
+            "sum_available_amount_expired": "Gebruikte en verlopen credits",
+            "sum_consumed_amount": "Gebruikte credits",
             "nb_expired": "Aantal verlopen kaarten",
             "price_bought": "Koopprijs",
             "date_expiration": "Vervaldatum",
@@ -2496,9 +2496,9 @@
             "establishment_title": "Vestiging",
             "billing_planrecurrent_price": "Bedrag",
             "negative_voucher": "Korting",
-            "remaining_credits_annotated": "Overige kredieten van vandaag",
-            "annotated_remaining_credits": "Overige kredieten",
-            "private_passcredits": "Overige kredieten",
+            "remaining_credits_annotated": "Overige credits van vandaag",
+            "annotated_remaining_credits": "Overige credits",
+            "private_passcredits": "Overige credits",
             "unpaid_amount": "Onbetaald (totaal)",
             "total_unpaid_amount": "Onbetaald (totaal)",
             "unSelectAll": "Alles deselecteren",
@@ -2540,7 +2540,7 @@
             "shop": "Webshop",
             "private_cpasses": "Afspraakkaarten",
             "payment_sumup": "Totaal aantal betalingen",
-            "credit": "Kredieten",
+            "credit": "credits",
             "basket": "Winkelmandje",
             "memberships": "Leskaarten",
             "invoices": "Aankopen",
@@ -2560,8 +2560,8 @@
             "unpaid_private_bookings": "Onbetaalde reserveringen (afspraken)",
             "expense": "Uitgaven",
             "universal_passes": "Universele kaarten",
-            "private_cpasses_expired": "Verlopen kredieten (afspraakkaarten)",
-            "expired_pass": "Verlopen kredieten (leskaarten)",
+            "private_cpasses_expired": "Verlopen credits (afspraakkaarten)",
+            "expired_pass": "Verlopen credits (leskaarten)",
             "franchise_shared_pass": "Gedeeld pasgebruik",
             "dispute": "Geschil"
         },
@@ -2835,7 +2835,7 @@
             }
         },
         "unpaidPrivateBooking": {
-            "credits_due": "{{ credits }} onbetaalde krediet(en)"
+            "credits_due": "{{ credits }} onbetaalde credit(s)"
         },
         "newTutorialSectionOrLesson": {
             "newLesson": {
@@ -2857,7 +2857,7 @@
         "actions": {
             "edit": "Bewerken",
             "delete": "Verwijderen",
-            "scaleCredit": "Kredieten vermenigvuldigen / delen",
+            "scaleCredit": "credits vermenigvuldigen / delen",
             "massExtension": "Geldigheid verlengen",
             "close": "Sluiten"
         },
@@ -2869,20 +2869,20 @@
                     "cancel": "Annuleren"
                 },
                 "warning": "Let op, deze bewerking is onomkeerbaar (genereren van factuur).",
-                "explain": "Selecteer eerst het aantal kredieten dat moet worden terugbetaald en selecteer vervolgens ook de totale waarde dat moet worden bijgeschreven",
+                "explain": "Selecteer eerst het aantal credits dat moet worden terugbetaald en selecteer vervolgens ook de totale waarde dat moet worden bijgeschreven",
                 "credits": {
-                    "label": "Af te trekken kredieten"
+                    "label": "Af te trekken credits"
                 },
                 "note": {
                     "label": "Notitie"
                 },
-                "description": "{{ credits }} krediet - {{ note }}",
-                "description_plural": "{{ credits }} kredieten - {{ note }}",
+                "description": "{{ credits }} credit - {{ note }}",
+                "description_plural": "{{ credits }} credits - {{ note }}",
                 "price": {
                     "label": "Te verrekenen bedrag"
                 },
                 "title": "Terugbetaling",
-                "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in krediet terug!",
+                "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in credits terug!",
                 "warningFirst": "Waarschuwing: deze actie is definitief en genereert een factuur.",
                 "blockUnlimited": "Leskaart blokkeren"
             },
@@ -2908,7 +2908,7 @@
             },
             "1": {
                 "first": "Stuur een melding als",
-                "second": "krediet(en) heeft."
+                "second": "credit(s) heeft."
             },
             "2": {
                 "second": "dagen verstreken.",
@@ -2930,7 +2930,7 @@
                 "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
                 "mailTitle": "Selecteer de te versturen e-mailsjabloon",
                 "typeTitle": "Evenement",
-                "creditType": "Resterende kredieten",
+                "creditType": "Resterende credits",
                 "daysType": "Resterende geldigheid",
                 "mailSelection": "Selecteer een e-mailsjabloon",
                 "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
@@ -2969,15 +2969,15 @@
                 "first": "Stuur een melding wanneer deze kaart nog"
             },
             "creditsLeft": {
-                "second": "krediet(en) heeft.",
+                "second": "credit(s) heeft.",
                 "first": "Stuur een melding wanneer deze kaart nog"
             },
             "daysLeftLabel": "Een melding versturen wanneer deze kaart nog {{day}} dag geldig is.",
             "daysLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{day}} dagen geldig is.",
             "daysPastLabel": "Een melding versturen wanneer deze kaart {{day}} dag verlopen is.",
             "daysPastLabel_plural": "Een melding versturen wanneer deze kaart {{day}} dagen verlopen is.",
-            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{credit}} krediet heeft.",
-            "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} kredieten heeft.",
+            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{credit}} credit heeft.",
+            "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} credits heeft.",
             "creditsLeftOnOfferStart": "{{hours}} uur na het einde van de sessie",
             "creditsLeftOnBooking": "{{hours}} uur na het maken van de reservering"
         },
@@ -3075,7 +3075,7 @@
                     },
                     "title": "Leskaart verwijderen:",
                     "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun kredieten nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal kredieten op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen.",
+                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun credits nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal credits op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen.",
                     "isUsedInCombo": "Waarschuwing! Door deze leskaart te verwijderen wordt het ook onbruikbaar bij de relevante pakketten."
                 },
                 "theoricalMarginValue": {
@@ -3088,9 +3088,9 @@
                     "label": "Btw"
                 },
                 "credits": {
-                    "label": "Krediet(en)",
-                    "helperText": "Dit is het aantal inbegrepen kredieten. Laat dit veld leeg om het onbeperkt te maken.",
-                    "bewareChange": "Waarschuwing! Alle kaarten worden gewijzigd indien het aantal kredieten bewerkt wordt."
+                    "label": "credit(s)",
+                    "helperText": "Dit is het aantal inbegrepen credits. Laat dit veld leeg om het onbeperkt te maken.",
+                    "bewareChange": "Waarschuwing! Alle kaarten worden gewijzigd indien het aantal credits bewerkt wordt."
                 },
                 "until": "Tot ",
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de 1e reservering",
@@ -3151,9 +3151,9 @@
                     "header": "Geavanceerd"
                 },
                 "universalPass": {
-                    "warningIsUniversalPass": "Gekoppelde afspraakkaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en kredietwijzigingen.",
+                    "warningIsUniversalPass": "Gekoppelde afspraakkaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen.",
                     "deativatedTags": "Deactiveren voor universele kaarten",
-                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de kredieten. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
+                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de credits. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
                     "marketplaceLabel": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt.",
                     "label": "Universele kaart"
                 }
@@ -3212,13 +3212,13 @@
         "expirationDate": "Vervalt op",
         "never": "Nooit",
         "unlimitedCredits": "Onbeperkt",
-        "credits": "Krediet",
-        "credits_plural": "Kredieten",
+        "credits": "credit",
+        "credits_plural": "credits",
         "specifications": {
             "unlimitedCredits": "Onbeperkt",
             "price": "{{price, price}}",
-            "nbCredits": "{{ credits}} krediet",
-            "nbCredits_plural": "{{credits}} kredieten"
+            "nbCredits": "{{ credits}} credit",
+            "nbCredits_plural": "{{credits}} credits"
         },
         "availableOnFollowingSports": "Categorieën: ",
         "availableOnFollowingEstablishments": "Vestigingen: ",
@@ -3257,8 +3257,8 @@
             },
             "scaleUp": "Vermenigvuldigen",
             "scaleDown": "Delen",
-            "explain": "Je kunt het krediet op je leskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) en naar een beneden afgerond.",
-            "title": "[Formulier] Kredietwijziging"
+            "explain": "Je kunt de credit op je leskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) en naar een beneden afgerond.",
+            "title": "[Formulier] creditswijziging"
         },
         "notificationForm": "[Formulier] Melding",
         "noPaymentPack": "Met leskaarten kunnen leden zich inschrijven voor workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) leskaart bezitten voordat zij zich ergens voor kunnen inschrijven.",
@@ -3268,14 +3268,14 @@
         },
         "disabledPacksTitle": "Gearchiveerde leskaarten",
         "filters": {
-            "hasCreditNull": "Zonder kredieten",
-            "hasCreditLeft": "Met kredieten",
+            "hasCreditNull": "Zonder credits",
+            "hasCreditLeft": "Met credits",
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Facturen",
             "reverted": "Geannuleerde facturen",
             "notReverted": "Geldige facturen",
-            "credits": "Kredieten",
+            "credits": "Credits",
             "expiration": "Geldigheid",
             "all": "Alle kaarten",
             "isValidToday": "Geldig"
@@ -3354,7 +3354,7 @@
                     "close": "Sluiten"
                 },
                 "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
-                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
+                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal credits kunnen niet worden gewijzigd.",
                 "title": "Beschikbaarheid"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld met een andere studio",
@@ -3370,8 +3370,8 @@
             "titleManagerOnly": "Beschikbaarheid",
             "titleCategory": "Categorieën",
             "sorting": {
-                "descendingCredit": "Kredieten: aflopend",
-                "ascendingCredit": "Kredieten: oplopend",
+                "descendingCredit": "credits : aflopend",
+                "ascendingCredit": "credits : oplopend",
                 "descendingPrice": "Prijs: aflopend",
                 "ascendingPrice": "Prijs: oplopend",
                 "customSort": "Aanvullende bestellingen (MarketPlace en Mobiele App)"
@@ -3460,7 +3460,7 @@
             "accessibility": "Toegankelijkheid",
             "compatibility": "Compatibiliteit",
             "validity": "Geldigheid",
-            "credit_quantity": "Kredieten",
+            "credit_quantity": "credits",
             "universalPass": "Universele kaart",
             "compatibilityPaymentPack": "Groepsactiviteiten"
         },
@@ -3525,17 +3525,17 @@
             "penalityRule": "Sancties kunnen alleen voor onbeperkte kaarten worden ingesteld.",
             "penality": "Een sanctie bij te veel te late annuleringen toepassen",
             "packValidity": "Geldigheid",
-            "numberOfAvailableCredits": "Aantal beschikbare kredieten",
-            "credit": "Kredieten",
+            "numberOfAvailableCredits": "Aantal beschikbare credits",
+            "credit": "credits",
             "unlimited": "Onbeperkt",
-            "numberOfCredit": "Aantal kredieten",
+            "numberOfCredit": "Aantal credits",
             "namePaymentPack": "Naam van de leskaart.",
             "name": "Naam",
             "generalInfo": "Algemeen",
             "paymentPack": "Leskaart",
             "minusZero": "Dit veld kan niet 0 zijn",
             "requiredField": "Dit veld is verplicht",
-            "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal kredieten wordt gewijzigd.",
+            "creditWarning": "Attentie! Alle kaarten worden bijgewerkt als het aantal credits wordt gewijzigd.",
             "migration": "Deze kaart is overgenomen van een eerder voltooide gegevensoverdracht. Het is mogelijk dat sommige velden niet bewerkt kunnen worden om de data niet te beschadigen. Compatibele activiteiten/categorieën kunnen nog wel worden gewijzigd.",
             "franchise": "Deze kaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
             "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
@@ -3584,7 +3584,7 @@
             "2021": "De leskaart start bij de eerste boeking, op ",
             "2020": "De data zijn niet compatibel",
             "2019": "De leskaart is geblokkeerd",
-            "2018": "Onvoldoende kredieten",
+            "2018": "Onvoldoende credits",
             "2010": "Incompatibele vestiging",
             "2009": "Incompatibele categorie",
             "2008": "Incompatibele activiteit"
@@ -3929,7 +3929,7 @@
             },
             "8": {
                 "first": "Bezit een leskaart",
-                "second": "bruikbaar (met krediet of onbeperkt en niet verlopen)",
+                "second": "bruikbaar (met credit of onbeperkt en niet verlopen)",
                 "explanation": "Heeft geldige leskaart X",
                 "name": "Geldigheid"
             },
@@ -3960,7 +3960,7 @@
                 "second": "en",
                 "third": "in",
                 "credits": {
-                    "first": "Krediet(en):",
+                    "first": "credits(s):",
                     "second": "en"
                 },
                 "expiration": {
@@ -3968,7 +3968,7 @@
                     "first_has_expire": "Verliep op:"
                 },
                 "infoIcon": "Onbeperkte leskaarten zijn altijd inbegrepen",
-                "explanation": "Toon een overzicht van alle leden die leskaart X op Y gekocht hebben met Z overige kredieten",
+                "explanation": "Toon een overzicht van alle leden die leskaart X op Y gekocht hebben met Z overige credits",
                 "date_bought": {
                     "first": "Aankoopdatum:"
                 }
@@ -4241,14 +4241,14 @@
                 },
                 "credits": {
                     "second": "en",
-                    "first": "krediet(en):"
+                    "first": "credit(s):"
                 },
                 "second": "en",
                 "has_not": "Bezit niet",
                 "has": "Bezit",
                 "first": "een van de afspraakkaarten",
                 "name": "Afspraakkaarten",
-                "explanation": "Toon een overzicht van alle leden die afspraakkaart X op Y hebben gekocht met Z resterende kredieten"
+                "explanation": "Toon een overzicht van alle leden die afspraakkaart X op Y hebben gekocht met Z resterende credits"
             },
             "26": {
                 "hour": {
@@ -4649,7 +4649,7 @@
             "hasEnded": "Deze online les is afgelopen."
         },
         "disabled": "Geannuleerd",
-        "credit_price": " Krediet(en)",
+        "credit_price": " Credit(s)",
         "booking": {
             "confirmed": "Reserveringen",
             "fillRate": "Bezettingsgraad",
@@ -4684,7 +4684,7 @@
         "manageOffer": "Reserveringen beheren",
         "massDisabler": {
             "explainLoading": "Een moment geduld alstublieft",
-            "explain": "Selecteer de data waartussen de sessies geannuleerd moeten worden. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun kredieten worden teruggestort.",
+            "explain": "Selecteer de data waartussen de sessies geannuleerd moeten worden. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun credits worden teruggestort.",
             "explainWarning": "Waarschuwing: deze actie is definitief!",
             "actions": {
                 "cancel": "Annuleren",
@@ -5279,8 +5279,8 @@
             "pickCoach": "Zoek een instructeur...",
             "coach": "Instructeur"
         },
-        "creditConsumed": "{{credit_consumed}} krediet",
-        "creditConsumed_plural": "{{credit_consumed}} kredieten",
+        "creditConsumed": "{{credit_consumed}} credit",
+        "creditConsumed_plural": "{{credit_consumed}} credits",
         "actions": {
             "unregister": "Uitschrijven",
             "bill": "Factureren"
@@ -6685,7 +6685,7 @@
                     "isEmpty": "Zonder instructeur"
                 },
                 "creditPrice": {
-                    "label": "Prijs (in kredieten)",
+                    "label": "Prijs (in credits)",
                     "helperText": "Laat dit veld op 0 om de video beschikbaar voor al je leden te maken."
                 },
                 "video_label": "Video",
@@ -6707,7 +6707,7 @@
                 }
             },
             "level": "Niveau",
-            "creditPrice": "Prijs (in kredieten)",
+            "creditPrice": "Prijs (in credits)",
             "register": {
                 "buyPass": "Toon kaarten",
                 "title": "Video On Demand",
@@ -7149,7 +7149,7 @@
                     "11110": "De kaart is verlopen",
                     "privateService": "Afspraakkaart geconfigureerd als niet compatibel met de betrokken afspraak:",
                     "11111": "De data zijn niet compatibel",
-                    "11108": "Onvoldoende aantal kredieten",
+                    "11108": "Onvoldoende aantal credits",
                     "11107": "Niet compatibele afspraak"
                 },
                 "noUncompatiblePassToDisplay": "Geen afspraakkaart niet compatibel",
@@ -7169,7 +7169,7 @@
                 "confirm": "Bevestigen",
                 "title": "Afspraak annuleren",
                 "explain": "Weet je zeker dat je deze reservering wilt annuleren? Deze actie is definitief.",
-                "explainForceRefund": "Gebruikte kredieten terugbetalen om een nieuwe reservering toe te staan",
+                "explainForceRefund": "Gebruikte credits terugbetalen om een nieuwe reservering toe te staan",
                 "cancel": "Annuleren",
                 "sendCancellationMail": "Stuur {{name}} een annuleringsbevestiging",
                 "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken.",
@@ -7193,14 +7193,14 @@
                 "source": "Gereserveerd via ",
                 "slotTitle": "Afspraak",
                 "passTitle": "Afspraakkaart",
-                "wasRefunded": "De kredieten worden op de kaart teruggestort",
+                "wasRefunded": "De credits worden op de kaart teruggestort",
                 "wasRefundedYes": "Ja",
                 "wasRefundedNo": "Nee",
                 "address": "Adres",
                 "attachCoach": "Instructeur toewijzen",
                 "coach": "Instructeur",
                 "cancelledOn": "Geannuleerd op ",
-                "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
+                "unpaidBooking": "Leden kunnen deze optie gebruiken om later te betalen. De {{ credits}} credit(s) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
                 "cancelledByRecurrenceBy": "Geannuleerd door",
                 "cancelledBy": "Geannuleerd door",
                 "restoredBy": "Hersteld door",
@@ -7334,7 +7334,7 @@
         },
         "slot": {
             "parameters": {
-                "credit": "{{ credit }} krediet(en)"
+                "credit": "{{ credit }} credits(s)"
             },
             "form": {
                 "booking_interval_minutes": {
@@ -7353,12 +7353,12 @@
                     "placeholder": "Dubbele sessie (2 uur)"
                 },
                 "credit": {
-                    "label": "Krediet(en)",
-                    "helperText": "Dit is het benodigd aantal kredieten voor een reservering."
+                    "label": "credit(s)",
+                    "helperText": "Dit is het benodigd aantal credits voor een reservering."
                 },
                 "duration_minutes": {
                     "label": "Duur",
-                    "helperText": "Geef aan hoeveel kredieten nodig zijn om een afspraak te reserveren."
+                    "helperText": "Geef aan hoeveel credits nodig zijn om een afspraak te reserveren."
                 },
                 "pre_selected_choices": "Vooraf ingestelde tijden",
                 "durationError": "De duur moet tussen 10 minuten en 1 dag zijn."
@@ -7390,11 +7390,11 @@
                 "emptyConsumerPassList": "Schaf een geldige afspraakkaart aan om de reservering de voltooien."
             },
             "private_pass": {
-                "credits": "{{ credits}} krediet(en)"
+                "credits": "{{ credits}} credit(s)"
             },
             "buyPass": "{{ price, price }}",
             "preview": {
-                "credit_cost": "{{credit_cost}} krediet(en)"
+                "credit_cost": "{{credit_cost}} credits(s)"
             },
             "sections": {
                 "establishment": "Vestiging",
@@ -7419,7 +7419,7 @@
             },
             "confirm": "Bevestigen",
             "unpaidBooking": {
-                "dialogHelper": "Gebruik deze optie om een reservering te voltooien zonder dat daar een directe betaling voor wordt gevraagd. De {{ credits }} krediet(en) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
+                "dialogHelper": "Gebruik deze optie om een reservering te voltooien zonder dat daar een directe betaling voor wordt gevraagd. De {{ credits }} credit(s) die vereist zijn voor dit soort afspraken worden van de eerstvolgende aangeschafte afspraakkaart afgetrokken.",
                 "book": "Reserveren",
                 "header": "Onbetaalde reserveringen",
                 "isUnpaid": "Openstaande betaling",
@@ -7428,7 +7428,7 @@
         },
         "consumerPass": {
             "expiresOn": "Verloopt op: {{date}}",
-            "current_credits": "{{current_credits}} / {{credits}} krediet(en)",
+            "current_credits": "{{current_credits}} / {{credits}} credit(s)",
             "isReverted": "Geannuleerde factuur",
             "detail": {
                 "invoice": "Gekoppelde factuur",
@@ -7496,8 +7496,8 @@
             },
             "form": {
                 "credits": {
-                    "label": "Aantal kredieten",
-                    "helperText": "Geef aan wat het aantal inbegrepen kredieten is."
+                    "label": "Aantal credits",
+                    "helperText": "Geef aan wat het aantal inbegrepen credits is."
                 },
                 "durationDays": {
                     "helperText": "Geldigheidsduur (in dagen) ",
@@ -7581,14 +7581,14 @@
                 "franchise": "Deze afspraakkaart is gemaakt door het Master-Account. Bepaalde instellingen zijn op groepsniveau ingesteld en kunnen niet worden gewijzigd.",
                 "universalPass": {
                     "deativatedTags": "Deactiveren voor universele kaarten",
-                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de kredieten. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
+                    "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de credits. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
                     "label": "Universele kaart",
-                    "warningIsUniversalPass": "Gekoppelde leskaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en kredietwijzigingen."
+                    "warningIsUniversalPass": "Gekoppelde leskaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen."
                 }
             },
             "delete": {
                 "title": "Afspraakkaart verwijderen",
-                "explain": "Weet je zeker dat je deze afspraakkaart wilt verwijderen? Leden die nog krediet hebben kunnen dit nog steeds gebruiken.",
+                "explain": "Weet je zeker dat je deze afspraakkaart wilt verwijderen? Leden die nog credits hebben kunnen dit nog steeds gebruiken.",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
                 "delete": "Verwijderen",
@@ -7601,8 +7601,8 @@
                 "managerOnly": "Onbeschikbare afspraakkaarten"
             },
             "parameters": {
-                "nbCredits": "{{ credits}} krediet",
-                "nbCredits_plural": "{{ credits }} kredieten",
+                "nbCredits": "{{ credits}} credit",
+                "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
                 "managerOnly": "Onbeschikbaar voor leden"
@@ -7621,7 +7621,7 @@
                 "vod": "Video On Demand",
                 "accessibility": "Toegankelijkheid",
                 "validity": "Geldigheid",
-                "credit_quantity": "Kredieten"
+                "credit_quantity": "credits"
             },
             "ht": "Excl. btw",
             "actions": {
@@ -7647,7 +7647,7 @@
                 },
                 "last_discard_minutes": {
                     "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
-                    "helperText": "Kredieten worden bij te late annuleringen niet terugbetaald."
+                    "helperText": "credits worden bij te late annuleringen niet terugbetaald."
                 },
                 "establishmentResourceType": {
                     "isHomeService": {
@@ -7722,7 +7722,7 @@
                 },
                 "paddingTitle": "Beschikbaarheid",
                 "unpaidBooking": {
-                    "helperText": "Activeer deze functie om leden reserveringen te laten voltooien zonder dat daar direct een betaling voor wordt gevraagd. De vereiste kredieten worden automatisch van later aangeschafte afspraakkaarten afgetrokken.",
+                    "helperText": "Activeer deze functie om leden reserveringen te laten voltooien zonder dat daar direct een betaling voor wordt gevraagd. De vereiste credits worden automatisch van later aangeschafte afspraakkaarten afgetrokken.",
                     "tag": {
                         "helper": "Gebruik tags om bepaalde reserveringen alleen voor specifieke segmenten van je ledenbestand beschikbaar te maken. Leden die als \"Goedgekeurd\" getagd zijn kunnen wel onbetaalde reserveringen voltooien en leden die als \"Afgekeurd\" getagd zijn kunnen dat juist niet.",
                         "header": "Tags",
@@ -7941,14 +7941,14 @@
         },
         "noPrivateConsumerPass": "Er zijn nog geen leden met deze afspraakkaart.",
         "filters": {
-            "hasCreditNull": "Zonder kredieten",
-            "hasCreditLeft": "Met kredieten",
+            "hasCreditNull": "Zonder credits",
+            "hasCreditLeft": "Met credits",
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Factuur",
             "reverted": "Geannuleerde factuur",
             "notReverted": "Geldige facturen",
-            "credits": "Krediet(en)",
+            "credits": "credit(s)",
             "expiration": "Geldigheid",
             "all": "Alle kaarten",
             "isValidToday": "Geldig"
@@ -8133,7 +8133,7 @@
                     "close": "Sluiten"
                 },
                 "explain2": "Leden die deze kaarten kopen kunnen deze kaarten bij alle gekoppelde studio's gebruiken.",
-                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal kredieten kunnen niet worden gewijzigd.",
+                "explain1": "Deze kaarten zijn bij de volgende studio's automatisch te koop. De prijzen en het aantal credits kunnen niet worden gewijzigd.",
                 "title": "Beschikbaarheid"
             },
             "privateConsumerPassSharedFromOtherFranchisee": "Gedeeld met een andere studio",
@@ -9194,7 +9194,7 @@
         "privateConsumerPass": {
             "creditUpdate": {
                 "success": "Wijzigingen opgeslagen",
-                "error": "Krediet kon niet worden opgeslagen"
+                "error": "credit kon niet worden opgeslagen"
             },
             "incompatibilitiesReasons": {
                 "error": "Er is een fout opgetreden tijdens het laden van de kaart incompatibiliteitsredenen"
@@ -9247,7 +9247,7 @@
                 "success": "De instructeur is gewijzigd"
             },
             "restore": {
-                "error": "De afspraak kan niet worden hersteld, omdat de gekoppelde afspraakkaart te weinig kredieten heeft",
+                "error": "De afspraak kan niet worden hersteld, omdat de gekoppelde afspraakkaart te weinig credits heeft",
                 "success": "De afspraak is hersteld"
             },
             "register": {
@@ -9753,7 +9753,7 @@
             },
             "form": {
                 "create": {
-                    "explain": "Deze leskaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de kredieten gebruiken.",
+                    "explain": "Deze leskaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de credits gebruiken.",
                     "title": "Een leskaart delen",
                     "previous": "Terug",
                     "submit": "Delen",
@@ -9828,7 +9828,7 @@
                     "submit": "Deel",
                     "previous": "Vorige",
                     "cancel": "Annuleer",
-                    "explain": "Deze afspraakkaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de kredieten gebruiken.",
+                    "explain": "Deze afspraakkaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de credits gebruiken.",
                     "title": "Afspraakkaart delen"
                 }
             },
@@ -10432,7 +10432,7 @@
         "card": {
             "categoryNames": {
                 "restrictions": "Beperkingen",
-                "credits": "Aantal kredieten",
+                "credits": "Aantal credits",
                 "vod": "Video On Demand",
                 "accessibility": "Toegankelijkheid",
                 "compatibility": "Compatibiliteit",
@@ -10730,7 +10730,7 @@
                 "coach_can_edit_attendance": "Sta toe dat instructeurs de aan- en/of afwezigheid op de mobiele app kunnen wijzigen",
                 "internalAccount": "Interne rekening (Wallet)",
                 "internalAccountNotusableOnContract": "Deze betaalmethode kan niet voor abonnementen worden gebruikt.",
-                "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \"Krediet(en) > Selecteer alle kolommen > Klik op \"Bevestigen\".",
+                "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \" credit(s) > Selecteer alle kolommen > Klik op \"Bevestigen\".",
                 "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening (Wallet) aan te maken voordat deze functie aan wordt gezet.",
                 "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening (Wallet).",
                 "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening (Wallet) te gebruiken om uitstaande facturen/winkelmandjes te betalen",
@@ -11123,7 +11123,7 @@
         "returnPayment": {
             "modal": {
                 "title": "Terugbetaling aan lid",
-                "content": "De betaling wordt overgemaakt naar de bankrekening van het lid. Het krediet wordt op de factuur toegevoegd om de terugbetaling weer te geven.",
+                "content": "De betaling wordt overgemaakt naar de bankrekening van het lid. De credit wordt op de factuur toegevoegd om de terugbetaling weer te geven.",
                 "cancel": "Annuleren",
                 "confirm": "Terugbetalen"
             }
@@ -11152,7 +11152,7 @@
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Annuleer de gekoppelde reserveringen als de betaling mislukt",
                         "warning": "Waarschuwing! Geannuleerde reserveringen worden niet hersteld als de betaling vervolgens wel lukt.",
-                        "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de kredieten zullen worden teruggestort."
+                        "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de credits zullen worden teruggestort."
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Deactiveer abonnementen als de betaling mislukt",
@@ -11265,12 +11265,12 @@
             "voucher": "Korting: {{ voucher }}",
             "quantity": "Aantal",
             "credit": {
-                "label": "Krediet(en)"
+                "label": "Credit(s)"
             },
             "buyableItemIdentifier": {
                 "10": "Pakketten",
                 "9": "Afspraakkaarten",
-                "3": "Kredieten",
+                "3": "Credits",
                 "2": "Webshop",
                 "1": "Leskaarten",
                 "undefined": "Cadeaubon",
@@ -11629,7 +11629,7 @@
                 "title": "Wachtlijstbeheer"
             },
             "auto_consume_pack": {
-                "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldige kaart bezit. Het systeem gebruikt automatisch de kaart dat als eerste vervalt en het minste krediet heeft.",
+                "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldige kaart bezit. Het systeem gebruikt automatisch de kaart dat als eerste vervalt en het minste credit heeft.",
                 "label": "Automatisch de kaart van een lid in rekening brengen zodra er een plaats vrij komt"
             },
             "is_option_blocking": {
@@ -12430,7 +12430,7 @@
             "removeRule": "Regel verwijderen",
             "editRule": "Regel wijzigen",
             "paymentPackKind": {
-                "credit": "Kredieten",
+                "credit": "Credits",
                 "validity": "Geldigheid"
             },
             "groupTitle": {
@@ -12949,7 +12949,7 @@
                 "selectCompanies": {
                     "allCompaniesShared": "Je hebt deze kaart al gedeeld met alle franchise-studio's waartoe je toegang hebt.",
                     "content2": "Leden die deze kaart ontvangen kunnen deze gebruiken in alle compatibele studio's.",
-                    "content1": "De volgende studio's zullen deze kaart automatisch aanbieden, maar kunnen de prijs of het aantal kredieten niet wijzigen.",
+                    "content1": "De volgende studio's zullen deze kaart automatisch aanbieden, maar kunnen de prijs of het aantal credits niet wijzigen.",
                     "title": "Mijn studio's configureren"
                 },
                 "deleteTemplate": {

@@ -327,7 +327,10 @@ export const SubscriptionContractFormHoc = withFormik({
   },
   enableReinitialize: true,
   validationSchema: SubscriptionContractFieldsSchema,
-  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
+  handleSubmit: (
+    values,
+    { props: { onSubmit, initial }, setSubmitting, resetForm },
+  ) => {
     const valuesCleaned = {
       ...omit(values, ['object_type']),
       private_pass:
@@ -347,10 +350,13 @@ export const SubscriptionContractFormHoc = withFormik({
     onSubmit(valuesCleaned, {
       onSuccess: () => {
         trackFormSuccess(initial?.id);
-
         setSubmitting(false);
+        resetForm();
       },
-      onError: () => setSubmitting(false),
+      onError: () => {
+        setSubmitting(false);
+        resetForm();
+      },
     });
   },
 });

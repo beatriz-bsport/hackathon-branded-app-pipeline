@@ -159,7 +159,9 @@ const useStyles = makeStyles<
   }),
   content: {
     flex: 1,
-    minWidth: '500px',
+    [theme.breakpoints.up('sm')]: {
+      minWidth: '500px',
+    },
   },
   flex: {
     display: 'flex',

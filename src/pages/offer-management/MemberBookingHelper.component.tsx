@@ -51,7 +51,14 @@ function MemberBookingHelper(props: Props) {
       dense
       onClick={props.onClickListItem || (() => {})}
     >
-      <ListItemText primary={props.member.name} secondary={email} />
+      <ListItemText
+        primary={props.member.name}
+        secondary={email}
+        classes={{
+          primary: classes.text,
+          secondary: classes.text,
+        }}
+      />
       <ListItemSecondaryAction>
         {props.hasBooked ? (
           <React.Fragment>
@@ -102,6 +109,12 @@ function MemberBookingHelper(props: Props) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  text: {
+    width: 'calc(100% - 233px + 36px)',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
   rightIcon: {
     marginRight: theme.spacing(1),
   },

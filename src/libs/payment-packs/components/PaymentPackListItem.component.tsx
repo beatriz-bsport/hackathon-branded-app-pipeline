@@ -57,8 +57,20 @@ type Props = WithTranslation &
   OwnProps;
 
 const styles = (theme: Theme) => ({
+  actionsContainer: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      alignSelf: 'flex-end',
+      height: 36,
+    },
+  },
   container: {
     height: 100,
+    [theme.breakpoints.down('xs')]: {
+      height: 140,
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
   bookButton: {
     marginRight: theme.spacing(1),
@@ -116,40 +128,85 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           style={{ marginLeft: this.props.draggable ? '1%' : 0 }}
         />
 
-        {this.props.pack.manager_only && !this.props.disabled ? (
-          <Tooltip title={this.props.t('form.paymentPack.managerOnly')}>
-            <IconButton onClick={null}>
-              <VisibilityOffIcon />
-            </IconButton>
-          </Tooltip>
-        ) : null}
-        {!!this.props.pack.linked_private_pass && (
-          <Tooltip title={this.props.t('form.paymentPack.universalPass.label')}>
-            <IconButton onClick={null}>
-              <StyleIcon color="inherit" />
-            </IconButton>
-          </Tooltip>
-        )}
-        {!this.props.disabled &&
-        this.props.onEdit &&
-        this.props.onDelete &&
-        !this.props.pack.template_instance ? (
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            {this.props.pack.hasActiveNotification && (
-              <Tooltip
-                classes={this.props.classes}
-                title={
-                  <Typography variant="subtitle2">
-                    {this.props.t('notificationToolTip')}
-                  </Typography>
-                }
-                aria-label="info"
-              >
-                <IconButton>
-                  <NotificationsIcon />
-                </IconButton>
-              </Tooltip>
-            )}
+        <div className={this.props.classes.actionsContainer}>
+          {this.props.pack.manager_only && !this.props.disabled ? (
+            <Tooltip title={this.props.t('form.paymentPack.managerOnly')}>
+              <IconButton onClick={null}>
+                <VisibilityOffIcon />
+              </IconButton>
+            </Tooltip>
+          ) : null}
+          {!!this.props.pack.linked_private_pass && (
+            <Tooltip
+              title={this.props.t('form.paymentPack.universalPass.label')}
+            >
+              <IconButton onClick={null}>
+                <StyleIcon color="inherit" />
+              </IconButton>
+            </Tooltip>
+          )}
+          {!this.props.disabled &&
+          this.props.onEdit &&
+          this.props.onDelete &&
+          !this.props.pack.template_instance ? (
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              {this.props.pack.hasActiveNotification && (
+                <Tooltip
+                  classes={this.props.classes}
+                  title={
+                    <Typography variant="subtitle2">
+                      {this.props.t('notificationToolTip')}
+                    </Typography>
+                  }
+                  aria-label="info"
+                >
+                  <IconButton>
+                    <NotificationsIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+              <ListItemResponsiveAction
+                actions={[
+                  this.props.onEdit && {
+                    icon: EditIcon,
+                    label: this.props.t('actions.edit'),
+                    color: 'primary',
+                    onClick: () => {
+                      this.props.onEdit();
+                    },
+                  },
+                  this.props.onDelete &&
+                    !this.props.pack.template_instance && {
+                      icon: DeleteIcon,
+                      label: this.props.t('actions.delete'),
+                      onClick: () => {
+                        this.props.onDelete();
+                      },
+                    },
+                ]}
+              />
+            </div>
+          ) : null}
+
+          {!this.props.disabled &&
+          this.props.onDelete &&
+          !this.props.pack.template_instance &&
+          !this.props.onEdit ? (
+            <ListItemResponsiveAction
+              actions={[
+                {
+                  icon: DeleteIcon,
+                  label: this.props.t('actions.delete'),
+                  onClick: () => {
+                    this.props.onDelete();
+                  },
+                },
+              ]}
+            />
+          ) : null}
+
+          {(!this.props.onDelete || !!this.props.pack.template_instance) &&
+          this.props.onEdit ? (
             <ListItemResponsiveAction
               actions={[
                 this.props.onEdit && {
@@ -160,101 +217,60 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
                     this.props.onEdit();
                   },
                 },
-                this.props.onDelete &&
-                  !this.props.pack.template_instance && {
-                    icon: DeleteIcon,
-                    label: this.props.t('actions.delete'),
-                    onClick: () => {
-                      this.props.onDelete();
-                    },
-                  },
               ]}
             />
-          </div>
-        ) : null}
+          ) : null}
 
-        {!this.props.disabled &&
-        this.props.onDelete &&
-        !this.props.pack.template_instance &&
-        !this.props.onEdit ? (
-          <ListItemResponsiveAction
-            actions={[
-              {
-                icon: DeleteIcon,
-                label: this.props.t('actions.delete'),
-                onClick: () => {
-                  this.props.onDelete();
-                },
-              },
-            ]}
-          />
-        ) : null}
+          {!this.props.disabled && this.props.onBook ? (
+            <ListItemSecondaryAction>
+              <Button
+                className={this.props.classes.bookButton}
+                variant="contained"
+                color="primary"
+                onClick={this.props.onBook}
+              >
+                <AddShoppingCartIcon />
+              </Button>
+            </ListItemSecondaryAction>
+          ) : null}
 
-        {(!this.props.onDelete || !!this.props.pack.template_instance) &&
-        this.props.onEdit ? (
-          <ListItemResponsiveAction
-            actions={[
-              this.props.onEdit && {
-                icon: EditIcon,
-                label: this.props.t('actions.edit'),
-                color: 'primary',
-                onClick: () => {
-                  this.props.onEdit();
-                },
-              },
-            ]}
-          />
-        ) : null}
-
-        {!this.props.disabled && this.props.onBook ? (
-          <ListItemSecondaryAction>
-            <Button
-              className={this.props.classes.bookButton}
-              variant="contained"
-              color="primary"
-              onClick={this.props.onBook}
-            >
-              <AddShoppingCartIcon />
-            </Button>
-          </ListItemSecondaryAction>
-        ) : null}
-
-        {!this.props.disabled && this.props.onBookOne ? (
-          <Button
-            className={this.props.classes.bookButton}
-            variant="outlined"
-            color="primary"
-            onClick={this.props.onBookOne}
-          >
-            <EventIcon />
-          </Button>
-        ) : null}
-        {!this.props.disabled && this.props.onBookMultiple ? (
-          <Tooltip title={this.props.t('multipleBookingTooltip')}>
+          {!this.props.disabled && this.props.onBookOne ? (
             <Button
               className={this.props.classes.bookButton}
               variant="outlined"
-              color="secondary"
-              onClick={this.props.onBookMultiple}
+              color="primary"
+              onClick={this.props.onBookOne}
             >
-              <DateRangeIcon />
+              <EventIcon />
             </Button>
-          </Tooltip>
-        ) : null}
-        {this.props.goToPack ? (
-          <ListItemSecondaryAction>
-            <IconButton onClick={this.props.onClick}>
-              <VisibilityIcon color="primary" />
-            </IconButton>
-          </ListItemSecondaryAction>
-        ) : null}
-        {this.props.disabled && this.props.onRestore ? (
-          <ListItemSecondaryAction>
-            <IconButton color="secondary" onClick={this.props.onRestore}>
-              <RestoreFromTrashIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        ) : null}
+          ) : null}
+          {!this.props.disabled && this.props.onBookMultiple ? (
+            <Tooltip title={this.props.t('multipleBookingTooltip')}>
+              <Button
+                className={this.props.classes.bookButton}
+                variant="outlined"
+                color="secondary"
+                onClick={this.props.onBookMultiple}
+              >
+                <DateRangeIcon />
+              </Button>
+            </Tooltip>
+          ) : null}
+          {this.props.goToPack ? (
+            <ListItemSecondaryAction>
+              <IconButton onClick={this.props.onClick}>
+                <VisibilityIcon color="primary" />
+              </IconButton>
+            </ListItemSecondaryAction>
+          ) : null}
+          {this.props.disabled && this.props.onRestore ? (
+            <ListItemSecondaryAction>
+              <IconButton color="secondary" onClick={this.props.onRestore}>
+                <RestoreFromTrashIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          ) : null}
+        </div>
       </ListItem>
     );
   }

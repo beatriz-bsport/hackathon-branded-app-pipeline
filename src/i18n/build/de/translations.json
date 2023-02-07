@@ -3257,7 +3257,10 @@
             "2": "Bestellung",
             "1": "Rechnungsstellung",
             "5": "Rechtliche Informationen",
-            "6": "Unbezahlte Termine"
+            "6": "Unbezahlte Termine",
+            "8": "",
+            "7": "",
+            "9": ""
         },
         "list": {
             "emptyAlerting": "Keine neue Benachrichtigung.",
@@ -3286,7 +3289,22 @@
         },
         "unpaidPrivateBooking": {
             "credits_due": "Zu zahlende Kredite : {{ credits }}"
-        }
+        },
+        "lateReplacementRequest": {
+            "title": "",
+            "content": ""
+        },
+        "newTutorialSectionOrLesson": {
+            "newSection": {
+                "title": "",
+                "content": ""
+            },
+            "newLesson": {
+                "title": "",
+                "content": ""
+            }
+        },
+        "readAll": ""
     },
     "reporting": {
         "form": {
@@ -5562,7 +5580,9 @@
             "cancelledByManager": "Stornierung vom Admin",
             "cancelledByOfferDate": "Kurs vom Club am {{-date}} um {{time}} abgesagt",
             "cancelledByConsumerDate": "Kundenstornierung am {{-date}} um {{time}}",
-            "cancelledByManagerDate": "von Admin storniert am {{-date}} um {{time}}"
+            "cancelledByManagerDate": "von Admin storniert am {{-date}} um {{time}}",
+            "cancelledByAnonymousManager": "",
+            "cancelledByAnonymousManagerDate": ""
         },
         "doNotAttend": "Abwesend",
         "attend": "Anwesend",
@@ -5645,7 +5665,9 @@
                 "chooseTime": {
                     "second_after": "Stunde (n) nach dem Kurs",
                     "second_before": "Stunde (n) vor Beginn des Kurses",
-                    "first": "Eine E-Mail senden"
+                    "first": "Eine E-Mail senden",
+                    "second_before_days": "",
+                    "second_after_days": ""
                 },
                 "sendAfterMail": "Sende die E-Mail nach der von der Benachrichtigung betroffenen Kurse an das Mitglied",
                 "sendBeforeMail": "Sende die E-mail vor den von der Benachrichtigung betroffenen Kursen and das Mitglied",
@@ -5699,7 +5721,13 @@
                 "sendAfterNotifications": "Gesandter les Notifications au membre après la séance Concernée par la Notification",
                 "sendAfterNotification": "Gesandter la Benachrichtigung push au membre après la séance Concréée par la Benachrichtigung",
                 "sendBeforeNotifications": "Gesandter les Notifications au membre avant la séanceconcerée par la notification",
-                "sendBeforeNotification": "Gesandter la Benachrichtigung push au membre avant la séance Concréée par la Benachrichtigung"
+                "sendBeforeNotification": "Gesandter la Benachrichtigung push au membre avant la séance Concréée par la Benachrichtigung",
+                "smartListHelper": "",
+                "smartListHelperInclude": "",
+                "warning": "",
+                "createSmartList": "",
+                "smartListSelection": "",
+                "advanced": ""
             },
             "addNotification": "Eine Benachrichtigung hinzufügen",
             "title": "Benachrichtigung"
@@ -5812,7 +5840,19 @@
                 "selectAll": "Alle auswählen"
             },
             "bookingForMe": "ich",
-            "bookingsTitleFor": "Ich buche für {{name}}"
+            "bookingsTitleFor": "Ich buche für {{name}}",
+            "bookingForAGuest": {
+                "addGuestLimit": "",
+                "addGuestNumberLeftSeveral": "",
+                "addGuestNumberLeftOne": "",
+                "frequencyWeekly": "",
+                "frequencyMonthly": "",
+                "frequencyYearly": "",
+                "frequencyGeneric": "",
+                "addGuest": "",
+                "warningCustomLeveledSession": "",
+                "warningLeveledSession": ""
+            }
         },
         "placeNumber": "Ort {{count}}",
         "noSpotAttributed": "Kein Platz zugewiesen",
@@ -5841,7 +5881,9 @@
                     "label": "Email"
                 }
             }
-        }
+        },
+        "place": "",
+        "unlimited": ""
     },
     "member": {
         "exists": {
@@ -9592,7 +9634,8 @@
             "isEmpty": "Ihr Warenkorb ist leer",
             "featured": "Wir empfehlen Dir",
             "error": {
-                "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
+                "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet",
+                "inconsistentBasket": ""
             },
             "isFinalized": "Dein Warenkorb wurde validiert",
             "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung",
@@ -9634,7 +9677,16 @@
                 "basket": "Ihr Korb",
                 "offerBooked": "Ihre Sitzungen",
                 "offerNotBookable": "Keine Registrierung",
-                "errorExplain": "Die Operation konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
+                "errorExplain": {
+                    "generic": "",
+                    "guestGeneric": "",
+                    "guestOvercomeLimit": "",
+                    "guestOffer": "",
+                    "guestPass": "",
+                    "guestNotEnoughSpot": "",
+                    "guestReachedLimit": "",
+                    "guestSettings": ""
+                },
                 "error": "Fehler",
                 "recap": "Zusammenfassung",
                 "explain": "Ihre Transaktion wurde berücksichtigt. Wir schicken Ihnen eine Bestätigungsmail."

@@ -4,7 +4,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { SPOT_NOT_AVAILABLE } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 import { LOCK_ACQUISITION_FAILURE_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/lock';
 
 import {

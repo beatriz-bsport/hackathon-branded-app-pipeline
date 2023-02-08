@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { SPOT_NOT_AVAILABLE } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 import { LOCK_ACQUISITION_FAILURE_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/lock';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';

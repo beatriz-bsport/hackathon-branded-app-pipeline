@@ -86,7 +86,7 @@ export class BroadcastRoom extends React.Component<Props> {
           {this.state.hasStarted ? null : (
             <React.Fragment>
               <HourglassEmptyIcon style={{ height: '30vh', width: '30vh' }} />
-              <div>
+              <div className={this.props.classes.captionsContainer}>
                 <Typography variant="subtitle">
                   {minutesLeft === 0 ? this.props.t('video.loadingSoon') : null}
                   {minutesLeft +
@@ -128,6 +128,10 @@ const styles = (theme) => ({
   },
   caption: {
     marginTop: theme.spacing(1),
+  },
+  captionsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 

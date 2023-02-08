@@ -25,7 +25,7 @@ yarn start
 ## Running with the staging backend
 
 ```sh
-yarn startStaging
+yarn start-staging
 ```
 
 Under the hood what it does is basically :

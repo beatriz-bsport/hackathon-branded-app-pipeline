@@ -33,7 +33,7 @@ export const fromConfigToUrl = (
   const component_type = tabConfig?.component_type || '';
   let path = '';
 
-  if (tabConfig.configIndex !== undefined) {
+  if (tabConfig?.configIndex !== undefined) {
     Object.assign(query, { index: tabConfig.configIndex });
   }
   if (component_type === 'privateService' && tabConfig.config.privateService) {

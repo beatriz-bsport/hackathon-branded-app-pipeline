@@ -78,6 +78,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   template_instance: number;
   linked_private_pass: LPP;
   allow_guest_pass?: boolean;
+  is_universal_pass: boolean;
 };
 
 export type ConsumerPaymentPack = {

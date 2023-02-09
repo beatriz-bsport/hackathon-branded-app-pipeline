@@ -1,0 +1,140 @@
+.bs-pass-card{
+    background: linear-gradient(130deg, #f6f8fa 50%, #FFFFFF 50%), linear-gradient(130deg, #f6f8fa 50%, #FFFFFF 50%);;
+}
+
+.bs-pass-card__title{
+    max-width: 100%;
+    font-family: var(--h6-fontFamily);
+    font-style: normal;
+    font-size: var(--h6-fontSize);
+    font-weight: var(--h6-fontWeight);
+    line-height: var(--h6-lineHeight);
+    color: var(--color-grey-dark);
+    margin-bottom: var(--spacing-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bs-pass-card__title__icon {
+    margin-right: var(--spacing-1);
+}
+
+.bs-pass-card__subtitle{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size : var(--subtitle-1-fontSize);
+    font-weight : var(--subtitle-1-fontWeight);
+    letter-spacing : var(--subtitle-1-letterSpacing);
+    line-height: var(--subtitle-1-lineHeight);
+    color: var(--color-grey-dark);
+}
+
+.bs-pass-card__description{
+    max-height: 60px;
+    font-size: var(--body2-fontSize);
+    font-weight: var(--body2-fontWeight);
+    letter-spacing: var(--body2-letterSpacing);
+    line-height: var(--body2-lineHeight);
+    color: var(--color-grey-main);
+    margin-top: var(--spacing-1);
+    margin-bottom: var(--spacing-2);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: pre-wrap;
+}
+
+.bs-pass-card__validity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-grey-light);
+    color: var(--color-grey-dark);
+    font-size: var(--body2-fontSize);
+    font-weight: var(--body2-fontWeight);
+    letter-spacing: var(--body2-letterSpacing);
+    line-height: var(--body2-lineHeight);
+    max-width: 80%;
+}
+
+.bs-pass-card__validity__content {
+    max-width: 100%;
+    text-align: center;
+    font-size: var(--body2-fontSize);
+    font-weight: var(--body2-fontWeight);
+    letter-spacing: var(--body2-letterSpacing);
+    line-height: var(--body2-lineHeight);
+    padding: 0 var(--spacing-1);
+}
+
+.bs-pass-card__price-icon {
+    color: var(--color-primary-main);
+    display: none;
+}
+
+.bs-pass-card__left-button {
+    display: flex;   
+    align-items: center;
+    flex-direction: column;
+    width: var(--spacing-15);
+    background: none;
+    border: none;
+    align-items: flex-start;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.bs-pass-card__left-button__content{
+    display: flex;
+    align-items: center;
+    color: var(--color-primary-main);
+    font-size: var(--body2-fontSize);
+}
+
+.bs-pass-card__left-button__icon {
+    margin: var(--spacing-1);
+}
+
+.bs-pass-card__right-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-main);
+    border-radius: var(--border-radius-10);
+    border: none;
+    color: var(--color-secondary-contrastText);
+    padding: 8px 16px;
+    font-size: var(--button-fontSize);
+    font-weight: var(--button-fontWeight);
+    font-family: var(--button-fontFamily);
+    letter-spacing: var(--button-letterSpacing);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.bs-pass-card__right-button:hover,
+.bs-pass-card__right-button:focus {
+    background: var(--color-primary-dark)
+}
+
+@media screen and (max-width: 570px) {
+    .bs-pass-card__description{
+        display: none;
+    }
+
+    .bs-pass-card__footer{
+        display: none;
+    }
+
+    .bs-pass-card__price-icon {
+        display: flex;
+    }
+    .bs-pass-card__grid{
+        height: 120px;
+    }
+}

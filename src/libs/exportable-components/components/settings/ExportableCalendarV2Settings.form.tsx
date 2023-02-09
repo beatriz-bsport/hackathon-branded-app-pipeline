@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import {
-  MarketplaceCalendarV2Data,
+  MarketplaceCalendarData,
   MarketplaceCalendarVariant,
 } from '../../../marketplace/types';
 
@@ -27,8 +27,8 @@ interface Props {
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivities: Array<MetaActivity>;
-  config?: MarketplaceCalendarV2Data;
-  onChange: (calendarConfig: MarketplaceCalendarV2Data) => void;
+  config?: MarketplaceCalendarData;
+  onChange: (calendarConfig: MarketplaceCalendarData) => void;
   showCompactMode?: boolean;
   establishmentGroupList: Array<EstablishmentGroup>;
   customLevels: Level[];
@@ -65,7 +65,7 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
 
   const setCompactMode = useCallback(
     (value: string) => {
-      const newConfig: MarketplaceCalendarV2Data = {
+      const newConfig: MarketplaceCalendarData = {
         ...config,
         todayOnly: value === TODAY_ONLY,
         compactMode:
@@ -96,7 +96,7 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
 
   const setVariant = useCallback(
     (variant: MarketplaceCalendarVariant) => {
-      const newConfig: MarketplaceCalendarV2Data = {
+      const newConfig: MarketplaceCalendarData = {
         ...config,
         variant,
       };
@@ -106,8 +106,8 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
   );
 
   const setGroupSessionBy = useCallback(
-    (_: any, groupSessionByPeriod: boolean) => {
-      const newConfig: MarketplaceCalendarV2Data = {
+    (_: React.ChangeEvent<HTMLInputElement>, groupSessionByPeriod: boolean) => {
+      const newConfig: MarketplaceCalendarData = {
         ...config,
         groupSessionByPeriod,
       };
@@ -131,7 +131,9 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
           <Select
             className={classes.fullWidth}
             value={compactMode}
-            onChange={(ev: any) => setCompactMode(ev.target.value)}
+            onChange={(ev: React.ChangeEvent<HTMLSelectElement>) =>
+              setCompactMode(ev.target.value)
+            }
           >
             {COMPACT_MODE_TYPE.map((key) => {
               return (
@@ -163,7 +165,9 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
         <Select
           className={classes.fullWidth}
           value={config.variant ?? 'activityName'}
-          onChange={(ev: any) => setVariant(ev.target.value)}
+          onChange={(ev: React.ChangeEvent<HTMLSelectElement>) =>
+            setVariant(ev.target.value as MarketplaceCalendarVariant)
+          }
         >
           {VARIANTS.map((key) => {
             return (

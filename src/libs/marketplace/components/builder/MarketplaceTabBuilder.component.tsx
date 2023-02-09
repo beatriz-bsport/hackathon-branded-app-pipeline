@@ -152,7 +152,7 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
         <div className={classes.marginTop}>
           <ExportableComponentSelector
             source={MARKETPLACE_COMPONENT_TYPE_LIST}
-            value={componentType}
+            value={componentType === 'calendarV2' ? 'calendar' : componentType}
             onChange={onChangeComponentType}
             error={componentTypeError}
           />

@@ -1,6 +1,6 @@
 import ExportableVODSettings from './ExportableVODSettings.form';
 import ExportablePassSettings from './ExportablePassSettings.form';
-import ExportableCalendarSettings from './ExportableCalendarSettings.form';
+import ExportableCalendarSettings from './ExportableCalendarV2Settings.form';
 import ExportablePlaylistSettings from './ExportablePlaylistSettings.form';
 import ExportablePrivateServiceSettings from './ExportablePrivateServiceSettings.form';
 import ExportableWorkshopSettings from './ExportableWorkshopSettings.form';

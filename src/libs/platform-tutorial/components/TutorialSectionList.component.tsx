@@ -27,8 +27,8 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { FeatureList } from '#libs/company/types';
 import MuiIcon from '#components/MuiIcon.component';
 import { isLessonCompleted, isLessonViewed } from '../utils';
-import ToolTipWhite from '#components/Tooltip.component';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import ToolTip from '#components/Tooltip.component';
 
 export type Props = {
   sections: Array<TutorialSection>;
@@ -89,21 +89,32 @@ const SectionStatusChips: React.FC<{
   return (
     <div className={classes.flex}>
       {!sectionViewed && (
-        <div className={classes.chipNew}>{t('sectionList.new')}</div>
+        <div className={classes.chipBase}>{t('sectionList.new')}</div>
       )}
       <FeatureListProvider>
         {(featureList: FeatureList) => {
-          const hasEverySectionUpsells = !section?.upsell_identifiers.every(
-            (id) => hasUpsell(featureList, id),
+          const addonsLessons = section?.lessons?.filter(
+            (lesson) => lesson.upsell_identifiers.length > 0,
+          );
+          const hasUpsellLesson = !addonsLessons.every(
+            (lesson) =>
+              featureList.upsell &&
+              hasUpsell(featureList, lesson.upsell_identifiers[0]),
           );
           return (
             <>
-              {hasEverySectionUpsells && (
-                <ToolTipWhite title={t('sectionList.missingUpsell')}>
-                  <div className={classes.chipAddOn}>
+              {hasUpsellLesson && (
+                <ToolTip title={t('sectionList.missingUpsell')}>
+                  <div
+                    className={classNames(
+                      classes.chipBase,
+                      classes.contentCenter,
+                      classes.colorInfo,
+                    )}
+                  >
                     {t('sectionList.addOn')}
                   </div>
-                </ToolTipWhite>
+                </ToolTip>
               )}
             </>
           );
@@ -416,7 +427,12 @@ const useStyles = makeStyles<Theme>((theme) => ({
       display: 'none',
     },
   },
-  chipNew: {
+  xsDownHidden: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
+  },
+  chipBase: {
     display: 'flex',
     borderRadius: theme.spacing(0.5),
     backgroundColor: chroma(theme.palette.primary.main).alpha(0.1).hex(),
@@ -426,21 +442,12 @@ const useStyles = makeStyles<Theme>((theme) => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
   },
-  chipAddOn: {
-    display: 'flex',
-    borderRadius: theme.spacing(0.5),
-    justifyContent: 'center',
-    backgroundColor: chroma(theme.palette.info.main).alpha(0.1).hex(),
+  colorInfo: {
     color: theme.palette.info.main,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
+    backgroundColor: chroma(theme.palette.info.main).alpha(0.1).hex(),
   },
-  xsDownHidden: {
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
+  contentCenter: {
+    justifyContent: 'center',
   },
 }));
 

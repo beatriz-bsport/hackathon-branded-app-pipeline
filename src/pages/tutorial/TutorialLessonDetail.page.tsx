@@ -1,22 +1,22 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { compose, withHandlers, withProps, withState } from 'recompose';
+import { push } from 'connected-react-router';
+import { withRouter } from 'react-router';
+
 import {
   withStyles,
   WithStyles,
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
-import { compose, withHandlers, withProps, withState } from 'recompose';
-import { push } from 'connected-react-router';
+import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { withRouter } from 'react-router';
-import { WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers';
 import { getLanguage } from '../../i18n';
-import { TutorialLesson, TutorialSection } from '#libs/platform-tutorial/types';
-import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+
+import { RootState } from '../../reducers';
+
 import {
   getTutorialLesson,
   withLessons,
@@ -26,9 +26,8 @@ import {
   translateSectionsWithLessons,
   translateLesson,
 } from '#libs/platform-tutorial/selectors';
+import { getPermissions } from '#libs/role/selectors';
 
-import TutorialLessonHeader from '#libs/platform-tutorial/components/TutorialLessonHeader.component';
-import TutorialLessonContent from '#libs/platform-tutorial/components/TutorialLessonContent.component';
 import {
   updateTutorialLessonViewedStatus as updateTutorialLessonViewedStatusAction,
   updateTutorialLessonCompletedStatus as updateTutorialLessonCompletedStatusAction,
@@ -39,13 +38,24 @@ import {
   retrieveTutorialLesson as retrieveTutorialLessonAction,
   updateUserAcknowlegdeTutorial,
 } from '#libs/platform-tutorial/actions';
+import { requestUpsellPackage as requestUpsellPackageAction } from '#libs/platform-billing/actions';
+
+import { checkRequiredPermissions } from '#libs/role/utils';
+
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+
+import TutorialLessonHeader from '#libs/platform-tutorial/components/TutorialLessonHeader.component';
+import TutorialLessonContent from '#libs/platform-tutorial/components/TutorialLessonContent.component';
+import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
+
+import { WithHandlerType } from '../../utils/types';
+import { TutorialLesson, TutorialSection } from '#libs/platform-tutorial/types';
+
 import {
   ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS,
   TUTORIAL_GENERIC_DIALOG_SECTION_FINISH,
 } from '#libs/platform-tutorial/constant';
-import { getPermissions } from '#libs/role/selectors';
-import { checkRequiredPermissions } from '#libs/role/utils';
 
 type OwnProps = {
   id: number;
@@ -62,6 +72,8 @@ type OwnProps = {
 type State = {
   openSectionFinishDialog: boolean;
   setOpenSectionFinishDialog: (open: boolean) => void;
+  openFeatureRequest: boolean;
+  setOpenFeatureRequest: (open: boolean) => void;
 };
 type OwnAndConnectedProps = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -234,6 +246,7 @@ class TutorialLessonDetail extends React.Component<Props> {
           section={this.props.section}
           goToLesson={this.props.goToLesson}
           tutorial_completion={this.props.tutorial_completion}
+          onKnowMore={this.props.onRequestUpsell}
         />
         <TutorialLessonContent
           selectedLesson={this.props.selectedLesson}
@@ -251,6 +264,10 @@ class TutorialLessonDetail extends React.Component<Props> {
           open={this.props.openSectionFinishDialog}
           identifier={TUTORIAL_GENERIC_DIALOG_SECTION_FINISH}
           onClose={this.onCloseSectionFinishDialog}
+        />
+        <FeatureRequestDialog
+          open={this.props.openFeatureRequest}
+          onClose={() => this.props.setOpenFeatureRequest(false)}
         />
       </div>
     );
@@ -302,6 +319,7 @@ const mapDispatchToProps = {
   goToMenuWithAllFinishDialogPermitted: () =>
     push(`/tutorial/?${ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS}`),
   updateUserAcknowlegdeTutorial,
+  requestUpsellPackage: requestUpsellPackageAction,
 };
 
 const mapWithHandlers = {
@@ -321,6 +339,18 @@ const mapWithHandlers = {
         },
       );
     },
+  onRequestUpsell:
+    ({
+      requestUpsellPackage,
+      setOpenFeatureRequest,
+    }: OwnAndConnectedProps & State) =>
+    (readable_identifier: number) => {
+      setOpenFeatureRequest(true);
+      requestUpsellPackage(readable_identifier);
+      window.Intercom('trackEvent', 'Upsell feature requested', {
+        readable_identifier,
+      });
+    },
 };
 
 // Tells if :sectionId and lessonId of url are id or uuid, by checking if it can be converted into number
@@ -331,6 +361,7 @@ export default compose(
   withTranslation('tutorial'),
   routerParamsToProps({ sectionId: 'sectionId', lessonId: 'lessonId' }),
   withState('openSectionFinishDialog', 'setOpenSectionFinishDialog', null),
+  withState('openFeatureRequest', 'setOpenFeatureRequest', false),
   withRouter,
   withProps(({ sectionId, lessonId }) => ({
     sectionRestricted: isUuid(sectionId),

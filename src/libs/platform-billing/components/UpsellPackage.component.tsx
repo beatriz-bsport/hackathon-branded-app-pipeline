@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import MobileFriendlyIcon from '@material-ui/icons/MobileFriendly';
 import Button from '@material-ui/core/Button';
-import CheckIcon from '@material-ui/icons/Check';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import TodayIcon from '@material-ui/icons/Today';
@@ -50,13 +49,10 @@ import {
   UPSELL_IDENTIFIER_GUEST,
   UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
 } from '../upsell-identifiers';
-import { getCustomCurrencyDisplayWithPrice } from '#libs/theme/utils';
 
 type Props = {
   upsellPackage: any;
-  defaultCurrencyDisplay: string;
   onKnowMore: (id: number) => void;
-  onRequestUpsell: (id: number) => void;
   children?: React.ReactChild;
 };
 
@@ -279,7 +275,7 @@ const UpsellPremiumSupport: React.FC<Props> = (props) => {
 const DefaultTemplate = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
-  const { upsellPackage, defaultCurrencyDisplay } = props;
+  const { upsellPackage } = props;
   return (
     <Paper className={classes.paperContainer}>
       <div className={classes.upsellContent}>
@@ -312,27 +308,6 @@ const DefaultTemplate = (props: Props) => {
             {t('upsellPackage.knowMore')}
           </Button>
         )}
-        <Button
-          disabled={upsellPackage.subscribed}
-          variant="contained"
-          color="primary"
-          onClick={() => props.onRequestUpsell(upsellPackage.id)}
-        >
-          <CheckIcon className={classes.iconLeft} />
-          {upsellPackage.is_recurrent
-            ? t('upsellPackage.billRecurrent', {
-                price_cts: getCustomCurrencyDisplayWithPrice(
-                  (upsellPackage.price_cts / 100).toFixed(2),
-                  defaultCurrencyDisplay,
-                ),
-              })
-            : t('upsellPackage.billOnce', {
-                price_cts: getCustomCurrencyDisplayWithPrice(
-                  (upsellPackage.price_cts / 100).toFixed(2),
-                  defaultCurrencyDisplay,
-                ),
-              })}
-        </Button>
       </div>
     </Paper>
   );
@@ -341,7 +316,7 @@ const DefaultTemplate = (props: Props) => {
 const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
-  const { upsellPackage, defaultCurrencyDisplay } = props;
+  const { upsellPackage } = props;
   return (
     <Paper className={classes.paperContainer}>
       <div className={classes.upsellContent}>
@@ -374,20 +349,6 @@ const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
             {t('upsellPackage.knowMore')}
           </Button>
         )}
-        <Button
-          disabled={upsellPackage.subscribed}
-          variant="contained"
-          color="primary"
-          onClick={() => props.onRequestUpsell(upsellPackage.id)}
-        >
-          <CheckIcon className={classes.iconLeft} />
-          {t('upsellPackage.sms.explainBilling', {
-            price_cts: getCustomCurrencyDisplayWithPrice(
-              (upsellPackage.price_cts / 100).toFixed(2),
-              defaultCurrencyDisplay,
-            ),
-          })}
-        </Button>
       </div>
     </Paper>
   );

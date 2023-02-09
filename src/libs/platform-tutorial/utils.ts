@@ -1,3 +1,4 @@
+import { FeatureList } from '#libs/company/types';
 import { TutorialCompletion, TutorialLesson } from './types';
 
 export const isLessonCompleted = (
@@ -18,4 +19,15 @@ export const isLessonViewed = (
 
 export const platformTutorialActivated = () => {
   return true;
+};
+
+export const isUpsellNotSubscribed = (
+  lesson: TutorialLesson,
+  featureList: FeatureList,
+) => {
+  const isUpsell = lesson?.upsell_identifiers?.length > 0;
+  const upsellAlreadySubscribed = featureList.upsell.find(
+    (feature) => feature.upsell_identifier === lesson?.upsell_identifiers[0],
+  );
+  return isUpsell && !upsellAlreadySubscribed;
 };

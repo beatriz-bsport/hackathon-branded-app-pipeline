@@ -37,6 +37,7 @@ export type TutorialLesson = {
   completed?: boolean;
   viewed?: boolean;
   disabled?: boolean;
+  upsell_identifiers: number[];
 };
 
 export type TutorialCompletion = {

@@ -8,13 +8,15 @@ exports.default = {
     shareLesson: 'Partager la leçon',
     new: 'Nouveau',
     addOn: 'Add-on',
+    missingUpsell:
+      'Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte.',
   },
   sectionList: {
     shareSection: 'Partager la section',
     new: 'Nouveau',
     addOn: 'Add-on',
     missingUpsell:
-      'Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte.',
+      'Vous ne disposez pas de certaines fonctionnalités de cette section. Merci de contacter votre chargé de compte.',
   },
   menuHeader: {
     title: 'Bienvenue sur notre guide de démarrage.',

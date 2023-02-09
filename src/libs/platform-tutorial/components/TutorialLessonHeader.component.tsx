@@ -1,3 +1,8 @@
+import React from 'react';
+import chroma from 'chroma-js';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+
 import {
   Button,
   makeStyles,
@@ -8,36 +13,45 @@ import {
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import React from 'react';
-import chroma from 'chroma-js';
-import classNames from 'classnames';
+import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
 import { Skeleton } from '@material-ui/lab';
-import { useTranslation } from 'react-i18next';
-import { TutorialCompletion, TutorialLesson, TutorialSection } from '../types';
+
+import { isLessonCompleted, isUpsellNotSubscribed } from '../utils';
+
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import ToolTip from '#components/Tooltip.component';
 import MuiIcon from '#components/MuiIcon.component';
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
-import { isLessonCompleted } from '../utils';
+import LessonStatusChips from './TutorialLessonStatusChip.component';
+
 import { FeatureList } from '#libs/company/types';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import { TutorialCompletion, TutorialLesson, TutorialSection } from '../types';
 
 export type Props = {
   selectedLesson: TutorialLesson;
   section: TutorialSection;
   goToLesson: (sectionId: number | string, lessonId: number | string) => void;
   tutorial_completion: TutorialCompletion;
+  onKnowMore: (id: number) => void;
 };
 
-const TutorialLessonHeader: React.FC<Props> = (props: Props) => {
-  const { selectedLesson, section, goToLesson, tutorial_completion } = props;
+const TutorialLessonHeader: React.FC<Props> = ({
+  selectedLesson,
+  section,
+  goToLesson,
+  tutorial_completion,
+  onKnowMore,
+}: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation('tutorial');
+  const { t } = useTranslation(['tutorial', 'platformBilling']);
   const sectionCompleted =
     (
       section?.lessons?.filter(
         (lesson) => !isLessonCompleted(lesson, tutorial_completion),
       ) || []
     ).length === 0;
+  const handleKnowMore = React.useCallback(() => {
+    selectedLesson && onKnowMore(selectedLesson.upsell_identifiers[0]);
+  }, [selectedLesson, onKnowMore]);
 
   if (!section) {
     return (
@@ -88,22 +102,7 @@ const TutorialLessonHeader: React.FC<Props> = (props: Props) => {
         <Typography className={classes.textContainer} variant="h4">
           {section?.translated_name}
         </Typography>
-        <FeatureListProvider>
-          {(featureList: FeatureList) => {
-            const hasEverySectionUpsells = !section?.upsell_identifiers.every(
-              (id) => hasUpsell(featureList, id),
-            );
-            return (
-              <>
-                {hasEverySectionUpsells && (
-                  <div className={classes.chipAddOn}>
-                    {t('lessonHeader.addOn')}
-                  </div>
-                )}
-              </>
-            );
-          }}
-        </FeatureListProvider>
+        <LessonStatusChips lesson={selectedLesson} />
       </div>
       <div className={classes.secondRow}>
         <PlayArrowIcon className={classes.icon} color="primary" />
@@ -157,19 +156,27 @@ const TutorialLessonHeader: React.FC<Props> = (props: Props) => {
       </div>
       <FeatureListProvider>
         {(featureList: FeatureList) => {
-          const hasEverySectionUpsells = !section?.upsell_identifiers.every(
-            (id) => hasUpsell(featureList, id),
+          const shouldDisplayUpsellInfos = isUpsellNotSubscribed(
+            selectedLesson,
+            featureList,
           );
+
           return (
             <>
-              {hasEverySectionUpsells && (
-                <div className={classes.warningContainer}>
-                  <div className={classes.infoIcon}>
-                    <InfoOutlinedIcon color="inherit" />
+              {shouldDisplayUpsellInfos && (
+                <div className={classes.upsellInfoContainer}>
+                  <div className={classes.warningContainer}>
+                    <div className={classes.infoIcon}>
+                      <InfoOutlinedIcon color="inherit" />
+                    </div>
+                    <Typography variant="body2" className={classes.breakSpaces}>
+                      {t('lessonHeader.warning')}
+                    </Typography>
                   </div>
-                  <Typography variant="body2" className={classes.breakSpaces}>
-                    {t('lessonHeader.warning')}
-                  </Typography>
+                  <Button variant="outlined" onClick={handleKnowMore}>
+                    <HelpOutlinedIcon className={classes.iconLeft} />
+                    {t('platformBilling:upsellPackage.knowMore')}
+                  </Button>
                 </div>
               )}
             </>
@@ -288,12 +295,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
   },
+  upsellInfoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: theme.spacing(2),
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(3),
+  },
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(1.5),
-    marginBottom: theme.spacing(3),
-    marginLeft: theme.spacing(2),
     gap: theme.spacing(2),
     outline: `1px solid ${theme.palette.info.main}`,
     padding: theme.spacing(1.5),
@@ -307,6 +319,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   breakSpaces: {
     whiteSpace: 'break-spaces',
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
   },
 }));
 

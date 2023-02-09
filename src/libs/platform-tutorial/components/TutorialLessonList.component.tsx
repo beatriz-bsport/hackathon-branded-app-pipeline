@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,39 +11,26 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import chroma from 'chroma-js';
 import { Tooltip } from '@material-ui/core';
+
+import { isLessonCompleted } from '../utils';
+
+import LessonStatusChips from './TutorialLessonStatusChip.component';
+
 import {
   TutorialCompletion,
   TutorialLesson,
 } from '#libs/platform-tutorial/types';
-import { isLessonCompleted, isLessonViewed } from '../utils';
 
 export type Props = {
   lessons: Array<TutorialLesson>;
   goToLesson: (sectionId: number | string, lessonId: number | string) => void;
   shareLesson: (lesson: TutorialLesson) => void;
   tutorial_completion: TutorialCompletion;
-};
-
-const LessonStatusChips: React.FC<{
-  lesson: TutorialLesson;
-  tutorial_completion: TutorialCompletion;
-}> = ({ lesson, tutorial_completion }) => {
-  const classes = useStyles();
-  const { t } = useTranslation('tutorial');
-  return (
-    <div className={classes.flex}>
-      {!isLessonViewed(lesson, tutorial_completion) && (
-        <div className={classes.chipNew}>{t('lessonList.new')}</div>
-      )}
-    </div>
-  );
 };
 
 const TutorialLessonList: React.FC<Props> = (props: Props) => {
@@ -90,6 +79,7 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
                 <LessonStatusChips
                   lesson={lesson}
                   tutorial_completion={tutorial_completion}
+                  withToolTip
                 />
               </div>
               <div className={classes.rowEnd}>
@@ -228,34 +218,6 @@ const useStyles = makeStyles((theme) => ({
   },
   secondary: {
     color: theme.palette.secondary.main,
-  },
-  chipNew: {
-    display: 'flex',
-    borderRadius: theme.spacing(0.5),
-    backgroundColor: chroma(theme.palette.primary.main).alpha(0.1).hex(),
-    color: theme.palette.primary.main,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
-  },
-  chipAddOn: {
-    display: 'flex',
-    borderRadius: theme.spacing(0.5),
-    justifyContent: 'center',
-    backgroundColor: chroma(theme.palette.info.main).alpha(0.1).hex(),
-    color: theme.palette.info.main,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
-  },
-  flex: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'initial',
-    gap: theme.spacing(1),
   },
 }));
 

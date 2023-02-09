@@ -14,7 +14,7 @@ import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
 import { getWorkshops } from '#libs/meta-activity/selectors';
-import MarketplaceCalendarComponentV2 from '#libs/marketplace/components/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
+import MarketplaceCalendarComponent from '#libs/marketplace/components/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#libs/marketplace/components/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
 import { getCurrentBasket } from '#libs/checkout/selectors';
 import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
@@ -23,7 +23,10 @@ import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
 import { getPureMetaActivities } from '#libs/meta-activity/selectors';
-import { withGroup,   getOffersListByGroup as getOffersListByGroupSelector } from '#libs/group-offer/selectors';
+import {
+  withGroup,
+  getOffersListByGroup as getOffersListByGroupSelector,
+} from '#libs/group-offer/selectors';
 import { isOfferInThePast } from '../../libs/marketplace/utils';
 
 import {
@@ -238,10 +241,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   goToBook = (offer: Offer_FULL) => {
     this.closeOfferDialog();
     if (offer.group?.full_booking_only) {
-      this.setState({
-        displayGroupPopup: { ...offer, redirect: 'book' },
-      },
-        () => this.props.fetchOffersInGroupAction(offer.group.id))
+      this.setState(
+        {
+          displayGroupPopup: { ...offer, redirect: 'book' },
+        },
+        () => this.props.fetchOffersInGroupAction(offer.group.id),
+      );
       return;
     }
     Analytics.calendarSessionShow(offer);
@@ -350,7 +355,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             !this.state.offer?.available || !isOfferInThePast(this.state?.offer)
           }
         />
-        <MarketplaceCalendarComponentV2
+        <MarketplaceCalendarComponent
           offers={offers}
           companyId={this.props.companyId}
           showOfferFilling={this.props.theme.show_offers_filling}
@@ -518,7 +523,6 @@ const mapWithHandlers = {
     props.pushAction(
       `/customer/payment/offer/${id}?${buildUrlParams({
         membership: companyId,
-        fromCalendarV2: true,
       })}`,
     );
   },
@@ -531,7 +535,6 @@ const mapWithHandlers = {
 
     props.pushAction(
       `/customer/payment/offer/${id}?${buildUrlParams({
-        fromCalendarV2: true,
         membership: companyId,
       })}`,
     );

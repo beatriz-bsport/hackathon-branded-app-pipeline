@@ -60,7 +60,7 @@ import WidgetPreview from '../../libs/widget/components/WidgetPreview.component'
 import WidgetContainerConfigurator from '../../libs/widget/components/WidgetContainerConfigurator.component';
 
 import {
-  EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
 } from '../../libs/exportable-components/constants';
 import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
@@ -111,7 +111,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       uuid: `-${parseInt(Math.random() * 1000000, 10)}`,
       componentType: props.isFranchisor
         ? EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE
-        : EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
+        : EXPORTABLE_COMPONENT_TYPE_CALENDAR,
       containerConfig: {
         useIframe: false,
         responsiveIframe: true,

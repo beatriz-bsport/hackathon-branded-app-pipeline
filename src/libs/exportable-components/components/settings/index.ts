@@ -1,7 +1,6 @@
 import ExportableVODSettings from './ExportableVODSettings.form';
 import ExportablePassSettings from './ExportablePassSettings.form';
 import ExportableCalendarSettings from './ExportableCalendarSettings.form';
-import ExportableCalendarV2Settings from './ExportableCalendarV2Settings.form';
 import ExportablePlaylistSettings from './ExportablePlaylistSettings.form';
 import ExportablePrivateServiceSettings from './ExportablePrivateServiceSettings.form';
 import ExportableWorkshopSettings from './ExportableWorkshopSettings.form';
@@ -22,7 +21,7 @@ import {
 
 export const EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE = {
   [EXPORTABLE_COMPONENT_TYPE_VOD]: ExportableVODSettings,
-  [EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2]: ExportableCalendarV2Settings,
+  [EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2]: ExportableCalendarSettings,
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: ExportableCalendarSettings,
   [EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE]: ExportablePrivateServiceSettings,
   [EXPORTABLE_COMPONENT_TYPE_PASS]: ExportablePassSettings,

@@ -19,11 +19,6 @@ export type MarketplaceCommonFilter = {
 export type MarketplaceCalendarData = MarketplaceCommonFilter & {
   compactMode?: true | false | null;
   todayOnly?: boolean;
-};
-
-export type MarketplaceCalendarV2Data = MarketplaceCommonFilter & {
-  compactMode?: true | false | null;
-  todayOnly?: boolean;
   variant?: MarketplaceCalendarVariant;
   groupSessionByPeriod?: boolean;
 };

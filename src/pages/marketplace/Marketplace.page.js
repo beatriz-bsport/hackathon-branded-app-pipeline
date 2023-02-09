@@ -84,7 +84,6 @@ import { fetchMyControlableMemberList } from '#libs/relationship/actions';
 import { getFranchisor } from '#libs/franchise/selectors';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
-  MARKETPLACE_PATH_TAB_CALENDAR_V2,
   MARKETPLACE_PATH_TAB_PASS,
   MARKETPLACE_PATH_TAB_VOD,
   MARKETPLACE_PATH_TAB_CONTRACT,
@@ -105,9 +104,6 @@ const MarketplaceShopPage = asyncComponent(() =>
   import('./MarketplaceShop.page'),
 );
 const MarketplaceCalendarPage = asyncComponent(() =>
-  import('./MarketplaceCalendar.page'),
-);
-const MarketplaceCalendarPageV2 = asyncComponent(() =>
   import('./MarketplaceCalendarCSSOnly.page'),
 );
 const MarketplaceWorkshopPage = asyncComponent(() =>
@@ -378,19 +374,6 @@ export class MarketPlace extends Component<Props, State> {
         return (
           <div className={this.props.classes.calendarContainer}>
             <MarketplaceCalendarPage
-              key={this.props.tabSelected}
-              companyId={this.props.companyId}
-              requestSignUp={this.openLogin}
-              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
-              startWeekThisWeekday={false}
-              authenticated={this.props.auth.authenticated}
-            />
-          </div>
-        );
-      case MARKETPLACE_PATH_TAB_CALENDAR_V2:
-        return (
-          <div className={this.props.classes.calendarContainer}>
-            <MarketplaceCalendarPageV2
               key={this.props.tabSelected}
               companyId={this.props.companyId}
               requestSignUp={this.openLogin}

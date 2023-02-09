@@ -35,6 +35,8 @@ export const EXPORTABLE_COMPONENTS = [
       establishments: [],
       metaActivities: [],
       levels: [],
+      variant: null,
+      groupSessionByPeriod: true,
     },
   },
 

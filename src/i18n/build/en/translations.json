@@ -4584,7 +4584,9 @@
             "invalid_pin": "Wrong pin code",
             "offline_pin_required": "Required pin code",
             "online_or_offline_pin_required": "Required pin code",
-            "pin_try_exceeded": "Max number of attempts reached. Try another payment method"
+            "pin_try_exceeded": "Max number of attempts reached. Try another payment method",
+            "call_issuer": "Your card has been declined for an unknown reason. Please contact your bank",
+            "lost_card": "Your card has been reported lost by your bank"
         }
     },
     "role": {
@@ -4962,7 +4964,10 @@
                 "ledger": {
                     "_label": "Ledger"
                 },
-                "_label": "AppBar actions"
+                "_label": "AppBar actions",
+                "communicationAlerts": {
+                    "_label": "Message notification"
+                }
             },
             "franchiseMenu": {
                 "settings": {
@@ -7282,6 +7287,10 @@
                         },
                         "explain": {
                             "label": "Reason for failure :"
+                        },
+                        "interac": {
+                            "content": "Interac cards cannot be used for recurring payments or saved. Please use an alternative payment method.",
+                            "title": "Incompatible payment method"
                         }
                     },
                     "radio": "Payment Terminal",
@@ -7423,6 +7432,9 @@
                     "cancel": "Close"
                 },
                 "title": "Invoice cancellation"
+            },
+            "warning": {
+                "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
             }
         },
         "table": {
@@ -8752,7 +8764,8 @@
             "total_mixed_from_src": "Number of sessions booked",
             "dst_company": "Usage studio",
             "src_company": "Purchasing studio",
-            "dispute_status": "Dispute status"
+            "dispute_status": "Dispute status",
+            "is_unpaid": "Unpaid"
         },
         "yes": "Yes",
         "no": "No",
@@ -12460,6 +12473,12 @@
             "applyBalance": {
                 "error": "Error when applying your internal account balance to this invoice.",
                 "success": "Your internal account credit has been applied to this invoice."
+            },
+            "revert": {
+                "errors": {
+                    "14101": "You cannot refund a balance adjustment invoice with a credit note.",
+                    "14100": "You cannot cancel an invoice with Interac payments."
+                }
             }
         },
         "privateConsumerPass": {
@@ -12919,6 +12938,12 @@
                     "error": "An error occurred while editing the discipline group"
                 }
             }
+        },
+        "accessDenied": {
+            "general": {
+                "message": "You cannot access the requested area",
+                "title": "Access denied"
+            }
         }
     },
     "navigation": {
@@ -13223,7 +13248,7 @@
                 "expiredDate": "Expired since {{ expiration_date }}",
                 "expirationDate": "Valid until {{ expiration_date }}",
                 "rental_days_helper": "The video will be unlocked for X amount of days.",
-                "duration": "The video has been rented for {{ rental_days }} day(s).",
+                "duration": "For rent for {{ rental_days }} day(s).",
                 "duration_helper": "Video availability (in days)",
                 "helper": "Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days.",
                 "label": "Video rental"
@@ -14711,7 +14736,8 @@
             "title": "My schedule"
         },
         "tooltip": {
-            "seeAnswers": "See the list of substitutes"
+            "seeAnswers": "See the list of substitutes",
+            "offerCancelled": "This session has been cancelled"
         },
         "coachEdit": {
             "allCategories": "Teaches all categories",
@@ -14775,7 +14801,8 @@
         "selects": {
             "category": "Category",
             "closedStatus": "Status of registrations",
-            "lateStatus": "Status of the request"
+            "lateStatus": "Status of the request",
+            "offerCancelled": "Cancelled sessions"
         },
         "coachAnswers": {
             "refuse": {
@@ -14840,8 +14867,10 @@
                 "approvedWithReplacementPropositions": "pending registration.",
                 "approvedButNoReplacementPropositions": "waiting for registrations.",
                 "pendingForApproval": "waiting for the manager to take action.",
-                "description": "The statutes allow you to know the status of your request."
-            }
+                "description": "The statutes allow you to know the status of your request.",
+                "offerCancelled": "session cancelled."
+            },
+            "offerCancelled": "Cancelled"
         },
         "noListItem": {
             "calendar": "No sessions are scheduled on these dates",
@@ -14883,6 +14912,17 @@
             "cancel": "Cancel",
             "description": "Find all your substitution requests here.",
             "title": "My requests"
+        },
+        "requestsLinkedToCancelledOffers": {
+            "cancelledOffersModeTitle": "Cancelled sessions mode",
+            "filterHelper": "We advise deactivating the filters and widening the date range if this alert persists and no session appears in <strong>{{switchLabel}}</strong> mode.",
+            "description": "In order to see these sessions, please activate the filter <strong>{{switchLabel}}</strong> above",
+            "title": "Active substitution requests are linked to cancelled sessions.",
+            "buttonLabel": "Open",
+            "offerHasActiveRequest": {
+                "helper": "Do you want to be redirected to the substitution requests page to cancel obsolete requests?",
+                "title": "An active substitution request is linked to this session"
+            }
         }
     }
 }

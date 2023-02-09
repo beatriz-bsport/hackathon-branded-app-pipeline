@@ -2511,7 +2511,8 @@
             "total_mixed_from_src": "Aantal geboekte sessies",
             "dst_company": "Gebruiksstudio",
             "src_company": "Aankoopstudio",
-            "dispute_status": "Status van het geschil"
+            "dispute_status": "Status van het geschil",
+            "is_unpaid": "Onbetaald"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2803,7 +2804,7 @@
         "unevenInvoice": {
             "title": "Openstaande factuur",
             "priceDue": "Openstaand bedrag: {{price_due }}",
-            "explainUneven": "Factuur \"<1>{{uuid, uuid}} </1>\" is nog niet betaald.",
+            "explainUneven": "Factuur <1>n°{{uuid, uuid{{ invoice_identifier }}</1> is nog niet betaald.",
             "pricePayed": "Betaald: {{price_payed}}"
         },
         "newOrder": {
@@ -8994,6 +8995,12 @@
             "applyBalance": {
                 "error": "Fout bij het toevoegen van het saldo van je interne rekening (Wallet) op deze factuur",
                 "success": "Het saldo van je interne rekening (Wallet) is op deze factuur toegepast"
+            },
+            "revert": {
+                "errors": {
+                    "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
+                    "14100": "Kan een factuur niet annuleren met Interac betalingen."
+                }
             }
         },
         "link": {
@@ -9648,6 +9655,12 @@
                     "success": "Aangemaakte disciplinegroepen"
                 }
             }
+        },
+        "accessDenied": {
+            "general": {
+                "message": "U heeft geen toegang tot het gevraagde gebied",
+                "title": "Toegang geweigerd"
+            }
         }
     },
     "coach": {
@@ -10035,7 +10048,7 @@
     },
     "stripe": {
         "errors": {
-            "processing_error": "Je betaling kon niet worden verwerkt. Gelieve straks opnieuw proberen.",
+            "processing_error": "Er is een fout opgetreden bij het registreren van uw betaling. Probeer over enkele ogenblikken opnieuw.",
             "incomplete_number": "Het kaartnummer is onvolledig.",
             "incomplete_expiry": "De vervaldatum van uw kaart is onvolledig.",
             "invalid_expiry_year_past": "De vervaldatum van uw kaart is verstreken.",
@@ -10060,7 +10073,7 @@
         },
         "error_code": {
             "payment_intent_authentication_failure": "De betaling is door uw bank geweigerd.",
-            "processing_error": "Je betaling kon niet worden verwerkt. Gelieve straks opnieuw proberen.",
+            "processing_error": "Er is een fout opgetreden bij het registreren van uw betaling. Probeer over enkele ogenblikken opnieuw.",
             "incomplete_number": "Het kaartnummer is onvolledig.",
             "incomplete_expiry": "De vervaldatum van uw kaart is onvolledig.",
             "invalid_expiry_year_past": "De vervaldatum van uw kaart is verstreken.",
@@ -10090,7 +10103,9 @@
             "invalid_pin": "Ongeldige pincode",
             "offline_pin_required": "Pincode vereist",
             "online_or_offline_pin_required": "Pincode vereist",
-            "pin_try_exceeded": "Het maximaal aantal pogingen is momenteel bereikt. Probeer een andere betaalmethode."
+            "pin_try_exceeded": "Het maximaal aantal pogingen is momenteel bereikt. Probeer een andere betaalmethode.",
+            "call_issuer": "Uw kaart is geweigerd om een onbekende reden. Neem contact op met uw bank",
+            "lost_card": "Uw kaart is door uw bank als verloren gemeld"
         }
     },
     "dashboard": {
@@ -11234,6 +11249,10 @@
                         },
                         "explain": {
                             "label": "Mislukt:"
+                        },
+                        "interac": {
+                            "content": "Interac-kaarten kunnen niet worden gebruikt voor terugkerende betalingen of worden opgeslagen. Gebruik een andere betaalmethode.",
+                            "title": "Incompatibele betaalmiddelen"
                         }
                     },
                     "disconnect": {
@@ -11419,7 +11438,7 @@
             "content": {
                 "explain": {
                     "1": "Er wordt een creditnota aangemaakt dat het saldo van het lid zal verhogen. Gebruik deze methode om een creditnota gelijk aan te maken.",
-                    "0": "Betalingen (bijv. creditcards, SEPA-incasso's, etc.) worden direct naar de rekening van het lid overgemaakt. Gebruik deze methode om een directe terugbetaling te doen indien er een vergissing heeft plaatsgevonden.",
+                    "0": "Card / SEPA / etc. betalingen worden direct naar de rekening van de klant overgemaakt. Gebruik deze methode om een directe terugbetaling te doen na een fout.",
                     "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een handmatige terugbetaling, een bankoverschrijving of een cheque."
                 },
                 "label": {
@@ -11435,6 +11454,9 @@
                     "confirm": "Bevestigen",
                     "cancel": "Sluiten"
                 }
+            },
+            "warning": {
+                "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten."
             }
         },
         "table": {
@@ -12053,7 +12075,10 @@
                 "ledger": {
                     "_label": "Kasboek"
                 },
-                "_label": "AppBar-acties"
+                "_label": "AppBar-acties",
+                "communicationAlerts": {
+                    "_label": "Kennisgeving van berichten"
+                }
             },
             "franchiseMenu": {
                 "settings": {
@@ -13673,7 +13698,8 @@
     },
     "replacement": {
         "tooltip": {
-            "seeAnswers": "Zie de lijst van vervangers"
+            "seeAnswers": "Zie de lijst van vervangers",
+            "offerCancelled": "Deze sessie is geannuleerd"
         },
         "coachEdit": {
             "allCategories": "Geeft les in alle categorieën",
@@ -13737,7 +13763,8 @@
         "selects": {
             "category": "Categorie",
             "closedStatus": "Status van de registraties",
-            "lateStatus": "Status van het verzoek"
+            "lateStatus": "Status van het verzoek",
+            "offerCancelled": "Geannuleerde sessies"
         },
         "coachAnswers": {
             "refuse": {
@@ -13819,8 +13846,10 @@
                 "approvedWithReplacementPropositions": "registratie in behandeling.",
                 "approvedButNoReplacementPropositions": "wachtend op registraties.",
                 "pendingForApproval": "wachtend op de manager om actie te ondernemen.",
-                "description": "Met de statistieken kunt u de status van uw verzoek inzien."
-            }
+                "description": "Met de statistieken kunt u de status van uw verzoek inzien.",
+                "offerCancelled": "cursus geannuleerd."
+            },
+            "offerCancelled": "Geannuleerd"
         },
         "noListItem": {
             "calendar": "Er zijn geen sessies gepland op deze data",
@@ -13887,6 +13916,17 @@
             "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
             "description": "Vind hier al uw groepsactiviteiten.",
             "title": "Mijn rooster"
+        },
+        "requestsLinkedToCancelledOffers": {
+            "cancelledOffersModeTitle": "Geannuleerde sessies modus",
+            "filterHelper": "Als deze waarschuwing blijft bestaan en er geen sessies verschijnen in de <strong>{{switchLabel}}</strong> modus, raden wij aan de filters uit te schakelen en het datumbereik uit te breiden.",
+            "description": "Om deze sessies te zien, schakelt u de <strong>{{switchLabel}}</strong> filter hierboven in",
+            "title": "Actieve vervangingsverzoeken zijn gekoppeld aan geannuleerde sessies.",
+            "buttonLabel": "Open",
+            "offerHasActiveRequest": {
+                "helper": "Wilt u worden doorverwezen naar de pagina met vervangende verzoeken om verouderde verzoeken te annuleren?",
+                "title": "Aan deze sessie is een actief vervangingsverzoek gekoppeld"
+            }
         }
     }
 }

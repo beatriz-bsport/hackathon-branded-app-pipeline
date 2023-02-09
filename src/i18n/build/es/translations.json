@@ -1482,7 +1482,7 @@
             "card_declined": "Tu tarjeta ha sido rechazada.",
             "expired_card": "Tu tarjeta ha expirado.",
             "incorrect_cvc": "El código de seguridad de tu tarjeta es incorrecto.",
-            "processing_error": "Se produjo un error durante el registro de tu pago. Por favor intenta de nuevo en unos momentos.",
+            "processing_error": "Se produjo un error durante el registro de tu pago. Por favor inténtalo de nuevo en unos momentos.",
             "insufficient_funds": "No hay suficiente dinero es tu tarjeta.",
             "unknown": "Error de red, intenta nuevamente en unos instantes",
             "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
@@ -1507,7 +1507,7 @@
             "incomplete_expiry": "La fecha de expiración de tu tarjeta está incompleta.",
             "incomplete_number": "El número de tarjeta está incompleto.",
             "unknown": "Error de red, intenta nuevamente en unos instantes",
-            "processing_error": "Se produjo un error durante el registro de tu pago. Por favor intenta nuevamente en unos momentos.",
+            "processing_error": "Se produjo un error durante el registro de su pago. Por favor intente nuevamente en unos momentos.",
             "payment_intent_payment_attempt_failed": "El pago ha sido rechazado por tu banco.",
             "none": " ",
             "setup_intent_authentication_failure": "No se puede guardar esta tarjeta. Por favor, intenta otro método de pago."
@@ -1528,7 +1528,9 @@
             "online_or_offline_pin_required": "Código PIN requerido",
             "offline_pin_required": "Código PIN requerido",
             "invalid_pin": "Código pin erróneo",
-            "incorrect_pin": "Código pin erróneo"
+            "incorrect_pin": "Código pin erróneo",
+            "call_issuer": "Su tarjeta ha sido rechazada por un motivo desconocido. Póngase en contacto con su banco",
+            "lost_card": "Su banco ha denunciado su tarjeta como perdida"
         }
     },
     "tag": {
@@ -2930,6 +2932,10 @@
                         "title": {
                             "setupIntent": "Fallo de operación",
                             "paymentIntent": "Fallo de pago"
+                        },
+                        "interac": {
+                            "content": "Las tarjetas Interac no pueden utilizarse para pagos recurrentes o guardados. Por favor, utilice un método de pago alternativo.",
+                            "title": "Método de pago incompatible"
                         }
                     },
                     "paymentSuccess": {
@@ -3048,7 +3054,7 @@
                 "explain": {
                     "2": "Elija usted mismo el método de reembolso. Utilice este método para un cheque / transferencia manual / reembolso en efectivo.",
                     "1": "Se generará una nota de crédito que aumentará el saldo del cliente en consecuencia. Utilice este método para generar una nota de crédito.",
-                    "0": "Los pagos con tarjeta / SEPA / etc... se pagarán directamente a la cuenta del cliente. Utilice este método para hacer un reembolso directo después de un error."
+                    "0": "Los pagos con tarjeta / SEPA / etc... se abonarán directamente en la cuenta del cliente. Utilice este método para realizar un reembolso directo tras un error."
                 },
                 "label": {
                     "2": "Reembolso manual",
@@ -3063,6 +3069,9 @@
                     "confirm": "Confirmar",
                     "cancel": "Cerrar"
                 }
+            },
+            "warning": {
+                "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac."
             }
         },
         "table": {
@@ -4372,7 +4381,8 @@
             "total_mixed_from_src": "Número de sesiones reservadas",
             "dst_company": "Estudio de uso",
             "src_company": "Estudio de compra",
-            "dispute_status": "Estado del litigio"
+            "dispute_status": "Estado del litigio",
+            "is_unpaid": "Impagado"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -8465,7 +8475,10 @@
                 "ledger": {
                     "_label": "Libro de caja"
                 },
-                "_label": "Barra de aplicación de acciones"
+                "_label": "Barra de aplicación de acciones",
+                "communicationAlerts": {
+                    "_label": "Notificación de mensajes"
+                }
             },
             "franchiseMenu": {
                 "settings": {
@@ -9074,6 +9087,12 @@
                     "45006": "La tarjeta regalo ya ha sido activada",
                     "45003": "La tarjeta regalo ha sido desactivada.",
                     "45000": "El código de activación de la tarjeta no es correcto."
+                }
+            },
+            "revert": {
+                "errors": {
+                    "14101": "No se puede reembolsar una factura de ajuste de saldo con una nota de abono.",
+                    "14100": "No es posible anular una factura con los pagos de Interac."
                 }
             }
         },
@@ -9928,6 +9947,12 @@
                     "error": "Se ha producido un error al crear el grupo de disciplina",
                     "success": "Grupo de disciplinas creado"
                 }
+            }
+        },
+        "accessDenied": {
+            "general": {
+                "message": "No puede acceder al área solicitada",
+                "title": "Acceso denegado"
             }
         }
     },
@@ -13716,13 +13741,15 @@
                 "description": "Los estatutos te permiten ver el estado de tu solicitud.",
                 "approvedWithReplacementPropositions": "registros en progreso.",
                 "approvedButNoReplacementPropositions": "esperando registros.",
-                "pendingForApproval": "esperando una acción del director."
+                "pendingForApproval": "esperando una acción del director.",
+                "offerCancelled": "sesión cancelada."
             },
             "teacherFound": "Sustituida",
             "approvedWithReplacementPropositions": "En proceso",
             "approvedButNoReplacementPropositions": "Abierta",
             "deniedByManager": "Rechazada",
-            "pendingForApproval": "Esperando validación"
+            "pendingForApproval": "Esperando validación",
+            "offerCancelled": "Cancelado"
         },
         "noListItem": {
             "calendar": "No hay sesiones programadas en estas fechas",
@@ -13828,7 +13855,8 @@
         "selects": {
             "category": "Categoría",
             "closedStatus": "Estado del registro",
-            "lateStatus": "Estado de la solicitud"
+            "lateStatus": "Estado de la solicitud",
+            "offerCancelled": "Sesiones canceladas"
         },
         "coachAnswers": {
             "refuse": {
@@ -13901,7 +13929,8 @@
             "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> de <strong>{{requestsMax}}</strong> solicitudes tardías restantes hasta {{-dateEnd}}."
         },
         "tooltip": {
-            "seeAnswers": "Ver la lista de sustitutos"
+            "seeAnswers": "Ver la lista de sustitutos",
+            "offerCancelled": "Esta sesión ha sido cancelada"
         },
         "coachEdit": {
             "allCategories": "Enseña todas las categorías",
@@ -13926,6 +13955,17 @@
             "compatibleCoaches": "{{count}} profesor compatible",
             "compatibleCoaches_plural": "{{count}} profesores compatibles",
             "title": "Profesores disponibles por disciplina"
+        },
+        "requestsLinkedToCancelledOffers": {
+            "cancelledOffersModeTitle": "Modo de sesiones canceladas",
+            "filterHelper": "Aconsejamos desactivar los filtros y ampliar el rango de fechas si persiste esta alerta y no aparece ninguna sesión en modo <strong>{{switchLabel}}</strong>.",
+            "description": "Para ver estas sesiones, active el filtro <strong>{{switchLabel}}</strong> de arriba",
+            "title": "Las solicitudes de sustitución activas están vinculadas a las sesiones anuladas.",
+            "buttonLabel": "Abrir",
+            "offerHasActiveRequest": {
+                "helper": "¿Desea ser redirigido a la página de solicitudes de sustitución para anular las solicitudes obsoletas?",
+                "title": "Una solicitud de sustitución activa está vinculada a esta sesión"
+            }
         }
     }
 }

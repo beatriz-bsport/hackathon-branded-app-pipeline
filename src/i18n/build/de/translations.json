@@ -3258,9 +3258,9 @@
             "1": "Rechnungsstellung",
             "5": "Rechtliche Informationen",
             "6": "Unbezahlte Termine",
-            "8": "",
-            "7": "",
-            "9": ""
+            "8": "Späte Vertretungen",
+            "7": "Tutorials",
+            "9": "Empfangene Nachrichten"
         },
         "list": {
             "emptyAlerting": "Keine neue Benachrichtigung.",
@@ -3291,20 +3291,20 @@
             "credits_due": "Zu zahlende Kredite : {{ credits }}"
         },
         "lateReplacementRequest": {
-            "title": "",
-            "content": ""
+            "title": "Späte Vertretung",
+            "content": "hat für den folgenden Kurs einen Vertreter beantragt: {{activity_name}} - {{-date_start}}"
         },
         "newTutorialSectionOrLesson": {
             "newSection": {
-                "title": "",
-                "content": ""
+                "title": "Neue Sektion",
+                "content": "Die Sektion {{- name}} wurde hinzugefügt, bilden Sie sich jetzt weiter."
             },
             "newLesson": {
-                "title": "",
-                "content": ""
+                "title": "Neuer Kurs {{- name}}",
+                "content": "Zur Sektion {{- name}} hinzugefügt"
             }
         },
-        "readAll": ""
+        "readAll": "Alles als gelesen markieren"
     },
     "reporting": {
         "form": {
@@ -5581,8 +5581,8 @@
             "cancelledByOfferDate": "Kurs vom Club am {{-date}} um {{time}} abgesagt",
             "cancelledByConsumerDate": "Kundenstornierung am {{-date}} um {{time}}",
             "cancelledByManagerDate": "von Admin storniert am {{-date}} um {{time}}",
-            "cancelledByAnonymousManager": "",
-            "cancelledByAnonymousManagerDate": ""
+            "cancelledByAnonymousManager": "Annullierung Admin",
+            "cancelledByAnonymousManagerDate": "Annullierung Admin am {{-date}} um {{time}}"
         },
         "doNotAttend": "Abwesend",
         "attend": "Anwesend",
@@ -5666,8 +5666,8 @@
                     "second_after": "Stunde (n) nach dem Kurs",
                     "second_before": "Stunde (n) vor Beginn des Kurses",
                     "first": "Eine E-Mail senden",
-                    "second_before_days": "",
-                    "second_after_days": ""
+                    "second_before_days": "Tag(e) vor dem Kurs",
+                    "second_after_days": "Stunde(n) vor dem Kurs"
                 },
                 "sendAfterMail": "Sende die E-Mail nach der von der Benachrichtigung betroffenen Kurse an das Mitglied",
                 "sendBeforeMail": "Sende die E-mail vor den von der Benachrichtigung betroffenen Kursen and das Mitglied",
@@ -5722,12 +5722,12 @@
                 "sendAfterNotification": "Gesandter la Benachrichtigung push au membre après la séance Concréée par la Benachrichtigung",
                 "sendBeforeNotifications": "Gesandter les Notifications au membre avant la séanceconcerée par la notification",
                 "sendBeforeNotification": "Gesandter la Benachrichtigung push au membre avant la séance Concréée par la Benachrichtigung",
-                "smartListHelper": "",
-                "smartListHelperInclude": "",
-                "warning": "",
-                "createSmartList": "",
-                "smartListSelection": "",
-                "advanced": ""
+                "smartListHelper": "Keine E-Mail senden, wenn das Mitglied zu einer der folgenden Smartlisten gehört",
+                "smartListHelperInclude": "Eine E-Mail nur senden, wenn das Mitglied einer der folgenden Smartlisten angehört",
+                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits eine andere Kurskarte gekauft haben.",
+                "createSmartList": "Eine Smartlist erstellen",
+                "smartListSelection": "Smartlisten auswählen (optional)",
+                "advanced": "Fortgeschrittene"
             },
             "addNotification": "Eine Benachrichtigung hinzufügen",
             "title": "Benachrichtigung"
@@ -5842,16 +5842,16 @@
             "bookingForMe": "ich",
             "bookingsTitleFor": "Ich buche für {{name}}",
             "bookingForAGuest": {
-                "addGuestLimit": "",
-                "addGuestNumberLeftSeveral": "",
-                "addGuestNumberLeftOne": "",
-                "frequencyWeekly": "",
-                "frequencyMonthly": "",
-                "frequencyYearly": "",
-                "frequencyGeneric": "",
-                "addGuest": "",
-                "warningCustomLeveledSession": "",
-                "warningLeveledSession": ""
+                "addGuestLimit": "Sie haben die Einladungsgrenze erreicht für",
+                "addGuestNumberLeftSeveral": "Sie können noch {{number}} weitere Personen einladen auf",
+                "addGuestNumberLeftOne": "Sie können noch 1 Person einladen auf",
+                "frequencyWeekly": "in dieser Woche.",
+                "frequencyMonthly": "in diesem Monat.",
+                "frequencyYearly": "im laufenden Jahr.",
+                "frequencyGeneric": "der aktuellen Periode.",
+                "addGuest": "Einen Gast hinzufügen",
+                "warningCustomLeveledSession": "Dieser Kurs hat ein personalisiertes Niveau. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
+                "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt."
             }
         },
         "placeNumber": "Ort {{count}}",
@@ -5882,8 +5882,8 @@
                 }
             }
         },
-        "place": "",
-        "unlimited": ""
+        "place": "Platz",
+        "unlimited": "Unbegrenzt"
     },
     "member": {
         "exists": {
@@ -6254,7 +6254,35 @@
         "monthly": "Monatlich",
         "weekly": "Wöchentlich",
         "showLess": "Weniger anzeigen",
-        "showMore": "Mehr anzeigen {{count}}"
+        "showMore": "Mehr anzeigen {{count}}",
+        "duration": {
+            "minute": "{{ count }} Minute",
+            "minute_plural": "{{ count }} Minuten",
+            "hour": "{{ count }} Stunde",
+            "hour_plural": "{{ count }} Stunden",
+            "day": "{{ count }} Tag",
+            "day_plural": "{{ count }} Tage"
+        },
+        "download": "Download",
+        "saveRecord": "Speichern",
+        "delete": "Löschen",
+        "finish": "Beenden",
+        "letsGo": "Los geht's!",
+        "previous": "Vorher",
+        "next": "Weiter",
+        "start": "Beginnen",
+        "card": {
+            "categoryNames": {
+                "restrictions": "Einschränkungen",
+                "credits": "Anzahl der Credits",
+                "vod": "VOD",
+                "accessibility": "Zugänglichkeit",
+                "compatibility": "Kompatibilität",
+                "paymentMethods": "Verfügbare Zahlungsmethoden",
+                "validity": "Gültigkeit"
+            },
+            "copyLink": "Link kopieren"
+        }
     },
     "coupon": {
         "detail": {
@@ -7398,9 +7426,38 @@
             "readCount": "Anzahl der Öffnungen",
             "kind": {
                 "1": "SMS",
-                "0": "E-mail"
+                "0": "E-mail",
+                "2": "Push-Benachrichtigung"
             },
-            "unavailableMail": "Preview nicht verfügbar"
+            "unavailableMail": "Preview nicht verfügbar",
+            "automated": {
+                "panel": {
+                    "add": "Hinzufügen",
+                    "title": "Automatische Sendungsregel"
+                },
+                "form": {
+                    "subtitles": {
+                        "create": {
+                            "leftSmartList": "Erstellen einer Regel für das automatische Senden beim Verlassen der Smartlist",
+                            "joinSmartList": "Erstellen einer Regel für das automatische Senden als Eingang für die Smartlist"
+                        },
+                        "update": {
+                            "leftSmartList": "Bearbeiten einer Regel für das automatische Senden an den Ausgang der Smartlist",
+                            "joinSmartList": "Bearbeiten einer Regel für das automatische Senden als Eingang in die Smartlist"
+                        }
+                    },
+                    "max_communications_sent_per_member_limit": "Maximaler Wert : {{ max }}",
+                    "max_communications_sent_per_member": "Maximale Anzahl an Sendungen pro Mitglied",
+                    "advancedSection": "Fortgeschrittene",
+                    "submit": "Bestätigen"
+                },
+                "activeSince": "Aktiv seit dem {{-date}}",
+                "create": "Erstellung ",
+                "onJoin": "Am Eingang zur Smartlist",
+                "onLeft": "Beim Verlassen der Smartlist"
+            },
+            "automatedTitle": "Automatische Sendungen",
+            "manualTitle": "Manuelle Sendungen"
         },
         "mail": {
             "noObject": "Kein Betreff",
@@ -7416,7 +7473,7 @@
             "count": "Zeichen",
             "showMail": "E-Mail ansehen",
             "mailSelection": "E-Mail auswählen",
-            "selectToShowPreview": "Wähle eine E-Mail aus, um eine Vorschau zu sehen",
+            "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau zu sehen",
             "noMailAvailable": "Keine verfügbare E-Mail, bitte erstelle eine E-Mail",
             "phoneMissing": "Fehlende Telefonnummer",
             "mailMissing": "E-Mail nicht vorhanden",
@@ -7453,7 +7510,11 @@
         "common": {
             "refresh": "Aktualisieren",
             "submit": "Senden",
-            "cancel": "Abbrechen"
+            "cancel": "Abbrechen",
+            "recipient": "Empfänger",
+            "recipient_plural": "Empfänger",
+            "confirm": "Bestätigen",
+            "close": "Schließen"
         },
         "recipients": "Empfänger",
         "sms": {
@@ -7633,7 +7694,9 @@
         "addBonus": "Eine Regel hinzufügen",
         "table": {
             "download": "Downloaden",
-            "downloadAll": "Zusammenfassung"
+            "downloadAll": "Zusammenfassung",
+            "downloadPDF": "Download (.pdf)",
+            "downloadCSV": "Download (.csv)"
         },
         "fields": {
             "rule": "Regel für die Bezahlung der Sitzung",
@@ -8801,7 +8864,7 @@
             "error_email_exists": "Es gibt bereits einen Lehrer mit dieser E-Mail, verwende das Formular zur Erstellung eines Lehrers",
             "linkByEmail": {
                 "emailPlaceHolder": "lehrer@bsport.io",
-                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir den Lehrer automatisch für Dich erstellen. Wenn Du die E-Mail eines Lehrers nicht kennst, lasse dieses Feld leer.",
+                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir den Lehrer automatisch für Dich erstellen.",
                 "emailLabel": "E-Mail",
                 "title": "E-Mail-Adresse des Lehrers",
                 "submit": "Bestätigen",
@@ -8813,7 +8876,10 @@
             },
             "update": {
                 "success": "Lehrer erfolgreich geändert",
-                "title": "Änderung der Informationen"
+                "title": "Änderung der Informationen",
+                "errors": {
+                    "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Sie können diese E-Mail nur dann mit einem Lehrer verknüpfen, wenn Sie einen neuen Lehrer erstellen."
+                }
             }
         },
         "noActivity": "Dieser Lehrer leitet keine Aktivität.",
@@ -8858,7 +8924,8 @@
                 "general": "Profil"
             },
             "coachSpaceInfo": "In diesem Bereich kann Ihr Lehrer auf seine Abrechnungsübersicht pro Sitzung zugreifen und seinen Stundenplan einsehen. Er kann auch seine Verfügbarkeiten hinzufügen.",
-            "coachSpace": "Lehrerbereich"
+            "coachSpace": "Lehrerbereich",
+            "noPaymentRule": "Achtung, für diese Lehrkraft wurden keine Gehaltsregeln festgelegt."
         },
         "showPerformance": "Lohn ausstellen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrer",
@@ -9635,7 +9702,7 @@
             "featured": "Wir empfehlen Dir",
             "error": {
                 "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet",
-                "inconsistentBasket": ""
+                "inconsistentBasket": "Ihr Warenkorb wurde geändert. Bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht abgebucht."
             },
             "isFinalized": "Dein Warenkorb wurde validiert",
             "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung",
@@ -9678,14 +9745,14 @@
                 "offerBooked": "Ihre Sitzungen",
                 "offerNotBookable": "Keine Registrierung",
                 "errorExplain": {
-                    "generic": "",
-                    "guestGeneric": "",
-                    "guestOvercomeLimit": "",
-                    "guestOffer": "",
-                    "guestPass": "",
-                    "guestNotEnoughSpot": "",
-                    "guestReachedLimit": "",
-                    "guestSettings": ""
+                    "generic": "Die Operation konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
+                    "guestGeneric": "Es ist ein Problem mit der Buchung für einen Gast aufgetreten.",
+                    "guestOvercomeLimit": "Die Anzahl der für diese Buchung hinzugefügten Gäste überschreitet die zulässige Anzahl.",
+                    "guestOffer": "Das Studio hat die Buchungsfunktion für einen Gast für diese Session deaktiviert.",
+                    "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für diese Kurskarte deaktiviert.",
+                    "guestNotEnoughSpot": "Es gibt nicht genug Plätze für alle Ihre Gäste.",
+                    "guestReachedLimit": "Sie haben bereits das Limit für die Buchung eines Gastes im aktuellen Zeitraum erreicht. Es ist nicht mehr möglich, weitere zu buchen.",
+                    "guestSettings": "Das Studio hat die Buchungsfunktion für einen Gast deaktiviert."
                 },
                 "error": "Fehler",
                 "recap": "Zusammenfassung",

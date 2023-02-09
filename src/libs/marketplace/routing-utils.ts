@@ -2,7 +2,6 @@ import moment from 'moment-timezone';
 import { buildUrlParams } from '../../http';
 import {
   MARKETPLACE_PATH_TAB_CALENDAR,
-  MARKETPLACE_PATH_TAB_CALENDAR_V2,
   MARKETPLACE_PATH_TAB_PASS,
   MARKETPLACE_PATH_TAB_VOD,
   MARKETPLACE_PATH_TAB_CONTRACT,
@@ -32,6 +31,7 @@ export const fromConfigToUrl = (
 
   const component_type = tabConfig?.component_type || '';
   let path = '';
+  const calendarComponentTypes = ['calendar', 'calendarV2'];
 
   if (tabConfig?.configIndex !== undefined) {
     Object.assign(query, { index: tabConfig.configIndex });
@@ -93,47 +93,19 @@ export const fromConfigToUrl = (
     conf.levels &&
       conf.levels.length &&
       Object.assign(query, { levels: conf.levels.join(',') });
-  } else if (component_type === 'calendar') {
-    if (tabConfig.config?.calendar?.todayOnly) {
+  } else if (calendarComponentTypes.includes(component_type)) {
+    if (
+      tabConfig.config?.calendarV2?.todayOnly ||
+      tabConfig.config?.calendar?.todayOnly
+    ) {
       Object.assign(query, {
         ...query,
         onlyDay: true,
         date: moment().format('YYYY-MM-DD'),
       });
     }
-    if (tabConfig.config?.calendar) {
-      const conf = tabConfig.config.calendar;
-      conf.metaActivities &&
-        conf.metaActivities.length &&
-        Object.assign(query, { activity__in: conf.metaActivities.join(',') });
-      conf.coaches &&
-        conf.coaches.length &&
-        Object.assign(query, { coaches: conf.coaches.join(',') });
-      conf.establishmentGroups &&
-        conf.establishmentGroups.length &&
-        Object.assign(query, {
-          establishment_group__in: conf.establishmentGroups.join(','),
-        });
-      conf.establishments &&
-        conf.establishments.length &&
-        Object.assign(query, {
-          establishments: conf.establishments.join(','),
-        });
-      conf.levels &&
-        conf.levels.length &&
-        Object.assign(query, { levels: conf.levels.join(',') });
-    }
-    path = MARKETPLACE_PATH_TAB_CALENDAR;
-  } else if (component_type === 'calendarV2') {
-    if (tabConfig.config?.calendarV2?.todayOnly) {
-      Object.assign(query, {
-        ...query,
-        onlyDay: true,
-        date: moment().format('YYYY-MM-DD'),
-      });
-    }
-    if (tabConfig.config?.calendarV2) {
-      const conf = tabConfig.config.calendarV2;
+    if (tabConfig.config?.calendarV2 || tabConfig.config?.calendar) {
+      const conf = tabConfig.config.calendarV2 || tabConfig.config.calendar;
       conf.metaActivities &&
         conf.metaActivities.length &&
         Object.assign(query, { activity__in: conf.metaActivities.join(',') });
@@ -165,7 +137,7 @@ export const fromConfigToUrl = (
         });
       }
     }
-    path = MARKETPLACE_PATH_TAB_CALENDAR_V2;
+    path = MARKETPLACE_PATH_TAB_CALENDAR;
   } else if (component_type === 'pass') {
     path = MARKETPLACE_PATH_TAB_PASS;
     Object.assign(query, tabConfig.config.pass);

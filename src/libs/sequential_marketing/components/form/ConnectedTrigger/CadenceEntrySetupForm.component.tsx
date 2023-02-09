@@ -30,14 +30,7 @@ type InitialEntryComponentProps = BaseFormComponentProps & {
 export const CadenceEntrySetupForm: React.FC<InitialEntryComponentProps> = ({
   cadence,
   smartlists,
-  emailListLoading,
-  emails,
-  emailDetailLoading,
-  emailDetails,
-  getEmails,
-  getEmailDetail,
   onSubmit,
-  tagList,
   viewMode,
 }) => {
   const { t } = useTranslation('marketing');
@@ -73,14 +66,8 @@ export const CadenceEntrySetupForm: React.FC<InitialEntryComponentProps> = ({
         initial={initial}
         smartlists={smartlists}
         onSubmit={handleSubmitForm}
-        emailListLoading={emailListLoading}
-        emails={emails}
-        emailDetailLoading={emailDetailLoading}
-        emailDetails={emailDetails}
-        getEmails={getEmails}
-        getEmailDetail={getEmailDetail}
-        tagList={tagList}
         viewMode={viewMode}
+        cadenceEntry
       />
     </div>
   );

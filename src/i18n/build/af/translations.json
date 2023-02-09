@@ -2912,11 +2912,21 @@
         "next": "Suivant",
         "trigger": {
           "title": "Déclencheurs",
-          "helper": "Définissez ici les déclencheurs d'entrée de la cadence. Les membres devront correspondre aux critères indiqués ci-dessous pour commencer la séquence marketing.",
+          "helpers": {
+            "cadence": "Définissez ici les déclencheurs d'entrée de la cadence. Les membres devront correspondre aux critères indiqués ci-dessous pour commencer la séquence marketing.",
+            "step": "Définissez ici le déclencheur amenant à la prochaine étape. Les membres devront correspondre aux critères indiqués ci-dessous pour passer à l’étape suivante.",
+            "exitSuccess": "Définissez ici le déclencheur définissant qu’un membre sera considéré comme gagné et sortira de la cadence.",
+            "exitFail": "Définissez ici le déclencheur définissant qu’un membre sera considéré comme perdu et sortira de la cadence."
+          },
+          "labels": {
+            "cadence": "L’entrée dans la cadence se fait via :",
+            "step": "L'entrée dans cette étape se fait via :",
+            "exitSuccess": "La sortie de la cadence en tant que gagné se fait via :",
+            "exitFail": "La sortie de la cadence en tant que perdu se fait via :"
+          },
           "trigger_event_kind_label": "Un événement",
           "had_filtering_on_selected_event": "Filtrer l'événement sélectionné avec une smartlist",
           "trigger_smartlist_kind_label": "Une smartlist",
-          "composed_of": "L’entrée dans la cadence se fait via :",
           "rule_between_triggers": "Règle entre les événements",
           "and_rule_between_triggers": "Et",
           "or_rule_between_triggers": "Ou",
@@ -2970,8 +2980,14 @@
           "4": "Tag",
           "5": "Template Email",
           "select_tag": "Sélectionner un tag",
-          "form": { "submit": "Valider", "reset": "Supprimer" }
-        }
+          "defaultName": "Nom par défaut",
+          "form": {
+            "submit": "Valider",
+            "reset": "Supprimer",
+            "helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre entre dans cette étape. Cette option est facultative."
+          }
+        },
+        "error": { "triggerCannotBeEmpty": "Vous devez sélectionner un type d'entrée." }
       },
       "howTo": {
         "title": "Comment éditer votre cadence",

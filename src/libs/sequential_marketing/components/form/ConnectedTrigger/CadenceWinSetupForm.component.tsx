@@ -31,14 +31,7 @@ type InitialWinComponentProps = BaseFormComponentProps & {
 export const CadenceWinSetupForm: React.FC<InitialWinComponentProps> = ({
   cadence,
   smartlists,
-  emailListLoading,
-  emails,
-  emailDetailLoading,
-  emailDetails,
-  getEmails,
-  getEmailDetail,
   onSubmit,
-  tagList,
   viewMode,
 }) => {
   const { t } = useTranslation('marketing');
@@ -86,17 +79,10 @@ export const CadenceWinSetupForm: React.FC<InitialWinComponentProps> = ({
       <Divider />
       <TriggerForm
         initial={initial}
-        withMarketingActions
         smartlists={smartlists}
-        tagList={tagList}
         onSubmit={handleSubmitForm}
-        emailListLoading={emailListLoading}
-        emails={emails}
-        emailDetailLoading={emailDetailLoading}
-        emailDetails={emailDetails}
-        getEmails={getEmails}
-        getEmailDetail={getEmailDetail}
         viewMode={viewMode}
+        cadenceExitSuccess
       />
     </div>
   );

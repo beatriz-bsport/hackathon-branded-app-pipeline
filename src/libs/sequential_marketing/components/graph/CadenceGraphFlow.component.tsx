@@ -44,10 +44,10 @@ type Props = {
     step: CadenceStep,
     subscriptionDestination: number | string | null,
   ) => void;
-  // handleEditMarketingActions: () => void;
-  cadenceWinAndLoseConfiguration: {
+  cadenceMinimalConfigurationState: {
     cadenceWinConfigured: boolean;
     cadenceLoseConfigured: boolean;
+    cadenceEntryConfigured: boolean;
   };
   stepNodeFakerSource: CadenceStep | null;
   onClickConnectedTrigger: (
@@ -66,7 +66,7 @@ export const Flow: React.FC<Props> = ({
   updateConnectedTriggerPosition,
   onClickEntryStep,
   handleSelectStepForSubscription,
-  cadenceWinAndLoseConfiguration,
+  cadenceMinimalConfigurationState,
   stepNodeFakerSource,
   onClickConnectedTrigger,
   resetAllSelection,
@@ -120,21 +120,23 @@ export const Flow: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (
-      !cadenceWinAndLoseConfiguration.cadenceLoseConfigured ||
-      !cadenceWinAndLoseConfiguration.cadenceWinConfigured
+      !cadenceMinimalConfigurationState.cadenceLoseConfigured ||
+      !cadenceMinimalConfigurationState.cadenceWinConfigured ||
+      !cadenceMinimalConfigurationState.cadenceEntryConfigured
     ) {
       setDisabledMode(true);
     } else {
       setDisabledMode(false);
     }
-  }, [cadenceWinAndLoseConfiguration]);
+  }, [cadenceMinimalConfigurationState]);
 
   return (
     <ReactFlowProvider>
       <div
         className={classNames({
           [classes.blurDisabledOverLay]: disabledMode,
-          [classes.clearDisabledOverLay]: cadence.active || !cadenceEditMode,
+          [classes.clearDisabledOverLay]:
+            !disabledMode && (cadence.active || !cadenceEditMode),
         })}
       />
       <CadenceGraphViewPort

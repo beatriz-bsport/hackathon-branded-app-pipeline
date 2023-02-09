@@ -1,7 +1,6 @@
 import { ErrorAndLoading } from '#libs/types';
 import type {
   TriggerEnum,
-  CadenceConnectedTriggerReasonEnum,
   CadenceDestinationEnum,
   StepConnectedTriggerReasonEnum,
   StepDestinationEnum,
@@ -26,61 +25,58 @@ export type MarketingActions = {
   [CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE]: { tag_id: number | null };
 };
 
+export type TriggerConfig = {
+  uuid: string;
+  identifier: TriggerEnum;
+  timeout?: number;
+  event_type?: CadenceEventsEnum;
+};
+
+export type FilterConfig<SmartList = number> = {
+  uuid: string;
+  identifier: FiltersEnum;
+  smartlist_pk?: number;
+  smartlist?: SmartList | null;
+};
+
+export type DestinationConfig<Kind, Reason, Status> = {
+  id: number;
+  kind: Kind;
+  reason?: Reason;
+  source_id: number;
+  status: Status;
+};
+
+export type MarketingActionsConfig = {
+  created_at: number;
+  config: MarketingActions;
+  uuid: string;
+};
 export type CadenceConnectedTriggerConfig<SmartList = number> = {
   uuid: string;
   disabled: boolean;
-  trigger_config: {
-    uuid: string;
-    identifier: TriggerEnum;
-    timeout?: number;
-    event_type?: CadenceEventsEnum;
-  };
-  filtering_config: {
-    uuid: string;
-    identifier: FiltersEnum;
-    smartlist_pk?: number;
-    smartlist: SmartList | null;
-  };
-  destination_config: {
-    id: number;
-    kind: CadenceConnectedTriggerReasonEnum;
-    reason: StepConnectedTriggerReasonEnum;
-    source_id: number;
-    status: CadenceDestinationEnum;
-  };
-  marketing_actions: {
-    created_at: number;
-    config: MarketingActions;
-    uuid: string;
-  };
+  trigger_config: TriggerConfig;
+  filtering_config: FilterConfig<SmartList>;
+  destination_config: DestinationConfig<
+    StepDestinationEnum,
+    StepConnectedTriggerReasonEnum,
+    CadenceDestinationEnum
+  >;
+  marketing_actions?: MarketingActionsConfig;
 };
 
 export type StepConnectedTriggerConfig<SmartList = number> = {
   uuid: string;
   identifier: TriggerEnum;
   disabled: boolean;
-  trigger_config: {
-    uuid: string;
-    identifier: TriggerEnum;
-  };
-  filtering_config: {
-    uuid: string;
-    identifier: FiltersEnum;
-    smartlist_pk?: number;
-    smartlist?: SmartList | null;
-  };
-  destination_config: {
-    id: number;
-    kind: StepDestinationEnum;
-    reason: StepConnectedTriggerReasonEnum;
-    source_id: number;
-    status: CadenceDestinationEnum;
-  };
-  marketing_actions: {
-    created_at: number;
-    config: MarketingActions;
-    uuid: string;
-  };
+  trigger_config: TriggerConfig;
+  filtering_config: FilterConfig<SmartList>;
+  destination_config: DestinationConfig<
+    StepDestinationEnum,
+    StepConnectedTriggerReasonEnum,
+    CadenceDestinationEnum
+  >;
+  marketing_actions?: MarketingActionsConfig;
   canvas: GraphCanvas;
 };
 
@@ -89,27 +85,10 @@ export type CadenceTrackingDataBase = {
   by_member: {};
 };
 
-export type EntryActionConfigBase<
-  Company = number,
-  Step = number,
-  Tag = number,
-> = {
-  company: Company;
-  step: Step;
-  kind: CadenceMarketingActionsEnum;
-  text: string | null;
-  email_design: number | null;
-  title: string | null;
-  disabled: boolean;
-  date_created: string;
-  date_updated: string;
-  tag: Tag;
-};
-
 export type GraphCanvas = {
   positions: {
-    x: number;
-    y: number;
+    x: string;
+    y: string;
   };
 };
 
@@ -151,6 +130,7 @@ export type Cadence<
 
 export type CadenceQueryParams = {
   id__in?: number[];
+  page_size?: number;
 };
 
 export type CadenceStepQueryParams = {
@@ -167,4 +147,44 @@ export type CadenceState = {
     byId: { [id: number]: CadenceStep };
     subscribe: ErrorAndLoading;
   } & ErrorAndLoading;
+  marketingActions: {
+    allIds: [];
+    byId: { [id: number]: StepMarketingActions };
+    byStepId: { [id: number]: StepMarketingActions[] };
+    upsert: ErrorAndLoading;
+  } & ErrorAndLoading;
 } & ErrorAndLoading;
+
+export enum StepMarketingActionsKind {
+  COMMUNICATION = 'COMMUNICATION',
+  TAG = 'TAG',
+}
+export type StepMarketingActions = {
+  id: number;
+  company: number;
+  cadence_step: number;
+  name: string;
+  disabled: boolean;
+  kind: StepMarketingActionsKind;
+  action_spec:
+    | StepMarketingActionsCommunicationSpec
+    | StepMarketingActionsTagSpec;
+};
+
+export type StepMarketingActionsCommunicationSpec = {
+  email_design: number | null;
+  text_content: string | null;
+  subject: string | null;
+  communication_kind: CadenceMarketingActionsEnum;
+};
+
+export type StepMarketingActionsTagSpec = {
+  tag_id: number | null;
+};
+
+export type StepMarketinActionsParams = {
+  id__in?: number;
+  cadence?: number;
+  cadence_step?: number;
+  kind?: StepMarketingActionsKind;
+};

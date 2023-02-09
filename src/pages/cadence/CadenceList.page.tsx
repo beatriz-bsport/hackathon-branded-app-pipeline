@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { push as pushRouter } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
@@ -12,7 +13,7 @@ import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 import {
-  fetchCadenceList,
+  fetchCadenceList as fetchCadenceListAction,
   createCadence as createCadenceAction,
   updateCadence as updateCadenceAction,
   archiveCadence as archiveCadenceAction,
@@ -31,6 +32,7 @@ import CadenceList from '#libs/sequential_marketing/components/CadenceList.compo
 import CadenceManagerFab from '#libs/sequential_marketing/components/CadenceManagerFab.components';
 import CadenceArchiveDialog from '#libs/sequential_marketing/components/CadenceArchivedDialog.component';
 
+const CADENCE_PAGE_SIZE = 100;
 type OwnProps = {
   title: string;
 };
@@ -162,11 +164,12 @@ export class CadenceDetailPage extends Component<Props> {
             <CadenceList
               cadences={cadencesList}
               cadenceLoading={cadenceLoading}
-              onClickItem={this.props.setSelectedCadence}
+              onClickItem={(cadence) => this.props.goToCadencePage(cadence?.id)}
               onShow={this.props.goToCadencePage}
               onEdit={this.handleSetCadenceToEdit}
               onDelete={this.handleSetCadenceToArchive}
               selectedId={this.props.selectedCadence?.id}
+              updateCadencePriorityIndex={this.props.updateCadencePriorityIndex}
             />
             <div className={classes.paddingTop}>
               {cadenceArchivedList && cadenceArchivedList.length !== 0 && (
@@ -179,9 +182,12 @@ export class CadenceDetailPage extends Component<Props> {
               )}
             </div>
           </div>
-          <div className={classes.pageColumn}>
-            {this.props.selectedCadence?.name}
-          </div>
+          <div
+            className={classNames(
+              classes.pageColumn,
+              classes.hideOnSmallScreen,
+            )}
+          />
         </div>
         <CadenceCreateAndUpdateForm
           open={this.props.openCreationForm || !!this.props.cadenceToEdit}
@@ -231,7 +237,11 @@ const StateHandlersSetter = {
     return { cadenceToArchive };
   },
 };
+
 const mapWithHandlers = {
+  fetchCadenceList: (props: ConnectedPropsAndState) => () => {
+    props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });
+  },
   createCadence:
     (props: ConnectedPropsAndState) =>
     (data: { name: string }, options?: OptionCallback) => {
@@ -257,10 +267,31 @@ const mapWithHandlers = {
         },
       });
     },
-
+  updateCadencePriorityIndex:
+    (props: ConnectedPropsAndState) =>
+    (
+      id: number,
+      data: { priority_index: number },
+      options?: OptionCallback,
+    ) => {
+      props.updateCadenceAction(id, data, {
+        onSuccess: () => {
+          props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });
+          options && options.onSuccess && options.onSuccess();
+        },
+        onError: () => {
+          options && options.onError && options.onError();
+        },
+      });
+    },
   archiveCadence: (props: ConnectedPropsAndState) => () => {
     if (props.cadenceToArchive) {
-      props.archiveCadenceAction(props.cadenceToArchive?.id);
+      props.archiveCadenceAction(props.cadenceToArchive?.id, {
+        onSuccess: () =>
+          props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE }),
+        onError: () =>
+          props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE }),
+      });
       props.setCadenceToArchive(null);
       if (props.cadenceToArchive?.id === props.selectedCadence?.id) {
         props.setSelectedCadence(null);
@@ -279,7 +310,7 @@ const connector = connect(
     cadenceArchivedList: withSteps(getDisabledCadencesList)(state),
   }),
   {
-    fetchCadenceList,
+    fetchCadenceListAction,
     createCadenceAction,
     updateCadenceAction,
     archiveCadenceAction,
@@ -296,6 +327,11 @@ const styles = (theme: Theme) =>
     pageColumn: {
       paddingTop: theme.spacing(2),
       flex: 1,
+    },
+    hideOnSmallScreen: {
+      [theme.breakpoints.down('md')]: {
+        display: 'none',
+      },
     },
     alert: {
       alignItems: 'center',

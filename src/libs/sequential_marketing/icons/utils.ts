@@ -64,9 +64,7 @@ export const TriggerText = ({ connected_trigger_config }: TriggerProps) => {
     TriggerEnum.TIMEOUT_TRIGGER_IDENTIFIER
   ) {
     return t('cadence.triggers.timeout.timout_days_chip', {
-      days:
-        (connected_trigger_config?.trigger_config?.timeout || 0) /
-        (24 * 60 * 60),
+      days: connected_trigger_config?.trigger_config?.timeout || 0,
     });
   }
 

@@ -10,6 +10,19 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import {
+  DndContext,
+  DragEndEvent,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 
 import CadenceListItem, {
   CadenceListItemLoading,
@@ -27,7 +40,12 @@ type Props = {
   onRestore?: (id: number) => void;
   archivedVersion?: boolean;
   selectedId?: number;
+  updateCadencePriorityIndex?: (
+    id: number,
+    data: { priority_index: number },
+  ) => void;
 };
+
 export const CadenceList: React.FC<Props> = ({
   cadences,
   cadenceLoading,
@@ -38,6 +56,7 @@ export const CadenceList: React.FC<Props> = ({
   onClickItem,
   archivedVersion,
   selectedId,
+  updateCadencePriorityIndex,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
@@ -48,6 +67,16 @@ export const CadenceList: React.FC<Props> = ({
   const handleDeleteCadence = (cadence: Cadence) => onDelete(cadence);
   const handleRestoreCadence = (cadence: Cadence) => onRestore(cadence.id);
   const handleClickItem = (cadence: Cadence) => onClickItem(cadence);
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  const cadenceSortableItems = React.useMemo(() => {
+    return [...(cadences || [])]?.filter(
+      (cadence) =>
+        !!cadence &&
+        !!cadence?.priority_index &&
+        typeof cadence?.priority_index === 'number',
+    );
+  }, [cadences]);
 
   if (cadenceLoading || !cadences) {
     return (cadences?.map((item) => item?.id) || [1, 2, 3]).map((_idx) => (
@@ -90,24 +119,47 @@ export const CadenceList: React.FC<Props> = ({
       </div>
     );
   }
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e;
+    const activateCadenceId = active?.data.current?.cadence_id;
+    const overCadenceIndex = over?.id;
+    if (activateCadenceId && overCadenceIndex) {
+      updateCadencePriorityIndex(activateCadenceId, {
+        priority_index: parseInt(overCadenceIndex),
+      });
+    }
+  };
+
   return (
-    <>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      modifiers={[restrictToVerticalAxis]}
+    >
       <List>
-        {cadences.map((cadence) => (
-          <CadenceListItem
-            loading={cadenceLoading}
-            key={`cadence_enable${cadence.id}`}
-            cadence={cadence}
-            onClick={onClickItem && handleClickItem}
-            onShow={onShow && handleShowCadence}
-            onEdit={onEdit && handleEditCadence}
-            onDelete={onDelete && handleDeleteCadence}
-            onRestore={onRestore && handleRestoreCadence}
-            selectedId={selectedId}
-          />
-        ))}
+        <SortableContext
+          items={cadenceSortableItems?.map((cadence) =>
+            cadence.priority_index?.toString(),
+          )}
+          strategy={verticalListSortingStrategy}
+        >
+          {cadenceSortableItems.map((cadence) => (
+            <CadenceListItem
+              sortable
+              key={`cadence_enable${cadence.id}`}
+              cadence={cadence}
+              onClick={onClickItem && handleClickItem}
+              onShow={onShow && handleShowCadence}
+              onEdit={onEdit && handleEditCadence}
+              onDelete={onDelete && handleDeleteCadence}
+              onRestore={onRestore && handleRestoreCadence}
+              selectedId={selectedId}
+            />
+          ))}
+        </SortableContext>
       </List>
-    </>
+    </DndContext>
   );
 };
 

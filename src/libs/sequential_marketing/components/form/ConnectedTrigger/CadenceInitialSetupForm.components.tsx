@@ -32,14 +32,7 @@ type InitialSetUpComponentProps = BaseFormComponentProps & {
 
 export const CadenceInitialSetupForm: React.FC<InitialSetUpComponentProps> = ({
   smartlists,
-  emailListLoading,
-  emails,
-  emailDetailLoading,
-  emailDetails,
-  getEmails,
-  getEmailDetail,
   onSubmit,
-  tagList,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useConnectedTriggerFormStyles();
@@ -110,47 +103,30 @@ export const CadenceInitialSetupForm: React.FC<InitialSetUpComponentProps> = ({
       {formStep === CADENCE_STEPPER_ENTRY_STEP && (
         <TriggerForm
           smartlists={smartlists}
-          tagList={tagList}
           onSubmit={handleSubmitEntryForm}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
+          cadenceEntry
+          noEmptyTrigger
         />
       )}
 
       {formStep === CADENCE_STEPPER_WIN_STEP && (
         <TriggerForm
           smartlists={smartlists}
-          tagList={tagList}
           onSubmit={handleSubmitWinForm}
-          withMarketingActions
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
           onCancel={handleCancelWinForm}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
+          cadenceExitSuccess
+          noEmptyTrigger
         />
       )}
 
       {formStep === CADENCE_STEPPER_LOSE_STEP && (
         <TriggerForm
           smartlists={smartlists}
-          tagList={tagList}
           onSubmit={handleSubmitLoseStep}
-          withMarketingActions
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
           onCancel={handleCancelLoseStep}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
           withTimeout
+          cadenceExitFail
+          noEmptyTrigger
         />
       )}
     </div>

@@ -201,8 +201,8 @@ export const useNodeElementsRecorder = ({
         storedEntryStep.canvas?.positions?.y
           ? {
               position: {
-                x: storedEntryStep.canvas?.positions?.x,
-                y: storedEntryStep.canvas?.positions?.y,
+                x: parseFloat(storedEntryStep.canvas?.positions?.x ?? '0'),
+                y: parseFloat(storedEntryStep.canvas?.positions?.y ?? '0'),
               },
             }
           : { position: { x: 0, y: 0 } }),
@@ -234,8 +234,8 @@ export const useNodeElementsRecorder = ({
         triggerNode?.trigger.canvas?.positions?.y
           ? {
               position: {
-                x: triggerNode.trigger.canvas.positions.x,
-                y: triggerNode.trigger.canvas.positions.y,
+                x: parseFloat(triggerNode.trigger.canvas.positions.x),
+                y: parseFloat(triggerNode.trigger.canvas.positions.y),
               },
             }
           : { position: { x: 0, y: 0 } }),
@@ -260,8 +260,8 @@ export const useNodeElementsRecorder = ({
         id: NODE_FAKER_IDENTIFIER,
         type: CustomNodesEnum.ConnectedTriggerNodeElementFlowVersionNode,
         position: {
-          x: storedStepNodeFakerSource?.canvas?.positions?.x,
-          y: storedStepNodeFakerSource?.canvas?.positions?.y + 200,
+          x: parseFloat(storedStepNodeFakerSource?.canvas?.positions?.x),
+          y: parseFloat(storedStepNodeFakerSource?.canvas?.positions?.y) + 200,
         },
         draggable: false,
         data: {
@@ -297,8 +297,8 @@ export const useNodeElementsRecorder = ({
         ...(stepNode?.canvas?.positions?.x && stepNode?.canvas?.positions?.y
           ? {
               position: {
-                x: stepNode.canvas.positions.x,
-                y: stepNode.canvas.positions.y,
+                x: parseFloat(stepNode.canvas.positions.x),
+                y: parseFloat(stepNode.canvas.positions.y),
               },
             }
           : { position: { x: 0, y: 0 } }),

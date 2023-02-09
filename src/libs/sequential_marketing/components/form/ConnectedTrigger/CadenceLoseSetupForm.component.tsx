@@ -31,13 +31,6 @@ type InitialLoseComponentProps = BaseFormComponentProps & {
 export const CadenceLoseSetupForm: React.FC<InitialLoseComponentProps> = ({
   cadence,
   smartlists,
-  tagList,
-  emailListLoading,
-  emails,
-  emailDetailLoading,
-  emailDetails,
-  getEmails,
-  getEmailDetail,
   onSubmit,
   viewMode,
 }) => {
@@ -86,18 +79,11 @@ export const CadenceLoseSetupForm: React.FC<InitialLoseComponentProps> = ({
       <Divider />
       <TriggerForm
         initial={initial}
-        withMarketingActions
         smartlists={smartlists}
-        tagList={tagList}
         onSubmit={handleSubmitForm}
-        emailListLoading={emailListLoading}
-        emails={emails}
-        emailDetailLoading={emailDetailLoading}
-        emailDetails={emailDetails}
-        getEmails={getEmails}
-        getEmailDetail={getEmailDetail}
         withTimeout
         viewMode={viewMode}
+        cadenceExitFail
       />
     </div>
   );

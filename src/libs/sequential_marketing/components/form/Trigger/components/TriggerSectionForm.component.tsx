@@ -24,21 +24,22 @@ import { RuleBetweenEntryEvent } from '../../../../constants';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 import type { FormikValues } from './index';
-import type { EmailTemplate } from '#libs/email-editor/types';
 import type { SmartList } from '#libs/smart-list/types';
 
 type Props = {
   smartlists: SmartList[];
-  onlyMarketingActions: boolean;
-  emails: Array<EmailTemplate>;
   forceAndLogicForTriggerAndSmartList: boolean;
+  cadenceEntry?: boolean;
+  cadenceExitSuccess?: boolean;
+  cadenceExitFail?: boolean;
 };
 
 export const TriggerSectionForm: React.FC<Props> = ({
-  onlyMarketingActions,
   smartlists,
-  emails,
   forceAndLogicForTriggerAndSmartList,
+  cadenceEntry,
+  cadenceExitSuccess,
+  cadenceExitFail,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useCadenceFormStyles();
@@ -62,7 +63,6 @@ export const TriggerSectionForm: React.FC<Props> = ({
     triggerEventKindSelected,
     CADENCE_EVENT_GROUPED_OPTIONS,
   } = useCadenceFormContext({
-    emails,
     smartlists: smartListChoices,
     forceAndLogicForTriggerAndSmartList: !!forceAndLogicForTriggerAndSmartList,
   });
@@ -109,9 +109,31 @@ export const TriggerSectionForm: React.FC<Props> = ({
     }
   }, [values]);
 
-  if (onlyMarketingActions) {
-    return null;
-  }
+  const alertInfotext = React.useMemo(() => {
+    if (cadenceEntry) {
+      return t('cadence.form.trigger.helpers.cadence');
+    }
+    if (cadenceExitSuccess) {
+      return t('cadence.form.trigger.helpers.exitSuccess');
+    }
+    if (cadenceExitFail) {
+      return t('cadence.form.trigger.helpers.exitFail');
+    }
+    return t('cadence.form.trigger.helpers.step');
+  }, [cadenceEntry, cadenceExitSuccess, cadenceExitFail, t]);
+
+  const triggerLabel = React.useMemo(() => {
+    if (cadenceEntry) {
+      return t('cadence.form.trigger.labels.cadence');
+    }
+    if (cadenceExitSuccess) {
+      return t('cadence.form.trigger.labels.exitSuccess');
+    }
+    if (cadenceExitFail) {
+      return t('cadence.form.trigger.labels.exitFail');
+    }
+    return t('cadence.form.trigger.labels.step');
+  }, [cadenceEntry, cadenceExitSuccess, cadenceExitFail, t]);
 
   if (!forceAndLogicForTriggerAndSmartList) {
     return (
@@ -124,13 +146,11 @@ export const TriggerSectionForm: React.FC<Props> = ({
         </div>
         <div className={classes.alertContainer}>
           <Alert severity="info" className={classes.alert}>
-            {t('cadence.form.trigger.helper')}
+            {alertInfotext}
           </Alert>
         </div>
         <FormGroup>
-          <Typography variant="body1">
-            {t('cadence.form.trigger.composed_of')}
-          </Typography>
+          <Typography variant="body1">{triggerLabel}</Typography>
           <div className={classes.paddingLeft2}>
             <CheckboxField
               id="select_entry_type_event"
@@ -226,13 +246,13 @@ export const TriggerSectionForm: React.FC<Props> = ({
       </div>
       <div className={classes.alertContainer}>
         <Alert severity="info" className={classes.alert}>
-          {t('cadence.form.trigger.helper')}
+          {cadenceEntry
+            ? t('cadence.form.trigger.helpers.cadence')
+            : t('cadence.form.trigger.helpers.step')}
         </Alert>
       </div>
       <FormGroup>
-        <Typography variant="body1">
-          {t('cadence.form.trigger.composed_of')}
-        </Typography>
+        <Typography variant="body1">{triggerLabel}</Typography>
         {/* NON FORMIK PART */}
         <div className={classes.paddingLeft2}>
           <FormControlLabel

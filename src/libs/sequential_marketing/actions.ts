@@ -15,7 +15,8 @@ import {
   restoreCadence as restoreCadenceAPI,
   activateCadence as activateCadenceAPI,
   shutOffCadence as shutOffCadenceAPI,
-  upsertCadenceConfiguration as upsertCadenceConfigurationAPI,
+  setInitialCadenceConfiguration as setInitialCadenceConfigurationAPI,
+  patchInitialCadenceConfiguration as patchInitialCadenceConfigurationAPI,
   // STEP
   retrieveCadenceStep as retrieveCadenceStepAPI,
   fetchCadenceStepList as fetchCadenceStepListAPI,
@@ -25,6 +26,12 @@ import {
   updateConnectedTrigger as updateConnectedTriggerAPI,
   updateCadenceStep as updateCadenceStepAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
+
+  // MARKETING ACTIONS
+  fetchMarketingActions as fetchMarketingActionsAPI,
+  createStepMarketingAction as createStepMarketingActionAPI,
+  updateStepMarketingAction as updateStepMarketingActionAPI,
+  deleteStepMarketingAction as deleteStepMarketingActionAPI,
 } from './api';
 
 import type {
@@ -32,7 +39,19 @@ import type {
   CadenceStep,
   CadenceQueryParams,
   CadenceStepQueryParams,
+  StepMarketinActionsParams,
+  StepMarketingActions,
+  GraphCanvas,
 } from './types';
+
+import type { FormValues } from '#libs/sequential_marketing/serializers/types';
+import CadenceSerializer from './serializers/CadenceSerializer';
+import CadenceConfigurationSerializer from './serializers/CadenceConfigurationSerializer';
+import StepSerializer, {
+  convertStepConnectedTrigger,
+} from './serializers/StepSerializer';
+import ConnectedTriggerFormSerializer from './serializers/ConnectedTriggerFormSerializer';
+import StepSubscriptionSerializer from './serializers/StepSubscriptionSerializer';
 
 export const createCadenceActions = {
   isLoading: createAction('CADENCE/CREATE/IS_LOADING'),
@@ -50,8 +69,10 @@ export function createCadence(
 
     try {
       const response = await createCadenceAPI(data);
-      dispatch(createCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(createCadenceActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(createCadenceActions.error(err));
@@ -70,7 +91,7 @@ export const updateCadenceActions = {
 
 export function updateCadence(
   id: number,
-  data: { name: string },
+  data: { name?: string; priority_index?: number },
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -79,8 +100,10 @@ export function updateCadence(
 
     try {
       const response = await updateCadenceAPI(id, data);
-      dispatch(updateCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(updateCadenceActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(updateCadenceActions.error(err));
@@ -97,15 +120,15 @@ export const archiveCadenceActions = {
   success: createAction('CADENCE/ARCHIVE/SUCCESS'),
 };
 
-export function archiveCadence(id: number, options?: OptionCallback<Cadence>) {
+export function archiveCadence(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(archiveCadenceActions.isLoading(true));
     dispatch(archiveCadenceActions.error(null));
 
     try {
-      const response = await archiveCadenceAPI(id);
-      dispatch(archiveCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      await archiveCadenceAPI(id);
+      dispatch(archiveCadenceActions.success({ id }));
+      options && options.onSuccess && options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(archiveCadenceActions.error(err));
@@ -129,8 +152,10 @@ export function restoreCadence(id: number, options?: OptionCallback<Cadence>) {
 
     try {
       const response = await restoreCadenceAPI(id);
-      dispatch(restoreCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(restoreCadenceActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(restoreCadenceActions.error(err));
@@ -154,8 +179,10 @@ export function activateCadence(id: number, options?: OptionCallback<Cadence>) {
 
     try {
       const response = await activateCadenceAPI(id);
-      dispatch(activateCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(activateCadenceActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(activateCadenceActions.error(err));
@@ -179,8 +206,10 @@ export function shutOffCadence(id: number, options?: OptionCallback<Cadence>) {
 
     try {
       const response = await shutOffCadenceAPI(id);
-      dispatch(shutOffCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(shutOffCadenceActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(shutOffCadenceActions.error(err));
@@ -191,34 +220,78 @@ export function shutOffCadence(id: number, options?: OptionCallback<Cadence>) {
   };
 }
 
-export const upsertCadenceConfigurationActions = {
+export const upsertInitialCadenceConfigurationActions = {
   isLoading: createAction('CADENCE/SETUP_CONFIG/IS_LOADING'),
   error: createAction('CADENCE/SETUP_CONFIG/ERROR'),
   success: createAction('CADENCE/SETUP_CONFIG/SUCCESS'),
 };
 
-export function upsertCadenceConfiguration(
+export function setInitialCadenceConfiguration(
   id: number,
-  data: any,
+  data: FormValues,
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(upsertCadenceConfigurationActions.isLoading(true));
-    dispatch(upsertCadenceConfigurationActions.error(null));
+    dispatch(upsertInitialCadenceConfigurationActions.isLoading(true));
+    dispatch(upsertInitialCadenceConfigurationActions.error(null));
 
     try {
-      const response = await upsertCadenceConfigurationAPI(id, data);
-      dispatch(upsertCadenceConfigurationActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const formSerializer = new CadenceConfigurationSerializer(data);
+      const serializedValues = formSerializer.serializeBackEndData();
+
+      const response = await setInitialCadenceConfigurationAPI(
+        id,
+        serializedValues,
+      );
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(
+        upsertInitialCadenceConfigurationActions.success(serializedData),
+      );
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
-      dispatch(upsertCadenceConfigurationActions.error(err));
+      dispatch(upsertInitialCadenceConfigurationActions.error(err));
       options && options.onError && options.onError();
     }
 
-    dispatch(upsertCadenceConfigurationActions.isLoading(false));
+    dispatch(upsertInitialCadenceConfigurationActions.isLoading(false));
   };
 }
+
+export function updateInitialCadenceConfiguration(
+  id: number,
+  data: FormValues,
+  options?: OptionCallback<Cadence>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertInitialCadenceConfigurationActions.isLoading(true));
+    dispatch(upsertInitialCadenceConfigurationActions.error(null));
+
+    try {
+      const formSerializer = new CadenceConfigurationSerializer(data);
+      const serializedValues = formSerializer.serializeBackEndData();
+
+      const response = await patchInitialCadenceConfigurationAPI(
+        id,
+        serializedValues,
+      );
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(
+        upsertInitialCadenceConfigurationActions.success(serializedData),
+      );
+      options && options.onSuccess && options.onSuccess(serializedData);
+    } catch (err) {
+      console.error(err);
+      dispatch(upsertInitialCadenceConfigurationActions.error(err));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(upsertInitialCadenceConfigurationActions.isLoading(false));
+  };
+}
+
 export const retrieveCadenceActions = {
   isLoading: createAction('CADENCE/RETRIEVE/IS_LOADING'),
   error: createAction('CADENCE/RETRIEVE/ERROR'),
@@ -232,8 +305,10 @@ export function retrieveCadence(id: number, options?: OptionCallback<Cadence>) {
 
     try {
       const response = await retrieveCadenceAPI(id);
-      dispatch(retrieveCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(retrieveCadenceActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(retrieveCadenceActions.error(err));
@@ -260,8 +335,20 @@ export function fetchCadenceList(
 
     try {
       const response = await fetchCadenceListAPI(params);
-      dispatch(fetchCadenceListActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new CadenceSerializer(response.data.results);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(
+        fetchCadenceListActions.success({
+          ...response.data,
+          results: serializedData,
+        }),
+      );
+      options &&
+        options.onSuccess &&
+        options.onSuccess({
+          ...response.data,
+          results: serializedData,
+        });
     } catch (err) {
       console.error(err);
       dispatch(fetchCadenceListActions.error(err));
@@ -288,8 +375,10 @@ export function retrieveCadenceStep(
 
     try {
       const response = await retrieveCadenceStepAPI(id);
-      dispatch(retrieveCadenceStepActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new StepSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(retrieveCadenceStepActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(retrieveCadenceStepActions.error(err));
@@ -316,8 +405,20 @@ export function fetchCadenceStepList(
 
     try {
       const response = await fetchCadenceStepListAPI(params);
-      dispatch(fetchCadenceStepListActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new StepSerializer(response.data.results);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(
+        fetchCadenceStepListActions.success({
+          ...response.data,
+          results: serializedData,
+        }),
+      );
+      options &&
+        options.onSuccess &&
+        options.onSuccess({
+          ...response.data,
+          results: serializedData,
+        });
     } catch (err) {
       console.error(err);
       dispatch(fetchCadenceStepListActions.error(err));
@@ -345,8 +446,10 @@ export function updateCadenceStepCanvasPosition(
 
     try {
       const response = await updateCadenceStepCanvasPositionAPI(id, position);
-      dispatch(updateCadenceStepCanvasPositionActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new StepSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(updateCadenceStepCanvasPositionActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(updateCadenceStepCanvasPositionActions.error(err));
@@ -383,7 +486,7 @@ export function updateCadenceStepConnectedTriggerCanvasPosition(
       );
       dispatch(
         updateCadenceStepConnectedTriggerCanvasPositionActions.success(
-          response.data,
+          convertStepConnectedTrigger(response.data),
         ),
       );
       options && options.onSuccess && options.onSuccess(response.data);
@@ -415,7 +518,7 @@ export const updateCadenceStepActions = {
 export function updateCadenceStep(
   id: number,
   data: { name: string },
-  options?: OptionCallback<Cadence>,
+  options?: OptionCallback<CadenceStep>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(updateCadenceStepActions.isLoading(true));
@@ -423,8 +526,10 @@ export function updateCadenceStep(
 
     try {
       const response = await updateCadenceStepAPI(id, data);
-      dispatch(updateCadenceStepActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      const serializer = new StepSerializer(response.data);
+      const serializedData = serializer.serializeBackEndData();
+      dispatch(updateCadenceStepActions.success(serializedData));
+      options && options.onSuccess && options.onSuccess(serializedData);
     } catch (err) {
       console.error(err);
       dispatch(updateCadenceStepActions.error(err));
@@ -463,7 +568,8 @@ export function deleteCadenceStep(
 }
 
 export function subscribeStepToStep(
-  id: number,
+  cadenceId: number,
+  sourceStep: CadenceStep,
   data: any,
   options?: OptionCallback<CadenceStep>,
 ) {
@@ -472,8 +578,18 @@ export function subscribeStepToStep(
     dispatch(subscribeStepToStepActions.error(null));
 
     try {
-      const response = await subscribeStepToStepAPI(id, data);
-      dispatch(subscribeStepToStepActions.success(response.data));
+      const serializer = new StepSubscriptionSerializer(
+        sourceStep,
+        data.step,
+        data,
+      );
+      const serializedData = serializer.serializeBackEndData();
+      const response = await subscribeStepToStepAPI(
+        cadenceId,
+        sourceStep.id,
+        serializedData,
+      );
+      dispatch(subscribeStepToStepActions.success());
       options && options.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
@@ -486,8 +602,10 @@ export function subscribeStepToStep(
 }
 
 export function updateConnectedTrigger(
-  id: number,
-  data: any,
+  cadenceId: number,
+  connectedTriggerUUID: string,
+  canvas: GraphCanvas,
+  data: { trigger: any; step: any; values: any },
   options?: OptionCallback<CadenceStep>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -495,7 +613,20 @@ export function updateConnectedTrigger(
     dispatch(subscribeStepToStepActions.error(null));
 
     try {
-      const response = await updateConnectedTriggerAPI(id, data);
+      const serializer = new ConnectedTriggerFormSerializer(
+        data.step.id,
+        data.trigger?.destination_config?.id ?? null,
+        canvas,
+        data.values,
+      );
+
+      const serializedData = serializer.serializeBackEndData();
+
+      const response = await updateConnectedTriggerAPI(
+        cadenceId,
+        connectedTriggerUUID,
+        serializedData,
+      );
       dispatch(subscribeStepToStepActions.success(response.data));
       options && options.onSuccess && options.onSuccess(response.data);
     } catch (err) {
@@ -505,5 +636,95 @@ export function updateConnectedTrigger(
     }
 
     dispatch(subscribeStepToStepActions.isLoading(false));
+  };
+}
+
+export const fetchStepMarketingActions = {
+  isLoading: createAction('CADENCE/MARKETING_ACTIONS/IS_LOADING'),
+  error: createAction('CADENCE/MARKETING_ACTIONS/ERROR'),
+  success: createAction('CADENCE/MARKETING_ACTIONS/SUCCESS'),
+};
+
+export function fetchMarketingActions(
+  params?: StepMarketinActionsParams,
+  options?: OptionPaginatedCallback<StepMarketingActions>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchStepMarketingActions.isLoading(true));
+    dispatch(fetchStepMarketingActions.error(null));
+
+    try {
+      const response = await fetchMarketingActionsAPI(params);
+      dispatch(fetchStepMarketingActions.success(response.data));
+      options && options.onSuccess && options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchStepMarketingActions.error(err));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(fetchStepMarketingActions.isLoading(false));
+  };
+}
+
+export const upsertStepMarketingActionsActions = {
+  isLoading: createAction('CADENCE/MARKETING_ACTIONS/UPSERT/IS_LOADING'),
+  error: createAction('CADENCE/MARKETING_ACTIONS/UPSERT/ERROR'),
+  success: createAction('CADENCE/MARKETING_ACTIONS/UPSERT/SUCCESS'),
+};
+
+export function upsertStepMarketingAtions(
+  data: StepMarketingActions,
+  options?: OptionCallback<StepMarketingActions>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertStepMarketingActionsActions.isLoading(true));
+    dispatch(upsertStepMarketingActionsActions.error(null));
+
+    try {
+      if (data?.id) {
+        const response = await updateStepMarketingActionAPI(data.id, data);
+        dispatch(upsertStepMarketingActionsActions.success(response.data));
+        options && options.onSuccess && options.onSuccess();
+      } else {
+        const response = await createStepMarketingActionAPI(data);
+        dispatch(upsertStepMarketingActionsActions.success(response.data));
+        options && options.onSuccess && options.onSuccess();
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(upsertStepMarketingActionsActions.error(err));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(upsertStepMarketingActionsActions.isLoading(false));
+  };
+}
+
+export const deleteStepMarketingActionsActions = {
+  isLoading: createAction('CADENCE/MARKETING_ACTIONS/DELETE/IS_LOADING'),
+  error: createAction('CADENCE/MARKETING_ACTIONS/DELETE/ERROR'),
+  success: createAction('CADENCE/MARKETING_ACTIONS/DELETE/SUCCESS'),
+};
+
+export function deleteStepMarketingAction(
+  data: { id: number; stepId: number },
+  options?: OptionCallback<StepMarketingActions>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteStepMarketingActionsActions.isLoading(true));
+    dispatch(deleteStepMarketingActionsActions.error(null));
+
+    try {
+      await deleteStepMarketingActionAPI(data.id);
+      dispatch(deleteStepMarketingActionsActions.success(data));
+      options && options.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteStepMarketingActionsActions.error(err));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(deleteStepMarketingActionsActions.isLoading(false));
   };
 }

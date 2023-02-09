@@ -7,6 +7,7 @@ import type {
   Cadence,
   CadenceConnectedTriggerConfig,
   CadenceStep,
+  StepMarketingActions,
 } from './types';
 import { getSmartListDict } from '#libs/smart-list/selectors';
 
@@ -16,6 +17,12 @@ const _getCadenceAllIds = (state: RootState) => state.cadence.cadence.allIds;
 const _getCadencebyId = (state: RootState) => state.cadence.cadence.byId;
 const _getStepAllIIds = (state: RootState) => state.cadence.step.allIds;
 const _getStepById = (state: RootState) => state.cadence.step.byId;
+const _getStepMarketingActionsAllIds = (state: RootState) =>
+  state.cadence.marketingActions.allIds;
+const _getStepMarketingActionsById = (state: RootState) =>
+  state.cadence.marketingActions.byId;
+const _getStepMarketingActionsByStepId = (state: RootState) =>
+  state.cadence.marketingActions.byStepId;
 
 export const getCadenceLoading = (state: RootState) =>
   state.cadence.cadence.loading;
@@ -75,7 +82,7 @@ export const withSteps = memoize((selector: Selector<Cadence>) =>
     if (Array.isArray(cadences)) {
       return cadences.map((cadence) => ({
         ...cadence,
-        steps: cadence.steps.map((_step: number) => stepsData[_step]),
+        steps: cadence.steps?.map((_step: number) => stepsData[_step]),
       }));
     }
     return {
@@ -110,4 +117,34 @@ export const withSmartLists = memoize((selector: Selector<Cadence>) =>
       })),
     };
   }),
+);
+
+export const getStepMarketingActionsLoading = (state: RootState) =>
+  state.cadence.marketingActions.loading;
+export const getStepMarketingActionsUpsertLoading = (state: RootState) =>
+  state.cadence.marketingActions.upsert.loading;
+
+export const getMarketingActionsList = createSelector(
+  [_getStepMarketingActionsAllIds, _getStepMarketingActionsById],
+  (ids, data) => ids.map((_id) => data[_id]),
+);
+
+export const getEnabledMarketingActionsList = createSelector(
+  [getMarketingActionsList],
+  (marketingAction) => marketingAction.filter((ma) => !ma.disabled),
+);
+
+export const getDisablededMarketingActionsList = createSelector(
+  [getMarketingActionsList],
+  (marketingAction) => marketingAction.filter((ma) => ma.disabled),
+);
+
+export const getMarketingAction: Selector<StepMarketingActions> = (
+  state: RootState,
+  id: number,
+) => _getStepMarketingActionsById(state)[id];
+
+export const getStepMarketingActionsByStepId = createSelector(
+  [_getStepMarketingActionsByStepId, (_: RootState, id: number) => id],
+  (marketingActionbyStepId, id) => marketingActionbyStepId[id] ?? [],
 );

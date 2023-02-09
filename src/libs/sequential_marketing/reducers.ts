@@ -1,6 +1,13 @@
+import uniq from 'lodash/uniq';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import type { Cadence, CadenceStep, CadenceState } from './types';
+import type {
+  Cadence,
+  CadenceStep,
+  CadenceState,
+  StepMarketingActions,
+  StepConnectedTriggerConfig,
+} from './types';
 import type { PaginatedResponse } from '../../state/types';
 import {
   // CADENCE
@@ -12,7 +19,7 @@ import {
   restoreCadenceActions,
   activateCadenceActions,
   shutOffCadenceActions,
-  upsertCadenceConfigurationActions,
+  upsertInitialCadenceConfigurationActions,
   // STEPS
   retrieveCadenceStepActions,
   fetchCadenceStepListActions,
@@ -21,6 +28,11 @@ import {
   subscribeStepToStepActions,
   updateCadenceStepActions,
   deleteCadenceStepActions,
+
+  // MARKETING ACTIONS
+  fetchStepMarketingActions,
+  upsertStepMarketingActionsActions,
+  deleteStepMarketingActionsActions,
 } from './actions';
 
 type ImmutableCadenceState = Immutable.Immutable<CadenceState>;
@@ -41,6 +53,17 @@ const initialState: ImmutableCadenceState = Immutable<CadenceState>({
     subscribe: {
       error: null,
       loading: false,
+    },
+  },
+  marketingActions: {
+    allIds: [],
+    byId: {},
+    byStepId: {},
+    loading: false,
+    error: null,
+    upsert: {
+      loading: false,
+      error: null,
     },
   },
   loading: false,
@@ -88,20 +111,19 @@ export default handleActions<ImmutableCadenceState, any>(
     ) => {
       return state.setIn(['cadence', 'byId', payload.id], payload);
     },
-
-    [upsertCadenceConfigurationActions.isLoading.toString()]: (
+    [upsertInitialCadenceConfigurationActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['cadence', 'loading'], payload);
     },
-    [upsertCadenceConfigurationActions.error.toString()]: (
+    [upsertInitialCadenceConfigurationActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['cadence', 'error'], payload);
     },
-    [upsertCadenceConfigurationActions.success.toString()]: (
+    [upsertInitialCadenceConfigurationActions.success.toString()]: (
       state,
       { payload }: { payload: Cadence },
     ) => {
@@ -122,7 +144,7 @@ export default handleActions<ImmutableCadenceState, any>(
     },
     [archiveCadenceActions.success.toString()]: (
       state,
-      { payload }: { payload: Cadence },
+      { payload }: { payload: { id: number } },
     ) => {
       return state.setIn(['cadence', 'byId', payload.id], payload);
     },
@@ -363,10 +385,22 @@ export default handleActions<ImmutableCadenceState, any>(
       return state.setIn(['step', 'error'], payload);
     },
     [updateCadenceStepConnectedTriggerCanvasPositionActions.success.toString()]:
-      (state, { payload }: { payload: CadenceStep }) => {
-        return state.setIn(['step', 'byId', payload.id], payload);
+      (state, { payload }: { payload: StepConnectedTriggerConfig }) => {
+        return state.setIn(
+          [
+            'step',
+            'byId',
+            payload.destination_config.source_id.toString(),
+            'exits',
+          ],
+          [
+            ...state.step.byId[
+              payload.destination_config.source_id
+            ].exits.filter((e) => e.uuid !== payload.uuid),
+            payload,
+          ],
+        );
       },
-
     [subscribeStepToStepActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -379,11 +413,116 @@ export default handleActions<ImmutableCadenceState, any>(
     ) => {
       return state.setIn(['step', 'subscribe', 'error'], payload);
     },
-    [subscribeStepToStepActions.success.toString()]: (
+    // TODO : Handle data to avoid refresh on success (backEnd not working for now)
+    // [subscribeStepToStepActions.success.toString()]: (
+    //   state,
+    //   { payload }: { payload: CadenceStep },
+    // ) => {
+    //   return state.setIn(['step', 'byId', payload.id], payload);
+    // },
+
+    [fetchStepMarketingActions.isLoading.toString()]: (
       state,
-      { payload }: { payload: CadenceStep },
+      { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['step', 'byId', payload.id], payload);
+      return state.setIn(['marketingActions', 'loading'], payload);
+    },
+    [fetchStepMarketingActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['marketingActions', 'error'], payload);
+    },
+    [fetchStepMarketingActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<StepMarketingActions> },
+    ) => {
+      return state
+        .setIn(
+          ['marketingActions', 'allIds'],
+          payload.results.map((marketingAction) => marketingAction.id),
+        )
+        .merge(
+          {
+            marketingActions: {
+              byId: payload.results.reduce<
+                PayloadReduceType<StepMarketingActions>
+              >((acc, cV) => {
+                acc[cV.id] = cV;
+                return acc;
+              }, {}),
+              byStepId: payload.results.reduce<
+                PayloadReduceType<StepMarketingActions[]>
+              >((acc, cV) => {
+                if (acc[cV.cadence_step]) {
+                  acc[cV.cadence_step].push(cV);
+                } else {
+                  acc[cV.cadence_step] = [cV];
+                }
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [upsertStepMarketingActionsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['marketingActions', 'upsert', 'loading'], payload);
+    },
+    [upsertStepMarketingActionsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['marketingActions', 'upsert', 'loading'], payload);
+    },
+    [upsertStepMarketingActionsActions.success.toString()]: (
+      state,
+      { payload }: { payload: StepMarketingActions },
+    ) => {
+      return state
+        .setIn(
+          ['marketingActions', 'allIds'],
+          uniq([...state.marketingActions.allIds, payload.id]),
+        )
+        .setIn(['marketingActions', 'byId', payload.id.toString()], payload)
+        .setIn(
+          ['marketingActions', 'byStepId', payload.cadence_step.toString()],
+          uniq([
+            ...(state.marketingActions.byStepId[payload.cadence_step] ?? []),
+            payload,
+          ]),
+        );
+    },
+    [deleteStepMarketingActionsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['marketingActions', 'upsert', 'loading'], payload);
+    },
+    [deleteStepMarketingActionsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['marketingActions', 'upsert', 'loading'], payload);
+    },
+    [deleteStepMarketingActionsActions.success.toString()]: (
+      state,
+      { payload }: { payload: { id: number; stepId: number } },
+    ) => {
+      return state
+        .setIn(
+          ['marketingActions', 'allIds'],
+          state.marketingActions.allIds.filter((id) => id !== payload.id),
+        )
+        .setIn(
+          ['marketingActions', 'byStepId', payload.stepId.toString()],
+          state.marketingActions.byStepId[payload.stepId].filter(
+            (ma) => ma.id !== payload.id,
+          ),
+        );
     },
   },
   initialState,

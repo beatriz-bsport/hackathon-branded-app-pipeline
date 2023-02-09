@@ -16,7 +16,7 @@ export const useTimeOutContext = () => {
   const handleChangeTimeOut = (event: React.ChangeEvent<HTMLInputElement>) =>
     setFieldValue(
       'trigger_destination_timeout_days',
-      (parseFloat(event.target.value) || 0) * 24 * 60 * 60,
+      parseFloat(event.target.value) || TRIGGER_DETAULT_TIMEOUT_DAYS,
     );
 
   return {

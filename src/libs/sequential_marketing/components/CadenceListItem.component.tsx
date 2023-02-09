@@ -12,12 +12,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import Typography from '@material-ui/core/Typography';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
 
 type Props = {
   cadence: Cadence;
+  sortable?: boolean;
   onShow?: (cadence: Cadence) => void;
   onEdit?: (cadence: Cadence) => void;
   onDelete?: (cadence: Cadence) => void;
@@ -30,6 +34,7 @@ type Props = {
 
 export const CadenceListItem: React.FC<Props> = ({
   cadence,
+  sortable,
   withoutIndex,
   onShow,
   onDelete,
@@ -40,69 +45,91 @@ export const CadenceListItem: React.FC<Props> = ({
   selectedId,
 }) => {
   const classes = useListItemStyles();
+  const { listeners, attributes, setNodeRef, transform, transition } =
+    useSortable({
+      id: cadence.priority_index?.toString(10),
+      data: {
+        cadence_id: cadence.id,
+      },
+    });
 
   return (
-    <div className={classNames({ [classes.spacedItems]: !dense })}>
-      <ListItem
-        button={!!onClick}
-        selected={cadence?.id === selectedId}
-        classes={{ root: classes.listItemOutter }}
-        onClick={() => onClick && onClick(cadence)}
-      >
-        <div className={classes.leftItem}>
-          {!withoutIndex && (
-            <div className={classes.indexContainer}>
-              <Typography color="primary" variant="h6">
-                {cadence.priority_index}
-              </Typography>
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
+      className={classNames(classes.fullWidth, {
+        [classes.spacedItems]: !dense,
+      })}
+    >
+      <ListItem>
+        {sortable && (
+          <div className={classes.draggableHandle}>
+            <div {...attributes} {...listeners} style={{ zIndex: 999 }}>
+              <DragHandleIcon />
             </div>
-          )}
-          <Typography variant="body1" color="textSecondary">
-            {cadence.name}
-          </Typography>
-        </div>
-        <div className={classes.listItemAction}>
-          {onShow && (
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                onShow(cadence);
-              }}
-            >
-              <VisibilityIcon />
-            </IconButton>
-          )}
-          {onEdit && (
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                onEdit(cadence);
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          )}
-          {onDelete && (
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete(cadence);
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          )}
-          {onRestore && (
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                onRestore(cadence);
-              }}
-            >
-              <RestoreFromTrashIcon />
-            </IconButton>
-          )}
-        </div>
+          </div>
+        )}
+        <ListItem
+          button={!!onClick}
+          selected={cadence?.id === selectedId}
+          classes={{ root: classes.listItemOutter }}
+          onClick={() => onClick && onClick(cadence)}
+        >
+          <div className={classes.leftItem}>
+            {!withoutIndex && (
+              <div className={classes.indexContainer}>
+                <Typography color="primary" variant="h6">
+                  {cadence.priority_index}
+                </Typography>
+              </div>
+            )}
+            <Typography variant="body1" color="textSecondary">
+              {cadence.name}
+            </Typography>
+          </div>
+          <div className={classes.listItemAction}>
+            {onShow && (
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onShow(cadence);
+                }}
+              >
+                <VisibilityIcon />
+              </IconButton>
+            )}
+            {onEdit && (
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit(cadence);
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+            )}
+            {onDelete && (
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(cadence);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            )}
+            {onRestore && (
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRestore(cadence);
+                }}
+              >
+                <RestoreFromTrashIcon />
+              </IconButton>
+            )}
+          </div>
+        </ListItem>
       </ListItem>
     </div>
   );
@@ -111,6 +138,9 @@ export const CadenceListItem: React.FC<Props> = ({
 export default CadenceListItem;
 
 const useListItemStyles = makeStyles((theme: Theme) => ({
+  fullWidth: {
+    width: '100%',
+  },
   listItemOutter: {
     backgroundColor: 'white',
     display: 'flex',
@@ -128,6 +158,11 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     gap: theme.spacing(1),
+  },
+  draggableHandle: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   listItemAction: {
     display: 'flex',

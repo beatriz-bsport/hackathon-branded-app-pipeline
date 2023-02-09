@@ -8,23 +8,19 @@ import { RuleBetweenEntryEvent } from '#libs/sequential_marketing/constants';
 import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '../utils';
 
 import type { FormikValues } from '../components';
-import type { EmailTemplate } from '#libs/email-editor/types';
 import type { SmartList } from '#libs/smart-list/types';
 
-import useMarketingActionsContext from './useMarketingActions.hook';
 import useEventContext from './useEvents.hook';
 import useTimeOutContext from './useTimeOut.hook';
 import useTriggerOperandContext from './useTriggerOperand.hook';
 import useSmartlistContext from './useSmartlist.hook';
 
 type Props = {
-  emails: EmailTemplate[];
   smartlists: SmartList[];
   forceAndLogicForTriggerAndSmartList: boolean;
 };
 
 export const useCadenceFormContext = ({
-  emails,
   smartlists,
   forceAndLogicForTriggerAndSmartList,
 }: Props) => {
@@ -39,32 +35,12 @@ export const useCadenceFormContext = ({
     return [];
   }, [smartlists]);
 
-  const memoizedEmails = React.useMemo(() => {
-    if (emails) {
-      return emails;
-    }
-    return [];
-  }, [emails]);
-
   const {
     triggerEventKindSelected,
     setTriggerEventKindSelected,
     setTriggerEventKind,
     CADENCE_EVENT_GROUPED_OPTIONS,
   } = useEventContext();
-
-  const {
-    selectedMarketingActions,
-    handleWrittenEmailContentChange,
-    handleWrittenEmailTitleChange,
-    handleSmsContentChange,
-    handlePushNotificationTitleChange,
-    handlePushNotificationContentChange,
-    handleEmailTemplateTitleChange,
-    handleSelectEmailDesign,
-    handleResetMarketingAction,
-    handleMarketingActionChange,
-  } = useMarketingActionsContext({ emails: memoizedEmails });
 
   const { setTimeOutValue, handleChangeTimeOut, timeoutValue } =
     useTimeOutContext();
@@ -104,7 +80,7 @@ export const useCadenceFormContext = ({
     if (!values.trigger_destination_timeout_days) {
       setTimeOutValue(TRIGGER_DETAULT_TIMEOUT_DAYS);
     } else {
-      setTimeOutValue(values.trigger_destination_timeout_days / (24 * 60 * 60));
+      setTimeOutValue(values.trigger_destination_timeout_days);
     }
     if (
       !values.trigger_logic_between_event_and_smartlist ||
@@ -134,18 +110,6 @@ export const useCadenceFormContext = ({
   ]);
 
   return {
-    // MARKETING ACTIONS
-    selectedMarketingActions,
-    handleWrittenEmailContentChange,
-    handleWrittenEmailTitleChange,
-    handleSmsContentChange,
-    handlePushNotificationTitleChange,
-    handlePushNotificationContentChange,
-    handleEmailTemplateTitleChange,
-    handleSelectEmailDesign,
-    handleResetMarketingAction,
-    handleMarketingActionChange,
-
     // EVENT
     setTriggerEventKind,
     triggerEventKindSelected,

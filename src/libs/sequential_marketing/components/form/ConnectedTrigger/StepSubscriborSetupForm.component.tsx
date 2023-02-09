@@ -29,20 +29,7 @@ type StepSubscriborComponentProps = BaseFormComponentProps & {
 };
 export const StepSubscriborSetupForm: React.FC<
   StepSubscriborComponentProps
-> = ({
-  triggerForEdition,
-  smartlists,
-  tagList,
-  emailListLoading,
-  emails,
-  emailDetailLoading,
-  emailDetails,
-  getEmails,
-  getEmailDetail,
-  onSubmit,
-  toExit,
-  viewMode,
-}) => {
+> = ({ triggerForEdition, smartlists, onSubmit, toExit, viewMode }) => {
   const { t } = useTranslation('marketing');
   const classes = useConnectedTriggerFormStyles();
 
@@ -57,11 +44,13 @@ export const StepSubscriborSetupForm: React.FC<
       setInitial(
         getInitialFormValuesFromCTList({
           connected_triggers: [triggerForEdition.trigger],
+          withExit: true,
         }),
       );
     }
   }, [triggerForEdition]);
 
+  const withExit = initial?.is_exit_success || initial?.is_exit_fail;
   return (
     <div>
       <div className={classes.title}>
@@ -70,17 +59,9 @@ export const StepSubscriborSetupForm: React.FC<
       <Divider />
       <TriggerForm
         initial={initial}
-        withMarketingActions
         smartlists={smartlists}
-        tagList={tagList}
         onSubmit={handleSubmitForm}
-        emailListLoading={emailListLoading}
-        emails={emails}
-        emailDetailLoading={emailDetailLoading}
-        emailDetails={emailDetails}
-        getEmails={getEmails}
-        getEmailDetail={getEmailDetail}
-        withExit={toExit}
+        withExit={toExit || withExit}
         forceAndLogicForTriggerAndSmartList
         viewMode={viewMode}
       />

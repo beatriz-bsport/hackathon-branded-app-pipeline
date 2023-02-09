@@ -3,7 +3,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import * as Yup from 'yup';
-import { useFormikContext, withFormik, FormikProps, Form } from 'formik';
+import {
+  useFormikContext,
+  withFormik,
+  FormikProps,
+  Form,
+  ErrorMessage,
+} from 'formik';
 
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -16,24 +22,13 @@ import useCadenceFormStyles from '../hooks/styles.hook';
 import {
   // EVENTS
   RuleBetweenEntryEvent,
-  // MARKETING ACTIONS
-  CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
-  CADENCE_MARKETING_ACTION_SMS,
-  CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
-  CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
-  CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
   CADENCE_EVENT_ALL_CHOICES,
 } from '#libs/sequential_marketing/constants';
-
-import { getTriggerFormData, defaultMarketingActions } from '../utils';
 
 import NumericInput from '#components/input/NumericInput.component';
 import { Submit } from '#components/forms';
 import TriggerSection from './TriggerSectionForm.component';
 import ExitConfigurationSection from './ExitConfigurationSectionForm.component';
-import MarketingActionsForm, {
-  MarketingActionsValues,
-} from '#libs/communication-v2/components/SequentialMarketing/MarketingActionsForm.component';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type {
@@ -44,13 +39,13 @@ import type { SmartList } from '#libs/smart-list/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 import type { OptionCallback } from '../../../../../../state/types';
 
+import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '#libs/sequential_marketing/components/form/Trigger/utils';
+
 export type ComponentProps = {
   viewMode?: boolean;
   smartlists: SmartList[];
   loading?: boolean;
-  withMarketingActions?: boolean;
   forceAndLogicForTriggerAndSmartList?: boolean;
-  onlyMarketingActions?: boolean;
   tagList: Array<Tag<TagGroup>>;
   withTimeout?: boolean;
   emailListLoading: boolean;
@@ -61,6 +56,10 @@ export type ComponentProps = {
   onCancel?: () => void;
   getEmails: () => void;
   getEmailDetail: (id: number) => void;
+  cadenceEntry?: boolean;
+  cadenceExitSuccess?: boolean;
+  cadenceExitFail?: boolean;
+  noEmptyTrigger?: boolean;
 };
 
 export type FormProps = {
@@ -69,7 +68,6 @@ export type FormProps = {
 };
 
 export type Values = {
-  withMarketingActions: boolean;
   withTimeout: boolean;
   trigger_has_event: boolean;
   trigger_event_kind: string | null;
@@ -77,9 +75,10 @@ export type Values = {
   trigger_smartlist_selected: number | null;
   trigger_logic_between_event_and_smartlist: number | null;
   trigger_destination_timeout_days: number;
-  marketing_actions: MarketingActionsValues;
+  marketing_actions: any;
   is_exit_success: boolean;
   is_exit_fail: boolean;
+  noEmptyTrigger?: boolean;
 };
 
 export type SelectorOption = { label: string; value: number | string };
@@ -137,7 +136,7 @@ const CadenceTriggerFormSchema = Yup.object().shape({
     .nullable(true)
     .test(
       'Exit Fail and ExitSuccess Not Both True',
-      'marketing.candence.form.error.multiple_exit_config',
+      'marketing.cadence.form.error.multiple_exit_config',
       function CheckExitStatus(item) {
         if (item) {
           return !this.parent.is_exit_success;
@@ -146,22 +145,32 @@ const CadenceTriggerFormSchema = Yup.object().shape({
       },
     ),
   is_exit_success: Yup.boolean().nullable(true),
+  noEmptyTrigger: Yup.boolean()
+    .nullable(true)
+    .test(
+      'Check For Empty Trigger',
+      'marketing:cadence.form.error.triggerCannotBeEmpty',
+      function CheckForEmprtyTrigger(item) {
+        if (!item) {
+          return true;
+        }
+        return (
+          this.parent.trigger_event_kind ||
+          this.parent.trigger_smartlist_selected
+        );
+      },
+    ),
 });
 
 export const CadenceTriggerForm: React.FC<ComponentProps> = ({
   viewMode,
   smartlists,
-  tagList,
   loading,
-  withMarketingActions,
-  onlyMarketingActions,
   withTimeout,
-  emailListLoading,
-  emails,
-  emailDetailLoading,
-  emailDetails,
+  cadenceEntry,
+  cadenceExitSuccess,
+  cadenceExitFail,
   onCancel,
-  getEmailDetail,
   forceAndLogicForTriggerAndSmartList,
   withExit,
 }) => {
@@ -172,23 +181,9 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
   const { t } = useTranslation('marketing');
   const classes = useCadenceFormStyles();
 
-  const { values, errors, isSubmitting }: FormikValues = useFormikContext();
+  const { isSubmitting, isValid }: FormikValues = useFormikContext();
 
-  const {
-    handleChangeTimeOut,
-    timeoutValue,
-    selectedMarketingActions,
-    handleWrittenEmailContentChange,
-    handleWrittenEmailTitleChange,
-    handleSmsContentChange,
-    handlePushNotificationTitleChange,
-    handlePushNotificationContentChange,
-    handleEmailTemplateTitleChange,
-    handleSelectEmailDesign,
-    handleResetMarketingAction,
-    handleMarketingActionChange,
-  } = useCadenceFormContext({
-    emails,
+  const { handleChangeTimeOut, timeoutValue } = useCadenceFormContext({
     smartlists: smartListChoices,
     forceAndLogicForTriggerAndSmartList: !!forceAndLogicForTriggerAndSmartList,
   });
@@ -197,41 +192,17 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
     <Form className={classes.flexVertical}>
       <TriggerSection
         smartlists={smartListChoices}
-        onlyMarketingActions={onlyMarketingActions}
-        emails={emails}
         forceAndLogicForTriggerAndSmartList={
           !!forceAndLogicForTriggerAndSmartList
         }
+        cadenceEntry={!!cadenceEntry}
+        cadenceExitSuccess={!!cadenceExitSuccess}
+        cadenceExitFail={!!cadenceExitFail}
       />
       {withExit && <Divider />}
       <ExitConfigurationSection withExit={withExit} />
       {withExit && <Divider />}
 
-      {(withMarketingActions || onlyMarketingActions) && (
-        <MarketingActionsForm
-          emails={emails}
-          tagList={tagList}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          emailListLoading={emailListLoading}
-          getEmailDetail={getEmailDetail}
-          selectedMarketingActions={selectedMarketingActions}
-          handleWrittenEmailContentChange={handleWrittenEmailContentChange}
-          handleWrittenEmailTitleChange={handleWrittenEmailTitleChange}
-          handleSmsContentChange={handleSmsContentChange}
-          handlePushNotificationTitleChange={handlePushNotificationTitleChange}
-          handlePushNotificationContentChange={
-            handlePushNotificationContentChange
-          }
-          handleEmailTemplateTitleChange={handleEmailTemplateTitleChange}
-          handleSelectEmailDesign={handleSelectEmailDesign}
-          handleResetMarketingAction={handleResetMarketingAction}
-          handleMarketingActionChange={handleMarketingActionChange}
-          onCancel={onCancel}
-          marketing_actions={values.marketing_actions}
-          errors={errors.marketing_actions}
-        />
-      )}
       {withTimeout && (
         <div className={classes.timeoutSection}>
           <Divider />
@@ -262,6 +233,13 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
           </Typography>
         </div>
       )}
+      <ErrorMessage name="noEmptyTrigger">
+        {(error_msg) => (
+          <Typography variant="caption" color="error">
+            {t(`${error_msg}`)}
+          </Typography>
+        )}
+      </ErrorMessage>
       <>
         <div className={classes.actions}>
           {onCancel && (
@@ -274,7 +252,7 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
               id="submit_steup_entry"
               variant="contained"
               color="primary"
-              disabled={isSubmitting || loading}
+              disabled={isSubmitting || loading || !isValid}
             >
               {t('cadence.form.next')}
             </Submit>
@@ -288,19 +266,18 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
 const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
   mapPropsToValues: ({
     initial,
-    withMarketingActions,
     withTimeout,
     withExit,
+    noEmptyTrigger,
   }: ComponentProps & FormProps) => {
     if (initial) {
       return {
         ...initial,
-        ...defaultMarketingActions,
+        noEmptyTrigger: !!noEmptyTrigger,
       };
     }
 
     return {
-      withMarketingActions: !!withMarketingActions,
       withTimeout: !!withTimeout,
       trigger_has_event: false,
       trigger_event_kind: null,
@@ -309,43 +286,16 @@ const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
       trigger_logic_between_event_and_smartlist:
         RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
       ...(withExit ? { is_exit_success: true, is_exit_fail: false } : {}),
-      ...(withMarketingActions
-        ? {
-            marketing_actions: {
-              [CADENCE_MARKETING_ACTION_WRITTEN_EMAIL]: {
-                configured: false,
-                title: '',
-                content: '',
-              },
-              [CADENCE_MARKETING_ACTION_SMS]: {
-                configured: false,
-                content: '',
-              },
-              [CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION]: {
-                configured: false,
-                title: '',
-                content: '',
-              },
-              [CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE]: {
-                configured: false,
-                email_design_id: null,
-                title: '',
-              },
-              [CADENCE_MARKETING_ACTION_TAG_MANAGEMENT]: {
-                configured: false,
-                tag_id: null,
-              },
-            },
-          }
+      ...(withTimeout
+        ? { trigger_destination_timeout_days: TRIGGER_DETAULT_TIMEOUT_DAYS }
         : {}),
-      ...(withTimeout ? { trigger_destination_timeout_days: 7 } : {}),
+      noEmptyTrigger: !!noEmptyTrigger,
     };
   },
   enableReinitialize: true,
   validationSchema: CadenceTriggerFormSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-    const cleanedData = getTriggerFormData(values);
-    onSubmit(cleanedData, {
+    onSubmit(values, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
     });

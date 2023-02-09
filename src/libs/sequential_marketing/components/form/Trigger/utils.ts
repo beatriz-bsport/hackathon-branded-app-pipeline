@@ -5,49 +5,10 @@ import {
   // FILTERING
   FiltersEnum,
   RuleBetweenEntryEvent,
-  // MARKETING ACTIONS
-  CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
-  CADENCE_MARKETING_ACTION_SMS,
-  CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
-  CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
-  CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
+  CadenceDestinationEnum,
 } from '#libs/sequential_marketing/constants';
 
-import type { Values } from './components';
-
 export const TRIGGER_DETAULT_TIMEOUT_DAYS = 7;
-
-export const getTriggerFormData = (values: Values) => {
-  return values;
-};
-
-export const defaultMarketingActions = {
-  marketing_actions: {
-    [CADENCE_MARKETING_ACTION_WRITTEN_EMAIL]: {
-      configured: false,
-      title: '',
-      content: '',
-    },
-    [CADENCE_MARKETING_ACTION_SMS]: {
-      configured: false,
-      content: '',
-    },
-    [CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION]: {
-      configured: false,
-      title: '',
-      content: '',
-    },
-    [CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE]: {
-      configured: false,
-      email_design_id: null,
-      title: '',
-    },
-    [CADENCE_MARKETING_ACTION_TAG_MANAGEMENT]: {
-      configured: false,
-      tag_id: null,
-    },
-  },
-};
 
 const _resolveConnectedTriggersConfigurations = ({
   connected_triggers_list,
@@ -55,6 +16,7 @@ const _resolveConnectedTriggersConfigurations = ({
   connected_triggers_list: CadenceConnectedTriggerConfig[];
 }) => {
   // CTL stands for : Connected Triggers List
+
   const CTL_EventWithSmartlistFiltering = connected_triggers_list?.filter(
     (ct) =>
       ct.trigger_config.identifier === TriggerEnum.EVENT_TRIGGER_IDENTIFIER &&
@@ -78,22 +40,39 @@ const _resolveConnectedTriggersConfigurations = ({
       ct.trigger_config.timeout,
   );
   const CTTimeOutDaysValue =
-    CTTimeOutList?.length >= 1 ? CTTimeOutList[0].trigger_config.timeout : null;
+    CTTimeOutList?.length >= 1
+      ? CTTimeOutList[0].trigger_config.timeout
+      : TRIGGER_DETAULT_TIMEOUT_DAYS;
 
+  const isExitFail = !!connected_triggers_list?.find(
+    (ct) =>
+      ct?.destination_config?.status ===
+      CadenceDestinationEnum.CADENCE_DESTINATION_STATUS_EXIT_FAIL_STATUS,
+  );
+
+  const isExitSuccess = !!connected_triggers_list?.find(
+    (ct) =>
+      ct?.destination_config?.status ===
+      CadenceDestinationEnum.CADENCE_DESTINATION_STATUS_EXIT_SUCCESS_STATUS,
+  );
   return {
     CTL_EventWithSmartlistFiltering,
     CTL_EventWithEmptyFiltering,
     CTL_EmptyWithSmartlistFiltering,
     CTTimeOutDaysValue,
+    isExitFail,
+    isExitSuccess,
   };
 };
 
 export const getInitialFormValuesFromCTList = ({
   connected_triggers,
   withTimeout = false,
+  withExit = false,
 }: {
   connected_triggers: CadenceConnectedTriggerConfig[];
   withTimeout: boolean;
+  withExit: boolean;
 }) => {
   // CTL stands for : Connected Triggers List
   const {
@@ -101,6 +80,8 @@ export const getInitialFormValuesFromCTList = ({
     CTL_EventWithEmptyFiltering,
     CTL_EmptyWithSmartlistFiltering,
     CTTimeOutDaysValue,
+    isExitFail,
+    isExitSuccess,
   } = _resolveConnectedTriggersConfigurations({
     connected_triggers_list: connected_triggers,
   });
@@ -121,6 +102,10 @@ export const getInitialFormValuesFromCTList = ({
         RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
       ...(withTimeout && {
         trigger_destination_timeout_days: CTTimeOutDaysValue,
+      }),
+      ...(withExit && {
+        is_exit_fail: isExitFail,
+        is_exit_success: isExitSuccess,
       }),
     };
   }
@@ -143,6 +128,10 @@ export const getInitialFormValuesFromCTList = ({
         ...(withTimeout && {
           trigger_destination_timeout_days: CTTimeOutDaysValue,
         }),
+        ...(withExit && {
+          is_exit_fail: isExitFail,
+          is_exit_success: isExitSuccess,
+        }),
       };
     }
     return {
@@ -154,6 +143,10 @@ export const getInitialFormValuesFromCTList = ({
         RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
       ...(withTimeout && {
         trigger_destination_timeout_days: CTTimeOutDaysValue,
+      }),
+      ...(withExit && {
+        is_exit_fail: isExitFail,
+        is_exit_success: isExitSuccess,
       }),
     };
   }
@@ -174,6 +167,10 @@ export const getInitialFormValuesFromCTList = ({
       ...(withTimeout && {
         trigger_destination_timeout_days: CTTimeOutDaysValue,
       }),
+      ...(withExit && {
+        is_exit_fail: isExitFail,
+        is_exit_success: isExitSuccess,
+      }),
     };
   }
 
@@ -187,6 +184,10 @@ export const getInitialFormValuesFromCTList = ({
         RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
       ...(withTimeout && {
         trigger_destination_timeout_days: CTTimeOutDaysValue,
+      }),
+      ...(withExit && {
+        is_exit_fail: isExitFail,
+        is_exit_success: isExitSuccess,
       }),
     };
   }

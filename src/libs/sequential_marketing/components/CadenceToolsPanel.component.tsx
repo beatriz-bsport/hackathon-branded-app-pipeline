@@ -13,10 +13,9 @@ import {
   CadenceWinSetupForm,
   CadenceLoseSetupForm,
   StepSubscriborSetupForm,
-  StepMarketingActionsForm,
 } from '#libs/sequential_marketing/components/form/ConnectedTrigger';
 import CadenceStepForm from './form/CadenceStepForm.component';
-
+import StepMarketingActionsForm from '#libs/sequential_marketing/components/form/StepMarketingActionsForm';
 import {
   CADENCE_STEPPER_ENTRY_STEP,
   CADENCE_STEPPER_WIN_STEP,
@@ -28,6 +27,7 @@ import type {
   Cadence,
   CadenceStep,
   CadenceConnectedTriggerConfig,
+  StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { OptionCallback } from '../../../state/types';
@@ -41,6 +41,14 @@ type Props = {
   smartlists: SmartList[];
   tagList: any;
   setUpFormSubmit: (
+    data: {
+      [CADENCE_STEPPER_ENTRY_STEP]?: Values | {};
+      [CADENCE_STEPPER_WIN_STEP]?: Values | {};
+      [CADENCE_STEPPER_LOSE_STEP]?: Values | {};
+    },
+    options?: OptionCallback,
+  ) => void;
+  updateInitialConfiguration: (
     data: {
       [CADENCE_STEPPER_ENTRY_STEP]?: Values | {};
       [CADENCE_STEPPER_WIN_STEP]?: Values | {};
@@ -62,7 +70,6 @@ type Props = {
   emails: Array<any>;
   emailDetailLoading: boolean;
   emailDetails: Array<any>;
-  stepForSubscription: CadenceStep;
   triggerForEdition:
     | {
         trigger: CadenceConnectedTriggerConfig;
@@ -78,6 +85,14 @@ type Props = {
     data: { name: string },
     options?: OptionCallback,
   ) => void;
+  getStepMarketingActions: (id: number) => StepMarketingActions[];
+  stepMarketingActionsLoading: boolean;
+  stepMarketingActionsUpsertLoading: boolean;
+  upsertStepMarketingAtions: (
+    data: StepMarketingActions,
+    options?: OptionCallback,
+  ) => void;
+  deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
 };
 
 export const CadenceToolePanel: React.FC<Props> = ({
@@ -93,14 +108,19 @@ export const CadenceToolePanel: React.FC<Props> = ({
   emailDetailLoading,
   emailDetails,
   setUpFormSubmit,
+  updateInitialConfiguration,
   handleSubmitNewStepWithTrigger,
   handleSubmitEditConnectedTrigger,
   tagList,
-  stepForSubscription,
   triggerForEdition,
   subscriptionDestinationConfig,
   stepForEdition,
   updateCadenceStepName,
+  getStepMarketingActions,
+  stepMarketingActionsLoading,
+  stepMarketingActionsUpsertLoading,
+  upsertStepMarketingAtions,
+  deleteStepMarketingAction,
 }) => {
   const classes = useStyles();
 
@@ -112,7 +132,7 @@ export const CadenceToolePanel: React.FC<Props> = ({
     );
   }
 
-  if (mode === CadencePanelMode.CADENCE_PANEL_INITIAL) {
+  if (mode === CadencePanelMode.CADENCE_PANEL_HOW_TO) {
     return (
       <div className={classes.flexContainer}>
         <CadenceHowTo />
@@ -121,12 +141,34 @@ export const CadenceToolePanel: React.FC<Props> = ({
   }
 
   if (mode === CadencePanelMode.CADENCE_EDIT_STEP) {
+    const marketingActions = getStepMarketingActions(stepForEdition?.id);
+
     return (
       <div className={classes.flexContainer}>
-        <CadenceStepForm
-          step={stepForEdition}
-          onSubmit={updateCadenceStepName}
-        />
+        <div>
+          <CadenceStepForm
+            step={stepForEdition}
+            onSubmit={updateCadenceStepName}
+          />
+          <StepMarketingActionsForm
+            marketingActions={marketingActions}
+            step={stepForEdition}
+            smartlists={smartlists}
+            getEmails={getEmails}
+            getEmailDetail={getEmailDetail}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            emailDetailLoading={emailDetailLoading}
+            emailDetails={emailDetails}
+            tagList={tagList}
+            stepMarketingActionsLoading={stepMarketingActionsLoading}
+            stepMarketingActionsUpsertLoading={
+              stepMarketingActionsUpsertLoading
+            }
+            upsertStepMarketingAtions={upsertStepMarketingAtions}
+            deleteStepMarketingAction={deleteStepMarketingAction}
+          />
+        </div>
       </div>
     );
   }
@@ -138,13 +180,6 @@ export const CadenceToolePanel: React.FC<Props> = ({
           cadence={cadence}
           smartlists={smartlists}
           onSubmit={setUpFormSubmit}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          tagList={tagList}
           viewMode={!cadenceEditMode}
         />
       </div>
@@ -152,59 +187,69 @@ export const CadenceToolePanel: React.FC<Props> = ({
   }
 
   if (mode === CadencePanelMode.CADENCE_PANEL_ENTRY_PARAMETERS) {
-    const handleEntrySetSubmit = (data) =>
-      setUpFormSubmit({ [CADENCE_STEPPER_ENTRY_STEP]: data });
+    const cadenceEntryPoint = cadence?.steps?.find(
+      (step) => step?.is_entry_step,
+    );
+    const marketingActions = getStepMarketingActions(cadenceEntryPoint?.id);
+    const handleSubmit = (data) =>
+      updateInitialConfiguration({ [CADENCE_STEPPER_ENTRY_STEP]: data });
 
     return (
       <div className={classes.flexContainer}>
-        <CadenceEntrySetupForm
-          cadence={cadence}
-          smartlists={smartlists}
-          onSubmit={handleEntrySetSubmit}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          tagList={tagList}
-          viewMode={!cadenceEditMode}
-        />
+        <div>
+          <div className={classes.paddingBottom}>
+            <CadenceEntrySetupForm
+              cadence={cadence}
+              smartlists={smartlists}
+              onSubmit={handleSubmit}
+              viewMode={!cadenceEditMode}
+            />
+          </div>
+          <StepMarketingActionsForm
+            marketingActions={marketingActions}
+            step={cadenceEntryPoint}
+            smartlists={smartlists}
+            getEmails={getEmails}
+            getEmailDetail={getEmailDetail}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            emailDetailLoading={emailDetailLoading}
+            emailDetails={emailDetails}
+            tagList={tagList}
+            stepMarketingActionsLoading={stepMarketingActionsLoading}
+            stepMarketingActionsUpsertLoading={
+              stepMarketingActionsUpsertLoading
+            }
+            upsertStepMarketingAtions={upsertStepMarketingAtions}
+            deleteStepMarketingAction={deleteStepMarketingAction}
+          />
+        </div>
       </div>
     );
   }
   if (mode === CadencePanelMode.CADENCE_PANEL_WIN_PARAMETERS) {
+    const handleSubmit = (data) => updateInitialConfiguration(data);
+
     return (
       <div className={classes.flexContainer}>
         <CadenceWinSetupForm
           cadence={cadence}
           smartlists={smartlists}
-          onSubmit={setUpFormSubmit}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          tagList={tagList}
+          onSubmit={handleSubmit}
           viewMode={!cadenceEditMode}
         />
       </div>
     );
   }
   if (mode === CadencePanelMode.CADENCE_PANEL_LOSE_PARAMETERS) {
+    const handleSubmit = (data) => updateInitialConfiguration(data);
+
     return (
       <div className={classes.flexContainer}>
         <CadenceLoseSetupForm
           cadence={cadence}
           smartlists={smartlists}
-          onSubmit={setUpFormSubmit}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
+          onSubmit={handleSubmit}
           viewMode={!cadenceEditMode}
         />
       </div>
@@ -221,13 +266,6 @@ export const CadenceToolePanel: React.FC<Props> = ({
         <StepSubscriborSetupForm
           smartlists={smartlists}
           onSubmit={handleSubmitNewStepWithTrigger}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          tagList={tagList}
           toExit={!!subscriptionDestinationConfig?.exit}
           viewMode={!cadenceEditMode}
         />
@@ -246,32 +284,6 @@ export const CadenceToolePanel: React.FC<Props> = ({
           triggerForEdition={triggerForEdition}
           smartlists={smartlists}
           onSubmit={handleSubmitEditConnectedTrigger}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          tagList={tagList}
-          viewMode={!cadenceEditMode}
-        />
-      </div>
-    );
-  }
-  if (mode === CadencePanelMode.CADENCE_PANEL_MARKETING_ACTIONS) {
-    return (
-      <div className={classes.flexContainer}>
-        <StepMarketingActionsForm
-          step={stepForSubscription}
-          smartlists={smartlists}
-          onSubmit={handleSubmitNewStepWithTrigger}
-          getEmails={getEmails}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails}
-          emailDetailLoading={emailDetailLoading}
-          emailDetails={emailDetails}
-          tagList={tagList}
           viewMode={!cadenceEditMode}
         />
       </div>
@@ -294,6 +306,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   extraBottomPadding: {
     paddingBottom: theme.spacing(20),
+  },
+  paddingBottom: {
+    paddingBottom: theme.spacing(2),
   },
 }));
 

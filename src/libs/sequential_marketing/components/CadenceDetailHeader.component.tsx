@@ -34,6 +34,11 @@ type Props = {
   onEditLoseParameters: () => void;
   cadenceEditMode: boolean;
   switchCadenceEditMode: () => void;
+  cadenceMinimalConfigurationState: {
+    cadenceWinConfigured: boolean;
+    cadenceLoseConfigured: boolean;
+    cadenceEntryConfigured: boolean;
+  };
 };
 
 type HeaderActionsProps = {
@@ -45,6 +50,11 @@ type HeaderActionsProps = {
   setOpenActivateDialog: (open: boolean) => void;
   onShutOff: (options?: OptionCallback) => void;
   switchCadenceEditMode: () => void;
+  cadenceMinimalConfigurationState: {
+    cadenceWinConfigured: boolean;
+    cadenceLoseConfigured: boolean;
+    cadenceEntryConfigured: boolean;
+  };
 };
 
 const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
@@ -56,22 +66,23 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
   setOpenActivateDialog,
   onShutOff,
   switchCadenceEditMode,
+  cadenceMinimalConfigurationState,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
 
   const [canBeActivated, setCanbeActivated] = React.useState(false);
-
   React.useEffect(() => {
     if (
-      cadence?.steps?.filter((step) => !step?.is_entry_step) &&
-      cadence?.steps?.filter((step) => !step?.is_entry_step)?.length > 0
+      cadenceMinimalConfigurationState.cadenceEntryConfigured &&
+      cadenceMinimalConfigurationState.cadenceWinConfigured &&
+      cadenceMinimalConfigurationState.cadenceLoseConfigured
     ) {
       setCanbeActivated(true);
     } else {
       setCanbeActivated(false);
     }
-  }, [cadence]);
+  }, [cadenceMinimalConfigurationState]);
 
   return (
     <>
@@ -138,7 +149,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
             <Button
               variant="contained"
               color="secondary"
-              disabled={cadence?.active || loading}
+              disabled={cadence?.active || loading || !canBeActivated}
               onClick={switchCadenceEditMode}
             >
               {cadenceEditMode ? (
@@ -171,6 +182,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   onEditLoseParameters,
   cadenceEditMode,
   switchCadenceEditMode,
+  cadenceMinimalConfigurationState,
 }) => {
   const classes = useStyles();
 
@@ -220,6 +232,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
             setOpenActivateDialog={setOpenActivateDialog}
             onShutOff={onShutOff}
             switchCadenceEditMode={switchCadenceEditMode}
+            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
           />
           <div className={classes.triggerCards}>
             <CadenceConnectedTriggersCard

@@ -14,7 +14,6 @@ export enum CadenceConnectedTriggerReasonEnum {
 
 // CADENCE DESTINATION STATUS
 export enum CadenceDestinationEnum {
-  CADENCE_DESTINATION_STATUS_ENTRY = 'cadence_entry',
   CADENCE_DESTINATION_STATUS_EXIT_FAIL_STATUS = 'cadence_exit_fail',
   CADENCE_DESTINATION_STATUS_EXIT_SUCCESS_STATUS = 'cadence_exit_success',
 }

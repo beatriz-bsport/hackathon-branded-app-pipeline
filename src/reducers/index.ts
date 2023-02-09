@@ -76,6 +76,7 @@ import zoomAppReducers from '#libs/zoom-app/reducers';
 import terminalReducers from '#libs/terminal/reducers';
 import datatypeFilteringReducers from '#libs/datatype-filtering/reducers';
 import tutorialReducers from '#libs/platform-tutorial/reducers';
+import CadenceReducers from '#libs/sequential_marketing/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -132,6 +133,7 @@ import { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 import { TutorialState } from '#libs/platform-tutorial/types';
 import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
+import { CadenceState } from '#libs/sequential_marketing/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -211,6 +213,7 @@ const rootReducer = (history: any) =>
     datatypeFiltering: datatypeFilteringReducers,
     tutorial: tutorialReducers,
     replacementRequest: replacementRequestReducer,
+    cadence: CadenceReducers,
   });
 
 export type RootState = {
@@ -290,6 +293,7 @@ export type RootState = {
   zoomApp: any;
   terminal: TerminalState;
   datatypeFiltering: DatatypeFilteringState;
+  cadence: CadenceState;
 };
 
 export default (history: any) => (state: any, action: any) => {

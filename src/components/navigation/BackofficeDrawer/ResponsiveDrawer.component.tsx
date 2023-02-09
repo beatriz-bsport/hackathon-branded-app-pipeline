@@ -45,6 +45,7 @@ import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
@@ -388,6 +389,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
             to: '/marketing/tags',
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
+          },
+          {
+            to: '/cadence',
+            icon: AccountTreeIcon,
+            text: t('backofficeMenu.cadences'),
           },
           ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
             ? []

@@ -86,6 +86,7 @@ exports.default = {
     marketingDashboard: 'Dashboard',
     marketingRule: 'Stratégies marketing',
     notifications: 'Notifications',
+    cadence: 'Cadence',
   },
   settings: 'Paramètres',
   planning: 'Planning',

@@ -12,5 +12,7 @@ export const getSearchedCompanyList = createSelector(
   (data, ids) => ids.map((id: number) => data[id]),
 );
 
+export const getCompanyFeatureState = (state: State) => state.company.feature;
+
 export const getCompanyCountry = (state: State) =>
   state.theme?.theme?.locale.split('_')[1];

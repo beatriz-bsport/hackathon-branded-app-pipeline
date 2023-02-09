@@ -208,6 +208,8 @@ const EmailTemplate = asyncComponent(() =>
   import('./email-template/EmailTemplate.router'),
 );
 const SmartList = asyncComponent(() => import('./smart-list/SmartList.router'));
+
+const Cadence = asyncComponent(() => import('./cadence/Cadence.router'));
 const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
 );
@@ -396,6 +398,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/workshop-activity" component={WorkshopActivity} />
       <Route path="/establishment" component={Establishment} />
       <Route path="/smart-list" component={SmartList} />
+      <Route path="/cadence" component={Cadence} />
       <Route path="/custom-form" component={CustomForm} />
       <Route path="/performance-tracking" component={PerformanceTracking} />
       <Route path="/replacement/:tab" component={Replacement} />
@@ -828,7 +831,9 @@ export class Backoffice extends Component<Props, State> {
                   className={clx({
                     [classes.content]: true,
                     [classes.fullContent]:
-                      this.props.location.pathname.includes('/spot-scheduling'),
+                      this.props.location.pathname.includes(
+                        '/spot-scheduling',
+                      ) || this.props.location.pathname.includes('/cadence/'),
                   })}
                 >
                   <BackofficeRoute

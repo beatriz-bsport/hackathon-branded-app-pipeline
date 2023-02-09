@@ -64,3 +64,5 @@ export {
   // PANEL,
   CadencePanelMode,
 };
+
+export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [498];

@@ -32,7 +32,6 @@ import Search from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Star from '@material-ui/icons/Star';
-import StorageIcon from '@material-ui/icons/Storage';
 import TimerIcon from '@material-ui/icons/Timer';
 import TodayIcon from '@material-ui/icons/Today';
 import TrendingUp from '@material-ui/icons/TrendingUp';
@@ -66,6 +65,8 @@ import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import { RolePermission } from '#libs/role/types';
 import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
+
+import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketing/constants';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
@@ -390,21 +391,17 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
           },
-          {
-            to: '/cadence',
-            icon: AccountTreeIcon,
-            text: t('backofficeMenu.cadences'),
-          },
-          ...(Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-            ? []
-            : [
+          ...(!['production', 'staging'].includes(
+            Config.REACT_APP_SENTRY_ENVIRONMENT,
+          ) || SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId)
+            ? [
                 {
-                  to: '/marketing/strategies',
-                  icon: StorageIcon,
-                  subtext: t('backofficeMenu.alpha'),
-                  text: t('backofficeMenu.sequence'),
+                  to: '/cadence',
+                  icon: AccountTreeIcon,
+                  text: t('backofficeMenu.cadences'),
                 },
-              ]),
+              ]
+            : []),
         ],
       },
       {

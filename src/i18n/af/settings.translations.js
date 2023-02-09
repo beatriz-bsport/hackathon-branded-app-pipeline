@@ -111,7 +111,7 @@ exports.default = {
     preview: 'Aperçu',
     componentType: {
       calendar: 'Calendrier',
-      calendarV2: 'Calendrier (nouveau design)',
+      calendarV2: 'Calendrier',
       workshop: 'Ateliers',
       privateService: 'Sur rendez-vous',
       pass: 'Carte de cours',

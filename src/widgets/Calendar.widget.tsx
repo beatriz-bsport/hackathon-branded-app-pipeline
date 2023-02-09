@@ -5,7 +5,7 @@ import { Moment } from 'bsport-saas/src/i18n';
 import {
   MarketplaceCalendar,
   CalendarDataContainer,
-} from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
+} from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
 import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
@@ -38,7 +38,6 @@ type Props = OwnProps &
   typeof mapDispatchToProps;
 
 type State = {
-  filtersOpen: 'true' | '',
   filters: {
     coaches: number[],
     establishments: number[],
@@ -64,7 +63,6 @@ export class CalendarWidget extends Component<Props, State> {
     };
 
     this.state = {
-      filtersOpen: '',
       filters,
       selectedDate: Moment().format(DATE_FORMAT),
     };
@@ -98,9 +96,6 @@ export class CalendarWidget extends Component<Props, State> {
       if (key === 'date') {
         this.setState({ selectedDate: arg });
       }
-      if (key === 'filtersOpen') {
-        this.setState({ filtersOpen: arg });
-      }
     };
   };
 
@@ -119,10 +114,11 @@ export class CalendarWidget extends Component<Props, State> {
           this.props.config ? this.props.config.compactMode : undefined
         }
         filters={this.state.filters}
+        variant={this.props?.config?.variant}
+        groupSessionByPeriod={this.props?.config?.groupSessionByPeriod}
         setFilters={this.setFilters}
         otherParams={{
           date: this.state.selectedDate,
-          filtersOpen: this.state.filtersOpen,
           onlyDay: this.props.config.todayOnly ? 'true' : '',
         }}
         setOtherParams={this.setOtherParams}

@@ -70,9 +70,6 @@ const GiftcardWidget = asyncComponent(
 const CalendarWidget = asyncComponent(
   () => import('./widgets/Calendar.widget'),
 );
-const CalendarV2Widget = asyncComponent(
-  () => import('./widgets/CalendarV2.widget'),
-);
 const VODWidget = asyncComponent(() => import('./widgets/Vod.widget'));
 const PrivateServiceWidget = asyncComponent(
   () => import('./widgets/PrivateService.widget'),
@@ -107,7 +104,7 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER]: NewsletterWidget,
   [EXPORTABLE_COMPONENT_TYPE_GIFTCARD]: GiftcardWidget,
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,
-  [EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2]: CalendarV2Widget,
+  [EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2]: CalendarWidget,
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]: PaymentPackTemplate,
 };
 

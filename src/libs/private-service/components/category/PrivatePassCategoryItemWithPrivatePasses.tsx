@@ -47,14 +47,19 @@ type Props = {
   privatePassCategoryIds: Array<number>;
 };
 
-const ButtonWithConfirm = withConfirm(MenuItem, 'onClick', {
-  title: 'paymentPack:category.deleteModal.title',
-  cancel: 'paymentPack:category.deleteModal.cancel',
-  confirm: 'paymentPack:category.deleteModal.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('paymentPack:category.deleteModal.content')}</p>
-  ),
-});
+const ButtonWithConfirm = withConfirm(
+  MenuItem,
+  'onClick',
+  {
+    title: 'paymentPack:category.deleteModal.title',
+    cancel: 'paymentPack:category.deleteModal.cancel',
+    confirm: 'paymentPack:category.deleteModal.confirm',
+    Content: ({ t }: { t: TFunction }) => (
+      <p>{t('paymentPack:category.deleteModal.content')}</p>
+    ),
+  },
+  { width: '100%' },
+);
 
 type PackListProps = {
   onEdit: (pp: PrivatePass) => void;

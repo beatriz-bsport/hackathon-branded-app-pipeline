@@ -10,6 +10,7 @@ export default function withConfirm<T>(
   Component: React.Component<T>,
   handler: string,
   options: {},
+  wrapperStyle?: React.CSSProperties,
 ): React.Component<T> {
   return class extends React.Component<Props> {
     state = {
@@ -34,7 +35,7 @@ export default function withConfirm<T>(
         },
       };
       return (
-        <div style={{ display: 'inline-block' }}>
+        <div style={{ ...wrapperStyle, display: 'inline-block' }}>
           <ModalConfirm
             open={this.state.dialogOpen}
             options={options}

@@ -57,14 +57,19 @@ type Props = {
   noCategoryHelper: string;
 };
 
-const ButtonWithConfirm = withConfirm(MenuItem, 'onClick', {
-  title: 'ordering:category.deleteModal.title',
-  cancel: 'ordering:category.deleteModal.cancel',
-  confirm: 'ordering:category.deleteModal.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('ordering:category.deleteModal.content')}</p>
-  ),
-});
+const ButtonWithConfirm = withConfirm(
+  MenuItem,
+  'onClick',
+  {
+    title: 'ordering:category.deleteModal.title',
+    cancel: 'ordering:category.deleteModal.cancel',
+    confirm: 'ordering:category.deleteModal.confirm',
+    Content: ({ t }: { t: TFunction }) => (
+      <p>{t('ordering:category.deleteModal.content')}</p>
+    ),
+  },
+  { width: '100%' },
+);
 
 type ListProps = {
   onEdit: (id: number) => void;

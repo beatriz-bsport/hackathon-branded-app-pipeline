@@ -55,14 +55,19 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-const ButtonWithConfirm = withConfirm(MenuItem, 'onClick', {
-  title: 'paymentPack:category.deleteModal.title',
-  cancel: 'paymentPack:category.deleteModal.cancel',
-  confirm: 'paymentPack:category.deleteModal.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('paymentPack:category.deleteModal.content')}</p>
-  ),
-});
+const ButtonWithConfirm = withConfirm(
+  MenuItem,
+  'onClick',
+  {
+    title: 'paymentPack:category.deleteModal.title',
+    cancel: 'paymentPack:category.deleteModal.cancel',
+    confirm: 'paymentPack:category.deleteModal.confirm',
+    Content: ({ t }: { t: TFunction }) => (
+      <p>{t('paymentPack:category.deleteModal.content')}</p>
+    ),
+  },
+  { width: '100%' },
+);
 
 type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
   onEdit: (pp: PaymentPack) => void;

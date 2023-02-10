@@ -5676,6 +5676,44 @@
             "description": "Descripción",
             "conditions": "Condiciones",
             "broadcast": "En línea"
+        },
+        "genericCard": {
+            "validForDuration": {
+                "attendance": "Válido a partir de la primera asistencia",
+                "booking": "Válido a partir de la primera reserva",
+                "purchase": "Válido a partir de la fecha de facturación",
+                "validFromTo": "Válido desde {{duration_date_start}} hasta {{duration_date_end}}",
+                "validDaysMonthsYears": "Válido por {{duration_years}}, {{ duration_months }} y {{ duration_days }}",
+                "validAnd": "Válido {{ first }} y {{ second }}",
+                "validYear": "Válido por {{ count }} año",
+                "validYear_plural": "Válido por {{ count }} años",
+                "validMonth": "Válido por {{ count }} mes",
+                "validMonth_plural": "Válido por {{ count }} meses",
+                "validDay": "Válido por {{ count }} día",
+                "validDay_plural": "Válido por {{ count }} días"
+            },
+            "addButton": {
+                "buttonContent": "Añadir a la cesta"
+            },
+            "validity": {
+                "day": "{{count}} día",
+                "day_plural": "{{count}} días",
+                "month": "{{count}} mes",
+                "month_plural": "{{count}} meses",
+                "year": "{{count}} año",
+                "year_plural": "{{count}} años"
+            },
+            "details": {
+                "buttonContent": "Detalles"
+            },
+            "credits": {
+                "unlimited": "Ilimitado",
+                "availableCredit": "{{count}} crédito",
+                "availableCredit_plural": "{{count}} créditos"
+            },
+            "title": {
+                "universalPassMessage": "Tarjeta universal, puede utilizarse para actividades de grupo y citas"
+            }
         }
     },
     "notificationRule": {
@@ -13719,7 +13757,7 @@
             "title": "Bienvenido a nuestra Guía de inicio."
         },
         "sectionList": {
-            "missingUpsell": "No dispones de esta funcionalidad, ponte en contacto con el gestor de tu cuenta.",
+            "missingUpsell": "Algunas de las funciones de esta sección no están disponibles para usted. Póngase en contacto con su gestor de cuenta para obtener más información.",
             "addOn": "Add-on",
             "new": "Nuevo",
             "shareSection": "Compartir la sección"
@@ -13729,7 +13767,8 @@
             "new": "Nuevo",
             "shareLesson": "Compartir la clase",
             "share": "Compartir",
-            "start": "Empezar"
+            "start": "Empezar",
+            "missingUpsell": "Si no dispone de esta función, póngase en contacto con su gestor de cuenta para obtener más información."
         },
         "menu": {
             "helpButton": "Encontrar ayuda"

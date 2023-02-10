@@ -11037,6 +11037,44 @@
             "description": "Description",
             "conditions": "Conditions",
             "broadcast": "Online"
+        },
+        "genericCard": {
+            "validForDuration": {
+                "validAnd": "Valid {{ first }} and {{ second }}",
+                "attendance": "Valid from the first attendance",
+                "booking": "Valid from the first booking",
+                "purchase": "Valid from the billing date",
+                "validFromTo": "Valid from {{duration_date_start}} to {{duration_date_end}}",
+                "validDaysMonthsYears": "Valid for {{duration_years}}, {{ duration_months }} and {{ duration_days }}",
+                "validYear": "Valid for {{ count }} year",
+                "validYear_plural": "Valid for {{ count }} years",
+                "validMonth": "Valid for {{ count }} month",
+                "validMonth_plural": "Valid for {{ count }} months",
+                "validDay": "Valid for {{ count }} day",
+                "validDay_plural": "Valid for {{ count }} days"
+            },
+            "addButton": {
+                "buttonContent": "Add to basket"
+            },
+            "validity": {
+                "day": "{{count}} day",
+                "day_plural": "{{count}} days",
+                "month": "{{count}} month",
+                "month_plural": "{{count}} months",
+                "year": "{{count}} year",
+                "year_plural": "{{count}} years"
+            },
+            "details": {
+                "buttonContent": "Details"
+            },
+            "credits": {
+                "unlimited": "Unlimited",
+                "availableCredit": "{{count}} credit",
+                "availableCredit_plural": "{{count}} credits"
+            },
+            "title": {
+                "universalPassMessage": "Universal card, can be used for group activities and appointments"
+            }
         }
     },
     "selfCheckIn": {
@@ -14676,7 +14714,7 @@
             "title": "Welcome to our Getting Started Guide."
         },
         "sectionList": {
-            "missingUpsell": "You don't have this feature, please contact your account manager.",
+            "missingUpsell": "Some of the features in this section are not available to you, please contact your account manager for more information.",
             "addOn": "Add-on",
             "new": "New",
             "shareSection": "Share the section"
@@ -14686,7 +14724,8 @@
             "new": "New",
             "shareLesson": "Share the lesson",
             "share": "Share",
-            "start": "Start"
+            "start": "Start",
+            "missingUpsell": "You do not have this feature, please contact your account manager fro more information."
         },
         "menu": {
             "helpButton": "FAQ"

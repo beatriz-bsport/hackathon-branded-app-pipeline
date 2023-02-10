@@ -5590,6 +5590,44 @@
             "description": "Beschrijving",
             "conditions": "Voorwaarden",
             "broadcast": "Online"
+        },
+        "genericCard": {
+            "validForDuration": {
+                "attendance": "Geldig vanaf de eerste aanwezigheid",
+                "booking": "Geldig vanaf de eerste reservering",
+                "purchase": "Geldig vanaf de factuurdatum",
+                "validFromTo": "Geldig vanaf {{duration_date_start}} op {{duration_date_end}}",
+                "validDaysMonthsYears": "Geldig {{duration_years}}, {{ duration_months }} en {{ duration_days }}",
+                "validAnd": "Geldig {{ first }} en {{ second }}",
+                "validYear": "Geldig {{ count }} jaar",
+                "validYear_plural": "Geldige {{ count }} jaren",
+                "validMonth": "Geldige {{ count }} maand",
+                "validMonth_plural": "Geldige {{ count }} maanden",
+                "validDay": "Geldige {{ count }} dag",
+                "validDay_plural": "Geldige {{ count }} dagen"
+            },
+            "title": {
+                "universalPassMessage": "Universele kaart, te gebruiken voor groepscursussen en afspraken"
+            },
+            "addButton": {
+                "buttonContent": "Toevoegen aan winkelmandje"
+            },
+            "validity": {
+                "day": "{{count}} dag",
+                "day_plural": "{{count}} dagen",
+                "month": "{{count}} maand",
+                "month_plural": "{{count}} maanden",
+                "year": "{{count}} jaar",
+                "year_plural": "{{count}} jaren"
+            },
+            "details": {
+                "buttonContent": "Details"
+            },
+            "credits": {
+                "unlimited": "Unlimited",
+                "availableCredit": "{{count}} credit",
+                "availableCredit_plural": "{{count}} credits"
+            }
         }
     },
     "selfCheckIn": {
@@ -13680,7 +13718,7 @@
             "title": "Welkom bij onze handleiding."
         },
         "sectionList": {
-            "missingUpsell": "Contacteer je accountmanager om deze aanvullende dienst te activeren.",
+            "missingUpsell": "Sommige functies in dit gedeelte zijn niet beschikbaar voor u. Neem contact op met uw accountmanager.",
             "addOn": "Aanvullende dienst",
             "new": "Nieuw",
             "shareSection": "Sectie delen"
@@ -13690,7 +13728,8 @@
             "new": "Nieuw",
             "shareLesson": "Les delen",
             "share": "Delen",
-            "start": "Start"
+            "start": "Start",
+            "missingUpsell": "Als u deze functie niet heeft, neem dan contact op met uw accountmanager."
         },
         "menu": {
             "helpButton": "Artikelen"

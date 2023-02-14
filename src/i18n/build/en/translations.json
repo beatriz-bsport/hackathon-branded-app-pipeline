@@ -11214,7 +11214,8 @@
         "marketing": {
             "marketingDashboard": "Dashboard",
             "marketingRule": "Marketing strategy",
-            "notifications": "Notifications"
+            "notifications": "Notifications",
+            "cadence": "Cadence"
         },
         "planning": "Calendar",
         "settings": "Settings",
@@ -13794,6 +13795,202 @@
                 "sm": "Small screen",
                 "xs": "Mobile"
             }
+        },
+        "cadence": {
+            "form": {
+                "updateTitle": "Editing the name of the cadence",
+                "trigger": {
+                    "helpers": {
+                        "exitFail": "Define here the trigger that causes a member to be considered lost and to exit the cadence.",
+                        "exitSuccess": "Define here the trigger that causes a member to be considered a winner and to exit the cadence.",
+                        "step": "Set the trigger for the next step here. Members will need to match the criteria below to proceed to the next step.",
+                        "cadence": "Define the triggers for entering the cadence here. Members will need to match the criteria listed below to begin the marketing sequence."
+                    },
+                    "trigger_timeout_explain_value_selected": "If the member is still present in the cadence after {{ days }} days then it will automatically be removed from the cadence and considered lost.",
+                    "trigger_timeout_select_label": "days maximum in the cadence",
+                    "trigger_timeout_title": "Time limit",
+                    "select_marketing_actions_helper": "Select one or more actions to perform when a member is won. This option is facultative.",
+                    "marketing_actions": "Marketing actions",
+                    "event_and_smartlist_helper": "Members will have to match the event and be part of the smartlist to get into the cadence",
+                    "or_rule_between_triggers": "Or",
+                    "and_rule_between_triggers": "And",
+                    "rule_between_triggers": "Rule between events",
+                    "trigger_smartlist_kind_label": "A smartlist",
+                    "had_filtering_on_selected_event": "Filter the selected event with a smartlist",
+                    "trigger_event_kind_label": "An event",
+                    "labels": {
+                        "exitFail": "The output of the rate as lost is done via :",
+                        "exitSuccess": "The output of the rate as won is done via :",
+                        "step": "The entry in this step is done via :",
+                        "cadence": "The entry in the cadence is done via :"
+                    },
+                    "title": "Triggers"
+                },
+                "win_step": "Won",
+                "error": {
+                    "triggerCannotBeEmpty": "You have to select an input type."
+                },
+                "marketing_action": {
+                    "form": {
+                        "helper": "Select one or more actions to perform when a member enters this stage. This option is facultative.",
+                        "reset": "Delete",
+                        "submit": "Validate"
+                    },
+                    "defaultName": "Name by default",
+                    "select_tag": "Select a tag",
+                    "5": "Email template",
+                    "4": "Tag",
+                    "3": "Notification push",
+                    "2": "SMS",
+                    "1": "Email"
+                },
+                "event": {
+                    "billing_plan-renew": "Renewal",
+                    "billing_plan-stop": "Stop",
+                    "billing_plan-pause": "Pause",
+                    "billing_plan-create": "Creation",
+                    "invoice-create": "Invoice created",
+                    "basket-finalize": "Paid basket",
+                    "basket-additem": "Add to the basket",
+                    "basket-created": "Creation",
+                    "private_booking-cancel": "Cancellation of appointment",
+                    "private_booking-create": "Appointments",
+                    "booking-attendance": "Attendance at group activities",
+                    "booking-create": "Group activities",
+                    "private_consumer_pass-create": "Appointment pass",
+                    "consumer_payment_pack-create": "Pass",
+                    "104": "Subscription",
+                    "103": "Billing",
+                    "102": "Basket",
+                    "101": "Booking",
+                    "100": "Purchase",
+                    "14": "Renewal",
+                    "13": "Stop",
+                    "12": "Pause",
+                    "11": "Creation",
+                    "10": "Invoice created",
+                    "9": "Paid basket",
+                    "8": "Add to the basket",
+                    "7": "Creation",
+                    "6": "Cancellation of appointment",
+                    "5": "Appointment",
+                    "4": "Attendance at group activities",
+                    "3": "Group activities",
+                    "2": "Appointment pass",
+                    "1": "Pass"
+                },
+                "exit": {
+                    "exit_fail_label": "Lost",
+                    "exit_success_label": "Won",
+                    "title": "Exit"
+                },
+                "next": "Following",
+                "previous": "Previous",
+                "lose_step": "Lost",
+                "entry_step": "Entry",
+                "modify_name_label": "Edit the name",
+                "cadenceNameLabel": "Name of the cadence",
+                "cadenceStepHelper": "Set the name of the step here: this is where you will be able to see where the members are in the cadence.",
+                "cadenceStepNameLabel": "Name of the step",
+                "cadenceStep": "Step",
+                "title": "Create a cadence",
+                "addACadence": "Add a cadence",
+                "createCadenceHelper": "Thanks to the cadences, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example.",
+                "edit": "Edit",
+                "submit": "Create",
+                "cancel": "Cancel"
+            },
+            "svgText": {
+                "action_name": "{ Nom de l'action marketing }",
+                "push_notification": "Notification Push",
+                "sms": "SMS",
+                "email": "Email",
+                "select_event": "Select an event",
+                "marketing_actions": "Marketing actions",
+                "triggers": "Triggers"
+            },
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "You are in view mode, click on EDIT to edit the cadence.",
+                    "cadenceIsActive": "Your cadence is ongoing, please pause it to modify."
+                },
+                "nodeElement": {
+                    "deleteStep": "Delete the step",
+                    "cancelOnGoingCreation": "Cancel the creation",
+                    "edgeLabelForNodeCreation": "Creating",
+                    "addElement": "Add a trigger"
+                },
+                "tools": {
+                    "showDisabledTriggers": "Display disabled triggers",
+                    "hideDisabledTriggers": "Hide disabled triggers",
+                    "hideControls": "Hide the toolbar",
+                    "showControls": "Display the toolbar",
+                    "hideMap": "Hide the minimap",
+                    "showMap": "Display the minimap",
+                    "centerView": "Center the view"
+                }
+            },
+            "triggers": {
+                "smartlist": {
+                    "label": "Smartlist"
+                },
+                "events": {
+                    "label": "Purchase",
+                    "book_chip": "Booking",
+                    "purchase_chip": "Purchase"
+                },
+                "timeout": {
+                    "timout_days_chip": "{{ days }} days"
+                },
+                "trigger": "Trigger",
+                "exit": "Exit",
+                "start": "Entry"
+            },
+            "cadenceCard": {
+                "lost": "Lost",
+                "win": "Won"
+            },
+            "activate": {
+                "dialog": {
+                    "cancel": "Cancel",
+                    "secondHelper": "You will not be able to edit it while it is launched.",
+                    "firstHelper": "Do you want to launch the cadence?",
+                    "title": "Launch the cadence"
+                },
+                "button": "Launch",
+                "setupBeforeActivationHelper": "Finish setting up your cadence and create your first marketing action to launch your cadence."
+            },
+            "archive": {
+                "archivedHeader": "Archived cadences",
+                "dialog": {
+                    "confirm": "Continue",
+                    "cancel": "Cancel",
+                    "helper": "Members currently in the cadence will automatically exit it. This cadence will be archived but you can reactivate it later.",
+                    "beingArchived": "You are about to delete {{ name }}.",
+                    "title": "Delete a cadence"
+                }
+            },
+            "howTo": {
+                "set_trigger_destination": "{{ index }}. Redirect to a marketing action",
+                "add_smartlist_filter": "{{ index }}. Filter on smartlists",
+                "add_trigger": "{{ index }}. Add branches",
+                "edit_event": "{{ index }}. Edit the event",
+                "add_event": "{{ index }}. Add an event",
+                "edit_marketing_action": "{{ index }}. Edit the marketing action",
+                "add_marketing_action": "{{ index }}. Add a marketing action",
+                "explain": "Edit the elements of the chart by clicking on them or create links between blocks by dragging and dropping.",
+                "title": "How to edit your cadence"
+            },
+            "cadenceIndexHelper": "The order of the cadences defines the order of priority: if a member can enter 2 different cadences, he will start with the highest in the list.",
+            "marketingElement": "Marketing actions",
+            "triggerElement": "Triggering element",
+            "cadenceParameters": "Cadence parameters",
+            "exitEditModeLabel": "Exit the editing mode",
+            "exitEditMode": "End",
+            "editModeLabel": "Switch to edit mode",
+            "editMode": "Edit",
+            "shutOff": "Pause",
+            "back": "Back"
         }
     },
     "spotScheduling": {

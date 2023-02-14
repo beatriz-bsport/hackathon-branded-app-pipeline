@@ -4704,7 +4704,7 @@
     },
     "alerting": {
         "list": {
-            "title": "Notificación",
+            "title": "Notificaciones",
             "emptyAlerting": "No hay nuevas notificaciones."
         },
         "alert_kind": {
@@ -12837,6 +12837,78 @@
                 "undo": "Volver",
                 "editLayout": "Editar el diseño"
             }
+        },
+        "cadence": {
+            "form": {
+                "event": {
+                    "7": "Creación",
+                    "6": "Cancelación de cita",
+                    "5": "Citas previas",
+                    "4": "Presencia Actividad",
+                    "3": "Actividades",
+                    "2": "Tarjeta de cita",
+                    "1": "Bono"
+                },
+                "exit": {
+                    "exit_fail_label": "Perdido",
+                    "exit_success_label": "Ganado",
+                    "title": "Salida"
+                },
+                "trigger": {
+                    "trigger_timeout_explain_value_selected": "Si el miembro sigue presente en la cadencia después de {{ days }} días, saldrá automáticamente de la cadencia y se considerará como perdido.",
+                    "trigger_timeout_select_label": "número máximo de días en la cadencia",
+                    "trigger_timeout_title": "Plazo",
+                    "select_marketing_actions_helper": "Seleccione una o varias acciones a realizar cuando un miembro está ganado. Esta opción es facultativa.",
+                    "marketing_actions": "Acciones marketing",
+                    "event_and_smartlist_helper": "Los miembros tendrán que corresponder al acontecimiento y hacer parte de la smartlist para ingresar la cadencia",
+                    "or_rule_between_triggers": "O",
+                    "and_rule_between_triggers": "Y",
+                    "rule_between_triggers": "Regla entre los acontecimientos",
+                    "trigger_smartlist_kind_label": "Una smartlist",
+                    "had_filtering_on_selected_event": "Filtrar el acontecimiento seleccionado con una smartlist",
+                    "trigger_event_kind_label": "Un acontecimiento",
+                    "labels": {
+                        "exitFail": "La salida de la cadencia como perdido se realiza a través de :",
+                        "exitSuccess": "La salida de la cadencia como ganado se realiza a través de :",
+                        "step": "El ingreso en este paso se realiza a través de :",
+                        "cadence": "El ingreso en la cadencia se realiza a través de :"
+                    },
+                    "helpers": {
+                        "exitFail": "Defina aquí el desencadenante definiendo si un miembro se considerará como perdido y saldrá de la cadencia.",
+                        "exitSuccess": "Defina aquí el desencadenante definiendo si un miembro se considerará como ganado y saldrá de la cadencia.",
+                        "step": "Defina aquí el desencadenante llevando al próximo paso. Los miembros tendrán que corresponder a los criterios indicados a continuación para pasar al paso siguiente.",
+                        "cadence": "Defina aquí los desencadenantes de ingreso a la cadencia. Los miembros habrán de corresponder a los criterios indicados a continuación para ingresar la secuencia marketing."
+                    },
+                    "title": "Desencadenantes"
+                },
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "lose_step": "Perdido",
+                "win_step": "Ganado",
+                "entry_step": "Ingreso",
+                "modify_name_label": "Modificar el nombre",
+                "cadenceNameLabel": "Nombre de la cadencia",
+                "cadenceStepHelper": "Defina aquí el nombre del paso, aquí podrá ver el estado de los miembros en la cadencia.",
+                "cadenceStepNameLabel": "Nombre del paso",
+                "cadenceStep": "Paso",
+                "updateTitle": "Modificación del nombre de la cadencia",
+                "title": "Crear una cadencia",
+                "addACadence": "Añadir una cadencia",
+                "createCadenceHelper": "Gracias a las cadencias, dirija mejor posible las acciones de marketing que envía a sus miembros según su comportamiento en la plataforma. Crea una sucesión de acciones que sus miembros tienen que cumplir para obtener por ejemplo algunas promociones o tags.",
+                "edit": "Modificar",
+                "submit": "Crear",
+                "cancel": "Cancelar"
+            },
+            "cadenceIndexHelper": "El orden de las cadencias define el orden de prioridad, si un miembro puede ingresar 2 cadencias diferentes, empezará por la más alta en la lista.",
+            "marketingElement": "Acciones de marketing",
+            "triggerElement": "Factor desencadenante",
+            "cadenceParameters": "Configuración de la cadencia",
+            "exitEditModeLabel": "Salir del modo de edición",
+            "exitEditMode": "Terminar",
+            "editModeLabel": "Cambiar al modo de edición",
+            "editMode": "Modificar",
+            "back": "Atrás",
+            "shutOff": "Pausar"
         }
     },
     "spotScheduling": {

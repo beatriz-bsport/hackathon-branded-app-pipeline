@@ -5764,7 +5764,8 @@
         "marketing": {
             "marketingDashboard": "Campagnes",
             "marketingRule": "Marketingcampagnes",
-            "notifications": "Meldingen"
+            "notifications": "Meldingen",
+            "cadence": "Koers"
         },
         "settings": "Instellingen",
         "shop": "Webshop",
@@ -12798,6 +12799,202 @@
                 "sm": "Klein scherm",
                 "xs": "Mobiel"
             }
+        },
+        "cadence": {
+            "activate": {
+                "dialog": {
+                    "firstHelper": "Wil je de koers starten?",
+                    "title": "Het tempo bepalen",
+                    "cancel": "Annuleren",
+                    "secondHelper": "U kunt het niet bewerken gedurende de uitvoering."
+                },
+                "setupBeforeActivationHelper": "Voltooi het opzetten van je cadans en creëer je eerste marketingactie om je koers te lanceren.",
+                "button": "Opstarten"
+            },
+            "archive": {
+                "archivedHeader": "Gearchiveerde koersen",
+                "dialog": {
+                    "helper": "Leden die zich momenteel in de koers bevinden, verlaten deze automatisch. Deze koers wordt gearchiveerd en kunt u later weer activeren.",
+                    "title": "Een koers verwijderen",
+                    "confirm": "Vervolgen",
+                    "cancel": "Annuleren",
+                    "beingArchived": "U staat op het punt {{ naam }} te verwijderen."
+                }
+            },
+            "howTo": {
+                "title": "Hoe uw koers te bewerken",
+                "set_trigger_destination": "{{ index }}}. Redirect naar een marketingactie",
+                "add_smartlist_filter": "{{ index }}}. Filteren op smartlists",
+                "add_trigger": "{{ index }}}. Branches toevoegen",
+                "edit_event": "{{ index }}}. Bewerk een evenement",
+                "add_event": "{{ index }}}. Een evenement toevoegen",
+                "edit_marketing_action": "{{ index }}}. De marketingactie bewerken",
+                "add_marketing_action": "{{ index }}}. Een marketingactie toevoegen",
+                "explain": "Bewerk de elementen van de grafiek door erop te klikken of maak verbindingen tussen blokken door ze te verslepen."
+            },
+            "form": {
+                "marketing_action": {
+                    "select_tag": "Selecteer een tag",
+                    "5": "Sjabloon Email",
+                    "4": "Tag",
+                    "3": "Notificatie push",
+                    "2": "SMS",
+                    "1": "Email",
+                    "form": {
+                        "helper": "Selecteer een of meer acties die moeten worden ondernomen wanneer een lid deze fase ingaat. Deze optie is facultatief.",
+                        "reset": "Verwijder",
+                        "submit": "Valideren"
+                    },
+                    "defaultName": "Standaard naam"
+                },
+                "event": {
+                    "billing_plan-renew": "Vernieuwing",
+                    "billing_plan-stop": "Stop",
+                    "billing_plan-pause": "Pauze",
+                    "billing_plan-create": "Creatie",
+                    "invoice-create": "Factuur gemaakt",
+                    "basket-finalize": "Betaald mandje",
+                    "basket-additem": "In winkelwagen",
+                    "basket-created": "Creatie",
+                    "private_booking-cancel": "Annulering afspraak",
+                    "private_booking-create": "Afspraak",
+                    "booking-attendance": "Aanwezigheid bij groepslessen",
+                    "booking-create": "Groepsactiviteit",
+                    "private_consumer_pass-create": "Afspraakkaart",
+                    "consumer_payment_pack-create": "Leskaart",
+                    "104": "Abonnement",
+                    "103": "Facturatie",
+                    "102": "Winkelmand",
+                    "101": "Reservering",
+                    "100": "Aankoop",
+                    "14": "Vernieuwing",
+                    "13": "Stop",
+                    "12": "Pauze",
+                    "11": "Maken",
+                    "10": "Factuur aangemaakt",
+                    "9": "Betaald mandje",
+                    "8": "Toevoegen aan winkelwagen",
+                    "7": "Creatie",
+                    "6": "Annulering van de afspraak",
+                    "5": "Afspraak",
+                    "4": "Aanwezigheid bij groepslessen",
+                    "3": "Groepsactiviteit",
+                    "2": "Afspraakkaart",
+                    "1": "Leskaart"
+                },
+                "trigger": {
+                    "trigger_timeout_explain_value_selected": "Als het lid na {{ days }} dagen nog steeds in de cadans aanwezig is, wordt het automatisch uit de koers verwijderd en als verloren beschouwd.",
+                    "trigger_timeout_select_label": "dagen maximaal in de koers",
+                    "labels": {
+                        "cadence": "De invoer in de koers gebeurt via :",
+                        "exitFail": "De uitvoer van de koers als verloren wordt gedaan via :",
+                        "exitSuccess": "De uitvoer van de koers als verdiend gebeurt via :",
+                        "step": "De toegang tot deze fase verloopt via :"
+                    },
+                    "event_and_smartlist_helper": "Leden moeten overeenkomen met het evenement en deel uitmaken van de smartlist om in de koers te komen",
+                    "trigger_timeout_title": "Tijdslimiet",
+                    "select_marketing_actions_helper": "Selecteer een of meer acties die moeten worden ondernomen wanneer een lid is gewonnen. Deze optie is facultatief.",
+                    "marketing_actions": "Marketingacties",
+                    "or_rule_between_triggers": "Of",
+                    "and_rule_between_triggers": "En",
+                    "rule_between_triggers": "Regel tussen gebeurtenissen",
+                    "trigger_smartlist_kind_label": "Een smartlist",
+                    "had_filtering_on_selected_event": "Filter de geselecteerde gebeurtenis met een smartlist",
+                    "trigger_event_kind_label": "Een evenement",
+                    "helpers": {
+                        "exitFail": "Definieer hier de trigger die bepaalt dat een lid als verloren wordt beschouwd en de cadans verlaat.",
+                        "exitSuccess": "Definieer hier de trigger die bepaalt dat een lid als gewonnen wordt beschouwd en de cadans verlaat.",
+                        "step": "Stel hier de trigger voor de volgende stap in. De leden moeten aan de onderstaande criteria voldoen om naar de volgende fase over te gaan.",
+                        "cadence": "Definieer hier de triggers voor het invoeren van de cadans. Leden moeten aan de onderstaande criteria voldoen om de marketingreeks te starten."
+                    },
+                    "title": "Triggers"
+                },
+                "exit": {
+                    "exit_fail_label": "Verloren",
+                    "exit_success_label": "Gewonnen",
+                    "title": "Uitgang"
+                },
+                "error": {
+                    "triggerCannotBeEmpty": "U moet een invoertype kiezen."
+                },
+                "next": "Volgende",
+                "previous": "Vorige",
+                "lose_step": "Verloren",
+                "win_step": "Gewonnen",
+                "entry_step": "Invoer",
+                "modify_name_label": "Naam van de kadans",
+                "cadenceNameLabel": "Naam van de cadans",
+                "cadenceStepHelper": "Stel hier de podiumnaam in, hier kun je zien waar de leden zich in de cadans bevinden.",
+                "cadenceStepNameLabel": "Naam van het podium",
+                "cadenceStep": "Stap",
+                "updateTitle": "De naam van de cadans wijzigen",
+                "title": "Een cadans creëren",
+                "addACadence": "Voeg een cadans toe",
+                "createCadenceHelper": "Dankzij de cadans kunt u de marketingacties die u naar uw leden stuurt, afstemmen op hun gedrag op het platform. Maak een reeks acties die uw leden moeten voltooien om bijvoorbeeld bepaalde promoties of tags te verkrijgen.",
+                "edit": "Bewerken",
+                "submit": "Aanmaken",
+                "cancel": "Annuleren"
+            },
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "U bent in de weergavemodus, klik op EDIT om de koers te bewerken.",
+                    "cadenceIsActive": "Uw koers is bezig, pauzeer uw koers zodat u deze kunt wijzigen."
+                },
+                "nodeElement": {
+                    "deleteStep": "De stap verwijderen",
+                    "cancelOnGoingCreation": "Annuleren",
+                    "edgeLabelForNodeCreation": "In process",
+                    "addElement": "Een trigger toevoegen"
+                },
+                "tools": {
+                    "showDisabledTriggers": "Uitgeschakelde triggers tonen",
+                    "hideDisabledTriggers": "Verberg uitgeschakelde triggers",
+                    "hideControls": "Werkbalk verbergen",
+                    "showControls": "De werkbalk weergeven",
+                    "hideMap": "De minimap verbergen",
+                    "showMap": "Bekijk de minimap",
+                    "centerView": "De weergave centreren"
+                }
+            },
+            "triggers": {
+                "smartlist": {
+                    "label": "Smartlist"
+                },
+                "events": {
+                    "label": "Aankoop",
+                    "book_chip": "Reservering",
+                    "purchase_chip": "Aankoop"
+                },
+                "timeout": {
+                    "timout_days_chip": "{{ days }} dagen"
+                },
+                "trigger": "Trigger",
+                "exit": "Uitgang",
+                "start": "Ingang"
+            },
+            "cadenceCard": {
+                "lost": "Verloren",
+                "win": "Gewonnen"
+            },
+            "svgText": {
+                "push_notification": "Push notificatie",
+                "sms": "SMS",
+                "email": "Email",
+                "select_event": "Selecteer een evenement",
+                "action_name": "{Naam van de marketingactie }",
+                "marketing_actions": "Marketingacties",
+                "triggers": "Aanleidingen"
+            },
+            "cadenceIndexHelper": "De volgorde van de cadetten bepaalt de volgorde van prioriteit, als een lid 2 verschillende cadetten kan invoeren, begint hij met de hoogste in de lijst.",
+            "marketingElement": "Acties marketing",
+            "triggerElement": "Activerende gebeurtenis",
+            "cadenceParameters": "Tariefinstellingen",
+            "exitEditModeLabel": "De bewerkingsmodus verlaten",
+            "exitEditMode": "Afwerking",
+            "editModeLabel": "Overschakelen naar de bewerkingsmodus",
+            "editMode": "Bewerk",
+            "shutOff": "Pauze",
+            "back": "Retour"
         }
     },
     "spotScheduling": {

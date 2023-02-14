@@ -78,5 +78,7 @@ exports.default = {
       'Nombre de tentatives max atteint. Essayez un autre moyen de payement',
     call_issuer:
       'Votre carte a été refusée pour une raison inconnue. Veuillez contacter votre banque',
+    test_mode_live_card:
+      'Votre carte a été refusée car vous utilisez une carte de test. Veuillez utiliser une carte réelle',
   },
 };

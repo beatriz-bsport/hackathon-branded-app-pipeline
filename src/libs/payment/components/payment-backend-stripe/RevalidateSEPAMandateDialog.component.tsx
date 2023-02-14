@@ -54,7 +54,7 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
   if (!props.open) return null;
 
   switch (currentStep) {
-    case STEP.COLLECT_SEPA:
+    case STEP.COLLECT:
       return (
         <GenericResponsiveDialog open>
           <RevalidateSEPAMandate
@@ -86,7 +86,7 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
               </Button>
               <Button
                 color="primary"
-                onClick={() => setCurrentStep(STEP.COLLECT_SEPA)}
+                onClick={() => setCurrentStep(STEP.COLLECT)}
               >
                 {t('plannedPaymentEvent.dialog.invalidMandate.confirm')}
               </Button>

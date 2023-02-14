@@ -11,7 +11,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
-import { withStyles, WithStyles, Theme } from '@material-ui/core/styles';
+import {
+  withStyles,
+  WithStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles';
 import { AxiosResponse } from 'axios';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -33,13 +38,17 @@ type Props = {
   variant?: 'div' | 'modal';
   content?: string;
   labelClose?: string;
+  paymentMethodIdToRevalidate: string;
 } & WithStyles<typeof styles> &
   WithTranslation;
 
 type State = {
-  error: Error | null;
+  error: boolean;
   clientSecret: string | null;
   success: boolean | null;
+  stripe_error_code: string | null;
+  stripe_decline_code: string | null;
+  processing: boolean;
 };
 
 const Wrapper: React.FC<{ variant: string }> = ({ children, variant }) => {
@@ -54,6 +63,9 @@ export class RevalidateSEPAMandate extends React.Component<Props, State> {
     error: false,
     clientSecret: null,
     success: null,
+    stripe_error_code: null,
+    stripe_decline_code: null,
+    processing: false,
   };
 
   componentDidMount() {
@@ -91,7 +103,7 @@ export class RevalidateSEPAMandate extends React.Component<Props, State> {
       .confirmSepaDebitSetup(this.state.clientSecret, {
         payment_method: this.props.paymentMethodIdToRevalidate,
       })
-      .then((result) => {
+      .then((result: any) => {
         if (result.error) {
           this.setState({
             processing: false,
@@ -260,43 +272,44 @@ export class RevalidateSEPAMandate extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  actions: {
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  centered: {
-    margin: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  message: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-  sensitiveDataContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  mandate: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    textAlign: 'justify',
-  },
-  modal: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: 8,
-    overflow: 'auto',
-    maxHeight: '100vh',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    actions: {
+      marginTop: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    centered: {
+      margin: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    message: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+    sensitiveDataContainer: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    mandate: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      textAlign: 'justify',
+    },
+    modal: {
+      position: 'absolute',
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: 8,
+      overflow: 'auto',
+      maxHeight: '100vh',
+    },
+  });
 
 const RevalidateSEPAMandateCompose = compose(
   withTranslation(['payment']),

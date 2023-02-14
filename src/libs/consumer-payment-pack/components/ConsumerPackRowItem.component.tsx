@@ -472,8 +472,15 @@ export class ConsumerPackRowItem extends Component<Props, State> {
   };
 
   render() {
-    const { t, consumerPack, button, hideConsumer, paymentPack, onClick } =
-      this.props;
+    const {
+      t,
+      consumerPack,
+      button,
+      hideConsumer,
+      paymentPack,
+      onClick,
+      classes,
+    } = this.props;
     const { consumer } = consumerPack;
     const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;
 
@@ -486,6 +493,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
           disabled={!!consumerPack.reverted || !!this.props.disabled}
           button={!!onClick}
           onClick={onClick || null}
+          className={classes.listContainer}
           style={
             consumerPack.disabled || !!this.props.isNonCompatible
               ? { backgroundColor: 'rgba(255,0,0,.05)' }
@@ -571,6 +579,18 @@ const styles = (theme: Theme) =>
     buttonRow: {
       '&>*': {
         marginLeft: theme.spacing(1),
+      },
+      [theme.breakpoints.down('xs')]: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        width: '100%',
+        marginTop: theme.spacing(1),
+      },
+    },
+    listContainer: {
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
       },
     },
     container: {

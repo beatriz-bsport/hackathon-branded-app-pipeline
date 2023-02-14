@@ -376,11 +376,11 @@ const styles: any = (theme: Theme) => ({
     color: theme.palette.info.main,
     width: theme.spacing(2.5),
     height: theme.spacing(2.5),
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   refreshText: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     marginTop: theme.spacing(2),

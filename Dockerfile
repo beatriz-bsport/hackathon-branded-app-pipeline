@@ -3,7 +3,7 @@ ARG GIT_PASSWORD
 ARG CI_COMMIT_REF_NAME 
 ARG ENVIRONMENT 
 
-FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:node-12 AS raw
+FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:node-14 AS raw
 
 ARG GIT_USERNAME
 ARG GIT_PASSWORD

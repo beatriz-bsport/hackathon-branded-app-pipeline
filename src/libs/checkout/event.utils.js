@@ -21,7 +21,7 @@ export const COMPANY_EVENTS = {
   [BASKET_EVENTS.finalize]: {
     icon: <CheckIcon color="primary" />,
     getPrimaryText,
-    i18nText: `checkout:events.${BASKET_EVENTS.finalized}`,
+    i18nText: `checkout:events.${BASKET_EVENTS.finalize}`,
   },
   [BASKET_EVENTS.additem]: {
     icon: <ExposurePlus1Icon color="primary" />,

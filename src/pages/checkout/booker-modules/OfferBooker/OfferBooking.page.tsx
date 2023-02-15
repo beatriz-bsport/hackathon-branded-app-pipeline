@@ -424,6 +424,19 @@ class OfferBooking extends React.PureComponent<Props, State> {
   };
 
   updateOffersWaitingForSpotSelection = () => {
+    /*
+    As this function is called inside componentdidupdate when offerStatusById is not yet 
+    defined, getOfferFeature will then return default values with isWaitingList:false, event when
+    it should be true. Then, offersWaitingForSpotSelection.length > 0, and the OfferSpotSelector is displayed.
+    Because of this, we need to add this security check. 
+    
+    If we are in presence of an offer with waiting list --> the offer is full && the offer waiting list is open, the dialog will pop    
+    if user is already registered. 
+    Link of the issue to solve this problem : https://gitlab.com/bsport/bsport-commons-js/-/issues/9
+    */
+    if (!this.props.offerStatusById?.[this.props.offer?.id]) {
+      return;
+    }
     const allOffers: Array<Offer_FULL> = [
       this.props.offer,
       ...this.state.selectedOffers.map((offerData) => offerData.offer),

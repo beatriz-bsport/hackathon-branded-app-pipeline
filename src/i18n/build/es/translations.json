@@ -1530,7 +1530,8 @@
             "invalid_pin": "Código pin erróneo",
             "incorrect_pin": "Código pin erróneo",
             "call_issuer": "Su tarjeta ha sido rechazada por un motivo desconocido. Póngase en contacto con su banco",
-            "lost_card": "Su banco ha denunciado su tarjeta como perdida"
+            "lost_card": "Su banco ha denunciado su tarjeta como perdida",
+            "test_mode_live_card": "Su tarjeta ha sido rechazada porque usa una tarjeta de prueba. Por favor, utilice una tarjeta real"
         }
     },
     "tag": {
@@ -12273,7 +12274,8 @@
         "marketing": {
             "marketingRule": "Estrategias marketing",
             "marketingDashboard": "Dashboard",
-            "notifications": "Notificaciones"
+            "notifications": "Notificaciones",
+            "cadence": "Cadencia"
         },
         "paymentPack": {
             "paymentPackList": "Bonos",
@@ -12847,7 +12849,33 @@
                     "4": "Presencia Actividad",
                     "3": "Actividades",
                     "2": "Tarjeta de cita",
-                    "1": "Bono"
+                    "1": "Bono",
+                    "billing_plan-renew": "Renovación",
+                    "billing_plan-stop": "Suspensión",
+                    "billing_plan-pause": "Pausa",
+                    "billing_plan-create": "Creación",
+                    "invoice-create": "Factura creada",
+                    "basket-finalize": "Cesta pagada",
+                    "basket-additem": "Adicionar a la cesta",
+                    "basket-created": "Creación",
+                    "private_booking-cancel": "Cancelación de cita",
+                    "private_booking-create": "Cita previa",
+                    "booking-attendance": "Presencia Actividad",
+                    "booking-create": "Actividad",
+                    "8": "Adicionar a la cesta",
+                    "private_consumer_pass-create": "Tarjeta de cita",
+                    "consumer_payment_pack-create": "Bono",
+                    "104": "Suscripción",
+                    "103": "Facturación",
+                    "102": "Cesta",
+                    "101": "Reserva",
+                    "100": "Compra",
+                    "14": "Renovación",
+                    "13": "Suspensión",
+                    "12": "Pausa",
+                    "11": "Creación",
+                    "10": "Factura creada",
+                    "9": "Cesta pagada"
                 },
                 "exit": {
                     "exit_fail_label": "Perdido",
@@ -12897,7 +12925,24 @@
                 "createCadenceHelper": "Gracias a las cadencias, dirija mejor posible las acciones de marketing que envía a sus miembros según su comportamiento en la plataforma. Crea una sucesión de acciones que sus miembros tienen que cumplir para obtener por ejemplo algunas promociones o tags.",
                 "edit": "Modificar",
                 "submit": "Crear",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "error": {
+                    "triggerCannotBeEmpty": "Tiene que seleccionar un tipo de ingreso."
+                },
+                "marketing_action": {
+                    "form": {
+                        "helper": "Seleccione una o varias acciones a realizar cuando un miembro cumpla este paso. Es una opción facultativa.",
+                        "reset": "Eliminar",
+                        "submit": "Guardar"
+                    },
+                    "defaultName": "Nombre por defecto",
+                    "select_tag": "Seleccionar una etiqueta",
+                    "5": "Plantilla email",
+                    "4": "Etiqueta",
+                    "3": "Notificación push",
+                    "2": "Mensaje de texto",
+                    "1": "Correo electrónico"
+                }
             },
             "cadenceIndexHelper": "El orden de las cadencias define el orden de prioridad, si un miembro puede ingresar 2 cadencias diferentes, empezará por la más alta en la lista.",
             "marketingElement": "Acciones de marketing",
@@ -12908,7 +12953,88 @@
             "editModeLabel": "Cambiar al modo de edición",
             "editMode": "Modificar",
             "back": "Atrás",
-            "shutOff": "Pausar"
+            "shutOff": "Pausar",
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "Está en modo visualización, haga clic en MODIFICAR para poder modificar la cadencia.",
+                    "cadenceIsActive": "Su cadencia está en activa, gracias por pausarla para poder modificarla."
+                },
+                "nodeElement": {
+                    "deleteStep": "Eliminar el paso",
+                    "cancelOnGoingCreation": "Cancelar la creación",
+                    "edgeLabelForNodeCreation": "En proceso de creación",
+                    "addElement": "Añadir un desencadenante"
+                },
+                "tools": {
+                    "showDisabledTriggers": "Mostrar los desencadenantes desactivados",
+                    "hideDisabledTriggers": "Esconder los desencadenantes desactivados",
+                    "hideControls": "Esconder la barra de herramientas",
+                    "showControls": "Mostrar la barra de herramientas",
+                    "hideMap": "Esconder la minimap",
+                    "showMap": "Mostrar la minimap",
+                    "centerView": "Enfocar la vista"
+                }
+            },
+            "triggers": {
+                "smartlist": {
+                    "label": "Smartlist"
+                },
+                "events": {
+                    "label": "Compra",
+                    "book_chip": "Reserva",
+                    "purchase_chip": "Compra"
+                },
+                "timeout": {
+                    "timout_days_chip": "{{ days }} días"
+                },
+                "trigger": "Desencadenante",
+                "exit": "Salida",
+                "start": "Ingreso"
+            },
+            "cadenceCard": {
+                "lost": "Perdido",
+                "win": "Ganado"
+            },
+            "activate": {
+                "dialog": {
+                    "cancel": "Cancelar",
+                    "firstHelper": "¿Desea iniciar la cadencia?",
+                    "title": "Iniciar la cadencia",
+                    "secondHelper": "Una vez iniciada ya no podrá modificarla."
+                },
+                "button": "Iniciar",
+                "setupBeforeActivationHelper": "Termine de configurar su cadencia y cree su primera acción marketing para empezar su cadencia."
+            },
+            "archive": {
+                "archivedHeader": "Cadencias archivadas",
+                "dialog": {
+                    "confirm": "Seguir",
+                    "cancel": "Cancelar",
+                    "helper": "Los miembros actualmente en la cadencia saldrán automáticamente. Esta cadencia se archivará, podrá volver a activarla luego.",
+                    "beingArchived": "Está a punto de eliminar {{ name }}.",
+                    "title": "Eliminar una cadencia"
+                }
+            },
+            "svgText": {
+                "push_notification": "Notificación push",
+                "sms": "Mensaje de texto",
+                "email": "Correo electrónico",
+                "select_event": "Seleccionar un acontecimiento",
+                "action_name": "{ Nombre de la acción marketing }",
+                "marketing_actions": "Acciones de marketing",
+                "triggers": "Desencadenantes"
+            },
+            "howTo": {
+                "set_trigger_destination": "{{ index }}. Redireccionar en una acción marketing",
+                "add_smartlist_filter": "{{ index }}. Filtrar en smartlists",
+                "add_trigger": "{{ index }}. Añadir secciones",
+                "edit_event": "{{ index }}. Modificar el acontecimiento",
+                "add_event": "{{ index }}. Añadir un acontecimiento",
+                "edit_marketing_action": "{{ index }}. Modificar la acción marketing",
+                "add_marketing_action": "{{ index }}. Añadir una acción marketing",
+                "explain": "Modifique los elementos del gráfico haciendo clic en estos elementos o cree vínculos entre los bloques con drag and drop.",
+                "title": "Cómo modificar su cadencia"
+            }
         }
     },
     "spotScheduling": {

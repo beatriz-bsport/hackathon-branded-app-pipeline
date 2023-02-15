@@ -123,6 +123,34 @@ export const withInvoiceItem = memoize((selector) =>
   ),
 );
 
+export const getUnpaidInvoiceListWithInvoiceItemAndMembers = createSelector(
+  [
+    getInvoiceListUnpaid,
+    _getInvoiceItemData,
+    getMemberListData,
+    getMemberDetailData,
+  ],
+  (unpaidInvoiceList, invoiceItemData, memberData, memberDetailData) => {
+    if (!unpaidInvoiceList) return unpaidInvoiceList;
+    if (Array.isArray(unpaidInvoiceList)) {
+      return unpaidInvoiceList.map((inv) => ({
+        ...inv,
+        invoice_items: inv.invoice_items.map((ii) => invoiceItemData[ii]),
+        member: memberData[inv.member] || memberDetailData[inv.member],
+      }));
+    }
+    return {
+      ...unpaidInvoiceList,
+      invoice_items: unpaidInvoiceList.invoice_items.map(
+        (ii) => invoiceItemData[ii],
+      ),
+      member:
+        memberData[unpaidInvoiceList.member] ||
+        memberDetailData[unpaidInvoiceList.member],
+    };
+  },
+);
+
 export const withPayment = memoize((selector) =>
   createSelector([selector, _getPaymentData], (invoice, paymentData) => {
     if (!invoice) return invoice;

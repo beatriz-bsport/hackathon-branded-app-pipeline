@@ -122,10 +122,9 @@ import { getGroupListCount, withGroup } from '#libs/group-offer/selectors';
 
 import {
   withInvoiceItem,
-  withMember,
-  getInvoiceListUnpaid,
   getBuyableItem,
   getAllQuickCreatedInvoices,
+  getUnpaidInvoiceListWithInvoiceItemAndMembers,
 } from '#libs/invoice/selectors';
 
 import withTitle from '#hocs/with-title.hoc';
@@ -219,9 +218,7 @@ export default compose(
 
       establishmentList: getAvailableEstablishmentList(state),
       // invoice
-      unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceListUnpaid))(
-        state,
-      ),
+      unpaidInvoiceList: getUnpaidInvoiceListWithInvoiceItemAndMembers(state),
       quickCreatedInvoices: withInvoiceItem(getAllQuickCreatedInvoices)(state),
 
       // buyable stuff

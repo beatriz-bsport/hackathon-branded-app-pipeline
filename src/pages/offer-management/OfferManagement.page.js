@@ -27,7 +27,6 @@ import {
   compatiblePacksWithOfferAndEnabled,
   getDetailedOffer,
   withSpecificCoach,
-  withEstablishment,
 } from '#libs/offer/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
@@ -73,7 +72,6 @@ import {
 import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
-  getSimilarBookingList,
   withStaffModificationHistory,
 } from '#libs/booking/selectors';
 import { withCustomLevel } from '#libs/level/selectors';
@@ -245,9 +243,6 @@ export default compose(
       )(state),
       activityGroups: getGroupListCount(state),
       spotTypes: getSpotTypesOfCompany(state),
-      similarBookingList: withEstablishment(
-        withCustomLevel(getSimilarBookingList),
-      )(state),
       stripeReaders: getStripeReaders(state),
     }),
     {

@@ -226,7 +226,6 @@ type Props = {
   ) => void,
 
   activityGroups: number,
-  similarBookingList: Booking[],
 
   fetchGroupsOfferList: () => {},
   fetchLevelList: ({
@@ -756,7 +755,6 @@ export class OfferManagement extends Component<Props, State> {
           closeRevertBookingDialog={this.props.closeRevertBookingDialog}
           offerIsAvailable={this.props.offer.available}
           offer={this.props.offer}
-          similarBookings={this.props.similarBookingList}
         />
         <DiscardBookingOptionDialog
           open={

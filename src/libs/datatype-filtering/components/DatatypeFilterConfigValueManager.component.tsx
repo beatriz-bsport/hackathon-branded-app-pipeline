@@ -28,7 +28,9 @@ import {
   DISPUTE_STATUS_PENDING,
 } from '@bsport/common/lib/master-data/dispute-status';
 
-import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
+import PAYMENT_METHODS, {
+  CREDIT_ACCOUNT,
+} from '@bsport/common/lib/master-data/payment-methods';
 import { Field, FieldAttributes, useFormikContext } from 'formik';
 import {
   BOOKING_STATUS_OK,
@@ -69,6 +71,10 @@ import {
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelectorConsumers.container';
 import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
+
+const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
+  (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
+);
 
 const DatatypeFilterConfigValueManager: React.FC<{
   comparator: AllComparator;
@@ -433,7 +439,7 @@ const DatatypeFilterConfigValueList: React.FC<{
         ];
 
       case 'payment_method':
-        return [...PAYMENT_METHODS].map(({ id }) => ({
+        return [...PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT].map(({ id }) => ({
           value: id ?? 0,
           label: t(`payment:method.${id}`),
         }));

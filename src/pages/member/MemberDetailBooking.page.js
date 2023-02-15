@@ -857,8 +857,7 @@ export default compose(
         withCustomLevel(getSimilarBookingList),
       )(state),
       spotTypes: getSpotTypesOfCompany(state),
-      memberProgramIdsList: (memberId) =>
-        getMemberProgramIdsList(state, memberId),
+      memberProgramIdsList: getMemberProgramIdsList(state),
       programList: getProgramList(state),
     }),
     {

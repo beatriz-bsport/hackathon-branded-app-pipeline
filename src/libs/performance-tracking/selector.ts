@@ -134,40 +134,35 @@ export const getMemberProgramIdsList = createSelector(
     getMetricDict,
     getMemberProgramDict,
     getProgramDict,
-    (_: RootState, memberId: number) => memberId,
   ],
+  (memberProgramIdsByMemberId, metricDict, memberProgramDict, programDict) =>
+    (memberId: number) => {
+      if (!memberProgramIdsByMemberId[memberId]) {
+        return [];
+      }
 
-  (
-    memberProgramIdsByMemberId,
-    metricDict,
-    memberProgramDict,
-    programDict,
-    memberId,
-  ) => {
-    if (!memberProgramIdsByMemberId[memberId]) {
-      return [];
-    }
-
-    return memberProgramIdsByMemberId[memberId]
-      .map((id) => memberProgramDict[id])
-      .filter((memberProgram) => !!memberProgram && !memberProgram.is_disabled)
-      .map((memberProgram) => ({
-        ...memberProgram,
-        program: programDict[memberProgram?.program],
-        metric_record: {
-          ...memberProgram?.metric_record,
-          general: {
-            ...memberProgram?.metric_record?.general,
-            metrics: memberProgram?.metric_record?.general?.metric_ids
-              ?.filter((id) => metricDict[id])
-              .map((id) => ({
-                ...(memberProgram?.metric_record?.general?.metrics[id] || {}),
-                metric: metricDict[id],
-              })),
+      return memberProgramIdsByMemberId[memberId]
+        .map((id) => memberProgramDict[id])
+        .filter(
+          (memberProgram) => !!memberProgram && !memberProgram.is_disabled,
+        )
+        .map((memberProgram) => ({
+          ...memberProgram,
+          program: programDict[memberProgram?.program],
+          metric_record: {
+            ...memberProgram?.metric_record,
+            general: {
+              ...memberProgram?.metric_record?.general,
+              metrics: memberProgram?.metric_record?.general?.metric_ids
+                ?.filter((id) => metricDict[id])
+                .map((id) => ({
+                  ...(memberProgram?.metric_record?.general?.metrics[id] || {}),
+                  metric: metricDict[id],
+                })),
+            },
           },
-        },
-      }));
-  },
+        }));
+    },
 );
 
 export const getAllMemberProgramList = createSelector(

@@ -232,8 +232,7 @@ export default compose(
       companyId: state.theme.theme.company,
       showVaccinationStatus: showVaccinationStatus(state),
       programList: getProgramList(state),
-      memberProgramIdsList: (memberId) =>
-        getMemberProgramIdsList(state, memberId),
+      memberProgramIdsList: getMemberProgramIdsList(state),
       programDataLoading:
         state.performanceTracking.memberProgram.loading ||
         state.performanceTracking.metricList.loading ||

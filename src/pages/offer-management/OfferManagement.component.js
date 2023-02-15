@@ -123,7 +123,6 @@ type Props = {
   fetchAssetForBlueprint: (number) => void,
   fetchOfferStatus: (number) => void,
   offerStatusById: { [number]: OfferStatus },
-  assetsForBlueprintById: { [number]: AssetForBlueprint },
 
   createMember: (id: ?number, data: [*], options: any, offerId: number) => void,
   createInvoice: ([any], number, number) => void,

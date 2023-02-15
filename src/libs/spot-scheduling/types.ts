@@ -26,6 +26,7 @@ export type SpotSchedulingState = {
   assetForBlueprint: ErrorAndLoading & {
     byId: { [key: string]: AssetForBlueprint };
     ids: number[];
+    byBlueprintById: { [key: string]: { [key: string]: AssetForBlueprint } };
   };
   spotForBlueprint: ErrorAndLoading & {
     byId: { [key: string]: SpotType };

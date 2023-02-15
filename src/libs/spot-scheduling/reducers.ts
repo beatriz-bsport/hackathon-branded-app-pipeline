@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import { SpotSchedulingState } from './types';
+import { AssetForBlueprint, SpotSchedulingState } from './types';
 import {
   assetForBlueprintActions,
   createOrUpdateSpotForBlueprintActions,
@@ -20,6 +20,7 @@ const initialState: Immutable.Immutable<SpotSchedulingState> =
     assetForBlueprint: {
       byId: {},
       ids: [],
+      byBlueprintById: {},
       loading: false,
       error: null,
     },
@@ -89,23 +90,35 @@ export default handleActions(
       const ids = [...state.assetForBlueprint.ids.asMutable()];
       const index = ids.findIndex((id) => id === payload.id);
       index === -1 && ids.push(payload.id);
+      const byBlueprintById: {
+        [key: string]: { [key: string]: AssetForBlueprint };
+      } = {};
+      byBlueprintById[payload.blueprint] = { [payload.id]: payload };
 
       return state
         .setIn(['assetForBlueprint', 'byId', payload.id], payload)
-        .setIn(['assetForBlueprint', 'ids'], ids);
+        .setIn(['assetForBlueprint', 'ids'], ids)
+        .merge({ assetForBlueprint: { byBlueprintById } }, { deep: true });
     },
     [assetForBlueprintActions.list.toString()]: (state, { payload }) => {
       const byId = { ...state.assetForBlueprint.byId };
+      const byBlueprintById: {
+        [key: string]: { [key: string]: AssetForBlueprint };
+      } = {};
 
       payload.forEach((room) => {
         byId[room.id] = room;
+        if (!byBlueprintById[room.blueprint])
+          byBlueprintById[room.blueprint] = {};
+        byBlueprintById[room.blueprint][room.id] = room;
       });
 
       const ids = payload.map((room) => room.id);
 
       return state
         .setIn(['assetForBlueprint', 'byId'], byId)
-        .setIn(['assetForBlueprint', 'ids'], ids);
+        .setIn(['assetForBlueprint', 'ids'], ids)
+        .merge({ assetForBlueprint: { byBlueprintById } }, { deep: true });
     },
     [createOrUpdateSpotForBlueprintActions.isLoading.toString()]: (
       state,

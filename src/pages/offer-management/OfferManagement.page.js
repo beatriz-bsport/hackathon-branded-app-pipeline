@@ -62,7 +62,7 @@ import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#lib
 
 import {
   getSpotTypesOfCompany,
-  getAssetByBlueprintByIdentifier,
+  getAssetByBlueprintByIdentifierFromState,
 } from '#libs/spot-scheduling/selector';
 
 import {
@@ -231,7 +231,7 @@ export default compose(
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
       roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
-      assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
+      assetsForBlueprintById: getAssetByBlueprintByIdentifierFromState(state),
       offerStatusById: state.offer.offerStatus.byId,
       managerFormConfig: getSignUpFormConfigurationDict(state),
       companyId: state.theme.theme.company,

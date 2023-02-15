@@ -64,6 +64,9 @@ export const getAssetByBlueprintByIdentifier = (state: RootState) => {
   return assets;
 };
 
+export const getAssetByBlueprintByIdentifierFromState = (state: RootState) =>
+  state.spotScheduling.assetForBlueprint.byBlueprintById;
+
 export const getAssetForEstablishment = (
   state: RootState,
   establishment: number,

@@ -44,7 +44,7 @@ export function SearchMember(props: Props) {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
-              {props.memberHistory.map((m) => (
+              {props.memberHistory.slice(0, 5).map((m) => (
                 <ListItem
                   key={m.id}
                   divider

@@ -194,7 +194,7 @@ export default compose(
       membersloading: state.member.loading,
       members: withMemberProgram(withTags(getAllMembers))(state),
       memberDetails: getMemberDetailData(state),
-      memberHistory: getMemberHistory(state).slice(0, 5),
+      memberHistory: getMemberHistory(state),
       memberSearchLoading: state.member.search.loading,
       searchedMembers: getSearchedMembers(state),
       memberCreationPending: state.member.upsert.loading,

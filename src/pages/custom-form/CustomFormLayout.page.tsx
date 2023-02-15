@@ -63,6 +63,7 @@ export class CustomFormLayoutPage extends Component<Props> {
           general_terms_and_conditions={
             this.props.theme?.general_terms_and_conditions
           }
+          maxHeight="75%"
         />
       </>
     );

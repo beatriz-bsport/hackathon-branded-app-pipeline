@@ -34,6 +34,7 @@ type OwnProps = {
   general_terms_and_conditions?: string;
   setOutterContainerWidth: (width: number) => void;
   defaultEditMode?: boolean;
+  maxHeight?: string;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -47,6 +48,7 @@ export const CustomFormLayoutView = (props: Props) => {
     onLayoutChange,
     setOutterContainerWidth,
     defaultEditMode,
+    maxHeight,
   } = props;
   const [currentLayoutIndex, setCurrentLayoutIndex] = React.useState(-1);
   const [isEditing, setIsEditing] = React.useState(defaultEditMode || false);
@@ -119,7 +121,7 @@ export const CustomFormLayoutView = (props: Props) => {
     setContainerWith(newValue);
   };
 
-  const classes = useStyles();
+  const classes = useStyles({ maxHeight });
   const { t } = useTranslation('marketing');
   const marks = [
     {
@@ -152,7 +154,7 @@ export const CustomFormLayoutView = (props: Props) => {
       {initial?.custom_form_field ? (
         <>
           <div className={classes.container}>
-            <div className={classes.sitckyToolBarContainer}>
+            <div className={classes.stickyToolBarContainer}>
               <div>
                 <div className={classes.stickyTools}>
                   <FormControlLabel
@@ -269,18 +271,26 @@ export const CustomFormLayoutView = (props: Props) => {
 
 export default compose<any, Props>(ConsumerFormFieldsHOC)(CustomFormLayoutView);
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles<Theme, { maxHeight?: string }>((theme: Theme) => {
   return {
-    paperContainer: {
+    paperContainer: ({ maxHeight }) => ({
       padding: theme.spacing(2),
-    },
+      ...(maxHeight
+        ? {
+            maxHeight,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            position: 'absolute',
+          }
+        : {}),
+    }),
     container: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       gap: theme.spacing(6),
     },
-    sitckyToolBarContainer: {
+    stickyToolBarContainer: {
       width: '100%',
       display: 'flex',
       justifyContent: 'center',

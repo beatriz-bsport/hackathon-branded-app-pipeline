@@ -68,6 +68,7 @@ export const CustomFormLayoutEditor = (props: Props) => {
           general_terms_and_conditions={props.general_terms_and_conditions}
           setOutterContainerWidth={handleWidthChange}
           defaultEditMode
+          maxHeight="65%"
         />
       </div>
       <DialogActions className={classes.dialogActions}>
@@ -90,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: (maxWidth) => `${maxWidth + 50}px`,
     padding: theme.spacing(2),
     backgroundColor: 'rgba(255,255, 255, 0.9)',
+    height: '90vh',
     '& > .MuiPaper-root': {
       backgroundColor: 'transparent',
     },
@@ -135,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogActions: {
     paddingTop: theme.spacing(2),
+    marginTop: 'auto',
   },
 }));
 export default compose<any, OwnProps>(withTranslation('marketing'))(

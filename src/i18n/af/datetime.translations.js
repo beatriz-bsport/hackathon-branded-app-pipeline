@@ -65,8 +65,9 @@ exports.default = {
   },
   form: {
     zeroMinute: '0 min',
+    tenMinutes: '10 min',
     quarterHour: '15 min',
-    twentyMinutes: '2O min',
+    twentyMinutes: '20 min',
     halfHour: '30 min',
     halfAndQuarterHour: '45 min',
     fiftyMinutes: '50 min',

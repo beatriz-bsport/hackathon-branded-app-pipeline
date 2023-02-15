@@ -189,7 +189,7 @@ export class DurationInput extends Component<Props, State> {
             ) : null}
           </Grid>
         </Grid>
-        <Tooltip title={t('slot.form.pre_selected_slots')}>
+        <Tooltip title={t('privateService:slot.form.pre_selected_choices')}>
           <IconButton onClick={() => this.setState({ selectOpen: true })}>
             <KeyboardArrowDownIcon
               onClick={() => this.setState({ selectOpen: true })}

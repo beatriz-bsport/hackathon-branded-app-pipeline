@@ -10,7 +10,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import DurationInput from '../../../../components/input/DurationInputWithSelect.component';
 import NumericInput from '../../../../components/input/NumericInput.component';
-import { DURATION_CHOICES_SHORT } from '../../../../components/forms';
+import { DURATION_CHOICES_SHORT, Submit } from '../../../../components/forms';
 
 type PrivateSlotData = any;
 
@@ -57,13 +57,26 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     );
   }
 
-  isBookingIntervalError = (currentState) =>
-    parseInt(currentState.booking_interval_minutes) < MIN_DURATION_MINUTES ||
-    currentState.booking_interval_minutes === '';
+  get isBookingIntervalError() {
+    return (
+      parseInt(this.state.booking_interval_minutes) < MIN_DURATION_MINUTES ||
+      this.state.booking_interval_minutes === ''
+    );
+  }
+
+  get isFormError() {
+    return (
+      this.isDurationError ||
+      this.isBookingIntervalError ||
+      !this.state.name ||
+      this.state.credit < 0 ||
+      this.state.people_capacity_used < 0
+    );
+  }
 
   handleBlur = () => {
     this.setState((prevState) =>
-      this.isBookingIntervalError(prevState)
+      this.isBookingIntervalError
         ? {
             ...prevState,
             booking_interval_minutes: MIN_DURATION_MINUTES,
@@ -111,6 +124,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             helperText={t('slot.form.credit.helperText')}
             value={this.state.credit}
             onChange={(ev) => this.setState({ credit: ev.target.value })}
+            error={this.state.credit < 0}
           />
         </div>
         <div className={classes.field}>
@@ -122,6 +136,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             onChange={(ev) =>
               this.setState({ people_capacity_used: ev.target.value })
             }
+            error={this.state.people_capacity_used < 0}
           />
         </div>
         <div className={classes.field}>
@@ -155,22 +170,14 @@ export class PrivateSlotForm extends React.Component<Props, State> {
                 this.setState({ booking_interval_minutes: ev.target.value });
               }
             }}
-            error={this.isBookingIntervalError(this.state)}
+            error={this.isBookingIntervalError}
             onBlur={this.handleBlur}
             isPositive
           />
         </div>
         <div className={classes.buttonContainer}>
           <Button onClick={onCancel}>{t('slot.form.cancel')}</Button>
-          <Button
-            type="submit"
-            color="primary"
-            disabled={
-              this.isDurationError || this.isBookingIntervalError(this.state)
-            }
-          >
-            {t('slot.form.submit')}
-          </Button>
+          <Submit disabled={this.isFormError}>{t('slot.form.submit')}</Submit>
         </div>
       </form>
     );
@@ -184,6 +191,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: theme.spacing(3),
+    justifyContent: 'end',
   },
   selectField: {
     minWidth: 140,

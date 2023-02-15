@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { CircularProgress } from '@material-ui/core';
 import { getLanguage } from '../../i18n';
 
 import { RootState } from '../../reducers';
@@ -25,6 +26,7 @@ import {
   getTutorialSection,
   translateSectionsWithLessons,
   translateLesson,
+  getTutorialLessonLoadingState,
 } from '#libs/platform-tutorial/selectors';
 import { getPermissions } from '#libs/role/selectors';
 
@@ -74,6 +76,7 @@ type State = {
   setOpenSectionFinishDialog: (open: boolean) => void;
   openFeatureRequest: boolean;
   setOpenFeatureRequest: (open: boolean) => void;
+  isLessonLoading: boolean;
 };
 type OwnAndConnectedProps = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -228,7 +231,13 @@ class TutorialLessonDetail extends React.Component<Props> {
       selectedLessonId < (lessonsId || []).length - 1
         ? lessonsId[selectedLessonId + 1]
         : null;
-
+    if (this.props.isLessonLoading) {
+      return (
+        <div className={classes.loading}>
+          <CircularProgress />
+        </div>
+      );
+    }
     return (
       <div className={classes.container}>
         {this.props.checkTutorialPermission && (
@@ -285,6 +294,11 @@ const styles = createStyles((theme: Theme) => ({
   button: {
     marginRight: 'auto',
   },
+  loading: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }));
 
 const mapStateToProps = (
@@ -301,6 +315,7 @@ const mapStateToProps = (
   statistics: getUserTutorialStatistics(state),
   tutorial_completion: getUserTutorialCompletion(state),
   permissions: getPermissions(state),
+  isLessonLoading: getTutorialLessonLoadingState(state),
 });
 
 const mapDispatchToProps = {

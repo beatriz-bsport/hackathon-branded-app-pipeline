@@ -1,5 +1,6 @@
 import { FeatureList } from '#libs/company/types';
 import { TutorialCompletion, TutorialLesson } from './types';
+import { hasUpsell } from '#libs/platform-billing/utils';
 
 export const isLessonCompleted = (
   lesson: TutorialLesson,
@@ -26,8 +27,8 @@ export const isUpsellNotSubscribed = (
   featureList: FeatureList,
 ) => {
   const isUpsell = lesson?.upsell_identifiers?.length > 0;
-  const upsellAlreadySubscribed = featureList.upsell.find(
-    (feature) => feature.upsell_identifier === lesson?.upsell_identifiers[0],
-  );
-  return isUpsell && !upsellAlreadySubscribed;
+  if (isUpsell) {
+    return !hasUpsell(featureList, lesson?.upsell_identifiers[0]);
+  }
+  return false;
 };

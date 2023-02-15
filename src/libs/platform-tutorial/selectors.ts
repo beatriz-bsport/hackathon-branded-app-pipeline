@@ -17,6 +17,9 @@ const _getTutorialLessonAllIds = (state: RootState) =>
   state.tutorial.lesson.allIds;
 const _getTutorialLessonbyId = (state: RootState) => state.tutorial.lesson.byId;
 
+export const getTutorialLessonLoadingState = (state: RootState) =>
+  state.tutorial.lesson.loading;
+
 // TUTORIAL COMPLETION
 const _getTutorialUserStatusState = (state: RootState) =>
   state.tutorial.tutorial_user_status;

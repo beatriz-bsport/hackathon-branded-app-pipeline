@@ -311,12 +311,13 @@ export class MarketingRuleListPage extends Component<Props, State> {
       label: this.props.t('marketing:notifications.fabLabels.establishment'),
       onClick: () => this.setState({ createFormOpen: 'establishment' }),
     },
-    this.props.establishmentGroups?.length && {
-      label: this.props.t(
-        'marketing:notifications.fabLabels.establishmentGroup',
-      ),
-      onClick: () => this.setState({ createFormOpen: 'establishment_group' }),
-    },
+    this.props.isMultiLocationEnabled &&
+      this.props.establishmentGroups?.length && {
+        label: this.props.t(
+          'marketing:notifications.fabLabels.establishmentGroup',
+        ),
+        onClick: () => this.setState({ createFormOpen: 'establishment_group' }),
+      },
     {
       label: this.props.t('marketing:notifications.fabLabels.private_service'),
       onClick: () => this.setState({ createFormOpen: 'private_service' }),
@@ -528,6 +529,7 @@ const mapStateToProps = (state: RootState) => ({
   notifications: {
     ...getNotificationGrouped(state),
   },
+  isMultiLocationEnabled: state.theme.theme.enable_multi_localization,
   notificationList: getNotificationForMarketingPage(state),
   paymentPackById: state.paymentPack.byId,
   privatePassById: state.privateService.privatePass.byId,

@@ -25,8 +25,7 @@ const sendBridgeMessage = (type: WidgetMessageType, data?: any) => {
 
 export function bridgeRequestAuthenticationStatus() {
   return async (dispatch: any, getState: () => RootState) => {
-    if (getState().bridge.authentication.loading) return;
-    dispatch(authenticationStatusActions.isLoading(true));
+    if (getState().bridge.authentication.hasBeenReceived) return;
     dispatch(authenticationStatusActions.error(null));
     sendBridgeMessage(WidgetMessageType.REQUEST_AUTHENTICATED_STATUS);
   };
@@ -61,14 +60,14 @@ export function bridgeRequestBookingCount() {
 
 export function bridgeRequestLogout() {
   return async (dispatch: any, getState: () => RootState) => {
-    if (getState().bridge.authentication.loading) return;
+    if (!getState().bridge.authentication.hasBeenReceived) return;
     sendBridgeMessage(WidgetMessageType.REQUEST_LOGOUT);
   };
 }
 
 export function bridgeRequestMemberTag() {
   return async (dispatch: any, getState: () => RootState) => {
-    if (getState().bridge.authentication.loading) return;
+    if (!getState().bridge.authentication.hasBeenReceived) return;
     dispatch(memberTagActions.isLoading(true));
     dispatch(memberTagActions.error(null));
     setTimeout(
@@ -80,7 +79,7 @@ export function bridgeRequestMemberTag() {
 
 export function bridgeRequestVideoPlaybackUrl(videoId) {
   return async (dispatch: any, getState: () => RootState) => {
-    if (getState().bridge.authentication.loading) return;
+    if (!getState().bridge.authentication.hasBeenReceived) return;
     dispatch(getVideoPlaybackUrlActions.isLoading(true));
     dispatch(getVideoPlaybackUrlActions.error(null));
     dispatch(getVideoPlaybackUrlActions.accessDenied(false));
@@ -92,7 +91,7 @@ export function bridgeRequestVideoPlaybackUrl(videoId) {
 // --------------------------------------
 export const authenticationStatusActions = {
   success: createAction('BRIDGE/AUTHENTICATION/SUCCESS'),
-  isLoading: createAction('BRIDGE/AUTHENTICATION/LOADING'),
+  hasBeenReceived: createAction('BRIDGE/AUTHENTICATION/RECEIVED'),
   error: createAction('BRIDGE/AUTHENTICATION/ERROR'),
 };
 
@@ -142,7 +141,7 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
         }),
       );
 
-      dispatch(authenticationStatusActions.isLoading(false));
+      dispatch(authenticationStatusActions.hasBeenReceived(true));
 
       if (!eventData.authenticated) {
         dispatch(basketCountActions.success(null));

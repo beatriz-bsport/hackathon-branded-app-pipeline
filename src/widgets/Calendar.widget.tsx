@@ -9,6 +9,11 @@ import {
 import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
+import {
+  withStyles,
+  createStyles,
+} from 'bsport-saas/node_modules/@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import '../../vendor/map.css';
 
@@ -106,6 +111,13 @@ export class CalendarWidget extends Component<Props, State> {
   };
 
   render() {
+    if (!this.props.authenticationReceived) {
+      return (
+        <div className={this.props.classes.container}>
+          <CircularProgress />
+        </div>
+      );
+    }
     return (
       <MarketplaceCalendarStyled
         {...this.props}
@@ -131,9 +143,23 @@ export class CalendarWidget extends Component<Props, State> {
   }
 }
 
+const styles = () =>
+  createStyles({
+    container: {
+      height: '100%',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: 'transparent',
+    },
+  });
+
 const mapStateToProps = (state: RootState) => ({
   authenticated: state.bridge.authentication.authenticated,
   bookedOffers: state.bridge.registeredOffers.ids_list,
+  username: state.bridge.authentication.username,
+  authenticationReceived: state.bridge.authentication.hasBeenReceived,
 });
 
 const mapDispatchToProps = {
@@ -142,6 +168,7 @@ const mapDispatchToProps = {
 };
 
 export default compose<any, Props>(
+  withStyles(styles),
   CalendarDataContainer,
   connect(mapStateToProps, mapDispatchToProps),
 )(CalendarWidget);

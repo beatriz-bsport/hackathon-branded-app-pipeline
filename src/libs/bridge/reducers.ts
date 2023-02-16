@@ -15,7 +15,7 @@ export type BridgeState = {
     authenticated: boolean,
     username: string,
     error: Error | null,
-    loading: boolean,
+    hasBeenReceived: boolean,
   },
   basket: {
     count: number | null,
@@ -53,7 +53,7 @@ export const initialState: Immutable.Immutable<BridgeState> = Immutable<BridgeSt
       authenticated: false,
       username: '',
       error: null,
-      loading: false,
+      hasBeenReceived: false,
     },
     basket: {
       count: null,
@@ -97,13 +97,13 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
         .setIn(['authentication', 'authenticated'], payload.authenticated)
         .setIn(['authentication', 'username'], payload.username);
     },
-    [authenticationStatusActions.isLoading.toString()]: (
+    [authenticationStatusActions.hasBeenReceived.toString()]: (
       state,
       { payload }: any,
     ) => {
-      return state.setIn(['authentication', 'loading'], payload);
+      return state.setIn(['authentication', 'hasBeenReceived'], payload);
     },
-    [authenticationStatusActions.isLoading.toString()]: (
+    [authenticationStatusActions.error.toString()]: (
       state,
       { payload }: any,
     ) => {

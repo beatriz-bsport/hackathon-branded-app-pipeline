@@ -56,12 +56,12 @@ class LoginButton extends Component<Props> {
       <ButtonGroup variant="outlined" color="primary" size="small">
         <Button
           onClick={this.onClick}
-          disabled={this.props.authenticationLoading}
+          disabled={!this.props.authenticationReceived}
         >
           <PersonIcon fontSize="small" style={{ marginRight: 8 }} />
           {this.props.t('LOGIN')}
         </Button>
-        {this.props.authenticated && !this.props.authenticationLoading && (
+        {this.props.authenticated && this.props.authenticationReceived && (
           <Button onClick={this.props.bridgeRequestLogout} size="small">
             <PowerSettingsNewIcon fontSize="small" />
           </Button>
@@ -72,7 +72,7 @@ class LoginButton extends Component<Props> {
 }
 const mapStateToProps = (state: RootState) => ({
   authenticated: state.bridge.authentication.authenticated,
-  authenticationLoading: state.bridge.authentication.loading,
+  authenticationReceived: state.bridge.authentication.hasBeenReceived,
   username: state.bridge.authentication.username,
 });
 

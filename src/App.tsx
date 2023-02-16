@@ -6,6 +6,7 @@ import { compose, withProps } from 'recompose';
 import {
   MuiThemeProvider,
   withStyles,
+  createStyles,
 } from 'bsport-saas/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import URI from 'urijs';
@@ -247,16 +248,17 @@ class BsportWidget extends Component<Props> {
   }
 }
 
-const styles = () => ({
-  container: {
-    height: '100%',
-    width: '100%',
-    display: 'flex !important',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: 'transparent !important',
-  },
-});
+const styles = () =>
+  createStyles({
+    container: {
+      height: '100%',
+      width: '100%',
+      display: 'flex !important',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: 'transparent !important',
+    },
+  });
 
 const mapStateToProps = (state: RootState) => ({
   theme: state.theme.theme,
@@ -274,7 +276,6 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-  // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
   withProps({ modalOpen: !!window.bsportModalUrlOpen }),

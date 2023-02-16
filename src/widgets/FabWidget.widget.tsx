@@ -241,7 +241,7 @@ class FabWidget extends React.PureComponent<Props, State> {
           <ButtonBase
             classes={{ root: classes.radius50 }}
             onClick={this.onClick}
-            disabled={this.props.authenticationLoading}
+            disabled={!this.props.authenticationReceived}
           >
             <div className={classes.fab}>
               {this.props.authenticated ? (
@@ -355,7 +355,7 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState) => ({
   dialogUrl: state.modal.url,
   authenticated: state.bridge.authentication.authenticated,
-  authenticationLoading: state.bridge.authentication.loading,
+  authenticationReceived: state.bridge.authentication.hasBeenReceived,
   basketCount: state.bridge.basket.count,
   bookingsCount: state.bridge.booking.count,
 });

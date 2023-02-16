@@ -4586,7 +4586,8 @@
             "online_or_offline_pin_required": "Required pin code",
             "pin_try_exceeded": "Max number of attempts reached. Try another payment method",
             "call_issuer": "Your card has been declined for an unknown reason. Please contact your bank",
-            "lost_card": "Your card has been reported lost by your bank"
+            "lost_card": "Your card has been reported lost by your bank",
+            "test_mode_live_card": "Your card has been rejected because you are using a test card. Please use a real card"
         }
     },
     "role": {
@@ -6683,7 +6684,8 @@
             "oneMonth": "1 month",
             "never": "Never",
             "oneHourFifteen": "1h15",
-            "fiftyMinutes": "50 min"
+            "fiftyMinutes": "50 min",
+            "tenMinutes": "10 min"
         },
         "longHourIdentifier": "hours",
         "longMinuteIdentifier": "minuten",

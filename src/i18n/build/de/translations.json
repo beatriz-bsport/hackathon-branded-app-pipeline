@@ -7401,7 +7401,12 @@
             },
             "clicksCount": "Klick",
             "readCount": "Öffnung",
-            "showSms": "SMS anzeigen"
+            "showSms": "SMS anzeigen",
+            "isAnswerWarning": "Achtung ! Nur Sie können diese Nachricht sehen",
+            "numberOfRecipientsCompact": "{{count}} Empfänger",
+            "numberOfRecipients": "Gesendet an 1 Empfänger",
+            "numberOfRecipients_plural": "Gesendet an {{count}} Empfänger",
+            "showNotification": "Siehe Benachrichtigung"
         },
         "campaign": {
             "list": {
@@ -7433,7 +7438,11 @@
             "automated": {
                 "panel": {
                     "add": "Hinzufügen",
-                    "title": "Automatische Sendungsregel"
+                    "title": "Automatische Sendungsregel",
+                    "subtitle": {
+                        "onLeft": "Im Ausgang",
+                        "onJoin": "Im Eingang"
+                    }
                 },
                 "form": {
                     "subtitles": {
@@ -7449,12 +7458,21 @@
                     "max_communications_sent_per_member_limit": "Maximaler Wert : {{ max }}",
                     "max_communications_sent_per_member": "Maximale Anzahl an Sendungen pro Mitglied",
                     "advancedSection": "Fortgeschrittene",
-                    "submit": "Bestätigen"
+                    "submit": "Bestätigen",
+                    "frequenceHelper": "Diese Mitteilung wird von {{ max }}{{ event_kind }} gesendet von der Smartlist für jeden Mitglied. Nach {{ max }}{{ event_kind }} der Smartlist für ein einzelnes Mitglied, wird er diese Mitteilung nicht mehr erhalten. Sie können diese Einstellung unter 'Erweitert' ändern."
                 },
                 "activeSince": "Aktiv seit dem {{-date}}",
                 "create": "Erstellung ",
                 "onJoin": "Am Eingang zur Smartlist",
-                "onLeft": "Beim Verlassen der Smartlist"
+                "onLeft": "Beim Verlassen der Smartlist",
+                "deleteDialog": {
+                    "content": "Sind Sie sicher, dass Sie diese Regel zum automatischen Senden entfernen möchten? Diese Aktion ist endgültig.",
+                    "title": "Löschung"
+                },
+                "eventKind": {
+                    "1": "Abmeldung",
+                    "0": "Anmeldung"
+                }
             },
             "automatedTitle": "Automatische Sendungen",
             "manualTitle": "Manuelle Sendungen"

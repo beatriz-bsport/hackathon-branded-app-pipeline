@@ -8219,7 +8219,8 @@
             "twoWeeks": "2 weken",
             "oneMonth": "1 maand",
             "never": "Nooit",
-            "fiftyMinutes": "50 min"
+            "fiftyMinutes": "50 min",
+            "tenMinutes": "10 min"
         },
         "never": "Nooit",
         "shortMinuteIdentifier": "min.",
@@ -10144,7 +10145,8 @@
             "online_or_offline_pin_required": "Pincode vereist",
             "pin_try_exceeded": "Het maximaal aantal pogingen is momenteel bereikt. Probeer een andere betaalmethode.",
             "call_issuer": "Uw kaart is geweigerd om een onbekende reden. Neem contact op met uw bank",
-            "lost_card": "Uw kaart is door uw bank als verloren gemeld"
+            "lost_card": "Uw kaart is door uw bank als verloren gemeld",
+            "test_mode_live_card": "Uw kaart is geweigerd omdat u een testkaart gebruikt. Gebruik een echte kaart"
         }
     },
     "dashboard": {

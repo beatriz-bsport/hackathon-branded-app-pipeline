@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import { Prompt } from 'react-router-dom';
 import moment from 'moment-timezone';
-import uniqBy from 'lodash/uniqBy';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
@@ -696,7 +695,7 @@ export class OfferManagement extends Component<Props, State> {
           )}
 
           <QuickInvoicePanel
-            unevenSavedInvoices={uniqBy(this.props.unpaidInvoiceList, 'uuid')}
+            unevenSavedInvoices={this.props.unpaidInvoiceList}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}

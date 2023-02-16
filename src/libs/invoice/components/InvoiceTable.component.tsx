@@ -43,6 +43,7 @@ import {
 import SendIcon from '@material-ui/icons/Send';
 import Avatar from '@material-ui/core/Avatar';
 import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods';
+import uniqBy from 'lodash/uniqBy';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getPaymentLink } from '../../consumer-space/utils';
@@ -619,7 +620,7 @@ export const InvoiceTable = (props: {
         </TableHead>
         <TableBody>
           {!props.loading &&
-            props.invoiceList.map(
+            uniqBy(props.invoiceList, 'uuid').map(
               (invoice: Invoice & { memberArchived?: boolean }) => (
                 <InvoiceRow
                   showType={props.showType}

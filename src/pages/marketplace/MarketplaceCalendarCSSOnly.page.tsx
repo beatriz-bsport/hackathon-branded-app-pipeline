@@ -119,6 +119,9 @@ type OwnProps = {
   mapContainerClassName?: string;
   nextAvailableOffer?: Offer;
   authenticated?: boolean;
+  // username is propagated from the widget in order to retrieve user
+  // specific information without relying on auth tokens
+  username?: string;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -201,6 +204,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       company: this.props.companyId,
       min_date,
       max_date,
+      ...(this.props.username ? { username: encodeURI(this.props.username) } : {}),
       ...this.props.filters,
       ...optionalParams,
       with_tags: true,

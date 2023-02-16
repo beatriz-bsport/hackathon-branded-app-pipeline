@@ -101,6 +101,7 @@ type OwnProps = {
   mapContainerClassName?: string;
   nextAvailableOffer?: Offer;
   authenticated?: boolean;
+  username?: string;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -186,6 +187,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       company: this.props.companyId,
       min_date,
       max_date,
+      ...(this.props.username
+        ? { username: encodeURI(this.props.username) }
+        : {}),
       ...this.props.filters,
       ...optionalParams,
       with_tags: true,

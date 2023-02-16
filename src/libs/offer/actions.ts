@@ -405,6 +405,7 @@ export function fetchMarketplaceOfferList(
     company: number;
     min_date: string;
     max_date: string;
+    username?: string;
     filters: OfferFilterData | OfferFilter;
     is_workshop?: boolean;
     available?: boolean;

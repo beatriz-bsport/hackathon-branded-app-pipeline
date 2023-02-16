@@ -37,6 +37,7 @@ export async function fetchOffersList(
     company?: number;
     min_date?: string;
     max_date?: string;
+    username?: string;
     available?: boolean;
     is_workshop?: boolean;
     only_future?: boolean;

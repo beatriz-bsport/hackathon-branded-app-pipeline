@@ -500,6 +500,29 @@ export class OfferManagement extends Component<Props, State> {
     });
   };
 
+  refreshNavigationHeader = () =>
+    this.props.fetchOfferData(this.props.booking_ordering);
+
+  closeMemberProgramDetailDialog = () =>
+    this.setState({
+      isMemberProgramDetailDialogOpen: false,
+    });
+
+  refreshRecurrenceRuleBookingFormDialog = () => {
+    this.props.fetchOfferData(this.props.booking_ordering);
+    this.props.clearSearch();
+    this.props.setMemberToRegister(null);
+    this.props.setBookerInAvanceDialog(false);
+  };
+
+  discardBookingOptionDialogOnSubmit = () => {
+    this.props.discardOption(this.props.optionToDiscard, null, {
+      onSuccess: () => {
+        this.props.cancelDiscardOption();
+      },
+    });
+  };
+
   render() {
     const {
       offer,
@@ -522,9 +545,7 @@ export class OfferManagement extends Component<Props, State> {
               loading={this.props.offerLoading}
               offerLoading={this.props.offerLoading || !this.props.offer}
               goToCalendar={this.props.goToCalendar}
-              refresh={() =>
-                this.props.fetchOfferData(this.props.booking_ordering)
-              }
+              refresh={this.refreshNavigationHeader}
             />
           </Grid>
         </Grid>
@@ -545,23 +566,14 @@ export class OfferManagement extends Component<Props, State> {
           updateMemberMetricValue={this.props.updateMemberMetricValue}
           createMemberProgram={this.handleCreateMemberProgram}
           changeMember={this.handleChangeMember}
-          closeDialog={() =>
-            this.setState({
-              isMemberProgramDetailDialogOpen: false,
-            })
-          }
+          closeDialog={this.closeMemberProgramDetailDialog}
           loading={this.props.programDataLoading}
         />
 
         {!!this.props.offer && this.props.bookerInAvanceDialog && (
           <RecurrenceRuleBookingFormDialog
             offerSet
-            refresh={() => {
-              this.props.fetchOfferData(this.props.booking_ordering);
-              this.props.clearSearch();
-              this.props.setMemberToRegister(null);
-              this.props.setBookerInAvanceDialog(false);
-            }}
+            refresh={this.refreshRecurrenceRuleBookingFormDialog}
             onClose={() => this.props.setBookerInAvanceDialog(false)}
             initial={{
               meta_activity: {
@@ -603,9 +615,7 @@ export class OfferManagement extends Component<Props, State> {
             loading={this.props.offerLoading}
             offerLoading={this.props.offerLoading || !this.props.offer}
             goToCalendar={this.props.goToCalendar}
-            refresh={() =>
-              this.props.fetchOfferData(this.props.booking_ordering)
-            }
+            refresh={this.refreshNavigationHeader}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -739,7 +749,6 @@ export class OfferManagement extends Component<Props, State> {
               onCancel={this.props.closeAddMemberModal}
               onSubmit={this.createMember}
               goToMember={this.props.goToMember}
-              goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
               companyCountry={this.props.country}
               waiver={this.props.company_theme.waiver}
@@ -760,13 +769,7 @@ export class OfferManagement extends Component<Props, State> {
           open={
             !!this.props.optionToDiscard && !!this.props.confirmOptionToDiscard
           }
-          onSubmit={() => {
-            this.props.discardOption(this.props.optionToDiscard, null, {
-              onSuccess: () => {
-                this.props.cancelDiscardOption();
-              },
-            });
-          }}
+          onSubmit={this.discardBookingOptionDialogOnSubmit}
           onClose={this.props.cancelDiscardOption}
         />
         <DiscardBookingOptionDialogV2

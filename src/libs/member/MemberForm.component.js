@@ -686,7 +686,7 @@ export default compose(
           if (snackbarSuccess) {
             snackbarSuccess('member.link.success');
           }
-          goToMemberList();
+          goToMemberList?.();
         })
         .catch((error) => {
           const { status, data } = error.response || {};

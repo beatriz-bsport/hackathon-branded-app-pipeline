@@ -109,4 +109,5 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['offer', 'translation']),
+  React.memo,
 )(OfferNavigationHeader);

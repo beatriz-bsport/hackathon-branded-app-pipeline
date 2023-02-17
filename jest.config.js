@@ -8,7 +8,6 @@ module.exports = {
     '<rootDir>/src/**/?(*.)(spec|test).{ts,tsx}',
   ],
   testEnvironment: 'node',
-  testURL: 'http://localhost',
   transform: {
     // '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
@@ -18,6 +17,9 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^react-native$': 'react-native-web',
+  },
+  testEnvironmentOptions: {
+    url: 'http://localhost',
   },
   moduleFileExtensions: [
     'web.js',

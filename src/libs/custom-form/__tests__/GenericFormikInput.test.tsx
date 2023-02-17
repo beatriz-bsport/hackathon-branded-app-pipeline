@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { fireEvent, render, act } from '@testing-library/react';
+import { fireEvent, render, act, waitFor } from '@testing-library/react';
 import { Formik } from 'formik';
 
 import { TextField } from '../components/GenericFormik.input';
@@ -26,10 +26,13 @@ describe('GenericFormik: <TextField />', () => {
     });
   });
 
-  it('on input change the value', () => {
-    const input = component.getByTestId('input-test');
-    fireEvent.change(input, { target: { value: 'new value' } });
+  waitFor(() => {
+    it('on input change the value', () => {
+      const input = component.getByTestId('input-test');
 
-    expect(input.value).toBe('new value');
+      fireEvent.change(input, { target: { value: 'new value' } });
+
+      expect(input.value).toBe('new value');
+    });
   });
 });

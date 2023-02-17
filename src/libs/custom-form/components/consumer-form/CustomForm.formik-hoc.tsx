@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { withFormik, FieldArray } from 'formik';
+import { withFormik, FieldArray, FastField } from 'formik';
 import {
   CUSTOM_FORM_FIELD_FILE_OPTION,
   CUSTOM_FORM_FIELD_SIGNATURE_OPTION,
@@ -30,6 +30,7 @@ type OwnProps = {
   isEditing?: boolean;
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
+  fieldsAreIndependent?: boolean; // if they are, FastField is used to avoid useless re-rendering
 };
 type Props = OwnProps & WithTranslation;
 
@@ -41,7 +42,7 @@ export const ConsumerFormFields = (props: Props) => {
   // Need to not pass classes in props otherwise
   // thousands of errors are raised by MUI
   /* eslint-disable */
-  const { classes, ...restProps } = props;
+  const { classes, fieldsAreIndependent, ...restProps } = props;
   /* eslint-disable */
   return (
     <FieldArray name="custom_form_field">
@@ -57,15 +58,30 @@ export const ConsumerFormFields = (props: Props) => {
             isEditing={props.isEditing}
             customProviderWidth={props.customProviderWidth}
           >
-            {custom_form_field?.map((field: CustomFormField, i: number) => (
-              <div key={field?.id?.toString()}>
-                <CustomFormConsumerInput
-                  {...restProps}
-                  field={field}
-                  index={i}
-                />
-              </div>
-            ))}
+            {fieldsAreIndependent
+              ? custom_form_field?.map((field: CustomFormField, i: number) => (
+                  <FastField
+                    key={i.toString()}
+                    name={`custom_form_field.${i}.answer`}
+                  >
+                    {() => (
+                      <CustomFormConsumerInput
+                        {...restProps}
+                        field={field}
+                        index={i}
+                      />
+                    )}
+                  </FastField>
+                ))
+              : custom_form_field?.map((field: CustomFormField, i: number) => (
+                  <div key={field?.id?.toString()}>
+                    <CustomFormConsumerInput
+                      {...restProps}
+                      field={field}
+                      index={i}
+                    />
+                  </div>
+                ))}
           </GridLayoutWrapper>
         </>
       )}

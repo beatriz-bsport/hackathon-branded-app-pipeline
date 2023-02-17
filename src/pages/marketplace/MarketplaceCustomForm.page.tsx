@@ -149,6 +149,7 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                     general_terms_and_conditions={
                       this.props.theme.general_terms_of_use
                     }
+                    fieldsAreIndependent
                   />
                 </Paper>
               )}

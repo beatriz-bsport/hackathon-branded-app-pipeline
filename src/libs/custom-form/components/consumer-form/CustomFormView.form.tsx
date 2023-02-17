@@ -42,6 +42,7 @@ type OwnProps = {
   userStatus?: number;
   textButtonConfirm?: boolean;
   disableLayout?: boolean;
+  fieldsAreIndependent?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &

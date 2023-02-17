@@ -43,7 +43,6 @@ exports.default = {
   },
   coupon: {
     couponCreate: 'Formulaire promotion',
-    couponDetail: '{{name}}',
     couponEdit: 'Formulaire promotion',
     couponList: 'Codes promotionnels',
   },

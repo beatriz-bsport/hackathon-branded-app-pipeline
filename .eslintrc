@@ -10,6 +10,7 @@
           "#libs": "./src/libs",
           "#components": "./src/components",
           "#hocs": "./src/hocs",
+          "#csscomponents": "./src/components/css-only",
         },
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }

@@ -19,6 +19,8 @@
       "#libs/*": ["./src/libs/*"],
       "#components/*": ["./src/components/*"],
       "#hocs/*": ["./src/hocs/*"],
+      "#csscomponents/*": ["./src/components/css-only/*"],
+    
     },
   },
   "include": ["./src/**/*.ts*"]

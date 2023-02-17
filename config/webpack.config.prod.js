@@ -128,6 +128,7 @@ module.exports = {
       '#libs': path.resolve(__dirname, '../src/libs'),
       '#hocs': path.resolve(__dirname, '../src/hocs'),
       '#components': path.resolve(__dirname, '../src/components'),
+      '#csscomponents': path.resolve(__dirname, '../src/components/css-only'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

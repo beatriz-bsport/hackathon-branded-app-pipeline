@@ -130,7 +130,7 @@ export const withSpecificCoach = memoize(
               typeof offers.coach_override === 'number'
                 ? offers.coach_override
                 : offers.coach_override.id
-            ]
+            ] || offers.coach_override
           : null,
       };
     }),

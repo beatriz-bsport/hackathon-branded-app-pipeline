@@ -290,7 +290,7 @@ export class OfferManagement extends Component<Props, State> {
           data && data.coach && data.coach.id ? data.coach.id : null;
         const coach_override_id =
           data && data.coach_override && data.coach_override.id
-            ? data.coach.id
+            ? data.coach_override.id
             : null;
         this.props.fetchAssociatedCoachesList({
           id__in: [coach_id, coach_override_id],

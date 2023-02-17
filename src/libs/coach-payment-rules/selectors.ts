@@ -31,30 +31,36 @@ export const CoachPaymentRulesSelector = (state: RootState) =>
     ),
   }));
 
-export const CoachPaymentRuleByKindSelector = (state: RootState) => {
-  return {
-    [COACH_PAYMENT_RULE_FOR_SESSION]: values(state.coachPaymentRules.items)
-      .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_SESSION)
-      .map((rule: CoachPaymentRule) => ({
-        ...rule,
-        coaches: compact(
-          rule.associated_coach.map((coachId: number) =>
-            associatedCoachSelector.get(state, coachId),
+const selectCoachPaymentRulesItems = (state: RootState) =>
+  state.coachPaymentRules.items;
+
+export const CoachPaymentRuleByKindSelector = createSelector(
+  [selectCoachPaymentRulesItems, getAllCoaches],
+  (coachPaymentRulesItems, allCoaches: Array<Coach>) => {
+    return {
+      [COACH_PAYMENT_RULE_FOR_SESSION]: values(coachPaymentRulesItems)
+        .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_SESSION)
+        .map((rule: CoachPaymentRule) => ({
+          ...rule,
+          coaches: compact(
+            rule.associated_coach.map((coachId: number) =>
+              allCoaches.find((coach) => coach.associated_coach_id === coachId),
+            ),
           ),
-        ),
-      })),
-    [COACH_PAYMENT_RULE_FOR_APPOINTMENT]: values(state.coachPaymentRules.items)
-      .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT)
-      .map((rule: CoachPaymentRule) => ({
-        ...rule,
-        coaches: compact(
-          rule.private_associated_coach.map((coachId: number) =>
-            associatedCoachSelector.get(state, coachId),
+        })),
+      [COACH_PAYMENT_RULE_FOR_APPOINTMENT]: values(coachPaymentRulesItems)
+        .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT)
+        .map((rule: CoachPaymentRule) => ({
+          ...rule,
+          coaches: compact(
+            rule.private_associated_coach.map((coachId: number) =>
+              allCoaches.find((coach) => coach.associated_coach_id === coachId),
+            ),
           ),
-        ),
-      })),
-  };
-};
+        })),
+    };
+  },
+);
 
 export const getAssociatedCoachSessionPerformance = (
   state: RootState,

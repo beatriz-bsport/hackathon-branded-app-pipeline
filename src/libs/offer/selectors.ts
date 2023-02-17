@@ -440,10 +440,15 @@ export const getBookingGuestNumberLeft = (state: RootState) => {
   return state.offer.bookingGuest?.bookingGuestNumberLeft;
 };
 
-export const getOfferHasPendingReplacementRequest =
-  (state: RootState) =>
-  (offerId: number): boolean =>
-    state.offer?.hasPendingReplacementRequest?.byOfferId[offerId] ?? false;
+const selectOfferWithPendingReplacementRequest = (state: RootState) =>
+  state.offer.hasPendingReplacementRequest.byOfferId;
+
+export const getOfferHasPendingReplacementRequest = createSelector(
+  [selectOfferWithPendingReplacementRequest],
+  (offers) => {
+    return (offerId: number): boolean => offers[offerId] ?? false;
+  },
+);
 
 export const getOfferHasRefusedReplacementRequest =
   (state: RootState) =>

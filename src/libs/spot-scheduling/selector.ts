@@ -7,13 +7,18 @@ export const getRoomBlueprint = (state: RootState, id: number) => {
   return state.spotScheduling.roomBlueprint.byId[id];
 };
 
-export const getRoomBlueprints = (state: RootState) => {
-  return state.spotScheduling.roomBlueprint.ids
-    .map((id) => {
-      return state.spotScheduling.roomBlueprint.byId[id];
-    })
-    .filter((rb) => !!rb);
-};
+const selectRoomBlueprint = (state: RootState) =>
+  state.spotScheduling.roomBlueprint;
+
+export const getRoomBlueprints = createSelector(
+  [selectRoomBlueprint],
+  (roomBlueprint) =>
+    roomBlueprint.ids
+      .map((id) => {
+        return roomBlueprint.byId[id];
+      })
+      .filter((rb) => !!rb),
+);
 
 export const getAvailableRoomBlueprints = createSelector(
   getRoomBlueprints,

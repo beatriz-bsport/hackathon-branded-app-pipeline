@@ -1336,7 +1336,7 @@ export default compose(
   withWidth(),
   withMobileDialog(),
   connect(
-    (state, { selectedOffer, date }) => ({
+    (state, { date }) => ({
       creatingOffers: state.offer.create.loading,
       editOfferProcessing: state.offer.edit.loading,
       events: state.offer.calendar,
@@ -1388,12 +1388,11 @@ export default compose(
         state,
         'cancelledBookings',
       ),
-      bookingStatistics: selectedOffer
-        ? getStats(state)
-        : getStats(state, {
-            start: moment(date).startOf('week'),
-            end: moment(date).endOf('week'),
-          }),
+      bookingStatistics: getStats(
+        state,
+        moment(date).startOf('week').format(),
+        moment(date).endOf('week').format(),
+      ),
       roomBlueprints: getAvailableRoomBlueprints(state),
       allRoomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),

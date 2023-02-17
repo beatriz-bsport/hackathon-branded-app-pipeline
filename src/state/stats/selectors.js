@@ -2,7 +2,7 @@
 
 import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
-import moment, { Moment } from 'moment-timezone';
+import moment from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
@@ -18,46 +18,56 @@ export const dateRangeSelector = createSelector(
   }),
 );
 
-export const getStats = (
-  state: State,
-  range?: { start: Moment, end: Moment },
-) => {
-  if (
-    state.stats.stats &&
-    state.stats.stats.createdBookings &&
-    state.stats.stats.createdBookings.data &&
-    state.stats.stats.cancelledBookings &&
-    state.stats.stats.cancelledBookings.data
-  ) {
-    const createdBookings = state.stats.stats.createdBookings.data;
-    const cancelledBookings = state.stats.stats.cancelledBookings.data;
-    if (range) {
-      const { start, end } = range;
-      return { createdBookings, cancelledBookings, start, end };
+const selectCreatedBookings = (state) =>
+  state.stats.stats.createdBookings?.data;
+
+const selectCancelledBookings = (state) =>
+  state.stats.stats.cancelledBookings?.data;
+
+const selectStart = (state, start) => start;
+
+const selectEnd = (state, start, end) => end;
+
+export const getStats = createSelector(
+  [selectCreatedBookings, selectCancelledBookings, selectStart, selectEnd],
+  (createdBookings, cancelledBookings, start, end) => {
+    if (createdBookings && cancelledBookings) {
+      if (start && end) {
+        const startMoment = moment(start);
+        const endMoment = moment(end);
+        return { createdBookings, cancelledBookings, startMoment, endMoment };
+      }
+      if (createdBookings.length === 0) {
+        const startYearBefore = moment().subtract(1, 'year');
+        const endNow = moment();
+        return { createdBookings, cancelledBookings, startYearBefore, endNow };
+      }
+      if (cancelledBookings.length === 0) {
+        const startBooking = moment(createdBookings[0].d);
+        const endBooking = moment(
+          createdBookings[createdBookings.length - 1].d,
+        );
+        return { createdBookings, cancelledBookings, startBooking, endBooking };
+      }
+      const startMinBooking = moment(
+        Math.min(createdBookings[0].d, cancelledBookings[0].d),
+      );
+      const endMaxBooking = moment(
+        Math.max(
+          createdBookings[createdBookings.length - 1].d,
+          cancelledBookings[cancelledBookings.length - 1].d,
+        ),
+      );
+      return {
+        createdBookings,
+        cancelledBookings,
+        startMinBooking,
+        endMaxBooking,
+      };
     }
-    if (createdBookings.length === 0) {
-      const start = moment().subtract(1, 'year');
-      const end = moment();
-      return { createdBookings, cancelledBookings, start, end };
-    }
-    if (cancelledBookings.length === 0) {
-      const start = moment(createdBookings[0].d);
-      const end = moment(createdBookings[createdBookings.length - 1].d);
-      return { createdBookings, cancelledBookings, start, end };
-    }
-    const start = moment(
-      Math.min(createdBookings[0].d, cancelledBookings[0].d),
-    );
-    const end = moment(
-      Math.max(
-        createdBookings[createdBookings.length - 1].d,
-        cancelledBookings[cancelledBookings.length - 1].d,
-      ),
-    );
-    return { createdBookings, cancelledBookings, start, end };
-  }
-  return null;
-};
+    return null;
+  },
+);
 
 function filterDataTable(table, dateRange) {
   return filter(table, (x) => x.d >= dateRange.start && x.d <= dateRange.end);

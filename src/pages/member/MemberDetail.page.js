@@ -226,8 +226,8 @@ export class MemberDetail extends React.Component<Props> {
     }
   }
 
-  archiveMember = (id: number) => {
-    this.props.archiveMember(id, {
+  archiveMember = () => {
+    this.props.archiveMember(this.props.id, {
       onSuccess: () => {
         this.props.setOpenArchiveDialog(false);
         this.props.fetchMember(this.props.id);
@@ -250,19 +250,48 @@ export class MemberDetail extends React.Component<Props> {
     });
   };
 
+  handleSubscribeMember = () => this.props.subscribeMember(this.props.id);
+
+  handleOnContractRegisterSuccess = () => {
+    this.props.closeContractDialog();
+    this.props.pushToTab(this.props.id, 'payment');
+  };
+
+  handleBillMember = () => this.props.billMember(this.props.id);
+
+  handleGoToInvoice = () => this.props.goToInvoice(this.props.invoiceInfo.uuid);
+
+  handleMemberArchiveDialogClose = () => {
+    this.props.setOpenArchiveDialog(false);
+  };
+
+  handleOnChange = (_event, newTab) => {
+    this.props.pushToTab(this.props.id, newTab);
+    this.props.fetchCountObjects(this.props.id);
+  };
+
   render() {
     const {
       t,
       classes,
-      pushToTab,
-      billMember,
       tab,
-      id,
       member,
       infosOfMember,
       videoPurchasedCount,
       customFormFilledList,
     } = this.props;
+
+    const enabledPaymentMethods = [
+      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+      ...(stripeRegion === 'NorthAmerica' &&
+      TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
+        ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+        : []),
+      ...(this.props.theme.currency === 'eur'
+        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+        : []),
+    ];
 
     return (
       <div className={classes.container}>
@@ -270,14 +299,7 @@ export class MemberDetail extends React.Component<Props> {
           <title>{member ? member.name : ''}</title>
         </Helmet>
         <AppBar position="static" color="default">
-          <Tabs
-            variant="scrollable"
-            value={tab}
-            onChange={(e, newTab) => {
-              pushToTab(id, newTab);
-              this.props.fetchCountObjects(id);
-            }}
-          >
+          <Tabs variant="scrollable" value={tab} onChange={this.handleOnChange}>
             <Tab label={t('menu.info')} value="info" />
             <Tab
               label={`${t('menu.bookings')} ${
@@ -444,7 +466,7 @@ export class MemberDetail extends React.Component<Props> {
           </Switch>
         </div>
         <MemberActions
-          billMember={() => billMember(id)}
+          billMember={this.handleBillMember}
           subscribeMember={this.props.openContractDialog}
           interrogateMemberStatus={this.interrogateMemberStatus}
           member={this.props.member}
@@ -456,9 +478,7 @@ export class MemberDetail extends React.Component<Props> {
           <InvoiceInfoDialog
             invoiceInfo={this.props.invoiceInfo}
             onClose={this.props.resetInvoiceInfo}
-            goToInvoice={() =>
-              this.props.goToInvoice(this.props.invoiceInfo.uuid)
-            }
+            goToInvoice={this.handleGoToInvoice}
           />
         )}
         <SubscriptionContractRegister
@@ -474,24 +494,9 @@ export class MemberDetail extends React.Component<Props> {
           member={this.props.member}
           open={this.props.contractDialogOpen}
           onClose={this.props.closeContractDialog}
-          enabledPaymentMethods={[
-            BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-            ...(stripeRegion === 'NorthAmerica' &&
-            TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-              ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-              : []),
-            ...(this.props.theme.currency === 'eur'
-              ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-              : []),
-          ]}
-          goToCustomSubscriptionForm={() =>
-            this.props.subscribeMember(this.props.id)
-          }
-          onSuccess={() => {
-            this.props.closeContractDialog();
-            this.props.pushToTab(id, 'payment');
-          }}
+          enabledPaymentMethods={enabledPaymentMethods}
+          goToCustomSubscriptionForm={this.handleSubscribeMember}
+          onSuccess={this.handleOnContractRegisterSuccess}
           managerFormConfig={this.props.managerFormConfig?.poll_fields}
           waiver={this.props.theme.waiver}
           generalTermsAndConditions={
@@ -508,9 +513,7 @@ export class MemberDetail extends React.Component<Props> {
           member={this.props.memberToArchive}
           archiveMemberStatus={this.props.memberArchiveStatus}
           loading={this.props.memberArchiveLoading}
-          onClose={() => {
-            this.props.setOpenArchiveDialog(false);
-          }}
+          onClose={this.handleMemberArchiveDialogClose}
           onConfirm={this.archiveMember}
         />
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||

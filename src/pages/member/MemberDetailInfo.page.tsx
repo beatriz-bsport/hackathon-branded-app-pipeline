@@ -1,6 +1,4 @@
-// @flow
-
-import React, { Component } from 'react';
+import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import { push as routerPush } from 'connected-react-router';
@@ -39,6 +37,7 @@ import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import {
   getSearchedMembers,
   getMemberDetail,
+  getFilteredSearchedMembers,
 } from '../../libs/member/selectors';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
@@ -48,7 +47,7 @@ import ModalDeleteFile from '../../components/ModalConfirm.component';
 import MemberSearchModal from '../../libs/member/components/MemberSearchModal.component';
 import FileUploadDialog from '../../components/FileUploadDialog';
 import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
-import tagSelectors from '../../libs/tag/selectors';
+import { getMemberTagGroups } from '../../libs/tag/selectors';
 import {
   fetchTags,
   createOrUpdateTag,
@@ -150,7 +149,7 @@ type State = {
 const stripeRegion = getStripeRegion();
 const companyCountry = getCompanyCountry();
 
-export class MemberDetailPage extends Component<Props> {
+export class MemberDetailPage extends React.Component<Props> {
   state: State = {
     searchModalOpen: false,
     tagToDelete: null,
@@ -172,21 +171,23 @@ export class MemberDetailPage extends Component<Props> {
   }
 
   fetchData = () => {
-    this.props.fetchMember(this.props.id, {
-      onSuccess: () => this.props.retrieveMemberPendingEmail(this.props.id),
-    });
-    this.props.fetchTags();
-    this.props.fetchResolvedGenericTags();
-    this.props.fetchTaskListByMember();
-    this.props.fetchInvoiceListUnpaid();
-    this.props.fetchEstablishments();
-    this.props.fetchAllEstablishmentGroup();
-    this.props.fetchModelBasedAnswer({
-      memberId: this.props.id,
-      datatype: CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
-      kind: MODEL_BASED_QUESTION_FAVORITE,
-    });
-    this.props.fetchConsumerGiftcardReceivedList();
+    if (this.props.id) {
+      this.props.fetchMember(this.props.id, {
+        onSuccess: () => this.props.retrieveMemberPendingEmail(this.props.id),
+      });
+      this.props.fetchTags();
+      this.props.fetchResolvedGenericTags();
+      this.props.fetchTaskListByMember();
+      this.props.fetchInvoiceListUnpaid();
+      this.props.fetchEstablishments();
+      this.props.fetchAllEstablishmentGroup();
+      this.props.fetchModelBasedAnswer({
+        memberId: this.props.id,
+        datatype: CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
+        kind: MODEL_BASED_QUESTION_FAVORITE,
+      });
+      this.props.fetchConsumerGiftcardReceivedList();
+    }
   };
 
   fetchInvoiceListUnpaid = () => {
@@ -279,10 +280,71 @@ export class MemberDetailPage extends Component<Props> {
     this.setState({ paymentMethodType: value });
   };
 
-  render() {
-    const { memberLoading, member, t } = this.props;
+  handleEditMember = () => {
+    this.props.editMember(this.props.id);
+  };
 
-    const fileUploader = {
+  handleMergeMember = () => {
+    this.setState({ searchModalOpen: true });
+  };
+
+  handleOpenAddPaymentMethodDialog = () => {
+    this.openAddPaymentMethodDialog(false);
+  };
+
+  handleCloseSearchModal = () => {
+    this.setState({ searchModalOpen: false });
+  };
+
+  handleCloseTagDeleteDialog = () => {
+    this.setState({ tagToDelete: null });
+  };
+
+  handleCancelFileUpload = () => {
+    this.setState({ fileToUpload: null });
+  };
+
+  handleSubmitTagDelete = () => {
+    this.props.deleteTag(this.state.tagToDelete);
+    this.setState({ tagToDelete: null });
+  };
+
+  handleCancelDeleteFile = () => {
+    this.setState({ fileToDelete: null });
+  };
+
+  handleSubmitDeleteFile = () => {
+    this.props.removeFile(this.props.id, this.state.fileToDelete);
+    this.setState({ fileToDelete: null });
+  };
+
+  handleCloseTagGroupDialog = () => {
+    this.setState({ tagGroupToDelete: null });
+  };
+
+  handleSubmitTagGroupDialog = () => {
+    this.props.deleteTagGroup(this.state.tagGroupToDelete);
+    this.setState({ tagGroupToDelete: null });
+  };
+
+  handleSubmitFileUpload = (data: any, name: string) => {
+    this.props.addFile({ data, member_id: this.props.id, name });
+  };
+
+  deleteFileOptions = {
+    title: 'member:file.deletion',
+    Content: this.props.t('member:file.deleteFileMessage'),
+    cancel: 'member:file.cancel',
+    confirm: 'member:file.confirm',
+  };
+
+  handleMemberSelected = (id: number) =>
+    this.props.mergeInto(this.props.id, id);
+
+  render() {
+    const { memberLoading, member } = this.props;
+
+    const fileUploaderOptions = {
       onAddFile: (file: File) => this.props.addFile(this.props.id, file),
       onRemoveFile: (fileId: number) =>
         this.props.removeFile(this.props.id, fileId),
@@ -301,8 +363,8 @@ export class MemberDetailPage extends Component<Props> {
             favoriteEstablishmentGroupList={
               this.props.favoriteEstablishmentGroupList
             }
-            editMember={() => this.props.editMember(this.props.id)}
-            mergeMember={() => this.setState({ searchModalOpen: true })}
+            editMember={this.handleEditMember}
+            mergeMember={this.handleMergeMember}
             getEmails={this.props.fetchEmailTemplatesSummaries}
             emails={this.props.email_templates_list}
             getEmailDetail={this.props.fetchEmailTemplateDetail}
@@ -359,11 +421,11 @@ export class MemberDetailPage extends Component<Props> {
             member={this.props.member}
             credit_account_balance={member.credit_account_balance}
             // notes
-            notes={member.notes || []}
+            notes={this.props.member?.notes || []}
             createOrUpdateNote={this.props.createOrUpdateNote}
             deleteNote={this.props.deleteNote}
             // Tag
-            memberTags={member.tags || []}
+            memberTags={this.props.member?.tags || []}
             tagGroups={this.props.tagGroups}
             createTag={this.handleCreateTag}
             createTagGroup={this.props.createTagGroup}
@@ -376,7 +438,7 @@ export class MemberDetailPage extends Component<Props> {
             tagGroupsLoading={this.props.tagGroupsLoading}
             // Files
             openFileUploadDialog={this.handleOpenFileUpload}
-            uploadedFiles={member.files || []}
+            uploadedFiles={this.props.member?.files || []}
             deleteFile={this.handleDeleteFile}
             updateVisibility={this.updateFileVisibility}
             // Payment
@@ -393,7 +455,7 @@ export class MemberDetailPage extends Component<Props> {
         {this.props.member?.id && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
-              onCancel={() => this.openAddPaymentMethodDialog(false)}
+              onCancel={this.handleOpenAddPaymentMethodDialog}
               requestSetupIntentSecret={this.requestSetupIntentSecret}
               refreshSavedPaymentMethodList={
                 this.props.fetchMemberPaymentMethod
@@ -423,53 +485,33 @@ export class MemberDetailPage extends Component<Props> {
         <MemberSearchModal
           asManager
           searchMembers={this.props.searchMembers}
-          searchedMembers={this.props.searchedMembers.filter(
-            (m) => m.id !== this.props.id,
-          )}
+          searchedMembers={this.props.filteredSearchedMembers}
           open={!!this.state.searchModalOpen}
-          onClose={() => this.setState({ searchModalOpen: false })}
-          handlMemberSelected={(id: number) =>
-            this.props.mergeInto(this.props.id, id)
-          }
+          onClose={this.handleCloseSearchModal}
+          handlMemberSelected={this.handleMemberSelected}
           companyCountry={this.props.companyCountry}
         />
         <TagDeleteDialog
           open={!!this.state.tagToDelete}
-          onClose={() => this.setState({ tagToDelete: null })}
-          onSubmit={() => {
-            this.props.deleteTag(this.state.tagToDelete);
-            this.setState({ tagToDelete: null });
-          }}
+          onClose={this.handleCloseTagDeleteDialog}
+          onSubmit={this.handleSubmitTagDelete}
         />
         <FileUploadDialog
           open={!!this.state.fileToUpload}
-          onCancel={() => this.setState({ fileToUpload: null })}
-          onSubmit={(data: any, name: string) => {
-            this.props.addFile({ data, member_id: this.props.id, name });
-          }}
-          fileUploader={fileUploader}
+          onCancel={this.handleCancelFileUpload}
+          onSubmit={this.handleSubmitFileUpload}
+          fileUploader={fileUploaderOptions}
         />
         <ModalDeleteFile
           open={this.state.fileToDelete}
-          options={{
-            title: 'member:file.deletion',
-            Content: () => t('member:file.deleteFileMessage'),
-            cancel: 'member:file.cancel',
-            confirm: 'member:file.confirm',
-          }}
-          handleCancel={() => this.setState({ fileToDelete: null })}
-          handleConfirm={() => {
-            this.props.removeFile(this.props.id, this.state.fileToDelete);
-            this.setState({ fileToDelete: null });
-          }}
+          options={this.deleteFileOptions}
+          handleCancel={this.handleCancelDeleteFile}
+          handleConfirm={this.handleSubmitDeleteFile}
         />
         <TagGroupDeleteDialog
           open={!!this.state.tagGroupToDelete}
-          onClose={() => this.setState({ tagGroupToDelete: null })}
-          onSubmit={() => {
-            this.props.deleteTagGroup(this.state.tagGroupToDelete);
-            this.setState({ tagGroupToDelete: null });
-          }}
+          onClose={this.handleCloseTagGroupDialog}
+          onSubmit={this.handleSubmitTagGroupDialog}
         />
       </Grid>
     );
@@ -490,7 +532,8 @@ const connector = connect(
       props.id,
     ),
     searchedMembers: getSearchedMembers(state),
-    tagGroups: tagSelectors.getMemberTagGroups(state),
+    filteredSearchedMembers: getFilteredSearchedMembers(state, props.id),
+    tagGroups: getMemberTagGroups(state),
     tagGroupsLoading: state.tag.group.loading,
     taskList: memberTaskListSelector(state),
     taskLoading: state.reminder.task.byMember.loading,

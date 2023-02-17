@@ -37,64 +37,111 @@ type Props = {
 };
 
 export function TagSelector(props: Props) {
-  const { tag, tagGroup } = props;
+  const {
+    tag,
+    tagGroup,
+    classes,
+    disabled,
+    menuAnchorEl,
+    onCreate,
+    selectTag,
+    setMenuAnchor,
+    editTagGroup,
+    deleteTagGroup,
+    onToogleCreate,
+    untag,
+    t,
+  } = props;
+
+  const handleOnCreateOption = React.useCallback(
+    (name) => {
+      onCreate({ name });
+    },
+    [onCreate],
+  );
+
+  const handleChangeOption = React.useCallback(
+    (suggestion) => {
+      if (!suggestion && tag && tag.id) {
+        untag(tag.id);
+      } else if (suggestion) {
+        selectTag(suggestion.value);
+      }
+    },
+    [tag, untag, selectTag],
+  );
+
+  const handleCloseMenu = React.useCallback(
+    () => setMenuAnchor(null),
+    [setMenuAnchor],
+  );
+
+  const handleTagGroupEdit = React.useCallback(
+    () => editTagGroup(tagGroup),
+    [editTagGroup, tagGroup],
+  );
+
+  const handleTagGroupDelete = React.useCallback(
+    () => deleteTagGroup(tagGroup),
+    [deleteTagGroup, tagGroup],
+  );
+
+  const handleSetMenuAnchor = React.useCallback(
+    (event) => setMenuAnchor(event.currentTarget),
+    [setMenuAnchor],
+  );
+
+  const suggestions = React.useMemo(
+    () =>
+      tagGroup
+        ? [...tagGroup.tags].map((tagItem) => ({
+            value: tagItem.id,
+            label: tagItem.name,
+          }))
+        : [],
+    [tagGroup],
+  );
+
   return (
-    <div className={props.classes.tagSelectorContainer}>
-      {!props.disabled && (
-        <IconButton onClick={props.onToogleCreate} disabled={props.disabled}>
+    <div className={classes.tagSelectorContainer}>
+      {!disabled && (
+        <IconButton onClick={onToogleCreate} disabled={disabled}>
           <AddIcon />
         </IconButton>
       )}
-      <div className={props.classes.userInput}>
+      <div className={classes.userInput}>
         <Selector
           isClearable
-          onChange={(suggestion) => {
-            if (!suggestion && tag && tag.id) {
-              props.untag(tag.id);
-            } else if (suggestion) {
-              props.selectTag(suggestion.value);
-            }
-          }}
-          onCreateOption={(name) => {
-            props.onCreate({ name });
-          }}
-          placeholder={props.t('tag.noTagAttributed')}
+          onChange={handleChangeOption}
+          onCreateOption={handleOnCreateOption}
+          placeholder={t('tag.noTagAttributed')}
           selected={tag ? tag.id : null}
-          suggestions={
-            tagGroup
-              ? tagGroup.tags.asMutable().map((ta) => ({
-                  value: ta.id,
-                  label: ta.name,
-                }))
-              : []
-          }
-          isDisabled={props.disabled}
+          suggestions={suggestions}
+          isDisabled={disabled}
         />
       </div>
-      {!props.disabled && (
+      {!disabled && (
         <>
-          <IconButton
-            onClick={(event) => props.setMenuAnchor(event.currentTarget)}
-          >
+          <IconButton onClick={handleSetMenuAnchor}>
             <MoreVertIcon />
           </IconButton>
           <Menu
             id="simple-menu"
-            anchorEl={props.menuAnchorEl}
-            open={Boolean(props.menuAnchorEl)}
-            onClose={() => props.setMenuAnchor(null)}
+            anchorEl={menuAnchorEl}
+            open={Boolean(menuAnchorEl)}
+            onClose={handleCloseMenu}
           >
-            <MenuItem onClick={() => props.editTagGroup(tagGroup)}>
+            <MenuItem onClick={handleTagGroupEdit}>
               <ListItemIcon>
                 <EditIcon />
               </ListItemIcon>
-              {props.t('form.group.edit')}
+              {t('form.group.edit')}
             </MenuItem>
-            <MenuItem onClick={() => props.deleteTagGroup(tagGroup)}>
+            <MenuItem onClick={handleTagGroupDelete}>
               <ListItemIcon>
                 <DeleteIcon />
               </ListItemIcon>
-              {props.t('form.group.deleteCategory')}
+              {t('form.group.deleteCategory')}
             </MenuItem>
           </Menu>
         </>

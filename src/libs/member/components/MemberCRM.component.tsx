@@ -86,11 +86,29 @@ export const MemberCRM = (props: Props) => {
 
   const classes = useStyles();
 
-  const createNote =
-    ({ isMedical }: { isMedical: boolean }) =>
+  const createMedicalNote = React.useCallback(
     (note: MemberNote) => {
-      createOrUpdateNote({ ...note, is_medical: isMedical });
-    };
+      createOrUpdateNote({ ...note, is_medical: true });
+    },
+    [createOrUpdateNote],
+  );
+
+  const createNonMedicalNote = React.useCallback(
+    (note: MemberNote) => {
+      createOrUpdateNote({ ...note, is_medical: false });
+    },
+    [createOrUpdateNote],
+  );
+
+  const medicalNotes = React.useMemo(
+    () => notes.filter((n) => n.is_medical),
+    [notes],
+  );
+
+  const notMedicalNotes = React.useMemo(
+    () => notes.filter((n) => !n.is_medical),
+    [notes],
+  );
 
   return (
     <Paper className={classes.noteContainer}>
@@ -110,16 +128,16 @@ export const MemberCRM = (props: Props) => {
       />
       <div className={classes.separator} />
       <MemberNotePanel
-        notes={notes.filter((n) => n.is_medical)}
-        createOrUpdateNote={createNote({ isMedical: true })}
+        notes={medicalNotes}
+        createOrUpdateNote={createMedicalNote}
         deleteNote={deleteNote}
         memberId={memberId}
         healthNotes
       />
       <div className={classes.separator} />
       <MemberNotePanel
-        notes={notes.filter((n) => !n.is_medical)}
-        createOrUpdateNote={createNote({ isMedical: false })}
+        notes={notMedicalNotes}
+        createOrUpdateNote={createNonMedicalNote}
         deleteNote={deleteNote}
         memberId={memberId}
       />

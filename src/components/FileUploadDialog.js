@@ -34,20 +34,30 @@ export class FileUploadDialog extends Component<Props, State> {
     file: null,
   };
 
+  handleOnSubmit = (event) => {
+    event.preventDefault();
+    this.props.onSubmit(this.state.file, this.state.name);
+    this.props.onCancel();
+    this.setState({ name: null, file: null });
+  };
+
+  handleOnChange = (event) => this.setState({ name: event.target.value });
+
+  handleAddFile = (file) => this.setState({ file });
+
+  handleCancel = () => {
+    this.props.onCancel();
+    this.setState({ name: null, file: null });
+  };
+
   render() {
-    const { onCancel, onSubmit, open, t, fileUploader, classes } = this.props;
+    const { open, t, fileUploader, classes } = this.props;
+
     return (
       <Dialog open={open} scroll="paper">
         <DialogTitle>{t('file.upload_file')}</DialogTitle>
         <DialogContent>
-          <form
-            onSubmit={(ev) => {
-              ev.preventDefault();
-              onSubmit(this.state.file, this.state.name);
-              onCancel();
-              this.setState({ name: null, file: null });
-            }}
-          >
+          <form onSubmit={this.handleOnSubmit}>
             <TextField
               name="File name"
               label={t('file.name')}
@@ -55,24 +65,17 @@ export class FileUploadDialog extends Component<Props, State> {
               required
               placeholder={t('file.name')}
               value={this.state.name}
-              onChange={(e) => this.setState({ name: e.target.value })}
+              onChange={this.handleOnChange}
             />
             <div className={classes.fieldSeparator} />
             <FileUploader
-              onAddFile={(file) => this.setState({ file })}
+              onAddFile={this.handleAddFile}
               onRemoveFile={fileUploader.onRemoveFile}
               file={this.state.file}
             />
             <div className={classes.fieldSeparator} />
             <DialogActions>
-              <Button
-                onClick={() => {
-                  onCancel();
-                  this.setState({ name: null, file: null });
-                }}
-              >
-                {t('file.cancel')}
-              </Button>
+              <Button onClick={this.handleCancel}>{t('file.cancel')}</Button>
               <Button
                 variant="outlined"
                 disabled={this.state.file === null || this.state.name === null}

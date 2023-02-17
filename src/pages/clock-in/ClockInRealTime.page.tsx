@@ -8,17 +8,13 @@ import { push as pushAction } from 'connected-react-router';
 import { RootState } from '../../reducers';
 import ClockInForOtherTable from '#libs/clock-in/components/ClockInForOtherTable.component';
 import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#libs/role/actions';
-import {
-  getAllRoles,
-  getUsersPaginatedWithRole,
-  getPermissions,
-} from '#libs/role/selectors';
+import { getPermissions } from '#libs/role/selectors';
 import {
   clockIn as clockInAction,
   clockOut as clockOutAction,
   getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
 } from '#libs/clock-in/actions';
-import { withRealTimeAttendance } from '#libs/clock-in/selectors';
+import { getUsersPaginatedWithRolesWithRealTimeAttendance } from '#libs/clock-in/selectors';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 
 type Props = ConnectedProps<typeof connector>;
@@ -91,11 +87,9 @@ const useStyles = makeStyles(() => ({
 
 const connector = connect(
   (state: RootState) => ({
-    roles: getAllRoles(state),
     permissions: getPermissions(state),
-    usersPaginatedWithRoles: withRealTimeAttendance(getUsersPaginatedWithRole)(
-      state,
-    ),
+    usersPaginatedWithRoles:
+      getUsersPaginatedWithRolesWithRealTimeAttendance(state),
   }),
   {
     fetchCompanyUserRolesPaginated: fetchCompanyUserRolesPaginatedAction,

@@ -56,11 +56,7 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 // -----------------------------
 //
 //
-import {
-  getPermissions,
-  getAllRoles,
-  getUsersPaginatedWithRole,
-} from '../libs/role/selectors';
+import { getPermissions } from '../libs/role/selectors';
 import { parseRestrictedPath } from '../libs/role/utils';
 import { userAcknowlegdePlatformTutorial } from '#libs/platform-tutorial/selectors';
 import {
@@ -123,7 +119,7 @@ import {
 } from '#libs/clock-in/actions';
 import {
   getLastClockin,
-  withRealTimeAttendance,
+  getUsersPaginatedWithRolesWithRealTimeAttendance,
 } from '#libs/clock-in/selectors';
 import RegularizingInvoiceInformation from '../libs/settings/components/RegularizingInvoiceInformation.component';
 import StripeAccountConfiguration from '../libs/settings/components/NeedStripeAccountConfiguration.component';
@@ -303,7 +299,6 @@ type Props = {
   }>,
 
   lastClockin: LastClockIn,
-  roles: Role[],
   usersPaginatedWithRoles: {
     loading: boolean,
     count: number,
@@ -794,7 +789,6 @@ export class Backoffice extends Component<Props, State> {
                 featureList={this.props.featureList}
                 lastClockIn={this.props.lastClockin}
                 clockIn={this.props.clockIn}
-                roles={this.props.roles}
                 usersPaginatedWithRoles={this.props.usersPaginatedWithRoles}
                 getStaffsAttendanceRealTime={
                   this.props.getStaffsAttendanceRealTime
@@ -976,10 +970,8 @@ export default compose(
       roleById: state.role.role.byId,
       rolesLoading: state.role.role.loading,
 
-      roles: getAllRoles(state),
-      usersPaginatedWithRoles: withRealTimeAttendance(
-        getUsersPaginatedWithRole,
-      )(state),
+      usersPaginatedWithRoles:
+        getUsersPaginatedWithRolesWithRealTimeAttendance(state),
       lastClockin: getLastClockin(state),
       lastPlatformSubscriptionWarningDate:
         state.auth.lastPlatformSubscriptionWarningDate,

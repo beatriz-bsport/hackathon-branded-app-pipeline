@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
 import { RoleState } from './types';
 import { RootState } from '../../reducers';
 import { OWNER_ROLE } from './role-types';
@@ -9,12 +10,13 @@ export const getRoleStateById = (state: RootState) => state.role.byId;
 const getRoleState = (state: RootState): RoleState => state.role;
 const getAuthState = (state: RootState) => state.auth;
 const _getRoleDict = (state: RootState) => state.role.role.byId;
-const _getUserssPaginatedState = (state: RootState) =>
+const _getRoleAllIdsDict = (state: RootState) => state.role.role.allIds;
+const _getUsersPaginatedState = (state: RootState) =>
   state.role.users_paginated;
 const _getUsersPaginatedAllIds = (state: RootState) =>
-  _getUserssPaginatedState(state).allIds;
+  _getUsersPaginatedState(state).allIds;
 const _getUsersPaginatedData = (state: RootState) =>
-  _getUserssPaginatedState(state).byId;
+  _getUsersPaginatedState(state).byId;
 const getPermissionForRole = (roleState: RoleState, roleId: number) => {
   return roleState.role.byId?.[roleId]?.permissions;
 };
@@ -69,10 +71,14 @@ export const hasRoleUpsertPermission = (state: RootState) =>
 export const hasFranchiseRoleUpsertPermission = (state: RootState) =>
   state.auth.franchise_role_identifier === OWNER_ROLE;
 
-export const getAllRoles = (state: RootState) =>
-  state.role.role.allIds
-    .map((id) => state.role.role.byId[id])
-    .filter((role) => !role.is_franchisor);
+export const getAllRoles = createSelector(
+  [_getRoleAllIdsDict, _getRoleDict],
+  (roleState, roleStateById) => {
+    return roleState
+      .map((id) => roleStateById[id])
+      .filter((role) => !role.is_franchisor);
+  },
+);
 
 export const getAllFranchiseRoles = (state: RootState) =>
   state.role.franchiseRole.allIds.map(
@@ -126,11 +132,16 @@ const getUsersPaginatedWithRoleState = createSelector(
   [getUsersPaginatedState, _getRoleDict],
   (users, roleState) => users.map((u) => ({ ...u, role: roleState[u.role] })),
 );
-export const getUsersPaginatedWithRole = (state: RootState) => ({
-  count: _getUserssPaginatedState(state).count,
-  loading: _getUserssPaginatedState(state).loading,
-  results: getUsersPaginatedWithRoleState(state),
-});
+
+export const getUsersPaginatedWithRole = createSelector(
+  [_getUsersPaginatedState, getUsersPaginatedWithRoleState],
+  (usersPaginatedState, usersPaginatedWithRoleState) =>
+    Immutable({
+      count: usersPaginatedState.count,
+      loading: usersPaginatedState.loading,
+      results: usersPaginatedWithRoleState,
+    }),
+);
 
 export type UsersPaginatedWithRoleSelector = ReturnType<
   typeof getUsersPaginatedWithRole

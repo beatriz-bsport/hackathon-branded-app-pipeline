@@ -166,7 +166,8 @@
     "generate-all-css-marketplace": "cat  **/Marketplace*.css > ./Marketplace.css",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test-storybook": "test-storybook"
   },
   "browserslist": "> 0.25%",
   "eslintConfig": {
@@ -188,6 +189,7 @@
     "@storybook/addon-storyshots-puppeteer": "^6.4.0",
     "@storybook/addons": "^6.3.7",
     "@storybook/react": "^6.5.16",
+    "@storybook/test-runner": "^0.9.4",
     "@storybook/theming": "^6.3.7",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",

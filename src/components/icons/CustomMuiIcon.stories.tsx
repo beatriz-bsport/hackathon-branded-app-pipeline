@@ -1,15 +1,18 @@
-import React from 'react'
+import React from 'react';
 import EmailIcon from '@material-ui/icons/Email';
+import AccessibleIcon from '@material-ui/icons/Accessible';
 
-import CustomMuiIcon, {Props} from './CustomMuiIcon.component';
+import CustomMuiIcon, { Props } from './CustomMuiIcon.component';
 
-export const CustomTemplate = (args: Props) => <CustomMuiIcon {...args} />
+export const CustomTemplate = (args: Props) => (
+  <CustomMuiIcon {...args} MuiIcon={AccessibleIcon} />
+);
 
-export const FirstStepTemplate = CustomTemplate.bind({})
+export const FirstStepTemplate = CustomTemplate.bind({});
 
 FirstStepTemplate.args = {
-    MuiIcon:EmailIcon,
-}
+  MuiIcon: EmailIcon,
+};
 
 export default {
   title: 'Components/Commons/icons/CustomMuiIcon',

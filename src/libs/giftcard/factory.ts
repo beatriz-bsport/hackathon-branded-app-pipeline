@@ -133,7 +133,7 @@ export function consumer_giftcard_factory(
       date_created: random_choice(DATES_CREATED),
       date_activated: random_choice(DATES_ACTIVE),
       planned_date_send: random_choice(DATES_ACTIVE),
-      giftcard_recipients: random_choice(RECIPIENTS),
+      giftcard_recipients: [random_choice(RECIPIENTS)],
       giftcard: random_int(10) + 1,
       invitation_sent: false,
       active: true,

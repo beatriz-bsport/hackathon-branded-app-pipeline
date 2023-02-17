@@ -62,6 +62,7 @@ export function TutorialLessonFactory(
     translated_videolinks[randomInt(translated_videolinks.length - 1)];
   const completed = completed_choice ?? randomBoolean();
   const viewed = viewed_choice ?? randomBoolean();
+  const hasUpsell = randomBoolean();
   return {
     id,
     uuid: id.toString(),
@@ -75,6 +76,7 @@ export function TutorialLessonFactory(
     translated_body: fakerBodyContent(),
     completed,
     viewed,
+    upsell_identifiers: hasUpsell ? [1] : [],
   };
 }
 

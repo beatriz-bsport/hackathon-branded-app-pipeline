@@ -114,4 +114,6 @@ const styles = () => ({
   },
 });
 
-export default withTranslation(['search'])(withStyles(styles)(SearchMember));
+export default withTranslation(['search'])(
+  withStyles(styles)(React.memo(SearchMember)),
+);

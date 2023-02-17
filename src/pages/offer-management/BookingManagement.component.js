@@ -268,6 +268,24 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     this.handlePageRequested(this.props.recurrentBookingCurrentPage + 1);
   };
 
+  onSearchMemberChange = (event) => {
+    this.setState({
+      memberHistoryAnchor: null,
+    });
+    this.props.searchMembers(event.target.value);
+  };
+
+  setMemberHistoryAnchor = (anchor) =>
+    this.setState({ memberHistoryAnchor: anchor });
+
+  onSearchMemberClickRegister = (member) => {
+    this.props.handleMemberToRegister({
+      name: member.name,
+      photo: member.photo,
+      id: member.id,
+    });
+  };
+
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
 
@@ -341,27 +359,14 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                             </IconButton>
                           )}
                           <SearchMember
-                            onChange={(event) => {
-                              this.setState({
-                                memberHistoryAnchor: null,
-                              });
-                              this.props.searchMembers(event.target.value);
-                            }}
+                            onChange={this.onSearchMemberChange}
                             anonimize={!permissions?.member?.search}
                             value={this.props.searchedText}
                             onReset={this.props.clearSearch}
                             memberHistoryAnchor={this.state.memberHistoryAnchor}
                             memberHistory={this.props.memberHistory || []}
-                            setMemberHistoryAnchor={(anchor) =>
-                              this.setState({ memberHistoryAnchor: anchor })
-                            }
-                            onClickRegister={(member) => {
-                              this.props.handleMemberToRegister({
-                                name: member.name,
-                                photo: member.photo,
-                                id: member.id,
-                              });
-                            }}
+                            setMemberHistoryAnchor={this.setMemberHistoryAnchor}
+                            onClickRegister={this.onSearchMemberClickRegister}
                             permissions={permissions}
                           />
                         </>

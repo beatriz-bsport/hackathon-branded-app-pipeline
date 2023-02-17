@@ -119,6 +119,10 @@ const defaultConfig = {
         __dirname,
         './node_modules/bsport-saas/src/components',
       ),
+      '#csscomponents': path.resolve(
+        __dirname,
+        './node_modules/bsport-saas/src/components/css-only',
+      ),
     },
   },
 };

@@ -22,6 +22,7 @@ export const PasswordInput = (props: Props) => {
   const [isVisible, toogleVisible] = React.useState<boolean>(false);
   return (
     <TextField
+      data-testid="password"
       id="textfield_password"
       value={props.value}
       fullWidth={props.fullWidth}

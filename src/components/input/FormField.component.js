@@ -218,6 +218,7 @@ export class FormField extends Component<Props, State> {
             disabled={disabled}
             value={value}
             id={id}
+            data-testid={id}
             name={name}
             label={t(`form.${id}`)}
             onChange={this.handleChange}

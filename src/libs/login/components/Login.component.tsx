@@ -158,6 +158,7 @@ export class ConsumerLogin extends Component<Props, State> {
             ) : (
               <FormField
                 id="email"
+                data-testid="email"
                 name="login"
                 disabled={this.props.loading}
                 onChange={this.onFormFieldChange}
@@ -200,6 +201,7 @@ export class ConsumerLogin extends Component<Props, State> {
             variant="contained"
             type="submit"
             id="btn-signin"
+            data-testid="btn-signin"
           >
             {!!this.props.loading && (
               <CircularProgress

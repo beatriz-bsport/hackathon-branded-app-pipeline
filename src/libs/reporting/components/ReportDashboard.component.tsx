@@ -177,7 +177,7 @@ export function ReportDashboard(props: Props) {
           <DialogContent>
             <ReportConfigurationForm
               metadata={metadata}
-              initial={reportConfiguration}
+              initial={reportConfiguration || { category: selectedCategory }}
               onClose={() => {
                 setShowModalAdd(false);
                 trackFormCancel(reportConfiguration?.id);

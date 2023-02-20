@@ -96,13 +96,14 @@ const ReportConfigurationForm: React.FC<Props> = ({
 
 export default compose(
   withFormik({
-    mapPropsToValues: ({ initial }) =>
-      initial || {
-        name: '',
-        description: '',
-        category: '',
-        columns: [],
-      },
+    mapPropsToValues: ({ initial }) => {
+      return {
+        name: initial.name || '',
+        description: initial.description || '',
+        category: initial.category || '',
+        columns: initial.columns || [],
+      };
+    },
     validationSchema: ReportConfigurationSchema,
     handleSubmit: defaultHandleSubmit,
   }),

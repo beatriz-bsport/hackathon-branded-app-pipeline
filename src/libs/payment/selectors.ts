@@ -1,19 +1,25 @@
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
-import { PaymentMethod, Payout } from './types';
+import { Payout } from './types';
 import { PaymentGroup } from '#libs/invoice/types';
 
 const EMPTY_LIST = Immutable([]);
+const _getPaymentMethodLoading = (state: RootState) =>
+  state.paymentBackend.paymentMethod.loading;
 
-export const getSavedPaymentMethodList = (
-  state: RootState,
-): Immutable.Immutable<Array<PaymentMethod>> => {
-  if (state.paymentBackend.paymentMethod.loading) {
-    return EMPTY_LIST;
-  }
-  return state.paymentBackend.paymentMethod.items;
-};
+const _getPaymentMethodItems = (state: RootState) =>
+  state.paymentBackend.paymentMethod.items;
+
+export const getSavedPaymentMethodList = createSelector(
+  [_getPaymentMethodLoading, _getPaymentMethodItems],
+  (paymentMethodLoading, paymentMethodItems) => {
+    if (paymentMethodLoading) {
+      return EMPTY_LIST;
+    }
+    return paymentMethodItems;
+  },
+);
 
 export const getPaymentGroupData = (
   state: RootState,

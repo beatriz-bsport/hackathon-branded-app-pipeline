@@ -39,23 +39,35 @@ export const getSearchedMembers = createSelector(
   [_getSearchedMemberIds, getMemberListData],
   (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
 );
+export const getFilteredSearchedMembers = createSelector(
+  [getSearchedMembers, (_state, id) => id],
+  (searchedMembers, id) => searchedMembers.filter((m) => m.id !== id),
+);
+
 export const getSearchedMembersArchived = createSelector(
   [_getSearchedMemberArchivedIds, getMemberArchivedData],
   (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
 );
-export const getMember = (state: RootState, id: number) => {
-  const detail = getMemberDetailData(state)[id];
-  if (detail) return detail;
-  return getMemberListData(state)[id];
-};
 
-export const getMemberDetail = (state: RootState, id: number) => {
-  return getMemberDetailData(state)[id];
-};
+export const getMember = createSelector(
+  [getMemberDetailData, (_state, memberId) => memberId, getMemberListData],
+  (memberDetailData, memberId, memberListData) => {
+    const detail = memberDetailData[memberId];
+    if (detail) return detail;
+    return memberListData[memberId];
+  },
+);
 
-export const getMemberArchiveStatus = (state: RootState, id: number) => {
-  return _getMemberArchiveStatus(state)[id];
-};
+export const getMemberDetail = createSelector(
+  [getMemberDetailData, (_state, id) => id],
+  (memberDetailData, id) => memberDetailData[id],
+);
+
+export const getMemberArchiveStatus = createSelector(
+  [_getMemberArchiveStatus, (_state, id) => id],
+  (memberArchiveStatus, id) => memberArchiveStatus[id],
+);
+
 export const getMemberThroughMembership = memoize(
   (selector: (state: RootState) => any) =>
     createSelector([selector, getMembership], (memberdetail, membership) => {

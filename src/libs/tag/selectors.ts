@@ -20,7 +20,7 @@ export const getAll: (state: RootState) => Array<TagGroup> = createSelector(
     })),
 );
 
-const getMemberTagGroups: (state: RootState) => Array<TagGroup> =
+export const getMemberTagGroups: (state: RootState) => Array<TagGroup> =
   createSelector(getAll, (tgs) =>
     tgs.filter((g) => g.kind === TAG_KIND_MEMBER.id),
   );

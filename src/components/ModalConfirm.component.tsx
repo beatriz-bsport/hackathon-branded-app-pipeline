@@ -31,12 +31,24 @@ export const ModalConfirm: React.FC<{
   const { t } = useTranslation(['translation', 'member']);
   const ValidationButton = options?.isDeletion ? RedButton : Button;
 
+  const ModalConfirmDialogContent = () => {
+    if (options.Content) {
+      if (typeof options.Content === 'string') {
+        return <>{options.Content}</>;
+      }
+
+      return <options.Content t={t} />;
+    }
+
+    return null;
+  };
+
   return (
     <Dialog open={open} onClose={handleCancel || (() => {})}>
       {options.title && <DialogTitle>{t(options.title)}</DialogTitle>}
       <DialogContent>
         <DialogContentText>
-          {options.Content ? <options.Content t={t} /> : null}
+          <ModalConfirmDialogContent />
         </DialogContentText>
       </DialogContent>
       <DialogActions>

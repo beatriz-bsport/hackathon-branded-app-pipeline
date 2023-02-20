@@ -97,7 +97,7 @@ export const DashboardTabBar = (props: Props) => {
 
   return (
     <div>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="default" elevation={0}>
         <Tabs
           variant="scrollable"
           value={props.currentTabIndex}

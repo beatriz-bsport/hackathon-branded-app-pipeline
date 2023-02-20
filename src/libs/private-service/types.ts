@@ -417,6 +417,10 @@ export interface PrivateServiceState {
     byId: { [id: string]: PrivateConsumerPass };
     update: ErrorAndLoading;
     compatible: ErrorAndLoading & { allIds: string[] };
+    noncompatible: ErrorAndLoading & { allIds: string[] };
+    incompatibilitiesBySlotByConsumerPass: ErrorAndLoading & {
+      byId: { [key: string]: number[] };
+    };
     byPrivatePass: ErrorAndLoading &
       WithPagination & {
         privatePassId: string;

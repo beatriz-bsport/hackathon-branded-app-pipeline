@@ -15,7 +15,7 @@ import { compose, withState } from 'recompose';
 
 import type { Tag, TagGroup } from '../types';
 
-import TagEditor from './TagEditor.component';
+import TagEditor from './TagEditor';
 import TagGroupCreator from './TagGroupCreator.component';
 import type { Member } from '../../member/types';
 

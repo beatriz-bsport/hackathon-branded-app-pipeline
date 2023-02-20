@@ -4,11 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 
-import type { TagGroup, Tag } from '../types';
+import type { TagGroup, Tag } from '../../types';
 
-import TagCreator from './TagCreator.component';
-import TagSelector from './TagSelector.component';
-import TagGroupForm from './TagGroupForm.component';
+import TagCreator from '../TagCreator.component';
+import TagSelector from '../TagSelector.component';
+import TagGroupForm from '../TagGroupForm.component';
+import { useCreateHandler, useEditHandler } from './hooks';
 
 type Props = {
   tagGroup: TagGroup,
@@ -30,7 +31,7 @@ type Props = {
   disabled: boolean,
 };
 
-const styles = () => ({
+const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -42,19 +43,40 @@ const styles = () => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-});
+};
 
 export function TagEditor(props: Props) {
-  const { classes, tagGroup, tag } = props;
-  if (props.editMode) {
+  const {
+    classes,
+    tagGroup,
+    tag,
+    editMode,
+    disabled,
+    onCreate,
+    deleteTagGroup,
+    setCreateMode,
+    setEditMode,
+    updateTagGroup,
+    updateTag,
+    deleteTag,
+  } = props;
+
+  const [handleCreateTag, handleToggleCreate, handleOnCancel] =
+    useCreateHandler({ setCreateMode, onCreate });
+
+  const [handleEditTag, handleTagGroupFormClose] = useEditHandler({
+    setEditMode,
+  });
+
+  if (editMode) {
     return (
       <TagGroupForm
         tagGroup={tagGroup}
-        updateTag={props.updateTag}
-        deleteTag={props.deleteTag}
-        deleteTagGroup={props.deleteTagGroup}
-        updateTagGroup={props.updateTagGroup}
-        onClose={() => props.setEditMode(false)}
+        updateTag={updateTag}
+        deleteTag={deleteTag}
+        deleteTagGroup={deleteTagGroup}
+        updateTagGroup={updateTagGroup}
+        onClose={handleTagGroupFormClose}
       />
     );
   }
@@ -70,24 +92,21 @@ export function TagEditor(props: Props) {
       <div className={classes.tagSelectorContainer}>
         {props.createMode ? (
           <TagCreator
-            onCreate={(data) => {
-              props.onCreate(data);
-              props.setCreateMode(false);
-            }}
-            onCancel={() => props.setCreateMode(false)}
+            onCreate={handleCreateTag}
+            onCancel={handleOnCancel}
             disabled={props.disabled}
           />
         ) : (
           <TagSelector
             tag={tag}
             tagGroup={tagGroup}
-            onToogleCreate={() => props.setCreateMode(true)}
+            onToogleCreate={handleToggleCreate}
             selectTag={props.selectTag}
             untag={props.untag}
-            deleteTagGroup={props.deleteTagGroup}
-            editTagGroup={() => props.setEditMode(true)}
-            onCreate={props.onCreate}
-            disabled={props.disabled}
+            deleteTagGroup={deleteTagGroup}
+            editTagGroup={handleEditTag}
+            onCreate={onCreate}
+            disabled={disabled}
           />
         )}
       </div>

@@ -1,22 +1,23 @@
 import { createSelector } from 'reselect';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
+import { RootState } from '../../../reducers';
 import { getCoaches } from '../../associated-coach/selectors';
+import { Period } from '#libs/types';
 
-const periodFilterExtractor = (state, periodFilter) => periodFilter;
-const _getCustomEventData = (state) => state.privateService.customEvent.byId;
+const periodExtractor = (state: RootState, period: Period) => period;
+
+const _getCustomEventData = (state: RootState) =>
+  state.privateService.customEvent.byId;
 
 export const getCustomEventList = createSelector(
-  [_getCustomEventData, periodFilterExtractor],
-  (customEventData, periodFilter) => {
-    if (periodFilter) {
+  [_getCustomEventData, periodExtractor],
+  (customEventData, period) => {
+    if (period) {
       return Object.values(customEventData).filter((v) => {
         return (
-          moment(v.date_start).isSameOrAfter(
-            moment(periodFilter.start),
-            'day',
-          ) &&
-          moment(v.date_start).isSameOrBefore(moment(periodFilter.end), 'day')
+          moment(v.date_start).isSameOrAfter(moment(period.start), 'day') &&
+          moment(v.date_start).isSameOrBefore(moment(period.end), 'day')
         );
       });
     }
@@ -24,7 +25,7 @@ export const getCustomEventList = createSelector(
   },
 );
 
-export const getCustomEvent = (state, id) =>
+export const getCustomEvent = (state: RootState, id: number) =>
   state.privateService.customEvent.byId[id];
 
 export const withAssociatedCoach = memoize((selector) =>
@@ -33,14 +34,14 @@ export const withAssociatedCoach = memoize((selector) =>
     if (Array.isArray(customEvent)) {
       return customEvent.map((ce) => ({
         ...ce,
-        coaches: ce.coaches.map((c) =>
+        coaches: ce.coaches.map((c: number) =>
           coachList.find((c_) => c_.associatedcoach_set.includes(c)),
         ),
       }));
     }
     return {
       ...customEvent,
-      coaches: customEvent.coaches.map((c) =>
+      coaches: customEvent.coaches.map((c: number) =>
         coachList.find((c_) => c_.associatedcoach_set.includes(c)),
       ),
     };

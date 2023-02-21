@@ -38,3 +38,8 @@ export type GenericPaginationResults<T> = {
   };
   results: T[];
 };
+
+export type Period = {
+  start: string;
+  end: string;
+};

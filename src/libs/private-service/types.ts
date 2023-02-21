@@ -1,6 +1,6 @@
 import { CancelTokenSource } from 'axios';
 import { Company } from '../company/types';
-import { WithPagination } from '../types';
+import { ErrorAndLoading, WithPagination } from '../types';
 import type {
   PrivateBookingModificationActionIdentifier,
   StaffModificationHistory,
@@ -210,10 +210,11 @@ export type PrivateConsumerPass<AssociatedMember = number> = {
 };
 
 export type PrivateBooking<
-  PrivateSlotNumber = number,
-  CoachNumber = number,
-  EstablishmentNumber = number,
-  PrivateServiceNumber = number,
+  PrivateSlotId = number,
+  CoachId = number,
+  EstablishmentId = number,
+  PrivateServiceId = number,
+  MemberId = number,
   RecurrenceRulePrivateBooking = number,
   StaffHistory = Array<
     StaffModificationHistory<PrivateBookingModificationActionIdentifier>
@@ -223,17 +224,17 @@ export type PrivateBooking<
   date_start: string;
   date_end: string;
   private_consumer_pass: number;
-  member: number;
+  member: MemberId;
   name: string;
-  private_slot: PrivateSlotNumber;
-  private_service: PrivateServiceNumber;
+  private_slot: PrivateSlotId;
+  private_service: PrivateServiceId;
   address: string;
   booking_status_code: number;
   is_discardable: boolean;
   associated_coach: number;
   associated_establishment: number;
-  coach: CoachNumber;
-  establishment: EstablishmentNumber;
+  coach: CoachId;
+  establishment: EstablishmentId;
   date_created: string;
   source: number;
   first_in_company: boolean;
@@ -275,16 +276,27 @@ export type ResourceData = {
   resourceData: any;
 };
 
-export type RecurrenceRulePrivateBooking = {
+export type RecurrenceRulePrivateBooking<
+  MemberType = number,
+  PrivateSlotType = number,
+  AssociatedCoachType = number,
+  AssociatedEstablishmentType = number,
+> = {
   id: number;
   day_of_week: number;
   hour: number;
   minute: number;
   nb_of_weeks: number;
-  member: number;
-  private_slot: PrivateSlot;
+  member: MemberType;
+  private_slot: PrivateSlotType;
   is_overriding_availabilities: boolean;
   allow_unpaid: boolean;
+  associated_coach?: AssociatedCoachType;
+  associated_establishment?: AssociatedEstablishmentType;
+  notify_if_booked: boolean;
+  start_from_date?: string;
+  timezone_name: string;
+  staff_history: any[];
 };
 
 export type ServiceCompatibilityPass = {
@@ -332,11 +344,6 @@ export type PrivatePassCategory = {
 
 export type PrivatePassCategoryWithPasses = PrivatePassCategory & {
   passes: Array<PrivatePass>;
-};
-
-type ErrorAndLoading = {
-  error?: Error;
-  loading: boolean;
 };
 
 export type PrivatePassTemplateInstance = {

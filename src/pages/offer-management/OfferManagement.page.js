@@ -389,13 +389,19 @@ export default compose(
         return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
       },
     fetchInvoiceListUnpaid:
-      ({ fetchInvoiceList }) =>
+      ({ fetchInvoiceList, bookings }) =>
       (params) => {
+        if (!bookings || bookings.length === 0) return;
+        const uniqMemberIds = uniq(bookings.map((b) => b.member)).filter(
+          (id) => !!id,
+        );
+        if (uniqMemberIds.length === 0) return;
         fetchInvoiceList({
           is_v2: true,
           is_draft: false,
           unpaid: true,
           ...(params || {}),
+          member__in: uniqMemberIds,
         });
       },
     fetchConsumerGiftcardList:

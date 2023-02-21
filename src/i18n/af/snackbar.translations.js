@@ -102,6 +102,7 @@ const {
 const {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,
+  COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER,
 } = require('@bsport/common/lib/master-data/error-codes/associated-coach');
 
 const {
@@ -288,6 +289,8 @@ exports.default = {
         "L'email indiqué est déjà lié à un compte staff.",
       [COACH_EMAIL_ADDRESS_EXISTS]:
         'Un membre existe déjà avec cet email. Pour les relier, utiliser la popup précédente.',
+      [COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER]:
+        "L'email indiqué est déjà lié à un compte staff franchise.",
     },
     create: {
       success: 'Professeur créé avec succès',

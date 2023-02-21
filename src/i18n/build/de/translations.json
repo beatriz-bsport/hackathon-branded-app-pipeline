@@ -7538,6 +7538,121 @@
         "sms": {
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von Direkt-SMS.",
             "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-SMS zu senden, deaktiviert. Direkt-SMS ermöglichen es Ihnen, sich schnell und einfach mit Ihren Mitgliedern zu unterhalten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden."
+        },
+        "thread": {
+            "emptyThread": {
+                "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen."
+            },
+            "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt."
+        },
+        "sentStatus": {
+            "fail": "Beim Senden ist ein Fehler aufgetreten",
+            "processing": "Die Kommunikation wird gesendet"
+        },
+        "sendMessage": {
+            "writeCommunication": "Eine Nachricht senden",
+            "refresh": "Um die neue Version Ihres Templates zu sehen, klicken Sie bitte auf die Schaltfläche Aktualisieren.",
+            "sendDisabled": {
+                "missingPhoneInDirectMember": "Dieser Nutzer hat keine Telefonnummer",
+                "missingEmailInDirectMember": "Dieser Nutzer hat keine E-Mail-Adresse.",
+                "missingContent": "Ihre Nachricht ist nicht vollständig.",
+                "missingRecipients": "Wählen Sie zunächst Empfänger aus"
+            },
+            "buttons": {
+                "selectRecipientsMobile": "Empfänger",
+                "selectRecipients": "Wählen Sie Empfänger",
+                "send": "Senden"
+            },
+            "textField": {
+                "warningLength": "{{number_sms}} SMS werden gesendet",
+                "object": "Betreff",
+                "title": "Titel",
+                "content": "Nachricht"
+            },
+            "icons": {
+                "template": "E-Mail-Template",
+                "balise": "Tags",
+                "notification": "Push-Benachrichtigung",
+                "sms": "SMS",
+                "mail": "E-Mail"
+            }
+        },
+        "dialogRecipients": {
+            "refreshMemberData": "Um Ihre Änderungen anzuzeigen, klicken Sie bitte auf die Schaltfläche Aktualisieren.",
+            "noPhone": "nicht ausgefüllte Nummer",
+            "noMail": "nicht ausgefüllte E-Mail",
+            "warnings": {
+                "full": "Einige Empfänger haben keine Mail/Telefonnummer und es wurden nicht alle Empfänger ausgewählt.",
+                "recipientsNotAllSelected": "Es wurden nicht alle Empfänger ausgewählt.",
+                "phoneOrMailMissing": "Manche Empfänger haben keine E-Mail-Adresse/Telefonnummer.",
+                "header": "Achtung"
+            }
+        },
+        "dialogTemplate": {
+            "refreshText": "Um Ihre neue Template in der Liste erscheinen zu lassen, klicken Sie bitte auf die Schaltfläche Aktualisieren.",
+            "title": "Template-Auswahl"
+        },
+        "dialogInformation": {
+            "status": {
+                "openNo": "nein",
+                "openYes": "ja",
+                "notReceived": "Nicht empfangen",
+                "4": "empfangen",
+                "1": "in der Warteschleife"
+            },
+            "headerOpen": "Geöffnet",
+            "headerStatus": "Status"
+        },
+        "filter": {
+            "choicesLabels": {
+                "71": "Empfangene",
+                "70": "Gesendet",
+                "51": "Manuel",
+                "50": "Automatisch",
+                "32": "Warteliste",
+                "31": "Stornierte Reservierungen",
+                "30": "Reservierungen",
+                "14": "Transaktions-E-Mails",
+                "13": "Benachrichtigung",
+                "12": "Smartlist",
+                "11": "Direkte Nachricht",
+                "10": "Session",
+                "2": "Push-Benachrichtigung",
+                "1": "SMS",
+                "0": "E-Mail"
+            },
+            "srcOrDst": {
+                "placeholder": "Wählen Sie einen Nachrichtentyp aus",
+                "title": "Nachrichten"
+            },
+            "sendParameter": {
+                "placeholder": "Wählen Sie eine Sendeeinstellung",
+                "title": "Parameter für die Sendung"
+            },
+            "recipient": {
+                "placeholder": "Wählen Sie einen Empfängertyp aus",
+                "title": "Empfänger"
+            },
+            "channel": {
+                "placeholder": "Wählen Sie einen Kanaltyp aus",
+                "title": "Kanäle"
+            },
+            "kind": {
+                "placeholder": "Wählen Sie eine Sendungsart aus",
+                "title": "Art der Sendung"
+            },
+            "numberFilter": {
+                "oneFilter": "1 Filter angewendet",
+                "severalFilters": "angewendete Filter"
+            },
+            "dateFilter": {
+                "dateEnd": "Datum des Endes",
+                "dateStart": "Datum des Anfangs",
+                "period": "Zeitraum",
+                "title": "Datum des Versands"
+            },
+            "filterAction": "Filtern",
+            "applyFilter": "Anwenden"
         }
     },
     "consumerSpace": {

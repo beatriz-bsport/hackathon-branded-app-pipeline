@@ -199,7 +199,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         text: t('backofficeMenu.calendar'),
       },
       {
-        to: '/private-service/calendar/',
+        to: '/schedule',
         icon: ScheduleIcon,
         text: t('backofficeMenu.schedule'),
       },

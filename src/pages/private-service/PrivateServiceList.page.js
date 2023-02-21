@@ -171,6 +171,8 @@ export class PrivateServiceList extends React.Component<Props, State> {
           <IsEmptyList
             text={this.props.t('noPrivateService')}
             button={this.props.t('service.form.createButton')}
+            onCreate={() => this.props.setOpenCreateForm(true)}
+            hideBottomActions
           />
         ) : (
           <div className={classes.search}>

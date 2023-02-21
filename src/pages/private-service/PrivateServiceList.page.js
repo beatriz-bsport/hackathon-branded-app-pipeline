@@ -132,6 +132,10 @@ export class PrivateServiceList extends React.Component<Props, State> {
     this.props.setOpenCreateForm(false);
   };
 
+  doOpenCreateForm = () => {
+    this.props.setOpenCreateForm(true);
+  };
+
   createOrUpdatePrivateService = (data: *, option: OptionCallback) => {
     this.props.createOrUpdatePrivateService(data, {
       onSuccess: (service) => {
@@ -171,7 +175,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
           <IsEmptyList
             text={this.props.t('noPrivateService')}
             button={this.props.t('service.form.createButton')}
-            onCreate={() => this.props.setOpenCreateForm(true)}
+            onCreate={this.doOpenCreateForm}
             hideBottomActions
           />
         ) : (
@@ -261,7 +265,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
           className={classes.addButton}
           variant="extended"
           color="primary"
-          onClick={() => this.props.setOpenCreateForm(true)}
+          onClick={this.doOpenCreateForm}
         >
           <AddIcon className={classes.leftIcon} />
           {t('service.form.createButton')}

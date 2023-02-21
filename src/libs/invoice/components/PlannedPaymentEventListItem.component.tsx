@@ -89,8 +89,10 @@ export const PlannedPaymentEventListItem = (props: Props) => {
   let { onDisable, onEnable, onRegisterNow, onEdit, onChangeMethod } = {};
 
   let StatusIcon = HourglassEmptyIcon;
-  let statusColor;
-  let secondaryAction = null;
+  let statusColor: string | undefined;
+  let secondaryAction:
+    | ((PlannedPaymentPevent: PlannedPaymentEvent) => void)
+    | null = null;
 
   if (plannedPaymentEvent.nb_retries > 0) {
     StatusIcon = RefreshIcon;

@@ -35,19 +35,34 @@ export const getStats = createSelector(
       if (start && end) {
         const startMoment = moment(start);
         const endMoment = moment(end);
-        return { createdBookings, cancelledBookings, startMoment, endMoment };
+        return {
+          createdBookings,
+          cancelledBookings,
+          start: startMoment,
+          end: endMoment,
+        };
       }
       if (createdBookings.length === 0) {
         const startYearBefore = moment().subtract(1, 'year');
         const endNow = moment();
-        return { createdBookings, cancelledBookings, startYearBefore, endNow };
+        return {
+          createdBookings,
+          cancelledBookings,
+          start: startYearBefore,
+          end: endNow,
+        };
       }
       if (cancelledBookings.length === 0) {
         const startBooking = moment(createdBookings[0].d);
         const endBooking = moment(
           createdBookings[createdBookings.length - 1].d,
         );
-        return { createdBookings, cancelledBookings, startBooking, endBooking };
+        return {
+          createdBookings,
+          cancelledBookings,
+          start: startBooking,
+          end: endBooking,
+        };
       }
       const startMinBooking = moment(
         Math.min(createdBookings[0].d, cancelledBookings[0].d),
@@ -61,8 +76,8 @@ export const getStats = createSelector(
       return {
         createdBookings,
         cancelledBookings,
-        startMinBooking,
-        endMaxBooking,
+        start: startMinBooking,
+        end: endMaxBooking,
       };
     }
     return null;

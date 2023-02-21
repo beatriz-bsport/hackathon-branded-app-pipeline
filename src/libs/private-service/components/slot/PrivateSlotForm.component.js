@@ -37,6 +37,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         credit: props.initial.credit,
         people_capacity_used: props.initial.people_capacity_used,
         booking_interval_minutes: props.initial.booking_interval_minutes,
+        isSubmitting: false,
       };
     } else {
       this.state = {
@@ -45,6 +46,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         credit: 1,
         people_capacity_used: 1,
         booking_interval_minutes: 15,
+        isSubmitting: false,
       };
     }
   }
@@ -70,7 +72,8 @@ export class PrivateSlotForm extends React.Component<Props, State> {
       this.isBookingIntervalError ||
       !this.state.name ||
       this.state.credit < 0 ||
-      this.state.people_capacity_used < 0
+      this.state.people_capacity_used < 0 ||
+      this.state.isSubmitting
     );
   }
 
@@ -87,14 +90,21 @@ export class PrivateSlotForm extends React.Component<Props, State> {
 
   onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
     ev.preventDefault();
-    this.props.onSubmit({
-      name: this.state.name,
-      description: this.state.description,
-      duration_minutes: this.state.duration_minutes,
-      credit: this.state.credit,
-      people_capacity_used: this.state.people_capacity_used,
-      booking_interval_minutes: this.state.booking_interval_minutes,
-    });
+    this.setState({ isSubmitting: true });
+    this.props.onSubmit(
+      {
+        name: this.state.name,
+        description: this.state.description,
+        duration_minutes: this.state.duration_minutes,
+        credit: this.state.credit,
+        people_capacity_used: this.state.people_capacity_used,
+        booking_interval_minutes: this.state.booking_interval_minutes,
+      },
+      {
+        onSuccess: () => this.setState({ isSubmitting: false }),
+        onError: () => this.setState({ isSubmitting: false }),
+      },
+    );
   };
 
   onFormFieldChange = (value: *) => {

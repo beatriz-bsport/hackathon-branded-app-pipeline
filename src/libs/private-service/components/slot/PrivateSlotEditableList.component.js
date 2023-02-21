@@ -100,7 +100,7 @@ export const EditablePrivateSlotList = (props: Props) => {
         <DialogContent>
           <PrivateSlotForm
             initial={props.editSlotForm}
-            onSubmit={(data) =>
+            onSubmit={(data, options) => {
               props.updatePrivateSlot(
                 props.privateService.id,
                 {
@@ -108,9 +108,17 @@ export const EditablePrivateSlotList = (props: Props) => {
                   private_service: props.privateService.id,
                 },
                 props.editSlotForm.id,
-                { onSuccess: () => props.setEditSlotForm(null) },
-              )
-            }
+                {
+                  onSuccess: () => {
+                    props.setEditSlotForm(null);
+                    options?.onSuccess();
+                  },
+                  onError: () => {
+                    options?.onError();
+                  },
+                },
+              );
+            }}
             onCancel={() => props.setEditSlotForm(null)}
           />
         </DialogContent>
@@ -118,7 +126,7 @@ export const EditablePrivateSlotList = (props: Props) => {
       <Dialog open={props.openSlotForm}>
         <DialogContent>
           <PrivateSlotForm
-            onSubmit={(data) =>
+            onSubmit={(data, options) =>
               props.createPrivateSlot(
                 props.privateService.id,
                 {
@@ -126,7 +134,10 @@ export const EditablePrivateSlotList = (props: Props) => {
                   private_service: props.privateService.id,
                 },
                 null,
-                { onSuccess: () => props.setOpenSlotForm(false) },
+                {
+                  onSuccess: () => props.setOpenSlotForm(false),
+                  onError: () => options.onError && options.onError(),
+                },
               )
             }
             onCancel={() => props.setOpenSlotForm(false)}

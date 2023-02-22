@@ -1,5 +1,6 @@
 import {
   PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
+  PLANNED_PAYMENT_EVENT_STATUS_PENDING,
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
 } from '@bsport/common/lib/master-data/planned-payment-event';
 import { PlannedInvoice } from '#libs/subscription/types';
@@ -17,5 +18,6 @@ export const shouldPlannedPaymentEventBeDisplayed = (
   ppe: PlannedPaymentEvent,
 ) =>
   ppe.status === PLANNED_PAYMENT_EVENT_STATUS_REGISTERED ||
+  ppe.status === PLANNED_PAYMENT_EVENT_STATUS_PENDING ||
   (ppe.status === PLANNED_PAYMENT_EVENT_STATUS_ERROR &&
     ppe.error_recoverable_manually);

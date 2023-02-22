@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
+import moment from 'moment-timezone';
 
 // we import from src and not lib bvecause there is some shittery happening that
 // makes the build of the wdget crashing (widget use this file somehow)
@@ -464,6 +465,7 @@ export function fetchNextAvailableOffer(
       delete params.filters;
       const response = await fetchOffersListAPI({
         only_future: true,
+        max_date: moment().add(4, 'month').format('YYYY-MM-DD'),
         ...params,
         ...createOfferFilter(filters),
         with_tags: true,

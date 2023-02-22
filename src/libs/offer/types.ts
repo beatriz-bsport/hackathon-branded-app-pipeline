@@ -24,6 +24,7 @@ export type OfferFilterData = {
   whitelist_tags_id__in?: number[];
   blacklist_tags_id__in?: number[];
   with_group?: boolean;
+  with_tags?: boolean;
   group_id__in?: number[];
   id__in?: number[];
   ignore_manager_only?: boolean;

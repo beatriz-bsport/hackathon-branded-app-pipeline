@@ -1,35 +1,27 @@
-// @flow
 import React from 'react';
-import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
-import { Form, FormikProps } from 'formik';
+import { Form } from 'formik';
 
 import SubscriptionContractFields, {
+  SubscriptionContractFormDrawerProps,
   SubscriptionContractFormHoc,
 } from './SubscriptionContractForm.component';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
-import type { Subscription } from '../types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
-const {
-  trackFormSubmitIntent,
+const { trackFormSubmitIntent, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
+  );
 
-  trackFormCancel,
-} = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
-);
-type Props = {
-  open: boolean;
-  onClose: () => void;
-  isSubmitting: boolean;
-  initial: Subscription;
-} & FormikProps<Subscription>;
-export const SubscriptionContractFormDrawer = (props: Props) => {
+export const SubscriptionContractFormDrawer = (
+  props: SubscriptionContractFormDrawerProps,
+) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
   return (
@@ -82,6 +74,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose<any, Props>(SubscriptionContractFormHoc)(
-  SubscriptionContractFormDrawer,
-);
+export default SubscriptionContractFormHoc(SubscriptionContractFormDrawer);

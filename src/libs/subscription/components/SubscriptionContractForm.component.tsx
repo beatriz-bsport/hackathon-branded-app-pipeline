@@ -1,19 +1,16 @@
-// @flow
-
 import React from 'react';
-import { compose } from 'recompose';
 import Collapse from '@material-ui/core/Collapse';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import omit from 'lodash/omit';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 
 import * as Yup from 'yup';
-import { withFormik } from 'formik';
+import { FormikProps, withFormik } from 'formik';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core';
 
 import {
   TextField,
@@ -27,29 +24,68 @@ import PrivatePassSelectorField from '../../private-service/components/pass/Priv
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 import InfoBox from '#components/box/InfoBox.component';
 
-import type { SubscriptionContract } from '../types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { ContractWithPaymentPack } from '../types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PrivatePass } from '#libs/private-service/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import { OptionCallback } from '../../../state/types';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
     SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
   );
 
-type Props = { t: TFunction, classes: * } & SubscriptionContract & {
-    onSubmit: (SubscriptionContract) => void,
-  };
+enum ObjectType {
+  paymentPack = 'payment_pack',
+  privatePass = 'private_pass',
+  paymentCombo = 'payment_combo',
+}
 
-const OBJECT_TYPE_PAYMENT_PACK = 'payment_pack';
-const OBJECT_TYPE_PRIVATE_PASS = 'private_pass';
-const OBJECT_TYPE_PAYMENT_COMBO = 'payment_combo';
+type FormValues = Omit<
+  ContractWithPaymentPack,
+  | 'payment_pack'
+  | 'private_pass'
+  | 'payment_combo'
+  | 'company'
+  | 'tax'
+  | 'disabled'
+  | 'id'
+> & {
+  payment_pack?: number;
+  private_pass?: number;
+  payment_combo?: number;
+  object_type: ObjectType;
+};
 
-export function SubscriptionContractFields(props: Props) {
-  const { t, classes } = props;
+export type SubscriptionContractFormDrawerPropsWithoutFormik = {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (data: any, options: OptionCallback) => void;
+  isSubmitting: boolean;
+  initial?: ContractWithPaymentPack<
+    PrivatePass | number,
+    PaymentCombo | number
+  >;
+  paymentPackList: PaymentPack[];
+  privatePassList: PrivatePass[];
+  paymentComboList: PaymentCombo[];
+};
+
+export type SubscriptionContractFormDrawerProps =
+  SubscriptionContractFormDrawerPropsWithoutFormik & FormikProps<FormValues>;
+
+export function SubscriptionContractFields(
+  props: SubscriptionContractFormDrawerProps,
+) {
+  const { t } = useTranslation(['subscription']);
+  const classes = useStyles();
   React.useEffect(() => {
     trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div>
       <TextField
@@ -66,27 +102,27 @@ export function SubscriptionContractFields(props: Props) {
           choices={[
             {
               label: t('contract.form.object_type.privatePass'),
-              value: OBJECT_TYPE_PRIVATE_PASS,
+              value: ObjectType.privatePass,
             },
             {
               label: t('contract.form.object_type.paymentPack'),
-              value: OBJECT_TYPE_PAYMENT_PACK,
+              value: ObjectType.paymentPack,
             },
             {
               label: t('contract.form.object_type.paymentCombo'),
-              value: OBJECT_TYPE_PAYMENT_COMBO,
+              value: ObjectType.paymentCombo,
             },
           ]}
         />
-        <Collapse in={props.values.object_type === OBJECT_TYPE_PAYMENT_PACK}>
+        <Collapse in={props.values.object_type === ObjectType.paymentPack}>
           <PaymentPackSelectorField
-            choices={props.paymentPacks}
+            choices={props.paymentPackList}
             name="payment_pack"
             fullWidth
             className={classes.fieldMain}
           />
         </Collapse>
-        <Collapse in={props.values.object_type === OBJECT_TYPE_PRIVATE_PASS}>
+        <Collapse in={props.values.object_type === ObjectType.privatePass}>
           <PrivatePassSelectorField
             choices={props.privatePassList}
             name="private_pass"
@@ -94,7 +130,7 @@ export function SubscriptionContractFields(props: Props) {
             className={classes.fieldMain}
           />
         </Collapse>
-        <Collapse in={props.values.object_type === OBJECT_TYPE_PAYMENT_COMBO}>
+        <Collapse in={props.values.object_type === ObjectType.paymentCombo}>
           <PaymentComboSelectorField
             choices={props.paymentComboList}
             name="payment_combo"
@@ -161,6 +197,7 @@ export function SubscriptionContractFields(props: Props) {
         className={classes.fieldMargin2}
       />
       {props.initial?.id &&
+        // the backend returns a string for recurrent_price as it is handled as a decimal
         parseFloat(props.values.recurrent_price) !==
           parseFloat(props.initial.recurrent_price) && (
           <InfoBox
@@ -209,7 +246,7 @@ export function SubscriptionContractFields(props: Props) {
     </div>
   );
 }
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   recurrenceSumup: {
     display: 'flex',
     flexDirection: 'row',
@@ -239,7 +276,7 @@ const styles = (theme) => ({
       marginRight: theme.spacing(1),
     },
   },
-});
+}));
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -256,7 +293,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'missing',
       function checkPaymentPackIsNullable(payment_pack) {
         const { object_type } = this.parent;
-        return object_type !== OBJECT_TYPE_PAYMENT_PACK || !!payment_pack;
+        return object_type !== ObjectType.paymentPack || !!payment_pack;
       },
     ),
   private_pass: Yup.number()
@@ -267,7 +304,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'missing',
       function checkPrivatePassIsNullable(private_pass) {
         const { object_type } = this.parent;
-        return object_type !== OBJECT_TYPE_PRIVATE_PASS || !!private_pass;
+        return object_type !== ObjectType.privatePass || !!private_pass;
       },
     ),
   payment_combo: Yup.number()
@@ -278,7 +315,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'missing',
       function checkPaymentComboIsNullable(payment_combo) {
         const { object_type } = this.parent;
-        return object_type !== OBJECT_TYPE_PAYMENT_COMBO || !!payment_combo;
+        return object_type !== ObjectType.paymentCombo || !!payment_combo;
       },
     ),
   description: Yup.string().required(),
@@ -287,25 +324,36 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   auto_renewal: Yup.boolean(),
 });
 
-export const SubscriptionContractFormHoc = withFormik({
-  // eslint-disable-next-line
+function isNumber(value: unknown): value is number {
+  return !Number.isNaN(Number(value));
+}
+
+function getIdOrObject<T extends { id: number }>(value: T | number): number {
+  return isNumber(value) ? value : value.id;
+}
+
+export const SubscriptionContractFormHoc = withFormik<
+  SubscriptionContractFormDrawerPropsWithoutFormik,
+  FormValues
+>({
   mapPropsToValues: ({ initial }) => {
     if (initial) {
       return {
         ...initial,
+        // recurrent_price: parseFloat(initial.recurrent_price),
         payment_pack: initial.payment_pack ? initial.payment_pack.id : null,
         private_pass: initial.private_pass
-          ? initial.private_pass.id || initial.private_pass
+          ? getIdOrObject<PrivatePass>(initial.private_pass)
           : null,
         payment_combo: initial.payment_combo
-          ? initial.payment_combo.id || initial.payment_combo
+          ? getIdOrObject<PaymentCombo>(initial.payment_combo)
           : null,
         // eslint-disable-next-line
         object_type: initial.private_pass
-          ? OBJECT_TYPE_PRIVATE_PASS
+          ? ObjectType.privatePass
           : initial.payment_pack
-          ? OBJECT_TYPE_PAYMENT_PACK
-          : OBJECT_TYPE_PAYMENT_COMBO,
+          ? ObjectType.paymentPack
+          : ObjectType.paymentCombo,
       };
     }
     return {
@@ -322,7 +370,7 @@ export const SubscriptionContractFormHoc = withFormik({
       contract: '',
       manager_only: false,
       auto_renewal: false,
-      object_type: OBJECT_TYPE_PAYMENT_PACK,
+      object_type: ObjectType.paymentPack,
     };
   },
   enableReinitialize: true,
@@ -334,15 +382,15 @@ export const SubscriptionContractFormHoc = withFormik({
     const valuesCleaned = {
       ...omit(values, ['object_type']),
       private_pass:
-        values.object_type === OBJECT_TYPE_PRIVATE_PASS
+        values.object_type === ObjectType.privatePass
           ? values.private_pass
           : null,
       payment_combo:
-        values.object_type === OBJECT_TYPE_PAYMENT_COMBO
+        values.object_type === ObjectType.paymentCombo
           ? values.payment_combo
           : null,
       payment_pack:
-        values.object_type === OBJECT_TYPE_PAYMENT_PACK
+        values.object_type === ObjectType.paymentPack
           ? values.payment_pack
           : null,
     };
@@ -361,7 +409,4 @@ export const SubscriptionContractFormHoc = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['subscription']),
-  withStyles(styles),
-)(SubscriptionContractFields);
+export default SubscriptionContractFields;

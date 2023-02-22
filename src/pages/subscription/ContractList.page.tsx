@@ -207,7 +207,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                       onSuccess: this.props.fetchContractList,
                     })
                   }
-                  paymentPacks={this.props.paymentPacks}
+                  paymentPackList={this.props.paymentPackList}
                   privatePassList={this.props.privatePassList}
                   paymentComboList={this.props.paymentComboList}
                 />
@@ -254,7 +254,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onSuccess: this.props.fetchContractList,
                   })
                 }
-                paymentPacks={this.props.paymentPacks}
+                paymentPackList={this.props.paymentPackList}
                 privatePassList={this.props.privatePassList}
                 paymentComboList={this.props.paymentComboList}
               />
@@ -292,7 +292,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onSuccess: this.props.fetchContractList,
                   })
                 }
-                paymentPacks={this.props.paymentPacks}
+                paymentPackList={this.props.paymentPackList}
                 privatePassList={this.props.privatePassList}
                 paymentComboList={this.props.paymentComboList}
               />
@@ -326,7 +326,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                   dense
                   divider
                   loading={this.props.contractLoading}
-                  paymentPacks={this.props.paymentPacks}
+                  paymentPackList={this.props.paymentPackList}
                   privatePassList={this.props.privatePassList}
                   paymentComboList={this.props.paymentComboList}
                   onRestore={(id: number) => {
@@ -380,7 +380,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           />
         ) : null}
         <SubscriptionContractFormDrawer
-          paymentPacks={this.props.paymentPacks}
+          paymentPackList={this.props.paymentPackList}
           privatePassList={this.props.privatePassList}
           paymentComboList={this.props.paymentComboList}
           open={this.props.createContractFormOpen}
@@ -459,7 +459,7 @@ const mapStateToProps = (state: RootState) => ({
     withPaymentPack(getInactiveContractList),
   )(state),
   contractLoading: state.subscription.contract.loading,
-  paymentPacks: getPaymentPackEnabled(state),
+  paymentPackList: getPaymentPackEnabled(state),
   privatePassList: getPrivatePassAvailable(state),
   paymentComboList: getPaymentComboList(state),
   searchedMembers: getSearchedMembers(state),

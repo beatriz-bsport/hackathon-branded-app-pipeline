@@ -308,7 +308,7 @@ export class ContractDetailPage extends Component<Props> {
         <SubscriptionContractFormDrawer
           onClose={() => this.props.setContractToEdit(null)}
           initial={this.props.contract}
-          paymentPacks={this.props.paymentPacks}
+          paymentPackList={this.props.paymentPackList}
           privatePassList={this.props.privatePassList}
           paymentComboList={this.props.paymentComboList}
           open={!!this.props.contractToEdit}
@@ -373,7 +373,7 @@ const connector = connect(
       loading: state.subscription.list.loading,
     },
     contract: withPaymentPack(getContract)(state, contractId),
-    paymentPacks: getPaymentPackEnabled(state),
+    paymentPackList: getPaymentPackEnabled(state),
     privatePassList: getPrivatePassAvailable(state),
     email_templates_list: getAllEmailTemplatesSummaries(state),
     email_templates_details: getEmailTemplatesDetail(state),

@@ -113,7 +113,10 @@ export type Contract = {
   contract_terms_pdf_link: string | null;
 };
 
-export type ContractWithPaymentPack = {
+export type ContractWithPaymentPack<
+  PrivatePassType = PrivatePass,
+  PaymentComboType = PaymentCombo,
+> = {
   id: number;
   company: number;
   name: string;
@@ -129,8 +132,8 @@ export type ContractWithPaymentPack = {
   interval: 'month' | 'week';
   recurrence_basis: number;
   payment_pack?: PaymentPack;
-  private_pass?: PrivatePass;
-  payment_combo?: PaymentCombo;
+  private_pass?: PrivatePassType;
+  payment_combo?: PaymentComboType;
 };
 
 export type ContractPause = {

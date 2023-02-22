@@ -5250,7 +5250,7 @@
         },
         "noPrivateConsumerPass": "Personne n'a cette carte de rendez-vous",
         "noPrivatePass": "Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.",
-        "noPrivateService": "Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.",
+        "noPrivateService": "Un rendez-vous est réservable par un membre au créneau de son choix parmi les disponibilités indiquées.",
         "serviceGroup": {
             "delete": "Supprimer",
             "edit": "Modifier",

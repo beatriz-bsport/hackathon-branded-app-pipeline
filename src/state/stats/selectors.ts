@@ -1,12 +1,11 @@
-// @flow
-
-import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
+import { Dictionary } from 'lodash/index';
 import type { State } from '../types';
+import { DateRange, StatisticPoint, StatisticPointTable } from './types';
 
 export const mainChartSelector = (state: State) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(
@@ -18,17 +17,26 @@ export const dateRangeSelector = createSelector(
   }),
 );
 
-const selectCreatedBookings = (state) =>
+const selectCreatedBookings = (state: State) =>
   state.stats.stats.createdBookings?.data;
 
-const selectCancelledBookings = (state) =>
+const selectCancelledBookings = (state: State) =>
   state.stats.stats.cancelledBookings?.data;
 
-const selectStart = (state, start) => start;
+const selectStart = (state: State, start: string) => start;
 
-const selectEnd = (state, start, end) => end;
+const selectEnd = (state: State, start: string, end: string) => end;
 
-export const getStats = createSelector(
+export const getStats: (
+  state: State,
+  start: string,
+  end: string,
+) => {
+  createdBookings: Array<StatisticPoint>;
+  cancelledBookings: Array<StatisticPoint>;
+  start: Moment;
+  end: Moment;
+} = createSelector(
   [selectCreatedBookings, selectCancelledBookings, selectStart, selectEnd],
   (createdBookings, cancelledBookings, start, end) => {
     if (createdBookings && cancelledBookings) {
@@ -84,25 +92,7 @@ export const getStats = createSelector(
   },
 );
 
-function filterDataTable(table, dateRange) {
-  return filter(table, (x) => x.d >= dateRange.start && x.d <= dateRange.end);
-}
-
-/*
-function addFakeData(table, dateRange) {
-  const dates = [];
-  let date = moment(dateRange.start);
-  const end = moment(dateRange.end);
-  while (date.isSameOrBefore(end)) {
-    dates.push({ d: date.valueOf(), v: Math.random() * 100 });
-    date = date.add(1, 'day');
-  }
-
-  return table.concat(dates);
-}
-*/
-
-function discretizeDataBy(table, dateRange) {
+function discretizeDataBy(table: Array<StatisticPoint>, dateRange: DateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));
   if (duration.asDays() > 60) {
     return {
@@ -110,7 +100,9 @@ function discretizeDataBy(table, dateRange) {
         dateRange,
         table,
         'month',
-        (u, v) => u + v.v,
+        (u: number, v: { v: number }) => {
+          return u + v.v;
+        },
       ),
       formatter: 'month',
     };
@@ -121,7 +113,7 @@ function discretizeDataBy(table, dateRange) {
         dateRange,
         table,
         'week',
-        (u, v) => u + v.v,
+        (u: number, v: { v: number }) => u + v.v,
       ),
       formatter: 'week',
     };
@@ -132,7 +124,7 @@ function discretizeDataBy(table, dateRange) {
         dateRange,
         table,
         'day',
-        (u, v) => u + v.v,
+        (u: number, v: { v: number }) => u + v.v,
       ),
       formatter: 'day',
     };
@@ -142,37 +134,24 @@ function discretizeDataBy(table, dateRange) {
       dateRange,
       table,
       'hour',
-      (u, v) => u + v.v,
+      (u: number, v: { v: number }) => u + v.v,
     ),
     formatter: 'hour',
   };
 }
 
-function statSelector(identifier) {
-  return createCachedSelector(
-    dateRangeSelector,
-    (state) => {
-      const stat = state.stats.stats[identifier];
-      return (stat && stat.data) || [];
-    },
-    (dateRange, data) => {
-      const table = filterDataTable(
-        data.asMutable ? data.asMutable() : data,
-        dateRange,
-      );
-      // const aumentedData = addFakeData(table, dateRange);
-      const discretizedData = discretizeDataBy(table, dateRange);
-      const total = discretizedData.table.reduce((sum, x) => sum + x.v, 0);
-      return { ...discretizedData, total };
-    },
-  )((state) => {
-    const { dateRange } = state.stats;
-    return `${identifier}-${dateRange.start}:${dateRange.end}`;
-  });
-}
-
-function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
-  let grouped = {};
+function discretizeByAndFillMissing(
+  dateRange: DateRange,
+  table: Array<StatisticPoint>,
+  duration: string,
+  reducer: (
+    previousValue: 0,
+    currentValue: StatisticPoint,
+    currentIndex: number,
+    array: StatisticPoint[],
+  ) => number,
+) {
+  let grouped: Dictionary<[StatisticPoint, ...StatisticPoint[]]> = {};
 
   if (duration === 'month') {
     grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
@@ -258,14 +237,12 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   return finalTable;
 }
 
-export const bookingStatSelector = statSelector('bookings');
-export const createdBookingStatSelector = statSelector('createdBookings');
-export const cancelledBookingStatSelector = statSelector('cancelledBookings');
-export const newMembersStatSelector = statSelector('newMembers');
-export const turnoverStatSelector = statSelector('turnover');
-
-const selectDateRange = (state) => state.stats.dateRange;
-const selectData = (state, smartList, statistic) => {
+const selectDateRange = (state: State) => state.stats.dateRange;
+const selectData: (
+  state: State,
+  smartList: number,
+  statistic: number,
+) => StatisticPointTable = (state, smartList, statistic) => {
   if (
     state.stats.bySmartListId[smartList] &&
     state.stats.bySmartListId[smartList][statistic] &&
@@ -273,7 +250,11 @@ const selectData = (state, smartList, statistic) => {
   ) {
     return state.stats.bySmartListId[smartList][statistic];
   }
-  return [];
+  return {
+    loading: false,
+    data_type: '',
+    data: [],
+  };
 };
 
 export const smartlistStatSelector = createCachedSelector(
@@ -282,8 +263,12 @@ export const smartlistStatSelector = createCachedSelector(
   (dateRange, data) => {
     if (data.data_type === 'temporal') {
       const filteredData = data.data
-        .filter((item) => moment(item.d).isBefore(moment(dateRange.end)))
-        .filter((item) => moment(item.d).isAfter(moment(dateRange.start)));
+        .filter((item: StatisticPoint) =>
+          moment(item.d).isBefore(moment(dateRange.end)),
+        )
+        .filter((item: StatisticPoint) =>
+          moment(item.d).isAfter(moment(dateRange.start)),
+        );
       const discretizedData = discretizeDataBy(filteredData, {
         start: moment(dateRange.start),
         end: moment(dateRange.end),
@@ -300,7 +285,11 @@ export const smartlistStatSelector = createCachedSelector(
   return `${smartList}-${statistic}`;
 });
 
-export const getStatisticLoading = (state, smartList, statistic) => {
+export const getStatisticLoading = (
+  state: State,
+  smartList: number,
+  statistic: number,
+) => {
   if (
     state.stats.bySmartListId[smartList] &&
     state.stats.bySmartListId[smartList][statistic]
@@ -310,7 +299,10 @@ export const getStatisticLoading = (state, smartList, statistic) => {
   return true;
 };
 
-export const getBookingRelatedStatisticLoading = (state, statistic) => {
+export const getBookingRelatedStatisticLoading = (
+  state: State,
+  statistic: string,
+) => {
   if (state.stats.stats && state.stats.stats[statistic]) {
     return state.stats.stats[statistic].isLoading;
   }

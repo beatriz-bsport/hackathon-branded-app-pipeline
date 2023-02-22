@@ -338,7 +338,7 @@ export class MemberDetailRelation extends React.Component<Props> {
               disabledStuff={this.props.privateConsumerPasses
                 .filter(
                   (pcp) =>
-                    pcp.dst_consumer_payment_pack ||
+                    pcp.dst_private_consumer_pass.length > 0 ||
                     !!pcp.linked_consumer_payment_pack ||
                     linkedPrivatePassIds.includes(pcp.id),
                 )

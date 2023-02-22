@@ -104,6 +104,11 @@ const {
   COACH_EMAIL_ADDRESS_EXISTS,
 } = require('@bsport/common/lib/master-data/error-codes/associated-coach');
 
+const {
+  DST_CONSUMER_PAYMENT_PACK_CANNOT_BE_SHARED_AGAIN,
+  DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN,
+} = require('@bsport/common/lib/master-data/error-codes/shared-pass');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -322,7 +327,11 @@ exports.default = {
     consumer_payment_pack_links: {
       create: {
         success: 'Carte partagée',
-        error: 'Impossible de partager cette carte',
+        error: {
+          generic: 'Impossible de partager cette carte',
+          [DST_CONSUMER_PAYMENT_PACK_CANNOT_BE_SHARED_AGAIN]:
+            'Cette carte est partagée depuis un autre compte',
+        },
       },
       unlink: {
         success: 'Partage supprimé',
@@ -336,7 +345,11 @@ exports.default = {
     private_consumer_pass_links: {
       create: {
         success: 'Carte RDV partagée',
-        error: 'Impossible de partager cette carte RDV',
+        error: {
+          generic: 'Impossible de partager cette carte RDV',
+          [DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN]:
+            'Cette carte RDV est partagée depuis un autre compte',
+        },
       },
       unlink: {
         success: 'Partage supprimé',

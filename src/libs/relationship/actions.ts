@@ -165,10 +165,26 @@ export function linkToMemberRelation(
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
+      console.error(error);
       dispatch(sharedConsumerPackCreateOrUpdateActions.error(error));
-      dispatch(
-        snackbarError('relationship.consumer_payment_pack_links.create.error'),
-      );
+      if (
+        error?.response?.status === 499 &&
+        error?.response?.data?.error_code
+      ) {
+        dispatch(
+          snackbarError(
+            `relationship.consumer_payment_pack_links.create.error.${String(
+              error.response.data.error_code,
+            )}`,
+          ),
+        );
+      } else {
+        dispatch(
+          snackbarError(
+            'relationship.consumer_payment_pack_links.create.error.generic',
+          ),
+        );
+      }
       if (options && options.onError) options.onError();
     }
     dispatch(sharedConsumerPackCreateOrUpdateActions.isLoading(false));
@@ -284,10 +300,26 @@ export function linkPrivatePassToMemberRelation(
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
+      console.error(error);
       dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.error(error));
-      dispatch(
-        snackbarError('relationship.private_consumer_pass_links.create.error'),
-      );
+      if (
+        error?.response?.status === 499 &&
+        error?.response?.data?.error_code
+      ) {
+        dispatch(
+          snackbarError(
+            `relationship.private_consumer_pass_links.create.error.${String(
+              error.response.data.error_code,
+            )}`,
+          ),
+        );
+      } else {
+        dispatch(
+          snackbarError(
+            'relationship.private_consumer_pass_links.create.error.generic',
+          ),
+        );
+      }
       if (options && options.onError) options.onError();
     }
     dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(false));

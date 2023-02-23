@@ -9060,6 +9060,7 @@
       "frequency": { "month": "mensuelle", "week": "hebdomadaire" },
       "form": {
         "title": "Formulaire contrat",
+        "general_info": { "title": "Informations générales" },
         "name": { "label": "Nom du contrat" },
         "error": { "missingObject": "Ce champ est obligatoire" },
         "object_type": {

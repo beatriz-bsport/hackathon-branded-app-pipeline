@@ -361,6 +361,9 @@ exports.default = {
     },
     form: {
       title: 'Formulaire contrat',
+      general_info: {
+        title: 'Informations générales',
+      },
       name: {
         label: 'Nom du contrat',
       },

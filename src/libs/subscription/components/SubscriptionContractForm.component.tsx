@@ -1,17 +1,12 @@
 import React from 'react';
 import Collapse from '@material-ui/core/Collapse';
-
 import { useTranslation } from 'react-i18next';
-
 import omit from 'lodash/omit';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
-
 import * as Yup from 'yup';
 import { FormikProps, withFormik } from 'formik';
-
 import { makeStyles } from '@material-ui/core';
-
 import {
   TextField,
   PriceField,
@@ -23,7 +18,6 @@ import PaymentPackSelectorField from '../../payment-packs/components/PaymentPack
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 import InfoBox from '#components/box/InfoBox.component';
-
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { ContractWithPaymentPack } from '../types';
@@ -31,6 +25,7 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { OptionCallback } from '../../../state/types';
+import FormSection from '#components/forms/FormSection.component';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -88,13 +83,29 @@ export function SubscriptionContractFields(
 
   return (
     <div>
-      <TextField
-        name="name"
-        label={t('contract.form.name.label')}
-        required
-        fullWidth
-        className={classes.field}
-      />
+      <FormSection
+        sectionTitle={t('contract.form.general_info.title')}
+        sectionIcon={InfoIcon}
+      >
+        <TextField
+          name="name"
+          label={t('contract.form.name.label')}
+          required
+          fullWidth
+          className={classes.field}
+        />
+        <TextField
+          name="description"
+          label={t('contract.form.description.label')}
+          placeholder={t('contract.form.description.placeholder')}
+          className={classes.field}
+          required
+          fullWidth
+          multiline
+          variant="outlined"
+          rows={5}
+        />
+      </FormSection>
       <fieldset className={classes.section}>
         <legend>{t('contract.form.object_type.label')}</legend>
         <RadioGroupField
@@ -212,17 +223,6 @@ export function SubscriptionContractFields(
         required
         fullWidth
         className={classes.field}
-      />
-      <TextField
-        name="description"
-        label={t('contract.form.description.label')}
-        placeholder={t('contract.form.description.placeholder')}
-        className={classes.field}
-        required
-        fullWidth
-        multiline
-        variant="outlined"
-        rows={5}
       />
       <TextField
         name="contract"

@@ -81,8 +81,8 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
                 })}
               >
                 <Tooltip title={t('cancel')}>
-                  <IconButton onClick={close}>
-                    <HighlightOffIcon />
+                  <IconButton onClick={close} className={classes.cancelButton}>
+                    <HighlightOffIcon className={classes.cancelButtonIcon} />
                   </IconButton>
                 </Tooltip>
               </div>
@@ -119,7 +119,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
 };
 const useStyles = makeStyles<
   Theme,
-  { width: string; subtitle: boolean; mobileMinWidth: string }
+  { width: string; subtitle?: string; mobileMinWidth: string }
 >((theme) => ({
   paper: (props) => ({
     width: props.width || '40%',
@@ -147,14 +147,21 @@ const useStyles = makeStyles<
     justifyItems: 'flex-start',
     marginTop: props.subtitle ? null : theme.spacing(3),
   }),
+  topCancel: {
+    marginLeft: theme.spacing(2.75),
+  },
   topCancelLeft: {
     right: theme.spacing(2),
   },
   topCancelRight: {
     left: theme.spacing(2),
   },
+  cancelButtonIcon: {
+    height: theme.spacing(3),
+    width: theme.spacing(3),
+  },
   titleLeft: (props) => ({
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(0.75),
     marginTop: props.subtitle ? theme.spacing(3) : null,
   }),
   content: {

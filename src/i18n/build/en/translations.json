@@ -1455,7 +1455,7 @@
                 "establishmentChangeWarning": "Editing the establishment will affect all future sessions. You may use the field \"Substitute establishment\", too. All other modifications (teacher, price, etc.) will also be applied to all sessions.",
                 "coachChangeWarning": "Editing the teacher will affect all future sessions. You may choose to use the \"Substitute teacher\" field, too.  All other modifications (establishment, price, etc.) will also be applied to all sessions.",
                 "levelChangeWarning": "Editing the level will affect all future sessions. All other modifications (establishment, price, etc.) will also be applied to all sessions.",
-                "explainPartnership": "MarketPlaces (ClassPass, Onefit, etc.)",
+                "explainPartnership": "Marketplaces (ClassPass, Onefit, etc.)",
                 "explainManagerOnly": "Open for bookings (Website + Mobile App)",
                 "advancedOptions": {
                     "tag": {
@@ -6452,8 +6452,8 @@
             },
             "preview": "Preview",
             "saveButton": "Save",
-            "link": "Log out and open the MarketPlace",
-            "explainMarketplace": "Here you can edit your MarketPlace (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
+            "link": "Log out and open the marketplace",
+            "explainMarketplace": "Here you can edit your marketplace (calendar, agenda, appointments, etc.), in which you members can consult and purchase your offer over their phone, tablet, and computer.",
             "addButton": "Add a tab"
         },
         "companyOnboarding": {
@@ -13009,7 +13009,7 @@
                 "invoice": "Billing",
                 "company": "Company",
                 "platform_billing": "Subscription",
-                "marketplaceSettings": "MarketPlace",
+                "marketplaceSettings": "Marketplace Settings",
                 "widget": "Widgets",
                 "paymentMethod": "Payment methods",
                 "forms": "Member forms",

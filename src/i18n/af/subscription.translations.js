@@ -376,6 +376,9 @@ exports.default = {
         paymentPack: 'Carte de cours',
         paymentCombo: 'Pack',
       },
+      price: {
+        title: 'Prix',
+      },
       nb_interval: {
         label: 'Nombre de facturation(s)',
       },

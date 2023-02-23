@@ -9069,6 +9069,7 @@
           "paymentPack": "Carte de cours",
           "paymentCombo": "Pack"
         },
+        "price": { "title": "Prix" },
         "nb_interval": { "label": "Nombre de facturation(s)" },
         "interval": { "label": "Récurrence", "helperText": "Fréquence de génération des factures / cartes" },
         "recurrence": {

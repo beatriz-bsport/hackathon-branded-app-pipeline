@@ -5,6 +5,8 @@ import omit from 'lodash/omit';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import PaymentIcon from '@material-ui/icons/Payment';
+import EuroIcon from '@material-ui/icons/Euro';
+import DollarIcon from '@material-ui/icons/AttachMoney';
 import * as Yup from 'yup';
 import { FormikProps, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
@@ -25,6 +27,7 @@ import { ContractWithPaymentPack } from '../types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { OptionCallback } from '../../../state/types';
 import FormSection from '#components/forms/FormSection.component';
 
@@ -156,6 +159,37 @@ export function SubscriptionContractFields(
           </Collapse>
         </div>
       </FormSection>
+
+      <FormSection
+        sectionTitle={t('contract.form.price.title')}
+        sectionIcon={getCurrencyDisplay() === '€' ? EuroIcon : DollarIcon}
+      >
+        <PriceField
+          name="recurrent_price"
+          label={t('contract.form.recurrent_price.label')}
+          required
+          fullWidth
+          className={classes.fieldMargin2}
+        />
+        {props.initial?.id &&
+          // the backend returns a string for recurrent_price as it is handled as a decimal
+          parseFloat(props.values.recurrent_price) !==
+            parseFloat(props.initial.recurrent_price) && (
+            <InfoBox
+              content={t('contract.form.recurrent_price.infoBox')}
+              className={classes.fieldMargin2}
+            />
+          )}
+        <PriceField
+          name="flat_fee"
+          label={t('contract.form.flat_fee.label')}
+          helperText={t('contract.form.flat_fee.helperText')}
+          required
+          fullWidth
+          className={classes.field}
+        />
+      </FormSection>
+
       <fieldset className={classes.section}>
         <legend>{t('contract.form.recurrence.section')}</legend>
         <IntervalRecurrenceSelectField
@@ -206,30 +240,6 @@ export function SubscriptionContractFields(
           </Typography>
         </div>
       </fieldset>
-      <PriceField
-        name="recurrent_price"
-        label={t('contract.form.recurrent_price.label')}
-        required
-        fullWidth
-        className={classes.fieldMargin2}
-      />
-      {props.initial?.id &&
-        // the backend returns a string for recurrent_price as it is handled as a decimal
-        parseFloat(props.values.recurrent_price) !==
-          parseFloat(props.initial.recurrent_price) && (
-          <InfoBox
-            content={t('contract.form.recurrent_price.infoBox')}
-            className={classes.fieldMargin2}
-          />
-        )}
-      <PriceField
-        name="flat_fee"
-        label={t('contract.form.flat_fee.label')}
-        helperText={t('contract.form.flat_fee.helperText')}
-        required
-        fullWidth
-        className={classes.field}
-      />
       <TextField
         name="contract"
         label={t('contract.form.contract.label')}
@@ -290,7 +300,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   recurrence_basis: Yup.number().integer().min(1).required(),
   interval: Yup.string().required(),
   recurrent_price: Yup.number().min(0),
-  flat_fee: Yup.number(),
+  flat_fee: Yup.number().min(0),
   payment_pack: Yup.number()
     .integer()
     .nullable()

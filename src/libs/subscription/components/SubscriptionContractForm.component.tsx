@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
+import PaymentIcon from '@material-ui/icons/Payment';
 import * as Yup from 'yup';
 import { FormikProps, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
@@ -106,8 +107,11 @@ export function SubscriptionContractFields(
           rows={5}
         />
       </FormSection>
-      <fieldset className={classes.section}>
-        <legend>{t('contract.form.object_type.label')}</legend>
+
+      <FormSection
+        sectionTitle={t('contract.form.object_type.label')}
+        sectionIcon={PaymentIcon}
+      >
         <RadioGroupField
           name="object_type"
           choices={[
@@ -125,31 +129,33 @@ export function SubscriptionContractFields(
             },
           ]}
         />
-        <Collapse in={props.values.object_type === ObjectType.paymentPack}>
-          <PaymentPackSelectorField
-            choices={props.paymentPackList}
-            name="payment_pack"
-            fullWidth
-            className={classes.fieldMain}
-          />
-        </Collapse>
-        <Collapse in={props.values.object_type === ObjectType.privatePass}>
-          <PrivatePassSelectorField
-            choices={props.privatePassList}
-            name="private_pass"
-            fullWidth
-            className={classes.fieldMain}
-          />
-        </Collapse>
-        <Collapse in={props.values.object_type === ObjectType.paymentCombo}>
-          <PaymentComboSelectorField
-            choices={props.paymentComboList}
-            name="payment_combo"
-            fullWidth
-            className={classes.fieldMain}
-          />
-        </Collapse>
-      </fieldset>
+        <div>
+          <Collapse in={props.values.object_type === ObjectType.paymentPack}>
+            <PaymentPackSelectorField
+              choices={props.paymentPackList}
+              name="payment_pack"
+              fullWidth
+              classes={classes}
+            />
+          </Collapse>
+          <Collapse in={props.values.object_type === ObjectType.privatePass}>
+            <PrivatePassSelectorField
+              choices={props.privatePassList}
+              name="private_pass"
+              fullWidth
+              classes={classes}
+            />
+          </Collapse>
+          <Collapse in={props.values.object_type === ObjectType.paymentCombo}>
+            <PaymentComboSelectorField
+              choices={props.paymentComboList}
+              name="payment_combo"
+              fullWidth
+              classes={classes}
+            />
+          </Collapse>
+        </div>
+      </FormSection>
       <fieldset className={classes.section}>
         <legend>{t('contract.form.recurrence.section')}</legend>
         <IntervalRecurrenceSelectField
@@ -261,7 +267,7 @@ const useStyles = makeStyles((theme) => ({
   fieldMargin2: {
     marginBottom: theme.spacing(2),
   },
-  fieldMain: { marginBottom: theme.spacing(5) },
+  selectorField: { marginBottom: theme.spacing(0) },
   section: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),

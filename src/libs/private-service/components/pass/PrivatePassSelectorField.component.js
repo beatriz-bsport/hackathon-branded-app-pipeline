@@ -34,6 +34,7 @@ export const SelectField = withTranslation([])((props) => {
               onChange={(option) => {
                 setFieldValue(field.name, option);
               }}
+              selectorClass={props.classes.selectorField}
             />
             {!props.disabled && (
               <input

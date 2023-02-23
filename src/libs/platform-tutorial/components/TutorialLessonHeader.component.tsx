@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
 import { Skeleton } from '@material-ui/lab';
 
@@ -22,6 +21,7 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import ToolTip from '#components/Tooltip.component';
 import MuiIcon from '#components/MuiIcon.component';
 import LessonStatusChips from './TutorialLessonStatusChip.component';
+import InfoBox from '#components/box/InfoBox.component';
 
 import { FeatureList } from '#libs/company/types';
 import { TutorialCompletion, TutorialLesson, TutorialSection } from '../types';
@@ -165,14 +165,11 @@ const TutorialLessonHeader: React.FC<Props> = ({
             <>
               {shouldDisplayUpsellInfos && (
                 <div className={classes.upsellInfoContainer}>
-                  <div className={classes.warningContainer}>
-                    <div className={classes.infoIcon}>
-                      <InfoOutlinedIcon color="inherit" />
-                    </div>
-                    <Typography variant="body2" className={classes.breakSpaces}>
-                      {t('lessonHeader.warning')}
-                    </Typography>
-                  </div>
+                  <InfoBox
+                    content={t('lessonHeader.warning')}
+                    className={classes.borderRadiusAdjustment}
+                    variant="outlined"
+                  />
                   <Button variant="outlined" onClick={handleKnowMore}>
                     <HelpOutlinedIcon className={classes.iconLeft} />
                     {t('platformBilling:upsellPackage.knowMore')}
@@ -303,22 +300,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1.5),
     marginBottom: theme.spacing(3),
   },
-  warningContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(2),
-    outline: `1px solid ${theme.palette.info.main}`,
-    padding: theme.spacing(1.5),
+  borderRadiusAdjustment: {
     borderRadius: theme.spacing(1),
-  },
-  infoIcon: {
-    color: theme.palette.info.main,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  breakSpaces: {
-    whiteSpace: 'break-spaces',
   },
   iconLeft: {
     marginRight: theme.spacing(1),

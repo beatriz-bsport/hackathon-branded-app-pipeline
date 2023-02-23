@@ -6323,6 +6323,10 @@
                     "2": "Shop",
                     "1": "Kurskarte",
                     "10": "Pack"
+                },
+                "choicesFranchise": {
+                    "9": "Geteilte Terminkarten",
+                    "1": "Geteilte Kurskarten"
                 }
             },
             "minimum_amount": {
@@ -6344,7 +6348,8 @@
             },
             "code": {
                 "label": "Code",
-                "helperText": "Der Code, der an die betroffenen Kunden weitergeleitet wird"
+                "helperText": "Der Code, der an die betroffenen Kunden weitergeleitet wird",
+                "helperTextFranchise": "Den Code, den Sie an die betreffenden Kunden weitergeben. Achten Sie darauf, dass der Code nicht bereits in Ihren verschiedenen Studios existiert."
             },
             "is_active": {
                 "label": "Aktiv",
@@ -6429,7 +6434,34 @@
         },
         "noDiscount": "Keine Käufe mit dem Code durchgeführt",
         "search": "Suche nach einem Promo-Code",
-        "reverted": "Stornierte Rechnung"
+        "reverted": "Stornierte Rechnung",
+        "couponTemplateInstance": {
+            "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt",
+            "delete": {
+                "explain2": "Sie können sie später wieder hinzufügen.",
+                "explain1": "Sind Sie sicher, dass Sie die Weitergabe des Aktionscodes für {{name}} stoppen wollen ?",
+                "title": "Teilen stoppen"
+            },
+            "create": {
+                "explain2": "Wenn ein Mitglied einen Gutscheincode in einem der kompatiblen Studios anwendet, kann er ihn auch in den anderen von Ihnen festgelegten Studios verwenden.",
+                "explain1": "Die folgenden Studios sind mit den in Ihrem Coupon ausgewählten Produkten kompatibel.",
+                "title": "Meine Studios einrichten"
+            }
+        },
+        "couponTemplate": {
+            "notEditable": "Dieser Coupon ist ein Coupon, der vom Franchisegeber-Konto freigegeben wurde. Die Elemente wurden vom Franchisegeberkonto festgelegt und können nicht geändert werden.",
+            "warningDialog": {
+                "content1": "Achtung, Sie möchten die Einstellungen für die Anwendung der gemeinsamen Aktionen auf bestimmte Kurs- oder Terminkarten ändern.",
+                "content2": "Dadurch wird die Liste der Studios, mit denen die Aktion geteilt wird, zurückgesetzt.",
+                "content3": "Sie können wieder auswählen, welche Studios sich diese Aktion teilen.",
+                "title": "Änderung bestätigen"
+            },
+            "isEmptyExplain": "Keine gespeicherten geteilten Aktionscodes",
+            "actions": {
+                "create": "Einen geteilten Code hinzufügen"
+            },
+            "formDisclaimer": "Wenn Sie in Zukunft diese Sektion ändern möchten, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Karten anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
+        }
     },
     "privateService": {
         "openCalendar": "Den Kalender ansehen",
@@ -7541,7 +7573,8 @@
         },
         "thread": {
             "emptyThread": {
-                "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen."
+                "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen.",
+                "becauseNeverUsed": "Sie haben noch keine Kommunikation auf diesem Kanal gesendet."
             },
             "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt."
         },
@@ -7653,6 +7686,10 @@
             },
             "filterAction": "Filtern",
             "applyFilter": "Anwenden"
+        },
+        "generic": {
+            "history": "Verlauf",
+            "communication": "Kommunikation"
         }
     },
     "consumerSpace": {
@@ -7737,12 +7774,18 @@
             "es": "Spanisch",
             "en-GB": "Englisch (United Kingdom)",
             "en-US": "Englisch (USA)",
-            "fr": "Französisch"
+            "fr": "Französisch",
+            "none": "Automatisch"
         },
         "subscription": {
             "isEmpty": "Sie haben keine laufenden Abos"
         },
-        "Basket": "Mein Warenkorb"
+        "Basket": "Mein Warenkorb",
+        "appbar": {
+            "login": "Login",
+            "logout": "Abmelden",
+            "profile": "Zu meinem Profil"
+        }
     },
     "metaActivity": {
         "settings": {
@@ -8654,7 +8697,8 @@
                     "qualitativeBooking": "Teilung",
                     "temporalBooking": "Entwicklung über Zeit",
                     "temporalTimeslotBooking": "Tägliche und stündliche Frequenzen",
-                    "temporalMember": "Entwicklung über Zeit"
+                    "temporalMember": "Entwicklung über Zeit",
+                    "temporalPrivateBooking": "Entwicklung im Laufe der Zeit"
                 },
                 "aggregateHelper": "Beispiel: Zeigt die Entwicklung der Gesamtzahl der Mitglieder anstelle der Anzahl der neuen Mitglieder pro Monat an.",
                 "aggregate": "Zusammenfassen",
@@ -8668,7 +8712,8 @@
                         "helperText": "Wähle aus, was angezeigt werden soll",
                         "placeholder": "Wähle einen Datentyp",
                         "isEmpty": "Keine Daten ausgewählt"
-                    }
+                    },
+                    "privateBooking": "Termin"
                 },
                 "graphComponent": "Gewünschte Darstellung",
                 "datatype": "Art des Diagramms",
@@ -8683,6 +8728,98 @@
             "popover": "Die Gesamtzahl der für dieses Datum erhaltenen Reservierungen. Du kannst Stornierungen / verspätete Stornierungen / ...",
             "caption": "Buchung gespeichert",
             "title": "Buchungen"
+        },
+        "graphFormDrawer": {
+            "helperText": {
+                "booking_effectif_timeslots": "Durchschnittliche Anzahl der Teilnehmer an den Sitzungen pro Zeitfenster.",
+                "subscriptionCount": "Anzahl der Rechnungen im Zusammenhang mit den Anmeldungen.",
+                "subscriptionPrice": {
+                    "max": "Maximum aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen.",
+                    "min": "Minimum aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen.",
+                    "avg": "Durchschnitt aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen.",
+                    "sum": "Summe aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen."
+                },
+                "plannedInvoiceCount": "Anzahl der Rechnungen im Zusammenhang mit den Abonnements.",
+                "dateCreated": "Die Daten werden zeitlich nach dem Datum dargestellt, an dem die Buchungen vorgenommen wurden.",
+                "dateStart": "Die Daten werden zeitlich entsprechend dem Startdatum der Sitzungen dargestellt."
+            },
+            "accumulate": {
+                "total": "Akkumulieren"
+            },
+            "dashboardGraphIdentifier": {
+                "graph_dispute": "Streitigkeiten",
+                "graph_subscriptions": "Anmeldungen",
+                "graph_payments": "Zahlungen",
+                "graph_private_bookings": "Termin",
+                "graph_bookings": "Reservierungen",
+                "graph_members": "Neue Mitglieder"
+            },
+            "aggregation": {
+                "max": "Maximum",
+                "min": "Minimum",
+                "avg": "Durchschnitt",
+                "sum": "Summe"
+            },
+            "graphFamily": {
+                "week_timeslots": "Tägliche und stündliche Frequenzen",
+                "qualitative": "Verteilung",
+                "temporal": "Entwicklung im Laufe der Zeit"
+            },
+            "chartComponents": {
+                "timeslots": "Tägliche und stündliche Frequenzen",
+                "pie": "Kreisdiagramm",
+                "area": "Flächendiagramm",
+                "qualitativeBar": "Histogramm",
+                "bar": "Histogramm"
+            },
+            "placeholders": {
+                "aggregationSelector": "Wählen Sie eine Operation",
+                "dashboardGraphIdentifier": "Wählen Sie einen Datentyp"
+            },
+            "labels": {
+                "aggregationName": "Aggregation",
+                "dividedBy": "Geteilt durch",
+                "dataToDisplay": "Angezeigte Angabe",
+                "dateFilterField": "Angabe für das Datum",
+                "groupByField": "Verteilen auf",
+                "graphFamily": {
+                    "qualitative": "Verteilung",
+                    "temporal": "Entwicklung im Laufe der Zeit"
+                },
+                "title": "Name"
+            },
+            "sectionTitles": {
+                "filterConfig": "Filter",
+                "timePeriod": "Zeitraum",
+                "graphParams": "Daten",
+                "graphFamily": "Grafik",
+                "dashboardGraphIdentifier": "Art der Daten",
+                "general": "Allgemeine Informationen"
+            },
+            "title": {
+                "edit": "Bearbeiten einer Grafik",
+                "create": "Erstellen einer Grafik"
+            }
+        },
+        "graphActions": {
+            "delete": "Löschen",
+            "edit": "Bearbeiten"
+        },
+        "showMoreLegend": "+ {{count}} Legende",
+        "showMoreLegend_plural": "+ {{count}} Legenden",
+        "addFilter": "Filter hinzufügen",
+        "filterChipLabel": "{{count}} Filter",
+        "filterChipLabel_plural": "{{count}} Filter",
+        "privateBooking": {
+            "popover": "Die Gesamtzahl der für dieses Datum gespeicherten Termine. Sie können nach Stornierungen / Rückerstattungen / ... filtern.",
+            "caption": "Registrierte Termine",
+            "title": "Termin"
+        },
+        "noGraphToDisplay": "Auf diesem Tab sind keine Graphen konfiguriert. Fügen Sie hier einen hinzu.",
+        "tabNameDialog": {
+            "placeholder": "Name",
+            "titleRename": "Tab umbenennen",
+            "titleAdd": "Einen neuen Tab hinzufügen"
         }
     },
     "relationship": {

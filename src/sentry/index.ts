@@ -38,7 +38,7 @@ Sentry.init({
   replaysSessionSampleRate:
     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? 0.1 : 1.0,
   replaysOnErrorSampleRate: 1.0,
-  tracesSampleRate: 0.01,
+  tracesSampleRate: 0.002,
   beforeSend(event, hint) {
     const error = hint.originalException;
     if (

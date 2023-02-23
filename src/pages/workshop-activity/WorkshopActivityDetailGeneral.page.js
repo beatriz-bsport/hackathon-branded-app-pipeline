@@ -185,6 +185,11 @@ export class WorkshopActivity extends Component<Props, State> {
       ? {
           ...unmap(workshopActivity, MetaActivityMap),
           SCT: workshopActivity.SCT,
+          custom_restriction_rule:
+            workshopActivity?.custom_restriction_rule?.map((crr) => ({
+              ...crr,
+              tags: crr.tags?.map((tag) => tag.id),
+            })) ?? [],
         }
       : null;
     return (

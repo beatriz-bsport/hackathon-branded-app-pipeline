@@ -30,7 +30,6 @@ import {
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import MetaActivityCustomRestrictionsForm from './MetaActivityCustomRestrictionsForm.component';
-import { Tag, TagGroup } from '#libs/tag/types';
 import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { formatDurationFromMinute } from '../../../utils/duration';
@@ -44,7 +43,7 @@ type Props = {
   variant: ?string,
   is_broadcast_enabled: boolean,
   values: any,
-  tags: Array<Tag<TagGroup>>,
+  tags: number[],
   initial: any,
 };
 

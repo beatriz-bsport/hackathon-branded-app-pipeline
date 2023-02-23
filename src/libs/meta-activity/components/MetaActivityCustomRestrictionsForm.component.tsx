@@ -28,11 +28,11 @@ import { MaterialStyleType } from '../../../utils/types';
 import { DurationField } from '../../../components/forms';
 
 import TagSelector from '#libs/tag/components/TagSelector.selector';
-import { Tag, TagGroup } from '#libs/tag/types';
+import { Tag } from '#libs/tag/types';
 
 type OwnProps = {
   variant?: string;
-  tags: Array<Tag<TagGroup>>;
+  tags: number[];
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof useStyles>> &

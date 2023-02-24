@@ -14,10 +14,10 @@ import type { PaymentPack } from '../../payment-packs/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import PaymentPackFormDialog from '#libs/payment-packs/components/PaymentPackForm';
 import CheckPermissionComponent from '../../role/components/CheckPermission.component';
 
 import { URLS_PERMISSIONS } from '#libs/role/constants';
+import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';
 
 const PAGE_SIZE = 10;
 
@@ -42,6 +42,13 @@ const [ADD_PASS_PERMISSION] = URLS_PERMISSIONS['/payment-pack'];
 export function CompatiblePaymentPacks(props: Props) {
   const [openPaymentPackForm, setOpenPaymentPackForm] =
     React.useState<boolean>(false);
+  const closeDrawer = () => {
+    setOpenPaymentPackForm(false);
+  };
+  const toggleDrawerOpen = () => {
+    setOpenPaymentPackForm(!openPaymentPackForm);
+  };
+
   return (
     <div>
       <List className={props.classes.list}>
@@ -89,10 +96,7 @@ export function CompatiblePaymentPacks(props: Props) {
       </List>
       <div className={props.classes.buttonContainer}>
         <CheckPermissionComponent requiredPermissions={ADD_PASS_PERMISSION}>
-          <Button
-            className={props.classes.button}
-            onClick={() => setOpenPaymentPackForm(!openPaymentPackForm)}
-          >
+          <Button className={props.classes.button} onClick={toggleDrawerOpen}>
             {props.t('forms.create.compatible_packs.createPass')}
           </Button>
         </CheckPermissionComponent>
@@ -106,14 +110,14 @@ export function CompatiblePaymentPacks(props: Props) {
           {props.t('forms.create.compatible_packs.goToActivity')}
         </Button>
       </div>
-      <PaymentPackFormDialog
+      <PaymentPackFormDrawer
         open={openPaymentPackForm}
         categoryList={props.categoryList}
         availableEstablishmentList={props.availableEstablishmentList}
         metaActivityList={props.metaActivityList}
         tagList={props.tagList}
         paymentPackCategories={props.paymentPackCategories}
-        closeDialog={() => setOpenPaymentPackForm(false)}
+        closeForm={closeDrawer}
         onSubmit={props.onSubmit}
       />
     </div>

@@ -224,6 +224,10 @@ export class WorkshopActivityFormPage extends Component<Props> {
       updateLevel={this.props.updateLevel}
       createLevel={this.props.createLevel}
       deleteLevel={this.props.deleteLevel}
+      allowGuestMaster={
+        this.props.companyTheme.allow_guest &&
+        this.props.companyTheme.allow_guest_activatable
+      }
     />
   );
 

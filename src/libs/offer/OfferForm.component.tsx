@@ -52,7 +52,7 @@ import SpotSchedulingHelper from '../spot-scheduling/utils';
 import type { CoachPaymentRule } from '../coach-payment-rules/types';
 import CoachPaymentRuleSelectorStyled from '../coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import PartnershipToogle from './form/PartnershipToogle.component';
-import ManagerOnlyToogle from './form/ManagerOnlyToogle.component';
+import ManagerOnlyToggle from './form/ManagerOnlyToggle.component';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import LevelSelector from '#libs/level/components/LevelSelector.component';
@@ -643,7 +643,7 @@ export class OfferForm extends Component<Props, State> {
           />
         )}
         {!this.props.isOfferInGroup && (
-          <ManagerOnlyToogle
+          <ManagerOnlyToggle
             manager_only={this.state.manager_only}
             onChange={(manager_only: boolean) =>
               this.setState({ manager_only })

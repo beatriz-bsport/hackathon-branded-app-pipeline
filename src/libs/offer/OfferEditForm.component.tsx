@@ -36,7 +36,7 @@ import EstablishmentSubForm from '#libs/offer/form/EstablishmentSubForm.componen
 import CoachSubForm from '#libs/offer/form/CoachSubForm.component';
 import NotificationToogle from '#libs/offer/form/NotificationToogle.component';
 import PartnershipToogle from '#libs/offer/form/PartnershipToogle.component';
-import ManagerOnlyToogle from '#libs/offer/form/ManagerOnlyToogle.component';
+import ManagerOnlyToggle from '#libs/offer/form/ManagerOnlyToggle.component';
 
 import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
@@ -965,7 +965,7 @@ export class OfferEditForm extends Component<Props, State> {
                 </div>
               )}
               <div className={this.props.classes.field}>
-                <ManagerOnlyToogle
+                <ManagerOnlyToggle
                   manager_only={this.state.manager_only}
                   onChange={(manager_only) => this.setState({ manager_only })}
                   disabled={this.props.offer.group}

@@ -63,7 +63,7 @@ import {
 } from '#libs/group-offer/utils';
 import LevelSelectorFormik from '#libs/level/components/LevelSelectorFormik.component';
 import { Level } from '#libs/level/types';
-import ManagerOnlyToogle from '#libs/offer/form/ManagerOnlyToogle.component';
+import ManagerOnlyToggle from '#libs/offer/form/ManagerOnlyToggle.component';
 import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
 import FormToggle from '#components/forms/FormToggle.component';
 import { ZoomApp } from '#libs/zoom-app/types';
@@ -418,7 +418,7 @@ export const GroupedOfferFormSettings: React.FC<
             </>
           )}
 
-          <ManagerOnlyToogle
+          <ManagerOnlyToggle
             manager_only={values.manager_only}
             onChange={(manager_only) =>
               setFieldValue('manager_only', manager_only)

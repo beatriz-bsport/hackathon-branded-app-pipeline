@@ -186,6 +186,10 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       updateLevel={this.props.updateLevel}
       createLevel={this.props.createLevel}
       deleteLevel={this.props.deleteLevel}
+      allowGuestMaster={
+        this.props.companyTheme.allow_guest_activatable &&
+        this.props.companyTheme.allow_guest
+      }
     />
   );
 

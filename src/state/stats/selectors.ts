@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import { Dictionary } from 'lodash/index';
+import Immutable from 'seamless-immutable';
 import type { State } from '../types';
 import { DateRange, StatisticPoint, StatisticPointTable } from './types';
 
@@ -32,8 +33,8 @@ export const getStats: (
   start: string,
   end: string,
 ) => {
-  createdBookings: Array<StatisticPoint>;
-  cancelledBookings: Array<StatisticPoint>;
+  createdBookings: Immutable.Immutable<Array<StatisticPoint>>;
+  cancelledBookings: Immutable.Immutable<Array<StatisticPoint>>;
   start: Moment;
   end: Moment;
 } = createSelector(

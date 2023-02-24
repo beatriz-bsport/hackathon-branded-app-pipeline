@@ -1,6 +1,7 @@
 import { Moment } from 'moment-timezone';
+import Immutable from 'seamless-immutable';
 
-export type StatsState = {
+export type StatsState = Immutable.Immutable<{
   dateRange: DateRange;
   mainChart: string;
   stats: { [key: string]: any };
@@ -9,7 +10,7 @@ export type StatsState = {
       [key: number]: StatisticPointTable;
     };
   };
-};
+}>;
 
 export type DateRange = {
   start: Moment;

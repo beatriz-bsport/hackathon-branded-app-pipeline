@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'formik';
+import { makeStyles } from '@material-ui/core';
 import SubscriptionContractFields, {
   SubscriptionContractFormDrawerProps,
   SubscriptionContractFormHoc,
@@ -20,6 +21,7 @@ export const SubscriptionContractFormDrawer = (
   props: SubscriptionContractFormDrawerProps,
 ) => {
   const { t } = useTranslation('subscription');
+  const classes = useStyles();
   return (
     <GenericResponsiveDrawer
       open={props.open}
@@ -33,7 +35,7 @@ export const SubscriptionContractFormDrawer = (
     >
       <Form>
         <SubscriptionContractFields {...props} />
-        <DialogActions>
+        <DialogActions className={classes.dialogActions}>
           <Button
             onClick={() => {
               trackFormCancel(props.initial?.id);
@@ -58,5 +60,11 @@ export const SubscriptionContractFormDrawer = (
     </GenericResponsiveDrawer>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  dialogActions: {
+    padding: theme.spacing(4),
+  },
+}));
 
 export default SubscriptionContractFormHoc(SubscriptionContractFormDrawer);

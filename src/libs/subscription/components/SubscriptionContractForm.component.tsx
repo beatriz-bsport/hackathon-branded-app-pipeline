@@ -9,6 +9,7 @@ import EuroIcon from '@material-ui/icons/Euro';
 import DollarIcon from '@material-ui/icons/AttachMoney';
 import InvoiceIcon from '@material-ui/icons/Receipt';
 import KeyIcon from '@material-ui/icons/VpnKey';
+import SettingsIcon from '@material-ui/icons/Tune';
 import * as Yup from 'yup';
 import { FormikProps, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
@@ -303,14 +304,19 @@ export function SubscriptionContractFields(
         />
       </FormSection>
 
-      <SwitchField
-        name="manager_only"
-        label={t('contract.form.managerOnly.label')}
-      />
-      <SwitchField
-        name="auto_renewal"
-        label={t('contract.form.autoRenewal.label')}
-      />
+      <FormSection
+        sectionTitle={t('contract.form.settings.title')}
+        sectionIcon={SettingsIcon}
+      >
+        <SwitchField
+          name="manager_only"
+          label={t('contract.form.managerOnly.label')}
+        />
+        <SwitchField
+          name="auto_renewal"
+          label={t('contract.form.autoRenewal.label')}
+        />
+      </FormSection>
     </div>
   );
 }

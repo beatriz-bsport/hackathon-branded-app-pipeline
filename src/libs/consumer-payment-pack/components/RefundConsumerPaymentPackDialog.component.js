@@ -90,7 +90,7 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                       },
                     })
                   }
-                  type="numeric"
+                  type="number"
                 />
               )}
             <TextField
@@ -109,6 +109,7 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                   },
                 })
               }
+              type="number"
             />
             <TextField
               required

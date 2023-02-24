@@ -611,6 +611,12 @@ exports.default = {
       week: 'Semaine',
       day: 'Quotidienne',
     },
+    period: {
+      day: 'Jours',
+      week: 'Semaines',
+      month: 'Mois',
+      year: 'Années',
+    },
   },
   marketing: {
     dashboard: 'Tableau de bord',

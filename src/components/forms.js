@@ -985,16 +985,38 @@ export const DurationMinuteSelectField = withTranslation()(
   ),
 );
 
-export const IntervalRecurrenceSelectField = withTranslation(['contract'])(
-  (props: SelectFieldProps) => (
+export const IntervalRecurrenceSelectField = withTranslation()(
+  (props: SelectFieldProps & { displayPeriod?: boolean }) => (
     <SelectField
       choices={[
         ...(props?.withoutDaily ?? false
           ? []
-          : [{ value: 'day', label: 'form.interval.day' }]),
-        { value: 'week', label: 'form.interval.week' },
-        { value: 'month', label: 'form.interval.month' },
-        { value: 'year', label: 'form.interval.year' },
+          : [
+              {
+                value: 'day',
+                label: props.displayPeriod
+                  ? 'form.period.day'
+                  : 'form.interval.day',
+              },
+            ]),
+        {
+          value: 'week',
+          label: props.displayPeriod
+            ? 'form.period.week'
+            : 'form.interval.week',
+        },
+        {
+          value: 'month',
+          label: props.displayPeriod
+            ? 'form.period.month'
+            : 'form.interval.month',
+        },
+        {
+          value: 'year',
+          label: props.displayPeriod
+            ? 'form.period.year'
+            : 'form.interval.year',
+        },
       ]}
       {...props}
     />
@@ -1117,7 +1139,11 @@ type RadioFieldProps = {
   label?: string,
   classes?: any,
   name: string,
-  choices: { label: string, value: * }[],
+  choices: {
+    label: string,
+    value: any,
+    helperText?: string,
+  }[],
   labelClass?: any,
 };
 

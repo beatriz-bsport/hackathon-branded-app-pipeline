@@ -7,6 +7,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import PaymentIcon from '@material-ui/icons/Payment';
 import EuroIcon from '@material-ui/icons/Euro';
 import DollarIcon from '@material-ui/icons/AttachMoney';
+import InvoiceIcon from '@material-ui/icons/Receipt';
 import * as Yup from 'yup';
 import { FormikProps, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
@@ -30,6 +31,7 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { OptionCallback } from '../../../state/types';
 import FormSection from '#components/forms/FormSection.component';
+// import PopOver from '#components/Popover.component';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -41,6 +43,11 @@ enum ObjectType {
   privatePass = 'private_pass',
   paymentCombo = 'payment_combo',
 }
+
+// enum InvoicingType {
+//   sameDayAsSubscription = 'same_day_as_subscription',
+//   fixedDay = 'fixed_day',
+// }
 
 type FormValues = Omit<
   ContractWithPaymentPack,
@@ -190,29 +197,53 @@ export function SubscriptionContractFields(
         />
       </FormSection>
 
-      <fieldset className={classes.section}>
-        <legend>{t('contract.form.recurrence.section')}</legend>
-        <IntervalRecurrenceSelectField
-          name="interval"
-          label={t('contract.form.interval.label')}
-          helperText={t('contract.form.interval.helperText')}
-          className={classes.field}
-          required
-          fullWidth
-        />
+      <FormSection
+        sectionTitle={t('contract.form.invoicing.title')}
+        sectionIcon={InvoiceIcon}
+      >
+        {/* <PopOver
+          title={t('contract.form.invoicing.invoicing_type_readonly')}
+          hide={!props.initial?.id}
+        >
+          <RadioGroupField
+            choices={[
+              {
+                label: t(
+                  'contract.form.invoicing.same_day_as_subscription.label',
+                ),
+                value: InvoicingType.sameDayAsSubscription,
+              },
+              {
+                label: t('contract.form.invoicing.fixed_day.label'),
+                value: InvoicingType.fixedDay,
+              },
+            ]}
+            disabled={!!props.initial?.id}
+          />
+        </PopOver>
+        <InfoBox
+          content={t(
+            'contract.form.invoicing.same_day_as_subscription.explain',
+          )}
+          className={classes.fieldMargin2}
+        /> */}
         <div className={classes.row}>
           <Typography variant="body2">
             {t('contract.form.recurrence_basis.label')}
           </Typography>
-          <TextField name="recurrence_basis" required variant="outlined" />
-          <Typography variant="body2">
-            {t(
-              `contract.form.recurrence_basis.intervalName.${props.values.interval}`,
-              {
-                count: props.values.recurrence_basis,
-              },
-            )}
-          </Typography>
+          <TextField
+            name="recurrence_basis"
+            required
+            variant="standard"
+            className={classes.smallTextField}
+          />
+          <IntervalRecurrenceSelectField
+            name="interval"
+            required
+            variant="outlined"
+            displayPeriod
+            className={classes.intervalSelectorField}
+          />
         </div>
         <TextField
           name="nb_interval"
@@ -224,22 +255,36 @@ export function SubscriptionContractFields(
           className={classes.field}
           required
           fullWidth
+          helperText={
+            props.values.nb_interval > 90
+              ? t('contract.form.nb_interval.error')
+              : ''
+          }
         />
-        <div className={classes.recurrenceSumup}>
-          <InfoIcon className={classes.iconLeft} />
-          <Typography variant="body2" color="textSecondary">
-            {t('contract.form.recurrence.explain', {
+        <InfoBox
+          content={t(
+            'contract.form.invoicing.same_day_as_subscription.recurrence_explain',
+            {
               recurrence_basis: props.values.recurrence_basis,
-              interval: t(`contract.interval.${props.values.interval}`, {
-                count: props.values.recurrence_basis,
+              one_interval: t(`contract.interval.${props.values.interval}`, {
+                // *1 to force count to update when values.recurrence_basis changes
+                count: props.values.recurrence_basis * 1,
               }),
               nb_interval: props.values.nb_interval,
+              all_intervals: t(`contract.interval.${props.values.interval}`, {
+                count: props.values.nb_interval * props.values.recurrence_basis,
+              }),
               total_interval_duration:
                 props.values.nb_interval * props.values.recurrence_basis,
-            })}
-          </Typography>
-        </div>
-      </fieldset>
+              invoice: t('contract.form.invoicing.invoice', {
+                count: props.values.nb_interval * 1,
+              }),
+            },
+          )}
+          variant="outlined"
+        />
+      </FormSection>
+
       <TextField
         name="contract"
         label={t('contract.form.contract.label')}
@@ -278,6 +323,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   selectorField: { marginBottom: theme.spacing(0) },
+  intervalSelectorField: {
+    height: theme.spacing(5),
+  },
   section: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),
@@ -287,10 +335,13 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'end',
     '&>*': {
       marginRight: theme.spacing(1),
     },
+  },
+  smallTextField: {
+    width: theme.spacing(3.75),
   },
 }));
 

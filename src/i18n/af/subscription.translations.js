@@ -379,8 +379,28 @@ exports.default = {
       price: {
         title: 'Prix',
       },
+      invoicing: {
+        title: 'Facturation',
+        invoice: 'facture',
+        invoice_plural: 'factures',
+        same_day_as_subscription: {
+          label: "Facturer le même jour que la date d'achat de la souscription",
+          explain:
+            "Le jour de facturation dépendra du jour d'achat de l'abonnement.",
+          recurrence_explain:
+            'La souscription sera facturée tous les {{ recurrence_basis }} {{ one_interval }} sur une durée totale de {{ total_interval_duration }} {{ all_intervals }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+        },
+        fixed_day: {
+          label: 'Facturer à un jour fixe',
+          explain:
+            'Chaque facture sera facturée au jour choisi. Le premier paiement est calculé au prorata si besoin.',
+        },
+        invoicing_type_readonly:
+          'Il est impossible de changer le type de facturation',
+      },
       nb_interval: {
-        label: 'Nombre de facturation(s)',
+        label: 'Nombre de facturations',
+        error: 'Le nombre de facturations ne doit pas dépasser 90',
       },
       interval: {
         label: 'Récurrence',
@@ -413,6 +433,9 @@ exports.default = {
       description: {
         placeholder: 'Nouvelle offre exclusive limitée',
         label: 'Description',
+      },
+      settings: {
+        title: 'Paramètres',
       },
       managerOnly: {
         label: 'Invisible pour les clients',

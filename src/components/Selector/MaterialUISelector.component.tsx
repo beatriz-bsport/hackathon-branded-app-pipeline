@@ -70,6 +70,8 @@ type BaseProps<T extends OptionTypeBase> = {
   headerListRenderer?: () => React.ReactChild;
   onEndMenuListReach?: () => void;
   onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
@@ -109,6 +111,8 @@ function MaterialUISelector<T extends OptionTypeBase>(
     onEndMenuListReach,
     onInputChange,
     defaultValue,
+    onBlur,
+    name,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -128,6 +132,16 @@ function MaterialUISelector<T extends OptionTypeBase>(
       onChange(data);
     }
   };
+
+  const handleBlur = React.useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      if (onBlur) {
+        e.target.name = name;
+        onBlur(e);
+      }
+    },
+    [onBlur, name],
+  );
 
   let _menuPortalTarget = withoutPortal
     ? undefined
@@ -218,6 +232,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           ref={selectRef}
           selectRef={selectRef}
           onInputChange={onInputChange}
+          onBlur={handleBlur}
         />
       </div>
     </SelectorContext.Provider>

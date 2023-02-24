@@ -34,6 +34,33 @@ import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analy
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { formatDurationFromMinute } from '../../../utils/duration';
 
+const MetaActivitySchema = Yup.object().shape({
+  cover_main: Yup.object().nullable(),
+  name: Yup.string().required(),
+  description: Yup.string().required(),
+  last_booking_minutes: Yup.number(),
+  last_discard_minutes: Yup.number(),
+  first_booking_minutes_until: Yup.number(),
+  is_broadcast: Yup.boolean(),
+  color: Yup.string(),
+  SCT: Yup.number().required(),
+  auto_discard_active: Yup.boolean(),
+  auto_discard_hours_before_start: Yup.number(),
+  auto_discard_min_bookings_nb: Yup.number(),
+  alt_cover_main: Yup.string(),
+  // category: Yup.number().nullable(true),
+  custom_restriction_rule: Yup.array()
+    .of(
+      Yup.object().shape({
+        tags: Yup.array().of(Yup.number()).min(1).required(),
+        last_discard_minutes: Yup.number().nullable(false),
+        last_booking_minutes: Yup.number().nullable(false),
+        first_booking_minutes_until: Yup.number().nullable(false),
+      }),
+    )
+    .max(3),
+});
+
 type Props = {
   SCTs: *[],
   classes: Object,
@@ -45,6 +72,9 @@ type Props = {
   values: any,
   tags: number[],
   initial: any,
+  handleBlur: {
+    (e: React.FocusEvent<HTMLInputElement>): void,
+  },
 };
 
 export function MetaActivityForm(props: Props) {
@@ -105,11 +135,12 @@ export function MetaActivityForm(props: Props) {
         />
         <div className={classes.field}>
           <SCTSelectField
-            scts={SCTs}
+            fullWidth
             id="select_activity_category"
             label={t('activity.category')}
-            fullWidth
             name="SCT"
+            scts={SCTs}
+            onBlur={props.handleBlur}
             required
           />
           <Typography
@@ -304,7 +335,6 @@ export function MetaActivityForm(props: Props) {
             ) : null}
           </div>
         </div>
-
         <div className={classes.buttonContainer}>
           <Button
             onClick={() => {
@@ -403,33 +433,6 @@ const styles = (theme) => ({
   alignCenter: {
     alignItems: 'center',
   },
-});
-
-const MetaActivitySchema = Yup.object().shape({
-  cover_main: Yup.object().nullable(),
-  name: Yup.string().required(),
-  description: Yup.string().required(),
-  last_booking_minutes: Yup.number(),
-  last_discard_minutes: Yup.number(),
-  first_booking_minutes_until: Yup.number(),
-  is_broadcast: Yup.boolean(),
-  color: Yup.string(),
-  SCT: Yup.number(),
-  auto_discard_active: Yup.boolean(),
-  auto_discard_hours_before_start: Yup.number(),
-  auto_discard_min_bookings_nb: Yup.number(),
-  alt_cover_main: Yup.string(),
-  // category: Yup.number().nullable(true),
-  custom_restriction_rule: Yup.array()
-    .of(
-      Yup.object().shape({
-        tags: Yup.array().of(Yup.number()).min(1).required(),
-        last_discard_minutes: Yup.number().nullable(false),
-        last_booking_minutes: Yup.number().nullable(false),
-        first_booking_minutes_until: Yup.number().nullable(false),
-      }),
-    )
-    .max(3),
 });
 
 export default compose(

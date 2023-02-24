@@ -30,6 +30,9 @@ type Props = {
   initial?: Video,
   onRemoveVideoSource: (v: Video) => void,
   values: any,
+  handleBlur: {
+    (e: React.FocusEvent<HTMLInputElement>): void,
+  },
 
   customLevels: Level[],
   fetchLevelList: (
@@ -82,6 +85,7 @@ export const VideoForm = (props: Props) => {
         <SCTSelectField
           scts={props.SCTs}
           label={t('video.category')}
+          onBlur={props.handleBlur}
           fullWidth
           name="SCT"
           required

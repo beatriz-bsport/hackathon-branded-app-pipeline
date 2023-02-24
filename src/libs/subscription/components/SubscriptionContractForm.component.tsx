@@ -8,6 +8,7 @@ import PaymentIcon from '@material-ui/icons/Payment';
 import EuroIcon from '@material-ui/icons/Euro';
 import DollarIcon from '@material-ui/icons/AttachMoney';
 import InvoiceIcon from '@material-ui/icons/Receipt';
+import KeyIcon from '@material-ui/icons/VpnKey';
 import * as Yup from 'yup';
 import { FormikProps, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
@@ -285,17 +286,23 @@ export function SubscriptionContractFields(
         />
       </FormSection>
 
-      <TextField
-        name="contract"
-        label={t('contract.form.contract.label')}
-        placeholder={t('contract.form.contract.placeholder')}
-        className={classes.field}
-        required
-        fullWidth
-        multiline
-        rows={5}
-        variant="outlined"
-      />
+      <FormSection
+        sectionTitle={t('contract.form.contract.label')}
+        sectionIcon={KeyIcon}
+      >
+        <TextField
+          name="contract"
+          label={t('contract.form.contract.label')}
+          placeholder={t('contract.form.contract.placeholder')}
+          className={classes.field}
+          required
+          fullWidth
+          multiline
+          rows={5}
+          variant="outlined"
+        />
+      </FormSection>
+
       <SwitchField
         name="manager_only"
         label={t('contract.form.managerOnly.label')}

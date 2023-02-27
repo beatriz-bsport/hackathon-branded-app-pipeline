@@ -10,7 +10,6 @@ import StepLabel from '@material-ui/core/StepLabel';
 
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { mapFormData } from '../../../pages/form.utils';
-import withTitle from '../../../hocs/with-title.hoc';
 import MetaActivityForm from './MetaActivityForm.component';
 import OfferForm from '../../offer/OfferForm.component';
 import CompatiblePaymentPacks from './MetaActivityCompatiblePacks.component';
@@ -352,7 +351,6 @@ export default compose(
       );
     },
   })),
-  withTitle(({ t }) => t('titles:metaActivity.metaActivityFormPage')),
   withHandlers({
     createPaymentPack:
       ({ createOrUpdatePaymentPackAction, fetchPaymentPacks, onClose }) =>

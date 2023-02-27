@@ -27,6 +27,7 @@ type OwnProps = {
   withoutHeaderContainer?: boolean;
   trackingObjectIdentifier?: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM;
   trackingObjectId?: number;
+  forwardedContainerRef?: HTMLDivElement;
 };
 type Props = OwnProps;
 
@@ -45,6 +46,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   onClose,
   trackingObjectIdentifier,
   trackingObjectId,
+  forwardedContainerRef,
 }) => {
   const classes = useStyles({ width, subtitle, mobileMinWidth });
   const { t } = useTranslation('common');
@@ -70,7 +72,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
       }}
       onClose={close}
     >
-      <div className={classes.relative}>
+      <div ref={forwardedContainerRef} className={classes.relative}>
         {!withoutHeaderContainer && (
           <div className={classes.firstRow}>
             {onClose && (

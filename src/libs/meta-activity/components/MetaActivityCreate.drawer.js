@@ -14,6 +14,7 @@ import MetaActivityForm from './MetaActivityForm.component';
 import OfferForm from '../../offer/OfferForm.component';
 import CompatiblePaymentPacks from './MetaActivityCompatiblePacks.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { OptionCallback } from '../../../state/types';
 
 import { Establishment } from '../../establishment/types';
 import { PaymentPack } from '../../payment-packs/types';
@@ -66,7 +67,7 @@ type Props = {
   metaActivities: any,
   allTagsWithTagGroup: any,
   paymentPackCategories: any,
-  createPaymentPack: (data: any, options: any) => void,
+  createPaymentPack: (data: any, options: OptionCallback) => void,
   categoryList: any,
   showPartnership: boolean,
 
@@ -120,6 +121,11 @@ const StepperForm = withTranslation(['metaActivity'])(
 );
 
 export class MetaActivityCreateDrawer extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.topDrawerRef = React.createRef<HTMLDivElement>();
+  }
+
   componentDidMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
@@ -128,9 +134,44 @@ export class MetaActivityCreateDrawer extends Component<Props> {
     this.handleFetchLevel();
   }
 
+  scrollToTopDrawer = () => this.topDrawerRef?.current?.scroll(0, 0);
+
+  handleSkip = () => {
+    this.props.setStep(STEP_PASS);
+    this.scrollToTopDrawer();
+  };
+
+  handleClose = () => {
+    this.props.onClose();
+  };
+
   handleFetchLevel = () => {
     this.props.fetchLevelList({
       company: this.props.companyId,
+    });
+  };
+
+  handleOnSubmitWorkshopActivity = (values) => {
+    this.props.onSubmitWorkshopActivity(values, {
+      onSuccess: this.scrollToTopDrawer,
+    });
+  };
+
+  handleOnSubmitMetaActivity = (values) => {
+    this.props.onSubmitMetaActivity(values, {
+      onSuccess: this.scrollToTopDrawer,
+    });
+  };
+
+  handleCreateWorkshopOffers = (data) => {
+    this.props.createWorkshopOffers(data, {
+      onSuccess: this.scrollToTopDrawer,
+    });
+  };
+
+  handleCreateMetaOffers = (data) => {
+    this.props.createMetaOffers(data, {
+      onSuccess: this.scrollToTopDrawer,
     });
   };
 
@@ -140,12 +181,10 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       SCTs={this.props.SCTs}
       onSubmit={
         this.props.isWorkshop
-          ? this.props.onSubmitWorkshopActivity
-          : this.props.onSubmitMetaActivity
+          ? this.handleOnSubmitWorkshopActivity
+          : this.handleOnSubmitMetaActivity
       }
-      onCancel={() => {
-        this.props.onClose();
-      }}
+      onCancel={this.handleClose}
       is_broadcast_enabled
       tags={this.props.allTagsWithTagGroup}
     />
@@ -155,8 +194,8 @@ export class MetaActivityCreateDrawer extends Component<Props> {
     <OfferForm
       onSubmit={
         this.props.isWorkshop
-          ? this.props.createWorkshopOffers
-          : this.props.createMetaOffers
+          ? this.handleCreateWorkshopOffers
+          : this.handleCreateMetaOffers
       }
       metaActivity={
         this.props.isWorkshop
@@ -173,7 +212,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       error={this.props.offerHadError}
       processing={this.props.offerIsProcessing}
       onCancelText={this.props.t('common.skip')}
-      onCancel={() => this.props.setStep(STEP_PASS)}
+      onCancel={this.handleSkip}
       timezone={this.props.companyTheme.timezone_name}
       coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
       editableCoachPaymentRule
@@ -263,6 +302,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
               )
             : this.props.t('titles:metaActivity.metaActivityFormSubtitle')
         }
+        forwardedContainerRef={this.topDrawerRef}
       >
         <StepperForm activeStep={this.props.step} />
         {this.props.step.id === STEP_ACTIVITY.id &&
@@ -291,7 +331,6 @@ export default compose(
           fetchAllActivities();
           if (options.onSuccess) options.onSuccess();
           setStep(STEP_OFFER);
-          window.scrollTo(0, 0);
         },
       });
     },
@@ -307,14 +346,13 @@ export default compose(
           fetchAllActivities();
           if (options.onSuccess) options.onSuccess();
           setStep(STEP_OFFER);
-          window.scrollTo(0, 0);
         },
       });
     },
   })),
   withProps(
     ({ upsertedMetaActivity, fetchAllOffers, setStep, createOffers }) => ({
-      createMetaOffers: async (data: *) => {
+      createMetaOffers: async (data: any, options: OptionCallback) => {
         createOffers(
           {
             ...data,
@@ -323,8 +361,8 @@ export default compose(
           {
             onSuccess: () => {
               fetchAllOffers();
+              if (options.onSuccess) options.onSuccess();
               setStep(STEP_PASS);
-              window.scrollTo(0, 0);
             },
             onError: (err) => {
               console.error(err);
@@ -335,7 +373,7 @@ export default compose(
     }),
   ),
   withProps(({ upsertedWorkshop, fetchAllOffers, setStep, createOffers }) => ({
-    createWorkshopOffers: async (data: any) => {
+    createWorkshopOffers: async (data: any, options: OptionCallback) => {
       createOffers(
         {
           ...data,
@@ -344,8 +382,8 @@ export default compose(
         {
           onSuccess: () => {
             fetchAllOffers();
+            if (options.onSuccess) options.onSuccess();
             setStep(STEP_PASS);
-            window.scrollTo(0, 0);
           },
         },
       );
@@ -354,7 +392,7 @@ export default compose(
   withHandlers({
     createPaymentPack:
       ({ createOrUpdatePaymentPackAction, fetchPaymentPacks, onClose }) =>
-      (data: any, options: OptionCallBack) => {
+      (data: any, options: OptionCallback) => {
         createOrUpdatePaymentPackAction(data, {
           ...options,
           onSuccess: (res) => {

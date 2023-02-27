@@ -57,7 +57,10 @@ import {
   withCustomLevel,
 } from '#libs/level/selectors';
 import { getActiveCoaches } from '#libs/associated-coach/selectors';
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+import {
+  getAllEstablishments,
+  getAvailableEstablishmentList,
+} from '#libs/establishment/selectors';
 import {
   getAvailableRoomBlueprints,
   getRoomBlueprints,
@@ -136,7 +139,8 @@ export const workshopActivityGroupConnector = connect(
     members: withMemberTag(getAllMembers)(state),
     membersLoading: state.member.loading,
     // Modal Creation / Edit
-    establishments: getAvailableEstablishmentList(state),
+    availableEstablishments: getAvailableEstablishmentList(state),
+    allEstablishments: getAllEstablishments(state),
     coaches: getActiveCoaches(state),
     theme: themeSelectors.getTheme(state),
     availableRoomBlueprints: getAvailableRoomBlueprints(state),

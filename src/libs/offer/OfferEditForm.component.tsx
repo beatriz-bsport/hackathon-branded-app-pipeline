@@ -77,7 +77,8 @@ type OwnProps = {
   similarOffersPage: number;
   similarOffersCount: number;
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
+  allEstablishments: Array<Establishment>;
   roomBlueprints: RoomBlueprint[];
   allRoomBlueprints: RoomBlueprint[];
   allowGuestMaster?: boolean;
@@ -823,10 +824,10 @@ export class OfferEditForm extends Component<Props, State> {
                   establishment ? establishment.id : null,
                 )
               }
-              establishment={this.props.establishments.find(
+              establishment={this.props.allEstablishments.find(
                 (es) => es.id === this.state.establishment,
               )}
-              establishments={this.props.establishments}
+              establishments={this.props.availableEstablishments}
               offer={this.props.offer}
               hasChangedEstablishment={this.hasChangedEstablishment()}
             />

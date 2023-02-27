@@ -30,7 +30,7 @@ import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = {
   categoryList: Array<SCT>;
-  establishmentList: Array<Establishment>;
+  availableEstablishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
   initial: PaymentPack<PrivatePass>;
   disabledUniversalPassFields: boolean;
@@ -39,7 +39,7 @@ type Props = {
 export const PaymentPackFormRestrictions = (props: Props) => {
   const {
     categoryList,
-    establishmentList,
+    availableEstablishmentList,
     metaActivityList,
     initial,
     disabledUniversalPassFields,
@@ -208,7 +208,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               menuPosition="fixed"
               options={
                 [
-                  ...establishmentList?.map((establishment) => ({
+                  ...availableEstablishmentList?.map((establishment) => ({
                     label: establishment.title,
                     value: establishment.id,
                   })),
@@ -227,7 +227,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 />
               )}
               value={values?.establishments?.map((id) => ({
-                label: establishmentList.find(
+                label: availableEstablishmentList.find(
                   (establishment) => establishment.id === id,
                 )?.title,
                 value: id,

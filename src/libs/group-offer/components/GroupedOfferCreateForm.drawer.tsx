@@ -33,7 +33,8 @@ export type Props = {
   metaActivities: MetaActivity[];
   metaActivityLoading: boolean;
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
+  allEstablishments: Array<Establishment>;
   availableRoomBlueprints: RoomBlueprint[];
   allRoomBlueprints: RoomBlueprint[];
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
@@ -85,7 +86,8 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
   metaActivities,
   metaActivityLoading = false,
   coaches,
-  establishments,
+  availableEstablishments,
+  allEstablishments,
   availableRoomBlueprints,
   allRoomBlueprints,
   coachPaymentRulesByKind,
@@ -314,7 +316,8 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
                   : null
               }
               coaches={coaches}
-              establishments={establishments}
+              availableEstablishments={availableEstablishments}
+              allEstablishments={allEstablishments}
               availableRoomBlueprints={availableRoomBlueprints}
               allRoomBlueprints={allRoomBlueprints}
               coachPaymentRulesByKind={coachPaymentRulesByKind}

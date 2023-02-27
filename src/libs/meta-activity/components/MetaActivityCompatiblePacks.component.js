@@ -29,7 +29,7 @@ type Props = {
   metaActivity: MetaActivity,
   fetchPaymentPacksAsConsumer: (metaActiviyId: number) => void,
   loading: boolean,
-  allEstablishmentList: any,
+  availableEstablishmentList: any,
   metaActivityList: any,
   tagList: any,
   paymentPackCategories: any,
@@ -109,7 +109,7 @@ export function CompatiblePaymentPacks(props: Props) {
       <PaymentPackFormDialog
         open={openPaymentPackForm}
         categoryList={props.categoryList}
-        establishmentList={props.allEstablishmentList}
+        availableEstablishmentList={props.availableEstablishmentList}
         metaActivityList={props.metaActivityList}
         tagList={props.tagList}
         paymentPackCategories={props.paymentPackCategories}

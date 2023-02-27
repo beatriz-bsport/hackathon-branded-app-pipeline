@@ -23,7 +23,7 @@ const STEP_OFFER_FORM = 1;
 
 type Props = {
   metaActivities: Array<MetaActivity>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
   roomBlueprints: Array<RoomBlueprint>;
   coaches: Array<Coach>;
   onCancel: () => void;
@@ -51,7 +51,7 @@ type Props = {
 
 export const OfferFormWithActivity: React.FC<Props> = ({
   metaActivities,
-  establishments,
+  availableEstablishments,
   roomBlueprints,
   coaches,
   onCancel,
@@ -125,7 +125,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       selectedDate={selectedDate}
       coaches={coaches}
       timezone={timezone}
-      establishments={establishments}
+      availableEstablishments={availableEstablishments}
       roomBlueprints={roomBlueprints}
       metaActivity={selectedMetaActivity}
       onSubmit={handleSubmit}

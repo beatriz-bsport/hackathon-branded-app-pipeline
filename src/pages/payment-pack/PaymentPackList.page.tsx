@@ -80,7 +80,7 @@ import PaymentPackFilterAndSortHeader, {
 import PaymentPackFormDrawer from '../../libs/payment-packs/components/PaymentPackForm';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { getAllEstablishments } from '#libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 import {
   getActivitiesByIdList,
   getEnabledMetaActivities,
@@ -392,7 +392,7 @@ export class PaymentPackList extends React.Component<Props, State> {
       categoryList,
       allTagsWithTagGroup,
       metaActivities,
-      establishmentList,
+      availableEstablishmentList,
       paymentPackCategories,
     } = this.props;
 
@@ -424,7 +424,7 @@ export class PaymentPackList extends React.Component<Props, State> {
           <PaymentPackFormDrawer
             open={this.state.openPaymentPackFormDialog}
             categoryList={paymentPackCategoryList}
-            establishmentList={establishmentList}
+            availableEstablishmentList={availableEstablishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
             paymentPackCategories={paymentPackCategories}
@@ -613,7 +613,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             provincialTax={this.props.theme?.provincial_tax_value}
             open={this.state.openPaymentPackFormDialog}
             categoryList={paymentPackCategoryList}
-            establishmentList={establishmentList}
+            availableEstablishmentList={availableEstablishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
             paymentPackCategories={paymentPackCategories}
@@ -715,7 +715,7 @@ const mapStateToProps = (state: RootState) => ({
   theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),
-  establishmentList: getAllEstablishments(state),
+  availableEstablishmentList: getAvailableEstablishmentList(state),
   paymentPackCategories: getAllPaymentPackCategory(state),
   metaActivities: uniqBy(
     [

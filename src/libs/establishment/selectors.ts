@@ -93,6 +93,13 @@ export const getAllEstablishmentsWithAssociatedId = createSelector(
     })),
 );
 
+export const getAvailableEstablishmentsWithAssociatedId = createSelector(
+  [getAllEstablishmentsWithAssociatedId],
+  (allEstablishments) => {
+    return allEstablishments.filter((e) => !e.disabled);
+  },
+);
+
 export const getFreshEstablishmentIds = createSelector(
   getAllEstablishments,
   (es) => es.map((e) => e.id),

@@ -53,7 +53,7 @@ import OfferForm from '../../libs/offer/OfferForm.component';
 
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
@@ -82,7 +82,7 @@ type Props = {
   classes: Object,
 
   associatedCoaches: *[],
-  establishments: Array<Establishment>,
+  availableEstablishments: Array<Establishment>,
   SCTs: *[],
 
   onSubmitPass: () => void,
@@ -170,7 +170,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
     <MetaActivityForm
       variant="workshop"
       is_broadcast_enabled
-      establishments={this.props.establishments}
+      availableEstablishments={this.props.availableEstablishments}
       SCTs={this.props.SCTs}
       onCancel={this.props.goToPreviousPage}
       onSubmit={this.props.onSubmitWorkshopActivity}
@@ -192,7 +192,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
           )}
           metaActivityList={this.props.metaActivitiesAndWorkshops}
           tagList={this.props.allTagsWithTagGroup}
-          establishmentList={this.props.establishments}
+          availableEstablishmentList={this.props.availableEstablishments}
           loading={this.props.loading}
           closeForm={() => this.props.setStep(STEP_OFFER)}
           onCancelText={this.props.t('common.skip')}
@@ -207,7 +207,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
     <OfferForm
       metaActivity={this.props.upsertedWorkshop}
       coaches={this.props.associatedCoaches}
-      establishments={this.props.establishments}
+      availableEstablishments={this.props.availableEstablishments}
       timezone={this.props.companyTheme.timezone_name}
       error={this.props.offerHadError}
       onSubmit={this.props.createOffers}
@@ -289,7 +289,7 @@ export default compose(
       offerIsProcessing: state.offer.create.loading,
       offerHadError: state.offer.create.error,
       associatedCoaches: getActiveCoaches(state),
-      establishments: getAllEstablishments(state),
+      availableEstablishments: getAvailableEstablishmentList(state),
       SCTs: getEditableSCTs(state),
       companyTheme: themeSelectors.getTheme(state),
       loading: state.metaActivity.loading,

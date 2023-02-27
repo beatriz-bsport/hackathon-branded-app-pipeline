@@ -124,7 +124,7 @@ export class OfferFormPage extends Component<Props, {}> {
               onSubmit={this.createOffers}
               metaActivity={metaActivity}
               coaches={this.props.coaches}
-              establishments={this.props.establishments}
+              availableEstablishments={this.props.availableEstablishments}
               is_whereby_integration_enabled={
                 this.props.theme &&
                 this.props.theme.is_whereby_integration_enabled &&
@@ -175,7 +175,7 @@ const connector = connect(
     ],
     coaches: getActiveCoaches(state),
     theme: state.theme.theme,
-    establishments: getAvailableEstablishmentList(state),
+    availableEstablishments: getAvailableEstablishmentList(state),
     loading: state.metaActivity.loading,
     timezone: state.theme.theme.timezone_name,
     roomBlueprints: getAvailableRoomBlueprints(state),

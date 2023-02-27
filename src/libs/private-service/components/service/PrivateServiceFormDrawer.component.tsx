@@ -28,6 +28,7 @@ type OwnProps = {
   open: boolean;
   availableCoaches: Array<Coach>;
   availableEstablishments: Array<AssociatedEstablishment>;
+  allEstablishments: Array<AssociatedEstablishment>;
   isSubmitting: boolean;
   initial?: PrivateService;
   onCancel: () => void;

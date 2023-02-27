@@ -154,7 +154,7 @@ type OwnProps = {
   goBack: () => void;
   metaActivityNames: Array<string>;
   compatiblePaymentPacks: Array<PaymentPack>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
   fetchEstablishments: () => void;
   SCTs: any;
 
@@ -185,7 +185,6 @@ type OwnProps = {
   fetchAllPaymentPacks: () => void;
   fetchAllPaymentPackCategory: () => void;
   fetchAllOffers: any;
-  establishmentList: any;
   allEstablishmentList: any;
   createOrUpdatePaymentPackAction: (data: any, options: any) => void;
   // metaActivities: any,
@@ -347,7 +346,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         onClose={this.onCancelForm}
         offerIsProcessing={this.props.offerIsProcessing}
         offerHadError={this.props.offerHadError}
-        establishments={this.props.establishments}
+        availableEstablishments={this.props.availableEstablishments}
         SCTs={this.props.SCTs}
         metaActivityNames={this.props.metaActivityNames}
         coaches={this.props.coaches}
@@ -670,7 +669,7 @@ export default compose(
       // from MetaActivityCreate now
       offerIsProcessing: state.offer.create.loading,
       offerHadError: state.offer.create.error,
-      establishments: getAvailableEstablishmentList(state),
+      availableEstablishments: getAvailableEstablishmentList(state),
       metaActivityNames: [
         ...getEnabledMetaActivities(state),
         ...getEnabledWorkshops(state),

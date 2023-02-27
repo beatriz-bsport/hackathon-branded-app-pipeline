@@ -68,7 +68,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   similarGroups,
   theme,
   coaches,
-  establishments,
+  availableEstablishments,
+  allEstablishments,
   allRoomBlueprints,
   availableRoomBlueprints,
   coachPaymentRulesByKind,
@@ -605,7 +606,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           allRoomBlueprints={allRoomBlueprints}
           theme={theme}
           coaches={coaches}
-          establishments={establishments}
+          availableEstablishments={availableEstablishments}
+          allEstablishments={allEstablishments}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           tagList={allTagsWithTagGroup}
           customLevels={customLevels}
@@ -631,7 +633,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           theme={theme}
           coaches={coaches}
           group={editingGroup}
-          establishments={establishments}
+          availableEstablishments={availableEstablishments}
+          allEstablishments={allEstablishments}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           tagList={allTagsWithTagGroup}
           customLevels={customLevels}
@@ -683,7 +686,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             <OfferEditForm
               offer={selectedOffer}
               coaches={coaches}
-              establishments={establishments}
+              availableEstablishments={availableEstablishments}
+              allEstablishments={allEstablishments}
               roomBlueprints={availableRoomBlueprints}
               allRoomBlueprints={allRoomBlueprints}
               is_whereby_integration_enabled={

@@ -79,7 +79,10 @@ import {
   getCoachesSelectedInRole,
 } from '#libs/associated-coach/selectors';
 import { Coach } from '#libs/associated-coach/types';
-import { getAllEstablishments } from '../../establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getAllEstablishments,
+} from '../../establishment/selectors';
 
 import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
 
@@ -179,7 +182,8 @@ type Props = {
 
   coaches: Array<Coach>,
   coachesSelectedInRole: Array<Coach>,
-  establishments: Array<Establishment>,
+  availableEstablishments: Array<Establishment>,
+  allEstablishments: Array<Establishment>,
 
   openDisablePrivateBookingModal: () => void,
   openOfferDeleteModal: boolean,
@@ -650,7 +654,8 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               <OfferEditForm
                 offer={offer}
                 coaches={filteredCoaches}
-                establishments={this.props.establishments}
+                availableEstablishments={this.props.availableEstablishments}
+                allEstablishments={this.props.allEstablishments}
                 roomBlueprints={this.props.roomBlueprints}
                 allRoomBlueprints={this.props.allRoomBlueprints}
                 metaActivities={this.props.metaActivities}
@@ -738,7 +743,8 @@ const OfferEditorContainer = compose(
       similarOffers: getSimilarsOffers(state),
       coaches: getActiveCoaches(state),
       coachesSelectedInRole: getCoachesSelectedInRole(state),
-      establishments: getAllEstablishments(state),
+      availableEstablishments: getAvailableEstablishmentList(state),
+      allEstablishments: getAllEstablishments(state),
       metaActivities: getEnabledMetaActivities(state),
       roomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),

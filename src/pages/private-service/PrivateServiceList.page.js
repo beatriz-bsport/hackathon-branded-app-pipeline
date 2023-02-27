@@ -31,7 +31,10 @@ import {
   getAvailablePrivateServices,
 } from '../../libs/private-service/selectors/private-service';
 
-import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentsWithAssociatedId,
+  getAllEstablishmentsWithAssociatedId,
+} from '../../libs/establishment/selectors';
 import {
   getActiveCoaches,
   getAllCoaches,
@@ -72,6 +75,7 @@ type Props = {
   setOpenEditForm: (data: any) => void,
   selectedPrivateService: ?PrivateService,
   availableEstablishments: Array<Establishment>,
+  allEstablishments: Array<Establishment>,
   openEditForm: any,
   availableCoaches: Array<AssociatedCoach>,
   fetchEstablishments: () => void,
@@ -251,7 +255,8 @@ export class PrivateServiceList extends React.Component<Props, State> {
             onSubmit={this.createOrUpdatePrivateService}
             coaches={this.props.availableCoaches}
             allCoaches={this.props.allCoaches}
-            establishments={this.props.availableEstablishments}
+            availableEstablishments={this.props.availableEstablishments}
+            allEstablishments={this.props.allEstablishments}
             serviceGroupList={this.props.serviceGroupList}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             tagList={
@@ -340,7 +345,9 @@ export default compose(
         state.establishment.loading ||
         state.coach.loading,
       availableCoaches: getActiveCoaches(state),
-      availableEstablishments: getAllEstablishmentsWithAssociatedId(state),
+      availableEstablishments:
+        getAvailableEstablishmentsWithAssociatedId(state),
+      allEstablishments: getAllEstablishmentsWithAssociatedId(state),
       privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
       selectedPrivateService: getPrivateServiceById(state, privateServiceId),
       allCoaches: getAllCoaches(state),

@@ -39,7 +39,7 @@ type Props = {
   loading: ?boolean,
   compatiblePacksLoading: boolean,
   compatiblePaymentPacks: Array<PaymentPack>,
-  establishments: Array<Establishment>,
+  availableEstablishments: Array<Establishment>,
   fetchEstablishments: () => void,
   SCTs: *[],
 
@@ -168,7 +168,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
           ? this.props.associatedCoaches
           : this.props.coaches
       }
-      establishments={this.props.establishments}
+      availableEstablishments={this.props.availableEstablishments}
       roomBlueprints={this.props.roomBlueprints}
       error={this.props.offerHadError}
       processing={this.props.offerIsProcessing}
@@ -220,7 +220,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
                     .indexOf(category.id) !== -1,
               )
         }
-        allEstablishmentList={this.props.establishments}
+        availableEstablishmentList={this.props.availableEstablishments}
         metaActivityList={
           this.props.isWorkshop
             ? this.props.metaActivitiesAndWorkshops

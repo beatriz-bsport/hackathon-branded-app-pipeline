@@ -75,7 +75,8 @@ export interface FormikValues {
   pad_before_booking: boolean;
 }
 type OwnProps = {
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
+  allEstablishments: Array<Establishment>;
   coaches: Array<Coach>;
   allCoaches: Array<Coach>;
   onAddServiceGroup?: () => void;
@@ -211,7 +212,7 @@ export const PrivateServiceForm = (props: Props) => {
                   },
                 }) => (
                   <div>
-                    {establishments.length === 0 ? (
+                    {props.availableEstablishments.length === 0 ? (
                       <div className={classes.row}>
                         <WarningIcon
                           color="error"
@@ -227,7 +228,7 @@ export const PrivateServiceForm = (props: Props) => {
                     {establishments.map((id: number, i: number) => (
                       <EstablishmentListItem
                         key={`${id}-${i}`}
-                        establishment={props.establishments.find(
+                        establishment={props.allEstablishments.find(
                           (e) => e.id === id,
                         )}
                         showCapacity
@@ -236,7 +237,7 @@ export const PrivateServiceForm = (props: Props) => {
                     ))}
                     <EstablishmentSelector
                       establishments={[
-                        ...props.establishments.filter(
+                        ...props.availableEstablishments.filter(
                           (c) => !establishments.includes(c.id),
                         ),
                       ]}

@@ -41,7 +41,7 @@ import {
   getDisabledWorkshops,
   getMetaActivity,
 } from '../../libs/meta-activity/selectors';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import {
   fetchAllOffers as fetchAllOffersActions,
   createOffers as createOffersActions,
@@ -133,7 +133,7 @@ type Props = {
   classes: Object,
 
   associatedCoaches: *[],
-  establishments: Array<Establishment>,
+  availableEstablishments: Array<Establishment>,
   SCTs: *[],
 
   metaActivitiesAndWorkshops: Array<MetaActivity>,
@@ -261,7 +261,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         }
         createPass={this.props.createPass}
         deleteLevel={this.props.deleteLevel}
-        establishments={this.props.establishments}
+        availableEstablishments={this.props.availableEstablishments}
         fetchAllActivities={this.props.fetchAllActivities}
         fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
         fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
@@ -520,7 +520,7 @@ export default compose(
       offerIsProcessing: state.offer.create.loading,
       offerHadError: state.offer.create.error,
       associatedCoaches: getActiveCoaches(state),
-      establishments: getAllEstablishments(state),
+      availableEstablishments: getAvailableEstablishmentList(state),
       SCTs: getEditableSCTs(state),
       companyTheme: themeSelectors.getTheme(state),
       metaActivityNames: [

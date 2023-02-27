@@ -79,7 +79,7 @@ const getFormInitial = (
 type OwnProps = {
   paymentPackCategories: Array<PaymentPackCategory>;
   categoryList: Array<SCT>;
-  establishmentList: Array<Establishment>;
+  availableEstablishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
   tagList: Array<Tag<TagGroup>>;
   initial?: PaymentPack<PrivatePass>;
@@ -118,7 +118,7 @@ export const PaymentPackForm = (props: Props) => {
     t,
     paymentPackCategories,
     categoryList,
-    establishmentList,
+    availableEstablishmentList,
     metaActivityList,
     tagList,
     initial,
@@ -366,7 +366,7 @@ export const PaymentPackForm = (props: Props) => {
             <div className={classes.formContainer}>
               <PaymentPackFormRestrictions
                 categoryList={categoryList}
-                establishmentList={establishmentList}
+                availableEstablishmentList={availableEstablishmentList}
                 metaActivityList={metaActivityList}
                 initial={initial}
                 disabledUniversalPassFields={disabledUniversalPassFields}
@@ -394,7 +394,6 @@ export const PaymentPackForm = (props: Props) => {
               />
             </div>
             <Divider className={classes.divider} />
-
             <div className={classes.actionContainer}>
               <Actions>
                 {onCancel || closeForm ? (

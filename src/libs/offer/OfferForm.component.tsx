@@ -143,7 +143,7 @@ const styles = (theme: Theme) => ({
 
 type OwnProps = {
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
   metaActivity: MetaActivity;
   roomBlueprints: RoomBlueprint[];
   classes: Object;
@@ -523,7 +523,7 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderSpecificities = () => {
-    const { establishments, roomBlueprints, coaches, t } = this.props;
+    const { availableEstablishments, roomBlueprints, coaches, t } = this.props;
 
     const roomBlueprintsForEstablishment = roomBlueprints.filter(
       (roomBlueprint: RoomBlueprint) => {
@@ -553,8 +553,8 @@ export class OfferForm extends Component<Props, State> {
         <Grid item>
           <EstablishmentSelector
             id="establishment"
-            establishments={establishments}
-            value={this.props.establishments.find(
+            establishments={availableEstablishments}
+            value={this.props.availableEstablishments.find(
               (es) => es.id === this.state.establishment,
             )}
             onChange={(establishment: Establishment) => {
@@ -566,7 +566,6 @@ export class OfferForm extends Component<Props, State> {
             placeholder={t('establishment:search')}
           />
         </Grid>
-
         {!!roomBlueprintsForEstablishment.length && (
           <Grid item>
             <RoomBlueprintSelector
@@ -599,7 +598,6 @@ export class OfferForm extends Component<Props, State> {
             )}
           </Grid>
         )}
-
         <Grid item>
           <CoachSelector
             id="coach"

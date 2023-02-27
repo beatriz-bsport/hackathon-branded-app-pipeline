@@ -24,7 +24,7 @@ type OwnProps = {
   open: boolean;
   paymentPackCategories: Array<PaymentPackCategory>;
   categoryList: Array<SCT>;
-  establishmentList: Array<Establishment>;
+  availableEstablishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
   tagList: Array<Tag<TagGroup>>;
   onCancelText?: string;
@@ -47,7 +47,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
     open,
     paymentPackCategories,
     categoryList,
-    establishmentList,
+    availableEstablishmentList,
     metaActivityList,
     tagList,
     onCancelText,
@@ -76,7 +76,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
         provincialTax={provincialTax}
         paymentPackCategories={paymentPackCategories}
         categoryList={categoryList}
-        establishmentList={establishmentList}
+        availableEstablishmentList={availableEstablishmentList}
         metaActivityList={metaActivityList}
         tagList={tagList}
         initial={initial}

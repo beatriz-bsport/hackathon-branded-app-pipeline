@@ -62,6 +62,7 @@ import {
 } from '#libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
+  getAllPageEstablishments,
   getAssociatedEstablishmentGroup,
   withEstablishment as groupWithEstablishment,
 } from '#libs/establishment/selectors';
@@ -249,7 +250,8 @@ type Props = {
   events: Array<Event>,
   coaches: Array<Coach>,
   establishmentGroupList: EstablishmentGroup[],
-  establishments: Array<Establishment>,
+  availableEstablishments: Array<Establishment>,
+  allEstablishments: Array<Establishment>,
   bookingStatistics: {
     createdBookings: Array<any>,
     cancelledBookings: Array<any>,
@@ -444,7 +446,7 @@ export class Planning extends PureComponent<Props, State> {
       promiseActivities,
       promiseEstablishmentGroups,
     ]).then(() => {
-      const filterEstablishments = this.props.establishments?.filter((e) =>
+      const filterEstablishments = this.props.allEstablishments?.filter((e) =>
         this.props.offerFilters?.establishments?.includes(e.id),
       );
       let coachListBase: number[] = this.props.offerFilters?.coaches || [];
@@ -666,7 +668,8 @@ export class Planning extends PureComponent<Props, State> {
     const {
       coaches,
       coachesLoading,
-      establishments,
+      availableEstablishments,
+      allEstablishments,
       establishmentsLoading,
       fetchSimilarOffers,
       fetchSimilarOffersWithReset,
@@ -692,7 +695,8 @@ export class Planning extends PureComponent<Props, State> {
             offer={selectedOffer}
             metaActivities={this.props.metaActivities}
             coaches={coaches}
-            establishments={establishments}
+            availableEstablishments={availableEstablishments}
+            allEstablishments={allEstablishments}
             roomBlueprints={roomBlueprints}
             allRoomBlueprints={allRoomBlueprints}
             is_whereby_integration_enabled={
@@ -735,7 +739,7 @@ export class Planning extends PureComponent<Props, State> {
     const {
       metaActivities,
       coaches,
-      establishments,
+      availableEstablishments,
       allTagsWithTagGroup,
       classes,
     } = this.props;
@@ -755,7 +759,7 @@ export class Planning extends PureComponent<Props, State> {
             metaActivities={metaActivities}
             activitiesLoading={this.props.activitiesLoading}
             coaches={coaches}
-            establishments={establishments}
+            availableEstablishments={availableEstablishments}
             roomBlueprints={this.props.roomBlueprints}
             onSubmit={this.createOffers}
             onCancel={this.closeCreateOffersModal}
@@ -1010,7 +1014,7 @@ export class Planning extends PureComponent<Props, State> {
     const {
       theme,
       establishmentGroupList,
-      establishments,
+      allEstablishments,
       establishmentsLoading,
       offerFilters,
       classes,
@@ -1033,7 +1037,7 @@ export class Planning extends PureComponent<Props, State> {
       establishmentGroupList &&
       establishmentGroupList.length !== 0;
     const medimumSize = hasMultiLocation ? 3 : 4;
-    let filteredEstablishments: Array<Establishment> = [...establishments];
+    let filteredEstablishments: Array<Establishment> = [...allEstablishments];
 
     if (offerFilters?.establishment_group__in?.length) {
       const filteredEstablishmentIds: Array<number> = establishmentGroupList
@@ -1051,8 +1055,8 @@ export class Planning extends PureComponent<Props, State> {
           ]
         : filteredEstablishmentIds;
 
-      filteredEstablishments = [...establishments].filter((e: Establishment) =>
-        uniqueEstIds.includes(e.id),
+      filteredEstablishments = [...allEstablishments].filter(
+        (e: Establishment) => uniqueEstIds.includes(e.id),
       );
     }
 
@@ -1231,7 +1235,7 @@ export class Planning extends PureComponent<Props, State> {
           ) : (
             <Typography />
           )}
-          {selectedOffer && (
+          {selectedOffer ? (
             <Grid item xs={12} lg={6}>
               <div>
                 <OfferCard
@@ -1259,8 +1263,7 @@ export class Planning extends PureComponent<Props, State> {
                 />
               </div>
             </Grid>
-          )}
-          {!selectedOffer && (
+          ) : (
             <Grid item xs={12} lg={6}>
               <BookingStatisticsCard
                 bookingStatistics={this.props.bookingStatistics}
@@ -1353,7 +1356,8 @@ export default compose(
       //   withEstablishment(withCoach(getMassDisabledOfferInGroup)),
       // )(state),
       massDisabledOfferInGroup: getMassDisabledOfferInGroup(state),
-      establishments: getAvailableEstablishmentList(state),
+      availableEstablishments: getAvailableEstablishmentList(state),
+      allEstablishments: getAllPageEstablishments(state),
       establishmentsLoading: state.establishment.loading,
       establishmentGroupList: groupWithEstablishment(
         getAssociatedEstablishmentGroup,

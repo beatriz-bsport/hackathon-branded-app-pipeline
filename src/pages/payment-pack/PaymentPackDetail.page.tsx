@@ -115,7 +115,7 @@ import { PaymentPackMassExtension } from '#libs/consumer-payment-pack/types';
 
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import PaymentPackFormDrawer from '#libs/payment-packs/components/PaymentPackForm';
-import { getAllEstablishments } from '#libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 import {
   getActivitiesByIdList,
   getEnabledMetaActivities,
@@ -313,7 +313,7 @@ export class PaymentPackDetail extends Component<Props, State> {
       classes,
       notifications,
       categoryList,
-      establishmentList,
+      availableEstablishmentList,
       metaActivities,
       allTagsWithTagGroup,
       paymentPackCategories,
@@ -497,7 +497,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               (value, index, arr) =>
                 arr.findIndex((sct) => sct.id === value.id) === index,
             )}
-          establishmentList={[...establishmentList]}
+          availableEstablishmentList={availableEstablishmentList}
           metaActivityList={[...metaActivities]}
           tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
           paymentPackCategories={paymentPackCategories}
@@ -532,7 +532,6 @@ export class PaymentPackDetail extends Component<Props, State> {
             this.props.theme?.allow_guest_activatable
           }
         />
-
         {!!this.props.pack &&
           !this.props.pack.template_instance &&
           !this.props.loadingMassExtension && (
@@ -613,7 +612,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     smartListLoading: state.smartList.loading,
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     paymentPackCategoryById: getPaymentPackCategoryById(state),
-    establishmentList: getAllEstablishments(state),
+    availableEstablishmentList: getAvailableEstablishmentList(state),
     paymentPackCategories: getAllPaymentPackCategory(state),
     metaActivities: uniqBy(
       [

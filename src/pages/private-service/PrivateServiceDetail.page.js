@@ -24,7 +24,10 @@ import {
 } from '../../libs/private-service/selectors/private-service';
 import { getResourceSlotsExistState } from '../../libs/private-service/selectors/availability-slot';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentsWithAssociatedId,
+  getAllEstablishmentsWithAssociatedId,
+} from '../../libs/establishment/selectors';
 import {
   getAllCoaches,
   getActiveCoaches,
@@ -95,6 +98,7 @@ type Props = {
   goToCoachCalendar: (id: number) => void,
 
   availableEstablishments: Array<Establishment>,
+  allEstablishments: Array<Establishment>,
   fetchAssociatedEstablishments: () => void,
   goToEstablishmentCalendar: (id: number) => void,
 
@@ -229,7 +233,8 @@ export class PrivateServiceList extends React.Component<Props> {
             onSubmit={this.createOrUpdatePrivateService}
             coaches={this.props.availableCoaches}
             allCoaches={this.props.allCoaches}
-            establishments={this.props.availableEstablishments}
+            availableEstablishments={this.props.availableEstablishments}
+            allEstablishments={this.props.allEstablishments}
             serviceGroupList={this.props.serviceGroupList}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             tagList={
@@ -271,10 +276,11 @@ export default compose(
         state.privateService.privateService.loading ||
         state.privateService.privateSlot.loading,
       allCoaches: getAllCoaches(state),
-      allEstablishments: getAllEstablishmentsWithAssociatedId(state),
       availableCoaches: getActiveCoaches(state),
       serviceGroupList: getPrivateServiceGroupList(state),
-      availableEstablishments: getAllEstablishmentsWithAssociatedId(state),
+      availableEstablishments:
+        getAvailableEstablishmentsWithAssociatedId(state),
+      allEstablishments: getAllEstablishmentsWithAssociatedId(state),
       getResourceSlotsExistState: (resourceDatatype, resourceIdentifier) =>
         getResourceSlotsExistState(
           state.privateService,

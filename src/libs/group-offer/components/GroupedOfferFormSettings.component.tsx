@@ -75,7 +75,8 @@ type OuterProps = {
   onSubmit: (arg1: { values: Values; options: OptionCallback }) => void;
 
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
+  allEstablishments: Array<Establishment>;
   metaActivity: MetaActivity;
   availableRoomBlueprints: RoomBlueprint[];
   allRoomBlueprints: RoomBlueprint[];
@@ -182,7 +183,8 @@ export const GroupedOfferFormSettings: React.FC<
   open,
   coaches,
   coachPaymentRulesByKind,
-  establishments,
+  availableEstablishments,
+  allEstablishments,
   metaActivity,
   availableRoomBlueprints,
   allRoomBlueprints,
@@ -360,7 +362,7 @@ export const GroupedOfferFormSettings: React.FC<
                 }) => (
                   <OffersList
                     offers={offers}
-                    establishments={establishments}
+                    establishments={allEstablishments}
                     coaches={coaches}
                     metaActivity={metaActivity}
                     onRemove={remove}
@@ -561,7 +563,8 @@ export const GroupedOfferFormSettings: React.FC<
       </Form>
       <OfferDialogs
         coaches={coaches}
-        establishments={establishments}
+        availableEstablishments={availableEstablishments}
+        allEstablishments={allEstablishments}
         metaActivity={metaActivity}
         availableRoomBlueprints={availableRoomBlueprints}
         allRoomBlueprints={allRoomBlueprints}
@@ -583,7 +586,8 @@ export const GroupedOfferFormSettings: React.FC<
 
 const OfferDialogs: React.FC<{
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  availableEstablishments: Array<Establishment>;
+  allEstablishments: Array<Establishment>;
   metaActivity: MetaActivity;
   availableRoomBlueprints: RoomBlueprint[];
   allRoomBlueprints: RoomBlueprint[];
@@ -611,7 +615,8 @@ const OfferDialogs: React.FC<{
 }> = ({
   theme,
   coaches,
-  establishments,
+  allEstablishments,
+  availableEstablishments,
   availableRoomBlueprints,
   openOffersModal,
   metaActivity,
@@ -646,7 +651,7 @@ const OfferDialogs: React.FC<{
           selectedDate={moment()}
           coaches={coaches}
           timezone={theme.timezone_name}
-          establishments={establishments}
+          availableEstablishments={availableEstablishments}
           roomBlueprints={availableRoomBlueprints}
           metaActivity={metaActivity}
           onCancel={handleCloseOffersModal}
@@ -675,7 +680,8 @@ const OfferDialogs: React.FC<{
             offer={offerEdited}
             metaActivities={[metaActivity]}
             coaches={coaches}
-            establishments={establishments}
+            availableEstablishments={availableEstablishments}
+            allEstablishments={allEstablishments}
             roomBlueprints={availableRoomBlueprints}
             allRoomBlueprints={allRoomBlueprints}
             is_whereby_integration_enabled={isWherebyIntegrationEnabled}

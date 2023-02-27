@@ -5782,7 +5782,10 @@
             "3": "Attività",
             "4": "Appuntamento da completare",
             "5": "Informazioni legali",
-            "6": "Appuntamenti non pagati"
+            "6": "Appuntamenti non pagati",
+            "9": "Posta in arrivo",
+            "8": "Sostituzioni tardive",
+            "7": "Tutorial"
         },
         "list": {
             "title": "Notifiche",
@@ -5814,7 +5817,22 @@
         },
         "unpaidPrivateBooking": {
             "credits_due": "Crediti da pagare {{ credits }}"
-        }
+        },
+        "lateReplacementRequest": {
+            "content": "è richiesta una sostituzione per la seguente sessione: {{activity_name}} - {{-date_start}}",
+            "title": "Sostituzione tardiva"
+        },
+        "newTutorialSectionOrLesson": {
+            "newLesson": {
+                "content": "Aggiunto alla sezione {{- name}}",
+                "title": "Nuova Classe {{- name}}"
+            },
+            "newSection": {
+                "content": "Il tutorial {{- name}} è stato aggiunto, allenati ora.",
+                "title": "Nuova Sezione"
+            }
+        },
+        "readAll": "Segna come già letto"
     },
     "paymentPack": {
         "consumerPaymentPack": {
@@ -7120,7 +7138,9 @@
                 "chooseTime": {
                     "second_after": "ore dopo la sessione",
                     "second_before": "ore prima della sessione",
-                    "first": "Invia una email"
+                    "first": "Invia una email",
+                    "second_before_days": "giorno(i) prima della sessione",
+                    "second_after_days": "ora(e) dopo la sessione"
                 },
                 "sendAfterMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
                 "sendBeforeMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
@@ -7165,7 +7185,13 @@
                 "sendAfterNotifications": "Inviare le notifiche al membro dopo la sessione interessata dalla notifica",
                 "sendBeforeNotifications": "Inviare le notifiche al membro prima della riunione interessata dalla notifica",
                 "sendBeforeNotification": "Inviare la notifica push al membro prima della riunione a cui la notifica si riferisce",
-                "sendAfterNotification": "Invia una notifica push al membro dopo la sessione interessata dalla notifica"
+                "sendAfterNotification": "Invia una notifica push al membro dopo la sessione interessata dalla notifica",
+                "createSmartList": "Crea una smartlist",
+                "smartListHelperInclude": "Invia un'email solo se il membro appartiene a uno dei seguenti elenchi",
+                "smartListHelper": "Non inviare un'email se il membro appartiene a uno dei seguenti elenchi",
+                "advanced": "Avanzato",
+                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un'altra tessera",
+                "smartListSelection": "Scegli elenchi (opzionale)"
             },
             "addNotification": "Aggiungi una notifica",
             "title": "Notificazione"
@@ -7280,7 +7306,16 @@
             "bookingForMe": "me",
             "bookingsTitleFor": "Prenoto per {{name}}",
             "bookingForAGuest": {
-                "addGuest": "Aggiungere un ospite"
+                "addGuest": "Aggiungere un ospite",
+                "frequencyGeneric": "questo periodo.",
+                "frequencyYearly": "quest'anno.",
+                "frequencyWeekly": "questa settimana.",
+                "frequencyMonthly": "questo mese.",
+                "addGuestNumberLeftOne": "Puoi ancora invitare 1 persona per",
+                "addGuestNumberLeftSeveral": "Puoi ancora invitare {{number}} persone per",
+                "addGuestLimit": "Hai raggiunto il limite di invito per",
+                "warningLeveledSession": "Questa sessione è riservata a persone di livello : {{level}}. Assicurati che la persona che inviti possieda il livello previsto.",
+                "warningCustomLeveledSession": "Questa sessione ha un livello personalizzato. Assicurati che la persona che inviti possieda il livello previsto."
             }
         },
         "setSpot": "Assegnare un posto",
@@ -7310,7 +7345,9 @@
                     "label": "Email"
                 }
             }
-        }
+        },
+        "place": "Posto",
+        "unlimited": "Illimitato"
     },
     "smartList": {
         "mail": {
@@ -9561,7 +9598,8 @@
                 "closeBasket": "Continua a fare acquisti"
             },
             "error": {
-                "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato"
+                "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato",
+                "inconsistentBasket": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il pagamento.\nIl pagamento non ti è stato addebitato."
             },
             "isFinalized": "Il tuo carrello è stato convalidato",
             "checkingPaymentStatus": "Attendi per favore, stiamo controllando lo stato del tuo pagamento",
@@ -9603,7 +9641,15 @@
                 "offerBooked": "Le vostre sessioni",
                 "basket": "Il tuo carrello",
                 "title": "Congratulazioni!",
-                "errorExplain": "L'operazione non può essere eseguita. Si prega di riprovare.",
+                "errorExplain": {
+                    "guestPass": "Lo studio ha disabilitato la funzionalità di prenotazione per un ospite per questo pass.",
+                    "guestOffer": "Lo studio ha disabilitato la possibilità di prenotare per un ospite per questa sessione.",
+                    "guestSettings": "Lo studio ha disabilitato la possibilità di prenotare per un ospite.",
+                    "guestReachedLimit": "Hai già raggiunto il limite di prenotazioni per un ospite per il periodo corrente. Non è possibile farne altre.",
+                    "guestOvercomeLimit": "Il numero di ospiti aggiunti per questa prenotazione supera il massimo consentito.",
+                    "guestGeneric": "Si è verificato un problema con la prenotazione per un ospite.",
+                    "generic": "L'operazione non può essere eseguita. Si prega di riprovare."
+                },
                 "error": "Errore",
                 "recap": "Riassunto",
                 "explain": "La tua transazione è stata elaborata. Ti invieremo un'e-mail di conferma."

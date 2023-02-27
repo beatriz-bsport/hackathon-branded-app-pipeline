@@ -117,8 +117,8 @@ exports.default = {
       isEmpty: 'Aucun email envoyé pour le moment',
     },
     report: {
-      totalRead: 'Ouvertures',
-      totalClick: 'Clics',
+      totalRead: 'Nombre de personnes ayant ouvert le mail',
+      totalClick: 'Nombre de personnes ayant cliqué sur un lien',
       deliveryRate: 'Envois réussis',
       lastOpen: 'Dernière ouverture',
       dateCreated: "Date d'envoi",

@@ -32,8 +32,8 @@ import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { OptionCallback } from '../../../state/types';
-import FormSection from '#components/forms/FormSection.component';
-// import PopOver from '#components/Popover.component';
+import FormSection from '#components/forms/FormSection';
+// import PopOver from '#components/Popover';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

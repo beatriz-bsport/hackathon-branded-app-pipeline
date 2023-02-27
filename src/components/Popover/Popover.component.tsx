@@ -33,8 +33,12 @@ const PopOver = (props: Props) => {
   if (props.hide) return <>{props.children}</>;
 
   return (
-    <div>
-      <div onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+    <div data-testid="popover-container">
+      <div
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+        id="hovered-text"
+      >
         {props.children}
       </div>
       <Popover
@@ -61,6 +65,8 @@ const PopOver = (props: Props) => {
       >
         <Typography
           className={classNames(classes.popoverText, props.className)}
+          id="popover"
+          data-testid="popoverid"
         >
           {props.title}
         </Typography>

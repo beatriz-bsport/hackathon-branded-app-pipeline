@@ -8741,7 +8741,8 @@
                 },
                 "plannedInvoiceCount": "Anzahl der Rechnungen im Zusammenhang mit den Abonnements.",
                 "dateCreated": "Die Daten werden zeitlich nach dem Datum dargestellt, an dem die Buchungen vorgenommen wurden.",
-                "dateStart": "Die Daten werden zeitlich entsprechend dem Startdatum der Sitzungen dargestellt."
+                "dateStart": "Die Daten werden zeitlich entsprechend dem Startdatum der Sitzungen dargestellt.",
+                "accumulateMembers": "Zeigt die Entwicklung der Gesamtanzahl der Mitglieder an."
             },
             "accumulate": {
                 "total": "Akkumulieren"
@@ -8820,6 +8821,41 @@
             "placeholder": "Name",
             "titleRename": "Tab umbenennen",
             "titleAdd": "Einen neuen Tab hinzufügen"
+        },
+        "dataSourceIdentifiers": {
+            "payment_pack": "Kurskarte",
+            "activity": "Aktivität",
+            "private_service_name": "Termin",
+            "price": "Preis inkl. MwSt.",
+            "contract": "Vertrag",
+            "date": "Datum der Zahlung",
+            "payment_method": "Zahlungsmethode",
+            "payment_price": "Preis inkl. MwSt.",
+            "payment_date": "Datum der Zahlung",
+            "accept_sms": "Akzeptiert SMS",
+            "accept_email": "Akzeptiert E-Mails",
+            "gender": "Geschlecht",
+            "billing_establishment": "Lokalisierung",
+            "billing_group": "Rechnungsgruppe",
+            "coach": "Lehrer",
+            "was_refunded": "Zurückgezahlt",
+            "booking_status_code": "Status der Reservierung",
+            "date_created": "Datum der Buchung",
+            "date_start": "Datum des Kurses",
+            "attendance": "Anwesend",
+            "payment_engine": "Art der Zahlung",
+            "is_workshop": "Workshop",
+            "activity_kind": "Art des Kurses",
+            "booking_effectif_timeslots": "Durchschnittliche Anzahl",
+            "plannedinvoice_pk": "Anzahl der Rechnungen",
+            "payment_pk": "Anzahl der Zahlungen",
+            "privatebooking_pk": "Anzahl der Termine",
+            "source_device": "Herkunft",
+            "is_recurrent_booking": "Wiederkehrende Buchungen",
+            "booking_pk": "Anzahl der Buchungen",
+            "member_pk_accumulate": "Anzahl der Mitglieder",
+            "member_pk": "Anzahl der neuen Mitglieder",
+            "date_joined": "Datum der Anmeldung"
         }
     },
     "relationship": {

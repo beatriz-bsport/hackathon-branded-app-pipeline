@@ -205,7 +205,6 @@ export class Coach extends React.Component<Props> {
           checkCanDeleteCoach={canDeleteCoachAPI}
           deleteCoach={this.handleDeleteCoach}
         />
-
         <WidgetGeneratorDialog
           open={this.props.openWidgetDialog}
           onClose={this.handleCloseWidgetGeneratorDialog}

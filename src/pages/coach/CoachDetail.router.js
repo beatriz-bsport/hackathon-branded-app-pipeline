@@ -23,33 +23,47 @@ type Props = {
   t: TFunction,
 };
 
-export const CoachDetailRouter = (props: Props) => (
-  <div className={props.classes.container}>
-    <AppBar position="static" color="default">
-      <Tabs
-        scrollButtons="off"
-        variant="scrollable"
-        value={props.tab}
-        onChange={(e, newTab) => {
-          props.pushToTab(props.coachId, newTab);
-        }}
-      >
-        <Tab label={props.t('detail.tab.general')} value="general" />
-        <Tab label={props.t('detail.tab.calendar')} value="private-calendar" />
-      </Tabs>
-    </AppBar>
-    <div className={props.classes.content}>
-      <Switch>
-        <Route
-          exact
-          path="/coach/:coachId/private-calendar"
-          component={CoachPrivateCalendar}
-        />
-        <Route path="/coach/:coachId" component={CoachDetail} />
-      </Switch>
+export const CoachDetailRouter = (props: Props) => {
+  const fieldRef = React.useRef<HTMLInputElement>(null);
+
+  // Is scrolling to the top when the page is loaded or refreshed, after layout and paint
+  React.useEffect(() => {
+    if (fieldRef.current) {
+      fieldRef.current.scrollIntoView();
+    }
+  }, []);
+
+  return (
+    <div className={props.classes.container} ref={fieldRef}>
+      <AppBar position="static" color="default">
+        <Tabs
+          scrollButtons="off"
+          variant="scrollable"
+          value={props.tab ? props.tab : 'general'}
+          onChange={(e, newTab) => {
+            props.pushToTab(props.coachId, newTab);
+          }}
+        >
+          <Tab label={props.t('detail.tab.general')} value="general" />
+          <Tab
+            label={props.t('detail.tab.calendar')}
+            value="private-calendar"
+          />
+        </Tabs>
+      </AppBar>
+      <div className={props.classes.content}>
+        <Switch>
+          <Route
+            exact
+            path="/coach/:coachId/private-calendar"
+            component={CoachPrivateCalendar}
+          />
+          <Route path="/coach/:coachId" component={CoachDetail} />
+        </Switch>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 const styles = (theme) => ({
   container: {
     marginBottom: theme.spacing(4),

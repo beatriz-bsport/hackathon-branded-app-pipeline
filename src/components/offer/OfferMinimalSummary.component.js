@@ -65,6 +65,9 @@ const styles = (theme) => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
+  textMaxWidth: {
+    maxWidth: '90%',
+  },
 });
 
 type Props = {
@@ -284,7 +287,9 @@ export function OfferMinimalSummary(props: Props) {
                       )}
                       <Typography
                         variant="inherit"
-                        className={textClasses?.primary}
+                        className={classNames(textClasses?.primary, {
+                          [classes.textMaxWidth]: fixedHeight,
+                        })}
                       >
                         {formattedName}
                       </Typography>

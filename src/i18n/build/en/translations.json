@@ -3930,7 +3930,7 @@
                 "title": "[Form] Relationship",
                 "cancel": "Cancel",
                 "submit": "Save",
-                "shareEmail": "Always CC the Master-Account",
+                "shareEmail": "Always send a copy of the emails intended for the relationship",
                 "parentalLink": "Relationship",
                 "email": "Email copy",
                 "access": "Account Acces",

@@ -503,7 +503,14 @@ export const listInvoiceActions = {
   isLoading: createAction('INVOICE/LIST/IS_LOADING'),
   error: createAction('INVOICE/LIST/ERROR'),
   success: createAction('INVOICE/LIST/SUCCESS'),
+  reset: createAction('INVOICE/LIST/RESET'),
 };
+
+export function resetInvoiceList() {
+  return async (dispatch: Dispatch) => {
+    dispatch(listInvoiceActions.reset());
+  };
+}
 
 export function fetchInvoiceList(params: any = {}, options: OptionCallback) {
   return async (dispatch: Dispatch) => {

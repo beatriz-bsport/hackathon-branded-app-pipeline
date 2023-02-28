@@ -237,6 +237,7 @@ type Props = {
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
   memberProgramIdsList: (memberId: number) => MemberProgram[],
+  resetInvoiceList: () => void,
 };
 
 type State = {
@@ -299,6 +300,7 @@ export class OfferManagement extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (!!this.props.offerId && this.props.offerId !== prevProps.offerId) {
+      this.props.resetInvoiceList();
       this.fetchOfferAndData();
     }
     if (

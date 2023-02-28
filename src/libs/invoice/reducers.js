@@ -122,6 +122,9 @@ export default handleActions(
     [listInvoiceActions.error]: (state, { payload }) => {
       return state.setIn(['list', 'error'], payload);
     },
+    [listInvoiceActions.reset]: (state) => {
+      return state.setIn(['list', 'allIds'], []);
+    },
     [listInvoiceActions.success]: (state, { payload }) => {
       return state
         .merge(

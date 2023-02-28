@@ -14,6 +14,7 @@ import {
   fetchInvoiceItemList as fetchInvoiceItemListAction,
   createOrUpdateInvoice as createOrUpdateInvoiceAction,
   resetQuickInvoices,
+  resetInvoiceList as resetInvoiceListAction,
   fetchSpecificInvoice as fetchInvoice,
   fetchInvoiceList as fetchInvoiceListAction,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
@@ -307,7 +308,7 @@ export default compose(
       fetchInvoice,
       fetchInvoiceList: fetchInvoiceListAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
-
+      resetInvoiceList: resetInvoiceListAction,
       // giftcard actions
 
       fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,

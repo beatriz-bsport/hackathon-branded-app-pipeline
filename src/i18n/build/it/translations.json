@@ -1360,12 +1360,18 @@
             "es": "Spagnolo",
             "de": "Tedesco",
             "it": "Italiano",
-            "nl": "Olandese"
+            "nl": "Olandese",
+            "none": "Automatico"
         },
         "subscription": {
             "isEmpty": "Non hai un abbonamento in corso"
         },
-        "Basket": "Il mio cestino"
+        "Basket": "Il mio cestino",
+        "appbar": {
+            "login": "Connessione",
+            "logout": "Disconnessione",
+            "profile": "Accedi al mio profilo"
+        }
     },
     "search": {
         "input": "Ricerca...",
@@ -1588,13 +1594,15 @@
                             "leftSmartList": "Aggiungi un messaggio automatico per i membri che lasciano questa smartlist"
                         },
                         "update": {
-                            "joinSmartList": "Modifica di una regola di invio automatico come input per la smartlist"
+                            "joinSmartList": "Modifica di una regola di invio automatico come input per la smartlist",
+                            "leftSmartList": "Aggiungi un messaggio automatico per i membri che lasciano questa smartlist"
                         }
                     },
                     "max_communications_sent_per_member_limit": "Valore massimo : {{ max }}",
                     "max_communications_sent_per_member": "Numero massimo di invii per membro",
                     "advancedSection": "Avanzato",
-                    "submit": "Confermare"
+                    "submit": "Confermare",
+                    "frequenceHelper": "Questo messaggio verrà inviato il {{ max }} {{ event_kind }} a ciascun membro di questa Smartlist. Dopo {{ max }} {{ event_kind }}, i membri non riceveranno più il messaggio. Usa \"Avanzate\" per modificare queste impostazioni."
                 },
                 "activeSince": "Attivo da {{-date}}",
                 "eventKind": {
@@ -1603,7 +1611,19 @@
                 },
                 "create": "Crea ",
                 "onLeft": "Quando si esce dalla smartlist",
-                "onJoin": "Quando si entra in una smartlist"
+                "onJoin": "Quando si entra in una smartlist",
+                "deleteDialog": {
+                    "content": "Sei sicuro di voler eliminare questa regola di invio automatico? Questa azione è definitiva.",
+                    "title": "Eliminare"
+                },
+                "panel": {
+                    "subtitle": {
+                        "onLeft": "In uscita",
+                        "onJoin": "In ingresso"
+                    },
+                    "add": "Aggiungere",
+                    "title": "Regola di invio automatico"
+                }
             },
             "automatedTitle": "Invio automatico",
             "manualTitle": "Invio manuale"
@@ -1629,7 +1649,12 @@
                     "status": "Status"
                 }
             },
-            "showSms": "Visualizza SMS"
+            "showSms": "Visualizza SMS",
+            "isAnswerWarning": "Attenzione! Solo tu puoi vedere questo messaggio",
+            "numberOfRecipientsCompact": "{{count}} destinatari.",
+            "numberOfRecipients": "Invia a 1 destinatario",
+            "numberOfRecipients_plural": "Invia a {{count}} destinatari",
+            "showNotification": "Vedi la notifica"
         },
         "recipients": "Destinatario",
         "dialogReceiverChoice": {
@@ -1654,6 +1679,126 @@
         "sms": {
             "warningConsent2": "Non rispettare questa decisione del vostro membro sarebbe illegale. Bsport è sollevata da ogni responsabilità in caso di uso abusivo degli sms diretti.",
             "warningConsent1": "Attenzione! Questo membro ha disattivato la possibilità di inviare sms promozionali. Gli sms diretti ti permettono di discutere con i tuoi membri in modo semplice e veloce. Non devono essere usati per scopi pubblicitari o promozionali."
+        },
+        "generic": {
+            "history": "Storia",
+            "communication": "Comunicazione"
+        },
+        "thread": {
+            "emptyThread": {
+                "becauseNeverUsed": "Non hai ancora inviato una comunicazione su questo canale.",
+                "becauseOfFilters": "Nessun risultato corrispondente ai filtri."
+            },
+            "filterOutCommunicationSent": "La comunicazione appena inviata viene nascosta dai filtri attivi."
+        },
+        "sentStatus": {
+            "fail": "Si è verificato un errore durante l'invio",
+            "processing": "La comunicazione è in fase di invio"
+        },
+        "sendMessage": {
+            "writeCommunication": "Inviare un messaggio",
+            "refresh": "Per visualizzare la nuova versione del tuo modello, fai clic sul pulsante aggiorna.",
+            "sendDisabled": {
+                "missingPhoneInDirectMember": "Questo utente non ha un numero di telefono",
+                "missingEmailInDirectMember": "Questo utente non ha un indirizzo email.",
+                "missingContent": "Il tuo messaggio non è completo.",
+                "missingRecipients": "Scegli prima i destinatari"
+            },
+            "buttons": {
+                "selectRecipientsMobile": "dest.",
+                "selectRecipients": "Scegli i destinatari",
+                "send": "Invia"
+            },
+            "textField": {
+                "warningLength": "{{number_sms}} verrà inviato un SMS",
+                "object": "Oggetto",
+                "title": "Titolo",
+                "content": "Messaggio"
+            },
+            "icons": {
+                "template": "Modello email",
+                "balise": "Tag",
+                "notification": "Notifica push",
+                "sms": "SMS",
+                "mail": "Email"
+            }
+        },
+        "dialogRecipients": {
+            "refreshMemberData": "Per visualizzare le modifiche, fare clic sul pulsante aggiorna.",
+            "noPhone": "numero di telefono non fornito",
+            "noMail": "email non fornita",
+            "warnings": {
+                "full": "Alcuni destinatari non hanno un indirizzo e-mail/numero di telefono, e non tutti i destinatari sono stati selezionati.",
+                "recipientsNotAllSelected": "Non tutti i destinatari sono stati selezionati.",
+                "phoneOrMailMissing": "Alcuni destinatari non hanno un indirizzo email/numero di telefono.",
+                "header": "Attenzione"
+            }
+        },
+        "dialogTemplate": {
+            "refreshText": "Per visualizzare il nuovo modello nell'elenco, fare clic sul pulsante aggiorna.",
+            "title": "Seleziona il modello"
+        },
+        "dialogInformation": {
+            "status": {
+                "openNo": "no",
+                "openYes": "si",
+                "notReceived": "non ricevuto",
+                "4": "ricevuto",
+                "1": "in attesa"
+            },
+            "headerOpen": "Aperto",
+            "headerStatus": "Stato"
+        },
+        "filter": {
+            "choicesLabels": {
+                "71": "Ricevuto",
+                "70": "Inviato",
+                "51": "Manuale",
+                "50": "Automatico",
+                "32": "Lista d'attesa",
+                "31": "Prenotazioni annuali",
+                "30": "Prenotazioni",
+                "14": "Email transazionali",
+                "13": "Notifica",
+                "12": "Smartlist",
+                "11": "Messaggio diretto",
+                "10": "Sessione",
+                "2": "Notifica push",
+                "1": "SMS",
+                "0": "Email"
+            },
+            "srcOrDst": {
+                "placeholder": "Seleziona un tipo di messaggio",
+                "title": "Messaggi"
+            },
+            "sendParameter": {
+                "placeholder": "Seleziona un parametro di invio",
+                "title": "Parametri di invio"
+            },
+            "recipient": {
+                "placeholder": "Seleziona un tipo di destinatario",
+                "title": "Destinatari"
+            },
+            "channel": {
+                "placeholder": "Seleziona un tipo di canale",
+                "title": "Canale"
+            },
+            "kind": {
+                "placeholder": "Seleziona un tipo di invio",
+                "title": "Tipo di invio"
+            },
+            "numberFilter": {
+                "oneFilter": "1 filtro applicato",
+                "severalFilters": "filtri applicati"
+            },
+            "dateFilter": {
+                "dateEnd": "Data di fine",
+                "dateStart": "Data di inizio",
+                "period": "Periodo",
+                "title": "Data di invio"
+            },
+            "filterAction": "Filtra",
+            "applyFilter": "Applica"
         }
     },
     "membership": {
@@ -6682,7 +6827,9 @@
         "allCompanies": "Tutti gli affiliati",
         "seeAll": "Vedi tutti",
         "franchiseEmails": "Modelli di franchising",
-        "companieEmails": "I miei modelli"
+        "companieEmails": "I miei modelli",
+        "infoBsportTemplateEmails": "Se si desidera inviare comunicazioni o modificare i modelli presenti in questa sezione, è necessario creare una copia del modello desiderato. Quindi seleziona la copia dell'e-mail quando invii una comunicazione.",
+        "bsportTemplateEmails": "Template Bsport"
     },
     "member": {
         "showNextBooking": "Vedi le prenotazioni future",
@@ -8124,7 +8271,8 @@
             },
             "code": {
                 "label": "Codice",
-                "helperText": "Il codice che invierai ai clienti interessati"
+                "helperText": "Il codice che invierai ai clienti interessati",
+                "helperTextFranchise": "Il codice che verrà inviato ai clienti interessati. Assicurati che il codice non esista già nei tuoi diversi studi."
             },
             "voucher_type": {
                 "percent": "In percentuale",
@@ -8148,6 +8296,10 @@
                     "null": "Applica a tutto",
                     "1": "Tessera",
                     "10": "Confezione"
+                },
+                "choicesFranchise": {
+                    "9": "Schede appuntamenti condivise",
+                    "1": "Pass condivisi"
                 }
             },
             "actions": {
@@ -8208,7 +8360,34 @@
             }
         },
         "search": "Cerca un codice promozionale",
-        "reverted": "Fattura annullata"
+        "reverted": "Fattura annullata",
+        "couponTemplateInstance": {
+            "companyEmpty": "Nessuno studio è configurato per accettare questa promozione",
+            "delete": {
+                "explain2": "Può essere riaggiunto in seguito, se necessario.",
+                "explain1": "Sei sicuro di voler interrompere la condivisione del codice promozionale {{name}} ?",
+                "title": "Interrompere la condivisione"
+            },
+            "create": {
+                "explain2": "I membri possono utilizzare questa promozione in uno qualsiasi degli studi compatibili.",
+                "explain1": "I seguenti studi saranno compatibili con i prodotti selezionati nel coupon.",
+                "title": "Configura i miei studi"
+            }
+        },
+        "couponTemplate": {
+            "notEditable": "Questo coupon è condiviso dal Master Account. Gli elementi sono stati definiti dal Master Account e non possono essere modificati.",
+            "isEmptyExplain": "Nessun codice promozionale condiviso registrato",
+            "actions": {
+                "create": "Aggiungi un codice condiviso"
+            },
+            "warningDialog": {
+                "content3": "Potrai nuovamente scegliere gli studi che condivideranno questa promozione.",
+                "content2": "Questo reinizializzerà l'elenco degli studi in cui verrà condivisa questa promozione.",
+                "content1": "Attenzione, si consiglia di modificare i parametri di applicazione della promozione condivisa su determinati pass o pass per appuntamenti.",
+                "title": "Conferma modifica"
+            },
+            "formDisclaimer": "Se in futuro vorrai modificare questa sezione per rendere applicabile questa promozione su uno o più abbonamenti/appuntamenti in particolare, l'elenco degli studi che condivideranno questa promozione verrà azzerato per problemi di compatibilità."
+        }
     },
     "tag": {
         "form": {
@@ -8432,7 +8611,8 @@
             "address_line_2": "Indirizzo linea 2",
             "address_line_1": "Indirizzo linea 1",
             "address": "Indirizzo",
-            "search_address": "Cercare un indirizzo"
+            "search_address": "Cercare un indirizzo",
+            "state": "Stato"
         },
         "localisation": "Posizione",
         "room": "Camera",
@@ -8507,7 +8687,9 @@
         },
         "marketing": {
             "notification": "Notificazioni"
-        }
+        },
+        "roomRequiredIsMissing": "Non hai selezionato uno stabilimento di fatturazione.",
+        "roomRequired": "Sala *"
     },
     "datetime": {
         "time": {
@@ -8572,7 +8754,7 @@
             "oneHourAndHalf": "1h30",
             "zeroMinute": "0 min",
             "quarterHour": "15 min",
-            "twentyMinutes": "2O min",
+            "twentyMinutes": "20 min",
             "oneDay": "1 giorno",
             "twoDays": "2 giorni",
             "oneWeek": "1 settimana",
@@ -8589,12 +8771,16 @@
             "never": "Mai",
             "eightHour": "8h",
             "twelveHour": "12h",
-            "fiftyMinutes": "50 min"
+            "fiftyMinutes": "50 min",
+            "tenMinutes": "10 min"
         },
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
         "shortDayIdentifier": "d",
-        "never": "Mai"
+        "never": "Mai",
+        "longHourIdentifier": "ore",
+        "longMinuteIdentifier": "minuti",
+        "longDayIdentifer": "giorni"
     },
     "payment": {
         "bookAnOption": "Iscrivimi nella lista di attesa",
@@ -9593,7 +9779,8 @@
                     "qualitativeBooking": "Divisione",
                     "temporalBooking": "Evoluzione nel tempo",
                     "temporalTimeslotBooking": "Frequenze giornaliere e orarie",
-                    "temporalMember": "Evoluzione nel tempo"
+                    "temporalMember": "Evoluzione nel tempo",
+                    "temporalPrivateBooking": "Evoluzione nel tempo"
                 },
                 "aggregateHelper": "Es: visualizza l'evoluzione del numero totale di membri, piuttosto che il numero di nuovi membri, ogni mese.",
                 "aggregate": "Raccogli",
@@ -9607,7 +9794,8 @@
                         "helperText": "Scegli cosa vuoi vedere",
                         "placeholder": "Seleziona il tipo di data",
                         "isEmpty": "Nessun data selezionato"
-                    }
+                    },
+                    "privateBooking": "Appuntamenti"
                 },
                 "graphComponent": "Rappresentazione desiderata",
                 "datatype": "Tipo di grafico",
@@ -9648,7 +9836,156 @@
             "content": "Le impostazioni dei diversi grafici torneranno al loro valore predefinito, vuoi continuare?",
             "title": "Reset delle impostazioni"
         },
-        "save": "Salva"
+        "save": "Salva",
+        "placeholderEmptyValues": {
+            "establishment": "Nessuno stabilimento",
+            "coach": "Nessun insegnante"
+        },
+        "graphDefaultTitles": {
+            "privateBookingTemporal": "Appuntamento",
+            "memberTemporal": "Nuovi membri",
+            "subscriptionTemporalSum": "Incasso sugli abbonamenti",
+            "subscriptionTemporalCount": "Numero di fatture relative ad abbonamenti",
+            "bookingTemporal": "Prenotazioni",
+            "bookingQualitative": "Origine delle prenotazioni",
+            "paymentTemporal": "Collezioni"
+        },
+        "dataSourceIdentifiers": {
+            "dispute_status": "Stato delle controversie",
+            "is_unpaid": "Pagamento in sospeso",
+            "payout_status": "Stato della transazione",
+            "payout_identifier": "Transazione",
+            "payout_date_created": "Data di trasferimento",
+            "private_pass": "Pass per appuntamenti",
+            "payment_pack": "Pass",
+            "activity": "Attività",
+            "margin_value": "Contributo marginale tasse incluse",
+            "private_service_name": "Appuntamento",
+            "price": "Prezzo IVA inclusa",
+            "contract": "Contratto",
+            "date": "Data di pagamento",
+            "payment_method": "Metodo di pagamento",
+            "payment_price": "Prezzo IVA inclusa",
+            "payment_date": "Data di pagamento",
+            "accept_sms": "Accetta gli SMS",
+            "accept_email": "Accetta email",
+            "gender": "Sesso",
+            "billing_establishment": "Localizzazione",
+            "billing_group": "Gruppo di fatturazione",
+            "establishment": "Stabilimento",
+            "coach": "Professore",
+            "was_refunded": "Rimborsato",
+            "booking_status_code": "Stato della prenotazione",
+            "date_created": "Data di prenotazione",
+            "date_start": "Data della sessione",
+            "attendance": "Presente",
+            "payment_engine": "Tipo di pagamento",
+            "is_workshop": "Workshop",
+            "activity_kind": "Tipo di corso",
+            "booking_effectif_timeslots": "Media effettiva",
+            "plannedinvoice_pk": "Numero di fatture",
+            "payment_pk": "Numero di pagamenti",
+            "privatebooking_pk": "Numero di appuntamenti",
+            "source_device": "Origine",
+            "is_recurrent_booking": "Prenotazione ricorrente",
+            "booking_pk": "Numero di prenotazioni",
+            "member_pk_accumulate": "Numero di membri",
+            "member_pk": "Numero di nuovi membri",
+            "date_joined": "Data di registrazione"
+        },
+        "graphFormDrawer": {
+            "helperText": {
+                "accumulateMembers": "Mostra l'evoluzione del numero totale di membri.",
+                "booking_effectif_timeslots": "Numero medio di sessioni per fascia oraria.",
+                "subscriptionCount": "Numero di fatture relative agli abbonamenti.",
+                "subscriptionPrice": {
+                    "max": "Massimo di tutti i pagamenti ricevuti relativi agli abbonamenti.",
+                    "min": "Minimo di tutti i pagamenti ricevuti relativi agli abbonamenti.",
+                    "avg": "Media di tutti i pagamenti ricevuti relativi agli abbonamenti.",
+                    "sum": "Somma di tutti i pagamenti ricevuti relativi agli abbonamenti."
+                },
+                "plannedInvoiceCount": "Numero di fatture relative agli abbonamenti.",
+                "dateCreated": "I dati saranno rappresentati nel tempo secondo la data in cui sono state effettuate le prenotazioni.",
+                "dateStart": "I dati saranno rappresentati nel tempo in base alla data di inizio delle sessioni."
+            },
+            "accumulate": {
+                "total": "Accumulare"
+            },
+            "dashboardGraphIdentifier": {
+                "graph_dispute": "Controversie",
+                "graph_subscriptions": "Abbonamenti",
+                "graph_payments": "Pagamenti",
+                "graph_private_bookings": "Appuntamenti",
+                "graph_bookings": "Prenotazioni",
+                "graph_members": "Nuovi membri"
+            },
+            "aggregation": {
+                "max": "Massimo",
+                "min": "Minimo",
+                "avg": "Media",
+                "sum": "Totale"
+            },
+            "graphFamily": {
+                "week_timeslots": "Frequenze giornaliere e orarie",
+                "qualitative": "Distribuzione",
+                "temporal": "Evoluzione nel tempo"
+            },
+            "chartComponents": {
+                "timeslots": "Frequenze giornaliere e orarie",
+                "pie": "Grafico circolare",
+                "area": "Grafico ad area",
+                "qualitativeBar": "Istogramma",
+                "bar": "Istogramma"
+            },
+            "placeholders": {
+                "aggregationSelector": "Scegli un'operazione",
+                "dashboardGraphIdentifier": "Scegli un tipo di dati"
+            },
+            "labels": {
+                "aggregationName": "Aggregazione",
+                "dividedBy": "Diviso per",
+                "dataToDisplay": "Dati visualizzati",
+                "dateFilterField": "Dati per la data",
+                "groupByField": "Distribuisci su",
+                "graphFamily": {
+                    "qualitative": "Distribuzione",
+                    "temporal": "Evoluzione nel tempo"
+                },
+                "title": "Nome"
+            },
+            "sectionTitles": {
+                "filterConfig": "Filtri",
+                "timePeriod": "Periodo",
+                "graphParams": "Dati",
+                "graphFamily": "Grafico",
+                "dashboardGraphIdentifier": "Tipo di dati",
+                "general": "Informazioni generali"
+            },
+            "title": {
+                "edit": "Modifica di un grafico",
+                "create": "Creazione di un grafico"
+            }
+        },
+        "graphActions": {
+            "delete": "Elimina",
+            "edit": "Modifica"
+        },
+        "showMoreLegend": "legenda",
+        "showMoreLegend_plural": "legende",
+        "addFilter": "Aggiungi un filtro",
+        "filterChipLabel": "filtro",
+        "filterChipLabel_plural": "filtri",
+        "privateBooking": {
+            "popover": "Il numero totale di appuntamenti registrati per questa data. Puoi filtrare cancellazioni / rimborsi / ...",
+            "caption": "Appuntamenti registrati",
+            "title": "Appuntamento"
+        },
+        "noGraphToDisplay": "Nessun grafico configurato in questa scheda. Aggiungine uno qui.",
+        "tabNameDialog": {
+            "placeholder": "Nome",
+            "titleRename": "Rinomina scheda",
+            "titleAdd": "Aggiungi una nuova scheda"
+        }
     },
     "checkout": {
         "myBasket": {
@@ -10823,6 +11160,41 @@
             "name": {
                 "label": "Nome"
             }
+        },
+        "genericProduct": {
+            "templateCard": {
+                "shareTemplate": {
+                    "closeDialog": "Chiudere",
+                    "seeAll": "Mostra tutto",
+                    "addCompany": "Aggiungi uno studio",
+                    "emptyCompanyList": "Nessuno studio è configurato per accettare questa carta",
+                    "categoryName": "Condividi con gli studi"
+                },
+                "buttons": {
+                    "delete": "Elimina",
+                    "update": "Modifica"
+                }
+            },
+            "dialogs": {
+                "deleteTemplateInstance": {
+                    "buttonValidate": "Disabilita la condivisione",
+                    "title": "Interrompi condivisione"
+                },
+                "selectCompanies": {
+                    "allCompaniesShared": "Hai già condiviso questa carta con tutti gli studi in franchising a cui hai accesso.",
+                    "content2": "I membri che ricevono questa carta potranno utilizzarla in tutti gli studi compatibili.",
+                    "content1": "Gli studi successivi avranno automaticamente questa carta disponibile per la vendita, ma non potranno modificare il numero di crediti.",
+                    "title": "Configura i miei studi"
+                },
+                "deleteTemplate": {
+                    "title": "Disattivazione"
+                }
+            }
+        },
+        "staff": {
+            "roleTabTitle": "Ruoli",
+            "explainStaff": "Con l'accesso del personale del Master Account, seleziona quali franchisee hanno accesso al tuo personale e quali azioni possono svolgere al loro interno. L'accesso del personale non consente di connettersi all'applicazione mobile.",
+            "staffAccountTabTitle": "Account del personale"
         }
     },
     "giftcard": {

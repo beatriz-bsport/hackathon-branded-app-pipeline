@@ -1576,9 +1576,37 @@
             "readCount": "Aperture",
             "kind": {
                 "0": "Email",
-                "1": "SMS"
+                "1": "SMS",
+                "2": "Notifiche push"
             },
-            "unavailableMail": "Anteprima non disponibile"
+            "unavailableMail": "Anteprima non disponibile",
+            "automated": {
+                "form": {
+                    "subtitles": {
+                        "create": {
+                            "joinSmartList": "Aggiungi un messaggio automatico per i membri che accedono a questa smartlist",
+                            "leftSmartList": "Aggiungi un messaggio automatico per i membri che lasciano questa smartlist"
+                        },
+                        "update": {
+                            "joinSmartList": "Modifica di una regola di invio automatico come input per la smartlist"
+                        }
+                    },
+                    "max_communications_sent_per_member_limit": "Valore massimo : {{ max }}",
+                    "max_communications_sent_per_member": "Numero massimo di invii per membro",
+                    "advancedSection": "Avanzato",
+                    "submit": "Confermare"
+                },
+                "activeSince": "Attivo da {{-date}}",
+                "eventKind": {
+                    "1": "Uscita",
+                    "0": "Entrata"
+                },
+                "create": "Crea ",
+                "onLeft": "Quando si esce dalla smartlist",
+                "onJoin": "Quando si entra in una smartlist"
+            },
+            "automatedTitle": "Invio automatico",
+            "manualTitle": "Invio manuale"
         },
         "recipient": {
             "readCount": "Apertura",
@@ -1617,7 +1645,11 @@
         "common": {
             "cancel": "Annulla",
             "submit": "Invia",
-            "refresh": "Ricarica"
+            "refresh": "Ricarica",
+            "recipient": "destinatario",
+            "recipient_plural": "destinatari",
+            "confirm": "Confermare",
+            "close": "Chiudere"
         },
         "sms": {
             "warningConsent2": "Non rispettare questa decisione del vostro membro sarebbe illegale. Bsport è sollevata da ogni responsabilità in caso di uso abusivo degli sms diretti.",
@@ -2837,7 +2869,9 @@
         "fixedPriceForAdditionalBookingHelper": "Importo fisso pagato per qualsiasi sessione con un numero sufficiente di iscritti",
         "table": {
             "downloadAll": "Riepilogo",
-            "download": "Scarica"
+            "download": "Scarica",
+            "downloadPDF": "Scarica (.pdf)",
+            "downloadCSV": "Scarica (.csv)"
         },
         "checkboxIncludeABonus": "Includi un bonus sulle prestazioni",
         "pricePerAdditionalBookingHelper": "Importo donato per qualsiasi prenotazione superiore al limite",
@@ -4907,7 +4941,9 @@
     },
     "coach": {
         "selector": {
-            "label": "Insegnante"
+            "label": "Insegnante",
+            "disabled": "Insegnante archiviato",
+            "enabled": "Insegnante attivo"
         },
         "performance": {
             "calculate": "Calcola",
@@ -4940,13 +4976,16 @@
                 "title": "Indirizzo email del professore",
                 "cancel": "Annulla",
                 "emailLabel": "Email",
-                "explain": "Se questa email esiste già nel nostro sistema, creeremo automaticamente l'insegnante per te. Se non conosci l'email dell'insegnante, lascia vuoto questo campo.",
+                "explain": "Se questa email esiste già nel nostro sistema, il profilo dell'insegnante verrà creato automaticamente.",
                 "emailPlaceHolder": "insegnante@bsport.io",
                 "submit": "Conferma"
             },
             "update": {
                 "title": "Modifica informazioni",
-                "success": "Insegnante associato con successo"
+                "success": "Insegnante associato con successo",
+                "errors": {
+                    "emailAlreadyInUse": "L'email inserita esiste già nel database. Puoi associare questa email a un insegnante solamente creandone uno nuovo."
+                }
             },
             "create": {
                 "title": "Nuovo insegnante",
@@ -4969,7 +5008,8 @@
                 "calendar": "Calendario"
             },
             "coachSpaceInfo": "In questo spazio, il tuo insegnante sarà in grado di accedere al suo riepilogo di stipendio per sessione e di visualizzare il suo orario. Possono anche aggiungere la loro disponibilità.",
-            "coachSpace": "Area insegnanti"
+            "coachSpace": "Area insegnanti",
+            "noPaymentRule": "Attenzione, non è stata definita alcuna regola di retribuzione per questo insegnante."
         },
         "overrideSelectorTitle": "Insegnante",
         "color": "Codice colore (appuntamento)",
@@ -4990,7 +5030,8 @@
             "student": "studente",
             "info": "Abbiamo rilevato che lei è un insegnante in questo studio. Vuoi avere accesso alla tua area studenti o alla tua area insegnanti?",
             "access": "Accesso"
-        }
+        },
+        "numberCoaches": "{{ number }} insegnanti"
     },
     "subscription": {
         "subscription": {
@@ -9314,11 +9355,11 @@
     "common": {
         "form": {
             "duration": {
-                "minute": "Minuto:",
+                "minute": "Durata in minuti",
                 "minute_plural": "Minuti:",
-                "hour": "Ora:",
+                "hour": "Durata in ore",
                 "hour_plural": "Ore:",
-                "day": "Giorno:",
+                "day": "Durata in giorni",
                 "day_plural": "Giorni:"
             },
             "requiredField": "questo campo è richiesto"
@@ -9350,7 +9391,35 @@
         "monthly": "Mensile",
         "weekly": "Settimanale",
         "showLess": "Mostra meno",
-        "showMore": "Vedere di più ({{count}})"
+        "showMore": "Vedere di più ({{count}})",
+        "duration": {
+            "minute": "{{ count }} minuto",
+            "minute_plural": "{{ count }} minuti",
+            "hour": "{{ count }} ora",
+            "hour_plural": "{{ count }} ore",
+            "day": "{{ count }} giorno",
+            "day_plural": "{{ count }} giorni"
+        },
+        "download": "Scaricare",
+        "saveRecord": "Salva",
+        "delete": "Eliminare",
+        "finish": "Terminare",
+        "letsGo": "Andiamo!",
+        "previous": "Precedente",
+        "next": "Seguente",
+        "start": "Iniziare",
+        "card": {
+            "categoryNames": {
+                "restrictions": "Restrizioni",
+                "credits": "Numero di crediti",
+                "vod": "VOD",
+                "accessibility": "Accessibilità",
+                "compatibility": "Compatibilità",
+                "paymentMethods": "Metodi di pagamento disponibili",
+                "validity": "Validità"
+            },
+            "copyLink": "Copia il link"
+        }
     },
     "titles": {
         "metaActivity": {
@@ -9648,7 +9717,8 @@
                     "guestReachedLimit": "Hai già raggiunto il limite di prenotazioni per un ospite per il periodo corrente. Non è possibile farne altre.",
                     "guestOvercomeLimit": "Il numero di ospiti aggiunti per questa prenotazione supera il massimo consentito.",
                     "guestGeneric": "Si è verificato un problema con la prenotazione per un ospite.",
-                    "generic": "L'operazione non può essere eseguita. Si prega di riprovare."
+                    "generic": "L'operazione non può essere eseguita. Si prega di riprovare.",
+                    "guestNotEnoughSpot": "Non ci sono abbastanza posti per i tuoi ospiti."
                 },
                 "error": "Errore",
                 "recap": "Riassunto",

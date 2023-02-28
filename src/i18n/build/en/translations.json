@@ -10344,7 +10344,7 @@
             "vod": "Video On Demand",
             "form": "Forms",
             "giftcard": "Gift card",
-            "programs": "Programmes",
+            "programs": "Programs",
             "basket": "Basket"
         },
         "row": {
@@ -13086,7 +13086,7 @@
             "redirecting": "You're being redirected to your page",
             "backToFranchiseWorskpace": "Return to Master Account",
             "giftcard": "Gift cards",
-            "programs": "Programmes",
+            "programs": "Programs",
             "expenses": "Expenses",
             "instalmentPayment": "Instalments",
             "coachPayroll": "Payroll",
@@ -14444,15 +14444,15 @@
                 "addProgram": "Add a programme",
                 "update": "Edit programme"
             },
-            "title": "Programmes",
-            "archived": "Archived programmes",
+            "title": "Programs",
+            "archived": "Archived programs",
             "infoNoProgram": "Add a programme that tracks your members' performance metrics.",
             "deleteContent": "This programme will no longer be visible to members that had previously added it. You can retrieve it from the 'Archived' section.",
             "deleteHeader": "Are you sure that you want to delete this programme?",
             "infoSelectProgram": "Select a programme for a more detailed overview.",
             "selectProgram": "Select a programme",
             "default": "Default programme",
-            "titleForConsumer": "My programmes",
+            "titleForConsumer": "My programs",
             "actions": {
                 "disable": {
                     "error": "Error when archiving programme",
@@ -14475,7 +14475,7 @@
         "memberProgram": {
             "deleteContent": "All this members' performance metrics will be lost.",
             "deleteHeader": "Are you sue that you want to unlink this member?",
-            "infoNoConsumerProgram": "Contact the studio to enable your performance tracking and to get started with programmes.",
+            "infoNoConsumerProgram": "Contact the studio to enable your performance tracking and to get started with programs.",
             "infoNoMemberProgram": "There are no members linked to this programme to display.",
             "actions": {
                 "create": {

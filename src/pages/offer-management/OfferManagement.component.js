@@ -245,7 +245,6 @@ type State = {
   unpaidInvoiceList: Invoice[],
   isMemberProgramDetailDialogOpen: boolean,
   memberIdFocused: null | number,
-  indexMemberFocused: null | number,
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -254,7 +253,6 @@ export class OfferManagement extends Component<Props, State> {
     unpaidInvoiceList: [],
     isMemberProgramDetailDialogOpen: false,
     memberIdFocused: null,
-    indexMemberFocused: null,
   };
 
   componentWillMount() {
@@ -472,32 +470,60 @@ export class OfferManagement extends Component<Props, State> {
       member: this.state.memberIdFocused,
     });
 
-  changeMemberCallback = () =>
-    this.props.fetchPerformanceTrackingData(
-      this.getMembersWithStatusOk()?.[this.state.indexMemberFocused]?.id,
+  changeMemberCallback = () => {
+    this.props.fetchPerformanceTrackingData(this.state.memberIdFocused);
+  };
+
+  /**
+   * Retrieves the index of the member after an arrow click (previous or next)
+   * @param {number} currentMemberIndex - The index of the current member in perf tracking dialog
+   * @param {(1|-1)} indicator
+   * @returns {number}
+   */
+  getPerformanceTrackingDialogMemberIndex = (currentMemberIndex, indicator) => {
+    const membersCount = this.getMembersWithStatusOk().length;
+
+    // if last member of the list return the first member index
+    if (currentMemberIndex + indicator === membersCount) {
+      return 0;
+    }
+    // if first member of the list return the last member index
+    if (currentMemberIndex + indicator < 0) {
+      return membersCount - 1;
+    }
+    return currentMemberIndex + indicator;
+  };
+
+  /**
+   * Updates the memberIdFocused state so we can fetch the current associated performance tracking data
+   * @param {(1|-1)} indicator - The number that indicates if we should pick the next or the previous member in the list
+   */
+  handleChangeMember = (indicator: number) => {
+    const currentMemberIndex =
+      this.getMembersWithStatusOk()?.findIndex(
+        (e) => e.id === this.state.memberIdFocused,
+      ) ?? 0;
+
+    const newCurrentMemberIndex = this.getPerformanceTrackingDialogMemberIndex(
+      currentMemberIndex,
+      indicator,
     );
 
-  handleChangeMember = (i: number) =>
+    // set the new member id in state so we can fetch its data
     this.setState(
-      (prevState) => ({
-        indexMemberFocused: this.getMembersWithStatusOk()?.length
-          ? Math.abs(
-              (prevState.indexMemberFocused + i) %
-                this.getMembersWithStatusOk().length,
-            )
-          : prevState.indexMemberFocused,
-      }),
+      {
+        memberIdFocused:
+          this.getMembersWithStatusOk()[newCurrentMemberIndex]?.id ?? 0,
+      },
       this.changeMemberCallback,
     );
+  };
 
   onProgramDetailsClick = (member) => {
     this.props.fetchPerformanceTrackingData(member.id);
     this.setState({
       memberIdFocused: member.id,
       isMemberProgramDetailDialogOpen: true,
-      indexMemberFocused: this.getMembersWithStatusOk()?.findIndex(
-        (m) => m?.id === member.id,
-      ),
     });
   };
 

@@ -7,10 +7,6 @@
     align-items: center;
 }
 
-.bs-price__price{
-    margin-right: var(--spacing-2);
-}
-
 .primary{
     color: var(--color-primary-main);
 }

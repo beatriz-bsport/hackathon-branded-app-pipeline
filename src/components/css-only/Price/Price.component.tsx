@@ -30,7 +30,7 @@ export const Price: React.FC<Props> = ({
         ...classes,
       })}
     >
-      <span className="bs-price__price">{price}</span>
+      <span>{price}</span>
       {children}
     </div>
   );

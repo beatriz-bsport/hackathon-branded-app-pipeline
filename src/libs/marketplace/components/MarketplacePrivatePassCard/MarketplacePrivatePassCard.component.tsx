@@ -5,9 +5,12 @@ import { compose, pure } from 'recompose';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
+import { Style } from '@material-ui/icons';
+
 import { useValidityInfoForPrivatePassCard } from '../../utils/private-pass';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import ToolTip from '#components/Tooltip.component';
 import Card from '#components/css-only/Card';
 import Content from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
@@ -42,7 +45,14 @@ const PassCard: React.FC<Props> = ({
       <Content padding>
         <Grid classes={{ 'bs-pass-card__grid': 'bs-pass-card__grid' }}>
           <Item alignment={Alignment.FLEX_START} columnEnd={1}>
-            <div className="bs-pass-card__title">{privatePass.name}</div>
+            <div className="bs-pass-card__title">
+              {!!privatePass?.linked_payment_pack && (
+                <ToolTip title={t('genericCard.title.universalPassMessage')}>
+                  <Style className="bs-pass-card__title__icon" />
+                </ToolTip>
+              )}
+              {privatePass.name}
+            </div>
             <div className="bs-pass-card__subtitle">
               {t('genericCard.credits.availableCredit', {
                 count: privatePass.credits,
@@ -61,14 +71,16 @@ const PassCard: React.FC<Props> = ({
                 {useValidityInfoForPrivatePassCard(privatePass)}
               </div>
             </div>
-            <Price
-              amount={privatePass.price}
-              formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-            >
-              <div className="bs-pass-card__price-icon">
-                <ShoppingCartIcon />
-              </div>
-            </Price>
+            <div className="bs-pass-card__price-container">
+              <Price
+                amount={privatePass.price}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+              >
+                <div className="bs-pass-card__price-icon">
+                  <ShoppingCartIcon />
+                </div>
+              </Price>
+            </div>
           </Item>
         </Grid>
         <Item

@@ -11,7 +11,7 @@ import { useMemo } from 'react';
 import type { PrivatePass } from '#libs/private-service/types';
 
 export const useValidityInfoForPrivatePassCard = (privatePass: PrivatePass) => {
-  const { t } = useTranslation(['marketplace']);
+  const { t } = useTranslation('marketplace');
   const validityInfo = useMemo(() => {
     if (
       privatePass.duration_years &&
@@ -38,7 +38,7 @@ export const useValidityInfoForPrivatePassCard = (privatePass: PrivatePass) => {
       !privatePass.duration_months &&
       privatePass.duration_days
     ) {
-      return t('genericCard.validForDuration.valid_day', {
+      return t('genericCard.validForDuration.validDay', {
         count: privatePass.duration_days,
       });
     }
@@ -108,7 +108,7 @@ export const useValidityInfoForPrivatePassCard = (privatePass: PrivatePass) => {
       privatePass.duration_months &&
       privatePass.duration_days
     ) {
-      return t('genericCard.validForDuration.valid_daysMonthsYears', {
+      return t('genericCard.validForDuration.validDaysMonthsYears', {
         duration_years: t('genericCard.validity.year', {
           count: privatePass.duration_years,
         }),

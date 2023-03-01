@@ -22,7 +22,6 @@ paymentPackDetailsModalFullDetails.args = {
     onShowRestrictionDialog: () => {},
 }
 
-
 export default {
     title: 'Components/Marketplace/PassCards/Modals/PaymentPackDetailsModal',
     component: MarketplacePaymentPackDetailsModal,

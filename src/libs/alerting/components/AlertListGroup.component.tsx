@@ -30,6 +30,7 @@ import RedIconButton from '../../../components/button/RedIconButton.component';
 import type { AlertGroup, DeleteAlert } from '../types';
 import AlertListItem from './AlertListItem.component';
 import { MaterialStyleType } from '../../../utils/types';
+import { openIntercomHelp } from '../../../intercom';
 
 type OwnProps = {
   alert_group: AlertGroup;
@@ -92,6 +93,10 @@ const useReadAllStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const AlertListGroup = (props: Props) => {
+  const handleOpenIntercomHelp = () => {
+    openIntercomHelp('paymentLink');
+  };
+
   return (
     <List
       disablePadding
@@ -109,11 +114,7 @@ export const AlertListGroup = (props: Props) => {
                 props.alert_group.alert_kind === '1' ? (
                   <RedIconButton
                     color="primary"
-                    onClick={() =>
-                      window.open(
-                        'https://intercom.help/bsport-helpcenter/fr/articles/3421612-alerte-enregistrement-facture-rapide',
-                      )
-                    }
+                    onClick={handleOpenIntercomHelp}
                   >
                     <HelpIcon />
                   </RedIconButton>

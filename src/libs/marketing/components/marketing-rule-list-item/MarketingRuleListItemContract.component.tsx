@@ -27,8 +27,8 @@ type OwnProps = {
   updateNotification: (id: number, data: any) => void;
   notifications: { items: Array<MarketingNotification>; loading: boolean };
   deleteNotification: (id: number) => void;
-  deleteModalOpen: boolean;
-  setDeleteModalOpen: (v: boolean) => void;
+  deleteNotificationModalOpen: boolean;
+  setDeleteNotificationModalOpen: (v: boolean) => void;
   selectedNotification: MarketingNotification;
   setSelectedNotification: (n: MarketingNotification) => void;
   setContractNotificationFormOpen: (v: boolean) => void;
@@ -55,13 +55,13 @@ class MarketingRuleListItemContract extends React.PureComponent<Props> {
     open: boolean,
   ) => {
     this.props.setSelectedNotification(notif);
-    this.props.setDeleteModalOpen(open);
+    this.props.setDeleteNotificationModalOpen(open);
   };
 
   handleDeleteNotification = (notif_id: number, open: boolean) => {
     this.props.deleteNotification(notif_id);
     this.props.setSelectedNotification(null);
-    this.props.setDeleteModalOpen(open);
+    this.props.setDeleteNotificationModalOpen(open);
   };
 
   render() {
@@ -120,7 +120,7 @@ class MarketingRuleListItemContract extends React.PureComponent<Props> {
         <GenericResponsiveDialog
           fullScreenBreakpoint="xs"
           maxWidth="sm"
-          open={this.props.deleteModalOpen}
+          open={this.props.deleteNotificationModalOpen}
         >
           <DialogTitle>
             {t('paymentPack:notification.listItem.deleteModal.title')}

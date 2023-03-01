@@ -90,9 +90,11 @@ import { ResolvedGenericTags } from '#libs/email-editor/types';
 type OwnProps = {
   contractId: number;
   page: number;
-  deleteModalOpen: boolean;
+  deleteContractModalOpen: boolean;
+  deleteNotificationModalOpen: boolean;
   contractToEdit?: Contract;
-  setDeleteModalOpen: (open: boolean) => void;
+  setDeleteContractModalOpen: (open: boolean) => void;
+  setDeleteNotificationModalOpen: (open: boolean) => void;
   setContractToEdit: (contract?: Contract) => void;
   closeForm: () => void;
   submitNotificationForm: (data: any) => void;
@@ -170,8 +172,12 @@ export class ContractDetailPage extends Component<Props> {
               notifications={this.props.notifications}
               updateNotification={this.props.updateMarketingNotification}
               deleteNotification={this.props.deleteMarketingNotification}
-              deleteModalOpen={this.props.deleteModalOpen}
-              setDeleteModalOpen={this.props.setDeleteModalOpen}
+              deleteNotificationModalOpen={
+                this.props.deleteNotificationModalOpen
+              }
+              setDeleteNotificationModalOpen={
+                this.props.setDeleteNotificationModalOpen
+              }
               selectedNotification={this.props.selectedNotification}
               setSelectedNotification={this.props.setSelectedNotification}
               setContractNotificationFormOpen={
@@ -290,13 +296,13 @@ export class ContractDetailPage extends Component<Props> {
               },
             ]}
             onEdit={() => this.props.setContractToEdit(this.props.contract)}
-            onDelete={() => this.props.setDeleteModalOpen(true)}
+            onDelete={() => this.props.setDeleteContractModalOpen(true)}
           />
           <ContractDeleteDialog
             contractToDeleteId={
-              this.props.deleteModalOpen ? this.props.contract.id : null
+              this.props.deleteContractModalOpen ? this.props.contract.id : null
             }
-            onClose={() => this.props.setDeleteModalOpen(false)}
+            onClose={() => this.props.setDeleteContractModalOpen(false)}
             deleteContract={(id: number) => {
               this.props.deleteContract(id, {
                 onSuccess: this.props.goToList,
@@ -431,7 +437,12 @@ export default compose(
   withStyles(styles),
   withTranslation(['subscription']),
   routerParamsToProps({ id: 'contractId:number' }),
-  withState('deleteModalOpen', 'setDeleteModalOpen', false),
+  withState('deleteContractModalOpen', 'setDeleteContractModalOpen', false),
+  withState(
+    'deleteNotificationModalOpen',
+    'setDeleteNotificationModalOpen',
+    false,
+  ),
   withState('contractToEdit', 'setContractToEdit', null),
   withState('page', 'setPage', 1),
   withState(

@@ -4717,7 +4717,8 @@
                 "paymentDialog": {
                     "paymentSuccess": {
                         "content": {
-                            "payment": "Il pagamento è stato preso in carico."
+                            "payment": "Il pagamento è stato preso in carico.",
+                            "wait": "Ancora un momento, stiamo elaborando i tuoi dati."
                         },
                         "title": {
                             "setupOnly": "Metodo di pagamento registrato",
@@ -4739,7 +4740,28 @@
                     "minAmountInfo": "Il pagamento tramite terminale di pagamento non è disponibile per un importo inferiore a {{amountString}}.",
                     "connectAndPay": "Invia al terminale",
                     "amountToPay": "Totale da pagare",
-                    "radio": "Terminale di pagamento"
+                    "radio": "Terminale di pagamento",
+                    "disconnect": {
+                        "content": "La connessione è stata persa. Riprova",
+                        "title": "Disconnessione"
+                    },
+                    "paymentFailed": {
+                        "explain": {
+                            "label": "Motivo del fallimento:"
+                        },
+                        "content": {
+                            "setupIntent": "Il metodo di pagamento non è stato salvato.",
+                            "paymentIntent": "Il pagamento non è stato preso in carico."
+                        },
+                        "title": {
+                            "paymentIntent": "Pagamento non andato a buon fine",
+                            "setupIntent": "Operazione fallita"
+                        },
+                        "interac": {
+                            "content": "Le carte Interac non possono essere utilizzate per pagamenti ricorrenti o salvate. Si prega di utilizzare un altro metodo di pagamento.",
+                            "title": "Metodo di pagamento incompatibile"
+                        }
+                    }
                 },
                 "connectDialog": {
                     "error2": "Riprova.",
@@ -4863,7 +4885,7 @@
                 "isEmpty": "Nessun acquisto",
                 "title": "Acquisti",
                 "titleReverse": "Restituzione dell'acquisto",
-                "billing_establishment": "Stabilimento di fatturazione (opzionale)"
+                "billing_establishment": "Stabilimento di fatturazione"
             }
         },
         "invoiceInfoDialog": {
@@ -4878,7 +4900,7 @@
                 "explain": {
                     "2": "Scegli tu stesso il metodo di rimborso. Usa questo metodo per un check / trasferimento manuale / rimborso in cash.",
                     "1": "Una nota di credito sarà generata e, di conseguenza, il saldo del cliente aumenterà. Usa questo metodo per generare una nota di credito.",
-                    "0": "Pagamenti con Carta / SEPA / etc... saranno effettuati direttamente sull'account del cliente. Usa questo metodo per eseguire un rimborso diretto in seguito ad un errore."
+                    "0": "Pagamenti con Carta / SEPA / etc... saranno effettuati direttamente sull'account del cliente. Utilizza questo metodo per eseguire un rimborso diretto in seguito ad un errore."
                 },
                 "label": {
                     "2": "Rimborso manuale",
@@ -4893,6 +4915,9 @@
                     "confirm": "Confermare",
                     "cancel": "Chiudere"
                 }
+            },
+            "warning": {
+                "interac": "Almeno un pagamento è stato effettuato con una carta Interac su questa fattura. I rimborsi diretti non sono supportati per le carte Interac."
             }
         },
         "table": {
@@ -5113,7 +5138,8 @@
                     "931003": "Chiavi di autenticazione scadute",
                     "931002": "Chiavi di autenticazione scadute",
                     "931001": "Errore durante l'autenticazione a Quickbooks",
-                    "931000": "Errore durante l'autenticazione a Quickbooks"
+                    "931000": "Errore durante l'autenticazione a Quickbooks",
+                    "933103": "La tua piattaforma QuickBooks supporta più valute, specifica la tassa da utilizzare."
                 }
             },
             "invoice": {
@@ -9270,7 +9296,9 @@
             "SK": "Slovacchia",
             "CY": "Cipro",
             "US": "Stati Uniti d'America",
-            "EE": "Estonia"
+            "EE": "Estonia",
+            "LI": "Liechenstein",
+            "MX": "Messico"
         },
         "emailValidation": {
             "disconnect": "Cambia account",
@@ -9294,6 +9322,92 @@
             "connection": "Connessione",
             "connect": "Accedi per continuare.",
             "selectYourCurrentEmail": "Seleziona il tuo attuale indirizzo di accesso."
+        },
+        "welcome": {
+            "textExplain": "Congratulazioni, la tua registrazione è andata a buon fine. Ora puoi iniziare a utilizzare il tuo account e prenotare le tue prime sessioni.",
+            "begin": "Inizia",
+            "title": "Benvenuto in {{companyName}} !"
+        },
+        "emailConfirmation": {
+            "dialog": {
+                "close": "Chiudi",
+                "continue": "Continuare",
+                "sentAgainExplain": "L'e-mail di conferma è stata appena inviata al tuo indirizzo e-mail.",
+                "sentAgain": "Email inviata nuovamente !",
+                "cancel": "Annulla",
+                "send": "Invia",
+                "cannotBeResent": "Un'email è già stata inviata, se non hai ancora ricevuto nulla entro {{timeLeftBeforeNewSent}} minuti, riprova. Non dimenticare di controllare lo spam.",
+                "canBeResent": "Prima di inviare nuovamente l'e-mail di conferma, controlla la posta indesiderata e ricarica la tua casella di posta. Se non hai ricevuto nulla, fai clic sul pulsante di invio.",
+                "title": "Invia nuovamente l'email di conferma"
+            },
+            "helperToSendOnceAgain": "per inviare nuovamente l'e-mail di conferma",
+            "clickHere": "Clicca qui",
+            "notReceived": "Non hai ricevuto nulla?",
+            "backToLogin": "Indietro",
+            "textExplain": "Ti è appena stata inviata un'e-mail di conferma per l'indirizzo e-mail fornito. Per finalizzare la tua registrazione, clicca sul link per attivare il tuo account.",
+            "title": "La tua registrazione è andata a buon fine"
+        },
+        "regularizeInvoice": {
+            "contactSuport": "Contatta il supporto",
+            "actionRegularize": {
+                "dispute": "Vedi la mia fattura",
+                "fail": "Regolarizza la mia fattura"
+            },
+            "needPaymentMethodContent": {
+                "dispute": "Hai una o più fatture contestate. Contatta la tua banca il prima possibile per risolvere la controversia e continuare a beneficiare dei servizi di bsport. Se necessario, contatta support@bsport.io.",
+                "fail": "Hai una o più fatture non riuscite. Si prega di modificare la bolletta per continuare a beneficiare dei servizi bsport."
+            },
+            "needPaymentMethod": {
+                "dispute": "Fattura contestata",
+                "fail": "Mancato pagamento"
+            }
+        },
+        "needStripe": {
+            "actionRegularize": "Configura il mio contro Stripe",
+            "info": "Non hai configurato il tuo account Stripe, configura il tuo account Stripe per continuare a beneficiare dei servizi di Bsport.",
+            "infoDateBlocked": "Non hai configurato il tuo account Stripe, configura il tuo account Stripe prima del {{ dateAccountIsBLockedFormattedLL }} per continuare a beneficiare dei servizi di Bsport.",
+            "stripeAccount": "Conto Stripe"
+        },
+        "accountConfiguration": {
+            "finishExplain": "La tua configurazione è completa, ora puoi utilizzare Bsport.",
+            "congrats": "Complimenti !",
+            "paymentMethodExplain": "Inserisci il metodo di pagamento che desideri utilizzare per pagare il tuo abbonamento a Bsport",
+            "paymentMethodTitle": "Indica il tuo metodo di pagamento",
+            "managerIbanExplain": "Indica su quale conto desideri ricevere tramite bonifico le somme versate online tramite Bsport",
+            "companyStripeName": "Conto stripe",
+            "redirecting": "Ti stiamo reindirizzando al modulo di stripe...",
+            "stripeConfigurationExplain": "Verrai reindirizzato al modulo stripe. Una volta completato questo passaggio, le tue informazioni verranno automaticamente salvate su Bsport.",
+            "stripeConfiguration": "Configura Stripe",
+            "infoGoingBack": "Se lasci la pagina ora, puoi riprendere nello stesso punto quando torni.",
+            "configureStripeAction": "Configurazione di Stripe",
+            "companyAdress": "Indirizzo",
+            "companyName": "Nome dell'azienda",
+            "configureStripe": "Configura il tuo account Stripe. È necessario che i tuoi clienti effettuino i loro acquisti e pagamenti online.",
+            "stripeStep": "Configurazione di stripe",
+            "createStripe": "Crea il tuo account Stripe",
+            "finishStep": "Terminato !",
+            "cardStep": "Metodi di pagamento",
+            "ibanStep": "Informazioni dell'IBAN",
+            "welcomeConfigure": "Configura il tuo account in solo {{numberOfSteps}} passaggio!",
+            "welcomeConfigure_plural": "Configura il tuo account in soli {{numberOfSteps}} passaggi!",
+            "welcomeDescription": "Siamo felici di darti il benvenuto sulla tua nuova piattaforma. Prima di iniziare la tua esperienza, ci mancano alcune informazioni.",
+            "welcomeTitle": "Benvenuto su Bsport",
+            "bankAccountSuccess": "Il tuo IBAN è convalidato. È possibile modificare queste informazioni successivamente nel backoffice nelle impostazioni dell'azienda.",
+            "goToBackoffice": "Fare clic su \"Inizia\" per essere reindirizzati al backoffice.",
+            "accountSuccess": "Il tuo account Stripe è stato creato correttamente. È possibile modificare queste informazioni successivamente nel backoffice nelle impostazioni dell'azienda.",
+            "paymentMethodSuccess": "Il metodo di pagamento indicato è valido. Puoi sempre modificarlo nelle impostazioni dell'abbonamento Bsport.",
+            "needToConfigureStripeInfo": "È necessario aggiungere un metodo di pagamento per saldare una fattura.",
+            "configureMyStripeAccount": "Configura il mio conto Stripe",
+            "bankAccount": {
+                "fields": {
+                    "bank_account_holder": "Titolare del conto",
+                    "iban": "IBAN"
+                },
+                "general": "Generale",
+                "bank_details": "Informazioni bancarie",
+                "address": "Indirizzo",
+                "owner_address": "Indirizzo del proprietario"
+            }
         }
     },
     "waitingList": {
@@ -10800,14 +10914,16 @@
                 "workshop": "Workshop",
                 "private_pass": "Carta d'appuntamento",
                 "birthday": "Compleanno",
-                "establishmentGroup": "Luogo"
+                "establishmentGroup": "Luogo",
+                "contract": "Abbonamento"
             },
             "groupTitle": {
                 "booking": "Prenotazione",
                 "privateBooking": "Appuntamento",
                 "paymentPack": "Tessera",
                 "privatePass": "Carta d'appuntamento",
-                "birthday": "Compleanno"
+                "birthday": "Compleanno",
+                "contract": "Abbonamento"
             },
             "selectIdentifierLabel": {
                 "establishment": "Seleziona una struttura",
@@ -10815,8 +10931,9 @@
                 "private_service": "Seleziona un appuntamento",
                 "payment_pack": "Seleziona una tessera",
                 "workshop": "Seleziona un workshop",
-                "private_pass": "Selezionare una scheda di appuntamento",
-                "establishment_group": "Selezionare un luogo"
+                "private_pass": "Selezionare una card appuntamento",
+                "establishment_group": "Selezionare un luogo",
+                "contract": "Seleziona un abbonamento"
             },
             "paymentPackPlaceholder": "Tessera",
             "paymentPackKind": {
@@ -10848,7 +10965,11 @@
             "listTitle": "Notificazioni",
             "create": "Creare una notifica",
             "handleNotification": "Gestire le notifiche",
-            "noNotification": "Nessuna notifica abilitata"
+            "noNotification": "Nessuna notifica abilitata",
+            "contractKind": {
+                "contractEnd": "Fine dell'abbonamento",
+                "contractStart": "Inizio dell'abbonamento"
+            }
         },
         "customForm": {
             "title": "Moduli",
@@ -10904,7 +11025,8 @@
                 "last_name": "Nome di famiglia",
                 "first_name": "Nome",
                 "sign_up_question": "Domanda sul modulo di registrazione",
-                "location": "Posizione preferita"
+                "location": "Posizione preferita",
+                "state": "Stato"
             },
             "customFormField": {
                 "modal": {
@@ -11096,6 +11218,113 @@
                 "undo": "Indietro",
                 "editLayout": "Modifica del layout"
             }
+        },
+        "cadence": {
+            "form": {
+                "marketing_action": {
+                    "defaultName": "Nome predefinito",
+                    "select_tag": "Seleziona un tag",
+                    "5": "Email modello",
+                    "4": "Tag",
+                    "3": "Notifica push",
+                    "2": "SMS",
+                    "1": "Email"
+                },
+                "event": {
+                    "billing_plan-renew": "Rinnovo",
+                    "billing_plan-stop": "Stop",
+                    "billing_plan-pause": "Pausa",
+                    "billing_plan-create": "Crea",
+                    "invoice-create": "Fattura creata",
+                    "basket-finalize": "Carrello pagato",
+                    "basket-additem": "Aggiungi al carrello",
+                    "basket-created": "Crea",
+                    "private_booking-cancel": "Cancellazione di un Appuntamento",
+                    "private_booking-create": "Appuntamenti",
+                    "booking-attendance": "Partecipazione alle lezioni di gruppo",
+                    "booking-create": "Lezione collettiva",
+                    "private_consumer_pass-create": "Pass per appuntamento",
+                    "consumer_payment_pack-create": "Pass",
+                    "104": "Iscrizione",
+                    "103": "Fatturazione",
+                    "102": "Carrello",
+                    "101": "Prenotazione",
+                    "100": "Acquista",
+                    "14": "Rinnovo",
+                    "13": "Stop",
+                    "12": "Pausa",
+                    "11": "Creazione",
+                    "10": "Fattura creata",
+                    "9": "Carrello pagato",
+                    "8": "Aggiungi al carrello",
+                    "7": "Creazione",
+                    "6": "Cancellazione di un Appuntamento",
+                    "5": "Appuntamenti",
+                    "4": "Partecipazione alle lezioni di gruppo",
+                    "3": "Lezioni di gruppo",
+                    "2": "Pass per appuntamento",
+                    "1": "Pass"
+                },
+                "exit": {
+                    "exit_fail_label": "Perso",
+                    "exit_success_label": "Vinto",
+                    "title": "Uscita"
+                },
+                "trigger": {
+                    "trigger_timeout_explain_value_selected": "Se il membro è ancora presente nella cadenza dopo {{ days }} giorni, verrà automaticamente rimosso da essa e considerato perso.",
+                    "trigger_timeout_select_label": "giorni massimi nella cadenza",
+                    "trigger_timeout_title": "limite di tempo",
+                    "select_marketing_actions_helper": "Seleziona una o più azioni da eseguire quando ottieni un membro. Questa opzione è facoltativa.",
+                    "marketing_actions": "Azioni di marketing",
+                    "event_and_smartlist_helper": "I membri dovranno corrispondere all'evento ed essere parte della smartlist per entrare nella cadenza",
+                    "or_rule_between_triggers": "O",
+                    "and_rule_between_triggers": "E",
+                    "rule_between_triggers": "Regola tra gli eventi",
+                    "trigger_smartlist_kind_label": "Una smartlist",
+                    "had_filtering_on_selected_event": "Filtra l'evento selezionato con una smartlist",
+                    "trigger_event_kind_label": "Un evento",
+                    "labels": {
+                        "exitFail": "L'output della cadenza come perso viene effettuato tramite:",
+                        "exitSuccess": "L'output della cadenza come acquisito viene effettuato tramite:",
+                        "step": "L'accesso a questa fase avviene tramite :",
+                        "cadence": "L'inserimento nella cadenza avviene tramite :"
+                    },
+                    "helpers": {
+                        "exitFail": "Definire qui il trigger che fa sì che un membro sia considerato perso e che esca dalla cadenza.",
+                        "exitSuccess": "Definire qui il trigger che fa sì che un membro sia considerato acquisito e che esca dalla cadenza.",
+                        "step": "Impostate qui il trigger per la fase successiva. Per passare alla fase successiva, i membri dovranno soddisfare i criteri indicati di seguito.",
+                        "cadence": "Definite qui i trigger per l'inserimento della cadenza. Per avviare la sequenza di marketing, i membri dovranno corrispondere ai criteri indicati di seguito."
+                    },
+                    "title": "Trigger"
+                },
+                "next": "Seguente",
+                "previous": "Precedente",
+                "lose_step": "Perso",
+                "win_step": "Vinto",
+                "entry_step": "Ingresso",
+                "modify_name_label": "Modifica il nome",
+                "cadenceNameLabel": "Nome della scadenza",
+                "cadenceStep": "Passaggio",
+                "cadenceStepNameLabel": "Nome del passaggio",
+                "cadenceStepHelper": "Imposta qui il nome del passaggio, qui è dove puoi vedere dove si trovano i membri nella scadenza.",
+                "updateTitle": "Modifica del nome della scadenza",
+                "title": "Crea una scadenza",
+                "addACadence": "Aggiungi scadenza",
+                "createCadenceHelper": "Grazie alle cadenze, indirizza meglio le operazioni di marketing che invii ai tuoi membri in base al loro comportamento sulla piattaforma. Crea una sequenza di attività che i tuoi membri devono completare per ottenere, ad esempio, determinate promozioni o determinati tag.",
+                "edit": "Modifica",
+                "submit": "Crea",
+                "cancel": "Cancella"
+            },
+            "cadenceIndexHelper": "L'ordine delle cadenze definisce l'ordine di priorità, se un membro può inserire 2 diverse cadenze, inizierà con la più alta nell'elenco.",
+            "marketingElement": "Azioni di marketing",
+            "triggerElement": "Fattore scatenante",
+            "cadenceParameters": "Impostazioni cadenza",
+            "exitEditModeLabel": "Esci dalla modalità di modifica",
+            "exitEditMode": "Fine",
+            "editModeLabel": "Passa alla modalità di modifica",
+            "editMode": "Modifica",
+            "shutOff": "Pausa",
+            "back": "Indietro"
         }
     },
     "spotScheduling": {

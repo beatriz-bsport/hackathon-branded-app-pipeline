@@ -103,8 +103,6 @@ type Props = {
     params: AssignCoachDisciplineGroupParams,
     options?: OptionCallback,
   ) => void,
-  setDeleteModalOpen: (boolean) => void,
-  deleteOpen: boolean,
   deleteCoach: (id: number, options: ?OptionCallback) => void,
   updateCoachPrivateSlotsPaymentRule: (
     data: {

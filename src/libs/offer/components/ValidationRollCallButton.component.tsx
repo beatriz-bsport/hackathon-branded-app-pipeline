@@ -15,7 +15,7 @@ export const ValidationRollCallButton: React.FC<Props> = (props) => {
       variant={props.outlined ? 'outlined' : 'contained'}
       disabled={props.nbRollCallsLeftToValidate === 0}
     >
-      <PlaylistAddCheck className={classes.iconLeft} />
+      <PlaylistAddCheck fontSize="small" className={classes.iconLeft} />
       {t('rollCall.button.validationRollCall', {
         count: props.nbRollCallsLeftToValidate,
       })}

@@ -27,7 +27,7 @@ export const NotValidatedListRollCallsText = GenericValidationRollCallTextTempla
 
 NotValidatedListRollCallsText.args = {
     validationRollCallState:RollCallState.NOT_VALIDATED,
-    listRollCalls:true,
+    isSeveralRollCallsPage:true,
     nbRollCallsLeftToValidate:2
 };
 

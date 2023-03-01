@@ -35,10 +35,14 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
           />
         </div>
         <Typography variant="h6" className={classes.title}>
-          {t('rollCall.dialog.validatedRollCall')}
+          {t('rollCall.dialog.validatedRollCall', {
+            count: props.nbRollCallsLeftToValidate,
+          })}
         </Typography>
         <Typography variant="body1" className={classes.subtitle}>
-          {t('rollCall.dialog.savedRollCall')}
+          {t('rollCall.dialog.savedRollCall', {
+            count: props.nbRollCallsLeftToValidate,
+          })}
         </Typography>
         <div className={classes.alignMiddle}>
           <Button onClick={props.onCancel}>{t('close')}</Button>
@@ -60,19 +64,21 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
           })}
         </Typography>
       </DialogContent>
-      <DialogActions>
-        <Button className={classes.grey} onClick={props.onCancel}>
-          {t('cancel')}
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={onClickHandler}
-          disabled={props.isLoading}
-        >
-          {t('confirm')}
-        </Button>
-      </DialogActions>
+      <div className={classes.buttonContainer}>
+        <DialogActions>
+          <Button className={classes.grey} onClick={props.onCancel}>
+            {t('cancel')}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onClickHandler}
+            disabled={props.isLoading}
+          >
+            {t('confirm')}
+          </Button>
+        </DialogActions>
+      </div>
     </GenericResponsiveDialog>
   );
 };
@@ -103,6 +109,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     marginBottom: theme.spacing(4),
+  },
+  buttonContainer: {
+    marginBottom: theme.spacing(1),
   },
 }));
 

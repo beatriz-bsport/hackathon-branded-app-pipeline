@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlaylistAddCheck } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import chroma from 'chroma-js';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import Tooltip from '#components/Tooltip.component';
@@ -34,7 +33,7 @@ export const RollCallChip: React.FC<Props> = (props) => {
             : classes.notValidatedChipStatus,
         )}
       >
-        <PlaylistAddCheck />
+        <PlaylistAddCheck fontSize="small" />
       </div>
     </Tooltip>
   );
@@ -53,11 +52,11 @@ const useStyles = makeStyles((theme) => ({
   },
   validatedChipStatus: {
     color: theme.palette.success.main,
-    backgroundColor: chroma(theme.palette.success.main).alpha(0.1).hex(),
+    backgroundColor: '#F1F9F1',
   },
   notValidatedChipStatus: {
     color: theme.palette.error.main,
-    backgroundColor: chroma(theme.palette.error.main).alpha(0.1).hex(),
+    backgroundColor: '#FFF0EF',
   },
 }));
 

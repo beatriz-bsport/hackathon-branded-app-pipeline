@@ -26,6 +26,18 @@ NotValidatedRollCallDrawer.args = {
     isLoading: false
 };
 
+export const ModifiedRollCallDrawer = RollCallDrawerTemplate.bind({});
+
+ModifiedRollCallDrawer.args = {
+    open: true,
+    offerName: 'Yoga',
+    date: '02/17/2023 12:48',
+    members: MembersFactory(5,true, idList), 
+    bookings: BookingListFactory(5, idList),
+    validationRollCallState: RollCallState.MODIFIED,
+    isLoading: false
+};
+
 export const ValidatedRollCallDrawer = RollCallDrawerTemplate.bind({});
 
 ValidatedRollCallDrawer.args = {

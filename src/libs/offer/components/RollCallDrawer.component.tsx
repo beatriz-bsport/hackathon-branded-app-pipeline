@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, makeStyles, Button } from '@material-ui/core';
+import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
@@ -59,6 +59,7 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
             discardBookingAttendance={props.discardBookingAttendance}
           />
         </div>
+        <Divider />
         <div className={classes.bottomRow}>
           <ValidationRollCallText
             validationRollCallState={props.validationRollCallState}

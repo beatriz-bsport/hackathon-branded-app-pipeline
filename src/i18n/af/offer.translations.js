@@ -174,6 +174,9 @@ exports.default = {
       noRollCallLeft: 'Tous les appels ont été validés',
       lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
     },
+    warningIcon: {
+      stateChanged: "Le statut a été changé mais n'a pas été validé",
+    },
     button: {
       validationRollCall: 'Valider l’appel',
       validationRollCall_plural: 'Valider tous les appels',
@@ -181,11 +184,13 @@ exports.default = {
     dialog: {
       validationRollCall: 'Valider l’appel',
       confirmationRollCall:
-        'Attention, les membres marqués comme absents et titulaires d’une carte illimité sujette aux pénalités seront pénalisés. Etes-vous sûr de vouloir confirmer l’appel ?',
+        'Attention, les membres marqués comme absents et titulaires d’une carte illimitée sujette aux pénalités seront sanctionnés. Etes-vous sûr de vouloir confirmer l’appel ?',
       confirmationRollCall_plural:
-        'Vous aller valider l’appel pour l’ensemble des séances du jour. Attention, les membres marqués comme absents et titulaires d’une carte illimité sujette aux pénalités seront pénalisés. Etes-vous sûr de vouloir confirmer l’appel ?',
+        'Vous allez valider l’appel pour l’ensemble des séances du jour. Attention, les membres marqués comme absents et titulaires d’une carte illimitée sujette aux pénalités seront sanctionnés. Etes-vous sûr de vouloir confirmer tous les appels ?',
       validatedRollCall: 'Appel validé',
+      validatedRollCall_plural: 'Appels validés',
       savedRollCall: 'L’appel a bien été enregistré.',
+      savedRollCall_plural: 'Les appels ont bien été enregistrés.',
     },
     chip: {
       validatedRollCall: 'Appel validé le {{- date }} {{ time }}',

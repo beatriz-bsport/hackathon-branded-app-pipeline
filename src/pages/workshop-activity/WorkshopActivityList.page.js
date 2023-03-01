@@ -26,6 +26,8 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import { getEditableSCTs } from '../../libs/category/selectors';
 
+import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
+
 import type { MetaActivity } from '../../api/types';
 
 import {
@@ -549,7 +551,7 @@ export default compose(
     {
       fetchAllActivities: fetchMetaActivitiesAction,
       makeActivityCopy: makeActivityCopyAction,
-      goToPaymentPack: () => push('/payment-pack'),
+      redirectIfAllowed: redirectIfAllowedAction,
       deleteWorkshop,
       restoreMetaActivity,
       fetchMarketingNotificationList,
@@ -606,6 +608,14 @@ export default compose(
           console.error(err);
           if (options?.onError) options.onError(err);
         }
+      },
+    goToPaymentPack:
+      ({ redirectIfAllowed }) =>
+      () => {
+        redirectIfAllowed('/payment-pack', {
+          newWindow: false,
+          deniedAccessDialog: { display: true },
+        });
       },
   }),
   withState('workshopToDelete', 'setWorkshopToDelete', null),

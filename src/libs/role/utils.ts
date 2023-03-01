@@ -181,6 +181,9 @@ export const matchUrlToRelevantPermissionKey = (url: string) => {
       case '/replacement/management': {
         return ['navigationMenu', 'myClub', 'replacement'];
       }
+      case '/payment-pack': {
+        return ['navigationMenu', 'products', 'paymentPack'];
+      }
       default:
         return [];
     }

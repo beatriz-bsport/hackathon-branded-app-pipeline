@@ -4712,7 +4712,69 @@
                 },
                 "title": "Abbonamento"
             },
-            "invoiceGeneral": "Fattura PDF"
+            "invoiceGeneral": "Fattura PDF",
+            "stripeTerminal": {
+                "paymentDialog": {
+                    "paymentSuccess": {
+                        "content": {
+                            "payment": "Il pagamento è stato preso in carico."
+                        },
+                        "title": {
+                            "setupOnly": "Metodo di pagamento registrato",
+                            "setupAndPlan": "Pagamento registrato",
+                            "payment": "Pagamento accettato"
+                        }
+                    },
+                    "connectionSuccess": {
+                        "cancel": {
+                            "error": "Si è verificato un errore durante l'annullamento.",
+                            "cancelExplain2": "Verrai reindirizzato alla scelta del terminale di pagamento.",
+                            "cancelExplain1": "Sei sicuro di voler annullare l'operazione?",
+                            "title": "Cancellazione"
+                        },
+                        "processing": "La tua richiesta sta per essere eseguita",
+                        "intent": "Il collegamento con il terminale è stato effettuato. Il cliente dovrebbe essere in grado di presentare la propria carta.",
+                        "payment": "Il collegamento con il terminale è stato effettuato. Ora dovrebbe essere visualizzato l'importo da pagare."
+                    },
+                    "minAmountInfo": "Il pagamento tramite terminale di pagamento non è disponibile per un importo inferiore a {{amountString}}.",
+                    "connectAndPay": "Invia al terminale",
+                    "amountToPay": "Totale da pagare",
+                    "radio": "Terminale di pagamento"
+                },
+                "connectDialog": {
+                    "error2": "Riprova.",
+                    "error1": "Il tuo terminale di pagamento Stripe non è stato connesso.",
+                    "success": "Il tuo terminale di pagamento Stripe è stato connesso correttamente",
+                    "form": {
+                        "update": "Modifica",
+                        "retry": "Riprova",
+                        "continue": "Continua",
+                        "connect": "Connetti",
+                        "registrationCodeHelperText": "Inserisci il codice visualizzato sul tuo POS Stripe",
+                        "registrationCode": "Codice del terminale",
+                        "readerLabel": "Nome del terminale"
+                    },
+                    "loading2": "Si prega di attendere.",
+                    "loading1": "Stiamo cercando di stabilire una connessione con il tuo terminale.",
+                    "mustCreateStripeLocation": "Per la tua prima registrazione, inserisci le informazioni dello studio in cui verrà utilizzato il terminale.",
+                    "title": {
+                        "edit": "Modifica",
+                        "error": "Connessione fallita",
+                        "success": "Connessione riuscita",
+                        "connect": "Connessione"
+                    }
+                },
+                "deleteDialog": {
+                    "content3": "É possibile ricollegarlo",
+                    "content2": "Non apparirà più nei terminali disponibili durante i pagamenti.",
+                    "content1": "Sei sicuro di voler eliminare il terminale di pagamento {{label}}?",
+                    "title": "Cancellazione"
+                },
+                "addCard": "Aggiungi il terminale Stripe",
+                "addReader": "Collega un terminale",
+                "helperText": "Utilizza un terminale di pagamento per pagare le fatture dei tuoi clienti dal back office. Grazie al terminale, risparmi tempo incassando i pagamenti dei tuoi clienti senza dover chiedere loro le coordinate bancarie. Si prega di contattare il gestore dell'account per ulteriori informazioni.",
+                "title": "Pagamento tramite terminale"
+            }
         },
         "returnPayment": {
             "modal": {
@@ -4878,7 +4940,7 @@
                 },
                 "topup": "Aggiungere al saldo del conto di credito del cliente",
                 "debt": "Addebito dal saldo del conto di credito del cliente",
-                "explainTopup": "Un supplemento di {{ amount }} €  sarà registrato nel saldo del membro",
+                "explainTopup": "Un supplemento di {{ amount }} {{ currencyDisplay }} sarà registrato nel saldo del membro",
                 "explainDecaissement": "Un pagamento di  {{ amount }} {{ currencyDisplay }} sarà registrato",
                 "balanceValueLabel": "Importo",
                 "typeLabel": "Tipo di regolazione",
@@ -9833,7 +9895,7 @@
         "resetModal": {
             "confirm": "Continua",
             "cancel": "Annulla",
-            "content": "Le impostazioni dei diversi grafici torneranno al loro valore predefinito, vuoi continuare?",
+            "content": "Le impostazioni delle varie schede torneranno ai valori predefiniti, vuoi continuare?",
             "title": "Reset delle impostazioni"
         },
         "save": "Salva",
@@ -9848,7 +9910,8 @@
             "subscriptionTemporalCount": "Numero di fatture relative ad abbonamenti",
             "bookingTemporal": "Prenotazioni",
             "bookingQualitative": "Origine delle prenotazioni",
-            "paymentTemporal": "Collezioni"
+            "paymentTemporal": "Collezioni",
+            "bookingTimeslots": "Numero medio"
         },
         "dataSourceIdentifiers": {
             "dispute_status": "Stato delle controversie",
@@ -11189,6 +11252,18 @@
                 "deleteTemplate": {
                     "title": "Disattivazione"
                 }
+            },
+            "list": {
+                "visibility": "Invisibile per i clienti",
+                "shortMenu": {
+                    "restore": "Ripristina",
+                    "edit": "Modifica",
+                    "delete": "Elimina",
+                    "goTo": "Dettaglio"
+                },
+                "fuzzySearch": "Cerca un pass",
+                "titleInactive": "Non disponibile alla vendita",
+                "titleActive": "Disponibile alla vendita"
             }
         },
         "staff": {
@@ -11242,7 +11317,8 @@
                     "submit": "Convalidare",
                     "cancel": "Chiudere"
                 }
-            }
+            },
+            "canNotUpdateBecauseShared": "Questa carta regalo è una carta condivisa dall'account franchisor. È stata definita dall'account franchisor e non può essere modificata."
         },
         "giftcard": {
             "delete": {
@@ -11347,7 +11423,7 @@
             "unavailableForSaleTitle": "Non disponibile per la vendita",
             "activeTitle": "Disponibile per la vendita",
             "visibility": "Non visibile",
-            "explainIfEmpty": "Le carte regalo permettono ai vostri membri di offrire ai loro cari un importo da spendere nel vostro studio.",
+            "explainIfEmpty": "Le carte regalo consentono ai tuoi membri di offrire ai loro ospiti un importo da spendere nel tuo studio.",
             "unlimited": "Illimitato",
             "validity": "Valido {{ duration }} giorni"
         },
@@ -11358,7 +11434,27 @@
             "title": "Archiviare la carta regalo"
         },
         "search": "Cerca una carta regalo",
-        "widget": "Scegliere le carte regalo"
+        "widget": "Scegliere le carte regalo",
+        "giftcardTemplate": {
+            "template": {
+                "withoutTax": "Al netto delle imposte",
+                "unlimited": "Illimitato",
+                "validityDetail": "Validità prima della scadenza : {{count}} giorno",
+                "validityDetail_plural": "Validità prima della scadenza : {{count}} giorni",
+                "validity": "Valido {{count}} giorno",
+                "validity_plural": "Valido {{count}} giorni",
+                "deleteInstanceContent2": "Infine, le card acquistate negli altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente dalla data di acquisto.",
+                "deleteInstanceContent1": "Disabilitando questo studio dalla condivisione della carta regalo, tutti i membri che possiedono questa carta e l'hanno ricevuta da un membro che ha acquistato la carta in questo studio potranno comunque utilizzarla. Non potranno invece più utilizzarlo negli altri studi.",
+                "deleteTemplateContent": "Disattivando una carta regalo condivisa, i membri con questa carta potranno utilizzarla solo nello studio in cui è stata acquistata."
+            },
+            "listPage": {
+                "fuzzyPlaceholder": "Trova una carta regalo",
+                "addButton": "Crea una carta regalo condivisa",
+                "emptyLabel": "Nessuna carta regalo condivisa registrata"
+            },
+            "sharedCard": "Condiviso da un altro franchisee",
+            "giftcard": "Carta regalo"
+        }
     },
     "performanceTracking": {
         "program": {

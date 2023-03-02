@@ -6802,7 +6802,8 @@
             },
             "tab": {
                 "general": "Generale",
-                "pack": "Pass"
+                "pack": "Pass",
+                "group": "Sessioni di gruppo"
             }
         },
         "modal": {
@@ -6814,12 +6815,21 @@
             }
         },
         "settings": {
-            "lastDiscardBeforeMinutes": "Le cancellazioni sono possibili fino a {{m}} prima dell'inizio della sessione",
+            "lastDiscardBeforeMinutes": "Fino a {{m}} prima dell'inizio della sessione",
             "title": "Impostazioni",
-            "lastBookingBeforeMinutes": "È possibile prenotare questa attività fino a {{m}} prima dell'inizio della sessione",
+            "lastBookingBeforeMinutes": "Fino a {{m}} prima dell'inizio della sessione",
             "firstBookingMinutesUntil": "I clienti posso prenotare solo fino a {{m }}prima della sessione",
             "conditions": "Condizioni",
-            "autoDiscard": "La sessione verrà cancellata se ci sono {{nb_bookings}} di prenotazioni o meno, {{hours}} ore prima dell'inizio della sessione"
+            "autoDiscard": "La sessione verrà cancellata se ci sono {{nb_bookings}} di prenotazioni o meno, {{hours}} ore prima dell'inizio della sessione",
+            "seeRestrictions": "Vedi",
+            "restrictions": " Restrizione personalizzata #{{ count }}",
+            "restrictionsHeader": "Restrizioni personalizzate",
+            "autoDiscardHeader": "La sessione verrà annullata se",
+            "firstBookingMinutesUntilHeader": "Gli studenti possono prenotare sessioni future se iniziano tra meno di",
+            "lastDiscardBeforeMinutesFull": "Cancellazioni possibili fino a {{m}} prima dell'inizio della sessione",
+            "lastDiscardBeforeMinutesHeader": "Prima dell'inizio del corso, ultima possibile cancellazione",
+            "lastBookingBeforeMinutesFull": "Ultime prenotazioni possibili fino a {{m}} prima dell'inizio della sessione",
+            "lastBookingBeforeMinutesHeader": "Prima dell'inizio del corso, ultima prenotazione possibile"
         },
         "forms": {
             "create": {
@@ -6850,7 +6860,8 @@
                 }
             },
             "warning": {
-                "highLastBookingBeforeWarning": "Attenzione, {{ durationFormatted }} prima dell'inizio del corso, non sarà più possibile prenotare!"
+                "highLastBookingBeforeWarning": "Attenzione, {{ durationFormatted }} prima dell'inizio del corso, non sarà più possibile prenotare!",
+                "lowFirsBookingUntilWarning": "Attenzione, devi attendere fino a {{ durationFormatted }} prima dell'inizio della sessione per effettuare la prima prenotazione !"
             }
         },
         "description": "Descrizione",
@@ -6874,7 +6885,32 @@
         "workshop": "Workshop",
         "workshopSelect": "Trova uno studio",
         "close": "Chiudi",
-        "edit": "Modifica"
+        "edit": "Modifica",
+        "groupedOption": {
+            "modal": {
+                "form": {
+                    "timeStart": "Data di inizio",
+                    "timeStartHelper": "Seleziona la data della prima sessione della copia di gruppo. Le altre sessioni del gruppo verranno copiate e spostate in base a questa data.",
+                    "nameCaption": "Nome del gruppo di sessioni",
+                    "withRecurrence": "Abilita ricorrenza",
+                    "marketPlaceAvailable": "Disponibile per la prenotazione (web+app)",
+                    "allowBookingAfterStartCaption": "Per impostazione predefinita, se una sessione è già stata avviata, i tuoi membri non potranno più iscriversi. Attivando questa funzione, i tuoi membri potranno comunque registrarsi per le restanti sessioni.",
+                    "allowBookingAfterStart": "Consenti l'iscrizione durante il percorso",
+                    "fullBookingOnlyCaption": "Per impostazione predefinita, i tuoi membri verranno automaticamente registrati a tutte le sessioni del gruppo se si registrano a una di queste. Disabilitando questa impostazione, i tuoi membri avranno la libertà di registrarsi per una o tutte le sessioni del gruppo.",
+                    "fullBookingOnly": "Registrazione per tutte le sessioni di gruppo",
+                    "name": "Nome",
+                    "subtitleRecurrence": "Ricorrenza",
+                    "subtitleSettings": "Parametri",
+                    "addOffers": "Aggiungi una sessione",
+                    "subtitleOffers": "Aggiunta di sessioni",
+                    "subtitle": "Informazioni generali"
+                },
+                "duplicate": "Duplica un gruppo",
+                "subtitlePreview": "Anteprima della ricorrenza",
+                "subtitleMetaActivitySelect": "Crea un gruppo di sessioni",
+                "title": "Sessioni di gruppo"
+            }
+        }
     },
     "emailTemplate": {
         "subject": "Oggetto della mail:",

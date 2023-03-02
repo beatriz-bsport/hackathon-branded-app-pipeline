@@ -13399,7 +13399,7 @@
             "show": "Preview",
             "cancel": "Cancel",
             "responsiveDisplay": "Responsive display",
-            "calendarDisplay": "Week view (calendar)",
+            "calendarDisplay": "Week view card (calendar)",
             "listDisplay": "Week view (list)",
             "codeInfo": "Integrate this code into your website",
             "linkToConfig": "Link for this configuration",

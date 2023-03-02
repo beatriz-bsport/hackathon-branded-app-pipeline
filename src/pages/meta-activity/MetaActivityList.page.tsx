@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { push, goBack } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -20,15 +19,15 @@ import { createStyles, Theme } from '@material-ui/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
-import FuzeSearch from '../../components/FuzeSearch.component';
+import FuzeSearch from '#components/FuzeSearch.component';
 
-import MetaActivityCreate from '../../libs/meta-activity/components/MetaActivityCreate.drawer';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import MetaActivityCreate from '#libs/meta-activity/components/MetaActivityCreate.drawer';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '#components/button/BottomActionsButton.component';
+import IsEmptyList from '#components/navigation/IsEmptyList.component';
 
-import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
-import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
+import MetaActivityList from '#libs/meta-activity/components/MetaActivityList.component';
+import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import {
   getPageEnabledPureMetaActivities,
   getPageDisabledPureMetaActivities,
@@ -38,7 +37,7 @@ import {
   getActivitiesByIdList,
   getMetaActivityCategories,
   getMetaActivity,
-} from '../../libs/meta-activity/selectors';
+} from '#libs/meta-activity/selectors';
 import {
   deleteMetaActivity,
   restoreMetaActivity,
@@ -52,13 +51,13 @@ import {
   upsert,
   fetchActivitiesCompany as fetchActivitiesCompanyAction,
   fetchMetaActivities as fetchMetactivitiesAction,
-} from '../../libs/meta-activity/actions';
-import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
+} from '#libs/meta-activity/actions';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#libs/meta-activity/api/common';
 
 import type { Coach, MetaActivity, Offer } from '../../api/types';
-import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
-import { withBookingNotification } from '../../libs/marketing/selectors';
-import { CategoryList } from '../../components/ordering/CategoryList.component';
+import { fetchMarketingNotificationList } from '#libs/marketing/actions';
+import { withBookingNotification } from '#libs/marketing/selectors';
+import { CategoryList } from '#components/ordering/CategoryList.component';
 import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import {
@@ -69,34 +68,34 @@ import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 // import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
 import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
-import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
+import { redirectIfAllowed as redirectIfAllowedAction } from '#libs/role/actions';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
   createOffers as createOffersActions,
-} from '../../libs/offer/actions';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { getEditableSCTs } from '../../libs/category/selectors';
+} from '#libs/offer/actions';
+import { getActiveCoaches } from '#libs/associated-coach/selectors';
+import { getEditableSCTs } from '#libs/category/selectors';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
   resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
   createOrUpdate as createPaymentPack,
   fetchAllPaymentPackCategory,
-} from '../../libs/payment-packs/actions';
+} from '#libs/payment-packs/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getActivityCompatiblePaymentPacks,
   getAllPaymentPackCategory,
-} from '../../libs/payment-packs/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+} from '#libs/payment-packs/selectors';
+import { fetchEstablishments } from '#libs/establishment/actions';
+import { fetchAssociatedCoachesList } from '#libs/associated-coach/actions';
 import {
   getAvailableEstablishmentList,
   getAllEstablishments,
-} from '../../libs/establishment/selectors';
+} from '#libs/establishment/selectors';
 import {
   fetchLevelList as fetchLevelListAction,
   updateLevel as updateLevelAction,
@@ -107,14 +106,14 @@ import {
   getActiveCustomLevels,
   getAllCustomLevels,
 } from '#libs/level/selectors';
-import { Establishment } from '../../libs/establishment/types';
-import { PaymentPack } from '../../libs/payment-packs/types';
-import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
-import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
-import { RoomBlueprint } from '../../libs/spot-scheduling/types';
-import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
-import { CoachPaymentRuleByKindSelector } from '../../libs/coach-payment-rules/selectors';
-import { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
+import { Establishment } from '#libs/establishment/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { getAvailableRoomBlueprints } from '#libs/spot-scheduling/selector';
+import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
+import { RoomBlueprint } from '#libs/spot-scheduling/types';
+import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
+import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
+import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { Level, LevelFilterSet } from '#libs/level/types';

@@ -6848,6 +6848,9 @@
                     "cancel": "Annulla",
                     "confirm": "Rimuovi"
                 }
+            },
+            "warning": {
+                "highLastBookingBeforeWarning": "Attenzione, {{ durationFormatted }} prima dell'inizio del corso, non sarà più possibile prenotare!"
             }
         },
         "description": "Descrizione",
@@ -6868,7 +6871,10 @@
         "reviews": "Opinione dei clienti: ",
         "noActivities": "Gestisci le tue attività qui, un'attività ti consente di raggruppare una serie di sessioni (generalmente collettive) della stessa pratica.",
         "disabledMetaActivities": "Attività archiviate",
-        "workshop": "Workshop"
+        "workshop": "Workshop",
+        "workshopSelect": "Trova uno studio",
+        "close": "Chiudi",
+        "edit": "Modifica"
     },
     "emailTemplate": {
         "subject": "Oggetto della mail:",
@@ -6963,11 +6969,14 @@
                 },
                 "welcome": "Buongiorno {{firstname}}"
             },
-            "title": "Informazioni sull'utente"
+            "title": "Informazioni sull'utente",
+            "newMemberOnlyHelperText": "Un membro è considerato nuovo fino a quando non ha effettuato un acquisto superiore a 0 {{ currency }} sulla piattaforma. Si avvisa che qualsiasi acquisto di un articolo a pagamento con una riduzione del 100% sul suo prezzo causerà la perdita dello stato di \"Nuovo membro\"."
         },
         "user": {
             "existsWithPhone": "Un utente con il numero di telefono {{phonenumber}} esiste già.",
-            "existsWithEmail": "Un utente con l'indirizzo di posta elettronica {{email}} esiste già."
+            "existsWithEmail": "Un utente con l'indirizzo di posta elettronica {{email}} esiste già.",
+            "existsWithPhoneButNotConfirmed": "Esiste già un utente con numero di telefono {{phonenumber}}, ma la sua email ({{email}}) è in attesa di conferma. Registrando questo utente, la sua email verrà automaticamente verificata.",
+            "existsWithEmailButNotConfirmed": "Esiste già un utente con l'indirizzo email {{email}}, ma la sua email è in attesa di conferma. Registrando questo utente, la sua email verrà automaticamente verificata."
         },
         "paymentAction": {
             "toBill": "Fattura",
@@ -6975,7 +6984,9 @@
         },
         "member": {
             "existsWithPhone": "Un membro con il numero di telefono {{phonenumber}} esiste già.",
-            "existsWithEmail": "Un membro con l'indirizzo di posta elettronica {{email}} esiste già."
+            "existsWithEmail": "Un membro con l'indirizzo di posta elettronica {{email}} esiste già.",
+            "existsWithPhoneButNotConfirmed": "Esiste già un membro con il numero di telefono {{phonenumber}}, ma la sua email ({{email}}) è in attesa di conferma. Registrando questo membro, la sua email sarà verificata automaticamente.",
+            "existsWithEmailButNotConfirmed": "Esiste già un membro con l'indirizzo email {{email}}, ma la sua email è in attesa di conferma. Registrando questo membro, la sua email sarà verificata automaticamente."
         },
         "exists": {
             "linkUser": "Collega utente",
@@ -7130,12 +7141,12 @@
                 "newEmail": "Nuovo indirizzo email: {{ email }}",
                 "mergeMember": {
                     "unchangedEmail": "Cliccando su conferma il membro {{ new_email }} recupererà le fatture, le prenotazioni, il saldo e gli acquisti di {{ old_email }}. Il membro {{ old_email }} sarà cancellato. Un'e-mail sarà inviata a entrambi gli indirizzi per informare i membri.",
-                    "warning": "Attenzione, state cercando di fondere questi due membri del vostro studio:"
+                    "warning": "Attenzione, si sta cercando di collegare questi due membri del vostro studio:"
                 },
                 "linkMember": {
                     "notIncompany": "L'email {{ new_email }} appartiene a un membro di un altro studio.",
                     "unchangedEmail": "Nel frattempo {{ old_email }} manterrà la sua vecchia email e i membri non saranno collegati.",
-                    "warning": "Fate attenzione, state cercando di collegare questi due membri:"
+                    "warning": "Attenzione, si sta cercando di collegare questi due membri:"
                 },
                 "simpleChange": {
                     "unchangedEmail": "Nel frattempo manterrà la sua vecchia email.",
@@ -7247,7 +7258,9 @@
             }
         },
         "archiveMember": "Archivio",
-        "actions": "Azioni"
+        "actions": "Azioni",
+        "communication": "Comunicazione",
+        "accountBalance": "Saldo"
     },
     "booking": {
         "statusCode": {
@@ -10308,15 +10321,65 @@
                 "isPast": "Finito",
                 "notAvailable": "Annullato",
                 "duration": "Durata: {{duration}}",
-                "showMore": "Maggiori informazioni"
+                "showMore": "Maggiori informazioni",
+                "loadMore": "Più sessioni",
+                "bookTitle": "Prenota una sessione"
             },
-            "noWorkshopAvailable": "Al momento non è previsto nessun workshop"
+            "noWorkshopAvailable": "Al momento non è previsto nessun workshop",
+            "warningBookingRedirectToFirstOffer": "Sei stato reindirizzato alla schermata di prenotazione per un gruppo di sessioni {{name}}, le sessioni da prenotare insieme saranno elencate nella tua schermata di prenotazione.",
+            "warningPartialBooking": "Stai prenotando un gruppo di sessioni. Tuttavia, non sei obbligato a partecipare a tutte le sessioni di questo gruppo. Puoi selezionare le sessioni che desideri.",
+            "warningFullBooking": "Stai prenotando un gruppo di sessioni. Sarai registrato per tutte le {{count}} sessioni di questo gruppo.",
+            "confirm": "Continua",
+            "cancel": "Annulla",
+            "loadMore": "Mostra di piú"
         },
         "paymentCombo": {
             "addToCart": "Aggiungi al carrello"
         },
         "calendar": {
-            "registered": "Già registrato"
+            "registered": "Già registrato",
+            "close": "Chiudi",
+            "description": "Descrizione",
+            "conditions": "Condizioni",
+            "broadcast": "Online"
+        },
+        "genericCard": {
+            "validForDuration": {
+                "attendance": "Valido a partire dalla prima presenza",
+                "booking": "Valido a partire dalla prima prenotazione",
+                "purchase": "Valido a partire dalla data di fatturazione",
+                "validFromTo": "Valido da {{duration_date_start}} a {{duration_date_end}}",
+                "validAnd": "Valido per {{ first }} e {{ second }}",
+                "validDaysMonthsYears": "Valido per {{duration_years}}, {{ duration_months }} e {{ duration_days }}",
+                "validYear": "Valido per {{ count }} anno",
+                "validYear_plural": "Valido per {{ count }} anni",
+                "validMonth": "Valido per {{ count }} mese",
+                "validMonth_plural": "Valido per {{ count }} mesi",
+                "validDay": "Valido per {{ count }} giorno",
+                "validDay_plural": "Valido per {{ count }} giorni"
+            },
+            "addButton": {
+                "buttonContent": "Aggiungi al carrello"
+            },
+            "validity": {
+                "day": "{{count}} giorno",
+                "day_plural": "{{count}} giorni",
+                "month": "{{count}} mese",
+                "month_plural": "{{count}} mesi",
+                "year": "{{count}} anno",
+                "year_plural": "{{count}} anni"
+            },
+            "details": {
+                "buttonContent": "Dettagli"
+            },
+            "credits": {
+                "unlimited": "Illimitato",
+                "availableCredit": "{{count}} credito",
+                "availableCredit_plural": "{{count}} crediti"
+            },
+            "title": {
+                "universalPassMessage": "Tessera universale, utilizzabile per lezioni di gruppo e appuntamenti"
+            }
         }
     },
     "event": {
@@ -11228,7 +11291,12 @@
                     "4": "Tag",
                     "3": "Notifica push",
                     "2": "SMS",
-                    "1": "Email"
+                    "1": "Email",
+                    "form": {
+                        "helper": "Seleziona una o più azioni da eseguire quando un membro entra in questa fase. Questa opzione è facoltativa.",
+                        "reset": "Elimina",
+                        "submit": "Convalida"
+                    }
                 },
                 "event": {
                     "billing_plan-renew": "Rinnovo",
@@ -11313,7 +11381,10 @@
                 "createCadenceHelper": "Grazie alle cadenze, indirizza meglio le operazioni di marketing che invii ai tuoi membri in base al loro comportamento sulla piattaforma. Crea una sequenza di attività che i tuoi membri devono completare per ottenere, ad esempio, determinate promozioni o determinati tag.",
                 "edit": "Modifica",
                 "submit": "Crea",
-                "cancel": "Cancella"
+                "cancel": "Cancella",
+                "error": {
+                    "triggerCannotBeEmpty": "È necessario selezionare un tipo di voce."
+                }
             },
             "cadenceIndexHelper": "L'ordine delle cadenze definisce l'ordine di priorità, se un membro può inserire 2 diverse cadenze, inizierà con la più alta nell'elenco.",
             "marketingElement": "Azioni di marketing",
@@ -11324,7 +11395,88 @@
             "editModeLabel": "Passa alla modalità di modifica",
             "editMode": "Modifica",
             "shutOff": "Pausa",
-            "back": "Indietro"
+            "back": "Indietro",
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "Sei in modalità di visualizzazione, fai clic su MODIFICA per poter modificare la cadenza.",
+                    "cadenceIsActive": "La tua cadenza è in corso, ti preghiamo di metterla in pausa per poterla modificare."
+                },
+                "nodeElement": {
+                    "deleteStep": "Elimina passaggio",
+                    "cancelOnGoingCreation": "Annulla creazione",
+                    "edgeLabelForNodeCreation": "In creazione",
+                    "addElement": "Aggiungi un trigger"
+                },
+                "tools": {
+                    "showDisabledTriggers": "Mostra trigger disattivati",
+                    "hideDisabledTriggers": "Nascondi i trigger disattivati",
+                    "hideControls": "Nascondi barra degli strumenti",
+                    "showControls": "Mostra barra degli strumenti",
+                    "hideMap": "Nascondi minimappa",
+                    "showMap": "Mostra minimappa",
+                    "centerView": "Vista centrale"
+                }
+            },
+            "triggers": {
+                "smartlist": {
+                    "label": "Smartlist"
+                },
+                "events": {
+                    "label": "Acquista",
+                    "book_chip": "Prenotazione",
+                    "purchase_chip": "Acquista"
+                },
+                "timeout": {
+                    "timout_days_chip": "{{ days }} giorni"
+                },
+                "trigger": "Trigger",
+                "exit": "Uscita",
+                "start": "Ingresso"
+            },
+            "cadenceCard": {
+                "lost": "Perso",
+                "win": "Vinto"
+            },
+            "activate": {
+                "dialog": {
+                    "cancel": "Cancella",
+                    "secondHelper": "Non sarai più in grado di modificarlo mentre è in esecuzione.",
+                    "firstHelper": "Vuoi inizializzare la cadenza?",
+                    "title": "Inizializza la cadenza"
+                },
+                "setupBeforeActivationHelper": "Completa l'impostazione della cadenza e crea la tua prima azione di marketing per inizializzare la tua cadenza.",
+                "button": "Inizia"
+            },
+            "archive": {
+                "archivedHeader": "Cadenze archiviate",
+                "dialog": {
+                    "confirm": "Continua",
+                    "cancel": "Cancella",
+                    "helper": "I membri attualmente in cadenza usciranno automaticamente. Questa tariffa verrà archiviata, potrai riattivarla in seguito.",
+                    "beingArchived": "Stai per eliminare {{ name }}.",
+                    "title": "Eliminazione di una cadenza"
+                }
+            },
+            "svgText": {
+                "push_notification": "Notifica push",
+                "sms": "SMS",
+                "email": "Email",
+                "select_event": "Seleziona un evento",
+                "action_name": "{ Nome dell'azione di marketing }",
+                "marketing_actions": "Azioni di marketing",
+                "triggers": "Trigger"
+            },
+            "howTo": {
+                "set_trigger_destination": "{{ index }}. Reindirizzamento a un'azione di marketing",
+                "add_trigger": "{{ index }}. Aggiungi sezioni",
+                "add_smartlist_filter": "{{ index }}. Filtra per smartlist",
+                "edit_event": "{{ index }}. Modifica evento",
+                "add_event": "{{ index }}. Aggiungi un evento",
+                "edit_marketing_action": "{{ index }}. Modifica l'azione di marketing",
+                "add_marketing_action": "{{ index }}. Aggiungi un'azione di marketing",
+                "explain": "Modifica gli elementi del grafico facendo clic sui suoi elementi o crea collegamenti tra i blocchi trascinandoli e rilasciandoli.",
+                "title": "Come modificare la tua cadenza"
+            }
         }
     },
     "spotScheduling": {

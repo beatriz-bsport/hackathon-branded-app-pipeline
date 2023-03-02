@@ -15,6 +15,9 @@ import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackFormDialog from '#libs/payment-packs/components/PaymentPackForm';
+import CheckPermissionComponent from '../../role/components/CheckPermission.component';
+
+import { URLS_PERMISSIONS } from '#libs/role/constants';
 
 const PAGE_SIZE = 10;
 
@@ -33,6 +36,8 @@ type Props = {
   onSubmit: (data: any, options: any) => void,
   categoryList: any,
 };
+
+const [ADD_PASS_PERMISSION] = URLS_PERMISSIONS['/payment-pack'];
 
 export function CompatiblePaymentPacks(props: Props) {
   const [openPaymentPackForm, setOpenPaymentPackForm] =
@@ -83,12 +88,14 @@ export function CompatiblePaymentPacks(props: Props) {
         />
       </List>
       <div className={props.classes.buttonContainer}>
-        <Button
-          className={props.classes.button}
-          onClick={() => setOpenPaymentPackForm(!openPaymentPackForm)}
-        >
-          {props.t('forms.create.compatible_packs.createPass')}
-        </Button>
+        <CheckPermissionComponent requiredPermissions={ADD_PASS_PERMISSION}>
+          <Button
+            className={props.classes.button}
+            onClick={() => setOpenPaymentPackForm(!openPaymentPackForm)}
+          >
+            {props.t('forms.create.compatible_packs.createPass')}
+          </Button>
+        </CheckPermissionComponent>
         <Button
           id="button_activity_display"
           variant="contained"

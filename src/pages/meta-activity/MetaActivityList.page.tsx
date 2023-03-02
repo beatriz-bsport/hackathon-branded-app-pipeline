@@ -69,6 +69,7 @@ import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 // import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
 import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
+import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
@@ -222,7 +223,7 @@ type OwnProps = {
   activityToDelete: (activity: number) => void;
   fetchMarketingNotificationList: (params: any) => void;
 
-  goToPaymentPack: (id: number) => void;
+  goToPaymentPack: () => void;
 
   makeActivityCopy: (
     id: number,
@@ -698,7 +699,7 @@ export default compose(
       makeActivityCopy: makeActivityCopyAction,
       goToDetail: (metaActivityId: number) =>
         push(`/activity/${metaActivityId}/general`),
-      goToPaymentPack: () => push('/payment-pack'),
+      redirectIfAllowed: redirectIfAllowedAction,
       deleteMetaActivity,
       restoreMetaActivity,
       fetchMarketingNotificationList,
@@ -765,6 +766,14 @@ export default compose(
           console.error(err);
           if (options?.onError) options.onError(err);
         }
+      },
+    goToPaymentPack:
+      ({ redirectIfAllowed }) =>
+      () => {
+        redirectIfAllowed('/payment-pack', {
+          newWindow: false,
+          deniedAccessDialog: { display: true },
+        });
       },
   }),
   withState('activityToDelete', 'setActivityToDelete', null),

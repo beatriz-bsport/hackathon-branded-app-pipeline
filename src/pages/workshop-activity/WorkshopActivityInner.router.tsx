@@ -16,6 +16,7 @@ import withTitle from '#hocs/with-title.hoc';
 
 import WorkshopActivityList from './WorkshopActivityList.page';
 import WorkshopActivityGroup from './WorkshopActivityGroup.page';
+import { APP_HEIGHT } from '../constants.ts';
 
 type Props = {
   tab: 'list' | 'groups';
@@ -23,15 +24,13 @@ type Props = {
 } & WithTranslation &
   ConnectedProps<typeof connector>;
 
-const APP_HEIGHT = 32;
-
 const WorkshopActivityInnerRouter: React.FC<Props> = ({
   pageHeight,
   tab,
   push,
   t,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ pageHeight });
 
   return (
     <div className={classes.container}>
@@ -48,10 +47,7 @@ const WorkshopActivityInnerRouter: React.FC<Props> = ({
           <Tab label={t('workshop:tabGroups')} value="groups" />
         </Tabs>
       </AppBar>
-      <div
-        className={classes.content}
-        style={{ maxHeight: pageHeight - APP_HEIGHT }}
-      >
+      <div className={classes.content}>
         <Switch>
           <Route
             exact
@@ -70,7 +66,7 @@ const WorkshopActivityInnerRouter: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { pageHeight: number }>((theme: Theme) => ({
   container: {
     marginTop: theme.spacing(-3),
     width: '100vw',
@@ -93,6 +89,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   content: {
     flex: 1,
     overflow: 'auto',
+    maxHeight: ({ pageHeight }) => pageHeight - APP_HEIGHT,
   },
 }));
 

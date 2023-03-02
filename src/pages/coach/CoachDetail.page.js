@@ -168,7 +168,7 @@ export class Coach extends React.Component<Props> {
     }
     const { coach, coachPaymentRulesByKind } = this.props;
     return (
-      <div style={{ height: '100%' }}>
+      <div>
         {this.props.loading ? <LinearProgress /> : null}
         <CoachDetail
           editAccessToCoachSpace={this.props.editAccessToCoachSpace}

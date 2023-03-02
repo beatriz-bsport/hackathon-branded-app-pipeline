@@ -5,7 +5,6 @@ import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import withStyles from '@material-ui/core/styles/withStyles';
 import uniq from 'lodash/uniq';
 import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
 
@@ -76,7 +75,6 @@ import { PrivateService as PrivateServiceType } from '../../libs/private-service
 
 type Props = {
   companyTheme: CompanyTheme,
-  classes: Object,
   fetchAvailabilitySlots: (data: { coach: number }) => void,
   availabilitySlots: Array<AvailabilitySlot>,
 
@@ -145,11 +143,6 @@ type State = {
     }>,
   }>,
 };
-
-const styles = (theme) => ({
-  container: {},
-  leftIcon: { marginRight: theme.spacing(1) },
-});
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -327,13 +320,11 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes } = this.props;
-
     if (!this.props.coach) {
       return <LinearProgress />;
     }
     return (
-      <div className={classes.container}>
+      <div>
         {this.props.loading ? <LinearProgress /> : null}
         <PrivateCalendarWithControls
           disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
@@ -396,7 +387,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
 export default compose(
   routerParamsToProps({ coachId: 'id:number' }),
-  withStyles(styles),
   withTranslation(['privateService']),
   withState('periodFilter', 'setPeriodFilter', {
     start: moment().startOf('week').add(-1, 'day').format('YYYY-MM-DD'),

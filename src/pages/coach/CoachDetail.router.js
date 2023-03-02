@@ -9,18 +9,20 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core';
 
 import CoachDetail from './CoachDetail.page';
 import CoachPrivateCalendar from './CoachPrivateCalendar.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import { APP_HEIGHT } from '../constants.ts';
 
 type Props = {
-  classes: Object,
   tab: string,
   pushToTab: (id: number, tab: string) => void,
   coachId: number,
   t: TFunction,
+  pageHeight: number,
 };
 
 export const CoachDetailRouter = (props: Props) => {
@@ -33,8 +35,10 @@ export const CoachDetailRouter = (props: Props) => {
     }
   }, []);
 
+  const { pageHeight } = props;
+  const classes = useStyles({ pageHeight });
   return (
-    <div className={props.classes.container} ref={fieldRef}>
+    <div className={classes.container} ref={fieldRef}>
       <AppBar position="static" color="default">
         <Tabs
           scrollButtons="off"
@@ -51,22 +55,23 @@ export const CoachDetailRouter = (props: Props) => {
           />
         </Tabs>
       </AppBar>
-      <div className={props.classes.content}>
-        <Switch>
-          <Route
-            exact
-            path="/coach/:coachId/private-calendar"
-            component={CoachPrivateCalendar}
-          />
-          <Route path="/coach/:coachId" component={CoachDetail} />
-        </Switch>
+      <div className={classes.content}>
+        <div className={classes.insideContent}>
+          <Switch>
+            <Route
+              exact
+              path="/coach/:coachId/private-calendar"
+              component={CoachPrivateCalendar}
+            />
+            <Route path="/coach/:coachId" component={CoachDetail} />
+          </Switch>
+        </div>
       </div>
     </div>
   );
 };
-const styles = (theme) => ({
+const useStyles = makeStyles<{ pageHeight: number }>((theme) => ({
   container: {
-    marginBottom: theme.spacing(4),
     marginTop: theme.spacing(-3),
     width: '100vw',
     [theme.breakpoints.up('md')]: {
@@ -75,8 +80,16 @@ const styles = (theme) => ({
       marginRight: theme.spacing(-3),
       marginTop: theme.spacing(-2),
     },
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 100%',
   },
   content: {
+    flex: 1,
+    overflow: 'auto',
+    maxHeight: ({ pageHeight }) => pageHeight - APP_HEIGHT,
+  },
+  insideContent: {
     marginBottom: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
       margin: theme.spacing(2),
@@ -84,7 +97,7 @@ const styles = (theme) => ({
     },
     marginTop: theme.spacing(2),
   },
-});
+}));
 
 export default compose(
   routerParamsToProps({
@@ -92,8 +105,8 @@ export default compose(
     coachId: 'coachId:number',
   }),
   withTranslation(['coach']),
-  withStyles(styles),
   connect(null, {
     pushToTab: (id, tab) => push(`/coach/${id}/${tab}`),
   }),
+  withPageHeightHOC(),
 )(CoachDetailRouter);

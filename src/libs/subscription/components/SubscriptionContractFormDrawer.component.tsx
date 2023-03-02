@@ -22,10 +22,17 @@ export const SubscriptionContractFormDrawer = (
 ) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
+
+  const { onClose, resetForm } = props;
+  const onDrawerClose = React.useCallback(() => {
+    resetForm();
+    onClose();
+  }, [onClose, resetForm]);
+
   return (
     <GenericResponsiveDrawer
       open={props.open}
-      onClose={props.onClose}
+      onClose={onDrawerClose}
       title={t('contract.form.title')}
       trackingObjectIdentifier={
         SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION
@@ -39,7 +46,8 @@ export const SubscriptionContractFormDrawer = (
           <Button
             onClick={() => {
               trackFormCancel(props.initial?.id);
-              props.onClose();
+              resetForm();
+              onClose();
             }}
           >
             {t('cancel')}

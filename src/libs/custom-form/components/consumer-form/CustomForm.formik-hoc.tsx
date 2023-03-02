@@ -60,18 +60,20 @@ export const ConsumerFormFields = (props: Props) => {
           >
             {fieldsAreIndependent
               ? custom_form_field?.map((field: CustomFormField, i: number) => (
-                  <FastField
-                    key={i.toString()}
-                    name={`custom_form_field.${i}.answer`}
-                  >
-                    {() => (
-                      <CustomFormConsumerInput
-                        {...restProps}
-                        field={field}
-                        index={i}
-                      />
-                    )}
-                  </FastField>
+                  <div key={field?.id?.toString()}>
+                    <FastField
+                      key={i.toString()}
+                      name={`custom_form_field.${i}.answer`}
+                    >
+                      {() => (
+                        <CustomFormConsumerInput
+                          {...restProps}
+                          field={field}
+                          index={i}
+                        />
+                      )}
+                    </FastField>
+                  </div>
                 ))
               : custom_form_field?.map((field: CustomFormField, i: number) => (
                   <div key={field?.id?.toString()}>

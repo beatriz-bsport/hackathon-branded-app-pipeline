@@ -134,12 +134,12 @@ export function private_services_passes_factory(
       credits: 5,
       price: 200.0,
       tax: 20.0,
-      private_services: [],
+      private_services: private_services_factory(5),
       manager_only: random_choice([true, false]),
       available: random_choice([true, false]),
-      duration_days: 0,
-      duration_months: 0,
-      duration_years: 1,
+      duration_days: Math.floor(Math.random() * 30),
+      duration_months: Math.floor(Math.random() * 12),
+      duration_years: Math.floor(Math.random() * 3),
       available_payment_method_identifiers: [],
       full_vod_access: random_choice([true, false]),
       editable: random_choice([true, false]),
@@ -147,6 +147,8 @@ export function private_services_passes_factory(
       start_date_method: 5,
       new_member_only: random_choice([true, false]),
       company: 1,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
     };
   });
 }

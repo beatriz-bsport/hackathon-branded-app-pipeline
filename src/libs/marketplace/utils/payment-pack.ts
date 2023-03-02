@@ -12,7 +12,7 @@ import { formatAsDate } from '../../../utils/datetime';
 import type { PaymentPack } from '#libs/payment-packs/types';
 
 export const useValidityInfoForPaymentPackCard = (paymentPack: PaymentPack) => {
-  const { t } = useTranslation(['marketplace']);
+  const { t } = useTranslation('marketplace');
   const validityInfo = useMemo(() => {
     if (paymentPack.validity_daterange) {
       return t('genericCard.validForDuration.validFromTo', {
@@ -144,4 +144,88 @@ export const useValidityInfoForPaymentPackCard = (paymentPack: PaymentPack) => {
     return null;
   }, [t, paymentPack]);
   return validityInfo;
+};
+
+export const useCompatibilityInfoForPaymentPackDetailCard = (
+  paymentPack: PaymentPack,
+) => {
+  const { t } = useTranslation('marketplace');
+  const categoryInfo = useMemo(() => {
+    const countCategories = paymentPack.categories?.length;
+    const countActivities = paymentPack.metaActivities?.length;
+    const countEstablishments = paymentPack.establishments?.length;
+
+    if (!!countCategories && !!countActivities && !!countEstablishments) {
+      return t(
+        'genericCardDetails.compatibility.packs.categoriesAndActivitiesAndEstablishments',
+        {
+          categories: t('genericCardDetails.compatibility.categories', {
+            count: countCategories,
+          }),
+          activities: t('genericCardDetails.compatibility.activities', {
+            count: countActivities,
+          }),
+          establishments: t('genericCardDetails.compatibility.establishments', {
+            count: countEstablishments,
+          }),
+        },
+      );
+    }
+    if (!!countCategories && !!countActivities && !countEstablishments) {
+      return t(
+        'genericCardDetails.compatibility.packs.categoriesAndActivities',
+        {
+          categories: t('genericCardDetails.compatibility.categories', {
+            count: countCategories,
+          }),
+          activities: t('genericCardDetails.compatibility.activities', {
+            count: countActivities,
+          }),
+        },
+      );
+    }
+    if (!!countCategories && !countActivities && !!countEstablishments) {
+      return t(
+        'genericCardDetails.compatibility.packs.categoriesAndEstablishment',
+        {
+          categories: t('genericCardDetails.compatibility.categories', {
+            count: countCategories,
+          }),
+          establishments: t('genericCardDetails.compatibility.establishments', {
+            count: countEstablishments,
+          }),
+        },
+      );
+    }
+    if (!countCategories && !!countActivities && !!countEstablishments) {
+      return t(
+        'genericCardDetails.compatibility.packs.establishmentsAndActivities',
+        {
+          activities: t('genericCardDetails.compatibility.activities', {
+            count: countActivities,
+          }),
+          establishments: t('genericCardDetails.compatibility.establishments', {
+            count: countEstablishments,
+          }),
+        },
+      );
+    }
+    if (!!countCategories && !countActivities && !countEstablishments) {
+      return t('genericCardDetails.compatibility.packs.categories', {
+        count: countCategories,
+      });
+    }
+    if (!countCategories && !!countActivities && !countEstablishments) {
+      return t('genericCardDetails.compatibility.packs.activities', {
+        count: countActivities,
+      });
+    }
+    if (!countCategories && !countActivities && !!countEstablishments) {
+      return t('genericCardDetails.compatibility.packs.establishments', {
+        count: countEstablishments,
+      });
+    }
+    return null;
+  }, [t, paymentPack]);
+  return categoryInfo;
 };

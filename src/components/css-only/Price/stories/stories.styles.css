@@ -1,13 +1,13 @@
 .primary {
-    color: steelblue;
+    color: var(--color-primary-main);
 }
 
 .default {
-    color: rgb(51, 51, 51);
+    color: var(--color-grey-dark);
 }
 
 .secondary {
-    color: tomato;
+    color: var(--color-secondary-main);
 }
 
 .icon{

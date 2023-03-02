@@ -160,6 +160,7 @@ export type PrivatePass<LPP = number | null> = {
   template_instance: number;
   is_unpaid_private_booking_integration: boolean;
   linked_payment_pack?: LPP;
+  description?: string;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {

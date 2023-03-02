@@ -1,0 +1,68 @@
+.bs-restrictions-modal__backdrop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.bs-restrictions-modal{
+    background-color: #fff;
+}
+
+.bs-restriction-modal__title {
+    font-size: var(--h5-fontSize);
+    line-height: var(--h5-lineHeight);
+    margin-top: var(--spacing-2);
+    font-weight: var(--h5-fontWeight);
+}
+
+.bs-restriction-modal__body {
+    border-top: var(--color-grey-light) solid 2px;
+    border-bottom: var(--color-grey-light) solid 2px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-2);
+}
+
+.bs-restriction-modal__list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: var(--spacing-2);
+}
+
+.bs-restriction-modal__list__item {
+    font-size: var(--h6-fontSize);
+    line-height: var(--h6-lineHeight);
+    font-weight: var(--h6-fontWeight);
+    margin-top: var(--spacing-2) ;
+    margin-bottom: var(--spacing-2);
+}
+
+.bs-restriction-modal__button {
+    height: 100%;
+    border: none;
+    padding: var(--spacing-3);
+    font-family: var(--h6-fontFamily);
+    font-size: var(--h6-fontSize);
+    color: var(--color-grey-medium);
+    background:none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right:var(--spacing-5)
+}
+
+li {
+    list-style-type: none;
+}

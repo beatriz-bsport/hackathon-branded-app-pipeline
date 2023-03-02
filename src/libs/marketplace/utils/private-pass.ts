@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
-
-import { useMemo } from 'react';
 
 import type { PrivatePass } from '#libs/private-service/types';
 

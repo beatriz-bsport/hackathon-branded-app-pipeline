@@ -1,4 +1,6 @@
 import Card, { Props } from './Card.component';
+import { CardSize } from './types';
 
-export { Props };
+export type { Props };
+export { CardSize };
 export default Card;

@@ -1,0 +1,133 @@
+.bs-pack-details-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bs-pack-details-dialog__description{
+    color: var(--color-grey-main);
+    font-size: var(--body-1-fontSize);
+}
+
+.bs-pack-details-dialog__container {
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 300px;
+}
+
+.bs-pack-details-dialog__header-container {
+    background: linear-gradient(100deg, #f6f8fa 50%, #FFFFFF 50%);
+    border-top-left-radius: var(--border-radius-1);
+}
+
+.bs-pack-details-dialog__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.bs-pack-details-dialog__header__title {
+    font-size: var(--h5-fontSize);
+    line-height: var(--h5-lineHeight);
+    margin: 0 var(--spacing-8) 0 0;
+    font-weight: var(--fontWeightMedium);
+}
+
+.bs-pack-details-dialog__grid {
+    gap: 0;
+    background-color: #fff ;
+}
+
+.bs-pack-details-dialog__item {
+    background-color: #fff;
+    border-bottom-left-radius: var(--border-radius-2);
+    border-bottom-right-radius: var(--border-radius-2);
+    border-top: 1px solid var(--color-grey-light);
+    display: flex;
+    padding: var(--spacing-2)
+}
+
+.bs-pack-details-dialog__footer {
+    border-bottom-left-radius: var(--border-radius-1);
+    border-bottom-right-radius: var(--border-radius-1);
+}
+
+.bs-pack-details-dialog__buttons button {
+    border: none;
+    font-size: var(--button-fontSize);
+    font-weight: var(--button-fontWeight);
+    font-family: var(--button-fontFamily);
+    letter-spacing: var(--button-letterSpacing);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color var(--duration-shortest) var(--easing-easeInOut);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--border-radius-10);
+}
+
+.bs-pack-details-dialog__buttons__cancel {
+    color: var(--color-primary-main);
+    margin-right: var(--spacing-2);
+    background: none;
+}
+
+.bs-pack-details-dialog__buttons__add-to-cart {
+    color: #fff;
+    background: var(--color-primary-main);
+}
+
+.bs-pack-details-dialog__buttons__cancel:hover,
+.bs-pack-details-dialog__buttons__cancel:focus {
+    background: var(--color-hover);
+}
+
+.bs-pack-details-dialog__buttons__add-to-cart:hover,
+.bs-pack-details-dialog__buttons__add-to-cart:focus {
+    background: var(--color-primary-dark)
+}
+
+::-webkit-scrollbar{
+    width: var(--spacing-1);
+    background-color:#fff;
+}
+
+::-webkit-scrollbar-track{
+    width: var(--spacing-1);
+    border-radius: 4px;
+    background-color: #EEEEEE;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 4px;
+    background-color: #BDBDBD
+}
+
+@media screen and (max-width: 570px) {
+    .bs-pack-details-dialog__body {
+        display: none;
+    }
+    .bs-pack-details-dialog__footer{
+        display: none;
+    }
+
+    .bs-pack-details-dialog__header {
+        flex-direction: column;
+        height: 80px;
+    }
+
+    .bs-pack-details-dialog__container {
+        max-height: none;
+    }
+
+        ::-webkit-scrollbar{
+            display: none;
+        }
+}

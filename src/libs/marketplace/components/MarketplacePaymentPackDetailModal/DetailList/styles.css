@@ -1,0 +1,86 @@
+.bs-pack-details-dialog__list {
+    padding: var(--spacing-2) 0 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2);
+    margin: 0;
+}
+
+.bs-pack-details-dialog__list__item {
+    font-family: var(--body2-fontFamily);
+    display: flex;
+    align-items: center;
+    color: var(--color-grey-main);
+    font-weight: var(--fontWeightMedium);
+    font-size: var(--body1-fontSize);
+}
+
+.bs-pack-details-dialog__list__item__button {
+    padding: 0;
+    border: none;
+    display: flex;
+    background: none;
+    cursor: pointer;
+    justify-content: space-between;
+    font-family: inherit;
+    color: inherit;
+    align-items: center;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.bs-pack-details-dialog__list__item__link {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--color-primary-main);
+    font-size: inherit;
+    font-weight: inherit;
+    margin-left: var(--spacing-1);
+}
+
+.sublist {
+    display: grid;
+}
+
+.bs-pack-details-dialog__list__item__button__content {
+    display: flex;
+    align-items: center;
+}
+
+.bs-pack-details-dialog__list__item__button__expand-icon {
+    color: var(--color-primary-main);
+}
+
+.bs-pack-details-dialog__list__item__sublist {
+    padding: var(--spacing-1) 0 0 var(--spacing-3);
+}
+
+.bs-pack-details-dialog__list__item__sublist__item {
+    list-style-type: disc;
+    font-weight: var(--body1-fontWeight);
+}
+
+.bs-pack-details-dialog__list__item__icon {
+    display: flex;
+    margin-right: var(--spacing-1);
+}
+
+.mobile {
+    display: none;
+}
+
+@media screen and (max-width: 570px) {
+    .bs-pack-details-dialog__list {
+        grid-template-columns: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+    .desktop{
+        display: none;
+    }
+}

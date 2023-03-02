@@ -26,7 +26,7 @@ privatePassCard.args = {
 }
 
 export default {
-    title: 'Components/Marketplace/PassCard/PrivatePassCard',
+    title: 'Components/Marketplace/PassCards/Cards/PrivatePassCard',
     component: MarketplacePrivatePassCard,
     parameters: {
         layout: 'centered',

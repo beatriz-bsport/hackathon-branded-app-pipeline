@@ -36,7 +36,7 @@ paymentPackCardWithDateRange.args = {
 }
 
 export default {
-    title: 'Components/Marketplace/PassCard/PaymentPackCard',
+    title: 'Components/Marketplace/PassCards/Cards/PaymentPackCard',
     component: MarketplacePaymentPackCard,
     parameters: {
         layout: 'centered',

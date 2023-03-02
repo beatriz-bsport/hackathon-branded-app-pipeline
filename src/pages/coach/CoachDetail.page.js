@@ -136,6 +136,32 @@ export class Coach extends React.Component<Props> {
     this.props.fetchDisciplineGroupList();
   }
 
+  handleDelete = () => {
+    this.props.setDeleteModalOpen(true);
+  };
+
+  handleShare = () => {
+    this.props.setOpenWidgetDialog(true);
+  };
+
+  handleCloseCoachDeleteModal = () => {
+    this.props.setDeleteModalOpen(false);
+  };
+
+  handleCloseWidgetGeneratorDialog = () => {
+    this.props.setOpenWidgetDialog(false);
+  };
+
+  handleEdit = () => {
+    this.props.startUpdateCoach(this.props.coach);
+  };
+
+  handleDeleteCoach = () => {
+    this.props.deleteCoach(this.props.coach.id, {
+      onSuccess: this.props.goToList,
+    });
+  };
+
   render() {
     if (!this.props.coach) {
       return null;
@@ -169,24 +195,20 @@ export class Coach extends React.Component<Props> {
           }
         />
         <BottomActionButtons
-          onEdit={() => this.props.startUpdateCoach(coach)}
-          onDelete={() => this.props.setDeleteModalOpen(true)}
-          onShare={() => this.props.setOpenWidgetDialog(true)}
+          onEdit={this.handleEdit}
+          onDelete={this.handleDelete}
+          onShare={this.handleShare}
         />
         <CoachDeleteModal
           coachToDeleteId={this.props.deleteOpen ? this.props.coach.id : null}
-          onClose={() => this.props.setDeleteModalOpen(false)}
+          onClose={this.handleCloseCoachDeleteModal}
           checkCanDeleteCoach={canDeleteCoachAPI}
-          deleteCoach={() => {
-            this.props.deleteCoach(coach.id, {
-              onSuccess: this.props.goToList,
-            });
-          }}
+          deleteCoach={this.handleDeleteCoach}
         />
 
         <WidgetGeneratorDialog
           open={this.props.openWidgetDialog}
-          onClose={() => this.props.setOpenWidgetDialog(false)}
+          onClose={this.handleCloseWidgetGeneratorDialog}
           componentType="calendar"
           config={{
             calendar: {

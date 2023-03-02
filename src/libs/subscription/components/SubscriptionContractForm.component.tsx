@@ -265,18 +265,16 @@ export function SubscriptionContractFields(
         />
         <InfoBox
           content={t(
-            'contract.form.invoicing.same_day_as_subscription.recurrence_explain',
+            `contract.form.invoicing.same_day_as_subscription.recurrence_explain.${props.values.interval}`,
             {
+              // *1 to force count to update when values.recurrence_basis changes
+              count: props.values.recurrence_basis * 1,
               recurrence_basis: props.values.recurrence_basis,
-              one_interval: t(`contract.interval.${props.values.interval}`, {
-                // *1 to force count to update when values.recurrence_basis changes
-                count: props.values.recurrence_basis * 1,
-              }),
               nb_interval: props.values.nb_interval,
-              all_intervals: t(`contract.interval.${props.values.interval}`, {
+              time_unit: t(`contract.interval.${props.values.interval}`, {
                 count: props.values.nb_interval * props.values.recurrence_basis,
               }),
-              total_interval_duration:
+              total_subscription_duration:
                 props.values.nb_interval * props.values.recurrence_basis,
               invoice: t('contract.form.invoicing.invoice', {
                 count: props.values.nb_interval * 1,

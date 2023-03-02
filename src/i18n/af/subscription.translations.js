@@ -387,8 +387,21 @@ exports.default = {
           label: "Facturer le même jour que la date d'achat de la souscription",
           explain:
             "Le jour de facturation dépendra du jour d'achat de l'abonnement.",
-          recurrence_explain:
-            'La souscription sera facturée tous les {{ recurrence_basis }} {{ one_interval }} sur une durée totale de {{ total_interval_duration }} {{ all_intervals }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+          recurrence_explain: {
+            day: 'La souscription sera facturée tous les jours sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            day_plural:
+              'La souscription sera facturée tous les {{ recurrence_basis }} jours sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            week: 'La souscription sera facturée toutes les semaines sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            week_plural:
+              'La souscription sera facturée toutes les {{ recurrence_basis }} semaines sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            month:
+              'La souscription sera facturée tous les mois sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            month_plural:
+              'La souscription sera facturée tous les {{ recurrence_basis }} mois sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            year: 'La souscription sera facturée tous les ans sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+            year_plural:
+              'La souscription sera facturée tous les {{ recurrence_basis }} ans sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
+          },
         },
         fixed_day: {
           label: 'Facturer à un jour fixe',

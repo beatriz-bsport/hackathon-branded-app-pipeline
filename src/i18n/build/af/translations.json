@@ -3211,7 +3211,15 @@
           "penaltyDay": "{{count}} jour",
           "penaltyDay_plural": "{{count}} jours"
         },
-        "see": "Voir"
+        "see": "Voir"},
+    "packCard": {
+      "comboItemList": {
+        "paymentPackItem": "{{count}} carte de cours",
+        "paymentPackItem_plural": "{{count}} cartes de cours",
+        "privatePassItem": "{{count}} carte de RDV",
+        "privatePassItem_plural": "{{count}} cartes de RDV",
+        "hiddenItem": "{{count}} autre élément",
+        "hiddenItem_plural": "{{count}} autres éléments"
       }
     }
   },
@@ -11438,4 +11446,5 @@
     },
     "lessonContent": { "previousLesson": "Précédent", "nextLesson": "Suivant", "finish": "Terminer la section" }
   }
+}
 }

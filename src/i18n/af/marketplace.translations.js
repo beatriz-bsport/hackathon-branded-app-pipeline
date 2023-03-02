@@ -165,5 +165,15 @@ exports.default = {
       },
       see: 'Voir',
     },
+    packCard: {
+      comboItemList: {
+        paymentPackItem: '{{count}}\u00A0carte\u00A0de\u00A0cours',
+        paymentPackItem_plural: '{{count}}\u00A0cartes\u00A0de\u00A0cours',
+        privatePassItem: '{{count}}\u00A0carte\u00A0de\u00A0RDV',
+        privatePassItem_plural: '{{count}}\u00A0cartes\u00A0de\u00A0RDV',
+        hiddenItem: '{{count}}\u00A0autre\u00A0élément',
+        hiddenItem_plural: '{{count}}\u00A0autres\u00A0éléments',
+      },
+    },
   },
 };

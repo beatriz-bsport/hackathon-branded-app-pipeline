@@ -4,28 +4,49 @@ import {
   fetchConfiguration as fetchConfigurationAPI,
   patchConfiguration as patchConfigurationAPI,
   fetchFilteredBookingOptions as fetchFilteredBookingOptionsAPI,
+  fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
   discardBookingOption as discardBookingOptionAPI,
   registerOptionToWaitingList as registerOptionToWaitingListAPI,
 } from './api';
 
 import { snackbarError } from '../snackbar/actions';
 
-import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  OptionPaginatedCallback,
+  PaginatedResponse,
+  ThunkAction,
+} from '../../state/types';
 
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#libs/role/constants';
+import {
+  WaitingListBookingOption,
+  WaitingListBookingOptionPaginatedQueryParams,
+  WaitingListBookingOptionQueryParams,
+  WaitingListConfiguration,
+} from './types';
 
 export const configurationDetail = {
-  error: createAction('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
-  isLoading: createAction('WAITING_LIST_CONFIGURATION/DETAIL/IS_LOADING'),
-  success: createAction('WAITING_LIST_CONFIGURATION/DETAIL/SUCCESS'),
+  error: createAction<Error>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
+  isLoading: createAction<boolean>(
+    'WAITING_LIST_CONFIGURATION/DETAIL/IS_LOADING',
+  ),
+  success: createAction<WaitingListConfiguration>(
+    'WAITING_LIST_CONFIGURATION/DETAIL/SUCCESS',
+  ),
 };
 
 export const configurationUpdate = {
-  error: createAction('WAITING_LIST_CONFIGURATION/UPDATE/ERROR'),
-  isLoading: createAction('WAITING_LIST_CONFIGURATION/UPDATE/IS_LOADING'),
+  error: createAction<Error>('WAITING_LIST_CONFIGURATION/UPDATE/ERROR'),
+  isLoading: createAction<boolean>(
+    'WAITING_LIST_CONFIGURATION/UPDATE/IS_LOADING',
+  ),
 };
 
-export function patchConfiguration(data: any): ThunkAction {
+export function patchConfiguration(
+  data: WaitingListConfiguration,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(configurationUpdate.isLoading(true));
     dispatch(configurationUpdate.error(null));
@@ -34,8 +55,9 @@ export function patchConfiguration(data: any): ThunkAction {
       const response = await patchConfigurationAPI(data);
 
       dispatch(configurationDetail.success(response.data));
-    } catch (error) {
-      dispatch(configurationUpdate.error(error));
+    } catch (err) {
+      console.error(err);
+      dispatch(configurationUpdate.error(err));
     }
 
     dispatch(configurationUpdate.isLoading(false));
@@ -51,8 +73,9 @@ export function fetchConfiguration(): ThunkAction {
       const response = await fetchConfigurationAPI();
 
       dispatch(configurationDetail.success(response.data));
-    } catch (error) {
-      dispatch(configurationDetail.error(error));
+    } catch (err) {
+      console.error(err);
+      dispatch(configurationDetail.error(err));
     }
 
     dispatch(configurationDetail.isLoading(false));
@@ -60,22 +83,24 @@ export function fetchConfiguration(): ThunkAction {
 }
 
 export const byOfferActions = {
-  error: createAction('WAITING_LIST/OPTION//BY_OFFER/ERROR'),
-  isLoading: createAction('WAITING_LIST/OPTION/BY_OFFER/IS_LOADING'),
-  success: createAction('WAITING_LIST/OPTION/BY_OFFER/SUCCESS'),
+  error: createAction<Error>('WAITING_LIST/OPTION//BY_OFFER/ERROR'),
+  isLoading: createAction<boolean>('WAITING_LIST/OPTION/BY_OFFER/IS_LOADING'),
+  success: createAction<WaitingListBookingOption[]>(
+    'WAITING_LIST/OPTION/BY_OFFER/SUCCESS',
+  ),
 };
 
 export function fetchByOffer(
-  offer: number,
-  params: any,
-  options?: OptionCallback,
+  offerId: number,
+  params: WaitingListBookingOptionQueryParams,
+  options?: OptionCallback<WaitingListBookingOption[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferActions.error(null));
     dispatch(byOfferActions.isLoading(true));
     try {
       const response = await fetchFilteredBookingOptionsAPI({
-        offer,
+        offer: offerId,
         as_manager: true,
         ...(params || {}),
       });
@@ -91,14 +116,16 @@ export function fetchByOffer(
 }
 
 export const discardOptionActions = {
-  error: createAction('WAITING_LIST/OPTION/DISCARD/ERROR'),
-  isLoading: createAction('WAITING_LIST/OPTION/DISCARD/IS_LOADING'),
-  success: createAction('WAITING_LIST/OPTION/DISCARD/SUCCESS'),
+  error: createAction<Error>('WAITING_LIST/OPTION/DISCARD/ERROR'),
+  isLoading: createAction<boolean>('WAITING_LIST/OPTION/DISCARD/IS_LOADING'),
+  success: createAction<WaitingListBookingOption>(
+    'WAITING_LIST/OPTION/DISCARD/SUCCESS',
+  ),
 };
 
 export function discardBookingOption(
   bookingOptionId: number,
-  params: any,
+  params: { disable_notification?: boolean },
   options?: OptionCallback<number>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -119,15 +146,17 @@ export function discardBookingOption(
 }
 
 export const registerOptionActions = {
-  error: createAction('WAITING_LIST/OPTION/REGISTER/ERROR'),
-  isLoading: createAction('WAITING_LIST/OPTION/REGISTER/IS_LOADING'),
-  success: createAction('WAITING_LIST/OPTION/REGISTER/SUCCESS'),
+  error: createAction<Error>('WAITING_LIST/OPTION/REGISTER/ERROR'),
+  isLoading: createAction<boolean>('WAITING_LIST/OPTION/REGISTER/IS_LOADING'),
+  success: createAction<WaitingListBookingOption>(
+    'WAITING_LIST/OPTION/REGISTER/SUCCESS',
+  ),
 };
 
 export function registerToWaitingList(
   offerId: number,
   memberId?: number,
-  options?: OptionCallback,
+  options?: OptionCallback<WaitingListBookingOption>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerOptionActions.isLoading(true));
@@ -157,15 +186,19 @@ export function registerToWaitingList(
 }
 
 export const asConsumerActions = {
-  error: createAction('WAITING_LIST/OPTION/AS_CONSUMER/ERROR'),
-  isLoading: createAction('WAITING_LIST/OPTION/AS_CONSUMER/IS_LOADING'),
-  success: createAction('WAITING_LIST/OPTION/AS_CONSUMER/SUCCESS'),
+  error: createAction<Error>('WAITING_LIST/OPTION/AS_CONSUMER/ERROR'),
+  isLoading: createAction<boolean>(
+    'WAITING_LIST/OPTION/AS_CONSUMER/IS_LOADING',
+  ),
+  success: createAction<WaitingListBookingOption[]>(
+    'WAITING_LIST/OPTION/AS_CONSUMER/SUCCESS',
+  ),
 };
 
 export function fetchBookingOptionAsConsumer(
   company: number,
-  params: any = {},
-  options?: OptionCallback,
+  params: WaitingListBookingOptionQueryParams,
+  options?: OptionCallback<WaitingListBookingOption[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(asConsumerActions.error(null));
@@ -187,15 +220,17 @@ export function fetchBookingOptionAsConsumer(
 }
 
 export const forMemberActions = {
-  error: createAction('WAITING_LIST/OPTION/FOR_MEMBER/ERROR'),
-  isLoading: createAction('WAITING_LIST/OPTION/FOR_MEMBER/IS_LOADING'),
-  reset: createAction('WAITING_LIST/OPTION/FOR_MEMBER/RESET'),
-  success: createAction('WAITING_LIST/OPTION/FOR_MEMBER/SUCCESS'),
+  error: createAction<Error>('WAITING_LIST/OPTION/FOR_MEMBER/ERROR'),
+  isLoading: createAction<boolean>('WAITING_LIST/OPTION/FOR_MEMBER/IS_LOADING'),
+  reset: createAction<void>('WAITING_LIST/OPTION/FOR_MEMBER/RESET'),
+  success: createAction<PaginatedResponse<WaitingListBookingOption>>(
+    'WAITING_LIST/OPTION/FOR_MEMBER/SUCCESS',
+  ),
 };
 
 export function fetchBookingOptionForMember(
-  params = {},
-  options?: OptionCallback,
+  params: WaitingListBookingOptionPaginatedQueryParams,
+  options?: OptionPaginatedCallback<WaitingListBookingOption>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(forMemberActions.error(null));
@@ -205,12 +240,17 @@ export function fetchBookingOptionForMember(
     }
 
     try {
-      const response = await fetchFilteredBookingOptionsAPI({
+      const response = await fetchFilteredBookingOptionsPaginatedAPI({
+        page: 1,
+        page_size: 5,
         ...params,
       });
 
       dispatch(
-        forMemberActions.success({ ...response.data, page: params.page }),
+        forMemberActions.success({
+          ...response.data,
+          page: params.page,
+        }),
       );
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
@@ -223,17 +263,21 @@ export function fetchBookingOptionForMember(
 }
 
 export const forBookingActions = {
-  error: createAction('WAITING_LIST/OPTION/FOR_BOOKING/ERROR'),
-  isLoading: createAction('WAITING_LIST/OPTION/FOR_BOOKING/IS_LOADING'),
-  success: createAction('WAITING_LIST/OPTION/FOR_BOOKING/SUCCESS'),
-  reset: createAction('WAITING_LIST/OPTION/FOR_BOOKING/RESET'),
+  error: createAction<Error>('WAITING_LIST/OPTION/FOR_BOOKING/ERROR'),
+  isLoading: createAction<boolean>(
+    'WAITING_LIST/OPTION/FOR_BOOKING/IS_LOADING',
+  ),
+  success: createAction<WaitingListBookingOption[]>(
+    'WAITING_LIST/OPTION/FOR_BOOKING/SUCCESS',
+  ),
+  reset: createAction<void>('WAITING_LIST/OPTION/FOR_BOOKING/RESET'),
 };
 
 export const resetBookingOptionForBooking = forBookingActions.reset;
 
 export function fetchBookingOptionForBooking(
   offer: number,
-  options?: OptionCallback,
+  options?: OptionCallback<WaitingListBookingOption[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(forBookingActions.error(null));

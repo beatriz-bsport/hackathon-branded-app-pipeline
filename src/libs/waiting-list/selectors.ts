@@ -1,26 +1,29 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 
-export const getBookingOptionConsumerList = (state) =>
+export const getBookingOptionConsumerList = (state: RootState) =>
   state.waitingList.option.items;
 
-const _getForBookingIds = (state) => state.waitingList.option.forBooking.allIds;
+const _getForBookingIds = (state: RootState) =>
+  state.waitingList.option.forBooking.allIds;
 
-const _getData = (state) => state.waitingList.option.byId;
+const _getData = (state: RootState) => state.waitingList.option.byId;
 
 export const getBookingOptionListForBooking = createSelector(
   [_getData, _getForBookingIds],
-  (data, ids) => ids.map((id) => data[id]).filter((bp) => !bp.booking),
+  (data, ids) => ids.map((id) => data[id]).filter((option) => !option.booking),
 );
 
 export const getBookingOptionListForBookingNotConvertible = createSelector(
   getBookingOptionListForBooking,
-  (boList) => boList.filter((bo) => !bo.is_convertible),
+  (bookingOptionList) =>
+    bookingOptionList.filter((bookingOption) => !bookingOption.is_convertible),
 );
 
 export const getBookingOptionListForBookingConvertible = createSelector(
   getBookingOptionListForBooking,
-  (boList) => boList.filter((bo) => bo.is_convertible),
+  (bookingOptionList) =>
+    bookingOptionList.filter((bookingOption) => bookingOption.is_convertible),
 );
 
 export const getBookingOptionListForMember = (state: RootState) => {

@@ -19,16 +19,15 @@ import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import Alert from '@material-ui/lab/Alert';
 import {
-  WAITING_LIST_AUTO_CANCELLATION_DUMB,
-  WAITING_LIST_AUTO_CANCELLATION_SMART,
-} from '@bsport/common/lib/master-data/waiting-list-auto-cancellation';
-import {
   WAITING_LIST_DYNAMIC_UNORDERED,
   WAITING_LIST_DYNAMIC_ORDERED,
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import NumericInput from '../../../components/input/NumericInput.component';
 
-import type { WaitingListConfiguration } from '../types';
+import type {
+  WaitingListConfiguration,
+  WaitingListAutoCancellation,
+} from '../types';
 
 type Props = {
   t: TFunction,
@@ -102,7 +101,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     const { t } = this.props;
     if (
       this.state.configuration.auto_cancellation_type ===
-      WAITING_LIST_AUTO_CANCELLATION_DUMB.id
+      WaitingListAutoCancellation.dumb
     ) {
       return t(
         `form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.overallExplainSimple`,
@@ -210,14 +209,14 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 <Radio
                   checked={
                     this.state.configuration.auto_cancellation_type ===
-                    WAITING_LIST_AUTO_CANCELLATION_DUMB.id
+                    WaitingListAutoCancellation.dumb
                   }
                   onChange={() =>
                     this.handleChange('auto_cancellation_type')(
-                      WAITING_LIST_AUTO_CANCELLATION_DUMB.id,
+                      WaitingListAutoCancellation.dumb,
                     )
                   }
-                  value={WAITING_LIST_AUTO_CANCELLATION_DUMB.id}
+                  value={WaitingListAutoCancellation.dumb}
                   name="simple"
                   aria-label="simple"
                 />
@@ -233,7 +232,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               }}
               disabled={
                 this.state.configuration.auto_cancellation_type ===
-                WAITING_LIST_AUTO_CANCELLATION_SMART.id
+                WaitingListAutoCancellation.smart
               }
               value={this.state.configuration.dumb_delay_minutes}
               onChange={(ev) =>
@@ -249,14 +248,14 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 <Radio
                   checked={
                     this.state.configuration.auto_cancellation_type ===
-                    WAITING_LIST_AUTO_CANCELLATION_SMART.id
+                    WaitingListAutoCancellation.smart
                   }
                   onChange={() =>
                     this.handleChange('auto_cancellation_type')(
-                      WAITING_LIST_AUTO_CANCELLATION_SMART.id,
+                      WaitingListAutoCancellation.smart,
                     )
                   }
-                  value={WAITING_LIST_AUTO_CANCELLATION_SMART.id}
+                  value={WaitingListAutoCancellation.smart}
                   name="smart"
                   aria-label="smart"
                 />
@@ -272,7 +271,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               }}
               disabled={
                 this.state.configuration.auto_cancellation_type ===
-                WAITING_LIST_AUTO_CANCELLATION_DUMB.id
+                WaitingListAutoCancellation.dumb
               }
               onChange={(ev) =>
                 this.handleChange('smart_delay_percentage')(

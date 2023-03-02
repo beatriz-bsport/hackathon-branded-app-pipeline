@@ -134,6 +134,7 @@ import { TutorialState } from '#libs/platform-tutorial/types';
 import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
 import { CadenceState } from '#libs/sequential_marketing/types';
+import { WaitingListState } from '#libs/waiting-list/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -288,7 +289,7 @@ export type RootState = {
   theme: ThemeState;
   userPreference: UserPreference;
   video: VideoState;
-  waitingList: any;
+  waitingList: WaitingListState;
   webhook: any;
   zoomApp: any;
   terminal: TerminalState;

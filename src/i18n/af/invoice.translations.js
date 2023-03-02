@@ -187,6 +187,7 @@ exports.default = {
       title: 'Récapitulatif',
       amountDue: 'Total dû',
       amountPaid: 'Encaissement',
+      amountBeingProcessed: 'Montant en cours de traitement',
       amountRemaining: 'Reste à payer',
     },
     actions: {

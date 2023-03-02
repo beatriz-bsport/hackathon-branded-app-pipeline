@@ -295,6 +295,19 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
   ) {
     amountToPayCts = 0;
   }
+
+  const amoutBeingProcessedCts = props.plannedPaymentEventList
+    .filter(
+      (ppe) =>
+        ppe.processing &&
+        ppe.status === PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
+    )
+    .reduce(
+      (partialSum, currentPlannedPaymentEvent) =>
+        partialSum + parseInt(currentPlannedPaymentEvent.amount_cts, 10),
+      0,
+    );
+
   const is_reverse = props.invoice.source_invoice;
   return (
     <div className={classes.container}>
@@ -402,6 +415,20 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 )}
               </Typography>
             </div>
+            {!!amoutBeingProcessedCts && (
+              <div className={classes.textRow}>
+                <Typography>
+                  {t('paymentPanel.sumup.amountBeingProcessed')}
+                </Typography>
+                <div className={classes.line} />
+                <Typography>
+                  {getCurrencyDisplayWithPrice(
+                    Math.max(amoutBeingProcessedCts / 100, 0).toFixed(2),
+                  )}
+                </Typography>
+              </div>
+            )}
+
             <div className={classes.textRow}>
               <Typography variant="h6">
                 {t('paymentPanel.sumup.amountRemaining')}

@@ -49,6 +49,7 @@ export type PlannedPaymentEvent = {
   status: number;
   error_recoverable_manually: boolean;
   recoverable_error_type: string;
+  processing: boolean;
 };
 
 export type PaymentGroup = {

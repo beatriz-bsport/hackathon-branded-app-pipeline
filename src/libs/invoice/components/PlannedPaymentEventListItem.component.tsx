@@ -100,6 +100,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
   if (plannedPaymentEvent.processing) {
     StatusIcon = RefreshIcon;
   }
+
   if (plannedPaymentEvent.status === PLANNED_PAYMENT_EVENT_STATUS_CANCELED) {
     onDisable = null;
     onRegisterNow = null;

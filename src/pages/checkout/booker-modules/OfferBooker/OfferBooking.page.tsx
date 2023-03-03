@@ -337,8 +337,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
     if (
       !this.state.hasInitShowSpotSelector &&
       !this.props.offerLoading &&
+      this.props.offer &&
       !this.props.similarOfferGroupsLoading &&
       !this.props.offerStatusLoading &&
+      this.props.offerStatusById?.[this.props.id] &&
       this.props.theme
     ) {
       this.updateOffersWaitingForSpotSelection();

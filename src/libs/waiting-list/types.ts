@@ -4,7 +4,7 @@ import {
 } from '@bsport/common/lib/master-data/waiting-list-auto-cancellation';
 import type { ErrorAndLoading } from '../types';
 
-enum WaitingListAutoCancellation {
+export enum WaitingListAutoCancellation {
   dumb = WAITING_LIST_AUTO_CANCELLATION_DUMB.id,
   smart = WAITING_LIST_AUTO_CANCELLATION_SMART.id,
 }

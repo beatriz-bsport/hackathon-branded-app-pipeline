@@ -24,7 +24,7 @@ import {
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import NumericInput from '../../../components/input/NumericInput.component';
 
-import type {
+import {
   WaitingListConfiguration,
   WaitingListAutoCancellation,
 } from '../types';

@@ -1565,8 +1565,8 @@
                 "isEmpty": "Nessuna email ancora inviata"
             },
             "report": {
-                "totalRead": "Aperture",
-                "totalClick": "Click",
+                "totalRead": "Numero di persone che hanno aperto l'e-mail",
+                "totalClick": "Numero di persone che hanno cliccato su un link",
                 "deliveryRate": "Invio riuscito",
                 "noTopLink": "Nessun clic",
                 "lastOpen": "Ultima apertura",
@@ -5015,7 +5015,8 @@
                 "amountRemaining": "Resto da pagare",
                 "amountPaid": "Incasso",
                 "amountDue": "Totale dovuto",
-                "title": "Ricapitolazione"
+                "title": "Ricapitolazione",
+                "amountBeingProcessed": "Importo in lavorazione"
             },
             "date": {
                 "label": "Data di incasso"
@@ -5099,11 +5100,20 @@
                 "registerNow": "Incassare ora",
                 "disable": "De-programmazione",
                 "enable": "Riprogrammazione di",
-                "changeMethod": "Cambiare il metodo di pagamento"
+                "changeMethod": "Cambiare il metodo di pagamento",
+                "solveInvalidPaymentAttempt": "Regolarizzare"
             },
             "nextRetryDate": "Il pagamento sarà ritardato fino a {{ d }}",
             "lockedToday": "Il pagamento scade oggi, non puoi più cambiarlo",
-            "registerNowInitialData": "Pagamento originariamente dovuto il {{-date}}"
+            "registerNowInitialData": "Pagamento originariamente dovuto il {{-date}}",
+            "dialog": {
+                "invalidMandate": {
+                    "confirm": "Seguente",
+                    "cancel": "Annulla",
+                    "explainSituation": "Il mandato associato a questo metodo di pagamento è scaduto. Ciò può essere dovuto a molteplici ragioni, troppi pagamenti falliti, una decisione unilaterale della banca, ecc. Il metodo di pagamento non è più utilizzabile, sarà necessario registrarne uno nuovo",
+                    "title": "Mandato di addebito diretto scaduto o non valido!"
+                }
+            }
         },
         "mandate": {
             "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
@@ -10384,7 +10394,53 @@
             "loadMore": "Mostra di piú"
         },
         "paymentCombo": {
-            "addToCart": "Aggiungi al carrello"
+            "addToCart": "Aggiungi al carrello",
+            "form": {
+                "manager_only": {
+                    "label": "Invisibile ai clienti"
+                },
+                "usePaymentComboTaxOnItems": {
+                    "helperText": "Per impostazione predefinita, la tassa applicata a ciascun oggetto è quella indicata sull'oggetto. Selezionando questa opzione, potrai applicare una tassa generale sul pacco.",
+                    "label": "Applicare un'IVA generale all'intero pacchetto"
+                },
+                "tax": {
+                    "label": "IVA"
+                },
+                "price": {
+                    "label": "Prezzo"
+                },
+                "description": {
+                    "label": "Descrizione"
+                },
+                "name": {
+                    "label": "Nome"
+                },
+                "maxPurchasePerMember": {
+                    "helperText": "Lascia vuoto per non imporre un limite",
+                    "label": "Acquisto massimo per membro"
+                },
+                "error": {
+                    "atLeastOneThing": "Devi aggiungere almeno un articolo nel tuo pacchetto"
+                }
+            },
+            "list": {
+                "buttons": {
+                    "add": "Crea un pacchetto"
+                },
+                "explainIfEmpty": "Crea pacchetti acquistabili qui dagli studenti che possano contenere pass, articoli del negozio, ecc.",
+                "section": {
+                    "availableOnline": "Disponibile per la vendita",
+                    "unavailableOnline": "Non disponibile per la vendita"
+                }
+            },
+            "link": {
+                "copyLink": "Copia il link alla pagina di pagamento",
+                "copied": "Collegamento copiato"
+            },
+            "pageTitle": {
+                "list": "Pacchetti"
+            },
+            "search": "Trova un pacchetto"
         },
         "calendar": {
             "registered": "Già registrato",

@@ -885,23 +885,35 @@ export const VaccinationStatusField = withStyles(styles)(
   }),
 );
 
+const useStyle = makeStyles(() => ({
+  select: {
+    '&:focus': {
+      backgroundColor: 'transparent',
+    },
+  },
+}));
+
 export const SelectField = withStyles(styles)(
   withTranslation([])((props: SelectFieldProps) => {
     const { t, choices, label, fullWidth, classes, required } = props;
+    const labelRef = React.useRef(null);
+    const selectRef = React.useRef(null);
+    const selectClasses = useStyle();
     return (
       <Field {...props}>
-        {({ field, meta: { touched, error } }) => (
+        {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
           <MuiFormControl
             fullWidth={fullWidth}
             required={required}
             error={!!(touched && error)}
           >
             {label && (
-              <InputLabel shrink htmlFor="select-helper">
+              <InputLabel shrink htmlFor="select-helper" ref={labelRef}>
                 {label}
               </InputLabel>
             )}
             <Select
+              ref={selectRef}
               nameCypress={`select-${props.name}`}
               {...field}
               {...omit(props, [
@@ -912,6 +924,14 @@ export const SelectField = withStyles(styles)(
                 'i18nOptions',
                 'reportNS',
               ])}
+              onChange={(e) => {
+                if (!props.keepFocusOnSelect) {
+                  labelRef.current?.classList?.remove('Mui-focused');
+                  selectRef.current?.classList?.remove('Mui-focused');
+                }
+                setFieldValue(field.name, e.target.value);
+              }}
+              classes={selectClasses}
             >
               {choices.map((c) => {
                 if (props.itemRenderer) {

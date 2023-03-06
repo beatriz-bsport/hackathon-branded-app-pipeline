@@ -92,7 +92,7 @@ export const ExpenseForm = (props: Props) => {
     };
   });
   staffChoices.push({
-    value: null,
+    value: 0,
     label: t('form.noStaff'),
   });
 
@@ -145,13 +145,13 @@ export const ExpenseForm = (props: Props) => {
                 ...initial,
                 assigned_staff: initial.assigned_staff
                   ? initial.assigned_staff.id
-                  : null,
+                  : 0,
               }
             : {
                 date_due: now,
                 amount: 0,
                 category: null,
-                assigned_staff: null,
+                assigned_staff: 0,
                 supplier: null,
                 description: null,
                 rrule: null,
@@ -161,6 +161,8 @@ export const ExpenseForm = (props: Props) => {
           const sanithizedValues = {
             ...values,
             date_due: moment(values.date_due).format(DATE_FORMAT),
+            assigned_staff:
+              values.assigned_staff === 0 ? null : values.assigned_staff,
           };
           if (!values.rrule) {
             sanithizedValues.rrule = null;
@@ -414,9 +416,8 @@ export const expenseSchema = Yup.object().shape({
   date_due: Yup.string().required('form.requiredField'),
   amount: Yup.string().required('form.requiredField'),
   category: Yup.string().nullable(),
-  assigned_staff: Yup.number().nullable(),
+  assigned_staff: Yup.number(),
   supplier: Yup.string().required('form.requiredField'),
   description: Yup.string().required('form.requiredField'),
-  // eslint-disable-next-line react/forbid-prop-types
   rrule: Yup.object().nullable(),
 });

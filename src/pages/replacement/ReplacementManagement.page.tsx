@@ -889,6 +889,7 @@ const handlers = {
       companyId,
     }: ConnectProps) =>
     (page: number) => {
+      const { offer_available } = replacementRequestManagerFilter;
       fetchAllReplacementRequests(
         {
           ...replacementRequestManagerFilter,
@@ -896,7 +897,8 @@ const handlers = {
             ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_WITH_NO_REPLACEMENT_PROPOSITIONS,
             ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_WITH_REPLACEMENT_PROPOSITIONS,
           ],
-          offer_is_in_the_past: false,
+          // For unavailable offer mode, the fetch must include past and future offers.
+          ...(offer_available ? { offer_is_in_the_past: false } : {}),
           company: companyId,
           page,
           page_size: PAGE_SIZE,

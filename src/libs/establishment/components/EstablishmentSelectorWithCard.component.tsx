@@ -19,6 +19,7 @@ type OwnProps = {
   placeholder: string;
   value: any;
   id: number;
+  disableAutoFocus?: boolean;
 };
 
 type Props = OwnProps & WithStyles;
@@ -117,6 +118,7 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
                 items={this.props.establishments}
                 placeholder={this.props.placeholder}
                 searchResult={this.state.searchResult}
+                disableAutoFocus={this.props.disableAutoFocus}
               />
             </Button>
             {this.state.displayList && this.state.searchResult ? (

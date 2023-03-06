@@ -16,6 +16,7 @@ type Props = {
   placeholder?: string;
   helperText?: string;
   error?: boolean;
+  disableAutoFocus?: boolean;
 } & TextFieldProps;
 
 type State = {
@@ -70,7 +71,7 @@ export default class DelayedTextField extends Component<Props, State> {
           this.handleChange(event);
         }}
         value={this.state.value}
-        autoFocus
+        autoFocus={!this.props.disableAutoFocus}
         fullWidth
       />
     );

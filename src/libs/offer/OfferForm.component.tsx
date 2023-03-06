@@ -185,6 +185,8 @@ type OwnProps = {
   disableWaitingList: boolean;
   disableTag: boolean;
   zoomAppDetail: ZoomApp;
+  disableEstablishmentSelectorFocus?: boolean;
+  disableCoachSelectorFocus?: boolean;
 };
 
 type Props = OwnProps &
@@ -564,6 +566,7 @@ export class OfferForm extends Component<Props, State> {
               !establishment && this.onFormFieldChange('roomBlueprint')(null);
             }}
             placeholder={t('establishment:search')}
+            disableAutoFocus={this.props.disableEstablishmentSelectorFocus}
           />
         </Grid>
         {!!roomBlueprintsForEstablishment.length && (
@@ -607,6 +610,7 @@ export class OfferForm extends Component<Props, State> {
               this.onFormFieldChange('coach')(coach ? coach.id : null)
             }
             placeholder={t('coach:search')}
+            disableAutoFocus={this.props.disableCoachSelectorFocus}
           />
         </Grid>
         {this.props.editableCoachPaymentRule && (

@@ -26,7 +26,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Select from '@material-ui/core/Select';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
-import GroupedOfferCreate from '#libs/group-offer/components/GroupedOfferCreateForm.drawer';
+import GroupedOfferCreateForm from '#libs/group-offer/components/GroupedOfferCreateForm.drawer';
 import GroupedOfferEditDrawer from '#libs/group-offer/components/GroupedOfferEdit.drawer';
 import GroupedOfferDuplicate from '#libs/group-offer/components/GroupedOfferDuplicateForm.drawer';
 import GroupedOfferDeleteDialog from '#libs/group-offer/components/GroupedOfferDelete.dialog';
@@ -597,7 +597,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           hideEmptyText={hideEmptyState}
         />
         {/* Groups Modal */}
-        <GroupedOfferCreate
+        <GroupedOfferCreateForm
           open={openCreateModal}
           metaActivities={[..._metaActivities]}
           metaActivity={metaActivity}

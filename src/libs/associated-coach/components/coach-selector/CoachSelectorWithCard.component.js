@@ -18,6 +18,7 @@ type Props = {
   value: any,
   coaches: any,
   id: number,
+  disableAutoFocus?: boolean,
 };
 
 export class CoachSelector extends Component<Props, State> {
@@ -85,6 +86,7 @@ export class CoachSelector extends Component<Props, State> {
                 items={this.props.coaches}
                 placeholder={this.props.placeholder}
                 searchResult={this.state.searchResult}
+                disableAutoFocus={this.props.disableAutoFocus}
               />
             </Button>
             {this.state.displayList && this.state.searchResult ? (

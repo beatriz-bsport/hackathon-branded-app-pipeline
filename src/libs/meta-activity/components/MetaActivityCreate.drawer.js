@@ -228,6 +228,8 @@ export class MetaActivityCreateDrawer extends Component<Props> {
         this.props.companyTheme.allow_guest_activatable &&
         this.props.companyTheme.allow_guest
       }
+      disableEstablishmentSelectorFocus
+      disableCoachSelectorFocus
     />
   );
 

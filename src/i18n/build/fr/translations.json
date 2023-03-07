@@ -2850,6 +2850,12 @@
         },
         "calendar": {
             "registered": "Déjà inscrit(e)"
+        },
+        "genericCardDetails": {
+            "compatibility": {
+                "categories": "{{ count }} catégorie",
+                "categories_plural": "{{ count }} catégories"
+            }
         }
     },
     "member": {
@@ -6318,7 +6324,7 @@
             "unpaid_invoices": "Factures impayées",
             "memberships": "Cartes de cours",
             "basket": "Panier",
-            "credit": "Crédit",
+            "credit": "Solde client",
             "payment_sumup": "Totaux paiements",
             "private_cpasses": "Carte RDV",
             "shop": "Magasin",
@@ -6461,7 +6467,7 @@
             "pk": "ID",
             "amortized_price": "Restant dû",
             "end_date": "Fin de validité",
-            "credits": "Crédits totaux",
+            "credits": "Solde client",
             "available_credits": "Crédits disponible PCA",
             "payment_method_readable_identifier": "Méthode de paiement",
             "note": "Note",

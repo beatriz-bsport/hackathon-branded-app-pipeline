@@ -1175,7 +1175,13 @@
                 "rangeError": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden"
             },
             "emailError": "Het opgegeven e-mail formaat is ongeldig.",
-            "noPartnershipIntegration": "Marktet place reserveringen zijn niet beschikbaar voor groepssessies"
+            "noPartnershipIntegration": "Marktet place reserveringen zijn niet beschikbaar voor groepssessies",
+            "period": {
+                "year": "Jaren",
+                "month": "Maanden",
+                "week": "Weken",
+                "day": "Dagen"
+            }
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1693,8 +1699,8 @@
                 "isEmpty": "Er zijn geen verstuurde berichten om weer te geven."
             },
             "report": {
-                "totalRead": "Aantal keer geopend",
-                "totalClick": "Aantal keer geklikt",
+                "totalRead": "Aantal mensen die de e-mail hebben geopend",
+                "totalClick": "Aantal mensen die op een link hebben geklikt",
                 "deliveryRate": "Succesvol verzonden",
                 "lastOpen": "Laatst geopend op:",
                 "dateCreated": "Verzenddatum:",
@@ -4780,7 +4786,43 @@
             }
         },
         "recurrenceIndex": "Herhaling: {{ index }}",
-        "pendingReplacementRequest": "Een verzoek om vervanging staat open"
+        "pendingReplacementRequest": "Een verzoek om vervanging staat open",
+        "rollCall": {
+            "drawer": {
+                "listMembers": "Lijst van geregistreerde leden",
+                "info": "Het valideren van de oproep start de countdown voor no-show sancties.",
+                "rollCall": "Bellen"
+            },
+            "chip": {
+                "notValidatedRollCall": "Oproep niet gevalideerd",
+                "validatedRollCall": "Beroep gevalideerd op {{-date}} {{time}}"
+            },
+            "dialog": {
+                "savedRollCall": "Het gesprek is opgenomen.",
+                "savedRollCall_plural": "De gesprekken zijn opgenomen.",
+                "validatedRollCall": "Beroep geldig verklaard",
+                "validatedRollCall_plural": "Beroepen geldig verklaard",
+                "confirmationRollCall": "Let op: leden die als afwezig zijn gemarkeerd en in het bezit zijn van een onbeperkte kaart waarvoor sancties gelden, worden bestraft. Weet u zeker dat u het gesprek wilt bevestigen?",
+                "confirmationRollCall_plural": "U valideert de oproep voor alle sessies van de dag. Let op: leden die als afwezig zijn gemarkeerd en in het bezit zijn van een onbeperkte kaart waarvoor sancties gelden, worden bestraft. Weet u zeker dat u alle oproepen wilt bevestigen?",
+                "validationRollCall": "Valideer de oproep"
+            },
+            "button": {
+                "validationRollCall": "Valideer de oproep",
+                "validationRollCall_plural": "Valideer de oproepen"
+            },
+            "warningIcon": {
+                "stateChanged": "De status is gewijzigd maar niet gevalideerd"
+            },
+            "warningText": {
+                "lastValidatedRollCall": "Laatste gevalideerde oproep op {{-date}} {{time}}",
+                "noRollCallLeft": "Alle oproepen werden gevalideerd",
+                "rollCallsLeftToValidate": "{{ number }} gesprek vereist validatie",
+                "rollCallsLeftToValidate_plural": "{{ number }} gesprekken vereisen validatie",
+                "validatedDate": "Gevalideerd op {{- date }} om {{ time }}",
+                "modifiedRollCall": "De oproep is gewijzigd, u moet hem opnieuw valideren",
+                "notValidatedRollCall": "Het beroep werd niet geldig verklaard"
+            }
+        }
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -5628,6 +5670,94 @@
                 "availableCredit": "{{count}} credit",
                 "availableCredit_plural": "{{count}} credits"
             }
+        },
+        "genericCardDetails": {
+            "packCard": {
+                "comboItemList": {
+                    "hiddenItem": "{{count}} ander element",
+                    "hiddenItem_plural": "{{count}} andere elementen",
+                    "privatePassItem": "{{count}} afspraakkaart",
+                    "privatePassItem_plural": "{{count}} afspraakkaarten",
+                    "paymentPackItem": "{{count}} leskaart",
+                    "paymentPackItem_plural": "{{count}} leskaarten"
+                }
+            },
+            "includedElements": {
+                "see": "Zie",
+                "penalty": {
+                    "penaltyDay": "{{count}} dag",
+                    "penaltyDay_plural": "{{count}} dagen",
+                    "amount": "{{penalty_amount}} afgetrokken na {{penalty_cancellations}} uit tijd over een periode van {{penalty_days_period}}",
+                    "days": "{{penalty_days}} van het blokkeren na {{penalty_cancellations}} buiten de tijd over een {{penalty_days_period}} periode"
+                },
+                "maxPurchasePerMember": "{{count}} aankoop per lid",
+                "maxPurchasePerMember_plural": "{{count}} aankoop per leden",
+                "restrictions": {
+                    "maxPerMonth": "Maximum {{count}} gebruik per maand",
+                    "maxPerMonth_plural": "Maximum {{count}} gebruik per maanden",
+                    "perMonth": "{{count}} gebruik per maand",
+                    "perMonth_plural": "{{count}} gebruik per maanden",
+                    "maxPerWeek": "Maximaal {{count}} gebruik per week",
+                    "maxPerWeek_plural": "Maximaal {{count}} gebruik per weken",
+                    "perWeek": "{{count}} gebruik per week",
+                    "perWeek_plural": "{{count}} gebruik per weken",
+                    "maxPerDay": "Maximum {{count}} gebruik per dag",
+                    "maxPerDay_plural": "Maximum {{count}} gebruik per dagen",
+                    "perDay": "{{count}} gebruik per dag",
+                    "perDay_plural": "{{count}} gebruik per dagen",
+                    "title": "Beperkingen op het gebruik"
+                },
+                "newMemberOnly": "Alleen voor nieuwe leden",
+                "isUniversalPass": "Universele kaart",
+                "compatibleWithEverything": "Compatibel met alle",
+                "onlyVodAccess": "Alleen beschikbaar voor VOD",
+                "fullVodAccess": "VOD-compatibel",
+                "onsitePaymentAvailable": "Betaling ter plaatse mogelijk",
+                "cancellation": "{{count}} annulering",
+                "cancellation_plural": "{{count}} annuleringen"
+            },
+            "restrictions": "Restricties",
+            "compatibility": {
+                "packs": {
+                    "and": " en ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatibel met {{ categories }}, {{ establishments }} en {{ activities }} ",
+                    "establishmentsAndActivities": "Compatibel met {{ establishments }} en {{ activities }} ",
+                    "categoriesAndEstablishment": "Compatibel met {{ categories }} en {{ establishments }} ",
+                    "categoriesAndActivities": "Compatibel met {{ categories }} en {{ activities }} ",
+                    "establishments": "Compatibel met {{ count }} zaal",
+                    "establishments_plural": "Compatibel met {{ count }} zalen",
+                    "activities": "Compatibel met {{ count }} activiteit",
+                    "activities_plural": "Compatibel met {{ count }} activiteiten",
+                    "categories": "Compatibel met {{ count }} categorie",
+                    "categories_plural": "Compatibel met {{ count }} categorieën",
+                    "compatible": "Compatibel met ",
+                    "all": "Compatibel met alle"
+                },
+                "compatibilityModal": {
+                    "establishments": "Zalen",
+                    "activities": "Activiteiten",
+                    "categories": "Categoriën"
+                },
+                "establishments": "{{ count }} zaal",
+                "establishments_plural": "{{ count }} zalen",
+                "activities": "{{ count }} activiteit",
+                "activities_plural": "{{ count }} activiteiten",
+                "categories": "{{ count }} categorie",
+                "categories_plural": "{{ count }} categoriën",
+                "button": {
+                    "close": "Sluit"
+                },
+                "allPrivateSlotsAvailables": "Alle soorten sessies",
+                "compatibilities": "Compatibel",
+                "compatible": "Compatibel met {{count}} afspraak",
+                "compatible_plural": "Compatibel met {{count}} afspraken",
+                "none": "Geen afspraak mogelijk"
+            },
+            "credits": {
+                "unlimited": "Onbeperkt",
+                "availableCredit": "{{count}} credit",
+                "availableCredit_plural": "{{count}} credits"
+            }
         }
     },
     "selfCheckIn": {
@@ -5829,7 +5959,8 @@
                 },
                 "nb_interval": {
                     "helperText": "Abonnementen hebben een minimumtermijn van 2 maanden.",
-                    "label": "Aantal facturaties"
+                    "label": "Aantal facturaties",
+                    "error": "Het aantal facturen mag niet meer dan 90 bedragen"
                 },
                 "description": {
                     "placeholder": "Een exclusieve aanbieding",
@@ -5880,6 +6011,39 @@
                 "interval": {
                     "helperText": "Hoe vaak wordt de klant in rekening gebracht?",
                     "label": "Facturatie"
+                },
+                "settings": {
+                    "title": "Parameters"
+                },
+                "invoicing": {
+                    "invoicing_type_readonly": "Het is niet mogelijk het facturerings type te wijzigen",
+                    "fixed_day": {
+                        "explain": "Elke factuur wordt op de gekozen dag gefactureerd. De eerste betaling wordt eventueel pro rata berekend.",
+                        "label": "Factureren op een vaste dag"
+                    },
+                    "same_day_as_subscription": {
+                        "recurrence_explain": {
+                            "year": "Het abonnement wordt jaarlijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant zal de startdatum van zijn abonnement kunnen kiezen.",
+                            "year_plural": "Het abonnement wordt elke {{ recurrence_basis }} jaar gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
+                            "day": "Het abonnement wordt dagelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
+                            "day_plural": "Het abonnement wordt elke {{ recurrence_basis }} dagen gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
+                            "week": "Het abonnement wordt wekelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
+                            "week_plural": "Het abonnement wordt wekelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
+                            "month": "Het abonnement wordt maandelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
+                            "month_plural": "Het abonnement wordt maandelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen."
+                        },
+                        "explain": "De facturatiedatum hangt af van de dag van aankoop van het abonnement.",
+                        "label": "Factuur op dezelfde dag als de aankoopdatum van het abonnement"
+                    },
+                    "invoice": "factuur",
+                    "invoice_plural": "facturen",
+                    "title": "Facturatie"
+                },
+                "price": {
+                    "title": "Prijzen"
+                },
+                "general_info": {
+                    "title": "Algemene informatie"
                 }
             },
             "registerManager": {
@@ -8612,6 +8776,13 @@
                 "message": {
                     "error": "Deze betaalmethode kon niet worden toegevoegd.",
                     "success": "Deze betaalmethode is succesvol opgeslagen!"
+                },
+                "mandateRevalidated": {
+                    "success": "Het mandaat is verlengd en de volgende inzameling zal succesvol zijn.",
+                    "content": "Het mandaat voor de automatische incasso zal opnieuw worden gevalideerd bij de bank.",
+                    "collect": "Accepteren",
+                    "retry": "Probeer het opnieuw",
+                    "error": "Kunt u het incasso-mandaat niet verlengen, neem dan contact op met uw bank."
                 }
             },
             "savePaymentMethod": {
@@ -8800,7 +8971,8 @@
             },
             "errors": {
                 "60003": "Er bestaat al een lid met dit e-mailadres. Gebruik de vorige popup om ze te koppelen.",
-                "60002": "Het ingevulde e-mailadres is al gekoppeld aan een medewerkersaccount."
+                "60002": "Het ingevulde e-mailadres is al gekoppeld aan een medewerkersaccount.",
+                "60004": "De aangegeven e-mail is al gekoppeld aan een personeels franchise-account."
             }
         },
         "relationship": {
@@ -8811,7 +8983,10 @@
                 },
                 "create": {
                     "success": "Gedeelde leskaart",
-                    "error": "Fout bij het delen van deze leskaart"
+                    "error": {
+                        "generic": "Kan deze kaart helaas niet delen",
+                        "90004": "Deze kaart wordt gedeeld van een andere rekening"
+                    }
                 },
                 "relink": {
                     "success": "Delen opgeslagen",
@@ -8837,7 +9012,10 @@
                     "success": "Delen gestopt"
                 },
                 "create": {
-                    "error": "Deze afspraakkaart kan niet worden gedeeld",
+                    "error": {
+                        "generic": "Kan deze afspraak kaart niet delen",
+                        "90005": "Deze afsprakenkaart wordt gedeeld vanuit een ander account"
+                    },
                     "success": "Gedeelde afspraakkaart"
                 }
             },
@@ -11430,7 +11608,8 @@
                 "amountPaid": "Betaald",
                 "amountRemaining": "Resterend bedrag",
                 "amountDue": "Totaal verschuldigd",
-                "title": "Overzicht"
+                "title": "Overzicht",
+                "amountBeingProcessed": "Bedrag in behandeling"
             },
             "paymentList": {
                 "isEmpty": "Er is geen betaling geregistreerd.",
@@ -11600,11 +11779,20 @@
                 "registerNow": "Incasseren",
                 "enable": "Aanzetten",
                 "disable": "Beëindigen",
-                "changeMethod": "Betaalmethode wijzigen"
+                "changeMethod": "Betaalmethode wijzigen",
+                "solveInvalidPaymentAttempt": "Regulariseren"
             },
             "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien.",
             "lockedToday": "De betaling is vandaag verschuldigd, u kunt deze niet meer wijzigen",
-            "registerNowInitialData": "Betaling van: {{-date}}"
+            "registerNowInitialData": "Betaling van: {{-date}}",
+            "dialog": {
+                "invalidMandate": {
+                    "confirm": "Volgende",
+                    "cancel": "Annuleren",
+                    "explainSituation": "Het aan deze betaalmethode verbonden mandaat is verlopen. Dit kan verschillende oorzaken hebben, te veel mislukte betalingen, een eenzijdige beslissing van de bank, enz. De betaalmethode kan niet meer worden gebruikt en u moet een nieuwe registreren",
+                    "title": "Vervallen of ongeldig incasso-mandaat!"
+                }
+            }
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",

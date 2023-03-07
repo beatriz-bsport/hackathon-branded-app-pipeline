@@ -588,7 +588,13 @@
                 "rangeError": "Imposible crear sesiones que tengan lugar en más de 3 años"
             },
             "emailError": "El formato de correo electrónico especificado no es válido.",
-            "noPartnershipIntegration": "Las reservas del Marketplace no están disponibles para las sesiones de grupo"
+            "noPartnershipIntegration": "Las reservas del Marketplace no están disponibles para las sesiones de grupo",
+            "period": {
+                "year": "Años",
+                "month": "Meses",
+                "week": "Semanas",
+                "day": "Días"
+            }
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -2616,6 +2622,13 @@
                 "message": {
                     "error": "No se puede registrar este método de pago",
                     "success": "¡Método de pago guardado con éxito!"
+                },
+                "mandateRevalidated": {
+                    "retry": "Inténtelo de nuevo",
+                    "error": "Si no puede renovar la orden de domiciliación, póngase en contacto con su banco.",
+                    "success": "El mandato ha sido renovado y la próxima domiciliación se realizará correctamente.",
+                    "content": "La orden de domiciliación se revalidará con el banco.",
+                    "collect": "Aceptar"
                 }
             },
             "savePaymentMethod": {
@@ -3171,7 +3184,8 @@
                 "amountRemaining": "La cantidad restante a pagar",
                 "amountPaid": "Pagado",
                 "amountDue": "Total debido",
-                "title": "Resumen"
+                "title": "Resumen",
+                "amountBeingProcessed": "Importe en curso"
             },
             "date": {
                 "label": "Fecha de recogida"
@@ -3255,11 +3269,20 @@
                 "registerNow": "Recoge ahora",
                 "disable": "Desprogramar",
                 "enable": "Reprogramar",
-                "changeMethod": "Cambiar el método de pago"
+                "changeMethod": "Cambiar el método de pago",
+                "solveInvalidPaymentAttempt": "Regularizar"
             },
             "nextRetryDate": "El pago se retrasará hasta {{ d }}",
             "lockedToday": "El pago vence hoy, ya no se puede cambiar",
-            "registerNowInitialData": "El pago debía realizarse originalmente el {{fecha}}"
+            "registerNowInitialData": "El pago debía realizarse originalmente el {{fecha}}",
+            "dialog": {
+                "invalidMandate": {
+                    "confirm": "Siguiente",
+                    "cancel": "Cancelar",
+                    "explainSituation": "El mandato asociado a este método de pago ha expirado. Esto puede deberse a varias razones: demasiados pagos fallidos, una decisión unilateral del banco, etc. El método de pago ya no se puede utilizar y tendrá que registrar uno nuevo.",
+                    "title": "Mandato de domiciliación caducado o no válido."
+                }
+            }
         },
         "mandate": {
             "content": "Poniendo su IBAN y confirmando el pago, autoriza a bsport y Stripe, nuestro sistema de pago a enviar la información de facturación a su banco con todas las futuras facturaciones. Puede solicitar un reembolso a su banco dependiendo de su contrato. El reembolso debe ser solicitado 8 semanas antes del primer pago.",
@@ -3550,7 +3573,8 @@
                 },
                 "nb_interval": {
                     "helperText": "Al menos 2 meses",
-                    "label": "Número de facturas"
+                    "label": "Número de facturas",
+                    "error": "El número de facturaciones no debe superar 90"
                 },
                 "name": {
                     "label": "Nombre del contrato"
@@ -3586,6 +3610,39 @@
                 "interval": {
                     "helperText": "Frecuencia de generación de facturas/tarjetas",
                     "label": "Recurrencia"
+                },
+                "settings": {
+                    "title": "Parámetros"
+                },
+                "invoicing": {
+                    "invoicing_type_readonly": "No es posible cambiar el tipo de facturación",
+                    "fixed_day": {
+                        "explain": "Cada factura se facturará el día elegido. El primer pago se prorrateará si es necesario.",
+                        "label": "Facturar en un día fijo"
+                    },
+                    "same_day_as_subscription": {
+                        "recurrence_explain": {
+                            "year": "La suscripción se facturará cada año por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+                            "year_plural": "La suscripción se facturará cada {{ recurrence_basis }} años por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+                            "month": "La suscripción se facturará cada mes por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+                            "month_plural": "La suscripción se facturará cada {{ recurrence_basis }} meses por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+                            "week": "La suscripción se facturará cada semana por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+                            "week_plural": "La suscripción se facturará cada {{ recurrence_basis }} semanas por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de su suscripción.",
+                            "day": "La suscripción se facturará cada día por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de la suscripción.",
+                            "day_plural": "La suscripción se facturará cada {{ recurrence_basis }} días por una duración total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} y generará {{ nb_interval }} {{ invoice }}. El cliente podrá elegir la fecha de inicio de su suscripción."
+                        },
+                        "explain": "El día de facturación dependerá del día de compra del abono.",
+                        "label": "Factura el mismo día de la fecha de compra del abono"
+                    },
+                    "invoice": "factura",
+                    "invoice_plural": "facturas",
+                    "title": "Facturación"
+                },
+                "price": {
+                    "title": "Precio"
+                },
+                "general_info": {
+                    "title": "Información general"
                 }
             },
             "list": {
@@ -4179,7 +4236,7 @@
             "membership_name": "Abono",
             "amortized_price": "Compras diferidas",
             "end_date": "Fin de validez",
-            "credits": "Creditos totales",
+            "credits": "Saldo de la cuenta cliente",
             "available_credits": "Creditos disponibles PCA",
             "payment_method_readable_identifier": "Modo de pago",
             "tax": "IVA",
@@ -4461,7 +4518,7 @@
             "shop": "Tienda",
             "private_cpasses": "Tarjeta de cita",
             "payment_sumup": "Total pagos",
-            "credit": "Crédito",
+            "credit": "Saldo de la cuenta cliente",
             "basket": "Cesta",
             "memberships": "Bonos",
             "invoices": "Compras",
@@ -4915,7 +4972,43 @@
             }
         },
         "recurrenceIndex": "Grupo n°{{ index }} de la recurrencia",
-        "pendingReplacementRequest": "Está abierta una solicitud de sustitución"
+        "pendingReplacementRequest": "Está abierta una solicitud de sustitución",
+        "rollCall": {
+            "drawer": {
+                "listMembers": "Lista de los miembros inscritos",
+                "info": "La validación de la asistencia activa la cuenta atrás para las sanciones por no presentarse.",
+                "rollCall": "Asistencia"
+            },
+            "chip": {
+                "notValidatedRollCall": "Asistencia no validada",
+                "validatedRollCall": "Asistencia validada en {{- date }} {{ time }}"
+            },
+            "dialog": {
+                "savedRollCall": "La asistencia se ha guardado.",
+                "savedRollCall_plural": "Las asistencias se han guardado.",
+                "validatedRollCall": "Asistencia validada",
+                "validatedRollCall_plural": "Asistencias validadas",
+                "validationRollCall": "Validar la asistencia",
+                "confirmationRollCall": "Tenga en cuenta que los miembros marcados como ausentes y titulares de un pase ilimitado sujeto a penalización serán sancionados. ¿Está seguro de que desea confirmar la convocatoria?",
+                "confirmationRollCall_plural": "Está a punto de validar la convocatoria para todas las sesiones del día. Tenga en cuenta que se penalizará a los miembros marcados como ausentes y titulares de un pase ilimitado sujeto a penalización. ¿Está seguro de que desea confirmar todas las convocatorias?"
+            },
+            "button": {
+                "validationRollCall": "Validar la asistencia",
+                "validationRollCall_plural": "Validar las asistencias"
+            },
+            "warningText": {
+                "lastValidatedRollCall": "Última asistencia validada el {{- date }} {{ time }}",
+                "noRollCallLeft": "Todas las asistencias fueron validadas",
+                "rollCallsLeftToValidate": "{{ número }} asistencia requiere validación",
+                "rollCallsLeftToValidate_plural": "{{ número }} asistencias requieren validación",
+                "validatedDate": "Validada el {{- date }} a las {{ time }}",
+                "modifiedRollCall": "La asistencia ha sido modificada, debe validarla de nuevo",
+                "notValidatedRollCall": "La asistencia no fue validada"
+            },
+            "warningIcon": {
+                "stateChanged": "El estado ha sido modificado pero no validado"
+            }
+        }
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -5715,6 +5808,94 @@
             },
             "title": {
                 "universalPassMessage": "Tarjeta universal, puede utilizarse para actividades de grupo y citas"
+            }
+        },
+        "genericCardDetails": {
+            "packCard": {
+                "comboItemList": {
+                    "hiddenItem": "{{count}} otro elemento",
+                    "hiddenItem_plural": "{{count}} otros elementos",
+                    "privatePassItem": "{{count}} tarjeta de cita",
+                    "privatePassItem_plural": "{{count}} tarjetas de cita",
+                    "paymentPackItem": "{{count}} bono",
+                    "paymentPackItem_plural": "{{count}} bonos"
+                }
+            },
+            "includedElements": {
+                "see": "Ver",
+                "penalty": {
+                    "penaltyDay": "{{count}} día",
+                    "penaltyDay_plural": "{{count}} días",
+                    "amount": "{{penalty_amount}} descontado después de {{penalty_cancellations}} fuera de tiempo durante un periodo de {{penalty_days_period}}",
+                    "days": "{{penalty_days}} de bloqueo después de {{penalty_cancellations}} fuera de tiempo durante un período de {{penalty_days_period}}"
+                },
+                "maxPurchasePerMember": "{{count}} compra por socio",
+                "maxPurchasePerMember_plural": "{{count}} compras por socio",
+                "restrictions": {
+                    "maxPerMonth": "Máximo {{count}} uso al mes",
+                    "maxPerMonth_plural": "Máximo {{count}} usos al mes",
+                    "perMonth": "{{count}} uso al mes",
+                    "perMonth_plural": "{{count}} usos al mes",
+                    "maxPerWeek": "Máximo {{count}} uso por semana",
+                    "maxPerWeek_plural": "Máximo {{count}} usos por semana",
+                    "perWeek": "{{count}} uso por semana",
+                    "perWeek_plural": "{{count}} usos por semana",
+                    "maxPerDay": "Máximo {{count}} uso por día",
+                    "maxPerDay_plural": "Máximo {{count}} usos por día",
+                    "perDay": "{{count}} uso por día",
+                    "perDay_plural": "{{count}} usos por día",
+                    "title": "Restricciones de uso"
+                },
+                "newMemberOnly": "Sólo para los nuevos miembros",
+                "isUniversalPass": "Bono universal",
+                "compatibleWithEverything": "Compatible con todo",
+                "onlyVodAccess": "Disponible sólo para VOD",
+                "fullVodAccess": "Compatible con VOD",
+                "onsitePaymentAvailable": "Pago in situ disponible",
+                "cancellation": "{{cuenta}} cancelación",
+                "cancellation_plural": "{{cuenta}} cancelaciones"
+            },
+            "restrictions": "Restricciones",
+            "compatibility": {
+                "packs": {
+                    "and": " y ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatible con {{ categorías }}, {{ establecimientos }} y {{ actividades }} ",
+                    "establishmentsAndActivities": "Compatible con {{ establecimientos }} y {{ actividades }} ",
+                    "categoriesAndEstablishment": "Compatible con {{ categories }} y {{ establishments }} ",
+                    "categoriesAndActivities": "Compatible con {{ categories }} y {{ activities }} ",
+                    "establishments": "Compatible con {{ count }} sala",
+                    "establishments_plural": "Compatible con {{ count }} salas",
+                    "activities": "Compatible con {{ count }} actividad",
+                    "activities_plural": "Compatible con {{ count }} actividades",
+                    "categories": "Compatible con {{ count }} categoría",
+                    "categories_plural": "Compatible con {{ count }} categorías",
+                    "compatible": "Compatible con ",
+                    "all": "Compatible con todo"
+                },
+                "establishments": "{{ count }} sala",
+                "establishments_plural": "{{ count }} salas",
+                "compatibilityModal": {
+                    "establishments": "Salas",
+                    "activities": "Actividades",
+                    "categories": "Categorías"
+                },
+                "activities": "{{ count }} actividad",
+                "activities_plural": "{{ count }} actividades",
+                "categories": "{{ count }} categoría",
+                "categories_plural": "{{ count }} categorías",
+                "button": {
+                    "close": "Cerrar"
+                },
+                "allPrivateSlotsAvailables": "Todo tipo de sesiones",
+                "compatibilities": "Compatibilidades",
+                "compatible": "Compatible con {{count}} cita",
+                "compatible_plural": "Compatible con {{count}} citas",
+                "none": "No hay citas compatibles"
+            },
+            "credits": {
+                "unlimited": "Ilimitado",
+                "availableCredit": "{{count}} crédito",
+                "availableCredit_plural": "{{count}} créditos"
             }
         }
     },
@@ -7448,11 +7629,11 @@
                 "dateCreated": "Fecha de envío",
                 "lastOpen": "Última apertura",
                 "deliveryRate": "Envíos exitosos",
-                "totalRead": "Aperturas",
+                "totalRead": "Número de personas que abrieron el correo",
                 "noTopLink": "Ningún click",
                 "recipientList": "Detalle por destinatario",
                 "topLinks": "Enlaces más visitados",
-                "totalClick": "Clicks"
+                "totalClick": "Número de personas que han hecho clic en un enlace"
             },
             "list": {
                 "showMore": "Ver más",
@@ -9528,7 +9709,10 @@
                     "success": "Compartir eliminado"
                 },
                 "create": {
-                    "error": "No es posible compartir esta tarjeta",
+                    "error": {
+                        "generic": "Imposible compartir este bono",
+                        "90004": "Este bono se comparte desde otra cuenta"
+                    },
                     "success": "Tarjeta compartida"
                 }
             },
@@ -9551,7 +9735,10 @@
                     "success": "Se ha dejado de compartir"
                 },
                 "create": {
-                    "error": "No puede compartir esta tarjeta de cita",
+                    "error": {
+                        "generic": "Imposible compartir esta tarjeta de cita",
+                        "90005": "Esta tarjeta de cita se comparte desde otra cuenta"
+                    },
                     "success": "Tarjeta de cita compartida"
                 }
             },
@@ -9591,7 +9778,8 @@
             },
             "errors": {
                 "60003": "Ya existe un miembro con este correo electrónico. Para vincularlos, utilice la ventana emergente anterior.",
-                "60002": "El correo electrónico indicado ya está vinculado a una cuenta de personal."
+                "60002": "El correo electrónico indicado ya está vinculado a una cuenta de personal.",
+                "60004": "El correo electrónico indicado ya está vinculado a una cuenta de franquicia del personal."
             }
         },
         "link": {

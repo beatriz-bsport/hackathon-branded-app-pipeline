@@ -5728,7 +5728,7 @@
             "booking_status_code": "status",
             "amortized_price": "Il resto di",
             "end_date": "Fine della validità",
-            "credits": "Totale crediti",
+            "credits": "Saldo totale cliente",
             "payment_method_readable_identifier": "Metodo di pagamento",
             "address": "Indirizzo",
             "products": "Contenuto del carrello",
@@ -6001,7 +6001,7 @@
             "shop": "Negozio",
             "private_cpasses": "Pass per appuntamenti",
             "payment_sumup": "Totale pagamenti",
-            "credit": "Credito",
+            "credit": "Saldo totale cliente",
             "basket": "Carrello",
             "memberships": "Schede del corso",
             "invoices": "Acquisti",
@@ -6927,12 +6927,57 @@
                     "recurrenceUntilHelper2": "I gruppi con un'ultima sessione successiva a questa data non verranno creati.",
                     "recurrenceUntilHelper": "Si prega di indicare la data dell'ultima sessione dell'ultimo ciclo.",
                     "recurrenceUntil": "Ripetere fino a",
-                    "recurrenceCount": "Numero di ripetizioni"
+                    "recurrenceCount": "Numero di ripetizioni",
+                    "allowGuestUnavailable": "Questa funzione non è disponibile nelle sessioni di gruppo.",
+                    "allowGuest": "Compatibile con la prenotazione per un ospite",
+                    "impossibleState": "I parametri inseriti non consentono di generare un gruppo",
+                    "submit": "Conferma",
+                    "back": "Precedente",
+                    "save": "salva",
+                    "delete": {
+                        "content": "Attenzione, eliminando questo gruppo tutte le sessioni al suo interno verranno annullate. Gli studenti iscritti vedranno annullate le loro prenotazioni. Questa operazione è definitiva.",
+                        "missingOffer": "Nessuna offerta nel gruppo",
+                        "firstSession": "Prima sessione il {{-day}}",
+                        "selectHeader": "Seleziona i gruppi che verranno modificati",
+                        "selectGroup": "Annulla altri gruppi simili",
+                        "applyRecursive": "Annulla altri gruppi simili",
+                        "title": "Cancellazione"
+                    }
                 },
                 "duplicate": "Duplica un gruppo",
                 "subtitlePreview": "Anteprima della ricorrenza",
                 "subtitleMetaActivitySelect": "Crea un gruppo di sessioni",
                 "title": "Sessioni di gruppo"
+            },
+            "helperText": {
+                "week": "Questo gruppo inizia il {{-day}}, ogni settimana",
+                "week_plural": "Qiuesto gruppo inizia il {{-day}}, ogni {{ count }} settimane",
+                "month": "Questo gruppo inizia il {{-day}}, ogni mese",
+                "month_plural": "Questo gruppo inizia il {{-day}}, ogni {{ count }} mesi"
+            },
+            "last": "scorso",
+            "intervalLabel": {
+                "until": {
+                    "year": "Ogni anno fino a {{-until}} ",
+                    "year_plural": "Ogni {{ count }} anni fino a {{-until}} ",
+                    "day": "Ogni giorno fino a {{-until}} ",
+                    "day_plural": "Ogni {{ count }} giorni fino a {{-until}} ",
+                    "month": "Ogni mese fino a {{-until}} ",
+                    "month_plural": "Ogni {{ count }} mesi fino a {{-until}} ",
+                    "week": "Ogni settimana fino a {{-until}} ",
+                    "week_plural": "Ogni {{ count }} settimane fino a {{-until}} "
+                },
+                "year": "Ogni anno",
+                "year_plural": "Ogni {{ count }} anni",
+                "day": "Ogni giorno",
+                "day_plural": "Ogni {{ count }} giorni",
+                "week": "Ogni settimana",
+                "week_plural": "Ogni {{ count }} settimane",
+                "month": "Ogni mese",
+                "month_plural": "Ogni {{ count }} mesi"
+            },
+            "errors": {
+                "offers_length": "Hai creato solo una sessione. Per poter creare un gruppo di sessioni,\n       aggiungere almeno due sessioni. Se vuoi creare una sessione unica, puoi farlo direttamente dal\n       workshop in questione o dalla scheda calendario."
             }
         }
     },
@@ -10485,6 +10530,94 @@
             },
             "title": {
                 "universalPassMessage": "Tessera universale, utilizzabile per lezioni di gruppo e appuntamenti"
+            }
+        },
+        "genericCardDetails": {
+            "packCard": {
+                "comboItemList": {
+                    "hiddenItem": "{{count}} altro elemento",
+                    "hiddenItem_plural": "{{count}} altri elementi",
+                    "privatePassItem": "{{count}} pass per appuntamenti",
+                    "privatePassItem_plural": "{{count}} pass per appuntamenti",
+                    "paymentPackItem": "{{count}} pass",
+                    "paymentPackItem_plural": "{{count}} passes"
+                }
+            },
+            "includedElements": {
+                "see": "Vedi",
+                "penalty": {
+                    "penaltyDay": "{{count}} giorno",
+                    "penaltyDay_plural": "{{count}} giorni",
+                    "amount": "{{penalty_amount}} detratti dopo la {{penalty_cancellations}} fuori tempo per un periodo di {{penalty_days_period}}",
+                    "days": "{{penalty_days}} di blocco dopo la {{penalty_cancellations}} fuori tempo per un periodo di {{penalty_days_period}}"
+                },
+                "maxPurchasePerMember": "{{count}} acquisto per membro",
+                "maxPurchasePerMember_plural": "{{count}} acquisti per membro",
+                "restrictions": {
+                    "perWeek": "{{count}} utilizzo a settimana",
+                    "perWeek_plural": "{{count}} utilizzi a settimana",
+                    "perDay": "{{count}} utilizzo al giorno",
+                    "perDay_plural": "{{count}} utilizzi al giorno",
+                    "maxPerWeek": "Massimo {{count}} utilizzo a settimana",
+                    "maxPerWeek_plural": "Massimo {{count}} utilizzi a settimana",
+                    "perMonth": "{{count}} utilizzo al mese",
+                    "perMonth_plural": "{{count}} utilizzi al mese",
+                    "maxPerMonth": "Massimo {{count}} utilizzo al mese",
+                    "maxPerMonth_plural": "Massimo {{count}} utilizzi al mese",
+                    "maxPerDay": "Massimo {{count}} utilizzo al giorno",
+                    "maxPerDay_plural": "Massimo {{count}} utilizzi al giorno",
+                    "title": "Restrizioni d'uso"
+                },
+                "newMemberOnly": "Solo per i nuovi membri",
+                "isUniversalPass": "Pass universale",
+                "compatibleWithEverything": "Compatibile con tutto",
+                "onlyVodAccess": "Disponibile solo per VOD",
+                "fullVodAccess": "Compatibile con VOD",
+                "onsitePaymentAvailable": "Possibilità di pagamento in loco",
+                "cancellation": "{{count}} cancellazione",
+                "cancellation_plural": "{{count}} cancellazioni"
+            },
+            "restrictions": "Restrizioni",
+            "compatibility": {
+                "packs": {
+                    "and": " e ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatibile con {{ categories }}, {{ establishments }} e {{ activities }} ",
+                    "establishmentsAndActivities": "Compatibile con {{ establishments }} e {{ activities }} ",
+                    "categoriesAndEstablishment": "Compatibile con {{ categories }} e {{ establishments }} ",
+                    "categoriesAndActivities": "Compatibile con {{ categories }} e {{ activities }} ",
+                    "establishments": "Compatibile con {{ count }} sala",
+                    "establishments_plural": "Compatibile con {{ count }} sale",
+                    "activities": "Compatibile con {{ count }} attività",
+                    "activities_plural": "Compatibile con {{ count }} attività",
+                    "categories": "Compatibile con {{ count }} categoria",
+                    "categories_plural": "Compatibile con {{ count }} categorie",
+                    "compatible": "Compatibile con ",
+                    "all": "Compatibile con tutto"
+                },
+                "compatibilityModal": {
+                    "establishments": "Sale",
+                    "activities": "Attività",
+                    "categories": "Categorie"
+                },
+                "establishments": "{{ count }} sala",
+                "establishments_plural": "{{ count }} sale",
+                "activities": "{{ count }} attività",
+                "activities_plural": "{{ count }} attività",
+                "categories": "{{ count }} categoria",
+                "categories_plural": "{{ count }} categorie",
+                "button": {
+                    "close": "Chiudi"
+                },
+                "allPrivateSlotsAvailables": "Tutti i tipi di sessioni",
+                "compatibilities": "Compatibilità",
+                "compatible": "Compatibile con {{count}} appuntamento",
+                "compatible_plural": "Compatibile con {{count}} appuntamenti",
+                "none": "Nessun appuntamento compatibile"
+            },
+            "credits": {
+                "unlimited": "Illimitato",
+                "availableCredit": "{{count}} credito",
+                "availableCredit_plural": "{{count}} crediti"
             }
         }
     },

@@ -139,7 +139,7 @@ export class ContractDetailPage extends Component<Props> {
     this.props.fetchSubscriptionsByContract(1, SUBSCRIPTION_PAGINATION_SIZE);
     this.props.fetchContractPauseList(
       { contract: this.props.contractId },
-      { onSuccess: this.props.setContractPauseLoading(false) },
+      { onSuccess: () => this.props.setContractPauseLoading(false) },
     );
   }
 

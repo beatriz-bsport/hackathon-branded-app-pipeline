@@ -89,7 +89,7 @@ export const listAllPaymentPackActions = {
   success: createAction('PAYMENT_PACK/LIST/SUCCESS'),
 };
 
-export function refreshAllPaymentPack(options: OptionCallback) {
+export function refreshAllPaymentPack(options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackActions.error(null));
     try {

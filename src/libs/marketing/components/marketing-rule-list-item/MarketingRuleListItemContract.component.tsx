@@ -167,7 +167,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose(
+export default compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation(['paymentPack']),
 )(MarketingRuleListItemContract);

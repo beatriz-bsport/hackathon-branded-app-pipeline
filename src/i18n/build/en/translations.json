@@ -1678,7 +1678,13 @@
                 "rangeError": "Impossible to create sessions taking place in more than 3 years"
             },
             "emailError": "The specified email format is invalid.",
-            "noPartnershipIntegration": "Marketplace reservations are not available for group sessions"
+            "noPartnershipIntegration": "Marketplace reservations are not available for group sessions",
+            "period": {
+                "year": "Years",
+                "month": "Months",
+                "week": "Weeks",
+                "day": "Days"
+            }
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -7003,6 +7009,13 @@
                 "message": {
                     "error": "Unable to save this payment method",
                     "success": "Payment method successfully saved!"
+                },
+                "mandateRevalidated": {
+                    "retry": "Try again",
+                    "error": "Unable to renew the direct debit mandate, please contact your bank.",
+                    "success": "The mandate has been renewed and the next direct debit will be taken successfully.",
+                    "content": "The direct debit mandate will be revalidated with the bank.",
+                    "collect": "Agree"
                 }
             },
             "savePaymentMethod": {
@@ -7534,7 +7547,8 @@
                 "amountRemaining": "Outstanding amount",
                 "amountDue": "Total due",
                 "title": "Overview",
-                "amountPaid": "Paid"
+                "amountPaid": "Paid",
+                "amountBeingProcessed": "Amount in process"
             },
             "date": {
                 "label": "Payment date"
@@ -7618,11 +7632,20 @@
                 "registerNow": "Take payment now",
                 "enable": "Activate",
                 "disable": "Deactivate",
-                "changeMethod": "Change the payment method"
+                "changeMethod": "Change the payment method",
+                "solveInvalidPaymentAttempt": "Regularise"
             },
             "nextRetryDate": "The payment will be retried on {{ d }}",
             "lockedToday": "The payment is scheduled today, you can no longer change it",
-            "registerNowInitialData": "Payment originally due on {{-date}}"
+            "registerNowInitialData": "Payment originally due on {{-date}}",
+            "dialog": {
+                "invalidMandate": {
+                    "confirm": "Next",
+                    "cancel": "Cancel",
+                    "explainSituation": "The mandate associated with this payment method has expired. This can be due to a number of reasons: too many failed payments, a unilateral decision by the bank, etc. The payment method can no longer be used and you will have to register a new one.",
+                    "title": "Expired or invalid direct debit mandate!"
+                }
+            }
         },
         "mandate": {
             "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
@@ -7936,7 +7959,8 @@
                 },
                 "nb_interval": {
                     "label": "Number of bills",
-                    "helperText": "Minimum is 2 months"
+                    "helperText": "Minimum is 2 months",
+                    "error": "The number of billings should not exceed 90"
                 },
                 "managerOnly": {
                     "label": "Unavailable for purchase"
@@ -7990,6 +8014,39 @@
                 "interval": {
                     "label": "BIlling",
                     "helperText": "How often will clients be charged?"
+                },
+                "settings": {
+                    "title": "Settings"
+                },
+                "invoicing": {
+                    "invoicing_type_readonly": "It is not possible to change the billing type",
+                    "fixed_day": {
+                        "explain": "Each invoice will be invoiced on the chosen day. The first payment is pro-rated if necessary.",
+                        "label": "Invoice on a fixed day"
+                    },
+                    "same_day_as_subscription": {
+                        "recurrence_explain": {
+                            "year": "The subscription will be invoiced every year for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
+                            "year_plural": "The subscription will be invoiced every {{ recurrence_basis }} years for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
+                            "month": "The subscription will be invoiced every month for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
+                            "month_plural": "The subscription will be invoiced every {{ recurrence_basis }} months for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
+                            "day": "The subscription will be invoiced every day for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
+                            "day_plural": "The subscription will be invoiced every {{ recurrence_basis }} days for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription.",
+                            "week": "The subscription will be invoiced every week for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
+                            "week_plural": "The subscription will be invoiced every {{ recurrence_basis }} weeks for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription."
+                        },
+                        "explain": "The billing day will depend on the day of purchase of the subscription.",
+                        "label": "Invoice on the same day as the purchase date of the subscription"
+                    },
+                    "invoice": "bill",
+                    "invoice_plural": "bills",
+                    "title": "Billing"
+                },
+                "price": {
+                    "title": "Price"
+                },
+                "general_info": {
+                    "title": "General information"
                 }
             },
             "deleteForm": {
@@ -8582,7 +8639,7 @@
             "membership_ID": "Member ID",
             "amortized_price": "Due",
             "end_date": "Expiry date",
-            "credits": "Total credits",
+            "credits": "Client account balance",
             "available_credits": "Deferred credits",
             "product_names": "Products",
             "payment_price": "Price",
@@ -8845,7 +8902,7 @@
             "shop": "Webshop",
             "private_cpasses": "Appointment passes",
             "payment_sumup": "Total payments",
-            "credit": "Credits",
+            "credit": "Client account balance",
             "basket": "Basket",
             "memberships": "Passes",
             "invoices": "Purchases",
@@ -10232,7 +10289,43 @@
             "edit": "Edit"
         },
         "recurrenceIndex": "Recurrence: {{ index }}",
-        "pendingReplacementRequest": "A request for substitution is open"
+        "pendingReplacementRequest": "A request for substitution is open",
+        "rollCall": {
+            "drawer": {
+                "listMembers": "List of registered members",
+                "info": "Validating the call triggers the countdown for no-show penalties.",
+                "rollCall": "Call"
+            },
+            "chip": {
+                "notValidatedRollCall": "Call not validated",
+                "validatedRollCall": "Call validated on {{- date }} {{ time }}"
+            },
+            "dialog": {
+                "savedRollCall": "The call has been saved.",
+                "savedRollCall_plural": "The calls have been saved.",
+                "validatedRollCall": "Validated call",
+                "validatedRollCall_plural": "Validated calls",
+                "confirmationRollCall": "Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalised. Are you sure you want to confirm the call?",
+                "confirmationRollCall_plural": "You are about to validate the call for all the sessions of the day. Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalised. Are you sure you want to confirm all calls?",
+                "validationRollCall": "Validate the call"
+            },
+            "button": {
+                "validationRollCall": "Validate the call",
+                "validationRollCall_plural": "Validate all calls"
+            },
+            "warningIcon": {
+                "stateChanged": "The status has been changed but not validated"
+            },
+            "warningText": {
+                "lastValidatedRollCall": "Last validated call on {{- date }} {{ time }}",
+                "noRollCallLeft": "All calls were validated",
+                "rollCallsLeftToValidate": "{{ number }} call requires validation",
+                "rollCallsLeftToValidate_plural": "{{ number }} calls require validation",
+                "validatedDate": "Validated on {{- date }} at {{ time }}",
+                "modifiedRollCall": "The call has been modified, you must validate it again",
+                "notValidatedRollCall": "The call was not validated"
+            }
+        }
     },
     "emailTemplate": {
         "modal": {
@@ -11076,6 +11169,94 @@
             },
             "title": {
                 "universalPassMessage": "Universal card, can be used for group activities and appointments"
+            }
+        },
+        "genericCardDetails": {
+            "packCard": {
+                "comboItemList": {
+                    "hiddenItem": "{{count}} other element",
+                    "hiddenItem_plural": "{{count}} other elements",
+                    "privatePassItem": "{{count}} appointment pass",
+                    "privatePassItem_plural": "{{count}} appointment passes",
+                    "paymentPackItem": "{{count}} pass",
+                    "paymentPackItem_plural": "{{count}} passes"
+                }
+            },
+            "includedElements": {
+                "see": "See",
+                "penalty": {
+                    "penaltyDay": "{{count}} day",
+                    "penaltyDay_plural": "{{count}} days",
+                    "amount": "{{penalty_amount}} deducted after {{penalty_cancellations}} out of time over a period of {{penalty_days_period}}",
+                    "days": "{{penalty_days}} of blocking after {{penalty_cancellations}} out of time over a {{penalty_days_period}} period"
+                },
+                "maxPurchasePerMember": "{{count}} purchase per member",
+                "maxPurchasePerMember_plural": "{{count}} purchases per member",
+                "restrictions": {
+                    "maxPerMonth": "Maximum {{count}} use per month",
+                    "maxPerMonth_plural": "Maximum {{count}} uses per month",
+                    "perMonth": "{{count}} use per month",
+                    "perMonth_plural": "{{count}} uses per month",
+                    "maxPerWeek": "Maximum {{count}} usage per week",
+                    "maxPerWeek_plural": "Maximum {{count}} uses per week",
+                    "perWeek": "{{count}} use per week",
+                    "perWeek_plural": "{{count}} uses per week",
+                    "maxPerDay": "Maximum {{count}} usage per day",
+                    "maxPerDay_plural": "Maximum {{count}} uses per day",
+                    "perDay": "{{count}} use per day",
+                    "perDay_plural": "{{count}} uses per day",
+                    "title": "Restrictions on use"
+                },
+                "newMemberOnly": "Only for new members",
+                "isUniversalPass": "Universal pass",
+                "compatibleWithEverything": "Compatible with all",
+                "onlyVodAccess": "Available for VOD only",
+                "fullVodAccess": "VOD compatible",
+                "onsitePaymentAvailable": "Payment on site available",
+                "cancellation": "{{count}} cancellation",
+                "cancellation_plural": "{{count}} cancellations"
+            },
+            "restrictions": "Restrictions",
+            "compatibility": {
+                "packs": {
+                    "and": " and ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatible with {{ categories }}, {{ establishments }} and {{ activities }} ",
+                    "establishmentsAndActivities": "Compatible with {{ establishments }} and {{ activities }} ",
+                    "categoriesAndEstablishment": "Compatible with {{ categories }} and {{ establishments }} ",
+                    "categoriesAndActivities": "Compatible with {{ categories }} and {{ activities }} ",
+                    "establishments": "Compatible with {{ count }} room",
+                    "establishments_plural": "Compatible with {{ count }} rooms",
+                    "activities": "Compatible with {{ count }} activity",
+                    "activities_plural": "Compatible with {{ count }} activities",
+                    "categories": "Compatible with {{ count }} category",
+                    "categories_plural": "Compatible with {{ count }} categories",
+                    "compatible": "Compatible with ",
+                    "all": "Compatible with all"
+                },
+                "compatibilityModal": {
+                    "establishments": "Rooms",
+                    "activities": "Activities",
+                    "categories": "Categories"
+                },
+                "establishments": "{{ count }} room",
+                "establishments_plural": "{{ count }} rooms",
+                "activities": "{{ count }} activity",
+                "activities_plural": "{{ count }} activities",
+                "categories": "{{ count }} category",
+                "categories_plural": "{{ count }} categories",
+                "button": {
+                    "close": "Close"
+                },
+                "allPrivateSlotsAvailables": "All types of sessions",
+                "compatibilities": "Compatibility",
+                "compatible": "Compatible with {{count}} appointment",
+                "compatible_plural": "Compatible with {{count}} appointments",
+                "none": "No compatible appointments"
+            },
+            "credits": {
+                "unlimited": "Unlimited",
+                "availableCredit": "{{count}} credit",
+                "availableCredit_plural": "{{count}} credits"
             }
         }
     },
@@ -12385,7 +12566,10 @@
                     "success": "Sharing stopped"
                 },
                 "create": {
-                    "error": "Impossible to share this pass",
+                    "error": {
+                        "generic": "Impossible to share this pass",
+                        "90004": "This pass is shared from another account"
+                    },
                     "success": "Pass shared"
                 }
             },
@@ -12408,7 +12592,10 @@
                     "success": "Sharing stopped"
                 },
                 "create": {
-                    "error": "Cannot share this pass",
+                    "error": {
+                        "generic": "Impossible to share this appointment pass",
+                        "90005": "This appointment pass is shared from another account"
+                    },
                     "success": "Shared appointment pass"
                 }
             },
@@ -12448,7 +12635,8 @@
             },
             "errors": {
                 "60003": "A member already exists with this email. To link them, use the previous popup.",
-                "60002": "The email indicated is already linked to a staff account."
+                "60002": "The email indicated is already linked to a staff account.",
+                "60004": "The email indicated is already linked to a staff franchise account."
             }
         },
         "link": {

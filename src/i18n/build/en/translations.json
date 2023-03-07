@@ -8639,7 +8639,7 @@
             "membership_ID": "Member ID",
             "amortized_price": "Due",
             "end_date": "Expiry date",
-            "credits": "Client account balance",
+            "credits": "Kontostand des Kunden",
             "available_credits": "Deferred credits",
             "product_names": "Products",
             "payment_price": "Price",

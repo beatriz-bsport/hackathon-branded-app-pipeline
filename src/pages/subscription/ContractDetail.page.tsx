@@ -11,7 +11,9 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import PauseIcon from '@material-ui/icons/Pause';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import memoize from 'memoize-one';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import { TFunction } from 'i18next';
 import { OptionCallback } from '../../state/types';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -20,7 +22,8 @@ import ContractDeleteDialog from '#libs/subscription/components/SubscriptionCont
 import SubscriptionContractFormDrawer from '#libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '#libs/theme/selectors';
-import { getContractNotifications } from '#libs/marketing/selectors';
+import { Theme as CompanyTheme } from '#libs/theme/types';
+import { getContractDetailNotifications } from '#libs/marketing/selectors';
 
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
@@ -54,11 +57,10 @@ import {
 import {
   getContract,
   withPaymentPack,
-  getSubscriptionList,
+  getContractDetailSubscription,
   getContractPauseList,
 } from '#libs/subscription/selectors';
 import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
-import { withMember } from '#libs/order/selectors';
 import ContractDetail from '#libs/subscription/components/contract/ContractDetail.component';
 import ContractPauseListItemDetail from '#libs/subscription/components/contract/ContractPauseListItemDetail.component';
 import {
@@ -148,6 +150,66 @@ export class ContractDetailPage extends Component<Props> {
     this.props.setContractPauseOpen(true);
   };
 
+  openContractNotificationForm = () =>
+    this.props.setContractNotificationFormOpen(true);
+
+  onSubscriptionListPageRequested = (page: number, pageSize: number) =>
+    this.props.fetchSubscriptionsByContract(page, pageSize, {
+      onSuccess: (subs: Array<Subscription>) => {
+        this.props.fetchMembersBySubscription(subs);
+      },
+    });
+
+  deleteContractPauseFunction = (contractPause: ContractPauseDetails) => () =>
+    this.props.deleteContractPause(contractPause);
+
+  updateContractPauseFunction = (contractPause: ContractPauseDetails) => () => {
+    this.props.setContractPauseToUpdate(contractPause);
+    this.props.setContractPauseOpen(true);
+  };
+
+  closeContractPauseForm = () => this.props.setContractPauseOpen(false);
+
+  onContractEdit = () => this.props.setContractToEdit(this.props.contract);
+
+  openDeleteContractModal = () => this.props.setDeleteContractModalOpen(true);
+
+  closeDeleteContractModal = () => this.props.setDeleteContractModalOpen(false);
+
+  deleteContract = (id: number) => {
+    this.props.deleteContract(id, {
+      onSuccess: this.props.goToList,
+    });
+  };
+
+  closeContractFormDrawer = () => this.props.setContractToEdit(null);
+
+  submitContractForm = (data: any, options: OptionCallback) => {
+    this.props.submitEditForm(data, {
+      onSuccess: () => {
+        this.props.setContractToEdit(null);
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: (err) => {
+        if (options && options.onError) options.onError(err);
+      },
+    });
+  };
+
+  getCompany = memoize((theme: CompanyTheme) => ({
+    id: theme.company,
+    name: theme.company_name,
+  }));
+
+  getBottomActionsProperties = memoize((t: TFunction) => [
+    {
+      onClick: this.onCreateNewContractPause,
+      text: t('pauseV2.common.actions.pause'),
+      icon: <PauseIcon />,
+      color: 'secondary',
+    },
+  ]);
+
   render() {
     if (this.props.loading || !this.props.contract) {
       return <LinearProgress />;
@@ -162,10 +224,7 @@ export class ContractDetailPage extends Component<Props> {
               goToPrivatePass={this.props.goToPrivatePass}
               goToCombo={this.props.goToCombo}
               contract={this.props.contract}
-              company={{
-                id: this.props.theme.company,
-                name: this.props.theme.company_name,
-              }}
+              company={this.getCompany(this.props.theme)}
               snackbarSuccess={this.props.snackbarSuccess}
             />
             <MarketingRuleListItemContract
@@ -189,7 +248,7 @@ export class ContractDetailPage extends Component<Props> {
 
             <div className={classes.notificationButtonContainer}>
               <Button
-                onClick={() => this.props.setContractNotificationFormOpen(true)}
+                onClick={this.openContractNotificationForm}
                 variant="outlined"
                 color="primary"
               >
@@ -229,13 +288,7 @@ export class ContractDetailPage extends Component<Props> {
                 loading={this.props.subscriptions.loading}
                 page={this.props.page}
                 itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
-                onPageRequested={(page: number, pageSize: number) =>
-                  this.props.fetchSubscriptionsByContract(page, pageSize, {
-                    onSuccess: (subs: Array<Subscription>) => {
-                      this.props.fetchMembersBySubscription(subs);
-                    },
-                  })
-                }
+                onPageRequested={this.onSubscriptionListPageRequested}
               />
             </Paper>
             {this.props.contractPauseLoading ? (
@@ -259,11 +312,8 @@ export class ContractDetailPage extends Component<Props> {
                         }
                         goToSubscription={this.props.goToSubscription}
                         contractPause={cp}
-                        onDeletePause={() => this.props.deleteContractPause(cp)}
-                        onUpdatePause={() => {
-                          this.props.setContractPauseToUpdate(cp);
-                          this.props.setContractPauseOpen(true);
-                        }}
+                        onDeletePause={this.deleteContractPauseFunction(cp)}
+                        onUpdatePause={this.updateContractPauseFunction(cp)}
                         onUpdatePauseName={this.props.updateContractPauseName}
                       />
                     </div>
@@ -274,7 +324,7 @@ export class ContractDetailPage extends Component<Props> {
             {this.props.contractPauseFormOpen && (
               <ContractPauseFormDialog
                 openForm={this.props.contractPauseFormOpen}
-                closeForm={() => this.props.setContractPauseOpen(false)}
+                closeForm={this.closeContractPauseForm}
                 contractId={this.props.contractId}
                 fetchMembersBySubscription={
                   this.props.fetchMembersBySubscription
@@ -287,48 +337,27 @@ export class ContractDetailPage extends Component<Props> {
             )}
           </Grid>
           <BottomActionsButtonCustom
-            buttonsProperties={[
-              {
-                onClick: this.onCreateNewContractPause,
-                text: t('pauseV2.common.actions.pause'),
-                icon: <PauseIcon />,
-                color: 'secondary',
-              },
-            ]}
-            onEdit={() => this.props.setContractToEdit(this.props.contract)}
-            onDelete={() => this.props.setDeleteContractModalOpen(true)}
+            buttonsProperties={this.getBottomActionsProperties(t)}
+            onEdit={this.onContractEdit}
+            onDelete={this.openDeleteContractModal}
           />
           <ContractDeleteDialog
             contractToDeleteId={
               this.props.deleteContractModalOpen ? this.props.contract.id : null
             }
-            onClose={() => this.props.setDeleteContractModalOpen(false)}
-            deleteContract={(id: number) => {
-              this.props.deleteContract(id, {
-                onSuccess: this.props.goToList,
-              });
-            }}
+            onClose={this.closeDeleteContractModal}
+            deleteContract={this.deleteContract}
           />
         </Grid>
 
         <SubscriptionContractFormDrawer
-          onClose={() => this.props.setContractToEdit(null)}
+          onClose={this.closeContractFormDrawer}
           initial={this.props.contract}
           paymentPackList={this.props.paymentPackList}
           privatePassList={this.props.privatePassList}
           paymentComboList={this.props.paymentComboList}
           open={!!this.props.contractToEdit}
-          onSubmit={(data: any, options: OptionCallback) => {
-            this.props.submitEditForm(data, {
-              onSuccess: () => {
-                this.props.setContractToEdit(null);
-                if (options && options.onSuccess) options.onSuccess();
-              },
-              onError: (err) => {
-                if (options && options.onError) options.onError(err);
-              },
-            });
-          }}
+          onSubmit={this.submitContractForm}
         />
       </div>
     );
@@ -373,11 +402,7 @@ const styles = (theme: Theme) => ({
 const connector = connect(
   (state: RootState, { contractId }: { contractId: number }) => ({
     loading: state.subscription.contract.loading,
-    subscriptions: {
-      count: state.subscription.list.count,
-      items: withMember(getSubscriptionList)(state),
-      loading: state.subscription.list.loading,
-    },
+    subscriptions: getContractDetailSubscription(state),
     contract: withPaymentPack(getContract)(state, contractId),
     paymentPackList: getPaymentPackEnabled(state),
     privatePassList: getPrivatePassAvailable(state),
@@ -390,10 +415,7 @@ const connector = connect(
     contractPauseList: getContractPauseList(state, contractId),
     subscriptionData: state.subscription.byId,
     tagCategories: getTagCategories(state),
-    notifications: {
-      items: getContractNotifications(state),
-      loading: state.marketingNotification.loading,
-    },
+    notifications: getContractDetailNotifications(state),
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.loading,
     resolvedGenericTags: getResolvedGenericTags(state),

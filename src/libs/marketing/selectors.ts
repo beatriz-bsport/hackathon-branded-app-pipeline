@@ -96,6 +96,15 @@ export const getContractNotifications = createSelector(
       );
   },
 );
+
+const _getContractNotificationLoading = (state: RootState) =>
+  state.marketingNotification.loading;
+
+export const getContractDetailNotifications = createSelector(
+  [getContractNotifications, _getContractNotificationLoading],
+  (notifications, loading) => ({ items: notifications, loading }),
+);
+
 export const getPrivatePassNotifications = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {

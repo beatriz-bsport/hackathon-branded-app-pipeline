@@ -70,4 +70,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PaginatedSubscriptionList;
+export default React.memo(PaginatedSubscriptionList);

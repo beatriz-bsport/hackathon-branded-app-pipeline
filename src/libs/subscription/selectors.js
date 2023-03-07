@@ -11,6 +11,7 @@ import {
 } from '../payment-packs/selectors';
 import { getPrivatePassById } from '../private-service/selectors/private-pass';
 import { getPaymenComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
+import { withMember } from '../order/selectors';
 
 import type { Subscription } from './types';
 import type { PrivatePass } from '#libs/private-service/types';
@@ -208,6 +209,19 @@ export const getContractPauseList = createSelector(
           ].map((id) => subData[id[0]]),
         };
       }),
+);
+
+const _getSubscriptionListCount = (state) => state.subscription.list.count;
+
+const _getSubscriptionListLoading = (state) => state.subscription.list.loading;
+
+export const getContractDetailSubscription = createSelector(
+  [
+    _getSubscriptionListCount,
+    withMember(getSubscriptionList),
+    _getSubscriptionListLoading,
+  ],
+  (count, items, loading) => ({ count, items, loading }),
 );
 
 export default { get };

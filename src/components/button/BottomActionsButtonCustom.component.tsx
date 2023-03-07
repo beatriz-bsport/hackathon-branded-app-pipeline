@@ -91,4 +91,4 @@ const useStyles = makeStyles<
   },
 }));
 
-export default BottomActionsButtonCustom;
+export default React.memo(BottomActionsButtonCustom);

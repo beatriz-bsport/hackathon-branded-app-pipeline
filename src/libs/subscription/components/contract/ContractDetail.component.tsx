@@ -182,4 +182,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ContractDetail;
+export default React.memo(ContractDetail);

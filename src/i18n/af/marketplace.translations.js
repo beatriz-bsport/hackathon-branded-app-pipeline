@@ -165,15 +165,31 @@ exports.default = {
       },
       see: 'Voir',
     },
-    packCard: {
-      comboItemList: {
-        paymentPackItem: '{{count}}\u00A0carte\u00A0de\u00A0cours',
-        paymentPackItem_plural: '{{count}}\u00A0cartes\u00A0de\u00A0cours',
-        privatePassItem: '{{count}}\u00A0carte\u00A0de\u00A0RDV',
-        privatePassItem_plural: '{{count}}\u00A0cartes\u00A0de\u00A0RDV',
-        hiddenItem: '{{count}}\u00A0autre\u00A0élément',
-        hiddenItem_plural: '{{count}}\u00A0autres\u00A0éléments',
-      },
+  },
+  packCard: {
+    comboItemList: {
+      paymentPackItem: '{{count}}\u00A0carte\u00A0de\u00A0cours',
+      paymentPackItem_plural: '{{count}}\u00A0cartes\u00A0de\u00A0cours',
+      privatePassItem: '{{count}}\u00A0carte\u00A0de\u00A0RDV',
+      privatePassItem_plural: '{{count}}\u00A0cartes\u00A0de\u00A0RDV',
+      hiddenItem: '{{count}}\u00A0autre\u00A0élément',
+      hiddenItem_plural: '{{count}}\u00A0autres\u00A0éléments',
     },
+  },
+  subscriptionCard: {
+    billingInterval: {
+      month: 'mois',
+      month_plural: 'Tous\u00A0les\u00A0{{ count }}\u00A0mois',
+      week: 'semaine',
+      week_plural: 'Toutes\u00A0les\u00A0{{ count }}\u00A0semaines',
+      year: 'an',
+      year_plural: 'Tous\u00A0les\u00A0{{ count }}\u00A0ans',
+      day: 'jour',
+      day_plural: 'Tous\u00A0les\u00A0{{ count }}\u00A0jours',
+    },
+    fees: 'Frais\u00A0de\u00A0dossier\u00A0:\u00A0{{ fees }}',
+    invoice: '{{ count }}\u00A0facture',
+    invoice_plural: '{{ count }}\u00A0factures',
+    registerButton: "M'abonner",
   },
 };

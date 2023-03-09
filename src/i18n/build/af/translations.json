@@ -3212,17 +3212,33 @@
           "penaltyDay_plural": "{{count}} jours"
         },
         "see": "Voir"
-      },
-      "packCard": {
-        "comboItemList": {
-          "paymentPackItem": "{{count}} carte de cours",
-          "paymentPackItem_plural": "{{count}} cartes de cours",
-          "privatePassItem": "{{count}} carte de RDV",
-          "privatePassItem_plural": "{{count}} cartes de RDV",
-          "hiddenItem": "{{count}} autre élément",
-          "hiddenItem_plural": "{{count}} autres éléments"
-        }
       }
+    },
+    "packCard": {
+      "comboItemList": {
+        "paymentPackItem": "{{count}} carte de cours",
+        "paymentPackItem_plural": "{{count}} cartes de cours",
+        "privatePassItem": "{{count}} carte de RDV",
+        "privatePassItem_plural": "{{count}} cartes de RDV",
+        "hiddenItem": "{{count}} autre élément",
+        "hiddenItem_plural": "{{count}} autres éléments"
+      }
+    },
+    "subscriptionCard": {
+      "billingInterval": {
+        "month": "mois",
+        "month_plural": "Tous les {{ count }} mois",
+        "week": "semaine",
+        "week_plural": "Toutes les {{ count }} semaines",
+        "year": "an",
+        "year_plural": "Tous les {{ count }} ans",
+        "day": "jour",
+        "day_plural": "Tous les {{ count }} jours"
+      },
+      "fees": "Frais de dossier : {{ fees }}",
+      "invoice": "{{ count }} facture",
+      "invoice_plural": "{{ count }} factures",
+      "registerButton": "M'abonner"
     }
   },
   "member": {

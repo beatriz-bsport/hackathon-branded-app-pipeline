@@ -6,6 +6,8 @@ import { colors } from '@bsport/common/lib/colors';
 
 import type { Coach } from '../../types';
 
+import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
+
 type Props = {
   coaches: Array<Coach>;
   selectedCoaches: Array<number>;
@@ -22,6 +24,7 @@ type Props = {
   isClearable?: boolean;
   associatedCoachOutput?: boolean;
   isLoading?: boolean;
+  shouldSetMinHeight?: boolean;
 };
 
 export const CoachSelector: React.FC<Props> = ({
@@ -35,6 +38,7 @@ export const CoachSelector: React.FC<Props> = ({
   isClearable,
   associatedCoachOutput,
   isLoading,
+  shouldSetMinHeight,
 }) => {
   const { t } = useTranslation('coach');
 
@@ -80,6 +84,7 @@ export const CoachSelector: React.FC<Props> = ({
 
   return (
     <Select
+      shouldSetMinHeight={shouldSetMinHeight}
       closeMenuOnSelect={closeMenuOnSelect}
       isMulti={!noMulti}
       placeholder={placeholder || t('coach')}
@@ -115,7 +120,16 @@ const coachStyles: Partial<
     }>
   >
 > = {
-  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  control: (styles, { selectProps }) => {
+    if (selectProps && selectProps.shouldSetMinHeight) {
+      return {
+        ...styles,
+        backgroundColor: 'white',
+        minHeight: MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS,
+      };
+    }
+    return { ...styles, backgroundColor: 'white' };
+  },
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);

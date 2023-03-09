@@ -17,7 +17,10 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
+import classNames from 'classnames';
 import Tooltip from '../../../components/Tooltip.component';
+
+import { MIN_HEIGHT_DURATION_SELECTOR } from '../constant';
 
 function ValueLabelComponent(props: { children: any, value: string }) {
   const { children, value } = props;
@@ -31,6 +34,7 @@ function ValueLabelComponent(props: { children: any, value: string }) {
 type Props = {
   durationSecondRange: ?string,
   onChange: (value: ?string) => void,
+  shouldSetMinHeight?: boolean,
 };
 
 const DurationSelector = (props: Props) => {
@@ -68,7 +72,9 @@ const DurationSelector = (props: Props) => {
             variant="outlined"
             InputProps={{
               classes: {
-                input: classes.multilineColor,
+                input: classNames(classes.multilineColor, {
+                  [classes.inputMinHeight]: props.shouldSetMinHeight,
+                }),
               },
               endAdornment:
                 min !== 0 || max !== 180 ? (
@@ -134,6 +140,9 @@ const DurationSelector = (props: Props) => {
 const useStyles = makeStyles(() => ({
   multilineColor: {
     color: 'grey',
+  },
+  inputMinHeight: {
+    minHeight: MIN_HEIGHT_DURATION_SELECTOR,
   },
 }));
 

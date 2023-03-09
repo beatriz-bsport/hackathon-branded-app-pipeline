@@ -6,6 +6,8 @@ import Select from 'react-select';
 import { colors } from '@bsport/common/lib/colors';
 import Sport from './SCT.component';
 
+import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
+
 function SingleValue(props: OptionProps) {
   const { data, innerRef, innerProps } = props;
   return (
@@ -71,8 +73,12 @@ const getSCTOptions = (scts: Array<SCT>) => {
 
 const sctStyles = {
   control: (styles, { selectProps }) => {
-    if (selectProps && selectProps.fitWithGenericSelector) {
-      return { ...styles, backgroundColor: 'white', minHeight: '46px' };
+    if (selectProps && selectProps.shouldSetMinHeight) {
+      return {
+        ...styles,
+        backgroundColor: 'white',
+        minHeight: MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS,
+      };
     }
     return { ...styles, backgroundColor: 'white' };
   },
@@ -142,11 +148,11 @@ export default withTranslation(['translation'])(
     selectedValues,
     onChange,
     placeholder,
-    fitWithGenericSelector,
+    shouldSetMinHeight,
   }) => {
     return (
       <Select
-        fitWithGenericSelector={fitWithGenericSelector}
+        shouldSetMinHeight={shouldSetMinHeight}
         closeMenuOnSelect={!!closeMenuOnSelect}
         isMulti={!isNotMulti}
         placeholder={placeholder || t('common.sports')}

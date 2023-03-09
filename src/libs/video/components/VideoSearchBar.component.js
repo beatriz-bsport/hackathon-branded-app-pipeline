@@ -14,6 +14,8 @@ import DelayedTextField from '../../../components/DelayedTextField.component';
 import DurationSelector from './DurationSelector.component';
 import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
 
+import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '../constant';
+
 type Props = {
   searchParams: {
     levels: string,
@@ -72,10 +74,12 @@ export const VideoSearchBar = (props: Props) => {
             }
           }}
           isClearable
+          shouldSetMinHeight
         />
       </Grid>
       <Grid item xs={6} md={3} lg={2}>
         <DurationSelector
+          shouldSetMinHeight
           durationSecondRange={props.searchParams.duration_second_range}
           onChange={(ev) => {
             if (ev) {
@@ -92,6 +96,7 @@ export const VideoSearchBar = (props: Props) => {
       <Grid item xs={6} md={3}>
         {!props.hideCoach && (
           <CoachSelector
+            shouldSetMinHeight
             selectedCoaches={
               props.searchParams.coaches
                 ? props.searchParams.coaches
@@ -159,6 +164,9 @@ const useStyles = makeStyles(() => ({
   },
   field: {
     width: '100%',
+  },
+  input: {
+    minHeight: MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS,
   },
 }));
 

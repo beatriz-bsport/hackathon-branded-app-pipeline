@@ -176,6 +176,11 @@ exports.default = {
       hiddenItem_plural: '{{count}}\u00A0autres\u00A0éléments',
     },
   },
+  packCardDetail: {
+    comboItemList: {
+      content: 'Contenu',
+    },
+  },
   subscriptionCard: {
     billingInterval: {
       month: 'mois',

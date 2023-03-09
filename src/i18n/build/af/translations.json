@@ -3239,7 +3239,8 @@
       "invoice": "{{ count }} facture",
       "invoice_plural": "{{ count }} factures",
       "registerButton": "M'abonner"
-    }
+    },
+    "packCardDetail": { "comboItemList": { "content": "Contenu" } }
   },
   "member": {
     "search": { "createMember": "Ajouter un membre", "cancel": "Fermer" },

@@ -101,7 +101,7 @@ export const NotificationRuleListItem = (props: Props) => {
         {t('listItem.mailToSend')}
       </Typography>
       <div className={classes.selector}>
-        <div>
+        <div className={classes.tooltipContainer}>
           <Tooltip hide={!franchisedOwned} title={t('franchiseOwned')}>
             <div>
               {/* div is need here for the tooltip */}
@@ -111,12 +111,11 @@ export const NotificationRuleListItem = (props: Props) => {
                 helperText={t('emailDesign.placeholder')}
                 onChange={handleChangeEmail}
                 disabled={franchisedOwned}
-                classes={classes.emailSelector}
               />
             </div>
           </Tooltip>
         </div>
-        <div className={classes.eye}>
+        <div>
           <IconButton
             disabled={!rule?.email_design}
             className={classes.showEmail}
@@ -200,7 +199,11 @@ export const NotificationRuleListItem = (props: Props) => {
               {t(`eventType.${event}`)}
             </Typography>
             <div className={classes.inner}>
-              <div className={classes.box}>
+              <div
+                className={
+                  hasNotificationUpsell ? classes.boxSeventy : classes.boxThirty
+                }
+              >
                 <Typography className={classes.subtitle}>
                   {t('listItem.transactionnalEmail')}
                 </Typography>
@@ -233,7 +236,11 @@ export const NotificationRuleListItem = (props: Props) => {
                 />
                 {hasNotificationUpsell && renderEmailSelector()}
               </div>
-              <div className={classes.box}>
+              <div
+                className={
+                  hasNotificationUpsell ? classes.boxThirty : classes.boxSeventy
+                }
+              >
                 {!hasNotificationUpsell && renderEmailSelector()}
                 {hasNotificationUpsell && (
                   <>
@@ -309,7 +316,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   selector: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   event: {
@@ -322,25 +329,38 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  eye: {
-    flex: 1,
-  },
   inner: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+    },
   },
   emailLabel: {
     fontSize: 12,
   },
-  emailSelector: {
-    maxWidth: 240,
+  boxThirty: {
+    flex: 3,
+    width: '30%',
+    [theme.breakpoints.down('xs')]: {
+      flex: 1,
+      width: '100%',
+    },
   },
-  box: {
-    flex: 1,
+  boxSeventy: {
+    flex: 7,
+    width: '70%',
+    [theme.breakpoints.down('xs')]: {
+      flex: 1,
+      width: '100%',
+    },
   },
   checkbox: {
     marginBottom: theme.spacing(1),
+  },
+  tooltipContainer: {
+    width: '85%',
   },
 }));
 

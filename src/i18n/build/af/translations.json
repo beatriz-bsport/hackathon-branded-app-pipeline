@@ -3242,7 +3242,7 @@
       }
     },
     "packCardDetail": { "comboItemList": { "content": "Contenu" } },
-    "subscriptionCard": {
+    "contractCard": {
       "billingInterval": {
         "month": "mois",
         "month_plural": "Tous les {{ count }} mois",
@@ -3256,7 +3256,11 @@
       "fees": "Frais de dossier : {{ fees }}",
       "invoice": "{{ count }} facture",
       "invoice_plural": "{{ count }} factures",
-      "registerButton": "M'abonner"
+      "registerButton": "M'abonner",
+      "seeMore": "Voir plus",
+      "seeLess": "Voir moins",
+      "legalContract": "Mentions légales",
+      "autoRenewal": "Renouvellement tacite"
     }
   },
   "member": {

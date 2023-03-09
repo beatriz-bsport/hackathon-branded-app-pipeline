@@ -181,7 +181,7 @@ exports.default = {
       content: 'Contenu',
     },
   },
-  subscriptionCard: {
+  contractCard: {
     billingInterval: {
       month: 'mois',
       month_plural: 'Tous\u00A0les\u00A0{{ count }}\u00A0mois',
@@ -196,5 +196,9 @@ exports.default = {
     invoice: '{{ count }}\u00A0facture',
     invoice_plural: '{{ count }}\u00A0factures',
     registerButton: "M'abonner",
+    seeMore: 'Voir plus',
+    seeLess: 'Voir moins',
+    legalContract: 'Mentions légales',
+    autoRenewal: 'Renouvellement tacite',
   },
 };

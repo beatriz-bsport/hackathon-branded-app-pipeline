@@ -1089,7 +1089,8 @@
                     "subscription_nb_months": "Numero di mesi",
                     "subscription_flat_fee": "Spese amministrative",
                     "subscription_nb_days_pause": "Pausa: numero di giorni",
-                    "subscription_next_invoice_date": "Data della prossima fatturazione"
+                    "subscription_next_invoice_date": "Data della prossima fatturazione",
+                    "subscription_contract_terms_link": "link \"Condizioni Legali\""
                 }
             },
             "PrivateConsumerPass": {
@@ -1132,7 +1133,14 @@
                     "establishment_practical_info": "Accesso alla sala",
                     "address": "Indirizzo",
                     "ics_calendar_link": "Collegamento ics al calendario",
-                    "spot": "Posto"
+                    "spot": "Posto",
+                    "canceled_grouped_session": "Gruppo di prenotazione annullato"
+                },
+                "subtitles": {
+                    "workshop": "Workshop",
+                    "establishment_group": "Ubicazione",
+                    "establishment": "Sala",
+                    "meta_activity": "Attività"
                 }
             },
             "ConsumerPaymentPack": {
@@ -1144,6 +1152,43 @@
                     "pass_name": "Nome della carta del corso",
                     "pass_credit_left": "Numero di crediti rimanenti"
                 }
+            },
+            "ReplacementRequest": {
+                "tags": {
+                    "sub_teacher": "Supplente",
+                    "closing_date": "Data di chiusura"
+                },
+                "name": "Sostituzione"
+            },
+            "Company": {
+                "tags": {
+                    "company_websiteURL": "URL del sito web",
+                    "company_info": "Informazioni sullo studio",
+                    "android_app_URL": "URL dell'applicazione android",
+                    "ios_app_URL": "URL dell'applicazione iOS",
+                    "company_instagramURL": "URL Instagram",
+                    "company_facebookURL": "URL Facebook",
+                    "company_scheduleURL": "Pianifica l'URL",
+                    "login_url": "URL di accesso",
+                    "company": "Nome dell'azienda",
+                    "company_logo": "Logo dell'azienda"
+                },
+                "name": "Azienda"
+            },
+            "RecurrentRule": {
+                "tags": {
+                    "recurring_booking_fail_reason": "Motivo dell'errore di prenotazione ricorrente",
+                    "establishment_practical_info": "Accesso alla sala",
+                    "establishment": "Sala",
+                    "date": "Ora/Data",
+                    "coach": "Insegnante",
+                    "address": "Indirizzo",
+                    "activity": "Attività"
+                },
+                "name": "Regola ricorrente"
+            },
+            "Birthday": {
+                "name": "Compleanno"
             }
         },
         "eventType": {
@@ -1186,7 +1231,19 @@
             "510": "Pagamento di un abbonamento fallito",
             "481": "Appuntamento ricorrente cancellato per mancanza di disponibilità (studente)",
             "480": "Appuntamento ricorrente cancellato per mancanza di disponibilità (insegnante)",
-            "987": "Tentativo di riscuotere una rata"
+            "987": "Tentativo di riscuotere una rata",
+            "907": "Sostituto trovato (sostituzione)",
+            "906": "Data di chiusura posticipata (sostituzione)",
+            "905": "Nuova richiesta tardiva (sostituzione)",
+            "904": "Nuova richiesta di sostituzione (sostituzione)",
+            "903": "È stata trovata un'altra sostituzione (sostituzione)",
+            "902": "Richiesta di sostituzione annullata (sostituzione)",
+            "901": "Sostituto trovato (insegnante)",
+            "801": "Gruppo appuntamenti annullato",
+            "602": "Troppe poche prenotazioni N ore prima dell'inizio della sessione (membri)",
+            "103": "Sessione modificata (insegnanti)",
+            "102": "Annullamento della sessione (insegnanti)",
+            "101": "Promemoria corso online in 15 min (insegnanti)"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1198,7 +1255,8 @@
             "marketing": "Marketing",
             "invoice": "Fatturazione",
             "payment_pack": "Badge",
-            "recurrent_private_booking": "Appuntamento ricorrente"
+            "recurrent_private_booking": "Appuntamento ricorrente",
+            "replacement_request": "Sostituzione"
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
@@ -1249,7 +1307,8 @@
                 "pickTemplate": "Scegliere un modello",
                 "name": "Nome",
                 "description": "Il modello scelto sarà usato per l'email transazionale \"{{name}}\" per tutti gli affiliati selezionati qui.",
-                "title": "Configurazione"
+                "title": "Configurazione",
+                "restrictedAccess": "Questa configurazione è impostata per i franchise a cui non hai accesso. Alcuni campi non sono modificabili"
             },
             "emptyStateConfiguration": "Crea una configurazione per forzare l'uso di modelli di e-mail per ciascuno dei tuoi franchisee.",
             "addConfiguration": "Aggiungere una configurazione",
@@ -1276,7 +1335,16 @@
         "configureNotif": "Configurare",
         "countNotification": "{{nbr}} notifiche push abilitate",
         "countEmail": "{{nbr}} email transazionali attivate",
-        "countElements": "{{nbr}} elementi"
+        "countElements": "{{nbr}} elementi",
+        "triggeringEvent": {
+            "title": "Evento scatenante"
+        },
+        "type": {
+            "hours": "Ore",
+            "days": "Giorni",
+            "bookingConcerned": "la sessione interessata dalla notifica",
+            "sendNotification": "Invia la notifica"
+        }
     },
     "consumerSpace": {
         "dashboard": {
@@ -1499,6 +1567,13 @@
             "maxPurchasePerMember": {
                 "helperText": "Lasciare vuoto per non imporre un limite",
                 "label": "Acquisto massimo per membro"
+            },
+            "usePaymentComboTaxOnItems": {
+                "helperText": "Per impostazione predefinita, la tassa applicata a ciascun oggetto è quella indicata sullo stesso. Selezionando questa opzione, potrai applicare una tassa generale sul pacco.",
+                "label": "Applicare un'IVA generale all'intera confezione"
+            },
+            "error": {
+                "atLeastOneThing": "Devi aggiungere almeno un articolo nel tuo pacchetto"
             }
         },
         "detail": {
@@ -1924,12 +1999,36 @@
                     "title": "Modifica della fascia oraria",
                     "cancel": "Annulla",
                     "label": "Modifica per:",
-                    "submit": "Iscriviti"
+                    "submit": "Iscriviti",
+                    "warning": "Questo/a insegnante non è associato/a ad alcun appuntamento"
                 }
             },
             "private_service": "Tipo di appuntamento",
             "establishment": "Luogo",
-            "coach": "Insegnante"
+            "coach": "Insegnante",
+            "detail": {
+                "detailEmpty": "Nessuna disponibilità nello slot selezionato",
+                "dialog": {
+                    "title": "Dettagli sulla disponibilità"
+                },
+                "openHours": "Orario",
+                "availableEverywhere": "Disponibile in tutte le sale",
+                "slotBoundaries": "Da {{date_start}} a {{date_end}}",
+                "ok": "Ok"
+            },
+            "specificAvailabilityForm": {
+                "advanced": "Avanzato",
+                "infoForCoach": "Come impostazione predefinita, sarai disponibile in tutti gli stabilimenti. Attivando questa opzione potrai selezionare in quali stabilimenti sarai disponibile per questa fascia oraria.",
+                "info": "Come impostazione predefinita, il tuo insegnante sarà indicato come disponibile in tutti i tuoi istituti. Attivando questa opzione potrai selezionare in quali strutture il tuo insegnante sarà disponibile per questa fascia oraria.",
+                "switchLabel": "Aggiungi solo per alcuni stabilimenti"
+            },
+            "notAssociatedDialog": {
+                "info": "La disponibilità è stata registrata. Tuttavia, questo insegnante non è associato ad alcun appuntamento.\n         Per poter salvare un nuovo appuntamento con questo docente, associalo all'appuntamento desiderato dalla scheda Appuntamenti.",
+                "close": "Chiudi",
+                "checkbox": "Non ricordarmelo più",
+                "title": "Nessun appuntamento associato"
+            },
+            "notAssociatedWarning": "Attenzione, questo insegnante non è associato ad alcun appuntamento. Per poter salvare un nuovo appuntamento con questo docente, associalo all'appuntamento desiderato dalla scheda Appuntamenti."
         },
         "resource": {
             "datatype": {
@@ -2014,7 +2113,23 @@
                 "attachCoach": "Assegna un insegnante",
                 "source": "Canale di prenotazione ",
                 "cancelledOn": "Annullare ",
-                "unpaidBooking": "Il cliente ha usato l'opzione di pagare più tardi. {{ credits}} o i crediti saranno automaticamente addebitati sul prossimo acquisto di una carta compatibile."
+                "unpaidBooking": "Il cliente ha usato l'opzione di pagare più tardi. {{ credits}} o i crediti saranno automaticamente addebitati sul prossimo acquisto di una carta compatibile.",
+                "cancelledByRecurrenceBy": "Cancellato da",
+                "cancelledBy": "Cancellato da",
+                "restoredBy": "Ripristinato da",
+                "dateModifiedBy": "Modificato da",
+                "coachModifiedBy": "Modificato da",
+                "cancelledByRecurrence": "Cancellazione ricorrente della prenotazione",
+                "cancelled": "Cancellazione",
+                "restored": "Ripristina",
+                "dateModified": "Modifica",
+                "coachModified": "Modifica",
+                "canal": "Canale",
+                "initialDateTime": "Data e ora iniziali",
+                "emptyHistory": "Nessuno storico",
+                "historyTitle": "Storico",
+                "by": "Da",
+                "cancelledByRecurrenceOn": "Cancellazione ricorrente della prenotazione attiva "
             },
             "managerAdd": {
                 "compatiblePrivateConsumerPass": "Schede per appuntamento possedute:",
@@ -2028,7 +2143,12 @@
                 "compatiblePrivatePass": "Applica una carta di appuntamento",
                 "emptyPrivateConsumerPass": "Nessuna carta compatibile posseduta",
                 "emptyPrivatePass": "Nessuna carta di appuntamento compatibile",
-                "privateConsumerPassNeedRefresh": "Aggiorna l'elenco"
+                "privateConsumerPassNeedRefresh": "Aggiorna l'elenco",
+                "incompatibilities": {
+                    "11107": "Appuntamento non compatibile"
+                },
+                "noUncompatiblePassToDisplay": "Nessuna scheda appuntamento non compatibile",
+                "nonCompatiblePrivateConsumerPass": "Pass appuntamenti posseduti non compatibili:"
             },
             "delete": {
                 "consumer": {
@@ -2065,7 +2185,9 @@
             "notRefunded": "Non rimborsato",
             "isRefunded": "Rimborsato",
             "isUnpaid": "Non pagato",
-            "bookingIsUnpaid": "Prenotazioni non pagate"
+            "bookingIsUnpaid": "Prenotazioni non pagate",
+            "isCancelledByManagerDate": "Annullato il {{-date}} alle {{time}} da {{cancelled_by}}",
+            "isCancelledByManager": "Annullato da {{cancelled_by}}"
         },
         "privateService": {
             "delete": {
@@ -2636,7 +2758,8 @@
             "notReverted": "Fattura non annullata",
             "credits": "Credito",
             "expiration": "Validità",
-            "all": "Tutte le schede"
+            "all": "Tutte le schede",
+            "isValidToday": "Valido"
         },
         "recurrenceRule": {
             "item": {
@@ -3040,7 +3163,8 @@
             "nb_sessions": "Numero di sessioni",
             "totalNetGain": "Totale guadagno netto",
             "netGain": "Guadagno netto",
-            "marginValue": "Contributo marginale"
+            "marginValue": "Contributo marginale",
+            "nb_private_bookings": " "
         },
         "bonus": "Bonus",
         "addBonus": "Aggiungi un bonus",
@@ -3077,7 +3201,8 @@
             "table": {
                 "header": {
                     "nbSessions": "Numero di corsi di gruppo",
-                    "coachName": "Professore"
+                    "coachName": "Professore",
+                    "confirmedBookings": " "
                 }
             }
         },
@@ -3164,7 +3289,8 @@
                 "paymentMethod": "Modo di pagamento",
                 "forms": "Modulo di membro",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "App di personalizzazione"
+                "mobilePersonalization": "App di personalizzazione",
+                "coachUserspace": "Area dell'insegnante"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -3199,7 +3325,16 @@
             "expenses": "Spese",
             "instalmentPayment": "Pagamenti a rate",
             "coachPayroll": "Remunerazione",
-            "clockIn": "Orologio in orologio in uscita"
+            "clockIn": "Orologio in orologio in uscita",
+            "cadences": "Cadenze",
+            "help": "Aiuto",
+            "tutorialInfo": "Trova la nostra guida introduttiva nella scheda Tutorial.",
+            "tutorial": "Tutorial",
+            "replacement": "Sostituzione",
+            "toggle": {
+                "shrink": "Piega",
+                "expand": "Estendi"
+            }
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -3217,7 +3352,19 @@
             "franchises": "Franchisee",
             "reporting": "Riporta",
             "paymentPack": "Schede del corso",
-            "widget": "Widget"
+            "widget": "Widget",
+            "settings": "Parametri",
+            "staff": "Staff",
+            "widgets": "Widget",
+            "notificationRules": "Email transazionali",
+            "emailTemplates": "Email",
+            "products": {
+                "couponTemplates": "Promozioni",
+                "giftcardTemplates": "Carte regalo",
+                "privatePassTemplates": "Pass per appuntamenti",
+                "paymentPackTemplates": "Pass",
+                "label": "Prodotti"
+            }
         },
         "multiSession": {
             "current": "Sessione corrente",
@@ -6180,7 +6327,19 @@
                 "settingTitle": "Impostazioni",
                 "hideMail": "Nascondi email",
                 "pushTitle": "Impostazioni di notifica",
-                "mailSettings": "Impostazioni della posta"
+                "mailSettings": "Impostazioni della posta",
+                "creditNotificationType": {
+                    "onOfferStart": "Fine della sessione la cui prenotazione aveva portato il numero di crediti al di sotto della soglia sopra definita",
+                    "onBooking": "Prenotazione che porti il numero di crediti al di sotto della soglia sopra definita"
+                },
+                "chooseTime": {
+                    "secondOnOfferStart": "ora(e) dopo la sessione",
+                    "secondOnBooking": "ora(e) dopo la prenotazione",
+                    "first": "Inviare una mail"
+                },
+                "infoContract": "I membri che hanno ottenuto questo pass in un abbonamento riceveranno notifiche solo sull'abbonamento e non sul pass. Disabilitando questa opzione ne riceveranno entrambe.",
+                "dontSendIfInContract": "Non inviare quando il pass fa parte di un abbonamento",
+                "contractTitle": "Abbonamento"
             },
             "listItem": {
                 "smartList": "Elenchi esclusi",
@@ -6223,7 +6382,9 @@
             "daysLeftLabel": "Notifica quando {{day}} giorno di validità rimangono sulla carta",
             "daysLeftLabel_plural": "Notifica quando {{day}} giorni di validità rimangono sulla carta",
             "creditsLeftLabel": "Notifica quando rimane {{count}} credito",
-            "creditsLeftLabel_plural": "Notifica quando rimane {{credit}} crediti"
+            "creditsLeftLabel_plural": "Notifica quando rimane {{credit}} crediti",
+            "creditsLeftOnOfferStart": "{{hours}}h dopo la sessione",
+            "creditsLeftOnBooking": "{{hours}}h dopo la prenotazione"
         },
         "extension": {
             "create": {
@@ -6528,7 +6689,8 @@
             "notReverted": "Fattura non annullata",
             "credits": "Credito",
             "expiration": "Validità",
-            "all": "Tutte le schede"
+            "all": "Tutte le schede",
+            "isValidToday": "Valido"
         },
         "multipleBookingTooltip": "Prenotazioni multiple",
         "blockedCpp": "Carta bloccata da {{-blocked_from}} a {{-blocked_until}}",
@@ -6560,7 +6722,10 @@
                     "titleNew": "Nuova categoria",
                     "name": "Nome della categoria",
                     "titleEdit": "Categoria",
-                    "helper": "Le categorie appariranno sul mercato e sull'applicazione mobile per le carte disponibili alla vendita."
+                    "helper": "Le categorie appariranno sul mercato e sull'applicazione mobile per le carte disponibili alla vendita.",
+                    "update": "Rinomina",
+                    "create": "Aggiungi",
+                    "cancel": "Cancella"
                 }
             },
             "add": "Aggiungere una categoria",
@@ -6725,7 +6890,19 @@
             "requiredField": "Questo campo è richiesto",
             "creditWarning": "Se si cambia il numero di crediti, tutte le carte esistenti saranno interessate.",
             "migration": "Questa mappa del corso è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la storia. Le attività/categorie compatibili rimangono modificabili.",
-            "franchise": "Questa mappa è una mappa condivisa dall'account del franchisor. Alcuni elementi sono stati definiti dal conto del franchisor e non sono modificabili"
+            "franchise": "Questa mappa è una mappa condivisa dall'account del franchisor. Alcuni elementi sono stati definiti dal conto del franchisor e non sono modificabili",
+            "allowGuest": "Compatibile con la prenotazione per un ospite",
+            "penalityModeFranchisor": {
+                "buyer": {
+                    "explain": "Il deposito di {{ price }} verrà applicato solo presso il franchise in cui la carta è stata inizialmente fatturata.",
+                    "label": "Al franchise che ha fatturato la carta"
+                },
+                "prorata": {
+                    "explain": "Il deposito di {{ price }} verrà applicato proporzionalmente alle cancellazioni fuori orario registrate presso ciascuno dei tuoi affiliati. Verrà addebitato un totale di {{ price }} sulla franchigia.",
+                    "label": "In relazione alle cancellazioni tardive in ciascun affiliato"
+                },
+                "label": "Applicazione del deposito"
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -6801,7 +6978,29 @@
                     "title": "Cancellare la carta"
                 }
             }
-        }
+        },
+        "incompatibilities": {
+            "paymentPack": "Pass configurato come incompatibile con l'attività in questione :",
+            "2023": "La carta è scaduta",
+            "2022": "La carta inizia con la prima presenza, il ",
+            "2021": "La carta inizia con la prima prenotazione, il ",
+            "2020": "Le date sono incompatibili",
+            "2019": "Il pass è bloccato",
+            "2018": "Numero di crediti insufficiente",
+            "2010": "Stabilimento non compatibile",
+            "2009": "Categoria non compatibile",
+            "2008": "Attività non compatibile"
+        },
+        "maxoutInfo": {
+            "day": "Carta limitata a {{count}} utilizzo massimo al giorno",
+            "day_plural": "Carta limitata a {{count}} utilizzi massimi al giorno",
+            "month": "Carta limitata a {{count}} utilizzo massimo al mese",
+            "month_plural": "Carta limitata a {{count}} utilizzi massimi al mese",
+            "week": "Carta limitata a {{count}} utilizzo massimo a settimana",
+            "week_plural": "Carta limitata a {{count}} utilizzi massimi a settimana"
+        },
+        "next": "Successivo",
+        "previous": "Precedente"
     },
     "metaActivity": {
         "detail": {
@@ -6953,7 +7152,11 @@
                 "week": "Questo gruppo inizia il {{-day}}, ogni settimana",
                 "week_plural": "Qiuesto gruppo inizia il {{-day}}, ogni {{ count }} settimane",
                 "month": "Questo gruppo inizia il {{-day}}, ogni mese",
-                "month_plural": "Questo gruppo inizia il {{-day}}, ogni {{ count }} mesi"
+                "month_plural": "Questo gruppo inizia il {{-day}}, ogni {{ count }} mesi",
+                "year": "Questo gruppo inizia {{-day}}, da {{-mont}} ogni anno",
+                "year_plural": "Questo gruppo inizia {{-day}}, da {{-month}} ogni {{ count }} anni",
+                "day": "Questo gruppo si ripete ogni giorno",
+                "day_plural": "Questo gruppo si ripete ogni {{ count }} giorni"
             },
             "last": "scorso",
             "intervalLabel": {
@@ -6978,8 +7181,14 @@
             },
             "errors": {
                 "offers_length": "Hai creato solo una sessione. Per poter creare un gruppo di sessioni,\n       aggiungere almeno due sessioni. Se vuoi creare una sessione unica, puoi farlo direttamente dal\n       workshop in questione o dalla scheda calendario."
-            }
-        }
+            },
+            "warning": {
+                "groupsWithOutOfTheRangeOffers": "I gruppi di sessioni di seguito non verranno creati perché\n         comprendono sessioni che si svolgono in più di 3 anni",
+                "uncreatedGroups": "Attenzione, alcuni gruppi non verranno creati.\n         Puoi trovarli nella sezione \"Gruppi non creati\" in fondo a questo elenco"
+            },
+            "offerDescription": "{{ count }} sessioni da {{- firstSession }} a {{- lastSession }}"
+        },
+        "cancelledOffers": "{{count}} cancellazioni"
     },
     "emailTemplate": {
         "subject": "Oggetto della mail:",
@@ -9020,6 +9229,13 @@
                 "message": {
                     "error": "Impossibile registrare questo metodo di pagamento",
                     "success": "Metodo di pagamento salvato con successo!"
+                },
+                "mandateRevalidated": {
+                    "retry": "Riprova",
+                    "error": "Impossibile rinnovare il mandato di addebito diretto, si prega di contattare la propria banca.",
+                    "success": "Il mandato è stato rinnovato, i prossimi addebiti diretti saranno eseguiti con successo.",
+                    "content": "Il mandato di addebito diretto sarà riconvalidato con la banca.",
+                    "collect": "Accetta"
                 }
             },
             "savePaymentMethod": {
@@ -9046,7 +9262,8 @@
             "50": "EPS",
             "40": "iDEAL",
             "30": "Sofort",
-            "20": "Bancontact"
+            "20": "Bancontact",
+            "disputeWon": "Risolto"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -9059,7 +9276,26 @@
             "IDEAL": "iDEAL",
             "SOFORT": "Sofort",
             "BANCONTACT": "Bancontact",
-            "SEPA": "SEPA"
+            "SEPA": "SEPA",
+            "60": "Giropay",
+            "50": "EPS",
+            "40": "iDEAL",
+            "30": "Sofort",
+            "20": "Bancontact",
+            "13": "SEPA",
+            "12": "Controversia",
+            "11": "Altro",
+            "10": "Pagamento automatico",
+            "9": "Pagamento in loco",
+            "8": "Event brite",
+            "7": "Trasferimento",
+            "6": "AMEX",
+            "5": "Controllo ferie",
+            "4": "Carta di credito (manuale)",
+            "3": "Pass",
+            "2": "Check",
+            "1": "Contante",
+            "0": "Card"
         },
         "generalTermsAndConditions": {
             "iAccept": "Accetto le ",
@@ -9110,10 +9346,12 @@
                     "label": "Branch code"
                 },
                 "transitNumber": {
-                    "label": "Transit number"
+                    "label": "Transit number",
+                    "placeholder": "numero di transito"
                 },
                 "institutionNumber": {
-                    "label": "Institution number"
+                    "label": "Institution number",
+                    "placeholder": "Numero istituto"
                 },
                 "bankCode": {
                     "label": "Bank code"
@@ -9137,7 +9375,10 @@
                 "1": "Trattamento in corso",
                 "0": "In attesa"
             },
-            "title": "Le mie ricevute"
+            "title": "Le mie ricevute",
+            "payoutIsManual": "Questo trasferimento è stato avviato manualmente dal team di bsport per velocizzare la ricezione dei tuoi fondi. In questo caso non è disponibile il dettaglio dei pagamenti. Contatta il nostro team se desideri maggiori informazioni.",
+            "payoutAmountFromIncludedPayouts": "inclusi {{price}} da pagamenti precedenti",
+            "payoutIsIncludedInOther": "Questo trasferimento è stato incluso in quello di {{date}} recante l'identificatore {{readable_identifier}}"
         },
         "instalment": {
             "form": {
@@ -9152,7 +9393,8 @@
                         "year": "un",
                         "year_plural": "anni"
                     },
-                    "label": "Ripetere tutto"
+                    "label": "Ripetere tutto",
+                    "helperText": " "
                 },
                 "recurrence": {
                     "explain": "Il pagamento sarà distribuito su {{ total_interval_duration }} {{ interval }} tutti {{ recurrence_basis }} {{ interval }} e genererà {{ nb_interval }} scontrini",
@@ -9209,6 +9451,11 @@
                 "recap": "Riassunto"
             },
             "title": "Comprare un abbonamento"
+        },
+        "disputeStatus": {
+            "3": "Controversia persa",
+            "2": "Controversia risolta",
+            "1": "Contenzioso in corso"
         }
     },
     "selfCheckIn": {
@@ -10716,7 +10963,10 @@
             "successInfo": "La cancellazione di tutte le sessioni tra {{start_date}} e {{end_date}} è stata presa in considerazione.",
             "iConfirm": "CONFERMO",
             "confirmationExplain": "Si prega di scrivere \"CONFERMO\" qui sotto in lettere maiuscole.",
-            "success": "Cancellazione confermata"
+            "success": "Cancellazione confermata",
+            "warningOfferGroup": "Attenzione, le seguenti sessioni non possono essere annullate perché fanno parte di un gruppo di sessioni. Per cancellarle, cancella il gruppo corrispondente.",
+            "warningOfferGroupTitle": "Sessioni non annullate",
+            "offers": "Sessioni non annullabili"
         },
         "bookingListEmpty": "Nessuna prenotazione",
         "bookingList": "Prenotazioni",
@@ -10738,7 +10988,22 @@
             "cancelSimilarOffers": "Vuoi annullare sessioni simili?",
             "selectDelete": "Seleziona le sessioni che verranno eliminate",
             "deleteSimilarOffers": "Vuoi eliminare sessioni simili?",
-            "selectEdit": "Seleziona le sessioni da modificare"
+            "selectEdit": "Seleziona le sessioni da modificare",
+            "editSubteacher": {
+                "propagateToSimilarOffers": {
+                    "mode": {
+                        "all": "Estendi le modifiche relative al supplente anche per queste sessioni",
+                        "offersWithSameCoachOverrideOnly": "Mantieni l'attuale sostituto in queste sessioni"
+                    },
+                    "warning": "Le seguenti sessioni simili hanno già un altro supplente. Cosa vuoi fare ?",
+                    "checkboxInfo": "Selezionando questa casella le modifiche apportate al supplente di questa sessione verranno applicate a tutte le sessioni simili. Altrimenti, saranno applicate solo a questa sessione.",
+                    "checkboxLabel": "Applicare le modifiche riguardanti il supplente alle sessioni selezionate"
+                },
+                "title": "Cambio insegnante supplente"
+            },
+            "cancelSimilarOffersGroup": "Annullare la sessione nelle altre ricorrenze del gruppo?",
+            "deleteSimilarOffersGroups": "Vuoi rimuovere le ricorrenze future dal gruppo",
+            "editSimilarOffersGroup": "Modificare la seduta nelle future ricorrenze del gruppo?"
         },
         "close": "Chiudi",
         "deleteImpossibleText": "Non puoi cancellare questa sessione perché ha delle prenotazioni in corso.",
@@ -10770,7 +11035,45 @@
                 "title": "Cambiare il livello"
             }
         },
-        "tagManagementInfo": "{{authorized}} tag autorizzato, {{unauthorized}} tag non autorizzato"
+        "tagManagementInfo": "{{authorized}} tag autorizzato, {{unauthorized}} tag non autorizzato",
+        "rollCall": {
+            "drawer": {
+                "listMembers": "Elenco dei membri registrati",
+                "info": "La convalida della chiamata attiva il conto alla rovescia per le penalità di assenza (no-show).",
+                "rollCall": "Chiamata"
+            },
+            "chip": {
+                "notValidatedRollCall": "Chiamata non convalidata",
+                "validatedRollCall": "Chiamata convalidata il {{- date }} {{ time }}"
+            },
+            "dialog": {
+                "savedRollCall": "La chiamata è stata registrata con successo.",
+                "savedRollCall_plural": "Le chiamate sono state registrate con successo.",
+                "validatedRollCall": "Chiamata convalidata",
+                "validatedRollCall_plural": "Chiamate convalidate",
+                "confirmationRollCall": "Attenzione, verranno sanzionati i soci contrassegnati come assenti e titolari di tessera illimitata soggetta a penali. Sei sicuro di voler confermare la chiamata?",
+                "confirmationRollCall_plural": "Convaliderai la chiamata per tutte le sessioni della giornata. Attenzione, verranno sanzionati i soci contrassegnati come assenti e titolari di tessera illimitata soggetta a penali. Sei sicuro di voler confermare tutte le chiamate?",
+                "validationRollCall": "Convalida la chiamata"
+            },
+            "button": {
+                "validationRollCall": "Convalida la chiamata",
+                "validationRollCall_plural": "Convalida tutte le chiamate"
+            },
+            "warningIcon": {
+                "stateChanged": "Lo stato è stato modificato ma non è stato convalidato"
+            },
+            "warningText": {
+                "lastValidatedRollCall": "Ultima chiamata convalidata il {{- date }} {{ time }}",
+                "noRollCallLeft": "Tutte le chiamate sono state convalidate",
+                "rollCallsLeftToValidate": "La chiamata {{ number }} richiede la convalida",
+                "rollCallsLeftToValidate_plural": "Le chiamate {{ number }} richiedono la convalida",
+                "validatedDate": "Convalidato il {{- date }} alle {{ time }}",
+                "modifiedRollCall": "La chiamata è stata modificata, è necessario confermarla nuovamente",
+                "notValidatedRollCall": "La chiamata non è stata convalidata"
+            }
+        },
+        "pendingReplacementRequest": "È aperta una richiesta di sostituzione",
+        "recurrenceIndex": "Gruppo n°{{ index }} della ricorrenza"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -11177,7 +11480,11 @@
                 "createCard": "Aggiungi una carte",
                 "createSepa": "Aggiungi un IBAN"
             },
-            "sectionTitle": "Metodo di pagamento"
+            "sectionTitle": "Metodo di pagamento",
+            "info": {
+                "link": "qui",
+                "content": "Il tuo abbonamento Bsport verrà addebitato sul metodo di pagamento indicato di seguito. Per configurare l'account su cui verranno accreditati i pagamenti online tramite Bsport, fare clic su"
+            }
         },
         "platformInvoice": {
             "noInvoice": "No fatture",
@@ -11927,7 +12234,8 @@
                     "label": "Descrizione"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Mezzi di pagamento disponibili"
+                    "label": "Mezzi di pagamento disponibili",
+                    "helperText": " "
                 },
                 "name": {
                     "label": "Nome"
@@ -12115,7 +12423,8 @@
                 "name": "Nome del programma",
                 "description": "Descrizione",
                 "color": "Colore",
-                "default": "Impostare come programma predefinito per tutti i nuovi registranti"
+                "default": "Impostare come programma predefinito per tutti i nuovi registranti",
+                "update": "Modifica il programma"
             },
             "member": {
                 "addDate": "Data di registrazione",

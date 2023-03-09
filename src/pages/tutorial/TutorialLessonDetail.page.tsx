@@ -359,11 +359,11 @@ const mapWithHandlers = {
       requestUpsellPackage,
       setOpenFeatureRequest,
     }: OwnAndConnectedProps & State) =>
-    (readable_identifier: number) => {
+    (upsell_identifier: number) => {
       setOpenFeatureRequest(true);
-      requestUpsellPackage(readable_identifier);
+      requestUpsellPackage(upsell_identifier);
       window.Intercom('trackEvent', 'Upsell feature requested', {
-        readable_identifier,
+        upsell_identifier,
       });
     },
 };

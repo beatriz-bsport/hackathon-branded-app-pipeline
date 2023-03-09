@@ -219,12 +219,15 @@ export const requestUpsellPackageActions = {
   success: createAction('UPSELL_PACKAGE/REQUEST_FEATURE/SUCCESS'),
 };
 
-export function requestUpsellPackage(id: number, options?: OptionCallback) {
+export function requestUpsellPackage(
+  upsellIdentifier: number,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(requestUpsellPackageActions.isLoading(true));
     dispatch(requestUpsellPackageActions.error(null));
     try {
-      const response = await requestUpsellPackageAPI(id);
+      const response = await requestUpsellPackageAPI(upsellIdentifier);
       dispatch(requestUpsellPackageActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

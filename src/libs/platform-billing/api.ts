@@ -49,9 +49,10 @@ export const retrieveSubscription = async () => {
   return getAuth(`${API_V1_URI}/platform_billing/platform_subscription/me/`);
 };
 
-export const requestUpsellPackage = async (id: number) => {
+export const requestUpsellPackage = async (upsell_identifier: number) => {
   return postAuth(
-    `${API_V1_URI}/platform_billing/upsell_package/${id}/request_feature/`,
+    `${API_V1_URI}/platform_billing/upsell_package/request_upsell_by_identifier/`,
+    { upsell_identifier },
   );
 };
 

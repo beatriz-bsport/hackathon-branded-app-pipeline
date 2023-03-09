@@ -59,7 +59,7 @@ type Props = {
 
   classes: Object,
   platformSubscription: ?PlatformSubscription,
-  onRequestUpsell: (id: number) => void,
+  onRequestUpsell: (upsellIdentifier: number) => void,
 
   openFeatureRequest: boolean,
   setOpenFeatureRequest: (boolean) => void,
@@ -220,11 +220,11 @@ export default compose(
     */
     onRequestUpsell:
       ({ requestUpsellPackage, setOpenFeatureRequest }) =>
-      (readable_identifier) => {
+      (upsellIdentifier: number) => {
         setOpenFeatureRequest(true);
-        requestUpsellPackage(readable_identifier);
+        requestUpsellPackage(upsellIdentifier);
         window.Intercom('trackEvent', 'Upsell feature requested', {
-          readable_identifier,
+          upsellIdentifier,
         });
       },
   }),

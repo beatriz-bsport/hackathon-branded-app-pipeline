@@ -52,7 +52,7 @@ import {
 
 type Props = {
   upsellPackage: any;
-  onKnowMore: (id: number) => void;
+  onKnowMore: (upsellIdentifier: number) => void;
   children?: React.ReactChild;
 };
 
@@ -274,8 +274,14 @@ const UpsellPremiumSupport: React.FC<Props> = (props) => {
 
 const DefaultTemplate = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['platformBilling']);
-  const { upsellPackage } = props;
+  const { t } = useTranslation('platformBilling');
+  const { upsellPackage, onKnowMore } = props;
+  const canSeeMoreUpsellInformation = !!onKnowMore && !upsellPackage.subscribed;
+  const showMoreUpsellInformation = canSeeMoreUpsellInformation
+    ? () => {
+        onKnowMore(upsellPackage.upsell_identifier);
+      }
+    : () => {};
   return (
     <Paper className={classes.paperContainer}>
       <div className={classes.upsellContent}>
@@ -299,11 +305,8 @@ const DefaultTemplate = (props: Props) => {
         </div>
       </div>
       <div className={classes.buttonContainer}>
-        {!!props.onKnowMore && !upsellPackage.subscribed && (
-          <Button
-            variant="outlined"
-            onClick={() => props.onKnowMore(upsellPackage.id)}
-          >
+        {canSeeMoreUpsellInformation && (
+          <Button variant="outlined" onClick={showMoreUpsellInformation}>
             <HelpOutlinedIcon className={classes.iconLeft} />
             {t('upsellPackage.knowMore')}
           </Button>
@@ -315,8 +318,14 @@ const DefaultTemplate = (props: Props) => {
 
 const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
   const classes = useStyles();
-  const { t } = useTranslation(['platformBilling']);
-  const { upsellPackage } = props;
+  const { t } = useTranslation('platformBilling');
+  const { upsellPackage, onKnowMore } = props;
+  const canSeeMoreUpsellInformation = !!onKnowMore && !upsellPackage.subscribed;
+  const showMoreUpsellInformation = canSeeMoreUpsellInformation
+    ? () => {
+        onKnowMore(upsellPackage.upsell_identifier);
+      }
+    : () => {};
   return (
     <Paper className={classes.paperContainer}>
       <div className={classes.upsellContent}>
@@ -340,11 +349,8 @@ const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
         </div>
       </div>
       <div className={classes.buttonContainer}>
-        {!!props.onKnowMore && !upsellPackage.subscribed && (
-          <Button
-            variant="outlined"
-            onClick={() => props.onKnowMore(upsellPackage.id)}
-          >
+        {canSeeMoreUpsellInformation && (
+          <Button variant="outlined" onClick={showMoreUpsellInformation}>
             <HelpOutlinedIcon className={classes.iconLeft} />
             {t('upsellPackage.knowMore')}
           </Button>

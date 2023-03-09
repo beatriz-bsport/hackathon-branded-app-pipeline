@@ -15,8 +15,8 @@ import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.compone
 
 const UpsellPackageList = (props: {
   upsellPackageList: Array<UpsellPackageType>;
-  onKnowMore: (id: number) => void;
-  onRequestUpsell?: (id: number) => void;
+  onKnowMore: (upsellIdentifier: number) => void;
+  onRequestUpsell?: (upsellIdentifier: number) => void;
   defaultCurrencyDisplay: string;
 }) => {
   const classes = useStyles();
@@ -25,7 +25,9 @@ const UpsellPackageList = (props: {
       {props.upsellPackageList
         .filter((up) => !!up)
         .map((up) => {
-          const UpsellPackage = getUpsellPackageComponent(up.upsell_identifier);
+          const UpsellPackageComponent = getUpsellPackageComponent(
+            up.upsell_identifier,
+          );
           return (
             <Grid
               key={up.id}
@@ -35,7 +37,7 @@ const UpsellPackageList = (props: {
               md={6}
               lg={4}
             >
-              <UpsellPackage
+              <UpsellPackageComponent
                 onKnowMore={props.onKnowMore}
                 onRequestUpsell={props.onRequestUpsell}
                 upsellPackage={up}
@@ -49,8 +51,8 @@ const UpsellPackageList = (props: {
 };
 
 type Props = {
-  onKnowMore: (id: number) => void;
-  onRequestUpsell: (id: number) => void;
+  onKnowMore: (upsellIdentifier: number) => void;
+  onRequestUpsell: (upsellIdentifier: number) => void;
   platformSubscription: PlatformSubscription;
 };
 

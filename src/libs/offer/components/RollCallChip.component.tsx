@@ -4,38 +4,46 @@ import { PlaylistAddCheck } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
+import { ButtonBase } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
 
 export type Props = {
   isValidated: boolean;
   lastValidatedRollCallDate?: string;
+  onClick: () => void;
 };
 
 export const RollCallChip: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('offer');
+  const onClick = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    ev.stopPropagation();
+    props.onClick();
+  };
   return (
-    <Tooltip
-      title={
-        props.isValidated
-          ? t('rollCall.chip.validatedRollCall', {
-              date: moment(props.lastValidatedRollCallDate).format('L'),
-              time: moment(props.lastValidatedRollCallDate).format('LT'),
-            })
-          : t('rollCall.chip.notValidatedRollCall')
-      }
-    >
-      <div
-        className={classNames(
-          classes.chipStatus,
+    <ButtonBase onClick={onClick}>
+      <Tooltip
+        title={
           props.isValidated
-            ? classes.validatedChipStatus
-            : classes.notValidatedChipStatus,
-        )}
+            ? t('rollCall.chip.validatedRollCall', {
+                date: moment(props.lastValidatedRollCallDate).format('L'),
+                time: moment(props.lastValidatedRollCallDate).format('LT'),
+              })
+            : t('rollCall.chip.notValidatedRollCall')
+        }
       >
-        <PlaylistAddCheck fontSize="small" />
-      </div>
-    </Tooltip>
+        <div
+          className={classNames(
+            classes.chipStatus,
+            props.isValidated
+              ? classes.validatedChipStatus
+              : classes.notValidatedChipStatus,
+          )}
+        >
+          <PlaylistAddCheck fontSize="small" />
+        </div>
+      </Tooltip>
+    </ButtonBase>
   );
 };
 

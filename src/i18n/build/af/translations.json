@@ -8327,9 +8327,8 @@
       "10001": "Stock insuffisant",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
-      "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
-      "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot."
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {

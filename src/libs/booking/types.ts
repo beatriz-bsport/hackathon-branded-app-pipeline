@@ -57,6 +57,7 @@ export type Booking<Offer = number, Member = number, PP = number> = {
   staff_history: Array<
     StaffModificationHistory<BookingModificationActionIdentifier>
   >;
+  attendance_date_updated: string;
 };
 
 export type BookingOption<O = Offer> = {

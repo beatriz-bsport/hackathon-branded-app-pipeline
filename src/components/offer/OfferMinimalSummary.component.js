@@ -89,8 +89,9 @@ type Props = {
   isCoach: boolean,
   showTags: boolean,
   fixedHeight?: number,
-  showRollCall?: boolean,
   getHasPendingReplacementRequest?: (offerId: number) => boolean,
+  openRollCallDrawer: () => void,
+  isRollCallMandatory: boolean,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -362,7 +363,12 @@ export function OfferMinimalSummary(props: Props) {
                 </div>
               </Tooltip>
             )}
-            {props.showRollCall && <RollCallChip isValidated={false} />}
+            {props.isRollCallMandatory && (
+              <RollCallChip
+                isValidated={!offer.roll_call_needs_validation}
+                onClick={props.openRollCallDrawer}
+              />
+            )}
           </div>
         </Grid>
       </ListItem>

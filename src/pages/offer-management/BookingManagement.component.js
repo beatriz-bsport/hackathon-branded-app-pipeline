@@ -48,6 +48,8 @@ import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 import Config from '../../config';
+import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
+import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -124,6 +126,8 @@ type Props = {
   companyId: number,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
   numberOfUnreadAnswers: number,
+  onRollCallButtonClick: () => void,
+  isRollCallMandatory: boolean,
 };
 
 type State = {
@@ -132,7 +136,9 @@ type State = {
 };
 
 export class BookingManagement extends React.PureComponent<Props, State> {
-  state = { memberHistoryAnchor: null };
+  state = {
+    memberHistoryAnchor: null,
+  };
 
   componentDidMount() {
     this.handlePageRequested(1);
@@ -289,7 +295,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
-
     return (
       <div className={classes.container}>
         {!!offer && (
@@ -376,6 +381,29 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     </PermissionContext.Consumer>
                   </div>
                 </div>
+                <Divider />
+                {this.props.isRollCallMandatory && (
+                  <div className={classes.rollCallContainer}>
+                    <div className={classes.rollCallButton}>
+                      <ValidationRollCallButton
+                        nbRollCallsLeftToValidate={
+                          this.props.offer.roll_call_needs_validation ? 1 : 0
+                        }
+                        onClick={this.props.onRollCallButtonClick}
+                      />
+                    </div>
+                    <div className={classes.rollCallText}>
+                      <ValidationRollCallText
+                        nbRollCallsLeftToValidate={
+                          this.props.offer.roll_call_needs_validation ? 1 : 0
+                        }
+                        lastValidatedRollCallDate={
+                          this.props.offer.date_roll_call_last_modified
+                        }
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className={classes.bookingOrderingContainer}>
                   <RadioGroup
                     value={this.props.booking_ordering}
@@ -477,6 +505,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       showVaccinationStatus={this.props.showVaccinationStatus}
                       refresh={this.props.refresh}
                       onProgramDetailsClick={onProgramDetailsClick}
+                      dateRollCallLastModified={
+                        this.props.offer.date_roll_call_last_modified
+                      }
                     />
                   </>
                 )}
@@ -666,6 +697,17 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
+  },
+  rollCallContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rollCallButton: {
+    margin: theme.spacing(2),
+  },
+  rollCallText: {
+    margin: theme.spacing(1),
   },
 });
 

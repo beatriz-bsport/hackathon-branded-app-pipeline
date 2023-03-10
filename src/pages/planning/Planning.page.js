@@ -84,6 +84,9 @@ import {
   editOffers as editOffersActions,
   disableOffer as disableOfferAction,
   hardDeleteOffers as hardDeleteOffersAction,
+  postRollCall as postRollCallAction,
+  postRollCallBulk as postRollCallBulkAction,
+  retrieveOfferAsManager as retrieveOfferAsManagerAction,
 } from '#libs/offer/actions';
 import {
   fetchLevelList as fetchLevelListAction,
@@ -104,8 +107,15 @@ import {
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#libs/member/actions';
 import { getAllMembers, withTags } from '#libs/member/selectors';
 
-import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#libs/booking/actions';
-import { getOfferBookingList } from '#libs/booking/selectors';
+import {
+  fetchBookingsByOffer as fetchBookingsByOfferAction,
+  confirmAttendance as confirmBookingAttendanceAction,
+  discardAttendance as discardBookingAttendanceAction,
+} from '#libs/booking/actions';
+import {
+  getOfferBookingList,
+  getOfferBookingListWithConsumerPack,
+} from '#libs/booking/selectors';
 
 import { fetchBookingStatistics as fetchBookingStatisticsAction } from '#libs/statistics/actions';
 
@@ -155,6 +165,12 @@ import GenericResponsiveDialog from '../../components/genericDialog/GenericRespo
 import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
 
 import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
+
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+
+import RollCallDrawer from '#libs/offer/components/RollCallDrawer.component';
+import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
 
 const styles = (theme) => ({
   container: {
@@ -241,7 +257,7 @@ type Props = {
   fetchAssociatedCoachesList: () => void,
   fetchActivitiesCompany: (companyId: number, params?: any) => void,
   fetchFilteredMembers: (params: any, OptionCallback) => void,
-  fetchBookingsByOffer: (params: any) => void,
+  fetchBookingsByOffer: (params: any, options?: OptionCallback) => void,
   fetchBookingStatsOfTheWeek: () => void,
   fetchBookingInOfferStats: () => void,
   metaActivities: Array<MetaActivity>,
@@ -384,6 +400,21 @@ type Props = {
     filters: ReplacementRequestFilter,
   ) => void,
   replacementRequestManagerFilter: ReplacementRequestFilter,
+  confirmBookingAttendance: () => void,
+  discardBookingAttendance: () => void,
+  retrieveConsumerPackBulk: (
+    consumerPaymentPackList: Array<ConsumerPaymentPack>,
+    options?: OptionCallback,
+  ) => void,
+  fetchPaymentPackBulk: (paymentPackList: Array<PaymentPack>) => void,
+  postRollCall: (offerId: number) => void,
+  postRollCallBulk: (
+    data: { offer_id_list: Array<number> },
+    options?: OptionCallback,
+  ) => void,
+  retrieveOfferAsManager: (offerId: number) => void,
+  bookingsWithConsumerPack: Array<Booking>,
+  rollCallLoading: boolean,
 };
 
 type State = {
@@ -392,6 +423,9 @@ type State = {
   createOfferModalOpened: boolean,
   restoreModalOpen: boolean,
   openReplacementRequestPage: boolean,
+  isRollCallDrawerOpen: boolean,
+  indexOfferInDrawer: number | null,
+  isConfirmationRollCallDialogOpen: boolean,
 };
 
 const FILTER_COACH = 0;
@@ -408,6 +442,9 @@ export class Planning extends PureComponent<Props, State> {
       createOfferModalOpened: false,
       restoreModalOpen: false,
       openReplacementRequestPage: false,
+      isRollCallDrawerOpen: false,
+      indexOfferInDrawer: null,
+      isConfirmationRollCallDialogOpen: false,
     };
   }
 
@@ -535,15 +572,7 @@ export class Planning extends PureComponent<Props, State> {
     } else {
       this.props.replaceRouter(base);
     }
-    this.props.fetchOffersByDay({
-      year: date.year(),
-      month: date.month() + 1,
-      day: date.date(),
-      ...omit(
-        this.props.offerFilters || {},
-        omit_list(this.props.offerFilters, false),
-      ),
-    });
+    this.fetchOffersOfDate(date);
   };
 
   onModifyTags = (offer) => {
@@ -1128,6 +1157,107 @@ export class Planning extends PureComponent<Props, State> {
     );
   };
 
+  fetchOffersOfDate = (date) => {
+    this.props.fetchOffersByDay({
+      year: date.year(),
+      month: date.month() + 1,
+      day: date.date(),
+      ...omit(
+        this.props.offerFilters || {},
+        omit_list(this.props.offerFilters, false),
+      ),
+    });
+  };
+
+  fetchOffersOfSelectedDate = () => {
+    const date = moment(this.props.date, DATE_FORMAT);
+    this.fetchOffersOfDate(date);
+  };
+
+  renderRollCallDrawer = () => {
+    return (
+      <RollCallDrawer
+        open={this.state.isRollCallDrawerOpen}
+        onClose={this.closeRollCallDrawer}
+        offer={this.props.offers[this.state.indexOfferInDrawer]}
+        members={this.props.members}
+        bookings={this.props.bookingsWithConsumerPack}
+        confirmBookingAttendance={this.props.confirmBookingAttendance}
+        discardBookingAttendance={this.props.discardBookingAttendance}
+        postRollCall={this.props.postRollCall}
+        fetchOffer={this.props.retrieveOfferAsManager}
+        bookingTableLoading={this.props.bookingsLoading}
+        rollCallLoading={this.props.rollCallLoading}
+        isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
+      />
+    );
+  };
+
+  renderConfirmationRollCallDialog = () => {
+    return (
+      <ConfirmationRollCallDialog
+        open={this.state.isConfirmationRollCallDialogOpen}
+        nbRollCallsLeftToValidate={this.props.offers.length}
+        onConfirm={this.postRollCallBulk}
+        onCancel={this.closeConfirmationRollCallDialog}
+        isLoading={this.props.rollCallLoading}
+      />
+    );
+  };
+
+  openRollCallDrawer = (index: number, offer: Offer) => {
+    this.props.fetchBookingsByOffer(offer.id, {
+      onSuccess: (bookings) => {
+        this.props.retrieveConsumerPackBulk(
+          bookings.map((b) => b.consumer_payment_pack),
+          {
+            onSuccess: (cppList) => {
+              this.props.fetchPaymentPackBulk(
+                cppList.map((cpp) => cpp.payment_pack),
+              );
+            },
+          },
+        );
+      },
+    });
+    this.props.fetchFilteredMembers({
+      offer: offer.id,
+      withNotes: true,
+    });
+    this.setState({
+      isRollCallDrawerOpen: true,
+      indexOfferInDrawer: index,
+    });
+  };
+
+  closeRollCallDrawer = () => {
+    this.setState({ isRollCallDrawerOpen: false, indexOfferInDrawer: null });
+  };
+
+  openConfirmationRollCallDialog = () => {
+    this.setState({ isConfirmationRollCallDialogOpen: true });
+  };
+
+  closeConfirmationRollCallDialog = () => {
+    this.setState({ isConfirmationRollCallDialogOpen: false });
+  };
+
+  postRollCallBulk = (options?: OptionCallback) => {
+    this.props.postRollCallBulk(
+      {
+        offer_id_list: Array.from(
+          new Set(this.props.offers.map((offer) => offer.id)),
+        ),
+      },
+      {
+        onSuccess: () => {
+          this.fetchOffersOfSelectedDate();
+          options?.onSuccess();
+        },
+      },
+    );
+  };
+
   render() {
     const {
       offers,
@@ -1205,6 +1335,11 @@ export class Planning extends PureComponent<Props, State> {
                   showTags
                   className={classes.offerList}
                   virtualized
+                  isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
+                  openRollCallDrawer={this.openRollCallDrawer}
+                  openConfirmationRollCallDialog={
+                    this.openConfirmationRollCallDialog
+                  }
                 />
               </Paper>
               <CheckPermission requiredPermissions="offer.create">
@@ -1301,6 +1436,8 @@ export class Planning extends PureComponent<Props, State> {
           {this.renderDeleteModal()}
           {this.renderCreateModal()}
           {this.renderRestoreModal()}
+          {this.renderRollCallDrawer()}
+          {this.renderConfirmationRollCallDialog()}
           {!!this.props.massDisablerStartDate && (
             <MassDisablerDialog
               startDate={this.props.massDisablerStartDate}
@@ -1382,6 +1519,7 @@ export default compose(
       membersLoading: state.member.loading,
 
       bookings: getOfferBookingList(state),
+      bookingsWithConsumerPack: getOfferBookingListWithConsumerPack(state),
       bookingsLoading: state.booking.byOffer.loading,
 
       createdBookingStatsLoading: getBookingRelatedStatisticLoading(
@@ -1410,6 +1548,7 @@ export default compose(
       zoomAppDetail: zoomAppSelectors.getZoomApp(state),
       replacementRequestManagerFilter:
         state.userPreference.replacementRequestManagerFilter,
+      rollCallLoading: state.offer.rollCall.loading,
     }),
     {
       goBack: goBackRouter,
@@ -1453,6 +1592,13 @@ export default compose(
       setReplacementRequestManagerFilter:
         setReplacementRequestManagerFilterAction,
       redirectIfAllowed: redirectIfAllowedAction,
+      confirmBookingAttendance: confirmBookingAttendanceAction,
+      discardBookingAttendance: discardBookingAttendanceAction,
+      retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+      postRollCall: postRollCallAction,
+      postRollCallBulk: postRollCallBulkAction,
+      retrieveOfferAsManager: retrieveOfferAsManagerAction,
     },
   ),
   withHandlers({

@@ -34,8 +34,14 @@ import {
   listOffersWithPendingReplacementRequestActions,
   listOffersWithRefusedReplacementRequestActions,
   setStoredOffersInGroupsDataActions,
+  postRollCallActions,
+  postRollCallBulkActions,
 } from './actions';
 import { OfferState } from './types';
+import {
+  updateRollCallOfferRetrieveActions,
+  updateRollCallOfferByIdActions,
+} from '#libs/booking/actions';
 
 export const marketplaceByMetaActivityEmptyState = Immutable({
   allIds: [],
@@ -167,6 +173,14 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     loading: false,
     error: null,
     byOfferId: {},
+  },
+  rollCall: {
+    loading: false,
+    error: null,
+  },
+  rollCallBulk: {
+    loading: false,
+    error: null,
   },
 });
 
@@ -636,6 +650,54 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         Object.keys(
           pickBy(state.byId, (offer) => offersIds.includes(offer.id)),
         ),
+      );
+    },
+    [postRollCallActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['rollCall', 'loading'], payload);
+    },
+    [postRollCallActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['rollCall', 'error'], payload);
+    },
+    [postRollCallBulkActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['rollCallBulk', 'loading'], payload);
+    },
+    [postRollCallBulkActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['rollCallBulk', 'error'], payload);
+    },
+    [updateRollCallOfferRetrieveActions.successNeedsValidation.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['retrieve', 'data', 'roll_call_needs_validation'],
+        payload,
+      );
+    },
+    [updateRollCallOfferRetrieveActions.successDate.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['retrieve', 'data', 'date_roll_call_last_modified'],
+        payload,
+      );
+    },
+    [updateRollCallOfferByIdActions.successNeedsValidation.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['byId', payload.id, 'roll_call_needs_validation'],
+        payload.roll_call_needs_validation,
+      );
+    },
+    [updateRollCallOfferByIdActions.successDate.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['byId', payload.id, 'date_roll_call_last_modified'],
+        payload.date_roll_call_last_modified,
       );
     },
   },

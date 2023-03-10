@@ -40,6 +40,8 @@ import {
   fetchBookingGuestNumber as fetchBookingGuestNumberAPI,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAPI,
   listOffersWithRefusedReplacementRequestIds as listOffersWithRefusedReplacementRequestIdsAPI,
+  postRollCallOffer as postRollCallOfferAPI,
+  postRollCallBulk as postRollCallBulkAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
@@ -1383,3 +1385,48 @@ export const listOffersWithRefusedReplacementRequestIds = (
     dispatch(listOffersWithRefusedReplacementRequestActions.loading(false));
   };
 };
+
+export const postRollCallActions = {
+  error: createAction('OFFER/ROLLCALL/OFFER/ERROR'),
+  isLoading: createAction('OFFER/ROLLCALL/OFFER/IS_LOADING'),
+};
+
+export function postRollCall(offerId: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(postRollCallActions.error(null));
+    dispatch(postRollCallActions.isLoading(true));
+
+    try {
+      await postRollCallOfferAPI(offerId);
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(postRollCallActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(postRollCallActions.isLoading(false));
+  };
+}
+
+export const postRollCallBulkActions = {
+  error: createAction('OFFER/ROLLCALL/BULK/ERROR'),
+  isLoading: createAction('OFFER/ROLLCALL/BULK/IS_LOADING'),
+};
+
+export function postRollCallBulk(
+  data: { offer_id_list: Array<number> },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(postRollCallBulkActions.error(null));
+    dispatch(postRollCallBulkActions.isLoading(true));
+
+    try {
+      await postRollCallBulkAPI(data);
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(postRollCallBulkActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(postRollCallBulkActions.isLoading(false));
+  };
+}

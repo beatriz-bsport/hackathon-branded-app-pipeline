@@ -11,6 +11,9 @@ import type { Offer } from '../../api/types';
 import OfferMinimalSummary from './OfferMinimalSummary.component';
 import VirtualizeListAutoSize from '#components/virtualize/VirtualListAutoSize.component';
 
+import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
+import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
+
 type Props = {
   loading: boolean,
   offers: Array<Offer>,
@@ -22,10 +25,13 @@ type Props = {
   showTags: ?boolean,
   virtualized?: boolean,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
+  isRollCallMandatory?: boolean,
+  openRollCallDrawer: (index: number, offer: Offer) => void,
+  openConfirmationRollCallDialog: () => void,
 };
 
-export class TimeTable extends React.PureComponent<Props> {
-  renderRow = (offer: Offer, withoutKey = false) => (
+export class TimeTable extends React.PureComponent<Props, State> {
+  renderRow = (index: number, offer: Offer, withoutKey = false) => (
     <OfferMinimalSummary
       key={!withoutKey ? offer.id : null}
       offer={offer}
@@ -43,6 +49,10 @@ export class TimeTable extends React.PureComponent<Props> {
       getHasPendingReplacementRequest={
         this.props.getHasPendingReplacementRequest
       }
+      openRollCallDrawer={() => {
+        this.props.openRollCallDrawer(index, offer);
+      }}
+      isRollCallMandatory={this.props.isRollCallMandatory}
     />
   );
 
@@ -59,7 +69,7 @@ export class TimeTable extends React.PureComponent<Props> {
             </Typography>
           </div>
         ) : null}
-        <Divider />
+        {loading ? null : <Divider />}
         {!loading && virtualized && (
           <VirtualizeListAutoSize
             itemCount={offers.length}
@@ -67,12 +77,35 @@ export class TimeTable extends React.PureComponent<Props> {
             renderRow={(index) => {
               const offer = offers[index];
               const withoutKey = false;
-              return this.renderRow(offer, withoutKey);
+              return this.renderRow(index, offer, withoutKey);
             }}
             minItemsDisplaid={6}
           />
         )}
         {!loading && !virtualized && offers.map(this.renderRow)}
+        {this.props.isRollCallMandatory && (
+          <div className={classes.rollCallContainer}>
+            <div className={classes.rollCallText}>
+              <ValidationRollCallText
+                isSeveralRollCallsPage
+                nbRollCallsLeftToValidate={
+                  offers.filter((offer) => offer.roll_call_needs_validation)
+                    .length
+                }
+              />
+            </div>
+            <div className={classes.rollCallButton}>
+              <ValidationRollCallButton
+                nbRollCallsLeftToValidate={
+                  offers.filter((offer) => offer.roll_call_needs_validation)
+                    .length
+                }
+                onClick={this.props.openConfirmationRollCallDialog}
+                outlined
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -89,7 +122,22 @@ const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     flex: 1,
+  },
+
+  rollCallContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  rollCallButton: {
+    margin: theme.spacing(2),
+  },
+  rollCallText: {
+    margin: theme.spacing(1),
+    marginLeft: theme.spacing(2),
   },
 });
 

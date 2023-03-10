@@ -39,6 +39,7 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   refresh: () => void,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
+  dateRollCallLastModified?: string,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -115,6 +116,7 @@ export class BookingTable extends PureComponent<Props> {
             programList={this.props.programList}
             membersWithStatusOk={membersWithStatusOk}
             onProgramDetailsClick={onProgramDetailsClick}
+            dateRollCallLastModified={this.props.dateRollCallLastModified}
           />
         ))}
       </List>

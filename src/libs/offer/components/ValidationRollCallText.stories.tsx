@@ -1,32 +1,31 @@
 import React from 'react'
-import { RollCallState } from "../constants";
+
 import { ValidationRollCallText, Props } from "./ValidationRollCallText.component";
 const GenericValidationRollCallTextTemplate = (args: Props) => <ValidationRollCallText {...args} />;
 
 export const NotValidatedRollCallText = GenericValidationRollCallTextTemplate.bind({});
 
 NotValidatedRollCallText.args = {
-    validationRollCallState:RollCallState.NOT_VALIDATED,
+    nbRollCallsLeftToValidate: 1,
 };
 
 export const ModifiedRollCallText = GenericValidationRollCallTextTemplate.bind({});
 
 ModifiedRollCallText.args = {
-    validationRollCallState:RollCallState.MODIFIED,
+    nbRollCallsLeftToValidate: 1,
     lastValidatedRollCallDate: "12/01/2001"
 };
 
 export const ValidatedRollCallText = GenericValidationRollCallTextTemplate.bind({});
 
 ValidatedRollCallText.args = {
-    validationRollCallState:RollCallState.VALIDATED,
+    nbRollCallsLeftToValidate: 0,
     lastValidatedRollCallDate: "12/01/2001"
 };
 
 export const NotValidatedListRollCallsText = GenericValidationRollCallTextTemplate.bind({});
 
 NotValidatedListRollCallsText.args = {
-    validationRollCallState:RollCallState.NOT_VALIDATED,
     isSeveralRollCallsPage:true,
     nbRollCallsLeftToValidate:2
 };
@@ -34,7 +33,7 @@ NotValidatedListRollCallsText.args = {
 export const ValidatedListRollCallsText = GenericValidationRollCallTextTemplate.bind({});
 
 ValidatedListRollCallsText.args = {
-    validationRollCallState:RollCallState.VALIDATED,
+    nbRollCallsLeftToValidate: 0,
     isSeveralRollCallsPage:true
 };
 

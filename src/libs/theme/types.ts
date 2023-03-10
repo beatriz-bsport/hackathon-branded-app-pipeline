@@ -83,6 +83,7 @@ export type Theme = {
   confirm_email_url_redirection: string;
   requires_email_confirmation_when_signing_up: boolean;
   hide_intercom: boolean;
+  is_roll_call_mandatory: boolean;
 };
 
 export type ThemeState = {

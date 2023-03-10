@@ -23,6 +23,7 @@ import {
   fetchOfferById as fetchOfferByIdAction,
   toggleWaitingListFreeze as toggleWaitingListFreezeAction,
   fetchOfferStatus as fetchOfferStatusAction,
+  postRollCall as postRollCallAction,
 } from '#libs/offer/actions';
 import { getDetailedOffer, withSpecificCoach } from '#libs/offer/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
@@ -239,6 +240,7 @@ export default compose(
 
       // unread answers
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
+      rollCallLoading: state.offer.rollCall.loading,
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -300,6 +302,7 @@ export default compose(
       fetchRoomBlueprintDetail: fetchRoomBlueprintDetailAction,
       fetchAssetForBlueprint: fetchAssetForBlueprintAction,
       fetchOfferStatus: fetchOfferStatusAction,
+      postRollCall: postRollCallAction,
       fetchInvoice,
       fetchInvoiceList: fetchInvoiceListAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,

@@ -24,6 +24,14 @@ export async function editOffers({
   return putAuth(`${API_V1_URI}/offer/${offerId}/`, data);
 }
 
+export async function postRollCallOffer(offerId: number) {
+  return postAuth(`${API_V1_URI}/offer/${offerId}/rollcall/`);
+}
+
+export async function postRollCallBulk(data: { offer_id_list: Array<number> }) {
+  return postAuth(`${API_V1_URI}/offer/rollcall_bulk/`, data);
+}
+
 export async function fetchAllEvents(params: any) {
   return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);
 }

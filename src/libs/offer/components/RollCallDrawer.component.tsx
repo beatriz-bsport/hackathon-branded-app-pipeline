@@ -1,43 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { PeopleAlt } from '@material-ui/icons';
 import chroma from 'chroma-js';
+import { OptionCallback } from '../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import BookingTable from '#libs/booking/components/BookingTable.component';
 import { Member } from '#libs/member/types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import ValidationRollCallText from './ValidationRollCallText.component';
-import { RollCallState } from '../constants';
+import ConfirmationRollCallDialog from './ConfirmationRollCallDialog.component';
+import { Offer } from '#libs/offer/types';
 
 export type Props = {
   open: boolean;
-  offerName: string;
-  date: string;
+  offer?: Offer;
   onClose: () => void;
   onConfirm: () => void;
-  isLoading: boolean;
   bookingTableLoading: boolean;
   confirmBookingAttendance: (bookingId: number) => void;
   discardBookingAttendance: (bookingId: number) => void;
   members: Array<Member<Tag<TagGroup>>>;
   bookings: Array<Object>;
-  validationRollCallState: RollCallState;
-  lastValidatedRollCallDate?: string;
+  postRollCall: (offerId: number, options?: OptionCallback) => void;
+  fetchOffer: (offerId: number) => void;
+  rollCallLoading: boolean;
 };
 
 export const RollCallDrawer: React.FC<Props> = (props) => {
   const { t } = useTranslation(['offer', 'common']);
   const classes = useStyles();
+  const [
+    confirmationRollCallDialogIsOpen,
+    setConfirmationRollCallDialogIsOpen,
+  ] = useState(false);
+  const openConfirmationRollCallDialog = () => {
+    setConfirmationRollCallDialogIsOpen(true);
+  };
+  const closeConfirmationRollCallDialog = () => {
+    setConfirmationRollCallDialogIsOpen(false);
+  };
+  const postRollCall = (options?: OptionCallback) => {
+    props.postRollCall(props.offer?.id, {
+      onSuccess: () => {
+        props.fetchOffer(props.offer?.id);
+        options?.onSuccess();
+      },
+    });
+  };
   return (
     <GenericResponsiveDrawer
       open={props.open}
       title={t('rollCall.drawer.rollCall')}
-      subtitle={`${props.offerName} - ${moment(props.date).format('LLL')}`}
+      subtitle={`${props.offer?.name} - ${moment(
+        props.offer?.date_start,
+      ).format('LLL')}`}
       onClose={props.onClose}
     >
+      <ConfirmationRollCallDialog
+        open={confirmationRollCallDialogIsOpen}
+        nbRollCallsLeftToValidate={1}
+        onConfirm={postRollCall}
+        onCancel={closeConfirmationRollCallDialog}
+        isLoading={props.rollCallLoading}
+      />
       <div className={classes.drawer}>
         <div className={classes.info}>
           <Alert severity="info" className={classes.alert}>
@@ -57,27 +85,30 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
             members={props.members}
             confirmBookingAttendance={props.confirmBookingAttendance}
             discardBookingAttendance={props.discardBookingAttendance}
+            dateRollCallLastModified={props.offer?.date_roll_call_last_modified}
           />
         </div>
         <Divider />
         <div className={classes.bottomRow}>
           <ValidationRollCallText
-            validationRollCallState={props.validationRollCallState}
-            isSeveralRollCallsPage={false}
-            lastValidatedRollCallDate={props.lastValidatedRollCallDate}
+            nbRollCallsLeftToValidate={
+              props.offer?.roll_call_needs_validation ? 1 : 0
+            }
+            lastValidatedRollCallDate={
+              props.offer?.date_roll_call_last_modified
+            }
           />
           <div>
-            <Button onClick={props.onClose}>{t('cancel')}</Button>
+            <Button onClick={props.onClose}>{t('common:cancel')}</Button>
             <Button
-              onClick={props.onConfirm}
+              onClick={openConfirmationRollCallDialog}
               variant="contained"
               color="primary"
               disabled={
-                props.isLoading ||
-                props.validationRollCallState === RollCallState.VALIDATED
+                props.isLoading || !props.offer?.roll_call_needs_validation
               }
             >
-              {t('confirm')}
+              {t('common:confirm')}
             </Button>
           </div>
         </div>

@@ -35,6 +35,7 @@ import {
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
 import { EventSeat, OfflineBolt } from '@material-ui/icons';
+import WarningIcon from '@material-ui/icons/Warning';
 import { BookingStatusCodeText } from '../utils';
 import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
 
@@ -82,6 +83,7 @@ type Props = {
   showVaccinationStatus: boolean,
   programList: Array<PerformanceTrackingProgram>,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
+  dateRollCallLastModified?: string,
 };
 
 const getPackDate = (consumerPack) => {
@@ -335,6 +337,16 @@ export class BookingItemForManager extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
+            {this.props.dateRollCallLastModified &&
+            moment(booking.attendance_date_updated).isAfter(
+              moment(this.props.dateRollCallLastModified),
+            ) ? (
+              <div className={classes.warningIconContainer}>
+                <Tooltip title={t('offer:rollCall.warningIcon.stateChanged')}>
+                  <WarningIcon className={classes.warningIcon} />
+                </Tooltip>
+              </div>
+            ) : null}
             {discardBookingAttendance &&
             confirmBookingAttendance &&
             booking.booking_status_code === BOOKING_STATUS_OK.id ? (
@@ -738,10 +750,18 @@ const styles = (theme) => ({
     },
   },
   stickRight: { left: 'inherit', right: '10%' },
+  warningIconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: theme.spacing(2),
+  },
+  warningIcon: {
+    color: theme.palette.warning.main,
+  },
 });
 
 export default compose(
-  withTranslation(['booking']),
+  withTranslation(['booking', 'offer']),
   withStyles(styles),
   connect(null, {
     push: routerPush,

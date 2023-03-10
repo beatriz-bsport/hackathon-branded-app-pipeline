@@ -56,6 +56,7 @@ import { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
 import Config from '../../config';
 import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -238,6 +239,8 @@ type Props = {
   stripeReaders: StripeReader[],
   memberProgramIdsList: (memberId: number) => MemberProgram[],
   resetInvoiceList: () => void,
+  postRollCall: (offerId: number, options?: OptionCallback) => void,
+  rollCallLoading: boolean,
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   numberOfUnreadAnswers: number,
 };
@@ -247,6 +250,7 @@ type State = {
   unpaidInvoiceList: Invoice[],
   isMemberProgramDetailDialogOpen: boolean,
   memberIdFocused: null | number,
+  openConfirmationRollCallDialog: boolean,
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -255,6 +259,7 @@ export class OfferManagement extends Component<Props, State> {
     unpaidInvoiceList: [],
     isMemberProgramDetailDialogOpen: false,
     memberIdFocused: null,
+    openConfirmationRollCallDialog: false,
   };
 
   componentWillMount() {
@@ -561,6 +566,24 @@ export class OfferManagement extends Component<Props, State> {
     this.props.closeCommunicationDrawer();
   };
 
+  postRollCall = (options?: OptionCallback) => {
+    this.props.postRollCall(this.props.offerId, {
+      onSuccess: () => {
+        this.props.fetchOffer(this.props.offerId);
+        options?.onSuccess();
+      },
+      onError: options?.onError,
+    });
+  };
+
+  openConfirmationRollCallDialog = () => {
+    this.setState({ openConfirmationRollCallDialog: true });
+  };
+
+  closeConfirmationRollCallDialog = () => {
+    this.setState({ openConfirmationRollCallDialog: false });
+  };
+
   render() {
     const {
       offer,
@@ -592,6 +615,13 @@ export class OfferManagement extends Component<Props, State> {
     }
     return (
       <Grid container direction="row" spacing={2}>
+        <ConfirmationRollCallDialog
+          open={this.state.openConfirmationRollCallDialog}
+          nbRollCallsLeftToValidate={1}
+          onConfirm={this.postRollCall}
+          onCancel={this.closeConfirmationRollCallDialog}
+          isLoading={this.props.rollCallLoading}
+        />
         <MemberProgramDetailDialog
           open={this.state.isMemberProgramDetailDialogOpen}
           memberProgramList={this.props.memberProgramIdsList(
@@ -715,6 +745,10 @@ export class OfferManagement extends Component<Props, State> {
             quickCreatedInvoices={this.props.quickCreatedInvoices}
             companyId={this.props.companyId}
             onProgramDetailsClick={this.onProgramDetailsClick}
+            onRollCallButtonClick={this.openConfirmationRollCallDialog}
+            isRollCallMandatory={
+              this.props.company_theme.is_roll_call_mandatory
+            }
             numberOfUnreadAnswers={numberOfUnreadAnswers}
           />
         </Grid>

@@ -64,6 +64,20 @@ export const updateActions = {
   error: createAction('BOOKING/UDPATE/ERROR'),
 };
 
+export const updateRollCallOfferRetrieveActions = {
+  successNeedsValidation: createAction(
+    'OFFER/UPDATE/ROLLCALL/NEEDSVALIDATION/RETRIEVE/SUCCESS',
+  ),
+  successDate: createAction('OFFER/UPDATE/ROLLCALL/DATE/SUCCESS'),
+};
+
+export const updateRollCallOfferByIdActions = {
+  successNeedsValidation: createAction(
+    'OFFER/UPDATE/ROLLCALL/NEEDSVALIDATION/BYID/SUCCESS',
+  ),
+  successDate: createAction('OFFER/UPDATE/ROLLCALL/DATE/SUCCESS'),
+};
+
 export function updateBooking(
   id: number,
   data: any,
@@ -77,6 +91,34 @@ export function updateBooking(
     try {
       const response = await apiCall(id, data);
       dispatch(updateActions.success(response.data));
+      if (response.data?.roll_call_needs_validation) {
+        dispatch(
+          updateRollCallOfferRetrieveActions.successNeedsValidation(
+            response.data.roll_call_needs_validation,
+          ),
+        );
+        dispatch(
+          updateRollCallOfferByIdActions.successNeedsValidation({
+            id: response.data.offer,
+            roll_call_needs_validation:
+              response.data.roll_call_needs_validation,
+          }),
+        );
+      }
+      if (response.data?.date_roll_call_last_modified) {
+        dispatch(
+          updateRollCallOfferRetrieveActions.successDate(
+            response.data.date_roll_call_last_modified,
+          ),
+        );
+        dispatch(
+          updateRollCallOfferByIdActions.successDate({
+            id: response.data.offer,
+            date_roll_call_last_modified:
+              response.data.date_roll_call_last_modified,
+          }),
+        );
+      }
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }

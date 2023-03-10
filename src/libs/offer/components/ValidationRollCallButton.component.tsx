@@ -4,7 +4,11 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 
-export type Props = { nbRollCallsLeftToValidate?: number; outlined?: boolean };
+export type Props = {
+  nbRollCallsLeftToValidate?: number;
+  outlined?: boolean;
+  onClick?: () => void;
+};
 
 export const ValidationRollCallButton: React.FC<Props> = (props) => {
   const { t } = useTranslation('offer');
@@ -14,6 +18,7 @@ export const ValidationRollCallButton: React.FC<Props> = (props) => {
       color="primary"
       variant={props.outlined ? 'outlined' : 'contained'}
       disabled={props.nbRollCallsLeftToValidate === 0}
+      onClick={props.onClick}
     >
       <PlaylistAddCheck fontSize="small" className={classes.iconLeft} />
       {t('rollCall.button.validationRollCall', {

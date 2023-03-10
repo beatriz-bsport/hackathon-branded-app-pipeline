@@ -21,11 +21,20 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
   const { t } = useTranslation(['offer', 'common']);
   const classes = useStyles();
   const theme = useTheme();
-  const [confirmedRollCall, setConfirmedRollCall] = useState(false);
+  const [isRollCallValidated, setIsRollCallValidated] = useState(false);
   const onClickHandler = () =>
-    props.onConfirm({ onSuccess: () => setConfirmedRollCall(true) });
+    props.onConfirm({
+      onSuccess: () => {
+        setIsRollCallValidated(true);
+      },
+    });
 
-  if (confirmedRollCall) {
+  const onClose = () => {
+    setIsRollCallValidated(false);
+    props.onCancel();
+  };
+
+  if (isRollCallValidated) {
     return (
       <GenericResponsiveDialog maxWidth="sm" open={props.open}>
         <div className={classes.validationIcon}>
@@ -45,7 +54,7 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
           })}
         </Typography>
         <div className={classes.alignMiddle}>
-          <Button onClick={props.onCancel}>{t('close')}</Button>
+          <Button onClick={onClose}>{t('close')}</Button>
         </div>
       </GenericResponsiveDialog>
     );
@@ -66,8 +75,8 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
       </DialogContent>
       <div className={classes.buttonContainer}>
         <DialogActions>
-          <Button className={classes.grey} onClick={props.onCancel}>
-            {t('cancel')}
+          <Button className={classes.grey} onClick={onClose}>
+            {t('common:cancel')}
           </Button>
           <Button
             variant="contained"
@@ -75,7 +84,7 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
             onClick={onClickHandler}
             disabled={props.isLoading}
           >
-            {t('confirm')}
+            {t('common:confirm')}
           </Button>
         </DialogActions>
       </div>

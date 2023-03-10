@@ -2,7 +2,7 @@ import React from 'react';
 import RollCallDrawer, { Props } from './RollCallDrawer.component';
 import MembersFactory from '#libs/member/factories/Member';
 import { BookingListFactory } from "../../booking/factories"
-import { RollCallState } from '../constants';
+import { offerFactory } from '../factory';
 
 const RollCallDrawerTemplate = (args:Props) => <RollCallDrawer {...args}/>
 
@@ -18,11 +18,9 @@ export const NotValidatedRollCallDrawer = RollCallDrawerTemplate.bind({});
 
 NotValidatedRollCallDrawer.args = {
     open: true,
-    offerName: 'Yoga',
-    date: '02/17/2023 12:48',
+    offer: offerFactory(),
     members: MembersFactory(5,true, idList), 
     bookings: BookingListFactory(5, idList),
-    validationRollCallState: RollCallState.NOT_VALIDATED,
     isLoading: false
 };
 
@@ -30,11 +28,9 @@ export const ModifiedRollCallDrawer = RollCallDrawerTemplate.bind({});
 
 ModifiedRollCallDrawer.args = {
     open: true,
-    offerName: 'Yoga',
-    date: '02/17/2023 12:48',
+    offer: offerFactory(),
     members: MembersFactory(5,true, idList), 
     bookings: BookingListFactory(5, idList),
-    validationRollCallState: RollCallState.MODIFIED,
     isLoading: false
 };
 
@@ -42,11 +38,9 @@ export const ValidatedRollCallDrawer = RollCallDrawerTemplate.bind({});
 
 ValidatedRollCallDrawer.args = {
     open: true,
-    offerName: 'Yoga',
-    date: '02/17/2023 12:48',
+    offer: offerFactory(),
     members: MembersFactory(5,true, idList), 
     bookings: BookingListFactory(5, idList),
-    validationRollCallState: RollCallState.VALIDATED,
     isLoading: false
 };
 

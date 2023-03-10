@@ -61,6 +61,12 @@ const useStyles = makeStyles((theme) => ({
   marginRight: {
     marginRight: theme.spacing(1),
   },
+  messageContent: {
+    display: '-webkit-box',
+    overflow: 'hidden',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+  },
 }));
 
 const UnevenAlertListItem = (props: {
@@ -330,7 +336,11 @@ const UnreadCommunicationListItem = (props: {
             </IconButton>
           </div>
         </div>
-        <Typography variant="caption" component="p">
+        <Typography
+          className={classes.messageContent}
+          variant="caption"
+          component="p"
+        >
           {content}
         </Typography>
       </div>

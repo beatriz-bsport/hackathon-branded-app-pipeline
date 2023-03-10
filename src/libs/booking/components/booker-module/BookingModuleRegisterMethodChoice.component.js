@@ -359,6 +359,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   divider
                   key={pack.id}
                   pack={pack}
+                  isFlexContainerOnMobile
                 />
               ))}
           </List>
@@ -428,6 +429,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               showDuration
               hidePacksNumber
               pack={selectedPack}
+              isFlexContainerOnMobile
             />
             <div className={classes.voucherRight}>
               <PriceInput

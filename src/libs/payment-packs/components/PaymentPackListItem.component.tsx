@@ -22,6 +22,7 @@ import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import compose from 'recompose/compose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import StyleIcon from '@material-ui/icons/Style';
+import classNames from 'classnames';
 import Tooltip from '../../../components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -50,6 +51,7 @@ type OwnProps = {
   listeners?: DraggableSyntheticListeners;
   attributes?: any;
   isExcludingTax?: boolean;
+  isFlexContainerOnMobile?: boolean;
 };
 
 type Props = WithTranslation &
@@ -58,6 +60,9 @@ type Props = WithTranslation &
 
 const styles = (theme: Theme) => ({
   actionsContainer: {
+    display: 'flex',
+  },
+  actionsContainerFlexOnMobile: {
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
       alignSelf: 'flex-end',
@@ -66,6 +71,8 @@ const styles = (theme: Theme) => ({
   },
   container: {
     height: 100,
+  },
+  containerFlexOnMobile: {
     [theme.breakpoints.down('xs')]: {
       height: 140,
       flexDirection: 'column',
@@ -90,7 +97,10 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
 
     return (
       <ListItem
-        className={this.props.classes.container}
+        className={classNames(this.props.classes.container, {
+          [this.props.classes.containerFlexOnMobile]:
+            this.props.isFlexContainerOnMobile,
+        })}
         button={!!this.props.onClick}
         onClick={this.props.onClick}
         divider={this.props.divider}
@@ -128,7 +138,12 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           style={{ marginLeft: this.props.draggable ? '1%' : 0 }}
         />
 
-        <div className={this.props.classes.actionsContainer}>
+        <div
+          className={classNames(this.props.classes.actionsContainer, {
+            [this.props.classes.actionsContainerFlexOnMobile]:
+              this.props.isFlexContainerOnMobile,
+          })}
+        >
           {this.props.pack.manager_only && !this.props.disabled ? (
             <Tooltip title={this.props.t('form.paymentPack.managerOnly')}>
               <IconButton onClick={null}>

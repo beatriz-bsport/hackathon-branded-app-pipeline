@@ -5897,6 +5897,37 @@
                 "availableCredit": "{{count}} crédito",
                 "availableCredit_plural": "{{count}} créditos"
             }
+        },
+        "packCard": {
+            "comboItemList": {
+                "paymentPackItem": "{{count}} bono",
+                "paymentPackItem_plural": "{{count}} bonos",
+                "privatePassItem": "{{count}} tarjeta de cita",
+                "privatePassItem_plural": "{{count}} tarjetas de cita",
+                "hiddenItem": "{{count}} otro elemento",
+                "hiddenItem_plural": "{{count}} otros elementos"
+            }
+        },
+        "subscriptionCard": {
+            "billingInterval": {
+                "month": "mes",
+                "month_plural": "Cada {{ count }} meses",
+                "week": "semana",
+                "week_plural": "Cada {{ count }} semanas",
+                "year": "año",
+                "year_plural": "Cada {{ count }} año",
+                "day": "día",
+                "day_plural": "Cada {{ count }} días"
+            },
+            "fees": "Cuota de inscripción: {{ fees }}",
+            "invoice": "{{ count }} factura",
+            "invoice_plural": "{{ count }} facturas",
+            "registerButton": "Suscribirse"
+        },
+        "packCardDetail": {
+            "comboItemList": {
+                "content": "Contenido"
+            }
         }
     },
     "notificationRule": {

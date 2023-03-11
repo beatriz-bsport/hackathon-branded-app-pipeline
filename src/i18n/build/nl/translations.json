@@ -5758,6 +5758,37 @@
                 "availableCredit": "{{count}} credit",
                 "availableCredit_plural": "{{count}} credits"
             }
+        },
+        "packCard": {
+            "comboItemList": {
+                "hiddenItem": "{{count}} ander element",
+                "hiddenItem_plural": "{{count}} andere elementen",
+                "paymentPackItem": "{{count}} leskaart",
+                "paymentPackItem_plural": "{{count}} leskaarten",
+                "privatePassItem": "{{count}} afspraakkaart",
+                "privatePassItem_plural": "{{count}} afspraakkaarten"
+            }
+        },
+        "subscriptionCard": {
+            "invoice": "{{ count }} factuur",
+            "invoice_plural": "{{ count }} facturen",
+            "billingInterval": {
+                "month": "maand",
+                "month_plural": "Elke {{ count }} maanden",
+                "week": "week",
+                "week_plural": "Elke {{ count }} weken",
+                "year": "jaar",
+                "year_plural": "Elke {{ count }} jaren",
+                "day": "dag",
+                "day_plural": "elke {{ count }} dagen"
+            },
+            "fees": "Aanvraagkosten : {{ fees }}",
+            "registerButton": "Abonneren op"
+        },
+        "packCardDetail": {
+            "comboItemList": {
+                "content": "Inhoud"
+            }
         }
     },
     "selfCheckIn": {

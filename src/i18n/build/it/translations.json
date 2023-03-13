@@ -6098,7 +6098,32 @@
             "is_recurring": "Ricorrente",
             "amount_expense": "Importo",
             "universal_nb_private_bookings": "Numero di prenotazioni (appuntamenti)",
-            "universal_nb_bookings": "Numero di prenotazioni (corsi di gruppo)"
+            "universal_nb_bookings": "Numero di prenotazioni (corsi di gruppo)",
+            "total_unpaid_amount": "Importo totale in sospeso",
+            "applied_tax": "IVA",
+            "dispute_status": "Stato della controversia",
+            "amount_due": "Importo dovuto",
+            "annotated_remaining_credits": "Credito rimanente",
+            "archived": "Archiviato",
+            "baskettotal_price": "Importo fatturato tasse incluse",
+            "billing_date_start_annotated": "Data della prima fatturazione",
+            "billing_planrecurrent_price": "Importo",
+            "couponamount_off": "Sconto fisso",
+            "couponpercent_off": "Sconto in %",
+            "establishment_title": "Sala",
+            "is_unpaid": "Pagamento in sospeso",
+            "member_default_billing_establishment": "Indirizzo di fatturazione",
+            "negative_voucher": "Sconto",
+            "paid": "Incassato",
+            "payment_legal_identifier": "Identificatore legale della fattura",
+            "payout_date_created": "Data di trasferimento",
+            "payout_status": "Stato del trasferimento",
+            "payout": "Pagamento",
+            "private_passcredits": "Credito rimanente",
+            "remaining_credits_annotated": "Credito rimanente oggi",
+            "selectAll": "Seleziona tutto",
+            "unpaid_amount": "Importo totale in sospeso",
+            "unSelectAll": "Deseleziona tutto"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -6215,7 +6240,13 @@
             "helper": {
                 "month": "Ultimo mese",
                 "today": "Oggi",
-                "week": "Ultima settimana"
+                "week": "Ultima settimana",
+                "trimester": "Ultimi tre mesi",
+                "year": "Ultimo anno",
+                "next_week": "Prossima settimana",
+                "next_month": "Prossimo mese",
+                "next_trimester": "Prossimi tre mesi",
+                "next_year": "Prossimo anno"
             },
             "selectRange": "Seleziona un intervallo di date",
             "selectDate": "Seleziona una data",
@@ -6223,7 +6254,9 @@
             "to": "a",
             "start": "Inizio",
             "end": "Fine",
-            "rapidChoice": "Scelta rapida"
+            "rapidChoice": "Scelta rapida",
+            "from_to": "Da {{-from}} a {{-to}}",
+            "save": "Salva"
         },
         "search": "Cerca un rapporto"
     },

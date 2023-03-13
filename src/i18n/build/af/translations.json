@@ -4338,7 +4338,7 @@
         "noRollCallLeft": "Tous les appels ont été validés",
         "lastValidatedRollCall": "Dernier appel validé le {{- date }} {{ time }}"
       },
-      "warningIcon": { "stateChanged": "Le statut a été changé mais n'a pas été validé" },
+      "warningIcon": { "stateChangedTitle": "Statut non validé", "stateChanged": "Le statut a été changé mais n'a pas été validé" },
       "button": { "validationRollCall": "Valider l’appel", "validationRollCall_plural": "Valider tous les appels" },
       "dialog": {
         "validationRollCall": "Valider l’appel",

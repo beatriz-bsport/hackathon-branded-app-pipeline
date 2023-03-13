@@ -14,6 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import classNames from 'classnames';
 
 import Menu from '@material-ui/core/Menu';
@@ -84,6 +85,7 @@ type Props = {
   programList: Array<PerformanceTrackingProgram>,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
   dateRollCallLastModified?: string,
+  onClickWarningIcon: () => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -329,7 +331,20 @@ export class BookingItemForManager extends Component<Props, State> {
 
     return (
       <div>
-        <Hidden smUp>{this.renderCompactMenu()}</Hidden>
+        <Hidden smUp>
+          {this.props.dateRollCallLastModified &&
+            moment(booking.attendance_date_updated).isAfter(
+              moment(this.props.dateRollCallLastModified),
+            ) && (
+              <div className={classes.warningIconContainer}>
+                <ButtonBase onClick={this.props.onClickWarningIcon}>
+                  <WarningIcon className={classes.warningIcon} />
+                </ButtonBase>
+              </div>
+            )}
+          {this.renderCompactMenu()}
+        </Hidden>
+
         <Hidden xsDown>
           <div
             style={{
@@ -754,6 +769,9 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     marginRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginRight: theme.spacing(5),
+    },
   },
   warningIcon: {
     color: theme.palette.warning.main,

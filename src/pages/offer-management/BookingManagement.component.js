@@ -14,6 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -28,6 +29,8 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
+import { ButtonBase, DialogContent, Hidden, Dialog } from '@material-ui/core';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 
@@ -133,11 +136,15 @@ type Props = {
 type State = {
   bookingToRevert: ?Booking,
   memberHistoryAnchor: ?HTMLElement,
+  lastValidatedRollCallDialogIsOpen: boolean,
+  statusChangedDialogIsOpen: boolean,
 };
 
 export class BookingManagement extends React.PureComponent<Props, State> {
   state = {
     memberHistoryAnchor: null,
+    lastValidatedRollCallDialogIsOpen: false,
+    statusChangedDialogIsOpen: false,
   };
 
   componentDidMount() {
@@ -293,10 +300,70 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     });
   };
 
+  openLastValidatedRollCallDialog = () => {
+    this.setState({ lastValidatedRollCallDialogIsOpen: true });
+  };
+
+  closeLastValidatedRollCallDialog = () => {
+    this.setState({ lastValidatedRollCallDialogIsOpen: false });
+  };
+
+  openStatusChangedDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ statusChangedDialogIsOpen: true });
+  };
+
+  closeStatusChangedDialog = () => {
+    this.setState({ statusChangedDialogIsOpen: false });
+  };
+
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
     return (
       <div className={classes.container}>
+        <Dialog
+          maxWidth="sm"
+          open={this.state.lastValidatedRollCallDialogIsOpen}
+        >
+          <DialogContent>
+            {t('offer:rollCall.warningText.lastValidatedRollCall', {
+              date: moment(
+                this.props.offer.date_roll_call_last_modified,
+              ).format('L'),
+              time: moment(
+                this.props.offer.date_roll_call_last_modified,
+              ).format('LT'),
+            })}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              className={classes.grey}
+              onClick={this.closeLastValidatedRollCallDialog}
+            >
+              {t('common:close')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={this.state.statusChangedDialogIsOpen}>
+          <DialogTitle>
+            <Typography variant="h6" className={classes.bold}>
+              {t('offer:rollCall.warningIcon.stateChangedTitle')}
+            </Typography>
+          </DialogTitle>
+          <DialogContent>
+            {t('offer:rollCall.warningIcon.stateChanged')}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              className={classes.grey}
+              onClick={this.closeStatusChangedDialog}
+            >
+              {t('common:close')}
+            </Button>
+          </DialogActions>
+        </Dialog>
         {!!offer && (
           <Paper className={classes.autoScroll}>
             <div className={classes.fullWidthRow}>
@@ -392,16 +459,36 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         onClick={this.props.onRollCallButtonClick}
                       />
                     </div>
-                    <div className={classes.rollCallText}>
-                      <ValidationRollCallText
-                        nbRollCallsLeftToValidate={
-                          this.props.offer.roll_call_needs_validation ? 1 : 0
-                        }
-                        lastValidatedRollCallDate={
-                          this.props.offer.date_roll_call_last_modified
-                        }
-                      />
-                    </div>
+                    <Hidden smUp>
+                      <div className={classes.rollCallText}>
+                        <ButtonBase
+                          onClick={this.openLastValidatedRollCallDialog}
+                        >
+                          <ValidationRollCallText
+                            nbRollCallsLeftToValidate={
+                              this.props.offer.roll_call_needs_validation
+                                ? 1
+                                : 0
+                            }
+                            lastValidatedRollCallDate={
+                              this.props.offer.date_roll_call_last_modified
+                            }
+                          />
+                        </ButtonBase>
+                      </div>
+                    </Hidden>
+                    <Hidden xsDown>
+                      <div className={classes.rollCallText}>
+                        <ValidationRollCallText
+                          nbRollCallsLeftToValidate={
+                            this.props.offer.roll_call_needs_validation ? 1 : 0
+                          }
+                          lastValidatedRollCallDate={
+                            this.props.offer.date_roll_call_last_modified
+                          }
+                        />
+                      </div>
+                    </Hidden>
                   </div>
                 )}
                 <div className={classes.bookingOrderingContainer}>
@@ -508,6 +595,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       dateRollCallLastModified={
                         this.props.offer.date_roll_call_last_modified
                       }
+                      onClickWarningIcon={this.openStatusChangedDialog}
                     />
                   </>
                 )}
@@ -700,18 +788,36 @@ const styles = (theme) => ({
   },
   rollCallContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      justifyContent: 'start',
+    },
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
   },
   rollCallButton: {
     margin: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: 0,
+    },
   },
   rollCallText: {
     margin: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: theme.spacing(2),
+    },
+  },
+  grey: {
+    color: theme.palette.text.secondary,
+  },
+  bold: {
+    fontWeight: 500,
   },
 });
 
 export default compose(
   withStyles(styles),
-  withTranslation(['offer', 'translation', 'communication']),
+  withTranslation(['offer', 'translation', 'communication', 'common']),
 )(BookingManagement);

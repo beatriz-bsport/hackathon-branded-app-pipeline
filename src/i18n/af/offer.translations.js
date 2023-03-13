@@ -176,6 +176,7 @@ exports.default = {
       lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
     },
     warningIcon: {
+      stateChangedTitle: 'Statut non validé',
       stateChanged: "Le statut a été changé mais n'a pas été validé",
     },
     button: {

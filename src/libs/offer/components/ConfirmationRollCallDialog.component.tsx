@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, makeStyles, useTheme } from '@material-ui/core';
+import { Typography, makeStyles, useTheme, Dialog } from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { OptionCallback } from '../../../state/types';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 
 export type Props = {
@@ -36,31 +35,33 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
 
   if (isRollCallValidated) {
     return (
-      <GenericResponsiveDialog maxWidth="sm" open={props.open}>
+      <Dialog open={props.open}>
         <div className={classes.validationIcon}>
           <ValidationIcon
             color={theme.palette.success.main}
             fillOpacity="0.08"
           />
         </div>
-        <Typography variant="h6" className={classes.title}>
-          {t('rollCall.dialog.validatedRollCall', {
-            count: props.nbRollCallsLeftToValidate,
-          })}
-        </Typography>
-        <Typography variant="body1" className={classes.subtitle}>
-          {t('rollCall.dialog.savedRollCall', {
-            count: props.nbRollCallsLeftToValidate,
-          })}
-        </Typography>
+        <DialogContent>
+          <Typography variant="h6" className={classes.title}>
+            {t('rollCall.dialog.validatedRollCall', {
+              count: props.nbRollCallsLeftToValidate,
+            })}
+          </Typography>
+          <Typography variant="body1" className={classes.subtitle}>
+            {t('rollCall.dialog.savedRollCall', {
+              count: props.nbRollCallsLeftToValidate,
+            })}
+          </Typography>
+        </DialogContent>
         <div className={classes.alignMiddle}>
           <Button onClick={onClose}>{t('close')}</Button>
         </div>
-      </GenericResponsiveDialog>
+      </Dialog>
     );
   }
   return (
-    <GenericResponsiveDialog maxWidth="sm" open={props.open}>
+    <Dialog maxWidth="sm" open={props.open}>
       <DialogTitle>
         <Typography variant="h6" className={classes.bold}>
           {t('rollCall.dialog.validationRollCall')}
@@ -88,7 +89,7 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
           </Button>
         </DialogActions>
       </div>
-    </GenericResponsiveDialog>
+    </Dialog>
   );
 };
 

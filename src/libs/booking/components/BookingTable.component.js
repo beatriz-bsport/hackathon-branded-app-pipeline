@@ -40,6 +40,7 @@ type Props = {
   refresh: () => void,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
   dateRollCallLastModified?: string,
+  onClickWarningIcon: () => void,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -117,6 +118,8 @@ export class BookingTable extends PureComponent<Props> {
             membersWithStatusOk={membersWithStatusOk}
             onProgramDetailsClick={onProgramDetailsClick}
             dateRollCallLastModified={this.props.dateRollCallLastModified}
+            displayNoShowChip
+            onClickWarningIcon={this.props.onClickWarningIcon}
           />
         ))}
       </List>

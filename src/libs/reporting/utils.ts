@@ -283,14 +283,6 @@ export function getConverter(
       return '';
     }
 
-    if (datatype === 'payout_status') {
-      if (value) {
-        return {
-          value: t(`payment:payout.status.${value}`),
-        };
-      }
-      return '';
-    }
     if (datatype === 'product_type') {
       return { value: t(`product_type.${value}`) };
     }

@@ -902,7 +902,9 @@ exports.default = {
       coach_capacity_used: {
         label: "Nb maximum de RDV simultanés qu'un professeur peut gérer",
         helperText:
-          'Ex: un professeur peut surveiller deux élèves séparément sur deux machines ',
+          'Ex: un professeur peut surveiller deux élèves séparément sur deux machines',
+        alertText:
+          'Un professeur peut gérer simultanément 1, 2, 3, 4, 6 ou 12 rendez-vous.',
       },
       color: 'Code couleur',
       use_full_establishment_capacity: {

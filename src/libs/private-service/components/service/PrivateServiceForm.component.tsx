@@ -16,6 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
 
 import {
   RESOURCE_ATTRIBUTION_CONSUMER,
@@ -328,6 +329,9 @@ export const PrivateServiceForm = (props: Props) => {
               label={t('service.form.coach_capacity_used.label')}
               helperText={t('service.form.coach_capacity_used.helperText')}
             />
+            <Alert severity="info" className={classes.alignCenter}>
+              {t('service.form.coach_capacity_used.alertText')}
+            </Alert>
             <CheckboxField
               label={t('service.form.coach_consumer_attribution.label')}
               helperText={t(
@@ -490,6 +494,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1),
     },
   },
+  alignCenter: {
+    alignItems: 'center',
+  },
 }));
 
 export const PrivateServiceSchema = Yup.object().shape({
@@ -500,7 +507,7 @@ export const PrivateServiceSchema = Yup.object().shape({
   private_service_group: Yup.number().nullable(),
   color: Yup.string(),
   use_full_establishment_capacity: Yup.boolean(),
-  coach_capacity_used: Yup.number().min(1).max(12),
+  coach_capacity_used: Yup.number().oneOf([1, 2, 3, 4, 6, 12]),
   coaches: Yup.array().of(Yup.number()),
   establishments: Yup.array().of(Yup.number()),
   availability_padding_start_minutes: Yup.number(),

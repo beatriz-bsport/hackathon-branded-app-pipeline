@@ -361,7 +361,18 @@ export const newPaymentPackReducer = handleActions(
       state,
       { payload },
     ) => {
-      return state
+      let newState = state;
+      if (payload.manager_only || !payload.is_usable_by_staff)
+        newState = state.setIn(
+          ['paymentPackTemplate', 'allIdsManagerOnly'],
+          [
+            payload.id,
+            ...state.paymentPackTemplate.allIdsManagerOnly.filter(
+              (id) => id !== payload.id,
+            ),
+          ],
+        );
+      return newState
         .setIn(
           ['paymentPackTemplate', 'allIds'],
           [

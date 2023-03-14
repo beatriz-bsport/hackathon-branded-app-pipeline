@@ -382,12 +382,30 @@ export const getPaymentPackTemplate: (
 
 export const getPaymentPackTemplateListManagerOnly = createSelector(
   getPaymentPackTemplateManagerOnlyList,
-  (list) => list.filter((p) => !!p.manager_only),
+  (paymentPackTemplateList) =>
+    paymentPackTemplateList.filter(
+      (paymentPackTemplate) =>
+        paymentPackTemplate.manager_only ||
+        !paymentPackTemplate.is_usable_by_staff,
+    ),
 );
 
 export const getPaymentPackTemplateListAvailable = createSelector(
   getPaymentPackTemplateList,
-  (list) => list.filter((p) => !p.manager_only),
+  (paymentPackTemplateList) =>
+    paymentPackTemplateList.filter(
+      (paymentPackTemplate) => !paymentPackTemplate.manager_only,
+    ),
+);
+
+export const getPaymentPackTemplateListAvailableForSale = createSelector(
+  getPaymentPackTemplateList,
+  (paymentPackTemplateList) =>
+    paymentPackTemplateList.filter(
+      (paymentPackTemplate) =>
+        !paymentPackTemplate.manager_only &&
+        paymentPackTemplate.is_usable_by_staff,
+    ),
 );
 
 export const excludeUnaccessiblePacks = memoize(

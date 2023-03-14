@@ -55,7 +55,11 @@ export const compatiblePacksWithOffer = (state: RootState) =>
 
 export const compatiblePacksWithOfferAndEnabled = createSelector(
   compatiblePacksWithOffer,
-  (items) => items.filter((pp: PaymentPack) => !pp.disabled),
+  (paymentPackList) =>
+    paymentPackList.filter(
+      (paymentPack: PaymentPack) =>
+        !paymentPack.disabled && paymentPack.is_usable_by_staff,
+    ),
 );
 
 export const getOfferFromList = (state: RootState, ids: Array<number>) =>

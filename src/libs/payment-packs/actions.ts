@@ -655,7 +655,7 @@ export function fetchPaymentPackTemplateListManagerOnly(
     dispatch(listPaymentPackTemplateActions.isLoading(true));
     try {
       const response = await fetchPaymentPackTemplateListAPI({
-        manager_only: true,
+        available_for_sale: false,
       });
       dispatch(
         listPaymentPackTemplateActions.successManagerOnly(

@@ -5,8 +5,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import memoize from 'memoize-one';
 import Typography from '@material-ui/core/Typography';
+import { TFunction } from 'i18next';
 import MaterialUISelector from '../../../components/Selector/MaterialUISelector.component';
 import { MaterialStyleType } from '../../../utils/types';
 
@@ -14,6 +14,7 @@ export enum ManagerOnly {
   showAll = 0,
   showManagerOnly = 1,
   showManagerExclude = 2,
+  showInvisibleForStaff = 3,
 }
 
 export enum SortOption {
@@ -38,19 +39,20 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-const managerOnlyOptions = memoize((t) => [
+const managerOnlyOptions = (t: TFunction) => [
   { value: '0', label: t('selector.filterManagerOnly') },
   { value: '1', label: t('selector.managerOnly') },
   { value: '2', label: t('selector.noManagerOnly') },
-]);
+  { value: '3', label: t('selector.unusableByStaff') },
+];
 
-const sortOptions = memoize((t) => [
+const sortOptions = (t: TFunction) => [
   { value: '0', label: t('selector.sorting.ascendingPrice') },
   { value: '1', label: t('selector.sorting.descendingPrice') },
   { value: '2', label: t('selector.sorting.ascendingCredit') },
   { value: '3', label: t('selector.sorting.descendingCredit') },
   { value: '4', label: t('selector.sorting.customSort') },
-]);
+];
 
 export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
   categoryFilterOnchange = (categories) => {

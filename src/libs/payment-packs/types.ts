@@ -79,6 +79,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   linked_private_pass: LPP;
   allow_guest_pass?: boolean;
   is_universal_pass: boolean;
+  is_usable_by_staff: boolean;
 };
 
 export type ConsumerPaymentPack = {
@@ -130,6 +131,7 @@ export type PaymentPackTemplateAPI = {
   max_purchase_per_member: null | number;
   only_vod_access: boolean;
   full_vod_access: boolean;
+  is_usable_by_staff: boolean;
 };
 
 export type PaymentPackTemplate = PaymentPackTemplateAPI & {
@@ -256,6 +258,7 @@ export type PaymentPackFormValues<LPP = number> = {
   linked_private_pass?: LPP;
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;
   allow_guest_pass?: boolean;
+  unusable_by_staff?: boolean;
 };
 
 // TODO: HARMONIZE PP and PPT FORM VALUES
@@ -303,6 +306,7 @@ export type PaymentPackTemplateFormValues = {
   is_universal_pass: boolean;
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;
   allow_guest_pass?: boolean;
+  unusable_by_staff?: boolean;
 };
 export type MaxoutData = {
   exceedsBookingMaxout: boolean;

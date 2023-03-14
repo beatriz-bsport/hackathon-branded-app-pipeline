@@ -140,6 +140,13 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               />
               <Typography>{t('addPaymentPack.inShopPayment')}</Typography>
             </div>
+            <div className={classes.row}>
+              <SwitchField
+                name="unusable_by_staff"
+                disabled={!!initial?.template_instance}
+              />
+              <Typography>{t('addPaymentPack.unusableByStaff')}</Typography>
+            </div>
             {allowGuestMaster && (
               <div className={classes.row}>
                 <SwitchField name="allow_guest_pass" />

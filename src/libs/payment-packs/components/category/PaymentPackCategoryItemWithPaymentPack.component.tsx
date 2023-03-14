@@ -156,17 +156,24 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
     props.filterManagerOnly === ManagerOnly.showManagerExclude &&
     packs.filter((pp) => !pp.manager_only).length;
 
+  const showInvisibleForStaff =
+    props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
+    packs.filter((pp) => !pp.is_usable_by_staff).length;
+
   return (
     <SortableContext items={items} strategy={verticalListSortingStrategy}>
       {props.filterManagerOnly === ManagerOnly.showAll ||
       showManagerOnly ||
-      showManagerExclude ? (
+      showManagerExclude ||
+      showInvisibleForStaff ? (
         packs.map((pack: PaymentPack) => {
           return props.filterManagerOnly === ManagerOnly.showAll ||
             (props.filterManagerOnly === ManagerOnly.showManagerOnly &&
               pack.manager_only) ||
             (props.filterManagerOnly === ManagerOnly.showManagerExclude &&
-              !pack.manager_only) ? (
+              !pack.manager_only) ||
+            (props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
+              !pack.is_usable_by_staff) ? (
             <SortablePaymentPackListItem
               draggable={
                 !props.paymentPackOrder &&

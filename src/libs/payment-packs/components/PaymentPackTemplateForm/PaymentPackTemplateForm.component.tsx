@@ -164,6 +164,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
       return true;
     },
   ),
+  unusable_by_staff: Yup.boolean(),
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -200,6 +201,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         penalty_kind: 'block',
         penalty_days_blocked: 7,
         penalty_account_value: 10,
+        unusable_by_staff: false,
       },
       (initial && {
         ...initial,
@@ -218,6 +220,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         upper_date: initial.validity_daterange
           ? moment(JSON.parse(initial.validity_daterange).upper)
           : moment().add('days', 365),
+        unusable_by_staff: !initial.is_usable_by_staff,
       }) ||
         {},
     ),
@@ -250,8 +253,12 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       'penalty_kind',
       'penalty_days_blocked',
       'penalty_account_value',
+      'is_usable_by_staff',
     ];
-    const data = pick(values, keys);
+    const data = pick(
+      { ...values, is_usable_by_staff: !values.unusable_by_staff },
+      keys,
+    );
     if (values.timeType === VALID_BY_DATERANGE) {
       data.duration_days = null;
       data.duration_months = null;

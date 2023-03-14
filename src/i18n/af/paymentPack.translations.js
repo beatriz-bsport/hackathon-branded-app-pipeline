@@ -456,6 +456,9 @@ exports.default = {
       },
     },
   },
+  listItem: {
+    unusableByStaff: 'Invisible pour le staff',
+  },
   details: {
     pleaseSelectAPack: 'Sélectionnez une carte pour voir le détails',
     shareAPass: 'Partager une carte de cours',
@@ -579,8 +582,9 @@ exports.default = {
     maxUseMonth: 'Utilisations maximum par mois',
     maxUseMember: 'Achat maximum par membre',
     newClientOnly: 'Uniquement pour les nouveaux clients',
-    notForSell: 'Indisponible à la vente',
+    notForSell: 'Invisible pour les clients',
     inShopPayment: 'Possibilité de payer sur place',
+    unusableByStaff: 'Invisible pour le staff',
     categories: 'Catégories',
     room: 'Salles',
     activities: 'Activités',
@@ -717,8 +721,9 @@ exports.default = {
     titleSort: 'Trier',
     filterCategory: 'Toutes les catégories',
     filterManagerOnly: 'Toutes les disponibilités',
-    managerOnly: 'Indisponible à la vente',
+    managerOnly: 'Invisible pour les clients',
     noManagerOnly: 'Disponible à la vente',
+    unusableByStaff: 'Invisible pour le staff',
     noAvailable: 'Aucune carte correspondant aux disponibilités choisies',
   },
   category: {

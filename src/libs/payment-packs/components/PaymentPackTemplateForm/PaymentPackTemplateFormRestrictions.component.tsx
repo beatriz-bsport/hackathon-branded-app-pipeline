@@ -92,6 +92,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 })}
               />
             </div>
+
             <div className={classes.row}>
               <SwitchField
                 name="manager_only"
@@ -104,6 +105,13 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 name="onsite_payment_available"
                 disabled={values.manager_only}
                 label={t('addPaymentPack.inShopPayment')}
+              />
+            </div>
+
+            <div className={classes.row}>
+              <SwitchField
+                name="unusable_by_staff"
+                label={t('addPaymentPack.unusableByStaff')}
               />
             </div>
           </div>

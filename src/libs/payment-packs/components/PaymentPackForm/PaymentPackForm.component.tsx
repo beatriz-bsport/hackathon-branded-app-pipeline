@@ -179,6 +179,7 @@ export const PaymentPackForm = (props: Props) => {
               linked_private_pass_compatibility: getFormInitial(
                 props.compatibleServicePass,
               ),
+              unusable_by_staff: !initial?.is_usable_by_staff,
             }
           : {
               id: null,
@@ -225,12 +226,14 @@ export const PaymentPackForm = (props: Props) => {
               is_universal_pass: false,
               linked_private_pass_compatibility: [],
               allow_guest_pass: true,
+              unusable_by_staff: false,
             }
       }
       onSubmit={(values, actions) => {
         const sanithizedValues = {
           ...values,
           unlimited: values.credit_number === 'unlimited',
+          is_usable_by_staff: !values.unusable_by_staff,
         };
         if (values.validity === 'slot') {
           sanithizedValues.duration_days = null;
@@ -310,6 +313,7 @@ export const PaymentPackForm = (props: Props) => {
           'linked_private_pass_compatibility',
           'is_universal_pass',
           'allow_guest_pass',
+          'is_usable_by_staff',
         ];
         const data = pick(sanithizedValues, keys);
         onSubmit(data, {
@@ -625,4 +629,5 @@ const paymentPackSchema = Yup.object().shape({
   whitelist_tags: Yup.array().of(Yup.number()),
   blacklist_tags: Yup.array().of(Yup.number()),
   allow_guest_pass: Yup.boolean(),
+  unusable_by_staff: Yup.boolean(),
 });

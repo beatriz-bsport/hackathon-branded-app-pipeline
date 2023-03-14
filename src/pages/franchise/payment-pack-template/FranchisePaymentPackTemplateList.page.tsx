@@ -34,7 +34,7 @@ import {
 } from '#libs/payment-packs/actions';
 import {
   getPaymentPackTemplateListManagerOnly,
-  getPaymentPackTemplateListAvailable,
+  getPaymentPackTemplateListAvailableForSale,
   getPaymentPackTemplateData,
 } from '#libs/payment-packs/selectors';
 
@@ -217,7 +217,7 @@ const connector = connect(
     paymentPackTemplateListManagerOnly:
       getPaymentPackTemplateListManagerOnly(state),
     paymentPackTemplateListAvailable:
-      getPaymentPackTemplateListAvailable(state),
+      getPaymentPackTemplateListAvailableForSale(state),
     paymentPackTemplateData: getPaymentPackTemplateData(state),
     loading: state.paymentPack.paymentPackTemplate.loading,
   }),
@@ -277,7 +277,9 @@ export default compose(
     fetchPaymentPackTemplateAvailable:
       ({ fetchPaymentPackTemplateList }) =>
       () => {
-        fetchPaymentPackTemplateList({ manager_only: false });
+        fetchPaymentPackTemplateList({
+          available_for_sale: true,
+        });
       },
     deletePaymentPackTemplate:
       ({

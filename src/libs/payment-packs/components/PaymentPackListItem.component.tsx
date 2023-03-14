@@ -14,6 +14,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EventIcon from '@material-ui/icons/Event';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
@@ -64,7 +65,6 @@ const styles = (theme: Theme) => ({
   },
   actionsContainerFlexOnMobile: {
     [theme.breakpoints.down('xs')]: {
-      display: 'flex',
       alignSelf: 'flex-end',
       height: 36,
     },
@@ -144,6 +144,13 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
               this.props.isFlexContainerOnMobile,
           })}
         >
+          {!this.props.pack.is_usable_by_staff && !this.props.disabled ? (
+            <Tooltip title={this.props.t('listItem.unusableByStaff')}>
+              <IconButton onClick={null}>
+                <RemoveShoppingCartIcon />
+              </IconButton>
+            </Tooltip>
+          ) : null}
           {this.props.pack.manager_only && !this.props.disabled ? (
             <Tooltip title={this.props.t('form.paymentPack.managerOnly')}>
               <IconButton onClick={null}>
@@ -292,7 +299,6 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
 }
 
 export default compose<any, OwnProps>(
-  // @ts-ignore
   withStyles(styles),
   withTranslation(['paymentPack']),
 )(PaymentPackListItem);

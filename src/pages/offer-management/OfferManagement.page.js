@@ -24,11 +24,7 @@ import {
   toggleWaitingListFreeze as toggleWaitingListFreezeAction,
   fetchOfferStatus as fetchOfferStatusAction,
 } from '#libs/offer/actions';
-import {
-  compatiblePacksWithOfferAndEnabled,
-  getDetailedOffer,
-  withSpecificCoach,
-} from '#libs/offer/selectors';
+import { getDetailedOffer, withSpecificCoach } from '#libs/offer/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -95,7 +91,6 @@ import {
   getEmailTemplatesDetail,
 } from '#libs/email-editor/selectors';
 import { snackbar } from '../../actions/snackbar.actions';
-import { getEnabled as getPaymentPackEnabled } from '#libs/payment-packs/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
 import {
@@ -184,10 +179,6 @@ export default compose(
         state,
       ),
       offerLoading: state.offer.retrieve.loading,
-      // payment pack
-      paymentPacksEnabled: getPaymentPackEnabled(state),
-      compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
-      compatiblePacksLoading: state.offer.compatiblePacks.loading,
       // member
       membersloading: state.member.loading,
       members: withMemberProgram(withTags(getAllMembers))(state),

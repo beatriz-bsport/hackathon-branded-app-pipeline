@@ -70,6 +70,9 @@ export type FranchiseUser = {
 export type FranchiseProductTemplateQueryParams = {
   franchisor?: number;
   id__in?: Array<number>;
+  manager_only?: boolean;
+  is_usable_by_staff?: boolean;
+  available_for_sale?: boolean;
 };
 
 export type FranchiseCompany = {

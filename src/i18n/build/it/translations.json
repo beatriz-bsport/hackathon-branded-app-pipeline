@@ -3922,6 +3922,9 @@
             },
             "editAccessToCoachSpace": {
                 "error": "Errore durante la modifica dei diritti di accesso all'area insegnanti"
+            },
+            "errors": {
+                "60002": "La mail indicata è già collegata ad un account dello staff."
             }
         },
         "relationship": {
@@ -4117,7 +4120,8 @@
                     "934006": "Questa fattura è già registrata in QuickBooks",
                     "934005": "La tua fattura non può essere inviata a QuickBooks",
                     "934004": "Impossibile inviare una fattura non pagata in QuickBooks",
-                    "934003": "Impossibile inviare una fattura non finita in QuickBooks"
+                    "934003": "Impossibile inviare una fattura non finita in QuickBooks",
+                    "933103": "La tua piattaforma QuickBooks supporta più valute, specifica la tassa da utilizzare."
                 },
                 "error": "Si è verificato un errore durante il trasferimento della fattura a Quickbooks",
                 "success": "La tua fattura è stata trasferita a Quickbooks"
@@ -4125,13 +4129,24 @@
             "applyGiftcard": {
                 "success": "Pagamento con carta regalo convalidata",
                 "errors": {
-                    "45001": "Impossibile pagare questo conto con questa carta regalo"
+                    "45001": "Impossibile pagare questo conto con questa carta regalo",
+                    "45000": "Il codice di attivazione della carta non è corretto.",
+                    "45006": "La carta regalo è già stata attivata",
+                    "45007": "Impossibile riconoscere il membro che vuole attivare la carta.",
+                    "generic": "Impossibile attivare la carta regalo",
+                    "45003": "La carta regalo è stata disabilitata."
                 },
                 "error": "Impossibile pagare l'importo richiesto con questa carta regalo"
             },
             "applyBalance": {
                 "success": "Il tuo saldo è stato applicato alla fattura.",
                 "error": "Non puoi usare il tuo saldo per pagare questa fattura."
+            },
+            "revert": {
+                "errors": {
+                    "14100": "Impossibile annullare una fattura con pagamenti Interac.",
+                    "14101": "Impossibile rimborsare a causa della fattura di adeguamento del saldo."
+                }
             }
         },
         "establishment": {
@@ -4439,7 +4454,11 @@
             "2016": "La sua carta dei corsi non le permette più di prenotare questo mese",
             "2017": "La tua carta dei corsi non ti permette più di prenotare quest'anno",
             "2014": "La sua tessera del corso non le permette più di prenotare per quel giorno",
-            "2015": "La sua tessera del corso non le permette più di prenotare questa settimana"
+            "2015": "La sua tessera del corso non le permette più di prenotare questa settimana",
+            "10001": "Stock insufficiente",
+            "85000": "Una prenotazione è già in corso, attendi qualche istante",
+            "45004": "La carta regalo non è più disponibile per la vendita.",
+            "45005": "La carta regalo non è più disponibile per la vendita."
         },
         "establishmentGroup": {
             "create": {
@@ -4646,7 +4665,8 @@
             "company": "Azienda",
             "invoice": "Fatturazione",
             "waitingList": "Lista d'attesa",
-            "active_campaign": "ActiveCampaign"
+            "active_campaign": "ActiveCampaign",
+            "coachUserspace": "Spazio dell'insegnante"
         },
         "webhook": {
             "cancel": "annulla",
@@ -4694,7 +4714,8 @@
                 "todayOnly": "Mostra solo le sessioni di oggi",
                 "hidePaymentCombo": "Non mostrare i pacchetti",
                 "hidePrivatePass": "Non mostrare le carte del corso",
-                "hidePaymentPack": "Non mostrare le carte del corso"
+                "hidePaymentPack": "Non mostrare le carte del corso",
+                "titleCaption": "{{max}} caratteri max ({{count}}/{{max}})"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -4708,7 +4729,8 @@
                 "newsletter": "Newsletter",
                 "loginButton": "Pulsante di accesso",
                 "giftcard": "Carta regalo",
-                "paymentPackTemplate": "Scheda del corso condiviso"
+                "paymentPackTemplate": "Scheda del corso condiviso",
+                "calendarV2": "Calendario"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -4746,7 +4768,17 @@
             "explainEnable": "Trasferisci tutte le tue fatture direttamente in QuickBooks. Le fatture saranno trasferite ogni 24 ore.",
             "submit": "Salva",
             "enable": "Attivare l'integrazione di Quickbooks",
-            "title": "QuickBooks"
+            "title": "QuickBooks",
+            "tax": {
+                "taxInfoTitle": "Informazioni fiscali QuickBooks",
+                "refresh": "Aggiorna i miei dati Quickbooks",
+                "alertUnconfigured": "Non hai configurato una tassa predefinita da applicare ai prodotti inclusi nelle tue fatture. Queste informazioni sono obbligatorie per fare riferimento all'imposta appropriata durante il trasferimento delle fatture alla piattaforma Quickbooks.",
+                "taxCodeHeaderDescription": "Descrizione",
+                "usedAsTaxCode": "Utilizzato come imposta di riferimento",
+                "alertNonTaxInformation": "Nessuna informazione fiscale viene sincronizzata con la tua piattaforma Quickbooks. Fare clic su Aggiorna per sincronizzarli",
+                "goToSettingsPage": "Apri la pagina di configurazione di QuickBooks",
+                "taxCodeHeaderName": "Nome"
+            }
         },
         "mobilePersonalization": {
             "popup": {
@@ -4837,6 +4869,17 @@
                 "subtitle": "Link esterni"
             },
             "title": "Personalizzazione dell'app"
+        },
+        "company": {
+            "bankAccountSuccess": {
+                "title": "Modifiche alle coordinate bancarie",
+                "content": "Le tue informazioni bancarie sono state ben aggiornate. Per essere accreditato e addebitato su un singolo account, puoi anche aggiornare il metodo di pagamento utilizzato per addebitare il tuo abbonamento Bsport.",
+                "note": "Fai clic su \"Configura\" per essere reindirizzato."
+            },
+            "bankAccountInfo": {
+                "content": "Questo conto corrisponde al conto su cui verranno accreditati i pagamenti online tramite Bsport. Per configurare il metodo di pagamento su cui verrà addebitato il tuo abbonamento Bsport, fai clic su",
+                "link": "qui"
+            }
         }
     },
     "invoice": {
@@ -6123,7 +6166,11 @@
             "remaining_credits_annotated": "Credito rimanente oggi",
             "selectAll": "Seleziona tutto",
             "unpaid_amount": "Importo totale in sospeso",
-            "unSelectAll": "Deseleziona tutto"
+            "unSelectAll": "Deseleziona tutto",
+            "src_company": "Studio acquisti",
+            "dst_company": "Uso studio",
+            "total_mixed_from_src": "Numero di sessioni prenotate",
+            "shared_pass_ratio": "Percentuale d'uso"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -6140,7 +6187,13 @@
             "event_brite": "EventBrite",
             "none": "Nessuno",
             "sepa": "SEPA",
-            "credit_card": "Carte"
+            "credit_card": "Carte",
+            "bancontact": "Bancontact",
+            "sofort": "Sofort",
+            "ideal": "iDeal",
+            "eps": "EPS",
+            "giropay": "Giropay",
+            "debt": "Credito interno"
         },
         "list": {
             "empty": "Nessun rapporto? Crea un primo rapporto!",
@@ -6153,7 +6206,10 @@
             "payment_pack": "Tessera",
             "top_up": "Ricarica del credito del cliente",
             "payment_combo": "Pacchetto",
-            "private_pass": "Pass per appuntamenti"
+            "private_pass": "Pass per appuntamenti",
+            "booking": "Prenotazione",
+            "coupon": "Promozione",
+            "giftcard": "Carta regalo"
         },
         "form": {
             "columns": "Colonne",
@@ -6258,7 +6314,181 @@
             "from_to": "Da {{-from}} a {{-to}}",
             "save": "Salva"
         },
-        "search": "Cerca un rapporto"
+        "search": "Cerca un rapporto",
+        "datatype": {
+            "booking_status_code": "Stato della prenotazione",
+            "email": "Email",
+            "user": "Membro",
+            "boolean": "Vero/Falso",
+            "private_service": "Appuntamento",
+            "private_pass": "Pass appuntamenti",
+            "private_slot": "Tipo di appuntamento",
+            "subshop": "Categoria",
+            "billing_establishment": "Stabilimento di fatturazione",
+            "billing_group": "Gruppo di fatturazione",
+            "activity": "Attività",
+            "payout": "Pagamento",
+            "payout_status": "Stato del pagamento",
+            "staff": "Staff",
+            "company": "Studio",
+            "disputeStatus": "Stato della disputa",
+            "price": "Prezzo",
+            "cts": "Prezzo in centesimi",
+            "payment_method": "Metodo di pagamento",
+            "coupon": "Promozione",
+            "contract": "Abbonamento",
+            "date": "Data",
+            "time": "Ora",
+            "dow": "Giorno della settimana",
+            "datetime": "Data",
+            "establishment": "Stabilimento",
+            "coach": "Insegnante",
+            "giftcard": "Carta regalo",
+            "video": "Video",
+            "payment_pack": "Pass",
+            "int": "Numero",
+            "number": "Numero",
+            "percent": "Percentuale"
+        },
+        "presetValuesByDatatype": {
+            "payment_method": {
+                "1": "Contante",
+                "8": "Event brite",
+                "0": "Carta",
+                "2": "Check",
+                "3": "Pass",
+                "4": "Carta (manuale)",
+                "5": "Controllo ferie",
+                "6": "AMEX",
+                "7": "Pagamento",
+                "9": "Pagamento in loco",
+                "10": "Pagamento automatico",
+                "11": "Altro",
+                "12": "Disputa",
+                "13": "SEPA",
+                "20": "Bancontact",
+                "30": "Sofort",
+                "40": "iDEAL",
+                "50": "EPS",
+                "60": "Giropay"
+            },
+            "source_device": {
+                "0": "App",
+                "1": "Web",
+                "2": "Backoffice bsport",
+                "3": "Altro",
+                "4": "Migrazione dei dati"
+            },
+            "booking_status_code": {
+                "2": "Annullamento del cliente",
+                "3": "Sessione annullata",
+                "0": "Non annullato",
+                "1": "Annullamento del manager"
+            },
+            "payment_engine": {
+                "0": "Pagamento manuale",
+                "1": "Pagamento online"
+            }
+        },
+        "presetValuesByIdentifier": {
+            "is_recurrent_booking": {
+                "True": "Ricorrente",
+                "False": "Non ricorrente"
+            },
+            "attendance": {
+                "False": "Assente",
+                "True": "Present"
+            },
+            "activity_kind": {
+                "True": "Workshop",
+                "False": "Attività"
+            },
+            "gender": {
+                "X": "Altro",
+                "M": "Uomini",
+                "F": "Donne"
+            },
+            "is_unpaid": {
+                "True": "Pagamento in sospeso",
+                "False": "Pagato"
+            }
+        },
+        "filter": {
+            "form": {
+                "filterComparator": {
+                    "3": {
+                        "0": "È il",
+                        "1": "Non è il",
+                        "4": "Dentro l'intervallo"
+                    },
+                    "0": {
+                        "4": "É",
+                        "5": "Non è"
+                    },
+                    "1": {
+                        "0": "Uguale",
+                        "1": "Non è uguale",
+                        "2": "Minore o uguale a",
+                        "3": "Superiore o uguale a",
+                        "4": "Nell'intervallo",
+                        "5": "Fuori dall'intervallo"
+                    },
+                    "2": {
+                        "0": "É",
+                        "1": "Non è"
+                    }
+                },
+                "subDataType": {
+                    "day": "Data",
+                    "hour": "Ora"
+                },
+                "title": "Vista filtrata",
+                "name": "Nome",
+                "information": "Informazioni generali",
+                "filter": "Filtri",
+                "operandSelect": "Regola per i filtri",
+                "add": "Aggiungi",
+                "addGroupOption": "Gruppo di filtri",
+                "addFilterOption": "Filtro",
+                "addFilter": "Aggiungi un filtro",
+                "emptyState": "Nessuna colonna di questo rapporto è filtrabile",
+                "groupOperand": {
+                    "0": "O",
+                    "1": "E"
+                },
+                "groupOperandHelperText": {
+                    "0": "Gli elementi filtrati devono corrispondere ad almeno un filtro.",
+                    "1": "Gli elementi filtrati devono corrispondere a tutti i filtri."
+                },
+                "placeholderList": "Seleziona",
+                "isTrue": "Vero",
+                "isFalse": "Falso",
+                "error": {
+                    "invalidTypeForColumns": "Operazione non possibile su questa colonna",
+                    "byIdDuplicate": "Più campi di selezione sono presenti in duplicato",
+                    "needAtLeatOneFilter": "È richiesto un filtro minimo",
+                    "wrongOrdering": "I valori non sono in ordine crescente"
+                },
+                "submit": "Registrati",
+                "cancel": "Cancella",
+                "edit": "Modifica",
+                "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal rapporto. Tuttavia, il filtro su questa colonna è ancora applicato."
+            },
+            "title": "Vista filtrata",
+            "emptyFilter": "Tutti i dati",
+            "createFilter": "Aggiungi una visualizzazione filtrata",
+            "deleteModal": {
+                "title": "Cancella",
+                "content": "Sei sicuro di voler eliminare questa visualizzazione filtrata? Questa azione è irreversibile."
+            }
+        },
+        "franchiseWarning": {
+            "part1": "A causa della grande quantità di dati, la generazione del rapporto può richiedere diversi minuti.",
+            "part2": "Ora puoi esportare il rapporto ed elaborarlo successivamente in Excel. Le date indicate e la visualizzazione filtrata applicata verranno prese in considerazione nell'esportazione."
+        },
+        "helperText": {
+            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con le carte condivise. Quando viene acquistata una carta condivisa in uno studio, il report mostra il numero di prenotazioni effettuate con questa carta in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti."
+        }
     },
     "alerting": {
         "unevenInvoice": {
@@ -8414,6 +8644,117 @@
                 "title": "Metodo di pagamento salvato",
                 "explanation": "Filtrare per metodo di pagamento salvato e data di scadenza",
                 "name": "Metodo di pagamento"
+            },
+            "27": {
+                "explanation": "Ha X pass o pass per appuntamenti validi",
+                "name": "Pass validi",
+                "first": "Ha",
+                "between": "e",
+                "second": "tessere lezione o tessere appuntamento valide oggi. Tra",
+                "third": "o",
+                "fourth": "(combinato)",
+                "info": "Vengono prese in considerazione anche i pass e i pass per appuntamenti bloccati"
+            },
+            "104": {
+                "info": "Le cosiddette note mediche corrispondono a quelle che figurano nella sezione \"Informazioni Essenziali\" del fascicolo di appartenenza",
+                "name": "Note",
+                "first": "Ha almeno una nota",
+                "medicalOrNot": "medico o meno",
+                "medical": "medico",
+                "nonMedical": "non medico",
+                "date": {
+                    "first": "che è stato creato"
+                },
+                "explanation": "Ha almeno una nota medica (o meno)"
+            },
+            "105": {
+                "consumerPrivatePasses": "dei pass per appuntamenti",
+                "info": {
+                    "consumerPaymentPacks": "\"valido\" significa che la tessera può essere utilizzata ora per prenotare una lezione di gruppo",
+                    "consumerPrivatePasses": "\"valido\" significa che il pass può essere utilizzato ora per prenotare un appuntamento"
+                },
+                "name": "Relazioni",
+                "date": {
+                    "first": "La relazione è stata stabilita"
+                },
+                "to": "a",
+                "between": "e",
+                "first": "Ha un numero",
+                "second": "relazioni che rispettano i filtri selezionati:",
+                "third": "il membro ha condiviso con la relazione un numero",
+                "fourth": "la relazione ha riservato un numero",
+                "consumerPaymentPacks": "dei pass",
+                "bookings": "lezioni di gruppo e appuntamenti grazie ad un pass condiviso dall'iscritto",
+                "valid": "valido",
+                "validOrNot": "valido o meno",
+                "receiveCopyOfEmail": {
+                    "first": "email inviate alla relazione",
+                    "true": "vengono anche inviati",
+                    "false": "non vengono inviati",
+                    "second": "in copia al membro"
+                },
+                "acceptSms": {
+                    "first": "la relazione",
+                    "true": "accettato",
+                    "false": "non accetto",
+                    "second": "SMS"
+                },
+                "acceptEmail": {
+                    "first": "la relazione",
+                    "true": "accettato",
+                    "false": "non accettato",
+                    "second": "email"
+                },
+                "explanation": "Ha X relazioni e Y pass o pass per appuntamenti o prenotazioni condivisi"
+            },
+            "101": {
+                "name": "Età",
+                "first": "Ha un'età",
+                "between": "e",
+                "to": "a",
+                "second": "anni (inclusi)",
+                "explanation": "È sotto/sopra/esattamente..."
+            },
+            "102": {
+                "name": "Form",
+                "hasCompleted": "Completato",
+                "hasNotCompleted": "Non completato",
+                "atLeastOne": "Almeno un form",
+                "all": "Tutti i form",
+                "hasCompletedNone": "Non completato",
+                "none": "Nessun form",
+                "explanation": "Moduli X completati in A% alla data B ",
+                "date": {
+                    "first": "ultimo completato"
+                },
+                "to": "a",
+                "second": "tra",
+                "third": "ad una percentuale",
+                "between": "e"
+            },
+            "103": {
+                "name": "Notifiche",
+                "allNeeded": "Tutte le condizioni abilitate devono essere soddisfatte",
+                "oneNeeded": "Almeno una delle condizioni abilitate deve essere soddisfatta",
+                "true": "Accettato",
+                "false": "Non accettato",
+                "sms": "per ricevere notifiche SMS",
+                "email": "per ricevere le notifiche via e-mail",
+                "explanation": "Accetta notifiche SMS/e-mail"
+            },
+            "107": {
+                "false": "Non ha accettato",
+                "first": "le tue condizioni d'uso",
+                "explanation": "Ha accettato i termini di utilizzo",
+                "name": "Termini di utilizzo",
+                "true": "Ha accettato"
+            },
+            "106": {
+                "name": "Telefono",
+                "true": "Ha informato",
+                "false": "Non compilato",
+                "first": "un numero di telefono",
+                "explanation": "Ha fornito un numero di telefono"
             }
         },
         "smart_list": {
@@ -8523,6 +8864,21 @@
                 "intermediary": "intermedio",
                 "beginner": "debuttante",
                 "all": "tutti i livelli"
+            },
+            "customForms": {
+                "helperText": "Seleziona un form",
+                "helperSelectedText": "form selezionati",
+                "textFieldPlaceholder": "Trova un form",
+                "helperAllSelectedText": "tutti i form",
+                "warning": "Seleziona almeno un form"
+            },
+            "activePasses": {
+                "paymentPackHelperText": "nessun pass",
+                "privatePassHelperText": "nessun pass per appuntamenti",
+                "warning": "Seleziona almeno un pass o un pass per appuntamenti"
+            },
+            "userMarketingNotifications": {
+                "warning": "Attiva almeno una delle due opzioni"
             }
         },
         "detail": {
@@ -11185,7 +11541,12 @@
                         "label": "Email"
                     },
                     "role": {
-                        "label": "Ruolo"
+                        "label": "Ruolo",
+                        "title": "Ruoli",
+                        "selectRole": {
+                            "label": "Seleziona un ruolo",
+                            "topLabel": "Ruolo"
+                        }
                     },
                     "cancel": "Annulla",
                     "submit": "Iscriviti",
@@ -11194,14 +11555,35 @@
                     },
                     "lastName": {
                         "label": "Cognome"
-                    }
+                    },
+                    "franchisees": {
+                        "warning": "Seleziona quali franchise avranno accesso a questo account personale. Lascia vuoto per dare accesso a tutti i franchise.",
+                        "title": "Accesso in franchising"
+                    },
+                    "generalInfo": {
+                        "title": "Informazioni generali",
+                        "email": {
+                            "label": "Email"
+                        },
+                        "firstName": {
+                            "label": "Nome"
+                        },
+                        "lastName": {
+                            "label": "Cognome"
+                        }
+                    },
+                    "register": "Registra"
                 },
                 "delete": {
                     "content": "Sei sicuro di voler eliminare questo account?",
                     "title": "Cancellazione dell'account personale",
                     "cancel": "Annulla",
                     "confirm": "Rimuovi"
-                }
+                },
+                "selectCoach": "Seleziona l'insegnante",
+                "selectFranchisees": "Seleziona lo studio",
+                "selectFranchiseesDisabled": "Questa impostazione è solo per il ruolo personalizzato (non amministratore o proprietario)",
+                "ifEmptySelectAll": "Lascia vuoto per selezionare tutto"
             },
             "role": {
                 "delete": {
@@ -11219,7 +11601,28 @@
                     "name": "Nome",
                     "title": "Creazione di ruoli",
                     "buttonCreate": "Aggiungere un ruolo  ",
-                    "restrictedUrlExplain": "Usa questa impostazione per definire una whitelist di URL per questo ruolo. Solo gli URL elencati di seguito saranno accessibili dal personale associato a questo ruolo"
+                    "restrictedUrlExplain": "Usa questa impostazione per definire una whitelist di URL per questo ruolo. Solo gli URL elencati di seguito saranno accessibili dal personale associato a questo ruolo",
+                    "authorizeManagerAction": "Dai al personale il controllo di un manager",
+                    "authorizeManagerExplain": "Lo staff in questo ruolo potrà forzare azioni come il manager: forzare la prenotazione di una sessione in un'aula non disponibile, forzare la prenotazione con un docente non disponibile, superare il numero massimo di membri iscritti per una sessione."
+                },
+                "failDelete": {
+                    "title": "Impossibile eliminare il ruolo",
+                    "content": "Uno staff ha ancora questo ruolo, non puoi cancellarlo.",
+                    "close": "Chiudi"
+                },
+                "franchise": {
+                    "create": {
+                        "title": "Creazione del ruolo",
+                        "steps": {
+                            "masterAccount": "Accesso al Master account",
+                            "franchisee": "Accesso in franchising"
+                        },
+                        "buttons": {
+                            "previous": "Precedente",
+                            "next": "Successivo",
+                            "close": "Chiudi"
+                        }
+                    }
                 }
             }
         },
@@ -11313,6 +11716,9 @@
                     },
                     "mobilePersonalization": {
                         "_label": "Personalizzazione dell'app"
+                    },
+                    "coachUserspace": {
+                        "_label": "Zona insegnanti"
                     }
                 },
                 "reporting": {
@@ -11427,6 +11833,9 @@
                     },
                     "activities": {
                         "_label": "Attività"
+                    },
+                    "replacement": {
+                        "_label": "Sostituzione"
                     }
                 },
                 "schedule": {
@@ -11442,7 +11851,10 @@
                     "_helper": "Solo mobile",
                     "_label": "Cerca membro"
                 },
-                "_label": "Menu di navigazione"
+                "_label": "Menu di navigazione",
+                "tutorial": {
+                    "_label": "Tutorial"
+                }
             },
             "member": {
                 "search": {
@@ -11485,9 +11897,55 @@
                 "ledger": {
                     "_label": "Libro cassa"
                 },
-                "_label": "Azioni appbar"
+                "_label": "Azioni appbar",
+                "communicationAlerts": {
+                    "_label": "Notifica del messaggio"
+                }
+            },
+            "franchiseMenu": {
+                "_label": "Menù di navigazione",
+                "franchises": {
+                    "_label": "Franchise"
+                },
+                "members": {
+                    "_label": "Membri"
+                },
+                "products": {
+                    "_label": "Prodotti",
+                    "paymentPackTemplates": {
+                        "_label": "Pass"
+                    },
+                    "privatePassTemplates": {
+                        "_label": "Pass per appuntamenti"
+                    },
+                    "couponTemplates": {
+                        "_label": "Promozioni"
+                    },
+                    "giftcardTemplates": {
+                        "_label": "Carta regalo"
+                    }
+                },
+                "settings": {
+                    "_label": "Parametri"
+                },
+                "emailTemplates": {
+                    "_label": "Email"
+                },
+                "notificationRules": {
+                    "_label": "Email transazionali "
+                },
+                "reporting": {
+                    "_label": "Report"
+                },
+                "widgets": {
+                    "_label": "Widget"
+                },
+                "staff": {
+                    "_label": "Staff"
+                }
             }
-        }
+        },
+        "overbookingForbidden": "I diritti che ti sono stati assegnati come personale non ti consentono di superare il numero massimo di prenotazioni."
     },
     "widget": {
         "widget": {

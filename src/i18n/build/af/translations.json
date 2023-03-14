@@ -196,7 +196,13 @@
       "offerTitle": "Séance liée",
       "consumerPaymentPackTitle": "Carte de cours utilisée"
     },
-    "parameters": { "registeredOn": "Réservé le ", "cancelledOn": "Annulé le ", "by": "Par", "source": "Canal de réservation" },
+    "parameters": {
+      "registeredOn": "Réservé le ",
+      "cancelledOn": "Annulé le ",
+      "by": "Par",
+      "source": "Canal de réservation",
+      "noShow": "No-show "
+    },
     "source": { "web": "Web", "app": "Application mobile", "saas": "Backoffice", "other": "Autre", "migration": "Migration" },
     "customerView": { "wasRefunded": "Remboursé", "cancelled": "Annulé" },
     "attend": "Présent",
@@ -373,7 +379,8 @@
         "numberOfBook_plural": "{{count}} inscriptions"
       },
       "showMore": "Voir plus"
-    }
+    },
+    "noShowChip": { "title": "no-show", "message": "Le membre a été noté absent après la séance" }
   },
   "category": { "sct": { "selector": { "placeholder": "Rechercher une catégorie", "label": "Catégorie" } } },
   "checkout": {
@@ -981,7 +988,8 @@
       "bookAgain": "Réserver de nouveau",
       "accessLive": "Accéder au live",
       "spotNumber": "Place {{count}}",
-      "isUnpaid": "Impayé"
+      "isUnpaid": "Impayé",
+      "noShow": "Vous avez été noté(e) comme absent sur cette séance"
     },
     "dashboard": {
       "favoriteTitle": "Suggestion de réservation",

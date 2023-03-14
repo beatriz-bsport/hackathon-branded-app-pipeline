@@ -95,6 +95,14 @@ export class BookingDetail extends Component<Props> {
                 <Typography inline>{getStaffName(cancelled_by)}</Typography>
               </div>
             )}
+            {booking.is_no_show && (
+              <div className={classes.parameter}>
+                <Typography inline>{t('parameters.noShow')}:</Typography>
+                <Typography inline>
+                  {formatAsDatetime(booking.date_no_show_registered)}
+                </Typography>
+              </div>
+            )}
           </div>
         </Paper>
         <Typography component="h3" variant="h6">

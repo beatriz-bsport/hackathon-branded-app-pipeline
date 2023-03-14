@@ -84,6 +84,7 @@ export type Theme = {
   requires_email_confirmation_when_signing_up: boolean;
   hide_intercom: boolean;
   is_roll_call_mandatory: boolean;
+  no_show_validated_number_of_hours: number;
 };
 
 export type ThemeState = {

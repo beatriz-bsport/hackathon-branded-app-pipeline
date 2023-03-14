@@ -35,13 +35,7 @@ const styles = (theme) => ({
   chipContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    height: '100%',
-    position: 'absolute',
-    right: 0,
-    top: '50%',
-    transform: 'translateY(-50%)',
-    marginRight: theme.spacing(2),
+    alignItems: 'center',
   },
   offerTitleText: {
     display: 'flex',
@@ -74,6 +68,8 @@ const styles = (theme) => ({
   textMaxWidth: {
     maxWidth: '90%',
   },
+  rollCallChip: { marginTop: theme.spacing(0.5) },
+  replacementChip: { marginBottom: theme.spacing(0.5) },
 });
 
 type Props = {
@@ -344,7 +340,7 @@ export function OfferMinimalSummary(props: Props) {
               classes={textClasses}
             />
           </Grid>
-          <Grid item xs={3} className={classes.relativeContainer}>
+          <Grid item xs={2} className={classes.relativeContainer}>
             <ListItemText
               primary={
                 showCoachName
@@ -355,21 +351,30 @@ export function OfferMinimalSummary(props: Props) {
               classes={textClasses}
             />
           </Grid>
-          <div item className={classes.chipContainer}>
+          <Grid item xs={1} className={classes.chipContainer}>
             {hasPendingReplacementRequest && (
-              <Tooltip title={t('offer:pendingReplacementRequest')}>
-                <div>
+              <Tooltip>
+                <div
+                  title={t('offer:pendingReplacementRequest')}
+                  className={
+                    props.isRollCallMandatory && classes.replacementChip
+                  }
+                >
                   <ReplacementRequestPendingChip height={22} width={30} />
                 </div>
               </Tooltip>
             )}
             {props.isRollCallMandatory && (
-              <RollCallChip
-                isValidated={!offer.roll_call_needs_validation}
-                onClick={props.openRollCallDrawer}
-              />
+              <div
+                className={hasPendingReplacementRequest && classes.rollCallChip}
+              >
+                <RollCallChip
+                  isValidated={!offer.roll_call_needs_validation}
+                  onClick={props.openRollCallDrawer}
+                />
+              </div>
             )}
-          </div>
+          </Grid>
         </Grid>
       </ListItem>
     </>

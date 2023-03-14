@@ -18,6 +18,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import uniq from 'lodash/uniq';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,
@@ -260,6 +264,8 @@ type Props = {
 type State = {
   bookingToRevert: ?Booking,
   isMemberProgramDetailDialogOpen: boolean,
+  noShowChipMessageDialogIsOpen: boolean,
+  statusChangedDialogIsOpen: boolean,
 };
 
 const BOOKING_PAGE_SIZE = 7;
@@ -269,6 +275,8 @@ export class MemberDetailBooking extends Component<Props, State> {
   state = {
     bookingToRevert: null,
     isMemberProgramDetailDialogOpen: false,
+    noShowChipMessageDialogIsOpen: false,
+    statusChangedDialogIsOpen: false,
   };
 
   componentDidMount() {
@@ -376,6 +384,31 @@ export class MemberDetailBooking extends Component<Props, State> {
     if (spot_id !== undefined) {
       this.props.setSpotForBooking(booking.id, spot_id);
     }
+  };
+
+  openNoShowChipMessageDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ noShowChipMessageDialogIsOpen: true });
+  };
+
+  closeNoShowChipMessageDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ noShowChipMessageDialogIsOpen: false });
+  };
+
+  openStatusChangedDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ statusChangedDialogIsOpen: true });
+  };
+
+  closeStatusChangedDialog = () => {
+    this.setState({ statusChangedDialogIsOpen: false });
   };
 
   renderDetails = () => {
@@ -496,6 +529,37 @@ export class MemberDetailBooking extends Component<Props, State> {
           direction="column"
           spacing={3}
         >
+          <Dialog maxWidth="sm" open={this.state.noShowChipMessageDialogIsOpen}>
+            <DialogContent>
+              {this.props.t('booking:noShowChip.message')}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className={this.props.classes.grey}
+                onClick={this.closeNoShowChipMessageDialog}
+              >
+                {this.props.t('common:close')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog open={this.state.statusChangedDialogIsOpen}>
+            <DialogTitle>
+              <Typography variant="h6" className={this.props.classes.bold}>
+                {this.props.t('offer:rollCall.warningIcon.stateChangedTitle')}
+              </Typography>
+            </DialogTitle>
+            <DialogContent>
+              {this.props.t('offer:rollCall.warningIcon.stateChanged')}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className={this.props.classes.grey}
+                onClick={this.closeStatusChangedDialog}
+              >
+                {this.props.t('common:close')}
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Grid item style={{ width: '100%' }}>
             <PaginatedBookingOptionList
               itemPerPage={5}
@@ -612,6 +676,16 @@ export class MemberDetailBooking extends Component<Props, State> {
                         isMemberProgramDetailDialogOpen: true,
                       });
                     }}
+                    displayNoShowChip
+                    noShowChipMessage={this.props.t(
+                      'booking:noShowChip.message',
+                    )}
+                    onClickNoShowChip={this.openNoShowChipMessageDialog}
+                    isRollCallMandatory={
+                      this.props.theme.is_roll_call_mandatory
+                    }
+                    dateRollCallLastModified={b.date_roll_call_last_modified}
+                    onClickWarningIcon={this.openStatusChangedDialog}
                   />
                 )}
               />
@@ -789,6 +863,12 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginRight: theme.spacing(2),
+  },
+  grey: {
+    color: theme.palette.text.secondary,
+  },
+  bold: {
+    fontWeight: 500,
   },
 });
 export default compose(

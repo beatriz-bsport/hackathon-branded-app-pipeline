@@ -326,6 +326,41 @@ export class PaymentPackCard extends Component<Props, State> {
     );
   };
 
+  renderNoShowPenalty = () => {
+    const { pack, t, classes } = this.props;
+    const {
+      no_show_penalty_kind,
+      no_show_penalty_threshold,
+      no_show_penalty_time_window_days,
+      no_show_penalty_days_blocked,
+      no_show_penalty_amount,
+    } = pack;
+    return (
+      <>
+        {no_show_penalty_kind === PENALTY_KIND_BLOCK_CPP && (
+          <p className={classes.detailContent}>
+            {t('penalty.block', {
+              nb_cancellations: no_show_penalty_threshold,
+              nb_days: no_show_penalty_time_window_days,
+              days_blocked: no_show_penalty_days_blocked,
+            })}
+          </p>
+        )}
+        {no_show_penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
+          <p className={classes.detailContent}>
+            {t('penalty.account', {
+              nb_cancellations: no_show_penalty_threshold,
+              nb_days: no_show_penalty_time_window_days,
+              account_value: getCurrencyDisplayWithPrice(
+                no_show_penalty_amount,
+              ),
+            })}
+          </p>
+        )}
+      </>
+    );
+  };
+
   renderRestrictions = () => {
     const { t, pack, classes } = this.props;
     const {
@@ -334,13 +369,15 @@ export class PaymentPackCard extends Component<Props, State> {
       max_bookings_per_month,
       max_purchase_per_member,
       penalty_active,
+      no_show_penalty_active,
     } = pack;
     if (
       max_bookings_per_day ||
       max_bookings_per_week ||
       max_bookings_per_month ||
       max_purchase_per_member ||
-      penalty_active
+      penalty_active ||
+      no_show_penalty_active
     ) {
       return (
         <>
@@ -369,6 +406,7 @@ export class PaymentPackCard extends Component<Props, State> {
             </p>
           )}
           {penalty_active && this.renderPenalty()}
+          {no_show_penalty_active && this.renderNoShowPenalty()}
         </>
       );
     }

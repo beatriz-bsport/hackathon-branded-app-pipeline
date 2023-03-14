@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
@@ -24,32 +24,39 @@ export type Props = {
   discardBookingAttendance: (bookingId: number) => void;
   members: Array<Member<Tag<TagGroup>>>;
   bookings: Array<Object>;
+  fetchBookings: (offerId: number) => void;
   postRollCall: (offerId: number, options?: OptionCallback) => void;
-  fetchOffer: (offerId: number) => void;
+  fetchOffer: (offerId: number, options?: OptionCallback) => void;
   rollCallLoading: boolean;
 };
 
 export const RollCallDrawer: React.FC<Props> = (props) => {
   const { t } = useTranslation(['offer', 'common']);
   const classes = useStyles();
+  const { postRollCall, fetchOffer, fetchBookings, offer } = props;
   const [
     confirmationRollCallDialogIsOpen,
     setConfirmationRollCallDialogIsOpen,
   ] = useState(false);
-  const openConfirmationRollCallDialog = () => {
+  const openConfirmationRollCallDialog = useCallback(() => {
     setConfirmationRollCallDialogIsOpen(true);
-  };
-  const closeConfirmationRollCallDialog = () => {
+  }, []);
+  const closeConfirmationRollCallDialog = useCallback(() => {
     setConfirmationRollCallDialogIsOpen(false);
-  };
-  const postRollCall = (options?: OptionCallback) => {
-    props.postRollCall(props.offer?.id, {
-      onSuccess: () => {
-        props.fetchOffer(props.offer?.id);
-        options?.onSuccess();
-      },
-    });
-  };
+  }, []);
+  const validateRollCall = useCallback(
+    (options?: OptionCallback) => {
+      postRollCall(offer?.id, {
+        onSuccess: () => {
+          fetchOffer(offer?.id, {
+            onSuccess: () => fetchBookings(offer.id),
+          });
+          options?.onSuccess();
+        },
+      });
+    },
+    [postRollCall, fetchOffer, fetchBookings, offer],
+  );
   return (
     <GenericResponsiveDrawer
       open={props.open}
@@ -62,7 +69,7 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
       <ConfirmationRollCallDialog
         open={confirmationRollCallDialogIsOpen}
         nbRollCallsLeftToValidate={1}
-        onConfirm={postRollCall}
+        onConfirm={validateRollCall}
         onCancel={closeConfirmationRollCallDialog}
         isLoading={props.rollCallLoading}
       />

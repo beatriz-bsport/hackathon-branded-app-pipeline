@@ -109,8 +109,8 @@ import { getAllMembers, withTags } from '#libs/member/selectors';
 
 import {
   fetchBookingsByOffer as fetchBookingsByOfferAction,
-  confirmAttendance as confirmBookingAttendanceAction,
-  discardAttendance as discardBookingAttendanceAction,
+  confirmAttendanceAndRollCallById as confirmBookingAttendanceAction,
+  discardAttendanceAndRollCallById as discardBookingAttendanceAction,
 } from '#libs/booking/actions';
 import {
   getOfferBookingList,
@@ -1182,6 +1182,7 @@ export class Planning extends PureComponent<Props, State> {
         offer={this.props.offers[this.state.indexOfferInDrawer]}
         members={this.props.members}
         bookings={this.props.bookingsWithConsumerPack}
+        fetchBookings={this.props.fetchBookingsByOffer}
         confirmBookingAttendance={this.props.confirmBookingAttendance}
         discardBookingAttendance={this.props.discardBookingAttendance}
         postRollCall={this.props.postRollCall}

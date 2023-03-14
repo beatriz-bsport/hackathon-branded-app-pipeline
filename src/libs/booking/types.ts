@@ -58,6 +58,9 @@ export type Booking<Offer = number, Member = number, PP = number> = {
     StaffModificationHistory<BookingModificationActionIdentifier>
   >;
   attendance_date_updated: string;
+  is_no_show: boolean;
+  date_no_show_registered: string;
+  roll_call_attendance: boolean;
 };
 
 export type BookingOption<O = Offer> = {

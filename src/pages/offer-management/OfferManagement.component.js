@@ -243,6 +243,7 @@ type Props = {
   rollCallLoading: boolean,
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   numberOfUnreadAnswers: number,
+  fetchBookingsByOffer: (offerId: number) => void,
 };
 
 type State = {
@@ -569,7 +570,9 @@ export class OfferManagement extends Component<Props, State> {
   postRollCall = (options?: OptionCallback) => {
     this.props.postRollCall(this.props.offerId, {
       onSuccess: () => {
-        this.props.fetchOffer(this.props.offerId);
+        this.props.fetchOffer(this.props.offerId, {
+          onSuccess: () => this.props.fetchBookingsByOffer(this.props.offerId),
+        });
         options?.onSuccess();
       },
       onError: options?.onError,
@@ -707,7 +710,6 @@ export class OfferManagement extends Component<Props, State> {
             openAddMemberModal={this.props.openAddMemberModal}
             onChangeBookingOrdering={this.props.onChangeBookingOrdering}
             members={this.props.members}
-            company_theme={this.props.company_theme}
             bookingOptionsPending={this.props.bookingOptionsPending}
             openMailDialog={this.props.openCommunicationDialog}
             openCommunicationDrawer={this.props.openCommunicationDrawer}

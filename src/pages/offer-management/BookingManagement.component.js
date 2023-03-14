@@ -138,6 +138,7 @@ type State = {
   memberHistoryAnchor: ?HTMLElement,
   lastValidatedRollCallDialogIsOpen: boolean,
   statusChangedDialogIsOpen: boolean,
+  noShowChipMessageDialogIsOpen: boolean,
 };
 
 export class BookingManagement extends React.PureComponent<Props, State> {
@@ -145,6 +146,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     memberHistoryAnchor: null,
     lastValidatedRollCallDialogIsOpen: false,
     statusChangedDialogIsOpen: false,
+    noShowChipMessageDialogIsOpen: false,
   };
 
   componentDidMount() {
@@ -319,6 +321,17 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     this.setState({ statusChangedDialogIsOpen: false });
   };
 
+  openNoShowChipMessageDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ noShowChipMessageDialogIsOpen: true });
+  };
+
+  closeNoShowChipMessageDialog = () => {
+    this.setState({ noShowChipMessageDialogIsOpen: false });
+  };
+
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
     return (
@@ -346,6 +359,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
             </Button>
           </DialogActions>
         </Dialog>
+
         <Dialog open={this.state.statusChangedDialogIsOpen}>
           <DialogTitle>
             <Typography variant="h6" className={classes.bold}>
@@ -364,6 +378,19 @@ export class BookingManagement extends React.PureComponent<Props, State> {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Dialog maxWidth="sm" open={this.state.noShowChipMessageDialogIsOpen}>
+          <DialogContent>{t('booking:noShowChip.message')}</DialogContent>
+          <DialogActions>
+            <Button
+              className={classes.grey}
+              onClick={this.closeNoShowChipMessageDialog}
+            >
+              {t('common:close')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         {!!offer && (
           <Paper className={classes.autoScroll}>
             <div className={classes.fullWidthRow}>
@@ -596,6 +623,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         this.props.offer.date_roll_call_last_modified
                       }
                       onClickWarningIcon={this.openStatusChangedDialog}
+                      onClickNoShowChip={this.openNoShowChipMessageDialog}
+                      isRollCallMandatory={this.props.isRollCallMandatory}
                     />
                   </>
                 )}

@@ -15,9 +15,14 @@ import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import flatten from 'lodash/flatten';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-
+import { Theme } from '#libs/theme/types';
+import themeSelectors from '#libs/theme/selectors';
 import { getMember } from '../../libs/member/selectors';
 import {
   cancelBooking as deleteBooking,
@@ -175,10 +180,13 @@ type Props = {
   passExtenxionDeleteLoading: boolean,
   passExtensionCreationLoading: boolean,
   consumerPaymentPacksLoadingById: { [key: string]: boolean },
+  theme: Theme,
 };
 
 type State = {
   bookingToRevert: ?Booking,
+  noShowChipMessageDialogIsOpen: boolean,
+  statusChangedDialogIsOpen: boolean,
 };
 
 const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 6;
@@ -199,6 +207,8 @@ const ClickOnConsumerPack = withTranslation(['paymentPack'])(
 export class MemberDetailPass extends Component<Props, State> {
   state = {
     bookingToRevert: null,
+    noShowChipMessageDialogIsOpen: false,
+    statusChangedDialogIsOpen: false,
   };
 
   componentDidMount() {
@@ -312,6 +322,31 @@ export class MemberDetailPass extends Component<Props, State> {
     );
   };
 
+  openNoShowChipMessageDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ noShowChipMessageDialogIsOpen: true });
+  };
+
+  closeNoShowChipMessageDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ noShowChipMessageDialogIsOpen: false });
+  };
+
+  openStatusChangedDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    this.setState({ statusChangedDialogIsOpen: true });
+  };
+
+  closeStatusChangedDialog = () => {
+    this.setState({ statusChangedDialogIsOpen: false });
+  };
+
   render() {
     const dataLoading =
       this.props.consumerPackLoading ||
@@ -322,6 +357,37 @@ export class MemberDetailPass extends Component<Props, State> {
     return (
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} lg={6}>
+          <Dialog maxWidth="sm" open={this.state.noShowChipMessageDialogIsOpen}>
+            <DialogContent>
+              {this.props.t('booking:noShowChip.message')}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className={this.props.classes.grey}
+                onClick={this.closeNoShowChipMessageDialog}
+              >
+                {this.props.t('common:close')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog open={this.state.statusChangedDialogIsOpen}>
+            <DialogTitle>
+              <Typography variant="h6" className={this.props.classes.bold}>
+                {this.props.t('offer:rollCall.warningIcon.stateChangedTitle')}
+              </Typography>
+            </DialogTitle>
+            <DialogContent>
+              {this.props.t('offer:rollCall.warningIcon.stateChanged')}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className={this.props.classes.grey}
+                onClick={this.closeStatusChangedDialog}
+              >
+                {this.props.t('common:close')}
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Paper>
             <ConsumerPaymentPackFilters
               setOpenValue={this.props.setOpenValue}
@@ -430,6 +496,9 @@ export class MemberDetailPass extends Component<Props, State> {
               }}
               passExtenxionDeleteLoading={this.props.passExtenxionDeleteLoading}
               showVaccinationStatus={this.props.showVaccinationStatus}
+              onClickNoShowChip={this.openNoShowChipMessageDialog}
+              isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
+              onClickWarningIcon={this.openStatusChangedDialog}
             />
           ) : (
             <ClickOnConsumerPack classes={this.props.classes} />
@@ -513,6 +582,12 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  grey: {
+    color: theme.palette.text.secondary,
+  },
+  bold: {
+    fontWeight: 500,
+  },
 });
 
 export default compose(
@@ -527,6 +602,7 @@ export default compose(
   withState('relatedInvoice', 'setRelatedInvoice', null),
   connect(
     (state, { id, consumerPassId, relatedInvoice }) => ({
+      theme: themeSelectors.getTheme(state),
       member: getMember(state, id),
       consumerPacks: withIsSharedActive(
         withPaymentPack(getConsumerPaymentPackByMember),

@@ -51,6 +51,7 @@ exports.default = {
     accessLive: 'Accéder au live',
     spotNumber: 'Place {{count}}',
     isUnpaid: 'Impayé',
+    noShow: 'Vous avez été noté(e) comme absent sur cette séance',
   },
   dashboard: {
     favoriteTitle: 'Suggestion de réservation',

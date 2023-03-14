@@ -69,6 +69,9 @@ type Props = {
   ) => void;
   timezone?: string;
   showVaccinationStatus: boolean;
+  onClickNoShowChip: () => void;
+  isRollCallMandatory: boolean;
+  onClickWarningIcon: () => void;
 };
 
 export const ConsumerPaymentPackDetail = (props: Props) => {
@@ -166,6 +169,12 @@ export const ConsumerPaymentPackDetail = (props: Props) => {
                 props.confirmBookingAttendance(b.id)
               }
               showVaccinationStatus={props.showVaccinationStatus}
+              displayNoShowChip
+              noShowChipMessage={t('booking:noShowChip.message')}
+              onClickNoShowChip={props.onClickNoShowChip}
+              dateRollCallLastModified={b.date_roll_call_last_modified}
+              isRollCallMandatory={props.isRollCallMandatory}
+              onClickWarningIcon={props.onClickWarningIcon}
             />
           )}
         />

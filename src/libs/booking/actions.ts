@@ -91,12 +91,69 @@ export function updateBooking(
     try {
       const response = await apiCall(id, data);
       dispatch(updateActions.success(response.data));
-      if (response.data?.roll_call_needs_validation) {
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(updateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(updateActions.isLoading(false));
+  };
+}
+
+export function updateBookingAndRollCallRetrieve(
+  id: number,
+  data: any,
+  options?: OptionCallback,
+  apiCall?: any,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateActions.isLoading(true));
+    dispatch(updateActions.error(null));
+
+    try {
+      const response = await apiCall(id, data);
+      dispatch(updateActions.success(response.data));
+      if (response.data?.roll_call_needs_validation !== null) {
         dispatch(
           updateRollCallOfferRetrieveActions.successNeedsValidation(
             response.data.roll_call_needs_validation,
           ),
         );
+      }
+      if (response.data?.date_roll_call_last_modified !== null) {
+        dispatch(
+          updateRollCallOfferRetrieveActions.successDate(
+            response.data.date_roll_call_last_modified,
+          ),
+        );
+      }
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(updateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(updateActions.isLoading(false));
+  };
+}
+
+export function updateBookingAndRollCallById(
+  id: number,
+  data: any,
+  options?: OptionCallback,
+  apiCall?: any,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateActions.isLoading(true));
+    dispatch(updateActions.error(null));
+
+    try {
+      const response = await apiCall(id, data);
+      dispatch(updateActions.success(response.data));
+      if (response.data?.roll_call_needs_validation !== null) {
         dispatch(
           updateRollCallOfferByIdActions.successNeedsValidation({
             id: response.data.offer,
@@ -105,12 +162,7 @@ export function updateBooking(
           }),
         );
       }
-      if (response.data?.date_roll_call_last_modified) {
-        dispatch(
-          updateRollCallOfferRetrieveActions.successDate(
-            response.data.date_roll_call_last_modified,
-          ),
-        );
+      if (response.data?.date_roll_call_last_modified !== null) {
         dispatch(
           updateRollCallOfferByIdActions.successDate({
             id: response.data.offer,
@@ -142,6 +194,26 @@ export const discardAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, discardAttendanceAPI);
 export const confirmAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, confirmAttendanceAPI);
+
+export const confirmAttendanceAndRollCallRetrieve = (
+  id: number,
+  options?: OptionCallback,
+) => updateBookingAndRollCallRetrieve(id, {}, options, confirmAttendanceAPI);
+
+export const discardAttendanceAndRollCallRetrieve = (
+  id: number,
+  options?: OptionCallback,
+) => updateBookingAndRollCallRetrieve(id, {}, options, discardAttendanceAPI);
+
+export const confirmAttendanceAndRollCallById = (
+  id: number,
+  options?: OptionCallback,
+) => updateBookingAndRollCallById(id, {}, options, confirmAttendanceAPI);
+
+export const discardAttendanceAndRollCallById = (
+  id: number,
+  options?: OptionCallback,
+) => updateBookingAndRollCallById(id, {}, options, discardAttendanceAPI);
 
 export function cancelBooking(id: number, data: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {

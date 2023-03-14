@@ -133,6 +133,8 @@ export const ConsumerBookingPage = (props: Props) => {
                   member={props.membership.id}
                   handleRevert={handleCancelBooking(b)}
                   showVaccinationStatus={props.showVaccinationStatus}
+                  displayNoShowChip
+                  noShowChipMessage={props.t('booking.noShow')}
                 />
               )}
             />

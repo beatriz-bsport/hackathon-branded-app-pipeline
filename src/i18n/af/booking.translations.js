@@ -202,6 +202,7 @@ exports.default = {
     cancelledOn: 'Annulé le ',
     by: 'Par',
     source: 'Canal de réservation',
+    noShow: 'No-show ',
   },
   source: {
     web: 'Web',
@@ -425,5 +426,9 @@ exports.default = {
       numberOfBook_plural: '{{count}} inscriptions',
     },
     showMore: 'Voir plus',
+  },
+  noShowChip: {
+    title: 'no-show',
+    message: 'Le membre a été noté absent après la séance',
   },
 };

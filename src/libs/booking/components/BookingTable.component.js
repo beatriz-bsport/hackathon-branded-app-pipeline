@@ -41,6 +41,8 @@ type Props = {
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
   dateRollCallLastModified?: string,
   onClickWarningIcon: () => void,
+  onClickNoShowChip: () => void,
+  isRollCallMandatory: boolean,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -120,6 +122,9 @@ export class BookingTable extends PureComponent<Props> {
             dateRollCallLastModified={this.props.dateRollCallLastModified}
             displayNoShowChip
             onClickWarningIcon={this.props.onClickWarningIcon}
+            onClickNoShowChip={this.props.onClickNoShowChip}
+            isRollCallMandatory={this.props.isRollCallMandatory}
+            noShowChipMessage={this.props.t('booking:noShowChip.message')}
           />
         ))}
       </List>

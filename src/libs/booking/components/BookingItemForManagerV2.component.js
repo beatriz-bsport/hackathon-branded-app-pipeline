@@ -54,6 +54,7 @@ import VaccinationBadge from '#libs/member/components/VaccinationBadge.component
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 
 import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
+import NoShowChip from './NoShowChip.component';
 
 type Props = {
   t: TFunction,
@@ -84,8 +85,12 @@ type Props = {
   showVaccinationStatus: boolean,
   programList: Array<PerformanceTrackingProgram>,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
+  displayNoShowChip?: boolean,
+  noShowChipMessage?: string,
+  onClickWarningIcon?: () => void,
+  onClickNoShowChip?: () => void,
+  isRollCallMandatory?: boolean,
   dateRollCallLastModified?: string,
-  onClickWarningIcon: () => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -104,6 +109,7 @@ type AttendanceButtonProps = {
   confirmBookingAttendance: () => void,
   variant: ?string,
   attendance: boolean,
+  isNoShow: boolean,
 };
 
 const AttendanceButton = (props: AttendanceButtonProps) => {
@@ -144,6 +150,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
           e.stopPropagation();
           props.confirmBookingAttendance(e);
         }}
+        disabled={props.isNoShow}
       >
         {props.t('doNotAttend')}
         <CachedIcon className={props.classes.iconButton} />
@@ -266,7 +273,7 @@ export class BookingItemForManager extends Component<Props, State> {
               <Typography>{t('actions.bill')}</Typography>
             </MenuItem>
           ) : null}
-          {!!switchAttendance && (
+          {!!switchAttendance && !booking.is_no_show && (
             <MenuItem
               onClick={closeAndAction(switchAttendance)}
               className={classes.menuItem}
@@ -332,10 +339,22 @@ export class BookingItemForManager extends Component<Props, State> {
     return (
       <div>
         <Hidden smUp>
-          {this.props.dateRollCallLastModified &&
-            moment(booking.attendance_date_updated).isAfter(
-              moment(this.props.dateRollCallLastModified),
-            ) && (
+          {this.props.displayNoShowChip &&
+            booking.is_no_show &&
+            this.props.onClickNoShowChip && (
+              <div className={classes.noShowChip}>
+                <ButtonBase onClick={this.props.onClickNoShowChip}>
+                  <NoShowChip
+                    small
+                    tooltipMessage={this.props.noShowChipMessage}
+                  />
+                </ButtonBase>
+              </div>
+            )}
+          {this.props.isRollCallMandatory &&
+            this.props.dateRollCallLastModified &&
+            booking.attendance !== booking.roll_call_attendance &&
+            this.props.onClickWarningIcon && (
               <div className={classes.warningIconContainer}>
                 <ButtonBase onClick={this.props.onClickWarningIcon}>
                   <WarningIcon className={classes.warningIcon} />
@@ -352,16 +371,20 @@ export class BookingItemForManager extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
-            {this.props.dateRollCallLastModified &&
-            moment(booking.attendance_date_updated).isAfter(
-              moment(this.props.dateRollCallLastModified),
-            ) ? (
-              <div className={classes.warningIconContainer}>
-                <Tooltip title={t('offer:rollCall.warningIcon.stateChanged')}>
-                  <WarningIcon className={classes.warningIcon} />
-                </Tooltip>
+            {this.props.isRollCallMandatory &&
+              this.props.dateRollCallLastModified &&
+              booking.attendance !== booking.roll_call_attendance && (
+                <div className={classes.warningIconContainer}>
+                  <Tooltip title={t('offer:rollCall.warningIcon.stateChanged')}>
+                    <WarningIcon className={classes.warningIcon} />
+                  </Tooltip>
+                </div>
+              )}
+            {this.props.displayNoShowChip && booking.is_no_show && (
+              <div className={classes.noShowChip}>
+                <NoShowChip tooltipMessage={this.props.noShowChipMessage} />
               </div>
-            ) : null}
+            )}
             {discardBookingAttendance &&
             confirmBookingAttendance &&
             booking.booking_status_code === BOOKING_STATUS_OK.id ? (
@@ -373,6 +396,7 @@ export class BookingItemForManager extends Component<Props, State> {
                 classes={classes}
                 discardBookingAttendance={discardBookingAttendance}
                 confirmBookingAttendance={confirmBookingAttendance}
+                isNoShow={booking.is_no_show}
               />
             ) : null}
             {showQuickInvoiceButton &&
@@ -775,6 +799,13 @@ const styles = (theme) => ({
   },
   warningIcon: {
     color: theme.palette.warning.main,
+  },
+  noShowChip: {
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      marginRight: theme.spacing(3),
+    },
   },
 });
 

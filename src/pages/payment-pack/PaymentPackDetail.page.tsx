@@ -143,6 +143,10 @@ import type { PrivateSlot } from '#libs/private-service/types';
 import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
 import { setGenericFilterValue } from '#libs/payment-packs/utils';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
+
+import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
 
 type OwnProps = {
   id: number;
@@ -166,7 +170,6 @@ type Props = WithStateProps &
 type State = {
   paymentPackToDeleteId?: number | null;
   paymentPackToEdit?: PaymentPack;
-  openPaymentPackFormDialog: boolean;
 };
 
 const PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE = 5;
@@ -178,7 +181,6 @@ export class PaymentPackDetail extends Component<Props, State> {
   state: State = {
     paymentPackToDeleteId: null,
     paymentPackToEdit: null,
-    openPaymentPackFormDialog: false,
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -230,7 +232,7 @@ export class PaymentPackDetail extends Component<Props, State> {
 
   requestEdit = (pp: PaymentPack) => {
     this.setState({ paymentPackToEdit: pp }, () => {
-      this.setState({ openPaymentPackFormDialog: true });
+      this.props.setOpenPaymentPackFormDialog(true);
     });
   };
 
@@ -306,6 +308,21 @@ export class PaymentPackDetail extends Component<Props, State> {
     });
   };
 
+  closePaymentPackFormDrawer = () =>
+    this.props.setOpenPaymentPackFormDialog(false);
+
+  closeNoShowPenaltyDialog = () => {
+    this.props.setOpenNoShowPenaltyDialog(false);
+    this.props.setOpenPaymentPackFormDialog(false);
+    this.props.fetchPaymentPack(this.props.id);
+  };
+
+  closeDeleteNoShowPenaltyDialog = () => {
+    this.props.setOpenDeleteNoShowPenaltyDialog(false);
+    this.props.setOpenPaymentPackFormDialog(false);
+    this.props.fetchPaymentPack(this.props.id);
+  };
+
   render() {
     const {
       pack,
@@ -327,6 +344,15 @@ export class PaymentPackDetail extends Component<Props, State> {
     return (
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6} className={classes.paymentPackContainer}>
+          <NoShowPenaltyDialog
+            open={this.props.openNoShowPenaltyDialog}
+            onClose={this.closeNoShowPenaltyDialog}
+            goToSettings={this.props.goToSettings}
+          />
+          <DeleteNoShowPenaltyDialog
+            open={this.props.openDeleteNoShowPenaltyDialog}
+            onClose={this.closeDeleteNoShowPenaltyDialog}
+          />
           <PaymentPackCard
             pack={pack}
             onEditButtonClick={() => this.requestEdit(pack)}
@@ -486,7 +512,7 @@ export class PaymentPackDetail extends Component<Props, State> {
         />
         <PaymentPackFormDrawer
           provincialTax={this.props.theme?.provincial_tax_value}
-          open={this.state.openPaymentPackFormDialog}
+          open={this.props.openPaymentPackFormDialog}
           categoryList={[...categoryList]
             .filter(
               (category) =>
@@ -501,7 +527,7 @@ export class PaymentPackDetail extends Component<Props, State> {
           metaActivityList={[...metaActivities]}
           tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
           paymentPackCategories={paymentPackCategories}
-          closeForm={() => this.setState({ openPaymentPackFormDialog: false })}
+          closeForm={this.closePaymentPackFormDrawer}
           onSubmit={this.props.createOrUpdatePaymentPack}
           clearPaymentPackToEdit={() =>
             this.setState({ paymentPackToEdit: null })
@@ -632,6 +658,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     privateServices: getPrivateServices(state),
     compatibleServicePass: getCompatibleServicePass(state),
     resolvedGenericTags: getResolvedGenericTags(state),
+    isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
   };
 };
 
@@ -700,6 +727,8 @@ const mapDispatchToProps = {
   createCompatibleServicePass,
   updateCompatibleServicePass,
   fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+  refreshCompanyThemeAction,
+  pushRouter,
 };
 
 const mapWithHandlers = {
@@ -741,7 +770,21 @@ const mapWithHandlers = {
         ...options,
         onSuccess: () => {
           options.onSuccess();
-          props.fetchPaymentPack(props.id);
+          props.refreshCompanyThemeAction(props.companyId, {
+            onSuccess: (theme) => {
+              if (!props.isRollCallMandatory && theme.is_roll_call_mandatory) {
+                props.setOpenNoShowPenaltyDialog(true);
+              } else if (
+                props.isRollCallMandatory &&
+                !theme.is_roll_call_mandatory
+              ) {
+                props.setOpenDeleteNoShowPenaltyDialog(true);
+              } else {
+                props.setOpenPaymentPackFormDialog(false);
+                props.fetchPaymentPack(props.id);
+              }
+            },
+          });
         },
       });
     },
@@ -792,6 +835,9 @@ const mapWithHandlers = {
       });
     }
   },
+  goToSettings: (props: WithStateProps) => () => {
+    props.pushRouter('/settings/personalization');
+  },
 };
 
 type StateHandlerInit = {
@@ -799,6 +845,9 @@ type StateHandlerInit = {
   open: PaymentPackFiltersOpener;
   openMassExtensionDialog: boolean;
   loadingMassExtension: boolean;
+  openPaymentPackFormDialog: boolean;
+  openNoShowPenaltyDialog: boolean;
+  openDeleteNoShowPenaltyDialog: boolean;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
@@ -806,6 +855,9 @@ const withStateHandlersInit: StateHandlerInit = {
   open: {},
   openMassExtensionDialog: false,
   loadingMassExtension: false,
+  openPaymentPackFormDialog: false,
+  openNoShowPenaltyDialog: false,
+  openDeleteNoShowPenaltyDialog: false,
 };
 
 const withStateHandlersSetter = {
@@ -820,6 +872,16 @@ const withStateHandlersSetter = {
   },
   setLoadingMassExtension: () => (loadingMassExtension: boolean) => {
     return { loadingMassExtension };
+  },
+  setOpenNoShowPenaltyDialog: () => (openNoShowPenaltyDialog: boolean) => {
+    return { openNoShowPenaltyDialog };
+  },
+  setOpenDeleteNoShowPenaltyDialog:
+    () => (openDeleteNoShowPenaltyDialog: boolean) => {
+      return { openDeleteNoShowPenaltyDialog };
+    },
+  setOpenPaymentPackFormDialog: () => (openPaymentPackFormDialog: boolean) => {
+    return { openPaymentPackFormDialog };
   },
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { push, goBack } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withState, withHandlers, withStateHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import uniqBy from 'lodash/uniqBy';
@@ -83,7 +83,7 @@ import { getEditableSCTs } from '#libs/category/selectors';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
   resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
-  createOrUpdate as createPaymentPack,
+  createOrUpdate as createOrUpdatePaymentPackAction,
   fetchAllPaymentPackCategory,
 } from '#libs/payment-packs/actions';
 
@@ -117,6 +117,8 @@ import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/select
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { mapFormData, unmap } from '../form.utils';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
+import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -164,7 +166,6 @@ type State = {
   showDisabled: boolean;
   showCategoryDialog: boolean;
   selectedCategory: MetaActivityCategory;
-  formIsOpen: boolean;
 };
 
 const BOOKING_CREATION_NOTIFICATION = 2;
@@ -176,7 +177,6 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     showDisabled: false,
     showCategoryDialog: false,
     selectedCategory: null,
-    formIsOpen: false,
   };
 
   componentDidMount() {
@@ -234,7 +234,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     );
 
   onCancelForm = () => {
-    this.setState({ formIsOpen: false });
+    this.props.setFormIsOpen(false);
   };
 
   fetchEnabledMetaActivityList = (options?: OptionCallback) =>
@@ -308,9 +308,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         fetchAllActivities={this.fetchEnabledMetaActivityList}
         fetchMetactivities={this.props.fetchMetactivities}
         fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
-        createOrUpdatePaymentPackAction={
-          this.props.createOrUpdatePaymentPackAction
-        }
+        createPaymentPack={this.props.createOrUpdatePaymentPack}
         fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
         createOffers={this.props.createOffers}
         fetchLevelList={this.props.fetchLevelList}
@@ -340,6 +338,14 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     return initialData;
   };
 
+  openNoShowPenaltyDialog = () => this.props.setOpenNoShowPenaltyDialog(true);
+
+  closeNoShowPenaltyDialog = () => {
+    this.props.setOpenNoShowPenaltyDialog(false);
+    this.onCancelForm();
+    this.props.fetchPaymentPacks();
+  };
+
   render() {
     const { classes, t, selectedMetaActivity } = this.props;
     if (
@@ -354,11 +360,11 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             text={this.props.t('noActivities')}
             button={this.props.t('actions.addActivity')}
             onCreate={() => {
-              this.setState({ formIsOpen: true });
+              this.props.setFormIsOpen(true);
             }}
             onCreateLabel={this.props.t('actions.addActivity')}
           />
-          {!!this.state.formIsOpen && this.renderCreateActivity()}
+          {!!this.props.formIsOpen && this.renderCreateActivity()}
         </div>
       );
     }
@@ -368,6 +374,11 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         {this.props.loading || this.props.notificationLoading ? (
           <LinearProgress />
         ) : null}
+        <NoShowPenaltyDialog
+          open={this.props.openNoShowPenaltyDialog}
+          onClose={this.closeNoShowPenaltyDialog}
+          goToSettings={this.props.goToSettings}
+        />
         {this.props.enabledMetaActivities.length > 0 && (
           <div className={classes.search}>
             <div className={classes.header}>
@@ -529,10 +540,10 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         <BottomActionButtons
           onCreateLabel={this.props.t('actions.addActivity')}
           onCreate={() => {
-            this.setState({ formIsOpen: true });
+            this.props.setFormIsOpen(true);
           }}
         />
-        {this.state.formIsOpen ? this.renderCreateActivity() : ''}
+        {this.props.formIsOpen ? this.renderCreateActivity() : ''}
       </div>
     );
   }
@@ -642,6 +653,7 @@ const connector = connect(
     activeCustomLevels: getActiveCustomLevels(state),
     allCustomLevels: getAllCustomLevels(state),
     companyId: state.theme.theme.company,
+    isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
   }),
   {
     makeActivityCopy: makeActivityCopyAction,
@@ -671,7 +683,6 @@ const connector = connect(
     fetchActivitiesCompany: fetchActivitiesCompanyAction,
     fetchMetactivities: fetchMetactivitiesAction,
     fetchAllPaymentPackCategory,
-    createOrUpdatePaymentPackAction: createPaymentPack,
     createOffers: createOffersActions,
     fetchLevelList: fetchLevelListAction,
     updateLevel: updateLevelAction,
@@ -679,12 +690,16 @@ const connector = connect(
     deleteLevel: deleteLevelAction,
     fetchDisabledMetaActivityPaginatedList:
       fetchDisabledMetaActivityPaginatedListAction,
+    createOrUpdate: createOrUpdatePaymentPackAction,
+    fetchCompanyTheme: refreshCompanyThemeAction,
+    push,
   },
 );
 
 type HandlersProps = MetaActivityConnectedProps &
   RouterParamsToProps &
   StateToProps;
+
 const handlers = {
   makeActivityCopy:
     ({ makeActivityCopy, fetchActivitiesCompany, companyId }: HandlersProps) =>
@@ -729,6 +744,56 @@ const handlers = {
         deniedAccessDialog: { display: true },
       });
     },
+  goToSettings: (props) => () => {
+    props.push('/settings/personalization');
+  },
+  createOrUpdatePaymentPack:
+    ({
+      createOrUpdate,
+      fetchCompanyTheme,
+      fetchPaymentPacks,
+      companyId,
+      isRollCallMandatory,
+      setFormIsOpen,
+      setOpenNoShowPenaltyDialog,
+    }) =>
+    (data: any, options: OptionCallback) => {
+      createOrUpdate(data, {
+        ...options,
+        onSuccess: (res) => {
+          options.onSuccess(res);
+          fetchCompanyTheme(companyId, {
+            onSuccess: (theme) => {
+              if (!isRollCallMandatory && theme.is_roll_call_mandatory) {
+                setOpenNoShowPenaltyDialog(true);
+              } else {
+                fetchPaymentPacks();
+                setFormIsOpen(false);
+              }
+            },
+          });
+        },
+      });
+    },
+};
+
+type StateHandlerInit = {
+  formIsOpen: boolean;
+  openNoShowPenaltyDialog: boolean;
+};
+
+const withStateHandlersInit: StateHandlerInit = {
+  formIsOpen: false,
+  openNoShowPenaltyDialog: false,
+};
+
+const withStateHandlersSetter = {
+  setOpenNoShowPenaltyDialog: () => (openNoShowPenaltyDialog: boolean) => {
+    return { openNoShowPenaltyDialog };
+  },
+  setFormIsOpen: () => (formIsOpen: boolean) => {
+    return { formIsOpen };
+  },
 };
 
 export default compose(
@@ -740,6 +805,7 @@ export default compose(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityList'),
   ),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connector,
   withHandlers(handlers),
 )(MetaActivityListPage);

@@ -339,21 +339,19 @@ export class PaymentPackCard extends Component<Props, State> {
       <>
         {no_show_penalty_kind === PENALTY_KIND_BLOCK_CPP && (
           <p className={classes.detailContent}>
-            {t('penalty.block', {
-              nb_cancellations: no_show_penalty_threshold,
-              nb_days: no_show_penalty_time_window_days,
+            {t('noShowPenalty.block', {
+              treshold: no_show_penalty_threshold,
+              time_window_days: no_show_penalty_time_window_days,
               days_blocked: no_show_penalty_days_blocked,
             })}
           </p>
         )}
         {no_show_penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
           <p className={classes.detailContent}>
-            {t('penalty.account', {
-              nb_cancellations: no_show_penalty_threshold,
-              nb_days: no_show_penalty_time_window_days,
-              account_value: getCurrencyDisplayWithPrice(
-                no_show_penalty_amount,
-              ),
+            {t('noShowPenalty.account', {
+              treshold: no_show_penalty_threshold,
+              time_window_days: no_show_penalty_time_window_days,
+              amount: getCurrencyDisplayWithPrice(no_show_penalty_amount),
             })}
           </p>
         )}

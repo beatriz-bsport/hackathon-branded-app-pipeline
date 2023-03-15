@@ -136,312 +136,344 @@ export const PaymentPackForm = (props: Props) => {
   const classes = useStyles();
   const now = moment().format(DATE_FORMAT);
   const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
-  return (
-    <Formik
-      enableReinitialize
-      validationSchema={paymentPackSchema}
-      initialValues={
-        initial
-          ? {
-              ...initial,
-              credit_number: initial?.unlimited ? 'unlimited' : 'limited',
-              credits: initial?.credits || 0,
-              penalty_active: !!initial?.penalty_active,
-              validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
-              lower_date: initial?.validity_daterange
-                ? Moment(JSON.parse(initial?.validity_daterange).lower).format(
-                    DATE_FORMAT,
-                  )
-                : now,
-              upper_date: initial?.validity_daterange
-                ? Moment(JSON.parse(initial?.validity_daterange).upper).format(
-                    DATE_FORMAT,
-                  )
-                : oneMonthLater,
-              validity_daterange: initial?.validity_daterange
-                ? {
-                    lower: Moment(
-                      JSON.parse(initial?.validity_daterange).lower,
-                    ).format(DATE_FORMAT),
-                    upper: Moment(
-                      JSON.parse(initial?.validity_daterange).upper,
-                    ).format(DATE_FORMAT),
-                  }
-                : {
-                    lower: now,
-                    upper: oneMonthLater,
-                  },
-              start_date_method:
-                validityDict[initial?.start_date_method] || 'billing',
-              penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
-              categories: initial?.categories?.map((category) => category.id),
-              is_universal_pass: !!initial?.linked_private_pass,
-              linked_private_pass_compatibility: getFormInitial(
-                props.compatibleServicePass,
-              ),
-              unusable_by_staff: !initial?.is_usable_by_staff,
-            }
-          : {
-              id: null,
-              name: '',
-              category: null,
-              price: 0,
-              tax: 0,
-              credit_number: 'limited',
-              credits: 1,
-              penalty_active: false,
-              validity: 'givenNumber',
-              lower_date: now,
-              upper_date: oneMonthLater,
-              validity_daterange: {
-                lower: now,
-                upper: oneMonthLater,
-              },
-              duration_days: 0,
-              duration_months: 1,
-              duration_years: 0,
-              start_date_method: 'billing',
-              expiration_days_before_first_use: 365,
-              theorical_margin_value: 0,
-              penalty_nb_late_cancellations: 3,
-              penalty_nb_days: 7,
-              penalty_kind: 'block',
-              penalty_days_blocked: 7,
-              penalty_account_value: 10,
-              max_bookings_per_day: null,
-              max_bookings_per_week: null,
-              max_bookings_per_month: null,
-              max_purchase_per_member: null,
-              new_member_only: false,
-              manager_only: false,
-              onsite_payment_available: false,
-              categories: [],
-              establishments: [],
-              metaActivities: [],
-              full_vod_access: false,
-              only_vod_access: false,
-              whitelist_tags: [],
-              blacklist_tags: [],
-              linked_private_pass: null,
-              is_universal_pass: false,
-              linked_private_pass_compatibility: [],
-              allow_guest_pass: true,
-              unusable_by_staff: false,
-            }
-      }
-      onSubmit={(values, actions) => {
-        const sanithizedValues = {
-          ...values,
-          unlimited: values.credit_number === 'unlimited',
-          is_usable_by_staff: !values.unusable_by_staff,
-        };
-        if (values.validity === 'slot') {
-          sanithizedValues.duration_days = null;
-          sanithizedValues.duration_months = null;
-          sanithizedValues.duration_years = null;
-          sanithizedValues.validity_daterange = {
-            lower: Moment(values.lower_date).format(DATE_FORMAT),
-            upper: Moment(values.upper_date).format(DATE_FORMAT),
-          };
-        } else {
-          sanithizedValues.validity_daterange = null;
-          sanithizedValues.duration_days = values.duration_days || 0;
-          sanithizedValues.duration_months = values.duration_months || 0;
-          sanithizedValues.duration_years = values.duration_years || 0;
-        }
-        switch (values.start_date_method) {
-          case 'billing':
-            sanithizedValues.start_date_method = START_ON_PURCHASE;
-            break;
-          case 'booking':
-            sanithizedValues.start_date_method = START_ON_FIRST_BOOKING;
-            break;
-          default:
-            sanithizedValues.start_date_method = START_ON_FIRST_ATTENDANCE;
-            break;
-        }
-        switch (values.penalty_kind) {
-          case 'block':
-            sanithizedValues.penalty_kind = PENALTY_KIND_BLOCK_CPP;
-            break;
 
-          default:
-            sanithizedValues.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
-            break;
-        }
-        if (values.credit_number === 'limited') {
-          sanithizedValues.penalty_active = false;
-        }
-        if (!values.full_vod_access) {
-          sanithizedValues.only_vod_access = false;
-        }
-        const keys = [
-          'name',
-          'price',
-          'tax',
-          'theorical_margin_value',
-          'unlimited',
-          'credits',
-          'max_bookings_per_day',
-          'max_bookings_per_week',
-          'max_bookings_per_month',
-          'max_purchase_per_member',
-          'id',
-          'new_member_only',
-          'manager_only',
-          'onsite_payment_available',
-          'full_vod_access',
-          'only_vod_access',
-          'expiration_days_before_first_use',
-          'start_date_method',
-          'categories',
-          'metaActivities',
-          'establishments',
-          'penalty_active',
-          'penalty_nb_late_cancellations',
-          'penalty_nb_days',
-          'penalty_kind',
-          'penalty_days_blocked',
-          'penalty_account_value',
-          'category',
-          'whitelist_tags',
-          'blacklist_tags',
-          'duration_days',
-          'duration_months',
-          'duration_years',
-          'validity_daterange',
-          'linked_private_pass_compatibility',
-          'is_universal_pass',
-          'allow_guest_pass',
-          'is_usable_by_staff',
-        ];
-        const data = pick(sanithizedValues, keys);
-        onSubmit(data, {
-          onSuccess: () => {
-            actions.setSubmitting(false);
-            trackFormSuccess(props.initial?.id);
-            if (clearPaymentPackToEdit) {
-              clearPaymentPackToEdit();
-            }
-            if (closeForm) {
-              closeForm();
-            }
-          },
-          onError: () => {
-            actions.setSubmitting(false);
-            if (clearPaymentPackToEdit) {
-              clearPaymentPackToEdit();
-            }
-            if (closeForm) {
-              closeForm();
-            }
-          },
-        });
-      }}
-    >
-      {({
-        handleSubmit,
-        isSubmitting,
-        values,
-      }: FormikProps<PaymentPackFormValues>) => {
-        return (
-          <Form>
-            <div
-              className={
-                !isInDrawer ? classes.formContainer : classes.firstFormContainer
+  return (
+    <div>
+      <Formik
+        enableReinitialize
+        validationSchema={paymentPackSchema}
+        initialValues={
+          initial
+            ? {
+                ...initial,
+                credit_number: initial?.unlimited ? 'unlimited' : 'limited',
+                credits: initial?.credits || 0,
+                penalty_active: !!initial?.penalty_active,
+                no_show_penalty_active: !!initial?.no_show_penalty_active,
+                validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
+                lower_date: initial?.validity_daterange
+                  ? Moment(
+                      JSON.parse(initial?.validity_daterange).lower,
+                    ).format(DATE_FORMAT)
+                  : now,
+                upper_date: initial?.validity_daterange
+                  ? Moment(
+                      JSON.parse(initial?.validity_daterange).upper,
+                    ).format(DATE_FORMAT)
+                  : oneMonthLater,
+                validity_daterange: initial?.validity_daterange
+                  ? {
+                      lower: Moment(
+                        JSON.parse(initial?.validity_daterange).lower,
+                      ).format(DATE_FORMAT),
+                      upper: Moment(
+                        JSON.parse(initial?.validity_daterange).upper,
+                      ).format(DATE_FORMAT),
+                    }
+                  : {
+                      lower: now,
+                      upper: oneMonthLater,
+                    },
+                start_date_method:
+                  validityDict[initial?.start_date_method] || 'billing',
+                penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
+                no_show_penalty_kind:
+                  penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
+                categories: initial?.categories?.map((category) => category.id),
+                is_universal_pass: !!initial?.linked_private_pass,
+                linked_private_pass_compatibility: getFormInitial(
+                  props.compatibleServicePass,
+                ),
+                apply_penalties:
+                  initial?.penalty_active || initial?.no_show_penalty_active,
               }
-            >
-              <PaymentPackFormGeneral
-                initial={initial}
-                paymentPackCategories={paymentPackCategories}
-                provincialTax={provincialTax}
-                disabledUniversalPassFields={disabledUniversalPassFields}
-                setDisableUniversalPassFields={setDisableUniversalPassFields}
-              />
-            </div>
-            <Divider className={classes.divider} />
-            <div className={classes.formContainer}>
-              <PaymentPackFormValidity
-                initial={initial}
-                disabledUniversalPassFields={disabledUniversalPassFields}
-              />
-            </div>
-            <Divider className={classes.divider} />
-            <div className={classes.formContainer}>
-              <PaymentPackFormRestrictions
-                categoryList={categoryList}
-                availableEstablishmentList={availableEstablishmentList}
-                metaActivityList={metaActivityList}
-                initial={initial}
-                disabledUniversalPassFields={disabledUniversalPassFields}
-                allowGuestMaster={!!allowGuestMaster}
-              />
-            </div>
-            <Divider className={classes.divider} />
-            {values.is_universal_pass && (
-              <>
-                <div className={classes.formContainer}>
-                  <UniversalPassFormPrivateserviceCompatibility
-                    initial={initial}
-                    field_name="linked_private_pass_compatibility"
-                    privateServices={privateServices}
-                    compatibleServicePass={compatibleServicePass}
-                  />
-                </div>
-                <Divider className={classes.divider} />
-              </>
-            )}
-            <div className={classes.formContainer}>
-              <PaymentPackFormTag
-                tagList={tagList}
-                disabledUniversalPassFields={disabledUniversalPassFields}
-              />
-            </div>
-            <Divider className={classes.divider} />
-            <div className={classes.actionContainer}>
-              <Actions>
-                {onCancel || closeForm ? (
+            : {
+                id: null,
+                name: '',
+                category: null,
+                price: 0,
+                tax: 0,
+                credit_number: 'limited',
+                credits: 1,
+                penalty_active: false,
+                no_show_penalty_active: false,
+                validity: 'givenNumber',
+                lower_date: now,
+                upper_date: oneMonthLater,
+                validity_daterange: {
+                  lower: now,
+                  upper: oneMonthLater,
+                },
+                duration_days: 0,
+                duration_months: 1,
+                duration_years: 0,
+                start_date_method: 'billing',
+                expiration_days_before_first_use: 365,
+                theorical_margin_value: 0,
+                penalty_nb_late_cancellations: 3,
+                penalty_nb_days: 7,
+                penalty_kind: 'block',
+                penalty_days_blocked: 7,
+                penalty_account_value: 10,
+                no_show_penalty_threshold: 3,
+                no_show_penalty_time_window_days: 7,
+                no_show_penalty_kind: 'block',
+                no_show_penalty_days_blocked: 7,
+                no_show_penalty_amount: 10,
+                max_bookings_per_day: null,
+                max_bookings_per_week: null,
+                max_bookings_per_month: null,
+                max_purchase_per_member: null,
+                new_member_only: false,
+                manager_only: false,
+                onsite_payment_available: false,
+                categories: [],
+                establishments: [],
+                metaActivities: [],
+                full_vod_access: false,
+                only_vod_access: false,
+                whitelist_tags: [],
+                blacklist_tags: [],
+                linked_private_pass: null,
+                is_universal_pass: false,
+                linked_private_pass_compatibility: [],
+                allow_guest_pass: true,
+                unusable_by_staff: false,
+              }
+        }
+        onSubmit={(values, actions) => {
+          const sanithizedValues = {
+            ...values,
+            unlimited: values.credit_number === 'unlimited',
+            is_usable_by_staff: !values.unusable_by_staff,
+          };
+          if (values.validity === 'slot') {
+            sanithizedValues.duration_days = null;
+            sanithizedValues.duration_months = null;
+            sanithizedValues.duration_years = null;
+            sanithizedValues.validity_daterange = {
+              lower: Moment(values.lower_date).format(DATE_FORMAT),
+              upper: Moment(values.upper_date).format(DATE_FORMAT),
+            };
+          } else {
+            sanithizedValues.validity_daterange = null;
+            sanithizedValues.duration_days = values.duration_days || 0;
+            sanithizedValues.duration_months = values.duration_months || 0;
+            sanithizedValues.duration_years = values.duration_years || 0;
+          }
+          switch (values.start_date_method) {
+            case 'billing':
+              sanithizedValues.start_date_method = START_ON_PURCHASE;
+              break;
+            case 'booking':
+              sanithizedValues.start_date_method = START_ON_FIRST_BOOKING;
+              break;
+            default:
+              sanithizedValues.start_date_method = START_ON_FIRST_ATTENDANCE;
+              break;
+          }
+          switch (values.penalty_kind) {
+            case 'block':
+              sanithizedValues.penalty_kind = PENALTY_KIND_BLOCK_CPP;
+              break;
+
+            default:
+              sanithizedValues.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
+              break;
+          }
+          switch (values.no_show_penalty_kind) {
+            case 'block':
+              sanithizedValues.no_show_penalty_kind = PENALTY_KIND_BLOCK_CPP;
+              break;
+
+            default:
+              sanithizedValues.no_show_penalty_kind =
+                PENALTY_KIND_NEGATIVE_ACCOUNT;
+              break;
+          }
+          if (values.credit_number === 'limited') {
+            sanithizedValues.apply_penalties = false;
+          }
+          if (!values.full_vod_access) {
+            sanithizedValues.only_vod_access = false;
+          }
+          if (!values.apply_penalties) {
+            sanithizedValues.penalty_active = false;
+            sanithizedValues.no_show_penalty_active = false;
+          }
+          const keys = [
+            'name',
+            'price',
+            'tax',
+            'theorical_margin_value',
+            'unlimited',
+            'credits',
+            'max_bookings_per_day',
+            'max_bookings_per_week',
+            'max_bookings_per_month',
+            'max_purchase_per_member',
+            'id',
+            'new_member_only',
+            'manager_only',
+            'onsite_payment_available',
+            'full_vod_access',
+            'only_vod_access',
+            'expiration_days_before_first_use',
+            'start_date_method',
+            'categories',
+            'metaActivities',
+            'establishments',
+            'penalty_active',
+            'penalty_nb_late_cancellations',
+            'penalty_nb_days',
+            'penalty_kind',
+            'penalty_days_blocked',
+            'penalty_account_value',
+            'no_show_penalty_active',
+            'no_show_penalty_threshold',
+            'no_show_penalty_time_window_days',
+            'no_show_penalty_amount',
+            'no_show_penalty_days_blocked',
+            'no_show_penalty_kind',
+            'category',
+            'whitelist_tags',
+            'blacklist_tags',
+            'duration_days',
+            'duration_months',
+            'duration_years',
+            'validity_daterange',
+            'linked_private_pass_compatibility',
+            'is_universal_pass',
+            'allow_guest_pass',
+            'is_usable_by_staff',
+          ];
+          const data = pick(sanithizedValues, keys);
+          onSubmit(data, {
+            onSuccess: () => {
+              actions.setSubmitting(false);
+              trackFormSuccess(props.initial?.id);
+              if (clearPaymentPackToEdit) {
+                clearPaymentPackToEdit();
+              }
+            },
+            onError: () => {
+              actions.setSubmitting(false);
+              if (clearPaymentPackToEdit) {
+                clearPaymentPackToEdit();
+              }
+              if (closeForm) {
+                closeForm();
+              }
+            },
+          });
+        }}
+      >
+        {({
+          handleSubmit,
+          isSubmitting,
+          values,
+        }: FormikProps<PaymentPackFormValues>) => {
+          return (
+            <Form>
+              <div
+                className={
+                  !isInDrawer
+                    ? classes.formContainer
+                    : classes.firstFormContainer
+                }
+              >
+                <PaymentPackFormGeneral
+                  initial={initial}
+                  paymentPackCategories={paymentPackCategories}
+                  provincialTax={provincialTax}
+                  disabledUniversalPassFields={disabledUniversalPassFields}
+                  setDisableUniversalPassFields={setDisableUniversalPassFields}
+                />
+              </div>
+              <Divider className={classes.divider} />
+              <div className={classes.formContainer}>
+                <PaymentPackFormValidity
+                  initial={initial}
+                  disabledUniversalPassFields={disabledUniversalPassFields}
+                />
+              </div>
+              <Divider className={classes.divider} />
+              <div className={classes.formContainer}>
+                <PaymentPackFormRestrictions
+                  categoryList={categoryList}
+                  availableEstablishmentList={availableEstablishmentList}
+                  metaActivityList={metaActivityList}
+                  initial={initial}
+                  disabledUniversalPassFields={disabledUniversalPassFields}
+                  allowGuestMaster={!!allowGuestMaster}
+                />
+              </div>
+              <Divider className={classes.divider} />
+              {values.is_universal_pass && (
+                <>
+                  <div className={classes.formContainer}>
+                    <UniversalPassFormPrivateserviceCompatibility
+                      initial={initial}
+                      field_name="linked_private_pass_compatibility"
+                      privateServices={privateServices}
+                      compatibleServicePass={compatibleServicePass}
+                    />
+                  </div>
+                  <Divider className={classes.divider} />
+                </>
+              )}
+              <div className={classes.formContainer}>
+                <PaymentPackFormTag
+                  tagList={tagList}
+                  disabledUniversalPassFields={disabledUniversalPassFields}
+                />
+              </div>
+              <Divider className={classes.divider} />
+              <div className={classes.actionContainer}>
+                <Actions>
+                  {onCancel || closeForm ? (
+                    <Button
+                      onClick={() => {
+                        trackFormCancel(props.initial?.id);
+                        if (clearPaymentPackToEdit) {
+                          clearPaymentPackToEdit();
+                        }
+                        if (closeForm) {
+                          closeForm();
+                        }
+                        if (onCancel) {
+                          onCancel();
+                        }
+                      }}
+                    >
+                      {onCancelText || t('form.paymentPack.actions.cancel')}
+                    </Button>
+                  ) : null}
                   <Button
                     onClick={() => {
-                      trackFormCancel(props.initial?.id);
-                      if (clearPaymentPackToEdit) {
-                        clearPaymentPackToEdit();
-                      }
-                      if (closeForm) {
-                        closeForm();
-                      }
-                      if (onCancel) {
-                        onCancel();
-                      }
+                      trackFormSubmitIntent(props.initial?.id);
+                      handleSubmit();
                     }}
+                    disabled={isSubmitting}
+                    color="primary"
+                    variant="contained"
                   >
-                    {onCancelText || t('form.paymentPack.actions.cancel')}
+                    {initial && initial?.id
+                      ? t('form.paymentPack.actions.edit')
+                      : t('form.paymentPack.actions.create')}
                   </Button>
-                ) : null}
-                <Button
-                  onClick={() => {
-                    trackFormSubmitIntent(props.initial?.id);
-                    handleSubmit();
-                  }}
-                  disabled={isSubmitting}
-                  color="primary"
-                  variant="contained"
-                >
-                  {initial && initial?.id
-                    ? t('form.paymentPack.actions.edit')
-                    : t('form.paymentPack.actions.create')}
-                </Button>
-              </Actions>
-            </div>
-            <LinearProgress
-              style={{
-                visibility: isSubmitting ? 'visible' : 'hidden',
-              }}
-            />
-          </Form>
-        );
-      }}
-    </Formik>
+                </Actions>
+              </div>
+              <LinearProgress
+                style={{
+                  visibility: isSubmitting ? 'visible' : 'hidden',
+                }}
+              />
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 
@@ -497,8 +529,21 @@ const paymentPackSchema = Yup.object().shape({
       .nullable(),
     otherwise: Yup.number(),
   }),
-  penalty_active: Yup.boolean(),
-  penalty_nb_late_cancellations: Yup.number().when('penality', {
+  apply_penalties: Yup.boolean().test(
+    'required',
+    'paymentPack:form.paymentPack.penalty.errorNoPenaltyRule',
+    function testRequired() {
+      if (
+        this.parent.apply_penalties &&
+        !this.parent.penalty_active &&
+        !this.parent.no_show_penalty_active
+      ) {
+        return false;
+      }
+      return true;
+    },
+  ),
+  penalty_nb_late_cancellations: Yup.number().when('penalty_active', {
     is: true,
     then: Yup.number()
       .required('paymentPack:addPaymentPack.requiredField')
@@ -506,7 +551,7 @@ const paymentPackSchema = Yup.object().shape({
     otherwise: Yup.number(),
   }),
 
-  penalty_nb_days: Yup.number().when('penality', {
+  penalty_nb_days: Yup.number().when('penalty_active', {
     is: true,
     then: Yup.number()
       .required('paymentPack:addPaymentPack.requiredField')
@@ -518,7 +563,7 @@ const paymentPackSchema = Yup.object().shape({
     'required',
     'paymentPack:addPaymentPack.requiredField',
     function testRequired(item) {
-      if (this.parent.penality && this.parent.penalty_kind === 'block') {
+      if (this.parent.penalty_active && this.parent.penalty_kind === 'block') {
         return typeof item === 'number' && item > 0;
       }
 
@@ -529,7 +574,56 @@ const paymentPackSchema = Yup.object().shape({
     'required',
     'paymentPack:addPaymentPack.requiredField',
     function testRequired(item) {
-      if (this.parent.penality && this.parent.penalty_kind === 'account') {
+      if (
+        this.parent.penalty_active &&
+        this.parent.penalty_kind === 'account'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  no_show_penalty_threshold: Yup.number().when('no_show_penalty_active', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+  no_show_penalty_time_window_days: Yup.number().when(
+    'no_show_penalty_active',
+    {
+      is: true,
+      then: Yup.number()
+        .required('paymentPack:addPaymentPack.requiredField')
+        .min(1, 'paymentPack:addPaymentPack.minusZero'),
+      otherwise: Yup.number(),
+    },
+  ),
+  no_show_penalty_kind: Yup.string(),
+  no_show_penalty_days_blocked: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.no_show_penalty_active &&
+        this.parent.no_show_penalty_kind === 'block'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  no_show_penalty_amount: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.no_show_penalty_active &&
+        this.parent.no_show_penalty_kind === 'account'
+      ) {
         return typeof item === 'number' && item > 0;
       }
 

@@ -19,6 +19,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Theme } from '#libs/theme/types';

@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { compose, withHandlers, withState } from 'recompose';
+import { compose, withHandlers, withState, withStateHandlers } from 'recompose';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
@@ -49,7 +49,7 @@ import {
 
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
-  createOrUpdate as createOrUpdatePaymentPack,
+  createOrUpdate as createOrUpdatePaymentPackAction,
 } from '../../libs/payment-packs/actions';
 import { getAvailableRoomBlueprints } from '../../libs/spot-scheduling/selector';
 
@@ -88,6 +88,8 @@ import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withBookingNotification } from '../../libs/marketing/selectors';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 import { mapFormData, unmap } from '../form.utils';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
+import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -174,7 +176,6 @@ type Props = {
   categoryList: any,
   metaActivityCategories: Array<MetaActivityCategoryWithActivities>,
   fetchPaymentPacks: () => void,
-  createPass: any,
   upsertWorkshopActivity: any,
   resetPaymentPacks: () => void,
   fetchAllOffers: any,
@@ -182,19 +183,26 @@ type Props = {
   fetchMetactivities: () => void,
   goToPaymentPackCreate: () => void,
   fetchAllPaymentPackCategory: () => void,
-  createOrUpdatePaymentPackAction: (data: any, options: any) => void,
   fetchAllMetaActivityCategory: (companyId?: number) => void,
   upsertMetaActivity: any,
   selectedMetaActivity: MetaActivityCategoryWithActivities,
   setSelectedMetaActivityId: (id: null | number) => void,
   onSubmit: (values: MetaActivity, options: OptionCallback) => void,
+  goToSettings: () => void,
+  createOrUpdatePaymentPack: (
+    openNoShowPenaltyDialog: () => void,
+    onCancelForm: () => void,
+  ) => void,
+  formIsOpen: boolean,
+  setFormIsOpen: (formIsOpen: boolean) => void,
+  openNoShowPenaltyDialog: boolean,
+  setOpenNoShowPenaltyDialog: (openNoShowPenaltyDialog: boolean) => void,
 };
 
 type State = {
   searchText: string,
   searchResult: Array<MetaActivity>,
   showDisabled: boolean,
-  formIsOpen: Boolean,
 };
 
 export class WorkshopActivityList extends React.Component<Props, State> {
@@ -202,7 +210,6 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     searchText: '',
     searchResult: [],
     showDisabled: false,
-    formIsOpen: false,
   };
 
   componentDidMount() {
@@ -236,7 +243,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
   };
 
   onCancelForm = () => {
-    this.setState({ formIsOpen: false });
+    this.props.setFormIsOpen(false);
   };
 
   renderCreateWorkshopActivity = () => {
@@ -256,10 +263,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         compatiblePaymentPacks={this.props.compatiblePaymentPacks}
         createLevel={this.props.createLevel}
         createOffers={this.props.createOffers}
-        createOrUpdatePaymentPackAction={
-          this.props.createOrUpdatePaymentPackAction
-        }
-        createPass={this.props.createPass}
+        createPaymentPack={this.props.createOrUpdatePaymentPack}
         deleteLevel={this.props.deleteLevel}
         availableEstablishments={this.props.availableEstablishments}
         fetchAllActivities={this.props.fetchAllActivities}
@@ -315,6 +319,14 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     return initialData;
   };
 
+  openNoShowPenaltyDialog = () => this.props.setOpenNoShowPenaltyDialog(true);
+
+  closeNoShowPenaltyDialog = () => {
+    this.props.setOpenNoShowPenaltyDialog(false);
+    this.onCancelForm();
+    this.props.fetchPaymentPacks();
+  };
+
   render() {
     const { classes, t, selectedMetaActivity } = this.props;
 
@@ -331,10 +343,10 @@ export class WorkshopActivityList extends React.Component<Props, State> {
             button={this.props.t('actions.addWorkshopActivity')}
             onCreateLabel={this.props.t('actions.addWorkshopActivity')}
             onCreate={() => {
-              this.setState({ formIsOpen: true });
+              this.props.setFormIsOpen(true);
             }}
           />
-          {!!this.state.formIsOpen && this.renderCreateWorkshopActivity()}
+          {!!this.props.formIsOpen && this.renderCreateWorkshopActivity()}
         </div>
       );
     }
@@ -343,6 +355,11 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         {this.props.loading || this.props.notificationLoading ? (
           <LinearProgress />
         ) : null}
+        <NoShowPenaltyDialog
+          open={this.props.openNoShowPenaltyDialog}
+          onClose={this.closeNoShowPenaltyDialog}
+          goToSettings={this.props.goToSettings}
+        />
         {this.props.workshopActivities.length > 0 ? (
           <div className={this.props.classes.search}>
             <div className={classes.header}>
@@ -454,10 +471,10 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         <BottomActionsButton
           onCreateLabel={this.props.t('actions.addWorkshopActivity')}
           onCreate={() => {
-            this.setState({ formIsOpen: true });
+            this.props.setFormIsOpen(true);
           }}
         />
-        {this.state.formIsOpen ? this.renderCreateWorkshopActivity() : ''}
+        {this.props.formIsOpen ? this.renderCreateWorkshopActivity() : ''}
       </div>
     );
   }
@@ -505,10 +522,30 @@ const styles = (theme) => ({
   },
 });
 
+type StateHandlerInit = {
+  formIsOpen: boolean,
+  openNoShowPenaltyDialog: boolean,
+};
+
+const withStateHandlersInit: StateHandlerInit = {
+  formIsOpen: false,
+  openNoShowPenaltyDialog: false,
+};
+
+const withStateHandlersSetter = {
+  setOpenNoShowPenaltyDialog: () => (openNoShowPenaltyDialog: boolean) => {
+    return { openNoShowPenaltyDialog };
+  },
+  setFormIsOpen: () => (formIsOpen: boolean) => {
+    return { formIsOpen };
+  },
+};
+
 export default compose(
   withStyles(styles),
   withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
   withTranslation(['workshop']),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(
     (state, { selectedMetaActivityId }) => ({
       workshopActivities: withBookingNotification(getEnabledWorkshops)(state),
@@ -547,6 +584,7 @@ export default compose(
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
       companyId: state.theme.theme.company,
+      isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
     }),
     {
       fetchAllActivities: fetchMetaActivitiesAction,
@@ -561,19 +599,19 @@ export default compose(
       goToPreviousPage: goBack,
       goToWorkshop: (id: number) => push(`/workshop-activity/${id}/general`),
       fetchPaymentPacks: fetchActivityCompatiblePaymentPacksAction,
-      createPass: createOrUpdatePaymentPack,
       fetchAllOffers: fetchAllOffersActions,
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchRoomBlueprints,
-      createOrUpdatePaymentPackAction: createOrUpdatePaymentPack,
-
       fetchAllCoachPaymentRules,
       createOffers: createOffersActions,
       fetchLevelList: fetchLevelListAction,
       updateLevel: updateLevelAction,
       createLevel: createLevelAction,
       deleteLevel: deleteLevelAction,
+      fetchCompanyTheme: refreshCompanyThemeAction,
+      push,
+      createOrUpdate: createOrUpdatePaymentPackAction,
     },
   ),
   withHandlers({
@@ -615,6 +653,38 @@ export default compose(
         redirectIfAllowed('/payment-pack', {
           newWindow: false,
           deniedAccessDialog: { display: true },
+        });
+      },
+
+    goToSettings: (props) => () => {
+      props.push('/settings/personalization');
+    },
+    createOrUpdatePaymentPack:
+      ({
+        createOrUpdate,
+        fetchCompanyTheme,
+        fetchPaymentPacks,
+        companyId,
+        isRollCallMandatory,
+        setFormIsOpen,
+        setOpenNoShowPenaltyDialog,
+      }) =>
+      (data: any, options: OptionCallback) => {
+        createOrUpdate(data, {
+          ...options,
+          onSuccess: (res) => {
+            options.onSuccess(res);
+            fetchCompanyTheme(companyId, {
+              onSuccess: (theme) => {
+                if (!isRollCallMandatory && theme.is_roll_call_mandatory) {
+                  setOpenNoShowPenaltyDialog(true);
+                } else {
+                  fetchPaymentPacks();
+                  setFormIsOpen(false);
+                }
+              },
+            });
+          },
         });
       },
   }),

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
-import { withProps, compose, withState, withHandlers } from 'recompose';
+import { withProps, compose, withState } from 'recompose';
 
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -391,18 +391,4 @@ export default compose(
       );
     },
   })),
-  withHandlers({
-    createPaymentPack:
-      ({ createOrUpdatePaymentPackAction, fetchPaymentPacks, onClose }) =>
-      (data: any, options: OptionCallback) => {
-        createOrUpdatePaymentPackAction(data, {
-          ...options,
-          onSuccess: (res) => {
-            options.onSuccess(res);
-            fetchPaymentPacks();
-            onClose();
-          },
-        });
-      },
-  }),
 )(MetaActivityCreateDrawer);

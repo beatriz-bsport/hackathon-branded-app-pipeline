@@ -516,6 +516,12 @@ exports.default = {
     account:
       'Un acompte de {{account_value}} sera appliqué pour {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours.',
   },
+  noShowPenalty: {
+    block:
+      '{{days_blocked}} jours de blocage après {{treshold}} absences sur une période de {{time_window_days}} jours',
+    account:
+      'Un acompte de {{amount}} sera appliqué pour {{treshold}} absences sur une période de {{time_window_days}} jours.',
+  },
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
   only_vod_access: 'Disponible uniquement pour la VOD',
   publicPacksTitle: 'Cartes disponibles à la vente',

@@ -71,6 +71,14 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   penalty_kind: number;
   penalty_days_blocked: number;
   penalty_account_value: number;
+
+  no_show_penalty_active: boolean;
+  no_show_penalty_threshold: number;
+  no_show_penalty_time_window_days: number;
+  no_show_penalty_kind: number;
+  no_show_penalty_days_blocked: number;
+  no_show_penalty_amount: number;
+
   start_on_first_user: boolean;
   notifications: Array<number>;
   whitelist_tags: Array<number>;
@@ -222,7 +230,9 @@ export type PaymentPackFormValues<LPP = number> = {
   credit_number?: 'limited' | 'unlimited';
   credits?: number;
   theorical_margin_value?: number;
+  apply_penalties?: boolean;
   penalty_active?: boolean;
+  no_show_penalty_active?: boolean;
   validity?: 'givenNumber' | 'slot';
   lower_date?: string;
   upper_date?: string;
@@ -240,6 +250,11 @@ export type PaymentPackFormValues<LPP = number> = {
   penalty_kind?: 'block' | 'account' | number;
   penalty_days_blocked?: number;
   penalty_account_value?: number;
+  no_show_penalty_threshold?: number;
+  no_show_penalty_time_window_days?: number;
+  no_show_penalty_kind?: 'block' | 'account' | number;
+  no_show_penalty_days_blocked?: number;
+  no_show_penalty_amount?: number;
   max_bookings_per_day?: number;
   max_bookings_per_week?: number;
   max_bookings_per_month?: number;

@@ -28,6 +28,7 @@ export type Props = {
   postRollCall: (offerId: number, options?: OptionCallback) => void;
   fetchOffer: (offerId: number, options?: OptionCallback) => void;
   rollCallLoading: boolean;
+  isRollCallMandatory: boolean;
 };
 
 export const RollCallDrawer: React.FC<Props> = (props) => {
@@ -93,6 +94,7 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
             confirmBookingAttendance={props.confirmBookingAttendance}
             discardBookingAttendance={props.discardBookingAttendance}
             dateRollCallLastModified={props.offer?.date_roll_call_last_modified}
+            isRollCallMandatory={props.isRollCallMandatory}
           />
         </div>
         <Divider />

@@ -104,6 +104,9 @@ import {
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
 } from '#libs/private-service/actions';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
+import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
+import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
 
 const {
   trackFormAdd,
@@ -118,6 +121,9 @@ type StateHandlerInit = {
   selectedCategory: PaymentPackCategory;
   upsertCategoryLoading: boolean;
   paymentPackToEdit: PaymentPack;
+  openPaymentPackFormDialog: boolean;
+  openNoShowPenaltyDialog: boolean;
+  openDeleteNoShowPenaltyDialog: boolean;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -137,7 +143,6 @@ type State = {
   selectedCategories: Array<number>;
   selectedDisponibility: ManagerOnly;
   selectedSortOption: SortOption;
-  openPaymentPackFormDialog: boolean;
   paymentPackOrderByCategory: Array<{
     id: number;
     ordering_in_category: number;
@@ -163,7 +168,6 @@ export class PaymentPackList extends React.Component<Props, State> {
       selectedDisponibility: this.props.userPreferenceSelectedDisponibility,
       selectedSortOption: this.props.userPreferenceSortOption,
       paymentPackOrderByCategory: null,
-      openPaymentPackFormDialog: false,
       paymentPackToEdit: null,
     };
   }
@@ -223,8 +227,8 @@ export class PaymentPackList extends React.Component<Props, State> {
   onCreate = () => {
     this.setState((prevState: State) => ({
       ...prevState,
-      openPaymentPackFormDialog: true,
     }));
+    this.props.setOpenPaymentPackFormDialog(true);
   };
 
   updateOrderBySortOption(
@@ -283,7 +287,7 @@ export class PaymentPackList extends React.Component<Props, State> {
 
   requestEdit = (pp: PaymentPack) => {
     this.setState({ paymentPackToEdit: pp }, () =>
-      this.setState({ openPaymentPackFormDialog: true }),
+      this.props.setOpenPaymentPackFormDialog(true),
     );
   };
 
@@ -382,6 +386,21 @@ export class PaymentPackList extends React.Component<Props, State> {
     });
   };
 
+  closePaymentPackFormDrawer = () => {
+    this.props.setOpenPaymentPackFormDialog(false);
+    this.setState({ paymentPackToEdit: null });
+  };
+
+  closeNoShowPenaltyDialog = () => {
+    this.props.setOpenNoShowPenaltyDialog(false);
+    this.props.setOpenPaymentPackFormDialog(false);
+  };
+
+  closeDeleteNoShowPenaltyDialog = () => {
+    this.props.setOpenDeleteNoShowPenaltyDialog(false);
+    this.props.setOpenPaymentPackFormDialog(false);
+  };
+
   render() {
     const {
       loading,
@@ -415,6 +434,15 @@ export class PaymentPackList extends React.Component<Props, State> {
     ) {
       return (
         <>
+          <NoShowPenaltyDialog
+            open={this.props.openNoShowPenaltyDialog}
+            onClose={this.closeNoShowPenaltyDialog}
+            goToSettings={this.props.goToSettings}
+          />
+          <DeleteNoShowPenaltyDialog
+            open={this.props.openDeleteNoShowPenaltyDialog}
+            onClose={this.closeDeleteNoShowPenaltyDialog}
+          />
           <IsEmptyList
             text={this.props.t('noPaymentPack')}
             button={this.props.t('addButton')}
@@ -422,18 +450,13 @@ export class PaymentPackList extends React.Component<Props, State> {
             onCreateLabel={this.props.t('addButton')}
           />
           <PaymentPackFormDrawer
-            open={this.state.openPaymentPackFormDialog}
+            open={this.props.openPaymentPackFormDialog}
             categoryList={paymentPackCategoryList}
             availableEstablishmentList={availableEstablishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
             paymentPackCategories={paymentPackCategories}
-            closeForm={() =>
-              this.setState({
-                openPaymentPackFormDialog: false,
-                paymentPackToEdit: null,
-              })
-            }
+            closeForm={this.closePaymentPackFormDrawer}
             onSubmit={this.props.createOrUpdatePaymentPack}
             clearPaymentPackToEdit={() =>
               this.setState({ paymentPackToEdit: null })
@@ -455,6 +478,15 @@ export class PaymentPackList extends React.Component<Props, State> {
         {(this.props.upsertCategoryLoading || this.props.loading) && (
           <LinearProgress />
         )}
+        <NoShowPenaltyDialog
+          open={this.props.openNoShowPenaltyDialog}
+          onClose={this.closeNoShowPenaltyDialog}
+          goToSettings={this.props.goToSettings}
+        />
+        <DeleteNoShowPenaltyDialog
+          open={this.props.openDeleteNoShowPenaltyDialog}
+          onClose={this.closeDeleteNoShowPenaltyDialog}
+        />
         <div className={classes.container}>
           <div className={classes.buttonRow}>
             {this.props.enabledPacks?.length && (
@@ -611,18 +643,13 @@ export class PaymentPackList extends React.Component<Props, State> {
           />
           <PaymentPackFormDrawer
             provincialTax={this.props.theme?.provincial_tax_value}
-            open={this.state.openPaymentPackFormDialog}
+            open={this.props.openPaymentPackFormDialog}
             categoryList={paymentPackCategoryList}
             availableEstablishmentList={availableEstablishmentList}
             metaActivityList={metaActivities}
             tagList={allTagsWithTagGroup}
             paymentPackCategories={paymentPackCategories}
-            closeForm={() =>
-              this.setState({
-                openPaymentPackFormDialog: false,
-                paymentPackToEdit: null,
-              })
-            }
+            closeForm={this.closePaymentPackFormDrawer}
             onSubmit={this.props.createOrUpdatePaymentPack}
             clearPaymentPackToEdit={() =>
               this.setState({ paymentPackToEdit: null })
@@ -748,6 +775,7 @@ const mapStateToProps = (state: RootState) => ({
   archivationWarning: state.paymentPack.archivationWarning,
   privateServices: getPrivateServices(state),
   compatibleServicePass: getCompatibleServicePass(state),
+  isRollCallMandatory: state.theme.theme.is_roll_call_mandatory,
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -779,6 +807,7 @@ const mapDispatchToProps = {
 
   fetchAllPrivateServices,
   resetDisabledPaymentPack,
+  refreshCompanyThemeAction,
 };
 const mapWithHandlers = {
   incrementCredit:
@@ -852,10 +881,24 @@ const mapWithHandlers = {
         ...options,
         onSuccess: (res) => {
           options.onSuccess(res);
-          props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
-          if (res.linked_private_pass) {
-            props.fetchPrivatePassList();
-          }
+          props.refreshCompanyThemeAction(props.companyId, {
+            onSuccess: (theme) => {
+              if (!props.isRollCallMandatory && theme.is_roll_call_mandatory) {
+                props.setOpenNoShowPenaltyDialog(true);
+              } else if (
+                props.isRollCallMandatory &&
+                !theme.is_roll_call_mandatory
+              ) {
+                props.setOpenDeleteNoShowPenaltyDialog(true);
+              } else {
+                props.setOpenPaymentPackFormDialog(false);
+              }
+              props.fetchPaymentPackList({ disabled: false, page_size: 70000 });
+              if (res.linked_private_pass) {
+                props.fetchPrivatePassList();
+              }
+            },
+          });
         },
       });
     },
@@ -880,12 +923,18 @@ const mapWithHandlers = {
         );
       }
     },
+  goToSettings: (props: OwnAndConnectedProps) => () => {
+    props.pushRouter('/settings/personalization');
+  },
 };
 const withStateHandlersInit: StateHandlerInit = {
   showCategoryDialog: false,
   selectedCategory: null,
   upsertCategoryLoading: false,
   paymentPackToEdit: null,
+  openPaymentPackFormDialog: false,
+  openNoShowPenaltyDialog: false,
+  openDeleteNoShowPenaltyDialog: false,
 };
 const withStateHandlersSetter = {
   setShowCategoryDialog: () => (showCategoryDialog: boolean) => {
@@ -899,6 +948,16 @@ const withStateHandlersSetter = {
   },
   setPaymentPackToEdit: () => (paymentPackToEdit: PaymentPack) => {
     return { paymentPackToEdit };
+  },
+  setOpenNoShowPenaltyDialog: () => (openNoShowPenaltyDialog: boolean) => {
+    return { openNoShowPenaltyDialog };
+  },
+  setOpenDeleteNoShowPenaltyDialog:
+    () => (openDeleteNoShowPenaltyDialog: boolean) => {
+      return { openDeleteNoShowPenaltyDialog };
+    },
+  setOpenPaymentPackFormDialog: () => (openPaymentPackFormDialog: boolean) => {
+    return { openPaymentPackFormDialog };
   },
 };
 export default compose<any, OwnProps>(

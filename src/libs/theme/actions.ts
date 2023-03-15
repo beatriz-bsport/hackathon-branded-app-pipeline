@@ -46,6 +46,35 @@ export function fetchCompanyTheme(
   };
 }
 
+// this action does not have any loading,
+// It was created to fetch the is_roll_call_mandatory variable without setting state.theme.theme.loading to true
+// which unmounts components to render <LoadingBackOffice /> instead
+export function refreshCompanyTheme(
+  companyId?: number,
+  options?: OptionCallback<CompanyTheme>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(themeDetail.error(null));
+
+    try {
+      const response = await api.fetchCompanyTheme(companyId);
+      const theme = response.data;
+      dispatch(themeDetail.success(theme));
+      dispatch(themeDetail.isLoading(false));
+      if (options && options.onSuccess) {
+        options.onSuccess(theme);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(themeDetail.error(err));
+      dispatch(themeDetail.isLoading(false));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+  };
+}
+
 export function updateCompanyTheme(
   companyId: number,
   data: any,

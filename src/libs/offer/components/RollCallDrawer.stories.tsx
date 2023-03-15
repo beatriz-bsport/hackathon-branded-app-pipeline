@@ -21,7 +21,8 @@ NotValidatedRollCallDrawer.args = {
     offer: offerFactory(),
     members: MembersFactory(5,true, idList), 
     bookings: BookingListFactory(5, idList),
-    isLoading: false
+    isLoading: false,
+    isRollCallMandatory: true
 };
 
 export const ModifiedRollCallDrawer = RollCallDrawerTemplate.bind({});
@@ -31,7 +32,8 @@ ModifiedRollCallDrawer.args = {
     offer: offerFactory(),
     members: MembersFactory(5,true, idList), 
     bookings: BookingListFactory(5, idList),
-    isLoading: false
+    isLoading: false,
+    isRollCallMandatory: true
 };
 
 export const ValidatedRollCallDrawer = RollCallDrawerTemplate.bind({});
@@ -41,7 +43,8 @@ ValidatedRollCallDrawer.args = {
     offer: offerFactory(),
     members: MembersFactory(5,true, idList), 
     bookings: BookingListFactory(5, idList),
-    isLoading: false
+    isLoading: false,
+    isRollCallMandatory: true
 };
 
 

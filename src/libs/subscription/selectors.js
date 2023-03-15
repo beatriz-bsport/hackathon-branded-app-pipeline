@@ -13,10 +13,11 @@ import { getPrivatePassById } from '../private-service/selectors/private-pass';
 import { getPaymenComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
 import { withMember } from '../order/selectors';
 
-import type { Subscription } from './types';
+import type { ContractWithPaymentPack, Subscription } from './types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
+import { RootState } from '../../reducers';
 
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
@@ -45,21 +46,33 @@ export const getInactiveContractList = createSelector(
 
 export const getAvailableContractListManager = createSelector(
   getActiveContractList,
-  (contractList) => contractList.filter((c) => !!c.manager_only),
+  (contractList) =>
+    contractList.filter(
+      (contract) => contract.manager_only || !contract.is_usable_by_staff,
+    ),
 );
 
 export const getAvailableContractListCustomer = createSelector(
   getActiveContractList,
-  (contractList) => contractList.filter((c) => !c.manager_only),
+  (contractList) =>
+    contractList.filter(
+      (contract) => !contract.manager_only && contract.is_usable_by_staff,
+    ),
 );
 
-export const getAvailableContractListWithPaymentPack = createSelector(
+export const getAvailableContractListWithPaymentPack: (
+  state: RootState,
+) => ContractWithPaymentPack<number, number> = createSelector(
   [getActiveContractList, getPaymentPackList],
-  (contractsList, packList) =>
-    contractsList.map((c) => ({
-      ...c,
-      payment_pack: packList.find((pp) => pp.id === c.payment_pack),
-    })),
+  (contractsList, paymentPackList) =>
+    contractsList
+      .filter((contract) => contract.is_usable_by_staff)
+      .map((contract) => ({
+        ...contract,
+        payment_pack: paymentPackList.find(
+          (paymentPack) => paymentPack.id === contract.payment_pack,
+        ),
+      })),
 );
 
 export const getMarketplaceContractList = createSelector(

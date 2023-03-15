@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation, TFunction } from 'react-i18next';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -76,6 +77,13 @@ export const SubscriptionContractListItem = (props: Props) => {
               })}`
         }`}
       />
+      {props.onDelete && !props.contract.is_usable_by_staff && (
+        <Tooltip title={props.t('invisibleForStaffToolTip')}>
+          <IconButton>
+            <RemoveShoppingCartIcon />
+          </IconButton>
+        </Tooltip>
+      )}
       {props.contract.hasActiveNotification && (
         <Tooltip
           title={
@@ -99,6 +107,7 @@ export const SubscriptionContractListItem = (props: Props) => {
             onClick: () => {
               props.onRegister();
             },
+            disabled: !props.contract.is_usable_by_staff,
           },
           props.onEdit && {
             icon: EditIcon,

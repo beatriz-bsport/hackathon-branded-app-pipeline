@@ -111,6 +111,7 @@ export type Contract = {
   recurrence_basis: number;
   tax: string;
   contract_terms_pdf_link: string | null;
+  is_usable_by_staff: boolean;
 };
 
 export type ContractWithPaymentPack<
@@ -134,6 +135,7 @@ export type ContractWithPaymentPack<
   payment_pack?: PaymentPack;
   private_pass?: PrivatePassType;
   payment_combo?: PaymentComboType;
+  is_usable_by_staff: boolean;
 };
 
 export type ContractPause = {

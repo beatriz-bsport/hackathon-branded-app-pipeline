@@ -8982,6 +8982,7 @@
     },
     "billing_plan_status": { "0": "Pas encore commencé", "1": "En cours", "2": "Stoppé", "3": "En pause", "4": "Terminé" },
     "notificationToolTip": "Des notifications sont définies pour cet abonnement",
+    "invisibleForStaffToolTip": "Invisible pour le staff",
     "events": {
       "list": { "title": "Derniers évènements" },
       "billing_plan-pause": "Pause",
@@ -9297,6 +9298,7 @@
         "settings": { "title": "Paramètres" },
         "managerOnly": { "label": "Invisible pour les clients" },
         "autoRenewal": { "label": "Renouvellement tacite" },
+        "unusableByStaff": { "label": "Invisible pour le staff" },
         "flat_fee": { "label": "Frais d'engagement/dossier", "helperText": "Ce frais sera ajouté à la première facture" },
         "contract": {
           "placeholder": "Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.",

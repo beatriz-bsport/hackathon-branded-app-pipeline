@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -16,6 +14,7 @@ type ActionOption = {
   label: string;
   color?: 'primary' | 'secondary' | 'inherit';
   icon: any;
+  disabled?: boolean;
 };
 
 type Props = {
@@ -56,6 +55,7 @@ function ShortMenu(props: Props) {
               option.onClick();
             }}
             color={option.color}
+            disabled={option.disabled}
           >
             <option.icon />
           </IconButton>
@@ -69,6 +69,7 @@ function ShortMenu(props: Props) {
             }}
             color={option.color}
             key={option.label}
+            disabled={option.disabled}
           />
         ))}
     </div>
@@ -131,6 +132,7 @@ function HiddenShortMenu(props: Props) {
                 setAnchorEl(null);
               }}
               key={option.label}
+              disabled={option.disabled}
             >
               {!!option.icon && (
                 <ListItemIcon>

@@ -60,11 +60,13 @@ type FormValues = Omit<
   | 'tax'
   | 'disabled'
   | 'id'
+  | 'is_usable_by_staff'
 > & {
   payment_pack?: number;
   private_pass?: number;
   payment_combo?: number;
   object_type: ObjectType;
+  unusable_by_staff: boolean;
 };
 
 export type SubscriptionContractFormDrawerPropsWithoutFormik = {
@@ -314,6 +316,10 @@ export function SubscriptionContractFields(
           name="auto_renewal"
           label={t('contract.form.autoRenewal.label')}
         />
+        <SwitchField
+          name="unusable_by_staff"
+          label={t('contract.form.unusableByStaff.label')}
+        />
       </FormSection>
     </div>
   );
@@ -400,6 +406,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   contract: Yup.string().required(),
   manager_only: Yup.boolean(),
   auto_renewal: Yup.boolean(),
+  unusable_by_staff: Yup.boolean(),
 });
 
 function isNumber(value: unknown): value is number {
@@ -432,6 +439,7 @@ export const SubscriptionContractFormHoc = withFormik<
           : initial.payment_pack
           ? ObjectType.paymentPack
           : ObjectType.paymentCombo,
+        unusable_by_staff: !initial.is_usable_by_staff,
       };
     }
     return {
@@ -449,6 +457,7 @@ export const SubscriptionContractFormHoc = withFormik<
       manager_only: false,
       auto_renewal: false,
       object_type: ObjectType.paymentPack,
+      unusable_by_staff: false,
     };
   },
   enableReinitialize: true,
@@ -471,6 +480,7 @@ export const SubscriptionContractFormHoc = withFormik<
         values.object_type === ObjectType.paymentPack
           ? values.payment_pack
           : null,
+      is_usable_by_staff: !values.unusable_by_staff,
     };
 
     onSubmit(valuesCleaned, {

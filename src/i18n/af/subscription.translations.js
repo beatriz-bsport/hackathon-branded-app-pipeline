@@ -48,6 +48,7 @@ exports.default = {
     [BILLING_PLAN_STATUS_ENDED]: 'Terminé',
   },
   notificationToolTip: 'Des notifications sont définies pour cet abonnement',
+  invisibleForStaffToolTip: 'Invisible pour le staff',
   events: {
     list: {
       title: 'Derniers évènements',
@@ -470,6 +471,9 @@ exports.default = {
       },
       autoRenewal: {
         label: 'Renouvellement tacite',
+      },
+      unusableByStaff: {
+        label: 'Invisible pour le staff',
       },
       flat_fee: {
         label: "Frais d'engagement/dossier",

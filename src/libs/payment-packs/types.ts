@@ -285,7 +285,9 @@ export type PaymentPackTemplateFormValues = {
   credit_number?: 'limited' | 'unlimited';
   credits?: number;
   theorical_margin_value?: number;
+  apply_penalties?: boolean;
   penalty_active?: boolean;
+  no_show_penalty_active?: boolean;
   validity?: 'givenNumber' | 'slot';
   lower_date?: string;
   upper_date?: string;
@@ -304,6 +306,12 @@ export type PaymentPackTemplateFormValues = {
   penalty_days_blocked?: number;
   penalty_account_value?: number;
   penalty_mode_franchisor: number;
+  no_show_penalty_threshold?: number;
+  no_show_penalty_time_window_days?: number;
+  no_show_penalty_kind?: 'block' | 'account' | number;
+  no_show_penalty_days_blocked?: number;
+  no_show_penalty_amount?: number;
+  no_show_penalty_mode_franchisor: number;
   max_bookings_per_day?: number;
   max_bookings_per_week?: number;
   max_bookings_per_month?: number;

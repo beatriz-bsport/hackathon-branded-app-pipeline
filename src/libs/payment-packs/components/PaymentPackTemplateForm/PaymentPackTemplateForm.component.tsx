@@ -124,9 +124,23 @@ const PaymentPackTemplateSchema = Yup.object().shape({
   new_member_only: Yup.boolean(),
   full_vod_access: Yup.boolean(),
   only_vod_access: Yup.boolean(),
+  apply_penalties: Yup.boolean().test(
+    'required',
+    'paymentPack:form.paymentPack.penalty.errorNoPenaltyRule',
+    function testRequired() {
+      if (
+        this.parent.apply_penalties &&
+        !this.parent.penalty_active &&
+        !this.parent.no_show_penalty_active
+      ) {
+        return false;
+      }
+      return true;
+    },
+  ),
   penalty_active: Yup.boolean(),
   penalty_mode_franchisor: Yup.number(),
-  penalty_nb_late_cancellations: Yup.number().when('penality', {
+  penalty_nb_late_cancellations: Yup.number().when('penalty_active', {
     is: true,
     then: Yup.number()
       .required('paymentPack:addPaymentPack.requiredField')
@@ -146,7 +160,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
     'required',
     'paymentPack:addPaymentPack.requiredField',
     function testRequired(item) {
-      if (this.parent.penality && this.parent.penalty_kind === 'block') {
+      if (this.parent.penalty_active && this.parent.penalty_kind === 'block') {
         return typeof item === 'number' && item > 0;
       }
 
@@ -157,7 +171,44 @@ const PaymentPackTemplateSchema = Yup.object().shape({
     'required',
     'paymentPack:addPaymentPack.requiredField',
     function testRequired(item) {
-      if (this.parent.penality && this.parent.penalty_kind === 'account') {
+      if (
+        this.parent.penalty_active &&
+        this.parent.penalty_kind === 'account'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+
+  no_show_penalty_mode_franchisor: Yup.number(),
+  no_show_penalty_threshold: Yup.number().when('no_show_penalty_active', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+  no_show_penalty_time_window_days: Yup.number().when(
+    'no_show_penalty_active',
+    {
+      is: true,
+      then: Yup.number()
+        .required('paymentPack:addPaymentPack.requiredField')
+        .min(1, 'paymentPack:addPaymentPack.minusZero'),
+      otherwise: Yup.number(),
+    },
+  ),
+  no_show_penalty_kind: Yup.string(),
+  no_show_penalty_days_blocked: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.no_show_penalty_active &&
+        this.parent.no_show_penalty_kind === 'block'
+      ) {
         return typeof item === 'number' && item > 0;
       }
 
@@ -165,6 +216,19 @@ const PaymentPackTemplateSchema = Yup.object().shape({
     },
   ),
   unusable_by_staff: Yup.boolean(),
+  no_show_penalty_amount: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.no_show_penalty_active &&
+        this.parent.no_show_penalty_kind === 'account'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+      return true;
+    },
+  ),
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -194,6 +258,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         new_member_only: false,
         full_vod_access: false,
         only_vod_access: false,
+        apply_penalties: false,
         penalty_active: false,
         penalty_mode_franchisor: PENALTY_MODE_FRANCHISOR_PRORATA,
         penalty_nb_late_cancellations: 3,
@@ -202,6 +267,13 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         penalty_days_blocked: 7,
         penalty_account_value: 10,
         unusable_by_staff: false,
+        no_show_penalty_active: false,
+        no_show_penalty_mode_franchisor: PENALTY_MODE_FRANCHISOR_PRORATA,
+        no_show_penalty_threshold: 3,
+        no_show_penalty_time_window_days: 7,
+        no_show_penalty_kind: 'block',
+        no_show_penalty_days_blocked: 7,
+        no_show_penalty_amount: 10,
       },
       (initial && {
         ...initial,
@@ -211,6 +283,8 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         categories: initial.categories || [],
         establishments: initial.establishments || [],
         penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
+        no_show_penalty_kind:
+          penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
         timeType: initial.validity_daterange
           ? VALID_BY_DATERANGE
           : VALID_BY_DURATION,
@@ -220,6 +294,8 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         upper_date: initial.validity_daterange
           ? moment(JSON.parse(initial.validity_daterange).upper)
           : moment().add('days', 365),
+        apply_penalties:
+          initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,
       }) ||
         {},
@@ -253,6 +329,12 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       'penalty_kind',
       'penalty_days_blocked',
       'penalty_account_value',
+      'no_show_penalty_active',
+      'no_show_penalty_mode_franchisor',
+      'no_show_penalty_threshold',
+      'no_show_penalty_time_window_days',
+      'no_show_penalty_amount',
+      'no_show_penalty_days_blocked',
       'is_usable_by_staff',
     ];
     const data = pick(
@@ -287,8 +369,20 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         data.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
         break;
     }
-    if (values.credit_number === 'limited') {
+
+    switch (values.no_show_penalty_kind) {
+      case 'block':
+        data.no_show_penalty_kind = PENALTY_KIND_BLOCK_CPP;
+        break;
+
+      default:
+        data.no_show_penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
+        break;
+    }
+
+    if (!values.apply_penalties) {
       data.penalty_active = false;
+      data.no_show_penalty_active = false;
     }
 
     data.max_bookings_per_day = values.max_bookings_per_day || null;

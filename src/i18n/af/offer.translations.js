@@ -203,5 +203,9 @@ exports.default = {
       info: 'Valider l’appel permet de déclencher le décompte pour les pénalités des absences (no-show).',
       listMembers: 'Liste des membres inscrits',
     },
+    filter: {
+      validated: 'Appel validé',
+      notValidated: 'Appel non validé',
+    },
   },
 };

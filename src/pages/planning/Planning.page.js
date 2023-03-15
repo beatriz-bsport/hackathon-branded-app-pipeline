@@ -138,6 +138,7 @@ import CoachSelector from '#libs/associated-coach/components/coach-selector/Coac
 import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
 import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
+import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
 
 import { monitorBackgroundTask } from '#libs/background-task/actions';
 import CheckPermission from '#libs/role/components/CheckPermission.component';
@@ -431,6 +432,7 @@ type State = {
 const FILTER_COACH = 0;
 const FILTER_ESTABLISHMENT = 1;
 const FILTER_ACTIVITY = 2;
+const FILTER_ROLLCALL = 3;
 
 export class Planning extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -1034,10 +1036,18 @@ export class Planning extends PureComponent<Props, State> {
           activity__in: newValues.map((e) => e.value),
         });
         break;
+      case FILTER_ROLLCALL:
+        this.props.setCalendarFilter({
+          ...this.props.offerFilters,
+          roll_call_needs_validation: newValues?.value,
+        });
+        break;
       default:
         break;
     }
   };
+
+  selectRollCallFilter = (ev) => this.setCalendarFilter(ev, FILTER_ROLLCALL);
 
   searchBar = () => {
     const {
@@ -1065,7 +1075,14 @@ export class Planning extends PureComponent<Props, State> {
       theme?.enable_multi_localization &&
       establishmentGroupList &&
       establishmentGroupList.length !== 0;
-    const medimumSize = hasMultiLocation ? 3 : 4;
+    let mediumSize = 4;
+    if (hasMultiLocation || this.props.theme.is_roll_call_mandatory) {
+      mediumSize = 3;
+    }
+    if (hasMultiLocation && this.props.theme.is_roll_call_mandatory) {
+      mediumSize = 2;
+    }
+
     let filteredEstablishments: Array<Establishment> = [...allEstablishments];
 
     if (offerFilters?.establishment_group__in?.length) {
@@ -1091,7 +1108,7 @@ export class Planning extends PureComponent<Props, State> {
 
     return (
       <Grid container style={{ overflow: 'auto' }}>
-        <Grid item xs={6} md={medimumSize} className={classes.selector}>
+        <Grid item xs={6} md={mediumSize} className={classes.selector}>
           <CoachSelector
             coaches={Immutable(coachList)}
             selectedCoaches={
@@ -1102,7 +1119,7 @@ export class Planning extends PureComponent<Props, State> {
           />
         </Grid>
         {hasMultiLocation && (
-          <Grid item xs={6} md={medimumSize} className={classes.selector}>
+          <Grid item xs={6} md={mediumSize} className={classes.selector}>
             <EstablishmentGroupSelector
               isMulti
               establishmentGroups={establishmentGroupList.filter(
@@ -1124,7 +1141,7 @@ export class Planning extends PureComponent<Props, State> {
             />
           </Grid>
         )}
-        <Grid item xs={6} md={medimumSize} className={classes.selector}>
+        <Grid item xs={6} md={mediumSize} className={classes.selector}>
           <EstablishmentSelector
             establishments={Immutable(filteredEstablishments)}
             selectedEstablishments={
@@ -1136,12 +1153,7 @@ export class Planning extends PureComponent<Props, State> {
             isLoading={establishmentsLoading}
           />
         </Grid>
-        <Grid
-          item
-          xs={hasMultiLocation ? 6 : 12}
-          md={medimumSize}
-          className={classes.selector}
-        >
+        <Grid item xs={6} md={mediumSize} className={classes.selector}>
           <MetaActivitySelector
             metaActivities={metaActivities.filter(
               (ma) => ma.customer_enabled && !ma.is_workshop,
@@ -1153,6 +1165,17 @@ export class Planning extends PureComponent<Props, State> {
             isLoading={activitiesLoading}
           />
         </Grid>
+        {this.props.theme.is_roll_call_mandatory && (
+          <Grid item xs={6} md={mediumSize} className={classes.selector}>
+            <RollCallSelector
+              selectedRollCallStatus={
+                this.props.filterVerification &&
+                offerFilters.roll_call_needs_validation
+              }
+              selectOption={this.selectRollCallFilter}
+            />
+          </Grid>
+        )}
       </Grid>
     );
   };

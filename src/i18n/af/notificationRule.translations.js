@@ -45,17 +45,18 @@ const {
   NOTIFICATION_REPLACEMENT_REQUEST_CREATE_LATE,
   NOTIFICATION_REPLACEMENT_REQUEST_CLOSING_DATE_POSTPONED,
   NOTIFICATION_REPLACEMENT_REQUEST_ANWSER_HAS_BEEN_ACCEPTED,
+  NOTIFICATION_OFFER_AUTO_DISCARD,
+  NOTIFICATION_OFFER_AUTO_DISCARD_TO_STUDENT,
+  NOTIFICATION_GROUPED_OFFERS_CANCELLED,
+  NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP,
+  NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT,
+  NOTIFICATION_BOOKING_BROADCAST_TO_TEACHER,
+  NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER_TO_TEACHER,
+  NOTIFICATION_OFFER_IN_BOOKING_MODIFIED_TO_TEACHER,
+  NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_PENALTY_BLOCK,
+  NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_PENALTY_CHARGE,
+  NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_WARNING,
 } = NOTIFICATION_EVENTS;
-
-// should import that from common
-const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
-const NOTIFICATION_OFFER_AUTO_DISCARD_TO_STUDENT = 602;
-const NOTIFICATION_GROUPED_OFFERS_CANCELLED = 801;
-const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP = 701;
-const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT = 702;
-const NOTIFICATION_BOOKING_BROADCAST_TO_TEACHER = 101;
-const NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER_TO_TEACHER = 102;
-const NOTIFICATION_OFFER_IN_BOOKING_MODIFIED_TO_TEACHER = 103;
 
 exports.default = {
   pageTitle: 'Emails transactionnels',
@@ -83,7 +84,7 @@ exports.default = {
     private_booking: 'Rendez-vous',
     invoice: 'Facturation',
     marketing: 'Marketing',
-    payment_pack: 'Cartes de cours',
+    payment_pack: 'Pénalités',
     recurrent_private_booking: 'Rendez-vous récurrent',
     replacement_request: 'Remplacement',
   },
@@ -287,9 +288,15 @@ exports.default = {
       'Trop peu de réservations N heures avant le début de la séance (élèves)',
     [NOTIFICATION_GROUPED_OFFERS_CANCELLED]: 'Groupe de rendez vous annulé',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP]:
-      'Pénalité carte de cours : carte bloquée (élèves)',
+      'Annulation hors délai : carte bloquée (élèves)',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT]:
-      'Pénalité carte de cours : acompte créé (élèves)',
+      'Annulation hors délai : compte client débité (élèves)',
+    [NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_PENALTY_BLOCK]:
+      'Absence : carte bloquée (élèves)',
+    [NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_PENALTY_CHARGE]:
+      'Absence : compte client débité (élèves)',
+    [NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_WARNING]:
+      "Avertissement d'absence",
     [NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH]:
       'Rendez-vous récurrent annulé pour manque de disponibilité (professeur)',
     [NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER]:

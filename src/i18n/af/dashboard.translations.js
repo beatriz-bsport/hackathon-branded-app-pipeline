@@ -305,6 +305,7 @@ exports.default = {
     total_payments_made: "Nombre d'encaissements effectués",
     is_unpaid: 'Impayé',
     dispute_status: 'Status de litige',
+    is_no_show: 'Absent (no show)',
   },
   graphDefaultTitles: {
     paymentTemporal: 'Encaissements',

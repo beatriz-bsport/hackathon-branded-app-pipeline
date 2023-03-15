@@ -4633,6 +4633,7 @@
         "helperText": "Par défaut, la taxe appliquée à chaque objet est celle indiquée sur l'objet. En sélectionnant cette option, vous pourrez appliquer une taxe générale sur le pack."
       },
       "manager_only": { "label": "Invisible pour les clients" },
+      "unusableByStaff": { "label": "Invisible pour le staff" },
       "new_member_only": { "label": "Uniquement pour les nouveaux clients" },
       "actions": { "submit": "Enregistrer", "cancel": "Annuler" },
       "content": "Contenu",
@@ -4655,7 +4656,8 @@
       "content": "Voulez-vous vraiment supprimer ce pack ? Cette opération est irréversible, les achats déjà effectués et les paniers en cours ne seront pas affectés.",
       "cancel": "Annuler",
       "submit": "Supprimer"
-    }
+    },
+    "parameters": { "unusableByStaff": "Invisible pour le staff" }
   },
   "paymentPack": {
     "paymentPackTemplateInstance": {

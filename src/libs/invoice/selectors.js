@@ -44,7 +44,9 @@ export const getBuyableItem = createSelector(
         !privatePass.is_unpaid_private_booking_integration &&
         privatePass.is_usable_by_staff,
     ),
-    [BUYABLE_ITEM_COMBO_ITEM]: paymentComboList,
+    [BUYABLE_ITEM_COMBO_ITEM]: paymentComboList?.filter(
+      (paymentCombo) => paymentCombo.is_usable_by_staff,
+    ),
     [BUYABLE_ITEM_GIFTCARD]: giftcardList,
   }),
 );

@@ -18,9 +18,9 @@ import {
   deletePaymentCombo,
 } from '#libs/payment-combo/actions';
 import {
-  getPaymentComboListAvailableOnline,
-  getPaymentComboListUnavailableOnline,
   getPaymentComboList,
+  getPaymentComboListAvailableForSale,
+  getPaymentComboListUnavailableForSale,
 } from '#libs/payment-combo/selectors';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
@@ -215,9 +215,9 @@ const styles = (theme: Theme) => ({
 const connector = connect(
   (state: RootState) => ({
     loading: state.paymentCombo.loading,
-    paymentComboListAvailableOnline: getPaymentComboListAvailableOnline(state),
+    paymentComboListAvailableOnline: getPaymentComboListAvailableForSale(state),
     paymentComboListUnavailableOnline:
-      getPaymentComboListUnavailableOnline(state),
+      getPaymentComboListUnavailableForSale(state),
     error: state.paymentCombo.createOrUpdate.error,
     paymentComboList: getPaymentComboList(state),
     theme: themeSelectors.getTheme(state),

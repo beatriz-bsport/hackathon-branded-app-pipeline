@@ -47,6 +47,9 @@ exports.default = {
     manager_only: {
       label: 'Invisible pour les clients',
     },
+    unusableByStaff: {
+      label: 'Invisible pour le staff',
+    },
     new_member_only: {
       label: 'Uniquement pour les nouveaux clients',
     },
@@ -80,5 +83,8 @@ exports.default = {
       'Voulez-vous vraiment supprimer ce pack ? Cette opération est irréversible, les achats déjà effectués et les paniers en cours ne seront pas affectés.',
     cancel: 'Annuler',
     submit: 'Supprimer',
+  },
+  parameters: {
+    unusableByStaff: 'Invisible pour le staff',
   },
 };

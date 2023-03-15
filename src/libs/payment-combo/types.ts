@@ -30,6 +30,7 @@ export type PaymentCombo = {
   barcode: string;
   available_payment_method_identifier: Array<number>;
   new_member_only: boolean;
+  is_usable_by_staff: boolean;
 };
 
 export type PaymentComboPayload = {
@@ -45,6 +46,7 @@ export type PaymentComboPayload = {
   payment_pack_ids: Array<number>;
   shop_item_ids: Array<number>;
   private_pass_ids: Array<number>;
+  is_usable_by_staff: boolean;
 };
 
 export type PaymentComboState = {

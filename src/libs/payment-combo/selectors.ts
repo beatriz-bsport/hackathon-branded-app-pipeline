@@ -24,12 +24,32 @@ export const getPaymentComboList = createSelector(
 
 export const getPaymentComboListAvailableOnline = createSelector(
   getPaymentComboList,
-  (pcList) => pcList.filter((pc) => !pc.manager_only),
+  (paymentComboList) =>
+    paymentComboList.filter((paymentCombo) => !paymentCombo.manager_only),
 );
 
 export const getPaymentComboListUnavailableOnline = createSelector(
   getPaymentComboList,
-  (pcList) => pcList.filter((pc) => pc.manager_only),
+  (paymentComboList) =>
+    paymentComboList.filter((paymentCombo) => paymentCombo.manager_only),
+);
+
+export const getPaymentComboListAvailableForSale = createSelector(
+  getPaymentComboList,
+  (paymentComboList) =>
+    paymentComboList.filter(
+      (paymentCombo) =>
+        !paymentCombo.manager_only && paymentCombo.is_usable_by_staff,
+    ),
+);
+
+export const getPaymentComboListUnavailableForSale = createSelector(
+  getPaymentComboList,
+  (paymentComboList) =>
+    paymentComboList.filter(
+      (paymentCombo) =>
+        paymentCombo.manager_only || !paymentCombo.is_usable_by_staff,
+    ),
 );
 
 const _getPaymentComboPurchaseList = (state: RootState) =>

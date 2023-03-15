@@ -32,6 +32,7 @@ import { PrivatePass } from '../../private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -110,7 +111,7 @@ export const PaymentComboForm: React.FC<Props> = ({
     !valuesFormik.private_pass_ids.length;
 
   return (
-    <div>
+    <div className={classes.container}>
       <TextField name="name" label={t('form.name.label')} required fullWidth />
       <div className={classes.description}>
         <TextField
@@ -254,7 +255,12 @@ export const PaymentComboForm: React.FC<Props> = ({
         />
       )}
 
-      <CheckboxField label={t('form.manager_only.label')} name="manager_only" />
+      <SwitchField name="manager_only" label={t('form.manager_only.label')} />
+      <SwitchField
+        name="unusable_by_staff"
+        label={t('form.unusableByStaff.label')}
+      />
+
       <div className={classes.fieldset}>
         <PaymentMethodSelectorField
           name="available_payment_method_identifiers"
@@ -277,6 +283,10 @@ export const PaymentComboForm: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   description: {
     marginTop: theme.spacing(4),
   },
@@ -304,6 +314,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
     .min(1),
   shop_item_ids: Yup.array().of(Yup.number()),
   private_pass_ids: Yup.array().of(Yup.number()),
+  unusable_by_staff: Yup.boolean(),
 });
 
 export const PaymentComboFormHoc = withFormik({
@@ -315,6 +326,7 @@ export const PaymentComboFormHoc = withFormik({
         shop_item_ids: repeatQuantity(initial.shop_items),
         private_pass_ids: repeatQuantity(initial.private_passes),
         new_member_only: initial.new_member_only,
+        unusable_by_staff: !initial.is_usable_by_staff,
       };
     }
     return {
@@ -330,6 +342,7 @@ export const PaymentComboFormHoc = withFormik({
       payment_pack_ids: [],
       private_pass_ids: [],
       available_payment_method_identifiers: [CB.id],
+      unusable_by_staff: false,
     };
   },
   validationSchema: PaymentComboFieldsSchema,
@@ -340,6 +353,7 @@ export const PaymentComboFormHoc = withFormik({
     const valuesFormikBase = {
       ...valuesFormik,
       max_purchase_per_member: valuesFormik.max_purchase_per_member || '0',
+      is_usable_by_staff: !valuesFormik.unusable_by_staff,
     };
 
     onSubmit(

@@ -237,7 +237,7 @@ export function SubscriptionContractFields(
             {t('contract.form.recurrence_basis.label')}
           </Typography>
           <IntegerField
-            name="recurrence_interval"
+            name="recurrence_basis"
             required
             classes={{ field: classes.intervalIntegerField }}
           />
@@ -344,10 +344,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(0),
   },
   intervalSelectorField: {
-    height: theme.spacing(2.5),
+    height: theme.spacing(3.5),
   },
   intervalIntegerField: {
     height: theme.spacing(2.2),
+    width: theme.spacing(5),
   },
   section: {
     marginTop: theme.spacing(2),

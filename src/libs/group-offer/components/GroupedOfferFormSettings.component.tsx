@@ -867,9 +867,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   intervalIntegerField: {
     height: theme.spacing(2.2),
+    width: theme.spacing(5),
   },
   intervalSelectorField: {
-    height: theme.spacing(2.5),
+    height: theme.spacing(3.5),
   },
   recurenceRow: {
     display: 'flex',

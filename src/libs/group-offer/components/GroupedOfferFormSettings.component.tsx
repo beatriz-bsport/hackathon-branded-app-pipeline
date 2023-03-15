@@ -476,11 +476,14 @@ export const GroupedOfferFormSettings: React.FC<
                       {t('groupedOption.modal.form.recurrenceNumberPrefix')}
                       <IntegerField
                         name="recurrence_interval"
-                        classes={{ field: classes.noMargin }}
+                        classes={{ field: classes.intervalIntegerField }}
                       />
                       <IntervalRecurrenceSelectField
                         name="recurrence_frequence"
+                        variant="outlined"
                         withoutDaily
+                        displayPeriod
+                        className={classes.intervalSelectorField}
                       />
                     </div>
                   </div>
@@ -861,6 +864,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
+  },
+  intervalIntegerField: {
+    height: theme.spacing(2.2),
+  },
+  intervalSelectorField: {
+    height: theme.spacing(2.5),
   },
   recurenceRow: {
     display: 'flex',

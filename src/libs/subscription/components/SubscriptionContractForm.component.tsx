@@ -19,6 +19,7 @@ import {
   SwitchField,
   RadioGroupField,
   IntervalRecurrenceSelectField,
+  IntegerField,
 } from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
@@ -235,11 +236,10 @@ export function SubscriptionContractFields(
           <Typography variant="body2">
             {t('contract.form.recurrence_basis.label')}
           </Typography>
-          <TextField
-            name="recurrence_basis"
+          <IntegerField
+            name="recurrence_interval"
             required
-            variant="standard"
-            className={classes.smallTextField}
+            classes={{ field: classes.intervalIntegerField }}
           />
           <IntervalRecurrenceSelectField
             name="interval"
@@ -247,6 +247,7 @@ export function SubscriptionContractFields(
             variant="outlined"
             displayPeriod
             className={classes.intervalSelectorField}
+            withoutDaily
           />
         </div>
         <TextField
@@ -339,9 +340,14 @@ const useStyles = makeStyles((theme) => ({
   fieldMargin2: {
     marginBottom: theme.spacing(2),
   },
-  selectorField: { marginBottom: theme.spacing(0) },
+  selectorField: {
+    marginBottom: theme.spacing(0),
+  },
   intervalSelectorField: {
-    height: theme.spacing(5),
+    height: theme.spacing(2.5),
+  },
+  intervalIntegerField: {
+    height: theme.spacing(2.2),
   },
   section: {
     marginTop: theme.spacing(2),

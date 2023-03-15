@@ -737,7 +737,9 @@
       "hour_plural": "{{ count }} heures",
       "minute": "{{ count }} minute",
       "minute_plural": "{{ count }} minutes"
-    }
+    },
+    "params": "Paramètres",
+    "ok": "OK"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
@@ -4148,8 +4150,11 @@
       "530": "Litige sur paiement d'une souscription",
       "601": "Trop peu de réservations N heures avant le début de la séance (professeurs)",
       "602": "Trop peu de réservations N heures avant le début de la séance (élèves)",
-      "701": "Pénalité carte de cours : carte bloquée (élèves)",
-      "702": "Pénalité carte de cours : acompte créé (élèves)",
+      "701": "Annulation hors délai : carte bloquée (élèves)",
+      "702": "Annulation hors délai : acompte créé (élèves)",
+      "703": "Absence : carte bloquée (élèves)",
+      "704": "Absence : acompte créé (élèves)",
+      "705": "Avertissement d'absence",
       "801": "Groupe de rendez vous annulé",
       "901": "Remplaçant trouvé (professeur)",
       "902": "Demande de remplacement annulée (remplaçant)",
@@ -4968,8 +4973,26 @@
         },
         "penalty": {
           "title": "Pénalités",
+          "label": "Appliquer une pénalité",
+          "helperText": "Appliquer des pénalités en cas d'absence ou de réservations hors délais trop nombreuses",
+          "titleCheckbox": "Appliquer une pénalité pour",
+          "cancellationsCheckbox": "Les annulations hors délai trop nombreuses",
+          "noShowCheckbox": "Les absences (no show) trop nombreuses",
+          "errorNoPenaltyRule": "Impossible d’enregistrer vos modifications, vous devez choisir une pénalité ou désactiver les pénalités pour pouvoir continuer",
+          "cancellationsPenaltyTitle": "Pénalités annulations hors délai",
+          "noShowPenaltyTitle": "Pénalités absences (no show)",
+          "bothPenaltiesTitle": "Pénalités annulations hors délai et absences (no show)",
+          "penaltyParams": "Paramètres des pénalités",
+          "penaltyParamsText": "Appliquer le même décompte pour les annulations hors délai et les absences (no show)",
+          "noShowPenaltyAlert": "Pour définir quand un membre est considéré comme absent (no show) merci de vous rendre dans Paramètres>Personnalisation",
+          "noShowPenaltyNumber": "Nombre d'absences (no show)",
+          "noShowPenaltyInfo": "Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} absence (no show) sur une période de {{penalityNumberDay}} jours",
+          "noShowPenaltyInfo_plural": "Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} absences (no show) sur une période de {{penalityNumberDay}} jours",
+          "bothPenaltiesNumber": "Nombre d'annulations et d'absences (no show)",
+          "bothPenaltiesInfo": "Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} annulations hors délai ou absence (no show) sur une période de {{penalityNumberDay}} jours",
+          "bothPenaltiesInfo_plural": "Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} annulations hors délai ou absences (no show) sur une période de {{penalityNumberDay}} jours",
           "checkbox": "Appliquer une pénalité en cas d'annulations hors délai trop nombreuses",
-          "explain": "Une pénalité sera appliquée si il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours",
+          "explain": "Une pénalité sera appliquée s’il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours",
           "nb_cancellations": "Nombre d'annulations :",
           "nb_days": "Nombre de jours :",
           "kind": {
@@ -4981,7 +5004,16 @@
             "label": "Période de bloquage de la carte (en jours) :",
             "helperText": "La carte sera bloquée pendant {{nb_days}} jours"
           },
-          "account": { "label": "Montant de l'acompte :", "helperText": "Un accompte de {{value}} sera appliqué pour ce membre" }
+          "account": { "label": "Montant de l'acompte :", "helperText": "Un accompte de {{value}} sera appliqué pour ce membre" },
+          "noShowDialog": {
+            "title": "Pénalités sur les no show",
+            "text": "Vous venez de créer des pénalités sur les absences (no-show).  Nous venons d’activer la fonctionnalité “appel”, vous devez désormais faire l’appel pour chacun des cours afin d’activer les pénalités.",
+            "alert": "Vous pouvez  paramétrer les conditions de no show dans les paramètres de personnalisation."
+          },
+          "deleteNoShowDialog": {
+            "title": "Pénalités supprimées",
+            "text": "Plus aucune carte illimitée ne contient de pénalités sur les absences (no-show). Nous avons désactivé la fonctionnalité “appel”, vous ne devez donc plus valider l’appel pour chacun des cours."
+          }
         },
         "category": { "label": "Catégorie (facultatif)", "helperText": "Nom de la catégorie" },
         "error": { "start_date_method_type": "Veuillez indiquer le début de validité de la carte." },
@@ -5091,7 +5123,7 @@
       "marginalContributionHelperText": "Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION",
       "penalityNumberCancel": "Nombre d’annulations",
       "penalityNumberDay": "Nombre de jours",
-      "penalityInfo": "Une pénalité sera appliquée si il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours",
+      "penalityInfo": "Une pénalité sera appliquée s’il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours",
       "penalityBlock": "Bloquer temporairement la carte de cours",
       "penalityAccount": "Créer un acompte pour le membre concerné",
       "penalityType": "Type de pénalité à appliquer",
@@ -8336,8 +8368,9 @@
       "10001": "Stock insuffisant",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
-      "generic": "Impossible de réserver",
-      "undefined": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot."
+      "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
+      "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
+      "generic": "Impossible de réserver"
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
@@ -9893,7 +9926,17 @@
           "errors": { "restrictionToggles": "Veuillez sélectionner au moins une option" }
         },
         "errorURL": "Veuillez saisir une URL valide avant de sauvegarder le formulaire",
-        "hideSessionWithTagsNotEligible": "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags"
+        "hideSessionWithTagsNotEligible": "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags",
+        "noShow": {
+          "title": "Absence (no-show)",
+          "alert": "Ces paramètres ne s’appliquent que pour les pénalités sur les absences (no-show) sur les cartes illimitées. Pour déclencher les décomptes suivants, vous devez impérativement valider l’appel pour chacun des cours.",
+          "daysBeforeNoShow": "Considérer le membre comme (no-show) <0/> <1/> après l’appel sur les séances où il est indiqué comme absent.",
+          "daysBeforeNoShowHelpText": "Ce paramètre permet d’appliquer des pénalités sur les absences des membres possédant une carte illimitée.",
+          "sendMail": "Envoyer un email <0/> <1/> après l’appel pour prévenir le membre qu’il sera considéré comme no show si il est indiqué comme absent.",
+          "sendMailHelpText": "Pour activer/ desactiver l’email merci de vous rendre dans Paramètres> Emails transactionnels> Pénalité> Notification d’absence",
+          "error": "L’email de notification d’absence ne peut pas être envoyé après que le membre soit considéré comme no show.",
+          "notAvailable": "La gestion des absences (no-show) n’est pas disponible. Pour l’activer vous devez d’abord créer une carte de cours illimitée avec des pénalités sur les absences (no show)."
+        }
       },
       "cover": { "label": "Logo", "helperText": "Privilégiez les png avec fond transparent" },
       "primary_color": { "label": "Couleur principale", "helperText": "Privilégiez une couleur, évitez le monochrome" },
@@ -10600,8 +10643,8 @@
       "twoWeeks": "2 semaines",
       "oneMonth": "1 mois",
       "never": "Jamais",
-      "interval": { "month": "Mensuelle", "year": "Annuelle", "week": "Semaine", "day": "Quotidienne" },
-      "period": { "day": "Jours", "week": "Semaines", "month": "Mois", "year": "Années" }
+      "interval": { "hour": "Par heure", "month": "Mensuelle", "year": "Annuelle", "week": "Semaine", "day": "Quotidienne" },
+      "period": { "hour": "Heures", "day": "Jours", "week": "Semaines", "month": "Mois", "year": "Années" }
     },
     "marketing": {
       "dashboard": "Tableau de bord",

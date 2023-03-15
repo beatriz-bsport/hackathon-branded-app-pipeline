@@ -606,12 +606,14 @@ exports.default = {
     oneMonth: '1 mois',
     never: 'Jamais',
     interval: {
+      hour: 'Par heure',
       month: 'Mensuelle',
       year: 'Annuelle',
       week: 'Semaine',
       day: 'Quotidienne',
     },
     period: {
+      hour: 'Heures',
       day: 'Jours',
       week: 'Semaines',
       month: 'Mois',

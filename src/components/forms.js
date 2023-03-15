@@ -1043,6 +1043,24 @@ export const IntervalRecurrenceSelectField = withTranslation()(
   ),
 );
 
+export const HoursDaysIntervalRecurrenceSelectField = (
+  props: SelectFieldProps & { displayPeriod?: boolean },
+) => (
+  <SelectField
+    choices={[
+      {
+        value: 'hour',
+        label: props.displayPeriod ? 'form.period.hour' : 'form.interval.hour',
+      },
+      {
+        value: 'day',
+        label: props.displayPeriod ? 'form.period.day' : 'form.interval.day',
+      },
+    ]}
+    {...props}
+  />
+);
+
 export const CheckboxField = (props: Props) => {
   const { reverted, disabled, label, helperText, classes } = props;
   return (

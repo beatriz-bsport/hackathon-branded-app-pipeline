@@ -66,4 +66,6 @@ exports.default = {
     minute: '{{ count }} minute',
     minute_plural: '{{ count }} minutes',
   },
+  params: 'Paramètres',
+  ok: 'OK',
 };

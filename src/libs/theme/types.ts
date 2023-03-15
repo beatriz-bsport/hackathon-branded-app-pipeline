@@ -85,6 +85,7 @@ export type Theme = {
   hide_intercom: boolean;
   is_roll_call_mandatory: boolean;
   no_show_validated_number_of_hours: number;
+  no_show_email_sent_number_of_hours: number;
 };
 
 export type ThemeState = {

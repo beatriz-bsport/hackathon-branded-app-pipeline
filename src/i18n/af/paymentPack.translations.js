@@ -402,10 +402,37 @@ exports.default = {
       },
       penalty: {
         title: 'Pénalités',
+        label: 'Appliquer une pénalité',
+        helperText:
+          "Appliquer des pénalités en cas d'absence ou de réservations hors délais trop nombreuses",
+        titleCheckbox: 'Appliquer une pénalité pour',
+        cancellationsCheckbox: 'Les annulations hors délai trop nombreuses',
+        noShowCheckbox: 'Les absences (no show) trop nombreuses',
+        errorNoPenaltyRule:
+          'Impossible d’enregistrer vos modifications, vous devez choisir une pénalité ou désactiver les pénalités pour pouvoir continuer',
+        cancellationsPenaltyTitle: 'Pénalités annulations hors délai',
+        noShowPenaltyTitle: 'Pénalités absences (no show)',
+        bothPenaltiesTitle:
+          'Pénalités annulations hors délai et absences (no show)',
+        penaltyParams: 'Paramètres des pénalités',
+        penaltyParamsText:
+          'Appliquer le même décompte pour les annulations hors délai et les absences (no show)',
+        noShowPenaltyAlert:
+          'Pour définir quand un membre est considéré comme absent (no show) merci de vous rendre dans Paramètres>Personnalisation',
+        noShowPenaltyNumber: "Nombre d'absences (no show)",
+        noShowPenaltyInfo:
+          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} absence (no show) sur une période de {{penalityNumberDay}} jours',
+        noShowPenaltyInfo_plural:
+          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} absences (no show) sur une période de {{penalityNumberDay}} jours',
+        bothPenaltiesNumber: "Nombre d'annulations et d'absences (no show)",
+        bothPenaltiesInfo:
+          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} annulations hors délai ou absence (no show) sur une période de {{penalityNumberDay}} jours',
+        bothPenaltiesInfo_plural:
+          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} annulations hors délai ou absences (no show) sur une période de {{penalityNumberDay}} jours',
         checkbox:
           "Appliquer une pénalité en cas d'annulations hors délai trop nombreuses",
         explain:
-          'Une pénalité sera appliquée si il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours',
+          'Une pénalité sera appliquée s’il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours',
         nb_cancellations: "Nombre d'annulations :",
         nb_days: 'Nombre de jours :',
         kind: {
@@ -420,6 +447,16 @@ exports.default = {
         account: {
           label: "Montant de l'acompte :",
           helperText: 'Un accompte de {{value}} sera appliqué pour ce membre',
+        },
+        noShowDialog: {
+          title: 'Pénalités sur les no show',
+          text: 'Vous venez de créer des pénalités sur les absences (no-show).  Nous venons d’activer la fonctionnalité “appel”, vous devez désormais faire l’appel pour chacun des cours afin d’activer les pénalités.',
+          alert:
+            'Vous pouvez  paramétrer les conditions de no show dans les paramètres de personnalisation.',
+        },
+        deleteNoShowDialog: {
+          title: 'Pénalités supprimées',
+          text: 'Plus aucune carte illimitée ne contient de pénalités sur les absences (no-show). Nous avons désactivé la fonctionnalité “appel”, vous ne devez donc plus valider l’appel pour chacun des cours.',
         },
       },
       category: {
@@ -565,7 +602,7 @@ exports.default = {
     penalityNumberCancel: 'Nombre d’annulations',
     penalityNumberDay: 'Nombre de jours',
     penalityInfo:
-      'Une pénalité sera appliquée si il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours',
+      'Une pénalité sera appliquée s’il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours',
     penalityBlock: 'Bloquer temporairement la carte de cours',
     penalityAccount: 'Créer un acompte pour le membre concerné',
     penalityType: 'Type de pénalité à appliquer',

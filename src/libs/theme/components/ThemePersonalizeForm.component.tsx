@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import moment from 'moment-timezone';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
@@ -25,6 +25,7 @@ import {
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
 import classNames from 'classnames';
+import { Alert } from '@material-ui/lab';
 import Config from '../../../config';
 
 import { OptionCallback } from '../../../state/types';
@@ -35,6 +36,7 @@ import {
   TimeField,
   TextField,
   SwitchField,
+  HoursDaysIntervalRecurrenceSelectField,
 } from '#components/forms';
 
 interface FormikValues {
@@ -64,6 +66,11 @@ interface FormikValues {
   hide_sessions_with_tags_when_not_eligible: boolean;
   requires_email_confirmation_when_signing_up: boolean;
   confirm_email_url_redirection: boolean;
+  is_roll_call_mandatory: boolean;
+  no_show_validated_time: number;
+  no_show_email_time: number;
+  no_show_validated_interval: string;
+  no_show_email_interval: string;
 }
 type Props = {
   theme: CompanyTheme;
@@ -328,6 +335,72 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               />
             </div>
           </div>
+          <Typography className={classes.namesHeader}>
+            {t('forms.themePersonalization.noShow.title')}
+          </Typography>
+          {theme.is_roll_call_mandatory ? (
+            <div>
+              <Alert severity="info" className={classes.alert}>
+                {t('forms.themePersonalization.noShow.alert')}
+              </Alert>
+
+              <Typography className={classes.textWithInput}>
+                <Trans
+                  t={t}
+                  i18nKey="forms.themePersonalization.noShow.daysBeforeNoShow"
+                  components={[
+                    <TextField
+                      name="no_show_validated_time"
+                      type="number"
+                      className={classes.numberTextField}
+                    />,
+                    <HoursDaysIntervalRecurrenceSelectField
+                      name="no_show_validated_interval"
+                      variant="outlined"
+                      displayPeriod
+                      className={classes.intervalSelectorField}
+                    />,
+                  ]}
+                />
+              </Typography>
+              <Typography variant="caption" color="textSecondary">
+                {t(
+                  'forms.themePersonalization.noShow.daysBeforeNoShowHelpText',
+                )}
+              </Typography>
+              <Typography className={classes.textWithInput}>
+                <Trans
+                  t={t}
+                  i18nKey="forms.themePersonalization.noShow.sendMail"
+                  components={[
+                    <TextField
+                      name="no_show_email_time"
+                      type="number"
+                      className={classes.numberTextField}
+                    />,
+                    <HoursDaysIntervalRecurrenceSelectField
+                      name="no_show_email_interval"
+                      variant="outlined"
+                      displayPeriod
+                      className={classes.intervalSelectorField}
+                    />,
+                  ]}
+                />
+              </Typography>
+              <Typography variant="caption" color="textSecondary">
+                {t('forms.themePersonalization.noShow.sendMailHelpText')}
+              </Typography>
+              {errors?.no_show_email_time && (
+                <Alert severity="error" className={classes.alert}>
+                  {t(errors.no_show_email_time)}
+                </Alert>
+              )}
+            </div>
+          ) : (
+            <Alert severity="info" className={classes.alert}>
+              {t('forms.themePersonalization.noShow.notAvailable')}
+            </Alert>
+          )}
         </div>
         <div className={classes.section}>
           <Typography className={classes.namesHeader}>
@@ -592,6 +665,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   helperText: {
     marginLeft: theme.spacing(2),
   },
+  numberTextField: {
+    width: theme.spacing(5),
+    marginTop: -theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  },
+  intervalSelectorField: {
+    height: theme.spacing(5),
+    marginTop: -theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  alert: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  textWithInput: {
+    marginTop: theme.spacing(3),
+  },
 }));
 
 const ThemePersonalizeFormSchema = Yup.object().shape({
@@ -642,6 +732,48 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
       return false;
     },
   ),
+  no_show_validated_time: Yup.number()
+    .min(0)
+    .when('is_roll_call_mandatory', {
+      is: true,
+      then: Yup.number().min(0).required(),
+    }),
+  no_show_email_time: Yup.number()
+    .min(0)
+    .when('is_roll_call_mandatory', {
+      is: true,
+      then: Yup.number()
+        .min(0)
+        .required()
+        .test(
+          'is-before-no-show',
+          'forms.themePersonalization.noShow.error',
+          function checkIsAfterNoShow() {
+            let no_show_validated_time_hour =
+              this.parent.no_show_validated_time;
+            if (this.parent.no_show_validated_interval === 'day') {
+              no_show_validated_time_hour *= 24;
+            }
+            let no_show_email_time_hour = this.parent.no_show_email_time;
+            if (this.parent.no_show_email_interval === 'day') {
+              no_show_email_time_hour *= 24;
+            }
+            if (no_show_validated_time_hour > no_show_email_time_hour) {
+              return true;
+            }
+
+            return false;
+          },
+        ),
+    }),
+  no_show_validated_interval: Yup.string().when('is_roll_call_mandatory', {
+    is: true,
+    then: Yup.string().required(),
+  }),
+  no_show_email_interval: Yup.string().when('is_roll_call_mandatory', {
+    is: true,
+    then: Yup.string().required(),
+  }),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -659,6 +791,24 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       .seconds(0)
       .milliseconds(0)
       .format();
+
+    let initial_no_show_validated_time =
+      theme?.no_show_validated_number_of_hours;
+    let initial_no_show_validated_interval = 'hour';
+    if (
+      initial_no_show_validated_time &&
+      initial_no_show_validated_time % 24 === 0
+    ) {
+      initial_no_show_validated_interval = 'day';
+      initial_no_show_validated_time /= 24;
+    }
+
+    let initial_no_show_email_time = theme?.no_show_email_sent_number_of_hours;
+    let initial_no_show_email_interval = 'hour';
+    if (initial_no_show_email_time && initial_no_show_email_time % 24 === 0) {
+      initial_no_show_email_interval = 'day';
+      initial_no_show_email_time /= 24;
+    }
 
     if (theme) {
       return {
@@ -700,6 +850,11 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         requires_email_confirmation_when_signing_up:
           theme.requires_email_confirmation_when_signing_up,
         confirm_email_url_redirection: theme.confirm_email_url_redirection,
+        is_roll_call_mandatory: theme.is_roll_call_mandatory,
+        no_show_validated_time: initial_no_show_validated_time,
+        no_show_validated_interval: initial_no_show_validated_interval,
+        no_show_email_time: initial_no_show_email_time,
+        no_show_email_interval: initial_no_show_email_interval,
       };
     }
     return {
@@ -764,10 +919,38 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'hide_sessions_with_tags_when_not_eligible',
       'requires_email_confirmation_when_signing_up',
       'confirm_email_url_redirection',
+      'no_show_validated_time',
+      'no_show_email_time',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {
         data.append('hidden_from_marketplace', !values[key]);
+      } else if (key === 'no_show_validated_time') {
+        if (theme.is_roll_call_mandatory) {
+          let no_show_validated_number_of_hours = values[key];
+          if (values.no_show_validated_interval === 'day') {
+            no_show_validated_number_of_hours *= 24;
+          }
+          data.append(
+            'no_show_validated_number_of_hours',
+            no_show_validated_number_of_hours.toString(),
+          );
+        } else {
+          data.append('no_show_validated_number_of_hours', '1');
+        }
+      } else if (key === 'no_show_email_time') {
+        if (theme.is_roll_call_mandatory) {
+          let no_show_email_sent_number_of_hours = values[key];
+          if (values.no_show_email_interval === 'day') {
+            no_show_email_sent_number_of_hours *= 24;
+          }
+          data.append(
+            'no_show_email_sent_number_of_hours',
+            no_show_email_sent_number_of_hours.toString(),
+          );
+        } else {
+          data.append('no_show_email_sent_number_of_hours', '0');
+        }
       } else {
         data.append(key, values[key]);
       }
@@ -775,7 +958,9 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
 
     onSubmit(theme.company, data, {
       onSuccess: () => setSubmitting(false),
-      onError: () => setSubmitting(false),
+      onError: () => {
+        setSubmitting(false);
+      },
     });
   },
 });

@@ -246,6 +246,23 @@ exports.default = {
         'Veuillez saisir une URL valide avant de sauvegarder le formulaire',
       hideSessionWithTagsNotEligible:
         "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags",
+      noShow: {
+        title: 'Absence (no-show)',
+        alert:
+          'Ces paramètres ne s’appliquent que pour les pénalités sur les absences (no-show) sur les cartes illimitées. Pour déclencher les décomptes suivants, vous devez impérativement valider l’appel pour chacun des cours.',
+        daysBeforeNoShow:
+          'Considérer le membre comme (no-show) <0/> <1/> après l’appel sur les séances où il est indiqué comme absent.',
+        daysBeforeNoShowHelpText:
+          'Ce paramètre permet d’appliquer des pénalités sur les absences des membres possédant une carte illimitée.',
+        sendMail:
+          'Envoyer un email <0/> <1/> après l’appel pour prévenir le membre qu’il sera considéré comme no show si il est indiqué comme absent.',
+        sendMailHelpText:
+          'Pour activer/ desactiver l’email merci de vous rendre dans Paramètres> Emails transactionnels> Pénalité> Notification d’absence',
+        error:
+          'L’email de notification d’absence ne peut pas être envoyé après que le membre soit considéré comme no show.',
+        notAvailable:
+          'La gestion des absences (no-show) n’est pas disponible. Pour l’activer vous devez d’abord créer une carte de cours illimitée avec des pénalités sur les absences (no show).',
+      },
     },
     cover: {
       label: 'Logo',

@@ -239,7 +239,7 @@ export function SubscriptionContractFields(
           <IntegerField
             name="recurrence_basis"
             required
-            classes={{ field: classes.intervalIntegerField }}
+            className={classes.intervalIntegerField}
           />
           <IntervalRecurrenceSelectField
             name="interval"
@@ -247,7 +247,6 @@ export function SubscriptionContractFields(
             variant="outlined"
             displayPeriod
             className={classes.intervalSelectorField}
-            withoutDaily
           />
         </div>
         <TextField
@@ -343,12 +342,12 @@ const useStyles = makeStyles((theme) => ({
   selectorField: {
     marginBottom: theme.spacing(0),
   },
-  intervalSelectorField: {
-    height: theme.spacing(3.5),
-  },
   intervalIntegerField: {
-    height: theme.spacing(2.2),
+    height: theme.spacing(-2),
     width: theme.spacing(5),
+  },
+  intervalSelectorField: {
+    height: theme.spacing(5),
   },
   section: {
     marginTop: theme.spacing(2),
@@ -358,14 +357,10 @@ const useStyles = makeStyles((theme) => ({
   },
   row: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'end',
+    alignItems: 'center',
     '&>*': {
       marginRight: theme.spacing(1),
     },
-  },
-  smallTextField: {
-    width: theme.spacing(3.75),
   },
 }));
 

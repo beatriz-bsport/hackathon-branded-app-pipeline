@@ -476,7 +476,7 @@ export const GroupedOfferFormSettings: React.FC<
                       {t('groupedOption.modal.form.recurrenceNumberPrefix')}
                       <IntegerField
                         name="recurrence_interval"
-                        classes={{ field: classes.intervalIntegerField }}
+                        className={classes.intervalIntegerField}
                       />
                       <IntervalRecurrenceSelectField
                         name="recurrence_frequence"
@@ -866,20 +866,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
   intervalIntegerField: {
-    height: theme.spacing(2.2),
+    height: theme.spacing(-2),
     width: theme.spacing(5),
   },
   intervalSelectorField: {
-    height: theme.spacing(3.5),
+    height: theme.spacing(4),
   },
   recurenceRow: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     gap: theme.spacing(1),
     marginBottom: theme.spacing(2),
-  },
-  noMargin: {
-    margin: 0,
+    marginTop: theme.spacing(1),
   },
   buttonAdd: {
     display: 'flex',

@@ -3885,7 +3885,8 @@
       "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
       "downloadChrome": "Téléchargez gratuitement Google Chrome",
       "close": "Fermer"
-    }
+    },
+    "tab": { "coach": { "general": "Profil", "calendar": "Calendrier" } }
   },
   "notificationRule": {
     "pageTitle": "Emails transactionnels",

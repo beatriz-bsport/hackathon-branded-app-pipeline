@@ -158,4 +158,10 @@ exports.default = {
     downloadChrome: 'Téléchargez gratuitement Google Chrome',
     close: 'Fermer',
   },
+  tab: {
+    coach: {
+      general: 'Profil',
+      calendar: 'Calendrier',
+    },
+  },
 };

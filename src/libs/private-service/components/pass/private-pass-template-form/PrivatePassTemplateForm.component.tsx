@@ -52,6 +52,7 @@ interface FormikValues {
   duration_years: number;
   start_date_method: string;
   expiration_days_before_first_use: number;
+  unusable_by_staff: boolean;
 }
 type Props = {
   isSubmitting: boolean;
@@ -121,6 +122,13 @@ export const PrivatePassTemplateForm = (props: Props) => {
           <SwitchField
             name="manager_only"
             label={t('privatePass.form.managerOnly.label')}
+          />
+        </div>
+
+        <div className={`${classes.fieldBlock} ${classes.flexColumn}`}>
+          <SwitchField
+            name="unusable_by_staff"
+            label={t('privatePass.listItem.unusableByStaff')}
           />
         </div>
       </div>
@@ -303,6 +311,7 @@ export const PrivatePassSchema = Yup.object().shape({
   duration_years: Yup.number().required().integer().min(0),
   start_date_method: Yup.number().required().integer().min(0).max(2),
   expiration_days_before_first_use: Yup.number(),
+  unusable_by_staff: Yup.boolean().required(),
 });
 
 export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
@@ -311,6 +320,7 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
       return {
         ...initial,
         start_date_method: `${initial.start_date_method}`,
+        unusable_by_staff: !initial.is_usable_by_staff,
       };
 
     return {
@@ -324,21 +334,25 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
       duration_years: 1,
       start_date_method: `${START_ON_PURCHASE}`,
       expiration_days_before_first_use: 365,
+      unusable_by_staff: false,
     };
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
-    onSubmit(values, {
-      onSuccess: () => {
-        trackFormSuccess(initial?.id);
-        setSubmitting(false);
+    onSubmit(
+      { ...values, is_usable_by_staff: !values.unusable_by_staff },
+      {
+        onSuccess: () => {
+          trackFormSuccess(initial?.id);
+          setSubmitting(false);
+        },
+        onError: (err) => {
+          console.error(err);
+          setSubmitting(false);
+        },
       },
-      onError: (err) => {
-        console.error(err);
-        setSubmitting(false);
-      },
-    });
+    );
   },
 });
 

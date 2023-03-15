@@ -28,10 +28,10 @@ import {
 
 type Props = {
   privateService: PrivateService | PrivateServiceWithSlots;
-  onClick: (id: number) => void;
+  onClick?: (id: number) => void;
   onEdit: () => void;
   dense?: boolean;
-  selected: boolean;
+  selected?: boolean;
   hideSecondary: boolean;
   onDelete: () => void;
   compatibilityByService?: ServiceCompatibilityPass;

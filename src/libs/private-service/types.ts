@@ -161,6 +161,7 @@ export type PrivatePass<LPP = number | null> = {
   is_unpaid_private_booking_integration: boolean;
   linked_payment_pack?: LPP;
   description?: string;
+  is_usable_by_staff: boolean;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
@@ -190,6 +191,7 @@ export type PrivatePassWithCompatibility<LPP = number | null> = {
   ordering_in_category: number;
   template_instance: number;
   linked_payment_pack?: LPP;
+  is_usable_by_staff: boolean;
 };
 
 export type PrivateConsumerPass<AssociatedMember = number> = {
@@ -376,6 +378,7 @@ export type PrivatePassTemplateAPI = {
   private_pass_template_instances: Array<PrivatePassTemplateInstance>;
   start_date_method: number;
   expiration_days_before_first_use: number;
+  is_usable_by_staff: boolean;
 };
 
 export type PrivatePassTemplate = PrivatePassTemplateAPI & {

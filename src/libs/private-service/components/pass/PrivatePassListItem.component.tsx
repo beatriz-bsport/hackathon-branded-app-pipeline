@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -8,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import Paper from '@material-ui/core/Paper';
@@ -69,6 +68,13 @@ export const PrivatePassListItem = (props: Props) => {
             credits: props.pass.credits,
           })} - ${dateInfo}`}
         />
+        {!props.pass.is_usable_by_staff && props.pass.available && (
+          <Tooltip title={t('privatePass.listItem.unusableByStaff')}>
+            <IconButton>
+              <RemoveShoppingCartIcon />
+            </IconButton>
+          </Tooltip>
+        )}
         {!!props.pass.linked_payment_pack && (
           <Tooltip title={t('privatePass.form.universalPass.label')}>
             <IconButton onClick={null}>

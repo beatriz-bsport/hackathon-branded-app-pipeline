@@ -50,9 +50,17 @@ export const getPrivatePassListBase: (State: RootState) => Array<PrivatePass> =
 
 export const getPrivatePassAvailable = createSelector(
   getPrivatePassListBase,
-  (pp) => {
-    return pp.filter((p) => p.available);
+  (privatePassList) => {
+    return privatePassList.filter((privatePass) => privatePass.available);
   },
+);
+
+export const getPrivatePassAvailableForPrivateBooking = createSelector(
+  getPrivatePassListBase,
+  (privatePassList) =>
+    privatePassList.filter(
+      (privatePass) => privatePass.available && privatePass.is_usable_by_staff,
+    ),
 );
 
 export const getPrivatePassAsConsumer = createSelector(
@@ -287,12 +295,22 @@ export const getPrivatePassTemplate: (
 
 export const getPrivatePassTemplateListManagerOnly = createSelector(
   getPrivatePassTemplateList,
-  (list) => list.filter((p) => !!p.manager_only),
+  (privatePassTemplateList) =>
+    privatePassTemplateList.filter(
+      (privatePassTemplate) =>
+        privatePassTemplate.manager_only ||
+        !privatePassTemplate.is_usable_by_staff,
+    ),
 );
 
 export const getPrivatePassTemplateListAvailable = createSelector(
   getPrivatePassTemplateList,
-  (list) => list.filter((p) => !p.manager_only),
+  (privatePassTemplateList) =>
+    privatePassTemplateList.filter(
+      (privatePassTemplate) =>
+        !privatePassTemplate.manager_only &&
+        privatePassTemplate.is_usable_by_staff,
+    ),
 );
 export const withLinkedPaymentPack = memoize((selector: PrivatePassSelector) =>
   createSelector([selector, getAllPaymentPacks], (passObject, paymentPacks) => {

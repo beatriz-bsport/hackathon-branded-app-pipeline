@@ -670,6 +670,7 @@ exports.default = {
       price: '{{ price, price}}',
       tax: 'TVA: {{ tax }}%',
       managerOnly: 'Invisible pour les clients',
+      unusableByStaff: 'Invisible pour le staff',
     },
     compatibleServices: {
       title: 'RDV compatibles',
@@ -783,6 +784,9 @@ exports.default = {
       },
     },
     disabledTitle: 'Cartes de RDV archivées',
+    listItem: {
+      unusableByStaff: 'Invisible pour le staff',
+    },
   },
   openCalendar: 'Voir le calendrier',
   openSpecificAvailabilitiesCalendar: 'Disponibilités spécifiques',

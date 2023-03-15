@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { getPrivatePassAvailable } from '../selectors/private-pass';
+import { getPrivatePassAvailableForPrivateBooking } from '../selectors/private-pass';
 import {
   getPrivateConsumerPassList,
   getUnPaidBookingAvailabilityForPrivateslot,
@@ -523,7 +523,7 @@ const mapStateToProps = (
   compatiblePassLoading:
     state.privateService.privatePass.loading ||
     state.privateService.privateConsumerPass.loading,
-  compatiblePrivatePass: getPrivatePassAvailable(state),
+  compatiblePrivatePass: getPrivatePassAvailableForPrivateBooking(state),
   compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
   nonCompatiblePrivateConsumerPass:
     getPrivateConsumerPassNonCompatibleList(state),

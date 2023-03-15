@@ -145,17 +145,25 @@ const SortablePrivatePassList = React.memo((props: PackListProps) => {
   const showManagerExclude =
     props.filterManagerOnly === ManagerOnly.showManagerExclude &&
     ppasses.filter((pp) => !pp.manager_only).length;
+
+  const showInvisibleForStaff =
+    props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
+    ppasses.filter((pp) => !pp.is_usable_by_staff).length;
+
   return (
     <SortableContext items={items} strategy={verticalListSortingStrategy}>
       {props.filterManagerOnly === ManagerOnly.showAll ||
       showManagerOnly ||
-      showManagerExclude ? (
+      showManagerExclude ||
+      showInvisibleForStaff ? (
         ppasses.map((ppass: PrivatePass) => {
           return props.filterManagerOnly === ManagerOnly.showAll ||
             (props.filterManagerOnly === ManagerOnly.showManagerOnly &&
               ppass.manager_only) ||
             (props.filterManagerOnly === ManagerOnly.showManagerExclude &&
-              !ppass.manager_only) ? (
+              !ppass.manager_only) ||
+            (props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
+              !ppass.is_usable_by_staff) ? (
             <SortablePrivatePassListItem
               draggable={
                 !props.privatePassOrder &&

@@ -1,4 +1,3 @@
-// @flow
 import React, { MouseEvent } from 'react';
 import { Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -91,10 +90,11 @@ export interface FormikValues {
   expiration_days_before_first_use: number;
   compatibility: Array<CompatiblePrivateService>;
   is_universal_pass: boolean;
-  linked_payment_pack: PaymentPack | null;
+  linked_payment_pack?: PaymentPack;
   linked_payment_pack_categories: Array<number>;
   linked_payment_pack_establishments: Array<number>;
   linked_payment_pack_metaActivities: Array<number>;
+  unusable_by_staff: boolean;
 }
 type Props = {
   provincialTax: number;
@@ -309,6 +309,11 @@ export const PrivatePassForm = (props: Props) => {
           <SwitchField
             name="full_vod_access"
             label={t('privatePass.form.full_vod_access.label')}
+          />
+          <SwitchField
+            name="unusable_by_staff"
+            label={t('privatePass.listItem.unusableByStaff')}
+            disabled={!!props.initial?.template_instance}
           />
         </div>
       </div>
@@ -609,7 +614,6 @@ export const PrivatePassForm = (props: Props) => {
             categoryList={props.categoryList}
             establishmentList={props.establishmentList}
             metaActivityList={props.metaActivityList}
-            disabledUniversalPassFields={disabledUniversalPassFields}
           />
           <Divider className={classes.divider} />
         </>
@@ -808,6 +812,7 @@ export const PrivatePassSchema = Yup.object().shape({
   linked_payment_pack_metaActivities: Yup.array()
     .of(Yup.number())
     .nullable(true),
+  unusable_by_staff: Yup.boolean().required(),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -824,6 +829,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
           initial.linked_payment_pack?.establishments || [],
         linked_payment_pack_metaActivities:
           initial.linked_payment_pack?.metaActivities || [],
+        unusable_by_staff: !initial.is_usable_by_staff,
       };
 
     return {
@@ -846,6 +852,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       linked_payment_pack_categories: [],
       linked_payment_pack_establishments: [],
       linked_payment_pack_metaActivities: [],
+      unusable_by_staff: false,
     };
   },
   enableReinitialize: true,
@@ -864,6 +871,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
             linked_payment_pack: linked_payment_pack.id,
           }
         : {}),
+      is_usable_by_staff: !values.unusable_by_staff,
     };
     onSubmit(newValues, {
       onSuccess: () => {

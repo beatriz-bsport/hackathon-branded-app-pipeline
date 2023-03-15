@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -52,6 +53,13 @@ const PrivatePassTemplateListItem = (props: Props) => {
         )}${` - ${dateInfo}`}`}
       />
       <FranchiseCompanyChipList companies={template.companies} />
+      {!template.is_usable_by_staff && !template.disabled && (
+        <IconButton onClick={null}>
+          <Tooltip title={t('privatePass.listItem.unusableByStaff')}>
+            <RemoveShoppingCartIcon />
+          </Tooltip>
+        </IconButton>
+      )}
       {template.manager_only && !template.disabled && (
         <IconButton onClick={null}>
           <Tooltip title={t('privatePass.parameters.managerOnly')}>

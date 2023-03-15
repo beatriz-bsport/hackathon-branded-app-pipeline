@@ -237,14 +237,14 @@ export const PrivatePassCapabilities = (props: Props) => {
       <List disablePadding>
         {props.compatiblePrivatePass.length ? (
           <Paper>
-            {props.compatiblePrivatePass.map((pp: PrivatePass) => (
+            {props.compatiblePrivatePass.map((privatePass: PrivatePass) => (
               <PrivatePassBookerListItem
-                private_pass={pp}
+                private_pass={privatePass}
                 onClick={() => {
-                  props.billMemberPrivatePass(pp.id);
+                  props.billMemberPrivatePass(privatePass.id);
                   setNeedRefresh(true);
                 }}
-                key={pp.id}
+                key={privatePass.id}
                 divider
               />
             ))}

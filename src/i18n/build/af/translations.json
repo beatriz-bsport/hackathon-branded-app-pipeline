@@ -6037,7 +6037,8 @@
         "nbCredits_plural": "{{ credits }} crédits",
         "price": "{{ price, price}}",
         "tax": "TVA: {{ tax }}%",
-        "managerOnly": "Invisible pour les clients"
+        "managerOnly": "Invisible pour les clients",
+        "unusableByStaff": "Invisible pour le staff"
       },
       "compatibleServices": {
         "title": "RDV compatibles",
@@ -6114,7 +6115,8 @@
         "actions": { "submit": "Enregistrer", "cancel": "Annuler" },
         "selector": { "privateService": "Ajouter un rendez-vous compatible" }
       },
-      "disabledTitle": "Cartes de RDV archivées"
+      "disabledTitle": "Cartes de RDV archivées",
+      "listItem": { "unusableByStaff": "Invisible pour le staff" }
     },
     "openCalendar": "Voir le calendrier",
     "openSpecificAvailabilitiesCalendar": "Disponibilités spécifiques",
